@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -10,9 +11,11 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GTestConfig
-import kotlin.Boolean
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
-public class TestConfig(pointer: CPointer<GTestConfig>) : Record {
+public class TestConfig(
+    pointer: CPointer<GTestConfig>,
+) : Record {
     public val glibTestConfigPointer: CPointer<GTestConfig> = pointer
 
     public var testInitialized: Boolean

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Int
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -8,7 +9,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.pango.PangoAttrInt
-import kotlin.Int
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `PangoAttrInt` structure is used to represent attributes with
@@ -18,7 +19,9 @@ import kotlin.Int
  *
  * - field `attr`: Attribute
  */
-public class AttrInt(pointer: CPointer<PangoAttrInt>) : Record {
+public class AttrInt(
+    pointer: CPointer<PangoAttrInt>,
+) : Record {
     public val pangoAttrIntPointer: CPointer<PangoAttrInt> = pointer
 
     /**

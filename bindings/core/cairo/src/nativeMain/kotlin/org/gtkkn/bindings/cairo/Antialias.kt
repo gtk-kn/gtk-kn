@@ -3,7 +3,9 @@ package org.gtkkn.bindings.cairo
 
 import org.gtkkn.native.cairo.cairo_antialias_t
 
-public enum class Antialias(public val nativeValue: cairo_antialias_t) {
+public enum class Antialias(
+    public val nativeValue: cairo_antialias_t,
+) {
     DEFAULT(cairo_antialias_t.CAIRO_ANTIALIAS_DEFAULT),
     NONE(cairo_antialias_t.CAIRO_ANTIALIAS_NONE),
     GRAY(cairo_antialias_t.CAIRO_ANTIALIAS_GRAY),

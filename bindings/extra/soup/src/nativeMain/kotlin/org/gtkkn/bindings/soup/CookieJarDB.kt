@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asGBoolean
@@ -11,8 +13,6 @@ import org.gtkkn.native.soup.SoupCookieJarDB
 import org.gtkkn.native.soup.SoupSessionFeature
 import org.gtkkn.native.soup.soup_cookie_jar_db_get_type
 import org.gtkkn.native.soup.soup_cookie_jar_db_new
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * Database-based Cookie Jar.
@@ -28,8 +28,9 @@ import kotlin.String
  *
  * - method `filename`: Property has no getter nor setter
  */
-public class CookieJarDB(pointer: CPointer<SoupCookieJarDB>) :
-    CookieJar(pointer.reinterpret()),
+public class CookieJarDB(
+    pointer: CPointer<SoupCookieJarDB>,
+) : CookieJar(pointer.reinterpret()),
     KGTyped {
     public val soupCookieJarDBPointer: CPointer<SoupCookieJarDB>
         get() = gPointer.reinterpret()
@@ -50,17 +51,13 @@ public class CookieJarDB(pointer: CPointer<SoupCookieJarDB>) :
      * @param readOnly true if @filename is read-only
      * @return the new #SoupCookieJar
      */
-    public constructor(
-        filename: String,
-        readOnly: Boolean,
-    ) : this(soup_cookie_jar_db_new(filename, readOnly.asGBoolean())!!.reinterpret())
+    public constructor(filename: String, readOnly: Boolean) : this(soup_cookie_jar_db_new(filename, readOnly.asGBoolean())!!.reinterpret())
 
     public companion object : TypeCompanion<CookieJarDB> {
         override val type: GeneratedClassKGType<CookieJarDB> =
-            GeneratedClassKGType(soup_cookie_jar_db_get_type()) { CookieJarDB(it.reinterpret()) }
+                GeneratedClassKGType(soup_cookie_jar_db_get_type()) { CookieJarDB(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
     }
 }

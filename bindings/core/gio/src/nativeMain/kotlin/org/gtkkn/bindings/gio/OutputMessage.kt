@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,7 +10,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_44
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GOutputMessage
-import kotlin.UInt
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Structure used for scatter/gather data output when sending multiple
@@ -27,7 +28,9 @@ import kotlin.UInt
  * @since 2.44
  */
 @GioVersion2_44
-public class OutputMessage(pointer: CPointer<GOutputMessage>) : Record {
+public class OutputMessage(
+    pointer: CPointer<GOutputMessage>,
+) : Record {
     public val gioOutputMessagePointer: CPointer<GOutputMessage> = pointer
 
     /**
@@ -37,8 +40,7 @@ public class OutputMessage(pointer: CPointer<GOutputMessage>) : Record {
      */
     public val address: SocketAddress?
         get() = gioOutputMessagePointer.pointed.address?.run {
-            SocketAddress(reinterpret())
-        }
+            SocketAddress(reinterpret())}
 
     /**
      * pointer to an array of output vectors
@@ -47,8 +49,7 @@ public class OutputMessage(pointer: CPointer<GOutputMessage>) : Record {
      */
     public val vectors: OutputVector?
         get() = gioOutputMessagePointer.pointed.vectors?.run {
-            OutputVector(reinterpret())
-        }
+            OutputVector(reinterpret())}
 
     /**
      * the number of output vectors pointed to by @vectors.
@@ -79,7 +80,6 @@ public class OutputMessage(pointer: CPointer<GOutputMessage>) : Record {
         }
 
     public companion object : RecordCompanion<OutputMessage, GOutputMessage> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): OutputMessage =
-            OutputMessage(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): OutputMessage = OutputMessage(pointer.reinterpret())
     }
 }

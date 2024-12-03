@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -24,10 +28,6 @@ import org.gtkkn.native.gio.g_proxy_get_default_for_protocol
 import org.gtkkn.native.gio.g_proxy_get_type
 import org.gtkkn.native.gio.g_proxy_supports_hostname
 import org.gtkkn.native.glib.GError
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A `GProxy` handles connecting to a remote host via a given type of
@@ -39,9 +39,7 @@ import kotlin.Unit
  * @since 2.26
  */
 @GioVersion2_26
-public interface Proxy :
-    Interface,
-    KGTyped {
+public interface Proxy : Interface, KGTyped {
     public val gioProxyPointer: CPointer<GProxy>
 
     /**
@@ -65,19 +63,13 @@ public interface Proxy :
         cancellable: Cancellable? = null,
     ): Result<IOStream> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_proxy_connect(
-            gioProxyPointer.reinterpret(),
-            connection.gioIOStreamPointer.reinterpret(),
-            proxyAddress.gioProxyAddressPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            gError.ptr
-        )?.run {
-            IOStream(reinterpret())
-        }
+        val gResult = g_proxy_connect(gioProxyPointer.reinterpret(), connection.gioIOStreamPointer.reinterpret(), proxyAddress.gioProxyAddressPointer.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr)?.run {
+            IOStream(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(checkNotNull(gResult))
         }
     }
@@ -97,14 +89,7 @@ public interface Proxy :
         proxyAddress: ProxyAddress,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit = g_proxy_connect_async(
-        gioProxyPointer.reinterpret(),
-        connection.gioIOStreamPointer.reinterpret(),
-        proxyAddress.gioProxyAddressPointer.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
-    )
+    ): Unit = g_proxy_connect_async(gioProxyPointer.reinterpret(), connection.gioIOStreamPointer.reinterpret(), proxyAddress.gioProxyAddressPointer.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
 
     /**
      * See g_proxy_connect().
@@ -116,17 +101,13 @@ public interface Proxy :
     @GioVersion2_26
     public fun connectFinish(result: AsyncResult): Result<IOStream> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_proxy_connect_finish(
-            gioProxyPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            IOStream(reinterpret())
-        }
+        val gResult = g_proxy_connect_finish(gioProxyPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)?.run {
+            IOStream(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(checkNotNull(gResult))
         }
     }
@@ -146,17 +127,18 @@ public interface Proxy :
     @GioVersion2_26
     public fun supportsHostname(): Boolean = g_proxy_supports_hostname(gioProxyPointer.reinterpret()).asBoolean()
 
-    private data class Wrapper(private val pointer: CPointer<GProxy>) : Proxy {
+    private data class Wrapper(
+        private val pointer: CPointer<GProxy>,
+    ) : Proxy {
         override val gioProxyPointer: CPointer<GProxy> = pointer
     }
 
     public companion object : TypeCompanion<Proxy> {
         override val type: GeneratedInterfaceKGType<Proxy> =
-            GeneratedInterfaceKGType(g_proxy_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(g_proxy_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GProxy>): Proxy = Wrapper(pointer)
 
@@ -171,7 +153,6 @@ public interface Proxy :
          */
         @GioVersion2_26
         public fun getDefaultForProtocol(protocol: String): Proxy? = g_proxy_get_default_for_protocol(protocol)?.run {
-            Proxy.wrap(reinterpret())
-        }
+            Proxy.wrap(reinterpret())}
     }
 }

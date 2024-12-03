@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.String
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
@@ -14,9 +17,7 @@ import org.gtkkn.native.webkit.webkit_network_proxy_settings_add_proxy_for_schem
 import org.gtkkn.native.webkit.webkit_network_proxy_settings_copy
 import org.gtkkn.native.webkit.webkit_network_proxy_settings_free
 import org.gtkkn.native.webkit.webkit_network_proxy_settings_new
-import kotlin.String
-import kotlin.Unit
-import kotlin.collections.List
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Configures network proxies.
@@ -27,7 +28,9 @@ import kotlin.collections.List
  * @since 2.16
  */
 @WebKitVersion2_16
-public class NetworkProxySettings(pointer: CPointer<WebKitNetworkProxySettings>) : Record {
+public class NetworkProxySettings(
+    pointer: CPointer<WebKitNetworkProxySettings>,
+) : Record {
     public val webkitNetworkProxySettingsPointer: CPointer<WebKitNetworkProxySettings> = pointer
 
     /**
@@ -42,12 +45,7 @@ public class NetworkProxySettings(pointer: CPointer<WebKitNetworkProxySettings>)
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun addProxyForScheme(scheme: String, proxyUri: String): Unit =
-        webkit_network_proxy_settings_add_proxy_for_scheme(
-            webkitNetworkProxySettingsPointer.reinterpret(),
-            scheme,
-            proxyUri
-        )
+    public fun addProxyForScheme(scheme: String, proxyUri: String): Unit = webkit_network_proxy_settings_add_proxy_for_scheme(webkitNetworkProxySettingsPointer.reinterpret(), scheme, proxyUri)
 
     /**
      * Make a copy of the #WebKitNetworkProxySettings.
@@ -56,10 +54,8 @@ public class NetworkProxySettings(pointer: CPointer<WebKitNetworkProxySettings>)
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun copy(): NetworkProxySettings =
-        webkit_network_proxy_settings_copy(webkitNetworkProxySettingsPointer.reinterpret())!!.run {
-            NetworkProxySettings(reinterpret())
-        }
+    public fun copy(): NetworkProxySettings = webkit_network_proxy_settings_copy(webkitNetworkProxySettingsPointer.reinterpret())!!.run {
+        NetworkProxySettings(reinterpret())}
 
     /**
      * Free the #WebKitNetworkProxySettings.
@@ -110,13 +106,9 @@ public class NetworkProxySettings(pointer: CPointer<WebKitNetworkProxySettings>)
          */
         public fun new(defaultProxyUri: String? = null, ignoreHosts: List<String>? = null): NetworkProxySettings {
             memScoped {
-                return NetworkProxySettings(
-                    webkit_network_proxy_settings_new(defaultProxyUri, ignoreHosts?.toCStringList(this))!!.reinterpret()
-                )
-            }
+                return NetworkProxySettings(webkit_network_proxy_settings_new(defaultProxyUri, ignoreHosts?.toCStringList(this))!!.reinterpret())}
         }
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): NetworkProxySettings =
-            NetworkProxySettings(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): NetworkProxySettings = NetworkProxySettings(pointer.reinterpret())
     }
 }

@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -68,10 +72,6 @@ import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A dynamic tabbed container.
@@ -120,8 +120,9 @@ import kotlin.Unit
  *
  * - method `selected-page`: Property TypeInfo of getter and setter do not match
  */
-public class TabView(pointer: CPointer<AdwTabView>) :
-    Widget(pointer.reinterpret()),
+public class TabView(
+    pointer: CPointer<AdwTabView>,
+) : Widget(pointer.reinterpret()),
     KGTyped {
     public val adwTabViewPointer: CPointer<AdwTabView>
         get() = gPointer.reinterpret()
@@ -158,9 +159,7 @@ public class TabView(pointer: CPointer<AdwTabView>) :
          * @return the default icon of @self.
          */
         get() = adw_tab_view_get_default_icon(adwTabViewPointer.reinterpret())!!.run {
-            Icon.wrap(reinterpret())
-        }
-
+            Icon.wrap(reinterpret())}
         /**
          * Sets the default page icon for @self.
          *
@@ -216,9 +215,7 @@ public class TabView(pointer: CPointer<AdwTabView>) :
          * @return the tab context menu model for @self
          */
         get() = adw_tab_view_get_menu_model(adwTabViewPointer.reinterpret())?.run {
-            MenuModel(reinterpret())
-        }
-
+            MenuModel(reinterpret())}
         /**
          * Sets the tab context menu model for @self.
          *
@@ -228,9 +225,7 @@ public class TabView(pointer: CPointer<AdwTabView>) :
          *
          * @param menuModel a menu model
          */
-        set(
-            menuModel
-        ) = adw_tab_view_set_menu_model(adwTabViewPointer.reinterpret(), menuModel?.gioMenuModelPointer?.reinterpret())
+        set(menuModel) = adw_tab_view_set_menu_model(adwTabViewPointer.reinterpret(), menuModel?.gioMenuModelPointer?.reinterpret())
 
     /**
      * The number of pages in the tab view.
@@ -276,8 +271,7 @@ public class TabView(pointer: CPointer<AdwTabView>) :
          * @return a `GtkSelectionModel` for the pages of @self
          */
         get() = adw_tab_view_get_pages(adwTabViewPointer.reinterpret())!!.run {
-            SelectionModel.wrap(reinterpret())
-        }
+            SelectionModel.wrap(reinterpret())}
 
     /**
      * The enabled shortcuts.
@@ -299,9 +293,7 @@ public class TabView(pointer: CPointer<AdwTabView>) :
          * @since 1.2
          */
         get() = adw_tab_view_get_shortcuts(adwTabViewPointer.reinterpret()).run {
-            TabViewShortcuts(this)
-        }
-
+            TabViewShortcuts(this)}
         /**
          * Sets the enabled shortcuts for @self.
          *
@@ -337,13 +329,8 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @param parent a parent page for @child
      * @return the page object representing @child
      */
-    public fun addPage(child: Widget, parent: TabPage? = null): TabPage = adw_tab_view_add_page(
-        adwTabViewPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret(),
-        parent?.adwTabPagePointer?.reinterpret()
-    )!!.run {
-        TabPage(reinterpret())
-    }
+    public fun addPage(child: Widget, parent: TabPage? = null): TabPage = adw_tab_view_add_page(adwTabViewPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), parent?.adwTabPagePointer?.reinterpret())!!.run {
+        TabPage(reinterpret())}
 
     /**
      * Adds @shortcuts for @self.
@@ -354,8 +341,7 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @since 1.2
      */
     @AdwVersion1_2
-    public fun addShortcuts(shortcuts: TabViewShortcuts): Unit =
-        adw_tab_view_add_shortcuts(adwTabViewPointer.reinterpret(), shortcuts.mask)
+    public fun addShortcuts(shortcuts: TabViewShortcuts): Unit = adw_tab_view_add_shortcuts(adwTabViewPointer.reinterpret(), shortcuts.mask)
 
     /**
      * Inserts @child as the last non-pinned page.
@@ -363,10 +349,8 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @param child a widget to add
      * @return the page object representing @child
      */
-    public fun append(child: Widget): TabPage =
-        adw_tab_view_append(adwTabViewPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
-            TabPage(reinterpret())
-        }
+    public fun append(child: Widget): TabPage = adw_tab_view_append(adwTabViewPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
+        TabPage(reinterpret())}
 
     /**
      * Inserts @child as the last pinned page.
@@ -374,18 +358,15 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @param child a widget to add
      * @return the page object representing @child
      */
-    public fun appendPinned(child: Widget): TabPage =
-        adw_tab_view_append_pinned(adwTabViewPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
-            TabPage(reinterpret())
-        }
+    public fun appendPinned(child: Widget): TabPage = adw_tab_view_append_pinned(adwTabViewPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
+        TabPage(reinterpret())}
 
     /**
      * Requests to close all pages other than @page.
      *
      * @param page a page of @self
      */
-    public fun closeOtherPages(page: TabPage): Unit =
-        adw_tab_view_close_other_pages(adwTabViewPointer.reinterpret(), page.adwTabPagePointer.reinterpret())
+    public fun closeOtherPages(page: TabPage): Unit = adw_tab_view_close_other_pages(adwTabViewPointer.reinterpret(), page.adwTabPagePointer.reinterpret())
 
     /**
      * Requests to close @page.
@@ -413,8 +394,7 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      *
      * @param page a page of @self
      */
-    public fun closePage(page: TabPage): Unit =
-        adw_tab_view_close_page(adwTabViewPointer.reinterpret(), page.adwTabPagePointer.reinterpret())
+    public fun closePage(page: TabPage): Unit = adw_tab_view_close_page(adwTabViewPointer.reinterpret(), page.adwTabPagePointer.reinterpret())
 
     /**
      * Completes a [method@TabView.close_page] call for @page.
@@ -429,27 +409,21 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @param page a page of @self
      * @param confirm whether to confirm or deny closing @page
      */
-    public fun closePageFinish(page: TabPage, confirm: Boolean): Unit = adw_tab_view_close_page_finish(
-        adwTabViewPointer.reinterpret(),
-        page.adwTabPagePointer.reinterpret(),
-        confirm.asGBoolean()
-    )
+    public fun closePageFinish(page: TabPage, confirm: Boolean): Unit = adw_tab_view_close_page_finish(adwTabViewPointer.reinterpret(), page.adwTabPagePointer.reinterpret(), confirm.asGBoolean())
 
     /**
      * Requests to close all pages after @page.
      *
      * @param page a page of @self
      */
-    public fun closePagesAfter(page: TabPage): Unit =
-        adw_tab_view_close_pages_after(adwTabViewPointer.reinterpret(), page.adwTabPagePointer.reinterpret())
+    public fun closePagesAfter(page: TabPage): Unit = adw_tab_view_close_pages_after(adwTabViewPointer.reinterpret(), page.adwTabPagePointer.reinterpret())
 
     /**
      * Requests to close all pages before @page.
      *
      * @param page a page of @self
      */
-    public fun closePagesBefore(page: TabPage): Unit =
-        adw_tab_view_close_pages_before(adwTabViewPointer.reinterpret(), page.adwTabPagePointer.reinterpret())
+    public fun closePagesBefore(page: TabPage): Unit = adw_tab_view_close_pages_before(adwTabViewPointer.reinterpret(), page.adwTabPagePointer.reinterpret())
 
     /**
      * Gets the [class@TabPage] representing the child at @position.
@@ -457,10 +431,8 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @param position the index of the page in @self, starting from 0
      * @return the page object at @position
      */
-    public fun getNthPage(position: Int): TabPage =
-        adw_tab_view_get_nth_page(adwTabViewPointer.reinterpret(), position)!!.run {
-            TabPage(reinterpret())
-        }
+    public fun getNthPage(position: Int): TabPage = adw_tab_view_get_nth_page(adwTabViewPointer.reinterpret(), position)!!.run {
+        TabPage(reinterpret())}
 
     /**
      * Gets the [class@TabPage] object representing @child.
@@ -468,10 +440,8 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @param child a child in @self
      * @return the page object for @child
      */
-    public fun getPage(child: Widget): TabPage =
-        adw_tab_view_get_page(adwTabViewPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
-            TabPage(reinterpret())
-        }
+    public fun getPage(child: Widget): TabPage = adw_tab_view_get_page(adwTabViewPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
+        TabPage(reinterpret())}
 
     /**
      * Finds the position of @page in @self, starting from 0.
@@ -479,8 +449,7 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @param page a page of @self
      * @return the position of @page in @self
      */
-    public fun getPagePosition(page: TabPage): Int =
-        adw_tab_view_get_page_position(adwTabViewPointer.reinterpret(), page.adwTabPagePointer.reinterpret())
+    public fun getPagePosition(page: TabPage): Int = adw_tab_view_get_page_position(adwTabViewPointer.reinterpret(), page.adwTabPagePointer.reinterpret())
 
     /**
      * Gets the currently selected page in @self.
@@ -488,8 +457,7 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @return the selected page
      */
     public fun getSelectedPage(): TabPage? = adw_tab_view_get_selected_page(adwTabViewPointer.reinterpret())?.run {
-        TabPage(reinterpret())
-    }
+        TabPage(reinterpret())}
 
     /**
      * Inserts a non-pinned page at @position.
@@ -501,10 +469,8 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @param position the position to add @child at, starting from 0
      * @return the page object representing @child
      */
-    public fun insert(child: Widget, position: Int): TabPage =
-        adw_tab_view_insert(adwTabViewPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), position)!!.run {
-            TabPage(reinterpret())
-        }
+    public fun insert(child: Widget, position: Int): TabPage = adw_tab_view_insert(adwTabViewPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), position)!!.run {
+        TabPage(reinterpret())}
 
     /**
      * Inserts a pinned page at @position.
@@ -516,13 +482,8 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @param position the position to add @child at, starting from 0
      * @return the page object representing @child
      */
-    public fun insertPinned(child: Widget, position: Int): TabPage = adw_tab_view_insert_pinned(
-        adwTabViewPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret(),
-        position
-    )!!.run {
-        TabPage(reinterpret())
-    }
+    public fun insertPinned(child: Widget, position: Int): TabPage = adw_tab_view_insert_pinned(adwTabViewPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), position)!!.run {
+        TabPage(reinterpret())}
 
     /**
      * Invalidates thumbnails for all pages in @self.
@@ -541,10 +502,8 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @param child a widget to add
      * @return the page object representing @child
      */
-    public fun prepend(child: Widget): TabPage =
-        adw_tab_view_prepend(adwTabViewPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
-            TabPage(reinterpret())
-        }
+    public fun prepend(child: Widget): TabPage = adw_tab_view_prepend(adwTabViewPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
+        TabPage(reinterpret())}
 
     /**
      * Inserts @child as the first pinned page.
@@ -552,10 +511,8 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @param child a widget to add
      * @return the page object representing @child
      */
-    public fun prependPinned(child: Widget): TabPage =
-        adw_tab_view_prepend_pinned(adwTabViewPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
-            TabPage(reinterpret())
-        }
+    public fun prependPinned(child: Widget): TabPage = adw_tab_view_prepend_pinned(adwTabViewPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
+        TabPage(reinterpret())}
 
     /**
      * Removes @shortcuts from @self.
@@ -566,8 +523,7 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @since 1.2
      */
     @AdwVersion1_2
-    public fun removeShortcuts(shortcuts: TabViewShortcuts): Unit =
-        adw_tab_view_remove_shortcuts(adwTabViewPointer.reinterpret(), shortcuts.mask)
+    public fun removeShortcuts(shortcuts: TabViewShortcuts): Unit = adw_tab_view_remove_shortcuts(adwTabViewPointer.reinterpret(), shortcuts.mask)
 
     /**
      * Reorders @page to before its previous page if possible.
@@ -575,8 +531,7 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @param page a page of @self
      * @return whether @page was moved
      */
-    public fun reorderBackward(page: TabPage): Boolean =
-        adw_tab_view_reorder_backward(adwTabViewPointer.reinterpret(), page.adwTabPagePointer.reinterpret()).asBoolean()
+    public fun reorderBackward(page: TabPage): Boolean = adw_tab_view_reorder_backward(adwTabViewPointer.reinterpret(), page.adwTabPagePointer.reinterpret()).asBoolean()
 
     /**
      * Reorders @page to the first possible position.
@@ -584,8 +539,7 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @param page a page of @self
      * @return whether @page was moved
      */
-    public fun reorderFirst(page: TabPage): Boolean =
-        adw_tab_view_reorder_first(adwTabViewPointer.reinterpret(), page.adwTabPagePointer.reinterpret()).asBoolean()
+    public fun reorderFirst(page: TabPage): Boolean = adw_tab_view_reorder_first(adwTabViewPointer.reinterpret(), page.adwTabPagePointer.reinterpret()).asBoolean()
 
     /**
      * Reorders @page to after its next page if possible.
@@ -593,8 +547,7 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @param page a page of @self
      * @return whether @page was moved
      */
-    public fun reorderForward(page: TabPage): Boolean =
-        adw_tab_view_reorder_forward(adwTabViewPointer.reinterpret(), page.adwTabPagePointer.reinterpret()).asBoolean()
+    public fun reorderForward(page: TabPage): Boolean = adw_tab_view_reorder_forward(adwTabViewPointer.reinterpret(), page.adwTabPagePointer.reinterpret()).asBoolean()
 
     /**
      * Reorders @page to the last possible position.
@@ -602,8 +555,7 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @param page a page of @self
      * @return whether @page was moved
      */
-    public fun reorderLast(page: TabPage): Boolean =
-        adw_tab_view_reorder_last(adwTabViewPointer.reinterpret(), page.adwTabPagePointer.reinterpret()).asBoolean()
+    public fun reorderLast(page: TabPage): Boolean = adw_tab_view_reorder_last(adwTabViewPointer.reinterpret(), page.adwTabPagePointer.reinterpret()).asBoolean()
 
     /**
      * Reorders @page to @position.
@@ -615,11 +567,7 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @param position the position to insert the page at, starting at 0
      * @return whether @page was moved
      */
-    public fun reorderPage(page: TabPage, position: Int): Boolean = adw_tab_view_reorder_page(
-        adwTabViewPointer.reinterpret(),
-        page.adwTabPagePointer.reinterpret(),
-        position
-    ).asBoolean()
+    public fun reorderPage(page: TabPage, position: Int): Boolean = adw_tab_view_reorder_page(adwTabViewPointer.reinterpret(), page.adwTabPagePointer.reinterpret(), position).asBoolean()
 
     /**
      * Selects the page after the currently selected page.
@@ -637,8 +585,7 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      *
      * @return whether the selected page was changed
      */
-    public fun selectPreviousPage(): Boolean =
-        adw_tab_view_select_previous_page(adwTabViewPointer.reinterpret()).asBoolean()
+    public fun selectPreviousPage(): Boolean = adw_tab_view_select_previous_page(adwTabViewPointer.reinterpret()).asBoolean()
 
     /**
      * Pins or unpins @page.
@@ -674,19 +621,14 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @param page a page of @self
      * @param pinned whether @page should be pinned
      */
-    public fun setPagePinned(page: TabPage, pinned: Boolean): Unit = adw_tab_view_set_page_pinned(
-        adwTabViewPointer.reinterpret(),
-        page.adwTabPagePointer.reinterpret(),
-        pinned.asGBoolean()
-    )
+    public fun setPagePinned(page: TabPage, pinned: Boolean): Unit = adw_tab_view_set_page_pinned(adwTabViewPointer.reinterpret(), page.adwTabPagePointer.reinterpret(), pinned.asGBoolean())
 
     /**
      * Sets the currently selected page in @self.
      *
      * @param selectedPage a page in @self
      */
-    public fun setSelectedPage(selectedPage: TabPage): Unit =
-        adw_tab_view_set_selected_page(adwTabViewPointer.reinterpret(), selectedPage.adwTabPagePointer.reinterpret())
+    public fun setSelectedPage(selectedPage: TabPage): Unit = adw_tab_view_set_selected_page(adwTabViewPointer.reinterpret(), selectedPage.adwTabPagePointer.reinterpret())
 
     /**
      * Transfers @page from @self to @other_view.
@@ -700,12 +642,11 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @param otherView the tab view to transfer the page to
      * @param position the position to insert the page at, starting at 0
      */
-    public fun transferPage(page: TabPage, otherView: TabView, position: Int): Unit = adw_tab_view_transfer_page(
-        adwTabViewPointer.reinterpret(),
-        page.adwTabPagePointer.reinterpret(),
-        otherView.adwTabViewPointer.reinterpret(),
-        position
-    )
+    public fun transferPage(
+        page: TabPage,
+        otherView: TabView,
+        position: Int,
+    ): Unit = adw_tab_view_transfer_page(adwTabViewPointer.reinterpret(), page.adwTabPagePointer.reinterpret(), otherView.adwTabViewPointer.reinterpret(), position)
 
     /**
      * Emitted after [method@TabView.close_page] has been called for @page.
@@ -738,17 +679,7 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `page` a page of @self
      */
-    public fun connectClosePage(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (page: TabPage) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "close-page",
-        connectClosePageFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectClosePage(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (page: TabPage) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "close-page", connectClosePageFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when a tab should be transferred into a new window.
@@ -761,15 +692,7 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Returns the `AdwTabView` from the new window
      */
-    public fun connectCreateWindow(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> TabView?): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "create-window",
-            connectCreateWindowFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectCreateWindow(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> TabView?): ULong = g_signal_connect_data(gPointer.reinterpret(), "create-window", connectCreateWindowFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted after the indicator icon on @page has been activated.
@@ -780,17 +703,7 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `page` a page of @self
      */
-    public fun connectIndicatorActivated(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (page: TabPage) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "indicator-activated",
-        connectIndicatorActivatedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectIndicatorActivated(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (page: TabPage) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "indicator-activated", connectIndicatorActivatedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when a page has been created or transferred to @self.
@@ -801,17 +714,7 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `page` a page of @self; `position` the position of the page, starting from 0
      */
-    public fun connectPageAttached(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (page: TabPage, position: Int) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "page-attached",
-        connectPageAttachedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectPageAttached(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (page: TabPage, position: Int) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "page-attached", connectPageAttachedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when a page has been removed or transferred to another view.
@@ -827,17 +730,7 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `page` a page of @self; `position` the position of the removed page, starting from 0
      */
-    public fun connectPageDetached(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (page: TabPage, position: Int) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "page-detached",
-        connectPageDetachedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectPageDetached(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (page: TabPage, position: Int) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "page-detached", connectPageDetachedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted after @page has been reordered to @position.
@@ -845,17 +738,7 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `page` a page of @self; `position` the position @page was moved to, starting at 0
      */
-    public fun connectPageReordered(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (page: TabPage, position: Int) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "page-reordered",
-        connectPageReorderedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectPageReordered(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (page: TabPage, position: Int) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "page-reordered", connectPageReorderedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when a context menu is opened or closed for @page.
@@ -868,123 +751,90 @@ public class TabView(pointer: CPointer<AdwTabView>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `page` a page of @self
      */
-    public fun connectSetupMenu(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (page: TabPage?) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "setup-menu",
-        connectSetupMenuFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectSetupMenu(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (page: TabPage?) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "setup-menu", connectSetupMenuFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<TabView> {
         override val type: GeneratedClassKGType<TabView> =
-            GeneratedClassKGType(adw_tab_view_get_type()) { TabView(it.reinterpret()) }
+                GeneratedClassKGType(adw_tab_view_get_type()) { TabView(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
     }
 }
 
 private val connectClosePageFunc: CPointer<CFunction<(CPointer<AdwTabPage>) -> Int>> =
-    staticCFunction {
-            _: COpaquePointer,
-            page: CPointer<AdwTabPage>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(page: TabPage) -> Boolean>().get().invoke(
-            page!!.run {
-                TabPage(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    page: CPointer<AdwTabPage>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(page: TabPage) -> Boolean>().get().invoke(page!!.run {
+        TabPage(reinterpret())}
+    ).asGBoolean()}
+.reinterpret()
 
 private val connectCreateWindowFunc: CPointer<CFunction<() -> CPointer<AdwTabView>?>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> TabView?>().get().invoke()?.adwTabViewPointer
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<() -> TabView?>().get().invoke()?.adwTabViewPointer}
+.reinterpret()
 
 private val connectIndicatorActivatedFunc: CPointer<CFunction<(CPointer<AdwTabPage>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            page: CPointer<AdwTabPage>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(page: TabPage) -> Unit>().get().invoke(
-            page!!.run {
-                TabPage(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    page: CPointer<AdwTabPage>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(page: TabPage) -> Unit>().get().invoke(page!!.run {
+        TabPage(reinterpret())}
+    )}
+.reinterpret()
 
 private val connectPageAttachedFunc: CPointer<CFunction<(CPointer<AdwTabPage>, Int) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            page: CPointer<AdwTabPage>?,
-            position: Int,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(page: TabPage, position: Int) -> Unit>().get().invoke(
-            page!!.run {
-                TabPage(reinterpret())
-            },
-            position
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    page: CPointer<AdwTabPage>?,
+    position: Int,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(page: TabPage, position: Int) -> Unit>().get().invoke(page!!.run {
+        TabPage(reinterpret())}
+    , position)}
+.reinterpret()
 
 private val connectPageDetachedFunc: CPointer<CFunction<(CPointer<AdwTabPage>, Int) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            page: CPointer<AdwTabPage>?,
-            position: Int,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(page: TabPage, position: Int) -> Unit>().get().invoke(
-            page!!.run {
-                TabPage(reinterpret())
-            },
-            position
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    page: CPointer<AdwTabPage>?,
+    position: Int,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(page: TabPage, position: Int) -> Unit>().get().invoke(page!!.run {
+        TabPage(reinterpret())}
+    , position)}
+.reinterpret()
 
 private val connectPageReorderedFunc: CPointer<CFunction<(CPointer<AdwTabPage>, Int) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            page: CPointer<AdwTabPage>?,
-            position: Int,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(page: TabPage, position: Int) -> Unit>().get().invoke(
-            page!!.run {
-                TabPage(reinterpret())
-            },
-            position
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    page: CPointer<AdwTabPage>?,
+    position: Int,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(page: TabPage, position: Int) -> Unit>().get().invoke(page!!.run {
+        TabPage(reinterpret())}
+    , position)}
+.reinterpret()
 
 private val connectSetupMenuFunc: CPointer<CFunction<(CPointer<AdwTabPage>?) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            page: CPointer<AdwTabPage>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(page: TabPage?) -> Unit>().get().invoke(
-            page?.run {
-                TabPage(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    page: CPointer<AdwTabPage>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(page: TabPage?) -> Unit>().get().invoke(page?.run {
+        TabPage(reinterpret())}
+    )}
+.reinterpret()

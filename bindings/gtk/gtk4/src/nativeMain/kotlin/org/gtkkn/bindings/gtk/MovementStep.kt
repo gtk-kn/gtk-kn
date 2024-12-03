@@ -7,52 +7,45 @@ import org.gtkkn.native.gtk.GtkMovementStep
  * Passed as argument to various keybinding signals for moving the
  * cursor position.
  */
-public enum class MovementStep(public val nativeValue: GtkMovementStep) {
+public enum class MovementStep(
+    public val nativeValue: GtkMovementStep,
+) {
     /**
      * Move forward or back by graphemes
      */
     LOGICAL_POSITIONS(GtkMovementStep.GTK_MOVEMENT_LOGICAL_POSITIONS),
-
     /**
      * Move left or right by graphemes
      */
     VISUAL_POSITIONS(GtkMovementStep.GTK_MOVEMENT_VISUAL_POSITIONS),
-
     /**
      * Move forward or back by words
      */
     WORDS(GtkMovementStep.GTK_MOVEMENT_WORDS),
-
     /**
      * Move up or down lines (wrapped lines)
      */
     DISPLAY_LINES(GtkMovementStep.GTK_MOVEMENT_DISPLAY_LINES),
-
     /**
      * Move to either end of a line
      */
     DISPLAY_LINE_ENDS(GtkMovementStep.GTK_MOVEMENT_DISPLAY_LINE_ENDS),
-
     /**
      * Move up or down paragraphs (newline-ended lines)
      */
     PARAGRAPHS(GtkMovementStep.GTK_MOVEMENT_PARAGRAPHS),
-
     /**
      * Move to either end of a paragraph
      */
     PARAGRAPH_ENDS(GtkMovementStep.GTK_MOVEMENT_PARAGRAPH_ENDS),
-
     /**
      * Move by pages
      */
     PAGES(GtkMovementStep.GTK_MOVEMENT_PAGES),
-
     /**
      * Move to ends of the buffer
      */
     BUFFER_ENDS(GtkMovementStep.GTK_MOVEMENT_BUFFER_ENDS),
-
     /**
      * Move horizontally by pages
      */

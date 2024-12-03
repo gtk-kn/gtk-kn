@@ -3,7 +3,9 @@ package org.gtkkn.bindings.cairo
 
 import org.gtkkn.native.cairo.cairo_extend_t
 
-public enum class Extend(public val nativeValue: cairo_extend_t) {
+public enum class Extend(
+    public val nativeValue: cairo_extend_t,
+) {
     NONE(cairo_extend_t.CAIRO_EXTEND_NONE),
     REPEAT(cairo_extend_t.CAIRO_EXTEND_REPEAT),
     REFLECT(cairo_extend_t.CAIRO_EXTEND_REFLECT),

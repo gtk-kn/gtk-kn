@@ -1,13 +1,13 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Double
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Settings
 import org.gtkkn.native.adw.AdwLengthUnit
 import org.gtkkn.native.adw.adw_length_unit_from_px
 import org.gtkkn.native.adw.adw_length_unit_to_px
-import kotlin.Double
 
 /**
  * Describes length units.
@@ -22,17 +22,17 @@ import kotlin.Double
  * @since 1.4
  */
 @AdwVersion1_4
-public enum class LengthUnit(public val nativeValue: AdwLengthUnit) {
+public enum class LengthUnit(
+    public val nativeValue: AdwLengthUnit,
+) {
     /**
      * pixels
      */
     PX(AdwLengthUnit.ADW_LENGTH_UNIT_PX),
-
     /**
      * points, changes with text scale factor
      */
     PT(AdwLengthUnit.ADW_LENGTH_UNIT_PT),
-
     /**
      * scale independent pixels, changes with text scale factor
      */
@@ -57,8 +57,11 @@ public enum class LengthUnit(public val nativeValue: AdwLengthUnit) {
          * @since 1.4
          */
         @AdwVersion1_4
-        public fun fromPx(unit: LengthUnit, `value`: Double, settings: Settings? = null): Double =
-            adw_length_unit_from_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
+        public fun fromPx(
+            unit: LengthUnit,
+            `value`: Double,
+            settings: Settings? = null,
+        ): Double = adw_length_unit_from_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
 
         /**
          * Converts @value from @unit to pixels.
@@ -70,7 +73,10 @@ public enum class LengthUnit(public val nativeValue: AdwLengthUnit) {
          * @since 1.4
          */
         @AdwVersion1_4
-        public fun toPx(unit: LengthUnit, `value`: Double, settings: Settings? = null): Double =
-            adw_length_unit_to_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
+        public fun toPx(
+            unit: LengthUnit,
+            `value`: Double,
+            settings: Settings? = null,
+        ): Double = adw_length_unit_to_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
     }
 }

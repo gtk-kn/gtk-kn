@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Value
@@ -13,14 +14,11 @@ import org.gtkkn.native.gtk.GtkTreeDragDest
 import org.gtkkn.native.gtk.gtk_tree_drag_dest_drag_data_received
 import org.gtkkn.native.gtk.gtk_tree_drag_dest_get_type
 import org.gtkkn.native.gtk.gtk_tree_drag_dest_row_drop_possible
-import kotlin.Boolean
 
 /**
  * Interface for Drag-and-Drop destinations in `GtkTreeView`.
  */
-public interface TreeDragDest :
-    Interface,
-    KGTyped {
+public interface TreeDragDest : Interface, KGTyped {
     public val gtkTreeDragDestPointer: CPointer<GtkTreeDragDest>
 
     /**
@@ -35,11 +33,7 @@ public interface TreeDragDest :
      * @param value data to drop
      * @return whether a new row was created before position @dest
      */
-    public fun dragDataReceived(dest: TreePath, `value`: Value): Boolean = gtk_tree_drag_dest_drag_data_received(
-        gtkTreeDragDestPointer.reinterpret(),
-        dest.gtkTreePathPointer.reinterpret(),
-        `value`.gobjectValuePointer.reinterpret()
-    ).asBoolean()
+    public fun dragDataReceived(dest: TreePath, `value`: Value): Boolean = gtk_tree_drag_dest_drag_data_received(gtkTreeDragDestPointer.reinterpret(), dest.gtkTreePathPointer.reinterpret(), `value`.gobjectValuePointer.reinterpret()).asBoolean()
 
     /**
      * Determines whether a drop is possible before the given @dest_path,
@@ -52,23 +46,20 @@ public interface TreeDragDest :
      * @param value the data being dropped
      * @return true if a drop is possible before @dest_path
      */
-    public fun rowDropPossible(destPath: TreePath, `value`: Value): Boolean = gtk_tree_drag_dest_row_drop_possible(
-        gtkTreeDragDestPointer.reinterpret(),
-        destPath.gtkTreePathPointer.reinterpret(),
-        `value`.gobjectValuePointer.reinterpret()
-    ).asBoolean()
+    public fun rowDropPossible(destPath: TreePath, `value`: Value): Boolean = gtk_tree_drag_dest_row_drop_possible(gtkTreeDragDestPointer.reinterpret(), destPath.gtkTreePathPointer.reinterpret(), `value`.gobjectValuePointer.reinterpret()).asBoolean()
 
-    private data class Wrapper(private val pointer: CPointer<GtkTreeDragDest>) : TreeDragDest {
+    private data class Wrapper(
+        private val pointer: CPointer<GtkTreeDragDest>,
+    ) : TreeDragDest {
         override val gtkTreeDragDestPointer: CPointer<GtkTreeDragDest> = pointer
     }
 
     public companion object : TypeCompanion<TreeDragDest> {
         override val type: GeneratedInterfaceKGType<TreeDragDest> =
-            GeneratedInterfaceKGType(gtk_tree_drag_dest_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(gtk_tree_drag_dest_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkTreeDragDest>): TreeDragDest = Wrapper(pointer)
     }

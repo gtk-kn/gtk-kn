@@ -7,6 +7,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GTypePluginClass
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The #GTypePlugin interface is used by the type system in order to handle
@@ -20,11 +21,12 @@ import org.gtkkn.native.gobject.GTypePluginClass
  * - field `complete_type_info`: TypePluginCompleteTypeInfo
  * - field `complete_interface_info`: TypePluginCompleteInterfaceInfo
  */
-public class TypePluginClass(pointer: CPointer<GTypePluginClass>) : Record {
+public class TypePluginClass(
+    pointer: CPointer<GTypePluginClass>,
+) : Record {
     public val gobjectTypePluginClassPointer: CPointer<GTypePluginClass> = pointer
 
     public companion object : RecordCompanion<TypePluginClass, GTypePluginClass> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TypePluginClass =
-            TypePluginClass(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TypePluginClass = TypePluginClass(pointer.reinterpret())
     }
 }

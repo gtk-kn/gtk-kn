@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.String
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
@@ -17,9 +20,6 @@ import org.gtkkn.native.gio.g_simple_proxy_resolver_new
 import org.gtkkn.native.gio.g_simple_proxy_resolver_set_default_proxy
 import org.gtkkn.native.gio.g_simple_proxy_resolver_set_ignore_hosts
 import org.gtkkn.native.gio.g_simple_proxy_resolver_set_uri_proxy
-import kotlin.String
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * `GSimpleProxyResolver` is a simple [iface@Gio.ProxyResolver] implementation
@@ -39,8 +39,9 @@ import kotlin.collections.List
  * @since 2.36
  */
 @GioVersion2_36
-public open class SimpleProxyResolver(pointer: CPointer<GSimpleProxyResolver>) :
-    Object(pointer.reinterpret()),
+public open class SimpleProxyResolver(
+    pointer: CPointer<GSimpleProxyResolver>,
+) : Object(pointer.reinterpret()),
     ProxyResolver,
     KGTyped {
     public val gioSimpleProxyResolverPointer: CPointer<GSimpleProxyResolver>
@@ -62,8 +63,7 @@ public open class SimpleProxyResolver(pointer: CPointer<GSimpleProxyResolver>) :
      * @since 2.36
      */
     @GioVersion2_36
-    public open fun setDefaultProxy(defaultProxy: String? = null): Unit =
-        g_simple_proxy_resolver_set_default_proxy(gioSimpleProxyResolverPointer.reinterpret(), defaultProxy)
+    public open fun setDefaultProxy(defaultProxy: String? = null): Unit = g_simple_proxy_resolver_set_default_proxy(gioSimpleProxyResolverPointer.reinterpret(), defaultProxy)
 
     /**
      * Sets the list of ignored hosts.
@@ -77,11 +77,7 @@ public open class SimpleProxyResolver(pointer: CPointer<GSimpleProxyResolver>) :
      */
     @GioVersion2_36
     public open fun setIgnoreHosts(ignoreHosts: List<String>): Unit = memScoped {
-        return g_simple_proxy_resolver_set_ignore_hosts(
-            gioSimpleProxyResolverPointer.reinterpret(),
-            ignoreHosts.toCStringList(this)
-        )
-    }
+        return g_simple_proxy_resolver_set_ignore_hosts(gioSimpleProxyResolverPointer.reinterpret(), ignoreHosts.toCStringList(this))}
 
     /**
      * Adds a URI-scheme-specific proxy to @resolver; URIs whose scheme
@@ -98,16 +94,14 @@ public open class SimpleProxyResolver(pointer: CPointer<GSimpleProxyResolver>) :
      * @since 2.36
      */
     @GioVersion2_36
-    public open fun setUriProxy(uriScheme: String, proxy: String): Unit =
-        g_simple_proxy_resolver_set_uri_proxy(gioSimpleProxyResolverPointer.reinterpret(), uriScheme, proxy)
+    public open fun setUriProxy(uriScheme: String, proxy: String): Unit = g_simple_proxy_resolver_set_uri_proxy(gioSimpleProxyResolverPointer.reinterpret(), uriScheme, proxy)
 
     public companion object : TypeCompanion<SimpleProxyResolver> {
         override val type: GeneratedClassKGType<SimpleProxyResolver> =
-            GeneratedClassKGType(g_simple_proxy_resolver_get_type()) { SimpleProxyResolver(it.reinterpret()) }
+                GeneratedClassKGType(g_simple_proxy_resolver_get_type()) { SimpleProxyResolver(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Creates a new #GSimpleProxyResolver. See
@@ -125,8 +119,7 @@ public open class SimpleProxyResolver(pointer: CPointer<GSimpleProxyResolver>) :
         @GioVersion2_36
         public fun new(defaultProxy: String? = null, ignoreHosts: List<String>? = null): ProxyResolver = memScoped {
             return g_simple_proxy_resolver_new(defaultProxy, ignoreHosts?.toCStringList(this))!!.run {
-                ProxyResolver.wrap(reinterpret())
-            }
+                ProxyResolver.wrap(reinterpret())}
         }
     }
 }

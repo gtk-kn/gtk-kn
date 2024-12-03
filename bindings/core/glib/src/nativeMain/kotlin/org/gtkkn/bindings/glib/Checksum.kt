@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Long
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -16,9 +19,7 @@ import org.gtkkn.native.glib.g_checksum_get_string
 import org.gtkkn.native.glib.g_checksum_new
 import org.gtkkn.native.glib.g_checksum_reset
 import org.gtkkn.native.glib.g_checksum_type_get_length
-import kotlin.Long
-import kotlin.String
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * GLib provides a generic API for computing checksums (or ‘digests’)
@@ -45,7 +46,9 @@ import kotlin.Unit
  * @since 2.16
  */
 @GLibVersion2_16
-public class Checksum(pointer: CPointer<GChecksum>) : Record {
+public class Checksum(
+    pointer: CPointer<GChecksum>,
+) : Record {
     public val glibChecksumPointer: CPointer<GChecksum> = pointer
 
     /**
@@ -59,8 +62,7 @@ public class Checksum(pointer: CPointer<GChecksum>) : Record {
      */
     @GLibVersion2_16
     public fun copy(): Checksum = g_checksum_copy(glibChecksumPointer.reinterpret())!!.run {
-        Checksum(reinterpret())
-    }
+        Checksum(reinterpret())}
 
     /**
      * Frees the memory allocated for @checksum.
@@ -84,8 +86,7 @@ public class Checksum(pointer: CPointer<GChecksum>) : Record {
      * @since 2.16
      */
     @GLibVersion2_16
-    public fun getString(): String =
-        g_checksum_get_string(glibChecksumPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun getString(): String = g_checksum_get_string(glibChecksumPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Resets the state of the @checksum back to its initial state.
@@ -116,8 +117,7 @@ public class Checksum(pointer: CPointer<GChecksum>) : Record {
          *   Use g_checksum_free() to free the memory allocated by it.
          * @since 2.16
          */
-        public fun new(checksumType: ChecksumType): Checksum? =
-            Checksum(g_checksum_new(checksumType.nativeValue)!!.reinterpret())
+        public fun new(checksumType: ChecksumType): Checksum? = Checksum(g_checksum_new(checksumType.nativeValue)!!.reinterpret())
 
         /**
          * Gets the length in bytes of digests of type @checksum_type
@@ -128,8 +128,7 @@ public class Checksum(pointer: CPointer<GChecksum>) : Record {
          * @since 2.16
          */
         @GLibVersion2_16
-        public fun typeGetLength(checksumType: ChecksumType): Long =
-            g_checksum_type_get_length(checksumType.nativeValue)
+        public fun typeGetLength(checksumType: ChecksumType): Long = g_checksum_type_get_length(checksumType.nativeValue)
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Checksum = Checksum(pointer.reinterpret())
     }

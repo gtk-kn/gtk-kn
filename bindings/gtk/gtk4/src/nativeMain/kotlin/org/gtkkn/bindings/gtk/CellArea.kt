@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -65,11 +70,6 @@ import org.gtkkn.native.gtk.gtk_cell_area_remove
 import org.gtkkn.native.gtk.gtk_cell_area_remove_focus_sibling
 import org.gtkkn.native.gtk.gtk_cell_area_set_focus_cell
 import org.gtkkn.native.gtk.gtk_cell_area_stop_editing
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * An abstract class for laying out `GtkCellRenderer`s
@@ -395,8 +395,9 @@ import kotlin.Unit
  * - parameter `minimum_size`: minimum_size: Out parameter is not supported
  * - parameter `snapshot`: missing cType for class Snapshot
  */
-public open class CellArea(pointer: CPointer<GtkCellArea>) :
-    InitiallyUnowned(pointer.reinterpret()),
+public open class CellArea(
+    pointer: CPointer<GtkCellArea>,
+) : InitiallyUnowned(pointer.reinterpret()),
     Buildable,
     CellLayout,
     KGTyped {
@@ -423,8 +424,7 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
          * @return The currently active `GtkCellEditable` widget
          */
         get() = gtk_cell_area_get_edit_widget(gtkCellAreaPointer.reinterpret())?.run {
-            CellEditable.wrap(reinterpret())
-        }
+            CellEditable.wrap(reinterpret())}
 
     /**
      * The cell in the area that is currently edited
@@ -440,8 +440,7 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
          * @return The currently edited `GtkCellRenderer`
          */
         get() = gtk_cell_area_get_edited_cell(gtkCellAreaPointer.reinterpret())?.run {
-            CellRenderer(reinterpret())
-        }
+            CellRenderer(reinterpret())}
 
     /**
      * The cell in the area that currently has focus
@@ -453,9 +452,7 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
          * @return the currently focused cell in @area.
          */
         get() = gtk_cell_area_get_focus_cell(gtkCellAreaPointer.reinterpret())?.run {
-            CellRenderer(reinterpret())
-        }
-
+            CellRenderer(reinterpret())}
         /**
          * Explicitly sets the currently focused cell to @renderer.
          *
@@ -466,12 +463,7 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
          *
          * @param renderer the `GtkCellRenderer` to give focus to
          */
-        set(
-            renderer
-        ) = gtk_cell_area_set_focus_cell(
-            gtkCellAreaPointer.reinterpret(),
-            renderer?.gtkCellRendererPointer?.reinterpret()
-        )
+        set(renderer) = gtk_cell_area_set_focus_cell(gtkCellAreaPointer.reinterpret(), renderer?.gtkCellRendererPointer?.reinterpret())
 
     /**
      * Activates @area, usually by activating the currently focused
@@ -492,14 +484,7 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
         cellArea: Rectangle,
         flags: CellRendererState,
         editOnly: Boolean,
-    ): Boolean = gtk_cell_area_activate(
-        gtkCellAreaPointer.reinterpret(),
-        context.gtkCellAreaContextPointer.reinterpret(),
-        widget.gtkWidgetPointer.reinterpret(),
-        cellArea.gdkRectanglePointer.reinterpret(),
-        flags.mask,
-        editOnly.asGBoolean()
-    ).asBoolean()
+    ): Boolean = gtk_cell_area_activate(gtkCellAreaPointer.reinterpret(), context.gtkCellAreaContextPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret(), cellArea.gdkRectanglePointer.reinterpret(), flags.mask, editOnly.asGBoolean()).asBoolean()
 
     /**
      * This is used by `GtkCellArea` subclasses when handling events
@@ -521,22 +506,14 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
         event: Event,
         cellArea: Rectangle,
         flags: CellRendererState,
-    ): Boolean = gtk_cell_area_activate_cell(
-        gtkCellAreaPointer.reinterpret(),
-        widget.gtkWidgetPointer.reinterpret(),
-        renderer.gtkCellRendererPointer.reinterpret(),
-        event.gPointer.reinterpret(),
-        cellArea.gdkRectanglePointer.reinterpret(),
-        flags.mask
-    ).asBoolean()
+    ): Boolean = gtk_cell_area_activate_cell(gtkCellAreaPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret(), renderer.gtkCellRendererPointer.reinterpret(), event.gPointer.reinterpret(), cellArea.gdkRectanglePointer.reinterpret(), flags.mask).asBoolean()
 
     /**
      * Adds @renderer to @area with the default child cell properties.
      *
      * @param renderer the `GtkCellRenderer` to add to @area
      */
-    public open fun add(renderer: CellRenderer): Unit =
-        gtk_cell_area_add(gtkCellAreaPointer.reinterpret(), renderer.gtkCellRendererPointer.reinterpret())
+    public open fun add(renderer: CellRenderer): Unit = gtk_cell_area_add(gtkCellAreaPointer.reinterpret(), renderer.gtkCellRendererPointer.reinterpret())
 
     /**
      * Adds @sibling to @renderer’s focusable area, focus will be drawn
@@ -549,12 +526,7 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
      * @param renderer the `GtkCellRenderer` expected to have focus
      * @param sibling the `GtkCellRenderer` to add to @renderer’s focus area
      */
-    public open fun addFocusSibling(renderer: CellRenderer, sibling: CellRenderer): Unit =
-        gtk_cell_area_add_focus_sibling(
-            gtkCellAreaPointer.reinterpret(),
-            renderer.gtkCellRendererPointer.reinterpret(),
-            sibling.gtkCellRendererPointer.reinterpret()
-        )
+    public open fun addFocusSibling(renderer: CellRenderer, sibling: CellRenderer): Unit = gtk_cell_area_add_focus_sibling(gtkCellAreaPointer.reinterpret(), renderer.gtkCellRendererPointer.reinterpret(), sibling.gtkCellRendererPointer.reinterpret())
 
     /**
      * Applies any connected attributes to the renderers in
@@ -571,13 +543,7 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
         iter: TreeIter,
         isExpander: Boolean,
         isExpanded: Boolean,
-    ): Unit = gtk_cell_area_apply_attributes(
-        gtkCellAreaPointer.reinterpret(),
-        treeModel.gtkTreeModelPointer,
-        iter.gtkTreeIterPointer.reinterpret(),
-        isExpander.asGBoolean(),
-        isExpanded.asGBoolean()
-    )
+    ): Unit = gtk_cell_area_apply_attributes(gtkCellAreaPointer.reinterpret(), treeModel.gtkTreeModelPointer, iter.gtkTreeIterPointer.reinterpret(), isExpander.asGBoolean(), isExpanded.asGBoolean())
 
     /**
      * Connects an @attribute to apply values from @column for the
@@ -587,13 +553,11 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
      * @param attribute the attribute name
      * @param column the `GtkTreeModel` column to fetch attribute values from
      */
-    public open fun attributeConnect(renderer: CellRenderer, attribute: String, column: Int): Unit =
-        gtk_cell_area_attribute_connect(
-            gtkCellAreaPointer.reinterpret(),
-            renderer.gtkCellRendererPointer.reinterpret(),
-            attribute,
-            column
-        )
+    public open fun attributeConnect(
+        renderer: CellRenderer,
+        attribute: String,
+        column: Int,
+    ): Unit = gtk_cell_area_attribute_connect(gtkCellAreaPointer.reinterpret(), renderer.gtkCellRendererPointer.reinterpret(), attribute, column)
 
     /**
      * Disconnects @attribute for the @renderer in @area so that
@@ -603,12 +567,7 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
      * @param renderer the `GtkCellRenderer` to disconnect an attribute for
      * @param attribute the attribute name
      */
-    public open fun attributeDisconnect(renderer: CellRenderer, attribute: String): Unit =
-        gtk_cell_area_attribute_disconnect(
-            gtkCellAreaPointer.reinterpret(),
-            renderer.gtkCellRendererPointer.reinterpret(),
-            attribute
-        )
+    public open fun attributeDisconnect(renderer: CellRenderer, attribute: String): Unit = gtk_cell_area_attribute_disconnect(gtkCellAreaPointer.reinterpret(), renderer.gtkCellRendererPointer.reinterpret(), attribute)
 
     /**
      * Returns the model column that an attribute has been mapped to,
@@ -618,12 +577,7 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
      * @param attribute an attribute on the renderer
      * @return the model column, or -1
      */
-    public open fun attributeGetColumn(renderer: CellRenderer, attribute: String): Int =
-        gtk_cell_area_attribute_get_column(
-            gtkCellAreaPointer.reinterpret(),
-            renderer.gtkCellRendererPointer.reinterpret(),
-            attribute
-        )
+    public open fun attributeGetColumn(renderer: CellRenderer, attribute: String): Int = gtk_cell_area_attribute_get_column(gtkCellAreaPointer.reinterpret(), renderer.gtkCellRendererPointer.reinterpret(), attribute)
 
     /**
      * Gets the value of a cell property for @renderer in @area.
@@ -632,13 +586,11 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
      * @param propertyName the name of the property to get
      * @param value a location to return the value
      */
-    public open fun cellGetProperty(renderer: CellRenderer, propertyName: String, `value`: Value): Unit =
-        gtk_cell_area_cell_get_property(
-            gtkCellAreaPointer.reinterpret(),
-            renderer.gtkCellRendererPointer.reinterpret(),
-            propertyName,
-            `value`.gobjectValuePointer.reinterpret()
-        )
+    public open fun cellGetProperty(
+        renderer: CellRenderer,
+        propertyName: String,
+        `value`: Value,
+    ): Unit = gtk_cell_area_cell_get_property(gtkCellAreaPointer.reinterpret(), renderer.gtkCellRendererPointer.reinterpret(), propertyName, `value`.gobjectValuePointer.reinterpret())
 
     /**
      * Sets a cell property for @renderer in @area.
@@ -647,13 +599,11 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
      * @param propertyName the name of the cell property to set
      * @param value the value to set the cell property to
      */
-    public open fun cellSetProperty(renderer: CellRenderer, propertyName: String, `value`: Value): Unit =
-        gtk_cell_area_cell_set_property(
-            gtkCellAreaPointer.reinterpret(),
-            renderer.gtkCellRendererPointer.reinterpret(),
-            propertyName,
-            `value`.gobjectValuePointer.reinterpret()
-        )
+    public open fun cellSetProperty(
+        renderer: CellRenderer,
+        propertyName: String,
+        `value`: Value,
+    ): Unit = gtk_cell_area_cell_set_property(gtkCellAreaPointer.reinterpret(), renderer.gtkCellRendererPointer.reinterpret(), propertyName, `value`.gobjectValuePointer.reinterpret())
 
     /**
      * This is sometimes needed for cases where rows need to share
@@ -671,12 +621,8 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
      * @param context the `GtkCellArea`Context to copy
      * @return a newly created `GtkCellArea`Context copy of @context.
      */
-    public open fun copyContext(context: CellAreaContext): CellAreaContext = gtk_cell_area_copy_context(
-        gtkCellAreaPointer.reinterpret(),
-        context.gtkCellAreaContextPointer.reinterpret()
-    )!!.run {
-        CellAreaContext(reinterpret())
-    }
+    public open fun copyContext(context: CellAreaContext): CellAreaContext = gtk_cell_area_copy_context(gtkCellAreaPointer.reinterpret(), context.gtkCellAreaContextPointer.reinterpret())!!.run {
+        CellAreaContext(reinterpret())}
 
     /**
      * Creates a `GtkCellArea`Context to be used with @area for
@@ -688,10 +634,8 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
      *
      * @return a newly created `GtkCellArea`Context which can be used with @area.
      */
-    public open fun createContext(): CellAreaContext =
-        gtk_cell_area_create_context(gtkCellAreaPointer.reinterpret())!!.run {
-            CellAreaContext(reinterpret())
-        }
+    public open fun createContext(): CellAreaContext = gtk_cell_area_create_context(gtkCellAreaPointer.reinterpret())!!.run {
+        CellAreaContext(reinterpret())}
 
     /**
      * Delegates event handling to a `GtkCellArea`.
@@ -709,14 +653,7 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
         event: Event,
         cellArea: Rectangle,
         flags: CellRendererState,
-    ): Int = gtk_cell_area_event(
-        gtkCellAreaPointer.reinterpret(),
-        context.gtkCellAreaContextPointer.reinterpret(),
-        widget.gtkWidgetPointer.reinterpret(),
-        event.gPointer.reinterpret(),
-        cellArea.gdkRectanglePointer.reinterpret(),
-        flags.mask
-    )
+    ): Int = gtk_cell_area_event(gtkCellAreaPointer.reinterpret(), context.gtkCellAreaContextPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret(), event.gPointer.reinterpret(), cellArea.gdkRectanglePointer.reinterpret(), flags.mask)
 
     /**
      * This should be called by the @area’s owning layout widget
@@ -730,19 +667,14 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
      * @param direction the `GtkDirectionType`
      * @return true if focus remains inside @area as a result of this call.
      */
-    public open fun focus(direction: DirectionType): Boolean =
-        gtk_cell_area_focus(gtkCellAreaPointer.reinterpret(), direction.nativeValue).asBoolean()
+    public open fun focus(direction: DirectionType): Boolean = gtk_cell_area_focus(gtkCellAreaPointer.reinterpret(), direction.nativeValue).asBoolean()
 
     /**
      * Calls @callback for every `GtkCellRenderer` in @area.
      *
      * @param callback the `GtkCellCallback` to call
      */
-    public open fun foreach(callback: CellCallback): Unit = gtk_cell_area_foreach(
-        gtkCellAreaPointer.reinterpret(),
-        CellCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
-    )
+    public open fun foreach(callback: CellCallback): Unit = gtk_cell_area_foreach(gtkCellAreaPointer.reinterpret(), CellCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
 
     /**
      * Calls @callback for every `GtkCellRenderer` in @area with the
@@ -760,15 +692,7 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
         cellArea: Rectangle,
         backgroundArea: Rectangle,
         callback: CellAllocCallback,
-    ): Unit = gtk_cell_area_foreach_alloc(
-        gtkCellAreaPointer.reinterpret(),
-        context.gtkCellAreaContextPointer.reinterpret(),
-        widget.gtkWidgetPointer.reinterpret(),
-        cellArea.gdkRectanglePointer.reinterpret(),
-        backgroundArea.gdkRectanglePointer.reinterpret(),
-        CellAllocCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
-    )
+    ): Unit = gtk_cell_area_foreach_alloc(gtkCellAreaPointer.reinterpret(), context.gtkCellAreaContextPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret(), cellArea.gdkRectanglePointer.reinterpret(), backgroundArea.gdkRectanglePointer.reinterpret(), CellAllocCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
 
     /**
      * Derives the allocation of @renderer inside @area if @area
@@ -787,14 +711,7 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
         renderer: CellRenderer,
         cellArea: Rectangle,
         allocation: Rectangle,
-    ): Unit = gtk_cell_area_get_cell_allocation(
-        gtkCellAreaPointer.reinterpret(),
-        context.gtkCellAreaContextPointer.reinterpret(),
-        widget.gtkWidgetPointer.reinterpret(),
-        renderer.gtkCellRendererPointer.reinterpret(),
-        cellArea.gdkRectanglePointer.reinterpret(),
-        allocation.gdkRectanglePointer.reinterpret()
-    )
+    ): Unit = gtk_cell_area_get_cell_allocation(gtkCellAreaPointer.reinterpret(), context.gtkCellAreaContextPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret(), renderer.gtkCellRendererPointer.reinterpret(), cellArea.gdkRectanglePointer.reinterpret(), allocation.gdkRectanglePointer.reinterpret())
 
     /**
      * Gets the `GtkCellRenderer` at @x and @y coordinates inside @area and optionally
@@ -817,17 +734,8 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
         x: Int,
         y: Int,
         allocArea: Rectangle?,
-    ): CellRenderer = gtk_cell_area_get_cell_at_position(
-        gtkCellAreaPointer.reinterpret(),
-        context.gtkCellAreaContextPointer.reinterpret(),
-        widget.gtkWidgetPointer.reinterpret(),
-        cellArea.gdkRectanglePointer.reinterpret(),
-        x,
-        y,
-        allocArea?.gdkRectanglePointer?.reinterpret()
-    )!!.run {
-        CellRenderer(reinterpret())
-    }
+    ): CellRenderer = gtk_cell_area_get_cell_at_position(gtkCellAreaPointer.reinterpret(), context.gtkCellAreaContextPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret(), cellArea.gdkRectanglePointer.reinterpret(), x, y, allocArea?.gdkRectanglePointer?.reinterpret())!!.run {
+        CellRenderer(reinterpret())}
 
     /**
      * Gets the current `GtkTreePath` string for the currently
@@ -840,9 +748,7 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
      * attributes applied to @area. This string belongs to the area and
      * should not be freed.
      */
-    public open fun getCurrentPathString(): String =
-        gtk_cell_area_get_current_path_string(gtkCellAreaPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public open fun getCurrentPathString(): String = gtk_cell_area_get_current_path_string(gtkCellAreaPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the `GtkCellRenderer` which is expected to be focusable
@@ -857,12 +763,8 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
      * @return the `GtkCellRenderer`
      *   for which @renderer is a sibling
      */
-    public open fun getFocusFromSibling(renderer: CellRenderer): CellRenderer? = gtk_cell_area_get_focus_from_sibling(
-        gtkCellAreaPointer.reinterpret(),
-        renderer.gtkCellRendererPointer.reinterpret()
-    )?.run {
-        CellRenderer(reinterpret())
-    }
+    public open fun getFocusFromSibling(renderer: CellRenderer): CellRenderer? = gtk_cell_area_get_focus_from_sibling(gtkCellAreaPointer.reinterpret(), renderer.gtkCellRendererPointer.reinterpret())?.run {
+        CellRenderer(reinterpret())}
 
     /**
      * Gets the focus sibling cell renderers for @renderer.
@@ -871,12 +773,8 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
      * @return A `GList` of `GtkCellRenderer`s.
      *       The returned list is internal and should not be freed.
      */
-    public open fun getFocusSiblings(renderer: CellRenderer): List = gtk_cell_area_get_focus_siblings(
-        gtkCellAreaPointer.reinterpret(),
-        renderer.gtkCellRendererPointer.reinterpret()
-    )!!.run {
-        List(reinterpret())
-    }
+    public open fun getFocusSiblings(renderer: CellRenderer): List = gtk_cell_area_get_focus_siblings(gtkCellAreaPointer.reinterpret(), renderer.gtkCellRendererPointer.reinterpret())!!.run {
+        List(reinterpret())}
 
     /**
      * Gets whether the area prefers a height-for-width layout
@@ -884,10 +782,8 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
      *
      * @return The `GtkSizeRequestMode` preferred by @area.
      */
-    public open fun getRequestMode(): SizeRequestMode =
-        gtk_cell_area_get_request_mode(gtkCellAreaPointer.reinterpret()).run {
-            SizeRequestMode.fromNativeValue(this)
-        }
+    public open fun getRequestMode(): SizeRequestMode = gtk_cell_area_get_request_mode(gtkCellAreaPointer.reinterpret()).run {
+        SizeRequestMode.fromNativeValue(this)}
 
     /**
      * Checks if @area contains @renderer.
@@ -895,10 +791,7 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
      * @param renderer the `GtkCellRenderer` to check
      * @return true if @renderer is in the @area.
      */
-    public open fun hasRenderer(renderer: CellRenderer): Boolean = gtk_cell_area_has_renderer(
-        gtkCellAreaPointer.reinterpret(),
-        renderer.gtkCellRendererPointer.reinterpret()
-    ).asBoolean()
+    public open fun hasRenderer(renderer: CellRenderer): Boolean = gtk_cell_area_has_renderer(gtkCellAreaPointer.reinterpret(), renderer.gtkCellRendererPointer.reinterpret()).asBoolean()
 
     /**
      * This is a convenience function for `GtkCellArea` implementations
@@ -910,13 +803,11 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
      *             is to be placed
      * @param innerArea the return location for the inner cell area
      */
-    public open fun innerCellArea(widget: Widget, cellArea: Rectangle, innerArea: Rectangle): Unit =
-        gtk_cell_area_inner_cell_area(
-            gtkCellAreaPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret(),
-            cellArea.gdkRectanglePointer.reinterpret(),
-            innerArea.gdkRectanglePointer.reinterpret()
-        )
+    public open fun innerCellArea(
+        widget: Widget,
+        cellArea: Rectangle,
+        innerArea: Rectangle,
+    ): Unit = gtk_cell_area_inner_cell_area(gtkCellAreaPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret(), cellArea.gdkRectanglePointer.reinterpret(), innerArea.gdkRectanglePointer.reinterpret())
 
     /**
      * Returns whether the area can do anything when activated,
@@ -924,8 +815,7 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
      *
      * @return whether @area can do anything when activated.
      */
-    public open fun isActivatable(): Boolean =
-        gtk_cell_area_is_activatable(gtkCellAreaPointer.reinterpret()).asBoolean()
+    public open fun isActivatable(): Boolean = gtk_cell_area_is_activatable(gtkCellAreaPointer.reinterpret()).asBoolean()
 
     /**
      * Returns whether @sibling is one of @renderer’s focus siblings
@@ -935,20 +825,14 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
      * @param sibling the `GtkCellRenderer` to check against @renderer’s sibling list
      * @return true if @sibling is a focus sibling of @renderer
      */
-    public open fun isFocusSibling(renderer: CellRenderer, sibling: CellRenderer): Boolean =
-        gtk_cell_area_is_focus_sibling(
-            gtkCellAreaPointer.reinterpret(),
-            renderer.gtkCellRendererPointer.reinterpret(),
-            sibling.gtkCellRendererPointer.reinterpret()
-        ).asBoolean()
+    public open fun isFocusSibling(renderer: CellRenderer, sibling: CellRenderer): Boolean = gtk_cell_area_is_focus_sibling(gtkCellAreaPointer.reinterpret(), renderer.gtkCellRendererPointer.reinterpret(), sibling.gtkCellRendererPointer.reinterpret()).asBoolean()
 
     /**
      * Removes @renderer from @area.
      *
      * @param renderer the `GtkCellRenderer` to remove from @area
      */
-    public open fun remove(renderer: CellRenderer): Unit =
-        gtk_cell_area_remove(gtkCellAreaPointer.reinterpret(), renderer.gtkCellRendererPointer.reinterpret())
+    public open fun remove(renderer: CellRenderer): Unit = gtk_cell_area_remove(gtkCellAreaPointer.reinterpret(), renderer.gtkCellRendererPointer.reinterpret())
 
     /**
      * Removes @sibling from @renderer’s focus sibling list
@@ -957,12 +841,7 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
      * @param renderer the `GtkCellRenderer` expected to have focus
      * @param sibling the `GtkCellRenderer` to remove from @renderer’s focus area
      */
-    public open fun removeFocusSibling(renderer: CellRenderer, sibling: CellRenderer): Unit =
-        gtk_cell_area_remove_focus_sibling(
-            gtkCellAreaPointer.reinterpret(),
-            renderer.gtkCellRendererPointer.reinterpret(),
-            sibling.gtkCellRendererPointer.reinterpret()
-        )
+    public open fun removeFocusSibling(renderer: CellRenderer, sibling: CellRenderer): Unit = gtk_cell_area_remove_focus_sibling(gtkCellAreaPointer.reinterpret(), renderer.gtkCellRendererPointer.reinterpret(), sibling.gtkCellRendererPointer.reinterpret())
 
     /**
      * Explicitly stops the editing of the currently edited cell.
@@ -976,8 +855,7 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
      *
      * @param canceled whether editing was canceled.
      */
-    public open fun stopEditing(canceled: Boolean): Unit =
-        gtk_cell_area_stop_editing(gtkCellAreaPointer.reinterpret(), canceled.asGBoolean())
+    public open fun stopEditing(canceled: Boolean): Unit = gtk_cell_area_stop_editing(gtkCellAreaPointer.reinterpret(), canceled.asGBoolean())
 
     /**
      * Indicates that editing has started on @renderer and that @editable
@@ -987,22 +865,12 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
      * @param handler the Callback to connect. Params: `renderer` the `GtkCellRenderer` that started the edited; `editable` the `GtkCellEditable` widget to add; `cellArea` the `GtkWidget` relative `GdkRectangle` coordinates
      *             where @editable should be added; `path` the `GtkTreePath` string this edit was initiated for
      */
-    public fun connectAddEditable(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            renderer: CellRenderer,
-            editable: CellEditable,
-            cellArea: Rectangle,
-            path: String,
-        ) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "add-editable",
-        connectAddEditableFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectAddEditable(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
+        renderer: CellRenderer,
+        editable: CellEditable,
+        cellArea: Rectangle,
+        path: String,
+    ) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "add-editable", connectAddEditableFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * This signal is emitted whenever applying attributes to @area from @model
@@ -1010,22 +878,12 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `model` the `GtkTreeModel` to apply the attributes from; `iter` the `GtkTreeIter` indicating which row to apply the attributes of; `isExpander` whether the view shows children for this row; `isExpanded` whether the view is currently showing the children of this row
      */
-    public fun connectApplyAttributes(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            model: TreeModel,
-            iter: TreeIter,
-            isExpander: Boolean,
-            isExpanded: Boolean,
-        ) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "apply-attributes",
-        connectApplyAttributesFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectApplyAttributes(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
+        model: TreeModel,
+        iter: TreeIter,
+        isExpander: Boolean,
+        isExpanded: Boolean,
+    ) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "apply-attributes", connectApplyAttributesFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Indicates that focus changed on this @area. This signal
@@ -1040,17 +898,7 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `renderer` the `GtkCellRenderer` that has focus; `path` the current `GtkTreePath` string set for @area
      */
-    public fun connectFocusChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (renderer: CellRenderer, path: String) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "focus-changed",
-        connectFocusChangedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectFocusChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (renderer: CellRenderer, path: String) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "focus-changed", connectFocusChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Indicates that editing finished on @renderer and that @editable
@@ -1059,136 +907,93 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `renderer` the `GtkCellRenderer` that finished editeding; `editable` the `GtkCellEditable` widget to remove
      */
-    public fun connectRemoveEditable(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (renderer: CellRenderer, editable: CellEditable) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "remove-editable",
-        connectRemoveEditableFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectRemoveEditable(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (renderer: CellRenderer, editable: CellEditable) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "remove-editable", connectRemoveEditableFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<CellArea> {
         override val type: GeneratedClassKGType<CellArea> =
-            GeneratedClassKGType(gtk_cell_area_get_type()) { CellArea(it.reinterpret()) }
+                GeneratedClassKGType(gtk_cell_area_get_type()) { CellArea(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }
 
-private val connectAddEditableFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GtkCellRenderer>,
-            CPointer<GtkCellEditable>,
-            CPointer<GdkRectangle>,
-            CPointer<ByteVar>,
-        ) -> Unit
-        >
-    > = staticCFunction {
-        _: COpaquePointer,
-        renderer: CPointer<GtkCellRenderer>?,
-        editable: CPointer<GtkCellEditable>?,
-        cellArea: CPointer<GdkRectangle>?,
-        path: CPointer<ByteVar>?,
-        userData: COpaquePointer,
+private val connectAddEditableFunc: CPointer<CFunction<(
+    CPointer<GtkCellRenderer>,
+    CPointer<GtkCellEditable>,
+    CPointer<GdkRectangle>,
+    CPointer<ByteVar>,
+) -> Unit>> = staticCFunction {
+    _: COpaquePointer,
+    renderer: CPointer<GtkCellRenderer>?,
+    editable: CPointer<GtkCellEditable>?,
+    cellArea: CPointer<GdkRectangle>?,
+    path: CPointer<ByteVar>?,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<
-        (
-            renderer: CellRenderer,
-            editable: CellEditable,
-            cellArea: Rectangle,
-            path: String,
-        ) -> Unit
-        >().get().invoke(
-        renderer!!.run {
-            CellRenderer(reinterpret())
-        },
-        editable!!.run {
-            CellEditable.wrap(reinterpret())
-        },
-        cellArea!!.run {
-            Rectangle(reinterpret())
-        },
-        path?.toKString() ?: error("Expected not null string")
-    )
-}
-    .reinterpret()
+    userData.asStableRef<(
+        renderer: CellRenderer,
+        editable: CellEditable,
+        cellArea: Rectangle,
+        path: String,
+    ) -> Unit>().get().invoke(renderer!!.run {
+        CellRenderer(reinterpret())}
+    , editable!!.run {
+        CellEditable.wrap(reinterpret())}
+    , cellArea!!.run {
+        Rectangle(reinterpret())}
+    , path?.toKString() ?: error("Expected not null string"))}
+.reinterpret()
 
-private val connectApplyAttributesFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GtkTreeModel>,
-            CPointer<GtkTreeIter>,
-            Int,
-            Int,
-        ) -> Unit
-        >
-    > = staticCFunction {
-        _: COpaquePointer,
-        model: CPointer<GtkTreeModel>?,
-        iter: CPointer<GtkTreeIter>?,
-        isExpander: Int,
-        isExpanded: Int,
-        userData: COpaquePointer,
+private val connectApplyAttributesFunc: CPointer<CFunction<(
+    CPointer<GtkTreeModel>,
+    CPointer<GtkTreeIter>,
+    Int,
+    Int,
+) -> Unit>> = staticCFunction {
+    _: COpaquePointer,
+    model: CPointer<GtkTreeModel>?,
+    iter: CPointer<GtkTreeIter>?,
+    isExpander: Int,
+    isExpanded: Int,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<
-        (
-            model: TreeModel,
-            iter: TreeIter,
-            isExpander: Boolean,
-            isExpanded: Boolean,
-        ) -> Unit
-        >().get().invoke(
-        model!!.run {
-            TreeModel.wrap(reinterpret())
-        },
-        iter!!.run {
-            TreeIter(reinterpret())
-        },
-        isExpander.asBoolean(),
-        isExpanded.asBoolean()
-    )
-}
-    .reinterpret()
+    userData.asStableRef<(
+        model: TreeModel,
+        iter: TreeIter,
+        isExpander: Boolean,
+        isExpanded: Boolean,
+    ) -> Unit>().get().invoke(model!!.run {
+        TreeModel.wrap(reinterpret())}
+    , iter!!.run {
+        TreeIter(reinterpret())}
+    , isExpander.asBoolean(), isExpanded.asBoolean())}
+.reinterpret()
 
 private val connectFocusChangedFunc:
-    CPointer<CFunction<(CPointer<GtkCellRenderer>, CPointer<ByteVar>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            renderer: CPointer<GtkCellRenderer>?,
-            path: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(renderer: CellRenderer, path: String) -> Unit>().get().invoke(
-            renderer!!.run {
-                CellRenderer(reinterpret())
-            },
-            path?.toKString() ?: error("Expected not null string")
-        )
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GtkCellRenderer>, CPointer<ByteVar>) -> Unit>> =
+        staticCFunction {
+    _: COpaquePointer,
+    renderer: CPointer<GtkCellRenderer>?,
+    path: CPointer<ByteVar>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(renderer: CellRenderer, path: String) -> Unit>().get().invoke(renderer!!.run {
+        CellRenderer(reinterpret())}
+    , path?.toKString() ?: error("Expected not null string"))}
+.reinterpret()
 
 private val connectRemoveEditableFunc:
-    CPointer<CFunction<(CPointer<GtkCellRenderer>, CPointer<GtkCellEditable>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            renderer: CPointer<GtkCellRenderer>?,
-            editable: CPointer<GtkCellEditable>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(renderer: CellRenderer, editable: CellEditable) -> Unit>().get().invoke(
-            renderer!!.run {
-                CellRenderer(reinterpret())
-            },
-            editable!!.run {
-                CellEditable.wrap(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GtkCellRenderer>, CPointer<GtkCellEditable>) -> Unit>> =
+        staticCFunction {
+    _: COpaquePointer,
+    renderer: CPointer<GtkCellRenderer>?,
+    editable: CPointer<GtkCellEditable>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(renderer: CellRenderer, editable: CellEditable) -> Unit>().get().invoke(renderer!!.run {
+        CellRenderer(reinterpret())}
+    , editable!!.run {
+        CellEditable.wrap(reinterpret())}
+    )}
+.reinterpret()

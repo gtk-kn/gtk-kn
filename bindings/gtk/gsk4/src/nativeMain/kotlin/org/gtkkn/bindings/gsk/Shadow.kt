@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import kotlin.Float
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -8,7 +9,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gsk.GskShadow
-import kotlin.Float
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The shadow parameters in a shadow node.
@@ -17,7 +18,9 @@ import kotlin.Float
  *
  * - field `color`: Gdk.RGBA
  */
-public class Shadow(pointer: CPointer<GskShadow>) : Record {
+public class Shadow(
+    pointer: CPointer<GskShadow>,
+) : Record {
     public val gskShadowPointer: CPointer<GskShadow> = pointer
 
     /**

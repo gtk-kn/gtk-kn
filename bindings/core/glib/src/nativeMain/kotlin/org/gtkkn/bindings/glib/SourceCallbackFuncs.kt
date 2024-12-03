@@ -7,6 +7,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GSourceCallbackFuncs
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `GSourceCallbackFuncs` struct contains
@@ -18,11 +19,12 @@ import org.gtkkn.native.glib.GSourceCallbackFuncs
  * - field `unref`: Fields with callbacks are not supported
  * - field `get`: Fields with callbacks are not supported
  */
-public class SourceCallbackFuncs(pointer: CPointer<GSourceCallbackFuncs>) : Record {
+public class SourceCallbackFuncs(
+    pointer: CPointer<GSourceCallbackFuncs>,
+) : Record {
     public val glibSourceCallbackFuncsPointer: CPointer<GSourceCallbackFuncs> = pointer
 
     public companion object : RecordCompanion<SourceCallbackFuncs, GSourceCallbackFuncs> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SourceCallbackFuncs =
-            SourceCallbackFuncs(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SourceCallbackFuncs = SourceCallbackFuncs(pointer.reinterpret())
     }
 }

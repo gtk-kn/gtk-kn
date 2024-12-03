@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -21,15 +25,14 @@ import org.gtkkn.native.webkit.webkit_navigation_action_get_navigation_type
 import org.gtkkn.native.webkit.webkit_navigation_action_get_request
 import org.gtkkn.native.webkit.webkit_navigation_action_is_redirect
 import org.gtkkn.native.webkit.webkit_navigation_action_is_user_gesture
-import kotlin.Boolean
-import kotlin.String
-import kotlin.UInt
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Provides details about interaction resulting in a resource load.
  */
-public class NavigationAction(pointer: CPointer<WebKitNavigationAction>) : Record {
+public class NavigationAction(
+    pointer: CPointer<WebKitNavigationAction>,
+) : Record {
     public val webkitNavigationActionPointer: CPointer<WebKitNavigationAction> = pointer
 
     /**
@@ -39,10 +42,8 @@ public class NavigationAction(pointer: CPointer<WebKitNavigationAction>) : Recor
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun copy(): NavigationAction =
-        webkit_navigation_action_copy(webkitNavigationActionPointer.reinterpret())!!.run {
-            NavigationAction(reinterpret())
-        }
+    public fun copy(): NavigationAction = webkit_navigation_action_copy(webkitNavigationActionPointer.reinterpret())!!.run {
+        NavigationAction(reinterpret())}
 
     /**
      * Free the #WebKitNavigationAction
@@ -61,8 +62,7 @@ public class NavigationAction(pointer: CPointer<WebKitNavigationAction>) : Recor
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun getFrameName(): String? =
-        webkit_navigation_action_get_frame_name(webkitNavigationActionPointer.reinterpret())?.toKString()
+    public fun getFrameName(): String? = webkit_navigation_action_get_frame_name(webkitNavigationActionPointer.reinterpret())?.toKString()
 
     /**
      * Return the modifier keys.
@@ -74,8 +74,7 @@ public class NavigationAction(pointer: CPointer<WebKitNavigationAction>) : Recor
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun getModifiers(): UInt =
-        webkit_navigation_action_get_modifiers(webkitNavigationActionPointer.reinterpret())
+    public fun getModifiers(): UInt = webkit_navigation_action_get_modifiers(webkitNavigationActionPointer.reinterpret())
 
     /**
      * Return the number of the mouse button that triggered the navigation.
@@ -87,8 +86,7 @@ public class NavigationAction(pointer: CPointer<WebKitNavigationAction>) : Recor
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun getMouseButton(): UInt =
-        webkit_navigation_action_get_mouse_button(webkitNavigationActionPointer.reinterpret())
+    public fun getMouseButton(): UInt = webkit_navigation_action_get_mouse_button(webkitNavigationActionPointer.reinterpret())
 
     /**
      * Return the type of action that triggered the navigation.
@@ -97,10 +95,8 @@ public class NavigationAction(pointer: CPointer<WebKitNavigationAction>) : Recor
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun getNavigationType(): NavigationType =
-        webkit_navigation_action_get_navigation_type(webkitNavigationActionPointer.reinterpret()).run {
-            NavigationType.fromNativeValue(this)
-        }
+    public fun getNavigationType(): NavigationType = webkit_navigation_action_get_navigation_type(webkitNavigationActionPointer.reinterpret()).run {
+        NavigationType.fromNativeValue(this)}
 
     /**
      * Return the #WebKitURIRequest associated with the navigation action.
@@ -115,10 +111,8 @@ public class NavigationAction(pointer: CPointer<WebKitNavigationAction>) : Recor
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun getRequest(): URIRequest =
-        webkit_navigation_action_get_request(webkitNavigationActionPointer.reinterpret())!!.run {
-            URIRequest(reinterpret())
-        }
+    public fun getRequest(): URIRequest = webkit_navigation_action_get_request(webkitNavigationActionPointer.reinterpret())!!.run {
+        URIRequest(reinterpret())}
 
     /**
      * Returns whether the @navigation was redirected.
@@ -127,8 +121,7 @@ public class NavigationAction(pointer: CPointer<WebKitNavigationAction>) : Recor
      * @since 2.20
      */
     @WebKitVersion2_20
-    public fun isRedirect(): Boolean =
-        webkit_navigation_action_is_redirect(webkitNavigationActionPointer.reinterpret()).asBoolean()
+    public fun isRedirect(): Boolean = webkit_navigation_action_is_redirect(webkitNavigationActionPointer.reinterpret()).asBoolean()
 
     /**
      * Return whether the navigation was triggered by a user gesture like a mouse click.
@@ -137,11 +130,9 @@ public class NavigationAction(pointer: CPointer<WebKitNavigationAction>) : Recor
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun isUserGesture(): Boolean =
-        webkit_navigation_action_is_user_gesture(webkitNavigationActionPointer.reinterpret()).asBoolean()
+    public fun isUserGesture(): Boolean = webkit_navigation_action_is_user_gesture(webkitNavigationActionPointer.reinterpret()).asBoolean()
 
     public companion object : RecordCompanion<NavigationAction, WebKitNavigationAction> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): NavigationAction =
-            NavigationAction(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): NavigationAction = NavigationAction(pointer.reinterpret())
     }
 }

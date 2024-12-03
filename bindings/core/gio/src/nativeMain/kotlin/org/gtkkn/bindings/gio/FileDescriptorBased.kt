@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Int
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_24
@@ -11,7 +12,6 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GFileDescriptorBased
 import org.gtkkn.native.gio.g_file_descriptor_based_get_fd
 import org.gtkkn.native.gio.g_file_descriptor_based_get_type
-import kotlin.Int
 
 /**
  * `GFileDescriptorBased` is an interface for file descriptor based IO.
@@ -25,9 +25,7 @@ import kotlin.Int
  * @since 2.24
  */
 @GioVersion2_24
-public interface FileDescriptorBased :
-    Interface,
-    KGTyped {
+public interface FileDescriptorBased : Interface, KGTyped {
     public val gioFileDescriptorBasedPointer: CPointer<GFileDescriptorBased>
 
     /**
@@ -39,17 +37,18 @@ public interface FileDescriptorBased :
     @GioVersion2_24
     public fun getFd(): Int = g_file_descriptor_based_get_fd(gioFileDescriptorBasedPointer.reinterpret())
 
-    private data class Wrapper(private val pointer: CPointer<GFileDescriptorBased>) : FileDescriptorBased {
+    private data class Wrapper(
+        private val pointer: CPointer<GFileDescriptorBased>,
+    ) : FileDescriptorBased {
         override val gioFileDescriptorBasedPointer: CPointer<GFileDescriptorBased> = pointer
     }
 
     public companion object : TypeCompanion<FileDescriptorBased> {
         override val type: GeneratedInterfaceKGType<FileDescriptorBased> =
-            GeneratedInterfaceKGType(g_file_descriptor_based_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(g_file_descriptor_based_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GFileDescriptorBased>): FileDescriptorBased = Wrapper(pointer)
     }

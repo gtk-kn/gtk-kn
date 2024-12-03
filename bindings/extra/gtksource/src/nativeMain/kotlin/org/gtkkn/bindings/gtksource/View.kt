@@ -1,6 +1,12 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtksource
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.String
+import kotlin.UInt
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -69,12 +75,6 @@ import org.gtkkn.native.gtksource.gtk_source_view_set_smart_backspace
 import org.gtkkn.native.gtksource.gtk_source_view_set_smart_home_end
 import org.gtkkn.native.gtksource.gtk_source_view_set_tab_width
 import org.gtkkn.native.gtksource.gtk_source_view_unindent_lines
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.String
-import kotlin.UInt
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Subclass of [class@Gtk.TextView].
@@ -141,8 +141,9 @@ import kotlin.Unit
  * - parameter `priority`: Unsupported pointer to primitive type
  * - signal `push-snippet`: Unsupported parameter `location` : location: In/Out parameter is not supported
  */
-public open class View(pointer: CPointer<GtkSourceView>) :
-    TextView(pointer.reinterpret()),
+public open class View(
+    pointer: CPointer<GtkSourceView>,
+) : TextView(pointer.reinterpret()),
     KGTyped {
     public val gtksourceViewPointer: CPointer<GtkSourceView>
         get() = gPointer.reinterpret()
@@ -166,7 +167,6 @@ public open class View(pointer: CPointer<GtkSourceView>) :
          * @return true if auto indentation is enabled.
          */
         get() = gtk_source_view_get_auto_indent(gtksourceViewPointer.reinterpret()).asBoolean()
-
         /**
          * If true auto-indentation of text is enabled.
          *
@@ -190,17 +190,13 @@ public open class View(pointer: CPointer<GtkSourceView>) :
          * @return the #GtkSourceBackgroundPatternType.
          */
         get() = gtk_source_view_get_background_pattern(gtksourceViewPointer.reinterpret()).run {
-            BackgroundPatternType.fromNativeValue(this)
-        }
-
+            BackgroundPatternType.fromNativeValue(this)}
         /**
          * Set if and how the background pattern should be displayed.
          *
          * @param backgroundPattern the #GtkSourceBackgroundPatternType.
          */
-        set(
-            backgroundPattern
-        ) = gtk_source_view_set_background_pattern(gtksourceViewPointer.reinterpret(), backgroundPattern.nativeValue)
+        set(backgroundPattern) = gtk_source_view_set_background_pattern(gtksourceViewPointer.reinterpret(), backgroundPattern.nativeValue)
 
     /**
      * The completion object associated with the view
@@ -215,8 +211,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
          * @return the #GtkSourceCompletion associated with @view.
          */
         get() = gtk_source_view_get_completion(gtksourceViewPointer.reinterpret())!!.run {
-            Completion(reinterpret())
-        }
+            Completion(reinterpret())}
 
     /**
      * The property denotes if snippets should be
@@ -237,7 +232,6 @@ public open class View(pointer: CPointer<GtkSourceView>) :
          * @return true if enabled
          */
         get() = gtk_source_view_get_enable_snippets(gtksourceViewPointer.reinterpret()).asBoolean()
-
         /**
          * Sets the [property@View:enable-snippets] property.
          *
@@ -247,9 +241,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
          *
          * @param enableSnippets if snippets should be enabled
          */
-        set(
-            enableSnippets
-        ) = gtk_source_view_set_enable_snippets(gtksourceViewPointer.reinterpret(), enableSnippets.asGBoolean())
+        set(enableSnippets) = gtk_source_view_set_enable_snippets(gtksourceViewPointer.reinterpret(), enableSnippets.asGBoolean())
 
     public open var highlightCurrentLine: Boolean
         /**
@@ -258,15 +250,12 @@ public open class View(pointer: CPointer<GtkSourceView>) :
          * @return true if the current line is highlighted.
          */
         get() = gtk_source_view_get_highlight_current_line(gtksourceViewPointer.reinterpret()).asBoolean()
-
         /**
          * If @highlight is true the current line will be highlighted.
          *
          * @param highlight whether to highlight the current line.
          */
-        set(
-            highlight
-        ) = gtk_source_view_set_highlight_current_line(gtksourceViewPointer.reinterpret(), highlight.asGBoolean())
+        set(highlight) = gtk_source_view_set_highlight_current_line(gtksourceViewPointer.reinterpret(), highlight.asGBoolean())
 
     public open var indentOnTab: Boolean
         /**
@@ -276,7 +265,6 @@ public open class View(pointer: CPointer<GtkSourceView>) :
          * @return true if the selection is indented when tab is pressed.
          */
         get() = gtk_source_view_get_indent_on_tab(gtksourceViewPointer.reinterpret()).asBoolean()
-
         /**
          * If true, when the tab key is pressed when several lines are selected, the
          * selected lines are indented of one level instead of being replaced with a `\t`
@@ -304,7 +292,6 @@ public open class View(pointer: CPointer<GtkSourceView>) :
          * @return indent width.
          */
         get() = gtk_source_view_get_indent_width(gtksourceViewPointer.reinterpret())
-
         /**
          * Sets the number of spaces to use for each step of indent when the tab key is
          * pressed.
@@ -344,9 +331,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
          * @return a #GtkSourceIndenter or null
          */
         get() = gtk_source_view_get_indenter(gtksourceViewPointer.reinterpret())?.run {
-            Indenter.wrap(reinterpret())
-        }
-
+            Indenter.wrap(reinterpret())}
         /**
          * Sets the indenter for @view to @indenter.
          *
@@ -355,9 +340,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
          *
          * @param indenter a #GtkSourceIndenter or null
          */
-        set(
-            indenter
-        ) = gtk_source_view_set_indenter(gtksourceViewPointer.reinterpret(), indenter?.gtksourceIndenterPointer)
+        set(indenter) = gtk_source_view_set_indenter(gtksourceViewPointer.reinterpret(), indenter?.gtksourceIndenterPointer)
 
     public open var insertSpacesInsteadOfTabs: Boolean
         /**
@@ -367,7 +350,6 @@ public open class View(pointer: CPointer<GtkSourceView>) :
          * @return true if spaces are inserted instead of tabs.
          */
         get() = gtk_source_view_get_insert_spaces_instead_of_tabs(gtksourceViewPointer.reinterpret()).asBoolean()
-
         /**
          * If true a tab key pressed is replaced by a group of space characters.
          *
@@ -376,9 +358,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
          *
          * @param enable whether to insert spaces instead of tabs.
          */
-        set(
-            enable
-        ) = gtk_source_view_set_insert_spaces_instead_of_tabs(gtksourceViewPointer.reinterpret(), enable.asGBoolean())
+        set(enable) = gtk_source_view_set_insert_spaces_instead_of_tabs(gtksourceViewPointer.reinterpret(), enable.asGBoolean())
 
     /**
      * Position of the right margin.
@@ -390,7 +370,6 @@ public open class View(pointer: CPointer<GtkSourceView>) :
          * @return the position of the right margin.
          */
         get() = gtk_source_view_get_right_margin_position(gtksourceViewPointer.reinterpret())
-
         /**
          * Sets the position of the right margin in the given @view.
          *
@@ -408,7 +387,6 @@ public open class View(pointer: CPointer<GtkSourceView>) :
          * @return true if the line marks are displayed.
          */
         get() = gtk_source_view_get_show_line_marks(gtksourceViewPointer.reinterpret()).asBoolean()
-
         /**
          * If true line marks will be displayed beside the text.
          *
@@ -426,7 +404,6 @@ public open class View(pointer: CPointer<GtkSourceView>) :
          * @return true if the line numbers are displayed.
          */
         get() = gtk_source_view_get_show_line_numbers(gtksourceViewPointer.reinterpret()).asBoolean()
-
         /**
          * If true line numbers will be displayed beside the text.
          *
@@ -444,7 +421,6 @@ public open class View(pointer: CPointer<GtkSourceView>) :
          * @return true if the right margin is shown.
          */
         get() = gtk_source_view_get_show_right_margin(gtksourceViewPointer.reinterpret()).asBoolean()
-
         /**
          * If true a right margin is displayed.
          *
@@ -463,16 +439,13 @@ public open class View(pointer: CPointer<GtkSourceView>) :
          * @return true if smart Backspace handling is enabled.
          */
         get() = gtk_source_view_get_smart_backspace(gtksourceViewPointer.reinterpret()).asBoolean()
-
         /**
          * When set to true, pressing the Backspace key will try to delete spaces
          * up to the previous tab stop.
          *
          * @param smartBackspace whether to enable smart Backspace handling.
          */
-        set(
-            smartBackspace
-        ) = gtk_source_view_set_smart_backspace(gtksourceViewPointer.reinterpret(), smartBackspace.asGBoolean())
+        set(smartBackspace) = gtk_source_view_set_smart_backspace(gtksourceViewPointer.reinterpret(), smartBackspace.asGBoolean())
 
     /**
      * Set the behavior of the HOME and END keys.
@@ -485,18 +458,14 @@ public open class View(pointer: CPointer<GtkSourceView>) :
          * @return a #GtkSourceSmartHomeEndType value.
          */
         get() = gtk_source_view_get_smart_home_end(gtksourceViewPointer.reinterpret()).run {
-            SmartHomeEndType.fromNativeValue(this)
-        }
-
+            SmartHomeEndType.fromNativeValue(this)}
         /**
          * Set the desired movement of the cursor when HOME and END keys
          * are pressed.
          *
          * @param smartHomeEnd the desired behavior among #GtkSourceSmartHomeEndType.
          */
-        set(
-            smartHomeEnd
-        ) = gtk_source_view_set_smart_home_end(gtksourceViewPointer.reinterpret(), smartHomeEnd.nativeValue)
+        set(smartHomeEnd) = gtk_source_view_set_smart_home_end(gtksourceViewPointer.reinterpret(), smartHomeEnd.nativeValue)
 
     /**
      * The [class@SpaceDrawer] object associated with the view.4
@@ -511,8 +480,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
          * @return the #GtkSourceSpaceDrawer associated with @view.
          */
         get() = gtk_source_view_get_space_drawer(gtksourceViewPointer.reinterpret())!!.run {
-            SpaceDrawer(reinterpret())
-        }
+            SpaceDrawer(reinterpret())}
 
     /**
      * Width of a tab character expressed in number of spaces.
@@ -524,7 +492,6 @@ public open class View(pointer: CPointer<GtkSourceView>) :
          * @return width of tab.
          */
         get() = gtk_source_view_get_tab_width(gtksourceViewPointer.reinterpret())
-
         /**
          * Sets the width of tabulation in characters.
          *
@@ -557,9 +524,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param buffer a #GtkSourceBuffer.
      * @return a new #GtkSourceView.
      */
-    public constructor(
-        buffer: Buffer,
-    ) : this(gtk_source_view_new_with_buffer(buffer.gtksourceBufferPointer.reinterpret())!!.reinterpret())
+    public constructor(buffer: Buffer) : this(gtk_source_view_new_with_buffer(buffer.gtksourceBufferPointer.reinterpret())!!.reinterpret())
 
     /**
      * Returns the [class@Gutter] object associated with @window_type for @view.
@@ -571,10 +536,8 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param windowType the gutter window type.
      * @return the #GtkSourceGutter.
      */
-    public open fun getGutterView(windowType: UInt): Gutter =
-        gtk_source_view_get_gutter(gtksourceViewPointer.reinterpret(), windowType)!!.run {
-            Gutter(reinterpret())
-        }
+    public open fun getGutterView(windowType: UInt): Gutter = gtk_source_view_get_gutter(gtksourceViewPointer.reinterpret(), windowType)!!.run {
+        Gutter(reinterpret())}
 
     /**
      * Gets the [class@Hover] associated with @view.
@@ -585,8 +548,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @return a #GtkSourceHover associated with @view.
      */
     public open fun getHover(): Hover = gtk_source_view_get_hover(gtksourceViewPointer.reinterpret())!!.run {
-        Hover(reinterpret())
-    }
+        Hover(reinterpret())}
 
     /**
      * Determines the visual column at @iter taking into consideration the
@@ -595,8 +557,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param iter a position in @view.
      * @return the visual column at @iter.
      */
-    public open fun getVisualColumn(iter: TextIter): UInt =
-        gtk_source_view_get_visual_column(gtksourceViewPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret())
+    public open fun getVisualColumn(iter: TextIter): UInt = gtk_source_view_get_visual_column(gtksourceViewPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret())
 
     /**
      * Inserts one indentation level at the beginning of the specified lines. The
@@ -605,11 +566,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param start #GtkTextIter of the first line to indent
      * @param end #GtkTextIter of the last line to indent
      */
-    public open fun indentLines(start: TextIter, end: TextIter): Unit = gtk_source_view_indent_lines(
-        gtksourceViewPointer.reinterpret(),
-        start.gtkTextIterPointer.reinterpret(),
-        end.gtkTextIterPointer.reinterpret()
-    )
+    public open fun indentLines(start: TextIter, end: TextIter): Unit = gtk_source_view_indent_lines(gtksourceViewPointer.reinterpret(), start.gtkTextIterPointer.reinterpret(), end.gtkTextIterPointer.reinterpret())
 
     /**
      * Inserts a new snippet at @location
@@ -621,11 +578,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param snippet a #GtkSourceSnippet
      * @param location a #GtkTextIter or null for the cursor position
      */
-    public open fun pushSnippet(snippet: Snippet, location: TextIter? = null): Unit = gtk_source_view_push_snippet(
-        gtksourceViewPointer.reinterpret(),
-        snippet.gtksourceSnippetPointer.reinterpret(),
-        location?.gtkTextIterPointer?.reinterpret()
-    )
+    public open fun pushSnippet(snippet: Snippet, location: TextIter? = null): Unit = gtk_source_view_push_snippet(gtksourceViewPointer.reinterpret(), snippet.gtksourceSnippetPointer.reinterpret(), location?.gtkTextIterPointer?.reinterpret())
 
     /**
      * Sets attributes and priority for the @category.
@@ -634,13 +587,11 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param attributes mark attributes.
      * @param priority priority of the category.
      */
-    public open fun setMarkAttributes(category: String, attributes: MarkAttributes, priority: Int): Unit =
-        gtk_source_view_set_mark_attributes(
-            gtksourceViewPointer.reinterpret(),
-            category,
-            attributes.gtksourceMarkAttributesPointer.reinterpret(),
-            priority
-        )
+    public open fun setMarkAttributes(
+        category: String,
+        attributes: MarkAttributes,
+        priority: Int,
+    ): Unit = gtk_source_view_set_mark_attributes(gtksourceViewPointer.reinterpret(), category, attributes.gtksourceMarkAttributesPointer.reinterpret(), priority)
 
     /**
      * Removes one indentation level at the beginning of the
@@ -649,11 +600,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param start #GtkTextIter of the first line to indent
      * @param end #GtkTextIter of the last line to indent
      */
-    public open fun unindentLines(start: TextIter, end: TextIter): Unit = gtk_source_view_unindent_lines(
-        gtksourceViewPointer.reinterpret(),
-        start.gtkTextIterPointer.reinterpret(),
-        end.gtkTextIterPointer.reinterpret()
-    )
+    public open fun unindentLines(start: TextIter, end: TextIter): Unit = gtk_source_view_unindent_lines(gtksourceViewPointer.reinterpret(), start.gtkTextIterPointer.reinterpret(), end.gtkTextIterPointer.reinterpret())
 
     /**
      * Keybinding signal to change case of the text at the current cursor position.
@@ -661,17 +608,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `caseType` the case to use
      */
-    public fun connectChangeCase(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (caseType: ChangeCaseType) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "change-case",
-        connectChangeCaseFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectChangeCase(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (caseType: ChangeCaseType) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "change-case", connectChangeCaseFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Keybinding signal to edit a number at the current cursor position.
@@ -679,17 +616,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `count` the number to add to the number at the current position
      */
-    public fun connectChangeNumber(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (count: Int) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "change-number",
-        connectChangeNumberFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectChangeNumber(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (count: Int) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "change-number", connectChangeNumberFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Keybinding signal to join the lines currently selected.
@@ -697,15 +624,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectJoinLines(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "join-lines",
-            connectJoinLinesFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectJoinLines(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "join-lines", connectJoinLinesFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when a line mark has been activated (for instance when there
@@ -716,22 +635,12 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `iter` a #GtkTextIter; `button` the button that was pressed; `state` the modifier state, if any; `nPresses` the number of presses
      */
-    public fun connectLineMarkActivated(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            iter: TextIter,
-            button: UInt,
-            state: ModifierType,
-            nPresses: Int,
-        ) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "line-mark-activated",
-        connectLineMarkActivatedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectLineMarkActivated(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
+        iter: TextIter,
+        button: UInt,
+        state: ModifierType,
+        nPresses: Int,
+    ) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "line-mark-activated", connectLineMarkActivatedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * The signal is a keybinding which gets emitted when the user initiates moving a line.
@@ -742,17 +651,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `down` true to move down, false to move up.
      */
-    public fun connectMoveLines(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (down: Boolean) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "move-lines",
-        connectMoveLinesFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectMoveLines(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (down: Boolean) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "move-lines", connectMoveLinesFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Keybinding signal to move the cursor to the matching bracket.
@@ -760,17 +659,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `extendSelection` true if the move should extend the selection
      */
-    public fun connectMoveToMatchingBracket(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (extendSelection: Boolean) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "move-to-matching-bracket",
-        connectMoveToMatchingBracketFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectMoveToMatchingBracket(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (extendSelection: Boolean) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "move-to-matching-bracket", connectMoveToMatchingBracketFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * The signal is a keybinding which gets emitted when the user initiates moving a word.
@@ -781,15 +670,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `count` the number of words to move over
      */
-    public fun connectMoveWords(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (count: Int) -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "move-words",
-            connectMoveWordsFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectMoveWords(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (count: Int) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "move-words", connectMoveWordsFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * The signal is a key binding signal which gets
@@ -806,15 +687,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectShowCompletion(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "show-completion",
-            connectShowCompletionFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectShowCompletion(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "show-completion", connectShowCompletionFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when a the cursor was moved according to the smart home end setting.
@@ -827,143 +700,107 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `iter` a #GtkTextIter; `count` the count
      */
-    public fun connectSmartHomeEnd(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (iter: TextIter, count: Int) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "smart-home-end",
-        connectSmartHomeEndFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectSmartHomeEnd(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (iter: TextIter, count: Int) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "smart-home-end", connectSmartHomeEndFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<View> {
         override val type: GeneratedClassKGType<View> =
-            GeneratedClassKGType(gtk_source_view_get_type()) { View(it.reinterpret()) }
+                GeneratedClassKGType(gtk_source_view_get_type()) { View(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtksourceTypeProvider.register()}
     }
 }
 
 private val connectChangeCaseFunc: CPointer<CFunction<(GtkSourceChangeCaseType) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            caseType: GtkSourceChangeCaseType,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(caseType: ChangeCaseType) -> Unit>().get().invoke(
-            caseType.run {
-                ChangeCaseType.fromNativeValue(this)
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    caseType: GtkSourceChangeCaseType,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(caseType: ChangeCaseType) -> Unit>().get().invoke(caseType.run {
+        ChangeCaseType.fromNativeValue(this)}
+    )}
+.reinterpret()
 
 private val connectChangeNumberFunc: CPointer<CFunction<(Int) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        count: Int,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    count: Int,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(count: Int) -> Unit>().get().invoke(count)
-}
-    .reinterpret()
+    userData.asStableRef<(count: Int) -> Unit>().get().invoke(count)}
+.reinterpret()
 
 private val connectJoinLinesFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
-private val connectLineMarkActivatedFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GtkTextIter>,
-            UInt,
-            GdkModifierType,
-            Int,
-        ) -> Unit
-        >
-    > = staticCFunction {
-        _: COpaquePointer,
-        iter: CPointer<GtkTextIter>?,
-        button: UInt,
-        state: GdkModifierType,
-        nPresses: Int,
-        userData: COpaquePointer,
+private val connectLineMarkActivatedFunc: CPointer<CFunction<(
+    CPointer<GtkTextIter>,
+    UInt,
+    GdkModifierType,
+    Int,
+) -> Unit>> = staticCFunction {
+    _: COpaquePointer,
+    iter: CPointer<GtkTextIter>?,
+    button: UInt,
+    state: GdkModifierType,
+    nPresses: Int,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<
-        (
-            iter: TextIter,
-            button: UInt,
-            state: ModifierType,
-            nPresses: Int,
-        ) -> Unit
-        >().get().invoke(
-        iter!!.run {
-            TextIter(reinterpret())
-        },
-        button,
-        state.run {
-            ModifierType(this)
-        },
-        nPresses
-    )
-}
-    .reinterpret()
+    userData.asStableRef<(
+        iter: TextIter,
+        button: UInt,
+        state: ModifierType,
+        nPresses: Int,
+    ) -> Unit>().get().invoke(iter!!.run {
+        TextIter(reinterpret())}
+    , button, state.run {
+        ModifierType(this)}
+    , nPresses)}
+.reinterpret()
 
 private val connectMoveLinesFunc: CPointer<CFunction<(Int) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        down: Int,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    down: Int,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(down: Boolean) -> Unit>().get().invoke(down.asBoolean())
-}
-    .reinterpret()
+    userData.asStableRef<(down: Boolean) -> Unit>().get().invoke(down.asBoolean())}
+.reinterpret()
 
 private val connectMoveToMatchingBracketFunc: CPointer<CFunction<(Int) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        extendSelection: Int,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    extendSelection: Int,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(extendSelection: Boolean) -> Unit>().get().invoke(extendSelection.asBoolean())
-}
-    .reinterpret()
+    userData.asStableRef<(extendSelection: Boolean) -> Unit>().get().invoke(extendSelection.asBoolean())}
+.reinterpret()
 
 private val connectMoveWordsFunc: CPointer<CFunction<(Int) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        count: Int,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    count: Int,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(count: Int) -> Unit>().get().invoke(count)
-}
-    .reinterpret()
+    userData.asStableRef<(count: Int) -> Unit>().get().invoke(count)}
+.reinterpret()
 
 private val connectShowCompletionFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectSmartHomeEndFunc: CPointer<CFunction<(CPointer<GtkTextIter>, Int) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            iter: CPointer<GtkTextIter>?,
-            count: Int,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(iter: TextIter, count: Int) -> Unit>().get().invoke(
-            iter!!.run {
-                TextIter(reinterpret())
-            },
-            count
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    iter: CPointer<GtkTextIter>?,
+    count: Int,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(iter: TextIter, count: Int) -> Unit>().get().invoke(iter!!.run {
+        TextIter(reinterpret())}
+    , count)}
+.reinterpret()

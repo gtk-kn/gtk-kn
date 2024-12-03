@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -15,7 +16,7 @@ import org.gtkkn.native.gdk.gdk_texture_downloader_get_texture
 import org.gtkkn.native.gdk.gdk_texture_downloader_new
 import org.gtkkn.native.gdk.gdk_texture_downloader_set_format
 import org.gtkkn.native.gdk.gdk_texture_downloader_set_texture
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `GdkTextureDownloader` is used to download the contents of a
@@ -37,7 +38,9 @@ import kotlin.Unit
  * @since 4.10
  */
 @GdkVersion4_10
-public class TextureDownloader(pointer: CPointer<GdkTextureDownloader>) : Record {
+public class TextureDownloader(
+    pointer: CPointer<GdkTextureDownloader>,
+) : Record {
     public val gdkTextureDownloaderPointer: CPointer<GdkTextureDownloader> = pointer
 
     /**
@@ -49,10 +52,8 @@ public class TextureDownloader(pointer: CPointer<GdkTextureDownloader>) : Record
      * @since 4.10
      */
     @GdkVersion4_10
-    public fun copy(): TextureDownloader =
-        gdk_texture_downloader_copy(gdkTextureDownloaderPointer.reinterpret())!!.run {
-            TextureDownloader(reinterpret())
-        }
+    public fun copy(): TextureDownloader = gdk_texture_downloader_copy(gdkTextureDownloaderPointer.reinterpret())!!.run {
+        TextureDownloader(reinterpret())}
 
     /**
      * Frees the given downloader and all its associated resources.
@@ -69,10 +70,8 @@ public class TextureDownloader(pointer: CPointer<GdkTextureDownloader>) : Record
      * @since 4.10
      */
     @GdkVersion4_10
-    public fun getFormat(): MemoryFormat =
-        gdk_texture_downloader_get_format(gdkTextureDownloaderPointer.reinterpret()).run {
-            MemoryFormat.fromNativeValue(this)
-        }
+    public fun getFormat(): MemoryFormat = gdk_texture_downloader_get_format(gdkTextureDownloaderPointer.reinterpret()).run {
+        MemoryFormat.fromNativeValue(this)}
 
     /**
      * Gets the texture that the downloader will download.
@@ -81,10 +80,8 @@ public class TextureDownloader(pointer: CPointer<GdkTextureDownloader>) : Record
      * @since 4.10
      */
     @GdkVersion4_10
-    public fun getTexture(): Texture =
-        gdk_texture_downloader_get_texture(gdkTextureDownloaderPointer.reinterpret())!!.run {
-            Texture(reinterpret())
-        }
+    public fun getTexture(): Texture = gdk_texture_downloader_get_texture(gdkTextureDownloaderPointer.reinterpret())!!.run {
+        Texture(reinterpret())}
 
     /**
      * Sets the format the downloader will download.
@@ -95,8 +92,7 @@ public class TextureDownloader(pointer: CPointer<GdkTextureDownloader>) : Record
      * @since 4.10
      */
     @GdkVersion4_10
-    public fun setFormat(format: MemoryFormat): Unit =
-        gdk_texture_downloader_set_format(gdkTextureDownloaderPointer.reinterpret(), format.nativeValue)
+    public fun setFormat(format: MemoryFormat): Unit = gdk_texture_downloader_set_format(gdkTextureDownloaderPointer.reinterpret(), format.nativeValue)
 
     /**
      * Changes the texture the downloader will download.
@@ -105,10 +101,7 @@ public class TextureDownloader(pointer: CPointer<GdkTextureDownloader>) : Record
      * @since 4.10
      */
     @GdkVersion4_10
-    public fun setTexture(texture: Texture): Unit = gdk_texture_downloader_set_texture(
-        gdkTextureDownloaderPointer.reinterpret(),
-        texture.gdkTexturePointer.reinterpret()
-    )
+    public fun setTexture(texture: Texture): Unit = gdk_texture_downloader_set_texture(gdkTextureDownloaderPointer.reinterpret(), texture.gdkTexturePointer.reinterpret())
 
     public companion object : RecordCompanion<TextureDownloader, GdkTextureDownloader> {
         /**
@@ -118,10 +111,8 @@ public class TextureDownloader(pointer: CPointer<GdkTextureDownloader>) : Record
          * @return A new texture downloader
          * @since 4.10
          */
-        public fun new(texture: Texture): TextureDownloader =
-            TextureDownloader(gdk_texture_downloader_new(texture.gdkTexturePointer.reinterpret())!!.reinterpret())
+        public fun new(texture: Texture): TextureDownloader = TextureDownloader(gdk_texture_downloader_new(texture.gdkTexturePointer.reinterpret())!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TextureDownloader =
-            TextureDownloader(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TextureDownloader = TextureDownloader(pointer.reinterpret())
     }
 }

@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.Long
+import kotlin.Result
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -38,11 +43,6 @@ import org.gtkkn.native.gio.g_output_stream_write_bytes_async
 import org.gtkkn.native.gio.g_output_stream_write_bytes_finish
 import org.gtkkn.native.gio.g_output_stream_write_finish
 import org.gtkkn.native.glib.GError
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.Long
-import kotlin.Result
-import kotlin.Unit
 
 /**
  * `GOutputStream` is a base class for implementing streaming output.
@@ -77,8 +77,9 @@ import kotlin.Unit
  * - parameter `vectors`: OutputVector
  * - parameter `bytes_written`: bytes_written: Out parameter is not supported
  */
-public open class OutputStream(pointer: CPointer<GOutputStream>) :
-    Object(pointer.reinterpret()),
+public open class OutputStream(
+    pointer: CPointer<GOutputStream>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gioOutputStreamPointer: CPointer<GOutputStream>
         get() = gPointer.reinterpret()
@@ -124,14 +125,11 @@ public open class OutputStream(pointer: CPointer<GOutputStream>) :
      */
     public open fun close(cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_output_stream_close(
-            gioOutputStreamPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_output_stream_close(gioOutputStreamPointer.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -153,14 +151,11 @@ public open class OutputStream(pointer: CPointer<GOutputStream>) :
      * @param callback a #GAsyncReadyCallback
      *   to call when the request is satisfied
      */
-    public open fun closeAsync(ioPriority: Int, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
-        g_output_stream_close_async(
-            gioOutputStreamPointer.reinterpret(),
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    public open fun closeAsync(
+        ioPriority: Int,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback,
+    ): Unit = g_output_stream_close_async(gioOutputStreamPointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
 
     /**
      * Closes an output stream.
@@ -170,14 +165,11 @@ public open class OutputStream(pointer: CPointer<GOutputStream>) :
      */
     public open fun closeFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_output_stream_close_finish(
-            gioOutputStreamPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_output_stream_close_finish(gioOutputStreamPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -198,14 +190,11 @@ public open class OutputStream(pointer: CPointer<GOutputStream>) :
      */
     public open fun flush(cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_output_stream_flush(
-            gioOutputStreamPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_output_stream_flush(gioOutputStreamPointer.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -224,14 +213,11 @@ public open class OutputStream(pointer: CPointer<GOutputStream>) :
      * @param callback a #GAsyncReadyCallback
      *   to call when the request is satisfied
      */
-    public open fun flushAsync(ioPriority: Int, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
-        g_output_stream_flush_async(
-            gioOutputStreamPointer.reinterpret(),
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    public open fun flushAsync(
+        ioPriority: Int,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback,
+    ): Unit = g_output_stream_flush_async(gioOutputStreamPointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
 
     /**
      * Finishes flushing an output stream.
@@ -241,14 +227,11 @@ public open class OutputStream(pointer: CPointer<GOutputStream>) :
      */
     public open fun flushFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_output_stream_flush_finish(
-            gioOutputStreamPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_output_stream_flush_finish(gioOutputStreamPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -258,8 +241,7 @@ public open class OutputStream(pointer: CPointer<GOutputStream>) :
      *
      * @return true if @stream has pending actions.
      */
-    public open fun hasPending(): Boolean =
-        g_output_stream_has_pending(gioOutputStreamPointer.reinterpret()).asBoolean()
+    public open fun hasPending(): Boolean = g_output_stream_has_pending(gioOutputStreamPointer.reinterpret()).asBoolean()
 
     /**
      * Checks if an output stream has already been closed.
@@ -292,7 +274,8 @@ public open class OutputStream(pointer: CPointer<GOutputStream>) :
         val gResult = g_output_stream_set_pending(gioOutputStreamPointer.reinterpret(), gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -315,17 +298,11 @@ public open class OutputStream(pointer: CPointer<GOutputStream>) :
         cancellable: Cancellable? = null,
     ): Result<Long> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult =
-            g_output_stream_splice(
-                gioOutputStreamPointer.reinterpret(),
-                source.gioInputStreamPointer.reinterpret(),
-                flags.mask,
-                cancellable?.gioCancellablePointer?.reinterpret(),
-                gError.ptr
-            )
+        val gResult = g_output_stream_splice(gioOutputStreamPointer.reinterpret(), source.gioInputStreamPointer.reinterpret(), flags.mask, cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -352,15 +329,7 @@ public open class OutputStream(pointer: CPointer<GOutputStream>) :
         ioPriority: Int,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit = g_output_stream_splice_async(
-        gioOutputStreamPointer.reinterpret(),
-        source.gioInputStreamPointer.reinterpret(),
-        flags.mask,
-        ioPriority,
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
-    )
+    ): Unit = g_output_stream_splice_async(gioOutputStreamPointer.reinterpret(), source.gioInputStreamPointer.reinterpret(), flags.mask, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
 
     /**
      * Finishes an asynchronous stream splice operation.
@@ -373,15 +342,11 @@ public open class OutputStream(pointer: CPointer<GOutputStream>) :
      */
     public open fun spliceFinish(result: AsyncResult): Result<Long> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult =
-            g_output_stream_splice_finish(
-                gioOutputStreamPointer.reinterpret(),
-                result.gioAsyncResultPointer,
-                gError.ptr
-            )
+        val gResult = g_output_stream_splice_finish(gioOutputStreamPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -405,16 +370,11 @@ public open class OutputStream(pointer: CPointer<GOutputStream>) :
      */
     public open fun writeBytes(bytes: Bytes, cancellable: Cancellable? = null): Result<Long> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult =
-            g_output_stream_write_bytes(
-                gioOutputStreamPointer.reinterpret(),
-                bytes.glibBytesPointer.reinterpret(),
-                cancellable?.gioCancellablePointer?.reinterpret(),
-                gError.ptr
-            )
+        val gResult = g_output_stream_write_bytes(gioOutputStreamPointer.reinterpret(), bytes.glibBytesPointer.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -445,14 +405,7 @@ public open class OutputStream(pointer: CPointer<GOutputStream>) :
         ioPriority: Int,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit = g_output_stream_write_bytes_async(
-        gioOutputStreamPointer.reinterpret(),
-        bytes.glibBytesPointer.reinterpret(),
-        ioPriority,
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
-    )
+    ): Unit = g_output_stream_write_bytes_async(gioOutputStreamPointer.reinterpret(), bytes.glibBytesPointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
 
     /**
      * Finishes a stream write-from-#GBytes operation.
@@ -462,15 +415,11 @@ public open class OutputStream(pointer: CPointer<GOutputStream>) :
      */
     public open fun writeBytesFinish(result: AsyncResult): Result<Long> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult =
-            g_output_stream_write_bytes_finish(
-                gioOutputStreamPointer.reinterpret(),
-                result.gioAsyncResultPointer,
-                gError.ptr
-            )
+        val gResult = g_output_stream_write_bytes_finish(gioOutputStreamPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -483,21 +432,20 @@ public open class OutputStream(pointer: CPointer<GOutputStream>) :
      */
     public open fun writeFinish(result: AsyncResult): Result<Long> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult =
-            g_output_stream_write_finish(gioOutputStreamPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)
+        val gResult = g_output_stream_write_finish(gioOutputStreamPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
 
     public companion object : TypeCompanion<OutputStream> {
         override val type: GeneratedClassKGType<OutputStream> =
-            GeneratedClassKGType(g_output_stream_get_type()) { OutputStream(it.reinterpret()) }
+                GeneratedClassKGType(g_output_stream_get_type()) { OutputStream(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
     }
 }

@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -33,10 +37,6 @@ import org.gtkkn.native.gtk.gtk_overlay_remove_overlay
 import org.gtkkn.native.gtk.gtk_overlay_set_child
 import org.gtkkn.native.gtk.gtk_overlay_set_clip_overlay
 import org.gtkkn.native.gtk.gtk_overlay_set_measure_overlay
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkOverlay` is a container which contains a single main child, on top
@@ -72,8 +72,9 @@ import kotlin.Unit
  * whose alignments cause them to be positioned at an edge get the style classes
  * “.left”, “.right”, “.top”, and/or “.bottom” according to their position.
  */
-public open class Overlay(pointer: CPointer<GtkOverlay>) :
-    Widget(pointer.reinterpret()),
+public open class Overlay(
+    pointer: CPointer<GtkOverlay>,
+) : Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkOverlayPointer: CPointer<GtkOverlay>
         get() = gPointer.reinterpret()
@@ -97,9 +98,7 @@ public open class Overlay(pointer: CPointer<GtkOverlay>) :
          * @return the child widget of @overlay
          */
         get() = gtk_overlay_get_child(gtkOverlayPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the child widget of @overlay.
          *
@@ -126,8 +125,7 @@ public open class Overlay(pointer: CPointer<GtkOverlay>) :
      *
      * @param widget a `GtkWidget` to be added to the container
      */
-    public open fun addOverlay(widget: Widget): Unit =
-        gtk_overlay_add_overlay(gtkOverlayPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
+    public open fun addOverlay(widget: Widget): Unit = gtk_overlay_add_overlay(gtkOverlayPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
      * Gets whether @widget should be clipped within the parent.
@@ -135,8 +133,7 @@ public open class Overlay(pointer: CPointer<GtkOverlay>) :
      * @param widget an overlay child of `GtkOverlay`
      * @return whether the widget is clipped within the parent.
      */
-    public open fun getClipOverlay(widget: Widget): Boolean =
-        gtk_overlay_get_clip_overlay(gtkOverlayPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret()).asBoolean()
+    public open fun getClipOverlay(widget: Widget): Boolean = gtk_overlay_get_clip_overlay(gtkOverlayPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret()).asBoolean()
 
     /**
      * Gets whether @widget's size is included in the measurement of
@@ -145,18 +142,14 @@ public open class Overlay(pointer: CPointer<GtkOverlay>) :
      * @param widget an overlay child of `GtkOverlay`
      * @return whether the widget is measured
      */
-    public open fun getMeasureOverlay(widget: Widget): Boolean = gtk_overlay_get_measure_overlay(
-        gtkOverlayPointer.reinterpret(),
-        widget.gtkWidgetPointer.reinterpret()
-    ).asBoolean()
+    public open fun getMeasureOverlay(widget: Widget): Boolean = gtk_overlay_get_measure_overlay(gtkOverlayPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret()).asBoolean()
 
     /**
      * Removes an overlay that was added with gtk_overlay_add_overlay().
      *
      * @param widget a `GtkWidget` to be removed
      */
-    public open fun removeOverlay(widget: Widget): Unit =
-        gtk_overlay_remove_overlay(gtkOverlayPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
+    public open fun removeOverlay(widget: Widget): Unit = gtk_overlay_remove_overlay(gtkOverlayPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
      * Sets whether @widget should be clipped within the parent.
@@ -164,11 +157,7 @@ public open class Overlay(pointer: CPointer<GtkOverlay>) :
      * @param widget an overlay child of `GtkOverlay`
      * @param clipOverlay whether the child should be clipped
      */
-    public open fun setClipOverlay(widget: Widget, clipOverlay: Boolean): Unit = gtk_overlay_set_clip_overlay(
-        gtkOverlayPointer.reinterpret(),
-        widget.gtkWidgetPointer.reinterpret(),
-        clipOverlay.asGBoolean()
-    )
+    public open fun setClipOverlay(widget: Widget, clipOverlay: Boolean): Unit = gtk_overlay_set_clip_overlay(gtkOverlayPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret(), clipOverlay.asGBoolean())
 
     /**
      * Sets whether @widget is included in the measured size of @overlay.
@@ -180,11 +169,7 @@ public open class Overlay(pointer: CPointer<GtkOverlay>) :
      * @param widget an overlay child of `GtkOverlay`
      * @param measure whether the child should be measured
      */
-    public open fun setMeasureOverlay(widget: Widget, measure: Boolean): Unit = gtk_overlay_set_measure_overlay(
-        gtkOverlayPointer.reinterpret(),
-        widget.gtkWidgetPointer.reinterpret(),
-        measure.asGBoolean()
-    )
+    public open fun setMeasureOverlay(widget: Widget, measure: Boolean): Unit = gtk_overlay_set_measure_overlay(gtkOverlayPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret(), measure.asGBoolean())
 
     /**
      * Emitted to determine the position and size of any overlay
@@ -206,43 +191,28 @@ public open class Overlay(pointer: CPointer<GtkOverlay>) :
      * @param handler the Callback to connect. Params: `widget` the child widget to position; `allocation` return
      *   location for the allocation. Returns true if the @allocation has been filled
      */
-    public fun connectGetChildPosition(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (widget: Widget, allocation: Rectangle) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "get-child-position",
-        connectGetChildPositionFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectGetChildPosition(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (widget: Widget, allocation: Rectangle) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "get-child-position", connectGetChildPositionFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<Overlay> {
         override val type: GeneratedClassKGType<Overlay> =
-            GeneratedClassKGType(gtk_overlay_get_type()) { Overlay(it.reinterpret()) }
+                GeneratedClassKGType(gtk_overlay_get_type()) { Overlay(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }
 
 private val connectGetChildPositionFunc:
-    CPointer<CFunction<(CPointer<GtkWidget>, CPointer<GdkRectangle>) -> Int>> =
-    staticCFunction {
-            _: COpaquePointer,
-            widget: CPointer<GtkWidget>?,
-            allocation: CPointer<GdkRectangle>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(widget: Widget, allocation: Rectangle) -> Boolean>().get().invoke(
-            widget!!.run {
-                Widget(reinterpret())
-            },
-            allocation!!.run {
-                Rectangle(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GtkWidget>, CPointer<GdkRectangle>) -> Int>> =
+        staticCFunction {
+    _: COpaquePointer,
+    widget: CPointer<GtkWidget>?,
+    allocation: CPointer<GdkRectangle>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(widget: Widget, allocation: Rectangle) -> Boolean>().get().invoke(widget!!.run {
+        Widget(reinterpret())}
+    , allocation!!.run {
+        Rectangle(reinterpret())}
+    ).asGBoolean()}
+.reinterpret()

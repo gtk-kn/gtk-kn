@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.Double
+import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -12,8 +14,6 @@ import org.gtkkn.native.gdk.gdk_touchpad_event_get_n_fingers
 import org.gtkkn.native.gdk.gdk_touchpad_event_get_pinch_angle_delta
 import org.gtkkn.native.gdk.gdk_touchpad_event_get_pinch_scale
 import org.gtkkn.native.gdk.gdk_touchpad_event_get_type
-import kotlin.Double
-import kotlin.UInt
 
 /**
  * An event related to a gesture on a touchpad device.
@@ -27,8 +27,9 @@ import kotlin.UInt
  *
  * - parameter `dx`: dx: Out parameter is not supported
  */
-public open class TouchpadEvent(pointer: CPointer<GdkTouchpadEvent>) :
-    Event(pointer.reinterpret()),
+public open class TouchpadEvent(
+    pointer: CPointer<GdkTouchpadEvent>,
+) : Event(pointer.reinterpret()),
     KGTyped {
     public val gdkTouchpadEventPointer: CPointer<GdkTouchpadEvent>
         get() = gPointer.reinterpret()
@@ -38,10 +39,8 @@ public open class TouchpadEvent(pointer: CPointer<GdkTouchpadEvent>) :
      *
      * @return the gesture phase of @event
      */
-    public open fun getGesturePhase(): TouchpadGesturePhase =
-        gdk_touchpad_event_get_gesture_phase(gdkTouchpadEventPointer.reinterpret()).run {
-            TouchpadGesturePhase.fromNativeValue(this)
-        }
+    public open fun getGesturePhase(): TouchpadGesturePhase = gdk_touchpad_event_get_gesture_phase(gdkTouchpadEventPointer.reinterpret()).run {
+        TouchpadGesturePhase.fromNativeValue(this)}
 
     /**
      * Extracts the number of fingers from a touchpad event.
@@ -55,8 +54,7 @@ public open class TouchpadEvent(pointer: CPointer<GdkTouchpadEvent>) :
      *
      * @return the angle delta of @event
      */
-    public open fun getPinchAngleDelta(): Double =
-        gdk_touchpad_event_get_pinch_angle_delta(gdkTouchpadEventPointer.reinterpret())
+    public open fun getPinchAngleDelta(): Double = gdk_touchpad_event_get_pinch_angle_delta(gdkTouchpadEventPointer.reinterpret())
 
     /**
      * Extracts the scale from a touchpad pinch event.
@@ -67,10 +65,9 @@ public open class TouchpadEvent(pointer: CPointer<GdkTouchpadEvent>) :
 
     public companion object : TypeCompanion<TouchpadEvent> {
         override val type: GeneratedClassKGType<TouchpadEvent> =
-            GeneratedClassKGType(gdk_touchpad_event_get_type()) { TouchpadEvent(it.reinterpret()) }
+                GeneratedClassKGType(gdk_touchpad_event_get_type()) { TouchpadEvent(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
     }
 }

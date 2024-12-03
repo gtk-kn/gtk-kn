@@ -7,7 +7,9 @@ import org.gtkkn.native.webkit.WebKitLoadEvent
  * Enum values used to denote the different events that happen during a
  * #WebKitWebView load operation.
  */
-public enum class LoadEvent(public val nativeValue: WebKitLoadEvent) {
+public enum class LoadEvent(
+    public val nativeValue: WebKitLoadEvent,
+) {
     /**
      * A new load request has been made.
      * No data has been received yet, empty structures have
@@ -16,20 +18,17 @@ public enum class LoadEvent(public val nativeValue: WebKitLoadEvent) {
      * resolve a name, or connect to a port.
      */
     STARTED(WebKitLoadEvent.WEBKIT_LOAD_STARTED),
-
     /**
      * A provisional data source received
      * a server redirect.
      */
     REDIRECTED(WebKitLoadEvent.WEBKIT_LOAD_REDIRECTED),
-
     /**
      * The content started arriving for a page load.
      * The necessary transport requirements are established, and the
      * load is being performed.
      */
     COMMITTED(WebKitLoadEvent.WEBKIT_LOAD_COMMITTED),
-
     /**
      * Load completed. All resources are done loading
      * or there was an error during the load operation.

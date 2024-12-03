@@ -3,7 +3,9 @@ package org.gtkkn.bindings.cairo
 
 import org.gtkkn.native.cairo.cairo_region_overlap_t
 
-public enum class RegionOverlap(public val nativeValue: cairo_region_overlap_t) {
+public enum class RegionOverlap(
+    public val nativeValue: cairo_region_overlap_t,
+) {
     IN(cairo_region_overlap_t.CAIRO_REGION_OVERLAP_IN),
     OUT(cairo_region_overlap_t.CAIRO_REGION_OVERLAP_OUT),
     PART(cairo_region_overlap_t.CAIRO_REGION_OVERLAP_PART),

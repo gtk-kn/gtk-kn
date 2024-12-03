@@ -1,6 +1,15 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Double
+import kotlin.Float
+import kotlin.Int
+import kotlin.String
+import kotlin.UInt
+import kotlin.ULong
+import kotlin.UShort
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -93,15 +102,6 @@ import org.gtkkn.native.gtk.gtk_entry_set_progress_pulse_step
 import org.gtkkn.native.gtk.gtk_entry_set_tabs
 import org.gtkkn.native.gtk.gtk_entry_set_visibility
 import org.gtkkn.native.gtk.gtk_entry_unset_invisible_char
-import kotlin.Boolean
-import kotlin.Double
-import kotlin.Float
-import kotlin.Int
-import kotlin.String
-import kotlin.UInt
-import kotlin.ULong
-import kotlin.UShort
-import kotlin.Unit
 
 /**
  * `GtkEntry` is a single line text entry widget.
@@ -218,8 +218,9 @@ import kotlin.Unit
  * - method `show-emoji-icon`: Property has no getter nor setter
  * - method `truncate-multiline`: Property has no getter nor setter
  */
-public open class Entry(pointer: CPointer<GtkEntry>) :
-    Widget(pointer.reinterpret()),
+public open class Entry(
+    pointer: CPointer<GtkEntry>,
+) : Widget(pointer.reinterpret()),
     CellEditable,
     Editable,
     KGTyped {
@@ -251,7 +252,6 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
          * @return true if the entry will activate the default widget
          */
         get() = gtk_entry_get_activates_default(gtkEntryPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether pressing Enter in the @entry will activate the default
          * widget for the window containing the entry.
@@ -274,9 +274,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
          * @return A `GtkEntryBuffer` object.
          */
         get() = gtk_entry_get_buffer(gtkEntryPointer.reinterpret())!!.run {
-            EntryBuffer(reinterpret())
-        }
-
+            EntryBuffer(reinterpret())}
         /**
          * Set the `GtkEntryBuffer` object which holds the text for
          * this widget.
@@ -297,9 +295,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
          *   completion object currently in use by @entry
          */
         get() = gtk_entry_get_completion(gtkEntryPointer.reinterpret())?.run {
-            EntryCompletion(reinterpret())
-        }
-
+            EntryCompletion(reinterpret())}
         /**
          * Sets @completion to be the auxiliary completion object
          * to use with @entry.
@@ -310,12 +306,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
          *
          * @param completion The `GtkEntryCompletion`
          */
-        set(
-            completion
-        ) = gtk_entry_set_completion(
-            gtkEntryPointer.reinterpret(),
-            completion?.gtkEntryCompletionPointer?.reinterpret()
-        )
+        set(completion) = gtk_entry_set_completion(gtkEntryPointer.reinterpret(), completion?.gtkEntryCompletionPointer?.reinterpret())
 
     /**
      * A menu model whose contents will be appended to the context menu.
@@ -327,9 +318,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
          * @return the menu model
          */
         get() = gtk_entry_get_extra_menu(gtkEntryPointer.reinterpret())?.run {
-            MenuModel(reinterpret())
-        }
-
+            MenuModel(reinterpret())}
         /**
          * Sets a menu model to add when constructing
          * the context menu for @entry.
@@ -348,7 +337,6 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
          * @return whether the entry has a beveled frame
          */
         get() = gtk_entry_get_has_frame(gtkEntryPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the entry has a beveled frame around it.
          *
@@ -368,9 +356,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
          * @return the input hints
          */
         get() = gtk_entry_get_input_hints(gtkEntryPointer.reinterpret()).run {
-            InputHints(this)
-        }
-
+            InputHints(this)}
         /**
          * Set additional hints which allow input methods to
          * fine-tune their behavior.
@@ -396,9 +382,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
          * @return the input purpose
          */
         get() = gtk_entry_get_input_purpose(gtkEntryPointer.reinterpret()).run {
-            InputPurpose.fromNativeValue(this)
-        }
-
+            InputPurpose.fromNativeValue(this)}
         /**
          * Sets the input purpose which can be used by input methods
          * to adjust their behavior.
@@ -419,7 +403,6 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
          *   show invisible text at all.
          */
         get() = gtk_entry_get_invisible_char(gtkEntryPointer.reinterpret())
-
         /**
          * Sets the character to use in place of the actual text
          * in “password mode”.
@@ -449,7 +432,6 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
          *   in `GtkEntry`, or 0 if there is no maximum.
          */
         get() = gtk_entry_get_max_length(gtkEntryPointer.reinterpret())
-
         /**
          * Sets the maximum allowed length of the contents of the widget.
          *
@@ -475,7 +457,6 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
          * @return whether the text is overwritten when typing.
          */
         get() = gtk_entry_get_overwrite_mode(gtkEntryPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the text is overwritten when typing in the `GtkEntry`.
          *
@@ -499,7 +480,6 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
          *   text has been set, null will be returned.
          */
         get() = gtk_entry_get_placeholder_text(gtkEntryPointer.reinterpret())?.toKString()
-
         /**
          * Sets text to be displayed in @entry when it is empty.
          *
@@ -522,7 +502,6 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
          * @return a fraction from 0.0 to 1.0
          */
         get() = gtk_entry_get_progress_fraction(gtkEntryPointer.reinterpret())
-
         /**
          * Causes the entry’s progress indicator to “fill in” the given
          * fraction of the bar.
@@ -547,7 +526,6 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
          * @return a fraction from 0.0 to 1.0
          */
         get() = gtk_entry_get_progress_pulse_step(gtkEntryPointer.reinterpret())
-
         /**
          * Sets the fraction of total entry width to move the progress
          * bouncing block for each pulse.
@@ -568,9 +546,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
          * @return the tabstops
          */
         get() = gtk_entry_get_tabs(gtkEntryPointer.reinterpret())?.run {
-            TabArray(reinterpret())
-        }
-
+            TabArray(reinterpret())}
         /**
          * Sets a `PangoTabArray`.
          *
@@ -608,7 +584,6 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
          * @return true if the text is currently visible
          */
         get() = gtk_entry_get_visibility(gtkEntryPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the contents of the entry are visible or not.
          *
@@ -642,9 +617,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      * @param buffer The buffer to use for the new `GtkEntry`.
      * @return a new `GtkEntry`
      */
-    public constructor(
-        buffer: EntryBuffer,
-    ) : this(gtk_entry_new_with_buffer(buffer.gtkEntryBufferPointer.reinterpret())!!.reinterpret())
+    public constructor(buffer: EntryBuffer) : this(gtk_entry_new_with_buffer(buffer.gtkEntryBufferPointer.reinterpret())!!.reinterpret())
 
     /**
      * Gets the value set by gtk_entry_set_alignment().
@@ -663,8 +636,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      * @return the attribute list
      */
     public open fun getAttributes(): AttrList? = gtk_entry_get_attributes(gtkEntryPointer.reinterpret())?.run {
-        AttrList(reinterpret())
-    }
+        AttrList(reinterpret())}
 
     /**
      * Returns the index of the icon which is the source of the
@@ -673,8 +645,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      * @return index of the icon which is the source of the
      *   current DND operation, or -1.
      */
-    public open fun getCurrentIconDragSource(): Int =
-        gtk_entry_get_current_icon_drag_source(gtkEntryPointer.reinterpret())
+    public open fun getCurrentIconDragSource(): Int = gtk_entry_get_current_icon_drag_source(gtkEntryPointer.reinterpret())
 
     /**
      * Returns whether the icon is activatable.
@@ -682,8 +653,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      * @param iconPos Icon position
      * @return true if the icon is activatable.
      */
-    public open fun getIconActivatable(iconPos: EntryIconPosition): Boolean =
-        gtk_entry_get_icon_activatable(gtkEntryPointer.reinterpret(), iconPos.nativeValue).asBoolean()
+    public open fun getIconActivatable(iconPos: EntryIconPosition): Boolean = gtk_entry_get_icon_activatable(gtkEntryPointer.reinterpret(), iconPos.nativeValue).asBoolean()
 
     /**
      * Gets the area where entry’s icon at @icon_pos is drawn.
@@ -699,11 +669,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      * @param iconPos Icon position
      * @param iconArea Return location for the icon’s area
      */
-    public open fun getIconArea(iconPos: EntryIconPosition, iconArea: Rectangle): Unit = gtk_entry_get_icon_area(
-        gtkEntryPointer.reinterpret(),
-        iconPos.nativeValue,
-        iconArea.gdkRectanglePointer.reinterpret()
-    )
+    public open fun getIconArea(iconPos: EntryIconPosition, iconArea: Rectangle): Unit = gtk_entry_get_icon_area(gtkEntryPointer.reinterpret(), iconPos.nativeValue, iconArea.gdkRectanglePointer.reinterpret())
 
     /**
      * Finds the icon at the given position and return its index.
@@ -728,10 +694,8 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      * @param iconPos Icon position
      * @return A `GIcon`
      */
-    public open fun getIconGicon(iconPos: EntryIconPosition): Icon? =
-        gtk_entry_get_icon_gicon(gtkEntryPointer.reinterpret(), iconPos.nativeValue)?.run {
-            Icon.wrap(reinterpret())
-        }
+    public open fun getIconGicon(iconPos: EntryIconPosition): Icon? = gtk_entry_get_icon_gicon(gtkEntryPointer.reinterpret(), iconPos.nativeValue)?.run {
+        Icon.wrap(reinterpret())}
 
     /**
      * Retrieves the icon name used for the icon.
@@ -742,8 +706,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      * @param iconPos Icon position
      * @return An icon name
      */
-    public open fun getIconName(iconPos: EntryIconPosition): String? =
-        gtk_entry_get_icon_name(gtkEntryPointer.reinterpret(), iconPos.nativeValue)?.toKString()
+    public open fun getIconName(iconPos: EntryIconPosition): String? = gtk_entry_get_icon_name(gtkEntryPointer.reinterpret(), iconPos.nativeValue)?.toKString()
 
     /**
      * Retrieves the `GdkPaintable` used for the icon.
@@ -755,10 +718,8 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      *   if no icon is set for this position or the icon set is not
      *   a `GdkPaintable`.
      */
-    public open fun getIconPaintable(iconPos: EntryIconPosition): Paintable? =
-        gtk_entry_get_icon_paintable(gtkEntryPointer.reinterpret(), iconPos.nativeValue)?.run {
-            Paintable.wrap(reinterpret())
-        }
+    public open fun getIconPaintable(iconPos: EntryIconPosition): Paintable? = gtk_entry_get_icon_paintable(gtkEntryPointer.reinterpret(), iconPos.nativeValue)?.run {
+        Paintable.wrap(reinterpret())}
 
     /**
      * Returns whether the icon appears sensitive or insensitive.
@@ -766,8 +727,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      * @param iconPos Icon position
      * @return true if the icon is sensitive.
      */
-    public open fun getIconSensitive(iconPos: EntryIconPosition): Boolean =
-        gtk_entry_get_icon_sensitive(gtkEntryPointer.reinterpret(), iconPos.nativeValue).asBoolean()
+    public open fun getIconSensitive(iconPos: EntryIconPosition): Boolean = gtk_entry_get_icon_sensitive(gtkEntryPointer.reinterpret(), iconPos.nativeValue).asBoolean()
 
     /**
      * Gets the type of representation being used by the icon
@@ -779,10 +739,8 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      * @param iconPos Icon position
      * @return image representation being used
      */
-    public open fun getIconStorageType(iconPos: EntryIconPosition): ImageType =
-        gtk_entry_get_icon_storage_type(gtkEntryPointer.reinterpret(), iconPos.nativeValue).run {
-            ImageType.fromNativeValue(this)
-        }
+    public open fun getIconStorageType(iconPos: EntryIconPosition): ImageType = gtk_entry_get_icon_storage_type(gtkEntryPointer.reinterpret(), iconPos.nativeValue).run {
+        ImageType.fromNativeValue(this)}
 
     /**
      * Gets the contents of the tooltip on the icon at the specified
@@ -791,8 +749,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      * @param iconPos the icon position
      * @return the tooltip text
      */
-    public open fun getIconTooltipMarkup(iconPos: EntryIconPosition): String? =
-        gtk_entry_get_icon_tooltip_markup(gtkEntryPointer.reinterpret(), iconPos.nativeValue)?.toKString()
+    public open fun getIconTooltipMarkup(iconPos: EntryIconPosition): String? = gtk_entry_get_icon_tooltip_markup(gtkEntryPointer.reinterpret(), iconPos.nativeValue)?.toKString()
 
     /**
      * Gets the contents of the tooltip on the icon at the specified
@@ -801,8 +758,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      * @param iconPos the icon position
      * @return the tooltip text
      */
-    public open fun getIconTooltipText(iconPos: EntryIconPosition): String? =
-        gtk_entry_get_icon_tooltip_text(gtkEntryPointer.reinterpret(), iconPos.nativeValue)?.toKString()
+    public open fun getIconTooltipText(iconPos: EntryIconPosition): String? = gtk_entry_get_icon_tooltip_text(gtkEntryPointer.reinterpret(), iconPos.nativeValue)?.toKString()
 
     /**
      * Causes @entry to have keyboard focus.
@@ -814,8 +770,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      *
      * @return true if focus is now inside @self
      */
-    public open fun grabFocusWithoutSelecting(): Boolean =
-        gtk_entry_grab_focus_without_selecting(gtkEntryPointer.reinterpret()).asBoolean()
+    public open fun grabFocusWithoutSelecting(): Boolean = gtk_entry_grab_focus_without_selecting(gtkEntryPointer.reinterpret()).asBoolean()
 
     /**
      * Indicates that some progress is made, but you don’t
@@ -861,8 +816,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      *
      * @param attrs a `PangoAttrList`
      */
-    public open fun setAttributes(attrs: AttrList): Unit =
-        gtk_entry_set_attributes(gtkEntryPointer.reinterpret(), attrs.pangoAttrListPointer.reinterpret())
+    public open fun setAttributes(attrs: AttrList): Unit = gtk_entry_set_attributes(gtkEntryPointer.reinterpret(), attrs.pangoAttrListPointer.reinterpret())
 
     /**
      * Sets whether the icon is activatable.
@@ -870,8 +824,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      * @param iconPos Icon position
      * @param activatable true if the icon should be activatable
      */
-    public open fun setIconActivatable(iconPos: EntryIconPosition, activatable: Boolean): Unit =
-        gtk_entry_set_icon_activatable(gtkEntryPointer.reinterpret(), iconPos.nativeValue, activatable.asGBoolean())
+    public open fun setIconActivatable(iconPos: EntryIconPosition, activatable: Boolean): Unit = gtk_entry_set_icon_activatable(gtkEntryPointer.reinterpret(), iconPos.nativeValue, activatable.asGBoolean())
 
     /**
      * Sets up the icon at the given position as drag source.
@@ -887,12 +840,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
         iconPos: EntryIconPosition,
         provider: ContentProvider,
         actions: DragAction,
-    ): Unit = gtk_entry_set_icon_drag_source(
-        gtkEntryPointer.reinterpret(),
-        iconPos.nativeValue,
-        provider.gdkContentProviderPointer.reinterpret(),
-        actions.mask
-    )
+    ): Unit = gtk_entry_set_icon_drag_source(gtkEntryPointer.reinterpret(), iconPos.nativeValue, provider.gdkContentProviderPointer.reinterpret(), actions.mask)
 
     /**
      * Sets the icon shown in the entry at the specified position
@@ -907,8 +855,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      * @param iconPos The position at which to set the icon
      * @param icon The icon to set
      */
-    public open fun setIconFromGicon(iconPos: EntryIconPosition, icon: Icon? = null): Unit =
-        gtk_entry_set_icon_from_gicon(gtkEntryPointer.reinterpret(), iconPos.nativeValue, icon?.gioIconPointer)
+    public open fun setIconFromGicon(iconPos: EntryIconPosition, icon: Icon? = null): Unit = gtk_entry_set_icon_from_gicon(gtkEntryPointer.reinterpret(), iconPos.nativeValue, icon?.gioIconPointer)
 
     /**
      * Sets the icon shown in the entry at the specified position
@@ -923,8 +870,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      * @param iconPos The position at which to set the icon
      * @param iconName An icon name
      */
-    public open fun setIconFromIconName(iconPos: EntryIconPosition, iconName: String? = null): Unit =
-        gtk_entry_set_icon_from_icon_name(gtkEntryPointer.reinterpret(), iconPos.nativeValue, iconName)
+    public open fun setIconFromIconName(iconPos: EntryIconPosition, iconName: String? = null): Unit = gtk_entry_set_icon_from_icon_name(gtkEntryPointer.reinterpret(), iconPos.nativeValue, iconName)
 
     /**
      * Sets the icon shown in the specified position using a `GdkPaintable`.
@@ -934,12 +880,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      * @param iconPos Icon position
      * @param paintable A `GdkPaintable`
      */
-    public open fun setIconFromPaintable(iconPos: EntryIconPosition, paintable: Paintable? = null): Unit =
-        gtk_entry_set_icon_from_paintable(
-            gtkEntryPointer.reinterpret(),
-            iconPos.nativeValue,
-            paintable?.gdkPaintablePointer
-        )
+    public open fun setIconFromPaintable(iconPos: EntryIconPosition, paintable: Paintable? = null): Unit = gtk_entry_set_icon_from_paintable(gtkEntryPointer.reinterpret(), iconPos.nativeValue, paintable?.gdkPaintablePointer)
 
     /**
      * Sets the sensitivity for the specified icon.
@@ -948,8 +889,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      * @param sensitive Specifies whether the icon should appear
      *   sensitive or insensitive
      */
-    public open fun setIconSensitive(iconPos: EntryIconPosition, sensitive: Boolean): Unit =
-        gtk_entry_set_icon_sensitive(gtkEntryPointer.reinterpret(), iconPos.nativeValue, sensitive.asGBoolean())
+    public open fun setIconSensitive(iconPos: EntryIconPosition, sensitive: Boolean): Unit = gtk_entry_set_icon_sensitive(gtkEntryPointer.reinterpret(), iconPos.nativeValue, sensitive.asGBoolean())
 
     /**
      * Sets @tooltip as the contents of the tooltip for the icon at
@@ -965,8 +905,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      * @param iconPos the icon position
      * @param tooltip the contents of the tooltip for the icon
      */
-    public open fun setIconTooltipMarkup(iconPos: EntryIconPosition, tooltip: String? = null): Unit =
-        gtk_entry_set_icon_tooltip_markup(gtkEntryPointer.reinterpret(), iconPos.nativeValue, tooltip)
+    public open fun setIconTooltipMarkup(iconPos: EntryIconPosition, tooltip: String? = null): Unit = gtk_entry_set_icon_tooltip_markup(gtkEntryPointer.reinterpret(), iconPos.nativeValue, tooltip)
 
     /**
      * Sets @tooltip as the contents of the tooltip for the icon
@@ -990,8 +929,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      * @param iconPos the icon position
      * @param tooltip the contents of the tooltip for the icon
      */
-    public open fun setIconTooltipText(iconPos: EntryIconPosition, tooltip: String? = null): Unit =
-        gtk_entry_set_icon_tooltip_text(gtkEntryPointer.reinterpret(), iconPos.nativeValue, tooltip)
+    public open fun setIconTooltipText(iconPos: EntryIconPosition, tooltip: String? = null): Unit = gtk_entry_set_icon_tooltip_text(gtkEntryPointer.reinterpret(), iconPos.nativeValue, tooltip)
 
     /**
      * Unsets the invisible char, so that the default invisible char
@@ -1007,15 +945,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "activate",
-            connectActivateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "activate", connectActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when an activatable icon is clicked.
@@ -1023,17 +953,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `iconPos` The position of the clicked icon
      */
-    public fun connectIconPress(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (iconPos: EntryIconPosition) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "icon-press",
-        connectIconPressFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectIconPress(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (iconPos: EntryIconPosition) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "icon-press", connectIconPressFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted on the button release from a mouse click
@@ -1042,60 +962,42 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `iconPos` The position of the clicked icon
      */
-    public fun connectIconRelease(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (iconPos: EntryIconPosition) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "icon-release",
-        connectIconReleaseFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectIconRelease(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (iconPos: EntryIconPosition) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "icon-release", connectIconReleaseFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<Entry> {
         override val type: GeneratedClassKGType<Entry> =
-            GeneratedClassKGType(gtk_entry_get_type()) { Entry(it.reinterpret()) }
+                GeneratedClassKGType(gtk_entry_get_type()) { Entry(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }
 
 private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectIconPressFunc: CPointer<CFunction<(GtkEntryIconPosition) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            iconPos: GtkEntryIconPosition,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(iconPos: EntryIconPosition) -> Unit>().get().invoke(
-            iconPos.run {
-                EntryIconPosition.fromNativeValue(this)
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    iconPos: GtkEntryIconPosition,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(iconPos: EntryIconPosition) -> Unit>().get().invoke(iconPos.run {
+        EntryIconPosition.fromNativeValue(this)}
+    )}
+.reinterpret()
 
 private val connectIconReleaseFunc: CPointer<CFunction<(GtkEntryIconPosition) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            iconPos: GtkEntryIconPosition,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(iconPos: EntryIconPosition) -> Unit>().get().invoke(
-            iconPos.run {
-                EntryIconPosition.fromNativeValue(this)
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    iconPos: GtkEntryIconPosition,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(iconPos: EntryIconPosition) -> Unit>().get().invoke(iconPos.run {
+        EntryIconPosition.fromNativeValue(this)}
+    )}
+.reinterpret()

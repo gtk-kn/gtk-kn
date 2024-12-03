@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -13,8 +15,7 @@ import org.gtkkn.native.gtk.gtk_expression_watch_evaluate
 import org.gtkkn.native.gtk.gtk_expression_watch_ref
 import org.gtkkn.native.gtk.gtk_expression_watch_unref
 import org.gtkkn.native.gtk.gtk_expression_watch_unwatch
-import kotlin.Boolean
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * An opaque structure representing a watched `GtkExpression`.
@@ -22,7 +23,9 @@ import kotlin.Unit
  * The contents of `GtkExpressionWatch` should only be accessed through the
  * provided API.
  */
-public class ExpressionWatch(pointer: CPointer<GtkExpressionWatch>) : Record {
+public class ExpressionWatch(
+    pointer: CPointer<GtkExpressionWatch>,
+) : Record {
     public val gtkExpressionWatchPointer: CPointer<GtkExpressionWatch> = pointer
 
     /**
@@ -35,10 +38,7 @@ public class ExpressionWatch(pointer: CPointer<GtkExpressionWatch>) : Record {
      * @param value an empty `GValue` to be set
      * @return `TRUE` if the expression could be evaluated and `value` was set
      */
-    public fun evaluate(`value`: Value): Boolean = gtk_expression_watch_evaluate(
-        gtkExpressionWatchPointer.reinterpret(),
-        `value`.gobjectValuePointer.reinterpret()
-    ).asBoolean()
+    public fun evaluate(`value`: Value): Boolean = gtk_expression_watch_evaluate(gtkExpressionWatchPointer.reinterpret(), `value`.gobjectValuePointer.reinterpret()).asBoolean()
 
     /**
      * Acquires a reference on the given `GtkExpressionWatch`.
@@ -46,8 +46,7 @@ public class ExpressionWatch(pointer: CPointer<GtkExpressionWatch>) : Record {
      * @return the `GtkExpressionWatch` with an additional reference
      */
     public fun ref(): ExpressionWatch = gtk_expression_watch_ref(gtkExpressionWatchPointer.reinterpret())!!.run {
-        ExpressionWatch(reinterpret())
-    }
+        ExpressionWatch(reinterpret())}
 
     /**
      * Releases a reference on the given `GtkExpressionWatch`.
@@ -66,7 +65,6 @@ public class ExpressionWatch(pointer: CPointer<GtkExpressionWatch>) : Record {
     public fun unwatch(): Unit = gtk_expression_watch_unwatch(gtkExpressionWatchPointer.reinterpret())
 
     public companion object : RecordCompanion<ExpressionWatch, GtkExpressionWatch> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ExpressionWatch =
-            ExpressionWatch(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ExpressionWatch = ExpressionWatch(pointer.reinterpret())
     }
 }

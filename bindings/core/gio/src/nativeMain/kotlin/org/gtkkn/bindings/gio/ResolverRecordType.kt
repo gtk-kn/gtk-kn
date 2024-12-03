@@ -38,27 +38,25 @@ import org.gtkkn.native.gio.GResolverRecordType
  * @since 2.34
  */
 @GioVersion2_34
-public enum class ResolverRecordType(public val nativeValue: GResolverRecordType) {
+public enum class ResolverRecordType(
+    public val nativeValue: GResolverRecordType,
+) {
     /**
      * look up DNS SRV records for a domain
      */
     SRV(GResolverRecordType.G_RESOLVER_RECORD_SRV),
-
     /**
      * look up DNS MX records for a domain
      */
     MX(GResolverRecordType.G_RESOLVER_RECORD_MX),
-
     /**
      * look up DNS TXT records for a name
      */
     TXT(GResolverRecordType.G_RESOLVER_RECORD_TXT),
-
     /**
      * look up DNS SOA records for a zone
      */
     SOA(GResolverRecordType.G_RESOLVER_RECORD_SOA),
-
     /**
      * look up DNS NS records for a domain
      */

@@ -9,6 +9,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_4
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GOnce
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A #GOnce struct controls a one-time initialization function. Any
@@ -27,7 +28,9 @@ import org.gtkkn.native.glib.GOnce
  * @since 2.4
  */
 @GLibVersion2_4
-public class Once(pointer: CPointer<GOnce>) : Record {
+public class Once(
+    pointer: CPointer<GOnce>,
+) : Record {
     public val glibOncePointer: CPointer<GOnce> = pointer
 
     /**
@@ -35,8 +38,7 @@ public class Once(pointer: CPointer<GOnce>) : Record {
      */
     public var status: OnceStatus
         get() = glibOncePointer.pointed.status.run {
-            OnceStatus.fromNativeValue(this)
-        }
+            OnceStatus.fromNativeValue(this)}
         set(`value`) {
             glibOncePointer.pointed.status = value.nativeValue
         }

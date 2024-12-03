@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,8 +11,7 @@ import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GTuples
 import org.gtkkn.native.glib.g_tuples_destroy
-import kotlin.UInt
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The #GTuples struct is used to return records (or tuples) from the
@@ -22,7 +23,9 @@ import kotlin.Unit
  *
  * - method `index`: Return type gpointer is unsupported
  */
-public class Tuples(pointer: CPointer<GTuples>) : Record {
+public class Tuples(
+    pointer: CPointer<GTuples>,
+) : Record {
     public val glibTuplesPointer: CPointer<GTuples> = pointer
 
     /**

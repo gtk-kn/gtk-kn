@@ -1,6 +1,12 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -39,12 +45,6 @@ import org.gtkkn.native.gio.g_action_group_has_action
 import org.gtkkn.native.gio.g_action_group_list_actions
 import org.gtkkn.native.glib.GVariant
 import org.gtkkn.native.gobject.g_signal_connect_data
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * `GActionGroup` represents a group of actions.
@@ -96,9 +96,7 @@ import kotlin.collections.List
  *
  * - parameter `enabled`: enabled: Out parameter is not supported
  */
-public interface ActionGroup :
-    Interface,
-    KGTyped {
+public interface ActionGroup : Interface, KGTyped {
     public val gioActionGroupPointer: CPointer<GActionGroup>
 
     /**
@@ -110,8 +108,7 @@ public interface ActionGroup :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun actionAdded(actionName: String): Unit =
-        g_action_group_action_added(gioActionGroupPointer.reinterpret(), actionName)
+    public fun actionAdded(actionName: String): Unit = g_action_group_action_added(gioActionGroupPointer.reinterpret(), actionName)
 
     /**
      * Emits the #GActionGroup::action-enabled-changed signal on @action_group.
@@ -123,8 +120,7 @@ public interface ActionGroup :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun actionEnabledChanged(actionName: String, enabled: Boolean): Unit =
-        g_action_group_action_enabled_changed(gioActionGroupPointer.reinterpret(), actionName, enabled.asGBoolean())
+    public fun actionEnabledChanged(actionName: String, enabled: Boolean): Unit = g_action_group_action_enabled_changed(gioActionGroupPointer.reinterpret(), actionName, enabled.asGBoolean())
 
     /**
      * Emits the #GActionGroup::action-removed signal on @action_group.
@@ -135,8 +131,7 @@ public interface ActionGroup :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun actionRemoved(actionName: String): Unit =
-        g_action_group_action_removed(gioActionGroupPointer.reinterpret(), actionName)
+    public fun actionRemoved(actionName: String): Unit = g_action_group_action_removed(gioActionGroupPointer.reinterpret(), actionName)
 
     /**
      * Emits the #GActionGroup::action-state-changed signal on @action_group.
@@ -148,11 +143,7 @@ public interface ActionGroup :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun actionStateChanged(actionName: String, state: Variant): Unit = g_action_group_action_state_changed(
-        gioActionGroupPointer.reinterpret(),
-        actionName,
-        state.glibVariantPointer.reinterpret()
-    )
+    public fun actionStateChanged(actionName: String, state: Variant): Unit = g_action_group_action_state_changed(gioActionGroupPointer.reinterpret(), actionName, state.glibVariantPointer.reinterpret())
 
     /**
      * Activate the named action within @action_group.
@@ -194,11 +185,7 @@ public interface ActionGroup :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun activateAction(actionName: String, parameter: Variant? = null): Unit = g_action_group_activate_action(
-        gioActionGroupPointer.reinterpret(),
-        actionName,
-        parameter?.glibVariantPointer?.reinterpret()
-    )
+    public fun activateAction(actionName: String, parameter: Variant? = null): Unit = g_action_group_activate_action(gioActionGroupPointer.reinterpret(), actionName, parameter?.glibVariantPointer?.reinterpret())
 
     /**
      * Request for the state of the named action within @action_group to be
@@ -218,11 +205,7 @@ public interface ActionGroup :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun changeActionState(actionName: String, `value`: Variant): Unit = g_action_group_change_action_state(
-        gioActionGroupPointer.reinterpret(),
-        actionName,
-        `value`.glibVariantPointer.reinterpret()
-    )
+    public fun changeActionState(actionName: String, `value`: Variant): Unit = g_action_group_change_action_state(gioActionGroupPointer.reinterpret(), actionName, `value`.glibVariantPointer.reinterpret())
 
     /**
      * Checks if the named action within @action_group is currently enabled.
@@ -235,8 +218,7 @@ public interface ActionGroup :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun getActionEnabled(actionName: String): Boolean =
-        g_action_group_get_action_enabled(gioActionGroupPointer.reinterpret(), actionName).asBoolean()
+    public fun getActionEnabled(actionName: String): Boolean = g_action_group_get_action_enabled(gioActionGroupPointer.reinterpret(), actionName).asBoolean()
 
     /**
      * Queries the type of the parameter that must be given when activating
@@ -258,10 +240,8 @@ public interface ActionGroup :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun getActionParameterType(actionName: String): VariantType? =
-        g_action_group_get_action_parameter_type(gioActionGroupPointer.reinterpret(), actionName)?.run {
-            VariantType(reinterpret())
-        }
+    public fun getActionParameterType(actionName: String): VariantType? = g_action_group_get_action_parameter_type(gioActionGroupPointer.reinterpret(), actionName)?.run {
+        VariantType(reinterpret())}
 
     /**
      * Queries the current state of the named action within @action_group.
@@ -278,10 +258,8 @@ public interface ActionGroup :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun getActionState(actionName: String): Variant? =
-        g_action_group_get_action_state(gioActionGroupPointer.reinterpret(), actionName)?.run {
-            Variant(reinterpret())
-        }
+    public fun getActionState(actionName: String): Variant? = g_action_group_get_action_state(gioActionGroupPointer.reinterpret(), actionName)?.run {
+        Variant(reinterpret())}
 
     /**
      * Requests a hint about the valid range of values for the state of the
@@ -308,10 +286,8 @@ public interface ActionGroup :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun getActionStateHint(actionName: String): Variant? =
-        g_action_group_get_action_state_hint(gioActionGroupPointer.reinterpret(), actionName)?.run {
-            Variant(reinterpret())
-        }
+    public fun getActionStateHint(actionName: String): Variant? = g_action_group_get_action_state_hint(gioActionGroupPointer.reinterpret(), actionName)?.run {
+        Variant(reinterpret())}
 
     /**
      * Queries the type of the state of the named action within
@@ -336,10 +312,8 @@ public interface ActionGroup :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun getActionStateType(actionName: String): VariantType? =
-        g_action_group_get_action_state_type(gioActionGroupPointer.reinterpret(), actionName)?.run {
-            VariantType(reinterpret())
-        }
+    public fun getActionStateType(actionName: String): VariantType? = g_action_group_get_action_state_type(gioActionGroupPointer.reinterpret(), actionName)?.run {
+        VariantType(reinterpret())}
 
     /**
      * Checks if the named action exists within @action_group.
@@ -349,8 +323,7 @@ public interface ActionGroup :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun hasAction(actionName: String): Boolean =
-        g_action_group_has_action(gioActionGroupPointer.reinterpret(), actionName).asBoolean()
+    public fun hasAction(actionName: String): Boolean = g_action_group_has_action(gioActionGroupPointer.reinterpret(), actionName).asBoolean()
 
     /**
      * Lists the actions contained within @action_group.
@@ -363,9 +336,7 @@ public interface ActionGroup :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun listActions(): List<String> =
-        g_action_group_list_actions(gioActionGroupPointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
+    public fun listActions(): List<String> = g_action_group_list_actions(gioActionGroupPointer.reinterpret())?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Signals that a new action was just added to the group.
@@ -377,17 +348,7 @@ public interface ActionGroup :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun connectActionAdded(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (actionName: String) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gioActionGroupPointer.reinterpret(),
-        "action-added",
-        connectActionAddedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectActionAdded(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (actionName: String) -> Unit): ULong = g_signal_connect_data(gioActionGroupPointer.reinterpret(), "action-added", connectActionAddedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Signals that the enabled status of the named action has changed.
@@ -397,17 +358,7 @@ public interface ActionGroup :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun connectActionEnabledChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (actionName: String, enabled: Boolean) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gioActionGroupPointer.reinterpret(),
-        "action-enabled-changed",
-        connectActionEnabledChangedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectActionEnabledChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (actionName: String, enabled: Boolean) -> Unit): ULong = g_signal_connect_data(gioActionGroupPointer.reinterpret(), "action-enabled-changed", connectActionEnabledChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Signals that an action is just about to be removed from the group.
@@ -419,17 +370,7 @@ public interface ActionGroup :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun connectActionRemoved(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (actionName: String) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gioActionGroupPointer.reinterpret(),
-        "action-removed",
-        connectActionRemovedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectActionRemoved(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (actionName: String) -> Unit): ULong = g_signal_connect_data(gioActionGroupPointer.reinterpret(), "action-removed", connectActionRemovedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Signals that the state of the named action has changed.
@@ -439,84 +380,61 @@ public interface ActionGroup :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun connectActionStateChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (actionName: String, `value`: Variant) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gioActionGroupPointer.reinterpret(),
-        "action-state-changed",
-        connectActionStateChangedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectActionStateChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (actionName: String, `value`: Variant) -> Unit): ULong = g_signal_connect_data(gioActionGroupPointer.reinterpret(), "action-state-changed", connectActionStateChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
-    private data class Wrapper(private val pointer: CPointer<GActionGroup>) : ActionGroup {
+    private data class Wrapper(
+        private val pointer: CPointer<GActionGroup>,
+    ) : ActionGroup {
         override val gioActionGroupPointer: CPointer<GActionGroup> = pointer
     }
 
     public companion object : TypeCompanion<ActionGroup> {
         override val type: GeneratedInterfaceKGType<ActionGroup> =
-            GeneratedInterfaceKGType(g_action_group_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(g_action_group_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GActionGroup>): ActionGroup = Wrapper(pointer)
     }
 }
 
 private val connectActionAddedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            actionName: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(actionName: String) -> Unit>().get().invoke(
-            actionName?.toKString() ?: error("Expected not null string")
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    actionName: CPointer<ByteVar>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(actionName: String) -> Unit>().get().invoke(actionName?.toKString() ?: error("Expected not null string"))}
+.reinterpret()
 
 private val connectActionEnabledChangedFunc: CPointer<CFunction<(CPointer<ByteVar>, Int) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            actionName: CPointer<ByteVar>?,
-            enabled: Int,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(actionName: String, enabled: Boolean) -> Unit>().get().invoke(
-            actionName?.toKString() ?: error("Expected not null string"),
-            enabled.asBoolean()
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    actionName: CPointer<ByteVar>?,
+    enabled: Int,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(actionName: String, enabled: Boolean) -> Unit>().get().invoke(actionName?.toKString() ?: error("Expected not null string"), enabled.asBoolean())}
+.reinterpret()
 
 private val connectActionRemovedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            actionName: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(actionName: String) -> Unit>().get().invoke(
-            actionName?.toKString() ?: error("Expected not null string")
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    actionName: CPointer<ByteVar>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(actionName: String) -> Unit>().get().invoke(actionName?.toKString() ?: error("Expected not null string"))}
+.reinterpret()
 
 private val connectActionStateChangedFunc:
-    CPointer<CFunction<(CPointer<ByteVar>, CPointer<GVariant>) -> Unit>> = staticCFunction {
-            _: COpaquePointer,
-            actionName: CPointer<ByteVar>?,
-            `value`: CPointer<GVariant>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(actionName: String, `value`: Variant) -> Unit>().get().invoke(
-            actionName?.toKString() ?: error("Expected not null string"),
-            `value`!!.run {
-                Variant(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<ByteVar>, CPointer<GVariant>) -> Unit>> = staticCFunction {
+    _: COpaquePointer,
+    actionName: CPointer<ByteVar>?,
+    `value`: CPointer<GVariant>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(actionName: String, `value`: Variant) -> Unit>().get().invoke(actionName?.toKString() ?: error("Expected not null string"), `value`!!.run {
+        Variant(reinterpret())}
+    )}
+.reinterpret()

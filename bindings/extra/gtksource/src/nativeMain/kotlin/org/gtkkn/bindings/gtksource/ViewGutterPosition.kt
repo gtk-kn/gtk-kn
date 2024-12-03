@@ -5,13 +5,14 @@ import org.gtkkn.native.gtksource.GTK_SOURCE_VIEW_GUTTER_POSITION_LINES
 import org.gtkkn.native.gtksource.GTK_SOURCE_VIEW_GUTTER_POSITION_MARKS
 import org.gtkkn.native.gtksource.GtkSourceViewGutterPosition
 
-public enum class ViewGutterPosition(public val nativeValue: GtkSourceViewGutterPosition) {
+public enum class ViewGutterPosition(
+    public val nativeValue: GtkSourceViewGutterPosition,
+) {
     /**
      * the gutter position of the lines
      * renderer
      */
     LINES(GTK_SOURCE_VIEW_GUTTER_POSITION_LINES),
-
     /**
      * the gutter position of the marks
      * renderer

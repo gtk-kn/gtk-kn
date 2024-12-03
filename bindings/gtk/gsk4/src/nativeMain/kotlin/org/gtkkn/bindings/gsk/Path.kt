@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import kotlin.Boolean
+import kotlin.Suppress
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -26,10 +29,8 @@ import org.gtkkn.native.gsk.gsk_path_print
 import org.gtkkn.native.gsk.gsk_path_ref
 import org.gtkkn.native.gsk.gsk_path_to_string
 import org.gtkkn.native.gsk.gsk_path_unref
-import kotlin.Boolean
-import kotlin.Suppress
-import kotlin.Unit
 import kotlin.String as KotlinString
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 import org.gtkkn.bindings.glib.String as GlibString
 
 /**
@@ -61,7 +62,9 @@ import org.gtkkn.bindings.glib.String as GlibString
  * @since 4.14
  */
 @GskVersion4_14
-public class Path(pointer: CPointer<GskPath>) : Record {
+public class Path(
+    pointer: CPointer<GskPath>,
+) : Record {
     public val gskPathPointer: CPointer<GskPath> = pointer
 
     /**
@@ -86,12 +89,7 @@ public class Path(pointer: CPointer<GskPath>) : Record {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun foreach(flags: PathForeachFlags, func: PathForeachFunc): Boolean = gsk_path_foreach(
-        gskPathPointer.reinterpret(),
-        flags.mask,
-        PathForeachFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer()
-    ).asBoolean()
+    public fun foreach(flags: PathForeachFlags, func: PathForeachFunc): Boolean = gsk_path_foreach(gskPathPointer.reinterpret(), flags.mask, PathForeachFuncFunc.reinterpret(), StableRef.create(func).asCPointer()).asBoolean()
 
     /**
      * Computes the bounds of the given path.
@@ -115,8 +113,7 @@ public class Path(pointer: CPointer<GskPath>) : Record {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getBounds(bounds: Rect): Boolean =
-        gsk_path_get_bounds(gskPathPointer.reinterpret(), bounds.grapheneRectPointer.reinterpret()).asBoolean()
+    public fun getBounds(bounds: Rect): Boolean = gsk_path_get_bounds(gskPathPointer.reinterpret(), bounds.grapheneRectPointer.reinterpret()).asBoolean()
 
     /**
      * Gets the end point of the path.
@@ -129,8 +126,7 @@ public class Path(pointer: CPointer<GskPath>) : Record {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getEndPoint(result: PathPoint): Boolean =
-        gsk_path_get_end_point(gskPathPointer.reinterpret(), result.gskPathPointPointer.reinterpret()).asBoolean()
+    public fun getEndPoint(result: PathPoint): Boolean = gsk_path_get_end_point(gskPathPointer.reinterpret(), result.gskPathPointPointer.reinterpret()).asBoolean()
 
     /**
      * Gets the start point of the path.
@@ -143,8 +139,7 @@ public class Path(pointer: CPointer<GskPath>) : Record {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getStartPoint(result: PathPoint): Boolean =
-        gsk_path_get_start_point(gskPathPointer.reinterpret(), result.gskPathPointPointer.reinterpret()).asBoolean()
+    public fun getStartPoint(result: PathPoint): Boolean = gsk_path_get_start_point(gskPathPointer.reinterpret(), result.gskPathPointPointer.reinterpret()).asBoolean()
 
     /**
      * Computes the bounds for stroking the given path with the
@@ -162,11 +157,7 @@ public class Path(pointer: CPointer<GskPath>) : Record {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getStrokeBounds(stroke: Stroke, bounds: Rect): Boolean = gsk_path_get_stroke_bounds(
-        gskPathPointer.reinterpret(),
-        stroke.gskStrokePointer.reinterpret(),
-        bounds.grapheneRectPointer.reinterpret()
-    ).asBoolean()
+    public fun getStrokeBounds(stroke: Stroke, bounds: Rect): Boolean = gsk_path_get_stroke_bounds(gskPathPointer.reinterpret(), stroke.gskStrokePointer.reinterpret(), bounds.grapheneRectPointer.reinterpret()).asBoolean()
 
     /**
      * Returns whether the given point is inside the area
@@ -182,11 +173,7 @@ public class Path(pointer: CPointer<GskPath>) : Record {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun inFill(point: Point, fillRule: FillRule): Boolean = gsk_path_in_fill(
-        gskPathPointer.reinterpret(),
-        point.graphenePointPointer.reinterpret(),
-        fillRule.nativeValue
-    ).asBoolean()
+    public fun inFill(point: Point, fillRule: FillRule): Boolean = gsk_path_in_fill(gskPathPointer.reinterpret(), point.graphenePointPointer.reinterpret(), fillRule.nativeValue).asBoolean()
 
     /**
      * Returns if the path represents a single closed
@@ -219,8 +206,7 @@ public class Path(pointer: CPointer<GskPath>) : Record {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun print(string: GlibString): Unit =
-        gsk_path_print(gskPathPointer.reinterpret(), string.glibStringPointer.reinterpret())
+    public fun print(string: GlibString): Unit = gsk_path_print(gskPathPointer.reinterpret(), string.glibStringPointer.reinterpret())
 
     /**
      * Increases the reference count of a `GskPath` by one.
@@ -230,8 +216,7 @@ public class Path(pointer: CPointer<GskPath>) : Record {
      */
     @GskVersion4_14
     public fun ref(): Path = gsk_path_ref(gskPathPointer.reinterpret())!!.run {
-        Path(reinterpret())
-    }
+        Path(reinterpret())}
 
     /**
      * Converts the path into a string that is suitable for printing.
@@ -247,8 +232,7 @@ public class Path(pointer: CPointer<GskPath>) : Record {
      */
     @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
     @GskVersion4_14
-    override fun toString(): KotlinString =
-        gsk_path_to_string(gskPathPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    override fun toString(): KotlinString = gsk_path_to_string(gskPathPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Decreases the reference count of a `GskPath` by one.
@@ -294,8 +278,7 @@ public class Path(pointer: CPointer<GskPath>) : Record {
          */
         @GskVersion4_14
         public fun parse(string: KotlinString): Path? = gsk_path_parse(string)?.run {
-            Path(reinterpret())
-        }
+            Path(reinterpret())}
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Path = Path(pointer.reinterpret())
     }

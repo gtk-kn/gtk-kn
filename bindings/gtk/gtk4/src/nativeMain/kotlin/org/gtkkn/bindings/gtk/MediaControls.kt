@@ -22,8 +22,9 @@ import org.gtkkn.native.gtk.gtk_media_controls_set_media_stream
  *
  * Usually, `GtkMediaControls` is used as part of [class@Gtk.Video].
  */
-public open class MediaControls(pointer: CPointer<GtkMediaControls>) :
-    Widget(pointer.reinterpret()),
+public open class MediaControls(
+    pointer: CPointer<GtkMediaControls>,
+) : Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkMediaControlsPointer: CPointer<GtkMediaControls>
         get() = gPointer.reinterpret()
@@ -47,20 +48,13 @@ public open class MediaControls(pointer: CPointer<GtkMediaControls>) :
          * @return The media stream managed by @controls
          */
         get() = gtk_media_controls_get_media_stream(gtkMediaControlsPointer.reinterpret())?.run {
-            MediaStream(reinterpret())
-        }
-
+            MediaStream(reinterpret())}
         /**
          * Sets the stream that is controlled by @controls.
          *
          * @param stream a `GtkMediaStream`
          */
-        set(
-            stream
-        ) = gtk_media_controls_set_media_stream(
-            gtkMediaControlsPointer.reinterpret(),
-            stream?.gtkMediaStreamPointer?.reinterpret()
-        )
+        set(stream) = gtk_media_controls_set_media_stream(gtkMediaControlsPointer.reinterpret(), stream?.gtkMediaStreamPointer?.reinterpret())
 
     /**
      * Creates a new `GtkMediaControls` managing the @stream passed to it.
@@ -68,16 +62,13 @@ public open class MediaControls(pointer: CPointer<GtkMediaControls>) :
      * @param stream a `GtkMediaStream` to manage
      * @return a new `GtkMediaControls`
      */
-    public constructor(
-        stream: MediaStream? = null,
-    ) : this(gtk_media_controls_new(stream?.gtkMediaStreamPointer?.reinterpret())!!.reinterpret())
+    public constructor(stream: MediaStream? = null) : this(gtk_media_controls_new(stream?.gtkMediaStreamPointer?.reinterpret())!!.reinterpret())
 
     public companion object : TypeCompanion<MediaControls> {
         override val type: GeneratedClassKGType<MediaControls> =
-            GeneratedClassKGType(gtk_media_controls_get_type()) { MediaControls(it.reinterpret()) }
+                GeneratedClassKGType(gtk_media_controls_get_type()) { MediaControls(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

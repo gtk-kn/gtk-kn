@@ -3,7 +3,9 @@ package org.gtkkn.bindings.cairo
 
 import org.gtkkn.native.cairo.cairo_surface_type_t
 
-public enum class SurfaceType(public val nativeValue: cairo_surface_type_t) {
+public enum class SurfaceType(
+    public val nativeValue: cairo_surface_type_t,
+) {
     IMAGE(cairo_surface_type_t.CAIRO_SURFACE_TYPE_IMAGE),
     PDF(cairo_surface_type_t.CAIRO_SURFACE_TYPE_PDF),
     PS(cairo_surface_type_t.CAIRO_SURFACE_TYPE_PS),

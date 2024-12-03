@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.String
+import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,14 +11,15 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GDebugKey
-import kotlin.String
-import kotlin.UInt
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Associates a string with a bit flag.
  * Used in g_parse_debug_string().
  */
-public class DebugKey(pointer: CPointer<GDebugKey>) : Record {
+public class DebugKey(
+    pointer: CPointer<GDebugKey>,
+) : Record {
     public val glibDebugKeyPointer: CPointer<GDebugKey> = pointer
 
     /**

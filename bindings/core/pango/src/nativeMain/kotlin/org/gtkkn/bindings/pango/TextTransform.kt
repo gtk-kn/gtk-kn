@@ -9,22 +9,21 @@ import org.gtkkn.native.pango.PangoTextTransform
  * @since 1.50
  */
 @PangoVersion1_50
-public enum class TextTransform(public val nativeValue: PangoTextTransform) {
+public enum class TextTransform(
+    public val nativeValue: PangoTextTransform,
+) {
     /**
      * Leave text unchanged
      */
     NONE(PangoTextTransform.PANGO_TEXT_TRANSFORM_NONE),
-
     /**
      * Display letters and numbers as lowercase
      */
     LOWERCASE(PangoTextTransform.PANGO_TEXT_TRANSFORM_LOWERCASE),
-
     /**
      * Display letters and numbers as uppercase
      */
     UPPERCASE(PangoTextTransform.PANGO_TEXT_TRANSFORM_UPPERCASE),
-
     /**
      * Display the first character of a word
      *   in titlecase

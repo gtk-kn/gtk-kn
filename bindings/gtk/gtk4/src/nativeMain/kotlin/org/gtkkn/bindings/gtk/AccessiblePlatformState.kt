@@ -10,17 +10,17 @@ import org.gtkkn.native.gtk.GtkAccessiblePlatformState
  * @since 4.10
  */
 @GtkVersion4_10
-public enum class AccessiblePlatformState(public val nativeValue: GtkAccessiblePlatformState) {
+public enum class AccessiblePlatformState(
+    public val nativeValue: GtkAccessiblePlatformState,
+) {
     /**
      * whether the accessible can be focused
      */
     FOCUSABLE(GtkAccessiblePlatformState.GTK_ACCESSIBLE_PLATFORM_STATE_FOCUSABLE),
-
     /**
      * whether the accessible has focus
      */
     FOCUSED(GtkAccessiblePlatformState.GTK_ACCESSIBLE_PLATFORM_STATE_FOCUSED),
-
     /**
      * whether the accessible is active
      */
@@ -28,12 +28,11 @@ public enum class AccessiblePlatformState(public val nativeValue: GtkAccessibleP
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkAccessiblePlatformState): AccessiblePlatformState =
-            when (nativeValue) {
-                GtkAccessiblePlatformState.GTK_ACCESSIBLE_PLATFORM_STATE_FOCUSABLE -> FOCUSABLE
-                GtkAccessiblePlatformState.GTK_ACCESSIBLE_PLATFORM_STATE_FOCUSED -> FOCUSED
-                GtkAccessiblePlatformState.GTK_ACCESSIBLE_PLATFORM_STATE_ACTIVE -> ACTIVE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkAccessiblePlatformState): AccessiblePlatformState = when (nativeValue) {
+            GtkAccessiblePlatformState.GTK_ACCESSIBLE_PLATFORM_STATE_FOCUSABLE -> FOCUSABLE
+            GtkAccessiblePlatformState.GTK_ACCESSIBLE_PLATFORM_STATE_FOCUSED -> FOCUSED
+            GtkAccessiblePlatformState.GTK_ACCESSIBLE_PLATFORM_STATE_ACTIVE -> ACTIVE
+            else -> error("invalid nativeValue")
+        }
     }
 }

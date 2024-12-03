@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Long
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -9,9 +12,7 @@ import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GUriParamsIter
 import org.gtkkn.native.glib.g_uri_params_iter_init
-import kotlin.Long
-import kotlin.String
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Many URI schemes include one or more attribute/value pairs as part of the URI
@@ -35,7 +36,9 @@ import kotlin.Unit
  * @since 2.66
  */
 @GLibVersion2_66
-public class UriParamsIter(pointer: CPointer<GUriParamsIter>) : Record {
+public class UriParamsIter(
+    pointer: CPointer<GUriParamsIter>,
+) : Record {
     public val glibUriParamsIterPointer: CPointer<GUriParamsIter> = pointer
 
     /**
@@ -85,11 +88,14 @@ public class UriParamsIter(pointer: CPointer<GUriParamsIter>) : Record {
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun `init`(params: String, length: Long, separators: String, flags: UriParamsFlags): Unit =
-        g_uri_params_iter_init(glibUriParamsIterPointer.reinterpret(), params, length, separators, flags.mask)
+    public fun `init`(
+        params: String,
+        length: Long,
+        separators: String,
+        flags: UriParamsFlags,
+    ): Unit = g_uri_params_iter_init(glibUriParamsIterPointer.reinterpret(), params, length, separators, flags.mask)
 
     public companion object : RecordCompanion<UriParamsIter, GUriParamsIter> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): UriParamsIter =
-            UriParamsIter(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): UriParamsIter = UriParamsIter(pointer.reinterpret())
     }
 }

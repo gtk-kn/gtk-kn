@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Short
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -11,15 +13,16 @@ import org.gtkkn.native.gtk.GtkBorder
 import org.gtkkn.native.gtk.gtk_border_copy
 import org.gtkkn.native.gtk.gtk_border_free
 import org.gtkkn.native.gtk.gtk_border_new
-import kotlin.Short
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A struct that specifies a border around a rectangular area.
  *
  * Each side can have different width.
  */
-public class Border(pointer: CPointer<GtkBorder>) : Record {
+public class Border(
+    pointer: CPointer<GtkBorder>,
+) : Record {
     public val gtkBorderPointer: CPointer<GtkBorder> = pointer
 
     /**
@@ -64,8 +67,7 @@ public class Border(pointer: CPointer<GtkBorder>) : Record {
      * @return a copy of @border_.
      */
     public fun copy(): Border = gtk_border_copy(gtkBorderPointer.reinterpret())!!.run {
-        Border(reinterpret())
-    }
+        Border(reinterpret())}
 
     /**
      * Frees a `GtkBorder`.

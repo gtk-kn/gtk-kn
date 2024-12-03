@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Int
+import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -11,8 +13,7 @@ import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.pango.PangoAttrSize
 import org.gtkkn.native.pango.pango_attr_size_new
 import org.gtkkn.native.pango.pango_attr_size_new_absolute
-import kotlin.Int
-import kotlin.UInt
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `PangoAttrSize` structure is used to represent attributes which
@@ -22,7 +23,9 @@ import kotlin.UInt
  *
  * - field `attr`: Attribute
  */
-public class AttrSize(pointer: CPointer<PangoAttrSize>) : Record {
+public class AttrSize(
+    pointer: CPointer<PangoAttrSize>,
+) : Record {
     public val pangoAttrSizePointer: CPointer<PangoAttrSize> = pointer
 
     /**
@@ -57,8 +60,7 @@ public class AttrSize(pointer: CPointer<PangoAttrSize>) : Record {
          *   [method@Pango.Attribute.destroy]
          */
         public fun new(size: Int): Attribute = pango_attr_size_new(size)!!.run {
-            Attribute(reinterpret())
-        }
+            Attribute(reinterpret())}
 
         /**
          * Create a new font-size attribute in device units.
@@ -71,8 +73,7 @@ public class AttrSize(pointer: CPointer<PangoAttrSize>) : Record {
          */
         @PangoVersion1_8
         public fun newAbsolute(size: Int): Attribute = pango_attr_size_new_absolute(size)!!.run {
-            Attribute(reinterpret())
-        }
+            Attribute(reinterpret())}
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): AttrSize = AttrSize(pointer.reinterpret())
     }

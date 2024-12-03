@@ -13,21 +13,21 @@ import org.gtkkn.native.gio.g_tls_channel_binding_error_quark
  * @since 2.66
  */
 @GioVersion2_66
-public enum class TlsChannelBindingError(public val nativeValue: GTlsChannelBindingError) {
+public enum class TlsChannelBindingError(
+    public val nativeValue: GTlsChannelBindingError,
+) {
     /**
      * Either entire binding
      *    retrieval facility or specific binding type is not implemented in the
      *    TLS backend.
      */
     NOT_IMPLEMENTED(GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_NOT_IMPLEMENTED),
-
     /**
      * The handshake is not yet
      *    complete on the connection which is a strong requirement for any existing
      *    binding type.
      */
     INVALID_STATE(GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_INVALID_STATE),
-
     /**
      * Handshake is complete but
      *    binding data is not available. That normally indicates the TLS
@@ -35,7 +35,6 @@ public enum class TlsChannelBindingError(public val nativeValue: GTlsChannelBind
      *    implementations do not provide a peer certificate for resumed connections.
      */
     NOT_AVAILABLE(GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_NOT_AVAILABLE),
-
     /**
      * Binding type is not supported
      *    on the current connection. This error could be triggered when requesting
@@ -43,7 +42,6 @@ public enum class TlsChannelBindingError(public val nativeValue: GTlsChannelBind
      *    function or uses multiple hash functions.
      */
     NOT_SUPPORTED(GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_NOT_SUPPORTED),
-
     /**
      * Any other backend error
      *    preventing binding data retrieval.

@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
@@ -35,8 +37,6 @@ import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
-import kotlin.UInt
 
 /**
  * A [class@Gtk.ListBoxRow] used to choose from a list of items.
@@ -87,8 +87,9 @@ import kotlin.UInt
  *
  * `AdwComboRow` uses the `GTK_ACCESSIBLE_ROLE_COMBO_BOX` role.
  */
-public open class ComboRow(pointer: CPointer<AdwComboRow>) :
-    ActionRow(pointer.reinterpret()),
+public open class ComboRow(
+    pointer: CPointer<AdwComboRow>,
+) : ActionRow(pointer.reinterpret()),
     KGTyped {
     public val adwComboRowPointer: CPointer<AdwComboRow>
         get() = gPointer.reinterpret()
@@ -129,7 +130,6 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          * @since 1.4
          */
         get() = adw_combo_row_get_enable_search(adwComboRowPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether to enable search.
          *
@@ -160,9 +160,7 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          * @return the expression used to obtain strings from items
          */
         get() = adw_combo_row_get_expression(adwComboRowPointer.reinterpret())?.run {
-            Expression(reinterpret())
-        }
-
+            Expression(reinterpret())}
         /**
          * Sets the expression used to obtain strings from items.
          *
@@ -174,9 +172,7 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          *
          * @param expression an expression
          */
-        set(
-            expression
-        ) = adw_combo_row_set_expression(adwComboRowPointer.reinterpret(), expression?.gPointer?.reinterpret())
+        set(expression) = adw_combo_row_set_expression(adwComboRowPointer.reinterpret(), expression?.gPointer?.reinterpret())
 
     /**
      * Factory for populating list items.
@@ -191,9 +187,7 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          * @return the factory in use
          */
         get() = adw_combo_row_get_factory(adwComboRowPointer.reinterpret())?.run {
-            ListItemFactory(reinterpret())
-        }
-
+            ListItemFactory(reinterpret())}
         /**
          * Sets the factory for populating list items.
          *
@@ -202,12 +196,7 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          *
          * @param factory the factory to use
          */
-        set(
-            factory
-        ) = adw_combo_row_set_factory(
-            adwComboRowPointer.reinterpret(),
-            factory?.gtkListItemFactoryPointer?.reinterpret()
-        )
+        set(factory) = adw_combo_row_set_factory(adwComboRowPointer.reinterpret(), factory?.gtkListItemFactoryPointer?.reinterpret())
 
     /**
      * The factory for populating list items in the popup.
@@ -221,9 +210,7 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          * @return the factory in use
          */
         get() = adw_combo_row_get_list_factory(adwComboRowPointer.reinterpret())?.run {
-            ListItemFactory(reinterpret())
-        }
-
+            ListItemFactory(reinterpret())}
         /**
          * Sets the factory for populating list items in the popup.
          *
@@ -231,12 +218,7 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          *
          * @param factory the factory to use
          */
-        set(
-            factory
-        ) = adw_combo_row_set_list_factory(
-            adwComboRowPointer.reinterpret(),
-            factory?.gtkListItemFactoryPointer?.reinterpret()
-        )
+        set(factory) = adw_combo_row_set_list_factory(adwComboRowPointer.reinterpret(), factory?.gtkListItemFactoryPointer?.reinterpret())
 
     /**
      * The model that provides the displayed items.
@@ -248,9 +230,7 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          * @return The model in use
          */
         get() = adw_combo_row_get_model(adwComboRowPointer.reinterpret())?.run {
-            ListModel.wrap(reinterpret())
-        }
-
+            ListModel.wrap(reinterpret())}
         /**
          * Sets the model that provides the displayed items.
          *
@@ -272,7 +252,6 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          *   [const@Gtk.INVALID_LIST_POSITION] if no item is selected
          */
         get() = adw_combo_row_get_selected(adwComboRowPointer.reinterpret())
-
         /**
          * Selects the item at the given position.
          *
@@ -291,8 +270,7 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          * @return the selected item
          */
         get() = adw_combo_row_get_selected_item(adwComboRowPointer.reinterpret())?.run {
-            Object(reinterpret())
-        }
+            Object(reinterpret())}
 
     /**
      * Whether to use the current value as the subtitle.
@@ -312,7 +290,6 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          * @return whether to use the current value as the subtitle
          */
         get() = adw_combo_row_get_use_subtitle(adwComboRowPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether to use the current value as the subtitle.
          *
@@ -337,10 +314,9 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
 
     public companion object : TypeCompanion<ComboRow> {
         override val type: GeneratedClassKGType<ComboRow> =
-            GeneratedClassKGType(adw_combo_row_get_type()) { ComboRow(it.reinterpret()) }
+                GeneratedClassKGType(adw_combo_row_get_type()) { ComboRow(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
     }
 }

@@ -7,42 +7,37 @@ import org.gtkkn.native.gtk.GtkNumberUpLayout
  * Used to determine the layout of pages on a sheet when printing
  * multiple pages per sheet.
  */
-public enum class NumberUpLayout(public val nativeValue: GtkNumberUpLayout) {
+public enum class NumberUpLayout(
+    public val nativeValue: GtkNumberUpLayout,
+) {
     /**
      * ![](layout-lrtb.png)
      */
     LRTB(GtkNumberUpLayout.GTK_NUMBER_UP_LAYOUT_LEFT_TO_RIGHT_TOP_TO_BOTTOM),
-
     /**
      * ![](layout-lrbt.png)
      */
     LRBT(GtkNumberUpLayout.GTK_NUMBER_UP_LAYOUT_LEFT_TO_RIGHT_BOTTOM_TO_TOP),
-
     /**
      * ![](layout-rltb.png)
      */
     RLTB(GtkNumberUpLayout.GTK_NUMBER_UP_LAYOUT_RIGHT_TO_LEFT_TOP_TO_BOTTOM),
-
     /**
      * ![](layout-rlbt.png)
      */
     RLBT(GtkNumberUpLayout.GTK_NUMBER_UP_LAYOUT_RIGHT_TO_LEFT_BOTTOM_TO_TOP),
-
     /**
      * ![](layout-tblr.png)
      */
     TBLR(GtkNumberUpLayout.GTK_NUMBER_UP_LAYOUT_TOP_TO_BOTTOM_LEFT_TO_RIGHT),
-
     /**
      * ![](layout-tbrl.png)
      */
     TBRL(GtkNumberUpLayout.GTK_NUMBER_UP_LAYOUT_TOP_TO_BOTTOM_RIGHT_TO_LEFT),
-
     /**
      * ![](layout-btlr.png)
      */
     BTLR(GtkNumberUpLayout.GTK_NUMBER_UP_LAYOUT_BOTTOM_TO_TOP_LEFT_TO_RIGHT),
-
     /**
      * ![](layout-btrl.png)
      */

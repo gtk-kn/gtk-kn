@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
+import kotlin.Float
+import kotlin.String
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -17,11 +22,7 @@ import org.gtkkn.native.gdk.gdk_rgba_is_clear
 import org.gtkkn.native.gdk.gdk_rgba_is_opaque
 import org.gtkkn.native.gdk.gdk_rgba_parse
 import org.gtkkn.native.gdk.gdk_rgba_to_string
-import kotlin.Boolean
-import kotlin.Float
-import kotlin.String
-import kotlin.UInt
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GdkRGBA` is used to represent a color, in a way that is compatible
@@ -38,7 +39,9 @@ import kotlin.Unit
  *
  * - parameter `p2`: RGBA
  */
-public class RGBA(pointer: CPointer<GdkRGBA>) : Record {
+public class RGBA(
+    pointer: CPointer<GdkRGBA>,
+) : Record {
     public val gdkRGBAPointer: CPointer<GdkRGBA> = pointer
 
     /**
@@ -86,8 +89,7 @@ public class RGBA(pointer: CPointer<GdkRGBA>) : Record {
      * @return A newly allocated `GdkRGBA`, with the same contents as @rgba
      */
     public fun copy(): RGBA = gdk_rgba_copy(gdkRGBAPointer.reinterpret())!!.run {
-        RGBA(reinterpret())
-    }
+        RGBA(reinterpret())}
 
     /**
      * Frees a `GdkRGBA`.
@@ -165,8 +167,7 @@ public class RGBA(pointer: CPointer<GdkRGBA>) : Record {
      *
      * @return A newly allocated text string
      */
-    override fun toString(): String =
-        gdk_rgba_to_string(gdkRGBAPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    override fun toString(): String = gdk_rgba_to_string(gdkRGBAPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     public companion object : RecordCompanion<RGBA, GdkRGBA> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): RGBA = RGBA(pointer.reinterpret())

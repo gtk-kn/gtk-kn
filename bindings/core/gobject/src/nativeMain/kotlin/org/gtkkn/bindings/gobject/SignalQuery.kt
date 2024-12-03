@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.String
+import kotlin.UInt
+import kotlin.ULong
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,9 +12,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GSignalQuery
-import kotlin.String
-import kotlin.UInt
-import kotlin.ULong
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A structure holding in-depth information for a specific signal.
@@ -22,7 +23,9 @@ import kotlin.ULong
  *
  * - field `param_types`: Fields with arrays are not supported
  */
-public class SignalQuery(pointer: CPointer<GSignalQuery>) : Record {
+public class SignalQuery(
+    pointer: CPointer<GSignalQuery>,
+) : Record {
     public val gobjectSignalQueryPointer: CPointer<GSignalQuery> = pointer
 
     /**
@@ -57,8 +60,7 @@ public class SignalQuery(pointer: CPointer<GSignalQuery>) : Record {
      */
     public var signalFlags: SignalFlags
         get() = gobjectSignalQueryPointer.pointed.signal_flags.run {
-            SignalFlags(this)
-        }
+            SignalFlags(this)}
         set(`value`) {
             gobjectSignalQueryPointer.pointed.signal_flags = value.mask
         }
@@ -82,7 +84,6 @@ public class SignalQuery(pointer: CPointer<GSignalQuery>) : Record {
         }
 
     public companion object : RecordCompanion<SignalQuery, GSignalQuery> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SignalQuery =
-            SignalQuery(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SignalQuery = SignalQuery(pointer.reinterpret())
     }
 }

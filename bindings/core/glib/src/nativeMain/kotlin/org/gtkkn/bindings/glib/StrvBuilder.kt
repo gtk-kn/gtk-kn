@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.String
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.cstr
@@ -19,9 +22,7 @@ import org.gtkkn.native.glib.g_strv_builder_new
 import org.gtkkn.native.glib.g_strv_builder_ref
 import org.gtkkn.native.glib.g_strv_builder_take
 import org.gtkkn.native.glib.g_strv_builder_unref
-import kotlin.String
-import kotlin.Unit
-import kotlin.collections.List
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * `GStrvBuilder` is a helper object to build a null-terminated string arrays.
@@ -37,7 +38,9 @@ import kotlin.collections.List
  * @since 2.68
  */
 @GLibVersion2_68
-public class StrvBuilder(pointer: CPointer<GStrvBuilder>) : Record {
+public class StrvBuilder(
+    pointer: CPointer<GStrvBuilder>,
+) : Record {
     public val glibStrvBuilderPointer: CPointer<GStrvBuilder> = pointer
 
     /**
@@ -57,8 +60,7 @@ public class StrvBuilder(pointer: CPointer<GStrvBuilder>) : Record {
      * @param value the vector of strings to add
      */
     public fun addv(`value`: List<String>): Unit = memScoped {
-        return g_strv_builder_addv(glibStrvBuilderPointer.reinterpret(), `value`.toCStringList(this))
-    }
+        return g_strv_builder_addv(glibStrvBuilderPointer.reinterpret(), `value`.toCStringList(this))}
 
     /**
      * Ends the builder process and returns the constructed NULL-terminated string
@@ -69,8 +71,7 @@ public class StrvBuilder(pointer: CPointer<GStrvBuilder>) : Record {
      *
      * Since 2.68
      */
-    public fun end(): List<String> = g_strv_builder_end(glibStrvBuilderPointer.reinterpret())?.toKStringList()
-        ?: error("Expected not null string array")
+    public fun end(): List<String> = g_strv_builder_end(glibStrvBuilderPointer.reinterpret())?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Atomically increments the reference count of @builder by one.
@@ -81,8 +82,7 @@ public class StrvBuilder(pointer: CPointer<GStrvBuilder>) : Record {
      */
     @GLibVersion2_68
     public fun ref(): StrvBuilder = g_strv_builder_ref(glibStrvBuilderPointer.reinterpret())!!.run {
-        StrvBuilder(reinterpret())
-    }
+        StrvBuilder(reinterpret())}
 
     /**
      * Add a string to the end of the array. After @value belongs to the
@@ -116,7 +116,6 @@ public class StrvBuilder(pointer: CPointer<GStrvBuilder>) : Record {
          */
         public fun new(): StrvBuilder = StrvBuilder(g_strv_builder_new()!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): StrvBuilder =
-            StrvBuilder(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): StrvBuilder = StrvBuilder(pointer.reinterpret())
     }
 }

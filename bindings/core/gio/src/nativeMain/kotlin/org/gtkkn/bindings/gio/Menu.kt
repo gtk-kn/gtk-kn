@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Int
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
@@ -26,9 +29,6 @@ import org.gtkkn.native.gio.g_menu_prepend_section
 import org.gtkkn.native.gio.g_menu_prepend_submenu
 import org.gtkkn.native.gio.g_menu_remove
 import org.gtkkn.native.gio.g_menu_remove_all
-import kotlin.Int
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GMenu` is a simple implementation of [class@Gio.MenuModel].
@@ -42,8 +42,9 @@ import kotlin.Unit
  * @since 2.32
  */
 @GioVersion2_32
-public open class Menu(pointer: CPointer<GMenu>) :
-    MenuModel(pointer.reinterpret()),
+public open class Menu(
+    pointer: CPointer<GMenu>,
+) : MenuModel(pointer.reinterpret()),
     KGTyped {
     public val gioMenuPointer: CPointer<GMenu>
         get() = gPointer.reinterpret()
@@ -68,8 +69,7 @@ public open class Menu(pointer: CPointer<GMenu>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun append(label: String? = null, detailedAction: String? = null): Unit =
-        g_menu_append(gioMenuPointer.reinterpret(), label, detailedAction)
+    public open fun append(label: String? = null, detailedAction: String? = null): Unit = g_menu_append(gioMenuPointer.reinterpret(), label, detailedAction)
 
     /**
      * Appends @item to the end of @menu.
@@ -80,8 +80,7 @@ public open class Menu(pointer: CPointer<GMenu>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun appendItem(item: MenuItem): Unit =
-        g_menu_append_item(gioMenuPointer.reinterpret(), item.gioMenuItemPointer.reinterpret())
+    public open fun appendItem(item: MenuItem): Unit = g_menu_append_item(gioMenuPointer.reinterpret(), item.gioMenuItemPointer.reinterpret())
 
     /**
      * Convenience function for appending a section menu item to the end of
@@ -93,8 +92,7 @@ public open class Menu(pointer: CPointer<GMenu>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun appendSection(label: String? = null, section: MenuModel): Unit =
-        g_menu_append_section(gioMenuPointer.reinterpret(), label, section.gioMenuModelPointer.reinterpret())
+    public open fun appendSection(label: String? = null, section: MenuModel): Unit = g_menu_append_section(gioMenuPointer.reinterpret(), label, section.gioMenuModelPointer.reinterpret())
 
     /**
      * Convenience function for appending a submenu menu item to the end of
@@ -106,8 +104,7 @@ public open class Menu(pointer: CPointer<GMenu>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun appendSubmenu(label: String? = null, submenu: MenuModel): Unit =
-        g_menu_append_submenu(gioMenuPointer.reinterpret(), label, submenu.gioMenuModelPointer.reinterpret())
+    public open fun appendSubmenu(label: String? = null, submenu: MenuModel): Unit = g_menu_append_submenu(gioMenuPointer.reinterpret(), label, submenu.gioMenuModelPointer.reinterpret())
 
     /**
      * Marks @menu as frozen.
@@ -135,8 +132,11 @@ public open class Menu(pointer: CPointer<GMenu>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun insert(position: Int, label: String? = null, detailedAction: String? = null): Unit =
-        g_menu_insert(gioMenuPointer.reinterpret(), position, label, detailedAction)
+    public open fun insert(
+        position: Int,
+        label: String? = null,
+        detailedAction: String? = null,
+    ): Unit = g_menu_insert(gioMenuPointer.reinterpret(), position, label, detailedAction)
 
     /**
      * Inserts @item into @menu.
@@ -162,8 +162,7 @@ public open class Menu(pointer: CPointer<GMenu>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun insertItem(position: Int, item: MenuItem): Unit =
-        g_menu_insert_item(gioMenuPointer.reinterpret(), position, item.gioMenuItemPointer.reinterpret())
+    public open fun insertItem(position: Int, item: MenuItem): Unit = g_menu_insert_item(gioMenuPointer.reinterpret(), position, item.gioMenuItemPointer.reinterpret())
 
     /**
      * Convenience function for inserting a section menu item into @menu.
@@ -176,8 +175,11 @@ public open class Menu(pointer: CPointer<GMenu>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun insertSection(position: Int, label: String? = null, section: MenuModel): Unit =
-        g_menu_insert_section(gioMenuPointer.reinterpret(), position, label, section.gioMenuModelPointer.reinterpret())
+    public open fun insertSection(
+        position: Int,
+        label: String? = null,
+        section: MenuModel,
+    ): Unit = g_menu_insert_section(gioMenuPointer.reinterpret(), position, label, section.gioMenuModelPointer.reinterpret())
 
     /**
      * Convenience function for inserting a submenu menu item into @menu.
@@ -190,8 +192,11 @@ public open class Menu(pointer: CPointer<GMenu>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun insertSubmenu(position: Int, label: String? = null, submenu: MenuModel): Unit =
-        g_menu_insert_submenu(gioMenuPointer.reinterpret(), position, label, submenu.gioMenuModelPointer.reinterpret())
+    public open fun insertSubmenu(
+        position: Int,
+        label: String? = null,
+        submenu: MenuModel,
+    ): Unit = g_menu_insert_submenu(gioMenuPointer.reinterpret(), position, label, submenu.gioMenuModelPointer.reinterpret())
 
     /**
      * Convenience function for prepending a normal menu item to the start
@@ -203,8 +208,7 @@ public open class Menu(pointer: CPointer<GMenu>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun prepend(label: String? = null, detailedAction: String? = null): Unit =
-        g_menu_prepend(gioMenuPointer.reinterpret(), label, detailedAction)
+    public open fun prepend(label: String? = null, detailedAction: String? = null): Unit = g_menu_prepend(gioMenuPointer.reinterpret(), label, detailedAction)
 
     /**
      * Prepends @item to the start of @menu.
@@ -215,8 +219,7 @@ public open class Menu(pointer: CPointer<GMenu>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun prependItem(item: MenuItem): Unit =
-        g_menu_prepend_item(gioMenuPointer.reinterpret(), item.gioMenuItemPointer.reinterpret())
+    public open fun prependItem(item: MenuItem): Unit = g_menu_prepend_item(gioMenuPointer.reinterpret(), item.gioMenuItemPointer.reinterpret())
 
     /**
      * Convenience function for prepending a section menu item to the start
@@ -228,8 +231,7 @@ public open class Menu(pointer: CPointer<GMenu>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun prependSection(label: String? = null, section: MenuModel): Unit =
-        g_menu_prepend_section(gioMenuPointer.reinterpret(), label, section.gioMenuModelPointer.reinterpret())
+    public open fun prependSection(label: String? = null, section: MenuModel): Unit = g_menu_prepend_section(gioMenuPointer.reinterpret(), label, section.gioMenuModelPointer.reinterpret())
 
     /**
      * Convenience function for prepending a submenu menu item to the start
@@ -241,8 +243,7 @@ public open class Menu(pointer: CPointer<GMenu>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun prependSubmenu(label: String? = null, submenu: MenuModel): Unit =
-        g_menu_prepend_submenu(gioMenuPointer.reinterpret(), label, submenu.gioMenuModelPointer.reinterpret())
+    public open fun prependSubmenu(label: String? = null, submenu: MenuModel): Unit = g_menu_prepend_submenu(gioMenuPointer.reinterpret(), label, submenu.gioMenuModelPointer.reinterpret())
 
     /**
      * Removes an item from the menu.
@@ -272,10 +273,9 @@ public open class Menu(pointer: CPointer<GMenu>) :
 
     public companion object : TypeCompanion<Menu> {
         override val type: GeneratedClassKGType<Menu> =
-            GeneratedClassKGType(g_menu_get_type()) { Menu(it.reinterpret()) }
+                GeneratedClassKGType(g_menu_get_type()) { Menu(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
     }
 }

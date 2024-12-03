@@ -24,8 +24,9 @@ import org.gtkkn.native.gio.g_emblem_new_with_origin
  * Currently, only metainformation about the emblem's origin is
  * supported. More may be added in the future.
  */
-public open class Emblem(pointer: CPointer<GEmblem>) :
-    Object(pointer.reinterpret()),
+public open class Emblem(
+    pointer: CPointer<GEmblem>,
+) : Object(pointer.reinterpret()),
     Icon,
     KGTyped {
     public val gioEmblemPointer: CPointer<GEmblem>
@@ -49,8 +50,7 @@ public open class Emblem(pointer: CPointer<GEmblem>) :
          * @since 2.18
          */
         get() = g_emblem_get_icon(gioEmblemPointer.reinterpret())!!.run {
-            Icon.wrap(reinterpret())
-        }
+            Icon.wrap(reinterpret())}
 
     /**
      * The origin the emblem is derived from.
@@ -66,8 +66,7 @@ public open class Emblem(pointer: CPointer<GEmblem>) :
          * @since 2.18
          */
         get() = g_emblem_get_origin(gioEmblemPointer.reinterpret()).run {
-            EmblemOrigin.fromNativeValue(this)
-        }
+            EmblemOrigin.fromNativeValue(this)}
 
     /**
      * Creates a new emblem for @icon.
@@ -86,17 +85,13 @@ public open class Emblem(pointer: CPointer<GEmblem>) :
      * @return a new #GEmblem.
      * @since 2.18
      */
-    public constructor(
-        icon: Icon,
-        origin: EmblemOrigin,
-    ) : this(g_emblem_new_with_origin(icon.gioIconPointer, origin.nativeValue)!!.reinterpret())
+    public constructor(icon: Icon, origin: EmblemOrigin) : this(g_emblem_new_with_origin(icon.gioIconPointer, origin.nativeValue)!!.reinterpret())
 
     public companion object : TypeCompanion<Emblem> {
         override val type: GeneratedClassKGType<Emblem> =
-            GeneratedClassKGType(g_emblem_get_type()) { Emblem(it.reinterpret()) }
+                GeneratedClassKGType(g_emblem_get_type()) { Emblem(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
     }
 }

@@ -7,42 +7,37 @@ import org.gtkkn.native.glib.GErrorType
  * The possible errors, used in the @v_error field
  * of #GTokenValue, when the token is a %G_TOKEN_ERROR.
  */
-public enum class ErrorType(public val nativeValue: GErrorType) {
+public enum class ErrorType(
+    public val nativeValue: GErrorType,
+) {
     /**
      * unknown error
      */
     UNKNOWN(GErrorType.G_ERR_UNKNOWN),
-
     /**
      * unexpected end of file
      */
     UNEXP_EOF(GErrorType.G_ERR_UNEXP_EOF),
-
     /**
      * unterminated string constant
      */
     UNEXP_EOF_IN_STRING(GErrorType.G_ERR_UNEXP_EOF_IN_STRING),
-
     /**
      * unterminated comment
      */
     UNEXP_EOF_IN_COMMENT(GErrorType.G_ERR_UNEXP_EOF_IN_COMMENT),
-
     /**
      * non-digit character in a number
      */
     NON_DIGIT_IN_CONST(GErrorType.G_ERR_NON_DIGIT_IN_CONST),
-
     /**
      * digit beyond radix in a number
      */
     DIGIT_RADIX(GErrorType.G_ERR_DIGIT_RADIX),
-
     /**
      * non-decimal floating point number
      */
     FLOAT_RADIX(GErrorType.G_ERR_FLOAT_RADIX),
-
     /**
      * malformed floating point number
      */

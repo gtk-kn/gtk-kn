@@ -6,52 +6,45 @@ import org.gtkkn.native.gtk.GtkBorderStyle
 /**
  * Describes how the border of a UI element should be rendered.
  */
-public enum class BorderStyle(public val nativeValue: GtkBorderStyle) {
+public enum class BorderStyle(
+    public val nativeValue: GtkBorderStyle,
+) {
     /**
      * No visible border
      */
     NONE(GtkBorderStyle.GTK_BORDER_STYLE_NONE),
-
     /**
      * Same as %GTK_BORDER_STYLE_NONE
      */
     HIDDEN(GtkBorderStyle.GTK_BORDER_STYLE_HIDDEN),
-
     /**
      * A single line segment
      */
     SOLID(GtkBorderStyle.GTK_BORDER_STYLE_SOLID),
-
     /**
      * Looks as if the content is sunken into the canvas
      */
     INSET(GtkBorderStyle.GTK_BORDER_STYLE_INSET),
-
     /**
      * Looks as if the content is coming out of the canvas
      */
     OUTSET(GtkBorderStyle.GTK_BORDER_STYLE_OUTSET),
-
     /**
      * A series of round dots
      */
     DOTTED(GtkBorderStyle.GTK_BORDER_STYLE_DOTTED),
-
     /**
      * A series of square-ended dashes
      */
     DASHED(GtkBorderStyle.GTK_BORDER_STYLE_DASHED),
-
     /**
      * Two parallel lines with some space between them
      */
     DOUBLE(GtkBorderStyle.GTK_BORDER_STYLE_DOUBLE),
-
     /**
      * Looks as if it were carved in the canvas
      */
     GROOVE(GtkBorderStyle.GTK_BORDER_STYLE_GROOVE),
-
     /**
      * Looks as if it were coming out of the canvas
      */

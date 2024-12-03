@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Int
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -12,9 +15,7 @@ import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GDBusArgInfo
 import org.gtkkn.native.gio.g_dbus_arg_info_ref
 import org.gtkkn.native.gio.g_dbus_arg_info_unref
-import kotlin.Int
-import kotlin.String
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Information about an argument for a method or a signal.
@@ -26,7 +27,9 @@ import kotlin.Unit
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusArgInfo(pointer: CPointer<GDBusArgInfo>) : Record {
+public class DBusArgInfo(
+    pointer: CPointer<GDBusArgInfo>,
+) : Record {
     public val gioDBusArgInfoPointer: CPointer<GDBusArgInfo> = pointer
 
     /**
@@ -63,8 +66,7 @@ public class DBusArgInfo(pointer: CPointer<GDBusArgInfo>) : Record {
      */
     @GioVersion2_26
     public fun ref(): DBusArgInfo = g_dbus_arg_info_ref(gioDBusArgInfoPointer.reinterpret())!!.run {
-        DBusArgInfo(reinterpret())
-    }
+        DBusArgInfo(reinterpret())}
 
     /**
      * If @info is statically allocated, does nothing. Otherwise decreases
@@ -77,7 +79,6 @@ public class DBusArgInfo(pointer: CPointer<GDBusArgInfo>) : Record {
     public fun unref(): Unit = g_dbus_arg_info_unref(gioDBusArgInfoPointer.reinterpret())
 
     public companion object : RecordCompanion<DBusArgInfo, GDBusArgInfo> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusArgInfo =
-            DBusArgInfo(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusArgInfo = DBusArgInfo(pointer.reinterpret())
     }
 }

@@ -1,6 +1,15 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.javascriptcore
 
+import kotlin.Boolean
+import kotlin.Double
+import kotlin.Int
+import kotlin.Long
+import kotlin.String
+import kotlin.UInt
+import kotlin.ULong
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.memScoped
@@ -66,15 +75,6 @@ import org.gtkkn.native.javascriptcore.jsc_value_typed_array_get_length
 import org.gtkkn.native.javascriptcore.jsc_value_typed_array_get_offset
 import org.gtkkn.native.javascriptcore.jsc_value_typed_array_get_size
 import org.gtkkn.native.javascriptcore.jsc_value_typed_array_get_type
-import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
-import kotlin.Long
-import kotlin.String
-import kotlin.UInt
-import kotlin.ULong
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * JSCValue represents a reference to a value in a #JSCContext. The JSCValue
@@ -93,8 +93,9 @@ import kotlin.collections.List
  * - parameter `parameter_types`: Array parameter of type GType is not supported
  * - parameter `instance`: gpointer
  */
-public class Value(pointer: CPointer<JSCValue>) :
-    Object(pointer.reinterpret()),
+public class Value(
+    pointer: CPointer<JSCValue>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val javascriptcoreValuePointer: CPointer<JSCValue>
         get() = gPointer.reinterpret()
@@ -109,8 +110,7 @@ public class Value(pointer: CPointer<JSCValue>) :
          * @return the #JSCValue context.
          */
         get() = jsc_value_get_context(javascriptcoreValuePointer.reinterpret())!!.run {
-            Context(reinterpret())
-        }
+            Context(reinterpret())}
 
     /**
      * Create a new #JSCValue referencing an array of strings with the items from @strv. If @array
@@ -120,13 +120,8 @@ public class Value(pointer: CPointer<JSCValue>) :
      * @param strv a null-terminated array of strings
      * @return a #JSCValue.
      */
-    public constructor(context: Context, strv: List<String>) : this(
-        memScoped {
-            jsc_value_new_array_from_strv(
-                context.javascriptcoreContextPointer.reinterpret(),
-                strv.toCStringList(this)
-            )!!.reinterpret()
-        }
+    public constructor(context: Context, strv: List<String>) : this(memScoped {
+        jsc_value_new_array_from_strv(context.javascriptcoreContextPointer.reinterpret(), strv.toCStringList(this))!!.reinterpret()}
     )
 
     /**
@@ -136,12 +131,7 @@ public class Value(pointer: CPointer<JSCValue>) :
      * @param value a #gboolean
      * @return a #JSCValue.
      */
-    public constructor(
-        context: Context,
-        `value`: Boolean,
-    ) : this(
-        jsc_value_new_boolean(context.javascriptcoreContextPointer.reinterpret(), `value`.asGBoolean())!!.reinterpret()
-    )
+    public constructor(context: Context, `value`: Boolean) : this(jsc_value_new_boolean(context.javascriptcoreContextPointer.reinterpret(), `value`.asGBoolean())!!.reinterpret())
 
     /**
      * Create a new #JSCValue referencing a new value created by parsing @json.
@@ -151,10 +141,7 @@ public class Value(pointer: CPointer<JSCValue>) :
      * @return a #JSCValue.
      * @since 2.28
      */
-    public constructor(
-        context: Context,
-        json: String,
-    ) : this(jsc_value_new_from_json(context.javascriptcoreContextPointer.reinterpret(), json)!!.reinterpret())
+    public constructor(context: Context, json: String) : this(jsc_value_new_from_json(context.javascriptcoreContextPointer.reinterpret(), json)!!.reinterpret())
 
     /**
      * Create a function in @context. If @name is null an anonymous function will be created.
@@ -178,16 +165,7 @@ public class Value(pointer: CPointer<JSCValue>) :
         name: String? = null,
         callback: Callback,
         returnType: ULong,
-    ) : this(
-        jsc_value_new_function_variadic(
-            context.javascriptcoreContextPointer.reinterpret(),
-            name,
-            CallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            returnType
-        )!!.reinterpret()
-    )
+    ) : this(jsc_value_new_function_variadic(context.javascriptcoreContextPointer.reinterpret(), name, CallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret(), returnType)!!.reinterpret())
 
     /**
      * Create a new #JSCValue referencing <function>null</function> in @context.
@@ -195,9 +173,7 @@ public class Value(pointer: CPointer<JSCValue>) :
      * @param context a #JSCContext
      * @return a #JSCValue.
      */
-    public constructor(
-        context: Context,
-    ) : this(jsc_value_new_null(context.javascriptcoreContextPointer.reinterpret())!!.reinterpret())
+    public constructor(context: Context) : this(jsc_value_new_null(context.javascriptcoreContextPointer.reinterpret())!!.reinterpret())
 
     /**
      * Create a new #JSCValue from @number.
@@ -206,10 +182,7 @@ public class Value(pointer: CPointer<JSCValue>) :
      * @param number a number
      * @return a #JSCValue.
      */
-    public constructor(
-        context: Context,
-        number: Double,
-    ) : this(jsc_value_new_number(context.javascriptcoreContextPointer.reinterpret(), number)!!.reinterpret())
+    public constructor(context: Context, number: Double) : this(jsc_value_new_number(context.javascriptcoreContextPointer.reinterpret(), number)!!.reinterpret())
 
     /**
      * Create a new #JSCValue from @string. If you need to create a #JSCValue from a
@@ -219,10 +192,7 @@ public class Value(pointer: CPointer<JSCValue>) :
      * @param string a null-terminated string
      * @return a #JSCValue.
      */
-    public constructor(
-        context: Context,
-        string: String? = null,
-    ) : this(jsc_value_new_string(context.javascriptcoreContextPointer.reinterpret(), string)!!.reinterpret())
+    public constructor(context: Context, string: String? = null) : this(jsc_value_new_string(context.javascriptcoreContextPointer.reinterpret(), string)!!.reinterpret())
 
     /**
      * Create a new #JSCValue from @bytes.
@@ -231,15 +201,7 @@ public class Value(pointer: CPointer<JSCValue>) :
      * @param bytes a #GBytes
      * @return a #JSCValue.
      */
-    public constructor(
-        context: Context,
-        bytes: Bytes? = null,
-    ) : this(
-        jsc_value_new_string_from_bytes(
-            context.javascriptcoreContextPointer.reinterpret(),
-            bytes?.glibBytesPointer?.reinterpret()
-        )!!.reinterpret()
-    )
+    public constructor(context: Context, bytes: Bytes? = null) : this(jsc_value_new_string_from_bytes(context.javascriptcoreContextPointer.reinterpret(), bytes?.glibBytesPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Create a new typed array containing a given amount of elements.
@@ -261,13 +223,7 @@ public class Value(pointer: CPointer<JSCValue>) :
         context: Context,
         type: TypedArrayType,
         length: ULong,
-    ) : this(
-        jsc_value_new_typed_array(
-            context.javascriptcoreContextPointer.reinterpret(),
-            type.nativeValue,
-            length
-        )!!.reinterpret()
-    )
+    ) : this(jsc_value_new_typed_array(context.javascriptcoreContextPointer.reinterpret(), type.nativeValue, length)!!.reinterpret())
 
     /**
      * Gets the size in bytes of the array buffer.
@@ -295,8 +251,7 @@ public class Value(pointer: CPointer<JSCValue>) :
      * @since 2.38
      */
     @JavaScriptCoreVersion2_38
-    public fun isArrayBuffer(): Boolean =
-        jsc_value_is_array_buffer(javascriptcoreValuePointer.reinterpret()).asBoolean()
+    public fun isArrayBuffer(): Boolean = jsc_value_is_array_buffer(javascriptcoreValuePointer.reinterpret()).asBoolean()
 
     /**
      * Get whether the value referenced by @value is a boolean.
@@ -386,15 +341,12 @@ public class Value(pointer: CPointer<JSCValue>) :
      * @since 2.38
      */
     @JavaScriptCoreVersion2_38
-    public fun newTypedArrayWithBuffer(type: TypedArrayType, offset: ULong, length: Long): Value =
-        jsc_value_new_typed_array_with_buffer(
-            javascriptcoreValuePointer.reinterpret(),
-            type.nativeValue,
-            offset,
-            length
-        )!!.run {
-            Value(reinterpret())
-        }
+    public fun newTypedArrayWithBuffer(
+        type: TypedArrayType,
+        offset: ULong,
+        length: Long,
+    ): Value = jsc_value_new_typed_array_with_buffer(javascriptcoreValuePointer.reinterpret(), type.nativeValue, offset, length)!!.run {
+        Value(reinterpret())}
 
     /**
      * Define or modify a property with @property_name in object referenced by @value. This is equivalent to
@@ -408,12 +360,7 @@ public class Value(pointer: CPointer<JSCValue>) :
         propertyName: String,
         flags: ValuePropertyFlags,
         propertyValue: Value? = null,
-    ): Unit = jsc_value_object_define_property_data(
-        javascriptcoreValuePointer.reinterpret(),
-        propertyName,
-        flags.mask,
-        propertyValue?.javascriptcoreValuePointer?.reinterpret()
-    )
+    ): Unit = jsc_value_object_define_property_data(javascriptcoreValuePointer.reinterpret(), propertyName, flags.mask, propertyValue?.javascriptcoreValuePointer?.reinterpret())
 
     /**
      * Try to delete property with @name from @value. This function will return false if
@@ -422,8 +369,7 @@ public class Value(pointer: CPointer<JSCValue>) :
      * @param name the property name
      * @return true if the property was deleted, or false otherwise.
      */
-    public fun objectDeleteProperty(name: String): Boolean =
-        jsc_value_object_delete_property(javascriptcoreValuePointer.reinterpret(), name).asBoolean()
+    public fun objectDeleteProperty(name: String): Boolean = jsc_value_object_delete_property(javascriptcoreValuePointer.reinterpret(), name).asBoolean()
 
     /**
      * Get the list of property names of @value. Only properties defined with %JSC_VALUE_PROPERTY_ENUMERABLE
@@ -432,8 +378,7 @@ public class Value(pointer: CPointer<JSCValue>) :
      * @return a null-terminated array of strings containing the
      *    property names, or null if @value doesn't have enumerable properties.  Use g_strfreev() to free.
      */
-    public fun objectEnumerateProperties(): List<String>? =
-        jsc_value_object_enumerate_properties(javascriptcoreValuePointer.reinterpret())?.toKStringList()
+    public fun objectEnumerateProperties(): List<String>? = jsc_value_object_enumerate_properties(javascriptcoreValuePointer.reinterpret())?.toKStringList()
 
     /**
      * Get property with @name from @value.
@@ -441,10 +386,8 @@ public class Value(pointer: CPointer<JSCValue>) :
      * @param name the property name
      * @return the property #JSCValue.
      */
-    public fun objectGetProperty(name: String): Value =
-        jsc_value_object_get_property(javascriptcoreValuePointer.reinterpret(), name)!!.run {
-            Value(reinterpret())
-        }
+    public fun objectGetProperty(name: String): Value = jsc_value_object_get_property(javascriptcoreValuePointer.reinterpret(), name)!!.run {
+        Value(reinterpret())}
 
     /**
      * Get property at @index from @value.
@@ -452,10 +395,8 @@ public class Value(pointer: CPointer<JSCValue>) :
      * @param index the property index
      * @return the property #JSCValue.
      */
-    public fun objectGetPropertyAtIndex(index: UInt): Value =
-        jsc_value_object_get_property_at_index(javascriptcoreValuePointer.reinterpret(), index)!!.run {
-            Value(reinterpret())
-        }
+    public fun objectGetPropertyAtIndex(index: UInt): Value = jsc_value_object_get_property_at_index(javascriptcoreValuePointer.reinterpret(), index)!!.run {
+        Value(reinterpret())}
 
     /**
      * Get whether @value has property with @name.
@@ -463,8 +404,7 @@ public class Value(pointer: CPointer<JSCValue>) :
      * @param name the property name
      * @return true if @value has a property with @name, or false otherwise
      */
-    public fun objectHasProperty(name: String): Boolean =
-        jsc_value_object_has_property(javascriptcoreValuePointer.reinterpret(), name).asBoolean()
+    public fun objectHasProperty(name: String): Boolean = jsc_value_object_has_property(javascriptcoreValuePointer.reinterpret(), name).asBoolean()
 
     /**
      * Get whether the value referenced by @value is an instance of class @name.
@@ -472,8 +412,7 @@ public class Value(pointer: CPointer<JSCValue>) :
      * @param name a class name
      * @return whether the value is an object instance of class @name.
      */
-    public fun objectIsInstanceOf(name: String): Boolean =
-        jsc_value_object_is_instance_of(javascriptcoreValuePointer.reinterpret(), name).asBoolean()
+    public fun objectIsInstanceOf(name: String): Boolean = jsc_value_object_is_instance_of(javascriptcoreValuePointer.reinterpret(), name).asBoolean()
 
     /**
      * Set @property with @name on @value.
@@ -481,11 +420,7 @@ public class Value(pointer: CPointer<JSCValue>) :
      * @param name the property name
      * @param property the #JSCValue to set
      */
-    public fun objectSetProperty(name: String, `property`: Value): Unit = jsc_value_object_set_property(
-        javascriptcoreValuePointer.reinterpret(),
-        name,
-        `property`.javascriptcoreValuePointer.reinterpret()
-    )
+    public fun objectSetProperty(name: String, `property`: Value): Unit = jsc_value_object_set_property(javascriptcoreValuePointer.reinterpret(), name, `property`.javascriptcoreValuePointer.reinterpret())
 
     /**
      * Set @property at @index on @value.
@@ -493,11 +428,7 @@ public class Value(pointer: CPointer<JSCValue>) :
      * @param index the property index
      * @param property the #JSCValue to set
      */
-    public fun objectSetPropertyAtIndex(index: UInt, `property`: Value): Unit = jsc_value_object_set_property_at_index(
-        javascriptcoreValuePointer.reinterpret(),
-        index,
-        `property`.javascriptcoreValuePointer.reinterpret()
-    )
+    public fun objectSetPropertyAtIndex(index: UInt, `property`: Value): Unit = jsc_value_object_set_property_at_index(javascriptcoreValuePointer.reinterpret(), index, `property`.javascriptcoreValuePointer.reinterpret())
 
     /**
      * Convert @value to a boolean.
@@ -529,9 +460,7 @@ public class Value(pointer: CPointer<JSCValue>) :
      * @since 2.28
      */
     @JavaScriptCoreVersion2_28
-    public fun toJson(indent: UInt): String =
-        jsc_value_to_json(javascriptcoreValuePointer.reinterpret(), indent)?.toKString()
-            ?: error("Expected not null string")
+    public fun toJson(indent: UInt): String = jsc_value_to_json(javascriptcoreValuePointer.reinterpret(), indent)?.toKString() ?: error("Expected not null string")
 
     /**
      * Convert @value to a string. Use jsc_value_to_string_as_bytes() instead, if you need to
@@ -539,8 +468,7 @@ public class Value(pointer: CPointer<JSCValue>) :
      *
      * @return a null-terminated string result of the conversion.
      */
-    override fun toString(): String =
-        jsc_value_to_string(javascriptcoreValuePointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    override fun toString(): String = jsc_value_to_string(javascriptcoreValuePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Convert @value to a string and return the results as #GBytes. This is needed
@@ -549,8 +477,7 @@ public class Value(pointer: CPointer<JSCValue>) :
      * @return a #GBytes with the result of the conversion.
      */
     public fun toStringAsBytes(): Bytes = jsc_value_to_string_as_bytes(javascriptcoreValuePointer.reinterpret())!!.run {
-        Bytes(reinterpret())
-    }
+        Bytes(reinterpret())}
 
     /**
      * Obtain the %ArrayBuffer for the memory region of the typed array elements.
@@ -559,10 +486,8 @@ public class Value(pointer: CPointer<JSCValue>) :
      * @since 2.38
      */
     @JavaScriptCoreVersion2_38
-    public fun typedArrayGetBuffer(): Value =
-        jsc_value_typed_array_get_buffer(javascriptcoreValuePointer.reinterpret())!!.run {
-            Value(reinterpret())
-        }
+    public fun typedArrayGetBuffer(): Value = jsc_value_typed_array_get_buffer(javascriptcoreValuePointer.reinterpret())!!.run {
+        Value(reinterpret())}
 
     /**
      * Gets the number of elements in a typed array.
@@ -598,18 +523,15 @@ public class Value(pointer: CPointer<JSCValue>) :
      * @since 2.38
      */
     @JavaScriptCoreVersion2_38
-    public fun typedArrayGetType(): TypedArrayType =
-        jsc_value_typed_array_get_type(javascriptcoreValuePointer.reinterpret()).run {
-            TypedArrayType.fromNativeValue(this)
-        }
+    public fun typedArrayGetType(): TypedArrayType = jsc_value_typed_array_get_type(javascriptcoreValuePointer.reinterpret()).run {
+        TypedArrayType.fromNativeValue(this)}
 
     public companion object : TypeCompanion<Value> {
         override val type: GeneratedClassKGType<Value> =
-            GeneratedClassKGType(jsc_value_get_type()) { Value(it.reinterpret()) }
+                GeneratedClassKGType(jsc_value_get_type()) { Value(it.reinterpret()) }
 
         init {
-            JavascriptcoreTypeProvider.register()
-        }
+            JavascriptcoreTypeProvider.register()}
 
         /**
          * Create a new #JSCValue referencing <function>null</function> in @context.
@@ -617,8 +539,7 @@ public class Value(pointer: CPointer<JSCValue>) :
          * @param context a #JSCContext
          * @return a #JSCValue.
          */
-        public fun newNull(context: Context): Value =
-            Value(jsc_value_new_null(context.javascriptcoreContextPointer.reinterpret())!!.reinterpret())
+        public fun newNull(context: Context): Value = Value(jsc_value_new_null(context.javascriptcoreContextPointer.reinterpret())!!.reinterpret())
 
         /**
          * Create a new #JSCValue referencing <function>undefined</function> in @context.
@@ -626,7 +547,6 @@ public class Value(pointer: CPointer<JSCValue>) :
          * @param context a #JSCContext
          * @return a #JSCValue.
          */
-        public fun newUndefined(context: Context): Value =
-            Value(jsc_value_new_undefined(context.javascriptcoreContextPointer.reinterpret())!!.reinterpret())
+        public fun newUndefined(context: Context): Value = Value(jsc_value_new_undefined(context.javascriptcoreContextPointer.reinterpret())!!.reinterpret())
     }
 }

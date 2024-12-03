@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -26,10 +30,6 @@ import org.gtkkn.native.gio.g_socket_service_start
 import org.gtkkn.native.gio.g_socket_service_stop
 import org.gtkkn.native.gobject.GObject
 import org.gtkkn.native.gobject.g_signal_connect_data
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A `GSocketService` is an object that represents a service that
@@ -66,8 +66,9 @@ import kotlin.Unit
  * @since 2.22
  */
 @GioVersion2_22
-public open class SocketService(pointer: CPointer<GSocketService>) :
-    SocketListener(pointer.reinterpret()),
+public open class SocketService(
+    pointer: CPointer<GSocketService>,
+) : SocketListener(pointer.reinterpret()),
     KGTyped {
     public val gioSocketServicePointer: CPointer<GSocketService>
         get() = gPointer.reinterpret()
@@ -149,48 +150,28 @@ public open class SocketService(pointer: CPointer<GSocketService>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun connectIncoming(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (connection: SocketConnection, sourceObject: Object?) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "incoming",
-        connectIncomingFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectIncoming(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (connection: SocketConnection, sourceObject: Object?) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "incoming", connectIncomingFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<SocketService> {
         override val type: GeneratedClassKGType<SocketService> =
-            GeneratedClassKGType(g_socket_service_get_type()) { SocketService(it.reinterpret()) }
+                GeneratedClassKGType(g_socket_service_get_type()) { SocketService(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
     }
 }
 
 private val connectIncomingFunc:
-    CPointer<CFunction<(CPointer<GSocketConnection>, CPointer<GObject>?) -> Int>> =
-    staticCFunction {
-            _: COpaquePointer,
-            connection: CPointer<GSocketConnection>?,
-            sourceObject: CPointer<GObject>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<
-            (
-                connection: SocketConnection,
-                sourceObject: Object?,
-            ) -> Boolean
-            >().get().invoke(
-            connection!!.run {
-                SocketConnection(reinterpret())
-            },
-            sourceObject?.run {
-                Object(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GSocketConnection>, CPointer<GObject>?) -> Int>> =
+        staticCFunction {
+    _: COpaquePointer,
+    connection: CPointer<GSocketConnection>?,
+    sourceObject: CPointer<GObject>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(connection: SocketConnection, sourceObject: Object?) -> Boolean>().get().invoke(connection!!.run {
+        SocketConnection(reinterpret())}
+    , sourceObject?.run {
+        Object(reinterpret())}
+    ).asGBoolean()}
+.reinterpret()

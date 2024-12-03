@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Double
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -19,8 +21,7 @@ import org.gtkkn.native.pango.pango_matrix_get_slant_ratio
 import org.gtkkn.native.pango.pango_matrix_rotate
 import org.gtkkn.native.pango.pango_matrix_scale
 import org.gtkkn.native.pango.pango_matrix_translate
-import kotlin.Double
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `PangoMatrix` specifies a transformation between user-space
@@ -44,7 +45,9 @@ import kotlin.Unit
  * @since 1.6
  */
 @PangoVersion1_6
-public class Matrix(pointer: CPointer<PangoMatrix>) : Record {
+public class Matrix(
+    pointer: CPointer<PangoMatrix>,
+) : Record {
     public val pangoMatrixPointer: CPointer<PangoMatrix> = pointer
 
     /**
@@ -110,8 +113,7 @@ public class Matrix(pointer: CPointer<PangoMatrix>) : Record {
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun concat(newMatrix: Matrix): Unit =
-        pango_matrix_concat(pangoMatrixPointer.reinterpret(), newMatrix.pangoMatrixPointer.reinterpret())
+    public fun concat(newMatrix: Matrix): Unit = pango_matrix_concat(pangoMatrixPointer.reinterpret(), newMatrix.pangoMatrixPointer.reinterpret())
 
     /**
      * Copies a `PangoMatrix`.
@@ -121,8 +123,7 @@ public class Matrix(pointer: CPointer<PangoMatrix>) : Record {
      */
     @PangoVersion1_6
     public fun copy(): Matrix? = pango_matrix_copy(pangoMatrixPointer.reinterpret())?.run {
-        Matrix(reinterpret())
-    }
+        Matrix(reinterpret())}
 
     /**
      * Free a `PangoMatrix`.
@@ -184,8 +185,7 @@ public class Matrix(pointer: CPointer<PangoMatrix>) : Record {
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun scale(scaleX: Double, scaleY: Double): Unit =
-        pango_matrix_scale(pangoMatrixPointer.reinterpret(), scaleX, scaleY)
+    public fun scale(scaleX: Double, scaleY: Double): Unit = pango_matrix_scale(pangoMatrixPointer.reinterpret(), scaleX, scaleY)
 
     /**
      * Changes the transformation represented by @matrix to be the
@@ -197,8 +197,7 @@ public class Matrix(pointer: CPointer<PangoMatrix>) : Record {
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun translate(tx: Double, ty: Double): Unit =
-        pango_matrix_translate(pangoMatrixPointer.reinterpret(), tx, ty)
+    public fun translate(tx: Double, ty: Double): Unit = pango_matrix_translate(pangoMatrixPointer.reinterpret(), tx, ty)
 
     public companion object : RecordCompanion<Matrix, PangoMatrix> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Matrix = Matrix(pointer.reinterpret())

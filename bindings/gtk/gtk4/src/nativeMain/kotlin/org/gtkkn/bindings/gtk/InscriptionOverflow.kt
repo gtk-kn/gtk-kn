@@ -10,22 +10,21 @@ import org.gtkkn.native.gtk.GtkInscriptionOverflow
  * @since 4.8
  */
 @GtkVersion4_8
-public enum class InscriptionOverflow(public val nativeValue: GtkInscriptionOverflow) {
+public enum class InscriptionOverflow(
+    public val nativeValue: GtkInscriptionOverflow,
+) {
     /**
      * Clip the remaining text
      */
     CLIP(GtkInscriptionOverflow.GTK_INSCRIPTION_OVERFLOW_CLIP),
-
     /**
      * Omit characters at the start of the text
      */
     ELLIPSIZE_START(GtkInscriptionOverflow.GTK_INSCRIPTION_OVERFLOW_ELLIPSIZE_START),
-
     /**
      * Omit characters at the middle of the text
      */
     ELLIPSIZE_MIDDLE(GtkInscriptionOverflow.GTK_INSCRIPTION_OVERFLOW_ELLIPSIZE_MIDDLE),
-
     /**
      * Omit characters at the end of the text
      */

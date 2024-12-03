@@ -9,12 +9,13 @@ import org.gtkkn.native.gio.GDBusMessageByteOrder
  * @since 2.26
  */
 @GioVersion2_26
-public enum class DBusMessageByteOrder(public val nativeValue: GDBusMessageByteOrder) {
+public enum class DBusMessageByteOrder(
+    public val nativeValue: GDBusMessageByteOrder,
+) {
     /**
      * The byte order is big endian.
      */
     BIG_ENDIAN(GDBusMessageByteOrder.G_DBUS_MESSAGE_BYTE_ORDER_BIG_ENDIAN),
-
     /**
      * The byte order is little endian.
      */

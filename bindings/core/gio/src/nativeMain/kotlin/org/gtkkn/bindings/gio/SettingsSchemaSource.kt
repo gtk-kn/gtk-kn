@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
@@ -21,10 +25,7 @@ import org.gtkkn.native.gio.g_settings_schema_source_new_from_directory
 import org.gtkkn.native.gio.g_settings_schema_source_ref
 import org.gtkkn.native.gio.g_settings_schema_source_unref
 import org.gtkkn.native.glib.GError
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * This is an opaque structure type.  You may not access it directly.
@@ -36,7 +37,9 @@ import kotlin.Unit
  * @since 2.32
  */
 @GioVersion2_32
-public class SettingsSchemaSource(pointer: CPointer<GSettingsSchemaSource>) : Record {
+public class SettingsSchemaSource(
+    pointer: CPointer<GSettingsSchemaSource>,
+) : Record {
     public val gioSettingsSchemaSourcePointer: CPointer<GSettingsSchemaSource> = pointer
 
     /**
@@ -57,13 +60,8 @@ public class SettingsSchemaSource(pointer: CPointer<GSettingsSchemaSource>) : Re
      * @since 2.32
      */
     @GioVersion2_32
-    public fun lookup(schemaId: String, recursive: Boolean): SettingsSchema? = g_settings_schema_source_lookup(
-        gioSettingsSchemaSourcePointer.reinterpret(),
-        schemaId,
-        recursive.asGBoolean()
-    )?.run {
-        SettingsSchema(reinterpret())
-    }
+    public fun lookup(schemaId: String, recursive: Boolean): SettingsSchema? = g_settings_schema_source_lookup(gioSettingsSchemaSourcePointer.reinterpret(), schemaId, recursive.asGBoolean())?.run {
+        SettingsSchema(reinterpret())}
 
     /**
      * Increase the reference count of @source, returning a new reference.
@@ -72,10 +70,8 @@ public class SettingsSchemaSource(pointer: CPointer<GSettingsSchemaSource>) : Re
      * @since 2.32
      */
     @GioVersion2_32
-    public fun ref(): SettingsSchemaSource =
-        g_settings_schema_source_ref(gioSettingsSchemaSourcePointer.reinterpret())!!.run {
-            SettingsSchemaSource(reinterpret())
-        }
+    public fun ref(): SettingsSchemaSource = g_settings_schema_source_ref(gioSettingsSchemaSourcePointer.reinterpret())!!.run {
+        SettingsSchemaSource(reinterpret())}
 
     /**
      * Decrease the reference count of @source, possibly freeing it.
@@ -131,16 +127,11 @@ public class SettingsSchemaSource(pointer: CPointer<GSettingsSchemaSource>) : Re
         ): Result<SettingsSchemaSource> {
             memScoped {
                 val gError = allocPointerTo<GError>()
-                val gResult =
-                    g_settings_schema_source_new_from_directory(
-                        directory,
-                        parent?.gioSettingsSchemaSourcePointer?.reinterpret(),
-                        trusted.asGBoolean(),
-                        gError.ptr
-                    )
+                val gResult = g_settings_schema_source_new_from_directory(directory, parent?.gioSettingsSchemaSourcePointer?.reinterpret(), trusted.asGBoolean(), gError.ptr)
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
+                }
+                else {
                     Result.success(SettingsSchemaSource(checkNotNull(gResult)))
                 }
             }
@@ -166,10 +157,8 @@ public class SettingsSchemaSource(pointer: CPointer<GSettingsSchemaSource>) : Re
          */
         @GioVersion2_32
         public fun getDefault(): SettingsSchemaSource? = g_settings_schema_source_get_default()?.run {
-            SettingsSchemaSource(reinterpret())
-        }
+            SettingsSchemaSource(reinterpret())}
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SettingsSchemaSource =
-            SettingsSchemaSource(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SettingsSchemaSource = SettingsSchemaSource(pointer.reinterpret())
     }
 }

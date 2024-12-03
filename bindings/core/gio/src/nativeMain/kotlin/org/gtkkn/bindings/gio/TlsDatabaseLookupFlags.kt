@@ -11,12 +11,13 @@ import org.gtkkn.native.gio.GTlsDatabaseLookupFlags
  * @since 2.30
  */
 @GioVersion2_30
-public enum class TlsDatabaseLookupFlags(public val nativeValue: GTlsDatabaseLookupFlags) {
+public enum class TlsDatabaseLookupFlags(
+    public val nativeValue: GTlsDatabaseLookupFlags,
+) {
     /**
      * No lookup flags
      */
     NONE(GTlsDatabaseLookupFlags.G_TLS_DATABASE_LOOKUP_NONE),
-
     /**
      * Restrict lookup to certificates that have
      *     a private key.

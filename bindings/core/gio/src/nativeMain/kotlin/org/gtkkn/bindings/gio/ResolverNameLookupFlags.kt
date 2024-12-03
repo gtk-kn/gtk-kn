@@ -12,10 +12,10 @@ import org.gtkkn.native.gio.G_RESOLVER_NAME_LOOKUP_FLAGS_IPV6_ONLY
  * Flags to modify lookup behavior.
  * @since 2.60
  */
-public class ResolverNameLookupFlags(public val mask: GResolverNameLookupFlags) : Bitfield<ResolverNameLookupFlags> {
-    override infix fun or(other: ResolverNameLookupFlags): ResolverNameLookupFlags = ResolverNameLookupFlags(
-        mask or other.mask
-    )
+public class ResolverNameLookupFlags(
+    public val mask: GResolverNameLookupFlags,
+) : Bitfield<ResolverNameLookupFlags> {
+    override infix fun or(other: ResolverNameLookupFlags): ResolverNameLookupFlags = ResolverNameLookupFlags(mask or other.mask)
 
     @GioVersion2_60
     public companion object {
@@ -23,18 +23,18 @@ public class ResolverNameLookupFlags(public val mask: GResolverNameLookupFlags) 
          * default behavior (same as g_resolver_lookup_by_name())
          */
         public val DEFAULT: ResolverNameLookupFlags =
-            ResolverNameLookupFlags(G_RESOLVER_NAME_LOOKUP_FLAGS_DEFAULT)
+                ResolverNameLookupFlags(G_RESOLVER_NAME_LOOKUP_FLAGS_DEFAULT)
 
         /**
          * only resolve ipv4 addresses
          */
         public val IPV4_ONLY: ResolverNameLookupFlags =
-            ResolverNameLookupFlags(G_RESOLVER_NAME_LOOKUP_FLAGS_IPV4_ONLY)
+                ResolverNameLookupFlags(G_RESOLVER_NAME_LOOKUP_FLAGS_IPV4_ONLY)
 
         /**
          * only resolve ipv6 addresses
          */
         public val IPV6_ONLY: ResolverNameLookupFlags =
-            ResolverNameLookupFlags(G_RESOLVER_NAME_LOOKUP_FLAGS_IPV6_ONLY)
+                ResolverNameLookupFlags(G_RESOLVER_NAME_LOOKUP_FLAGS_IPV6_ONLY)
     }
 }

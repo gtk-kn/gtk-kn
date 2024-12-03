@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -13,8 +15,7 @@ import org.gtkkn.native.gobject.g_type_interface_get_plugin
 import org.gtkkn.native.gobject.g_type_interface_instantiatable_prerequisite
 import org.gtkkn.native.gobject.g_type_interface_peek
 import org.gtkkn.native.gobject.g_type_interface_peek_parent
-import kotlin.ULong
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * An opaque structure used as the base of all interface types.
@@ -25,7 +26,9 @@ import kotlin.Unit
  * - field `g_type`: Record field g_type is private
  * - field `g_instance_type`: Record field g_instance_type is private
  */
-public class TypeInterface(pointer: CPointer<GTypeInterface>) : Record {
+public class TypeInterface(
+    pointer: CPointer<GTypeInterface>,
+) : Record {
     public val gobjectTypeInterfacePointer: CPointer<GTypeInterface> = pointer
 
     /**
@@ -39,10 +42,8 @@ public class TypeInterface(pointer: CPointer<GTypeInterface>) : Record {
      *     instance type to which @g_iface belongs, or null if the parent
      *     type doesn't conform to the interface
      */
-    public fun peekParent(): TypeInterface =
-        g_type_interface_peek_parent(gobjectTypeInterfacePointer.reinterpret())!!.run {
-            TypeInterface(reinterpret())
-        }
+    public fun peekParent(): TypeInterface = g_type_interface_peek_parent(gobjectTypeInterfacePointer.reinterpret())!!.run {
+        TypeInterface(reinterpret())}
 
     public companion object : RecordCompanion<TypeInterface, GTypeInterface> {
         /**
@@ -55,8 +56,7 @@ public class TypeInterface(pointer: CPointer<GTypeInterface>) : Record {
          * @param interfaceType #GType value of an interface type
          * @param prerequisiteType #GType value of an interface or instantiatable type
          */
-        public fun addPrerequisite(interfaceType: ULong, prerequisiteType: ULong): Unit =
-            g_type_interface_add_prerequisite(interfaceType, prerequisiteType)
+        public fun addPrerequisite(interfaceType: ULong, prerequisiteType: ULong): Unit = g_type_interface_add_prerequisite(interfaceType, prerequisiteType)
 
         /**
          * Returns the #GTypePlugin structure for the dynamic interface
@@ -69,10 +69,8 @@ public class TypeInterface(pointer: CPointer<GTypeInterface>) : Record {
          * @return the #GTypePlugin for the dynamic
          *     interface @interface_type of @instance_type
          */
-        public fun getPlugin(instanceType: ULong, interfaceType: ULong): TypePlugin =
-            g_type_interface_get_plugin(instanceType, interfaceType)!!.run {
-                TypePlugin.wrap(reinterpret())
-            }
+        public fun getPlugin(instanceType: ULong, interfaceType: ULong): TypePlugin = g_type_interface_get_plugin(instanceType, interfaceType)!!.run {
+            TypePlugin.wrap(reinterpret())}
 
         /**
          * Returns the most specific instantiatable prerequisite of an
@@ -87,8 +85,7 @@ public class TypeInterface(pointer: CPointer<GTypeInterface>) : Record {
          * @since 2.68
          */
         @GObjectVersion2_68
-        public fun instantiatablePrerequisite(interfaceType: ULong): ULong =
-            g_type_interface_instantiatable_prerequisite(interfaceType)
+        public fun instantiatablePrerequisite(interfaceType: ULong): ULong = g_type_interface_instantiatable_prerequisite(interfaceType)
 
         /**
          * Returns the #GTypeInterface structure of an interface to which the
@@ -100,12 +97,9 @@ public class TypeInterface(pointer: CPointer<GTypeInterface>) : Record {
          *     structure of @iface_type if implemented by @instance_class, null
          *     otherwise
          */
-        public fun peek(instanceClass: TypeClass, ifaceType: ULong): TypeInterface =
-            g_type_interface_peek(instanceClass.gobjectTypeClassPointer.reinterpret(), ifaceType)!!.run {
-                TypeInterface(reinterpret())
-            }
+        public fun peek(instanceClass: TypeClass, ifaceType: ULong): TypeInterface = g_type_interface_peek(instanceClass.gobjectTypeClassPointer.reinterpret(), ifaceType)!!.run {
+            TypeInterface(reinterpret())}
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TypeInterface =
-            TypeInterface(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TypeInterface = TypeInterface(pointer.reinterpret())
     }
 }

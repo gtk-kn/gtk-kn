@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
@@ -14,7 +15,6 @@ import org.gtkkn.native.gtk.GtkOrientable
 import org.gtkkn.native.gtk.GtkShortcutsGroup
 import org.gtkkn.native.gtk.gtk_shortcuts_group_add_shortcut
 import org.gtkkn.native.gtk.gtk_shortcuts_group_get_type
-import kotlin.Unit
 
 /**
  * A `GtkShortcutsGroup` represents a group of related keyboard shortcuts
@@ -42,8 +42,9 @@ import kotlin.Unit
  * - method `title-size-group`: Property has no getter nor setter
  * - method `view`: Property has no getter nor setter
  */
-public open class ShortcutsGroup(pointer: CPointer<GtkShortcutsGroup>) :
-    Box(pointer.reinterpret()),
+public open class ShortcutsGroup(
+    pointer: CPointer<GtkShortcutsGroup>,
+) : Box(pointer.reinterpret()),
     KGTyped {
     public val gtkShortcutsGroupPointer: CPointer<GtkShortcutsGroup>
         get() = gPointer.reinterpret()
@@ -71,17 +72,13 @@ public open class ShortcutsGroup(pointer: CPointer<GtkShortcutsGroup>) :
      * @since 4.14
      */
     @GtkVersion4_14
-    public open fun addShortcut(shortcut: ShortcutsShortcut): Unit = gtk_shortcuts_group_add_shortcut(
-        gtkShortcutsGroupPointer.reinterpret(),
-        shortcut.gtkShortcutsShortcutPointer.reinterpret()
-    )
+    public open fun addShortcut(shortcut: ShortcutsShortcut): Unit = gtk_shortcuts_group_add_shortcut(gtkShortcutsGroupPointer.reinterpret(), shortcut.gtkShortcutsShortcutPointer.reinterpret())
 
     public companion object : TypeCompanion<ShortcutsGroup> {
         override val type: GeneratedClassKGType<ShortcutsGroup> =
-            GeneratedClassKGType(gtk_shortcuts_group_get_type()) { ShortcutsGroup(it.reinterpret()) }
+                GeneratedClassKGType(gtk_shortcuts_group_get_type()) { ShortcutsGroup(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

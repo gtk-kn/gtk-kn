@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -13,9 +16,7 @@ import org.gtkkn.native.gdk.gdk_rectangle_contains_point
 import org.gtkkn.native.gdk.gdk_rectangle_equal
 import org.gtkkn.native.gdk.gdk_rectangle_intersect
 import org.gtkkn.native.gdk.gdk_rectangle_union
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GdkRectangle` data type for representing rectangles.
@@ -34,7 +35,9 @@ import kotlin.Unit
  * The Graphene library has a number of other data types for regions and
  * volumes in 2D and 3D.
  */
-public class Rectangle(pointer: CPointer<GdkRectangle>) : Record {
+public class Rectangle(
+    pointer: CPointer<GdkRectangle>,
+) : Record {
     public val gdkRectanglePointer: CPointer<GdkRectangle> = pointer
 
     /**
@@ -80,8 +83,7 @@ public class Rectangle(pointer: CPointer<GdkRectangle>) : Record {
      * @param y Y coordinate
      * @return true if @rect contains the point
      */
-    public fun containsPoint(x: Int, y: Int): Boolean =
-        gdk_rectangle_contains_point(gdkRectanglePointer.reinterpret(), x, y).asBoolean()
+    public fun containsPoint(x: Int, y: Int): Boolean = gdk_rectangle_contains_point(gdkRectanglePointer.reinterpret(), x, y).asBoolean()
 
     /**
      * Checks if the two given rectangles are equal.
@@ -89,8 +91,7 @@ public class Rectangle(pointer: CPointer<GdkRectangle>) : Record {
      * @param rect2 a `GdkRectangle`
      * @return true if the rectangles are equal.
      */
-    public fun equal(rect2: Rectangle): Boolean =
-        gdk_rectangle_equal(gdkRectanglePointer.reinterpret(), rect2.gdkRectanglePointer.reinterpret()).asBoolean()
+    public fun equal(rect2: Rectangle): Boolean = gdk_rectangle_equal(gdkRectanglePointer.reinterpret(), rect2.gdkRectanglePointer.reinterpret()).asBoolean()
 
     /**
      * Calculates the intersection of two rectangles.
@@ -106,11 +107,7 @@ public class Rectangle(pointer: CPointer<GdkRectangle>) : Record {
      *   intersection of @src1 and @src2
      * @return true if the rectangles intersect.
      */
-    public fun intersect(src2: Rectangle, dest: Rectangle?): Boolean = gdk_rectangle_intersect(
-        gdkRectanglePointer.reinterpret(),
-        src2.gdkRectanglePointer.reinterpret(),
-        dest?.gdkRectanglePointer?.reinterpret()
-    ).asBoolean()
+    public fun intersect(src2: Rectangle, dest: Rectangle?): Boolean = gdk_rectangle_intersect(gdkRectanglePointer.reinterpret(), src2.gdkRectanglePointer.reinterpret(), dest?.gdkRectanglePointer?.reinterpret()).asBoolean()
 
     /**
      * Calculates the union of two rectangles.
@@ -125,11 +122,7 @@ public class Rectangle(pointer: CPointer<GdkRectangle>) : Record {
      * @param src2 a `GdkRectangle`
      * @param dest return location for the union of @src1 and @src2
      */
-    public fun union(src2: Rectangle, dest: Rectangle): Unit = gdk_rectangle_union(
-        gdkRectanglePointer.reinterpret(),
-        src2.gdkRectanglePointer.reinterpret(),
-        dest.gdkRectanglePointer.reinterpret()
-    )
+    public fun union(src2: Rectangle, dest: Rectangle): Unit = gdk_rectangle_union(gdkRectanglePointer.reinterpret(), src2.gdkRectanglePointer.reinterpret(), dest.gdkRectanglePointer.reinterpret())
 
     public companion object : RecordCompanion<Rectangle, GdkRectangle> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Rectangle = Rectangle(pointer.reinterpret())

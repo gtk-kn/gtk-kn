@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -13,7 +14,7 @@ import org.gtkkn.native.glib.g_thread_ref
 import org.gtkkn.native.glib.g_thread_self
 import org.gtkkn.native.glib.g_thread_unref
 import org.gtkkn.native.glib.g_thread_yield
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The #GThread struct represents a running thread. This struct
@@ -41,7 +42,9 @@ import kotlin.Unit
  * - field `joinable`: Record field joinable is private
  * - field `priority`: Record field priority is private
  */
-public class Thread(pointer: CPointer<GThread>) : Record {
+public class Thread(
+    pointer: CPointer<GThread>,
+) : Record {
     public val glibThreadPointer: CPointer<GThread> = pointer
 
     /**
@@ -52,8 +55,7 @@ public class Thread(pointer: CPointer<GThread>) : Record {
      */
     @GLibVersion2_32
     public fun ref(): Thread = g_thread_ref(glibThreadPointer.reinterpret())!!.run {
-        Thread(reinterpret())
-    }
+        Thread(reinterpret())}
 
     /**
      * Decrease the reference count on @thread, possibly freeing all
@@ -85,8 +87,7 @@ public class Thread(pointer: CPointer<GThread>) : Record {
          * @return the #GThread representing the current thread
          */
         public fun self(): Thread = g_thread_self()!!.run {
-            Thread(reinterpret())
-        }
+            Thread(reinterpret())}
 
         /**
          * Causes the calling thread to voluntarily relinquish the CPU, so

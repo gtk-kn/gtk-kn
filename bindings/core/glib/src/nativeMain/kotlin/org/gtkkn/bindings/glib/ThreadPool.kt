@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.Result
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
@@ -27,11 +32,7 @@ import org.gtkkn.native.glib.g_thread_pool_set_max_threads
 import org.gtkkn.native.glib.g_thread_pool_set_max_unused_threads
 import org.gtkkn.native.glib.g_thread_pool_stop_unused_threads
 import org.gtkkn.native.glib.g_thread_pool_unprocessed
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.Result
-import kotlin.UInt
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `GThreadPool` struct represents a thread pool.
@@ -68,7 +69,9 @@ import kotlin.Unit
  * - field `func`: Func
  * - field `user_data`: gpointer
  */
-public class ThreadPool(pointer: CPointer<GThreadPool>) : Record {
+public class ThreadPool(
+    pointer: CPointer<GThreadPool>,
+) : Record {
     public val glibThreadPoolPointer: CPointer<GThreadPool> = pointer
 
     /**
@@ -99,8 +102,7 @@ public class ThreadPool(pointer: CPointer<GThreadPool>) : Record {
      * @param immediate should @pool shut down immediately?
      * @param wait should the function wait for all tasks to be finished?
      */
-    public fun free(immediate: Boolean, wait: Boolean): Unit =
-        g_thread_pool_free(glibThreadPoolPointer.reinterpret(), immediate.asGBoolean(), wait.asGBoolean())
+    public fun free(immediate: Boolean, wait: Boolean): Unit = g_thread_pool_free(glibThreadPoolPointer.reinterpret(), immediate.asGBoolean(), wait.asGBoolean())
 
     /**
      * Returns the maximal number of threads for @pool.
@@ -144,14 +146,11 @@ public class ThreadPool(pointer: CPointer<GThreadPool>) : Record {
      */
     public fun setMaxThreads(maxThreads: Int): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_thread_pool_set_max_threads(
-            glibThreadPoolPointer.reinterpret(),
-            maxThreads,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_thread_pool_set_max_threads(glibThreadPoolPointer.reinterpret(), maxThreads, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }

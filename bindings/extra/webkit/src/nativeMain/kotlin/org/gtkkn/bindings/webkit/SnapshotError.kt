@@ -9,7 +9,9 @@ import org.gtkkn.native.webkit.webkit_snapshot_error_quark
 /**
  * Enum values used to denote errors happening when creating snapshots of #WebKitWebView
  */
-public enum class SnapshotError(public val nativeValue: WebKitSnapshotError) {
+public enum class SnapshotError(
+    public val nativeValue: WebKitSnapshotError,
+) {
     /**
      * An error occurred when creating a webpage snapshot.
      */

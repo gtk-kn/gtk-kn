@@ -1,6 +1,12 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.Long
+import kotlin.String
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -44,12 +50,7 @@ import org.gtkkn.native.glib.g_source_set_priority
 import org.gtkkn.native.glib.g_source_set_ready_time
 import org.gtkkn.native.glib.g_source_set_static_name
 import org.gtkkn.native.glib.g_source_unref
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.Long
-import kotlin.String
-import kotlin.UInt
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `GSource` struct is an opaque data type
@@ -78,7 +79,9 @@ import kotlin.Unit
  * - field `name`: Record field name is private
  * - field `priv`: Record field priv is private
  */
-public class Source(pointer: CPointer<GSource>) : Record {
+public class Source(
+    pointer: CPointer<GSource>,
+) : Record {
     public val glibSourcePointer: CPointer<GSource> = pointer
 
     /**
@@ -104,8 +107,7 @@ public class Source(pointer: CPointer<GSource>) : Record {
      * @since 2.28
      */
     @GLibVersion2_28
-    public fun addChildSource(childSource: Source): Unit =
-        g_source_add_child_source(glibSourcePointer.reinterpret(), childSource.glibSourcePointer.reinterpret())
+    public fun addChildSource(childSource: Source): Unit = g_source_add_child_source(glibSourcePointer.reinterpret(), childSource.glibSourcePointer.reinterpret())
 
     /**
      * Adds a file descriptor to the set of file descriptors polled for
@@ -124,8 +126,7 @@ public class Source(pointer: CPointer<GSource>) : Record {
      * @param fd a #GPollFD structure holding information about a file
      *      descriptor to watch.
      */
-    public fun addPoll(fd: PollFD): Unit =
-        g_source_add_poll(glibSourcePointer.reinterpret(), fd.glibPollFDPointer.reinterpret())
+    public fun addPoll(fd: PollFD): Unit = g_source_add_poll(glibSourcePointer.reinterpret(), fd.glibPollFDPointer.reinterpret())
 
     /**
      * Adds a #GSource to a @context so that it will be executed within
@@ -139,8 +140,7 @@ public class Source(pointer: CPointer<GSource>) : Record {
      * @return the ID (greater than 0) for the source within the
      *   #GMainContext.
      */
-    public fun attach(context: MainContext? = null): UInt =
-        g_source_attach(glibSourcePointer.reinterpret(), context?.glibMainContextPointer?.reinterpret())
+    public fun attach(context: MainContext? = null): UInt = g_source_attach(glibSourcePointer.reinterpret(), context?.glibMainContextPointer?.reinterpret())
 
     /**
      * Removes a source from its #GMainContext, if any, and mark it as
@@ -183,8 +183,7 @@ public class Source(pointer: CPointer<GSource>) : Record {
      *               yet been added to a source.
      */
     public fun getContext(): MainContext? = g_source_get_context(glibSourcePointer.reinterpret())?.run {
-        MainContext(reinterpret())
-    }
+        MainContext(reinterpret())}
 
     /**
      * This function ignores @source and is otherwise the same as
@@ -192,8 +191,7 @@ public class Source(pointer: CPointer<GSource>) : Record {
      *
      * @param timeval #GTimeVal structure in which to store current time.
      */
-    public fun getCurrentTime(timeval: TimeVal): Unit =
-        g_source_get_current_time(glibSourcePointer.reinterpret(), timeval.glibTimeValPointer.reinterpret())
+    public fun getCurrentTime(timeval: TimeVal): Unit = g_source_get_current_time(glibSourcePointer.reinterpret(), timeval.glibTimeValPointer.reinterpret())
 
     /**
      * Returns the numeric ID for a particular source. The ID of a source
@@ -265,15 +263,15 @@ public class Source(pointer: CPointer<GSource>) : Record {
      * idle_callback (gpointer data)
      * {
      *   SomeWidget *self = data;
-     *
+     *    
      *   g_mutex_lock (&self->idle_id_mutex);
      *   // do stuff with self
      *   self->idle_id = 0;
      *   g_mutex_unlock (&self->idle_id_mutex);
-     *
+     *    
      *   return G_SOURCE_REMOVE;
      * }
-     *
+     *  
      * static void
      * some_widget_do_stuff_later (SomeWidget *self)
      * {
@@ -281,7 +279,7 @@ public class Source(pointer: CPointer<GSource>) : Record {
      *   self->idle_id = g_idle_add (idle_callback, self);
      *   g_mutex_unlock (&self->idle_id_mutex);
      * }
-     *
+     *  
      * static void
      * some_widget_init (SomeWidget *self)
      * {
@@ -294,10 +292,10 @@ public class Source(pointer: CPointer<GSource>) : Record {
      * some_widget_finalize (GObject *object)
      * {
      *   SomeWidget *self = SOME_WIDGET (object);
-     *
+     *    
      *   if (self->idle_id)
      *     g_source_remove (self->idle_id);
-     *
+     *    
      *   g_mutex_clear (&self->idle_id_mutex);
      *
      *   G_OBJECT_CLASS (parent_class)->finalize (object);
@@ -315,14 +313,14 @@ public class Source(pointer: CPointer<GSource>) : Record {
      * idle_callback (gpointer data)
      * {
      *   SomeWidget *self = data;
-     *
+     *   
      *   g_mutex_lock (&self->idle_id_mutex);
      *   if (!g_source_is_destroyed (g_main_current_source ()))
      *     {
      *       // do stuff with self
      *     }
      *   g_mutex_unlock (&self->idle_id_mutex);
-     *
+     *   
      *   return FALSE;
      * }
      * ]|
@@ -345,8 +343,7 @@ public class Source(pointer: CPointer<GSource>) : Record {
      * @return @source
      */
     public fun ref(): Source = g_source_ref(glibSourcePointer.reinterpret())!!.run {
-        Source(reinterpret())
-    }
+        Source(reinterpret())}
 
     /**
      * Detaches @child_source from @source and destroys it.
@@ -359,8 +356,7 @@ public class Source(pointer: CPointer<GSource>) : Record {
      * @since 2.28
      */
     @GLibVersion2_28
-    public fun removeChildSource(childSource: Source): Unit =
-        g_source_remove_child_source(glibSourcePointer.reinterpret(), childSource.glibSourcePointer.reinterpret())
+    public fun removeChildSource(childSource: Source): Unit = g_source_remove_child_source(glibSourcePointer.reinterpret(), childSource.glibSourcePointer.reinterpret())
 
     /**
      * Removes a file descriptor from the set of file descriptors polled for
@@ -371,8 +367,7 @@ public class Source(pointer: CPointer<GSource>) : Record {
      *
      * @param fd a #GPollFD structure previously passed to g_source_add_poll().
      */
-    public fun removePoll(fd: PollFD): Unit =
-        g_source_remove_poll(glibSourcePointer.reinterpret(), fd.glibPollFDPointer.reinterpret())
+    public fun removePoll(fd: PollFD): Unit = g_source_remove_poll(glibSourcePointer.reinterpret(), fd.glibPollFDPointer.reinterpret())
 
     /**
      * Sets the callback function for a source. The callback for a source is
@@ -398,12 +393,7 @@ public class Source(pointer: CPointer<GSource>) : Record {
      *
      * @param func a callback function
      */
-    public fun setCallback(func: SourceFunc): Unit = g_source_set_callback(
-        glibSourcePointer.reinterpret(),
-        SourceFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer(),
-        staticStableRefDestroy.reinterpret()
-    )
+    public fun setCallback(func: SourceFunc): Unit = g_source_set_callback(glibSourcePointer.reinterpret(), SourceFuncFunc.reinterpret(), StableRef.create(func).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Sets whether a source can be called recursively. If @can_recurse is
@@ -413,8 +403,7 @@ public class Source(pointer: CPointer<GSource>) : Record {
      *
      * @param canRecurse whether recursion is allowed for this source
      */
-    public fun setCanRecurse(canRecurse: Boolean): Unit =
-        g_source_set_can_recurse(glibSourcePointer.reinterpret(), canRecurse.asGBoolean())
+    public fun setCanRecurse(canRecurse: Boolean): Unit = g_source_set_can_recurse(glibSourcePointer.reinterpret(), canRecurse.asGBoolean())
 
     /**
      * Sets the source functions (can be used to override
@@ -424,8 +413,7 @@ public class Source(pointer: CPointer<GSource>) : Record {
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun setFuncs(funcs: SourceFuncs): Unit =
-        g_source_set_funcs(glibSourcePointer.reinterpret(), funcs.glibSourceFuncsPointer.reinterpret())
+    public fun setFuncs(funcs: SourceFuncs): Unit = g_source_set_funcs(glibSourcePointer.reinterpret(), funcs.glibSourceFuncsPointer.reinterpret())
 
     /**
      * Sets a name for the source, used in debugging and profiling.
@@ -532,8 +520,7 @@ public class Source(pointer: CPointer<GSource>) : Record {
          * @param structSize size of the #GSource structure to create.
          * @return the newly-created #GSource.
          */
-        public fun new(sourceFuncs: SourceFuncs, structSize: UInt): Source =
-            Source(g_source_new(sourceFuncs.glibSourceFuncsPointer.reinterpret(), structSize)!!.reinterpret())
+        public fun new(sourceFuncs: SourceFuncs, structSize: UInt): Source = Source(g_source_new(sourceFuncs.glibSourceFuncsPointer.reinterpret(), structSize)!!.reinterpret())
 
         /**
          * Removes the source with the given ID from the default main context. You must

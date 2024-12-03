@@ -16,8 +16,9 @@ import org.gtkkn.native.gsk.gsk_blend_node_new
 /**
  * A render node applying a blending function between its two child nodes.
  */
-public open class BlendNode(pointer: CPointer<GskBlendNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class BlendNode(
+    pointer: CPointer<GskBlendNode>,
+) : RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskBlendNodePointer: CPointer<GskBlendNode>
         get() = gPointer.reinterpret()
@@ -35,13 +36,7 @@ public open class BlendNode(pointer: CPointer<GskBlendNode>) :
         bottom: RenderNode,
         top: RenderNode,
         blendMode: BlendMode,
-    ) : this(
-        gsk_blend_node_new(
-            bottom.gPointer.reinterpret(),
-            top.gPointer.reinterpret(),
-            blendMode.nativeValue
-        )!!.reinterpret()
-    )
+    ) : this(gsk_blend_node_new(bottom.gPointer.reinterpret(), top.gPointer.reinterpret(), blendMode.nativeValue)!!.reinterpret())
 
     /**
      * Retrieves the blend mode used by @node.
@@ -49,18 +44,15 @@ public open class BlendNode(pointer: CPointer<GskBlendNode>) :
      * @return the blend mode
      */
     public open fun getBlendMode(): BlendMode = gsk_blend_node_get_blend_mode(gskBlendNodePointer.reinterpret()).run {
-        BlendMode.fromNativeValue(this)
-    }
+        BlendMode.fromNativeValue(this)}
 
     /**
      * Retrieves the bottom `GskRenderNode` child of the @node.
      *
      * @return the bottom child node
      */
-    public open fun getBottomChild(): RenderNode =
-        gsk_blend_node_get_bottom_child(gskBlendNodePointer.reinterpret())!!.run {
-            RenderNode(reinterpret())
-        }
+    public open fun getBottomChild(): RenderNode = gsk_blend_node_get_bottom_child(gskBlendNodePointer.reinterpret())!!.run {
+        RenderNode(reinterpret())}
 
     /**
      * Retrieves the top `GskRenderNode` child of the @node.
@@ -68,15 +60,13 @@ public open class BlendNode(pointer: CPointer<GskBlendNode>) :
      * @return the top child node
      */
     public open fun getTopChild(): RenderNode = gsk_blend_node_get_top_child(gskBlendNodePointer.reinterpret())!!.run {
-        RenderNode(reinterpret())
-    }
+        RenderNode(reinterpret())}
 
     public companion object : TypeCompanion<BlendNode> {
         override val type: GeneratedClassKGType<BlendNode> =
-            GeneratedClassKGType(gsk_blend_node_get_type()) { BlendNode(it.reinterpret()) }
+                GeneratedClassKGType(gsk_blend_node_get_type()) { BlendNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
     }
 }

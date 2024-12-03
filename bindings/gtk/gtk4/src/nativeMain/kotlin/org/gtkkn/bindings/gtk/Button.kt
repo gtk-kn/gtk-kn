@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -40,10 +44,6 @@ import org.gtkkn.native.gtk.gtk_button_set_has_frame
 import org.gtkkn.native.gtk.gtk_button_set_icon_name
 import org.gtkkn.native.gtk.gtk_button_set_label
 import org.gtkkn.native.gtk.gtk_button_set_use_underline
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * The `GtkButton` widget is generally used to trigger a callback function that is
@@ -82,8 +82,9 @@ import kotlin.Unit
  * - method `icon-name`: Property TypeInfo of getter and setter do not match
  * - method `label`: Property TypeInfo of getter and setter do not match
  */
-public open class Button(pointer: CPointer<GtkButton>) :
-    Widget(pointer.reinterpret()),
+public open class Button(
+    pointer: CPointer<GtkButton>,
+) : Widget(pointer.reinterpret()),
     Actionable,
     KGTyped {
     public val gtkButtonPointer: CPointer<GtkButton>
@@ -122,7 +123,6 @@ public open class Button(pointer: CPointer<GtkButton>) :
          * @since 4.12
          */
         get() = gtk_button_get_can_shrink(gtkButtonPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the button size can be smaller than the natural size of
          * its contents.
@@ -147,9 +147,7 @@ public open class Button(pointer: CPointer<GtkButton>) :
          * @return the child widget of @button
          */
         get() = gtk_button_get_child(gtkButtonPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the child widget of @button.
          *
@@ -173,7 +171,6 @@ public open class Button(pointer: CPointer<GtkButton>) :
          * @return true if the button has a frame
          */
         get() = gtk_button_get_has_frame(gtkButtonPointer.reinterpret()).asBoolean()
-
         /**
          * Sets the style of the button.
          *
@@ -197,7 +194,6 @@ public open class Button(pointer: CPointer<GtkButton>) :
          *   indicates the mnemonic accelerator keys.
          */
         get() = gtk_button_get_use_underline(gtkButtonPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether to use underlines as mnemonics.
          *
@@ -256,8 +252,7 @@ public open class Button(pointer: CPointer<GtkButton>) :
      *
      * @param iconName An icon name
      */
-    public open fun setIconName(iconName: String): Unit =
-        gtk_button_set_icon_name(gtkButtonPointer.reinterpret(), iconName)
+    public open fun setIconName(iconName: String): Unit = gtk_button_set_icon_name(gtkButtonPointer.reinterpret(), iconName)
 
     /**
      * Sets the text of the label of the button to @label.
@@ -280,15 +275,7 @@ public open class Button(pointer: CPointer<GtkButton>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "activate",
-            connectActivateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "activate", connectActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the button has been activated (pressed and released).
@@ -296,23 +283,14 @@ public open class Button(pointer: CPointer<GtkButton>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "clicked",
-            connectClickedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "clicked", connectClickedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<Button> {
         override val type: GeneratedClassKGType<Button> =
-            GeneratedClassKGType(gtk_button_get_type()) { Button(it.reinterpret()) }
+                GeneratedClassKGType(gtk_button_get_type()) { Button(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Creates a `GtkButton` widget with a `GtkLabel` child.
@@ -347,23 +325,20 @@ public open class Button(pointer: CPointer<GtkButton>) :
          * @param iconName an icon name
          * @return a new `GtkButton` displaying the themed icon
          */
-        public fun newFromIconName(iconName: String): Button =
-            Button(gtk_button_new_from_icon_name(iconName)!!.reinterpret())
+        public fun newFromIconName(iconName: String): Button = Button(gtk_button_new_from_icon_name(iconName)!!.reinterpret())
     }
 }
 
 private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectClickedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

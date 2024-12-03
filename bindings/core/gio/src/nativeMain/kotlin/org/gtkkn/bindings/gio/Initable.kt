@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -19,8 +21,6 @@ import org.gtkkn.native.gio.GInitable
 import org.gtkkn.native.gio.g_initable_get_type
 import org.gtkkn.native.gio.g_initable_init
 import org.gtkkn.native.glib.GError
-import kotlin.Boolean
-import kotlin.Result
 
 /**
  * `GInitable` is implemented by objects that can fail during
@@ -55,9 +55,7 @@ import kotlin.Result
  * @since 2.22
  */
 @GioVersion2_22
-public interface Initable :
-    Interface,
-    KGTyped {
+public interface Initable : Interface, KGTyped {
     public val gioInitablePointer: CPointer<GInitable>
 
     /**
@@ -108,29 +106,27 @@ public interface Initable :
     @GioVersion2_22
     public fun `init`(cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_initable_init(
-            gioInitablePointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_initable_init(gioInitablePointer.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
 
-    private data class Wrapper(private val pointer: CPointer<GInitable>) : Initable {
+    private data class Wrapper(
+        private val pointer: CPointer<GInitable>,
+    ) : Initable {
         override val gioInitablePointer: CPointer<GInitable> = pointer
     }
 
     public companion object : TypeCompanion<Initable> {
         override val type: GeneratedInterfaceKGType<Initable> =
-            GeneratedInterfaceKGType(g_initable_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(g_initable_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GInitable>): Initable = Wrapper(pointer)
     }

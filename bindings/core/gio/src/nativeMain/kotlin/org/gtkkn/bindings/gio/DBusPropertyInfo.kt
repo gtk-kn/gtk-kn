@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Int
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -12,9 +15,7 @@ import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GDBusPropertyInfo
 import org.gtkkn.native.gio.g_dbus_property_info_ref
 import org.gtkkn.native.gio.g_dbus_property_info_unref
-import kotlin.Int
-import kotlin.String
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Information about a D-Bus property on a D-Bus interface.
@@ -26,7 +27,9 @@ import kotlin.Unit
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusPropertyInfo(pointer: CPointer<GDBusPropertyInfo>) : Record {
+public class DBusPropertyInfo(
+    pointer: CPointer<GDBusPropertyInfo>,
+) : Record {
     public val gioDBusPropertyInfoPointer: CPointer<GDBusPropertyInfo> = pointer
 
     /**
@@ -59,8 +62,7 @@ public class DBusPropertyInfo(pointer: CPointer<GDBusPropertyInfo>) : Record {
      */
     public var flags: DBusPropertyInfoFlags
         get() = gioDBusPropertyInfoPointer.pointed.flags.run {
-            DBusPropertyInfoFlags(this)
-        }
+            DBusPropertyInfoFlags(this)}
         set(`value`) {
             gioDBusPropertyInfoPointer.pointed.flags = value.mask
         }
@@ -74,8 +76,7 @@ public class DBusPropertyInfo(pointer: CPointer<GDBusPropertyInfo>) : Record {
      */
     @GioVersion2_26
     public fun ref(): DBusPropertyInfo = g_dbus_property_info_ref(gioDBusPropertyInfoPointer.reinterpret())!!.run {
-        DBusPropertyInfo(reinterpret())
-    }
+        DBusPropertyInfo(reinterpret())}
 
     /**
      * If @info is statically allocated, does nothing. Otherwise decreases
@@ -88,7 +89,6 @@ public class DBusPropertyInfo(pointer: CPointer<GDBusPropertyInfo>) : Record {
     public fun unref(): Unit = g_dbus_property_info_unref(gioDBusPropertyInfoPointer.reinterpret())
 
     public companion object : RecordCompanion<DBusPropertyInfo, GDBusPropertyInfo> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusPropertyInfo =
-            DBusPropertyInfo(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusPropertyInfo = DBusPropertyInfo(pointer.reinterpret())
     }
 }

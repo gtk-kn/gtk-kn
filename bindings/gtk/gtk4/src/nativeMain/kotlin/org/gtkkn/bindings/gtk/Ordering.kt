@@ -11,17 +11,17 @@ import org.gtkkn.native.gtk.GtkOrdering
  * For converting such a value to a `GtkOrdering` value, use
  * [func@Gtk.Ordering.from_cmpfunc].
  */
-public enum class Ordering(public val nativeValue: GtkOrdering) {
+public enum class Ordering(
+    public val nativeValue: GtkOrdering,
+) {
     /**
      * the first value is smaller than the second
      */
     SMALLER(GtkOrdering.GTK_ORDERING_SMALLER),
-
     /**
      * the two values are equal
      */
     EQUAL(GtkOrdering.GTK_ORDERING_EQUAL),
-
     /**
      * the first value is larger than the second
      */

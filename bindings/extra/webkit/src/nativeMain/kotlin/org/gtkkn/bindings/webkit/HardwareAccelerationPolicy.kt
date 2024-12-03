@@ -9,12 +9,13 @@ import org.gtkkn.native.webkit.WebKitHardwareAccelerationPolicy
  * @since 2.16
  */
 @WebKitVersion2_16
-public enum class HardwareAccelerationPolicy(public val nativeValue: WebKitHardwareAccelerationPolicy) {
+public enum class HardwareAccelerationPolicy(
+    public val nativeValue: WebKitHardwareAccelerationPolicy,
+) {
     /**
      * Hardware acceleration is always enabled, even for websites not requesting it.
      */
     ALWAYS(WebKitHardwareAccelerationPolicy.WEBKIT_HARDWARE_ACCELERATION_POLICY_ALWAYS),
-
     /**
      * Hardware acceleration is always disabled, even for websites requesting it.
      */
@@ -22,11 +23,10 @@ public enum class HardwareAccelerationPolicy(public val nativeValue: WebKitHardw
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitHardwareAccelerationPolicy): HardwareAccelerationPolicy =
-            when (nativeValue) {
-                WebKitHardwareAccelerationPolicy.WEBKIT_HARDWARE_ACCELERATION_POLICY_ALWAYS -> ALWAYS
-                WebKitHardwareAccelerationPolicy.WEBKIT_HARDWARE_ACCELERATION_POLICY_NEVER -> NEVER
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitHardwareAccelerationPolicy): HardwareAccelerationPolicy = when (nativeValue) {
+            WebKitHardwareAccelerationPolicy.WEBKIT_HARDWARE_ACCELERATION_POLICY_ALWAYS -> ALWAYS
+            WebKitHardwareAccelerationPolicy.WEBKIT_HARDWARE_ACCELERATION_POLICY_NEVER -> NEVER
+            else -> error("invalid nativeValue")
+        }
     }
 }

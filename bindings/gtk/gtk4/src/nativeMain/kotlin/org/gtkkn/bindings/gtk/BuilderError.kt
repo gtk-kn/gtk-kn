@@ -10,86 +10,74 @@ import org.gtkkn.native.gtk.gtk_builder_error_quark
  * Error codes that identify various errors that can occur while using
  * `GtkBuilder`.
  */
-public enum class BuilderError(public val nativeValue: GtkBuilderError) {
+public enum class BuilderError(
+    public val nativeValue: GtkBuilderError,
+) {
     /**
      * A type-func attribute didn’t name
      *  a function that returns a `GType`.
      */
     INVALID_TYPE_FUNCTION(GtkBuilderError.GTK_BUILDER_ERROR_INVALID_TYPE_FUNCTION),
-
     /**
      * The input contained a tag that `GtkBuilder`
      *  can’t handle.
      */
     UNHANDLED_TAG(GtkBuilderError.GTK_BUILDER_ERROR_UNHANDLED_TAG),
-
     /**
      * An attribute that is required by
      *  `GtkBuilder` was missing.
      */
     MISSING_ATTRIBUTE(GtkBuilderError.GTK_BUILDER_ERROR_MISSING_ATTRIBUTE),
-
     /**
      * `GtkBuilder` found an attribute that
      *  it doesn’t understand.
      */
     INVALID_ATTRIBUTE(GtkBuilderError.GTK_BUILDER_ERROR_INVALID_ATTRIBUTE),
-
     /**
      * `GtkBuilder` found a tag that
      *  it doesn’t understand.
      */
     INVALID_TAG(GtkBuilderError.GTK_BUILDER_ERROR_INVALID_TAG),
-
     /**
      * A required property value was
      *  missing.
      */
     MISSING_PROPERTY_VALUE(GtkBuilderError.GTK_BUILDER_ERROR_MISSING_PROPERTY_VALUE),
-
     /**
      * `GtkBuilder` couldn’t parse
      *  some attribute value.
      */
     INVALID_VALUE(GtkBuilderError.GTK_BUILDER_ERROR_INVALID_VALUE),
-
     /**
      * The input file requires a newer version
      *  of GTK.
      */
     VERSION_MISMATCH(GtkBuilderError.GTK_BUILDER_ERROR_VERSION_MISMATCH),
-
     /**
      * An object id occurred twice.
      */
     DUPLICATE_ID(GtkBuilderError.GTK_BUILDER_ERROR_DUPLICATE_ID),
-
     /**
      * A specified object type is of the same type or
      *  derived from the type of the composite class being extended with builder XML.
      */
     OBJECT_TYPE_REFUSED(GtkBuilderError.GTK_BUILDER_ERROR_OBJECT_TYPE_REFUSED),
-
     /**
      * The wrong type was specified in a composite class’s template XML
      */
     TEMPLATE_MISMATCH(GtkBuilderError.GTK_BUILDER_ERROR_TEMPLATE_MISMATCH),
-
     /**
      * The specified property is unknown for the object class.
      */
     INVALID_PROPERTY(GtkBuilderError.GTK_BUILDER_ERROR_INVALID_PROPERTY),
-
     /**
      * The specified signal is unknown for the object class.
      */
     INVALID_SIGNAL(GtkBuilderError.GTK_BUILDER_ERROR_INVALID_SIGNAL),
-
     /**
      * An object id is unknown.
      */
     INVALID_ID(GtkBuilderError.GTK_BUILDER_ERROR_INVALID_ID),
-
     /**
      * A function could not be found. This often happens
      *   when symbols are set to be kept private. Compiling code with -rdynamic or using the

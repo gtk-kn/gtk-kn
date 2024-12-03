@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -35,10 +39,6 @@ import org.gtkkn.native.gtk.gtk_color_dialog_new
 import org.gtkkn.native.gtk.gtk_color_dialog_set_modal
 import org.gtkkn.native.gtk.gtk_color_dialog_set_title
 import org.gtkkn.native.gtk.gtk_color_dialog_set_with_alpha
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A `GtkColorDialog` object collects the arguments that
@@ -56,8 +56,9 @@ import kotlin.Unit
  * @since 4.10
  */
 @GtkVersion4_10
-public open class ColorDialog(pointer: CPointer<GtkColorDialog>) :
-    Object(pointer.reinterpret()),
+public open class ColorDialog(
+    pointer: CPointer<GtkColorDialog>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtkColorDialogPointer: CPointer<GtkColorDialog>
         get() = gPointer.reinterpret()
@@ -78,7 +79,6 @@ public open class ColorDialog(pointer: CPointer<GtkColorDialog>) :
          * @since 4.10
          */
         get() = gtk_color_dialog_get_modal(gtkColorDialogPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the color chooser dialog
          * blocks interaction with the parent window
@@ -105,9 +105,7 @@ public open class ColorDialog(pointer: CPointer<GtkColorDialog>) :
          * @return the title
          * @since 4.10
          */
-        get() = gtk_color_dialog_get_title(gtkColorDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = gtk_color_dialog_get_title(gtkColorDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the title that will be shown on the
          * color chooser dialog.
@@ -135,7 +133,6 @@ public open class ColorDialog(pointer: CPointer<GtkColorDialog>) :
          * @since 4.10
          */
         get() = gtk_color_dialog_get_with_alpha(gtkColorDialogPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether colors may have alpha.
          *
@@ -173,14 +170,7 @@ public open class ColorDialog(pointer: CPointer<GtkColorDialog>) :
         initialColor: RGBA? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit = gtk_color_dialog_choose_rgba(
-        gtkColorDialogPointer.reinterpret(),
-        parent?.gtkWindowPointer?.reinterpret(),
-        initialColor?.gdkRGBAPointer?.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
-    )
+    ): Unit = gtk_color_dialog_choose_rgba(gtkColorDialogPointer.reinterpret(), parent?.gtkWindowPointer?.reinterpret(), initialColor?.gdkRGBAPointer?.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
 
     /**
      * Finishes the [method@Gtk.ColorDialog.choose_rgba] call and
@@ -194,27 +184,22 @@ public open class ColorDialog(pointer: CPointer<GtkColorDialog>) :
     @GtkVersion4_10
     public open fun chooseRgbaFinish(result: AsyncResult): Result<RGBA?> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_color_dialog_choose_rgba_finish(
-            gtkColorDialogPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            RGBA(reinterpret())
-        }
+        val gResult = gtk_color_dialog_choose_rgba_finish(gtkColorDialogPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)?.run {
+            RGBA(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
 
     public companion object : TypeCompanion<ColorDialog> {
         override val type: GeneratedClassKGType<ColorDialog> =
-            GeneratedClassKGType(gtk_color_dialog_get_type()) { ColorDialog(it.reinterpret()) }
+                GeneratedClassKGType(gtk_color_dialog_get_type()) { ColorDialog(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
@@ -13,8 +15,6 @@ import org.gtkkn.native.gtk.GtkMultiFilter
 import org.gtkkn.native.gtk.gtk_multi_filter_append
 import org.gtkkn.native.gtk.gtk_multi_filter_get_type
 import org.gtkkn.native.gtk.gtk_multi_filter_remove
-import kotlin.UInt
-import kotlin.Unit
 
 /**
  * `GtkMultiFilter` is the base class for filters that combine multiple filters.
@@ -24,8 +24,9 @@ import kotlin.Unit
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class MultiFilter(pointer: CPointer<GtkMultiFilter>) :
-    Filter(pointer.reinterpret()),
+public open class MultiFilter(
+    pointer: CPointer<GtkMultiFilter>,
+) : Filter(pointer.reinterpret()),
     ListModel,
     Buildable,
     KGTyped {
@@ -43,8 +44,7 @@ public open class MultiFilter(pointer: CPointer<GtkMultiFilter>) :
      *
      * @param filter A new filter to use
      */
-    public open fun append(filter: Filter): Unit =
-        gtk_multi_filter_append(gtkMultiFilterPointer.reinterpret(), filter.gtkFilterPointer.reinterpret())
+    public open fun append(filter: Filter): Unit = gtk_multi_filter_append(gtkMultiFilterPointer.reinterpret(), filter.gtkFilterPointer.reinterpret())
 
     /**
      * Removes the filter at the given @position from the list of filters used
@@ -55,15 +55,13 @@ public open class MultiFilter(pointer: CPointer<GtkMultiFilter>) :
      *
      * @param position position of filter to remove
      */
-    public open fun remove(position: UInt): Unit =
-        gtk_multi_filter_remove(gtkMultiFilterPointer.reinterpret(), position)
+    public open fun remove(position: UInt): Unit = gtk_multi_filter_remove(gtkMultiFilterPointer.reinterpret(), position)
 
     public companion object : TypeCompanion<MultiFilter> {
         override val type: GeneratedClassKGType<MultiFilter> =
-            GeneratedClassKGType(gtk_multi_filter_get_type()) { MultiFilter(it.reinterpret()) }
+                GeneratedClassKGType(gtk_multi_filter_get_type()) { MultiFilter(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

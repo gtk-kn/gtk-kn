@@ -4,4 +4,7 @@ package org.gtkkn.bindings.gio
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.glib.GLibException
 
-public class IOErrorEnumException(error: Error, public val code: IOErrorEnum) : GLibException(error)
+public class IOErrorEnumException(
+    error: Error,
+    public val code: IOErrorEnum,
+) : GLibException(error)

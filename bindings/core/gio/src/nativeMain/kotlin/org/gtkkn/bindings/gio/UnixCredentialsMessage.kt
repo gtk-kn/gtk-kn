@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
@@ -14,7 +15,6 @@ import org.gtkkn.native.gio.g_unix_credentials_message_get_type
 import org.gtkkn.native.gio.g_unix_credentials_message_is_supported
 import org.gtkkn.native.gio.g_unix_credentials_message_new
 import org.gtkkn.native.gio.g_unix_credentials_message_new_with_credentials
-import kotlin.Boolean
 
 /**
  * This [class@Gio.SocketControlMessage] contains a [class@Gio.Credentials]
@@ -39,8 +39,9 @@ import kotlin.Boolean
  * @since 2.26
  */
 @GioVersion2_26
-public open class UnixCredentialsMessage(pointer: CPointer<GUnixCredentialsMessage>) :
-    SocketControlMessage(pointer.reinterpret()),
+public open class UnixCredentialsMessage(
+    pointer: CPointer<GUnixCredentialsMessage>,
+) : SocketControlMessage(pointer.reinterpret()),
     KGTyped {
     public val gioUnixCredentialsMessagePointer: CPointer<GUnixCredentialsMessage>
         get() = gPointer.reinterpret()
@@ -59,8 +60,7 @@ public open class UnixCredentialsMessage(pointer: CPointer<GUnixCredentialsMessa
          * @since 2.26
          */
         get() = g_unix_credentials_message_get_credentials(gioUnixCredentialsMessagePointer.reinterpret())!!.run {
-            Credentials(reinterpret())
-        }
+            Credentials(reinterpret())}
 
     /**
      * Creates a new #GUnixCredentialsMessage with credentials matching the current processes.
@@ -77,19 +77,14 @@ public open class UnixCredentialsMessage(pointer: CPointer<GUnixCredentialsMessa
      * @return a new #GUnixCredentialsMessage
      * @since 2.26
      */
-    public constructor(
-        credentials: Credentials,
-    ) : this(
-        g_unix_credentials_message_new_with_credentials(credentials.gioCredentialsPointer.reinterpret())!!.reinterpret()
-    )
+    public constructor(credentials: Credentials) : this(g_unix_credentials_message_new_with_credentials(credentials.gioCredentialsPointer.reinterpret())!!.reinterpret())
 
     public companion object : TypeCompanion<UnixCredentialsMessage> {
         override val type: GeneratedClassKGType<UnixCredentialsMessage> =
-            GeneratedClassKGType(g_unix_credentials_message_get_type()) { UnixCredentialsMessage(it.reinterpret()) }
+                GeneratedClassKGType(g_unix_credentials_message_get_type()) { UnixCredentialsMessage(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Checks if passing #GCredentials on a #GSocket is supported on this platform.

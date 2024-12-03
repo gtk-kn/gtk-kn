@@ -1,6 +1,12 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.UInt
+import kotlin.ULong
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -48,12 +54,6 @@ import org.gtkkn.native.gtk.gtk_drop_down_set_model
 import org.gtkkn.native.gtk.gtk_drop_down_set_search_match_mode
 import org.gtkkn.native.gtk.gtk_drop_down_set_selected
 import org.gtkkn.native.gtk.gtk_drop_down_set_show_arrow
-import kotlin.Boolean
-import kotlin.String
-import kotlin.UInt
-import kotlin.ULong
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * `GtkDropDown` is a widget that allows the user to choose an item
@@ -113,8 +113,9 @@ import kotlin.collections.List
  *
  * `GtkDropDown` uses the %GTK_ACCESSIBLE_ROLE_COMBO_BOX role.
  */
-public open class DropDown(pointer: CPointer<GtkDropDown>) :
-    Widget(pointer.reinterpret()),
+public open class DropDown(
+    pointer: CPointer<GtkDropDown>,
+) : Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkDropDownPointer: CPointer<GtkDropDown>
         get() = gPointer.reinterpret()
@@ -141,7 +142,6 @@ public open class DropDown(pointer: CPointer<GtkDropDown>) :
          * @return true if the popup includes a search entry
          */
         get() = gtk_drop_down_get_enable_search(gtkDropDownPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether a search entry will be shown in the popup that
          * allows to search for items in the list.
@@ -170,9 +170,7 @@ public open class DropDown(pointer: CPointer<GtkDropDown>) :
          * @return a `GtkExpression`
          */
         get() = gtk_drop_down_get_expression(gtkDropDownPointer.reinterpret())?.run {
-            Expression(reinterpret())
-        }
-
+            Expression(reinterpret())}
         /**
          * Sets the expression that gets evaluated to obtain strings from items.
          *
@@ -181,9 +179,7 @@ public open class DropDown(pointer: CPointer<GtkDropDown>) :
          *
          * @param expression a `GtkExpression`
          */
-        set(
-            expression
-        ) = gtk_drop_down_set_expression(gtkDropDownPointer.reinterpret(), expression?.gPointer?.reinterpret())
+        set(expression) = gtk_drop_down_set_expression(gtkDropDownPointer.reinterpret(), expression?.gPointer?.reinterpret())
 
     /**
      * Factory for populating list items.
@@ -199,20 +195,13 @@ public open class DropDown(pointer: CPointer<GtkDropDown>) :
          * @return The factory in use
          */
         get() = gtk_drop_down_get_factory(gtkDropDownPointer.reinterpret())?.run {
-            ListItemFactory(reinterpret())
-        }
-
+            ListItemFactory(reinterpret())}
         /**
          * Sets the `GtkListItemFactory` to use for populating list items.
          *
          * @param factory the factory to use
          */
-        set(
-            factory
-        ) = gtk_drop_down_set_factory(
-            gtkDropDownPointer.reinterpret(),
-            factory?.gtkListItemFactoryPointer?.reinterpret()
-        )
+        set(factory) = gtk_drop_down_set_factory(gtkDropDownPointer.reinterpret(), factory?.gtkListItemFactoryPointer?.reinterpret())
 
     /**
      * The factory for creating header widgets for the popup.
@@ -228,9 +217,7 @@ public open class DropDown(pointer: CPointer<GtkDropDown>) :
          * @since 4.12
          */
         get() = gtk_drop_down_get_header_factory(gtkDropDownPointer.reinterpret())?.run {
-            ListItemFactory(reinterpret())
-        }
-
+            ListItemFactory(reinterpret())}
         /**
          * Sets the `GtkListItemFactory` to use for creating header widgets for the popup.
          *
@@ -238,12 +225,7 @@ public open class DropDown(pointer: CPointer<GtkDropDown>) :
          * @since 4.12
          */
         @GtkVersion4_12
-        set(
-            factory
-        ) = gtk_drop_down_set_header_factory(
-            gtkDropDownPointer.reinterpret(),
-            factory?.gtkListItemFactoryPointer?.reinterpret()
-        )
+        set(factory) = gtk_drop_down_set_header_factory(gtkDropDownPointer.reinterpret(), factory?.gtkListItemFactoryPointer?.reinterpret())
 
     /**
      * The factory for populating list items in the popup.
@@ -257,20 +239,13 @@ public open class DropDown(pointer: CPointer<GtkDropDown>) :
          * @return The factory in use
          */
         get() = gtk_drop_down_get_list_factory(gtkDropDownPointer.reinterpret())?.run {
-            ListItemFactory(reinterpret())
-        }
-
+            ListItemFactory(reinterpret())}
         /**
          * Sets the `GtkListItemFactory` to use for populating list items in the popup.
          *
          * @param factory the factory to use
          */
-        set(
-            factory
-        ) = gtk_drop_down_set_list_factory(
-            gtkDropDownPointer.reinterpret(),
-            factory?.gtkListItemFactoryPointer?.reinterpret()
-        )
+        set(factory) = gtk_drop_down_set_list_factory(gtkDropDownPointer.reinterpret(), factory?.gtkListItemFactoryPointer?.reinterpret())
 
     /**
      * Model for the displayed items.
@@ -282,9 +257,7 @@ public open class DropDown(pointer: CPointer<GtkDropDown>) :
          * @return The model in use
          */
         get() = gtk_drop_down_get_model(gtkDropDownPointer.reinterpret())?.run {
-            ListModel.wrap(reinterpret())
-        }
-
+            ListModel.wrap(reinterpret())}
         /**
          * Sets the `GListModel` to use.
          *
@@ -306,9 +279,7 @@ public open class DropDown(pointer: CPointer<GtkDropDown>) :
          * @since 4.12
          */
         get() = gtk_drop_down_get_search_match_mode(gtkDropDownPointer.reinterpret()).run {
-            StringFilterMatchMode.fromNativeValue(this)
-        }
-
+            StringFilterMatchMode.fromNativeValue(this)}
         /**
          * Sets the match mode for the search filter.
          *
@@ -316,9 +287,7 @@ public open class DropDown(pointer: CPointer<GtkDropDown>) :
          * @since 4.12
          */
         @GtkVersion4_12
-        set(
-            searchMatchMode
-        ) = gtk_drop_down_set_search_match_mode(gtkDropDownPointer.reinterpret(), searchMatchMode.nativeValue)
+        set(searchMatchMode) = gtk_drop_down_set_search_match_mode(gtkDropDownPointer.reinterpret(), searchMatchMode.nativeValue)
 
     /**
      * The position of the selected item.
@@ -334,7 +303,6 @@ public open class DropDown(pointer: CPointer<GtkDropDown>) :
          *   if not item is selected
          */
         get() = gtk_drop_down_get_selected(gtkDropDownPointer.reinterpret())
-
         /**
          * Selects the item at the given position.
          *
@@ -352,8 +320,7 @@ public open class DropDown(pointer: CPointer<GtkDropDown>) :
          * @return The selected item
          */
         get() = gtk_drop_down_get_selected_item(gtkDropDownPointer.reinterpret())?.run {
-            Object(reinterpret())
-        }
+            Object(reinterpret())}
 
     /**
      * Whether to show an arrow within the GtkDropDown widget.
@@ -369,7 +336,6 @@ public open class DropDown(pointer: CPointer<GtkDropDown>) :
          * @since 4.6
          */
         get() = gtk_drop_down_get_show_arrow(gtkDropDownPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether an arrow will be displayed within the widget.
          *
@@ -389,10 +355,7 @@ public open class DropDown(pointer: CPointer<GtkDropDown>) :
      * @param expression the expression to use
      * @return a new `GtkDropDown`
      */
-    public constructor(
-        model: ListModel? = null,
-        expression: Expression? = null,
-    ) : this(gtk_drop_down_new(model?.gioListModelPointer, expression?.gPointer?.reinterpret())!!.reinterpret())
+    public constructor(model: ListModel? = null, expression: Expression? = null) : this(gtk_drop_down_new(model?.gioListModelPointer, expression?.gPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Creates a new `GtkDropDown` that is populated with
@@ -401,10 +364,8 @@ public open class DropDown(pointer: CPointer<GtkDropDown>) :
      * @param strings The strings to put in the dropdown
      * @return a new `GtkDropDown`
      */
-    public constructor(strings: List<String>) : this(
-        memScoped {
-            gtk_drop_down_new_from_strings(strings.toCStringList(this))!!.reinterpret()
-        }
+    public constructor(strings: List<String>) : this(memScoped {
+        gtk_drop_down_new_from_strings(strings.toCStringList(this))!!.reinterpret()}
     )
 
     /**
@@ -418,30 +379,20 @@ public open class DropDown(pointer: CPointer<GtkDropDown>) :
      * @since 4.6
      */
     @GtkVersion4_6
-    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "activate",
-            connectActivateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "activate", connectActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<DropDown> {
         override val type: GeneratedClassKGType<DropDown> =
-            GeneratedClassKGType(gtk_drop_down_get_type()) { DropDown(it.reinterpret()) }
+                GeneratedClassKGType(gtk_drop_down_get_type()) { DropDown(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }
 
 private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

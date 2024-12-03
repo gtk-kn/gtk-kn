@@ -12,7 +12,9 @@ import org.gtkkn.native.gio.G_DBUS_CALL_FLAGS_NO_AUTO_START
  * Flags used in g_dbus_connection_call() and similar APIs.
  * @since 2.26
  */
-public class DBusCallFlags(public val mask: GDBusCallFlags) : Bitfield<DBusCallFlags> {
+public class DBusCallFlags(
+    public val mask: GDBusCallFlags,
+) : Bitfield<DBusCallFlags> {
     override infix fun or(other: DBusCallFlags): DBusCallFlags = DBusCallFlags(mask or other.mask)
 
     @GioVersion2_26
@@ -34,6 +36,6 @@ public class DBusCallFlags(public val mask: GDBusCallFlags) : Bitfield<DBusCallF
          * wait for interactive authorization. Since 2.46.
          */
         public val ALLOW_INTERACTIVE_AUTHORIZATION: DBusCallFlags =
-            DBusCallFlags(G_DBUS_CALL_FLAGS_ALLOW_INTERACTIVE_AUTHORIZATION)
+                DBusCallFlags(G_DBUS_CALL_FLAGS_ALLOW_INTERACTIVE_AUTHORIZATION)
     }
 }

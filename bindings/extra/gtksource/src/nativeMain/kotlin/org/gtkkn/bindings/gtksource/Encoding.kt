@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtksource
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -19,8 +21,7 @@ import org.gtkkn.native.gtksource.gtk_source_encoding_get_from_charset
 import org.gtkkn.native.gtksource.gtk_source_encoding_get_name
 import org.gtkkn.native.gtksource.gtk_source_encoding_get_utf8
 import org.gtkkn.native.gtksource.gtk_source_encoding_to_string
-import kotlin.String
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Character encoding.
@@ -29,7 +30,9 @@ import kotlin.Unit
  * for example by #GtkSourceFile. Note that the text in GTK widgets is always
  * encoded in UTF-8.
  */
-public class Encoding(pointer: CPointer<GtkSourceEncoding>) : Record {
+public class Encoding(
+    pointer: CPointer<GtkSourceEncoding>,
+) : Record {
     public val gtksourceEncodingPointer: CPointer<GtkSourceEncoding> = pointer
 
     /**
@@ -38,8 +41,7 @@ public class Encoding(pointer: CPointer<GtkSourceEncoding>) : Record {
      * @return a copy of @enc.
      */
     public fun copy(): Encoding = gtk_source_encoding_copy(gtksourceEncodingPointer.reinterpret())!!.run {
-        Encoding(reinterpret())
-    }
+        Encoding(reinterpret())}
 
     /**
      * Used by language bindings.
@@ -52,25 +54,21 @@ public class Encoding(pointer: CPointer<GtkSourceEncoding>) : Record {
      *
      * @return the character set of the #GtkSourceEncoding.
      */
-    public fun getCharset(): String =
-        gtk_source_encoding_get_charset(gtksourceEncodingPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getCharset(): String = gtk_source_encoding_get_charset(gtksourceEncodingPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the name of the #GtkSourceEncoding such as "Unicode" or "Western".
      *
      * @return the name of the #GtkSourceEncoding.
      */
-    public fun getName(): String = gtk_source_encoding_get_name(gtksourceEncodingPointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    public fun getName(): String = gtk_source_encoding_get_name(gtksourceEncodingPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      *
      *
      * @return a string representation. Free with g_free() when no longer needed.
      */
-    override fun toString(): String = gtk_source_encoding_to_string(gtksourceEncodingPointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    override fun toString(): String = gtk_source_encoding_to_string(gtksourceEncodingPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     public companion object : RecordCompanion<Encoding, GtkSourceEncoding> {
         /**
@@ -80,8 +78,7 @@ public class Encoding(pointer: CPointer<GtkSourceEncoding>) : Record {
          * all #GtkSourceEncoding's. Free with g_slist_free().
          */
         public fun getAll(): SList = gtk_source_encoding_get_all()!!.run {
-            SList(reinterpret())
-        }
+            SList(reinterpret())}
 
         /**
          * Gets the #GtkSourceEncoding for the current locale.
@@ -91,8 +88,7 @@ public class Encoding(pointer: CPointer<GtkSourceEncoding>) : Record {
          * @return the current locale encoding.
          */
         public fun getCurrent(): Encoding = gtk_source_encoding_get_current()!!.run {
-            Encoding(reinterpret())
-        }
+            Encoding(reinterpret())}
 
         /**
          * Gets the list of default candidate encodings to try when loading a file.
@@ -107,8 +103,7 @@ public class Encoding(pointer: CPointer<GtkSourceEncoding>) : Record {
          * default candidate encodings. Free with g_slist_free().
          */
         public fun getDefaultCandidates(): SList = gtk_source_encoding_get_default_candidates()!!.run {
-            SList(reinterpret())
-        }
+            SList(reinterpret())}
 
         /**
          * Gets a #GtkSourceEncoding from a character set such as "UTF-8" or
@@ -119,8 +114,7 @@ public class Encoding(pointer: CPointer<GtkSourceEncoding>) : Record {
          * if not found.
          */
         public fun getFromCharset(charset: String): Encoding? = gtk_source_encoding_get_from_charset(charset)?.run {
-            Encoding(reinterpret())
-        }
+            Encoding(reinterpret())}
 
         /**
          *
@@ -128,8 +122,7 @@ public class Encoding(pointer: CPointer<GtkSourceEncoding>) : Record {
          * @return the UTF-8 encoding.
          */
         public fun getUtf8(): Encoding = gtk_source_encoding_get_utf8()!!.run {
-            Encoding(reinterpret())
-        }
+            Encoding(reinterpret())}
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Encoding = Encoding(pointer.reinterpret())
     }

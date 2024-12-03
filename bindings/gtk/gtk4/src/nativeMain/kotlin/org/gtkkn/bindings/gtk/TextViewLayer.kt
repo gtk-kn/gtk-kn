@@ -7,12 +7,13 @@ import org.gtkkn.native.gtk.GtkTextViewLayer
  * Used to reference the layers of `GtkTextView` for the purpose of customized
  * drawing with the ::snapshot_layer vfunc.
  */
-public enum class TextViewLayer(public val nativeValue: GtkTextViewLayer) {
+public enum class TextViewLayer(
+    public val nativeValue: GtkTextViewLayer,
+) {
     /**
      * The layer rendered below the text (but above the background).
      */
     BELOW_TEXT(GtkTextViewLayer.GTK_TEXT_VIEW_LAYER_BELOW_TEXT),
-
     /**
      * The layer rendered above the text.
      */

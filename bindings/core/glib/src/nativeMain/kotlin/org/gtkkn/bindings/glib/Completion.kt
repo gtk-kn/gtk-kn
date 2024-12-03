@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -11,8 +13,7 @@ import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GCompletion
 import org.gtkkn.native.glib.g_completion_clear_items
 import org.gtkkn.native.glib.g_completion_free
-import kotlin.String
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * `GCompletion` provides support for automatic completion of a string
@@ -43,7 +44,9 @@ import kotlin.Unit
  * - field `func`: CompletionFunc
  * - field `strncmp_func`: CompletionStrncmpFunc
  */
-public class Completion(pointer: CPointer<GCompletion>) : Record {
+public class Completion(
+    pointer: CPointer<GCompletion>,
+) : Record {
     public val glibCompletionPointer: CPointer<GCompletion> = pointer
 
     /**
@@ -53,8 +56,7 @@ public class Completion(pointer: CPointer<GCompletion>) : Record {
      */
     public val items: List?
         get() = glibCompletionPointer.pointed.items?.run {
-            List(reinterpret())
-        }
+            List(reinterpret())}
 
     /**
      * the last prefix passed to g_completion_complete() or
@@ -72,8 +74,7 @@ public class Completion(pointer: CPointer<GCompletion>) : Record {
      */
     public val cache: List?
         get() = glibCompletionPointer.pointed.cache?.run {
-            List(reinterpret())
-        }
+            List(reinterpret())}
 
     /**
      * Removes all items from the #GCompletion. The items are not freed, so if the

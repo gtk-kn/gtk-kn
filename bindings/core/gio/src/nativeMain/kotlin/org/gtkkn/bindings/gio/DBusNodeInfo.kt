@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Int
+import kotlin.Result
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
@@ -21,11 +25,8 @@ import org.gtkkn.native.gio.g_dbus_node_info_new_for_xml
 import org.gtkkn.native.gio.g_dbus_node_info_ref
 import org.gtkkn.native.gio.g_dbus_node_info_unref
 import org.gtkkn.native.glib.GError
-import kotlin.Int
-import kotlin.Result
-import kotlin.UInt
-import kotlin.Unit
 import kotlin.String as KotlinString
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 import org.gtkkn.bindings.glib.String as GlibString
 
 /**
@@ -40,7 +41,9 @@ import org.gtkkn.bindings.glib.String as GlibString
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusNodeInfo(pointer: CPointer<GDBusNodeInfo>) : Record {
+public class DBusNodeInfo(
+    pointer: CPointer<GDBusNodeInfo>,
+) : Record {
     public val gioDBusNodeInfoPointer: CPointer<GDBusNodeInfo> = pointer
 
     /**
@@ -71,11 +74,7 @@ public class DBusNodeInfo(pointer: CPointer<GDBusNodeInfo>) : Record {
      * @since 2.26
      */
     @GioVersion2_26
-    public fun generateXml(indent: UInt, stringBuilder: GlibString): Unit = g_dbus_node_info_generate_xml(
-        gioDBusNodeInfoPointer.reinterpret(),
-        indent,
-        stringBuilder.glibStringPointer.reinterpret()
-    )
+    public fun generateXml(indent: UInt, stringBuilder: GlibString): Unit = g_dbus_node_info_generate_xml(gioDBusNodeInfoPointer.reinterpret(), indent, stringBuilder.glibStringPointer.reinterpret())
 
     /**
      * Looks up information about an interface.
@@ -87,10 +86,8 @@ public class DBusNodeInfo(pointer: CPointer<GDBusNodeInfo>) : Record {
      * @since 2.26
      */
     @GioVersion2_26
-    public fun lookupInterface(name: KotlinString): DBusInterfaceInfo? =
-        g_dbus_node_info_lookup_interface(gioDBusNodeInfoPointer.reinterpret(), name)?.run {
-            DBusInterfaceInfo(reinterpret())
-        }
+    public fun lookupInterface(name: KotlinString): DBusInterfaceInfo? = g_dbus_node_info_lookup_interface(gioDBusNodeInfoPointer.reinterpret(), name)?.run {
+        DBusInterfaceInfo(reinterpret())}
 
     /**
      * If @info is statically allocated does nothing. Otherwise increases
@@ -101,8 +98,7 @@ public class DBusNodeInfo(pointer: CPointer<GDBusNodeInfo>) : Record {
      */
     @GioVersion2_26
     public fun ref(): DBusNodeInfo = g_dbus_node_info_ref(gioDBusNodeInfoPointer.reinterpret())!!.run {
-        DBusNodeInfo(reinterpret())
-    }
+        DBusNodeInfo(reinterpret())}
 
     /**
      * If @info is statically allocated, does nothing. Otherwise decreases
@@ -136,13 +132,13 @@ public class DBusNodeInfo(pointer: CPointer<GDBusNodeInfo>) : Record {
                 val gResult = g_dbus_node_info_new_for_xml(xmlData, gError.ptr)
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
+                }
+                else {
                     Result.success(DBusNodeInfo(checkNotNull(gResult)))
                 }
             }
         }
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusNodeInfo =
-            DBusNodeInfo(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusNodeInfo = DBusNodeInfo(pointer.reinterpret())
     }
 }

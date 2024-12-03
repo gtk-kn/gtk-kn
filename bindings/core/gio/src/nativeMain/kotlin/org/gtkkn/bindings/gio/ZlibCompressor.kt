@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Int
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
@@ -14,7 +15,6 @@ import org.gtkkn.native.gio.g_zlib_compressor_get_file_info
 import org.gtkkn.native.gio.g_zlib_compressor_get_type
 import org.gtkkn.native.gio.g_zlib_compressor_new
 import org.gtkkn.native.gio.g_zlib_compressor_set_file_info
-import kotlin.Int
 
 /**
  * `GZlibCompressor` is an implementation of [iface@Gio.Converter] that
@@ -25,8 +25,9 @@ import kotlin.Int
  * - method `format`: Property has no getter nor setter
  * - method `level`: Property has no getter nor setter
  */
-public open class ZlibCompressor(pointer: CPointer<GZlibCompressor>) :
-    Object(pointer.reinterpret()),
+public open class ZlibCompressor(
+    pointer: CPointer<GZlibCompressor>,
+) : Object(pointer.reinterpret()),
     Converter,
     KGTyped {
     public val gioZlibCompressorPointer: CPointer<GZlibCompressor>
@@ -51,9 +52,7 @@ public open class ZlibCompressor(pointer: CPointer<GZlibCompressor>) :
          * @since 2.26
          */
         get() = g_zlib_compressor_get_file_info(gioZlibCompressorPointer.reinterpret())?.run {
-            FileInfo(reinterpret())
-        }
-
+            FileInfo(reinterpret())}
         /**
          * Sets @file_info in @compressor. If non-null, and @compressor's
          * #GZlibCompressor:format property is %G_ZLIB_COMPRESSOR_FORMAT_GZIP,
@@ -68,12 +67,7 @@ public open class ZlibCompressor(pointer: CPointer<GZlibCompressor>) :
          * @since 2.26
          */
         @GioVersion2_26
-        set(
-            fileInfo
-        ) = g_zlib_compressor_set_file_info(
-            gioZlibCompressorPointer.reinterpret(),
-            fileInfo?.gioFileInfoPointer?.reinterpret()
-        )
+        set(fileInfo) = g_zlib_compressor_set_file_info(gioZlibCompressorPointer.reinterpret(), fileInfo?.gioFileInfoPointer?.reinterpret())
 
     /**
      * Creates a new #GZlibCompressor.
@@ -83,17 +77,13 @@ public open class ZlibCompressor(pointer: CPointer<GZlibCompressor>) :
      * @return a new #GZlibCompressor
      * @since 2.24
      */
-    public constructor(
-        format: ZlibCompressorFormat,
-        level: Int,
-    ) : this(g_zlib_compressor_new(format.nativeValue, level)!!.reinterpret())
+    public constructor(format: ZlibCompressorFormat, level: Int) : this(g_zlib_compressor_new(format.nativeValue, level)!!.reinterpret())
 
     public companion object : TypeCompanion<ZlibCompressor> {
         override val type: GeneratedClassKGType<ZlibCompressor> =
-            GeneratedClassKGType(g_zlib_compressor_get_type()) { ZlibCompressor(it.reinterpret()) }
+                GeneratedClassKGType(g_zlib_compressor_get_type()) { ZlibCompressor(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
     }
 }

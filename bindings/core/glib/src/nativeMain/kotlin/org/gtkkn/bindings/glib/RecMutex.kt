@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -14,8 +16,7 @@ import org.gtkkn.native.glib.g_rec_mutex_init
 import org.gtkkn.native.glib.g_rec_mutex_lock
 import org.gtkkn.native.glib.g_rec_mutex_trylock
 import org.gtkkn.native.glib.g_rec_mutex_unlock
-import kotlin.Boolean
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The GRecMutex struct is an opaque data structure to represent a
@@ -39,7 +40,9 @@ import kotlin.Unit
  * @since 2.32
  */
 @GLibVersion2_32
-public class RecMutex(pointer: CPointer<GRecMutex>) : Record {
+public class RecMutex(
+    pointer: CPointer<GRecMutex>,
+) : Record {
     public val glibRecMutexPointer: CPointer<GRecMutex> = pointer
 
     /**

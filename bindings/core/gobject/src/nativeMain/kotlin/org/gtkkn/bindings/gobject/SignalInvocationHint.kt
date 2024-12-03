@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,13 +10,15 @@ import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GSignalInvocationHint
-import kotlin.UInt
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The #GSignalInvocationHint structure is used to pass on additional information
  * to callbacks during a signal emission.
  */
-public class SignalInvocationHint(pointer: CPointer<GSignalInvocationHint>) : Record {
+public class SignalInvocationHint(
+    pointer: CPointer<GSignalInvocationHint>,
+) : Record {
     public val gobjectSignalInvocationHintPointer: CPointer<GSignalInvocationHint> = pointer
 
     /**
@@ -45,14 +48,12 @@ public class SignalInvocationHint(pointer: CPointer<GSignalInvocationHint>) : Re
      */
     public var runType: SignalFlags
         get() = gobjectSignalInvocationHintPointer.pointed.run_type.run {
-            SignalFlags(this)
-        }
+            SignalFlags(this)}
         set(`value`) {
             gobjectSignalInvocationHintPointer.pointed.run_type = value.mask
         }
 
     public companion object : RecordCompanion<SignalInvocationHint, GSignalInvocationHint> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SignalInvocationHint =
-            SignalInvocationHint(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SignalInvocationHint = SignalInvocationHint(pointer.reinterpret())
     }
 }

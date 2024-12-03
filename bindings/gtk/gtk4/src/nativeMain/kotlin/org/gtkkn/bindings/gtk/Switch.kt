@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -27,10 +31,6 @@ import org.gtkkn.native.gtk.gtk_switch_get_type
 import org.gtkkn.native.gtk.gtk_switch_new
 import org.gtkkn.native.gtk.gtk_switch_set_active
 import org.gtkkn.native.gtk.gtk_switch_set_state
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkSwitch` is a "light switch" that has two states: on or off.
@@ -67,8 +67,9 @@ import kotlin.Unit
  *
  * `GtkSwitch` uses the %GTK_ACCESSIBLE_ROLE_SWITCH role.
  */
-public open class Switch(pointer: CPointer<GtkSwitch>) :
-    Widget(pointer.reinterpret()),
+public open class Switch(
+    pointer: CPointer<GtkSwitch>,
+) : Widget(pointer.reinterpret()),
     Actionable,
     KGTyped {
     public val gtkSwitchPointer: CPointer<GtkSwitch>
@@ -96,7 +97,6 @@ public open class Switch(pointer: CPointer<GtkSwitch>) :
          * @return true if the `GtkSwitch` is active, and false otherwise
          */
         get() = gtk_switch_get_active(gtkSwitchPointer.reinterpret()).asBoolean()
-
         /**
          * Changes the state of @self to the desired one.
          *
@@ -116,7 +116,6 @@ public open class Switch(pointer: CPointer<GtkSwitch>) :
          * @return the underlying state
          */
         get() = gtk_switch_get_state(gtkSwitchPointer.reinterpret()).asBoolean()
-
         /**
          * Sets the underlying state of the `GtkSwitch`.
          *
@@ -145,15 +144,7 @@ public open class Switch(pointer: CPointer<GtkSwitch>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "activate",
-            connectActivateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "activate", connectActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted to change the underlying state.
@@ -175,41 +166,28 @@ public open class Switch(pointer: CPointer<GtkSwitch>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `state` the new state of the switch. Returns true to stop the signal emission
      */
-    public fun connectStateSet(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (state: Boolean) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "state-set",
-        connectStateSetFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectStateSet(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (state: Boolean) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "state-set", connectStateSetFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<Switch> {
         override val type: GeneratedClassKGType<Switch> =
-            GeneratedClassKGType(gtk_switch_get_type()) { Switch(it.reinterpret()) }
+                GeneratedClassKGType(gtk_switch_get_type()) { Switch(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }
 
 private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectStateSetFunc: CPointer<CFunction<(Int) -> Int>> = staticCFunction {
-        _: COpaquePointer,
-        state: Int,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    state: Int,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(state: Boolean) -> Boolean>().get().invoke(state.asBoolean()).asGBoolean()
-}
-    .reinterpret()
+    userData.asStableRef<(state: Boolean) -> Boolean>().get().invoke(state.asBoolean()).asGBoolean()}
+.reinterpret()

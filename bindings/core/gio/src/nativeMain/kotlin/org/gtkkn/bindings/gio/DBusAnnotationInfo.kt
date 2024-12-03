@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Int
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -12,9 +15,7 @@ import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GDBusAnnotationInfo
 import org.gtkkn.native.gio.g_dbus_annotation_info_ref
 import org.gtkkn.native.gio.g_dbus_annotation_info_unref
-import kotlin.Int
-import kotlin.String
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Information about an annotation.
@@ -27,7 +28,9 @@ import kotlin.Unit
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusAnnotationInfo(pointer: CPointer<GDBusAnnotationInfo>) : Record {
+public class DBusAnnotationInfo(
+    pointer: CPointer<GDBusAnnotationInfo>,
+) : Record {
     public val gioDBusAnnotationInfoPointer: CPointer<GDBusAnnotationInfo> = pointer
 
     /**
@@ -63,10 +66,8 @@ public class DBusAnnotationInfo(pointer: CPointer<GDBusAnnotationInfo>) : Record
      * @since 2.26
      */
     @GioVersion2_26
-    public fun ref(): DBusAnnotationInfo =
-        g_dbus_annotation_info_ref(gioDBusAnnotationInfoPointer.reinterpret())!!.run {
-            DBusAnnotationInfo(reinterpret())
-        }
+    public fun ref(): DBusAnnotationInfo = g_dbus_annotation_info_ref(gioDBusAnnotationInfoPointer.reinterpret())!!.run {
+        DBusAnnotationInfo(reinterpret())}
 
     /**
      * If @info is statically allocated, does nothing. Otherwise decreases
@@ -79,7 +80,6 @@ public class DBusAnnotationInfo(pointer: CPointer<GDBusAnnotationInfo>) : Record
     public fun unref(): Unit = g_dbus_annotation_info_unref(gioDBusAnnotationInfoPointer.reinterpret())
 
     public companion object : RecordCompanion<DBusAnnotationInfo, GDBusAnnotationInfo> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusAnnotationInfo =
-            DBusAnnotationInfo(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusAnnotationInfo = DBusAnnotationInfo(pointer.reinterpret())
     }
 }

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -12,7 +13,6 @@ import org.gtkkn.native.gdk.gdk_gl_texture_get_type
 import org.gtkkn.native.gdk.gdk_gl_texture_release
 import org.gtkkn.native.gio.GIcon
 import org.gtkkn.native.gio.GLoadableIcon
-import kotlin.Unit
 
 /**
  * A GdkTexture representing a GL texture object.
@@ -21,8 +21,9 @@ import kotlin.Unit
  *
  * - parameter `destroy`: GLib.DestroyNotify
  */
-public open class GLTexture(pointer: CPointer<GdkGLTexture>) :
-    Texture(pointer.reinterpret()),
+public open class GLTexture(
+    pointer: CPointer<GdkGLTexture>,
+) : Texture(pointer.reinterpret()),
     KGTyped {
     public val gdkGLTexturePointer: CPointer<GdkGLTexture>
         get() = gPointer.reinterpret()
@@ -47,10 +48,9 @@ public open class GLTexture(pointer: CPointer<GdkGLTexture>) :
 
     public companion object : TypeCompanion<GLTexture> {
         override val type: GeneratedClassKGType<GLTexture> =
-            GeneratedClassKGType(gdk_gl_texture_get_type()) { GLTexture(it.reinterpret()) }
+                GeneratedClassKGType(gdk_gl_texture_get_type()) { GLTexture(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
     }
 }

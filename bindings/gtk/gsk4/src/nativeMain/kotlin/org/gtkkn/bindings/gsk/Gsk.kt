@@ -1,6 +1,12 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import kotlin.Boolean
+import kotlin.Float
+import kotlin.Int
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -25,12 +31,6 @@ import org.gtkkn.native.gsk.gsk_value_dup_render_node
 import org.gtkkn.native.gsk.gsk_value_get_render_node
 import org.gtkkn.native.gsk.gsk_value_set_render_node
 import org.gtkkn.native.gsk.gsk_value_take_render_node
-import kotlin.Boolean
-import kotlin.Float
-import kotlin.Int
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * ## Skipped during bindings generation
@@ -79,8 +79,7 @@ public object Gsk {
      */
     @GskVersion4_14
     public fun pathParse(string: String): Path? = gsk_path_parse(string)?.run {
-        Path(reinterpret())
-    }
+        Path(reinterpret())}
 
     public fun serializationErrorQuark(): Quark = gsk_serialization_error_quark()
 
@@ -93,10 +92,8 @@ public object Gsk {
      * @since 4.6
      */
     @GskVersion4_6
-    public fun valueDupRenderNode(`value`: Value): RenderNode? =
-        gsk_value_dup_render_node(`value`.gobjectValuePointer.reinterpret())?.run {
-            RenderNode(reinterpret())
-        }
+    public fun valueDupRenderNode(`value`: Value): RenderNode? = gsk_value_dup_render_node(`value`.gobjectValuePointer.reinterpret())?.run {
+        RenderNode(reinterpret())}
 
     /**
      * Retrieves the `GskRenderNode` stored inside the given `value`.
@@ -106,10 +103,8 @@ public object Gsk {
      * @since 4.6
      */
     @GskVersion4_6
-    public fun valueGetRenderNode(`value`: Value): RenderNode? =
-        gsk_value_get_render_node(`value`.gobjectValuePointer.reinterpret())?.run {
-            RenderNode(reinterpret())
-        }
+    public fun valueGetRenderNode(`value`: Value): RenderNode? = gsk_value_get_render_node(`value`.gobjectValuePointer.reinterpret())?.run {
+        RenderNode(reinterpret())}
 
     /**
      * Stores the given `GskRenderNode` inside `value`.
@@ -121,8 +116,7 @@ public object Gsk {
      * @since 4.6
      */
     @GskVersion4_6
-    public fun valueSetRenderNode(`value`: Value, node: RenderNode): Unit =
-        gsk_value_set_render_node(`value`.gobjectValuePointer.reinterpret(), node.gPointer.reinterpret())
+    public fun valueSetRenderNode(`value`: Value, node: RenderNode): Unit = gsk_value_set_render_node(`value`.gobjectValuePointer.reinterpret(), node.gPointer.reinterpret())
 
     /**
      * Stores the given `GskRenderNode` inside `value`.
@@ -134,90 +128,66 @@ public object Gsk {
      * @since 4.6
      */
     @GskVersion4_6
-    public fun valueTakeRenderNode(`value`: Value, node: RenderNode? = null): Unit =
-        gsk_value_take_render_node(`value`.gobjectValuePointer.reinterpret(), node?.gPointer?.reinterpret())
+    public fun valueTakeRenderNode(`value`: Value, node: RenderNode? = null): Unit = gsk_value_take_render_node(`value`.gobjectValuePointer.reinterpret(), node?.gPointer?.reinterpret())
 
     public fun resolveException(error: Error): GLibException {
         val ex = when (error.domain) {
             SerializationError.quark() -> SerializationError.fromErrorOrNull(error)
-                ?.let {
-                    SerializationErrorException(error, it)
-                }
+            ?.let {
+                SerializationErrorException(error, it)
+            }
             else -> null
         }
         return ex ?: GLibException(error)
     }
 }
 
-public val ParseErrorFuncFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GskParseLocation>,
-            CPointer<GskParseLocation>,
-            CPointer<GError>,
-        ) -> Unit
-        >
-    > = staticCFunction {
-        start: CPointer<GskParseLocation>?,
-        end: CPointer<GskParseLocation>?,
-        error: CPointer<GError>?,
-        userData: COpaquePointer,
+public val ParseErrorFuncFunc: CPointer<CFunction<(
+    CPointer<GskParseLocation>,
+    CPointer<GskParseLocation>,
+    CPointer<GError>,
+) -> Unit>> = staticCFunction {
+    start: CPointer<GskParseLocation>?,
+    end: CPointer<GskParseLocation>?,
+    error: CPointer<GError>?,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<
-        (
-            start: ParseLocation,
-            end: ParseLocation,
-            error: Error,
-        ) -> Unit
-        >().get().invoke(
-        start!!.run {
-            ParseLocation(reinterpret())
-        },
-        end!!.run {
-            ParseLocation(reinterpret())
-        },
-        error!!.run {
-            Error(reinterpret())
-        }
-    )
-}
-    .reinterpret()
+    userData.asStableRef<(
+        start: ParseLocation,
+        end: ParseLocation,
+        error: Error,
+    ) -> Unit>().get().invoke(start!!.run {
+        ParseLocation(reinterpret())}
+    , end!!.run {
+        ParseLocation(reinterpret())}
+    , error!!.run {
+        Error(reinterpret())}
+    )}
+.reinterpret()
 
-public val PathForeachFuncFunc: CPointer<
-    CFunction<
-        (
-            GskPathOperation,
-            CPointer<graphene_point_t>,
-            ULong,
-            Float,
-        ) -> Int
-        >
-    > = staticCFunction {
-        op: GskPathOperation,
-        pts: CPointer<graphene_point_t>?,
+public val PathForeachFuncFunc: CPointer<CFunction<(
+    GskPathOperation,
+    CPointer<graphene_point_t>,
+    ULong,
+    Float,
+) -> Int>> = staticCFunction {
+    op: GskPathOperation,
+    pts: CPointer<graphene_point_t>?,
+    nPts: ULong,
+    weight: Float,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(
+        op: PathOperation,
+        pts: Point,
         nPts: ULong,
         weight: Float,
-        userData: COpaquePointer,
-    ->
-    userData.asStableRef<
-        (
-            op: PathOperation,
-            pts: Point,
-            nPts: ULong,
-            weight: Float,
-        ) -> Boolean
-        >().get().invoke(
-        op.run {
-            PathOperation.fromNativeValue(this)
-        },
-        pts!!.run {
-            Point(reinterpret())
-        },
-        nPts,
-        weight
-    ).asGBoolean()
-}
-    .reinterpret()
+    ) -> Boolean>().get().invoke(op.run {
+        PathOperation.fromNativeValue(this)}
+    , pts!!.run {
+        Point(reinterpret())}
+    , nPts, weight).asGBoolean()}
+.reinterpret()
 
 /**
  * Type of callback that is called when an error occurs

@@ -3,7 +3,9 @@ package org.gtkkn.bindings.cairo
 
 import org.gtkkn.native.cairo.cairo_hint_metrics_t
 
-public enum class HintMetrics(public val nativeValue: cairo_hint_metrics_t) {
+public enum class HintMetrics(
+    public val nativeValue: cairo_hint_metrics_t,
+) {
     DEFAULT(cairo_hint_metrics_t.CAIRO_HINT_METRICS_DEFAULT),
     OFF(cairo_hint_metrics_t.CAIRO_HINT_METRICS_OFF),
     ON(cairo_hint_metrics_t.CAIRO_HINT_METRICS_ON),

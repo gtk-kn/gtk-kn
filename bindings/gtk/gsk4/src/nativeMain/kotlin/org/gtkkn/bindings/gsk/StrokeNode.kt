@@ -20,8 +20,9 @@ import org.gtkkn.native.gsk.gsk_stroke_node_new
  * @since 4.14
  */
 @GskVersion4_14
-public open class StrokeNode(pointer: CPointer<GskStrokeNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class StrokeNode(
+    pointer: CPointer<GskStrokeNode>,
+) : RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskStrokeNodePointer: CPointer<GskStrokeNode>
         get() = gPointer.reinterpret()
@@ -42,13 +43,7 @@ public open class StrokeNode(pointer: CPointer<GskStrokeNode>) :
         child: RenderNode,
         path: Path,
         stroke: Stroke,
-    ) : this(
-        gsk_stroke_node_new(
-            child.gPointer.reinterpret(),
-            path.gskPathPointer.reinterpret(),
-            stroke.gskStrokePointer.reinterpret()
-        )!!.reinterpret()
-    )
+    ) : this(gsk_stroke_node_new(child.gPointer.reinterpret(), path.gskPathPointer.reinterpret(), stroke.gskStrokePointer.reinterpret())!!.reinterpret())
 
     /**
      * Gets the child node that is getting drawn by the given @node.
@@ -58,8 +53,7 @@ public open class StrokeNode(pointer: CPointer<GskStrokeNode>) :
      */
     @GskVersion4_14
     public open fun getChild(): RenderNode = gsk_stroke_node_get_child(gskStrokeNodePointer.reinterpret())!!.run {
-        RenderNode(reinterpret())
-    }
+        RenderNode(reinterpret())}
 
     /**
      * Retrieves the path that will be stroked with the contents of
@@ -70,8 +64,7 @@ public open class StrokeNode(pointer: CPointer<GskStrokeNode>) :
      */
     @GskVersion4_14
     public open fun getPath(): Path = gsk_stroke_node_get_path(gskStrokeNodePointer.reinterpret())!!.run {
-        Path(reinterpret())
-    }
+        Path(reinterpret())}
 
     /**
      * Retrieves the stroke attributes used in this @node.
@@ -81,15 +74,13 @@ public open class StrokeNode(pointer: CPointer<GskStrokeNode>) :
      */
     @GskVersion4_14
     public open fun getStroke(): Stroke = gsk_stroke_node_get_stroke(gskStrokeNodePointer.reinterpret())!!.run {
-        Stroke(reinterpret())
-    }
+        Stroke(reinterpret())}
 
     public companion object : TypeCompanion<StrokeNode> {
         override val type: GeneratedClassKGType<StrokeNode> =
-            GeneratedClassKGType(gsk_stroke_node_get_type()) { StrokeNode(it.reinterpret()) }
+                GeneratedClassKGType(gsk_stroke_node_get_type()) { StrokeNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
     }
 }

@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Int
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -10,8 +12,7 @@ import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gtk.GtkTreeIter
 import org.gtkkn.native.gtk.gtk_tree_iter_copy
 import org.gtkkn.native.gtk.gtk_tree_iter_free
-import kotlin.Int
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `GtkTreeIter` is the primary structure
@@ -26,7 +27,9 @@ import kotlin.Unit
  * - field `user_data2`: gpointer
  * - field `user_data3`: gpointer
  */
-public class TreeIter(pointer: CPointer<GtkTreeIter>) : Record {
+public class TreeIter(
+    pointer: CPointer<GtkTreeIter>,
+) : Record {
     public val gtkTreeIterPointer: CPointer<GtkTreeIter> = pointer
 
     /**
@@ -49,8 +52,7 @@ public class TreeIter(pointer: CPointer<GtkTreeIter>) : Record {
      * @return a newly-allocated copy of @iter
      */
     public fun copy(): TreeIter = gtk_tree_iter_copy(gtkTreeIterPointer.reinterpret())!!.run {
-        TreeIter(reinterpret())
-    }
+        TreeIter(reinterpret())}
 
     /**
      * Frees an iterator that has been allocated by gtk_tree_iter_copy().

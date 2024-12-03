@@ -31,8 +31,9 @@ import org.gtkkn.native.gio.g_simple_io_stream_new
  * @since 2.44
  */
 @GioVersion2_44
-public open class SimpleIOStream(pointer: CPointer<GSimpleIOStream>) :
-    IOStream(pointer.reinterpret()),
+public open class SimpleIOStream(
+    pointer: CPointer<GSimpleIOStream>,
+) : IOStream(pointer.reinterpret()),
     KGTyped {
     public val gioSimpleIOStreamPointer: CPointer<GSimpleIOStream>
         get() = gPointer.reinterpret()
@@ -46,22 +47,13 @@ public open class SimpleIOStream(pointer: CPointer<GSimpleIOStream>) :
      * @return a new #GSimpleIOStream instance.
      * @since 2.44
      */
-    public constructor(
-        inputStream: InputStream,
-        outputStream: OutputStream,
-    ) : this(
-        g_simple_io_stream_new(
-            inputStream.gioInputStreamPointer.reinterpret(),
-            outputStream.gioOutputStreamPointer.reinterpret()
-        )!!.reinterpret()
-    )
+    public constructor(inputStream: InputStream, outputStream: OutputStream) : this(g_simple_io_stream_new(inputStream.gioInputStreamPointer.reinterpret(), outputStream.gioOutputStreamPointer.reinterpret())!!.reinterpret())
 
     public companion object : TypeCompanion<SimpleIOStream> {
         override val type: GeneratedClassKGType<SimpleIOStream> =
-            GeneratedClassKGType(g_simple_io_stream_get_type()) { SimpleIOStream(it.reinterpret()) }
+                GeneratedClassKGType(g_simple_io_stream_get_type()) { SimpleIOStream(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
     }
 }

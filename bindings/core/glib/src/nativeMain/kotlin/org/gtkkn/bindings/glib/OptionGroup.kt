@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -13,8 +15,7 @@ import org.gtkkn.native.glib.g_option_group_free
 import org.gtkkn.native.glib.g_option_group_ref
 import org.gtkkn.native.glib.g_option_group_set_translation_domain
 import org.gtkkn.native.glib.g_option_group_unref
-import kotlin.String
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GOptionGroup` struct defines the options in a single
@@ -31,7 +32,9 @@ import kotlin.Unit
  * - method `set_translate_func`: C function g_option_group_set_translate_func is ignored
  * - parameter `user_data`: gpointer
  */
-public class OptionGroup(pointer: CPointer<GOptionGroup>) : Record {
+public class OptionGroup(
+    pointer: CPointer<GOptionGroup>,
+) : Record {
     public val glibOptionGroupPointer: CPointer<GOptionGroup> = pointer
 
     /**
@@ -51,8 +54,7 @@ public class OptionGroup(pointer: CPointer<GOptionGroup>) : Record {
      */
     @GLibVersion2_44
     public fun ref(): OptionGroup = g_option_group_ref(glibOptionGroupPointer.reinterpret())!!.run {
-        OptionGroup(reinterpret())
-    }
+        OptionGroup(reinterpret())}
 
     /**
      * A convenience function to use gettext() for translating
@@ -62,8 +64,7 @@ public class OptionGroup(pointer: CPointer<GOptionGroup>) : Record {
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun setTranslationDomain(domain: String): Unit =
-        g_option_group_set_translation_domain(glibOptionGroupPointer.reinterpret(), domain)
+    public fun setTranslationDomain(domain: String): Unit = g_option_group_set_translation_domain(glibOptionGroupPointer.reinterpret(), domain)
 
     /**
      * Decrements the reference count of @group by one.
@@ -76,7 +77,6 @@ public class OptionGroup(pointer: CPointer<GOptionGroup>) : Record {
     public fun unref(): Unit = g_option_group_unref(glibOptionGroupPointer.reinterpret())
 
     public companion object : RecordCompanion<OptionGroup, GOptionGroup> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): OptionGroup =
-            OptionGroup(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): OptionGroup = OptionGroup(pointer.reinterpret())
     }
 }

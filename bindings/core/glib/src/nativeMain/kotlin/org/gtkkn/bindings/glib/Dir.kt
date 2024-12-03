@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Result
+import kotlin.String
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
@@ -23,15 +27,14 @@ import org.gtkkn.native.glib.g_dir_read_name
 import org.gtkkn.native.glib.g_dir_ref
 import org.gtkkn.native.glib.g_dir_rewind
 import org.gtkkn.native.glib.g_dir_unref
-import kotlin.Result
-import kotlin.String
-import kotlin.UInt
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * An opaque structure representing an opened directory.
  */
-public class Dir(pointer: CPointer<GDir>) : Record {
+public class Dir(
+    pointer: CPointer<GDir>,
+) : Record {
     public val glibDirPointer: CPointer<GDir> = pointer
 
     /**
@@ -65,8 +68,7 @@ public class Dir(pointer: CPointer<GDir>) : Record {
      *   more entries. The return value is owned by GLib and
      *   must not be modified or freed.
      */
-    public fun readName(): String =
-        g_dir_read_name(glibDirPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun readName(): String = g_dir_read_name(glibDirPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Increment the reference count of `dir`.
@@ -76,8 +78,7 @@ public class Dir(pointer: CPointer<GDir>) : Record {
      */
     @GLibVersion2_80
     public fun ref(): Dir = g_dir_ref(glibDirPointer.reinterpret())!!.run {
-        Dir(reinterpret())
-    }
+        Dir(reinterpret())}
 
     /**
      * Resets the given directory. The next call to g_dir_read_name()
@@ -122,7 +123,8 @@ public class Dir(pointer: CPointer<GDir>) : Record {
                 val gResult = g_dir_open(path, flags, gError.ptr)
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
+                }
+                else {
                     Result.success(Dir(checkNotNull(gResult)))
                 }
             }
@@ -155,7 +157,8 @@ public class Dir(pointer: CPointer<GDir>) : Record {
             val gResult = g_dir_make_tmp(tmpl, gError.ptr)?.toKString()
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
+            }
+            else {
                 Result.success(checkNotNull(gResult))
             }
         }

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -10,7 +11,6 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.soup.SoupAuthDomainDigest
 import org.gtkkn.native.soup.soup_auth_domain_digest_encode_password
 import org.gtkkn.native.soup.soup_auth_domain_digest_get_type
-import kotlin.String
 
 /**
  * Server-side "Digest" authentication.
@@ -24,19 +24,19 @@ import kotlin.String
  * - method `auth-callback`: Property has no getter nor setter
  * - method `auth-data`: Property has no getter nor setter
  */
-public class AuthDomainDigest(pointer: CPointer<SoupAuthDomainDigest>) :
-    AuthDomain(pointer.reinterpret()),
+public class AuthDomainDigest(
+    pointer: CPointer<SoupAuthDomainDigest>,
+) : AuthDomain(pointer.reinterpret()),
     KGTyped {
     public val soupAuthDomainDigestPointer: CPointer<SoupAuthDomainDigest>
         get() = gPointer.reinterpret()
 
     public companion object : TypeCompanion<AuthDomainDigest> {
         override val type: GeneratedClassKGType<AuthDomainDigest> =
-            GeneratedClassKGType(soup_auth_domain_digest_get_type()) { AuthDomainDigest(it.reinterpret()) }
+                GeneratedClassKGType(soup_auth_domain_digest_get_type()) { AuthDomainDigest(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
 
         /**
          * Encodes the username/realm/password triplet for Digest
@@ -60,8 +60,10 @@ public class AuthDomainDigest(pointer: CPointer<SoupAuthDomainDigest>) :
          * @param password the password for @username in @realm
          * @return the encoded password
          */
-        public fun encodePassword(username: String, realm: String, password: String): String =
-            soup_auth_domain_digest_encode_password(username, realm, password)?.toKString()
-                ?: error("Expected not null string")
+        public fun encodePassword(
+            username: String,
+            realm: String,
+            password: String,
+        ): String = soup_auth_domain_digest_encode_password(username, realm, password)?.toKString() ?: error("Expected not null string")
     }
 }

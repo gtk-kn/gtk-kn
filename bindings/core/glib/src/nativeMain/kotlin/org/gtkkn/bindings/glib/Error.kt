@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -14,10 +18,7 @@ import org.gtkkn.native.glib.g_error_copy
 import org.gtkkn.native.glib.g_error_free
 import org.gtkkn.native.glib.g_error_matches
 import org.gtkkn.native.glib.g_error_new_literal
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.String
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `GError` structure contains information about
@@ -28,7 +29,9 @@ import kotlin.Unit
  * - parameter `error_type_init`: ErrorInitFunc
  * - parameter `error_type_init`: ErrorInitFunc
  */
-public class Error(pointer: CPointer<GError>) : Record {
+public class Error(
+    pointer: CPointer<GError>,
+) : Record {
     public val glibErrorPointer: CPointer<GError> = pointer
 
     /**
@@ -63,8 +66,7 @@ public class Error(pointer: CPointer<GError>) : Record {
      * @return a new #GError
      */
     public fun copy(): Error = g_error_copy(glibErrorPointer.reinterpret())!!.run {
-        Error(reinterpret())
-    }
+        Error(reinterpret())}
 
     /**
      * Frees a #GError and associated resources.
@@ -87,8 +89,7 @@ public class Error(pointer: CPointer<GError>) : Record {
      * @param code an error code
      * @return whether @error has @domain and @code
      */
-    public fun matches(domain: Quark, code: Int): Boolean =
-        g_error_matches(glibErrorPointer.reinterpret(), domain, code).asBoolean()
+    public fun matches(domain: Quark, code: Int): Boolean = g_error_matches(glibErrorPointer.reinterpret(), domain, code).asBoolean()
 
     public companion object : RecordCompanion<Error, GError> {
         /**
@@ -102,8 +103,11 @@ public class Error(pointer: CPointer<GError>) : Record {
          * @param message error message
          * @return a new #GError
          */
-        public fun newLiteral(domain: Quark, code: Int, message: String): Error =
-            Error(g_error_new_literal(domain, code, message)!!.reinterpret())
+        public fun newLiteral(
+            domain: Quark,
+            code: Int,
+            message: String,
+        ): Error = Error(g_error_new_literal(domain, code, message)!!.reinterpret())
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Error = Error(pointer.reinterpret())
     }

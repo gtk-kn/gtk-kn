@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Int
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -19,9 +22,6 @@ import org.gtkkn.native.gtk.gtk_constraint_guide_set_min_size
 import org.gtkkn.native.gtk.gtk_constraint_guide_set_name
 import org.gtkkn.native.gtk.gtk_constraint_guide_set_nat_size
 import org.gtkkn.native.gtk.gtk_constraint_guide_set_strength
-import kotlin.Int
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A `GtkConstraintGuide` is an invisible layout element in a
@@ -49,8 +49,9 @@ import kotlin.Unit
  * - method `nat-height`: Property has no getter nor setter
  * - method `nat-width`: Property has no getter nor setter
  */
-public open class ConstraintGuide(pointer: CPointer<GtkConstraintGuide>) :
-    Object(pointer.reinterpret()),
+public open class ConstraintGuide(
+    pointer: CPointer<GtkConstraintGuide>,
+) : Object(pointer.reinterpret()),
     ConstraintTarget,
     KGTyped {
     public val gtkConstraintGuidePointer: CPointer<GtkConstraintGuide>
@@ -69,7 +70,6 @@ public open class ConstraintGuide(pointer: CPointer<GtkConstraintGuide>) :
          * @return the name of the guide
          */
         get() = gtk_constraint_guide_get_name(gtkConstraintGuidePointer.reinterpret())?.toKString()
-
         /**
          * Sets a name for the given `GtkConstraintGuide`.
          *
@@ -90,9 +90,7 @@ public open class ConstraintGuide(pointer: CPointer<GtkConstraintGuide>) :
          * @return the strength of the constraint on the natural size
          */
         get() = gtk_constraint_guide_get_strength(gtkConstraintGuidePointer.reinterpret()).run {
-            ConstraintStrength.fromNativeValue(this)
-        }
-
+            ConstraintStrength.fromNativeValue(this)}
         /**
          * Sets the strength of the constraint on the natural size of the
          * given `GtkConstraintGuide`.
@@ -117,8 +115,7 @@ public open class ConstraintGuide(pointer: CPointer<GtkConstraintGuide>) :
      * @param width the new maximum width, or -1 to not change it
      * @param height the new maximum height, or -1 to not change it
      */
-    public open fun setMaxSize(width: Int, height: Int): Unit =
-        gtk_constraint_guide_set_max_size(gtkConstraintGuidePointer.reinterpret(), width, height)
+    public open fun setMaxSize(width: Int, height: Int): Unit = gtk_constraint_guide_set_max_size(gtkConstraintGuidePointer.reinterpret(), width, height)
 
     /**
      * Sets the minimum size of @guide.
@@ -129,8 +126,7 @@ public open class ConstraintGuide(pointer: CPointer<GtkConstraintGuide>) :
      * @param width the new minimum width, or -1 to not change it
      * @param height the new minimum height, or -1 to not change it
      */
-    public open fun setMinSize(width: Int, height: Int): Unit =
-        gtk_constraint_guide_set_min_size(gtkConstraintGuidePointer.reinterpret(), width, height)
+    public open fun setMinSize(width: Int, height: Int): Unit = gtk_constraint_guide_set_min_size(gtkConstraintGuidePointer.reinterpret(), width, height)
 
     /**
      * Sets the natural size of @guide.
@@ -141,15 +137,13 @@ public open class ConstraintGuide(pointer: CPointer<GtkConstraintGuide>) :
      * @param width the new natural width, or -1 to not change it
      * @param height the new natural height, or -1 to not change it
      */
-    public open fun setNatSize(width: Int, height: Int): Unit =
-        gtk_constraint_guide_set_nat_size(gtkConstraintGuidePointer.reinterpret(), width, height)
+    public open fun setNatSize(width: Int, height: Int): Unit = gtk_constraint_guide_set_nat_size(gtkConstraintGuidePointer.reinterpret(), width, height)
 
     public companion object : TypeCompanion<ConstraintGuide> {
         override val type: GeneratedClassKGType<ConstraintGuide> =
-            GeneratedClassKGType(gtk_constraint_guide_get_type()) { ConstraintGuide(it.reinterpret()) }
+                GeneratedClassKGType(gtk_constraint_guide_get_type()) { ConstraintGuide(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

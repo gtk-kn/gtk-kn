@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asBoolean
@@ -34,10 +38,6 @@ import org.gtkkn.native.gtk.gtk_print_unix_dialog_set_manual_capabilities
 import org.gtkkn.native.gtk.gtk_print_unix_dialog_set_page_setup
 import org.gtkkn.native.gtk.gtk_print_unix_dialog_set_settings
 import org.gtkkn.native.gtk.gtk_print_unix_dialog_set_support_selection
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkPrintUnixDialog` implements a print dialog for platforms
@@ -101,8 +101,9 @@ import kotlin.Unit
  *
  * - method `print-settings`: Property has no getter nor setter
  */
-public open class PrintUnixDialog(pointer: CPointer<GtkPrintUnixDialog>) :
-    Dialog(pointer.reinterpret()),
+public open class PrintUnixDialog(
+    pointer: CPointer<GtkPrintUnixDialog>,
+) : Dialog(pointer.reinterpret()),
     KGTyped {
     public val gtkPrintUnixDialogPointer: CPointer<GtkPrintUnixDialog>
         get() = gPointer.reinterpret()
@@ -135,7 +136,6 @@ public open class PrintUnixDialog(pointer: CPointer<GtkPrintUnixDialog>) :
          * @return the current page of @dialog
          */
         get() = gtk_print_unix_dialog_get_current_page(gtkPrintUnixDialogPointer.reinterpret())
-
         /**
          * Sets the current page number.
          *
@@ -156,15 +156,12 @@ public open class PrintUnixDialog(pointer: CPointer<GtkPrintUnixDialog>) :
          * @return whether to embed the page setup
          */
         get() = gtk_print_unix_dialog_get_embed_page_setup(gtkPrintUnixDialogPointer.reinterpret()).asBoolean()
-
         /**
          * Embed page size combo box and orientation combo box into page setup page.
          *
          * @param embed embed page setup selection
          */
-        set(
-            embed
-        ) = gtk_print_unix_dialog_set_embed_page_setup(gtkPrintUnixDialogPointer.reinterpret(), embed.asGBoolean())
+        set(embed) = gtk_print_unix_dialog_set_embed_page_setup(gtkPrintUnixDialogPointer.reinterpret(), embed.asGBoolean())
 
     /**
      * Whether the application has a selection.
@@ -176,15 +173,12 @@ public open class PrintUnixDialog(pointer: CPointer<GtkPrintUnixDialog>) :
          * @return whether there is a selection
          */
         get() = gtk_print_unix_dialog_get_has_selection(gtkPrintUnixDialogPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether a selection exists.
          *
          * @param hasSelection true indicates that a selection exists
          */
-        set(
-            hasSelection
-        ) = gtk_print_unix_dialog_set_has_selection(gtkPrintUnixDialogPointer.reinterpret(), hasSelection.asGBoolean())
+        set(hasSelection) = gtk_print_unix_dialog_set_has_selection(gtkPrintUnixDialogPointer.reinterpret(), hasSelection.asGBoolean())
 
     /**
      * Capabilities the application can handle.
@@ -196,9 +190,7 @@ public open class PrintUnixDialog(pointer: CPointer<GtkPrintUnixDialog>) :
          * @return the printing capabilities
          */
         get() = gtk_print_unix_dialog_get_manual_capabilities(gtkPrintUnixDialogPointer.reinterpret()).run {
-            PrintCapabilities(this)
-        }
-
+            PrintCapabilities(this)}
         /**
          * This lets you specify the printing capabilities your application
          * supports.
@@ -210,9 +202,7 @@ public open class PrintUnixDialog(pointer: CPointer<GtkPrintUnixDialog>) :
          *
          * @param capabilities the printing capabilities of your application
          */
-        set(
-            capabilities
-        ) = gtk_print_unix_dialog_set_manual_capabilities(gtkPrintUnixDialogPointer.reinterpret(), capabilities.mask)
+        set(capabilities) = gtk_print_unix_dialog_set_manual_capabilities(gtkPrintUnixDialogPointer.reinterpret(), capabilities.mask)
 
     /**
      * The `GtkPageSetup` object to use.
@@ -224,20 +214,13 @@ public open class PrintUnixDialog(pointer: CPointer<GtkPrintUnixDialog>) :
          * @return the page setup of @dialog.
          */
         get() = gtk_print_unix_dialog_get_page_setup(gtkPrintUnixDialogPointer.reinterpret())!!.run {
-            PageSetup(reinterpret())
-        }
-
+            PageSetup(reinterpret())}
         /**
          * Sets the page setup of the `GtkPrintUnixDialog`.
          *
          * @param pageSetup a `GtkPageSetup`
          */
-        set(
-            pageSetup
-        ) = gtk_print_unix_dialog_set_page_setup(
-            gtkPrintUnixDialogPointer.reinterpret(),
-            pageSetup.gtkPageSetupPointer.reinterpret()
-        )
+        set(pageSetup) = gtk_print_unix_dialog_set_page_setup(gtkPrintUnixDialogPointer.reinterpret(), pageSetup.gtkPageSetupPointer.reinterpret())
 
     /**
      * The `GtkPrinter` which is selected.
@@ -249,8 +232,7 @@ public open class PrintUnixDialog(pointer: CPointer<GtkPrintUnixDialog>) :
          * @return the currently selected printer
          */
         get() = gtk_print_unix_dialog_get_selected_printer(gtkPrintUnixDialogPointer.reinterpret())?.run {
-            Printer(reinterpret())
-        }
+            Printer(reinterpret())}
 
     /**
      * Whether the dialog supports selection.
@@ -262,18 +244,12 @@ public open class PrintUnixDialog(pointer: CPointer<GtkPrintUnixDialog>) :
          * @return whether the application supports print of selection
          */
         get() = gtk_print_unix_dialog_get_support_selection(gtkPrintUnixDialogPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the print dialog allows user to print a selection.
          *
          * @param supportSelection true to allow print selection
          */
-        set(
-            supportSelection
-        ) = gtk_print_unix_dialog_set_support_selection(
-            gtkPrintUnixDialogPointer.reinterpret(),
-            supportSelection.asGBoolean()
-        )
+        set(supportSelection) = gtk_print_unix_dialog_set_support_selection(gtkPrintUnixDialogPointer.reinterpret(), supportSelection.asGBoolean())
 
     /**
      * Creates a new `GtkPrintUnixDialog`.
@@ -282,10 +258,7 @@ public open class PrintUnixDialog(pointer: CPointer<GtkPrintUnixDialog>) :
      * @param parent Transient parent of the dialog
      * @return a new `GtkPrintUnixDialog`
      */
-    public constructor(
-        title: String? = null,
-        parent: Window? = null,
-    ) : this(gtk_print_unix_dialog_new(title, parent?.gtkWindowPointer?.reinterpret())!!.reinterpret())
+    public constructor(title: String? = null, parent: Window? = null) : this(gtk_print_unix_dialog_new(title, parent?.gtkWindowPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Adds a custom tab to the print dialog.
@@ -293,19 +266,14 @@ public open class PrintUnixDialog(pointer: CPointer<GtkPrintUnixDialog>) :
      * @param child the widget to put in the custom tab
      * @param tabLabel the widget to use as tab label
      */
-    public open fun addCustomTab(child: Widget, tabLabel: Widget): Unit = gtk_print_unix_dialog_add_custom_tab(
-        gtkPrintUnixDialogPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret(),
-        tabLabel.gtkWidgetPointer.reinterpret()
-    )
+    public open fun addCustomTab(child: Widget, tabLabel: Widget): Unit = gtk_print_unix_dialog_add_custom_tab(gtkPrintUnixDialogPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), tabLabel.gtkWidgetPointer.reinterpret())
 
     /**
      * Gets whether a page setup was set by the user.
      *
      * @return whether a page setup was set by user.
      */
-    public open fun getPageSetupSet(): Boolean =
-        gtk_print_unix_dialog_get_page_setup_set(gtkPrintUnixDialogPointer.reinterpret()).asBoolean()
+    public open fun getPageSetupSet(): Boolean = gtk_print_unix_dialog_get_page_setup_set(gtkPrintUnixDialogPointer.reinterpret()).asBoolean()
 
     /**
      * Gets a new `GtkPrintSettings` object that represents the
@@ -316,10 +284,8 @@ public open class PrintUnixDialog(pointer: CPointer<GtkPrintUnixDialog>) :
      *
      * @return a new `GtkPrintSettings` object with the values from @dialog
      */
-    public open fun getPrintSettings(): PrintSettings =
-        gtk_print_unix_dialog_get_settings(gtkPrintUnixDialogPointer.reinterpret())!!.run {
-            PrintSettings(reinterpret())
-        }
+    public open fun getPrintSettings(): PrintSettings = gtk_print_unix_dialog_get_settings(gtkPrintUnixDialogPointer.reinterpret())!!.run {
+        PrintSettings(reinterpret())}
 
     /**
      * Sets the `GtkPrintSettings` for the `GtkPrintUnixDialog`.
@@ -330,17 +296,13 @@ public open class PrintUnixDialog(pointer: CPointer<GtkPrintUnixDialog>) :
      *
      * @param settings a `GtkPrintSettings`
      */
-    public open fun setSettings(settings: PrintSettings? = null): Unit = gtk_print_unix_dialog_set_settings(
-        gtkPrintUnixDialogPointer.reinterpret(),
-        settings?.gtkPrintSettingsPointer?.reinterpret()
-    )
+    public open fun setSettings(settings: PrintSettings? = null): Unit = gtk_print_unix_dialog_set_settings(gtkPrintUnixDialogPointer.reinterpret(), settings?.gtkPrintSettingsPointer?.reinterpret())
 
     public companion object : TypeCompanion<PrintUnixDialog> {
         override val type: GeneratedClassKGType<PrintUnixDialog> =
-            GeneratedClassKGType(gtk_print_unix_dialog_get_type()) { PrintUnixDialog(it.reinterpret()) }
+                GeneratedClassKGType(gtk_print_unix_dialog_get_type()) { PrintUnixDialog(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

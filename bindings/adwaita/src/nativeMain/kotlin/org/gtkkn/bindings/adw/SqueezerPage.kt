@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -15,13 +16,13 @@ import org.gtkkn.native.adw.adw_squeezer_page_get_child
 import org.gtkkn.native.adw.adw_squeezer_page_get_enabled
 import org.gtkkn.native.adw.adw_squeezer_page_get_type
 import org.gtkkn.native.adw.adw_squeezer_page_set_enabled
-import kotlin.Boolean
 
 /**
  * An auxiliary class used by [class@Squeezer].
  */
-public class SqueezerPage(pointer: CPointer<AdwSqueezerPage>) :
-    Object(pointer.reinterpret()),
+public class SqueezerPage(
+    pointer: CPointer<AdwSqueezerPage>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val adwSqueezerPagePointer: CPointer<AdwSqueezerPage>
         get() = gPointer.reinterpret()
@@ -36,8 +37,7 @@ public class SqueezerPage(pointer: CPointer<AdwSqueezerPage>) :
          * @return the child to which @self belongs
          */
         get() = adw_squeezer_page_get_child(adwSqueezerPagePointer.reinterpret())!!.run {
-            Widget(reinterpret())
-        }
+            Widget(reinterpret())}
 
     /**
      * Whether the child is enabled.
@@ -58,7 +58,6 @@ public class SqueezerPage(pointer: CPointer<AdwSqueezerPage>) :
          * @return whether @self is enabled
          */
         get() = adw_squeezer_page_get_enabled(adwSqueezerPagePointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether @self is enabled.
          *
@@ -77,10 +76,9 @@ public class SqueezerPage(pointer: CPointer<AdwSqueezerPage>) :
 
     public companion object : TypeCompanion<SqueezerPage> {
         override val type: GeneratedClassKGType<SqueezerPage> =
-            GeneratedClassKGType(adw_squeezer_page_get_type()) { SqueezerPage(it.reinterpret()) }
+                GeneratedClassKGType(adw_squeezer_page_get_type()) { SqueezerPage(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
     }
 }

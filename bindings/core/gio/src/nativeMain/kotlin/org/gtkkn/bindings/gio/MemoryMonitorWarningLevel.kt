@@ -16,14 +16,15 @@ import org.gtkkn.native.gio.GMemoryMonitorWarningLevel
  * @since 2.64
  */
 @GioVersion2_64
-public enum class MemoryMonitorWarningLevel(public val nativeValue: GMemoryMonitorWarningLevel) {
+public enum class MemoryMonitorWarningLevel(
+    public val nativeValue: GMemoryMonitorWarningLevel,
+) {
     /**
      * Memory on the device is low, processes
      *   should free up unneeded resources (for example, in-memory caches) so they can
      *   be used elsewhere.
      */
     LOW(GMemoryMonitorWarningLevel.G_MEMORY_MONITOR_WARNING_LEVEL_LOW),
-
     /**
      * Same as @G_MEMORY_MONITOR_WARNING_LEVEL_LOW
      *   but the device has even less free memory, so processes should try harder to free
@@ -31,7 +32,6 @@ public enum class MemoryMonitorWarningLevel(public val nativeValue: GMemoryMonit
      *   good time for it to quit.
      */
     MEDIUM(GMemoryMonitorWarningLevel.G_MEMORY_MONITOR_WARNING_LEVEL_MEDIUM),
-
     /**
      * The system will soon start terminating
      *   processes to reclaim memory, including background processes.
@@ -40,12 +40,11 @@ public enum class MemoryMonitorWarningLevel(public val nativeValue: GMemoryMonit
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GMemoryMonitorWarningLevel): MemoryMonitorWarningLevel =
-            when (nativeValue) {
-                GMemoryMonitorWarningLevel.G_MEMORY_MONITOR_WARNING_LEVEL_LOW -> LOW
-                GMemoryMonitorWarningLevel.G_MEMORY_MONITOR_WARNING_LEVEL_MEDIUM -> MEDIUM
-                GMemoryMonitorWarningLevel.G_MEMORY_MONITOR_WARNING_LEVEL_CRITICAL -> CRITICAL
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GMemoryMonitorWarningLevel): MemoryMonitorWarningLevel = when (nativeValue) {
+            GMemoryMonitorWarningLevel.G_MEMORY_MONITOR_WARNING_LEVEL_LOW -> LOW
+            GMemoryMonitorWarningLevel.G_MEMORY_MONITOR_WARNING_LEVEL_MEDIUM -> MEDIUM
+            GMemoryMonitorWarningLevel.G_MEMORY_MONITOR_WARNING_LEVEL_CRITICAL -> CRITICAL
+            else -> error("invalid nativeValue")
+        }
     }
 }

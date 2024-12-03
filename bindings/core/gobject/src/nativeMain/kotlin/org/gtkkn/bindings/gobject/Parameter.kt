@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.String
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,7 +10,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GParameter
-import kotlin.String
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The GParameter struct is an auxiliary structure used
@@ -19,7 +20,9 @@ import kotlin.String
  *
  * - field `value`: Value
  */
-public class Parameter(pointer: CPointer<GParameter>) : Record {
+public class Parameter(
+    pointer: CPointer<GParameter>,
+) : Record {
     public val gobjectParameterPointer: CPointer<GParameter> = pointer
 
     /**

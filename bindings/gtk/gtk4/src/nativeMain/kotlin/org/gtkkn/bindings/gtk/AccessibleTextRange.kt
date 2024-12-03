@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.ULong
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,14 +10,16 @@ import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gtk.GtkAccessibleTextRange
-import kotlin.ULong
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A range inside the text of an accessible object.
  * @since 4.14
  */
 @GtkVersion4_14
-public class AccessibleTextRange(pointer: CPointer<GtkAccessibleTextRange>) : Record {
+public class AccessibleTextRange(
+    pointer: CPointer<GtkAccessibleTextRange>,
+) : Record {
     public val gtkAccessibleTextRangePointer: CPointer<GtkAccessibleTextRange> = pointer
 
     /**
@@ -38,7 +41,6 @@ public class AccessibleTextRange(pointer: CPointer<GtkAccessibleTextRange>) : Re
         }
 
     public companion object : RecordCompanion<AccessibleTextRange, GtkAccessibleTextRange> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): AccessibleTextRange =
-            AccessibleTextRange(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): AccessibleTextRange = AccessibleTextRange(pointer.reinterpret())
     }
 }

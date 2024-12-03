@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Int
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -8,7 +9,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GPollFD
-import kotlin.Int
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Represents a file descriptor, which events to poll for, and which events
@@ -19,7 +20,9 @@ import kotlin.Int
  * - field `events`: gushort
  * - field `revents`: gushort
  */
-public class PollFD(pointer: CPointer<GPollFD>) : Record {
+public class PollFD(
+    pointer: CPointer<GPollFD>,
+) : Record {
     public val glibPollFDPointer: CPointer<GPollFD> = pointer
 
     /**

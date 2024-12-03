@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -20,10 +24,7 @@ import org.gtkkn.native.pango.pango_layout_line_get_start_index
 import org.gtkkn.native.pango.pango_layout_line_is_paragraph_start
 import org.gtkkn.native.pango.pango_layout_line_ref
 import org.gtkkn.native.pango.pango_layout_line_unref
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.UInt
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `PangoLayoutLine` represents one of the lines resulting from laying
@@ -40,7 +41,9 @@ import kotlin.Unit
  * - parameter `x_pos`: x_pos: Out parameter is not supported
  * - parameter `index`: index: Out parameter is not supported
  */
-public class LayoutLine(pointer: CPointer<PangoLayoutLine>) : Record {
+public class LayoutLine(
+    pointer: CPointer<PangoLayoutLine>,
+) : Record {
     public val pangoLayoutLinePointer: CPointer<PangoLayoutLine> = pointer
 
     /**
@@ -50,8 +53,7 @@ public class LayoutLine(pointer: CPointer<PangoLayoutLine>) : Record {
      */
     public val layout: Layout?
         get() = pangoLayoutLinePointer.pointed.layout?.run {
-            Layout(reinterpret())
-        }
+            Layout(reinterpret())}
 
     /**
      * start of line as byte index into layout->text
@@ -79,8 +81,7 @@ public class LayoutLine(pointer: CPointer<PangoLayoutLine>) : Record {
      */
     public val runs: SList?
         get() = pangoLayoutLinePointer.pointed.runs?.run {
-            SList(reinterpret())
-        }
+            SList(reinterpret())}
 
     /**
      * #TRUE if this is the first line of the paragraph
@@ -111,11 +112,7 @@ public class LayoutLine(pointer: CPointer<PangoLayoutLine>) : Record {
      * @param logicalRect rectangle used to store the logical
      *   extents of the glyph string
      */
-    public fun getExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit = pango_layout_line_get_extents(
-        pangoLayoutLinePointer.reinterpret(),
-        inkRect?.pangoRectanglePointer?.reinterpret(),
-        logicalRect?.pangoRectanglePointer?.reinterpret()
-    )
+    public fun getExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit = pango_layout_line_get_extents(pangoLayoutLinePointer.reinterpret(), inkRect?.pangoRectanglePointer?.reinterpret(), logicalRect?.pangoRectanglePointer?.reinterpret())
 
     /**
      * Returns the length of the line, in bytes.
@@ -139,12 +136,7 @@ public class LayoutLine(pointer: CPointer<PangoLayoutLine>) : Record {
      * @param logicalRect rectangle used to store the logical
      *   extents of the glyph string
      */
-    public fun getPixelExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit =
-        pango_layout_line_get_pixel_extents(
-            pangoLayoutLinePointer.reinterpret(),
-            inkRect?.pangoRectanglePointer?.reinterpret(),
-            logicalRect?.pangoRectanglePointer?.reinterpret()
-        )
+    public fun getPixelExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit = pango_layout_line_get_pixel_extents(pangoLayoutLinePointer.reinterpret(), inkRect?.pangoRectanglePointer?.reinterpret(), logicalRect?.pangoRectanglePointer?.reinterpret())
 
     /**
      * Returns the resolved direction of the line.
@@ -153,10 +145,8 @@ public class LayoutLine(pointer: CPointer<PangoLayoutLine>) : Record {
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun getResolvedDirection(): Direction =
-        pango_layout_line_get_resolved_direction(pangoLayoutLinePointer.reinterpret()).run {
-            Direction.fromNativeValue(this)
-        }
+    public fun getResolvedDirection(): Direction = pango_layout_line_get_resolved_direction(pangoLayoutLinePointer.reinterpret()).run {
+        Direction.fromNativeValue(this)}
 
     /**
      * Returns the start index of the line, as byte index
@@ -175,8 +165,7 @@ public class LayoutLine(pointer: CPointer<PangoLayoutLine>) : Record {
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun isParagraphStart(): Boolean =
-        pango_layout_line_is_paragraph_start(pangoLayoutLinePointer.reinterpret()).asBoolean()
+    public fun isParagraphStart(): Boolean = pango_layout_line_is_paragraph_start(pangoLayoutLinePointer.reinterpret()).asBoolean()
 
     /**
      * Increase the reference count of a `PangoLayoutLine` by one.
@@ -186,8 +175,7 @@ public class LayoutLine(pointer: CPointer<PangoLayoutLine>) : Record {
      */
     @PangoVersion1_10
     public fun ref(): LayoutLine? = pango_layout_line_ref(pangoLayoutLinePointer.reinterpret())?.run {
-        LayoutLine(reinterpret())
-    }
+        LayoutLine(reinterpret())}
 
     /**
      * Decrease the reference count of a `PangoLayoutLine` by one.

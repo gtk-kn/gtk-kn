@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
+import kotlin.Long
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -16,9 +19,7 @@ import org.gtkkn.native.gdk.gdk_frame_timings_get_presentation_time
 import org.gtkkn.native.gdk.gdk_frame_timings_get_refresh_interval
 import org.gtkkn.native.gdk.gdk_frame_timings_ref
 import org.gtkkn.native.gdk.gdk_frame_timings_unref
-import kotlin.Boolean
-import kotlin.Long
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GdkFrameTimings` object holds timing information for a single frame
@@ -30,7 +31,9 @@ import kotlin.Unit
  * the event or audio streams, and for measuring quality metrics for the
  * application’s display, such as latency and jitter.
  */
-public class FrameTimings(pointer: CPointer<GdkFrameTimings>) : Record {
+public class FrameTimings(
+    pointer: CPointer<GdkFrameTimings>,
+) : Record {
     public val gdkFrameTimingsPointer: CPointer<GdkFrameTimings> = pointer
 
     /**
@@ -90,8 +93,7 @@ public class FrameTimings(pointer: CPointer<GdkFrameTimings>) : Record {
      *   in the timescale of g_get_monotonic_time(), or 0 if no predicted
      *   presentation time is available.
      */
-    public fun getPredictedPresentationTime(): Long =
-        gdk_frame_timings_get_predicted_presentation_time(gdkFrameTimingsPointer.reinterpret())
+    public fun getPredictedPresentationTime(): Long = gdk_frame_timings_get_predicted_presentation_time(gdkFrameTimingsPointer.reinterpret())
 
     /**
      * Reurns the presentation time.
@@ -102,8 +104,7 @@ public class FrameTimings(pointer: CPointer<GdkFrameTimings>) : Record {
      *   timescale of g_get_monotonic_time(), or 0 if no presentation
      *   time is available. See [method@Gdk.FrameTimings.get_complete]
      */
-    public fun getPresentationTime(): Long =
-        gdk_frame_timings_get_presentation_time(gdkFrameTimingsPointer.reinterpret())
+    public fun getPresentationTime(): Long = gdk_frame_timings_get_presentation_time(gdkFrameTimingsPointer.reinterpret())
 
     /**
      * Gets the natural interval between presentation times for
@@ -124,8 +125,7 @@ public class FrameTimings(pointer: CPointer<GdkFrameTimings>) : Record {
      * @return @timings
      */
     public fun ref(): FrameTimings = gdk_frame_timings_ref(gdkFrameTimingsPointer.reinterpret())!!.run {
-        FrameTimings(reinterpret())
-    }
+        FrameTimings(reinterpret())}
 
     /**
      * Decreases the reference count of @timings.
@@ -135,7 +135,6 @@ public class FrameTimings(pointer: CPointer<GdkFrameTimings>) : Record {
     public fun unref(): Unit = gdk_frame_timings_unref(gdkFrameTimingsPointer.reinterpret())
 
     public companion object : RecordCompanion<FrameTimings, GdkFrameTimings> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FrameTimings =
-            FrameTimings(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FrameTimings = FrameTimings(pointer.reinterpret())
     }
 }

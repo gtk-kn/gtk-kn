@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -20,8 +22,6 @@ import org.gtkkn.native.gtk.gtk_map_list_model_has_map
 import org.gtkkn.native.gtk.gtk_map_list_model_new
 import org.gtkkn.native.gtk.gtk_map_list_model_set_map_func
 import org.gtkkn.native.gtk.gtk_map_list_model_set_model
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * A `GtkMapListModel` maps the items in a list model to different items.
@@ -60,8 +60,9 @@ import kotlin.Unit
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class MapListModel(pointer: CPointer<GtkMapListModel>) :
-    Object(pointer.reinterpret()),
+public open class MapListModel(
+    pointer: CPointer<GtkMapListModel>,
+) : Object(pointer.reinterpret()),
     ListModel,
     SectionModel,
     KGTyped {
@@ -84,8 +85,7 @@ public open class MapListModel(pointer: CPointer<GtkMapListModel>) :
          * @return The model that gets mapped
          */
         get() = gtk_map_list_model_get_model(gtkMapListModelPointer.reinterpret())?.run {
-            ListModel.wrap(reinterpret())
-        }
+            ListModel.wrap(reinterpret())}
 
     /**
      * Creates a new `GtkMapListModel` for the given arguments.
@@ -94,17 +94,7 @@ public open class MapListModel(pointer: CPointer<GtkMapListModel>) :
      * @param mapFunc map function
      * @return a new `GtkMapListModel`
      */
-    public constructor(
-        model: ListModel? = null,
-        mapFunc: MapListModelMapFunc,
-    ) : this(
-        gtk_map_list_model_new(
-            model?.gioListModelPointer,
-            MapListModelMapFuncFunc.reinterpret(),
-            StableRef.create(mapFunc).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )!!.reinterpret()
-    )
+    public constructor(model: ListModel? = null, mapFunc: MapListModelMapFunc) : this(gtk_map_list_model_new(model?.gioListModelPointer, MapListModelMapFuncFunc.reinterpret(), StableRef.create(mapFunc).asCPointer(), staticStableRefDestroy.reinterpret())!!.reinterpret())
 
     /**
      * Checks if a map function is currently set on @self.
@@ -128,12 +118,7 @@ public open class MapListModel(pointer: CPointer<GtkMapListModel>) :
      *
      * @param mapFunc map function
      */
-    public open fun setMapFunc(mapFunc: MapListModelMapFunc): Unit = gtk_map_list_model_set_map_func(
-        gtkMapListModelPointer.reinterpret(),
-        MapListModelMapFuncFunc.reinterpret(),
-        StableRef.create(mapFunc).asCPointer(),
-        staticStableRefDestroy.reinterpret()
-    )
+    public open fun setMapFunc(mapFunc: MapListModelMapFunc): Unit = gtk_map_list_model_set_map_func(gtkMapListModelPointer.reinterpret(), MapListModelMapFuncFunc.reinterpret(), StableRef.create(mapFunc).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Sets the model to be mapped.
@@ -144,15 +129,13 @@ public open class MapListModel(pointer: CPointer<GtkMapListModel>) :
      *
      * @param model The model to be mapped
      */
-    public open fun setModel(model: ListModel? = null): Unit =
-        gtk_map_list_model_set_model(gtkMapListModelPointer.reinterpret(), model?.gioListModelPointer)
+    public open fun setModel(model: ListModel? = null): Unit = gtk_map_list_model_set_model(gtkMapListModelPointer.reinterpret(), model?.gioListModelPointer)
 
     public companion object : TypeCompanion<MapListModel> {
         override val type: GeneratedClassKGType<MapListModel> =
-            GeneratedClassKGType(gtk_map_list_model_get_type()) { MapListModel(it.reinterpret()) }
+                GeneratedClassKGType(gtk_map_list_model_get_type()) { MapListModel(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

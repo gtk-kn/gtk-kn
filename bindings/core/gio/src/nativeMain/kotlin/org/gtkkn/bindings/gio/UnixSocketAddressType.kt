@@ -21,27 +21,25 @@ import org.gtkkn.native.gio.GUnixSocketAddressType
  * @since 2.26
  */
 @GioVersion2_26
-public enum class UnixSocketAddressType(public val nativeValue: GUnixSocketAddressType) {
+public enum class UnixSocketAddressType(
+    public val nativeValue: GUnixSocketAddressType,
+) {
     /**
      * invalid
      */
     INVALID(GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_INVALID),
-
     /**
      * anonymous
      */
     ANONYMOUS(GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_ANONYMOUS),
-
     /**
      * a filesystem path
      */
     PATH(GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_PATH),
-
     /**
      * an abstract name
      */
     ABSTRACT(GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_ABSTRACT),
-
     /**
      * an abstract name, 0-padded
      *   to the full length of a unix socket name

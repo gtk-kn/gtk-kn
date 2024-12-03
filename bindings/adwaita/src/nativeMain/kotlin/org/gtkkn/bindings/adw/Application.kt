@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ApplicationFlags
@@ -13,7 +14,6 @@ import org.gtkkn.native.adw.adw_application_get_type
 import org.gtkkn.native.adw.adw_application_new
 import org.gtkkn.native.gio.GActionGroup
 import org.gtkkn.native.gio.GActionMap
-import kotlin.String
 
 /**
  * A base class for Adwaita applications.
@@ -43,8 +43,9 @@ import kotlin.String
  * - `style-hc-dark.css` contains styles used when the system high contrast
  *   preference is enabled and [property@StyleManager:dark] is `TRUE`.
  */
-public open class Application(pointer: CPointer<AdwApplication>) :
-    org.gtkkn.bindings.gtk.Application(pointer.reinterpret()),
+public open class Application(
+    pointer: CPointer<AdwApplication>,
+) : org.gtkkn.bindings.gtk.Application(pointer.reinterpret()),
     KGTyped {
     public val adwApplicationPointer: CPointer<AdwApplication>
         get() = gPointer.reinterpret()
@@ -71,8 +72,7 @@ public open class Application(pointer: CPointer<AdwApplication>) :
          * @return the style manager
          */
         get() = adw_application_get_style_manager(adwApplicationPointer.reinterpret())!!.run {
-            StyleManager(reinterpret())
-        }
+            StyleManager(reinterpret())}
 
     /**
      * Creates a new `AdwApplication`.
@@ -87,17 +87,13 @@ public open class Application(pointer: CPointer<AdwApplication>) :
      * @param flags The application flags
      * @return the newly created `AdwApplication`
      */
-    public constructor(
-        applicationId: String? = null,
-        flags: ApplicationFlags,
-    ) : this(adw_application_new(applicationId, flags.mask)!!.reinterpret())
+    public constructor(applicationId: String? = null, flags: ApplicationFlags) : this(adw_application_new(applicationId, flags.mask)!!.reinterpret())
 
     public companion object : TypeCompanion<Application> {
         override val type: GeneratedClassKGType<Application> =
-            GeneratedClassKGType(adw_application_get_type()) { Application(it.reinterpret()) }
+                GeneratedClassKGType(adw_application_get_type()) { Application(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
     }
 }

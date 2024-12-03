@@ -9,17 +9,17 @@ import org.gtkkn.native.webkit.webkit_print_error_quark
 /**
  * Enum values used to denote the various print errors.
  */
-public enum class PrintError(public val nativeValue: WebKitPrintError) {
+public enum class PrintError(
+    public val nativeValue: WebKitPrintError,
+) {
     /**
      * Unspecified error during a print operation
      */
     GENERAL(WebKitPrintError.WEBKIT_PRINT_ERROR_GENERAL),
-
     /**
      * Selected printer cannot be found
      */
     PRINTER_NOT_FOUND(WebKitPrintError.WEBKIT_PRINT_ERROR_PRINTER_NOT_FOUND),
-
     /**
      * Invalid page range
      */

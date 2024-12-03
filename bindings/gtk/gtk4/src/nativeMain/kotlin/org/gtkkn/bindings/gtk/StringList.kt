@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.UInt
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.cstr
 import kotlinx.cinterop.memScoped
@@ -22,10 +26,6 @@ import org.gtkkn.native.gtk.gtk_string_list_new
 import org.gtkkn.native.gtk.gtk_string_list_remove
 import org.gtkkn.native.gtk.gtk_string_list_splice
 import org.gtkkn.native.gtk.gtk_string_list_take
-import kotlin.String
-import kotlin.UInt
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * `GtkStringList` is a list model that wraps an array of strings.
@@ -62,8 +62,9 @@ import kotlin.collections.List
  * - method `n-items`: Property has no getter nor setter
  * - method `strings`: Property has no getter nor setter
  */
-public open class StringList(pointer: CPointer<GtkStringList>) :
-    Object(pointer.reinterpret()),
+public open class StringList(
+    pointer: CPointer<GtkStringList>,
+) : Object(pointer.reinterpret()),
     ListModel,
     Buildable,
     KGTyped {
@@ -82,10 +83,8 @@ public open class StringList(pointer: CPointer<GtkStringList>) :
      * @param strings The strings to put in the model
      * @return a new `GtkStringList`
      */
-    public constructor(strings: List<String>? = null) : this(
-        memScoped {
-            gtk_string_list_new(strings?.toCStringList(this))!!.reinterpret()
-        }
+    public constructor(strings: List<String>? = null) : this(memScoped {
+        gtk_string_list_new(strings?.toCStringList(this))!!.reinterpret()}
     )
 
     /**
@@ -109,8 +108,7 @@ public open class StringList(pointer: CPointer<GtkStringList>) :
      * @param position the position to get the string for
      * @return the string at the given position
      */
-    public open fun getString(position: UInt): String? =
-        gtk_string_list_get_string(gtkStringListPointer.reinterpret(), position)?.toKString()
+    public open fun getString(position: UInt): String? = gtk_string_list_get_string(gtkStringListPointer.reinterpret(), position)?.toKString()
 
     /**
      * Removes the string at @position from @self.
@@ -140,14 +138,12 @@ public open class StringList(pointer: CPointer<GtkStringList>) :
      * @param nRemovals the number of strings to remove
      * @param additions The strings to add
      */
-    public open fun splice(position: UInt, nRemovals: UInt, additions: List<String>? = null): Unit = memScoped {
-        return gtk_string_list_splice(
-            gtkStringListPointer.reinterpret(),
-            position,
-            nRemovals,
-            additions?.toCStringList(this)
-        )
-    }
+    public open fun splice(
+        position: UInt,
+        nRemovals: UInt,
+        additions: List<String>? = null,
+    ): Unit = memScoped {
+        return gtk_string_list_splice(gtkStringListPointer.reinterpret(), position, nRemovals, additions?.toCStringList(this))}
 
     /**
      * Adds @string to self at the end, and takes
@@ -166,10 +162,9 @@ public open class StringList(pointer: CPointer<GtkStringList>) :
 
     public companion object : TypeCompanion<StringList> {
         override val type: GeneratedClassKGType<StringList> =
-            GeneratedClassKGType(gtk_string_list_get_type()) { StringList(it.reinterpret()) }
+                GeneratedClassKGType(gtk_string_list_get_type()) { StringList(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

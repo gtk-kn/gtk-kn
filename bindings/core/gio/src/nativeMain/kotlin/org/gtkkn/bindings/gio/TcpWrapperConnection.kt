@@ -22,8 +22,9 @@ import org.gtkkn.native.gio.g_tcp_wrapper_connection_new
  * @since 2.28
  */
 @GioVersion2_28
-public open class TcpWrapperConnection(pointer: CPointer<GTcpWrapperConnection>) :
-    TcpConnection(pointer.reinterpret()),
+public open class TcpWrapperConnection(
+    pointer: CPointer<GTcpWrapperConnection>,
+) : TcpConnection(pointer.reinterpret()),
     KGTyped {
     public val gioTcpWrapperConnectionPointer: CPointer<GTcpWrapperConnection>
         get() = gPointer.reinterpret()
@@ -41,8 +42,7 @@ public open class TcpWrapperConnection(pointer: CPointer<GTcpWrapperConnection>)
          * @return @conn's base #GIOStream
          */
         get() = g_tcp_wrapper_connection_get_base_io_stream(gioTcpWrapperConnectionPointer.reinterpret())!!.run {
-            IOStream(reinterpret())
-        }
+            IOStream(reinterpret())}
 
     /**
      * Wraps @base_io_stream and @socket together as a #GSocketConnection.
@@ -52,22 +52,13 @@ public open class TcpWrapperConnection(pointer: CPointer<GTcpWrapperConnection>)
      * @return the new #GSocketConnection.
      * @since 2.28
      */
-    public constructor(
-        baseIoStream: IOStream,
-        socket: Socket,
-    ) : this(
-        g_tcp_wrapper_connection_new(
-            baseIoStream.gioIOStreamPointer.reinterpret(),
-            socket.gioSocketPointer.reinterpret()
-        )!!.reinterpret()
-    )
+    public constructor(baseIoStream: IOStream, socket: Socket) : this(g_tcp_wrapper_connection_new(baseIoStream.gioIOStreamPointer.reinterpret(), socket.gioSocketPointer.reinterpret())!!.reinterpret())
 
     public companion object : TypeCompanion<TcpWrapperConnection> {
         override val type: GeneratedClassKGType<TcpWrapperConnection> =
-            GeneratedClassKGType(g_tcp_wrapper_connection_get_type()) { TcpWrapperConnection(it.reinterpret()) }
+                GeneratedClassKGType(g_tcp_wrapper_connection_get_type()) { TcpWrapperConnection(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
     }
 }

@@ -8,7 +8,9 @@ import org.gtkkn.native.gio.G_MOUNT_MOUNT_NONE
 /**
  * Flags used when mounting a mount.
  */
-public class MountMountFlags(public val mask: GMountMountFlags) : Bitfield<MountMountFlags> {
+public class MountMountFlags(
+    public val mask: GMountMountFlags,
+) : Bitfield<MountMountFlags> {
     override infix fun or(other: MountMountFlags): MountMountFlags = MountMountFlags(mask or other.mask)
 
     public companion object {

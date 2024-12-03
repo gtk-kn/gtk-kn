@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -19,9 +22,6 @@ import org.gtkkn.native.gobject.g_param_spec_get_nick
 import org.gtkkn.native.gobject.g_param_spec_get_redirect_target
 import org.gtkkn.native.gobject.g_param_spec_is_valid_name
 import org.gtkkn.native.gobject.g_param_spec_sink
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GParamSpec` encapsulates the metadata required to specify parameters, such as `GObject` properties.
@@ -43,7 +43,9 @@ import kotlin.Unit
  * - parameter `data`: gpointer
  * - method `steal_qdata`: Return type gpointer is unsupported
  */
-public open class ParamSpec(pointer: CPointer<GParamSpec>) {
+public open class ParamSpec(
+    pointer: CPointer<GParamSpec>,
+) {
     public val gPointer: CPointer<GParamSpec>
     init {
         gPointer = pointer.reinterpret()
@@ -66,8 +68,7 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      */
     @GObjectVersion2_38
     public open fun getDefaultValue(): Value = g_param_spec_get_default_value(gPointer.reinterpret())!!.run {
-        Value(reinterpret())
-    }
+        Value(reinterpret())}
 
     /**
      * Get the name of a #GParamSpec.
@@ -77,8 +78,7 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      *
      * @return the name of @pspec.
      */
-    public open fun getName(): String =
-        g_param_spec_get_name(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public open fun getName(): String = g_param_spec_get_name(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the GQuark for the name.
@@ -94,8 +94,7 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      *
      * @return the nickname of @pspec.
      */
-    public open fun getNick(): String =
-        g_param_spec_get_nick(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public open fun getNick(): String = g_param_spec_get_nick(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * If the paramspec redirects operations to another paramspec,
@@ -112,8 +111,7 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      */
     @GObjectVersion2_4
     public open fun getRedirectTarget(): ParamSpec? = g_param_spec_get_redirect_target(gPointer.reinterpret())?.run {
-        ParamSpec(reinterpret())
-    }
+        ParamSpec(reinterpret())}
 
     /**
      * The initial reference count of a newly created #GParamSpec is 1,

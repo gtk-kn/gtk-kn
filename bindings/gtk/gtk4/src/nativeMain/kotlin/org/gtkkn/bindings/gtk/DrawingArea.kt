@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Int
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -25,9 +28,6 @@ import org.gtkkn.native.gtk.gtk_drawing_area_new
 import org.gtkkn.native.gtk.gtk_drawing_area_set_content_height
 import org.gtkkn.native.gtk.gtk_drawing_area_set_content_width
 import org.gtkkn.native.gtk.gtk_drawing_area_set_draw_func
-import kotlin.Int
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkDrawingArea` is a widget that allows drawing with cairo.
@@ -109,8 +109,9 @@ import kotlin.Unit
  * If you need more complex control over your widget, you should consider
  * creating your own `GtkWidget` subclass.
  */
-public open class DrawingArea(pointer: CPointer<GtkDrawingArea>) :
-    Widget(pointer.reinterpret()),
+public open class DrawingArea(
+    pointer: CPointer<GtkDrawingArea>,
+) : Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkDrawingAreaPointer: CPointer<GtkDrawingArea>
         get() = gPointer.reinterpret()
@@ -134,7 +135,6 @@ public open class DrawingArea(pointer: CPointer<GtkDrawingArea>) :
          * @return The height requested for content of the drawing area
          */
         get() = gtk_drawing_area_get_content_height(gtkDrawingAreaPointer.reinterpret())
-
         /**
          * Sets the desired height of the contents of the drawing area.
          *
@@ -159,7 +159,6 @@ public open class DrawingArea(pointer: CPointer<GtkDrawingArea>) :
          * @return The width requested for content of the drawing area
          */
         get() = gtk_drawing_area_get_content_width(gtkDrawingAreaPointer.reinterpret())
-
         /**
          * Sets the desired width of the contents of the drawing area.
          *
@@ -200,12 +199,7 @@ public open class DrawingArea(pointer: CPointer<GtkDrawingArea>) :
      * @param drawFunc callback that lets you draw
      *   the drawing area's contents
      */
-    public open fun setDrawFunc(drawFunc: DrawingAreaDrawFunc): Unit = gtk_drawing_area_set_draw_func(
-        gtkDrawingAreaPointer.reinterpret(),
-        DrawingAreaDrawFuncFunc.reinterpret(),
-        StableRef.create(drawFunc).asCPointer(),
-        staticStableRefDestroy.reinterpret()
-    )
+    public open fun setDrawFunc(drawFunc: DrawingAreaDrawFunc): Unit = gtk_drawing_area_set_draw_func(gtkDrawingAreaPointer.reinterpret(), DrawingAreaDrawFuncFunc.reinterpret(), StableRef.create(drawFunc).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Emitted once when the widget is realized, and then each time the widget
@@ -217,34 +211,22 @@ public open class DrawingArea(pointer: CPointer<GtkDrawingArea>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `width` the width of the viewport; `height` the height of the viewport
      */
-    public fun connectResize(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (width: Int, height: Int) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "resize",
-        connectResizeFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectResize(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (width: Int, height: Int) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "resize", connectResizeFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<DrawingArea> {
         override val type: GeneratedClassKGType<DrawingArea> =
-            GeneratedClassKGType(gtk_drawing_area_get_type()) { DrawingArea(it.reinterpret()) }
+                GeneratedClassKGType(gtk_drawing_area_get_type()) { DrawingArea(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }
 
 private val connectResizeFunc: CPointer<CFunction<(Int, Int) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        width: Int,
-        height: Int,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    width: Int,
+    height: Int,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(width: Int, height: Int) -> Unit>().get().invoke(width, height)
-}
-    .reinterpret()
+    userData.asStableRef<(width: Int, height: Int) -> Unit>().get().invoke(width, height)}
+.reinterpret()

@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -30,15 +33,13 @@ import org.gtkkn.native.adw.adw_view_stack_page_set_title
 import org.gtkkn.native.adw.adw_view_stack_page_set_use_underline
 import org.gtkkn.native.adw.adw_view_stack_page_set_visible
 import org.gtkkn.native.gtk.GtkAccessible
-import kotlin.Boolean
-import kotlin.String
-import kotlin.UInt
 
 /**
  * An auxiliary class used by [class@ViewStack].
  */
-public class ViewStackPage(pointer: CPointer<AdwViewStackPage>) :
-    Object(pointer.reinterpret()),
+public class ViewStackPage(
+    pointer: CPointer<AdwViewStackPage>,
+) : Object(pointer.reinterpret()),
     Accessible,
     KGTyped {
     public val adwViewStackPagePointer: CPointer<AdwViewStackPage>
@@ -62,7 +63,6 @@ public class ViewStackPage(pointer: CPointer<AdwViewStackPage>) :
          * @return the badge number for this page
          */
         get() = adw_view_stack_page_get_badge_number(adwViewStackPagePointer.reinterpret())
-
         /**
          * Sets the badge number for this page.
          *
@@ -85,8 +85,7 @@ public class ViewStackPage(pointer: CPointer<AdwViewStackPage>) :
          * @return the child to which @self belongs
          */
         get() = adw_view_stack_page_get_child(adwViewStackPagePointer.reinterpret())!!.run {
-            Widget(reinterpret())
-        }
+            Widget(reinterpret())}
 
     /**
      * The icon name of the child page.
@@ -98,7 +97,6 @@ public class ViewStackPage(pointer: CPointer<AdwViewStackPage>) :
          * @return the icon name of the page
          */
         get() = adw_view_stack_page_get_icon_name(adwViewStackPagePointer.reinterpret())?.toKString()
-
         /**
          * Sets the icon name of the page.
          *
@@ -116,7 +114,6 @@ public class ViewStackPage(pointer: CPointer<AdwViewStackPage>) :
          * @return the name of the page
          */
         get() = adw_view_stack_page_get_name(adwViewStackPagePointer.reinterpret())?.toKString()
-
         /**
          * Sets the name of the page.
          *
@@ -136,7 +133,6 @@ public class ViewStackPage(pointer: CPointer<AdwViewStackPage>) :
          * @return whether the page needs attention
          */
         get() = adw_view_stack_page_get_needs_attention(adwViewStackPagePointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the page requires the user attention.
          *
@@ -144,9 +140,7 @@ public class ViewStackPage(pointer: CPointer<AdwViewStackPage>) :
          *
          * @param needsAttention the new value to set
          */
-        set(
-            needsAttention
-        ) = adw_view_stack_page_set_needs_attention(adwViewStackPagePointer.reinterpret(), needsAttention.asGBoolean())
+        set(needsAttention) = adw_view_stack_page_set_needs_attention(adwViewStackPagePointer.reinterpret(), needsAttention.asGBoolean())
 
     /**
      * The title of the child page.
@@ -158,7 +152,6 @@ public class ViewStackPage(pointer: CPointer<AdwViewStackPage>) :
          * @return the page title
          */
         get() = adw_view_stack_page_get_title(adwViewStackPagePointer.reinterpret())?.toKString()
-
         /**
          * Sets the page title.
          *
@@ -176,15 +169,12 @@ public class ViewStackPage(pointer: CPointer<AdwViewStackPage>) :
          * @return whether underlines in the page title indicate mnemonics
          */
         get() = adw_view_stack_page_get_use_underline(adwViewStackPagePointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether underlines in the page title indicate mnemonics.
          *
          * @param useUnderline the new value to set
          */
-        set(
-            useUnderline
-        ) = adw_view_stack_page_set_use_underline(adwViewStackPagePointer.reinterpret(), useUnderline.asGBoolean())
+        set(useUnderline) = adw_view_stack_page_set_use_underline(adwViewStackPagePointer.reinterpret(), useUnderline.asGBoolean())
 
     /**
      * Whether this page is visible.
@@ -202,7 +192,6 @@ public class ViewStackPage(pointer: CPointer<AdwViewStackPage>) :
          * @return whether @self is visible
          */
         get() = adw_view_stack_page_get_visible(adwViewStackPagePointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether @page is visible in its `AdwViewStack`.
          *
@@ -215,10 +204,9 @@ public class ViewStackPage(pointer: CPointer<AdwViewStackPage>) :
 
     public companion object : TypeCompanion<ViewStackPage> {
         override val type: GeneratedClassKGType<ViewStackPage> =
-            GeneratedClassKGType(adw_view_stack_page_get_type()) { ViewStackPage(it.reinterpret()) }
+                GeneratedClassKGType(adw_view_stack_page_get_type()) { ViewStackPage(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
     }
 }

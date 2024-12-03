@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -12,7 +13,7 @@ import org.gtkkn.native.gtk.gtk_print_setup_get_page_setup
 import org.gtkkn.native.gtk.gtk_print_setup_get_print_settings
 import org.gtkkn.native.gtk.gtk_print_setup_ref
 import org.gtkkn.native.gtk.gtk_print_setup_unref
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GtkPrintSetup` is an auxiliary object for printing that allows decoupling
@@ -28,7 +29,9 @@ import kotlin.Unit
  * @since 4.14
  */
 @GtkVersion4_14
-public class PrintSetup(pointer: CPointer<GtkPrintSetup>) : Record {
+public class PrintSetup(
+    pointer: CPointer<GtkPrintSetup>,
+) : Record {
     public val gtkPrintSetupPointer: CPointer<GtkPrintSetup> = pointer
 
     /**
@@ -42,8 +45,7 @@ public class PrintSetup(pointer: CPointer<GtkPrintSetup>) : Record {
      */
     @GtkVersion4_14
     public fun getPageSetup(): PageSetup? = gtk_print_setup_get_page_setup(gtkPrintSetupPointer.reinterpret())?.run {
-        PageSetup(reinterpret())
-    }
+        PageSetup(reinterpret())}
 
     /**
      * Returns the print settings of @setup.
@@ -55,10 +57,8 @@ public class PrintSetup(pointer: CPointer<GtkPrintSetup>) : Record {
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun getPrintSettings(): PrintSettings? =
-        gtk_print_setup_get_print_settings(gtkPrintSetupPointer.reinterpret())?.run {
-            PrintSettings(reinterpret())
-        }
+    public fun getPrintSettings(): PrintSettings? = gtk_print_setup_get_print_settings(gtkPrintSetupPointer.reinterpret())?.run {
+        PrintSettings(reinterpret())}
 
     /**
      * Increase the reference count of @setup.
@@ -68,8 +68,7 @@ public class PrintSetup(pointer: CPointer<GtkPrintSetup>) : Record {
      */
     @GtkVersion4_14
     public fun ref(): PrintSetup = gtk_print_setup_ref(gtkPrintSetupPointer.reinterpret())!!.run {
-        PrintSetup(reinterpret())
-    }
+        PrintSetup(reinterpret())}
 
     /**
      * Decrease the reference count of @setup.

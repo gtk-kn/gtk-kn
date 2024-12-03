@@ -25,7 +25,6 @@ plugins {
     id("config-conventions")
     id("spotless-conventions")
     id("versions-conventions")
-    alias(libs.plugins.gradledoctor)
 }
 
 tasks {

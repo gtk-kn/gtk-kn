@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -13,8 +15,7 @@ import org.gtkkn.native.gobject.g_closure_new_object
 import org.gtkkn.native.gobject.g_closure_ref
 import org.gtkkn.native.gobject.g_closure_sink
 import org.gtkkn.native.gobject.g_closure_unref
-import kotlin.UInt
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GClosure` represents a callback supplied by the programmer.
@@ -78,7 +79,9 @@ import kotlin.Unit
  * - field `data`: Record field data is private
  * - field `notifiers`: Record field notifiers is private
  */
-public class Closure(pointer: CPointer<GClosure>) : Record {
+public class Closure(
+    pointer: CPointer<GClosure>,
+) : Record {
     public val gobjectClosurePointer: CPointer<GClosure> = pointer
 
     /**
@@ -127,8 +130,7 @@ public class Closure(pointer: CPointer<GClosure>) : Record {
      * @return The @closure passed in, for convenience
      */
     public fun ref(): Closure = g_closure_ref(gobjectClosurePointer.reinterpret())!!.run {
-        Closure(reinterpret())
-    }
+        Closure(reinterpret())}
 
     /**
      * Takes over the initial ownership of a closure.
@@ -203,8 +205,7 @@ public class Closure(pointer: CPointer<GClosure>) : Record {
          *  allocated #GClosure
          * @return a newly allocated #GClosure
          */
-        public fun newObject(sizeofClosure: UInt, `object`: Object): Closure =
-            Closure(g_closure_new_object(sizeofClosure, `object`.gPointer.reinterpret())!!.reinterpret())
+        public fun newObject(sizeofClosure: UInt, `object`: Object): Closure = Closure(g_closure_new_object(sizeofClosure, `object`.gPointer.reinterpret())!!.reinterpret())
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Closure = Closure(pointer.reinterpret())
     }

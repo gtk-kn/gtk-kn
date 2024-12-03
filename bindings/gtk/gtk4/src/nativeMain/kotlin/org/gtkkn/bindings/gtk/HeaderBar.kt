@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -24,9 +27,6 @@ import org.gtkkn.native.gtk.gtk_header_bar_remove
 import org.gtkkn.native.gtk.gtk_header_bar_set_decoration_layout
 import org.gtkkn.native.gtk.gtk_header_bar_set_show_title_buttons
 import org.gtkkn.native.gtk.gtk_header_bar_set_title_widget
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkHeaderBar` is a widget for creating custom title bars for windows.
@@ -101,8 +101,9 @@ import kotlin.Unit
  *
  * `GtkHeaderBar` uses the %GTK_ACCESSIBLE_ROLE_GROUP role.
  */
-public open class HeaderBar(pointer: CPointer<GtkHeaderBar>) :
-    Widget(pointer.reinterpret()),
+public open class HeaderBar(
+    pointer: CPointer<GtkHeaderBar>,
+) : Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkHeaderBarPointer: CPointer<GtkHeaderBar>
         get() = gPointer.reinterpret()
@@ -129,7 +130,6 @@ public open class HeaderBar(pointer: CPointer<GtkHeaderBar>) :
          * @return the decoration layout
          */
         get() = gtk_header_bar_get_decoration_layout(gtkHeaderBarPointer.reinterpret())?.toKString()
-
         /**
          * Sets the decoration layout for this header bar.
          *
@@ -169,7 +169,6 @@ public open class HeaderBar(pointer: CPointer<GtkHeaderBar>) :
          * @return true if title buttons are shown
          */
         get() = gtk_header_bar_get_show_title_buttons(gtkHeaderBarPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether this header bar shows the standard window
          * title buttons.
@@ -187,9 +186,7 @@ public open class HeaderBar(pointer: CPointer<GtkHeaderBar>) :
          * @return the title widget of the header
          */
         get() = gtk_header_bar_get_title_widget(gtkHeaderBarPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the title for the `GtkHeaderBar`.
          *
@@ -205,12 +202,7 @@ public open class HeaderBar(pointer: CPointer<GtkHeaderBar>) :
          *
          * @param titleWidget a widget to use for a title
          */
-        set(
-            titleWidget
-        ) = gtk_header_bar_set_title_widget(
-            gtkHeaderBarPointer.reinterpret(),
-            titleWidget?.gtkWidgetPointer?.reinterpret()
-        )
+        set(titleWidget) = gtk_header_bar_set_title_widget(gtkHeaderBarPointer.reinterpret(), titleWidget?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Creates a new `GtkHeaderBar` widget.
@@ -225,8 +217,7 @@ public open class HeaderBar(pointer: CPointer<GtkHeaderBar>) :
      *
      * @param child the `GtkWidget` to be added to @bar
      */
-    public open fun packEnd(child: Widget): Unit =
-        gtk_header_bar_pack_end(gtkHeaderBarPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+    public open fun packEnd(child: Widget): Unit = gtk_header_bar_pack_end(gtkHeaderBarPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Adds @child to @bar, packed with reference to the
@@ -234,8 +225,7 @@ public open class HeaderBar(pointer: CPointer<GtkHeaderBar>) :
      *
      * @param child the `GtkWidget` to be added to @bar
      */
-    public open fun packStart(child: Widget): Unit =
-        gtk_header_bar_pack_start(gtkHeaderBarPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+    public open fun packStart(child: Widget): Unit = gtk_header_bar_pack_start(gtkHeaderBarPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Removes a child from the `GtkHeaderBar`.
@@ -247,15 +237,13 @@ public open class HeaderBar(pointer: CPointer<GtkHeaderBar>) :
      *
      * @param child the child to remove
      */
-    public open fun remove(child: Widget): Unit =
-        gtk_header_bar_remove(gtkHeaderBarPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+    public open fun remove(child: Widget): Unit = gtk_header_bar_remove(gtkHeaderBarPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     public companion object : TypeCompanion<HeaderBar> {
         override val type: GeneratedClassKGType<HeaderBar> =
-            GeneratedClassKGType(gtk_header_bar_get_type()) { HeaderBar(it.reinterpret()) }
+                GeneratedClassKGType(gtk_header_bar_get_type()) { HeaderBar(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

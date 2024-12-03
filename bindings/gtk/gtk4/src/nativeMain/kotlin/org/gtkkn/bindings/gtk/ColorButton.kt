@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -31,10 +35,6 @@ import org.gtkkn.native.gtk.gtk_color_button_new
 import org.gtkkn.native.gtk.gtk_color_button_new_with_rgba
 import org.gtkkn.native.gtk.gtk_color_button_set_modal
 import org.gtkkn.native.gtk.gtk_color_button_set_title
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * The `GtkColorButton` allows to open a color chooser dialog to change
@@ -60,8 +60,9 @@ import kotlin.Unit
  *
  * - method `show-editor`: Property has no getter nor setter
  */
-public open class ColorButton(pointer: CPointer<GtkColorButton>) :
-    Widget(pointer.reinterpret()),
+public open class ColorButton(
+    pointer: CPointer<GtkColorButton>,
+) : Widget(pointer.reinterpret()),
     ColorChooser,
     KGTyped {
     public val gtkColorButtonPointer: CPointer<GtkColorButton>
@@ -89,7 +90,6 @@ public open class ColorButton(pointer: CPointer<GtkColorButton>) :
          * @return true if the dialog is modal
          */
         get() = gtk_color_button_get_modal(gtkColorButtonPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the dialog should be modal.
          *
@@ -106,9 +106,7 @@ public open class ColorButton(pointer: CPointer<GtkColorButton>) :
          *
          * @return An internal string, do not free the return value
          */
-        get() = gtk_color_button_get_title(gtkColorButtonPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = gtk_color_button_get_title(gtkColorButtonPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the title for the color chooser dialog.
          *
@@ -135,9 +133,7 @@ public open class ColorButton(pointer: CPointer<GtkColorButton>) :
      * @param rgba A `GdkRGBA` to set the current color with
      * @return a new color button
      */
-    public constructor(
-        rgba: RGBA,
-    ) : this(gtk_color_button_new_with_rgba(rgba.gdkRGBAPointer.reinterpret())!!.reinterpret())
+    public constructor(rgba: RGBA) : this(gtk_color_button_new_with_rgba(rgba.gdkRGBAPointer.reinterpret())!!.reinterpret())
 
     /**
      * Emitted to when the color button is activated.
@@ -150,15 +146,7 @@ public open class ColorButton(pointer: CPointer<GtkColorButton>) :
      * @since 4.4
      */
     @GtkVersion4_4
-    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "activate",
-            connectActivateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "activate", connectActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the user selects a color.
@@ -173,38 +161,27 @@ public open class ColorButton(pointer: CPointer<GtkColorButton>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectColorSet(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "color-set",
-            connectColorSetFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectColorSet(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "color-set", connectColorSetFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<ColorButton> {
         override val type: GeneratedClassKGType<ColorButton> =
-            GeneratedClassKGType(gtk_color_button_get_type()) { ColorButton(it.reinterpret()) }
+                GeneratedClassKGType(gtk_color_button_get_type()) { ColorButton(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }
 
 private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectColorSetFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

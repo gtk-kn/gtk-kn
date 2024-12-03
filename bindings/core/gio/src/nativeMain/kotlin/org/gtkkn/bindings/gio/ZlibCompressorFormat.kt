@@ -10,17 +10,17 @@ import org.gtkkn.native.gio.GZlibCompressorFormat
  * @since 2.24
  */
 @GioVersion2_24
-public enum class ZlibCompressorFormat(public val nativeValue: GZlibCompressorFormat) {
+public enum class ZlibCompressorFormat(
+    public val nativeValue: GZlibCompressorFormat,
+) {
     /**
      * deflate compression with zlib header
      */
     ZLIB(GZlibCompressorFormat.G_ZLIB_COMPRESSOR_FORMAT_ZLIB),
-
     /**
      * gzip file format
      */
     GZIP(GZlibCompressorFormat.G_ZLIB_COMPRESSOR_FORMAT_GZIP),
-
     /**
      * deflate compression with no header
      */

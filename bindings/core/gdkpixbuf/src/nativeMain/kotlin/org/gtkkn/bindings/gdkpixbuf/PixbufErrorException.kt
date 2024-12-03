@@ -4,4 +4,7 @@ package org.gtkkn.bindings.gdkpixbuf
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.glib.GLibException
 
-public class PixbufErrorException(error: Error, public val code: PixbufError) : GLibException(error)
+public class PixbufErrorException(
+    error: Error,
+    public val code: PixbufError,
+) : GLibException(error)

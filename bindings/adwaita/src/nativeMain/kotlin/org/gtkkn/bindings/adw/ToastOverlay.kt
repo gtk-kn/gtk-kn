@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Widget
@@ -16,7 +17,6 @@ import org.gtkkn.native.adw.adw_toast_overlay_set_child
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Unit
 
 /**
  * A widget showing toasts above its content.
@@ -59,8 +59,9 @@ import kotlin.Unit
  *
  * `AdwToastOverlay` uses the `GTK_ACCESSIBLE_ROLE_TAB_GROUP` role.
  */
-public class ToastOverlay(pointer: CPointer<AdwToastOverlay>) :
-    Widget(pointer.reinterpret()),
+public class ToastOverlay(
+    pointer: CPointer<AdwToastOverlay>,
+) : Widget(pointer.reinterpret()),
     KGTyped {
     public val adwToastOverlayPointer: CPointer<AdwToastOverlay>
         get() = gPointer.reinterpret()
@@ -84,17 +85,13 @@ public class ToastOverlay(pointer: CPointer<AdwToastOverlay>) :
          * @return the child widget of @self
          */
         get() = adw_toast_overlay_get_child(adwToastOverlayPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the child widget of @self.
          *
          * @param child the child widget
          */
-        set(
-            child
-        ) = adw_toast_overlay_set_child(adwToastOverlayPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = adw_toast_overlay_set_child(adwToastOverlayPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Creates a new `AdwToastOverlay`.
@@ -117,15 +114,13 @@ public class ToastOverlay(pointer: CPointer<AdwToastOverlay>) :
      *
      * @param toast a toast
      */
-    public fun addToast(toast: Toast): Unit =
-        adw_toast_overlay_add_toast(adwToastOverlayPointer.reinterpret(), toast.adwToastPointer.reinterpret())
+    public fun addToast(toast: Toast): Unit = adw_toast_overlay_add_toast(adwToastOverlayPointer.reinterpret(), toast.adwToastPointer.reinterpret())
 
     public companion object : TypeCompanion<ToastOverlay> {
         override val type: GeneratedClassKGType<ToastOverlay> =
-            GeneratedClassKGType(adw_toast_overlay_get_type()) { ToastOverlay(it.reinterpret()) }
+                GeneratedClassKGType(adw_toast_overlay_get_type()) { ToastOverlay(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
     }
 }

@@ -7,6 +7,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GCClosure
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A #GCClosure is a specialization of #GClosure for C function callbacks.
@@ -39,7 +40,9 @@ import org.gtkkn.native.gobject.GCClosure
  * - field `closure`: Closure
  * - field `callback`: gpointer
  */
-public class CClosure(pointer: CPointer<GCClosure>) : Record {
+public class CClosure(
+    pointer: CPointer<GCClosure>,
+) : Record {
     public val gobjectCClosurePointer: CPointer<GCClosure> = pointer
 
     public companion object : RecordCompanion<CClosure, GCClosure> {

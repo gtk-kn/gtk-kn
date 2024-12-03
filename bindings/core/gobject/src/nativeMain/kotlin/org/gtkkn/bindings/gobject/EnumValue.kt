@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Int
+import kotlin.String
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,14 +11,15 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GEnumValue
-import kotlin.Int
-import kotlin.String
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A structure which contains a single enum value, its name, and its
  * nickname.
  */
-public class EnumValue(pointer: CPointer<GEnumValue>) : Record {
+public class EnumValue(
+    pointer: CPointer<GEnumValue>,
+) : Record {
     public val gobjectEnumValuePointer: CPointer<GEnumValue> = pointer
 
     /**

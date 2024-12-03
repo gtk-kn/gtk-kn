@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Double
+import kotlin.Result
+import kotlin.String
+import kotlin.Throws
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -47,11 +52,6 @@ import org.gtkkn.native.gtk.gtk_page_setup_set_top_margin
 import org.gtkkn.native.gtk.gtk_page_setup_to_file
 import org.gtkkn.native.gtk.gtk_page_setup_to_gvariant
 import org.gtkkn.native.gtk.gtk_page_setup_to_key_file
-import kotlin.Boolean
-import kotlin.Double
-import kotlin.Result
-import kotlin.String
-import kotlin.Throws
 
 /**
  * A `GtkPageSetup` object stores the page size, orientation and margins.
@@ -97,8 +97,9 @@ import kotlin.Throws
  * }
  * ```
  */
-public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
-    Object(pointer.reinterpret()),
+public open class PageSetup(
+    pointer: CPointer<GtkPageSetup>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtkPageSetupPointer: CPointer<GtkPageSetup>
         get() = gPointer.reinterpret()
@@ -121,15 +122,14 @@ public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
      * @return the restored `GtkPageSetup`
      */
     @Throws(GLibException::class)
-    public constructor(fileName: String) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = gtk_page_setup_new_from_file(fileName, gError.ptr)
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    public constructor(fileName: String) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gtk_page_setup_new_from_file(fileName, gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!.reinterpret()
+    }
     )
 
     /**
@@ -141,9 +141,7 @@ public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
      * @param variant an a{sv} `GVariant`
      * @return a new `GtkPageSetup` object
      */
-    public constructor(
-        variant: Variant,
-    ) : this(gtk_page_setup_new_from_gvariant(variant.glibVariantPointer.reinterpret())!!.reinterpret())
+    public constructor(variant: Variant) : this(gtk_page_setup_new_from_gvariant(variant.glibVariantPointer.reinterpret())!!.reinterpret())
 
     /**
      * Reads the page setup from the group @group_name in the key file
@@ -158,16 +156,14 @@ public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
      * @return the restored `GtkPageSetup`
      */
     @Throws(GLibException::class)
-    public constructor(keyFile: KeyFile, groupName: String? = null) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gtk_page_setup_new_from_key_file(keyFile.glibKeyFilePointer.reinterpret(), groupName, gError.ptr)
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    public constructor(keyFile: KeyFile, groupName: String? = null) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gtk_page_setup_new_from_key_file(keyFile.glibKeyFilePointer.reinterpret(), groupName, gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!.reinterpret()
+    }
     )
 
     /**
@@ -176,8 +172,7 @@ public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
      * @return a copy of @other
      */
     public open fun copy(): PageSetup = gtk_page_setup_copy(gtkPageSetupPointer.reinterpret())!!.run {
-        PageSetup(reinterpret())
-    }
+        PageSetup(reinterpret())}
 
     /**
      * Gets the bottom margin in units of @unit.
@@ -185,8 +180,7 @@ public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
      * @param unit the unit for the return value
      * @return the bottom margin
      */
-    public open fun getBottomMargin(unit: Unit): Double =
-        gtk_page_setup_get_bottom_margin(gtkPageSetupPointer.reinterpret(), unit.nativeValue)
+    public open fun getBottomMargin(unit: Unit): Double = gtk_page_setup_get_bottom_margin(gtkPageSetupPointer.reinterpret(), unit.nativeValue)
 
     /**
      * Gets the left margin in units of @unit.
@@ -194,18 +188,15 @@ public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
      * @param unit the unit for the return value
      * @return the left margin
      */
-    public open fun getLeftMargin(unit: Unit): Double =
-        gtk_page_setup_get_left_margin(gtkPageSetupPointer.reinterpret(), unit.nativeValue)
+    public open fun getLeftMargin(unit: Unit): Double = gtk_page_setup_get_left_margin(gtkPageSetupPointer.reinterpret(), unit.nativeValue)
 
     /**
      * Gets the page orientation of the `GtkPageSetup`.
      *
      * @return the page orientation
      */
-    public open fun getOrientation(): PageOrientation =
-        gtk_page_setup_get_orientation(gtkPageSetupPointer.reinterpret()).run {
-            PageOrientation.fromNativeValue(this)
-        }
+    public open fun getOrientation(): PageOrientation = gtk_page_setup_get_orientation(gtkPageSetupPointer.reinterpret()).run {
+        PageOrientation.fromNativeValue(this)}
 
     /**
      * Returns the page height in units of @unit.
@@ -217,8 +208,7 @@ public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
      * @param unit the unit for the return value
      * @return the page height.
      */
-    public open fun getPageHeight(unit: Unit): Double =
-        gtk_page_setup_get_page_height(gtkPageSetupPointer.reinterpret(), unit.nativeValue)
+    public open fun getPageHeight(unit: Unit): Double = gtk_page_setup_get_page_height(gtkPageSetupPointer.reinterpret(), unit.nativeValue)
 
     /**
      * Returns the page width in units of @unit.
@@ -230,8 +220,7 @@ public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
      * @param unit the unit for the return value
      * @return the page width.
      */
-    public open fun getPageWidth(unit: Unit): Double =
-        gtk_page_setup_get_page_width(gtkPageSetupPointer.reinterpret(), unit.nativeValue)
+    public open fun getPageWidth(unit: Unit): Double = gtk_page_setup_get_page_width(gtkPageSetupPointer.reinterpret(), unit.nativeValue)
 
     /**
      * Returns the paper height in units of @unit.
@@ -243,8 +232,7 @@ public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
      * @param unit the unit for the return value
      * @return the paper height.
      */
-    public open fun getPaperHeight(unit: Unit): Double =
-        gtk_page_setup_get_paper_height(gtkPageSetupPointer.reinterpret(), unit.nativeValue)
+    public open fun getPaperHeight(unit: Unit): Double = gtk_page_setup_get_paper_height(gtkPageSetupPointer.reinterpret(), unit.nativeValue)
 
     /**
      * Gets the paper size of the `GtkPageSetup`.
@@ -252,8 +240,7 @@ public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
      * @return the paper size
      */
     public open fun getPaperSize(): PaperSize = gtk_page_setup_get_paper_size(gtkPageSetupPointer.reinterpret())!!.run {
-        PaperSize(reinterpret())
-    }
+        PaperSize(reinterpret())}
 
     /**
      * Returns the paper width in units of @unit.
@@ -265,8 +252,7 @@ public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
      * @param unit the unit for the return value
      * @return the paper width.
      */
-    public open fun getPaperWidth(unit: Unit): Double =
-        gtk_page_setup_get_paper_width(gtkPageSetupPointer.reinterpret(), unit.nativeValue)
+    public open fun getPaperWidth(unit: Unit): Double = gtk_page_setup_get_paper_width(gtkPageSetupPointer.reinterpret(), unit.nativeValue)
 
     /**
      * Gets the right margin in units of @unit.
@@ -274,8 +260,7 @@ public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
      * @param unit the unit for the return value
      * @return the right margin
      */
-    public open fun getRightMargin(unit: Unit): Double =
-        gtk_page_setup_get_right_margin(gtkPageSetupPointer.reinterpret(), unit.nativeValue)
+    public open fun getRightMargin(unit: Unit): Double = gtk_page_setup_get_right_margin(gtkPageSetupPointer.reinterpret(), unit.nativeValue)
 
     /**
      * Gets the top margin in units of @unit.
@@ -283,8 +268,7 @@ public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
      * @param unit the unit for the return value
      * @return the top margin
      */
-    public open fun getTopMargin(unit: Unit): Double =
-        gtk_page_setup_get_top_margin(gtkPageSetupPointer.reinterpret(), unit.nativeValue)
+    public open fun getTopMargin(unit: Unit): Double = gtk_page_setup_get_top_margin(gtkPageSetupPointer.reinterpret(), unit.nativeValue)
 
     /**
      * Reads the page setup from the file @file_name.
@@ -299,7 +283,8 @@ public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
         val gResult = gtk_page_setup_load_file(gtkPageSetupPointer.reinterpret(), fileName, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -315,15 +300,11 @@ public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
      */
     public open fun loadKeyFile(keyFile: KeyFile, groupName: String? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_page_setup_load_key_file(
-            gtkPageSetupPointer.reinterpret(),
-            keyFile.glibKeyFilePointer.reinterpret(),
-            groupName,
-            gError.ptr
-        ).asBoolean()
+        val gResult = gtk_page_setup_load_key_file(gtkPageSetupPointer.reinterpret(), keyFile.glibKeyFilePointer.reinterpret(), groupName, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -334,8 +315,7 @@ public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
      * @param margin the new bottom margin in units of @unit
      * @param unit the units for @margin
      */
-    public open fun setBottomMargin(margin: Double, unit: Unit): kotlin.Unit =
-        gtk_page_setup_set_bottom_margin(gtkPageSetupPointer.reinterpret(), margin, unit.nativeValue)
+    public open fun setBottomMargin(margin: Double, unit: Unit): kotlin.Unit = gtk_page_setup_set_bottom_margin(gtkPageSetupPointer.reinterpret(), margin, unit.nativeValue)
 
     /**
      * Sets the left margin of the `GtkPageSetup`.
@@ -343,16 +323,14 @@ public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
      * @param margin the new left margin in units of @unit
      * @param unit the units for @margin
      */
-    public open fun setLeftMargin(margin: Double, unit: Unit): kotlin.Unit =
-        gtk_page_setup_set_left_margin(gtkPageSetupPointer.reinterpret(), margin, unit.nativeValue)
+    public open fun setLeftMargin(margin: Double, unit: Unit): kotlin.Unit = gtk_page_setup_set_left_margin(gtkPageSetupPointer.reinterpret(), margin, unit.nativeValue)
 
     /**
      * Sets the page orientation of the `GtkPageSetup`.
      *
      * @param orientation a `GtkPageOrientation` value
      */
-    public open fun setOrientation(orientation: PageOrientation): kotlin.Unit =
-        gtk_page_setup_set_orientation(gtkPageSetupPointer.reinterpret(), orientation.nativeValue)
+    public open fun setOrientation(orientation: PageOrientation): kotlin.Unit = gtk_page_setup_set_orientation(gtkPageSetupPointer.reinterpret(), orientation.nativeValue)
 
     /**
      * Sets the paper size of the `GtkPageSetup` without
@@ -362,8 +340,7 @@ public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
      *
      * @param size a `GtkPaperSize`
      */
-    public open fun setPaperSize(size: PaperSize): kotlin.Unit =
-        gtk_page_setup_set_paper_size(gtkPageSetupPointer.reinterpret(), size.gtkPaperSizePointer.reinterpret())
+    public open fun setPaperSize(size: PaperSize): kotlin.Unit = gtk_page_setup_set_paper_size(gtkPageSetupPointer.reinterpret(), size.gtkPaperSizePointer.reinterpret())
 
     /**
      * Sets the paper size of the `GtkPageSetup` and modifies
@@ -371,11 +348,7 @@ public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
      *
      * @param size a `GtkPaperSize`
      */
-    public open fun setPaperSizeAndDefaultMargins(size: PaperSize): kotlin.Unit =
-        gtk_page_setup_set_paper_size_and_default_margins(
-            gtkPageSetupPointer.reinterpret(),
-            size.gtkPaperSizePointer.reinterpret()
-        )
+    public open fun setPaperSizeAndDefaultMargins(size: PaperSize): kotlin.Unit = gtk_page_setup_set_paper_size_and_default_margins(gtkPageSetupPointer.reinterpret(), size.gtkPaperSizePointer.reinterpret())
 
     /**
      * Sets the right margin of the `GtkPageSetup`.
@@ -383,8 +356,7 @@ public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
      * @param margin the new right margin in units of @unit
      * @param unit the units for @margin
      */
-    public open fun setRightMargin(margin: Double, unit: Unit): kotlin.Unit =
-        gtk_page_setup_set_right_margin(gtkPageSetupPointer.reinterpret(), margin, unit.nativeValue)
+    public open fun setRightMargin(margin: Double, unit: Unit): kotlin.Unit = gtk_page_setup_set_right_margin(gtkPageSetupPointer.reinterpret(), margin, unit.nativeValue)
 
     /**
      * Sets the top margin of the `GtkPageSetup`.
@@ -392,8 +364,7 @@ public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
      * @param margin the new top margin in units of @unit
      * @param unit the units for @margin
      */
-    public open fun setTopMargin(margin: Double, unit: Unit): kotlin.Unit =
-        gtk_page_setup_set_top_margin(gtkPageSetupPointer.reinterpret(), margin, unit.nativeValue)
+    public open fun setTopMargin(margin: Double, unit: Unit): kotlin.Unit = gtk_page_setup_set_top_margin(gtkPageSetupPointer.reinterpret(), margin, unit.nativeValue)
 
     /**
      * This function saves the information from @setup to @file_name.
@@ -406,7 +377,8 @@ public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
         val gResult = gtk_page_setup_to_file(gtkPageSetupPointer.reinterpret(), fileName, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -417,8 +389,7 @@ public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
      * @return a new, floating, `GVariant`
      */
     public open fun toGvariant(): Variant = gtk_page_setup_to_gvariant(gtkPageSetupPointer.reinterpret())!!.run {
-        Variant(reinterpret())
-    }
+        Variant(reinterpret())}
 
     /**
      * This function adds the page setup from @setup to @key_file.
@@ -427,18 +398,13 @@ public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
      * @param groupName the group to add the settings to in @key_file,
      *   or null to use the default name “Page Setup”
      */
-    public open fun toKeyFile(keyFile: KeyFile, groupName: String? = null): kotlin.Unit = gtk_page_setup_to_key_file(
-        gtkPageSetupPointer.reinterpret(),
-        keyFile.glibKeyFilePointer.reinterpret(),
-        groupName
-    )
+    public open fun toKeyFile(keyFile: KeyFile, groupName: String? = null): kotlin.Unit = gtk_page_setup_to_key_file(gtkPageSetupPointer.reinterpret(), keyFile.glibKeyFilePointer.reinterpret(), groupName)
 
     public companion object : TypeCompanion<PageSetup> {
         override val type: GeneratedClassKGType<PageSetup> =
-            GeneratedClassKGType(gtk_page_setup_get_type()) { PageSetup(it.reinterpret()) }
+                GeneratedClassKGType(gtk_page_setup_get_type()) { PageSetup(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

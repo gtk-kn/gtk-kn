@@ -11,22 +11,21 @@ import org.gtkkn.native.pango.PangoEllipsizeMode
  * text in order to make it fit to a given width and replaced
  * with an ellipsis.
  */
-public enum class EllipsizeMode(public val nativeValue: PangoEllipsizeMode) {
+public enum class EllipsizeMode(
+    public val nativeValue: PangoEllipsizeMode,
+) {
     /**
      * No ellipsization
      */
     NONE(PangoEllipsizeMode.PANGO_ELLIPSIZE_NONE),
-
     /**
      * Omit characters at the start of the text
      */
     START(PangoEllipsizeMode.PANGO_ELLIPSIZE_START),
-
     /**
      * Omit characters in the middle of the text
      */
     MIDDLE(PangoEllipsizeMode.PANGO_ELLIPSIZE_MIDDLE),
-
     /**
      * Omit characters at the end of the text
      */

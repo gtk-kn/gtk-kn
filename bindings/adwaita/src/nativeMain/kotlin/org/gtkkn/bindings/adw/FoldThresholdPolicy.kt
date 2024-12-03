@@ -6,12 +6,13 @@ import org.gtkkn.native.adw.AdwFoldThresholdPolicy
 /**
  * Determines when [class@Flap] and [class@Leaflet] will fold.
  */
-public enum class FoldThresholdPolicy(public val nativeValue: AdwFoldThresholdPolicy) {
+public enum class FoldThresholdPolicy(
+    public val nativeValue: AdwFoldThresholdPolicy,
+) {
     /**
      * Folding is based on the minimum size
      */
     MINIMUM(AdwFoldThresholdPolicy.ADW_FOLD_THRESHOLD_POLICY_MINIMUM),
-
     /**
      * Folding is based on the natural size
      */

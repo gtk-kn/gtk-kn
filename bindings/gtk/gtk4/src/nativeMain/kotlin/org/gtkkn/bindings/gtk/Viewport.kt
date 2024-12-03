@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
@@ -21,8 +23,6 @@ import org.gtkkn.native.gtk.gtk_viewport_new
 import org.gtkkn.native.gtk.gtk_viewport_scroll_to
 import org.gtkkn.native.gtk.gtk_viewport_set_child
 import org.gtkkn.native.gtk.gtk_viewport_set_scroll_to_focus
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * `GtkViewport` implements scrollability for widgets that lack their
@@ -44,8 +44,9 @@ import kotlin.Unit
  *
  * Starting from GTK 4.12, `GtkViewport` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
  */
-public open class Viewport(pointer: CPointer<GtkViewport>) :
-    Widget(pointer.reinterpret()),
+public open class Viewport(
+    pointer: CPointer<GtkViewport>,
+) : Widget(pointer.reinterpret()),
     Scrollable,
     KGTyped {
     public val gtkViewportPointer: CPointer<GtkViewport>
@@ -73,9 +74,7 @@ public open class Viewport(pointer: CPointer<GtkViewport>) :
          * @return the child widget of @viewport
          */
         get() = gtk_viewport_get_child(gtkViewportPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the child widget of @viewport.
          *
@@ -98,16 +97,13 @@ public open class Viewport(pointer: CPointer<GtkViewport>) :
          * @return true if the viewport keeps the focus child scrolled to view
          */
         get() = gtk_viewport_get_scroll_to_focus(gtkViewportPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the viewport should automatically scroll
          * to keep the focused child in view.
          *
          * @param scrollToFocus whether to keep the focus widget scrolled to view
          */
-        set(
-            scrollToFocus
-        ) = gtk_viewport_set_scroll_to_focus(gtkViewportPointer.reinterpret(), scrollToFocus.asGBoolean())
+        set(scrollToFocus) = gtk_viewport_set_scroll_to_focus(gtkViewportPointer.reinterpret(), scrollToFocus.asGBoolean())
 
     /**
      * Creates a new `GtkViewport`.
@@ -119,15 +115,7 @@ public open class Viewport(pointer: CPointer<GtkViewport>) :
      * @param vadjustment vertical adjustment
      * @return a new `GtkViewport`
      */
-    public constructor(
-        hadjustment: Adjustment? = null,
-        vadjustment: Adjustment? = null,
-    ) : this(
-        gtk_viewport_new(
-            hadjustment?.gtkAdjustmentPointer?.reinterpret(),
-            vadjustment?.gtkAdjustmentPointer?.reinterpret()
-        )!!.reinterpret()
-    )
+    public constructor(hadjustment: Adjustment? = null, vadjustment: Adjustment? = null) : this(gtk_viewport_new(hadjustment?.gtkAdjustmentPointer?.reinterpret(), vadjustment?.gtkAdjustmentPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Scrolls a descendant of the viewport into view.
@@ -141,18 +129,13 @@ public open class Viewport(pointer: CPointer<GtkViewport>) :
      * @since 4.12
      */
     @GtkVersion4_12
-    public open fun scrollTo(descendant: Widget, scroll: ScrollInfo? = null): Unit = gtk_viewport_scroll_to(
-        gtkViewportPointer.reinterpret(),
-        descendant.gtkWidgetPointer.reinterpret(),
-        scroll?.gtkScrollInfoPointer?.reinterpret()
-    )
+    public open fun scrollTo(descendant: Widget, scroll: ScrollInfo? = null): Unit = gtk_viewport_scroll_to(gtkViewportPointer.reinterpret(), descendant.gtkWidgetPointer.reinterpret(), scroll?.gtkScrollInfoPointer?.reinterpret())
 
     public companion object : TypeCompanion<Viewport> {
         override val type: GeneratedClassKGType<Viewport> =
-            GeneratedClassKGType(gtk_viewport_get_type()) { Viewport(it.reinterpret()) }
+                GeneratedClassKGType(gtk_viewport_get_type()) { Viewport(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

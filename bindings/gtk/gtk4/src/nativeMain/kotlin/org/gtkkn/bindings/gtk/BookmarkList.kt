@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -20,9 +23,6 @@ import org.gtkkn.native.gtk.gtk_bookmark_list_is_loading
 import org.gtkkn.native.gtk.gtk_bookmark_list_new
 import org.gtkkn.native.gtk.gtk_bookmark_list_set_attributes
 import org.gtkkn.native.gtk.gtk_bookmark_list_set_io_priority
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.String
 
 /**
  * `GtkBookmarkList` is a list model that wraps `GBookmarkFile`.
@@ -40,8 +40,9 @@ import kotlin.String
  * - method `loading`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class BookmarkList(pointer: CPointer<GtkBookmarkList>) :
-    Object(pointer.reinterpret()),
+public open class BookmarkList(
+    pointer: CPointer<GtkBookmarkList>,
+) : Object(pointer.reinterpret()),
     ListModel,
     KGTyped {
     public val gtkBookmarkListPointer: CPointer<GtkBookmarkList>
@@ -60,7 +61,6 @@ public open class BookmarkList(pointer: CPointer<GtkBookmarkList>) :
          * @return The queried attributes
          */
         get() = gtk_bookmark_list_get_attributes(gtkBookmarkListPointer.reinterpret())?.toKString()
-
         /**
          * Sets the @attributes to be enumerated and starts the enumeration.
          *
@@ -81,8 +81,7 @@ public open class BookmarkList(pointer: CPointer<GtkBookmarkList>) :
          *
          * @return the filename of the .xbel file
          */
-        get() = gtk_bookmark_list_get_filename(gtkBookmarkListPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = gtk_bookmark_list_get_filename(gtkBookmarkListPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Priority used when loading.
@@ -94,7 +93,6 @@ public open class BookmarkList(pointer: CPointer<GtkBookmarkList>) :
          * @return The IO priority.
          */
         get() = gtk_bookmark_list_get_io_priority(gtkBookmarkListPointer.reinterpret())
-
         /**
          * Sets the IO priority to use while loading files.
          *
@@ -111,10 +109,7 @@ public open class BookmarkList(pointer: CPointer<GtkBookmarkList>) :
      * @param attributes The attributes to query
      * @return a new `GtkBookmarkList`
      */
-    public constructor(
-        filename: String? = null,
-        attributes: String? = null,
-    ) : this(gtk_bookmark_list_new(filename, attributes)!!.reinterpret())
+    public constructor(filename: String? = null, attributes: String? = null) : this(gtk_bookmark_list_new(filename, attributes)!!.reinterpret())
 
     /**
      * Returns true if the files are currently being loaded.
@@ -125,15 +120,13 @@ public open class BookmarkList(pointer: CPointer<GtkBookmarkList>) :
      *
      * @return true if @self is loading
      */
-    public open fun isLoading(): Boolean =
-        gtk_bookmark_list_is_loading(gtkBookmarkListPointer.reinterpret()).asBoolean()
+    public open fun isLoading(): Boolean = gtk_bookmark_list_is_loading(gtkBookmarkListPointer.reinterpret()).asBoolean()
 
     public companion object : TypeCompanion<BookmarkList> {
         override val type: GeneratedClassKGType<BookmarkList> =
-            GeneratedClassKGType(gtk_bookmark_list_get_type()) { BookmarkList(it.reinterpret()) }
+                GeneratedClassKGType(gtk_bookmark_list_get_type()) { BookmarkList(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

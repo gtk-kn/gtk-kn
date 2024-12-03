@@ -3,7 +3,9 @@ package org.gtkkn.bindings.cairo
 
 import org.gtkkn.native.cairo.cairo_font_type_t
 
-public enum class FontType(public val nativeValue: cairo_font_type_t) {
+public enum class FontType(
+    public val nativeValue: cairo_font_type_t,
+) {
     TOY(cairo_font_type_t.CAIRO_FONT_TYPE_TOY),
     FT(cairo_font_type_t.CAIRO_FONT_TYPE_FT),
     WIN32(cairo_font_type_t.CAIRO_FONT_TYPE_WIN32),

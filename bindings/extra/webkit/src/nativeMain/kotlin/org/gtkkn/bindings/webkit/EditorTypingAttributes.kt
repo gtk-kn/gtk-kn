@@ -14,10 +14,10 @@ import org.gtkkn.native.webkit.WebKitEditorTypingAttributes
  * Enum values with flags representing typing attributes.
  * @since 2.10
  */
-public class EditorTypingAttributes(public val mask: WebKitEditorTypingAttributes) : Bitfield<EditorTypingAttributes> {
-    override infix fun or(other: EditorTypingAttributes): EditorTypingAttributes = EditorTypingAttributes(
-        mask or other.mask
-    )
+public class EditorTypingAttributes(
+    public val mask: WebKitEditorTypingAttributes,
+) : Bitfield<EditorTypingAttributes> {
+    override infix fun or(other: EditorTypingAttributes): EditorTypingAttributes = EditorTypingAttributes(mask or other.mask)
 
     @WebKitVersion2_10
     public companion object {
@@ -25,30 +25,30 @@ public class EditorTypingAttributes(public val mask: WebKitEditorTypingAttribute
          * No typing attributes.
          */
         public val NONE: EditorTypingAttributes =
-            EditorTypingAttributes(WEBKIT_EDITOR_TYPING_ATTRIBUTE_NONE)
+                EditorTypingAttributes(WEBKIT_EDITOR_TYPING_ATTRIBUTE_NONE)
 
         /**
          * Bold typing attribute.
          */
         public val BOLD: EditorTypingAttributes =
-            EditorTypingAttributes(WEBKIT_EDITOR_TYPING_ATTRIBUTE_BOLD)
+                EditorTypingAttributes(WEBKIT_EDITOR_TYPING_ATTRIBUTE_BOLD)
 
         /**
          * Italic typing attribute.
          */
         public val ITALIC: EditorTypingAttributes =
-            EditorTypingAttributes(WEBKIT_EDITOR_TYPING_ATTRIBUTE_ITALIC)
+                EditorTypingAttributes(WEBKIT_EDITOR_TYPING_ATTRIBUTE_ITALIC)
 
         /**
          * Underline typing attribute.
          */
         public val UNDERLINE: EditorTypingAttributes =
-            EditorTypingAttributes(WEBKIT_EDITOR_TYPING_ATTRIBUTE_UNDERLINE)
+                EditorTypingAttributes(WEBKIT_EDITOR_TYPING_ATTRIBUTE_UNDERLINE)
 
         /**
          * Strikethrough typing attribute.
          */
         public val STRIKETHROUGH: EditorTypingAttributes =
-            EditorTypingAttributes(WEBKIT_EDITOR_TYPING_ATTRIBUTE_STRIKETHROUGH)
+                EditorTypingAttributes(WEBKIT_EDITOR_TYPING_ATTRIBUTE_STRIKETHROUGH)
     }
 }

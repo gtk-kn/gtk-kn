@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtksource
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -15,7 +16,6 @@ import org.gtkkn.native.gtksource.gtk_source_map_get_type
 import org.gtkkn.native.gtksource.gtk_source_map_get_view
 import org.gtkkn.native.gtksource.gtk_source_map_new
 import org.gtkkn.native.gtksource.gtk_source_map_set_view
-import kotlin.Unit
 
 /**
  * Widget that displays a map for a specific [class@View].
@@ -47,8 +47,9 @@ import kotlin.Unit
  * - method `font-desc`: Property has no getter nor setter
  * - method `view`: Property TypeInfo of getter and setter do not match
  */
-public open class Map(pointer: CPointer<GtkSourceMap>) :
-    View(pointer.reinterpret()),
+public open class Map(
+    pointer: CPointer<GtkSourceMap>,
+) : View(pointer.reinterpret()),
     KGTyped {
     public val gtksourceMapPointer: CPointer<GtkSourceMap>
         get() = gPointer.reinterpret()
@@ -78,23 +79,20 @@ public open class Map(pointer: CPointer<GtkSourceMap>) :
      * @return a #GtkSourceView or null.
      */
     public open fun getView(): View? = gtk_source_map_get_view(gtksourceMapPointer.reinterpret())?.run {
-        View(reinterpret())
-    }
+        View(reinterpret())}
 
     /**
      * Sets the view that @map will be doing the mapping to.
      *
      * @param view a #GtkSourceView
      */
-    public open fun setView(view: View): Unit =
-        gtk_source_map_set_view(gtksourceMapPointer.reinterpret(), view.gtksourceViewPointer.reinterpret())
+    public open fun setView(view: View): Unit = gtk_source_map_set_view(gtksourceMapPointer.reinterpret(), view.gtksourceViewPointer.reinterpret())
 
     public companion object : TypeCompanion<Map> {
         override val type: GeneratedClassKGType<Map> =
-            GeneratedClassKGType(gtk_source_map_get_type()) { Map(it.reinterpret()) }
+                GeneratedClassKGType(gtk_source_map_get_type()) { Map(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtksourceTypeProvider.register()}
     }
 }

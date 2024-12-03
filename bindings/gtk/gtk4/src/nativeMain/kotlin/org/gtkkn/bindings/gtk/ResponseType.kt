@@ -9,58 +9,50 @@ import org.gtkkn.native.gtk.GtkResponseType
  * All predefined values are negative; GTK leaves values of 0 or greater for
  * application-defined response ids.
  */
-public enum class ResponseType(public val nativeValue: GtkResponseType) {
+public enum class ResponseType(
+    public val nativeValue: GtkResponseType,
+) {
     /**
      * Returned if an action widget has no response id,
      *   or if the dialog gets programmatically hidden or destroyed
      */
     NONE(GtkResponseType.GTK_RESPONSE_NONE),
-
     /**
      * Generic response id, not used by GTK dialogs
      */
     REJECT(GtkResponseType.GTK_RESPONSE_REJECT),
-
     /**
      * Generic response id, not used by GTK dialogs
      */
     ACCEPT(GtkResponseType.GTK_RESPONSE_ACCEPT),
-
     /**
      * Returned if the dialog is deleted
      */
     DELETE_EVENT(GtkResponseType.GTK_RESPONSE_DELETE_EVENT),
-
     /**
      * Returned by OK buttons in GTK dialogs
      */
     OK(GtkResponseType.GTK_RESPONSE_OK),
-
     /**
      * Returned by Cancel buttons in GTK dialogs
      */
     CANCEL(GtkResponseType.GTK_RESPONSE_CANCEL),
-
     /**
      * Returned by Close buttons in GTK dialogs
      */
     CLOSE(GtkResponseType.GTK_RESPONSE_CLOSE),
-
     /**
      * Returned by Yes buttons in GTK dialogs
      */
     YES(GtkResponseType.GTK_RESPONSE_YES),
-
     /**
      * Returned by No buttons in GTK dialogs
      */
     NO(GtkResponseType.GTK_RESPONSE_NO),
-
     /**
      * Returned by Apply buttons in GTK dialogs
      */
     APPLY(GtkResponseType.GTK_RESPONSE_APPLY),
-
     /**
      * Returned by Help buttons in GTK dialogs
      */

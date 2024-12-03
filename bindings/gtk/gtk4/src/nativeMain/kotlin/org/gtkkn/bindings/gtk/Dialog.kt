@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -33,11 +38,6 @@ import org.gtkkn.native.gtk.gtk_dialog_new
 import org.gtkkn.native.gtk.gtk_dialog_response
 import org.gtkkn.native.gtk.gtk_dialog_set_default_response
 import org.gtkkn.native.gtk.gtk_dialog_set_response_sensitive
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Dialogs are a convenient way to prompt the user for a small amount
@@ -166,8 +166,9 @@ import kotlin.Unit
  *
  * - method `use-header-bar`: Property has no getter nor setter
  */
-public open class Dialog(pointer: CPointer<GtkDialog>) :
-    Window(pointer.reinterpret()),
+public open class Dialog(
+    pointer: CPointer<GtkDialog>,
+) : Window(pointer.reinterpret()),
     KGTyped {
     public val gtkDialogPointer: CPointer<GtkDialog>
         get() = gPointer.reinterpret()
@@ -215,8 +216,7 @@ public open class Dialog(pointer: CPointer<GtkDialog>) :
      * @param child an activatable widget
      * @param responseId response ID for @child
      */
-    public open fun addActionWidget(child: Widget, responseId: Int): Unit =
-        gtk_dialog_add_action_widget(gtkDialogPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), responseId)
+    public open fun addActionWidget(child: Widget, responseId: Int): Unit = gtk_dialog_add_action_widget(gtkDialogPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), responseId)
 
     /**
      * Adds a button with the given text.
@@ -230,10 +230,8 @@ public open class Dialog(pointer: CPointer<GtkDialog>) :
      * @param responseId response ID for the button
      * @return the `GtkButton` widget that was added
      */
-    public open fun addButton(buttonText: String, responseId: Int): Widget =
-        gtk_dialog_add_button(gtkDialogPointer.reinterpret(), buttonText, responseId)!!.run {
-            Widget(reinterpret())
-        }
+    public open fun addButton(buttonText: String, responseId: Int): Widget = gtk_dialog_add_button(gtkDialogPointer.reinterpret(), buttonText, responseId)!!.run {
+        Widget(reinterpret())}
 
     /**
      * Returns the content area of @dialog.
@@ -241,8 +239,7 @@ public open class Dialog(pointer: CPointer<GtkDialog>) :
      * @return the content area `GtkBox`.
      */
     public open fun getContentArea(): Box = gtk_dialog_get_content_area(gtkDialogPointer.reinterpret())!!.run {
-        Box(reinterpret())
-    }
+        Box(reinterpret())}
 
     /**
      * Returns the header bar of @dialog.
@@ -253,8 +250,7 @@ public open class Dialog(pointer: CPointer<GtkDialog>) :
      * @return the header bar
      */
     public open fun getHeaderBar(): HeaderBar = gtk_dialog_get_header_bar(gtkDialogPointer.reinterpret())!!.run {
-        HeaderBar(reinterpret())
-    }
+        HeaderBar(reinterpret())}
 
     /**
      * Gets the response id of a widget in the action area
@@ -264,8 +260,7 @@ public open class Dialog(pointer: CPointer<GtkDialog>) :
      * @return the response id of @widget, or %GTK_RESPONSE_NONE
      *  if @widget doesn’t have a response id set.
      */
-    public open fun getResponseForWidget(widget: Widget): Int =
-        gtk_dialog_get_response_for_widget(gtkDialogPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
+    public open fun getResponseForWidget(widget: Widget): Int = gtk_dialog_get_response_for_widget(gtkDialogPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
      * Gets the widget button that uses the given response ID in the action area
@@ -275,10 +270,8 @@ public open class Dialog(pointer: CPointer<GtkDialog>) :
      * @return the @widget button that uses the given
      *   @response_id
      */
-    public open fun getWidgetForResponse(responseId: Int): Widget? =
-        gtk_dialog_get_widget_for_response(gtkDialogPointer.reinterpret(), responseId)?.run {
-            Widget(reinterpret())
-        }
+    public open fun getWidgetForResponse(responseId: Int): Widget? = gtk_dialog_get_widget_for_response(gtkDialogPointer.reinterpret(), responseId)?.run {
+        Widget(reinterpret())}
 
     /**
      * Emits the ::response signal with the given response ID.
@@ -296,8 +289,7 @@ public open class Dialog(pointer: CPointer<GtkDialog>) :
      *
      * @param responseId a response ID
      */
-    public open fun setDefaultResponse(responseId: Int): Unit =
-        gtk_dialog_set_default_response(gtkDialogPointer.reinterpret(), responseId)
+    public open fun setDefaultResponse(responseId: Int): Unit = gtk_dialog_set_default_response(gtkDialogPointer.reinterpret(), responseId)
 
     /**
      * A convenient way to sensitize/desensitize dialog buttons.
@@ -308,8 +300,7 @@ public open class Dialog(pointer: CPointer<GtkDialog>) :
      * @param responseId a response ID
      * @param setting true for sensitive
      */
-    public open fun setResponseSensitive(responseId: Int, setting: Boolean): Unit =
-        gtk_dialog_set_response_sensitive(gtkDialogPointer.reinterpret(), responseId, setting.asGBoolean())
+    public open fun setResponseSensitive(responseId: Int, setting: Boolean): Unit = gtk_dialog_set_response_sensitive(gtkDialogPointer.reinterpret(), responseId, setting.asGBoolean())
 
     /**
      * Emitted when the user uses a keybinding to close the dialog.
@@ -321,15 +312,7 @@ public open class Dialog(pointer: CPointer<GtkDialog>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "close",
-            connectCloseFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "close", connectCloseFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when an action widget is clicked.
@@ -342,41 +325,28 @@ public open class Dialog(pointer: CPointer<GtkDialog>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `responseId` the response ID
      */
-    public fun connectResponse(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (responseId: Int) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "response",
-        connectResponseFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectResponse(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (responseId: Int) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "response", connectResponseFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<Dialog> {
         override val type: GeneratedClassKGType<Dialog> =
-            GeneratedClassKGType(gtk_dialog_get_type()) { Dialog(it.reinterpret()) }
+                GeneratedClassKGType(gtk_dialog_get_type()) { Dialog(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }
 
 private val connectCloseFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectResponseFunc: CPointer<CFunction<(Int) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        responseId: Int,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    responseId: Int,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(responseId: Int) -> Unit>().get().invoke(responseId)
-}
-    .reinterpret()
+    userData.asStableRef<(responseId: Int) -> Unit>().get().invoke(responseId)}
+.reinterpret()

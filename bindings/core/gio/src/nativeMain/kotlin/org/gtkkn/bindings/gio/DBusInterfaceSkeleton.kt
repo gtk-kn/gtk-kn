@@ -1,6 +1,12 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.Result
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -46,12 +52,6 @@ import org.gtkkn.native.gio.g_dbus_interface_skeleton_unexport
 import org.gtkkn.native.gio.g_dbus_interface_skeleton_unexport_from_connection
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.g_signal_connect_data
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.Result
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Abstract base class for D-Bus interfaces on the service side.
@@ -63,8 +63,9 @@ import kotlin.Unit
  * @since 2.30
  */
 @GioVersion2_30
-public open class DBusInterfaceSkeleton(pointer: CPointer<GDBusInterfaceSkeleton>) :
-    Object(pointer.reinterpret()),
+public open class DBusInterfaceSkeleton(
+    pointer: CPointer<GDBusInterfaceSkeleton>,
+) : Object(pointer.reinterpret()),
     DBusInterface,
     KGTyped {
     public val gioDBusInterfaceSkeletonPointer: CPointer<GDBusInterfaceSkeleton>
@@ -91,15 +92,11 @@ public open class DBusInterfaceSkeleton(pointer: CPointer<GDBusInterfaceSkeleton
     @GioVersion2_30
     public open fun export(connection: DBusConnection, objectPath: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_dbus_interface_skeleton_export(
-            gioDBusInterfaceSkeletonPointer.reinterpret(),
-            connection.gioDBusConnectionPointer.reinterpret(),
-            objectPath,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_dbus_interface_skeleton_export(gioDBusInterfaceSkeletonPointer.reinterpret(), connection.gioDBusConnectionPointer.reinterpret(), objectPath, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -127,10 +124,8 @@ public open class DBusInterfaceSkeleton(pointer: CPointer<GDBusInterfaceSkeleton
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun getConnection(): DBusConnection? =
-        g_dbus_interface_skeleton_get_connection(gioDBusInterfaceSkeletonPointer.reinterpret())?.run {
-            DBusConnection(reinterpret())
-        }
+    public open fun getConnection(): DBusConnection? = g_dbus_interface_skeleton_get_connection(gioDBusInterfaceSkeletonPointer.reinterpret())?.run {
+        DBusConnection(reinterpret())}
 
     /**
      * Gets a list of the connections that @interface_ is exported on.
@@ -142,10 +137,8 @@ public open class DBusInterfaceSkeleton(pointer: CPointer<GDBusInterfaceSkeleton
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun getConnections(): List =
-        g_dbus_interface_skeleton_get_connections(gioDBusInterfaceSkeletonPointer.reinterpret())!!.run {
-            List(reinterpret())
-        }
+    public open fun getConnections(): List = g_dbus_interface_skeleton_get_connections(gioDBusInterfaceSkeletonPointer.reinterpret())!!.run {
+        List(reinterpret())}
 
     /**
      * Gets the #GDBusInterfaceSkeletonFlags that describes what the behavior
@@ -155,10 +148,8 @@ public open class DBusInterfaceSkeleton(pointer: CPointer<GDBusInterfaceSkeleton
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun getFlags(): DBusInterfaceSkeletonFlags =
-        g_dbus_interface_skeleton_get_flags(gioDBusInterfaceSkeletonPointer.reinterpret()).run {
-            DBusInterfaceSkeletonFlags(this)
-        }
+    public open fun getFlags(): DBusInterfaceSkeletonFlags = g_dbus_interface_skeleton_get_flags(gioDBusInterfaceSkeletonPointer.reinterpret()).run {
+        DBusInterfaceSkeletonFlags(this)}
 
     /**
      * Gets D-Bus introspection information for the D-Bus interface
@@ -168,10 +159,8 @@ public open class DBusInterfaceSkeleton(pointer: CPointer<GDBusInterfaceSkeleton
      * @since 2.30
      */
     @GioVersion2_30
-    override fun getInfo(): DBusInterfaceInfo =
-        g_dbus_interface_skeleton_get_info(gioDBusInterfaceSkeletonPointer.reinterpret())!!.run {
-            DBusInterfaceInfo(reinterpret())
-        }
+    override fun getInfo(): DBusInterfaceInfo = g_dbus_interface_skeleton_get_info(gioDBusInterfaceSkeletonPointer.reinterpret())!!.run {
+        DBusInterfaceInfo(reinterpret())}
 
     /**
      * Gets the object path that @interface_ is exported on, if any.
@@ -181,8 +170,7 @@ public open class DBusInterfaceSkeleton(pointer: CPointer<GDBusInterfaceSkeleton
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun getObjectPath(): String? =
-        g_dbus_interface_skeleton_get_object_path(gioDBusInterfaceSkeletonPointer.reinterpret())?.toKString()
+    public open fun getObjectPath(): String? = g_dbus_interface_skeleton_get_object_path(gioDBusInterfaceSkeletonPointer.reinterpret())?.toKString()
 
     /**
      * Gets all D-Bus properties for @interface_.
@@ -193,10 +181,8 @@ public open class DBusInterfaceSkeleton(pointer: CPointer<GDBusInterfaceSkeleton
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun getProperties(): Variant =
-        g_dbus_interface_skeleton_get_properties(gioDBusInterfaceSkeletonPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public open fun getProperties(): Variant = g_dbus_interface_skeleton_get_properties(gioDBusInterfaceSkeletonPointer.reinterpret())!!.run {
+        Variant(reinterpret())}
 
     /**
      * Gets the interface vtable for the D-Bus interface implemented by
@@ -207,10 +193,8 @@ public open class DBusInterfaceSkeleton(pointer: CPointer<GDBusInterfaceSkeleton
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun getVtable(): DBusInterfaceVTable =
-        g_dbus_interface_skeleton_get_vtable(gioDBusInterfaceSkeletonPointer.reinterpret())!!.run {
-            DBusInterfaceVTable(reinterpret())
-        }
+    public open fun getVtable(): DBusInterfaceVTable = g_dbus_interface_skeleton_get_vtable(gioDBusInterfaceSkeletonPointer.reinterpret())!!.run {
+        DBusInterfaceVTable(reinterpret())}
 
     /**
      * Checks if @interface_ is exported on @connection.
@@ -220,10 +204,7 @@ public open class DBusInterfaceSkeleton(pointer: CPointer<GDBusInterfaceSkeleton
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun hasConnection(connection: DBusConnection): Boolean = g_dbus_interface_skeleton_has_connection(
-        gioDBusInterfaceSkeletonPointer.reinterpret(),
-        connection.gioDBusConnectionPointer.reinterpret()
-    ).asBoolean()
+    public open fun hasConnection(connection: DBusConnection): Boolean = g_dbus_interface_skeleton_has_connection(gioDBusInterfaceSkeletonPointer.reinterpret(), connection.gioDBusConnectionPointer.reinterpret()).asBoolean()
 
     /**
      * Sets flags describing what the behavior of @skeleton should be.
@@ -232,8 +213,7 @@ public open class DBusInterfaceSkeleton(pointer: CPointer<GDBusInterfaceSkeleton
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun setFlags(flags: DBusInterfaceSkeletonFlags): Unit =
-        g_dbus_interface_skeleton_set_flags(gioDBusInterfaceSkeletonPointer.reinterpret(), flags.mask)
+    public open fun setFlags(flags: DBusInterfaceSkeletonFlags): Unit = g_dbus_interface_skeleton_set_flags(gioDBusInterfaceSkeletonPointer.reinterpret(), flags.mask)
 
     /**
      * Stops exporting @interface_ on all connections it is exported on.
@@ -256,11 +236,7 @@ public open class DBusInterfaceSkeleton(pointer: CPointer<GDBusInterfaceSkeleton
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun unexportFromConnection(connection: DBusConnection): Unit =
-        g_dbus_interface_skeleton_unexport_from_connection(
-            gioDBusInterfaceSkeletonPointer.reinterpret(),
-            connection.gioDBusConnectionPointer.reinterpret()
-        )
+    public open fun unexportFromConnection(connection: DBusConnection): Unit = g_dbus_interface_skeleton_unexport_from_connection(gioDBusInterfaceSkeletonPointer.reinterpret(), connection.gioDBusConnectionPointer.reinterpret())
 
     /**
      * Emitted when a method is invoked by a remote caller and used to
@@ -302,38 +278,24 @@ public open class DBusInterfaceSkeleton(pointer: CPointer<GDBusInterfaceSkeleton
      * @since 2.30
      */
     @GioVersion2_30
-    public fun connectGAuthorizeMethod(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (invocation: DBusMethodInvocation) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "g-authorize-method",
-        connectGAuthorizeMethodFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectGAuthorizeMethod(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (invocation: DBusMethodInvocation) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "g-authorize-method", connectGAuthorizeMethodFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<DBusInterfaceSkeleton> {
         override val type: GeneratedClassKGType<DBusInterfaceSkeleton> =
-            GeneratedClassKGType(g_dbus_interface_skeleton_get_type()) { DBusInterfaceSkeleton(it.reinterpret()) }
+                GeneratedClassKGType(g_dbus_interface_skeleton_get_type()) { DBusInterfaceSkeleton(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
     }
 }
 
 private val connectGAuthorizeMethodFunc:
-    CPointer<CFunction<(CPointer<GDBusMethodInvocation>) -> Int>> = staticCFunction {
-            _: COpaquePointer,
-            invocation: CPointer<GDBusMethodInvocation>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(invocation: DBusMethodInvocation) -> Boolean>().get().invoke(
-            invocation!!.run {
-                DBusMethodInvocation(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GDBusMethodInvocation>) -> Int>> = staticCFunction {
+    _: COpaquePointer,
+    invocation: CPointer<GDBusMethodInvocation>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(invocation: DBusMethodInvocation) -> Boolean>().get().invoke(invocation!!.run {
+        DBusMethodInvocation(reinterpret())}
+    ).asGBoolean()}
+.reinterpret()

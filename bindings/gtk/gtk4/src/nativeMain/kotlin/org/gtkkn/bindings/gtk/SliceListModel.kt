@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
@@ -19,7 +20,6 @@ import org.gtkkn.native.gtk.gtk_slice_list_model_new
 import org.gtkkn.native.gtk.gtk_slice_list_model_set_model
 import org.gtkkn.native.gtk.gtk_slice_list_model_set_offset
 import org.gtkkn.native.gtk.gtk_slice_list_model_set_size
-import kotlin.UInt
 
 /**
  * `GtkSliceListModel` is a list model that presents a slice of another model.
@@ -35,8 +35,9 @@ import kotlin.UInt
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class SliceListModel(pointer: CPointer<GtkSliceListModel>) :
-    Object(pointer.reinterpret()),
+public open class SliceListModel(
+    pointer: CPointer<GtkSliceListModel>,
+) : Object(pointer.reinterpret()),
     ListModel,
     SectionModel,
     KGTyped {
@@ -59,9 +60,7 @@ public open class SliceListModel(pointer: CPointer<GtkSliceListModel>) :
          * @return The model in use
          */
         get() = gtk_slice_list_model_get_model(gtkSliceListModelPointer.reinterpret())?.run {
-            ListModel.wrap(reinterpret())
-        }
-
+            ListModel.wrap(reinterpret())}
         /**
          * Sets the model to show a slice of.
          *
@@ -81,7 +80,6 @@ public open class SliceListModel(pointer: CPointer<GtkSliceListModel>) :
          * @return The offset
          */
         get() = gtk_slice_list_model_get_offset(gtkSliceListModelPointer.reinterpret())
-
         /**
          * Sets the offset into the original model for this slice.
          *
@@ -102,7 +100,6 @@ public open class SliceListModel(pointer: CPointer<GtkSliceListModel>) :
          * @return The size
          */
         get() = gtk_slice_list_model_get_size(gtkSliceListModelPointer.reinterpret())
-
         /**
          * Sets the maximum size. @self will never have more items
          * than @size.
@@ -133,10 +130,9 @@ public open class SliceListModel(pointer: CPointer<GtkSliceListModel>) :
 
     public companion object : TypeCompanion<SliceListModel> {
         override val type: GeneratedClassKGType<SliceListModel> =
-            GeneratedClassKGType(gtk_slice_list_model_get_type()) { SliceListModel(it.reinterpret()) }
+                GeneratedClassKGType(gtk_slice_list_model_get_type()) { SliceListModel(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

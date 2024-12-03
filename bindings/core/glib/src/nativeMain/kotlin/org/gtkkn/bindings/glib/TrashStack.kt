@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GTrashStack
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GTrashStack` is an efficient way to keep a stack of unused allocated
@@ -31,7 +32,9 @@ import org.gtkkn.native.glib.GTrashStack
  * - function `pop`: Return type gpointer is unsupported
  * - parameter `data_p`: gpointer
  */
-public class TrashStack(pointer: CPointer<GTrashStack>) : Record {
+public class TrashStack(
+    pointer: CPointer<GTrashStack>,
+) : Record {
     public val glibTrashStackPointer: CPointer<GTrashStack> = pointer
 
     /**
@@ -43,8 +46,7 @@ public class TrashStack(pointer: CPointer<GTrashStack>) : Record {
      */
     public val next: TrashStack?
         get() = glibTrashStackPointer.pointed.next?.run {
-            TrashStack(reinterpret())
-        }
+            TrashStack(reinterpret())}
 
     public companion object : RecordCompanion<TrashStack, GTrashStack> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TrashStack = TrashStack(pointer.reinterpret())

@@ -12,7 +12,9 @@ import org.gtkkn.native.gio.G_CONVERTER_NO_FLAGS
  * Flags used when calling a g_converter_convert().
  * @since 2.24
  */
-public class ConverterFlags(public val mask: GConverterFlags) : Bitfield<ConverterFlags> {
+public class ConverterFlags(
+    public val mask: GConverterFlags,
+) : Bitfield<ConverterFlags> {
     override infix fun or(other: ConverterFlags): ConverterFlags = ConverterFlags(mask or other.mask)
 
     @GioVersion2_24

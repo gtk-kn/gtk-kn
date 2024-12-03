@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -18,8 +20,6 @@ import org.gtkkn.native.gdk.GdkVulkanContext
 import org.gtkkn.native.gdk.gdk_vulkan_context_get_type
 import org.gtkkn.native.gio.GInitable
 import org.gtkkn.native.gobject.g_signal_connect_data
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GdkVulkanContext` is an object representing the platform-specific
@@ -32,8 +32,9 @@ import kotlin.Unit
  * Support for `GdkVulkanContext` is platform-specific and context creation
  * can fail, returning null context.
  */
-public open class VulkanContext(pointer: CPointer<GdkVulkanContext>) :
-    DrawContext(pointer.reinterpret()),
+public open class VulkanContext(
+    pointer: CPointer<GdkVulkanContext>,
+) : DrawContext(pointer.reinterpret()),
     Initable,
     KGTyped {
     public val gdkVulkanContextPointer: CPointer<GdkVulkanContext>
@@ -51,30 +52,20 @@ public open class VulkanContext(pointer: CPointer<GdkVulkanContext>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectImagesUpdated(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "images-updated",
-            connectImagesUpdatedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectImagesUpdated(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "images-updated", connectImagesUpdatedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<VulkanContext> {
         override val type: GeneratedClassKGType<VulkanContext> =
-            GeneratedClassKGType(gdk_vulkan_context_get_type()) { VulkanContext(it.reinterpret()) }
+                GeneratedClassKGType(gdk_vulkan_context_get_type()) { VulkanContext(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
     }
 }
 
 private val connectImagesUpdatedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

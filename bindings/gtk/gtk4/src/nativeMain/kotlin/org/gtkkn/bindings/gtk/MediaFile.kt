@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.File
@@ -23,8 +25,6 @@ import org.gtkkn.native.gtk.gtk_media_file_set_file
 import org.gtkkn.native.gtk.gtk_media_file_set_filename
 import org.gtkkn.native.gtk.gtk_media_file_set_input_stream
 import org.gtkkn.native.gtk.gtk_media_file_set_resource
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkMediaFile` implements `GtkMediaStream` for files.
@@ -36,8 +36,9 @@ import kotlin.Unit
  *
  * GTK itself includes an implementation using GStreamer.
  */
-public open class MediaFile(pointer: CPointer<GtkMediaFile>) :
-    MediaStream(pointer.reinterpret()),
+public open class MediaFile(
+    pointer: CPointer<GtkMediaFile>,
+) : MediaStream(pointer.reinterpret()),
     KGTyped {
     public val gtkMediaFilePointer: CPointer<GtkMediaFile>
         get() = gPointer.reinterpret()
@@ -58,9 +59,7 @@ public open class MediaFile(pointer: CPointer<GtkMediaFile>) :
          * @return The currently playing file
          */
         get() = gtk_media_file_get_file(gtkMediaFilePointer.reinterpret())?.run {
-            File.wrap(reinterpret())
-        }
-
+            File.wrap(reinterpret())}
         /**
          * Sets the `GtkMediaFile` to play the given file.
          *
@@ -85,9 +84,7 @@ public open class MediaFile(pointer: CPointer<GtkMediaFile>) :
          * @return The currently playing stream
          */
         get() = gtk_media_file_get_input_stream(gtkMediaFilePointer.reinterpret())?.run {
-            InputStream(reinterpret())
-        }
-
+            InputStream(reinterpret())}
         /**
          * Sets the `GtkMediaFile` to play the given stream.
          *
@@ -98,12 +95,7 @@ public open class MediaFile(pointer: CPointer<GtkMediaFile>) :
          *
          * @param stream the stream to play from
          */
-        set(
-            stream
-        ) = gtk_media_file_set_input_stream(
-            gtkMediaFilePointer.reinterpret(),
-            stream?.gioInputStreamPointer?.reinterpret()
-        )
+        set(stream) = gtk_media_file_set_input_stream(gtkMediaFilePointer.reinterpret(), stream?.gioInputStreamPointer?.reinterpret())
 
     /**
      * Creates a new empty media file.
@@ -140,9 +132,7 @@ public open class MediaFile(pointer: CPointer<GtkMediaFile>) :
      * @param stream The stream to play
      * @return a new `GtkMediaFile`
      */
-    public constructor(
-        stream: InputStream,
-    ) : this(gtk_media_file_new_for_input_stream(stream.gioInputStreamPointer.reinterpret())!!.reinterpret())
+    public constructor(stream: InputStream) : this(gtk_media_file_new_for_input_stream(stream.gioInputStreamPointer.reinterpret())!!.reinterpret())
 
     /**
      * Resets the media file to be empty.
@@ -157,8 +147,7 @@ public open class MediaFile(pointer: CPointer<GtkMediaFile>) :
      *
      * @param filename name of file to play
      */
-    public open fun setFilename(filename: String? = null): Unit =
-        gtk_media_file_set_filename(gtkMediaFilePointer.reinterpret(), filename)
+    public open fun setFilename(filename: String? = null): Unit = gtk_media_file_set_filename(gtkMediaFilePointer.reinterpret(), filename)
 
     /**
      * Sets the `GtkMediaFile to play the given resource.
@@ -168,16 +157,14 @@ public open class MediaFile(pointer: CPointer<GtkMediaFile>) :
      *
      * @param resourcePath path to resource to play
      */
-    public open fun setResource(resourcePath: String? = null): Unit =
-        gtk_media_file_set_resource(gtkMediaFilePointer.reinterpret(), resourcePath)
+    public open fun setResource(resourcePath: String? = null): Unit = gtk_media_file_set_resource(gtkMediaFilePointer.reinterpret(), resourcePath)
 
     public companion object : TypeCompanion<MediaFile> {
         override val type: GeneratedClassKGType<MediaFile> =
-            GeneratedClassKGType(gtk_media_file_get_type()) { MediaFile(it.reinterpret()) }
+                GeneratedClassKGType(gtk_media_file_get_type()) { MediaFile(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Creates a new media file for the given filename.
@@ -188,8 +175,7 @@ public open class MediaFile(pointer: CPointer<GtkMediaFile>) :
          * @param filename filename to open
          * @return a new `GtkMediaFile` playing @filename
          */
-        public fun newForFilename(filename: String): MediaFile =
-            MediaFile(gtk_media_file_new_for_filename(filename)!!.reinterpret())
+        public fun newForFilename(filename: String): MediaFile = MediaFile(gtk_media_file_new_for_filename(filename)!!.reinterpret())
 
         /**
          * Creates a new new media file for the given resource.
@@ -200,7 +186,6 @@ public open class MediaFile(pointer: CPointer<GtkMediaFile>) :
          * @param resourcePath resource path to open
          * @return a new `GtkMediaFile` playing @resource_path
          */
-        public fun newForResource(resourcePath: String): MediaFile =
-            MediaFile(gtk_media_file_new_for_resource(resourcePath)!!.reinterpret())
+        public fun newForResource(resourcePath: String): MediaFile = MediaFile(gtk_media_file_new_for_resource(resourcePath)!!.reinterpret())
     }
 }

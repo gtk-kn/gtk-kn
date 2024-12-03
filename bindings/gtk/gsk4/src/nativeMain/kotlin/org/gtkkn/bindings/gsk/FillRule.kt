@@ -20,7 +20,9 @@ import org.gtkkn.native.gsk.GskFillRule
  * @since 4.14
  */
 @GskVersion4_14
-public enum class FillRule(public val nativeValue: GskFillRule) {
+public enum class FillRule(
+    public val nativeValue: GskFillRule,
+) {
     /**
      * If the path crosses the ray from
      *   left-to-right, counts +1. If the path crosses the ray
@@ -29,7 +31,6 @@ public enum class FillRule(public val nativeValue: GskFillRule) {
      *   point.) If the total count is non-zero, the point will be filled.
      */
     WINDING(GskFillRule.GSK_FILL_RULE_WINDING),
-
     /**
      * Counts the total number of
      *   intersections, without regard to the orientation of the contour. If

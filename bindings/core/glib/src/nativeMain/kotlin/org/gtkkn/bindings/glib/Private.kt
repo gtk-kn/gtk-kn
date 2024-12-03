@@ -7,6 +7,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GPrivate
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The #GPrivate struct is an opaque data structure to represent a
@@ -36,7 +37,9 @@ import org.gtkkn.native.glib.GPrivate
  * - field `notify`: Record field notify is private
  * - field `future`: Record field future is private
  */
-public class Private(pointer: CPointer<GPrivate>) : Record {
+public class Private(
+    pointer: CPointer<GPrivate>,
+) : Record {
     public val glibPrivatePointer: CPointer<GPrivate> = pointer
 
     public companion object : RecordCompanion<Private, GPrivate> {

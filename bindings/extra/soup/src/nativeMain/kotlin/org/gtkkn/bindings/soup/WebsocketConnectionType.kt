@@ -6,17 +6,17 @@ import org.gtkkn.native.soup.SoupWebsocketConnectionType
 /**
  * The type of a [class@WebsocketConnection].
  */
-public enum class WebsocketConnectionType(public val nativeValue: SoupWebsocketConnectionType) {
+public enum class WebsocketConnectionType(
+    public val nativeValue: SoupWebsocketConnectionType,
+) {
     /**
      * unknown/invalid connection
      */
     UNKNOWN(SoupWebsocketConnectionType.SOUP_WEBSOCKET_CONNECTION_UNKNOWN),
-
     /**
      * a client-side connection
      */
     CLIENT(SoupWebsocketConnectionType.SOUP_WEBSOCKET_CONNECTION_CLIENT),
-
     /**
      * a server-side connection
      */
@@ -24,12 +24,11 @@ public enum class WebsocketConnectionType(public val nativeValue: SoupWebsocketC
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: SoupWebsocketConnectionType): WebsocketConnectionType =
-            when (nativeValue) {
-                SoupWebsocketConnectionType.SOUP_WEBSOCKET_CONNECTION_UNKNOWN -> UNKNOWN
-                SoupWebsocketConnectionType.SOUP_WEBSOCKET_CONNECTION_CLIENT -> CLIENT
-                SoupWebsocketConnectionType.SOUP_WEBSOCKET_CONNECTION_SERVER -> SERVER
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: SoupWebsocketConnectionType): WebsocketConnectionType = when (nativeValue) {
+            SoupWebsocketConnectionType.SOUP_WEBSOCKET_CONNECTION_UNKNOWN -> UNKNOWN
+            SoupWebsocketConnectionType.SOUP_WEBSOCKET_CONNECTION_CLIENT -> CLIENT
+            SoupWebsocketConnectionType.SOUP_WEBSOCKET_CONNECTION_SERVER -> SERVER
+            else -> error("invalid nativeValue")
+        }
     }
 }

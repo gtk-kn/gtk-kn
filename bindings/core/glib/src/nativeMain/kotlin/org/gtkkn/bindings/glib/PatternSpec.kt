@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -15,10 +19,7 @@ import org.gtkkn.native.glib.g_pattern_spec_free
 import org.gtkkn.native.glib.g_pattern_spec_match
 import org.gtkkn.native.glib.g_pattern_spec_match_string
 import org.gtkkn.native.glib.g_pattern_spec_new
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GPatternSpec` struct is the 'compiled' form of a glob-style pattern.
@@ -38,7 +39,9 @@ import kotlin.Unit
  * instead of [func@GLib.pattern_match_simple]. This avoids the overhead of repeated
  * pattern compilation.
  */
-public class PatternSpec(pointer: CPointer<GPatternSpec>) : Record {
+public class PatternSpec(
+    pointer: CPointer<GPatternSpec>,
+) : Record {
     public val glibPatternSpecPointer: CPointer<GPatternSpec> = pointer
 
     /**
@@ -49,8 +52,7 @@ public class PatternSpec(pointer: CPointer<GPatternSpec>) : Record {
      */
     @GLibVersion2_70
     public fun copy(): PatternSpec = g_pattern_spec_copy(glibPatternSpecPointer.reinterpret())!!.run {
-        PatternSpec(reinterpret())
-    }
+        PatternSpec(reinterpret())}
 
     /**
      * Compares two compiled pattern specs and returns whether they will
@@ -59,10 +61,7 @@ public class PatternSpec(pointer: CPointer<GPatternSpec>) : Record {
      * @param pspec2 another #GPatternSpec
      * @return Whether the compiled patterns are equal
      */
-    public fun equal(pspec2: PatternSpec): Boolean = g_pattern_spec_equal(
-        glibPatternSpecPointer.reinterpret(),
-        pspec2.glibPatternSpecPointer.reinterpret()
-    ).asBoolean()
+    public fun equal(pspec2: PatternSpec): Boolean = g_pattern_spec_equal(glibPatternSpecPointer.reinterpret(), pspec2.glibPatternSpecPointer.reinterpret()).asBoolean()
 
     /**
      * Frees the memory allocated for the #GPatternSpec.
@@ -96,8 +95,11 @@ public class PatternSpec(pointer: CPointer<GPatternSpec>) : Record {
      * @since 2.70
      */
     @GLibVersion2_70
-    public fun match(stringLength: ULong, string: String, stringReversed: String? = null): Boolean =
-        g_pattern_spec_match(glibPatternSpecPointer.reinterpret(), stringLength, string, stringReversed).asBoolean()
+    public fun match(
+        stringLength: ULong,
+        string: String,
+        stringReversed: String? = null,
+    ): Boolean = g_pattern_spec_match(glibPatternSpecPointer.reinterpret(), stringLength, string, stringReversed).asBoolean()
 
     /**
      * Matches a string against a compiled pattern. If the string is to be
@@ -109,8 +111,7 @@ public class PatternSpec(pointer: CPointer<GPatternSpec>) : Record {
      * @since 2.70
      */
     @GLibVersion2_70
-    public fun matchString(string: String): Boolean =
-        g_pattern_spec_match_string(glibPatternSpecPointer.reinterpret(), string).asBoolean()
+    public fun matchString(string: String): Boolean = g_pattern_spec_match_string(glibPatternSpecPointer.reinterpret(), string).asBoolean()
 
     public companion object : RecordCompanion<PatternSpec, GPatternSpec> {
         /**
@@ -121,7 +122,6 @@ public class PatternSpec(pointer: CPointer<GPatternSpec>) : Record {
          */
         public fun new(pattern: String): PatternSpec = PatternSpec(g_pattern_spec_new(pattern)!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PatternSpec =
-            PatternSpec(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PatternSpec = PatternSpec(pointer.reinterpret())
     }
 }

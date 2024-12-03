@@ -1,14 +1,19 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Long
+import kotlin.Result
+import kotlin.String
+import kotlin.Throws
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.`value`
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
@@ -38,11 +43,6 @@ import org.gtkkn.native.gio.g_tls_certificate_new_from_pem
 import org.gtkkn.native.gio.g_tls_certificate_new_from_pkcs11_uris
 import org.gtkkn.native.gio.g_tls_certificate_verify
 import org.gtkkn.native.glib.GError
-import kotlin.Boolean
-import kotlin.Long
-import kotlin.Result
-import kotlin.String
-import kotlin.Throws
 
 /**
  * A certificate used for TLS authentication and encryption.
@@ -70,8 +70,9 @@ import kotlin.Throws
  * @since 2.28
  */
 @GioVersion2_28
-public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
-    Object(pointer.reinterpret()),
+public open class TlsCertificate(
+    pointer: CPointer<GTlsCertificate>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gioTlsCertificatePointer: CPointer<GTlsCertificate>
         get() = gPointer.reinterpret()
@@ -107,8 +108,7 @@ public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
          * @since 2.28
          */
         get() = g_tls_certificate_get_issuer(gioTlsCertificatePointer.reinterpret())?.run {
-            TlsCertificate(reinterpret())
-        }
+            TlsCertificate(reinterpret())}
 
     /**
      * The issuer from the certificate,
@@ -141,8 +141,7 @@ public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
          * @since 2.70
          */
         get() = g_tls_certificate_get_not_valid_after(gioTlsCertificatePointer.reinterpret())?.run {
-            DateTime(reinterpret())
-        }
+            DateTime(reinterpret())}
 
     /**
      * The time at which this cert is considered to be valid,
@@ -159,8 +158,7 @@ public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
          * @since 2.70
          */
         get() = g_tls_certificate_get_not_valid_before(gioTlsCertificatePointer.reinterpret())?.run {
-            DateTime(reinterpret())
-        }
+            DateTime(reinterpret())}
 
     /**
      * The subject from the cert,
@@ -194,15 +192,14 @@ public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
      * @since 2.28
      */
     @Throws(GLibException::class)
-    public constructor(`file`: String) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_tls_certificate_new_from_file(`file`, gError.ptr)
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    public constructor(`file`: String) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_tls_certificate_new_from_file(`file`, gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!.reinterpret()
+    }
     )
 
     /**
@@ -229,15 +226,14 @@ public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
      * @since 2.28
      */
     @Throws(GLibException::class)
-    public constructor(certFile: String, keyFile: String) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_tls_certificate_new_from_files(certFile, keyFile, gError.ptr)
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    public constructor(certFile: String, keyFile: String) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_tls_certificate_new_from_files(certFile, keyFile, gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!.reinterpret()
+    }
     )
 
     /**
@@ -262,15 +258,14 @@ public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
      * @since 2.28
      */
     @Throws(GLibException::class)
-    public constructor(`data`: String, length: Long) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_tls_certificate_new_from_pem(`data`, length, gError.ptr)
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    public constructor(`data`: String, length: Long) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_tls_certificate_new_from_pem(`data`, length, gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!.reinterpret()
+    }
     )
 
     /**
@@ -305,15 +300,14 @@ public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
      * @since 2.68
      */
     @Throws(GLibException::class)
-    public constructor(pkcs11Uri: String, privateKeyPkcs11Uri: String? = null) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_tls_certificate_new_from_pkcs11_uris(pkcs11Uri, privateKeyPkcs11Uri, gError.ptr)
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    public constructor(pkcs11Uri: String, privateKeyPkcs11Uri: String? = null) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_tls_certificate_new_from_pkcs11_uris(pkcs11Uri, privateKeyPkcs11Uri, gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!.reinterpret()
+    }
     )
 
     /**
@@ -328,10 +322,7 @@ public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
      * @since 2.34
      */
     @GioVersion2_34
-    public open fun isSame(certTwo: TlsCertificate): Boolean = g_tls_certificate_is_same(
-        gioTlsCertificatePointer.reinterpret(),
-        certTwo.gioTlsCertificatePointer.reinterpret()
-    ).asBoolean()
+    public open fun isSame(certTwo: TlsCertificate): Boolean = g_tls_certificate_is_same(gioTlsCertificatePointer.reinterpret(), certTwo.gioTlsCertificatePointer.reinterpret()).asBoolean()
 
     /**
      * This verifies @cert and returns a set of #GTlsCertificateFlags
@@ -374,24 +365,15 @@ public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun verify(
-        identity: SocketConnectable? = null,
-        trustedCa: TlsCertificate? = null,
-    ): TlsCertificateFlags = g_tls_certificate_verify(
-        gioTlsCertificatePointer.reinterpret(),
-        identity?.gioSocketConnectablePointer,
-        trustedCa?.gioTlsCertificatePointer?.reinterpret()
-    ).run {
-        TlsCertificateFlags(this)
-    }
+    public open fun verify(identity: SocketConnectable? = null, trustedCa: TlsCertificate? = null): TlsCertificateFlags = g_tls_certificate_verify(gioTlsCertificatePointer.reinterpret(), identity?.gioSocketConnectablePointer, trustedCa?.gioTlsCertificatePointer?.reinterpret()).run {
+        TlsCertificateFlags(this)}
 
     public companion object : TypeCompanion<TlsCertificate> {
         override val type: GeneratedClassKGType<TlsCertificate> =
-            GeneratedClassKGType(g_tls_certificate_get_type()) { TlsCertificate(it.reinterpret()) }
+                GeneratedClassKGType(g_tls_certificate_get_type()) { TlsCertificate(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Creates a #GTlsCertificate from the PEM-encoded data in @cert_file
@@ -422,7 +404,8 @@ public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
             val gResult = g_tls_certificate_new_from_files(certFile, keyFile, gError.ptr)
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
+            }
+            else {
                 Result.success(TlsCertificate(checkNotNull(gResult).reinterpret()))
             }
         }
@@ -448,7 +431,8 @@ public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
             val gResult = g_tls_certificate_new_from_file_with_password(`file`, password, gError.ptr)
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
+            }
+            else {
                 Result.success(TlsCertificate(checkNotNull(gResult).reinterpret()))
             }
         }
@@ -470,12 +454,12 @@ public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
         public fun listNewFromFile(`file`: String): Result<List> = memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_tls_certificate_list_new_from_file(`file`, gError.ptr)?.run {
-                List(reinterpret())
-            }
+                List(reinterpret())}
 
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
+            }
+            else {
                 Result.success(checkNotNull(gResult))
             }
         }

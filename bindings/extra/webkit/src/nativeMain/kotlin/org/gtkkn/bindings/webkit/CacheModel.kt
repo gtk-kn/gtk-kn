@@ -6,7 +6,9 @@ import org.gtkkn.native.webkit.WebKitCacheModel
 /**
  * Enum values used for determining the #WebKitWebContext cache model.
  */
-public enum class CacheModel(public val nativeValue: WebKitCacheModel) {
+public enum class CacheModel(
+    public val nativeValue: WebKitCacheModel,
+) {
     /**
      * Disable the cache completely, which
      *   substantially reduces memory usage. Useful for applications that only
@@ -14,13 +16,11 @@ public enum class CacheModel(public val nativeValue: WebKitCacheModel) {
      *   resources will be cached.
      */
     DOCUMENT_VIEWER(WebKitCacheModel.WEBKIT_CACHE_MODEL_DOCUMENT_VIEWER),
-
     /**
      * Improve document load speed substantially
      *   by caching a very large number of resources and previously viewed content.
      */
     WEB_BROWSER(WebKitCacheModel.WEBKIT_CACHE_MODEL_WEB_BROWSER),
-
     /**
      * A cache model optimized for viewing
      *   a series of local files -- for example, a documentation viewer or a website

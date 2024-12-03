@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Int
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -14,8 +16,6 @@ import org.gtkkn.native.gtk.gtk_layout_manager_get_request_mode
 import org.gtkkn.native.gtk.gtk_layout_manager_get_type
 import org.gtkkn.native.gtk.gtk_layout_manager_get_widget
 import org.gtkkn.native.gtk.gtk_layout_manager_layout_changed
-import kotlin.Int
-import kotlin.Unit
 
 /**
  * Layout managers are delegate classes that handle the preferred size
@@ -71,8 +71,9 @@ import kotlin.Unit
  *
  * - parameter `minimum`: minimum: Out parameter is not supported
  */
-public open class LayoutManager(pointer: CPointer<GtkLayoutManager>) :
-    Object(pointer.reinterpret()),
+public open class LayoutManager(
+    pointer: CPointer<GtkLayoutManager>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtkLayoutManagerPointer: CPointer<GtkLayoutManager>
         get() = gPointer.reinterpret()
@@ -87,14 +88,12 @@ public open class LayoutManager(pointer: CPointer<GtkLayoutManager>) :
      * @param height the new height of the @widget
      * @param baseline the baseline position of the @widget, or -1
      */
-    public open fun allocate(widget: Widget, width: Int, height: Int, baseline: Int): Unit =
-        gtk_layout_manager_allocate(
-            gtkLayoutManagerPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret(),
-            width,
-            height,
-            baseline
-        )
+    public open fun allocate(
+        widget: Widget,
+        width: Int,
+        height: Int,
+        baseline: Int,
+    ): Unit = gtk_layout_manager_allocate(gtkLayoutManagerPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret(), width, height, baseline)
 
     /**
      * Retrieves a `GtkLayoutChild` instance for the `GtkLayoutManager`,
@@ -109,22 +108,16 @@ public open class LayoutManager(pointer: CPointer<GtkLayoutManager>) :
      * @param child a `GtkWidget`
      * @return a `GtkLayoutChild`
      */
-    public open fun getLayoutChild(child: Widget): LayoutChild = gtk_layout_manager_get_layout_child(
-        gtkLayoutManagerPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret()
-    )!!.run {
-        LayoutChild(reinterpret())
-    }
+    public open fun getLayoutChild(child: Widget): LayoutChild = gtk_layout_manager_get_layout_child(gtkLayoutManagerPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
+        LayoutChild(reinterpret())}
 
     /**
      * Retrieves the request mode of @manager.
      *
      * @return a `GtkSizeRequestMode`
      */
-    public open fun getRequestMode(): SizeRequestMode =
-        gtk_layout_manager_get_request_mode(gtkLayoutManagerPointer.reinterpret()).run {
-            SizeRequestMode.fromNativeValue(this)
-        }
+    public open fun getRequestMode(): SizeRequestMode = gtk_layout_manager_get_request_mode(gtkLayoutManagerPointer.reinterpret()).run {
+        SizeRequestMode.fromNativeValue(this)}
 
     /**
      * Retrieves the `GtkWidget` using the given `GtkLayoutManager`.
@@ -132,8 +125,7 @@ public open class LayoutManager(pointer: CPointer<GtkLayoutManager>) :
      * @return a `GtkWidget`
      */
     public open fun getWidget(): Widget? = gtk_layout_manager_get_widget(gtkLayoutManagerPointer.reinterpret())?.run {
-        Widget(reinterpret())
-    }
+        Widget(reinterpret())}
 
     /**
      * Queues a resize on the `GtkWidget` using @manager, if any.
@@ -145,10 +137,9 @@ public open class LayoutManager(pointer: CPointer<GtkLayoutManager>) :
 
     public companion object : TypeCompanion<LayoutManager> {
         override val type: GeneratedClassKGType<LayoutManager> =
-            GeneratedClassKGType(gtk_layout_manager_get_type()) { LayoutManager(it.reinterpret()) }
+                GeneratedClassKGType(gtk_layout_manager_get_type()) { LayoutManager(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

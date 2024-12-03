@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.Long
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -23,11 +28,7 @@ import org.gtkkn.native.glib.g_time_zone_new_offset
 import org.gtkkn.native.glib.g_time_zone_new_utc
 import org.gtkkn.native.glib.g_time_zone_ref
 import org.gtkkn.native.glib.g_time_zone_unref
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.Long
-import kotlin.String
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GTimeZone` represents a time zone, at no particular point in time.
@@ -64,7 +65,9 @@ import kotlin.Unit
  * @since 2.26
  */
 @GLibVersion2_26
-public class TimeZone(pointer: CPointer<GTimeZone>) : Record {
+public class TimeZone(
+    pointer: CPointer<GTimeZone>,
+) : Record {
     public val glibTimeZonePointer: CPointer<GTimeZone> = pointer
 
     /**
@@ -93,8 +96,7 @@ public class TimeZone(pointer: CPointer<GTimeZone>) : Record {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun findInterval(type: TimeType, time: Long): Int =
-        g_time_zone_find_interval(glibTimeZonePointer.reinterpret(), type.nativeValue, time)
+    public fun findInterval(type: TimeType, time: Long): Int = g_time_zone_find_interval(glibTimeZonePointer.reinterpret(), type.nativeValue, time)
 
     /**
      * Determines the time zone abbreviation to be used during a particular
@@ -109,9 +111,7 @@ public class TimeZone(pointer: CPointer<GTimeZone>) : Record {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getAbbreviation(interval: Int): String =
-        g_time_zone_get_abbreviation(glibTimeZonePointer.reinterpret(), interval)?.toKString()
-            ?: error("Expected not null string")
+    public fun getAbbreviation(interval: Int): String = g_time_zone_get_abbreviation(glibTimeZonePointer.reinterpret(), interval)?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the identifier of this #GTimeZone, as passed to g_time_zone_new().
@@ -127,8 +127,7 @@ public class TimeZone(pointer: CPointer<GTimeZone>) : Record {
      * @since 2.58
      */
     @GLibVersion2_58
-    public fun getIdentifier(): String =
-        g_time_zone_get_identifier(glibTimeZonePointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun getIdentifier(): String = g_time_zone_get_identifier(glibTimeZonePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Determines the offset to UTC in effect during a particular @interval
@@ -155,8 +154,7 @@ public class TimeZone(pointer: CPointer<GTimeZone>) : Record {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun isDst(interval: Int): Boolean =
-        g_time_zone_is_dst(glibTimeZonePointer.reinterpret(), interval).asBoolean()
+    public fun isDst(interval: Int): Boolean = g_time_zone_is_dst(glibTimeZonePointer.reinterpret(), interval).asBoolean()
 
     /**
      * Increases the reference count on @tz.
@@ -166,8 +164,7 @@ public class TimeZone(pointer: CPointer<GTimeZone>) : Record {
      */
     @GLibVersion2_26
     public fun ref(): TimeZone = g_time_zone_ref(glibTimeZonePointer.reinterpret())!!.run {
-        TimeZone(reinterpret())
-    }
+        TimeZone(reinterpret())}
 
     /**
      * Decreases the reference count on @tz.
@@ -263,8 +260,7 @@ public class TimeZone(pointer: CPointer<GTimeZone>) : Record {
          *     failure
          * @since 2.68
          */
-        public fun newIdentifier(identifier: String? = null): TimeZone? =
-            TimeZone(g_time_zone_new_identifier(identifier)!!.reinterpret())
+        public fun newIdentifier(identifier: String? = null): TimeZone? = TimeZone(g_time_zone_new_identifier(identifier)!!.reinterpret())
 
         /**
          * Creates a #GTimeZone corresponding to local time.  The local time

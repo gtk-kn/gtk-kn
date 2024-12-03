@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.Result
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -31,10 +35,6 @@ import org.gtkkn.native.gio.g_io_stream_set_pending
 import org.gtkkn.native.gio.g_io_stream_splice_async
 import org.gtkkn.native.gio.g_io_stream_splice_finish
 import org.gtkkn.native.glib.GError
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.Result
-import kotlin.Unit
 
 /**
  * `GIOStream` represents an object that has both read and write streams.
@@ -93,8 +93,9 @@ import kotlin.Unit
  * @since 2.22
  */
 @GioVersion2_22
-public open class IOStream(pointer: CPointer<GIOStream>) :
-    Object(pointer.reinterpret()),
+public open class IOStream(
+    pointer: CPointer<GIOStream>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gioIOStreamPointer: CPointer<GIOStream>
         get() = gPointer.reinterpret()
@@ -115,8 +116,7 @@ public open class IOStream(pointer: CPointer<GIOStream>) :
          * @since 2.22
          */
         get() = g_io_stream_get_input_stream(gioIOStreamPointer.reinterpret())!!.run {
-            InputStream(reinterpret())
-        }
+            InputStream(reinterpret())}
 
     /**
      * The [class@Gio.OutputStream] to write to.
@@ -134,8 +134,7 @@ public open class IOStream(pointer: CPointer<GIOStream>) :
          * @since 2.22
          */
         get() = g_io_stream_get_output_stream(gioIOStreamPointer.reinterpret())!!.run {
-            OutputStream(reinterpret())
-        }
+            OutputStream(reinterpret())}
 
     /**
      * Clears the pending flag on @stream.
@@ -187,14 +186,11 @@ public open class IOStream(pointer: CPointer<GIOStream>) :
     @GioVersion2_22
     public open fun close(cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_io_stream_close(
-            gioIOStreamPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_io_stream_close(gioIOStreamPointer.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -218,14 +214,11 @@ public open class IOStream(pointer: CPointer<GIOStream>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun closeAsync(ioPriority: Int, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
-        g_io_stream_close_async(
-            gioIOStreamPointer.reinterpret(),
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    public open fun closeAsync(
+        ioPriority: Int,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback,
+    ): Unit = g_io_stream_close_async(gioIOStreamPointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
 
     /**
      * Closes a stream.
@@ -237,14 +230,11 @@ public open class IOStream(pointer: CPointer<GIOStream>) :
     @GioVersion2_22
     public open fun closeFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_io_stream_close_finish(
-            gioIOStreamPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_io_stream_close_finish(gioIOStreamPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -281,7 +271,8 @@ public open class IOStream(pointer: CPointer<GIOStream>) :
         val gResult = g_io_stream_set_pending(gioIOStreamPointer.reinterpret(), gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -310,23 +301,14 @@ public open class IOStream(pointer: CPointer<GIOStream>) :
         ioPriority: Int,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit = g_io_stream_splice_async(
-        gioIOStreamPointer.reinterpret(),
-        stream2.gioIOStreamPointer.reinterpret(),
-        flags.mask,
-        ioPriority,
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
-    )
+    ): Unit = g_io_stream_splice_async(gioIOStreamPointer.reinterpret(), stream2.gioIOStreamPointer.reinterpret(), flags.mask, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
 
     public companion object : TypeCompanion<IOStream> {
         override val type: GeneratedClassKGType<IOStream> =
-            GeneratedClassKGType(g_io_stream_get_type()) { IOStream(it.reinterpret()) }
+                GeneratedClassKGType(g_io_stream_get_type()) { IOStream(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Finishes an asynchronous io stream splice operation.
@@ -341,7 +323,8 @@ public open class IOStream(pointer: CPointer<GIOStream>) :
             val gResult = g_io_stream_splice_finish(result.gioAsyncResultPointer, gError.ptr).asBoolean()
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
+            }
+            else {
                 Result.success(gResult)
             }
         }

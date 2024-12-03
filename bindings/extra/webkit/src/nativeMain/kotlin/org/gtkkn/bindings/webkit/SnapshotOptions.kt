@@ -11,7 +11,9 @@ import org.gtkkn.native.webkit.WebKitSnapshotOptions
  * Enum values used to specify options when taking a snapshot
  * from a #WebKitWebView.
  */
-public class SnapshotOptions(public val mask: WebKitSnapshotOptions) : Bitfield<SnapshotOptions> {
+public class SnapshotOptions(
+    public val mask: WebKitSnapshotOptions,
+) : Bitfield<SnapshotOptions> {
     override infix fun or(other: SnapshotOptions): SnapshotOptions = SnapshotOptions(mask or other.mask)
 
     public companion object {
@@ -25,13 +27,13 @@ public class SnapshotOptions(public val mask: WebKitSnapshotOptions) : Bitfield<
          * snapshot the highlight of the selected content.
          */
         public val INCLUDE_SELECTION_HIGHLIGHTING: SnapshotOptions =
-            SnapshotOptions(WEBKIT_SNAPSHOT_OPTIONS_INCLUDE_SELECTION_HIGHLIGHTING)
+                SnapshotOptions(WEBKIT_SNAPSHOT_OPTIONS_INCLUDE_SELECTION_HIGHLIGHTING)
 
         /**
          * Do not fill the background with white before
          * rendering the snapshot. Since 2.8
          */
         public val TRANSPARENT_BACKGROUND: SnapshotOptions =
-            SnapshotOptions(WEBKIT_SNAPSHOT_OPTIONS_TRANSPARENT_BACKGROUND)
+                SnapshotOptions(WEBKIT_SNAPSHOT_OPTIONS_TRANSPARENT_BACKGROUND)
     }
 }

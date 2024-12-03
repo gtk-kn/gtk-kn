@@ -12,7 +12,9 @@ import org.gtkkn.native.gobject.G_TYPE_FLAG_INSTANTIATABLE
  * Bit masks used to check or determine specific characteristics of a
  * fundamental type.
  */
-public class TypeFundamentalFlags(public val mask: GTypeFundamentalFlags) : Bitfield<TypeFundamentalFlags> {
+public class TypeFundamentalFlags(
+    public val mask: GTypeFundamentalFlags,
+) : Bitfield<TypeFundamentalFlags> {
     override infix fun or(other: TypeFundamentalFlags): TypeFundamentalFlags = TypeFundamentalFlags(mask or other.mask)
 
     public companion object {
@@ -25,7 +27,7 @@ public class TypeFundamentalFlags(public val mask: GTypeFundamentalFlags) : Bitf
          * Indicates an instantiatable type (implies classed)
          */
         public val INSTANTIATABLE: TypeFundamentalFlags =
-            TypeFundamentalFlags(G_TYPE_FLAG_INSTANTIATABLE)
+                TypeFundamentalFlags(G_TYPE_FLAG_INSTANTIATABLE)
 
         /**
          * Indicates a flat derivable type
@@ -36,6 +38,6 @@ public class TypeFundamentalFlags(public val mask: GTypeFundamentalFlags) : Bitf
          * Indicates a deep derivable type (implies derivable)
          */
         public val DEEP_DERIVABLE: TypeFundamentalFlags =
-            TypeFundamentalFlags(G_TYPE_FLAG_DEEP_DERIVABLE)
+                TypeFundamentalFlags(G_TYPE_FLAG_DEEP_DERIVABLE)
     }
 }

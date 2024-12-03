@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.pango.PangoAttrClass
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `PangoAttrClass` structure stores the type and operations for
@@ -22,7 +23,9 @@ import org.gtkkn.native.pango.PangoAttrClass
  * - field `destroy`: Fields with callbacks are not supported
  * - field `equal`: Fields with callbacks are not supported
  */
-public class AttrClass(pointer: CPointer<PangoAttrClass>) : Record {
+public class AttrClass(
+    pointer: CPointer<PangoAttrClass>,
+) : Record {
     public val pangoAttrClassPointer: CPointer<PangoAttrClass> = pointer
 
     /**
@@ -30,8 +33,7 @@ public class AttrClass(pointer: CPointer<PangoAttrClass>) : Record {
      */
     public var type: AttrType
         get() = pangoAttrClassPointer.pointed.type.run {
-            AttrType.fromNativeValue(this)
-        }
+            AttrType.fromNativeValue(this)}
         set(`value`) {
             pangoAttrClassPointer.pointed.type = value.nativeValue
         }

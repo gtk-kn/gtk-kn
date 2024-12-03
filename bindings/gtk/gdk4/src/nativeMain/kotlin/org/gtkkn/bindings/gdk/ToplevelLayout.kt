@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -19,8 +21,7 @@ import org.gtkkn.native.gdk.gdk_toplevel_layout_set_fullscreen
 import org.gtkkn.native.gdk.gdk_toplevel_layout_set_maximized
 import org.gtkkn.native.gdk.gdk_toplevel_layout_set_resizable
 import org.gtkkn.native.gdk.gdk_toplevel_layout_unref
-import kotlin.Boolean
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `GdkToplevelLayout` struct contains information that
@@ -38,7 +39,9 @@ import kotlin.Unit
  * - parameter `fullscreen`: fullscreen: Out parameter is not supported
  * - parameter `maximized`: maximized: Out parameter is not supported
  */
-public class ToplevelLayout(pointer: CPointer<GdkToplevelLayout>) : Record {
+public class ToplevelLayout(
+    pointer: CPointer<GdkToplevelLayout>,
+) : Record {
     public val gdkToplevelLayoutPointer: CPointer<GdkToplevelLayout> = pointer
 
     /**
@@ -47,8 +50,7 @@ public class ToplevelLayout(pointer: CPointer<GdkToplevelLayout>) : Record {
      * @return a copy of @layout.
      */
     public fun copy(): ToplevelLayout = gdk_toplevel_layout_copy(gdkToplevelLayoutPointer.reinterpret())!!.run {
-        ToplevelLayout(reinterpret())
-    }
+        ToplevelLayout(reinterpret())}
 
     /**
      * Check whether @layout and @other has identical layout properties.
@@ -57,10 +59,7 @@ public class ToplevelLayout(pointer: CPointer<GdkToplevelLayout>) : Record {
      * @return true if @layout and @other have identical layout properties,
      *   otherwise false.
      */
-    public fun equal(other: ToplevelLayout): Boolean = gdk_toplevel_layout_equal(
-        gdkToplevelLayoutPointer.reinterpret(),
-        other.gdkToplevelLayoutPointer.reinterpret()
-    ).asBoolean()
+    public fun equal(other: ToplevelLayout): Boolean = gdk_toplevel_layout_equal(gdkToplevelLayoutPointer.reinterpret(), other.gdkToplevelLayoutPointer.reinterpret()).asBoolean()
 
     /**
      * Returns the monitor that the layout is fullscreening
@@ -68,10 +67,8 @@ public class ToplevelLayout(pointer: CPointer<GdkToplevelLayout>) : Record {
      *
      * @return the monitor on which @layout fullscreens
      */
-    public fun getFullscreenMonitor(): Monitor? =
-        gdk_toplevel_layout_get_fullscreen_monitor(gdkToplevelLayoutPointer.reinterpret())?.run {
-            Monitor(reinterpret())
-        }
+    public fun getFullscreenMonitor(): Monitor? = gdk_toplevel_layout_get_fullscreen_monitor(gdkToplevelLayoutPointer.reinterpret())?.run {
+        Monitor(reinterpret())}
 
     /**
      * Returns whether the layout should allow the user
@@ -79,8 +76,7 @@ public class ToplevelLayout(pointer: CPointer<GdkToplevelLayout>) : Record {
      *
      * @return true if the layout is resizable
      */
-    public fun getResizable(): Boolean =
-        gdk_toplevel_layout_get_resizable(gdkToplevelLayoutPointer.reinterpret()).asBoolean()
+    public fun getResizable(): Boolean = gdk_toplevel_layout_get_resizable(gdkToplevelLayoutPointer.reinterpret()).asBoolean()
 
     /**
      * Increases the reference count of @layout.
@@ -88,8 +84,7 @@ public class ToplevelLayout(pointer: CPointer<GdkToplevelLayout>) : Record {
      * @return the same @layout
      */
     public fun ref(): ToplevelLayout = gdk_toplevel_layout_ref(gdkToplevelLayoutPointer.reinterpret())!!.run {
-        ToplevelLayout(reinterpret())
-    }
+        ToplevelLayout(reinterpret())}
 
     /**
      * Sets whether the layout should cause the surface
@@ -98,11 +93,7 @@ public class ToplevelLayout(pointer: CPointer<GdkToplevelLayout>) : Record {
      * @param fullscreen true to fullscreen the surface
      * @param monitor the monitor to fullscreen on
      */
-    public fun setFullscreen(fullscreen: Boolean, monitor: Monitor? = null): Unit = gdk_toplevel_layout_set_fullscreen(
-        gdkToplevelLayoutPointer.reinterpret(),
-        fullscreen.asGBoolean(),
-        monitor?.gdkMonitorPointer?.reinterpret()
-    )
+    public fun setFullscreen(fullscreen: Boolean, monitor: Monitor? = null): Unit = gdk_toplevel_layout_set_fullscreen(gdkToplevelLayoutPointer.reinterpret(), fullscreen.asGBoolean(), monitor?.gdkMonitorPointer?.reinterpret())
 
     /**
      * Sets whether the layout should cause the surface
@@ -110,8 +101,7 @@ public class ToplevelLayout(pointer: CPointer<GdkToplevelLayout>) : Record {
      *
      * @param maximized true to maximize
      */
-    public fun setMaximized(maximized: Boolean): Unit =
-        gdk_toplevel_layout_set_maximized(gdkToplevelLayoutPointer.reinterpret(), maximized.asGBoolean())
+    public fun setMaximized(maximized: Boolean): Unit = gdk_toplevel_layout_set_maximized(gdkToplevelLayoutPointer.reinterpret(), maximized.asGBoolean())
 
     /**
      * Sets whether the layout should allow the user
@@ -119,8 +109,7 @@ public class ToplevelLayout(pointer: CPointer<GdkToplevelLayout>) : Record {
      *
      * @param resizable true to allow resizing
      */
-    public fun setResizable(resizable: Boolean): Unit =
-        gdk_toplevel_layout_set_resizable(gdkToplevelLayoutPointer.reinterpret(), resizable.asGBoolean())
+    public fun setResizable(resizable: Boolean): Unit = gdk_toplevel_layout_set_resizable(gdkToplevelLayoutPointer.reinterpret(), resizable.asGBoolean())
 
     /**
      * Decreases the reference count of @layout.
@@ -141,7 +130,6 @@ public class ToplevelLayout(pointer: CPointer<GdkToplevelLayout>) : Record {
          */
         public fun new(): ToplevelLayout = ToplevelLayout(gdk_toplevel_layout_new()!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ToplevelLayout =
-            ToplevelLayout(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ToplevelLayout = ToplevelLayout(pointer.reinterpret())
     }
 }

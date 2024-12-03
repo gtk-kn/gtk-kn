@@ -48,17 +48,17 @@ import org.gtkkn.native.adw.AdwToolbarStyle
  * @since 1.4
  */
 @AdwVersion1_4
-public enum class ToolbarStyle(public val nativeValue: AdwToolbarStyle) {
+public enum class ToolbarStyle(
+    public val nativeValue: AdwToolbarStyle,
+) {
     /**
      * No background, shadow only for scrolled content
      */
     FLAT(AdwToolbarStyle.ADW_TOOLBAR_FLAT),
-
     /**
      * Opaque background with a persistent shadow
      */
     RAISED(AdwToolbarStyle.ADW_TOOLBAR_RAISED),
-
     /**
      * Opaque background with a persistent border
      */

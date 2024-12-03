@@ -6,17 +6,17 @@ import org.gtkkn.native.gtk.GtkPageSet
 /**
  * See also gtk_print_job_set_page_set().
  */
-public enum class PageSet(public val nativeValue: GtkPageSet) {
+public enum class PageSet(
+    public val nativeValue: GtkPageSet,
+) {
     /**
      * All pages.
      */
     ALL(GtkPageSet.GTK_PAGE_SET_ALL),
-
     /**
      * Even pages.
      */
     EVEN(GtkPageSet.GTK_PAGE_SET_EVEN),
-
     /**
      * Odd pages.
      */

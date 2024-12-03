@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import kotlin.Long
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -8,7 +9,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.soup.SoupRange
-import kotlin.Long
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Represents a byte range as used in the Range header.
@@ -26,7 +27,9 @@ import kotlin.Long
  * range", referring to the last -@start bytes of the resource body.
  * (Eg, the last 500 bytes would be @start = -500 and @end = -1.)
  */
-public class Range(pointer: CPointer<SoupRange>) : Record {
+public class Range(
+    pointer: CPointer<SoupRange>,
+) : Record {
     public val soupRangePointer: CPointer<SoupRange> = pointer
 
     /**

@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.String
+import kotlin.UShort
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -17,9 +20,7 @@ import org.gtkkn.native.webkit.webkit_security_origin_new_for_uri
 import org.gtkkn.native.webkit.webkit_security_origin_ref
 import org.gtkkn.native.webkit.webkit_security_origin_to_string
 import org.gtkkn.native.webkit.webkit_security_origin_unref
-import kotlin.String
-import kotlin.UShort
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A security boundary for websites.
@@ -35,7 +36,9 @@ import kotlin.Unit
  * @since 2.16
  */
 @WebKitVersion2_16
-public class SecurityOrigin(pointer: CPointer<WebKitSecurityOrigin>) : Record {
+public class SecurityOrigin(
+    pointer: CPointer<WebKitSecurityOrigin>,
+) : Record {
     public val webkitSecurityOriginPointer: CPointer<WebKitSecurityOrigin> = pointer
 
     /**
@@ -48,8 +51,7 @@ public class SecurityOrigin(pointer: CPointer<WebKitSecurityOrigin>) : Record {
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun getHost(): String? =
-        webkit_security_origin_get_host(webkitSecurityOriginPointer.reinterpret())?.toKString()
+    public fun getHost(): String? = webkit_security_origin_get_host(webkitSecurityOriginPointer.reinterpret())?.toKString()
 
     /**
      * Gets the port of @origin.
@@ -73,8 +75,7 @@ public class SecurityOrigin(pointer: CPointer<WebKitSecurityOrigin>) : Record {
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun getProtocol(): String? =
-        webkit_security_origin_get_protocol(webkitSecurityOriginPointer.reinterpret())?.toKString()
+    public fun getProtocol(): String? = webkit_security_origin_get_protocol(webkitSecurityOriginPointer.reinterpret())?.toKString()
 
     /**
      * Atomically increments the reference count of @origin by one.
@@ -86,8 +87,7 @@ public class SecurityOrigin(pointer: CPointer<WebKitSecurityOrigin>) : Record {
      */
     @WebKitVersion2_16
     public fun ref(): SecurityOrigin = webkit_security_origin_ref(webkitSecurityOriginPointer.reinterpret())!!.run {
-        SecurityOrigin(reinterpret())
-    }
+        SecurityOrigin(reinterpret())}
 
     /**
      * Gets a string representation of @origin.
@@ -100,8 +100,7 @@ public class SecurityOrigin(pointer: CPointer<WebKitSecurityOrigin>) : Record {
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun toStringSecurityOrigin(): String? =
-        webkit_security_origin_to_string(webkitSecurityOriginPointer.reinterpret())?.toKString()
+    public fun toStringSecurityOrigin(): String? = webkit_security_origin_to_string(webkitSecurityOriginPointer.reinterpret())?.toKString()
 
     /**
      * Atomically decrements the reference count of @origin by one.
@@ -127,8 +126,11 @@ public class SecurityOrigin(pointer: CPointer<WebKitSecurityOrigin>) : Record {
          * @return A #WebKitSecurityOrigin.
          * @since 2.16
          */
-        public fun new(protocol: String, host: String, port: UShort): SecurityOrigin =
-            SecurityOrigin(webkit_security_origin_new(protocol, host, port)!!.reinterpret())
+        public fun new(
+            protocol: String,
+            host: String,
+            port: UShort,
+        ): SecurityOrigin = SecurityOrigin(webkit_security_origin_new(protocol, host, port)!!.reinterpret())
 
         /**
          * Create a new security origin from the provided.
@@ -141,10 +143,8 @@ public class SecurityOrigin(pointer: CPointer<WebKitSecurityOrigin>) : Record {
          * @return A #WebKitSecurityOrigin.
          * @since 2.16
          */
-        public fun newForUri(uri: String): SecurityOrigin =
-            SecurityOrigin(webkit_security_origin_new_for_uri(uri)!!.reinterpret())
+        public fun newForUri(uri: String): SecurityOrigin = SecurityOrigin(webkit_security_origin_new_for_uri(uri)!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SecurityOrigin =
-            SecurityOrigin(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SecurityOrigin = SecurityOrigin(pointer.reinterpret())
     }
 }

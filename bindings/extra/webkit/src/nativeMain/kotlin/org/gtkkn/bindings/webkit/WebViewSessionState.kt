@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -13,14 +14,16 @@ import org.gtkkn.native.webkit.webkit_web_view_session_state_new
 import org.gtkkn.native.webkit.webkit_web_view_session_state_ref
 import org.gtkkn.native.webkit.webkit_web_view_session_state_serialize
 import org.gtkkn.native.webkit.webkit_web_view_session_state_unref
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Handles serialization of a web view's browsing state.
  * @since 2.12
  */
 @WebKitVersion2_12
-public class WebViewSessionState(pointer: CPointer<WebKitWebViewSessionState>) : Record {
+public class WebViewSessionState(
+    pointer: CPointer<WebKitWebViewSessionState>,
+) : Record {
     public val webkitWebViewSessionStatePointer: CPointer<WebKitWebViewSessionState> = pointer
 
     /**
@@ -33,10 +36,8 @@ public class WebViewSessionState(pointer: CPointer<WebKitWebViewSessionState>) :
      * @since 2.12
      */
     @WebKitVersion2_12
-    public fun ref(): WebViewSessionState =
-        webkit_web_view_session_state_ref(webkitWebViewSessionStatePointer.reinterpret())!!.run {
-            WebViewSessionState(reinterpret())
-        }
+    public fun ref(): WebViewSessionState = webkit_web_view_session_state_ref(webkitWebViewSessionStatePointer.reinterpret())!!.run {
+        WebViewSessionState(reinterpret())}
 
     /**
      * Serializes a #WebKitWebViewSessionState.
@@ -45,10 +46,8 @@ public class WebViewSessionState(pointer: CPointer<WebKitWebViewSessionState>) :
      * @since 2.12
      */
     @WebKitVersion2_12
-    public fun serialize(): Bytes =
-        webkit_web_view_session_state_serialize(webkitWebViewSessionStatePointer.reinterpret())!!.run {
-            Bytes(reinterpret())
-        }
+    public fun serialize(): Bytes = webkit_web_view_session_state_serialize(webkitWebViewSessionStatePointer.reinterpret())!!.run {
+        Bytes(reinterpret())}
 
     /**
      * Atomically decrements the reference count of @state by one.
@@ -71,11 +70,8 @@ public class WebViewSessionState(pointer: CPointer<WebKitWebViewSessionState>) :
          *     valid serialized #WebKitWebViewSessionState.
          * @since 2.12
          */
-        public fun new(`data`: Bytes): WebViewSessionState = WebViewSessionState(
-            webkit_web_view_session_state_new(`data`.glibBytesPointer.reinterpret())!!.reinterpret()
-        )
+        public fun new(`data`: Bytes): WebViewSessionState = WebViewSessionState(webkit_web_view_session_state_new(`data`.glibBytesPointer.reinterpret())!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): WebViewSessionState =
-            WebViewSessionState(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): WebViewSessionState = WebViewSessionState(pointer.reinterpret())
     }
 }

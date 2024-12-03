@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Double
+import kotlin.Int
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -17,10 +21,7 @@ import org.gtkkn.native.glib.g_rand_int_range
 import org.gtkkn.native.glib.g_rand_new
 import org.gtkkn.native.glib.g_rand_new_with_seed
 import org.gtkkn.native.glib.g_rand_set_seed
-import kotlin.Double
-import kotlin.Int
-import kotlin.UInt
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The GRand struct is an opaque data structure. It should only be
@@ -31,7 +32,9 @@ import kotlin.Unit
  * - parameter `seed`: Unsupported pointer to primitive type
  * - parameter `seed`: Unsupported pointer to primitive type
  */
-public class Rand(pointer: CPointer<GRand>) : Record {
+public class Rand(
+    pointer: CPointer<GRand>,
+) : Record {
     public val glibRandPointer: CPointer<GRand> = pointer
 
     /**
@@ -44,8 +47,7 @@ public class Rand(pointer: CPointer<GRand>) : Record {
      */
     @GLibVersion2_4
     public fun copy(): Rand = g_rand_copy(glibRandPointer.reinterpret())!!.run {
-        Rand(reinterpret())
-    }
+        Rand(reinterpret())}
 
     /**
      * Returns the next random #gdouble from @rand_ equally distributed over
@@ -63,8 +65,7 @@ public class Rand(pointer: CPointer<GRand>) : Record {
      * @param end upper open bound of the interval
      * @return a random number
      */
-    public fun doubleRange(begin: Double, end: Double): Double =
-        g_rand_double_range(glibRandPointer.reinterpret(), begin, end)
+    public fun doubleRange(begin: Double, end: Double): Double = g_rand_double_range(glibRandPointer.reinterpret(), begin, end)
 
     /**
      * Frees the memory allocated for the #GRand.

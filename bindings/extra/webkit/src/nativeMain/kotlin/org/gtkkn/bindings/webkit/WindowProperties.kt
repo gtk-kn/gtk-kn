@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Rectangle
@@ -19,8 +21,6 @@ import org.gtkkn.native.webkit.webkit_window_properties_get_scrollbars_visible
 import org.gtkkn.native.webkit.webkit_window_properties_get_statusbar_visible
 import org.gtkkn.native.webkit.webkit_window_properties_get_toolbar_visible
 import org.gtkkn.native.webkit.webkit_window_properties_get_type
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * Window properties of a #WebKitWebView.
@@ -82,8 +82,9 @@ import kotlin.Unit
  *
  * - method `geometry`: Property has no getter nor setter
  */
-public class WindowProperties(pointer: CPointer<WebKitWindowProperties>) :
-    Object(pointer.reinterpret()),
+public class WindowProperties(
+    pointer: CPointer<WebKitWindowProperties>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val webkitWindowPropertiesPointer: CPointer<WebKitWindowProperties>
         get() = gPointer.reinterpret()
@@ -108,9 +109,7 @@ public class WindowProperties(pointer: CPointer<WebKitWindowProperties>) :
          *
          * @return true if locationbar should be visible or false otherwise.
          */
-        get() = webkit_window_properties_get_locationbar_visible(
-            webkitWindowPropertiesPointer.reinterpret()
-        ).asBoolean()
+        get() = webkit_window_properties_get_locationbar_visible(webkitWindowPropertiesPointer.reinterpret()).asBoolean()
 
     /**
      * Whether the menubar should be visible for the window.
@@ -172,17 +171,13 @@ public class WindowProperties(pointer: CPointer<WebKitWindowProperties>) :
      *
      * @param geometry return location for the window geometry
      */
-    public fun getGeometry(geometry: Rectangle): Unit = webkit_window_properties_get_geometry(
-        webkitWindowPropertiesPointer.reinterpret(),
-        geometry.gdkRectanglePointer.reinterpret()
-    )
+    public fun getGeometry(geometry: Rectangle): Unit = webkit_window_properties_get_geometry(webkitWindowPropertiesPointer.reinterpret(), geometry.gdkRectanglePointer.reinterpret())
 
     public companion object : TypeCompanion<WindowProperties> {
         override val type: GeneratedClassKGType<WindowProperties> =
-            GeneratedClassKGType(webkit_window_properties_get_type()) { WindowProperties(it.reinterpret()) }
+                GeneratedClassKGType(webkit_window_properties_get_type()) { WindowProperties(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebkitTypeProvider.register()}
     }
 }

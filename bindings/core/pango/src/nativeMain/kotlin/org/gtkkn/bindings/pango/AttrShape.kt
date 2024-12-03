@@ -8,6 +8,7 @@ import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.pango.PangoAttrShape
 import org.gtkkn.native.pango.pango_attr_shape_new
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `PangoAttrShape` structure is used to represent attributes which
@@ -23,7 +24,9 @@ import org.gtkkn.native.pango.pango_attr_shape_new
  * - field `copy_func`: AttrDataCopyFunc
  * - field `destroy_func`: GLib.DestroyNotify
  */
-public class AttrShape(pointer: CPointer<PangoAttrShape>) : Record {
+public class AttrShape(
+    pointer: CPointer<PangoAttrShape>,
+) : Record {
     public val pangoAttrShapePointer: CPointer<PangoAttrShape> = pointer
 
     public companion object : RecordCompanion<AttrShape, PangoAttrShape> {
@@ -41,12 +44,8 @@ public class AttrShape(pointer: CPointer<PangoAttrShape>) : Record {
          *   `PangoAttribute`, which should be freed with
          *   [method@Pango.Attribute.destroy]
          */
-        public fun new(inkRect: Rectangle, logicalRect: Rectangle): Attribute = pango_attr_shape_new(
-            inkRect.pangoRectanglePointer.reinterpret(),
-            logicalRect.pangoRectanglePointer.reinterpret()
-        )!!.run {
-            Attribute(reinterpret())
-        }
+        public fun new(inkRect: Rectangle, logicalRect: Rectangle): Attribute = pango_attr_shape_new(inkRect.pangoRectanglePointer.reinterpret(), logicalRect.pangoRectanglePointer.reinterpret())!!.run {
+            Attribute(reinterpret())}
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): AttrShape = AttrShape(pointer.reinterpret())
     }

@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -22,10 +26,7 @@ import org.gtkkn.native.glib.g_node_pop_allocator
 import org.gtkkn.native.glib.g_node_reverse_children
 import org.gtkkn.native.glib.g_node_traverse
 import org.gtkkn.native.glib.g_node_unlink
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.UInt
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The #GNode struct represents one node in a [n-ary tree][glib-N-ary-Trees].
@@ -36,7 +37,9 @@ import kotlin.Unit
  * - parameter `allocator`: Allocator
  * - field `data`: gpointer
  */
-public class Node(pointer: CPointer<GNode>) : Record {
+public class Node(
+    pointer: CPointer<GNode>,
+) : Record {
     public val glibNodePointer: CPointer<GNode> = pointer
 
     /**
@@ -47,8 +50,7 @@ public class Node(pointer: CPointer<GNode>) : Record {
      */
     public val next: Node?
         get() = glibNodePointer.pointed.next?.run {
-            Node(reinterpret())
-        }
+            Node(reinterpret())}
 
     /**
      * points to the node's previous sibling.
@@ -57,8 +59,7 @@ public class Node(pointer: CPointer<GNode>) : Record {
      */
     public val prev: Node?
         get() = glibNodePointer.pointed.prev?.run {
-            Node(reinterpret())
-        }
+            Node(reinterpret())}
 
     /**
      * points to the parent of the #GNode, or is null if the
@@ -68,8 +69,7 @@ public class Node(pointer: CPointer<GNode>) : Record {
      */
     public val parent: Node?
         get() = glibNodePointer.pointed.parent?.run {
-            Node(reinterpret())
-        }
+            Node(reinterpret())}
 
     /**
      * points to the first child of the #GNode.  The other
@@ -80,8 +80,7 @@ public class Node(pointer: CPointer<GNode>) : Record {
      */
     public val children: Node?
         get() = glibNodePointer.pointed.children?.run {
-            Node(reinterpret())
-        }
+            Node(reinterpret())}
 
     /**
      * Gets the position of a #GNode with respect to its siblings.
@@ -91,8 +90,7 @@ public class Node(pointer: CPointer<GNode>) : Record {
      * @param child a child of @node
      * @return the position of @child with respect to its siblings
      */
-    public fun childPosition(child: Node): Int =
-        g_node_child_position(glibNodePointer.reinterpret(), child.glibNodePointer.reinterpret())
+    public fun childPosition(child: Node): Int = g_node_child_position(glibNodePointer.reinterpret(), child.glibNodePointer.reinterpret())
 
     /**
      * Calls a function for each of the children of a #GNode. Note that it
@@ -103,12 +101,7 @@ public class Node(pointer: CPointer<GNode>) : Record {
      *     %G_TRAVERSE_ALL, %G_TRAVERSE_LEAVES and %G_TRAVERSE_NON_LEAVES
      * @param func the function to call for each visited node
      */
-    public fun childrenForeach(flags: TraverseFlags, func: NodeForeachFunc): Unit = g_node_children_foreach(
-        glibNodePointer.reinterpret(),
-        flags.mask,
-        NodeForeachFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer()
-    )
+    public fun childrenForeach(flags: TraverseFlags, func: NodeForeachFunc): Unit = g_node_children_foreach(glibNodePointer.reinterpret(), flags.mask, NodeForeachFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Gets the depth of a #GNode.
@@ -134,8 +127,7 @@ public class Node(pointer: CPointer<GNode>) : Record {
      * @param descendant a #GNode
      * @return true if @node is an ancestor of @descendant
      */
-    public fun isAncestor(descendant: Node): Boolean =
-        g_node_is_ancestor(glibNodePointer.reinterpret(), descendant.glibNodePointer.reinterpret()).asBoolean()
+    public fun isAncestor(descendant: Node): Boolean = g_node_is_ancestor(glibNodePointer.reinterpret(), descendant.glibNodePointer.reinterpret()).asBoolean()
 
     /**
      * Gets the maximum height of all branches beneath a #GNode.
@@ -186,15 +178,12 @@ public class Node(pointer: CPointer<GNode>) : Record {
      *     If depth is 2, the root and its children are visited. And so on.
      * @param func the function to call for each visited #GNode
      */
-    public fun traverse(order: TraverseType, flags: TraverseFlags, maxDepth: Int, func: NodeTraverseFunc): Unit =
-        g_node_traverse(
-            glibNodePointer.reinterpret(),
-            order.nativeValue,
-            flags.mask,
-            maxDepth,
-            NodeTraverseFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )
+    public fun traverse(
+        order: TraverseType,
+        flags: TraverseFlags,
+        maxDepth: Int,
+        func: NodeTraverseFunc,
+    ): Unit = g_node_traverse(glibNodePointer.reinterpret(), order.nativeValue, flags.mask, maxDepth, NodeTraverseFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Unlinks a #GNode from a tree, resulting in two separate trees.

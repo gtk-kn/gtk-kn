@@ -8,6 +8,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_80
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GUnixPipe
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A Unix pipe. The advantage of this type over `int[2]` is that it can
@@ -21,7 +22,9 @@ import org.gtkkn.native.glib.GUnixPipe
  * @since 2.80
  */
 @GLibVersion2_80
-public class UnixPipe(pointer: CPointer<GUnixPipe>) : Record {
+public class UnixPipe(
+    pointer: CPointer<GUnixPipe>,
+) : Record {
     public val glibUnixPipePointer: CPointer<GUnixPipe> = pointer
 
     public companion object : RecordCompanion<UnixPipe, GUnixPipe> {

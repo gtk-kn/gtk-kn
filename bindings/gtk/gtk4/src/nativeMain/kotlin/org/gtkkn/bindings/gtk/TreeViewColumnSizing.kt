@@ -8,17 +8,17 @@ import org.gtkkn.native.gtk.GtkTreeViewColumnSizing
  * that %GTK_TREE_VIEW_COLUMN_AUTOSIZE are inefficient for large views, and
  * can make columns appear choppy.
  */
-public enum class TreeViewColumnSizing(public val nativeValue: GtkTreeViewColumnSizing) {
+public enum class TreeViewColumnSizing(
+    public val nativeValue: GtkTreeViewColumnSizing,
+) {
     /**
      * Columns only get bigger in reaction to changes in the model
      */
     GROW_ONLY(GtkTreeViewColumnSizing.GTK_TREE_VIEW_COLUMN_GROW_ONLY),
-
     /**
      * Columns resize to be the optimal size every time the model changes.
      */
     AUTOSIZE(GtkTreeViewColumnSizing.GTK_TREE_VIEW_COLUMN_AUTOSIZE),
-
     /**
      * Columns are a fixed numbers of pixels wide.
      */

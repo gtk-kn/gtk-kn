@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -10,7 +11,6 @@ import org.gtkkn.native.gsk.GskContainerNode
 import org.gtkkn.native.gsk.gsk_container_node_get_child
 import org.gtkkn.native.gsk.gsk_container_node_get_n_children
 import org.gtkkn.native.gsk.gsk_container_node_get_type
-import kotlin.UInt
 
 /**
  * A render node that can contain other render nodes.
@@ -19,8 +19,9 @@ import kotlin.UInt
  *
  * - parameter `children`: Array parameter of type RenderNode is not supported
  */
-public open class ContainerNode(pointer: CPointer<GskContainerNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class ContainerNode(
+    pointer: CPointer<GskContainerNode>,
+) : RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskContainerNodePointer: CPointer<GskContainerNode>
         get() = gPointer.reinterpret()
@@ -31,10 +32,8 @@ public open class ContainerNode(pointer: CPointer<GskContainerNode>) :
      * @param idx the position of the child to get
      * @return the @idx'th child of @container
      */
-    public open fun getChild(idx: UInt): RenderNode =
-        gsk_container_node_get_child(gskContainerNodePointer.reinterpret(), idx)!!.run {
-            RenderNode(reinterpret())
-        }
+    public open fun getChild(idx: UInt): RenderNode = gsk_container_node_get_child(gskContainerNodePointer.reinterpret(), idx)!!.run {
+        RenderNode(reinterpret())}
 
     /**
      * Retrieves the number of direct children of @node.
@@ -45,10 +44,9 @@ public open class ContainerNode(pointer: CPointer<GskContainerNode>) :
 
     public companion object : TypeCompanion<ContainerNode> {
         override val type: GeneratedClassKGType<ContainerNode> =
-            GeneratedClassKGType(gsk_container_node_get_type()) { ContainerNode(it.reinterpret()) }
+                GeneratedClassKGType(gsk_container_node_get_type()) { ContainerNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
     }
 }

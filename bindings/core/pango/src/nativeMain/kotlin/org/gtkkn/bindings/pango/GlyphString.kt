@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Int
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -16,8 +18,7 @@ import org.gtkkn.native.pango.pango_glyph_string_free
 import org.gtkkn.native.pango.pango_glyph_string_get_width
 import org.gtkkn.native.pango.pango_glyph_string_new
 import org.gtkkn.native.pango.pango_glyph_string_set_size
-import kotlin.Int
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `PangoGlyphString` is used to store strings of glyphs with geometry
@@ -36,7 +37,9 @@ import kotlin.Unit
  * - field `log_clusters`: Unsupported pointer to primitive type
  * - field `space`: Record field space is private
  */
-public class GlyphString(pointer: CPointer<PangoGlyphString>) : Record {
+public class GlyphString(
+    pointer: CPointer<PangoGlyphString>,
+) : Record {
     public val pangoGlyphStringPointer: CPointer<PangoGlyphString> = pointer
 
     /**
@@ -54,8 +57,7 @@ public class GlyphString(pointer: CPointer<PangoGlyphString>) : Record {
      * @return the newly allocated `PangoGlyphString`
      */
     public fun copy(): GlyphString? = pango_glyph_string_copy(pangoGlyphStringPointer.reinterpret())?.run {
-        GlyphString(reinterpret())
-    }
+        GlyphString(reinterpret())}
 
     /**
      * Compute the logical and ink extents of a glyph string.
@@ -71,12 +73,11 @@ public class GlyphString(pointer: CPointer<PangoGlyphString>) : Record {
      * @param inkRect rectangle used to store the extents of the glyph string as drawn
      * @param logicalRect rectangle used to store the logical extents of the glyph string
      */
-    public fun extents(font: Font, inkRect: Rectangle?, logicalRect: Rectangle?): Unit = pango_glyph_string_extents(
-        pangoGlyphStringPointer.reinterpret(),
-        font.pangoFontPointer.reinterpret(),
-        inkRect?.pangoRectanglePointer?.reinterpret(),
-        logicalRect?.pangoRectanglePointer?.reinterpret()
-    )
+    public fun extents(
+        font: Font,
+        inkRect: Rectangle?,
+        logicalRect: Rectangle?,
+    ): Unit = pango_glyph_string_extents(pangoGlyphStringPointer.reinterpret(), font.pangoFontPointer.reinterpret(), inkRect?.pangoRectanglePointer?.reinterpret(), logicalRect?.pangoRectanglePointer?.reinterpret())
 
     /**
      * Computes the extents of a sub-portion of a glyph string.
@@ -94,15 +95,13 @@ public class GlyphString(pointer: CPointer<PangoGlyphString>) : Record {
      * @param logicalRect rectangle used to
      *   store the logical extents of the glyph string range
      */
-    public fun extentsRange(start: Int, end: Int, font: Font, inkRect: Rectangle?, logicalRect: Rectangle?): Unit =
-        pango_glyph_string_extents_range(
-            pangoGlyphStringPointer.reinterpret(),
-            start,
-            end,
-            font.pangoFontPointer.reinterpret(),
-            inkRect?.pangoRectanglePointer?.reinterpret(),
-            logicalRect?.pangoRectanglePointer?.reinterpret()
-        )
+    public fun extentsRange(
+        start: Int,
+        end: Int,
+        font: Font,
+        inkRect: Rectangle?,
+        logicalRect: Rectangle?,
+    ): Unit = pango_glyph_string_extents_range(pangoGlyphStringPointer.reinterpret(), start, end, font.pangoFontPointer.reinterpret(), inkRect?.pangoRectanglePointer?.reinterpret(), logicalRect?.pangoRectanglePointer?.reinterpret())
 
     /**
      * Free a glyph string and associated storage.
@@ -139,7 +138,6 @@ public class GlyphString(pointer: CPointer<PangoGlyphString>) : Record {
          */
         public fun new(): GlyphString = GlyphString(pango_glyph_string_new()!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): GlyphString =
-            GlyphString(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): GlyphString = GlyphString(pointer.reinterpret())
     }
 }

@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -53,11 +58,6 @@ import org.gtkkn.native.webkit.webkit_network_session_set_memory_pressure_settin
 import org.gtkkn.native.webkit.webkit_network_session_set_persistent_credential_storage_enabled
 import org.gtkkn.native.webkit.webkit_network_session_set_proxy_settings
 import org.gtkkn.native.webkit.webkit_network_session_set_tls_errors_policy
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Manages network configuration.
@@ -71,8 +71,9 @@ import kotlin.Unit
  * @since 2.40
  */
 @WebKitVersion2_40
-public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
-    Object(pointer.reinterpret()),
+public class NetworkSession(
+    pointer: CPointer<WebKitNetworkSession>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val webkitNetworkSessionPointer: CPointer<WebKitNetworkSession>
         get() = gPointer.reinterpret()
@@ -101,10 +102,7 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
      * @return the newly created #WebKitNetworkSession
      * @since 2.40
      */
-    public constructor(
-        dataDirectory: String? = null,
-        cacheDirectory: String? = null,
-    ) : this(webkit_network_session_new(dataDirectory, cacheDirectory)!!.reinterpret())
+    public constructor(dataDirectory: String? = null, cacheDirectory: String? = null) : this(webkit_network_session_new(dataDirectory, cacheDirectory)!!.reinterpret())
 
     /**
      * Ignore further TLS errors on the @host for the certificate present in @info.
@@ -117,12 +115,7 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun allowTlsCertificateForHost(certificate: TlsCertificate, host: String): Unit =
-        webkit_network_session_allow_tls_certificate_for_host(
-            webkitNetworkSessionPointer.reinterpret(),
-            certificate.gioTlsCertificatePointer.reinterpret(),
-            host
-        )
+    public fun allowTlsCertificateForHost(certificate: TlsCertificate, host: String): Unit = webkit_network_session_allow_tls_certificate_for_host(webkitNetworkSessionPointer.reinterpret(), certificate.gioTlsCertificatePointer.reinterpret(), host)
 
     /**
      * Requests downloading of the specified URI string.
@@ -137,10 +130,8 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun downloadUri(uri: String): Download =
-        webkit_network_session_download_uri(webkitNetworkSessionPointer.reinterpret(), uri)!!.run {
-            Download(reinterpret())
-        }
+    public fun downloadUri(uri: String): Download = webkit_network_session_download_uri(webkitNetworkSessionPointer.reinterpret(), uri)!!.run {
+        Download(reinterpret())}
 
     /**
      * Get the #WebKitCookieManager of @session.
@@ -149,10 +140,8 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun getCookieManager(): CookieManager =
-        webkit_network_session_get_cookie_manager(webkitNetworkSessionPointer.reinterpret())!!.run {
-            CookieManager(reinterpret())
-        }
+    public fun getCookieManager(): CookieManager = webkit_network_session_get_cookie_manager(webkitNetworkSessionPointer.reinterpret())!!.run {
+        CookieManager(reinterpret())}
 
     /**
      * Get whether Intelligent Tracking Prevention (ITP) is enabled or not.
@@ -161,8 +150,7 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun getItpEnabled(): Boolean =
-        webkit_network_session_get_itp_enabled(webkitNetworkSessionPointer.reinterpret()).asBoolean()
+    public fun getItpEnabled(): Boolean = webkit_network_session_get_itp_enabled(webkitNetworkSessionPointer.reinterpret()).asBoolean()
 
     /**
      * Asynchronously get the list of #WebKitITPThirdParty seen for @session.
@@ -178,13 +166,7 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun getItpSummary(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
-        webkit_network_session_get_itp_summary(
-            webkitNetworkSessionPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    public fun getItpSummary(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit = webkit_network_session_get_itp_summary(webkitNetworkSessionPointer.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
 
     /**
      * Finish an asynchronous operation started with webkit_network_session_get_itp_summary().
@@ -198,17 +180,13 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
     @WebKitVersion2_40
     public fun getItpSummaryFinish(result: AsyncResult): Result<List> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = webkit_network_session_get_itp_summary_finish(
-            webkitNetworkSessionPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            List(reinterpret())
-        }
+        val gResult = webkit_network_session_get_itp_summary_finish(webkitNetworkSessionPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)?.run {
+            List(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(checkNotNull(gResult))
         }
     }
@@ -222,10 +200,7 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun getPersistentCredentialStorageEnabled(): Boolean =
-        webkit_network_session_get_persistent_credential_storage_enabled(
-            webkitNetworkSessionPointer.reinterpret()
-        ).asBoolean()
+    public fun getPersistentCredentialStorageEnabled(): Boolean = webkit_network_session_get_persistent_credential_storage_enabled(webkitNetworkSessionPointer.reinterpret()).asBoolean()
 
     /**
      * Get the TLS errors policy of @session.
@@ -234,10 +209,8 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun getTlsErrorsPolicy(): TLSErrorsPolicy =
-        webkit_network_session_get_tls_errors_policy(webkitNetworkSessionPointer.reinterpret()).run {
-            TLSErrorsPolicy.fromNativeValue(this)
-        }
+    public fun getTlsErrorsPolicy(): TLSErrorsPolicy = webkit_network_session_get_tls_errors_policy(webkitNetworkSessionPointer.reinterpret()).run {
+        TLSErrorsPolicy.fromNativeValue(this)}
 
     /**
      * Get the #WebKitWebsiteDataManager of @session.
@@ -246,10 +219,8 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun getWebsiteDataManager(): WebsiteDataManager =
-        webkit_network_session_get_website_data_manager(webkitNetworkSessionPointer.reinterpret())!!.run {
-            WebsiteDataManager(reinterpret())
-        }
+    public fun getWebsiteDataManager(): WebsiteDataManager = webkit_network_session_get_website_data_manager(webkitNetworkSessionPointer.reinterpret())!!.run {
+        WebsiteDataManager(reinterpret())}
 
     /**
      * Get whether @session is ephemeral.
@@ -260,8 +231,7 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun isEphemeral(): Boolean =
-        webkit_network_session_is_ephemeral(webkitNetworkSessionPointer.reinterpret()).asBoolean()
+    public fun isEphemeral(): Boolean = webkit_network_session_is_ephemeral(webkitNetworkSessionPointer.reinterpret()).asBoolean()
 
     /**
      * Resolve the domain name of the given @hostname in advance, so that if a URI
@@ -271,8 +241,7 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun prefetchDns(hostname: String): Unit =
-        webkit_network_session_prefetch_dns(webkitNetworkSessionPointer.reinterpret(), hostname)
+    public fun prefetchDns(hostname: String): Unit = webkit_network_session_prefetch_dns(webkitNetworkSessionPointer.reinterpret(), hostname)
 
     /**
      * Enable or disable Intelligent Tracking Prevention (ITP).
@@ -286,8 +255,7 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun setItpEnabled(enabled: Boolean): Unit =
-        webkit_network_session_set_itp_enabled(webkitNetworkSessionPointer.reinterpret(), enabled.asGBoolean())
+    public fun setItpEnabled(enabled: Boolean): Unit = webkit_network_session_set_itp_enabled(webkitNetworkSessionPointer.reinterpret(), enabled.asGBoolean())
 
     /**
      * Enable or disable persistent credential storage.
@@ -300,11 +268,7 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun setPersistentCredentialStorageEnabled(enabled: Boolean): Unit =
-        webkit_network_session_set_persistent_credential_storage_enabled(
-            webkitNetworkSessionPointer.reinterpret(),
-            enabled.asGBoolean()
-        )
+    public fun setPersistentCredentialStorageEnabled(enabled: Boolean): Unit = webkit_network_session_set_persistent_credential_storage_enabled(webkitNetworkSessionPointer.reinterpret(), enabled.asGBoolean())
 
     /**
      * Set the network proxy settings to be used by connections started in @session session.
@@ -322,12 +286,7 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun setProxySettings(proxyMode: NetworkProxyMode, proxySettings: NetworkProxySettings? = null): Unit =
-        webkit_network_session_set_proxy_settings(
-            webkitNetworkSessionPointer.reinterpret(),
-            proxyMode.nativeValue,
-            proxySettings?.webkitNetworkProxySettingsPointer?.reinterpret()
-        )
+    public fun setProxySettings(proxyMode: NetworkProxyMode, proxySettings: NetworkProxySettings? = null): Unit = webkit_network_session_set_proxy_settings(webkitNetworkSessionPointer.reinterpret(), proxyMode.nativeValue, proxySettings?.webkitNetworkProxySettingsPointer?.reinterpret())
 
     /**
      * Set the TLS errors policy of @session as @policy.
@@ -336,8 +295,7 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun setTlsErrorsPolicy(policy: TLSErrorsPolicy): Unit =
-        webkit_network_session_set_tls_errors_policy(webkitNetworkSessionPointer.reinterpret(), policy.nativeValue)
+    public fun setTlsErrorsPolicy(policy: TLSErrorsPolicy): Unit = webkit_network_session_set_tls_errors_policy(webkitNetworkSessionPointer.reinterpret(), policy.nativeValue)
 
     /**
      * This signal is emitted when a new download request is made.
@@ -347,25 +305,14 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun connectDownloadStarted(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (download: Download) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "download-started",
-        connectDownloadStartedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectDownloadStarted(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (download: Download) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "download-started", connectDownloadStartedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<NetworkSession> {
         override val type: GeneratedClassKGType<NetworkSession> =
-            GeneratedClassKGType(webkit_network_session_get_type()) { NetworkSession(it.reinterpret()) }
+                GeneratedClassKGType(webkit_network_session_get_type()) { NetworkSession(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebkitTypeProvider.register()}
 
         /**
          * Get the default network session.
@@ -377,8 +324,7 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
          */
         @WebKitVersion2_40
         public fun getDefault(): NetworkSession = webkit_network_session_get_default()!!.run {
-            NetworkSession(reinterpret())
-        }
+            NetworkSession(reinterpret())}
 
         /**
          * Sets @settings as the #WebKitMemoryPressureSettings.
@@ -398,23 +344,17 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
          * @since 2.40
          */
         @WebKitVersion2_40
-        public fun setMemoryPressureSettings(settings: MemoryPressureSettings): Unit =
-            webkit_network_session_set_memory_pressure_settings(
-                settings.webkitMemoryPressureSettingsPointer.reinterpret()
-            )
+        public fun setMemoryPressureSettings(settings: MemoryPressureSettings): Unit = webkit_network_session_set_memory_pressure_settings(settings.webkitMemoryPressureSettingsPointer.reinterpret())
     }
 }
 
 private val connectDownloadStartedFunc: CPointer<CFunction<(CPointer<WebKitDownload>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            download: CPointer<WebKitDownload>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(download: Download) -> Unit>().get().invoke(
-            download!!.run {
-                Download(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    download: CPointer<WebKitDownload>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(download: Download) -> Unit>().get().invoke(download!!.run {
+        Download(reinterpret())}
+    )}
+.reinterpret()

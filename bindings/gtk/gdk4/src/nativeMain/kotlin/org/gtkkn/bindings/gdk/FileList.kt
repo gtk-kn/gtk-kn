@@ -11,6 +11,7 @@ import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gdk.GdkFileList
 import org.gtkkn.native.gdk.gdk_file_list_get_files
 import org.gtkkn.native.gdk.gdk_file_list_new_from_list
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * An opaque type representing a list of files.
@@ -22,7 +23,9 @@ import org.gtkkn.native.gdk.gdk_file_list_new_from_list
  * @since 4.6
  */
 @GdkVersion4_6
-public class FileList(pointer: CPointer<GdkFileList>) : Record {
+public class FileList(
+    pointer: CPointer<GdkFileList>,
+) : Record {
     public val gdkFileListPointer: CPointer<GdkFileList> = pointer
 
     /**
@@ -35,8 +38,7 @@ public class FileList(pointer: CPointer<GdkFileList>) : Record {
      */
     @GdkVersion4_6
     public fun getFiles(): SList = gdk_file_list_get_files(gdkFileListPointer.reinterpret())!!.run {
-        SList(reinterpret())
-    }
+        SList(reinterpret())}
 
     public companion object : RecordCompanion<FileList, GdkFileList> {
         /**
@@ -49,8 +51,7 @@ public class FileList(pointer: CPointer<GdkFileList>) : Record {
          * @return the newly created files list
          * @since 4.8
          */
-        public fun newFromList(files: SList): FileList =
-            FileList(gdk_file_list_new_from_list(files.glibSListPointer.reinterpret())!!.reinterpret())
+        public fun newFromList(files: SList): FileList = FileList(gdk_file_list_new_from_list(files.glibSListPointer.reinterpret())!!.reinterpret())
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FileList = FileList(pointer.reinterpret())
     }

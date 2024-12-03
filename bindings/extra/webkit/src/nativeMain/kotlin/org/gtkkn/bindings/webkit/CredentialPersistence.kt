@@ -9,17 +9,17 @@ import org.gtkkn.native.webkit.WebKitCredentialPersistence
  * @since 2.2
  */
 @WebKitVersion2_2
-public enum class CredentialPersistence(public val nativeValue: WebKitCredentialPersistence) {
+public enum class CredentialPersistence(
+    public val nativeValue: WebKitCredentialPersistence,
+) {
     /**
      * Credential does not persist
      */
     NONE(WebKitCredentialPersistence.WEBKIT_CREDENTIAL_PERSISTENCE_NONE),
-
     /**
      * Credential persists for session only
      */
     FOR_SESSION(WebKitCredentialPersistence.WEBKIT_CREDENTIAL_PERSISTENCE_FOR_SESSION),
-
     /**
      * Credential persists permanently
      */
@@ -27,12 +27,11 @@ public enum class CredentialPersistence(public val nativeValue: WebKitCredential
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitCredentialPersistence): CredentialPersistence =
-            when (nativeValue) {
-                WebKitCredentialPersistence.WEBKIT_CREDENTIAL_PERSISTENCE_NONE -> NONE
-                WebKitCredentialPersistence.WEBKIT_CREDENTIAL_PERSISTENCE_FOR_SESSION -> FOR_SESSION
-                WebKitCredentialPersistence.WEBKIT_CREDENTIAL_PERSISTENCE_PERMANENT -> PERMANENT
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitCredentialPersistence): CredentialPersistence = when (nativeValue) {
+            WebKitCredentialPersistence.WEBKIT_CREDENTIAL_PERSISTENCE_NONE -> NONE
+            WebKitCredentialPersistence.WEBKIT_CREDENTIAL_PERSISTENCE_FOR_SESSION -> FOR_SESSION
+            WebKitCredentialPersistence.WEBKIT_CREDENTIAL_PERSISTENCE_PERMANENT -> PERMANENT
+            else -> error("invalid nativeValue")
+        }
     }
 }

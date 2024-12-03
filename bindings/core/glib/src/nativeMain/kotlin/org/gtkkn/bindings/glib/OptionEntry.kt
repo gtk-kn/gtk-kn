@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Char
+import kotlin.Int
+import kotlin.String
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,9 +12,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GOptionEntry
-import kotlin.Char
-import kotlin.Int
-import kotlin.String
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A GOptionEntry struct defines a single option. To have an effect, they
@@ -22,7 +23,9 @@ import kotlin.String
  *
  * - field `arg_data`: gpointer
  */
-public class OptionEntry(pointer: CPointer<GOptionEntry>) : Record {
+public class OptionEntry(
+    pointer: CPointer<GOptionEntry>,
+) : Record {
     public val glibOptionEntryPointer: CPointer<GOptionEntry> = pointer
 
     /**
@@ -63,8 +66,7 @@ public class OptionEntry(pointer: CPointer<GOptionEntry>) : Record {
      */
     public var arg: OptionArg
         get() = glibOptionEntryPointer.pointed.arg.run {
-            OptionArg.fromNativeValue(this)
-        }
+            OptionArg.fromNativeValue(this)}
         set(`value`) {
             glibOptionEntryPointer.pointed.arg = value.nativeValue
         }
@@ -91,7 +93,6 @@ public class OptionEntry(pointer: CPointer<GOptionEntry>) : Record {
         get() = glibOptionEntryPointer.pointed.arg_description?.toKString()
 
     public companion object : RecordCompanion<OptionEntry, GOptionEntry> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): OptionEntry =
-            OptionEntry(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): OptionEntry = OptionEntry(pointer.reinterpret())
     }
 }

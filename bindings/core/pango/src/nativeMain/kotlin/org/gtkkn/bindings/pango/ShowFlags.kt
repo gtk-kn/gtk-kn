@@ -14,7 +14,9 @@ import org.gtkkn.native.pango.PangoShowFlags
  * not visible in the output.
  * @since 1.44
  */
-public class ShowFlags(public val mask: PangoShowFlags) : Bitfield<ShowFlags> {
+public class ShowFlags(
+    public val mask: PangoShowFlags,
+) : Bitfield<ShowFlags> {
     override infix fun or(other: ShowFlags): ShowFlags = ShowFlags(mask or other.mask)
 
     @PangoVersion1_44

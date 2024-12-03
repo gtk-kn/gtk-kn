@@ -4,4 +4,7 @@ package org.gtkkn.bindings.gtk
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.glib.GLibException
 
-public class PrintErrorException(error: Error, public val code: PrintError) : GLibException(error)
+public class PrintErrorException(
+    error: Error,
+    public val code: PrintError,
+) : GLibException(error)

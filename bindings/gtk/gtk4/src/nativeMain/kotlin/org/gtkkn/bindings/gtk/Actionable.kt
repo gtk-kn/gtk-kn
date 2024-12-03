@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -16,8 +18,6 @@ import org.gtkkn.native.gtk.gtk_actionable_get_type
 import org.gtkkn.native.gtk.gtk_actionable_set_action_name
 import org.gtkkn.native.gtk.gtk_actionable_set_action_target_value
 import org.gtkkn.native.gtk.gtk_actionable_set_detailed_action_name
-import kotlin.String
-import kotlin.Unit
 
 /**
  * The `GtkActionable` interface provides a convenient way of associating
@@ -38,9 +38,7 @@ import kotlin.Unit
  *
  * - method `action-target`: Property has no getter nor setter
  */
-public interface Actionable :
-    Interface,
-    KGTyped {
+public interface Actionable : Interface, KGTyped {
     public val gtkActionablePointer: CPointer<GtkActionable>
 
     public var actionName: String?
@@ -50,7 +48,6 @@ public interface Actionable :
          * @return the action name
          */
         get() = gtk_actionable_get_action_name(gtkActionablePointer.reinterpret())?.toKString()
-
         /**
          * Specifies the name of the action with which this widget should be
          * associated.
@@ -75,18 +72,15 @@ public interface Actionable :
      *
      * @return the action name
      */
-    public fun getActionName(): String? =
-        gtk_actionable_get_action_name(gtkActionablePointer.reinterpret())?.toKString()
+    public fun getActionName(): String? = gtk_actionable_get_action_name(gtkActionablePointer.reinterpret())?.toKString()
 
     /**
      * Gets the current target value of @actionable.
      *
      * @return the current target value
      */
-    public fun getActionTargetValue(): Variant? =
-        gtk_actionable_get_action_target_value(gtkActionablePointer.reinterpret())?.run {
-            Variant(reinterpret())
-        }
+    public fun getActionTargetValue(): Variant? = gtk_actionable_get_action_target_value(gtkActionablePointer.reinterpret())?.run {
+        Variant(reinterpret())}
 
     /**
      * Specifies the name of the action with which this widget should be
@@ -105,8 +99,7 @@ public interface Actionable :
      *
      * @param actionName an action name
      */
-    public fun setActionName(actionName: String? = null): Unit =
-        gtk_actionable_set_action_name(gtkActionablePointer.reinterpret(), actionName)
+    public fun setActionName(actionName: String? = null): Unit = gtk_actionable_set_action_name(gtkActionablePointer.reinterpret(), actionName)
 
     /**
      * Sets the target value of an actionable widget.
@@ -130,10 +123,7 @@ public interface Actionable :
      *
      * @param targetValue a [struct@GLib.Variant] to set as the target value
      */
-    public fun setActionTargetValue(targetValue: Variant? = null): Unit = gtk_actionable_set_action_target_value(
-        gtkActionablePointer.reinterpret(),
-        targetValue?.glibVariantPointer?.reinterpret()
-    )
+    public fun setActionTargetValue(targetValue: Variant? = null): Unit = gtk_actionable_set_action_target_value(gtkActionablePointer.reinterpret(), targetValue?.glibVariantPointer?.reinterpret())
 
     /**
      * Sets the action-name and associated string target value of an
@@ -144,20 +134,20 @@ public interface Actionable :
      *
      * @param detailedActionName the detailed action name
      */
-    public fun setDetailedActionName(detailedActionName: String): Unit =
-        gtk_actionable_set_detailed_action_name(gtkActionablePointer.reinterpret(), detailedActionName)
+    public fun setDetailedActionName(detailedActionName: String): Unit = gtk_actionable_set_detailed_action_name(gtkActionablePointer.reinterpret(), detailedActionName)
 
-    private data class Wrapper(private val pointer: CPointer<GtkActionable>) : Actionable {
+    private data class Wrapper(
+        private val pointer: CPointer<GtkActionable>,
+    ) : Actionable {
         override val gtkActionablePointer: CPointer<GtkActionable> = pointer
     }
 
     public companion object : TypeCompanion<Actionable> {
         override val type: GeneratedInterfaceKGType<Actionable> =
-            GeneratedInterfaceKGType(gtk_actionable_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(gtk_actionable_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkActionable>): Actionable = Wrapper(pointer)
     }

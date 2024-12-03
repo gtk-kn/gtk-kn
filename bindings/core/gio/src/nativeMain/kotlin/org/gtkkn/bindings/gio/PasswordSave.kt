@@ -9,17 +9,17 @@ import org.gtkkn.native.gio.GPasswordSave
  * #Gvfs stores passwords in the Gnome keyring when this flag allows it
  * to, and later retrieves it again from there.
  */
-public enum class PasswordSave(public val nativeValue: GPasswordSave) {
+public enum class PasswordSave(
+    public val nativeValue: GPasswordSave,
+) {
     /**
      * never save a password.
      */
     NEVER(GPasswordSave.G_PASSWORD_SAVE_NEVER),
-
     /**
      * save a password for the session.
      */
     FOR_SESSION(GPasswordSave.G_PASSWORD_SAVE_FOR_SESSION),
-
     /**
      * save a password permanently.
      */

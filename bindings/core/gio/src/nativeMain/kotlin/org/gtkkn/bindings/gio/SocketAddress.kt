@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Long
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
@@ -13,7 +14,6 @@ import org.gtkkn.native.gio.GSocketConnectable
 import org.gtkkn.native.gio.g_socket_address_get_family
 import org.gtkkn.native.gio.g_socket_address_get_native_size
 import org.gtkkn.native.gio.g_socket_address_get_type
-import kotlin.Long
 
 /**
  * `GSocketAddress` is the equivalent of
@@ -26,8 +26,9 @@ import kotlin.Long
  * - parameter `dest`: gpointer
  * - parameter `native`: gpointer
  */
-public open class SocketAddress(pointer: CPointer<GSocketAddress>) :
-    Object(pointer.reinterpret()),
+public open class SocketAddress(
+    pointer: CPointer<GSocketAddress>,
+) : Object(pointer.reinterpret()),
     SocketConnectable,
     KGTyped {
     public val gioSocketAddressPointer: CPointer<GSocketAddress>
@@ -50,8 +51,7 @@ public open class SocketAddress(pointer: CPointer<GSocketAddress>) :
          * @since 2.22
          */
         get() = g_socket_address_get_family(gioSocketAddressPointer.reinterpret()).run {
-            SocketFamily.fromNativeValue(this)
-        }
+            SocketFamily.fromNativeValue(this)}
 
     /**
      * Gets the size of @address's native struct sockaddr.
@@ -67,10 +67,9 @@ public open class SocketAddress(pointer: CPointer<GSocketAddress>) :
 
     public companion object : TypeCompanion<SocketAddress> {
         override val type: GeneratedClassKGType<SocketAddress> =
-            GeneratedClassKGType(g_socket_address_get_type()) { SocketAddress(it.reinterpret()) }
+                GeneratedClassKGType(g_socket_address_get_type()) { SocketAddress(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
     }
 }

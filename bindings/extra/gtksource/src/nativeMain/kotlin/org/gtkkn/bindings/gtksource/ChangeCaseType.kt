@@ -3,22 +3,21 @@ package org.gtkkn.bindings.gtksource
 
 import org.gtkkn.native.gtksource.GtkSourceChangeCaseType
 
-public enum class ChangeCaseType(public val nativeValue: GtkSourceChangeCaseType) {
+public enum class ChangeCaseType(
+    public val nativeValue: GtkSourceChangeCaseType,
+) {
     /**
      * change case to lowercase.
      */
     LOWER(GtkSourceChangeCaseType.GTK_SOURCE_CHANGE_CASE_LOWER),
-
     /**
      * change case to uppercase.
      */
     UPPER(GtkSourceChangeCaseType.GTK_SOURCE_CHANGE_CASE_UPPER),
-
     /**
      * toggle case of each character.
      */
     TOGGLE(GtkSourceChangeCaseType.GTK_SOURCE_CHANGE_CASE_TOGGLE),
-
     /**
      * capitalize each word.
      */

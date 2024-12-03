@@ -8,12 +8,15 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GTypeFundamentalInfo
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A structure that provides information to the type system which is
  * used specifically for managing fundamental types.
  */
-public class TypeFundamentalInfo(pointer: CPointer<GTypeFundamentalInfo>) : Record {
+public class TypeFundamentalInfo(
+    pointer: CPointer<GTypeFundamentalInfo>,
+) : Record {
     public val gobjectTypeFundamentalInfoPointer: CPointer<GTypeFundamentalInfo> = pointer
 
     /**
@@ -21,14 +24,12 @@ public class TypeFundamentalInfo(pointer: CPointer<GTypeFundamentalInfo>) : Reco
      */
     public var typeFlags: TypeFundamentalFlags
         get() = gobjectTypeFundamentalInfoPointer.pointed.type_flags.run {
-            TypeFundamentalFlags(this)
-        }
+            TypeFundamentalFlags(this)}
         set(`value`) {
             gobjectTypeFundamentalInfoPointer.pointed.type_flags = value.mask
         }
 
     public companion object : RecordCompanion<TypeFundamentalInfo, GTypeFundamentalInfo> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TypeFundamentalInfo =
-            TypeFundamentalInfo(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TypeFundamentalInfo = TypeFundamentalInfo(pointer.reinterpret())
     }
 }

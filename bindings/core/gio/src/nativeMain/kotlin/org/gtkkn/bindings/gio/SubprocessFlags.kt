@@ -27,7 +27,9 @@ import org.gtkkn.native.gio.G_SUBPROCESS_FLAGS_STDOUT_SILENCE
  * %G_SUBPROCESS_FLAGS_STDOUT_SILENCE.
  * @since 2.40
  */
-public class SubprocessFlags(public val mask: GSubprocessFlags) : Bitfield<SubprocessFlags> {
+public class SubprocessFlags(
+    public val mask: GSubprocessFlags,
+) : Bitfield<SubprocessFlags> {
     override infix fun or(other: SubprocessFlags): SubprocessFlags = SubprocessFlags(mask or other.mask)
 
     @GioVersion2_40
@@ -49,7 +51,7 @@ public class SubprocessFlags(public val mask: GSubprocessFlags) : Bitfield<Subpr
          *   calling process.
          */
         public val STDIN_INHERIT: SubprocessFlags =
-            SubprocessFlags(G_SUBPROCESS_FLAGS_STDIN_INHERIT)
+                SubprocessFlags(G_SUBPROCESS_FLAGS_STDIN_INHERIT)
 
         /**
          * create a pipe for the stdout of the
@@ -63,7 +65,7 @@ public class SubprocessFlags(public val mask: GSubprocessFlags) : Bitfield<Subpr
          *   process (ie: redirect to `/dev/null`).
          */
         public val STDOUT_SILENCE: SubprocessFlags =
-            SubprocessFlags(G_SUBPROCESS_FLAGS_STDOUT_SILENCE)
+                SubprocessFlags(G_SUBPROCESS_FLAGS_STDOUT_SILENCE)
 
         /**
          * create a pipe for the stderr of the
@@ -77,7 +79,7 @@ public class SubprocessFlags(public val mask: GSubprocessFlags) : Bitfield<Subpr
          *   process (ie: redirect to `/dev/null`).
          */
         public val STDERR_SILENCE: SubprocessFlags =
-            SubprocessFlags(G_SUBPROCESS_FLAGS_STDERR_SILENCE)
+                SubprocessFlags(G_SUBPROCESS_FLAGS_STDERR_SILENCE)
 
         /**
          * merge the stderr of the spawned
@@ -100,6 +102,6 @@ public class SubprocessFlags(public val mask: GSubprocessFlags) : Bitfield<Subpr
          *   environment. (Since: 2.72)
          */
         public val SEARCH_PATH_FROM_ENVP: SubprocessFlags =
-            SubprocessFlags(G_SUBPROCESS_FLAGS_SEARCH_PATH_FROM_ENVP)
+                SubprocessFlags(G_SUBPROCESS_FLAGS_SEARCH_PATH_FROM_ENVP)
     }
 }

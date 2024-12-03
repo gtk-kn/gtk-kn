@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -27,8 +29,6 @@ import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * A [class@Gtk.ListBoxRow] used to present preferences.
@@ -41,8 +41,9 @@ import kotlin.String
  * rows as they take care of presenting the preference's title while letting you
  * compose the inputs of the preference around it.
  */
-public open class PreferencesRow(pointer: CPointer<AdwPreferencesRow>) :
-    ListBoxRow(pointer.reinterpret()),
+public open class PreferencesRow(
+    pointer: CPointer<AdwPreferencesRow>,
+) : ListBoxRow(pointer.reinterpret()),
     KGTyped {
     public val adwPreferencesRowPointer: CPointer<AdwPreferencesRow>
         get() = gPointer.reinterpret()
@@ -71,9 +72,7 @@ public open class PreferencesRow(pointer: CPointer<AdwPreferencesRow>) :
          *
          * @return the title
          */
-        get() = adw_preferences_row_get_title(adwPreferencesRowPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_preferences_row_get_title(adwPreferencesRowPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the title of the preference represented by @self.
          *
@@ -100,7 +99,6 @@ public open class PreferencesRow(pointer: CPointer<AdwPreferencesRow>) :
          * @since 1.1
          */
         get() = adw_preferences_row_get_title_selectable(adwPreferencesRowPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the user can copy the title from the label
          *
@@ -110,12 +108,7 @@ public open class PreferencesRow(pointer: CPointer<AdwPreferencesRow>) :
          * @since 1.1
          */
         @AdwVersion1_1
-        set(
-            titleSelectable
-        ) = adw_preferences_row_set_title_selectable(
-            adwPreferencesRowPointer.reinterpret(),
-            titleSelectable.asGBoolean()
-        )
+        set(titleSelectable) = adw_preferences_row_set_title_selectable(adwPreferencesRowPointer.reinterpret(), titleSelectable.asGBoolean())
 
     /**
      * Whether to use Pango markup for the title label.
@@ -135,7 +128,6 @@ public open class PreferencesRow(pointer: CPointer<AdwPreferencesRow>) :
          * @since 1.2
          */
         get() = adw_preferences_row_get_use_markup(adwPreferencesRowPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether to use Pango markup for the title label.
          *
@@ -147,9 +139,7 @@ public open class PreferencesRow(pointer: CPointer<AdwPreferencesRow>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(
-            useMarkup
-        ) = adw_preferences_row_set_use_markup(adwPreferencesRowPointer.reinterpret(), useMarkup.asGBoolean())
+        set(useMarkup) = adw_preferences_row_set_use_markup(adwPreferencesRowPointer.reinterpret(), useMarkup.asGBoolean())
 
     /**
      * Whether an embedded underline in the title indicates a mnemonic.
@@ -161,15 +151,12 @@ public open class PreferencesRow(pointer: CPointer<AdwPreferencesRow>) :
          * @return whether an embedded underline in the title indicates a mnemonic
          */
         get() = adw_preferences_row_get_use_underline(adwPreferencesRowPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether an embedded underline in the title indicates a mnemonic.
          *
          * @param useUnderline `TRUE` if underlines in the text indicate mnemonics
          */
-        set(
-            useUnderline
-        ) = adw_preferences_row_set_use_underline(adwPreferencesRowPointer.reinterpret(), useUnderline.asGBoolean())
+        set(useUnderline) = adw_preferences_row_set_use_underline(adwPreferencesRowPointer.reinterpret(), useUnderline.asGBoolean())
 
     /**
      * Creates a new `AdwPreferencesRow`.
@@ -180,10 +167,9 @@ public open class PreferencesRow(pointer: CPointer<AdwPreferencesRow>) :
 
     public companion object : TypeCompanion<PreferencesRow> {
         override val type: GeneratedClassKGType<PreferencesRow> =
-            GeneratedClassKGType(adw_preferences_row_get_type()) { PreferencesRow(it.reinterpret()) }
+                GeneratedClassKGType(adw_preferences_row_get_type()) { PreferencesRow(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
     }
 }

@@ -9,12 +9,13 @@ import org.gtkkn.native.gtk.GtkGraphicsOffloadEnabled
  * @since 4.14
  */
 @GtkVersion4_14
-public enum class GraphicsOffloadEnabled(public val nativeValue: GtkGraphicsOffloadEnabled) {
+public enum class GraphicsOffloadEnabled(
+    public val nativeValue: GtkGraphicsOffloadEnabled,
+) {
     /**
      * Graphics offloading is enabled.
      */
     ENABLED(GtkGraphicsOffloadEnabled.GTK_GRAPHICS_OFFLOAD_ENABLED),
-
     /**
      * Graphics offloading is disabled.
      */
@@ -22,11 +23,10 @@ public enum class GraphicsOffloadEnabled(public val nativeValue: GtkGraphicsOffl
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkGraphicsOffloadEnabled): GraphicsOffloadEnabled =
-            when (nativeValue) {
-                GtkGraphicsOffloadEnabled.GTK_GRAPHICS_OFFLOAD_ENABLED -> ENABLED
-                GtkGraphicsOffloadEnabled.GTK_GRAPHICS_OFFLOAD_DISABLED -> DISABLED
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkGraphicsOffloadEnabled): GraphicsOffloadEnabled = when (nativeValue) {
+            GtkGraphicsOffloadEnabled.GTK_GRAPHICS_OFFLOAD_ENABLED -> ENABLED
+            GtkGraphicsOffloadEnabled.GTK_GRAPHICS_OFFLOAD_DISABLED -> DISABLED
+            else -> error("invalid nativeValue")
+        }
     }
 }

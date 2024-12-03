@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import kotlin.Float
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -21,8 +23,7 @@ import org.gtkkn.native.gsk.gsk_stroke_set_line_cap
 import org.gtkkn.native.gsk.gsk_stroke_set_line_join
 import org.gtkkn.native.gsk.gsk_stroke_set_line_width
 import org.gtkkn.native.gsk.gsk_stroke_set_miter_limit
-import kotlin.Float
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GskStroke` struct collects the parameters that influence
@@ -38,7 +39,9 @@ import kotlin.Unit
  * @since 4.14
  */
 @GskVersion4_14
-public class Stroke(pointer: CPointer<GskStroke>) : Record {
+public class Stroke(
+    pointer: CPointer<GskStroke>,
+) : Record {
     public val gskStrokePointer: CPointer<GskStroke> = pointer
 
     /**
@@ -49,8 +52,7 @@ public class Stroke(pointer: CPointer<GskStroke>) : Record {
      */
     @GskVersion4_14
     public fun copy(): Stroke = gsk_stroke_copy(gskStrokePointer.reinterpret())!!.run {
-        Stroke(reinterpret())
-    }
+        Stroke(reinterpret())}
 
     /**
      * Frees a `GskStroke`.
@@ -78,8 +80,7 @@ public class Stroke(pointer: CPointer<GskStroke>) : Record {
      */
     @GskVersion4_14
     public fun getLineCap(): LineCap = gsk_stroke_get_line_cap(gskStrokePointer.reinterpret()).run {
-        LineCap.fromNativeValue(this)
-    }
+        LineCap.fromNativeValue(this)}
 
     /**
      * Gets the line join used.
@@ -91,8 +92,7 @@ public class Stroke(pointer: CPointer<GskStroke>) : Record {
      */
     @GskVersion4_14
     public fun getLineJoin(): LineJoin = gsk_stroke_get_line_join(gskStrokePointer.reinterpret()).run {
-        LineJoin.fromNativeValue(this)
-    }
+        LineJoin.fromNativeValue(this)}
 
     /**
      * Gets the line width used.
@@ -134,8 +134,7 @@ public class Stroke(pointer: CPointer<GskStroke>) : Record {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun setLineCap(lineCap: LineCap): Unit =
-        gsk_stroke_set_line_cap(gskStrokePointer.reinterpret(), lineCap.nativeValue)
+    public fun setLineCap(lineCap: LineCap): Unit = gsk_stroke_set_line_cap(gskStrokePointer.reinterpret(), lineCap.nativeValue)
 
     /**
      * Sets the line join to be used when stroking.
@@ -146,8 +145,7 @@ public class Stroke(pointer: CPointer<GskStroke>) : Record {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun setLineJoin(lineJoin: LineJoin): Unit =
-        gsk_stroke_set_line_join(gskStrokePointer.reinterpret(), lineJoin.nativeValue)
+    public fun setLineJoin(lineJoin: LineJoin): Unit = gsk_stroke_set_line_join(gskStrokePointer.reinterpret(), lineJoin.nativeValue)
 
     /**
      * Sets the line width to be used when stroking.
@@ -158,8 +156,7 @@ public class Stroke(pointer: CPointer<GskStroke>) : Record {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun setLineWidth(lineWidth: Float): Unit =
-        gsk_stroke_set_line_width(gskStrokePointer.reinterpret(), lineWidth)
+    public fun setLineWidth(lineWidth: Float): Unit = gsk_stroke_set_line_width(gskStrokePointer.reinterpret(), lineWidth)
 
     /**
      * Sets the limit for the distance from the corner where sharp

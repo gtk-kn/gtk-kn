@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Int
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -19,8 +21,7 @@ import org.gtkkn.native.glib.g_tree_nnodes
 import org.gtkkn.native.glib.g_tree_ref
 import org.gtkkn.native.glib.g_tree_remove_all
 import org.gtkkn.native.glib.g_tree_unref
-import kotlin.Int
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The GTree struct is an opaque data structure representing a
@@ -47,7 +48,9 @@ import kotlin.Unit
  * - parameter `key`: gpointer
  * - parameter `value_destroy_func`: DestroyNotify
  */
-public class Tree(pointer: CPointer<GTree>) : Record {
+public class Tree(
+    pointer: CPointer<GTree>,
+) : Record {
     public val glibTreePointer: CPointer<GTree> = pointer
 
     /**
@@ -73,11 +76,7 @@ public class Tree(pointer: CPointer<GTree>) : Record {
      * @param func the function to call for each node visited.
      *     If this function returns true, the traversal is stopped.
      */
-    public fun foreach(func: TraverseFunc): Unit = g_tree_foreach(
-        glibTreePointer.reinterpret(),
-        TraverseFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer()
-    )
+    public fun foreach(func: TraverseFunc): Unit = g_tree_foreach(glibTreePointer.reinterpret(), TraverseFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Calls the given function for each of the nodes in the #GTree.
@@ -94,11 +93,7 @@ public class Tree(pointer: CPointer<GTree>) : Record {
      * @since 2.68
      */
     @GLibVersion2_68
-    public fun foreachNode(func: TraverseNodeFunc): Unit = g_tree_foreach_node(
-        glibTreePointer.reinterpret(),
-        TraverseNodeFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer()
-    )
+    public fun foreachNode(func: TraverseNodeFunc): Unit = g_tree_foreach_node(glibTreePointer.reinterpret(), TraverseNodeFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Gets the height of a #GTree.
@@ -133,8 +128,7 @@ public class Tree(pointer: CPointer<GTree>) : Record {
      */
     @GLibVersion2_22
     public fun ref(): Tree = g_tree_ref(glibTreePointer.reinterpret())!!.run {
-        Tree(reinterpret())
-    }
+        Tree(reinterpret())}
 
     /**
      * Removes all nodes from a #GTree and destroys their keys and values,

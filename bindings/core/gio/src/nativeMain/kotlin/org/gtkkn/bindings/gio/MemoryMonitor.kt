@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -21,8 +23,6 @@ import org.gtkkn.native.gio.GMemoryMonitorWarningLevel
 import org.gtkkn.native.gio.g_memory_monitor_dup_default
 import org.gtkkn.native.gio.g_memory_monitor_get_type
 import org.gtkkn.native.gobject.g_signal_connect_data
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GMemoryMonitor` will monitor system memory and suggest to the application
@@ -76,10 +76,7 @@ import kotlin.Unit
  * @since 2.64
  */
 @GioVersion2_64
-public interface MemoryMonitor :
-    Interface,
-    Initable,
-    KGTyped {
+public interface MemoryMonitor : Interface, Initable, KGTyped {
     public val gioMemoryMonitorPointer: CPointer<GMemoryMonitor>
 
     override val gioInitablePointer: CPointer<GInitable>
@@ -96,29 +93,20 @@ public interface MemoryMonitor :
      * @since 2.64
      */
     @GioVersion2_64
-    public fun connectLowMemoryWarning(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (level: MemoryMonitorWarningLevel) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gioMemoryMonitorPointer.reinterpret(),
-        "low-memory-warning",
-        connectLowMemoryWarningFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectLowMemoryWarning(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (level: MemoryMonitorWarningLevel) -> Unit): ULong = g_signal_connect_data(gioMemoryMonitorPointer.reinterpret(), "low-memory-warning", connectLowMemoryWarningFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
-    private data class Wrapper(private val pointer: CPointer<GMemoryMonitor>) : MemoryMonitor {
+    private data class Wrapper(
+        private val pointer: CPointer<GMemoryMonitor>,
+    ) : MemoryMonitor {
         override val gioMemoryMonitorPointer: CPointer<GMemoryMonitor> = pointer
     }
 
     public companion object : TypeCompanion<MemoryMonitor> {
         override val type: GeneratedInterfaceKGType<MemoryMonitor> =
-            GeneratedInterfaceKGType(g_memory_monitor_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(g_memory_monitor_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GMemoryMonitor>): MemoryMonitor = Wrapper(pointer)
 
@@ -130,21 +118,17 @@ public interface MemoryMonitor :
          */
         @GioVersion2_64
         public fun dupDefault(): MemoryMonitor = g_memory_monitor_dup_default()!!.run {
-            MemoryMonitor.wrap(reinterpret())
-        }
+            MemoryMonitor.wrap(reinterpret())}
     }
 }
 
 private val connectLowMemoryWarningFunc: CPointer<CFunction<(GMemoryMonitorWarningLevel) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            level: GMemoryMonitorWarningLevel,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(level: MemoryMonitorWarningLevel) -> Unit>().get().invoke(
-            level.run {
-                MemoryMonitorWarningLevel.fromNativeValue(this)
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    level: GMemoryMonitorWarningLevel,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(level: MemoryMonitorWarningLevel) -> Unit>().get().invoke(level.run {
+        MemoryMonitorWarningLevel.fromNativeValue(this)}
+    )}
+.reinterpret()

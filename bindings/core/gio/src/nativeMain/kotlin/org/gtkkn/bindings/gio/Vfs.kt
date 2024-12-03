@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_50
@@ -20,9 +23,6 @@ import org.gtkkn.native.gio.g_vfs_get_type
 import org.gtkkn.native.gio.g_vfs_is_active
 import org.gtkkn.native.gio.g_vfs_parse_name
 import org.gtkkn.native.gio.g_vfs_unregister_uri_scheme
-import kotlin.Boolean
-import kotlin.String
-import kotlin.collections.List
 
 /**
  * Entry point for using GIO functionality.
@@ -31,8 +31,9 @@ import kotlin.collections.List
  *
  * - parameter `parse_name_func`: VfsFileLookupFunc
  */
-public open class Vfs(pointer: CPointer<GVfs>) :
-    Object(pointer.reinterpret()),
+public open class Vfs(
+    pointer: CPointer<GVfs>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gioVfsPointer: CPointer<GVfs>
         get() = gPointer.reinterpret()
@@ -44,10 +45,8 @@ public open class Vfs(pointer: CPointer<GVfs>) :
      * @return a #GFile.
      *     Free the returned object with g_object_unref().
      */
-    public open fun getFileForPath(path: String): File =
-        g_vfs_get_file_for_path(gioVfsPointer.reinterpret(), path)!!.run {
-            File.wrap(reinterpret())
-        }
+    public open fun getFileForPath(path: String): File = g_vfs_get_file_for_path(gioVfsPointer.reinterpret(), path)!!.run {
+        File.wrap(reinterpret())}
 
     /**
      * Gets a #GFile for @uri.
@@ -61,8 +60,7 @@ public open class Vfs(pointer: CPointer<GVfs>) :
      *     Free the returned object with g_object_unref().
      */
     public open fun getFileForUri(uri: String): File = g_vfs_get_file_for_uri(gioVfsPointer.reinterpret(), uri)!!.run {
-        File.wrap(reinterpret())
-    }
+        File.wrap(reinterpret())}
 
     /**
      * Gets a list of URI schemes supported by @vfs.
@@ -71,9 +69,7 @@ public open class Vfs(pointer: CPointer<GVfs>) :
      *     The returned array belongs to GIO and must
      *     not be freed or modified.
      */
-    public open fun getSupportedUriSchemes(): List<String> =
-        g_vfs_get_supported_uri_schemes(gioVfsPointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
+    public open fun getSupportedUriSchemes(): List<String> = g_vfs_get_supported_uri_schemes(gioVfsPointer.reinterpret())?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Checks if the VFS is active.
@@ -92,10 +88,8 @@ public open class Vfs(pointer: CPointer<GVfs>) :
      * @return a #GFile for the given @parse_name.
      *     Free the returned object with g_object_unref().
      */
-    public open fun parseName(parseName: String): File =
-        g_vfs_parse_name(gioVfsPointer.reinterpret(), parseName)!!.run {
-            File.wrap(reinterpret())
-        }
+    public open fun parseName(parseName: String): File = g_vfs_parse_name(gioVfsPointer.reinterpret(), parseName)!!.run {
+        File.wrap(reinterpret())}
 
     /**
      * Unregisters the URI handler for @scheme previously registered with
@@ -107,16 +101,14 @@ public open class Vfs(pointer: CPointer<GVfs>) :
      * @since 2.50
      */
     @GioVersion2_50
-    public open fun unregisterUriScheme(scheme: String): Boolean =
-        g_vfs_unregister_uri_scheme(gioVfsPointer.reinterpret(), scheme).asBoolean()
+    public open fun unregisterUriScheme(scheme: String): Boolean = g_vfs_unregister_uri_scheme(gioVfsPointer.reinterpret(), scheme).asBoolean()
 
     public companion object : TypeCompanion<Vfs> {
         override val type: GeneratedClassKGType<Vfs> =
-            GeneratedClassKGType(g_vfs_get_type()) { Vfs(it.reinterpret()) }
+                GeneratedClassKGType(g_vfs_get_type()) { Vfs(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Gets the default #GVfs for the system.
@@ -125,8 +117,7 @@ public open class Vfs(pointer: CPointer<GVfs>) :
          *     file system #GVfs if no other implementation is available.
          */
         public fun getDefault(): Vfs = g_vfs_get_default()!!.run {
-            Vfs(reinterpret())
-        }
+            Vfs(reinterpret())}
 
         /**
          * Gets the local #GVfs for the system.
@@ -134,7 +125,6 @@ public open class Vfs(pointer: CPointer<GVfs>) :
          * @return a #GVfs.
          */
         public fun getLocal(): Vfs = g_vfs_get_local()!!.run {
-            Vfs(reinterpret())
-        }
+            Vfs(reinterpret())}
     }
 }

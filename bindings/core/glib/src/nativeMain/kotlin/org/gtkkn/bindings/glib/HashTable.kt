@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -21,8 +23,7 @@ import org.gtkkn.native.glib.g_hash_table_remove_all
 import org.gtkkn.native.glib.g_hash_table_size
 import org.gtkkn.native.glib.g_hash_table_steal_all
 import org.gtkkn.native.glib.g_hash_table_unref
-import kotlin.UInt
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The #GHashTable struct is an opaque data structure to represent a
@@ -42,7 +43,9 @@ import kotlin.Unit
  * - parameter `key`: gpointer
  * - parameter `lookup_key`: gpointer
  */
-public class HashTable(pointer: CPointer<GHashTable>) : Record {
+public class HashTable(
+    pointer: CPointer<GHashTable>,
+) : Record {
     public val glibHashTablePointer: CPointer<GHashTable> = pointer
 
     public companion object : RecordCompanion<HashTable, GHashTable> {
@@ -56,8 +59,7 @@ public class HashTable(pointer: CPointer<GHashTable>) : Record {
          *
          * @param hashTable a #GHashTable
          */
-        public fun destroy(hashTable: HashTable): Unit =
-            g_hash_table_destroy(hashTable.glibHashTablePointer.reinterpret())
+        public fun destroy(hashTable: HashTable): Unit = g_hash_table_destroy(hashTable.glibHashTablePointer.reinterpret())
 
         /**
          * Calls the given function for each of the key/value pairs in the
@@ -76,11 +78,7 @@ public class HashTable(pointer: CPointer<GHashTable>) : Record {
          * @param hashTable a #GHashTable
          * @param func the function to call for each key/value pair
          */
-        public fun foreach(hashTable: HashTable, func: HFunc): Unit = g_hash_table_foreach(
-            hashTable.glibHashTablePointer.reinterpret(),
-            HFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )
+        public fun foreach(hashTable: HashTable, func: HFunc): Unit = g_hash_table_foreach(hashTable.glibHashTablePointer.reinterpret(), HFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
         /**
          * Calls the given function for each key/value pair in the
@@ -96,11 +94,7 @@ public class HashTable(pointer: CPointer<GHashTable>) : Record {
          * @param func the function to call for each key/value pair
          * @return the number of key/value pairs removed
          */
-        public fun foreachRemove(hashTable: HashTable, func: HRFunc): UInt = g_hash_table_foreach_remove(
-            hashTable.glibHashTablePointer.reinterpret(),
-            HRFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )
+        public fun foreachRemove(hashTable: HashTable, func: HRFunc): UInt = g_hash_table_foreach_remove(hashTable.glibHashTablePointer.reinterpret(), HRFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
         /**
          * Calls the given function for each key/value pair in the
@@ -115,11 +109,7 @@ public class HashTable(pointer: CPointer<GHashTable>) : Record {
          * @param func the function to call for each key/value pair
          * @return the number of key/value pairs removed.
          */
-        public fun foreachSteal(hashTable: HashTable, func: HRFunc): UInt = g_hash_table_foreach_steal(
-            hashTable.glibHashTablePointer.reinterpret(),
-            HRFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )
+        public fun foreachSteal(hashTable: HashTable, func: HRFunc): UInt = g_hash_table_foreach_steal(hashTable.glibHashTablePointer.reinterpret(), HRFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
         /**
          * Creates a new #GHashTable like g_hash_table_new_full() with a reference
@@ -136,10 +126,8 @@ public class HashTable(pointer: CPointer<GHashTable>) : Record {
          * @since 2.72
          */
         @GLibVersion2_72
-        public fun newSimilar(otherHashTable: HashTable): HashTable =
-            g_hash_table_new_similar(otherHashTable.glibHashTablePointer.reinterpret())!!.run {
-                HashTable(reinterpret())
-            }
+        public fun newSimilar(otherHashTable: HashTable): HashTable = g_hash_table_new_similar(otherHashTable.glibHashTablePointer.reinterpret())!!.run {
+            HashTable(reinterpret())}
 
         /**
          * Atomically increments the reference count of @hash_table by one.
@@ -150,10 +138,8 @@ public class HashTable(pointer: CPointer<GHashTable>) : Record {
          * @since 2.10
          */
         @GLibVersion2_10
-        public fun ref(hashTable: HashTable): HashTable =
-            g_hash_table_ref(hashTable.glibHashTablePointer.reinterpret())!!.run {
-                HashTable(reinterpret())
-            }
+        public fun ref(hashTable: HashTable): HashTable = g_hash_table_ref(hashTable.glibHashTablePointer.reinterpret())!!.run {
+            HashTable(reinterpret())}
 
         /**
          * Removes all keys and their associated values from a #GHashTable.
@@ -167,8 +153,7 @@ public class HashTable(pointer: CPointer<GHashTable>) : Record {
          * @since 2.12
          */
         @GLibVersion2_12
-        public fun removeAll(hashTable: HashTable): Unit =
-            g_hash_table_remove_all(hashTable.glibHashTablePointer.reinterpret())
+        public fun removeAll(hashTable: HashTable): Unit = g_hash_table_remove_all(hashTable.glibHashTablePointer.reinterpret())
 
         /**
          * Returns the number of elements contained in the #GHashTable.
@@ -186,8 +171,7 @@ public class HashTable(pointer: CPointer<GHashTable>) : Record {
          * @since 2.12
          */
         @GLibVersion2_12
-        public fun stealAll(hashTable: HashTable): Unit =
-            g_hash_table_steal_all(hashTable.glibHashTablePointer.reinterpret())
+        public fun stealAll(hashTable: HashTable): Unit = g_hash_table_steal_all(hashTable.glibHashTablePointer.reinterpret())
 
         /**
          * Atomically decrements the reference count of @hash_table by one.

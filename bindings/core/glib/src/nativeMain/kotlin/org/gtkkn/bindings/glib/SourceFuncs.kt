@@ -7,6 +7,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GSourceFuncs
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `GSourceFuncs` struct contains a table of
@@ -39,11 +40,12 @@ import org.gtkkn.native.glib.GSourceFuncs
  * - field `closure_callback`: Record field closure_callback is private
  * - field `closure_marshal`: Record field closure_marshal is private
  */
-public class SourceFuncs(pointer: CPointer<GSourceFuncs>) : Record {
+public class SourceFuncs(
+    pointer: CPointer<GSourceFuncs>,
+) : Record {
     public val glibSourceFuncsPointer: CPointer<GSourceFuncs> = pointer
 
     public companion object : RecordCompanion<SourceFuncs, GSourceFuncs> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SourceFuncs =
-            SourceFuncs(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SourceFuncs = SourceFuncs(pointer.reinterpret())
     }
 }

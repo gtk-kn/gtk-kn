@@ -10,17 +10,17 @@ import org.gtkkn.native.gio.GTlsRehandshakeMode
  * @since 2.28
  */
 @GioVersion2_28
-public enum class TlsRehandshakeMode(public val nativeValue: GTlsRehandshakeMode) {
+public enum class TlsRehandshakeMode(
+    public val nativeValue: GTlsRehandshakeMode,
+) {
     /**
      * Never allow rehandshaking
      */
     NEVER(GTlsRehandshakeMode.G_TLS_REHANDSHAKE_NEVER),
-
     /**
      * Allow safe rehandshaking only
      */
     SAFELY(GTlsRehandshakeMode.G_TLS_REHANDSHAKE_SAFELY),
-
     /**
      * Allow unsafe rehandshaking
      */

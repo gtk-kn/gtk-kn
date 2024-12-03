@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.List
@@ -14,7 +15,6 @@ import org.gtkkn.native.gtk.gtk_window_group_get_type
 import org.gtkkn.native.gtk.gtk_window_group_list_windows
 import org.gtkkn.native.gtk.gtk_window_group_new
 import org.gtkkn.native.gtk.gtk_window_group_remove_window
-import kotlin.Unit
 
 /**
  * `GtkWindowGroup` makes group of windows behave like separate applications.
@@ -34,8 +34,9 @@ import kotlin.Unit
  * group; when all window have been removed, the window group will be
  * freed.
  */
-public open class WindowGroup(pointer: CPointer<GtkWindowGroup>) :
-    Object(pointer.reinterpret()),
+public open class WindowGroup(
+    pointer: CPointer<GtkWindowGroup>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtkWindowGroupPointer: CPointer<GtkWindowGroup>
         get() = gPointer.reinterpret()
@@ -55,8 +56,7 @@ public open class WindowGroup(pointer: CPointer<GtkWindowGroup>) :
      *
      * @param window the `GtkWindow` to add
      */
-    public open fun addWindow(window: Window): Unit =
-        gtk_window_group_add_window(gtkWindowGroupPointer.reinterpret(), window.gtkWindowPointer.reinterpret())
+    public open fun addWindow(window: Window): Unit = gtk_window_group_add_window(gtkWindowGroupPointer.reinterpret(), window.gtkWindowPointer.reinterpret())
 
     /**
      * Returns a list of the `GtkWindows` that belong to @window_group.
@@ -65,23 +65,20 @@ public open class WindowGroup(pointer: CPointer<GtkWindowGroup>) :
      *   newly-allocated list of windows inside the group.
      */
     public open fun listWindows(): List = gtk_window_group_list_windows(gtkWindowGroupPointer.reinterpret())!!.run {
-        List(reinterpret())
-    }
+        List(reinterpret())}
 
     /**
      * Removes a window from a `GtkWindowGroup`.
      *
      * @param window the `GtkWindow` to remove
      */
-    public open fun removeWindow(window: Window): Unit =
-        gtk_window_group_remove_window(gtkWindowGroupPointer.reinterpret(), window.gtkWindowPointer.reinterpret())
+    public open fun removeWindow(window: Window): Unit = gtk_window_group_remove_window(gtkWindowGroupPointer.reinterpret(), window.gtkWindowPointer.reinterpret())
 
     public companion object : TypeCompanion<WindowGroup> {
         override val type: GeneratedClassKGType<WindowGroup> =
-            GeneratedClassKGType(gtk_window_group_get_type()) { WindowGroup(it.reinterpret()) }
+                GeneratedClassKGType(gtk_window_group_get_type()) { WindowGroup(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

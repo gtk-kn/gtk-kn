@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.ULong
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_24
@@ -17,7 +18,6 @@ import org.gtkkn.native.gio.g_memory_output_stream_get_size
 import org.gtkkn.native.gio.g_memory_output_stream_get_type
 import org.gtkkn.native.gio.g_memory_output_stream_new_resizable
 import org.gtkkn.native.gio.g_memory_output_stream_steal_as_bytes
-import kotlin.ULong
 
 /**
  * `GMemoryOutputStream` is a class for using arbitrary
@@ -32,8 +32,9 @@ import kotlin.ULong
  * - method `steal_data`: Return type gpointer is unsupported
  * - method `data`: Property has no getter nor setter
  */
-public open class MemoryOutputStream(pointer: CPointer<GMemoryOutputStream>) :
-    OutputStream(pointer.reinterpret()),
+public open class MemoryOutputStream(
+    pointer: CPointer<GMemoryOutputStream>,
+) : OutputStream(pointer.reinterpret()),
     PollableOutputStream,
     Seekable,
     KGTyped {
@@ -106,17 +107,14 @@ public open class MemoryOutputStream(pointer: CPointer<GMemoryOutputStream>) :
      * @since 2.34
      */
     @GioVersion2_34
-    public open fun stealAsBytes(): Bytes =
-        g_memory_output_stream_steal_as_bytes(gioMemoryOutputStreamPointer.reinterpret())!!.run {
-            Bytes(reinterpret())
-        }
+    public open fun stealAsBytes(): Bytes = g_memory_output_stream_steal_as_bytes(gioMemoryOutputStreamPointer.reinterpret())!!.run {
+        Bytes(reinterpret())}
 
     public companion object : TypeCompanion<MemoryOutputStream> {
         override val type: GeneratedClassKGType<MemoryOutputStream> =
-            GeneratedClassKGType(g_memory_output_stream_get_type()) { MemoryOutputStream(it.reinterpret()) }
+                GeneratedClassKGType(g_memory_output_stream_get_type()) { MemoryOutputStream(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
     }
 }

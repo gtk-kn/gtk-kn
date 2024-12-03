@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Display
@@ -14,8 +16,6 @@ import org.gtkkn.native.gtk.gtk_settings_get_default
 import org.gtkkn.native.gtk.gtk_settings_get_for_display
 import org.gtkkn.native.gtk.gtk_settings_get_type
 import org.gtkkn.native.gtk.gtk_settings_reset_property
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkSettings` provides a mechanism to share global settings between
@@ -101,8 +101,9 @@ import kotlin.Unit
  * - method `gtk-xft-hintstyle`: Property has no getter nor setter
  * - method `gtk-xft-rgba`: Property has no getter nor setter
  */
-public open class Settings(pointer: CPointer<GtkSettings>) :
-    Object(pointer.reinterpret()),
+public open class Settings(
+    pointer: CPointer<GtkSettings>,
+) : Object(pointer.reinterpret()),
     StyleProvider,
     KGTyped {
     public val gtkSettingsPointer: CPointer<GtkSettings>
@@ -120,16 +121,14 @@ public open class Settings(pointer: CPointer<GtkSettings>) :
      *
      * @param name the name of the setting to reset
      */
-    public open fun resetProperty(name: String): Unit =
-        gtk_settings_reset_property(gtkSettingsPointer.reinterpret(), name)
+    public open fun resetProperty(name: String): Unit = gtk_settings_reset_property(gtkSettingsPointer.reinterpret(), name)
 
     public companion object : TypeCompanion<Settings> {
         override val type: GeneratedClassKGType<Settings> =
-            GeneratedClassKGType(gtk_settings_get_type()) { Settings(it.reinterpret()) }
+                GeneratedClassKGType(gtk_settings_get_type()) { Settings(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Gets the `GtkSettings` object for the default display, creating
@@ -141,8 +140,7 @@ public open class Settings(pointer: CPointer<GtkSettings>) :
          *   no default display, then returns null.
          */
         public fun getDefault(): Settings? = gtk_settings_get_default()?.run {
-            Settings(reinterpret())
-        }
+            Settings(reinterpret())}
 
         /**
          * Gets the `GtkSettings` object for @display, creating it if necessary.
@@ -150,9 +148,7 @@ public open class Settings(pointer: CPointer<GtkSettings>) :
          * @param display a `GdkDisplay`
          * @return a `GtkSettings` object
          */
-        public fun getForDisplay(display: Display): Settings =
-            gtk_settings_get_for_display(display.gdkDisplayPointer.reinterpret())!!.run {
-                Settings(reinterpret())
-            }
+        public fun getForDisplay(display: Display): Settings = gtk_settings_get_for_display(display.gdkDisplayPointer.reinterpret())!!.run {
+            Settings(reinterpret())}
     }
 }

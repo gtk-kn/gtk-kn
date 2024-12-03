@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,7 +10,7 @@ import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GSList
 import org.gtkkn.native.glib.g_slist_pop_allocator
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The #GSList struct is used for each element in the singly-linked
@@ -20,7 +21,9 @@ import kotlin.Unit
  * - parameter `allocator`: Allocator
  * - field `data`: gpointer
  */
-public class SList(pointer: CPointer<GSList>) : Record {
+public class SList(
+    pointer: CPointer<GSList>,
+) : Record {
     public val glibSListPointer: CPointer<GSList> = pointer
 
     /**
@@ -30,8 +33,7 @@ public class SList(pointer: CPointer<GSList>) : Record {
      */
     public val next: SList?
         get() = glibSListPointer.pointed.next?.run {
-            SList(reinterpret())
-        }
+            SList(reinterpret())}
 
     public companion object : RecordCompanion<SList, GSList> {
         public fun popAllocator(): Unit = g_slist_pop_allocator()

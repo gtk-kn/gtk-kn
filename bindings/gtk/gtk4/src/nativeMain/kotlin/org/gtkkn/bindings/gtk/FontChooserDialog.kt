@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -16,7 +17,6 @@ import org.gtkkn.native.gtk.GtkRoot
 import org.gtkkn.native.gtk.GtkShortcutManager
 import org.gtkkn.native.gtk.gtk_font_chooser_dialog_get_type
 import org.gtkkn.native.gtk.gtk_font_chooser_dialog_new
-import kotlin.String
 
 /**
  * The `GtkFontChooserDialog` widget is a dialog for selecting a font.
@@ -39,8 +39,9 @@ import kotlin.String
  * `GtkFontChooserDialog` has a single CSS node with the name `window` and style
  * class `.fontchooser`.
  */
-public open class FontChooserDialog(pointer: CPointer<GtkFontChooserDialog>) :
-    Dialog(pointer.reinterpret()),
+public open class FontChooserDialog(
+    pointer: CPointer<GtkFontChooserDialog>,
+) : Dialog(pointer.reinterpret()),
     FontChooser,
     KGTyped {
     public val gtkFontChooserDialogPointer: CPointer<GtkFontChooserDialog>
@@ -74,17 +75,13 @@ public open class FontChooserDialog(pointer: CPointer<GtkFontChooserDialog>) :
      * @param parent Transient parent of the dialog
      * @return a new `GtkFontChooserDialog`
      */
-    public constructor(
-        title: String? = null,
-        parent: Window? = null,
-    ) : this(gtk_font_chooser_dialog_new(title, parent?.gtkWindowPointer?.reinterpret())!!.reinterpret())
+    public constructor(title: String? = null, parent: Window? = null) : this(gtk_font_chooser_dialog_new(title, parent?.gtkWindowPointer?.reinterpret())!!.reinterpret())
 
     public companion object : TypeCompanion<FontChooserDialog> {
         override val type: GeneratedClassKGType<FontChooserDialog> =
-            GeneratedClassKGType(gtk_font_chooser_dialog_get_type()) { FontChooserDialog(it.reinterpret()) }
+                GeneratedClassKGType(gtk_font_chooser_dialog_get_type()) { FontChooserDialog(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

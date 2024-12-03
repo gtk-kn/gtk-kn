@@ -15,47 +15,41 @@ import org.gtkkn.native.glib.GUserDirectory
  * @since 2.14
  */
 @GLibVersion2_14
-public enum class UserDirectory(public val nativeValue: GUserDirectory) {
+public enum class UserDirectory(
+    public val nativeValue: GUserDirectory,
+) {
     /**
      * the user's Desktop directory
      */
     DIRECTORY_DESKTOP(GUserDirectory.G_USER_DIRECTORY_DESKTOP),
-
     /**
      * the user's Documents directory
      */
     DIRECTORY_DOCUMENTS(GUserDirectory.G_USER_DIRECTORY_DOCUMENTS),
-
     /**
      * the user's Downloads directory
      */
     DIRECTORY_DOWNLOAD(GUserDirectory.G_USER_DIRECTORY_DOWNLOAD),
-
     /**
      * the user's Music directory
      */
     DIRECTORY_MUSIC(GUserDirectory.G_USER_DIRECTORY_MUSIC),
-
     /**
      * the user's Pictures directory
      */
     DIRECTORY_PICTURES(GUserDirectory.G_USER_DIRECTORY_PICTURES),
-
     /**
      * the user's shared directory
      */
     DIRECTORY_PUBLIC_SHARE(GUserDirectory.G_USER_DIRECTORY_PUBLIC_SHARE),
-
     /**
      * the user's Templates directory
      */
     DIRECTORY_TEMPLATES(GUserDirectory.G_USER_DIRECTORY_TEMPLATES),
-
     /**
      * the user's Movies directory
      */
     DIRECTORY_VIDEOS(GUserDirectory.G_USER_DIRECTORY_VIDEOS),
-
     /**
      * the number of enum values
      */

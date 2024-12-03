@@ -15,18 +15,18 @@ import org.gtkkn.native.gobject.g_initially_unowned_get_type
  * All the fields in the `GInitiallyUnowned` structure are private to the
  * implementation and should never be accessed directly.
  */
-public open class InitiallyUnowned(pointer: CPointer<GInitiallyUnowned>) :
-    Object(pointer.reinterpret()),
+public open class InitiallyUnowned(
+    pointer: CPointer<GInitiallyUnowned>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gobjectInitiallyUnownedPointer: CPointer<GInitiallyUnowned>
         get() = gPointer.reinterpret()
 
     public companion object : TypeCompanion<InitiallyUnowned> {
         override val type: GeneratedClassKGType<InitiallyUnowned> =
-            GeneratedClassKGType(g_initially_unowned_get_type()) { InitiallyUnowned(it.reinterpret()) }
+                GeneratedClassKGType(g_initially_unowned_get_type()) { InitiallyUnowned(it.reinterpret()) }
 
         init {
-            GobjectTypeProvider.register()
-        }
+            GobjectTypeProvider.register()}
     }
 }

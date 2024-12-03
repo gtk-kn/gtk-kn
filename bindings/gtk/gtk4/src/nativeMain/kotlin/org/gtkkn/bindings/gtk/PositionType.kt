@@ -9,22 +9,21 @@ import org.gtkkn.native.gtk.GtkPositionType
  * For examples, see the tabs of a [class@Notebook], or the label
  * of a [class@Scale].
  */
-public enum class PositionType(public val nativeValue: GtkPositionType) {
+public enum class PositionType(
+    public val nativeValue: GtkPositionType,
+) {
     /**
      * The feature is at the left edge.
      */
     LEFT(GtkPositionType.GTK_POS_LEFT),
-
     /**
      * The feature is at the right edge.
      */
     RIGHT(GtkPositionType.GTK_POS_RIGHT),
-
     /**
      * The feature is at the top edge.
      */
     TOP(GtkPositionType.GTK_POS_TOP),
-
     /**
      * The feature is at the bottom edge.
      */

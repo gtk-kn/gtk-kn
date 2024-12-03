@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asBoolean
@@ -15,14 +16,14 @@ import org.gtkkn.native.gtk.gtk_bool_filter_get_type
 import org.gtkkn.native.gtk.gtk_bool_filter_new
 import org.gtkkn.native.gtk.gtk_bool_filter_set_expression
 import org.gtkkn.native.gtk.gtk_bool_filter_set_invert
-import kotlin.Boolean
 
 /**
  * `GtkBoolFilter` evaluates a boolean `GtkExpression`
  * to determine whether to include items.
  */
-public open class BoolFilter(pointer: CPointer<GtkBoolFilter>) :
-    Filter(pointer.reinterpret()),
+public open class BoolFilter(
+    pointer: CPointer<GtkBoolFilter>,
+) : Filter(pointer.reinterpret()),
     KGTyped {
     public val gtkBoolFilterPointer: CPointer<GtkBoolFilter>
         get() = gPointer.reinterpret()
@@ -38,9 +39,7 @@ public open class BoolFilter(pointer: CPointer<GtkBoolFilter>) :
          * @return a `GtkExpression`
          */
         get() = gtk_bool_filter_get_expression(gtkBoolFilterPointer.reinterpret())?.run {
-            Expression(reinterpret())
-        }
-
+            Expression(reinterpret())}
         /**
          * Sets the expression that the filter uses to check if items
          * should be filtered.
@@ -49,9 +48,7 @@ public open class BoolFilter(pointer: CPointer<GtkBoolFilter>) :
          *
          * @param expression a `GtkExpression`
          */
-        set(
-            expression
-        ) = gtk_bool_filter_set_expression(gtkBoolFilterPointer.reinterpret(), expression?.gPointer?.reinterpret())
+        set(expression) = gtk_bool_filter_set_expression(gtkBoolFilterPointer.reinterpret(), expression?.gPointer?.reinterpret())
 
     /**
      * If the expression result should be inverted.
@@ -63,7 +60,6 @@ public open class BoolFilter(pointer: CPointer<GtkBoolFilter>) :
          * @return true if the filter inverts
          */
         get() = gtk_bool_filter_get_invert(gtkBoolFilterPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the filter should invert the expression.
          *
@@ -77,16 +73,13 @@ public open class BoolFilter(pointer: CPointer<GtkBoolFilter>) :
      * @param expression The expression to evaluate
      * @return a new `GtkBoolFilter`
      */
-    public constructor(
-        expression: Expression? = null,
-    ) : this(gtk_bool_filter_new(expression?.gPointer?.reinterpret())!!.reinterpret())
+    public constructor(expression: Expression? = null) : this(gtk_bool_filter_new(expression?.gPointer?.reinterpret())!!.reinterpret())
 
     public companion object : TypeCompanion<BoolFilter> {
         override val type: GeneratedClassKGType<BoolFilter> =
-            GeneratedClassKGType(gtk_bool_filter_get_type()) { BoolFilter(it.reinterpret()) }
+                GeneratedClassKGType(gtk_bool_filter_get_type()) { BoolFilter(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

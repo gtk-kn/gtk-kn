@@ -8,23 +8,22 @@ import org.gtkkn.native.gtk.GtkPrintOperationResult
  *
  * A value of this type is returned by [method@Gtk.PrintOperation.run].
  */
-public enum class PrintOperationResult(public val nativeValue: GtkPrintOperationResult) {
+public enum class PrintOperationResult(
+    public val nativeValue: GtkPrintOperationResult,
+) {
     /**
      * An error has occurred.
      */
     ERROR(GtkPrintOperationResult.GTK_PRINT_OPERATION_RESULT_ERROR),
-
     /**
      * The print settings should be stored.
      */
     APPLY(GtkPrintOperationResult.GTK_PRINT_OPERATION_RESULT_APPLY),
-
     /**
      * The print operation has been canceled,
      *   the print settings should not be stored.
      */
     CANCEL(GtkPrintOperationResult.GTK_PRINT_OPERATION_RESULT_CANCEL),
-
     /**
      * The print operation is not complete
      *   yet. This value will only be returned when running asynchronously.

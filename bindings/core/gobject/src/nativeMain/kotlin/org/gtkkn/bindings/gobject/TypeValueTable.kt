@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.String
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,7 +10,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GTypeValueTable
-import kotlin.String
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The #GTypeValueTable provides the functions required by the #GValue
@@ -24,7 +25,9 @@ import kotlin.String
  * - field `collect_value`: TypeValueCollectFunc
  * - field `lcopy_value`: TypeValueLCopyFunc
  */
-public class TypeValueTable(pointer: CPointer<GTypeValueTable>) : Record {
+public class TypeValueTable(
+    pointer: CPointer<GTypeValueTable>,
+) : Record {
     public val gobjectTypeValueTablePointer: CPointer<GTypeValueTable> = pointer
 
     /**
@@ -57,7 +60,6 @@ public class TypeValueTable(pointer: CPointer<GTypeValueTable>) : Record {
         get() = gobjectTypeValueTablePointer.pointed.lcopy_format?.toKString()
 
     public companion object : RecordCompanion<TypeValueTable, GTypeValueTable> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TypeValueTable =
-            TypeValueTable(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TypeValueTable = TypeValueTable(pointer.reinterpret())
     }
 }

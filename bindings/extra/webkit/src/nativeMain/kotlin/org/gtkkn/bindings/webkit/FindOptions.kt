@@ -13,7 +13,9 @@ import org.gtkkn.native.webkit.WebKitFindOptions
 /**
  * Enum values used to specify search options.
  */
-public class FindOptions(public val mask: WebKitFindOptions) : Bitfield<FindOptions> {
+public class FindOptions(
+    public val mask: WebKitFindOptions,
+) : Bitfield<FindOptions> {
     override infix fun or(other: FindOptions): FindOptions = FindOptions(mask or other.mask)
 
     public companion object {
@@ -39,7 +41,7 @@ public class FindOptions(public val mask: WebKitFindOptions) : Bitfield<FindOpti
          *   capital letters in the middle of words as word start.
          */
         public val TREAT_MEDIAL_CAPITAL_AS_WORD_START: FindOptions =
-            FindOptions(WEBKIT_FIND_OPTIONS_TREAT_MEDIAL_CAPITAL_AS_WORD_START)
+                FindOptions(WEBKIT_FIND_OPTIONS_TREAT_MEDIAL_CAPITAL_AS_WORD_START)
 
         /**
          * search backwards.

@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gmodule
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -16,10 +20,6 @@ import org.gtkkn.native.gmodule.g_module_build_path
 import org.gtkkn.native.gmodule.g_module_error
 import org.gtkkn.native.gmodule.g_module_error_quark
 import org.gtkkn.native.gmodule.g_module_supported
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.String
-import kotlin.Unit
 
 /**
  * ## Skipped during bindings generation
@@ -58,8 +58,7 @@ public object GModule {
      * @return the complete path of the module, including the standard library
      *     prefix and suffix. This should be freed when no longer needed
      */
-    public fun moduleBuildPath(directory: String? = null, moduleName: String): String =
-        g_module_build_path(directory, moduleName)?.toKString() ?: error("Expected not null string")
+    public fun moduleBuildPath(directory: String? = null, moduleName: String): String = g_module_build_path(directory, moduleName)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets a string describing the last module error.
@@ -80,19 +79,20 @@ public object GModule {
     public fun resolveException(error: Error): GLibException {
         val ex = when (error.domain) {
             ModuleError.quark() -> ModuleError.fromErrorOrNull(error)
-                ?.let {
-                    ModuleErrorException(error, it)
-                }
+            ?.let {
+                ModuleErrorException(error, it)
+            }
             else -> null
         }
         return ex ?: GLibException(error)
     }
 }
 
-public val ModuleUnloadFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+public val ModuleUnloadFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 /**
  * Specifies the type of the module function called when it is unloaded.

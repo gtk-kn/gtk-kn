@@ -10,7 +10,9 @@ import org.gtkkn.native.gtk.GtkDialogFlags
 /**
  * Flags used to influence dialog construction.
  */
-public class DialogFlags(public val mask: GtkDialogFlags) : Bitfield<DialogFlags> {
+public class DialogFlags(
+    public val mask: GtkDialogFlags,
+) : Bitfield<DialogFlags> {
     override infix fun or(other: DialogFlags): DialogFlags = DialogFlags(mask or other.mask)
 
     public companion object {

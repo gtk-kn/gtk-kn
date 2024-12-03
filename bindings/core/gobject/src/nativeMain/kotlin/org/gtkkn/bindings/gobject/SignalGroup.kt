@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -26,10 +30,6 @@ import org.gtkkn.native.gobject.g_signal_group_get_type
 import org.gtkkn.native.gobject.g_signal_group_new
 import org.gtkkn.native.gobject.g_signal_group_set_target
 import org.gtkkn.native.gobject.g_signal_group_unblock
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GSignalGroup` manages a collection of signals on a `GObject`.
@@ -61,8 +61,9 @@ import kotlin.Unit
  * @since 2.72
  */
 @GObjectVersion2_72
-public open class SignalGroup(pointer: CPointer<GSignalGroup>) :
-    Object(pointer.reinterpret()),
+public open class SignalGroup(
+    pointer: CPointer<GSignalGroup>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gobjectSignalGroupPointer: CPointer<GSignalGroup>
         get() = gPointer.reinterpret()
@@ -100,13 +101,11 @@ public open class SignalGroup(pointer: CPointer<GSignalGroup>) :
      * @since 2.74
      */
     @GObjectVersion2_74
-    public open fun connectClosure(detailedSignal: String, closure: Closure, after: Boolean): Unit =
-        g_signal_group_connect_closure(
-            gobjectSignalGroupPointer.reinterpret(),
-            detailedSignal,
-            closure.gobjectClosurePointer.reinterpret(),
-            after.asGBoolean()
-        )
+    public open fun connectClosure(
+        detailedSignal: String,
+        closure: Closure,
+        after: Boolean,
+    ): Unit = g_signal_group_connect_closure(gobjectSignalGroupPointer.reinterpret(), detailedSignal, closure.gobjectClosurePointer.reinterpret(), after.asGBoolean())
 
     /**
      * Connects @c_handler to the signal @detailed_signal
@@ -122,12 +121,7 @@ public open class SignalGroup(pointer: CPointer<GSignalGroup>) :
      * @since 2.72
      */
     @GObjectVersion2_72
-    public open fun connectSwapped(detailedSignal: String, cHandler: Callback): Unit = g_signal_group_connect_swapped(
-        gobjectSignalGroupPointer.reinterpret(),
-        detailedSignal,
-        CallbackFunc.reinterpret(),
-        StableRef.create(cHandler).asCPointer()
-    )
+    public open fun connectSwapped(detailedSignal: String, cHandler: Callback): Unit = g_signal_group_connect_swapped(gobjectSignalGroupPointer.reinterpret(), detailedSignal, CallbackFunc.reinterpret(), StableRef.create(cHandler).asCPointer())
 
     /**
      * Gets the target instance used when connecting signals.
@@ -137,8 +131,7 @@ public open class SignalGroup(pointer: CPointer<GSignalGroup>) :
      */
     @GObjectVersion2_72
     public open fun dupTarget(): Object? = g_signal_group_dup_target(gobjectSignalGroupPointer.reinterpret())?.run {
-        Object(reinterpret())
-    }
+        Object(reinterpret())}
 
     /**
      * Sets the target instance used when connecting signals. Any signal
@@ -153,8 +146,7 @@ public open class SignalGroup(pointer: CPointer<GSignalGroup>) :
      * @since 2.72
      */
     @GObjectVersion2_72
-    public open fun setTarget(target: Object? = null): Unit =
-        g_signal_group_set_target(gobjectSignalGroupPointer.reinterpret(), target?.gPointer?.reinterpret())
+    public open fun setTarget(target: Object? = null): Unit = g_signal_group_set_target(gobjectSignalGroupPointer.reinterpret(), target?.gPointer?.reinterpret())
 
     /**
      * Unblocks all signal handlers managed by @self so they will be
@@ -178,15 +170,7 @@ public open class SignalGroup(pointer: CPointer<GSignalGroup>) :
      * @since 2.72
      */
     @GObjectVersion2_72
-    public fun connectBind(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (instance: Object) -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "bind",
-            connectBindFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectBind(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (instance: Object) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "bind", connectBindFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * This signal is emitted when the target instance of @self is set to a
@@ -200,43 +184,30 @@ public open class SignalGroup(pointer: CPointer<GSignalGroup>) :
      * @since 2.72
      */
     @GObjectVersion2_72
-    public fun connectUnbind(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "unbind",
-            connectUnbindFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectUnbind(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "unbind", connectUnbindFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<SignalGroup> {
         override val type: GeneratedClassKGType<SignalGroup> =
-            GeneratedClassKGType(g_signal_group_get_type()) { SignalGroup(it.reinterpret()) }
+                GeneratedClassKGType(g_signal_group_get_type()) { SignalGroup(it.reinterpret()) }
 
         init {
-            GobjectTypeProvider.register()
-        }
+            GobjectTypeProvider.register()}
     }
 }
 
 private val connectBindFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        instance: CPointer<GObject>?,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    instance: CPointer<GObject>?,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(instance: Object) -> Unit>().get().invoke(
-        instance!!.run {
-            Object(reinterpret())
-        }
-    )
-}
-    .reinterpret()
+    userData.asStableRef<(instance: Object) -> Unit>().get().invoke(instance!!.run {
+        Object(reinterpret())}
+    )}
+.reinterpret()
 
 private val connectUnbindFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

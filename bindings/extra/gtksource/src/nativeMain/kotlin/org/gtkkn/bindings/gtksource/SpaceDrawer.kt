@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtksource
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Settings
@@ -22,9 +25,6 @@ import org.gtkkn.native.gtksource.gtk_source_space_drawer_new
 import org.gtkkn.native.gtksource.gtk_source_space_drawer_set_enable_matrix
 import org.gtkkn.native.gtksource.gtk_source_space_drawer_set_matrix
 import org.gtkkn.native.gtksource.gtk_source_space_drawer_set_types_for_locations
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * Represent white space characters with symbols.
@@ -77,8 +77,9 @@ import kotlin.Unit
  *
  * - method `matrix`: Property TypeInfo of getter and setter do not match
  */
-public open class SpaceDrawer(pointer: CPointer<GtkSourceSpaceDrawer>) :
-    Object(pointer.reinterpret()),
+public open class SpaceDrawer(
+    pointer: CPointer<GtkSourceSpaceDrawer>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtksourceSpaceDrawerPointer: CPointer<GtkSourceSpaceDrawer>
         get() = gPointer.reinterpret()
@@ -93,18 +94,12 @@ public open class SpaceDrawer(pointer: CPointer<GtkSourceSpaceDrawer>) :
          * @return whether the #GtkSourceSpaceDrawer:matrix property is enabled.
          */
         get() = gtk_source_space_drawer_get_enable_matrix(gtksourceSpaceDrawerPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the [property@SpaceDrawer:matrix] property is enabled.
          *
          * @param enableMatrix the new value.
          */
-        set(
-            enableMatrix
-        ) = gtk_source_space_drawer_set_enable_matrix(
-            gtksourceSpaceDrawerPointer.reinterpret(),
-            enableMatrix.asGBoolean()
-        )
+        set(enableMatrix) = gtk_source_space_drawer_set_enable_matrix(gtksourceSpaceDrawerPointer.reinterpret(), enableMatrix.asGBoolean())
 
     /**
      * Creates a new #GtkSourceSpaceDrawer object.
@@ -130,13 +125,11 @@ public open class SpaceDrawer(pointer: CPointer<GtkSourceSpaceDrawer>) :
      * @param key the @settings key to bind.
      * @param flags flags for the binding.
      */
-    public open fun bindMatrixSetting(settings: Settings, key: String, flags: SettingsBindFlags): Unit =
-        gtk_source_space_drawer_bind_matrix_setting(
-            gtksourceSpaceDrawerPointer.reinterpret(),
-            settings.gioSettingsPointer.reinterpret(),
-            key,
-            flags.mask
-        )
+    public open fun bindMatrixSetting(
+        settings: Settings,
+        key: String,
+        flags: SettingsBindFlags,
+    ): Unit = gtk_source_space_drawer_bind_matrix_setting(gtksourceSpaceDrawerPointer.reinterpret(), settings.gioSettingsPointer.reinterpret(), key, flags.mask)
 
     /**
      * Gets the value of the [property@SpaceDrawer:matrix] property, as a [struct@GLib.Variant].
@@ -149,10 +142,8 @@ public open class SpaceDrawer(pointer: CPointer<GtkSourceSpaceDrawer>) :
      * @return the #GtkSourceSpaceDrawer:matrix value as a new floating #GVariant
      *   instance.
      */
-    public open fun getMatrix(): Variant =
-        gtk_source_space_drawer_get_matrix(gtksourceSpaceDrawerPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public open fun getMatrix(): Variant = gtk_source_space_drawer_get_matrix(gtksourceSpaceDrawerPointer.reinterpret())!!.run {
+        Variant(reinterpret())}
 
     /**
      * If only one location is specified, this function returns what kind of
@@ -168,10 +159,8 @@ public open class SpaceDrawer(pointer: CPointer<GtkSourceSpaceDrawer>) :
      * @param locations one or several #GtkSourceSpaceLocationFlags.
      * @return a combination of #GtkSourceSpaceTypeFlags.
      */
-    public open fun getTypesForLocations(locations: SpaceLocationFlags): SpaceTypeFlags =
-        gtk_source_space_drawer_get_types_for_locations(gtksourceSpaceDrawerPointer.reinterpret(), locations.mask).run {
-            SpaceTypeFlags(this)
-        }
+    public open fun getTypesForLocations(locations: SpaceLocationFlags): SpaceTypeFlags = gtk_source_space_drawer_get_types_for_locations(gtksourceSpaceDrawerPointer.reinterpret(), locations.mask).run {
+        SpaceTypeFlags(this)}
 
     /**
      * Sets a new value to the [property@SpaceDrawer:matrix] property, as a [struct@GLib.Variant].
@@ -185,10 +174,7 @@ public open class SpaceDrawer(pointer: CPointer<GtkSourceSpaceDrawer>) :
      *
      * @param matrix the new matrix value, or null.
      */
-    public open fun setMatrix(matrix: Variant? = null): Unit = gtk_source_space_drawer_set_matrix(
-        gtksourceSpaceDrawerPointer.reinterpret(),
-        matrix?.glibVariantPointer?.reinterpret()
-    )
+    public open fun setMatrix(matrix: Variant? = null): Unit = gtk_source_space_drawer_set_matrix(gtksourceSpaceDrawerPointer.reinterpret(), matrix?.glibVariantPointer?.reinterpret())
 
     /**
      * Modifies the [property@SpaceDrawer:matrix] property at the specified
@@ -197,19 +183,13 @@ public open class SpaceDrawer(pointer: CPointer<GtkSourceSpaceDrawer>) :
      * @param locations one or several #GtkSourceSpaceLocationFlags.
      * @param types a combination of #GtkSourceSpaceTypeFlags.
      */
-    public open fun setTypesForLocations(locations: SpaceLocationFlags, types: SpaceTypeFlags): Unit =
-        gtk_source_space_drawer_set_types_for_locations(
-            gtksourceSpaceDrawerPointer.reinterpret(),
-            locations.mask,
-            types.mask
-        )
+    public open fun setTypesForLocations(locations: SpaceLocationFlags, types: SpaceTypeFlags): Unit = gtk_source_space_drawer_set_types_for_locations(gtksourceSpaceDrawerPointer.reinterpret(), locations.mask, types.mask)
 
     public companion object : TypeCompanion<SpaceDrawer> {
         override val type: GeneratedClassKGType<SpaceDrawer> =
-            GeneratedClassKGType(gtk_source_space_drawer_get_type()) { SpaceDrawer(it.reinterpret()) }
+                GeneratedClassKGType(gtk_source_space_drawer_get_type()) { SpaceDrawer(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtksourceTypeProvider.register()}
     }
 }

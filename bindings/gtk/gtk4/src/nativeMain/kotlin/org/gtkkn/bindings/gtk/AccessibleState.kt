@@ -1,41 +1,39 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Unit
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.native.gtk.GtkAccessibleState
 import org.gtkkn.native.gtk.gtk_accessible_state_init_value
-import kotlin.Unit
 
 /**
  * The possible accessible states of a [iface@Accessible].
  */
-public enum class AccessibleState(public val nativeValue: GtkAccessibleState) {
+public enum class AccessibleState(
+    public val nativeValue: GtkAccessibleState,
+) {
     /**
      * A “busy” state. This state has boolean values
      */
     BUSY(GtkAccessibleState.GTK_ACCESSIBLE_STATE_BUSY),
-
     /**
      * A “checked” state; indicates the current
      *   state of a [class@CheckButton]. Value type: [enum@AccessibleTristate]
      */
     CHECKED(GtkAccessibleState.GTK_ACCESSIBLE_STATE_CHECKED),
-
     /**
      * A “disabled” state; corresponds to the
      *   [property@Widget:sensitive] property. It indicates a UI element
      *   that is perceivable, but not editable or operable. Value type: boolean
      */
     DISABLED(GtkAccessibleState.GTK_ACCESSIBLE_STATE_DISABLED),
-
     /**
      * An “expanded” state; corresponds to the
      *   [property@Expander:expanded] property. Value type: boolean
      *   or undefined
      */
     EXPANDED(GtkAccessibleState.GTK_ACCESSIBLE_STATE_EXPANDED),
-
     /**
      * A “hidden” state; corresponds to the
      *   [property@Widget:visible] property. You can use this state
@@ -44,26 +42,22 @@ public enum class AccessibleState(public val nativeValue: GtkAccessibleState) {
      *   See also: %GTK_ACCESSIBLE_STATE_DISABLED
      */
     HIDDEN(GtkAccessibleState.GTK_ACCESSIBLE_STATE_HIDDEN),
-
     /**
      * An “invalid” state; set when a widget
      *   is showing an error. Value type: [enum@AccessibleInvalidState]
      */
     INVALID(GtkAccessibleState.GTK_ACCESSIBLE_STATE_INVALID),
-
     /**
      * A “pressed” state; indicates the current
      *   state of a [class@ToggleButton]. Value type: [enum@AccessibleTristate]
      *   enumeration
      */
     PRESSED(GtkAccessibleState.GTK_ACCESSIBLE_STATE_PRESSED),
-
     /**
      * A “selected” state; set when a widget
      *   is selected. Value type: boolean or undefined
      */
     SELECTED(GtkAccessibleState.GTK_ACCESSIBLE_STATE_SELECTED),
-
     /**
      * Indicates that a widget with the GTK_ACCESSIBLE_ROLE_LINK has been visited.
      * Value type: boolean.
@@ -86,7 +80,6 @@ public enum class AccessibleState(public val nativeValue: GtkAccessibleState) {
             else -> error("invalid nativeValue")
         }
 
-        public fun initValue(state: AccessibleState, `value`: Value): Unit =
-            gtk_accessible_state_init_value(state.nativeValue, `value`.gobjectValuePointer.reinterpret())
+        public fun initValue(state: AccessibleState, `value`: Value): Unit = gtk_accessible_state_init_value(state.nativeValue, `value`.gobjectValuePointer.reinterpret())
     }
 }

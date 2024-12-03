@@ -14,14 +14,15 @@ import org.gtkkn.native.gdkpixbuf.GdkInterpType
  * **Note**: Cubic filtering is missing from the list; hyperbolic
  * interpolation is just as fast and results in higher quality.
  */
-public enum class InterpType(public val nativeValue: GdkInterpType) {
+public enum class InterpType(
+    public val nativeValue: GdkInterpType,
+) {
     /**
      * Nearest neighbor sampling; this is the fastest
      *  and lowest quality mode. Quality is normally unacceptable when scaling
      *  down, but may be OK when scaling up.
      */
     NEAREST(GdkInterpType.GDK_INTERP_NEAREST),
-
     /**
      * This is an accurate simulation of the PostScript
      *  image operator without any interpolation enabled.  Each pixel is
@@ -30,7 +31,6 @@ public enum class InterpType(public val nativeValue: GdkInterpType) {
      *  enlargement, and bilinear for reduction.
      */
     TILES(GdkInterpType.GDK_INTERP_TILES),
-
     /**
      * Best quality/speed balance; use this mode by
      *  default. Bilinear interpolation.  For enlargement, it is
@@ -39,7 +39,6 @@ public enum class InterpType(public val nativeValue: GdkInterpType) {
      *  integrating over the coverage area.
      */
     BILINEAR(GdkInterpType.GDK_INTERP_BILINEAR),
-
     /**
      * This is the slowest and highest quality
      *  reconstruction function. It is derived from the hyperbolic filters in

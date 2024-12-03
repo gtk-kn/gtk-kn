@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Float
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -21,9 +24,6 @@ import org.gtkkn.native.gtk.gtk_frame_set_child
 import org.gtkkn.native.gtk.gtk_frame_set_label
 import org.gtkkn.native.gtk.gtk_frame_set_label_align
 import org.gtkkn.native.gtk.gtk_frame_set_label_widget
-import kotlin.Float
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkFrame` is a widget that surrounds its child with a decorative
@@ -77,8 +77,9 @@ import kotlin.Unit
  *
  * - method `label-xalign`: Property has no getter nor setter
  */
-public open class Frame(pointer: CPointer<GtkFrame>) :
-    Widget(pointer.reinterpret()),
+public open class Frame(
+    pointer: CPointer<GtkFrame>,
+) : Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkFramePointer: CPointer<GtkFrame>
         get() = gPointer.reinterpret()
@@ -102,9 +103,7 @@ public open class Frame(pointer: CPointer<GtkFrame>) :
          * @return the child widget of @frame
          */
         get() = gtk_frame_get_child(gtkFramePointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the child widget of @frame.
          *
@@ -127,7 +126,6 @@ public open class Frame(pointer: CPointer<GtkFrame>) :
          *    This string is owned by GTK and must not be modified or freed.
          */
         get() = gtk_frame_get_label(gtkFramePointer.reinterpret())?.toKString()
-
         /**
          * Creates a new `GtkLabel` with the @label and sets it as the frame's
          * label widget.
@@ -146,9 +144,7 @@ public open class Frame(pointer: CPointer<GtkFrame>) :
          * @return the label widget
          */
         get() = gtk_frame_get_label_widget(gtkFramePointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the label widget for the frame.
          *
@@ -157,9 +153,7 @@ public open class Frame(pointer: CPointer<GtkFrame>) :
          *
          * @param labelWidget the new label widget
          */
-        set(
-            labelWidget
-        ) = gtk_frame_set_label_widget(gtkFramePointer.reinterpret(), labelWidget?.gtkWidgetPointer?.reinterpret())
+        set(labelWidget) = gtk_frame_set_label_widget(gtkFramePointer.reinterpret(), labelWidget?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Creates a new `GtkFrame`, with optional label @label.
@@ -187,15 +181,13 @@ public open class Frame(pointer: CPointer<GtkFrame>) :
      *   of the widget. A value of 0.0 represents left alignment;
      *   1.0 represents right alignment.
      */
-    public open fun setLabelAlign(xalign: Float): Unit =
-        gtk_frame_set_label_align(gtkFramePointer.reinterpret(), xalign)
+    public open fun setLabelAlign(xalign: Float): Unit = gtk_frame_set_label_align(gtkFramePointer.reinterpret(), xalign)
 
     public companion object : TypeCompanion<Frame> {
         override val type: GeneratedClassKGType<Frame> =
-            GeneratedClassKGType(gtk_frame_get_type()) { Frame(it.reinterpret()) }
+                GeneratedClassKGType(gtk_frame_get_type()) { Frame(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

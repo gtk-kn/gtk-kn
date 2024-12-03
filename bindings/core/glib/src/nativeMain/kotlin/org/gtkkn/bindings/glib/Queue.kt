@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -20,9 +23,7 @@ import org.gtkkn.native.glib.g_queue_init
 import org.gtkkn.native.glib.g_queue_is_empty
 import org.gtkkn.native.glib.g_queue_reverse
 import org.gtkkn.native.glib.g_queue_sort
-import kotlin.Boolean
-import kotlin.UInt
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Contains the public fields of a
@@ -46,7 +47,9 @@ import kotlin.Unit
  * - parameter `data`: gpointer
  * - parameter `data`: gpointer
  */
-public class Queue(pointer: CPointer<GQueue>) : Record {
+public class Queue(
+    pointer: CPointer<GQueue>,
+) : Record {
     public val glibQueuePointer: CPointer<GQueue> = pointer
 
     /**
@@ -56,8 +59,7 @@ public class Queue(pointer: CPointer<GQueue>) : Record {
      */
     public val head: List?
         get() = glibQueuePointer.pointed.head?.run {
-            List(reinterpret())
-        }
+            List(reinterpret())}
 
     /**
      * a pointer to the last element of the queue
@@ -66,8 +68,7 @@ public class Queue(pointer: CPointer<GQueue>) : Record {
      */
     public val tail: List?
         get() = glibQueuePointer.pointed.tail?.run {
-            List(reinterpret())
-        }
+            List(reinterpret())}
 
     /**
      * the number of elements in the queue
@@ -98,8 +99,7 @@ public class Queue(pointer: CPointer<GQueue>) : Record {
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun foreach(func: Func): Unit =
-        g_queue_foreach(glibQueuePointer.reinterpret(), FuncFunc.reinterpret(), StableRef.create(func).asCPointer())
+    public fun foreach(func: Func): Unit = g_queue_foreach(glibQueuePointer.reinterpret(), FuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Frees the memory allocated for the #GQueue. Only call this function
@@ -156,11 +156,7 @@ public class Queue(pointer: CPointer<GQueue>) : Record {
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun sort(compareFunc: CompareDataFunc): Unit = g_queue_sort(
-        glibQueuePointer.reinterpret(),
-        CompareDataFuncFunc.reinterpret(),
-        StableRef.create(compareFunc).asCPointer()
-    )
+    public fun sort(compareFunc: CompareDataFunc): Unit = g_queue_sort(glibQueuePointer.reinterpret(), CompareDataFuncFunc.reinterpret(), StableRef.create(compareFunc).asCPointer())
 
     public companion object : RecordCompanion<Queue, GQueue> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Queue = Queue(pointer.reinterpret())

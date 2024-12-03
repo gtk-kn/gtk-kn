@@ -16,7 +16,9 @@ import org.gtkkn.native.gobject.G_BINDING_SYNC_CREATE
  * This enumeration can be extended at later date.
  * @since 2.26
  */
-public class BindingFlags(public val mask: GBindingFlags) : Bitfield<BindingFlags> {
+public class BindingFlags(
+    public val mask: GBindingFlags,
+) : Bitfield<BindingFlags> {
     override infix fun or(other: BindingFlags): BindingFlags = BindingFlags(mask or other.mask)
 
     @GObjectVersion2_26

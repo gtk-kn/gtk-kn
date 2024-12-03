@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.String
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -11,7 +12,7 @@ import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.pango.PangoAttrFontFeatures
 import org.gtkkn.native.pango.pango_attr_font_features_new
-import kotlin.String
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `PangoAttrFontFeatures` structure is used to represent OpenType
@@ -24,7 +25,9 @@ import kotlin.String
  * @since 1.38
  */
 @PangoVersion1_38
-public class AttrFontFeatures(pointer: CPointer<PangoAttrFontFeatures>) : Record {
+public class AttrFontFeatures(
+    pointer: CPointer<PangoAttrFontFeatures>,
+) : Record {
     public val pangoAttrFontFeaturesPointer: CPointer<PangoAttrFontFeatures> = pointer
 
     /**
@@ -51,10 +54,8 @@ public class AttrFontFeatures(pointer: CPointer<PangoAttrFontFeatures>) : Record
          */
         @PangoVersion1_38
         public fun new(features: String): Attribute = pango_attr_font_features_new(features)!!.run {
-            Attribute(reinterpret())
-        }
+            Attribute(reinterpret())}
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): AttrFontFeatures =
-            AttrFontFeatures(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): AttrFontFeatures = AttrFontFeatures(pointer.reinterpret())
     }
 }

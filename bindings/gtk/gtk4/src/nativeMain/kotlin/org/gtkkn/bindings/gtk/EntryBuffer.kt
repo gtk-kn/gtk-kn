@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Int
+import kotlin.String
+import kotlin.UInt
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -30,11 +35,6 @@ import org.gtkkn.native.gtk.gtk_entry_buffer_insert_text
 import org.gtkkn.native.gtk.gtk_entry_buffer_new
 import org.gtkkn.native.gtk.gtk_entry_buffer_set_max_length
 import org.gtkkn.native.gtk.gtk_entry_buffer_set_text
-import kotlin.Int
-import kotlin.String
-import kotlin.UInt
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A `GtkEntryBuffer` hold the text displayed in a `GtkText` widget.
@@ -48,8 +48,9 @@ import kotlin.Unit
  * useful in the case of important passwords. Or a derived class could
  * integrate with an application’s concept of undo/redo.
  */
-public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
-    Object(pointer.reinterpret()),
+public open class EntryBuffer(
+    pointer: CPointer<GtkEntryBuffer>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtkEntryBufferPointer: CPointer<GtkEntryBuffer>
         get() = gPointer.reinterpret()
@@ -76,7 +77,6 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
          *   in `GtkEntryBuffer`, or 0 if there is no maximum.
          */
         get() = gtk_entry_buffer_get_max_length(gtkEntryBufferPointer.reinterpret())
-
         /**
          * Sets the maximum allowed length of the contents of the buffer.
          *
@@ -103,8 +103,7 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
          *   string. This string points to internally allocated storage
          *   in the buffer and must not be freed, modified or stored.
          */
-        get() = gtk_entry_buffer_get_text(gtkEntryBufferPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = gtk_entry_buffer_get_text(gtkEntryBufferPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Create a new `GtkEntryBuffer` object.
@@ -115,10 +114,7 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
      * @param nInitialChars number of characters in @initial_chars, or -1
      * @return A new `GtkEntryBuffer` object.
      */
-    public constructor(
-        initialChars: String? = null,
-        nInitialChars: Int,
-    ) : this(gtk_entry_buffer_new(initialChars, nInitialChars)!!.reinterpret())
+    public constructor(initialChars: String? = null, nInitialChars: Int) : this(gtk_entry_buffer_new(initialChars, nInitialChars)!!.reinterpret())
 
     /**
      * Deletes a sequence of characters from the buffer.
@@ -137,8 +133,7 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
      * @param nChars number of characters to delete
      * @return The number of characters deleted.
      */
-    public open fun deleteText(position: UInt, nChars: Int): UInt =
-        gtk_entry_buffer_delete_text(gtkEntryBufferPointer.reinterpret(), position, nChars)
+    public open fun deleteText(position: UInt, nChars: Int): UInt = gtk_entry_buffer_delete_text(gtkEntryBufferPointer.reinterpret(), position, nChars)
 
     /**
      * Used when subclassing `GtkEntryBuffer`.
@@ -146,8 +141,7 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
      * @param position position at which text was deleted
      * @param nChars number of characters deleted
      */
-    public open fun emitDeletedText(position: UInt, nChars: UInt): Unit =
-        gtk_entry_buffer_emit_deleted_text(gtkEntryBufferPointer.reinterpret(), position, nChars)
+    public open fun emitDeletedText(position: UInt, nChars: UInt): Unit = gtk_entry_buffer_emit_deleted_text(gtkEntryBufferPointer.reinterpret(), position, nChars)
 
     /**
      * Used when subclassing `GtkEntryBuffer`.
@@ -156,8 +150,11 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
      * @param chars text that was inserted
      * @param nChars number of characters inserted
      */
-    public open fun emitInsertedText(position: UInt, chars: String, nChars: UInt): Unit =
-        gtk_entry_buffer_emit_inserted_text(gtkEntryBufferPointer.reinterpret(), position, chars, nChars)
+    public open fun emitInsertedText(
+        position: UInt,
+        chars: String,
+        nChars: UInt,
+    ): Unit = gtk_entry_buffer_emit_inserted_text(gtkEntryBufferPointer.reinterpret(), position, chars, nChars)
 
     /**
      * Retrieves the length in bytes of the buffer.
@@ -184,8 +181,11 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
      * @param nChars the length of the text in characters, or -1
      * @return The number of characters actually inserted.
      */
-    public open fun insertText(position: UInt, chars: String, nChars: Int): UInt =
-        gtk_entry_buffer_insert_text(gtkEntryBufferPointer.reinterpret(), position, chars, nChars)
+    public open fun insertText(
+        position: UInt,
+        chars: String,
+        nChars: Int,
+    ): UInt = gtk_entry_buffer_insert_text(gtkEntryBufferPointer.reinterpret(), position, chars, nChars)
 
     /**
      * Sets the text in the buffer.
@@ -199,8 +199,7 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
      * @param chars the new text
      * @param nChars the number of characters in @text, or -1
      */
-    public open fun setText(chars: String, nChars: Int): Unit =
-        gtk_entry_buffer_set_text(gtkEntryBufferPointer.reinterpret(), chars, nChars)
+    public open fun setText(chars: String, nChars: Int): Unit = gtk_entry_buffer_set_text(gtkEntryBufferPointer.reinterpret(), chars, nChars)
 
     /**
      * The text is altered in the default handler for this signal.
@@ -211,17 +210,7 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `position` the position the text was deleted at.; `nChars` The number of characters that were deleted.
      */
-    public fun connectDeletedText(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (position: UInt, nChars: UInt) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "deleted-text",
-        connectDeletedTextFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectDeletedText(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (position: UInt, nChars: UInt) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "deleted-text", connectDeletedTextFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * This signal is emitted after text is inserted into the buffer.
@@ -229,63 +218,44 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `position` the position the text was inserted at.; `chars` The text that was inserted.; `nChars` The number of characters that were inserted.
      */
-    public fun connectInsertedText(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            position: UInt,
-            chars: String,
-            nChars: UInt,
-        ) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "inserted-text",
-        connectInsertedTextFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectInsertedText(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
+        position: UInt,
+        chars: String,
+        nChars: UInt,
+    ) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "inserted-text", connectInsertedTextFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<EntryBuffer> {
         override val type: GeneratedClassKGType<EntryBuffer> =
-            GeneratedClassKGType(gtk_entry_buffer_get_type()) { EntryBuffer(it.reinterpret()) }
+                GeneratedClassKGType(gtk_entry_buffer_get_type()) { EntryBuffer(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }
 
 private val connectDeletedTextFunc: CPointer<CFunction<(UInt, UInt) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        position: UInt,
-        nChars: UInt,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    position: UInt,
+    nChars: UInt,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(position: UInt, nChars: UInt) -> Unit>().get().invoke(position, nChars)
-}
-    .reinterpret()
+    userData.asStableRef<(position: UInt, nChars: UInt) -> Unit>().get().invoke(position, nChars)}
+.reinterpret()
 
-private val connectInsertedTextFunc: CPointer<
-    CFunction<
-        (
-            UInt,
-            CPointer<ByteVar>,
-            UInt,
-        ) -> Unit
-        >
-    > = staticCFunction {
-        _: COpaquePointer,
-        position: UInt,
-        chars: CPointer<ByteVar>?,
-        nChars: UInt,
-        userData: COpaquePointer,
+private val connectInsertedTextFunc: CPointer<CFunction<(
+    UInt,
+    CPointer<ByteVar>,
+    UInt,
+) -> Unit>> = staticCFunction {
+    _: COpaquePointer,
+    position: UInt,
+    chars: CPointer<ByteVar>?,
+    nChars: UInt,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<
-        (
-            position: UInt,
-            chars: String,
-            nChars: UInt,
-        ) -> Unit
-        >().get().invoke(position, chars?.toKString() ?: error("Expected not null string"), nChars)
-}
-    .reinterpret()
+    userData.asStableRef<(
+        position: UInt,
+        chars: String,
+        nChars: UInt,
+    ) -> Unit>().get().invoke(position, chars?.toKString() ?: error("Expected not null string"), nChars)}
+.reinterpret()

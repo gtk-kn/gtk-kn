@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pangocairo
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -19,9 +22,6 @@ import org.gtkkn.native.pango.PangoAttrShape
 import org.gtkkn.native.pangocairo.pango_cairo_font_map_get_default
 import org.gtkkn.native.pangocairo.pango_cairo_font_map_new
 import org.gtkkn.native.pangocairo.pango_cairo_font_map_new_for_font_type
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.Unit
 
 /**
  * ## Skipped during bindings generation
@@ -70,8 +70,7 @@ public object PangoCairo {
      */
     @PangoCairoVersion1_10
     public fun fontMapGetDefault(): FontMap = pango_cairo_font_map_get_default()!!.run {
-        FontMap(reinterpret())
-    }
+        FontMap(reinterpret())}
 
     /**
      * Creates a new `PangoCairoFontMap` object.
@@ -99,8 +98,7 @@ public object PangoCairo {
      */
     @PangoCairoVersion1_10
     public fun fontMapNew(): FontMap = pango_cairo_font_map_new()!!.run {
-        FontMap(reinterpret())
-    }
+        FontMap(reinterpret())}
 
     /**
      * Creates a new `PangoCairoFontMap` object of the type suitable
@@ -117,10 +115,8 @@ public object PangoCairo {
      * @since 1.18
      */
     @PangoCairoVersion1_18
-    public fun fontMapNewForFontType(fonttype: FontType): FontMap? =
-        pango_cairo_font_map_new_for_font_type(fonttype.nativeValue)?.run {
-            FontMap(reinterpret())
-        }
+    public fun fontMapNewForFontType(fonttype: FontType): FontMap? = pango_cairo_font_map_new_for_font_type(fonttype.nativeValue)?.run {
+        FontMap(reinterpret())}
 
     public fun resolveException(error: Error): GLibException {
         val ex = when (error.domain) {
@@ -131,19 +127,15 @@ public object PangoCairo {
 }
 
 public val ShapeRendererFuncFunc: CPointer<CFunction<(CPointer<PangoAttrShape>, Int) -> Unit>> =
-    staticCFunction {
-            attr: CPointer<PangoAttrShape>?,
-            doPath: Int,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(attr: AttrShape, doPath: Boolean) -> Unit>().get().invoke(
-            attr!!.run {
-                AttrShape(reinterpret())
-            },
-            doPath.asBoolean()
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    attr: CPointer<PangoAttrShape>?,
+    doPath: Int,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(attr: AttrShape, doPath: Boolean) -> Unit>().get().invoke(attr!!.run {
+        AttrShape(reinterpret())}
+    , doPath.asBoolean())}
+.reinterpret()
 
 /**
  * Function type for rendering attributes of type %PANGO_ATTR_SHAPE

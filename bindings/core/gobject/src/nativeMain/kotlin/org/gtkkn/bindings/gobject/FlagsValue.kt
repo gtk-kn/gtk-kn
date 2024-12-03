@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.String
+import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,14 +11,15 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GFlagsValue
-import kotlin.String
-import kotlin.UInt
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A structure which contains a single flags value, its name, and its
  * nickname.
  */
-public class FlagsValue(pointer: CPointer<GFlagsValue>) : Record {
+public class FlagsValue(
+    pointer: CPointer<GFlagsValue>,
+) : Record {
     public val gobjectFlagsValuePointer: CPointer<GFlagsValue> = pointer
 
     /**

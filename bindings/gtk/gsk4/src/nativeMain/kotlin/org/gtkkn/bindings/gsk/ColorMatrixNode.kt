@@ -18,8 +18,9 @@ import org.gtkkn.native.gsk.gsk_color_matrix_node_new
 /**
  * A render node controlling the color matrix of its single child node.
  */
-public open class ColorMatrixNode(pointer: CPointer<GskColorMatrixNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class ColorMatrixNode(
+    pointer: CPointer<GskColorMatrixNode>,
+) : RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskColorMatrixNodePointer: CPointer<GskColorMatrixNode>
         get() = gPointer.reinterpret()
@@ -44,50 +45,37 @@ public open class ColorMatrixNode(pointer: CPointer<GskColorMatrixNode>) :
         child: RenderNode,
         colorMatrix: Matrix,
         colorOffset: Vec4,
-    ) : this(
-        gsk_color_matrix_node_new(
-            child.gPointer.reinterpret(),
-            colorMatrix.grapheneMatrixPointer.reinterpret(),
-            colorOffset.grapheneVec4Pointer.reinterpret()
-        )!!.reinterpret()
-    )
+    ) : this(gsk_color_matrix_node_new(child.gPointer.reinterpret(), colorMatrix.grapheneMatrixPointer.reinterpret(), colorOffset.grapheneVec4Pointer.reinterpret())!!.reinterpret())
 
     /**
      * Gets the child node that is getting its colors modified by the given @node.
      *
      * @return The child that is getting its colors modified
      */
-    public open fun getChild(): RenderNode =
-        gsk_color_matrix_node_get_child(gskColorMatrixNodePointer.reinterpret())!!.run {
-            RenderNode(reinterpret())
-        }
+    public open fun getChild(): RenderNode = gsk_color_matrix_node_get_child(gskColorMatrixNodePointer.reinterpret())!!.run {
+        RenderNode(reinterpret())}
 
     /**
      * Retrieves the color matrix used by the @node.
      *
      * @return a 4x4 color matrix
      */
-    public open fun getColorMatrix(): Matrix =
-        gsk_color_matrix_node_get_color_matrix(gskColorMatrixNodePointer.reinterpret())!!.run {
-            Matrix(reinterpret())
-        }
+    public open fun getColorMatrix(): Matrix = gsk_color_matrix_node_get_color_matrix(gskColorMatrixNodePointer.reinterpret())!!.run {
+        Matrix(reinterpret())}
 
     /**
      * Retrieves the color offset used by the @node.
      *
      * @return a color vector
      */
-    public open fun getColorOffset(): Vec4 =
-        gsk_color_matrix_node_get_color_offset(gskColorMatrixNodePointer.reinterpret())!!.run {
-            Vec4(reinterpret())
-        }
+    public open fun getColorOffset(): Vec4 = gsk_color_matrix_node_get_color_offset(gskColorMatrixNodePointer.reinterpret())!!.run {
+        Vec4(reinterpret())}
 
     public companion object : TypeCompanion<ColorMatrixNode> {
         override val type: GeneratedClassKGType<ColorMatrixNode> =
-            GeneratedClassKGType(gsk_color_matrix_node_get_type()) { ColorMatrixNode(it.reinterpret()) }
+                GeneratedClassKGType(gsk_color_matrix_node_get_type()) { ColorMatrixNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
     }
 }

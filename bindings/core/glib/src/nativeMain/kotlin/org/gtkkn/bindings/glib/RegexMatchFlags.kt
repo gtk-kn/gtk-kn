@@ -25,7 +25,9 @@ import org.gtkkn.native.glib.G_REGEX_MATCH_PARTIAL_SOFT
  * Flags specifying match-time options.
  * @since 2.14
  */
-public class RegexMatchFlags(public val mask: GRegexMatchFlags) : Bitfield<RegexMatchFlags> {
+public class RegexMatchFlags(
+    public val mask: GRegexMatchFlags,
+) : Bitfield<RegexMatchFlags> {
     override infix fun or(other: RegexMatchFlags): RegexMatchFlags = RegexMatchFlags(mask or other.mask)
 
     @GLibVersion2_14
@@ -153,6 +155,6 @@ public class RegexMatchFlags(public val mask: GRegexMatchFlags) : Bitfield<Regex
          *     patterns this can only happen for pattern containing "\K". Since: 2.34
          */
         public val NOTEMPTY_ATSTART: RegexMatchFlags =
-            RegexMatchFlags(G_REGEX_MATCH_NOTEMPTY_ATSTART)
+                RegexMatchFlags(G_REGEX_MATCH_NOTEMPTY_ATSTART)
     }
 }

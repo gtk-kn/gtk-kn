@@ -8,12 +8,13 @@ import org.gtkkn.native.gtk.GtkOrientation
  *
  * Typical examples are [class@Box] or [class@GesturePan].
  */
-public enum class Orientation(public val nativeValue: GtkOrientation) {
+public enum class Orientation(
+    public val nativeValue: GtkOrientation,
+) {
     /**
      * The element is in horizontal orientation.
      */
     HORIZONTAL(GtkOrientation.GTK_ORIENTATION_HORIZONTAL),
-
     /**
      * The element is in vertical orientation.
      */

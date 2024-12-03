@@ -7,22 +7,21 @@ import org.gtkkn.native.gtk.GtkSizeGroupMode
  * The mode of the size group determines the directions in which the size
  * group affects the requested sizes of its component widgets.
  */
-public enum class SizeGroupMode(public val nativeValue: GtkSizeGroupMode) {
+public enum class SizeGroupMode(
+    public val nativeValue: GtkSizeGroupMode,
+) {
     /**
      * group has no effect
      */
     NONE(GtkSizeGroupMode.GTK_SIZE_GROUP_NONE),
-
     /**
      * group affects horizontal requisition
      */
     HORIZONTAL(GtkSizeGroupMode.GTK_SIZE_GROUP_HORIZONTAL),
-
     /**
      * group affects vertical requisition
      */
     VERTICAL(GtkSizeGroupMode.GTK_SIZE_GROUP_VERTICAL),
-
     /**
      * group affects both horizontal and vertical requisition
      */

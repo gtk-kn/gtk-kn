@@ -7,18 +7,18 @@ import org.gtkkn.native.gtk.GtkSensitivityType
  * Determines how GTK handles the sensitivity of various controls,
  * such as combo box buttons.
  */
-public enum class SensitivityType(public val nativeValue: GtkSensitivityType) {
+public enum class SensitivityType(
+    public val nativeValue: GtkSensitivityType,
+) {
     /**
      * The control is made insensitive if no
      *   action can be triggered
      */
     AUTO(GtkSensitivityType.GTK_SENSITIVITY_AUTO),
-
     /**
      * The control is always sensitive
      */
     ON(GtkSensitivityType.GTK_SENSITIVITY_ON),
-
     /**
      * The control is always insensitive
      */

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Int
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -8,7 +9,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.pango.PangoRectangle
-import kotlin.Int
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `PangoRectangle` structure represents a rectangle.
@@ -17,7 +18,9 @@ import kotlin.Int
  * extents of a single glyph or section of text. (See, for instance,
  * [method@Pango.Font.get_glyph_extents].)
  */
-public class Rectangle(pointer: CPointer<PangoRectangle>) : Record {
+public class Rectangle(
+    pointer: CPointer<PangoRectangle>,
+) : Record {
     public val pangoRectanglePointer: CPointer<PangoRectangle> = pointer
 
     /**

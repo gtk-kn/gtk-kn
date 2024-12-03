@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Int
+import kotlin.String
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
@@ -20,10 +24,6 @@ import org.gtkkn.native.gio.g_themed_icon_new
 import org.gtkkn.native.gio.g_themed_icon_new_from_names
 import org.gtkkn.native.gio.g_themed_icon_new_with_default_fallbacks
 import org.gtkkn.native.gio.g_themed_icon_prepend_name
-import kotlin.Int
-import kotlin.String
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * `GThemedIcon` is an implementation of [iface@Gio.Icon] that supports icon
@@ -41,8 +41,9 @@ import kotlin.collections.List
  * - method `name`: Property has no getter nor setter
  * - method `use-default-fallbacks`: Property has no getter nor setter
  */
-public open class ThemedIcon(pointer: CPointer<GThemedIcon>) :
-    Object(pointer.reinterpret()),
+public open class ThemedIcon(
+    pointer: CPointer<GThemedIcon>,
+) : Object(pointer.reinterpret()),
     Icon,
     KGTyped {
     public val gioThemedIconPointer: CPointer<GThemedIcon>
@@ -60,8 +61,7 @@ public open class ThemedIcon(pointer: CPointer<GThemedIcon>) :
          *
          * @return a list of icon names.
          */
-        get() = g_themed_icon_get_names(gioThemedIconPointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
+        get() = g_themed_icon_get_names(gioThemedIconPointer.reinterpret())?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Creates a new themed icon for @iconname.
@@ -79,10 +79,8 @@ public open class ThemedIcon(pointer: CPointer<GThemedIcon>) :
      *     null-terminated
      * @return a new #GThemedIcon
      */
-    public constructor(iconnames: List<String>, len: Int) : this(
-        memScoped {
-            g_themed_icon_new_from_names(iconnames.toCStringList(this), len)!!.reinterpret()
-        }
+    public constructor(iconnames: List<String>, len: Int) : this(memScoped {
+        g_themed_icon_new_from_names(iconnames.toCStringList(this), len)!!.reinterpret()}
     )
 
     /**
@@ -93,8 +91,7 @@ public open class ThemedIcon(pointer: CPointer<GThemedIcon>) :
      *
      * @param iconname name of icon to append to list of icons from within @icon.
      */
-    public open fun appendName(iconname: String): Unit =
-        g_themed_icon_append_name(gioThemedIconPointer.reinterpret(), iconname)
+    public open fun appendName(iconname: String): Unit = g_themed_icon_append_name(gioThemedIconPointer.reinterpret(), iconname)
 
     /**
      * Prepend a name to the list of icons from within @icon.
@@ -106,16 +103,14 @@ public open class ThemedIcon(pointer: CPointer<GThemedIcon>) :
      * @since 2.18
      */
     @GioVersion2_18
-    public open fun prependName(iconname: String): Unit =
-        g_themed_icon_prepend_name(gioThemedIconPointer.reinterpret(), iconname)
+    public open fun prependName(iconname: String): Unit = g_themed_icon_prepend_name(gioThemedIconPointer.reinterpret(), iconname)
 
     public companion object : TypeCompanion<ThemedIcon> {
         override val type: GeneratedClassKGType<ThemedIcon> =
-            GeneratedClassKGType(g_themed_icon_get_type()) { ThemedIcon(it.reinterpret()) }
+                GeneratedClassKGType(g_themed_icon_get_type()) { ThemedIcon(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Creates a new themed icon for @iconname.
@@ -145,7 +140,6 @@ public open class ThemedIcon(pointer: CPointer<GThemedIcon>) :
          * @param iconname a string containing an icon name
          * @return a new #GThemedIcon.
          */
-        public fun newWithDefaultFallbacks(iconname: String): ThemedIcon =
-            ThemedIcon(g_themed_icon_new_with_default_fallbacks(iconname)!!.reinterpret())
+        public fun newWithDefaultFallbacks(iconname: String): ThemedIcon = ThemedIcon(g_themed_icon_new_with_default_fallbacks(iconname)!!.reinterpret())
     }
 }

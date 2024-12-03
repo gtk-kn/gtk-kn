@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.ULong
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -8,9 +9,11 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gtk.GtkCssLocation
-import kotlin.ULong
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
-public class CssLocation(pointer: CPointer<GtkCssLocation>) : Record {
+public class CssLocation(
+    pointer: CPointer<GtkCssLocation>,
+) : Record {
     public val gtkCssLocationPointer: CPointer<GtkCssLocation> = pointer
 
     public var bytes: ULong
@@ -44,7 +47,6 @@ public class CssLocation(pointer: CPointer<GtkCssLocation>) : Record {
         }
 
     public companion object : RecordCompanion<CssLocation, GtkCssLocation> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): CssLocation =
-            CssLocation(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): CssLocation = CssLocation(pointer.reinterpret())
     }
 }

@@ -1,6 +1,12 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -42,12 +48,6 @@ import org.gtkkn.native.gtk.gtk_alert_dialog_set_detail
 import org.gtkkn.native.gtk.gtk_alert_dialog_set_message
 import org.gtkkn.native.gtk.gtk_alert_dialog_set_modal
 import org.gtkkn.native.gtk.gtk_alert_dialog_show
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * A `GtkAlertDialog` object collects the arguments that
@@ -67,8 +67,9 @@ import kotlin.collections.List
  * @since 4.10
  */
 @GtkVersion4_10
-public open class AlertDialog(pointer: CPointer<GtkAlertDialog>) :
-    Object(pointer.reinterpret()),
+public open class AlertDialog(
+    pointer: CPointer<GtkAlertDialog>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtkAlertDialogPointer: CPointer<GtkAlertDialog>
         get() = gPointer.reinterpret()
@@ -95,7 +96,6 @@ public open class AlertDialog(pointer: CPointer<GtkAlertDialog>) :
          * @since 4.10
          */
         get() = gtk_alert_dialog_get_cancel_button(gtkAlertDialogPointer.reinterpret())
-
         /**
          * Sets the index of the cancel button.
          *
@@ -130,7 +130,6 @@ public open class AlertDialog(pointer: CPointer<GtkAlertDialog>) :
          * @since 4.10
          */
         get() = gtk_alert_dialog_get_default_button(gtkAlertDialogPointer.reinterpret())
-
         /**
          * Sets the index of the default button.
          *
@@ -156,9 +155,7 @@ public open class AlertDialog(pointer: CPointer<GtkAlertDialog>) :
          * @return the detail text
          * @since 4.10
          */
-        get() = gtk_alert_dialog_get_detail(gtkAlertDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = gtk_alert_dialog_get_detail(gtkAlertDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the detail text that will be shown in the alert.
          *
@@ -181,9 +178,7 @@ public open class AlertDialog(pointer: CPointer<GtkAlertDialog>) :
          * @return the message
          * @since 4.10
          */
-        get() = gtk_alert_dialog_get_message(gtkAlertDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = gtk_alert_dialog_get_message(gtkAlertDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the message that will be shown in the alert.
          *
@@ -208,7 +203,6 @@ public open class AlertDialog(pointer: CPointer<GtkAlertDialog>) :
          * @since 4.10
          */
         get() = gtk_alert_dialog_get_modal(gtkAlertDialogPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the alert blocks interaction
          * with the parent window while it is presented.
@@ -240,13 +234,7 @@ public open class AlertDialog(pointer: CPointer<GtkAlertDialog>) :
         parent: Window? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit = gtk_alert_dialog_choose(
-        gtkAlertDialogPointer.reinterpret(),
-        parent?.gtkWindowPointer?.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
-    )
+    ): Unit = gtk_alert_dialog_choose(gtkAlertDialogPointer.reinterpret(), parent?.gtkWindowPointer?.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
 
     /**
      * Finishes the [method@Gtk.AlertDialog.choose] call
@@ -261,15 +249,11 @@ public open class AlertDialog(pointer: CPointer<GtkAlertDialog>) :
     @GtkVersion4_10
     public open fun chooseFinish(result: AsyncResult): Result<Int> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult =
-            gtk_alert_dialog_choose_finish(
-                gtkAlertDialogPointer.reinterpret(),
-                result.gioAsyncResultPointer,
-                gError.ptr
-            )
+        val gResult = gtk_alert_dialog_choose_finish(gtkAlertDialogPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -281,8 +265,7 @@ public open class AlertDialog(pointer: CPointer<GtkAlertDialog>) :
      * @since 4.10
      */
     @GtkVersion4_10
-    public open fun getButtons(): List<String>? =
-        gtk_alert_dialog_get_buttons(gtkAlertDialogPointer.reinterpret())?.toKStringList()
+    public open fun getButtons(): List<String>? = gtk_alert_dialog_get_buttons(gtkAlertDialogPointer.reinterpret())?.toKStringList()
 
     /**
      * Sets the button labels for the alert.
@@ -292,8 +275,7 @@ public open class AlertDialog(pointer: CPointer<GtkAlertDialog>) :
      */
     @GtkVersion4_10
     public open fun setButtons(labels: List<String>): Unit = memScoped {
-        return gtk_alert_dialog_set_buttons(gtkAlertDialogPointer.reinterpret(), labels.toCStringList(this))
-    }
+        return gtk_alert_dialog_set_buttons(gtkAlertDialogPointer.reinterpret(), labels.toCStringList(this))}
 
     /**
      * Show the alert to the user.
@@ -308,15 +290,13 @@ public open class AlertDialog(pointer: CPointer<GtkAlertDialog>) :
      * @since 4.10
      */
     @GtkVersion4_10
-    public open fun show(parent: Window? = null): Unit =
-        gtk_alert_dialog_show(gtkAlertDialogPointer.reinterpret(), parent?.gtkWindowPointer?.reinterpret())
+    public open fun show(parent: Window? = null): Unit = gtk_alert_dialog_show(gtkAlertDialogPointer.reinterpret(), parent?.gtkWindowPointer?.reinterpret())
 
     public companion object : TypeCompanion<AlertDialog> {
         override val type: GeneratedClassKGType<AlertDialog> =
-            GeneratedClassKGType(gtk_alert_dialog_get_type()) { AlertDialog(it.reinterpret()) }
+                GeneratedClassKGType(gtk_alert_dialog_get_type()) { AlertDialog(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

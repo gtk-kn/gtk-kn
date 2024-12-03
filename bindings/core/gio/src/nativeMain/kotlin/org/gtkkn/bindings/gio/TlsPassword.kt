@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -18,7 +19,6 @@ import org.gtkkn.native.gio.g_tls_password_new
 import org.gtkkn.native.gio.g_tls_password_set_description
 import org.gtkkn.native.gio.g_tls_password_set_flags
 import org.gtkkn.native.gio.g_tls_password_set_warning
-import kotlin.String
 
 /**
  * An abstract interface representing a password used in TLS. Often used in
@@ -33,8 +33,9 @@ import kotlin.String
  * @since 2.30
  */
 @GioVersion2_30
-public open class TlsPassword(pointer: CPointer<GTlsPassword>) :
-    Object(pointer.reinterpret()),
+public open class TlsPassword(
+    pointer: CPointer<GTlsPassword>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gioTlsPasswordPointer: CPointer<GTlsPassword>
         get() = gPointer.reinterpret()
@@ -52,9 +53,7 @@ public open class TlsPassword(pointer: CPointer<GTlsPassword>) :
          * @return The description of the password.
          * @since 2.30
          */
-        get() = g_tls_password_get_description(gioTlsPasswordPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = g_tls_password_get_description(gioTlsPasswordPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Set a description string about what the password will be used for.
          *
@@ -78,9 +77,7 @@ public open class TlsPassword(pointer: CPointer<GTlsPassword>) :
          * @since 2.30
          */
         get() = g_tls_password_get_flags(gioTlsPasswordPointer.reinterpret()).run {
-            TlsPasswordFlags(this)
-        }
-
+            TlsPasswordFlags(this)}
         /**
          * Set flags about the password.
          *
@@ -105,9 +102,7 @@ public open class TlsPassword(pointer: CPointer<GTlsPassword>) :
          * @return The warning.
          * @since 2.30
          */
-        get() = g_tls_password_get_warning(gioTlsPasswordPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = g_tls_password_get_warning(gioTlsPasswordPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Set a user readable translated warning. Usually this warning is a
          * representation of the password flags returned from
@@ -126,17 +121,13 @@ public open class TlsPassword(pointer: CPointer<GTlsPassword>) :
      * @param description description of what the password is for
      * @return The newly allocated password object
      */
-    public constructor(
-        flags: TlsPasswordFlags,
-        description: String,
-    ) : this(g_tls_password_new(flags.mask, description)!!.reinterpret())
+    public constructor(flags: TlsPasswordFlags, description: String) : this(g_tls_password_new(flags.mask, description)!!.reinterpret())
 
     public companion object : TypeCompanion<TlsPassword> {
         override val type: GeneratedClassKGType<TlsPassword> =
-            GeneratedClassKGType(g_tls_password_get_type()) { TlsPassword(it.reinterpret()) }
+                GeneratedClassKGType(g_tls_password_get_type()) { TlsPassword(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
     }
 }

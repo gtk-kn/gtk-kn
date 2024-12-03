@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Long
+import kotlin.String
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -10,8 +12,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_50
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GLogField
-import kotlin.Long
-import kotlin.String
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Structure representing a single field in a structured log entry. See
@@ -29,7 +30,9 @@ import kotlin.String
  * @since 2.50
  */
 @GLibVersion2_50
-public class LogField(pointer: CPointer<GLogField>) : Record {
+public class LogField(
+    pointer: CPointer<GLogField>,
+) : Record {
     public val glibLogFieldPointer: CPointer<GLogField> = pointer
 
     /**

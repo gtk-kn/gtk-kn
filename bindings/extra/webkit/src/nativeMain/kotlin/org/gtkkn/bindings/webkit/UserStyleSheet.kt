@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.String
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
@@ -14,16 +17,16 @@ import org.gtkkn.native.webkit.webkit_user_style_sheet_new
 import org.gtkkn.native.webkit.webkit_user_style_sheet_new_for_world
 import org.gtkkn.native.webkit.webkit_user_style_sheet_ref
 import org.gtkkn.native.webkit.webkit_user_style_sheet_unref
-import kotlin.String
-import kotlin.Unit
-import kotlin.collections.List
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A CSS style sheet which can be injected in loaded pages.
  * @since 2.6
  */
 @WebKitVersion2_6
-public class UserStyleSheet(pointer: CPointer<WebKitUserStyleSheet>) : Record {
+public class UserStyleSheet(
+    pointer: CPointer<WebKitUserStyleSheet>,
+) : Record {
     public val webkitUserStyleSheetPointer: CPointer<WebKitUserStyleSheet> = pointer
 
     /**
@@ -36,8 +39,7 @@ public class UserStyleSheet(pointer: CPointer<WebKitUserStyleSheet>) : Record {
      */
     @WebKitVersion2_6
     public fun ref(): UserStyleSheet = webkit_user_style_sheet_ref(webkitUserStyleSheetPointer.reinterpret())!!.run {
-        UserStyleSheet(reinterpret())
-    }
+        UserStyleSheet(reinterpret())}
 
     /**
      * Atomically decrements the reference count of @user_style_sheet by one.
@@ -79,16 +81,7 @@ public class UserStyleSheet(pointer: CPointer<WebKitUserStyleSheet>) : Record {
             blockList: List<String>? = null,
         ): UserStyleSheet {
             memScoped {
-                return UserStyleSheet(
-                    webkit_user_style_sheet_new(
-                        source,
-                        injectedFrames.nativeValue,
-                        level.nativeValue,
-                        allowList?.toCStringList(this),
-                        blockList?.toCStringList(this)
-                    )!!.reinterpret()
-                )
-            }
+                return UserStyleSheet(webkit_user_style_sheet_new(source, injectedFrames.nativeValue, level.nativeValue, allowList?.toCStringList(this), blockList?.toCStringList(this))!!.reinterpret())}
         }
 
         /**
@@ -115,20 +108,9 @@ public class UserStyleSheet(pointer: CPointer<WebKitUserStyleSheet>) : Record {
             blockList: List<String>? = null,
         ): UserStyleSheet {
             memScoped {
-                return UserStyleSheet(
-                    webkit_user_style_sheet_new_for_world(
-                        source,
-                        injectedFrames.nativeValue,
-                        level.nativeValue,
-                        worldName,
-                        allowList?.toCStringList(this),
-                        blockList?.toCStringList(this)
-                    )!!.reinterpret()
-                )
-            }
+                return UserStyleSheet(webkit_user_style_sheet_new_for_world(source, injectedFrames.nativeValue, level.nativeValue, worldName, allowList?.toCStringList(this), blockList?.toCStringList(this))!!.reinterpret())}
         }
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): UserStyleSheet =
-            UserStyleSheet(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): UserStyleSheet = UserStyleSheet(pointer.reinterpret())
     }
 }

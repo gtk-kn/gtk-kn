@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -15,7 +16,7 @@ import org.gtkkn.native.glib.g_variant_builder_new
 import org.gtkkn.native.glib.g_variant_builder_open
 import org.gtkkn.native.glib.g_variant_builder_ref
 import org.gtkkn.native.glib.g_variant_builder_unref
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A utility type for constructing container-type #GVariant instances.
@@ -26,7 +27,9 @@ import kotlin.Unit
  * #GVariantBuilder is not threadsafe in any way.  Do not attempt to
  * access it from more than one thread.
  */
-public class VariantBuilder(pointer: CPointer<GVariantBuilder>) : Record {
+public class VariantBuilder(
+    pointer: CPointer<GVariantBuilder>,
+) : Record {
     public val glibVariantBuilderPointer: CPointer<GVariantBuilder> = pointer
 
     /**
@@ -45,8 +48,7 @@ public class VariantBuilder(pointer: CPointer<GVariantBuilder>) : Record {
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun addValue(`value`: Variant): Unit =
-        g_variant_builder_add_value(glibVariantBuilderPointer.reinterpret(), `value`.glibVariantPointer.reinterpret())
+    public fun addValue(`value`: Variant): Unit = g_variant_builder_add_value(glibVariantBuilderPointer.reinterpret(), `value`.glibVariantPointer.reinterpret())
 
     /**
      * Closes the subcontainer inside the given @builder that was opened by
@@ -85,8 +87,7 @@ public class VariantBuilder(pointer: CPointer<GVariantBuilder>) : Record {
      */
     @GLibVersion2_24
     public fun end(): Variant = g_variant_builder_end(glibVariantBuilderPointer.reinterpret())!!.run {
-        Variant(reinterpret())
-    }
+        Variant(reinterpret())}
 
     /**
      * Opens a subcontainer inside the given @builder.  When done adding
@@ -130,8 +131,7 @@ public class VariantBuilder(pointer: CPointer<GVariantBuilder>) : Record {
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun `open`(type: VariantType): Unit =
-        g_variant_builder_open(glibVariantBuilderPointer.reinterpret(), type.glibVariantTypePointer.reinterpret())
+    public fun `open`(type: VariantType): Unit = g_variant_builder_open(glibVariantBuilderPointer.reinterpret(), type.glibVariantTypePointer.reinterpret())
 
     /**
      * Increases the reference count on @builder.
@@ -144,8 +144,7 @@ public class VariantBuilder(pointer: CPointer<GVariantBuilder>) : Record {
      */
     @GLibVersion2_24
     public fun ref(): VariantBuilder = g_variant_builder_ref(glibVariantBuilderPointer.reinterpret())!!.run {
-        VariantBuilder(reinterpret())
-    }
+        VariantBuilder(reinterpret())}
 
     /**
      * Decreases the reference count on @builder.
@@ -177,10 +176,8 @@ public class VariantBuilder(pointer: CPointer<GVariantBuilder>) : Record {
          * @return a #GVariantBuilder
          * @since 2.24
          */
-        public fun new(type: VariantType): VariantBuilder =
-            VariantBuilder(g_variant_builder_new(type.glibVariantTypePointer.reinterpret())!!.reinterpret())
+        public fun new(type: VariantType): VariantBuilder = VariantBuilder(g_variant_builder_new(type.glibVariantTypePointer.reinterpret())!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): VariantBuilder =
-            VariantBuilder(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): VariantBuilder = VariantBuilder(pointer.reinterpret())
     }
 }

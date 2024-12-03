@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -9,13 +10,13 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkButtonEvent
 import org.gtkkn.native.gdk.gdk_button_event_get_button
 import org.gtkkn.native.gdk.gdk_button_event_get_type
-import kotlin.UInt
 
 /**
  * An event related to a button on a pointer device.
  */
-public open class ButtonEvent(pointer: CPointer<GdkButtonEvent>) :
-    Event(pointer.reinterpret()),
+public open class ButtonEvent(
+    pointer: CPointer<GdkButtonEvent>,
+) : Event(pointer.reinterpret()),
     KGTyped {
     public val gdkButtonEventPointer: CPointer<GdkButtonEvent>
         get() = gPointer.reinterpret()
@@ -29,10 +30,9 @@ public open class ButtonEvent(pointer: CPointer<GdkButtonEvent>) :
 
     public companion object : TypeCompanion<ButtonEvent> {
         override val type: GeneratedClassKGType<ButtonEvent> =
-            GeneratedClassKGType(gdk_button_event_get_type()) { ButtonEvent(it.reinterpret()) }
+                GeneratedClassKGType(gdk_button_event_get_type()) { ButtonEvent(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
     }
 }

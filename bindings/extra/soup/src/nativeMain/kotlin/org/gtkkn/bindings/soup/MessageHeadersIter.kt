@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -8,7 +9,7 @@ import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.soup.SoupMessageHeadersIter
 import org.gtkkn.native.soup.soup_message_headers_iter_init
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * An opaque type used to iterate over a %SoupMessageHeaders
@@ -24,7 +25,9 @@ import kotlin.Unit
  * - parameter `name`: name: Out parameter is not supported
  * - field `dummy`: Record field dummy is private
  */
-public class MessageHeadersIter(pointer: CPointer<SoupMessageHeadersIter>) : Record {
+public class MessageHeadersIter(
+    pointer: CPointer<SoupMessageHeadersIter>,
+) : Record {
     public val soupMessageHeadersIterPointer: CPointer<SoupMessageHeadersIter> = pointer
 
     public companion object : RecordCompanion<MessageHeadersIter, SoupMessageHeadersIter> {
@@ -35,12 +38,8 @@ public class MessageHeadersIter(pointer: CPointer<SoupMessageHeadersIter>) : Rec
          *   structure
          * @param hdrs a %SoupMessageHeaders
          */
-        public fun `init`(iter: MessageHeadersIter, hdrs: MessageHeaders): Unit = soup_message_headers_iter_init(
-            iter.soupMessageHeadersIterPointer.reinterpret(),
-            hdrs.soupMessageHeadersPointer.reinterpret()
-        )
+        public fun `init`(iter: MessageHeadersIter, hdrs: MessageHeaders): Unit = soup_message_headers_iter_init(iter.soupMessageHeadersIterPointer.reinterpret(), hdrs.soupMessageHeadersPointer.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MessageHeadersIter =
-            MessageHeadersIter(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MessageHeadersIter = MessageHeadersIter(pointer.reinterpret())
     }
 }

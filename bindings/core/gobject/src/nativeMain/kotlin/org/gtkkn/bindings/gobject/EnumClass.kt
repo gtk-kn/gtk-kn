@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Int
+import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -8,8 +10,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GEnumClass
-import kotlin.Int
-import kotlin.UInt
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The class of an enumeration type holds information about its
@@ -19,7 +20,9 @@ import kotlin.UInt
  *
  * - field `g_type_class`: TypeClass
  */
-public class EnumClass(pointer: CPointer<GEnumClass>) : Record {
+public class EnumClass(
+    pointer: CPointer<GEnumClass>,
+) : Record {
     public val gobjectEnumClassPointer: CPointer<GEnumClass> = pointer
 
     /**
@@ -57,8 +60,7 @@ public class EnumClass(pointer: CPointer<GEnumClass>) : Record {
      */
     public val values: EnumValue?
         get() = gobjectEnumClassPointer.pointed.values?.run {
-            EnumValue(reinterpret())
-        }
+            EnumValue(reinterpret())}
 
     public companion object : RecordCompanion<EnumClass, GEnumClass> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): EnumClass = EnumClass(pointer.reinterpret())

@@ -9,6 +9,7 @@ import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.pango.PangoAttrLanguage
 import org.gtkkn.native.pango.pango_attr_language_new
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `PangoAttrLanguage` structure is used to represent attributes that
@@ -18,7 +19,9 @@ import org.gtkkn.native.pango.pango_attr_language_new
  *
  * - field `attr`: Attribute
  */
-public class AttrLanguage(pointer: CPointer<PangoAttrLanguage>) : Record {
+public class AttrLanguage(
+    pointer: CPointer<PangoAttrLanguage>,
+) : Record {
     public val pangoAttrLanguagePointer: CPointer<PangoAttrLanguage> = pointer
 
     /**
@@ -28,8 +31,7 @@ public class AttrLanguage(pointer: CPointer<PangoAttrLanguage>) : Record {
      */
     public val `value`: Language?
         get() = pangoAttrLanguagePointer.pointed.value?.run {
-            Language(reinterpret())
-        }
+            Language(reinterpret())}
 
     public companion object : RecordCompanion<AttrLanguage, PangoAttrLanguage> {
         /**
@@ -40,12 +42,9 @@ public class AttrLanguage(pointer: CPointer<PangoAttrLanguage>) : Record {
          *   `PangoAttribute`, which should be freed with
          *   [method@Pango.Attribute.destroy]
          */
-        public fun new(language: Language): Attribute =
-            pango_attr_language_new(language.pangoLanguagePointer.reinterpret())!!.run {
-                Attribute(reinterpret())
-            }
+        public fun new(language: Language): Attribute = pango_attr_language_new(language.pangoLanguagePointer.reinterpret())!!.run {
+            Attribute(reinterpret())}
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): AttrLanguage =
-            AttrLanguage(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): AttrLanguage = AttrLanguage(pointer.reinterpret())
     }
 }

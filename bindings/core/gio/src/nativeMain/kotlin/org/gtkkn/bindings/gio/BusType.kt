@@ -9,22 +9,21 @@ import org.gtkkn.native.gio.GBusType
  * @since 2.26
  */
 @GioVersion2_26
-public enum class BusType(public val nativeValue: GBusType) {
+public enum class BusType(
+    public val nativeValue: GBusType,
+) {
     /**
      * An alias for the message bus that activated the process, if any.
      */
     STARTER(GBusType.G_BUS_TYPE_STARTER),
-
     /**
      * Not a message bus.
      */
     NONE(GBusType.G_BUS_TYPE_NONE),
-
     /**
      * The system-wide message bus.
      */
     SYSTEM(GBusType.G_BUS_TYPE_SYSTEM),
-
     /**
      * The login session message bus.
      */

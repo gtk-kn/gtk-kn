@@ -8,6 +8,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GDBusInterfaceVTable
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Virtual table for handling properties and method calls for a D-Bus
@@ -62,11 +63,12 @@ import org.gtkkn.native.gio.GDBusInterfaceVTable
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusInterfaceVTable(pointer: CPointer<GDBusInterfaceVTable>) : Record {
+public class DBusInterfaceVTable(
+    pointer: CPointer<GDBusInterfaceVTable>,
+) : Record {
     public val gioDBusInterfaceVTablePointer: CPointer<GDBusInterfaceVTable> = pointer
 
     public companion object : RecordCompanion<DBusInterfaceVTable, GDBusInterfaceVTable> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusInterfaceVTable =
-            DBusInterfaceVTable(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusInterfaceVTable = DBusInterfaceVTable(pointer.reinterpret())
     }
 }

@@ -7,6 +7,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GMarkupParser
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Any of the fields in #GMarkupParser can be null, in which case they
@@ -25,11 +26,12 @@ import org.gtkkn.native.glib.GMarkupParser
  * - field `passthrough`: Fields with callbacks are not supported
  * - field `error`: Fields with callbacks are not supported
  */
-public class MarkupParser(pointer: CPointer<GMarkupParser>) : Record {
+public class MarkupParser(
+    pointer: CPointer<GMarkupParser>,
+) : Record {
     public val glibMarkupParserPointer: CPointer<GMarkupParser> = pointer
 
     public companion object : RecordCompanion<MarkupParser, GMarkupParser> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MarkupParser =
-            MarkupParser(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MarkupParser = MarkupParser(pointer.reinterpret())
     }
 }

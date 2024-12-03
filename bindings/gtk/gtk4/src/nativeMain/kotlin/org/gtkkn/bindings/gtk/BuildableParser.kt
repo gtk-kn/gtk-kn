@@ -7,6 +7,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gtk.GtkBuildableParser
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A sub-parser for `GtkBuildable` implementations.
@@ -19,11 +20,12 @@ import org.gtkkn.native.gtk.GtkBuildableParser
  * - field `error`: Fields with callbacks are not supported
  * - field `padding`: Record field padding is private
  */
-public class BuildableParser(pointer: CPointer<GtkBuildableParser>) : Record {
+public class BuildableParser(
+    pointer: CPointer<GtkBuildableParser>,
+) : Record {
     public val gtkBuildableParserPointer: CPointer<GtkBuildableParser> = pointer
 
     public companion object : RecordCompanion<BuildableParser, GtkBuildableParser> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): BuildableParser =
-            BuildableParser(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): BuildableParser = BuildableParser(pointer.reinterpret())
     }
 }

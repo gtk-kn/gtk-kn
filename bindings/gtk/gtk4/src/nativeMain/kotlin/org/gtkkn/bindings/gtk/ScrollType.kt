@@ -6,82 +6,69 @@ import org.gtkkn.native.gtk.GtkScrollType
 /**
  * Scrolling types.
  */
-public enum class ScrollType(public val nativeValue: GtkScrollType) {
+public enum class ScrollType(
+    public val nativeValue: GtkScrollType,
+) {
     /**
      * No scrolling.
      */
     NONE(GtkScrollType.GTK_SCROLL_NONE),
-
     /**
      * Jump to new location.
      */
     JUMP(GtkScrollType.GTK_SCROLL_JUMP),
-
     /**
      * Step backward.
      */
     STEP_BACKWARD(GtkScrollType.GTK_SCROLL_STEP_BACKWARD),
-
     /**
      * Step forward.
      */
     STEP_FORWARD(GtkScrollType.GTK_SCROLL_STEP_FORWARD),
-
     /**
      * Page backward.
      */
     PAGE_BACKWARD(GtkScrollType.GTK_SCROLL_PAGE_BACKWARD),
-
     /**
      * Page forward.
      */
     PAGE_FORWARD(GtkScrollType.GTK_SCROLL_PAGE_FORWARD),
-
     /**
      * Step up.
      */
     STEP_UP(GtkScrollType.GTK_SCROLL_STEP_UP),
-
     /**
      * Step down.
      */
     STEP_DOWN(GtkScrollType.GTK_SCROLL_STEP_DOWN),
-
     /**
      * Page up.
      */
     PAGE_UP(GtkScrollType.GTK_SCROLL_PAGE_UP),
-
     /**
      * Page down.
      */
     PAGE_DOWN(GtkScrollType.GTK_SCROLL_PAGE_DOWN),
-
     /**
      * Step to the left.
      */
     STEP_LEFT(GtkScrollType.GTK_SCROLL_STEP_LEFT),
-
     /**
      * Step to the right.
      */
     STEP_RIGHT(GtkScrollType.GTK_SCROLL_STEP_RIGHT),
-
     /**
      * Page to the left.
      */
     PAGE_LEFT(GtkScrollType.GTK_SCROLL_PAGE_LEFT),
-
     /**
      * Page to the right.
      */
     PAGE_RIGHT(GtkScrollType.GTK_SCROLL_PAGE_RIGHT),
-
     /**
      * Scroll to start.
      */
     START(GtkScrollType.GTK_SCROLL_START),
-
     /**
      * Scroll to end.
      */

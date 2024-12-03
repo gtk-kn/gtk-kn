@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -26,9 +29,6 @@ import org.gtkkn.native.gtk.gtk_stack_page_set_needs_attention
 import org.gtkkn.native.gtk.gtk_stack_page_set_title
 import org.gtkkn.native.gtk.gtk_stack_page_set_use_underline
 import org.gtkkn.native.gtk.gtk_stack_page_set_visible
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkStackPage` is an auxiliary class used by `GtkStack`.
@@ -39,8 +39,9 @@ import kotlin.Unit
  * - method `name`: Property TypeInfo of getter and setter do not match
  * - method `title`: Property TypeInfo of getter and setter do not match
  */
-public open class StackPage(pointer: CPointer<GtkStackPage>) :
-    Object(pointer.reinterpret()),
+public open class StackPage(
+    pointer: CPointer<GtkStackPage>,
+) : Object(pointer.reinterpret()),
     Accessible,
     KGTyped {
     public val gtkStackPagePointer: CPointer<GtkStackPage>
@@ -59,8 +60,7 @@ public open class StackPage(pointer: CPointer<GtkStackPage>) :
          * @return the child to which @self belongs
          */
         get() = gtk_stack_page_get_child(gtkStackPagePointer.reinterpret())!!.run {
-            Widget(reinterpret())
-        }
+            Widget(reinterpret())}
 
     /**
      * Whether the page requires the user attention.
@@ -77,7 +77,6 @@ public open class StackPage(pointer: CPointer<GtkStackPage>) :
          *   property.
          */
         get() = gtk_stack_page_get_needs_attention(gtkStackPagePointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the page is marked as “needs attention”.
          *
@@ -95,7 +94,6 @@ public open class StackPage(pointer: CPointer<GtkStackPage>) :
          * @return The value of the [property@Gtk.StackPage:use-underline] property
          */
         get() = gtk_stack_page_get_use_underline(gtkStackPagePointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether underlines in the page title indicate mnemonics.
          *
@@ -116,7 +114,6 @@ public open class StackPage(pointer: CPointer<GtkStackPage>) :
          * @return true if @page is visible
          */
         get() = gtk_stack_page_get_visible(gtkStackPagePointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether @page is visible in its `GtkStack`.
          *
@@ -129,8 +126,7 @@ public open class StackPage(pointer: CPointer<GtkStackPage>) :
      *
      * @return The value of the [property@Gtk.StackPage:icon-name] property
      */
-    public open fun getIconName(): String? =
-        gtk_stack_page_get_icon_name(gtkStackPagePointer.reinterpret())?.toKString()
+    public open fun getIconName(): String? = gtk_stack_page_get_icon_name(gtkStackPagePointer.reinterpret())?.toKString()
 
     /**
      * Returns the name of the page.
@@ -151,8 +147,7 @@ public open class StackPage(pointer: CPointer<GtkStackPage>) :
      *
      * @param setting the new value to set
      */
-    public open fun setIconName(setting: String): Unit =
-        gtk_stack_page_set_icon_name(gtkStackPagePointer.reinterpret(), setting)
+    public open fun setIconName(setting: String): Unit = gtk_stack_page_set_icon_name(gtkStackPagePointer.reinterpret(), setting)
 
     /**
      * Sets the name of the page.
@@ -166,15 +161,13 @@ public open class StackPage(pointer: CPointer<GtkStackPage>) :
      *
      * @param setting the new value to set
      */
-    public open fun setTitle(setting: String): Unit =
-        gtk_stack_page_set_title(gtkStackPagePointer.reinterpret(), setting)
+    public open fun setTitle(setting: String): Unit = gtk_stack_page_set_title(gtkStackPagePointer.reinterpret(), setting)
 
     public companion object : TypeCompanion<StackPage> {
         override val type: GeneratedClassKGType<StackPage> =
-            GeneratedClassKGType(gtk_stack_page_get_type()) { StackPage(it.reinterpret()) }
+                GeneratedClassKGType(gtk_stack_page_get_type()) { StackPage(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

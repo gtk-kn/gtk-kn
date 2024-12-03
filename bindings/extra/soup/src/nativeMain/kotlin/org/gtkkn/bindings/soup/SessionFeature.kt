@@ -21,22 +21,21 @@ import org.gtkkn.native.soup.soup_session_feature_get_type
  *
  * See [method@Session.add_feature], etc, to add a feature to a session.
  */
-public interface SessionFeature :
-    Interface,
-    KGTyped {
+public interface SessionFeature : Interface, KGTyped {
     public val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
 
-    private data class Wrapper(private val pointer: CPointer<SoupSessionFeature>) : SessionFeature {
+    private data class Wrapper(
+        private val pointer: CPointer<SoupSessionFeature>,
+    ) : SessionFeature {
         override val soupSessionFeaturePointer: CPointer<SoupSessionFeature> = pointer
     }
 
     public companion object : TypeCompanion<SessionFeature> {
         override val type: GeneratedInterfaceKGType<SessionFeature> =
-            GeneratedInterfaceKGType(soup_session_feature_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(soup_session_feature_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<SoupSessionFeature>): SessionFeature = Wrapper(pointer)
     }

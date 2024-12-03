@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Int
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -19,10 +22,8 @@ import org.gtkkn.native.gio.g_dbus_interface_info_lookup_property
 import org.gtkkn.native.gio.g_dbus_interface_info_lookup_signal
 import org.gtkkn.native.gio.g_dbus_interface_info_ref
 import org.gtkkn.native.gio.g_dbus_interface_info_unref
-import kotlin.Int
-import kotlin.UInt
-import kotlin.Unit
 import kotlin.String as KotlinString
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 import org.gtkkn.bindings.glib.String as GlibString
 
 /**
@@ -38,7 +39,9 @@ import org.gtkkn.bindings.glib.String as GlibString
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusInterfaceInfo(pointer: CPointer<GDBusInterfaceInfo>) : Record {
+public class DBusInterfaceInfo(
+    pointer: CPointer<GDBusInterfaceInfo>,
+) : Record {
     public val gioDBusInterfaceInfoPointer: CPointer<GDBusInterfaceInfo> = pointer
 
     /**
@@ -98,11 +101,7 @@ public class DBusInterfaceInfo(pointer: CPointer<GDBusInterfaceInfo>) : Record {
      * @since 2.26
      */
     @GioVersion2_26
-    public fun generateXml(indent: UInt, stringBuilder: GlibString): Unit = g_dbus_interface_info_generate_xml(
-        gioDBusInterfaceInfoPointer.reinterpret(),
-        indent,
-        stringBuilder.glibStringPointer.reinterpret()
-    )
+    public fun generateXml(indent: UInt, stringBuilder: GlibString): Unit = g_dbus_interface_info_generate_xml(gioDBusInterfaceInfoPointer.reinterpret(), indent, stringBuilder.glibStringPointer.reinterpret())
 
     /**
      * Looks up information about a method.
@@ -115,10 +114,8 @@ public class DBusInterfaceInfo(pointer: CPointer<GDBusInterfaceInfo>) : Record {
      * @since 2.26
      */
     @GioVersion2_26
-    public fun lookupMethod(name: KotlinString): DBusMethodInfo? =
-        g_dbus_interface_info_lookup_method(gioDBusInterfaceInfoPointer.reinterpret(), name)?.run {
-            DBusMethodInfo(reinterpret())
-        }
+    public fun lookupMethod(name: KotlinString): DBusMethodInfo? = g_dbus_interface_info_lookup_method(gioDBusInterfaceInfoPointer.reinterpret(), name)?.run {
+        DBusMethodInfo(reinterpret())}
 
     /**
      * Looks up information about a property.
@@ -131,10 +128,8 @@ public class DBusInterfaceInfo(pointer: CPointer<GDBusInterfaceInfo>) : Record {
      * @since 2.26
      */
     @GioVersion2_26
-    public fun lookupProperty(name: KotlinString): DBusPropertyInfo? =
-        g_dbus_interface_info_lookup_property(gioDBusInterfaceInfoPointer.reinterpret(), name)?.run {
-            DBusPropertyInfo(reinterpret())
-        }
+    public fun lookupProperty(name: KotlinString): DBusPropertyInfo? = g_dbus_interface_info_lookup_property(gioDBusInterfaceInfoPointer.reinterpret(), name)?.run {
+        DBusPropertyInfo(reinterpret())}
 
     /**
      * Looks up information about a signal.
@@ -147,10 +142,8 @@ public class DBusInterfaceInfo(pointer: CPointer<GDBusInterfaceInfo>) : Record {
      * @since 2.26
      */
     @GioVersion2_26
-    public fun lookupSignal(name: KotlinString): DBusSignalInfo? =
-        g_dbus_interface_info_lookup_signal(gioDBusInterfaceInfoPointer.reinterpret(), name)?.run {
-            DBusSignalInfo(reinterpret())
-        }
+    public fun lookupSignal(name: KotlinString): DBusSignalInfo? = g_dbus_interface_info_lookup_signal(gioDBusInterfaceInfoPointer.reinterpret(), name)?.run {
+        DBusSignalInfo(reinterpret())}
 
     /**
      * If @info is statically allocated does nothing. Otherwise increases
@@ -161,8 +154,7 @@ public class DBusInterfaceInfo(pointer: CPointer<GDBusInterfaceInfo>) : Record {
      */
     @GioVersion2_26
     public fun ref(): DBusInterfaceInfo = g_dbus_interface_info_ref(gioDBusInterfaceInfoPointer.reinterpret())!!.run {
-        DBusInterfaceInfo(reinterpret())
-    }
+        DBusInterfaceInfo(reinterpret())}
 
     /**
      * If @info is statically allocated, does nothing. Otherwise decreases
@@ -175,7 +167,6 @@ public class DBusInterfaceInfo(pointer: CPointer<GDBusInterfaceInfo>) : Record {
     public fun unref(): Unit = g_dbus_interface_info_unref(gioDBusInterfaceInfoPointer.reinterpret())
 
     public companion object : RecordCompanion<DBusInterfaceInfo, GDBusInterfaceInfo> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusInterfaceInfo =
-            DBusInterfaceInfo(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusInterfaceInfo = DBusInterfaceInfo(pointer.reinterpret())
     }
 }

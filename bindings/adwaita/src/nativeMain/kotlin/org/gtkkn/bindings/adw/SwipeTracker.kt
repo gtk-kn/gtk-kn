@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.Double
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -41,10 +45,6 @@ import org.gtkkn.native.adw.adw_swipe_tracker_set_upper_overshoot
 import org.gtkkn.native.adw.adw_swipe_tracker_shift_position
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkOrientable
-import kotlin.Boolean
-import kotlin.Double
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A swipe tracker used in [class@Carousel], [class@NavigationView] and
@@ -59,8 +59,9 @@ import kotlin.Unit
  * [property@SwipeTracker:reversed] can be used for supporting RTL text
  * direction.
  */
-public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
-    Object(pointer.reinterpret()),
+public class SwipeTracker(
+    pointer: CPointer<AdwSwipeTracker>,
+) : Object(pointer.reinterpret()),
     Orientable,
     KGTyped {
     public val adwSwipeTrackerPointer: CPointer<AdwSwipeTracker>
@@ -82,7 +83,6 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
          * @return whether long swipes are allowed
          */
         get() = adw_swipe_tracker_get_allow_long_swipes(adwSwipeTrackerPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether to allow swiping for more than one snap point at a time.
          *
@@ -91,9 +91,7 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
          *
          * @param allowLongSwipes whether to allow long swipes
          */
-        set(
-            allowLongSwipes
-        ) = adw_swipe_tracker_set_allow_long_swipes(adwSwipeTrackerPointer.reinterpret(), allowLongSwipes.asGBoolean())
+        set(allowLongSwipes) = adw_swipe_tracker_set_allow_long_swipes(adwSwipeTrackerPointer.reinterpret(), allowLongSwipes.asGBoolean())
 
     /**
      * Whether to allow dragging with mouse pointer.
@@ -105,15 +103,12 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
          * @return whether mouse dragging is allowed
          */
         get() = adw_swipe_tracker_get_allow_mouse_drag(adwSwipeTrackerPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether @self can be dragged with mouse pointer.
          *
          * @param allowMouseDrag whether to allow mouse dragging
          */
-        set(
-            allowMouseDrag
-        ) = adw_swipe_tracker_set_allow_mouse_drag(adwSwipeTrackerPointer.reinterpret(), allowMouseDrag.asGBoolean())
+        set(allowMouseDrag) = adw_swipe_tracker_set_allow_mouse_drag(adwSwipeTrackerPointer.reinterpret(), allowMouseDrag.asGBoolean())
 
     /**
      * Whether to allow touchscreen swiping from `GtkWindowHandle`.
@@ -131,7 +126,6 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
          * @since 1.5
          */
         get() = adw_swipe_tracker_get_allow_window_handle(adwSwipeTrackerPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether to allow touchscreen swiping from `GtkWindowHandle`.
          *
@@ -141,12 +135,7 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
          * @since 1.5
          */
         @AdwVersion1_5
-        set(
-            allowWindowHandle
-        ) = adw_swipe_tracker_set_allow_window_handle(
-            adwSwipeTrackerPointer.reinterpret(),
-            allowWindowHandle.asGBoolean()
-        )
+        set(allowWindowHandle) = adw_swipe_tracker_set_allow_window_handle(adwSwipeTrackerPointer.reinterpret(), allowWindowHandle.asGBoolean())
 
     /**
      * Whether the swipe tracker is enabled.
@@ -161,7 +150,6 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
          * @return whether @self is enabled
          */
         get() = adw_swipe_tracker_get_enabled(adwSwipeTrackerPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether @self is enabled.
          *
@@ -186,7 +174,6 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
          * @since 1.4
          */
         get() = adw_swipe_tracker_get_lower_overshoot(adwSwipeTrackerPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether to allow swiping past the first available snap point.
          *
@@ -194,9 +181,7 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(
-            overshoot
-        ) = adw_swipe_tracker_set_lower_overshoot(adwSwipeTrackerPointer.reinterpret(), overshoot.asGBoolean())
+        set(overshoot) = adw_swipe_tracker_set_lower_overshoot(adwSwipeTrackerPointer.reinterpret(), overshoot.asGBoolean())
 
     /**
      * Whether to reverse the swipe direction.
@@ -211,7 +196,6 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
          * @return whether the direction is reversed
          */
         get() = adw_swipe_tracker_get_reversed(adwSwipeTrackerPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether to reverse the swipe direction.
          *
@@ -232,8 +216,7 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
          * @return the swipeable widget
          */
         get() = adw_swipe_tracker_get_swipeable(adwSwipeTrackerPointer.reinterpret())!!.run {
-            Swipeable.wrap(reinterpret())
-        }
+            Swipeable.wrap(reinterpret())}
 
     /**
      * Whether to allow swiping past the last available snap point.
@@ -249,7 +232,6 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
          * @since 1.4
          */
         get() = adw_swipe_tracker_get_upper_overshoot(adwSwipeTrackerPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether to allow swiping past the last available snap point.
          *
@@ -257,9 +239,7 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(
-            overshoot
-        ) = adw_swipe_tracker_set_upper_overshoot(adwSwipeTrackerPointer.reinterpret(), overshoot.asGBoolean())
+        set(overshoot) = adw_swipe_tracker_set_upper_overshoot(adwSwipeTrackerPointer.reinterpret(), overshoot.asGBoolean())
 
     /**
      * Creates a new `AdwSwipeTracker` for @widget.
@@ -267,9 +247,7 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
      * @param swipeable a widget to add the tracker on
      * @return the newly created `AdwSwipeTracker`
      */
-    public constructor(
-        swipeable: Swipeable,
-    ) : this(adw_swipe_tracker_new(swipeable.adwSwipeablePointer)!!.reinterpret())
+    public constructor(swipeable: Swipeable) : this(adw_swipe_tracker_new(swipeable.adwSwipeablePointer)!!.reinterpret())
 
     /**
      * Moves the current progress value by @delta.
@@ -279,8 +257,7 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
      *
      * @param delta the position delta
      */
-    public fun shiftPosition(delta: Double): Unit =
-        adw_swipe_tracker_shift_position(adwSwipeTrackerPointer.reinterpret(), delta)
+    public fun shiftPosition(delta: Double): Unit = adw_swipe_tracker_shift_position(adwSwipeTrackerPointer.reinterpret(), delta)
 
     /**
      * This signal is emitted right before a swipe will be started, after the
@@ -289,15 +266,7 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectBeginSwipe(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "begin-swipe",
-            connectBeginSwipeFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectBeginSwipe(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "begin-swipe", connectBeginSwipeFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * This signal is emitted as soon as the gesture has stopped.
@@ -310,17 +279,7 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `velocity` the velocity of the swipe; `to` the progress value to animate to
      */
-    public fun connectEndSwipe(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (velocity: Double, to: Double) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "end-swipe",
-        connectEndSwipeFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectEndSwipe(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (velocity: Double, to: Double) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "end-swipe", connectEndSwipeFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * This signal is emitted when a possible swipe is detected.
@@ -331,17 +290,7 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `direction` the direction of the swipe
      */
-    public fun connectPrepare(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (direction: NavigationDirection) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "prepare",
-        connectPrepareFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectPrepare(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (direction: NavigationDirection) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "prepare", connectPrepareFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * This signal is emitted every time the progress value changes.
@@ -349,65 +298,48 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `progress` the current animation progress value
      */
-    public fun connectUpdateSwipe(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (progress: Double) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "update-swipe",
-        connectUpdateSwipeFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectUpdateSwipe(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (progress: Double) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "update-swipe", connectUpdateSwipeFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<SwipeTracker> {
         override val type: GeneratedClassKGType<SwipeTracker> =
-            GeneratedClassKGType(adw_swipe_tracker_get_type()) { SwipeTracker(it.reinterpret()) }
+                GeneratedClassKGType(adw_swipe_tracker_get_type()) { SwipeTracker(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
     }
 }
 
 private val connectBeginSwipeFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectEndSwipeFunc: CPointer<CFunction<(Double, Double) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        velocity: Double,
-        to: Double,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    velocity: Double,
+    to: Double,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(velocity: Double, to: Double) -> Unit>().get().invoke(velocity, to)
-}
-    .reinterpret()
+    userData.asStableRef<(velocity: Double, to: Double) -> Unit>().get().invoke(velocity, to)}
+.reinterpret()
 
 private val connectPrepareFunc: CPointer<CFunction<(AdwNavigationDirection) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            direction: AdwNavigationDirection,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(direction: NavigationDirection) -> Unit>().get().invoke(
-            direction.run {
-                NavigationDirection.fromNativeValue(this)
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    direction: AdwNavigationDirection,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(direction: NavigationDirection) -> Unit>().get().invoke(direction.run {
+        NavigationDirection.fromNativeValue(this)}
+    )}
+.reinterpret()
 
 private val connectUpdateSwipeFunc: CPointer<CFunction<(Double) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        progress: Double,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    progress: Double,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(progress: Double) -> Unit>().get().invoke(progress)
-}
-    .reinterpret()
+    userData.asStableRef<(progress: Double) -> Unit>().get().invoke(progress)}
+.reinterpret()

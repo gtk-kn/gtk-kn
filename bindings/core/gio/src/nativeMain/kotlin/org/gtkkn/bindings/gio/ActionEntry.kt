@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.String
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,7 +10,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GActionEntry
-import kotlin.String
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * This struct defines a single action.  It is for use with
@@ -29,7 +30,9 @@ import kotlin.String
  * - field `change_state`: Fields with callbacks are not supported
  * - field `padding`: Record field padding is private
  */
-public class ActionEntry(pointer: CPointer<GActionEntry>) : Record {
+public class ActionEntry(
+    pointer: CPointer<GActionEntry>,
+) : Record {
     public val gioActionEntryPointer: CPointer<GActionEntry> = pointer
 
     /**
@@ -63,7 +66,6 @@ public class ActionEntry(pointer: CPointer<GActionEntry>) : Record {
         get() = gioActionEntryPointer.pointed.state?.toKString()
 
     public companion object : RecordCompanion<ActionEntry, GActionEntry> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ActionEntry =
-            ActionEntry(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ActionEntry = ActionEntry(pointer.reinterpret())
     }
 }

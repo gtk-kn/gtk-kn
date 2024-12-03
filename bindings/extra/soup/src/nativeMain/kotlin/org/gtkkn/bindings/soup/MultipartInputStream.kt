@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import kotlin.Int
+import kotlin.Result
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -29,9 +32,6 @@ import org.gtkkn.native.soup.soup_multipart_input_stream_new
 import org.gtkkn.native.soup.soup_multipart_input_stream_next_part
 import org.gtkkn.native.soup.soup_multipart_input_stream_next_part_async
 import org.gtkkn.native.soup.soup_multipart_input_stream_next_part_finish
-import kotlin.Int
-import kotlin.Result
-import kotlin.Unit
 
 /**
  * Handles streams of multipart messages.
@@ -50,8 +50,9 @@ import kotlin.Unit
  *
  * - method `message`: Property has no getter nor setter
  */
-public class MultipartInputStream(pointer: CPointer<SoupMultipartInputStream>) :
-    FilterInputStream(pointer.reinterpret()),
+public class MultipartInputStream(
+    pointer: CPointer<SoupMultipartInputStream>,
+) : FilterInputStream(pointer.reinterpret()),
     PollableInputStream,
     KGTyped {
     public val soupMultipartInputStreamPointer: CPointer<SoupMultipartInputStream>
@@ -72,15 +73,7 @@ public class MultipartInputStream(pointer: CPointer<SoupMultipartInputStream>) :
      * @param baseStream the #GInputStream returned by sending the request.
      * @return a new #SoupMultipartInputStream
      */
-    public constructor(
-        msg: Message,
-        baseStream: InputStream,
-    ) : this(
-        soup_multipart_input_stream_new(
-            msg.soupMessagePointer.reinterpret(),
-            baseStream.gioInputStreamPointer.reinterpret()
-        )!!.reinterpret()
-    )
+    public constructor(msg: Message, baseStream: InputStream) : this(soup_multipart_input_stream_new(msg.soupMessagePointer.reinterpret(), baseStream.gioInputStreamPointer.reinterpret())!!.reinterpret())
 
     /**
      * Obtains the headers for the part currently being processed.
@@ -97,10 +90,8 @@ public class MultipartInputStream(pointer: CPointer<SoupMultipartInputStream>) :
      *   containing the headers for the part currently being processed or
      *   null if the headers failed to parse.
      */
-    public fun getHeaders(): MessageHeaders? =
-        soup_multipart_input_stream_get_headers(soupMultipartInputStreamPointer.reinterpret())?.run {
-            MessageHeaders(reinterpret())
-        }
+    public fun getHeaders(): MessageHeaders? = soup_multipart_input_stream_get_headers(soupMultipartInputStreamPointer.reinterpret())?.run {
+        MessageHeaders(reinterpret())}
 
     /**
      * Obtains an input stream for the next part.
@@ -121,17 +112,13 @@ public class MultipartInputStream(pointer: CPointer<SoupMultipartInputStream>) :
      */
     public fun nextPart(cancellable: Cancellable? = null): Result<InputStream?> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = soup_multipart_input_stream_next_part(
-            soupMultipartInputStreamPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            gError.ptr
-        )?.run {
-            InputStream(reinterpret())
-        }
+        val gResult = soup_multipart_input_stream_next_part(soupMultipartInputStreamPointer.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr)?.run {
+            InputStream(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -145,14 +132,11 @@ public class MultipartInputStream(pointer: CPointer<SoupMultipartInputStream>) :
      * @param cancellable a #GCancellable.
      * @param callback callback to call when request is satisfied.
      */
-    public fun nextPartAsync(ioPriority: Int, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
-        soup_multipart_input_stream_next_part_async(
-            soupMultipartInputStreamPointer.reinterpret(),
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    public fun nextPartAsync(
+        ioPriority: Int,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback,
+    ): Unit = soup_multipart_input_stream_next_part_async(soupMultipartInputStreamPointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
 
     /**
      * Finishes an asynchronous request for the next part.
@@ -164,27 +148,22 @@ public class MultipartInputStream(pointer: CPointer<SoupMultipartInputStream>) :
      */
     public fun nextPartFinish(result: AsyncResult): Result<InputStream?> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = soup_multipart_input_stream_next_part_finish(
-            soupMultipartInputStreamPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            InputStream(reinterpret())
-        }
+        val gResult = soup_multipart_input_stream_next_part_finish(soupMultipartInputStreamPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)?.run {
+            InputStream(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
 
     public companion object : TypeCompanion<MultipartInputStream> {
         override val type: GeneratedClassKGType<MultipartInputStream> =
-            GeneratedClassKGType(soup_multipart_input_stream_get_type()) { MultipartInputStream(it.reinterpret()) }
+                GeneratedClassKGType(soup_multipart_input_stream_get_type()) { MultipartInputStream(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
     }
 }

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -15,7 +16,6 @@ import org.gtkkn.native.gtk.gtk_builder_list_item_factory_get_scope
 import org.gtkkn.native.gtk.gtk_builder_list_item_factory_get_type
 import org.gtkkn.native.gtk.gtk_builder_list_item_factory_new_from_bytes
 import org.gtkkn.native.gtk.gtk_builder_list_item_factory_new_from_resource
-import kotlin.String
 
 /**
  * `GtkBuilderListItemFactory` is a `GtkListItemFactory` that creates
@@ -42,8 +42,9 @@ import kotlin.String
  *   </interface>
  * ```
  */
-public open class BuilderListItemFactory(pointer: CPointer<GtkBuilderListItemFactory>) :
-    ListItemFactory(pointer.reinterpret()),
+public open class BuilderListItemFactory(
+    pointer: CPointer<GtkBuilderListItemFactory>,
+) : ListItemFactory(pointer.reinterpret()),
     KGTyped {
     public val gtkBuilderListItemFactoryPointer: CPointer<GtkBuilderListItemFactory>
         get() = gPointer.reinterpret()
@@ -59,8 +60,7 @@ public open class BuilderListItemFactory(pointer: CPointer<GtkBuilderListItemFac
          * @return The `GtkBuilder` data
          */
         get() = gtk_builder_list_item_factory_get_bytes(gtkBuilderListItemFactoryPointer.reinterpret())!!.run {
-            Bytes(reinterpret())
-        }
+            Bytes(reinterpret())}
 
     /**
      * Path of the resource containing the UI definition.
@@ -83,8 +83,7 @@ public open class BuilderListItemFactory(pointer: CPointer<GtkBuilderListItemFac
          * @return The scope used when constructing listitems
          */
         get() = gtk_builder_list_item_factory_get_scope(gtkBuilderListItemFactoryPointer.reinterpret())?.run {
-            BuilderScope.wrap(reinterpret())
-        }
+            BuilderScope.wrap(reinterpret())}
 
     /**
      * Creates a new `GtkBuilderListItemFactory` that instantiates widgets
@@ -94,15 +93,7 @@ public open class BuilderListItemFactory(pointer: CPointer<GtkBuilderListItemFac
      * @param bytes the `GBytes` containing the ui file to instantiate
      * @return a new `GtkBuilderListItemFactory`
      */
-    public constructor(
-        scope: BuilderScope? = null,
-        bytes: Bytes,
-    ) : this(
-        gtk_builder_list_item_factory_new_from_bytes(
-            scope?.gtkBuilderScopePointer,
-            bytes.glibBytesPointer.reinterpret()
-        )!!.reinterpret()
-    )
+    public constructor(scope: BuilderScope? = null, bytes: Bytes) : this(gtk_builder_list_item_factory_new_from_bytes(scope?.gtkBuilderScopePointer, bytes.glibBytesPointer.reinterpret())!!.reinterpret())
 
     /**
      * Creates a new `GtkBuilderListItemFactory` that instantiates widgets
@@ -112,21 +103,13 @@ public open class BuilderListItemFactory(pointer: CPointer<GtkBuilderListItemFac
      * @param resourcePath valid path to a resource that contains the data
      * @return a new `GtkBuilderListItemFactory`
      */
-    public constructor(
-        scope: BuilderScope? = null,
-        resourcePath: String,
-    ) : this(
-        gtk_builder_list_item_factory_new_from_resource(scope?.gtkBuilderScopePointer, resourcePath)!!.reinterpret()
-    )
+    public constructor(scope: BuilderScope? = null, resourcePath: String) : this(gtk_builder_list_item_factory_new_from_resource(scope?.gtkBuilderScopePointer, resourcePath)!!.reinterpret())
 
     public companion object : TypeCompanion<BuilderListItemFactory> {
         override val type: GeneratedClassKGType<BuilderListItemFactory> =
-            GeneratedClassKGType(gtk_builder_list_item_factory_get_type()) {
-                BuilderListItemFactory(it.reinterpret())
-            }
+                GeneratedClassKGType(gtk_builder_list_item_factory_get_type()) { BuilderListItemFactory(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

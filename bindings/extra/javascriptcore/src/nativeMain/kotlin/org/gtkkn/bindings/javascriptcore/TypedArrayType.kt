@@ -9,62 +9,53 @@ import org.gtkkn.native.javascriptcore.JSCTypedArrayType
  * @since 2.38
  */
 @JavaScriptCoreVersion2_38
-public enum class TypedArrayType(public val nativeValue: JSCTypedArrayType) {
+public enum class TypedArrayType(
+    public val nativeValue: JSCTypedArrayType,
+) {
     /**
      * Not a typed array, or type unsupported.
      */
     NONE(JSCTypedArrayType.JSC_TYPED_ARRAY_NONE),
-
     /**
      * Array elements are 8-bit signed integers (int8_t).
      */
     INT8(JSCTypedArrayType.JSC_TYPED_ARRAY_INT8),
-
     /**
      * Array elements are 16-bit signed integers (int16_t).
      */
     INT16(JSCTypedArrayType.JSC_TYPED_ARRAY_INT16),
-
     /**
      * Array elements are 32-bit signed integers (int32_t).
      */
     INT32(JSCTypedArrayType.JSC_TYPED_ARRAY_INT32),
-
     /**
      * Array elements are 64-bit signed integers (int64_t).
      */
     INT64(JSCTypedArrayType.JSC_TYPED_ARRAY_INT64),
-
     /**
      * Array elements are 8-bit unsigned integers (uint8_t).
      */
     UINT8(JSCTypedArrayType.JSC_TYPED_ARRAY_UINT8),
-
     /**
      * Array elements are 8-bit unsigned integers (uint8_t).
      */
     UINT8_CLAMPED(JSCTypedArrayType.JSC_TYPED_ARRAY_UINT8_CLAMPED),
-
     /**
      * Array elements are 16-bit unsigned integers (uint16_t).
      */
     UINT16(JSCTypedArrayType.JSC_TYPED_ARRAY_UINT16),
-
     /**
      * Array elements are 32-bit unsigned integers (uint32_t).
      */
     UINT32(JSCTypedArrayType.JSC_TYPED_ARRAY_UINT32),
-
     /**
      * Array elements are 64-bit unsigned integers (uint64_t).
      */
     UINT64(JSCTypedArrayType.JSC_TYPED_ARRAY_UINT64),
-
     /**
      * Array elements are 32-bit floating point numbers (float).
      */
     FLOAT32(JSCTypedArrayType.JSC_TYPED_ARRAY_FLOAT32),
-
     /**
      * Array elements are 64-bit floating point numbers (double).
      */

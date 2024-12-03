@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.pango.PangoGlyphGeometry
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `PangoGlyphGeometry` structure contains width and positioning
@@ -26,7 +27,9 @@ import org.gtkkn.native.pango.PangoGlyphGeometry
  * 3. Advance the current point to (x + width, y)
  * 4. Render the next glyph
  */
-public class GlyphGeometry(pointer: CPointer<PangoGlyphGeometry>) : Record {
+public class GlyphGeometry(
+    pointer: CPointer<PangoGlyphGeometry>,
+) : Record {
     public val pangoGlyphGeometryPointer: CPointer<PangoGlyphGeometry> = pointer
 
     /**
@@ -57,7 +60,6 @@ public class GlyphGeometry(pointer: CPointer<PangoGlyphGeometry>) : Record {
         }
 
     public companion object : RecordCompanion<GlyphGeometry, PangoGlyphGeometry> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): GlyphGeometry =
-            GlyphGeometry(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): GlyphGeometry = GlyphGeometry(pointer.reinterpret())
     }
 }

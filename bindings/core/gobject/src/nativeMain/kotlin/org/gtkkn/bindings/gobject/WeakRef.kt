@@ -7,6 +7,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GWeakRef
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A structure containing a weak reference to a #GObject.
@@ -34,7 +35,9 @@ import org.gtkkn.native.gobject.GWeakRef
  * It is invalid to take a #GWeakRef on an object during #GObjectClass.dispose
  * without first having or creating a strong reference to the object.
  */
-public class WeakRef(pointer: CPointer<GWeakRef>) : Record {
+public class WeakRef(
+    pointer: CPointer<GWeakRef>,
+) : Record {
     public val gobjectWeakRefPointer: CPointer<GWeakRef> = pointer
 
     public companion object : RecordCompanion<WeakRef, GWeakRef> {

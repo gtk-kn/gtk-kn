@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Int
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -14,8 +16,7 @@ import org.gtkkn.native.pango.pango_item_copy
 import org.gtkkn.native.pango.pango_item_free
 import org.gtkkn.native.pango.pango_item_new
 import org.gtkkn.native.pango.pango_item_split
-import kotlin.Int
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `PangoItem` structure stores information about a segment of text.
@@ -27,7 +28,9 @@ import kotlin.Unit
  *
  * - field `analysis`: Analysis
  */
-public class Item(pointer: CPointer<PangoItem>) : Record {
+public class Item(
+    pointer: CPointer<PangoItem>,
+) : Record {
     public val pangoItemPointer: CPointer<PangoItem> = pointer
 
     /**
@@ -74,8 +77,7 @@ public class Item(pointer: CPointer<PangoItem>) : Record {
      * @since 1.44
      */
     @PangoVersion1_44
-    public fun applyAttrs(iter: AttrIterator): Unit =
-        pango_item_apply_attrs(pangoItemPointer.reinterpret(), iter.pangoAttrIteratorPointer.reinterpret())
+    public fun applyAttrs(iter: AttrIterator): Unit = pango_item_apply_attrs(pangoItemPointer.reinterpret(), iter.pangoAttrIteratorPointer.reinterpret())
 
     /**
      * Copy an existing `PangoItem` structure.
@@ -83,8 +85,7 @@ public class Item(pointer: CPointer<PangoItem>) : Record {
      * @return the newly allocated `PangoItem`
      */
     public fun copy(): Item? = pango_item_copy(pangoItemPointer.reinterpret())?.run {
-        Item(reinterpret())
-    }
+        Item(reinterpret())}
 
     /**
      * Free a `PangoItem` and all associated memory.
@@ -111,10 +112,8 @@ public class Item(pointer: CPointer<PangoItem>) : Record {
      * @return new item representing text before @split_index, which
      *   should be freed with [method@Pango.Item.free].
      */
-    public fun split(splitIndex: Int, splitOffset: Int): Item =
-        pango_item_split(pangoItemPointer.reinterpret(), splitIndex, splitOffset)!!.run {
-            Item(reinterpret())
-        }
+    public fun split(splitIndex: Int, splitOffset: Int): Item = pango_item_split(pangoItemPointer.reinterpret(), splitIndex, splitOffset)!!.run {
+        Item(reinterpret())}
 
     public companion object : RecordCompanion<Item, PangoItem> {
         /**

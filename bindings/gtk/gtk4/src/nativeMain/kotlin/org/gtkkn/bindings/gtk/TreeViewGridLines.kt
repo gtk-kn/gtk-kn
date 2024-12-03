@@ -6,22 +6,21 @@ import org.gtkkn.native.gtk.GtkTreeViewGridLines
 /**
  * Used to indicate which grid lines to draw in a tree view.
  */
-public enum class TreeViewGridLines(public val nativeValue: GtkTreeViewGridLines) {
+public enum class TreeViewGridLines(
+    public val nativeValue: GtkTreeViewGridLines,
+) {
     /**
      * No grid lines.
      */
     NONE(GtkTreeViewGridLines.GTK_TREE_VIEW_GRID_LINES_NONE),
-
     /**
      * Horizontal grid lines.
      */
     HORIZONTAL(GtkTreeViewGridLines.GTK_TREE_VIEW_GRID_LINES_HORIZONTAL),
-
     /**
      * Vertical grid lines.
      */
     VERTICAL(GtkTreeViewGridLines.GTK_TREE_VIEW_GRID_LINES_VERTICAL),
-
     /**
      * Horizontal and vertical grid lines.
      */

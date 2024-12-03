@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Interface
@@ -11,7 +12,6 @@ import org.gtkkn.native.gtk.GtkOrientable
 import org.gtkkn.native.gtk.gtk_orientable_get_orientation
 import org.gtkkn.native.gtk.gtk_orientable_get_type
 import org.gtkkn.native.gtk.gtk_orientable_set_orientation
-import kotlin.Unit
 
 /**
  * The `GtkOrientable` interface is implemented by all widgets that can be
@@ -26,9 +26,7 @@ import kotlin.Unit
  * automatically acquire the `horizontal` or `vertical` CSS class depending on
  * the value of the [property@Gtk.Orientable:orientation] property.
  */
-public interface Orientable :
-    Interface,
-    KGTyped {
+public interface Orientable : Interface, KGTyped {
     public val gtkOrientablePointer: CPointer<GtkOrientable>
 
     /**
@@ -41,9 +39,7 @@ public interface Orientable :
          * @return the orientation of the @orientable
          */
         get() = gtk_orientable_get_orientation(gtkOrientablePointer.reinterpret()).run {
-            Orientation.fromNativeValue(this)
-        }
-
+            Orientation.fromNativeValue(this)}
         /**
          * Sets the orientation of the @orientable.
          *
@@ -57,28 +53,27 @@ public interface Orientable :
      * @return the orientation of the @orientable
      */
     public fun getOrientation(): Orientation = gtk_orientable_get_orientation(gtkOrientablePointer.reinterpret()).run {
-        Orientation.fromNativeValue(this)
-    }
+        Orientation.fromNativeValue(this)}
 
     /**
      * Sets the orientation of the @orientable.
      *
      * @param orientation the orientable’s new orientation
      */
-    public fun setOrientation(orientation: Orientation): Unit =
-        gtk_orientable_set_orientation(gtkOrientablePointer.reinterpret(), orientation.nativeValue)
+    public fun setOrientation(orientation: Orientation): Unit = gtk_orientable_set_orientation(gtkOrientablePointer.reinterpret(), orientation.nativeValue)
 
-    private data class Wrapper(private val pointer: CPointer<GtkOrientable>) : Orientable {
+    private data class Wrapper(
+        private val pointer: CPointer<GtkOrientable>,
+    ) : Orientable {
         override val gtkOrientablePointer: CPointer<GtkOrientable> = pointer
     }
 
     public companion object : TypeCompanion<Orientable> {
         override val type: GeneratedInterfaceKGType<Orientable> =
-            GeneratedInterfaceKGType(gtk_orientable_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(gtk_orientable_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkOrientable>): Orientable = Wrapper(pointer)
     }

@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -11,8 +13,7 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gtk.GtkRecentData
-import kotlin.Boolean
-import kotlin.String
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Meta-data to be passed to gtk_recent_manager_add_full() when
@@ -22,7 +23,9 @@ import kotlin.String
  *
  * - field `groups`: Fields with arrays are not supported
  */
-public class RecentData(pointer: CPointer<GtkRecentData>) : Record {
+public class RecentData(
+    pointer: CPointer<GtkRecentData>,
+) : Record {
     public val gtkRecentDataPointer: CPointer<GtkRecentData> = pointer
 
     /**

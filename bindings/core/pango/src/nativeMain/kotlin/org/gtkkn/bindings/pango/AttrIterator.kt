@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -15,8 +17,7 @@ import org.gtkkn.native.pango.pango_attr_iterator_destroy
 import org.gtkkn.native.pango.pango_attr_iterator_get
 import org.gtkkn.native.pango.pango_attr_iterator_get_attrs
 import org.gtkkn.native.pango.pango_attr_iterator_next
-import kotlin.Boolean
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `PangoAttrIterator` is used to iterate through a `PangoAttrList`.
@@ -32,7 +33,9 @@ import kotlin.Unit
  * - parameter `language`: language: Out parameter is not supported
  * - parameter `start`: start: Out parameter is not supported
  */
-public class AttrIterator(pointer: CPointer<PangoAttrIterator>) : Record {
+public class AttrIterator(
+    pointer: CPointer<PangoAttrIterator>,
+) : Record {
     public val pangoAttrIteratorPointer: CPointer<PangoAttrIterator> = pointer
 
     /**
@@ -43,8 +46,7 @@ public class AttrIterator(pointer: CPointer<PangoAttrIterator>) : Record {
      *   [method@Pango.AttrIterator.destroy]
      */
     public fun copy(): AttrIterator = pango_attr_iterator_copy(pangoAttrIteratorPointer.reinterpret())!!.run {
-        AttrIterator(reinterpret())
-    }
+        AttrIterator(reinterpret())}
 
     /**
      * Destroy a `PangoAttrIterator` and free all associated memory.
@@ -64,10 +66,8 @@ public class AttrIterator(pointer: CPointer<PangoAttrIterator>) : Record {
      *   attribute of the given type, or null if no attribute
      *   of that type applies to the current location.
      */
-    public fun `get`(type: AttrType): Attribute? =
-        pango_attr_iterator_get(pangoAttrIteratorPointer.reinterpret(), type.nativeValue)?.run {
-            Attribute(reinterpret())
-        }
+    public fun `get`(type: AttrType): Attribute? = pango_attr_iterator_get(pangoAttrIteratorPointer.reinterpret(), type.nativeValue)?.run {
+        Attribute(reinterpret())}
 
     /**
      * Gets a list of all attributes at the current position of the
@@ -80,8 +80,7 @@ public class AttrIterator(pointer: CPointer<PangoAttrIterator>) : Record {
      */
     @PangoVersion1_2
     public fun getAttrs(): SList = pango_attr_iterator_get_attrs(pangoAttrIteratorPointer.reinterpret())!!.run {
-        SList(reinterpret())
-    }
+        SList(reinterpret())}
 
     /**
      * Advance the iterator until the next change of style.
@@ -92,7 +91,6 @@ public class AttrIterator(pointer: CPointer<PangoAttrIterator>) : Record {
     public fun next(): Boolean = pango_attr_iterator_next(pangoAttrIteratorPointer.reinterpret()).asBoolean()
 
     public companion object : RecordCompanion<AttrIterator, PangoAttrIterator> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): AttrIterator =
-            AttrIterator(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): AttrIterator = AttrIterator(pointer.reinterpret())
     }
 }

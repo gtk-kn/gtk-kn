@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.String
+import kotlin.UShort
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -16,9 +19,7 @@ import org.gtkkn.native.gio.g_srv_target_get_port
 import org.gtkkn.native.gio.g_srv_target_get_priority
 import org.gtkkn.native.gio.g_srv_target_get_weight
 import org.gtkkn.native.gio.g_srv_target_new
-import kotlin.String
-import kotlin.UShort
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A single target host/port that a network service is running on.
@@ -38,7 +39,9 @@ import kotlin.Unit
  * [iface@Gio.SocketConnectable] interface and not need to worry about
  * `GSrvTarget` at all.
  */
-public class SrvTarget(pointer: CPointer<GSrvTarget>) : Record {
+public class SrvTarget(
+    pointer: CPointer<GSrvTarget>,
+) : Record {
     public val gioSrvTargetPointer: CPointer<GSrvTarget> = pointer
 
     /**
@@ -49,8 +52,7 @@ public class SrvTarget(pointer: CPointer<GSrvTarget>) : Record {
      */
     @GioVersion2_22
     public fun copy(): SrvTarget = g_srv_target_copy(gioSrvTargetPointer.reinterpret())!!.run {
-        SrvTarget(reinterpret())
-    }
+        SrvTarget(reinterpret())}
 
     /**
      * Frees @target
@@ -70,8 +72,7 @@ public class SrvTarget(pointer: CPointer<GSrvTarget>) : Record {
      * @since 2.22
      */
     @GioVersion2_22
-    public fun getHostname(): String =
-        g_srv_target_get_hostname(gioSrvTargetPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun getHostname(): String = g_srv_target_get_hostname(gioSrvTargetPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets @target's port
@@ -118,8 +119,12 @@ public class SrvTarget(pointer: CPointer<GSrvTarget>) : Record {
          * @return a new #GSrvTarget.
          * @since 2.22
          */
-        public fun new(hostname: String, port: UShort, priority: UShort, weight: UShort): SrvTarget =
-            SrvTarget(g_srv_target_new(hostname, port, priority, weight)!!.reinterpret())
+        public fun new(
+            hostname: String,
+            port: UShort,
+            priority: UShort,
+            weight: UShort,
+        ): SrvTarget = SrvTarget(g_srv_target_new(hostname, port, priority, weight)!!.reinterpret())
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SrvTarget = SrvTarget(pointer.reinterpret())
     }

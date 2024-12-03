@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -27,10 +31,6 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_toggle_new
 import org.gtkkn.native.gtk.gtk_cell_renderer_toggle_set_activatable
 import org.gtkkn.native.gtk.gtk_cell_renderer_toggle_set_active
 import org.gtkkn.native.gtk.gtk_cell_renderer_toggle_set_radio
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Renders a toggle button in a cell
@@ -44,8 +44,9 @@ import kotlin.Unit
  *
  * - method `inconsistent`: Property has no getter nor setter
  */
-public open class CellRendererToggle(pointer: CPointer<GtkCellRendererToggle>) :
-    CellRenderer(pointer.reinterpret()),
+public open class CellRendererToggle(
+    pointer: CPointer<GtkCellRendererToggle>,
+) : CellRenderer(pointer.reinterpret()),
     KGTyped {
     public val gtkCellRendererTogglePointer: CPointer<GtkCellRendererToggle>
         get() = gPointer.reinterpret()
@@ -58,15 +59,12 @@ public open class CellRendererToggle(pointer: CPointer<GtkCellRendererToggle>) :
          * @return true if the cell renderer is activatable.
          */
         get() = gtk_cell_renderer_toggle_get_activatable(gtkCellRendererTogglePointer.reinterpret()).asBoolean()
-
         /**
          * Makes the cell renderer activatable.
          *
          * @param setting the value to set.
          */
-        set(
-            setting
-        ) = gtk_cell_renderer_toggle_set_activatable(gtkCellRendererTogglePointer.reinterpret(), setting.asGBoolean())
+        set(setting) = gtk_cell_renderer_toggle_set_activatable(gtkCellRendererTogglePointer.reinterpret(), setting.asGBoolean())
 
     public open var active: Boolean
         /**
@@ -76,15 +74,12 @@ public open class CellRendererToggle(pointer: CPointer<GtkCellRendererToggle>) :
          * @return true if the cell renderer is active.
          */
         get() = gtk_cell_renderer_toggle_get_active(gtkCellRendererTogglePointer.reinterpret()).asBoolean()
-
         /**
          * Activates or deactivates a cell renderer.
          *
          * @param setting the value to set.
          */
-        set(
-            setting
-        ) = gtk_cell_renderer_toggle_set_active(gtkCellRendererTogglePointer.reinterpret(), setting.asGBoolean())
+        set(setting) = gtk_cell_renderer_toggle_set_active(gtkCellRendererTogglePointer.reinterpret(), setting.asGBoolean())
 
     public open var radio: Boolean
         /**
@@ -93,7 +88,6 @@ public open class CellRendererToggle(pointer: CPointer<GtkCellRendererToggle>) :
          * @return true if we’re rendering radio toggles rather than checkboxes
          */
         get() = gtk_cell_renderer_toggle_get_radio(gtkCellRendererTogglePointer.reinterpret()).asBoolean()
-
         /**
          * If @radio is true, the cell renderer renders a radio toggle
          * (i.e. a toggle in a group of mutually-exclusive toggles).
@@ -131,35 +125,21 @@ public open class CellRendererToggle(pointer: CPointer<GtkCellRendererToggle>) :
      * @param handler the Callback to connect. Params: `path` string representation of `GtkTreePath` describing the
      *        event location
      */
-    public fun connectToggled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (path: String) -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "toggled",
-            connectToggledFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectToggled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (path: String) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "toggled", connectToggledFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<CellRendererToggle> {
         override val type: GeneratedClassKGType<CellRendererToggle> =
-            GeneratedClassKGType(gtk_cell_renderer_toggle_get_type()) { CellRendererToggle(it.reinterpret()) }
+                GeneratedClassKGType(gtk_cell_renderer_toggle_get_type()) { CellRendererToggle(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }
 
 private val connectToggledFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        path: CPointer<ByteVar>?,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    path: CPointer<ByteVar>?,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<
-        (
-            path: String,
-        ) -> Unit
-        >().get().invoke(path?.toKString() ?: error("Expected not null string"))
-}
-    .reinterpret()
+    userData.asStableRef<(path: String) -> Unit>().get().invoke(path?.toKString() ?: error("Expected not null string"))}
+.reinterpret()

@@ -9,22 +9,21 @@ import org.gtkkn.native.gio.GConverterResult
  * @since 2.24
  */
 @GioVersion2_24
-public enum class ConverterResult(public val nativeValue: GConverterResult) {
+public enum class ConverterResult(
+    public val nativeValue: GConverterResult,
+) {
     /**
      * There was an error during conversion.
      */
     ERROR(GConverterResult.G_CONVERTER_ERROR),
-
     /**
      * Some data was consumed or produced
      */
     CONVERTED(GConverterResult.G_CONVERTER_CONVERTED),
-
     /**
      * The conversion is finished
      */
     FINISHED(GConverterResult.G_CONVERTER_FINISHED),
-
     /**
      * Flushing is finished
      */

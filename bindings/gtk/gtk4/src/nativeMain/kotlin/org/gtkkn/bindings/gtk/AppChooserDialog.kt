@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -22,8 +24,6 @@ import org.gtkkn.native.gtk.gtk_app_chooser_dialog_get_widget
 import org.gtkkn.native.gtk.gtk_app_chooser_dialog_new
 import org.gtkkn.native.gtk.gtk_app_chooser_dialog_new_for_content_type
 import org.gtkkn.native.gtk.gtk_app_chooser_dialog_set_heading
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkAppChooserDialog` shows a `GtkAppChooserWidget` inside a `GtkDialog`.
@@ -49,8 +49,9 @@ import kotlin.Unit
  * - method `gfile`: Property has no getter nor setter
  * - method `heading`: Property TypeInfo of getter and setter do not match
  */
-public open class AppChooserDialog(pointer: CPointer<GtkAppChooserDialog>) :
-    Dialog(pointer.reinterpret()),
+public open class AppChooserDialog(
+    pointer: CPointer<GtkAppChooserDialog>,
+) : Dialog(pointer.reinterpret()),
     AppChooser,
     KGTyped {
     public val gtkAppChooserDialogPointer: CPointer<GtkAppChooserDialog>
@@ -91,13 +92,7 @@ public open class AppChooserDialog(pointer: CPointer<GtkAppChooserDialog>) :
         parent: Window? = null,
         flags: DialogFlags,
         `file`: File,
-    ) : this(
-        gtk_app_chooser_dialog_new(
-            parent?.gtkWindowPointer?.reinterpret(),
-            flags.mask,
-            `file`.gioFilePointer
-        )!!.reinterpret()
-    )
+    ) : this(gtk_app_chooser_dialog_new(parent?.gtkWindowPointer?.reinterpret(), flags.mask, `file`.gioFilePointer)!!.reinterpret())
 
     /**
      * Creates a new `GtkAppChooserDialog` for the provided content type.
@@ -113,13 +108,7 @@ public open class AppChooserDialog(pointer: CPointer<GtkAppChooserDialog>) :
         parent: Window? = null,
         flags: DialogFlags,
         contentType: String,
-    ) : this(
-        gtk_app_chooser_dialog_new_for_content_type(
-            parent?.gtkWindowPointer?.reinterpret(),
-            flags.mask,
-            contentType
-        )!!.reinterpret()
-    )
+    ) : this(gtk_app_chooser_dialog_new_for_content_type(parent?.gtkWindowPointer?.reinterpret(), flags.mask, contentType)!!.reinterpret())
 
     /**
      * Returns the text to display at the top of the dialog.
@@ -127,18 +116,15 @@ public open class AppChooserDialog(pointer: CPointer<GtkAppChooserDialog>) :
      * @return the text to display at the top of the dialog,
      *   or null, in which case a default text is displayed
      */
-    public open fun getHeading(): String? =
-        gtk_app_chooser_dialog_get_heading(gtkAppChooserDialogPointer.reinterpret())?.toKString()
+    public open fun getHeading(): String? = gtk_app_chooser_dialog_get_heading(gtkAppChooserDialogPointer.reinterpret())?.toKString()
 
     /**
      * Returns the `GtkAppChooserWidget` of this dialog.
      *
      * @return the `GtkAppChooserWidget` of @self
      */
-    public open fun getWidget(): Widget =
-        gtk_app_chooser_dialog_get_widget(gtkAppChooserDialogPointer.reinterpret())!!.run {
-            Widget(reinterpret())
-        }
+    public open fun getWidget(): Widget = gtk_app_chooser_dialog_get_widget(gtkAppChooserDialogPointer.reinterpret())!!.run {
+        Widget(reinterpret())}
 
     /**
      * Sets the text to display at the top of the dialog.
@@ -147,15 +133,13 @@ public open class AppChooserDialog(pointer: CPointer<GtkAppChooserDialog>) :
      *
      * @param heading a string containing Pango markup
      */
-    public open fun setHeading(heading: String): Unit =
-        gtk_app_chooser_dialog_set_heading(gtkAppChooserDialogPointer.reinterpret(), heading)
+    public open fun setHeading(heading: String): Unit = gtk_app_chooser_dialog_set_heading(gtkAppChooserDialogPointer.reinterpret(), heading)
 
     public companion object : TypeCompanion<AppChooserDialog> {
         override val type: GeneratedClassKGType<AppChooserDialog> =
-            GeneratedClassKGType(gtk_app_chooser_dialog_get_type()) { AppChooserDialog(it.reinterpret()) }
+                GeneratedClassKGType(gtk_app_chooser_dialog_get_type()) { AppChooserDialog(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

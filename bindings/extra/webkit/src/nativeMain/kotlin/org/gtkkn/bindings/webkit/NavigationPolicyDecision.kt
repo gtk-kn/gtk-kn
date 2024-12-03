@@ -18,8 +18,9 @@ import org.gtkkn.native.webkit.webkit_navigation_policy_decision_get_type
  * navigations. If the value of #WebKitNavigationPolicyDecision:mouse-button is not 0, then
  * the navigation was triggered by a mouse event.
  */
-public class NavigationPolicyDecision(pointer: CPointer<WebKitNavigationPolicyDecision>) :
-    PolicyDecision(pointer.reinterpret()),
+public class NavigationPolicyDecision(
+    pointer: CPointer<WebKitNavigationPolicyDecision>,
+) : PolicyDecision(pointer.reinterpret()),
     KGTyped {
     public val webkitNavigationPolicyDecisionPointer: CPointer<WebKitNavigationPolicyDecision>
         get() = gPointer.reinterpret()
@@ -37,20 +38,14 @@ public class NavigationPolicyDecision(pointer: CPointer<WebKitNavigationPolicyDe
          * @return The #WebKitNavigationAction triggering this policy decision.
          * @since 2.6
          */
-        get() = webkit_navigation_policy_decision_get_navigation_action(
-            webkitNavigationPolicyDecisionPointer.reinterpret()
-        )!!.run {
-            NavigationAction(reinterpret())
-        }
+        get() = webkit_navigation_policy_decision_get_navigation_action(webkitNavigationPolicyDecisionPointer.reinterpret())!!.run {
+            NavigationAction(reinterpret())}
 
     public companion object : TypeCompanion<NavigationPolicyDecision> {
         override val type: GeneratedClassKGType<NavigationPolicyDecision> =
-            GeneratedClassKGType(webkit_navigation_policy_decision_get_type()) {
-                NavigationPolicyDecision(it.reinterpret())
-            }
+                GeneratedClassKGType(webkit_navigation_policy_decision_get_type()) { NavigationPolicyDecision(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebkitTypeProvider.register()}
     }
 }

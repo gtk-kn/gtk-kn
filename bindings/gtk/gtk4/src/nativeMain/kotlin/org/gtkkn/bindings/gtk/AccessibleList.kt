@@ -11,6 +11,7 @@ import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gtk.GtkAccessibleList
 import org.gtkkn.native.gtk.gtk_accessible_list_get_objects
 import org.gtkkn.native.gtk.gtk_accessible_list_new_from_list
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A boxed type which wraps a list of references to GtkAccessible objects.
@@ -22,7 +23,9 @@ import org.gtkkn.native.gtk.gtk_accessible_list_new_from_list
  * @since 4.14
  */
 @GtkVersion4_14
-public class AccessibleList(pointer: CPointer<GtkAccessibleList>) : Record {
+public class AccessibleList(
+    pointer: CPointer<GtkAccessibleList>,
+) : Record {
     public val gtkAccessibleListPointer: CPointer<GtkAccessibleList> = pointer
 
     /**
@@ -33,8 +36,7 @@ public class AccessibleList(pointer: CPointer<GtkAccessibleList>) : Record {
      */
     @GtkVersion4_14
     public fun getObjects(): List = gtk_accessible_list_get_objects(gtkAccessibleListPointer.reinterpret())!!.run {
-        List(reinterpret())
-    }
+        List(reinterpret())}
 
     public companion object : RecordCompanion<AccessibleList, GtkAccessibleList> {
         /**
@@ -45,10 +47,8 @@ public class AccessibleList(pointer: CPointer<GtkAccessibleList>) : Record {
          * @return the list of accessible instances
          * @since 4.14
          */
-        public fun newFromList(list: List): AccessibleList =
-            AccessibleList(gtk_accessible_list_new_from_list(list.glibListPointer.reinterpret())!!.reinterpret())
+        public fun newFromList(list: List): AccessibleList = AccessibleList(gtk_accessible_list_new_from_list(list.glibListPointer.reinterpret())!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): AccessibleList =
-            AccessibleList(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): AccessibleList = AccessibleList(pointer.reinterpret())
     }
 }

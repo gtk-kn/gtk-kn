@@ -7,6 +7,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GIOFuncs
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A table of functions used to handle different types of #GIOChannel
@@ -23,7 +24,9 @@ import org.gtkkn.native.glib.GIOFuncs
  * - field `io_set_flags`: Fields with callbacks are not supported
  * - field `io_get_flags`: Fields with callbacks are not supported
  */
-public class IOFuncs(pointer: CPointer<GIOFuncs>) : Record {
+public class IOFuncs(
+    pointer: CPointer<GIOFuncs>,
+) : Record {
     public val glibIOFuncsPointer: CPointer<GIOFuncs> = pointer
 
     public companion object : RecordCompanion<IOFuncs, GIOFuncs> {

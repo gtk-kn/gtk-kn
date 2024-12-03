@@ -11,7 +11,9 @@ import org.gtkkn.native.gio.G_APP_INFO_CREATE_SUPPORTS_URIS
 /**
  * Flags used when creating a #GAppInfo.
  */
-public class AppInfoCreateFlags(public val mask: GAppInfoCreateFlags) : Bitfield<AppInfoCreateFlags> {
+public class AppInfoCreateFlags(
+    public val mask: GAppInfoCreateFlags,
+) : Bitfield<AppInfoCreateFlags> {
     override infix fun or(other: AppInfoCreateFlags): AppInfoCreateFlags = AppInfoCreateFlags(mask or other.mask)
 
     public companion object {
@@ -24,18 +26,18 @@ public class AppInfoCreateFlags(public val mask: GAppInfoCreateFlags) : Bitfield
          * Application opens in a terminal window.
          */
         public val NEEDS_TERMINAL: AppInfoCreateFlags =
-            AppInfoCreateFlags(G_APP_INFO_CREATE_NEEDS_TERMINAL)
+                AppInfoCreateFlags(G_APP_INFO_CREATE_NEEDS_TERMINAL)
 
         /**
          * Application supports URI arguments.
          */
         public val SUPPORTS_URIS: AppInfoCreateFlags =
-            AppInfoCreateFlags(G_APP_INFO_CREATE_SUPPORTS_URIS)
+                AppInfoCreateFlags(G_APP_INFO_CREATE_SUPPORTS_URIS)
 
         /**
          * Application supports startup notification. Since 2.26
          */
         public val SUPPORTS_STARTUP_NOTIFICATION: AppInfoCreateFlags =
-            AppInfoCreateFlags(G_APP_INFO_CREATE_SUPPORTS_STARTUP_NOTIFICATION)
+                AppInfoCreateFlags(G_APP_INFO_CREATE_SUPPORTS_STARTUP_NOTIFICATION)
     }
 }

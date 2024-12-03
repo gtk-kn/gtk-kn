@@ -4,7 +4,9 @@ package org.gtkkn.bindings.cairo
 import org.gtkkn.native.cairo.CAIRO_TEXT_CLUSTER_FLAG_BACKWARD
 import org.gtkkn.native.cairo.cairo_text_cluster_flags_t
 
-public enum class TextClusterFlags(public val nativeValue: cairo_text_cluster_flags_t) {
+public enum class TextClusterFlags(
+    public val nativeValue: cairo_text_cluster_flags_t,
+) {
     BACKWARD(CAIRO_TEXT_CLUSTER_FLAG_BACKWARD),
     ;
 

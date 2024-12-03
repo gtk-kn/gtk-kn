@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.ModifierType
@@ -12,13 +13,13 @@ import org.gtkkn.native.gtk.gtk_keyval_trigger_get_keyval
 import org.gtkkn.native.gtk.gtk_keyval_trigger_get_modifiers
 import org.gtkkn.native.gtk.gtk_keyval_trigger_get_type
 import org.gtkkn.native.gtk.gtk_keyval_trigger_new
-import kotlin.UInt
 
 /**
  * A `GtkShortcutTrigger` that triggers when a specific keyval and modifiers are pressed.
  */
-public open class KeyvalTrigger(pointer: CPointer<GtkKeyvalTrigger>) :
-    ShortcutTrigger(pointer.reinterpret()),
+public open class KeyvalTrigger(
+    pointer: CPointer<GtkKeyvalTrigger>,
+) : ShortcutTrigger(pointer.reinterpret()),
     KGTyped {
     public val gtkKeyvalTriggerPointer: CPointer<GtkKeyvalTrigger>
         get() = gPointer.reinterpret()
@@ -46,8 +47,7 @@ public open class KeyvalTrigger(pointer: CPointer<GtkKeyvalTrigger>) :
          * @return the modifiers
          */
         get() = gtk_keyval_trigger_get_modifiers(gtkKeyvalTriggerPointer.reinterpret()).run {
-            ModifierType(this)
-        }
+            ModifierType(this)}
 
     /**
      * Creates a `GtkShortcutTrigger` that will trigger whenever
@@ -57,17 +57,13 @@ public open class KeyvalTrigger(pointer: CPointer<GtkKeyvalTrigger>) :
      * @param modifiers the modifiers that need to be present
      * @return A new `GtkShortcutTrigger`
      */
-    public constructor(
-        keyval: UInt,
-        modifiers: ModifierType,
-    ) : this(gtk_keyval_trigger_new(keyval, modifiers.mask)!!.reinterpret())
+    public constructor(keyval: UInt, modifiers: ModifierType) : this(gtk_keyval_trigger_new(keyval, modifiers.mask)!!.reinterpret())
 
     public companion object : TypeCompanion<KeyvalTrigger> {
         override val type: GeneratedClassKGType<KeyvalTrigger> =
-            GeneratedClassKGType(gtk_keyval_trigger_get_type()) { KeyvalTrigger(it.reinterpret()) }
+                GeneratedClassKGType(gtk_keyval_trigger_get_type()) { KeyvalTrigger(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

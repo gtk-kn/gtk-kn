@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.javascriptcore
 
+import kotlin.String
+import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -20,14 +22,13 @@ import org.gtkkn.native.javascriptcore.jsc_exception_new
 import org.gtkkn.native.javascriptcore.jsc_exception_new_with_name
 import org.gtkkn.native.javascriptcore.jsc_exception_report
 import org.gtkkn.native.javascriptcore.jsc_exception_to_string
-import kotlin.String
-import kotlin.UInt
 
 /**
  * JSCException represents a JavaScript exception.
  */
-public class Exception(pointer: CPointer<JSCException>) :
-    Object(pointer.reinterpret()),
+public class Exception(
+    pointer: CPointer<JSCException>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val javascriptcoreExceptionPointer: CPointer<JSCException>
         get() = gPointer.reinterpret()
@@ -39,10 +40,7 @@ public class Exception(pointer: CPointer<JSCException>) :
      * @param message the error message
      * @return a new #JSCException.
      */
-    public constructor(
-        context: Context,
-        message: String,
-    ) : this(jsc_exception_new(context.javascriptcoreContextPointer.reinterpret(), message)!!.reinterpret())
+    public constructor(context: Context, message: String) : this(jsc_exception_new(context.javascriptcoreContextPointer.reinterpret(), message)!!.reinterpret())
 
     /**
      * Create a new #JSCException in @context with @name and @message.
@@ -56,17 +54,14 @@ public class Exception(pointer: CPointer<JSCException>) :
         context: Context,
         name: String,
         message: String,
-    ) : this(
-        jsc_exception_new_with_name(context.javascriptcoreContextPointer.reinterpret(), name, message)!!.reinterpret()
-    )
+    ) : this(jsc_exception_new_with_name(context.javascriptcoreContextPointer.reinterpret(), name, message)!!.reinterpret())
 
     /**
      * Get a string with the exception backtrace.
      *
      * @return the exception backtrace string or null.
      */
-    public fun getBacktraceString(): String? =
-        jsc_exception_get_backtrace_string(javascriptcoreExceptionPointer.reinterpret())?.toKString()
+    public fun getBacktraceString(): String? = jsc_exception_get_backtrace_string(javascriptcoreExceptionPointer.reinterpret())?.toKString()
 
     /**
      * Get the column number at which @exception happened.
@@ -87,25 +82,21 @@ public class Exception(pointer: CPointer<JSCException>) :
      *
      * @return the @exception error message.
      */
-    public fun getMessage(): String =
-        jsc_exception_get_message(javascriptcoreExceptionPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getMessage(): String = jsc_exception_get_message(javascriptcoreExceptionPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the error name of @exception
      *
      * @return the @exception error name.
      */
-    public fun getName(): String = jsc_exception_get_name(javascriptcoreExceptionPointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    public fun getName(): String = jsc_exception_get_name(javascriptcoreExceptionPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the source URI of @exception.
      *
      * @return the the source URI of @exception, or null.
      */
-    public fun getSourceUri(): String? =
-        jsc_exception_get_source_uri(javascriptcoreExceptionPointer.reinterpret())?.toKString()
+    public fun getSourceUri(): String? = jsc_exception_get_source_uri(javascriptcoreExceptionPointer.reinterpret())?.toKString()
 
     /**
      * Return a report message of @exception, containing all the possible details such us
@@ -113,23 +104,20 @@ public class Exception(pointer: CPointer<JSCException>) :
      *
      * @return a new string with the exception report
      */
-    public fun report(): String = jsc_exception_report(javascriptcoreExceptionPointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    public fun report(): String = jsc_exception_report(javascriptcoreExceptionPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the string representation of @exception error.
      *
      * @return the string representation of @exception.
      */
-    override fun toString(): String = jsc_exception_to_string(javascriptcoreExceptionPointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    override fun toString(): String = jsc_exception_to_string(javascriptcoreExceptionPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     public companion object : TypeCompanion<Exception> {
         override val type: GeneratedClassKGType<Exception> =
-            GeneratedClassKGType(jsc_exception_get_type()) { Exception(it.reinterpret()) }
+                GeneratedClassKGType(jsc_exception_get_type()) { Exception(it.reinterpret()) }
 
         init {
-            JavascriptcoreTypeProvider.register()
-        }
+            JavascriptcoreTypeProvider.register()}
     }
 }

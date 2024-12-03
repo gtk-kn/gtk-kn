@@ -14,7 +14,9 @@ import org.gtkkn.native.pango.PangoLayoutSerializeFlags
  * New members may be added to this enumeration over time.
  * @since 1.50
  */
-public class LayoutSerializeFlags(public val mask: PangoLayoutSerializeFlags) : Bitfield<LayoutSerializeFlags> {
+public class LayoutSerializeFlags(
+    public val mask: PangoLayoutSerializeFlags,
+) : Bitfield<LayoutSerializeFlags> {
     override infix fun or(other: LayoutSerializeFlags): LayoutSerializeFlags = LayoutSerializeFlags(mask or other.mask)
 
     @PangoVersion1_50
@@ -23,18 +25,18 @@ public class LayoutSerializeFlags(public val mask: PangoLayoutSerializeFlags) : 
          * Default behavior
          */
         public val DEFAULT: LayoutSerializeFlags =
-            LayoutSerializeFlags(PANGO_LAYOUT_SERIALIZE_DEFAULT)
+                LayoutSerializeFlags(PANGO_LAYOUT_SERIALIZE_DEFAULT)
 
         /**
          * Include context information
          */
         public val CONTEXT: LayoutSerializeFlags =
-            LayoutSerializeFlags(PANGO_LAYOUT_SERIALIZE_CONTEXT)
+                LayoutSerializeFlags(PANGO_LAYOUT_SERIALIZE_CONTEXT)
 
         /**
          * Include information about the formatted output
          */
         public val OUTPUT: LayoutSerializeFlags =
-            LayoutSerializeFlags(PANGO_LAYOUT_SERIALIZE_OUTPUT)
+                LayoutSerializeFlags(PANGO_LAYOUT_SERIALIZE_OUTPUT)
     }
 }

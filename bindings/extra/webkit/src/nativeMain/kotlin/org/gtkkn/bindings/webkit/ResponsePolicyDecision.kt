@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_4
@@ -15,7 +16,6 @@ import org.gtkkn.native.webkit.webkit_response_policy_decision_get_response
 import org.gtkkn.native.webkit.webkit_response_policy_decision_get_type
 import org.gtkkn.native.webkit.webkit_response_policy_decision_is_main_frame_main_resource
 import org.gtkkn.native.webkit.webkit_response_policy_decision_is_mime_type_supported
-import kotlin.Boolean
 
 /**
  * A policy decision for resource responses.
@@ -26,8 +26,9 @@ import kotlin.Boolean
  * whether or not to download a particular resource or to load it
  * normally.
  */
-public class ResponsePolicyDecision(pointer: CPointer<WebKitResponsePolicyDecision>) :
-    PolicyDecision(pointer.reinterpret()),
+public class ResponsePolicyDecision(
+    pointer: CPointer<WebKitResponsePolicyDecision>,
+) : PolicyDecision(pointer.reinterpret()),
     KGTyped {
     public val webkitResponsePolicyDecisionPointer: CPointer<WebKitResponsePolicyDecision>
         get() = gPointer.reinterpret()
@@ -49,8 +50,7 @@ public class ResponsePolicyDecision(pointer: CPointer<WebKitResponsePolicyDecisi
          * @return The URI request that is associated with this policy decision.
          */
         get() = webkit_response_policy_decision_get_request(webkitResponsePolicyDecisionPointer.reinterpret())!!.run {
-            URIRequest(reinterpret())
-        }
+            URIRequest(reinterpret())}
 
     /**
      * This property contains the #WebKitURIResponse associated with this
@@ -63,8 +63,7 @@ public class ResponsePolicyDecision(pointer: CPointer<WebKitResponsePolicyDecisi
          * @return The URI response that is associated with this policy decision.
          */
         get() = webkit_response_policy_decision_get_response(webkitResponsePolicyDecisionPointer.reinterpret())!!.run {
-            URIResponse(reinterpret())
-        }
+            URIResponse(reinterpret())}
 
     /**
      * Gets whether the request is the main frame main resource
@@ -73,9 +72,7 @@ public class ResponsePolicyDecision(pointer: CPointer<WebKitResponsePolicyDecisi
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun isMainFrameMainResource(): Boolean = webkit_response_policy_decision_is_main_frame_main_resource(
-        webkitResponsePolicyDecisionPointer.reinterpret()
-    ).asBoolean()
+    public fun isMainFrameMainResource(): Boolean = webkit_response_policy_decision_is_main_frame_main_resource(webkitResponsePolicyDecisionPointer.reinterpret()).asBoolean()
 
     /**
      * Gets whether the MIME type of the response can be displayed in the #WebKitWebView.
@@ -87,18 +84,13 @@ public class ResponsePolicyDecision(pointer: CPointer<WebKitResponsePolicyDecisi
      * @since 2.4
      */
     @WebKitVersion2_4
-    public fun isMimeTypeSupported(): Boolean = webkit_response_policy_decision_is_mime_type_supported(
-        webkitResponsePolicyDecisionPointer.reinterpret()
-    ).asBoolean()
+    public fun isMimeTypeSupported(): Boolean = webkit_response_policy_decision_is_mime_type_supported(webkitResponsePolicyDecisionPointer.reinterpret()).asBoolean()
 
     public companion object : TypeCompanion<ResponsePolicyDecision> {
         override val type: GeneratedClassKGType<ResponsePolicyDecision> =
-            GeneratedClassKGType(webkit_response_policy_decision_get_type()) {
-                ResponsePolicyDecision(it.reinterpret())
-            }
+                GeneratedClassKGType(webkit_response_policy_decision_get_type()) { ResponsePolicyDecision(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebkitTypeProvider.register()}
     }
 }

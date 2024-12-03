@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -12,15 +14,16 @@ import org.gtkkn.native.webkit.WebKitUserContentFilter
 import org.gtkkn.native.webkit.webkit_user_content_filter_get_identifier
 import org.gtkkn.native.webkit.webkit_user_content_filter_ref
 import org.gtkkn.native.webkit.webkit_user_content_filter_unref
-import kotlin.String
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A compiled set of rules which applied to resource loads.
  * @since 2.24
  */
 @WebKitVersion2_24
-public class UserContentFilter(pointer: CPointer<WebKitUserContentFilter>) : Record {
+public class UserContentFilter(
+    pointer: CPointer<WebKitUserContentFilter>,
+) : Record {
     public val webkitUserContentFilterPointer: CPointer<WebKitUserContentFilter> = pointer
 
     /**
@@ -33,9 +36,7 @@ public class UserContentFilter(pointer: CPointer<WebKitUserContentFilter>) : Rec
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun getIdentifier(): String =
-        webkit_user_content_filter_get_identifier(webkitUserContentFilterPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getIdentifier(): String = webkit_user_content_filter_get_identifier(webkitUserContentFilterPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Atomically increments the reference count of @user_content_filter by one.
@@ -46,10 +47,8 @@ public class UserContentFilter(pointer: CPointer<WebKitUserContentFilter>) : Rec
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun ref(): UserContentFilter =
-        webkit_user_content_filter_ref(webkitUserContentFilterPointer.reinterpret())!!.run {
-            UserContentFilter(reinterpret())
-        }
+    public fun ref(): UserContentFilter = webkit_user_content_filter_ref(webkitUserContentFilterPointer.reinterpret())!!.run {
+        UserContentFilter(reinterpret())}
 
     /**
      * Atomically decrements the reference count of @user_content_filter by one.
@@ -64,7 +63,6 @@ public class UserContentFilter(pointer: CPointer<WebKitUserContentFilter>) : Rec
     public fun unref(): Unit = webkit_user_content_filter_unref(webkitUserContentFilterPointer.reinterpret())
 
     public companion object : RecordCompanion<UserContentFilter, WebKitUserContentFilter> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): UserContentFilter =
-            UserContentFilter(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): UserContentFilter = UserContentFilter(pointer.reinterpret())
     }
 }

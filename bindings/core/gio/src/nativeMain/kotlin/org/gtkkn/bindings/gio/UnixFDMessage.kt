@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.Result
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -21,9 +24,6 @@ import org.gtkkn.native.gio.g_unix_fd_message_get_type
 import org.gtkkn.native.gio.g_unix_fd_message_new
 import org.gtkkn.native.gio.g_unix_fd_message_new_with_fd_list
 import org.gtkkn.native.glib.GError
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.Result
 
 /**
  * This [class@Gio.SocketControlMessage] contains a [class@Gio.UnixFDList].
@@ -44,8 +44,9 @@ import kotlin.Result
  *
  * - parameter `length`: length: Out parameter is not supported
  */
-public open class UnixFDMessage(pointer: CPointer<GUnixFDMessage>) :
-    SocketControlMessage(pointer.reinterpret()),
+public open class UnixFDMessage(
+    pointer: CPointer<GUnixFDMessage>,
+) : SocketControlMessage(pointer.reinterpret()),
     KGTyped {
     public val gioUnixFDMessagePointer: CPointer<GUnixFDMessage>
         get() = gPointer.reinterpret()
@@ -66,8 +67,7 @@ public open class UnixFDMessage(pointer: CPointer<GUnixFDMessage>) :
          * @since 2.24
          */
         get() = g_unix_fd_message_get_fd_list(gioUnixFDMessagePointer.reinterpret())!!.run {
-            UnixFDList(reinterpret())
-        }
+            UnixFDList(reinterpret())}
 
     /**
      * Creates a new #GUnixFDMessage containing an empty file descriptor
@@ -85,9 +85,7 @@ public open class UnixFDMessage(pointer: CPointer<GUnixFDMessage>) :
      * @return a new #GUnixFDMessage
      * @since 2.24
      */
-    public constructor(
-        fdList: UnixFDList,
-    ) : this(g_unix_fd_message_new_with_fd_list(fdList.gioUnixFDListPointer.reinterpret())!!.reinterpret())
+    public constructor(fdList: UnixFDList) : this(g_unix_fd_message_new_with_fd_list(fdList.gioUnixFDListPointer.reinterpret())!!.reinterpret())
 
     /**
      * Adds a file descriptor to @message.
@@ -109,17 +107,17 @@ public open class UnixFDMessage(pointer: CPointer<GUnixFDMessage>) :
         val gResult = g_unix_fd_message_append_fd(gioUnixFDMessagePointer.reinterpret(), fd, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
 
     public companion object : TypeCompanion<UnixFDMessage> {
         override val type: GeneratedClassKGType<UnixFDMessage> =
-            GeneratedClassKGType(g_unix_fd_message_get_type()) { UnixFDMessage(it.reinterpret()) }
+                GeneratedClassKGType(g_unix_fd_message_get_type()) { UnixFDMessage(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
     }
 }

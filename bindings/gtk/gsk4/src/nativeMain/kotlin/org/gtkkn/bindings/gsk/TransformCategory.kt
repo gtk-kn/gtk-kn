@@ -15,44 +15,40 @@ import org.gtkkn.native.gsk.GskTransformCategory
  * multiplication will not worsen categories. So for the matrix
  * multiplication `C = A * B`, `category(C) = MIN (category(A), category(B))`.
  */
-public enum class TransformCategory(public val nativeValue: GskTransformCategory) {
+public enum class TransformCategory(
+    public val nativeValue: GskTransformCategory,
+) {
     /**
      * The category of the matrix has not been
      *   determined.
      */
     UNKNOWN(GskTransformCategory.GSK_TRANSFORM_CATEGORY_UNKNOWN),
-
     /**
      * Analyzing the matrix concluded that it does
      *   not fit in any other category.
      */
     ANY(GskTransformCategory.GSK_TRANSFORM_CATEGORY_ANY),
-
     /**
      * The matrix is a 3D matrix. This means that
      *   the w column (the last column) has the values (0, 0, 0, 1).
      */
     `3D`(GskTransformCategory.GSK_TRANSFORM_CATEGORY_3D),
-
     /**
      * The matrix is a 2D matrix. This is equivalent
      *   to graphene_matrix_is_2d() returning true. In particular, this
      *   means that Cairo can deal with the matrix.
      */
     `2D`(GskTransformCategory.GSK_TRANSFORM_CATEGORY_2D),
-
     /**
      * The matrix is a combination of 2D scale
      *   and 2D translation operations. In particular, this means that any
      *   rectangle can be transformed exactly using this matrix.
      */
     `2D_AFFINE`(GskTransformCategory.GSK_TRANSFORM_CATEGORY_2D_AFFINE),
-
     /**
      * The matrix is a 2D translation.
      */
     `2D_TRANSLATE`(GskTransformCategory.GSK_TRANSFORM_CATEGORY_2D_TRANSLATE),
-
     /**
      * The matrix is the identity matrix.
      */

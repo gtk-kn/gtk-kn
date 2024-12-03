@@ -6,32 +6,29 @@ import org.gtkkn.native.gtk.GtkDirectionType
 /**
  * Focus movement types.
  */
-public enum class DirectionType(public val nativeValue: GtkDirectionType) {
+public enum class DirectionType(
+    public val nativeValue: GtkDirectionType,
+) {
     /**
      * Move forward.
      */
     TAB_FORWARD(GtkDirectionType.GTK_DIR_TAB_FORWARD),
-
     /**
      * Move backward.
      */
     TAB_BACKWARD(GtkDirectionType.GTK_DIR_TAB_BACKWARD),
-
     /**
      * Move up.
      */
     UP(GtkDirectionType.GTK_DIR_UP),
-
     /**
      * Move down.
      */
     DOWN(GtkDirectionType.GTK_DIR_DOWN),
-
     /**
      * Move left.
      */
     LEFT(GtkDirectionType.GTK_DIR_LEFT),
-
     /**
      * Move right.
      */

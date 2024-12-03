@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Int
+import kotlin.UInt
+import kotlin.ULong
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,9 +12,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_48
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GInputMessage
-import kotlin.Int
-import kotlin.UInt
-import kotlin.ULong
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Structure used for scatter/gather data input when receiving multiple
@@ -43,7 +44,9 @@ import kotlin.ULong
  * @since 2.48
  */
 @GioVersion2_48
-public class InputMessage(pointer: CPointer<GInputMessage>) : Record {
+public class InputMessage(
+    pointer: CPointer<GInputMessage>,
+) : Record {
     public val gioInputMessagePointer: CPointer<GInputMessage> = pointer
 
     /**
@@ -54,8 +57,7 @@ public class InputMessage(pointer: CPointer<GInputMessage>) : Record {
      */
     public val address: SocketAddress?
         get() = gioInputMessagePointer.pointed.address?.run {
-            SocketAddress(reinterpret())
-        }
+            SocketAddress(reinterpret())}
 
     /**
      * the number of input vectors pointed to by @vectors
@@ -87,7 +89,6 @@ public class InputMessage(pointer: CPointer<GInputMessage>) : Record {
         }
 
     public companion object : RecordCompanion<InputMessage, GInputMessage> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): InputMessage =
-            InputMessage(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): InputMessage = InputMessage(pointer.reinterpret())
     }
 }

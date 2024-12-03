@@ -30,8 +30,9 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_spinner_new
  * - method `pulse`: Property has no getter nor setter
  * - method `size`: Property has no getter nor setter
  */
-public open class CellRendererSpinner(pointer: CPointer<GtkCellRendererSpinner>) :
-    CellRenderer(pointer.reinterpret()),
+public open class CellRendererSpinner(
+    pointer: CPointer<GtkCellRendererSpinner>,
+) : CellRenderer(pointer.reinterpret()),
     KGTyped {
     public val gtkCellRendererSpinnerPointer: CPointer<GtkCellRendererSpinner>
         get() = gPointer.reinterpret()
@@ -46,10 +47,9 @@ public open class CellRendererSpinner(pointer: CPointer<GtkCellRendererSpinner>)
 
     public companion object : TypeCompanion<CellRendererSpinner> {
         override val type: GeneratedClassKGType<CellRendererSpinner> =
-            GeneratedClassKGType(gtk_cell_renderer_spinner_get_type()) { CellRendererSpinner(it.reinterpret()) }
+                GeneratedClassKGType(gtk_cell_renderer_spinner_get_type()) { CellRendererSpinner(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

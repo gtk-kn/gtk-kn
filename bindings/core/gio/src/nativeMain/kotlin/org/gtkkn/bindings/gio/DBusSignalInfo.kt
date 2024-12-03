@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Int
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -12,9 +15,7 @@ import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GDBusSignalInfo
 import org.gtkkn.native.gio.g_dbus_signal_info_ref
 import org.gtkkn.native.gio.g_dbus_signal_info_unref
-import kotlin.Int
-import kotlin.String
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Information about a signal on a D-Bus interface.
@@ -27,7 +28,9 @@ import kotlin.Unit
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusSignalInfo(pointer: CPointer<GDBusSignalInfo>) : Record {
+public class DBusSignalInfo(
+    pointer: CPointer<GDBusSignalInfo>,
+) : Record {
     public val gioDBusSignalInfoPointer: CPointer<GDBusSignalInfo> = pointer
 
     /**
@@ -56,8 +59,7 @@ public class DBusSignalInfo(pointer: CPointer<GDBusSignalInfo>) : Record {
      */
     @GioVersion2_26
     public fun ref(): DBusSignalInfo = g_dbus_signal_info_ref(gioDBusSignalInfoPointer.reinterpret())!!.run {
-        DBusSignalInfo(reinterpret())
-    }
+        DBusSignalInfo(reinterpret())}
 
     /**
      * If @info is statically allocated, does nothing. Otherwise decreases
@@ -70,7 +72,6 @@ public class DBusSignalInfo(pointer: CPointer<GDBusSignalInfo>) : Record {
     public fun unref(): Unit = g_dbus_signal_info_unref(gioDBusSignalInfoPointer.reinterpret())
 
     public companion object : RecordCompanion<DBusSignalInfo, GDBusSignalInfo> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusSignalInfo =
-            DBusSignalInfo(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusSignalInfo = DBusSignalInfo(pointer.reinterpret())
     }
 }

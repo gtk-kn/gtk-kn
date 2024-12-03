@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Int
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
@@ -24,7 +25,6 @@ import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkOrientable
-import kotlin.Int
 
 /**
  * A widget constraining its child to a given size.
@@ -53,8 +53,9 @@ import kotlin.Int
  *
  * `AdwClamp` has a single CSS node with name `clamp`.
  */
-public class Clamp(pointer: CPointer<AdwClamp>) :
-    Widget(pointer.reinterpret()),
+public class Clamp(
+    pointer: CPointer<AdwClamp>,
+) : Widget(pointer.reinterpret()),
     Orientable,
     KGTyped {
     public val adwClampPointer: CPointer<AdwClamp>
@@ -82,9 +83,7 @@ public class Clamp(pointer: CPointer<AdwClamp>) :
          * @return the child widget of @self
          */
         get() = adw_clamp_get_child(adwClampPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the child widget of @self.
          *
@@ -104,7 +103,6 @@ public class Clamp(pointer: CPointer<AdwClamp>) :
          * @return the maximum size to allocate to the child
          */
         get() = adw_clamp_get_maximum_size(adwClampPointer.reinterpret())
-
         /**
          * Sets the maximum size allocated to the child.
          *
@@ -137,7 +135,6 @@ public class Clamp(pointer: CPointer<AdwClamp>) :
          * @return the size above which the child is clamped
          */
         get() = adw_clamp_get_tightening_threshold(adwClampPointer.reinterpret())
-
         /**
          * Sets the size above which the child is clamped.
          *
@@ -156,9 +153,7 @@ public class Clamp(pointer: CPointer<AdwClamp>) :
          *
          * @param tighteningThreshold the tightening threshold
          */
-        set(
-            tighteningThreshold
-        ) = adw_clamp_set_tightening_threshold(adwClampPointer.reinterpret(), tighteningThreshold)
+        set(tighteningThreshold) = adw_clamp_set_tightening_threshold(adwClampPointer.reinterpret(), tighteningThreshold)
 
     /**
      * The length unit for maximum size and tightening threshold.
@@ -176,9 +171,7 @@ public class Clamp(pointer: CPointer<AdwClamp>) :
          * @since 1.4
          */
         get() = adw_clamp_get_unit(adwClampPointer.reinterpret()).run {
-            LengthUnit.fromNativeValue(this)
-        }
-
+            LengthUnit.fromNativeValue(this)}
         /**
          * Sets the length unit for maximum size and tightening threshold.
          *
@@ -199,10 +192,9 @@ public class Clamp(pointer: CPointer<AdwClamp>) :
 
     public companion object : TypeCompanion<Clamp> {
         override val type: GeneratedClassKGType<Clamp> =
-            GeneratedClassKGType(adw_clamp_get_type()) { Clamp(it.reinterpret()) }
+                GeneratedClassKGType(adw_clamp_get_type()) { Clamp(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
     }
 }

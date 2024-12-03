@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Int
+import kotlin.String
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -10,15 +12,16 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GDBusErrorEntry
-import kotlin.Int
-import kotlin.String
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Struct used in g_dbus_error_register_error_domain().
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusErrorEntry(pointer: CPointer<GDBusErrorEntry>) : Record {
+public class DBusErrorEntry(
+    pointer: CPointer<GDBusErrorEntry>,
+) : Record {
     public val gioDBusErrorEntryPointer: CPointer<GDBusErrorEntry> = pointer
 
     /**
@@ -39,7 +42,6 @@ public class DBusErrorEntry(pointer: CPointer<GDBusErrorEntry>) : Record {
         get() = gioDBusErrorEntryPointer.pointed.dbus_error_name?.toKString()
 
     public companion object : RecordCompanion<DBusErrorEntry, GDBusErrorEntry> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusErrorEntry =
-            DBusErrorEntry(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusErrorEntry = DBusErrorEntry(pointer.reinterpret())
     }
 }

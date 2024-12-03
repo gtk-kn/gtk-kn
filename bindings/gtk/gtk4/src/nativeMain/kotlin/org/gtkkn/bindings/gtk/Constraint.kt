@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Double
+import kotlin.Int
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -23,9 +26,6 @@ import org.gtkkn.native.gtk.gtk_constraint_is_constant
 import org.gtkkn.native.gtk.gtk_constraint_is_required
 import org.gtkkn.native.gtk.gtk_constraint_new
 import org.gtkkn.native.gtk.gtk_constraint_new_constant
-import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 
 /**
  * `GtkConstraint` describes a constraint between attributes of two widgets,
@@ -44,8 +44,9 @@ import kotlin.Int
  * The source and target, as well as their attributes, of a `GtkConstraint`
  * instance are immutable after creation.
  */
-public open class Constraint(pointer: CPointer<GtkConstraint>) :
-    Object(pointer.reinterpret()),
+public open class Constraint(
+    pointer: CPointer<GtkConstraint>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtkConstraintPointer: CPointer<GtkConstraint>
         get() = gPointer.reinterpret()
@@ -84,8 +85,7 @@ public open class Constraint(pointer: CPointer<GtkConstraint>) :
          * @return a relation type
          */
         get() = gtk_constraint_get_relation(gtkConstraintPointer.reinterpret()).run {
-            ConstraintRelation.fromNativeValue(this)
-        }
+            ConstraintRelation.fromNativeValue(this)}
 
     /**
      * The source of the constraint.
@@ -105,8 +105,7 @@ public open class Constraint(pointer: CPointer<GtkConstraint>) :
          * @return the source of the constraint
          */
         get() = gtk_constraint_get_source(gtkConstraintPointer.reinterpret())?.run {
-            ConstraintTarget.wrap(reinterpret())
-        }
+            ConstraintTarget.wrap(reinterpret())}
 
     /**
      * The attribute of the [property@Gtk.Constraint:source] read by the
@@ -119,8 +118,7 @@ public open class Constraint(pointer: CPointer<GtkConstraint>) :
          * @return the source's attribute
          */
         get() = gtk_constraint_get_source_attribute(gtkConstraintPointer.reinterpret()).run {
-            ConstraintAttribute.fromNativeValue(this)
-        }
+            ConstraintAttribute.fromNativeValue(this)}
 
     /**
      * The strength of the constraint.
@@ -155,8 +153,7 @@ public open class Constraint(pointer: CPointer<GtkConstraint>) :
          * @return a `GtkConstraintTarget`
          */
         get() = gtk_constraint_get_target(gtkConstraintPointer.reinterpret())?.run {
-            ConstraintTarget.wrap(reinterpret())
-        }
+            ConstraintTarget.wrap(reinterpret())}
 
     /**
      * The attribute of the [property@Gtk.Constraint:target] set by the constraint.
@@ -168,8 +165,7 @@ public open class Constraint(pointer: CPointer<GtkConstraint>) :
          * @return the target's attribute
          */
         get() = gtk_constraint_get_target_attribute(gtkConstraintPointer.reinterpret()).run {
-            ConstraintAttribute.fromNativeValue(this)
-        }
+            ConstraintAttribute.fromNativeValue(this)}
 
     /**
      * Creates a new constraint representing a relation between a layout
@@ -194,18 +190,7 @@ public open class Constraint(pointer: CPointer<GtkConstraint>) :
         multiplier: Double,
         constant: Double,
         strength: Int,
-    ) : this(
-        gtk_constraint_new(
-            target?.gtkConstraintTargetPointer,
-            targetAttribute.nativeValue,
-            relation.nativeValue,
-            source?.gtkConstraintTargetPointer,
-            sourceAttribute.nativeValue,
-            multiplier,
-            constant,
-            strength
-        )!!.reinterpret()
-    )
+    ) : this(gtk_constraint_new(target?.gtkConstraintTargetPointer, targetAttribute.nativeValue, relation.nativeValue, source?.gtkConstraintTargetPointer, sourceAttribute.nativeValue, multiplier, constant, strength)!!.reinterpret())
 
     /**
      * Creates a new constraint representing a relation between a layout
@@ -224,15 +209,7 @@ public open class Constraint(pointer: CPointer<GtkConstraint>) :
         relation: ConstraintRelation,
         constant: Double,
         strength: Int,
-    ) : this(
-        gtk_constraint_new_constant(
-            target?.gtkConstraintTargetPointer,
-            targetAttribute.nativeValue,
-            relation.nativeValue,
-            constant,
-            strength
-        )!!.reinterpret()
-    )
+    ) : this(gtk_constraint_new_constant(target?.gtkConstraintTargetPointer, targetAttribute.nativeValue, relation.nativeValue, constant, strength)!!.reinterpret())
 
     /**
      * Checks whether the constraint is attached to a [class@Gtk.ConstraintLayout],
@@ -260,10 +237,9 @@ public open class Constraint(pointer: CPointer<GtkConstraint>) :
 
     public companion object : TypeCompanion<Constraint> {
         override val type: GeneratedClassKGType<Constraint> =
-            GeneratedClassKGType(gtk_constraint_get_type()) { Constraint(it.reinterpret()) }
+                GeneratedClassKGType(gtk_constraint_get_type()) { Constraint(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

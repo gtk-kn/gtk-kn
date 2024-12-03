@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -24,9 +27,6 @@ import org.gtkkn.native.webkit.webkit_automation_session_get_application_info
 import org.gtkkn.native.webkit.webkit_automation_session_get_id
 import org.gtkkn.native.webkit.webkit_automation_session_get_type
 import org.gtkkn.native.webkit.webkit_automation_session_set_application_info
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Automation Session.
@@ -40,8 +40,9 @@ import kotlin.Unit
  * @since 2.18
  */
 @WebKitVersion2_18
-public class AutomationSession(pointer: CPointer<WebKitAutomationSession>) :
-    Object(pointer.reinterpret()),
+public class AutomationSession(
+    pointer: CPointer<WebKitAutomationSession>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val webkitAutomationSessionPointer: CPointer<WebKitAutomationSession>
         get() = gPointer.reinterpret()
@@ -59,8 +60,7 @@ public class AutomationSession(pointer: CPointer<WebKitAutomationSession>) :
          * @return the unique identifier of @session
          * @since 2.18
          */
-        get() = webkit_automation_session_get_id(webkitAutomationSessionPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = webkit_automation_session_get_id(webkitAutomationSessionPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the the previously set #WebKitAutomationSession.
@@ -71,10 +71,8 @@ public class AutomationSession(pointer: CPointer<WebKitAutomationSession>) :
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun getApplicationInfo(): ApplicationInfo =
-        webkit_automation_session_get_application_info(webkitAutomationSessionPointer.reinterpret())!!.run {
-            ApplicationInfo(reinterpret())
-        }
+    public fun getApplicationInfo(): ApplicationInfo = webkit_automation_session_get_application_info(webkitAutomationSessionPointer.reinterpret())!!.run {
+        ApplicationInfo(reinterpret())}
 
     /**
      * Set the application information to @session.
@@ -90,10 +88,7 @@ public class AutomationSession(pointer: CPointer<WebKitAutomationSession>) :
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun setApplicationInfo(info: ApplicationInfo): Unit = webkit_automation_session_set_application_info(
-        webkitAutomationSessionPointer.reinterpret(),
-        info.webkitApplicationInfoPointer.reinterpret()
-    )
+    public fun setApplicationInfo(info: ApplicationInfo): Unit = webkit_automation_session_set_application_info(webkitAutomationSessionPointer.reinterpret(), info.webkitApplicationInfoPointer.reinterpret())
 
     /**
      * This signal is emitted when the automation client requests a new
@@ -114,15 +109,7 @@ public class AutomationSession(pointer: CPointer<WebKitAutomationSession>) :
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun connectCreateWebView(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> WebView): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "create-web-view",
-            connectCreateWebViewFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectCreateWebView(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> WebView): ULong = g_signal_connect_data(gPointer.reinterpret(), "create-web-view", connectCreateWebViewFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * This signal is emitted when the given automation session is about to finish.
@@ -133,39 +120,28 @@ public class AutomationSession(pointer: CPointer<WebKitAutomationSession>) :
      * @since 2.46
      */
     @WebKitVersion2_46
-    public fun connectWillClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "will-close",
-            connectWillCloseFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectWillClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "will-close", connectWillCloseFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<AutomationSession> {
         override val type: GeneratedClassKGType<AutomationSession> =
-            GeneratedClassKGType(webkit_automation_session_get_type()) { AutomationSession(it.reinterpret()) }
+                GeneratedClassKGType(webkit_automation_session_get_type()) { AutomationSession(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebkitTypeProvider.register()}
     }
 }
 
 private val connectCreateWebViewFunc: CPointer<CFunction<() -> CPointer<WebKitWebView>>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> WebView>().get().invoke().webkitWebViewPointer
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<() -> WebView>().get().invoke().webkitWebViewPointer}
+.reinterpret()
 
 private val connectWillCloseFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

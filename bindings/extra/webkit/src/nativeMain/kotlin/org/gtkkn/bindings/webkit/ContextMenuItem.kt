@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Action
@@ -23,9 +26,6 @@ import org.gtkkn.native.webkit.webkit_context_menu_item_new_from_stock_action_wi
 import org.gtkkn.native.webkit.webkit_context_menu_item_new_separator
 import org.gtkkn.native.webkit.webkit_context_menu_item_new_with_submenu
 import org.gtkkn.native.webkit.webkit_context_menu_item_set_submenu
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * One item of a #WebKitContextMenu.
@@ -36,8 +36,9 @@ import kotlin.Unit
  * label. These #WebKitContextMenuAction<!-- -->s denote stock actions
  * for the items. You can also create separators and submenus.
  */
-public class ContextMenuItem(pointer: CPointer<WebKitContextMenuItem>) :
-    InitiallyUnowned(pointer.reinterpret()),
+public class ContextMenuItem(
+    pointer: CPointer<WebKitContextMenuItem>,
+) : InitiallyUnowned(pointer.reinterpret()),
     KGTyped {
     public val webkitContextMenuItemPointer: CPointer<WebKitContextMenuItem>
         get() = gPointer.reinterpret()
@@ -65,13 +66,7 @@ public class ContextMenuItem(pointer: CPointer<WebKitContextMenuItem>) :
         action: Action,
         label: String,
         target: Variant? = null,
-    ) : this(
-        webkit_context_menu_item_new_from_gaction(
-            action.gioActionPointer,
-            label,
-            target?.glibVariantPointer?.reinterpret()
-        )!!.reinterpret()
-    )
+    ) : this(webkit_context_menu_item_new_from_gaction(action.gioActionPointer, label, target?.glibVariantPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Creates a new #WebKitContextMenuItem for the given stock action.
@@ -88,9 +83,7 @@ public class ContextMenuItem(pointer: CPointer<WebKitContextMenuItem>) :
      * @param action a #WebKitContextMenuAction stock action
      * @return the newly created #WebKitContextMenuItem object.
      */
-    public constructor(
-        action: ContextMenuAction,
-    ) : this(webkit_context_menu_item_new_from_stock_action(action.nativeValue)!!.reinterpret())
+    public constructor(action: ContextMenuAction) : this(webkit_context_menu_item_new_from_stock_action(action.nativeValue)!!.reinterpret())
 
     /**
      * Creates a new #WebKitContextMenuItem for the given stock action using the given @label.
@@ -102,10 +95,7 @@ public class ContextMenuItem(pointer: CPointer<WebKitContextMenuItem>) :
      * @param label a custom label text to use instead of the predefined one
      * @return the newly created #WebKitContextMenuItem object.
      */
-    public constructor(
-        action: ContextMenuAction,
-        label: String,
-    ) : this(webkit_context_menu_item_new_from_stock_action_with_label(action.nativeValue, label)!!.reinterpret())
+    public constructor(action: ContextMenuAction, label: String) : this(webkit_context_menu_item_new_from_stock_action_with_label(action.nativeValue, label)!!.reinterpret())
 
     /**
      * Creates a new #WebKitContextMenuItem using the given @label with a submenu.
@@ -114,12 +104,7 @@ public class ContextMenuItem(pointer: CPointer<WebKitContextMenuItem>) :
      * @param submenu a #WebKitContextMenu to set
      * @return the newly created #WebKitContextMenuItem object.
      */
-    public constructor(
-        label: String,
-        submenu: ContextMenu,
-    ) : this(
-        webkit_context_menu_item_new_with_submenu(label, submenu.webkitContextMenuPointer.reinterpret())!!.reinterpret()
-    )
+    public constructor(label: String, submenu: ContextMenu) : this(webkit_context_menu_item_new_with_submenu(label, submenu.webkitContextMenuPointer.reinterpret())!!.reinterpret())
 
     /**
      * Gets the action associated to @item as a #GAction.
@@ -129,10 +114,8 @@ public class ContextMenuItem(pointer: CPointer<WebKitContextMenuItem>) :
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun getGaction(): Action =
-        webkit_context_menu_item_get_gaction(webkitContextMenuItemPointer.reinterpret())!!.run {
-            Action.wrap(reinterpret())
-        }
+    public fun getGaction(): Action = webkit_context_menu_item_get_gaction(webkitContextMenuItemPointer.reinterpret())!!.run {
+        Action.wrap(reinterpret())}
 
     /**
      * Gets the #WebKitContextMenuAction of @item.
@@ -144,10 +127,8 @@ public class ContextMenuItem(pointer: CPointer<WebKitContextMenuItem>) :
      *
      * @return the #WebKitContextMenuAction of @item
      */
-    public fun getStockAction(): ContextMenuAction =
-        webkit_context_menu_item_get_stock_action(webkitContextMenuItemPointer.reinterpret()).run {
-            ContextMenuAction.fromNativeValue(this)
-        }
+    public fun getStockAction(): ContextMenuAction = webkit_context_menu_item_get_stock_action(webkitContextMenuItemPointer.reinterpret()).run {
+        ContextMenuAction.fromNativeValue(this)}
 
     /**
      * Gets the submenu of @item.
@@ -155,18 +136,15 @@ public class ContextMenuItem(pointer: CPointer<WebKitContextMenuItem>) :
      * @return the #WebKitContextMenu representing the submenu of
      *    @item or null if @item doesn't have a submenu.
      */
-    public fun getSubmenu(): ContextMenu =
-        webkit_context_menu_item_get_submenu(webkitContextMenuItemPointer.reinterpret())!!.run {
-            ContextMenu(reinterpret())
-        }
+    public fun getSubmenu(): ContextMenu = webkit_context_menu_item_get_submenu(webkitContextMenuItemPointer.reinterpret())!!.run {
+        ContextMenu(reinterpret())}
 
     /**
      * Checks whether @item is a separator.
      *
      * @return true is @item is a separator or false otherwise
      */
-    public fun isSeparator(): Boolean =
-        webkit_context_menu_item_is_separator(webkitContextMenuItemPointer.reinterpret()).asBoolean()
+    public fun isSeparator(): Boolean = webkit_context_menu_item_is_separator(webkitContextMenuItemPointer.reinterpret()).asBoolean()
 
     /**
      * Sets or replaces the @item submenu.
@@ -176,17 +154,13 @@ public class ContextMenuItem(pointer: CPointer<WebKitContextMenuItem>) :
      *
      * @param submenu a #WebKitContextMenu
      */
-    public fun setSubmenu(submenu: ContextMenu? = null): Unit = webkit_context_menu_item_set_submenu(
-        webkitContextMenuItemPointer.reinterpret(),
-        submenu?.webkitContextMenuPointer?.reinterpret()
-    )
+    public fun setSubmenu(submenu: ContextMenu? = null): Unit = webkit_context_menu_item_set_submenu(webkitContextMenuItemPointer.reinterpret(), submenu?.webkitContextMenuPointer?.reinterpret())
 
     public companion object : TypeCompanion<ContextMenuItem> {
         override val type: GeneratedClassKGType<ContextMenuItem> =
-            GeneratedClassKGType(webkit_context_menu_item_get_type()) { ContextMenuItem(it.reinterpret()) }
+                GeneratedClassKGType(webkit_context_menu_item_get_type()) { ContextMenuItem(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebkitTypeProvider.register()}
     }
 }

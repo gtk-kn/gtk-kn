@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asBoolean
@@ -18,8 +20,6 @@ import org.gtkkn.native.gtk.gtk_spinner_new
 import org.gtkkn.native.gtk.gtk_spinner_set_spinning
 import org.gtkkn.native.gtk.gtk_spinner_start
 import org.gtkkn.native.gtk.gtk_spinner_stop
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * A `GtkSpinner` widget displays an icon-size spinning animation.
@@ -38,8 +38,9 @@ import kotlin.Unit
  * When the animation is active, the :checked pseudoclass is
  * added to this node.
  */
-public open class Spinner(pointer: CPointer<GtkSpinner>) :
-    Widget(pointer.reinterpret()),
+public open class Spinner(
+    pointer: CPointer<GtkSpinner>,
+) : Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkSpinnerPointer: CPointer<GtkSpinner>
         get() = gPointer.reinterpret()
@@ -63,7 +64,6 @@ public open class Spinner(pointer: CPointer<GtkSpinner>) :
          * @return true if the spinner is active
          */
         get() = gtk_spinner_get_spinning(gtkSpinnerPointer.reinterpret()).asBoolean()
-
         /**
          * Sets the activity of the spinner.
          *
@@ -90,10 +90,9 @@ public open class Spinner(pointer: CPointer<GtkSpinner>) :
 
     public companion object : TypeCompanion<Spinner> {
         override val type: GeneratedClassKGType<Spinner> =
-            GeneratedClassKGType(gtk_spinner_get_type()) { Spinner(it.reinterpret()) }
+                GeneratedClassKGType(gtk_spinner_get_type()) { Spinner(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

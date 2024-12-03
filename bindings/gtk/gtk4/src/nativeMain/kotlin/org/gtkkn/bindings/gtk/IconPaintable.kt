@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -19,9 +22,6 @@ import org.gtkkn.native.gtk.gtk_icon_paintable_get_icon_name
 import org.gtkkn.native.gtk.gtk_icon_paintable_get_type
 import org.gtkkn.native.gtk.gtk_icon_paintable_is_symbolic
 import org.gtkkn.native.gtk.gtk_icon_paintable_new_for_file
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.String
 
 /**
  * Contains information found when looking up an icon in `GtkIconTheme`.
@@ -32,8 +32,9 @@ import kotlin.String
  *
  * - method `is-symbolic`: Property has no getter nor setter
  */
-public open class IconPaintable(pointer: CPointer<GtkIconPaintable>) :
-    Object(pointer.reinterpret()),
+public open class IconPaintable(
+    pointer: CPointer<GtkIconPaintable>,
+) : Object(pointer.reinterpret()),
     Paintable,
     SymbolicPaintable,
     KGTyped {
@@ -58,8 +59,7 @@ public open class IconPaintable(pointer: CPointer<GtkIconPaintable>) :
          * @return the `GFile` for the icon
          */
         get() = gtk_icon_paintable_get_file(gtkIconPaintablePointer.reinterpret())?.run {
-            File.wrap(reinterpret())
-        }
+            File.wrap(reinterpret())}
 
     /**
      * The icon name that was chosen during lookup.
@@ -109,15 +109,13 @@ public open class IconPaintable(pointer: CPointer<GtkIconPaintable>) :
      *
      * @return true if the icon is symbolic, false otherwise
      */
-    public open fun isSymbolic(): Boolean =
-        gtk_icon_paintable_is_symbolic(gtkIconPaintablePointer.reinterpret()).asBoolean()
+    public open fun isSymbolic(): Boolean = gtk_icon_paintable_is_symbolic(gtkIconPaintablePointer.reinterpret()).asBoolean()
 
     public companion object : TypeCompanion<IconPaintable> {
         override val type: GeneratedClassKGType<IconPaintable> =
-            GeneratedClassKGType(gtk_icon_paintable_get_type()) { IconPaintable(it.reinterpret()) }
+                GeneratedClassKGType(gtk_icon_paintable_get_type()) { IconPaintable(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

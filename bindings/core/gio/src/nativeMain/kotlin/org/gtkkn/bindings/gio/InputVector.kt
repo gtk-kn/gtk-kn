@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.ULong
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,7 +10,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GInputVector
-import kotlin.ULong
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Structure used for scatter/gather data input.
@@ -24,7 +25,9 @@ import kotlin.ULong
  * @since 2.22
  */
 @GioVersion2_22
-public class InputVector(pointer: CPointer<GInputVector>) : Record {
+public class InputVector(
+    pointer: CPointer<GInputVector>,
+) : Record {
     public val gioInputVectorPointer: CPointer<GInputVector> = pointer
 
     /**
@@ -37,7 +40,6 @@ public class InputVector(pointer: CPointer<GInputVector>) : Record {
         }
 
     public companion object : RecordCompanion<InputVector, GInputVector> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): InputVector =
-            InputVector(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): InputVector = InputVector(pointer.reinterpret())
     }
 }

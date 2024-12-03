@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.graphene
 
+import kotlin.Boolean
+import kotlin.Double
+import kotlin.Float
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -27,17 +31,16 @@ import org.gtkkn.native.graphene.graphene_point3d_scale
 import org.gtkkn.native.graphene.graphene_point3d_t
 import org.gtkkn.native.graphene.graphene_point3d_to_vec3
 import org.gtkkn.native.graphene.graphene_point3d_zero
-import kotlin.Boolean
-import kotlin.Double
-import kotlin.Float
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A point with three components: X, Y, and Z.
  * @since 1.0
  */
 @GrapheneVersion1_0
-public class Point3D(pointer: CPointer<graphene_point3d_t>) : Record {
+public class Point3D(
+    pointer: CPointer<graphene_point3d_t>,
+) : Record {
     public val graphenePoint3DPointer: CPointer<graphene_point3d_t> = pointer
 
     /**
@@ -76,11 +79,7 @@ public class Point3D(pointer: CPointer<graphene_point3d_t>) : Record {
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun cross(b: Point3D, res: Point3D): Unit = graphene_point3d_cross(
-        graphenePoint3DPointer.reinterpret(),
-        b.graphenePoint3DPointer.reinterpret(),
-        res.graphenePoint3DPointer.reinterpret()
-    )
+    public fun cross(b: Point3D, res: Point3D): Unit = graphene_point3d_cross(graphenePoint3DPointer.reinterpret(), b.graphenePoint3DPointer.reinterpret(), res.graphenePoint3DPointer.reinterpret())
 
     /**
      * Computes the distance between the two given #graphene_point3d_t.
@@ -92,11 +91,7 @@ public class Point3D(pointer: CPointer<graphene_point3d_t>) : Record {
      * @since 1.4
      */
     @GrapheneVersion1_4
-    public fun distance(b: Point3D, delta: Vec3?): Float = graphene_point3d_distance(
-        graphenePoint3DPointer.reinterpret(),
-        b.graphenePoint3DPointer.reinterpret(),
-        delta?.grapheneVec3Pointer?.reinterpret()
-    )
+    public fun distance(b: Point3D, delta: Vec3?): Float = graphene_point3d_distance(graphenePoint3DPointer.reinterpret(), b.graphenePoint3DPointer.reinterpret(), delta?.grapheneVec3Pointer?.reinterpret())
 
     /**
      * Computes the dot product of the two given #graphene_point3d_t.
@@ -106,8 +101,7 @@ public class Point3D(pointer: CPointer<graphene_point3d_t>) : Record {
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun dot(b: Point3D): Float =
-        graphene_point3d_dot(graphenePoint3DPointer.reinterpret(), b.graphenePoint3DPointer.reinterpret())
+    public fun dot(b: Point3D): Float = graphene_point3d_dot(graphenePoint3DPointer.reinterpret(), b.graphenePoint3DPointer.reinterpret())
 
     /**
      * Checks whether two given points are equal.
@@ -117,8 +111,7 @@ public class Point3D(pointer: CPointer<graphene_point3d_t>) : Record {
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun equal(b: Point3D): Boolean =
-        graphene_point3d_equal(graphenePoint3DPointer.reinterpret(), b.graphenePoint3DPointer.reinterpret())
+    public fun equal(b: Point3D): Boolean = graphene_point3d_equal(graphenePoint3DPointer.reinterpret(), b.graphenePoint3DPointer.reinterpret())
 
     /**
      * Frees the resources allocated via graphene_point3d_alloc().
@@ -138,10 +131,12 @@ public class Point3D(pointer: CPointer<graphene_point3d_t>) : Record {
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun `init`(x: Float, y: Float, z: Float): Point3D =
-        graphene_point3d_init(graphenePoint3DPointer.reinterpret(), x, y, z)!!.run {
-            Point3D(reinterpret())
-        }
+    public fun `init`(
+        x: Float,
+        y: Float,
+        z: Float,
+    ): Point3D = graphene_point3d_init(graphenePoint3DPointer.reinterpret(), x, y, z)!!.run {
+        Point3D(reinterpret())}
 
     /**
      * Initializes a #graphene_point3d_t using the coordinates of
@@ -152,12 +147,8 @@ public class Point3D(pointer: CPointer<graphene_point3d_t>) : Record {
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initFromPoint(src: Point3D): Point3D = graphene_point3d_init_from_point(
-        graphenePoint3DPointer.reinterpret(),
-        src.graphenePoint3DPointer.reinterpret()
-    )!!.run {
-        Point3D(reinterpret())
-    }
+    public fun initFromPoint(src: Point3D): Point3D = graphene_point3d_init_from_point(graphenePoint3DPointer.reinterpret(), src.graphenePoint3DPointer.reinterpret())!!.run {
+        Point3D(reinterpret())}
 
     /**
      * Initializes a #graphene_point3d_t using the components
@@ -168,12 +159,8 @@ public class Point3D(pointer: CPointer<graphene_point3d_t>) : Record {
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initFromVec3(v: Vec3): Point3D = graphene_point3d_init_from_vec3(
-        graphenePoint3DPointer.reinterpret(),
-        v.grapheneVec3Pointer.reinterpret()
-    )!!.run {
-        Point3D(reinterpret())
-    }
+    public fun initFromVec3(v: Vec3): Point3D = graphene_point3d_init_from_vec3(graphenePoint3DPointer.reinterpret(), v.grapheneVec3Pointer.reinterpret())!!.run {
+        Point3D(reinterpret())}
 
     /**
      * Linearly interpolates each component of @a and @b using the
@@ -186,12 +173,11 @@ public class Point3D(pointer: CPointer<graphene_point3d_t>) : Record {
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun interpolate(b: Point3D, factor: Double, res: Point3D): Unit = graphene_point3d_interpolate(
-        graphenePoint3DPointer.reinterpret(),
-        b.graphenePoint3DPointer.reinterpret(),
-        factor,
-        res.graphenePoint3DPointer.reinterpret()
-    )
+    public fun interpolate(
+        b: Point3D,
+        factor: Double,
+        res: Point3D,
+    ): Unit = graphene_point3d_interpolate(graphenePoint3DPointer.reinterpret(), b.graphenePoint3DPointer.reinterpret(), factor, res.graphenePoint3DPointer.reinterpret())
 
     /**
      * Computes the length of the vector represented by the
@@ -213,8 +199,7 @@ public class Point3D(pointer: CPointer<graphene_point3d_t>) : Record {
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun near(b: Point3D, epsilon: Float): Boolean =
-        graphene_point3d_near(graphenePoint3DPointer.reinterpret(), b.graphenePoint3DPointer.reinterpret(), epsilon)
+    public fun near(b: Point3D, epsilon: Float): Boolean = graphene_point3d_near(graphenePoint3DPointer.reinterpret(), b.graphenePoint3DPointer.reinterpret(), epsilon)
 
     /**
      * Computes the normalization of the vector represented by the
@@ -225,8 +210,7 @@ public class Point3D(pointer: CPointer<graphene_point3d_t>) : Record {
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun normalize(res: Point3D): Unit =
-        graphene_point3d_normalize(graphenePoint3DPointer.reinterpret(), res.graphenePoint3DPointer.reinterpret())
+    public fun normalize(res: Point3D): Unit = graphene_point3d_normalize(graphenePoint3DPointer.reinterpret(), res.graphenePoint3DPointer.reinterpret())
 
     /**
      * Normalizes the coordinates of a #graphene_point3d_t using the
@@ -245,14 +229,12 @@ public class Point3D(pointer: CPointer<graphene_point3d_t>) : Record {
      * @since 1.4
      */
     @GrapheneVersion1_4
-    public fun normalizeViewport(viewport: Rect, zNear: Float, zFar: Float, res: Point3D): Unit =
-        graphene_point3d_normalize_viewport(
-            graphenePoint3DPointer.reinterpret(),
-            viewport.grapheneRectPointer.reinterpret(),
-            zNear,
-            zFar,
-            res.graphenePoint3DPointer.reinterpret()
-        )
+    public fun normalizeViewport(
+        viewport: Rect,
+        zNear: Float,
+        zFar: Float,
+        res: Point3D,
+    ): Unit = graphene_point3d_normalize_viewport(graphenePoint3DPointer.reinterpret(), viewport.grapheneRectPointer.reinterpret(), zNear, zFar, res.graphenePoint3DPointer.reinterpret())
 
     /**
      * Scales the coordinates of the given #graphene_point3d_t by
@@ -263,8 +245,7 @@ public class Point3D(pointer: CPointer<graphene_point3d_t>) : Record {
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun scale(factor: Float, res: Point3D): Unit =
-        graphene_point3d_scale(graphenePoint3DPointer.reinterpret(), factor, res.graphenePoint3DPointer.reinterpret())
+    public fun scale(factor: Float, res: Point3D): Unit = graphene_point3d_scale(graphenePoint3DPointer.reinterpret(), factor, res.graphenePoint3DPointer.reinterpret())
 
     /**
      * Stores the coordinates of a #graphene_point3d_t into a
@@ -274,8 +255,7 @@ public class Point3D(pointer: CPointer<graphene_point3d_t>) : Record {
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun toVec3(v: Vec3): Unit =
-        graphene_point3d_to_vec3(graphenePoint3DPointer.reinterpret(), v.grapheneVec3Pointer.reinterpret())
+    public fun toVec3(v: Vec3): Unit = graphene_point3d_to_vec3(graphenePoint3DPointer.reinterpret(), v.grapheneVec3Pointer.reinterpret())
 
     public companion object : RecordCompanion<Point3D, graphene_point3d_t> {
         /**
@@ -296,8 +276,7 @@ public class Point3D(pointer: CPointer<graphene_point3d_t>) : Record {
          */
         @GrapheneVersion1_0
         public fun zero(): Point3D = graphene_point3d_zero()!!.run {
-            Point3D(reinterpret())
-        }
+            Point3D(reinterpret())}
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Point3D = Point3D(pointer.reinterpret())
     }

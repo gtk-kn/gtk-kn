@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.ULong
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -20,9 +23,6 @@ import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkEventControllerLegacy
 import org.gtkkn.native.gtk.gtk_event_controller_legacy_get_type
 import org.gtkkn.native.gtk.gtk_event_controller_legacy_new
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.ULong
 
 /**
  * `GtkEventControllerLegacy` is an event controller that provides raw
@@ -31,8 +31,9 @@ import kotlin.ULong
  * It should only be used as a last resort if none of the other event
  * controllers or gestures do the job.
  */
-public open class EventControllerLegacy(pointer: CPointer<GtkEventControllerLegacy>) :
-    EventController(pointer.reinterpret()),
+public open class EventControllerLegacy(
+    pointer: CPointer<GtkEventControllerLegacy>,
+) : EventController(pointer.reinterpret()),
     KGTyped {
     public val gtkEventControllerLegacyPointer: CPointer<GtkEventControllerLegacy>
         get() = gPointer.reinterpret()
@@ -51,35 +52,23 @@ public open class EventControllerLegacy(pointer: CPointer<GtkEventControllerLega
      * @param handler the Callback to connect. Params: `event` the `GdkEvent` which triggered this signal. Returns true to stop other handlers from being invoked for the event
      *   and the emission of this signal. false to propagate the event further.
      */
-    public fun connectEvent(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (event: Event) -> Boolean): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "event",
-            connectEventFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectEvent(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (event: Event) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "event", connectEventFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<EventControllerLegacy> {
         override val type: GeneratedClassKGType<EventControllerLegacy> =
-            GeneratedClassKGType(gtk_event_controller_legacy_get_type()) { EventControllerLegacy(it.reinterpret()) }
+                GeneratedClassKGType(gtk_event_controller_legacy_get_type()) { EventControllerLegacy(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }
 
 private val connectEventFunc: CPointer<CFunction<(CPointer<GdkEvent>) -> Int>> = staticCFunction {
-        _: COpaquePointer,
-        event: CPointer<GdkEvent>?,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    event: CPointer<GdkEvent>?,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(event: Event) -> Boolean>().get().invoke(
-        event!!.run {
-            Event(reinterpret())
-        }
-    ).asGBoolean()
-}
-    .reinterpret()
+    userData.asStableRef<(event: Event) -> Boolean>().get().invoke(event!!.run {
+        Event(reinterpret())}
+    ).asGBoolean()}
+.reinterpret()

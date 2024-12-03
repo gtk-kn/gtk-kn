@@ -90,8 +90,9 @@ import org.gtkkn.native.gtk.GtkConstraintTarget
  * `AdwViewSwitcher` uses the `GTK_ACCESSIBLE_ROLE_TAB_LIST` role and uses the
  * `GTK_ACCESSIBLE_ROLE_TAB` for its buttons.
  */
-public class ViewSwitcher(pointer: CPointer<AdwViewSwitcher>) :
-    Widget(pointer.reinterpret()),
+public class ViewSwitcher(
+    pointer: CPointer<AdwViewSwitcher>,
+) : Widget(pointer.reinterpret()),
     KGTyped {
     public val adwViewSwitcherPointer: CPointer<AdwViewSwitcher>
         get() = gPointer.reinterpret()
@@ -115,9 +116,7 @@ public class ViewSwitcher(pointer: CPointer<AdwViewSwitcher>) :
          * @return the policy of @self
          */
         get() = adw_view_switcher_get_policy(adwViewSwitcherPointer.reinterpret()).run {
-            ViewSwitcherPolicy.fromNativeValue(this)
-        }
-
+            ViewSwitcherPolicy.fromNativeValue(this)}
         /**
          * Sets the policy of @self.
          *
@@ -135,17 +134,13 @@ public class ViewSwitcher(pointer: CPointer<AdwViewSwitcher>) :
          * @return the stack
          */
         get() = adw_view_switcher_get_stack(adwViewSwitcherPointer.reinterpret())?.run {
-            ViewStack(reinterpret())
-        }
-
+            ViewStack(reinterpret())}
         /**
          * Sets the stack controlled by @self.
          *
          * @param stack a stack
          */
-        set(
-            stack
-        ) = adw_view_switcher_set_stack(adwViewSwitcherPointer.reinterpret(), stack?.adwViewStackPointer?.reinterpret())
+        set(stack) = adw_view_switcher_set_stack(adwViewSwitcherPointer.reinterpret(), stack?.adwViewStackPointer?.reinterpret())
 
     /**
      * Creates a new `AdwViewSwitcher`.
@@ -156,10 +151,9 @@ public class ViewSwitcher(pointer: CPointer<AdwViewSwitcher>) :
 
     public companion object : TypeCompanion<ViewSwitcher> {
         override val type: GeneratedClassKGType<ViewSwitcher> =
-            GeneratedClassKGType(adw_view_switcher_get_type()) { ViewSwitcher(it.reinterpret()) }
+                GeneratedClassKGType(adw_view_switcher_get_type()) { ViewSwitcher(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
     }
 }

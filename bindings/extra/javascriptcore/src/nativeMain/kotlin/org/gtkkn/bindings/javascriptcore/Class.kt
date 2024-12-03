@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.javascriptcore
 
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -18,9 +21,6 @@ import org.gtkkn.native.javascriptcore.jsc_class_add_method_variadic
 import org.gtkkn.native.javascriptcore.jsc_class_get_name
 import org.gtkkn.native.javascriptcore.jsc_class_get_parent
 import org.gtkkn.native.javascriptcore.jsc_class_get_type
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A JSSClass represents a custom JavaScript class registered by the user in a #JSCContext.
@@ -36,8 +36,9 @@ import kotlin.Unit
  * - parameter `getter`: GObject.Callback
  * - method `context`: Property has no getter nor setter
  */
-public class Class(pointer: CPointer<JSCClass>) :
-    Object(pointer.reinterpret()),
+public class Class(
+    pointer: CPointer<JSCClass>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val javascriptcoreClassPointer: CPointer<JSCClass>
         get() = gPointer.reinterpret()
@@ -51,8 +52,7 @@ public class Class(pointer: CPointer<JSCClass>) :
          *
          * @return the name of @jsc_class
          */
-        get() = jsc_class_get_name(javascriptcoreClassPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = jsc_class_get_name(javascriptcoreClassPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * The parent class or null in case of final classes.
@@ -64,8 +64,7 @@ public class Class(pointer: CPointer<JSCClass>) :
          * @return the parent class of @jsc_class
          */
         get() = jsc_class_get_parent(javascriptcoreClassPointer.reinterpret())!!.run {
-            Class(reinterpret())
-        }
+            Class(reinterpret())}
 
     /**
      * Add a constructor to @jsc_class. If @name is null, the class name will be used. When <function>new</function>
@@ -84,17 +83,12 @@ public class Class(pointer: CPointer<JSCClass>) :
      * @param returnType the #GType of the constructor return value
      * @return a #JSCValue representing the class constructor.
      */
-    public fun addConstructorVariadic(name: String? = null, callback: Callback, returnType: ULong): Value =
-        jsc_class_add_constructor_variadic(
-            javascriptcoreClassPointer.reinterpret(),
-            name,
-            CallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            returnType
-        )!!.run {
-            Value(reinterpret())
-        }
+    public fun addConstructorVariadic(
+        name: String? = null,
+        callback: Callback,
+        returnType: ULong,
+    ): Value = jsc_class_add_constructor_variadic(javascriptcoreClassPointer.reinterpret(), name, CallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret(), returnType)!!.run {
+        Value(reinterpret())}
 
     /**
      * Add method with @name to @jsc_class. When the method is called by JavaScript or jsc_value_object_invoke_method(),
@@ -111,22 +105,17 @@ public class Class(pointer: CPointer<JSCClass>) :
      * @param callback a #GCallback to be called to invoke method @name of @jsc_class
      * @param returnType the #GType of the method return value, or %G_TYPE_NONE if the method is void.
      */
-    public fun addMethodVariadic(name: String, callback: Callback, returnType: ULong): Unit =
-        jsc_class_add_method_variadic(
-            javascriptcoreClassPointer.reinterpret(),
-            name,
-            CallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            returnType
-        )
+    public fun addMethodVariadic(
+        name: String,
+        callback: Callback,
+        returnType: ULong,
+    ): Unit = jsc_class_add_method_variadic(javascriptcoreClassPointer.reinterpret(), name, CallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret(), returnType)
 
     public companion object : TypeCompanion<Class> {
         override val type: GeneratedClassKGType<Class> =
-            GeneratedClassKGType(jsc_class_get_type()) { Class(it.reinterpret()) }
+                GeneratedClassKGType(jsc_class_get_type()) { Class(it.reinterpret()) }
 
         init {
-            JavascriptcoreTypeProvider.register()
-        }
+            JavascriptcoreTypeProvider.register()}
     }
 }

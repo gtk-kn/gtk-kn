@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -10,7 +11,6 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.webkit.WebKitFormSubmissionRequest
 import org.gtkkn.native.webkit.webkit_form_submission_request_get_type
 import org.gtkkn.native.webkit.webkit_form_submission_request_submit
-import kotlin.Unit
 
 /**
  * Represents a form submission request.
@@ -26,8 +26,9 @@ import kotlin.Unit
  *
  * - parameter `field_names`: field_names: Out parameter is not supported
  */
-public class FormSubmissionRequest(pointer: CPointer<WebKitFormSubmissionRequest>) :
-    Object(pointer.reinterpret()),
+public class FormSubmissionRequest(
+    pointer: CPointer<WebKitFormSubmissionRequest>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val webkitFormSubmissionRequestPointer: CPointer<WebKitFormSubmissionRequest>
         get() = gPointer.reinterpret()
@@ -39,12 +40,9 @@ public class FormSubmissionRequest(pointer: CPointer<WebKitFormSubmissionRequest
 
     public companion object : TypeCompanion<FormSubmissionRequest> {
         override val type: GeneratedClassKGType<FormSubmissionRequest> =
-            GeneratedClassKGType(webkit_form_submission_request_get_type()) {
-                FormSubmissionRequest(it.reinterpret())
-            }
+                GeneratedClassKGType(webkit_form_submission_request_get_type()) { FormSubmissionRequest(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebkitTypeProvider.register()}
     }
 }

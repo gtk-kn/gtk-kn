@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Int
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_20
@@ -17,8 +19,6 @@ import org.gtkkn.native.gio.g_unix_input_stream_get_fd
 import org.gtkkn.native.gio.g_unix_input_stream_get_type
 import org.gtkkn.native.gio.g_unix_input_stream_new
 import org.gtkkn.native.gio.g_unix_input_stream_set_close_fd
-import kotlin.Boolean
-import kotlin.Int
 
 /**
  * `GUnixInputStream` implements [class@Gio.InputStream] for reading from a UNIX
@@ -31,8 +31,9 @@ import kotlin.Int
  * interfaces, thus you have to use the `gio-unix-2.0.pc` pkg-config
  * file or the `GioUnix-2.0` GIR namespace when using it.
  */
-public open class UnixInputStream(pointer: CPointer<GUnixInputStream>) :
-    InputStream(pointer.reinterpret()),
+public open class UnixInputStream(
+    pointer: CPointer<GUnixInputStream>,
+) : InputStream(pointer.reinterpret()),
     FileDescriptorBased,
     PollableInputStream,
     KGTyped {
@@ -60,7 +61,6 @@ public open class UnixInputStream(pointer: CPointer<GUnixInputStream>) :
          * @since 2.20
          */
         get() = g_unix_input_stream_get_close_fd(gioUnixInputStreamPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the file descriptor of @stream shall be closed
          * when the stream is closed.
@@ -96,17 +96,13 @@ public open class UnixInputStream(pointer: CPointer<GUnixInputStream>) :
      * @param closeFd true to close the file descriptor when done
      * @return a new #GUnixInputStream
      */
-    public constructor(
-        fd: Int,
-        closeFd: Boolean,
-    ) : this(g_unix_input_stream_new(fd, closeFd.asGBoolean())!!.reinterpret())
+    public constructor(fd: Int, closeFd: Boolean) : this(g_unix_input_stream_new(fd, closeFd.asGBoolean())!!.reinterpret())
 
     public companion object : TypeCompanion<UnixInputStream> {
         override val type: GeneratedClassKGType<UnixInputStream> =
-            GeneratedClassKGType(g_unix_input_stream_get_type()) { UnixInputStream(it.reinterpret()) }
+                GeneratedClassKGType(g_unix_input_stream_get_type()) { UnixInputStream(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
     }
 }

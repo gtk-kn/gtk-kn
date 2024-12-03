@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Int
+import kotlin.UInt
+import kotlin.ULong
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
@@ -14,17 +17,15 @@ import org.gtkkn.native.adw.adw_enum_list_model_get_enum_type
 import org.gtkkn.native.adw.adw_enum_list_model_get_type
 import org.gtkkn.native.adw.adw_enum_list_model_new
 import org.gtkkn.native.gio.GListModel
-import kotlin.Int
-import kotlin.UInt
-import kotlin.ULong
 
 /**
  * A [iface@Gio.ListModel] representing values of a given enum.
  *
  * `AdwEnumListModel` contains objects of type [class@EnumListItem].
  */
-public class EnumListModel(pointer: CPointer<AdwEnumListModel>) :
-    Object(pointer.reinterpret()),
+public class EnumListModel(
+    pointer: CPointer<AdwEnumListModel>,
+) : Object(pointer.reinterpret()),
     ListModel,
     KGTyped {
     public val adwEnumListModelPointer: CPointer<AdwEnumListModel>
@@ -59,15 +60,13 @@ public class EnumListModel(pointer: CPointer<AdwEnumListModel>) :
      *
      * @param value an enum value
      */
-    public fun findPosition(`value`: Int): UInt =
-        adw_enum_list_model_find_position(adwEnumListModelPointer.reinterpret(), `value`)
+    public fun findPosition(`value`: Int): UInt = adw_enum_list_model_find_position(adwEnumListModelPointer.reinterpret(), `value`)
 
     public companion object : TypeCompanion<EnumListModel> {
         override val type: GeneratedClassKGType<EnumListModel> =
-            GeneratedClassKGType(adw_enum_list_model_get_type()) { EnumListModel(it.reinterpret()) }
+                GeneratedClassKGType(adw_enum_list_model_get_type()) { EnumListModel(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
     }
 }

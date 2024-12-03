@@ -6,12 +6,13 @@ import org.gtkkn.native.gtk.GtkSortType
 /**
  * Determines the direction of a sort.
  */
-public enum class SortType(public val nativeValue: GtkSortType) {
+public enum class SortType(
+    public val nativeValue: GtkSortType,
+) {
     /**
      * Sorting is in ascending order.
      */
     ASCENDING(GtkSortType.GTK_SORT_ASCENDING),
-
     /**
      * Sorting is in descending order.
      */

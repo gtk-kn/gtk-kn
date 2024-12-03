@@ -13,47 +13,46 @@ import org.gtkkn.native.gtk.GtkEventControllerScrollFlags
 /**
  * Describes the behavior of a `GtkEventControllerScroll`.
  */
-public class EventControllerScrollFlags(public val mask: GtkEventControllerScrollFlags) :
-    Bitfield<EventControllerScrollFlags> {
-    override infix fun or(other: EventControllerScrollFlags): EventControllerScrollFlags = EventControllerScrollFlags(
-        mask or other.mask
-    )
+public class EventControllerScrollFlags(
+    public val mask: GtkEventControllerScrollFlags,
+) : Bitfield<EventControllerScrollFlags> {
+    override infix fun or(other: EventControllerScrollFlags): EventControllerScrollFlags = EventControllerScrollFlags(mask or other.mask)
 
     public companion object {
         /**
          * Don't emit scroll.
          */
         public val NONE: EventControllerScrollFlags =
-            EventControllerScrollFlags(GTK_EVENT_CONTROLLER_SCROLL_NONE)
+                EventControllerScrollFlags(GTK_EVENT_CONTROLLER_SCROLL_NONE)
 
         /**
          * Emit scroll with vertical deltas.
          */
         public val VERTICAL: EventControllerScrollFlags =
-            EventControllerScrollFlags(GTK_EVENT_CONTROLLER_SCROLL_VERTICAL)
+                EventControllerScrollFlags(GTK_EVENT_CONTROLLER_SCROLL_VERTICAL)
 
         /**
          * Emit scroll with horizontal deltas.
          */
         public val HORIZONTAL: EventControllerScrollFlags =
-            EventControllerScrollFlags(GTK_EVENT_CONTROLLER_SCROLL_HORIZONTAL)
+                EventControllerScrollFlags(GTK_EVENT_CONTROLLER_SCROLL_HORIZONTAL)
 
         /**
          * Only emit deltas that are multiples of 1.
          */
         public val DISCRETE: EventControllerScrollFlags =
-            EventControllerScrollFlags(GTK_EVENT_CONTROLLER_SCROLL_DISCRETE)
+                EventControllerScrollFlags(GTK_EVENT_CONTROLLER_SCROLL_DISCRETE)
 
         /**
          * Emit ::decelerate after continuous scroll finishes.
          */
         public val KINETIC: EventControllerScrollFlags =
-            EventControllerScrollFlags(GTK_EVENT_CONTROLLER_SCROLL_KINETIC)
+                EventControllerScrollFlags(GTK_EVENT_CONTROLLER_SCROLL_KINETIC)
 
         /**
          * Emit scroll on both axes.
          */
         public val BOTH_AXES: EventControllerScrollFlags =
-            EventControllerScrollFlags(GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES)
+                EventControllerScrollFlags(GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES)
     }
 }

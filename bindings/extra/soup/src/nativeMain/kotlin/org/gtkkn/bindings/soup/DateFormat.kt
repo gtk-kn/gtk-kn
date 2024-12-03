@@ -11,13 +11,14 @@ import org.gtkkn.native.soup.SoupDateFormat
  *
  * This enum may be extended with more values in future releases.
  */
-public enum class DateFormat(public val nativeValue: SoupDateFormat) {
+public enum class DateFormat(
+    public val nativeValue: SoupDateFormat,
+) {
     /**
      * RFC 1123 format, used by the HTTP "Date" header. Eg
      *   "Sun, 06 Nov 1994 08:49:37 GMT".
      */
     HTTP(SoupDateFormat.SOUP_DATE_HTTP),
-
     /**
      * The format for the "Expires" timestamp in the
      *   Netscape cookie specification. Eg, "Sun, 06-Nov-1994 08:49:37 GMT".

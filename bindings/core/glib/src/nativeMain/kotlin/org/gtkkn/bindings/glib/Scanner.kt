@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.String
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -25,11 +30,7 @@ import org.gtkkn.native.glib.g_scanner_scope_remove_symbol
 import org.gtkkn.native.glib.g_scanner_set_scope
 import org.gtkkn.native.glib.g_scanner_sync_file_offset
 import org.gtkkn.native.glib.g_scanner_unexp_token
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.String
-import kotlin.UInt
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * `GScanner` provides a general-purpose lexical scanner.
@@ -64,7 +65,9 @@ import kotlin.Unit
  * - field `scope_id`: Record field scope_id is private
  * - field `msg_handler`: ScannerMsgFunc
  */
-public class Scanner(pointer: CPointer<GScanner>) : Record {
+public class Scanner(
+    pointer: CPointer<GScanner>,
+) : Record {
     public val glibScannerPointer: CPointer<GScanner> = pointer
 
     /**
@@ -100,16 +103,14 @@ public class Scanner(pointer: CPointer<GScanner>) : Record {
      */
     public val config: ScannerConfig?
         get() = glibScannerPointer.pointed.config?.run {
-            ScannerConfig(reinterpret())
-        }
+            ScannerConfig(reinterpret())}
 
     /**
      * token parsed by the last g_scanner_get_next_token()
      */
     public var token: TokenType
         get() = glibScannerPointer.pointed.token.run {
-            TokenType.fromNativeValue(this)
-        }
+            TokenType.fromNativeValue(this)}
         set(`value`) {
             glibScannerPointer.pointed.token = value.nativeValue
         }
@@ -137,8 +138,7 @@ public class Scanner(pointer: CPointer<GScanner>) : Record {
      */
     public var nextToken: TokenType
         get() = glibScannerPointer.pointed.next_token.run {
-            TokenType.fromNativeValue(this)
-        }
+            TokenType.fromNativeValue(this)}
         set(`value`) {
             glibScannerPointer.pointed.next_token = value.nativeValue
         }
@@ -186,8 +186,7 @@ public class Scanner(pointer: CPointer<GScanner>) : Record {
      * @return the current token type
      */
     public fun curToken(): TokenType = g_scanner_cur_token(glibScannerPointer.reinterpret()).run {
-        TokenType.fromNativeValue(this)
-    }
+        TokenType.fromNativeValue(this)}
 
     /**
      * Frees all memory used by the #GScanner.
@@ -212,8 +211,7 @@ public class Scanner(pointer: CPointer<GScanner>) : Record {
      * @return the type of the token
      */
     public fun getNextToken(): TokenType = g_scanner_get_next_token(glibScannerPointer.reinterpret()).run {
-        TokenType.fromNativeValue(this)
-    }
+        TokenType.fromNativeValue(this)}
 
     /**
      * Prepares to scan a file.
@@ -228,8 +226,7 @@ public class Scanner(pointer: CPointer<GScanner>) : Record {
      * @param text the text buffer to scan
      * @param textLen the length of the text buffer
      */
-    public fun inputText(text: String, textLen: UInt): Unit =
-        g_scanner_input_text(glibScannerPointer.reinterpret(), text, textLen)
+    public fun inputText(text: String, textLen: UInt): Unit = g_scanner_input_text(glibScannerPointer.reinterpret(), text, textLen)
 
     /**
      * Parses the next token, without removing it from the input stream.
@@ -247,8 +244,7 @@ public class Scanner(pointer: CPointer<GScanner>) : Record {
      * @return the type of the token
      */
     public fun peekNextToken(): TokenType = g_scanner_peek_next_token(glibScannerPointer.reinterpret()).run {
-        TokenType.fromNativeValue(this)
-    }
+        TokenType.fromNativeValue(this)}
 
     /**
      * Calls the given function for each of the symbol/value pairs
@@ -259,12 +255,7 @@ public class Scanner(pointer: CPointer<GScanner>) : Record {
      * @param scopeId the scope id
      * @param func the function to call for each symbol/value pair
      */
-    public fun scopeForeachSymbol(scopeId: UInt, func: HFunc): Unit = g_scanner_scope_foreach_symbol(
-        glibScannerPointer.reinterpret(),
-        scopeId,
-        HFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer()
-    )
+    public fun scopeForeachSymbol(scopeId: UInt, func: HFunc): Unit = g_scanner_scope_foreach_symbol(glibScannerPointer.reinterpret(), scopeId, HFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Removes a symbol from a scope.
@@ -272,8 +263,7 @@ public class Scanner(pointer: CPointer<GScanner>) : Record {
      * @param scopeId the scope id
      * @param symbol the symbol to remove
      */
-    public fun scopeRemoveSymbol(scopeId: UInt, symbol: String): Unit =
-        g_scanner_scope_remove_symbol(glibScannerPointer.reinterpret(), scopeId, symbol)
+    public fun scopeRemoveSymbol(scopeId: UInt, symbol: String): Unit = g_scanner_scope_remove_symbol(glibScannerPointer.reinterpret(), scopeId, symbol)
 
     /**
      * Sets the current scope.
@@ -323,15 +313,7 @@ public class Scanner(pointer: CPointer<GScanner>) : Record {
         symbolName: String,
         message: String,
         isError: Int,
-    ): Unit = g_scanner_unexp_token(
-        glibScannerPointer.reinterpret(),
-        expectedToken.nativeValue,
-        identifierSpec,
-        symbolSpec,
-        symbolName,
-        message,
-        isError
-    )
+    ): Unit = g_scanner_unexp_token(glibScannerPointer.reinterpret(), expectedToken.nativeValue, identifierSpec, symbolSpec, symbolName, message, isError)
 
     public companion object : RecordCompanion<Scanner, GScanner> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Scanner = Scanner(pointer.reinterpret())

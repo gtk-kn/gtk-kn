@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.String
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -32,11 +37,6 @@ import org.gtkkn.native.gio.g_application_command_line_getenv
 import org.gtkkn.native.gio.g_application_command_line_print_literal
 import org.gtkkn.native.gio.g_application_command_line_printerr_literal
 import org.gtkkn.native.gio.g_application_command_line_set_exit_status
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.String
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * `GApplicationCommandLine` represents a command-line invocation of
@@ -215,8 +215,9 @@ import kotlin.collections.List
  * - method `options`: Property has no getter nor setter
  * - method `platform-data`: Property has no getter nor setter
  */
-public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLine>) :
-    Object(pointer.reinterpret()),
+public open class ApplicationCommandLine(
+    pointer: CPointer<GApplicationCommandLine>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gioApplicationCommandLinePointer: CPointer<GApplicationCommandLine>
         get() = gPointer.reinterpret()
@@ -249,10 +250,8 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
      * @since 2.36
      */
     @GioVersion2_36
-    public open fun createFileForArg(arg: String): File =
-        g_application_command_line_create_file_for_arg(gioApplicationCommandLinePointer.reinterpret(), arg)!!.run {
-            File.wrap(reinterpret())
-        }
+    public open fun createFileForArg(arg: String): File = g_application_command_line_create_file_for_arg(gioApplicationCommandLinePointer.reinterpret(), arg)!!.run {
+        File.wrap(reinterpret())}
 
     /**
      * Signals that command line processing is completed.
@@ -290,8 +289,7 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun getCwd(): String? =
-        g_application_command_line_get_cwd(gioApplicationCommandLinePointer.reinterpret())?.toKString()
+    public open fun getCwd(): String? = g_application_command_line_get_cwd(gioApplicationCommandLinePointer.reinterpret())?.toKString()
 
     /**
      * Gets the contents of the 'environ' variable of the command line
@@ -314,9 +312,7 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun getEnviron(): List<String> =
-        g_application_command_line_get_environ(gioApplicationCommandLinePointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
+    public open fun getEnviron(): List<String> = g_application_command_line_get_environ(gioApplicationCommandLinePointer.reinterpret())?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Gets the exit status of @cmdline.  See
@@ -326,8 +322,7 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun getExitStatus(): Int =
-        g_application_command_line_get_exit_status(gioApplicationCommandLinePointer.reinterpret())
+    public open fun getExitStatus(): Int = g_application_command_line_get_exit_status(gioApplicationCommandLinePointer.reinterpret())
 
     /**
      * Gets the options that were passed to g_application_command_line().
@@ -347,10 +342,8 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun getOptionsDict(): VariantDict =
-        g_application_command_line_get_options_dict(gioApplicationCommandLinePointer.reinterpret())!!.run {
-            VariantDict(reinterpret())
-        }
+    public open fun getOptionsDict(): VariantDict = g_application_command_line_get_options_dict(gioApplicationCommandLinePointer.reinterpret())!!.run {
+        VariantDict(reinterpret())}
 
     /**
      * Gets the platform data associated with the invocation of @cmdline.
@@ -369,10 +362,8 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun getPlatformData(): Variant? =
-        g_application_command_line_get_platform_data(gioApplicationCommandLinePointer.reinterpret())?.run {
-            Variant(reinterpret())
-        }
+    public open fun getPlatformData(): Variant? = g_application_command_line_get_platform_data(gioApplicationCommandLinePointer.reinterpret())?.run {
+        Variant(reinterpret())}
 
     /**
      * Gets the stdin of the invoking process.
@@ -390,10 +381,8 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
      * @since 2.34
      */
     @GioVersion2_34
-    public open fun getStdin(): InputStream? =
-        g_application_command_line_get_stdin(gioApplicationCommandLinePointer.reinterpret())?.run {
-            InputStream(reinterpret())
-        }
+    public open fun getStdin(): InputStream? = g_application_command_line_get_stdin(gioApplicationCommandLinePointer.reinterpret())?.run {
+        InputStream(reinterpret())}
 
     /**
      * Gets the value of a particular environment variable of the command
@@ -413,8 +402,7 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun getenv(name: String): String? =
-        g_application_command_line_getenv(gioApplicationCommandLinePointer.reinterpret(), name)?.toKString()
+    public open fun getenv(name: String): String? = g_application_command_line_getenv(gioApplicationCommandLinePointer.reinterpret(), name)?.toKString()
 
     /**
      * Prints a message using the stdout print handler in the invoking process.
@@ -427,8 +415,7 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
      * @since 2.80
      */
     @GioVersion2_80
-    public open fun printLiteral(message: String): Unit =
-        g_application_command_line_print_literal(gioApplicationCommandLinePointer.reinterpret(), message)
+    public open fun printLiteral(message: String): Unit = g_application_command_line_print_literal(gioApplicationCommandLinePointer.reinterpret(), message)
 
     /**
      * Prints a message using the stderr print handler in the invoking process.
@@ -441,8 +428,7 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
      * @since 2.80
      */
     @GioVersion2_80
-    public open fun printerrLiteral(message: String): Unit =
-        g_application_command_line_printerr_literal(gioApplicationCommandLinePointer.reinterpret(), message)
+    public open fun printerrLiteral(message: String): Unit = g_application_command_line_printerr_literal(gioApplicationCommandLinePointer.reinterpret(), message)
 
     /**
      * Sets the exit status that will be used when the invoking process
@@ -474,15 +460,13 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun setExitStatus(exitStatus: Int): Unit =
-        g_application_command_line_set_exit_status(gioApplicationCommandLinePointer.reinterpret(), exitStatus)
+    public open fun setExitStatus(exitStatus: Int): Unit = g_application_command_line_set_exit_status(gioApplicationCommandLinePointer.reinterpret(), exitStatus)
 
     public companion object : TypeCompanion<ApplicationCommandLine> {
         override val type: GeneratedClassKGType<ApplicationCommandLine> =
-            GeneratedClassKGType(g_application_command_line_get_type()) { ApplicationCommandLine(it.reinterpret()) }
+                GeneratedClassKGType(g_application_command_line_get_type()) { ApplicationCommandLine(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
     }
 }

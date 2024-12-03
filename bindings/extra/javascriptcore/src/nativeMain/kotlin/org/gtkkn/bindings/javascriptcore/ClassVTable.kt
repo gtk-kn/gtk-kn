@@ -7,6 +7,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.javascriptcore.JSCClassVTable
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Virtual table for a JSCClass. This can be optionally used when registering a #JSCClass in a #JSCContext
@@ -29,11 +30,12 @@ import org.gtkkn.native.javascriptcore.JSCClassVTable
  * - field `_jsc_reserved6`: Fields with callbacks are not supported
  * - field `_jsc_reserved7`: Fields with callbacks are not supported
  */
-public class ClassVTable(pointer: CPointer<JSCClassVTable>) : Record {
+public class ClassVTable(
+    pointer: CPointer<JSCClassVTable>,
+) : Record {
     public val javascriptcoreClassVTablePointer: CPointer<JSCClassVTable> = pointer
 
     public companion object : RecordCompanion<ClassVTable, JSCClassVTable> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ClassVTable =
-            ClassVTable(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ClassVTable = ClassVTable(pointer.reinterpret())
     }
 }

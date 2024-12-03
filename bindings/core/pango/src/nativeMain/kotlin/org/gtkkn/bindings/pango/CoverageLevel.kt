@@ -10,13 +10,14 @@ import org.gtkkn.native.pango.PangoCoverageLevel
  * Since 1.44, only %PANGO_COVERAGE_NONE and %PANGO_COVERAGE_EXACT
  * will be returned.
  */
-public enum class CoverageLevel(public val nativeValue: PangoCoverageLevel) {
+public enum class CoverageLevel(
+    public val nativeValue: PangoCoverageLevel,
+) {
     /**
      * The character is not representable with
      *   the font.
      */
     NONE(PangoCoverageLevel.PANGO_COVERAGE_NONE),
-
     /**
      * The character is represented in a
      *   way that may be comprehensible but is not the correct
@@ -25,14 +26,12 @@ public enum class CoverageLevel(public val nativeValue: PangoCoverageLevel) {
      *   Cyrillic word.
      */
     FALLBACK(PangoCoverageLevel.PANGO_COVERAGE_FALLBACK),
-
     /**
      * The character is represented as
      *   basically the correct graphical form, but with a stylistic
      *   variant inappropriate for the current script.
      */
     APPROXIMATE(PangoCoverageLevel.PANGO_COVERAGE_APPROXIMATE),
-
     /**
      * The character is represented as the
      *   correct graphical form.

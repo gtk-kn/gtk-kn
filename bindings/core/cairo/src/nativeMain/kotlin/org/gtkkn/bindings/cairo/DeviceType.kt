@@ -12,7 +12,9 @@ import org.gtkkn.native.cairo.CAIRO_DEVICE_TYPE_XLIB
 import org.gtkkn.native.cairo.CAIRO_DEVICE_TYPE_XML
 import org.gtkkn.native.cairo.cairo_device_type_t
 
-public enum class DeviceType(public val nativeValue: cairo_device_type_t) {
+public enum class DeviceType(
+    public val nativeValue: cairo_device_type_t,
+) {
     DRM(CAIRO_DEVICE_TYPE_DRM),
     GL(CAIRO_DEVICE_TYPE_GL),
     SCRIPT(CAIRO_DEVICE_TYPE_SCRIPT),

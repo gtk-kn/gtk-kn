@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.Double
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -16,9 +19,7 @@ import org.gtkkn.native.webkit.webkit_geolocation_position_set_altitude_accuracy
 import org.gtkkn.native.webkit.webkit_geolocation_position_set_heading
 import org.gtkkn.native.webkit.webkit_geolocation_position_set_speed
 import org.gtkkn.native.webkit.webkit_geolocation_position_set_timestamp
-import kotlin.Double
-import kotlin.ULong
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * An opaque struct to provide position updates to a #WebKitGeolocationManager.
@@ -28,7 +29,9 @@ import kotlin.Unit
  * @since 2.26
  */
 @WebKitVersion2_26
-public class GeolocationPosition(pointer: CPointer<WebKitGeolocationPosition>) : Record {
+public class GeolocationPosition(
+    pointer: CPointer<WebKitGeolocationPosition>,
+) : Record {
     public val webkitGeolocationPositionPointer: CPointer<WebKitGeolocationPosition> = pointer
 
     /**
@@ -38,10 +41,8 @@ public class GeolocationPosition(pointer: CPointer<WebKitGeolocationPosition>) :
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun copy(): GeolocationPosition =
-        webkit_geolocation_position_copy(webkitGeolocationPositionPointer.reinterpret())!!.run {
-            GeolocationPosition(reinterpret())
-        }
+    public fun copy(): GeolocationPosition = webkit_geolocation_position_copy(webkitGeolocationPositionPointer.reinterpret())!!.run {
+        GeolocationPosition(reinterpret())}
 
     /**
      * Free the #WebKitGeolocationPosition
@@ -58,8 +59,7 @@ public class GeolocationPosition(pointer: CPointer<WebKitGeolocationPosition>) :
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun setAltitude(altitude: Double): Unit =
-        webkit_geolocation_position_set_altitude(webkitGeolocationPositionPointer.reinterpret(), altitude)
+    public fun setAltitude(altitude: Double): Unit = webkit_geolocation_position_set_altitude(webkitGeolocationPositionPointer.reinterpret(), altitude)
 
     /**
      * Set the accuracy of @position altitude.
@@ -68,10 +68,7 @@ public class GeolocationPosition(pointer: CPointer<WebKitGeolocationPosition>) :
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun setAltitudeAccuracy(altitudeAccuracy: Double): Unit = webkit_geolocation_position_set_altitude_accuracy(
-        webkitGeolocationPositionPointer.reinterpret(),
-        altitudeAccuracy
-    )
+    public fun setAltitudeAccuracy(altitudeAccuracy: Double): Unit = webkit_geolocation_position_set_altitude_accuracy(webkitGeolocationPositionPointer.reinterpret(), altitudeAccuracy)
 
     /**
      * Set the @position heading.
@@ -83,8 +80,7 @@ public class GeolocationPosition(pointer: CPointer<WebKitGeolocationPosition>) :
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun setHeading(heading: Double): Unit =
-        webkit_geolocation_position_set_heading(webkitGeolocationPositionPointer.reinterpret(), heading)
+    public fun setHeading(heading: Double): Unit = webkit_geolocation_position_set_heading(webkitGeolocationPositionPointer.reinterpret(), heading)
 
     /**
      * Set the @position speed.
@@ -93,8 +89,7 @@ public class GeolocationPosition(pointer: CPointer<WebKitGeolocationPosition>) :
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun setSpeed(speed: Double): Unit =
-        webkit_geolocation_position_set_speed(webkitGeolocationPositionPointer.reinterpret(), speed)
+    public fun setSpeed(speed: Double): Unit = webkit_geolocation_position_set_speed(webkitGeolocationPositionPointer.reinterpret(), speed)
 
     /**
      * Set the @position timestamp.
@@ -105,8 +100,7 @@ public class GeolocationPosition(pointer: CPointer<WebKitGeolocationPosition>) :
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun setTimestamp(timestamp: ULong): Unit =
-        webkit_geolocation_position_set_timestamp(webkitGeolocationPositionPointer.reinterpret(), timestamp)
+    public fun setTimestamp(timestamp: ULong): Unit = webkit_geolocation_position_set_timestamp(webkitGeolocationPositionPointer.reinterpret(), timestamp)
 
     public companion object : RecordCompanion<GeolocationPosition, WebKitGeolocationPosition> {
         /**
@@ -118,10 +112,12 @@ public class GeolocationPosition(pointer: CPointer<WebKitGeolocationPosition>) :
          * @return a newly created #WebKitGeolocationPosition
          * @since 2.26
          */
-        public fun new(latitude: Double, longitude: Double, accuracy: Double): GeolocationPosition =
-            GeolocationPosition(webkit_geolocation_position_new(latitude, longitude, accuracy)!!.reinterpret())
+        public fun new(
+            latitude: Double,
+            longitude: Double,
+            accuracy: Double,
+        ): GeolocationPosition = GeolocationPosition(webkit_geolocation_position_new(latitude, longitude, accuracy)!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): GeolocationPosition =
-            GeolocationPosition(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): GeolocationPosition = GeolocationPosition(pointer.reinterpret())
     }
 }

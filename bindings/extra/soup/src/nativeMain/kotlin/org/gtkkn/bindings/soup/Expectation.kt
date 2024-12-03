@@ -9,7 +9,9 @@ import org.gtkkn.native.soup.SoupExpectation
 /**
  * Represents the parsed value of the "Expect" header.
  */
-public class Expectation(public val mask: SoupExpectation) : Bitfield<Expectation> {
+public class Expectation(
+    public val mask: SoupExpectation,
+) : Bitfield<Expectation> {
     override infix fun or(other: Expectation): Expectation = Expectation(mask or other.mask)
 
     public companion object {

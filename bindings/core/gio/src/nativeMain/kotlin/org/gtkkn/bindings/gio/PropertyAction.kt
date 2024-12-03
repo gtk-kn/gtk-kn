@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_38
@@ -12,7 +13,6 @@ import org.gtkkn.native.gio.GAction
 import org.gtkkn.native.gio.GPropertyAction
 import org.gtkkn.native.gio.g_property_action_get_type
 import org.gtkkn.native.gio.g_property_action_new
-import kotlin.String
 
 /**
  * A `GPropertyAction` is a way to get a [iface@Gio.Action] with a state value
@@ -82,8 +82,9 @@ import kotlin.String
  * @since 2.38
  */
 @GioVersion2_38
-public open class PropertyAction(pointer: CPointer<GPropertyAction>) :
-    Object(pointer.reinterpret()),
+public open class PropertyAction(
+    pointer: CPointer<GPropertyAction>,
+) : Object(pointer.reinterpret()),
     Action,
     KGTyped {
     public val gioPropertyActionPointer: CPointer<GPropertyAction>
@@ -117,10 +118,9 @@ public open class PropertyAction(pointer: CPointer<GPropertyAction>) :
 
     public companion object : TypeCompanion<PropertyAction> {
         override val type: GeneratedClassKGType<PropertyAction> =
-            GeneratedClassKGType(g_property_action_get_type()) { PropertyAction(it.reinterpret()) }
+                GeneratedClassKGType(g_property_action_get_type()) { PropertyAction(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
     }
 }

@@ -13,19 +13,19 @@ import org.gtkkn.native.gtk.gtk_activate_action_get_type
 /**
  * A `GtkShortcutAction` that calls gtk_widget_activate().
  */
-public open class ActivateAction(pointer: CPointer<GtkActivateAction>) :
-    ShortcutAction(pointer.reinterpret()),
+public open class ActivateAction(
+    pointer: CPointer<GtkActivateAction>,
+) : ShortcutAction(pointer.reinterpret()),
     KGTyped {
     public val gtkActivateActionPointer: CPointer<GtkActivateAction>
         get() = gPointer.reinterpret()
 
     public companion object : TypeCompanion<ActivateAction> {
         override val type: GeneratedClassKGType<ActivateAction> =
-            GeneratedClassKGType(gtk_activate_action_get_type()) { ActivateAction(it.reinterpret()) }
+                GeneratedClassKGType(gtk_activate_action_get_type()) { ActivateAction(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Gets the activate action.
@@ -36,7 +36,6 @@ public open class ActivateAction(pointer: CPointer<GtkActivateAction>) :
          * @return The activate action
          */
         public fun `get`(): ActivateAction = gtk_activate_action_get()!!.run {
-            ActivateAction(reinterpret())
-        }
+            ActivateAction(reinterpret())}
     }
 }

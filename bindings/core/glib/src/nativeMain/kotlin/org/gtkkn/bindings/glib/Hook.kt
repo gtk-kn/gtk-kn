@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.UInt
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -16,11 +21,7 @@ import org.gtkkn.native.glib.g_hook_free
 import org.gtkkn.native.glib.g_hook_insert_before
 import org.gtkkn.native.glib.g_hook_prepend
 import org.gtkkn.native.glib.g_hook_unref
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.UInt
-import kotlin.ULong
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The #GHook struct represents a single hook function in a #GHookList.
@@ -32,7 +33,9 @@ import kotlin.Unit
  * - field `func`: gpointer
  * - field `destroy`: DestroyNotify
  */
-public class Hook(pointer: CPointer<GHook>) : Record {
+public class Hook(
+    pointer: CPointer<GHook>,
+) : Record {
     public val glibHookPointer: CPointer<GHook> = pointer
 
     /**
@@ -42,8 +45,7 @@ public class Hook(pointer: CPointer<GHook>) : Record {
      */
     public val next: Hook?
         get() = glibHookPointer.pointed.next?.run {
-            Hook(reinterpret())
-        }
+            Hook(reinterpret())}
 
     /**
      * pointer to the previous hook in the list
@@ -52,8 +54,7 @@ public class Hook(pointer: CPointer<GHook>) : Record {
      */
     public val prev: Hook?
         get() = glibHookPointer.pointed.prev?.run {
-            Hook(reinterpret())
-        }
+            Hook(reinterpret())}
 
     /**
      * the reference count of this hook
@@ -90,8 +91,7 @@ public class Hook(pointer: CPointer<GHook>) : Record {
      * @param sibling a #GHook to compare with @new_hook
      * @return a value <= 0 if the id of @sibling is >= the id of @new_hook
      */
-    public fun compareIds(sibling: Hook): Int =
-        g_hook_compare_ids(glibHookPointer.reinterpret(), sibling.glibHookPointer.reinterpret())
+    public fun compareIds(sibling: Hook): Int = g_hook_compare_ids(glibHookPointer.reinterpret(), sibling.glibHookPointer.reinterpret())
 
     public companion object : RecordCompanion<Hook, GHook> {
         /**
@@ -101,8 +101,7 @@ public class Hook(pointer: CPointer<GHook>) : Record {
          * @param hookId a hook ID
          * @return true if the #GHook was found in the #GHookList and destroyed
          */
-        public fun destroy(hookList: HookList, hookId: ULong): Boolean =
-            g_hook_destroy(hookList.glibHookListPointer.reinterpret(), hookId).asBoolean()
+        public fun destroy(hookList: HookList, hookId: ULong): Boolean = g_hook_destroy(hookList.glibHookListPointer.reinterpret(), hookId).asBoolean()
 
         /**
          * Removes one #GHook from a #GHookList, marking it
@@ -111,8 +110,7 @@ public class Hook(pointer: CPointer<GHook>) : Record {
          * @param hookList a #GHookList
          * @param hook the #GHook to remove
          */
-        public fun destroyLink(hookList: HookList, hook: Hook): Unit =
-            g_hook_destroy_link(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
+        public fun destroyLink(hookList: HookList, hook: Hook): Unit = g_hook_destroy_link(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
 
         /**
          * Calls the #GHookList @finalize_hook function if it exists,
@@ -121,8 +119,7 @@ public class Hook(pointer: CPointer<GHook>) : Record {
          * @param hookList a #GHookList
          * @param hook the #GHook to free
          */
-        public fun free(hookList: HookList, hook: Hook): Unit =
-            g_hook_free(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
+        public fun free(hookList: HookList, hook: Hook): Unit = g_hook_free(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
 
         /**
          * Inserts a #GHook into a #GHookList, before a given #GHook.
@@ -131,11 +128,11 @@ public class Hook(pointer: CPointer<GHook>) : Record {
          * @param sibling the #GHook to insert the new #GHook before
          * @param hook the #GHook to insert
          */
-        public fun insertBefore(hookList: HookList, sibling: Hook? = null, hook: Hook): Unit = g_hook_insert_before(
-            hookList.glibHookListPointer.reinterpret(),
-            sibling?.glibHookPointer?.reinterpret(),
-            hook.glibHookPointer.reinterpret()
-        )
+        public fun insertBefore(
+            hookList: HookList,
+            sibling: Hook? = null,
+            hook: Hook,
+        ): Unit = g_hook_insert_before(hookList.glibHookListPointer.reinterpret(), sibling?.glibHookPointer?.reinterpret(), hook.glibHookPointer.reinterpret())
 
         /**
          * Prepends a #GHook on the start of a #GHookList.
@@ -143,8 +140,7 @@ public class Hook(pointer: CPointer<GHook>) : Record {
          * @param hookList a #GHookList
          * @param hook the #GHook to add to the start of @hook_list
          */
-        public fun prepend(hookList: HookList, hook: Hook): Unit =
-            g_hook_prepend(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
+        public fun prepend(hookList: HookList, hook: Hook): Unit = g_hook_prepend(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
 
         /**
          * Decrements the reference count of a #GHook.
@@ -154,8 +150,7 @@ public class Hook(pointer: CPointer<GHook>) : Record {
          * @param hookList a #GHookList
          * @param hook the #GHook to unref
          */
-        public fun unref(hookList: HookList, hook: Hook): Unit =
-            g_hook_unref(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
+        public fun unref(hookList: HookList, hook: Hook): Unit = g_hook_unref(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Hook = Hook(pointer.reinterpret())
     }

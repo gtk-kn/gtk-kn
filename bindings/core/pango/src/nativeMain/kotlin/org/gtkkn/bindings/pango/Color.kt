@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Suppress
+import kotlin.UShort
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -15,11 +20,7 @@ import org.gtkkn.native.pango.pango_color_copy
 import org.gtkkn.native.pango.pango_color_free
 import org.gtkkn.native.pango.pango_color_parse
 import org.gtkkn.native.pango.pango_color_to_string
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Suppress
-import kotlin.UShort
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `PangoColor` structure is used to
@@ -29,7 +30,9 @@ import kotlin.Unit
  *
  * - parameter `alpha`: alpha: Out parameter is not supported
  */
-public class Color(pointer: CPointer<PangoColor>) : Record {
+public class Color(
+    pointer: CPointer<PangoColor>,
+) : Record {
     public val pangoColorPointer: CPointer<PangoColor> = pointer
 
     /**
@@ -71,8 +74,7 @@ public class Color(pointer: CPointer<PangoColor>) : Record {
      *   which should be freed with [method@Pango.Color.free]
      */
     public fun copy(): Color? = pango_color_copy(pangoColorPointer.reinterpret())?.run {
-        Color(reinterpret())
-    }
+        Color(reinterpret())}
 
     /**
      * Frees a color allocated by [method@Pango.Color.copy].
@@ -109,8 +111,7 @@ public class Color(pointer: CPointer<PangoColor>) : Record {
      */
     @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
     @PangoVersion1_16
-    override fun toString(): String =
-        pango_color_to_string(pangoColorPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    override fun toString(): String = pango_color_to_string(pangoColorPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     public companion object : RecordCompanion<Color, PangoColor> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Color = Color(pointer.reinterpret())

@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -16,8 +18,6 @@ import org.gtkkn.native.gtk.GtkShortcutManager
 import org.gtkkn.native.gtk.gtk_message_dialog_get_message_area
 import org.gtkkn.native.gtk.gtk_message_dialog_get_type
 import org.gtkkn.native.gtk.gtk_message_dialog_set_markup
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkMessageDialog` presents a dialog with some message text.
@@ -86,8 +86,9 @@ import kotlin.Unit
  * - method `text`: Property has no getter nor setter
  * - method `use-markup`: Property has no getter nor setter
  */
-public open class MessageDialog(pointer: CPointer<GtkMessageDialog>) :
-    Dialog(pointer.reinterpret()),
+public open class MessageDialog(
+    pointer: CPointer<GtkMessageDialog>,
+) : Dialog(pointer.reinterpret()),
     KGTyped {
     public val gtkMessageDialogPointer: CPointer<GtkMessageDialog>
         get() = gPointer.reinterpret()
@@ -129,23 +130,20 @@ public open class MessageDialog(pointer: CPointer<GtkMessageDialog>) :
          *   “message area” in the @message_dialog
          */
         get() = gtk_message_dialog_get_message_area(gtkMessageDialogPointer.reinterpret())!!.run {
-            Widget(reinterpret())
-        }
+            Widget(reinterpret())}
 
     /**
      * Sets the text of the message dialog.
      *
      * @param str string with Pango markup
      */
-    public open fun setMarkup(str: String): Unit =
-        gtk_message_dialog_set_markup(gtkMessageDialogPointer.reinterpret(), str)
+    public open fun setMarkup(str: String): Unit = gtk_message_dialog_set_markup(gtkMessageDialogPointer.reinterpret(), str)
 
     public companion object : TypeCompanion<MessageDialog> {
         override val type: GeneratedClassKGType<MessageDialog> =
-            GeneratedClassKGType(gtk_message_dialog_get_type()) { MessageDialog(it.reinterpret()) }
+                GeneratedClassKGType(gtk_message_dialog_get_type()) { MessageDialog(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

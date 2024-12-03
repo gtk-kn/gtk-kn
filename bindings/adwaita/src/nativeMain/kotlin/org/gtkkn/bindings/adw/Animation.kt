@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.Double
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -33,10 +37,6 @@ import org.gtkkn.native.adw.adw_animation_set_follow_enable_animations_setting
 import org.gtkkn.native.adw.adw_animation_set_target
 import org.gtkkn.native.adw.adw_animation_skip
 import org.gtkkn.native.gobject.g_signal_connect_data
-import kotlin.Boolean
-import kotlin.Double
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A base class for animations.
@@ -85,8 +85,9 @@ import kotlin.Unit
  * finished, the previous animation should be stopped first, or the existing
  * `AdwAnimation` object can be reused.
  */
-public open class Animation(pointer: CPointer<AdwAnimation>) :
-    Object(pointer.reinterpret()),
+public open class Animation(
+    pointer: CPointer<AdwAnimation>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val adwAnimationPointer: CPointer<AdwAnimation>
         get() = gPointer.reinterpret()
@@ -113,7 +114,6 @@ public open class Animation(pointer: CPointer<AdwAnimation>) :
          * @since 1.3
          */
         get() = adw_animation_get_follow_enable_animations_setting(adwAnimationPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether to skip @self when animations are globally disabled.
          *
@@ -129,9 +129,7 @@ public open class Animation(pointer: CPointer<AdwAnimation>) :
          * @since 1.3
          */
         @AdwVersion1_3
-        set(
-            setting
-        ) = adw_animation_set_follow_enable_animations_setting(adwAnimationPointer.reinterpret(), setting.asGBoolean())
+        set(setting) = adw_animation_set_follow_enable_animations_setting(adwAnimationPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * The animation state.
@@ -149,8 +147,7 @@ public open class Animation(pointer: CPointer<AdwAnimation>) :
          * @return the animation value
          */
         get() = adw_animation_get_state(adwAnimationPointer.reinterpret()).run {
-            AnimationState.fromNativeValue(this)
-        }
+            AnimationState.fromNativeValue(this)}
 
     /**
      * The target to animate.
@@ -162,17 +159,13 @@ public open class Animation(pointer: CPointer<AdwAnimation>) :
          * @return the animation target
          */
         get() = adw_animation_get_target(adwAnimationPointer.reinterpret())!!.run {
-            AnimationTarget(reinterpret())
-        }
-
+            AnimationTarget(reinterpret())}
         /**
          * Sets the target @self animates to @target.
          *
          * @param target an animation target
          */
-        set(
-            target
-        ) = adw_animation_set_target(adwAnimationPointer.reinterpret(), target.adwAnimationTargetPointer.reinterpret())
+        set(target) = adw_animation_set_target(adwAnimationPointer.reinterpret(), target.adwAnimationTargetPointer.reinterpret())
 
     /**
      * The current value of the animation.
@@ -209,8 +202,7 @@ public open class Animation(pointer: CPointer<AdwAnimation>) :
          * @return the animation widget
          */
         get() = adw_animation_get_widget(adwAnimationPointer.reinterpret())!!.run {
-            Widget(reinterpret())
-        }
+            Widget(reinterpret())}
 
     /**
      * Pauses a playing animation for @self.
@@ -275,30 +267,20 @@ public open class Animation(pointer: CPointer<AdwAnimation>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectDone(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "done",
-            connectDoneFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectDone(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "done", connectDoneFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<Animation> {
         override val type: GeneratedClassKGType<Animation> =
-            GeneratedClassKGType(adw_animation_get_type()) { Animation(it.reinterpret()) }
+                GeneratedClassKGType(adw_animation_get_type()) { Animation(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
     }
 }
 
 private val connectDoneFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

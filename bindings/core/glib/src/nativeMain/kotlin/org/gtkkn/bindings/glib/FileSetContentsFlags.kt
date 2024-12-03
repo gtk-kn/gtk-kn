@@ -14,7 +14,9 @@ import org.gtkkn.native.glib.G_FILE_SET_CONTENTS_ONLY_EXISTING
  * performance.
  * @since 2.66
  */
-public class FileSetContentsFlags(public val mask: GFileSetContentsFlags) : Bitfield<FileSetContentsFlags> {
+public class FileSetContentsFlags(
+    public val mask: GFileSetContentsFlags,
+) : Bitfield<FileSetContentsFlags> {
     override infix fun or(other: FileSetContentsFlags): FileSetContentsFlags = FileSetContentsFlags(mask or other.mask)
 
     @GLibVersion2_66
@@ -33,7 +35,7 @@ public class FileSetContentsFlags(public val mask: GFileSetContentsFlags) : Bitf
          *   over the old.
          */
         public val CONSISTENT: FileSetContentsFlags =
-            FileSetContentsFlags(G_FILE_SET_CONTENTS_CONSISTENT)
+                FileSetContentsFlags(G_FILE_SET_CONTENTS_CONSISTENT)
 
         /**
          * Guarantee file durability: after a crash, the
@@ -51,6 +53,6 @@ public class FileSetContentsFlags(public val mask: GFileSetContentsFlags) : Bitf
          *   of the new file if the system crashes while writing it.
          */
         public val ONLY_EXISTING: FileSetContentsFlags =
-            FileSetContentsFlags(G_FILE_SET_CONTENTS_ONLY_EXISTING)
+                FileSetContentsFlags(G_FILE_SET_CONTENTS_ONLY_EXISTING)
     }
 }

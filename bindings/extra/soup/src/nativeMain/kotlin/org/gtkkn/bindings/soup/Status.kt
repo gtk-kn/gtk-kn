@@ -1,11 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import kotlin.String
+import kotlin.UInt
 import kotlinx.cinterop.toKString
 import org.gtkkn.native.soup.SoupStatus
 import org.gtkkn.native.soup.soup_status_get_phrase
-import kotlin.String
-import kotlin.UInt
 
 /**
  * These represent the known HTTP status code values, plus various
@@ -15,286 +15,235 @@ import kotlin.UInt
  * any function that works with status codes will accept unrecognized
  * status codes as well.
  */
-public enum class Status(public val nativeValue: SoupStatus) {
+public enum class Status(
+    public val nativeValue: SoupStatus,
+) {
     /**
      * No status available. (Eg, the message has not
      * been sent yet)
      */
     NONE(SoupStatus.SOUP_STATUS_NONE),
-
     /**
      * 100 Continue (HTTP)
      */
     CONTINUE(SoupStatus.SOUP_STATUS_CONTINUE),
-
     /**
      * 101 Switching Protocols (HTTP)
      */
     SWITCHING_PROTOCOLS(SoupStatus.SOUP_STATUS_SWITCHING_PROTOCOLS),
-
     /**
      * 102 Processing (WebDAV)
      */
     PROCESSING(SoupStatus.SOUP_STATUS_PROCESSING),
-
     /**
      * 200 Success (HTTP). Also used by many lower-level
      * soup routines to indicate success.
      */
     OK(SoupStatus.SOUP_STATUS_OK),
-
     /**
      * 201 Created (HTTP)
      */
     CREATED(SoupStatus.SOUP_STATUS_CREATED),
-
     /**
      * 202 Accepted (HTTP)
      */
     ACCEPTED(SoupStatus.SOUP_STATUS_ACCEPTED),
-
     /**
      * 203 Non-Authoritative Information
      * (HTTP)
      */
     NON_AUTHORITATIVE(SoupStatus.SOUP_STATUS_NON_AUTHORITATIVE),
-
     /**
      * 204 No Content (HTTP)
      */
     NO_CONTENT(SoupStatus.SOUP_STATUS_NO_CONTENT),
-
     /**
      * 205 Reset Content (HTTP)
      */
     RESET_CONTENT(SoupStatus.SOUP_STATUS_RESET_CONTENT),
-
     /**
      * 206 Partial Content (HTTP)
      */
     PARTIAL_CONTENT(SoupStatus.SOUP_STATUS_PARTIAL_CONTENT),
-
     /**
      * 207 Multi-Status (WebDAV)
      */
     MULTI_STATUS(SoupStatus.SOUP_STATUS_MULTI_STATUS),
-
     /**
      * 300 Multiple Choices (HTTP)
      */
     MULTIPLE_CHOICES(SoupStatus.SOUP_STATUS_MULTIPLE_CHOICES),
-
     /**
      * 301 Moved Permanently (HTTP)
      */
     MOVED_PERMANENTLY(SoupStatus.SOUP_STATUS_MOVED_PERMANENTLY),
-
     /**
      * 302 Found (HTTP)
      */
     FOUND(SoupStatus.SOUP_STATUS_FOUND),
-
     /**
      * 302 Moved Temporarily (old name,
      * RFC 2068)
      */
     MOVED_TEMPORARILY(SoupStatus.SOUP_STATUS_MOVED_TEMPORARILY),
-
     /**
      * 303 See Other (HTTP)
      */
     SEE_OTHER(SoupStatus.SOUP_STATUS_SEE_OTHER),
-
     /**
      * 304 Not Modified (HTTP)
      */
     NOT_MODIFIED(SoupStatus.SOUP_STATUS_NOT_MODIFIED),
-
     /**
      * 305 Use Proxy (HTTP)
      */
     USE_PROXY(SoupStatus.SOUP_STATUS_USE_PROXY),
-
     /**
      * 306 [Unused] (HTTP)
      */
     NOT_APPEARING_IN_THIS_PROTOCOL(SoupStatus.SOUP_STATUS_NOT_APPEARING_IN_THIS_PROTOCOL),
-
     /**
      * 307 Temporary Redirect (HTTP)
      */
     TEMPORARY_REDIRECT(SoupStatus.SOUP_STATUS_TEMPORARY_REDIRECT),
-
     /**
      * 308 Permanent Redirect (HTTP)
      */
     PERMANENT_REDIRECT(SoupStatus.SOUP_STATUS_PERMANENT_REDIRECT),
-
     /**
      * 400 Bad Request (HTTP)
      */
     BAD_REQUEST(SoupStatus.SOUP_STATUS_BAD_REQUEST),
-
     /**
      * 401 Unauthorized (HTTP)
      */
     UNAUTHORIZED(SoupStatus.SOUP_STATUS_UNAUTHORIZED),
-
     /**
      * 402 Payment Required (HTTP)
      */
     PAYMENT_REQUIRED(SoupStatus.SOUP_STATUS_PAYMENT_REQUIRED),
-
     /**
      * 403 Forbidden (HTTP)
      */
     FORBIDDEN(SoupStatus.SOUP_STATUS_FORBIDDEN),
-
     /**
      * 404 Not Found (HTTP)
      */
     NOT_FOUND(SoupStatus.SOUP_STATUS_NOT_FOUND),
-
     /**
      * 405 Method Not Allowed (HTTP)
      */
     METHOD_NOT_ALLOWED(SoupStatus.SOUP_STATUS_METHOD_NOT_ALLOWED),
-
     /**
      * 406 Not Acceptable (HTTP)
      */
     NOT_ACCEPTABLE(SoupStatus.SOUP_STATUS_NOT_ACCEPTABLE),
-
     /**
      * 407 Proxy Authentication
      * Required (HTTP)
      */
     PROXY_AUTHENTICATION_REQUIRED(SoupStatus.SOUP_STATUS_PROXY_AUTHENTICATION_REQUIRED),
-
     /**
      * shorter alias for
      * %SOUP_STATUS_PROXY_AUTHENTICATION_REQUIRED
      */
     PROXY_UNAUTHORIZED(SoupStatus.SOUP_STATUS_PROXY_UNAUTHORIZED),
-
     /**
      * 408 Request Timeout (HTTP)
      */
     REQUEST_TIMEOUT(SoupStatus.SOUP_STATUS_REQUEST_TIMEOUT),
-
     /**
      * 409 Conflict (HTTP)
      */
     CONFLICT(SoupStatus.SOUP_STATUS_CONFLICT),
-
     /**
      * 410 Gone (HTTP)
      */
     GONE(SoupStatus.SOUP_STATUS_GONE),
-
     /**
      * 411 Length Required (HTTP)
      */
     LENGTH_REQUIRED(SoupStatus.SOUP_STATUS_LENGTH_REQUIRED),
-
     /**
      * 412 Precondition Failed (HTTP)
      */
     PRECONDITION_FAILED(SoupStatus.SOUP_STATUS_PRECONDITION_FAILED),
-
     /**
      * 413 Request Entity Too Large
      * (HTTP)
      */
     REQUEST_ENTITY_TOO_LARGE(SoupStatus.SOUP_STATUS_REQUEST_ENTITY_TOO_LARGE),
-
     /**
      * 414 Request-URI Too Long (HTTP)
      */
     REQUEST_URI_TOO_LONG(SoupStatus.SOUP_STATUS_REQUEST_URI_TOO_LONG),
-
     /**
      * 415 Unsupported Media Type
      * (HTTP)
      */
     UNSUPPORTED_MEDIA_TYPE(SoupStatus.SOUP_STATUS_UNSUPPORTED_MEDIA_TYPE),
-
     /**
      * 416 Requested Range
      * Not Satisfiable (HTTP)
      */
     REQUESTED_RANGE_NOT_SATISFIABLE(SoupStatus.SOUP_STATUS_REQUESTED_RANGE_NOT_SATISFIABLE),
-
     /**
      * shorter alias for
      * %SOUP_STATUS_REQUESTED_RANGE_NOT_SATISFIABLE
      */
     INVALID_RANGE(SoupStatus.SOUP_STATUS_INVALID_RANGE),
-
     /**
      * 417 Expectation Failed (HTTP)
      */
     EXPECTATION_FAILED(SoupStatus.SOUP_STATUS_EXPECTATION_FAILED),
-
     /**
      * 421 Misdirected Request
      */
     MISDIRECTED_REQUEST(SoupStatus.SOUP_STATUS_MISDIRECTED_REQUEST),
-
     /**
      * 422 Unprocessable Entity
      * (WebDAV)
      */
     UNPROCESSABLE_ENTITY(SoupStatus.SOUP_STATUS_UNPROCESSABLE_ENTITY),
-
     /**
      * 423 Locked (WebDAV)
      */
     LOCKED(SoupStatus.SOUP_STATUS_LOCKED),
-
     /**
      * 424 Failed Dependency (WebDAV)
      */
     FAILED_DEPENDENCY(SoupStatus.SOUP_STATUS_FAILED_DEPENDENCY),
-
     /**
      * 500 Internal Server Error
      * (HTTP)
      */
     INTERNAL_SERVER_ERROR(SoupStatus.SOUP_STATUS_INTERNAL_SERVER_ERROR),
-
     /**
      * 501 Not Implemented (HTTP)
      */
     NOT_IMPLEMENTED(SoupStatus.SOUP_STATUS_NOT_IMPLEMENTED),
-
     /**
      * 502 Bad Gateway (HTTP)
      */
     BAD_GATEWAY(SoupStatus.SOUP_STATUS_BAD_GATEWAY),
-
     /**
      * 503 Service Unavailable (HTTP)
      */
     SERVICE_UNAVAILABLE(SoupStatus.SOUP_STATUS_SERVICE_UNAVAILABLE),
-
     /**
      * 504 Gateway Timeout (HTTP)
      */
     GATEWAY_TIMEOUT(SoupStatus.SOUP_STATUS_GATEWAY_TIMEOUT),
-
     /**
      * 505 HTTP Version Not
      * Supported (HTTP)
      */
     HTTP_VERSION_NOT_SUPPORTED(SoupStatus.SOUP_STATUS_HTTP_VERSION_NOT_SUPPORTED),
-
     /**
      * 507 Insufficient Storage
      * (WebDAV)
      */
     INSUFFICIENT_STORAGE(SoupStatus.SOUP_STATUS_INSUFFICIENT_STORAGE),
-
     /**
      * 510 Not Extended (RFC 2774)
      */
@@ -376,7 +325,6 @@ public enum class Status(public val nativeValue: SoupStatus) {
          * @param statusCode an HTTP status code
          * @return the (terse, English) description of @status_code
          */
-        public fun getPhrase(statusCode: UInt): String =
-            soup_status_get_phrase(statusCode)?.toKString() ?: error("Expected not null string")
+        public fun getPhrase(statusCode: UInt): String = soup_status_get_phrase(statusCode)?.toKString() ?: error("Expected not null string")
     }
 }

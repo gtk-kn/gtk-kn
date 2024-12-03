@@ -13,12 +13,13 @@ import org.gtkkn.native.gio.g_resource_error_quark
  * @since 2.32
  */
 @GioVersion2_32
-public enum class ResourceError(public val nativeValue: GResourceError) {
+public enum class ResourceError(
+    public val nativeValue: GResourceError,
+) {
     /**
      * no file was found at the requested path
      */
     NOT_FOUND(GResourceError.G_RESOURCE_ERROR_NOT_FOUND),
-
     /**
      * unknown error
      */

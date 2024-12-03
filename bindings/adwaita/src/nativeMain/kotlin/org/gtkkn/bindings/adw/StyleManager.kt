@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Display
@@ -19,7 +20,6 @@ import org.gtkkn.native.adw.adw_style_manager_get_high_contrast
 import org.gtkkn.native.adw.adw_style_manager_get_system_supports_color_schemes
 import org.gtkkn.native.adw.adw_style_manager_get_type
 import org.gtkkn.native.adw.adw_style_manager_set_color_scheme
-import kotlin.Boolean
 
 /**
  * A class for managing application-wide styling.
@@ -35,8 +35,9 @@ import kotlin.Boolean
  *
  * - method `yaru-accent`: Property has no getter nor setter
  */
-public class StyleManager(pointer: CPointer<AdwStyleManager>) :
-    Object(pointer.reinterpret()),
+public class StyleManager(
+    pointer: CPointer<AdwStyleManager>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val adwStyleManagerPointer: CPointer<AdwStyleManager>
         get() = gPointer.reinterpret()
@@ -81,9 +82,7 @@ public class StyleManager(pointer: CPointer<AdwStyleManager>) :
          * @return the color scheme
          */
         get() = adw_style_manager_get_color_scheme(adwStyleManagerPointer.reinterpret()).run {
-            ColorScheme.fromNativeValue(this)
-        }
-
+            ColorScheme.fromNativeValue(this)}
         /**
          * Sets the requested application color scheme.
          *
@@ -119,9 +118,7 @@ public class StyleManager(pointer: CPointer<AdwStyleManager>) :
          *
          * @param colorScheme the color scheme
          */
-        set(
-            colorScheme
-        ) = adw_style_manager_set_color_scheme(adwStyleManagerPointer.reinterpret(), colorScheme.nativeValue)
+        set(colorScheme) = adw_style_manager_set_color_scheme(adwStyleManagerPointer.reinterpret(), colorScheme.nativeValue)
 
     /**
      * Whether the application is using dark appearance.
@@ -156,8 +153,7 @@ public class StyleManager(pointer: CPointer<AdwStyleManager>) :
          * @return the display
          */
         get() = adw_style_manager_get_display(adwStyleManagerPointer.reinterpret())?.run {
-            Display(reinterpret())
-        }
+            Display(reinterpret())}
 
     /**
      * Whether the application is using high contrast appearance.
@@ -197,11 +193,10 @@ public class StyleManager(pointer: CPointer<AdwStyleManager>) :
 
     public companion object : TypeCompanion<StyleManager> {
         override val type: GeneratedClassKGType<StyleManager> =
-            GeneratedClassKGType(adw_style_manager_get_type()) { StyleManager(it.reinterpret()) }
+                GeneratedClassKGType(adw_style_manager_get_type()) { StyleManager(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Gets the default `AdwStyleManager` instance.
@@ -214,8 +209,7 @@ public class StyleManager(pointer: CPointer<AdwStyleManager>) :
          * @return the default style manager
          */
         public fun getDefault(): StyleManager = adw_style_manager_get_default()!!.run {
-            StyleManager(reinterpret())
-        }
+            StyleManager(reinterpret())}
 
         /**
          * Gets the `AdwStyleManager` instance managing @display.
@@ -228,9 +222,7 @@ public class StyleManager(pointer: CPointer<AdwStyleManager>) :
          * @param display a `GdkDisplay`
          * @return the style manager for @display
          */
-        public fun getForDisplay(display: Display): StyleManager =
-            adw_style_manager_get_for_display(display.gdkDisplayPointer.reinterpret())!!.run {
-                StyleManager(reinterpret())
-            }
+        public fun getForDisplay(display: Display): StyleManager = adw_style_manager_get_for_display(display.gdkDisplayPointer.reinterpret())!!.run {
+            StyleManager(reinterpret())}
     }
 }

@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -23,9 +26,6 @@ import org.gtkkn.native.gtk.gtk_file_filter_new
 import org.gtkkn.native.gtk.gtk_file_filter_new_from_gvariant
 import org.gtkkn.native.gtk.gtk_file_filter_set_name
 import org.gtkkn.native.gtk.gtk_file_filter_to_gvariant
-import kotlin.String
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * `GtkFileFilter` filters files by name or mime type.
@@ -81,8 +81,9 @@ import kotlin.collections.List
  * - method `patterns`: Property has no getter nor setter
  * - method `suffixes`: Property has no getter nor setter
  */
-public open class FileFilter(pointer: CPointer<GtkFileFilter>) :
-    Filter(pointer.reinterpret()),
+public open class FileFilter(
+    pointer: CPointer<GtkFileFilter>,
+) : Filter(pointer.reinterpret()),
     Buildable,
     KGTyped {
     public val gtkFileFilterPointer: CPointer<GtkFileFilter>
@@ -106,7 +107,6 @@ public open class FileFilter(pointer: CPointer<GtkFileFilter>) :
          * @return The human-readable name of the filter
          */
         get() = gtk_file_filter_get_name(gtkFileFilterPointer.reinterpret())?.toKString()
-
         /**
          * Sets a human-readable name of the filter.
          *
@@ -147,17 +147,14 @@ public open class FileFilter(pointer: CPointer<GtkFileFilter>) :
      * @param variant an `a{sv}` `GVariant`
      * @return a new `GtkFileFilter` object
      */
-    public constructor(
-        variant: Variant,
-    ) : this(gtk_file_filter_new_from_gvariant(variant.glibVariantPointer.reinterpret())!!.reinterpret())
+    public constructor(variant: Variant) : this(gtk_file_filter_new_from_gvariant(variant.glibVariantPointer.reinterpret())!!.reinterpret())
 
     /**
      * Adds a rule allowing a given mime type to @filter.
      *
      * @param mimeType name of a MIME type
      */
-    public open fun addMimeType(mimeType: String): Unit =
-        gtk_file_filter_add_mime_type(gtkFileFilterPointer.reinterpret(), mimeType)
+    public open fun addMimeType(mimeType: String): Unit = gtk_file_filter_add_mime_type(gtkFileFilterPointer.reinterpret(), mimeType)
 
     /**
      * Adds a rule allowing a shell style glob to a filter.
@@ -168,8 +165,7 @@ public open class FileFilter(pointer: CPointer<GtkFileFilter>) :
      *
      * @param pattern a shell style glob
      */
-    public open fun addPattern(pattern: String): Unit =
-        gtk_file_filter_add_pattern(gtkFileFilterPointer.reinterpret(), pattern)
+    public open fun addPattern(pattern: String): Unit = gtk_file_filter_add_pattern(gtkFileFilterPointer.reinterpret(), pattern)
 
     /**
      * Adds a rule allowing image files in the formats supported
@@ -193,8 +189,7 @@ public open class FileFilter(pointer: CPointer<GtkFileFilter>) :
      * @since 4.4
      */
     @GtkVersion4_4
-    public open fun addSuffix(suffix: String): Unit =
-        gtk_file_filter_add_suffix(gtkFileFilterPointer.reinterpret(), suffix)
+    public open fun addSuffix(suffix: String): Unit = gtk_file_filter_add_suffix(gtkFileFilterPointer.reinterpret(), suffix)
 
     /**
      * Gets the attributes that need to be filled in for the `GFileInfo`
@@ -206,9 +201,7 @@ public open class FileFilter(pointer: CPointer<GtkFileFilter>) :
      *
      * @return the attributes
      */
-    public open fun getAttributes(): List<String> =
-        gtk_file_filter_get_attributes(gtkFileFilterPointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
+    public open fun getAttributes(): List<String> = gtk_file_filter_get_attributes(gtkFileFilterPointer.reinterpret())?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Serialize a file filter to an `a{sv}` variant.
@@ -216,15 +209,13 @@ public open class FileFilter(pointer: CPointer<GtkFileFilter>) :
      * @return a new, floating, `GVariant`
      */
     public open fun toGvariant(): Variant = gtk_file_filter_to_gvariant(gtkFileFilterPointer.reinterpret())!!.run {
-        Variant(reinterpret())
-    }
+        Variant(reinterpret())}
 
     public companion object : TypeCompanion<FileFilter> {
         override val type: GeneratedClassKGType<FileFilter> =
-            GeneratedClassKGType(gtk_file_filter_get_type()) { FileFilter(it.reinterpret()) }
+                GeneratedClassKGType(gtk_file_filter_get_type()) { FileFilter(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

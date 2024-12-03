@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Int
+import kotlin.String
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,13 +11,14 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gtk.GtkPadActionEntry
-import kotlin.Int
-import kotlin.String
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Struct defining a pad action entry.
  */
-public class PadActionEntry(pointer: CPointer<GtkPadActionEntry>) : Record {
+public class PadActionEntry(
+    pointer: CPointer<GtkPadActionEntry>,
+) : Record {
     public val gtkPadActionEntryPointer: CPointer<GtkPadActionEntry> = pointer
 
     /**
@@ -23,8 +26,7 @@ public class PadActionEntry(pointer: CPointer<GtkPadActionEntry>) : Record {
      */
     public var type: PadActionType
         get() = gtkPadActionEntryPointer.pointed.type.run {
-            PadActionType.fromNativeValue(this)
-        }
+            PadActionType.fromNativeValue(this)}
         set(`value`) {
             gtkPadActionEntryPointer.pointed.type = value.nativeValue
         }
@@ -66,7 +68,6 @@ public class PadActionEntry(pointer: CPointer<GtkPadActionEntry>) : Record {
         get() = gtkPadActionEntryPointer.pointed.action_name?.toKString()
 
     public companion object : RecordCompanion<PadActionEntry, GtkPadActionEntry> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PadActionEntry =
-            PadActionEntry(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PadActionEntry = PadActionEntry(pointer.reinterpret())
     }
 }

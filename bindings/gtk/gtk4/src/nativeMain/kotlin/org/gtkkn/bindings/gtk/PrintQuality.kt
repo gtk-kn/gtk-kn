@@ -6,22 +6,21 @@ import org.gtkkn.native.gtk.GtkPrintQuality
 /**
  * See also gtk_print_settings_set_quality().
  */
-public enum class PrintQuality(public val nativeValue: GtkPrintQuality) {
+public enum class PrintQuality(
+    public val nativeValue: GtkPrintQuality,
+) {
     /**
      * Low quality.
      */
     LOW(GtkPrintQuality.GTK_PRINT_QUALITY_LOW),
-
     /**
      * Normal quality.
      */
     NORMAL(GtkPrintQuality.GTK_PRINT_QUALITY_NORMAL),
-
     /**
      * High quality.
      */
     HIGH(GtkPrintQuality.GTK_PRINT_QUALITY_HIGH),
-
     /**
      * Draft quality.
      */

@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.ULong
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -22,9 +25,6 @@ import org.gtkkn.native.gio.g_threaded_socket_service_get_type
 import org.gtkkn.native.gio.g_threaded_socket_service_new
 import org.gtkkn.native.gobject.GObject
 import org.gtkkn.native.gobject.g_signal_connect_data
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.ULong
 
 /**
  * A `GThreadedSocketService` is a simple subclass of [class@Gio.SocketService]
@@ -51,8 +51,9 @@ import kotlin.ULong
  * @since 2.22
  */
 @GioVersion2_22
-public open class ThreadedSocketService(pointer: CPointer<GThreadedSocketService>) :
-    SocketService(pointer.reinterpret()),
+public open class ThreadedSocketService(
+    pointer: CPointer<GThreadedSocketService>,
+) : SocketService(pointer.reinterpret()),
     KGTyped {
     public val gioThreadedSocketServicePointer: CPointer<GThreadedSocketService>
         get() = gPointer.reinterpret()
@@ -77,48 +78,28 @@ public open class ThreadedSocketService(pointer: CPointer<GThreadedSocketService
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `connection` a new #GSocketConnection object.; `sourceObject` the source_object passed to g_socket_listener_add_address().. Returns true to stop further signal handlers from being called
      */
-    public fun connectRun(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (connection: SocketConnection, sourceObject: Object?) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "run",
-        connectRunFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectRun(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (connection: SocketConnection, sourceObject: Object?) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "run", connectRunFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<ThreadedSocketService> {
         override val type: GeneratedClassKGType<ThreadedSocketService> =
-            GeneratedClassKGType(g_threaded_socket_service_get_type()) { ThreadedSocketService(it.reinterpret()) }
+                GeneratedClassKGType(g_threaded_socket_service_get_type()) { ThreadedSocketService(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
     }
 }
 
 private val connectRunFunc:
-    CPointer<CFunction<(CPointer<GSocketConnection>, CPointer<GObject>?) -> Int>> =
-    staticCFunction {
-            _: COpaquePointer,
-            connection: CPointer<GSocketConnection>?,
-            sourceObject: CPointer<GObject>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<
-            (
-                connection: SocketConnection,
-                sourceObject: Object?,
-            ) -> Boolean
-            >().get().invoke(
-            connection!!.run {
-                SocketConnection(reinterpret())
-            },
-            sourceObject?.run {
-                Object(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GSocketConnection>, CPointer<GObject>?) -> Int>> =
+        staticCFunction {
+    _: COpaquePointer,
+    connection: CPointer<GSocketConnection>?,
+    sourceObject: CPointer<GObject>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(connection: SocketConnection, sourceObject: Object?) -> Boolean>().get().invoke(connection!!.run {
+        SocketConnection(reinterpret())}
+    , sourceObject?.run {
+        Object(reinterpret())}
+    ).asGBoolean()}
+.reinterpret()

@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
+import kotlin.UInt
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -14,10 +18,7 @@ import org.gtkkn.native.gdk.gdk_dmabuf_formats_equal
 import org.gtkkn.native.gdk.gdk_dmabuf_formats_get_n_formats
 import org.gtkkn.native.gdk.gdk_dmabuf_formats_ref
 import org.gtkkn.native.gdk.gdk_dmabuf_formats_unref
-import kotlin.Boolean
-import kotlin.UInt
-import kotlin.ULong
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `GdkDmabufFormats` struct provides information about
@@ -48,7 +49,9 @@ import kotlin.Unit
  * @since 4.14
  */
 @GdkVersion4_14
-public class DmabufFormats(pointer: CPointer<GdkDmabufFormats>) : Record {
+public class DmabufFormats(
+    pointer: CPointer<GdkDmabufFormats>,
+) : Record {
     public val gdkDmabufFormatsPointer: CPointer<GdkDmabufFormats> = pointer
 
     /**
@@ -61,8 +64,7 @@ public class DmabufFormats(pointer: CPointer<GdkDmabufFormats>) : Record {
      * @since 4.14
      */
     @GdkVersion4_14
-    public fun contains(fourcc: UInt, modifier: ULong): Boolean =
-        gdk_dmabuf_formats_contains(gdkDmabufFormatsPointer.reinterpret(), fourcc, modifier).asBoolean()
+    public fun contains(fourcc: UInt, modifier: ULong): Boolean = gdk_dmabuf_formats_contains(gdkDmabufFormatsPointer.reinterpret(), fourcc, modifier).asBoolean()
 
     /**
      * Returns whether @formats1 and @formats2 contain the
@@ -73,10 +75,7 @@ public class DmabufFormats(pointer: CPointer<GdkDmabufFormats>) : Record {
      * @since 4.14
      */
     @GdkVersion4_14
-    public fun equal(formats2: DmabufFormats? = null): Boolean = gdk_dmabuf_formats_equal(
-        gdkDmabufFormatsPointer.reinterpret(),
-        formats2?.gdkDmabufFormatsPointer?.reinterpret()
-    ).asBoolean()
+    public fun equal(formats2: DmabufFormats? = null): Boolean = gdk_dmabuf_formats_equal(gdkDmabufFormatsPointer.reinterpret(), formats2?.gdkDmabufFormatsPointer?.reinterpret()).asBoolean()
 
     /**
      * Returns the number of formats that the @formats object
@@ -100,8 +99,7 @@ public class DmabufFormats(pointer: CPointer<GdkDmabufFormats>) : Record {
      */
     @GdkVersion4_14
     public fun ref(): DmabufFormats = gdk_dmabuf_formats_ref(gdkDmabufFormatsPointer.reinterpret())!!.run {
-        DmabufFormats(reinterpret())
-    }
+        DmabufFormats(reinterpret())}
 
     /**
      * Decreases the reference count of @formats.
@@ -115,7 +113,6 @@ public class DmabufFormats(pointer: CPointer<GdkDmabufFormats>) : Record {
     public fun unref(): Unit = gdk_dmabuf_formats_unref(gdkDmabufFormatsPointer.reinterpret())
 
     public companion object : RecordCompanion<DmabufFormats, GdkDmabufFormats> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DmabufFormats =
-            DmabufFormats(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DmabufFormats = DmabufFormats(pointer.reinterpret())
     }
 }

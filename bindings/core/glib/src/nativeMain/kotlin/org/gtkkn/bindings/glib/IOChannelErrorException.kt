@@ -3,4 +3,7 @@ package org.gtkkn.bindings.glib
 
 import org.gtkkn.extensions.glib.GLibException
 
-public class IOChannelErrorException(error: Error, public val code: IOChannelError) : GLibException(error)
+public class IOChannelErrorException(
+    error: Error,
+    public val code: IOChannelError,
+) : GLibException(error)

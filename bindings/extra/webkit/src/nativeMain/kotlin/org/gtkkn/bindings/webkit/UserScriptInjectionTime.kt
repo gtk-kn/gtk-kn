@@ -9,13 +9,14 @@ import org.gtkkn.native.webkit.WebKitUserScriptInjectionTime
  * @since 2.6
  */
 @WebKitVersion2_6
-public enum class UserScriptInjectionTime(public val nativeValue: WebKitUserScriptInjectionTime) {
+public enum class UserScriptInjectionTime(
+    public val nativeValue: WebKitUserScriptInjectionTime,
+) {
     /**
      * Insert the code of the user
      *   script at the beginning of loaded documents. This is the default.
      */
     START(WebKitUserScriptInjectionTime.WEBKIT_USER_SCRIPT_INJECT_AT_DOCUMENT_START),
-
     /**
      * Insert the code of the user
      *   script at the end of the loaded documents.
@@ -24,11 +25,10 @@ public enum class UserScriptInjectionTime(public val nativeValue: WebKitUserScri
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitUserScriptInjectionTime): UserScriptInjectionTime =
-            when (nativeValue) {
-                WebKitUserScriptInjectionTime.WEBKIT_USER_SCRIPT_INJECT_AT_DOCUMENT_START -> START
-                WebKitUserScriptInjectionTime.WEBKIT_USER_SCRIPT_INJECT_AT_DOCUMENT_END -> END
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitUserScriptInjectionTime): UserScriptInjectionTime = when (nativeValue) {
+            WebKitUserScriptInjectionTime.WEBKIT_USER_SCRIPT_INJECT_AT_DOCUMENT_START -> START
+            WebKitUserScriptInjectionTime.WEBKIT_USER_SCRIPT_INJECT_AT_DOCUMENT_END -> END
+            else -> error("invalid nativeValue")
+        }
     }
 }

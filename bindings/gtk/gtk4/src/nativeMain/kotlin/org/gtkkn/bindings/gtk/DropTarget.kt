@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Double
+import kotlin.Int
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -36,11 +41,6 @@ import org.gtkkn.native.gtk.gtk_drop_target_new
 import org.gtkkn.native.gtk.gtk_drop_target_reject
 import org.gtkkn.native.gtk.gtk_drop_target_set_actions
 import org.gtkkn.native.gtk.gtk_drop_target_set_preload
-import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkDropTarget` is an event controller to receive Drag-and-Drop operations.
@@ -120,8 +120,9 @@ import kotlin.Unit
  * - parameter `n_types`: n_types: Out parameter is not supported
  * - parameter `types`: Array parameter of type GType is not supported
  */
-public open class DropTarget(pointer: CPointer<GtkDropTarget>) :
-    EventController(pointer.reinterpret()),
+public open class DropTarget(
+    pointer: CPointer<GtkDropTarget>,
+) : EventController(pointer.reinterpret()),
     KGTyped {
     public val gtkDropTargetPointer: CPointer<GtkDropTarget>
         get() = gPointer.reinterpret()
@@ -136,9 +137,7 @@ public open class DropTarget(pointer: CPointer<GtkDropTarget>) :
          * @return the actions that this drop target supports
          */
         get() = gtk_drop_target_get_actions(gtkDropTargetPointer.reinterpret()).run {
-            DragAction(this)
-        }
-
+            DragAction(this)}
         /**
          * Sets the actions that this drop target supports.
          *
@@ -162,8 +161,7 @@ public open class DropTarget(pointer: CPointer<GtkDropTarget>) :
          * @since 4.4
          */
         get() = gtk_drop_target_get_current_drop(gtkDropTargetPointer.reinterpret())?.run {
-            Drop(reinterpret())
-        }
+            Drop(reinterpret())}
 
     /**
      * The `GdkContentFormats` that determine the supported data formats.
@@ -177,8 +175,7 @@ public open class DropTarget(pointer: CPointer<GtkDropTarget>) :
          * @return the supported data formats
          */
         get() = gtk_drop_target_get_formats(gtkDropTargetPointer.reinterpret())?.run {
-            ContentFormats(reinterpret())
-        }
+            ContentFormats(reinterpret())}
 
     /**
      * Whether the drop data should be preloaded when the pointer is only
@@ -207,7 +204,6 @@ public open class DropTarget(pointer: CPointer<GtkDropTarget>) :
          * @return true if drop data should be preloaded
          */
         get() = gtk_drop_target_get_preload(gtkDropTargetPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether data should be preloaded on hover.
          *
@@ -233,8 +229,7 @@ public open class DropTarget(pointer: CPointer<GtkDropTarget>) :
          * @return The current drop data
          */
         get() = gtk_drop_target_get_value(gtkDropTargetPointer.reinterpret())?.run {
-            Value(reinterpret())
-        }
+            Value(reinterpret())}
 
     /**
      * Creates a new `GtkDropTarget` object.
@@ -257,8 +252,7 @@ public open class DropTarget(pointer: CPointer<GtkDropTarget>) :
      * @return The current drop
      */
     public open fun getDrop(): Drop? = gtk_drop_target_get_drop(gtkDropTargetPointer.reinterpret())?.run {
-        Drop(reinterpret())
-    }
+        Drop(reinterpret())}
 
     /**
      * Rejects the ongoing drop operation.
@@ -293,15 +287,7 @@ public open class DropTarget(pointer: CPointer<GtkDropTarget>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `drop` the `GdkDrop`. Returns true if @drop is accepted
      */
-    public fun connectAccept(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (drop: Drop) -> Boolean): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "accept",
-            connectAcceptFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectAccept(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (drop: Drop) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "accept", connectAcceptFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted on the drop site when the user drops the data onto the widget.
@@ -317,21 +303,11 @@ public open class DropTarget(pointer: CPointer<GtkDropTarget>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `value` the `GValue` being dropped; `x` the x coordinate of the current pointer position; `y` the y coordinate of the current pointer position. Returns whether the drop was accepted at the given pointer position
      */
-    public fun connectDrop(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            `value`: Value,
-            x: Double,
-            y: Double,
-        ) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "drop",
-        connectDropFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectDrop(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
+        `value`: Value,
+        x: Double,
+        y: Double,
+    ) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "drop", connectDropFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted on the drop site when the pointer enters the widget.
@@ -342,17 +318,7 @@ public open class DropTarget(pointer: CPointer<GtkDropTarget>) :
      * @param handler the Callback to connect. Params: `x` the x coordinate of the current pointer position; `y` the y coordinate of the current pointer position. Returns Preferred action for this drag operation or 0 if
      *   dropping is not supported at the current @x,@y location.
      */
-    public fun connectEnter(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (x: Double, y: Double) -> DragAction,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "enter",
-        connectEnterFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectEnter(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (x: Double, y: Double) -> DragAction): ULong = g_signal_connect_data(gPointer.reinterpret(), "enter", connectEnterFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted on the drop site when the pointer leaves the widget.
@@ -363,15 +329,7 @@ public open class DropTarget(pointer: CPointer<GtkDropTarget>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectLeave(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "leave",
-            connectLeaveFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectLeave(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "leave", connectLeaveFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted while the pointer is moving over the drop target.
@@ -380,98 +338,70 @@ public open class DropTarget(pointer: CPointer<GtkDropTarget>) :
      * @param handler the Callback to connect. Params: `x` the x coordinate of the current pointer position; `y` the y coordinate of the current pointer position. Returns Preferred action for this drag operation or 0 if
      *   dropping is not supported at the current @x,@y location.
      */
-    public fun connectMotion(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (x: Double, y: Double) -> DragAction,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "motion",
-        connectMotionFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectMotion(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (x: Double, y: Double) -> DragAction): ULong = g_signal_connect_data(gPointer.reinterpret(), "motion", connectMotionFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<DropTarget> {
         override val type: GeneratedClassKGType<DropTarget> =
-            GeneratedClassKGType(gtk_drop_target_get_type()) { DropTarget(it.reinterpret()) }
+                GeneratedClassKGType(gtk_drop_target_get_type()) { DropTarget(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }
 
 private val connectAcceptFunc: CPointer<CFunction<(CPointer<GdkDrop>) -> Int>> = staticCFunction {
-        _: COpaquePointer,
-        drop: CPointer<GdkDrop>?,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    drop: CPointer<GdkDrop>?,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(drop: Drop) -> Boolean>().get().invoke(
-        drop!!.run {
-            Drop(reinterpret())
-        }
-    ).asGBoolean()
-}
-    .reinterpret()
+    userData.asStableRef<(drop: Drop) -> Boolean>().get().invoke(drop!!.run {
+        Drop(reinterpret())}
+    ).asGBoolean()}
+.reinterpret()
 
-private val connectDropFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GValue>,
-            Double,
-            Double,
-        ) -> Int
-        >
-    > = staticCFunction {
-        _: COpaquePointer,
-        `value`: CPointer<GValue>?,
+private val connectDropFunc: CPointer<CFunction<(
+    CPointer<GValue>,
+    Double,
+    Double,
+) -> Int>> = staticCFunction {
+    _: COpaquePointer,
+    `value`: CPointer<GValue>?,
+    x: Double,
+    y: Double,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(
+        `value`: Value,
         x: Double,
         y: Double,
-        userData: COpaquePointer,
-    ->
-    userData.asStableRef<
-        (
-            `value`: Value,
-            x: Double,
-            y: Double,
-        ) -> Boolean
-        >().get().invoke(
-        `value`!!.run {
-            Value(reinterpret())
-        },
-        x,
-        y
-    ).asGBoolean()
-}
-    .reinterpret()
+    ) -> Boolean>().get().invoke(`value`!!.run {
+        Value(reinterpret())}
+    , x, y).asGBoolean()}
+.reinterpret()
 
 private val connectEnterFunc: CPointer<CFunction<(Double, Double) -> GdkDragAction>> =
-    staticCFunction {
-            _: COpaquePointer,
-            x: Double,
-            y: Double,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(x: Double, y: Double) -> DragAction>().get().invoke(x, y).mask
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    x: Double,
+    y: Double,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(x: Double, y: Double) -> DragAction>().get().invoke(x, y).mask}
+.reinterpret()
 
 private val connectLeaveFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectMotionFunc: CPointer<CFunction<(Double, Double) -> GdkDragAction>> =
-    staticCFunction {
-            _: COpaquePointer,
-            x: Double,
-            y: Double,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(x: Double, y: Double) -> DragAction>().get().invoke(x, y).mask
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    x: Double,
+    y: Double,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(x: Double, y: Double) -> DragAction>().get().invoke(x, y).mask}
+.reinterpret()

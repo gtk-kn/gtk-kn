@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -17,8 +19,6 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkStyleProvider
 import org.gtkkn.native.gtk.gtk_style_provider_get_type
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkStyleProvider` is an interface for style information used by
@@ -31,9 +31,7 @@ import kotlin.Unit
  * GTK uses the `GtkStyleProvider` implementation for CSS in
  * [class@Gtk.CssProvider].
  */
-public interface StyleProvider :
-    Interface,
-    KGTyped {
+public interface StyleProvider : Interface, KGTyped {
     public val gtkStyleProviderPointer: CPointer<GtkStyleProvider>
 
     /**
@@ -42,36 +40,28 @@ public interface StyleProvider :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectGtkPrivateChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkStyleProviderPointer.reinterpret(),
-            "gtk-private-changed",
-            connectGtkPrivateChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectGtkPrivateChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkStyleProviderPointer.reinterpret(), "gtk-private-changed", connectGtkPrivateChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
-    private data class Wrapper(private val pointer: CPointer<GtkStyleProvider>) : StyleProvider {
+    private data class Wrapper(
+        private val pointer: CPointer<GtkStyleProvider>,
+    ) : StyleProvider {
         override val gtkStyleProviderPointer: CPointer<GtkStyleProvider> = pointer
     }
 
     public companion object : TypeCompanion<StyleProvider> {
         override val type: GeneratedInterfaceKGType<StyleProvider> =
-            GeneratedInterfaceKGType(gtk_style_provider_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(gtk_style_provider_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkStyleProvider>): StyleProvider = Wrapper(pointer)
     }
 }
 
 private val connectGtkPrivateChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

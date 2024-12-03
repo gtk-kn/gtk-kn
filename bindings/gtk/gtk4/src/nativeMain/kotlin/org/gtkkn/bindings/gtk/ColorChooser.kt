@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -25,9 +28,6 @@ import org.gtkkn.native.gtk.gtk_color_chooser_get_type
 import org.gtkkn.native.gtk.gtk_color_chooser_get_use_alpha
 import org.gtkkn.native.gtk.gtk_color_chooser_set_rgba
 import org.gtkkn.native.gtk.gtk_color_chooser_set_use_alpha
-import kotlin.Boolean
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkColorChooser` is an interface that is implemented by widgets
@@ -44,9 +44,7 @@ import kotlin.Unit
  * - parameter `colors`: Gdk.RGBA
  * - method `rgba`: Property has no getter
  */
-public interface ColorChooser :
-    Interface,
-    KGTyped {
+public interface ColorChooser : Interface, KGTyped {
     public val gtkColorChooserPointer: CPointer<GtkColorChooser>
 
     /**
@@ -67,7 +65,6 @@ public interface ColorChooser :
          *   false if not
          */
         get() = gtk_color_chooser_get_use_alpha(gtkColorChooserPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether or not the color chooser should use the alpha channel.
          *
@@ -80,8 +77,7 @@ public interface ColorChooser :
      *
      * @param color a `GdkRGBA` to fill in with the current color
      */
-    public fun getRgba(color: RGBA): Unit =
-        gtk_color_chooser_get_rgba(gtkColorChooserPointer.reinterpret(), color.gdkRGBAPointer.reinterpret())
+    public fun getRgba(color: RGBA): Unit = gtk_color_chooser_get_rgba(gtkColorChooserPointer.reinterpret(), color.gdkRGBAPointer.reinterpret())
 
     /**
      * Returns whether the color chooser shows the alpha channel.
@@ -89,24 +85,21 @@ public interface ColorChooser :
      * @return true if the color chooser uses the alpha channel,
      *   false if not
      */
-    public fun getUseAlpha(): Boolean =
-        gtk_color_chooser_get_use_alpha(gtkColorChooserPointer.reinterpret()).asBoolean()
+    public fun getUseAlpha(): Boolean = gtk_color_chooser_get_use_alpha(gtkColorChooserPointer.reinterpret()).asBoolean()
 
     /**
      * Sets the color.
      *
      * @param color the new color
      */
-    public fun setRgba(color: RGBA): Unit =
-        gtk_color_chooser_set_rgba(gtkColorChooserPointer.reinterpret(), color.gdkRGBAPointer.reinterpret())
+    public fun setRgba(color: RGBA): Unit = gtk_color_chooser_set_rgba(gtkColorChooserPointer.reinterpret(), color.gdkRGBAPointer.reinterpret())
 
     /**
      * Sets whether or not the color chooser should use the alpha channel.
      *
      * @param useAlpha true if color chooser should use alpha channel, false if not
      */
-    public fun setUseAlpha(useAlpha: Boolean): Unit =
-        gtk_color_chooser_set_use_alpha(gtkColorChooserPointer.reinterpret(), useAlpha.asGBoolean())
+    public fun setUseAlpha(useAlpha: Boolean): Unit = gtk_color_chooser_set_use_alpha(gtkColorChooserPointer.reinterpret(), useAlpha.asGBoolean())
 
     /**
      * Emitted when a color is activated from the color chooser.
@@ -118,44 +111,32 @@ public interface ColorChooser :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `color` the color
      */
-    public fun connectColorActivated(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (color: RGBA) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkColorChooserPointer.reinterpret(),
-        "color-activated",
-        connectColorActivatedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectColorActivated(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (color: RGBA) -> Unit): ULong = g_signal_connect_data(gtkColorChooserPointer.reinterpret(), "color-activated", connectColorActivatedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
-    private data class Wrapper(private val pointer: CPointer<GtkColorChooser>) : ColorChooser {
+    private data class Wrapper(
+        private val pointer: CPointer<GtkColorChooser>,
+    ) : ColorChooser {
         override val gtkColorChooserPointer: CPointer<GtkColorChooser> = pointer
     }
 
     public companion object : TypeCompanion<ColorChooser> {
         override val type: GeneratedInterfaceKGType<ColorChooser> =
-            GeneratedInterfaceKGType(gtk_color_chooser_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(gtk_color_chooser_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkColorChooser>): ColorChooser = Wrapper(pointer)
     }
 }
 
 private val connectColorActivatedFunc: CPointer<CFunction<(CPointer<GdkRGBA>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            color: CPointer<GdkRGBA>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(color: RGBA) -> Unit>().get().invoke(
-            color!!.run {
-                RGBA(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    color: CPointer<GdkRGBA>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(color: RGBA) -> Unit>().get().invoke(color!!.run {
+        RGBA(reinterpret())}
+    )}
+.reinterpret()

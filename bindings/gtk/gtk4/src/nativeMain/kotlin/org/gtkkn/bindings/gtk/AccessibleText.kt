@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
@@ -14,8 +16,6 @@ import org.gtkkn.native.gtk.gtk_accessible_text_get_type
 import org.gtkkn.native.gtk.gtk_accessible_text_update_caret_position
 import org.gtkkn.native.gtk.gtk_accessible_text_update_contents
 import org.gtkkn.native.gtk.gtk_accessible_text_update_selection_bound
-import kotlin.UInt
-import kotlin.Unit
 
 /**
  * An interface for accessible objects containing formatted text.
@@ -29,10 +29,7 @@ import kotlin.Unit
  * @since 4.14
  */
 @GtkVersion4_14
-public interface AccessibleText :
-    Interface,
-    Accessible,
-    KGTyped {
+public interface AccessibleText : Interface, Accessible, KGTyped {
     public val gtkAccessibleTextPointer: CPointer<GtkAccessibleText>
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
@@ -48,8 +45,7 @@ public interface AccessibleText :
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun updateCaretPosition(): Unit =
-        gtk_accessible_text_update_caret_position(gtkAccessibleTextPointer.reinterpret())
+    public fun updateCaretPosition(): Unit = gtk_accessible_text_update_caret_position(gtkAccessibleTextPointer.reinterpret())
 
     /**
      * Notifies assistive technologies of a change in contents.
@@ -68,8 +64,11 @@ public interface AccessibleText :
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun updateContents(change: AccessibleTextContentChange, start: UInt, end: UInt): Unit =
-        gtk_accessible_text_update_contents(gtkAccessibleTextPointer.reinterpret(), change.nativeValue, start, end)
+    public fun updateContents(
+        change: AccessibleTextContentChange,
+        start: UInt,
+        end: UInt,
+    ): Unit = gtk_accessible_text_update_contents(gtkAccessibleTextPointer.reinterpret(), change.nativeValue, start, end)
 
     /**
      * Updates the boundary of the selection.
@@ -81,20 +80,20 @@ public interface AccessibleText :
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun updateSelectionBound(): Unit =
-        gtk_accessible_text_update_selection_bound(gtkAccessibleTextPointer.reinterpret())
+    public fun updateSelectionBound(): Unit = gtk_accessible_text_update_selection_bound(gtkAccessibleTextPointer.reinterpret())
 
-    private data class Wrapper(private val pointer: CPointer<GtkAccessibleText>) : AccessibleText {
+    private data class Wrapper(
+        private val pointer: CPointer<GtkAccessibleText>,
+    ) : AccessibleText {
         override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText> = pointer
     }
 
     public companion object : TypeCompanion<AccessibleText> {
         override val type: GeneratedInterfaceKGType<AccessibleText> =
-            GeneratedInterfaceKGType(gtk_accessible_text_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(gtk_accessible_text_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkAccessibleText>): AccessibleText = Wrapper(pointer)
     }

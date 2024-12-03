@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_18
@@ -18,7 +19,6 @@ import org.gtkkn.native.gio.g_emblemed_icon_get_emblems
 import org.gtkkn.native.gio.g_emblemed_icon_get_icon
 import org.gtkkn.native.gio.g_emblemed_icon_get_type
 import org.gtkkn.native.gio.g_emblemed_icon_new
-import kotlin.Unit
 
 /**
  * `GEmblemedIcon` is an implementation of [iface@Gio.Icon] that supports
@@ -32,8 +32,9 @@ import kotlin.Unit
  *
  * - method `gicon`: Property has no getter nor setter
  */
-public open class EmblemedIcon(pointer: CPointer<GEmblemedIcon>) :
-    Object(pointer.reinterpret()),
+public open class EmblemedIcon(
+    pointer: CPointer<GEmblemedIcon>,
+) : Object(pointer.reinterpret()),
     Icon,
     KGTyped {
     public val gioEmblemedIconPointer: CPointer<GEmblemedIcon>
@@ -50,10 +51,7 @@ public open class EmblemedIcon(pointer: CPointer<GEmblemedIcon>) :
      * @return a new #GIcon
      * @since 2.18
      */
-    public constructor(
-        icon: Icon,
-        emblem: Emblem? = null,
-    ) : this(g_emblemed_icon_new(icon.gioIconPointer, emblem?.gioEmblemPointer?.reinterpret())!!.reinterpret())
+    public constructor(icon: Icon, emblem: Emblem? = null) : this(g_emblemed_icon_new(icon.gioIconPointer, emblem?.gioEmblemPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Adds @emblem to the #GList of #GEmblems.
@@ -62,8 +60,7 @@ public open class EmblemedIcon(pointer: CPointer<GEmblemedIcon>) :
      * @since 2.18
      */
     @GioVersion2_18
-    public open fun addEmblem(emblem: Emblem): Unit =
-        g_emblemed_icon_add_emblem(gioEmblemedIconPointer.reinterpret(), emblem.gioEmblemPointer.reinterpret())
+    public open fun addEmblem(emblem: Emblem): Unit = g_emblemed_icon_add_emblem(gioEmblemedIconPointer.reinterpret(), emblem.gioEmblemPointer.reinterpret())
 
     /**
      * Removes all the emblems from @icon.
@@ -82,8 +79,7 @@ public open class EmblemedIcon(pointer: CPointer<GEmblemedIcon>) :
      */
     @GioVersion2_18
     public open fun getEmblems(): List = g_emblemed_icon_get_emblems(gioEmblemedIconPointer.reinterpret())!!.run {
-        List(reinterpret())
-    }
+        List(reinterpret())}
 
     /**
      * Gets the main icon for @emblemed.
@@ -93,15 +89,13 @@ public open class EmblemedIcon(pointer: CPointer<GEmblemedIcon>) :
      */
     @GioVersion2_18
     public open fun getIcon(): Icon = g_emblemed_icon_get_icon(gioEmblemedIconPointer.reinterpret())!!.run {
-        Icon.wrap(reinterpret())
-    }
+        Icon.wrap(reinterpret())}
 
     public companion object : TypeCompanion<EmblemedIcon> {
         override val type: GeneratedClassKGType<EmblemedIcon> =
-            GeneratedClassKGType(g_emblemed_icon_get_type()) { EmblemedIcon(it.reinterpret()) }
+                GeneratedClassKGType(g_emblemed_icon_get_type()) { EmblemedIcon(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
     }
 }

@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -17,10 +21,7 @@ import org.gtkkn.native.pango.pango_glyph_item_iter_init_end
 import org.gtkkn.native.pango.pango_glyph_item_iter_init_start
 import org.gtkkn.native.pango.pango_glyph_item_iter_next_cluster
 import org.gtkkn.native.pango.pango_glyph_item_iter_prev_cluster
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.String
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `PangoGlyphItemIter` is an iterator over the clusters in a
@@ -66,7 +67,9 @@ import kotlin.Unit
  * @since 1.22
  */
 @PangoVersion1_22
-public class GlyphItemIter(pointer: CPointer<PangoGlyphItemIter>) : Record {
+public class GlyphItemIter(
+    pointer: CPointer<PangoGlyphItemIter>,
+) : Record {
     public val pangoGlyphItemIterPointer: CPointer<PangoGlyphItemIter> = pointer
 
     /**
@@ -76,8 +79,7 @@ public class GlyphItemIter(pointer: CPointer<PangoGlyphItemIter>) : Record {
      */
     public val glyphItem: GlyphItem?
         get() = pangoGlyphItemIterPointer.pointed.glyph_item?.run {
-            GlyphItem(reinterpret())
-        }
+            GlyphItem(reinterpret())}
 
     /**
      *
@@ -131,8 +133,7 @@ public class GlyphItemIter(pointer: CPointer<PangoGlyphItemIter>) : Record {
      */
     @PangoVersion1_22
     public fun copy(): GlyphItemIter? = pango_glyph_item_iter_copy(pangoGlyphItemIterPointer.reinterpret())?.run {
-        GlyphItemIter(reinterpret())
-    }
+        GlyphItemIter(reinterpret())}
 
     /**
      * Frees a `PangoGlyphItem`Iter.
@@ -154,11 +155,7 @@ public class GlyphItemIter(pointer: CPointer<PangoGlyphItemIter>) : Record {
      * @since 1.22
      */
     @PangoVersion1_22
-    public fun initEnd(glyphItem: GlyphItem, text: String): Boolean = pango_glyph_item_iter_init_end(
-        pangoGlyphItemIterPointer.reinterpret(),
-        glyphItem.pangoGlyphItemPointer.reinterpret(),
-        text
-    ).asBoolean()
+    public fun initEnd(glyphItem: GlyphItem, text: String): Boolean = pango_glyph_item_iter_init_end(pangoGlyphItemIterPointer.reinterpret(), glyphItem.pangoGlyphItemPointer.reinterpret(), text).asBoolean()
 
     /**
      * Initializes a `PangoGlyphItemIter` structure to point to the
@@ -172,11 +169,7 @@ public class GlyphItemIter(pointer: CPointer<PangoGlyphItemIter>) : Record {
      * @since 1.22
      */
     @PangoVersion1_22
-    public fun initStart(glyphItem: GlyphItem, text: String): Boolean = pango_glyph_item_iter_init_start(
-        pangoGlyphItemIterPointer.reinterpret(),
-        glyphItem.pangoGlyphItemPointer.reinterpret(),
-        text
-    ).asBoolean()
+    public fun initStart(glyphItem: GlyphItem, text: String): Boolean = pango_glyph_item_iter_init_start(pangoGlyphItemIterPointer.reinterpret(), glyphItem.pangoGlyphItemPointer.reinterpret(), text).asBoolean()
 
     /**
      * Advances the iterator to the next cluster in the glyph item.
@@ -188,8 +181,7 @@ public class GlyphItemIter(pointer: CPointer<PangoGlyphItemIter>) : Record {
      * @since 1.22
      */
     @PangoVersion1_22
-    public fun nextCluster(): Boolean =
-        pango_glyph_item_iter_next_cluster(pangoGlyphItemIterPointer.reinterpret()).asBoolean()
+    public fun nextCluster(): Boolean = pango_glyph_item_iter_next_cluster(pangoGlyphItemIterPointer.reinterpret()).asBoolean()
 
     /**
      * Moves the iterator to the preceding cluster in the glyph item.
@@ -200,11 +192,9 @@ public class GlyphItemIter(pointer: CPointer<PangoGlyphItemIter>) : Record {
      * @since 1.22
      */
     @PangoVersion1_22
-    public fun prevCluster(): Boolean =
-        pango_glyph_item_iter_prev_cluster(pangoGlyphItemIterPointer.reinterpret()).asBoolean()
+    public fun prevCluster(): Boolean = pango_glyph_item_iter_prev_cluster(pangoGlyphItemIterPointer.reinterpret()).asBoolean()
 
     public companion object : RecordCompanion<GlyphItemIter, PangoGlyphItemIter> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): GlyphItemIter =
-            GlyphItemIter(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): GlyphItemIter = GlyphItemIter(pointer.reinterpret())
     }
 }

@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.Long
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -37,11 +42,7 @@ import org.gtkkn.native.soup.soup_message_headers_set_expectations
 import org.gtkkn.native.soup.soup_message_headers_set_range
 import org.gtkkn.native.soup.soup_message_headers_set_ranges
 import org.gtkkn.native.soup.soup_message_headers_unref
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.Long
-import kotlin.String
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The HTTP message headers associated with a request or response.
@@ -53,7 +54,9 @@ import kotlin.Unit
  * - parameter `params`: params: Out parameter is not supported
  * - parameter `ranges`: ranges: Out parameter is not supported
  */
-public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : Record {
+public class MessageHeaders(
+    pointer: CPointer<SoupMessageHeaders>,
+) : Record {
     public val soupMessageHeadersPointer: CPointer<SoupMessageHeaders> = pointer
 
     /**
@@ -69,14 +72,12 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : Record {
      * @param name the header name to add
      * @param value the new value of @name
      */
-    public fun append(name: String, `value`: String): Unit =
-        soup_message_headers_append(soupMessageHeadersPointer.reinterpret(), name, `value`)
+    public fun append(name: String, `value`: String): Unit = soup_message_headers_append(soupMessageHeadersPointer.reinterpret(), name, `value`)
 
     /**
      * Removes all the headers listed in the Connection header.
      */
-    public fun cleanConnectionHeaders(): Unit =
-        soup_message_headers_clean_connection_headers(soupMessageHeadersPointer.reinterpret())
+    public fun cleanConnectionHeaders(): Unit = soup_message_headers_clean_connection_headers(soupMessageHeadersPointer.reinterpret())
 
     /**
      * Clears @hdrs.
@@ -99,19 +100,14 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : Record {
      *
      * @param func callback function to run for each header
      */
-    public fun foreach(func: MessageHeadersForeachFunc): Unit = soup_message_headers_foreach(
-        soupMessageHeadersPointer.reinterpret(),
-        MessageHeadersForeachFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer()
-    )
+    public fun foreach(func: MessageHeadersForeachFunc): Unit = soup_message_headers_foreach(soupMessageHeadersPointer.reinterpret(), MessageHeadersForeachFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Frees the array of ranges returned from [method@MessageHeaders.get_ranges].
      *
      * @param ranges an array of #SoupRange
      */
-    public fun freeRanges(ranges: Range): Unit =
-        soup_message_headers_free_ranges(soupMessageHeadersPointer.reinterpret(), ranges.soupRangePointer.reinterpret())
+    public fun freeRanges(ranges: Range): Unit = soup_message_headers_free_ranges(soupMessageHeadersPointer.reinterpret(), ranges.soupRangePointer.reinterpret())
 
     /**
      * Gets the message body length that @hdrs declare.
@@ -121,8 +117,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : Record {
      *
      * @return the message body length declared by @hdrs.
      */
-    public fun getContentLength(): Long =
-        soup_message_headers_get_content_length(soupMessageHeadersPointer.reinterpret())
+    public fun getContentLength(): Long = soup_message_headers_get_content_length(soupMessageHeadersPointer.reinterpret())
 
     /**
      * Gets the message body encoding that @hdrs declare.
@@ -133,10 +128,8 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : Record {
      *
      * @return the encoding declared by @hdrs.
      */
-    public fun getEncoding(): Encoding =
-        soup_message_headers_get_encoding(soupMessageHeadersPointer.reinterpret()).run {
-            Encoding.fromNativeValue(this)
-        }
+    public fun getEncoding(): Encoding = soup_message_headers_get_encoding(soupMessageHeadersPointer.reinterpret()).run {
+        Encoding.fromNativeValue(this)}
 
     /**
      * Gets the expectations declared by @hdrs's "Expect" header.
@@ -146,20 +139,16 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : Record {
      *
      * @return the contents of @hdrs's "Expect" header
      */
-    public fun getExpectations(): Expectation =
-        soup_message_headers_get_expectations(soupMessageHeadersPointer.reinterpret()).run {
-            Expectation(this)
-        }
+    public fun getExpectations(): Expectation = soup_message_headers_get_expectations(soupMessageHeadersPointer.reinterpret()).run {
+        Expectation(this)}
 
     /**
      * Gets the type of headers.
      *
      * @return the header's type.
      */
-    public fun getHeadersType(): MessageHeadersType =
-        soup_message_headers_get_headers_type(soupMessageHeadersPointer.reinterpret()).run {
-            MessageHeadersType.fromNativeValue(this)
-        }
+    public fun getHeadersType(): MessageHeadersType = soup_message_headers_get_headers_type(soupMessageHeadersPointer.reinterpret()).run {
+        MessageHeadersType.fromNativeValue(this)}
 
     /**
      * Gets the value of header @name in @hdrs.
@@ -179,8 +168,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : Record {
      * @param name header name
      * @return the header's value or null if not found.
      */
-    public fun getList(name: String): String? =
-        soup_message_headers_get_list(soupMessageHeadersPointer.reinterpret(), name)?.toKString()
+    public fun getList(name: String): String? = soup_message_headers_get_list(soupMessageHeadersPointer.reinterpret(), name)?.toKString()
 
     /**
      * Gets the value of header @name in @hdrs.
@@ -197,8 +185,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : Record {
      * @param name header name
      * @return the header's value or null if not found.
      */
-    public fun getOne(name: String): String? =
-        soup_message_headers_get_one(soupMessageHeadersPointer.reinterpret(), name)?.toKString()
+    public fun getOne(name: String): String? = soup_message_headers_get_one(soupMessageHeadersPointer.reinterpret(), name)?.toKString()
 
     /**
      * Checks whether the list-valued header @name is present in @hdrs,
@@ -212,8 +199,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : Record {
      * @return true if the header is present and contains @token,
      *   false otherwise.
      */
-    public fun headerContains(name: String, token: String): Boolean =
-        soup_message_headers_header_contains(soupMessageHeadersPointer.reinterpret(), name, token).asBoolean()
+    public fun headerContains(name: String, token: String): Boolean = soup_message_headers_header_contains(soupMessageHeadersPointer.reinterpret(), name, token).asBoolean()
 
     /**
      * Checks whether the header @name is present in @hdrs and is
@@ -224,8 +210,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : Record {
      * @return true if the header is present and its value is
      *   @value, false otherwise.
      */
-    public fun headerEquals(name: String, `value`: String): Boolean =
-        soup_message_headers_header_equals(soupMessageHeadersPointer.reinterpret(), name, `value`).asBoolean()
+    public fun headerEquals(name: String, `value`: String): Boolean = soup_message_headers_header_equals(soupMessageHeadersPointer.reinterpret(), name, `value`).asBoolean()
 
     /**
      * Atomically increments the reference count of @hdrs by one.
@@ -233,8 +218,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : Record {
      * @return the passed in #SoupMessageHeaders
      */
     public fun ref(): MessageHeaders = soup_message_headers_ref(soupMessageHeadersPointer.reinterpret())!!.run {
-        MessageHeaders(reinterpret())
-    }
+        MessageHeaders(reinterpret())}
 
     /**
      * Removes @name from @hdrs.
@@ -256,8 +240,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : Record {
      * @param name the header name to replace
      * @param value the new value of @name
      */
-    public fun replace(name: String, `value`: String): Unit =
-        soup_message_headers_replace(soupMessageHeadersPointer.reinterpret(), name, `value`)
+    public fun replace(name: String, `value`: String): Unit = soup_message_headers_replace(soupMessageHeadersPointer.reinterpret(), name, `value`)
 
     /**
      * Sets the "Content-Disposition" header in @hdrs to @disposition,
@@ -269,12 +252,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : Record {
      * @param disposition the disposition-type
      * @param params additional parameters
      */
-    public fun setContentDisposition(disposition: String, params: HashTable? = null): Unit =
-        soup_message_headers_set_content_disposition(
-            soupMessageHeadersPointer.reinterpret(),
-            disposition,
-            params?.glibHashTablePointer?.reinterpret()
-        )
+    public fun setContentDisposition(disposition: String, params: HashTable? = null): Unit = soup_message_headers_set_content_disposition(soupMessageHeadersPointer.reinterpret(), disposition, params?.glibHashTablePointer?.reinterpret())
 
     /**
      * Sets the message body length that @hdrs will declare, and sets
@@ -291,8 +269,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : Record {
      *
      * @param contentLength the message body length
      */
-    public fun setContentLength(contentLength: Long): Unit =
-        soup_message_headers_set_content_length(soupMessageHeadersPointer.reinterpret(), contentLength)
+    public fun setContentLength(contentLength: Long): Unit = soup_message_headers_set_content_length(soupMessageHeadersPointer.reinterpret(), contentLength)
 
     /**
      * Sets @hdrs's Content-Range header according to the given values.
@@ -308,8 +285,11 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : Record {
      * @param end the end of the range
      * @param totalLength the total length of the resource, or -1 if unknown
      */
-    public fun setContentRange(start: Long, end: Long, totalLength: Long): Unit =
-        soup_message_headers_set_content_range(soupMessageHeadersPointer.reinterpret(), start, end, totalLength)
+    public fun setContentRange(
+        start: Long,
+        end: Long,
+        totalLength: Long,
+    ): Unit = soup_message_headers_set_content_range(soupMessageHeadersPointer.reinterpret(), start, end, totalLength)
 
     /**
      * Sets the "Content-Type" header in @hdrs to @content_type.
@@ -319,12 +299,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : Record {
      * @param contentType the MIME type
      * @param params additional parameters
      */
-    public fun setContentType(contentType: String, params: HashTable? = null): Unit =
-        soup_message_headers_set_content_type(
-            soupMessageHeadersPointer.reinterpret(),
-            contentType,
-            params?.glibHashTablePointer?.reinterpret()
-        )
+    public fun setContentType(contentType: String, params: HashTable? = null): Unit = soup_message_headers_set_content_type(soupMessageHeadersPointer.reinterpret(), contentType, params?.glibHashTablePointer?.reinterpret())
 
     /**
      * Sets the message body encoding that @hdrs will declare.
@@ -334,8 +309,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : Record {
      *
      * @param encoding a #SoupEncoding
      */
-    public fun setEncoding(encoding: Encoding): Unit =
-        soup_message_headers_set_encoding(soupMessageHeadersPointer.reinterpret(), encoding.nativeValue)
+    public fun setEncoding(encoding: Encoding): Unit = soup_message_headers_set_encoding(soupMessageHeadersPointer.reinterpret(), encoding.nativeValue)
 
     /**
      * Sets @hdrs's "Expect" header according to @expectations.
@@ -351,8 +325,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : Record {
      *
      * @param expectations the expectations to set
      */
-    public fun setExpectations(expectations: Expectation): Unit =
-        soup_message_headers_set_expectations(soupMessageHeadersPointer.reinterpret(), expectations.mask)
+    public fun setExpectations(expectations: Expectation): Unit = soup_message_headers_set_expectations(soupMessageHeadersPointer.reinterpret(), expectations.mask)
 
     /**
      * Sets @hdrs's Range header to request the indicated range.
@@ -365,8 +338,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : Record {
      * @param start the start of the range to request
      * @param end the end of the range to request
      */
-    public fun setRange(start: Long, end: Long): Unit =
-        soup_message_headers_set_range(soupMessageHeadersPointer.reinterpret(), start, end)
+    public fun setRange(start: Long, end: Long): Unit = soup_message_headers_set_range(soupMessageHeadersPointer.reinterpret(), start, end)
 
     /**
      * Sets @hdrs's Range header to request the indicated ranges.
@@ -377,11 +349,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : Record {
      * @param ranges an array of #SoupRange
      * @param length the length of @range
      */
-    public fun setRanges(ranges: Range, length: Int): Unit = soup_message_headers_set_ranges(
-        soupMessageHeadersPointer.reinterpret(),
-        ranges.soupRangePointer.reinterpret(),
-        length
-    )
+    public fun setRanges(ranges: Range, length: Int): Unit = soup_message_headers_set_ranges(soupMessageHeadersPointer.reinterpret(), ranges.soupRangePointer.reinterpret(), length)
 
     /**
      * Atomically decrements the reference count of @hdrs by one.
@@ -402,10 +370,8 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : Record {
          * @param type the type of headers
          * @return a new #SoupMessageHeaders
          */
-        public fun new(type: MessageHeadersType): MessageHeaders =
-            MessageHeaders(soup_message_headers_new(type.nativeValue)!!.reinterpret())
+        public fun new(type: MessageHeadersType): MessageHeaders = MessageHeaders(soup_message_headers_new(type.nativeValue)!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MessageHeaders =
-            MessageHeaders(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MessageHeaders = MessageHeaders(pointer.reinterpret())
     }
 }

@@ -6,25 +6,24 @@ import org.gtkkn.native.webkit.WebKitScriptDialogType
 /**
  * Enum values used for determining the type of #WebKitScriptDialog
  */
-public enum class ScriptDialogType(public val nativeValue: WebKitScriptDialogType) {
+public enum class ScriptDialogType(
+    public val nativeValue: WebKitScriptDialogType,
+) {
     /**
      * Alert script dialog, used to show a
      * message to the user.
      */
     ALERT(WebKitScriptDialogType.WEBKIT_SCRIPT_DIALOG_ALERT),
-
     /**
      * Confirm script dialog, used to ask
      * confirmation to the user.
      */
     CONFIRM(WebKitScriptDialogType.WEBKIT_SCRIPT_DIALOG_CONFIRM),
-
     /**
      * Prompt script dialog, used to ask
      * information to the user.
      */
     PROMPT(WebKitScriptDialogType.WEBKIT_SCRIPT_DIALOG_PROMPT),
-
     /**
      * Before unload confirm dialog,
      * used to ask confirmation to leave the current page to the user. Since 2.12

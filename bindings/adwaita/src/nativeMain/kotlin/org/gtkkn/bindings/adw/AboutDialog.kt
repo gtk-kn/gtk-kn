@@ -1,6 +1,12 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -73,12 +79,6 @@ import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * A dialog showing information about the application.
@@ -249,8 +249,9 @@ import kotlin.collections.List
  * @since 1.5
  */
 @AdwVersion1_5
-public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
-    Dialog(pointer.reinterpret()),
+public class AboutDialog(
+    pointer: CPointer<AdwAboutDialog>,
+) : Dialog(pointer.reinterpret()),
     KGTyped {
     public val adwAboutDialogPointer: CPointer<AdwAboutDialog>
         get() = gPointer.reinterpret()
@@ -279,9 +280,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          * @return the application icon name
          * @since 1.5
          */
-        get() = adw_about_dialog_get_application_icon(adwAboutDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_about_dialog_get_application_icon(adwAboutDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the name of the application icon for @self.
          *
@@ -291,9 +290,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          * @since 1.5
          */
         @AdwVersion1_5
-        set(
-            applicationIcon
-        ) = adw_about_dialog_set_application_icon(adwAboutDialogPointer.reinterpret(), applicationIcon)
+        set(applicationIcon) = adw_about_dialog_set_application_icon(adwAboutDialogPointer.reinterpret(), applicationIcon)
 
     /**
      * The name of the application.
@@ -310,9 +307,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          * @return the application name
          * @since 1.5
          */
-        get() = adw_about_dialog_get_application_name(adwAboutDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_about_dialog_get_application_name(adwAboutDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the application name for @self.
          *
@@ -322,9 +317,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          * @since 1.5
          */
         @AdwVersion1_5
-        set(
-            applicationName
-        ) = adw_about_dialog_set_application_name(adwAboutDialogPointer.reinterpret(), applicationName)
+        set(applicationName) = adw_about_dialog_set_application_name(adwAboutDialogPointer.reinterpret(), applicationName)
 
     /**
      * The list of artists of the application.
@@ -354,7 +347,6 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          * @since 1.5
          */
         get() = adw_about_dialog_get_artists(adwAboutDialogPointer.reinterpret())?.toKStringList()
-
         /**
          * Sets the list of artists of the application.
          *
@@ -377,8 +369,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          */
         @AdwVersion1_5
         set(artists) = memScoped {
-            return adw_about_dialog_set_artists(adwAboutDialogPointer.reinterpret(), artists?.toCStringList(this))
-        }
+            return adw_about_dialog_set_artists(adwAboutDialogPointer.reinterpret(), artists?.toCStringList(this))}
 
     /**
      * The comments about the application.
@@ -398,9 +389,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          * @return the comments
          * @since 1.5
          */
-        get() = adw_about_dialog_get_comments(adwAboutDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_about_dialog_get_comments(adwAboutDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the comments about the application.
          *
@@ -437,9 +426,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          * @return the copyright information
          * @since 1.5
          */
-        get() = adw_about_dialog_get_copyright(adwAboutDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_about_dialog_get_copyright(adwAboutDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the copyright information for @self.
          *
@@ -481,9 +468,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          * @return the debug information
          * @since 1.5
          */
-        get() = adw_about_dialog_get_debug_info(adwAboutDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_about_dialog_get_debug_info(adwAboutDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the debug information for @self.
          *
@@ -521,9 +506,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          * @return the debug information filename
          * @since 1.5
          */
-        get() = adw_about_dialog_get_debug_info_filename(adwAboutDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_about_dialog_get_debug_info_filename(adwAboutDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the debug information filename for @self.
          *
@@ -566,7 +549,6 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          * @since 1.5
          */
         get() = adw_about_dialog_get_designers(adwAboutDialogPointer.reinterpret())?.toKStringList()
-
         /**
          * Sets the list of designers of the application.
          *
@@ -589,8 +571,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          */
         @AdwVersion1_5
         set(designers) = memScoped {
-            return adw_about_dialog_set_designers(adwAboutDialogPointer.reinterpret(), designers?.toCStringList(this))
-        }
+            return adw_about_dialog_set_designers(adwAboutDialogPointer.reinterpret(), designers?.toCStringList(this))}
 
     /**
      * The developer name.
@@ -614,9 +595,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          * @return the developer_name
          * @since 1.5
          */
-        get() = adw_about_dialog_get_developer_name(adwAboutDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_about_dialog_get_developer_name(adwAboutDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the developer name for @self.
          *
@@ -661,7 +640,6 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          * @since 1.5
          */
         get() = adw_about_dialog_get_developers(adwAboutDialogPointer.reinterpret())?.toKStringList()
-
         /**
          * Sets the list of developers of the application.
          *
@@ -684,8 +662,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          */
         @AdwVersion1_5
         set(developers) = memScoped {
-            return adw_about_dialog_set_developers(adwAboutDialogPointer.reinterpret(), developers?.toCStringList(this))
-        }
+            return adw_about_dialog_set_developers(adwAboutDialogPointer.reinterpret(), developers?.toCStringList(this))}
 
     /**
      * The list of documenters of the application.
@@ -715,7 +692,6 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          * @since 1.5
          */
         get() = adw_about_dialog_get_documenters(adwAboutDialogPointer.reinterpret())?.toKStringList()
-
         /**
          * Sets the list of documenters of the application.
          *
@@ -738,11 +714,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          */
         @AdwVersion1_5
         set(documenters) = memScoped {
-            return adw_about_dialog_set_documenters(
-                adwAboutDialogPointer.reinterpret(),
-                documenters?.toCStringList(this)
-            )
-        }
+            return adw_about_dialog_set_documenters(adwAboutDialogPointer.reinterpret(), documenters?.toCStringList(this))}
 
     /**
      * The URL for the application's issue tracker.
@@ -759,9 +731,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          * @return the issue tracker URL
          * @since 1.5
          */
-        get() = adw_about_dialog_get_issue_url(adwAboutDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_about_dialog_get_issue_url(adwAboutDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the issue tracker URL for @self.
          *
@@ -800,9 +770,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          * @return the license
          * @since 1.5
          */
-        get() = adw_about_dialog_get_license(adwAboutDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_about_dialog_get_license(adwAboutDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the license for @self.
          *
@@ -857,9 +825,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          * @since 1.5
          */
         get() = adw_about_dialog_get_license_type(adwAboutDialogPointer.reinterpret()).run {
-            License.fromNativeValue(this)
-        }
-
+            License.fromNativeValue(this)}
         /**
          * Sets the license for @self from a list of known licenses.
          *
@@ -882,9 +848,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          * @since 1.5
          */
         @AdwVersion1_5
-        set(
-            licenseType
-        ) = adw_about_dialog_set_license_type(adwAboutDialogPointer.reinterpret(), licenseType.nativeValue)
+        set(licenseType) = adw_about_dialog_set_license_type(adwAboutDialogPointer.reinterpret(), licenseType.nativeValue)
 
     /**
      * The release notes of the application.
@@ -922,9 +886,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          * @return the release notes
          * @since 1.5
          */
-        get() = adw_about_dialog_get_release_notes(adwAboutDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_about_dialog_get_release_notes(adwAboutDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the release notes for @self.
          *
@@ -981,9 +943,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          * @return the release notes version
          * @since 1.5
          */
-        get() = adw_about_dialog_get_release_notes_version(adwAboutDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_about_dialog_get_release_notes_version(adwAboutDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the version described by the application's release notes.
          *
@@ -1019,9 +979,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          * @return the support page URL
          * @since 1.5
          */
-        get() = adw_about_dialog_get_support_url(adwAboutDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_about_dialog_get_support_url(adwAboutDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the URL of the support page for @self.
          *
@@ -1063,9 +1021,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          * @return The translator credits string
          * @since 1.5
          */
-        get() = adw_about_dialog_get_translator_credits(adwAboutDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_about_dialog_get_translator_credits(adwAboutDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the translator credits string.
          *
@@ -1090,9 +1046,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          * @since 1.5
          */
         @AdwVersion1_5
-        set(
-            translatorCredits
-        ) = adw_about_dialog_set_translator_credits(adwAboutDialogPointer.reinterpret(), translatorCredits)
+        set(translatorCredits) = adw_about_dialog_set_translator_credits(adwAboutDialogPointer.reinterpret(), translatorCredits)
 
     /**
      * The version of the application.
@@ -1112,9 +1066,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          * @return the version
          * @since 1.5
          */
-        get() = adw_about_dialog_get_version(adwAboutDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_about_dialog_get_version(adwAboutDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the version for @self.
          *
@@ -1147,9 +1099,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
          * @return the website URL
          * @since 1.5
          */
-        get() = adw_about_dialog_get_website(adwAboutDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_about_dialog_get_website(adwAboutDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the application website URL for @self.
          *
@@ -1199,10 +1149,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
      * @return the newly created `AdwAboutDialog`
      * @since 1.5
      */
-    public constructor(
-        resourcePath: String,
-        releaseNotesVersion: String? = null,
-    ) : this(adw_about_dialog_new_from_appdata(resourcePath, releaseNotesVersion)!!.reinterpret())
+    public constructor(resourcePath: String, releaseNotesVersion: String? = null) : this(adw_about_dialog_new_from_appdata(resourcePath, releaseNotesVersion)!!.reinterpret())
 
     /**
      * Adds a section to the Acknowledgements page.
@@ -1229,12 +1176,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
      */
     @AdwVersion1_5
     public fun addAcknowledgementSection(name: String? = null, people: List<String>): Unit = memScoped {
-        return adw_about_dialog_add_acknowledgement_section(
-            adwAboutDialogPointer.reinterpret(),
-            name,
-            people.toCStringList(this)
-        )
-    }
+        return adw_about_dialog_add_acknowledgement_section(adwAboutDialogPointer.reinterpret(), name, people.toCStringList(this))}
 
     /**
      * Adds an extra section to the Credits page.
@@ -1259,12 +1201,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
      */
     @AdwVersion1_5
     public fun addCreditSection(name: String? = null, people: List<String>): Unit = memScoped {
-        return adw_about_dialog_add_credit_section(
-            adwAboutDialogPointer.reinterpret(),
-            name,
-            people.toCStringList(this)
-        )
-    }
+        return adw_about_dialog_add_credit_section(adwAboutDialogPointer.reinterpret(), name, people.toCStringList(this))}
 
     /**
      * Adds an extra section to the Legal page.
@@ -1320,13 +1257,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
         copyright: String? = null,
         licenseType: License,
         license: String? = null,
-    ): Unit = adw_about_dialog_add_legal_section(
-        adwAboutDialogPointer.reinterpret(),
-        title,
-        copyright,
-        licenseType.nativeValue,
-        license
-    )
+    ): Unit = adw_about_dialog_add_legal_section(adwAboutDialogPointer.reinterpret(), title, copyright, licenseType.nativeValue, license)
 
     /**
      * Adds an extra link to the Details page.
@@ -1342,8 +1273,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
      * @since 1.5
      */
     @AdwVersion1_5
-    public fun addLink(title: String, url: String): Unit =
-        adw_about_dialog_add_link(adwAboutDialogPointer.reinterpret(), title, url)
+    public fun addLink(title: String, url: String): Unit = adw_about_dialog_add_link(adwAboutDialogPointer.reinterpret(), title, url)
 
     /**
      * Emitted when a URL is activated.
@@ -1356,38 +1286,22 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
      * @since 1.5
      */
     @AdwVersion1_5
-    public fun connectActivateLink(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (uri: String) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "activate-link",
-        connectActivateLinkFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectActivateLink(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (uri: String) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "activate-link", connectActivateLinkFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<AboutDialog> {
         override val type: GeneratedClassKGType<AboutDialog> =
-            GeneratedClassKGType(adw_about_dialog_get_type()) { AboutDialog(it.reinterpret()) }
+                GeneratedClassKGType(adw_about_dialog_get_type()) { AboutDialog(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
     }
 }
 
 private val connectActivateLinkFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Int>> =
-    staticCFunction {
-            _: COpaquePointer,
-            uri: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<
-            (
-                uri: String,
-            ) -> Boolean
-            >().get().invoke(uri?.toKString() ?: error("Expected not null string")).asGBoolean()
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    uri: CPointer<ByteVar>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(uri: String) -> Boolean>().get().invoke(uri?.toKString() ?: error("Expected not null string")).asGBoolean()}
+.reinterpret()

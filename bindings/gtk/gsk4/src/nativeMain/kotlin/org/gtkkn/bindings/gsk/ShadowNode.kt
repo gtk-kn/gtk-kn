@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import kotlin.ULong
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -11,7 +12,6 @@ import org.gtkkn.native.gsk.gsk_shadow_node_get_child
 import org.gtkkn.native.gsk.gsk_shadow_node_get_n_shadows
 import org.gtkkn.native.gsk.gsk_shadow_node_get_shadow
 import org.gtkkn.native.gsk.gsk_shadow_node_get_type
-import kotlin.ULong
 
 /**
  * A render node drawing one or more shadows behind its single child node.
@@ -20,8 +20,9 @@ import kotlin.ULong
  *
  * - parameter `shadows`: Shadow
  */
-public open class ShadowNode(pointer: CPointer<GskShadowNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class ShadowNode(
+    pointer: CPointer<GskShadowNode>,
+) : RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskShadowNodePointer: CPointer<GskShadowNode>
         get() = gPointer.reinterpret()
@@ -32,8 +33,7 @@ public open class ShadowNode(pointer: CPointer<GskShadowNode>) :
      * @return the child render node
      */
     public open fun getChild(): RenderNode = gsk_shadow_node_get_child(gskShadowNodePointer.reinterpret())!!.run {
-        RenderNode(reinterpret())
-    }
+        RenderNode(reinterpret())}
 
     /**
      * Retrieves the number of shadows in the @node.
@@ -48,17 +48,14 @@ public open class ShadowNode(pointer: CPointer<GskShadowNode>) :
      * @param i the given index
      * @return the shadow data
      */
-    public open fun getShadow(i: ULong): Shadow =
-        gsk_shadow_node_get_shadow(gskShadowNodePointer.reinterpret(), i)!!.run {
-            Shadow(reinterpret())
-        }
+    public open fun getShadow(i: ULong): Shadow = gsk_shadow_node_get_shadow(gskShadowNodePointer.reinterpret(), i)!!.run {
+        Shadow(reinterpret())}
 
     public companion object : TypeCompanion<ShadowNode> {
         override val type: GeneratedClassKGType<ShadowNode> =
-            GeneratedClassKGType(gsk_shadow_node_get_type()) { ShadowNode(it.reinterpret()) }
+                GeneratedClassKGType(gsk_shadow_node_get_type()) { ShadowNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
     }
 }

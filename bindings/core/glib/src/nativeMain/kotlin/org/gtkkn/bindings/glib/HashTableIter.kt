@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -12,7 +13,7 @@ import org.gtkkn.native.glib.g_hash_table_iter_get_hash_table
 import org.gtkkn.native.glib.g_hash_table_iter_init
 import org.gtkkn.native.glib.g_hash_table_iter_remove
 import org.gtkkn.native.glib.g_hash_table_iter_steal
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A GHashTableIter structure represents an iterator that can be used
@@ -34,7 +35,9 @@ import kotlin.Unit
  * - field `dummy5`: Record field dummy5 is private
  * - field `dummy6`: Record field dummy6 is private
  */
-public class HashTableIter(pointer: CPointer<GHashTableIter>) : Record {
+public class HashTableIter(
+    pointer: CPointer<GHashTableIter>,
+) : Record {
     public val glibHashTableIterPointer: CPointer<GHashTableIter> = pointer
 
     /**
@@ -44,10 +47,8 @@ public class HashTableIter(pointer: CPointer<GHashTableIter>) : Record {
      * @since 2.16
      */
     @GLibVersion2_16
-    public fun getHashTable(): HashTable =
-        g_hash_table_iter_get_hash_table(glibHashTableIterPointer.reinterpret())!!.run {
-            HashTable(reinterpret())
-        }
+    public fun getHashTable(): HashTable = g_hash_table_iter_get_hash_table(glibHashTableIterPointer.reinterpret())!!.run {
+        HashTable(reinterpret())}
 
     /**
      * Initializes a key/value pair iterator and associates it with
@@ -72,8 +73,7 @@ public class HashTableIter(pointer: CPointer<GHashTableIter>) : Record {
      * @since 2.16
      */
     @GLibVersion2_16
-    public fun `init`(hashTable: HashTable): Unit =
-        g_hash_table_iter_init(glibHashTableIterPointer.reinterpret(), hashTable.glibHashTablePointer.reinterpret())
+    public fun `init`(hashTable: HashTable): Unit = g_hash_table_iter_init(glibHashTableIterPointer.reinterpret(), hashTable.glibHashTablePointer.reinterpret())
 
     /**
      * Removes the key/value pair currently pointed to by the iterator
@@ -113,7 +113,6 @@ public class HashTableIter(pointer: CPointer<GHashTableIter>) : Record {
     public fun steal(): Unit = g_hash_table_iter_steal(glibHashTableIterPointer.reinterpret())
 
     public companion object : RecordCompanion<HashTableIter, GHashTableIter> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): HashTableIter =
-            HashTableIter(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): HashTableIter = HashTableIter(pointer.reinterpret())
     }
 }

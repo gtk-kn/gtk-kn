@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -62,10 +66,6 @@ import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkNative
 import org.gtkkn.native.gtk.GtkRoot
 import org.gtkkn.native.gtk.GtkShortcutManager
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A dialog presenting a message or a question.
@@ -201,8 +201,9 @@ import kotlin.Unit
  * @since 1.2
  */
 @AdwVersion1_2
-public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
-    Window(pointer.reinterpret()),
+public open class MessageDialog(
+    pointer: CPointer<AdwMessageDialog>,
+) : Window(pointer.reinterpret()),
     KGTyped {
     public val adwMessageDialogPointer: CPointer<AdwMessageDialog>
         get() = gPointer.reinterpret()
@@ -238,9 +239,7 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
          * @return the body of @self.
          * @since 1.2
          */
-        get() = adw_message_dialog_get_body(adwMessageDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_message_dialog_get_body(adwMessageDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the body text of @self.
          *
@@ -266,7 +265,6 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
          * @since 1.2
          */
         get() = adw_message_dialog_get_body_use_markup(adwMessageDialogPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the body text of @self includes Pango markup.
          *
@@ -276,9 +274,7 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(
-            useMarkup
-        ) = adw_message_dialog_set_body_use_markup(adwMessageDialogPointer.reinterpret(), useMarkup.asGBoolean())
+        set(useMarkup) = adw_message_dialog_set_body_use_markup(adwMessageDialogPointer.reinterpret(), useMarkup.asGBoolean())
 
     /**
      * The ID of the close response.
@@ -300,9 +296,7 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
          * @return the close response ID
          * @since 1.2
          */
-        get() = adw_message_dialog_get_close_response(adwMessageDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_message_dialog_get_close_response(adwMessageDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the ID of the close response of @self.
          *
@@ -338,7 +332,6 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
          * @since 1.2
          */
         get() = adw_message_dialog_get_default_response(adwMessageDialogPointer.reinterpret())?.toKString()
-
         /**
          * Sets the ID of the default response of @self.
          *
@@ -369,9 +362,7 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
          * @since 1.2
          */
         get() = adw_message_dialog_get_extra_child(adwMessageDialogPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the child widget of @self.
          *
@@ -381,12 +372,7 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(
-            child
-        ) = adw_message_dialog_set_extra_child(
-            adwMessageDialogPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        set(child) = adw_message_dialog_set_extra_child(adwMessageDialogPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * The heading of the dialog.
@@ -402,7 +388,6 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
          * @since 1.2
          */
         get() = adw_message_dialog_get_heading(adwMessageDialogPointer.reinterpret())?.toKString()
-
         /**
          * Sets the heading of @self.
          *
@@ -428,7 +413,6 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
          * @since 1.2
          */
         get() = adw_message_dialog_get_heading_use_markup(adwMessageDialogPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the heading of @self includes Pango markup.
          *
@@ -438,9 +422,7 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(
-            useMarkup
-        ) = adw_message_dialog_set_heading_use_markup(adwMessageDialogPointer.reinterpret(), useMarkup.asGBoolean())
+        set(useMarkup) = adw_message_dialog_set_heading_use_markup(adwMessageDialogPointer.reinterpret(), useMarkup.asGBoolean())
 
     /**
      * Creates a new `AdwMessageDialog`.
@@ -493,8 +475,7 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
      * @since 1.2
      */
     @AdwVersion1_2
-    public open fun addResponse(id: String, label: String): Unit =
-        adw_message_dialog_add_response(adwMessageDialogPointer.reinterpret(), id, label)
+    public open fun addResponse(id: String, label: String): Unit = adw_message_dialog_add_response(adwMessageDialogPointer.reinterpret(), id, label)
 
     /**
      * This function shows @self to the user.
@@ -507,13 +488,7 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
      * @since 1.3
      */
     @AdwVersion1_3
-    public open fun choose(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
-        adw_message_dialog_choose(
-            adwMessageDialogPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    public open fun choose(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit = adw_message_dialog_choose(adwMessageDialogPointer.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
 
     /**
      * Finishes the [method@MessageDialog.choose] call and returns the response ID.
@@ -524,11 +499,7 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
      * @since 1.3
      */
     @AdwVersion1_3
-    public open fun chooseFinish(result: AsyncResult): String = adw_message_dialog_choose_finish(
-        adwMessageDialogPointer.reinterpret(),
-        result.gioAsyncResultPointer
-    )?.toKString()
-        ?: error("Expected not null string")
+    public open fun chooseFinish(result: AsyncResult): String = adw_message_dialog_choose_finish(adwMessageDialogPointer.reinterpret(), result.gioAsyncResultPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the appearance of @response.
@@ -540,10 +511,8 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
      * @since 1.2
      */
     @AdwVersion1_2
-    public open fun getResponseAppearance(response: String): ResponseAppearance =
-        adw_message_dialog_get_response_appearance(adwMessageDialogPointer.reinterpret(), response).run {
-            ResponseAppearance.fromNativeValue(this)
-        }
+    public open fun getResponseAppearance(response: String): ResponseAppearance = adw_message_dialog_get_response_appearance(adwMessageDialogPointer.reinterpret(), response).run {
+        ResponseAppearance.fromNativeValue(this)}
 
     /**
      * Gets whether @response is enabled.
@@ -555,8 +524,7 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
      * @since 1.2
      */
     @AdwVersion1_2
-    public open fun getResponseEnabled(response: String): Boolean =
-        adw_message_dialog_get_response_enabled(adwMessageDialogPointer.reinterpret(), response).asBoolean()
+    public open fun getResponseEnabled(response: String): Boolean = adw_message_dialog_get_response_enabled(adwMessageDialogPointer.reinterpret(), response).asBoolean()
 
     /**
      * Gets the label of @response.
@@ -568,9 +536,7 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
      * @since 1.2
      */
     @AdwVersion1_2
-    public open fun getResponseLabel(response: String): String =
-        adw_message_dialog_get_response_label(adwMessageDialogPointer.reinterpret(), response)?.toKString()
-            ?: error("Expected not null string")
+    public open fun getResponseLabel(response: String): String = adw_message_dialog_get_response_label(adwMessageDialogPointer.reinterpret(), response)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets whether @self has a response with the ID @response.
@@ -580,8 +546,7 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
      * @since 1.2
      */
     @AdwVersion1_2
-    public open fun hasResponse(response: String): Boolean =
-        adw_message_dialog_has_response(adwMessageDialogPointer.reinterpret(), response).asBoolean()
+    public open fun hasResponse(response: String): Boolean = adw_message_dialog_has_response(adwMessageDialogPointer.reinterpret(), response).asBoolean()
 
     /**
      * Removes a response from @self.
@@ -590,8 +555,7 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun removeResponse(id: String): Unit =
-        adw_message_dialog_remove_response(adwMessageDialogPointer.reinterpret(), id)
+    public open fun removeResponse(id: String): Unit = adw_message_dialog_remove_response(adwMessageDialogPointer.reinterpret(), id)
 
     /**
      * Emits the [signal@MessageDialog::response] signal with the given response ID.
@@ -602,8 +566,7 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
      * @since 1.2
      */
     @AdwVersion1_2
-    public open fun response(response: String): Unit =
-        adw_message_dialog_response(adwMessageDialogPointer.reinterpret(), response)
+    public open fun response(response: String): Unit = adw_message_dialog_response(adwMessageDialogPointer.reinterpret(), response)
 
     /**
      * Sets the appearance for @response.
@@ -629,12 +592,7 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
      * @since 1.2
      */
     @AdwVersion1_2
-    public open fun setResponseAppearance(response: String, appearance: ResponseAppearance): Unit =
-        adw_message_dialog_set_response_appearance(
-            adwMessageDialogPointer.reinterpret(),
-            response,
-            appearance.nativeValue
-        )
+    public open fun setResponseAppearance(response: String, appearance: ResponseAppearance): Unit = adw_message_dialog_set_response_appearance(adwMessageDialogPointer.reinterpret(), response, appearance.nativeValue)
 
     /**
      * Sets whether @response is enabled.
@@ -653,8 +611,7 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
      * @since 1.2
      */
     @AdwVersion1_2
-    public open fun setResponseEnabled(response: String, enabled: Boolean): Unit =
-        adw_message_dialog_set_response_enabled(adwMessageDialogPointer.reinterpret(), response, enabled.asGBoolean())
+    public open fun setResponseEnabled(response: String, enabled: Boolean): Unit = adw_message_dialog_set_response_enabled(adwMessageDialogPointer.reinterpret(), response, enabled.asGBoolean())
 
     /**
      * Sets the label of @response to @label.
@@ -667,8 +624,7 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
      * @since 1.2
      */
     @AdwVersion1_2
-    public open fun setResponseLabel(response: String, label: String): Unit =
-        adw_message_dialog_set_response_label(adwMessageDialogPointer.reinterpret(), response, label)
+    public open fun setResponseLabel(response: String, label: String): Unit = adw_message_dialog_set_response_label(adwMessageDialogPointer.reinterpret(), response, label)
 
     /**
      * This signal is emitted when the dialog is closed.
@@ -685,36 +641,22 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
      * @since 1.2
      */
     @AdwVersion1_2
-    public fun connectResponse(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (response: String) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "response",
-        connectResponseFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectResponse(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (response: String) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "response", connectResponseFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<MessageDialog> {
         override val type: GeneratedClassKGType<MessageDialog> =
-            GeneratedClassKGType(adw_message_dialog_get_type()) { MessageDialog(it.reinterpret()) }
+                GeneratedClassKGType(adw_message_dialog_get_type()) { MessageDialog(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
     }
 }
 
 private val connectResponseFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            response: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(response: String) -> Unit>().get().invoke(
-            response?.toKString() ?: error("Expected not null string")
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    response: CPointer<ByteVar>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(response: String) -> Unit>().get().invoke(response?.toKString() ?: error("Expected not null string"))}
+.reinterpret()

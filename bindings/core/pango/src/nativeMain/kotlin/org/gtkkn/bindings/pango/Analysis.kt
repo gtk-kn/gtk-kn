@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.UByte
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,7 +10,7 @@ import org.gtkkn.bindings.glib.SList
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.pango.PangoAnalysis
-import kotlin.UByte
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `PangoAnalysis` structure stores information about
@@ -20,7 +21,9 @@ import kotlin.UByte
  * - field `shape_engine`: gpointer
  * - field `lang_engine`: gpointer
  */
-public class Analysis(pointer: CPointer<PangoAnalysis>) : Record {
+public class Analysis(
+    pointer: CPointer<PangoAnalysis>,
+) : Record {
     public val pangoAnalysisPointer: CPointer<PangoAnalysis> = pointer
 
     /**
@@ -30,8 +33,7 @@ public class Analysis(pointer: CPointer<PangoAnalysis>) : Record {
      */
     public val font: Font?
         get() = pangoAnalysisPointer.pointed.font?.run {
-            Font(reinterpret())
-        }
+            Font(reinterpret())}
 
     /**
      * the bidirectional level for this segment.
@@ -76,8 +78,7 @@ public class Analysis(pointer: CPointer<PangoAnalysis>) : Record {
      */
     public val language: Language?
         get() = pangoAnalysisPointer.pointed.language?.run {
-            Language(reinterpret())
-        }
+            Language(reinterpret())}
 
     /**
      * extra attributes for this segment.
@@ -86,8 +87,7 @@ public class Analysis(pointer: CPointer<PangoAnalysis>) : Record {
      */
     public val extraAttrs: SList?
         get() = pangoAnalysisPointer.pointed.extra_attrs?.run {
-            SList(reinterpret())
-        }
+            SList(reinterpret())}
 
     public companion object : RecordCompanion<Analysis, PangoAnalysis> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Analysis = Analysis(pointer.reinterpret())

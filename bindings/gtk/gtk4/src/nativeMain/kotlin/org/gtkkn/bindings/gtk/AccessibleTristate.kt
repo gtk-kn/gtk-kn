@@ -11,17 +11,17 @@ import org.gtkkn.native.gtk.GtkAccessibleTristate
  * %GTK_ACCESSIBLE_TRISTATE_TRUE have the same values
  * as false and true.
  */
-public enum class AccessibleTristate(public val nativeValue: GtkAccessibleTristate) {
+public enum class AccessibleTristate(
+    public val nativeValue: GtkAccessibleTristate,
+) {
     /**
      * The state is `false`
      */
     FALSE(GtkAccessibleTristate.GTK_ACCESSIBLE_TRISTATE_FALSE),
-
     /**
      * The state is `true`
      */
     TRUE(GtkAccessibleTristate.GTK_ACCESSIBLE_TRISTATE_TRUE),
-
     /**
      * The state is `mixed`
      */

@@ -7,17 +7,17 @@ import org.gtkkn.native.gtk.GtkSizeRequestMode
  * Specifies a preference for height-for-width or
  * width-for-height geometry management.
  */
-public enum class SizeRequestMode(public val nativeValue: GtkSizeRequestMode) {
+public enum class SizeRequestMode(
+    public val nativeValue: GtkSizeRequestMode,
+) {
     /**
      * Prefer height-for-width geometry management
      */
     HEIGHT_FOR_WIDTH(GtkSizeRequestMode.GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH),
-
     /**
      * Prefer width-for-height geometry management
      */
     WIDTH_FOR_HEIGHT(GtkSizeRequestMode.GTK_SIZE_REQUEST_WIDTH_FOR_HEIGHT),
-
     /**
      * Don’t trade height-for-width or width-for-height
      */

@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.String
+import kotlin.UInt
+import kotlin.ULong
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -18,9 +21,6 @@ import org.gtkkn.native.webkit.webkit_uri_response_get_status_code
 import org.gtkkn.native.webkit.webkit_uri_response_get_suggested_filename
 import org.gtkkn.native.webkit.webkit_uri_response_get_type
 import org.gtkkn.native.webkit.webkit_uri_response_get_uri
-import kotlin.String
-import kotlin.UInt
-import kotlin.ULong
 
 /**
  * Represents an URI response.
@@ -29,8 +29,9 @@ import kotlin.ULong
  * status code, the content length, the mime type, the HTTP status or
  * the suggested filename.
  */
-public class URIResponse(pointer: CPointer<WebKitURIResponse>) :
-    Object(pointer.reinterpret()),
+public class URIResponse(
+    pointer: CPointer<WebKitURIResponse>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val webkitURIResponsePointer: CPointer<WebKitURIResponse>
         get() = gPointer.reinterpret()
@@ -63,8 +64,7 @@ public class URIResponse(pointer: CPointer<WebKitURIResponse>) :
          * @since 2.6
          */
         get() = webkit_uri_response_get_http_headers(webkitURIResponsePointer.reinterpret())!!.run {
-            MessageHeaders(reinterpret())
-        }
+            MessageHeaders(reinterpret())}
 
     /**
      * The MIME type of the response.
@@ -75,8 +75,7 @@ public class URIResponse(pointer: CPointer<WebKitURIResponse>) :
          *
          * @return MIME type, as a string.
          */
-        get() = webkit_uri_response_get_mime_type(webkitURIResponsePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = webkit_uri_response_get_mime_type(webkitURIResponsePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * The status code of the response as returned by the server.
@@ -108,8 +107,7 @@ public class URIResponse(pointer: CPointer<WebKitURIResponse>) :
          * @return the suggested filename or null if
          *    the 'Content-Disposition' HTTP header is not present.
          */
-        get() = webkit_uri_response_get_suggested_filename(webkitURIResponsePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = webkit_uri_response_get_suggested_filename(webkitURIResponsePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * The URI for which the response was made.
@@ -120,15 +118,13 @@ public class URIResponse(pointer: CPointer<WebKitURIResponse>) :
          *
          * @return response URI, as a string.
          */
-        get() = webkit_uri_response_get_uri(webkitURIResponsePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = webkit_uri_response_get_uri(webkitURIResponsePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     public companion object : TypeCompanion<URIResponse> {
         override val type: GeneratedClassKGType<URIResponse> =
-            GeneratedClassKGType(webkit_uri_response_get_type()) { URIResponse(it.reinterpret()) }
+                GeneratedClassKGType(webkit_uri_response_get_type()) { URIResponse(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebkitTypeProvider.register()}
     }
 }

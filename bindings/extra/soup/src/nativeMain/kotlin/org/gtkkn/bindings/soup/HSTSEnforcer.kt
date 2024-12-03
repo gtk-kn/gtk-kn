@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -29,10 +33,6 @@ import org.gtkkn.native.soup.soup_hsts_enforcer_is_persistent
 import org.gtkkn.native.soup.soup_hsts_enforcer_new
 import org.gtkkn.native.soup.soup_hsts_enforcer_set_policy
 import org.gtkkn.native.soup.soup_hsts_enforcer_set_session_policy
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Automatic HTTP Strict Transport Security enforcing for [class@Session].
@@ -58,8 +58,9 @@ import kotlin.Unit
  * HSTS policy persistence. See [class@HSTSEnforcerDB] for a persistent
  * enforcer.
  */
-public open class HSTSEnforcer(pointer: CPointer<SoupHSTSEnforcer>) :
-    Object(pointer.reinterpret()),
+public open class HSTSEnforcer(
+    pointer: CPointer<SoupHSTSEnforcer>,
+) : Object(pointer.reinterpret()),
     SessionFeature,
     KGTyped {
     public val soupHSTSEnforcerPointer: CPointer<SoupHSTSEnforcer>
@@ -86,10 +87,8 @@ public open class HSTSEnforcer(pointer: CPointer<SoupHSTSEnforcer>) :
      *   list of domains. Use [func@GLib.List.free_full] and [func@GLib.free] to free the
      *   list.
      */
-    public open fun getDomains(sessionPolicies: Boolean): List =
-        soup_hsts_enforcer_get_domains(soupHSTSEnforcerPointer.reinterpret(), sessionPolicies.asGBoolean())!!.run {
-            List(reinterpret())
-        }
+    public open fun getDomains(sessionPolicies: Boolean): List = soup_hsts_enforcer_get_domains(soupHSTSEnforcerPointer.reinterpret(), sessionPolicies.asGBoolean())!!.run {
+        List(reinterpret())}
 
     /**
      * Gets a list with the policies in @enforcer.
@@ -99,10 +98,8 @@ public open class HSTSEnforcer(pointer: CPointer<SoupHSTSEnforcer>) :
      *   allocated list of policies. Use [func@GLib.List.free_full] and
      *   [method@HSTSPolicy.free] to free the list.
      */
-    public open fun getPolicies(sessionPolicies: Boolean): List =
-        soup_hsts_enforcer_get_policies(soupHSTSEnforcerPointer.reinterpret(), sessionPolicies.asGBoolean())!!.run {
-            List(reinterpret())
-        }
+    public open fun getPolicies(sessionPolicies: Boolean): List = soup_hsts_enforcer_get_policies(soupHSTSEnforcerPointer.reinterpret(), sessionPolicies.asGBoolean())!!.run {
+        List(reinterpret())}
 
     /**
      * Gets whether @hsts_enforcer has a currently valid policy for @domain.
@@ -111,16 +108,14 @@ public open class HSTSEnforcer(pointer: CPointer<SoupHSTSEnforcer>) :
      * @return true if access to @domain should happen over HTTPS, false
      *   otherwise.
      */
-    public open fun hasValidPolicy(domain: String): Boolean =
-        soup_hsts_enforcer_has_valid_policy(soupHSTSEnforcerPointer.reinterpret(), domain).asBoolean()
+    public open fun hasValidPolicy(domain: String): Boolean = soup_hsts_enforcer_has_valid_policy(soupHSTSEnforcerPointer.reinterpret(), domain).asBoolean()
 
     /**
      * Gets whether @hsts_enforcer stores policies persistenly.
      *
      * @return true if @hsts_enforcer storage is persistent or false otherwise.
      */
-    public open fun isPersistent(): Boolean =
-        soup_hsts_enforcer_is_persistent(soupHSTSEnforcerPointer.reinterpret()).asBoolean()
+    public open fun isPersistent(): Boolean = soup_hsts_enforcer_is_persistent(soupHSTSEnforcerPointer.reinterpret()).asBoolean()
 
     /**
      * Sets @policy to @hsts_enforcer.
@@ -134,8 +129,7 @@ public open class HSTSEnforcer(pointer: CPointer<SoupHSTSEnforcer>) :
      *
      * @param policy the policy of the HSTS host
      */
-    public open fun setPolicy(policy: HSTSPolicy): Unit =
-        soup_hsts_enforcer_set_policy(soupHSTSEnforcerPointer.reinterpret(), policy.soupHSTSPolicyPointer.reinterpret())
+    public open fun setPolicy(policy: HSTSPolicy): Unit = soup_hsts_enforcer_set_policy(soupHSTSEnforcerPointer.reinterpret(), policy.soupHSTSPolicyPointer.reinterpret())
 
     /**
      * Sets a session policy for @domain.
@@ -146,12 +140,7 @@ public open class HSTSEnforcer(pointer: CPointer<SoupHSTSEnforcer>) :
      * @param domain policy domain or hostname
      * @param includeSubdomains true if the policy applies on sub domains
      */
-    public open fun setSessionPolicy(domain: String, includeSubdomains: Boolean): Unit =
-        soup_hsts_enforcer_set_session_policy(
-            soupHSTSEnforcerPointer.reinterpret(),
-            domain,
-            includeSubdomains.asGBoolean()
-        )
+    public open fun setSessionPolicy(domain: String, includeSubdomains: Boolean): Unit = soup_hsts_enforcer_set_session_policy(soupHSTSEnforcerPointer.reinterpret(), domain, includeSubdomains.asGBoolean())
 
     /**
      * Emitted when @hsts_enforcer changes.
@@ -170,43 +159,28 @@ public open class HSTSEnforcer(pointer: CPointer<SoupHSTSEnforcer>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `oldPolicy` the old #SoupHSTSPolicy value; `newPolicy` the new #SoupHSTSPolicy value
      */
-    public fun connectChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (oldPolicy: HSTSPolicy, newPolicy: HSTSPolicy) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "changed",
-        connectChangedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (oldPolicy: HSTSPolicy, newPolicy: HSTSPolicy) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "changed", connectChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<HSTSEnforcer> {
         override val type: GeneratedClassKGType<HSTSEnforcer> =
-            GeneratedClassKGType(soup_hsts_enforcer_get_type()) { HSTSEnforcer(it.reinterpret()) }
+                GeneratedClassKGType(soup_hsts_enforcer_get_type()) { HSTSEnforcer(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
     }
 }
 
 private val connectChangedFunc:
-    CPointer<CFunction<(CPointer<SoupHSTSPolicy>, CPointer<SoupHSTSPolicy>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            oldPolicy: CPointer<SoupHSTSPolicy>?,
-            newPolicy: CPointer<SoupHSTSPolicy>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(oldPolicy: HSTSPolicy, newPolicy: HSTSPolicy) -> Unit>().get().invoke(
-            oldPolicy!!.run {
-                HSTSPolicy(reinterpret())
-            },
-            newPolicy!!.run {
-                HSTSPolicy(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<SoupHSTSPolicy>, CPointer<SoupHSTSPolicy>) -> Unit>> =
+        staticCFunction {
+    _: COpaquePointer,
+    oldPolicy: CPointer<SoupHSTSPolicy>?,
+    newPolicy: CPointer<SoupHSTSPolicy>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(oldPolicy: HSTSPolicy, newPolicy: HSTSPolicy) -> Unit>().get().invoke(oldPolicy!!.run {
+        HSTSPolicy(reinterpret())}
+    , newPolicy!!.run {
+        HSTSPolicy(reinterpret())}
+    )}
+.reinterpret()

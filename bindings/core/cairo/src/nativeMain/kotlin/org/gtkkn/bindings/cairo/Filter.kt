@@ -3,7 +3,9 @@ package org.gtkkn.bindings.cairo
 
 import org.gtkkn.native.cairo.cairo_filter_t
 
-public enum class Filter(public val nativeValue: cairo_filter_t) {
+public enum class Filter(
+    public val nativeValue: cairo_filter_t,
+) {
     FAST(cairo_filter_t.CAIRO_FILTER_FAST),
     GOOD(cairo_filter_t.CAIRO_FILTER_GOOD),
     BEST(cairo_filter_t.CAIRO_FILTER_BEST),

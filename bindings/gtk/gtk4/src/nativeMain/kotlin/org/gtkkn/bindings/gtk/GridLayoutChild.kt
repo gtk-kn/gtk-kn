@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Int
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -16,13 +17,13 @@ import org.gtkkn.native.gtk.gtk_grid_layout_child_set_column
 import org.gtkkn.native.gtk.gtk_grid_layout_child_set_column_span
 import org.gtkkn.native.gtk.gtk_grid_layout_child_set_row
 import org.gtkkn.native.gtk.gtk_grid_layout_child_set_row_span
-import kotlin.Int
 
 /**
  * `GtkLayoutChild` subclass for children in a `GtkGridLayout`.
  */
-public open class GridLayoutChild(pointer: CPointer<GtkGridLayoutChild>) :
-    LayoutChild(pointer.reinterpret()),
+public open class GridLayoutChild(
+    pointer: CPointer<GtkGridLayoutChild>,
+) : LayoutChild(pointer.reinterpret()),
     KGTyped {
     public val gtkGridLayoutChildPointer: CPointer<GtkGridLayoutChild>
         get() = gPointer.reinterpret()
@@ -37,7 +38,6 @@ public open class GridLayoutChild(pointer: CPointer<GtkGridLayoutChild>) :
          * @return the column number
          */
         get() = gtk_grid_layout_child_get_column(gtkGridLayoutChildPointer.reinterpret())
-
         /**
          * Sets the column number to attach the left side of @child.
          *
@@ -55,7 +55,6 @@ public open class GridLayoutChild(pointer: CPointer<GtkGridLayoutChild>) :
          * @return the number of columns
          */
         get() = gtk_grid_layout_child_get_column_span(gtkGridLayoutChildPointer.reinterpret())
-
         /**
          * Sets the number of columns @child spans to.
          *
@@ -73,7 +72,6 @@ public open class GridLayoutChild(pointer: CPointer<GtkGridLayoutChild>) :
          * @return the row number
          */
         get() = gtk_grid_layout_child_get_row(gtkGridLayoutChildPointer.reinterpret())
-
         /**
          * Sets the row to place @child in.
          *
@@ -91,7 +89,6 @@ public open class GridLayoutChild(pointer: CPointer<GtkGridLayoutChild>) :
          * @return the number of row
          */
         get() = gtk_grid_layout_child_get_row_span(gtkGridLayoutChildPointer.reinterpret())
-
         /**
          * Sets the number of rows @child spans to.
          *
@@ -101,10 +98,9 @@ public open class GridLayoutChild(pointer: CPointer<GtkGridLayoutChild>) :
 
     public companion object : TypeCompanion<GridLayoutChild> {
         override val type: GeneratedClassKGType<GridLayoutChild> =
-            GeneratedClassKGType(gtk_grid_layout_child_get_type()) { GridLayoutChild(it.reinterpret()) }
+                GeneratedClassKGType(gtk_grid_layout_child_get_type()) { GridLayoutChild(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

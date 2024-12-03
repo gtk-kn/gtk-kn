@@ -34,26 +34,24 @@ import org.gtkkn.native.gtk.gtk_symbolic_paintable_get_type
  * @since 4.6
  */
 @GtkVersion4_6
-public interface SymbolicPaintable :
-    Interface,
-    Paintable,
-    KGTyped {
+public interface SymbolicPaintable : Interface, Paintable, KGTyped {
     public val gtkSymbolicPaintablePointer: CPointer<GtkSymbolicPaintable>
 
     override val gdkPaintablePointer: CPointer<GdkPaintable>
         get() = gtkSymbolicPaintablePointer.reinterpret()
 
-    private data class Wrapper(private val pointer: CPointer<GtkSymbolicPaintable>) : SymbolicPaintable {
+    private data class Wrapper(
+        private val pointer: CPointer<GtkSymbolicPaintable>,
+    ) : SymbolicPaintable {
         override val gtkSymbolicPaintablePointer: CPointer<GtkSymbolicPaintable> = pointer
     }
 
     public companion object : TypeCompanion<SymbolicPaintable> {
         override val type: GeneratedInterfaceKGType<SymbolicPaintable> =
-            GeneratedInterfaceKGType(gtk_symbolic_paintable_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(gtk_symbolic_paintable_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkSymbolicPaintable>): SymbolicPaintable = Wrapper(pointer)
     }

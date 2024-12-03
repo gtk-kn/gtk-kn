@@ -14,7 +14,9 @@ import org.gtkkn.native.webkit.WebKitHitTestResultContext
 /**
  * Enum values with flags representing the context of a #WebKitHitTestResult.
  */
-public class HitTestResultContext(public val mask: WebKitHitTestResultContext) : Bitfield<HitTestResultContext> {
+public class HitTestResultContext(
+    public val mask: WebKitHitTestResultContext,
+) : Bitfield<HitTestResultContext> {
     override infix fun or(other: HitTestResultContext): HitTestResultContext = HitTestResultContext(mask or other.mask)
 
     public companion object {
@@ -22,42 +24,42 @@ public class HitTestResultContext(public val mask: WebKitHitTestResultContext) :
          * anywhere in the document.
          */
         public val DOCUMENT: HitTestResultContext =
-            HitTestResultContext(WEBKIT_HIT_TEST_RESULT_CONTEXT_DOCUMENT)
+                HitTestResultContext(WEBKIT_HIT_TEST_RESULT_CONTEXT_DOCUMENT)
 
         /**
          * a hyperlink element.
          */
         public val LINK: HitTestResultContext =
-            HitTestResultContext(WEBKIT_HIT_TEST_RESULT_CONTEXT_LINK)
+                HitTestResultContext(WEBKIT_HIT_TEST_RESULT_CONTEXT_LINK)
 
         /**
          * an image element.
          */
         public val IMAGE: HitTestResultContext =
-            HitTestResultContext(WEBKIT_HIT_TEST_RESULT_CONTEXT_IMAGE)
+                HitTestResultContext(WEBKIT_HIT_TEST_RESULT_CONTEXT_IMAGE)
 
         /**
          * a video or audio element.
          */
         public val MEDIA: HitTestResultContext =
-            HitTestResultContext(WEBKIT_HIT_TEST_RESULT_CONTEXT_MEDIA)
+                HitTestResultContext(WEBKIT_HIT_TEST_RESULT_CONTEXT_MEDIA)
 
         /**
          * an editable element
          */
         public val EDITABLE: HitTestResultContext =
-            HitTestResultContext(WEBKIT_HIT_TEST_RESULT_CONTEXT_EDITABLE)
+                HitTestResultContext(WEBKIT_HIT_TEST_RESULT_CONTEXT_EDITABLE)
 
         /**
          * a scrollbar element.
          */
         public val SCROLLBAR: HitTestResultContext =
-            HitTestResultContext(WEBKIT_HIT_TEST_RESULT_CONTEXT_SCROLLBAR)
+                HitTestResultContext(WEBKIT_HIT_TEST_RESULT_CONTEXT_SCROLLBAR)
 
         /**
          * a selected element. Since 2.8
          */
         public val SELECTION: HitTestResultContext =
-            HitTestResultContext(WEBKIT_HIT_TEST_RESULT_CONTEXT_SELECTION)
+                HitTestResultContext(WEBKIT_HIT_TEST_RESULT_CONTEXT_SELECTION)
     }
 }

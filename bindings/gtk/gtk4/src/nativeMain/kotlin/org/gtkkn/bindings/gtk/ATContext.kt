@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -21,8 +23,6 @@ import org.gtkkn.native.gtk.gtk_at_context_create
 import org.gtkkn.native.gtk.gtk_at_context_get_accessible
 import org.gtkkn.native.gtk.gtk_at_context_get_accessible_role
 import org.gtkkn.native.gtk.gtk_at_context_get_type
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkATContext` is an abstract class provided by GTK to communicate to
@@ -36,8 +36,9 @@ import kotlin.Unit
  *
  * - method `display`: Property has no getter nor setter
  */
-public open class ATContext(pointer: CPointer<GtkATContext>) :
-    Object(pointer.reinterpret()),
+public open class ATContext(
+    pointer: CPointer<GtkATContext>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtkATContextPointer: CPointer<GtkATContext>
         get() = gPointer.reinterpret()
@@ -52,8 +53,7 @@ public open class ATContext(pointer: CPointer<GtkATContext>) :
          * @return a `GtkAccessible`
          */
         get() = gtk_at_context_get_accessible(gtkATContextPointer.reinterpret())!!.run {
-            Accessible.wrap(reinterpret())
-        }
+            Accessible.wrap(reinterpret())}
 
     /**
      * The accessible role used by the AT context.
@@ -68,8 +68,7 @@ public open class ATContext(pointer: CPointer<GtkATContext>) :
          * @return a `GtkAccessibleRole`
          */
         get() = gtk_at_context_get_accessible_role(gtkATContextPointer.reinterpret()).run {
-            AccessibleRole.fromNativeValue(this)
-        }
+            AccessibleRole.fromNativeValue(this)}
 
     /**
      * Creates a new `GtkATContext` instance for the given accessible role,
@@ -87,13 +86,7 @@ public open class ATContext(pointer: CPointer<GtkATContext>) :
         accessibleRole: AccessibleRole,
         accessible: Accessible,
         display: Display,
-    ) : this(
-        gtk_at_context_create(
-            accessibleRole.nativeValue,
-            accessible.gtkAccessiblePointer,
-            display.gdkDisplayPointer.reinterpret()
-        )!!.reinterpret()
-    )
+    ) : this(gtk_at_context_create(accessibleRole.nativeValue, accessible.gtkAccessiblePointer, display.gdkDisplayPointer.reinterpret())!!.reinterpret())
 
     /**
      * Emitted when the attributes of the accessible for the
@@ -102,30 +95,20 @@ public open class ATContext(pointer: CPointer<GtkATContext>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectStateChange(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "state-change",
-            connectStateChangeFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectStateChange(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "state-change", connectStateChangeFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<ATContext> {
         override val type: GeneratedClassKGType<ATContext> =
-            GeneratedClassKGType(gtk_at_context_get_type()) { ATContext(it.reinterpret()) }
+                GeneratedClassKGType(gtk_at_context_get_type()) { ATContext(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }
 
 private val connectStateChangeFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

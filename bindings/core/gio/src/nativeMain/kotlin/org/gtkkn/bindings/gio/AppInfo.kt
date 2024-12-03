@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -68,10 +72,6 @@ import org.gtkkn.native.gio.g_app_info_should_show
 import org.gtkkn.native.gio.g_app_info_supports_files
 import org.gtkkn.native.gio.g_app_info_supports_uris
 import org.gtkkn.native.glib.GError
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
 import kotlin.collections.List as CollectionsList
 import org.gtkkn.bindings.glib.List as GlibList
 
@@ -128,9 +128,7 @@ import org.gtkkn.bindings.glib.List as GlibList
  * Different launcher applications (e.g. file managers) may have
  * different ideas of what a given URI means.
  */
-public interface AppInfo :
-    Interface,
-    KGTyped {
+public interface AppInfo : Interface, KGTyped {
     public val gioAppInfoPointer: CPointer<GAppInfo>
 
     /**
@@ -145,7 +143,8 @@ public interface AppInfo :
         val gResult = g_app_info_add_supports_type(gioAppInfoPointer.reinterpret(), contentType, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -166,8 +165,7 @@ public interface AppInfo :
      * @return true if it is possible to remove supported
      *     content types from a given @appinfo, false if not.
      */
-    public fun canRemoveSupportsType(): Boolean =
-        g_app_info_can_remove_supports_type(gioAppInfoPointer.reinterpret()).asBoolean()
+    public fun canRemoveSupportsType(): Boolean = g_app_info_can_remove_supports_type(gioAppInfoPointer.reinterpret()).asBoolean()
 
     /**
      * Tries to delete a #GAppInfo.
@@ -188,8 +186,7 @@ public interface AppInfo :
      * @return a duplicate of @appinfo.
      */
     public fun dup(): AppInfo = g_app_info_dup(gioAppInfoPointer.reinterpret())!!.run {
-        AppInfo.wrap(reinterpret())
-    }
+        AppInfo.wrap(reinterpret())}
 
     /**
      * Checks if two #GAppInfos are equal.
@@ -201,8 +198,7 @@ public interface AppInfo :
      * @param appinfo2 the second #GAppInfo.
      * @return true if @appinfo1 is equal to @appinfo2. false otherwise.
      */
-    public fun equal(appinfo2: AppInfo): Boolean =
-        g_app_info_equal(gioAppInfoPointer.reinterpret(), appinfo2.gioAppInfoPointer).asBoolean()
+    public fun equal(appinfo2: AppInfo): Boolean = g_app_info_equal(gioAppInfoPointer.reinterpret(), appinfo2.gioAppInfoPointer).asBoolean()
 
     /**
      * Gets the commandline with which the application will be
@@ -232,8 +228,7 @@ public interface AppInfo :
      * @since 2.24
      */
     @GioVersion2_24
-    public fun getDisplayName(): String =
-        g_app_info_get_display_name(gioAppInfoPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun getDisplayName(): String = g_app_info_get_display_name(gioAppInfoPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the executable's name for the installed application.
@@ -245,8 +240,7 @@ public interface AppInfo :
      * @return a string containing the @appinfo's application
      * binaries name
      */
-    public fun getExecutable(): String =
-        g_app_info_get_executable(gioAppInfoPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun getExecutable(): String = g_app_info_get_executable(gioAppInfoPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the icon for the application.
@@ -255,8 +249,7 @@ public interface AppInfo :
      * if there is no default icon.
      */
     public fun getIcon(): Icon? = g_app_info_get_icon(gioAppInfoPointer.reinterpret())?.run {
-        Icon.wrap(reinterpret())
-    }
+        Icon.wrap(reinterpret())}
 
     /**
      * Gets the ID of an application. An id is a string that
@@ -276,8 +269,7 @@ public interface AppInfo :
      *
      * @return the name of the application for @appinfo.
      */
-    public fun getName(): String =
-        g_app_info_get_name(gioAppInfoPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun getName(): String = g_app_info_get_name(gioAppInfoPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Retrieves the list of content types that @app_info claims to support.
@@ -291,9 +283,7 @@ public interface AppInfo :
      * @since 2.34
      */
     @GioVersion2_34
-    public fun getSupportedTypes(): CollectionsList<String> =
-        g_app_info_get_supported_types(gioAppInfoPointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
+    public fun getSupportedTypes(): CollectionsList<String> = g_app_info_get_supported_types(gioAppInfoPointer.reinterpret())?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Launches the application. Passes @files to the launched application
@@ -330,15 +320,11 @@ public interface AppInfo :
      */
     public fun launch(files: GlibList? = null, context: AppLaunchContext? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_app_info_launch(
-            gioAppInfoPointer.reinterpret(),
-            files?.glibListPointer?.reinterpret(),
-            context?.gioAppLaunchContextPointer?.reinterpret(),
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_app_info_launch(gioAppInfoPointer.reinterpret(), files?.glibListPointer?.reinterpret(), context?.gioAppLaunchContextPointer?.reinterpret(), gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -363,15 +349,11 @@ public interface AppInfo :
      */
     public fun launchUris(uris: GlibList? = null, context: AppLaunchContext? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_app_info_launch_uris(
-            gioAppInfoPointer.reinterpret(),
-            uris?.glibListPointer?.reinterpret(),
-            context?.gioAppLaunchContextPointer?.reinterpret(),
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_app_info_launch_uris(gioAppInfoPointer.reinterpret(), uris?.glibListPointer?.reinterpret(), context?.gioAppLaunchContextPointer?.reinterpret(), gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -396,14 +378,7 @@ public interface AppInfo :
         context: AppLaunchContext? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit = g_app_info_launch_uris_async(
-        gioAppInfoPointer.reinterpret(),
-        uris?.glibListPointer?.reinterpret(),
-        context?.gioAppLaunchContextPointer?.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
-    )
+    ): Unit = g_app_info_launch_uris_async(gioAppInfoPointer.reinterpret(), uris?.glibListPointer?.reinterpret(), context?.gioAppLaunchContextPointer?.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
 
     /**
      * Finishes a g_app_info_launch_uris_async() operation.
@@ -415,14 +390,11 @@ public interface AppInfo :
     @GioVersion2_60
     public fun launchUrisFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_app_info_launch_uris_finish(
-            gioAppInfoPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_app_info_launch_uris_finish(gioAppInfoPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -435,14 +407,11 @@ public interface AppInfo :
      */
     public fun removeSupportsType(contentType: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_app_info_remove_supports_type(
-            gioAppInfoPointer.reinterpret(),
-            contentType,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_app_info_remove_supports_type(gioAppInfoPointer.reinterpret(), contentType, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -456,14 +425,11 @@ public interface AppInfo :
      */
     public fun setAsDefaultForExtension(extension: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_app_info_set_as_default_for_extension(
-            gioAppInfoPointer.reinterpret(),
-            extension,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_app_info_set_as_default_for_extension(gioAppInfoPointer.reinterpret(), extension, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -476,14 +442,11 @@ public interface AppInfo :
      */
     public fun setAsDefaultForType(contentType: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_app_info_set_as_default_for_type(
-            gioAppInfoPointer.reinterpret(),
-            contentType,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_app_info_set_as_default_for_type(gioAppInfoPointer.reinterpret(), contentType, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -499,14 +462,11 @@ public interface AppInfo :
      */
     public fun setAsLastUsedForType(contentType: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_app_info_set_as_last_used_for_type(
-            gioAppInfoPointer.reinterpret(),
-            contentType,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_app_info_set_as_last_used_for_type(gioAppInfoPointer.reinterpret(), contentType, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -533,17 +493,18 @@ public interface AppInfo :
      */
     public fun supportsUris(): Boolean = g_app_info_supports_uris(gioAppInfoPointer.reinterpret()).asBoolean()
 
-    private data class Wrapper(private val pointer: CPointer<GAppInfo>) : AppInfo {
+    private data class Wrapper(
+        private val pointer: CPointer<GAppInfo>,
+    ) : AppInfo {
         override val gioAppInfoPointer: CPointer<GAppInfo> = pointer
     }
 
     public companion object : TypeCompanion<AppInfo> {
         override val type: GeneratedInterfaceKGType<AppInfo> =
-            GeneratedInterfaceKGType(g_app_info_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(g_app_info_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GAppInfo>): AppInfo = Wrapper(pointer)
 
@@ -567,18 +528,13 @@ public interface AppInfo :
             flags: AppInfoCreateFlags,
         ): Result<AppInfo> = memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult = g_app_info_create_from_commandline(
-                commandline,
-                applicationName,
-                flags.mask,
-                gError.ptr
-            )?.run {
-                AppInfo.wrap(reinterpret())
-            }
+            val gResult = g_app_info_create_from_commandline(commandline, applicationName, flags.mask, gError.ptr)?.run {
+                AppInfo.wrap(reinterpret())}
 
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
+            }
+            else {
                 Result.success(checkNotNull(gResult))
             }
         }
@@ -596,8 +552,7 @@ public interface AppInfo :
          * @return a newly allocated #GList of references to #GAppInfos.
          */
         public fun getAll(): GlibList = g_app_info_get_all()!!.run {
-            GlibList(reinterpret())
-        }
+            GlibList(reinterpret())}
 
         /**
          * Gets a list of all #GAppInfos for a given content type,
@@ -610,8 +565,7 @@ public interface AppInfo :
          *     for given @content_type or null on error.
          */
         public fun getAllForType(contentType: String): GlibList = g_app_info_get_all_for_type(contentType)!!.run {
-            GlibList(reinterpret())
-        }
+            GlibList(reinterpret())}
 
         /**
          * Gets the default #GAppInfo for a given content type.
@@ -622,10 +576,8 @@ public interface AppInfo :
          * @return #GAppInfo for given @content_type or
          *     null on error.
          */
-        public fun getDefaultForType(contentType: String, mustSupportUris: Boolean): AppInfo? =
-            g_app_info_get_default_for_type(contentType, mustSupportUris.asGBoolean())?.run {
-                AppInfo.wrap(reinterpret())
-            }
+        public fun getDefaultForType(contentType: String, mustSupportUris: Boolean): AppInfo? = g_app_info_get_default_for_type(contentType, mustSupportUris.asGBoolean())?.run {
+            AppInfo.wrap(reinterpret())}
 
         /**
          * Asynchronously gets the default #GAppInfo for a given content type.
@@ -643,13 +595,7 @@ public interface AppInfo :
             mustSupportUris: Boolean,
             cancellable: Cancellable? = null,
             callback: AsyncReadyCallback,
-        ): Unit = g_app_info_get_default_for_type_async(
-            contentType,
-            mustSupportUris.asGBoolean(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+        ): Unit = g_app_info_get_default_for_type_async(contentType, mustSupportUris.asGBoolean(), cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
 
         /**
          * Finishes a default #GAppInfo lookup started by
@@ -666,12 +612,12 @@ public interface AppInfo :
         public fun getDefaultForTypeFinish(result: AsyncResult): Result<AppInfo> = memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_app_info_get_default_for_type_finish(result.gioAsyncResultPointer, gError.ptr)?.run {
-                AppInfo.wrap(reinterpret())
-            }
+                AppInfo.wrap(reinterpret())}
 
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
+            }
+            else {
                 Result.success(checkNotNull(gResult))
             }
         }
@@ -686,10 +632,8 @@ public interface AppInfo :
          * @return #GAppInfo for given @uri_scheme or
          *     null on error.
          */
-        public fun getDefaultForUriScheme(uriScheme: String): AppInfo? =
-            g_app_info_get_default_for_uri_scheme(uriScheme)?.run {
-                AppInfo.wrap(reinterpret())
-            }
+        public fun getDefaultForUriScheme(uriScheme: String): AppInfo? = g_app_info_get_default_for_uri_scheme(uriScheme)?.run {
+            AppInfo.wrap(reinterpret())}
 
         /**
          * Asynchronously gets the default application for handling URIs with
@@ -707,12 +651,7 @@ public interface AppInfo :
             uriScheme: String,
             cancellable: Cancellable? = null,
             callback: AsyncReadyCallback,
-        ): Unit = g_app_info_get_default_for_uri_scheme_async(
-            uriScheme,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+        ): Unit = g_app_info_get_default_for_uri_scheme_async(uriScheme, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
 
         /**
          * Finishes a default #GAppInfo lookup started by
@@ -729,12 +668,12 @@ public interface AppInfo :
         public fun getDefaultForUriSchemeFinish(result: AsyncResult): Result<AppInfo> = memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_app_info_get_default_for_uri_scheme_finish(result.gioAsyncResultPointer, gError.ptr)?.run {
-                AppInfo.wrap(reinterpret())
-            }
+                AppInfo.wrap(reinterpret())}
 
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
+            }
+            else {
                 Result.success(checkNotNull(gResult))
             }
         }
@@ -750,10 +689,8 @@ public interface AppInfo :
          * @since 2.28
          */
         @GioVersion2_28
-        public fun getFallbackForType(contentType: String): GlibList =
-            g_app_info_get_fallback_for_type(contentType)!!.run {
-                GlibList(reinterpret())
-            }
+        public fun getFallbackForType(contentType: String): GlibList = g_app_info_get_fallback_for_type(contentType)!!.run {
+            GlibList(reinterpret())}
 
         /**
          * Gets a list of recommended #GAppInfos for a given content type, i.e.
@@ -769,10 +706,8 @@ public interface AppInfo :
          * @since 2.28
          */
         @GioVersion2_28
-        public fun getRecommendedForType(contentType: String): GlibList =
-            g_app_info_get_recommended_for_type(contentType)!!.run {
-                GlibList(reinterpret())
-            }
+        public fun getRecommendedForType(contentType: String): GlibList = g_app_info_get_recommended_for_type(contentType)!!.run {
+            GlibList(reinterpret())}
 
         /**
          * Utility function that launches the default application
@@ -790,14 +725,11 @@ public interface AppInfo :
          */
         public fun launchDefaultForUri(uri: String, context: AppLaunchContext? = null): Result<Boolean> = memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult = g_app_info_launch_default_for_uri(
-                uri,
-                context?.gioAppLaunchContextPointer?.reinterpret(),
-                gError.ptr
-            ).asBoolean()
+            val gResult = g_app_info_launch_default_for_uri(uri, context?.gioAppLaunchContextPointer?.reinterpret(), gError.ptr).asBoolean()
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
+            }
+            else {
                 Result.success(gResult)
             }
         }
@@ -826,13 +758,7 @@ public interface AppInfo :
             context: AppLaunchContext? = null,
             cancellable: Cancellable? = null,
             callback: AsyncReadyCallback,
-        ): Unit = g_app_info_launch_default_for_uri_async(
-            uri,
-            context?.gioAppLaunchContextPointer?.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+        ): Unit = g_app_info_launch_default_for_uri_async(uri, context?.gioAppLaunchContextPointer?.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
 
         /**
          * Finishes an asynchronous launch-default-for-uri operation.
@@ -847,7 +773,8 @@ public interface AppInfo :
             val gResult = g_app_info_launch_default_for_uri_finish(result.gioAsyncResultPointer, gError.ptr).asBoolean()
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
+            }
+            else {
                 Result.success(gResult)
             }
         }

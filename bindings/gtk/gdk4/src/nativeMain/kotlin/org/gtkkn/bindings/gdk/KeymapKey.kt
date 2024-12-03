@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.Int
+import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -8,13 +10,14 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gdk.GdkKeymapKey
-import kotlin.Int
-import kotlin.UInt
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GdkKeymapKey` is a hardware key that can be mapped to a keyval.
  */
-public class KeymapKey(pointer: CPointer<GdkKeymapKey>) : Record {
+public class KeymapKey(
+    pointer: CPointer<GdkKeymapKey>,
+) : Record {
     public val gdkKeymapKeyPointer: CPointer<GdkKeymapKey> = pointer
 
     /**

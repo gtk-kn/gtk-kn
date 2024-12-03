@@ -37,8 +37,9 @@ import org.gtkkn.native.gtk.GtkOrientable
  * `AdwCarouselIndicatorLines` has a single CSS node with name
  * `carouselindicatorlines`.
  */
-public class CarouselIndicatorLines(pointer: CPointer<AdwCarouselIndicatorLines>) :
-    Widget(pointer.reinterpret()),
+public class CarouselIndicatorLines(
+    pointer: CPointer<AdwCarouselIndicatorLines>,
+) : Widget(pointer.reinterpret()),
     Orientable,
     KGTyped {
     public val adwCarouselIndicatorLinesPointer: CPointer<AdwCarouselIndicatorLines>
@@ -66,20 +67,13 @@ public class CarouselIndicatorLines(pointer: CPointer<AdwCarouselIndicatorLines>
          * @return the displayed carousel
          */
         get() = adw_carousel_indicator_lines_get_carousel(adwCarouselIndicatorLinesPointer.reinterpret())?.run {
-            Carousel(reinterpret())
-        }
-
+            Carousel(reinterpret())}
         /**
          * Sets the displayed carousel.
          *
          * @param carousel a carousel
          */
-        set(
-            carousel
-        ) = adw_carousel_indicator_lines_set_carousel(
-            adwCarouselIndicatorLinesPointer.reinterpret(),
-            carousel?.adwCarouselPointer?.reinterpret()
-        )
+        set(carousel) = adw_carousel_indicator_lines_set_carousel(adwCarouselIndicatorLinesPointer.reinterpret(), carousel?.adwCarouselPointer?.reinterpret())
 
     /**
      * Creates a new `AdwCarouselIndicatorLines`.
@@ -90,12 +84,9 @@ public class CarouselIndicatorLines(pointer: CPointer<AdwCarouselIndicatorLines>
 
     public companion object : TypeCompanion<CarouselIndicatorLines> {
         override val type: GeneratedClassKGType<CarouselIndicatorLines> =
-            GeneratedClassKGType(adw_carousel_indicator_lines_get_type()) {
-                CarouselIndicatorLines(it.reinterpret())
-            }
+                GeneratedClassKGType(adw_carousel_indicator_lines_get_type()) { CarouselIndicatorLines(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
     }
 }

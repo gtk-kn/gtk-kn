@@ -9,7 +9,9 @@ import org.gtkkn.native.gio.G_FILE_QUERY_INFO_NONE
 /**
  * Flags used when querying a #GFileInfo.
  */
-public class FileQueryInfoFlags(public val mask: GFileQueryInfoFlags) : Bitfield<FileQueryInfoFlags> {
+public class FileQueryInfoFlags(
+    public val mask: GFileQueryInfoFlags,
+) : Bitfield<FileQueryInfoFlags> {
     override infix fun or(other: FileQueryInfoFlags): FileQueryInfoFlags = FileQueryInfoFlags(mask or other.mask)
 
     public companion object {
@@ -22,6 +24,6 @@ public class FileQueryInfoFlags(public val mask: GFileQueryInfoFlags) : Bitfield
          * Don't follow symlinks.
          */
         public val NOFOLLOW_SYMLINKS: FileQueryInfoFlags =
-            FileQueryInfoFlags(G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS)
+                FileQueryInfoFlags(G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS)
     }
 }

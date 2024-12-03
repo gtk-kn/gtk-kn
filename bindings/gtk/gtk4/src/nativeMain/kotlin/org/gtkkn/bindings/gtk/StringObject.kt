@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -12,7 +13,6 @@ import org.gtkkn.native.gtk.GtkStringObject
 import org.gtkkn.native.gtk.gtk_string_object_get_string
 import org.gtkkn.native.gtk.gtk_string_object_get_type
 import org.gtkkn.native.gtk.gtk_string_object_new
-import kotlin.String
 
 /**
  * `GtkStringObject` is the type of items in a `GtkStringList`.
@@ -21,8 +21,9 @@ import kotlin.String
  * a [property@Gtk.StringObject:string] property that can be used
  * for property bindings and expressions.
  */
-public open class StringObject(pointer: CPointer<GtkStringObject>) :
-    Object(pointer.reinterpret()),
+public open class StringObject(
+    pointer: CPointer<GtkStringObject>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtkStringObjectPointer: CPointer<GtkStringObject>
         get() = gPointer.reinterpret()
@@ -36,8 +37,7 @@ public open class StringObject(pointer: CPointer<GtkStringObject>) :
          *
          * @return the string of @self
          */
-        get() = gtk_string_object_get_string(gtkStringObjectPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = gtk_string_object_get_string(gtkStringObjectPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Wraps a string in an object for use with `GListModel`.
@@ -49,10 +49,9 @@ public open class StringObject(pointer: CPointer<GtkStringObject>) :
 
     public companion object : TypeCompanion<StringObject> {
         override val type: GeneratedClassKGType<StringObject> =
-            GeneratedClassKGType(gtk_string_object_get_type()) { StringObject(it.reinterpret()) }
+                GeneratedClassKGType(gtk_string_object_get_type()) { StringObject(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

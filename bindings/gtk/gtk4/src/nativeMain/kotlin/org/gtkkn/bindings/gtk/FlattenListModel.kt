@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
@@ -16,7 +17,6 @@ import org.gtkkn.native.gtk.gtk_flatten_list_model_get_model_for_item
 import org.gtkkn.native.gtk.gtk_flatten_list_model_get_type
 import org.gtkkn.native.gtk.gtk_flatten_list_model_new
 import org.gtkkn.native.gtk.gtk_flatten_list_model_set_model
-import kotlin.UInt
 
 /**
  * `GtkFlattenListModel` is a list model that concatenates other list models.
@@ -29,8 +29,9 @@ import kotlin.UInt
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class FlattenListModel(pointer: CPointer<GtkFlattenListModel>) :
-    Object(pointer.reinterpret()),
+public open class FlattenListModel(
+    pointer: CPointer<GtkFlattenListModel>,
+) : Object(pointer.reinterpret()),
     ListModel,
     SectionModel,
     KGTyped {
@@ -53,17 +54,13 @@ public open class FlattenListModel(pointer: CPointer<GtkFlattenListModel>) :
          * @return The model flattened by @self
          */
         get() = gtk_flatten_list_model_get_model(gtkFlattenListModelPointer.reinterpret())?.run {
-            ListModel.wrap(reinterpret())
-        }
-
+            ListModel.wrap(reinterpret())}
         /**
          * Sets a new model to be flattened.
          *
          * @param model the new model
          */
-        set(
-            model
-        ) = gtk_flatten_list_model_set_model(gtkFlattenListModelPointer.reinterpret(), model?.gioListModelPointer)
+        set(model) = gtk_flatten_list_model_set_model(gtkFlattenListModelPointer.reinterpret(), model?.gioListModelPointer)
 
     /**
      * Creates a new `GtkFlattenListModel` that flattens @list.
@@ -71,9 +68,7 @@ public open class FlattenListModel(pointer: CPointer<GtkFlattenListModel>) :
      * @param model the model to be flattened
      * @return a new `GtkFlattenListModel`
      */
-    public constructor(
-        model: ListModel? = null,
-    ) : this(gtk_flatten_list_model_new(model?.gioListModelPointer)!!.reinterpret())
+    public constructor(model: ListModel? = null) : this(gtk_flatten_list_model_new(model?.gioListModelPointer)!!.reinterpret())
 
     /**
      * Returns the model containing the item at the given position.
@@ -81,17 +76,14 @@ public open class FlattenListModel(pointer: CPointer<GtkFlattenListModel>) :
      * @param position a position
      * @return the model containing the item at @position
      */
-    public open fun getModelForItem(position: UInt): ListModel? =
-        gtk_flatten_list_model_get_model_for_item(gtkFlattenListModelPointer.reinterpret(), position)?.run {
-            ListModel.wrap(reinterpret())
-        }
+    public open fun getModelForItem(position: UInt): ListModel? = gtk_flatten_list_model_get_model_for_item(gtkFlattenListModelPointer.reinterpret(), position)?.run {
+        ListModel.wrap(reinterpret())}
 
     public companion object : TypeCompanion<FlattenListModel> {
         override val type: GeneratedClassKGType<FlattenListModel> =
-            GeneratedClassKGType(gtk_flatten_list_model_get_type()) { FlattenListModel(it.reinterpret()) }
+                GeneratedClassKGType(gtk_flatten_list_model_get_type()) { FlattenListModel(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

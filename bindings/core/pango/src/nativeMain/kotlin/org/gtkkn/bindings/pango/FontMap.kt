@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.String
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
@@ -17,9 +20,6 @@ import org.gtkkn.native.pango.pango_font_map_changed
 import org.gtkkn.native.pango.pango_font_map_get_family
 import org.gtkkn.native.pango.pango_font_map_get_serial
 import org.gtkkn.native.pango.pango_font_map_get_type
-import kotlin.String
-import kotlin.UInt
-import kotlin.Unit
 
 /**
  * A `PangoFontMap` represents the set of fonts available for a
@@ -38,8 +38,9 @@ import kotlin.Unit
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class FontMap(pointer: CPointer<PangoFontMap>) :
-    Object(pointer.reinterpret()),
+public open class FontMap(
+    pointer: CPointer<PangoFontMap>,
+) : Object(pointer.reinterpret()),
     ListModel,
     KGTyped {
     public val pangoFontMapPointer: CPointer<PangoFontMap>
@@ -70,10 +71,8 @@ public open class FontMap(pointer: CPointer<PangoFontMap>) :
      * @since 1.46
      */
     @PangoVersion1_46
-    public open fun getFamily(name: String): FontFamily =
-        pango_font_map_get_family(pangoFontMapPointer.reinterpret(), name)!!.run {
-            FontFamily(reinterpret())
-        }
+    public open fun getFamily(name: String): FontFamily = pango_font_map_get_family(pangoFontMapPointer.reinterpret(), name)!!.run {
+        FontFamily(reinterpret())}
 
     /**
      * Returns the current serial number of @fontmap.
@@ -97,10 +96,9 @@ public open class FontMap(pointer: CPointer<PangoFontMap>) :
 
     public companion object : TypeCompanion<FontMap> {
         override val type: GeneratedClassKGType<FontMap> =
-            GeneratedClassKGType(pango_font_map_get_type()) { FontMap(it.reinterpret()) }
+                GeneratedClassKGType(pango_font_map_get_type()) { FontMap(it.reinterpret()) }
 
         init {
-            PangoTypeProvider.register()
-        }
+            PangoTypeProvider.register()}
     }
 }

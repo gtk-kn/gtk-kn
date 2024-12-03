@@ -7,6 +7,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GMemVTable
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A set of functions used to perform memory allocation. The same #GMemVTable must
@@ -24,7 +25,9 @@ import org.gtkkn.native.glib.GMemVTable
  * - field `try_malloc`: Fields with callbacks are not supported
  * - field `try_realloc`: Fields with callbacks are not supported
  */
-public class MemVTable(pointer: CPointer<GMemVTable>) : Record {
+public class MemVTable(
+    pointer: CPointer<GMemVTable>,
+) : Record {
     public val glibMemVTablePointer: CPointer<GMemVTable> = pointer
 
     public companion object : RecordCompanion<MemVTable, GMemVTable> {

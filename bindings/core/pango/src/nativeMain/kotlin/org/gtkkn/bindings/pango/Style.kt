@@ -6,17 +6,17 @@ import org.gtkkn.native.pango.PangoStyle
 /**
  * An enumeration specifying the various slant styles possible for a font.
  */
-public enum class Style(public val nativeValue: PangoStyle) {
+public enum class Style(
+    public val nativeValue: PangoStyle,
+) {
     /**
      * the font is upright.
      */
     NORMAL(PangoStyle.PANGO_STYLE_NORMAL),
-
     /**
      * the font is slanted, but in a roman style.
      */
     OBLIQUE(PangoStyle.PANGO_STYLE_OBLIQUE),
-
     /**
      * the font is slanted in an italic style.
      */

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Display
@@ -14,7 +15,6 @@ import org.gtkkn.native.gtk.gtk_root_get_display
 import org.gtkkn.native.gtk.gtk_root_get_focus
 import org.gtkkn.native.gtk.gtk_root_get_type
 import org.gtkkn.native.gtk.gtk_root_set_focus
-import kotlin.Unit
 
 /**
  * `GtkRoot` is the interface implemented by all widgets that can act as a toplevel
@@ -31,10 +31,7 @@ import kotlin.Unit
  * `GtkRoot` also maintains the location of keyboard focus inside its widget
  * hierarchy, with [method@Gtk.Root.set_focus] and [method@Gtk.Root.get_focus].
  */
-public interface Root :
-    Interface,
-    Native,
-    KGTyped {
+public interface Root : Interface, Native, KGTyped {
     public val gtkRootPointer: CPointer<GtkRoot>
 
     override val gtkNativePointer: CPointer<GtkNative>
@@ -46,8 +43,7 @@ public interface Root :
      * @return the display of @root
      */
     public fun getRootDisplay(): Display = gtk_root_get_display(gtkRootPointer.reinterpret())!!.run {
-        Display(reinterpret())
-    }
+        Display(reinterpret())}
 
     /**
      * Retrieves the current focused widget within the root.
@@ -60,8 +56,7 @@ public interface Root :
      * @return the currently focused widget
      */
     public fun getFocus(): Widget? = gtk_root_get_focus(gtkRootPointer.reinterpret())?.run {
-        Widget(reinterpret())
-    }
+        Widget(reinterpret())}
 
     /**
      * If @focus is not the current focus widget, and is focusable, sets
@@ -76,20 +71,20 @@ public interface Root :
      * @param focus widget to be the new focus widget, or null
      *    to unset the focus widget
      */
-    public fun setFocus(focus: Widget? = null): Unit =
-        gtk_root_set_focus(gtkRootPointer.reinterpret(), focus?.gtkWidgetPointer?.reinterpret())
+    public fun setFocus(focus: Widget? = null): Unit = gtk_root_set_focus(gtkRootPointer.reinterpret(), focus?.gtkWidgetPointer?.reinterpret())
 
-    private data class Wrapper(private val pointer: CPointer<GtkRoot>) : Root {
+    private data class Wrapper(
+        private val pointer: CPointer<GtkRoot>,
+    ) : Root {
         override val gtkRootPointer: CPointer<GtkRoot> = pointer
     }
 
     public companion object : TypeCompanion<Root> {
         override val type: GeneratedInterfaceKGType<Root> =
-            GeneratedInterfaceKGType(gtk_root_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(gtk_root_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkRoot>): Root = Wrapper(pointer)
     }

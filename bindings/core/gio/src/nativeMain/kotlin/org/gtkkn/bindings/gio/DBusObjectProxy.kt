@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
@@ -13,7 +14,6 @@ import org.gtkkn.native.gio.GDBusObjectProxy
 import org.gtkkn.native.gio.g_dbus_object_proxy_get_connection
 import org.gtkkn.native.gio.g_dbus_object_proxy_get_type
 import org.gtkkn.native.gio.g_dbus_object_proxy_new
-import kotlin.String
 
 /**
  * A `GDBusObjectProxy` is an object used to represent a remote object
@@ -29,8 +29,9 @@ import kotlin.String
  * @since 2.30
  */
 @GioVersion2_30
-public open class DBusObjectProxy(pointer: CPointer<GDBusObjectProxy>) :
-    Object(pointer.reinterpret()),
+public open class DBusObjectProxy(
+    pointer: CPointer<GDBusObjectProxy>,
+) : Object(pointer.reinterpret()),
     DBusObject,
     KGTyped {
     public val gioDBusObjectProxyPointer: CPointer<GDBusObjectProxy>
@@ -48,10 +49,7 @@ public open class DBusObjectProxy(pointer: CPointer<GDBusObjectProxy>) :
      * @return a new #GDBusObjectProxy
      * @since 2.30
      */
-    public constructor(
-        connection: DBusConnection,
-        objectPath: String,
-    ) : this(g_dbus_object_proxy_new(connection.gioDBusConnectionPointer.reinterpret(), objectPath)!!.reinterpret())
+    public constructor(connection: DBusConnection, objectPath: String) : this(g_dbus_object_proxy_new(connection.gioDBusConnectionPointer.reinterpret(), objectPath)!!.reinterpret())
 
     /**
      * Gets the connection that @proxy is for.
@@ -61,17 +59,14 @@ public open class DBusObjectProxy(pointer: CPointer<GDBusObjectProxy>) :
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun getConnection(): DBusConnection =
-        g_dbus_object_proxy_get_connection(gioDBusObjectProxyPointer.reinterpret())!!.run {
-            DBusConnection(reinterpret())
-        }
+    public open fun getConnection(): DBusConnection = g_dbus_object_proxy_get_connection(gioDBusObjectProxyPointer.reinterpret())!!.run {
+        DBusConnection(reinterpret())}
 
     public companion object : TypeCompanion<DBusObjectProxy> {
         override val type: GeneratedClassKGType<DBusObjectProxy> =
-            GeneratedClassKGType(g_dbus_object_proxy_get_type()) { DBusObjectProxy(it.reinterpret()) }
+                GeneratedClassKGType(g_dbus_object_proxy_get_type()) { DBusObjectProxy(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
     }
 }

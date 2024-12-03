@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Int
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -11,15 +13,16 @@ import org.gtkkn.native.gtk.GtkRequisition
 import org.gtkkn.native.gtk.gtk_requisition_copy
 import org.gtkkn.native.gtk.gtk_requisition_free
 import org.gtkkn.native.gtk.gtk_requisition_new
-import kotlin.Int
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GtkRequisition` represents the desired size of a widget. See
  * [GtkWidget’s geometry management section](class.Widget.html#height-for-width-geometry-management) for
  * more information.
  */
-public class Requisition(pointer: CPointer<GtkRequisition>) : Record {
+public class Requisition(
+    pointer: CPointer<GtkRequisition>,
+) : Record {
     public val gtkRequisitionPointer: CPointer<GtkRequisition> = pointer
 
     /**
@@ -46,8 +49,7 @@ public class Requisition(pointer: CPointer<GtkRequisition>) : Record {
      * @return a copy of @requisition
      */
     public fun copy(): Requisition = gtk_requisition_copy(gtkRequisitionPointer.reinterpret())!!.run {
-        Requisition(reinterpret())
-    }
+        Requisition(reinterpret())}
 
     /**
      * Frees a `GtkRequisition`.
@@ -66,7 +68,6 @@ public class Requisition(pointer: CPointer<GtkRequisition>) : Record {
          */
         public fun new(): Requisition = Requisition(gtk_requisition_new()!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Requisition =
-            Requisition(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Requisition = Requisition(pointer.reinterpret())
     }
 }

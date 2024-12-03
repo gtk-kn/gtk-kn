@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import kotlin.String
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -17,9 +20,6 @@ import org.gtkkn.native.soup.soup_cache_get_type
 import org.gtkkn.native.soup.soup_cache_load
 import org.gtkkn.native.soup.soup_cache_new
 import org.gtkkn.native.soup.soup_cache_set_max_size
-import kotlin.String
-import kotlin.UInt
-import kotlin.Unit
 
 /**
  * File-based cache for HTTP resources.
@@ -29,8 +29,9 @@ import kotlin.Unit
  * - method `cache-dir`: Property has no getter nor setter
  * - method `cache-type`: Property has no getter nor setter
  */
-public open class Cache(pointer: CPointer<SoupCache>) :
-    Object(pointer.reinterpret()),
+public open class Cache(
+    pointer: CPointer<SoupCache>,
+) : Object(pointer.reinterpret()),
     SessionFeature,
     KGTyped {
     public val soupCachePointer: CPointer<SoupCache>
@@ -49,10 +50,7 @@ public open class Cache(pointer: CPointer<SoupCache>) :
      * @param cacheType the #SoupCacheType of the cache
      * @return a new #SoupCache
      */
-    public constructor(
-        cacheDir: String? = null,
-        cacheType: CacheType,
-    ) : this(soup_cache_new(cacheDir, cacheType.nativeValue)!!.reinterpret())
+    public constructor(cacheDir: String? = null, cacheType: CacheType) : this(soup_cache_new(cacheDir, cacheType.nativeValue)!!.reinterpret())
 
     /**
      * Will remove all entries in the @cache plus all the cache files.
@@ -108,10 +106,9 @@ public open class Cache(pointer: CPointer<SoupCache>) :
 
     public companion object : TypeCompanion<Cache> {
         override val type: GeneratedClassKGType<Cache> =
-            GeneratedClassKGType(soup_cache_get_type()) { Cache(it.reinterpret()) }
+                GeneratedClassKGType(soup_cache_get_type()) { Cache(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
     }
 }

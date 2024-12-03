@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -24,8 +26,6 @@ import org.gtkkn.native.gtk.GtkShortcutManager
 import org.gtkkn.native.gtk.GtkShortcutsWindow
 import org.gtkkn.native.gtk.gtk_shortcuts_window_add_section
 import org.gtkkn.native.gtk.gtk_shortcuts_window_get_type
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A `GtkShortcutsWindow` shows information about the keyboard shortcuts
@@ -85,8 +85,9 @@ import kotlin.Unit
  * - method `section-name`: Property has no getter nor setter
  * - method `view-name`: Property has no getter nor setter
  */
-public open class ShortcutsWindow(pointer: CPointer<GtkShortcutsWindow>) :
-    Window(pointer.reinterpret()),
+public open class ShortcutsWindow(
+    pointer: CPointer<GtkShortcutsWindow>,
+) : Window(pointer.reinterpret()),
     KGTyped {
     public val gtkShortcutsWindowPointer: CPointer<GtkShortcutsWindow>
         get() = gPointer.reinterpret()
@@ -122,10 +123,7 @@ public open class ShortcutsWindow(pointer: CPointer<GtkShortcutsWindow>) :
      * @since 4.14
      */
     @GtkVersion4_14
-    public open fun addSection(section: ShortcutsSection): Unit = gtk_shortcuts_window_add_section(
-        gtkShortcutsWindowPointer.reinterpret(),
-        section.gtkShortcutsSectionPointer.reinterpret()
-    )
+    public open fun addSection(section: ShortcutsSection): Unit = gtk_shortcuts_window_add_section(gtkShortcutsWindowPointer.reinterpret(), section.gtkShortcutsSectionPointer.reinterpret())
 
     /**
      * Emitted when the user uses a keybinding to close the window.
@@ -137,15 +135,7 @@ public open class ShortcutsWindow(pointer: CPointer<GtkShortcutsWindow>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "close",
-            connectCloseFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "close", connectCloseFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the user uses a keybinding to start a search.
@@ -157,38 +147,27 @@ public open class ShortcutsWindow(pointer: CPointer<GtkShortcutsWindow>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectSearch(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "search",
-            connectSearchFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectSearch(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "search", connectSearchFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<ShortcutsWindow> {
         override val type: GeneratedClassKGType<ShortcutsWindow> =
-            GeneratedClassKGType(gtk_shortcuts_window_get_type()) { ShortcutsWindow(it.reinterpret()) }
+                GeneratedClassKGType(gtk_shortcuts_window_get_type()) { ShortcutsWindow(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }
 
 private val connectCloseFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectSearchFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

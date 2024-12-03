@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtksource
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -11,7 +12,6 @@ import org.gtkkn.native.gtksource.GtkSourceHover
 import org.gtkkn.native.gtksource.gtk_source_hover_add_provider
 import org.gtkkn.native.gtksource.gtk_source_hover_get_type
 import org.gtkkn.native.gtksource.gtk_source_hover_remove_provider
-import kotlin.Unit
 
 /**
  * Interactive tooltips.
@@ -32,24 +32,22 @@ import kotlin.Unit
  *
  * - method `hover-delay`: Property has no getter nor setter
  */
-public open class Hover(pointer: CPointer<GtkSourceHover>) :
-    Object(pointer.reinterpret()),
+public open class Hover(
+    pointer: CPointer<GtkSourceHover>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtksourceHoverPointer: CPointer<GtkSourceHover>
         get() = gPointer.reinterpret()
 
-    public open fun addProvider(provider: HoverProvider): Unit =
-        gtk_source_hover_add_provider(gtksourceHoverPointer.reinterpret(), provider.gtksourceHoverProviderPointer)
+    public open fun addProvider(provider: HoverProvider): Unit = gtk_source_hover_add_provider(gtksourceHoverPointer.reinterpret(), provider.gtksourceHoverProviderPointer)
 
-    public open fun removeProvider(provider: HoverProvider): Unit =
-        gtk_source_hover_remove_provider(gtksourceHoverPointer.reinterpret(), provider.gtksourceHoverProviderPointer)
+    public open fun removeProvider(provider: HoverProvider): Unit = gtk_source_hover_remove_provider(gtksourceHoverPointer.reinterpret(), provider.gtksourceHoverProviderPointer)
 
     public companion object : TypeCompanion<Hover> {
         override val type: GeneratedClassKGType<Hover> =
-            GeneratedClassKGType(gtk_source_hover_get_type()) { Hover(it.reinterpret()) }
+                GeneratedClassKGType(gtk_source_hover_get_type()) { Hover(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtksourceTypeProvider.register()}
     }
 }

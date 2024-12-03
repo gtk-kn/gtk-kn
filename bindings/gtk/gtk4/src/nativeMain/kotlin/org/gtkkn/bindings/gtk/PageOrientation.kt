@@ -6,22 +6,21 @@ import org.gtkkn.native.gtk.GtkPageOrientation
 /**
  * See also gtk_print_settings_set_orientation().
  */
-public enum class PageOrientation(public val nativeValue: GtkPageOrientation) {
+public enum class PageOrientation(
+    public val nativeValue: GtkPageOrientation,
+) {
     /**
      * Portrait mode.
      */
     PORTRAIT(GtkPageOrientation.GTK_PAGE_ORIENTATION_PORTRAIT),
-
     /**
      * Landscape mode.
      */
     LANDSCAPE(GtkPageOrientation.GTK_PAGE_ORIENTATION_LANDSCAPE),
-
     /**
      * Reverse portrait mode.
      */
     REVERSE_PORTRAIT(GtkPageOrientation.GTK_PAGE_ORIENTATION_REVERSE_PORTRAIT),
-
     /**
      * Reverse landscape mode.
      */

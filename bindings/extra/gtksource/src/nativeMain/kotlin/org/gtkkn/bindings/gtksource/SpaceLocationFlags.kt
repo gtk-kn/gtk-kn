@@ -15,7 +15,9 @@ import org.gtkkn.native.gtksource.GtkSourceSpaceLocationFlags
  * If a line contains only white spaces (no text), the white spaces match both
  * %GTK_SOURCE_SPACE_LOCATION_LEADING and %GTK_SOURCE_SPACE_LOCATION_TRAILING.
  */
-public class SpaceLocationFlags(public val mask: GtkSourceSpaceLocationFlags) : Bitfield<SpaceLocationFlags> {
+public class SpaceLocationFlags(
+    public val mask: GtkSourceSpaceLocationFlags,
+) : Bitfield<SpaceLocationFlags> {
     override infix fun or(other: SpaceLocationFlags): SpaceLocationFlags = SpaceLocationFlags(mask or other.mask)
 
     public companion object {
@@ -29,19 +31,19 @@ public class SpaceLocationFlags(public val mask: GtkSourceSpaceLocationFlags) : 
          *   indentation.
          */
         public val LEADING: SpaceLocationFlags =
-            SpaceLocationFlags(GTK_SOURCE_SPACE_LOCATION_LEADING)
+                SpaceLocationFlags(GTK_SOURCE_SPACE_LOCATION_LEADING)
 
         /**
          * White spaces inside a line of text.
          */
         public val INSIDE_TEXT: SpaceLocationFlags =
-            SpaceLocationFlags(GTK_SOURCE_SPACE_LOCATION_INSIDE_TEXT)
+                SpaceLocationFlags(GTK_SOURCE_SPACE_LOCATION_INSIDE_TEXT)
 
         /**
          * Trailing white spaces on a line.
          */
         public val TRAILING: SpaceLocationFlags =
-            SpaceLocationFlags(GTK_SOURCE_SPACE_LOCATION_TRAILING)
+                SpaceLocationFlags(GTK_SOURCE_SPACE_LOCATION_TRAILING)
 
         /**
          * White spaces anywhere.

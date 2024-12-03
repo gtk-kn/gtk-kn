@@ -6,20 +6,20 @@ import org.gtkkn.native.soup.SoupMemoryUse
 /**
  * The lifetime of the memory being passed.
  */
-public enum class MemoryUse(public val nativeValue: SoupMemoryUse) {
+public enum class MemoryUse(
+    public val nativeValue: SoupMemoryUse,
+) {
     /**
      * The memory is statically allocated and
      *   constant; libsoup can use the passed-in buffer directly and not
      *   need to worry about it being modified or freed.
      */
     STATIC(SoupMemoryUse.SOUP_MEMORY_STATIC),
-
     /**
      * The caller has allocated the memory and libsoup
      *   will assume ownership of it and free it with [func@GLib.free].
      */
     TAKE(SoupMemoryUse.SOUP_MEMORY_TAKE),
-
     /**
      * The passed-in data belongs to the caller and
      *   libsoup will copy it into new memory leaving the caller free

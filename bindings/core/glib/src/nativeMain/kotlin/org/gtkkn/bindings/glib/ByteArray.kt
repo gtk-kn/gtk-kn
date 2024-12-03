@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -8,7 +9,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GByteArray
-import kotlin.UInt
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Contains the public fields of a GByteArray.
@@ -33,7 +34,9 @@ import kotlin.UInt
  * - parameter `array`: Array parameter of type guint8 is not supported
  * - field `data`: Unsupported pointer to primitive type
  */
-public class ByteArray(pointer: CPointer<GByteArray>) : Record {
+public class ByteArray(
+    pointer: CPointer<GByteArray>,
+) : Record {
     public val glibByteArrayPointer: CPointer<GByteArray> = pointer
 
     /**

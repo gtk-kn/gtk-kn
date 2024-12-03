@@ -1,6 +1,12 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.Result
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -61,12 +67,6 @@ import org.gtkkn.native.gdk.gdk_display_supports_shadow_width
 import org.gtkkn.native.gdk.gdk_display_sync
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.g_signal_connect_data
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.Result
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GdkDisplay` objects are the GDK representation of a workstation.
@@ -94,8 +94,9 @@ import kotlin.Unit
  * - method `rgba`: Property has no getter nor setter
  * - method `shadow-width`: Property has no getter nor setter
  */
-public open class Display(pointer: CPointer<GdkDisplay>) :
-    Object(pointer.reinterpret()),
+public open class Display(
+    pointer: CPointer<GdkDisplay>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gdkDisplayPointer: CPointer<GdkDisplay>
         get() = gPointer.reinterpret()
@@ -122,8 +123,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
          * @since 4.14
          */
         get() = gdk_display_get_dmabuf_formats(gdkDisplayPointer.reinterpret())!!.run {
-            DmabufFormats(reinterpret())
-        }
+            DmabufFormats(reinterpret())}
 
     /**
      * Emits a short beep on @display
@@ -155,12 +155,12 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
     public open fun createGlContext(): Result<GLContext> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gdk_display_create_gl_context(gdkDisplayPointer.reinterpret(), gError.ptr)?.run {
-            GLContext(reinterpret())
-        }
+            GLContext(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(checkNotNull(gResult))
         }
     }
@@ -171,10 +171,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      * @param device a `GdkDevice`
      * @return true if there is a grab in effect for @device.
      */
-    public open fun deviceIsGrabbed(device: Device): Boolean = gdk_display_device_is_grabbed(
-        gdkDisplayPointer.reinterpret(),
-        device.gdkDevicePointer.reinterpret()
-    ).asBoolean()
+    public open fun deviceIsGrabbed(device: Device): Boolean = gdk_display_device_is_grabbed(gdkDisplayPointer.reinterpret(), device.gdkDevicePointer.reinterpret()).asBoolean()
 
     /**
      * Flushes any requests queued for the windowing system.
@@ -196,10 +193,8 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      *
      * @return a new `GdkAppLaunchContext` for @display
      */
-    public open fun getAppLaunchContext(): AppLaunchContext =
-        gdk_display_get_app_launch_context(gdkDisplayPointer.reinterpret())!!.run {
-            AppLaunchContext(reinterpret())
-        }
+    public open fun getAppLaunchContext(): AppLaunchContext = gdk_display_get_app_launch_context(gdkDisplayPointer.reinterpret())!!.run {
+        AppLaunchContext(reinterpret())}
 
     /**
      * Gets the clipboard used for copy/paste operations.
@@ -207,8 +202,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      * @return the display's clipboard
      */
     public open fun getClipboard(): Clipboard = gdk_display_get_clipboard(gdkDisplayPointer.reinterpret())!!.run {
-        Clipboard(reinterpret())
-    }
+        Clipboard(reinterpret())}
 
     /**
      * Returns the default `GdkSeat` for this display.
@@ -219,8 +213,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      * @return the default seat.
      */
     public open fun getDefaultSeat(): Seat? = gdk_display_get_default_seat(gdkDisplayPointer.reinterpret())?.run {
-        Seat(reinterpret())
-    }
+        Seat(reinterpret())}
 
     /**
      * Gets the monitor in which the largest area of @surface
@@ -230,12 +223,8 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      * @return the monitor with the largest
      *   overlap with @surface
      */
-    public open fun getMonitorAtSurface(surface: Surface): Monitor? = gdk_display_get_monitor_at_surface(
-        gdkDisplayPointer.reinterpret(),
-        surface.gdkSurfacePointer.reinterpret()
-    )?.run {
-        Monitor(reinterpret())
-    }
+    public open fun getMonitorAtSurface(surface: Surface): Monitor? = gdk_display_get_monitor_at_surface(gdkDisplayPointer.reinterpret(), surface.gdkSurfacePointer.reinterpret())?.run {
+        Monitor(reinterpret())}
 
     /**
      * Gets the list of monitors associated with this display.
@@ -249,8 +238,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      * @return a `GListModel` of `GdkMonitor`
      */
     public open fun getMonitors(): ListModel = gdk_display_get_monitors(gdkDisplayPointer.reinterpret())!!.run {
-        ListModel.wrap(reinterpret())
-    }
+        ListModel.wrap(reinterpret())}
 
     /**
      * Gets the name of the display.
@@ -258,8 +246,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      * @return a string representing the display name. This string is owned
      *   by GDK and should not be modified or freed.
      */
-    public open fun getName(): String =
-        gdk_display_get_name(gdkDisplayPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public open fun getName(): String = gdk_display_get_name(gdkDisplayPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the clipboard used for the primary selection.
@@ -269,10 +256,8 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      *
      * @return the primary clipboard
      */
-    public open fun getPrimaryClipboard(): Clipboard =
-        gdk_display_get_primary_clipboard(gdkDisplayPointer.reinterpret())!!.run {
-            Clipboard(reinterpret())
-        }
+    public open fun getPrimaryClipboard(): Clipboard = gdk_display_get_primary_clipboard(gdkDisplayPointer.reinterpret())!!.run {
+        Clipboard(reinterpret())}
 
     /**
      * Retrieves a desktop-wide setting such as double-click time
@@ -283,11 +268,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      * @return true if the setting existed and a value was stored
      *   in @value, false otherwise
      */
-    public open fun getSetting(name: String, `value`: Value): Boolean = gdk_display_get_setting(
-        gdkDisplayPointer.reinterpret(),
-        name,
-        `value`.gobjectValuePointer.reinterpret()
-    ).asBoolean()
+    public open fun getSetting(name: String, `value`: Value): Boolean = gdk_display_get_setting(gdkDisplayPointer.reinterpret(), name, `value`.gobjectValuePointer.reinterpret()).asBoolean()
 
     /**
      * Gets the startup notification ID for a Wayland display, or null
@@ -295,8 +276,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      *
      * @return the startup notification ID for @display
      */
-    public open fun getStartupNotificationId(): String? =
-        gdk_display_get_startup_notification_id(gdkDisplayPointer.reinterpret())?.toKString()
+    public open fun getStartupNotificationId(): String? = gdk_display_get_startup_notification_id(gdkDisplayPointer.reinterpret())?.toKString()
 
     /**
      * Finds out if the display has been closed.
@@ -348,8 +328,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      *   list of seats known to the `GdkDisplay`
      */
     public open fun listSeats(): List = gdk_display_list_seats(gdkDisplayPointer.reinterpret())!!.run {
-        List(reinterpret())
-    }
+        List(reinterpret())}
 
     /**
      * Indicates to the GUI environment that the application has
@@ -363,8 +342,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      * @param startupId a startup-notification identifier, for which
      *   notification process should be completed
      */
-    public open fun notifyStartupComplete(startupId: String): Unit =
-        gdk_display_notify_startup_complete(gdkDisplayPointer.reinterpret(), startupId)
+    public open fun notifyStartupComplete(startupId: String): Unit = gdk_display_notify_startup_complete(gdkDisplayPointer.reinterpret(), startupId)
 
     /**
      * Checks that OpenGL is available for @self and ensures that it is
@@ -391,7 +369,8 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
         val gResult = gdk_display_prepare_gl(gdkDisplayPointer.reinterpret(), gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -401,8 +380,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      *
      * @param event a `GdkEvent`
      */
-    public open fun putEvent(event: Event): Unit =
-        gdk_display_put_event(gdkDisplayPointer.reinterpret(), event.gPointer.reinterpret())
+    public open fun putEvent(event: Event): Unit = gdk_display_put_event(gdkDisplayPointer.reinterpret(), event.gPointer.reinterpret())
 
     /**
      * Returns true if the display supports input shapes.
@@ -414,8 +392,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      *
      * @return true if surfaces with modified input shape are supported
      */
-    public open fun supportsInputShapes(): Boolean =
-        gdk_display_supports_input_shapes(gdkDisplayPointer.reinterpret()).asBoolean()
+    public open fun supportsInputShapes(): Boolean = gdk_display_supports_input_shapes(gdkDisplayPointer.reinterpret()).asBoolean()
 
     /**
      * Returns whether it's possible for a surface to draw outside of the window area.
@@ -428,8 +405,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      * @since 4.14
      */
     @GdkVersion4_14
-    public open fun supportsShadowWidth(): Boolean =
-        gdk_display_supports_shadow_width(gdkDisplayPointer.reinterpret()).asBoolean()
+    public open fun supportsShadowWidth(): Boolean = gdk_display_supports_shadow_width(gdkDisplayPointer.reinterpret()).asBoolean()
 
     /**
      * Flushes any requests queued for the windowing system and waits until all
@@ -451,17 +427,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `isError` true if the display was closed due to an error
      */
-    public fun connectClosed(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (isError: Boolean) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "closed",
-        connectClosedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (isError: Boolean) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "closed", connectClosedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the connection to the windowing system for @display is opened.
@@ -469,15 +435,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectOpened(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "opened",
-            connectOpenedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectOpened(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "opened", connectOpenedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted whenever a new seat is made known to the windowing system.
@@ -485,15 +443,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `seat` the seat that was just added
      */
-    public fun connectSeatAdded(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (seat: Seat) -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "seat-added",
-            connectSeatAddedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectSeatAdded(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (seat: Seat) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "seat-added", connectSeatAddedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted whenever a seat is removed by the windowing system.
@@ -501,15 +451,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `seat` the seat that was just removed
      */
-    public fun connectSeatRemoved(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (seat: Seat) -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "seat-removed",
-            connectSeatRemovedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectSeatRemoved(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (seat: Seat) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "seat-removed", connectSeatRemovedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted whenever a setting changes its value.
@@ -517,25 +459,14 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `setting` the name of the setting that changed
      */
-    public fun connectSettingChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (setting: String) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "setting-changed",
-        connectSettingChangedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectSettingChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (setting: String) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "setting-changed", connectSettingChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<Display> {
         override val type: GeneratedClassKGType<Display> =
-            GeneratedClassKGType(gdk_display_get_type()) { Display(it.reinterpret()) }
+                GeneratedClassKGType(gdk_display_get_type()) { Display(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Gets the default `GdkDisplay`.
@@ -548,8 +479,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
          *   there is no default display
          */
         public fun getDefault(): Display? = gdk_display_get_default()?.run {
-            Display(reinterpret())
-        }
+            Display(reinterpret())}
 
         /**
          * Opens a display.
@@ -560,64 +490,52 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
          * @return a `GdkDisplay`
          */
         public fun `open`(displayName: String? = null): Display? = gdk_display_open(displayName)?.run {
-            Display(reinterpret())
-        }
+            Display(reinterpret())}
     }
 }
 
 private val connectClosedFunc: CPointer<CFunction<(Int) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        isError: Int,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    isError: Int,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(isError: Boolean) -> Unit>().get().invoke(isError.asBoolean())
-}
-    .reinterpret()
+    userData.asStableRef<(isError: Boolean) -> Unit>().get().invoke(isError.asBoolean())}
+.reinterpret()
 
 private val connectOpenedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectSeatAddedFunc: CPointer<CFunction<(CPointer<GdkSeat>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            seat: CPointer<GdkSeat>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(seat: Seat) -> Unit>().get().invoke(
-            seat!!.run {
-                Seat(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    seat: CPointer<GdkSeat>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(seat: Seat) -> Unit>().get().invoke(seat!!.run {
+        Seat(reinterpret())}
+    )}
+.reinterpret()
 
 private val connectSeatRemovedFunc: CPointer<CFunction<(CPointer<GdkSeat>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            seat: CPointer<GdkSeat>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(seat: Seat) -> Unit>().get().invoke(
-            seat!!.run {
-                Seat(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    seat: CPointer<GdkSeat>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(seat: Seat) -> Unit>().get().invoke(seat!!.run {
+        Seat(reinterpret())}
+    )}
+.reinterpret()
 
 private val connectSettingChangedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            setting: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(setting: String) -> Unit>().get().invoke(
-            setting?.toKString() ?: error("Expected not null string")
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    setting: CPointer<ByteVar>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(setting: String) -> Unit>().get().invoke(setting?.toKString() ?: error("Expected not null string"))}
+.reinterpret()

@@ -9,12 +9,13 @@ import org.gtkkn.native.gtk.gtk_icon_theme_error_quark
 /**
  * Error codes for `GtkIconTheme` operations.
  */
-public enum class IconThemeError(public val nativeValue: GtkIconThemeError) {
+public enum class IconThemeError(
+    public val nativeValue: GtkIconThemeError,
+) {
     /**
      * The icon specified does not exist in the theme
      */
     NOT_FOUND(GtkIconThemeError.GTK_ICON_THEME_NOT_FOUND),
-
     /**
      * An unspecified error occurred.
      */

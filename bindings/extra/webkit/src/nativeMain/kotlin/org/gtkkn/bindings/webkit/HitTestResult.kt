@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -24,9 +27,6 @@ import org.gtkkn.native.webkit.webkit_hit_test_result_get_link_title
 import org.gtkkn.native.webkit.webkit_hit_test_result_get_link_uri
 import org.gtkkn.native.webkit.webkit_hit_test_result_get_media_uri
 import org.gtkkn.native.webkit.webkit_hit_test_result_get_type
-import kotlin.Boolean
-import kotlin.String
-import kotlin.UInt
 
 /**
  * Result of a Hit Test.
@@ -50,8 +50,9 @@ import kotlin.UInt
  * for the mouse coordinates and #WebKitWebView::mouse-target-changed
  * signal is emitted with a #WebKitHitTestResult.
  */
-public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
-    Object(pointer.reinterpret()),
+public class HitTestResult(
+    pointer: CPointer<WebKitHitTestResult>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val webkitHitTestResultPointer: CPointer<WebKitHitTestResult>
         get() = gPointer.reinterpret()
@@ -79,8 +80,7 @@ public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
          * @return the URI of the image element in the coordinates of the Hit Test,
          *    or null if there isn't an image element in @hit_test_result context
          */
-        get() = webkit_hit_test_result_get_image_uri(webkitHitTestResultPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = webkit_hit_test_result_get_image_uri(webkitHitTestResultPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * The label of the link if flag %WEBKIT_HIT_TEST_RESULT_CONTEXT_LINK
@@ -94,8 +94,7 @@ public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
          *    or null if there isn't a link element in @hit_test_result context or the
          *    link element doesn't have a label
          */
-        get() = webkit_hit_test_result_get_link_label(webkitHitTestResultPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = webkit_hit_test_result_get_link_label(webkitHitTestResultPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * The title of the link if flag %WEBKIT_HIT_TEST_RESULT_CONTEXT_LINK
@@ -109,8 +108,7 @@ public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
          *    or null if there isn't a link element in @hit_test_result context or the
          *    link element doesn't have a title
          */
-        get() = webkit_hit_test_result_get_link_title(webkitHitTestResultPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = webkit_hit_test_result_get_link_title(webkitHitTestResultPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * The URI of the link if flag %WEBKIT_HIT_TEST_RESULT_CONTEXT_LINK
@@ -123,8 +121,7 @@ public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
          * @return the URI of the link element in the coordinates of the Hit Test,
          *    or null if there isn't a link element in @hit_test_result context
          */
-        get() = webkit_hit_test_result_get_link_uri(webkitHitTestResultPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = webkit_hit_test_result_get_link_uri(webkitHitTestResultPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * The URI of the media if flag %WEBKIT_HIT_TEST_RESULT_CONTEXT_MEDIA
@@ -137,8 +134,7 @@ public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
          * @return the URI of the media element in the coordinates of the Hit Test,
          *    or null if there isn't a media element in @hit_test_result context
          */
-        get() = webkit_hit_test_result_get_media_uri(webkitHitTestResultPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = webkit_hit_test_result_get_media_uri(webkitHitTestResultPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets whether %WEBKIT_HIT_TEST_RESULT_CONTEXT_EDITABLE flag is present in
@@ -147,8 +143,7 @@ public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
      * @return true if there's an editable element at the coordinates of the @hit_test_result,
      *    or false otherwise
      */
-    public fun contextIsEditable(): Boolean =
-        webkit_hit_test_result_context_is_editable(webkitHitTestResultPointer.reinterpret()).asBoolean()
+    public fun contextIsEditable(): Boolean = webkit_hit_test_result_context_is_editable(webkitHitTestResultPointer.reinterpret()).asBoolean()
 
     /**
      * Gets whether %WEBKIT_HIT_TEST_RESULT_CONTEXT_IMAGE flag is present in
@@ -157,8 +152,7 @@ public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
      * @return true if there's an image element in the coordinates of the Hit Test,
      *    or false otherwise
      */
-    public fun contextIsImage(): Boolean =
-        webkit_hit_test_result_context_is_image(webkitHitTestResultPointer.reinterpret()).asBoolean()
+    public fun contextIsImage(): Boolean = webkit_hit_test_result_context_is_image(webkitHitTestResultPointer.reinterpret()).asBoolean()
 
     /**
      * Gets whether %WEBKIT_HIT_TEST_RESULT_CONTEXT_LINK flag is present in
@@ -167,8 +161,7 @@ public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
      * @return true if there's a link element in the coordinates of the Hit Test,
      *    or false otherwise
      */
-    public fun contextIsLink(): Boolean =
-        webkit_hit_test_result_context_is_link(webkitHitTestResultPointer.reinterpret()).asBoolean()
+    public fun contextIsLink(): Boolean = webkit_hit_test_result_context_is_link(webkitHitTestResultPointer.reinterpret()).asBoolean()
 
     /**
      * Gets whether %WEBKIT_HIT_TEST_RESULT_CONTEXT_MEDIA flag is present in
@@ -177,8 +170,7 @@ public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
      * @return true if there's a media element in the coordinates of the Hit Test,
      *    or false otherwise
      */
-    public fun contextIsMedia(): Boolean =
-        webkit_hit_test_result_context_is_media(webkitHitTestResultPointer.reinterpret()).asBoolean()
+    public fun contextIsMedia(): Boolean = webkit_hit_test_result_context_is_media(webkitHitTestResultPointer.reinterpret()).asBoolean()
 
     /**
      * Gets whether %WEBKIT_HIT_TEST_RESULT_CONTEXT_SCROLLBAR flag is present in
@@ -187,8 +179,7 @@ public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
      * @return true if there's a scrollbar element at the coordinates of the @hit_test_result,
      *    or false otherwise
      */
-    public fun contextIsScrollbar(): Boolean =
-        webkit_hit_test_result_context_is_scrollbar(webkitHitTestResultPointer.reinterpret()).asBoolean()
+    public fun contextIsScrollbar(): Boolean = webkit_hit_test_result_context_is_scrollbar(webkitHitTestResultPointer.reinterpret()).asBoolean()
 
     /**
      * Gets whether %WEBKIT_HIT_TEST_RESULT_CONTEXT_SELECTION flag is present in
@@ -199,15 +190,13 @@ public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
      * @since 2.8
      */
     @WebKitVersion2_8
-    public fun contextIsSelection(): Boolean =
-        webkit_hit_test_result_context_is_selection(webkitHitTestResultPointer.reinterpret()).asBoolean()
+    public fun contextIsSelection(): Boolean = webkit_hit_test_result_context_is_selection(webkitHitTestResultPointer.reinterpret()).asBoolean()
 
     public companion object : TypeCompanion<HitTestResult> {
         override val type: GeneratedClassKGType<HitTestResult> =
-            GeneratedClassKGType(webkit_hit_test_result_get_type()) { HitTestResult(it.reinterpret()) }
+                GeneratedClassKGType(webkit_hit_test_result_get_type()) { HitTestResult(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebkitTypeProvider.register()}
     }
 }

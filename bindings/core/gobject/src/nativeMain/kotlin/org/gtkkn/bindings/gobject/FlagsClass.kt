@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -8,7 +9,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GFlagsClass
-import kotlin.UInt
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The class of a flags type holds information about its
@@ -18,7 +19,9 @@ import kotlin.UInt
  *
  * - field `g_type_class`: TypeClass
  */
-public class FlagsClass(pointer: CPointer<GFlagsClass>) : Record {
+public class FlagsClass(
+    pointer: CPointer<GFlagsClass>,
+) : Record {
     public val gobjectFlagsClassPointer: CPointer<GFlagsClass> = pointer
 
     /**
@@ -47,8 +50,7 @@ public class FlagsClass(pointer: CPointer<GFlagsClass>) : Record {
      */
     public val values: FlagsValue?
         get() = gobjectFlagsClassPointer.pointed.values?.run {
-            FlagsValue(reinterpret())
-        }
+            FlagsValue(reinterpret())}
 
     public companion object : RecordCompanion<FlagsClass, GFlagsClass> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FlagsClass = FlagsClass(pointer.reinterpret())

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asBoolean
@@ -10,13 +11,13 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkFocusEvent
 import org.gtkkn.native.gdk.gdk_focus_event_get_in
 import org.gtkkn.native.gdk.gdk_focus_event_get_type
-import kotlin.Boolean
 
 /**
  * An event related to a keyboard focus change.
  */
-public open class FocusEvent(pointer: CPointer<GdkFocusEvent>) :
-    Event(pointer.reinterpret()),
+public open class FocusEvent(
+    pointer: CPointer<GdkFocusEvent>,
+) : Event(pointer.reinterpret()),
     KGTyped {
     public val gdkFocusEventPointer: CPointer<GdkFocusEvent>
         get() = gPointer.reinterpret()
@@ -31,10 +32,9 @@ public open class FocusEvent(pointer: CPointer<GdkFocusEvent>) :
 
     public companion object : TypeCompanion<FocusEvent> {
         override val type: GeneratedClassKGType<FocusEvent> =
-            GeneratedClassKGType(gdk_focus_event_get_type()) { FocusEvent(it.reinterpret()) }
+                GeneratedClassKGType(gdk_focus_event_get_type()) { FocusEvent(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
     }
 }

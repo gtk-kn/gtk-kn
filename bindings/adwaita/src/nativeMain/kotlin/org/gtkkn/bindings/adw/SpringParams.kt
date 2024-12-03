@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Double
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -15,8 +17,7 @@ import org.gtkkn.native.adw.adw_spring_params_new
 import org.gtkkn.native.adw.adw_spring_params_new_full
 import org.gtkkn.native.adw.adw_spring_params_ref
 import org.gtkkn.native.adw.adw_spring_params_unref
-import kotlin.Double
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Physical parameters of a spring for [class@SpringAnimation].
@@ -50,7 +51,9 @@ import kotlin.Unit
  *
  * As such
  */
-public class SpringParams(pointer: CPointer<AdwSpringParams>) : Record {
+public class SpringParams(
+    pointer: CPointer<AdwSpringParams>,
+) : Record {
     public val adwSpringParamsPointer: CPointer<AdwSpringParams> = pointer
 
     /**
@@ -87,8 +90,7 @@ public class SpringParams(pointer: CPointer<AdwSpringParams>) : Record {
      * @return @self
      */
     public fun ref(): SpringParams = adw_spring_params_ref(adwSpringParamsPointer.reinterpret())!!.run {
-        SpringParams(reinterpret())
-    }
+        SpringParams(reinterpret())}
 
     /**
      * Decreases the reference count of @self.
@@ -120,8 +122,11 @@ public class SpringParams(pointer: CPointer<AdwSpringParams>) : Record {
          * @param stiffness the stiffness of the spring
          * @return the newly created spring parameters
          */
-        public fun new(dampingRatio: Double, mass: Double, stiffness: Double): SpringParams =
-            SpringParams(adw_spring_params_new(dampingRatio, mass, stiffness)!!.reinterpret())
+        public fun new(
+            dampingRatio: Double,
+            mass: Double,
+            stiffness: Double,
+        ): SpringParams = SpringParams(adw_spring_params_new(dampingRatio, mass, stiffness)!!.reinterpret())
 
         /**
          * Creates a new `AdwSpringParams` from @mass, @stiffness and @damping.
@@ -134,10 +139,12 @@ public class SpringParams(pointer: CPointer<AdwSpringParams>) : Record {
          * @param stiffness the stiffness of the spring
          * @return the newly created spring parameters
          */
-        public fun newFull(damping: Double, mass: Double, stiffness: Double): SpringParams =
-            SpringParams(adw_spring_params_new_full(damping, mass, stiffness)!!.reinterpret())
+        public fun newFull(
+            damping: Double,
+            mass: Double,
+            stiffness: Double,
+        ): SpringParams = SpringParams(adw_spring_params_new_full(damping, mass, stiffness)!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SpringParams =
-            SpringParams(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SpringParams = SpringParams(pointer.reinterpret())
     }
 }

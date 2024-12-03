@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtksource
 
+import kotlin.Int
+import kotlin.String
+import kotlin.Throws
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -34,11 +39,6 @@ import org.gtkkn.native.gtksource.gtk_source_snippet_set_description
 import org.gtkkn.native.gtksource.gtk_source_snippet_set_language_id
 import org.gtkkn.native.gtksource.gtk_source_snippet_set_name
 import org.gtkkn.native.gtksource.gtk_source_snippet_set_trigger
-import kotlin.Int
-import kotlin.String
-import kotlin.Throws
-import kotlin.UInt
-import kotlin.Unit
 
 /**
  * Quick insertion code snippets.
@@ -59,8 +59,9 @@ import kotlin.Unit
  * - method `buffer`: Property has no getter nor setter
  * - method `trigger`: Property TypeInfo of getter and setter do not match
  */
-public open class Snippet(pointer: CPointer<GtkSourceSnippet>) :
-    Object(pointer.reinterpret()),
+public open class Snippet(
+    pointer: CPointer<GtkSourceSnippet>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtksourceSnippetPointer: CPointer<GtkSourceSnippet>
         get() = gPointer.reinterpret()
@@ -69,9 +70,7 @@ public open class Snippet(pointer: CPointer<GtkSourceSnippet>) :
         /**
          * Gets the description for the snippet.
          */
-        get() = gtk_source_snippet_get_description(gtksourceSnippetPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = gtk_source_snippet_get_description(gtksourceSnippetPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the description for the snippet.
          *
@@ -98,9 +97,7 @@ public open class Snippet(pointer: CPointer<GtkSourceSnippet>) :
          *
          * @return the language identifier
          */
-        get() = gtk_source_snippet_get_language_id(gtksourceSnippetPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = gtk_source_snippet_get_language_id(gtksourceSnippetPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the language identifier for the snippet.
          *
@@ -114,9 +111,7 @@ public open class Snippet(pointer: CPointer<GtkSourceSnippet>) :
         /**
          * Gets the name for the snippet.
          */
-        get() = gtk_source_snippet_get_name(gtksourceSnippetPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = gtk_source_snippet_get_name(gtksourceSnippetPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the name for the snippet.
          *
@@ -131,10 +126,7 @@ public open class Snippet(pointer: CPointer<GtkSourceSnippet>) :
      * @param languageId the source language
      * @return A new #GtkSourceSnippet
      */
-    public constructor(
-        trigger: String? = null,
-        languageId: String? = null,
-    ) : this(gtk_source_snippet_new(trigger, languageId)!!.reinterpret())
+    public constructor(trigger: String? = null, languageId: String? = null) : this(gtk_source_snippet_new(trigger, languageId)!!.reinterpret())
 
     /**
      * Parses the snippet formatted @text into a series of chunks and adds them
@@ -146,15 +138,14 @@ public open class Snippet(pointer: CPointer<GtkSourceSnippet>) :
      * @since 5.6
      */
     @Throws(GLibException::class)
-    public constructor(text: String) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = gtk_source_snippet_new_parsed(text, gError.ptr)
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    public constructor(text: String) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gtk_source_snippet_new_parsed(text, gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!.reinterpret()
+    }
     )
 
     /**
@@ -164,10 +155,7 @@ public open class Snippet(pointer: CPointer<GtkSourceSnippet>) :
      *
      * @param chunk a #GtkSourceSnippetChunk
      */
-    public open fun addChunk(chunk: SnippetChunk): Unit = gtk_source_snippet_add_chunk(
-        gtksourceSnippetPointer.reinterpret(),
-        chunk.gtksourceSnippetChunkPointer.reinterpret()
-    )
+    public open fun addChunk(chunk: SnippetChunk): Unit = gtk_source_snippet_add_chunk(gtksourceSnippetPointer.reinterpret(), chunk.gtksourceSnippetChunkPointer.reinterpret())
 
     /**
      * Does a deep copy of the snippet.
@@ -175,18 +163,15 @@ public open class Snippet(pointer: CPointer<GtkSourceSnippet>) :
      * @return A new #GtkSourceSnippet
      */
     public open fun copy(): Snippet = gtk_source_snippet_copy(gtksourceSnippetPointer.reinterpret())!!.run {
-        Snippet(reinterpret())
-    }
+        Snippet(reinterpret())}
 
     /**
      * Gets the context used for expanding the snippet.
      *
      * @return an #GtkSourceSnippetContext
      */
-    public open fun getContext(): SnippetContext? =
-        gtk_source_snippet_get_context(gtksourceSnippetPointer.reinterpret())?.run {
-            SnippetContext(reinterpret())
-        }
+    public open fun getContext(): SnippetContext? = gtk_source_snippet_get_context(gtksourceSnippetPointer.reinterpret())?.run {
+        SnippetContext(reinterpret())}
 
     /**
      * Gets the number of chunks in the snippet.
@@ -203,10 +188,8 @@ public open class Snippet(pointer: CPointer<GtkSourceSnippet>) :
      * @param nth the nth chunk to get
      * @return an #GtkSourceSnippetChunk
      */
-    public open fun getNthChunk(nth: UInt): SnippetChunk =
-        gtk_source_snippet_get_nth_chunk(gtksourceSnippetPointer.reinterpret(), nth)!!.run {
-            SnippetChunk(reinterpret())
-        }
+    public open fun getNthChunk(nth: UInt): SnippetChunk = gtk_source_snippet_get_nth_chunk(gtksourceSnippetPointer.reinterpret(), nth)!!.run {
+        SnippetChunk(reinterpret())}
 
     /**
      * Gets the trigger for the source snippet.
@@ -216,23 +199,20 @@ public open class Snippet(pointer: CPointer<GtkSourceSnippet>) :
      *
      * @return A string or null
      */
-    public open fun getTrigger(): String? =
-        gtk_source_snippet_get_trigger(gtksourceSnippetPointer.reinterpret())?.toKString()
+    public open fun getTrigger(): String? = gtk_source_snippet_get_trigger(gtksourceSnippetPointer.reinterpret())?.toKString()
 
     /**
      * Sets the trigger for the snippet.
      *
      * @param trigger the trigger word
      */
-    public open fun setTrigger(trigger: String): Unit =
-        gtk_source_snippet_set_trigger(gtksourceSnippetPointer.reinterpret(), trigger)
+    public open fun setTrigger(trigger: String): Unit = gtk_source_snippet_set_trigger(gtksourceSnippetPointer.reinterpret(), trigger)
 
     public companion object : TypeCompanion<Snippet> {
         override val type: GeneratedClassKGType<Snippet> =
-            GeneratedClassKGType(gtk_source_snippet_get_type()) { Snippet(it.reinterpret()) }
+                GeneratedClassKGType(gtk_source_snippet_get_type()) { Snippet(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtksourceTypeProvider.register()}
     }
 }

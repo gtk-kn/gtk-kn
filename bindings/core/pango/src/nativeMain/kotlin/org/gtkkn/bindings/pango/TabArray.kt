@@ -1,6 +1,12 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.String
+import kotlin.Suppress
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -24,12 +30,7 @@ import org.gtkkn.native.pango.pango_tab_array_set_positions_in_pixels
 import org.gtkkn.native.pango.pango_tab_array_set_tab
 import org.gtkkn.native.pango.pango_tab_array_sort
 import org.gtkkn.native.pango.pango_tab_array_to_string
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.String
-import kotlin.Suppress
-import kotlin.UInt
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `PangoTabArray` contains an array of tab stops.
@@ -43,7 +44,9 @@ import kotlin.Unit
  * - parameter `alignment`: alignment: Out parameter is not supported
  * - parameter `alignments`: alignments: Out parameter is not supported
  */
-public class TabArray(pointer: CPointer<PangoTabArray>) : Record {
+public class TabArray(
+    pointer: CPointer<PangoTabArray>,
+) : Record {
     public val pangoTabArrayPointer: CPointer<PangoTabArray> = pointer
 
     /**
@@ -53,8 +56,7 @@ public class TabArray(pointer: CPointer<PangoTabArray>) : Record {
      *   be freed with [method@Pango.TabArray.free].
      */
     public fun copy(): TabArray = pango_tab_array_copy(pangoTabArrayPointer.reinterpret())!!.run {
-        TabArray(reinterpret())
-    }
+        TabArray(reinterpret())}
 
     /**
      * Frees a tab array and associated resources.
@@ -75,8 +77,7 @@ public class TabArray(pointer: CPointer<PangoTabArray>) : Record {
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun getDecimalPoint(tabIndex: Int): UInt =
-        pango_tab_array_get_decimal_point(pangoTabArrayPointer.reinterpret(), tabIndex)
+    public fun getDecimalPoint(tabIndex: Int): UInt = pango_tab_array_get_decimal_point(pangoTabArrayPointer.reinterpret(), tabIndex)
 
     /**
      * Returns true if the tab positions are in pixels,
@@ -84,8 +85,7 @@ public class TabArray(pointer: CPointer<PangoTabArray>) : Record {
      *
      * @return whether positions are in pixels.
      */
-    public fun getPositionsInPixels(): Boolean =
-        pango_tab_array_get_positions_in_pixels(pangoTabArrayPointer.reinterpret()).asBoolean()
+    public fun getPositionsInPixels(): Boolean = pango_tab_array_get_positions_in_pixels(pangoTabArrayPointer.reinterpret()).asBoolean()
 
     /**
      * Gets the number of tab stops in @tab_array.
@@ -119,8 +119,7 @@ public class TabArray(pointer: CPointer<PangoTabArray>) : Record {
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun setDecimalPoint(tabIndex: Int, decimalPoint: UInt): Unit =
-        pango_tab_array_set_decimal_point(pangoTabArrayPointer.reinterpret(), tabIndex, decimalPoint)
+    public fun setDecimalPoint(tabIndex: Int, decimalPoint: UInt): Unit = pango_tab_array_set_decimal_point(pangoTabArrayPointer.reinterpret(), tabIndex, decimalPoint)
 
     /**
      * Sets whether positions in this array are specified in
@@ -130,8 +129,7 @@ public class TabArray(pointer: CPointer<PangoTabArray>) : Record {
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun setPositionsInPixels(positionsInPixels: Boolean): Unit =
-        pango_tab_array_set_positions_in_pixels(pangoTabArrayPointer.reinterpret(), positionsInPixels.asGBoolean())
+    public fun setPositionsInPixels(positionsInPixels: Boolean): Unit = pango_tab_array_set_positions_in_pixels(pangoTabArrayPointer.reinterpret(), positionsInPixels.asGBoolean())
 
     /**
      * Sets the alignment and location of a tab stop.
@@ -140,8 +138,11 @@ public class TabArray(pointer: CPointer<PangoTabArray>) : Record {
      * @param alignment tab alignment
      * @param location tab location in Pango units
      */
-    public fun setTab(tabIndex: Int, alignment: TabAlign, location: Int): Unit =
-        pango_tab_array_set_tab(pangoTabArrayPointer.reinterpret(), tabIndex, alignment.nativeValue, location)
+    public fun setTab(
+        tabIndex: Int,
+        alignment: TabAlign,
+        location: Int,
+    ): Unit = pango_tab_array_set_tab(pangoTabArrayPointer.reinterpret(), tabIndex, alignment.nativeValue, location)
 
     /**
      * Utility function to ensure that the tab stops are in increasing order.
@@ -166,8 +167,7 @@ public class TabArray(pointer: CPointer<PangoTabArray>) : Record {
      */
     @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
     @PangoVersion1_50
-    override fun toString(): String =
-        pango_tab_array_to_string(pangoTabArrayPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    override fun toString(): String = pango_tab_array_to_string(pangoTabArrayPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     public companion object : RecordCompanion<TabArray, PangoTabArray> {
         /**
@@ -181,8 +181,7 @@ public class TabArray(pointer: CPointer<PangoTabArray>) : Record {
          * @return the newly allocated `PangoTabArray`, which should
          *   be freed with [method@Pango.TabArray.free].
          */
-        public fun new(initialSize: Int, positionsInPixels: Boolean): TabArray =
-            TabArray(pango_tab_array_new(initialSize, positionsInPixels.asGBoolean())!!.reinterpret())
+        public fun new(initialSize: Int, positionsInPixels: Boolean): TabArray = TabArray(pango_tab_array_new(initialSize, positionsInPixels.asGBoolean())!!.reinterpret())
 
         /**
          * Deserializes a `PangoTabArray` from a string.
@@ -196,8 +195,7 @@ public class TabArray(pointer: CPointer<PangoTabArray>) : Record {
          */
         @PangoVersion1_50
         public fun fromString(text: String): TabArray? = pango_tab_array_from_string(text)?.run {
-            TabArray(reinterpret())
-        }
+            TabArray(reinterpret())}
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TabArray = TabArray(pointer.reinterpret())
     }

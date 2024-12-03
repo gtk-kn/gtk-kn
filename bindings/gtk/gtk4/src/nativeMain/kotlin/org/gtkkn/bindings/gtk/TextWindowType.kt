@@ -6,32 +6,29 @@ import org.gtkkn.native.gtk.GtkTextWindowType
 /**
  * Used to reference the parts of `GtkTextView`.
  */
-public enum class TextWindowType(public val nativeValue: GtkTextWindowType) {
+public enum class TextWindowType(
+    public val nativeValue: GtkTextWindowType,
+) {
     /**
      * Window that floats over scrolling areas.
      */
     WIDGET(GtkTextWindowType.GTK_TEXT_WINDOW_WIDGET),
-
     /**
      * Scrollable text window.
      */
     TEXT(GtkTextWindowType.GTK_TEXT_WINDOW_TEXT),
-
     /**
      * Left side border window.
      */
     LEFT(GtkTextWindowType.GTK_TEXT_WINDOW_LEFT),
-
     /**
      * Right side border window.
      */
     RIGHT(GtkTextWindowType.GTK_TEXT_WINDOW_RIGHT),
-
     /**
      * Top border window.
      */
     TOP(GtkTextWindowType.GTK_TEXT_WINDOW_TOP),
-
     /**
      * Bottom border window.
      */

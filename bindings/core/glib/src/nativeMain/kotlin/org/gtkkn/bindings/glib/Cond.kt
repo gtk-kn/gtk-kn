@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -12,7 +13,7 @@ import org.gtkkn.native.glib.g_cond_broadcast
 import org.gtkkn.native.glib.g_cond_clear
 import org.gtkkn.native.glib.g_cond_init
 import org.gtkkn.native.glib.g_cond_signal
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The #GCond struct is an opaque data structure that represents a
@@ -88,7 +89,9 @@ import kotlin.Unit
  * - field `p`: Record field p is private
  * - field `i`: Record field i is private
  */
-public class Cond(pointer: CPointer<GCond>) : Record {
+public class Cond(
+    pointer: CPointer<GCond>,
+) : Record {
     public val glibCondPointer: CPointer<GCond> = pointer
 
     /**

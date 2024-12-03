@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtksource
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -12,7 +13,6 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gtksource.GtkSourceCompletionProposal
 import org.gtkkn.native.gtksource.gtk_source_completion_proposal_get_type
 import org.gtkkn.native.gtksource.gtk_source_completion_proposal_get_typed_text
-import kotlin.String
 
 /**
  * Interface for completion proposals.
@@ -25,9 +25,7 @@ import kotlin.String
  * #GtkSourceCompletionProvider can use [func@GObject.IMPLEMENT_INTERFACE] to
  * implement this with null for the interface init function.
  */
-public interface CompletionProposal :
-    Interface,
-    KGTyped {
+public interface CompletionProposal : Interface, KGTyped {
     public val gtksourceCompletionProposalPointer: CPointer<GtkSourceCompletionProposal>
 
     /**
@@ -40,21 +38,21 @@ public interface CompletionProposal :
      * @since 5.6
      */
     @GtkSourceVersion5_6
-    public fun getTypedText(): String? =
-        gtk_source_completion_proposal_get_typed_text(gtksourceCompletionProposalPointer.reinterpret())?.toKString()
+    public fun getTypedText(): String? = gtk_source_completion_proposal_get_typed_text(gtksourceCompletionProposalPointer.reinterpret())?.toKString()
 
-    private data class Wrapper(private val pointer: CPointer<GtkSourceCompletionProposal>) : CompletionProposal {
+    private data class Wrapper(
+        private val pointer: CPointer<GtkSourceCompletionProposal>,
+    ) : CompletionProposal {
         override val gtksourceCompletionProposalPointer: CPointer<GtkSourceCompletionProposal> =
-            pointer
+                pointer
     }
 
     public companion object : TypeCompanion<CompletionProposal> {
         override val type: GeneratedInterfaceKGType<CompletionProposal> =
-            GeneratedInterfaceKGType(gtk_source_completion_proposal_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(gtk_source_completion_proposal_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtksourceTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkSourceCompletionProposal>): CompletionProposal = Wrapper(pointer)
     }

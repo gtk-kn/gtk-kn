@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -18,14 +20,13 @@ import org.gtkkn.native.adw.adw_leaflet_page_get_navigatable
 import org.gtkkn.native.adw.adw_leaflet_page_get_type
 import org.gtkkn.native.adw.adw_leaflet_page_set_name
 import org.gtkkn.native.adw.adw_leaflet_page_set_navigatable
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * An auxiliary class used by [class@Leaflet].
  */
-public class LeafletPage(pointer: CPointer<AdwLeafletPage>) :
-    Object(pointer.reinterpret()),
+public class LeafletPage(
+    pointer: CPointer<AdwLeafletPage>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val adwLeafletPagePointer: CPointer<AdwLeafletPage>
         get() = gPointer.reinterpret()
@@ -40,8 +41,7 @@ public class LeafletPage(pointer: CPointer<AdwLeafletPage>) :
          * @return the child to which @self belongs
          */
         get() = adw_leaflet_page_get_child(adwLeafletPagePointer.reinterpret())!!.run {
-            Widget(reinterpret())
-        }
+            Widget(reinterpret())}
 
     /**
      * The name of the child page.
@@ -53,7 +53,6 @@ public class LeafletPage(pointer: CPointer<AdwLeafletPage>) :
          * @return the name of @self.
          */
         get() = adw_leaflet_page_get_name(adwLeafletPagePointer.reinterpret())?.toKString()
-
         /**
          * Sets the name of the @self.
          *
@@ -77,7 +76,6 @@ public class LeafletPage(pointer: CPointer<AdwLeafletPage>) :
          * @return whether @self can be navigated to when folded
          */
         get() = adw_leaflet_page_get_navigatable(adwLeafletPagePointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether @self can be navigated to when folded.
          *
@@ -88,16 +86,13 @@ public class LeafletPage(pointer: CPointer<AdwLeafletPage>) :
          *
          * @param navigatable whether @self can be navigated to when folded
          */
-        set(
-            navigatable
-        ) = adw_leaflet_page_set_navigatable(adwLeafletPagePointer.reinterpret(), navigatable.asGBoolean())
+        set(navigatable) = adw_leaflet_page_set_navigatable(adwLeafletPagePointer.reinterpret(), navigatable.asGBoolean())
 
     public companion object : TypeCompanion<LeafletPage> {
         override val type: GeneratedClassKGType<LeafletPage> =
-            GeneratedClassKGType(adw_leaflet_page_get_type()) { LeafletPage(it.reinterpret()) }
+                GeneratedClassKGType(adw_leaflet_page_get_type()) { LeafletPage(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
     }
 }

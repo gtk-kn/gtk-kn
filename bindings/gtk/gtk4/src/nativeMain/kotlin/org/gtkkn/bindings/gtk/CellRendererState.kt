@@ -14,7 +14,9 @@ import org.gtkkn.native.gtk.GtkCellRendererState
 /**
  * Tells how a cell is to be rendered.
  */
-public class CellRendererState(public val mask: GtkCellRendererState) : Bitfield<CellRendererState> {
+public class CellRendererState(
+    public val mask: GtkCellRendererState,
+) : Bitfield<CellRendererState> {
     override infix fun or(other: CellRendererState): CellRendererState = CellRendererState(mask or other.mask)
 
     public companion object {

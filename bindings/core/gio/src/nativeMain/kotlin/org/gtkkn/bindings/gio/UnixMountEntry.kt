@@ -7,16 +7,18 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GUnixMountEntry
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Defines a Unix mount entry (e.g. <filename>/media/cdrom</filename>).
  * This corresponds roughly to a mtab entry.
  */
-public class UnixMountEntry(pointer: CPointer<GUnixMountEntry>) : Record {
+public class UnixMountEntry(
+    pointer: CPointer<GUnixMountEntry>,
+) : Record {
     public val gioUnixMountEntryPointer: CPointer<GUnixMountEntry> = pointer
 
     public companion object : RecordCompanion<UnixMountEntry, GUnixMountEntry> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): UnixMountEntry =
-            UnixMountEntry(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): UnixMountEntry = UnixMountEntry(pointer.reinterpret())
     }
 }

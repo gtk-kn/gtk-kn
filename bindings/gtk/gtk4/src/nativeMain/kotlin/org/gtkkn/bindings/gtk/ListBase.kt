@@ -21,8 +21,9 @@ import org.gtkkn.native.gtk.gtk_list_base_get_type
  *
  * - method `orientation`: Property has no getter nor setter
  */
-public open class ListBase(pointer: CPointer<GtkListBase>) :
-    Widget(pointer.reinterpret()),
+public open class ListBase(
+    pointer: CPointer<GtkListBase>,
+) : Widget(pointer.reinterpret()),
     Orientable,
     Scrollable,
     KGTyped {
@@ -46,10 +47,9 @@ public open class ListBase(pointer: CPointer<GtkListBase>) :
 
     public companion object : TypeCompanion<ListBase> {
         override val type: GeneratedClassKGType<ListBase> =
-            GeneratedClassKGType(gtk_list_base_get_type()) { ListBase(it.reinterpret()) }
+                GeneratedClassKGType(gtk_list_base_get_type()) { ListBase(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -10,8 +12,6 @@ import org.gtkkn.native.gtk.GtkIMContextSimple
 import org.gtkkn.native.gtk.gtk_im_context_simple_add_compose_file
 import org.gtkkn.native.gtk.gtk_im_context_simple_get_type
 import org.gtkkn.native.gtk.gtk_im_context_simple_new
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkIMContextSimple` is an input method supporting table-based input methods.
@@ -53,8 +53,9 @@ import kotlin.Unit
  *  yields U+00E! LATIN SMALL LETTER_A WITH ACUTE, i.e. á. Note that this
  *  depends on the keyboard layout including dead keys.
  */
-public open class IMContextSimple(pointer: CPointer<GtkIMContextSimple>) :
-    IMContext(pointer.reinterpret()),
+public open class IMContextSimple(
+    pointer: CPointer<GtkIMContextSimple>,
+) : IMContext(pointer.reinterpret()),
     KGTyped {
     public val gtkIMContextSimplePointer: CPointer<GtkIMContextSimple>
         get() = gPointer.reinterpret()
@@ -71,15 +72,13 @@ public open class IMContextSimple(pointer: CPointer<GtkIMContextSimple>) :
      *
      * @param composeFile The path of compose file
      */
-    public open fun addComposeFile(composeFile: String): Unit =
-        gtk_im_context_simple_add_compose_file(gtkIMContextSimplePointer.reinterpret(), composeFile)
+    public open fun addComposeFile(composeFile: String): Unit = gtk_im_context_simple_add_compose_file(gtkIMContextSimplePointer.reinterpret(), composeFile)
 
     public companion object : TypeCompanion<IMContextSimple> {
         override val type: GeneratedClassKGType<IMContextSimple> =
-            GeneratedClassKGType(gtk_im_context_simple_get_type()) { IMContextSimple(it.reinterpret()) }
+                GeneratedClassKGType(gtk_im_context_simple_get_type()) { IMContextSimple(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

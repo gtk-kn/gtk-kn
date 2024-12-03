@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -16,7 +17,6 @@ import org.gtkkn.native.gtk.GtkRoot
 import org.gtkkn.native.gtk.GtkShortcutManager
 import org.gtkkn.native.gtk.gtk_color_chooser_dialog_get_type
 import org.gtkkn.native.gtk.gtk_color_chooser_dialog_new
-import kotlin.String
 
 /**
  * A dialog for choosing a color.
@@ -43,8 +43,9 @@ import kotlin.String
  *
  * - method `show-editor`: Property has no getter nor setter
  */
-public open class ColorChooserDialog(pointer: CPointer<GtkColorChooserDialog>) :
-    Dialog(pointer.reinterpret()),
+public open class ColorChooserDialog(
+    pointer: CPointer<GtkColorChooserDialog>,
+) : Dialog(pointer.reinterpret()),
     ColorChooser,
     KGTyped {
     public val gtkColorChooserDialogPointer: CPointer<GtkColorChooserDialog>
@@ -78,17 +79,13 @@ public open class ColorChooserDialog(pointer: CPointer<GtkColorChooserDialog>) :
      * @param parent Transient parent of the dialog
      * @return a new `GtkColorChooserDialog`
      */
-    public constructor(
-        title: String? = null,
-        parent: Window? = null,
-    ) : this(gtk_color_chooser_dialog_new(title, parent?.gtkWindowPointer?.reinterpret())!!.reinterpret())
+    public constructor(title: String? = null, parent: Window? = null) : this(gtk_color_chooser_dialog_new(title, parent?.gtkWindowPointer?.reinterpret())!!.reinterpret())
 
     public companion object : TypeCompanion<ColorChooserDialog> {
         override val type: GeneratedClassKGType<ColorChooserDialog> =
-            GeneratedClassKGType(gtk_color_chooser_dialog_get_type()) { ColorChooserDialog(it.reinterpret()) }
+                GeneratedClassKGType(gtk_color_chooser_dialog_get_type()) { ColorChooserDialog(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

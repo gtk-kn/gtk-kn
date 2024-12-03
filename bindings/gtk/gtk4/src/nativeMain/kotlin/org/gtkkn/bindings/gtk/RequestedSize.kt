@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Int
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -8,7 +9,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gtk.GtkRequestedSize
-import kotlin.Int
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Represents a request of a screen object in a given orientation. These
@@ -19,7 +20,9 @@ import kotlin.Int
  *
  * - field `data`: gpointer
  */
-public class RequestedSize(pointer: CPointer<GtkRequestedSize>) : Record {
+public class RequestedSize(
+    pointer: CPointer<GtkRequestedSize>,
+) : Record {
     public val gtkRequestedSizePointer: CPointer<GtkRequestedSize> = pointer
 
     /**
@@ -41,7 +44,6 @@ public class RequestedSize(pointer: CPointer<GtkRequestedSize>) : Record {
         }
 
     public companion object : RecordCompanion<RequestedSize, GtkRequestedSize> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): RequestedSize =
-            RequestedSize(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): RequestedSize = RequestedSize(pointer.reinterpret())
     }
 }

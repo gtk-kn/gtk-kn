@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -18,9 +21,7 @@ import org.gtkkn.native.webkit.webkit_option_menu_item_is_enabled
 import org.gtkkn.native.webkit.webkit_option_menu_item_is_group_child
 import org.gtkkn.native.webkit.webkit_option_menu_item_is_group_label
 import org.gtkkn.native.webkit.webkit_option_menu_item_is_selected
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * One item of a #WebKitOptionMenu.
@@ -32,7 +33,9 @@ import kotlin.Unit
  * @since 2.18
  */
 @WebKitVersion2_18
-public class OptionMenuItem(pointer: CPointer<WebKitOptionMenuItem>) : Record {
+public class OptionMenuItem(
+    pointer: CPointer<WebKitOptionMenuItem>,
+) : Record {
     public val webkitOptionMenuItemPointer: CPointer<WebKitOptionMenuItem> = pointer
 
     /**
@@ -43,8 +46,7 @@ public class OptionMenuItem(pointer: CPointer<WebKitOptionMenuItem>) : Record {
      */
     @WebKitVersion2_18
     public fun copy(): OptionMenuItem = webkit_option_menu_item_copy(webkitOptionMenuItemPointer.reinterpret())!!.run {
-        OptionMenuItem(reinterpret())
-    }
+        OptionMenuItem(reinterpret())}
 
     /**
      * Free the #WebKitOptionMenuItem.
@@ -61,9 +63,7 @@ public class OptionMenuItem(pointer: CPointer<WebKitOptionMenuItem>) : Record {
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun getLabel(): String =
-        webkit_option_menu_item_get_label(webkitOptionMenuItemPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getLabel(): String = webkit_option_menu_item_get_label(webkitOptionMenuItemPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the tooltip of a #WebKitOptionMenuItem.
@@ -72,9 +72,7 @@ public class OptionMenuItem(pointer: CPointer<WebKitOptionMenuItem>) : Record {
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun getTooltip(): String =
-        webkit_option_menu_item_get_tooltip(webkitOptionMenuItemPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getTooltip(): String = webkit_option_menu_item_get_tooltip(webkitOptionMenuItemPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Whether a #WebKitOptionMenuItem is enabled.
@@ -83,8 +81,7 @@ public class OptionMenuItem(pointer: CPointer<WebKitOptionMenuItem>) : Record {
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun isEnabled(): Boolean =
-        webkit_option_menu_item_is_enabled(webkitOptionMenuItemPointer.reinterpret()).asBoolean()
+    public fun isEnabled(): Boolean = webkit_option_menu_item_is_enabled(webkitOptionMenuItemPointer.reinterpret()).asBoolean()
 
     /**
      * Whether a #WebKitOptionMenuItem is a group child.
@@ -93,8 +90,7 @@ public class OptionMenuItem(pointer: CPointer<WebKitOptionMenuItem>) : Record {
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun isGroupChild(): Boolean =
-        webkit_option_menu_item_is_group_child(webkitOptionMenuItemPointer.reinterpret()).asBoolean()
+    public fun isGroupChild(): Boolean = webkit_option_menu_item_is_group_child(webkitOptionMenuItemPointer.reinterpret()).asBoolean()
 
     /**
      * Whether a #WebKitOptionMenuItem is a group label.
@@ -103,8 +99,7 @@ public class OptionMenuItem(pointer: CPointer<WebKitOptionMenuItem>) : Record {
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun isGroupLabel(): Boolean =
-        webkit_option_menu_item_is_group_label(webkitOptionMenuItemPointer.reinterpret()).asBoolean()
+    public fun isGroupLabel(): Boolean = webkit_option_menu_item_is_group_label(webkitOptionMenuItemPointer.reinterpret()).asBoolean()
 
     /**
      * Whether a #WebKitOptionMenuItem is the currently selected one.
@@ -113,11 +108,9 @@ public class OptionMenuItem(pointer: CPointer<WebKitOptionMenuItem>) : Record {
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun isSelected(): Boolean =
-        webkit_option_menu_item_is_selected(webkitOptionMenuItemPointer.reinterpret()).asBoolean()
+    public fun isSelected(): Boolean = webkit_option_menu_item_is_selected(webkitOptionMenuItemPointer.reinterpret()).asBoolean()
 
     public companion object : RecordCompanion<OptionMenuItem, WebKitOptionMenuItem> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): OptionMenuItem =
-            OptionMenuItem(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): OptionMenuItem = OptionMenuItem(pointer.reinterpret())
     }
 }

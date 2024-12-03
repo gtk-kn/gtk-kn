@@ -1,11 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.UInt
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
 import org.gtkkn.native.glib.GUnicodeScript
 import org.gtkkn.native.glib.g_unicode_script_from_iso15924
 import org.gtkkn.native.glib.g_unicode_script_to_iso15924
-import kotlin.UInt
 
 /**
  * The #GUnicodeScript enumeration identifies different writing
@@ -17,833 +17,670 @@ import kotlin.UInt
  * should be ready to handle unknown values.
  * See [Unicode Standard Annex #24: Script names](http://www.unicode.org/reports/tr24/).
  */
-public enum class UnicodeScript(public val nativeValue: GUnicodeScript) {
+public enum class UnicodeScript(
+    public val nativeValue: GUnicodeScript,
+) {
     /**
      * a value never returned from g_unichar_get_script()
      */
     INVALID_CODE(GUnicodeScript.G_UNICODE_SCRIPT_INVALID_CODE),
-
     /**
      * a character used by multiple different scripts
      */
     COMMON(GUnicodeScript.G_UNICODE_SCRIPT_COMMON),
-
     /**
      * a mark glyph that takes its script from the
      *                               base glyph to which it is attached
      */
     INHERITED(GUnicodeScript.G_UNICODE_SCRIPT_INHERITED),
-
     /**
      * Arabic
      */
     ARABIC(GUnicodeScript.G_UNICODE_SCRIPT_ARABIC),
-
     /**
      * Armenian
      */
     ARMENIAN(GUnicodeScript.G_UNICODE_SCRIPT_ARMENIAN),
-
     /**
      * Bengali
      */
     BENGALI(GUnicodeScript.G_UNICODE_SCRIPT_BENGALI),
-
     /**
      * Bopomofo
      */
     BOPOMOFO(GUnicodeScript.G_UNICODE_SCRIPT_BOPOMOFO),
-
     /**
      * Cherokee
      */
     CHEROKEE(GUnicodeScript.G_UNICODE_SCRIPT_CHEROKEE),
-
     /**
      * Coptic
      */
     COPTIC(GUnicodeScript.G_UNICODE_SCRIPT_COPTIC),
-
     /**
      * Cyrillic
      */
     CYRILLIC(GUnicodeScript.G_UNICODE_SCRIPT_CYRILLIC),
-
     /**
      * Deseret
      */
     DESERET(GUnicodeScript.G_UNICODE_SCRIPT_DESERET),
-
     /**
      * Devanagari
      */
     DEVANAGARI(GUnicodeScript.G_UNICODE_SCRIPT_DEVANAGARI),
-
     /**
      * Ethiopic
      */
     ETHIOPIC(GUnicodeScript.G_UNICODE_SCRIPT_ETHIOPIC),
-
     /**
      * Georgian
      */
     GEORGIAN(GUnicodeScript.G_UNICODE_SCRIPT_GEORGIAN),
-
     /**
      * Gothic
      */
     GOTHIC(GUnicodeScript.G_UNICODE_SCRIPT_GOTHIC),
-
     /**
      * Greek
      */
     GREEK(GUnicodeScript.G_UNICODE_SCRIPT_GREEK),
-
     /**
      * Gujarati
      */
     GUJARATI(GUnicodeScript.G_UNICODE_SCRIPT_GUJARATI),
-
     /**
      * Gurmukhi
      */
     GURMUKHI(GUnicodeScript.G_UNICODE_SCRIPT_GURMUKHI),
-
     /**
      * Han
      */
     HAN(GUnicodeScript.G_UNICODE_SCRIPT_HAN),
-
     /**
      * Hangul
      */
     HANGUL(GUnicodeScript.G_UNICODE_SCRIPT_HANGUL),
-
     /**
      * Hebrew
      */
     HEBREW(GUnicodeScript.G_UNICODE_SCRIPT_HEBREW),
-
     /**
      * Hiragana
      */
     HIRAGANA(GUnicodeScript.G_UNICODE_SCRIPT_HIRAGANA),
-
     /**
      * Kannada
      */
     KANNADA(GUnicodeScript.G_UNICODE_SCRIPT_KANNADA),
-
     /**
      * Katakana
      */
     KATAKANA(GUnicodeScript.G_UNICODE_SCRIPT_KATAKANA),
-
     /**
      * Khmer
      */
     KHMER(GUnicodeScript.G_UNICODE_SCRIPT_KHMER),
-
     /**
      * Lao
      */
     LAO(GUnicodeScript.G_UNICODE_SCRIPT_LAO),
-
     /**
      * Latin
      */
     LATIN(GUnicodeScript.G_UNICODE_SCRIPT_LATIN),
-
     /**
      * Malayalam
      */
     MALAYALAM(GUnicodeScript.G_UNICODE_SCRIPT_MALAYALAM),
-
     /**
      * Mongolian
      */
     MONGOLIAN(GUnicodeScript.G_UNICODE_SCRIPT_MONGOLIAN),
-
     /**
      * Myanmar
      */
     MYANMAR(GUnicodeScript.G_UNICODE_SCRIPT_MYANMAR),
-
     /**
      * Ogham
      */
     OGHAM(GUnicodeScript.G_UNICODE_SCRIPT_OGHAM),
-
     /**
      * Old Italic
      */
     OLD_ITALIC(GUnicodeScript.G_UNICODE_SCRIPT_OLD_ITALIC),
-
     /**
      * Oriya
      */
     ORIYA(GUnicodeScript.G_UNICODE_SCRIPT_ORIYA),
-
     /**
      * Runic
      */
     RUNIC(GUnicodeScript.G_UNICODE_SCRIPT_RUNIC),
-
     /**
      * Sinhala
      */
     SINHALA(GUnicodeScript.G_UNICODE_SCRIPT_SINHALA),
-
     /**
      * Syriac
      */
     SYRIAC(GUnicodeScript.G_UNICODE_SCRIPT_SYRIAC),
-
     /**
      * Tamil
      */
     TAMIL(GUnicodeScript.G_UNICODE_SCRIPT_TAMIL),
-
     /**
      * Telugu
      */
     TELUGU(GUnicodeScript.G_UNICODE_SCRIPT_TELUGU),
-
     /**
      * Thaana
      */
     THAANA(GUnicodeScript.G_UNICODE_SCRIPT_THAANA),
-
     /**
      * Thai
      */
     THAI(GUnicodeScript.G_UNICODE_SCRIPT_THAI),
-
     /**
      * Tibetan
      */
     TIBETAN(GUnicodeScript.G_UNICODE_SCRIPT_TIBETAN),
-
     /**
      * Canadian Aboriginal
      */
     CANADIAN_ABORIGINAL(GUnicodeScript.G_UNICODE_SCRIPT_CANADIAN_ABORIGINAL),
-
     /**
      * Yi
      */
     YI(GUnicodeScript.G_UNICODE_SCRIPT_YI),
-
     /**
      * Tagalog
      */
     TAGALOG(GUnicodeScript.G_UNICODE_SCRIPT_TAGALOG),
-
     /**
      * Hanunoo
      */
     HANUNOO(GUnicodeScript.G_UNICODE_SCRIPT_HANUNOO),
-
     /**
      * Buhid
      */
     BUHID(GUnicodeScript.G_UNICODE_SCRIPT_BUHID),
-
     /**
      * Tagbanwa
      */
     TAGBANWA(GUnicodeScript.G_UNICODE_SCRIPT_TAGBANWA),
-
     /**
      * Braille
      */
     BRAILLE(GUnicodeScript.G_UNICODE_SCRIPT_BRAILLE),
-
     /**
      * Cypriot
      */
     CYPRIOT(GUnicodeScript.G_UNICODE_SCRIPT_CYPRIOT),
-
     /**
      * Limbu
      */
     LIMBU(GUnicodeScript.G_UNICODE_SCRIPT_LIMBU),
-
     /**
      * Osmanya
      */
     OSMANYA(GUnicodeScript.G_UNICODE_SCRIPT_OSMANYA),
-
     /**
      * Shavian
      */
     SHAVIAN(GUnicodeScript.G_UNICODE_SCRIPT_SHAVIAN),
-
     /**
      * Linear B
      */
     LINEAR_B(GUnicodeScript.G_UNICODE_SCRIPT_LINEAR_B),
-
     /**
      * Tai Le
      */
     TAI_LE(GUnicodeScript.G_UNICODE_SCRIPT_TAI_LE),
-
     /**
      * Ugaritic
      */
     UGARITIC(GUnicodeScript.G_UNICODE_SCRIPT_UGARITIC),
-
     /**
      * New Tai Lue
      */
     NEW_TAI_LUE(GUnicodeScript.G_UNICODE_SCRIPT_NEW_TAI_LUE),
-
     /**
      * Buginese
      */
     BUGINESE(GUnicodeScript.G_UNICODE_SCRIPT_BUGINESE),
-
     /**
      * Glagolitic
      */
     GLAGOLITIC(GUnicodeScript.G_UNICODE_SCRIPT_GLAGOLITIC),
-
     /**
      * Tifinagh
      */
     TIFINAGH(GUnicodeScript.G_UNICODE_SCRIPT_TIFINAGH),
-
     /**
      * Syloti Nagri
      */
     SYLOTI_NAGRI(GUnicodeScript.G_UNICODE_SCRIPT_SYLOTI_NAGRI),
-
     /**
      * Old Persian
      */
     OLD_PERSIAN(GUnicodeScript.G_UNICODE_SCRIPT_OLD_PERSIAN),
-
     /**
      * Kharoshthi
      */
     KHAROSHTHI(GUnicodeScript.G_UNICODE_SCRIPT_KHAROSHTHI),
-
     /**
      * an unassigned code point
      */
     UNKNOWN(GUnicodeScript.G_UNICODE_SCRIPT_UNKNOWN),
-
     /**
      * Balinese
      */
     BALINESE(GUnicodeScript.G_UNICODE_SCRIPT_BALINESE),
-
     /**
      * Cuneiform
      */
     CUNEIFORM(GUnicodeScript.G_UNICODE_SCRIPT_CUNEIFORM),
-
     /**
      * Phoenician
      */
     PHOENICIAN(GUnicodeScript.G_UNICODE_SCRIPT_PHOENICIAN),
-
     /**
      * Phags-pa
      */
     PHAGS_PA(GUnicodeScript.G_UNICODE_SCRIPT_PHAGS_PA),
-
     /**
      * N'Ko
      */
     NKO(GUnicodeScript.G_UNICODE_SCRIPT_NKO),
-
     /**
      * Kayah Li. Since 2.16.3
      */
     KAYAH_LI(GUnicodeScript.G_UNICODE_SCRIPT_KAYAH_LI),
-
     /**
      * Lepcha. Since 2.16.3
      */
     LEPCHA(GUnicodeScript.G_UNICODE_SCRIPT_LEPCHA),
-
     /**
      * Rejang. Since 2.16.3
      */
     REJANG(GUnicodeScript.G_UNICODE_SCRIPT_REJANG),
-
     /**
      * Sundanese. Since 2.16.3
      */
     SUNDANESE(GUnicodeScript.G_UNICODE_SCRIPT_SUNDANESE),
-
     /**
      * Saurashtra. Since 2.16.3
      */
     SAURASHTRA(GUnicodeScript.G_UNICODE_SCRIPT_SAURASHTRA),
-
     /**
      * Cham. Since 2.16.3
      */
     CHAM(GUnicodeScript.G_UNICODE_SCRIPT_CHAM),
-
     /**
      * Ol Chiki. Since 2.16.3
      */
     OL_CHIKI(GUnicodeScript.G_UNICODE_SCRIPT_OL_CHIKI),
-
     /**
      * Vai. Since 2.16.3
      */
     VAI(GUnicodeScript.G_UNICODE_SCRIPT_VAI),
-
     /**
      * Carian. Since 2.16.3
      */
     CARIAN(GUnicodeScript.G_UNICODE_SCRIPT_CARIAN),
-
     /**
      * Lycian. Since 2.16.3
      */
     LYCIAN(GUnicodeScript.G_UNICODE_SCRIPT_LYCIAN),
-
     /**
      * Lydian. Since 2.16.3
      */
     LYDIAN(GUnicodeScript.G_UNICODE_SCRIPT_LYDIAN),
-
     /**
      * Avestan. Since 2.26
      */
     AVESTAN(GUnicodeScript.G_UNICODE_SCRIPT_AVESTAN),
-
     /**
      * Bamum. Since 2.26
      */
     BAMUM(GUnicodeScript.G_UNICODE_SCRIPT_BAMUM),
-
     /**
      * Egyptian Hieroglpyhs. Since 2.26
      */
     EGYPTIAN_HIEROGLYPHS(GUnicodeScript.G_UNICODE_SCRIPT_EGYPTIAN_HIEROGLYPHS),
-
     /**
      * Imperial Aramaic. Since 2.26
      */
     IMPERIAL_ARAMAIC(GUnicodeScript.G_UNICODE_SCRIPT_IMPERIAL_ARAMAIC),
-
     /**
      * Inscriptional Pahlavi. Since 2.26
      */
     INSCRIPTIONAL_PAHLAVI(GUnicodeScript.G_UNICODE_SCRIPT_INSCRIPTIONAL_PAHLAVI),
-
     /**
      * Inscriptional Parthian. Since 2.26
      */
     INSCRIPTIONAL_PARTHIAN(GUnicodeScript.G_UNICODE_SCRIPT_INSCRIPTIONAL_PARTHIAN),
-
     /**
      * Javanese. Since 2.26
      */
     JAVANESE(GUnicodeScript.G_UNICODE_SCRIPT_JAVANESE),
-
     /**
      * Kaithi. Since 2.26
      */
     KAITHI(GUnicodeScript.G_UNICODE_SCRIPT_KAITHI),
-
     /**
      * Lisu. Since 2.26
      */
     LISU(GUnicodeScript.G_UNICODE_SCRIPT_LISU),
-
     /**
      * Meetei Mayek. Since 2.26
      */
     MEETEI_MAYEK(GUnicodeScript.G_UNICODE_SCRIPT_MEETEI_MAYEK),
-
     /**
      * Old South Arabian. Since 2.26
      */
     OLD_SOUTH_ARABIAN(GUnicodeScript.G_UNICODE_SCRIPT_OLD_SOUTH_ARABIAN),
-
     /**
      * Old Turkic. Since 2.28
      */
     OLD_TURKIC(GUnicodeScript.G_UNICODE_SCRIPT_OLD_TURKIC),
-
     /**
      * Samaritan. Since 2.26
      */
     SAMARITAN(GUnicodeScript.G_UNICODE_SCRIPT_SAMARITAN),
-
     /**
      * Tai Tham. Since 2.26
      */
     TAI_THAM(GUnicodeScript.G_UNICODE_SCRIPT_TAI_THAM),
-
     /**
      * Tai Viet. Since 2.26
      */
     TAI_VIET(GUnicodeScript.G_UNICODE_SCRIPT_TAI_VIET),
-
     /**
      * Batak. Since 2.28
      */
     BATAK(GUnicodeScript.G_UNICODE_SCRIPT_BATAK),
-
     /**
      * Brahmi. Since 2.28
      */
     BRAHMI(GUnicodeScript.G_UNICODE_SCRIPT_BRAHMI),
-
     /**
      * Mandaic. Since 2.28
      */
     MANDAIC(GUnicodeScript.G_UNICODE_SCRIPT_MANDAIC),
-
     /**
      * Chakma. Since: 2.32
      */
     CHAKMA(GUnicodeScript.G_UNICODE_SCRIPT_CHAKMA),
-
     /**
      * Meroitic Cursive. Since: 2.32
      */
     MEROITIC_CURSIVE(GUnicodeScript.G_UNICODE_SCRIPT_MEROITIC_CURSIVE),
-
     /**
      * Meroitic Hieroglyphs. Since: 2.32
      */
     MEROITIC_HIEROGLYPHS(GUnicodeScript.G_UNICODE_SCRIPT_MEROITIC_HIEROGLYPHS),
-
     /**
      * Miao. Since: 2.32
      */
     MIAO(GUnicodeScript.G_UNICODE_SCRIPT_MIAO),
-
     /**
      * Sharada. Since: 2.32
      */
     SHARADA(GUnicodeScript.G_UNICODE_SCRIPT_SHARADA),
-
     /**
      * Sora Sompeng. Since: 2.32
      */
     SORA_SOMPENG(GUnicodeScript.G_UNICODE_SCRIPT_SORA_SOMPENG),
-
     /**
      * Takri. Since: 2.32
      */
     TAKRI(GUnicodeScript.G_UNICODE_SCRIPT_TAKRI),
-
     /**
      * Bassa. Since: 2.42
      */
     BASSA_VAH(GUnicodeScript.G_UNICODE_SCRIPT_BASSA_VAH),
-
     /**
      * Caucasian Albanian. Since: 2.42
      */
     CAUCASIAN_ALBANIAN(GUnicodeScript.G_UNICODE_SCRIPT_CAUCASIAN_ALBANIAN),
-
     /**
      * Duployan. Since: 2.42
      */
     DUPLOYAN(GUnicodeScript.G_UNICODE_SCRIPT_DUPLOYAN),
-
     /**
      * Elbasan. Since: 2.42
      */
     ELBASAN(GUnicodeScript.G_UNICODE_SCRIPT_ELBASAN),
-
     /**
      * Grantha. Since: 2.42
      */
     GRANTHA(GUnicodeScript.G_UNICODE_SCRIPT_GRANTHA),
-
     /**
      * Kjohki. Since: 2.42
      */
     KHOJKI(GUnicodeScript.G_UNICODE_SCRIPT_KHOJKI),
-
     /**
      * Khudawadi, Sindhi. Since: 2.42
      */
     KHUDAWADI(GUnicodeScript.G_UNICODE_SCRIPT_KHUDAWADI),
-
     /**
      * Linear A. Since: 2.42
      */
     LINEAR_A(GUnicodeScript.G_UNICODE_SCRIPT_LINEAR_A),
-
     /**
      * Mahajani. Since: 2.42
      */
     MAHAJANI(GUnicodeScript.G_UNICODE_SCRIPT_MAHAJANI),
-
     /**
      * Manichaean. Since: 2.42
      */
     MANICHAEAN(GUnicodeScript.G_UNICODE_SCRIPT_MANICHAEAN),
-
     /**
      * Mende Kikakui. Since: 2.42
      */
     MENDE_KIKAKUI(GUnicodeScript.G_UNICODE_SCRIPT_MENDE_KIKAKUI),
-
     /**
      * Modi. Since: 2.42
      */
     MODI(GUnicodeScript.G_UNICODE_SCRIPT_MODI),
-
     /**
      * Mro. Since: 2.42
      */
     MRO(GUnicodeScript.G_UNICODE_SCRIPT_MRO),
-
     /**
      * Nabataean. Since: 2.42
      */
     NABATAEAN(GUnicodeScript.G_UNICODE_SCRIPT_NABATAEAN),
-
     /**
      * Old North Arabian. Since: 2.42
      */
     OLD_NORTH_ARABIAN(GUnicodeScript.G_UNICODE_SCRIPT_OLD_NORTH_ARABIAN),
-
     /**
      * Old Permic. Since: 2.42
      */
     OLD_PERMIC(GUnicodeScript.G_UNICODE_SCRIPT_OLD_PERMIC),
-
     /**
      * Pahawh Hmong. Since: 2.42
      */
     PAHAWH_HMONG(GUnicodeScript.G_UNICODE_SCRIPT_PAHAWH_HMONG),
-
     /**
      * Palmyrene. Since: 2.42
      */
     PALMYRENE(GUnicodeScript.G_UNICODE_SCRIPT_PALMYRENE),
-
     /**
      * Pau Cin Hau. Since: 2.42
      */
     PAU_CIN_HAU(GUnicodeScript.G_UNICODE_SCRIPT_PAU_CIN_HAU),
-
     /**
      * Psalter Pahlavi. Since: 2.42
      */
     PSALTER_PAHLAVI(GUnicodeScript.G_UNICODE_SCRIPT_PSALTER_PAHLAVI),
-
     /**
      * Siddham. Since: 2.42
      */
     SIDDHAM(GUnicodeScript.G_UNICODE_SCRIPT_SIDDHAM),
-
     /**
      * Tirhuta. Since: 2.42
      */
     TIRHUTA(GUnicodeScript.G_UNICODE_SCRIPT_TIRHUTA),
-
     /**
      * Warang Citi. Since: 2.42
      */
     WARANG_CITI(GUnicodeScript.G_UNICODE_SCRIPT_WARANG_CITI),
-
     /**
      * Ahom. Since: 2.48
      */
     AHOM(GUnicodeScript.G_UNICODE_SCRIPT_AHOM),
-
     /**
      * Anatolian Hieroglyphs. Since: 2.48
      */
     ANATOLIAN_HIEROGLYPHS(GUnicodeScript.G_UNICODE_SCRIPT_ANATOLIAN_HIEROGLYPHS),
-
     /**
      * Hatran. Since: 2.48
      */
     HATRAN(GUnicodeScript.G_UNICODE_SCRIPT_HATRAN),
-
     /**
      * Multani. Since: 2.48
      */
     MULTANI(GUnicodeScript.G_UNICODE_SCRIPT_MULTANI),
-
     /**
      * Old Hungarian. Since: 2.48
      */
     OLD_HUNGARIAN(GUnicodeScript.G_UNICODE_SCRIPT_OLD_HUNGARIAN),
-
     /**
      * Signwriting. Since: 2.48
      */
     SIGNWRITING(GUnicodeScript.G_UNICODE_SCRIPT_SIGNWRITING),
-
     /**
      * Adlam. Since: 2.50
      */
     ADLAM(GUnicodeScript.G_UNICODE_SCRIPT_ADLAM),
-
     /**
      * Bhaiksuki. Since: 2.50
      */
     BHAIKSUKI(GUnicodeScript.G_UNICODE_SCRIPT_BHAIKSUKI),
-
     /**
      * Marchen. Since: 2.50
      */
     MARCHEN(GUnicodeScript.G_UNICODE_SCRIPT_MARCHEN),
-
     /**
      * Newa. Since: 2.50
      */
     NEWA(GUnicodeScript.G_UNICODE_SCRIPT_NEWA),
-
     /**
      * Osage. Since: 2.50
      */
     OSAGE(GUnicodeScript.G_UNICODE_SCRIPT_OSAGE),
-
     /**
      * Tangut. Since: 2.50
      */
     TANGUT(GUnicodeScript.G_UNICODE_SCRIPT_TANGUT),
-
     /**
      * Masaram Gondi. Since: 2.54
      */
     MASARAM_GONDI(GUnicodeScript.G_UNICODE_SCRIPT_MASARAM_GONDI),
-
     /**
      * Nushu. Since: 2.54
      */
     NUSHU(GUnicodeScript.G_UNICODE_SCRIPT_NUSHU),
-
     /**
      * Soyombo. Since: 2.54
      */
     SOYOMBO(GUnicodeScript.G_UNICODE_SCRIPT_SOYOMBO),
-
     /**
      * Zanabazar Square. Since: 2.54
      */
     ZANABAZAR_SQUARE(GUnicodeScript.G_UNICODE_SCRIPT_ZANABAZAR_SQUARE),
-
     /**
      * Dogra. Since: 2.58
      */
     DOGRA(GUnicodeScript.G_UNICODE_SCRIPT_DOGRA),
-
     /**
      * Gunjala Gondi. Since: 2.58
      */
     GUNJALA_GONDI(GUnicodeScript.G_UNICODE_SCRIPT_GUNJALA_GONDI),
-
     /**
      * Hanifi Rohingya. Since: 2.58
      */
     HANIFI_ROHINGYA(GUnicodeScript.G_UNICODE_SCRIPT_HANIFI_ROHINGYA),
-
     /**
      * Makasar. Since: 2.58
      */
     MAKASAR(GUnicodeScript.G_UNICODE_SCRIPT_MAKASAR),
-
     /**
      * Medefaidrin. Since: 2.58
      */
     MEDEFAIDRIN(GUnicodeScript.G_UNICODE_SCRIPT_MEDEFAIDRIN),
-
     /**
      * Old Sogdian. Since: 2.58
      */
     OLD_SOGDIAN(GUnicodeScript.G_UNICODE_SCRIPT_OLD_SOGDIAN),
-
     /**
      * Sogdian. Since: 2.58
      */
     SOGDIAN(GUnicodeScript.G_UNICODE_SCRIPT_SOGDIAN),
-
     /**
      * Elym. Since: 2.62
      */
     ELYMAIC(GUnicodeScript.G_UNICODE_SCRIPT_ELYMAIC),
-
     /**
      * Nand. Since: 2.62
      */
     NANDINAGARI(GUnicodeScript.G_UNICODE_SCRIPT_NANDINAGARI),
-
     /**
      * Rohg. Since: 2.62
      */
     NYIAKENG_PUACHUE_HMONG(GUnicodeScript.G_UNICODE_SCRIPT_NYIAKENG_PUACHUE_HMONG),
-
     /**
      * Wcho. Since: 2.62
      */
     WANCHO(GUnicodeScript.G_UNICODE_SCRIPT_WANCHO),
-
     /**
      * Chorasmian. Since: 2.66
      */
     CHORASMIAN(GUnicodeScript.G_UNICODE_SCRIPT_CHORASMIAN),
-
     /**
      * Dives Akuru. Since: 2.66
      */
     DIVES_AKURU(GUnicodeScript.G_UNICODE_SCRIPT_DIVES_AKURU),
-
     /**
      * Khitan small script. Since: 2.66
      */
     KHITAN_SMALL_SCRIPT(GUnicodeScript.G_UNICODE_SCRIPT_KHITAN_SMALL_SCRIPT),
-
     /**
      * Yezidi. Since: 2.66
      */
     YEZIDI(GUnicodeScript.G_UNICODE_SCRIPT_YEZIDI),
-
     /**
      * Cypro-Minoan. Since: 2.72
      */
     CYPRO_MINOAN(GUnicodeScript.G_UNICODE_SCRIPT_CYPRO_MINOAN),
-
     /**
      * Old Uyghur. Since: 2.72
      */
     OLD_UYGHUR(GUnicodeScript.G_UNICODE_SCRIPT_OLD_UYGHUR),
-
     /**
      * Tangsa. Since: 2.72
      */
     TANGSA(GUnicodeScript.G_UNICODE_SCRIPT_TANGSA),
-
     /**
      * Toto. Since: 2.72
      */
     TOTO(GUnicodeScript.G_UNICODE_SCRIPT_TOTO),
-
     /**
      * Vithkuqi. Since: 2.72
      */
     VITHKUQI(GUnicodeScript.G_UNICODE_SCRIPT_VITHKUQI),
-
     /**
      * Mathematical notation. Since: 2.72
      */
     MATH(GUnicodeScript.G_UNICODE_SCRIPT_MATH),
-
     /**
      * Kawi. Since 2.74
      */
     KAWI(GUnicodeScript.G_UNICODE_SCRIPT_KAWI),
-
     /**
      * Nag Mundari. Since 2.74
      */
@@ -1040,8 +877,7 @@ public enum class UnicodeScript(public val nativeValue: GUnicodeScript) {
          */
         @GLibVersion2_30
         public fun fromIso15924(iso15924: UInt): UnicodeScript = g_unicode_script_from_iso15924(iso15924).run {
-            UnicodeScript.fromNativeValue(this)
-        }
+            UnicodeScript.fromNativeValue(this)}
 
         /**
          * Looks up the ISO 15924 code for @script.  ISO 15924 assigns four-letter

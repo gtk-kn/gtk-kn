@@ -6,12 +6,13 @@ import org.gtkkn.native.adw.AdwViewSwitcherPolicy
 /**
  * Describes the adaptive modes of [class@ViewSwitcher].
  */
-public enum class ViewSwitcherPolicy(public val nativeValue: AdwViewSwitcherPolicy) {
+public enum class ViewSwitcherPolicy(
+    public val nativeValue: AdwViewSwitcherPolicy,
+) {
     /**
      * Force the narrow mode
      */
     NARROW(AdwViewSwitcherPolicy.ADW_VIEW_SWITCHER_POLICY_NARROW),
-
     /**
      * Force the wide mode
      */

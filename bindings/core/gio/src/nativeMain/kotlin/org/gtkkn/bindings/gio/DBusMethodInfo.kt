@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Int
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -12,9 +15,7 @@ import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GDBusMethodInfo
 import org.gtkkn.native.gio.g_dbus_method_info_ref
 import org.gtkkn.native.gio.g_dbus_method_info_unref
-import kotlin.Int
-import kotlin.String
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Information about a method on an D-Bus interface.
@@ -28,7 +29,9 @@ import kotlin.Unit
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusMethodInfo(pointer: CPointer<GDBusMethodInfo>) : Record {
+public class DBusMethodInfo(
+    pointer: CPointer<GDBusMethodInfo>,
+) : Record {
     public val gioDBusMethodInfoPointer: CPointer<GDBusMethodInfo> = pointer
 
     /**
@@ -57,8 +60,7 @@ public class DBusMethodInfo(pointer: CPointer<GDBusMethodInfo>) : Record {
      */
     @GioVersion2_26
     public fun ref(): DBusMethodInfo = g_dbus_method_info_ref(gioDBusMethodInfoPointer.reinterpret())!!.run {
-        DBusMethodInfo(reinterpret())
-    }
+        DBusMethodInfo(reinterpret())}
 
     /**
      * If @info is statically allocated, does nothing. Otherwise decreases
@@ -71,7 +73,6 @@ public class DBusMethodInfo(pointer: CPointer<GDBusMethodInfo>) : Record {
     public fun unref(): Unit = g_dbus_method_info_unref(gioDBusMethodInfoPointer.reinterpret())
 
     public companion object : RecordCompanion<DBusMethodInfo, GDBusMethodInfo> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusMethodInfo =
-            DBusMethodInfo(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusMethodInfo = DBusMethodInfo(pointer.reinterpret())
     }
 }

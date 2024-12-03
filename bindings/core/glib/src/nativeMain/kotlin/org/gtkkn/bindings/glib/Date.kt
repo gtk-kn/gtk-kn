@@ -1,6 +1,12 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.String
+import kotlin.UByte
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -58,12 +64,7 @@ import org.gtkkn.native.glib.g_date_valid_julian
 import org.gtkkn.native.glib.g_date_valid_month
 import org.gtkkn.native.glib.g_date_valid_weekday
 import org.gtkkn.native.glib.g_date_valid_year
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.String
-import kotlin.UByte
-import kotlin.UInt
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * `GDate` is a struct for calendrical calculations.
@@ -111,7 +112,9 @@ import kotlin.Unit
  * - parameter `timet`: time_t
  * - parameter `tm`: gpointer
  */
-public class Date(pointer: CPointer<GDate>) : Record {
+public class Date(
+    pointer: CPointer<GDate>,
+) : Record {
     public val glibDatePointer: CPointer<GDate> = pointer
 
     /**
@@ -210,11 +213,7 @@ public class Date(pointer: CPointer<GDate>) : Record {
      * @param minDate minimum accepted value for @date
      * @param maxDate maximum accepted value for @date
      */
-    public fun clamp(minDate: Date, maxDate: Date): Unit = g_date_clamp(
-        glibDatePointer.reinterpret(),
-        minDate.glibDatePointer.reinterpret(),
-        maxDate.glibDatePointer.reinterpret()
-    )
+    public fun clamp(minDate: Date, maxDate: Date): Unit = g_date_clamp(glibDatePointer.reinterpret(), minDate.glibDatePointer.reinterpret(), maxDate.glibDatePointer.reinterpret())
 
     /**
      * Initializes one or more #GDate structs to a safe but invalid
@@ -234,8 +233,7 @@ public class Date(pointer: CPointer<GDate>) : Record {
      * @return 0 for equal, less than zero if @lhs is less than @rhs,
      *     greater than zero if @lhs is greater than @rhs
      */
-    public fun compare(rhs: Date): Int =
-        g_date_compare(glibDatePointer.reinterpret(), rhs.glibDatePointer.reinterpret())
+    public fun compare(rhs: Date): Int = g_date_compare(glibDatePointer.reinterpret(), rhs.glibDatePointer.reinterpret())
 
     /**
      * Copies a GDate to a newly-allocated GDate. If the input was invalid
@@ -247,8 +245,7 @@ public class Date(pointer: CPointer<GDate>) : Record {
      */
     @GLibVersion2_56
     public fun copy(): Date = g_date_copy(glibDatePointer.reinterpret())!!.run {
-        Date(reinterpret())
-    }
+        Date(reinterpret())}
 
     /**
      * Computes the number of days between two dates.
@@ -258,8 +255,7 @@ public class Date(pointer: CPointer<GDate>) : Record {
      * @param date2 the second date
      * @return the number of days between @date1 and @date2
      */
-    public fun daysBetween(date2: Date): Int =
-        g_date_days_between(glibDatePointer.reinterpret(), date2.glibDatePointer.reinterpret())
+    public fun daysBetween(date2: Date): Int = g_date_days_between(glibDatePointer.reinterpret(), date2.glibDatePointer.reinterpret())
 
     /**
      * Frees a #GDate returned from g_date_new().
@@ -316,8 +312,7 @@ public class Date(pointer: CPointer<GDate>) : Record {
      * @return month of the year as a #GDateMonth
      */
     public fun getMonth(): DateMonth = g_date_get_month(glibDatePointer.reinterpret()).run {
-        DateMonth.fromNativeValue(this)
-    }
+        DateMonth.fromNativeValue(this)}
 
     /**
      * Returns the week of the year during which this date falls, if
@@ -334,8 +329,7 @@ public class Date(pointer: CPointer<GDate>) : Record {
      * @return day of the week as a #GDateWeekday.
      */
     public fun getWeekday(): DateWeekday = g_date_get_weekday(glibDatePointer.reinterpret()).run {
-        DateWeekday.fromNativeValue(this)
-    }
+        DateWeekday.fromNativeValue(this)}
 
     /**
      * Returns the year of a #GDate. The date must be valid.
@@ -366,8 +360,7 @@ public class Date(pointer: CPointer<GDate>) : Record {
      *
      * @param date2 the second date
      */
-    public fun order(date2: Date): Unit =
-        g_date_order(glibDatePointer.reinterpret(), date2.glibDatePointer.reinterpret())
+    public fun order(date2: Date): Unit = g_date_order(glibDatePointer.reinterpret(), date2.glibDatePointer.reinterpret())
 
     /**
      * Sets the day of the month for a #GDate. If the resulting
@@ -387,8 +380,11 @@ public class Date(pointer: CPointer<GDate>) : Record {
      * @param month month
      * @param y year
      */
-    public fun setDmy(day: DateDay, month: DateMonth, y: DateYear): Unit =
-        g_date_set_dmy(glibDatePointer.reinterpret(), day, month.nativeValue, y)
+    public fun setDmy(
+        day: DateDay,
+        month: DateMonth,
+        y: DateYear,
+    ): Unit = g_date_set_dmy(glibDatePointer.reinterpret(), day, month.nativeValue, y)
 
     /**
      * Sets the value of a #GDate from a Julian day number.
@@ -441,8 +437,7 @@ public class Date(pointer: CPointer<GDate>) : Record {
      * @since 2.10
      */
     @GLibVersion2_10
-    public fun setTimeVal(timeval: TimeVal): Unit =
-        g_date_set_time_val(glibDatePointer.reinterpret(), timeval.glibTimeValPointer.reinterpret())
+    public fun setTimeVal(timeval: TimeVal): Unit = g_date_set_time_val(glibDatePointer.reinterpret(), timeval.glibTimeValPointer.reinterpret())
 
     /**
      * Sets the year for a #GDate. If the resulting day-month-year
@@ -515,8 +510,11 @@ public class Date(pointer: CPointer<GDate>) : Record {
          * @return a newly-allocated #GDate
          *   initialized with @day, @month, and @year
          */
-        public fun newDmy(day: DateDay, month: DateMonth, year: DateYear): Date =
-            Date(g_date_new_dmy(day, month.nativeValue, year)!!.reinterpret())
+        public fun newDmy(
+            day: DateDay,
+            month: DateMonth,
+            year: DateYear,
+        ): Date = Date(g_date_new_dmy(day, month.nativeValue, year)!!.reinterpret())
 
         /**
          * Create a new #GDate representing the given Julian date.
@@ -539,8 +537,7 @@ public class Date(pointer: CPointer<GDate>) : Record {
          * @param year year
          * @return number of days in @month during the @year
          */
-        public fun getDaysInMonth(month: DateMonth, year: DateYear): UByte =
-            g_date_get_days_in_month(month.nativeValue, year)
+        public fun getDaysInMonth(month: DateMonth, year: DateYear): UByte = g_date_get_days_in_month(month.nativeValue, year)
 
         /**
          * Returns the number of weeks in the year, where weeks
@@ -602,8 +599,11 @@ public class Date(pointer: CPointer<GDate>) : Record {
          * @param year year
          * @return true if the date is a valid one
          */
-        public fun validDmy(day: DateDay, month: DateMonth, year: DateYear): Boolean =
-            g_date_valid_dmy(day, month.nativeValue, year).asBoolean()
+        public fun validDmy(
+            day: DateDay,
+            month: DateMonth,
+            year: DateYear,
+        ): Boolean = g_date_valid_dmy(day, month.nativeValue, year).asBoolean()
 
         /**
          * Returns true if the Julian day is valid. Anything greater than zero

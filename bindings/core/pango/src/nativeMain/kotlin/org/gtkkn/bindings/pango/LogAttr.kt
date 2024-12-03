@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -8,13 +9,15 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.pango.PangoLogAttr
-import kotlin.UInt
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `PangoLogAttr` structure stores information about the attributes of a
  * single character.
  */
-public class LogAttr(pointer: CPointer<PangoLogAttr>) : Record {
+public class LogAttr(
+    pointer: CPointer<PangoLogAttr>,
+) : Record {
     public val pangoLogAttrPointer: CPointer<PangoLogAttr> = pointer
 
     /**

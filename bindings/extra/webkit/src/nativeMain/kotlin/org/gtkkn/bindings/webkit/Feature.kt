@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -18,9 +21,7 @@ import org.gtkkn.native.webkit.webkit_feature_get_name
 import org.gtkkn.native.webkit.webkit_feature_get_status
 import org.gtkkn.native.webkit.webkit_feature_ref
 import org.gtkkn.native.webkit.webkit_feature_unref
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Describes a web engine feature that may be toggled at runtime.
@@ -59,7 +60,9 @@ import kotlin.Unit
  * @since 2.42
  */
 @WebKitVersion2_42
-public class Feature(pointer: CPointer<WebKitFeature>) : Record {
+public class Feature(
+    pointer: CPointer<WebKitFeature>,
+) : Record {
     public val webkitFeaturePointer: CPointer<WebKitFeature> = pointer
 
     /**
@@ -72,8 +75,7 @@ public class Feature(pointer: CPointer<WebKitFeature>) : Record {
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun getCategory(): String = webkit_feature_get_category(webkitFeaturePointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    public fun getCategory(): String = webkit_feature_get_category(webkitFeaturePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets whether the feature is enabled by default.
@@ -87,8 +89,7 @@ public class Feature(pointer: CPointer<WebKitFeature>) : Record {
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun getDefaultValue(): Boolean =
-        webkit_feature_get_default_value(webkitFeaturePointer.reinterpret()).asBoolean()
+    public fun getDefaultValue(): Boolean = webkit_feature_get_default_value(webkitFeaturePointer.reinterpret()).asBoolean()
 
     /**
      * Gets a description for the @feature.
@@ -115,8 +116,7 @@ public class Feature(pointer: CPointer<WebKitFeature>) : Record {
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun getIdentifier(): String = webkit_feature_get_identifier(webkitFeaturePointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    public fun getIdentifier(): String = webkit_feature_get_identifier(webkitFeaturePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets a short name for the @feature.
@@ -141,8 +141,7 @@ public class Feature(pointer: CPointer<WebKitFeature>) : Record {
      */
     @WebKitVersion2_42
     public fun getStatus(): FeatureStatus = webkit_feature_get_status(webkitFeaturePointer.reinterpret()).run {
-        FeatureStatus.fromNativeValue(this)
-    }
+        FeatureStatus.fromNativeValue(this)}
 
     /**
      * Atomically acquires a reference on the given @feature.
@@ -154,8 +153,7 @@ public class Feature(pointer: CPointer<WebKitFeature>) : Record {
      */
     @WebKitVersion2_42
     public fun ref(): Feature = webkit_feature_ref(webkitFeaturePointer.reinterpret())!!.run {
-        Feature(reinterpret())
-    }
+        Feature(reinterpret())}
 
     /**
      * Atomically releases a reference on the given @feature.

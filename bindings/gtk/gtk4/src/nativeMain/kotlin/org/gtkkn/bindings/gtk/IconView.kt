@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Float
+import kotlin.Int
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -88,11 +93,6 @@ import org.gtkkn.native.gtk.gtk_icon_view_unselect_all
 import org.gtkkn.native.gtk.gtk_icon_view_unselect_path
 import org.gtkkn.native.gtk.gtk_icon_view_unset_model_drag_dest
 import org.gtkkn.native.gtk.gtk_icon_view_unset_model_drag_source
-import kotlin.Boolean
-import kotlin.Float
-import kotlin.Int
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkIconView` is a widget which displays data in a grid of icons.
@@ -129,8 +129,9 @@ import kotlin.Unit
  * - parameter `start_path`: start_path: Out parameter is not supported
  * - method `cell-area`: Property has no getter nor setter
  */
-public open class IconView(pointer: CPointer<GtkIconView>) :
-    Widget(pointer.reinterpret()),
+public open class IconView(
+    pointer: CPointer<GtkIconView>,
+) : Widget(pointer.reinterpret()),
     CellLayout,
     Scrollable,
     KGTyped {
@@ -163,7 +164,6 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
          * @return true if item-activated will be emitted on a single click
          */
         get() = gtk_icon_view_get_activate_on_single_click(gtkIconViewPointer.reinterpret()).asBoolean()
-
         /**
          * Causes the `GtkIconView`::item-activated signal to be emitted on
          * a single click instead of a double click.
@@ -183,7 +183,6 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
          * @return the space between columns
          */
         get() = gtk_icon_view_get_column_spacing(gtkIconViewPointer.reinterpret())
-
         /**
          * Sets the ::column-spacing property which specifies the space
          * which is inserted between the columns of the icon view.
@@ -204,7 +203,6 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
          * @return the number of columns, or -1
          */
         get() = gtk_icon_view_get_columns(gtkIconViewPointer.reinterpret())
-
         /**
          * Sets the ::columns property which determines in how
          * many columns the icons are arranged. If @columns is
@@ -227,9 +225,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
          * @return the relative position of texts and icons
          */
         get() = gtk_icon_view_get_item_orientation(gtkIconViewPointer.reinterpret()).run {
-            Orientation.fromNativeValue(this)
-        }
-
+            Orientation.fromNativeValue(this)}
         /**
          * Sets the ::item-orientation property which determines whether the labels
          * are drawn beside the icons instead of below.
@@ -249,7 +245,6 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
          * @return the padding around items
          */
         get() = gtk_icon_view_get_item_padding(gtkIconViewPointer.reinterpret())
-
         /**
          * Sets the `GtkIconView`:item-padding property which specifies the padding
          * around each of the icon view’s items.
@@ -270,7 +265,6 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
          * @return the width of a single item, or -1
          */
         get() = gtk_icon_view_get_item_width(gtkIconViewPointer.reinterpret())
-
         /**
          * Sets the ::item-width property which specifies the width
          * to use for each item. If it is set to -1, the icon view will
@@ -291,7 +285,6 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
          * @return the space at the borders
          */
         get() = gtk_icon_view_get_margin(gtkIconViewPointer.reinterpret())
-
         /**
          * Sets the ::margin property which specifies the space
          * which is inserted at the top, bottom, left and right
@@ -315,7 +308,6 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
          * @return the markup column, or -1 if it’s unset.
          */
         get() = gtk_icon_view_get_markup_column(gtkIconViewPointer.reinterpret())
-
         /**
          * Sets the column with markup information for @icon_view to be
          * @column. The markup column must be of type `G_TYPE_STRING`.
@@ -334,9 +326,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
          * @return The currently used `GtkTreeModel`
          */
         get() = gtk_icon_view_get_model(gtkIconViewPointer.reinterpret())?.run {
-            TreeModel.wrap(reinterpret())
-        }
-
+            TreeModel.wrap(reinterpret())}
         /**
          * Sets the model for a `GtkIconView`.
          * If the @icon_view already has a model set, it will remove
@@ -360,7 +350,6 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
          * @return the pixbuf column, or -1 if it’s unset.
          */
         get() = gtk_icon_view_get_pixbuf_column(gtkIconViewPointer.reinterpret())
-
         /**
          * Sets the column with pixbufs for @icon_view to be @column. The pixbuf
          * column must be of type `GDK_TYPE_PIXBUF`
@@ -381,7 +370,6 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
          * @return true if the list can be reordered.
          */
         get() = gtk_icon_view_get_reorderable(gtkIconViewPointer.reinterpret()).asBoolean()
-
         /**
          * This function is a convenience function to allow you to reorder models that
          * support the `GtkTreeDragSourceIface` and the `GtkTreeDragDestIface`. Both
@@ -411,7 +399,6 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
          * @return the space between rows
          */
         get() = gtk_icon_view_get_row_spacing(gtkIconViewPointer.reinterpret())
-
         /**
          * Sets the ::row-spacing property which specifies the space
          * which is inserted between the rows of the icon view.
@@ -432,9 +419,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
          * @return the current selection mode
          */
         get() = gtk_icon_view_get_selection_mode(gtkIconViewPointer.reinterpret()).run {
-            SelectionMode.fromNativeValue(this)
-        }
-
+            SelectionMode.fromNativeValue(this)}
         /**
          * Sets the selection mode of the @icon_view.
          *
@@ -453,7 +438,6 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
          * @return the space between cells
          */
         get() = gtk_icon_view_get_spacing(gtkIconViewPointer.reinterpret())
-
         /**
          * Sets the ::spacing property which specifies the space
          * which is inserted between the cells (i.e. the icon and
@@ -476,7 +460,6 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
          * @return the text column, or -1 if it’s unset.
          */
         get() = gtk_icon_view_get_text_column(gtkIconViewPointer.reinterpret())
-
         /**
          * Sets the column with text for @icon_view to be @column. The text
          * column must be of type `G_TYPE_STRING`.
@@ -494,7 +477,6 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
          * used, or -1 if this is disabled.
          */
         get() = gtk_icon_view_get_tooltip_column(gtkIconViewPointer.reinterpret())
-
         /**
          * If you only plan to have simple (text-only) tooltips on full items, you
          * can use this function to have `GtkIconView` handle these automatically
@@ -525,9 +507,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @param area the `GtkCellArea` to use to layout cells
      * @return A newly created `GtkIconView` widget
      */
-    public constructor(
-        area: CellArea,
-    ) : this(gtk_icon_view_new_with_area(area.gtkCellAreaPointer.reinterpret())!!.reinterpret())
+    public constructor(area: CellArea) : this(gtk_icon_view_new_with_area(area.gtkCellAreaPointer.reinterpret())!!.reinterpret())
 
     /**
      * Creates a new `GtkIconView` widget with the model @model.
@@ -544,10 +524,8 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @param path a `GtkTreePath` in @icon_view
      * @return a newly-allocated `GdkPaintable` of the drag icon.
      */
-    public open fun createDragIcon(path: TreePath): Paintable? =
-        gtk_icon_view_create_drag_icon(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())?.run {
-            Paintable.wrap(reinterpret())
-        }
+    public open fun createDragIcon(path: TreePath): Paintable? = gtk_icon_view_create_drag_icon(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())?.run {
+        Paintable.wrap(reinterpret())}
 
     /**
      * Turns @icon_view into a drop destination for automatic DND. Calling this
@@ -557,12 +535,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @param actions the bitmask of possible actions for a drag to this
      *    widget
      */
-    public open fun enableModelDragDest(formats: ContentFormats, actions: DragAction): Unit =
-        gtk_icon_view_enable_model_drag_dest(
-            gtkIconViewPointer.reinterpret(),
-            formats.gdkContentFormatsPointer.reinterpret(),
-            actions.mask
-        )
+    public open fun enableModelDragDest(formats: ContentFormats, actions: DragAction): Unit = gtk_icon_view_enable_model_drag_dest(gtkIconViewPointer.reinterpret(), formats.gdkContentFormatsPointer.reinterpret(), actions.mask)
 
     /**
      * Turns @icon_view into a drag source for automatic DND. Calling this
@@ -577,12 +550,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
         startButtonMask: ModifierType,
         formats: ContentFormats,
         actions: DragAction,
-    ): Unit = gtk_icon_view_enable_model_drag_source(
-        gtkIconViewPointer.reinterpret(),
-        startButtonMask.mask,
-        formats.gdkContentFormatsPointer.reinterpret(),
-        actions.mask
-    )
+    ): Unit = gtk_icon_view_enable_model_drag_source(gtkIconViewPointer.reinterpret(), startButtonMask.mask, formats.gdkContentFormatsPointer.reinterpret(), actions.mask)
 
     /**
      * Fills the bounding rectangle in widget coordinates for the cell specified by
@@ -595,13 +563,11 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @param rect rectangle to fill with cell rect
      * @return false if there is no such item, true otherwise
      */
-    public open fun getCellRect(path: TreePath, cell: CellRenderer? = null, rect: Rectangle): Boolean =
-        gtk_icon_view_get_cell_rect(
-            gtkIconViewPointer.reinterpret(),
-            path.gtkTreePathPointer.reinterpret(),
-            cell?.gtkCellRendererPointer?.reinterpret(),
-            rect.gdkRectanglePointer.reinterpret()
-        ).asBoolean()
+    public open fun getCellRect(
+        path: TreePath,
+        cell: CellRenderer? = null,
+        rect: Rectangle,
+    ): Boolean = gtk_icon_view_get_cell_rect(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret(), cell?.gtkCellRendererPointer?.reinterpret(), rect.gdkRectanglePointer.reinterpret()).asBoolean()
 
     /**
      * Gets the column in which the item @path is currently
@@ -610,8 +576,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @param path the `GtkTreePath` of the item
      * @return The column in which the item is displayed
      */
-    public open fun getItemColumn(path: TreePath): Int =
-        gtk_icon_view_get_item_column(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
+    public open fun getItemColumn(path: TreePath): Int = gtk_icon_view_get_item_column(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
 
     /**
      * Gets the row in which the item @path is currently
@@ -620,8 +585,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @param path the `GtkTreePath` of the item
      * @return The row in which the item is displayed
      */
-    public open fun getItemRow(path: TreePath): Int =
-        gtk_icon_view_get_item_row(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
+    public open fun getItemRow(path: TreePath): Int = gtk_icon_view_get_item_row(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
 
     /**
      * Gets the path for the icon at the given position.
@@ -631,10 +595,8 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @return The `GtkTreePath` corresponding
      * to the icon or null if no icon exists at that position.
      */
-    public open fun getPathAtPos(x: Int, y: Int): TreePath? =
-        gtk_icon_view_get_path_at_pos(gtkIconViewPointer.reinterpret(), x, y)?.run {
-            TreePath(reinterpret())
-        }
+    public open fun getPathAtPos(x: Int, y: Int): TreePath? = gtk_icon_view_get_path_at_pos(gtkIconViewPointer.reinterpret(), x, y)?.run {
+        TreePath(reinterpret())}
 
     /**
      * Creates a list of paths of all selected items. Additionally, if you are
@@ -656,18 +618,15 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      *
      * @return A `GList` containing a `GtkTreePath` for each selected row.
      */
-    public open fun getSelectedItems(): List =
-        gtk_icon_view_get_selected_items(gtkIconViewPointer.reinterpret())!!.run {
-            List(reinterpret())
-        }
+    public open fun getSelectedItems(): List = gtk_icon_view_get_selected_items(gtkIconViewPointer.reinterpret())!!.run {
+        List(reinterpret())}
 
     /**
      * Activates the item determined by @path.
      *
      * @param path The `GtkTreePath` to be activated
      */
-    public open fun itemActivated(path: TreePath): Unit =
-        gtk_icon_view_item_activated(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
+    public open fun itemActivated(path: TreePath): Unit = gtk_icon_view_item_activated(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
 
     /**
      * Returns true if the icon pointed to by @path is currently
@@ -676,10 +635,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @param path A `GtkTreePath` to check selection on.
      * @return true if @path is selected.
      */
-    public open fun pathIsSelected(path: TreePath): Boolean = gtk_icon_view_path_is_selected(
-        gtkIconViewPointer.reinterpret(),
-        path.gtkTreePathPointer.reinterpret()
-    ).asBoolean()
+    public open fun pathIsSelected(path: TreePath): Boolean = gtk_icon_view_path_is_selected(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret()).asBoolean()
 
     /**
      * Moves the alignments of @icon_view to the position specified by @path.
@@ -702,14 +658,12 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @param rowAlign The vertical alignment of the item specified by @path.
      * @param colAlign The horizontal alignment of the item specified by @path.
      */
-    public open fun scrollToPath(path: TreePath, useAlign: Boolean, rowAlign: Float, colAlign: Float): Unit =
-        gtk_icon_view_scroll_to_path(
-            gtkIconViewPointer.reinterpret(),
-            path.gtkTreePathPointer.reinterpret(),
-            useAlign.asGBoolean(),
-            rowAlign,
-            colAlign
-        )
+    public open fun scrollToPath(
+        path: TreePath,
+        useAlign: Boolean,
+        rowAlign: Float,
+        colAlign: Float,
+    ): Unit = gtk_icon_view_scroll_to_path(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret(), useAlign.asGBoolean(), rowAlign, colAlign)
 
     /**
      * Selects all the icons. @icon_view must has its selection mode set
@@ -722,8 +676,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      *
      * @param path The `GtkTreePath` to be selected.
      */
-    public open fun selectPath(path: TreePath): Unit =
-        gtk_icon_view_select_path(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
+    public open fun selectPath(path: TreePath): Unit = gtk_icon_view_select_path(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
 
     /**
      * Calls a function for each selected icon. Note that the model or
@@ -731,11 +684,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      *
      * @param func The function to call for each selected icon.
      */
-    public open fun selectedForeach(func: IconViewForeachFunc): Unit = gtk_icon_view_selected_foreach(
-        gtkIconViewPointer.reinterpret(),
-        IconViewForeachFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer()
-    )
+    public open fun selectedForeach(func: IconViewForeachFunc): Unit = gtk_icon_view_selected_foreach(gtkIconViewPointer.reinterpret(), IconViewForeachFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Sets the current keyboard focus to be at @path, and selects it.  This is
@@ -752,13 +701,11 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @param cell One of the cell renderers of @icon_view
      * @param startEditing true if the specified cell should start being edited.
      */
-    public open fun setCursor(path: TreePath, cell: CellRenderer? = null, startEditing: Boolean): Unit =
-        gtk_icon_view_set_cursor(
-            gtkIconViewPointer.reinterpret(),
-            path.gtkTreePathPointer.reinterpret(),
-            cell?.gtkCellRendererPointer?.reinterpret(),
-            startEditing.asGBoolean()
-        )
+    public open fun setCursor(
+        path: TreePath,
+        cell: CellRenderer? = null,
+        startEditing: Boolean,
+    ): Unit = gtk_icon_view_set_cursor(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret(), cell?.gtkCellRendererPointer?.reinterpret(), startEditing.asGBoolean())
 
     /**
      * Sets the item that is highlighted for feedback.
@@ -766,12 +713,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @param path The path of the item to highlight
      * @param pos Specifies where to drop, relative to the item
      */
-    public open fun setDragDestItem(path: TreePath? = null, pos: IconViewDropPosition): Unit =
-        gtk_icon_view_set_drag_dest_item(
-            gtkIconViewPointer.reinterpret(),
-            path?.gtkTreePathPointer?.reinterpret(),
-            pos.nativeValue
-        )
+    public open fun setDragDestItem(path: TreePath? = null, pos: IconViewDropPosition): Unit = gtk_icon_view_set_drag_dest_item(gtkIconViewPointer.reinterpret(), path?.gtkTreePathPointer?.reinterpret(), pos.nativeValue)
 
     /**
      * Sets the tip area of @tooltip to the area which @cell occupies in
@@ -783,13 +725,11 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @param path a `GtkTreePath`
      * @param cell a `GtkCellRenderer`
      */
-    public open fun setTooltipCell(tooltip: Tooltip, path: TreePath, cell: CellRenderer? = null): Unit =
-        gtk_icon_view_set_tooltip_cell(
-            gtkIconViewPointer.reinterpret(),
-            tooltip.gtkTooltipPointer.reinterpret(),
-            path.gtkTreePathPointer.reinterpret(),
-            cell?.gtkCellRendererPointer?.reinterpret()
-        )
+    public open fun setTooltipCell(
+        tooltip: Tooltip,
+        path: TreePath,
+        cell: CellRenderer? = null,
+    ): Unit = gtk_icon_view_set_tooltip_cell(gtkIconViewPointer.reinterpret(), tooltip.gtkTooltipPointer.reinterpret(), path.gtkTreePathPointer.reinterpret(), cell?.gtkCellRendererPointer?.reinterpret())
 
     /**
      * Sets the tip area of @tooltip to be the area covered by the item at @path.
@@ -799,11 +739,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @param tooltip a `GtkTooltip`
      * @param path a `GtkTreePath`
      */
-    public open fun setTooltipItem(tooltip: Tooltip, path: TreePath): Unit = gtk_icon_view_set_tooltip_item(
-        gtkIconViewPointer.reinterpret(),
-        tooltip.gtkTooltipPointer.reinterpret(),
-        path.gtkTreePathPointer.reinterpret()
-    )
+    public open fun setTooltipItem(tooltip: Tooltip, path: TreePath): Unit = gtk_icon_view_set_tooltip_item(gtkIconViewPointer.reinterpret(), tooltip.gtkTooltipPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
 
     /**
      * Unselects all the icons.
@@ -815,8 +751,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      *
      * @param path The `GtkTreePath` to be unselected.
      */
-    public open fun unselectPath(path: TreePath): Unit =
-        gtk_icon_view_unselect_path(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
+    public open fun unselectPath(path: TreePath): Unit = gtk_icon_view_unselect_path(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
 
     /**
      * Undoes the effect of gtk_icon_view_enable_model_drag_dest(). Calling this
@@ -828,8 +763,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * Undoes the effect of gtk_icon_view_enable_model_drag_source(). Calling this
      * method sets `GtkIconView`:reorderable to false.
      */
-    public open fun unsetModelDragSource(): Unit =
-        gtk_icon_view_unset_model_drag_source(gtkIconViewPointer.reinterpret())
+    public open fun unsetModelDragSource(): Unit = gtk_icon_view_unset_model_drag_source(gtkIconViewPointer.reinterpret())
 
     /**
      * A [keybinding signal][class@Gtk.SignalAction]
@@ -845,15 +779,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectActivateCursorItem(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "activate-cursor-item",
-            connectActivateCursorItemFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectActivateCursorItem(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "activate-cursor-item", connectActivateCursorItemFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * The ::item-activated signal is emitted when the method
@@ -867,17 +793,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `path` the `GtkTreePath` for the activated item
      */
-    public fun connectItemActivated(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (path: TreePath) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "item-activated",
-        connectItemActivatedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectItemActivated(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (path: TreePath) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "item-activated", connectItemActivatedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * The ::move-cursor signal is a
@@ -898,22 +814,12 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `step` the granularity of the move, as a `GtkMovementStep`; `count` the number of @step units to move; `extend` whether to extend the selection; `modify` whether to modify the selection
      */
-    public fun connectMoveCursor(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            step: MovementStep,
-            count: Int,
-            extend: Boolean,
-            modify: Boolean,
-        ) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "move-cursor",
-        connectMoveCursorFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectMoveCursor(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
+        step: MovementStep,
+        count: Int,
+        extend: Boolean,
+        modify: Boolean,
+    ) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "move-cursor", connectMoveCursorFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * A [keybinding signal][class@Gtk.SignalAction]
@@ -928,15 +834,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectSelectAll(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "select-all",
-            connectSelectAllFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectSelectAll(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "select-all", connectSelectAllFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * A [keybinding signal][class@Gtk.SignalAction]
@@ -952,15 +850,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectSelectCursorItem(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "select-cursor-item",
-            connectSelectCursorItemFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectSelectCursorItem(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "select-cursor-item", connectSelectCursorItemFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * The ::selection-changed signal is emitted when the selection
@@ -969,15 +859,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectSelectionChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "selection-changed",
-            connectSelectionChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectSelectionChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "selection-changed", connectSelectionChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * A [keybinding signal][class@Gtk.SignalAction]
@@ -994,15 +876,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectToggleCursorItem(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "toggle-cursor-item",
-            connectToggleCursorItemFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectToggleCursorItem(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "toggle-cursor-item", connectToggleCursorItemFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * A [keybinding signal][class@Gtk.SignalAction]
@@ -1017,119 +891,89 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectUnselectAll(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "unselect-all",
-            connectUnselectAllFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectUnselectAll(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "unselect-all", connectUnselectAllFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<IconView> {
         override val type: GeneratedClassKGType<IconView> =
-            GeneratedClassKGType(gtk_icon_view_get_type()) { IconView(it.reinterpret()) }
+                GeneratedClassKGType(gtk_icon_view_get_type()) { IconView(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }
 
 private val connectActivateCursorItemFunc: CPointer<CFunction<() -> Int>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()}
+.reinterpret()
 
 private val connectItemActivatedFunc: CPointer<CFunction<(CPointer<GtkTreePath>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            path: CPointer<GtkTreePath>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(path: TreePath) -> Unit>().get().invoke(
-            path!!.run {
-                TreePath(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
-
-private val connectMoveCursorFunc: CPointer<
-    CFunction<
-        (
-            GtkMovementStep,
-            Int,
-            Int,
-            Int,
-        ) -> Int
-        >
-    > = staticCFunction {
-        _: COpaquePointer,
-        step: GtkMovementStep,
-        count: Int,
-        extend: Int,
-        modify: Int,
-        userData: COpaquePointer,
+        staticCFunction {
+    _: COpaquePointer,
+    path: CPointer<GtkTreePath>?,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<
-        (
-            step: MovementStep,
-            count: Int,
-            extend: Boolean,
-            modify: Boolean,
-        ) -> Boolean
-        >().get().invoke(
-        step.run {
-            MovementStep.fromNativeValue(this)
-        },
-        count,
-        extend.asBoolean(),
-        modify.asBoolean()
-    ).asGBoolean()
-}
-    .reinterpret()
+    userData.asStableRef<(path: TreePath) -> Unit>().get().invoke(path!!.run {
+        TreePath(reinterpret())}
+    )}
+.reinterpret()
+
+private val connectMoveCursorFunc: CPointer<CFunction<(
+    GtkMovementStep,
+    Int,
+    Int,
+    Int,
+) -> Int>> = staticCFunction {
+    _: COpaquePointer,
+    step: GtkMovementStep,
+    count: Int,
+    extend: Int,
+    modify: Int,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(
+        step: MovementStep,
+        count: Int,
+        extend: Boolean,
+        modify: Boolean,
+    ) -> Boolean>().get().invoke(step.run {
+        MovementStep.fromNativeValue(this)}
+    , count, extend.asBoolean(), modify.asBoolean()).asGBoolean()}
+.reinterpret()
 
 private val connectSelectAllFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectSelectCursorItemFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectSelectionChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectToggleCursorItemFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectUnselectAllFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

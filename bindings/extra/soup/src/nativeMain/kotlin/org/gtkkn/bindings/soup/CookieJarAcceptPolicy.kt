@@ -7,17 +7,17 @@ import org.gtkkn.native.soup.SoupCookieJarAcceptPolicy
  * The policy for accepting or rejecting cookies returned in
  * responses.
  */
-public enum class CookieJarAcceptPolicy(public val nativeValue: SoupCookieJarAcceptPolicy) {
+public enum class CookieJarAcceptPolicy(
+    public val nativeValue: SoupCookieJarAcceptPolicy,
+) {
     /**
      * accept all cookies unconditionally.
      */
     ALWAYS(SoupCookieJarAcceptPolicy.SOUP_COOKIE_JAR_ACCEPT_ALWAYS),
-
     /**
      * reject all cookies unconditionally.
      */
     NEVER(SoupCookieJarAcceptPolicy.SOUP_COOKIE_JAR_ACCEPT_NEVER),
-
     /**
      * accept all cookies set by the main
      *   document loaded in the application using libsoup. An example of the most
@@ -32,7 +32,6 @@ public enum class CookieJarAcceptPolicy(public val nativeValue: SoupCookieJarAcc
      *   party by default.
      */
     NO_THIRD_PARTY(SoupCookieJarAcceptPolicy.SOUP_COOKIE_JAR_ACCEPT_NO_THIRD_PARTY),
-
     /**
      * accept all cookies set by
      *   the main document loaded in the application using libsoup, and from domains

@@ -9,7 +9,9 @@ import org.gtkkn.native.gio.G_MOUNT_UNMOUNT_NONE
 /**
  * Flags used when an unmounting a mount.
  */
-public class MountUnmountFlags(public val mask: GMountUnmountFlags) : Bitfield<MountUnmountFlags> {
+public class MountUnmountFlags(
+    public val mask: GMountUnmountFlags,
+) : Bitfield<MountUnmountFlags> {
     override infix fun or(other: MountUnmountFlags): MountUnmountFlags = MountUnmountFlags(mask or other.mask)
 
     public companion object {

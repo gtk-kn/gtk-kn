@@ -1,6 +1,12 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Float
+import kotlin.Int
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -71,12 +77,6 @@ import org.gtkkn.native.gtk.gtk_tree_view_column_set_spacing
 import org.gtkkn.native.gtk.gtk_tree_view_column_set_title
 import org.gtkkn.native.gtk.gtk_tree_view_column_set_visible
 import org.gtkkn.native.gtk.gtk_tree_view_column_set_widget
-import kotlin.Boolean
-import kotlin.Float
-import kotlin.Int
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A visible column in a [class@Gtk.TreeView] widget
@@ -96,8 +96,9 @@ import kotlin.Unit
  * - parameter `x_offset`: x_offset: Out parameter is not supported
  * - method `cell-area`: Property has no getter nor setter
  */
-public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
-    InitiallyUnowned(pointer.reinterpret()),
+public open class TreeViewColumn(
+    pointer: CPointer<GtkTreeViewColumn>,
+) : InitiallyUnowned(pointer.reinterpret()),
     Buildable,
     CellLayout,
     KGTyped {
@@ -118,7 +119,6 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
          * @return The current alignent of @tree_column.
          */
         get() = gtk_tree_view_column_get_alignment(gtkTreeViewColumnPointer.reinterpret())
-
         /**
          * Sets the alignment of the title or custom widget inside the column header.
          * The alignment determines its location inside the button -- 0.0 for left, 0.5
@@ -135,16 +135,13 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
          * @return true if user can click the column header.
          */
         get() = gtk_tree_view_column_get_clickable(gtkTreeViewColumnPointer.reinterpret()).asBoolean()
-
         /**
          * Sets the header to be active if @clickable is true.  When the header is
          * active, then it can take keyboard focus, and can be clicked.
          *
          * @param clickable true if the header is active.
          */
-        set(
-            clickable
-        ) = gtk_tree_view_column_set_clickable(gtkTreeViewColumnPointer.reinterpret(), clickable.asGBoolean())
+        set(clickable) = gtk_tree_view_column_set_clickable(gtkTreeViewColumnPointer.reinterpret(), clickable.asGBoolean())
 
     public open var expand: Boolean
         /**
@@ -153,7 +150,6 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
          * @return true if the column expands to fill available space.
          */
         get() = gtk_tree_view_column_get_expand(gtkTreeViewColumnPointer.reinterpret()).asBoolean()
-
         /**
          * Sets the column to take available extra space.  This space is shared equally
          * amongst all columns that have the expand set to true.  If no column has this
@@ -175,7 +171,6 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
          * @return The fixed width of the column.
          */
         get() = gtk_tree_view_column_get_fixed_width(gtkTreeViewColumnPointer.reinterpret())
-
         /**
          * If @fixed_width is not -1, sets the fixed width of @tree_column; otherwise
          * unsets it.  The effective value of @fixed_width is clamped between the
@@ -201,7 +196,6 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
          * @return The maximum width of the @tree_column.
          */
         get() = gtk_tree_view_column_get_max_width(gtkTreeViewColumnPointer.reinterpret())
-
         /**
          * Sets the maximum width of the @tree_column.  If @max_width is -1, then the
          * maximum width is unset.  Note, the column can actually be wider than max
@@ -220,7 +214,6 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
          * @return The minimum width of the @tree_column.
          */
         get() = gtk_tree_view_column_get_min_width(gtkTreeViewColumnPointer.reinterpret())
-
         /**
          * Sets the minimum width of the @tree_column.  If @min_width is -1, then the
          * minimum width is unset.
@@ -236,16 +229,13 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
          * @return true if the @tree_column can be reordered by the user.
          */
         get() = gtk_tree_view_column_get_reorderable(gtkTreeViewColumnPointer.reinterpret()).asBoolean()
-
         /**
          * If @reorderable is true, then the column can be reordered by the end user
          * dragging the header.
          *
          * @param reorderable true, if the column can be reordered.
          */
-        set(
-            reorderable
-        ) = gtk_tree_view_column_set_reorderable(gtkTreeViewColumnPointer.reinterpret(), reorderable.asGBoolean())
+        set(reorderable) = gtk_tree_view_column_set_reorderable(gtkTreeViewColumnPointer.reinterpret(), reorderable.asGBoolean())
 
     public open var resizable: Boolean
         /**
@@ -254,7 +244,6 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
          * @return true, if the @tree_column can be resized.
          */
         get() = gtk_tree_view_column_get_resizable(gtkTreeViewColumnPointer.reinterpret()).asBoolean()
-
         /**
          * If @resizable is true, then the user can explicitly resize the column by
          * grabbing the outer edge of the column button.
@@ -265,9 +254,7 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
          *
          * @param resizable true, if the column can be resized
          */
-        set(
-            resizable
-        ) = gtk_tree_view_column_set_resizable(gtkTreeViewColumnPointer.reinterpret(), resizable.asGBoolean())
+        set(resizable) = gtk_tree_view_column_set_resizable(gtkTreeViewColumnPointer.reinterpret(), resizable.asGBoolean())
 
     public open var sizing: TreeViewColumnSizing
         /**
@@ -276,9 +263,7 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
          * @return The type of @tree_column.
          */
         get() = gtk_tree_view_column_get_sizing(gtkTreeViewColumnPointer.reinterpret()).run {
-            TreeViewColumnSizing.fromNativeValue(this)
-        }
-
+            TreeViewColumnSizing.fromNativeValue(this)}
         /**
          * Sets the growth behavior of @tree_column to @type.
          *
@@ -301,16 +286,13 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
          *   this column can’t be used for sorting
          */
         get() = gtk_tree_view_column_get_sort_column_id(gtkTreeViewColumnPointer.reinterpret())
-
         /**
          * Sets the logical @sort_column_id that this column sorts on when this column
          * is selected for sorting.  Doing so makes the column header clickable.
          *
          * @param sortColumnId The @sort_column_id of the model to sort on.
          */
-        set(
-            sortColumnId
-        ) = gtk_tree_view_column_set_sort_column_id(gtkTreeViewColumnPointer.reinterpret(), sortColumnId)
+        set(sortColumnId) = gtk_tree_view_column_set_sort_column_id(gtkTreeViewColumnPointer.reinterpret(), sortColumnId)
 
     public open var sortIndicator: Boolean
         /**
@@ -319,7 +301,6 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
          * @return whether the sort indicator arrow is displayed
          */
         get() = gtk_tree_view_column_get_sort_indicator(gtkTreeViewColumnPointer.reinterpret()).asBoolean()
-
         /**
          * Call this function with a @setting of true to display an arrow in
          * the header button indicating the column is sorted. Call
@@ -328,9 +309,7 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
          *
          * @param setting true to display an indicator that the column is sorted
          */
-        set(
-            setting
-        ) = gtk_tree_view_column_set_sort_indicator(gtkTreeViewColumnPointer.reinterpret(), setting.asGBoolean())
+        set(setting) = gtk_tree_view_column_set_sort_indicator(gtkTreeViewColumnPointer.reinterpret(), setting.asGBoolean())
 
     public open var sortOrder: SortType
         /**
@@ -339,9 +318,7 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
          * @return the sort order the sort indicator is indicating
          */
         get() = gtk_tree_view_column_get_sort_order(gtkTreeViewColumnPointer.reinterpret()).run {
-            SortType.fromNativeValue(this)
-        }
-
+            SortType.fromNativeValue(this)}
         /**
          * Changes the appearance of the sort indicator.
          *
@@ -366,7 +343,6 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
          * @return the spacing of @tree_column.
          */
         get() = gtk_tree_view_column_get_spacing(gtkTreeViewColumnPointer.reinterpret())
-
         /**
          * Sets the spacing field of @tree_column, which is the number of pixels to
          * place between cell renderers packed into it.
@@ -382,9 +358,7 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
          * @return the title of the column. This string should not be
          * modified or freed.
          */
-        get() = gtk_tree_view_column_get_title(gtkTreeViewColumnPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = gtk_tree_view_column_get_title(gtkTreeViewColumnPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the title of the @tree_column.  If a custom widget has been set, then
          * this value is ignored.
@@ -401,7 +375,6 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
          * the tree will show the column.
          */
         get() = gtk_tree_view_column_get_visible(gtkTreeViewColumnPointer.reinterpret()).asBoolean()
-
         /**
          * Sets the visibility of @tree_column.
          *
@@ -418,21 +391,14 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
          * @return The `GtkWidget` in the column header
          */
         get() = gtk_tree_view_column_get_widget(gtkTreeViewColumnPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the widget in the header to be @widget.  If widget is null, then the
          * header button is set with a `GtkLabel` set to the title of @tree_column.
          *
          * @param widget A child `GtkWidget`
          */
-        set(
-            widget
-        ) = gtk_tree_view_column_set_widget(
-            gtkTreeViewColumnPointer.reinterpret(),
-            widget?.gtkWidgetPointer?.reinterpret()
-        )
+        set(widget) = gtk_tree_view_column_set_widget(gtkTreeViewColumnPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
 
     public open val width: Int
         /**
@@ -463,9 +429,7 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
      * @param area the `GtkCellArea` that the newly created column should use to layout cells.
      * @return A newly created `GtkTreeViewColumn`.
      */
-    public constructor(
-        area: CellArea,
-    ) : this(gtk_tree_view_column_new_with_area(area.gtkCellAreaPointer.reinterpret())!!.reinterpret())
+    public constructor(area: CellArea) : this(gtk_tree_view_column_new_with_area(area.gtkCellAreaPointer.reinterpret())!!.reinterpret())
 
     /**
      * Adds an attribute mapping to the list in @tree_column.
@@ -481,13 +445,11 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
      * @param attribute An attribute on the renderer
      * @param column The column position on the model to get the attribute from.
      */
-    override fun addAttribute(cellRenderer: CellRenderer, attribute: String, column: Int): Unit =
-        gtk_tree_view_column_add_attribute(
-            gtkTreeViewColumnPointer.reinterpret(),
-            cellRenderer.gtkCellRendererPointer.reinterpret(),
-            attribute,
-            column
-        )
+    override fun addAttribute(
+        cellRenderer: CellRenderer,
+        attribute: String,
+        column: Int,
+    ): Unit = gtk_tree_view_column_add_attribute(gtkTreeViewColumnPointer.reinterpret(), cellRenderer.gtkCellRendererPointer.reinterpret(), attribute, column)
 
     /**
      * Returns true if any of the cells packed into the @tree_column are visible.
@@ -496,8 +458,7 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
      *
      * @return true, if any of the cells packed into the @tree_column are currently visible
      */
-    public open fun cellIsVisible(): Boolean =
-        gtk_tree_view_column_cell_is_visible(gtkTreeViewColumnPointer.reinterpret()).asBoolean()
+    public open fun cellIsVisible(): Boolean = gtk_tree_view_column_cell_is_visible(gtkTreeViewColumnPointer.reinterpret()).asBoolean()
 
     /**
      * Sets the cell renderer based on the @tree_model and @iter.  That is, for
@@ -515,13 +476,7 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
         iter: TreeIter,
         isExpander: Boolean,
         isExpanded: Boolean,
-    ): Unit = gtk_tree_view_column_cell_set_cell_data(
-        gtkTreeViewColumnPointer.reinterpret(),
-        treeModel.gtkTreeModelPointer,
-        iter.gtkTreeIterPointer.reinterpret(),
-        isExpander.asGBoolean(),
-        isExpanded.asGBoolean()
-    )
+    ): Unit = gtk_tree_view_column_cell_set_cell_data(gtkTreeViewColumnPointer.reinterpret(), treeModel.gtkTreeModelPointer, iter.gtkTreeIterPointer.reinterpret(), isExpander.asGBoolean(), isExpanded.asGBoolean())
 
     /**
      * Unsets all the mappings on all renderers on the @tree_column.
@@ -534,10 +489,7 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
      *
      * @param cellRenderer a `GtkCellRenderer` to clear the attribute mapping on.
      */
-    override fun clearAttributes(cellRenderer: CellRenderer): Unit = gtk_tree_view_column_clear_attributes(
-        gtkTreeViewColumnPointer.reinterpret(),
-        cellRenderer.gtkCellRendererPointer.reinterpret()
-    )
+    override fun clearAttributes(cellRenderer: CellRenderer): Unit = gtk_tree_view_column_clear_attributes(gtkTreeViewColumnPointer.reinterpret(), cellRenderer.gtkCellRendererPointer.reinterpret())
 
     /**
      * Emits the “clicked” signal on the column.  This function will only work if
@@ -551,20 +503,15 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
      *
      * @param cell A `GtkCellRenderer`
      */
-    public open fun focusCell(cell: CellRenderer): Unit = gtk_tree_view_column_focus_cell(
-        gtkTreeViewColumnPointer.reinterpret(),
-        cell.gtkCellRendererPointer.reinterpret()
-    )
+    public open fun focusCell(cell: CellRenderer): Unit = gtk_tree_view_column_focus_cell(gtkTreeViewColumnPointer.reinterpret(), cell.gtkCellRendererPointer.reinterpret())
 
     /**
      * Returns the button used in the treeview column header
      *
      * @return The button for the column header.
      */
-    public open fun getButton(): Widget =
-        gtk_tree_view_column_get_button(gtkTreeViewColumnPointer.reinterpret())!!.run {
-            Widget(reinterpret())
-        }
+    public open fun getButton(): Widget = gtk_tree_view_column_get_button(gtkTreeViewColumnPointer.reinterpret())!!.run {
+        Widget(reinterpret())}
 
     /**
      * Returns the `GtkTreeView` wherein @tree_column has been inserted.
@@ -574,10 +521,8 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
      * @return The tree view wherein @column
      *   has been inserted
      */
-    public open fun getTreeView(): Widget? =
-        gtk_tree_view_column_get_tree_view(gtkTreeViewColumnPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
+    public open fun getTreeView(): Widget? = gtk_tree_view_column_get_tree_view(gtkTreeViewColumnPointer.reinterpret())?.run {
+        Widget(reinterpret())}
 
     /**
      * Adds the @cell to end of the column. If @expand is false, then the @cell
@@ -587,11 +532,7 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
      * @param cell The `GtkCellRenderer`
      * @param expand true if @cell is to be given extra space allocated to @tree_column.
      */
-    override fun packEnd(cell: CellRenderer, expand: Boolean): Unit = gtk_tree_view_column_pack_end(
-        gtkTreeViewColumnPointer.reinterpret(),
-        cell.gtkCellRendererPointer.reinterpret(),
-        expand.asGBoolean()
-    )
+    override fun packEnd(cell: CellRenderer, expand: Boolean): Unit = gtk_tree_view_column_pack_end(gtkTreeViewColumnPointer.reinterpret(), cell.gtkCellRendererPointer.reinterpret(), expand.asGBoolean())
 
     /**
      * Packs the @cell into the beginning of the column. If @expand is false, then
@@ -601,11 +542,7 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
      * @param cell The `GtkCellRenderer`
      * @param expand true if @cell is to be given extra space allocated to @tree_column.
      */
-    override fun packStart(cell: CellRenderer, expand: Boolean): Unit = gtk_tree_view_column_pack_start(
-        gtkTreeViewColumnPointer.reinterpret(),
-        cell.gtkCellRendererPointer.reinterpret(),
-        expand.asGBoolean()
-    )
+    override fun packStart(cell: CellRenderer, expand: Boolean): Unit = gtk_tree_view_column_pack_start(gtkTreeViewColumnPointer.reinterpret(), cell.gtkCellRendererPointer.reinterpret(), expand.asGBoolean())
 
     /**
      * Flags the column, and the cell renderers added to this column, to have
@@ -625,14 +562,7 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
      * @param cellRenderer A `GtkCellRenderer`
      * @param func The `GtkTreeCellDataFunc` to use.
      */
-    public open fun setCellDataFunc(cellRenderer: CellRenderer, func: TreeCellDataFunc): Unit =
-        gtk_tree_view_column_set_cell_data_func(
-            gtkTreeViewColumnPointer.reinterpret(),
-            cellRenderer.gtkCellRendererPointer.reinterpret(),
-            TreeCellDataFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public open fun setCellDataFunc(cellRenderer: CellRenderer, func: TreeCellDataFunc): Unit = gtk_tree_view_column_set_cell_data_func(gtkTreeViewColumnPointer.reinterpret(), cellRenderer.gtkCellRendererPointer.reinterpret(), TreeCellDataFuncFunc.reinterpret(), StableRef.create(func).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Emitted when the column's header has been clicked.
@@ -640,30 +570,20 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "clicked",
-            connectClickedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "clicked", connectClickedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<TreeViewColumn> {
         override val type: GeneratedClassKGType<TreeViewColumn> =
-            GeneratedClassKGType(gtk_tree_view_column_get_type()) { TreeViewColumn(it.reinterpret()) }
+                GeneratedClassKGType(gtk_tree_view_column_get_type()) { TreeViewColumn(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }
 
 private val connectClickedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

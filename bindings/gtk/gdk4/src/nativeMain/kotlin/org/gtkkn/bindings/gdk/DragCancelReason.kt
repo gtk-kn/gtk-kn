@@ -6,17 +6,17 @@ import org.gtkkn.native.gdk.GdkDragCancelReason
 /**
  * Used in `GdkDrag` to the reason of a cancelled DND operation.
  */
-public enum class DragCancelReason(public val nativeValue: GdkDragCancelReason) {
+public enum class DragCancelReason(
+    public val nativeValue: GdkDragCancelReason,
+) {
     /**
      * There is no suitable drop target.
      */
     NO_TARGET(GdkDragCancelReason.GDK_DRAG_CANCEL_NO_TARGET),
-
     /**
      * Drag cancelled by the user
      */
     USER_CANCELLED(GdkDragCancelReason.GDK_DRAG_CANCEL_USER_CANCELLED),
-
     /**
      * Unspecified error.
      */

@@ -7,6 +7,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GTypeInstance
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * An opaque structure used as the base of all type instances.
@@ -16,11 +17,12 @@ import org.gtkkn.native.gobject.GTypeInstance
  * - method `get_private`: Return type gpointer is unsupported
  * - field `g_class`: Record field g_class is private
  */
-public class TypeInstance(pointer: CPointer<GTypeInstance>) : Record {
+public class TypeInstance(
+    pointer: CPointer<GTypeInstance>,
+) : Record {
     public val gobjectTypeInstancePointer: CPointer<GTypeInstance> = pointer
 
     public companion object : RecordCompanion<TypeInstance, GTypeInstance> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TypeInstance =
-            TypeInstance(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TypeInstance = TypeInstance(pointer.reinterpret())
     }
 }

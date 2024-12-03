@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdkpixbuf
 
+import kotlin.Boolean
+import kotlin.Float
+import kotlin.Int
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_18
@@ -16,16 +20,13 @@ import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_simple_anim_get_loop
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_simple_anim_get_type
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_simple_anim_new
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_simple_anim_set_loop
-import kotlin.Boolean
-import kotlin.Float
-import kotlin.Int
-import kotlin.Unit
 
 /**
  * An opaque struct representing a simple animation.
  */
-public open class PixbufSimpleAnim(pointer: CPointer<GdkPixbufSimpleAnim>) :
-    PixbufAnimation(pointer.reinterpret()),
+public open class PixbufSimpleAnim(
+    pointer: CPointer<GdkPixbufSimpleAnim>,
+) : PixbufAnimation(pointer.reinterpret()),
     KGTyped {
     public val gdkpixbufPixbufSimpleAnimPointer: CPointer<GdkPixbufSimpleAnim>
         get() = gPointer.reinterpret()
@@ -44,7 +45,6 @@ public open class PixbufSimpleAnim(pointer: CPointer<GdkPixbufSimpleAnim>) :
          * @since 2.18
          */
         get() = gdk_pixbuf_simple_anim_get_loop(gdkpixbufPixbufSimpleAnimPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether @animation should loop indefinitely when it reaches the end.
          *
@@ -78,17 +78,13 @@ public open class PixbufSimpleAnim(pointer: CPointer<GdkPixbufSimpleAnim>) :
      * @since 2.8
      */
     @GdkPixbufVersion2_8
-    public open fun addFrame(pixbuf: Pixbuf): Unit = gdk_pixbuf_simple_anim_add_frame(
-        gdkpixbufPixbufSimpleAnimPointer.reinterpret(),
-        pixbuf.gdkpixbufPixbufPointer.reinterpret()
-    )
+    public open fun addFrame(pixbuf: Pixbuf): Unit = gdk_pixbuf_simple_anim_add_frame(gdkpixbufPixbufSimpleAnimPointer.reinterpret(), pixbuf.gdkpixbufPixbufPointer.reinterpret())
 
     public companion object : TypeCompanion<PixbufSimpleAnim> {
         override val type: GeneratedClassKGType<PixbufSimpleAnim> =
-            GeneratedClassKGType(gdk_pixbuf_simple_anim_get_type()) { PixbufSimpleAnim(it.reinterpret()) }
+                GeneratedClassKGType(gdk_pixbuf_simple_anim_get_type()) { PixbufSimpleAnim(it.reinterpret()) }
 
         init {
-            GdkpixbufTypeProvider.register()
-        }
+            GdkpixbufTypeProvider.register()}
     }
 }

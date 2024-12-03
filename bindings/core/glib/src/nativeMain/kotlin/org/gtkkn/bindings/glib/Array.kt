@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.String
+import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,13 +11,14 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GArray
-import kotlin.String
-import kotlin.UInt
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Contains the public fields of a GArray.
  */
-public class Array(pointer: CPointer<GArray>) : Record {
+public class Array(
+    pointer: CPointer<GArray>,
+) : Record {
     public val glibArrayPointer: CPointer<GArray> = pointer
 
     /**

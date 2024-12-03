@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.UShort
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -8,7 +9,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GTypeInfo
-import kotlin.UShort
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * This structure is used to provide the type system with the information
@@ -30,7 +31,9 @@ import kotlin.UShort
  * - field `class_data`: gpointer
  * - field `instance_init`: InstanceInitFunc
  */
-public class TypeInfo(pointer: CPointer<GTypeInfo>) : Record {
+public class TypeInfo(
+    pointer: CPointer<GTypeInfo>,
+) : Record {
     public val gobjectTypeInfoPointer: CPointer<GTypeInfo> = pointer
 
     /**
@@ -68,8 +71,7 @@ public class TypeInfo(pointer: CPointer<GTypeInfo>) : Record {
      */
     public val valueTable: TypeValueTable?
         get() = gobjectTypeInfoPointer.pointed.value_table?.run {
-            TypeValueTable(reinterpret())
-        }
+            TypeValueTable(reinterpret())}
 
     public companion object : RecordCompanion<TypeInfo, GTypeInfo> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TypeInfo = TypeInfo(pointer.reinterpret())

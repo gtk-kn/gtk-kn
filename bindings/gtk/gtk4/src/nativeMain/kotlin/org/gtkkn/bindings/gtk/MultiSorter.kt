@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
@@ -14,8 +16,6 @@ import org.gtkkn.native.gtk.gtk_multi_sorter_append
 import org.gtkkn.native.gtk.gtk_multi_sorter_get_type
 import org.gtkkn.native.gtk.gtk_multi_sorter_new
 import org.gtkkn.native.gtk.gtk_multi_sorter_remove
-import kotlin.UInt
-import kotlin.Unit
 
 /**
  * `GtkMultiSorter` combines multiple sorters by trying them
@@ -29,8 +29,9 @@ import kotlin.Unit
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class MultiSorter(pointer: CPointer<GtkMultiSorter>) :
-    Sorter(pointer.reinterpret()),
+public open class MultiSorter(
+    pointer: CPointer<GtkMultiSorter>,
+) : Sorter(pointer.reinterpret()),
     ListModel,
     Buildable,
     KGTyped {
@@ -63,8 +64,7 @@ public open class MultiSorter(pointer: CPointer<GtkMultiSorter>) :
      *
      * @param sorter a sorter to add
      */
-    public open fun append(sorter: Sorter): Unit =
-        gtk_multi_sorter_append(gtkMultiSorterPointer.reinterpret(), sorter.gtkSorterPointer.reinterpret())
+    public open fun append(sorter: Sorter): Unit = gtk_multi_sorter_append(gtkMultiSorterPointer.reinterpret(), sorter.gtkSorterPointer.reinterpret())
 
     /**
      * Removes the sorter at the given @position from the list of sorter
@@ -74,15 +74,13 @@ public open class MultiSorter(pointer: CPointer<GtkMultiSorter>) :
      *
      * @param position position of sorter to remove
      */
-    public open fun remove(position: UInt): Unit =
-        gtk_multi_sorter_remove(gtkMultiSorterPointer.reinterpret(), position)
+    public open fun remove(position: UInt): Unit = gtk_multi_sorter_remove(gtkMultiSorterPointer.reinterpret(), position)
 
     public companion object : TypeCompanion<MultiSorter> {
         override val type: GeneratedClassKGType<MultiSorter> =
-            GeneratedClassKGType(gtk_multi_sorter_get_type()) { MultiSorter(it.reinterpret()) }
+                GeneratedClassKGType(gtk_multi_sorter_get_type()) { MultiSorter(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

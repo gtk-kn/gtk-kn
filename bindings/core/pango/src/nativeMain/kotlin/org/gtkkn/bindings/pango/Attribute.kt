@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Boolean
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -24,9 +27,7 @@ import org.gtkkn.native.pango.pango_attribute_copy
 import org.gtkkn.native.pango.pango_attribute_destroy
 import org.gtkkn.native.pango.pango_attribute_equal
 import org.gtkkn.native.pango.pango_attribute_init
-import kotlin.Boolean
-import kotlin.UInt
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `PangoAttribute` structure represents the common portions of all
@@ -38,7 +39,9 @@ import kotlin.Unit
  * be initialized using [method@Pango.Attribute.init]. By default, an attribute
  * will have an all-inclusive range of [0,%G_MAXUINT].
  */
-public class Attribute(pointer: CPointer<PangoAttribute>) : Record {
+public class Attribute(
+    pointer: CPointer<PangoAttribute>,
+) : Record {
     public val pangoAttributePointer: CPointer<PangoAttribute> = pointer
 
     /**
@@ -48,8 +51,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>) : Record {
      */
     public val klass: AttrClass?
         get() = pangoAttributePointer.pointed.klass?.run {
-            AttrClass(reinterpret())
-        }
+            AttrClass(reinterpret())}
 
     /**
      * the start index of the range (in bytes).
@@ -81,8 +83,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>) : Record {
      */
     @PangoVersion1_50
     public fun asColor(): AttrColor? = pango_attribute_as_color(pangoAttributePointer.reinterpret())?.run {
-        AttrColor(reinterpret())
-    }
+        AttrColor(reinterpret())}
 
     /**
      * Returns the attribute cast to `PangoAttrFloat`.
@@ -95,8 +96,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>) : Record {
      */
     @PangoVersion1_50
     public fun asFloat(): AttrFloat? = pango_attribute_as_float(pangoAttributePointer.reinterpret())?.run {
-        AttrFloat(reinterpret())
-    }
+        AttrFloat(reinterpret())}
 
     /**
      * Returns the attribute cast to `PangoAttrFontDesc`.
@@ -109,8 +109,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>) : Record {
      */
     @PangoVersion1_50
     public fun asFontDesc(): AttrFontDesc? = pango_attribute_as_font_desc(pangoAttributePointer.reinterpret())?.run {
-        AttrFontDesc(reinterpret())
-    }
+        AttrFontDesc(reinterpret())}
 
     /**
      * Returns the attribute cast to `PangoAttrFontFeatures`.
@@ -122,10 +121,8 @@ public class Attribute(pointer: CPointer<PangoAttribute>) : Record {
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun asFontFeatures(): AttrFontFeatures? =
-        pango_attribute_as_font_features(pangoAttributePointer.reinterpret())?.run {
-            AttrFontFeatures(reinterpret())
-        }
+    public fun asFontFeatures(): AttrFontFeatures? = pango_attribute_as_font_features(pangoAttributePointer.reinterpret())?.run {
+        AttrFontFeatures(reinterpret())}
 
     /**
      * Returns the attribute cast to `PangoAttrInt`.
@@ -138,8 +135,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>) : Record {
      */
     @PangoVersion1_50
     public fun asInt(): AttrInt? = pango_attribute_as_int(pangoAttributePointer.reinterpret())?.run {
-        AttrInt(reinterpret())
-    }
+        AttrInt(reinterpret())}
 
     /**
      * Returns the attribute cast to `PangoAttrLanguage`.
@@ -152,8 +148,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>) : Record {
      */
     @PangoVersion1_50
     public fun asLanguage(): AttrLanguage? = pango_attribute_as_language(pangoAttributePointer.reinterpret())?.run {
-        AttrLanguage(reinterpret())
-    }
+        AttrLanguage(reinterpret())}
 
     /**
      * Returns the attribute cast to `PangoAttrShape`.
@@ -166,8 +161,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>) : Record {
      */
     @PangoVersion1_50
     public fun asShape(): AttrShape? = pango_attribute_as_shape(pangoAttributePointer.reinterpret())?.run {
-        AttrShape(reinterpret())
-    }
+        AttrShape(reinterpret())}
 
     /**
      * Returns the attribute cast to `PangoAttrSize`.
@@ -180,8 +174,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>) : Record {
      */
     @PangoVersion1_50
     public fun asSize(): AttrSize? = pango_attribute_as_size(pangoAttributePointer.reinterpret())?.run {
-        AttrSize(reinterpret())
-    }
+        AttrSize(reinterpret())}
 
     /**
      * Returns the attribute cast to `PangoAttrString`.
@@ -194,8 +187,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>) : Record {
      */
     @PangoVersion1_50
     public fun asString(): AttrString? = pango_attribute_as_string(pangoAttributePointer.reinterpret())?.run {
-        AttrString(reinterpret())
-    }
+        AttrString(reinterpret())}
 
     /**
      * Make a copy of an attribute.
@@ -205,8 +197,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>) : Record {
      *   [method@Pango.Attribute.destroy].
      */
     public fun copy(): Attribute = pango_attribute_copy(pangoAttributePointer.reinterpret())!!.run {
-        Attribute(reinterpret())
-    }
+        Attribute(reinterpret())}
 
     /**
      * Destroy a `PangoAttribute` and free all associated memory.
@@ -223,10 +214,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>) : Record {
      * @param attr2 another `PangoAttribute`
      * @return true if the two attributes have the same value
      */
-    public fun equal(attr2: Attribute): Boolean = pango_attribute_equal(
-        pangoAttributePointer.reinterpret(),
-        attr2.pangoAttributePointer.reinterpret()
-    ).asBoolean()
+    public fun equal(attr2: Attribute): Boolean = pango_attribute_equal(pangoAttributePointer.reinterpret(), attr2.pangoAttributePointer.reinterpret()).asBoolean()
 
     /**
      * Initializes @attr's klass to @klass, it's start_index to
@@ -238,8 +226,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>) : Record {
      * @since 1.20
      */
     @PangoVersion1_20
-    public fun `init`(klass: AttrClass): Unit =
-        pango_attribute_init(pangoAttributePointer.reinterpret(), klass.pangoAttrClassPointer.reinterpret())
+    public fun `init`(klass: AttrClass): Unit = pango_attribute_init(pangoAttributePointer.reinterpret(), klass.pangoAttrClassPointer.reinterpret())
 
     public companion object : RecordCompanion<Attribute, PangoAttribute> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Attribute = Attribute(pointer.reinterpret())

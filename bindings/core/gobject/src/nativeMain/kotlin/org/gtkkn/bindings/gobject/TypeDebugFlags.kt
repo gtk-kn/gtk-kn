@@ -16,7 +16,9 @@ import org.gtkkn.native.gobject.G_TYPE_DEBUG_SIGNALS
  * If you need to enable debugging features, use the `GOBJECT_DEBUG`
  * environment variable.
  */
-public class TypeDebugFlags(public val mask: GTypeDebugFlags) : Bitfield<TypeDebugFlags> {
+public class TypeDebugFlags(
+    public val mask: GTypeDebugFlags,
+) : Bitfield<TypeDebugFlags> {
     override infix fun or(other: TypeDebugFlags): TypeDebugFlags = TypeDebugFlags(mask or other.mask)
 
     public companion object {

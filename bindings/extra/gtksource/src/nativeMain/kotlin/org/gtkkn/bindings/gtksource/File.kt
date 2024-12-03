@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtksource
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -21,8 +23,6 @@ import org.gtkkn.native.gtksource.gtk_source_file_is_local
 import org.gtkkn.native.gtksource.gtk_source_file_is_readonly
 import org.gtkkn.native.gtksource.gtk_source_file_new
 import org.gtkkn.native.gtksource.gtk_source_file_set_location
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * On-disk representation of a [class@Buffer].
@@ -40,8 +40,9 @@ import kotlin.Unit
  * - method `location`: Property TypeInfo of getter and setter do not match
  * - method `read-only`: Property has no getter nor setter
  */
-public open class File(pointer: CPointer<GtkSourceFile>) :
-    Object(pointer.reinterpret()),
+public open class File(
+    pointer: CPointer<GtkSourceFile>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtksourceFilePointer: CPointer<GtkSourceFile>
         get() = gPointer.reinterpret()
@@ -56,8 +57,7 @@ public open class File(pointer: CPointer<GtkSourceFile>) :
          * @return the compression type.
          */
         get() = gtk_source_file_get_compression_type(gtksourceFilePointer.reinterpret()).run {
-            CompressionType.fromNativeValue(this)
-        }
+            CompressionType.fromNativeValue(this)}
 
     /**
      * The character encoding, initially null. After a successful file
@@ -71,8 +71,7 @@ public open class File(pointer: CPointer<GtkSourceFile>) :
          * @return the character encoding.
          */
         get() = gtk_source_file_get_encoding(gtksourceFilePointer.reinterpret())!!.run {
-            Encoding(reinterpret())
-        }
+            Encoding(reinterpret())}
 
     /**
      * The line ending type.
@@ -84,8 +83,7 @@ public open class File(pointer: CPointer<GtkSourceFile>) :
          * @return the newline type.
          */
         get() = gtk_source_file_get_newline_type(gtksourceFilePointer.reinterpret()).run {
-            NewlineType.fromNativeValue(this)
-        }
+            NewlineType.fromNativeValue(this)}
 
     /**
      *
@@ -112,10 +110,8 @@ public open class File(pointer: CPointer<GtkSourceFile>) :
      *
      * @return the #GFile.
      */
-    public open fun getLocation(): org.gtkkn.bindings.gio.File =
-        gtk_source_file_get_location(gtksourceFilePointer.reinterpret())!!.run {
-            org.gtkkn.bindings.gio.File.wrap(reinterpret())
-        }
+    public open fun getLocation(): org.gtkkn.bindings.gio.File = gtk_source_file_get_location(gtksourceFilePointer.reinterpret())!!.run {
+        org.gtkkn.bindings.gio.File.wrap(reinterpret())}
 
     /**
      * Returns whether the file has been deleted. If the
@@ -137,8 +133,7 @@ public open class File(pointer: CPointer<GtkSourceFile>) :
      *
      * @return whether the file is externally modified.
      */
-    public open fun isExternallyModified(): Boolean =
-        gtk_source_file_is_externally_modified(gtksourceFilePointer.reinterpret()).asBoolean()
+    public open fun isExternallyModified(): Boolean = gtk_source_file_is_externally_modified(gtksourceFilePointer.reinterpret()).asBoolean()
 
     /**
      * Returns whether the file is local. If the [property@File:location] is null,
@@ -164,15 +159,13 @@ public open class File(pointer: CPointer<GtkSourceFile>) :
      *
      * @param location the new #GFile, or null.
      */
-    public open fun setLocation(location: org.gtkkn.bindings.gio.File? = null): Unit =
-        gtk_source_file_set_location(gtksourceFilePointer.reinterpret(), location?.gioFilePointer)
+    public open fun setLocation(location: org.gtkkn.bindings.gio.File? = null): Unit = gtk_source_file_set_location(gtksourceFilePointer.reinterpret(), location?.gioFilePointer)
 
     public companion object : TypeCompanion<File> {
         override val type: GeneratedClassKGType<File> =
-            GeneratedClassKGType(gtk_source_file_get_type()) { File(it.reinterpret()) }
+                GeneratedClassKGType(gtk_source_file_get_type()) { File(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtksourceTypeProvider.register()}
     }
 }

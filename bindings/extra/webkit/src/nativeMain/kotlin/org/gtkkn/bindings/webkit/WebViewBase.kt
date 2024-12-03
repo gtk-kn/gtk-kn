@@ -13,8 +13,9 @@ import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.webkit.WebKitWebViewBase
 import org.gtkkn.native.webkit.webkit_web_view_base_get_type
 
-public open class WebViewBase(pointer: CPointer<WebKitWebViewBase>) :
-    Widget(pointer.reinterpret()),
+public open class WebViewBase(
+    pointer: CPointer<WebKitWebViewBase>,
+) : Widget(pointer.reinterpret()),
     KGTyped {
     public val webkitWebViewBasePointer: CPointer<WebKitWebViewBase>
         get() = gPointer.reinterpret()
@@ -30,10 +31,9 @@ public open class WebViewBase(pointer: CPointer<WebKitWebViewBase>) :
 
     public companion object : TypeCompanion<WebViewBase> {
         override val type: GeneratedClassKGType<WebViewBase> =
-            GeneratedClassKGType(webkit_web_view_base_get_type()) { WebViewBase(it.reinterpret()) }
+                GeneratedClassKGType(webkit_web_view_base_get_type()) { WebViewBase(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebkitTypeProvider.register()}
     }
 }

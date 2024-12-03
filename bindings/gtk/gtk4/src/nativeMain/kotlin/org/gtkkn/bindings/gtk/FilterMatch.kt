@@ -10,19 +10,19 @@ import org.gtkkn.native.gtk.GtkFilterMatch
  * %GTK_FILTER_MATCH_SOME is always an acceptable value,
  * even if a filter does match all or no items.
  */
-public enum class FilterMatch(public val nativeValue: GtkFilterMatch) {
+public enum class FilterMatch(
+    public val nativeValue: GtkFilterMatch,
+) {
     /**
      * The filter matches some items,
      *   gtk_filter_match() may return true or false
      */
     SOME(GtkFilterMatch.GTK_FILTER_MATCH_SOME),
-
     /**
      * The filter does not match any item,
      *   gtk_filter_match() will always return false.
      */
     NONE(GtkFilterMatch.GTK_FILTER_MATCH_NONE),
-
     /**
      * The filter matches all items,
      *   gtk_filter_match() will alays return true.

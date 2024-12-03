@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Uri
@@ -13,7 +14,6 @@ import org.gtkkn.native.soup.SoupSessionFeature
 import org.gtkkn.native.soup.soup_auth_manager_clear_cached_credentials
 import org.gtkkn.native.soup.soup_auth_manager_get_type
 import org.gtkkn.native.soup.soup_auth_manager_use_auth
-import kotlin.Unit
 
 /**
  * HTTP client-side authentication handler.
@@ -34,8 +34,9 @@ import kotlin.Unit
  * always existed in the background, and you can use `g_type_from_name
  * ("SoupAuthManager")` to get its [alias@GLib.Type] in earlier releases.)
  */
-public class AuthManager(pointer: CPointer<SoupAuthManager>) :
-    Object(pointer.reinterpret()),
+public class AuthManager(
+    pointer: CPointer<SoupAuthManager>,
+) : Object(pointer.reinterpret()),
     SessionFeature,
     KGTyped {
     public val soupAuthManagerPointer: CPointer<SoupAuthManager>
@@ -47,8 +48,7 @@ public class AuthManager(pointer: CPointer<SoupAuthManager>) :
     /**
      * Clear all credentials cached by @manager.
      */
-    public fun clearCachedCredentials(): Unit =
-        soup_auth_manager_clear_cached_credentials(soupAuthManagerPointer.reinterpret())
+    public fun clearCachedCredentials(): Unit = soup_auth_manager_clear_cached_credentials(soupAuthManagerPointer.reinterpret())
 
     /**
      * Records that @auth is to be used under @uri, as though a
@@ -65,18 +65,13 @@ public class AuthManager(pointer: CPointer<SoupAuthManager>) :
      * @param uri the #GUri under which @auth is to be used
      * @param auth the #SoupAuth to use
      */
-    public fun useAuth(uri: Uri, auth: Auth): Unit = soup_auth_manager_use_auth(
-        soupAuthManagerPointer.reinterpret(),
-        uri.glibUriPointer.reinterpret(),
-        auth.soupAuthPointer.reinterpret()
-    )
+    public fun useAuth(uri: Uri, auth: Auth): Unit = soup_auth_manager_use_auth(soupAuthManagerPointer.reinterpret(), uri.glibUriPointer.reinterpret(), auth.soupAuthPointer.reinterpret())
 
     public companion object : TypeCompanion<AuthManager> {
         override val type: GeneratedClassKGType<AuthManager> =
-            GeneratedClassKGType(soup_auth_manager_get_type()) { AuthManager(it.reinterpret()) }
+                GeneratedClassKGType(soup_auth_manager_get_type()) { AuthManager(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
     }
 }

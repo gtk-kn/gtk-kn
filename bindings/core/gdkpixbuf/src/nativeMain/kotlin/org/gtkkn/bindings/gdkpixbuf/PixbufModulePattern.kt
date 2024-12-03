@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdkpixbuf
 
+import kotlin.Int
+import kotlin.String
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -10,8 +12,7 @@ import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_2
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gdkpixbuf.GdkPixbufModulePattern
-import kotlin.Int
-import kotlin.String
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The signature prefix for a module.
@@ -47,7 +48,9 @@ import kotlin.String
  * @since 2.2
  */
 @GdkPixbufVersion2_2
-public class PixbufModulePattern(pointer: CPointer<GdkPixbufModulePattern>) : Record {
+public class PixbufModulePattern(
+    pointer: CPointer<GdkPixbufModulePattern>,
+) : Record {
     public val gdkpixbufPixbufModulePatternPointer: CPointer<GdkPixbufModulePattern> = pointer
 
     /**
@@ -77,7 +80,6 @@ public class PixbufModulePattern(pointer: CPointer<GdkPixbufModulePattern>) : Re
         }
 
     public companion object : RecordCompanion<PixbufModulePattern, GdkPixbufModulePattern> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PixbufModulePattern =
-            PixbufModulePattern(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PixbufModulePattern = PixbufModulePattern(pointer.reinterpret())
     }
 }

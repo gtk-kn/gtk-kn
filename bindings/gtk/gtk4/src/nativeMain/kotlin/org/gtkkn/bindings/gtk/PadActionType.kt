@@ -6,17 +6,17 @@ import org.gtkkn.native.gtk.GtkPadActionType
 /**
  * The type of a pad action.
  */
-public enum class PadActionType(public val nativeValue: GtkPadActionType) {
+public enum class PadActionType(
+    public val nativeValue: GtkPadActionType,
+) {
     /**
      * Action is triggered by a pad button
      */
     BUTTON(GtkPadActionType.GTK_PAD_ACTION_BUTTON),
-
     /**
      * Action is triggered by a pad ring
      */
     RING(GtkPadActionType.GTK_PAD_ACTION_RING),
-
     /**
      * Action is triggered by a pad strip
      */

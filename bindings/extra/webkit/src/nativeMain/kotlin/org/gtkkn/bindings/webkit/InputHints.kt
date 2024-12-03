@@ -16,7 +16,9 @@ import org.gtkkn.native.webkit.WebKitInputHints
  * Enum values used to describe hints that might be taken into account by input methods.
  * @since 2.28
  */
-public class InputHints(public val mask: WebKitInputHints) : Bitfield<InputHints> {
+public class InputHints(
+    public val mask: WebKitInputHints,
+) : Bitfield<InputHints> {
     override infix fun or(other: InputHints): InputHints = InputHints(mask or other.mask)
 
     @WebKitVersion2_28
@@ -50,7 +52,7 @@ public class InputHints(public val mask: WebKitInputHints) : Bitfield<InputHints
          * Suggest to capitalize the first word of each sentence
          */
         public val UPPERCASE_SENTENCES: InputHints =
-            InputHints(WEBKIT_INPUT_HINT_UPPERCASE_SENTENCES)
+                InputHints(WEBKIT_INPUT_HINT_UPPERCASE_SENTENCES)
 
         /**
          * Suggest to not show an onscreen keyboard

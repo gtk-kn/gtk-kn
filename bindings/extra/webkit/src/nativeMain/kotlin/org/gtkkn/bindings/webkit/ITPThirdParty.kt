@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -14,15 +16,16 @@ import org.gtkkn.native.webkit.webkit_itp_third_party_get_domain
 import org.gtkkn.native.webkit.webkit_itp_third_party_get_first_parties
 import org.gtkkn.native.webkit.webkit_itp_third_party_ref
 import org.gtkkn.native.webkit.webkit_itp_third_party_unref
-import kotlin.String
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Describes a third party origin.
  * @since 2.30
  */
 @WebKitVersion2_30
-public class ITPThirdParty(pointer: CPointer<WebKitITPThirdParty>) : Record {
+public class ITPThirdParty(
+    pointer: CPointer<WebKitITPThirdParty>,
+) : Record {
     public val webkitITPThirdPartyPointer: CPointer<WebKitITPThirdParty> = pointer
 
     /**
@@ -32,9 +35,7 @@ public class ITPThirdParty(pointer: CPointer<WebKitITPThirdParty>) : Record {
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun getDomain(): String =
-        webkit_itp_third_party_get_domain(webkitITPThirdPartyPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getDomain(): String = webkit_itp_third_party_get_domain(webkitITPThirdPartyPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the list of #WebKitITPFirstParty under which @itp_third_party has been seen.
@@ -43,10 +44,8 @@ public class ITPThirdParty(pointer: CPointer<WebKitITPThirdParty>) : Record {
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun getFirstParties(): List =
-        webkit_itp_third_party_get_first_parties(webkitITPThirdPartyPointer.reinterpret())!!.run {
-            List(reinterpret())
-        }
+    public fun getFirstParties(): List = webkit_itp_third_party_get_first_parties(webkitITPThirdPartyPointer.reinterpret())!!.run {
+        List(reinterpret())}
 
     /**
      * Atomically increments the reference count of @itp_third_party by one.
@@ -58,8 +57,7 @@ public class ITPThirdParty(pointer: CPointer<WebKitITPThirdParty>) : Record {
      */
     @WebKitVersion2_30
     public fun ref(): ITPThirdParty = webkit_itp_third_party_ref(webkitITPThirdPartyPointer.reinterpret())!!.run {
-        ITPThirdParty(reinterpret())
-    }
+        ITPThirdParty(reinterpret())}
 
     /**
      * Atomically decrements the reference count of @itp_third_party by one.
@@ -74,7 +72,6 @@ public class ITPThirdParty(pointer: CPointer<WebKitITPThirdParty>) : Record {
     public fun unref(): Unit = webkit_itp_third_party_unref(webkitITPThirdPartyPointer.reinterpret())
 
     public companion object : RecordCompanion<ITPThirdParty, WebKitITPThirdParty> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ITPThirdParty =
-            ITPThirdParty(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ITPThirdParty = ITPThirdParty(pointer.reinterpret())
     }
 }

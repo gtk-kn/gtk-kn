@@ -1,6 +1,13 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.UInt
+import kotlin.ULong
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -59,13 +66,6 @@ import org.gtkkn.native.soup.soup_server_set_tls_auth_mode
 import org.gtkkn.native.soup.soup_server_set_tls_certificate
 import org.gtkkn.native.soup.soup_server_set_tls_database
 import org.gtkkn.native.soup.soup_server_unpause_message
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.UInt
-import kotlin.ULong
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * A HTTP server.
@@ -160,8 +160,9 @@ import kotlin.collections.List
  * - method `tls-certificate`: Property TypeInfo of getter and setter do not match
  * - method `tls-database`: Property TypeInfo of getter and setter do not match
  */
-public open class Server(pointer: CPointer<SoupServer>) :
-    Object(pointer.reinterpret()),
+public open class Server(
+    pointer: CPointer<SoupServer>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val soupServerPointer: CPointer<SoupServer>
         get() = gPointer.reinterpret()
@@ -176,9 +177,7 @@ public open class Server(pointer: CPointer<SoupServer>) :
          * @return a #GTlsAuthenticationMode
          */
         get() = soup_server_get_tls_auth_mode(soupServerPointer.reinterpret()).run {
-            TlsAuthenticationMode.fromNativeValue(this)
-        }
-
+            TlsAuthenticationMode.fromNativeValue(this)}
         /**
          * Sets @server's #GTlsAuthenticationMode to use for SSL/TLS client authentication.
          *
@@ -204,16 +203,11 @@ public open class Server(pointer: CPointer<SoupServer>) :
         remoteAddr: SocketAddress? = null,
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = soup_server_accept_iostream(
-            soupServerPointer.reinterpret(),
-            stream.gioIOStreamPointer.reinterpret(),
-            localAddr?.gioSocketAddressPointer?.reinterpret(),
-            remoteAddr?.gioSocketAddressPointer?.reinterpret(),
-            gError.ptr
-        ).asBoolean()
+        val gResult = soup_server_accept_iostream(soupServerPointer.reinterpret(), stream.gioIOStreamPointer.reinterpret(), localAddr?.gioSocketAddressPointer?.reinterpret(), remoteAddr?.gioSocketAddressPointer?.reinterpret(), gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -233,8 +227,7 @@ public open class Server(pointer: CPointer<SoupServer>) :
      *
      * @param authDomain a #SoupAuthDomain
      */
-    public open fun addAuthDomain(authDomain: AuthDomain): Unit =
-        soup_server_add_auth_domain(soupServerPointer.reinterpret(), authDomain.soupAuthDomainPointer.reinterpret())
+    public open fun addAuthDomain(authDomain: AuthDomain): Unit = soup_server_add_auth_domain(soupServerPointer.reinterpret(), authDomain.soupAuthDomainPointer.reinterpret())
 
     /**
      * Adds an "early" handler to @server for requests prefixed by @path.
@@ -268,14 +261,7 @@ public open class Server(pointer: CPointer<SoupServer>) :
      * @param callback callback to invoke for
      *   requests under @path
      */
-    public open fun addEarlyHandler(path: String? = null, callback: ServerCallback): Unit =
-        soup_server_add_early_handler(
-            soupServerPointer.reinterpret(),
-            path,
-            ServerCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public open fun addEarlyHandler(path: String? = null, callback: ServerCallback): Unit = soup_server_add_early_handler(soupServerPointer.reinterpret(), path, ServerCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Adds a handler to @server for requests prefixed by @path.
@@ -316,13 +302,7 @@ public open class Server(pointer: CPointer<SoupServer>) :
      * @param callback callback to invoke for
      *   requests under @path
      */
-    public open fun addHandler(path: String? = null, callback: ServerCallback): Unit = soup_server_add_handler(
-        soupServerPointer.reinterpret(),
-        path,
-        ServerCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer(),
-        staticStableRefDestroy.reinterpret()
-    )
+    public open fun addHandler(path: String? = null, callback: ServerCallback): Unit = soup_server_add_handler(soupServerPointer.reinterpret(), path, ServerCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Add support for a WebSocket extension of the given @extension_type.
@@ -336,8 +316,7 @@ public open class Server(pointer: CPointer<SoupServer>) :
      *
      * @param extensionType a #GType
      */
-    public open fun addWebsocketExtension(extensionType: ULong): Unit =
-        soup_server_add_websocket_extension(soupServerPointer.reinterpret(), extensionType)
+    public open fun addWebsocketExtension(extensionType: ULong): Unit = soup_server_add_websocket_extension(soupServerPointer.reinterpret(), extensionType)
 
     /**
      * Adds a WebSocket handler to @server for requests prefixed by @path.
@@ -372,16 +351,7 @@ public open class Server(pointer: CPointer<SoupServer>) :
         protocols: List<String>? = null,
         callback: ServerWebsocketCallback,
     ): Unit = memScoped {
-        return soup_server_add_websocket_handler(
-            soupServerPointer.reinterpret(),
-            path,
-            origin,
-            protocols?.toCStringList(this),
-            ServerWebsocketCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
-    }
+        return soup_server_add_websocket_handler(soupServerPointer.reinterpret(), path, origin, protocols?.toCStringList(this), ServerWebsocketCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret())}
 
     /**
      * Closes and frees @server's listening sockets.
@@ -405,28 +375,23 @@ public open class Server(pointer: CPointer<SoupServer>) :
      *   list of listening sockets.
      */
     public open fun getListeners(): SList = soup_server_get_listeners(soupServerPointer.reinterpret())!!.run {
-        SList(reinterpret())
-    }
+        SList(reinterpret())}
 
     /**
      * Gets the @server SSL/TLS certificate.
      *
      * @return a #GTlsCertificate or null
      */
-    public open fun getTlsCertificate(): TlsCertificate? =
-        soup_server_get_tls_certificate(soupServerPointer.reinterpret())?.run {
-            TlsCertificate(reinterpret())
-        }
+    public open fun getTlsCertificate(): TlsCertificate? = soup_server_get_tls_certificate(soupServerPointer.reinterpret())?.run {
+        TlsCertificate(reinterpret())}
 
     /**
      * Gets the @server SSL/TLS database.
      *
      * @return a #GTlsDatabase
      */
-    public open fun getTlsDatabase(): TlsDatabase? =
-        soup_server_get_tls_database(soupServerPointer.reinterpret())?.run {
-            TlsDatabase(reinterpret())
-        }
+    public open fun getTlsDatabase(): TlsDatabase? = soup_server_get_tls_database(soupServerPointer.reinterpret())?.run {
+        TlsDatabase(reinterpret())}
 
     /**
      * Gets a list of URIs corresponding to the interfaces @server is
@@ -443,8 +408,7 @@ public open class Server(pointer: CPointer<SoupServer>) :
      *   must free when you are done with it.
      */
     public open fun getUris(): SList = soup_server_get_uris(soupServerPointer.reinterpret())!!.run {
-        SList(reinterpret())
-    }
+        SList(reinterpret())}
 
     /**
      * Checks whether @server is capable of https.
@@ -491,15 +455,11 @@ public open class Server(pointer: CPointer<SoupServer>) :
      */
     public open fun listen(address: SocketAddress, options: ServerListenOptions): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = soup_server_listen(
-            soupServerPointer.reinterpret(),
-            address.gioSocketAddressPointer.reinterpret(),
-            options.mask,
-            gError.ptr
-        ).asBoolean()
+        val gResult = soup_server_listen(soupServerPointer.reinterpret(), address.gioSocketAddressPointer.reinterpret(), options.mask, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -524,15 +484,11 @@ public open class Server(pointer: CPointer<SoupServer>) :
      */
     public open fun listenAll(port: UInt, options: ServerListenOptions): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = soup_server_listen_all(
-            soupServerPointer.reinterpret(),
-            port,
-            options.mask,
-            gError.ptr
-        ).asBoolean()
+        val gResult = soup_server_listen_all(soupServerPointer.reinterpret(), port, options.mask, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -555,15 +511,11 @@ public open class Server(pointer: CPointer<SoupServer>) :
      */
     public open fun listenLocal(port: UInt, options: ServerListenOptions): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = soup_server_listen_local(
-            soupServerPointer.reinterpret(),
-            port,
-            options.mask,
-            gError.ptr
-        ).asBoolean()
+        val gResult = soup_server_listen_local(soupServerPointer.reinterpret(), port, options.mask, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -580,15 +532,11 @@ public open class Server(pointer: CPointer<SoupServer>) :
      */
     public open fun listenSocket(socket: Socket, options: ServerListenOptions): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = soup_server_listen_socket(
-            soupServerPointer.reinterpret(),
-            socket.gioSocketPointer.reinterpret(),
-            options.mask,
-            gError.ptr
-        ).asBoolean()
+        val gResult = soup_server_listen_socket(soupServerPointer.reinterpret(), socket.gioSocketPointer.reinterpret(), options.mask, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -607,24 +555,21 @@ public open class Server(pointer: CPointer<SoupServer>) :
      *
      * @param msg a #SoupServerMessage associated with @server.
      */
-    public open fun pauseMessage(msg: ServerMessage): Unit =
-        soup_server_pause_message(soupServerPointer.reinterpret(), msg.soupServerMessagePointer.reinterpret())
+    public open fun pauseMessage(msg: ServerMessage): Unit = soup_server_pause_message(soupServerPointer.reinterpret(), msg.soupServerMessagePointer.reinterpret())
 
     /**
      * Removes @auth_domain from @server.
      *
      * @param authDomain a #SoupAuthDomain
      */
-    public open fun removeAuthDomain(authDomain: AuthDomain): Unit =
-        soup_server_remove_auth_domain(soupServerPointer.reinterpret(), authDomain.soupAuthDomainPointer.reinterpret())
+    public open fun removeAuthDomain(authDomain: AuthDomain): Unit = soup_server_remove_auth_domain(soupServerPointer.reinterpret(), authDomain.soupAuthDomainPointer.reinterpret())
 
     /**
      * Removes all handlers (early and normal) registered at @path.
      *
      * @param path the toplevel path for the handler
      */
-    public open fun removeHandler(path: String): Unit =
-        soup_server_remove_handler(soupServerPointer.reinterpret(), path)
+    public open fun removeHandler(path: String): Unit = soup_server_remove_handler(soupServerPointer.reinterpret(), path)
 
     /**
      * Removes support for WebSocket extension of type @extension_type (or any subclass of
@@ -632,26 +577,21 @@ public open class Server(pointer: CPointer<SoupServer>) :
      *
      * @param extensionType a #GType
      */
-    public open fun removeWebsocketExtension(extensionType: ULong): Unit =
-        soup_server_remove_websocket_extension(soupServerPointer.reinterpret(), extensionType)
+    public open fun removeWebsocketExtension(extensionType: ULong): Unit = soup_server_remove_websocket_extension(soupServerPointer.reinterpret(), extensionType)
 
     /**
      * Sets @server up to do https, using the given SSL/TLS @certificate.
      *
      * @param certificate a #GTlsCertificate
      */
-    public open fun setTlsCertificate(certificate: TlsCertificate): Unit = soup_server_set_tls_certificate(
-        soupServerPointer.reinterpret(),
-        certificate.gioTlsCertificatePointer.reinterpret()
-    )
+    public open fun setTlsCertificate(certificate: TlsCertificate): Unit = soup_server_set_tls_certificate(soupServerPointer.reinterpret(), certificate.gioTlsCertificatePointer.reinterpret())
 
     /**
      * Sets @server's #GTlsDatabase to use for validating SSL/TLS client certificates.
      *
      * @param tlsDatabase a #GTlsDatabase
      */
-    public open fun setTlsDatabase(tlsDatabase: TlsDatabase): Unit =
-        soup_server_set_tls_database(soupServerPointer.reinterpret(), tlsDatabase.gioTlsDatabasePointer.reinterpret())
+    public open fun setTlsDatabase(tlsDatabase: TlsDatabase): Unit = soup_server_set_tls_database(soupServerPointer.reinterpret(), tlsDatabase.gioTlsDatabasePointer.reinterpret())
 
     /**
      * Resumes I/O on @msg.
@@ -668,8 +608,7 @@ public open class Server(pointer: CPointer<SoupServer>) :
      *
      * @param msg a #SoupServerMessage associated with @server.
      */
-    public open fun unpauseMessage(msg: ServerMessage): Unit =
-        soup_server_unpause_message(soupServerPointer.reinterpret(), msg.soupServerMessagePointer.reinterpret())
+    public open fun unpauseMessage(msg: ServerMessage): Unit = soup_server_unpause_message(soupServerPointer.reinterpret(), msg.soupServerMessagePointer.reinterpret())
 
     /**
      * Emitted when processing has failed for a message.
@@ -687,17 +626,7 @@ public open class Server(pointer: CPointer<SoupServer>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `message` the message
      */
-    public fun connectRequestAborted(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (message: ServerMessage) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "request-aborted",
-        connectRequestAbortedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectRequestAborted(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (message: ServerMessage) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "request-aborted", connectRequestAbortedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the server has finished writing a response to
@@ -706,17 +635,7 @@ public open class Server(pointer: CPointer<SoupServer>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `message` the message
      */
-    public fun connectRequestFinished(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (message: ServerMessage) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "request-finished",
-        connectRequestFinishedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectRequestFinished(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (message: ServerMessage) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "request-finished", connectRequestFinishedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the server has successfully read a request.
@@ -731,17 +650,7 @@ public open class Server(pointer: CPointer<SoupServer>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `message` the message
      */
-    public fun connectRequestRead(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (message: ServerMessage) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "request-read",
-        connectRequestReadFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectRequestRead(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (message: ServerMessage) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "request-read", connectRequestReadFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the server has started reading a new request.
@@ -760,80 +669,57 @@ public open class Server(pointer: CPointer<SoupServer>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `message` the new message
      */
-    public fun connectRequestStarted(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (message: ServerMessage) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "request-started",
-        connectRequestStartedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectRequestStarted(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (message: ServerMessage) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "request-started", connectRequestStartedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<Server> {
         override val type: GeneratedClassKGType<Server> =
-            GeneratedClassKGType(soup_server_get_type()) { Server(it.reinterpret()) }
+                GeneratedClassKGType(soup_server_get_type()) { Server(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
     }
 }
 
 private val connectRequestAbortedFunc: CPointer<CFunction<(CPointer<SoupServerMessage>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            message: CPointer<SoupServerMessage>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(message: ServerMessage) -> Unit>().get().invoke(
-            message!!.run {
-                ServerMessage(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    message: CPointer<SoupServerMessage>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(message: ServerMessage) -> Unit>().get().invoke(message!!.run {
+        ServerMessage(reinterpret())}
+    )}
+.reinterpret()
 
 private val connectRequestFinishedFunc: CPointer<CFunction<(CPointer<SoupServerMessage>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            message: CPointer<SoupServerMessage>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(message: ServerMessage) -> Unit>().get().invoke(
-            message!!.run {
-                ServerMessage(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    message: CPointer<SoupServerMessage>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(message: ServerMessage) -> Unit>().get().invoke(message!!.run {
+        ServerMessage(reinterpret())}
+    )}
+.reinterpret()
 
 private val connectRequestReadFunc: CPointer<CFunction<(CPointer<SoupServerMessage>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            message: CPointer<SoupServerMessage>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(message: ServerMessage) -> Unit>().get().invoke(
-            message!!.run {
-                ServerMessage(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    message: CPointer<SoupServerMessage>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(message: ServerMessage) -> Unit>().get().invoke(message!!.run {
+        ServerMessage(reinterpret())}
+    )}
+.reinterpret()
 
 private val connectRequestStartedFunc: CPointer<CFunction<(CPointer<SoupServerMessage>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            message: CPointer<SoupServerMessage>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(message: ServerMessage) -> Unit>().get().invoke(
-            message!!.run {
-                ServerMessage(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    message: CPointer<SoupServerMessage>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(message: ServerMessage) -> Unit>().get().invoke(message!!.run {
+        ServerMessage(reinterpret())}
+    )}
+.reinterpret()

@@ -7,6 +7,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GInterfaceInfo
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A structure that provides information to the type system which is
@@ -18,11 +19,12 @@ import org.gtkkn.native.gobject.GInterfaceInfo
  * - field `interface_finalize`: InterfaceFinalizeFunc
  * - field `interface_data`: gpointer
  */
-public class InterfaceInfo(pointer: CPointer<GInterfaceInfo>) : Record {
+public class InterfaceInfo(
+    pointer: CPointer<GInterfaceInfo>,
+) : Record {
     public val gobjectInterfaceInfoPointer: CPointer<GInterfaceInfo> = pointer
 
     public companion object : RecordCompanion<InterfaceInfo, GInterfaceInfo> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): InterfaceInfo =
-            InterfaceInfo(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): InterfaceInfo = InterfaceInfo(pointer.reinterpret())
     }
 }

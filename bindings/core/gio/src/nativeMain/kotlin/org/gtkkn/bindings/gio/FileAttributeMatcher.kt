@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Suppress
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -19,15 +23,14 @@ import org.gtkkn.native.gio.g_file_attribute_matcher_ref
 import org.gtkkn.native.gio.g_file_attribute_matcher_subtract
 import org.gtkkn.native.gio.g_file_attribute_matcher_to_string
 import org.gtkkn.native.gio.g_file_attribute_matcher_unref
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Suppress
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Determines if a string matches a file attribute.
  */
-public class FileAttributeMatcher(pointer: CPointer<GFileAttributeMatcher>) : Record {
+public class FileAttributeMatcher(
+    pointer: CPointer<GFileAttributeMatcher>,
+) : Record {
     public val gioFileAttributeMatcherPointer: CPointer<GFileAttributeMatcher> = pointer
 
     /**
@@ -42,8 +45,7 @@ public class FileAttributeMatcher(pointer: CPointer<GFileAttributeMatcher>) : Re
      * @return true if the matcher matches all of the entries
      * in the given @ns, false otherwise.
      */
-    public fun enumerateNamespace(ns: String): Boolean =
-        g_file_attribute_matcher_enumerate_namespace(gioFileAttributeMatcherPointer.reinterpret(), ns).asBoolean()
+    public fun enumerateNamespace(ns: String): Boolean = g_file_attribute_matcher_enumerate_namespace(gioFileAttributeMatcherPointer.reinterpret(), ns).asBoolean()
 
     /**
      * Gets the next matched attribute from a #GFileAttributeMatcher.
@@ -51,8 +53,7 @@ public class FileAttributeMatcher(pointer: CPointer<GFileAttributeMatcher>) : Re
      * @return a string containing the next attribute or, null if
      * no more attribute exist.
      */
-    public fun enumerateNext(): String? =
-        g_file_attribute_matcher_enumerate_next(gioFileAttributeMatcherPointer.reinterpret())?.toKString()
+    public fun enumerateNext(): String? = g_file_attribute_matcher_enumerate_next(gioFileAttributeMatcherPointer.reinterpret())?.toKString()
 
     /**
      * Checks if an attribute will be matched by an attribute matcher. If
@@ -62,8 +63,7 @@ public class FileAttributeMatcher(pointer: CPointer<GFileAttributeMatcher>) : Re
      * @param attribute a file attribute key.
      * @return true if @attribute matches @matcher. false otherwise.
      */
-    public fun matches(attribute: String): Boolean =
-        g_file_attribute_matcher_matches(gioFileAttributeMatcherPointer.reinterpret(), attribute).asBoolean()
+    public fun matches(attribute: String): Boolean = g_file_attribute_matcher_matches(gioFileAttributeMatcherPointer.reinterpret(), attribute).asBoolean()
 
     /**
      * Checks if an attribute matcher only matches a given attribute. Always
@@ -72,18 +72,15 @@ public class FileAttributeMatcher(pointer: CPointer<GFileAttributeMatcher>) : Re
      * @param attribute a file attribute key.
      * @return true if the matcher only matches @attribute. false otherwise.
      */
-    public fun matchesOnly(attribute: String): Boolean =
-        g_file_attribute_matcher_matches_only(gioFileAttributeMatcherPointer.reinterpret(), attribute).asBoolean()
+    public fun matchesOnly(attribute: String): Boolean = g_file_attribute_matcher_matches_only(gioFileAttributeMatcherPointer.reinterpret(), attribute).asBoolean()
 
     /**
      * References a file attribute matcher.
      *
      * @return a #GFileAttributeMatcher.
      */
-    public fun ref(): FileAttributeMatcher =
-        g_file_attribute_matcher_ref(gioFileAttributeMatcherPointer.reinterpret())!!.run {
-            FileAttributeMatcher(reinterpret())
-        }
+    public fun ref(): FileAttributeMatcher = g_file_attribute_matcher_ref(gioFileAttributeMatcherPointer.reinterpret())!!.run {
+        FileAttributeMatcher(reinterpret())}
 
     /**
      * Subtracts all attributes of @subtract from @matcher and returns
@@ -99,13 +96,8 @@ public class FileAttributeMatcher(pointer: CPointer<GFileAttributeMatcher>) : Re
      * @return A file attribute matcher matching all attributes of
      *     @matcher that are not matched by @subtract
      */
-    public fun subtract(subtract: FileAttributeMatcher? = null): FileAttributeMatcher? =
-        g_file_attribute_matcher_subtract(
-            gioFileAttributeMatcherPointer.reinterpret(),
-            subtract?.gioFileAttributeMatcherPointer?.reinterpret()
-        )?.run {
-            FileAttributeMatcher(reinterpret())
-        }
+    public fun subtract(subtract: FileAttributeMatcher? = null): FileAttributeMatcher? = g_file_attribute_matcher_subtract(gioFileAttributeMatcherPointer.reinterpret(), subtract?.gioFileAttributeMatcherPointer?.reinterpret())?.run {
+        FileAttributeMatcher(reinterpret())}
 
     /**
      * Prints what the matcher is matching against. The format will be
@@ -119,9 +111,7 @@ public class FileAttributeMatcher(pointer: CPointer<GFileAttributeMatcher>) : Re
      */
     @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
     @GioVersion2_32
-    override fun toString(): String =
-        g_file_attribute_matcher_to_string(gioFileAttributeMatcherPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    override fun toString(): String = g_file_attribute_matcher_to_string(gioFileAttributeMatcherPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Unreferences @matcher. If the reference count falls below 1,
@@ -154,10 +144,8 @@ public class FileAttributeMatcher(pointer: CPointer<GFileAttributeMatcher>) : Re
          * @param attributes an attribute string to match.
          * @return a #GFileAttributeMatcher
          */
-        public fun new(attributes: String): FileAttributeMatcher =
-            FileAttributeMatcher(g_file_attribute_matcher_new(attributes)!!.reinterpret())
+        public fun new(attributes: String): FileAttributeMatcher = FileAttributeMatcher(g_file_attribute_matcher_new(attributes)!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FileAttributeMatcher =
-            FileAttributeMatcher(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FileAttributeMatcher = FileAttributeMatcher(pointer.reinterpret())
     }
 }

@@ -15,8 +15,9 @@ import org.gtkkn.native.gtk.gtk_callback_action_new
 /**
  * A `GtkShortcutAction` that invokes a callback.
  */
-public open class CallbackAction(pointer: CPointer<GtkCallbackAction>) :
-    ShortcutAction(pointer.reinterpret()),
+public open class CallbackAction(
+    pointer: CPointer<GtkCallbackAction>,
+) : ShortcutAction(pointer.reinterpret()),
     KGTyped {
     public val gtkCallbackActionPointer: CPointer<GtkCallbackAction>
         get() = gPointer.reinterpret()
@@ -28,22 +29,13 @@ public open class CallbackAction(pointer: CPointer<GtkCallbackAction>) :
      * @param callback the callback to call
      * @return A new shortcut action
      */
-    public constructor(
-        callback: ShortcutFunc,
-    ) : this(
-        gtk_callback_action_new(
-            ShortcutFuncFunc.reinterpret(),
-            StableRef.create(callback).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )!!.reinterpret()
-    )
+    public constructor(callback: ShortcutFunc) : this(gtk_callback_action_new(ShortcutFuncFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret())!!.reinterpret())
 
     public companion object : TypeCompanion<CallbackAction> {
         override val type: GeneratedClassKGType<CallbackAction> =
-            GeneratedClassKGType(gtk_callback_action_get_type()) { CallbackAction(it.reinterpret()) }
+                GeneratedClassKGType(gtk_callback_action_get_type()) { CallbackAction(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

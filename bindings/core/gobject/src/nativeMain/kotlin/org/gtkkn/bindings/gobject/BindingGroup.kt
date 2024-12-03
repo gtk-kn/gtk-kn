@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_72
@@ -14,8 +16,6 @@ import org.gtkkn.native.gobject.g_binding_group_dup_source
 import org.gtkkn.native.gobject.g_binding_group_get_type
 import org.gtkkn.native.gobject.g_binding_group_new
 import org.gtkkn.native.gobject.g_binding_group_set_source
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GBindingGroup` can be used to bind multiple properties
@@ -34,8 +34,9 @@ import kotlin.Unit
  * @since 2.72
  */
 @GObjectVersion2_72
-public open class BindingGroup(pointer: CPointer<GBindingGroup>) :
-    Object(pointer.reinterpret()),
+public open class BindingGroup(
+    pointer: CPointer<GBindingGroup>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gobjectBindingGroupPointer: CPointer<GBindingGroup>
         get() = gPointer.reinterpret()
@@ -63,14 +64,12 @@ public open class BindingGroup(pointer: CPointer<GBindingGroup>) :
      * @since 2.72
      */
     @GObjectVersion2_72
-    public open fun bind(sourceProperty: String, target: Object, targetProperty: String, flags: BindingFlags): Unit =
-        g_binding_group_bind(
-            gobjectBindingGroupPointer.reinterpret(),
-            sourceProperty,
-            target.gPointer.reinterpret(),
-            targetProperty,
-            flags.mask
-        )
+    public open fun bind(
+        sourceProperty: String,
+        target: Object,
+        targetProperty: String,
+        flags: BindingFlags,
+    ): Unit = g_binding_group_bind(gobjectBindingGroupPointer.reinterpret(), sourceProperty, target.gPointer.reinterpret(), targetProperty, flags.mask)
 
     /**
      * Creates a binding between @source_property on the source object and
@@ -104,15 +103,7 @@ public open class BindingGroup(pointer: CPointer<GBindingGroup>) :
         flags: BindingFlags,
         transformTo: Closure? = null,
         transformFrom: Closure? = null,
-    ): Unit = g_binding_group_bind_with_closures(
-        gobjectBindingGroupPointer.reinterpret(),
-        sourceProperty,
-        target.gPointer.reinterpret(),
-        targetProperty,
-        flags.mask,
-        transformTo?.gobjectClosurePointer?.reinterpret(),
-        transformFrom?.gobjectClosurePointer?.reinterpret()
-    )
+    ): Unit = g_binding_group_bind_with_closures(gobjectBindingGroupPointer.reinterpret(), sourceProperty, target.gPointer.reinterpret(), targetProperty, flags.mask, transformTo?.gobjectClosurePointer?.reinterpret(), transformFrom?.gobjectClosurePointer?.reinterpret())
 
     /**
      * Gets the source object used for binding properties.
@@ -122,8 +113,7 @@ public open class BindingGroup(pointer: CPointer<GBindingGroup>) :
      */
     @GObjectVersion2_72
     public open fun dupSource(): Object? = g_binding_group_dup_source(gobjectBindingGroupPointer.reinterpret())?.run {
-        Object(reinterpret())
-    }
+        Object(reinterpret())}
 
     /**
      * Sets @source as the source object used for creating property
@@ -137,15 +127,13 @@ public open class BindingGroup(pointer: CPointer<GBindingGroup>) :
      * @since 2.72
      */
     @GObjectVersion2_72
-    public open fun setSource(source: Object? = null): Unit =
-        g_binding_group_set_source(gobjectBindingGroupPointer.reinterpret(), source?.gPointer?.reinterpret())
+    public open fun setSource(source: Object? = null): Unit = g_binding_group_set_source(gobjectBindingGroupPointer.reinterpret(), source?.gPointer?.reinterpret())
 
     public companion object : TypeCompanion<BindingGroup> {
         override val type: GeneratedClassKGType<BindingGroup> =
-            GeneratedClassKGType(g_binding_group_get_type()) { BindingGroup(it.reinterpret()) }
+                GeneratedClassKGType(g_binding_group_get_type()) { BindingGroup(it.reinterpret()) }
 
         init {
-            GobjectTypeProvider.register()
-        }
+            GobjectTypeProvider.register()}
     }
 }

@@ -1,51 +1,46 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.UInt
 import org.gtkkn.native.glib.GBookmarkFileError
 import org.gtkkn.native.glib.g_quark_from_string
-import kotlin.UInt
 
 /**
  * Error codes returned by bookmark file parsing.
  */
-public enum class BookmarkFileError(public val nativeValue: GBookmarkFileError) {
+public enum class BookmarkFileError(
+    public val nativeValue: GBookmarkFileError,
+) {
     /**
      * URI was ill-formed
      */
     INVALID_URI(GBookmarkFileError.G_BOOKMARK_FILE_ERROR_INVALID_URI),
-
     /**
      * a requested field was not found
      */
     INVALID_VALUE(GBookmarkFileError.G_BOOKMARK_FILE_ERROR_INVALID_VALUE),
-
     /**
      * a requested application did
      *     not register a bookmark
      */
     APP_NOT_REGISTERED(GBookmarkFileError.G_BOOKMARK_FILE_ERROR_APP_NOT_REGISTERED),
-
     /**
      * a requested URI was not found
      */
     URI_NOT_FOUND(GBookmarkFileError.G_BOOKMARK_FILE_ERROR_URI_NOT_FOUND),
-
     /**
      * document was ill formed
      */
     READ(GBookmarkFileError.G_BOOKMARK_FILE_ERROR_READ),
-
     /**
      * the text being parsed was
      *     in an unknown encoding
      */
     UNKNOWN_ENCODING(GBookmarkFileError.G_BOOKMARK_FILE_ERROR_UNKNOWN_ENCODING),
-
     /**
      * an error occurred while writing
      */
     WRITE(GBookmarkFileError.G_BOOKMARK_FILE_ERROR_WRITE),
-
     /**
      * requested file was not found
      */

@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -14,8 +16,6 @@ import org.gtkkn.native.gdk.gdk_draw_context_get_display
 import org.gtkkn.native.gdk.gdk_draw_context_get_surface
 import org.gtkkn.native.gdk.gdk_draw_context_get_type
 import org.gtkkn.native.gdk.gdk_draw_context_is_in_frame
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * Base class for objects implementing different rendering methods.
@@ -33,8 +33,9 @@ import kotlin.Unit
  * - parameter `region`: cairo.Region
  * - method `get_frame_region`: Return type cairo.Region is unsupported
  */
-public open class DrawContext(pointer: CPointer<GdkDrawContext>) :
-    Object(pointer.reinterpret()),
+public open class DrawContext(
+    pointer: CPointer<GdkDrawContext>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gdkDrawContextPointer: CPointer<GdkDrawContext>
         get() = gPointer.reinterpret()
@@ -49,8 +50,7 @@ public open class DrawContext(pointer: CPointer<GdkDrawContext>) :
          * @return the `GdkDisplay`
          */
         get() = gdk_draw_context_get_display(gdkDrawContextPointer.reinterpret())?.run {
-            Display(reinterpret())
-        }
+            Display(reinterpret())}
 
     /**
      * The `GdkSurface` the context is bound to.
@@ -62,8 +62,7 @@ public open class DrawContext(pointer: CPointer<GdkDrawContext>) :
          * @return a `GdkSurface`
          */
         get() = gdk_draw_context_get_surface(gdkDrawContextPointer.reinterpret())?.run {
-            Surface(reinterpret())
-        }
+            Surface(reinterpret())}
 
     /**
      * Ends a drawing operation started with gdk_draw_context_begin_frame().
@@ -91,10 +90,9 @@ public open class DrawContext(pointer: CPointer<GdkDrawContext>) :
 
     public companion object : TypeCompanion<DrawContext> {
         override val type: GeneratedClassKGType<DrawContext> =
-            GeneratedClassKGType(gdk_draw_context_get_type()) { DrawContext(it.reinterpret()) }
+                GeneratedClassKGType(gdk_draw_context_get_type()) { DrawContext(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
     }
 }

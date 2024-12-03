@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -35,10 +39,7 @@ import org.gtkkn.native.glib.g_main_context_release
 import org.gtkkn.native.glib.g_main_context_remove_poll
 import org.gtkkn.native.glib.g_main_context_unref
 import org.gtkkn.native.glib.g_main_context_wakeup
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.UInt
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `GMainContext` struct is an opaque data
@@ -53,7 +54,9 @@ import kotlin.Unit
  * - parameter `timeout`: timeout: Out parameter is not supported
  * - parameter `mutex`: Mutex
  */
-public class MainContext(pointer: CPointer<GMainContext>) : Record {
+public class MainContext(
+    pointer: CPointer<GMainContext>,
+) : Record {
     public val glibMainContextPointer: CPointer<GMainContext> = pointer
 
     /**
@@ -87,8 +90,7 @@ public class MainContext(pointer: CPointer<GMainContext>) : Record {
      *      the same as the priority used for g_source_attach() to ensure that the
      *      file descriptor is polled whenever the results may be needed.
      */
-    public fun addPoll(fd: PollFD, priority: Int): Unit =
-        g_main_context_add_poll(glibMainContextPointer.reinterpret(), fd.glibPollFDPointer.reinterpret(), priority)
+    public fun addPoll(fd: PollFD, priority: Int): Unit = g_main_context_add_poll(glibMainContextPointer.reinterpret(), fd.glibPollFDPointer.reinterpret(), priority)
 
     /**
      * Dispatches all pending sources.
@@ -118,10 +120,8 @@ public class MainContext(pointer: CPointer<GMainContext>) : Record {
      * @param sourceId the source ID, as returned by g_source_get_id().
      * @return the #GSource
      */
-    public fun findSourceById(sourceId: UInt): Source =
-        g_main_context_find_source_by_id(glibMainContextPointer.reinterpret(), sourceId)!!.run {
-            Source(reinterpret())
-        }
+    public fun findSourceById(sourceId: UInt): Source = g_main_context_find_source_by_id(glibMainContextPointer.reinterpret(), sourceId)!!.run {
+        Source(reinterpret())}
 
     /**
      * Invokes a function in such a way that @context is owned during the
@@ -139,13 +139,7 @@ public class MainContext(pointer: CPointer<GMainContext>) : Record {
      * @since 2.28
      */
     @GLibVersion2_28
-    public fun invokeFull(priority: Int, function: SourceFunc): Unit = g_main_context_invoke_full(
-        glibMainContextPointer.reinterpret(),
-        priority,
-        SourceFuncFunc.reinterpret(),
-        StableRef.create(function).asCPointer(),
-        staticStableRefDestroy.reinterpret()
-    )
+    public fun invokeFull(priority: Int, function: SourceFunc): Unit = g_main_context_invoke_full(glibMainContextPointer.reinterpret(), priority, SourceFuncFunc.reinterpret(), StableRef.create(function).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Determines whether this thread holds the (recursive)
@@ -176,8 +170,7 @@ public class MainContext(pointer: CPointer<GMainContext>) : Record {
      * @param mayBlock whether the call may block.
      * @return true if events were dispatched.
      */
-    public fun iteration(mayBlock: Boolean): Boolean =
-        g_main_context_iteration(glibMainContextPointer.reinterpret(), mayBlock.asGBoolean()).asBoolean()
+    public fun iteration(mayBlock: Boolean): Boolean = g_main_context_iteration(glibMainContextPointer.reinterpret(), mayBlock.asGBoolean()).asBoolean()
 
     /**
      * Checks if any sources have pending events for the given context.
@@ -246,8 +239,7 @@ public class MainContext(pointer: CPointer<GMainContext>) : Record {
      * @return the @context that was passed in (since 2.6)
      */
     public fun ref(): MainContext = g_main_context_ref(glibMainContextPointer.reinterpret())!!.run {
-        MainContext(reinterpret())
-    }
+        MainContext(reinterpret())}
 
     /**
      * Releases ownership of a context previously acquired by this thread
@@ -266,8 +258,7 @@ public class MainContext(pointer: CPointer<GMainContext>) : Record {
      *
      * @param fd a #GPollFD descriptor previously added with g_main_context_add_poll()
      */
-    public fun removePoll(fd: PollFD): Unit =
-        g_main_context_remove_poll(glibMainContextPointer.reinterpret(), fd.glibPollFDPointer.reinterpret())
+    public fun removePoll(fd: PollFD): Unit = g_main_context_remove_poll(glibMainContextPointer.reinterpret(), fd.glibPollFDPointer.reinterpret())
 
     /**
      * Decreases the reference count on a #GMainContext object by one. If
@@ -292,11 +283,11 @@ public class MainContext(pointer: CPointer<GMainContext>) : Record {
      *   #define NUM_TASKS 10
      *   static gint tasks_remaining = NUM_TASKS;  // (atomic)
      *   ...
-     *
+     *  
      *   while (g_atomic_int_get (&tasks_remaining) != 0)
      *     g_main_context_iteration (NULL, TRUE);
      * ]|
-     *
+     *  
      * Then in a thread:
      * |[<!-- language="C" -->
      *   perform_work();
@@ -323,8 +314,7 @@ public class MainContext(pointer: CPointer<GMainContext>) : Record {
          * @return the new #GMainContext
          * @since 2.72
          */
-        public fun newWithFlags(flags: MainContextFlags): MainContext =
-            MainContext(g_main_context_new_with_flags(flags.mask)!!.reinterpret())
+        public fun newWithFlags(flags: MainContextFlags): MainContext = MainContext(g_main_context_new_with_flags(flags.mask)!!.reinterpret())
 
         /**
          * Returns the global-default main context. This is the main context
@@ -335,8 +325,7 @@ public class MainContext(pointer: CPointer<GMainContext>) : Record {
          * @return the global-default main context.
          */
         public fun default(): MainContext = g_main_context_default()!!.run {
-            MainContext(reinterpret())
-        }
+            MainContext(reinterpret())}
 
         /**
          * Gets the thread-default #GMainContext for this thread. Asynchronous
@@ -357,8 +346,7 @@ public class MainContext(pointer: CPointer<GMainContext>) : Record {
          */
         @GLibVersion2_22
         public fun getThreadDefault(): MainContext? = g_main_context_get_thread_default()?.run {
-            MainContext(reinterpret())
-        }
+            MainContext(reinterpret())}
 
         /**
          * Gets the thread-default #GMainContext for this thread, as with
@@ -374,10 +362,8 @@ public class MainContext(pointer: CPointer<GMainContext>) : Record {
          */
         @GLibVersion2_32
         public fun refThreadDefault(): MainContext = g_main_context_ref_thread_default()!!.run {
-            MainContext(reinterpret())
-        }
+            MainContext(reinterpret())}
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MainContext =
-            MainContext(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MainContext = MainContext(pointer.reinterpret())
     }
 }

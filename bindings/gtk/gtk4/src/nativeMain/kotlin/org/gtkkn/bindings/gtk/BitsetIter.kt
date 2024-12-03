@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -10,8 +12,7 @@ import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gtk.GtkBitsetIter
 import org.gtkkn.native.gtk.gtk_bitset_iter_get_value
 import org.gtkkn.native.gtk.gtk_bitset_iter_is_valid
-import kotlin.Boolean
-import kotlin.UInt
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * An opaque, stack-allocated struct for iterating
@@ -30,7 +31,9 @@ import kotlin.UInt
  * - parameter `value`: value: Out parameter is not supported
  * - field `private_data`: Record field private_data is private
  */
-public class BitsetIter(pointer: CPointer<GtkBitsetIter>) : Record {
+public class BitsetIter(
+    pointer: CPointer<GtkBitsetIter>,
+) : Record {
     public val gtkBitsetIterPointer: CPointer<GtkBitsetIter> = pointer
 
     /**

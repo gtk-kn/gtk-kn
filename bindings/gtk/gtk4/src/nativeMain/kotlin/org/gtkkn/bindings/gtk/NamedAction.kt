@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -11,13 +12,13 @@ import org.gtkkn.native.gtk.GtkNamedAction
 import org.gtkkn.native.gtk.gtk_named_action_get_action_name
 import org.gtkkn.native.gtk.gtk_named_action_get_type
 import org.gtkkn.native.gtk.gtk_named_action_new
-import kotlin.String
 
 /**
  * A `GtkShortcutAction` that activates an action by name.
  */
-public open class NamedAction(pointer: CPointer<GtkNamedAction>) :
-    ShortcutAction(pointer.reinterpret()),
+public open class NamedAction(
+    pointer: CPointer<GtkNamedAction>,
+) : ShortcutAction(pointer.reinterpret()),
     KGTyped {
     public val gtkNamedActionPointer: CPointer<GtkNamedAction>
         get() = gPointer.reinterpret()
@@ -31,8 +32,7 @@ public open class NamedAction(pointer: CPointer<GtkNamedAction>) :
          *
          * @return the name of the action to activate
          */
-        get() = gtk_named_action_get_action_name(gtkNamedActionPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = gtk_named_action_get_action_name(gtkNamedActionPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Creates an action that when activated, activates
@@ -50,10 +50,9 @@ public open class NamedAction(pointer: CPointer<GtkNamedAction>) :
 
     public companion object : TypeCompanion<NamedAction> {
         override val type: GeneratedClassKGType<NamedAction> =
-            GeneratedClassKGType(gtk_named_action_get_type()) { NamedAction(it.reinterpret()) }
+                GeneratedClassKGType(gtk_named_action_get_type()) { NamedAction(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

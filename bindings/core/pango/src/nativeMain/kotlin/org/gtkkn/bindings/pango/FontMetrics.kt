@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Int
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -20,8 +22,7 @@ import org.gtkkn.native.pango.pango_font_metrics_get_underline_position
 import org.gtkkn.native.pango.pango_font_metrics_get_underline_thickness
 import org.gtkkn.native.pango.pango_font_metrics_ref
 import org.gtkkn.native.pango.pango_font_metrics_unref
-import kotlin.Int
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `PangoFontMetrics` structure holds the overall metric information
@@ -52,7 +53,9 @@ import kotlin.Unit
  * - field `strikethrough_position`: Record field strikethrough_position is private
  * - field `strikethrough_thickness`: Record field strikethrough_thickness is private
  */
-public class FontMetrics(pointer: CPointer<PangoFontMetrics>) : Record {
+public class FontMetrics(
+    pointer: CPointer<PangoFontMetrics>,
+) : Record {
     public val pangoFontMetricsPointer: CPointer<PangoFontMetrics> = pointer
 
     /**
@@ -64,8 +67,7 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>) : Record {
      *
      * @return the character width, in Pango units.
      */
-    public fun getApproximateCharWidth(): Int =
-        pango_font_metrics_get_approximate_char_width(pangoFontMetricsPointer.reinterpret())
+    public fun getApproximateCharWidth(): Int = pango_font_metrics_get_approximate_char_width(pangoFontMetricsPointer.reinterpret())
 
     /**
      * Gets the approximate digit width for a font metrics structure.
@@ -78,8 +80,7 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>) : Record {
      *
      * @return the digit width, in Pango units.
      */
-    public fun getApproximateDigitWidth(): Int =
-        pango_font_metrics_get_approximate_digit_width(pangoFontMetricsPointer.reinterpret())
+    public fun getApproximateDigitWidth(): Int = pango_font_metrics_get_approximate_digit_width(pangoFontMetricsPointer.reinterpret())
 
     /**
      * Gets the ascent from a font metrics structure.
@@ -129,8 +130,7 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>) : Record {
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun getStrikethroughPosition(): Int =
-        pango_font_metrics_get_strikethrough_position(pangoFontMetricsPointer.reinterpret())
+    public fun getStrikethroughPosition(): Int = pango_font_metrics_get_strikethrough_position(pangoFontMetricsPointer.reinterpret())
 
     /**
      * Gets the suggested thickness to draw for the strikethrough.
@@ -139,8 +139,7 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>) : Record {
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun getStrikethroughThickness(): Int =
-        pango_font_metrics_get_strikethrough_thickness(pangoFontMetricsPointer.reinterpret())
+    public fun getStrikethroughThickness(): Int = pango_font_metrics_get_strikethrough_thickness(pangoFontMetricsPointer.reinterpret())
 
     /**
      * Gets the suggested position to draw the underline.
@@ -153,8 +152,7 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>) : Record {
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun getUnderlinePosition(): Int =
-        pango_font_metrics_get_underline_position(pangoFontMetricsPointer.reinterpret())
+    public fun getUnderlinePosition(): Int = pango_font_metrics_get_underline_position(pangoFontMetricsPointer.reinterpret())
 
     /**
      * Gets the suggested thickness to draw for the underline.
@@ -163,8 +161,7 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>) : Record {
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun getUnderlineThickness(): Int =
-        pango_font_metrics_get_underline_thickness(pangoFontMetricsPointer.reinterpret())
+    public fun getUnderlineThickness(): Int = pango_font_metrics_get_underline_thickness(pangoFontMetricsPointer.reinterpret())
 
     /**
      * Increase the reference count of a font metrics structure by one.
@@ -172,8 +169,7 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>) : Record {
      * @return @metrics
      */
     public fun ref(): FontMetrics? = pango_font_metrics_ref(pangoFontMetricsPointer.reinterpret())?.run {
-        FontMetrics(reinterpret())
-    }
+        FontMetrics(reinterpret())}
 
     /**
      * Decrease the reference count of a font metrics structure by one.
@@ -183,7 +179,6 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>) : Record {
     public fun unref(): Unit = pango_font_metrics_unref(pangoFontMetricsPointer.reinterpret())
 
     public companion object : RecordCompanion<FontMetrics, PangoFontMetrics> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FontMetrics =
-            FontMetrics(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FontMetrics = FontMetrics(pointer.reinterpret())
     }
 }

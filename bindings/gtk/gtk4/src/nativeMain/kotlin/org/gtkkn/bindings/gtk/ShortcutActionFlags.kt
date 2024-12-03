@@ -10,7 +10,9 @@ import org.gtkkn.native.gtk.GtkShortcutActionFlags
  *
  * More flags may be added in the future.
  */
-public class ShortcutActionFlags(public val mask: GtkShortcutActionFlags) : Bitfield<ShortcutActionFlags> {
+public class ShortcutActionFlags(
+    public val mask: GtkShortcutActionFlags,
+) : Bitfield<ShortcutActionFlags> {
     override infix fun or(other: ShortcutActionFlags): ShortcutActionFlags = ShortcutActionFlags(mask or other.mask)
 
     public companion object {
@@ -20,6 +22,6 @@ public class ShortcutActionFlags(public val mask: GtkShortcutActionFlags) : Bitf
          *   a future activation may select a different action.
          */
         public val EXCLUSIVE: ShortcutActionFlags =
-            ShortcutActionFlags(GTK_SHORTCUT_ACTION_EXCLUSIVE)
+                ShortcutActionFlags(GTK_SHORTCUT_ACTION_EXCLUSIVE)
     }
 }

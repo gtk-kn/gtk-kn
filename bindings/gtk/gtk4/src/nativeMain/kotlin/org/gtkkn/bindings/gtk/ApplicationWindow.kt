@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ActionGroup
@@ -26,9 +29,6 @@ import org.gtkkn.native.gtk.gtk_application_window_get_type
 import org.gtkkn.native.gtk.gtk_application_window_new
 import org.gtkkn.native.gtk.gtk_application_window_set_help_overlay
 import org.gtkkn.native.gtk.gtk_application_window_set_show_menubar
-import kotlin.Boolean
-import kotlin.UInt
-import kotlin.Unit
 
 /**
  * `GtkApplicationWindow` is a `GtkWindow` subclass that integrates with
@@ -103,8 +103,9 @@ import kotlin.Unit
  * GtkWidget *window = gtk_application_window_new (app);
  * ```
  */
-public open class ApplicationWindow(pointer: CPointer<GtkApplicationWindow>) :
-    Window(pointer.reinterpret()),
+public open class ApplicationWindow(
+    pointer: CPointer<GtkApplicationWindow>,
+) : Window(pointer.reinterpret()),
     ActionGroup,
     ActionMap,
     KGTyped {
@@ -152,16 +153,13 @@ public open class ApplicationWindow(pointer: CPointer<GtkApplicationWindow>) :
          * @return true if @window will display a menubar when needed
          */
         get() = gtk_application_window_get_show_menubar(gtkApplicationWindowPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the window will display a menubar for the app menu
          * and menubar as needed.
          *
          * @param showMenubar whether to show a menubar when needed
          */
-        set(
-            showMenubar
-        ) = gtk_application_window_set_show_menubar(gtkApplicationWindowPointer.reinterpret(), showMenubar.asGBoolean())
+        set(showMenubar) = gtk_application_window_set_show_menubar(gtkApplicationWindowPointer.reinterpret(), showMenubar.asGBoolean())
 
     /**
      * Creates a new `GtkApplicationWindow`.
@@ -169,9 +167,7 @@ public open class ApplicationWindow(pointer: CPointer<GtkApplicationWindow>) :
      * @param application a `GtkApplication`
      * @return a newly created `GtkApplicationWindow`
      */
-    public constructor(
-        application: Application,
-    ) : this(gtk_application_window_new(application.gtkApplicationPointer.reinterpret())!!.reinterpret())
+    public constructor(application: Application) : this(gtk_application_window_new(application.gtkApplicationPointer.reinterpret())!!.reinterpret())
 
     /**
      * Gets the `GtkShortcutsWindow` that is associated with @window.
@@ -181,10 +177,8 @@ public open class ApplicationWindow(pointer: CPointer<GtkApplicationWindow>) :
      * @return the help overlay associated
      *   with @window
      */
-    public open fun getHelpOverlay(): ShortcutsWindow? =
-        gtk_application_window_get_help_overlay(gtkApplicationWindowPointer.reinterpret())?.run {
-            ShortcutsWindow(reinterpret())
-        }
+    public open fun getHelpOverlay(): ShortcutsWindow? = gtk_application_window_get_help_overlay(gtkApplicationWindowPointer.reinterpret())?.run {
+        ShortcutsWindow(reinterpret())}
 
     /**
      * Returns the unique ID of the window.
@@ -206,18 +200,13 @@ public open class ApplicationWindow(pointer: CPointer<GtkApplicationWindow>) :
      *
      * @param helpOverlay a `GtkShortcutsWindow`
      */
-    public open fun setHelpOverlay(helpOverlay: ShortcutsWindow? = null): Unit =
-        gtk_application_window_set_help_overlay(
-            gtkApplicationWindowPointer.reinterpret(),
-            helpOverlay?.gtkShortcutsWindowPointer?.reinterpret()
-        )
+    public open fun setHelpOverlay(helpOverlay: ShortcutsWindow? = null): Unit = gtk_application_window_set_help_overlay(gtkApplicationWindowPointer.reinterpret(), helpOverlay?.gtkShortcutsWindowPointer?.reinterpret())
 
     public companion object : TypeCompanion<ApplicationWindow> {
         override val type: GeneratedClassKGType<ApplicationWindow> =
-            GeneratedClassKGType(gtk_application_window_get_type()) { ApplicationWindow(it.reinterpret()) }
+                GeneratedClassKGType(gtk_application_window_get_type()) { ApplicationWindow(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

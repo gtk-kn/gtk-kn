@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asBoolean
@@ -36,10 +40,6 @@ import org.gtkkn.native.gtk.gtk_grid_set_column_spacing
 import org.gtkkn.native.gtk.gtk_grid_set_row_baseline_position
 import org.gtkkn.native.gtk.gtk_grid_set_row_homogeneous
 import org.gtkkn.native.gtk.gtk_grid_set_row_spacing
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.UInt
-import kotlin.Unit
 
 /**
  * `GtkGrid` is a container which arranges its child widgets in
@@ -131,8 +131,9 @@ import kotlin.Unit
  *
  * - parameter `column`: column: Out parameter is not supported
  */
-public open class Grid(pointer: CPointer<GtkGrid>) :
-    Widget(pointer.reinterpret()),
+public open class Grid(
+    pointer: CPointer<GtkGrid>,
+) : Widget(pointer.reinterpret()),
     Orientable,
     KGTyped {
     public val gtkGridPointer: CPointer<GtkGrid>
@@ -160,7 +161,6 @@ public open class Grid(pointer: CPointer<GtkGrid>) :
          * @return the row index defining the global baseline
          */
         get() = gtk_grid_get_baseline_row(gtkGridPointer.reinterpret())
-
         /**
          * Sets which row defines the global baseline for the entire grid.
          *
@@ -182,7 +182,6 @@ public open class Grid(pointer: CPointer<GtkGrid>) :
          * @return whether all columns of @grid have the same width.
          */
         get() = gtk_grid_get_column_homogeneous(gtkGridPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether all columns of @grid will have the same width.
          *
@@ -200,7 +199,6 @@ public open class Grid(pointer: CPointer<GtkGrid>) :
          * @return the column spacing of @grid
          */
         get() = gtk_grid_get_column_spacing(gtkGridPointer.reinterpret())
-
         /**
          * Sets the amount of space between columns of @grid.
          *
@@ -218,7 +216,6 @@ public open class Grid(pointer: CPointer<GtkGrid>) :
          * @return whether all rows of @grid have the same height.
          */
         get() = gtk_grid_get_row_homogeneous(gtkGridPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether all rows of @grid will have the same height.
          *
@@ -236,7 +233,6 @@ public open class Grid(pointer: CPointer<GtkGrid>) :
          * @return the row spacing of @grid
          */
         get() = gtk_grid_get_row_spacing(gtkGridPointer.reinterpret())
-
         /**
          * Sets the amount of space between rows of @grid.
          *
@@ -264,8 +260,13 @@ public open class Grid(pointer: CPointer<GtkGrid>) :
      * @param width the number of columns that @child will span
      * @param height the number of rows that @child will span
      */
-    public open fun attach(child: Widget, column: Int, row: Int, width: Int, height: Int): Unit =
-        gtk_grid_attach(gtkGridPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), column, row, width, height)
+    public open fun attach(
+        child: Widget,
+        column: Int,
+        row: Int,
+        width: Int,
+        height: Int,
+    ): Unit = gtk_grid_attach(gtkGridPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), column, row, width, height)
 
     /**
      * Adds a widget to the grid.
@@ -291,14 +292,7 @@ public open class Grid(pointer: CPointer<GtkGrid>) :
         side: PositionType,
         width: Int,
         height: Int,
-    ): Unit = gtk_grid_attach_next_to(
-        gtkGridPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret(),
-        sibling?.gtkWidgetPointer?.reinterpret(),
-        side.nativeValue,
-        width,
-        height
-    )
+    ): Unit = gtk_grid_attach_next_to(gtkGridPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), sibling?.gtkWidgetPointer?.reinterpret(), side.nativeValue, width, height)
 
     /**
      * Gets the child of @grid whose area covers the grid
@@ -308,10 +302,8 @@ public open class Grid(pointer: CPointer<GtkGrid>) :
      * @param row the top edge of the cell
      * @return the child at the given position
      */
-    public open fun getChildAt(column: Int, row: Int): Widget? =
-        gtk_grid_get_child_at(gtkGridPointer.reinterpret(), column, row)?.run {
-            Widget(reinterpret())
-        }
+    public open fun getChildAt(column: Int, row: Int): Widget? = gtk_grid_get_child_at(gtkGridPointer.reinterpret(), column, row)?.run {
+        Widget(reinterpret())}
 
     /**
      * Returns the baseline position of @row.
@@ -321,10 +313,8 @@ public open class Grid(pointer: CPointer<GtkGrid>) :
      * @param row a row index
      * @return the baseline position of @row
      */
-    public open fun getRowBaselinePosition(row: Int): BaselinePosition =
-        gtk_grid_get_row_baseline_position(gtkGridPointer.reinterpret(), row).run {
-            BaselinePosition.fromNativeValue(this)
-        }
+    public open fun getRowBaselinePosition(row: Int): BaselinePosition = gtk_grid_get_row_baseline_position(gtkGridPointer.reinterpret(), row).run {
+        BaselinePosition.fromNativeValue(this)}
 
     /**
      * Inserts a column at the specified position.
@@ -349,8 +339,7 @@ public open class Grid(pointer: CPointer<GtkGrid>) :
      *   placed next to
      * @param side the side of @sibling that @child is positioned next to
      */
-    public open fun insertNextTo(sibling: Widget, side: PositionType): Unit =
-        gtk_grid_insert_next_to(gtkGridPointer.reinterpret(), sibling.gtkWidgetPointer.reinterpret(), side.nativeValue)
+    public open fun insertNextTo(sibling: Widget, side: PositionType): Unit = gtk_grid_insert_next_to(gtkGridPointer.reinterpret(), sibling.gtkWidgetPointer.reinterpret(), side.nativeValue)
 
     /**
      * Inserts a row at the specified position.
@@ -371,8 +360,7 @@ public open class Grid(pointer: CPointer<GtkGrid>) :
      *
      * @param child the child widget to remove
      */
-    public open fun remove(child: Widget): Unit =
-        gtk_grid_remove(gtkGridPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+    public open fun remove(child: Widget): Unit = gtk_grid_remove(gtkGridPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Removes a column from the grid.
@@ -407,15 +395,13 @@ public open class Grid(pointer: CPointer<GtkGrid>) :
      * @param row a row index
      * @param pos a `GtkBaselinePosition`
      */
-    public open fun setRowBaselinePosition(row: Int, pos: BaselinePosition): Unit =
-        gtk_grid_set_row_baseline_position(gtkGridPointer.reinterpret(), row, pos.nativeValue)
+    public open fun setRowBaselinePosition(row: Int, pos: BaselinePosition): Unit = gtk_grid_set_row_baseline_position(gtkGridPointer.reinterpret(), row, pos.nativeValue)
 
     public companion object : TypeCompanion<Grid> {
         override val type: GeneratedClassKGType<Grid> =
-            GeneratedClassKGType(gtk_grid_get_type()) { Grid(it.reinterpret()) }
+                GeneratedClassKGType(gtk_grid_get_type()) { Grid(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

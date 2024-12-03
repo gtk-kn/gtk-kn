@@ -3,26 +3,25 @@ package org.gtkkn.bindings.gtksource
 
 import org.gtkkn.native.gtksource.GtkSourceSmartHomeEndType
 
-public enum class SmartHomeEndType(public val nativeValue: GtkSourceSmartHomeEndType) {
+public enum class SmartHomeEndType(
+    public val nativeValue: GtkSourceSmartHomeEndType,
+) {
     /**
      * smart-home-end disabled.
      */
     DISABLED(GtkSourceSmartHomeEndType.GTK_SOURCE_SMART_HOME_END_DISABLED),
-
     /**
      * move to the first/last
      * non-whitespace character on the first press of the HOME/END keys and
      * to the beginning/end of the line on the second press.
      */
     BEFORE(GtkSourceSmartHomeEndType.GTK_SOURCE_SMART_HOME_END_BEFORE),
-
     /**
      * move to the beginning/end of the
      * line on the first press of the HOME/END keys and to the first/last
      * non-whitespace character on the second press.
      */
     AFTER(GtkSourceSmartHomeEndType.GTK_SOURCE_SMART_HOME_END_AFTER),
-
     /**
      * always move to the first/last
      * non-whitespace character when the HOME/END keys are pressed.

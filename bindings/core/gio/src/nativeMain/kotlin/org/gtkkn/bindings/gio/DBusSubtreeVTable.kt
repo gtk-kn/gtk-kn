@@ -8,6 +8,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GDBusSubtreeVTable
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Virtual table for handling subtrees registered with g_dbus_connection_register_subtree().
@@ -22,11 +23,12 @@ import org.gtkkn.native.gio.GDBusSubtreeVTable
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusSubtreeVTable(pointer: CPointer<GDBusSubtreeVTable>) : Record {
+public class DBusSubtreeVTable(
+    pointer: CPointer<GDBusSubtreeVTable>,
+) : Record {
     public val gioDBusSubtreeVTablePointer: CPointer<GDBusSubtreeVTable> = pointer
 
     public companion object : RecordCompanion<DBusSubtreeVTable, GDBusSubtreeVTable> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusSubtreeVTable =
-            DBusSubtreeVTable(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusSubtreeVTable = DBusSubtreeVTable(pointer.reinterpret())
     }
 }

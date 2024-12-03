@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -11,7 +12,7 @@ import org.gtkkn.native.gio.GStaticResource
 import org.gtkkn.native.gio.g_static_resource_fini
 import org.gtkkn.native.gio.g_static_resource_get_resource
 import org.gtkkn.native.gio.g_static_resource_init
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * #GStaticResource is an opaque data structure and can only be accessed
@@ -25,7 +26,9 @@ import kotlin.Unit
  * - field `next`: Record field next is private
  * - field `padding`: Record field padding is private
  */
-public class StaticResource(pointer: CPointer<GStaticResource>) : Record {
+public class StaticResource(
+    pointer: CPointer<GStaticResource>,
+) : Record {
     public val gioStaticResourcePointer: CPointer<GStaticResource> = pointer
 
     /**
@@ -52,8 +55,7 @@ public class StaticResource(pointer: CPointer<GStaticResource>) : Record {
      */
     @GioVersion2_32
     public fun getResource(): Resource = g_static_resource_get_resource(gioStaticResourcePointer.reinterpret())!!.run {
-        Resource(reinterpret())
-    }
+        Resource(reinterpret())}
 
     /**
      * Initializes a GResource from static data using a
@@ -69,7 +71,6 @@ public class StaticResource(pointer: CPointer<GStaticResource>) : Record {
     public fun `init`(): Unit = g_static_resource_init(gioStaticResourcePointer.reinterpret())
 
     public companion object : RecordCompanion<StaticResource, GStaticResource> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): StaticResource =
-            StaticResource(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): StaticResource = StaticResource(pointer.reinterpret())
     }
 }

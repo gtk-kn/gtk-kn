@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -12,8 +14,7 @@ import org.gtkkn.native.webkit.webkit_feature_list_get
 import org.gtkkn.native.webkit.webkit_feature_list_get_length
 import org.gtkkn.native.webkit.webkit_feature_list_ref
 import org.gtkkn.native.webkit.webkit_feature_list_unref
-import kotlin.ULong
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Contains a set of toggle-able web engine features.
@@ -36,7 +37,9 @@ import kotlin.Unit
  * @since 2.42
  */
 @WebKitVersion2_42
-public class FeatureList(pointer: CPointer<WebKitFeatureList>) : Record {
+public class FeatureList(
+    pointer: CPointer<WebKitFeatureList>,
+) : Record {
     public val webkitFeatureListPointer: CPointer<WebKitFeatureList> = pointer
 
     /**
@@ -47,10 +50,8 @@ public class FeatureList(pointer: CPointer<WebKitFeatureList>) : Record {
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun `get`(index: ULong): Feature =
-        webkit_feature_list_get(webkitFeatureListPointer.reinterpret(), index)!!.run {
-            Feature(reinterpret())
-        }
+    public fun `get`(index: ULong): Feature = webkit_feature_list_get(webkitFeatureListPointer.reinterpret(), index)!!.run {
+        Feature(reinterpret())}
 
     /**
      * Gets the number of elements in the feature list.
@@ -71,8 +72,7 @@ public class FeatureList(pointer: CPointer<WebKitFeatureList>) : Record {
      */
     @WebKitVersion2_42
     public fun ref(): FeatureList = webkit_feature_list_ref(webkitFeatureListPointer.reinterpret())!!.run {
-        FeatureList(reinterpret())
-    }
+        FeatureList(reinterpret())}
 
     /**
      * Atomically releases a reference on the given @feature_list.
@@ -87,7 +87,6 @@ public class FeatureList(pointer: CPointer<WebKitFeatureList>) : Record {
     public fun unref(): Unit = webkit_feature_list_unref(webkitFeatureListPointer.reinterpret())
 
     public companion object : RecordCompanion<FeatureList, WebKitFeatureList> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FeatureList =
-            FeatureList(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FeatureList = FeatureList(pointer.reinterpret())
     }
 }

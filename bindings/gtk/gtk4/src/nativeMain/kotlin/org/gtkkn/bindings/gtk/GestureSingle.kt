@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.EventSequence
@@ -19,8 +21,6 @@ import org.gtkkn.native.gtk.gtk_gesture_single_get_type
 import org.gtkkn.native.gtk.gtk_gesture_single_set_button
 import org.gtkkn.native.gtk.gtk_gesture_single_set_exclusive
 import org.gtkkn.native.gtk.gtk_gesture_single_set_touch_only
-import kotlin.Boolean
-import kotlin.UInt
 
 /**
  * `GtkGestureSingle` is a `GtkGestures` subclass optimized for singe-touch
@@ -38,8 +38,9 @@ import kotlin.UInt
  * button being currently pressed can be known through
  * [method@Gtk.GestureSingle.get_current_button].
  */
-public open class GestureSingle(pointer: CPointer<GtkGestureSingle>) :
-    Gesture(pointer.reinterpret()),
+public open class GestureSingle(
+    pointer: CPointer<GtkGestureSingle>,
+) : Gesture(pointer.reinterpret()),
     KGTyped {
     public val gtkGestureSinglePointer: CPointer<GtkGestureSingle>
         get() = gPointer.reinterpret()
@@ -56,7 +57,6 @@ public open class GestureSingle(pointer: CPointer<GtkGestureSingle>) :
          * @return The button number, or 0 for any button
          */
         get() = gtk_gesture_single_get_button(gtkGestureSinglePointer.reinterpret())
-
         /**
          * Sets the button number @gesture listens to.
          *
@@ -82,7 +82,6 @@ public open class GestureSingle(pointer: CPointer<GtkGestureSingle>) :
          * @return Whether the gesture is exclusive
          */
         get() = gtk_gesture_single_get_exclusive(gtkGestureSinglePointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether @gesture is exclusive.
          *
@@ -104,7 +103,6 @@ public open class GestureSingle(pointer: CPointer<GtkGestureSingle>) :
          * @return true if the gesture only handles touch events
          */
         get() = gtk_gesture_single_get_touch_only(gtkGestureSinglePointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether to handle only touch events.
          *
@@ -114,9 +112,7 @@ public open class GestureSingle(pointer: CPointer<GtkGestureSingle>) :
          *
          * @param touchOnly whether @gesture handles only touch events
          */
-        set(
-            touchOnly
-        ) = gtk_gesture_single_set_touch_only(gtkGestureSinglePointer.reinterpret(), touchOnly.asGBoolean())
+        set(touchOnly) = gtk_gesture_single_set_touch_only(gtkGestureSinglePointer.reinterpret(), touchOnly.asGBoolean())
 
     /**
      * Returns the button number currently interacting
@@ -124,8 +120,7 @@ public open class GestureSingle(pointer: CPointer<GtkGestureSingle>) :
      *
      * @return The current button number
      */
-    public open fun getCurrentButton(): UInt =
-        gtk_gesture_single_get_current_button(gtkGestureSinglePointer.reinterpret())
+    public open fun getCurrentButton(): UInt = gtk_gesture_single_get_current_button(gtkGestureSinglePointer.reinterpret())
 
     /**
      * Returns the event sequence currently interacting with @gesture.
@@ -135,17 +130,14 @@ public open class GestureSingle(pointer: CPointer<GtkGestureSingle>) :
      *
      * @return the current sequence
      */
-    public open fun getCurrentSequence(): EventSequence? =
-        gtk_gesture_single_get_current_sequence(gtkGestureSinglePointer.reinterpret())?.run {
-            EventSequence(reinterpret())
-        }
+    public open fun getCurrentSequence(): EventSequence? = gtk_gesture_single_get_current_sequence(gtkGestureSinglePointer.reinterpret())?.run {
+        EventSequence(reinterpret())}
 
     public companion object : TypeCompanion<GestureSingle> {
         override val type: GeneratedClassKGType<GestureSingle> =
-            GeneratedClassKGType(gtk_gesture_single_get_type()) { GestureSingle(it.reinterpret()) }
+                GeneratedClassKGType(gtk_gesture_single_get_type()) { GestureSingle(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

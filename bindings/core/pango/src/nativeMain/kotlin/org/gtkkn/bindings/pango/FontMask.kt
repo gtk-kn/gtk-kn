@@ -16,7 +16,9 @@ import org.gtkkn.native.pango.PangoFontMask
  * The bits in a `PangoFontMask` correspond to the set fields in a
  * `PangoFontDescription`.
  */
-public class FontMask(public val mask: PangoFontMask) : Bitfield<FontMask> {
+public class FontMask(
+    public val mask: PangoFontMask,
+) : Bitfield<FontMask> {
     override infix fun or(other: FontMask): FontMask = FontMask(mask or other.mask)
 
     public companion object {

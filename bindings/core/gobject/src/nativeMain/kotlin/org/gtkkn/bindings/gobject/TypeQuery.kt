@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.String
+import kotlin.UInt
+import kotlin.ULong
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,16 +12,16 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GTypeQuery
-import kotlin.String
-import kotlin.UInt
-import kotlin.ULong
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A structure holding information for a specific type.
  *
  * See also: g_type_query()
  */
-public class TypeQuery(pointer: CPointer<GTypeQuery>) : Record {
+public class TypeQuery(
+    pointer: CPointer<GTypeQuery>,
+) : Record {
     public val gobjectTypeQueryPointer: CPointer<GTypeQuery> = pointer
 
     /**

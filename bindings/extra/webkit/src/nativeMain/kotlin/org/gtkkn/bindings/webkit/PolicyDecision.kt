@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -14,7 +15,6 @@ import org.gtkkn.native.webkit.webkit_policy_decision_get_type
 import org.gtkkn.native.webkit.webkit_policy_decision_ignore
 import org.gtkkn.native.webkit.webkit_policy_decision_use
 import org.gtkkn.native.webkit.webkit_policy_decision_use_with_policies
-import kotlin.Unit
 
 /**
  * A pending policy decision.
@@ -29,8 +29,9 @@ import kotlin.Unit
  * completes. To make a policy decision asynchronously, simply increment
  * the reference count of the #WebKitPolicyDecision object.
  */
-public open class PolicyDecision(pointer: CPointer<WebKitPolicyDecision>) :
-    Object(pointer.reinterpret()),
+public open class PolicyDecision(
+    pointer: CPointer<WebKitPolicyDecision>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val webkitPolicyDecisionPointer: CPointer<WebKitPolicyDecision>
         get() = gPointer.reinterpret()
@@ -68,17 +69,13 @@ public open class PolicyDecision(pointer: CPointer<WebKitPolicyDecision>) :
      * @since 2.30
      */
     @WebKitVersion2_30
-    public open fun useWithPolicies(policies: WebsitePolicies): Unit = webkit_policy_decision_use_with_policies(
-        webkitPolicyDecisionPointer.reinterpret(),
-        policies.webkitWebsitePoliciesPointer.reinterpret()
-    )
+    public open fun useWithPolicies(policies: WebsitePolicies): Unit = webkit_policy_decision_use_with_policies(webkitPolicyDecisionPointer.reinterpret(), policies.webkitWebsitePoliciesPointer.reinterpret())
 
     public companion object : TypeCompanion<PolicyDecision> {
         override val type: GeneratedClassKGType<PolicyDecision> =
-            GeneratedClassKGType(webkit_policy_decision_get_type()) { PolicyDecision(it.reinterpret()) }
+                GeneratedClassKGType(webkit_policy_decision_get_type()) { PolicyDecision(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebkitTypeProvider.register()}
     }
 }

@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Int
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -16,9 +19,7 @@ import org.gtkkn.native.pango.pango_glyph_item_apply_attrs
 import org.gtkkn.native.pango.pango_glyph_item_copy
 import org.gtkkn.native.pango.pango_glyph_item_free
 import org.gtkkn.native.pango.pango_glyph_item_split
-import kotlin.Int
-import kotlin.String
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `PangoGlyphItem` is a pair of a `PangoItem` and the glyphs
@@ -33,7 +34,9 @@ import kotlin.Unit
  * - parameter `logical_widths`: Array parameter of type gint is not supported
  * - parameter `log_attrs`: LogAttr
  */
-public class GlyphItem(pointer: CPointer<PangoGlyphItem>) : Record {
+public class GlyphItem(
+    pointer: CPointer<PangoGlyphItem>,
+) : Record {
     public val pangoGlyphItemPointer: CPointer<PangoGlyphItem> = pointer
 
     /**
@@ -43,8 +46,7 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>) : Record {
      */
     public val item: Item?
         get() = pangoGlyphItemPointer.pointed.item?.run {
-            Item(reinterpret())
-        }
+            Item(reinterpret())}
 
     /**
      * corresponding `PangoGlyphString`
@@ -53,8 +55,7 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>) : Record {
      */
     public val glyphs: GlyphString?
         get() = pangoGlyphItemPointer.pointed.glyphs?.run {
-            GlyphString(reinterpret())
-        }
+            GlyphString(reinterpret())}
 
     /**
      * shift of the baseline, relative to the baseline
@@ -114,13 +115,8 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>) : Record {
      * @since 1.2
      */
     @PangoVersion1_2
-    public fun applyAttrs(text: String, list: AttrList): SList = pango_glyph_item_apply_attrs(
-        pangoGlyphItemPointer.reinterpret(),
-        text,
-        list.pangoAttrListPointer.reinterpret()
-    )!!.run {
-        SList(reinterpret())
-    }
+    public fun applyAttrs(text: String, list: AttrList): SList = pango_glyph_item_apply_attrs(pangoGlyphItemPointer.reinterpret(), text, list.pangoAttrListPointer.reinterpret())!!.run {
+        SList(reinterpret())}
 
     /**
      * Make a deep copy of an existing `PangoGlyphItem` structure.
@@ -130,8 +126,7 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>) : Record {
      */
     @PangoVersion1_20
     public fun copy(): GlyphItem? = pango_glyph_item_copy(pangoGlyphItemPointer.reinterpret())?.run {
-        GlyphItem(reinterpret())
-    }
+        GlyphItem(reinterpret())}
 
     /**
      * Frees a `PangoGlyphItem` and resources to which it points.
@@ -163,10 +158,8 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>) : Record {
      * @since 1.2
      */
     @PangoVersion1_2
-    public fun split(text: String, splitIndex: Int): GlyphItem? =
-        pango_glyph_item_split(pangoGlyphItemPointer.reinterpret(), text, splitIndex)?.run {
-            GlyphItem(reinterpret())
-        }
+    public fun split(text: String, splitIndex: Int): GlyphItem? = pango_glyph_item_split(pangoGlyphItemPointer.reinterpret(), text, splitIndex)?.run {
+        GlyphItem(reinterpret())}
 
     public companion object : RecordCompanion<GlyphItem, PangoGlyphItem> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): GlyphItem = GlyphItem(pointer.reinterpret())

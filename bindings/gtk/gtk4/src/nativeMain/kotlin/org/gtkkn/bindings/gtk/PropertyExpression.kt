@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.ULong
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.ParamSpec
@@ -13,14 +15,13 @@ import org.gtkkn.native.gtk.gtk_property_expression_get_pspec
 import org.gtkkn.native.gtk.gtk_property_expression_get_type
 import org.gtkkn.native.gtk.gtk_property_expression_new
 import org.gtkkn.native.gtk.gtk_property_expression_new_for_pspec
-import kotlin.String
-import kotlin.ULong
 
 /**
  * A `GObject` property value in a `GtkExpression`.
  */
-public open class PropertyExpression(pointer: CPointer<GtkPropertyExpression>) :
-    Expression(pointer.reinterpret()),
+public open class PropertyExpression(
+    pointer: CPointer<GtkPropertyExpression>,
+) : Expression(pointer.reinterpret()),
     KGTyped {
     public val gtkPropertyExpressionPointer: CPointer<GtkPropertyExpression>
         get() = gPointer.reinterpret()
@@ -66,15 +67,7 @@ public open class PropertyExpression(pointer: CPointer<GtkPropertyExpression>) :
      * @param pspec the `GParamSpec` for the property to query
      * @return a new `GtkExpression`
      */
-    public constructor(
-        expression: Expression? = null,
-        pspec: ParamSpec,
-    ) : this(
-        gtk_property_expression_new_for_pspec(
-            expression?.gPointer?.reinterpret(),
-            pspec.gPointer.reinterpret()
-        )!!.reinterpret()
-    )
+    public constructor(expression: Expression? = null, pspec: ParamSpec) : this(gtk_property_expression_new_for_pspec(expression?.gPointer?.reinterpret(), pspec.gPointer.reinterpret())!!.reinterpret())
 
     /**
      * Gets the expression specifying the object of
@@ -82,10 +75,8 @@ public open class PropertyExpression(pointer: CPointer<GtkPropertyExpression>) :
      *
      * @return the object expression
      */
-    public open fun getExpression(): Expression? =
-        gtk_property_expression_get_expression(gtkPropertyExpressionPointer.reinterpret())?.run {
-            Expression(reinterpret())
-        }
+    public open fun getExpression(): Expression? = gtk_property_expression_get_expression(gtkPropertyExpressionPointer.reinterpret())?.run {
+        Expression(reinterpret())}
 
     /**
      * Gets the `GParamSpec` specifying the property of
@@ -93,17 +84,14 @@ public open class PropertyExpression(pointer: CPointer<GtkPropertyExpression>) :
      *
      * @return the `GParamSpec` for the property
      */
-    public open fun getPspec(): ParamSpec =
-        gtk_property_expression_get_pspec(gtkPropertyExpressionPointer.reinterpret())!!.run {
-            ParamSpec(reinterpret())
-        }
+    public open fun getPspec(): ParamSpec = gtk_property_expression_get_pspec(gtkPropertyExpressionPointer.reinterpret())!!.run {
+        ParamSpec(reinterpret())}
 
     public companion object : TypeCompanion<PropertyExpression> {
         override val type: GeneratedClassKGType<PropertyExpression> =
-            GeneratedClassKGType(gtk_property_expression_get_type()) { PropertyExpression(it.reinterpret()) }
+                GeneratedClassKGType(gtk_property_expression_get_type()) { PropertyExpression(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

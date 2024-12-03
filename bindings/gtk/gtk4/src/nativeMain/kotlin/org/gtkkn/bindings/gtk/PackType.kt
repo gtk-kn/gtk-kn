@@ -8,12 +8,13 @@ import org.gtkkn.native.gtk.GtkPackType
  *
  * See [class@WindowControls] for example.
  */
-public enum class PackType(public val nativeValue: GtkPackType) {
+public enum class PackType(
+    public val nativeValue: GtkPackType,
+) {
     /**
      * The child is packed into the start of the widget
      */
     START(GtkPackType.GTK_PACK_START),
-
     /**
      * The child is packed into the end of the widget
      */

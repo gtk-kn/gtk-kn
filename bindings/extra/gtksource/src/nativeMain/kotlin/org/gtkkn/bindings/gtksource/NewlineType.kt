@@ -3,17 +3,17 @@ package org.gtkkn.bindings.gtksource
 
 import org.gtkkn.native.gtksource.GtkSourceNewlineType
 
-public enum class NewlineType(public val nativeValue: GtkSourceNewlineType) {
+public enum class NewlineType(
+    public val nativeValue: GtkSourceNewlineType,
+) {
     /**
      * line feed, used on UNIX.
      */
     LF(GtkSourceNewlineType.GTK_SOURCE_NEWLINE_TYPE_LF),
-
     /**
      * carriage return, used on Mac.
      */
     CR(GtkSourceNewlineType.GTK_SOURCE_NEWLINE_TYPE_CR),
-
     /**
      * carriage return followed by a line feed, used
      *   on Windows.

@@ -3,7 +3,9 @@ package org.gtkkn.bindings.cairo
 
 import org.gtkkn.native.cairo.cairo_operator_t
 
-public enum class Operator(public val nativeValue: cairo_operator_t) {
+public enum class Operator(
+    public val nativeValue: cairo_operator_t,
+) {
     CLEAR(cairo_operator_t.CAIRO_OPERATOR_CLEAR),
     SOURCE(cairo_operator_t.CAIRO_OPERATOR_SOURCE),
     OVER(cairo_operator_t.CAIRO_OPERATOR_OVER),

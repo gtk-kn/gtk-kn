@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.String
+import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,8 +11,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GScannerConfig
-import kotlin.String
-import kotlin.UInt
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Specifies the #GScanner parser configuration. Most settings can
@@ -21,7 +22,9 @@ import kotlin.UInt
  *
  * - field `padding_dummy`: Record field padding_dummy is private
  */
-public class ScannerConfig(pointer: CPointer<GScannerConfig>) : Record {
+public class ScannerConfig(
+    pointer: CPointer<GScannerConfig>,
+) : Record {
     public val glibScannerConfigPointer: CPointer<GScannerConfig> = pointer
 
     /**
@@ -285,7 +288,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>) : Record {
         }
 
     public companion object : RecordCompanion<ScannerConfig, GScannerConfig> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ScannerConfig =
-            ScannerConfig(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ScannerConfig = ScannerConfig(pointer.reinterpret())
     }
 }

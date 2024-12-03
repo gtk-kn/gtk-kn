@@ -73,22 +73,21 @@ import org.gtkkn.native.gio.g_datagram_based_get_type
  * @since 2.48
  */
 @GioVersion2_48
-public interface DatagramBased :
-    Interface,
-    KGTyped {
+public interface DatagramBased : Interface, KGTyped {
     public val gioDatagramBasedPointer: CPointer<GDatagramBased>
 
-    private data class Wrapper(private val pointer: CPointer<GDatagramBased>) : DatagramBased {
+    private data class Wrapper(
+        private val pointer: CPointer<GDatagramBased>,
+    ) : DatagramBased {
         override val gioDatagramBasedPointer: CPointer<GDatagramBased> = pointer
     }
 
     public companion object : TypeCompanion<DatagramBased> {
         override val type: GeneratedInterfaceKGType<DatagramBased> =
-            GeneratedInterfaceKGType(g_datagram_based_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(g_datagram_based_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GDatagramBased>): DatagramBased = Wrapper(pointer)
     }

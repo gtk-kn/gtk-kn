@@ -9,7 +9,9 @@ import org.gtkkn.native.gdkpixbuf.GdkColorspace
  *
  * Currently only RGB is supported.
  */
-public enum class Colorspace(public val nativeValue: GdkColorspace) {
+public enum class Colorspace(
+    public val nativeValue: GdkColorspace,
+) {
     /**
      * Indicates a red/green/blue additive color space.
      */

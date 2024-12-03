@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.UInt
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -27,10 +31,6 @@ import org.gtkkn.native.gtk.gtk_statusbar_pop
 import org.gtkkn.native.gtk.gtk_statusbar_push
 import org.gtkkn.native.gtk.gtk_statusbar_remove
 import org.gtkkn.native.gtk.gtk_statusbar_remove_all
-import kotlin.String
-import kotlin.UInt
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A `GtkStatusbar` widget is usually placed along the bottom of an application's
@@ -70,8 +70,9 @@ import kotlin.Unit
  *
  * `GtkStatusbar` has a single CSS node with name `statusbar`.
  */
-public open class Statusbar(pointer: CPointer<GtkStatusbar>) :
-    Widget(pointer.reinterpret()),
+public open class Statusbar(
+    pointer: CPointer<GtkStatusbar>,
+) : Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkStatusbarPointer: CPointer<GtkStatusbar>
         get() = gPointer.reinterpret()
@@ -102,8 +103,7 @@ public open class Statusbar(pointer: CPointer<GtkStatusbar>) :
      *   the new message is being used in
      * @return an integer id
      */
-    public open fun getContextId(contextDescription: String): UInt =
-        gtk_statusbar_get_context_id(gtkStatusbarPointer.reinterpret(), contextDescription)
+    public open fun getContextId(contextDescription: String): UInt = gtk_statusbar_get_context_id(gtkStatusbarPointer.reinterpret(), contextDescription)
 
     /**
      * Removes the first message in the `GtkStatusbar`’s stack
@@ -126,8 +126,7 @@ public open class Statusbar(pointer: CPointer<GtkStatusbar>) :
      * @return a message id that can be used with
      *   [method@Gtk.Statusbar.remove].
      */
-    public open fun push(contextId: UInt, text: String): UInt =
-        gtk_statusbar_push(gtkStatusbarPointer.reinterpret(), contextId, text)
+    public open fun push(contextId: UInt, text: String): UInt = gtk_statusbar_push(gtkStatusbarPointer.reinterpret(), contextId, text)
 
     /**
      * Forces the removal of a message from a statusbar’s stack.
@@ -136,8 +135,7 @@ public open class Statusbar(pointer: CPointer<GtkStatusbar>) :
      * @param contextId a context identifier
      * @param messageId a message identifier, as returned by [method@Gtk.Statusbar.push]
      */
-    public open fun remove(contextId: UInt, messageId: UInt): Unit =
-        gtk_statusbar_remove(gtkStatusbarPointer.reinterpret(), contextId, messageId)
+    public open fun remove(contextId: UInt, messageId: UInt): Unit = gtk_statusbar_remove(gtkStatusbarPointer.reinterpret(), contextId, messageId)
 
     /**
      * Forces the removal of all messages from a statusbar's
@@ -145,8 +143,7 @@ public open class Statusbar(pointer: CPointer<GtkStatusbar>) :
      *
      * @param contextId a context identifier
      */
-    public open fun removeAll(contextId: UInt): Unit =
-        gtk_statusbar_remove_all(gtkStatusbarPointer.reinterpret(), contextId)
+    public open fun removeAll(contextId: UInt): Unit = gtk_statusbar_remove_all(gtkStatusbarPointer.reinterpret(), contextId)
 
     /**
      * Emitted whenever a new message is popped off a statusbar's stack.
@@ -154,17 +151,7 @@ public open class Statusbar(pointer: CPointer<GtkStatusbar>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `contextId` the context id of the relevant message/statusbar; `text` the message that was just popped
      */
-    public fun connectTextPopped(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (contextId: UInt, text: String) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "text-popped",
-        connectTextPoppedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectTextPopped(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (contextId: UInt, text: String) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "text-popped", connectTextPoppedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted whenever a new message gets pushed onto a statusbar's stack.
@@ -172,52 +159,33 @@ public open class Statusbar(pointer: CPointer<GtkStatusbar>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `contextId` the context id of the relevant message/statusbar; `text` the message that was pushed
      */
-    public fun connectTextPushed(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (contextId: UInt, text: String) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "text-pushed",
-        connectTextPushedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectTextPushed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (contextId: UInt, text: String) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "text-pushed", connectTextPushedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<Statusbar> {
         override val type: GeneratedClassKGType<Statusbar> =
-            GeneratedClassKGType(gtk_statusbar_get_type()) { Statusbar(it.reinterpret()) }
+                GeneratedClassKGType(gtk_statusbar_get_type()) { Statusbar(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }
 
 private val connectTextPoppedFunc: CPointer<CFunction<(UInt, CPointer<ByteVar>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            contextId: UInt,
-            text: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(contextId: UInt, text: String) -> Unit>().get().invoke(
-            contextId,
-            text?.toKString() ?: error("Expected not null string")
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    contextId: UInt,
+    text: CPointer<ByteVar>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(contextId: UInt, text: String) -> Unit>().get().invoke(contextId, text?.toKString() ?: error("Expected not null string"))}
+.reinterpret()
 
 private val connectTextPushedFunc: CPointer<CFunction<(UInt, CPointer<ByteVar>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            contextId: UInt,
-            text: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(contextId: UInt, text: String) -> Unit>().get().invoke(
-            contextId,
-            text?.toKString() ?: error("Expected not null string")
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    contextId: UInt,
+    text: CPointer<ByteVar>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(contextId: UInt, text: String) -> Unit>().get().invoke(contextId, text?.toKString() ?: error("Expected not null string"))}
+.reinterpret()

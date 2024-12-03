@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -8,7 +9,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.pango.PangoGlyphVisAttr
-import kotlin.UInt
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `PangoGlyphVisAttr` structure communicates information between
@@ -22,7 +23,9 @@ import kotlin.UInt
  * that is, in Arabic text, accent glyphs follow the glyphs for the
  * base character.
  */
-public class GlyphVisAttr(pointer: CPointer<PangoGlyphVisAttr>) : Record {
+public class GlyphVisAttr(
+    pointer: CPointer<PangoGlyphVisAttr>,
+) : Record {
     public val pangoGlyphVisAttrPointer: CPointer<PangoGlyphVisAttr> = pointer
 
     /**
@@ -44,7 +47,6 @@ public class GlyphVisAttr(pointer: CPointer<PangoGlyphVisAttr>) : Record {
         }
 
     public companion object : RecordCompanion<GlyphVisAttr, PangoGlyphVisAttr> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): GlyphVisAttr =
-            GlyphVisAttr(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): GlyphVisAttr = GlyphVisAttr(pointer.reinterpret())
     }
 }

@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.Int
+import kotlin.ULong
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Bytes
@@ -13,14 +15,13 @@ import org.gtkkn.native.gdk.gdk_memory_texture_get_type
 import org.gtkkn.native.gdk.gdk_memory_texture_new
 import org.gtkkn.native.gio.GIcon
 import org.gtkkn.native.gio.GLoadableIcon
-import kotlin.Int
-import kotlin.ULong
 
 /**
  * A `GdkTexture` representing image data in memory.
  */
-public open class MemoryTexture(pointer: CPointer<GdkMemoryTexture>) :
-    Texture(pointer.reinterpret()),
+public open class MemoryTexture(
+    pointer: CPointer<GdkMemoryTexture>,
+) : Texture(pointer.reinterpret()),
     KGTyped {
     public val gdkMemoryTexturePointer: CPointer<GdkMemoryTexture>
         get() = gPointer.reinterpret()
@@ -53,22 +54,13 @@ public open class MemoryTexture(pointer: CPointer<GdkMemoryTexture>) :
         format: MemoryFormat,
         bytes: Bytes,
         stride: ULong,
-    ) : this(
-        gdk_memory_texture_new(
-            width,
-            height,
-            format.nativeValue,
-            bytes.glibBytesPointer.reinterpret(),
-            stride
-        )!!.reinterpret()
-    )
+    ) : this(gdk_memory_texture_new(width, height, format.nativeValue, bytes.glibBytesPointer.reinterpret(), stride)!!.reinterpret())
 
     public companion object : TypeCompanion<MemoryTexture> {
         override val type: GeneratedClassKGType<MemoryTexture> =
-            GeneratedClassKGType(gdk_memory_texture_get_type()) { MemoryTexture(it.reinterpret()) }
+                GeneratedClassKGType(gdk_memory_texture_get_type()) { MemoryTexture(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
     }
 }

@@ -8,12 +8,15 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GObjectConstructParam
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The GObjectConstructParam struct is an auxiliary structure used to hand
  * #GParamSpec/#GValue pairs to the @constructor of a #GObjectClass.
  */
-public class ObjectConstructParam(pointer: CPointer<GObjectConstructParam>) : Record {
+public class ObjectConstructParam(
+    pointer: CPointer<GObjectConstructParam>,
+) : Record {
     public val gobjectObjectConstructParamPointer: CPointer<GObjectConstructParam> = pointer
 
     /**
@@ -23,8 +26,7 @@ public class ObjectConstructParam(pointer: CPointer<GObjectConstructParam>) : Re
      */
     public val pspec: ParamSpec?
         get() = gobjectObjectConstructParamPointer.pointed.pspec?.run {
-            ParamSpec(reinterpret())
-        }
+            ParamSpec(reinterpret())}
 
     /**
      * the value to set the parameter to
@@ -33,11 +35,9 @@ public class ObjectConstructParam(pointer: CPointer<GObjectConstructParam>) : Re
      */
     public val `value`: Value?
         get() = gobjectObjectConstructParamPointer.pointed.value?.run {
-            Value(reinterpret())
-        }
+            Value(reinterpret())}
 
     public companion object : RecordCompanion<ObjectConstructParam, GObjectConstructParam> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ObjectConstructParam =
-            ObjectConstructParam(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ObjectConstructParam = ObjectConstructParam(pointer.reinterpret())
     }
 }

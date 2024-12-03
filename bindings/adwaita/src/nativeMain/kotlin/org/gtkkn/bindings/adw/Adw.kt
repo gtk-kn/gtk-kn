@@ -1,6 +1,12 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.Double
+import kotlin.Int
+import kotlin.String
+import kotlin.UInt
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -24,12 +30,6 @@ import org.gtkkn.native.adw.adw_is_initialized
 import org.gtkkn.native.adw.adw_length_unit_from_px
 import org.gtkkn.native.adw.adw_length_unit_to_px
 import org.gtkkn.native.adw.adw_lerp
-import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
-import kotlin.String
-import kotlin.UInt
-import kotlin.Unit
 
 /**
  * ## Skipped during bindings generation
@@ -197,8 +197,7 @@ public object Adw {
      */
     @AdwVersion1_4
     public fun breakpointConditionParse(str: String): BreakpointCondition = adw_breakpoint_condition_parse(str)!!.run {
-        BreakpointCondition(reinterpret())
-    }
+        BreakpointCondition(reinterpret())}
 
     /**
      * Computes easing with @easing for @value.
@@ -220,8 +219,7 @@ public object Adw {
      * @param widget a `GtkWidget`
      * @return whether animations are enabled for @widget
      */
-    public fun getEnableAnimations(widget: Widget): Boolean =
-        adw_get_enable_animations(widget.gtkWidgetPointer.reinterpret()).asBoolean()
+    public fun getEnableAnimations(widget: Widget): Boolean = adw_get_enable_animations(widget.gtkWidgetPointer.reinterpret()).asBoolean()
 
     /**
      * Returns the major version number of the Adwaita library.
@@ -298,8 +296,11 @@ public object Adw {
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun lengthUnitFromPx(unit: LengthUnit, `value`: Double, settings: Settings? = null): Double =
-        adw_length_unit_from_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
+    public fun lengthUnitFromPx(
+        unit: LengthUnit,
+        `value`: Double,
+        settings: Settings? = null,
+    ): Double = adw_length_unit_from_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
 
     /**
      * Converts @value from @unit to pixels.
@@ -311,8 +312,11 @@ public object Adw {
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun lengthUnitToPx(unit: LengthUnit, `value`: Double, settings: Settings? = null): Double =
-        adw_length_unit_to_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
+    public fun lengthUnitToPx(
+        unit: LengthUnit,
+        `value`: Double,
+        settings: Settings? = null,
+    ): Double = adw_length_unit_to_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
 
     /**
      * Computes the linear interpolation between @a and @b for @t.
@@ -322,7 +326,11 @@ public object Adw {
      * @param t the interpolation rate
      * @return the computed value
      */
-    public fun lerp(a: Double, b: Double, t: Double): Double = adw_lerp(a, b, t)
+    public fun lerp(
+        a: Double,
+        b: Double,
+        t: Double,
+    ): Double = adw_lerp(a, b, t)
 
     public fun resolveException(error: Error): GLibException {
         val ex = when (error.domain) {
@@ -333,12 +341,11 @@ public object Adw {
 }
 
 public val AnimationTargetFuncFunc: CPointer<CFunction<(Double) -> Unit>> = staticCFunction {
-        `value`: Double,
-        userData: COpaquePointer,
+    `value`: Double,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(`value`: Double) -> Unit>().get().invoke(`value`)
-}
-    .reinterpret()
+    userData.asStableRef<(`value`: Double) -> Unit>().get().invoke(`value`)}
+.reinterpret()
 
 /**
  * Prototype for animation targets based on user callbacks.

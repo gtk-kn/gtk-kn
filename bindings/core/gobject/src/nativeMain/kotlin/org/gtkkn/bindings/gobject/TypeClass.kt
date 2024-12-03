@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -14,8 +16,7 @@ import org.gtkkn.native.gobject.g_type_class_peek_parent
 import org.gtkkn.native.gobject.g_type_class_peek_static
 import org.gtkkn.native.gobject.g_type_class_ref
 import org.gtkkn.native.gobject.g_type_class_unref
-import kotlin.ULong
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * An opaque structure used as the base of all classes.
@@ -26,7 +27,9 @@ import kotlin.Unit
  * - parameter `g_class`: gpointer
  * - field `g_type`: Record field g_type is private
  */
-public class TypeClass(pointer: CPointer<GTypeClass>) : Record {
+public class TypeClass(
+    pointer: CPointer<GTypeClass>,
+) : Record {
     public val gobjectTypeClassPointer: CPointer<GTypeClass> = pointer
 
     /**
@@ -97,8 +100,7 @@ public class TypeClass(pointer: CPointer<GTypeClass>) : Record {
      * @since 2.4
      */
     @GObjectVersion2_4
-    public fun addPrivate(privateSize: ULong): Unit =
-        g_type_class_add_private(gobjectTypeClassPointer.reinterpret(), privateSize)
+    public fun addPrivate(privateSize: ULong): Unit = g_type_class_add_private(gobjectTypeClassPointer.reinterpret(), privateSize)
 
     /**
      * This is a convenience function often needed in class initializers.
@@ -114,8 +116,7 @@ public class TypeClass(pointer: CPointer<GTypeClass>) : Record {
      *     of @g_class
      */
     public fun peekParent(): TypeClass = g_type_class_peek_parent(gobjectTypeClassPointer.reinterpret())!!.run {
-        TypeClass(reinterpret())
-    }
+        TypeClass(reinterpret())}
 
     /**
      * Decrements the reference count of the class structure being passed in.
@@ -139,8 +140,7 @@ public class TypeClass(pointer: CPointer<GTypeClass>) : Record {
          *     currently exist
          */
         public fun peek(type: ULong): TypeClass = g_type_class_peek(type)!!.run {
-            TypeClass(reinterpret())
-        }
+            TypeClass(reinterpret())}
 
         /**
          * A more efficient version of g_type_class_peek() which works only for
@@ -154,8 +154,7 @@ public class TypeClass(pointer: CPointer<GTypeClass>) : Record {
          */
         @GObjectVersion2_4
         public fun peekStatic(type: ULong): TypeClass = g_type_class_peek_static(type)!!.run {
-            TypeClass(reinterpret())
-        }
+            TypeClass(reinterpret())}
 
         /**
          * Increments the reference count of the class structure belonging to
@@ -167,8 +166,7 @@ public class TypeClass(pointer: CPointer<GTypeClass>) : Record {
          *     structure for the given type ID
          */
         public fun ref(type: ULong): TypeClass = g_type_class_ref(type)!!.run {
-            TypeClass(reinterpret())
-        }
+            TypeClass(reinterpret())}
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TypeClass = TypeClass(pointer.reinterpret())
     }

@@ -26,8 +26,9 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_progress_new
  * - method `text-yalign`: Property has no getter nor setter
  * - method `value`: Property has no getter nor setter
  */
-public open class CellRendererProgress(pointer: CPointer<GtkCellRendererProgress>) :
-    CellRenderer(pointer.reinterpret()),
+public open class CellRendererProgress(
+    pointer: CPointer<GtkCellRendererProgress>,
+) : CellRenderer(pointer.reinterpret()),
     Orientable,
     KGTyped {
     public val gtkCellRendererProgressPointer: CPointer<GtkCellRendererProgress>
@@ -45,10 +46,9 @@ public open class CellRendererProgress(pointer: CPointer<GtkCellRendererProgress
 
     public companion object : TypeCompanion<CellRendererProgress> {
         override val type: GeneratedClassKGType<CellRendererProgress> =
-            GeneratedClassKGType(gtk_cell_renderer_progress_get_type()) { CellRendererProgress(it.reinterpret()) }
+                GeneratedClassKGType(gtk_cell_renderer_progress_get_type()) { CellRendererProgress(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

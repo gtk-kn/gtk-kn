@@ -9,23 +9,22 @@ import org.gtkkn.native.gsk.GskMaskMode
  * @since 4.10
  */
 @GskVersion4_10
-public enum class MaskMode(public val nativeValue: GskMaskMode) {
+public enum class MaskMode(
+    public val nativeValue: GskMaskMode,
+) {
     /**
      * Use the alpha channel of the mask
      */
     ALPHA(GskMaskMode.GSK_MASK_MODE_ALPHA),
-
     /**
      * Use the inverted alpha channel of the mask
      */
     INVERTED_ALPHA(GskMaskMode.GSK_MASK_MODE_INVERTED_ALPHA),
-
     /**
      * Use the luminance of the mask,
      *     multiplied by mask alpha
      */
     LUMINANCE(GskMaskMode.GSK_MASK_MODE_LUMINANCE),
-
     /**
      * Use the inverted luminance of the mask,
      *     multiplied by mask alpha

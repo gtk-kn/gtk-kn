@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtksource
 
+import kotlin.String
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -19,8 +21,6 @@ import org.gtkkn.native.gtksource.gtk_source_style_scheme_get_metadata
 import org.gtkkn.native.gtksource.gtk_source_style_scheme_get_name
 import org.gtkkn.native.gtksource.gtk_source_style_scheme_get_style
 import org.gtkkn.native.gtksource.gtk_source_style_scheme_get_type
-import kotlin.String
-import kotlin.collections.List
 
 /**
  * Controls the appearance of [class@View].
@@ -37,8 +37,9 @@ import kotlin.collections.List
  * The two style schemes with IDs "classic" and "tango" follow more closely the
  * GTK theme (for example for the background color).
  */
-public open class StyleScheme(pointer: CPointer<GtkSourceStyleScheme>) :
-    Object(pointer.reinterpret()),
+public open class StyleScheme(
+    pointer: CPointer<GtkSourceStyleScheme>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtksourceStyleSchemePointer: CPointer<GtkSourceStyleScheme>
         get() = gPointer.reinterpret()
@@ -76,8 +77,7 @@ public open class StyleScheme(pointer: CPointer<GtkSourceStyleScheme>) :
          *
          * @return @scheme id.
          */
-        get() = gtk_source_style_scheme_get_id(gtksourceStyleSchemePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = gtk_source_style_scheme_get_id(gtksourceStyleSchemePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Style scheme name, a translatable string to present to the user.
@@ -88,8 +88,7 @@ public open class StyleScheme(pointer: CPointer<GtkSourceStyleScheme>) :
          *
          * @return @scheme name.
          */
-        get() = gtk_source_style_scheme_get_name(gtksourceStyleSchemePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = gtk_source_style_scheme_get_name(gtksourceStyleSchemePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      *
@@ -98,8 +97,7 @@ public open class StyleScheme(pointer: CPointer<GtkSourceStyleScheme>) :
      * null-terminated array containing the @scheme authors or null if
      * no author is specified by the style scheme.
      */
-    public open fun getAuthors(): List<String>? =
-        gtk_source_style_scheme_get_authors(gtksourceStyleSchemePointer.reinterpret())?.toKStringList()
+    public open fun getAuthors(): List<String>? = gtk_source_style_scheme_get_authors(gtksourceStyleSchemePointer.reinterpret())?.toKStringList()
 
     /**
      * Gets a metadata property from the style scheme.
@@ -111,8 +109,7 @@ public open class StyleScheme(pointer: CPointer<GtkSourceStyleScheme>) :
      * @since 5.4
      */
     @GtkSourceVersion5_4
-    public open fun getMetadata(name: String): String? =
-        gtk_source_style_scheme_get_metadata(gtksourceStyleSchemePointer.reinterpret(), name)?.toKString()
+    public open fun getMetadata(name: String): String? = gtk_source_style_scheme_get_metadata(gtksourceStyleSchemePointer.reinterpret(), name)?.toKString()
 
     /**
      *
@@ -122,17 +119,14 @@ public open class StyleScheme(pointer: CPointer<GtkSourceStyleScheme>) :
      * the @scheme, or null when no style with this name found.  It is owned by
      * @scheme and may not be unref'ed.
      */
-    public open fun getStyle(styleId: String): Style? =
-        gtk_source_style_scheme_get_style(gtksourceStyleSchemePointer.reinterpret(), styleId)?.run {
-            Style(reinterpret())
-        }
+    public open fun getStyle(styleId: String): Style? = gtk_source_style_scheme_get_style(gtksourceStyleSchemePointer.reinterpret(), styleId)?.run {
+        Style(reinterpret())}
 
     public companion object : TypeCompanion<StyleScheme> {
         override val type: GeneratedClassKGType<StyleScheme> =
-            GeneratedClassKGType(gtk_source_style_scheme_get_type()) { StyleScheme(it.reinterpret()) }
+                GeneratedClassKGType(gtk_source_style_scheme_get_type()) { StyleScheme(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtksourceTypeProvider.register()}
     }
 }

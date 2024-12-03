@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Char
+import kotlin.Long
+import kotlin.UInt
+import kotlin.ULong
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.cstr
@@ -50,11 +55,7 @@ import org.gtkkn.native.glib.g_string_set_size
 import org.gtkkn.native.glib.g_string_sized_new
 import org.gtkkn.native.glib.g_string_truncate
 import org.gtkkn.native.glib.g_string_up
-import kotlin.Boolean
-import kotlin.Char
-import kotlin.Long
-import kotlin.UInt
-import kotlin.ULong
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GString` is an object that handles the memory management of a C string.
@@ -68,7 +69,9 @@ import kotlin.ULong
  * `GString` is like a `GByteArray` with the addition of many convenience methods for
  * text, and a guaranteed nul terminator.
  */
-public class String(pointer: CPointer<GString>) : Record {
+public class String(
+    pointer: CPointer<GString>,
+) : Record {
     public val glibStringPointer: CPointer<GString> = pointer
 
     /**
@@ -109,8 +112,7 @@ public class String(pointer: CPointer<GString>) : Record {
      * @return @string
      */
     public fun append(`val`: kotlin.String): String = g_string_append(glibStringPointer.reinterpret(), `val`)!!.run {
-        String(reinterpret())
-    }
+        String(reinterpret())}
 
     /**
      * Adds a byte onto the end of a #GString, expanding
@@ -120,8 +122,7 @@ public class String(pointer: CPointer<GString>) : Record {
      * @return @string
      */
     public fun appendC(c: Char): String = g_string_append_c(glibStringPointer.reinterpret(), c.code.toByte())!!.run {
-        String(reinterpret())
-    }
+        String(reinterpret())}
 
     /**
      * Appends @len bytes of @val to @string.
@@ -138,10 +139,8 @@ public class String(pointer: CPointer<GString>) : Record {
      * @param len number of bytes of @val to use, or -1 for all of @val
      * @return @string
      */
-    public fun appendLen(`val`: kotlin.String, len: Long): String =
-        g_string_append_len(glibStringPointer.reinterpret(), `val`, len)!!.run {
-            String(reinterpret())
-        }
+    public fun appendLen(`val`: kotlin.String, len: Long): String = g_string_append_len(glibStringPointer.reinterpret(), `val`, len)!!.run {
+        String(reinterpret())}
 
     /**
      * Converts a Unicode character into UTF-8, and appends it
@@ -151,8 +150,7 @@ public class String(pointer: CPointer<GString>) : Record {
      * @return @string
      */
     public fun appendUnichar(wc: UInt): String = g_string_append_unichar(glibStringPointer.reinterpret(), wc)!!.run {
-        String(reinterpret())
-    }
+        String(reinterpret())}
 
     /**
      * Appends @unescaped to @string, escaping any characters that
@@ -170,14 +168,8 @@ public class String(pointer: CPointer<GString>) : Record {
         unescaped: kotlin.String,
         reservedCharsAllowed: kotlin.String,
         allowUtf8: Boolean,
-    ): String = g_string_append_uri_escaped(
-        glibStringPointer.reinterpret(),
-        unescaped,
-        reservedCharsAllowed,
-        allowUtf8.asGBoolean()
-    )!!.run {
-        String(reinterpret())
-    }
+    ): String = g_string_append_uri_escaped(glibStringPointer.reinterpret(), unescaped, reservedCharsAllowed, allowUtf8.asGBoolean())!!.run {
+        String(reinterpret())}
 
     /**
      * Converts all uppercase ASCII letters to lowercase ASCII letters.
@@ -187,8 +179,7 @@ public class String(pointer: CPointer<GString>) : Record {
      *     with semantics that exactly match g_ascii_tolower().
      */
     public fun asciiDown(): String = g_string_ascii_down(glibStringPointer.reinterpret())!!.run {
-        String(reinterpret())
-    }
+        String(reinterpret())}
 
     /**
      * Converts all lowercase ASCII letters to uppercase ASCII letters.
@@ -198,8 +189,7 @@ public class String(pointer: CPointer<GString>) : Record {
      *     with semantics that exactly match g_ascii_toupper().
      */
     public fun asciiUp(): String = g_string_ascii_up(glibStringPointer.reinterpret())!!.run {
-        String(reinterpret())
-    }
+        String(reinterpret())}
 
     /**
      * Copies the bytes from a string into a #GString,
@@ -211,8 +201,7 @@ public class String(pointer: CPointer<GString>) : Record {
      * @return @string
      */
     public fun assign(rval: kotlin.String): String = g_string_assign(glibStringPointer.reinterpret(), rval)!!.run {
-        String(reinterpret())
-    }
+        String(reinterpret())}
 
     /**
      * Converts a #GString to lowercase.
@@ -220,8 +209,7 @@ public class String(pointer: CPointer<GString>) : Record {
      * @return the #GString
      */
     public fun down(): String = g_string_down(glibStringPointer.reinterpret())!!.run {
-        String(reinterpret())
-    }
+        String(reinterpret())}
 
     /**
      * Compares two strings for equality, returning true if they are equal.
@@ -231,8 +219,7 @@ public class String(pointer: CPointer<GString>) : Record {
      * @return true if the strings are the same length and contain the
      *     same bytes
      */
-    public fun equal(v2: String): Boolean =
-        g_string_equal(glibStringPointer.reinterpret(), v2.glibStringPointer.reinterpret()).asBoolean()
+    public fun equal(v2: String): Boolean = g_string_equal(glibStringPointer.reinterpret(), v2.glibStringPointer.reinterpret()).asBoolean()
 
     /**
      * Removes @len bytes from a #GString, starting at position @pos.
@@ -244,8 +231,7 @@ public class String(pointer: CPointer<GString>) : Record {
      * @return @string
      */
     public fun erase(pos: Long, len: Long): String = g_string_erase(glibStringPointer.reinterpret(), pos, len)!!.run {
-        String(reinterpret())
-    }
+        String(reinterpret())}
 
     /**
      * Frees the memory allocated for the #GString.
@@ -260,8 +246,7 @@ public class String(pointer: CPointer<GString>) : Record {
      * @return the character data of @string
      *          (i.e. null if @free_segment is true)
      */
-    public fun free(freeSegment: Boolean): kotlin.String? =
-        g_string_free(glibStringPointer.reinterpret(), freeSegment.asGBoolean())?.toKString()
+    public fun free(freeSegment: Boolean): kotlin.String? = g_string_free(glibStringPointer.reinterpret(), freeSegment.asGBoolean())?.toKString()
 
     /**
      * Frees the memory allocated for the #GString.
@@ -273,8 +258,7 @@ public class String(pointer: CPointer<GString>) : Record {
      * @since 2.76
      */
     @GLibVersion2_76
-    public fun freeAndSteal(): kotlin.String =
-        g_string_free_and_steal(glibStringPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun freeAndSteal(): kotlin.String = g_string_free_and_steal(glibStringPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Transfers ownership of the contents of @string to a newly allocated
@@ -291,8 +275,7 @@ public class String(pointer: CPointer<GString>) : Record {
      */
     @GLibVersion2_34
     public fun freeToBytes(): Bytes = g_string_free_to_bytes(glibStringPointer.reinterpret())!!.run {
-        Bytes(reinterpret())
-    }
+        Bytes(reinterpret())}
 
     /**
      * Creates a hash code for @str; for use with #GHashTable.
@@ -309,10 +292,8 @@ public class String(pointer: CPointer<GString>) : Record {
      * @param val the string to insert
      * @return @string
      */
-    public fun insert(pos: Long, `val`: kotlin.String): String =
-        g_string_insert(glibStringPointer.reinterpret(), pos, `val`)!!.run {
-            String(reinterpret())
-        }
+    public fun insert(pos: Long, `val`: kotlin.String): String = g_string_insert(glibStringPointer.reinterpret(), pos, `val`)!!.run {
+        String(reinterpret())}
 
     /**
      * Inserts a byte into a #GString, expanding it if necessary.
@@ -321,10 +302,8 @@ public class String(pointer: CPointer<GString>) : Record {
      * @param c the byte to insert
      * @return @string
      */
-    public fun insertC(pos: Long, c: Char): String =
-        g_string_insert_c(glibStringPointer.reinterpret(), pos, c.code.toByte())!!.run {
-            String(reinterpret())
-        }
+    public fun insertC(pos: Long, c: Char): String = g_string_insert_c(glibStringPointer.reinterpret(), pos, c.code.toByte())!!.run {
+        String(reinterpret())}
 
     /**
      * Inserts @len bytes of @val into @string at @pos.
@@ -344,10 +323,12 @@ public class String(pointer: CPointer<GString>) : Record {
      * @param len number of bytes of @val to insert, or -1 for all of @val
      * @return @string
      */
-    public fun insertLen(pos: Long, `val`: kotlin.String, len: Long): String =
-        g_string_insert_len(glibStringPointer.reinterpret(), pos, `val`, len)!!.run {
-            String(reinterpret())
-        }
+    public fun insertLen(
+        pos: Long,
+        `val`: kotlin.String,
+        len: Long,
+    ): String = g_string_insert_len(glibStringPointer.reinterpret(), pos, `val`, len)!!.run {
+        String(reinterpret())}
 
     /**
      * Converts a Unicode character into UTF-8, and insert it
@@ -358,10 +339,8 @@ public class String(pointer: CPointer<GString>) : Record {
      * @param wc a Unicode character
      * @return @string
      */
-    public fun insertUnichar(pos: Long, wc: UInt): String =
-        g_string_insert_unichar(glibStringPointer.reinterpret(), pos, wc)!!.run {
-            String(reinterpret())
-        }
+    public fun insertUnichar(pos: Long, wc: UInt): String = g_string_insert_unichar(glibStringPointer.reinterpret(), pos, wc)!!.run {
+        String(reinterpret())}
 
     /**
      * Overwrites part of a string, lengthening it if necessary.
@@ -372,10 +351,8 @@ public class String(pointer: CPointer<GString>) : Record {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun overwrite(pos: ULong, `val`: kotlin.String): String =
-        g_string_overwrite(glibStringPointer.reinterpret(), pos, `val`)!!.run {
-            String(reinterpret())
-        }
+    public fun overwrite(pos: ULong, `val`: kotlin.String): String = g_string_overwrite(glibStringPointer.reinterpret(), pos, `val`)!!.run {
+        String(reinterpret())}
 
     /**
      * Overwrites part of a string, lengthening it if necessary.
@@ -388,10 +365,12 @@ public class String(pointer: CPointer<GString>) : Record {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun overwriteLen(pos: ULong, `val`: kotlin.String, len: Long): String =
-        g_string_overwrite_len(glibStringPointer.reinterpret(), pos, `val`, len)!!.run {
-            String(reinterpret())
-        }
+    public fun overwriteLen(
+        pos: ULong,
+        `val`: kotlin.String,
+        len: Long,
+    ): String = g_string_overwrite_len(glibStringPointer.reinterpret(), pos, `val`, len)!!.run {
+        String(reinterpret())}
 
     /**
      * Adds a string on to the start of a #GString,
@@ -401,8 +380,7 @@ public class String(pointer: CPointer<GString>) : Record {
      * @return @string
      */
     public fun prepend(`val`: kotlin.String): String = g_string_prepend(glibStringPointer.reinterpret(), `val`)!!.run {
-        String(reinterpret())
-    }
+        String(reinterpret())}
 
     /**
      * Adds a byte onto the start of a #GString,
@@ -412,8 +390,7 @@ public class String(pointer: CPointer<GString>) : Record {
      * @return @string
      */
     public fun prependC(c: Char): String = g_string_prepend_c(glibStringPointer.reinterpret(), c.code.toByte())!!.run {
-        String(reinterpret())
-    }
+        String(reinterpret())}
 
     /**
      * Prepends @len bytes of @val to @string.
@@ -430,10 +407,8 @@ public class String(pointer: CPointer<GString>) : Record {
      * @param len number of bytes in @val to prepend, or -1 for all of @val
      * @return @string
      */
-    public fun prependLen(`val`: kotlin.String, len: Long): String =
-        g_string_prepend_len(glibStringPointer.reinterpret(), `val`, len)!!.run {
-            String(reinterpret())
-        }
+    public fun prependLen(`val`: kotlin.String, len: Long): String = g_string_prepend_len(glibStringPointer.reinterpret(), `val`, len)!!.run {
+        String(reinterpret())}
 
     /**
      * Converts a Unicode character into UTF-8, and prepends it
@@ -443,8 +418,7 @@ public class String(pointer: CPointer<GString>) : Record {
      * @return @string
      */
     public fun prependUnichar(wc: UInt): String = g_string_prepend_unichar(glibStringPointer.reinterpret(), wc)!!.run {
-        String(reinterpret())
-    }
+        String(reinterpret())}
 
     /**
      * Replaces the string @find with the string @replace in a #GString up to
@@ -465,8 +439,11 @@ public class String(pointer: CPointer<GString>) : Record {
      * @since 2.68
      */
     @GLibVersion2_68
-    public fun replace(find: kotlin.String, replace: kotlin.String, limit: UInt): UInt =
-        g_string_replace(glibStringPointer.reinterpret(), find, replace, limit)
+    public fun replace(
+        find: kotlin.String,
+        replace: kotlin.String,
+        limit: UInt,
+    ): UInt = g_string_replace(glibStringPointer.reinterpret(), find, replace, limit)
 
     /**
      * Sets the length of a #GString. If the length is less than
@@ -479,8 +456,7 @@ public class String(pointer: CPointer<GString>) : Record {
      * @return @string
      */
     public fun setSize(len: ULong): String = g_string_set_size(glibStringPointer.reinterpret(), len)!!.run {
-        String(reinterpret())
-    }
+        String(reinterpret())}
 
     /**
      * Cuts off the end of the GString, leaving the first @len bytes.
@@ -489,8 +465,7 @@ public class String(pointer: CPointer<GString>) : Record {
      * @return @string
      */
     public fun truncate(len: ULong): String = g_string_truncate(glibStringPointer.reinterpret(), len)!!.run {
-        String(reinterpret())
-    }
+        String(reinterpret())}
 
     /**
      * Converts a #GString to uppercase.
@@ -498,8 +473,7 @@ public class String(pointer: CPointer<GString>) : Record {
      * @return @string
      */
     public fun up(): String = g_string_up(glibStringPointer.reinterpret())!!.run {
-        String(reinterpret())
-    }
+        String(reinterpret())}
 
     public companion object : RecordCompanion<String, GString> {
         /**
@@ -524,8 +498,7 @@ public class String(pointer: CPointer<GString>) : Record {
          * @param len length of @init to use
          * @return a new #GString
          */
-        public fun newLen(`init`: kotlin.String, len: Long): String =
-            String(g_string_new_len(`init`, len)!!.reinterpret())
+        public fun newLen(`init`: kotlin.String, len: Long): String = String(g_string_new_len(`init`, len)!!.reinterpret())
 
         /**
          * Creates a new #GString, initialized with the given string.
@@ -540,8 +513,7 @@ public class String(pointer: CPointer<GString>) : Record {
          * @return the new #GString
          * @since 2.78
          */
-        public fun newTake(`init`: kotlin.String? = null): String =
-            String(g_string_new_take(`init`?.cstr)!!.reinterpret())
+        public fun newTake(`init`: kotlin.String? = null): String = String(g_string_new_take(`init`?.cstr)!!.reinterpret())
 
         /**
          * Creates a new #GString, with enough space for @dfl_size

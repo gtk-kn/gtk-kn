@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.UInt
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -26,9 +29,6 @@ import org.gtkkn.native.webkit.webkit_option_menu_get_item
 import org.gtkkn.native.webkit.webkit_option_menu_get_n_items
 import org.gtkkn.native.webkit.webkit_option_menu_get_type
 import org.gtkkn.native.webkit.webkit_option_menu_select_item
-import kotlin.UInt
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Represents the dropdown menu of a `select` element in a #WebKitWebView.
@@ -39,8 +39,9 @@ import kotlin.Unit
  * @since 2.18
  */
 @WebKitVersion2_18
-public class OptionMenu(pointer: CPointer<WebKitOptionMenu>) :
-    Object(pointer.reinterpret()),
+public class OptionMenu(
+    pointer: CPointer<WebKitOptionMenu>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val webkitOptionMenuPointer: CPointer<WebKitOptionMenu>
         get() = gPointer.reinterpret()
@@ -57,8 +58,7 @@ public class OptionMenu(pointer: CPointer<WebKitOptionMenu>) :
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun activateItem(index: UInt): Unit =
-        webkit_option_menu_activate_item(webkitOptionMenuPointer.reinterpret(), index)
+    public fun activateItem(index: UInt): Unit = webkit_option_menu_activate_item(webkitOptionMenuPointer.reinterpret(), index)
 
     /**
      * Request to close a #WebKitOptionMenu.
@@ -84,8 +84,7 @@ public class OptionMenu(pointer: CPointer<WebKitOptionMenu>) :
      */
     @WebKitVersion2_40
     public fun getEvent(): Event = webkit_option_menu_get_event(webkitOptionMenuPointer.reinterpret())!!.run {
-        Event(reinterpret())
-    }
+        Event(reinterpret())}
 
     /**
      * Returns the #WebKitOptionMenuItem at @index in @menu.
@@ -95,10 +94,8 @@ public class OptionMenu(pointer: CPointer<WebKitOptionMenu>) :
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun getItem(index: UInt): OptionMenuItem =
-        webkit_option_menu_get_item(webkitOptionMenuPointer.reinterpret(), index)!!.run {
-            OptionMenuItem(reinterpret())
-        }
+    public fun getItem(index: UInt): OptionMenuItem = webkit_option_menu_get_item(webkitOptionMenuPointer.reinterpret(), index)!!.run {
+        OptionMenuItem(reinterpret())}
 
     /**
      * Gets the length of the @menu.
@@ -121,8 +118,7 @@ public class OptionMenu(pointer: CPointer<WebKitOptionMenu>) :
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun selectItem(index: UInt): Unit =
-        webkit_option_menu_select_item(webkitOptionMenuPointer.reinterpret(), index)
+    public fun selectItem(index: UInt): Unit = webkit_option_menu_select_item(webkitOptionMenuPointer.reinterpret(), index)
 
     /**
      * Emitted when closing a #WebKitOptionMenu is requested. This can happen
@@ -134,30 +130,20 @@ public class OptionMenu(pointer: CPointer<WebKitOptionMenu>) :
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun connectClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "close",
-            connectCloseFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "close", connectCloseFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<OptionMenu> {
         override val type: GeneratedClassKGType<OptionMenu> =
-            GeneratedClassKGType(webkit_option_menu_get_type()) { OptionMenu(it.reinterpret()) }
+                GeneratedClassKGType(webkit_option_menu_get_type()) { OptionMenu(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebkitTypeProvider.register()}
     }
 }
 
 private val connectCloseFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Interface
@@ -11,7 +12,6 @@ import org.gtkkn.native.webkit.WebKitPermissionRequest
 import org.gtkkn.native.webkit.webkit_permission_request_allow
 import org.gtkkn.native.webkit.webkit_permission_request_deny
 import org.gtkkn.native.webkit.webkit_permission_request_get_type
-import kotlin.Unit
 
 /**
  * A permission request.
@@ -23,9 +23,7 @@ import kotlin.Unit
  * #WebKitWebView::permission-request signal with a
  * #WebKitPermissionRequest object attached to it.
  */
-public interface PermissionRequest :
-    Interface,
-    KGTyped {
+public interface PermissionRequest : Interface, KGTyped {
     public val webkitPermissionRequestPointer: CPointer<WebKitPermissionRequest>
 
     /**
@@ -38,17 +36,18 @@ public interface PermissionRequest :
      */
     public fun deny(): Unit = webkit_permission_request_deny(webkitPermissionRequestPointer.reinterpret())
 
-    private data class Wrapper(private val pointer: CPointer<WebKitPermissionRequest>) : PermissionRequest {
+    private data class Wrapper(
+        private val pointer: CPointer<WebKitPermissionRequest>,
+    ) : PermissionRequest {
         override val webkitPermissionRequestPointer: CPointer<WebKitPermissionRequest> = pointer
     }
 
     public companion object : TypeCompanion<PermissionRequest> {
         override val type: GeneratedInterfaceKGType<PermissionRequest> =
-            GeneratedInterfaceKGType(webkit_permission_request_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(webkit_permission_request_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebkitTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<WebKitPermissionRequest>): PermissionRequest = Wrapper(pointer)
     }

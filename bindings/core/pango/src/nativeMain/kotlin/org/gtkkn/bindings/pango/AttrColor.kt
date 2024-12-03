@@ -7,6 +7,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.pango.PangoAttrColor
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `PangoAttrColor` structure is used to represent attributes that
@@ -17,7 +18,9 @@ import org.gtkkn.native.pango.PangoAttrColor
  * - field `attr`: Attribute
  * - field `color`: Color
  */
-public class AttrColor(pointer: CPointer<PangoAttrColor>) : Record {
+public class AttrColor(
+    pointer: CPointer<PangoAttrColor>,
+) : Record {
     public val pangoAttrColorPointer: CPointer<PangoAttrColor> = pointer
 
     public companion object : RecordCompanion<AttrColor, PangoAttrColor> {

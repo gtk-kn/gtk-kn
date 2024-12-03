@@ -6,12 +6,13 @@ import org.gtkkn.native.gtk.GtkCellRendererAccelMode
 /**
  * The available modes for [property@Gtk.CellRendererAccel:accel-mode].
  */
-public enum class CellRendererAccelMode(public val nativeValue: GtkCellRendererAccelMode) {
+public enum class CellRendererAccelMode(
+    public val nativeValue: GtkCellRendererAccelMode,
+) {
     /**
      * GTK accelerators mode
      */
     GTK(GtkCellRendererAccelMode.GTK_CELL_RENDERER_ACCEL_MODE_GTK),
-
     /**
      * Other accelerator mode
      */

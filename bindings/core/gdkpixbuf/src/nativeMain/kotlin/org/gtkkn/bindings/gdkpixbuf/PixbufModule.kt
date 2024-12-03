@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdkpixbuf
 
+import kotlin.String
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,7 +10,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gdkpixbuf.GdkPixbufModule
-import kotlin.String
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GdkPixbufModule` contains the necessary functions to load and save
@@ -75,7 +76,9 @@ import kotlin.String
  * - field `_reserved3`: Fields with callbacks are not supported
  * - field `_reserved4`: Fields with callbacks are not supported
  */
-public class PixbufModule(pointer: CPointer<GdkPixbufModule>) : Record {
+public class PixbufModule(
+    pointer: CPointer<GdkPixbufModule>,
+) : Record {
     public val gdkpixbufPixbufModulePointer: CPointer<GdkPixbufModule> = pointer
 
     /**
@@ -102,11 +105,9 @@ public class PixbufModule(pointer: CPointer<GdkPixbufModule>) : Record {
      */
     public val info: PixbufFormat?
         get() = gdkpixbufPixbufModulePointer.pointed.info?.run {
-            PixbufFormat(reinterpret())
-        }
+            PixbufFormat(reinterpret())}
 
     public companion object : RecordCompanion<PixbufModule, GdkPixbufModule> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PixbufModule =
-            PixbufModule(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PixbufModule = PixbufModule(pointer.reinterpret())
     }
 }

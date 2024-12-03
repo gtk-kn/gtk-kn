@@ -16,7 +16,9 @@ import org.gtkkn.native.gio.G_TLS_PASSWORD_RETRY
  * Various flags for the password.
  * @since 2.30
  */
-public class TlsPasswordFlags(public val mask: GTlsPasswordFlags) : Bitfield<TlsPasswordFlags> {
+public class TlsPasswordFlags(
+    public val mask: GTlsPasswordFlags,
+) : Bitfield<TlsPasswordFlags> {
     override infix fun or(other: TlsPasswordFlags): TlsPasswordFlags = TlsPasswordFlags(mask or other.mask)
 
     @GioVersion2_30
@@ -54,13 +56,13 @@ public class TlsPasswordFlags(public val mask: GTlsPasswordFlags) : Bitfield<Tls
          *    PIN is required. Since: 2.70.
          */
         public val PKCS11_SECURITY_OFFICER: TlsPasswordFlags =
-            TlsPasswordFlags(G_TLS_PASSWORD_PKCS11_SECURITY_OFFICER)
+                TlsPasswordFlags(G_TLS_PASSWORD_PKCS11_SECURITY_OFFICER)
 
         /**
          * For PKCS #11, the context-specific
          *    PIN is required. Since: 2.70.
          */
         public val PKCS11_CONTEXT_SPECIFIC: TlsPasswordFlags =
-            TlsPasswordFlags(G_TLS_PASSWORD_PKCS11_CONTEXT_SPECIFIC)
+                TlsPasswordFlags(G_TLS_PASSWORD_PKCS11_CONTEXT_SPECIFIC)
     }
 }

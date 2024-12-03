@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.String
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,12 +10,14 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GFileAttributeInfo
-import kotlin.String
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Information about a specific attribute.
  */
-public class FileAttributeInfo(pointer: CPointer<GFileAttributeInfo>) : Record {
+public class FileAttributeInfo(
+    pointer: CPointer<GFileAttributeInfo>,
+) : Record {
     public val gioFileAttributeInfoPointer: CPointer<GFileAttributeInfo> = pointer
 
     /**
@@ -30,8 +33,7 @@ public class FileAttributeInfo(pointer: CPointer<GFileAttributeInfo>) : Record {
      */
     public var type: FileAttributeType
         get() = gioFileAttributeInfoPointer.pointed.type.run {
-            FileAttributeType.fromNativeValue(this)
-        }
+            FileAttributeType.fromNativeValue(this)}
         set(`value`) {
             gioFileAttributeInfoPointer.pointed.type = value.nativeValue
         }
@@ -41,14 +43,12 @@ public class FileAttributeInfo(pointer: CPointer<GFileAttributeInfo>) : Record {
      */
     public var flags: FileAttributeInfoFlags
         get() = gioFileAttributeInfoPointer.pointed.flags.run {
-            FileAttributeInfoFlags(this)
-        }
+            FileAttributeInfoFlags(this)}
         set(`value`) {
             gioFileAttributeInfoPointer.pointed.flags = value.mask
         }
 
     public companion object : RecordCompanion<FileAttributeInfo, GFileAttributeInfo> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FileAttributeInfo =
-            FileAttributeInfo(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FileAttributeInfo = FileAttributeInfo(pointer.reinterpret())
     }
 }

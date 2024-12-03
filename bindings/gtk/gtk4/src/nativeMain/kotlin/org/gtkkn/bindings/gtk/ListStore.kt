@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -28,9 +31,6 @@ import org.gtkkn.native.gtk.gtk_list_store_prepend
 import org.gtkkn.native.gtk.gtk_list_store_remove
 import org.gtkkn.native.gtk.gtk_list_store_set_value
 import org.gtkkn.native.gtk.gtk_list_store_swap
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.Unit
 
 /**
  * A list-like data structure that can be used with the [class@Gtk.TreeView].
@@ -185,8 +185,9 @@ import kotlin.Unit
  * - parameter `columns`: Array parameter of type gint is not supported
  * - parameter `types`: Array parameter of type GType is not supported
  */
-public open class ListStore(pointer: CPointer<GtkListStore>) :
-    Object(pointer.reinterpret()),
+public open class ListStore(
+    pointer: CPointer<GtkListStore>,
+) : Object(pointer.reinterpret()),
     Buildable,
     TreeDragDest,
     TreeDragSource,
@@ -218,8 +219,7 @@ public open class ListStore(pointer: CPointer<GtkListStore>) :
      *
      * @param iter An unset `GtkTreeIter` to set to the appended row
      */
-    public open fun append(iter: TreeIter): Unit =
-        gtk_list_store_append(gtkListStorePointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret())
+    public open fun append(iter: TreeIter): Unit = gtk_list_store_append(gtkListStorePointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret())
 
     /**
      * Removes all rows from the list store.
@@ -236,8 +236,7 @@ public open class ListStore(pointer: CPointer<GtkListStore>) :
      * @param iter An unset `GtkTreeIter` to set to the new row
      * @param position position to insert the new row, or -1 for last
      */
-    public open fun insert(iter: TreeIter, position: Int): Unit =
-        gtk_list_store_insert(gtkListStorePointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret(), position)
+    public open fun insert(iter: TreeIter, position: Int): Unit = gtk_list_store_insert(gtkListStorePointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret(), position)
 
     /**
      * Inserts a new row after @sibling. If @sibling is null, then the row will be
@@ -248,11 +247,7 @@ public open class ListStore(pointer: CPointer<GtkListStore>) :
      * @param iter An unset `GtkTreeIter` to set to the new row
      * @param sibling A valid `GtkTreeIter`
      */
-    public open fun insertAfter(iter: TreeIter, sibling: TreeIter? = null): Unit = gtk_list_store_insert_after(
-        gtkListStorePointer.reinterpret(),
-        iter.gtkTreeIterPointer.reinterpret(),
-        sibling?.gtkTreeIterPointer?.reinterpret()
-    )
+    public open fun insertAfter(iter: TreeIter, sibling: TreeIter? = null): Unit = gtk_list_store_insert_after(gtkListStorePointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret(), sibling?.gtkTreeIterPointer?.reinterpret())
 
     /**
      * Inserts a new row before @sibling. If @sibling is null, then the row will
@@ -263,11 +258,7 @@ public open class ListStore(pointer: CPointer<GtkListStore>) :
      * @param iter An unset `GtkTreeIter` to set to the new row
      * @param sibling A valid `GtkTreeIter`
      */
-    public open fun insertBefore(iter: TreeIter, sibling: TreeIter? = null): Unit = gtk_list_store_insert_before(
-        gtkListStorePointer.reinterpret(),
-        iter.gtkTreeIterPointer.reinterpret(),
-        sibling?.gtkTreeIterPointer?.reinterpret()
-    )
+    public open fun insertBefore(iter: TreeIter, sibling: TreeIter? = null): Unit = gtk_list_store_insert_before(gtkListStorePointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret(), sibling?.gtkTreeIterPointer?.reinterpret())
 
     /**
      * Checks if the given iter is a valid iter for this `GtkListStore`.
@@ -278,10 +269,7 @@ public open class ListStore(pointer: CPointer<GtkListStore>) :
      * @param iter the iterator to check
      * @return true if the iter is valid, false if the iter is invalid.
      */
-    public open fun iterIsValid(iter: TreeIter): Boolean = gtk_list_store_iter_is_valid(
-        gtkListStorePointer.reinterpret(),
-        iter.gtkTreeIterPointer.reinterpret()
-    ).asBoolean()
+    public open fun iterIsValid(iter: TreeIter): Boolean = gtk_list_store_iter_is_valid(gtkListStorePointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret()).asBoolean()
 
     /**
      * Moves @iter in @store to the position after @position. Note that this
@@ -291,11 +279,7 @@ public open class ListStore(pointer: CPointer<GtkListStore>) :
      * @param iter A `GtkTreeIter`
      * @param position A `GtkTreeIter`
      */
-    public open fun moveAfter(iter: TreeIter, position: TreeIter? = null): Unit = gtk_list_store_move_after(
-        gtkListStorePointer.reinterpret(),
-        iter.gtkTreeIterPointer.reinterpret(),
-        position?.gtkTreeIterPointer?.reinterpret()
-    )
+    public open fun moveAfter(iter: TreeIter, position: TreeIter? = null): Unit = gtk_list_store_move_after(gtkListStorePointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret(), position?.gtkTreeIterPointer?.reinterpret())
 
     /**
      * Moves @iter in @store to the position before @position. Note that this
@@ -305,11 +289,7 @@ public open class ListStore(pointer: CPointer<GtkListStore>) :
      * @param iter A `GtkTreeIter`
      * @param position A `GtkTreeIter`
      */
-    public open fun moveBefore(iter: TreeIter, position: TreeIter? = null): Unit = gtk_list_store_move_before(
-        gtkListStorePointer.reinterpret(),
-        iter.gtkTreeIterPointer.reinterpret(),
-        position?.gtkTreeIterPointer?.reinterpret()
-    )
+    public open fun moveBefore(iter: TreeIter, position: TreeIter? = null): Unit = gtk_list_store_move_before(gtkListStorePointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret(), position?.gtkTreeIterPointer?.reinterpret())
 
     /**
      * Prepends a new row to @list_store. @iter will be changed to point to this new
@@ -318,8 +298,7 @@ public open class ListStore(pointer: CPointer<GtkListStore>) :
      *
      * @param iter An unset `GtkTreeIter` to set to the prepend row
      */
-    public open fun prepend(iter: TreeIter): Unit =
-        gtk_list_store_prepend(gtkListStorePointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret())
+    public open fun prepend(iter: TreeIter): Unit = gtk_list_store_prepend(gtkListStorePointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret())
 
     /**
      * Removes the given row from the list store.  After being removed,
@@ -329,8 +308,7 @@ public open class ListStore(pointer: CPointer<GtkListStore>) :
      * @param iter A valid `GtkTreeIter`
      * @return true if @iter is valid, false if not.
      */
-    public open fun remove(iter: TreeIter): Boolean =
-        gtk_list_store_remove(gtkListStorePointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret()).asBoolean()
+    public open fun remove(iter: TreeIter): Boolean = gtk_list_store_remove(gtkListStorePointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret()).asBoolean()
 
     /**
      * Sets the data in the cell specified by @iter and @column.
@@ -341,12 +319,11 @@ public open class ListStore(pointer: CPointer<GtkListStore>) :
      * @param column column number to modify
      * @param value new value for the cell
      */
-    public open fun setValue(iter: TreeIter, column: Int, `value`: Value): Unit = gtk_list_store_set_value(
-        gtkListStorePointer.reinterpret(),
-        iter.gtkTreeIterPointer.reinterpret(),
-        column,
-        `value`.gobjectValuePointer.reinterpret()
-    )
+    public open fun setValue(
+        iter: TreeIter,
+        column: Int,
+        `value`: Value,
+    ): Unit = gtk_list_store_set_value(gtkListStorePointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret(), column, `value`.gobjectValuePointer.reinterpret())
 
     /**
      * Swaps @a and @b in @store. Note that this function only works with
@@ -355,18 +332,13 @@ public open class ListStore(pointer: CPointer<GtkListStore>) :
      * @param a A `GtkTreeIter`
      * @param b Another `GtkTreeIter`
      */
-    public open fun swap(a: TreeIter, b: TreeIter): Unit = gtk_list_store_swap(
-        gtkListStorePointer.reinterpret(),
-        a.gtkTreeIterPointer.reinterpret(),
-        b.gtkTreeIterPointer.reinterpret()
-    )
+    public open fun swap(a: TreeIter, b: TreeIter): Unit = gtk_list_store_swap(gtkListStorePointer.reinterpret(), a.gtkTreeIterPointer.reinterpret(), b.gtkTreeIterPointer.reinterpret())
 
     public companion object : TypeCompanion<ListStore> {
         override val type: GeneratedClassKGType<ListStore> =
-            GeneratedClassKGType(gtk_list_store_get_type()) { ListStore(it.reinterpret()) }
+                GeneratedClassKGType(gtk_list_store_get_type()) { ListStore(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
     }
 }

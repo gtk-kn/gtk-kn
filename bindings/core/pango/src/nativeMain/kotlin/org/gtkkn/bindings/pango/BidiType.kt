@@ -1,10 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.UInt
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_22
 import org.gtkkn.native.pango.PangoBidiType
 import org.gtkkn.native.pango.pango_bidi_type_for_unichar
-import kotlin.UInt
 
 /**
  * `PangoBidiType` represents the bidirectional character
@@ -15,117 +15,97 @@ import kotlin.UInt
  * @since 1.22
  */
 @PangoVersion1_22
-public enum class BidiType(public val nativeValue: PangoBidiType) {
+public enum class BidiType(
+    public val nativeValue: PangoBidiType,
+) {
     /**
      * Left-to-Right
      */
     L(PangoBidiType.PANGO_BIDI_TYPE_L),
-
     /**
      * Left-to-Right Embedding
      */
     LRE(PangoBidiType.PANGO_BIDI_TYPE_LRE),
-
     /**
      * Left-to-Right Override
      */
     LRO(PangoBidiType.PANGO_BIDI_TYPE_LRO),
-
     /**
      * Right-to-Left
      */
     R(PangoBidiType.PANGO_BIDI_TYPE_R),
-
     /**
      * Right-to-Left Arabic
      */
     AL(PangoBidiType.PANGO_BIDI_TYPE_AL),
-
     /**
      * Right-to-Left Embedding
      */
     RLE(PangoBidiType.PANGO_BIDI_TYPE_RLE),
-
     /**
      * Right-to-Left Override
      */
     RLO(PangoBidiType.PANGO_BIDI_TYPE_RLO),
-
     /**
      * Pop Directional Format
      */
     PDF(PangoBidiType.PANGO_BIDI_TYPE_PDF),
-
     /**
      * European Number
      */
     EN(PangoBidiType.PANGO_BIDI_TYPE_EN),
-
     /**
      * European Number Separator
      */
     ES(PangoBidiType.PANGO_BIDI_TYPE_ES),
-
     /**
      * European Number Terminator
      */
     ET(PangoBidiType.PANGO_BIDI_TYPE_ET),
-
     /**
      * Arabic Number
      */
     AN(PangoBidiType.PANGO_BIDI_TYPE_AN),
-
     /**
      * Common Number Separator
      */
     CS(PangoBidiType.PANGO_BIDI_TYPE_CS),
-
     /**
      * Nonspacing Mark
      */
     NSM(PangoBidiType.PANGO_BIDI_TYPE_NSM),
-
     /**
      * Boundary Neutral
      */
     BN(PangoBidiType.PANGO_BIDI_TYPE_BN),
-
     /**
      * Paragraph Separator
      */
     B(PangoBidiType.PANGO_BIDI_TYPE_B),
-
     /**
      * Segment Separator
      */
     S(PangoBidiType.PANGO_BIDI_TYPE_S),
-
     /**
      * Whitespace
      */
     WS(PangoBidiType.PANGO_BIDI_TYPE_WS),
-
     /**
      * Other Neutrals
      */
     ON(PangoBidiType.PANGO_BIDI_TYPE_ON),
-
     /**
      * Left-to-Right isolate. Since 1.48.6
      */
     LRI(PangoBidiType.PANGO_BIDI_TYPE_LRI),
-
     /**
      * Right-to-Left isolate. Since 1.48.6
      */
     RLI(PangoBidiType.PANGO_BIDI_TYPE_RLI),
-
     /**
      * First strong isolate. Since 1.48.6
      */
     FSI(PangoBidiType.PANGO_BIDI_TYPE_FSI),
-
     /**
      * Pop directional isolate. Since 1.48.6
      */
@@ -174,7 +154,6 @@ public enum class BidiType(public val nativeValue: PangoBidiType) {
          */
         @PangoVersion1_22
         public fun forUnichar(ch: UInt): BidiType = pango_bidi_type_for_unichar(ch).run {
-            BidiType.fromNativeValue(this)
-        }
+            BidiType.fromNativeValue(this)}
     }
 }

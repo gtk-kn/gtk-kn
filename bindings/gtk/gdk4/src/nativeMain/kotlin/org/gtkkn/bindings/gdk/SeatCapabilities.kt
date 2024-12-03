@@ -15,7 +15,9 @@ import org.gtkkn.native.gdk.GdkSeatCapabilities
 /**
  * Flags describing the seat capabilities.
  */
-public class SeatCapabilities(public val mask: GdkSeatCapabilities) : Bitfield<SeatCapabilities> {
+public class SeatCapabilities(
+    public val mask: GdkSeatCapabilities,
+) : Bitfield<SeatCapabilities> {
     override infix fun or(other: SeatCapabilities): SeatCapabilities = SeatCapabilities(mask or other.mask)
 
     public companion object {
@@ -38,7 +40,7 @@ public class SeatCapabilities(public val mask: GdkSeatCapabilities) : Bitfield<S
          * The seat has drawing tablet(s) attached
          */
         public val TABLET_STYLUS: SeatCapabilities =
-            SeatCapabilities(GDK_SEAT_CAPABILITY_TABLET_STYLUS)
+                SeatCapabilities(GDK_SEAT_CAPABILITY_TABLET_STYLUS)
 
         /**
          * The seat has keyboard(s) attached
@@ -54,7 +56,7 @@ public class SeatCapabilities(public val mask: GdkSeatCapabilities) : Bitfield<S
          * The union of all pointing capabilities
          */
         public val ALL_POINTING: SeatCapabilities =
-            SeatCapabilities(GDK_SEAT_CAPABILITY_ALL_POINTING)
+                SeatCapabilities(GDK_SEAT_CAPABILITY_ALL_POINTING)
 
         /**
          * The union of all capabilities

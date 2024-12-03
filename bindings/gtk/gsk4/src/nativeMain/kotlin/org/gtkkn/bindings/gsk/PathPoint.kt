@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import kotlin.Boolean
+import kotlin.Float
+import kotlin.Int
+import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -20,10 +24,7 @@ import org.gtkkn.native.gsk.gsk_path_point_get_distance
 import org.gtkkn.native.gsk.gsk_path_point_get_position
 import org.gtkkn.native.gsk.gsk_path_point_get_rotation
 import org.gtkkn.native.gsk.gsk_path_point_get_tangent
-import kotlin.Boolean
-import kotlin.Float
-import kotlin.Int
-import kotlin.Unit
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * `GskPathPoint` is an opaque type representing a point on a path.
@@ -42,7 +43,9 @@ import kotlin.Unit
  * @since 4.14
  */
 @GskVersion4_14
-public class PathPoint(pointer: CPointer<GskPathPoint>) : Record {
+public class PathPoint(
+    pointer: CPointer<GskPathPoint>,
+) : Record {
     public val gskPathPointPointer: CPointer<GskPathPoint> = pointer
 
     /**
@@ -55,12 +58,10 @@ public class PathPoint(pointer: CPointer<GskPathPoint>) : Record {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun compare(point2: PathPoint): Int =
-        gsk_path_point_compare(gskPathPointPointer.reinterpret(), point2.gskPathPointPointer.reinterpret())
+    public fun compare(point2: PathPoint): Int = gsk_path_point_compare(gskPathPointPointer.reinterpret(), point2.gskPathPointPointer.reinterpret())
 
     public fun copy(): PathPoint = gsk_path_point_copy(gskPathPointPointer.reinterpret())!!.run {
-        PathPoint(reinterpret())
-    }
+        PathPoint(reinterpret())}
 
     /**
      * Returns whether the two path points refer to the same
@@ -77,8 +78,7 @@ public class PathPoint(pointer: CPointer<GskPathPoint>) : Record {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun equal(point2: PathPoint): Boolean =
-        gsk_path_point_equal(gskPathPointPointer.reinterpret(), point2.gskPathPointPointer.reinterpret()).asBoolean()
+    public fun equal(point2: PathPoint): Boolean = gsk_path_point_equal(gskPathPointPointer.reinterpret(), point2.gskPathPointPointer.reinterpret()).asBoolean()
 
     public fun free(): Unit = gsk_path_point_free(gskPathPointPointer.reinterpret())
 
@@ -112,12 +112,11 @@ public class PathPoint(pointer: CPointer<GskPathPoint>) : Record {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getCurvature(path: Path, direction: PathDirection, center: Point?): Float = gsk_path_point_get_curvature(
-        gskPathPointPointer.reinterpret(),
-        path.gskPathPointer.reinterpret(),
-        direction.nativeValue,
-        center?.graphenePointPointer?.reinterpret()
-    )
+    public fun getCurvature(
+        path: Path,
+        direction: PathDirection,
+        center: Point?,
+    ): Float = gsk_path_point_get_curvature(gskPathPointPointer.reinterpret(), path.gskPathPointer.reinterpret(), direction.nativeValue, center?.graphenePointPointer?.reinterpret())
 
     /**
      * Returns the distance from the beginning of the path
@@ -128,8 +127,7 @@ public class PathPoint(pointer: CPointer<GskPathPoint>) : Record {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getDistance(measure: PathMeasure): Float =
-        gsk_path_point_get_distance(gskPathPointPointer.reinterpret(), measure.gskPathMeasurePointer.reinterpret())
+    public fun getDistance(measure: PathMeasure): Float = gsk_path_point_get_distance(gskPathPointPointer.reinterpret(), measure.gskPathMeasurePointer.reinterpret())
 
     /**
      * Gets the position of the point.
@@ -140,11 +138,7 @@ public class PathPoint(pointer: CPointer<GskPathPoint>) : Record {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getPosition(path: Path, position: Point): Unit = gsk_path_point_get_position(
-        gskPathPointPointer.reinterpret(),
-        path.gskPathPointer.reinterpret(),
-        position.graphenePointPointer.reinterpret()
-    )
+    public fun getPosition(path: Path, position: Point): Unit = gsk_path_point_get_position(gskPathPointPointer.reinterpret(), path.gskPathPointer.reinterpret(), position.graphenePointPointer.reinterpret())
 
     /**
      * Gets the direction of the tangent at a given point.
@@ -160,11 +154,7 @@ public class PathPoint(pointer: CPointer<GskPathPoint>) : Record {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getRotation(path: Path, direction: PathDirection): Float = gsk_path_point_get_rotation(
-        gskPathPointPointer.reinterpret(),
-        path.gskPathPointer.reinterpret(),
-        direction.nativeValue
-    )
+    public fun getRotation(path: Path, direction: PathDirection): Float = gsk_path_point_get_rotation(gskPathPointPointer.reinterpret(), path.gskPathPointer.reinterpret(), direction.nativeValue)
 
     /**
      * Gets the tangent of the path at the point.
@@ -189,12 +179,11 @@ public class PathPoint(pointer: CPointer<GskPathPoint>) : Record {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getTangent(path: Path, direction: PathDirection, tangent: Vec2): Unit = gsk_path_point_get_tangent(
-        gskPathPointPointer.reinterpret(),
-        path.gskPathPointer.reinterpret(),
-        direction.nativeValue,
-        tangent.grapheneVec2Pointer.reinterpret()
-    )
+    public fun getTangent(
+        path: Path,
+        direction: PathDirection,
+        tangent: Vec2,
+    ): Unit = gsk_path_point_get_tangent(gskPathPointPointer.reinterpret(), path.gskPathPointer.reinterpret(), direction.nativeValue, tangent.grapheneVec2Pointer.reinterpret())
 
     public companion object : RecordCompanion<PathPoint, GskPathPoint> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PathPoint = PathPoint(pointer.reinterpret())

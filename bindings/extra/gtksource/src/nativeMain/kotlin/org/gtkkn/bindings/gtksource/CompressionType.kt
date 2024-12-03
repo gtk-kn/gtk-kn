@@ -3,12 +3,13 @@ package org.gtkkn.bindings.gtksource
 
 import org.gtkkn.native.gtksource.GtkSourceCompressionType
 
-public enum class CompressionType(public val nativeValue: GtkSourceCompressionType) {
+public enum class CompressionType(
+    public val nativeValue: GtkSourceCompressionType,
+) {
     /**
      * plain text.
      */
     NONE(GtkSourceCompressionType.GTK_SOURCE_COMPRESSION_TYPE_NONE),
-
     /**
      * gzip compression.
      */

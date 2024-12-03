@@ -9,6 +9,7 @@ import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.pango.PangoAttrFontDesc
 import org.gtkkn.native.pango.pango_attr_font_desc_new
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `PangoAttrFontDesc` structure is used to store an attribute that
@@ -18,7 +19,9 @@ import org.gtkkn.native.pango.pango_attr_font_desc_new
  *
  * - field `attr`: Attribute
  */
-public class AttrFontDesc(pointer: CPointer<PangoAttrFontDesc>) : Record {
+public class AttrFontDesc(
+    pointer: CPointer<PangoAttrFontDesc>,
+) : Record {
     public val pangoAttrFontDescPointer: CPointer<PangoAttrFontDesc> = pointer
 
     /**
@@ -28,8 +31,7 @@ public class AttrFontDesc(pointer: CPointer<PangoAttrFontDesc>) : Record {
      */
     public val desc: FontDescription?
         get() = pangoAttrFontDescPointer.pointed.desc?.run {
-            FontDescription(reinterpret())
-        }
+            FontDescription(reinterpret())}
 
     public companion object : RecordCompanion<AttrFontDesc, PangoAttrFontDesc> {
         /**
@@ -43,12 +45,9 @@ public class AttrFontDesc(pointer: CPointer<PangoAttrFontDesc>) : Record {
          *   `PangoAttribute`, which should be freed with
          *   [method@Pango.Attribute.destroy]
          */
-        public fun new(desc: FontDescription): Attribute =
-            pango_attr_font_desc_new(desc.pangoFontDescriptionPointer.reinterpret())!!.run {
-                Attribute(reinterpret())
-            }
+        public fun new(desc: FontDescription): Attribute = pango_attr_font_desc_new(desc.pangoFontDescriptionPointer.reinterpret())!!.run {
+            Attribute(reinterpret())}
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): AttrFontDesc =
-            AttrFontDesc(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): AttrFontDesc = AttrFontDesc(pointer.reinterpret())
     }
 }

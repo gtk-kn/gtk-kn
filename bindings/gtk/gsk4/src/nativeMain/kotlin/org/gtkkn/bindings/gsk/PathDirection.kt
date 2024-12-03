@@ -19,25 +19,24 @@ import org.gtkkn.native.gsk.GskPathDirection
  * @since 4.14
  */
 @GskVersion4_14
-public enum class PathDirection(public val nativeValue: GskPathDirection) {
+public enum class PathDirection(
+    public val nativeValue: GskPathDirection,
+) {
     /**
      * The tangent in path direction of the incoming side
      *   of the path
      */
     FROM_START(GskPathDirection.GSK_PATH_FROM_START),
-
     /**
      * The tangent against path direction of the incoming side
      *   of the path
      */
     TO_START(GskPathDirection.GSK_PATH_TO_START),
-
     /**
      * The tangent in path direction of the outgoing side
      *   of the path
      */
     TO_END(GskPathDirection.GSK_PATH_TO_END),
-
     /**
      * The tangent against path direction of the outgoing
      *   side of the path

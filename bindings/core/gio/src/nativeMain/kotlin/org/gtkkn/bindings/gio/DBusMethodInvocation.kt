@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Int
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -30,9 +33,6 @@ import org.gtkkn.native.gio.g_dbus_method_invocation_return_error_literal
 import org.gtkkn.native.gio.g_dbus_method_invocation_return_gerror
 import org.gtkkn.native.gio.g_dbus_method_invocation_return_value
 import org.gtkkn.native.gio.g_dbus_method_invocation_return_value_with_unix_fd_list
-import kotlin.Int
-import kotlin.String
-import kotlin.Unit
 
 /**
  * Instances of the `GDBusMethodInvocation` class are used when
@@ -46,8 +46,9 @@ import kotlin.Unit
  * @since 2.26
  */
 @GioVersion2_26
-public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>) :
-    Object(pointer.reinterpret()),
+public open class DBusMethodInvocation(
+    pointer: CPointer<GDBusMethodInvocation>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gioDBusMethodInvocationPointer: CPointer<GDBusMethodInvocation>
         get() = gPointer.reinterpret()
@@ -59,10 +60,8 @@ public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>)
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getConnection(): DBusConnection =
-        g_dbus_method_invocation_get_connection(gioDBusMethodInvocationPointer.reinterpret())!!.run {
-            DBusConnection(reinterpret())
-        }
+    public open fun getConnection(): DBusConnection = g_dbus_method_invocation_get_connection(gioDBusMethodInvocationPointer.reinterpret())!!.run {
+        DBusConnection(reinterpret())}
 
     /**
      * Gets the name of the D-Bus interface the method was invoked on.
@@ -76,9 +75,7 @@ public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>)
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getInterfaceName(): String =
-        g_dbus_method_invocation_get_interface_name(gioDBusMethodInvocationPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public open fun getInterfaceName(): String = g_dbus_method_invocation_get_interface_name(gioDBusMethodInvocationPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the #GDBusMessage for the method invocation. This is useful if
@@ -94,10 +91,8 @@ public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>)
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getMessage(): DBusMessage =
-        g_dbus_method_invocation_get_message(gioDBusMethodInvocationPointer.reinterpret())!!.run {
-            DBusMessage(reinterpret())
-        }
+    public open fun getMessage(): DBusMessage = g_dbus_method_invocation_get_message(gioDBusMethodInvocationPointer.reinterpret())!!.run {
+        DBusMessage(reinterpret())}
 
     /**
      * Gets information about the method call, if any.
@@ -111,10 +106,8 @@ public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>)
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getMethodInfo(): DBusMethodInfo? =
-        g_dbus_method_invocation_get_method_info(gioDBusMethodInvocationPointer.reinterpret())?.run {
-            DBusMethodInfo(reinterpret())
-        }
+    public open fun getMethodInfo(): DBusMethodInfo? = g_dbus_method_invocation_get_method_info(gioDBusMethodInvocationPointer.reinterpret())?.run {
+        DBusMethodInfo(reinterpret())}
 
     /**
      * Gets the name of the method that was invoked.
@@ -123,9 +116,7 @@ public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>)
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getMethodName(): String =
-        g_dbus_method_invocation_get_method_name(gioDBusMethodInvocationPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public open fun getMethodName(): String = g_dbus_method_invocation_get_method_name(gioDBusMethodInvocationPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the object path the method was invoked on.
@@ -134,9 +125,7 @@ public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>)
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getObjectPath(): String =
-        g_dbus_method_invocation_get_object_path(gioDBusMethodInvocationPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public open fun getObjectPath(): String = g_dbus_method_invocation_get_object_path(gioDBusMethodInvocationPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the parameters of the method invocation. If there are no input
@@ -146,10 +135,8 @@ public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>)
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getParameters(): Variant =
-        g_dbus_method_invocation_get_parameters(gioDBusMethodInvocationPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public open fun getParameters(): Variant = g_dbus_method_invocation_get_parameters(gioDBusMethodInvocationPointer.reinterpret())!!.run {
+        Variant(reinterpret())}
 
     /**
      * Gets information about the property that this method call is for, if
@@ -168,10 +155,8 @@ public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>)
      * @since 2.38
      */
     @GioVersion2_38
-    public open fun getPropertyInfo(): DBusPropertyInfo? =
-        g_dbus_method_invocation_get_property_info(gioDBusMethodInvocationPointer.reinterpret())?.run {
-            DBusPropertyInfo(reinterpret())
-        }
+    public open fun getPropertyInfo(): DBusPropertyInfo? = g_dbus_method_invocation_get_property_info(gioDBusMethodInvocationPointer.reinterpret())?.run {
+        DBusPropertyInfo(reinterpret())}
 
     /**
      * Gets the bus name that invoked the method.
@@ -180,9 +165,7 @@ public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>)
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getSender(): String =
-        g_dbus_method_invocation_get_sender(gioDBusMethodInvocationPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public open fun getSender(): String = g_dbus_method_invocation_get_sender(gioDBusMethodInvocationPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Finishes handling a D-Bus method call by returning an error.
@@ -196,12 +179,7 @@ public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>)
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun returnDbusError(errorName: String, errorMessage: String): Unit =
-        g_dbus_method_invocation_return_dbus_error(
-            gioDBusMethodInvocationPointer.reinterpret(),
-            errorName,
-            errorMessage
-        )
+    public open fun returnDbusError(errorName: String, errorMessage: String): Unit = g_dbus_method_invocation_return_dbus_error(gioDBusMethodInvocationPointer.reinterpret(), errorName, errorMessage)
 
     /**
      * Like g_dbus_method_invocation_return_error() but without printf()-style formatting.
@@ -216,13 +194,11 @@ public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>)
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun returnErrorLiteral(domain: Quark, code: Int, message: String): Unit =
-        g_dbus_method_invocation_return_error_literal(
-            gioDBusMethodInvocationPointer.reinterpret(),
-            domain,
-            code,
-            message
-        )
+    public open fun returnErrorLiteral(
+        domain: Quark,
+        code: Int,
+        message: String,
+    ): Unit = g_dbus_method_invocation_return_error_literal(gioDBusMethodInvocationPointer.reinterpret(), domain, code, message)
 
     /**
      * Like g_dbus_method_invocation_return_error() but takes a #GError
@@ -236,10 +212,7 @@ public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>)
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun returnGerror(error: Error): Unit = g_dbus_method_invocation_return_gerror(
-        gioDBusMethodInvocationPointer.reinterpret(),
-        error.glibErrorPointer.reinterpret()
-    )
+    public open fun returnGerror(error: Error): Unit = g_dbus_method_invocation_return_gerror(gioDBusMethodInvocationPointer.reinterpret(), error.glibErrorPointer.reinterpret())
 
     /**
      * Finishes handling a D-Bus method call by returning @parameters.
@@ -279,10 +252,7 @@ public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>)
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun returnValue(parameters: Variant? = null): Unit = g_dbus_method_invocation_return_value(
-        gioDBusMethodInvocationPointer.reinterpret(),
-        parameters?.glibVariantPointer?.reinterpret()
-    )
+    public open fun returnValue(parameters: Variant? = null): Unit = g_dbus_method_invocation_return_value(gioDBusMethodInvocationPointer.reinterpret(), parameters?.glibVariantPointer?.reinterpret())
 
     /**
      * Like g_dbus_method_invocation_return_value() but also takes a #GUnixFDList.
@@ -298,19 +268,13 @@ public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>)
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun returnValueWithUnixFdList(parameters: Variant? = null, fdList: UnixFDList? = null): Unit =
-        g_dbus_method_invocation_return_value_with_unix_fd_list(
-            gioDBusMethodInvocationPointer.reinterpret(),
-            parameters?.glibVariantPointer?.reinterpret(),
-            fdList?.gioUnixFDListPointer?.reinterpret()
-        )
+    public open fun returnValueWithUnixFdList(parameters: Variant? = null, fdList: UnixFDList? = null): Unit = g_dbus_method_invocation_return_value_with_unix_fd_list(gioDBusMethodInvocationPointer.reinterpret(), parameters?.glibVariantPointer?.reinterpret(), fdList?.gioUnixFDListPointer?.reinterpret())
 
     public companion object : TypeCompanion<DBusMethodInvocation> {
         override val type: GeneratedClassKGType<DBusMethodInvocation> =
-            GeneratedClassKGType(g_dbus_method_invocation_get_type()) { DBusMethodInvocation(it.reinterpret()) }
+                GeneratedClassKGType(g_dbus_method_invocation_get_type()) { DBusMethodInvocation(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
     }
 }

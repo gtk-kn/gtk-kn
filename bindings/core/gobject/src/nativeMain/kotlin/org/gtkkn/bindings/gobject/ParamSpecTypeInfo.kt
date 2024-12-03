@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.ULong
+import kotlin.UShort
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -8,8 +10,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GParamSpecTypeInfo
-import kotlin.ULong
-import kotlin.UShort
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * This structure is used to provide the type system with the information
@@ -29,7 +30,9 @@ import kotlin.UShort
  * - field `value_validate`: Fields with callbacks are not supported
  * - field `values_cmp`: Fields with callbacks are not supported
  */
-public class ParamSpecTypeInfo(pointer: CPointer<GParamSpecTypeInfo>) : Record {
+public class ParamSpecTypeInfo(
+    pointer: CPointer<GParamSpecTypeInfo>,
+) : Record {
     public val gobjectParamSpecTypeInfoPointer: CPointer<GParamSpecTypeInfo> = pointer
 
     /**
@@ -60,7 +63,6 @@ public class ParamSpecTypeInfo(pointer: CPointer<GParamSpecTypeInfo>) : Record {
         }
 
     public companion object : RecordCompanion<ParamSpecTypeInfo, GParamSpecTypeInfo> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ParamSpecTypeInfo =
-            ParamSpecTypeInfo(pointer.reinterpret())
+        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ParamSpecTypeInfo = ParamSpecTypeInfo(pointer.reinterpret())
     }
 }

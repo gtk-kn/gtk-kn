@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -8,7 +9,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gdk.GdkTimeCoord
-import kotlin.UInt
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GdkTimeCoord` stores a single event in a motion history.
@@ -22,7 +23,9 @@ import kotlin.UInt
  *
  * - field `axes`: Fields with arrays are not supported
  */
-public class TimeCoord(pointer: CPointer<GdkTimeCoord>) : Record {
+public class TimeCoord(
+    pointer: CPointer<GdkTimeCoord>,
+) : Record {
     public val gdkTimeCoordPointer: CPointer<GdkTimeCoord> = pointer
 
     /**
@@ -39,8 +42,7 @@ public class TimeCoord(pointer: CPointer<GdkTimeCoord>) : Record {
      */
     public var flags: AxisFlags
         get() = gdkTimeCoordPointer.pointed.flags.run {
-            AxisFlags(this)
-        }
+            AxisFlags(this)}
         set(`value`) {
             gdkTimeCoordPointer.pointed.flags = value.mask
         }

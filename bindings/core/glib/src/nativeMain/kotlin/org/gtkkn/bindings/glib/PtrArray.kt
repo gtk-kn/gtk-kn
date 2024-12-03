@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -8,7 +9,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GPtrArray
-import kotlin.UInt
+import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Contains the public fields of a pointer array.
@@ -17,7 +18,9 @@ import kotlin.UInt
  *
  * - field `pdata`: gpointer
  */
-public class PtrArray(pointer: CPointer<GPtrArray>) : Record {
+public class PtrArray(
+    pointer: CPointer<GPtrArray>,
+) : Record {
     public val glibPtrArrayPointer: CPointer<GPtrArray> = pointer
 
     /**
