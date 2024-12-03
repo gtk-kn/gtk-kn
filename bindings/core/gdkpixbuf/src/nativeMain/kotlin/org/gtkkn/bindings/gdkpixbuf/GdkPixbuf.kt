@@ -39,7 +39,6 @@ import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_error_quark
  * - callback `PixbufModuleLoadFunc`: Callbacks that throw are not supported
  * - callback `PixbufModuleSaveFunc`: Callbacks that throw are not supported
  * - callback `PixbufModuleStopLoadFunc`: Callbacks that throw are not supported
- * - bitfield `PixbufFormatFlags`: C Type GdkPixbufFormatFlags is ignored
  * - record `PixbufAnimationClass`: glib type struct are ignored
  * - record `PixbufAnimationIterClass`: glib type struct are ignored
  * - record `PixbufLoaderClass`: glib type struct are ignored

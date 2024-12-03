@@ -73,6 +73,7 @@ import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GHook
 import org.gtkkn.native.glib.GHookList
 import org.gtkkn.native.glib.GIOChannel
+import org.gtkkn.native.glib.GIOCondition
 import org.gtkkn.native.glib.GLogLevelFlags
 import org.gtkkn.native.glib.GLogWriterOutput
 import org.gtkkn.native.glib.GMatchInfo
@@ -200,8 +201,10 @@ import org.gtkkn.native.glib.g_idle_add_full
 import org.gtkkn.native.glib.g_idle_source_new
 import org.gtkkn.native.glib.g_intern_static_string
 import org.gtkkn.native.glib.g_intern_string
+import org.gtkkn.native.glib.g_io_add_watch_full
 import org.gtkkn.native.glib.g_io_channel_error_from_errno
 import org.gtkkn.native.glib.g_io_channel_error_quark
+import org.gtkkn.native.glib.g_io_create_watch
 import org.gtkkn.native.glib.g_key_file_error_quark
 import org.gtkkn.native.glib.g_list_pop_allocator
 import org.gtkkn.native.glib.g_listenv
@@ -389,6 +392,8 @@ import org.gtkkn.native.glib.g_unichar_xdigit_value
 import org.gtkkn.native.glib.g_unicode_script_from_iso15924
 import org.gtkkn.native.glib.g_unicode_script_to_iso15924
 import org.gtkkn.native.glib.g_unix_error_quark
+import org.gtkkn.native.glib.g_unix_fd_add_full
+import org.gtkkn.native.glib.g_unix_fd_source_new
 import org.gtkkn.native.glib.g_unix_set_fd_nonblocking
 import org.gtkkn.native.glib.g_unix_signal_add_full
 import org.gtkkn.native.glib.g_unix_signal_source_new
@@ -569,8 +574,6 @@ import org.gtkkn.native.gobject.g_variant_get_gtype
  * - parameter `v`: gpointer
  * - parameter `v1`: gpointer
  * - parameter `v`: gpointer
- * - parameter `condition`: C Type GIOCondition is ignored
- * - parameter `condition`: C Type GIOCondition is ignored
  * - parameter `allocator`: Allocator
  * - parameter `bytes_read`: bytes_read: Out parameter is not supported
  * - parameter `opsysstring`: Array parameter of type guint8 is not supported
@@ -681,8 +684,6 @@ import org.gtkkn.native.gobject.g_variant_get_gtype
  * - parameter `outbuf`: outbuf: Out parameter is not supported
  * - parameter `result_len`: Unsupported pointer to primitive type
  * - parameter `string`: Array parameter of type gunichar is not supported
- * - parameter `condition`: C Type GIOCondition is ignored
- * - parameter `condition`: C Type GIOCondition is ignored
  * - function `unix_get_passwd_entry`: Return type gpointer is unsupported
  * - parameter `fds`: Array parameter of type gint is not supported
  * - parameter `unescaped`: Array parameter of type guint8 is not supported
@@ -709,7 +710,6 @@ import org.gtkkn.native.gobject.g_variant_get_gtype
  * - callback `OptionParseFunc`: Callbacks that throw are not supported
  * - callback `ThreadFunc`: Return type gpointer is unsupported
  * - callback `TranslateFunc`: Callback with String return value is not supported
- * - bitfield `IOCondition`: C Type GIOCondition is ignored
  * - record `Allocator`: Disguised records are ignored
  * - record `AsyncQueue`: Disguised records are ignored
  * - record `Cache`: Disguised records are ignored
@@ -3652,6 +3652,27 @@ public object GLib {
     public fun internString(string: kotlin.String? = null): kotlin.String = g_intern_string(string)?.toKString() ?: error("Expected not null string")
 
     /**
+     * Adds the #GIOChannel into the default main loop context
+     * with the given priority.
+     *
+     * This internally creates a main loop source using g_io_create_watch()
+     * and attaches it to the main loop context with g_source_attach().
+     * You can do these steps manually if you need greater control.
+     *
+     * @param channel a #GIOChannel
+     * @param priority the priority of the #GIOChannel source
+     * @param condition the condition to watch for
+     * @param func the function to call when the condition is satisfied
+     * @return the event source id
+     */
+    public fun ioAddWatch(
+        channel: IOChannel,
+        priority: Int,
+        condition: IOCondition,
+        func: IOFunc,
+    ): UInt = g_io_add_watch_full(channel.glibIOChannelPointer.reinterpret(), priority, condition.mask, IOFuncFunc.reinterpret(), StableRef.create(func).asCPointer(), staticStableRefDestroy.reinterpret())
+
+    /**
      * Converts an `errno` error number to a #GIOChannelError.
      *
      * @param en an `errno` error number, e.g. `EINVAL`
@@ -3662,6 +3683,29 @@ public object GLib {
         IOChannelError.fromNativeValue(this)}
 
     public fun ioChannelErrorQuark(): Quark = g_io_channel_error_quark()
+
+    /**
+     * Creates a #GSource that's dispatched when @condition is met for the
+     * given @channel. For example, if condition is %G_IO_IN, the source will
+     * be dispatched when there's data available for reading.
+     *
+     * The callback function invoked by the #GSource should be added with
+     * g_source_set_callback(), but it has type #GIOFunc (not #GSourceFunc).
+     *
+     * g_io_add_watch() is a simpler interface to this same functionality, for
+     * the case where you want to add the source to the default main loop context
+     * at the default priority.
+     *
+     * On Windows, polling a #GSource created to watch a channel for a socket
+     * puts the socket in non-blocking mode. This is a side-effect of the
+     * implementation and unavoidable.
+     *
+     * @param channel a #GIOChannel to watch
+     * @param condition conditions to watch for
+     * @return a new #GSource
+     */
+    public fun ioCreateWatch(channel: IOChannel, condition: IOCondition): Source = g_io_create_watch(channel.glibIOChannelPointer.reinterpret(), condition.mask)!!.run {
+        Source(reinterpret())}
 
     public fun keyFileErrorQuark(): Quark = g_key_file_error_quark()
 
@@ -6840,6 +6884,47 @@ public object GLib {
     public fun unixErrorQuark(): Quark = g_unix_error_quark()
 
     /**
+     * Sets a function to be called when the IO condition, as specified by
+     * @condition becomes true for @fd.
+     *
+     * This is the same as g_unix_fd_add(), except that it allows you to
+     * specify a non-default priority and a provide a #GDestroyNotify for
+     * @user_data.
+     *
+     * @param priority the priority of the source
+     * @param fd a file descriptor
+     * @param condition IO conditions to watch for on @fd
+     * @param function a #GUnixFDSourceFunc
+     * @return the ID (greater than 0) of the event source
+     * @since 2.36
+     */
+    @GLibVersion2_36
+    public fun unixFdAddFull(
+        priority: Int,
+        fd: Int,
+        condition: IOCondition,
+        function: UnixFDSourceFunc,
+    ): UInt = g_unix_fd_add_full(priority, fd, condition.mask, UnixFDSourceFuncFunc.reinterpret(), StableRef.create(function).asCPointer(), staticStableRefDestroy.reinterpret())
+
+    /**
+     * Creates a #GSource to watch for a particular I/O condition on a file
+     * descriptor.
+     *
+     * The source will never close the @fd — you must do it yourself.
+     *
+     * Any callback attached to the returned #GSource must have type
+     * #GUnixFDSourceFunc.
+     *
+     * @param fd a file descriptor
+     * @param condition I/O conditions to watch for on @fd
+     * @return the newly created #GSource
+     * @since 2.36
+     */
+    @GLibVersion2_36
+    public fun unixFdSourceNew(fd: Int, condition: IOCondition): Source = g_unix_fd_source_new(fd, condition.mask)!!.run {
+        Source(reinterpret())}
+
+    /**
      * Control the non-blocking state of the given file descriptor,
      * according to @nonblock. On most systems this uses %O_NONBLOCK, but
      * on some older ones may use %O_NDELAY.
@@ -8233,12 +8318,16 @@ public val HookMarshallerFunc: CPointer<CFunction<(CPointer<GHook>) -> Unit>> = 
     )}
 .reinterpret()
 
-public val IOFuncFunc: CPointer<CFunction<(CPointer<GIOChannel>) -> Int>> = staticCFunction {
+public val IOFuncFunc: CPointer<CFunction<(CPointer<GIOChannel>, GIOCondition) -> Int>> =
+        staticCFunction {
     source: CPointer<GIOChannel>?,
+    condition: GIOCondition,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(source: IOChannel) -> Boolean>().get().invoke(source!!.run {
+    userData.asStableRef<(source: IOChannel, condition: IOCondition) -> Boolean>().get().invoke(source!!.run {
         IOChannel(reinterpret())}
+    , condition.run {
+        IOCondition(this)}
     ).asGBoolean()}
 .reinterpret()
 
@@ -8437,11 +8526,14 @@ public val TraverseNodeFuncFunc: CPointer<CFunction<() -> Int>> = staticCFunctio
     userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()}
 .reinterpret()
 
-public val UnixFDSourceFuncFunc: CPointer<CFunction<(Int) -> Int>> = staticCFunction {
+public val UnixFDSourceFuncFunc: CPointer<CFunction<(Int, GIOCondition) -> Int>> = staticCFunction {
     fd: Int,
+    condition: GIOCondition,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(fd: Int) -> Boolean>().get().invoke(fd).asGBoolean()}
+    userData.asStableRef<(fd: Int, condition: IOCondition) -> Boolean>().get().invoke(fd, condition.run {
+        IOCondition(this)}
+    ).asGBoolean()}
 .reinterpret()
 
 public val VoidFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
@@ -8731,10 +8823,11 @@ public typealias HookMarshaller = (hook: Hook) -> Unit
  * on a #GIOChannel is satisfied.
  *
  * - param `source` the #GIOChannel event source
+ * - param `condition` the condition which has been satisfied
  * - return the function should return false if the event source
  *          should be removed
  */
-public typealias IOFunc = (source: IOChannel) -> Boolean
+public typealias IOFunc = (source: IOChannel, condition: IOCondition) -> Boolean
 
 /**
  * Specifies the prototype of log handler functions.
@@ -9002,9 +9095,10 @@ public typealias TraverseNodeFunc = () -> Boolean
  * triggers.
  *
  * - param `fd` the fd that triggered the event
+ * - param `condition` the IO conditions reported on @fd
  * - return false if the source should be removed
  */
-public typealias UnixFDSourceFunc = (fd: Int) -> Boolean
+public typealias UnixFDSourceFunc = (fd: Int, condition: IOCondition) -> Boolean
 
 /**
  * Declares a type of function which takes no arguments

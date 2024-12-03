@@ -51,6 +51,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_78
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.FileError
+import org.gtkkn.bindings.glib.IOCondition
 import org.gtkkn.bindings.glib.Pid
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.glib.Source
@@ -212,6 +213,7 @@ import org.gtkkn.native.gio.g_unix_mount_is_system_internal
 import org.gtkkn.native.gio.g_unix_mount_points_changed_since
 import org.gtkkn.native.gio.g_unix_mounts_changed_since
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.GIOCondition
 import org.gtkkn.native.glib.GPid
 import org.gtkkn.native.glib.GVariant
 import org.gtkkn.native.glib.GVariantType
@@ -4320,13 +4322,16 @@ public val DBusSubtreeEnumerateFuncFunc: CPointer<CFunction<(
 }
 .reinterpret()
 
-public val DatagramBasedSourceFuncFunc: CPointer<CFunction<(CPointer<GDatagramBased>) -> Int>> =
-        staticCFunction {
+public val DatagramBasedSourceFuncFunc:
+        CPointer<CFunction<(CPointer<GDatagramBased>, GIOCondition) -> Int>> = staticCFunction {
     datagramBased: CPointer<GDatagramBased>?,
+    condition: GIOCondition,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(datagramBased: DatagramBased) -> Boolean>().get().invoke(datagramBased!!.run {
+    userData.asStableRef<(datagramBased: DatagramBased, condition: IOCondition) -> Boolean>().get().invoke(datagramBased!!.run {
         DatagramBased.wrap(reinterpret())}
+    , condition.run {
+        IOCondition(this)}
     ).asGBoolean()}
 .reinterpret()
 
@@ -4458,12 +4463,16 @@ public val SimpleAsyncThreadFuncFunc: CPointer<CFunction<(
     )}
 .reinterpret()
 
-public val SocketSourceFuncFunc: CPointer<CFunction<(CPointer<GSocket>) -> Int>> = staticCFunction {
+public val SocketSourceFuncFunc: CPointer<CFunction<(CPointer<GSocket>, GIOCondition) -> Int>> =
+        staticCFunction {
     socket: CPointer<GSocket>?,
+    condition: GIOCondition,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(socket: Socket) -> Boolean>().get().invoke(socket!!.run {
+    userData.asStableRef<(socket: Socket, condition: IOCondition) -> Boolean>().get().invoke(socket!!.run {
         Socket(reinterpret())}
+    , condition.run {
+        IOCondition(this)}
     ).asGBoolean()}
 .reinterpret()
 
@@ -4813,10 +4822,11 @@ public typealias DBusSubtreeEnumerateFunc = (
  * returned by g_datagram_based_create_source().
  *
  * - param `datagramBased` the #GDatagramBased
+ * - param `condition` the current condition at the source fired
  * - return %G_SOURCE_REMOVE if the source should be removed,
  *   %G_SOURCE_CONTINUE otherwise
  */
-public typealias DatagramBasedSourceFunc = (datagramBased: DatagramBased) -> Boolean
+public typealias DatagramBasedSourceFunc = (datagramBased: DatagramBased, condition: IOCondition) -> Boolean
 
 /**
  * During invocation, g_desktop_app_info_launch_uris_as_manager() may
@@ -4971,9 +4981,10 @@ public typealias SimpleAsyncThreadFunc = (
  * returned by g_socket_create_source().
  *
  * - param `socket` the #GSocket
+ * - param `condition` the current condition at the source fired.
  * - return it should return false if the source should be removed.
  */
-public typealias SocketSourceFunc = (socket: Socket) -> Boolean
+public typealias SocketSourceFunc = (socket: Socket, condition: IOCondition) -> Boolean
 
 /**
  * The prototype for a task function to be run in a thread via

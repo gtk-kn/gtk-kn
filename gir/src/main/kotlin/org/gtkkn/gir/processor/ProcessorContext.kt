@@ -607,10 +607,6 @@ class ProcessorContext(
          * A set of C identifiers for gir objects that should not be generated.
          */
         private val ignoredTypes = hashSetOf(
-            // bitfield members not found through cinterop
-            "GdkPixbufFormatFlags",
-            "GIOCondition",
-
             // callback returning a String
             "GtkScaleFormatValueFunc",
 

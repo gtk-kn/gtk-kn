@@ -218,7 +218,6 @@ import org.gtkkn.native.gobject.g_variant_get_gtype
  * - callback `TypeValueCollectFunc`: Callback with String return value is not supported
  * - callback `TypeValueLCopyFunc`: Callback with String return value is not supported
  * - callback `TypeValuePeekPointerFunc`: Return type gpointer is unsupported
- * - bitfield `IOCondition`: C Type GIOCondition is ignored
  * - record `InitiallyUnownedClass`: glib type struct are ignored
  * - record `ParamSpecClass`: glib type struct are ignored
  * - record `ParamSpecPool`: Disguised records are ignored

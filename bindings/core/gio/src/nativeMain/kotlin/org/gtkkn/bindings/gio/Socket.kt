@@ -24,6 +24,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_56
 import org.gtkkn.bindings.gio.annotations.GioVersion2_80
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.IOCondition
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
@@ -38,6 +39,9 @@ import org.gtkkn.native.gio.g_socket_accept
 import org.gtkkn.native.gio.g_socket_bind
 import org.gtkkn.native.gio.g_socket_check_connect_result
 import org.gtkkn.native.gio.g_socket_close
+import org.gtkkn.native.gio.g_socket_condition_check
+import org.gtkkn.native.gio.g_socket_condition_timed_wait
+import org.gtkkn.native.gio.g_socket_condition_wait
 import org.gtkkn.native.gio.g_socket_connect
 import org.gtkkn.native.gio.g_socket_connection_factory_create_connection
 import org.gtkkn.native.gio.g_socket_get_available_bytes
@@ -154,9 +158,6 @@ import org.gtkkn.native.glib.GError
  *
  * ## Skipped during bindings generation
  *
- * - parameter `condition`: C Type GIOCondition is ignored
- * - parameter `condition`: C Type GIOCondition is ignored
- * - parameter `condition`: C Type GIOCondition is ignored
  * - parameter `value`: value: Out parameter is not supported
  * - parameter `buffer`: buffer: Out parameter is not supported
  * - parameter `address`: address: Out parameter is not supported
@@ -692,6 +693,102 @@ public open class Socket(
     public open fun close(): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_close(gioSocketPointer.reinterpret(), gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        }
+        else {
+            Result.success(gResult)
+        }
+    }
+
+    /**
+     * Checks on the readiness of @socket to perform operations.
+     * The operations specified in @condition are checked for and masked
+     * against the currently-satisfied conditions on @socket. The result
+     * is returned.
+     *
+     * Note that on Windows, it is possible for an operation to return
+     * %G_IO_ERROR_WOULD_BLOCK even immediately after
+     * g_socket_condition_check() has claimed that the socket is ready for
+     * writing. Rather than calling g_socket_condition_check() and then
+     * writing to the socket if it succeeds, it is generally better to
+     * simply try writing to the socket right away, and try again later if
+     * the initial attempt returns %G_IO_ERROR_WOULD_BLOCK.
+     *
+     * It is meaningless to specify %G_IO_ERR or %G_IO_HUP in condition;
+     * these conditions will always be set in the output if they are true.
+     *
+     * This call never blocks.
+     *
+     * @param condition a #GIOCondition mask to check
+     * @return the @GIOCondition mask of the current state
+     * @since 2.22
+     */
+    @GioVersion2_22
+    override fun conditionCheck(condition: IOCondition): IOCondition = g_socket_condition_check(gioSocketPointer.reinterpret(), condition.mask).run {
+        IOCondition(this)}
+
+    /**
+     * Waits for up to @timeout_us microseconds for @condition to become true
+     * on @socket. If the condition is met, true is returned.
+     *
+     * If @cancellable is cancelled before the condition is met, or if
+     * @timeout_us (or the socket's #GSocket:timeout) is reached before the
+     * condition is met, then false is returned and @error, if non-null,
+     * is set to the appropriate value (%G_IO_ERROR_CANCELLED or
+     * %G_IO_ERROR_TIMED_OUT).
+     *
+     * If you don't want a timeout, use g_socket_condition_wait().
+     * (Alternatively, you can pass -1 for @timeout_us.)
+     *
+     * Note that although @timeout_us is in microseconds for consistency with
+     * other GLib APIs, this function actually only has millisecond
+     * resolution, and the behavior is undefined if @timeout_us is not an
+     * exact number of milliseconds.
+     *
+     * @param condition a #GIOCondition mask to wait for
+     * @param timeoutUs the maximum time (in microseconds) to wait, or -1
+     * @param cancellable a #GCancellable, or null
+     * @return true if the condition was met, false otherwise
+     * @since 2.32
+     */
+    @GioVersion2_32
+    public open fun conditionTimedWait(
+        condition: IOCondition,
+        timeoutUs: Long,
+        cancellable: Cancellable? = null,
+    ): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_socket_condition_timed_wait(gioSocketPointer.reinterpret(), condition.mask, timeoutUs, cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        }
+        else {
+            Result.success(gResult)
+        }
+    }
+
+    /**
+     * Waits for @condition to become true on @socket. When the condition
+     * is met, true is returned.
+     *
+     * If @cancellable is cancelled before the condition is met, or if the
+     * socket has a timeout set and it is reached before the condition is
+     * met, then false is returned and @error, if non-null, is set to
+     * the appropriate value (%G_IO_ERROR_CANCELLED or
+     * %G_IO_ERROR_TIMED_OUT).
+     *
+     * See also g_socket_condition_timed_wait().
+     *
+     * @param condition a #GIOCondition mask to wait for
+     * @param cancellable a #GCancellable, or null
+     * @return true if the condition was met, false otherwise
+     * @since 2.22
+     */
+    @GioVersion2_22
+    public open fun conditionWait(condition: IOCondition, cancellable: Cancellable? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_socket_condition_wait(gioSocketPointer.reinterpret(), condition.mask, cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         }

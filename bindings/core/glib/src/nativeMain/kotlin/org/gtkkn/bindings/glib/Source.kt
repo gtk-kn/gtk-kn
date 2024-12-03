@@ -58,7 +58,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  *
  * ## Skipped during bindings generation
  *
- * - parameter `events`: C Type GIOCondition is ignored
+ * - method `add_unix_fd`: Return type gpointer is unsupported
  * - parameter `tag`: gpointer
  * - parameter `tag`: gpointer
  * - parameter `tag`: gpointer
