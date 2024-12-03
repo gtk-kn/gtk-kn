@@ -14,7 +14,6 @@ import org.gtkkn.native.gtk.gtk_widget_paintable_get_type
 import org.gtkkn.native.gtk.gtk_widget_paintable_get_widget
 import org.gtkkn.native.gtk.gtk_widget_paintable_new
 import org.gtkkn.native.gtk.gtk_widget_paintable_set_widget
-import kotlin.Unit
 
 /**
  * `GtkWidgetPaintable` is a `GdkPaintable` that displays the contents
@@ -38,9 +37,8 @@ import kotlin.Unit
  * [property@Gtk.Picture:can-shrink] property is set to true or you might
  * end up with an infinitely growing widget.
  */
-public open class WidgetPaintable(
-    pointer: CPointer<GtkWidgetPaintable>,
-) : Object(pointer.reinterpret()),
+public open class WidgetPaintable(pointer: CPointer<GtkWidgetPaintable>) :
+    Object(pointer.reinterpret()),
     Paintable,
     KGTyped {
     public val gtkWidgetPaintablePointer: CPointer<GtkWidgetPaintable>
@@ -58,10 +56,9 @@ public open class WidgetPaintable(
          *
          * @return the observed widget.
          */
-        get() =
-            gtk_widget_paintable_get_widget(gtkWidgetPaintablePointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = gtk_widget_paintable_get_widget(gtkWidgetPaintablePointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the widget that should be observed.
@@ -70,11 +67,10 @@ public open class WidgetPaintable(
          */
         set(
             widget
-        ) =
-            gtk_widget_paintable_set_widget(
-                gtkWidgetPaintablePointer.reinterpret(),
-                widget?.gtkWidgetPointer?.reinterpret()
-            )
+        ) = gtk_widget_paintable_set_widget(
+            gtkWidgetPaintablePointer.reinterpret(),
+            widget?.gtkWidgetPointer?.reinterpret()
+        )
 
     /**
      * Creates a new widget paintable observing the given widget.
@@ -85,27 +81,6 @@ public open class WidgetPaintable(
     public constructor(
         widget: Widget? = null,
     ) : this(gtk_widget_paintable_new(widget?.gtkWidgetPointer?.reinterpret())!!.reinterpret())
-
-    /**
-     * Returns the widget that is observed or null if none.
-     *
-     * @return the observed widget.
-     */
-    public open fun getWidget(): Widget? =
-        gtk_widget_paintable_get_widget(gtkWidgetPaintablePointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Sets the widget that should be observed.
-     *
-     * @param widget the widget to observe
-     */
-    public open fun setWidget(widget: Widget? = null): Unit =
-        gtk_widget_paintable_set_widget(
-            gtkWidgetPaintablePointer.reinterpret(),
-            widget?.gtkWidgetPointer?.reinterpret()
-        )
 
     public companion object : TypeCompanion<WidgetPaintable> {
         override val type: GeneratedClassKGType<WidgetPaintable> =

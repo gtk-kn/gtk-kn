@@ -15,19 +15,16 @@ import kotlin.String
 /**
  * Struct defining a pad action entry.
  */
-public class PadActionEntry(
-    pointer: CPointer<GtkPadActionEntry>,
-) : Record {
+public class PadActionEntry(pointer: CPointer<GtkPadActionEntry>) : Record {
     public val gtkPadActionEntryPointer: CPointer<GtkPadActionEntry> = pointer
 
     /**
      * the type of pad feature that will trigger this action entry.
      */
     public var type: PadActionType
-        get() =
-            gtkPadActionEntryPointer.pointed.type.run {
-                PadActionType.fromNativeValue(this)
-            }
+        get() = gtkPadActionEntryPointer.pointed.type.run {
+            PadActionType.fromNativeValue(this)
+        }
         set(`value`) {
             gtkPadActionEntryPointer.pointed.type = value.nativeValue
         }

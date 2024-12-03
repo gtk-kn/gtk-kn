@@ -2,7 +2,7 @@
 package org.gtkkn.bindings.cairo
 
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 
 /**
  * ## Skipped during bindings generation
@@ -20,11 +20,10 @@ import org.gtkkn.extensions.glib.GlibException
  * - record `Path`: foreign records are ignored
  */
 public object Cairo {
-    public fun resolveException(error: Error): GlibException {
-        val ex =
-            when (error.domain) {
-                else -> null
-            }
-        return ex ?: GlibException(error)
+    public fun resolveException(error: Error): GLibException {
+        val ex = when (error.domain) {
+            else -> null
+        }
+        return ex ?: GLibException(error)
     }
 }

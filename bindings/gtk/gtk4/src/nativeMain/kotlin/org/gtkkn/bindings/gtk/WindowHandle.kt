@@ -14,7 +14,6 @@ import org.gtkkn.native.gtk.gtk_window_handle_get_child
 import org.gtkkn.native.gtk.gtk_window_handle_get_type
 import org.gtkkn.native.gtk.gtk_window_handle_new
 import org.gtkkn.native.gtk.gtk_window_handle_set_child
-import kotlin.Unit
 
 /**
  * `GtkWindowHandle` is a titlebar area widget.
@@ -32,9 +31,8 @@ import kotlin.Unit
  *
  * Starting from GTK 4.12, `GtkWindowHandle` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
  */
-public open class WindowHandle(
-    pointer: CPointer<GtkWindowHandle>,
-) : Widget(pointer.reinterpret()),
+public open class WindowHandle(pointer: CPointer<GtkWindowHandle>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkWindowHandlePointer: CPointer<GtkWindowHandle>
         get() = gPointer.reinterpret()
@@ -57,10 +55,9 @@ public open class WindowHandle(
          *
          * @return the child widget of @self
          */
-        get() =
-            gtk_window_handle_get_child(gtkWindowHandlePointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = gtk_window_handle_get_child(gtkWindowHandlePointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the child widget of @self.
@@ -77,24 +74,6 @@ public open class WindowHandle(
      * @return a new `GtkWindowHandle`.
      */
     public constructor() : this(gtk_window_handle_new()!!.reinterpret())
-
-    /**
-     * Gets the child widget of @self.
-     *
-     * @return the child widget of @self
-     */
-    public open fun getChild(): Widget? =
-        gtk_window_handle_get_child(gtkWindowHandlePointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Sets the child widget of @self.
-     *
-     * @param child the child widget
-     */
-    public open fun setChild(child: Widget? = null): Unit =
-        gtk_window_handle_set_child(gtkWindowHandlePointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     public companion object : TypeCompanion<WindowHandle> {
         override val type: GeneratedClassKGType<WindowHandle> =

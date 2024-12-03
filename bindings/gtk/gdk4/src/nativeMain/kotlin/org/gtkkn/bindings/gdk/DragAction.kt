@@ -12,9 +12,7 @@ import org.gtkkn.native.gdk.GdkDragAction
  * Used in `GdkDrop` and `GdkDrag` to indicate the actions that the
  * destination can and should do with the dropped data.
  */
-public class DragAction(
-    public val mask: GdkDragAction,
-) : Bitfield<DragAction> {
+public class DragAction(public val mask: GdkDragAction) : Bitfield<DragAction> {
     override infix fun or(other: DragAction): DragAction = DragAction(mask or other.mask)
 
     public companion object {

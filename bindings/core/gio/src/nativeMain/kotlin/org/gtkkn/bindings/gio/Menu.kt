@@ -42,9 +42,8 @@ import kotlin.Unit
  * @since 2.32
  */
 @GioVersion2_32
-public open class Menu(
-    pointer: CPointer<GMenu>,
-) : MenuModel(pointer.reinterpret()),
+public open class Menu(pointer: CPointer<GMenu>) :
+    MenuModel(pointer.reinterpret()),
     KGTyped {
     public val gioMenuPointer: CPointer<GMenu>
         get() = gPointer.reinterpret()
@@ -69,10 +68,8 @@ public open class Menu(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun append(
-        label: String? = null,
-        detailedAction: String? = null,
-    ): Unit = g_menu_append(gioMenuPointer.reinterpret(), label, detailedAction)
+    public open fun append(label: String? = null, detailedAction: String? = null): Unit =
+        g_menu_append(gioMenuPointer.reinterpret(), label, detailedAction)
 
     /**
      * Appends @item to the end of @menu.
@@ -96,10 +93,8 @@ public open class Menu(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun appendSection(
-        label: String? = null,
-        section: MenuModel,
-    ): Unit = g_menu_append_section(gioMenuPointer.reinterpret(), label, section.gioMenuModelPointer.reinterpret())
+    public open fun appendSection(label: String? = null, section: MenuModel): Unit =
+        g_menu_append_section(gioMenuPointer.reinterpret(), label, section.gioMenuModelPointer.reinterpret())
 
     /**
      * Convenience function for appending a submenu menu item to the end of
@@ -111,10 +106,8 @@ public open class Menu(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun appendSubmenu(
-        label: String? = null,
-        submenu: MenuModel,
-    ): Unit = g_menu_append_submenu(gioMenuPointer.reinterpret(), label, submenu.gioMenuModelPointer.reinterpret())
+    public open fun appendSubmenu(label: String? = null, submenu: MenuModel): Unit =
+        g_menu_append_submenu(gioMenuPointer.reinterpret(), label, submenu.gioMenuModelPointer.reinterpret())
 
     /**
      * Marks @menu as frozen.
@@ -142,11 +135,8 @@ public open class Menu(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun insert(
-        position: Int,
-        label: String? = null,
-        detailedAction: String? = null,
-    ): Unit = g_menu_insert(gioMenuPointer.reinterpret(), position, label, detailedAction)
+    public open fun insert(position: Int, label: String? = null, detailedAction: String? = null): Unit =
+        g_menu_insert(gioMenuPointer.reinterpret(), position, label, detailedAction)
 
     /**
      * Inserts @item into @menu.
@@ -172,10 +162,8 @@ public open class Menu(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun insertItem(
-        position: Int,
-        item: MenuItem,
-    ): Unit = g_menu_insert_item(gioMenuPointer.reinterpret(), position, item.gioMenuItemPointer.reinterpret())
+    public open fun insertItem(position: Int, item: MenuItem): Unit =
+        g_menu_insert_item(gioMenuPointer.reinterpret(), position, item.gioMenuItemPointer.reinterpret())
 
     /**
      * Convenience function for inserting a section menu item into @menu.
@@ -188,11 +176,7 @@ public open class Menu(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun insertSection(
-        position: Int,
-        label: String? = null,
-        section: MenuModel,
-    ): Unit =
+    public open fun insertSection(position: Int, label: String? = null, section: MenuModel): Unit =
         g_menu_insert_section(gioMenuPointer.reinterpret(), position, label, section.gioMenuModelPointer.reinterpret())
 
     /**
@@ -206,11 +190,7 @@ public open class Menu(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun insertSubmenu(
-        position: Int,
-        label: String? = null,
-        submenu: MenuModel,
-    ): Unit =
+    public open fun insertSubmenu(position: Int, label: String? = null, submenu: MenuModel): Unit =
         g_menu_insert_submenu(gioMenuPointer.reinterpret(), position, label, submenu.gioMenuModelPointer.reinterpret())
 
     /**
@@ -223,10 +203,8 @@ public open class Menu(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun prepend(
-        label: String? = null,
-        detailedAction: String? = null,
-    ): Unit = g_menu_prepend(gioMenuPointer.reinterpret(), label, detailedAction)
+    public open fun prepend(label: String? = null, detailedAction: String? = null): Unit =
+        g_menu_prepend(gioMenuPointer.reinterpret(), label, detailedAction)
 
     /**
      * Prepends @item to the start of @menu.
@@ -250,10 +228,8 @@ public open class Menu(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun prependSection(
-        label: String? = null,
-        section: MenuModel,
-    ): Unit = g_menu_prepend_section(gioMenuPointer.reinterpret(), label, section.gioMenuModelPointer.reinterpret())
+    public open fun prependSection(label: String? = null, section: MenuModel): Unit =
+        g_menu_prepend_section(gioMenuPointer.reinterpret(), label, section.gioMenuModelPointer.reinterpret())
 
     /**
      * Convenience function for prepending a submenu menu item to the start
@@ -265,10 +241,8 @@ public open class Menu(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun prependSubmenu(
-        label: String? = null,
-        submenu: MenuModel,
-    ): Unit = g_menu_prepend_submenu(gioMenuPointer.reinterpret(), label, submenu.gioMenuModelPointer.reinterpret())
+    public open fun prependSubmenu(label: String? = null, submenu: MenuModel): Unit =
+        g_menu_prepend_submenu(gioMenuPointer.reinterpret(), label, submenu.gioMenuModelPointer.reinterpret())
 
     /**
      * Removes an item from the menu.

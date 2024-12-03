@@ -19,9 +19,7 @@ import org.gtkkn.native.gsk.GskPathDirection
  * @since 4.14
  */
 @GskVersion4_14
-public enum class PathDirection(
-    public val nativeValue: GskPathDirection,
-) {
+public enum class PathDirection(public val nativeValue: GskPathDirection) {
     /**
      * The tangent in path direction of the incoming side
      *   of the path
@@ -48,13 +46,12 @@ public enum class PathDirection(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GskPathDirection): PathDirection =
-            when (nativeValue) {
-                GskPathDirection.GSK_PATH_FROM_START -> FROM_START
-                GskPathDirection.GSK_PATH_TO_START -> TO_START
-                GskPathDirection.GSK_PATH_TO_END -> TO_END
-                GskPathDirection.GSK_PATH_FROM_END -> FROM_END
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GskPathDirection): PathDirection = when (nativeValue) {
+            GskPathDirection.GSK_PATH_FROM_START -> FROM_START
+            GskPathDirection.GSK_PATH_TO_START -> TO_START
+            GskPathDirection.GSK_PATH_TO_END -> TO_END
+            GskPathDirection.GSK_PATH_FROM_END -> FROM_END
+            else -> error("invalid nativeValue")
+        }
     }
 }

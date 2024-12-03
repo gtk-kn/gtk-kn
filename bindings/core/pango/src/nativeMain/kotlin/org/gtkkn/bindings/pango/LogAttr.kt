@@ -14,9 +14,7 @@ import kotlin.UInt
  * The `PangoLogAttr` structure stores information about the attributes of a
  * single character.
  */
-public class LogAttr(
-    pointer: CPointer<PangoLogAttr>,
-) : Record {
+public class LogAttr(pointer: CPointer<PangoLogAttr>) : Record {
     public val pangoLogAttrPointer: CPointer<PangoLogAttr> = pointer
 
     /**

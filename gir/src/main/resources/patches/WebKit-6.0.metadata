@@ -1,0 +1,6 @@
+// WebView.getSettings() overrides Widget.getSettings() with a
+// different return type. To resolve this, it is renamed to getWebViewSettings().
+WebView.get_settings#method name="get_web_view_settings"
+
+// The `toString` method returns `null`, so it cannot override the non-null `toString` method of `Any`.
+SecurityOrigin.to_string#method name="to_string_security_origin"

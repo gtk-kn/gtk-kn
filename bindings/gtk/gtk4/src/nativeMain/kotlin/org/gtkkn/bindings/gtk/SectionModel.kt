@@ -58,16 +58,8 @@ public interface SectionModel :
     override val gioListModelPointer: CPointer<GListModel>
         get() = gtkSectionModelPointer.reinterpret()
 
-    /**
-     *
-     *
-     * @param position
-     * @param nItems
-     */
-    public fun sectionsChanged(
-        position: UInt,
-        nItems: UInt,
-    ): Unit = gtk_section_model_sections_changed(gtkSectionModelPointer.reinterpret(), position, nItems)
+    public fun sectionsChanged(position: UInt, nItems: UInt): Unit =
+        gtk_section_model_sections_changed(gtkSectionModelPointer.reinterpret(), position, nItems)
 
     /**
      * Emitted when the start-of-section state of some of the items in @model changes.
@@ -89,19 +81,16 @@ public interface SectionModel :
     public fun connectSectionsChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (position: UInt, nItems: UInt) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gtkSectionModelPointer.reinterpret(),
-            "sections-changed",
-            connectSectionsChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gtkSectionModelPointer.reinterpret(),
+        "sections-changed",
+        connectSectionsChangedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkSectionModel>,
-    ) : SectionModel {
+    private data class Wrapper(private val pointer: CPointer<GtkSectionModel>) : SectionModel {
         override val gtkSectionModelPointer: CPointer<GtkSectionModel> = pointer
     }
 
@@ -125,4 +114,5 @@ private val connectSectionsChangedFunc: CPointer<CFunction<(UInt, UInt) -> Unit>
             userData: COpaquePointer,
         ->
         userData.asStableRef<(position: UInt, nItems: UInt) -> Unit>().get().invoke(position, nItems)
-    }.reinterpret()
+    }
+        .reinterpret()

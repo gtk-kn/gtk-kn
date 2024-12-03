@@ -6,9 +6,7 @@ import org.gtkkn.native.gtk.GtkMessageType
 /**
  * The type of message being displayed in a [class@MessageDialog].
  */
-public enum class MessageType(
-    public val nativeValue: GtkMessageType,
-) {
+public enum class MessageType(public val nativeValue: GtkMessageType) {
     /**
      * Informational message
      */
@@ -36,14 +34,13 @@ public enum class MessageType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkMessageType): MessageType =
-            when (nativeValue) {
-                GtkMessageType.GTK_MESSAGE_INFO -> INFO
-                GtkMessageType.GTK_MESSAGE_WARNING -> WARNING
-                GtkMessageType.GTK_MESSAGE_QUESTION -> QUESTION
-                GtkMessageType.GTK_MESSAGE_ERROR -> ERROR
-                GtkMessageType.GTK_MESSAGE_OTHER -> OTHER
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkMessageType): MessageType = when (nativeValue) {
+            GtkMessageType.GTK_MESSAGE_INFO -> INFO
+            GtkMessageType.GTK_MESSAGE_WARNING -> WARNING
+            GtkMessageType.GTK_MESSAGE_QUESTION -> QUESTION
+            GtkMessageType.GTK_MESSAGE_ERROR -> ERROR
+            GtkMessageType.GTK_MESSAGE_OTHER -> OTHER
+            else -> error("invalid nativeValue")
+        }
     }
 }

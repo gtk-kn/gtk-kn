@@ -9,9 +9,7 @@ import org.gtkkn.native.graphene.graphene_ray_intersection_kind_t
  * @since 1.10
  */
 @GrapheneVersion1_10
-public enum class RayIntersectionKind(
-    public val nativeValue: graphene_ray_intersection_kind_t,
-) {
+public enum class RayIntersectionKind(public val nativeValue: graphene_ray_intersection_kind_t) {
     /**
      * No intersection
      */

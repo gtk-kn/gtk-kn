@@ -19,9 +19,7 @@ import kotlin.Unit
  *
  * Each side can have different width.
  */
-public class Border(
-    pointer: CPointer<GtkBorder>,
-) : Record {
+public class Border(pointer: CPointer<GtkBorder>) : Record {
     public val gtkBorderPointer: CPointer<GtkBorder> = pointer
 
     /**
@@ -65,10 +63,9 @@ public class Border(
      *
      * @return a copy of @border_.
      */
-    public fun copy(): Border =
-        gtk_border_copy(gtkBorderPointer.reinterpret())!!.run {
-            Border(reinterpret())
-        }
+    public fun copy(): Border = gtk_border_copy(gtkBorderPointer.reinterpret())!!.run {
+        Border(reinterpret())
+    }
 
     /**
      * Frees a `GtkBorder`.

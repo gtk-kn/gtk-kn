@@ -10,9 +10,7 @@ import org.gtkkn.native.pango.PangoRenderPart
  * @since 1.8
  */
 @PangoVersion1_8
-public enum class RenderPart(
-    public val nativeValue: PangoRenderPart,
-) {
+public enum class RenderPart(public val nativeValue: PangoRenderPart) {
     /**
      * the text itself
      */
@@ -40,14 +38,13 @@ public enum class RenderPart(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: PangoRenderPart): RenderPart =
-            when (nativeValue) {
-                PangoRenderPart.PANGO_RENDER_PART_FOREGROUND -> FOREGROUND
-                PangoRenderPart.PANGO_RENDER_PART_BACKGROUND -> BACKGROUND
-                PangoRenderPart.PANGO_RENDER_PART_UNDERLINE -> UNDERLINE
-                PangoRenderPart.PANGO_RENDER_PART_STRIKETHROUGH -> STRIKETHROUGH
-                PangoRenderPart.PANGO_RENDER_PART_OVERLINE -> OVERLINE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: PangoRenderPart): RenderPart = when (nativeValue) {
+            PangoRenderPart.PANGO_RENDER_PART_FOREGROUND -> FOREGROUND
+            PangoRenderPart.PANGO_RENDER_PART_BACKGROUND -> BACKGROUND
+            PangoRenderPart.PANGO_RENDER_PART_UNDERLINE -> UNDERLINE
+            PangoRenderPart.PANGO_RENDER_PART_STRIKETHROUGH -> STRIKETHROUGH
+            PangoRenderPart.PANGO_RENDER_PART_OVERLINE -> OVERLINE
+            else -> error("invalid nativeValue")
+        }
     }
 }

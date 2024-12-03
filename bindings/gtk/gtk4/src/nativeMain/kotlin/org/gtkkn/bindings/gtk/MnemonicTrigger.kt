@@ -18,9 +18,8 @@ import kotlin.UInt
  * Mnemonics require a *mnemonic modifier* (typically <kbd>Alt</kbd>) to be
  * pressed together with the mnemonic key.
  */
-public open class MnemonicTrigger(
-    pointer: CPointer<GtkMnemonicTrigger>,
-) : ShortcutTrigger(pointer.reinterpret()),
+public open class MnemonicTrigger(pointer: CPointer<GtkMnemonicTrigger>) :
+    ShortcutTrigger(pointer.reinterpret()),
     KGTyped {
     public val gtkMnemonicTriggerPointer: CPointer<GtkMnemonicTrigger>
         get() = gPointer.reinterpret()
@@ -47,13 +46,6 @@ public open class MnemonicTrigger(
      * @return A new `GtkShortcutTrigger`
      */
     public constructor(keyval: UInt) : this(gtk_mnemonic_trigger_new(keyval)!!.reinterpret())
-
-    /**
-     * Gets the keyval that must be pressed to succeed triggering @self.
-     *
-     * @return the keyval
-     */
-    public open fun getKeyval(): UInt = gtk_mnemonic_trigger_get_keyval(gtkMnemonicTriggerPointer.reinterpret())
 
     public companion object : TypeCompanion<MnemonicTrigger> {
         override val type: GeneratedClassKGType<MnemonicTrigger> =

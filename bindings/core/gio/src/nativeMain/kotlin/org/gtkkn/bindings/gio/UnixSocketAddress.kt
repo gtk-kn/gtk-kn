@@ -5,7 +5,6 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
-import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -51,9 +50,8 @@ import kotlin.ULong
  * - parameter `path`: Array parameter of type gchar is not supported
  * - parameter `path`: Array parameter of type gchar is not supported
  */
-public open class UnixSocketAddress(
-    pointer: CPointer<GUnixSocketAddress>,
-) : SocketAddress(pointer.reinterpret()),
+public open class UnixSocketAddress(pointer: CPointer<GUnixSocketAddress>) :
+    SocketAddress(pointer.reinterpret()),
     KGTyped {
     public val gioUnixSocketAddressPointer: CPointer<GUnixSocketAddress>
         get() = gPointer.reinterpret()
@@ -74,10 +72,9 @@ public open class UnixSocketAddress(
          * @return a #GUnixSocketAddressType
          * @since 2.26
          */
-        get() =
-            g_unix_socket_address_get_address_type(gioUnixSocketAddressPointer.reinterpret()).run {
-                UnixSocketAddressType.fromNativeValue(this)
-            }
+        get() = g_unix_socket_address_get_address_type(gioUnixSocketAddressPointer.reinterpret()).run {
+            UnixSocketAddressType.fromNativeValue(this)
+        }
 
     /**
      * Unix socket path.
@@ -97,9 +94,8 @@ public open class UnixSocketAddress(
          * @return the path for @address
          * @since 2.22
          */
-        get() =
-            g_unix_socket_address_get_path(gioUnixSocketAddressPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = g_unix_socket_address_get_path(gioUnixSocketAddressPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Creates a new #GUnixSocketAddress for @path.
@@ -114,18 +110,6 @@ public open class UnixSocketAddress(
     public constructor(path: String) : this(g_unix_socket_address_new(path)!!.reinterpret())
 
     /**
-     * Gets @address's type.
-     *
-     * @return a #GUnixSocketAddressType
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public open fun getAddressType(): UnixSocketAddressType =
-        g_unix_socket_address_get_address_type(gioUnixSocketAddressPointer.reinterpret()).run {
-            UnixSocketAddressType.fromNativeValue(this)
-        }
-
-    /**
      * Tests if @address is abstract.
      *
      * @return true if the address is abstract, false otherwise
@@ -134,22 +118,6 @@ public open class UnixSocketAddress(
     @GioVersion2_22
     public open fun getIsAbstract(): Boolean =
         g_unix_socket_address_get_is_abstract(gioUnixSocketAddressPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets @address's path, or for abstract sockets the "name".
-     *
-     * Guaranteed to be zero-terminated, but an abstract socket
-     * may contain embedded zeros, and thus you should use
-     * g_unix_socket_address_get_path_len() to get the true length
-     * of this string.
-     *
-     * @return the path for @address
-     * @since 2.22
-     */
-    @GioVersion2_22
-    public open fun getPath(): String =
-        g_unix_socket_address_get_path(gioUnixSocketAddressPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
 
     /**
      * Gets the length of @address's path.

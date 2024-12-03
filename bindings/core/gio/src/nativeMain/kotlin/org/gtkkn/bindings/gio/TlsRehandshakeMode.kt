@@ -10,9 +10,7 @@ import org.gtkkn.native.gio.GTlsRehandshakeMode
  * @since 2.28
  */
 @GioVersion2_28
-public enum class TlsRehandshakeMode(
-    public val nativeValue: GTlsRehandshakeMode,
-) {
+public enum class TlsRehandshakeMode(public val nativeValue: GTlsRehandshakeMode) {
     /**
      * Never allow rehandshaking
      */
@@ -30,12 +28,11 @@ public enum class TlsRehandshakeMode(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GTlsRehandshakeMode): TlsRehandshakeMode =
-            when (nativeValue) {
-                GTlsRehandshakeMode.G_TLS_REHANDSHAKE_NEVER -> NEVER
-                GTlsRehandshakeMode.G_TLS_REHANDSHAKE_SAFELY -> SAFELY
-                GTlsRehandshakeMode.G_TLS_REHANDSHAKE_UNSAFELY -> UNSAFELY
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GTlsRehandshakeMode): TlsRehandshakeMode = when (nativeValue) {
+            GTlsRehandshakeMode.G_TLS_REHANDSHAKE_NEVER -> NEVER
+            GTlsRehandshakeMode.G_TLS_REHANDSHAKE_SAFELY -> SAFELY
+            GTlsRehandshakeMode.G_TLS_REHANDSHAKE_UNSAFELY -> UNSAFELY
+            else -> error("invalid nativeValue")
+        }
     }
 }

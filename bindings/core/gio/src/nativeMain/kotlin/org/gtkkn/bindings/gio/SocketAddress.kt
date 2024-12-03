@@ -26,9 +26,8 @@ import kotlin.Long
  * - parameter `dest`: gpointer
  * - parameter `native`: gpointer
  */
-public open class SocketAddress(
-    pointer: CPointer<GSocketAddress>,
-) : Object(pointer.reinterpret()),
+public open class SocketAddress(pointer: CPointer<GSocketAddress>) :
+    Object(pointer.reinterpret()),
     SocketConnectable,
     KGTyped {
     public val gioSocketAddressPointer: CPointer<GSocketAddress>
@@ -50,20 +49,7 @@ public open class SocketAddress(
          * @return the socket family type of @address
          * @since 2.22
          */
-        get() =
-            g_socket_address_get_family(gioSocketAddressPointer.reinterpret()).run {
-                SocketFamily.fromNativeValue(this)
-            }
-
-    /**
-     * Gets the socket family type of @address.
-     *
-     * @return the socket family type of @address
-     * @since 2.22
-     */
-    @GioVersion2_22
-    public open fun getFamily(): SocketFamily =
-        g_socket_address_get_family(gioSocketAddressPointer.reinterpret()).run {
+        get() = g_socket_address_get_family(gioSocketAddressPointer.reinterpret()).run {
             SocketFamily.fromNativeValue(this)
         }
 

@@ -14,9 +14,7 @@ import org.gtkkn.native.glib.GLogWriterOutput
  * @since 2.50
  */
 @GLibVersion2_50
-public enum class LogWriterOutput(
-    public val nativeValue: GLogWriterOutput,
-) {
+public enum class LogWriterOutput(public val nativeValue: GLogWriterOutput) {
     /**
      * Log writer has handled the log entry.
      */
@@ -29,11 +27,10 @@ public enum class LogWriterOutput(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GLogWriterOutput): LogWriterOutput =
-            when (nativeValue) {
-                GLogWriterOutput.G_LOG_WRITER_HANDLED -> HANDLED
-                GLogWriterOutput.G_LOG_WRITER_UNHANDLED -> UNHANDLED
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GLogWriterOutput): LogWriterOutput = when (nativeValue) {
+            GLogWriterOutput.G_LOG_WRITER_HANDLED -> HANDLED
+            GLogWriterOutput.G_LOG_WRITER_UNHANDLED -> UNHANDLED
+            else -> error("invalid nativeValue")
+        }
     }
 }

@@ -20,9 +20,7 @@ import kotlin.Unit
  * @since 2.24
  */
 @WebKitVersion2_24
-public class UserContentFilter(
-    pointer: CPointer<WebKitUserContentFilter>,
-) : Record {
+public class UserContentFilter(pointer: CPointer<WebKitUserContentFilter>) : Record {
     public val webkitUserContentFilterPointer: CPointer<WebKitUserContentFilter> = pointer
 
     /**

@@ -42,9 +42,7 @@ import kotlin.Unit
  * - parameter `key`: gpointer
  * - parameter `lookup_key`: gpointer
  */
-public class HashTable(
-    pointer: CPointer<GHashTable>,
-) : Record {
+public class HashTable(pointer: CPointer<GHashTable>) : Record {
     public val glibHashTablePointer: CPointer<GHashTable> = pointer
 
     public companion object : RecordCompanion<HashTable, GHashTable> {
@@ -78,15 +76,11 @@ public class HashTable(
          * @param hashTable a #GHashTable
          * @param func the function to call for each key/value pair
          */
-        public fun foreach(
-            hashTable: HashTable,
-            func: HFunc,
-        ): Unit =
-            g_hash_table_foreach(
-                hashTable.glibHashTablePointer.reinterpret(),
-                HFuncFunc.reinterpret(),
-                StableRef.create(func).asCPointer()
-            )
+        public fun foreach(hashTable: HashTable, func: HFunc): Unit = g_hash_table_foreach(
+            hashTable.glibHashTablePointer.reinterpret(),
+            HFuncFunc.reinterpret(),
+            StableRef.create(func).asCPointer()
+        )
 
         /**
          * Calls the given function for each key/value pair in the
@@ -102,15 +96,11 @@ public class HashTable(
          * @param func the function to call for each key/value pair
          * @return the number of key/value pairs removed
          */
-        public fun foreachRemove(
-            hashTable: HashTable,
-            func: HRFunc,
-        ): UInt =
-            g_hash_table_foreach_remove(
-                hashTable.glibHashTablePointer.reinterpret(),
-                HRFuncFunc.reinterpret(),
-                StableRef.create(func).asCPointer()
-            )
+        public fun foreachRemove(hashTable: HashTable, func: HRFunc): UInt = g_hash_table_foreach_remove(
+            hashTable.glibHashTablePointer.reinterpret(),
+            HRFuncFunc.reinterpret(),
+            StableRef.create(func).asCPointer()
+        )
 
         /**
          * Calls the given function for each key/value pair in the
@@ -125,15 +115,11 @@ public class HashTable(
          * @param func the function to call for each key/value pair
          * @return the number of key/value pairs removed.
          */
-        public fun foreachSteal(
-            hashTable: HashTable,
-            func: HRFunc,
-        ): UInt =
-            g_hash_table_foreach_steal(
-                hashTable.glibHashTablePointer.reinterpret(),
-                HRFuncFunc.reinterpret(),
-                StableRef.create(func).asCPointer()
-            )
+        public fun foreachSteal(hashTable: HashTable, func: HRFunc): UInt = g_hash_table_foreach_steal(
+            hashTable.glibHashTablePointer.reinterpret(),
+            HRFuncFunc.reinterpret(),
+            StableRef.create(func).asCPointer()
+        )
 
         /**
          * Creates a new #GHashTable like g_hash_table_new_full() with a reference

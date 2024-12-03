@@ -20,9 +20,8 @@ import org.gtkkn.native.gsk.gsk_stroke_node_new
  * @since 4.14
  */
 @GskVersion4_14
-public open class StrokeNode(
-    pointer: CPointer<GskStrokeNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class StrokeNode(pointer: CPointer<GskStrokeNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskStrokeNodePointer: CPointer<GskStrokeNode>
         get() = gPointer.reinterpret()
@@ -58,10 +57,9 @@ public open class StrokeNode(
      * @since 4.14
      */
     @GskVersion4_14
-    public open fun getChild(): RenderNode =
-        gsk_stroke_node_get_child(gskStrokeNodePointer.reinterpret())!!.run {
-            RenderNode(reinterpret())
-        }
+    public open fun getChild(): RenderNode = gsk_stroke_node_get_child(gskStrokeNodePointer.reinterpret())!!.run {
+        RenderNode(reinterpret())
+    }
 
     /**
      * Retrieves the path that will be stroked with the contents of
@@ -71,10 +69,9 @@ public open class StrokeNode(
      * @since 4.14
      */
     @GskVersion4_14
-    public open fun getPath(): Path =
-        gsk_stroke_node_get_path(gskStrokeNodePointer.reinterpret())!!.run {
-            Path(reinterpret())
-        }
+    public open fun getPath(): Path = gsk_stroke_node_get_path(gskStrokeNodePointer.reinterpret())!!.run {
+        Path(reinterpret())
+    }
 
     /**
      * Retrieves the stroke attributes used in this @node.
@@ -83,10 +80,9 @@ public open class StrokeNode(
      * @since 4.14
      */
     @GskVersion4_14
-    public open fun getStroke(): Stroke =
-        gsk_stroke_node_get_stroke(gskStrokeNodePointer.reinterpret())!!.run {
-            Stroke(reinterpret())
-        }
+    public open fun getStroke(): Stroke = gsk_stroke_node_get_stroke(gskStrokeNodePointer.reinterpret())!!.run {
+        Stroke(reinterpret())
+    }
 
     public companion object : TypeCompanion<StrokeNode> {
         override val type: GeneratedClassKGType<StrokeNode> =

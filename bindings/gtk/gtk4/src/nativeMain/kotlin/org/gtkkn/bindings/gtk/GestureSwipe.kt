@@ -39,9 +39,8 @@ import kotlin.Unit
  *
  * - parameter `velocity_x`: velocity_x: Out parameter is not supported
  */
-public open class GestureSwipe(
-    pointer: CPointer<GtkGestureSwipe>,
-) : GestureSingle(pointer.reinterpret()),
+public open class GestureSwipe(pointer: CPointer<GtkGestureSwipe>) :
+    GestureSingle(pointer.reinterpret()),
     KGTyped {
     public val gtkGestureSwipePointer: CPointer<GtkGestureSwipe>
         get() = gPointer.reinterpret()
@@ -64,15 +63,14 @@ public open class GestureSwipe(
     public fun connectSwipe(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (velocityX: Double, velocityY: Double) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "swipe",
-            connectSwipeFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "swipe",
+        connectSwipeFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<GestureSwipe> {
         override val type: GeneratedClassKGType<GestureSwipe> =
@@ -84,12 +82,12 @@ public open class GestureSwipe(
     }
 }
 
-private val connectSwipeFunc: CPointer<CFunction<(Double, Double) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            velocityX: Double,
-            velocityY: Double,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(velocityX: Double, velocityY: Double) -> Unit>().get().invoke(velocityX, velocityY)
-    }.reinterpret()
+private val connectSwipeFunc: CPointer<CFunction<(Double, Double) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        velocityX: Double,
+        velocityY: Double,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(velocityX: Double, velocityY: Double) -> Unit>().get().invoke(velocityX, velocityY)
+}
+    .reinterpret()

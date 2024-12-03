@@ -11,9 +11,7 @@ import org.gtkkn.native.gio.G_APP_INFO_CREATE_SUPPORTS_URIS
 /**
  * Flags used when creating a #GAppInfo.
  */
-public class AppInfoCreateFlags(
-    public val mask: GAppInfoCreateFlags,
-) : Bitfield<AppInfoCreateFlags> {
+public class AppInfoCreateFlags(public val mask: GAppInfoCreateFlags) : Bitfield<AppInfoCreateFlags> {
     override infix fun or(other: AppInfoCreateFlags): AppInfoCreateFlags = AppInfoCreateFlags(mask or other.mask)
 
     public companion object {

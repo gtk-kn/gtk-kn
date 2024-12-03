@@ -64,9 +64,7 @@ import kotlin.Unit
  * @since 2.26
  */
 @GLibVersion2_26
-public class TimeZone(
-    pointer: CPointer<GTimeZone>,
-) : Record {
+public class TimeZone(pointer: CPointer<GTimeZone>) : Record {
     public val glibTimeZonePointer: CPointer<GTimeZone> = pointer
 
     /**
@@ -95,10 +93,8 @@ public class TimeZone(
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun findInterval(
-        type: TimeType,
-        time: Long,
-    ): Int = g_time_zone_find_interval(glibTimeZonePointer.reinterpret(), type.nativeValue, time)
+    public fun findInterval(type: TimeType, time: Long): Int =
+        g_time_zone_find_interval(glibTimeZonePointer.reinterpret(), type.nativeValue, time)
 
     /**
      * Determines the time zone abbreviation to be used during a particular
@@ -169,10 +165,9 @@ public class TimeZone(
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun ref(): TimeZone =
-        g_time_zone_ref(glibTimeZonePointer.reinterpret())!!.run {
-            TimeZone(reinterpret())
-        }
+    public fun ref(): TimeZone = g_time_zone_ref(glibTimeZonePointer.reinterpret())!!.run {
+        TimeZone(reinterpret())
+    }
 
     /**
      * Decreases the reference count on @tz.

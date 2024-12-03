@@ -26,9 +26,8 @@ import kotlin.Unit
  *
  * - parameter `field_names`: field_names: Out parameter is not supported
  */
-public class FormSubmissionRequest(
-    pointer: CPointer<WebKitFormSubmissionRequest>,
-) : Object(pointer.reinterpret()),
+public class FormSubmissionRequest(pointer: CPointer<WebKitFormSubmissionRequest>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val webkitFormSubmissionRequestPointer: CPointer<WebKitFormSubmissionRequest>
         get() = gPointer.reinterpret()
@@ -40,9 +39,9 @@ public class FormSubmissionRequest(
 
     public companion object : TypeCompanion<FormSubmissionRequest> {
         override val type: GeneratedClassKGType<FormSubmissionRequest> =
-            GeneratedClassKGType(
-                webkit_form_submission_request_get_type()
-            ) { FormSubmissionRequest(it.reinterpret()) }
+            GeneratedClassKGType(webkit_form_submission_request_get_type()) {
+                FormSubmissionRequest(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()

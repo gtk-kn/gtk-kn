@@ -64,7 +64,7 @@ private fun buildWindow(app: Application) = ApplicationWindow(app).apply {
         append(stack)
     }
 
-    setChild(layout)
+    child = layout
 }
 
 private fun buildStack(window: Window) = Stack().apply {

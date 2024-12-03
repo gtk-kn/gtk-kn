@@ -8,9 +8,7 @@ import kotlin.UInt
 /**
  * Possible errors of thread related functions.
  */
-public enum class ThreadError(
-    public val nativeValue: GThreadError,
-) {
+public enum class ThreadError(public val nativeValue: GThreadError) {
     /**
      * a thread couldn't be created due to resource
      *                        shortage. Try again later.
@@ -19,19 +17,17 @@ public enum class ThreadError(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GThreadError): ThreadError =
-            when (nativeValue) {
-                GThreadError.G_THREAD_ERROR_AGAIN -> THREAD_ERROR_AGAIN
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GThreadError): ThreadError = when (nativeValue) {
+            GThreadError.G_THREAD_ERROR_AGAIN -> THREAD_ERROR_AGAIN
+            else -> error("invalid nativeValue")
+        }
 
         public fun quark(): UInt = g_quark_from_string("g_thread_error")
 
-        public fun fromErrorOrNull(error: Error): ThreadError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                ThreadError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        public fun fromErrorOrNull(error: Error): ThreadError? = if (error.domain != quark()) {
+            null
+        } else {
+            ThreadError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

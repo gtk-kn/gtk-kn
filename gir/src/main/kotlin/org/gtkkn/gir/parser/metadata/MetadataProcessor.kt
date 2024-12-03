@@ -59,8 +59,8 @@ class MetadataProcessor(
     private val relevantTypes = setOf(
         "alias", "bitfield", "glib:boxed", "callback", "constructor",
         "class", "enumeration", "function", "instance-parameter",
-        "interface", "method", "namespace", "parameter", "record",
-        "glib:signal", "union", "virtual-method",
+        "interface", "method", "namespace", "parameter", "property", "record",
+        "glib:signal", "type", "union", "virtual-method",
     )
 
     /**

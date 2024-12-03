@@ -327,7 +327,7 @@ class BindingsGenerator(
         internal val AS_BOOLEAN_FUNC = MemberName("org.gtkkn.extensions.common", "asBoolean")
         internal val AS_GBOOLEAN_FUNC = MemberName("org.gtkkn.extensions.common", "asGBoolean")
         internal val GLIB_ERROR_TYPE = ClassName("org.gtkkn.bindings.glib", "Error")
-        internal val GLIB_EXCEPTION_TYPE = ClassName("org.gtkkn.extensions.glib", "GlibException")
+        internal val GLIB_EXCEPTION_TYPE = ClassName("org.gtkkn.extensions.glib", "GLibException")
         internal val GLIB_RECORD_COMPANION_TYPE = ClassName("org.gtkkn.extensions.glib", "RecordCompanion")
         internal val GOBJECT_ASSOCIATE_CUSTOM_OBJECT =
             MemberName("org.gtkkn.extensions.gobject", "associateCustomObject")

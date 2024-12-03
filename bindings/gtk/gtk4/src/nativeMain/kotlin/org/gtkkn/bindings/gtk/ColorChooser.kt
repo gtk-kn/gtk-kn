@@ -121,19 +121,16 @@ public interface ColorChooser :
     public fun connectColorActivated(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (color: RGBA) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gtkColorChooserPointer.reinterpret(),
-            "color-activated",
-            connectColorActivatedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gtkColorChooserPointer.reinterpret(),
+        "color-activated",
+        connectColorActivatedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkColorChooser>,
-    ) : ColorChooser {
+    private data class Wrapper(private val pointer: CPointer<GtkColorChooser>) : ColorChooser {
         override val gtkColorChooserPointer: CPointer<GtkColorChooser> = pointer
     }
 
@@ -160,4 +157,5 @@ private val connectColorActivatedFunc: CPointer<CFunction<(CPointer<GdkRGBA>) ->
                 RGBA(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()

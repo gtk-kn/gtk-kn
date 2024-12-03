@@ -529,18 +529,6 @@ class ProcessorContext(
         if (ignoredFunctions.contains(cFunctionName)) {
             throw IgnoredFunctionException(cFunctionName)
         }
-
-        if (cFunctionName.endsWith("to_string")) {
-            throw IgnoredFunctionException(cFunctionName)
-        }
-
-        // ignore functions that use a string pointer argument
-        if (cFunctionName.startsWith("g_str")) {
-            throw IgnoredFunctionException(cFunctionName)
-        }
-        if (cFunctionName.startsWith("g_utf8")) {
-            throw IgnoredFunctionException(cFunctionName)
-        }
     }
 
     /**
@@ -642,25 +630,8 @@ class ProcessorContext(
          * A set of C functions that should not be generated.
          */
         private val ignoredFunctions = hashSetOf(
-            // problems with Snapshot class
-            "gtk_widget_snapshot_child",
-
-            // problems with string argument conversion
-            "gtk_string_list_take",
-            "gsk_debug_node_new",
-
-            // ignored because the overridden return value is not a subtype of the parent
-            // widget get_name is not nullable (according to gir)
-            // while preferences_page_get_name is nullable
-            "adw_preferences_page_get_name",
-            "adw_preferences_page_set_name",
-
             // problems with mismatched return type
             "cairo_image_surface_create",
-
-            // problems with enum conversion (might be strictEnum?)
-            "hb_glib_script_from_script",
-            "hb_glib_script_to_script",
 
             // which def file should include this (gio or glib)?
             "g_networking_init",
@@ -687,12 +658,6 @@ class ProcessorContext(
             "g_option_group_set_translate_func",
             "soup_auth_domain_digest_set_auth_callback",
 
-            // some string pointer functions
-            "g_date_strftime",
-            "g_stpcpy",
-            "g_value_set_string_take_ownership",
-            "g_value_take_string",
-
             // ThreadFunc is not supported yet
             "g_thread_try_new",
             "g_thread_new",
@@ -700,19 +665,6 @@ class ProcessorContext(
             // DBusProxyTypeFunc is not supported yet
             "g_dbus_object_manager_client_new_for_bus_sync",
             "g_dbus_object_manager_client_new_sync",
-
-            "g_variant_get_gtype",
-            // GtkSource, problem with enum parameter value
-            "gtk_source_view_get_gutter",
-
-            // GLib gstdio macros
-            "g_chmod",
-            "g_creat",
-            "g_fsync",
-            "g_mkdir",
-            "g_open",
-            "g_remove",
-            "g_rename",
 
             "g_tree_traverse",
 

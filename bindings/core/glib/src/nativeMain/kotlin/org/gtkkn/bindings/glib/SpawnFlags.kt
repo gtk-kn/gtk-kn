@@ -20,9 +20,7 @@ import org.gtkkn.native.glib.G_SPAWN_STDOUT_TO_DEV_NULL
 /**
  * Flags passed to g_spawn_sync(), g_spawn_async() and g_spawn_async_with_pipes().
  */
-public class SpawnFlags(
-    public val mask: GSpawnFlags,
-) : Bitfield<SpawnFlags> {
+public class SpawnFlags(public val mask: GSpawnFlags) : Bitfield<SpawnFlags> {
     override infix fun or(other: SpawnFlags): SpawnFlags = SpawnFlags(mask or other.mask)
 
     public companion object {

@@ -10,9 +10,7 @@ import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.cairo.cairo_rectangle_t
 import kotlin.Double
 
-public class Rectangle(
-    pointer: CPointer<cairo_rectangle_t>,
-) : Record {
+public class Rectangle(pointer: CPointer<cairo_rectangle_t>) : Record {
     public val cairoRectanglePointer: CPointer<cairo_rectangle_t> = pointer
 
     public var x: Double

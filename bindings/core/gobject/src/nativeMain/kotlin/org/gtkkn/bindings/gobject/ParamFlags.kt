@@ -22,9 +22,7 @@ import org.gtkkn.native.gobject.G_PARAM_WRITABLE
  *
  * See also: %G_PARAM_STATIC_STRINGS
  */
-public class ParamFlags(
-    public val mask: GParamFlags,
-) : Bitfield<ParamFlags> {
+public class ParamFlags(public val mask: GParamFlags) : Bitfield<ParamFlags> {
     override infix fun or(other: ParamFlags): ParamFlags = ParamFlags(mask or other.mask)
 
     public companion object {

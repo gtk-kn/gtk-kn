@@ -6,9 +6,7 @@ import org.gtkkn.native.gtk.GtkEventSequenceState
 /**
  * Describes the state of a [struct@Gdk.EventSequence] in a [class@Gesture].
  */
-public enum class EventSequenceState(
-    public val nativeValue: GtkEventSequenceState,
-) {
+public enum class EventSequenceState(public val nativeValue: GtkEventSequenceState) {
     /**
      * The sequence is handled, but not grabbed.
      */
@@ -26,12 +24,11 @@ public enum class EventSequenceState(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkEventSequenceState): EventSequenceState =
-            when (nativeValue) {
-                GtkEventSequenceState.GTK_EVENT_SEQUENCE_NONE -> NONE
-                GtkEventSequenceState.GTK_EVENT_SEQUENCE_CLAIMED -> CLAIMED
-                GtkEventSequenceState.GTK_EVENT_SEQUENCE_DENIED -> DENIED
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkEventSequenceState): EventSequenceState = when (nativeValue) {
+            GtkEventSequenceState.GTK_EVENT_SEQUENCE_NONE -> NONE
+            GtkEventSequenceState.GTK_EVENT_SEQUENCE_CLAIMED -> CLAIMED
+            GtkEventSequenceState.GTK_EVENT_SEQUENCE_DENIED -> DENIED
+            else -> error("invalid nativeValue")
+        }
     }
 }

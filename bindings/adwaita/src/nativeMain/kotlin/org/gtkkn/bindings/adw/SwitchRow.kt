@@ -19,7 +19,6 @@ import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * A [class@Gtk.ListBoxRow] used to represent two states.
@@ -51,9 +50,8 @@ import kotlin.Unit
  * @since 1.4
  */
 @AdwVersion1_4
-public class SwitchRow(
-    pointer: CPointer<AdwSwitchRow>,
-) : ActionRow(pointer.reinterpret()),
+public class SwitchRow(pointer: CPointer<AdwSwitchRow>) :
+    ActionRow(pointer.reinterpret()),
     KGTyped {
     public val adwSwitchRowPointer: CPointer<AdwSwitchRow>
         get() = gPointer.reinterpret()
@@ -101,25 +99,6 @@ public class SwitchRow(
      * @since 1.4
      */
     public constructor() : this(adw_switch_row_new()!!.reinterpret())
-
-    /**
-     * Gets whether @self is in its "on" or "off" position.
-     *
-     * @return whether @self is active or not
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun getActive(): Boolean = adw_switch_row_get_active(adwSwitchRowPointer.reinterpret()).asBoolean()
-
-    /**
-     * Sets whether @self is in its "on" or "off" position
-     *
-     * @param isActive whether @self should be active
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun setActive(isActive: Boolean): Unit =
-        adw_switch_row_set_active(adwSwitchRowPointer.reinterpret(), isActive.asGBoolean())
 
     public companion object : TypeCompanion<SwitchRow> {
         override val type: GeneratedClassKGType<SwitchRow> =

@@ -26,9 +26,8 @@ import kotlin.String
  *
  * - parameter `out_len`: out_len: Out parameter is not supported
  */
-public open class TextChildAnchor(
-    pointer: CPointer<GtkTextChildAnchor>,
-) : Object(pointer.reinterpret()),
+public open class TextChildAnchor(pointer: CPointer<GtkTextChildAnchor>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkTextChildAnchorPointer: CPointer<GtkTextChildAnchor>
         get() = gPointer.reinterpret()

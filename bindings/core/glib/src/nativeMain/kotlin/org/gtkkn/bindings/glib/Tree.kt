@@ -47,9 +47,7 @@ import kotlin.Unit
  * - parameter `key`: gpointer
  * - parameter `value_destroy_func`: DestroyNotify
  */
-public class Tree(
-    pointer: CPointer<GTree>,
-) : Record {
+public class Tree(pointer: CPointer<GTree>) : Record {
     public val glibTreePointer: CPointer<GTree> = pointer
 
     /**
@@ -75,12 +73,11 @@ public class Tree(
      * @param func the function to call for each node visited.
      *     If this function returns true, the traversal is stopped.
      */
-    public fun foreach(func: TraverseFunc): Unit =
-        g_tree_foreach(
-            glibTreePointer.reinterpret(),
-            TraverseFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )
+    public fun foreach(func: TraverseFunc): Unit = g_tree_foreach(
+        glibTreePointer.reinterpret(),
+        TraverseFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer()
+    )
 
     /**
      * Calls the given function for each of the nodes in the #GTree.
@@ -97,12 +94,11 @@ public class Tree(
      * @since 2.68
      */
     @GLibVersion2_68
-    public fun foreachNode(func: TraverseNodeFunc): Unit =
-        g_tree_foreach_node(
-            glibTreePointer.reinterpret(),
-            TraverseNodeFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )
+    public fun foreachNode(func: TraverseNodeFunc): Unit = g_tree_foreach_node(
+        glibTreePointer.reinterpret(),
+        TraverseNodeFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer()
+    )
 
     /**
      * Gets the height of a #GTree.
@@ -136,10 +132,9 @@ public class Tree(
      * @since 2.22
      */
     @GLibVersion2_22
-    public fun ref(): Tree =
-        g_tree_ref(glibTreePointer.reinterpret())!!.run {
-            Tree(reinterpret())
-        }
+    public fun ref(): Tree = g_tree_ref(glibTreePointer.reinterpret())!!.run {
+        Tree(reinterpret())
+    }
 
     /**
      * Removes all nodes from a #GTree and destroys their keys and values,

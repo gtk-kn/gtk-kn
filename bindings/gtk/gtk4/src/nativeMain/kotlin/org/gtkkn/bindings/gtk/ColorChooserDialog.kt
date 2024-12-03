@@ -43,9 +43,8 @@ import kotlin.String
  *
  * - method `show-editor`: Property has no getter nor setter
  */
-public open class ColorChooserDialog(
-    pointer: CPointer<GtkColorChooserDialog>,
-) : Dialog(pointer.reinterpret()),
+public open class ColorChooserDialog(pointer: CPointer<GtkColorChooserDialog>) :
+    Dialog(pointer.reinterpret()),
     ColorChooser,
     KGTyped {
     public val gtkColorChooserDialogPointer: CPointer<GtkColorChooserDialog>

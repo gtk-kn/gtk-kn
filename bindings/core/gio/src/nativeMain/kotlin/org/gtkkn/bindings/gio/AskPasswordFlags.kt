@@ -15,9 +15,7 @@ import org.gtkkn.native.gio.G_ASK_PASSWORD_TCRYPT
  * user, or to notify the user of their choices in an authentication
  * situation.
  */
-public class AskPasswordFlags(
-    public val mask: GAskPasswordFlags,
-) : Bitfield<AskPasswordFlags> {
+public class AskPasswordFlags(public val mask: GAskPasswordFlags) : Bitfield<AskPasswordFlags> {
     override infix fun or(other: AskPasswordFlags): AskPasswordFlags = AskPasswordFlags(mask or other.mask)
 
     public companion object {

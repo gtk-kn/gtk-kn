@@ -19,9 +19,8 @@ import org.gtkkn.native.gtk.gtk_overlay_layout_new
  * to be a `GtkOverlay`. It is only listed here so that its layout
  * properties get documented.
  */
-public open class OverlayLayout(
-    pointer: CPointer<GtkOverlayLayout>,
-) : LayoutManager(pointer.reinterpret()),
+public open class OverlayLayout(pointer: CPointer<GtkOverlayLayout>) :
+    LayoutManager(pointer.reinterpret()),
     KGTyped {
     public val gtkOverlayLayoutPointer: CPointer<GtkOverlayLayout>
         get() = gPointer.reinterpret()

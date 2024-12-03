@@ -47,17 +47,26 @@ interface KDocGenerator {
         parameters: List<ParameterBlueprint> = emptyList(),
         optInVersionBlueprint: OptInVersionBlueprint?,
         returnTypeKDoc: String? = null,
-    ): CodeBlock = CodeBlock.builder().apply {
-        kdoc?.let { add("%L", it) }
-        if (parameters.isNotEmpty() || returnTypeKDoc != null || optInVersionBlueprint?.version != null) {
-            add("\n")
+    ): CodeBlock? =
+        if (!kdoc.isNullOrBlank() ||
+            parameters.any { !it.kdoc.isNullOrBlank() } ||
+            !returnTypeKDoc.isNullOrBlank() ||
+            !optInVersionBlueprint?.version.isNullOrBlank()
+        ) {
+            CodeBlock.builder().apply {
+                kdoc?.let { add("%L", it) }
+                if (parameters.isNotEmpty() || returnTypeKDoc != null || optInVersionBlueprint?.version != null) {
+                    add("\n")
+                }
+                parameters.forEach { param ->
+                    add("\n@param %L %L", param.kotlinName, param.kdoc.orEmpty())
+                }
+                returnTypeKDoc?.let { add("\n@return %L", it) }
+                optInVersionBlueprint?.version?.let { add("\n@since %L", it) }
+            }.build()
+        } else {
+            null
         }
-        parameters.forEach { param ->
-            add("\n@param %L %L", param.kotlinName, param.kdoc.orEmpty())
-        }
-        returnTypeKDoc?.let { add("\n@return %L", it) }
-        optInVersionBlueprint?.version?.let { add("\n@since %L", it) }
-    }.build()
 
     fun buildSignalKDoc(
         kdoc: String?,

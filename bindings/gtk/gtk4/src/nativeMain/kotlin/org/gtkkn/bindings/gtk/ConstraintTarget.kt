@@ -21,9 +21,7 @@ public interface ConstraintTarget :
     KGTyped {
     public val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkConstraintTarget>,
-    ) : ConstraintTarget {
+    private data class Wrapper(private val pointer: CPointer<GtkConstraintTarget>) : ConstraintTarget {
         override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget> = pointer
     }
 

@@ -14,9 +14,7 @@ import org.gtkkn.native.gtk.GtkTextSearchFlags
  * enabled, the match must be exact; the special 0xFFFC character will match
  * embedded paintables or child widgets.
  */
-public class TextSearchFlags(
-    public val mask: GtkTextSearchFlags,
-) : Bitfield<TextSearchFlags> {
+public class TextSearchFlags(public val mask: GtkTextSearchFlags) : Bitfield<TextSearchFlags> {
     override infix fun or(other: TextSearchFlags): TextSearchFlags = TextSearchFlags(mask or other.mask)
 
     public companion object {

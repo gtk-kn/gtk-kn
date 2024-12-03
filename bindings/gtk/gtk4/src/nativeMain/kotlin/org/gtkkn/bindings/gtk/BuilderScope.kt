@@ -35,9 +35,7 @@ public interface BuilderScope :
     KGTyped {
     public val gtkBuilderScopePointer: CPointer<GtkBuilderScope>
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkBuilderScope>,
-    ) : BuilderScope {
+    private data class Wrapper(private val pointer: CPointer<GtkBuilderScope>) : BuilderScope {
         override val gtkBuilderScopePointer: CPointer<GtkBuilderScope> = pointer
     }
 

@@ -35,15 +35,11 @@ public interface TreeDragDest :
      * @param value data to drop
      * @return whether a new row was created before position @dest
      */
-    public fun dragDataReceived(
-        dest: TreePath,
-        `value`: Value,
-    ): Boolean =
-        gtk_tree_drag_dest_drag_data_received(
-            gtkTreeDragDestPointer.reinterpret(),
-            dest.gtkTreePathPointer.reinterpret(),
-            `value`.gobjectValuePointer.reinterpret()
-        ).asBoolean()
+    public fun dragDataReceived(dest: TreePath, `value`: Value): Boolean = gtk_tree_drag_dest_drag_data_received(
+        gtkTreeDragDestPointer.reinterpret(),
+        dest.gtkTreePathPointer.reinterpret(),
+        `value`.gobjectValuePointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Determines whether a drop is possible before the given @dest_path,
@@ -56,19 +52,13 @@ public interface TreeDragDest :
      * @param value the data being dropped
      * @return true if a drop is possible before @dest_path
      */
-    public fun rowDropPossible(
-        destPath: TreePath,
-        `value`: Value,
-    ): Boolean =
-        gtk_tree_drag_dest_row_drop_possible(
-            gtkTreeDragDestPointer.reinterpret(),
-            destPath.gtkTreePathPointer.reinterpret(),
-            `value`.gobjectValuePointer.reinterpret()
-        ).asBoolean()
+    public fun rowDropPossible(destPath: TreePath, `value`: Value): Boolean = gtk_tree_drag_dest_row_drop_possible(
+        gtkTreeDragDestPointer.reinterpret(),
+        destPath.gtkTreePathPointer.reinterpret(),
+        `value`.gobjectValuePointer.reinterpret()
+    ).asBoolean()
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkTreeDragDest>,
-    ) : TreeDragDest {
+    private data class Wrapper(private val pointer: CPointer<GtkTreeDragDest>) : TreeDragDest {
         override val gtkTreeDragDestPointer: CPointer<GtkTreeDragDest> = pointer
     }
 

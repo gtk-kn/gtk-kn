@@ -14,13 +14,10 @@ import org.gtkkn.native.webkit.WebKitEditorTypingAttributes
  * Enum values with flags representing typing attributes.
  * @since 2.10
  */
-public class EditorTypingAttributes(
-    public val mask: WebKitEditorTypingAttributes,
-) : Bitfield<EditorTypingAttributes> {
-    override infix fun or(other: EditorTypingAttributes): EditorTypingAttributes =
-        EditorTypingAttributes(
-            mask or other.mask
-        )
+public class EditorTypingAttributes(public val mask: WebKitEditorTypingAttributes) : Bitfield<EditorTypingAttributes> {
+    override infix fun or(other: EditorTypingAttributes): EditorTypingAttributes = EditorTypingAttributes(
+        mask or other.mask
+    )
 
     @WebKitVersion2_10
     public companion object {

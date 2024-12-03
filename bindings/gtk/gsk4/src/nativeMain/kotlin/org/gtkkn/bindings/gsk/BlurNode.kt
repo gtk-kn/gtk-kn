@@ -16,9 +16,8 @@ import kotlin.Float
 /**
  * A render node applying a blur effect to its single child.
  */
-public open class BlurNode(
-    pointer: CPointer<GskBlurNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class BlurNode(pointer: CPointer<GskBlurNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskBlurNodePointer: CPointer<GskBlurNode>
         get() = gPointer.reinterpret()
@@ -40,10 +39,9 @@ public open class BlurNode(
      *
      * @return the blurred child node
      */
-    public open fun getChild(): RenderNode =
-        gsk_blur_node_get_child(gskBlurNodePointer.reinterpret())!!.run {
-            RenderNode(reinterpret())
-        }
+    public open fun getChild(): RenderNode = gsk_blur_node_get_child(gskBlurNodePointer.reinterpret())!!.run {
+        RenderNode(reinterpret())
+    }
 
     /**
      * Retrieves the blur radius of the @node.

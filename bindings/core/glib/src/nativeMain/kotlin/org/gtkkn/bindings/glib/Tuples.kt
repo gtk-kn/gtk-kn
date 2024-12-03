@@ -22,9 +22,7 @@ import kotlin.Unit
  *
  * - method `index`: Return type gpointer is unsupported
  */
-public class Tuples(
-    pointer: CPointer<GTuples>,
-) : Record {
+public class Tuples(pointer: CPointer<GTuples>) : Record {
     public val glibTuplesPointer: CPointer<GTuples> = pointer
 
     /**

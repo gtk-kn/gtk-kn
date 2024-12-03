@@ -18,9 +18,8 @@ import kotlin.ULong
 /**
  * A physical tool associated to a `GdkDevice`.
  */
-public open class DeviceTool(
-    pointer: CPointer<GdkDeviceTool>,
-) : Object(pointer.reinterpret()),
+public open class DeviceTool(pointer: CPointer<GdkDeviceTool>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gdkDeviceToolPointer: CPointer<GdkDeviceTool>
         get() = gPointer.reinterpret()
@@ -34,10 +33,9 @@ public open class DeviceTool(
          *
          * @return the axes of @tool
          */
-        get() =
-            gdk_device_tool_get_axes(gdkDeviceToolPointer.reinterpret()).run {
-                AxisFlags(this)
-            }
+        get() = gdk_device_tool_get_axes(gdkDeviceToolPointer.reinterpret()).run {
+            AxisFlags(this)
+        }
 
     /**
      * The hardware ID of the tool.
@@ -85,57 +83,7 @@ public open class DeviceTool(
          *   figure out what sort of pen is being used, such as an airbrush
          *   or a pencil.
          */
-        get() =
-            gdk_device_tool_get_tool_type(gdkDeviceToolPointer.reinterpret()).run {
-                DeviceToolType.fromNativeValue(this)
-            }
-
-    /**
-     * Gets the axes of the tool.
-     *
-     * @return the axes of @tool
-     */
-    public open fun getAxes(): AxisFlags =
-        gdk_device_tool_get_axes(gdkDeviceToolPointer.reinterpret()).run {
-            AxisFlags(this)
-        }
-
-    /**
-     * Gets the hardware ID of this tool, or 0 if it's not known.
-     *
-     * When non-zero, the identifier is unique for the given tool model,
-     * meaning that two identical tools will share the same @hardware_id,
-     * but will have different serial numbers (see
-     * [method@Gdk.DeviceTool.get_serial]).
-     *
-     * This is a more concrete (and device specific) method to identify
-     * a `GdkDeviceTool` than [method@Gdk.DeviceTool.get_tool_type],
-     * as a tablet may support multiple devices with the same
-     * `GdkDeviceToolType`, but different hardware identifiers.
-     *
-     * @return The hardware identifier of this tool.
-     */
-    public open fun getHardwareId(): ULong = gdk_device_tool_get_hardware_id(gdkDeviceToolPointer.reinterpret())
-
-    /**
-     * Gets the serial number of this tool.
-     *
-     * This value can be used to identify a physical tool
-     * (eg. a tablet pen) across program executions.
-     *
-     * @return The serial ID for this tool
-     */
-    public open fun getSerial(): ULong = gdk_device_tool_get_serial(gdkDeviceToolPointer.reinterpret())
-
-    /**
-     * Gets the `GdkDeviceToolType` of the tool.
-     *
-     * @return The physical type for this tool. This can be used to
-     *   figure out what sort of pen is being used, such as an airbrush
-     *   or a pencil.
-     */
-    public open fun getToolType(): DeviceToolType =
-        gdk_device_tool_get_tool_type(gdkDeviceToolPointer.reinterpret()).run {
+        get() = gdk_device_tool_get_tool_type(gdkDeviceToolPointer.reinterpret()).run {
             DeviceToolType.fromNativeValue(this)
         }
 

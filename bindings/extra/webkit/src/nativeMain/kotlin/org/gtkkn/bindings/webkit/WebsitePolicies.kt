@@ -26,9 +26,8 @@ import org.gtkkn.native.webkit.webkit_website_policies_new
  * @since 2.30
  */
 @WebKitVersion2_30
-public class WebsitePolicies(
-    pointer: CPointer<WebKitWebsitePolicies>,
-) : Object(pointer.reinterpret()),
+public class WebsitePolicies(pointer: CPointer<WebKitWebsitePolicies>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val webkitWebsitePoliciesPointer: CPointer<WebKitWebsitePolicies>
         get() = gPointer.reinterpret()

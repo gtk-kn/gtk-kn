@@ -84,25 +84,20 @@ public interface ProxyResolver :
      * @since 2.26
      */
     @GioVersion2_26
-    public fun lookup(
-        uri: String,
-        cancellable: Cancellable? = null,
-    ): Result<List<String>> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_proxy_resolver_lookup(
-                    gioProxyResolverPointer.reinterpret(),
-                    uri,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.toKStringList()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun lookup(uri: String, cancellable: Cancellable? = null): Result<List<String>> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_proxy_resolver_lookup(
+            gioProxyResolverPointer.reinterpret(),
+            uri,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        )?.toKStringList()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
         }
+    }
 
     /**
      * Asynchronous lookup of proxy. See g_proxy_resolver_lookup() for more
@@ -114,11 +109,7 @@ public interface ProxyResolver :
      * @since 2.26
      */
     @GioVersion2_26
-    public fun lookupAsync(
-        uri: String,
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public fun lookupAsync(uri: String, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         g_proxy_resolver_lookup_async(
             gioProxyResolverPointer.reinterpret(),
             uri,
@@ -139,25 +130,21 @@ public interface ProxyResolver :
      * @since 2.26
      */
     @GioVersion2_26
-    public fun lookupFinish(result: AsyncResult): Result<List<String>> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_proxy_resolver_lookup_finish(
-                    gioProxyResolverPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )?.toKStringList()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun lookupFinish(result: AsyncResult): Result<List<String>> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_proxy_resolver_lookup_finish(
+            gioProxyResolverPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        )?.toKStringList()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
         }
+    }
 
-    private data class Wrapper(
-        private val pointer: CPointer<GProxyResolver>,
-    ) : ProxyResolver {
+    private data class Wrapper(private val pointer: CPointer<GProxyResolver>) : ProxyResolver {
         override val gioProxyResolverPointer: CPointer<GProxyResolver> = pointer
     }
 
@@ -179,9 +166,8 @@ public interface ProxyResolver :
          * @since 2.26
          */
         @GioVersion2_26
-        public fun getDefault(): ProxyResolver =
-            g_proxy_resolver_get_default()!!.run {
-                ProxyResolver.wrap(reinterpret())
-            }
+        public fun getDefault(): ProxyResolver = g_proxy_resolver_get_default()!!.run {
+            ProxyResolver.wrap(reinterpret())
+        }
     }
 }

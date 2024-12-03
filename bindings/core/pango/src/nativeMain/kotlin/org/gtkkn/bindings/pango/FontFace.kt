@@ -28,9 +28,8 @@ import kotlin.String
  *
  * - parameter `sizes`: sizes: Out parameter is not supported
  */
-public open class FontFace(
-    pointer: CPointer<PangoFontFace>,
-) : Object(pointer.reinterpret()),
+public open class FontFace(pointer: CPointer<PangoFontFace>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val pangoFontFacePointer: CPointer<PangoFontFace>
         get() = gPointer.reinterpret()
@@ -46,10 +45,9 @@ public open class FontFace(
      *   holding the description of the face. Use [method@Pango.FontDescription.free]
      *   to free the result.
      */
-    public open fun describe(): FontDescription =
-        pango_font_face_describe(pangoFontFacePointer.reinterpret())!!.run {
-            FontDescription(reinterpret())
-        }
+    public open fun describe(): FontDescription = pango_font_face_describe(pangoFontFacePointer.reinterpret())!!.run {
+        FontDescription(reinterpret())
+    }
 
     /**
      * Gets a name representing the style of this face.
@@ -72,10 +70,9 @@ public open class FontFace(
      * @since 1.46
      */
     @PangoVersion1_46
-    public open fun getFamily(): FontFamily =
-        pango_font_face_get_family(pangoFontFacePointer.reinterpret())!!.run {
-            FontFamily(reinterpret())
-        }
+    public open fun getFamily(): FontFamily = pango_font_face_get_family(pangoFontFacePointer.reinterpret())!!.run {
+        FontFamily(reinterpret())
+    }
 
     /**
      * Returns whether a `PangoFontFace` is synthesized.

@@ -22,6 +22,7 @@ import org.gtkkn.native.gtk.gtk_shortcut_trigger_parse_string
 import org.gtkkn.native.gtk.gtk_shortcut_trigger_print
 import org.gtkkn.native.gtk.gtk_shortcut_trigger_print_label
 import org.gtkkn.native.gtk.gtk_shortcut_trigger_to_label
+import org.gtkkn.native.gtk.gtk_shortcut_trigger_to_string
 import org.gtkkn.native.gtk.gtk_shortcut_trigger_trigger
 import kotlin.Boolean
 import kotlin.Int
@@ -42,14 +43,9 @@ import org.gtkkn.bindings.glib.String as GlibString
  * All `GtkShortcutTriggers` are immutable, you can only specify their
  * properties during construction. If you want to change a trigger, you
  * have to replace it with a new one.
- *
- * ## Skipped during bindings generation
- *
- * - method `to_string`: C function gtk_shortcut_trigger_to_string is ignored
  */
-public open class ShortcutTrigger(
-    pointer: CPointer<GtkShortcutTrigger>,
-) : Object(pointer.reinterpret()),
+public open class ShortcutTrigger(pointer: CPointer<GtkShortcutTrigger>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkShortcutTriggerPointer: CPointer<GtkShortcutTrigger>
         get() = gPointer.reinterpret()
@@ -88,11 +84,10 @@ public open class ShortcutTrigger(
      *   @trigger1 is found, respectively, to be less than, to match,
      *   or be greater than @trigger2.
      */
-    public open fun compare(trigger2: ShortcutTrigger): Int =
-        gtk_shortcut_trigger_compare(
-            gtkShortcutTriggerPointer.reinterpret(),
-            trigger2.gtkShortcutTriggerPointer.reinterpret()
-        )
+    public open fun compare(trigger2: ShortcutTrigger): Int = gtk_shortcut_trigger_compare(
+        gtkShortcutTriggerPointer.reinterpret(),
+        trigger2.gtkShortcutTriggerPointer.reinterpret()
+    )
 
     /**
      * Checks if @trigger1 and @trigger2 trigger under the same conditions.
@@ -103,11 +98,10 @@ public open class ShortcutTrigger(
      * @param trigger2 a `GtkShortcutTrigger`
      * @return true if @trigger1 and @trigger2 are equal
      */
-    public open fun equal(trigger2: ShortcutTrigger): Boolean =
-        gtk_shortcut_trigger_equal(
-            gtkShortcutTriggerPointer.reinterpret(),
-            trigger2.gtkShortcutTriggerPointer.reinterpret()
-        ).asBoolean()
+    public open fun equal(trigger2: ShortcutTrigger): Boolean = gtk_shortcut_trigger_equal(
+        gtkShortcutTriggerPointer.reinterpret(),
+        trigger2.gtkShortcutTriggerPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Generates a hash value for a `GtkShortcutTrigger`.
@@ -155,15 +149,11 @@ public open class ShortcutTrigger(
      *   trigger did not have a textual representation suitable
      *   for end users.
      */
-    public open fun printLabel(
-        display: Display,
-        string: GlibString,
-    ): Boolean =
-        gtk_shortcut_trigger_print_label(
-            gtkShortcutTriggerPointer.reinterpret(),
-            display.gdkDisplayPointer.reinterpret(),
-            string.glibStringPointer.reinterpret()
-        ).asBoolean()
+    public open fun printLabel(display: Display, string: GlibString): Boolean = gtk_shortcut_trigger_print_label(
+        gtkShortcutTriggerPointer.reinterpret(),
+        display.gdkDisplayPointer.reinterpret(),
+        string.glibStringPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Gets textual representation for the given trigger.
@@ -182,11 +172,22 @@ public open class ShortcutTrigger(
      * @param display `GdkDisplay` to print for
      * @return a new string
      */
-    public open fun toLabel(display: Display): KotlinString =
-        gtk_shortcut_trigger_to_label(
-            gtkShortcutTriggerPointer.reinterpret(),
-            display.gdkDisplayPointer.reinterpret()
-        )?.toKString()
+    public open fun toLabel(display: Display): KotlinString = gtk_shortcut_trigger_to_label(
+        gtkShortcutTriggerPointer.reinterpret(),
+        display.gdkDisplayPointer.reinterpret()
+    )?.toKString()
+        ?: error("Expected not null string")
+
+    /**
+     * Prints the given trigger into a human-readable string.
+     *
+     * This is a small wrapper around [method@Gtk.ShortcutTrigger.print]
+     * to help when debugging.
+     *
+     * @return a new string
+     */
+    override fun toString(): KotlinString =
+        gtk_shortcut_trigger_to_string(gtkShortcutTriggerPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -198,17 +199,13 @@ public open class ShortcutTrigger(
      *   in @event is a Key event and has the right modifiers set.
      * @return Whether the event triggered the shortcut
      */
-    public open fun trigger(
-        event: Event,
-        enableMnemonics: Boolean,
-    ): KeyMatch =
-        gtk_shortcut_trigger_trigger(
-            gtkShortcutTriggerPointer.reinterpret(),
-            event.gPointer.reinterpret(),
-            enableMnemonics.asGBoolean()
-        ).run {
-            KeyMatch.fromNativeValue(this)
-        }
+    public open fun trigger(event: Event, enableMnemonics: Boolean): KeyMatch = gtk_shortcut_trigger_trigger(
+        gtkShortcutTriggerPointer.reinterpret(),
+        event.gPointer.reinterpret(),
+        enableMnemonics.asGBoolean()
+    ).run {
+        KeyMatch.fromNativeValue(this)
+    }
 
     public companion object : TypeCompanion<ShortcutTrigger> {
         override val type: GeneratedClassKGType<ShortcutTrigger> =

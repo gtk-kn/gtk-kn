@@ -62,9 +62,7 @@ import org.gtkkn.native.gio.GDBusInterfaceVTable
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusInterfaceVTable(
-    pointer: CPointer<GDBusInterfaceVTable>,
-) : Record {
+public class DBusInterfaceVTable(pointer: CPointer<GDBusInterfaceVTable>) : Record {
     public val gioDBusInterfaceVTablePointer: CPointer<GDBusInterfaceVTable> = pointer
 
     public companion object : RecordCompanion<DBusInterfaceVTable, GDBusInterfaceVTable> {

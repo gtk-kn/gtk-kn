@@ -12,9 +12,8 @@ import org.gtkkn.native.gdk.gdk_motion_event_get_type
 /**
  * An event related to a pointer or touch device motion.
  */
-public open class MotionEvent(
-    pointer: CPointer<GdkMotionEvent>,
-) : Event(pointer.reinterpret()),
+public open class MotionEvent(pointer: CPointer<GdkMotionEvent>) :
+    Event(pointer.reinterpret()),
     KGTyped {
     public val gdkMotionEventPointer: CPointer<GdkMotionEvent>
         get() = gPointer.reinterpret()

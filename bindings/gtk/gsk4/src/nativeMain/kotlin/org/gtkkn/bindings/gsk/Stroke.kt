@@ -38,9 +38,7 @@ import kotlin.Unit
  * @since 4.14
  */
 @GskVersion4_14
-public class Stroke(
-    pointer: CPointer<GskStroke>,
-) : Record {
+public class Stroke(pointer: CPointer<GskStroke>) : Record {
     public val gskStrokePointer: CPointer<GskStroke> = pointer
 
     /**
@@ -50,10 +48,9 @@ public class Stroke(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun copy(): Stroke =
-        gsk_stroke_copy(gskStrokePointer.reinterpret())!!.run {
-            Stroke(reinterpret())
-        }
+    public fun copy(): Stroke = gsk_stroke_copy(gskStrokePointer.reinterpret())!!.run {
+        Stroke(reinterpret())
+    }
 
     /**
      * Frees a `GskStroke`.
@@ -80,10 +77,9 @@ public class Stroke(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getLineCap(): LineCap =
-        gsk_stroke_get_line_cap(gskStrokePointer.reinterpret()).run {
-            LineCap.fromNativeValue(this)
-        }
+    public fun getLineCap(): LineCap = gsk_stroke_get_line_cap(gskStrokePointer.reinterpret()).run {
+        LineCap.fromNativeValue(this)
+    }
 
     /**
      * Gets the line join used.
@@ -94,10 +90,9 @@ public class Stroke(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getLineJoin(): LineJoin =
-        gsk_stroke_get_line_join(gskStrokePointer.reinterpret()).run {
-            LineJoin.fromNativeValue(this)
-        }
+    public fun getLineJoin(): LineJoin = gsk_stroke_get_line_join(gskStrokePointer.reinterpret()).run {
+        LineJoin.fromNativeValue(this)
+    }
 
     /**
      * Gets the line width used.

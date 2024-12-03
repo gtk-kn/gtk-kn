@@ -56,9 +56,8 @@ import kotlin.Unit
  * derive from `GTypeModule` and implement the load and unload functions
  * in `GTypeModuleClass`.
  */
-public open class TypeModule(
-    pointer: CPointer<GTypeModule>,
-) : Object(pointer.reinterpret()),
+public open class TypeModule(pointer: CPointer<GTypeModule>) :
+    Object(pointer.reinterpret()),
     TypePlugin,
     KGTyped {
     public val gobjectTypeModulePointer: CPointer<GTypeModule>
@@ -82,11 +81,7 @@ public open class TypeModule(
      * @param interfaceType interface type to add
      * @param interfaceInfo type information structure
      */
-    public open fun addInterface(
-        instanceType: ULong,
-        interfaceType: ULong,
-        interfaceInfo: InterfaceInfo,
-    ): Unit =
+    public open fun addInterface(instanceType: ULong, interfaceType: ULong, interfaceInfo: InterfaceInfo): Unit =
         g_type_module_add_interface(
             gobjectTypeModulePointer.reinterpret(),
             instanceType,
@@ -115,15 +110,11 @@ public open class TypeModule(
      * @since 2.6
      */
     @GObjectVersion2_6
-    public open fun registerEnum(
-        name: String,
-        constStaticValues: EnumValue,
-    ): ULong =
-        g_type_module_register_enum(
-            gobjectTypeModulePointer.reinterpret(),
-            name,
-            constStaticValues.gobjectEnumValuePointer.reinterpret()
-        )
+    public open fun registerEnum(name: String, constStaticValues: EnumValue): ULong = g_type_module_register_enum(
+        gobjectTypeModulePointer.reinterpret(),
+        name,
+        constStaticValues.gobjectEnumValuePointer.reinterpret()
+    )
 
     /**
      * Looks up or registers a flags type that is implemented with a particular
@@ -146,15 +137,11 @@ public open class TypeModule(
      * @since 2.6
      */
     @GObjectVersion2_6
-    public open fun registerFlags(
-        name: String,
-        constStaticValues: FlagsValue,
-    ): ULong =
-        g_type_module_register_flags(
-            gobjectTypeModulePointer.reinterpret(),
-            name,
-            constStaticValues.gobjectFlagsValuePointer.reinterpret()
-        )
+    public open fun registerFlags(name: String, constStaticValues: FlagsValue): ULong = g_type_module_register_flags(
+        gobjectTypeModulePointer.reinterpret(),
+        name,
+        constStaticValues.gobjectFlagsValuePointer.reinterpret()
+    )
 
     /**
      * Looks up or registers a type that is implemented with a particular
@@ -178,12 +165,7 @@ public open class TypeModule(
      * @param flags flags field providing details about the type
      * @return the new or existing type ID
      */
-    public open fun registerType(
-        parentType: ULong,
-        typeName: String,
-        typeInfo: TypeInfo,
-        flags: TypeFlags,
-    ): ULong =
+    public open fun registerType(parentType: ULong, typeName: String, typeInfo: TypeInfo, flags: TypeFlags): ULong =
         g_type_module_register_type(
             gobjectTypeModulePointer.reinterpret(),
             parentType,
@@ -206,7 +188,7 @@ public open class TypeModule(
      * #GTypeModule are not unregistered. Once a #GTypeModule is
      * initialized, it must exist forever.)
      */
-    open override fun unuse(): Unit = g_type_module_unuse(gobjectTypeModulePointer.reinterpret())
+    override fun unuse(): Unit = g_type_module_unuse(gobjectTypeModulePointer.reinterpret())
 
     /**
      * Increases the use count of a #GTypeModule by one. If the
@@ -217,7 +199,7 @@ public open class TypeModule(
      * @return false if the plugin needed to be loaded and
      *  loading the plugin failed.
      */
-    public open fun use_(): Boolean = g_type_module_use(gobjectTypeModulePointer.reinterpret()).asBoolean()
+    public open fun useTypeModule(): Boolean = g_type_module_use(gobjectTypeModulePointer.reinterpret()).asBoolean()
 
     public companion object : TypeCompanion<TypeModule> {
         override val type: GeneratedClassKGType<TypeModule> =

@@ -46,9 +46,7 @@ public interface AccessibleRange :
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = gtkAccessibleRangePointer.reinterpret()
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkAccessibleRange>,
-    ) : AccessibleRange {
+    private data class Wrapper(private val pointer: CPointer<GtkAccessibleRange>) : AccessibleRange {
         override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange> = pointer
     }
 

@@ -13,9 +13,8 @@ import org.gtkkn.native.gtk.gtk_param_expression_get_type
 /**
  * A `GParamSpec` for properties holding a `GtkExpression`.
  */
-public open class ParamSpecExpression(
-    pointer: CPointer<GtkParamSpecExpression>,
-) : ParamSpec(pointer.reinterpret()),
+public open class ParamSpecExpression(pointer: CPointer<GtkParamSpecExpression>) :
+    ParamSpec(pointer.reinterpret()),
     KGTyped {
     public val gtkParamSpecExpressionPointer: CPointer<GtkParamSpecExpression>
         get() = gPointer.reinterpret()

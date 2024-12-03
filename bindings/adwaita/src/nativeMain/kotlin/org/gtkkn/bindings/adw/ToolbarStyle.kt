@@ -48,9 +48,7 @@ import org.gtkkn.native.adw.AdwToolbarStyle
  * @since 1.4
  */
 @AdwVersion1_4
-public enum class ToolbarStyle(
-    public val nativeValue: AdwToolbarStyle,
-) {
+public enum class ToolbarStyle(public val nativeValue: AdwToolbarStyle) {
     /**
      * No background, shadow only for scrolled content
      */
@@ -68,12 +66,11 @@ public enum class ToolbarStyle(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: AdwToolbarStyle): ToolbarStyle =
-            when (nativeValue) {
-                AdwToolbarStyle.ADW_TOOLBAR_FLAT -> FLAT
-                AdwToolbarStyle.ADW_TOOLBAR_RAISED -> RAISED
-                AdwToolbarStyle.ADW_TOOLBAR_RAISED_BORDER -> RAISED_BORDER
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: AdwToolbarStyle): ToolbarStyle = when (nativeValue) {
+            AdwToolbarStyle.ADW_TOOLBAR_FLAT -> FLAT
+            AdwToolbarStyle.ADW_TOOLBAR_RAISED -> RAISED
+            AdwToolbarStyle.ADW_TOOLBAR_RAISED_BORDER -> RAISED_BORDER
+            else -> error("invalid nativeValue")
+        }
     }
 }

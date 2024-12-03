@@ -21,7 +21,6 @@ import org.gtkkn.native.gtk.gtk_window_controls_set_decoration_layout
 import org.gtkkn.native.gtk.gtk_window_controls_set_side
 import kotlin.Boolean
 import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkWindowControls` shows window frame controls.
@@ -75,9 +74,8 @@ import kotlin.Unit
  *
  * `GtkWindowControls` uses the %GTK_ACCESSIBLE_ROLE_GROUP role.
  */
-public open class WindowControls(
-    pointer: CPointer<GtkWindowControls>,
-) : Widget(pointer.reinterpret()),
+public open class WindowControls(pointer: CPointer<GtkWindowControls>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkWindowControlsPointer: CPointer<GtkWindowControls>
         get() = gPointer.reinterpret()
@@ -148,10 +146,9 @@ public open class WindowControls(
          *
          * @return the side
          */
-        get() =
-            gtk_window_controls_get_side(gtkWindowControlsPointer.reinterpret()).run {
-                PackType.fromNativeValue(this)
-            }
+        get() = gtk_window_controls_get_side(gtkWindowControlsPointer.reinterpret()).run {
+            PackType.fromNativeValue(this)
+        }
 
         /**
          * Determines which part of decoration layout the `GtkWindowControls` uses.
@@ -169,64 +166,6 @@ public open class WindowControls(
      * @return a new `GtkWindowControls`.
      */
     public constructor(side: PackType) : this(gtk_window_controls_new(side.nativeValue)!!.reinterpret())
-
-    /**
-     * Gets the decoration layout of this `GtkWindowControls`.
-     *
-     * @return the decoration layout or null if it is unset
-     */
-    public open fun getDecorationLayout(): String? =
-        gtk_window_controls_get_decoration_layout(gtkWindowControlsPointer.reinterpret())?.toKString()
-
-    /**
-     * Gets whether the widget has any window buttons.
-     *
-     * @return true if the widget has window buttons, otherwise false
-     */
-    public open fun getEmpty(): Boolean =
-        gtk_window_controls_get_empty(gtkWindowControlsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the side to which this `GtkWindowControls` instance belongs.
-     *
-     * @return the side
-     */
-    public open fun getSide(): PackType =
-        gtk_window_controls_get_side(gtkWindowControlsPointer.reinterpret()).run {
-            PackType.fromNativeValue(this)
-        }
-
-    /**
-     * Sets the decoration layout for the title buttons.
-     *
-     * This overrides the [property@Gtk.Settings:gtk-decoration-layout]
-     * setting.
-     *
-     * The format of the string is button names, separated by commas.
-     * A colon separates the buttons that should appear on the left
-     * from those on the right. Recognized button names are minimize,
-     * maximize, close and icon (the window icon).
-     *
-     * For example, “icon:minimize,maximize,close” specifies a icon
-     * on the left, and minimize, maximize and close buttons on the right.
-     *
-     * If [property@Gtk.WindowControls:side] value is @GTK_PACK_START, @self
-     * will display the part before the colon, otherwise after that.
-     *
-     * @param layout a decoration layout, or null to unset the layout
-     */
-    public open fun setDecorationLayout(layout: String? = null): Unit =
-        gtk_window_controls_set_decoration_layout(gtkWindowControlsPointer.reinterpret(), layout)
-
-    /**
-     * Determines which part of decoration layout the `GtkWindowControls` uses.
-     *
-     * See [property@Gtk.WindowControls:decoration-layout].
-     *
-     * @param side a side
-     */
-    public open fun setSide(side: PackType): Unit =
-        gtk_window_controls_set_side(gtkWindowControlsPointer.reinterpret(), side.nativeValue)
 
     public companion object : TypeCompanion<WindowControls> {
         override val type: GeneratedClassKGType<WindowControls> =

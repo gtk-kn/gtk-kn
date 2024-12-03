@@ -20,14 +20,12 @@ import org.gtkkn.native.adw.adw_leaflet_page_set_name
 import org.gtkkn.native.adw.adw_leaflet_page_set_navigatable
 import kotlin.Boolean
 import kotlin.String
-import kotlin.Unit
 
 /**
  * An auxiliary class used by [class@Leaflet].
  */
-public class LeafletPage(
-    pointer: CPointer<AdwLeafletPage>,
-) : Object(pointer.reinterpret()),
+public class LeafletPage(pointer: CPointer<AdwLeafletPage>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val adwLeafletPagePointer: CPointer<AdwLeafletPage>
         get() = gPointer.reinterpret()
@@ -41,10 +39,9 @@ public class LeafletPage(
          *
          * @return the child to which @self belongs
          */
-        get() =
-            adw_leaflet_page_get_child(adwLeafletPagePointer.reinterpret())!!.run {
-                Widget(reinterpret())
-            }
+        get() = adw_leaflet_page_get_child(adwLeafletPagePointer.reinterpret())!!.run {
+            Widget(reinterpret())
+        }
 
     /**
      * The name of the child page.
@@ -94,52 +91,6 @@ public class LeafletPage(
         set(
             navigatable
         ) = adw_leaflet_page_set_navigatable(adwLeafletPagePointer.reinterpret(), navigatable.asGBoolean())
-
-    /**
-     * Gets the leaflet child to which @self belongs.
-     *
-     * @return the child to which @self belongs
-     */
-    public fun getChild(): Widget =
-        adw_leaflet_page_get_child(adwLeafletPagePointer.reinterpret())!!.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Gets the name of @self.
-     *
-     * @return the name of @self.
-     */
-    public fun getName(): String? = adw_leaflet_page_get_name(adwLeafletPagePointer.reinterpret())?.toKString()
-
-    /**
-     * Gets whether the child can be navigated to when folded.
-     *
-     * @return whether @self can be navigated to when folded
-     */
-    public fun getNavigatable(): Boolean =
-        adw_leaflet_page_get_navigatable(adwLeafletPagePointer.reinterpret()).asBoolean()
-
-    /**
-     * Sets the name of the @self.
-     *
-     * @param name the new value to set
-     */
-    public fun setName(name: String? = null): Unit =
-        adw_leaflet_page_set_name(adwLeafletPagePointer.reinterpret(), name)
-
-    /**
-     * Sets whether @self can be navigated to when folded.
-     *
-     * If `FALSE`, the child will be ignored by [method@Leaflet.get_adjacent_child],
-     * [method@Leaflet.navigate], and swipe gestures.
-     *
-     * This can be used used to prevent switching to widgets like separators.
-     *
-     * @param navigatable whether @self can be navigated to when folded
-     */
-    public fun setNavigatable(navigatable: Boolean): Unit =
-        adw_leaflet_page_set_navigatable(adwLeafletPagePointer.reinterpret(), navigatable.asGBoolean())
 
     public companion object : TypeCompanion<LeafletPage> {
         override val type: GeneratedClassKGType<LeafletPage> =

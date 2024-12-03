@@ -15,9 +15,7 @@ import org.gtkkn.native.glib.G_ASCII_SPACE
 import org.gtkkn.native.glib.G_ASCII_UPPER
 import org.gtkkn.native.glib.G_ASCII_XDIGIT
 
-public class AsciiType(
-    public val mask: GAsciiType,
-) : Bitfield<AsciiType> {
+public class AsciiType(public val mask: GAsciiType) : Bitfield<AsciiType> {
     override infix fun or(other: AsciiType): AsciiType = AsciiType(mask or other.mask)
 
     public companion object {

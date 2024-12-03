@@ -30,9 +30,8 @@ import kotlin.Unit
  * - method `accelerator`: Property TypeInfo of getter and setter do not match
  * - method `disabled-text`: Property TypeInfo of getter and setter do not match
  */
-public open class ShortcutLabel(
-    pointer: CPointer<GtkShortcutLabel>,
-) : Widget(pointer.reinterpret()),
+public open class ShortcutLabel(pointer: CPointer<GtkShortcutLabel>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkShortcutLabelPointer: CPointer<GtkShortcutLabel>
         get() = gPointer.reinterpret()

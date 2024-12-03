@@ -12,13 +12,10 @@ import org.gtkkn.native.gio.G_RESOLVER_NAME_LOOKUP_FLAGS_IPV6_ONLY
  * Flags to modify lookup behavior.
  * @since 2.60
  */
-public class ResolverNameLookupFlags(
-    public val mask: GResolverNameLookupFlags,
-) : Bitfield<ResolverNameLookupFlags> {
-    override infix fun or(other: ResolverNameLookupFlags): ResolverNameLookupFlags =
-        ResolverNameLookupFlags(
-            mask or other.mask
-        )
+public class ResolverNameLookupFlags(public val mask: GResolverNameLookupFlags) : Bitfield<ResolverNameLookupFlags> {
+    override infix fun or(other: ResolverNameLookupFlags): ResolverNameLookupFlags = ResolverNameLookupFlags(
+        mask or other.mask
+    )
 
     @GioVersion2_60
     public companion object {

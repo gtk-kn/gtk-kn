@@ -85,9 +85,8 @@ import kotlin.Unit
  * @since 2.26
  */
 @GioVersion2_26
-public open class DBusMessage(
-    pointer: CPointer<GDBusMessage>,
-) : Object(pointer.reinterpret()),
+public open class DBusMessage(pointer: CPointer<GDBusMessage>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioDBusMessagePointer: CPointer<GDBusMessage>
         get() = gPointer.reinterpret()
@@ -156,20 +155,18 @@ public open class DBusMessage(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun copy(): Result<DBusMessage> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_dbus_message_copy(gioDBusMessagePointer.reinterpret(), gError.ptr)?.run {
-                    DBusMessage(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public open fun copy(): Result<DBusMessage> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_dbus_message_copy(gioDBusMessagePointer.reinterpret(), gError.ptr)?.run {
+            DBusMessage(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Convenience to get the first item in the body of @message.
@@ -205,10 +202,9 @@ public open class DBusMessage(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getBody(): Variant? =
-        g_dbus_message_get_body(gioDBusMessagePointer.reinterpret())?.run {
-            Variant(reinterpret())
-        }
+    public open fun getBody(): Variant? = g_dbus_message_get_body(gioDBusMessagePointer.reinterpret())?.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Gets the byte order of @message.
@@ -247,10 +243,9 @@ public open class DBusMessage(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getFlags(): DBusMessageFlags =
-        g_dbus_message_get_flags(gioDBusMessagePointer.reinterpret()).run {
-            DBusMessageFlags(this)
-        }
+    public open fun getFlags(): DBusMessageFlags = g_dbus_message_get_flags(gioDBusMessagePointer.reinterpret()).run {
+        DBusMessageFlags(this)
+    }
 
     /**
      * Gets a header field on @message.
@@ -278,17 +273,6 @@ public open class DBusMessage(
     @GioVersion2_26
     public open fun getInterface(): String? =
         g_dbus_message_get_interface(gioDBusMessagePointer.reinterpret())?.toKString()
-
-    /**
-     * Checks whether @message is locked. To monitor changes to this
-     * value, conncet to the #GObject::notify signal to listen for changes
-     * on the #GDBusMessage:locked property.
-     *
-     * @return true if @message is locked, false otherwise.
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public open fun getLocked(): Boolean = g_dbus_message_get_locked(gioDBusMessagePointer.reinterpret()).asBoolean()
 
     /**
      * Convenience getter for the %G_DBUS_MESSAGE_HEADER_FIELD_MEMBER header field.
@@ -407,10 +391,7 @@ public open class DBusMessage(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun newMethodErrorLiteral(
-        errorName: String,
-        errorMessage: String,
-    ): DBusMessage =
+    public open fun newMethodErrorLiteral(errorName: String, errorMessage: String): DBusMessage =
         g_dbus_message_new_method_error_literal(gioDBusMessagePointer.reinterpret(), errorName, errorMessage)!!.run {
             DBusMessage(reinterpret())
         }
@@ -533,10 +514,7 @@ public open class DBusMessage(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setHeader(
-        headerField: DBusMessageHeaderField,
-        `value`: Variant? = null,
-    ): Unit =
+    public open fun setHeader(headerField: DBusMessageHeaderField, `value`: Variant? = null): Unit =
         g_dbus_message_set_header(
             gioDBusMessagePointer.reinterpret(),
             headerField.nativeValue,
@@ -650,11 +628,10 @@ public open class DBusMessage(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setUnixFdList(fdList: UnixFDList? = null): Unit =
-        g_dbus_message_set_unix_fd_list(
-            gioDBusMessagePointer.reinterpret(),
-            fdList?.gioUnixFDListPointer?.reinterpret()
-        )
+    public open fun setUnixFdList(fdList: UnixFDList? = null): Unit = g_dbus_message_set_unix_fd_list(
+        gioDBusMessagePointer.reinterpret(),
+        fdList?.gioUnixFDListPointer?.reinterpret()
+    )
 
     /**
      * If @message is not of type %G_DBUS_MESSAGE_TYPE_ERROR does
@@ -669,16 +646,15 @@ public open class DBusMessage(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun toGerror(): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_dbus_message_to_gerror(gioDBusMessagePointer.reinterpret(), gError.ptr).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun toGerror(): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_dbus_message_to_gerror(gioDBusMessagePointer.reinterpret(), gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     public companion object : TypeCompanion<DBusMessage> {
         override val type: GeneratedClassKGType<DBusMessage> =

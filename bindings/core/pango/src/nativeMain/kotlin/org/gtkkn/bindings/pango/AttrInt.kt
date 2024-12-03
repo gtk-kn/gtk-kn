@@ -18,9 +18,7 @@ import kotlin.Int
  *
  * - field `attr`: Attribute
  */
-public class AttrInt(
-    pointer: CPointer<PangoAttrInt>,
-) : Record {
+public class AttrInt(pointer: CPointer<PangoAttrInt>) : Record {
     public val pangoAttrIntPointer: CPointer<PangoAttrInt> = pointer
 
     /**

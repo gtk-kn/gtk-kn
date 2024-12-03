@@ -29,9 +29,8 @@ import kotlin.String
  * @since 2.30
  */
 @GioVersion2_30
-public open class DBusObjectProxy(
-    pointer: CPointer<GDBusObjectProxy>,
-) : Object(pointer.reinterpret()),
+public open class DBusObjectProxy(pointer: CPointer<GDBusObjectProxy>) :
+    Object(pointer.reinterpret()),
     DBusObject,
     KGTyped {
     public val gioDBusObjectProxyPointer: CPointer<GDBusObjectProxy>

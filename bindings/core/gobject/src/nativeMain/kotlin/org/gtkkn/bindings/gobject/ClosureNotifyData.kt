@@ -14,9 +14,7 @@ import org.gtkkn.native.gobject.GClosureNotifyData
  * - field `data`: gpointer
  * - field `notify`: ClosureNotify
  */
-public class ClosureNotifyData(
-    pointer: CPointer<GClosureNotifyData>,
-) : Record {
+public class ClosureNotifyData(pointer: CPointer<GClosureNotifyData>) : Record {
     public val gobjectClosureNotifyDataPointer: CPointer<GClosureNotifyData> = pointer
 
     public companion object : RecordCompanion<ClosureNotifyData, GClosureNotifyData> {

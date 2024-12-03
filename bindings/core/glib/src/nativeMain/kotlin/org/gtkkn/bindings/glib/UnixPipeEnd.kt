@@ -9,9 +9,7 @@ import org.gtkkn.native.glib.GUnixPipeEnd
  * @since 2.80
  */
 @GLibVersion2_80
-public enum class UnixPipeEnd(
-    public val nativeValue: GUnixPipeEnd,
-) {
+public enum class UnixPipeEnd(public val nativeValue: GUnixPipeEnd) {
     /**
      * The readable file descriptor 0
      */
@@ -24,11 +22,10 @@ public enum class UnixPipeEnd(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GUnixPipeEnd): UnixPipeEnd =
-            when (nativeValue) {
-                GUnixPipeEnd.G_UNIX_PIPE_END_READ -> READ
-                GUnixPipeEnd.G_UNIX_PIPE_END_WRITE -> WRITE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GUnixPipeEnd): UnixPipeEnd = when (nativeValue) {
+            GUnixPipeEnd.G_UNIX_PIPE_END_READ -> READ
+            GUnixPipeEnd.G_UNIX_PIPE_END_WRITE -> WRITE
+            else -> error("invalid nativeValue")
+        }
     }
 }

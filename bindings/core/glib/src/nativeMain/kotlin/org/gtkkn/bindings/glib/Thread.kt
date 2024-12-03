@@ -41,9 +41,7 @@ import kotlin.Unit
  * - field `joinable`: Record field joinable is private
  * - field `priority`: Record field priority is private
  */
-public class Thread(
-    pointer: CPointer<GThread>,
-) : Record {
+public class Thread(pointer: CPointer<GThread>) : Record {
     public val glibThreadPointer: CPointer<GThread> = pointer
 
     /**
@@ -53,10 +51,9 @@ public class Thread(
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun ref(): Thread =
-        g_thread_ref(glibThreadPointer.reinterpret())!!.run {
-            Thread(reinterpret())
-        }
+    public fun ref(): Thread = g_thread_ref(glibThreadPointer.reinterpret())!!.run {
+        Thread(reinterpret())
+    }
 
     /**
      * Decrease the reference count on @thread, possibly freeing all
@@ -87,10 +84,9 @@ public class Thread(
          *
          * @return the #GThread representing the current thread
          */
-        public fun self(): Thread =
-            g_thread_self()!!.run {
-                Thread(reinterpret())
-            }
+        public fun self(): Thread = g_thread_self()!!.run {
+            Thread(reinterpret())
+        }
 
         /**
          * Causes the calling thread to voluntarily relinquish the CPU, so

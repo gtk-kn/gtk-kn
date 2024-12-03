@@ -15,9 +15,7 @@ import kotlin.UInt
  * The #GSignalInvocationHint structure is used to pass on additional information
  * to callbacks during a signal emission.
  */
-public class SignalInvocationHint(
-    pointer: CPointer<GSignalInvocationHint>,
-) : Record {
+public class SignalInvocationHint(pointer: CPointer<GSignalInvocationHint>) : Record {
     public val gobjectSignalInvocationHintPointer: CPointer<GSignalInvocationHint> = pointer
 
     /**
@@ -46,10 +44,9 @@ public class SignalInvocationHint(
      *  function for a signal emission.
      */
     public var runType: SignalFlags
-        get() =
-            gobjectSignalInvocationHintPointer.pointed.run_type.run {
-                SignalFlags(this)
-            }
+        get() = gobjectSignalInvocationHintPointer.pointed.run_type.run {
+            SignalFlags(this)
+        }
         set(`value`) {
             gobjectSignalInvocationHintPointer.pointed.run_type = value.mask
         }

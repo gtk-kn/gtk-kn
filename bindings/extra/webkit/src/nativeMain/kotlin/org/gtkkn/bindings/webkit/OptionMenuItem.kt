@@ -32,9 +32,7 @@ import kotlin.Unit
  * @since 2.18
  */
 @WebKitVersion2_18
-public class OptionMenuItem(
-    pointer: CPointer<WebKitOptionMenuItem>,
-) : Record {
+public class OptionMenuItem(pointer: CPointer<WebKitOptionMenuItem>) : Record {
     public val webkitOptionMenuItemPointer: CPointer<WebKitOptionMenuItem> = pointer
 
     /**
@@ -44,10 +42,9 @@ public class OptionMenuItem(
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun copy(): OptionMenuItem =
-        webkit_option_menu_item_copy(webkitOptionMenuItemPointer.reinterpret())!!.run {
-            OptionMenuItem(reinterpret())
-        }
+    public fun copy(): OptionMenuItem = webkit_option_menu_item_copy(webkitOptionMenuItemPointer.reinterpret())!!.run {
+        OptionMenuItem(reinterpret())
+    }
 
     /**
      * Free the #WebKitOptionMenuItem.

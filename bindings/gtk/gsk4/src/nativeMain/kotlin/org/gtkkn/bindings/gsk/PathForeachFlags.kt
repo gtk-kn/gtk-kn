@@ -19,9 +19,7 @@ import org.gtkkn.native.gsk.GskPathForeachFlags
  * `GSK_PATH_CLOSE`.
  * @since 4.14
  */
-public class PathForeachFlags(
-    public val mask: GskPathForeachFlags,
-) : Bitfield<PathForeachFlags> {
+public class PathForeachFlags(public val mask: GskPathForeachFlags) : Bitfield<PathForeachFlags> {
     override infix fun or(other: PathForeachFlags): PathForeachFlags = PathForeachFlags(mask or other.mask)
 
     @GskVersion4_14

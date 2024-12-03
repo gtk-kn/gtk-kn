@@ -24,9 +24,8 @@ import kotlin.Unit
  * - method `auth-callback`: Property has no getter
  * - method `auth-data`: Property has no getter nor setter
  */
-public class AuthDomainBasic(
-    pointer: CPointer<SoupAuthDomainBasic>,
-) : AuthDomain(pointer.reinterpret()),
+public class AuthDomainBasic(pointer: CPointer<SoupAuthDomainBasic>) :
+    AuthDomain(pointer.reinterpret()),
     KGTyped {
     public val soupAuthDomainBasicPointer: CPointer<SoupAuthDomainBasic>
         get() = gPointer.reinterpret()
@@ -46,13 +45,12 @@ public class AuthDomainBasic(
      *
      * @param callback the callback
      */
-    public fun setAuthCallback(callback: AuthDomainBasicAuthCallback): Unit =
-        soup_auth_domain_basic_set_auth_callback(
-            soupAuthDomainBasicPointer.reinterpret(),
-            AuthDomainBasicAuthCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public fun setAuthCallback(callback: AuthDomainBasicAuthCallback): Unit = soup_auth_domain_basic_set_auth_callback(
+        soupAuthDomainBasicPointer.reinterpret(),
+        AuthDomainBasicAuthCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer(),
+        staticStableRefDestroy.reinterpret()
+    )
 
     public companion object : TypeCompanion<AuthDomainBasic> {
         override val type: GeneratedClassKGType<AuthDomainBasic> =

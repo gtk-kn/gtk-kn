@@ -63,9 +63,7 @@ import kotlin.String
  * and height) of a paper size and its name, it also provides
  * default print margins.
  */
-public class PaperSize(
-    pointer: CPointer<GtkPaperSize>,
-) : Record {
+public class PaperSize(pointer: CPointer<GtkPaperSize>) : Record {
     public val gtkPaperSizePointer: CPointer<GtkPaperSize> = pointer
 
     /**
@@ -73,10 +71,9 @@ public class PaperSize(
      *
      * @return a copy of @other
      */
-    public fun copy(): PaperSize =
-        gtk_paper_size_copy(gtkPaperSizePointer.reinterpret())!!.run {
-            PaperSize(reinterpret())
-        }
+    public fun copy(): PaperSize = gtk_paper_size_copy(gtkPaperSizePointer.reinterpret())!!.run {
+        PaperSize(reinterpret())
+    }
 
     /**
      * Free the given `GtkPaperSize` object.
@@ -196,21 +193,17 @@ public class PaperSize(
      * @param height the new height in units of @unit
      * @param unit the unit for @width and @height
      */
-    public fun setSize(
-        width: Double,
-        height: Double,
-        unit: Unit,
-    ): kotlin.Unit = gtk_paper_size_set_size(gtkPaperSizePointer.reinterpret(), width, height, unit.nativeValue)
+    public fun setSize(width: Double, height: Double, unit: Unit): kotlin.Unit =
+        gtk_paper_size_set_size(gtkPaperSizePointer.reinterpret(), width, height, unit.nativeValue)
 
     /**
      * Serialize a paper size to an `a{sv}` variant.
      *
      * @return a new, floating, `GVariant`
      */
-    public fun toGvariant(): Variant =
-        gtk_paper_size_to_gvariant(gtkPaperSizePointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public fun toGvariant(): Variant = gtk_paper_size_to_gvariant(gtkPaperSizePointer.reinterpret())!!.run {
+        Variant(reinterpret())
+    }
 
     /**
      * This function adds the paper size from @size to @key_file.
@@ -218,15 +211,11 @@ public class PaperSize(
      * @param keyFile the `GKeyFile` to save the paper size to
      * @param groupName the group to add the settings to in @key_file
      */
-    public fun toKeyFile(
-        keyFile: KeyFile,
-        groupName: String,
-    ): kotlin.Unit =
-        gtk_paper_size_to_key_file(
-            gtkPaperSizePointer.reinterpret(),
-            keyFile.glibKeyFilePointer.reinterpret(),
-            groupName
-        )
+    public fun toKeyFile(keyFile: KeyFile, groupName: String): kotlin.Unit = gtk_paper_size_to_key_file(
+        gtkPaperSizePointer.reinterpret(),
+        keyFile.glibKeyFilePointer.reinterpret(),
+        groupName
+    )
 
     public companion object : RecordCompanion<PaperSize, GtkPaperSize> {
         /**
@@ -255,13 +244,7 @@ public class PaperSize(
          * @return a new `GtkPaperSize` object, use [method@Gtk.PaperSize.free]
          * to free it
          */
-        public fun newCustom(
-            name: String,
-            displayName: String,
-            width: Double,
-            height: Double,
-            unit: Unit,
-        ): PaperSize =
+        public fun newCustom(name: String, displayName: String, width: Double, height: Double, unit: Unit): PaperSize =
             PaperSize(gtk_paper_size_new_custom(name, displayName, width, height, unit.nativeValue)!!.reinterpret())
 
         /**
@@ -290,11 +273,8 @@ public class PaperSize(
          * @return a new `GtkPaperSize`, use [method@Gtk.PaperSize.free]
          * to free it
          */
-        public fun newFromIpp(
-            ippName: String,
-            width: Double,
-            height: Double,
-        ): PaperSize = PaperSize(gtk_paper_size_new_from_ipp(ippName, width, height)!!.reinterpret())
+        public fun newFromIpp(ippName: String, width: Double, height: Double): PaperSize =
+            PaperSize(gtk_paper_size_new_from_ipp(ippName, width, height)!!.reinterpret())
 
         /**
          * Reads a paper size from the group @group_name in the key file
@@ -305,10 +285,7 @@ public class PaperSize(
          *   or null to read the first group
          * @return a new `GtkPaperSize` object with the restored paper size
          */
-        public fun newFromKeyFile(
-            keyFile: KeyFile,
-            groupName: String? = null,
-        ): Result<PaperSize> {
+        public fun newFromKeyFile(keyFile: KeyFile, groupName: String? = null): Result<PaperSize> {
             memScoped {
                 val gError = allocPointerTo<GError>()
                 val gResult =
@@ -336,12 +313,8 @@ public class PaperSize(
          * @return a new `GtkPaperSize`, use [method@Gtk.PaperSize.free]
          * to free it
          */
-        public fun newFromPpd(
-            ppdName: String,
-            ppdDisplayName: String,
-            width: Double,
-            height: Double,
-        ): PaperSize = PaperSize(gtk_paper_size_new_from_ppd(ppdName, ppdDisplayName, width, height)!!.reinterpret())
+        public fun newFromPpd(ppdName: String, ppdDisplayName: String, width: Double, height: Double): PaperSize =
+            PaperSize(gtk_paper_size_new_from_ppd(ppdName, ppdDisplayName, width, height)!!.reinterpret())
 
         /**
          * Returns the name of the default paper size, which

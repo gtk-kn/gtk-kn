@@ -61,9 +61,8 @@ import kotlin.Unit
  * @since 2.72
  */
 @GObjectVersion2_72
-public open class SignalGroup(
-    pointer: CPointer<GSignalGroup>,
-) : Object(pointer.reinterpret()),
+public open class SignalGroup(pointer: CPointer<GSignalGroup>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gobjectSignalGroupPointer: CPointer<GSignalGroup>
         get() = gPointer.reinterpret()
@@ -101,11 +100,7 @@ public open class SignalGroup(
      * @since 2.74
      */
     @GObjectVersion2_74
-    public open fun connectClosure(
-        detailedSignal: String,
-        closure: Closure,
-        after: Boolean,
-    ): Unit =
+    public open fun connectClosure(detailedSignal: String, closure: Closure, after: Boolean): Unit =
         g_signal_group_connect_closure(
             gobjectSignalGroupPointer.reinterpret(),
             detailedSignal,
@@ -127,16 +122,12 @@ public open class SignalGroup(
      * @since 2.72
      */
     @GObjectVersion2_72
-    public open fun connectSwapped(
-        detailedSignal: String,
-        cHandler: Callback,
-    ): Unit =
-        g_signal_group_connect_swapped(
-            gobjectSignalGroupPointer.reinterpret(),
-            detailedSignal,
-            CallbackFunc.reinterpret(),
-            StableRef.create(cHandler).asCPointer()
-        )
+    public open fun connectSwapped(detailedSignal: String, cHandler: Callback): Unit = g_signal_group_connect_swapped(
+        gobjectSignalGroupPointer.reinterpret(),
+        detailedSignal,
+        CallbackFunc.reinterpret(),
+        StableRef.create(cHandler).asCPointer()
+    )
 
     /**
      * Gets the target instance used when connecting signals.
@@ -145,10 +136,9 @@ public open class SignalGroup(
      * @since 2.72
      */
     @GObjectVersion2_72
-    public open fun dupTarget(): Object? =
-        g_signal_group_dup_target(gobjectSignalGroupPointer.reinterpret())?.run {
-            Object(reinterpret())
-        }
+    public open fun dupTarget(): Object? = g_signal_group_dup_target(gobjectSignalGroupPointer.reinterpret())?.run {
+        Object(reinterpret())
+    }
 
     /**
      * Sets the target instance used when connecting signals. Any signal
@@ -188,10 +178,7 @@ public open class SignalGroup(
      * @since 2.72
      */
     @GObjectVersion2_72
-    public fun connectBind(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (instance: Object) -> Unit,
-    ): ULong =
+    public fun connectBind(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (instance: Object) -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "bind",
@@ -213,10 +200,7 @@ public open class SignalGroup(
      * @since 2.72
      */
     @GObjectVersion2_72
-    public fun connectUnbind(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectUnbind(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "unbind",
@@ -236,23 +220,23 @@ public open class SignalGroup(
     }
 }
 
-private val connectBindFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            instance: CPointer<GObject>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(instance: Object) -> Unit>().get().invoke(
-            instance!!.run {
-                Object(reinterpret())
-            }
-        )
-    }.reinterpret()
+private val connectBindFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        instance: CPointer<GObject>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(instance: Object) -> Unit>().get().invoke(
+        instance!!.run {
+            Object(reinterpret())
+        }
+    )
+}
+    .reinterpret()
 
-private val connectUnbindFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectUnbindFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

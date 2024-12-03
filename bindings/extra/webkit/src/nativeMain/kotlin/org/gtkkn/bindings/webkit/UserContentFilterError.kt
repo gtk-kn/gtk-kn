@@ -12,9 +12,7 @@ import org.gtkkn.native.webkit.webkit_user_content_filter_error_quark
  * @since 2.24
  */
 @WebKitVersion2_24
-public enum class UserContentFilterError(
-    public val nativeValue: WebKitUserContentFilterError,
-) {
+public enum class UserContentFilterError(public val nativeValue: WebKitUserContentFilterError) {
     /**
      * The JSON source for a content filter is invalid.
      */
@@ -41,11 +39,10 @@ public enum class UserContentFilterError(
          */
         public fun quark(): Quark = webkit_user_content_filter_error_quark()
 
-        public fun fromErrorOrNull(error: Error): UserContentFilterError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                UserContentFilterError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        public fun fromErrorOrNull(error: Error): UserContentFilterError? = if (error.domain != quark()) {
+            null
+        } else {
+            UserContentFilterError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

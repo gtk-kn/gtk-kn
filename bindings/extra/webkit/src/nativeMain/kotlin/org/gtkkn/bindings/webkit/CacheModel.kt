@@ -6,9 +6,7 @@ import org.gtkkn.native.webkit.WebKitCacheModel
 /**
  * Enum values used for determining the #WebKitWebContext cache model.
  */
-public enum class CacheModel(
-    public val nativeValue: WebKitCacheModel,
-) {
+public enum class CacheModel(public val nativeValue: WebKitCacheModel) {
     /**
      * Disable the cache completely, which
      *   substantially reduces memory usage. Useful for applications that only
@@ -32,12 +30,11 @@ public enum class CacheModel(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitCacheModel): CacheModel =
-            when (nativeValue) {
-                WebKitCacheModel.WEBKIT_CACHE_MODEL_DOCUMENT_VIEWER -> DOCUMENT_VIEWER
-                WebKitCacheModel.WEBKIT_CACHE_MODEL_WEB_BROWSER -> WEB_BROWSER
-                WebKitCacheModel.WEBKIT_CACHE_MODEL_DOCUMENT_BROWSER -> DOCUMENT_BROWSER
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitCacheModel): CacheModel = when (nativeValue) {
+            WebKitCacheModel.WEBKIT_CACHE_MODEL_DOCUMENT_VIEWER -> DOCUMENT_VIEWER
+            WebKitCacheModel.WEBKIT_CACHE_MODEL_WEB_BROWSER -> WEB_BROWSER
+            WebKitCacheModel.WEBKIT_CACHE_MODEL_DOCUMENT_BROWSER -> DOCUMENT_BROWSER
+            else -> error("invalid nativeValue")
+        }
     }
 }

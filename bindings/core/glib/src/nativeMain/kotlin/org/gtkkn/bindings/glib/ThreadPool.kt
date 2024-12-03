@@ -8,7 +8,7 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.bindings.glib.Glib.resolveException
+import org.gtkkn.bindings.glib.GLib.resolveException
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_10
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
@@ -68,9 +68,7 @@ import kotlin.Unit
  * - field `func`: Func
  * - field `user_data`: gpointer
  */
-public class ThreadPool(
-    pointer: CPointer<GThreadPool>,
-) : Record {
+public class ThreadPool(pointer: CPointer<GThreadPool>) : Record {
     public val glibThreadPoolPointer: CPointer<GThreadPool> = pointer
 
     /**
@@ -101,10 +99,8 @@ public class ThreadPool(
      * @param immediate should @pool shut down immediately?
      * @param wait should the function wait for all tasks to be finished?
      */
-    public fun free(
-        immediate: Boolean,
-        wait: Boolean,
-    ): Unit = g_thread_pool_free(glibThreadPoolPointer.reinterpret(), immediate.asGBoolean(), wait.asGBoolean())
+    public fun free(immediate: Boolean, wait: Boolean): Unit =
+        g_thread_pool_free(glibThreadPoolPointer.reinterpret(), immediate.asGBoolean(), wait.asGBoolean())
 
     /**
      * Returns the maximal number of threads for @pool.
@@ -146,21 +142,19 @@ public class ThreadPool(
      *     or -1 for unlimited
      * @return true on success, false if an error occurred
      */
-    public fun setMaxThreads(maxThreads: Int): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_thread_pool_set_max_threads(
-                    glibThreadPoolPointer.reinterpret(),
-                    maxThreads,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun setMaxThreads(maxThreads: Int): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_thread_pool_set_max_threads(
+            glibThreadPoolPointer.reinterpret(),
+            maxThreads,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Returns the number of tasks still unprocessed in @pool.

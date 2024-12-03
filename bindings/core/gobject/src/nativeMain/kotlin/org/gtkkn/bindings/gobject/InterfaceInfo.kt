@@ -18,9 +18,7 @@ import org.gtkkn.native.gobject.GInterfaceInfo
  * - field `interface_finalize`: InterfaceFinalizeFunc
  * - field `interface_data`: gpointer
  */
-public class InterfaceInfo(
-    pointer: CPointer<GInterfaceInfo>,
-) : Record {
+public class InterfaceInfo(pointer: CPointer<GInterfaceInfo>) : Record {
     public val gobjectInterfaceInfoPointer: CPointer<GInterfaceInfo> = pointer
 
     public companion object : RecordCompanion<InterfaceInfo, GInterfaceInfo> {

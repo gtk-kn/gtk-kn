@@ -26,9 +26,7 @@ import kotlin.Unit
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusPropertyInfo(
-    pointer: CPointer<GDBusPropertyInfo>,
-) : Record {
+public class DBusPropertyInfo(pointer: CPointer<GDBusPropertyInfo>) : Record {
     public val gioDBusPropertyInfoPointer: CPointer<GDBusPropertyInfo> = pointer
 
     /**
@@ -60,10 +58,9 @@ public class DBusPropertyInfo(
      * Access control flags for the property.
      */
     public var flags: DBusPropertyInfoFlags
-        get() =
-            gioDBusPropertyInfoPointer.pointed.flags.run {
-                DBusPropertyInfoFlags(this)
-            }
+        get() = gioDBusPropertyInfoPointer.pointed.flags.run {
+            DBusPropertyInfoFlags(this)
+        }
         set(`value`) {
             gioDBusPropertyInfoPointer.pointed.flags = value.mask
         }
@@ -76,10 +73,9 @@ public class DBusPropertyInfo(
      * @since 2.26
      */
     @GioVersion2_26
-    public fun ref(): DBusPropertyInfo =
-        g_dbus_property_info_ref(gioDBusPropertyInfoPointer.reinterpret())!!.run {
-            DBusPropertyInfo(reinterpret())
-        }
+    public fun ref(): DBusPropertyInfo = g_dbus_property_info_ref(gioDBusPropertyInfoPointer.reinterpret())!!.run {
+        DBusPropertyInfo(reinterpret())
+    }
 
     /**
      * If @info is statically allocated, does nothing. Otherwise decreases

@@ -37,3 +37,16 @@ CustomLayout#class ignore
 Widget
     .activate_action name="activate_action_if_exists"
     .activate_action_variant shadows="activate_action_if_exists"
+
+// Widget.activate() is problematic for several subclasses that define their own
+// "activate" method with a different return type. In Kotlin, a child class cannot
+// override a method if the return type differs from that of the parent class.
+// To resolve this issue, Widget.activate() is renamed to activateWidget().
+Widget.activate name="activate_widget"
+
+// PrintUnixDialog.getSettings() overrides Widget.getSettings() with a
+// different return type, which is not allowed. To resolve this, it is renamed to getPrintSettings().
+PrintUnixDialog.get_settings#method name="get_print_settings"
+
+// The `toString` method returns `null`, so it cannot override the non-null `toString` method of `Any`.
+TreePath.to_string#method name="to_string_tree_path"

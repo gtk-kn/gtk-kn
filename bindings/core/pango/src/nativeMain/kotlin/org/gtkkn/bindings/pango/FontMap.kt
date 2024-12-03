@@ -38,9 +38,8 @@ import kotlin.Unit
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class FontMap(
-    pointer: CPointer<PangoFontMap>,
-) : Object(pointer.reinterpret()),
+public open class FontMap(pointer: CPointer<PangoFontMap>) :
+    Object(pointer.reinterpret()),
     ListModel,
     KGTyped {
     public val pangoFontMapPointer: CPointer<PangoFontMap>

@@ -6,9 +6,7 @@ import org.gtkkn.native.gtk.GtkStringFilterMatchMode
 /**
  * Specifies how search strings are matched inside text.
  */
-public enum class StringFilterMatchMode(
-    public val nativeValue: GtkStringFilterMatchMode,
-) {
+public enum class StringFilterMatchMode(public val nativeValue: GtkStringFilterMatchMode) {
     /**
      * The search string and
      *   text must match exactly.
@@ -29,12 +27,11 @@ public enum class StringFilterMatchMode(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkStringFilterMatchMode): StringFilterMatchMode =
-            when (nativeValue) {
-                GtkStringFilterMatchMode.GTK_STRING_FILTER_MATCH_MODE_EXACT -> EXACT
-                GtkStringFilterMatchMode.GTK_STRING_FILTER_MATCH_MODE_SUBSTRING -> SUBSTRING
-                GtkStringFilterMatchMode.GTK_STRING_FILTER_MATCH_MODE_PREFIX -> PREFIX
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkStringFilterMatchMode): StringFilterMatchMode = when (nativeValue) {
+            GtkStringFilterMatchMode.GTK_STRING_FILTER_MATCH_MODE_EXACT -> EXACT
+            GtkStringFilterMatchMode.GTK_STRING_FILTER_MATCH_MODE_SUBSTRING -> SUBSTRING
+            GtkStringFilterMatchMode.GTK_STRING_FILTER_MATCH_MODE_PREFIX -> PREFIX
+            else -> error("invalid nativeValue")
+        }
     }
 }

@@ -27,9 +27,8 @@ import kotlin.UInt
  *
  * - parameter `dx`: dx: Out parameter is not supported
  */
-public open class TouchpadEvent(
-    pointer: CPointer<GdkTouchpadEvent>,
-) : Event(pointer.reinterpret()),
+public open class TouchpadEvent(pointer: CPointer<GdkTouchpadEvent>) :
+    Event(pointer.reinterpret()),
     KGTyped {
     public val gdkTouchpadEventPointer: CPointer<GdkTouchpadEvent>
         get() = gPointer.reinterpret()

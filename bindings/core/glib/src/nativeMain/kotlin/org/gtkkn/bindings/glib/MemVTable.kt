@@ -24,9 +24,7 @@ import org.gtkkn.native.glib.GMemVTable
  * - field `try_malloc`: Fields with callbacks are not supported
  * - field `try_realloc`: Fields with callbacks are not supported
  */
-public class MemVTable(
-    pointer: CPointer<GMemVTable>,
-) : Record {
+public class MemVTable(pointer: CPointer<GMemVTable>) : Record {
     public val glibMemVTablePointer: CPointer<GMemVTable> = pointer
 
     public companion object : RecordCompanion<MemVTable, GMemVTable> {

@@ -6,9 +6,7 @@ import org.gtkkn.native.gtk.GtkPropagationPhase
 /**
  * Describes the stage at which events are fed into a [class@EventController].
  */
-public enum class PropagationPhase(
-    public val nativeValue: GtkPropagationPhase,
-) {
+public enum class PropagationPhase(public val nativeValue: GtkPropagationPhase) {
     /**
      * Events are not delivered.
      */
@@ -38,13 +36,12 @@ public enum class PropagationPhase(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkPropagationPhase): PropagationPhase =
-            when (nativeValue) {
-                GtkPropagationPhase.GTK_PHASE_NONE -> NONE
-                GtkPropagationPhase.GTK_PHASE_CAPTURE -> CAPTURE
-                GtkPropagationPhase.GTK_PHASE_BUBBLE -> BUBBLE
-                GtkPropagationPhase.GTK_PHASE_TARGET -> TARGET
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkPropagationPhase): PropagationPhase = when (nativeValue) {
+            GtkPropagationPhase.GTK_PHASE_NONE -> NONE
+            GtkPropagationPhase.GTK_PHASE_CAPTURE -> CAPTURE
+            GtkPropagationPhase.GTK_PHASE_BUBBLE -> BUBBLE
+            GtkPropagationPhase.GTK_PHASE_TARGET -> TARGET
+            else -> error("invalid nativeValue")
+        }
     }
 }

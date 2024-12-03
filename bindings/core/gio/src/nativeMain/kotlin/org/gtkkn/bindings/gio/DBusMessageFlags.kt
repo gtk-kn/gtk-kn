@@ -13,9 +13,7 @@ import org.gtkkn.native.gio.G_DBUS_MESSAGE_FLAGS_NO_REPLY_EXPECTED
  * Message flags used in #GDBusMessage.
  * @since 2.26
  */
-public class DBusMessageFlags(
-    public val mask: GDBusMessageFlags,
-) : Bitfield<DBusMessageFlags> {
+public class DBusMessageFlags(public val mask: GDBusMessageFlags) : Bitfield<DBusMessageFlags> {
     override infix fun or(other: DBusMessageFlags): DBusMessageFlags = DBusMessageFlags(mask or other.mask)
 
     @GioVersion2_26

@@ -6,9 +6,7 @@ import org.gtkkn.native.gdk.GdkDragCancelReason
 /**
  * Used in `GdkDrag` to the reason of a cancelled DND operation.
  */
-public enum class DragCancelReason(
-    public val nativeValue: GdkDragCancelReason,
-) {
+public enum class DragCancelReason(public val nativeValue: GdkDragCancelReason) {
     /**
      * There is no suitable drop target.
      */
@@ -26,12 +24,11 @@ public enum class DragCancelReason(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GdkDragCancelReason): DragCancelReason =
-            when (nativeValue) {
-                GdkDragCancelReason.GDK_DRAG_CANCEL_NO_TARGET -> NO_TARGET
-                GdkDragCancelReason.GDK_DRAG_CANCEL_USER_CANCELLED -> USER_CANCELLED
-                GdkDragCancelReason.GDK_DRAG_CANCEL_ERROR -> ERROR
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GdkDragCancelReason): DragCancelReason = when (nativeValue) {
+            GdkDragCancelReason.GDK_DRAG_CANCEL_NO_TARGET -> NO_TARGET
+            GdkDragCancelReason.GDK_DRAG_CANCEL_USER_CANCELLED -> USER_CANCELLED
+            GdkDragCancelReason.GDK_DRAG_CANCEL_ERROR -> ERROR
+            else -> error("invalid nativeValue")
+        }
     }
 }

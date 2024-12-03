@@ -42,9 +42,8 @@ import kotlin.Unit
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class ListStore(
-    pointer: CPointer<GListStore>,
-) : Object(pointer.reinterpret()),
+public open class ListStore(pointer: CPointer<GListStore>) :
+    Object(pointer.reinterpret()),
     ListModel,
     KGTyped {
     public val gioListStorePointer: CPointer<GListStore>
@@ -93,10 +92,8 @@ public open class ListStore(
      * @since 2.44
      */
     @GioVersion2_44
-    public open fun insert(
-        position: UInt,
-        item: Object,
-    ): Unit = g_list_store_insert(gioListStorePointer.reinterpret(), position, item.gPointer.reinterpret())
+    public open fun insert(position: UInt, item: Object): Unit =
+        g_list_store_insert(gioListStorePointer.reinterpret(), position, item.gPointer.reinterpret())
 
     /**
      * Inserts @item into @store at a position to be determined by the
@@ -114,16 +111,12 @@ public open class ListStore(
      * @since 2.44
      */
     @GioVersion2_44
-    public open fun insertSorted(
-        item: Object,
-        compareFunc: CompareDataFunc,
-    ): UInt =
-        g_list_store_insert_sorted(
-            gioListStorePointer.reinterpret(),
-            item.gPointer.reinterpret(),
-            CompareDataFuncFunc.reinterpret(),
-            StableRef.create(compareFunc).asCPointer()
-        )
+    public open fun insertSorted(item: Object, compareFunc: CompareDataFunc): UInt = g_list_store_insert_sorted(
+        gioListStorePointer.reinterpret(),
+        item.gPointer.reinterpret(),
+        CompareDataFuncFunc.reinterpret(),
+        StableRef.create(compareFunc).asCPointer()
+    )
 
     /**
      * Removes the item from @store that is at @position. @position must be
@@ -153,12 +146,11 @@ public open class ListStore(
      * @since 2.46
      */
     @GioVersion2_46
-    public open fun sort(compareFunc: CompareDataFunc): Unit =
-        g_list_store_sort(
-            gioListStorePointer.reinterpret(),
-            CompareDataFuncFunc.reinterpret(),
-            StableRef.create(compareFunc).asCPointer()
-        )
+    public open fun sort(compareFunc: CompareDataFunc): Unit = g_list_store_sort(
+        gioListStorePointer.reinterpret(),
+        CompareDataFuncFunc.reinterpret(),
+        StableRef.create(compareFunc).asCPointer()
+    )
 
     public companion object : TypeCompanion<ListStore> {
         override val type: GeneratedClassKGType<ListStore> =

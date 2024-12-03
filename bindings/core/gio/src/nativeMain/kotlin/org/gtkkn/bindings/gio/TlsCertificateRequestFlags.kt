@@ -11,9 +11,7 @@ import org.gtkkn.native.gio.GTlsCertificateRequestFlags
  * @since 2.40
  */
 @GioVersion2_40
-public enum class TlsCertificateRequestFlags(
-    public val nativeValue: GTlsCertificateRequestFlags,
-) {
+public enum class TlsCertificateRequestFlags(public val nativeValue: GTlsCertificateRequestFlags) {
     /**
      * No flags
      */

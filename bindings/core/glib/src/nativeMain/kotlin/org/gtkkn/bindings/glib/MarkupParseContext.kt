@@ -9,7 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.bindings.glib.Glib.resolveException
+import org.gtkkn.bindings.glib.GLib.resolveException
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_16
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_2
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_36
@@ -46,9 +46,7 @@ import kotlin.Unit
  * - parameter `user_data`: gpointer
  * - parameter `user_data`: gpointer
  */
-public class MarkupParseContext(
-    pointer: CPointer<GMarkupParseContext>,
-) : Record {
+public class MarkupParseContext(pointer: CPointer<GMarkupParseContext>) : Record {
     public val glibMarkupParseContextPointer: CPointer<GMarkupParseContext> = pointer
 
     /**
@@ -60,20 +58,18 @@ public class MarkupParseContext(
      *
      * @return true on success, false if an error was set
      */
-    public fun endParse(): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_markup_parse_context_end_parse(
-                    glibMarkupParseContextPointer.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun endParse(): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_markup_parse_context_end_parse(
+            glibMarkupParseContextPointer.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Frees a #GMarkupParseContext.
@@ -136,25 +132,20 @@ public class MarkupParseContext(
      * @param textLen length of @text in bytes
      * @return false if an error occurred, true on success
      */
-    public fun parse(
-        text: String,
-        textLen: Long,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_markup_parse_context_parse(
-                    glibMarkupParseContextPointer.reinterpret(),
-                    text,
-                    textLen,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun parse(text: String, textLen: Long): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_markup_parse_context_parse(
+            glibMarkupParseContextPointer.reinterpret(),
+            text,
+            textLen,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Increases the reference count of @context.

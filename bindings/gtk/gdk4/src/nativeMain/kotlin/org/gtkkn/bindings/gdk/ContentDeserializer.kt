@@ -48,9 +48,8 @@ import kotlin.Unit
  * - method `get_user_data`: Return type gpointer is unsupported
  * - parameter `data`: gpointer
  */
-public open class ContentDeserializer(
-    pointer: CPointer<GdkContentDeserializer>,
-) : Object(pointer.reinterpret()),
+public open class ContentDeserializer(pointer: CPointer<GdkContentDeserializer>) :
+    Object(pointer.reinterpret()),
     AsyncResult,
     KGTyped {
     public val gdkContentDeserializerPointer: CPointer<GdkContentDeserializer>
@@ -126,11 +125,10 @@ public open class ContentDeserializer(
      *
      * @param error a `GError`
      */
-    public open fun returnError(error: Error): Unit =
-        gdk_content_deserializer_return_error(
-            gdkContentDeserializerPointer.reinterpret(),
-            error.glibErrorPointer.reinterpret()
-        )
+    public open fun returnError(error: Error): Unit = gdk_content_deserializer_return_error(
+        gdkContentDeserializerPointer.reinterpret(),
+        error.glibErrorPointer.reinterpret()
+    )
 
     /**
      * Indicate that the deserialization has been successfully completed.

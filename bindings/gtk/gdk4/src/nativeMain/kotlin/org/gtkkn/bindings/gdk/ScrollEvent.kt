@@ -22,9 +22,8 @@ import kotlin.Boolean
  *
  * - parameter `delta_x`: delta_x: Out parameter is not supported
  */
-public open class ScrollEvent(
-    pointer: CPointer<GdkScrollEvent>,
-) : Event(pointer.reinterpret()),
+public open class ScrollEvent(pointer: CPointer<GdkScrollEvent>) :
+    Event(pointer.reinterpret()),
     KGTyped {
     public val gdkScrollEventPointer: CPointer<GdkScrollEvent>
         get() = gPointer.reinterpret()
@@ -49,10 +48,9 @@ public open class ScrollEvent(
      * @since 4.8
      */
     @GdkVersion4_8
-    public open fun getUnit(): ScrollUnit =
-        gdk_scroll_event_get_unit(gdkScrollEventPointer.reinterpret()).run {
-            ScrollUnit.fromNativeValue(this)
-        }
+    public open fun getUnit(): ScrollUnit = gdk_scroll_event_get_unit(gdkScrollEventPointer.reinterpret()).run {
+        ScrollUnit.fromNativeValue(this)
+    }
 
     /**
      * Check whether a scroll event is a stop scroll event.

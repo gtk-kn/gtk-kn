@@ -16,9 +16,8 @@ import kotlin.Boolean
 /**
  * An event related to a broken windowing system grab.
  */
-public open class GrabBrokenEvent(
-    pointer: CPointer<GdkGrabBrokenEvent>,
-) : Event(pointer.reinterpret()),
+public open class GrabBrokenEvent(pointer: CPointer<GdkGrabBrokenEvent>) :
+    Event(pointer.reinterpret()),
     KGTyped {
     public val gdkGrabBrokenEventPointer: CPointer<GdkGrabBrokenEvent>
         get() = gPointer.reinterpret()

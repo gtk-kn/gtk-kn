@@ -13,9 +13,7 @@ import org.gtkkn.native.adw.AdwBreakpointConditionRatioType
  * @since 1.4
  */
 @AdwVersion1_4
-public enum class BreakpointConditionRatioType(
-    public val nativeValue: AdwBreakpointConditionRatioType,
-) {
+public enum class BreakpointConditionRatioType(public val nativeValue: AdwBreakpointConditionRatioType) {
     /**
      * true if the aspect ratio is
      *   greater than or equal to the condition value

@@ -84,9 +84,8 @@ import kotlin.Unit
  * - method `wrap-mode`: Property has no getter nor setter
  * - method `wrap-width`: Property has no getter nor setter
  */
-public open class CellRendererText(
-    pointer: CPointer<GtkCellRendererText>,
-) : CellRenderer(pointer.reinterpret()),
+public open class CellRendererText(pointer: CPointer<GtkCellRendererText>) :
+    CellRenderer(pointer.reinterpret()),
     KGTyped {
     public val gtkCellRendererTextPointer: CPointer<GtkCellRendererText>
         get() = gPointer.reinterpret()
@@ -130,15 +129,14 @@ public open class CellRendererText(
     public fun connectEdited(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (path: String, newText: String) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "edited",
-            connectEditedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "edited",
+        connectEditedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<CellRendererText> {
         override val type: GeneratedClassKGType<CellRendererText> =
@@ -161,4 +159,5 @@ private val connectEditedFunc: CPointer<CFunction<(CPointer<ByteVar>, CPointer<B
             path?.toKString() ?: error("Expected not null string"),
             newText?.toKString() ?: error("Expected not null string")
         )
-    }.reinterpret()
+    }
+        .reinterpret()

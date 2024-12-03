@@ -21,9 +21,8 @@ import kotlin.Unit
  *
  * - parameter `destroy`: GLib.DestroyNotify
  */
-public open class GLTexture(
-    pointer: CPointer<GdkGLTexture>,
-) : Texture(pointer.reinterpret()),
+public open class GLTexture(pointer: CPointer<GdkGLTexture>) :
+    Texture(pointer.reinterpret()),
     KGTyped {
     public val gdkGLTexturePointer: CPointer<GdkGLTexture>
         get() = gPointer.reinterpret()

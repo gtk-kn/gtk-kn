@@ -9,9 +9,7 @@ import org.gtkkn.native.gtk.GtkSpinButtonUpdatePolicy
  *
  * See [method@Gtk.SpinButton.set_update_policy].
  */
-public enum class SpinButtonUpdatePolicy(
-    public val nativeValue: GtkSpinButtonUpdatePolicy,
-) {
+public enum class SpinButtonUpdatePolicy(public val nativeValue: GtkSpinButtonUpdatePolicy) {
     /**
      * When refreshing your `GtkSpinButton`, the value is
      *   always displayed

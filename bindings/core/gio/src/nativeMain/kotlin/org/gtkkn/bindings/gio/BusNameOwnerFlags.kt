@@ -13,9 +13,7 @@ import org.gtkkn.native.gio.G_BUS_NAME_OWNER_FLAGS_REPLACE
  * Flags used in g_bus_own_name().
  * @since 2.26
  */
-public class BusNameOwnerFlags(
-    public val mask: GBusNameOwnerFlags,
-) : Bitfield<BusNameOwnerFlags> {
+public class BusNameOwnerFlags(public val mask: GBusNameOwnerFlags) : Bitfield<BusNameOwnerFlags> {
     override infix fun or(other: BusNameOwnerFlags): BusNameOwnerFlags = BusNameOwnerFlags(mask or other.mask)
 
     @GioVersion2_26

@@ -21,7 +21,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.bindings.webkit.Webkit.resolveException
+import org.gtkkn.bindings.webkit.WebKit.resolveException
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
@@ -71,9 +71,8 @@ import kotlin.Unit
  * @since 2.40
  */
 @WebKitVersion2_40
-public class NetworkSession(
-    pointer: CPointer<WebKitNetworkSession>,
-) : Object(pointer.reinterpret()),
+public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val webkitNetworkSessionPointer: CPointer<WebKitNetworkSession>
         get() = gPointer.reinterpret()
@@ -118,10 +117,7 @@ public class NetworkSession(
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun allowTlsCertificateForHost(
-        certificate: TlsCertificate,
-        host: String,
-    ): Unit =
+    public fun allowTlsCertificateForHost(certificate: TlsCertificate, host: String): Unit =
         webkit_network_session_allow_tls_certificate_for_host(
             webkitNetworkSessionPointer.reinterpret(),
             certificate.gioTlsCertificatePointer.reinterpret(),
@@ -182,10 +178,7 @@ public class NetworkSession(
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun getItpSummary(
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public fun getItpSummary(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         webkit_network_session_get_itp_summary(
             webkitNetworkSessionPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
@@ -203,24 +196,22 @@ public class NetworkSession(
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun getItpSummaryFinish(result: AsyncResult): Result<List> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                webkit_network_session_get_itp_summary_finish(
-                    webkitNetworkSessionPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    List(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun getItpSummaryFinish(result: AsyncResult): Result<List> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = webkit_network_session_get_itp_summary_finish(
+            webkitNetworkSessionPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            List(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Get whether persistent credential storage is enabled or not.
@@ -331,10 +322,7 @@ public class NetworkSession(
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun setProxySettings(
-        proxyMode: NetworkProxyMode,
-        proxySettings: NetworkProxySettings? = null,
-    ): Unit =
+    public fun setProxySettings(proxyMode: NetworkProxyMode, proxySettings: NetworkProxySettings? = null): Unit =
         webkit_network_session_set_proxy_settings(
             webkitNetworkSessionPointer.reinterpret(),
             proxyMode.nativeValue,
@@ -362,15 +350,14 @@ public class NetworkSession(
     public fun connectDownloadStarted(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (download: Download) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "download-started",
-            connectDownloadStartedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "download-started",
+        connectDownloadStartedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<NetworkSession> {
         override val type: GeneratedClassKGType<NetworkSession> =
@@ -389,10 +376,9 @@ public class NetworkSession(
          * @since 2.40
          */
         @WebKitVersion2_40
-        public fun getDefault(): NetworkSession =
-            webkit_network_session_get_default()!!.run {
-                NetworkSession(reinterpret())
-            }
+        public fun getDefault(): NetworkSession = webkit_network_session_get_default()!!.run {
+            NetworkSession(reinterpret())
+        }
 
         /**
          * Sets @settings as the #WebKitMemoryPressureSettings.
@@ -430,4 +416,5 @@ private val connectDownloadStartedFunc: CPointer<CFunction<(CPointer<WebKitDownl
                 Download(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()

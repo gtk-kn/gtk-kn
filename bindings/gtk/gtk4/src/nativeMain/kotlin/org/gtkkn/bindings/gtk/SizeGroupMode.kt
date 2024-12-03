@@ -7,9 +7,7 @@ import org.gtkkn.native.gtk.GtkSizeGroupMode
  * The mode of the size group determines the directions in which the size
  * group affects the requested sizes of its component widgets.
  */
-public enum class SizeGroupMode(
-    public val nativeValue: GtkSizeGroupMode,
-) {
+public enum class SizeGroupMode(public val nativeValue: GtkSizeGroupMode) {
     /**
      * group has no effect
      */
@@ -32,13 +30,12 @@ public enum class SizeGroupMode(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkSizeGroupMode): SizeGroupMode =
-            when (nativeValue) {
-                GtkSizeGroupMode.GTK_SIZE_GROUP_NONE -> NONE
-                GtkSizeGroupMode.GTK_SIZE_GROUP_HORIZONTAL -> HORIZONTAL
-                GtkSizeGroupMode.GTK_SIZE_GROUP_VERTICAL -> VERTICAL
-                GtkSizeGroupMode.GTK_SIZE_GROUP_BOTH -> BOTH
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkSizeGroupMode): SizeGroupMode = when (nativeValue) {
+            GtkSizeGroupMode.GTK_SIZE_GROUP_NONE -> NONE
+            GtkSizeGroupMode.GTK_SIZE_GROUP_HORIZONTAL -> HORIZONTAL
+            GtkSizeGroupMode.GTK_SIZE_GROUP_VERTICAL -> VERTICAL
+            GtkSizeGroupMode.GTK_SIZE_GROUP_BOTH -> BOTH
+            else -> error("invalid nativeValue")
+        }
     }
 }

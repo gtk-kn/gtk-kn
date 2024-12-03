@@ -6,9 +6,7 @@ import org.gtkkn.native.adw.AdwToastPriority
 /**
  * [class@Toast] behavior when another toast is already displayed.
  */
-public enum class ToastPriority(
-    public val nativeValue: AdwToastPriority,
-) {
+public enum class ToastPriority(public val nativeValue: AdwToastPriority) {
     /**
      * the toast will be queued if another toast is
      *   already displayed.
@@ -23,11 +21,10 @@ public enum class ToastPriority(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: AdwToastPriority): ToastPriority =
-            when (nativeValue) {
-                AdwToastPriority.ADW_TOAST_PRIORITY_NORMAL -> NORMAL
-                AdwToastPriority.ADW_TOAST_PRIORITY_HIGH -> HIGH
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: AdwToastPriority): ToastPriority = when (nativeValue) {
+            AdwToastPriority.ADW_TOAST_PRIORITY_NORMAL -> NORMAL
+            AdwToastPriority.ADW_TOAST_PRIORITY_HIGH -> HIGH
+            else -> error("invalid nativeValue")
+        }
     }
 }

@@ -49,9 +49,7 @@ import kotlin.Unit
  * @since 2.34
  */
 @WebKitVersion2_34
-public class MemoryPressureSettings(
-    pointer: CPointer<WebKitMemoryPressureSettings>,
-) : Record {
+public class MemoryPressureSettings(pointer: CPointer<WebKitMemoryPressureSettings>) : Record {
     public val webkitMemoryPressureSettingsPointer: CPointer<WebKitMemoryPressureSettings> = pointer
 
     /**

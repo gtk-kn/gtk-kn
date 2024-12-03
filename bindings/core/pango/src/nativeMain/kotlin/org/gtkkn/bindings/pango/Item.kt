@@ -27,9 +27,7 @@ import kotlin.Unit
  *
  * - field `analysis`: Analysis
  */
-public class Item(
-    pointer: CPointer<PangoItem>,
-) : Record {
+public class Item(pointer: CPointer<PangoItem>) : Record {
     public val pangoItemPointer: CPointer<PangoItem> = pointer
 
     /**
@@ -84,10 +82,9 @@ public class Item(
      *
      * @return the newly allocated `PangoItem`
      */
-    public fun copy(): Item? =
-        pango_item_copy(pangoItemPointer.reinterpret())?.run {
-            Item(reinterpret())
-        }
+    public fun copy(): Item? = pango_item_copy(pangoItemPointer.reinterpret())?.run {
+        Item(reinterpret())
+    }
 
     /**
      * Free a `PangoItem` and all associated memory.
@@ -114,10 +111,7 @@ public class Item(
      * @return new item representing text before @split_index, which
      *   should be freed with [method@Pango.Item.free].
      */
-    public fun split(
-        splitIndex: Int,
-        splitOffset: Int,
-    ): Item =
+    public fun split(splitIndex: Int, splitOffset: Int): Item =
         pango_item_split(pangoItemPointer.reinterpret(), splitIndex, splitOffset)!!.run {
             Item(reinterpret())
         }

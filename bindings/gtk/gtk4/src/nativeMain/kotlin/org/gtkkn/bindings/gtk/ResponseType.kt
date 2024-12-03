@@ -9,9 +9,7 @@ import org.gtkkn.native.gtk.GtkResponseType
  * All predefined values are negative; GTK leaves values of 0 or greater for
  * application-defined response ids.
  */
-public enum class ResponseType(
-    public val nativeValue: GtkResponseType,
-) {
+public enum class ResponseType(public val nativeValue: GtkResponseType) {
     /**
      * Returned if an action widget has no response id,
      *   or if the dialog gets programmatically hidden or destroyed
@@ -70,20 +68,19 @@ public enum class ResponseType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkResponseType): ResponseType =
-            when (nativeValue) {
-                GtkResponseType.GTK_RESPONSE_NONE -> NONE
-                GtkResponseType.GTK_RESPONSE_REJECT -> REJECT
-                GtkResponseType.GTK_RESPONSE_ACCEPT -> ACCEPT
-                GtkResponseType.GTK_RESPONSE_DELETE_EVENT -> DELETE_EVENT
-                GtkResponseType.GTK_RESPONSE_OK -> OK
-                GtkResponseType.GTK_RESPONSE_CANCEL -> CANCEL
-                GtkResponseType.GTK_RESPONSE_CLOSE -> CLOSE
-                GtkResponseType.GTK_RESPONSE_YES -> YES
-                GtkResponseType.GTK_RESPONSE_NO -> NO
-                GtkResponseType.GTK_RESPONSE_APPLY -> APPLY
-                GtkResponseType.GTK_RESPONSE_HELP -> HELP
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkResponseType): ResponseType = when (nativeValue) {
+            GtkResponseType.GTK_RESPONSE_NONE -> NONE
+            GtkResponseType.GTK_RESPONSE_REJECT -> REJECT
+            GtkResponseType.GTK_RESPONSE_ACCEPT -> ACCEPT
+            GtkResponseType.GTK_RESPONSE_DELETE_EVENT -> DELETE_EVENT
+            GtkResponseType.GTK_RESPONSE_OK -> OK
+            GtkResponseType.GTK_RESPONSE_CANCEL -> CANCEL
+            GtkResponseType.GTK_RESPONSE_CLOSE -> CLOSE
+            GtkResponseType.GTK_RESPONSE_YES -> YES
+            GtkResponseType.GTK_RESPONSE_NO -> NO
+            GtkResponseType.GTK_RESPONSE_APPLY -> APPLY
+            GtkResponseType.GTK_RESPONSE_HELP -> HELP
+            else -> error("invalid nativeValue")
+        }
     }
 }

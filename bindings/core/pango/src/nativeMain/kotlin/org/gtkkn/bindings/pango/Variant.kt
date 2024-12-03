@@ -6,9 +6,7 @@ import org.gtkkn.native.pango.PangoVariant
 /**
  * An enumeration specifying capitalization variant of the font.
  */
-public enum class Variant(
-    public val nativeValue: PangoVariant,
-) {
+public enum class Variant(public val nativeValue: PangoVariant) {
     /**
      * A normal font.
      */
@@ -54,16 +52,15 @@ public enum class Variant(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: PangoVariant): Variant =
-            when (nativeValue) {
-                PangoVariant.PANGO_VARIANT_NORMAL -> NORMAL
-                PangoVariant.PANGO_VARIANT_SMALL_CAPS -> SMALL_CAPS
-                PangoVariant.PANGO_VARIANT_ALL_SMALL_CAPS -> ALL_SMALL_CAPS
-                PangoVariant.PANGO_VARIANT_PETITE_CAPS -> PETITE_CAPS
-                PangoVariant.PANGO_VARIANT_ALL_PETITE_CAPS -> ALL_PETITE_CAPS
-                PangoVariant.PANGO_VARIANT_UNICASE -> UNICASE
-                PangoVariant.PANGO_VARIANT_TITLE_CAPS -> TITLE_CAPS
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: PangoVariant): Variant = when (nativeValue) {
+            PangoVariant.PANGO_VARIANT_NORMAL -> NORMAL
+            PangoVariant.PANGO_VARIANT_SMALL_CAPS -> SMALL_CAPS
+            PangoVariant.PANGO_VARIANT_ALL_SMALL_CAPS -> ALL_SMALL_CAPS
+            PangoVariant.PANGO_VARIANT_PETITE_CAPS -> PETITE_CAPS
+            PangoVariant.PANGO_VARIANT_ALL_PETITE_CAPS -> ALL_PETITE_CAPS
+            PangoVariant.PANGO_VARIANT_UNICASE -> UNICASE
+            PangoVariant.PANGO_VARIANT_TITLE_CAPS -> TITLE_CAPS
+            else -> error("invalid nativeValue")
+        }
     }
 }

@@ -12,9 +12,7 @@ import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GTestConfig
 import kotlin.Boolean
 
-public class TestConfig(
-    pointer: CPointer<GTestConfig>,
-) : Record {
+public class TestConfig(pointer: CPointer<GTestConfig>) : Record {
     public val glibTestConfigPointer: CPointer<GTestConfig> = pointer
 
     public var testInitialized: Boolean

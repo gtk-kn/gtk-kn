@@ -28,9 +28,8 @@ import kotlin.UShort
  * In UNIX terms, `GInetSocketAddress` corresponds to a
  * [`struct sockaddr_in` or `struct sockaddr_in6`](man:sockaddr(3type)).
  */
-public open class InetSocketAddress(
-    pointer: CPointer<GInetSocketAddress>,
-) : SocketAddress(pointer.reinterpret()),
+public open class InetSocketAddress(pointer: CPointer<GInetSocketAddress>) :
+    SocketAddress(pointer.reinterpret()),
     KGTyped {
     public val gioInetSocketAddressPointer: CPointer<GInetSocketAddress>
         get() = gPointer.reinterpret()
@@ -52,10 +51,9 @@ public open class InetSocketAddress(
          * g_object_ref()'d if it will be stored
          * @since 2.22
          */
-        get() =
-            g_inet_socket_address_get_address(gioInetSocketAddressPointer.reinterpret())!!.run {
-                InetAddress(reinterpret())
-            }
+        get() = g_inet_socket_address_get_address(gioInetSocketAddressPointer.reinterpret())!!.run {
+            InetAddress(reinterpret())
+        }
 
     /**
      * The `sin6_flowinfo` field, for IPv6 addresses.
@@ -133,48 +131,6 @@ public open class InetSocketAddress(
         address: String,
         port: UInt,
     ) : this(g_inet_socket_address_new_from_string(address, port)!!.reinterpret())
-
-    /**
-     * Gets @address's #GInetAddress.
-     *
-     * @return the #GInetAddress for @address, which must be
-     * g_object_ref()'d if it will be stored
-     * @since 2.22
-     */
-    @GioVersion2_22
-    public open fun getAddress(): InetAddress =
-        g_inet_socket_address_get_address(gioInetSocketAddressPointer.reinterpret())!!.run {
-            InetAddress(reinterpret())
-        }
-
-    /**
-     * Gets the `sin6_flowinfo` field from @address,
-     * which must be an IPv6 address.
-     *
-     * @return the flowinfo field
-     * @since 2.32
-     */
-    @GioVersion2_32
-    public open fun getFlowinfo(): UInt = g_inet_socket_address_get_flowinfo(gioInetSocketAddressPointer.reinterpret())
-
-    /**
-     * Gets @address's port.
-     *
-     * @return the port for @address
-     * @since 2.22
-     */
-    @GioVersion2_22
-    public open fun getPort(): UShort = g_inet_socket_address_get_port(gioInetSocketAddressPointer.reinterpret())
-
-    /**
-     * Gets the `sin6_scope_id` field from @address,
-     * which must be an IPv6 address.
-     *
-     * @return the scope id field
-     * @since 2.32
-     */
-    @GioVersion2_32
-    public open fun getScopeId(): UInt = g_inet_socket_address_get_scope_id(gioInetSocketAddressPointer.reinterpret())
 
     public companion object : TypeCompanion<InetSocketAddress> {
         override val type: GeneratedClassKGType<InetSocketAddress> =

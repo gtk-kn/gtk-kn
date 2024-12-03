@@ -7,9 +7,7 @@ import org.gtkkn.native.gtk.GtkAccessibleAutocomplete
  * The possible values for the %GTK_ACCESSIBLE_PROPERTY_AUTOCOMPLETE
  * accessible property.
  */
-public enum class AccessibleAutocomplete(
-    public val nativeValue: GtkAccessibleAutocomplete,
-) {
+public enum class AccessibleAutocomplete(public val nativeValue: GtkAccessibleAutocomplete) {
     /**
      * Automatic suggestions are not displayed.
      */

@@ -27,7 +27,7 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_8
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toKStringList
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.native.pango.PangoAttribute
 import org.gtkkn.native.pango.PangoFont
 import org.gtkkn.native.pango.PangoFontset
@@ -282,10 +282,9 @@ public object Pango {
      * @since 1.38
      */
     @PangoVersion1_38
-    public fun attrBackgroundAlphaNew(alpha: UShort): Attribute =
-        pango_attr_background_alpha_new(alpha)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrBackgroundAlphaNew(alpha: UShort): Attribute = pango_attr_background_alpha_new(alpha)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new background color attribute.
@@ -297,11 +296,7 @@ public object Pango {
      *   `PangoAttribute`, which should be freed with
      *   [method@Pango.Attribute.destroy]
      */
-    public fun attrBackgroundNew(
-        red: UShort,
-        green: UShort,
-        blue: UShort,
-    ): Attribute =
+    public fun attrBackgroundNew(red: UShort, green: UShort, blue: UShort): Attribute =
         pango_attr_background_new(red, green, blue)!!.run {
             Attribute(reinterpret())
         }
@@ -326,10 +321,9 @@ public object Pango {
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun attrBaselineShiftNew(shift: Int): Attribute =
-        pango_attr_baseline_shift_new(shift)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrBaselineShiftNew(shift: Int): Attribute = pango_attr_baseline_shift_new(shift)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new font fallback attribute.
@@ -360,10 +354,9 @@ public object Pango {
      *   `PangoAttribute`, which should be freed with
      *   [method@Pango.Attribute.destroy]
      */
-    public fun attrFamilyNew(family: String): Attribute =
-        pango_attr_family_new(family)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrFamilyNew(family: String): Attribute = pango_attr_family_new(family)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new font description attribute.
@@ -395,10 +388,9 @@ public object Pango {
      * @since 1.38
      */
     @PangoVersion1_38
-    public fun attrFontFeaturesNew(features: String): Attribute =
-        pango_attr_font_features_new(features)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrFontFeaturesNew(features: String): Attribute = pango_attr_font_features_new(features)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new font scale attribute.
@@ -414,10 +406,9 @@ public object Pango {
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun attrFontScaleNew(scale: FontScale): Attribute =
-        pango_attr_font_scale_new(scale.nativeValue)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrFontScaleNew(scale: FontScale): Attribute = pango_attr_font_scale_new(scale.nativeValue)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new foreground alpha attribute.
@@ -429,10 +420,9 @@ public object Pango {
      * @since 1.38
      */
     @PangoVersion1_38
-    public fun attrForegroundAlphaNew(alpha: UShort): Attribute =
-        pango_attr_foreground_alpha_new(alpha)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrForegroundAlphaNew(alpha: UShort): Attribute = pango_attr_foreground_alpha_new(alpha)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new foreground color attribute.
@@ -444,11 +434,7 @@ public object Pango {
      *   `PangoAttribute`, which should be freed with
      *   [method@Pango.Attribute.destroy]
      */
-    public fun attrForegroundNew(
-        red: UShort,
-        green: UShort,
-        blue: UShort,
-    ): Attribute =
+    public fun attrForegroundNew(red: UShort, green: UShort, blue: UShort): Attribute =
         pango_attr_foreground_new(red, green, blue)!!.run {
             Attribute(reinterpret())
         }
@@ -463,10 +449,9 @@ public object Pango {
      * @since 1.16
      */
     @PangoVersion1_16
-    public fun attrGravityHintNew(hint: GravityHint): Attribute =
-        pango_attr_gravity_hint_new(hint.nativeValue)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrGravityHintNew(hint: GravityHint): Attribute = pango_attr_gravity_hint_new(hint.nativeValue)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new gravity attribute.
@@ -478,10 +463,9 @@ public object Pango {
      * @since 1.16
      */
     @PangoVersion1_16
-    public fun attrGravityNew(gravity: Gravity): Attribute =
-        pango_attr_gravity_new(gravity.nativeValue)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrGravityNew(gravity: Gravity): Attribute = pango_attr_gravity_new(gravity.nativeValue)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new insert-hyphens attribute.
@@ -543,10 +527,9 @@ public object Pango {
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun attrLineHeightNew(factor: Double): Attribute =
-        pango_attr_line_height_new(factor)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrLineHeightNew(factor: Double): Attribute = pango_attr_line_height_new(factor)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Override the height of logical line extents to be @height.
@@ -560,10 +543,9 @@ public object Pango {
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun attrLineHeightNewAbsolute(height: Int): Attribute =
-        pango_attr_line_height_new_absolute(height)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrLineHeightNewAbsolute(height: Int): Attribute = pango_attr_line_height_new_absolute(height)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Deserializes a `PangoAttrList` from a string.
@@ -576,10 +558,9 @@ public object Pango {
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun attrListFromString(text: String): AttrList? =
-        pango_attr_list_from_string(text)?.run {
-            AttrList(reinterpret())
-        }
+    public fun attrListFromString(text: String): AttrList? = pango_attr_list_from_string(text)?.run {
+        AttrList(reinterpret())
+    }
 
     /**
      * Create a new overline color attribute.
@@ -596,11 +577,7 @@ public object Pango {
      * @since 1.46
      */
     @PangoVersion1_46
-    public fun attrOverlineColorNew(
-        red: UShort,
-        green: UShort,
-        blue: UShort,
-    ): Attribute =
+    public fun attrOverlineColorNew(red: UShort, green: UShort, blue: UShort): Attribute =
         pango_attr_overline_color_new(red, green, blue)!!.run {
             Attribute(reinterpret())
         }
@@ -615,10 +592,9 @@ public object Pango {
      * @since 1.46
      */
     @PangoVersion1_46
-    public fun attrOverlineNew(overline: Overline): Attribute =
-        pango_attr_overline_new(overline.nativeValue)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrOverlineNew(overline: Overline): Attribute = pango_attr_overline_new(overline.nativeValue)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new baseline displacement attribute.
@@ -629,10 +605,9 @@ public object Pango {
      *   `PangoAttribute`, which should be freed with
      *   [method@Pango.Attribute.destroy]
      */
-    public fun attrRiseNew(rise: Int): Attribute =
-        pango_attr_rise_new(rise)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrRiseNew(rise: Int): Attribute = pango_attr_rise_new(rise)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new font size scale attribute.
@@ -645,10 +620,9 @@ public object Pango {
      *   `PangoAttribute`, which should be freed with
      *   [method@Pango.Attribute.destroy]
      */
-    public fun attrScaleNew(scaleFactor: Double): Attribute =
-        pango_attr_scale_new(scaleFactor)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrScaleNew(scaleFactor: Double): Attribute = pango_attr_scale_new(scaleFactor)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Marks the range of the attribute as a single sentence.
@@ -662,10 +636,9 @@ public object Pango {
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun attrSentenceNew(): Attribute =
-        pango_attr_sentence_new()!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrSentenceNew(): Attribute = pango_attr_sentence_new()!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new shape attribute.
@@ -681,16 +654,12 @@ public object Pango {
      *   `PangoAttribute`, which should be freed with
      *   [method@Pango.Attribute.destroy]
      */
-    public fun attrShapeNew(
-        inkRect: Rectangle,
-        logicalRect: Rectangle,
-    ): Attribute =
-        pango_attr_shape_new(
-            inkRect.pangoRectanglePointer.reinterpret(),
-            logicalRect.pangoRectanglePointer.reinterpret()
-        )!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrShapeNew(inkRect: Rectangle, logicalRect: Rectangle): Attribute = pango_attr_shape_new(
+        inkRect.pangoRectanglePointer.reinterpret(),
+        logicalRect.pangoRectanglePointer.reinterpret()
+    )!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new attribute that influences how invisible
@@ -703,10 +672,9 @@ public object Pango {
      * @since 1.44
      */
     @PangoVersion1_44
-    public fun attrShowNew(flags: ShowFlags): Attribute =
-        pango_attr_show_new(flags.mask)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrShowNew(flags: ShowFlags): Attribute = pango_attr_show_new(flags.mask)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new font-size attribute in fractional points.
@@ -716,10 +684,9 @@ public object Pango {
      *   `PangoAttribute`, which should be freed with
      *   [method@Pango.Attribute.destroy]
      */
-    public fun attrSizeNew(size: Int): Attribute =
-        pango_attr_size_new(size)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrSizeNew(size: Int): Attribute = pango_attr_size_new(size)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new font-size attribute in device units.
@@ -731,10 +698,9 @@ public object Pango {
      * @since 1.8
      */
     @PangoVersion1_8
-    public fun attrSizeNewAbsolute(size: Int): Attribute =
-        pango_attr_size_new_absolute(size)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrSizeNewAbsolute(size: Int): Attribute = pango_attr_size_new_absolute(size)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new font stretch attribute.
@@ -744,10 +710,9 @@ public object Pango {
      *   `PangoAttribute`, which should be freed with
      *   [method@Pango.Attribute.destroy]
      */
-    public fun attrStretchNew(stretch: Stretch): Attribute =
-        pango_attr_stretch_new(stretch.nativeValue)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrStretchNew(stretch: Stretch): Attribute = pango_attr_stretch_new(stretch.nativeValue)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new strikethrough color attribute.
@@ -764,11 +729,7 @@ public object Pango {
      * @since 1.8
      */
     @PangoVersion1_8
-    public fun attrStrikethroughColorNew(
-        red: UShort,
-        green: UShort,
-        blue: UShort,
-    ): Attribute =
+    public fun attrStrikethroughColorNew(red: UShort, green: UShort, blue: UShort): Attribute =
         pango_attr_strikethrough_color_new(red, green, blue)!!.run {
             Attribute(reinterpret())
         }
@@ -794,10 +755,9 @@ public object Pango {
      *   `PangoAttribute`, which should be freed with
      *   [method@Pango.Attribute.destroy]
      */
-    public fun attrStyleNew(style: Style): Attribute =
-        pango_attr_style_new(style.nativeValue)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrStyleNew(style: Style): Attribute = pango_attr_style_new(style.nativeValue)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new attribute that influences how characters
@@ -844,10 +804,9 @@ public object Pango {
      * @param name an identifier for the type
      * @return the new type ID.
      */
-    public fun attrTypeRegister(name: String): AttrType =
-        pango_attr_type_register(name).run {
-            AttrType.fromNativeValue(this)
-        }
+    public fun attrTypeRegister(name: String): AttrType = pango_attr_type_register(name).run {
+        AttrType.fromNativeValue(this)
+    }
 
     /**
      * Create a new underline color attribute.
@@ -864,11 +823,7 @@ public object Pango {
      * @since 1.8
      */
     @PangoVersion1_8
-    public fun attrUnderlineColorNew(
-        red: UShort,
-        green: UShort,
-        blue: UShort,
-    ): Attribute =
+    public fun attrUnderlineColorNew(red: UShort, green: UShort, blue: UShort): Attribute =
         pango_attr_underline_color_new(red, green, blue)!!.run {
             Attribute(reinterpret())
         }
@@ -893,10 +848,9 @@ public object Pango {
      * @return the newly allocated `PangoAttribute`,
      *   which should be freed with [method@Pango.Attribute.destroy].
      */
-    public fun attrVariantNew(variant: Variant): Attribute =
-        pango_attr_variant_new(variant.nativeValue)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrVariantNew(variant: Variant): Attribute = pango_attr_variant_new(variant.nativeValue)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new font weight attribute.
@@ -906,10 +860,9 @@ public object Pango {
      *   `PangoAttribute`, which should be freed with
      *   [method@Pango.Attribute.destroy]
      */
-    public fun attrWeightNew(weight: Weight): Attribute =
-        pango_attr_weight_new(weight.nativeValue)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrWeightNew(weight: Weight): Attribute = pango_attr_weight_new(weight.nativeValue)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Marks the range of the attribute as a single word.
@@ -923,10 +876,9 @@ public object Pango {
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun attrWordNew(): Attribute =
-        pango_attr_word_new()!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrWordNew(): Attribute = pango_attr_word_new()!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Determines the bidirectional type of a character.
@@ -941,10 +893,9 @@ public object Pango {
      * @since 1.22
      */
     @PangoVersion1_22
-    public fun bidiTypeForUnichar(ch: UInt): BidiType =
-        pango_bidi_type_for_unichar(ch).run {
-            BidiType.fromNativeValue(this)
-        }
+    public fun bidiTypeForUnichar(ch: UInt): BidiType = pango_bidi_type_for_unichar(ch).run {
+        BidiType.fromNativeValue(this)
+    }
 
     /**
      * This is the default break algorithm.
@@ -969,14 +920,13 @@ public object Pango {
         analysis: Analysis? = null,
         attrs: LogAttr,
         attrsLen: Int,
-    ): Unit =
-        pango_default_break(
-            text,
-            length,
-            analysis?.pangoAnalysisPointer?.reinterpret(),
-            attrs.pangoLogAttrPointer.reinterpret(),
-            attrsLen
-        )
+    ): Unit = pango_default_break(
+        text,
+        length,
+        analysis?.pangoAnalysisPointer?.reinterpret(),
+        attrs.pangoLogAttrPointer.reinterpret(),
+        attrsLen
+    )
 
     /**
      * Converts extents from Pango units to device units.
@@ -1002,10 +952,7 @@ public object Pango {
      * @since 1.16
      */
     @PangoVersion1_16
-    public fun extentsToPixels(
-        inclusive: Rectangle? = null,
-        nearest: Rectangle? = null,
-    ): Unit =
+    public fun extentsToPixels(inclusive: Rectangle? = null, nearest: Rectangle? = null): Unit =
         pango_extents_to_pixels(
             inclusive?.pangoRectanglePointer?.reinterpret(),
             nearest?.pangoRectanglePointer?.reinterpret()
@@ -1022,13 +969,9 @@ public object Pango {
      * @since 1.4
      */
     @PangoVersion1_4
-    public fun findBaseDir(
-        text: String,
-        length: Int,
-    ): Direction =
-        pango_find_base_dir(text, length).run {
-            Direction.fromNativeValue(this)
-        }
+    public fun findBaseDir(text: String, length: Int): Direction = pango_find_base_dir(text, length).run {
+        Direction.fromNativeValue(this)
+    }
 
     /**
      * Creates a new font description from a string representation.
@@ -1079,10 +1022,9 @@ public object Pango {
      * @param str string representation of a font description.
      * @return a new `PangoFontDescription`.
      */
-    public fun fontDescriptionFromString(str: String): FontDescription =
-        pango_font_description_from_string(str)!!.run {
-            FontDescription(reinterpret())
-        }
+    public fun fontDescriptionFromString(str: String): FontDescription = pango_font_description_from_string(str)!!.run {
+        FontDescription(reinterpret())
+    }
 
     /**
      * Finds the gravity that best matches the rotation component
@@ -1116,11 +1058,7 @@ public object Pango {
      * @since 1.16
      */
     @PangoVersion1_16
-    public fun gravityGetForScript(
-        script: Script,
-        baseGravity: Gravity,
-        hint: GravityHint,
-    ): Gravity =
+    public fun gravityGetForScript(script: Script, baseGravity: Gravity, hint: GravityHint): Gravity =
         pango_gravity_get_for_script(script.nativeValue, baseGravity.nativeValue, hint.nativeValue).run {
             Gravity.fromNativeValue(this)
         }
@@ -1156,15 +1094,14 @@ public object Pango {
         wide: Boolean,
         baseGravity: Gravity,
         hint: GravityHint,
-    ): Gravity =
-        pango_gravity_get_for_script_and_width(
-            script.nativeValue,
-            wide.asGBoolean(),
-            baseGravity.nativeValue,
-            hint.nativeValue
-        ).run {
-            Gravity.fromNativeValue(this)
-        }
+    ): Gravity = pango_gravity_get_for_script_and_width(
+        script.nativeValue,
+        wide.asGBoolean(),
+        baseGravity.nativeValue,
+        hint.nativeValue
+    ).run {
+        Gravity.fromNativeValue(this)
+    }
 
     /**
      * Converts a `PangoGravity` value to its natural rotation in radians.
@@ -1212,10 +1149,9 @@ public object Pango {
      * @param language a string representing a language tag
      * @return a `PangoLanguage`
      */
-    public fun languageFromString(language: String? = null): Language? =
-        pango_language_from_string(language)?.run {
-            Language(reinterpret())
-        }
+    public fun languageFromString(language: String? = null): Language? = pango_language_from_string(language)?.run {
+        Language(reinterpret())
+    }
 
     /**
      * Returns the `PangoLanguage` for the current locale of the process.
@@ -1254,10 +1190,9 @@ public object Pango {
      * @since 1.16
      */
     @PangoVersion1_16
-    public fun languageGetDefault(): Language =
-        pango_language_get_default()!!.run {
-            Language(reinterpret())
-        }
+    public fun languageGetDefault(): Language = pango_language_get_default()!!.run {
+        Language(reinterpret())
+    }
 
     public fun layoutDeserializeErrorQuark(): Quark = pango_layout_deserialize_error_quark()
 
@@ -1291,10 +1226,9 @@ public object Pango {
      * @since 1.31.0
      */
     @PangoVersion1_31_0
-    public fun markupParserNew(accelMarker: UInt): MarkupParseContext =
-        pango_markup_parser_new(accelMarker)!!.run {
-            MarkupParseContext(reinterpret())
-        }
+    public fun markupParserNew(accelMarker: UInt): MarkupParseContext = pango_markup_parser_new(accelMarker)!!.run {
+        MarkupParseContext(reinterpret())
+    }
 
     /**
      * Reorder items from logical order to visual order.
@@ -1335,10 +1269,9 @@ public object Pango {
      * @since 1.4
      */
     @PangoVersion1_4
-    public fun scriptForUnichar(ch: UInt): Script =
-        pango_script_for_unichar(ch).run {
-            Script.fromNativeValue(this)
-        }
+    public fun scriptForUnichar(ch: UInt): Script = pango_script_for_unichar(ch).run {
+        Script.fromNativeValue(this)
+    }
 
     /**
      * Finds a language tag that is reasonably representative of @script.
@@ -1407,18 +1340,12 @@ public object Pango {
      * @param analysis `PangoAnalysis` structure from [func@Pango.itemize]
      * @param glyphs glyph string in which to store results
      */
-    public fun shape(
-        text: String,
-        length: Int,
-        analysis: Analysis,
-        glyphs: GlyphString,
-    ): Unit =
-        pango_shape(
-            text,
-            length,
-            analysis.pangoAnalysisPointer.reinterpret(),
-            glyphs.pangoGlyphStringPointer.reinterpret()
-        )
+    public fun shape(text: String, length: Int, analysis: Analysis, glyphs: GlyphString): Unit = pango_shape(
+        text,
+        length,
+        analysis.pangoAnalysisPointer.reinterpret(),
+        glyphs.pangoGlyphStringPointer.reinterpret()
+    )
 
     /**
      * Convert the characters in @text into glyphs.
@@ -1459,15 +1386,14 @@ public object Pango {
         paragraphLength: Int,
         analysis: Analysis,
         glyphs: GlyphString,
-    ): Unit =
-        pango_shape_full(
-            itemText,
-            itemLength,
-            paragraphText,
-            paragraphLength,
-            analysis.pangoAnalysisPointer.reinterpret(),
-            glyphs.pangoGlyphStringPointer.reinterpret()
-        )
+    ): Unit = pango_shape_full(
+        itemText,
+        itemLength,
+        paragraphText,
+        paragraphLength,
+        analysis.pangoAnalysisPointer.reinterpret(),
+        glyphs.pangoGlyphStringPointer.reinterpret()
+    )
 
     /**
      * Convert the characters in @item into glyphs.
@@ -1501,15 +1427,14 @@ public object Pango {
         logAttrs: LogAttr? = null,
         glyphs: GlyphString,
         flags: ShapeFlags,
-    ): Unit =
-        pango_shape_item(
-            item.pangoItemPointer.reinterpret(),
-            paragraphText,
-            paragraphLength,
-            logAttrs?.pangoLogAttrPointer?.reinterpret(),
-            glyphs.pangoGlyphStringPointer.reinterpret(),
-            flags.mask
-        )
+    ): Unit = pango_shape_item(
+        item.pangoItemPointer.reinterpret(),
+        paragraphText,
+        paragraphLength,
+        logAttrs?.pangoLogAttrPointer?.reinterpret(),
+        glyphs.pangoGlyphStringPointer.reinterpret(),
+        flags.mask
+    )
 
     /**
      * Convert the characters in @text into glyphs.
@@ -1551,16 +1476,15 @@ public object Pango {
         analysis: Analysis,
         glyphs: GlyphString,
         flags: ShapeFlags,
-    ): Unit =
-        pango_shape_with_flags(
-            itemText,
-            itemLength,
-            paragraphText,
-            paragraphLength,
-            analysis.pangoAnalysisPointer.reinterpret(),
-            glyphs.pangoGlyphStringPointer.reinterpret(),
-            flags.mask
-        )
+    ): Unit = pango_shape_with_flags(
+        itemText,
+        itemLength,
+        paragraphText,
+        paragraphLength,
+        analysis.pangoAnalysisPointer.reinterpret(),
+        glyphs.pangoGlyphStringPointer.reinterpret(),
+        flags.mask
+    )
 
     /**
      * Splits a %G_SEARCHPATH_SEPARATOR-separated list of files, stripping
@@ -1584,10 +1508,9 @@ public object Pango {
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun tabArrayFromString(text: String): TabArray? =
-        pango_tab_array_from_string(text)?.run {
-            TabArray(reinterpret())
-        }
+    public fun tabArrayFromString(text: String): TabArray? = pango_tab_array_from_string(text)?.run {
+        TabArray(reinterpret())
+    }
 
     /**
      * Trims leading and trailing whitespace from a string.
@@ -1612,10 +1535,9 @@ public object Pango {
      * @param ch a Unicode character
      * @return the direction of the character.
      */
-    public fun unicharDirection(ch: UInt): Direction =
-        pango_unichar_direction(ch).run {
-            Direction.fromNativeValue(this)
-        }
+    public fun unicharDirection(ch: UInt): Direction = pango_unichar_direction(ch).run {
+        Direction.fromNativeValue(this)
+    }
 
     /**
      * Converts a floating-point number to Pango units.
@@ -1684,11 +1606,8 @@ public object Pango {
      * @since 1.16
      */
     @PangoVersion1_16
-    public fun versionCheck(
-        requiredMajor: Int,
-        requiredMinor: Int,
-        requiredMicro: Int,
-    ): String? = pango_version_check(requiredMajor, requiredMinor, requiredMicro)?.toKString()
+    public fun versionCheck(requiredMajor: Int, requiredMinor: Int, requiredMicro: Int): String? =
+        pango_version_check(requiredMajor, requiredMinor, requiredMicro)?.toKString()
 
     /**
      * Returns the version of Pango available at run-time.
@@ -1704,18 +1623,15 @@ public object Pango {
     @PangoVersion1_16
     public fun versionString(): String = pango_version_string()?.toKString() ?: error("Expected not null string")
 
-    public fun resolveException(error: Error): GlibException {
-        val ex =
-            when (error.domain) {
-                LayoutDeserializeError.quark() ->
-                    LayoutDeserializeError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            LayoutDeserializeErrorException(error, it)
-                        }
-                else -> null
-            }
-        return ex ?: GlibException(error)
+    public fun resolveException(error: Error): GLibException {
+        val ex = when (error.domain) {
+            LayoutDeserializeError.quark() -> LayoutDeserializeError.fromErrorOrNull(error)
+                ?.let {
+                    LayoutDeserializeErrorException(error, it)
+                }
+            else -> null
+        }
+        return ex ?: GLibException(error)
     }
 }
 
@@ -1724,15 +1640,13 @@ public val AttrFilterFuncFunc: CPointer<CFunction<(CPointer<PangoAttribute>) -> 
             attribute: CPointer<PangoAttribute>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(attribute: Attribute) -> Boolean>()
-            .get()
-            .invoke(
-                attribute!!.run {
-                    Attribute(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(attribute: Attribute) -> Boolean>().get().invoke(
+            attribute!!.run {
+                Attribute(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
 public val FontsetForeachFuncFunc:
     CPointer<CFunction<(CPointer<PangoFontset>, CPointer<PangoFont>) -> Int>> =
@@ -1741,18 +1655,16 @@ public val FontsetForeachFuncFunc:
             font: CPointer<PangoFont>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(fontset: Fontset, font: Font) -> Boolean>()
-            .get()
-            .invoke(
-                fontset!!.run {
-                    Fontset(reinterpret())
-                },
-                font!!.run {
-                    Font(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(fontset: Fontset, font: Font) -> Boolean>().get().invoke(
+            fontset!!.run {
+                Fontset(reinterpret())
+            },
+            font!!.run {
+                Font(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
 /**
  * Type of a function filtering a list of attributes.

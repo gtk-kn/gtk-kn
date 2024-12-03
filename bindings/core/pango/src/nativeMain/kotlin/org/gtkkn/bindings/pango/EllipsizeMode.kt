@@ -11,9 +11,7 @@ import org.gtkkn.native.pango.PangoEllipsizeMode
  * text in order to make it fit to a given width and replaced
  * with an ellipsis.
  */
-public enum class EllipsizeMode(
-    public val nativeValue: PangoEllipsizeMode,
-) {
+public enum class EllipsizeMode(public val nativeValue: PangoEllipsizeMode) {
     /**
      * No ellipsization
      */
@@ -36,13 +34,12 @@ public enum class EllipsizeMode(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: PangoEllipsizeMode): EllipsizeMode =
-            when (nativeValue) {
-                PangoEllipsizeMode.PANGO_ELLIPSIZE_NONE -> NONE
-                PangoEllipsizeMode.PANGO_ELLIPSIZE_START -> START
-                PangoEllipsizeMode.PANGO_ELLIPSIZE_MIDDLE -> MIDDLE
-                PangoEllipsizeMode.PANGO_ELLIPSIZE_END -> END
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: PangoEllipsizeMode): EllipsizeMode = when (nativeValue) {
+            PangoEllipsizeMode.PANGO_ELLIPSIZE_NONE -> NONE
+            PangoEllipsizeMode.PANGO_ELLIPSIZE_START -> START
+            PangoEllipsizeMode.PANGO_ELLIPSIZE_MIDDLE -> MIDDLE
+            PangoEllipsizeMode.PANGO_ELLIPSIZE_END -> END
+            else -> error("invalid nativeValue")
+        }
     }
 }

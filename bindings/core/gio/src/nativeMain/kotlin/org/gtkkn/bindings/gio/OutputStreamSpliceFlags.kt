@@ -10,13 +10,10 @@ import org.gtkkn.native.gio.G_OUTPUT_STREAM_SPLICE_NONE
 /**
  * GOutputStreamSpliceFlags determine how streams should be spliced.
  */
-public class OutputStreamSpliceFlags(
-    public val mask: GOutputStreamSpliceFlags,
-) : Bitfield<OutputStreamSpliceFlags> {
-    override infix fun or(other: OutputStreamSpliceFlags): OutputStreamSpliceFlags =
-        OutputStreamSpliceFlags(
-            mask or other.mask
-        )
+public class OutputStreamSpliceFlags(public val mask: GOutputStreamSpliceFlags) : Bitfield<OutputStreamSpliceFlags> {
+    override infix fun or(other: OutputStreamSpliceFlags): OutputStreamSpliceFlags = OutputStreamSpliceFlags(
+        mask or other.mask
+    )
 
     public companion object {
         /**

@@ -11,7 +11,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.native.gmodule.g_module_build_path
 import org.gtkkn.native.gmodule.g_module_error
 import org.gtkkn.native.gmodule.g_module_error_quark
@@ -27,7 +27,7 @@ import kotlin.Unit
  * - callback `ModuleCheckInit`: Callback with String return value is not supported
  * - record `Module`: Disguised records are ignored
  */
-public object Gmodule {
+public object GModule {
     public const val MODULE_IMPL_AR: Int = 7
 
     public const val MODULE_IMPL_DL: Int = 1
@@ -58,10 +58,8 @@ public object Gmodule {
      * @return the complete path of the module, including the standard library
      *     prefix and suffix. This should be freed when no longer needed
      */
-    public fun moduleBuildPath(
-        directory: String? = null,
-        moduleName: String,
-    ): String = g_module_build_path(directory, moduleName)?.toKString() ?: error("Expected not null string")
+    public fun moduleBuildPath(directory: String? = null, moduleName: String): String =
+        g_module_build_path(directory, moduleName)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets a string describing the last module error.
@@ -79,25 +77,22 @@ public object Gmodule {
      */
     public fun moduleSupported(): Boolean = g_module_supported().asBoolean()
 
-    public fun resolveException(error: Error): GlibException {
-        val ex =
-            when (error.domain) {
-                ModuleError.quark() ->
-                    ModuleError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            ModuleErrorException(error, it)
-                        }
-                else -> null
-            }
-        return ex ?: GlibException(error)
+    public fun resolveException(error: Error): GLibException {
+        val ex = when (error.domain) {
+            ModuleError.quark() -> ModuleError.fromErrorOrNull(error)
+                ?.let {
+                    ModuleErrorException(error, it)
+                }
+            else -> null
+        }
+        return ex ?: GLibException(error)
     }
 }
 
-public val ModuleUnloadFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+public val ModuleUnloadFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
 /**
  * Specifies the type of the module function called when it is unloaded.

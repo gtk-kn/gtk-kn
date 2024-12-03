@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
@@ -14,6 +15,7 @@ import org.gtkkn.native.gtk.gtk_shortcut_action_activate
 import org.gtkkn.native.gtk.gtk_shortcut_action_get_type
 import org.gtkkn.native.gtk.gtk_shortcut_action_parse_string
 import org.gtkkn.native.gtk.gtk_shortcut_action_print
+import org.gtkkn.native.gtk.gtk_shortcut_action_to_string
 import kotlin.Boolean
 import kotlin.Unit
 import kotlin.String as KotlinString
@@ -47,14 +49,9 @@ import org.gtkkn.bindings.glib.String as GlibString
  *  - [class@Gtk.NamedAction]: a shortcut action that calls
  *    gtk_widget_activate_action()
  *  - [class@Gtk.NothingAction]: a shortcut action that does nothing
- *
- * ## Skipped during bindings generation
- *
- * - method `to_string`: C function gtk_shortcut_action_to_string is ignored
  */
-public open class ShortcutAction(
-    pointer: CPointer<GtkShortcutAction>,
-) : Object(pointer.reinterpret()),
+public open class ShortcutAction(pointer: CPointer<GtkShortcutAction>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkShortcutActionPointer: CPointer<GtkShortcutAction>
         get() = gPointer.reinterpret()
@@ -92,11 +89,7 @@ public open class ShortcutAction(
      * @param args arguments to pass
      * @return true if this action was activated successfully
      */
-    public open fun activate(
-        flags: ShortcutActionFlags,
-        widget: Widget,
-        args: Variant? = null,
-    ): Boolean =
+    public open fun activate(flags: ShortcutActionFlags, widget: Widget, args: Variant? = null): Boolean =
         gtk_shortcut_action_activate(
             gtkShortcutActionPointer.reinterpret(),
             flags.mask,
@@ -116,6 +109,18 @@ public open class ShortcutAction(
      */
     public open fun print(string: GlibString): Unit =
         gtk_shortcut_action_print(gtkShortcutActionPointer.reinterpret(), string.glibStringPointer.reinterpret())
+
+    /**
+     * Prints the given action into a human-readable string.
+     *
+     * This is a small wrapper around [method@Gtk.ShortcutAction.print]
+     * to help when debugging.
+     *
+     * @return a new string
+     */
+    override fun toString(): KotlinString =
+        gtk_shortcut_action_to_string(gtkShortcutActionPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     public companion object : TypeCompanion<ShortcutAction> {
         override val type: GeneratedClassKGType<ShortcutAction> =

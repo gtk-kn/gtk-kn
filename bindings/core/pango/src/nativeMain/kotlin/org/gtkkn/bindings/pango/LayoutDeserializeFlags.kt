@@ -13,13 +13,10 @@ import org.gtkkn.native.pango.PangoLayoutDeserializeFlags
  * New members may be added to this enumeration over time.
  * @since 1.50
  */
-public class LayoutDeserializeFlags(
-    public val mask: PangoLayoutDeserializeFlags,
-) : Bitfield<LayoutDeserializeFlags> {
-    override infix fun or(other: LayoutDeserializeFlags): LayoutDeserializeFlags =
-        LayoutDeserializeFlags(
-            mask or other.mask
-        )
+public class LayoutDeserializeFlags(public val mask: PangoLayoutDeserializeFlags) : Bitfield<LayoutDeserializeFlags> {
+    override infix fun or(other: LayoutDeserializeFlags): LayoutDeserializeFlags = LayoutDeserializeFlags(
+        mask or other.mask
+    )
 
     @PangoVersion1_50
     public companion object {

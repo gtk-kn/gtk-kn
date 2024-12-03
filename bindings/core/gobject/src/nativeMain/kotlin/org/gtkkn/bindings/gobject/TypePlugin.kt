@@ -81,11 +81,7 @@ public interface TypePlugin :
      * @param interfaceType the #GType of the interface whose info is completed
      * @param info the #GInterfaceInfo to fill in
      */
-    public fun completeInterfaceInfo(
-        instanceType: ULong,
-        interfaceType: ULong,
-        info: InterfaceInfo,
-    ): Unit =
+    public fun completeInterfaceInfo(instanceType: ULong, interfaceType: ULong, info: InterfaceInfo): Unit =
         g_type_plugin_complete_interface_info(
             gobjectTypePluginPointer.reinterpret(),
             instanceType,
@@ -102,11 +98,7 @@ public interface TypePlugin :
      * @param info the #GTypeInfo struct to fill in
      * @param valueTable the #GTypeValueTable to fill in
      */
-    public fun completeTypeInfo(
-        gType: ULong,
-        info: TypeInfo,
-        valueTable: TypeValueTable,
-    ): Unit =
+    public fun completeTypeInfo(gType: ULong, info: TypeInfo, valueTable: TypeValueTable): Unit =
         g_type_plugin_complete_type_info(
             gobjectTypePluginPointer.reinterpret(),
             gType,
@@ -128,9 +120,7 @@ public interface TypePlugin :
      */
     public fun use(): Unit = g_type_plugin_use(gobjectTypePluginPointer.reinterpret())
 
-    private data class Wrapper(
-        private val pointer: CPointer<GTypePlugin>,
-    ) : TypePlugin {
+    private data class Wrapper(private val pointer: CPointer<GTypePlugin>) : TypePlugin {
         override val gobjectTypePluginPointer: CPointer<GTypePlugin> = pointer
     }
 

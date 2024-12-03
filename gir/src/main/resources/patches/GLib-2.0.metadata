@@ -7,4 +7,15 @@
 // Functions that are broken and useless in Kotlin
 ascii_dtostr ignore
 ascii_formatd ignore
+date_strftime ignore
+stpcpy ignore
+Date.strftime ignore
 
+// C macros are not supported by K/N cinterop
+chmod ignore
+creat ignore
+fsync ignore
+mkdir ignore
+open ignore
+remove ignore
+rename ignore

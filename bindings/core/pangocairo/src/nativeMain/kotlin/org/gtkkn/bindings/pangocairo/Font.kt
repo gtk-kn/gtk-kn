@@ -30,9 +30,7 @@ public interface Font :
     KGTyped {
     public val pangocairoFontPointer: CPointer<PangoCairoFont>
 
-    private data class Wrapper(
-        private val pointer: CPointer<PangoCairoFont>,
-    ) : Font {
+    private data class Wrapper(private val pointer: CPointer<PangoCairoFont>) : Font {
         override val pangocairoFontPointer: CPointer<PangoCairoFont> = pointer
     }
 

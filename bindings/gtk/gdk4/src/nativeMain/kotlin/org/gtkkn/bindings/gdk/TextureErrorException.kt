@@ -2,9 +2,6 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 
-public class TextureErrorException(
-    error: Error,
-    public val code: TextureError,
-) : GlibException(error)
+public class TextureErrorException(error: Error, public val code: TextureError) : GLibException(error)

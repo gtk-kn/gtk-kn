@@ -12,9 +12,7 @@ import org.gtkkn.native.glib.G_TEST_TRAP_SILENCE_STDOUT
  * Test traps are guards around forked tests.
  * These flags determine what traps to set.
  */
-public class TestTrapFlags(
-    public val mask: GTestTrapFlags,
-) : Bitfield<TestTrapFlags> {
+public class TestTrapFlags(public val mask: GTestTrapFlags) : Bitfield<TestTrapFlags> {
     override infix fun or(other: TestTrapFlags): TestTrapFlags = TestTrapFlags(mask or other.mask)
 
     public companion object {

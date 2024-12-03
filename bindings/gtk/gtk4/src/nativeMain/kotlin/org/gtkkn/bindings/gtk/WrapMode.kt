@@ -6,9 +6,7 @@ import org.gtkkn.native.gtk.GtkWrapMode
 /**
  * Describes a type of line wrapping.
  */
-public enum class WrapMode(
-    public val nativeValue: GtkWrapMode,
-) {
+public enum class WrapMode(public val nativeValue: GtkWrapMode) {
     /**
      * do not wrap lines; just make the text area wider
      */
@@ -34,13 +32,12 @@ public enum class WrapMode(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkWrapMode): WrapMode =
-            when (nativeValue) {
-                GtkWrapMode.GTK_WRAP_NONE -> NONE
-                GtkWrapMode.GTK_WRAP_CHAR -> CHAR
-                GtkWrapMode.GTK_WRAP_WORD -> WORD
-                GtkWrapMode.GTK_WRAP_WORD_CHAR -> WORD_CHAR
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkWrapMode): WrapMode = when (nativeValue) {
+            GtkWrapMode.GTK_WRAP_NONE -> NONE
+            GtkWrapMode.GTK_WRAP_CHAR -> CHAR
+            GtkWrapMode.GTK_WRAP_WORD -> WORD
+            GtkWrapMode.GTK_WRAP_WORD_CHAR -> WORD_CHAR
+            else -> error("invalid nativeValue")
+        }
     }
 }

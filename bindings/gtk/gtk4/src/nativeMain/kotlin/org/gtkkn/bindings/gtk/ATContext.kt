@@ -36,9 +36,8 @@ import kotlin.Unit
  *
  * - method `display`: Property has no getter nor setter
  */
-public open class ATContext(
-    pointer: CPointer<GtkATContext>,
-) : Object(pointer.reinterpret()),
+public open class ATContext(pointer: CPointer<GtkATContext>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkATContextPointer: CPointer<GtkATContext>
         get() = gPointer.reinterpret()
@@ -52,10 +51,9 @@ public open class ATContext(
          *
          * @return a `GtkAccessible`
          */
-        get() =
-            gtk_at_context_get_accessible(gtkATContextPointer.reinterpret())!!.run {
-                Accessible.wrap(reinterpret())
-            }
+        get() = gtk_at_context_get_accessible(gtkATContextPointer.reinterpret())!!.run {
+            Accessible.wrap(reinterpret())
+        }
 
     /**
      * The accessible role used by the AT context.
@@ -69,10 +67,9 @@ public open class ATContext(
          *
          * @return a `GtkAccessibleRole`
          */
-        get() =
-            gtk_at_context_get_accessible_role(gtkATContextPointer.reinterpret()).run {
-                AccessibleRole.fromNativeValue(this)
-            }
+        get() = gtk_at_context_get_accessible_role(gtkATContextPointer.reinterpret()).run {
+            AccessibleRole.fromNativeValue(this)
+        }
 
     /**
      * Creates a new `GtkATContext` instance for the given accessible role,
@@ -99,36 +96,13 @@ public open class ATContext(
     )
 
     /**
-     * Retrieves the `GtkAccessible` using this context.
-     *
-     * @return a `GtkAccessible`
-     */
-    public open fun getAccessible(): Accessible =
-        gtk_at_context_get_accessible(gtkATContextPointer.reinterpret())!!.run {
-            Accessible.wrap(reinterpret())
-        }
-
-    /**
-     * Retrieves the accessible role of this context.
-     *
-     * @return a `GtkAccessibleRole`
-     */
-    public open fun getAccessibleRole(): AccessibleRole =
-        gtk_at_context_get_accessible_role(gtkATContextPointer.reinterpret()).run {
-            AccessibleRole.fromNativeValue(this)
-        }
-
-    /**
      * Emitted when the attributes of the accessible for the
      * `GtkATContext` instance change.
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectStateChange(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectStateChange(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "state-change",
@@ -148,10 +122,10 @@ public open class ATContext(
     }
 }
 
-private val connectStateChangeFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectStateChangeFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

@@ -35,9 +35,8 @@ import kotlin.collections.List
  * Use [class@LanguageManager] to obtain a `GtkSourceLanguage` instance, and
  * [method@Buffer.set_language] to apply it to a [class@Buffer].
  */
-public open class Language(
-    pointer: CPointer<GtkSourceLanguage>,
-) : Object(pointer.reinterpret()),
+public open class Language(pointer: CPointer<GtkSourceLanguage>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtksourceLanguagePointer: CPointer<GtkSourceLanguage>
         get() = gPointer.reinterpret()
@@ -59,9 +58,8 @@ public open class Language(
          *
          * @return the ID of @language.
          */
-        get() =
-            gtk_source_language_get_id(gtksourceLanguagePointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_source_language_get_id(gtksourceLanguagePointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     public open val name: String
         /**
@@ -72,9 +70,8 @@ public open class Language(
          *
          * @return the name of @language.
          */
-        get() =
-            gtk_source_language_get_name(gtksourceLanguagePointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_source_language_get_name(gtksourceLanguagePointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     public open val section: String
         /**
@@ -87,9 +84,8 @@ public open class Language(
          *
          * @return the section of @language.
          */
-        get() =
-            gtk_source_language_get_section(gtksourceLanguagePointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_source_language_get_section(gtksourceLanguagePointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Returns the globs associated to this language.
@@ -103,26 +99,6 @@ public open class Language(
      */
     public open fun getGlobs(): List<String>? =
         gtk_source_language_get_globs(gtksourceLanguagePointer.reinterpret())?.toKStringList()
-
-    /**
-     * Returns whether the language should be hidden from the user.
-     *
-     * @return true if the language should be hidden, false otherwise.
-     */
-    public open fun getHidden(): Boolean =
-        gtk_source_language_get_hidden(gtksourceLanguagePointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns the ID of the language.
-     *
-     * The ID is not locale-dependent.The returned string is owned by @language
-     * and should not be freed or modified.
-     *
-     * @return the ID of @language.
-     */
-    public open fun getId(): String =
-        gtk_source_language_get_id(gtksourceLanguagePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
 
     /**
      *
@@ -150,32 +126,6 @@ public open class Language(
      */
     public open fun getMimeTypes(): List<String>? =
         gtk_source_language_get_mime_types(gtksourceLanguagePointer.reinterpret())?.toKStringList()
-
-    /**
-     * Returns the localized name of the language.
-     *
-     * The returned string is owned by @language and should not be freed
-     * or modified.
-     *
-     * @return the name of @language.
-     */
-    public open fun getName(): String =
-        gtk_source_language_get_name(gtksourceLanguagePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Returns the localized section of the language.
-     *
-     * Each language belong to a section (ex. HTML belongs to the
-     * Markup section).
-     * The returned string is owned by @language and should not be freed
-     * or modified.
-     *
-     * @return the section of @language.
-     */
-    public open fun getSection(): String =
-        gtk_source_language_get_section(gtksourceLanguagePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
 
     /**
      * Returns the ID of the style to use if the specified @style_id

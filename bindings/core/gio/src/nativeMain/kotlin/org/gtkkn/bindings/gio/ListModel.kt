@@ -179,11 +179,8 @@ public interface ListModel :
      * @since 2.44
      */
     @GioVersion2_44
-    public fun itemsChanged(
-        position: UInt,
-        removed: UInt,
-        added: UInt,
-    ): Unit = g_list_model_items_changed(gioListModelPointer.reinterpret(), position, removed, added)
+    public fun itemsChanged(position: UInt, removed: UInt, added: UInt): Unit =
+        g_list_model_items_changed(gioListModelPointer.reinterpret(), position, removed, added)
 
     /**
      * This signal is emitted whenever items were added to or removed
@@ -205,19 +202,16 @@ public interface ListModel :
             removed: UInt,
             added: UInt,
         ) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gioListModelPointer.reinterpret(),
-            "items-changed",
-            connectItemsChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gioListModelPointer.reinterpret(),
+        "items-changed",
+        connectItemsChangedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
-    private data class Wrapper(
-        private val pointer: CPointer<GListModel>,
-    ) : ListModel {
+    private data class Wrapper(private val pointer: CPointer<GListModel>) : ListModel {
         override val gioListModelPointer: CPointer<GListModel> = pointer
     }
 
@@ -240,23 +234,20 @@ private val connectItemsChangedFunc: CPointer<
             UInt,
             UInt,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            _: COpaquePointer,
+        >
+    > = staticCFunction {
+        _: COpaquePointer,
+        position: UInt,
+        removed: UInt,
+        added: UInt,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
             position: UInt,
             removed: UInt,
             added: UInt,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    position: UInt,
-                    removed: UInt,
-                    added: UInt,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(position, removed, added)
-    }.reinterpret()
+        ) -> Unit
+        >().get().invoke(position, removed, added)
+}
+    .reinterpret()

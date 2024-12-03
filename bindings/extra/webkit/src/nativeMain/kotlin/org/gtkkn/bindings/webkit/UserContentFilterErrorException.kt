@@ -2,9 +2,7 @@
 package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 
-public class UserContentFilterErrorException(
-    error: Error,
-    public val code: UserContentFilterError,
-) : GlibException(error)
+public class UserContentFilterErrorException(error: Error, public val code: UserContentFilterError) :
+    GLibException(error)

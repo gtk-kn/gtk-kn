@@ -14,9 +14,7 @@ import org.gtkkn.native.glib.G_TEST_SUBPROCESS_INHERIT_STDOUT
  * Note that in contrast with g_test_trap_fork(), the default is to
  * not show stdout and stderr.
  */
-public class TestSubprocessFlags(
-    public val mask: GTestSubprocessFlags,
-) : Bitfield<TestSubprocessFlags> {
+public class TestSubprocessFlags(public val mask: GTestSubprocessFlags) : Bitfield<TestSubprocessFlags> {
     override infix fun or(other: TestSubprocessFlags): TestSubprocessFlags = TestSubprocessFlags(mask or other.mask)
 
     public companion object {

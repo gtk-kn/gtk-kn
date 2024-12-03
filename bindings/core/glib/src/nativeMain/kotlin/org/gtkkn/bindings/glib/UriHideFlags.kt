@@ -18,9 +18,7 @@ import org.gtkkn.native.glib.G_URI_HIDE_USERINFO
  * the corresponding flags.
  * @since 2.66
  */
-public class UriHideFlags(
-    public val mask: GUriHideFlags,
-) : Bitfield<UriHideFlags> {
+public class UriHideFlags(public val mask: GUriHideFlags) : Bitfield<UriHideFlags> {
     override infix fun or(other: UriHideFlags): UriHideFlags = UriHideFlags(mask or other.mask)
 
     @GLibVersion2_66

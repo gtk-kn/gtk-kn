@@ -12,9 +12,7 @@ import org.gtkkn.native.webkit.WebKitFeatureStatus
  * @since 2.42
  */
 @WebKitVersion2_42
-public enum class FeatureStatus(
-    public val nativeValue: WebKitFeatureStatus,
-) {
+public enum class FeatureStatus(public val nativeValue: WebKitFeatureStatus) {
     /**
      * Feature that adjust behaviour for
      *   specific application needs. The feature is not part of a Web platform
@@ -72,17 +70,16 @@ public enum class FeatureStatus(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitFeatureStatus): FeatureStatus =
-            when (nativeValue) {
-                WebKitFeatureStatus.WEBKIT_FEATURE_STATUS_EMBEDDER -> EMBEDDER
-                WebKitFeatureStatus.WEBKIT_FEATURE_STATUS_UNSTABLE -> UNSTABLE
-                WebKitFeatureStatus.WEBKIT_FEATURE_STATUS_INTERNAL -> INTERNAL
-                WebKitFeatureStatus.WEBKIT_FEATURE_STATUS_DEVELOPER -> DEVELOPER
-                WebKitFeatureStatus.WEBKIT_FEATURE_STATUS_TESTABLE -> TESTABLE
-                WebKitFeatureStatus.WEBKIT_FEATURE_STATUS_PREVIEW -> PREVIEW
-                WebKitFeatureStatus.WEBKIT_FEATURE_STATUS_STABLE -> STABLE
-                WebKitFeatureStatus.WEBKIT_FEATURE_STATUS_MATURE -> MATURE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitFeatureStatus): FeatureStatus = when (nativeValue) {
+            WebKitFeatureStatus.WEBKIT_FEATURE_STATUS_EMBEDDER -> EMBEDDER
+            WebKitFeatureStatus.WEBKIT_FEATURE_STATUS_UNSTABLE -> UNSTABLE
+            WebKitFeatureStatus.WEBKIT_FEATURE_STATUS_INTERNAL -> INTERNAL
+            WebKitFeatureStatus.WEBKIT_FEATURE_STATUS_DEVELOPER -> DEVELOPER
+            WebKitFeatureStatus.WEBKIT_FEATURE_STATUS_TESTABLE -> TESTABLE
+            WebKitFeatureStatus.WEBKIT_FEATURE_STATUS_PREVIEW -> PREVIEW
+            WebKitFeatureStatus.WEBKIT_FEATURE_STATUS_STABLE -> STABLE
+            WebKitFeatureStatus.WEBKIT_FEATURE_STATUS_MATURE -> MATURE
+            else -> error("invalid nativeValue")
+        }
     }
 }

@@ -10,9 +10,7 @@ import org.gtkkn.native.pango.PangoOverline
  * @since 1.46
  */
 @PangoVersion1_46
-public enum class Overline(
-    public val nativeValue: PangoOverline,
-) {
+public enum class Overline(public val nativeValue: PangoOverline) {
     /**
      * no overline should be drawn
      */
@@ -26,11 +24,10 @@ public enum class Overline(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: PangoOverline): Overline =
-            when (nativeValue) {
-                PangoOverline.PANGO_OVERLINE_NONE -> NONE
-                PangoOverline.PANGO_OVERLINE_SINGLE -> SINGLE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: PangoOverline): Overline = when (nativeValue) {
+            PangoOverline.PANGO_OVERLINE_NONE -> NONE
+            PangoOverline.PANGO_OVERLINE_SINGLE -> SINGLE
+            else -> error("invalid nativeValue")
+        }
     }
 }

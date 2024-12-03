@@ -129,9 +129,8 @@ import kotlin.Unit
  * - method `popup-shown`: Property has no getter nor setter
  * - signal `format-entry-text`: Signal format-entry-text is ignored
  */
-public open class ComboBox(
-    pointer: CPointer<GtkComboBox>,
-) : Widget(pointer.reinterpret()),
+public open class ComboBox(pointer: CPointer<GtkComboBox>) :
+    Widget(pointer.reinterpret()),
     CellEditable,
     CellLayout,
     KGTyped {
@@ -198,10 +197,9 @@ public open class ComboBox(
          *   if it is only sensitive as long as the model has one item to
          *   be selected.
          */
-        get() =
-            gtk_combo_box_get_button_sensitivity(gtkComboBoxPointer.reinterpret()).run {
-                SensitivityType.fromNativeValue(this)
-            }
+        get() = gtk_combo_box_get_button_sensitivity(gtkComboBoxPointer.reinterpret()).run {
+            SensitivityType.fromNativeValue(this)
+        }
 
         /**
          * Sets whether the dropdown button of the combo box should update
@@ -222,10 +220,9 @@ public open class ComboBox(
          *
          * @return the child widget of @combo_box
          */
-        get() =
-            gtk_combo_box_get_child(gtkComboBoxPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = gtk_combo_box_get_child(gtkComboBoxPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the child widget of @combo_box.
@@ -312,10 +309,9 @@ public open class ComboBox(
          * @return A `GtkTreeModel` which was passed
          *   during construction.
          */
-        get() =
-            gtk_combo_box_get_model(gtkComboBoxPointer.reinterpret())?.run {
-                TreeModel.wrap(reinterpret())
-            }
+        get() = gtk_combo_box_get_model(gtkComboBoxPointer.reinterpret())?.run {
+            TreeModel.wrap(reinterpret())
+        }
 
         /**
          * Sets the model used by @combo_box to be @model.
@@ -369,19 +365,6 @@ public open class ComboBox(
     public constructor(model: TreeModel) : this(gtk_combo_box_new_with_model(model.gtkTreeModelPointer)!!.reinterpret())
 
     /**
-     * Returns the index of the currently active item.
-     *
-     * If the model is a non-flat treemodel, and the active item is not
-     * an immediate child of the root of the tree, this function returns
-     * `gtk_tree_path_get_indices (path)[0]`, where `path` is the
-     * [struct@Gtk.TreePath] of the active item.
-     *
-     * @return An integer which is the index of the currently active item,
-     *   or -1 if there’s no active item
-     */
-    public open fun getActive(): Int = gtk_combo_box_get_active(gtkComboBoxPointer.reinterpret())
-
-    /**
      * Returns the ID of the active row of @combo_box.
      *
      * This value is taken from the active row and the column specified
@@ -408,78 +391,10 @@ public open class ComboBox(
      * @param iter A `GtkTreeIter`
      * @return true if @iter was set, false otherwise
      */
-    public open fun getActiveIter(iter: TreeIter): Boolean =
-        gtk_combo_box_get_active_iter(
-            gtkComboBoxPointer.reinterpret(),
-            iter.gtkTreeIterPointer.reinterpret()
-        ).asBoolean()
-
-    /**
-     * Returns whether the combo box sets the dropdown button
-     * sensitive or not when there are no items in the model.
-     *
-     * @return %GTK_SENSITIVITY_ON if the dropdown button
-     *   is sensitive when the model is empty, %GTK_SENSITIVITY_OFF
-     *   if the button is always insensitive or %GTK_SENSITIVITY_AUTO
-     *   if it is only sensitive as long as the model has one item to
-     *   be selected.
-     */
-    public open fun getButtonSensitivity(): SensitivityType =
-        gtk_combo_box_get_button_sensitivity(gtkComboBoxPointer.reinterpret()).run {
-            SensitivityType.fromNativeValue(this)
-        }
-
-    /**
-     * Gets the child widget of @combo_box.
-     *
-     * @return the child widget of @combo_box
-     */
-    public open fun getChild(): Widget? =
-        gtk_combo_box_get_child(gtkComboBoxPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Returns the column which @combo_box is using to get the strings
-     * from to display in the internal entry.
-     *
-     * @return A column in the data source model of @combo_box.
-     */
-    public open fun getEntryTextColumn(): Int = gtk_combo_box_get_entry_text_column(gtkComboBoxPointer.reinterpret())
-
-    /**
-     * Returns whether the combo box has an entry.
-     *
-     * @return whether there is an entry in @combo_box.
-     */
-    public open fun getHasEntry(): Boolean = gtk_combo_box_get_has_entry(gtkComboBoxPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns the column which @combo_box is using to get string IDs
-     * for values from.
-     *
-     * @return A column in the data source model of @combo_box.
-     */
-    public open fun getIdColumn(): Int = gtk_combo_box_get_id_column(gtkComboBoxPointer.reinterpret())
-
-    /**
-     * Returns the `GtkTreeModel` of @combo_box.
-     *
-     * @return A `GtkTreeModel` which was passed
-     *   during construction.
-     */
-    public open fun getModel(): TreeModel? =
-        gtk_combo_box_get_model(gtkComboBoxPointer.reinterpret())?.run {
-            TreeModel.wrap(reinterpret())
-        }
-
-    /**
-     * Gets whether the popup uses a fixed width.
-     *
-     * @return true if the popup uses a fixed width
-     */
-    public open fun getPopupFixedWidth(): Boolean =
-        gtk_combo_box_get_popup_fixed_width(gtkComboBoxPointer.reinterpret()).asBoolean()
+    public open fun getActiveIter(iter: TreeIter): Boolean = gtk_combo_box_get_active_iter(
+        gtkComboBoxPointer.reinterpret(),
+        iter.gtkTreeIterPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Hides the menu or dropdown list of @combo_box.
@@ -513,14 +428,6 @@ public open class ComboBox(
         gtk_combo_box_popup_for_device(gtkComboBoxPointer.reinterpret(), device.gdkDevicePointer.reinterpret())
 
     /**
-     * Sets the active item of @combo_box to be the item at @index.
-     *
-     * @param index An index in the model passed during construction,
-     *   or -1 to have no active item
-     */
-    public open fun setActive(index: Int): Unit = gtk_combo_box_set_active(gtkComboBoxPointer.reinterpret(), index)
-
-    /**
      * Changes the active row of @combo_box to the one that has an ID equal to
      * @active_id.
      *
@@ -550,80 +457,6 @@ public open class ComboBox(
         gtk_combo_box_set_active_iter(gtkComboBoxPointer.reinterpret(), iter?.gtkTreeIterPointer?.reinterpret())
 
     /**
-     * Sets whether the dropdown button of the combo box should update
-     * its sensitivity depending on the model contents.
-     *
-     * @param sensitivity specify the sensitivity of the dropdown button
-     */
-    public open fun setButtonSensitivity(sensitivity: SensitivityType): Unit =
-        gtk_combo_box_set_button_sensitivity(gtkComboBoxPointer.reinterpret(), sensitivity.nativeValue)
-
-    /**
-     * Sets the child widget of @combo_box.
-     *
-     * @param child the child widget
-     */
-    public open fun setChild(child: Widget? = null): Unit =
-        gtk_combo_box_set_child(gtkComboBoxPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
-
-    /**
-     * Sets the model column which @combo_box should use to get strings
-     * from to be @text_column.
-     *
-     * For this column no separate
-     * [class@Gtk.CellRenderer] is needed.
-     *
-     * The column @text_column in the model of @combo_box must be of
-     * type %G_TYPE_STRING.
-     *
-     * This is only relevant if @combo_box has been created with
-     * [property@Gtk.ComboBox:has-entry] as true.
-     *
-     * @param textColumn A column in @model to get the strings from for
-     *   the internal entry
-     */
-    public open fun setEntryTextColumn(textColumn: Int): Unit =
-        gtk_combo_box_set_entry_text_column(gtkComboBoxPointer.reinterpret(), textColumn)
-
-    /**
-     * Sets the model column which @combo_box should use to get string IDs
-     * for values from.
-     *
-     * The column @id_column in the model of @combo_box must be of type
-     * %G_TYPE_STRING.
-     *
-     * @param idColumn A column in @model to get string IDs for values from
-     */
-    public open fun setIdColumn(idColumn: Int): Unit =
-        gtk_combo_box_set_id_column(gtkComboBoxPointer.reinterpret(), idColumn)
-
-    /**
-     * Sets the model used by @combo_box to be @model.
-     *
-     * Will unset a previously set model (if applicable). If model is null,
-     * then it will unset the model.
-     *
-     * Note that this function does not clear the cell renderers, you have to
-     * call [method@Gtk.CellLayout.clear] yourself if you need to set up different
-     * cell renderers for the new model.
-     *
-     * @param model A `GtkTreeModel`
-     */
-    public open fun setModel(model: TreeModel? = null): Unit =
-        gtk_combo_box_set_model(gtkComboBoxPointer.reinterpret(), model?.gtkTreeModelPointer)
-
-    /**
-     * Specifies whether the popup’s width should be a fixed width.
-     *
-     * If @fixed is true, the popup's width is set to match the
-     * allocated width of the combo box.
-     *
-     * @param fixed whether to use a fixed popup width
-     */
-    public open fun setPopupFixedWidth(fixed: Boolean): Unit =
-        gtk_combo_box_set_popup_fixed_width(gtkComboBoxPointer.reinterpret(), fixed.asGBoolean())
-
-    /**
      * Sets the row separator function, which is used to determine
      * whether a row should be drawn as a separator.
      *
@@ -632,13 +465,12 @@ public open class ComboBox(
      *
      * @param func a `GtkTreeViewRowSeparatorFunc`
      */
-    public open fun setRowSeparatorFunc(func: TreeViewRowSeparatorFunc): Unit =
-        gtk_combo_box_set_row_separator_func(
-            gtkComboBoxPointer.reinterpret(),
-            TreeViewRowSeparatorFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public open fun setRowSeparatorFunc(func: TreeViewRowSeparatorFunc): Unit = gtk_combo_box_set_row_separator_func(
+        gtkComboBoxPointer.reinterpret(),
+        TreeViewRowSeparatorFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer(),
+        staticStableRefDestroy.reinterpret()
+    )
 
     /**
      * Emitted to when the combo box is activated.
@@ -651,10 +483,7 @@ public open class ComboBox(
      * @since 4.6
      */
     @GtkVersion4_6
-    public fun connectActivate(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "activate",
@@ -674,10 +503,7 @@ public open class ComboBox(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "changed",
@@ -698,15 +524,14 @@ public open class ComboBox(
     public fun connectMoveActive(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (scrollType: ScrollType) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "move-active",
-            connectMoveActiveFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "move-active",
+        connectMoveActiveFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted to popdown the combo box list.
@@ -718,10 +543,7 @@ public open class ComboBox(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectPopdown(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Boolean,
-    ): ULong =
+    public fun connectPopdown(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "popdown",
@@ -741,10 +563,7 @@ public open class ComboBox(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectPopup(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectPopup(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "popup",
@@ -795,51 +614,47 @@ public open class ComboBox(
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectChangedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectMoveActiveFunc: CPointer<CFunction<(GtkScrollType) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            scrollType: GtkScrollType,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(scrollType: ScrollType) -> Unit>().get().invoke(
-            scrollType.run {
-                ScrollType.fromNativeValue(this)
-            }
-        )
-    }.reinterpret()
+private val connectMoveActiveFunc: CPointer<CFunction<(GtkScrollType) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        scrollType: GtkScrollType,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(scrollType: ScrollType) -> Unit>().get().invoke(
+        scrollType.run {
+            ScrollType.fromNativeValue(this)
+        }
+    )
+}
+    .reinterpret()
 
-private val connectPopdownFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<() -> Boolean>()
-            .get()
-            .invoke()
-            .asGBoolean()
-    }.reinterpret()
+private val connectPopdownFunc: CPointer<CFunction<() -> Int>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
+}
+    .reinterpret()
 
-private val connectPopupFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectPopupFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

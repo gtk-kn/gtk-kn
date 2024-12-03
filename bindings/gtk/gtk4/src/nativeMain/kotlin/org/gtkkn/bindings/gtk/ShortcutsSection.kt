@@ -59,9 +59,8 @@ import kotlin.Unit
  * - method `title`: Property has no getter nor setter
  * - method `view-name`: Property has no getter nor setter
  */
-public open class ShortcutsSection(
-    pointer: CPointer<GtkShortcutsSection>,
-) : Box(pointer.reinterpret()),
+public open class ShortcutsSection(pointer: CPointer<GtkShortcutsSection>) :
+    Box(pointer.reinterpret()),
     KGTyped {
     public val gtkShortcutsSectionPointer: CPointer<GtkShortcutsSection>
         get() = gPointer.reinterpret()
@@ -91,11 +90,10 @@ public open class ShortcutsSection(
      * @since 4.14
      */
     @GtkVersion4_14
-    public open fun addGroup(group: ShortcutsGroup): Unit =
-        gtk_shortcuts_section_add_group(
-            gtkShortcutsSectionPointer.reinterpret(),
-            group.gtkShortcutsGroupPointer.reinterpret()
-        )
+    public open fun addGroup(group: ShortcutsGroup): Unit = gtk_shortcuts_section_add_group(
+        gtkShortcutsSectionPointer.reinterpret(),
+        group.gtkShortcutsGroupPointer.reinterpret()
+    )
 
     /**
      *
@@ -106,15 +104,14 @@ public open class ShortcutsSection(
     public fun connectChangeCurrentPage(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`object`: Int) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "change-current-page",
-            connectChangeCurrentPageFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "change-current-page",
+        connectChangeCurrentPageFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<ShortcutsSection> {
         override val type: GeneratedClassKGType<ShortcutsSection> =
@@ -126,15 +123,11 @@ public open class ShortcutsSection(
     }
 }
 
-private val connectChangeCurrentPageFunc: CPointer<CFunction<(Int) -> Int>> =
-    staticCFunction {
-            _: COpaquePointer,
-            `object`: Int,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<(`object`: Int) -> Boolean>()
-            .get()
-            .invoke(`object`)
-            .asGBoolean()
-    }.reinterpret()
+private val connectChangeCurrentPageFunc: CPointer<CFunction<(Int) -> Int>> = staticCFunction {
+        _: COpaquePointer,
+        `object`: Int,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(`object`: Int) -> Boolean>().get().invoke(`object`).asGBoolean()
+}
+    .reinterpret()

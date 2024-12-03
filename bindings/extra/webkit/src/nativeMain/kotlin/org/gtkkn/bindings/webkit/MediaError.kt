@@ -12,9 +12,7 @@ import org.gtkkn.native.webkit.webkit_media_error_quark
  * @since 2.40
  */
 @WebKitVersion2_40
-public enum class MediaError(
-    public val nativeValue: WebKitMediaError,
-) {
+public enum class MediaError(public val nativeValue: WebKitMediaError) {
     /**
      * Preliminary load failure for media content types. A new load will be started to perform the media load. Since: 2.40
      */
@@ -22,11 +20,10 @@ public enum class MediaError(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitMediaError): MediaError =
-            when (nativeValue) {
-                WebKitMediaError.WEBKIT_MEDIA_ERROR_WILL_HANDLE_LOAD -> LOAD
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitMediaError): MediaError = when (nativeValue) {
+            WebKitMediaError.WEBKIT_MEDIA_ERROR_WILL_HANDLE_LOAD -> LOAD
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Gets the quark for the domain of media errors.
@@ -37,11 +34,10 @@ public enum class MediaError(
         @WebKitVersion2_40
         public fun quark(): Quark = webkit_media_error_quark()
 
-        public fun fromErrorOrNull(error: Error): MediaError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                MediaError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        public fun fromErrorOrNull(error: Error): MediaError? = if (error.domain != quark()) {
+            null
+        } else {
+            MediaError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

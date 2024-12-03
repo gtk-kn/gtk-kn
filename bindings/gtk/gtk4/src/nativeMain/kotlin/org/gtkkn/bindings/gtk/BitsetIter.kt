@@ -30,9 +30,7 @@ import kotlin.UInt
  * - parameter `value`: value: Out parameter is not supported
  * - field `private_data`: Record field private_data is private
  */
-public class BitsetIter(
-    pointer: CPointer<GtkBitsetIter>,
-) : Record {
+public class BitsetIter(pointer: CPointer<GtkBitsetIter>) : Record {
     public val gtkBitsetIterPointer: CPointer<GtkBitsetIter> = pointer
 
     /**

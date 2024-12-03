@@ -39,9 +39,7 @@ import kotlin.Unit
  * @since 2.32
  */
 @GLibVersion2_32
-public class RecMutex(
-    pointer: CPointer<GRecMutex>,
-) : Record {
+public class RecMutex(pointer: CPointer<GRecMutex>) : Record {
     public val glibRecMutexPointer: CPointer<GRecMutex> = pointer
 
     /**

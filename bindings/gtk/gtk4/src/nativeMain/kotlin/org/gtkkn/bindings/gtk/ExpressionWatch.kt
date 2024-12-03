@@ -22,9 +22,7 @@ import kotlin.Unit
  * The contents of `GtkExpressionWatch` should only be accessed through the
  * provided API.
  */
-public class ExpressionWatch(
-    pointer: CPointer<GtkExpressionWatch>,
-) : Record {
+public class ExpressionWatch(pointer: CPointer<GtkExpressionWatch>) : Record {
     public val gtkExpressionWatchPointer: CPointer<GtkExpressionWatch> = pointer
 
     /**
@@ -37,21 +35,19 @@ public class ExpressionWatch(
      * @param value an empty `GValue` to be set
      * @return `TRUE` if the expression could be evaluated and `value` was set
      */
-    public fun evaluate(`value`: Value): Boolean =
-        gtk_expression_watch_evaluate(
-            gtkExpressionWatchPointer.reinterpret(),
-            `value`.gobjectValuePointer.reinterpret()
-        ).asBoolean()
+    public fun evaluate(`value`: Value): Boolean = gtk_expression_watch_evaluate(
+        gtkExpressionWatchPointer.reinterpret(),
+        `value`.gobjectValuePointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Acquires a reference on the given `GtkExpressionWatch`.
      *
      * @return the `GtkExpressionWatch` with an additional reference
      */
-    public fun ref(): ExpressionWatch =
-        gtk_expression_watch_ref(gtkExpressionWatchPointer.reinterpret())!!.run {
-            ExpressionWatch(reinterpret())
-        }
+    public fun ref(): ExpressionWatch = gtk_expression_watch_ref(gtkExpressionWatchPointer.reinterpret())!!.run {
+        ExpressionWatch(reinterpret())
+    }
 
     /**
      * Releases a reference on the given `GtkExpressionWatch`.

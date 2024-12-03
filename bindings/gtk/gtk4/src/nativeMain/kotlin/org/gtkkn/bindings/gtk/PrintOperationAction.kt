@@ -8,9 +8,7 @@ import org.gtkkn.native.gtk.GtkPrintOperationAction
  *
  * A parameter of this typs is passed to [method@Gtk.PrintOperation.run].
  */
-public enum class PrintOperationAction(
-    public val nativeValue: GtkPrintOperationAction,
-) {
+public enum class PrintOperationAction(public val nativeValue: GtkPrintOperationAction) {
     /**
      * Show the print dialog.
      */
@@ -35,13 +33,12 @@ public enum class PrintOperationAction(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkPrintOperationAction): PrintOperationAction =
-            when (nativeValue) {
-                GtkPrintOperationAction.GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG -> PRINT_DIALOG
-                GtkPrintOperationAction.GTK_PRINT_OPERATION_ACTION_PRINT -> PRINT
-                GtkPrintOperationAction.GTK_PRINT_OPERATION_ACTION_PREVIEW -> PREVIEW
-                GtkPrintOperationAction.GTK_PRINT_OPERATION_ACTION_EXPORT -> EXPORT
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkPrintOperationAction): PrintOperationAction = when (nativeValue) {
+            GtkPrintOperationAction.GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG -> PRINT_DIALOG
+            GtkPrintOperationAction.GTK_PRINT_OPERATION_ACTION_PRINT -> PRINT
+            GtkPrintOperationAction.GTK_PRINT_OPERATION_ACTION_PREVIEW -> PREVIEW
+            GtkPrintOperationAction.GTK_PRINT_OPERATION_ACTION_EXPORT -> EXPORT
+            else -> error("invalid nativeValue")
+        }
     }
 }

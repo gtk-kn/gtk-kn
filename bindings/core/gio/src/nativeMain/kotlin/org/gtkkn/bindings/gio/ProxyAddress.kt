@@ -28,9 +28,8 @@ import kotlin.UShort
  * @since 2.26
  */
 @GioVersion2_26
-public open class ProxyAddress(
-    pointer: CPointer<GProxyAddress>,
-) : InetSocketAddress(pointer.reinterpret()),
+public open class ProxyAddress(pointer: CPointer<GProxyAddress>) :
+    InetSocketAddress(pointer.reinterpret()),
     KGTyped {
     public val gioProxyAddressPointer: CPointer<GProxyAddress>
         get() = gPointer.reinterpret()
@@ -53,9 +52,8 @@ public open class ProxyAddress(
          * @return the @proxy's destination hostname
          * @since 2.26
          */
-        get() =
-            g_proxy_address_get_destination_hostname(gioProxyAddressPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = g_proxy_address_get_destination_hostname(gioProxyAddressPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * The proxy destination port.
@@ -89,9 +87,8 @@ public open class ProxyAddress(
          * @return the @proxy's destination protocol
          * @since 2.34
          */
-        get() =
-            g_proxy_address_get_destination_protocol(gioProxyAddressPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = g_proxy_address_get_destination_protocol(gioProxyAddressPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * The proxy password.
@@ -121,9 +118,8 @@ public open class ProxyAddress(
          * @return the @proxy's protocol
          * @since 2.26
          */
-        get() =
-            g_proxy_address_get_protocol(gioProxyAddressPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = g_proxy_address_get_protocol(gioProxyAddressPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * The URI string that the proxy was constructed from (or null
@@ -195,83 +191,6 @@ public open class ProxyAddress(
             password
         )!!.reinterpret()
     )
-
-    /**
-     * Gets @proxy's destination hostname; that is, the name of the host
-     * that will be connected to via the proxy, not the name of the proxy
-     * itself.
-     *
-     * @return the @proxy's destination hostname
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public open fun getDestinationHostname(): String =
-        g_proxy_address_get_destination_hostname(gioProxyAddressPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets @proxy's destination port; that is, the port on the
-     * destination host that will be connected to via the proxy, not the
-     * port number of the proxy itself.
-     *
-     * @return the @proxy's destination port
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public open fun getDestinationPort(): UShort =
-        g_proxy_address_get_destination_port(gioProxyAddressPointer.reinterpret())
-
-    /**
-     * Gets the protocol that is being spoken to the destination
-     * server; eg, "http" or "ftp".
-     *
-     * @return the @proxy's destination protocol
-     * @since 2.34
-     */
-    @GioVersion2_34
-    public open fun getDestinationProtocol(): String =
-        g_proxy_address_get_destination_protocol(gioProxyAddressPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets @proxy's password.
-     *
-     * @return the @proxy's password
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public open fun getPassword(): String? =
-        g_proxy_address_get_password(gioProxyAddressPointer.reinterpret())?.toKString()
-
-    /**
-     * Gets @proxy's protocol. eg, "socks" or "http"
-     *
-     * @return the @proxy's protocol
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public open fun getProtocol(): String =
-        g_proxy_address_get_protocol(gioProxyAddressPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets the proxy URI that @proxy was constructed from.
-     *
-     * @return the @proxy's URI, or null if unknown
-     * @since 2.34
-     */
-    @GioVersion2_34
-    public open fun getUri(): String? = g_proxy_address_get_uri(gioProxyAddressPointer.reinterpret())?.toKString()
-
-    /**
-     * Gets @proxy's username.
-     *
-     * @return the @proxy's username
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public open fun getUsername(): String? =
-        g_proxy_address_get_username(gioProxyAddressPointer.reinterpret())?.toKString()
 
     public companion object : TypeCompanion<ProxyAddress> {
         override val type: GeneratedClassKGType<ProxyAddress> =

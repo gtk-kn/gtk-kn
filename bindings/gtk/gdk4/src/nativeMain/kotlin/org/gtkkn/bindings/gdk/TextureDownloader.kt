@@ -37,9 +37,7 @@ import kotlin.Unit
  * @since 4.10
  */
 @GdkVersion4_10
-public class TextureDownloader(
-    pointer: CPointer<GdkTextureDownloader>,
-) : Record {
+public class TextureDownloader(pointer: CPointer<GdkTextureDownloader>) : Record {
     public val gdkTextureDownloaderPointer: CPointer<GdkTextureDownloader> = pointer
 
     /**
@@ -107,11 +105,10 @@ public class TextureDownloader(
      * @since 4.10
      */
     @GdkVersion4_10
-    public fun setTexture(texture: Texture): Unit =
-        gdk_texture_downloader_set_texture(
-            gdkTextureDownloaderPointer.reinterpret(),
-            texture.gdkTexturePointer.reinterpret()
-        )
+    public fun setTexture(texture: Texture): Unit = gdk_texture_downloader_set_texture(
+        gdkTextureDownloaderPointer.reinterpret(),
+        texture.gdkTexturePointer.reinterpret()
+    )
 
     public companion object : RecordCompanion<TextureDownloader, GdkTextureDownloader> {
         /**

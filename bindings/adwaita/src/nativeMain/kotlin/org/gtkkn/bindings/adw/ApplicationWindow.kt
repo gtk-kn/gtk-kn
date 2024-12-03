@@ -63,9 +63,8 @@ import kotlin.Unit
  * Using [property@Gtk.Application:menubar] is not supported and may result in
  * visual glitches.
  */
-public open class ApplicationWindow(
-    pointer: CPointer<AdwApplicationWindow>,
-) : org.gtkkn.bindings.gtk.ApplicationWindow(pointer.reinterpret()),
+public open class ApplicationWindow(pointer: CPointer<AdwApplicationWindow>) :
+    org.gtkkn.bindings.gtk.ApplicationWindow(pointer.reinterpret()),
     KGTyped {
     public val adwApplicationWindowPointer: CPointer<AdwApplicationWindow>
         get() = gPointer.reinterpret()
@@ -107,10 +106,9 @@ public open class ApplicationWindow(
          *
          * @return the content widget of @self
          */
-        get() =
-            adw_application_window_get_content(adwApplicationWindowPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = adw_application_window_get_content(adwApplicationWindowPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the content widget of @self.
@@ -121,11 +119,10 @@ public open class ApplicationWindow(
          */
         set(
             content
-        ) =
-            adw_application_window_set_content(
-                adwApplicationWindowPointer.reinterpret(),
-                content?.gtkWidgetPointer?.reinterpret()
-            )
+        ) = adw_application_window_set_content(
+            adwApplicationWindowPointer.reinterpret(),
+            content?.gtkWidgetPointer?.reinterpret()
+        )
 
     /**
      * The current breakpoint.
@@ -140,10 +137,9 @@ public open class ApplicationWindow(
          * @return the current breakpoint
          * @since 1.4
          */
-        get() =
-            adw_application_window_get_current_breakpoint(adwApplicationWindowPointer.reinterpret())?.run {
-                Breakpoint(reinterpret())
-            }
+        get() = adw_application_window_get_current_breakpoint(adwApplicationWindowPointer.reinterpret())?.run {
+            Breakpoint(reinterpret())
+        }
 
     /**
      * The open dialogs.
@@ -160,10 +156,9 @@ public open class ApplicationWindow(
          * @return a list model for the dialogs of @self
          * @since 1.5
          */
-        get() =
-            adw_application_window_get_dialogs(adwApplicationWindowPointer.reinterpret())!!.run {
-                ListModel.wrap(reinterpret())
-            }
+        get() = adw_application_window_get_dialogs(adwApplicationWindowPointer.reinterpret())!!.run {
+            ListModel.wrap(reinterpret())
+        }
 
     /**
      * The currently visible dialog
@@ -178,10 +173,9 @@ public open class ApplicationWindow(
          * @return the visible dialog
          * @since 1.5
          */
-        get() =
-            adw_application_window_get_visible_dialog(adwApplicationWindowPointer.reinterpret())?.run {
-                Dialog(reinterpret())
-            }
+        get() = adw_application_window_get_visible_dialog(adwApplicationWindowPointer.reinterpret())?.run {
+            Dialog(reinterpret())
+        }
 
     /**
      * Creates a new `AdwApplicationWindow` for @app.
@@ -200,74 +194,10 @@ public open class ApplicationWindow(
      * @since 1.4
      */
     @AdwVersion1_4
-    public open fun addBreakpoint(breakpoint: Breakpoint): Unit =
-        adw_application_window_add_breakpoint(
-            adwApplicationWindowPointer.reinterpret(),
-            breakpoint.adwBreakpointPointer.reinterpret()
-        )
-
-    /**
-     * Gets the content widget of @self.
-     *
-     * This method should always be used instead of [method@Gtk.Window.get_child].
-     *
-     * @return the content widget of @self
-     */
-    public open fun getContent(): Widget? =
-        adw_application_window_get_content(adwApplicationWindowPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Gets the current breakpoint.
-     *
-     * @return the current breakpoint
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public open fun getCurrentBreakpoint(): Breakpoint? =
-        adw_application_window_get_current_breakpoint(adwApplicationWindowPointer.reinterpret())?.run {
-            Breakpoint(reinterpret())
-        }
-
-    /**
-     * Returns a [iface@Gio.ListModel] that contains the open dialogs of @self.
-     *
-     * This can be used to keep an up-to-date view.
-     *
-     * @return a list model for the dialogs of @self
-     * @since 1.5
-     */
-    @AdwVersion1_5
-    public open fun getDialogs(): ListModel =
-        adw_application_window_get_dialogs(adwApplicationWindowPointer.reinterpret())!!.run {
-            ListModel.wrap(reinterpret())
-        }
-
-    /**
-     * Returns the currently visible dialog in @self, if there's one.
-     *
-     * @return the visible dialog
-     * @since 1.5
-     */
-    @AdwVersion1_5
-    public open fun getVisibleDialog(): Dialog? =
-        adw_application_window_get_visible_dialog(adwApplicationWindowPointer.reinterpret())?.run {
-            Dialog(reinterpret())
-        }
-
-    /**
-     * Sets the content widget of @self.
-     *
-     * This method should always be used instead of [method@Gtk.Window.set_child].
-     *
-     * @param content the content widget
-     */
-    public open fun setContent(content: Widget? = null): Unit =
-        adw_application_window_set_content(
-            adwApplicationWindowPointer.reinterpret(),
-            content?.gtkWidgetPointer?.reinterpret()
-        )
+    public open fun addBreakpoint(breakpoint: Breakpoint): Unit = adw_application_window_add_breakpoint(
+        adwApplicationWindowPointer.reinterpret(),
+        breakpoint.adwBreakpointPointer.reinterpret()
+    )
 
     public companion object : TypeCompanion<ApplicationWindow> {
         override val type: GeneratedClassKGType<ApplicationWindow> =

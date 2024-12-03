@@ -3,9 +3,7 @@ package org.gtkkn.bindings.gtksource
 
 import org.gtkkn.native.gtksource.GtkSourceBracketMatchType
 
-public enum class BracketMatchType(
-    public val nativeValue: GtkSourceBracketMatchType,
-) {
+public enum class BracketMatchType(public val nativeValue: GtkSourceBracketMatchType) {
     /**
      * there is no bracket to match.
      */
@@ -29,13 +27,12 @@ public enum class BracketMatchType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkSourceBracketMatchType): BracketMatchType =
-            when (nativeValue) {
-                GtkSourceBracketMatchType.GTK_SOURCE_BRACKET_MATCH_NONE -> NONE
-                GtkSourceBracketMatchType.GTK_SOURCE_BRACKET_MATCH_OUT_OF_RANGE -> OUT_OF_RANGE
-                GtkSourceBracketMatchType.GTK_SOURCE_BRACKET_MATCH_NOT_FOUND -> NOT_FOUND
-                GtkSourceBracketMatchType.GTK_SOURCE_BRACKET_MATCH_FOUND -> FOUND
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkSourceBracketMatchType): BracketMatchType = when (nativeValue) {
+            GtkSourceBracketMatchType.GTK_SOURCE_BRACKET_MATCH_NONE -> NONE
+            GtkSourceBracketMatchType.GTK_SOURCE_BRACKET_MATCH_OUT_OF_RANGE -> OUT_OF_RANGE
+            GtkSourceBracketMatchType.GTK_SOURCE_BRACKET_MATCH_NOT_FOUND -> NOT_FOUND
+            GtkSourceBracketMatchType.GTK_SOURCE_BRACKET_MATCH_FOUND -> FOUND
+            else -> error("invalid nativeValue")
+        }
     }
 }

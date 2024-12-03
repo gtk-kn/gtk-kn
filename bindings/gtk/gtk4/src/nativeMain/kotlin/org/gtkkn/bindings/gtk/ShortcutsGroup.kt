@@ -42,9 +42,8 @@ import kotlin.Unit
  * - method `title-size-group`: Property has no getter nor setter
  * - method `view`: Property has no getter nor setter
  */
-public open class ShortcutsGroup(
-    pointer: CPointer<GtkShortcutsGroup>,
-) : Box(pointer.reinterpret()),
+public open class ShortcutsGroup(pointer: CPointer<GtkShortcutsGroup>) :
+    Box(pointer.reinterpret()),
     KGTyped {
     public val gtkShortcutsGroupPointer: CPointer<GtkShortcutsGroup>
         get() = gPointer.reinterpret()
@@ -72,11 +71,10 @@ public open class ShortcutsGroup(
      * @since 4.14
      */
     @GtkVersion4_14
-    public open fun addShortcut(shortcut: ShortcutsShortcut): Unit =
-        gtk_shortcuts_group_add_shortcut(
-            gtkShortcutsGroupPointer.reinterpret(),
-            shortcut.gtkShortcutsShortcutPointer.reinterpret()
-        )
+    public open fun addShortcut(shortcut: ShortcutsShortcut): Unit = gtk_shortcuts_group_add_shortcut(
+        gtkShortcutsGroupPointer.reinterpret(),
+        shortcut.gtkShortcutsShortcutPointer.reinterpret()
+    )
 
     public companion object : TypeCompanion<ShortcutsGroup> {
         override val type: GeneratedClassKGType<ShortcutsGroup> =

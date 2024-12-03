@@ -127,10 +127,9 @@ public interface AsyncResult :
      * @return a new reference to the source
      *    object for the @res, or null if there is none.
      */
-    public fun getSourceObject(): Object? =
-        g_async_result_get_source_object(gioAsyncResultPointer.reinterpret())?.run {
-            Object(reinterpret())
-        }
+    public fun getSourceObject(): Object? = g_async_result_get_source_object(gioAsyncResultPointer.reinterpret())?.run {
+        Object(reinterpret())
+    }
 
     /**
      * If @res is a #GSimpleAsyncResult, this is equivalent to
@@ -149,24 +148,17 @@ public interface AsyncResult :
      * @since 2.34
      */
     @GioVersion2_34
-    public fun legacyPropagateError(): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_async_result_legacy_propagate_error(
-                    gioAsyncResultPointer.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun legacyPropagateError(): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_async_result_legacy_propagate_error(gioAsyncResultPointer.reinterpret(), gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
-    private data class Wrapper(
-        private val pointer: CPointer<GAsyncResult>,
-    ) : AsyncResult {
+    private data class Wrapper(private val pointer: CPointer<GAsyncResult>) : AsyncResult {
         override val gioAsyncResultPointer: CPointer<GAsyncResult> = pointer
     }
 

@@ -63,9 +63,7 @@ import kotlin.Unit
  * - field `n_pspecs`: Record field n_pspecs is private
  * - field `pdummy`: Record field pdummy is private
  */
-public class ObjectClass(
-    pointer: CPointer<GObjectClass>,
-) : Record {
+public class ObjectClass(pointer: CPointer<GObjectClass>) : Record {
     public val gobjectObjectClassPointer: CPointer<GObjectClass> = pointer
 
     /**
@@ -95,15 +93,11 @@ public class ObjectClass(
      * @param propertyId the id for the new property
      * @param pspec the #GParamSpec for the new property
      */
-    public fun installProperty(
-        propertyId: UInt,
-        pspec: ParamSpec,
-    ): Unit =
-        g_object_class_install_property(
-            gobjectObjectClassPointer.reinterpret(),
-            propertyId,
-            pspec.gPointer.reinterpret()
-        )
+    public fun installProperty(propertyId: UInt, pspec: ParamSpec): Unit = g_object_class_install_property(
+        gobjectObjectClassPointer.reinterpret(),
+        propertyId,
+        pspec.gPointer.reinterpret()
+    )
 
     /**
      * Registers @property_id as referring to a property with the name
@@ -129,10 +123,8 @@ public class ObjectClass(
      * @since 2.4
      */
     @GObjectVersion2_4
-    public fun overrideProperty(
-        propertyId: UInt,
-        name: String,
-    ): Unit = g_object_class_override_property(gobjectObjectClassPointer.reinterpret(), propertyId, name)
+    public fun overrideProperty(propertyId: UInt, name: String): Unit =
+        g_object_class_override_property(gobjectObjectClassPointer.reinterpret(), propertyId, name)
 
     public companion object : RecordCompanion<ObjectClass, GObjectClass> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ObjectClass =

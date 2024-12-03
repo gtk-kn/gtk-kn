@@ -33,9 +33,7 @@ import kotlin.Unit
  * @since 1.0
  */
 @GrapheneVersion1_0
-public class Quad(
-    pointer: CPointer<graphene_quad_t>,
-) : Record {
+public class Quad(pointer: CPointer<graphene_quad_t>) : Record {
     public val grapheneQuadPointer: CPointer<graphene_quad_t> = pointer
 
     /**
@@ -75,10 +73,9 @@ public class Quad(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun getPoint(index: UInt): Point =
-        graphene_quad_get_point(grapheneQuadPointer.reinterpret(), index)!!.run {
-            Point(reinterpret())
-        }
+    public fun getPoint(index: UInt): Point = graphene_quad_get_point(grapheneQuadPointer.reinterpret(), index)!!.run {
+        Point(reinterpret())
+    }
 
     /**
      * Initializes a #graphene_quad_t with the given points.
@@ -91,21 +88,15 @@ public class Quad(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun `init`(
-        p1: Point,
-        p2: Point,
-        p3: Point,
-        p4: Point,
-    ): Quad =
-        graphene_quad_init(
-            grapheneQuadPointer.reinterpret(),
-            p1.graphenePointPointer.reinterpret(),
-            p2.graphenePointPointer.reinterpret(),
-            p3.graphenePointPointer.reinterpret(),
-            p4.graphenePointPointer.reinterpret()
-        )!!.run {
-            Quad(reinterpret())
-        }
+    public fun `init`(p1: Point, p2: Point, p3: Point, p4: Point): Quad = graphene_quad_init(
+        grapheneQuadPointer.reinterpret(),
+        p1.graphenePointPointer.reinterpret(),
+        p2.graphenePointPointer.reinterpret(),
+        p3.graphenePointPointer.reinterpret(),
+        p4.graphenePointPointer.reinterpret()
+    )!!.run {
+        Quad(reinterpret())
+    }
 
     /**
      * Initializes a #graphene_quad_t using the four corners of the

@@ -16,7 +16,6 @@ import org.gtkkn.native.gtk.gtk_file_chooser_native_new
 import org.gtkkn.native.gtk.gtk_file_chooser_native_set_accept_label
 import org.gtkkn.native.gtk.gtk_file_chooser_native_set_cancel_label
 import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkFileChooserNative` is an abstraction of a dialog suitable
@@ -166,9 +165,8 @@ import kotlin.Unit
  *
  * * Shortcut folders.
  */
-public open class FileChooserNative(
-    pointer: CPointer<GtkFileChooserNative>,
-) : NativeDialog(pointer.reinterpret()),
+public open class FileChooserNative(pointer: CPointer<GtkFileChooserNative>) :
+    NativeDialog(pointer.reinterpret()),
     FileChooser,
     KGTyped {
     public val gtkFileChooserNativePointer: CPointer<GtkFileChooserNative>
@@ -258,52 +256,6 @@ public open class FileChooserNative(
             cancelLabel
         )!!.reinterpret()
     )
-
-    /**
-     * Retrieves the custom label text for the accept button.
-     *
-     * @return The custom label
-     */
-    public open fun getAcceptLabel(): String? =
-        gtk_file_chooser_native_get_accept_label(gtkFileChooserNativePointer.reinterpret())?.toKString()
-
-    /**
-     * Retrieves the custom label text for the cancel button.
-     *
-     * @return The custom label
-     */
-    public open fun getCancelLabel(): String? =
-        gtk_file_chooser_native_get_cancel_label(gtkFileChooserNativePointer.reinterpret())?.toKString()
-
-    /**
-     * Sets the custom label text for the accept button.
-     *
-     * If characters in @label are preceded by an underscore, they are
-     * underlined. If you need a literal underscore character in a label,
-     * use “__” (two underscores). The first underlined character represents
-     * a keyboard accelerator called a mnemonic.
-     *
-     * Pressing Alt and that key should activate the button.
-     *
-     * @param acceptLabel custom label
-     */
-    public open fun setAcceptLabel(acceptLabel: String? = null): Unit =
-        gtk_file_chooser_native_set_accept_label(gtkFileChooserNativePointer.reinterpret(), acceptLabel)
-
-    /**
-     * Sets the custom label text for the cancel button.
-     *
-     * If characters in @label are preceded by an underscore, they are
-     * underlined. If you need a literal underscore character in a label,
-     * use “__” (two underscores). The first underlined character represents
-     * a keyboard accelerator called a mnemonic.
-     *
-     * Pressing Alt and that key should activate the button.
-     *
-     * @param cancelLabel custom label
-     */
-    public open fun setCancelLabel(cancelLabel: String? = null): Unit =
-        gtk_file_chooser_native_set_cancel_label(gtkFileChooserNativePointer.reinterpret(), cancelLabel)
 
     public companion object : TypeCompanion<FileChooserNative> {
         override val type: GeneratedClassKGType<FileChooserNative> =

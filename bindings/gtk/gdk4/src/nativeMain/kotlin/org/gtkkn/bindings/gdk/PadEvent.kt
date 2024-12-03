@@ -19,9 +19,8 @@ import kotlin.UInt
  * - parameter `index`: index: Out parameter is not supported
  * - parameter `group`: group: Out parameter is not supported
  */
-public open class PadEvent(
-    pointer: CPointer<GdkPadEvent>,
-) : Event(pointer.reinterpret()),
+public open class PadEvent(pointer: CPointer<GdkPadEvent>) :
+    Event(pointer.reinterpret()),
     KGTyped {
     public val gdkPadEventPointer: CPointer<GdkPadEvent>
         get() = gPointer.reinterpret()

@@ -22,9 +22,7 @@ import org.gtkkn.native.gsk.GskLineCap
  * @since 4.14
  */
 @GskVersion4_14
-public enum class LineCap(
-    public val nativeValue: GskLineCap,
-) {
+public enum class LineCap(public val nativeValue: GskLineCap) {
     /**
      * Start and stop the line exactly at the start
      *   and end point
@@ -45,12 +43,11 @@ public enum class LineCap(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GskLineCap): LineCap =
-            when (nativeValue) {
-                GskLineCap.GSK_LINE_CAP_BUTT -> BUTT
-                GskLineCap.GSK_LINE_CAP_ROUND -> ROUND
-                GskLineCap.GSK_LINE_CAP_SQUARE -> SQUARE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GskLineCap): LineCap = when (nativeValue) {
+            GskLineCap.GSK_LINE_CAP_BUTT -> BUTT
+            GskLineCap.GSK_LINE_CAP_ROUND -> ROUND
+            GskLineCap.GSK_LINE_CAP_SQUARE -> SQUARE
+            else -> error("invalid nativeValue")
+        }
     }
 }

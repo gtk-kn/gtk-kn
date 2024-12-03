@@ -9,9 +9,7 @@ import org.gtkkn.native.gtk.GtkAccessibleTextContentChange
  * @since 4.14
  */
 @GtkVersion4_14
-public enum class AccessibleTextContentChange(
-    public val nativeValue: GtkAccessibleTextContentChange,
-) {
+public enum class AccessibleTextContentChange(public val nativeValue: GtkAccessibleTextContentChange) {
     /**
      * contents change as the result of
      *   an insert operation

@@ -31,9 +31,8 @@ import kotlin.Unit
  *
  * - method `value`: Property has no getter nor setter
  */
-public class WeakValue(
-    pointer: CPointer<JSCWeakValue>,
-) : Object(pointer.reinterpret()),
+public class WeakValue(pointer: CPointer<JSCWeakValue>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val javascriptcoreWeakValuePointer: CPointer<JSCWeakValue>
         get() = gPointer.reinterpret()
@@ -53,10 +52,9 @@ public class WeakValue(
      *
      * @return a new #JSCValue or null if @weak_value was cleared.
      */
-    public fun getValue(): Value =
-        jsc_weak_value_get_value(javascriptcoreWeakValuePointer.reinterpret())!!.run {
-            Value(reinterpret())
-        }
+    public fun getValue(): Value = jsc_weak_value_get_value(javascriptcoreWeakValuePointer.reinterpret())!!.run {
+        Value(reinterpret())
+    }
 
     /**
      * This signal is emitted when the JavaScript value is destroyed.
@@ -64,10 +62,7 @@ public class WeakValue(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectCleared(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectCleared(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "cleared",
@@ -87,10 +82,10 @@ public class WeakValue(
     }
 }
 
-private val connectClearedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectClearedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

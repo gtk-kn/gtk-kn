@@ -16,9 +16,7 @@ import org.gtkkn.native.gobject.GTypeInstance
  * - method `get_private`: Return type gpointer is unsupported
  * - field `g_class`: Record field g_class is private
  */
-public class TypeInstance(
-    pointer: CPointer<GTypeInstance>,
-) : Record {
+public class TypeInstance(pointer: CPointer<GTypeInstance>) : Record {
     public val gobjectTypeInstancePointer: CPointer<GTypeInstance> = pointer
 
     public companion object : RecordCompanion<TypeInstance, GTypeInstance> {

@@ -12,9 +12,8 @@ import org.gtkkn.native.gdk.gdk_delete_event_get_type
 /**
  * An event related to closing a top-level surface.
  */
-public open class DeleteEvent(
-    pointer: CPointer<GdkDeleteEvent>,
-) : Event(pointer.reinterpret()),
+public open class DeleteEvent(pointer: CPointer<GdkDeleteEvent>) :
+    Event(pointer.reinterpret()),
     KGTyped {
     public val gdkDeleteEventPointer: CPointer<GdkDeleteEvent>
         get() = gPointer.reinterpret()

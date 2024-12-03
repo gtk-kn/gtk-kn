@@ -3,7 +3,6 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -20,9 +19,8 @@ import org.gtkkn.native.gio.g_converter_input_stream_new
  * As of GLib 2.34, `GConverterInputStream` implements
  * [iface@Gio.PollableInputStream].
  */
-public open class ConverterInputStream(
-    pointer: CPointer<GConverterInputStream>,
-) : FilterInputStream(pointer.reinterpret()),
+public open class ConverterInputStream(pointer: CPointer<GConverterInputStream>) :
+    FilterInputStream(pointer.reinterpret()),
     PollableInputStream,
     KGTyped {
     public val gioConverterInputStreamPointer: CPointer<GConverterInputStream>
@@ -41,10 +39,9 @@ public open class ConverterInputStream(
          * @return the converter of the converter input stream
          * @since 2.24
          */
-        get() =
-            g_converter_input_stream_get_converter(gioConverterInputStreamPointer.reinterpret())!!.run {
-                Converter.wrap(reinterpret())
-            }
+        get() = g_converter_input_stream_get_converter(gioConverterInputStreamPointer.reinterpret())!!.run {
+            Converter.wrap(reinterpret())
+        }
 
     /**
      * Creates a new converter input stream for the @base_stream.
@@ -62,18 +59,6 @@ public open class ConverterInputStream(
             converter.gioConverterPointer
         )!!.reinterpret()
     )
-
-    /**
-     * Gets the #GConverter that is used by @converter_stream.
-     *
-     * @return the converter of the converter input stream
-     * @since 2.24
-     */
-    @GioVersion2_24
-    public open fun getConverter(): Converter =
-        g_converter_input_stream_get_converter(gioConverterInputStreamPointer.reinterpret())!!.run {
-            Converter.wrap(reinterpret())
-        }
 
     public companion object : TypeCompanion<ConverterInputStream> {
         override val type: GeneratedClassKGType<ConverterInputStream> =

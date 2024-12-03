@@ -19,9 +19,7 @@ import kotlin.String
  *
  * - field `value`: Value
  */
-public class Parameter(
-    pointer: CPointer<GParameter>,
-) : Record {
+public class Parameter(pointer: CPointer<GParameter>) : Record {
     public val gobjectParameterPointer: CPointer<GParameter> = pointer
 
     /**

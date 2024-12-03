@@ -9,7 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.bindings.glib.Glib.resolveException
+import org.gtkkn.bindings.glib.GLib.resolveException
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_14
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
 import org.gtkkn.extensions.common.asBoolean
@@ -47,9 +47,7 @@ import kotlin.collections.List
  * - parameter `start_pos`: start_pos: Out parameter is not supported
  * - parameter `start_pos`: start_pos: Out parameter is not supported
  */
-public class MatchInfo(
-    pointer: CPointer<GMatchInfo>,
-) : Record {
+public class MatchInfo(pointer: CPointer<GMatchInfo>) : Record {
     public val glibMatchInfoPointer: CPointer<GMatchInfo> = pointer
 
     /**
@@ -76,21 +74,19 @@ public class MatchInfo(
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun expandReferences(stringToExpand: String): Result<String?> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_match_info_expand_references(
-                    glibMatchInfoPointer.reinterpret(),
-                    stringToExpand,
-                    gError.ptr
-                )?.toKString()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun expandReferences(stringToExpand: String): Result<String?> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_match_info_expand_references(
+            glibMatchInfoPointer.reinterpret(),
+            stringToExpand,
+            gError.ptr
+        )?.toKString()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Retrieves the text matching the @match_num'th capturing
@@ -143,9 +139,8 @@ public class MatchInfo(
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun fetchAll(): List<String> =
-        g_match_info_fetch_all(glibMatchInfoPointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
+    public fun fetchAll(): List<String> = g_match_info_fetch_all(glibMatchInfoPointer.reinterpret())?.toKStringList()
+        ?: error("Expected not null string array")
 
     /**
      * Retrieves the text matching the capturing parentheses named @name.
@@ -200,10 +195,9 @@ public class MatchInfo(
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun getRegex(): Regex =
-        g_match_info_get_regex(glibMatchInfoPointer.reinterpret())!!.run {
-            Regex(reinterpret())
-        }
+    public fun getRegex(): Regex = g_match_info_get_regex(glibMatchInfoPointer.reinterpret())!!.run {
+        Regex(reinterpret())
+    }
 
     /**
      * Returns the string searched with @match_info. This is the
@@ -280,16 +274,15 @@ public class MatchInfo(
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun next(): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_match_info_next(glibMatchInfoPointer.reinterpret(), gError.ptr).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun next(): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_match_info_next(glibMatchInfoPointer.reinterpret(), gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Increases reference count of @match_info by 1.
@@ -298,10 +291,9 @@ public class MatchInfo(
      * @since 2.30
      */
     @GLibVersion2_30
-    public fun ref(): MatchInfo =
-        g_match_info_ref(glibMatchInfoPointer.reinterpret())!!.run {
-            MatchInfo(reinterpret())
-        }
+    public fun ref(): MatchInfo = g_match_info_ref(glibMatchInfoPointer.reinterpret())!!.run {
+        MatchInfo(reinterpret())
+    }
 
     /**
      * Decreases reference count of @match_info by 1. When reference count drops

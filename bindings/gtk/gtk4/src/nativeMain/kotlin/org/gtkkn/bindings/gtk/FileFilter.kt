@@ -81,9 +81,8 @@ import kotlin.collections.List
  * - method `patterns`: Property has no getter nor setter
  * - method `suffixes`: Property has no getter nor setter
  */
-public open class FileFilter(
-    pointer: CPointer<GtkFileFilter>,
-) : Filter(pointer.reinterpret()),
+public open class FileFilter(pointer: CPointer<GtkFileFilter>) :
+    Filter(pointer.reinterpret()),
     Buildable,
     KGTyped {
     public val gtkFileFilterPointer: CPointer<GtkFileFilter>
@@ -212,35 +211,13 @@ public open class FileFilter(
             ?: error("Expected not null string array")
 
     /**
-     * Gets the human-readable name for the filter.
-     *
-     * See [method@Gtk.FileFilter.set_name].
-     *
-     * @return The human-readable name of the filter
-     */
-    public open fun getName(): String? = gtk_file_filter_get_name(gtkFileFilterPointer.reinterpret())?.toKString()
-
-    /**
-     * Sets a human-readable name of the filter.
-     *
-     * This is the string that will be displayed in the file chooser
-     * if there is a selectable list of filters.
-     *
-     * @param name the human-readable-name for the filter, or null
-     *   to remove any existing name.
-     */
-    public open fun setName(name: String? = null): Unit =
-        gtk_file_filter_set_name(gtkFileFilterPointer.reinterpret(), name)
-
-    /**
      * Serialize a file filter to an `a{sv}` variant.
      *
      * @return a new, floating, `GVariant`
      */
-    public open fun toGvariant(): Variant =
-        gtk_file_filter_to_gvariant(gtkFileFilterPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public open fun toGvariant(): Variant = gtk_file_filter_to_gvariant(gtkFileFilterPointer.reinterpret())!!.run {
+        Variant(reinterpret())
+    }
 
     public companion object : TypeCompanion<FileFilter> {
         override val type: GeneratedClassKGType<FileFilter> =

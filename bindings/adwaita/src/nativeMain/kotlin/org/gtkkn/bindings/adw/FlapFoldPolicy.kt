@@ -6,9 +6,7 @@ import org.gtkkn.native.adw.AdwFlapFoldPolicy
 /**
  * Describes the possible folding behavior of a [class@Flap] widget.
  */
-public enum class FlapFoldPolicy(
-    public val nativeValue: AdwFlapFoldPolicy,
-) {
+public enum class FlapFoldPolicy(public val nativeValue: AdwFlapFoldPolicy) {
     /**
      * Disable folding, the flap cannot reach narrow
      *   sizes.
@@ -28,12 +26,11 @@ public enum class FlapFoldPolicy(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: AdwFlapFoldPolicy): FlapFoldPolicy =
-            when (nativeValue) {
-                AdwFlapFoldPolicy.ADW_FLAP_FOLD_POLICY_NEVER -> NEVER
-                AdwFlapFoldPolicy.ADW_FLAP_FOLD_POLICY_ALWAYS -> ALWAYS
-                AdwFlapFoldPolicy.ADW_FLAP_FOLD_POLICY_AUTO -> AUTO
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: AdwFlapFoldPolicy): FlapFoldPolicy = when (nativeValue) {
+            AdwFlapFoldPolicy.ADW_FLAP_FOLD_POLICY_NEVER -> NEVER
+            AdwFlapFoldPolicy.ADW_FLAP_FOLD_POLICY_ALWAYS -> ALWAYS
+            AdwFlapFoldPolicy.ADW_FLAP_FOLD_POLICY_AUTO -> AUTO
+            else -> error("invalid nativeValue")
+        }
     }
 }

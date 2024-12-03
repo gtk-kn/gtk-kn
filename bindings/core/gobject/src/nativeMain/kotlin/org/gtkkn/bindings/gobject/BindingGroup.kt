@@ -34,9 +34,8 @@ import kotlin.Unit
  * @since 2.72
  */
 @GObjectVersion2_72
-public open class BindingGroup(
-    pointer: CPointer<GBindingGroup>,
-) : Object(pointer.reinterpret()),
+public open class BindingGroup(pointer: CPointer<GBindingGroup>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gobjectBindingGroupPointer: CPointer<GBindingGroup>
         get() = gPointer.reinterpret()
@@ -64,12 +63,7 @@ public open class BindingGroup(
      * @since 2.72
      */
     @GObjectVersion2_72
-    public open fun bind(
-        sourceProperty: String,
-        target: Object,
-        targetProperty: String,
-        flags: BindingFlags,
-    ): Unit =
+    public open fun bind(sourceProperty: String, target: Object, targetProperty: String, flags: BindingFlags): Unit =
         g_binding_group_bind(
             gobjectBindingGroupPointer.reinterpret(),
             sourceProperty,
@@ -110,16 +104,15 @@ public open class BindingGroup(
         flags: BindingFlags,
         transformTo: Closure? = null,
         transformFrom: Closure? = null,
-    ): Unit =
-        g_binding_group_bind_with_closures(
-            gobjectBindingGroupPointer.reinterpret(),
-            sourceProperty,
-            target.gPointer.reinterpret(),
-            targetProperty,
-            flags.mask,
-            transformTo?.gobjectClosurePointer?.reinterpret(),
-            transformFrom?.gobjectClosurePointer?.reinterpret()
-        )
+    ): Unit = g_binding_group_bind_with_closures(
+        gobjectBindingGroupPointer.reinterpret(),
+        sourceProperty,
+        target.gPointer.reinterpret(),
+        targetProperty,
+        flags.mask,
+        transformTo?.gobjectClosurePointer?.reinterpret(),
+        transformFrom?.gobjectClosurePointer?.reinterpret()
+    )
 
     /**
      * Gets the source object used for binding properties.
@@ -128,10 +121,9 @@ public open class BindingGroup(
      * @since 2.72
      */
     @GObjectVersion2_72
-    public open fun dupSource(): Object? =
-        g_binding_group_dup_source(gobjectBindingGroupPointer.reinterpret())?.run {
-            Object(reinterpret())
-        }
+    public open fun dupSource(): Object? = g_binding_group_dup_source(gobjectBindingGroupPointer.reinterpret())?.run {
+        Object(reinterpret())
+    }
 
     /**
      * Sets @source as the source object used for creating property

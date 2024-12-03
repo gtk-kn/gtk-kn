@@ -6,9 +6,7 @@ import org.gtkkn.native.glib.GIOStatus
 /**
  * Statuses returned by most of the #GIOFuncs functions.
  */
-public enum class IOStatus(
-    public val nativeValue: GIOStatus,
-) {
+public enum class IOStatus(public val nativeValue: GIOStatus) {
     /**
      * An error occurred.
      */
@@ -31,13 +29,12 @@ public enum class IOStatus(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GIOStatus): IOStatus =
-            when (nativeValue) {
-                GIOStatus.G_IO_STATUS_ERROR -> ERROR
-                GIOStatus.G_IO_STATUS_NORMAL -> NORMAL
-                GIOStatus.G_IO_STATUS_EOF -> EOF
-                GIOStatus.G_IO_STATUS_AGAIN -> AGAIN
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GIOStatus): IOStatus = when (nativeValue) {
+            GIOStatus.G_IO_STATUS_ERROR -> ERROR
+            GIOStatus.G_IO_STATUS_NORMAL -> NORMAL
+            GIOStatus.G_IO_STATUS_EOF -> EOF
+            GIOStatus.G_IO_STATUS_AGAIN -> AGAIN
+            else -> error("invalid nativeValue")
+        }
     }
 }

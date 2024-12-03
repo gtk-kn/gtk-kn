@@ -23,9 +23,7 @@ import kotlin.collections.List
  * @since 2.6
  */
 @WebKitVersion2_6
-public class UserScript(
-    pointer: CPointer<WebKitUserScript>,
-) : Record {
+public class UserScript(pointer: CPointer<WebKitUserScript>) : Record {
     public val webkitUserScriptPointer: CPointer<WebKitUserScript> = pointer
 
     /**
@@ -37,10 +35,9 @@ public class UserScript(
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun ref(): UserScript =
-        webkit_user_script_ref(webkitUserScriptPointer.reinterpret())!!.run {
-            UserScript(reinterpret())
-        }
+    public fun ref(): UserScript = webkit_user_script_ref(webkitUserScriptPointer.reinterpret())!!.run {
+        UserScript(reinterpret())
+    }
 
     /**
      * Atomically decrements the reference count of @user_script by one.

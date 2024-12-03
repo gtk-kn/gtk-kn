@@ -26,9 +26,8 @@ import kotlin.UInt
  *
  * - parameter `keyval`: keyval: Out parameter is not supported
  */
-public open class KeyEvent(
-    pointer: CPointer<GdkKeyEvent>,
-) : Event(pointer.reinterpret()),
+public open class KeyEvent(pointer: CPointer<GdkKeyEvent>) :
+    Event(pointer.reinterpret()),
     KGTyped {
     public val gdkKeyEventPointer: CPointer<GdkKeyEvent>
         get() = gPointer.reinterpret()
@@ -92,10 +91,7 @@ public open class KeyEvent(
      * @param modifiers the modifiers to match
      * @return a `GdkKeyMatch` value describing whether @event matches
      */
-    public open fun matches(
-        keyval: UInt,
-        modifiers: ModifierType,
-    ): KeyMatch =
+    public open fun matches(keyval: UInt, modifiers: ModifierType): KeyMatch =
         gdk_key_event_matches(gdkKeyEventPointer.reinterpret(), keyval, modifiers.mask).run {
             KeyMatch.fromNativeValue(this)
         }

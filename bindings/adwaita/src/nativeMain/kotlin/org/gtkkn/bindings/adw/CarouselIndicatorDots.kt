@@ -17,7 +17,6 @@ import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkOrientable
-import kotlin.Unit
 
 /**
  * A dots indicator for [class@Carousel].
@@ -39,9 +38,8 @@ import kotlin.Unit
  * `AdwCarouselIndicatorDots` has a single CSS node with name
  * `carouselindicatordots`.
  */
-public class CarouselIndicatorDots(
-    pointer: CPointer<AdwCarouselIndicatorDots>,
-) : Widget(pointer.reinterpret()),
+public class CarouselIndicatorDots(pointer: CPointer<AdwCarouselIndicatorDots>) :
+    Widget(pointer.reinterpret()),
     Orientable,
     KGTyped {
     public val adwCarouselIndicatorDotsPointer: CPointer<AdwCarouselIndicatorDots>
@@ -68,10 +66,9 @@ public class CarouselIndicatorDots(
          *
          * @return the displayed carousel
          */
-        get() =
-            adw_carousel_indicator_dots_get_carousel(adwCarouselIndicatorDotsPointer.reinterpret())?.run {
-                Carousel(reinterpret())
-            }
+        get() = adw_carousel_indicator_dots_get_carousel(adwCarouselIndicatorDotsPointer.reinterpret())?.run {
+            Carousel(reinterpret())
+        }
 
         /**
          * Sets the displayed carousel.
@@ -80,11 +77,10 @@ public class CarouselIndicatorDots(
          */
         set(
             carousel
-        ) =
-            adw_carousel_indicator_dots_set_carousel(
-                adwCarouselIndicatorDotsPointer.reinterpret(),
-                carousel?.adwCarouselPointer?.reinterpret()
-            )
+        ) = adw_carousel_indicator_dots_set_carousel(
+            adwCarouselIndicatorDotsPointer.reinterpret(),
+            carousel?.adwCarouselPointer?.reinterpret()
+        )
 
     /**
      * Creates a new `AdwCarouselIndicatorDots`.
@@ -92,27 +88,6 @@ public class CarouselIndicatorDots(
      * @return the newly created `AdwCarouselIndicatorDots`
      */
     public constructor() : this(adw_carousel_indicator_dots_new()!!.reinterpret())
-
-    /**
-     * Gets the displayed carousel.
-     *
-     * @return the displayed carousel
-     */
-    public fun getCarousel(): Carousel? =
-        adw_carousel_indicator_dots_get_carousel(adwCarouselIndicatorDotsPointer.reinterpret())?.run {
-            Carousel(reinterpret())
-        }
-
-    /**
-     * Sets the displayed carousel.
-     *
-     * @param carousel a carousel
-     */
-    public fun setCarousel(carousel: Carousel? = null): Unit =
-        adw_carousel_indicator_dots_set_carousel(
-            adwCarouselIndicatorDotsPointer.reinterpret(),
-            carousel?.adwCarouselPointer?.reinterpret()
-        )
 
     public companion object : TypeCompanion<CarouselIndicatorDots> {
         override val type: GeneratedClassKGType<CarouselIndicatorDots> =

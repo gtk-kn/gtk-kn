@@ -6,9 +6,7 @@ import org.gtkkn.native.gio.GFileAttributeType
 /**
  * The data types for file attributes.
  */
-public enum class FileAttributeType(
-    public val nativeValue: GFileAttributeType,
-) {
+public enum class FileAttributeType(public val nativeValue: GFileAttributeType) {
     /**
      * indicates an invalid or uninitialized type.
      */
@@ -61,19 +59,18 @@ public enum class FileAttributeType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GFileAttributeType): FileAttributeType =
-            when (nativeValue) {
-                GFileAttributeType.G_FILE_ATTRIBUTE_TYPE_INVALID -> INVALID
-                GFileAttributeType.G_FILE_ATTRIBUTE_TYPE_STRING -> STRING
-                GFileAttributeType.G_FILE_ATTRIBUTE_TYPE_BYTE_STRING -> BYTE_STRING
-                GFileAttributeType.G_FILE_ATTRIBUTE_TYPE_BOOLEAN -> BOOLEAN
-                GFileAttributeType.G_FILE_ATTRIBUTE_TYPE_UINT32 -> UINT32
-                GFileAttributeType.G_FILE_ATTRIBUTE_TYPE_INT32 -> INT32
-                GFileAttributeType.G_FILE_ATTRIBUTE_TYPE_UINT64 -> UINT64
-                GFileAttributeType.G_FILE_ATTRIBUTE_TYPE_INT64 -> INT64
-                GFileAttributeType.G_FILE_ATTRIBUTE_TYPE_OBJECT -> OBJECT
-                GFileAttributeType.G_FILE_ATTRIBUTE_TYPE_STRINGV -> STRINGV
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GFileAttributeType): FileAttributeType = when (nativeValue) {
+            GFileAttributeType.G_FILE_ATTRIBUTE_TYPE_INVALID -> INVALID
+            GFileAttributeType.G_FILE_ATTRIBUTE_TYPE_STRING -> STRING
+            GFileAttributeType.G_FILE_ATTRIBUTE_TYPE_BYTE_STRING -> BYTE_STRING
+            GFileAttributeType.G_FILE_ATTRIBUTE_TYPE_BOOLEAN -> BOOLEAN
+            GFileAttributeType.G_FILE_ATTRIBUTE_TYPE_UINT32 -> UINT32
+            GFileAttributeType.G_FILE_ATTRIBUTE_TYPE_INT32 -> INT32
+            GFileAttributeType.G_FILE_ATTRIBUTE_TYPE_UINT64 -> UINT64
+            GFileAttributeType.G_FILE_ATTRIBUTE_TYPE_INT64 -> INT64
+            GFileAttributeType.G_FILE_ATTRIBUTE_TYPE_OBJECT -> OBJECT
+            GFileAttributeType.G_FILE_ATTRIBUTE_TYPE_STRINGV -> STRINGV
+            else -> error("invalid nativeValue")
+        }
     }
 }

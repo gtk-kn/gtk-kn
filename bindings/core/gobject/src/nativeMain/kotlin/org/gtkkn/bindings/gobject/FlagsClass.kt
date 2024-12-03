@@ -18,9 +18,7 @@ import kotlin.UInt
  *
  * - field `g_type_class`: TypeClass
  */
-public class FlagsClass(
-    pointer: CPointer<GFlagsClass>,
-) : Record {
+public class FlagsClass(pointer: CPointer<GFlagsClass>) : Record {
     public val gobjectFlagsClassPointer: CPointer<GFlagsClass> = pointer
 
     /**
@@ -48,10 +46,9 @@ public class FlagsClass(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val values: FlagsValue?
-        get() =
-            gobjectFlagsClassPointer.pointed.values?.run {
-                FlagsValue(reinterpret())
-            }
+        get() = gobjectFlagsClassPointer.pointed.values?.run {
+            FlagsValue(reinterpret())
+        }
 
     public companion object : RecordCompanion<FlagsClass, GFlagsClass> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FlagsClass = FlagsClass(pointer.reinterpret())

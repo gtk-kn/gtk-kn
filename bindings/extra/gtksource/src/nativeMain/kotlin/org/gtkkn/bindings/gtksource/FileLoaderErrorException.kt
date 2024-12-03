@@ -2,9 +2,6 @@
 package org.gtkkn.bindings.gtksource
 
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 
-public class FileLoaderErrorException(
-    error: Error,
-    public val code: FileLoaderError,
-) : GlibException(error)
+public class FileLoaderErrorException(error: Error, public val code: FileLoaderError) : GLibException(error)

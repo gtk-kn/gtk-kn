@@ -7,9 +7,7 @@ import org.gtkkn.native.gtk.GtkPolicyType
  * Determines how the size should be computed to achieve the one of the
  * visibility mode for the scrollbars.
  */
-public enum class PolicyType(
-    public val nativeValue: GtkPolicyType,
-) {
+public enum class PolicyType(public val nativeValue: GtkPolicyType) {
     /**
      * The scrollbar is always visible. The view size is
      *   independent of the content.
@@ -37,13 +35,12 @@ public enum class PolicyType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkPolicyType): PolicyType =
-            when (nativeValue) {
-                GtkPolicyType.GTK_POLICY_ALWAYS -> ALWAYS
-                GtkPolicyType.GTK_POLICY_AUTOMATIC -> AUTOMATIC
-                GtkPolicyType.GTK_POLICY_NEVER -> NEVER
-                GtkPolicyType.GTK_POLICY_EXTERNAL -> EXTERNAL
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkPolicyType): PolicyType = when (nativeValue) {
+            GtkPolicyType.GTK_POLICY_ALWAYS -> ALWAYS
+            GtkPolicyType.GTK_POLICY_AUTOMATIC -> AUTOMATIC
+            GtkPolicyType.GTK_POLICY_NEVER -> NEVER
+            GtkPolicyType.GTK_POLICY_EXTERNAL -> EXTERNAL
+            else -> error("invalid nativeValue")
+        }
     }
 }

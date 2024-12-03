@@ -40,10 +40,9 @@ public interface Orientable :
          *
          * @return the orientation of the @orientable
          */
-        get() =
-            gtk_orientable_get_orientation(gtkOrientablePointer.reinterpret()).run {
-                Orientation.fromNativeValue(this)
-            }
+        get() = gtk_orientable_get_orientation(gtkOrientablePointer.reinterpret()).run {
+            Orientation.fromNativeValue(this)
+        }
 
         /**
          * Sets the orientation of the @orientable.
@@ -57,10 +56,9 @@ public interface Orientable :
      *
      * @return the orientation of the @orientable
      */
-    public fun getOrientation(): Orientation =
-        gtk_orientable_get_orientation(gtkOrientablePointer.reinterpret()).run {
-            Orientation.fromNativeValue(this)
-        }
+    public fun getOrientation(): Orientation = gtk_orientable_get_orientation(gtkOrientablePointer.reinterpret()).run {
+        Orientation.fromNativeValue(this)
+    }
 
     /**
      * Sets the orientation of the @orientable.
@@ -70,9 +68,7 @@ public interface Orientable :
     public fun setOrientation(orientation: Orientation): Unit =
         gtk_orientable_set_orientation(gtkOrientablePointer.reinterpret(), orientation.nativeValue)
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkOrientable>,
-    ) : Orientable {
+    private data class Wrapper(private val pointer: CPointer<GtkOrientable>) : Orientable {
         override val gtkOrientablePointer: CPointer<GtkOrientable> = pointer
     }
 

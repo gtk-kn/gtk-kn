@@ -105,14 +105,12 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
     private fun buildRecordConstructor(record: RecordBlueprint, constructor: ConstructorBlueprint): FunSpec =
         FunSpec.builder(constructor.kotlinName).apply {
             // kdoc
-            addKdoc(
-                buildMethodKDoc(
-                    constructor.kdoc,
-                    constructor.parameters,
-                    constructor.optInVersionBlueprint,
-                    constructor.returnTypeKDoc,
-                ),
-            )
+            buildMethodKDoc(
+                constructor.kdoc,
+                constructor.parameters,
+                constructor.optInVersionBlueprint,
+                constructor.returnTypeKDoc,
+            )?.let { addKdoc(it) }
 
             // return type
             val returnTypeName = if (constructor.throws) {

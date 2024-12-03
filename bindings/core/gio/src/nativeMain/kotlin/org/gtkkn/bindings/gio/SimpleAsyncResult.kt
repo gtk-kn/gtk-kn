@@ -210,9 +210,8 @@ import kotlin.Unit
  * - parameter `source_tag`: gpointer
  * - parameter `source_tag`: gpointer
  */
-public open class SimpleAsyncResult(
-    pointer: CPointer<GSimpleAsyncResult>,
-) : Object(pointer.reinterpret()),
+public open class SimpleAsyncResult(pointer: CPointer<GSimpleAsyncResult>) :
+    Object(pointer.reinterpret()),
     AsyncResult,
     KGTyped {
     public val gioSimpleAsyncResultPointer: CPointer<GSimpleAsyncResult>
@@ -292,20 +291,18 @@ public open class SimpleAsyncResult(
      *
      * @return true if the error was propagated to @dest. false otherwise.
      */
-    public open fun propagateError(): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_simple_async_result_propagate_error(
-                    gioSimpleAsyncResultPointer.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun propagateError(): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_simple_async_result_propagate_error(
+            gioSimpleAsyncResultPointer.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Sets a #GCancellable to check before dispatching results.
@@ -339,11 +336,10 @@ public open class SimpleAsyncResult(
      *
      * @param error #GError.
      */
-    public open fun setFromError(error: Error): Unit =
-        g_simple_async_result_set_from_error(
-            gioSimpleAsyncResultPointer.reinterpret(),
-            error.glibErrorPointer.reinterpret()
-        )
+    public open fun setFromError(error: Error): Unit = g_simple_async_result_set_from_error(
+        gioSimpleAsyncResultPointer.reinterpret(),
+        error.glibErrorPointer.reinterpret()
+    )
 
     /**
      * Sets whether to handle cancellation within the asynchronous operation.

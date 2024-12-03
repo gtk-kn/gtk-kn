@@ -118,9 +118,8 @@ import kotlin.Unit
  * [signal@Gtk.DragSource::drag-end] signal and delete the
  * data after it has been transferred.
  */
-public open class DragSource(
-    pointer: CPointer<GtkDragSource>,
-) : GestureSingle(pointer.reinterpret()),
+public open class DragSource(pointer: CPointer<GtkDragSource>) :
+    GestureSingle(pointer.reinterpret()),
     KGTyped {
     public val gtkDragSourcePointer: CPointer<GtkDragSource>
         get() = gPointer.reinterpret()
@@ -137,10 +136,9 @@ public open class DragSource(
          *
          * @return the actions set on @source
          */
-        get() =
-            gtk_drag_source_get_actions(gtkDragSourcePointer.reinterpret()).run {
-                DragAction(this)
-            }
+        get() = gtk_drag_source_get_actions(gtkDragSourcePointer.reinterpret()).run {
+            DragAction(this)
+        }
 
         /**
          * Sets the actions on the `GtkDragSource`.
@@ -166,10 +164,9 @@ public open class DragSource(
          *
          * @return the `GdkContentProvider` of @source
          */
-        get() =
-            gtk_drag_source_get_content(gtkDragSourcePointer.reinterpret())?.run {
-                ContentProvider(reinterpret())
-            }
+        get() = gtk_drag_source_get_content(gtkDragSourcePointer.reinterpret())?.run {
+            ContentProvider(reinterpret())
+        }
 
         /**
          * Sets a content provider on a `GtkDragSource`.
@@ -187,11 +184,10 @@ public open class DragSource(
          */
         set(
             content
-        ) =
-            gtk_drag_source_set_content(
-                gtkDragSourcePointer.reinterpret(),
-                content?.gdkContentProviderPointer?.reinterpret()
-            )
+        ) = gtk_drag_source_set_content(
+            gtkDragSourcePointer.reinterpret(),
+            content?.gdkContentProviderPointer?.reinterpret()
+        )
 
     /**
      * Creates a new `GtkDragSource` object.
@@ -206,71 +202,14 @@ public open class DragSource(
     public open fun dragCancel(): Unit = gtk_drag_source_drag_cancel(gtkDragSourcePointer.reinterpret())
 
     /**
-     * Gets the actions that are currently set on the `GtkDragSource`.
-     *
-     * @return the actions set on @source
-     */
-    public open fun getActions(): DragAction =
-        gtk_drag_source_get_actions(gtkDragSourcePointer.reinterpret()).run {
-            DragAction(this)
-        }
-
-    /**
-     * Gets the current content provider of a `GtkDragSource`.
-     *
-     * @return the `GdkContentProvider` of @source
-     */
-    public open fun getContent(): ContentProvider? =
-        gtk_drag_source_get_content(gtkDragSourcePointer.reinterpret())?.run {
-            ContentProvider(reinterpret())
-        }
-
-    /**
      * Returns the underlying `GdkDrag` object for an ongoing drag.
      *
      * @return the `GdkDrag` of the current
      *   drag operation
      */
-    public open fun getDrag(): Drag? =
-        gtk_drag_source_get_drag(gtkDragSourcePointer.reinterpret())?.run {
-            Drag(reinterpret())
-        }
-
-    /**
-     * Sets the actions on the `GtkDragSource`.
-     *
-     * During a DND operation, the actions are offered to potential
-     * drop targets. If @actions include %GDK_ACTION_MOVE, you need
-     * to listen to the [signal@Gtk.DragSource::drag-end] signal and
-     * handle @delete_data being true.
-     *
-     * This function can be called before a drag is started,
-     * or in a handler for the [signal@Gtk.DragSource::prepare] signal.
-     *
-     * @param actions the actions to offer
-     */
-    public open fun setActions(actions: DragAction): Unit =
-        gtk_drag_source_set_actions(gtkDragSourcePointer.reinterpret(), actions.mask)
-
-    /**
-     * Sets a content provider on a `GtkDragSource`.
-     *
-     * When the data is requested in the cause of a DND operation,
-     * it will be obtained from the content provider.
-     *
-     * This function can be called before a drag is started,
-     * or in a handler for the [signal@Gtk.DragSource::prepare] signal.
-     *
-     * You may consider setting the content provider back to
-     * null in a [signal@Gtk.DragSource::drag-end] signal handler.
-     *
-     * @param content a `GdkContentProvider`
-     */
-    public open fun setContent(content: ContentProvider? = null): Unit =
-        gtk_drag_source_set_content(
-            gtkDragSourcePointer.reinterpret(),
-            content?.gdkContentProviderPointer?.reinterpret()
-        )
+    public open fun getDrag(): Drag? = gtk_drag_source_get_drag(gtkDragSourcePointer.reinterpret())?.run {
+        Drag(reinterpret())
+    }
 
     /**
      * Sets a paintable to use as icon during DND operations.
@@ -288,11 +227,8 @@ public open class DragSource(
      * @param hotX the hotspot X coordinate on the icon
      * @param hotY the hotspot Y coordinate on the icon
      */
-    public open fun setIcon(
-        paintable: Paintable? = null,
-        hotX: Int,
-        hotY: Int,
-    ): Unit = gtk_drag_source_set_icon(gtkDragSourcePointer.reinterpret(), paintable?.gdkPaintablePointer, hotX, hotY)
+    public open fun setIcon(paintable: Paintable? = null, hotX: Int, hotY: Int): Unit =
+        gtk_drag_source_set_icon(gtkDragSourcePointer.reinterpret(), paintable?.gdkPaintablePointer, hotX, hotY)
 
     /**
      * Emitted on the drag source when a drag is started.
@@ -303,10 +239,7 @@ public open class DragSource(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `drag` the `GdkDrag` object
      */
-    public fun connectDragBegin(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (drag: Drag) -> Unit,
-    ): ULong =
+    public fun connectDragBegin(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (drag: Drag) -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "drag-begin",
@@ -329,15 +262,14 @@ public open class DragSource(
     public fun connectDragCancel(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (drag: Drag, reason: DragCancelReason) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "drag-cancel",
-            connectDragCancelFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "drag-cancel",
+        connectDragCancelFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted on the drag source when a drag is finished.
@@ -353,15 +285,14 @@ public open class DragSource(
     public fun connectDragEnd(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (drag: Drag, deleteData: Boolean) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "drag-end",
-            connectDragEndFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "drag-end",
+        connectDragEndFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted when a drag is about to be initiated.
@@ -377,15 +308,14 @@ public open class DragSource(
     public fun connectPrepare(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (x: Double, y: Double) -> ContentProvider?,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "prepare",
-            connectPrepareFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "prepare",
+        connectPrepareFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<DragSource> {
         override val type: GeneratedClassKGType<DragSource> =
@@ -408,28 +338,26 @@ private val connectDragBeginFunc: CPointer<CFunction<(CPointer<GdkDrag>) -> Unit
                 Drag(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 private val connectDragCancelFunc:
-    CPointer<CFunction<(CPointer<GdkDrag>, GdkDragCancelReason) -> Int>> =
-    staticCFunction {
+    CPointer<CFunction<(CPointer<GdkDrag>, GdkDragCancelReason) -> Int>> = staticCFunction {
             _: COpaquePointer,
             drag: CPointer<GdkDrag>?,
             reason: GdkDragCancelReason,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(drag: Drag, reason: DragCancelReason) -> Boolean>()
-            .get()
-            .invoke(
-                drag!!.run {
-                    Drag(reinterpret())
-                },
-                reason.run {
-                    DragCancelReason.fromNativeValue(this)
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(drag: Drag, reason: DragCancelReason) -> Boolean>().get().invoke(
+            drag!!.run {
+                Drag(reinterpret())
+            },
+            reason.run {
+                DragCancelReason.fromNativeValue(this)
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
 private val connectDragEndFunc: CPointer<CFunction<(CPointer<GdkDrag>, Int) -> Unit>> =
     staticCFunction {
@@ -444,19 +372,16 @@ private val connectDragEndFunc: CPointer<CFunction<(CPointer<GdkDrag>, Int) -> U
             },
             deleteData.asBoolean()
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 private val connectPrepareFunc:
-    CPointer<CFunction<(Double, Double) -> CPointer<GdkContentProvider>?>> =
-    staticCFunction {
+    CPointer<CFunction<(Double, Double) -> CPointer<GdkContentProvider>?>> = staticCFunction {
             _: COpaquePointer,
             x: Double,
             y: Double,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(x: Double, y: Double) -> ContentProvider?>()
-            .get()
-            .invoke(x, y)
-            ?.gdkContentProviderPointer
-    }.reinterpret()
+        userData.asStableRef<(x: Double, y: Double) -> ContentProvider?>().get().invoke(x, y)?.gdkContentProviderPointer
+    }
+        .reinterpret()

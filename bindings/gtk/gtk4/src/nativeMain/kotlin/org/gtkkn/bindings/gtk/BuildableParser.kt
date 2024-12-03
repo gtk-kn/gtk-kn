@@ -19,9 +19,7 @@ import org.gtkkn.native.gtk.GtkBuildableParser
  * - field `error`: Fields with callbacks are not supported
  * - field `padding`: Record field padding is private
  */
-public class BuildableParser(
-    pointer: CPointer<GtkBuildableParser>,
-) : Record {
+public class BuildableParser(pointer: CPointer<GtkBuildableParser>) : Record {
     public val gtkBuildableParserPointer: CPointer<GtkBuildableParser> = pointer
 
     public companion object : RecordCompanion<BuildableParser, GtkBuildableParser> {

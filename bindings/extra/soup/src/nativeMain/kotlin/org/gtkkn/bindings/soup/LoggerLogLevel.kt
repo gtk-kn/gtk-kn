@@ -6,9 +6,7 @@ import org.gtkkn.native.soup.SoupLoggerLogLevel
 /**
  * Describes the level of logging output to provide.
  */
-public enum class LoggerLogLevel(
-    public val nativeValue: SoupLoggerLogLevel,
-) {
+public enum class LoggerLogLevel(public val nativeValue: SoupLoggerLogLevel) {
     /**
      * No logging
      */
@@ -32,13 +30,12 @@ public enum class LoggerLogLevel(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: SoupLoggerLogLevel): LoggerLogLevel =
-            when (nativeValue) {
-                SoupLoggerLogLevel.SOUP_LOGGER_LOG_NONE -> NONE
-                SoupLoggerLogLevel.SOUP_LOGGER_LOG_MINIMAL -> MINIMAL
-                SoupLoggerLogLevel.SOUP_LOGGER_LOG_HEADERS -> HEADERS
-                SoupLoggerLogLevel.SOUP_LOGGER_LOG_BODY -> BODY
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: SoupLoggerLogLevel): LoggerLogLevel = when (nativeValue) {
+            SoupLoggerLogLevel.SOUP_LOGGER_LOG_NONE -> NONE
+            SoupLoggerLogLevel.SOUP_LOGGER_LOG_MINIMAL -> MINIMAL
+            SoupLoggerLogLevel.SOUP_LOGGER_LOG_HEADERS -> HEADERS
+            SoupLoggerLogLevel.SOUP_LOGGER_LOG_BODY -> BODY
+            else -> error("invalid nativeValue")
+        }
     }
 }

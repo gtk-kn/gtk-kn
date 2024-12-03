@@ -11,9 +11,7 @@ import org.gtkkn.native.gtk.GtkListTabBehavior
  * @since 4.12
  */
 @GtkVersion4_12
-public enum class ListTabBehavior(
-    public val nativeValue: GtkListTabBehavior,
-) {
+public enum class ListTabBehavior(public val nativeValue: GtkListTabBehavior) {
     /**
      * Cycle through all focusable items of the list
      */
@@ -37,12 +35,11 @@ public enum class ListTabBehavior(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkListTabBehavior): ListTabBehavior =
-            when (nativeValue) {
-                GtkListTabBehavior.GTK_LIST_TAB_ALL -> ALL
-                GtkListTabBehavior.GTK_LIST_TAB_ITEM -> ITEM
-                GtkListTabBehavior.GTK_LIST_TAB_CELL -> CELL
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkListTabBehavior): ListTabBehavior = when (nativeValue) {
+            GtkListTabBehavior.GTK_LIST_TAB_ALL -> ALL
+            GtkListTabBehavior.GTK_LIST_TAB_ITEM -> ITEM
+            GtkListTabBehavior.GTK_LIST_TAB_CELL -> CELL
+            else -> error("invalid nativeValue")
+        }
     }
 }

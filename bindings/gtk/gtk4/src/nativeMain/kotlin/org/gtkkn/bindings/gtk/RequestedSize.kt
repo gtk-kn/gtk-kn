@@ -19,9 +19,7 @@ import kotlin.Int
  *
  * - field `data`: gpointer
  */
-public class RequestedSize(
-    pointer: CPointer<GtkRequestedSize>,
-) : Record {
+public class RequestedSize(pointer: CPointer<GtkRequestedSize>) : Record {
     public val gtkRequestedSizePointer: CPointer<GtkRequestedSize> = pointer
 
     /**

@@ -7,13 +7,12 @@ import kotlin.collections.Map
 import kotlin.reflect.KClass
 
 public object JavascriptcoreTypeProvider : TypeProvider {
-    override val typeMap: Map<KClass<*>, KGType<*>> =
-        mapOf(
-            Class::class to Class.type,
-            Context::class to Context.type,
-            Exception::class to Exception.type,
-            Value::class to Value.type,
-            VirtualMachine::class to VirtualMachine.type,
-            WeakValue::class to WeakValue.type,
-        )
+    override val typeMap: Map<KClass<*>, KGType<*>> = mapOf(
+        Class::class to Class.type,
+        Context::class to Context.type,
+        Exception::class to Exception.type,
+        Value::class to Value.type,
+        VirtualMachine::class to VirtualMachine.type,
+        WeakValue::class to WeakValue.type,
+    )
 }

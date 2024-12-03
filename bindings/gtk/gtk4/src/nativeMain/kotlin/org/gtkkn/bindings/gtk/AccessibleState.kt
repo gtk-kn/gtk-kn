@@ -10,9 +10,7 @@ import kotlin.Unit
 /**
  * The possible accessible states of a [iface@Accessible].
  */
-public enum class AccessibleState(
-    public val nativeValue: GtkAccessibleState,
-) {
+public enum class AccessibleState(public val nativeValue: GtkAccessibleState) {
     /**
      * A “busy” state. This state has boolean values
      */
@@ -75,29 +73,20 @@ public enum class AccessibleState(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkAccessibleState): AccessibleState =
-            when (nativeValue) {
-                GtkAccessibleState.GTK_ACCESSIBLE_STATE_BUSY -> BUSY
-                GtkAccessibleState.GTK_ACCESSIBLE_STATE_CHECKED -> CHECKED
-                GtkAccessibleState.GTK_ACCESSIBLE_STATE_DISABLED -> DISABLED
-                GtkAccessibleState.GTK_ACCESSIBLE_STATE_EXPANDED -> EXPANDED
-                GtkAccessibleState.GTK_ACCESSIBLE_STATE_HIDDEN -> HIDDEN
-                GtkAccessibleState.GTK_ACCESSIBLE_STATE_INVALID -> INVALID
-                GtkAccessibleState.GTK_ACCESSIBLE_STATE_PRESSED -> PRESSED
-                GtkAccessibleState.GTK_ACCESSIBLE_STATE_SELECTED -> SELECTED
-                GtkAccessibleState.GTK_ACCESSIBLE_STATE_VISITED -> VISITED
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkAccessibleState): AccessibleState = when (nativeValue) {
+            GtkAccessibleState.GTK_ACCESSIBLE_STATE_BUSY -> BUSY
+            GtkAccessibleState.GTK_ACCESSIBLE_STATE_CHECKED -> CHECKED
+            GtkAccessibleState.GTK_ACCESSIBLE_STATE_DISABLED -> DISABLED
+            GtkAccessibleState.GTK_ACCESSIBLE_STATE_EXPANDED -> EXPANDED
+            GtkAccessibleState.GTK_ACCESSIBLE_STATE_HIDDEN -> HIDDEN
+            GtkAccessibleState.GTK_ACCESSIBLE_STATE_INVALID -> INVALID
+            GtkAccessibleState.GTK_ACCESSIBLE_STATE_PRESSED -> PRESSED
+            GtkAccessibleState.GTK_ACCESSIBLE_STATE_SELECTED -> SELECTED
+            GtkAccessibleState.GTK_ACCESSIBLE_STATE_VISITED -> VISITED
+            else -> error("invalid nativeValue")
+        }
 
-        /**
-         *
-         *
-         * @param state
-         * @param value
-         */
-        public fun initValue(
-            state: AccessibleState,
-            `value`: Value,
-        ): Unit = gtk_accessible_state_init_value(state.nativeValue, `value`.gobjectValuePointer.reinterpret())
+        public fun initValue(state: AccessibleState, `value`: Value): Unit =
+            gtk_accessible_state_init_value(state.nativeValue, `value`.gobjectValuePointer.reinterpret())
     }
 }

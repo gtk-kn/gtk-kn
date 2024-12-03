@@ -36,9 +36,7 @@ import kotlin.Unit
  * @since 2.42
  */
 @WebKitVersion2_42
-public class FeatureList(
-    pointer: CPointer<WebKitFeatureList>,
-) : Record {
+public class FeatureList(pointer: CPointer<WebKitFeatureList>) : Record {
     public val webkitFeatureListPointer: CPointer<WebKitFeatureList> = pointer
 
     /**
@@ -72,10 +70,9 @@ public class FeatureList(
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun ref(): FeatureList =
-        webkit_feature_list_ref(webkitFeatureListPointer.reinterpret())!!.run {
-            FeatureList(reinterpret())
-        }
+    public fun ref(): FeatureList = webkit_feature_list_ref(webkitFeatureListPointer.reinterpret())!!.run {
+        FeatureList(reinterpret())
+    }
 
     /**
      * Atomically releases a reference on the given @feature_list.

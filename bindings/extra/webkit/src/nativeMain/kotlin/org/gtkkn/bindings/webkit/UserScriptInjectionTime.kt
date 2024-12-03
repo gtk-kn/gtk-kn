@@ -9,9 +9,7 @@ import org.gtkkn.native.webkit.WebKitUserScriptInjectionTime
  * @since 2.6
  */
 @WebKitVersion2_6
-public enum class UserScriptInjectionTime(
-    public val nativeValue: WebKitUserScriptInjectionTime,
-) {
+public enum class UserScriptInjectionTime(public val nativeValue: WebKitUserScriptInjectionTime) {
     /**
      * Insert the code of the user
      *   script at the beginning of loaded documents. This is the default.

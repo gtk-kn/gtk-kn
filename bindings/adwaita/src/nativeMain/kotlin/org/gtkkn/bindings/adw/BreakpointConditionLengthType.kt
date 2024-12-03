@@ -13,9 +13,7 @@ import org.gtkkn.native.adw.AdwBreakpointConditionLengthType
  * @since 1.4
  */
 @AdwVersion1_4
-public enum class BreakpointConditionLengthType(
-    public val nativeValue: AdwBreakpointConditionLengthType,
-) {
+public enum class BreakpointConditionLengthType(public val nativeValue: AdwBreakpointConditionLengthType) {
     /**
      * true if the width is greater than or
      *   equal to the condition value

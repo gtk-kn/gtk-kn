@@ -15,9 +15,8 @@ import org.gtkkn.native.gsk.gsk_rounded_clip_node_new
 /**
  * A render node applying a rounded rectangle clip to its single child.
  */
-public open class RoundedClipNode(
-    pointer: CPointer<GskRoundedClipNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class RoundedClipNode(pointer: CPointer<GskRoundedClipNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskRoundedClipNodePointer: CPointer<GskRoundedClipNode>
         get() = gPointer.reinterpret()

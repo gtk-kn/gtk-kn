@@ -43,9 +43,8 @@ import kotlin.UInt
  *
  * - signal `changed`: Unsupported parameter `items_removed` : gpointer
  */
-public class BackForwardList(
-    pointer: CPointer<WebKitBackForwardList>,
-) : Object(pointer.reinterpret()),
+public class BackForwardList(pointer: CPointer<WebKitBackForwardList>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val webkitBackForwardListPointer: CPointer<WebKitBackForwardList>
         get() = gPointer.reinterpret()

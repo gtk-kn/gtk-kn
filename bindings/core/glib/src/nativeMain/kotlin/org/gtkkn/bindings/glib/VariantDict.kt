@@ -115,9 +115,7 @@ import kotlin.Unit
  * @since 2.40
  */
 @GLibVersion2_40
-public class VariantDict(
-    pointer: CPointer<GVariantDict>,
-) : Record {
+public class VariantDict(pointer: CPointer<GVariantDict>) : Record {
     public val glibVariantDictPointer: CPointer<GVariantDict> = pointer
 
     /**
@@ -165,10 +163,9 @@ public class VariantDict(
      * @since 2.40
      */
     @GLibVersion2_40
-    public fun end(): Variant =
-        g_variant_dict_end(glibVariantDictPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public fun end(): Variant = g_variant_dict_end(glibVariantDictPointer.reinterpret())!!.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Inserts (or replaces) a key in a #GVariantDict.
@@ -180,10 +177,7 @@ public class VariantDict(
      * @since 2.40
      */
     @GLibVersion2_40
-    public fun insertValue(
-        key: String,
-        `value`: Variant,
-    ): Unit =
+    public fun insertValue(key: String, `value`: Variant): Unit =
         g_variant_dict_insert_value(glibVariantDictPointer.reinterpret(), key, `value`.glibVariantPointer.reinterpret())
 
     /**
@@ -205,17 +199,13 @@ public class VariantDict(
      * @since 2.40
      */
     @GLibVersion2_40
-    public fun lookupValue(
-        key: String,
-        expectedType: VariantType? = null,
-    ): Variant? =
-        g_variant_dict_lookup_value(
-            glibVariantDictPointer.reinterpret(),
-            key,
-            expectedType?.glibVariantTypePointer?.reinterpret()
-        )?.run {
-            Variant(reinterpret())
-        }
+    public fun lookupValue(key: String, expectedType: VariantType? = null): Variant? = g_variant_dict_lookup_value(
+        glibVariantDictPointer.reinterpret(),
+        key,
+        expectedType?.glibVariantTypePointer?.reinterpret()
+    )?.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Increases the reference count on @dict.
@@ -227,10 +217,9 @@ public class VariantDict(
      * @since 2.40
      */
     @GLibVersion2_40
-    public fun ref(): VariantDict =
-        g_variant_dict_ref(glibVariantDictPointer.reinterpret())!!.run {
-            VariantDict(reinterpret())
-        }
+    public fun ref(): VariantDict = g_variant_dict_ref(glibVariantDictPointer.reinterpret())!!.run {
+        VariantDict(reinterpret())
+    }
 
     /**
      * Removes a key and its associated value from a #GVariantDict.

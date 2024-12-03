@@ -13,9 +13,7 @@ import org.gtkkn.native.gio.G_DBUS_SIGNAL_FLAGS_NO_MATCH_RULE
  * Flags used when subscribing to signals via g_dbus_connection_signal_subscribe().
  * @since 2.26
  */
-public class DBusSignalFlags(
-    public val mask: GDBusSignalFlags,
-) : Bitfield<DBusSignalFlags> {
+public class DBusSignalFlags(public val mask: GDBusSignalFlags) : Bitfield<DBusSignalFlags> {
     override infix fun or(other: DBusSignalFlags): DBusSignalFlags = DBusSignalFlags(mask or other.mask)
 
     @GioVersion2_26

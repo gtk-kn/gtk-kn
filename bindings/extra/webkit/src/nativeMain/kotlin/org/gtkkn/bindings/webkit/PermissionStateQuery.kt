@@ -29,9 +29,7 @@ import kotlin.Unit
  * When a #WebKitPermissionStateQuery is not handled by the user, the user-agent is instructed to
  * `prompt` the user for the given permission.
  */
-public class PermissionStateQuery(
-    pointer: CPointer<WebKitPermissionStateQuery>,
-) : Record {
+public class PermissionStateQuery(pointer: CPointer<WebKitPermissionStateQuery>) : Record {
     public val webkitPermissionStateQueryPointer: CPointer<WebKitPermissionStateQuery> = pointer
 
     /**

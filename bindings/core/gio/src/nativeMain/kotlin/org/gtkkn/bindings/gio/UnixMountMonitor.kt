@@ -29,9 +29,8 @@ import kotlin.Unit
 /**
  * Watches #GUnixMounts for changes.
  */
-public open class UnixMountMonitor(
-    pointer: CPointer<GUnixMountMonitor>,
-) : Object(pointer.reinterpret()),
+public open class UnixMountMonitor(pointer: CPointer<GUnixMountMonitor>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioUnixMountMonitorPointer: CPointer<GUnixMountMonitor>
         get() = gPointer.reinterpret()
@@ -69,10 +68,7 @@ public open class UnixMountMonitor(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectMountpointsChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectMountpointsChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "mountpoints-changed",
@@ -88,10 +84,7 @@ public open class UnixMountMonitor(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectMountsChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectMountsChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "mounts-changed",
@@ -124,25 +117,24 @@ public open class UnixMountMonitor(
          * @since 2.44
          */
         @GioVersion2_44
-        public fun `get`(): UnixMountMonitor =
-            g_unix_mount_monitor_get()!!.run {
-                UnixMountMonitor(reinterpret())
-            }
+        public fun `get`(): UnixMountMonitor = g_unix_mount_monitor_get()!!.run {
+            UnixMountMonitor(reinterpret())
+        }
     }
 }
 
-private val connectMountpointsChangedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectMountpointsChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectMountsChangedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectMountsChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

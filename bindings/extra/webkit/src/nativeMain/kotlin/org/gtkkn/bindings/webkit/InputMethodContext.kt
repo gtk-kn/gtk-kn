@@ -60,9 +60,8 @@ import kotlin.Unit
  * @since 2.28
  */
 @WebKitVersion2_28
-public open class InputMethodContext(
-    pointer: CPointer<WebKitInputMethodContext>,
-) : Object(pointer.reinterpret()),
+public open class InputMethodContext(pointer: CPointer<WebKitInputMethodContext>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val webkitInputMethodContextPointer: CPointer<WebKitInputMethodContext>
         get() = gPointer.reinterpret()
@@ -80,10 +79,9 @@ public open class InputMethodContext(
          * @return the #WebKitInputHints of the input associated with @context
          * @since 2.28
          */
-        get() =
-            webkit_input_method_context_get_input_hints(webkitInputMethodContextPointer.reinterpret()).run {
-                InputHints(this)
-            }
+        get() = webkit_input_method_context_get_input_hints(webkitInputMethodContextPointer.reinterpret()).run {
+            InputHints(this)
+        }
 
         /**
          * Set the value of the #WebKitInputMethodContext:input-hints property.
@@ -109,10 +107,9 @@ public open class InputMethodContext(
          * @return the #WebKitInputPurpose of the input associated with @context
          * @since 2.28
          */
-        get() =
-            webkit_input_method_context_get_input_purpose(webkitInputMethodContextPointer.reinterpret()).run {
-                InputPurpose.fromNativeValue(this)
-            }
+        get() = webkit_input_method_context_get_input_purpose(webkitInputMethodContextPointer.reinterpret()).run {
+            InputPurpose.fromNativeValue(this)
+        }
 
         /**
          * Set the value of the #WebKitInputMethodContext:input-purpose property.
@@ -123,11 +120,10 @@ public open class InputMethodContext(
         @WebKitVersion2_28
         set(
             purpose
-        ) =
-            webkit_input_method_context_set_input_purpose(
-                webkitInputMethodContextPointer.reinterpret(),
-                purpose.nativeValue
-            )
+        ) = webkit_input_method_context_set_input_purpose(
+            webkitInputMethodContextPointer.reinterpret(),
+            purpose.nativeValue
+        )
 
     /**
      * Allow @key_event to be handled by the input method.
@@ -140,35 +136,10 @@ public open class InputMethodContext(
      * @since 2.28
      */
     @WebKitVersion2_28
-    public open fun filterKeyEvent(keyEvent: Event): Boolean =
-        webkit_input_method_context_filter_key_event(
-            webkitInputMethodContextPointer.reinterpret(),
-            keyEvent.gPointer.reinterpret()
-        ).asBoolean()
-
-    /**
-     * Get the value of the #WebKitInputMethodContext:input-hints property.
-     *
-     * @return the #WebKitInputHints of the input associated with @context
-     * @since 2.28
-     */
-    @WebKitVersion2_28
-    public open fun getInputHints(): InputHints =
-        webkit_input_method_context_get_input_hints(webkitInputMethodContextPointer.reinterpret()).run {
-            InputHints(this)
-        }
-
-    /**
-     * Get the value of the #WebKitInputMethodContext:input-purpose property.
-     *
-     * @return the #WebKitInputPurpose of the input associated with @context
-     * @since 2.28
-     */
-    @WebKitVersion2_28
-    public open fun getInputPurpose(): InputPurpose =
-        webkit_input_method_context_get_input_purpose(webkitInputMethodContextPointer.reinterpret()).run {
-            InputPurpose.fromNativeValue(this)
-        }
+    public open fun filterKeyEvent(keyEvent: Event): Boolean = webkit_input_method_context_filter_key_event(
+        webkitInputMethodContextPointer.reinterpret(),
+        keyEvent.gPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Notify @context that cursor area changed in input associated.
@@ -180,12 +151,7 @@ public open class InputMethodContext(
      * @since 2.28
      */
     @WebKitVersion2_28
-    public open fun notifyCursorArea(
-        x: Int,
-        y: Int,
-        width: Int,
-        height: Int,
-    ): Unit =
+    public open fun notifyCursorArea(x: Int, y: Int, width: Int, height: Int): Unit =
         webkit_input_method_context_notify_cursor_area(
             webkitInputMethodContextPointer.reinterpret(),
             x,
@@ -224,12 +190,7 @@ public open class InputMethodContext(
      * @since 2.28
      */
     @WebKitVersion2_28
-    public open fun notifySurrounding(
-        text: String,
-        length: Int,
-        cursorIndex: UInt,
-        selectionIndex: UInt,
-    ): Unit =
+    public open fun notifySurrounding(text: String, length: Int, cursorIndex: UInt, selectionIndex: UInt): Unit =
         webkit_input_method_context_notify_surrounding(
             webkitInputMethodContextPointer.reinterpret(),
             text,
@@ -255,34 +216,10 @@ public open class InputMethodContext(
      * @since 2.28
      */
     @WebKitVersion2_28
-    public open fun setEnablePreedit(enabled: Boolean): Unit =
-        webkit_input_method_context_set_enable_preedit(
-            webkitInputMethodContextPointer.reinterpret(),
-            enabled.asGBoolean()
-        )
-
-    /**
-     * Set the value of the #WebKitInputMethodContext:input-hints property.
-     *
-     * @param hints a #WebKitInputHints
-     * @since 2.28
-     */
-    @WebKitVersion2_28
-    public open fun setInputHints(hints: InputHints): Unit =
-        webkit_input_method_context_set_input_hints(webkitInputMethodContextPointer.reinterpret(), hints.mask)
-
-    /**
-     * Set the value of the #WebKitInputMethodContext:input-purpose property.
-     *
-     * @param purpose a #WebKitInputPurpose
-     * @since 2.28
-     */
-    @WebKitVersion2_28
-    public open fun setInputPurpose(purpose: InputPurpose): Unit =
-        webkit_input_method_context_set_input_purpose(
-            webkitInputMethodContextPointer.reinterpret(),
-            purpose.nativeValue
-        )
+    public open fun setEnablePreedit(enabled: Boolean): Unit = webkit_input_method_context_set_enable_preedit(
+        webkitInputMethodContextPointer.reinterpret(),
+        enabled.asGBoolean()
+    )
 
     /**
      * Emitted when a complete input sequence has been entered by the user.
@@ -294,10 +231,7 @@ public open class InputMethodContext(
      * @since 2.28
      */
     @WebKitVersion2_28
-    public fun connectCommitted(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (text: String) -> Unit,
-    ): ULong =
+    public fun connectCommitted(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (text: String) -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "committed",
@@ -319,15 +253,14 @@ public open class InputMethodContext(
     public fun connectDeleteSurrounding(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (offset: Int, nChars: UInt) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "delete-surrounding",
-            connectDeleteSurroundingFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "delete-surrounding",
+        connectDeleteSurroundingFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted whenever the preedit sequence currently being entered has changed.
@@ -339,10 +272,7 @@ public open class InputMethodContext(
      * @since 2.28
      */
     @WebKitVersion2_28
-    public fun connectPreeditChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectPreeditChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "preedit-changed",
@@ -360,10 +290,7 @@ public open class InputMethodContext(
      * @since 2.28
      */
     @WebKitVersion2_28
-    public fun connectPreeditFinished(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectPreeditFinished(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "preedit-finished",
@@ -381,10 +308,7 @@ public open class InputMethodContext(
      * @since 2.28
      */
     @WebKitVersion2_28
-    public fun connectPreeditStarted(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectPreeditStarted(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "preedit-started",
@@ -410,15 +334,13 @@ private val connectCommittedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit
             text: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<
-                (
-                    text: String,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(text?.toKString() ?: error("Expected not null string"))
-    }.reinterpret()
+        userData.asStableRef<
+            (
+                text: String,
+            ) -> Unit
+            >().get().invoke(text?.toKString() ?: error("Expected not null string"))
+    }
+        .reinterpret()
 
 private val connectDeleteSurroundingFunc: CPointer<CFunction<(Int, UInt) -> Unit>> =
     staticCFunction {
@@ -428,28 +350,29 @@ private val connectDeleteSurroundingFunc: CPointer<CFunction<(Int, UInt) -> Unit
             userData: COpaquePointer,
         ->
         userData.asStableRef<(offset: Int, nChars: UInt) -> Unit>().get().invoke(offset, nChars)
-    }.reinterpret()
+    }
+        .reinterpret()
 
-private val connectPreeditChangedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectPreeditChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectPreeditFinishedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectPreeditFinishedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectPreeditStartedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectPreeditStartedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

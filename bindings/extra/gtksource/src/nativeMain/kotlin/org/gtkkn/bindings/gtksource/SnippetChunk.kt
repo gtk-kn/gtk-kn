@@ -43,9 +43,8 @@ import kotlin.Unit
  *
  * - method `spec`: Property TypeInfo of getter and setter do not match
  */
-public open class SnippetChunk(
-    pointer: CPointer<GtkSourceSnippetChunk>,
-) : InitiallyUnowned(pointer.reinterpret()),
+public open class SnippetChunk(pointer: CPointer<GtkSourceSnippetChunk>) :
+    InitiallyUnowned(pointer.reinterpret()),
     KGTyped {
     public val gtksourceSnippetChunkPointer: CPointer<GtkSourceSnippetChunk>
         get() = gPointer.reinterpret()
@@ -56,23 +55,15 @@ public open class SnippetChunk(
          *
          * @return A #GtkSourceSnippetContext
          */
-        get() =
-            gtk_source_snippet_chunk_get_context(gtksourceSnippetChunkPointer.reinterpret())!!.run {
-                SnippetContext(reinterpret())
-            }
-
-        /**
-         *
-         *
-         * @param context
-         */
+        get() = gtk_source_snippet_chunk_get_context(gtksourceSnippetChunkPointer.reinterpret())!!.run {
+            SnippetContext(reinterpret())
+        }
         set(
             context
-        ) =
-            gtk_source_snippet_chunk_set_context(
-                gtksourceSnippetChunkPointer.reinterpret(),
-                context.gtksourceSnippetContextPointer.reinterpret()
-            )
+        ) = gtk_source_snippet_chunk_set_context(
+            gtksourceSnippetChunkPointer.reinterpret(),
+            context.gtksourceSnippetContextPointer.reinterpret()
+        )
 
     public open var focusPosition: Int
         /**
@@ -117,9 +108,8 @@ public open class SnippetChunk(
          *
          * @return the text of the chunk
          */
-        get() =
-            gtk_source_snippet_chunk_get_text(gtksourceSnippetChunkPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_source_snippet_chunk_get_text(gtksourceSnippetChunkPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Sets the text for the snippet chunk.
@@ -153,15 +143,8 @@ public open class SnippetChunk(
         ) = gtk_source_snippet_chunk_set_text_set(gtksourceSnippetChunkPointer.reinterpret(), textSet.asGBoolean())
 
     public open var tooltipText: String
-        get() =
-            gtk_source_snippet_chunk_get_tooltip_text(gtksourceSnippetChunkPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
-
-        /**
-         *
-         *
-         * @param tooltipText
-         */
+        get() = gtk_source_snippet_chunk_get_tooltip_text(gtksourceSnippetChunkPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
         set(
             tooltipText
         ) = gtk_source_snippet_chunk_set_tooltip_text(gtksourceSnippetChunkPointer.reinterpret(), tooltipText)
@@ -183,32 +166,6 @@ public open class SnippetChunk(
         }
 
     /**
-     * Gets the context for the snippet insertion.
-     *
-     * @return A #GtkSourceSnippetContext
-     */
-    public open fun getContext(): SnippetContext =
-        gtk_source_snippet_chunk_get_context(gtksourceSnippetChunkPointer.reinterpret())!!.run {
-            SnippetContext(reinterpret())
-        }
-
-    /**
-     * Gets the [property@SnippetChunk:focus-position].
-     *
-     * The focus-position is used to determine how many tabs it takes for the
-     * snippet to advanced to this chunk.
-     *
-     * A focus-position of zero will be the last focus position of the snippet
-     * and snippet editing ends when it has been reached.
-     *
-     * A focus-position of -1 means the chunk cannot be focused by the user.
-     *
-     * @return the focus-position
-     */
-    public open fun getFocusPosition(): Int =
-        gtk_source_snippet_chunk_get_focus_position(gtksourceSnippetChunkPointer.reinterpret())
-
-    /**
      * Gets the specification for the chunk.
      *
      * The specification is evaluated for variables when other chunks are edited
@@ -222,58 +179,6 @@ public open class SnippetChunk(
         gtk_source_snippet_chunk_get_spec(gtksourceSnippetChunkPointer.reinterpret())?.toKString()
 
     /**
-     * Gets the [property@SnippetChunk:text] property.
-     *
-     * The text property is updated when the user edits the text of the chunk.
-     * If it has not been edited, the [property@SnippetChunk:spec] property is
-     * returned.
-     *
-     * @return the text of the chunk
-     */
-    public open fun getText(): String =
-        gtk_source_snippet_chunk_get_text(gtksourceSnippetChunkPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets the [property@SnippetChunk:text-set] property.
-     *
-     * This is typically set when the user has edited a snippet chunk.
-     */
-    public open fun getTextSet(): Boolean =
-        gtk_source_snippet_chunk_get_text_set(gtksourceSnippetChunkPointer.reinterpret()).asBoolean()
-
-    public open fun getTooltipText(): String =
-        gtk_source_snippet_chunk_get_tooltip_text(gtksourceSnippetChunkPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     *
-     *
-     * @param context
-     */
-    public open fun setContext(context: SnippetContext): Unit =
-        gtk_source_snippet_chunk_set_context(
-            gtksourceSnippetChunkPointer.reinterpret(),
-            context.gtksourceSnippetContextPointer.reinterpret()
-        )
-
-    /**
-     * Sets the [property@SnippetChunk:focus-position] property.
-     *
-     * The focus-position is used to determine how many tabs it takes for the
-     * snippet to advanced to this chunk.
-     *
-     * A focus-position of zero will be the last focus position of the snippet
-     * and snippet editing ends when it has been reached.
-     *
-     * A focus-position of -1 means the chunk cannot be focused by the user.
-     *
-     * @param focusPosition the focus-position
-     */
-    public open fun setFocusPosition(focusPosition: Int): Unit =
-        gtk_source_snippet_chunk_set_focus_position(gtksourceSnippetChunkPointer.reinterpret(), focusPosition)
-
-    /**
      * Sets the specification for the chunk.
      *
      * The specification is evaluated for variables when other chunks are edited
@@ -285,37 +190,6 @@ public open class SnippetChunk(
      */
     public open fun setSpec(spec: String): Unit =
         gtk_source_snippet_chunk_set_spec(gtksourceSnippetChunkPointer.reinterpret(), spec)
-
-    /**
-     * Sets the text for the snippet chunk.
-     *
-     * This is usually used by the snippet engine to update the text, but may
-     * be useful when creating custom snippets to avoid expansion of any
-     * specification.
-     *
-     * @param text the text of the property
-     */
-    public open fun setText(text: String): Unit =
-        gtk_source_snippet_chunk_set_text(gtksourceSnippetChunkPointer.reinterpret(), text)
-
-    /**
-     * Sets the [property@SnippetChunk:text-set] property.
-     *
-     * This is typically set when the user has edited a snippet chunk by the
-     * snippet engine.
-     *
-     * @param textSet the property value
-     */
-    public open fun setTextSet(textSet: Boolean): Unit =
-        gtk_source_snippet_chunk_set_text_set(gtksourceSnippetChunkPointer.reinterpret(), textSet.asGBoolean())
-
-    /**
-     *
-     *
-     * @param tooltipText
-     */
-    public open fun setTooltipText(tooltipText: String): Unit =
-        gtk_source_snippet_chunk_set_tooltip_text(gtksourceSnippetChunkPointer.reinterpret(), tooltipText)
 
     public companion object : TypeCompanion<SnippetChunk> {
         override val type: GeneratedClassKGType<SnippetChunk> =

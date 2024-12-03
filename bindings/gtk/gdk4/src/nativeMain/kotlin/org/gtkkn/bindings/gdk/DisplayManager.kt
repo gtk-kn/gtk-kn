@@ -76,9 +76,8 @@ import kotlin.Unit
  *
  * - method `default-display`: Property TypeInfo of getter and setter do not match
  */
-public open class DisplayManager(
-    pointer: CPointer<GdkDisplayManager>,
-) : Object(pointer.reinterpret()),
+public open class DisplayManager(pointer: CPointer<GdkDisplayManager>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gdkDisplayManagerPointer: CPointer<GdkDisplayManager>
         get() = gPointer.reinterpret()
@@ -121,11 +120,10 @@ public open class DisplayManager(
      *
      * @param display a `GdkDisplay`
      */
-    public open fun setDefaultDisplay(display: Display): Unit =
-        gdk_display_manager_set_default_display(
-            gdkDisplayManagerPointer.reinterpret(),
-            display.gdkDisplayPointer.reinterpret()
-        )
+    public open fun setDefaultDisplay(display: Display): Unit = gdk_display_manager_set_default_display(
+        gdkDisplayManagerPointer.reinterpret(),
+        display.gdkDisplayPointer.reinterpret()
+    )
 
     /**
      * Emitted when a display is opened.
@@ -136,15 +134,14 @@ public open class DisplayManager(
     public fun connectDisplayOpened(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (display: Display) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "display-opened",
-            connectDisplayOpenedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "display-opened",
+        connectDisplayOpenedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<DisplayManager> {
         override val type: GeneratedClassKGType<DisplayManager> =
@@ -167,10 +164,9 @@ public open class DisplayManager(
          *
          * @return The global `GdkDisplayManager` singleton
          */
-        public fun `get`(): DisplayManager =
-            gdk_display_manager_get()!!.run {
-                DisplayManager(reinterpret())
-            }
+        public fun `get`(): DisplayManager = gdk_display_manager_get()!!.run {
+            DisplayManager(reinterpret())
+        }
     }
 }
 
@@ -185,4 +181,5 @@ private val connectDisplayOpenedFunc: CPointer<CFunction<(CPointer<GdkDisplay>) 
                 Display(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()

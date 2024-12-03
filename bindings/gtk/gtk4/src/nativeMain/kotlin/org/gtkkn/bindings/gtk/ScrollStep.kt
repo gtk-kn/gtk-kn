@@ -6,9 +6,7 @@ import org.gtkkn.native.gtk.GtkScrollStep
 /**
  * Passed as argument to various keybinding signals.
  */
-public enum class ScrollStep(
-    public val nativeValue: GtkScrollStep,
-) {
+public enum class ScrollStep(public val nativeValue: GtkScrollStep) {
     /**
      * Scroll in steps.
      */
@@ -41,15 +39,14 @@ public enum class ScrollStep(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkScrollStep): ScrollStep =
-            when (nativeValue) {
-                GtkScrollStep.GTK_SCROLL_STEPS -> STEPS
-                GtkScrollStep.GTK_SCROLL_PAGES -> PAGES
-                GtkScrollStep.GTK_SCROLL_ENDS -> ENDS
-                GtkScrollStep.GTK_SCROLL_HORIZONTAL_STEPS -> HORIZONTAL_STEPS
-                GtkScrollStep.GTK_SCROLL_HORIZONTAL_PAGES -> HORIZONTAL_PAGES
-                GtkScrollStep.GTK_SCROLL_HORIZONTAL_ENDS -> HORIZONTAL_ENDS
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkScrollStep): ScrollStep = when (nativeValue) {
+            GtkScrollStep.GTK_SCROLL_STEPS -> STEPS
+            GtkScrollStep.GTK_SCROLL_PAGES -> PAGES
+            GtkScrollStep.GTK_SCROLL_ENDS -> ENDS
+            GtkScrollStep.GTK_SCROLL_HORIZONTAL_STEPS -> HORIZONTAL_STEPS
+            GtkScrollStep.GTK_SCROLL_HORIZONTAL_PAGES -> HORIZONTAL_PAGES
+            GtkScrollStep.GTK_SCROLL_HORIZONTAL_ENDS -> HORIZONTAL_ENDS
+            else -> error("invalid nativeValue")
+        }
     }
 }

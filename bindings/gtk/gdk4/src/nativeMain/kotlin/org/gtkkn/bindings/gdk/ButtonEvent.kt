@@ -14,9 +14,8 @@ import kotlin.UInt
 /**
  * An event related to a button on a pointer device.
  */
-public open class ButtonEvent(
-    pointer: CPointer<GdkButtonEvent>,
-) : Event(pointer.reinterpret()),
+public open class ButtonEvent(pointer: CPointer<GdkButtonEvent>) :
+    Event(pointer.reinterpret()),
     KGTyped {
     public val gdkButtonEventPointer: CPointer<GdkButtonEvent>
         get() = gPointer.reinterpret()

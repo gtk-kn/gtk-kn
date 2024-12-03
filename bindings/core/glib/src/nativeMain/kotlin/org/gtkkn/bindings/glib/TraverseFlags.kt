@@ -14,9 +14,7 @@ import org.gtkkn.native.glib.G_TRAVERSE_NON_LEAVES
  * Specifies which nodes are visited during several of the tree
  * functions, including g_node_traverse() and g_node_find().
  */
-public class TraverseFlags(
-    public val mask: GTraverseFlags,
-) : Bitfield<TraverseFlags> {
+public class TraverseFlags(public val mask: GTraverseFlags) : Bitfield<TraverseFlags> {
     override infix fun or(other: TraverseFlags): TraverseFlags = TraverseFlags(mask or other.mask)
 
     public companion object {

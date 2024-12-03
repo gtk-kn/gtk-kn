@@ -11,9 +11,7 @@ import org.gtkkn.native.gio.G_DBUS_SUBTREE_FLAGS_NONE
  * Flags passed to g_dbus_connection_register_subtree().
  * @since 2.26
  */
-public class DBusSubtreeFlags(
-    public val mask: GDBusSubtreeFlags,
-) : Bitfield<DBusSubtreeFlags> {
+public class DBusSubtreeFlags(public val mask: GDBusSubtreeFlags) : Bitfield<DBusSubtreeFlags> {
     override infix fun or(other: DBusSubtreeFlags): DBusSubtreeFlags = DBusSubtreeFlags(mask or other.mask)
 
     @GioVersion2_26

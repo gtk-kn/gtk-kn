@@ -36,9 +36,8 @@ import kotlin.Unit
  *
  * GTK itself includes an implementation using GStreamer.
  */
-public open class MediaFile(
-    pointer: CPointer<GtkMediaFile>,
-) : MediaStream(pointer.reinterpret()),
+public open class MediaFile(pointer: CPointer<GtkMediaFile>) :
+    MediaStream(pointer.reinterpret()),
     KGTyped {
     public val gtkMediaFilePointer: CPointer<GtkMediaFile>
         get() = gPointer.reinterpret()
@@ -58,10 +57,9 @@ public open class MediaFile(
          *
          * @return The currently playing file
          */
-        get() =
-            gtk_media_file_get_file(gtkMediaFilePointer.reinterpret())?.run {
-                File.wrap(reinterpret())
-            }
+        get() = gtk_media_file_get_file(gtkMediaFilePointer.reinterpret())?.run {
+            File.wrap(reinterpret())
+        }
 
         /**
          * Sets the `GtkMediaFile` to play the given file.
@@ -86,10 +84,9 @@ public open class MediaFile(
          *
          * @return The currently playing stream
          */
-        get() =
-            gtk_media_file_get_input_stream(gtkMediaFilePointer.reinterpret())?.run {
-                InputStream(reinterpret())
-            }
+        get() = gtk_media_file_get_input_stream(gtkMediaFilePointer.reinterpret())?.run {
+            InputStream(reinterpret())
+        }
 
         /**
          * Sets the `GtkMediaFile` to play the given stream.
@@ -103,11 +100,10 @@ public open class MediaFile(
          */
         set(
             stream
-        ) =
-            gtk_media_file_set_input_stream(
-                gtkMediaFilePointer.reinterpret(),
-                stream?.gioInputStreamPointer?.reinterpret()
-            )
+        ) = gtk_media_file_set_input_stream(
+            gtkMediaFilePointer.reinterpret(),
+            stream?.gioInputStreamPointer?.reinterpret()
+        )
 
     /**
      * Creates a new empty media file.
@@ -154,42 +150,6 @@ public open class MediaFile(
     public open fun clear(): Unit = gtk_media_file_clear(gtkMediaFilePointer.reinterpret())
 
     /**
-     * Returns the file that @self is currently playing from.
-     *
-     * When @self is not playing or not playing from a file,
-     * null is returned.
-     *
-     * @return The currently playing file
-     */
-    public open fun getFile(): File? =
-        gtk_media_file_get_file(gtkMediaFilePointer.reinterpret())?.run {
-            File.wrap(reinterpret())
-        }
-
-    /**
-     * Returns the stream that @self is currently playing from.
-     *
-     * When @self is not playing or not playing from a stream,
-     * null is returned.
-     *
-     * @return The currently playing stream
-     */
-    public open fun getInputStream(): InputStream? =
-        gtk_media_file_get_input_stream(gtkMediaFilePointer.reinterpret())?.run {
-            InputStream(reinterpret())
-        }
-
-    /**
-     * Sets the `GtkMediaFile` to play the given file.
-     *
-     * If any file is still playing, stop playing it.
-     *
-     * @param file the file to play
-     */
-    public open fun setFile(`file`: File? = null): Unit =
-        gtk_media_file_set_file(gtkMediaFilePointer.reinterpret(), `file`?.gioFilePointer)
-
-    /**
      * Sets the `GtkMediaFile to play the given file.
      *
      * This is a utility function that converts the given @filename
@@ -199,19 +159,6 @@ public open class MediaFile(
      */
     public open fun setFilename(filename: String? = null): Unit =
         gtk_media_file_set_filename(gtkMediaFilePointer.reinterpret(), filename)
-
-    /**
-     * Sets the `GtkMediaFile` to play the given stream.
-     *
-     * If anything is still playing, stop playing it.
-     *
-     * Full control about the @stream is assumed for the duration of
-     * playback. The stream will not be closed.
-     *
-     * @param stream the stream to play from
-     */
-    public open fun setInputStream(stream: InputStream? = null): Unit =
-        gtk_media_file_set_input_stream(gtkMediaFilePointer.reinterpret(), stream?.gioInputStreamPointer?.reinterpret())
 
     /**
      * Sets the `GtkMediaFile to play the given resource.

@@ -26,9 +26,7 @@ import kotlin.Unit
  * - field `user_data2`: gpointer
  * - field `user_data3`: gpointer
  */
-public class TreeIter(
-    pointer: CPointer<GtkTreeIter>,
-) : Record {
+public class TreeIter(pointer: CPointer<GtkTreeIter>) : Record {
     public val gtkTreeIterPointer: CPointer<GtkTreeIter> = pointer
 
     /**
@@ -50,10 +48,9 @@ public class TreeIter(
      *
      * @return a newly-allocated copy of @iter
      */
-    public fun copy(): TreeIter =
-        gtk_tree_iter_copy(gtkTreeIterPointer.reinterpret())!!.run {
-            TreeIter(reinterpret())
-        }
+    public fun copy(): TreeIter = gtk_tree_iter_copy(gtkTreeIterPointer.reinterpret())!!.run {
+        TreeIter(reinterpret())
+    }
 
     /**
      * Frees an iterator that has been allocated by gtk_tree_iter_copy().

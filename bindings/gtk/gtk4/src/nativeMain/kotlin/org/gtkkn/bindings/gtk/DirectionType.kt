@@ -6,9 +6,7 @@ import org.gtkkn.native.gtk.GtkDirectionType
 /**
  * Focus movement types.
  */
-public enum class DirectionType(
-    public val nativeValue: GtkDirectionType,
-) {
+public enum class DirectionType(public val nativeValue: GtkDirectionType) {
     /**
      * Move forward.
      */
@@ -41,15 +39,14 @@ public enum class DirectionType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkDirectionType): DirectionType =
-            when (nativeValue) {
-                GtkDirectionType.GTK_DIR_TAB_FORWARD -> TAB_FORWARD
-                GtkDirectionType.GTK_DIR_TAB_BACKWARD -> TAB_BACKWARD
-                GtkDirectionType.GTK_DIR_UP -> UP
-                GtkDirectionType.GTK_DIR_DOWN -> DOWN
-                GtkDirectionType.GTK_DIR_LEFT -> LEFT
-                GtkDirectionType.GTK_DIR_RIGHT -> RIGHT
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkDirectionType): DirectionType = when (nativeValue) {
+            GtkDirectionType.GTK_DIR_TAB_FORWARD -> TAB_FORWARD
+            GtkDirectionType.GTK_DIR_TAB_BACKWARD -> TAB_BACKWARD
+            GtkDirectionType.GTK_DIR_UP -> UP
+            GtkDirectionType.GTK_DIR_DOWN -> DOWN
+            GtkDirectionType.GTK_DIR_LEFT -> LEFT
+            GtkDirectionType.GTK_DIR_RIGHT -> RIGHT
+            else -> error("invalid nativeValue")
+        }
     }
 }

@@ -86,9 +86,8 @@ import kotlin.Unit
  * - method `text`: Property has no getter nor setter
  * - method `use-markup`: Property has no getter nor setter
  */
-public open class MessageDialog(
-    pointer: CPointer<GtkMessageDialog>,
-) : Dialog(pointer.reinterpret()),
+public open class MessageDialog(pointer: CPointer<GtkMessageDialog>) :
+    Dialog(pointer.reinterpret()),
     KGTyped {
     public val gtkMessageDialogPointer: CPointer<GtkMessageDialog>
         get() = gPointer.reinterpret()
@@ -129,24 +128,7 @@ public open class MessageDialog(
          * @return A `GtkBox` corresponding to the
          *   “message area” in the @message_dialog
          */
-        get() =
-            gtk_message_dialog_get_message_area(gtkMessageDialogPointer.reinterpret())!!.run {
-                Widget(reinterpret())
-            }
-
-    /**
-     * Returns the message area of the dialog.
-     *
-     * This is the box where the dialog’s primary and secondary labels
-     * are packed. You can add your own extra content to that box and it
-     * will appear below those labels. See [method@Gtk.Dialog.get_content_area]
-     * for the corresponding function in the parent [class@Gtk.Dialog].
-     *
-     * @return A `GtkBox` corresponding to the
-     *   “message area” in the @message_dialog
-     */
-    public open fun getMessageArea(): Widget =
-        gtk_message_dialog_get_message_area(gtkMessageDialogPointer.reinterpret())!!.run {
+        get() = gtk_message_dialog_get_message_area(gtkMessageDialogPointer.reinterpret())!!.run {
             Widget(reinterpret())
         }
 

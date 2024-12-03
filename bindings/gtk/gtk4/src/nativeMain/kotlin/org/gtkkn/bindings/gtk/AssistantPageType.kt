@@ -15,9 +15,7 @@ import org.gtkkn.native.gtk.GtkAssistantPageType
  * The Cancel button will only be shown if the page isn’t “committed”.
  * See gtk_assistant_commit() for details.
  */
-public enum class AssistantPageType(
-    public val nativeValue: GtkAssistantPageType,
-) {
+public enum class AssistantPageType(public val nativeValue: GtkAssistantPageType) {
     /**
      * The page has regular contents. Both the
      *  Back and forward buttons will be shown.
@@ -59,15 +57,14 @@ public enum class AssistantPageType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkAssistantPageType): AssistantPageType =
-            when (nativeValue) {
-                GtkAssistantPageType.GTK_ASSISTANT_PAGE_CONTENT -> CONTENT
-                GtkAssistantPageType.GTK_ASSISTANT_PAGE_INTRO -> INTRO
-                GtkAssistantPageType.GTK_ASSISTANT_PAGE_CONFIRM -> CONFIRM
-                GtkAssistantPageType.GTK_ASSISTANT_PAGE_SUMMARY -> SUMMARY
-                GtkAssistantPageType.GTK_ASSISTANT_PAGE_PROGRESS -> PROGRESS
-                GtkAssistantPageType.GTK_ASSISTANT_PAGE_CUSTOM -> CUSTOM
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkAssistantPageType): AssistantPageType = when (nativeValue) {
+            GtkAssistantPageType.GTK_ASSISTANT_PAGE_CONTENT -> CONTENT
+            GtkAssistantPageType.GTK_ASSISTANT_PAGE_INTRO -> INTRO
+            GtkAssistantPageType.GTK_ASSISTANT_PAGE_CONFIRM -> CONFIRM
+            GtkAssistantPageType.GTK_ASSISTANT_PAGE_SUMMARY -> SUMMARY
+            GtkAssistantPageType.GTK_ASSISTANT_PAGE_PROGRESS -> PROGRESS
+            GtkAssistantPageType.GTK_ASSISTANT_PAGE_CUSTOM -> CUSTOM
+            else -> error("invalid nativeValue")
+        }
     }
 }

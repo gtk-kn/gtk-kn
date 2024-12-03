@@ -10,9 +10,7 @@ import org.gtkkn.native.gtk.GtkOverflow
  * [property@Gtk.Widget:overflow] property is modeled after the
  * CSS overflow property, but implements it only partially.
  */
-public enum class Overflow(
-    public val nativeValue: GtkOverflow,
-) {
+public enum class Overflow(public val nativeValue: GtkOverflow) {
     /**
      * No change is applied. Content is drawn at the specified
      *   position.
@@ -27,11 +25,10 @@ public enum class Overflow(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkOverflow): Overflow =
-            when (nativeValue) {
-                GtkOverflow.GTK_OVERFLOW_VISIBLE -> VISIBLE
-                GtkOverflow.GTK_OVERFLOW_HIDDEN -> HIDDEN
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkOverflow): Overflow = when (nativeValue) {
+            GtkOverflow.GTK_OVERFLOW_VISIBLE -> VISIBLE
+            GtkOverflow.GTK_OVERFLOW_HIDDEN -> HIDDEN
+            else -> error("invalid nativeValue")
+        }
     }
 }

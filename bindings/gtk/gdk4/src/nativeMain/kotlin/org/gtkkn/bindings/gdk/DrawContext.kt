@@ -33,9 +33,8 @@ import kotlin.Unit
  * - parameter `region`: cairo.Region
  * - method `get_frame_region`: Return type cairo.Region is unsupported
  */
-public open class DrawContext(
-    pointer: CPointer<GdkDrawContext>,
-) : Object(pointer.reinterpret()),
+public open class DrawContext(pointer: CPointer<GdkDrawContext>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gdkDrawContextPointer: CPointer<GdkDrawContext>
         get() = gPointer.reinterpret()
@@ -49,10 +48,9 @@ public open class DrawContext(
          *
          * @return the `GdkDisplay`
          */
-        get() =
-            gdk_draw_context_get_display(gdkDrawContextPointer.reinterpret())?.run {
-                Display(reinterpret())
-            }
+        get() = gdk_draw_context_get_display(gdkDrawContextPointer.reinterpret())?.run {
+            Display(reinterpret())
+        }
 
     /**
      * The `GdkSurface` the context is bound to.
@@ -63,10 +61,9 @@ public open class DrawContext(
          *
          * @return a `GdkSurface`
          */
-        get() =
-            gdk_draw_context_get_surface(gdkDrawContextPointer.reinterpret())?.run {
-                Surface(reinterpret())
-            }
+        get() = gdk_draw_context_get_surface(gdkDrawContextPointer.reinterpret())?.run {
+            Surface(reinterpret())
+        }
 
     /**
      * Ends a drawing operation started with gdk_draw_context_begin_frame().
@@ -79,26 +76,6 @@ public open class DrawContext(
      * explicitly before calling this function.
      */
     public open fun endFrame(): Unit = gdk_draw_context_end_frame(gdkDrawContextPointer.reinterpret())
-
-    /**
-     * Retrieves the `GdkDisplay` the @context is created for
-     *
-     * @return the `GdkDisplay`
-     */
-    public open fun getDisplay(): Display? =
-        gdk_draw_context_get_display(gdkDrawContextPointer.reinterpret())?.run {
-            Display(reinterpret())
-        }
-
-    /**
-     * Retrieves the surface that @context is bound to.
-     *
-     * @return a `GdkSurface`
-     */
-    public open fun getSurface(): Surface? =
-        gdk_draw_context_get_surface(gdkDrawContextPointer.reinterpret())?.run {
-            Surface(reinterpret())
-        }
 
     /**
      * Returns true if @context is in the process of drawing to its surface.

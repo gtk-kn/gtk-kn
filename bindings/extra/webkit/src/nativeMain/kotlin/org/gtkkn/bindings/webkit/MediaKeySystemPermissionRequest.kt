@@ -24,9 +24,8 @@ import org.gtkkn.native.webkit.webkit_media_key_system_permission_request_get_ty
  * When handling this permission request the application may perform additional installation of the
  * requested CDM, unless it is already present on the host system.
  */
-public class MediaKeySystemPermissionRequest(
-    pointer: CPointer<WebKitMediaKeySystemPermissionRequest>,
-) : Object(pointer.reinterpret()),
+public class MediaKeySystemPermissionRequest(pointer: CPointer<WebKitMediaKeySystemPermissionRequest>) :
+    Object(pointer.reinterpret()),
     PermissionRequest,
     KGTyped {
     public val webkitMediaKeySystemPermissionRequestPointer:

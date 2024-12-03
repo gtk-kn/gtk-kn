@@ -46,7 +46,7 @@ fun main() = Application {
     val layout = Box(Orientation.VERTICAL, 0).apply {
         append(headerBar)
     }
-    setContent(layout)
+    content = layout
 
     // this is where any playground code can run to set up widgets
     val label = Label().apply {

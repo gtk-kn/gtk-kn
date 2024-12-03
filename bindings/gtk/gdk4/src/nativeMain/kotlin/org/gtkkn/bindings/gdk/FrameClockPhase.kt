@@ -17,9 +17,7 @@ import org.gtkkn.native.gdk.GdkFrameClockPhase
  *
  * The elements of the enumeration correspond to the signals of `GdkFrameClock`.
  */
-public class FrameClockPhase(
-    public val mask: GdkFrameClockPhase,
-) : Bitfield<FrameClockPhase> {
+public class FrameClockPhase(public val mask: GdkFrameClockPhase) : Bitfield<FrameClockPhase> {
     override infix fun or(other: FrameClockPhase): FrameClockPhase = FrameClockPhase(mask or other.mask)
 
     public companion object {

@@ -272,9 +272,8 @@ public interface Editable :
          *
          * @return a pointer to the contents of the editable
          */
-        get() =
-            gtk_editable_get_text(gtkEditablePointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_editable_get_text(gtkEditablePointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Sets the text in the editable to the given value.
@@ -364,10 +363,8 @@ public interface Editable :
      * @param startPos start position
      * @param endPos end position
      */
-    public fun deleteText(
-        startPos: Int,
-        endPos: Int,
-    ): Unit = gtk_editable_delete_text(gtkEditablePointer.reinterpret(), startPos, endPos)
+    public fun deleteText(startPos: Int, endPos: Int): Unit =
+        gtk_editable_delete_text(gtkEditablePointer.reinterpret(), startPos, endPos)
 
     /**
      * Undoes the setup done by [method@Gtk.Editable.init_delegate].
@@ -400,10 +397,7 @@ public interface Editable :
      *   string. This string is allocated by the `GtkEditable` implementation
      *   and should be freed by the caller.
      */
-    public fun getChars(
-        startPos: Int,
-        endPos: Int,
-    ): String =
+    public fun getChars(startPos: Int, endPos: Int): String =
         gtk_editable_get_chars(gtkEditablePointer.reinterpret(), startPos, endPos)?.toKString()
             ?: error("Expected not null string")
 
@@ -415,10 +409,9 @@ public interface Editable :
      *
      * @return the delegate `GtkEditable`
      */
-    public fun getDelegate(): Editable? =
-        gtk_editable_get_delegate(gtkEditablePointer.reinterpret())?.run {
-            Editable.wrap(reinterpret())
-        }
+    public fun getDelegate(): Editable? = gtk_editable_get_delegate(gtkEditablePointer.reinterpret())?.run {
+        Editable.wrap(reinterpret())
+    }
 
     /**
      * Retrieves whether @editable is editable.
@@ -493,10 +486,8 @@ public interface Editable :
      * @param startPos start of region
      * @param endPos end of region
      */
-    public fun selectRegion(
-        startPos: Int,
-        endPos: Int,
-    ): Unit = gtk_editable_select_region(gtkEditablePointer.reinterpret(), startPos, endPos)
+    public fun selectRegion(startPos: Int, endPos: Int): Unit =
+        gtk_editable_select_region(gtkEditablePointer.reinterpret(), startPos, endPos)
 
     /**
      * Sets the alignment for the contents of the editable.
@@ -586,10 +577,7 @@ public interface Editable :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gtkEditablePointer.reinterpret(),
             "changed",
@@ -616,19 +604,16 @@ public interface Editable :
     public fun connectDeleteText(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (startPos: Int, endPos: Int) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gtkEditablePointer.reinterpret(),
-            "delete-text",
-            connectDeleteTextFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gtkEditablePointer.reinterpret(),
+        "delete-text",
+        connectDeleteTextFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkEditable>,
-    ) : Editable {
+    private data class Wrapper(private val pointer: CPointer<GtkEditable>) : Editable {
         override val gtkEditablePointer: CPointer<GtkEditable> = pointer
     }
 
@@ -655,12 +640,7 @@ public interface Editable :
          * @param pspec the `GParamSpec` for the property
          * @return true if the property was found
          */
-        public fun delegateGetProperty(
-            `object`: Object,
-            propId: UInt,
-            `value`: Value,
-            pspec: ParamSpec,
-        ): Boolean =
+        public fun delegateGetProperty(`object`: Object, propId: UInt, `value`: Value, pspec: ParamSpec): Boolean =
             gtk_editable_delegate_get_property(
                 `object`.gPointer.reinterpret(),
                 propId,
@@ -681,12 +661,7 @@ public interface Editable :
          * @param pspec the `GParamSpec` for the property
          * @return true if the property was found
          */
-        public fun delegateSetProperty(
-            `object`: Object,
-            propId: UInt,
-            `value`: Value,
-            pspec: ParamSpec,
-        ): Boolean =
+        public fun delegateSetProperty(`object`: Object, propId: UInt, `value`: Value, pspec: ParamSpec): Boolean =
             gtk_editable_delegate_set_property(
                 `object`.gPointer.reinterpret(),
                 propId,
@@ -696,20 +671,20 @@ public interface Editable :
     }
 }
 
-private val connectChangedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectDeleteTextFunc: CPointer<CFunction<(Int, Int) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            startPos: Int,
-            endPos: Int,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(startPos: Int, endPos: Int) -> Unit>().get().invoke(startPos, endPos)
-    }.reinterpret()
+private val connectDeleteTextFunc: CPointer<CFunction<(Int, Int) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        startPos: Int,
+        endPos: Int,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(startPos: Int, endPos: Int) -> Unit>().get().invoke(startPos, endPos)
+}
+    .reinterpret()

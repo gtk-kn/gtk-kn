@@ -19,9 +19,8 @@ import kotlin.ULong
 /**
  * A `GObject` property value in a `GtkExpression`.
  */
-public open class PropertyExpression(
-    pointer: CPointer<GtkPropertyExpression>,
-) : Expression(pointer.reinterpret()),
+public open class PropertyExpression(pointer: CPointer<GtkPropertyExpression>) :
+    Expression(pointer.reinterpret()),
     KGTyped {
     public val gtkPropertyExpressionPointer: CPointer<GtkPropertyExpression>
         get() = gPointer.reinterpret()

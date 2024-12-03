@@ -29,9 +29,7 @@ import org.gtkkn.native.adw.AdwTabViewShortcuts
  * New values may be added to this enumeration over time.
  * @since 1.2
  */
-public class TabViewShortcuts(
-    public val mask: AdwTabViewShortcuts,
-) : Bitfield<TabViewShortcuts> {
+public class TabViewShortcuts(public val mask: AdwTabViewShortcuts) : Bitfield<TabViewShortcuts> {
     override infix fun or(other: TabViewShortcuts): TabViewShortcuts = TabViewShortcuts(mask or other.mask)
 
     @AdwVersion1_2

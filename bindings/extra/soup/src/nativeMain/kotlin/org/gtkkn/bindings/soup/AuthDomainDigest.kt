@@ -24,9 +24,8 @@ import kotlin.String
  * - method `auth-callback`: Property has no getter nor setter
  * - method `auth-data`: Property has no getter nor setter
  */
-public class AuthDomainDigest(
-    pointer: CPointer<SoupAuthDomainDigest>,
-) : AuthDomain(pointer.reinterpret()),
+public class AuthDomainDigest(pointer: CPointer<SoupAuthDomainDigest>) :
+    AuthDomain(pointer.reinterpret()),
     KGTyped {
     public val soupAuthDomainDigestPointer: CPointer<SoupAuthDomainDigest>
         get() = gPointer.reinterpret()
@@ -61,11 +60,7 @@ public class AuthDomainDigest(
          * @param password the password for @username in @realm
          * @return the encoded password
          */
-        public fun encodePassword(
-            username: String,
-            realm: String,
-            password: String,
-        ): String =
+        public fun encodePassword(username: String, realm: String, password: String): String =
             soup_auth_domain_digest_encode_password(username, realm, password)?.toKString()
                 ?: error("Expected not null string")
     }

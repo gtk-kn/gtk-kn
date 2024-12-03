@@ -46,9 +46,8 @@ import kotlin.Unit
  * However, in particular for large lists or complex search methods, it is
  * also possible to subclass `GtkFilter` and provide one's own filter.
  */
-public open class Filter(
-    pointer: CPointer<GtkFilter>,
-) : Object(pointer.reinterpret()),
+public open class Filter(pointer: CPointer<GtkFilter>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkFilterPointer: CPointer<GtkFilter>
         get() = gPointer.reinterpret()
@@ -85,10 +84,9 @@ public open class Filter(
      *
      * @return the strictness of @self
      */
-    public open fun getStrictness(): FilterMatch =
-        gtk_filter_get_strictness(gtkFilterPointer.reinterpret()).run {
-            FilterMatch.fromNativeValue(this)
-        }
+    public open fun getStrictness(): FilterMatch = gtk_filter_get_strictness(gtkFilterPointer.reinterpret()).run {
+        FilterMatch.fromNativeValue(this)
+    }
 
     /**
      * Checks if the given @item is matched by the filter or not.
@@ -118,15 +116,14 @@ public open class Filter(
     public fun connectChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (change: FilterChange) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "changed",
-            connectChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "changed",
+        connectChangedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<Filter> {
         override val type: GeneratedClassKGType<Filter> =
@@ -138,15 +135,15 @@ public open class Filter(
     }
 }
 
-private val connectChangedFunc: CPointer<CFunction<(GtkFilterChange) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            change: GtkFilterChange,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(change: FilterChange) -> Unit>().get().invoke(
-            change.run {
-                FilterChange.fromNativeValue(this)
-            }
-        )
-    }.reinterpret()
+private val connectChangedFunc: CPointer<CFunction<(GtkFilterChange) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        change: GtkFilterChange,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(change: FilterChange) -> Unit>().get().invoke(
+        change.run {
+            FilterChange.fromNativeValue(this)
+        }
+    )
+}
+    .reinterpret()

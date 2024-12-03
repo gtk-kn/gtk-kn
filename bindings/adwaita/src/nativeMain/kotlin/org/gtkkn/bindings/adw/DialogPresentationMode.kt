@@ -13,9 +13,7 @@ import org.gtkkn.native.adw.AdwDialogPresentationMode
  * @since 1.5
  */
 @AdwVersion1_5
-public enum class DialogPresentationMode(
-    public val nativeValue: AdwDialogPresentationMode,
-) {
+public enum class DialogPresentationMode(public val nativeValue: AdwDialogPresentationMode) {
     /**
      * Switch between `ADW_DIALOG_FLOATING` and
      *   `ADW_DIALOG_BOTTOM_SHEET` depending on available size.

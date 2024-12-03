@@ -19,9 +19,8 @@ import kotlin.ULong
 /**
  * A `GdkTexture` representing image data in memory.
  */
-public open class MemoryTexture(
-    pointer: CPointer<GdkMemoryTexture>,
-) : Texture(pointer.reinterpret()),
+public open class MemoryTexture(pointer: CPointer<GdkMemoryTexture>) :
+    Texture(pointer.reinterpret()),
     KGTyped {
     public val gdkMemoryTexturePointer: CPointer<GdkMemoryTexture>
         get() = gPointer.reinterpret()

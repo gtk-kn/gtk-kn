@@ -15,9 +15,7 @@ import org.gtkkn.native.gdk.GdkSeatCapabilities
 /**
  * Flags describing the seat capabilities.
  */
-public class SeatCapabilities(
-    public val mask: GdkSeatCapabilities,
-) : Bitfield<SeatCapabilities> {
+public class SeatCapabilities(public val mask: GdkSeatCapabilities) : Bitfield<SeatCapabilities> {
     override infix fun or(other: SeatCapabilities): SeatCapabilities = SeatCapabilities(mask or other.mask)
 
     public companion object {

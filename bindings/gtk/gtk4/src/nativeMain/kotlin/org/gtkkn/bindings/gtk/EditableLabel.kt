@@ -52,9 +52,8 @@ import kotlin.Unit
  * For all the subnodes added to the text node in various situations,
  * see [class@Gtk.Text].
  */
-public open class EditableLabel(
-    pointer: CPointer<GtkEditableLabel>,
-) : Widget(pointer.reinterpret()),
+public open class EditableLabel(pointer: CPointer<GtkEditableLabel>) :
+    Widget(pointer.reinterpret()),
     Editable,
     KGTyped {
     public val gtkEditableLabelPointer: CPointer<GtkEditableLabel>
@@ -90,14 +89,6 @@ public open class EditableLabel(
      * @return the new `GtkEditableLabel`
      */
     public constructor(str: String) : this(gtk_editable_label_new(str)!!.reinterpret())
-
-    /**
-     * Returns whether the label is currently in “editing mode”.
-     *
-     * @return true if @self is currently in editing mode
-     */
-    public open fun getEditing(): Boolean =
-        gtk_editable_label_get_editing(gtkEditableLabelPointer.reinterpret()).asBoolean()
 
     /**
      * Switches the label into “editing mode”.

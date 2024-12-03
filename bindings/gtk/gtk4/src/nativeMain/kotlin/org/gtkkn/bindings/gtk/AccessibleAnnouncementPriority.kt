@@ -9,9 +9,7 @@ import org.gtkkn.native.gtk.GtkAccessibleAnnouncementPriority
  * @since 4.14
  */
 @GtkVersion4_14
-public enum class AccessibleAnnouncementPriority(
-    public val nativeValue: GtkAccessibleAnnouncementPriority,
-) {
+public enum class AccessibleAnnouncementPriority(public val nativeValue: GtkAccessibleAnnouncementPriority) {
     LOW(GtkAccessibleAnnouncementPriority.GTK_ACCESSIBLE_ANNOUNCEMENT_PRIORITY_LOW),
     MEDIUM(GtkAccessibleAnnouncementPriority.GTK_ACCESSIBLE_ANNOUNCEMENT_PRIORITY_MEDIUM),
     HIGH(GtkAccessibleAnnouncementPriority.GTK_ACCESSIBLE_ANNOUNCEMENT_PRIORITY_HIGH),

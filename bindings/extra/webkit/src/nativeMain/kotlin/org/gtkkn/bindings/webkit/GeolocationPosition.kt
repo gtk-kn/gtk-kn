@@ -28,9 +28,7 @@ import kotlin.Unit
  * @since 2.26
  */
 @WebKitVersion2_26
-public class GeolocationPosition(
-    pointer: CPointer<WebKitGeolocationPosition>,
-) : Record {
+public class GeolocationPosition(pointer: CPointer<WebKitGeolocationPosition>) : Record {
     public val webkitGeolocationPositionPointer: CPointer<WebKitGeolocationPosition> = pointer
 
     /**
@@ -70,11 +68,10 @@ public class GeolocationPosition(
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun setAltitudeAccuracy(altitudeAccuracy: Double): Unit =
-        webkit_geolocation_position_set_altitude_accuracy(
-            webkitGeolocationPositionPointer.reinterpret(),
-            altitudeAccuracy
-        )
+    public fun setAltitudeAccuracy(altitudeAccuracy: Double): Unit = webkit_geolocation_position_set_altitude_accuracy(
+        webkitGeolocationPositionPointer.reinterpret(),
+        altitudeAccuracy
+    )
 
     /**
      * Set the @position heading.
@@ -121,11 +118,7 @@ public class GeolocationPosition(
          * @return a newly created #WebKitGeolocationPosition
          * @since 2.26
          */
-        public fun new(
-            latitude: Double,
-            longitude: Double,
-            accuracy: Double,
-        ): GeolocationPosition =
+        public fun new(latitude: Double, longitude: Double, accuracy: Double): GeolocationPosition =
             GeolocationPosition(webkit_geolocation_position_new(latitude, longitude, accuracy)!!.reinterpret())
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): GeolocationPosition =

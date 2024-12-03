@@ -10,9 +10,7 @@ import org.gtkkn.native.gio.GZlibCompressorFormat
  * @since 2.24
  */
 @GioVersion2_24
-public enum class ZlibCompressorFormat(
-    public val nativeValue: GZlibCompressorFormat,
-) {
+public enum class ZlibCompressorFormat(public val nativeValue: GZlibCompressorFormat) {
     /**
      * deflate compression with zlib header
      */
@@ -30,12 +28,11 @@ public enum class ZlibCompressorFormat(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GZlibCompressorFormat): ZlibCompressorFormat =
-            when (nativeValue) {
-                GZlibCompressorFormat.G_ZLIB_COMPRESSOR_FORMAT_ZLIB -> ZLIB
-                GZlibCompressorFormat.G_ZLIB_COMPRESSOR_FORMAT_GZIP -> GZIP
-                GZlibCompressorFormat.G_ZLIB_COMPRESSOR_FORMAT_RAW -> RAW
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GZlibCompressorFormat): ZlibCompressorFormat = when (nativeValue) {
+            GZlibCompressorFormat.G_ZLIB_COMPRESSOR_FORMAT_ZLIB -> ZLIB
+            GZlibCompressorFormat.G_ZLIB_COMPRESSOR_FORMAT_GZIP -> GZIP
+            GZlibCompressorFormat.G_ZLIB_COMPRESSOR_FORMAT_RAW -> RAW
+            else -> error("invalid nativeValue")
+        }
     }
 }

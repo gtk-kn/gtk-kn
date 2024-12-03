@@ -9,7 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.bindings.glib.Glib.resolveException
+import org.gtkkn.bindings.glib.GLib.resolveException
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_22
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_34
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_8
@@ -38,9 +38,7 @@ import kotlin.Unit
  * g_mapped_file_new(). It has only private members and should
  * not be accessed directly.
  */
-public class MappedFile(
-    pointer: CPointer<GMappedFile>,
-) : Record {
+public class MappedFile(pointer: CPointer<GMappedFile>) : Record {
     public val glibMappedFilePointer: CPointer<GMappedFile> = pointer
 
     /**
@@ -62,10 +60,9 @@ public class MappedFile(
      * @since 2.34
      */
     @GLibVersion2_34
-    public fun getBytes(): Bytes =
-        g_mapped_file_get_bytes(glibMappedFilePointer.reinterpret())!!.run {
-            Bytes(reinterpret())
-        }
+    public fun getBytes(): Bytes = g_mapped_file_get_bytes(glibMappedFilePointer.reinterpret())!!.run {
+        Bytes(reinterpret())
+    }
 
     /**
      * Returns the contents of a #GMappedFile.
@@ -79,9 +76,8 @@ public class MappedFile(
      * @since 2.8
      */
     @GLibVersion2_8
-    public fun getContents(): String =
-        g_mapped_file_get_contents(glibMappedFilePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getContents(): String = g_mapped_file_get_contents(glibMappedFilePointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Returns the length of the contents of a #GMappedFile.
@@ -100,10 +96,9 @@ public class MappedFile(
      * @since 2.22
      */
     @GLibVersion2_22
-    public fun ref(): MappedFile =
-        g_mapped_file_ref(glibMappedFilePointer.reinterpret())!!.run {
-            MappedFile(reinterpret())
-        }
+    public fun ref(): MappedFile = g_mapped_file_ref(glibMappedFilePointer.reinterpret())!!.run {
+        MappedFile(reinterpret())
+    }
 
     /**
      * Decrements the reference count of @file by one.  If the reference count
@@ -141,10 +136,7 @@ public class MappedFile(
          *    with g_mapped_file_unref(), or null if the mapping failed.
          * @since 2.8
          */
-        public fun new(
-            filename: String,
-            writable: Boolean,
-        ): Result<MappedFile> {
+        public fun new(filename: String, writable: Boolean): Result<MappedFile> {
             memScoped {
                 val gError = allocPointerTo<GError>()
                 val gResult = g_mapped_file_new(filename, writable.asGBoolean(), gError.ptr)
@@ -175,10 +167,7 @@ public class MappedFile(
          *    with g_mapped_file_unref(), or null if the mapping failed.
          * @since 2.32
          */
-        public fun newFromFd(
-            fd: Int,
-            writable: Boolean,
-        ): Result<MappedFile> {
+        public fun newFromFd(fd: Int, writable: Boolean): Result<MappedFile> {
             memScoped {
                 val gError = allocPointerTo<GError>()
                 val gResult = g_mapped_file_new_from_fd(fd, writable.asGBoolean(), gError.ptr)

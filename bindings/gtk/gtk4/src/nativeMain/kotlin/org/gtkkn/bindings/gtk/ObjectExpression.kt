@@ -15,9 +15,8 @@ import org.gtkkn.native.gtk.gtk_object_expression_new
 /**
  * A `GObject` value in a `GtkExpression`.
  */
-public open class ObjectExpression(
-    pointer: CPointer<GtkObjectExpression>,
-) : Expression(pointer.reinterpret()),
+public open class ObjectExpression(pointer: CPointer<GtkObjectExpression>) :
+    Expression(pointer.reinterpret()),
     KGTyped {
     public val gtkObjectExpressionPointer: CPointer<GtkObjectExpression>
         get() = gPointer.reinterpret()

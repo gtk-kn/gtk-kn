@@ -49,9 +49,7 @@ import kotlin.collections.List
  * @since 2.2
  */
 @GdkPixbufVersion2_2
-public class PixbufFormat(
-    pointer: CPointer<GdkPixbufFormat>,
-) : Record {
+public class PixbufFormat(pointer: CPointer<GdkPixbufFormat>) : Record {
     public val gdkpixbufPixbufFormatPointer: CPointer<GdkPixbufFormat> = pointer
 
     /**
@@ -68,10 +66,9 @@ public class PixbufFormat(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val signature: PixbufModulePattern?
-        get() =
-            gdkpixbufPixbufFormatPointer.pointed.signature?.run {
-                PixbufModulePattern(reinterpret())
-            }
+        get() = gdkpixbufPixbufFormatPointer.pointed.signature?.run {
+            PixbufModulePattern(reinterpret())
+        }
 
     /**
      * the message domain for the `description`
@@ -124,10 +121,9 @@ public class PixbufFormat(
      * @since 2.22
      */
     @GdkPixbufVersion2_22
-    public fun copy(): PixbufFormat =
-        gdk_pixbuf_format_copy(gdkpixbufPixbufFormatPointer.reinterpret())!!.run {
-            PixbufFormat(reinterpret())
-        }
+    public fun copy(): PixbufFormat = gdk_pixbuf_format_copy(gdkpixbufPixbufFormatPointer.reinterpret())!!.run {
+        PixbufFormat(reinterpret())
+    }
 
     /**
      * Frees the resources allocated when copying a `GdkPixbufFormat`
@@ -194,9 +190,8 @@ public class PixbufFormat(
      * @since 2.2
      */
     @GdkPixbufVersion2_2
-    public fun getName(): String =
-        gdk_pixbuf_format_get_name(gdkpixbufPixbufFormatPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getName(): String = gdk_pixbuf_format_get_name(gdkpixbufPixbufFormatPointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Returns whether this image format is disabled.

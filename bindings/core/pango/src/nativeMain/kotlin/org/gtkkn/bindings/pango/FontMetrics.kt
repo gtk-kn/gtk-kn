@@ -52,9 +52,7 @@ import kotlin.Unit
  * - field `strikethrough_position`: Record field strikethrough_position is private
  * - field `strikethrough_thickness`: Record field strikethrough_thickness is private
  */
-public class FontMetrics(
-    pointer: CPointer<PangoFontMetrics>,
-) : Record {
+public class FontMetrics(pointer: CPointer<PangoFontMetrics>) : Record {
     public val pangoFontMetricsPointer: CPointer<PangoFontMetrics> = pointer
 
     /**
@@ -173,10 +171,9 @@ public class FontMetrics(
      *
      * @return @metrics
      */
-    public fun ref(): FontMetrics? =
-        pango_font_metrics_ref(pangoFontMetricsPointer.reinterpret())?.run {
-            FontMetrics(reinterpret())
-        }
+    public fun ref(): FontMetrics? = pango_font_metrics_ref(pangoFontMetricsPointer.reinterpret())?.run {
+        FontMetrics(reinterpret())
+    }
 
     /**
      * Decrease the reference count of a font metrics structure by one.

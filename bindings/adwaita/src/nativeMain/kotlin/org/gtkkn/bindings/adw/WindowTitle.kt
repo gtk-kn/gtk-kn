@@ -19,7 +19,6 @@ import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import kotlin.String
-import kotlin.Unit
 
 /**
  * A helper widget for setting a window's title and subtitle.
@@ -36,9 +35,8 @@ import kotlin.Unit
  *
  * `AdwWindowTitle` has a single CSS node with name `windowtitle`.
  */
-public class WindowTitle(
-    pointer: CPointer<AdwWindowTitle>,
-) : Widget(pointer.reinterpret()),
+public class WindowTitle(pointer: CPointer<AdwWindowTitle>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val adwWindowTitlePointer: CPointer<AdwWindowTitle>
         get() = gPointer.reinterpret()
@@ -63,9 +61,8 @@ public class WindowTitle(
          *
          * @return the subtitle
          */
-        get() =
-            adw_window_title_get_subtitle(adwWindowTitlePointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = adw_window_title_get_subtitle(adwWindowTitlePointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Sets the subtitle of @self.
@@ -88,9 +85,8 @@ public class WindowTitle(
          *
          * @return the title
          */
-        get() =
-            adw_window_title_get_title(adwWindowTitlePointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = adw_window_title_get_title(adwWindowTitlePointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Sets the title of @self.
@@ -110,44 +106,6 @@ public class WindowTitle(
      * @return the newly created `AdwWindowTitle`
      */
     public constructor(title: String, subtitle: String) : this(adw_window_title_new(title, subtitle)!!.reinterpret())
-
-    /**
-     * Gets the subtitle of @self.
-     *
-     * @return the subtitle
-     */
-    public fun getSubtitle(): String =
-        adw_window_title_get_subtitle(adwWindowTitlePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets the title of @self.
-     *
-     * @return the title
-     */
-    public fun getTitle(): String =
-        adw_window_title_get_title(adwWindowTitlePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Sets the subtitle of @self.
-     *
-     * The subtitle should give the user additional details.
-     *
-     * @param subtitle a subtitle
-     */
-    public fun setSubtitle(subtitle: String): Unit =
-        adw_window_title_set_subtitle(adwWindowTitlePointer.reinterpret(), subtitle)
-
-    /**
-     * Sets the title of @self.
-     *
-     * The title typically identifies the current view or content item, and
-     * generally does not use the application name.
-     *
-     * @param title a title
-     */
-    public fun setTitle(title: String): Unit = adw_window_title_set_title(adwWindowTitlePointer.reinterpret(), title)
 
     public companion object : TypeCompanion<WindowTitle> {
         override val type: GeneratedClassKGType<WindowTitle> =

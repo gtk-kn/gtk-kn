@@ -86,9 +86,8 @@ import kotlin.Unit
  * the style class .combo to the main CSS nodes of its entry and button
  * children, and the .linked class to the node of its internal box.
  */
-public open class ComboBoxText(
-    pointer: CPointer<GtkComboBoxText>,
-) : ComboBox(pointer.reinterpret()),
+public open class ComboBoxText(pointer: CPointer<GtkComboBoxText>) :
+    ComboBox(pointer.reinterpret()),
     KGTyped {
     public val gtkComboBoxTextPointer: CPointer<GtkComboBoxText>
         get() = gPointer.reinterpret()
@@ -126,10 +125,8 @@ public open class ComboBoxText(
      * @param id a string ID for this value
      * @param text A string
      */
-    public open fun append(
-        id: String? = null,
-        text: String,
-    ): Unit = gtk_combo_box_text_append(gtkComboBoxTextPointer.reinterpret(), id, text)
+    public open fun append(id: String? = null, text: String): Unit =
+        gtk_combo_box_text_append(gtkComboBoxTextPointer.reinterpret(), id, text)
 
     /**
      * Appends @text to the list of strings stored in @combo_box.
@@ -169,11 +166,8 @@ public open class ComboBoxText(
      * @param id a string ID for this value
      * @param text A string to display
      */
-    public open fun insert(
-        position: Int,
-        id: String? = null,
-        text: String,
-    ): Unit = gtk_combo_box_text_insert(gtkComboBoxTextPointer.reinterpret(), position, id, text)
+    public open fun insert(position: Int, id: String? = null, text: String): Unit =
+        gtk_combo_box_text_insert(gtkComboBoxTextPointer.reinterpret(), position, id, text)
 
     /**
      * Inserts @text at @position in the list of strings stored in @combo_box.
@@ -186,10 +180,8 @@ public open class ComboBoxText(
      * @param position An index to insert @text
      * @param text A string
      */
-    public open fun insertText(
-        position: Int,
-        text: String,
-    ): Unit = gtk_combo_box_text_insert_text(gtkComboBoxTextPointer.reinterpret(), position, text)
+    public open fun insertText(position: Int, text: String): Unit =
+        gtk_combo_box_text_insert_text(gtkComboBoxTextPointer.reinterpret(), position, text)
 
     /**
      * Prepends @text to the list of strings stored in @combo_box.
@@ -202,10 +194,8 @@ public open class ComboBoxText(
      * @param id a string ID for this value
      * @param text a string
      */
-    public open fun prepend(
-        id: String? = null,
-        text: String,
-    ): Unit = gtk_combo_box_text_prepend(gtkComboBoxTextPointer.reinterpret(), id, text)
+    public open fun prepend(id: String? = null, text: String): Unit =
+        gtk_combo_box_text_prepend(gtkComboBoxTextPointer.reinterpret(), id, text)
 
     /**
      * Prepends @text to the list of strings stored in @combo_box.

@@ -9,9 +9,8 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GNativeVolumeMonitor
 import org.gtkkn.native.gio.g_native_volume_monitor_get_type
 
-public open class NativeVolumeMonitor(
-    pointer: CPointer<GNativeVolumeMonitor>,
-) : VolumeMonitor(pointer.reinterpret()),
+public open class NativeVolumeMonitor(pointer: CPointer<GNativeVolumeMonitor>) :
+    VolumeMonitor(pointer.reinterpret()),
     KGTyped {
     public val gioNativeVolumeMonitorPointer: CPointer<GNativeVolumeMonitor>
         get() = gPointer.reinterpret()

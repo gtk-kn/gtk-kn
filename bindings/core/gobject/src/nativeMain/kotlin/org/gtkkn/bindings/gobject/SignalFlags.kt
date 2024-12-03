@@ -17,9 +17,7 @@ import org.gtkkn.native.gobject.G_SIGNAL_RUN_LAST
 /**
  * The signal flags are used to specify a signal's behaviour.
  */
-public class SignalFlags(
-    public val mask: GSignalFlags,
-) : Bitfield<SignalFlags> {
+public class SignalFlags(public val mask: GSignalFlags) : Bitfield<SignalFlags> {
     override infix fun or(other: SignalFlags): SignalFlags = SignalFlags(mask or other.mask)
 
     public companion object {

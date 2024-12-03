@@ -26,9 +26,8 @@ import kotlin.String
  * - method `draw-spaces`: Property has no getter nor setter
  * - method `draw-spaces-set`: Property has no getter nor setter
  */
-public open class Tag(
-    pointer: CPointer<GtkSourceTag>,
-) : TextTag(pointer.reinterpret()),
+public open class Tag(pointer: CPointer<GtkSourceTag>) :
+    TextTag(pointer.reinterpret()),
     KGTyped {
     public val gtksourceTagPointer: CPointer<GtkSourceTag>
         get() = gPointer.reinterpret()

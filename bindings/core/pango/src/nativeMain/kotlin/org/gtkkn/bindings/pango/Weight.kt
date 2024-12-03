@@ -9,9 +9,7 @@ import org.gtkkn.native.pango.PangoWeight
  * Weight is specified as a numeric value ranging from 100 to 1000.
  * This enumeration simply provides some common, predefined values.
  */
-public enum class Weight(
-    public val nativeValue: PangoWeight,
-) {
+public enum class Weight(public val nativeValue: PangoWeight) {
     /**
      * the thin weight (= 100) Since: 1.24
      */
@@ -74,21 +72,20 @@ public enum class Weight(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: PangoWeight): Weight =
-            when (nativeValue) {
-                PangoWeight.PANGO_WEIGHT_THIN -> THIN
-                PangoWeight.PANGO_WEIGHT_ULTRALIGHT -> ULTRALIGHT
-                PangoWeight.PANGO_WEIGHT_LIGHT -> LIGHT
-                PangoWeight.PANGO_WEIGHT_SEMILIGHT -> SEMILIGHT
-                PangoWeight.PANGO_WEIGHT_BOOK -> BOOK
-                PangoWeight.PANGO_WEIGHT_NORMAL -> NORMAL
-                PangoWeight.PANGO_WEIGHT_MEDIUM -> MEDIUM
-                PangoWeight.PANGO_WEIGHT_SEMIBOLD -> SEMIBOLD
-                PangoWeight.PANGO_WEIGHT_BOLD -> BOLD
-                PangoWeight.PANGO_WEIGHT_ULTRABOLD -> ULTRABOLD
-                PangoWeight.PANGO_WEIGHT_HEAVY -> HEAVY
-                PangoWeight.PANGO_WEIGHT_ULTRAHEAVY -> ULTRAHEAVY
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: PangoWeight): Weight = when (nativeValue) {
+            PangoWeight.PANGO_WEIGHT_THIN -> THIN
+            PangoWeight.PANGO_WEIGHT_ULTRALIGHT -> ULTRALIGHT
+            PangoWeight.PANGO_WEIGHT_LIGHT -> LIGHT
+            PangoWeight.PANGO_WEIGHT_SEMILIGHT -> SEMILIGHT
+            PangoWeight.PANGO_WEIGHT_BOOK -> BOOK
+            PangoWeight.PANGO_WEIGHT_NORMAL -> NORMAL
+            PangoWeight.PANGO_WEIGHT_MEDIUM -> MEDIUM
+            PangoWeight.PANGO_WEIGHT_SEMIBOLD -> SEMIBOLD
+            PangoWeight.PANGO_WEIGHT_BOLD -> BOLD
+            PangoWeight.PANGO_WEIGHT_ULTRABOLD -> ULTRABOLD
+            PangoWeight.PANGO_WEIGHT_HEAVY -> HEAVY
+            PangoWeight.PANGO_WEIGHT_ULTRAHEAVY -> ULTRAHEAVY
+            else -> error("invalid nativeValue")
+        }
     }
 }

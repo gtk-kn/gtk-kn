@@ -30,9 +30,7 @@ import kotlin.Unit
  * the event or audio streams, and for measuring quality metrics for the
  * application’s display, such as latency and jitter.
  */
-public class FrameTimings(
-    pointer: CPointer<GdkFrameTimings>,
-) : Record {
+public class FrameTimings(pointer: CPointer<GdkFrameTimings>) : Record {
     public val gdkFrameTimingsPointer: CPointer<GdkFrameTimings> = pointer
 
     /**
@@ -125,10 +123,9 @@ public class FrameTimings(
      *
      * @return @timings
      */
-    public fun ref(): FrameTimings =
-        gdk_frame_timings_ref(gdkFrameTimingsPointer.reinterpret())!!.run {
-            FrameTimings(reinterpret())
-        }
+    public fun ref(): FrameTimings = gdk_frame_timings_ref(gdkFrameTimingsPointer.reinterpret())!!.run {
+        FrameTimings(reinterpret())
+    }
 
     /**
      * Decreases the reference count of @timings.

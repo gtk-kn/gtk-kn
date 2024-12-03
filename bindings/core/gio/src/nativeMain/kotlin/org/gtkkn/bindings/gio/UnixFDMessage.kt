@@ -9,7 +9,6 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
-import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -45,9 +44,8 @@ import kotlin.Result
  *
  * - parameter `length`: length: Out parameter is not supported
  */
-public open class UnixFDMessage(
-    pointer: CPointer<GUnixFDMessage>,
-) : SocketControlMessage(pointer.reinterpret()),
+public open class UnixFDMessage(pointer: CPointer<GUnixFDMessage>) :
+    SocketControlMessage(pointer.reinterpret()),
     KGTyped {
     public val gioUnixFDMessagePointer: CPointer<GUnixFDMessage>
         get() = gPointer.reinterpret()
@@ -67,10 +65,9 @@ public open class UnixFDMessage(
          * @return the #GUnixFDList from @message
          * @since 2.24
          */
-        get() =
-            g_unix_fd_message_get_fd_list(gioUnixFDMessagePointer.reinterpret())!!.run {
-                UnixFDList(reinterpret())
-            }
+        get() = g_unix_fd_message_get_fd_list(gioUnixFDMessagePointer.reinterpret())!!.run {
+            UnixFDList(reinterpret())
+        }
 
     /**
      * Creates a new #GUnixFDMessage containing an empty file descriptor
@@ -107,30 +104,15 @@ public open class UnixFDMessage(
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun appendFd(fd: Int): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_unix_fd_message_append_fd(gioUnixFDMessagePointer.reinterpret(), fd, gError.ptr).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun appendFd(fd: Int): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_unix_fd_message_append_fd(gioUnixFDMessagePointer.reinterpret(), fd, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
-
-    /**
-     * Gets the #GUnixFDList contained in @message.  This function does not
-     * return a reference to the caller, but the returned list is valid for
-     * the lifetime of @message.
-     *
-     * @return the #GUnixFDList from @message
-     * @since 2.24
-     */
-    @GioVersion2_24
-    public open fun getFdList(): UnixFDList =
-        g_unix_fd_message_get_fd_list(gioUnixFDMessagePointer.reinterpret())!!.run {
-            UnixFDList(reinterpret())
-        }
+    }
 
     public companion object : TypeCompanion<UnixFDMessage> {
         override val type: GeneratedClassKGType<UnixFDMessage> =

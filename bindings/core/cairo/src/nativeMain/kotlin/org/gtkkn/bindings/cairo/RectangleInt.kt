@@ -10,9 +10,7 @@ import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.cairo.cairo_rectangle_int_t
 import kotlin.Int
 
-public class RectangleInt(
-    pointer: CPointer<cairo_rectangle_int_t>,
-) : Record {
+public class RectangleInt(pointer: CPointer<cairo_rectangle_int_t>) : Record {
     public val cairoRectangleIntPointer: CPointer<cairo_rectangle_int_t> = pointer
 
     public var x: Int

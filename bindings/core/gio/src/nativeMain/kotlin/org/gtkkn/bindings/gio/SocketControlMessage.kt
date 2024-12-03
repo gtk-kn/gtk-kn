@@ -46,9 +46,8 @@ import kotlin.ULong
  * @since 2.22
  */
 @GioVersion2_22
-public open class SocketControlMessage(
-    pointer: CPointer<GSocketControlMessage>,
-) : Object(pointer.reinterpret()),
+public open class SocketControlMessage(pointer: CPointer<GSocketControlMessage>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioSocketControlMessagePointer: CPointer<GSocketControlMessage>
         get() = gPointer.reinterpret()

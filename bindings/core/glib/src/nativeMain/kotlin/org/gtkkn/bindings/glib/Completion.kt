@@ -43,9 +43,7 @@ import kotlin.Unit
  * - field `func`: CompletionFunc
  * - field `strncmp_func`: CompletionStrncmpFunc
  */
-public class Completion(
-    pointer: CPointer<GCompletion>,
-) : Record {
+public class Completion(pointer: CPointer<GCompletion>) : Record {
     public val glibCompletionPointer: CPointer<GCompletion> = pointer
 
     /**
@@ -54,10 +52,9 @@ public class Completion(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val items: List?
-        get() =
-            glibCompletionPointer.pointed.items?.run {
-                List(reinterpret())
-            }
+        get() = glibCompletionPointer.pointed.items?.run {
+            List(reinterpret())
+        }
 
     /**
      * the last prefix passed to g_completion_complete() or
@@ -74,10 +71,9 @@ public class Completion(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val cache: List?
-        get() =
-            glibCompletionPointer.pointed.cache?.run {
-                List(reinterpret())
-            }
+        get() = glibCompletionPointer.pointed.cache?.run {
+            List(reinterpret())
+        }
 
     /**
      * Removes all items from the #GCompletion. The items are not freed, so if the

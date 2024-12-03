@@ -6,9 +6,7 @@ import org.gtkkn.native.gtk.GtkSelectionMode
 /**
  * Used to control what selections users are allowed to make.
  */
-public enum class SelectionMode(
-    public val nativeValue: GtkSelectionMode,
-) {
+public enum class SelectionMode(public val nativeValue: GtkSelectionMode) {
     /**
      * No selection is possible.
      */
@@ -39,13 +37,12 @@ public enum class SelectionMode(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkSelectionMode): SelectionMode =
-            when (nativeValue) {
-                GtkSelectionMode.GTK_SELECTION_NONE -> NONE
-                GtkSelectionMode.GTK_SELECTION_SINGLE -> SINGLE
-                GtkSelectionMode.GTK_SELECTION_BROWSE -> BROWSE
-                GtkSelectionMode.GTK_SELECTION_MULTIPLE -> MULTIPLE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkSelectionMode): SelectionMode = when (nativeValue) {
+            GtkSelectionMode.GTK_SELECTION_NONE -> NONE
+            GtkSelectionMode.GTK_SELECTION_SINGLE -> SINGLE
+            GtkSelectionMode.GTK_SELECTION_BROWSE -> BROWSE
+            GtkSelectionMode.GTK_SELECTION_MULTIPLE -> MULTIPLE
+            else -> error("invalid nativeValue")
+        }
     }
 }

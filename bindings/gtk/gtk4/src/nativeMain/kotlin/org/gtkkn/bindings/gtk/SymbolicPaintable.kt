@@ -43,9 +43,7 @@ public interface SymbolicPaintable :
     override val gdkPaintablePointer: CPointer<GdkPaintable>
         get() = gtkSymbolicPaintablePointer.reinterpret()
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkSymbolicPaintable>,
-    ) : SymbolicPaintable {
+    private data class Wrapper(private val pointer: CPointer<GtkSymbolicPaintable>) : SymbolicPaintable {
         override val gtkSymbolicPaintablePointer: CPointer<GtkSymbolicPaintable> = pointer
     }
 

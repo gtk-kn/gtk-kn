@@ -19,9 +19,7 @@ import kotlin.String
  *
  * - field `attr`: Attribute
  */
-public class AttrString(
-    pointer: CPointer<PangoAttrString>,
-) : Record {
+public class AttrString(pointer: CPointer<PangoAttrString>) : Record {
     public val pangoAttrStringPointer: CPointer<PangoAttrString> = pointer
 
     /**

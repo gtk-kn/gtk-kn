@@ -109,6 +109,7 @@ org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_42
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_44
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_46
+org.gtkkn.bindings.gobject.annotations.GObjectVersion2_54
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_6
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_66
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_68

@@ -72,12 +72,7 @@ public interface Indenter :
      * @return true if indentation should be automatically triggered;
      *   otherwise false and no indentation will be performed.
      */
-    public fun isTrigger(
-        view: View,
-        location: TextIter,
-        state: ModifierType,
-        keyval: UInt,
-    ): Boolean =
+    public fun isTrigger(view: View, location: TextIter, state: ModifierType, keyval: UInt): Boolean =
         gtk_source_indenter_is_trigger(
             gtksourceIndenterPointer.reinterpret(),
             view.gtksourceViewPointer.reinterpret(),
@@ -86,9 +81,7 @@ public interface Indenter :
             keyval
         ).asBoolean()
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkSourceIndenter>,
-    ) : Indenter {
+    private data class Wrapper(private val pointer: CPointer<GtkSourceIndenter>) : Indenter {
         override val gtksourceIndenterPointer: CPointer<GtkSourceIndenter> = pointer
     }
 

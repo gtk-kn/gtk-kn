@@ -15,9 +15,7 @@ import kotlin.UInt
 /**
  * Contains the public fields of a GArray.
  */
-public class Array(
-    pointer: CPointer<GArray>,
-) : Record {
+public class Array(pointer: CPointer<GArray>) : Record {
     public val glibArrayPointer: CPointer<GArray> = pointer
 
     /**

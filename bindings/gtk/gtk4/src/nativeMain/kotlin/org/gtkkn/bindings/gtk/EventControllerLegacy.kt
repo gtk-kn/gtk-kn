@@ -31,9 +31,8 @@ import kotlin.ULong
  * It should only be used as a last resort if none of the other event
  * controllers or gestures do the job.
  */
-public open class EventControllerLegacy(
-    pointer: CPointer<GtkEventControllerLegacy>,
-) : EventController(pointer.reinterpret()),
+public open class EventControllerLegacy(pointer: CPointer<GtkEventControllerLegacy>) :
+    EventController(pointer.reinterpret()),
     KGTyped {
     public val gtkEventControllerLegacyPointer: CPointer<GtkEventControllerLegacy>
         get() = gPointer.reinterpret()
@@ -52,10 +51,7 @@ public open class EventControllerLegacy(
      * @param handler the Callback to connect. Params: `event` the `GdkEvent` which triggered this signal. Returns true to stop other handlers from being invoked for the event
      *   and the emission of this signal. false to propagate the event further.
      */
-    public fun connectEvent(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (event: Event) -> Boolean,
-    ): ULong =
+    public fun connectEvent(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (event: Event) -> Boolean): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "event",
@@ -75,18 +71,15 @@ public open class EventControllerLegacy(
     }
 }
 
-private val connectEventFunc: CPointer<CFunction<(CPointer<GdkEvent>) -> Int>> =
-    staticCFunction {
-            _: COpaquePointer,
-            event: CPointer<GdkEvent>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<(event: Event) -> Boolean>()
-            .get()
-            .invoke(
-                event!!.run {
-                    Event(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+private val connectEventFunc: CPointer<CFunction<(CPointer<GdkEvent>) -> Int>> = staticCFunction {
+        _: COpaquePointer,
+        event: CPointer<GdkEvent>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(event: Event) -> Boolean>().get().invoke(
+        event!!.run {
+            Event(reinterpret())
+        }
+    ).asGBoolean()
+}
+    .reinterpret()

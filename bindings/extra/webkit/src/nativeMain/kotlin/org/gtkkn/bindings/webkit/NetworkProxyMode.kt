@@ -9,9 +9,7 @@ import org.gtkkn.native.webkit.WebKitNetworkProxyMode
  * @since 2.16
  */
 @WebKitVersion2_16
-public enum class NetworkProxyMode(
-    public val nativeValue: WebKitNetworkProxyMode,
-) {
+public enum class NetworkProxyMode(public val nativeValue: WebKitNetworkProxyMode) {
     /**
      * Use the default proxy of the system.
      */
@@ -29,12 +27,11 @@ public enum class NetworkProxyMode(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitNetworkProxyMode): NetworkProxyMode =
-            when (nativeValue) {
-                WebKitNetworkProxyMode.WEBKIT_NETWORK_PROXY_MODE_DEFAULT -> DEFAULT
-                WebKitNetworkProxyMode.WEBKIT_NETWORK_PROXY_MODE_NO_PROXY -> NO_PROXY
-                WebKitNetworkProxyMode.WEBKIT_NETWORK_PROXY_MODE_CUSTOM -> CUSTOM
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitNetworkProxyMode): NetworkProxyMode = when (nativeValue) {
+            WebKitNetworkProxyMode.WEBKIT_NETWORK_PROXY_MODE_DEFAULT -> DEFAULT
+            WebKitNetworkProxyMode.WEBKIT_NETWORK_PROXY_MODE_NO_PROXY -> NO_PROXY
+            WebKitNetworkProxyMode.WEBKIT_NETWORK_PROXY_MODE_CUSTOM -> CUSTOM
+            else -> error("invalid nativeValue")
+        }
     }
 }

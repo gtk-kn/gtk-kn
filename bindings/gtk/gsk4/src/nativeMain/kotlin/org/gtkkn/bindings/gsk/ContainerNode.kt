@@ -19,9 +19,8 @@ import kotlin.UInt
  *
  * - parameter `children`: Array parameter of type RenderNode is not supported
  */
-public open class ContainerNode(
-    pointer: CPointer<GskContainerNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class ContainerNode(pointer: CPointer<GskContainerNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskContainerNodePointer: CPointer<GskContainerNode>
         get() = gPointer.reinterpret()

@@ -15,9 +15,7 @@ import org.gtkkn.native.gio.G_SETTINGS_BIND_SET
  * direction the binding works. The default is to synchronize in both
  * directions.
  */
-public class SettingsBindFlags(
-    public val mask: GSettingsBindFlags,
-) : Bitfield<SettingsBindFlags> {
+public class SettingsBindFlags(public val mask: GSettingsBindFlags) : Bitfield<SettingsBindFlags> {
     override infix fun or(other: SettingsBindFlags): SettingsBindFlags = SettingsBindFlags(mask or other.mask)
 
     public companion object {

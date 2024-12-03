@@ -25,9 +25,7 @@ import kotlin.Boolean
  * - field `dummy2`: Record field dummy2 is private
  * - field `dummy3`: Record field dummy3 is private
  */
-public class RegionIter(
-    pointer: CPointer<GtkSourceRegionIter>,
-) : Record {
+public class RegionIter(pointer: CPointer<GtkSourceRegionIter>) : Record {
     public val gtksourceRegionIterPointer: CPointer<GtkSourceRegionIter> = pointer
 
     /**
@@ -38,15 +36,11 @@ public class RegionIter(
      * @return true if @start and @end have been set successfully (if non-null),
      *   or false if @iter is the end iterator or if the region is empty.
      */
-    public fun getSubregion(
-        start: TextIter?,
-        end: TextIter?,
-    ): Boolean =
-        gtk_source_region_iter_get_subregion(
-            gtksourceRegionIterPointer.reinterpret(),
-            start?.gtkTextIterPointer?.reinterpret(),
-            end?.gtkTextIterPointer?.reinterpret()
-        ).asBoolean()
+    public fun getSubregion(start: TextIter?, end: TextIter?): Boolean = gtk_source_region_iter_get_subregion(
+        gtksourceRegionIterPointer.reinterpret(),
+        start?.gtkTextIterPointer?.reinterpret(),
+        end?.gtkTextIterPointer?.reinterpret()
+    ).asBoolean()
 
     /**
      *

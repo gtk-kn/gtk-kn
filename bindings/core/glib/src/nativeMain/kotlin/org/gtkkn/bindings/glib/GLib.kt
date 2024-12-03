@@ -33,11 +33,13 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_36
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_38
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_4
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_40
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_44
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_46
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_50
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_52
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_58
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_6
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_60
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_62
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_64
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_66
@@ -51,7 +53,7 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toCStringList
 import org.gtkkn.extensions.common.toKStringList
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GHook
@@ -226,6 +228,7 @@ import org.gtkkn.native.glib.g_pattern_match_simple
 import org.gtkkn.native.glib.g_poll
 import org.gtkkn.native.glib.g_quark_from_static_string
 import org.gtkkn.native.glib.g_quark_from_string
+import org.gtkkn.native.glib.g_quark_to_string
 import org.gtkkn.native.glib.g_quark_try_string
 import org.gtkkn.native.glib.g_random_double
 import org.gtkkn.native.glib.g_random_double_range
@@ -263,6 +266,42 @@ import org.gtkkn.native.glib.g_spawn_close_pid
 import org.gtkkn.native.glib.g_spawn_command_line_async
 import org.gtkkn.native.glib.g_spawn_error_quark
 import org.gtkkn.native.glib.g_spawn_exit_error_quark
+import org.gtkkn.native.glib.g_str_has_prefix
+import org.gtkkn.native.glib.g_str_has_suffix
+import org.gtkkn.native.glib.g_str_is_ascii
+import org.gtkkn.native.glib.g_str_match_string
+import org.gtkkn.native.glib.g_str_to_ascii
+import org.gtkkn.native.glib.g_strcanon
+import org.gtkkn.native.glib.g_strcasecmp
+import org.gtkkn.native.glib.g_strchomp
+import org.gtkkn.native.glib.g_strchug
+import org.gtkkn.native.glib.g_strcmp0
+import org.gtkkn.native.glib.g_strcompress
+import org.gtkkn.native.glib.g_strdelimit
+import org.gtkkn.native.glib.g_strdown
+import org.gtkkn.native.glib.g_strdup
+import org.gtkkn.native.glib.g_strdupv
+import org.gtkkn.native.glib.g_strerror
+import org.gtkkn.native.glib.g_strescape
+import org.gtkkn.native.glib.g_strfreev
+import org.gtkkn.native.glib.g_strip_context
+import org.gtkkn.native.glib.g_strjoinv
+import org.gtkkn.native.glib.g_strlcat
+import org.gtkkn.native.glib.g_strlcpy
+import org.gtkkn.native.glib.g_strncasecmp
+import org.gtkkn.native.glib.g_strndup
+import org.gtkkn.native.glib.g_strnfill
+import org.gtkkn.native.glib.g_strreverse
+import org.gtkkn.native.glib.g_strrstr
+import org.gtkkn.native.glib.g_strrstr_len
+import org.gtkkn.native.glib.g_strsignal
+import org.gtkkn.native.glib.g_strsplit
+import org.gtkkn.native.glib.g_strsplit_set
+import org.gtkkn.native.glib.g_strstr_len
+import org.gtkkn.native.glib.g_strup
+import org.gtkkn.native.glib.g_strv_contains
+import org.gtkkn.native.glib.g_strv_equal
+import org.gtkkn.native.glib.g_strv_length
 import org.gtkkn.native.glib.g_test_assert_expected_messages_internal
 import org.gtkkn.native.glib.g_test_bug
 import org.gtkkn.native.glib.g_test_bug_base
@@ -358,6 +397,28 @@ import org.gtkkn.native.glib.g_uri_unescape_bytes
 import org.gtkkn.native.glib.g_uri_unescape_segment
 import org.gtkkn.native.glib.g_uri_unescape_string
 import org.gtkkn.native.glib.g_usleep
+import org.gtkkn.native.glib.g_utf8_casefold
+import org.gtkkn.native.glib.g_utf8_collate
+import org.gtkkn.native.glib.g_utf8_collate_key
+import org.gtkkn.native.glib.g_utf8_collate_key_for_filename
+import org.gtkkn.native.glib.g_utf8_find_next_char
+import org.gtkkn.native.glib.g_utf8_find_prev_char
+import org.gtkkn.native.glib.g_utf8_get_char
+import org.gtkkn.native.glib.g_utf8_get_char_validated
+import org.gtkkn.native.glib.g_utf8_make_valid
+import org.gtkkn.native.glib.g_utf8_normalize
+import org.gtkkn.native.glib.g_utf8_offset_to_pointer
+import org.gtkkn.native.glib.g_utf8_pointer_to_offset
+import org.gtkkn.native.glib.g_utf8_prev_char
+import org.gtkkn.native.glib.g_utf8_strchr
+import org.gtkkn.native.glib.g_utf8_strdown
+import org.gtkkn.native.glib.g_utf8_strlen
+import org.gtkkn.native.glib.g_utf8_strncpy
+import org.gtkkn.native.glib.g_utf8_strrchr
+import org.gtkkn.native.glib.g_utf8_strreverse
+import org.gtkkn.native.glib.g_utf8_strup
+import org.gtkkn.native.glib.g_utf8_substring
+import org.gtkkn.native.glib.g_utf8_truncate_middle
 import org.gtkkn.native.glib.g_uuid_string_is_valid
 import org.gtkkn.native.glib.g_uuid_string_random
 import org.gtkkn.native.glib.g_variant_is_object_path
@@ -369,6 +430,8 @@ import org.gtkkn.native.glib.g_variant_type_checked_
 import org.gtkkn.native.glib.g_variant_type_string_get_depth_
 import org.gtkkn.native.glib.g_variant_type_string_is_valid
 import org.gtkkn.native.glib.glib_check_version
+import org.gtkkn.native.gobject.g_strv_get_type
+import org.gtkkn.native.gobject.g_variant_get_gtype
 import kotlin.Boolean
 import kotlin.Byte
 import kotlin.Char
@@ -455,13 +518,11 @@ import kotlin.collections.List
  * - parameter `array`: Array parameter of type guint8 is not supported
  * - parameter `array`: Array parameter of type guint8 is not supported
  * - parameter `array`: Array parameter of type guint8 is not supported
- * - function `chmod`: C function g_chmod is ignored
  * - parameter `data`: Array parameter of type guint8 is not supported
  * - parameter `key`: Array parameter of type guint8 is not supported
  * - parameter `key`: Array parameter of type guint8 is not supported
  * - parameter `str`: Array parameter of type guint8 is not supported
  * - parameter `str`: Array parameter of type guint8 is not supported
- * - function `creat`: C function g_creat is ignored
  * - parameter `datalist`: Data
  * - parameter `datalist`: Data
  * - parameter `datalist`: Data
@@ -472,7 +533,6 @@ import kotlin.collections.List
  * - parameter `dataset_location`: gpointer
  * - parameter `dataset_location`: gpointer
  * - parameter `dataset_location`: gpointer
- * - function `date_strftime`: C function g_date_strftime is ignored
  * - parameter `v1`: gpointer
  * - parameter `v`: gpointer
  * - parameter `v1`: gpointer
@@ -490,7 +550,6 @@ import kotlin.collections.List
  * - parameter `mem`: gpointer
  * - parameter `mem`: gpointer
  * - parameter `stream`: gpointer
- * - function `fsync`: C function g_fsync is ignored
  * - parameter `charset`: charset: Out parameter is not supported
  * - parameter `charset`: charset: Out parameter is not supported
  * - parameter `filename_charsets`: filename_charsets: Out parameter is not supported
@@ -530,7 +589,6 @@ import kotlin.collections.List
  * - function `malloc_n`: Return type gpointer is unsupported
  * - parameter `mem`: gpointer
  * - parameter `mem`: gpointer
- * - function `mkdir`: C function g_mkdir is ignored
  * - parameter `allocator`: Allocator
  * - parameter `nullify_location`: gpointer
  * - function `once_init_enter`: In/Out parameter is not supported
@@ -538,7 +596,6 @@ import kotlin.collections.List
  * - parameter `location`: gpointer
  * - function `once_init_leave`: In/Out parameter is not supported
  * - parameter `location`: gpointer
- * - function `open`: C function g_open is ignored
  * - parameter `keys`: DebugKey
  * - parameter `v1`: gpointer
  * - parameter `address`: gpointer
@@ -550,7 +607,6 @@ import kotlin.collections.List
  * - function `prefix_error_literal`: C function g_prefix_error_literal is ignored
  * - parameter `dest`: dest: Out parameter is not supported
  * - parameter `pbase`: gpointer
- * - function `quark_to_string`: C function g_quark_to_string is ignored
  * - parameter `mem_block`: gpointer
  * - function `rc_box_alloc`: Return type gpointer is unsupported
  * - function `rc_box_alloc0`: Return type gpointer is unsupported
@@ -565,8 +621,6 @@ import kotlin.collections.List
  * - parameter `rc`: Unsupported pointer to primitive type
  * - parameter `rc`: Unsupported pointer to primitive type
  * - parameter `has_references`: has_references: Out parameter is not supported
- * - function `remove`: C function g_remove is ignored
- * - function `rename`: C function g_rename is ignored
  * - parameter `begin`: SequenceIter
  * - parameter `iter`: SequenceIter
  * - parameter `iter`: SequenceIter
@@ -597,48 +651,10 @@ import kotlin.collections.List
  * - parameter `standard_output`: standard_output: Out parameter is not supported
  * - parameter `standard_output`: standard_output: Out parameter is not supported
  * - parameter `buf`: StatBuf
- * - function `stpcpy`: C function g_stpcpy is ignored
- * - function `str_equal`: C function g_str_equal is ignored
- * - function `str_has_prefix`: C function g_str_has_prefix is ignored
- * - function `str_has_suffix`: C function g_str_has_suffix is ignored
- * - function `str_hash`: C function g_str_hash is ignored
- * - function `str_is_ascii`: C function g_str_is_ascii is ignored
- * - function `str_match_string`: C function g_str_match_string is ignored
- * - function `str_to_ascii`: C function g_str_to_ascii is ignored
- * - function `str_tokenize_and_fold`: C function g_str_tokenize_and_fold is ignored
- * - function `strcanon`: C function g_strcanon is ignored
- * - function `strcasecmp`: C function g_strcasecmp is ignored
- * - function `strchomp`: C function g_strchomp is ignored
- * - function `strchug`: C function g_strchug is ignored
- * - function `strcmp0`: C function g_strcmp0 is ignored
- * - function `strcompress`: C function g_strcompress is ignored
- * - function `strdelimit`: C function g_strdelimit is ignored
- * - function `strdown`: C function g_strdown is ignored
- * - function `strdup`: C function g_strdup is ignored
- * - function `strdupv`: C function g_strdupv is ignored
- * - function `strerror`: C function g_strerror is ignored
- * - function `strescape`: C function g_strescape is ignored
- * - function `strfreev`: C function g_strfreev is ignored
- * - function `strip_context`: C function g_strip_context is ignored
- * - function `strjoinv`: C function g_strjoinv is ignored
- * - function `strlcat`: C function g_strlcat is ignored
- * - function `strlcpy`: C function g_strlcpy is ignored
- * - function `strncasecmp`: C function g_strncasecmp is ignored
- * - function `strndup`: C function g_strndup is ignored
- * - function `strnfill`: C function g_strnfill is ignored
- * - function `strreverse`: C function g_strreverse is ignored
- * - function `strrstr`: C function g_strrstr is ignored
- * - function `strrstr_len`: C function g_strrstr_len is ignored
- * - function `strsignal`: C function g_strsignal is ignored
- * - function `strsplit`: C function g_strsplit is ignored
- * - function `strsplit_set`: C function g_strsplit_set is ignored
- * - function `strstr_len`: C function g_strstr_len is ignored
- * - function `strtod`: C function g_strtod is ignored
- * - function `strup`: C function g_strup is ignored
- * - function `strv_contains`: C function g_strv_contains is ignored
- * - function `strv_equal`: C function g_strv_equal is ignored
- * - function `strv_get_type`: C function g_strv_get_type is ignored
- * - function `strv_length`: C function g_strv_length is ignored
+ * - parameter `v1`: gpointer
+ * - parameter `v`: gpointer
+ * - parameter `ascii_alternates`: ascii_alternates: Out parameter is not supported
+ * - parameter `endptr`: endptr: Out parameter is not supported
  * - parameter `test_data`: gpointer
  * - parameter `test_data`: gpointer
  * - parameter `test_func`: TestFunc
@@ -675,35 +691,12 @@ import kotlin.collections.List
  * - parameter `scheme`: scheme: Out parameter is not supported
  * - parameter `str`: Array parameter of type guint16 is not supported
  * - parameter `str`: Array parameter of type guint16 is not supported
- * - function `utf8_casefold`: C function g_utf8_casefold is ignored
- * - function `utf8_collate`: C function g_utf8_collate is ignored
- * - function `utf8_collate_key`: C function g_utf8_collate_key is ignored
- * - function `utf8_collate_key_for_filename`: C function g_utf8_collate_key_for_filename is ignored
- * - function `utf8_find_next_char`: C function g_utf8_find_next_char is ignored
- * - function `utf8_find_prev_char`: C function g_utf8_find_prev_char is ignored
- * - function `utf8_get_char`: C function g_utf8_get_char is ignored
- * - function `utf8_get_char_validated`: C function g_utf8_get_char_validated is ignored
- * - function `utf8_make_valid`: C function g_utf8_make_valid is ignored
- * - function `utf8_normalize`: C function g_utf8_normalize is ignored
- * - function `utf8_offset_to_pointer`: C function g_utf8_offset_to_pointer is ignored
- * - function `utf8_pointer_to_offset`: C function g_utf8_pointer_to_offset is ignored
- * - function `utf8_prev_char`: C function g_utf8_prev_char is ignored
- * - function `utf8_strchr`: C function g_utf8_strchr is ignored
- * - function `utf8_strdown`: C function g_utf8_strdown is ignored
- * - function `utf8_strlen`: C function g_utf8_strlen is ignored
- * - function `utf8_strncpy`: C function g_utf8_strncpy is ignored
- * - function `utf8_strrchr`: C function g_utf8_strrchr is ignored
- * - function `utf8_strreverse`: C function g_utf8_strreverse is ignored
- * - function `utf8_strup`: C function g_utf8_strup is ignored
- * - function `utf8_substring`: C function g_utf8_substring is ignored
- * - function `utf8_to_ucs4`: C function g_utf8_to_ucs4 is ignored
- * - function `utf8_to_ucs4_fast`: C function g_utf8_to_ucs4_fast is ignored
- * - function `utf8_to_utf16`: C function g_utf8_to_utf16 is ignored
- * - function `utf8_truncate_middle`: C function g_utf8_truncate_middle is ignored
- * - function `utf8_validate`: C function g_utf8_validate is ignored
- * - function `utf8_validate_len`: C function g_utf8_validate_len is ignored
+ * - parameter `items_read`: items_read: Out parameter is not supported
+ * - parameter `items_written`: items_written: Out parameter is not supported
+ * - parameter `items_read`: items_read: Out parameter is not supported
+ * - parameter `str`: Array parameter of type guint8 is not supported
+ * - parameter `str`: Array parameter of type guint8 is not supported
  * - parameter `utb`: gpointer
- * - function `variant_get_gtype`: C function g_variant_get_gtype is ignored
  * - parameter `endptr`: Unsupported string with cType const gchar**
  * - parameter `endptr`: endptr: Out parameter is not supported
  * - callback `CacheDupFunc`: Return type gpointer is unsupported
@@ -734,7 +727,7 @@ import kotlin.collections.List
  * - record `Timer`: Disguised records are ignored
  * - record `TreeNode`: Disguised records are ignored
  */
-public object Glib {
+public object GLib {
     public const val ALLOCATOR_LIST: Int = 1
 
     public const val ALLOCATOR_NODE: Int = 3
@@ -1538,10 +1531,7 @@ public object Glib {
      * @since 2.8
      */
     @GLibVersion2_8
-    public fun access(
-        filename: kotlin.String,
-        mode: Int,
-    ): Int = g_access(filename, mode)
+    public fun access(filename: kotlin.String, mode: Int): Int = g_access(filename, mode)
 
     /**
      * Determines the numeric value of a character as a decimal digit. If the
@@ -1578,10 +1568,7 @@ public object Glib {
      * @return 0 if the strings match, a negative value if @s1 < @s2,
      *   or a positive value if @s1 > @s2
      */
-    public fun asciiStrcasecmp(
-        s1: kotlin.String,
-        s2: kotlin.String,
-    ): Int = g_ascii_strcasecmp(s1, s2)
+    public fun asciiStrcasecmp(s1: kotlin.String, s2: kotlin.String): Int = g_ascii_strcasecmp(s1, s2)
 
     /**
      * Converts all upper case ASCII letters to lower case ASCII letters, with
@@ -1593,10 +1580,8 @@ public object Glib {
      *   @str converted to lower case. (Note that this is unlike the old
      *   [func@GLib.strdown], which modified the string in place.)
      */
-    public fun asciiStrdown(
-        str: kotlin.String,
-        len: Long,
-    ): kotlin.String = g_ascii_strdown(str, len)?.toKString() ?: error("Expected not null string")
+    public fun asciiStrdown(str: kotlin.String, len: Long): kotlin.String =
+        g_ascii_strdown(str, len)?.toKString() ?: error("Expected not null string")
 
     /**
      * Compare @s1 and @s2, ignoring the case of ASCII characters and any
@@ -1618,11 +1603,7 @@ public object Glib {
      * @return 0 if the strings match, a negative value if @s1 < @s2,
      *   or a positive value if @s1 > @s2
      */
-    public fun asciiStrncasecmp(
-        s1: kotlin.String,
-        s2: kotlin.String,
-        n: ULong,
-    ): Int = g_ascii_strncasecmp(s1, s2, n)
+    public fun asciiStrncasecmp(s1: kotlin.String, s2: kotlin.String, n: ULong): Int = g_ascii_strncasecmp(s1, s2, n)
 
     /**
      * Converts all lower case ASCII letters to upper case ASCII letters, with
@@ -1634,10 +1615,8 @@ public object Glib {
      *   in @str converted to upper case. (Note that this is unlike the old
      *   [func@GLib.strup], which modified the string in place.)
      */
-    public fun asciiStrup(
-        str: kotlin.String,
-        len: Long,
-    ): kotlin.String = g_ascii_strup(str, len)?.toKString() ?: error("Expected not null string")
+    public fun asciiStrup(str: kotlin.String, len: Long): kotlin.String =
+        g_ascii_strup(str, len)?.toKString() ?: error("Expected not null string")
 
     /**
      * Convert a character to ASCII lower case. If the character is not an
@@ -1689,15 +1668,6 @@ public object Glib {
      */
     public fun asciiXdigitValue(c: Char): Int = g_ascii_xdigit_value(c.code.toByte())
 
-    /**
-     *
-     *
-     * @param logDomain
-     * @param file
-     * @param line
-     * @param prettyFunction
-     * @param expression
-     */
     public fun assertWarning(
         logDomain: kotlin.String,
         `file`: kotlin.String,
@@ -1706,15 +1676,6 @@ public object Glib {
         expression: kotlin.String,
     ): Unit = g_assert_warning(logDomain, `file`, line, prettyFunction, expression)
 
-    /**
-     *
-     *
-     * @param domain
-     * @param file
-     * @param line
-     * @param func
-     * @param message
-     */
     public fun assertionMessage(
         domain: kotlin.String,
         `file`: kotlin.String,
@@ -1723,19 +1684,6 @@ public object Glib {
         message: kotlin.String,
     ): Unit = g_assertion_message(domain, `file`, line, func, message)
 
-    /**
-     *
-     *
-     * @param domain
-     * @param file
-     * @param line
-     * @param func
-     * @param expr
-     * @param arg1
-     * @param cmp
-     * @param arg2
-     * @param numtype
-     */
     public fun assertionMessageCmpint(
         domain: kotlin.String,
         `file`: kotlin.String,
@@ -1748,18 +1696,6 @@ public object Glib {
         numtype: Char,
     ): Unit = g_assertion_message_cmpint(domain, `file`, line, func, expr, arg1, cmp, arg2, numtype.code.toByte())
 
-    /**
-     *
-     *
-     * @param domain
-     * @param file
-     * @param line
-     * @param func
-     * @param expr
-     * @param arg1
-     * @param cmp
-     * @param arg2
-     */
     public fun assertionMessageCmpstr(
         domain: kotlin.String,
         `file`: kotlin.String,
@@ -1771,18 +1707,6 @@ public object Glib {
         arg2: kotlin.String,
     ): Unit = g_assertion_message_cmpstr(domain, `file`, line, func, expr, arg1, cmp, arg2)
 
-    /**
-     *
-     *
-     * @param domain
-     * @param file
-     * @param line
-     * @param func
-     * @param expr
-     * @param error
-     * @param errorDomain
-     * @param errorCode
-     */
     public fun assertionMessageError(
         domain: kotlin.String,
         `file`: kotlin.String,
@@ -1792,17 +1716,16 @@ public object Glib {
         error: Error,
         errorDomain: Quark,
         errorCode: Int,
-    ): Unit =
-        g_assertion_message_error(
-            domain,
-            `file`,
-            line,
-            func,
-            expr,
-            error.glibErrorPointer.reinterpret(),
-            errorDomain,
-            errorCode
-        )
+    ): Unit = g_assertion_message_error(
+        domain,
+        `file`,
+        line,
+        func,
+        expr,
+        error.glibErrorPointer.reinterpret(),
+        errorDomain,
+        errorCode
+    )
 
     /**
      * Gets the name of the file without any leading directory
@@ -1827,10 +1750,7 @@ public object Glib {
      * @return the index of the first bit set which is higher than @nth_bit, or -1
      *    if no higher bits are set
      */
-    public fun bitNthLsf(
-        mask: ULong,
-        nthBit: Int,
-    ): Int = g_bit_nth_lsf(mask, nthBit)
+    public fun bitNthLsf(mask: ULong, nthBit: Int): Int = g_bit_nth_lsf(mask, nthBit)
 
     /**
      * Find the position of the first bit set in @mask, searching
@@ -1844,10 +1764,7 @@ public object Glib {
      * @return the index of the first bit set which is lower than @nth_bit, or -1
      *    if no lower bits are set
      */
-    public fun bitNthMsf(
-        mask: ULong,
-        nthBit: Int,
-    ): Int = g_bit_nth_msf(mask, nthBit)
+    public fun bitNthMsf(mask: ULong, nthBit: Int): Int = g_bit_nth_msf(mask, nthBit)
 
     /**
      * Gets the number of bits used to hold @number,
@@ -1879,10 +1796,9 @@ public object Glib {
      * @since 2.8
      */
     @GLibVersion2_8
-    public fun buildFilenamev(args: List<kotlin.String>): kotlin.String =
-        memScoped {
-            return g_build_filenamev(args.toCStringList(this))?.toKString() ?: error("Expected not null string")
-        }
+    public fun buildFilenamev(args: List<kotlin.String>): kotlin.String = memScoped {
+        return g_build_filenamev(args.toCStringList(this))?.toKString() ?: error("Expected not null string")
+    }
 
     /**
      * Behaves exactly like g_build_path(), but takes the path elements
@@ -1898,13 +1814,9 @@ public object Glib {
      * @since 2.8
      */
     @GLibVersion2_8
-    public fun buildPathv(
-        separator: kotlin.String,
-        args: List<kotlin.String>,
-    ): kotlin.String =
-        memScoped {
-            return g_build_pathv(separator, args.toCStringList(this))?.toKString() ?: error("Expected not null string")
-        }
+    public fun buildPathv(separator: kotlin.String, args: List<kotlin.String>): kotlin.String = memScoped {
+        return g_build_pathv(separator, args.toCStringList(this))?.toKString() ?: error("Expected not null string")
+    }
 
     /**
      * Gets the canonical file name from @filename. All triple slashes are turned into
@@ -1930,10 +1842,8 @@ public object Glib {
      * @since 2.58
      */
     @GLibVersion2_58
-    public fun canonicalizeFilename(
-        filename: kotlin.String,
-        relativeTo: kotlin.String? = null,
-    ): kotlin.String = g_canonicalize_filename(filename, relativeTo)?.toKString() ?: error("Expected not null string")
+    public fun canonicalizeFilename(filename: kotlin.String, relativeTo: kotlin.String? = null): kotlin.String =
+        g_canonicalize_filename(filename, relativeTo)?.toKString() ?: error("Expected not null string")
 
     /**
      * A wrapper for the POSIX chdir() function. The function changes the
@@ -1976,11 +1886,8 @@ public object Glib {
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun checkVersion(
-        requiredMajor: UInt,
-        requiredMinor: UInt,
-        requiredMicro: UInt,
-    ): kotlin.String? = glib_check_version(requiredMajor, requiredMinor, requiredMicro)?.toKString()
+    public fun checkVersion(requiredMajor: UInt, requiredMinor: UInt, requiredMicro: UInt): kotlin.String? =
+        glib_check_version(requiredMajor, requiredMinor, requiredMicro)?.toKString()
 
     /**
      * Gets the length in bytes of digests of type @checksum_type
@@ -2029,18 +1936,13 @@ public object Glib {
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun childWatchAdd(
-        priority: Int,
-        pid: Pid,
-        function: ChildWatchFunc,
-    ): UInt =
-        g_child_watch_add_full(
-            priority,
-            pid,
-            ChildWatchFuncFunc.reinterpret(),
-            StableRef.create(function).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public fun childWatchAdd(priority: Int, pid: Pid, function: ChildWatchFunc): UInt = g_child_watch_add_full(
+        priority,
+        pid,
+        ChildWatchFuncFunc.reinterpret(),
+        StableRef.create(function).asCPointer(),
+        staticStableRefDestroy.reinterpret()
+    )
 
     /**
      * Creates a new child_watch source.
@@ -2090,28 +1992,23 @@ public object Glib {
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun childWatchSourceNew(pid: Pid): Source =
-        g_child_watch_source_new(pid)!!.run {
-            Source(reinterpret())
-        }
+    public fun childWatchSourceNew(pid: Pid): Source = g_child_watch_source_new(pid)!!.run {
+        Source(reinterpret())
+    }
 
     /**
      * If @err or *@err is null, does nothing. Otherwise,
      * calls g_error_free() on *@err and sets *@err to null.
      */
-    public fun clearError(): Result<Unit> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_clear_error(gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.glib.Glib
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(gResult)
-            }
+    public fun clearError(): Result<Unit> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_clear_error(gError.ptr)
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.glib.GLib.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * This wraps the close() call. In case of error, %errno will be
@@ -2137,19 +2034,15 @@ public object Glib {
      * @since 2.36
      */
     @GLibVersion2_36
-    public fun close(fd: Int): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_close(fd, gError.ptr).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.glib.Glib
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(gResult)
-            }
+    public fun close(fd: Int): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_close(fd, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.glib.GLib.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Close every file descriptor equal to or greater than @lowfd.
@@ -2191,10 +2084,7 @@ public object Glib {
      * @since 2.34
      */
     @GLibVersion2_34
-    public fun computeChecksumForBytes(
-        checksumType: ChecksumType,
-        `data`: Bytes,
-    ): kotlin.String? =
+    public fun computeChecksumForBytes(checksumType: ChecksumType, `data`: Bytes): kotlin.String? =
         g_compute_checksum_for_bytes(checksumType.nativeValue, `data`.glibBytesPointer.reinterpret())?.toKString()
 
     /**
@@ -2211,11 +2101,8 @@ public object Glib {
      * @since 2.16
      */
     @GLibVersion2_16
-    public fun computeChecksumForString(
-        checksumType: ChecksumType,
-        str: kotlin.String,
-        length: Long,
-    ): kotlin.String? = g_compute_checksum_for_string(checksumType.nativeValue, str, length)?.toKString()
+    public fun computeChecksumForString(checksumType: ChecksumType, str: kotlin.String, length: Long): kotlin.String? =
+        g_compute_checksum_for_string(checksumType.nativeValue, str, length)?.toKString()
 
     /**
      * Computes the HMAC for a binary @data. This is a
@@ -2232,11 +2119,7 @@ public object Glib {
      * @since 2.50
      */
     @GLibVersion2_50
-    public fun computeHmacForBytes(
-        digestType: ChecksumType,
-        key: Bytes,
-        `data`: Bytes,
-    ): kotlin.String =
+    public fun computeHmacForBytes(digestType: ChecksumType, key: Bytes, `data`: Bytes): kotlin.String =
         g_compute_hmac_for_bytes(
             digestType.nativeValue,
             key.glibBytesPointer.reinterpret(),
@@ -2254,10 +2137,8 @@ public object Glib {
      * @param year year
      * @return number of days in @month during the @year
      */
-    public fun dateGetDaysInMonth(
-        month: DateMonth,
-        year: DateYear,
-    ): UByte = g_date_get_days_in_month(month.nativeValue, year)
+    public fun dateGetDaysInMonth(month: DateMonth, year: DateYear): UByte =
+        g_date_get_days_in_month(month.nativeValue, year)
 
     /**
      * Returns the number of weeks in the year, where weeks
@@ -2319,11 +2200,8 @@ public object Glib {
      * @param year year
      * @return true if the date is a valid one
      */
-    public fun dateValidDmy(
-        day: DateDay,
-        month: DateMonth,
-        year: DateYear,
-    ): Boolean = g_date_valid_dmy(day, month.nativeValue, year).asBoolean()
+    public fun dateValidDmy(day: DateDay, month: DateMonth, year: DateYear): Boolean =
+        g_date_valid_dmy(day, month.nativeValue, year).asBoolean()
 
     /**
      * Returns true if the Julian day is valid. Anything greater than zero
@@ -2375,11 +2253,8 @@ public object Glib {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun dcgettext(
-        domain: kotlin.String? = null,
-        msgid: kotlin.String,
-        category: Int,
-    ): kotlin.String = g_dcgettext(domain, msgid, category)?.toKString() ?: error("Expected not null string")
+    public fun dcgettext(domain: kotlin.String? = null, msgid: kotlin.String, category: Int): kotlin.String =
+        g_dcgettext(domain, msgid, category)?.toKString() ?: error("Expected not null string")
 
     /**
      * This function is a wrapper of dgettext() which does not translate
@@ -2422,10 +2297,8 @@ public object Glib {
      * @since 2.18
      */
     @GLibVersion2_18
-    public fun dgettext(
-        domain: kotlin.String? = null,
-        msgid: kotlin.String,
-    ): kotlin.String = g_dgettext(domain, msgid)?.toKString() ?: error("Expected not null string")
+    public fun dgettext(domain: kotlin.String? = null, msgid: kotlin.String): kotlin.String =
+        g_dgettext(domain, msgid)?.toKString() ?: error("Expected not null string")
 
     /**
      * Creates a subdirectory in the preferred directory for temporary
@@ -2449,19 +2322,15 @@ public object Glib {
      * @since 2.30
      */
     @GLibVersion2_30
-    public fun dirMakeTmp(tmpl: kotlin.String? = null): Result<kotlin.String> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_dir_make_tmp(tmpl, gError.ptr)?.toKString()
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.glib.Glib
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun dirMakeTmp(tmpl: kotlin.String? = null): Result<kotlin.String> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_dir_make_tmp(tmpl, gError.ptr)?.toKString()
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.glib.GLib.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
         }
+    }
 
     /**
      * This function is a wrapper of dngettext() which does not translate
@@ -2511,11 +2380,8 @@ public object Glib {
      * @since 2.16
      */
     @GLibVersion2_16
-    public fun dpgettext(
-        domain: kotlin.String? = null,
-        msgctxtid: kotlin.String,
-        msgidoffset: ULong,
-    ): kotlin.String = g_dpgettext(domain, msgctxtid, msgidoffset)?.toKString() ?: error("Expected not null string")
+    public fun dpgettext(domain: kotlin.String? = null, msgctxtid: kotlin.String, msgidoffset: ULong): kotlin.String =
+        g_dpgettext(domain, msgctxtid, msgidoffset)?.toKString() ?: error("Expected not null string")
 
     /**
      * This function is a variant of g_dgettext() which supports
@@ -2537,11 +2403,8 @@ public object Glib {
      * @since 2.18
      */
     @GLibVersion2_18
-    public fun dpgettext2(
-        domain: kotlin.String? = null,
-        context: kotlin.String,
-        msgid: kotlin.String,
-    ): kotlin.String = g_dpgettext2(domain, context, msgid)?.toKString() ?: error("Expected not null string")
+    public fun dpgettext2(domain: kotlin.String? = null, context: kotlin.String, msgid: kotlin.String): kotlin.String =
+        g_dpgettext2(domain, context, msgid)?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the value of the environment variable @variable in the
@@ -2557,13 +2420,9 @@ public object Glib {
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun environGetenv(
-        envp: List<kotlin.String>? = null,
-        variable: kotlin.String,
-    ): kotlin.String? =
-        memScoped {
-            return g_environ_getenv(envp?.toCStringList(this), variable)?.toKString()
-        }
+    public fun environGetenv(envp: List<kotlin.String>? = null, variable: kotlin.String): kotlin.String? = memScoped {
+        return g_environ_getenv(envp?.toCStringList(this), variable)?.toKString()
+    }
 
     /**
      * Sets the environment variable @variable in the provided list
@@ -2585,16 +2444,10 @@ public object Glib {
         variable: kotlin.String,
         `value`: kotlin.String,
         overwrite: Boolean,
-    ): List<kotlin.String> =
-        memScoped {
-            return g_environ_setenv(
-                envp?.toCStringList(this),
-                variable,
-                `value`,
-                overwrite.asGBoolean()
-            )?.toKStringList()
-                ?: error("Expected not null string array")
-        }
+    ): List<kotlin.String> = memScoped {
+        return g_environ_setenv(envp?.toCStringList(this), variable, `value`, overwrite.asGBoolean())?.toKStringList()
+            ?: error("Expected not null string array")
+    }
 
     /**
      * Removes the environment variable @variable from the provided
@@ -2608,10 +2461,7 @@ public object Glib {
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun environUnsetenv(
-        envp: List<kotlin.String>? = null,
-        variable: kotlin.String,
-    ): List<kotlin.String> =
+    public fun environUnsetenv(envp: List<kotlin.String>? = null, variable: kotlin.String): List<kotlin.String> =
         memScoped {
             return g_environ_unsetenv(envp?.toCStringList(this), variable)?.toKStringList()
                 ?: error("Expected not null string array")
@@ -2654,10 +2504,9 @@ public object Glib {
      * @param errNo an "errno" value
      * @return #GFileError corresponding to the given @err_no
      */
-    public fun fileErrorFromErrno(errNo: Int): FileError =
-        g_file_error_from_errno(errNo).run {
-            FileError.fromNativeValue(this)
-        }
+    public fun fileErrorFromErrno(errNo: Int): FileError = g_file_error_from_errno(errNo).run {
+        FileError.fromNativeValue(this)
+    }
 
     public fun fileErrorQuark(): Quark = g_file_error_quark()
 
@@ -2692,19 +2541,15 @@ public object Glib {
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun fileReadLink(filename: kotlin.String): Result<kotlin.String> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_file_read_link(filename, gError.ptr)?.toKString()
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.glib.Glib
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun fileReadLink(filename: kotlin.String): Result<kotlin.String> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_read_link(filename, gError.ptr)?.toKString()
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.glib.GLib.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
         }
+    }
 
     /**
      * Returns true if any of the tests in the bitfield @test are
@@ -2772,10 +2617,7 @@ public object Glib {
      * @param test bitfield of #GFileTest flags
      * @return whether a test was true
      */
-    public fun fileTest(
-        filename: kotlin.String,
-        test: FileTest,
-    ): Boolean = g_file_test(filename, test.mask).asBoolean()
+    public fun fileTest(filename: kotlin.String, test: FileTest): Boolean = g_file_test(filename, test.mask).asBoolean()
 
     /**
      * Returns the display basename for the particular filename, guaranteed
@@ -2843,18 +2685,12 @@ public object Glib {
      * @return a newly-allocated string holding the resulting
      *               URI, or null on an error.
      */
-    public fun filenameToUri(
-        filename: kotlin.String,
-        hostname: kotlin.String? = null,
-    ): Result<kotlin.String> =
+    public fun filenameToUri(filename: kotlin.String, hostname: kotlin.String? = null): Result<kotlin.String> =
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_filename_to_uri(filename, hostname, gError.ptr)?.toKString()
             return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.glib.Glib
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
+                Result.failure(org.gtkkn.bindings.glib.GLib.resolveException(Error(gError.pointed!!.ptr)))
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -2942,10 +2778,8 @@ public object Glib {
      * @since 2.30
      */
     @GLibVersion2_30
-    public fun formatSizeFull(
-        size: ULong,
-        flags: FormatSizeFlags,
-    ): kotlin.String = g_format_size_full(size, flags.mask)?.toKString() ?: error("Expected not null string")
+    public fun formatSizeFull(size: ULong, flags: FormatSizeFlags): kotlin.String =
+        g_format_size_full(size, flags.mask)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets a human-readable name for the application, as set by
@@ -3527,15 +3361,11 @@ public object Glib {
      * @param hashTable a #GHashTable
      * @param func the function to call for each key/value pair
      */
-    public fun hashTableForeach(
-        hashTable: HashTable,
-        func: HFunc,
-    ): Unit =
-        g_hash_table_foreach(
-            hashTable.glibHashTablePointer.reinterpret(),
-            HFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )
+    public fun hashTableForeach(hashTable: HashTable, func: HFunc): Unit = g_hash_table_foreach(
+        hashTable.glibHashTablePointer.reinterpret(),
+        HFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer()
+    )
 
     /**
      * Calls the given function for each key/value pair in the
@@ -3551,15 +3381,11 @@ public object Glib {
      * @param func the function to call for each key/value pair
      * @return the number of key/value pairs removed
      */
-    public fun hashTableForeachRemove(
-        hashTable: HashTable,
-        func: HRFunc,
-    ): UInt =
-        g_hash_table_foreach_remove(
-            hashTable.glibHashTablePointer.reinterpret(),
-            HRFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )
+    public fun hashTableForeachRemove(hashTable: HashTable, func: HRFunc): UInt = g_hash_table_foreach_remove(
+        hashTable.glibHashTablePointer.reinterpret(),
+        HRFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer()
+    )
 
     /**
      * Calls the given function for each key/value pair in the
@@ -3574,15 +3400,11 @@ public object Glib {
      * @param func the function to call for each key/value pair
      * @return the number of key/value pairs removed.
      */
-    public fun hashTableForeachSteal(
-        hashTable: HashTable,
-        func: HRFunc,
-    ): UInt =
-        g_hash_table_foreach_steal(
-            hashTable.glibHashTablePointer.reinterpret(),
-            HRFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )
+    public fun hashTableForeachSteal(hashTable: HashTable, func: HRFunc): UInt = g_hash_table_foreach_steal(
+        hashTable.glibHashTablePointer.reinterpret(),
+        HRFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer()
+    )
 
     /**
      * Creates a new #GHashTable like g_hash_table_new_full() with a reference
@@ -3673,10 +3495,8 @@ public object Glib {
      * @param hookId a hook ID
      * @return true if the #GHook was found in the #GHookList and destroyed
      */
-    public fun hookDestroy(
-        hookList: HookList,
-        hookId: ULong,
-    ): Boolean = g_hook_destroy(hookList.glibHookListPointer.reinterpret(), hookId).asBoolean()
+    public fun hookDestroy(hookList: HookList, hookId: ULong): Boolean =
+        g_hook_destroy(hookList.glibHookListPointer.reinterpret(), hookId).asBoolean()
 
     /**
      * Removes one #GHook from a #GHookList, marking it
@@ -3685,10 +3505,8 @@ public object Glib {
      * @param hookList a #GHookList
      * @param hook the #GHook to remove
      */
-    public fun hookDestroyLink(
-        hookList: HookList,
-        hook: Hook,
-    ): Unit = g_hook_destroy_link(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
+    public fun hookDestroyLink(hookList: HookList, hook: Hook): Unit =
+        g_hook_destroy_link(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
 
     /**
      * Calls the #GHookList @finalize_hook function if it exists,
@@ -3697,10 +3515,8 @@ public object Glib {
      * @param hookList a #GHookList
      * @param hook the #GHook to free
      */
-    public fun hookFree(
-        hookList: HookList,
-        hook: Hook,
-    ): Unit = g_hook_free(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
+    public fun hookFree(hookList: HookList, hook: Hook): Unit =
+        g_hook_free(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
 
     /**
      * Inserts a #GHook into a #GHookList, before a given #GHook.
@@ -3709,16 +3525,11 @@ public object Glib {
      * @param sibling the #GHook to insert the new #GHook before
      * @param hook the #GHook to insert
      */
-    public fun hookInsertBefore(
-        hookList: HookList,
-        sibling: Hook? = null,
-        hook: Hook,
-    ): Unit =
-        g_hook_insert_before(
-            hookList.glibHookListPointer.reinterpret(),
-            sibling?.glibHookPointer?.reinterpret(),
-            hook.glibHookPointer.reinterpret()
-        )
+    public fun hookInsertBefore(hookList: HookList, sibling: Hook? = null, hook: Hook): Unit = g_hook_insert_before(
+        hookList.glibHookListPointer.reinterpret(),
+        sibling?.glibHookPointer?.reinterpret(),
+        hook.glibHookPointer.reinterpret()
+    )
 
     /**
      * Prepends a #GHook on the start of a #GHookList.
@@ -3726,10 +3537,8 @@ public object Glib {
      * @param hookList a #GHookList
      * @param hook the #GHook to add to the start of @hook_list
      */
-    public fun hookPrepend(
-        hookList: HookList,
-        hook: Hook,
-    ): Unit = g_hook_prepend(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
+    public fun hookPrepend(hookList: HookList, hook: Hook): Unit =
+        g_hook_prepend(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
 
     /**
      * Decrements the reference count of a #GHook.
@@ -3739,10 +3548,8 @@ public object Glib {
      * @param hookList a #GHookList
      * @param hook the #GHook to unref
      */
-    public fun hookUnref(
-        hookList: HookList,
-        hook: Hook,
-    ): Unit = g_hook_unref(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
+    public fun hookUnref(hookList: HookList, hook: Hook): Unit =
+        g_hook_unref(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
 
     /**
      * Tests if @hostname contains segments with an ASCII-compatible
@@ -3843,16 +3650,12 @@ public object Glib {
      * @param function function to call
      * @return the ID (greater than 0) of the event source.
      */
-    public fun idleAdd(
-        priority: Int,
-        function: SourceFunc,
-    ): UInt =
-        g_idle_add_full(
-            priority,
-            SourceFuncFunc.reinterpret(),
-            StableRef.create(function).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public fun idleAdd(priority: Int, function: SourceFunc): UInt = g_idle_add_full(
+        priority,
+        SourceFuncFunc.reinterpret(),
+        StableRef.create(function).asCPointer(),
+        staticStableRefDestroy.reinterpret()
+    )
 
     /**
      * Creates a new idle source.
@@ -3865,10 +3668,9 @@ public object Glib {
      *
      * @return the newly-created idle source
      */
-    public fun idleSourceNew(): Source =
-        g_idle_source_new()!!.run {
-            Source(reinterpret())
-        }
+    public fun idleSourceNew(): Source = g_idle_source_new()!!.run {
+        Source(reinterpret())
+    }
 
     /**
      * Returns a canonical representation for @string. Interned strings
@@ -3912,10 +3714,9 @@ public object Glib {
      * @return a #GIOChannelError error number, e.g.
      *      %G_IO_CHANNEL_ERROR_INVAL.
      */
-    public fun ioChannelErrorFromErrno(en: Int): IOChannelError =
-        g_io_channel_error_from_errno(en).run {
-            IOChannelError.fromNativeValue(this)
-        }
+    public fun ioChannelErrorFromErrno(en: Int): IOChannelError = g_io_channel_error_from_errno(en).run {
+        IOChannelError.fromNativeValue(this)
+    }
 
     public fun ioChannelErrorQuark(): Quark = g_io_channel_error_quark()
 
@@ -3966,10 +3767,8 @@ public object Glib {
      * @param handlerId the ID of the handler, which was returned
      *   in [func@GLib.log_set_handler]
      */
-    public fun logRemoveHandler(
-        logDomain: kotlin.String,
-        handlerId: UInt,
-    ): Unit = g_log_remove_handler(logDomain, handlerId)
+    public fun logRemoveHandler(logDomain: kotlin.String, handlerId: UInt): Unit =
+        g_log_remove_handler(logDomain, handlerId)
 
     /**
      * Sets the message levels which are always fatal, in any log domain.
@@ -3994,10 +3793,9 @@ public object Glib {
      *   to be fatal
      * @return the old fatal mask
      */
-    public fun logSetAlwaysFatal(fatalMask: LogLevelFlags): LogLevelFlags =
-        g_log_set_always_fatal(fatalMask.mask).run {
-            LogLevelFlags(this)
-        }
+    public fun logSetAlwaysFatal(fatalMask: LogLevelFlags): LogLevelFlags = g_log_set_always_fatal(fatalMask.mask).run {
+        LogLevelFlags(this)
+    }
 
     /**
      * Enable or disable debug output from the GLib logging system for all domains.
@@ -4035,10 +3833,7 @@ public object Glib {
      * @param fatalMask the new fatal mask
      * @return the old fatal mask for the log domain
      */
-    public fun logSetFatalMask(
-        logDomain: kotlin.String,
-        fatalMask: LogLevelFlags,
-    ): LogLevelFlags =
+    public fun logSetFatalMask(logDomain: kotlin.String, fatalMask: LogLevelFlags): LogLevelFlags =
         g_log_set_fatal_mask(logDomain, fatalMask.mask).run {
             LogLevelFlags(this)
         }
@@ -4060,11 +3855,7 @@ public object Glib {
      * @since 2.46
      */
     @GLibVersion2_46
-    public fun logSetHandler(
-        logDomain: kotlin.String? = null,
-        logLevels: LogLevelFlags,
-        logFunc: LogFunc,
-    ): UInt =
+    public fun logSetHandler(logDomain: kotlin.String? = null, logLevels: LogLevelFlags, logFunc: LogFunc): UInt =
         g_log_set_handler_full(
             logDomain,
             logLevels.mask,
@@ -4090,12 +3881,11 @@ public object Glib {
      * @since 2.50
      */
     @GLibVersion2_50
-    public fun logSetWriterFunc(func: LogWriterFunc): Unit =
-        g_log_set_writer_func(
-            LogWriterFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public fun logSetWriterFunc(func: LogWriterFunc): Unit = g_log_set_writer_func(
+        LogWriterFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer(),
+        staticStableRefDestroy.reinterpret()
+    )
 
     /**
      * Log a message with structured data, accepting the data within a [type@GLib.Variant].
@@ -4122,11 +3912,8 @@ public object Glib {
      * @since 2.50
      */
     @GLibVersion2_50
-    public fun logVariant(
-        logDomain: kotlin.String? = null,
-        logLevel: LogLevelFlags,
-        fields: Variant,
-    ): Unit = g_log_variant(logDomain, logLevel.mask, fields.glibVariantPointer.reinterpret())
+    public fun logVariant(logDomain: kotlin.String? = null, logLevel: LogLevelFlags, fields: Variant): Unit =
+        g_log_variant(logDomain, logLevel.mask, fields.glibVariantPointer.reinterpret())
 
     /**
      * Configure whether the built-in log functions will output all log messages to
@@ -4189,10 +3976,8 @@ public object Glib {
      * @since 2.68
      */
     @GLibVersion2_68
-    public fun logWriterDefaultWouldDrop(
-        logLevel: LogLevelFlags,
-        logDomain: kotlin.String? = null,
-    ): Boolean = g_log_writer_default_would_drop(logLevel.mask, logDomain).asBoolean()
+    public fun logWriterDefaultWouldDrop(logLevel: LogLevelFlags, logDomain: kotlin.String? = null): Boolean =
+        g_log_writer_default_would_drop(logLevel.mask, logDomain).asBoolean()
 
     /**
      * Check whether the given @output_fd file descriptor is a connection to the
@@ -4233,10 +4018,9 @@ public object Glib {
      *
      * @return the global-default main context.
      */
-    public fun mainContextDefault(): MainContext =
-        g_main_context_default()!!.run {
-            MainContext(reinterpret())
-        }
+    public fun mainContextDefault(): MainContext = g_main_context_default()!!.run {
+        MainContext(reinterpret())
+    }
 
     /**
      * Gets the thread-default #GMainContext for this thread. Asynchronous
@@ -4256,10 +4040,9 @@ public object Glib {
      * @since 2.22
      */
     @GLibVersion2_22
-    public fun mainContextGetThreadDefault(): MainContext? =
-        g_main_context_get_thread_default()?.run {
-            MainContext(reinterpret())
-        }
+    public fun mainContextGetThreadDefault(): MainContext? = g_main_context_get_thread_default()?.run {
+        MainContext(reinterpret())
+    }
 
     /**
      * Gets the thread-default #GMainContext for this thread, as with
@@ -4274,10 +4057,9 @@ public object Glib {
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun mainContextRefThreadDefault(): MainContext =
-        g_main_context_ref_thread_default()!!.run {
-            MainContext(reinterpret())
-        }
+    public fun mainContextRefThreadDefault(): MainContext = g_main_context_ref_thread_default()!!.run {
+        MainContext(reinterpret())
+    }
 
     /**
      * Returns the currently firing source for this thread.
@@ -4286,10 +4068,9 @@ public object Glib {
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun mainCurrentSource(): Source? =
-        g_main_current_source()?.run {
-            Source(reinterpret())
-        }
+    public fun mainCurrentSource(): Source? = g_main_current_source()?.run {
+        Source(reinterpret())
+    }
 
     /**
      * Returns the depth of the stack of calls to
@@ -4420,10 +4201,8 @@ public object Glib {
      * @param length length of @text in bytes, or -1 if the text is nul-terminated
      * @return a newly allocated string with the escaped text
      */
-    public fun markupEscapeText(
-        text: kotlin.String,
-        length: Long,
-    ): kotlin.String = g_markup_escape_text(text, length)?.toKString() ?: error("Expected not null string")
+    public fun markupEscapeText(text: kotlin.String, length: Long): kotlin.String =
+        g_markup_escape_text(text, length)?.toKString() ?: error("Expected not null string")
 
     public fun memChunkInfo(): Unit = g_mem_chunk_info()
 
@@ -4466,10 +4245,7 @@ public object Glib {
      * @since 2.8
      */
     @GLibVersion2_8
-    public fun mkdirWithParents(
-        pathname: kotlin.String,
-        mode: Int,
-    ): Int = g_mkdir_with_parents(pathname, mode)
+    public fun mkdirWithParents(pathname: kotlin.String, mode: Int): Int = g_mkdir_with_parents(pathname, mode)
 
     public fun nodePopAllocator(): Unit = g_node_pop_allocator()
 
@@ -4633,10 +4409,8 @@ public object Glib {
      * @param string the UTF-8 encoded string to match
      * @return true if @string matches @pspec
      */
-    public fun patternMatchSimple(
-        pattern: kotlin.String,
-        string: kotlin.String,
-    ): Boolean = g_pattern_match_simple(pattern, string).asBoolean()
+    public fun patternMatchSimple(pattern: kotlin.String, string: kotlin.String): Boolean =
+        g_pattern_match_simple(pattern, string).asBoolean()
 
     /**
      * Polls @fds, as with the poll() system call, but portably. (On
@@ -4666,11 +4440,8 @@ public object Glib {
      * @since 2.20
      */
     @GLibVersion2_20
-    public fun poll(
-        fds: PollFD,
-        nfds: UInt,
-        timeout: Int,
-    ): Int = g_poll(fds.glibPollFDPointer.reinterpret(), nfds, timeout)
+    public fun poll(fds: PollFD, nfds: UInt, timeout: Int): Int =
+        g_poll(fds.glibPollFDPointer.reinterpret(), nfds, timeout)
 
     /**
      * Gets the #GQuark identifying the given (static) string. If the
@@ -4710,6 +4481,15 @@ public object Glib {
     public fun quarkFromString(string: kotlin.String? = null): Quark = g_quark_from_string(string)
 
     /**
+     * Gets the string associated with the given #GQuark.
+     *
+     * @param quark a #GQuark.
+     * @return the string associated with the #GQuark
+     */
+    public fun quarkToString(quark: Quark): kotlin.String =
+        g_quark_to_string(quark)?.toKString() ?: error("Expected not null string")
+
+    /**
      * Gets the #GQuark associated with the given string, or 0 if string is
      * null or it has no associated #GQuark.
      *
@@ -4740,10 +4520,7 @@ public object Glib {
      * @param end upper open bound of the interval
      * @return a random number
      */
-    public fun randomDoubleRange(
-        begin: Double,
-        end: Double,
-    ): Double = g_random_double_range(begin, end)
+    public fun randomDoubleRange(begin: Double, end: Double): Double = g_random_double_range(begin, end)
 
     /**
      * Return a random #guint32 equally distributed over the range
@@ -4761,10 +4538,7 @@ public object Glib {
      * @param end upper open bound of the interval
      * @return a random number
      */
-    public fun randomIntRange(
-        begin: Int,
-        end: Int,
-    ): Int = g_random_int_range(begin, end)
+    public fun randomIntRange(begin: Int, end: Int): Int = g_random_int_range(begin, end)
 
     /**
      * Sets the seed for the global random number generator, which is used
@@ -4837,10 +4611,8 @@ public object Glib {
      * @since 2.58
      */
     @GLibVersion2_58
-    public fun refStringNewLen(
-        str: kotlin.String,
-        len: Long,
-    ): kotlin.String = g_ref_string_new_len(str, len)?.toKString() ?: error("Expected not null string")
+    public fun refStringNewLen(str: kotlin.String, len: Long): kotlin.String =
+        g_ref_string_new_len(str, len)?.toKString() ?: error("Expected not null string")
 
     /**
      * Releases a reference on a string; if it was the last reference, the
@@ -4867,10 +4639,8 @@ public object Glib {
      * @since 2.30
      */
     @GLibVersion2_30
-    public fun regexEscapeNul(
-        string: kotlin.String,
-        length: Int,
-    ): kotlin.String = g_regex_escape_nul(string, length)?.toKString() ?: error("Expected not null string")
+    public fun regexEscapeNul(string: kotlin.String, length: Int): kotlin.String =
+        g_regex_escape_nul(string, length)?.toKString() ?: error("Expected not null string")
 
     /**
      * Escapes the special characters used for regular expressions
@@ -4887,10 +4657,8 @@ public object Glib {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun regexEscapeString(
-        string: kotlin.String,
-        length: Int,
-    ): kotlin.String = g_regex_escape_string(string, length)?.toKString() ?: error("Expected not null string")
+    public fun regexEscapeString(string: kotlin.String, length: Int): kotlin.String =
+        g_regex_escape_string(string, length)?.toKString() ?: error("Expected not null string")
 
     /**
      * Scans for a match in @string for @pattern.
@@ -5063,11 +4831,8 @@ public object Glib {
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun setenv(
-        variable: kotlin.String,
-        `value`: kotlin.String,
-        overwrite: Boolean,
-    ): Boolean = g_setenv(variable, `value`, overwrite.asGBoolean()).asBoolean()
+    public fun setenv(variable: kotlin.String, `value`: kotlin.String, overwrite: Boolean): Boolean =
+        g_setenv(variable, `value`, overwrite.asGBoolean()).asBoolean()
 
     public fun shellErrorQuark(): Quark = g_shell_error_quark()
 
@@ -5121,37 +4886,19 @@ public object Glib {
      * @param quotedString shell-quoted string
      * @return an unquoted string
      */
-    public fun shellUnquote(quotedString: kotlin.String): Result<kotlin.String> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_shell_unquote(quotedString, gError.ptr)?.toKString()
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.glib.Glib
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun shellUnquote(quotedString: kotlin.String): Result<kotlin.String> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_shell_unquote(quotedString, gError.ptr)?.toKString()
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.glib.GLib.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
         }
+    }
 
-    /**
-     *
-     *
-     * @param ckey
-     */
     public fun sliceGetConfig(ckey: SliceConfig): Long = g_slice_get_config(ckey.nativeValue)
 
-    /**
-     *
-     *
-     * @param ckey
-     * @param value
-     */
-    public fun sliceSetConfig(
-        ckey: SliceConfig,
-        `value`: Long,
-    ): Unit = g_slice_set_config(ckey.nativeValue, `value`)
+    public fun sliceSetConfig(ckey: SliceConfig, `value`: Long): Unit = g_slice_set_config(ckey.nativeValue, `value`)
 
     public fun slistPopAllocator(): Unit = g_slist_pop_allocator()
 
@@ -5204,10 +4951,7 @@ public object Glib {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun sourceSetNameById(
-        tag: UInt,
-        name: kotlin.String,
-    ): Unit = g_source_set_name_by_id(tag, name)
+    public fun sourceSetNameById(tag: UInt, name: kotlin.String): Unit = g_source_set_name_by_id(tag, name)
 
     /**
      * Gets the smallest prime number from a built-in array of primes which
@@ -5239,19 +4983,15 @@ public object Glib {
      * @since 2.34
      */
     @GLibVersion2_34
-    public fun spawnCheckExitStatus(waitStatus: Int): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_spawn_check_exit_status(waitStatus, gError.ptr).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.glib.Glib
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(gResult)
-            }
+    public fun spawnCheckExitStatus(waitStatus: Int): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_spawn_check_exit_status(waitStatus, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.glib.GLib.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Set @error if @wait_status indicates the child exited abnormally
@@ -5300,19 +5040,15 @@ public object Glib {
      * @since 2.70
      */
     @GLibVersion2_70
-    public fun spawnCheckWaitStatus(waitStatus: Int): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_spawn_check_wait_status(waitStatus, gError.ptr).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.glib.Glib
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(gResult)
-            }
+    public fun spawnCheckWaitStatus(waitStatus: Int): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_spawn_check_wait_status(waitStatus, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.glib.GLib.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * On some platforms, notably Windows, the #GPid type represents a resource
@@ -5339,32 +5075,654 @@ public object Glib {
      * @param commandLine a command line
      * @return true on success, false if error is set
      */
-    public fun spawnCommandLineAsync(commandLine: kotlin.String): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_spawn_command_line_async(commandLine, gError.ptr).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.glib.Glib
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(gResult)
-            }
+    public fun spawnCommandLineAsync(commandLine: kotlin.String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_spawn_command_line_async(commandLine, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.glib.GLib.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     public fun spawnErrorQuark(): Quark = g_spawn_error_quark()
 
     public fun spawnExitErrorQuark(): Quark = g_spawn_exit_error_quark()
 
     /**
+     * Looks whether the string @str begins with @prefix.
      *
-     *
-     * @param domain
-     * @param file
-     * @param line
-     * @param func
+     * @param str a string to look in
+     * @param prefix the prefix to look for
+     * @return true if @str begins with @prefix, false otherwise
+     * @since 2.2
      */
+    @GLibVersion2_2
+    public fun strHasPrefix(str: kotlin.String, prefix: kotlin.String): Boolean =
+        g_str_has_prefix(str, prefix).asBoolean()
+
+    /**
+     * Looks whether a string ends with @suffix.
+     *
+     * @param str a string to look in
+     * @param suffix the suffix to look for
+     * @return true if @str ends with @suffix, false otherwise
+     * @since 2.2
+     */
+    @GLibVersion2_2
+    public fun strHasSuffix(str: kotlin.String, suffix: kotlin.String): Boolean =
+        g_str_has_suffix(str, suffix).asBoolean()
+
+    /**
+     * Determines if a string is pure ASCII. A string is pure ASCII if it
+     * contains no bytes with the high bit set.
+     *
+     * @param str a string
+     * @return true if @str is ASCII
+     * @since 2.40
+     */
+    @GLibVersion2_40
+    public fun strIsAscii(str: kotlin.String): Boolean = g_str_is_ascii(str).asBoolean()
+
+    /**
+     * Checks if a search conducted for @search_term should match
+     * @potential_hit.
+     *
+     * This function calls [func@GLib.str_tokenize_and_fold] on both
+     * @search_term and @potential_hit. ASCII alternates are never taken
+     * for @search_term but will be taken for @potential_hit according to
+     * the value of @accept_alternates.
+     *
+     * A hit occurs when each folded token in @search_term is a prefix of a
+     * folded token from @potential_hit.
+     *
+     * Depending on how you're performing the search, it will typically be
+     * faster to call `g_str_tokenize_and_fold()` on each string in
+     * your corpus and build an index on the returned folded tokens, then
+     * call `g_str_tokenize_and_fold()` on the search term and
+     * perform lookups into that index.
+     *
+     * As some examples, searching for ‘fred’ would match the potential hit
+     * ‘Smith, Fred’ and also ‘Frédéric’.  Searching for ‘Fréd’ would match
+     * ‘Frédéric’ but not ‘Frederic’ (due to the one-directional nature of
+     * accent matching).  Searching ‘fo’ would match ‘Foo’ and ‘Bar Foo
+     * Baz’, but not ‘SFO’ (because no word has ‘fo’ as a prefix).
+     *
+     * @param searchTerm the search term from the user
+     * @param potentialHit the text that may be a hit
+     * @param acceptAlternates if true, ASCII alternates are accepted
+     * @return true if @potential_hit is a hit
+     * @since 2.40
+     */
+    @GLibVersion2_40
+    public fun strMatchString(
+        searchTerm: kotlin.String,
+        potentialHit: kotlin.String,
+        acceptAlternates: Boolean,
+    ): Boolean = g_str_match_string(searchTerm, potentialHit, acceptAlternates.asGBoolean()).asBoolean()
+
+    /**
+     * Transliterate @str to plain ASCII.
+     *
+     * For best results, @str should be in composed normalised form.
+     *
+     * This function performs a reasonably good set of character
+     * replacements.  The particular set of replacements that is done may
+     * change by version or even by runtime environment.
+     *
+     * If the source language of @str is known, it can used to improve the
+     * accuracy of the translation by passing it as @from_locale.  It should
+     * be a valid POSIX locale string (of the form
+     * `language[_territory][.codeset][@modifier]`).
+     *
+     * If @from_locale is null then the current locale is used.
+     *
+     * If you want to do translation for no specific locale, and you want it
+     * to be done independently of the currently locale, specify `"C"` for
+     * @from_locale.
+     *
+     * @param str a string, in UTF-8
+     * @param fromLocale the source locale, if known
+     * @return a string in plain ASCII
+     * @since 2.40
+     */
+    @GLibVersion2_40
+    public fun strToAscii(str: kotlin.String, fromLocale: kotlin.String? = null): kotlin.String =
+        g_str_to_ascii(str, fromLocale)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * For each character in @string, if the character is not in @valid_chars,
+     * replaces the character with @substitutor.
+     *
+     * Modifies @string in place, and return @string itself, not a copy. The
+     * return value is to allow nesting such as:
+     * ```C
+     * g_ascii_strup (g_strcanon (str, "abc", '?'))
+     * ```
+     *
+     * In order to modify a copy, you may use [func@GLib.strdup]:
+     * ```C
+     * reformatted = g_strcanon (g_strdup (const_str), "abc", '?');
+     * …
+     * g_free (reformatted);
+     * ```
+     *
+     * @param string a nul-terminated array of bytes
+     * @param validChars bytes permitted in @string
+     * @param substitutor replacement character for disallowed bytes
+     * @return the modified @string
+     */
+    public fun strcanon(string: kotlin.String, validChars: kotlin.String, substitutor: Char): kotlin.String =
+        g_strcanon(string.cstr, validChars, substitutor.code.toByte())?.toKString() ?: error("Expected not null string")
+
+    /**
+     * A case-insensitive string comparison, corresponding to the standard
+     * `strcasecmp()` function on platforms which support it.
+     *
+     * @param s1 string to compare with @s2
+     * @param s2 string to compare with @s1
+     * @return 0 if the strings match, a negative value if @s1 < @s2,
+     *   or a positive value if @s1 > @s2
+     */
+    public fun strcasecmp(s1: kotlin.String, s2: kotlin.String): Int = g_strcasecmp(s1, s2)
+
+    /**
+     * Removes trailing whitespace from a string.
+     *
+     * This function doesn't allocate or reallocate any memory;
+     * it modifies @string in place. Therefore, it cannot be used
+     * on statically allocated strings.
+     *
+     * The pointer to @string is returned to allow the nesting of functions.
+     *
+     * Also see [func@GLib.strchug] and [func@GLib.strstrip].
+     *
+     * @param string a string to remove the trailing whitespace from
+     * @return the modified @string
+     */
+    public fun strchomp(string: kotlin.String): kotlin.String =
+        g_strchomp(string.cstr)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Removes leading whitespace from a string, by moving the rest
+     * of the characters forward.
+     *
+     * This function doesn't allocate or reallocate any memory;
+     * it modifies @string in place. Therefore, it cannot be used on
+     * statically allocated strings.
+     *
+     * The pointer to @string is returned to allow the nesting of functions.
+     *
+     * Also see [func@GLib.strchomp] and [func@GLib.strstrip].
+     *
+     * @param string a string to remove the leading whitespace from
+     * @return the modified @string
+     */
+    public fun strchug(string: kotlin.String): kotlin.String =
+        g_strchug(string.cstr)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Compares @str1 and @str2 like strcmp(). Handles null
+     * gracefully by sorting it before non-null strings.
+     * Comparing two null pointers returns 0.
+     *
+     * @param str1 a C string or null
+     * @param str2 another C string or null
+     * @return an integer less than, equal to, or greater than zero, if @str1 is <, == or > than @str2.
+     * @since 2.16
+     */
+    @GLibVersion2_16
+    public fun strcmp0(str1: kotlin.String? = null, str2: kotlin.String? = null): Int = g_strcmp0(str1, str2)
+
+    /**
+     * Replaces all escaped characters with their one byte equivalent.
+     *
+     * This function does the reverse conversion of [func@GLib.strescape].
+     *
+     * @param source a string to compress
+     * @return a newly-allocated copy of @source with all escaped
+     *   character compressed
+     */
+    public fun strcompress(source: kotlin.String): kotlin.String =
+        g_strcompress(source)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Converts any delimiter characters in @string to @new_delimiter.
+     *
+     * Any characters in @string which are found in @delimiters are
+     * changed to the @new_delimiter character. Modifies @string in place,
+     * and returns @string itself, not a copy.
+     *
+     * The return value is to allow nesting such as:
+     * ```C
+     * g_ascii_strup (g_strdelimit (str, "abc", '?'))
+     * ```
+     *
+     * In order to modify a copy, you may use [func@GLib.strdup]:
+     * ```C
+     * reformatted = g_strdelimit (g_strdup (const_str), "abc", '?');
+     * …
+     * g_free (reformatted);
+     * ```
+     *
+     * @param string the string to convert
+     * @param delimiters a string containing the current delimiters, or
+     *   `NULL` to use the standard delimiters defined in [const@GLib.STR_DELIMITERS]
+     * @param newDelimiter the new delimiter character
+     * @return the modified @string
+     */
+    public fun strdelimit(
+        string: kotlin.String,
+        delimiters: kotlin.String? = null,
+        newDelimiter: Char,
+    ): kotlin.String = g_strdelimit(string.cstr, delimiters, newDelimiter.code.toByte())?.toKString()
+        ?: error("Expected not null string")
+
+    /**
+     * Converts a string to lower case.
+     *
+     * @param string the string to convert
+     * @return the string
+     */
+    public fun strdown(string: kotlin.String): kotlin.String =
+        g_strdown(string.cstr)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Duplicates a string. If @str is `NULL` it returns `NULL`.
+     *
+     * @param str the string to duplicate
+     * @return a newly-allocated copy of @str
+     */
+    public fun strdup(str: kotlin.String? = null): kotlin.String =
+        g_strdup(str)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Copies an array of strings. The copy is a deep copy; each string is also
+     * copied.
+     *
+     * If called on a `NULL` value, `g_strdupv()` simply returns `NULL`.
+     *
+     * @param strArray an array of strings to copy
+     * @return a
+     *   newly-allocated array of strings. Use [func@GLib.strfreev] to free it.
+     */
+    public fun strdupv(strArray: List<kotlin.String>? = null): List<kotlin.String>? = memScoped {
+        return g_strdupv(strArray?.toCStringList(this))?.toKStringList()
+    }
+
+    /**
+     * Returns a string corresponding to the given error code, e.g. "no
+     * such process".
+     *
+     * Unlike `strerror()`, this always returns a string in
+     * UTF-8 encoding, and the pointer is guaranteed to remain valid for
+     * the lifetime of the process. If the error code is unknown, it returns a
+     * string like “Unknown error <code\>”.
+     *
+     * Note that the string may be translated according to the current locale.
+     *
+     * The value of `errno` will not be changed by this function. However, it may
+     * be changed by intermediate function calls, so you should save its value
+     * as soon as the call returns:
+     * ```C
+     * int saved_errno;
+     *
+     * ret = read (blah);
+     * saved_errno = errno;
+     *
+     * g_strerror (saved_errno);
+     * ```
+     *
+     * @param errnum the system error number. See the standard C `errno` documentation
+     * @return the string describing the error code
+     */
+    public fun strerror(errnum: Int): kotlin.String =
+        g_strerror(errnum)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Escapes the special characters '\b', '\f', '\n', '\r', '\t', '\v', '\'
+     * and '"' in the string @source by inserting a '\' before
+     * them. Additionally all characters in the range 0x01-0x1F (everything
+     * below SPACE) and in the range 0x7F-0xFF (all non-ASCII chars) are
+     * replaced with a '\' followed by their octal representation.
+     * Characters supplied in @exceptions are not escaped.
+     *
+     * [func@GLib.strcompress] does the reverse conversion.
+     *
+     * @param source a string to escape
+     * @param exceptions a string of characters not to escape in @source
+     * @return a newly-allocated copy of @source with special characters escaped
+     */
+    public fun strescape(source: kotlin.String, exceptions: kotlin.String? = null): kotlin.String =
+        g_strescape(source, exceptions)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Frees an array of strings, as well as each string it contains.
+     *
+     * If @str_array is `NULL`, this function simply returns.
+     *
+     * @param strArray an
+     *   array of strings to free
+     */
+    public fun strfreev(strArray: List<kotlin.String>? = null): Unit = memScoped {
+        return g_strfreev(strArray?.toCStringList(this))
+    }
+
+    /**
+     * An auxiliary function for gettext() support (see Q_()).
+     *
+     * @param msgid a string
+     * @param msgval another string
+     * @return @msgval, unless @msgval is identical to @msgid
+     *     and contains a '|' character, in which case a pointer to
+     *     the substring of msgid after the first '|' character is returned.
+     * @since 2.4
+     */
+    @GLibVersion2_4
+    public fun stripContext(msgid: kotlin.String, msgval: kotlin.String): kotlin.String =
+        g_strip_context(msgid, msgval)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Joins an array of strings together to form one long string, with the
+     * optional @separator inserted between each of them.
+     *
+     * If @str_array has no items, the return value will be an
+     * empty string. If @str_array contains a single item, @separator will not
+     * appear in the resulting string.
+     *
+     * @param separator a string to insert between each of the strings
+     * @param strArray an array of strings to join
+     * @return a newly-allocated string containing all of the strings joined
+     *   together, with @separator between them
+     */
+    public fun strjoinv(separator: kotlin.String? = null, strArray: List<kotlin.String>): kotlin.String = memScoped {
+        return g_strjoinv(separator, strArray.toCStringList(this))?.toKString() ?: error("Expected not null string")
+    }
+
+    /**
+     * Portability wrapper that calls `strlcat()` on systems which have it,
+     * and emulates it otherwise. Appends nul-terminated @src string to @dest,
+     * guaranteeing nul-termination for @dest. The total size of @dest won't
+     * exceed @dest_size.
+     *
+     * At most @dest_size - 1 characters will be copied. Unlike `strncat()`,
+     * @dest_size is the full size of dest, not the space left over. This
+     * function does not allocate memory. It always nul-terminates (unless
+     * @dest_size == 0 or there were no nul characters in the @dest_size
+     * characters of dest to start with).
+     *
+     * Caveat: this is supposedly a more secure alternative to `strcat()` or
+     * `strncat()`, but for real security [func@GLib.strconcat] is harder to mess up.
+     *
+     * @param dest destination buffer, already containing one nul-terminated string
+     * @param src source buffer
+     * @param destSize length of @dest buffer in bytes (not length of existing string
+     *   inside @dest)
+     * @return size of attempted result, which is `MIN (dest_size, strlen
+     *   (original dest)) + strlen (src)`, so if @retval >= @dest_size,
+     *   truncation occurred
+     */
+    public fun strlcat(dest: kotlin.String, src: kotlin.String, destSize: ULong): ULong =
+        g_strlcat(dest.cstr, src, destSize)
+
+    /**
+     * Portability wrapper that calls `strlcpy()` on systems which have it,
+     * and emulates `strlcpy()` otherwise. Copies @src to @dest; @dest is
+     * guaranteed to be nul-terminated; @src must be nul-terminated;
+     * @dest_size is the buffer size, not the number of bytes to copy.
+     *
+     * At most @dest_size - 1 characters will be copied. Always nul-terminates
+     * (unless @dest_size is 0). This function does not allocate memory. Unlike
+     * `strncpy()`, this function doesn't pad @dest (so it's often faster). It
+     * returns the size of the attempted result, `strlen (src)`, so if
+     * @retval >= @dest_size, truncation occurred.
+     *
+     * Caveat: `strlcpy()` is supposedly more secure than `strcpy()` or `strncpy()`,
+     * but if you really want to avoid screwups, [func@GLib.strdup] is an even better
+     * idea.
+     *
+     * @param dest destination buffer
+     * @param src source buffer
+     * @param destSize length of @dest in bytes
+     * @return length of @src
+     */
+    public fun strlcpy(dest: kotlin.String, src: kotlin.String, destSize: ULong): ULong =
+        g_strlcpy(dest.cstr, src, destSize)
+
+    /**
+     * A case-insensitive string comparison, corresponding to the standard
+     * `strncasecmp()` function on platforms which support it. It is similar
+     * to [func@GLib.strcasecmp] except it only compares the first @n characters of
+     * the strings.
+     *
+     * @param s1 string to compare with @s2
+     * @param s2 string to compare with @s1
+     * @param n the maximum number of characters to compare
+     * @return 0 if the strings match, a negative value if @s1 < @s2,
+     *   or a positive value if @s1 > @s2
+     */
+    public fun strncasecmp(s1: kotlin.String, s2: kotlin.String, n: UInt): Int = g_strncasecmp(s1, s2, n)
+
+    /**
+     * Duplicates the first @n bytes of a string, returning a newly-allocated
+     * buffer @n + 1 bytes long which will always be nul-terminated. If @str
+     * is less than @n bytes long the buffer is padded with nuls. If @str is
+     * `NULL` it returns `NULL`.
+     *
+     * To copy a number of characters from a UTF-8 encoded string,
+     * use [func@GLib.utf8_strncpy] instead.
+     *
+     * @param str the string to duplicate
+     * @param n the maximum number of bytes to copy from @str
+     * @return a newly-allocated buffer containing the first
+     *    @n bytes of @str
+     */
+    public fun strndup(str: kotlin.String? = null, n: ULong): kotlin.String? = g_strndup(str, n)?.toKString()
+
+    /**
+     * Creates a new string @length bytes long filled with @fill_char.
+     *
+     * @param length the length of the new string
+     * @param fillChar the byte to fill the string with
+     * @return a newly-allocated string filled with @fill_char
+     */
+    public fun strnfill(length: ULong, fillChar: Char): kotlin.String =
+        g_strnfill(length, fillChar.code.toByte())?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Reverses all of the bytes in a string. For example,
+     * `g_strreverse ("abcdef")` will result in "fedcba".
+     *
+     * Note that `g_strreverse()` doesn't work on UTF-8 strings
+     * containing multibyte characters. For that purpose, use
+     * [func@GLib.utf8_strreverse].
+     *
+     * @param string the string to reverse
+     * @return the @string, reversed in place
+     */
+    public fun strreverse(string: kotlin.String): kotlin.String =
+        g_strreverse(string.cstr)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Searches the string @haystack for the last occurrence
+     * of the string @needle.
+     *
+     * @param haystack a string to search in
+     * @param needle the string to search for
+     * @return a pointer to the found occurrence, or `NULL` if not found
+     */
+    public fun strrstr(haystack: kotlin.String, needle: kotlin.String): kotlin.String =
+        g_strrstr(haystack, needle)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Searches the string @haystack for the last occurrence
+     * of the string @needle, limiting the length of the search
+     * to @haystack_len.
+     *
+     * @param haystack a string to search in
+     * @param haystackLen the maximum length of @haystack in bytes. A length of `-1`
+     *   can be used to mean "search the entire string", like [func@GLib.strrstr]
+     * @param needle the string to search for
+     * @return a pointer to the found occurrence, or `NULL` if not found
+     */
+    public fun strrstrLen(haystack: kotlin.String, haystackLen: Long, needle: kotlin.String): kotlin.String =
+        g_strrstr_len(haystack, haystackLen, needle)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Returns a string describing the given signal, e.g. "Segmentation fault".
+     * If the signal is unknown, it returns “unknown signal (<signum\>)”.
+     *
+     * You should use this function in preference to `strsignal()`, because it
+     * returns a string in UTF-8 encoding, and since not all platforms support
+     * the `strsignal()` function.
+     *
+     * @param signum the signal number. See the `signal` documentation
+     * @return the string describing the signal
+     */
+    public fun strsignal(signum: Int): kotlin.String =
+        g_strsignal(signum)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Splits a string into a maximum of @max_tokens pieces, using the given
+     * @delimiter. If @max_tokens is reached, the remainder of @string is
+     * appended to the last token.
+     *
+     * As an example, the result of `g_strsplit (":a:bc::d:", ":", -1)` is an array
+     * containing the six strings "", "a", "bc", "", "d" and "".
+     *
+     * As a special case, the result of splitting the empty string "" is an empty
+     * array, not an array containing a single string. The reason for this
+     * special case is that being able to represent an empty array is typically
+     * more useful than consistent handling of empty elements. If you do need
+     * to represent empty elements, you'll need to check for the empty string
+     * before calling `g_strsplit()`.
+     *
+     * @param string a string to split
+     * @param delimiter a string which specifies the places at which to split
+     *   the string. The delimiter is not included in any of the resulting
+     *   strings, unless @max_tokens is reached.
+     * @param maxTokens the maximum number of pieces to split @string into
+     *   If this is less than 1, the string is split completely
+     * @return a newly-allocated array of strings, freed with
+     *   [func@GLib.strfreev]
+     */
+    public fun strsplit(string: kotlin.String, delimiter: kotlin.String, maxTokens: Int): List<kotlin.String> =
+        g_strsplit(string, delimiter, maxTokens)?.toKStringList() ?: error("Expected not null string array")
+
+    /**
+     * Splits @string into a number of tokens not containing any of the characters
+     * in @delimiters. A token is the (possibly empty) longest string that does not
+     * contain any of the characters in @delimiters. If @max_tokens is reached, the
+     * remainder is appended to the last token.
+     *
+     * For example, the result of g_strsplit_set ("abc:def/ghi", ":/", -1) is an
+     * array containing the three strings "abc", "def", and "ghi".
+     *
+     * The result of g_strsplit_set (":def/ghi:", ":/", -1) is an array containing
+     * the four strings "", "def", "ghi", and "".
+     *
+     * As a special case, the result of splitting the empty string "" is an empty
+     * array, not an array containing a single string. The reason for this
+     * special case is that being able to represent an empty array is typically
+     * more useful than consistent handling of empty elements. If you do need
+     * to represent empty elements, you'll need to check for the empty string
+     * before calling `g_strsplit_set()`.
+     *
+     * Note that this function works on bytes not characters, so it can't be used
+     * to delimit UTF-8 strings for anything but ASCII characters.
+     *
+     * @param string a string to split
+     * @param delimiters a string containing characters that are used to split the
+     *   string. Can be empty, which will result in no string splitting
+     * @param maxTokens the maximum number of tokens to split @string into.
+     *   If this is less than 1, the string is split completely
+     * @return a newly-allocated array of strings. Use
+     *   [func@GLib.strfreev] to free it.
+     * @since 2.4
+     */
+    @GLibVersion2_4
+    public fun strsplitSet(string: kotlin.String, delimiters: kotlin.String, maxTokens: Int): List<kotlin.String> =
+        g_strsplit_set(string, delimiters, maxTokens)?.toKStringList() ?: error("Expected not null string array")
+
+    /**
+     * Searches the string @haystack for the first occurrence
+     * of the string @needle, limiting the length of the search
+     * to @haystack_len or a nul terminator byte (whichever is reached first).
+     *
+     * A length of `-1` can be used to mean “search the entire string”, like
+     * `strstr()`.
+     *
+     * @param haystack a string to search in
+     * @param haystackLen the maximum length of @haystack in bytes, or `-1` to
+     *   search it entirely
+     * @param needle the string to search for
+     * @return a pointer to the found occurrence, or `NULL` if not found
+     */
+    public fun strstrLen(haystack: kotlin.String, haystackLen: Long, needle: kotlin.String): kotlin.String =
+        g_strstr_len(haystack, haystackLen, needle)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Converts a string to upper case.
+     *
+     * @param string the string to convert
+     * @return the string
+     */
+    public fun strup(string: kotlin.String): kotlin.String =
+        g_strup(string.cstr)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Checks if an array of strings contains the string @str according to
+     * [func@GLib.str_equal]. @strv must not be `NULL`.
+     *
+     * @param strv an array of strings to search in
+     * @param str the string to search for
+     * @return true if @str is an element of @strv
+     * @since 2.44
+     */
+    @GLibVersion2_44
+    public fun strvContains(strv: List<kotlin.String>, str: kotlin.String): Boolean = memScoped {
+        return g_strv_contains(strv.toCStringList(this), str).asBoolean()
+    }
+
+    /**
+     * Checks if two arrays of strings contain exactly the same elements in
+     * exactly the same order.
+     *
+     * Elements are compared using [func@GLib.str_equal]. To match independently
+     * of order, sort the arrays first (using [func@GLib.qsort_with_data]
+     * or similar).
+     *
+     * Elements are compared using [func@GLib.str_equal]. To match independently
+     * of order, sort the arrays first (using [func@GLib.qsort_with_data]
+     * or similar).
+     *
+     * Two empty arrays are considered equal. Neither @strv1 nor @strv2 may be
+     * `NULL`.
+     *
+     * @param strv1 an array of strings to compare to @strv2
+     * @param strv2 an array of strings to compare to @strv1
+     * @return true if @strv1 and @strv2 are equal
+     * @since 2.60
+     */
+    @GLibVersion2_60
+    public fun strvEqual(strv1: List<kotlin.String>, strv2: List<kotlin.String>): Boolean = memScoped {
+        return g_strv_equal(strv1.toCStringList(this), strv2.toCStringList(this)).asBoolean()
+    }
+
+    public fun strvGetType(): ULong = g_strv_get_type()
+
+    /**
+     * Returns the length of an array of strings. @str_array must not be `NULL`.
+     *
+     * @param strArray an array of strings
+     * @return length of @str_array
+     * @since 2.6
+     */
+    @GLibVersion2_6
+    public fun strvLength(strArray: List<kotlin.String>): UInt = memScoped {
+        return g_strv_length(strArray.toCStringList(this))
+    }
+
     public fun testAssertExpectedMessagesInternal(
         domain: kotlin.String,
         `file`: kotlin.String,
@@ -5566,11 +5924,6 @@ public object Glib {
     @GLibVersion2_38
     public fun testIncomplete(msg: kotlin.String? = null): Unit = g_test_incomplete(msg)
 
-    /**
-     *
-     *
-     * @param logType
-     */
     public fun testLogTypeName(logType: TestLogType): kotlin.String =
         g_test_log_type_name(logType.nativeValue)?.toKString() ?: error("Expected not null string")
 
@@ -5594,10 +5947,8 @@ public object Glib {
      * @since 2.16
      */
     @GLibVersion2_16
-    public fun testRandDoubleRange(
-        rangeStart: Double,
-        rangeEnd: Double,
-    ): Double = g_test_rand_double_range(rangeStart, rangeEnd)
+    public fun testRandDoubleRange(rangeStart: Double, rangeEnd: Double): Double =
+        g_test_rand_double_range(rangeStart, rangeEnd)
 
     /**
      * Get a reproducible random integer number.
@@ -5626,10 +5977,7 @@ public object Glib {
      * @since 2.16
      */
     @GLibVersion2_16
-    public fun testRandIntRange(
-        begin: Int,
-        end: Int,
-    ): Int = g_test_rand_int_range(begin, end)
+    public fun testRandIntRange(begin: Int, end: Int): Int = g_test_rand_int_range(begin, end)
 
     /**
      * Runs all tests under the toplevel suite which can be retrieved
@@ -5773,16 +6121,6 @@ public object Glib {
     @GLibVersion2_16
     public fun testTimerStart(): Unit = g_test_timer_start()
 
-    /**
-     *
-     *
-     * @param domain
-     * @param file
-     * @param line
-     * @param func
-     * @param assertionFlags
-     * @param pattern
-     */
     public fun testTrapAssertions(
         domain: kotlin.String,
         `file`: kotlin.String,
@@ -5828,10 +6166,8 @@ public object Glib {
      * @since 2.16
      */
     @GLibVersion2_16
-    public fun testTrapFork(
-        usecTimeout: ULong,
-        testTrapFlags: TestTrapFlags,
-    ): Boolean = g_test_trap_fork(usecTimeout, testTrapFlags.mask).asBoolean()
+    public fun testTrapFork(usecTimeout: ULong, testTrapFlags: TestTrapFlags): Boolean =
+        g_test_trap_fork(usecTimeout, testTrapFlags.mask).asBoolean()
 
     /**
      * Check the result of the last g_test_trap_subprocess() call.
@@ -5975,10 +6311,9 @@ public object Glib {
         envp: List<kotlin.String>? = null,
         usecTimeout: ULong,
         testFlags: TestSubprocessFlags,
-    ): Unit =
-        memScoped {
-            return g_test_trap_subprocess_with_envp(testPath, envp?.toCStringList(this), usecTimeout, testFlags.mask)
-        }
+    ): Unit = memScoped {
+        return g_test_trap_subprocess_with_envp(testPath, envp?.toCStringList(this), usecTimeout, testFlags.mask)
+    }
 
     public fun threadErrorQuark(): Quark = g_thread_error_quark()
 
@@ -6061,10 +6396,9 @@ public object Glib {
      *
      * @return the #GThread representing the current thread
      */
-    public fun threadSelf(): Thread =
-        g_thread_self()!!.run {
-            Thread(reinterpret())
-        }
+    public fun threadSelf(): Thread = g_thread_self()!!.run {
+        Thread(reinterpret())
+    }
 
     /**
      * Causes the calling thread to voluntarily relinquish the CPU, so
@@ -6099,10 +6433,8 @@ public object Glib {
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun timeValFromIso8601(
-        isoDate: kotlin.String,
-        time: TimeVal,
-    ): Boolean = g_time_val_from_iso8601(isoDate, time.glibTimeValPointer.reinterpret()).asBoolean()
+    public fun timeValFromIso8601(isoDate: kotlin.String, time: TimeVal): Boolean =
+        g_time_val_from_iso8601(isoDate, time.glibTimeValPointer.reinterpret()).asBoolean()
 
     /**
      * Sets a function to be called at regular intervals, with the given
@@ -6137,18 +6469,13 @@ public object Glib {
      * @param function function to call
      * @return the ID (greater than 0) of the event source.
      */
-    public fun timeoutAdd(
-        priority: Int,
-        interval: UInt,
-        function: SourceFunc,
-    ): UInt =
-        g_timeout_add_full(
-            priority,
-            interval,
-            SourceFuncFunc.reinterpret(),
-            StableRef.create(function).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public fun timeoutAdd(priority: Int, interval: UInt, function: SourceFunc): UInt = g_timeout_add_full(
+        priority,
+        interval,
+        SourceFuncFunc.reinterpret(),
+        StableRef.create(function).asCPointer(),
+        staticStableRefDestroy.reinterpret()
+    )
 
     /**
      * Sets a function to be called at regular intervals, with @priority.
@@ -6199,11 +6526,7 @@ public object Glib {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun timeoutAddSeconds(
-        priority: Int,
-        interval: UInt,
-        function: SourceFunc,
-    ): UInt =
+    public fun timeoutAddSeconds(priority: Int, interval: UInt, function: SourceFunc): UInt =
         g_timeout_add_seconds_full(
             priority,
             interval,
@@ -6225,10 +6548,9 @@ public object Glib {
      * @param interval the timeout interval in milliseconds.
      * @return the newly-created timeout source
      */
-    public fun timeoutSourceNew(interval: UInt): Source =
-        g_timeout_source_new(interval)!!.run {
-            Source(reinterpret())
-        }
+    public fun timeoutSourceNew(interval: UInt): Source = g_timeout_source_new(interval)!!.run {
+        Source(reinterpret())
+    }
 
     /**
      * Creates a new timeout source.
@@ -6248,10 +6570,9 @@ public object Glib {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun timeoutSourceNewSeconds(interval: UInt): Source =
-        g_timeout_source_new_seconds(interval)!!.run {
-            Source(reinterpret())
-        }
+    public fun timeoutSourceNewSeconds(interval: UInt): Source = g_timeout_source_new_seconds(interval)!!.run {
+        Source(reinterpret())
+    }
 
     /**
      * Determines the break type of @c. @c should be a Unicode character
@@ -6264,10 +6585,9 @@ public object Glib {
      * @param c a Unicode character
      * @return the break type of @c
      */
-    public fun unicharBreakType(c: UInt): UnicodeBreakType =
-        g_unichar_break_type(c).run {
-            UnicodeBreakType.fromNativeValue(this)
-        }
+    public fun unicharBreakType(c: UInt): UnicodeBreakType = g_unichar_break_type(c).run {
+        UnicodeBreakType.fromNativeValue(this)
+    }
 
     /**
      * Determines the canonical combining class of a Unicode character.
@@ -6303,10 +6623,9 @@ public object Glib {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun unicharGetScript(ch: UInt): UnicodeScript =
-        g_unichar_get_script(ch).run {
-            UnicodeScript.fromNativeValue(this)
-        }
+    public fun unicharGetScript(ch: UInt): UnicodeScript = g_unichar_get_script(ch).run {
+        UnicodeScript.fromNativeValue(this)
+    }
 
     /**
      * Determines whether a character is alphanumeric.
@@ -6543,10 +6862,9 @@ public object Glib {
      * @param c a Unicode character
      * @return the type of the character.
      */
-    public fun unicharType(c: UInt): UnicodeType =
-        g_unichar_type(c).run {
-            UnicodeType.fromNativeValue(this)
-        }
+    public fun unicharType(c: UInt): UnicodeType = g_unichar_type(c).run {
+        UnicodeType.fromNativeValue(this)
+    }
 
     /**
      * Checks whether @ch is a valid Unicode character. Some possible
@@ -6586,10 +6904,9 @@ public object Glib {
      * @since 2.30
      */
     @GLibVersion2_30
-    public fun unicodeScriptFromIso15924(iso15924: UInt): UnicodeScript =
-        g_unicode_script_from_iso15924(iso15924).run {
-            UnicodeScript.fromNativeValue(this)
-        }
+    public fun unicodeScriptFromIso15924(iso15924: UInt): UnicodeScript = g_unicode_script_from_iso15924(iso15924).run {
+        UnicodeScript.fromNativeValue(this)
+    }
 
     /**
      * Looks up the ISO 15924 code for @script.  ISO 15924 assigns four-letter
@@ -6624,22 +6941,15 @@ public object Glib {
      * @since 2.30
      */
     @GLibVersion2_30
-    public fun unixSetFdNonblocking(
-        fd: Int,
-        nonblock: Boolean,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_unix_set_fd_nonblocking(fd, nonblock.asGBoolean(), gError.ptr).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.glib.Glib
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(gResult)
-            }
+    public fun unixSetFdNonblocking(fd: Int, nonblock: Boolean): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_unix_set_fd_nonblocking(fd, nonblock.asGBoolean(), gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.glib.GLib.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * A convenience function for g_unix_signal_source_new(), which
@@ -6654,18 +6964,13 @@ public object Glib {
      * @since 2.30
      */
     @GLibVersion2_30
-    public fun unixSignalAdd(
-        priority: Int,
-        signum: Int,
-        handler: SourceFunc,
-    ): UInt =
-        g_unix_signal_add_full(
-            priority,
-            signum,
-            SourceFuncFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public fun unixSignalAdd(priority: Int, signum: Int, handler: SourceFunc): UInt = g_unix_signal_add_full(
+        priority,
+        signum,
+        SourceFuncFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret()
+    )
 
     /**
      * Create a #GSource that will be dispatched upon delivery of the UNIX
@@ -6697,10 +7002,9 @@ public object Glib {
      * @since 2.30
      */
     @GLibVersion2_30
-    public fun unixSignalSourceNew(signum: Int): Source =
-        g_unix_signal_source_new(signum)!!.run {
-            Source(reinterpret())
-        }
+    public fun unixSignalSourceNew(signum: Int): Source = g_unix_signal_source_new(signum)!!.run {
+        Source(reinterpret())
+    }
 
     /**
      * A wrapper for the POSIX unlink() function. The unlink() function
@@ -6774,10 +7078,9 @@ public object Glib {
         path: kotlin.String,
         query: kotlin.String? = null,
         fragment: kotlin.String? = null,
-    ): Uri =
-        g_uri_build(flags.mask, scheme, userinfo, host, port, path, query, fragment)!!.run {
-            Uri(reinterpret())
-        }
+    ): Uri = g_uri_build(flags.mask, scheme, userinfo, host, port, path, query, fragment)!!.run {
+        Uri(reinterpret())
+    }
 
     /**
      * Creates a new #GUri from the given components according to @flags
@@ -6844,9 +7147,8 @@ public object Glib {
         unescaped: kotlin.String,
         reservedCharsAllowed: kotlin.String? = null,
         allowUtf8: Boolean,
-    ): kotlin.String =
-        g_uri_escape_string(unescaped, reservedCharsAllowed, allowUtf8.asGBoolean())?.toKString()
-            ?: error("Expected not null string")
+    ): kotlin.String = g_uri_escape_string(unescaped, reservedCharsAllowed, allowUtf8.asGBoolean())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Parses @uri_string according to @flags, to determine whether it is a valid
@@ -6864,22 +7166,15 @@ public object Glib {
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun uriIsValid(
-        uriString: kotlin.String,
-        flags: UriFlags,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_uri_is_valid(uriString, flags.mask, gError.ptr).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.glib.Glib
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(gResult)
-            }
+    public fun uriIsValid(uriString: kotlin.String, flags: UriFlags): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_uri_is_valid(uriString, flags.mask, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.glib.GLib.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Joins the given components together according to @flags to create
@@ -6918,9 +7213,8 @@ public object Glib {
         path: kotlin.String,
         query: kotlin.String? = null,
         fragment: kotlin.String? = null,
-    ): kotlin.String =
-        g_uri_join(flags.mask, scheme, userinfo, host, port, path, query, fragment)?.toKString()
-            ?: error("Expected not null string")
+    ): kotlin.String = g_uri_join(flags.mask, scheme, userinfo, host, port, path, query, fragment)?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Joins the given components together according to @flags to create
@@ -6961,18 +7255,7 @@ public object Glib {
         query: kotlin.String? = null,
         fragment: kotlin.String? = null,
     ): kotlin.String =
-        g_uri_join_with_user(
-            flags.mask,
-            scheme,
-            user,
-            password,
-            authParams,
-            host,
-            port,
-            path,
-            query,
-            fragment
-        )?.toKString()
+        g_uri_join_with_user(flags.mask, scheme, user, password, authParams, host, port, path, query, fragment)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -7001,26 +7284,18 @@ public object Glib {
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun uriParse(
-        uriString: kotlin.String,
-        flags: UriFlags,
-    ): Result<Uri> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_uri_parse(uriString, flags.mask, gError.ptr)?.run {
-                    Uri(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.glib.Glib
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun uriParse(uriString: kotlin.String, flags: UriFlags): Result<Uri> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_uri_parse(uriString, flags.mask, gError.ptr)?.run {
+            Uri(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.glib.GLib.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Many URI schemes include one or more attribute/value pairs as part of the URI
@@ -7067,23 +7342,18 @@ public object Glib {
         length: Long,
         separators: kotlin.String,
         flags: UriParamsFlags,
-    ): Result<HashTable> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_uri_parse_params(params, length, separators, flags.mask, gError.ptr)?.run {
-                    HashTable(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.glib.Glib
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    ): Result<HashTable> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_uri_parse_params(params, length, separators, flags.mask, gError.ptr)?.run {
+            HashTable(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.glib.GLib.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Gets the scheme portion of a URI string.
@@ -7144,19 +7414,15 @@ public object Glib {
         baseUriString: kotlin.String? = null,
         uriRef: kotlin.String,
         flags: UriFlags,
-    ): Result<kotlin.String> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_uri_resolve_relative(baseUriString, uriRef, flags.mask, gError.ptr)?.toKString()
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.glib.Glib
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    ): Result<kotlin.String> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_uri_resolve_relative(baseUriString, uriRef, flags.mask, gError.ptr)?.toKString()
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.glib.GLib.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
         }
+    }
 
     /**
      * Unescapes a segment of an escaped string as binary data.
@@ -7185,23 +7451,18 @@ public object Glib {
         escapedString: kotlin.String,
         length: Long,
         illegalCharacters: kotlin.String? = null,
-    ): Result<Bytes> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_uri_unescape_bytes(escapedString, length, illegalCharacters, gError.ptr)?.run {
-                    Bytes(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.glib.Glib
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    ): Result<Bytes> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_uri_unescape_bytes(escapedString, length, illegalCharacters, gError.ptr)?.run {
+            Bytes(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.glib.GLib.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Unescapes a segment of an escaped string.
@@ -7268,6 +7529,415 @@ public object Glib {
     public fun usleep(microseconds: ULong): Unit = g_usleep(microseconds)
 
     /**
+     * Converts a string into a form that is independent of case. The
+     * result will not correspond to any particular case, but can be
+     * compared for equality or ordered with the results of calling
+     * g_utf8_casefold() on other strings.
+     *
+     * Note that calling g_utf8_casefold() followed by g_utf8_collate() is
+     * only an approximation to the correct linguistic case insensitive
+     * ordering, though it is a fairly good one. Getting this exactly
+     * right would require a more sophisticated collation function that
+     * takes case sensitivity into account. GLib does not currently
+     * provide such a function.
+     *
+     * @param str a UTF-8 encoded string
+     * @param len length of @str, in bytes, or -1 if @str is nul-terminated.
+     * @return a newly allocated string, that is a
+     *   case independent form of @str.
+     */
+    public fun utf8Casefold(str: kotlin.String, len: Long): kotlin.String =
+        g_utf8_casefold(str, len)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Compares two strings for ordering using the linguistically
+     * correct rules for the [current locale][setlocale].
+     * When sorting a large number of strings, it will be significantly
+     * faster to obtain collation keys with g_utf8_collate_key() and
+     * compare the keys with strcmp() when sorting instead of sorting
+     * the original strings.
+     *
+     * If the two strings are not comparable due to being in different collation
+     * sequences, the result is undefined. This can happen if the strings are in
+     * different language scripts, for example.
+     *
+     * @param str1 a UTF-8 encoded string
+     * @param str2 a UTF-8 encoded string
+     * @return < 0 if @str1 compares before @str2,
+     *   0 if they compare equal, > 0 if @str1 compares after @str2.
+     */
+    public fun utf8Collate(str1: kotlin.String, str2: kotlin.String): Int = g_utf8_collate(str1, str2)
+
+    /**
+     * Converts a string into a collation key that can be compared
+     * with other collation keys produced by the same function using
+     * strcmp().
+     *
+     * The results of comparing the collation keys of two strings
+     * with strcmp() will always be the same as comparing the two
+     * original keys with g_utf8_collate().
+     *
+     * Note that this function depends on the [current locale][setlocale].
+     *
+     * @param str a UTF-8 encoded string.
+     * @param len length of @str, in bytes, or -1 if @str is nul-terminated.
+     * @return a newly allocated string. This string should
+     *   be freed with g_free() when you are done with it.
+     */
+    public fun utf8CollateKey(str: kotlin.String, len: Long): kotlin.String =
+        g_utf8_collate_key(str, len)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Converts a string into a collation key that can be compared
+     * with other collation keys produced by the same function using strcmp().
+     *
+     * In order to sort filenames correctly, this function treats the dot '.'
+     * as a special case. Most dictionary orderings seem to consider it
+     * insignificant, thus producing the ordering "event.c" "eventgenerator.c"
+     * "event.h" instead of "event.c" "event.h" "eventgenerator.c". Also, we
+     * would like to treat numbers intelligently so that "file1" "file10" "file5"
+     * is sorted as "file1" "file5" "file10".
+     *
+     * Note that this function depends on the [current locale][setlocale].
+     *
+     * @param str a UTF-8 encoded string.
+     * @param len length of @str, in bytes, or -1 if @str is nul-terminated.
+     * @return a newly allocated string. This string should
+     *   be freed with g_free() when you are done with it.
+     * @since 2.8
+     */
+    @GLibVersion2_8
+    public fun utf8CollateKeyForFilename(str: kotlin.String, len: Long): kotlin.String =
+        g_utf8_collate_key_for_filename(str, len)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Finds the start of the next UTF-8 character in the string after @p.
+     *
+     * @p does not have to be at the beginning of a UTF-8 character. No check
+     * is made to see if the character found is actually valid other than
+     * it starts with an appropriate byte.
+     *
+     * If @end is null, the return value will never be null: if the end of the
+     * string is reached, a pointer to the terminating nul byte is returned. If
+     * @end is non-null, the return value will be null if the end of the string
+     * is reached.
+     *
+     * @param p a pointer to a position within a UTF-8 encoded string
+     * @param end a pointer to the byte following the end of the string,
+     *     or null to indicate that the string is nul-terminated
+     * @return a pointer to the found character or null if @end is
+     *    set and is reached
+     */
+    public fun utf8FindNextChar(p: kotlin.String, end: kotlin.String? = null): kotlin.String? =
+        g_utf8_find_next_char(p, end)?.toKString()
+
+    /**
+     * Given a position @p with a UTF-8 encoded string @str, find the start
+     * of the previous UTF-8 character starting before @p. Returns null if no
+     * UTF-8 characters are present in @str before @p.
+     *
+     * @p does not have to be at the beginning of a UTF-8 character. No check
+     * is made to see if the character found is actually valid other than
+     * it starts with an appropriate byte.
+     *
+     * @param str pointer to the beginning of a UTF-8 encoded string
+     * @param p pointer to some position within @str
+     * @return a pointer to the found character or null.
+     */
+    public fun utf8FindPrevChar(str: kotlin.String, p: kotlin.String): kotlin.String? =
+        g_utf8_find_prev_char(str, p)?.toKString()
+
+    /**
+     * Converts a sequence of bytes encoded as UTF-8 to a Unicode character.
+     *
+     * If @p does not point to a valid UTF-8 encoded character, results
+     * are undefined. If you are not sure that the bytes are complete
+     * valid Unicode characters, you should use g_utf8_get_char_validated()
+     * instead.
+     *
+     * @param p a pointer to Unicode character encoded as UTF-8
+     * @return the resulting character
+     */
+    public fun utf8GetChar(p: kotlin.String): UInt = g_utf8_get_char(p)
+
+    /**
+     * Convert a sequence of bytes encoded as UTF-8 to a Unicode character.
+     * This function checks for incomplete characters, for invalid characters
+     * such as characters that are out of the range of Unicode, and for
+     * overlong encodings of valid characters.
+     *
+     * Note that g_utf8_get_char_validated() returns (gunichar)-2 if
+     * @max_len is positive and any of the bytes in the first UTF-8 character
+     * sequence are nul.
+     *
+     * @param p a pointer to Unicode character encoded as UTF-8
+     * @param maxLen the maximum number of bytes to read, or -1 if @p is nul-terminated
+     * @return the resulting character. If @p points to a partial
+     *     sequence at the end of a string that could begin a valid
+     *     character (or if @max_len is zero), returns (gunichar)-2;
+     *     otherwise, if @p does not point to a valid UTF-8 encoded
+     *     Unicode character, returns (gunichar)-1.
+     */
+    public fun utf8GetCharValidated(p: kotlin.String, maxLen: Long): UInt = g_utf8_get_char_validated(p, maxLen)
+
+    /**
+     * If the provided string is valid UTF-8, return a copy of it. If not,
+     * return a copy in which bytes that could not be interpreted as valid Unicode
+     * are replaced with the Unicode replacement character (U+FFFD).
+     *
+     * For example, this is an appropriate function to use if you have received
+     * a string that was incorrectly declared to be UTF-8, and you need a valid
+     * UTF-8 version of it that can be logged or displayed to the user, with the
+     * assumption that it is close enough to ASCII or UTF-8 to be mostly
+     * readable as-is.
+     *
+     * @param str string to coerce into UTF-8
+     * @param len the maximum length of @str to use, in bytes. If @len < 0,
+     *     then the string is nul-terminated.
+     * @return a valid UTF-8 string whose content resembles @str
+     * @since 2.52
+     */
+    @GLibVersion2_52
+    public fun utf8MakeValid(str: kotlin.String, len: Long): kotlin.String =
+        g_utf8_make_valid(str, len)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Converts a string into canonical form, standardizing
+     * such issues as whether a character with an accent
+     * is represented as a base character and combining
+     * accent or as a single precomposed character. The
+     * string has to be valid UTF-8, otherwise null is
+     * returned. You should generally call g_utf8_normalize()
+     * before comparing two Unicode strings.
+     *
+     * The normalization mode %G_NORMALIZE_DEFAULT only
+     * standardizes differences that do not affect the
+     * text content, such as the above-mentioned accent
+     * representation. %G_NORMALIZE_ALL also standardizes
+     * the "compatibility" characters in Unicode, such
+     * as SUPERSCRIPT THREE to the standard forms
+     * (in this case DIGIT THREE). Formatting information
+     * may be lost but for most text operations such
+     * characters should be considered the same.
+     *
+     * %G_NORMALIZE_DEFAULT_COMPOSE and %G_NORMALIZE_ALL_COMPOSE
+     * are like %G_NORMALIZE_DEFAULT and %G_NORMALIZE_ALL,
+     * but returned a result with composed forms rather
+     * than a maximally decomposed form. This is often
+     * useful if you intend to convert the string to
+     * a legacy encoding or pass it to a system with
+     * less capable Unicode handling.
+     *
+     * @param str a UTF-8 encoded string.
+     * @param len length of @str, in bytes, or -1 if @str is nul-terminated.
+     * @param mode the type of normalization to perform.
+     * @return a newly allocated string, that
+     *   is the normalized form of @str, or null if @str
+     *   is not valid UTF-8.
+     */
+    public fun utf8Normalize(str: kotlin.String, len: Long, mode: NormalizeMode): kotlin.String? =
+        g_utf8_normalize(str, len, mode.nativeValue)?.toKString()
+
+    /**
+     * Converts from an integer character offset to a pointer to a position
+     * within the string.
+     *
+     * Since 2.10, this function allows to pass a negative @offset to
+     * step backwards. It is usually worth stepping backwards from the end
+     * instead of forwards if @offset is in the last fourth of the string,
+     * since moving forward is about 3 times faster than moving backward.
+     *
+     * Note that this function doesn't abort when reaching the end of @str.
+     * Therefore you should be sure that @offset is within string boundaries
+     * before calling that function. Call g_utf8_strlen() when unsure.
+     * This limitation exists as this function is called frequently during
+     * text rendering and therefore has to be as fast as possible.
+     *
+     * @param str a UTF-8 encoded string
+     * @param offset a character offset within @str
+     * @return the resulting pointer
+     */
+    public fun utf8OffsetToPointer(str: kotlin.String, offset: Long): kotlin.String =
+        g_utf8_offset_to_pointer(str, offset)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Converts from a pointer to position within a string to an integer
+     * character offset.
+     *
+     * Since 2.10, this function allows @pos to be before @str, and returns
+     * a negative offset in this case.
+     *
+     * @param str a UTF-8 encoded string
+     * @param pos a pointer to a position within @str
+     * @return the resulting character offset
+     */
+    public fun utf8PointerToOffset(str: kotlin.String, pos: kotlin.String): Long = g_utf8_pointer_to_offset(str, pos)
+
+    /**
+     * Finds the previous UTF-8 character in the string before @p.
+     *
+     * @p does not have to be at the beginning of a UTF-8 character. No check
+     * is made to see if the character found is actually valid other than
+     * it starts with an appropriate byte. If @p might be the first
+     * character of the string, you must use g_utf8_find_prev_char() instead.
+     *
+     * @param p a pointer to a position within a UTF-8 encoded string
+     * @return a pointer to the found character
+     */
+    public fun utf8PrevChar(p: kotlin.String): kotlin.String =
+        g_utf8_prev_char(p)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Finds the leftmost occurrence of the given Unicode character
+     * in a UTF-8 encoded string, while limiting the search to @len bytes.
+     * If @len is -1, allow unbounded search.
+     *
+     * @param p a nul-terminated UTF-8 encoded string
+     * @param len the maximum length of @p
+     * @param c a Unicode character
+     * @return null if the string does not contain the character,
+     *     otherwise, a pointer to the start of the leftmost occurrence
+     *     of the character in the string.
+     */
+    public fun utf8Strchr(p: kotlin.String, len: Long, c: UInt): kotlin.String? = g_utf8_strchr(p, len, c)?.toKString()
+
+    /**
+     * Converts all Unicode characters in the string that have a case
+     * to lowercase. The exact manner that this is done depends
+     * on the current locale, and may result in the number of
+     * characters in the string changing.
+     *
+     * @param str a UTF-8 encoded string
+     * @param len length of @str, in bytes, or -1 if @str is nul-terminated.
+     * @return a newly allocated string, with all characters
+     *    converted to lowercase.
+     */
+    public fun utf8Strdown(str: kotlin.String, len: Long): kotlin.String =
+        g_utf8_strdown(str, len)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Computes the length of the string in characters, not including
+     * the terminating nul character. If the @max'th byte falls in the
+     * middle of a character, the last (partial) character is not counted.
+     *
+     * @param p pointer to the start of a UTF-8 encoded string
+     * @param max the maximum number of bytes to examine. If @max
+     *       is less than 0, then the string is assumed to be
+     *       nul-terminated. If @max is 0, @p will not be examined and
+     *       may be null. If @max is greater than 0, up to @max
+     *       bytes are examined
+     * @return the length of the string in characters
+     */
+    public fun utf8Strlen(p: kotlin.String, max: Long): Long = g_utf8_strlen(p, max)
+
+    /**
+     * Like the standard C strncpy() function, but copies a given number
+     * of characters instead of a given number of bytes. The @src string
+     * must be valid UTF-8 encoded text. (Use g_utf8_validate() on all
+     * text before trying to use UTF-8 utility functions with it.)
+     *
+     * Note you must ensure @dest is at least 4 * @n + 1 to fit the
+     * largest possible UTF-8 characters
+     *
+     * @param dest buffer to fill with characters from @src
+     * @param src UTF-8 encoded string
+     * @param n character count
+     * @return @dest
+     */
+    public fun utf8Strncpy(dest: kotlin.String, src: kotlin.String, n: ULong): kotlin.String =
+        g_utf8_strncpy(dest.cstr, src, n)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Find the rightmost occurrence of the given Unicode character
+     * in a UTF-8 encoded string, while limiting the search to @len bytes.
+     * If @len is -1, allow unbounded search.
+     *
+     * @param p a nul-terminated UTF-8 encoded string
+     * @param len the maximum length of @p
+     * @param c a Unicode character
+     * @return null if the string does not contain the character,
+     *     otherwise, a pointer to the start of the rightmost occurrence
+     *     of the character in the string.
+     */
+    public fun utf8Strrchr(p: kotlin.String, len: Long, c: UInt): kotlin.String? =
+        g_utf8_strrchr(p, len, c)?.toKString()
+
+    /**
+     * Reverses a UTF-8 string. @str must be valid UTF-8 encoded text.
+     * (Use g_utf8_validate() on all text before trying to use UTF-8
+     * utility functions with it.)
+     *
+     * This function is intended for programmatic uses of reversed strings.
+     * It pays no attention to decomposed characters, combining marks, byte
+     * order marks, directional indicators (LRM, LRO, etc) and similar
+     * characters which might need special handling when reversing a string
+     * for display purposes.
+     *
+     * Note that unlike g_strreverse(), this function returns
+     * newly-allocated memory, which should be freed with g_free() when
+     * no longer needed.
+     *
+     * @param str a UTF-8 encoded string
+     * @param len the maximum length of @str to use, in bytes. If @len < 0,
+     *     then the string is nul-terminated.
+     * @return a newly-allocated string which is the reverse of @str
+     * @since 2.2
+     */
+    @GLibVersion2_2
+    public fun utf8Strreverse(str: kotlin.String, len: Long): kotlin.String =
+        g_utf8_strreverse(str, len)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Converts all Unicode characters in the string that have a case
+     * to uppercase. The exact manner that this is done depends
+     * on the current locale, and may result in the number of
+     * characters in the string increasing. (For instance, the
+     * German ess-zet will be changed to SS.)
+     *
+     * @param str a UTF-8 encoded string
+     * @param len length of @str, in bytes, or -1 if @str is nul-terminated.
+     * @return a newly allocated string, with all characters
+     *    converted to uppercase.
+     */
+    public fun utf8Strup(str: kotlin.String, len: Long): kotlin.String =
+        g_utf8_strup(str, len)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Copies a substring out of a UTF-8 encoded string.
+     * The substring will contain @end_pos - @start_pos characters.
+     *
+     * Since GLib 2.72, `-1` can be passed to @end_pos to indicate the
+     * end of the string.
+     *
+     * @param str a UTF-8 encoded string
+     * @param startPos a character offset within @str
+     * @param endPos another character offset within @str,
+     *   or `-1` to indicate the end of the string
+     * @return a newly allocated copy of the requested
+     *     substring. Free with g_free() when no longer needed.
+     * @since 2.30
+     */
+    @GLibVersion2_30
+    public fun utf8Substring(str: kotlin.String, startPos: Long, endPos: Long): kotlin.String =
+        g_utf8_substring(str, startPos, endPos)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Cuts off the middle of the string, preserving half of @truncate_length
+     * characters at the beginning and half at the end.
+     *
+     * If @string is already short enough, this returns a copy of @string.
+     * If @truncate_length is `0`, an empty string is returned.
+     *
+     * @param string a nul-terminated UTF-8 encoded string
+     * @param truncateLength the new size of @string, in characters, including the ellipsis character
+     * @return a newly-allocated copy of @string ellipsized in the middle
+     * @since 2.78
+     */
+    @GLibVersion2_78
+    public fun utf8TruncateMiddle(string: kotlin.String, truncateLength: ULong): kotlin.String =
+        g_utf8_truncate_middle(string, truncateLength)?.toKString() ?: error("Expected not null string")
+
+    /**
      * Parses the string @str and verify if it is a UUID.
      *
      * The function accepts the following syntax:
@@ -7295,6 +7965,8 @@ public object Glib {
     @GLibVersion2_52
     public fun uuidStringRandom(): kotlin.String =
         g_uuid_string_random()?.toKString() ?: error("Expected not null string")
+
+    public fun variantGetGtype(): ULong = g_variant_get_gtype()
 
     /**
      * Determines if a given string is a valid D-Bus object path.  You
@@ -7365,10 +8037,7 @@ public object Glib {
      * @since 2.40
      */
     @GLibVersion2_40
-    public fun variantParseErrorPrintContext(
-        error: Error,
-        sourceStr: kotlin.String,
-    ): kotlin.String =
+    public fun variantParseErrorPrintContext(error: Error, sourceStr: kotlin.String): kotlin.String =
         g_variant_parse_error_print_context(error.glibErrorPointer.reinterpret(), sourceStr)?.toKString()
             ?: error("Expected not null string")
 
@@ -7379,21 +8048,10 @@ public object Glib {
      */
     public fun variantParserGetErrorQuark(): Quark = g_variant_parser_get_error_quark()
 
-    /**
-     *
-     *
-     * @param typeString
-     */
-    public fun variantTypeChecked(typeString: kotlin.String): VariantType =
-        g_variant_type_checked_(typeString)!!.run {
-            VariantType(reinterpret())
-        }
+    public fun variantTypeChecked(typeString: kotlin.String): VariantType = g_variant_type_checked_(typeString)!!.run {
+        VariantType(reinterpret())
+    }
 
-    /**
-     *
-     *
-     * @param typeString
-     */
     public fun variantTypeStringGetDepth(typeString: kotlin.String): ULong =
         g_variant_type_string_get_depth_(typeString)
 
@@ -7410,130 +8068,101 @@ public object Glib {
     public fun variantTypeStringIsValid(typeString: kotlin.String): Boolean =
         g_variant_type_string_is_valid(typeString).asBoolean()
 
-    public fun resolveException(error: Error): GlibException {
-        val ex =
-            when (error.domain) {
-                BookmarkFileError.quark() ->
-                    BookmarkFileError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            BookmarkFileErrorException(error, it)
-                        }
-                ConvertError.quark() ->
-                    ConvertError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            ConvertErrorException(error, it)
-                        }
-                FileError.quark() ->
-                    FileError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            FileErrorException(error, it)
-                        }
-                IOChannelError.quark() ->
-                    IOChannelError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            IOChannelErrorException(error, it)
-                        }
-                KeyFileError.quark() ->
-                    KeyFileError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            KeyFileErrorException(error, it)
-                        }
-                MarkupError.quark() ->
-                    MarkupError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            MarkupErrorException(error, it)
-                        }
-                NumberParserError.quark() ->
-                    NumberParserError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            NumberParserErrorException(error, it)
-                        }
-                OptionError.quark() ->
-                    OptionError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            OptionErrorException(error, it)
-                        }
-                RegexError.quark() ->
-                    RegexError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            RegexErrorException(error, it)
-                        }
-                ShellError.quark() ->
-                    ShellError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            ShellErrorException(error, it)
-                        }
-                SpawnError.quark() ->
-                    SpawnError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            SpawnErrorException(error, it)
-                        }
-                ThreadError.quark() ->
-                    ThreadError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            ThreadErrorException(error, it)
-                        }
-                UriError.quark() ->
-                    UriError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            UriErrorException(error, it)
-                        }
-                VariantParseError.quark() ->
-                    VariantParseError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            VariantParseErrorException(error, it)
-                        }
-                else -> null
-            }
-        return ex ?: GlibException(error)
+    public fun resolveException(error: Error): GLibException {
+        val ex = when (error.domain) {
+            BookmarkFileError.quark() -> BookmarkFileError.fromErrorOrNull(error)
+                ?.let {
+                    BookmarkFileErrorException(error, it)
+                }
+            ConvertError.quark() -> ConvertError.fromErrorOrNull(error)
+                ?.let {
+                    ConvertErrorException(error, it)
+                }
+            FileError.quark() -> FileError.fromErrorOrNull(error)
+                ?.let {
+                    FileErrorException(error, it)
+                }
+            IOChannelError.quark() -> IOChannelError.fromErrorOrNull(error)
+                ?.let {
+                    IOChannelErrorException(error, it)
+                }
+            KeyFileError.quark() -> KeyFileError.fromErrorOrNull(error)
+                ?.let {
+                    KeyFileErrorException(error, it)
+                }
+            MarkupError.quark() -> MarkupError.fromErrorOrNull(error)
+                ?.let {
+                    MarkupErrorException(error, it)
+                }
+            NumberParserError.quark() -> NumberParserError.fromErrorOrNull(error)
+                ?.let {
+                    NumberParserErrorException(error, it)
+                }
+            OptionError.quark() -> OptionError.fromErrorOrNull(error)
+                ?.let {
+                    OptionErrorException(error, it)
+                }
+            RegexError.quark() -> RegexError.fromErrorOrNull(error)
+                ?.let {
+                    RegexErrorException(error, it)
+                }
+            ShellError.quark() -> ShellError.fromErrorOrNull(error)
+                ?.let {
+                    ShellErrorException(error, it)
+                }
+            SpawnError.quark() -> SpawnError.fromErrorOrNull(error)
+                ?.let {
+                    SpawnErrorException(error, it)
+                }
+            ThreadError.quark() -> ThreadError.fromErrorOrNull(error)
+                ?.let {
+                    ThreadErrorException(error, it)
+                }
+            UriError.quark() -> UriError.fromErrorOrNull(error)
+                ?.let {
+                    UriErrorException(error, it)
+                }
+            VariantParseError.quark() -> VariantParseError.fromErrorOrNull(error)
+                ?.let {
+                    VariantParseErrorException(error, it)
+                }
+            else -> null
+        }
+        return ex ?: GLibException(error)
     }
 }
 
-public val CacheDestroyFuncFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+public val CacheDestroyFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-public val ChildWatchFuncFunc: CPointer<CFunction<(GPid, Int) -> Unit>> =
-    staticCFunction {
-            pid: GPid,
-            waitStatus: Int,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(pid: Pid, waitStatus: Int) -> Unit>().get().invoke(pid, waitStatus)
-    }.reinterpret()
+public val ChildWatchFuncFunc: CPointer<CFunction<(GPid, Int) -> Unit>> = staticCFunction {
+        pid: GPid,
+        waitStatus: Int,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(pid: Pid, waitStatus: Int) -> Unit>().get().invoke(pid, waitStatus)
+}
+    .reinterpret()
 
-public val ClearHandleFuncFunc: CPointer<CFunction<(UInt) -> Unit>> =
-    staticCFunction {
-            handleId: UInt,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(handleId: UInt) -> Unit>().get().invoke(handleId)
-    }.reinterpret()
+public val ClearHandleFuncFunc: CPointer<CFunction<(UInt) -> Unit>> = staticCFunction {
+        handleId: UInt,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(handleId: UInt) -> Unit>().get().invoke(handleId)
+}
+    .reinterpret()
 
-public val CompareDataFuncFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData.asStableRef<() -> Int>().get().invoke()
-    }.reinterpret()
+public val CompareDataFuncFunc: CPointer<CFunction<() -> Int>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Int>().get().invoke()
+}
+    .reinterpret()
 
-public val CompareFuncFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData.asStableRef<() -> Int>().get().invoke()
-    }.reinterpret()
+public val CompareFuncFunc: CPointer<CFunction<() -> Int>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Int>().get().invoke()
+}
+    .reinterpret()
 
 public val CompletionStrncmpFuncFunc: CPointer<
     CFunction<
@@ -7542,60 +8171,49 @@ public val CompletionStrncmpFuncFunc: CPointer<
             CPointer<ByteVar>,
             ULong,
         ) -> Int
-    >
-> =
-    staticCFunction {
-            s1: CPointer<ByteVar>?,
-            s2: CPointer<ByteVar>?,
+        >
+    > = staticCFunction {
+        s1: CPointer<ByteVar>?,
+        s2: CPointer<ByteVar>?,
+        n: ULong,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            s1: kotlin.String,
+            s2: kotlin.String,
             n: ULong,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    s1: kotlin.String,
-                    s2: kotlin.String,
-                    n: ULong,
-                ) -> Int
-            >()
-            .get()
-            .invoke(
-                s1?.toKString() ?: error("Expected not null string"),
-                s2?.toKString() ?: error("Expected not null string"),
-                n
-            )
-    }.reinterpret()
+        ) -> Int
+        >().get().invoke(
+        s1?.toKString() ?: error("Expected not null string"),
+        s2?.toKString() ?: error("Expected not null string"),
+        n
+    )
+}
+    .reinterpret()
 
-public val DataForeachFuncFunc: CPointer<CFunction<(GQuark) -> Unit>> =
-    staticCFunction {
-            keyId: GQuark,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(keyId: Quark) -> Unit>().get().invoke(keyId)
-    }.reinterpret()
+public val DataForeachFuncFunc: CPointer<CFunction<(GQuark) -> Unit>> = staticCFunction {
+        keyId: GQuark,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(keyId: Quark) -> Unit>().get().invoke(keyId)
+}
+    .reinterpret()
 
-public val DestroyNotifyFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+public val DestroyNotifyFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-public val EqualFuncFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData
-            .asStableRef<() -> Boolean>()
-            .get()
-            .invoke()
-            .asGBoolean()
-    }.reinterpret()
+public val EqualFuncFunc: CPointer<CFunction<() -> Int>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
+}
+    .reinterpret()
 
-public val EqualFuncFullFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData
-            .asStableRef<() -> Boolean>()
-            .get()
-            .invoke()
-            .asGBoolean()
-    }.reinterpret()
+public val EqualFuncFullFunc: CPointer<CFunction<() -> Int>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
+}
+    .reinterpret()
 
 public val ErrorClearFuncFunc: CPointer<CFunction<(CPointer<org.gtkkn.native.glib.GError>) -> Unit>> =
     staticCFunction {
@@ -7607,7 +8225,8 @@ public val ErrorClearFuncFunc: CPointer<CFunction<(CPointer<org.gtkkn.native.gli
                 Error(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val ErrorCopyFuncFunc:
     CPointer<CFunction<(CPointer<org.gtkkn.native.glib.GError>, CPointer<org.gtkkn.native.glib.GError>) -> Unit>> =
@@ -7624,7 +8243,8 @@ public val ErrorCopyFuncFunc:
                 Error(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val ErrorInitFuncFunc: CPointer<CFunction<(CPointer<org.gtkkn.native.glib.GError>) -> Unit>> =
     staticCFunction {
@@ -7636,60 +8256,51 @@ public val ErrorInitFuncFunc: CPointer<CFunction<(CPointer<org.gtkkn.native.glib
                 Error(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
-public val FreeFuncFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+public val FreeFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-public val FuncFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+public val FuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-public val HFuncFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+public val HFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-public val HRFuncFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData
-            .asStableRef<() -> Boolean>()
-            .get()
-            .invoke()
-            .asGBoolean()
-    }.reinterpret()
+public val HRFuncFunc: CPointer<CFunction<() -> Int>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
+}
+    .reinterpret()
 
-public val HashFuncFunc: CPointer<CFunction<() -> UInt>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData.asStableRef<() -> UInt>().get().invoke()
-    }.reinterpret()
+public val HashFuncFunc: CPointer<CFunction<() -> UInt>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> UInt>().get().invoke()
+}
+    .reinterpret()
 
-public val HookCheckFuncFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData
-            .asStableRef<() -> Boolean>()
-            .get()
-            .invoke()
-            .asGBoolean()
-    }.reinterpret()
+public val HookCheckFuncFunc: CPointer<CFunction<() -> Int>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
+}
+    .reinterpret()
 
 public val HookCheckMarshallerFunc: CPointer<CFunction<(CPointer<GHook>) -> Int>> =
     staticCFunction {
             hook: CPointer<GHook>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(hook: Hook) -> Boolean>()
-            .get()
-            .invoke(
-                hook!!.run {
-                    Hook(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(hook: Hook) -> Boolean>().get().invoke(
+            hook!!.run {
+                Hook(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
 public val HookCompareFuncFunc: CPointer<CFunction<(CPointer<GHook>, CPointer<GHook>) -> Int>> =
     staticCFunction {
@@ -7705,7 +8316,8 @@ public val HookCompareFuncFunc: CPointer<CFunction<(CPointer<GHook>, CPointer<GH
                 Hook(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val HookFinalizeFuncFunc: CPointer<CFunction<(CPointer<GHookList>, CPointer<GHook>) -> Unit>> =
     staticCFunction {
@@ -7721,54 +8333,49 @@ public val HookFinalizeFuncFunc: CPointer<CFunction<(CPointer<GHookList>, CPoint
                 Hook(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
-public val HookFindFuncFunc: CPointer<CFunction<(CPointer<GHook>) -> Int>> =
-    staticCFunction {
-            hook: CPointer<GHook>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<(hook: Hook) -> Boolean>()
-            .get()
-            .invoke(
-                hook!!.run {
-                    Hook(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+public val HookFindFuncFunc: CPointer<CFunction<(CPointer<GHook>) -> Int>> = staticCFunction {
+        hook: CPointer<GHook>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(hook: Hook) -> Boolean>().get().invoke(
+        hook!!.run {
+            Hook(reinterpret())
+        }
+    ).asGBoolean()
+}
+    .reinterpret()
 
-public val HookFuncFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+public val HookFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-public val HookMarshallerFunc: CPointer<CFunction<(CPointer<GHook>) -> Unit>> =
-    staticCFunction {
-            hook: CPointer<GHook>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(hook: Hook) -> Unit>().get().invoke(
-            hook!!.run {
-                Hook(reinterpret())
-            }
-        )
-    }.reinterpret()
+public val HookMarshallerFunc: CPointer<CFunction<(CPointer<GHook>) -> Unit>> = staticCFunction {
+        hook: CPointer<GHook>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(hook: Hook) -> Unit>().get().invoke(
+        hook!!.run {
+            Hook(reinterpret())
+        }
+    )
+}
+    .reinterpret()
 
-public val IOFuncFunc: CPointer<CFunction<(CPointer<GIOChannel>) -> Int>> =
-    staticCFunction {
-            source: CPointer<GIOChannel>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<(source: IOChannel) -> Boolean>()
-            .get()
-            .invoke(
-                source!!.run {
-                    IOChannel(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+public val IOFuncFunc: CPointer<CFunction<(CPointer<GIOChannel>) -> Int>> = staticCFunction {
+        source: CPointer<GIOChannel>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(source: IOChannel) -> Boolean>().get().invoke(
+        source!!.run {
+            IOChannel(reinterpret())
+        }
+    ).asGBoolean()
+}
+    .reinterpret()
 
 public val LogFuncFunc: CPointer<
     CFunction<
@@ -7777,31 +8384,28 @@ public val LogFuncFunc: CPointer<
             GLogLevelFlags,
             CPointer<ByteVar>,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            logDomain: CPointer<ByteVar>?,
-            logLevel: GLogLevelFlags,
-            message: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    logDomain: kotlin.String,
-                    logLevel: LogLevelFlags,
-                    message: kotlin.String,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                logDomain?.toKString() ?: error("Expected not null string"),
-                logLevel.run {
-                    LogLevelFlags(this)
-                },
-                message?.toKString() ?: error("Expected not null string")
-            )
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        logDomain: CPointer<ByteVar>?,
+        logLevel: GLogLevelFlags,
+        message: CPointer<ByteVar>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            logDomain: kotlin.String,
+            logLevel: LogLevelFlags,
+            message: kotlin.String,
+        ) -> Unit
+        >().get().invoke(
+        logDomain?.toKString() ?: error("Expected not null string"),
+        logLevel.run {
+            LogLevelFlags(this)
+        },
+        message?.toKString() ?: error("Expected not null string")
+    )
+}
+    .reinterpret()
 
 public val LogWriterFuncFunc: CPointer<CFunction<(GLogLevelFlags, ULong) -> GLogWriterOutput>> =
     staticCFunction {
@@ -7809,43 +8413,38 @@ public val LogWriterFuncFunc: CPointer<CFunction<(GLogLevelFlags, ULong) -> GLog
             nFields: ULong,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(logLevel: LogLevelFlags, nFields: ULong) -> LogWriterOutput>()
-            .get()
-            .invoke(
-                logLevel.run {
-                    LogLevelFlags(this)
-                },
-                nFields
-            ).nativeValue
-    }.reinterpret()
+        userData.asStableRef<(logLevel: LogLevelFlags, nFields: ULong) -> LogWriterOutput>().get().invoke(
+            logLevel.run {
+                LogLevelFlags(this)
+            },
+            nFields
+        ).nativeValue
+    }
+        .reinterpret()
 
-public val NodeForeachFuncFunc: CPointer<CFunction<(CPointer<GNode>) -> Unit>> =
-    staticCFunction {
-            node: CPointer<GNode>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(node: Node) -> Unit>().get().invoke(
-            node!!.run {
-                Node(reinterpret())
-            }
-        )
-    }.reinterpret()
+public val NodeForeachFuncFunc: CPointer<CFunction<(CPointer<GNode>) -> Unit>> = staticCFunction {
+        node: CPointer<GNode>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(node: Node) -> Unit>().get().invoke(
+        node!!.run {
+            Node(reinterpret())
+        }
+    )
+}
+    .reinterpret()
 
-public val NodeTraverseFuncFunc: CPointer<CFunction<(CPointer<GNode>) -> Int>> =
-    staticCFunction {
-            node: CPointer<GNode>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<(node: Node) -> Boolean>()
-            .get()
-            .invoke(
-                node!!.run {
-                    Node(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+public val NodeTraverseFuncFunc: CPointer<CFunction<(CPointer<GNode>) -> Int>> = staticCFunction {
+        node: CPointer<GNode>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(node: Node) -> Boolean>().get().invoke(
+        node!!.run {
+            Node(reinterpret())
+        }
+    ).asGBoolean()
+}
+    .reinterpret()
 
 public val PollFuncFunc: CPointer<
     CFunction<
@@ -7854,61 +8453,55 @@ public val PollFuncFunc: CPointer<
             UInt,
             Int,
         ) -> Int
-    >
-> =
-    staticCFunction {
-            ufds: CPointer<GPollFD>?,
+        >
+    > = staticCFunction {
+        ufds: CPointer<GPollFD>?,
+        nfsd: UInt,
+        timeout: Int,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            ufds: PollFD,
             nfsd: UInt,
             timeout: Int,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    ufds: PollFD,
-                    nfsd: UInt,
-                    timeout: Int,
-                ) -> Int
-            >()
-            .get()
-            .invoke(
-                ufds!!.run {
-                    PollFD(reinterpret())
-                },
-                nfsd,
-                timeout
-            )
-    }.reinterpret()
+        ) -> Int
+        >().get().invoke(
+        ufds!!.run {
+            PollFD(reinterpret())
+        },
+        nfsd,
+        timeout
+    )
+}
+    .reinterpret()
 
-public val PrintFuncFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
-    staticCFunction {
-            string: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(string: kotlin.String) -> Unit>().get().invoke(
-            string?.toKString() ?: error("Expected not null string")
-        )
-    }.reinterpret()
+public val PrintFuncFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> = staticCFunction {
+        string: CPointer<ByteVar>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(string: kotlin.String) -> Unit>().get().invoke(
+        string?.toKString() ?: error("Expected not null string")
+    )
+}
+    .reinterpret()
 
 public val RegexEvalCallbackFunc:
-    CPointer<CFunction<(CPointer<GMatchInfo>, CPointer<GString>) -> Int>> =
-    staticCFunction {
+    CPointer<CFunction<(CPointer<GMatchInfo>, CPointer<GString>) -> Int>> = staticCFunction {
             matchInfo: CPointer<GMatchInfo>?,
             result: CPointer<GString>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(matchInfo: MatchInfo, result: String) -> Boolean>()
-            .get()
-            .invoke(
-                matchInfo!!.run {
-                    MatchInfo(reinterpret())
-                },
-                result!!.run {
-                    String(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(matchInfo: MatchInfo, result: String) -> Boolean>().get().invoke(
+            matchInfo!!.run {
+                MatchInfo(reinterpret())
+            },
+            result!!.run {
+                String(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
 public val ScannerMsgFuncFunc: CPointer<
     CFunction<
@@ -7917,36 +8510,33 @@ public val ScannerMsgFuncFunc: CPointer<
             CPointer<ByteVar>,
             Int,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            scanner: CPointer<GScanner>?,
-            message: CPointer<ByteVar>?,
-            error: Int,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    scanner: Scanner,
-                    message: kotlin.String,
-                    error: Boolean,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                scanner!!.run {
-                    Scanner(reinterpret())
-                },
-                message?.toKString() ?: error("Expected not null string"),
-                error.asBoolean()
-            )
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        scanner: CPointer<GScanner>?,
+        message: CPointer<ByteVar>?,
+        error: Int,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            scanner: Scanner,
+            message: kotlin.String,
+            error: Boolean,
+        ) -> Unit
+        >().get().invoke(
+        scanner!!.run {
+            Scanner(reinterpret())
+        },
+        message?.toKString() ?: error("Expected not null string"),
+        error.asBoolean()
+    )
+}
+    .reinterpret()
 
-public val SequenceIterCompareFuncFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData.asStableRef<() -> Int>().get().invoke()
-    }.reinterpret()
+public val SequenceIterCompareFuncFunc: CPointer<CFunction<() -> Int>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Int>().get().invoke()
+}
+    .reinterpret()
 
 public val SourceDisposeFuncFunc: CPointer<CFunction<(CPointer<GSource>) -> Unit>> =
     staticCFunction {
@@ -7958,46 +8548,43 @@ public val SourceDisposeFuncFunc: CPointer<CFunction<(CPointer<GSource>) -> Unit
                 Source(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
-public val SourceDummyMarshalFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+public val SourceDummyMarshalFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-public val SourceFuncFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData
-            .asStableRef<() -> Boolean>()
-            .get()
-            .invoke()
-            .asGBoolean()
-    }.reinterpret()
+public val SourceFuncFunc: CPointer<CFunction<() -> Int>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
+}
+    .reinterpret()
 
-public val SourceOnceFuncFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+public val SourceOnceFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-public val SpawnChildSetupFuncFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+public val SpawnChildSetupFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-public val TestDataFuncFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+public val TestDataFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-public val TestFixtureFuncFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+public val TestFixtureFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-public val TestFuncFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+public val TestFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
 public val TestLogFatalFuncFunc: CPointer<
     CFunction<
@@ -8006,66 +8593,51 @@ public val TestLogFatalFuncFunc: CPointer<
             GLogLevelFlags,
             CPointer<ByteVar>,
         ) -> Int
-    >
-> =
-    staticCFunction {
-            logDomain: CPointer<ByteVar>?,
-            logLevel: GLogLevelFlags,
-            message: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    logDomain: kotlin.String,
-                    logLevel: LogLevelFlags,
-                    message: kotlin.String,
-                ) -> Boolean
-            >()
-            .get()
-            .invoke(
-                logDomain?.toKString() ?: error("Expected not null string"),
-                logLevel.run {
-                    LogLevelFlags(this)
-                },
-                message?.toKString() ?: error("Expected not null string")
-            ).asGBoolean()
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        logDomain: CPointer<ByteVar>?,
+        logLevel: GLogLevelFlags,
+        message: CPointer<ByteVar>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            logDomain: kotlin.String,
+            logLevel: LogLevelFlags,
+            message: kotlin.String,
+        ) -> Boolean
+        >().get().invoke(
+        logDomain?.toKString() ?: error("Expected not null string"),
+        logLevel.run {
+            LogLevelFlags(this)
+        },
+        message?.toKString() ?: error("Expected not null string")
+    ).asGBoolean()
+}
+    .reinterpret()
 
-public val TraverseFuncFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData
-            .asStableRef<() -> Boolean>()
-            .get()
-            .invoke()
-            .asGBoolean()
-    }.reinterpret()
+public val TraverseFuncFunc: CPointer<CFunction<() -> Int>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
+}
+    .reinterpret()
 
-public val TraverseNodeFuncFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData
-            .asStableRef<() -> Boolean>()
-            .get()
-            .invoke()
-            .asGBoolean()
-    }.reinterpret()
+public val TraverseNodeFuncFunc: CPointer<CFunction<() -> Int>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
+}
+    .reinterpret()
 
-public val UnixFDSourceFuncFunc: CPointer<CFunction<(Int) -> Int>> =
-    staticCFunction {
-            fd: Int,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<(fd: Int) -> Boolean>()
-            .get()
-            .invoke(fd)
-            .asGBoolean()
-    }.reinterpret()
+public val UnixFDSourceFuncFunc: CPointer<CFunction<(Int) -> Int>> = staticCFunction {
+        fd: Int,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(fd: Int) -> Boolean>().get().invoke(fd).asGBoolean()
+}
+    .reinterpret()
 
-public val VoidFuncFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+public val VoidFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
 /**
  * Specifies the type of the @value_destroy_func and @key_destroy_func

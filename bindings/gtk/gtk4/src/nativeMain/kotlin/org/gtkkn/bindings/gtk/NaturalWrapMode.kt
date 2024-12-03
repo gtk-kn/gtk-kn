@@ -12,9 +12,7 @@ import org.gtkkn.native.gtk.GtkNaturalWrapMode
  * @since 4.6
  */
 @GtkVersion4_6
-public enum class NaturalWrapMode(
-    public val nativeValue: GtkNaturalWrapMode,
-) {
+public enum class NaturalWrapMode(public val nativeValue: GtkNaturalWrapMode) {
     /**
      * Inherit the minimum size request.
      *   In particular, this should be used with %PANGO_WRAP_CHAR.
@@ -37,12 +35,11 @@ public enum class NaturalWrapMode(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkNaturalWrapMode): NaturalWrapMode =
-            when (nativeValue) {
-                GtkNaturalWrapMode.GTK_NATURAL_WRAP_INHERIT -> INHERIT
-                GtkNaturalWrapMode.GTK_NATURAL_WRAP_NONE -> NONE
-                GtkNaturalWrapMode.GTK_NATURAL_WRAP_WORD -> WORD
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkNaturalWrapMode): NaturalWrapMode = when (nativeValue) {
+            GtkNaturalWrapMode.GTK_NATURAL_WRAP_INHERIT -> INHERIT
+            GtkNaturalWrapMode.GTK_NATURAL_WRAP_NONE -> NONE
+            GtkNaturalWrapMode.GTK_NATURAL_WRAP_WORD -> WORD
+            else -> error("invalid nativeValue")
+        }
     }
 }

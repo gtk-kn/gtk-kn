@@ -15,9 +15,7 @@ import org.gtkkn.native.gio.GSocketProtocol
  * @since 2.22
  */
 @GioVersion2_22
-public enum class SocketProtocol(
-    public val nativeValue: GSocketProtocol,
-) {
+public enum class SocketProtocol(public val nativeValue: GSocketProtocol) {
     /**
      * The protocol type is unknown
      */
@@ -45,14 +43,13 @@ public enum class SocketProtocol(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GSocketProtocol): SocketProtocol =
-            when (nativeValue) {
-                GSocketProtocol.G_SOCKET_PROTOCOL_UNKNOWN -> UNKNOWN
-                GSocketProtocol.G_SOCKET_PROTOCOL_DEFAULT -> DEFAULT
-                GSocketProtocol.G_SOCKET_PROTOCOL_TCP -> TCP
-                GSocketProtocol.G_SOCKET_PROTOCOL_UDP -> UDP
-                GSocketProtocol.G_SOCKET_PROTOCOL_SCTP -> SCTP
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GSocketProtocol): SocketProtocol = when (nativeValue) {
+            GSocketProtocol.G_SOCKET_PROTOCOL_UNKNOWN -> UNKNOWN
+            GSocketProtocol.G_SOCKET_PROTOCOL_DEFAULT -> DEFAULT
+            GSocketProtocol.G_SOCKET_PROTOCOL_TCP -> TCP
+            GSocketProtocol.G_SOCKET_PROTOCOL_UDP -> UDP
+            GSocketProtocol.G_SOCKET_PROTOCOL_SCTP -> SCTP
+            else -> error("invalid nativeValue")
+        }
     }
 }

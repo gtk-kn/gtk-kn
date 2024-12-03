@@ -9,7 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.bindings.glib.Glib.resolveException
+import org.gtkkn.bindings.glib.GLib.resolveException
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_16
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_6
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_66
@@ -45,6 +45,7 @@ import org.gtkkn.native.glib.g_uri_parse_relative
 import org.gtkkn.native.glib.g_uri_parse_scheme
 import org.gtkkn.native.glib.g_uri_peek_scheme
 import org.gtkkn.native.glib.g_uri_resolve_relative
+import org.gtkkn.native.glib.g_uri_to_string
 import org.gtkkn.native.glib.g_uri_to_string_partial
 import org.gtkkn.native.glib.g_uri_unescape_bytes
 import org.gtkkn.native.glib.g_uri_unescape_segment
@@ -54,6 +55,7 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Result
 import kotlin.String
+import kotlin.Suppress
 import kotlin.collections.List
 
 /**
@@ -221,7 +223,6 @@ import kotlin.collections.List
  *
  * ## Skipped during bindings generation
  *
- * - method `to_string`: C function g_uri_to_string is ignored
  * - parameter `unescaped`: Array parameter of type guint8 is not supported
  * - parameter `scheme`: scheme: Out parameter is not supported
  * - parameter `scheme`: scheme: Out parameter is not supported
@@ -230,9 +231,7 @@ import kotlin.collections.List
  * @since 2.66
  */
 @GLibVersion2_66
-public class Uri(
-    pointer: CPointer<GUri>,
-) : Record {
+public class Uri(pointer: CPointer<GUri>) : Record {
     public val glibUriPointer: CPointer<GUri> = pointer
 
     /**
@@ -257,10 +256,9 @@ public class Uri(
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun getFlags(): UriFlags =
-        g_uri_get_flags(glibUriPointer.reinterpret()).run {
-            UriFlags(this)
-        }
+    public fun getFlags(): UriFlags = g_uri_get_flags(glibUriPointer.reinterpret()).run {
+        UriFlags(this)
+    }
 
     /**
      * Gets @uri's fragment, which may contain `%`-encoding, depending on
@@ -378,23 +376,41 @@ public class Uri(
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun parseRelative(
-        uriRef: String,
-        flags: UriFlags,
-    ): Result<Uri> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_uri_parse_relative(glibUriPointer.reinterpret(), uriRef, flags.mask, gError.ptr)?.run {
-                    Uri(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun parseRelative(uriRef: String, flags: UriFlags): Result<Uri> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_uri_parse_relative(glibUriPointer.reinterpret(), uriRef, flags.mask, gError.ptr)?.run {
+            Uri(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
+
+    /**
+     * Returns a string representing @uri.
+     *
+     * This is not guaranteed to return a string which is identical to the
+     * string that @uri was parsed from. However, if the source URI was
+     * syntactically correct (according to RFC 3986), and it was parsed
+     * with %G_URI_FLAGS_ENCODED, then g_uri_to_string() is guaranteed to return
+     * a string which is at least semantically equivalent to the source
+     * URI (according to RFC 3986).
+     *
+     * If @uri might contain sensitive details, such as authentication parameters,
+     * or private data in its query string, and the returned string is going to be
+     * logged, then consider using g_uri_to_string_partial() to redact parts.
+     *
+     * @return a string representing @uri,
+     *     which the caller must free.
+     * @since 2.66
+     */
+    @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
+    @GLibVersion2_66
+    override fun toString(): String =
+        g_uri_to_string(glibUriPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns a string representing @uri, subject to the options in
@@ -438,10 +454,9 @@ public class Uri(
             path: String,
             query: String? = null,
             fragment: String? = null,
-        ): Uri =
-            g_uri_build(flags.mask, scheme, userinfo, host, port, path, query, fragment)!!.run {
-                Uri(reinterpret())
-            }
+        ): Uri = g_uri_build(flags.mask, scheme, userinfo, host, port, path, query, fragment)!!.run {
+            Uri(reinterpret())
+        }
 
         /**
          * Creates a new #GUri from the given components according to @flags
@@ -479,18 +494,7 @@ public class Uri(
             query: String? = null,
             fragment: String? = null,
         ): Uri =
-            g_uri_build_with_user(
-                flags.mask,
-                scheme,
-                user,
-                password,
-                authParams,
-                host,
-                port,
-                path,
-                query,
-                fragment
-            )!!.run {
+            g_uri_build_with_user(flags.mask, scheme, user, password, authParams, host, port, path, query, fragment)!!.run {
                 Uri(reinterpret())
             }
 
@@ -515,11 +519,7 @@ public class Uri(
          * @since 2.16
          */
         @GLibVersion2_16
-        public fun escapeString(
-            unescaped: String,
-            reservedCharsAllowed: String? = null,
-            allowUtf8: Boolean,
-        ): String =
+        public fun escapeString(unescaped: String, reservedCharsAllowed: String? = null, allowUtf8: Boolean): String =
             g_uri_escape_string(unescaped, reservedCharsAllowed, allowUtf8.asGBoolean())?.toKString()
                 ?: error("Expected not null string")
 
@@ -539,19 +539,15 @@ public class Uri(
          * @since 2.66
          */
         @GLibVersion2_66
-        public fun isValid(
-            uriString: String,
-            flags: UriFlags,
-        ): Result<Boolean> =
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                val gResult = g_uri_is_valid(uriString, flags.mask, gError.ptr).asBoolean()
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(gResult)
-                }
+        public fun isValid(uriString: String, flags: UriFlags): Result<Boolean> = memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult = g_uri_is_valid(uriString, flags.mask, gError.ptr).asBoolean()
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(gResult)
             }
+        }
 
         /**
          * Joins the given components together according to @flags to create
@@ -590,9 +586,8 @@ public class Uri(
             path: String,
             query: String? = null,
             fragment: String? = null,
-        ): String =
-            g_uri_join(flags.mask, scheme, userinfo, host, port, path, query, fragment)?.toKString()
-                ?: error("Expected not null string")
+        ): String = g_uri_join(flags.mask, scheme, userinfo, host, port, path, query, fragment)?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Joins the given components together according to @flags to create
@@ -633,18 +628,7 @@ public class Uri(
             query: String? = null,
             fragment: String? = null,
         ): String =
-            g_uri_join_with_user(
-                flags.mask,
-                scheme,
-                user,
-                password,
-                authParams,
-                host,
-                port,
-                path,
-                query,
-                fragment
-            )?.toKString()
+            g_uri_join_with_user(flags.mask, scheme, user, password, authParams, host, port, path, query, fragment)?.toKString()
                 ?: error("Expected not null string")
 
         /**
@@ -673,23 +657,18 @@ public class Uri(
          * @since 2.66
          */
         @GLibVersion2_66
-        public fun parse(
-            uriString: String,
-            flags: UriFlags,
-        ): Result<Uri> =
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                val gResult =
-                    g_uri_parse(uriString, flags.mask, gError.ptr)?.run {
-                        Uri(reinterpret())
-                    }
-
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(checkNotNull(gResult))
-                }
+        public fun parse(uriString: String, flags: UriFlags): Result<Uri> = memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult = g_uri_parse(uriString, flags.mask, gError.ptr)?.run {
+                Uri(reinterpret())
             }
+
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(checkNotNull(gResult))
+            }
+        }
 
         /**
          * Many URI schemes include one or more attribute/value pairs as part of the URI
@@ -736,20 +715,18 @@ public class Uri(
             length: Long,
             separators: String,
             flags: UriParamsFlags,
-        ): Result<HashTable> =
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                val gResult =
-                    g_uri_parse_params(params, length, separators, flags.mask, gError.ptr)?.run {
-                        HashTable(reinterpret())
-                    }
-
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(checkNotNull(gResult))
-                }
+        ): Result<HashTable> = memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult = g_uri_parse_params(params, length, separators, flags.mask, gError.ptr)?.run {
+                HashTable(reinterpret())
             }
+
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(checkNotNull(gResult))
+            }
+        }
 
         /**
          * Gets the scheme portion of a URI string.
@@ -806,11 +783,7 @@ public class Uri(
          * @since 2.66
          */
         @GLibVersion2_66
-        public fun resolveRelative(
-            baseUriString: String? = null,
-            uriRef: String,
-            flags: UriFlags,
-        ): Result<String> =
+        public fun resolveRelative(baseUriString: String? = null, uriRef: String, flags: UriFlags): Result<String> =
             memScoped {
                 val gError = allocPointerTo<GError>()
                 val gResult = g_uri_resolve_relative(baseUriString, uriRef, flags.mask, gError.ptr)?.toKString()
@@ -848,20 +821,18 @@ public class Uri(
             escapedString: String,
             length: Long,
             illegalCharacters: String? = null,
-        ): Result<Bytes> =
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                val gResult =
-                    g_uri_unescape_bytes(escapedString, length, illegalCharacters, gError.ptr)?.run {
-                        Bytes(reinterpret())
-                    }
-
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(checkNotNull(gResult))
-                }
+        ): Result<Bytes> = memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult = g_uri_unescape_bytes(escapedString, length, illegalCharacters, gError.ptr)?.run {
+                Bytes(reinterpret())
             }
+
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(checkNotNull(gResult))
+            }
+        }
 
         /**
          * Unescapes a segment of an escaped string.
@@ -910,10 +881,8 @@ public class Uri(
          * @since 2.16
          */
         @GLibVersion2_16
-        public fun unescapeString(
-            escapedString: String,
-            illegalCharacters: String? = null,
-        ): String? = g_uri_unescape_string(escapedString, illegalCharacters)?.toKString()
+        public fun unescapeString(escapedString: String, illegalCharacters: String? = null): String? =
+            g_uri_unescape_string(escapedString, illegalCharacters)?.toKString()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Uri = Uri(pointer.reinterpret())
     }

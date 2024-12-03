@@ -51,9 +51,8 @@ import kotlin.Unit
  * - parameter `region`: cairo.Region
  * - method `realized`: Property has no getter nor setter
  */
-public open class Renderer(
-    pointer: CPointer<GskRenderer>,
-) : Object(pointer.reinterpret()),
+public open class Renderer(pointer: CPointer<GskRenderer>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gskRendererPointer: CPointer<GskRenderer>
         get() = gPointer.reinterpret()
@@ -69,10 +68,9 @@ public open class Renderer(
          *
          * @return a `GdkSurface`
          */
-        get() =
-            gsk_renderer_get_surface(gskRendererPointer.reinterpret())?.run {
-                Surface(reinterpret())
-            }
+        get() = gsk_renderer_get_surface(gskRendererPointer.reinterpret())?.run {
+            Surface(reinterpret())
+        }
 
     /**
      * Creates an appropriate `GskRenderer` instance for the given @surface.
@@ -89,18 +87,6 @@ public open class Renderer(
     public constructor(
         surface: Surface,
     ) : this(gsk_renderer_new_for_surface(surface.gdkSurfacePointer.reinterpret())!!.reinterpret())
-
-    /**
-     * Retrieves the `GdkSurface` set using gsk_enderer_realize().
-     *
-     * If the renderer has not been realized yet, null will be returned.
-     *
-     * @return a `GdkSurface`
-     */
-    public open fun getSurface(): Surface? =
-        gsk_renderer_get_surface(gskRendererPointer.reinterpret())?.run {
-            Surface(reinterpret())
-        }
 
     /**
      * Checks whether the @renderer is realized or not.
@@ -124,21 +110,19 @@ public open class Renderer(
      * @param surface the `GdkSurface` renderer will be used on
      * @return Whether the renderer was successfully realized
      */
-    public open fun realize(surface: Surface? = null): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gsk_renderer_realize(
-                    gskRendererPointer.reinterpret(),
-                    surface?.gdkSurfacePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun realize(surface: Surface? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gsk_renderer_realize(
+            gskRendererPointer.reinterpret(),
+            surface?.gdkSurfacePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Creates the resources needed by the @renderer to render the scene
@@ -152,21 +136,19 @@ public open class Renderer(
      * @since 4.14
      */
     @GskVersion4_14
-    public open fun realizeForDisplay(display: Display): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gsk_renderer_realize_for_display(
-                    gskRendererPointer.reinterpret(),
-                    display.gdkDisplayPointer.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun realizeForDisplay(display: Display): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gsk_renderer_realize_for_display(
+            gskRendererPointer.reinterpret(),
+            display.gdkDisplayPointer.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Renders the scene graph, described by a tree of `GskRenderNode` instances,
@@ -182,17 +164,13 @@ public open class Renderer(
      * @param viewport the section to draw or null to use @root's bounds
      * @return a `GdkTexture` with the rendered contents of @root.
      */
-    public open fun renderTexture(
-        root: RenderNode,
-        viewport: Rect? = null,
-    ): Texture =
-        gsk_renderer_render_texture(
-            gskRendererPointer.reinterpret(),
-            root.gPointer.reinterpret(),
-            viewport?.grapheneRectPointer?.reinterpret()
-        )!!.run {
-            Texture(reinterpret())
-        }
+    public open fun renderTexture(root: RenderNode, viewport: Rect? = null): Texture = gsk_renderer_render_texture(
+        gskRendererPointer.reinterpret(),
+        root.gPointer.reinterpret(),
+        viewport?.grapheneRectPointer?.reinterpret()
+    )!!.run {
+        Texture(reinterpret())
+    }
 
     /**
      * Releases all the resources created by gsk_renderer_realize().

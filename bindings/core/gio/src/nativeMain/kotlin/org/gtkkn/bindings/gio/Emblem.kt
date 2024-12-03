@@ -24,9 +24,8 @@ import org.gtkkn.native.gio.g_emblem_new_with_origin
  * Currently, only metainformation about the emblem's origin is
  * supported. More may be added in the future.
  */
-public open class Emblem(
-    pointer: CPointer<GEmblem>,
-) : Object(pointer.reinterpret()),
+public open class Emblem(pointer: CPointer<GEmblem>) :
+    Object(pointer.reinterpret()),
     Icon,
     KGTyped {
     public val gioEmblemPointer: CPointer<GEmblem>
@@ -49,10 +48,9 @@ public open class Emblem(
          *          the emblem and should not be modified or freed.
          * @since 2.18
          */
-        get() =
-            g_emblem_get_icon(gioEmblemPointer.reinterpret())!!.run {
-                Icon.wrap(reinterpret())
-            }
+        get() = g_emblem_get_icon(gioEmblemPointer.reinterpret())!!.run {
+            Icon.wrap(reinterpret())
+        }
 
     /**
      * The origin the emblem is derived from.
@@ -67,10 +65,9 @@ public open class Emblem(
          * @return the origin of the emblem
          * @since 2.18
          */
-        get() =
-            g_emblem_get_origin(gioEmblemPointer.reinterpret()).run {
-                EmblemOrigin.fromNativeValue(this)
-            }
+        get() = g_emblem_get_origin(gioEmblemPointer.reinterpret()).run {
+            EmblemOrigin.fromNativeValue(this)
+        }
 
     /**
      * Creates a new emblem for @icon.
@@ -93,31 +90,6 @@ public open class Emblem(
         icon: Icon,
         origin: EmblemOrigin,
     ) : this(g_emblem_new_with_origin(icon.gioIconPointer, origin.nativeValue)!!.reinterpret())
-
-    /**
-     * Gives back the icon from @emblem.
-     *
-     * @return a #GIcon. The returned object belongs to
-     *          the emblem and should not be modified or freed.
-     * @since 2.18
-     */
-    @GioVersion2_18
-    public open fun getIcon(): Icon =
-        g_emblem_get_icon(gioEmblemPointer.reinterpret())!!.run {
-            Icon.wrap(reinterpret())
-        }
-
-    /**
-     * Gets the origin of the emblem.
-     *
-     * @return the origin of the emblem
-     * @since 2.18
-     */
-    @GioVersion2_18
-    public open fun getOrigin(): EmblemOrigin =
-        g_emblem_get_origin(gioEmblemPointer.reinterpret()).run {
-            EmblemOrigin.fromNativeValue(this)
-        }
 
     public companion object : TypeCompanion<Emblem> {
         override val type: GeneratedClassKGType<Emblem> =

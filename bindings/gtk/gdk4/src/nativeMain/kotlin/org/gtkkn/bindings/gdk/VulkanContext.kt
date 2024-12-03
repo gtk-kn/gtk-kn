@@ -32,9 +32,8 @@ import kotlin.Unit
  * Support for `GdkVulkanContext` is platform-specific and context creation
  * can fail, returning null context.
  */
-public open class VulkanContext(
-    pointer: CPointer<GdkVulkanContext>,
-) : DrawContext(pointer.reinterpret()),
+public open class VulkanContext(pointer: CPointer<GdkVulkanContext>) :
+    DrawContext(pointer.reinterpret()),
     Initable,
     KGTyped {
     public val gdkVulkanContextPointer: CPointer<GdkVulkanContext>
@@ -52,10 +51,7 @@ public open class VulkanContext(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectImagesUpdated(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectImagesUpdated(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "images-updated",
@@ -75,10 +71,10 @@ public open class VulkanContext(
     }
 }
 
-private val connectImagesUpdatedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectImagesUpdatedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

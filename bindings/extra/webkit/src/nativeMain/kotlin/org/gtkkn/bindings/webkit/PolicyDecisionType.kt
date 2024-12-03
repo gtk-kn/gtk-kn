@@ -7,9 +7,7 @@ import org.gtkkn.native.webkit.WebKitPolicyDecisionType
  * Enum values used for determining the type of a policy decision during
  * #WebKitWebView::decide-policy.
  */
-public enum class PolicyDecisionType(
-    public val nativeValue: WebKitPolicyDecisionType,
-) {
+public enum class PolicyDecisionType(public val nativeValue: WebKitPolicyDecisionType) {
     /**
      * This type of policy decision
      *   is requested when WebKit is about to navigate to a new page in either the
@@ -46,12 +44,11 @@ public enum class PolicyDecisionType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitPolicyDecisionType): PolicyDecisionType =
-            when (nativeValue) {
-                WebKitPolicyDecisionType.WEBKIT_POLICY_DECISION_TYPE_NAVIGATION_ACTION -> NAVIGATION_ACTION
-                WebKitPolicyDecisionType.WEBKIT_POLICY_DECISION_TYPE_NEW_WINDOW_ACTION -> NEW_WINDOW_ACTION
-                WebKitPolicyDecisionType.WEBKIT_POLICY_DECISION_TYPE_RESPONSE -> RESPONSE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitPolicyDecisionType): PolicyDecisionType = when (nativeValue) {
+            WebKitPolicyDecisionType.WEBKIT_POLICY_DECISION_TYPE_NAVIGATION_ACTION -> NAVIGATION_ACTION
+            WebKitPolicyDecisionType.WEBKIT_POLICY_DECISION_TYPE_NEW_WINDOW_ACTION -> NEW_WINDOW_ACTION
+            WebKitPolicyDecisionType.WEBKIT_POLICY_DECISION_TYPE_RESPONSE -> RESPONSE
+            else -> error("invalid nativeValue")
+        }
     }
 }

@@ -19,9 +19,7 @@ import org.gtkkn.native.glib.G_LOG_LEVEL_WARNING
  * It is possible to change how GLib treats messages of the various
  * levels using [func@GLib.log_set_handler] and [func@GLib.log_set_fatal_mask].
  */
-public class LogLevelFlags(
-    public val mask: GLogLevelFlags,
-) : Bitfield<LogLevelFlags> {
+public class LogLevelFlags(public val mask: GLogLevelFlags) : Bitfield<LogLevelFlags> {
     override infix fun or(other: LogLevelFlags): LogLevelFlags = LogLevelFlags(mask or other.mask)
 
     public companion object {

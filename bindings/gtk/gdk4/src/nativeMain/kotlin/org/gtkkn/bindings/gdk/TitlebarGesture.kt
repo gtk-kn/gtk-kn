@@ -9,21 +9,18 @@ import org.gtkkn.native.gdk.GdkTitlebarGesture
  * @since 4.4
  */
 @GdkVersion4_4
-public enum class TitlebarGesture(
-    public val nativeValue: GdkTitlebarGesture,
-) {
+public enum class TitlebarGesture(public val nativeValue: GdkTitlebarGesture) {
     DOUBLE_CLICK(GdkTitlebarGesture.GDK_TITLEBAR_GESTURE_DOUBLE_CLICK),
     RIGHT_CLICK(GdkTitlebarGesture.GDK_TITLEBAR_GESTURE_RIGHT_CLICK),
     MIDDLE_CLICK(GdkTitlebarGesture.GDK_TITLEBAR_GESTURE_MIDDLE_CLICK),
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GdkTitlebarGesture): TitlebarGesture =
-            when (nativeValue) {
-                GdkTitlebarGesture.GDK_TITLEBAR_GESTURE_DOUBLE_CLICK -> DOUBLE_CLICK
-                GdkTitlebarGesture.GDK_TITLEBAR_GESTURE_RIGHT_CLICK -> RIGHT_CLICK
-                GdkTitlebarGesture.GDK_TITLEBAR_GESTURE_MIDDLE_CLICK -> MIDDLE_CLICK
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GdkTitlebarGesture): TitlebarGesture = when (nativeValue) {
+            GdkTitlebarGesture.GDK_TITLEBAR_GESTURE_DOUBLE_CLICK -> DOUBLE_CLICK
+            GdkTitlebarGesture.GDK_TITLEBAR_GESTURE_RIGHT_CLICK -> RIGHT_CLICK
+            GdkTitlebarGesture.GDK_TITLEBAR_GESTURE_MIDDLE_CLICK -> MIDDLE_CLICK
+            else -> error("invalid nativeValue")
+        }
     }
 }

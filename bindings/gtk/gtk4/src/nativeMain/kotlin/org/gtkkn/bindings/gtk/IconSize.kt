@@ -14,9 +14,7 @@ import org.gtkkn.native.gtk.GtkIconSize
  * determine the actual size to be used with the
  * `-gtk-icon-size` CSS property.
  */
-public enum class IconSize(
-    public val nativeValue: GtkIconSize,
-) {
+public enum class IconSize(public val nativeValue: GtkIconSize) {
     /**
      * Keep the size of the parent element
      */
@@ -34,12 +32,11 @@ public enum class IconSize(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkIconSize): IconSize =
-            when (nativeValue) {
-                GtkIconSize.GTK_ICON_SIZE_INHERIT -> INHERIT
-                GtkIconSize.GTK_ICON_SIZE_NORMAL -> NORMAL
-                GtkIconSize.GTK_ICON_SIZE_LARGE -> LARGE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkIconSize): IconSize = when (nativeValue) {
+            GtkIconSize.GTK_ICON_SIZE_INHERIT -> INHERIT
+            GtkIconSize.GTK_ICON_SIZE_NORMAL -> NORMAL
+            GtkIconSize.GTK_ICON_SIZE_LARGE -> LARGE
+            else -> error("invalid nativeValue")
+        }
     }
 }

@@ -6,9 +6,7 @@ import org.gtkkn.native.webkit.WebKitCookiePersistentStorage
 /**
  * Enum values used to denote the cookie persistent storage types.
  */
-public enum class CookiePersistentStorage(
-    public val nativeValue: WebKitCookiePersistentStorage,
-) {
+public enum class CookiePersistentStorage(public val nativeValue: WebKitCookiePersistentStorage) {
     /**
      * Cookies are stored in a text
      *  file in the Mozilla "cookies.txt" format.

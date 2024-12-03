@@ -13,9 +13,7 @@ import kotlin.ULong
 /**
  * A location in a parse buffer.
  */
-public class ParseLocation(
-    pointer: CPointer<GskParseLocation>,
-) : Record {
+public class ParseLocation(pointer: CPointer<GskParseLocation>) : Record {
     public val gskParseLocationPointer: CPointer<GskParseLocation> = pointer
 
     /**

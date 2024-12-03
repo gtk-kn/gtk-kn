@@ -21,9 +21,8 @@ import kotlin.Float
 /**
  * A render node for an inset shadow.
  */
-public open class InsetShadowNode(
-    pointer: CPointer<GskInsetShadowNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class InsetShadowNode(pointer: CPointer<GskInsetShadowNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskInsetShadowNodePointer: CPointer<GskInsetShadowNode>
         get() = gPointer.reinterpret()
@@ -71,10 +70,9 @@ public open class InsetShadowNode(
      *
      * @return the color of the shadow
      */
-    public open fun getColor(): RGBA =
-        gsk_inset_shadow_node_get_color(gskInsetShadowNodePointer.reinterpret())!!.run {
-            RGBA(reinterpret())
-        }
+    public open fun getColor(): RGBA = gsk_inset_shadow_node_get_color(gskInsetShadowNodePointer.reinterpret())!!.run {
+        RGBA(reinterpret())
+    }
 
     /**
      * Retrieves the horizontal offset of the inset shadow.

@@ -71,9 +71,8 @@ import kotlin.Unit
  * - parameter `model`: model: Out parameter is not supported
  * - parameter `model`: model: Out parameter is not supported
  */
-public open class TreeSelection(
-    pointer: CPointer<GtkTreeSelection>,
-) : Object(pointer.reinterpret()),
+public open class TreeSelection(pointer: CPointer<GtkTreeSelection>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkTreeSelectionPointer: CPointer<GtkTreeSelection>
         get() = gPointer.reinterpret()
@@ -89,10 +88,9 @@ public open class TreeSelection(
          *
          * @return the current selection mode
          */
-        get() =
-            gtk_tree_selection_get_mode(gtkTreeSelectionPointer.reinterpret()).run {
-                SelectionMode.fromNativeValue(this)
-            }
+        get() = gtk_tree_selection_get_mode(gtkTreeSelectionPointer.reinterpret()).run {
+            SelectionMode.fromNativeValue(this)
+        }
 
         /**
          * Sets the selection mode of the @selection.  If the previous type was
@@ -112,17 +110,6 @@ public open class TreeSelection(
         gtk_tree_selection_count_selected_rows(gtkTreeSelectionPointer.reinterpret())
 
     /**
-     * Gets the selection mode for @selection. See
-     * gtk_tree_selection_set_mode().
-     *
-     * @return the current selection mode
-     */
-    public open fun getMode(): SelectionMode =
-        gtk_tree_selection_get_mode(gtkTreeSelectionPointer.reinterpret()).run {
-            SelectionMode.fromNativeValue(this)
-        }
-
-    /**
      * Returns the tree view associated with @selection.
      *
      * @return A `GtkTreeView`
@@ -138,11 +125,10 @@ public open class TreeSelection(
      * @param iter A valid `GtkTreeIter`
      * @return true, if @iter is selected
      */
-    public open fun iterIsSelected(iter: TreeIter): Boolean =
-        gtk_tree_selection_iter_is_selected(
-            gtkTreeSelectionPointer.reinterpret(),
-            iter.gtkTreeIterPointer.reinterpret()
-        ).asBoolean()
+    public open fun iterIsSelected(iter: TreeIter): Boolean = gtk_tree_selection_iter_is_selected(
+        gtkTreeSelectionPointer.reinterpret(),
+        iter.gtkTreeIterPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Returns true if the row pointed to by @path is currently selected.  If @path
@@ -151,11 +137,10 @@ public open class TreeSelection(
      * @param path A `GtkTreePath` to check selection on.
      * @return true if @path is selected.
      */
-    public open fun pathIsSelected(path: TreePath): Boolean =
-        gtk_tree_selection_path_is_selected(
-            gtkTreeSelectionPointer.reinterpret(),
-            path.gtkTreePathPointer.reinterpret()
-        ).asBoolean()
+    public open fun pathIsSelected(path: TreePath): Boolean = gtk_tree_selection_path_is_selected(
+        gtkTreeSelectionPointer.reinterpret(),
+        path.gtkTreePathPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Selects all the nodes. @selection must be set to %GTK_SELECTION_MULTIPLE
@@ -186,15 +171,11 @@ public open class TreeSelection(
      * @param startPath The initial node of the range.
      * @param endPath The final node of the range.
      */
-    public open fun selectRange(
-        startPath: TreePath,
-        endPath: TreePath,
-    ): Unit =
-        gtk_tree_selection_select_range(
-            gtkTreeSelectionPointer.reinterpret(),
-            startPath.gtkTreePathPointer.reinterpret(),
-            endPath.gtkTreePathPointer.reinterpret()
-        )
+    public open fun selectRange(startPath: TreePath, endPath: TreePath): Unit = gtk_tree_selection_select_range(
+        gtkTreeSelectionPointer.reinterpret(),
+        startPath.gtkTreePathPointer.reinterpret(),
+        endPath.gtkTreePathPointer.reinterpret()
+    )
 
     /**
      * Calls a function for each selected node. Note that you cannot modify
@@ -203,22 +184,11 @@ public open class TreeSelection(
      *
      * @param func The function to call for each selected node.
      */
-    public open fun selectedForeach(func: TreeSelectionForeachFunc): Unit =
-        gtk_tree_selection_selected_foreach(
-            gtkTreeSelectionPointer.reinterpret(),
-            TreeSelectionForeachFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )
-
-    /**
-     * Sets the selection mode of the @selection.  If the previous type was
-     * %GTK_SELECTION_MULTIPLE, then the anchor is kept selected, if it was
-     * previously selected.
-     *
-     * @param type The selection mode
-     */
-    public open fun setMode(type: SelectionMode): Unit =
-        gtk_tree_selection_set_mode(gtkTreeSelectionPointer.reinterpret(), type.nativeValue)
+    public open fun selectedForeach(func: TreeSelectionForeachFunc): Unit = gtk_tree_selection_selected_foreach(
+        gtkTreeSelectionPointer.reinterpret(),
+        TreeSelectionForeachFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer()
+    )
 
     /**
      * Sets the selection function.
@@ -230,13 +200,12 @@ public open class TreeSelection(
      *
      * @param func The selection function. May be null
      */
-    public open fun setSelectFunction(func: TreeSelectionFunc): Unit =
-        gtk_tree_selection_set_select_function(
-            gtkTreeSelectionPointer.reinterpret(),
-            TreeSelectionFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public open fun setSelectFunction(func: TreeSelectionFunc): Unit = gtk_tree_selection_set_select_function(
+        gtkTreeSelectionPointer.reinterpret(),
+        TreeSelectionFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer(),
+        staticStableRefDestroy.reinterpret()
+    )
 
     /**
      * Unselects all the nodes.
@@ -266,15 +235,11 @@ public open class TreeSelection(
      * @param startPath The initial node of the range.
      * @param endPath The initial node of the range.
      */
-    public open fun unselectRange(
-        startPath: TreePath,
-        endPath: TreePath,
-    ): Unit =
-        gtk_tree_selection_unselect_range(
-            gtkTreeSelectionPointer.reinterpret(),
-            startPath.gtkTreePathPointer.reinterpret(),
-            endPath.gtkTreePathPointer.reinterpret()
-        )
+    public open fun unselectRange(startPath: TreePath, endPath: TreePath): Unit = gtk_tree_selection_unselect_range(
+        gtkTreeSelectionPointer.reinterpret(),
+        startPath.gtkTreePathPointer.reinterpret(),
+        endPath.gtkTreePathPointer.reinterpret()
+    )
 
     /**
      * Emitted whenever the selection has (possibly) changed. Please note that
@@ -285,10 +250,7 @@ public open class TreeSelection(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "changed",
@@ -308,10 +270,10 @@ public open class TreeSelection(
     }
 }
 
-private val connectChangedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

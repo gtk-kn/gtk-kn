@@ -45,9 +45,7 @@ import kotlin.Unit
  * @since 2.16
  */
 @GLibVersion2_16
-public class Checksum(
-    pointer: CPointer<GChecksum>,
-) : Record {
+public class Checksum(pointer: CPointer<GChecksum>) : Record {
     public val glibChecksumPointer: CPointer<GChecksum> = pointer
 
     /**
@@ -60,10 +58,9 @@ public class Checksum(
      * @since 2.16
      */
     @GLibVersion2_16
-    public fun copy(): Checksum =
-        g_checksum_copy(glibChecksumPointer.reinterpret())!!.run {
-            Checksum(reinterpret())
-        }
+    public fun copy(): Checksum = g_checksum_copy(glibChecksumPointer.reinterpret())!!.run {
+        Checksum(reinterpret())
+    }
 
     /**
      * Frees the memory allocated for @checksum.

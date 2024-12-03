@@ -26,9 +26,7 @@ import org.gtkkn.native.pango.PangoGlyphGeometry
  * 3. Advance the current point to (x + width, y)
  * 4. Render the next glyph
  */
-public class GlyphGeometry(
-    pointer: CPointer<PangoGlyphGeometry>,
-) : Record {
+public class GlyphGeometry(pointer: CPointer<PangoGlyphGeometry>) : Record {
     public val pangoGlyphGeometryPointer: CPointer<PangoGlyphGeometry> = pointer
 
     /**

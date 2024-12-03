@@ -38,10 +38,11 @@ public interface StyleSchemeChooser :
          *
          * @return the currently-selected scheme.
          */
-        get() =
-            gtk_source_style_scheme_chooser_get_style_scheme(gtksourceStyleSchemeChooserPointer.reinterpret())!!.run {
-                StyleScheme(reinterpret())
-            }
+        get() = gtk_source_style_scheme_chooser_get_style_scheme(
+            gtksourceStyleSchemeChooserPointer.reinterpret()
+        )!!.run {
+            StyleScheme(reinterpret())
+        }
 
         /**
          * Sets the scheme.
@@ -50,11 +51,10 @@ public interface StyleSchemeChooser :
          */
         set(
             scheme
-        ) =
-            gtk_source_style_scheme_chooser_set_style_scheme(
-                gtksourceStyleSchemeChooserPointer.reinterpret(),
-                scheme.gtksourceStyleSchemePointer.reinterpret()
-            )
+        ) = gtk_source_style_scheme_chooser_set_style_scheme(
+            gtksourceStyleSchemeChooserPointer.reinterpret(),
+            scheme.gtksourceStyleSchemePointer.reinterpret()
+        )
 
     /**
      * Gets the currently-selected scheme.
@@ -71,15 +71,12 @@ public interface StyleSchemeChooser :
      *
      * @param scheme a #GtkSourceStyleScheme
      */
-    public fun setStyleScheme(scheme: StyleScheme): Unit =
-        gtk_source_style_scheme_chooser_set_style_scheme(
-            gtksourceStyleSchemeChooserPointer.reinterpret(),
-            scheme.gtksourceStyleSchemePointer.reinterpret()
-        )
+    public fun setStyleScheme(scheme: StyleScheme): Unit = gtk_source_style_scheme_chooser_set_style_scheme(
+        gtksourceStyleSchemeChooserPointer.reinterpret(),
+        scheme.gtksourceStyleSchemePointer.reinterpret()
+    )
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkSourceStyleSchemeChooser>,
-    ) : StyleSchemeChooser {
+    private data class Wrapper(private val pointer: CPointer<GtkSourceStyleSchemeChooser>) : StyleSchemeChooser {
         override val gtksourceStyleSchemeChooserPointer: CPointer<GtkSourceStyleSchemeChooser> =
             pointer
     }

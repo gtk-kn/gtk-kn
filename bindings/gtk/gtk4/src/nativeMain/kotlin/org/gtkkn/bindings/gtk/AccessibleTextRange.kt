@@ -16,9 +16,7 @@ import kotlin.ULong
  * @since 4.14
  */
 @GtkVersion4_14
-public class AccessibleTextRange(
-    pointer: CPointer<GtkAccessibleTextRange>,
-) : Record {
+public class AccessibleTextRange(pointer: CPointer<GtkAccessibleTextRange>) : Record {
     public val gtkAccessibleTextRangePointer: CPointer<GtkAccessibleTextRange> = pointer
 
     /**

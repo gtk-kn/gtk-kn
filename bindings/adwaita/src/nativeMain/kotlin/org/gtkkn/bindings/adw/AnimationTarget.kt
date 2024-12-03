@@ -13,9 +13,8 @@ import org.gtkkn.native.adw.adw_animation_target_get_type
 /**
  * Represents a value [class@Animation] can animate.
  */
-public open class AnimationTarget(
-    pointer: CPointer<AdwAnimationTarget>,
-) : Object(pointer.reinterpret()),
+public open class AnimationTarget(pointer: CPointer<AdwAnimationTarget>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val adwAnimationTargetPointer: CPointer<AdwAnimationTarget>
         get() = gPointer.reinterpret()

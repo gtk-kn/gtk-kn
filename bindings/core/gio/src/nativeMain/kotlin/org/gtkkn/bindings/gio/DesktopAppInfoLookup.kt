@@ -43,9 +43,7 @@ public interface DesktopAppInfoLookup :
             AppInfo.wrap(reinterpret())
         }
 
-    private data class Wrapper(
-        private val pointer: CPointer<GDesktopAppInfoLookup>,
-    ) : DesktopAppInfoLookup {
+    private data class Wrapper(private val pointer: CPointer<GDesktopAppInfoLookup>) : DesktopAppInfoLookup {
         override val gioDesktopAppInfoLookupPointer: CPointer<GDesktopAppInfoLookup> = pointer
     }
 

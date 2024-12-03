@@ -14,9 +14,7 @@ import org.gtkkn.native.webkit.WebKitHitTestResultContext
 /**
  * Enum values with flags representing the context of a #WebKitHitTestResult.
  */
-public class HitTestResultContext(
-    public val mask: WebKitHitTestResultContext,
-) : Bitfield<HitTestResultContext> {
+public class HitTestResultContext(public val mask: WebKitHitTestResultContext) : Bitfield<HitTestResultContext> {
     override infix fun or(other: HitTestResultContext): HitTestResultContext = HitTestResultContext(mask or other.mask)
 
     public companion object {

@@ -71,9 +71,8 @@ import kotlin.Unit
  *
  * - parameter `minimum`: minimum: Out parameter is not supported
  */
-public open class LayoutManager(
-    pointer: CPointer<GtkLayoutManager>,
-) : Object(pointer.reinterpret()),
+public open class LayoutManager(pointer: CPointer<GtkLayoutManager>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkLayoutManagerPointer: CPointer<GtkLayoutManager>
         get() = gPointer.reinterpret()
@@ -88,12 +87,7 @@ public open class LayoutManager(
      * @param height the new height of the @widget
      * @param baseline the baseline position of the @widget, or -1
      */
-    public open fun allocate(
-        widget: Widget,
-        width: Int,
-        height: Int,
-        baseline: Int,
-    ): Unit =
+    public open fun allocate(widget: Widget, width: Int, height: Int, baseline: Int): Unit =
         gtk_layout_manager_allocate(
             gtkLayoutManagerPointer.reinterpret(),
             widget.gtkWidgetPointer.reinterpret(),
@@ -115,13 +109,12 @@ public open class LayoutManager(
      * @param child a `GtkWidget`
      * @return a `GtkLayoutChild`
      */
-    public open fun getLayoutChild(child: Widget): LayoutChild =
-        gtk_layout_manager_get_layout_child(
-            gtkLayoutManagerPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )!!.run {
-            LayoutChild(reinterpret())
-        }
+    public open fun getLayoutChild(child: Widget): LayoutChild = gtk_layout_manager_get_layout_child(
+        gtkLayoutManagerPointer.reinterpret(),
+        child.gtkWidgetPointer.reinterpret()
+    )!!.run {
+        LayoutChild(reinterpret())
+    }
 
     /**
      * Retrieves the request mode of @manager.
@@ -138,10 +131,9 @@ public open class LayoutManager(
      *
      * @return a `GtkWidget`
      */
-    public open fun getWidget(): Widget? =
-        gtk_layout_manager_get_widget(gtkLayoutManagerPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
+    public open fun getWidget(): Widget? = gtk_layout_manager_get_widget(gtkLayoutManagerPointer.reinterpret())?.run {
+        Widget(reinterpret())
+    }
 
     /**
      * Queues a resize on the `GtkWidget` using @manager, if any.

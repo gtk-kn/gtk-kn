@@ -31,9 +31,8 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_spin_new
  * - method `climb-rate`: Property has no getter nor setter
  * - method `digits`: Property has no getter nor setter
  */
-public open class CellRendererSpin(
-    pointer: CPointer<GtkCellRendererSpin>,
-) : CellRendererText(pointer.reinterpret()),
+public open class CellRendererSpin(pointer: CPointer<GtkCellRendererSpin>) :
+    CellRendererText(pointer.reinterpret()),
     KGTyped {
     public val gtkCellRendererSpinPointer: CPointer<GtkCellRendererSpin>
         get() = gPointer.reinterpret()

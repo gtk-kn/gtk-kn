@@ -52,9 +52,8 @@ import kotlin.Unit
  * - parameter `buffer`: Array parameter of type guint8 is not supported
  * - parameter `count`: count: Out parameter is not supported
  */
-public open class BufferedInputStream(
-    pointer: CPointer<GBufferedInputStream>,
-) : FilterInputStream(pointer.reinterpret()),
+public open class BufferedInputStream(pointer: CPointer<GBufferedInputStream>) :
+    FilterInputStream(pointer.reinterpret()),
     Seekable,
     KGTyped {
     public val gioBufferedInputStreamPointer: CPointer<GBufferedInputStream>
@@ -138,25 +137,21 @@ public open class BufferedInputStream(
      * @return the number of bytes read into @stream's buffer, up to @count,
      *     or -1 on error.
      */
-    public open fun fill(
-        count: Long,
-        cancellable: Cancellable? = null,
-    ): Result<Long> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_buffered_input_stream_fill(
-                    gioBufferedInputStreamPointer.reinterpret(),
-                    count,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun fill(count: Long, cancellable: Cancellable? = null): Result<Long> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult =
+            g_buffered_input_stream_fill(
+                gioBufferedInputStreamPointer.reinterpret(),
+                count,
+                cancellable?.gioCancellablePointer?.reinterpret(),
+                gError.ptr
+            )
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Reads data into @stream's buffer asynchronously, up to @count size.
@@ -176,15 +171,14 @@ public open class BufferedInputStream(
         ioPriority: Int,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_buffered_input_stream_fill_async(
-            gioBufferedInputStreamPointer.reinterpret(),
-            count,
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_buffered_input_stream_fill_async(
+        gioBufferedInputStreamPointer.reinterpret(),
+        count,
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an asynchronous read.
@@ -192,21 +186,20 @@ public open class BufferedInputStream(
      * @param result a #GAsyncResult
      * @return a #gssize of the read stream, or `-1` on an error.
      */
-    public open fun fillFinish(result: AsyncResult): Result<Long> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_buffered_input_stream_fill_finish(
-                    gioBufferedInputStreamPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun fillFinish(result: AsyncResult): Result<Long> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult =
+            g_buffered_input_stream_fill_finish(
+                gioBufferedInputStreamPointer.reinterpret(),
+                result.gioAsyncResultPointer,
+                gError.ptr
+            )
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Gets the size of the available data within the stream.
@@ -215,14 +208,6 @@ public open class BufferedInputStream(
      */
     public open fun getAvailable(): ULong =
         g_buffered_input_stream_get_available(gioBufferedInputStreamPointer.reinterpret())
-
-    /**
-     * Gets the size of the input buffer.
-     *
-     * @return the current buffer size.
-     */
-    public open fun getBufferSize(): ULong =
-        g_buffered_input_stream_get_buffer_size(gioBufferedInputStreamPointer.reinterpret())
 
     /**
      * Tries to read a single byte from the stream or the buffer. Will block
@@ -242,31 +227,20 @@ public open class BufferedInputStream(
      * @param cancellable optional #GCancellable object, null to ignore
      * @return the byte read from the @stream, or -1 on end of stream or error.
      */
-    public open fun readByte(cancellable: Cancellable? = null): Result<Int> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_buffered_input_stream_read_byte(
-                    gioBufferedInputStreamPointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun readInt(cancellable: Cancellable? = null): Result<Int> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult =
+            g_buffered_input_stream_read_byte(
+                gioBufferedInputStreamPointer.reinterpret(),
+                cancellable?.gioCancellablePointer?.reinterpret(),
+                gError.ptr
+            )
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
-
-    /**
-     * Sets the size of the internal buffer of @stream to @size, or to the
-     * size of the contents of the buffer. The buffer can never be resized
-     * smaller than its current contents.
-     *
-     * @param size a #gsize
-     */
-    public open fun setBufferSize(size: ULong): Unit =
-        g_buffered_input_stream_set_buffer_size(gioBufferedInputStreamPointer.reinterpret(), size)
+    }
 
     public companion object : TypeCompanion<BufferedInputStream> {
         override val type: GeneratedClassKGType<BufferedInputStream> =

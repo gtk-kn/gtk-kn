@@ -44,9 +44,7 @@ import kotlin.Unit
  * @since 1.6
  */
 @PangoVersion1_6
-public class Matrix(
-    pointer: CPointer<PangoMatrix>,
-) : Record {
+public class Matrix(pointer: CPointer<PangoMatrix>) : Record {
     public val pangoMatrixPointer: CPointer<PangoMatrix> = pointer
 
     /**
@@ -122,10 +120,9 @@ public class Matrix(
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun copy(): Matrix? =
-        pango_matrix_copy(pangoMatrixPointer.reinterpret())?.run {
-            Matrix(reinterpret())
-        }
+    public fun copy(): Matrix? = pango_matrix_copy(pangoMatrixPointer.reinterpret())?.run {
+        Matrix(reinterpret())
+    }
 
     /**
      * Free a `PangoMatrix`.
@@ -187,10 +184,8 @@ public class Matrix(
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun scale(
-        scaleX: Double,
-        scaleY: Double,
-    ): Unit = pango_matrix_scale(pangoMatrixPointer.reinterpret(), scaleX, scaleY)
+    public fun scale(scaleX: Double, scaleY: Double): Unit =
+        pango_matrix_scale(pangoMatrixPointer.reinterpret(), scaleX, scaleY)
 
     /**
      * Changes the transformation represented by @matrix to be the
@@ -202,10 +197,8 @@ public class Matrix(
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun translate(
-        tx: Double,
-        ty: Double,
-    ): Unit = pango_matrix_translate(pangoMatrixPointer.reinterpret(), tx, ty)
+    public fun translate(tx: Double, ty: Double): Unit =
+        pango_matrix_translate(pangoMatrixPointer.reinterpret(), tx, ty)
 
     public companion object : RecordCompanion<Matrix, PangoMatrix> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Matrix = Matrix(pointer.reinterpret())

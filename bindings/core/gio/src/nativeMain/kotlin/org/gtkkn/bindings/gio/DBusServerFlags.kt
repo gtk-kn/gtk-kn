@@ -13,9 +13,7 @@ import org.gtkkn.native.gio.G_DBUS_SERVER_FLAGS_RUN_IN_THREAD
  * Flags used when creating a #GDBusServer.
  * @since 2.26
  */
-public class DBusServerFlags(
-    public val mask: GDBusServerFlags,
-) : Bitfield<DBusServerFlags> {
+public class DBusServerFlags(public val mask: GDBusServerFlags) : Bitfield<DBusServerFlags> {
     override infix fun or(other: DBusServerFlags): DBusServerFlags = DBusServerFlags(mask or other.mask)
 
     @GioVersion2_26

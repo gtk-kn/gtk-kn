@@ -19,7 +19,7 @@ import org.gtkkn.bindings.javascriptcore.annotations.JavaScriptCoreVersion2_24
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toCStringList
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.native.javascriptcore.JSCClass
 import org.gtkkn.native.javascriptcore.JSCContext
 import org.gtkkn.native.javascriptcore.JSCException
@@ -63,7 +63,7 @@ import kotlin.collections.List
  * - record `VirtualMachineClass`: glib type struct are ignored
  * - record `WeakValueClass`: glib type struct are ignored
  */
-public object Javascriptcore {
+public object JavaScriptCore {
     /**
      * Like jsc_get_major_version(), but from the headers used at
      * application compile time, rather than from the library linked
@@ -184,10 +184,9 @@ public object Javascriptcore {
      * @since 2.24
      */
     @JavaScriptCoreVersion2_24
-    public fun optionsGetOptionGroup(): OptionGroup =
-        jsc_options_get_option_group()!!.run {
-            OptionGroup(reinterpret())
-        }
+    public fun optionsGetOptionGroup(): OptionGroup = jsc_options_get_option_group()!!.run {
+        OptionGroup(reinterpret())
+    }
 
     /**
      * Set @option as a #gboolean value.
@@ -198,10 +197,8 @@ public object Javascriptcore {
      * @since 2.24
      */
     @JavaScriptCoreVersion2_24
-    public fun optionsSetBoolean(
-        option: String,
-        `value`: Boolean,
-    ): Boolean = jsc_options_set_boolean(option, `value`.asGBoolean()).asBoolean()
+    public fun optionsSetBoolean(option: String, `value`: Boolean): Boolean =
+        jsc_options_set_boolean(option, `value`.asGBoolean()).asBoolean()
 
     /**
      * Set @option as a #gdouble value.
@@ -212,10 +209,8 @@ public object Javascriptcore {
      * @since 2.24
      */
     @JavaScriptCoreVersion2_24
-    public fun optionsSetDouble(
-        option: String,
-        `value`: Double,
-    ): Boolean = jsc_options_set_double(option, `value`).asBoolean()
+    public fun optionsSetDouble(option: String, `value`: Double): Boolean =
+        jsc_options_set_double(option, `value`).asBoolean()
 
     /**
      * Set @option as a #gint value.
@@ -226,10 +221,7 @@ public object Javascriptcore {
      * @since 2.24
      */
     @JavaScriptCoreVersion2_24
-    public fun optionsSetInt(
-        option: String,
-        `value`: Int,
-    ): Boolean = jsc_options_set_int(option, `value`).asBoolean()
+    public fun optionsSetInt(option: String, `value`: Int): Boolean = jsc_options_set_int(option, `value`).asBoolean()
 
     /**
      * Set @option as a range string. The string must be in the
@@ -243,10 +235,8 @@ public object Javascriptcore {
      * @since 2.24
      */
     @JavaScriptCoreVersion2_24
-    public fun optionsSetRangeString(
-        option: String,
-        `value`: String,
-    ): Boolean = jsc_options_set_range_string(option, `value`).asBoolean()
+    public fun optionsSetRangeString(option: String, `value`: String): Boolean =
+        jsc_options_set_range_string(option, `value`).asBoolean()
 
     /**
      * Set @option as a #gsize value.
@@ -257,10 +247,8 @@ public object Javascriptcore {
      * @since 2.24
      */
     @JavaScriptCoreVersion2_24
-    public fun optionsSetSize(
-        option: String,
-        `value`: ULong,
-    ): Boolean = jsc_options_set_size(option, `value`).asBoolean()
+    public fun optionsSetSize(option: String, `value`: ULong): Boolean =
+        jsc_options_set_size(option, `value`).asBoolean()
 
     /**
      * Set @option as a string.
@@ -271,10 +259,8 @@ public object Javascriptcore {
      * @since 2.24
      */
     @JavaScriptCoreVersion2_24
-    public fun optionsSetString(
-        option: String,
-        `value`: String,
-    ): Boolean = jsc_options_set_string(option, `value`).asBoolean()
+    public fun optionsSetString(option: String, `value`: String): Boolean =
+        jsc_options_set_string(option, `value`).asBoolean()
 
     /**
      * Set @option as a #guint value.
@@ -285,17 +271,14 @@ public object Javascriptcore {
      * @since 2.24
      */
     @JavaScriptCoreVersion2_24
-    public fun optionsSetUint(
-        option: String,
-        `value`: UInt,
-    ): Boolean = jsc_options_set_uint(option, `value`).asBoolean()
+    public fun optionsSetUint(option: String, `value`: UInt): Boolean =
+        jsc_options_set_uint(option, `value`).asBoolean()
 
-    public fun resolveException(error: Error): GlibException {
-        val ex =
-            when (error.domain) {
-                else -> null
-            }
-        return ex ?: GlibException(error)
+    public fun resolveException(error: Error): GLibException {
+        val ex = when (error.domain) {
+            else -> null
+        }
+        return ex ?: GLibException(error)
     }
 }
 
@@ -306,33 +289,30 @@ public val ClassDeletePropertyFunctionFunc: CPointer<
             CPointer<JSCContext>,
             CPointer<ByteVar>,
         ) -> Int
-    >
-> =
-    staticCFunction {
-            jscClass: CPointer<JSCClass>?,
-            context: CPointer<JSCContext>?,
-            name: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    jscClass: Class,
-                    context: Context,
-                    name: String,
-                ) -> Boolean
-            >()
-            .get()
-            .invoke(
-                jscClass!!.run {
-                    Class(reinterpret())
-                },
-                context!!.run {
-                    Context(reinterpret())
-                },
-                name?.toKString() ?: error("Expected not null string")
-            ).asGBoolean()
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        jscClass: CPointer<JSCClass>?,
+        context: CPointer<JSCContext>?,
+        name: CPointer<ByteVar>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            jscClass: Class,
+            context: Context,
+            name: String,
+        ) -> Boolean
+        >().get().invoke(
+        jscClass!!.run {
+            Class(reinterpret())
+        },
+        context!!.run {
+            Context(reinterpret())
+        },
+        name?.toKString() ?: error("Expected not null string")
+    ).asGBoolean()
+}
+    .reinterpret()
 
 public val ClassEnumeratePropertiesFunctionFunc:
     CPointer<
@@ -341,27 +321,25 @@ public val ClassEnumeratePropertiesFunctionFunc:
                 CPointer<JSCClass>,
                 CPointer<JSCContext>,
             ) -> CArrayPointer<CPointerVarOf<CPointer<ByteVar>>>?
-        >
-    > =
+            >
+        > =
     staticCFunction {
             jscClass: CPointer<JSCClass>?,
             context: CPointer<JSCContext>?,
             userData: COpaquePointer,
         ->
         memScoped {
-            userData
-                .asStableRef<(jscClass: Class, context: Context) -> List<String>?>()
-                .get()
-                .invoke(
-                    jscClass!!.run {
-                        Class(reinterpret())
-                    },
-                    context!!.run {
-                        Context(reinterpret())
-                    }
-                )?.toCStringList(this)
+            userData.asStableRef<(jscClass: Class, context: Context) -> List<String>?>().get().invoke(
+                jscClass!!.run {
+                    Class(reinterpret())
+                },
+                context!!.run {
+                    Context(reinterpret())
+                }
+            )?.toCStringList(this)
         }
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val ClassGetPropertyFunctionFunc: CPointer<
     CFunction<
@@ -370,33 +348,30 @@ public val ClassGetPropertyFunctionFunc: CPointer<
             CPointer<JSCContext>,
             CPointer<ByteVar>,
         ) -> CPointer<JSCValue>?
-    >
-> =
-    staticCFunction {
-            jscClass: CPointer<JSCClass>?,
-            context: CPointer<JSCContext>?,
-            name: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    jscClass: Class,
-                    context: Context,
-                    name: String,
-                ) -> Value?
-            >()
-            .get()
-            .invoke(
-                jscClass!!.run {
-                    Class(reinterpret())
-                },
-                context!!.run {
-                    Context(reinterpret())
-                },
-                name?.toKString() ?: error("Expected not null string")
-            )?.javascriptcoreValuePointer
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        jscClass: CPointer<JSCClass>?,
+        context: CPointer<JSCContext>?,
+        name: CPointer<ByteVar>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            jscClass: Class,
+            context: Context,
+            name: String,
+        ) -> Value?
+        >().get().invoke(
+        jscClass!!.run {
+            Class(reinterpret())
+        },
+        context!!.run {
+            Context(reinterpret())
+        },
+        name?.toKString() ?: error("Expected not null string")
+    )?.javascriptcoreValuePointer
+}
+    .reinterpret()
 
 public val ClassHasPropertyFunctionFunc: CPointer<
     CFunction<
@@ -405,33 +380,30 @@ public val ClassHasPropertyFunctionFunc: CPointer<
             CPointer<JSCContext>,
             CPointer<ByteVar>,
         ) -> Int
-    >
-> =
-    staticCFunction {
-            jscClass: CPointer<JSCClass>?,
-            context: CPointer<JSCContext>?,
-            name: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    jscClass: Class,
-                    context: Context,
-                    name: String,
-                ) -> Boolean
-            >()
-            .get()
-            .invoke(
-                jscClass!!.run {
-                    Class(reinterpret())
-                },
-                context!!.run {
-                    Context(reinterpret())
-                },
-                name?.toKString() ?: error("Expected not null string")
-            ).asGBoolean()
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        jscClass: CPointer<JSCClass>?,
+        context: CPointer<JSCContext>?,
+        name: CPointer<ByteVar>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            jscClass: Class,
+            context: Context,
+            name: String,
+        ) -> Boolean
+        >().get().invoke(
+        jscClass!!.run {
+            Class(reinterpret())
+        },
+        context!!.run {
+            Context(reinterpret())
+        },
+        name?.toKString() ?: error("Expected not null string")
+    ).asGBoolean()
+}
+    .reinterpret()
 
 public val ClassSetPropertyFunctionFunc: CPointer<
     CFunction<
@@ -441,38 +413,35 @@ public val ClassSetPropertyFunctionFunc: CPointer<
             CPointer<ByteVar>,
             CPointer<JSCValue>,
         ) -> Int
-    >
-> =
-    staticCFunction {
-            jscClass: CPointer<JSCClass>?,
-            context: CPointer<JSCContext>?,
-            name: CPointer<ByteVar>?,
-            `value`: CPointer<JSCValue>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    jscClass: Class,
-                    context: Context,
-                    name: String,
-                    `value`: Value,
-                ) -> Boolean
-            >()
-            .get()
-            .invoke(
-                jscClass!!.run {
-                    Class(reinterpret())
-                },
-                context!!.run {
-                    Context(reinterpret())
-                },
-                name?.toKString() ?: error("Expected not null string"),
-                `value`!!.run {
-                    Value(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        jscClass: CPointer<JSCClass>?,
+        context: CPointer<JSCContext>?,
+        name: CPointer<ByteVar>?,
+        `value`: CPointer<JSCValue>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            jscClass: Class,
+            context: Context,
+            name: String,
+            `value`: Value,
+        ) -> Boolean
+        >().get().invoke(
+        jscClass!!.run {
+            Class(reinterpret())
+        },
+        context!!.run {
+            Context(reinterpret())
+        },
+        name?.toKString() ?: error("Expected not null string"),
+        `value`!!.run {
+            Value(reinterpret())
+        }
+    ).asGBoolean()
+}
+    .reinterpret()
 
 public val ExceptionHandlerFunc:
     CPointer<CFunction<(CPointer<JSCContext>, CPointer<JSCException>) -> Unit>> =
@@ -489,7 +458,8 @@ public val ExceptionHandlerFunc:
                 Exception(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val OptionsFuncFunc: CPointer<
     CFunction<
@@ -498,31 +468,28 @@ public val OptionsFuncFunc: CPointer<
             JSCOptionType,
             CPointer<ByteVar>?,
         ) -> Int
-    >
-> =
-    staticCFunction {
-            option: CPointer<ByteVar>?,
-            type: JSCOptionType,
-            description: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    option: String,
-                    type: OptionType,
-                    description: String?,
-                ) -> Boolean
-            >()
-            .get()
-            .invoke(
-                option?.toKString() ?: error("Expected not null string"),
-                type.run {
-                    OptionType.fromNativeValue(this)
-                },
-                description?.toKString()
-            ).asGBoolean()
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        option: CPointer<ByteVar>?,
+        type: JSCOptionType,
+        description: CPointer<ByteVar>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            option: String,
+            type: OptionType,
+            description: String?,
+        ) -> Boolean
+        >().get().invoke(
+        option?.toKString() ?: error("Expected not null string"),
+        type.run {
+            OptionType.fromNativeValue(this)
+        },
+        description?.toKString()
+    ).asGBoolean()
+}
+    .reinterpret()
 
 /**
  * The type of delete_property in #JSCClassVTable. This is only required when you need to handle

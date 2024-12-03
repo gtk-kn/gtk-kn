@@ -16,7 +16,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toKStringList
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.native.gdkpixbuf.GdkPixbuf
 import org.gtkkn.native.gdkpixbuf.GdkPixbufAnimation
 import org.gtkkn.native.gdkpixbuf.GdkPixbufFormat
@@ -45,7 +45,7 @@ import kotlin.collections.List
  * - record `PixbufLoaderClass`: glib type struct are ignored
  * - record `PixbufSimpleAnimClass`: glib type struct are ignored
  */
-public object Gdkpixbuf {
+public object GdkPixbuf {
     /**
      * Major version of gdk-pixbuf library, that is the "0" in
      * "0.8.2" for example.
@@ -74,25 +74,22 @@ public object Gdkpixbuf {
 
     public fun pixbufErrorQuark(): Quark = gdk_pixbuf_error_quark()
 
-    public fun resolveException(error: Error): GlibException {
-        val ex =
-            when (error.domain) {
-                PixbufError.quark() ->
-                    PixbufError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            PixbufErrorException(error, it)
-                        }
-                else -> null
-            }
-        return ex ?: GlibException(error)
+    public fun resolveException(error: Error): GLibException {
+        val ex = when (error.domain) {
+            PixbufError.quark() -> PixbufError.fromErrorOrNull(error)
+                ?.let {
+                    PixbufErrorException(error, it)
+                }
+            else -> null
+        }
+        return ex ?: GLibException(error)
     }
 }
 
-public val PixbufDestroyNotifyFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+public val PixbufDestroyNotifyFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
 public val PixbufModuleFillInfoFuncFunc: CPointer<CFunction<(CPointer<GdkPixbufFormat>) -> Unit>> =
     staticCFunction {
@@ -104,7 +101,8 @@ public val PixbufModuleFillInfoFuncFunc: CPointer<CFunction<(CPointer<GdkPixbufF
                 PixbufFormat(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val PixbufModuleFillVtableFuncFunc: CPointer<CFunction<(CPointer<GdkPixbufModule>) -> Unit>> =
     staticCFunction {
@@ -116,7 +114,8 @@ public val PixbufModuleFillVtableFuncFunc: CPointer<CFunction<(CPointer<GdkPixbu
                 PixbufModule(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val PixbufModuleLoadXpmDataFuncFunc:
     CPointer<CFunction<(CArrayPointer<CPointerVarOf<CPointer<ByteVar>>>) -> CPointer<GdkPixbuf>>> =
@@ -125,14 +124,12 @@ public val PixbufModuleLoadXpmDataFuncFunc:
             userData: COpaquePointer,
         ->
         memScoped {
-            userData
-                .asStableRef<(`data`: List<String>) -> Pixbuf>()
-                .get()
-                .invoke(
-                    `data`?.toKStringList() ?: error("Expected not null string array")
-                ).gdkpixbufPixbufPointer
+            userData.asStableRef<(`data`: List<String>) -> Pixbuf>().get().invoke(
+                `data`?.toKStringList() ?: error("Expected not null string array")
+            ).gdkpixbufPixbufPointer
         }
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val PixbufModulePreparedFuncFunc:
     CPointer<CFunction<(CPointer<GdkPixbuf>, CPointer<GdkPixbufAnimation>) -> Unit>> =
@@ -149,25 +146,24 @@ public val PixbufModulePreparedFuncFunc:
                 PixbufAnimation(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val PixbufModuleSaveOptionSupportedFuncFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Int>> =
     staticCFunction {
             optionKey: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(optionKey: String) -> Boolean>()
-            .get()
-            .invoke(
-                optionKey?.toKString() ?: error("Expected not null string")
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(optionKey: String) -> Boolean>().get().invoke(
+            optionKey?.toKString() ?: error("Expected not null string")
+        ).asGBoolean()
+    }
+        .reinterpret()
 
-public val PixbufModuleSizeFuncFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+public val PixbufModuleSizeFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
 public val PixbufModuleUpdatedFuncFunc: CPointer<
     CFunction<
@@ -178,49 +174,42 @@ public val PixbufModuleUpdatedFuncFunc: CPointer<
             Int,
             Int,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            pixbuf: CPointer<GdkPixbuf>?,
+        >
+    > = staticCFunction {
+        pixbuf: CPointer<GdkPixbuf>?,
+        x: Int,
+        y: Int,
+        width: Int,
+        height: Int,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            pixbuf: Pixbuf,
             x: Int,
             y: Int,
             width: Int,
             height: Int,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    pixbuf: Pixbuf,
-                    x: Int,
-                    y: Int,
-                    width: Int,
-                    height: Int,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                pixbuf!!.run {
-                    Pixbuf(reinterpret())
-                },
-                x,
-                y,
-                width,
-                height
-            )
-    }.reinterpret()
+        ) -> Unit
+        >().get().invoke(
+        pixbuf!!.run {
+            Pixbuf(reinterpret())
+        },
+        x,
+        y,
+        width,
+        height
+    )
+}
+    .reinterpret()
 
-public val PixbufSaveFuncFunc: CPointer<CFunction<(ULong) -> Int>> =
-    staticCFunction {
-            count: ULong,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<(count: ULong) -> Boolean>()
-            .get()
-            .invoke(count)
-            .asGBoolean()
-    }.reinterpret()
+public val PixbufSaveFuncFunc: CPointer<CFunction<(ULong) -> Int>> = staticCFunction {
+        count: ULong,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(count: ULong) -> Boolean>().get().invoke(count).asGBoolean()
+}
+    .reinterpret()
 
 /**
  * A function of this type is responsible for freeing the pixel array

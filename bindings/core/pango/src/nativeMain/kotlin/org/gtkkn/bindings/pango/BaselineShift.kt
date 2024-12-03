@@ -9,9 +9,7 @@ import org.gtkkn.native.pango.PangoBaselineShift
  * @since 1.50
  */
 @PangoVersion1_50
-public enum class BaselineShift(
-    public val nativeValue: PangoBaselineShift,
-) {
+public enum class BaselineShift(public val nativeValue: PangoBaselineShift) {
     /**
      * Leave the baseline unchanged
      */
@@ -31,12 +29,11 @@ public enum class BaselineShift(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: PangoBaselineShift): BaselineShift =
-            when (nativeValue) {
-                PangoBaselineShift.PANGO_BASELINE_SHIFT_NONE -> NONE
-                PangoBaselineShift.PANGO_BASELINE_SHIFT_SUPERSCRIPT -> SUPERSCRIPT
-                PangoBaselineShift.PANGO_BASELINE_SHIFT_SUBSCRIPT -> SUBSCRIPT
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: PangoBaselineShift): BaselineShift = when (nativeValue) {
+            PangoBaselineShift.PANGO_BASELINE_SHIFT_NONE -> NONE
+            PangoBaselineShift.PANGO_BASELINE_SHIFT_SUPERSCRIPT -> SUPERSCRIPT
+            PangoBaselineShift.PANGO_BASELINE_SHIFT_SUBSCRIPT -> SUBSCRIPT
+            else -> error("invalid nativeValue")
+        }
     }
 }

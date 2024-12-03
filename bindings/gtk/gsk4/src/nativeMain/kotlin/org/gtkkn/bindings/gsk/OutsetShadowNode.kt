@@ -21,9 +21,8 @@ import kotlin.Float
 /**
  * A render node for an outset shadow.
  */
-public open class OutsetShadowNode(
-    pointer: CPointer<GskOutsetShadowNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class OutsetShadowNode(pointer: CPointer<GskOutsetShadowNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskOutsetShadowNodePointer: CPointer<GskOutsetShadowNode>
         get() = gPointer.reinterpret()

@@ -15,9 +15,7 @@ import org.gtkkn.native.gio.G_FILE_COPY_TARGET_DEFAULT_PERMS
 /**
  * Flags used when copying or moving files.
  */
-public class FileCopyFlags(
-    public val mask: GFileCopyFlags,
-) : Bitfield<FileCopyFlags> {
+public class FileCopyFlags(public val mask: GFileCopyFlags) : Bitfield<FileCopyFlags> {
     override infix fun or(other: FileCopyFlags): FileCopyFlags = FileCopyFlags(mask or other.mask)
 
     public companion object {

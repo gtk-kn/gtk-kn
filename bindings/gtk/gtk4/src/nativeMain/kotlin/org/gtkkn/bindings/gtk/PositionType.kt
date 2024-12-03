@@ -9,9 +9,7 @@ import org.gtkkn.native.gtk.GtkPositionType
  * For examples, see the tabs of a [class@Notebook], or the label
  * of a [class@Scale].
  */
-public enum class PositionType(
-    public val nativeValue: GtkPositionType,
-) {
+public enum class PositionType(public val nativeValue: GtkPositionType) {
     /**
      * The feature is at the left edge.
      */
@@ -34,13 +32,12 @@ public enum class PositionType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkPositionType): PositionType =
-            when (nativeValue) {
-                GtkPositionType.GTK_POS_LEFT -> LEFT
-                GtkPositionType.GTK_POS_RIGHT -> RIGHT
-                GtkPositionType.GTK_POS_TOP -> TOP
-                GtkPositionType.GTK_POS_BOTTOM -> BOTTOM
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkPositionType): PositionType = when (nativeValue) {
+            GtkPositionType.GTK_POS_LEFT -> LEFT
+            GtkPositionType.GTK_POS_RIGHT -> RIGHT
+            GtkPositionType.GTK_POS_TOP -> TOP
+            GtkPositionType.GTK_POS_BOTTOM -> BOTTOM
+            else -> error("invalid nativeValue")
+        }
     }
 }

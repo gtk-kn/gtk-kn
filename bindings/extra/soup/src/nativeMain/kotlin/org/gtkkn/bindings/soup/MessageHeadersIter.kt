@@ -24,9 +24,7 @@ import kotlin.Unit
  * - parameter `name`: name: Out parameter is not supported
  * - field `dummy`: Record field dummy is private
  */
-public class MessageHeadersIter(
-    pointer: CPointer<SoupMessageHeadersIter>,
-) : Record {
+public class MessageHeadersIter(pointer: CPointer<SoupMessageHeadersIter>) : Record {
     public val soupMessageHeadersIterPointer: CPointer<SoupMessageHeadersIter> = pointer
 
     public companion object : RecordCompanion<MessageHeadersIter, SoupMessageHeadersIter> {
@@ -37,14 +35,10 @@ public class MessageHeadersIter(
          *   structure
          * @param hdrs a %SoupMessageHeaders
          */
-        public fun `init`(
-            iter: MessageHeadersIter,
-            hdrs: MessageHeaders,
-        ): Unit =
-            soup_message_headers_iter_init(
-                iter.soupMessageHeadersIterPointer.reinterpret(),
-                hdrs.soupMessageHeadersPointer.reinterpret()
-            )
+        public fun `init`(iter: MessageHeadersIter, hdrs: MessageHeaders): Unit = soup_message_headers_iter_init(
+            iter.soupMessageHeadersIterPointer.reinterpret(),
+            hdrs.soupMessageHeadersPointer.reinterpret()
+        )
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MessageHeadersIter =
             MessageHeadersIter(pointer.reinterpret())

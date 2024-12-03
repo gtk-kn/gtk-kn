@@ -33,14 +33,10 @@ public interface DragSurface :
      * @param height the unconstrained drag_surface height to layout
      * @return false if it failed to be presented, otherwise true.
      */
-    public fun present(
-        width: Int,
-        height: Int,
-    ): Boolean = gdk_drag_surface_present(gdkDragSurfacePointer.reinterpret(), width, height).asBoolean()
+    public fun present(width: Int, height: Int): Boolean =
+        gdk_drag_surface_present(gdkDragSurfacePointer.reinterpret(), width, height).asBoolean()
 
-    private data class Wrapper(
-        private val pointer: CPointer<GdkDragSurface>,
-    ) : DragSurface {
+    private data class Wrapper(private val pointer: CPointer<GdkDragSurface>) : DragSurface {
         override val gdkDragSurfacePointer: CPointer<GdkDragSurface> = pointer
     }
 

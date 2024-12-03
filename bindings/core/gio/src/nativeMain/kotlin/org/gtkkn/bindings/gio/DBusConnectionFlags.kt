@@ -17,9 +17,7 @@ import org.gtkkn.native.gio.G_DBUS_CONNECTION_FLAGS_NONE
  * Flags used when creating a new #GDBusConnection.
  * @since 2.26
  */
-public class DBusConnectionFlags(
-    public val mask: GDBusConnectionFlags,
-) : Bitfield<DBusConnectionFlags> {
+public class DBusConnectionFlags(public val mask: GDBusConnectionFlags) : Bitfield<DBusConnectionFlags> {
     override infix fun or(other: DBusConnectionFlags): DBusConnectionFlags = DBusConnectionFlags(mask or other.mask)
 
     @GioVersion2_26

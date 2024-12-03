@@ -26,9 +26,7 @@ public interface SessionFeature :
     KGTyped {
     public val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
 
-    private data class Wrapper(
-        private val pointer: CPointer<SoupSessionFeature>,
-    ) : SessionFeature {
+    private data class Wrapper(private val pointer: CPointer<SoupSessionFeature>) : SessionFeature {
         override val soupSessionFeaturePointer: CPointer<SoupSessionFeature> = pointer
     }
 

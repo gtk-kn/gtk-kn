@@ -53,9 +53,8 @@ import kotlin.Unit
  * - method `generic-auth-data`: Property has no getter nor setter
  * - method `proxy`: Property has no getter nor setter
  */
-public open class AuthDomain(
-    pointer: CPointer<SoupAuthDomain>,
-) : Object(pointer.reinterpret()),
+public open class AuthDomain(pointer: CPointer<SoupAuthDomain>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val soupAuthDomainPointer: CPointer<SoupAuthDomain>
         get() = gPointer.reinterpret()
@@ -69,9 +68,8 @@ public open class AuthDomain(
          *
          * @return @domain's realm
          */
-        get() =
-            soup_auth_domain_get_realm(soupAuthDomainPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = soup_auth_domain_get_realm(soupAuthDomainPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Checks if @msg contains appropriate authorization for @domain to
@@ -87,11 +85,10 @@ public open class AuthDomain(
      * @return the username that @msg has authenticated
      *   as, if in fact it has authenticated. null otherwise.
      */
-    public open fun accepts(msg: ServerMessage): String? =
-        soup_auth_domain_accepts(
-            soupAuthDomainPointer.reinterpret(),
-            msg.soupServerMessagePointer.reinterpret()
-        )?.toKString()
+    public open fun accepts(msg: ServerMessage): String? = soup_auth_domain_accepts(
+        soupAuthDomainPointer.reinterpret(),
+        msg.soupServerMessagePointer.reinterpret()
+    )?.toKString()
 
     /**
      * Adds @path to @domain.
@@ -129,11 +126,7 @@ public open class AuthDomain(
      * @param password a password
      * @return whether or not the message is authenticated
      */
-    public open fun checkPassword(
-        msg: ServerMessage,
-        username: String,
-        password: String,
-    ): Boolean =
+    public open fun checkPassword(msg: ServerMessage, username: String, password: String): Boolean =
         soup_auth_domain_check_password(
             soupAuthDomainPointer.reinterpret(),
             msg.soupServerMessagePointer.reinterpret(),
@@ -154,20 +147,10 @@ public open class AuthDomain(
      * @param msg a #SoupServerMessage
      * @return true if @domain requires @msg to be authenticated
      */
-    public open fun covers(msg: ServerMessage): Boolean =
-        soup_auth_domain_covers(
-            soupAuthDomainPointer.reinterpret(),
-            msg.soupServerMessagePointer.reinterpret()
-        ).asBoolean()
-
-    /**
-     * Gets the realm name associated with @domain.
-     *
-     * @return @domain's realm
-     */
-    public open fun getRealm(): String =
-        soup_auth_domain_get_realm(soupAuthDomainPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public open fun covers(msg: ServerMessage): Boolean = soup_auth_domain_covers(
+        soupAuthDomainPointer.reinterpret(),
+        msg.soupServerMessagePointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Removes @path from @domain.
@@ -217,13 +200,12 @@ public open class AuthDomain(
      *
      * @param filter the auth filter for @domain
      */
-    public open fun setFilter(filter: AuthDomainFilter): Unit =
-        soup_auth_domain_set_filter(
-            soupAuthDomainPointer.reinterpret(),
-            AuthDomainFilterFunc.reinterpret(),
-            StableRef.create(filter).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public open fun setFilter(filter: AuthDomainFilter): Unit = soup_auth_domain_set_filter(
+        soupAuthDomainPointer.reinterpret(),
+        AuthDomainFilterFunc.reinterpret(),
+        StableRef.create(filter).asCPointer(),
+        staticStableRefDestroy.reinterpret()
+    )
 
     /**
      * Sets @auth_callback as an authentication-handling callback for @domain.

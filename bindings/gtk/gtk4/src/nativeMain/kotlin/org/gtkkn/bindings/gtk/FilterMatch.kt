@@ -10,9 +10,7 @@ import org.gtkkn.native.gtk.GtkFilterMatch
  * %GTK_FILTER_MATCH_SOME is always an acceptable value,
  * even if a filter does match all or no items.
  */
-public enum class FilterMatch(
-    public val nativeValue: GtkFilterMatch,
-) {
+public enum class FilterMatch(public val nativeValue: GtkFilterMatch) {
     /**
      * The filter matches some items,
      *   gtk_filter_match() may return true or false
@@ -33,12 +31,11 @@ public enum class FilterMatch(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkFilterMatch): FilterMatch =
-            when (nativeValue) {
-                GtkFilterMatch.GTK_FILTER_MATCH_SOME -> SOME
-                GtkFilterMatch.GTK_FILTER_MATCH_NONE -> NONE
-                GtkFilterMatch.GTK_FILTER_MATCH_ALL -> ALL
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkFilterMatch): FilterMatch = when (nativeValue) {
+            GtkFilterMatch.GTK_FILTER_MATCH_SOME -> SOME
+            GtkFilterMatch.GTK_FILTER_MATCH_NONE -> NONE
+            GtkFilterMatch.GTK_FILTER_MATCH_ALL -> ALL
+            else -> error("invalid nativeValue")
+        }
     }
 }

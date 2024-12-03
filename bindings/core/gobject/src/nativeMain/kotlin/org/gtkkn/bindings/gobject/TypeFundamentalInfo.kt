@@ -13,19 +13,16 @@ import org.gtkkn.native.gobject.GTypeFundamentalInfo
  * A structure that provides information to the type system which is
  * used specifically for managing fundamental types.
  */
-public class TypeFundamentalInfo(
-    pointer: CPointer<GTypeFundamentalInfo>,
-) : Record {
+public class TypeFundamentalInfo(pointer: CPointer<GTypeFundamentalInfo>) : Record {
     public val gobjectTypeFundamentalInfoPointer: CPointer<GTypeFundamentalInfo> = pointer
 
     /**
      * #GTypeFundamentalFlags describing the characteristics of the fundamental type
      */
     public var typeFlags: TypeFundamentalFlags
-        get() =
-            gobjectTypeFundamentalInfoPointer.pointed.type_flags.run {
-                TypeFundamentalFlags(this)
-            }
+        get() = gobjectTypeFundamentalInfoPointer.pointed.type_flags.run {
+            TypeFundamentalFlags(this)
+        }
         set(`value`) {
             gobjectTypeFundamentalInfoPointer.pointed.type_flags = value.mask
         }

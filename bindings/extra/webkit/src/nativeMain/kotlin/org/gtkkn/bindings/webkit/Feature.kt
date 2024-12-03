@@ -59,9 +59,7 @@ import kotlin.Unit
  * @since 2.42
  */
 @WebKitVersion2_42
-public class Feature(
-    pointer: CPointer<WebKitFeature>,
-) : Record {
+public class Feature(pointer: CPointer<WebKitFeature>) : Record {
     public val webkitFeaturePointer: CPointer<WebKitFeature> = pointer
 
     /**
@@ -74,9 +72,8 @@ public class Feature(
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun getCategory(): String =
-        webkit_feature_get_category(webkitFeaturePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getCategory(): String = webkit_feature_get_category(webkitFeaturePointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Gets whether the feature is enabled by default.
@@ -118,9 +115,8 @@ public class Feature(
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun getIdentifier(): String =
-        webkit_feature_get_identifier(webkitFeaturePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getIdentifier(): String = webkit_feature_get_identifier(webkitFeaturePointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Gets a short name for the @feature.
@@ -144,10 +140,9 @@ public class Feature(
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun getStatus(): FeatureStatus =
-        webkit_feature_get_status(webkitFeaturePointer.reinterpret()).run {
-            FeatureStatus.fromNativeValue(this)
-        }
+    public fun getStatus(): FeatureStatus = webkit_feature_get_status(webkitFeaturePointer.reinterpret()).run {
+        FeatureStatus.fromNativeValue(this)
+    }
 
     /**
      * Atomically acquires a reference on the given @feature.
@@ -158,10 +153,9 @@ public class Feature(
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun ref(): Feature =
-        webkit_feature_ref(webkitFeaturePointer.reinterpret())!!.run {
-            Feature(reinterpret())
-        }
+    public fun ref(): Feature = webkit_feature_ref(webkitFeaturePointer.reinterpret())!!.run {
+        Feature(reinterpret())
+    }
 
     /**
      * Atomically releases a reference on the given @feature.

@@ -39,9 +39,8 @@ import kotlin.collections.List
  * @since 2.36
  */
 @GioVersion2_36
-public open class SimpleProxyResolver(
-    pointer: CPointer<GSimpleProxyResolver>,
-) : Object(pointer.reinterpret()),
+public open class SimpleProxyResolver(pointer: CPointer<GSimpleProxyResolver>) :
+    Object(pointer.reinterpret()),
     ProxyResolver,
     KGTyped {
     public val gioSimpleProxyResolverPointer: CPointer<GSimpleProxyResolver>
@@ -77,13 +76,12 @@ public open class SimpleProxyResolver(
      * @since 2.36
      */
     @GioVersion2_36
-    public open fun setIgnoreHosts(ignoreHosts: List<String>): Unit =
-        memScoped {
-            return g_simple_proxy_resolver_set_ignore_hosts(
-                gioSimpleProxyResolverPointer.reinterpret(),
-                ignoreHosts.toCStringList(this)
-            )
-        }
+    public open fun setIgnoreHosts(ignoreHosts: List<String>): Unit = memScoped {
+        return g_simple_proxy_resolver_set_ignore_hosts(
+            gioSimpleProxyResolverPointer.reinterpret(),
+            ignoreHosts.toCStringList(this)
+        )
+    }
 
     /**
      * Adds a URI-scheme-specific proxy to @resolver; URIs whose scheme
@@ -100,10 +98,8 @@ public open class SimpleProxyResolver(
      * @since 2.36
      */
     @GioVersion2_36
-    public open fun setUriProxy(
-        uriScheme: String,
-        proxy: String,
-    ): Unit = g_simple_proxy_resolver_set_uri_proxy(gioSimpleProxyResolverPointer.reinterpret(), uriScheme, proxy)
+    public open fun setUriProxy(uriScheme: String, proxy: String): Unit =
+        g_simple_proxy_resolver_set_uri_proxy(gioSimpleProxyResolverPointer.reinterpret(), uriScheme, proxy)
 
     public companion object : TypeCompanion<SimpleProxyResolver> {
         override val type: GeneratedClassKGType<SimpleProxyResolver> =
@@ -127,14 +123,10 @@ public open class SimpleProxyResolver(
          * @since 2.36
          */
         @GioVersion2_36
-        public fun new(
-            defaultProxy: String? = null,
-            ignoreHosts: List<String>? = null,
-        ): ProxyResolver =
-            memScoped {
-                return g_simple_proxy_resolver_new(defaultProxy, ignoreHosts?.toCStringList(this))!!.run {
-                    ProxyResolver.wrap(reinterpret())
-                }
+        public fun new(defaultProxy: String? = null, ignoreHosts: List<String>? = null): ProxyResolver = memScoped {
+            return g_simple_proxy_resolver_new(defaultProxy, ignoreHosts?.toCStringList(this))!!.run {
+                ProxyResolver.wrap(reinterpret())
             }
+        }
     }
 }

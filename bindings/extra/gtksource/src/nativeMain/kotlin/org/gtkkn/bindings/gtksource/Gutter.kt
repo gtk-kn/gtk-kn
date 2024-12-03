@@ -44,9 +44,8 @@ import kotlin.Unit
  *
  * - method `window-type`: Property has no getter nor setter
  */
-public open class Gutter(
-    pointer: CPointer<GtkSourceGutter>,
-) : Widget(pointer.reinterpret()),
+public open class Gutter(pointer: CPointer<GtkSourceGutter>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val gtksourceGutterPointer: CPointer<GtkSourceGutter>
         get() = gPointer.reinterpret()
@@ -69,18 +68,7 @@ public open class Gutter(
          *
          * @return the associated #GtkSourceView.
          */
-        get() =
-            gtk_source_gutter_get_view(gtksourceGutterPointer.reinterpret())!!.run {
-                View(reinterpret())
-            }
-
-    /**
-     *
-     *
-     * @return the associated #GtkSourceView.
-     */
-    public open fun getView(): View =
-        gtk_source_gutter_get_view(gtksourceGutterPointer.reinterpret())!!.run {
+        get() = gtk_source_gutter_get_view(gtksourceGutterPointer.reinterpret())!!.run {
             View(reinterpret())
         }
 
@@ -93,26 +81,16 @@ public open class Gutter(
      * @param position the renderer position.
      * @return true if operation succeeded. Otherwise false.
      */
-    public open fun insert(
-        renderer: GutterRenderer,
-        position: Int,
-    ): Boolean =
-        gtk_source_gutter_insert(
-            gtksourceGutterPointer.reinterpret(),
-            renderer.gtksourceGutterRendererPointer.reinterpret(),
-            position
-        ).asBoolean()
+    public open fun insert(renderer: GutterRenderer, position: Int): Boolean = gtk_source_gutter_insert(
+        gtksourceGutterPointer.reinterpret(),
+        renderer.gtksourceGutterRendererPointer.reinterpret(),
+        position
+    ).asBoolean()
 
-    /**
-     *
-     *
-     * @param renderer
-     */
-    public open fun remove(renderer: GutterRenderer): Unit =
-        gtk_source_gutter_remove(
-            gtksourceGutterPointer.reinterpret(),
-            renderer.gtksourceGutterRendererPointer.reinterpret()
-        )
+    public open fun remove(renderer: GutterRenderer): Unit = gtk_source_gutter_remove(
+        gtksourceGutterPointer.reinterpret(),
+        renderer.gtksourceGutterRendererPointer.reinterpret()
+    )
 
     /**
      * Reorders @renderer in @gutter to new @position.
@@ -120,15 +98,11 @@ public open class Gutter(
      * @param renderer a #GtkCellRenderer.
      * @param position the new renderer position.
      */
-    public open fun reorder(
-        renderer: GutterRenderer,
-        position: Int,
-    ): Unit =
-        gtk_source_gutter_reorder(
-            gtksourceGutterPointer.reinterpret(),
-            renderer.gtksourceGutterRendererPointer.reinterpret(),
-            position
-        )
+    public open fun reorder(renderer: GutterRenderer, position: Int): Unit = gtk_source_gutter_reorder(
+        gtksourceGutterPointer.reinterpret(),
+        renderer.gtksourceGutterRendererPointer.reinterpret(),
+        position
+    )
 
     public companion object : TypeCompanion<Gutter> {
         override val type: GeneratedClassKGType<Gutter> =

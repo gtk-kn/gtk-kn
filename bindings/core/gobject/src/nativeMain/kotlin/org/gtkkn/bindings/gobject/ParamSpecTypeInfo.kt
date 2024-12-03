@@ -29,9 +29,7 @@ import kotlin.UShort
  * - field `value_validate`: Fields with callbacks are not supported
  * - field `values_cmp`: Fields with callbacks are not supported
  */
-public class ParamSpecTypeInfo(
-    pointer: CPointer<GParamSpecTypeInfo>,
-) : Record {
+public class ParamSpecTypeInfo(pointer: CPointer<GParamSpecTypeInfo>) : Record {
     public val gobjectParamSpecTypeInfoPointer: CPointer<GParamSpecTypeInfo> = pointer
 
     /**

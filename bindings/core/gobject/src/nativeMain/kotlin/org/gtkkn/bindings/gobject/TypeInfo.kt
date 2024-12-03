@@ -30,9 +30,7 @@ import kotlin.UShort
  * - field `class_data`: gpointer
  * - field `instance_init`: InstanceInitFunc
  */
-public class TypeInfo(
-    pointer: CPointer<GTypeInfo>,
-) : Record {
+public class TypeInfo(pointer: CPointer<GTypeInfo>) : Record {
     public val gobjectTypeInfoPointer: CPointer<GTypeInfo> = pointer
 
     /**
@@ -69,10 +67,9 @@ public class TypeInfo(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val valueTable: TypeValueTable?
-        get() =
-            gobjectTypeInfoPointer.pointed.value_table?.run {
-                TypeValueTable(reinterpret())
-            }
+        get() = gobjectTypeInfoPointer.pointed.value_table?.run {
+            TypeValueTable(reinterpret())
+        }
 
     public companion object : RecordCompanion<TypeInfo, GTypeInfo> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TypeInfo = TypeInfo(pointer.reinterpret())

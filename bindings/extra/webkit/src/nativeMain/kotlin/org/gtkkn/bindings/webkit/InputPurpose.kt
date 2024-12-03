@@ -9,9 +9,7 @@ import org.gtkkn.native.webkit.WebKitInputPurpose
  * @since 2.28
  */
 @WebKitVersion2_28
-public enum class InputPurpose(
-    public val nativeValue: WebKitInputPurpose,
-) {
+public enum class InputPurpose(public val nativeValue: WebKitInputPurpose) {
     /**
      * Editable element expects any characters
      */
@@ -49,16 +47,15 @@ public enum class InputPurpose(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitInputPurpose): InputPurpose =
-            when (nativeValue) {
-                WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_FREE_FORM -> FREE_FORM
-                WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_DIGITS -> DIGITS
-                WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_NUMBER -> NUMBER
-                WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_PHONE -> PHONE
-                WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_URL -> URL
-                WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_EMAIL -> EMAIL
-                WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_PASSWORD -> PASSWORD
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitInputPurpose): InputPurpose = when (nativeValue) {
+            WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_FREE_FORM -> FREE_FORM
+            WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_DIGITS -> DIGITS
+            WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_NUMBER -> NUMBER
+            WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_PHONE -> PHONE
+            WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_URL -> URL
+            WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_EMAIL -> EMAIL
+            WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_PASSWORD -> PASSWORD
+            else -> error("invalid nativeValue")
+        }
     }
 }

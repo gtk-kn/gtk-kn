@@ -15,9 +15,7 @@ import org.gtkkn.native.gio.GFileType
  * which is why all Windows symlinks will continue to be reported as
  * %G_FILE_TYPE_REGULAR or %G_FILE_TYPE_DIRECTORY.
  */
-public enum class FileType(
-    public val nativeValue: GFileType,
-) {
+public enum class FileType(public val nativeValue: GFileType) {
     /**
      * File's type is unknown.
      */
@@ -57,16 +55,15 @@ public enum class FileType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GFileType): FileType =
-            when (nativeValue) {
-                GFileType.G_FILE_TYPE_UNKNOWN -> UNKNOWN
-                GFileType.G_FILE_TYPE_REGULAR -> REGULAR
-                GFileType.G_FILE_TYPE_DIRECTORY -> DIRECTORY
-                GFileType.G_FILE_TYPE_SYMBOLIC_LINK -> SYMBOLIC_LINK
-                GFileType.G_FILE_TYPE_SPECIAL -> SPECIAL
-                GFileType.G_FILE_TYPE_SHORTCUT -> SHORTCUT
-                GFileType.G_FILE_TYPE_MOUNTABLE -> MOUNTABLE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GFileType): FileType = when (nativeValue) {
+            GFileType.G_FILE_TYPE_UNKNOWN -> UNKNOWN
+            GFileType.G_FILE_TYPE_REGULAR -> REGULAR
+            GFileType.G_FILE_TYPE_DIRECTORY -> DIRECTORY
+            GFileType.G_FILE_TYPE_SYMBOLIC_LINK -> SYMBOLIC_LINK
+            GFileType.G_FILE_TYPE_SPECIAL -> SPECIAL
+            GFileType.G_FILE_TYPE_SHORTCUT -> SHORTCUT
+            GFileType.G_FILE_TYPE_MOUNTABLE -> MOUNTABLE
+            else -> error("invalid nativeValue")
+        }
     }
 }

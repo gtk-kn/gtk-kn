@@ -19,9 +19,8 @@ import org.gtkkn.native.javascriptcore.jsc_virtual_machine_new
  * To create a group of JSCContext<!-- -->s pass the same JSCVirtualMachine
  * instance to every JSCContext constructor.
  */
-public class VirtualMachine(
-    pointer: CPointer<JSCVirtualMachine>,
-) : Object(pointer.reinterpret()),
+public class VirtualMachine(pointer: CPointer<JSCVirtualMachine>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val javascriptcoreVirtualMachinePointer: CPointer<JSCVirtualMachine>
         get() = gPointer.reinterpret()

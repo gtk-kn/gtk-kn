@@ -19,9 +19,7 @@ import kotlin.UInt
  *
  * - field `g_type_class`: TypeClass
  */
-public class EnumClass(
-    pointer: CPointer<GEnumClass>,
-) : Record {
+public class EnumClass(pointer: CPointer<GEnumClass>) : Record {
     public val gobjectEnumClassPointer: CPointer<GEnumClass> = pointer
 
     /**
@@ -58,10 +56,9 @@ public class EnumClass(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val values: EnumValue?
-        get() =
-            gobjectEnumClassPointer.pointed.values?.run {
-                EnumValue(reinterpret())
-            }
+        get() = gobjectEnumClassPointer.pointed.values?.run {
+            EnumValue(reinterpret())
+        }
 
     public companion object : RecordCompanion<EnumClass, GEnumClass> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): EnumClass = EnumClass(pointer.reinterpret())

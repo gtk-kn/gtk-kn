@@ -11,9 +11,7 @@ import org.gtkkn.native.javascriptcore.JSC_VALUE_PROPERTY_WRITABLE
  * Flags used when defining properties with jsc_value_object_define_property_data() and
  * jsc_value_object_define_property_accessor().
  */
-public class ValuePropertyFlags(
-    public val mask: JSCValuePropertyFlags,
-) : Bitfield<ValuePropertyFlags> {
+public class ValuePropertyFlags(public val mask: JSCValuePropertyFlags) : Bitfield<ValuePropertyFlags> {
     override infix fun or(other: ValuePropertyFlags): ValuePropertyFlags = ValuePropertyFlags(mask or other.mask)
 
     public companion object {

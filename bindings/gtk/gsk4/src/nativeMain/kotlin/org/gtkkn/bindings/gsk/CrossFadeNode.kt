@@ -17,9 +17,8 @@ import kotlin.Float
 /**
  * A render node cross fading between two child nodes.
  */
-public open class CrossFadeNode(
-    pointer: CPointer<GskCrossFadeNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class CrossFadeNode(pointer: CPointer<GskCrossFadeNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskCrossFadeNodePointer: CPointer<GskCrossFadeNode>
         get() = gPointer.reinterpret()

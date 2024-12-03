@@ -18,7 +18,6 @@ import org.gtkkn.native.webkit.webkit_uri_request_get_uri
 import org.gtkkn.native.webkit.webkit_uri_request_new
 import org.gtkkn.native.webkit.webkit_uri_request_set_uri
 import kotlin.String
-import kotlin.Unit
 
 /**
  * Represents a URI request.
@@ -27,9 +26,8 @@ import kotlin.Unit
  * webkit_uri_request_new() method, and you can get the URI of an
  * existing request with the webkit_uri_request_get_uri() one.
  */
-public class URIRequest(
-    pointer: CPointer<WebKitURIRequest>,
-) : Object(pointer.reinterpret()),
+public class URIRequest(pointer: CPointer<WebKitURIRequest>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val webkitURIRequestPointer: CPointer<WebKitURIRequest>
         get() = gPointer.reinterpret()
@@ -43,9 +41,8 @@ public class URIRequest(
          *
          * @return request URI, as a string.
          */
-        get() =
-            webkit_uri_request_get_uri(webkitURIRequestPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = webkit_uri_request_get_uri(webkitURIRequestPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Set the URI of @request
@@ -84,22 +81,6 @@ public class URIRequest(
     public fun getHttpMethod(): String =
         webkit_uri_request_get_http_method(webkitURIRequestPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
-
-    /**
-     * Obtains the request URI.
-     *
-     * @return request URI, as a string.
-     */
-    public fun getUri(): String =
-        webkit_uri_request_get_uri(webkitURIRequestPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Set the URI of @request
-     *
-     * @param uri an URI
-     */
-    public fun setUri(uri: String): Unit = webkit_uri_request_set_uri(webkitURIRequestPointer.reinterpret(), uri)
 
     public companion object : TypeCompanion<URIRequest> {
         override val type: GeneratedClassKGType<URIRequest> =

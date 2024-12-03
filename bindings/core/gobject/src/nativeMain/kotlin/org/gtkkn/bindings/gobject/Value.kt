@@ -106,15 +106,11 @@ import kotlin.Unit
  * - parameter `instance`: gpointer
  * - parameter `v_pointer`: gpointer
  * - parameter `v_boxed`: gpointer
- * - method `set_string_take_ownership`: C function g_value_set_string_take_ownership is ignored
  * - parameter `v_boxed`: gpointer
- * - method `take_string`: C function g_value_take_string is ignored
  * - field `g_type`: Record field g_type is private
  * - field `data`: Fields with arrays are not supported
  */
-public class Value(
-    pointer: CPointer<GValue>,
-) : Record {
+public class Value(pointer: CPointer<GValue>) : Record {
     public val gobjectValuePointer: CPointer<GValue> = pointer
 
     /**
@@ -133,10 +129,9 @@ public class Value(
      * @return object content of @value,
      *          should be unreferenced when no longer needed.
      */
-    public fun dupObject(): Object? =
-        g_value_dup_object(gobjectValuePointer.reinterpret())?.run {
-            Object(reinterpret())
-        }
+    public fun dupObject(): Object? = g_value_dup_object(gobjectValuePointer.reinterpret())?.run {
+        Object(reinterpret())
+    }
 
     /**
      * Get a copy the contents of a %G_TYPE_STRING #GValue.
@@ -154,10 +149,9 @@ public class Value(
      * @since 2.26
      */
     @GObjectVersion2_26
-    public fun dupVariant(): Variant? =
-        g_value_dup_variant(gobjectValuePointer.reinterpret())?.run {
-            Variant(reinterpret())
-        }
+    public fun dupVariant(): Variant? = g_value_dup_variant(gobjectValuePointer.reinterpret())?.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Determines if @value will fit inside the size of a pointer value.
@@ -247,20 +241,18 @@ public class Value(
      *
      * @return object contents of @value
      */
-    public fun getObject(): Object? =
-        g_value_get_object(gobjectValuePointer.reinterpret())?.run {
-            Object(reinterpret())
-        }
+    public fun getObject(): Object? = g_value_get_object(gobjectValuePointer.reinterpret())?.run {
+        Object(reinterpret())
+    }
 
     /**
      * Get the contents of a %G_TYPE_PARAM #GValue.
      *
      * @return #GParamSpec content of @value
      */
-    public fun getParam(): ParamSpec =
-        g_value_get_param(gobjectValuePointer.reinterpret())!!.run {
-            ParamSpec(reinterpret())
-        }
+    public fun getParam(): ParamSpec = g_value_get_param(gobjectValuePointer.reinterpret())!!.run {
+        ParamSpec(reinterpret())
+    }
 
     /**
      * Get the contents of a %G_TYPE_CHAR #GValue.
@@ -313,10 +305,9 @@ public class Value(
      * @since 2.26
      */
     @GObjectVersion2_26
-    public fun getVariant(): Variant? =
-        g_value_get_variant(gobjectValuePointer.reinterpret())?.run {
-            Variant(reinterpret())
-        }
+    public fun getVariant(): Variant? = g_value_get_variant(gobjectValuePointer.reinterpret())?.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Initializes @value with the default value of @type.
@@ -324,10 +315,9 @@ public class Value(
      * @param gType Type the #GValue should hold values of.
      * @return the #GValue structure that has been passed in
      */
-    public fun `init`(gType: ULong): Value =
-        g_value_init(gobjectValuePointer.reinterpret(), gType)!!.run {
-            Value(reinterpret())
-        }
+    public fun `init`(gType: ULong): Value = g_value_init(gobjectValuePointer.reinterpret(), gType)!!.run {
+        Value(reinterpret())
+    }
 
     /**
      * Initializes and sets @value from an instantiatable type via the
@@ -351,10 +341,9 @@ public class Value(
      *
      * @return the #GValue structure that has been passed in
      */
-    public fun reset(): Value =
-        g_value_reset(gobjectValuePointer.reinterpret())!!.run {
-            Value(reinterpret())
-        }
+    public fun reset(): Value = g_value_reset(gobjectValuePointer.reinterpret())!!.run {
+        Value(reinterpret())
+    }
 
     /**
      * Set the contents of a %G_TYPE_BOOLEAN #GValue to @v_boolean.
@@ -607,10 +596,8 @@ public class Value(
          * @param destType destination type for copying.
          * @return true if g_value_copy() is possible with @src_type and @dest_type.
          */
-        public fun typeCompatible(
-            srcType: ULong,
-            destType: ULong,
-        ): Boolean = g_value_type_compatible(srcType, destType).asBoolean()
+        public fun typeCompatible(srcType: ULong, destType: ULong): Boolean =
+            g_value_type_compatible(srcType, destType).asBoolean()
 
         /**
          * Check whether g_value_transform() is able to transform values
@@ -622,10 +609,8 @@ public class Value(
          * @param destType Target type.
          * @return true if the transformation is possible, false otherwise.
          */
-        public fun typeTransformable(
-            srcType: ULong,
-            destType: ULong,
-        ): Boolean = g_value_type_transformable(srcType, destType).asBoolean()
+        public fun typeTransformable(srcType: ULong, destType: ULong): Boolean =
+            g_value_type_transformable(srcType, destType).asBoolean()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Value = Value(pointer.reinterpret())
     }

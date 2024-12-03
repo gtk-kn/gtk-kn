@@ -49,9 +49,8 @@ import kotlin.Unit
  * - method `get_user_data`: Return type gpointer is unsupported
  * - parameter `data`: gpointer
  */
-public open class ContentSerializer(
-    pointer: CPointer<GdkContentSerializer>,
-) : Object(pointer.reinterpret()),
+public open class ContentSerializer(pointer: CPointer<GdkContentSerializer>) :
+    Object(pointer.reinterpret()),
     AsyncResult,
     KGTyped {
     public val gdkContentSerializerPointer: CPointer<GdkContentSerializer>
@@ -126,11 +125,10 @@ public open class ContentSerializer(
      *
      * @param error a `GError`
      */
-    public open fun returnError(error: Error): Unit =
-        gdk_content_serializer_return_error(
-            gdkContentSerializerPointer.reinterpret(),
-            error.glibErrorPointer.reinterpret()
-        )
+    public open fun returnError(error: Error): Unit = gdk_content_serializer_return_error(
+        gdkContentSerializerPointer.reinterpret(),
+        error.glibErrorPointer.reinterpret()
+    )
 
     /**
      * Indicate that the serialization has been successfully completed.

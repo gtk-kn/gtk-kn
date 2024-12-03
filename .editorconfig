@@ -17,8 +17,8 @@ ij_wrap_on_typing = false
 [{*.kt,*.kts}]
 indent_size = 4
 tab_width = 4
+ktlint_code_style = intellij_idea
 ktlint_standard_enum-entry-name-case = disabled
-ktlint_standard_max-line-length = disabled
 ktlint_standard_trailing-comma-on-call-site = disabled
 ij_kotlin_align_in_columns_case_branch = false
 ij_kotlin_align_multiline_binary_operation = false

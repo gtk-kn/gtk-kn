@@ -35,9 +35,8 @@ import kotlin.Unit
  * URI scheme with a certain security level, or to check if it already
  * has it.
  */
-public class SecurityManager(
-    pointer: CPointer<WebKitSecurityManager>,
-) : Object(pointer.reinterpret()),
+public class SecurityManager(pointer: CPointer<WebKitSecurityManager>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val webkitSecurityManagerPointer: CPointer<WebKitSecurityManager>
         get() = gPointer.reinterpret()
@@ -123,11 +122,10 @@ public class SecurityManager(
      * @param scheme a URI scheme
      * @return true if @scheme is a CORS enabled scheme or false otherwise.
      */
-    public fun uriSchemeIsCorsEnabled(scheme: String): Boolean =
-        webkit_security_manager_uri_scheme_is_cors_enabled(
-            webkitSecurityManagerPointer.reinterpret(),
-            scheme
-        ).asBoolean()
+    public fun uriSchemeIsCorsEnabled(scheme: String): Boolean = webkit_security_manager_uri_scheme_is_cors_enabled(
+        webkitSecurityManagerPointer.reinterpret(),
+        scheme
+    ).asBoolean()
 
     /**
      * Whether @scheme is considered as a display isolated scheme.
@@ -151,11 +149,10 @@ public class SecurityManager(
      * @param scheme a URI scheme
      * @return true if @scheme is an empty document scheme or false otherwise.
      */
-    public fun uriSchemeIsEmptyDocument(scheme: String): Boolean =
-        webkit_security_manager_uri_scheme_is_empty_document(
-            webkitSecurityManagerPointer.reinterpret(),
-            scheme
-        ).asBoolean()
+    public fun uriSchemeIsEmptyDocument(scheme: String): Boolean = webkit_security_manager_uri_scheme_is_empty_document(
+        webkitSecurityManagerPointer.reinterpret(),
+        scheme
+    ).asBoolean()
 
     /**
      * Whether @scheme is considered as a local scheme.

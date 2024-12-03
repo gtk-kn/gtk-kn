@@ -29,9 +29,7 @@ public interface ShortcutManager :
     KGTyped {
     public val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkShortcutManager>,
-    ) : ShortcutManager {
+    private data class Wrapper(private val pointer: CPointer<GtkShortcutManager>) : ShortcutManager {
         override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager> = pointer
     }
 

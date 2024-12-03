@@ -24,9 +24,7 @@ import org.gtkkn.native.gdk.GdkScrollUnit
  * @since 4.8
  */
 @GdkVersion4_8
-public enum class ScrollUnit(
-    public val nativeValue: GdkScrollUnit,
-) {
+public enum class ScrollUnit(public val nativeValue: GdkScrollUnit) {
     /**
      * The delta is in number of wheel clicks.
      */
@@ -40,11 +38,10 @@ public enum class ScrollUnit(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GdkScrollUnit): ScrollUnit =
-            when (nativeValue) {
-                GdkScrollUnit.GDK_SCROLL_UNIT_WHEEL -> WHEEL
-                GdkScrollUnit.GDK_SCROLL_UNIT_SURFACE -> SURFACE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GdkScrollUnit): ScrollUnit = when (nativeValue) {
+            GdkScrollUnit.GDK_SCROLL_UNIT_WHEEL -> WHEEL
+            GdkScrollUnit.GDK_SCROLL_UNIT_SURFACE -> SURFACE
+            else -> error("invalid nativeValue")
+        }
     }
 }

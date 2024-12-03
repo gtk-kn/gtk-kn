@@ -22,9 +22,8 @@ import kotlin.UInt
  *
  * - parameter `children`: Array parameter of type RenderNode is not supported
  */
-public open class GLShaderNode(
-    pointer: CPointer<GskGLShaderNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class GLShaderNode(pointer: CPointer<GskGLShaderNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskGLShaderNodePointer: CPointer<GskGLShaderNode>
         get() = gPointer.reinterpret()
@@ -34,10 +33,9 @@ public open class GLShaderNode(
      *
      * @return A `GBytes` with the uniform arguments
      */
-    public open fun getArgs(): Bytes =
-        gsk_gl_shader_node_get_args(gskGLShaderNodePointer.reinterpret())!!.run {
-            Bytes(reinterpret())
-        }
+    public open fun getArgs(): Bytes = gsk_gl_shader_node_get_args(gskGLShaderNodePointer.reinterpret())!!.run {
+        Bytes(reinterpret())
+    }
 
     /**
      * Gets one of the children.
@@ -62,10 +60,9 @@ public open class GLShaderNode(
      *
      * @return the `GskGLShader` shader
      */
-    public open fun getShader(): GLShader =
-        gsk_gl_shader_node_get_shader(gskGLShaderNodePointer.reinterpret())!!.run {
-            GLShader(reinterpret())
-        }
+    public open fun getShader(): GLShader = gsk_gl_shader_node_get_shader(gskGLShaderNodePointer.reinterpret())!!.run {
+        GLShader(reinterpret())
+    }
 
     public companion object : TypeCompanion<GLShaderNode> {
         override val type: GeneratedClassKGType<GLShaderNode> =

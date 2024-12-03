@@ -42,9 +42,8 @@ import kotlin.Unit
  * - method `contains-pointer`: Property has no getter nor setter
  * - method `is-pointer`: Property has no getter nor setter
  */
-public open class DropControllerMotion(
-    pointer: CPointer<GtkDropControllerMotion>,
-) : EventController(pointer.reinterpret()),
+public open class DropControllerMotion(pointer: CPointer<GtkDropControllerMotion>) :
+    EventController(pointer.reinterpret()),
     KGTyped {
     public val gtkDropControllerMotionPointer: CPointer<GtkDropControllerMotion>
         get() = gPointer.reinterpret()
@@ -70,10 +69,9 @@ public open class DropControllerMotion(
          * @return The `GdkDrop` currently
          *   happening within @self
          */
-        get() =
-            gtk_drop_controller_motion_get_drop(gtkDropControllerMotionPointer.reinterpret())?.run {
-                Drop(reinterpret())
-            }
+        get() = gtk_drop_controller_motion_get_drop(gtkDropControllerMotionPointer.reinterpret())?.run {
+            Drop(reinterpret())
+        }
 
     /**
      * Creates a new event controller that will handle pointer motion
@@ -91,18 +89,6 @@ public open class DropControllerMotion(
      */
     public open fun containsPointer(): Boolean =
         gtk_drop_controller_motion_contains_pointer(gtkDropControllerMotionPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns the `GdkDrop` of a current Drag-and-Drop operation
-     * over the widget of @self.
-     *
-     * @return The `GdkDrop` currently
-     *   happening within @self
-     */
-    public open fun getDrop(): Drop? =
-        gtk_drop_controller_motion_get_drop(gtkDropControllerMotionPointer.reinterpret())?.run {
-            Drop(reinterpret())
-        }
 
     /**
      * Returns if a Drag-and-Drop operation is within the widget
@@ -123,15 +109,14 @@ public open class DropControllerMotion(
     public fun connectEnter(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (x: Double, y: Double) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "enter",
-            connectEnterFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "enter",
+        connectEnterFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Signals that the pointer has left the widget.
@@ -139,10 +124,7 @@ public open class DropControllerMotion(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectLeave(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectLeave(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "leave",
@@ -161,15 +143,14 @@ public open class DropControllerMotion(
     public fun connectMotion(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (x: Double, y: Double) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "motion",
-            connectMotionFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "motion",
+        connectMotionFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<DropControllerMotion> {
         override val type: GeneratedClassKGType<DropControllerMotion> =
@@ -181,30 +162,30 @@ public open class DropControllerMotion(
     }
 }
 
-private val connectEnterFunc: CPointer<CFunction<(Double, Double) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            x: Double,
-            y: Double,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(x: Double, y: Double) -> Unit>().get().invoke(x, y)
-    }.reinterpret()
+private val connectEnterFunc: CPointer<CFunction<(Double, Double) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        x: Double,
+        y: Double,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(x: Double, y: Double) -> Unit>().get().invoke(x, y)
+}
+    .reinterpret()
 
-private val connectLeaveFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectLeaveFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectMotionFunc: CPointer<CFunction<(Double, Double) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            x: Double,
-            y: Double,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(x: Double, y: Double) -> Unit>().get().invoke(x, y)
-    }.reinterpret()
+private val connectMotionFunc: CPointer<CFunction<(Double, Double) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        x: Double,
+        y: Double,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(x: Double, y: Double) -> Unit>().get().invoke(x, y)
+}
+    .reinterpret()

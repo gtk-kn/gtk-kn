@@ -19,9 +19,7 @@ import kotlin.Unit
  * [GtkWidget’s geometry management section](class.Widget.html#height-for-width-geometry-management) for
  * more information.
  */
-public class Requisition(
-    pointer: CPointer<GtkRequisition>,
-) : Record {
+public class Requisition(pointer: CPointer<GtkRequisition>) : Record {
     public val gtkRequisitionPointer: CPointer<GtkRequisition> = pointer
 
     /**
@@ -47,10 +45,9 @@ public class Requisition(
      *
      * @return a copy of @requisition
      */
-    public fun copy(): Requisition =
-        gtk_requisition_copy(gtkRequisitionPointer.reinterpret())!!.run {
-            Requisition(reinterpret())
-        }
+    public fun copy(): Requisition = gtk_requisition_copy(gtkRequisitionPointer.reinterpret())!!.run {
+        Requisition(reinterpret())
+    }
 
     /**
      * Frees a `GtkRequisition`.

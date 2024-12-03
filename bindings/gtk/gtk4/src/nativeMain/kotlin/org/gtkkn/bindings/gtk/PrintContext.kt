@@ -98,9 +98,8 @@ import kotlin.Double
  * - parameter `top`: top: Out parameter is not supported
  * - parameter `cr`: cairo.Context
  */
-public open class PrintContext(
-    pointer: CPointer<GtkPrintContext>,
-) : Object(pointer.reinterpret()),
+public open class PrintContext(pointer: CPointer<GtkPrintContext>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkPrintContextPointer: CPointer<GtkPrintContext>
         get() = gPointer.reinterpret()

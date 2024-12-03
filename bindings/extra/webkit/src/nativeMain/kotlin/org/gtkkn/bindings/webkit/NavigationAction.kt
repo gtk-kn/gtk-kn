@@ -29,9 +29,7 @@ import kotlin.Unit
 /**
  * Provides details about interaction resulting in a resource load.
  */
-public class NavigationAction(
-    pointer: CPointer<WebKitNavigationAction>,
-) : Record {
+public class NavigationAction(pointer: CPointer<WebKitNavigationAction>) : Record {
     public val webkitNavigationActionPointer: CPointer<WebKitNavigationAction> = pointer
 
     /**

@@ -25,9 +25,7 @@ import org.gtkkn.native.glib.GMarkupParser
  * - field `passthrough`: Fields with callbacks are not supported
  * - field `error`: Fields with callbacks are not supported
  */
-public class MarkupParser(
-    pointer: CPointer<GMarkupParser>,
-) : Record {
+public class MarkupParser(pointer: CPointer<GMarkupParser>) : Record {
     public val glibMarkupParserPointer: CPointer<GMarkupParser> = pointer
 
     public companion object : RecordCompanion<MarkupParser, GMarkupParser> {

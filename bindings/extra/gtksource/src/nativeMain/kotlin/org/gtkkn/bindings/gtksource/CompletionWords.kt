@@ -32,9 +32,8 @@ import kotlin.Unit
  * - method `scan-batch-size`: Property has no getter nor setter
  * - method `title`: Property has no getter nor setter
  */
-public open class CompletionWords(
-    pointer: CPointer<GtkSourceCompletionWords>,
-) : Object(pointer.reinterpret()),
+public open class CompletionWords(pointer: CPointer<GtkSourceCompletionWords>) :
+    Object(pointer.reinterpret()),
     CompletionProvider,
     KGTyped {
     public val gtksourceCompletionWordsPointer: CPointer<GtkSourceCompletionWords>
@@ -56,22 +55,20 @@ public open class CompletionWords(
      *
      * @param buffer a #GtkTextBuffer
      */
-    public open fun register(buffer: TextBuffer): Unit =
-        gtk_source_completion_words_register(
-            gtksourceCompletionWordsPointer.reinterpret(),
-            buffer.gtkTextBufferPointer.reinterpret()
-        )
+    public open fun register(buffer: TextBuffer): Unit = gtk_source_completion_words_register(
+        gtksourceCompletionWordsPointer.reinterpret(),
+        buffer.gtkTextBufferPointer.reinterpret()
+    )
 
     /**
      * Unregisters @buffer from the @words provider.
      *
      * @param buffer a #GtkTextBuffer
      */
-    public open fun unregister(buffer: TextBuffer): Unit =
-        gtk_source_completion_words_unregister(
-            gtksourceCompletionWordsPointer.reinterpret(),
-            buffer.gtkTextBufferPointer.reinterpret()
-        )
+    public open fun unregister(buffer: TextBuffer): Unit = gtk_source_completion_words_unregister(
+        gtksourceCompletionWordsPointer.reinterpret(),
+        buffer.gtkTextBufferPointer.reinterpret()
+    )
 
     public companion object : TypeCompanion<CompletionWords> {
         override val type: GeneratedClassKGType<CompletionWords> =

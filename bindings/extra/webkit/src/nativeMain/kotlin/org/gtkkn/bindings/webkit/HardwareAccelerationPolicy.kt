@@ -9,9 +9,7 @@ import org.gtkkn.native.webkit.WebKitHardwareAccelerationPolicy
  * @since 2.16
  */
 @WebKitVersion2_16
-public enum class HardwareAccelerationPolicy(
-    public val nativeValue: WebKitHardwareAccelerationPolicy,
-) {
+public enum class HardwareAccelerationPolicy(public val nativeValue: WebKitHardwareAccelerationPolicy) {
     /**
      * Hardware acceleration is always enabled, even for websites not requesting it.
      */

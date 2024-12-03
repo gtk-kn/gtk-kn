@@ -10,9 +10,7 @@ import org.gtkkn.native.gtk.GtkIconLookupFlags
 /**
  * Used to specify options for gtk_icon_theme_lookup_icon().
  */
-public class IconLookupFlags(
-    public val mask: GtkIconLookupFlags,
-) : Bitfield<IconLookupFlags> {
+public class IconLookupFlags(public val mask: GtkIconLookupFlags) : Bitfield<IconLookupFlags> {
     override infix fun or(other: IconLookupFlags): IconLookupFlags = IconLookupFlags(mask or other.mask)
 
     public companion object {

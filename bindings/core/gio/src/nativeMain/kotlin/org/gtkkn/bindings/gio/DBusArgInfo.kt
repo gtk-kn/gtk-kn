@@ -26,9 +26,7 @@ import kotlin.Unit
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusArgInfo(
-    pointer: CPointer<GDBusArgInfo>,
-) : Record {
+public class DBusArgInfo(pointer: CPointer<GDBusArgInfo>) : Record {
     public val gioDBusArgInfoPointer: CPointer<GDBusArgInfo> = pointer
 
     /**
@@ -64,10 +62,9 @@ public class DBusArgInfo(
      * @since 2.26
      */
     @GioVersion2_26
-    public fun ref(): DBusArgInfo =
-        g_dbus_arg_info_ref(gioDBusArgInfoPointer.reinterpret())!!.run {
-            DBusArgInfo(reinterpret())
-        }
+    public fun ref(): DBusArgInfo = g_dbus_arg_info_ref(gioDBusArgInfoPointer.reinterpret())!!.run {
+        DBusArgInfo(reinterpret())
+    }
 
     /**
      * If @info is statically allocated, does nothing. Otherwise decreases

@@ -22,9 +22,7 @@ import kotlin.Unit
  * A `GdkContentFormatsBuilder` is an auxiliary struct used to create
  * new `GdkContentFormats`, and should not be kept around.
  */
-public class ContentFormatsBuilder(
-    pointer: CPointer<GdkContentFormatsBuilder>,
-) : Record {
+public class ContentFormatsBuilder(pointer: CPointer<GdkContentFormatsBuilder>) : Record {
     public val gdkContentFormatsBuilderPointer: CPointer<GdkContentFormatsBuilder> = pointer
 
     /**
@@ -33,11 +31,10 @@ public class ContentFormatsBuilder(
      *
      * @param formats the formats to add
      */
-    public fun addFormats(formats: ContentFormats): Unit =
-        gdk_content_formats_builder_add_formats(
-            gdkContentFormatsBuilderPointer.reinterpret(),
-            formats.gdkContentFormatsPointer.reinterpret()
-        )
+    public fun addFormats(formats: ContentFormats): Unit = gdk_content_formats_builder_add_formats(
+        gdkContentFormatsBuilderPointer.reinterpret(),
+        formats.gdkContentFormatsPointer.reinterpret()
+    )
 
     /**
      * Appends @type to @builder if it has not already been added.

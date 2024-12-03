@@ -72,6 +72,7 @@ class PropertyBlueprintBuilder(
     }
 
     private fun checkSkippedProperty(getter: MethodBlueprint?, setter: MethodBlueprint?) {
+        // Properties that fail validation will still be generated as regular methods instead of properties.
         if (!girProperty.info.shouldBeGenerated()) {
             throw NotIntrospectableException(girProperty.name)
         }
@@ -85,7 +86,7 @@ class PropertyBlueprintBuilder(
         }
 
         if (setter != null && !setter.parameters.first().typeInfo.sameType(getter.returnTypeInfo)) {
-            throw UnresolvableTypeException("Property TypeInfo of getter and setter do not match") // TODO
+            throw UnresolvableTypeException("Property TypeInfo of getter and setter do not match")
         }
 
         if (setter != null && setter.returnTypeInfo.kotlinTypeName != UNIT) {

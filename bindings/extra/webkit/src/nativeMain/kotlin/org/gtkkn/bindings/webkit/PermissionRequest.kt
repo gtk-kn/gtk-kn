@@ -38,9 +38,7 @@ public interface PermissionRequest :
      */
     public fun deny(): Unit = webkit_permission_request_deny(webkitPermissionRequestPointer.reinterpret())
 
-    private data class Wrapper(
-        private val pointer: CPointer<WebKitPermissionRequest>,
-    ) : PermissionRequest {
+    private data class Wrapper(private val pointer: CPointer<WebKitPermissionRequest>) : PermissionRequest {
         override val webkitPermissionRequestPointer: CPointer<WebKitPermissionRequest> = pointer
     }
 

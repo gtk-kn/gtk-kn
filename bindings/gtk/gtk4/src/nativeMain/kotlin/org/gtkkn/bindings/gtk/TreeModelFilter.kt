@@ -102,9 +102,8 @@ import kotlin.Unit
  * - method `child-model`: Property has no getter nor setter
  * - method `virtual-root`: Property has no getter nor setter
  */
-public open class TreeModelFilter(
-    pointer: CPointer<GtkTreeModelFilter>,
-) : Object(pointer.reinterpret()),
+public open class TreeModelFilter(pointer: CPointer<GtkTreeModelFilter>) :
+    Object(pointer.reinterpret()),
     TreeDragSource,
     TreeModel,
     KGTyped {
@@ -137,10 +136,7 @@ public open class TreeModelFilter(
      * @return true, if @filter_iter was set, i.e. if @child_iter is a
      * valid iterator pointing to a visible row in child model.
      */
-    public open fun convertChildIterToIter(
-        filterIter: TreeIter,
-        childIter: TreeIter,
-    ): Boolean =
+    public open fun convertChildIterToIter(filterIter: TreeIter, childIter: TreeIter): Boolean =
         gtk_tree_model_filter_convert_child_iter_to_iter(
             gtkTreeModelFilterPointer.reinterpret(),
             filterIter.gtkTreeIterPointer.reinterpret(),
@@ -171,10 +167,7 @@ public open class TreeModelFilter(
      * @param childIter An uninitialized `GtkTreeIter`
      * @param filterIter A valid `GtkTreeIter` pointing to a row on @filter.
      */
-    public open fun convertIterToChildIter(
-        childIter: TreeIter,
-        filterIter: TreeIter,
-    ): Unit =
+    public open fun convertIterToChildIter(childIter: TreeIter, filterIter: TreeIter): Unit =
         gtk_tree_model_filter_convert_iter_to_child_iter(
             gtkTreeModelFilterPointer.reinterpret(),
             childIter.gtkTreeIterPointer.reinterpret(),
@@ -268,13 +261,12 @@ public open class TreeModelFilter(
      *
      * @param func A `GtkTreeModelFilterVisibleFunc`, the visible function
      */
-    public open fun setVisibleFunc(func: TreeModelFilterVisibleFunc): Unit =
-        gtk_tree_model_filter_set_visible_func(
-            gtkTreeModelFilterPointer.reinterpret(),
-            TreeModelFilterVisibleFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public open fun setVisibleFunc(func: TreeModelFilterVisibleFunc): Unit = gtk_tree_model_filter_set_visible_func(
+        gtkTreeModelFilterPointer.reinterpret(),
+        TreeModelFilterVisibleFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer(),
+        staticStableRefDestroy.reinterpret()
+    )
 
     public companion object : TypeCompanion<TreeModelFilter> {
         override val type: GeneratedClassKGType<TreeModelFilter> =

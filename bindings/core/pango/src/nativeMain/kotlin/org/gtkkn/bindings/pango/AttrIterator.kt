@@ -32,9 +32,7 @@ import kotlin.Unit
  * - parameter `language`: language: Out parameter is not supported
  * - parameter `start`: start: Out parameter is not supported
  */
-public class AttrIterator(
-    pointer: CPointer<PangoAttrIterator>,
-) : Record {
+public class AttrIterator(pointer: CPointer<PangoAttrIterator>) : Record {
     public val pangoAttrIteratorPointer: CPointer<PangoAttrIterator> = pointer
 
     /**
@@ -44,10 +42,9 @@ public class AttrIterator(
      *   `PangoAttrIterator`, which should be freed with
      *   [method@Pango.AttrIterator.destroy]
      */
-    public fun copy(): AttrIterator =
-        pango_attr_iterator_copy(pangoAttrIteratorPointer.reinterpret())!!.run {
-            AttrIterator(reinterpret())
-        }
+    public fun copy(): AttrIterator = pango_attr_iterator_copy(pangoAttrIteratorPointer.reinterpret())!!.run {
+        AttrIterator(reinterpret())
+    }
 
     /**
      * Destroy a `PangoAttrIterator` and free all associated memory.
@@ -82,10 +79,9 @@ public class AttrIterator(
      * @since 1.2
      */
     @PangoVersion1_2
-    public fun getAttrs(): SList =
-        pango_attr_iterator_get_attrs(pangoAttrIteratorPointer.reinterpret())!!.run {
-            SList(reinterpret())
-        }
+    public fun getAttrs(): SList = pango_attr_iterator_get_attrs(pangoAttrIteratorPointer.reinterpret())!!.run {
+        SList(reinterpret())
+    }
 
     /**
      * Advance the iterator until the next change of style.

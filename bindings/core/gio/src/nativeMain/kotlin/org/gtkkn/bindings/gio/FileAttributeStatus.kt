@@ -6,9 +6,7 @@ import org.gtkkn.native.gio.GFileAttributeStatus
 /**
  * Used by g_file_set_attributes_from_info() when setting file attributes.
  */
-public enum class FileAttributeStatus(
-    public val nativeValue: GFileAttributeStatus,
-) {
+public enum class FileAttributeStatus(public val nativeValue: GFileAttributeStatus) {
     /**
      * Attribute value is unset (empty).
      */
@@ -26,12 +24,11 @@ public enum class FileAttributeStatus(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GFileAttributeStatus): FileAttributeStatus =
-            when (nativeValue) {
-                GFileAttributeStatus.G_FILE_ATTRIBUTE_STATUS_UNSET -> UNSET
-                GFileAttributeStatus.G_FILE_ATTRIBUTE_STATUS_SET -> SET
-                GFileAttributeStatus.G_FILE_ATTRIBUTE_STATUS_ERROR_SETTING -> ERROR_SETTING
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GFileAttributeStatus): FileAttributeStatus = when (nativeValue) {
+            GFileAttributeStatus.G_FILE_ATTRIBUTE_STATUS_UNSET -> UNSET
+            GFileAttributeStatus.G_FILE_ATTRIBUTE_STATUS_SET -> SET
+            GFileAttributeStatus.G_FILE_ATTRIBUTE_STATUS_ERROR_SETTING -> ERROR_SETTING
+            else -> error("invalid nativeValue")
+        }
     }
 }

@@ -43,9 +43,8 @@ import org.gtkkn.native.gtk.gtk_fixed_layout_new
  * elements, since you have to reposition all the other  elements. This is a
  * long-term maintenance problem for your application.
  */
-public open class FixedLayout(
-    pointer: CPointer<GtkFixedLayout>,
-) : LayoutManager(pointer.reinterpret()),
+public open class FixedLayout(pointer: CPointer<GtkFixedLayout>) :
+    LayoutManager(pointer.reinterpret()),
     KGTyped {
     public val gtkFixedLayoutPointer: CPointer<GtkFixedLayout>
         get() = gPointer.reinterpret()

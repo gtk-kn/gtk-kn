@@ -6,9 +6,7 @@ import org.gtkkn.native.gtk.GtkUnit
 /**
  * See also gtk_print_settings_set_paper_width().
  */
-public enum class Unit(
-    public val nativeValue: GtkUnit,
-) {
+public enum class Unit(public val nativeValue: GtkUnit) {
     /**
      * No units.
      */
@@ -31,13 +29,12 @@ public enum class Unit(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkUnit): Unit =
-            when (nativeValue) {
-                GtkUnit.GTK_UNIT_NONE -> NONE
-                GtkUnit.GTK_UNIT_POINTS -> POINTS
-                GtkUnit.GTK_UNIT_INCH -> INCH
-                GtkUnit.GTK_UNIT_MM -> MM
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkUnit): Unit = when (nativeValue) {
+            GtkUnit.GTK_UNIT_NONE -> NONE
+            GtkUnit.GTK_UNIT_POINTS -> POINTS
+            GtkUnit.GTK_UNIT_INCH -> INCH
+            GtkUnit.GTK_UNIT_MM -> MM
+            else -> error("invalid nativeValue")
+        }
     }
 }

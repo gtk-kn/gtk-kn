@@ -29,9 +29,7 @@ import org.gtkkn.native.javascriptcore.JSCClassVTable
  * - field `_jsc_reserved6`: Fields with callbacks are not supported
  * - field `_jsc_reserved7`: Fields with callbacks are not supported
  */
-public class ClassVTable(
-    pointer: CPointer<JSCClassVTable>,
-) : Record {
+public class ClassVTable(pointer: CPointer<JSCClassVTable>) : Record {
     public val javascriptcoreClassVTablePointer: CPointer<JSCClassVTable> = pointer
 
     public companion object : RecordCompanion<ClassVTable, JSCClassVTable> {

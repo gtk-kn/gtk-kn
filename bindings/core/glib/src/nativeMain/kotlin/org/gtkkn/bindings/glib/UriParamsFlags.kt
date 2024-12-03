@@ -14,9 +14,7 @@ import org.gtkkn.native.glib.G_URI_PARAMS_WWW_FORM
  * #GUriParamsIter.
  * @since 2.66
  */
-public class UriParamsFlags(
-    public val mask: GUriParamsFlags,
-) : Bitfield<UriParamsFlags> {
+public class UriParamsFlags(public val mask: GUriParamsFlags) : Bitfield<UriParamsFlags> {
     override infix fun or(other: UriParamsFlags): UriParamsFlags = UriParamsFlags(mask or other.mask)
 
     @GLibVersion2_66

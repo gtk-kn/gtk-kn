@@ -34,9 +34,7 @@ import kotlin.Unit
  * The Graphene library has a number of other data types for regions and
  * volumes in 2D and 3D.
  */
-public class Rectangle(
-    pointer: CPointer<GdkRectangle>,
-) : Record {
+public class Rectangle(pointer: CPointer<GdkRectangle>) : Record {
     public val gdkRectanglePointer: CPointer<GdkRectangle> = pointer
 
     /**
@@ -82,10 +80,8 @@ public class Rectangle(
      * @param y Y coordinate
      * @return true if @rect contains the point
      */
-    public fun containsPoint(
-        x: Int,
-        y: Int,
-    ): Boolean = gdk_rectangle_contains_point(gdkRectanglePointer.reinterpret(), x, y).asBoolean()
+    public fun containsPoint(x: Int, y: Int): Boolean =
+        gdk_rectangle_contains_point(gdkRectanglePointer.reinterpret(), x, y).asBoolean()
 
     /**
      * Checks if the two given rectangles are equal.
@@ -110,15 +106,11 @@ public class Rectangle(
      *   intersection of @src1 and @src2
      * @return true if the rectangles intersect.
      */
-    public fun intersect(
-        src2: Rectangle,
-        dest: Rectangle?,
-    ): Boolean =
-        gdk_rectangle_intersect(
-            gdkRectanglePointer.reinterpret(),
-            src2.gdkRectanglePointer.reinterpret(),
-            dest?.gdkRectanglePointer?.reinterpret()
-        ).asBoolean()
+    public fun intersect(src2: Rectangle, dest: Rectangle?): Boolean = gdk_rectangle_intersect(
+        gdkRectanglePointer.reinterpret(),
+        src2.gdkRectanglePointer.reinterpret(),
+        dest?.gdkRectanglePointer?.reinterpret()
+    ).asBoolean()
 
     /**
      * Calculates the union of two rectangles.
@@ -133,15 +125,11 @@ public class Rectangle(
      * @param src2 a `GdkRectangle`
      * @param dest return location for the union of @src1 and @src2
      */
-    public fun union(
-        src2: Rectangle,
-        dest: Rectangle,
-    ): Unit =
-        gdk_rectangle_union(
-            gdkRectanglePointer.reinterpret(),
-            src2.gdkRectanglePointer.reinterpret(),
-            dest.gdkRectanglePointer.reinterpret()
-        )
+    public fun union(src2: Rectangle, dest: Rectangle): Unit = gdk_rectangle_union(
+        gdkRectanglePointer.reinterpret(),
+        src2.gdkRectanglePointer.reinterpret(),
+        dest.gdkRectanglePointer.reinterpret()
+    )
 
     public companion object : RecordCompanion<Rectangle, GdkRectangle> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Rectangle = Rectangle(pointer.reinterpret())

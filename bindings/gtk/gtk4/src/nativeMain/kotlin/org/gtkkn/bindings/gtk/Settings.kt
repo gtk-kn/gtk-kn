@@ -101,9 +101,8 @@ import kotlin.Unit
  * - method `gtk-xft-hintstyle`: Property has no getter nor setter
  * - method `gtk-xft-rgba`: Property has no getter nor setter
  */
-public open class Settings(
-    pointer: CPointer<GtkSettings>,
-) : Object(pointer.reinterpret()),
+public open class Settings(pointer: CPointer<GtkSettings>) :
+    Object(pointer.reinterpret()),
     StyleProvider,
     KGTyped {
     public val gtkSettingsPointer: CPointer<GtkSettings>
@@ -141,10 +140,9 @@ public open class Settings(
          * @return a `GtkSettings` object. If there is
          *   no default display, then returns null.
          */
-        public fun getDefault(): Settings? =
-            gtk_settings_get_default()?.run {
-                Settings(reinterpret())
-            }
+        public fun getDefault(): Settings? = gtk_settings_get_default()?.run {
+            Settings(reinterpret())
+        }
 
         /**
          * Gets the `GtkSettings` object for @display, creating it if necessary.

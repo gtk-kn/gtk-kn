@@ -10,13 +10,10 @@ import org.gtkkn.native.gio.G_FILE_ATTRIBUTE_INFO_NONE
 /**
  * Flags specifying the behaviour of an attribute.
  */
-public class FileAttributeInfoFlags(
-    public val mask: GFileAttributeInfoFlags,
-) : Bitfield<FileAttributeInfoFlags> {
-    override infix fun or(other: FileAttributeInfoFlags): FileAttributeInfoFlags =
-        FileAttributeInfoFlags(
-            mask or other.mask
-        )
+public class FileAttributeInfoFlags(public val mask: GFileAttributeInfoFlags) : Bitfield<FileAttributeInfoFlags> {
+    override infix fun or(other: FileAttributeInfoFlags): FileAttributeInfoFlags = FileAttributeInfoFlags(
+        mask or other.mask
+    )
 
     public companion object {
         /**

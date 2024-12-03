@@ -23,9 +23,8 @@ import org.gtkkn.native.gio.GLoadableIcon
  * @since 4.14
  */
 @GdkVersion4_14
-public open class DmabufTexture(
-    pointer: CPointer<GdkDmabufTexture>,
-) : Texture(pointer.reinterpret()),
+public open class DmabufTexture(pointer: CPointer<GdkDmabufTexture>) :
+    Texture(pointer.reinterpret()),
     KGTyped {
     public val gdkDmabufTexturePointer: CPointer<GdkDmabufTexture>
         get() = gPointer.reinterpret()

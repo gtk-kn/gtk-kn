@@ -181,14 +181,12 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                 error("Invalid constructor return type")
             }
 
-            addKdoc(
-                buildMethodKDoc(
-                    kdoc = constructor.kdoc,
-                    parameters = constructor.parameters,
-                    optInVersionBlueprint = constructor.optInVersionBlueprint,
-                    returnTypeKDoc = constructor.returnTypeKDoc,
-                ),
-            )
+            buildMethodKDoc(
+                kdoc = constructor.kdoc,
+                parameters = constructor.parameters,
+                optInVersionBlueprint = constructor.optInVersionBlueprint,
+                returnTypeKDoc = constructor.returnTypeKDoc,
+            )?.let { addKdoc(it) }
 
             if (constructor.throws) {
                 // add throw annotation
@@ -286,14 +284,12 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
             }
 
             // Add KDoc to the method
-            addKdoc(
-                buildMethodKDoc(
-                    kdoc = constructor.kdoc,
-                    parameters = constructor.parameters,
-                    optInVersionBlueprint = constructor.optInVersionBlueprint,
-                    returnTypeKDoc = constructor.returnTypeKDoc,
-                ),
-            )
+            buildMethodKDoc(
+                kdoc = constructor.kdoc,
+                parameters = constructor.parameters,
+                optInVersionBlueprint = constructor.optInVersionBlueprint,
+                returnTypeKDoc = constructor.returnTypeKDoc,
+            )?.let { addKdoc(it) }
 
             // Use memScoped if needed
             if (constructor.needsMemscoped) {

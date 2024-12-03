@@ -12,9 +12,7 @@ import org.gtkkn.native.gio.G_RESOURCE_FLAGS_NONE
  * bundle.
  * @since 2.32
  */
-public class ResourceFlags(
-    public val mask: GResourceFlags,
-) : Bitfield<ResourceFlags> {
+public class ResourceFlags(public val mask: GResourceFlags) : Bitfield<ResourceFlags> {
     override infix fun or(other: ResourceFlags): ResourceFlags = ResourceFlags(mask or other.mask)
 
     @GioVersion2_32

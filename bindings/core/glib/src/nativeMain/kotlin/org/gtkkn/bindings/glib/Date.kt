@@ -110,11 +110,8 @@ import kotlin.Unit
  *
  * - parameter `timet`: time_t
  * - parameter `tm`: gpointer
- * - function `strftime`: C function g_date_strftime is ignored
  */
-public class Date(
-    pointer: CPointer<GDate>,
-) : Record {
+public class Date(pointer: CPointer<GDate>) : Record {
     public val glibDatePointer: CPointer<GDate> = pointer
 
     /**
@@ -213,15 +210,11 @@ public class Date(
      * @param minDate minimum accepted value for @date
      * @param maxDate maximum accepted value for @date
      */
-    public fun clamp(
-        minDate: Date,
-        maxDate: Date,
-    ): Unit =
-        g_date_clamp(
-            glibDatePointer.reinterpret(),
-            minDate.glibDatePointer.reinterpret(),
-            maxDate.glibDatePointer.reinterpret()
-        )
+    public fun clamp(minDate: Date, maxDate: Date): Unit = g_date_clamp(
+        glibDatePointer.reinterpret(),
+        minDate.glibDatePointer.reinterpret(),
+        maxDate.glibDatePointer.reinterpret()
+    )
 
     /**
      * Initializes one or more #GDate structs to a safe but invalid
@@ -253,10 +246,9 @@ public class Date(
      * @since 2.56
      */
     @GLibVersion2_56
-    public fun copy(): Date =
-        g_date_copy(glibDatePointer.reinterpret())!!.run {
-            Date(reinterpret())
-        }
+    public fun copy(): Date = g_date_copy(glibDatePointer.reinterpret())!!.run {
+        Date(reinterpret())
+    }
 
     /**
      * Computes the number of days between two dates.
@@ -323,10 +315,9 @@ public class Date(
      *
      * @return month of the year as a #GDateMonth
      */
-    public fun getMonth(): DateMonth =
-        g_date_get_month(glibDatePointer.reinterpret()).run {
-            DateMonth.fromNativeValue(this)
-        }
+    public fun getMonth(): DateMonth = g_date_get_month(glibDatePointer.reinterpret()).run {
+        DateMonth.fromNativeValue(this)
+    }
 
     /**
      * Returns the week of the year during which this date falls, if
@@ -342,10 +333,9 @@ public class Date(
      *
      * @return day of the week as a #GDateWeekday.
      */
-    public fun getWeekday(): DateWeekday =
-        g_date_get_weekday(glibDatePointer.reinterpret()).run {
-            DateWeekday.fromNativeValue(this)
-        }
+    public fun getWeekday(): DateWeekday = g_date_get_weekday(glibDatePointer.reinterpret()).run {
+        DateWeekday.fromNativeValue(this)
+    }
 
     /**
      * Returns the year of a #GDate. The date must be valid.
@@ -397,11 +387,8 @@ public class Date(
      * @param month month
      * @param y year
      */
-    public fun setDmy(
-        day: DateDay,
-        month: DateMonth,
-        y: DateYear,
-    ): Unit = g_date_set_dmy(glibDatePointer.reinterpret(), day, month.nativeValue, y)
+    public fun setDmy(day: DateDay, month: DateMonth, y: DateYear): Unit =
+        g_date_set_dmy(glibDatePointer.reinterpret(), day, month.nativeValue, y)
 
     /**
      * Sets the value of a #GDate from a Julian day number.
@@ -528,11 +515,8 @@ public class Date(
          * @return a newly-allocated #GDate
          *   initialized with @day, @month, and @year
          */
-        public fun newDmy(
-            day: DateDay,
-            month: DateMonth,
-            year: DateYear,
-        ): Date = Date(g_date_new_dmy(day, month.nativeValue, year)!!.reinterpret())
+        public fun newDmy(day: DateDay, month: DateMonth, year: DateYear): Date =
+            Date(g_date_new_dmy(day, month.nativeValue, year)!!.reinterpret())
 
         /**
          * Create a new #GDate representing the given Julian date.
@@ -555,10 +539,8 @@ public class Date(
          * @param year year
          * @return number of days in @month during the @year
          */
-        public fun getDaysInMonth(
-            month: DateMonth,
-            year: DateYear,
-        ): UByte = g_date_get_days_in_month(month.nativeValue, year)
+        public fun getDaysInMonth(month: DateMonth, year: DateYear): UByte =
+            g_date_get_days_in_month(month.nativeValue, year)
 
         /**
          * Returns the number of weeks in the year, where weeks
@@ -620,11 +602,8 @@ public class Date(
          * @param year year
          * @return true if the date is a valid one
          */
-        public fun validDmy(
-            day: DateDay,
-            month: DateMonth,
-            year: DateYear,
-        ): Boolean = g_date_valid_dmy(day, month.nativeValue, year).asBoolean()
+        public fun validDmy(day: DateDay, month: DateMonth, year: DateYear): Boolean =
+            g_date_valid_dmy(day, month.nativeValue, year).asBoolean()
 
         /**
          * Returns true if the Julian day is valid. Anything greater than zero

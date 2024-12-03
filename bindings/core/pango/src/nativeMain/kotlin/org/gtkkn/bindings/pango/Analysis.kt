@@ -20,9 +20,7 @@ import kotlin.UByte
  * - field `shape_engine`: gpointer
  * - field `lang_engine`: gpointer
  */
-public class Analysis(
-    pointer: CPointer<PangoAnalysis>,
-) : Record {
+public class Analysis(pointer: CPointer<PangoAnalysis>) : Record {
     public val pangoAnalysisPointer: CPointer<PangoAnalysis> = pointer
 
     /**
@@ -31,10 +29,9 @@ public class Analysis(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val font: Font?
-        get() =
-            pangoAnalysisPointer.pointed.font?.run {
-                Font(reinterpret())
-            }
+        get() = pangoAnalysisPointer.pointed.font?.run {
+            Font(reinterpret())
+        }
 
     /**
      * the bidirectional level for this segment.
@@ -78,10 +75,9 @@ public class Analysis(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val language: Language?
-        get() =
-            pangoAnalysisPointer.pointed.language?.run {
-                Language(reinterpret())
-            }
+        get() = pangoAnalysisPointer.pointed.language?.run {
+            Language(reinterpret())
+        }
 
     /**
      * extra attributes for this segment.
@@ -89,10 +85,9 @@ public class Analysis(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val extraAttrs: SList?
-        get() =
-            pangoAnalysisPointer.pointed.extra_attrs?.run {
-                SList(reinterpret())
-            }
+        get() = pangoAnalysisPointer.pointed.extra_attrs?.run {
+            SList(reinterpret())
+        }
 
     public companion object : RecordCompanion<Analysis, PangoAnalysis> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Analysis = Analysis(pointer.reinterpret())

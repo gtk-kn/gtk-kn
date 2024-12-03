@@ -21,9 +21,8 @@ import kotlin.String
  * A history item is part of the #WebKitBackForwardList and consists
  * out of a title and a URI.
  */
-public class BackForwardListItem(
-    pointer: CPointer<WebKitBackForwardListItem>,
-) : InitiallyUnowned(pointer.reinterpret()),
+public class BackForwardListItem(pointer: CPointer<WebKitBackForwardListItem>) :
+    InitiallyUnowned(pointer.reinterpret()),
     KGTyped {
     public val webkitBackForwardListItemPointer: CPointer<WebKitBackForwardListItem>
         get() = gPointer.reinterpret()

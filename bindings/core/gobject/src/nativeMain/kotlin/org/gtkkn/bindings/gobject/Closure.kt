@@ -78,9 +78,7 @@ import kotlin.Unit
  * - field `data`: Record field data is private
  * - field `notifiers`: Record field notifiers is private
  */
-public class Closure(
-    pointer: CPointer<GClosure>,
-) : Record {
+public class Closure(pointer: CPointer<GClosure>) : Record {
     public val gobjectClosurePointer: CPointer<GClosure> = pointer
 
     /**
@@ -128,10 +126,9 @@ public class Closure(
      *
      * @return The @closure passed in, for convenience
      */
-    public fun ref(): Closure =
-        g_closure_ref(gobjectClosurePointer.reinterpret())!!.run {
-            Closure(reinterpret())
-        }
+    public fun ref(): Closure = g_closure_ref(gobjectClosurePointer.reinterpret())!!.run {
+        Closure(reinterpret())
+    }
 
     /**
      * Takes over the initial ownership of a closure.
@@ -206,10 +203,8 @@ public class Closure(
          *  allocated #GClosure
          * @return a newly allocated #GClosure
          */
-        public fun newObject(
-            sizeofClosure: UInt,
-            `object`: Object,
-        ): Closure = Closure(g_closure_new_object(sizeofClosure, `object`.gPointer.reinterpret())!!.reinterpret())
+        public fun newObject(sizeofClosure: UInt, `object`: Object): Closure =
+            Closure(g_closure_new_object(sizeofClosure, `object`.gPointer.reinterpret())!!.reinterpret())
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Closure = Closure(pointer.reinterpret())
     }

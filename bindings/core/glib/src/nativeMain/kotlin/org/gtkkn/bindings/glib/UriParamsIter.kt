@@ -35,9 +35,7 @@ import kotlin.Unit
  * @since 2.66
  */
 @GLibVersion2_66
-public class UriParamsIter(
-    pointer: CPointer<GUriParamsIter>,
-) : Record {
+public class UriParamsIter(pointer: CPointer<GUriParamsIter>) : Record {
     public val glibUriParamsIterPointer: CPointer<GUriParamsIter> = pointer
 
     /**
@@ -87,12 +85,8 @@ public class UriParamsIter(
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun `init`(
-        params: String,
-        length: Long,
-        separators: String,
-        flags: UriParamsFlags,
-    ): Unit = g_uri_params_iter_init(glibUriParamsIterPointer.reinterpret(), params, length, separators, flags.mask)
+    public fun `init`(params: String, length: Long, separators: String, flags: UriParamsFlags): Unit =
+        g_uri_params_iter_init(glibUriParamsIterPointer.reinterpret(), params, length, separators, flags.mask)
 
     public companion object : RecordCompanion<UriParamsIter, GUriParamsIter> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): UriParamsIter =

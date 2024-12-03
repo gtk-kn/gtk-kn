@@ -27,9 +27,7 @@ import org.gtkkn.native.gtk.GtkStateFlags
  * Note that GTK extends the regular CSS classes and sometimes uses
  * different names.
  */
-public class StateFlags(
-    public val mask: GtkStateFlags,
-) : Bitfield<StateFlags> {
+public class StateFlags(public val mask: GtkStateFlags) : Bitfield<StateFlags> {
     override infix fun or(other: StateFlags): StateFlags = StateFlags(mask or other.mask)
 
     public companion object {

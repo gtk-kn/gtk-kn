@@ -11,9 +11,8 @@ import org.gtkkn.native.gio.G_DBUS_OBJECT_MANAGER_CLIENT_FLAGS_NONE
  * Flags used when constructing a #GDBusObjectManagerClient.
  * @since 2.30
  */
-public class DBusObjectManagerClientFlags(
-    public val mask: GDBusObjectManagerClientFlags,
-) : Bitfield<DBusObjectManagerClientFlags> {
+public class DBusObjectManagerClientFlags(public val mask: GDBusObjectManagerClientFlags) :
+    Bitfield<DBusObjectManagerClientFlags> {
     override infix fun or(other: DBusObjectManagerClientFlags): DBusObjectManagerClientFlags =
         DBusObjectManagerClientFlags(
             mask or other.mask

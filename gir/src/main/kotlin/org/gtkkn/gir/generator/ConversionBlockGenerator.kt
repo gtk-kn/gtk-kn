@@ -73,7 +73,7 @@ interface ConversionBlockGenerator {
                 is TypeInfo.KString -> if (type.immutable) {
                     add("%N", param.kotlinName)
                 } else {
-                    add("%N.%M", param.kotlinName, BindingsGenerator.CSTR_FUNC)
+                    add("%N$safeCall.%M", param.kotlinName, BindingsGenerator.CSTR_FUNC)
                 }
 
                 is TypeInfo.Bitfield -> add("%N$safeCall.mask", param.kotlinName)

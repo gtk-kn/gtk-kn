@@ -10,9 +10,7 @@ import org.gtkkn.native.gio.GSocketType
  * @since 2.22
  */
 @GioVersion2_22
-public enum class SocketType(
-    public val nativeValue: GSocketType,
-) {
+public enum class SocketType(public val nativeValue: GSocketType) {
     /**
      * Type unknown or wrong
      */
@@ -37,13 +35,12 @@ public enum class SocketType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GSocketType): SocketType =
-            when (nativeValue) {
-                GSocketType.G_SOCKET_TYPE_INVALID -> INVALID
-                GSocketType.G_SOCKET_TYPE_STREAM -> STREAM
-                GSocketType.G_SOCKET_TYPE_DATAGRAM -> DATAGRAM
-                GSocketType.G_SOCKET_TYPE_SEQPACKET -> SEQPACKET
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GSocketType): SocketType = when (nativeValue) {
+            GSocketType.G_SOCKET_TYPE_INVALID -> INVALID
+            GSocketType.G_SOCKET_TYPE_STREAM -> STREAM
+            GSocketType.G_SOCKET_TYPE_DATAGRAM -> DATAGRAM
+            GSocketType.G_SOCKET_TYPE_SEQPACKET -> SEQPACKET
+            else -> error("invalid nativeValue")
+        }
     }
 }

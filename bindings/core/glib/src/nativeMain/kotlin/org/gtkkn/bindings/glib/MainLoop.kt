@@ -23,9 +23,7 @@ import kotlin.Unit
  * The `GMainLoop` struct is an opaque data type
  * representing the main event loop of a GLib or GTK application.
  */
-public class MainLoop(
-    pointer: CPointer<GMainLoop>,
-) : Record {
+public class MainLoop(pointer: CPointer<GMainLoop>) : Record {
     public val glibMainLoopPointer: CPointer<GMainLoop> = pointer
 
     /**
@@ -33,10 +31,9 @@ public class MainLoop(
      *
      * @return the #GMainContext of @loop
      */
-    public fun getContext(): MainContext =
-        g_main_loop_get_context(glibMainLoopPointer.reinterpret())!!.run {
-            MainContext(reinterpret())
-        }
+    public fun getContext(): MainContext = g_main_loop_get_context(glibMainLoopPointer.reinterpret())!!.run {
+        MainContext(reinterpret())
+    }
 
     /**
      * Checks to see if the main loop is currently being run via g_main_loop_run().
@@ -59,10 +56,9 @@ public class MainLoop(
      *
      * @return @loop
      */
-    public fun ref(): MainLoop =
-        g_main_loop_ref(glibMainLoopPointer.reinterpret())!!.run {
-            MainLoop(reinterpret())
-        }
+    public fun ref(): MainLoop = g_main_loop_ref(glibMainLoopPointer.reinterpret())!!.run {
+        MainLoop(reinterpret())
+    }
 
     /**
      * Runs a main loop until g_main_loop_quit() is called on the loop.
@@ -89,13 +85,9 @@ public class MainLoop(
          * true anyway.
          * @return a new #GMainLoop.
          */
-        public fun new(
-            context: MainContext? = null,
-            isRunning: Boolean,
-        ): MainLoop =
-            MainLoop(
-                g_main_loop_new(context?.glibMainContextPointer?.reinterpret(), isRunning.asGBoolean())!!.reinterpret()
-            )
+        public fun new(context: MainContext? = null, isRunning: Boolean): MainLoop = MainLoop(
+            g_main_loop_new(context?.glibMainContextPointer?.reinterpret(), isRunning.asGBoolean())!!.reinterpret()
+        )
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MainLoop = MainLoop(pointer.reinterpret())
     }

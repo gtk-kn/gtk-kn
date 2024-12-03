@@ -21,9 +21,7 @@ import org.gtkkn.native.gtk.GtkPrintCapabilities
  * %GTK_PRINT_CAPABILITY_GENERATE_PS is specified, GTK assumes that all
  * formats are supported.
  */
-public class PrintCapabilities(
-    public val mask: GtkPrintCapabilities,
-) : Bitfield<PrintCapabilities> {
+public class PrintCapabilities(public val mask: GtkPrintCapabilities) : Bitfield<PrintCapabilities> {
     override infix fun or(other: PrintCapabilities): PrintCapabilities = PrintCapabilities(mask or other.mask)
 
     public companion object {

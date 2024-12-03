@@ -19,9 +19,8 @@ import org.gtkkn.native.gtk.gtk_password_entry_buffer_new
  * @since 4.4
  */
 @GtkVersion4_4
-public open class PasswordEntryBuffer(
-    pointer: CPointer<GtkPasswordEntryBuffer>,
-) : EntryBuffer(pointer.reinterpret()),
+public open class PasswordEntryBuffer(pointer: CPointer<GtkPasswordEntryBuffer>) :
+    EntryBuffer(pointer.reinterpret()),
     KGTyped {
     public val gtkPasswordEntryBufferPointer: CPointer<GtkPasswordEntryBuffer>
         get() = gPointer.reinterpret()

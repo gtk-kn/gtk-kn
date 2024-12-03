@@ -74,9 +74,8 @@ import kotlin.Unit
  *
  * `AdwCarousel` has a single CSS node with name `carousel`.
  */
-public class Carousel(
-    pointer: CPointer<AdwCarousel>,
-) : Widget(pointer.reinterpret()),
+public class Carousel(pointer: CPointer<AdwCarousel>) :
+    Widget(pointer.reinterpret()),
     Swipeable,
     Orientable,
     KGTyped {
@@ -258,10 +257,9 @@ public class Carousel(
          *
          * @return the animation parameters
          */
-        get() =
-            adw_carousel_get_scroll_params(adwCarouselPointer.reinterpret())!!.run {
-                SpringParams(reinterpret())
-            }
+        get() = adw_carousel_get_scroll_params(adwCarouselPointer.reinterpret())!!.run {
+            SpringParams(reinterpret())
+        }
 
         /**
          * Sets the scroll animation spring parameters for @self.
@@ -276,11 +274,10 @@ public class Carousel(
          */
         set(
             params
-        ) =
-            adw_carousel_set_scroll_params(
-                adwCarouselPointer.reinterpret(),
-                params.adwSpringParamsPointer.reinterpret()
-            )
+        ) = adw_carousel_set_scroll_params(
+            adwCarouselPointer.reinterpret(),
+            params.adwSpringParamsPointer.reinterpret()
+        )
 
     /**
      * Spacing between pages in pixels.
@@ -316,86 +313,14 @@ public class Carousel(
         adw_carousel_append(adwCarouselPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
-     * Gets whether to allow swiping for more than one page at a time.
-     *
-     * @return `TRUE` if long swipes are allowed
-     */
-    public fun getAllowLongSwipes(): Boolean =
-        adw_carousel_get_allow_long_swipes(adwCarouselPointer.reinterpret()).asBoolean()
-
-    /**
-     * Sets whether @self can be dragged with mouse pointer.
-     *
-     * @return whether @self can be dragged with mouse pointer
-     */
-    public fun getAllowMouseDrag(): Boolean =
-        adw_carousel_get_allow_mouse_drag(adwCarouselPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets whether @self will respond to scroll wheel events.
-     *
-     * @return `TRUE` if @self will respond to scroll wheel events
-     */
-    public fun getAllowScrollWheel(): Boolean =
-        adw_carousel_get_allow_scroll_wheel(adwCarouselPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets whether @self can be navigated.
-     *
-     * @return whether @self can be navigated
-     */
-    public fun getInteractive(): Boolean = adw_carousel_get_interactive(adwCarouselPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the number of pages in @self.
-     *
-     * @return the number of pages in @self
-     */
-    public fun getNPages(): UInt = adw_carousel_get_n_pages(adwCarouselPointer.reinterpret())
-
-    /**
      * Gets the page at position @n.
      *
      * @param n index of the page
      * @return the page
      */
-    public fun getNthPage(n: UInt): Widget =
-        adw_carousel_get_nth_page(adwCarouselPointer.reinterpret(), n)!!.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Gets current scroll position in @self, unitless.
-     *
-     * 1 matches 1 page. Use [method@Carousel.scroll_to] for changing it.
-     *
-     * @return the scroll position
-     */
-    public fun getPosition(): Double = adw_carousel_get_position(adwCarouselPointer.reinterpret())
-
-    /**
-     * Gets the page reveal duration, in milliseconds.
-     *
-     * @return the duration
-     */
-    public fun getRevealDuration(): UInt = adw_carousel_get_reveal_duration(adwCarouselPointer.reinterpret())
-
-    /**
-     * Gets the scroll animation spring parameters for @self.
-     *
-     * @return the animation parameters
-     */
-    public fun getScrollParams(): SpringParams =
-        adw_carousel_get_scroll_params(adwCarouselPointer.reinterpret())!!.run {
-            SpringParams(reinterpret())
-        }
-
-    /**
-     * Gets spacing between pages in pixels.
-     *
-     * @return spacing between pages
-     */
-    public fun getSpacing(): UInt = adw_carousel_get_spacing(adwCarouselPointer.reinterpret())
+    public fun getNthPage(n: UInt): Widget = adw_carousel_get_nth_page(adwCarouselPointer.reinterpret(), n)!!.run {
+        Widget(reinterpret())
+    }
 
     /**
      * Inserts @child into @self at position @position.
@@ -406,10 +331,8 @@ public class Carousel(
      * @param child a widget to add
      * @param position the position to insert @child at
      */
-    public fun insert(
-        child: Widget,
-        position: Int,
-    ): Unit = adw_carousel_insert(adwCarouselPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), position)
+    public fun insert(child: Widget, position: Int): Unit =
+        adw_carousel_insert(adwCarouselPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), position)
 
     /**
      * Prepends @child to @self.
@@ -436,10 +359,8 @@ public class Carousel(
      * @param child a widget to add
      * @param position the position to move @child to
      */
-    public fun reorder(
-        child: Widget,
-        position: Int,
-    ): Unit = adw_carousel_reorder(adwCarouselPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), position)
+    public fun reorder(child: Widget, position: Int): Unit =
+        adw_carousel_reorder(adwCarouselPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), position)
 
     /**
      * Scrolls to @widget.
@@ -449,88 +370,11 @@ public class Carousel(
      * @param widget a child of @self
      * @param animate whether to animate the transition
      */
-    public fun scrollTo(
-        widget: Widget,
-        animate: Boolean,
-    ): Unit =
-        adw_carousel_scroll_to(
-            adwCarouselPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret(),
-            animate.asGBoolean()
-        )
-
-    /**
-     * Sets whether to allow swiping for more than one page at a time.
-     *
-     * If @allow_long_swipes is `FALSE`, each swipe can only move to the adjacent
-     * pages.
-     *
-     * @param allowLongSwipes whether to allow long swipes
-     */
-    public fun setAllowLongSwipes(allowLongSwipes: Boolean): Unit =
-        adw_carousel_set_allow_long_swipes(adwCarouselPointer.reinterpret(), allowLongSwipes.asGBoolean())
-
-    /**
-     * Sets whether @self can be dragged with mouse pointer.
-     *
-     * If @allow_mouse_drag is `FALSE`, dragging is only available on touch.
-     *
-     * @param allowMouseDrag whether @self can be dragged with mouse pointer
-     */
-    public fun setAllowMouseDrag(allowMouseDrag: Boolean): Unit =
-        adw_carousel_set_allow_mouse_drag(adwCarouselPointer.reinterpret(), allowMouseDrag.asGBoolean())
-
-    /**
-     * Sets whether @self will respond to scroll wheel events.
-     *
-     * If @allow_scroll_wheel is `FALSE`, wheel events will be ignored.
-     *
-     * @param allowScrollWheel whether @self will respond to scroll wheel events
-     */
-    public fun setAllowScrollWheel(allowScrollWheel: Boolean): Unit =
-        adw_carousel_set_allow_scroll_wheel(adwCarouselPointer.reinterpret(), allowScrollWheel.asGBoolean())
-
-    /**
-     * Sets whether @self can be navigated.
-     *
-     * This can be used to temporarily disable the carousel to only allow navigating
-     * it in a certain state.
-     *
-     * @param interactive whether @self can be navigated
-     */
-    public fun setInteractive(interactive: Boolean): Unit =
-        adw_carousel_set_interactive(adwCarouselPointer.reinterpret(), interactive.asGBoolean())
-
-    /**
-     * Sets the page reveal duration, in milliseconds.
-     *
-     * Reveal duration is used when animating adding or removing pages.
-     *
-     * @param revealDuration the new reveal duration value
-     */
-    public fun setRevealDuration(revealDuration: UInt): Unit =
-        adw_carousel_set_reveal_duration(adwCarouselPointer.reinterpret(), revealDuration)
-
-    /**
-     * Sets the scroll animation spring parameters for @self.
-     *
-     * The default value is equivalent to:
-     *
-     * ```c
-     * adw_spring_params_new (1, 0.5, 500)
-     * ```
-     *
-     * @param params the new parameters
-     */
-    public fun setScrollParams(params: SpringParams): Unit =
-        adw_carousel_set_scroll_params(adwCarouselPointer.reinterpret(), params.adwSpringParamsPointer.reinterpret())
-
-    /**
-     * Sets spacing between pages in pixels.
-     *
-     * @param spacing the new spacing value
-     */
-    public fun setSpacing(spacing: UInt): Unit = adw_carousel_set_spacing(adwCarouselPointer.reinterpret(), spacing)
+    public fun scrollTo(widget: Widget, animate: Boolean): Unit = adw_carousel_scroll_to(
+        adwCarouselPointer.reinterpret(),
+        widget.gtkWidgetPointer.reinterpret(),
+        animate.asGBoolean()
+    )
 
     /**
      * This signal is emitted after a page has been changed.
@@ -547,15 +391,14 @@ public class Carousel(
     public fun connectPageChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (index: UInt) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "page-changed",
-            connectPageChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "page-changed",
+        connectPageChangedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<Carousel> {
         override val type: GeneratedClassKGType<Carousel> =
@@ -567,11 +410,11 @@ public class Carousel(
     }
 }
 
-private val connectPageChangedFunc: CPointer<CFunction<(UInt) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            index: UInt,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(index: UInt) -> Unit>().get().invoke(index)
-    }.reinterpret()
+private val connectPageChangedFunc: CPointer<CFunction<(UInt) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        index: UInt,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(index: UInt) -> Unit>().get().invoke(index)
+}
+    .reinterpret()

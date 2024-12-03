@@ -30,9 +30,7 @@ import org.gtkkn.native.gdk.GdkToplevelState
  * will give an indication of tiledness without any of the per-edge states
  * being set.
  */
-public class ToplevelState(
-    public val mask: GdkToplevelState,
-) : Bitfield<ToplevelState> {
+public class ToplevelState(public val mask: GdkToplevelState) : Bitfield<ToplevelState> {
     override infix fun or(other: ToplevelState): ToplevelState = ToplevelState(mask or other.mask)
 
     public companion object {

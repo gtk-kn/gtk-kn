@@ -24,9 +24,7 @@ import kotlin.String
  * @since 1.38
  */
 @PangoVersion1_38
-public class AttrFontFeatures(
-    pointer: CPointer<PangoAttrFontFeatures>,
-) : Record {
+public class AttrFontFeatures(pointer: CPointer<PangoAttrFontFeatures>) : Record {
     public val pangoAttrFontFeaturesPointer: CPointer<PangoAttrFontFeatures> = pointer
 
     /**
@@ -52,10 +50,9 @@ public class AttrFontFeatures(
          * @since 1.38
          */
         @PangoVersion1_38
-        public fun new(features: String): Attribute =
-            pango_attr_font_features_new(features)!!.run {
-                Attribute(reinterpret())
-            }
+        public fun new(features: String): Attribute = pango_attr_font_features_new(features)!!.run {
+            Attribute(reinterpret())
+        }
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): AttrFontFeatures =
             AttrFontFeatures(pointer.reinterpret())

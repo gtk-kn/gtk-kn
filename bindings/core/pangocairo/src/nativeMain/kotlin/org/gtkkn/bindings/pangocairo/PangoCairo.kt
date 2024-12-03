@@ -14,7 +14,7 @@ import org.gtkkn.bindings.pango.FontMap
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_10
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_18
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.native.pango.PangoAttrShape
 import org.gtkkn.native.pangocairo.pango_cairo_font_map_get_default
 import org.gtkkn.native.pangocairo.pango_cairo_font_map_new
@@ -45,7 +45,7 @@ import kotlin.Unit
  * - parameter `cr`: cairo.Context
  * - parameter `cr`: cairo.Context
  */
-public object Pangocairo {
+public object PangoCairo {
     /**
      * Gets a default `PangoCairoFontMap` to use with Cairo.
      *
@@ -69,10 +69,9 @@ public object Pangocairo {
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun fontMapGetDefault(): FontMap =
-        pango_cairo_font_map_get_default()!!.run {
-            FontMap(reinterpret())
-        }
+    public fun fontMapGetDefault(): FontMap = pango_cairo_font_map_get_default()!!.run {
+        FontMap(reinterpret())
+    }
 
     /**
      * Creates a new `PangoCairoFontMap` object.
@@ -99,10 +98,9 @@ public object Pangocairo {
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun fontMapNew(): FontMap =
-        pango_cairo_font_map_new()!!.run {
-            FontMap(reinterpret())
-        }
+    public fun fontMapNew(): FontMap = pango_cairo_font_map_new()!!.run {
+        FontMap(reinterpret())
+    }
 
     /**
      * Creates a new `PangoCairoFontMap` object of the type suitable
@@ -124,12 +122,11 @@ public object Pangocairo {
             FontMap(reinterpret())
         }
 
-    public fun resolveException(error: Error): GlibException {
-        val ex =
-            when (error.domain) {
-                else -> null
-            }
-        return ex ?: GlibException(error)
+    public fun resolveException(error: Error): GLibException {
+        val ex = when (error.domain) {
+            else -> null
+        }
+        return ex ?: GLibException(error)
     }
 }
 
@@ -145,7 +142,8 @@ public val ShapeRendererFuncFunc: CPointer<CFunction<(CPointer<PangoAttrShape>, 
             },
             doPath.asBoolean()
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 /**
  * Function type for rendering attributes of type %PANGO_ATTR_SHAPE

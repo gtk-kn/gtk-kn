@@ -10,9 +10,7 @@ import org.gtkkn.native.gtk.GtkPickFlags
 /**
  * Flags that influence the behavior of [method@Widget.pick].
  */
-public class PickFlags(
-    public val mask: GtkPickFlags,
-) : Bitfield<PickFlags> {
+public class PickFlags(public val mask: GtkPickFlags) : Bitfield<PickFlags> {
     override infix fun or(other: PickFlags): PickFlags = PickFlags(mask or other.mask)
 
     public companion object {

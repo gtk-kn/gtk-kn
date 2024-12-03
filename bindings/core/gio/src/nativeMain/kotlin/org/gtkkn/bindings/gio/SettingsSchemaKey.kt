@@ -31,9 +31,7 @@ import kotlin.Unit
  * #GSettingsSchemaKey is an opaque data structure and can only be accessed
  * using the following functions.
  */
-public class SettingsSchemaKey(
-    pointer: CPointer<GSettingsSchemaKey>,
-) : Record {
+public class SettingsSchemaKey(pointer: CPointer<GSettingsSchemaKey>) : Record {
     public val gioSettingsSchemaKeyPointer: CPointer<GSettingsSchemaKey> = pointer
 
     /**
@@ -127,10 +125,9 @@ public class SettingsSchemaKey(
      * @since 2.40
      */
     @GioVersion2_40
-    public fun getRange(): Variant =
-        g_settings_schema_key_get_range(gioSettingsSchemaKeyPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public fun getRange(): Variant = g_settings_schema_key_get_range(gioSettingsSchemaKeyPointer.reinterpret())!!.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Gets the summary for @key.
@@ -178,11 +175,10 @@ public class SettingsSchemaKey(
      * @since 2.40
      */
     @GioVersion2_40
-    public fun rangeCheck(`value`: Variant): Boolean =
-        g_settings_schema_key_range_check(
-            gioSettingsSchemaKeyPointer.reinterpret(),
-            `value`.glibVariantPointer.reinterpret()
-        ).asBoolean()
+    public fun rangeCheck(`value`: Variant): Boolean = g_settings_schema_key_range_check(
+        gioSettingsSchemaKeyPointer.reinterpret(),
+        `value`.glibVariantPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Increase the reference count of @key, returning a new reference.
@@ -191,10 +187,9 @@ public class SettingsSchemaKey(
      * @since 2.40
      */
     @GioVersion2_40
-    public fun ref(): SettingsSchemaKey =
-        g_settings_schema_key_ref(gioSettingsSchemaKeyPointer.reinterpret())!!.run {
-            SettingsSchemaKey(reinterpret())
-        }
+    public fun ref(): SettingsSchemaKey = g_settings_schema_key_ref(gioSettingsSchemaKeyPointer.reinterpret())!!.run {
+        SettingsSchemaKey(reinterpret())
+    }
 
     /**
      * Decrease the reference count of @key, possibly freeing it.

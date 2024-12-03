@@ -20,9 +20,7 @@ import org.gtkkn.native.gobject.GTypePluginClass
  * - field `complete_type_info`: TypePluginCompleteTypeInfo
  * - field `complete_interface_info`: TypePluginCompleteInterfaceInfo
  */
-public class TypePluginClass(
-    pointer: CPointer<GTypePluginClass>,
-) : Record {
+public class TypePluginClass(pointer: CPointer<GTypePluginClass>) : Record {
     public val gobjectTypePluginClassPointer: CPointer<GTypePluginClass> = pointer
 
     public companion object : RecordCompanion<TypePluginClass, GTypePluginClass> {

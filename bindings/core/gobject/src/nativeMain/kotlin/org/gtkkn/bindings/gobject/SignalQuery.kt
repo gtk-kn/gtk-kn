@@ -22,9 +22,7 @@ import kotlin.ULong
  *
  * - field `param_types`: Fields with arrays are not supported
  */
-public class SignalQuery(
-    pointer: CPointer<GSignalQuery>,
-) : Record {
+public class SignalQuery(pointer: CPointer<GSignalQuery>) : Record {
     public val gobjectSignalQueryPointer: CPointer<GSignalQuery> = pointer
 
     /**
@@ -58,10 +56,9 @@ public class SignalQuery(
      * The signal flags as passed in to g_signal_new().
      */
     public var signalFlags: SignalFlags
-        get() =
-            gobjectSignalQueryPointer.pointed.signal_flags.run {
-                SignalFlags(this)
-            }
+        get() = gobjectSignalQueryPointer.pointed.signal_flags.run {
+            SignalFlags(this)
+        }
         set(`value`) {
             gobjectSignalQueryPointer.pointed.signal_flags = value.mask
         }

@@ -13,13 +13,10 @@ import org.gtkkn.native.gtk.GtkStyleContextPrintFlags
  *
  * New values may be added to this enumeration.
  */
-public class StyleContextPrintFlags(
-    public val mask: GtkStyleContextPrintFlags,
-) : Bitfield<StyleContextPrintFlags> {
-    override infix fun or(other: StyleContextPrintFlags): StyleContextPrintFlags =
-        StyleContextPrintFlags(
-            mask or other.mask
-        )
+public class StyleContextPrintFlags(public val mask: GtkStyleContextPrintFlags) : Bitfield<StyleContextPrintFlags> {
+    override infix fun or(other: StyleContextPrintFlags): StyleContextPrintFlags = StyleContextPrintFlags(
+        mask or other.mask
+    )
 
     public companion object {
         /**

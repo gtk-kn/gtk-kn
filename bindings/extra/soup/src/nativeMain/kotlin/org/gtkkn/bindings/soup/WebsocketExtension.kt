@@ -36,9 +36,8 @@ import kotlin.String
  * - method `process_incoming_message`: In/Out parameter is not supported
  * - method `process_outgoing_message`: In/Out parameter is not supported
  */
-public open class WebsocketExtension(
-    pointer: CPointer<SoupWebsocketExtension>,
-) : Object(pointer.reinterpret()),
+public open class WebsocketExtension(pointer: CPointer<SoupWebsocketExtension>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val soupWebsocketExtensionPointer: CPointer<SoupWebsocketExtension>
         get() = gPointer.reinterpret()
@@ -50,19 +49,15 @@ public open class WebsocketExtension(
      * @param params the parameters
      * @return true if extension could be configured with the given parameters, or false otherwise
      */
-    public open fun configure(
-        connectionType: WebsocketConnectionType,
-        params: HashTable? = null,
-    ): Result<Boolean> =
+    public open fun configure(connectionType: WebsocketConnectionType, params: HashTable? = null): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                soup_websocket_extension_configure(
-                    soupWebsocketExtensionPointer.reinterpret(),
-                    connectionType.nativeValue,
-                    params?.glibHashTablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
+            val gResult = soup_websocket_extension_configure(
+                soupWebsocketExtensionPointer.reinterpret(),
+                connectionType.nativeValue,
+                params?.glibHashTablePointer?.reinterpret(),
+                gError.ptr
+            ).asBoolean()
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {

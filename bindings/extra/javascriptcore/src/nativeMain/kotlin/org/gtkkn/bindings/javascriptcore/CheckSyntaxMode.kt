@@ -6,9 +6,7 @@ import org.gtkkn.native.javascriptcore.JSCCheckSyntaxMode
 /**
  * Enum values to specify a mode to check for syntax errors in jsc_context_check_syntax().
  */
-public enum class CheckSyntaxMode(
-    public val nativeValue: JSCCheckSyntaxMode,
-) {
+public enum class CheckSyntaxMode(public val nativeValue: JSCCheckSyntaxMode) {
     /**
      * mode to check syntax of a script
      */
@@ -21,11 +19,10 @@ public enum class CheckSyntaxMode(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: JSCCheckSyntaxMode): CheckSyntaxMode =
-            when (nativeValue) {
-                JSCCheckSyntaxMode.JSC_CHECK_SYNTAX_MODE_SCRIPT -> SCRIPT
-                JSCCheckSyntaxMode.JSC_CHECK_SYNTAX_MODE_MODULE -> MODULE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: JSCCheckSyntaxMode): CheckSyntaxMode = when (nativeValue) {
+            JSCCheckSyntaxMode.JSC_CHECK_SYNTAX_MODE_SCRIPT -> SCRIPT
+            JSCCheckSyntaxMode.JSC_CHECK_SYNTAX_MODE_MODULE -> MODULE
+            else -> error("invalid nativeValue")
+        }
     }
 }

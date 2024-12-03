@@ -21,9 +21,7 @@ import org.gtkkn.native.gsk.GskLineJoin
  * @since 4.14
  */
 @GskVersion4_14
-public enum class LineJoin(
-    public val nativeValue: GskLineJoin,
-) {
+public enum class LineJoin(public val nativeValue: GskLineJoin) {
     /**
      * Use a sharp angled corner
      */
@@ -43,12 +41,11 @@ public enum class LineJoin(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GskLineJoin): LineJoin =
-            when (nativeValue) {
-                GskLineJoin.GSK_LINE_JOIN_MITER -> MITER
-                GskLineJoin.GSK_LINE_JOIN_ROUND -> ROUND
-                GskLineJoin.GSK_LINE_JOIN_BEVEL -> BEVEL
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GskLineJoin): LineJoin = when (nativeValue) {
+            GskLineJoin.GSK_LINE_JOIN_MITER -> MITER
+            GskLineJoin.GSK_LINE_JOIN_ROUND -> ROUND
+            GskLineJoin.GSK_LINE_JOIN_BEVEL -> BEVEL
+            else -> error("invalid nativeValue")
+        }
     }
 }

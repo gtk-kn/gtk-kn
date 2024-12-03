@@ -36,9 +36,8 @@ import kotlin.Unit
  * @since 2.8
  */
 @WebKitVersion2_8
-public class Notification(
-    pointer: CPointer<WebKitNotification>,
-) : Object(pointer.reinterpret()),
+public class Notification(pointer: CPointer<WebKitNotification>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val webkitNotificationPointer: CPointer<WebKitNotification>
         get() = gPointer.reinterpret()
@@ -56,9 +55,8 @@ public class Notification(
          * @return the body for the notification
          * @since 2.8
          */
-        get() =
-            webkit_notification_get_body(webkitNotificationPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = webkit_notification_get_body(webkitNotificationPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * The unique id for the notification.
@@ -103,9 +101,8 @@ public class Notification(
          * @return the title for the notification
          * @since 2.8
          */
-        get() =
-            webkit_notification_get_title(webkitNotificationPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = webkit_notification_get_title(webkitNotificationPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Tells WebKit the notification has been clicked.
@@ -127,46 +124,6 @@ public class Notification(
     public fun close(): Unit = webkit_notification_close(webkitNotificationPointer.reinterpret())
 
     /**
-     * Obtains the body for the notification.
-     *
-     * @return the body for the notification
-     * @since 2.8
-     */
-    @WebKitVersion2_8
-    public fun getBody(): String =
-        webkit_notification_get_body(webkitNotificationPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Obtains the unique id for the notification.
-     *
-     * @return the unique id for the notification
-     * @since 2.8
-     */
-    @WebKitVersion2_8
-    public fun getId(): ULong = webkit_notification_get_id(webkitNotificationPointer.reinterpret())
-
-    /**
-     * Obtains the tag identifier for the notification.
-     *
-     * @return the tag for the notification
-     * @since 2.16
-     */
-    @WebKitVersion2_16
-    public fun getTag(): String? = webkit_notification_get_tag(webkitNotificationPointer.reinterpret())?.toKString()
-
-    /**
-     * Obtains the title for the notification.
-     *
-     * @return the title for the notification
-     * @since 2.8
-     */
-    @WebKitVersion2_8
-    public fun getTitle(): String =
-        webkit_notification_get_title(webkitNotificationPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
      * Emitted when a notification has been clicked. See webkit_notification_clicked().
      *
      * @param connectFlags A combination of [ConnectFlags]
@@ -174,10 +131,7 @@ public class Notification(
      * @since 2.12
      */
     @WebKitVersion2_12
-    public fun connectClicked(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "clicked",
@@ -198,10 +152,7 @@ public class Notification(
      * @since 2.8
      */
     @WebKitVersion2_8
-    public fun connectClosed(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "closed",
@@ -221,18 +172,18 @@ public class Notification(
     }
 }
 
-private val connectClickedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectClickedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectClosedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectClosedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

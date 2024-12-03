@@ -3,9 +3,7 @@ package org.gtkkn.bindings.gtksource
 
 import org.gtkkn.native.gtksource.GtkSourceSmartHomeEndType
 
-public enum class SmartHomeEndType(
-    public val nativeValue: GtkSourceSmartHomeEndType,
-) {
+public enum class SmartHomeEndType(public val nativeValue: GtkSourceSmartHomeEndType) {
     /**
      * smart-home-end disabled.
      */
@@ -33,13 +31,12 @@ public enum class SmartHomeEndType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkSourceSmartHomeEndType): SmartHomeEndType =
-            when (nativeValue) {
-                GtkSourceSmartHomeEndType.GTK_SOURCE_SMART_HOME_END_DISABLED -> DISABLED
-                GtkSourceSmartHomeEndType.GTK_SOURCE_SMART_HOME_END_BEFORE -> BEFORE
-                GtkSourceSmartHomeEndType.GTK_SOURCE_SMART_HOME_END_AFTER -> AFTER
-                GtkSourceSmartHomeEndType.GTK_SOURCE_SMART_HOME_END_ALWAYS -> ALWAYS
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkSourceSmartHomeEndType): SmartHomeEndType = when (nativeValue) {
+            GtkSourceSmartHomeEndType.GTK_SOURCE_SMART_HOME_END_DISABLED -> DISABLED
+            GtkSourceSmartHomeEndType.GTK_SOURCE_SMART_HOME_END_BEFORE -> BEFORE
+            GtkSourceSmartHomeEndType.GTK_SOURCE_SMART_HOME_END_AFTER -> AFTER
+            GtkSourceSmartHomeEndType.GTK_SOURCE_SMART_HOME_END_ALWAYS -> ALWAYS
+            else -> error("invalid nativeValue")
+        }
     }
 }

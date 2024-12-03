@@ -21,9 +21,7 @@ import org.gtkkn.native.gobject.GParamSpecOverride
  * @since 2.4
  */
 @GObjectVersion2_4
-public open class ParamSpecOverride(
-    pointer: CPointer<GParamSpecOverride>,
-) : ParamSpec(pointer.reinterpret()) {
+public open class ParamSpecOverride(pointer: CPointer<GParamSpecOverride>) : ParamSpec(pointer.reinterpret()) {
     public val gobjectParamSpecOverridePointer: CPointer<GParamSpecOverride>
         get() = gPointer.reinterpret()
 }

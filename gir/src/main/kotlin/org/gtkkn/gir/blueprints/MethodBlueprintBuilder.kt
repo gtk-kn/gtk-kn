@@ -74,13 +74,9 @@ class MethodBlueprintBuilder(
 
         val isOverride = nameMatchingSuperMethods.any {
             it.debugParameterSignature() == girMethod.debugParameterSignature()
-        }
+        } || kotlinName == "toString" && parameterBlueprints.isEmpty()
         if (isOverride) {
-            logger.warn { "Detected method override: ${girMethod.callable.name}" }
-        }
-
-        val isNameClash = nameMatchingSuperMethods.any {
-            it.debugParameterSignature() != girMethod.debugParameterSignature()
+            logger.debug { "Detected method override: ${girMethod.callable.name}" }
         }
 
         // method name
@@ -90,11 +86,7 @@ class MethodBlueprintBuilder(
         val nativeMemberName = MemberName(context.namespaceNativePackageName(girNamespace), nativeMethodName)
 
         return MethodBlueprint(
-            kotlinName = if (isNameClash) {
-                resolveNameClash(kotlinName)
-            } else {
-                kotlinName
-            },
+            kotlinName = kotlinName,
             nativeName = nativeMethodName,
             nativeMemberName = nativeMemberName,
             parameters = parameterBlueprints,
@@ -109,12 +101,6 @@ class MethodBlueprintBuilder(
             kdoc = context.processKdoc(girMethod.doc?.doc?.text),
             returnTypeKDoc = context.processKdoc(girMethod.returnValue.doc?.doc?.text),
         )
-    }
-
-    private fun resolveNameClash(originalName: String): String {
-        val result = "${originalName}_"
-        logger.error { "Name clash: renaming method $originalName to $result" }
-        return result
     }
 
     private fun checkSkippedMethod() {
@@ -132,7 +118,7 @@ class MethodBlueprintBuilder(
         girMethod.callable.cIdentifier?.let { context.checkIgnoredFunction(it) }
 
         if (girMethod.parameters == null) {
-            throw UnresolvableTypeException("Method has no parameters object") // TODO
+            throw UnresolvableTypeException("Method has no parameters object")
         }
 
         if (girMethod.parameters.instanceParameter == null) {
@@ -146,8 +132,7 @@ class MethodBlueprintBuilder(
  */
 private fun GirMethod.debugParameterSignature(): String {
     val paramsSignature = parameters?.parameters.orEmpty().joinToString(",") { it.debugSignature() }
-    val returnSignature = checkNotNull(returnValue).type.debugSignature()
-    return "$paramsSignature -> $returnSignature"
+    return "$paramsSignature"
 }
 
 private fun GirParameter.debugSignature(): String = when (type) {

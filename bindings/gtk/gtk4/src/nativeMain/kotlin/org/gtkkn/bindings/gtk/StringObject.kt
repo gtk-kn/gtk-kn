@@ -21,9 +21,8 @@ import kotlin.String
  * a [property@Gtk.StringObject:string] property that can be used
  * for property bindings and expressions.
  */
-public open class StringObject(
-    pointer: CPointer<GtkStringObject>,
-) : Object(pointer.reinterpret()),
+public open class StringObject(pointer: CPointer<GtkStringObject>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkStringObjectPointer: CPointer<GtkStringObject>
         get() = gPointer.reinterpret()
@@ -37,9 +36,8 @@ public open class StringObject(
          *
          * @return the string of @self
          */
-        get() =
-            gtk_string_object_get_string(gtkStringObjectPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_string_object_get_string(gtkStringObjectPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Wraps a string in an object for use with `GListModel`.
@@ -48,15 +46,6 @@ public open class StringObject(
      * @return a new `GtkStringObject`
      */
     public constructor(string: String) : this(gtk_string_object_new(string)!!.reinterpret())
-
-    /**
-     * Returns the string contained in a `GtkStringObject`.
-     *
-     * @return the string of @self
-     */
-    public open fun getString(): String =
-        gtk_string_object_get_string(gtkStringObjectPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
 
     public companion object : TypeCompanion<StringObject> {
         override val type: GeneratedClassKGType<StringObject> =

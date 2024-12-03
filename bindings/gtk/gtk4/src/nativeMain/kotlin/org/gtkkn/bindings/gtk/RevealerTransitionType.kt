@@ -7,9 +7,7 @@ import org.gtkkn.native.gtk.GtkRevealerTransitionType
  * These enumeration values describe the possible transitions
  * when the child of a `GtkRevealer` widget is shown or hidden.
  */
-public enum class RevealerTransitionType(
-    public val nativeValue: GtkRevealerTransitionType,
-) {
+public enum class RevealerTransitionType(public val nativeValue: GtkRevealerTransitionType) {
     /**
      * No transition
      */

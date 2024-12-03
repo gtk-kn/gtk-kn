@@ -22,9 +22,7 @@ import kotlin.UInt
  * that is, in Arabic text, accent glyphs follow the glyphs for the
  * base character.
  */
-public class GlyphVisAttr(
-    pointer: CPointer<PangoGlyphVisAttr>,
-) : Record {
+public class GlyphVisAttr(pointer: CPointer<PangoGlyphVisAttr>) : Record {
     public val pangoGlyphVisAttrPointer: CPointer<PangoGlyphVisAttr> = pointer
 
     /**

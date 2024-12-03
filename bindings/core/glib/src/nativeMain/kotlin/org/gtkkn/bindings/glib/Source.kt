@@ -78,9 +78,7 @@ import kotlin.Unit
  * - field `name`: Record field name is private
  * - field `priv`: Record field priv is private
  */
-public class Source(
-    pointer: CPointer<GSource>,
-) : Record {
+public class Source(pointer: CPointer<GSource>) : Record {
     public val glibSourcePointer: CPointer<GSource> = pointer
 
     /**
@@ -184,10 +182,9 @@ public class Source(
      *               source is associated, or null if the context has not
      *               yet been added to a source.
      */
-    public fun getContext(): MainContext? =
-        g_source_get_context(glibSourcePointer.reinterpret())?.run {
-            MainContext(reinterpret())
-        }
+    public fun getContext(): MainContext? = g_source_get_context(glibSourcePointer.reinterpret())?.run {
+        MainContext(reinterpret())
+    }
 
     /**
      * This function ignores @source and is otherwise the same as
@@ -347,10 +344,9 @@ public class Source(
      *
      * @return @source
      */
-    public fun ref(): Source =
-        g_source_ref(glibSourcePointer.reinterpret())!!.run {
-            Source(reinterpret())
-        }
+    public fun ref(): Source = g_source_ref(glibSourcePointer.reinterpret())!!.run {
+        Source(reinterpret())
+    }
 
     /**
      * Detaches @child_source from @source and destroys it.
@@ -402,13 +398,12 @@ public class Source(
      *
      * @param func a callback function
      */
-    public fun setCallback(func: SourceFunc): Unit =
-        g_source_set_callback(
-            glibSourcePointer.reinterpret(),
-            SourceFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public fun setCallback(func: SourceFunc): Unit = g_source_set_callback(
+        glibSourcePointer.reinterpret(),
+        SourceFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer(),
+        staticStableRefDestroy.reinterpret()
+    )
 
     /**
      * Sets whether a source can be called recursively. If @can_recurse is
@@ -537,10 +532,8 @@ public class Source(
          * @param structSize size of the #GSource structure to create.
          * @return the newly-created #GSource.
          */
-        public fun new(
-            sourceFuncs: SourceFuncs,
-            structSize: UInt,
-        ): Source = Source(g_source_new(sourceFuncs.glibSourceFuncsPointer.reinterpret(), structSize)!!.reinterpret())
+        public fun new(sourceFuncs: SourceFuncs, structSize: UInt): Source =
+            Source(g_source_new(sourceFuncs.glibSourceFuncsPointer.reinterpret(), structSize)!!.reinterpret())
 
         /**
          * Removes the source with the given ID from the default main context. You must
@@ -591,10 +584,7 @@ public class Source(
          * @since 2.26
          */
         @GLibVersion2_26
-        public fun setNameById(
-            tag: UInt,
-            name: String,
-        ): Unit = g_source_set_name_by_id(tag, name)
+        public fun setNameById(tag: UInt, name: String): Unit = g_source_set_name_by_id(tag, name)
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Source = Source(pointer.reinterpret())
     }

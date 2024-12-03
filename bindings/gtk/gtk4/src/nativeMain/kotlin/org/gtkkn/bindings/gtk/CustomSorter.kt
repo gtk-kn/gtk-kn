@@ -20,9 +20,8 @@ import kotlin.Unit
  * `GtkCustomSorter` is a `GtkSorter` implementation that sorts via a callback
  * function.
  */
-public open class CustomSorter(
-    pointer: CPointer<GtkCustomSorter>,
-) : Sorter(pointer.reinterpret()),
+public open class CustomSorter(pointer: CPointer<GtkCustomSorter>) :
+    Sorter(pointer.reinterpret()),
     KGTyped {
     public val gtkCustomSorterPointer: CPointer<GtkCustomSorter>
         get() = gPointer.reinterpret()
@@ -59,13 +58,12 @@ public open class CustomSorter(
      *
      * @param sortFunc function to sort items
      */
-    public open fun setSortFunc(sortFunc: CompareDataFunc): Unit =
-        gtk_custom_sorter_set_sort_func(
-            gtkCustomSorterPointer.reinterpret(),
-            CompareDataFuncFunc.reinterpret(),
-            StableRef.create(sortFunc).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public open fun setSortFunc(sortFunc: CompareDataFunc): Unit = gtk_custom_sorter_set_sort_func(
+        gtkCustomSorterPointer.reinterpret(),
+        CompareDataFuncFunc.reinterpret(),
+        StableRef.create(sortFunc).asCPointer(),
+        staticStableRefDestroy.reinterpret()
+    )
 
     public companion object : TypeCompanion<CustomSorter> {
         override val type: GeneratedClassKGType<CustomSorter> =

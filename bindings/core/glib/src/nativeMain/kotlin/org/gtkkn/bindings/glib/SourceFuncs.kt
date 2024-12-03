@@ -39,9 +39,7 @@ import org.gtkkn.native.glib.GSourceFuncs
  * - field `closure_callback`: Record field closure_callback is private
  * - field `closure_marshal`: Record field closure_marshal is private
  */
-public class SourceFuncs(
-    pointer: CPointer<GSourceFuncs>,
-) : Record {
+public class SourceFuncs(pointer: CPointer<GSourceFuncs>) : Record {
     public val glibSourceFuncsPointer: CPointer<GSourceFuncs> = pointer
 
     public companion object : RecordCompanion<SourceFuncs, GSourceFuncs> {

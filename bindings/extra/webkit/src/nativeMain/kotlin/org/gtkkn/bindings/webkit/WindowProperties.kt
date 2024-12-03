@@ -82,9 +82,8 @@ import kotlin.Unit
  *
  * - method `geometry`: Property has no getter nor setter
  */
-public class WindowProperties(
-    pointer: CPointer<WebKitWindowProperties>,
-) : Object(pointer.reinterpret()),
+public class WindowProperties(pointer: CPointer<WebKitWindowProperties>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val webkitWindowPropertiesPointer: CPointer<WebKitWindowProperties>
         get() = gPointer.reinterpret()
@@ -109,10 +108,9 @@ public class WindowProperties(
          *
          * @return true if locationbar should be visible or false otherwise.
          */
-        get() =
-            webkit_window_properties_get_locationbar_visible(
-                webkitWindowPropertiesPointer.reinterpret()
-            ).asBoolean()
+        get() = webkit_window_properties_get_locationbar_visible(
+            webkitWindowPropertiesPointer.reinterpret()
+        ).asBoolean()
 
     /**
      * Whether the menubar should be visible for the window.
@@ -170,71 +168,14 @@ public class WindowProperties(
         get() = webkit_window_properties_get_toolbar_visible(webkitWindowPropertiesPointer.reinterpret()).asBoolean()
 
     /**
-     * Get whether the window should be shown in fullscreen state or not.
-     *
-     * @return true if the window should be fullscreen or false otherwise.
-     */
-    public fun getFullscreen(): Boolean =
-        webkit_window_properties_get_fullscreen(webkitWindowPropertiesPointer.reinterpret()).asBoolean()
-
-    /**
      * Get the geometry the window should have on the screen when shown.
      *
      * @param geometry return location for the window geometry
      */
-    public fun getGeometry(geometry: Rectangle): Unit =
-        webkit_window_properties_get_geometry(
-            webkitWindowPropertiesPointer.reinterpret(),
-            geometry.gdkRectanglePointer.reinterpret()
-        )
-
-    /**
-     * Get whether the window should have the locationbar visible or not.
-     *
-     * @return true if locationbar should be visible or false otherwise.
-     */
-    public fun getLocationbarVisible(): Boolean =
-        webkit_window_properties_get_locationbar_visible(webkitWindowPropertiesPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get whether the window should have the menubar visible or not.
-     *
-     * @return true if menubar should be visible or false otherwise.
-     */
-    public fun getMenubarVisible(): Boolean =
-        webkit_window_properties_get_menubar_visible(webkitWindowPropertiesPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get whether the window should be resizable by the user or not.
-     *
-     * @return true if the window should be resizable or false otherwise.
-     */
-    public fun getResizable(): Boolean =
-        webkit_window_properties_get_resizable(webkitWindowPropertiesPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get whether the window should have the scrollbars visible or not.
-     *
-     * @return true if scrollbars should be visible or false otherwise.
-     */
-    public fun getScrollbarsVisible(): Boolean =
-        webkit_window_properties_get_scrollbars_visible(webkitWindowPropertiesPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get whether the window should have the statusbar visible or not.
-     *
-     * @return true if statusbar should be visible or false otherwise.
-     */
-    public fun getStatusbarVisible(): Boolean =
-        webkit_window_properties_get_statusbar_visible(webkitWindowPropertiesPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get whether the window should have the toolbar visible or not.
-     *
-     * @return true if toolbar should be visible or false otherwise.
-     */
-    public fun getToolbarVisible(): Boolean =
-        webkit_window_properties_get_toolbar_visible(webkitWindowPropertiesPointer.reinterpret()).asBoolean()
+    public fun getGeometry(geometry: Rectangle): Unit = webkit_window_properties_get_geometry(
+        webkitWindowPropertiesPointer.reinterpret(),
+        geometry.gdkRectanglePointer.reinterpret()
+    )
 
     public companion object : TypeCompanion<WindowProperties> {
         override val type: GeneratedClassKGType<WindowProperties> =

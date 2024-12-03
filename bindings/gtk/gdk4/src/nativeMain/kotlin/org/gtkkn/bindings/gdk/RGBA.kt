@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -15,6 +16,7 @@ import org.gtkkn.native.gdk.gdk_rgba_hash
 import org.gtkkn.native.gdk.gdk_rgba_is_clear
 import org.gtkkn.native.gdk.gdk_rgba_is_opaque
 import org.gtkkn.native.gdk.gdk_rgba_parse
+import org.gtkkn.native.gdk.gdk_rgba_to_string
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.String
@@ -35,11 +37,8 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `p2`: RGBA
- * - method `to_string`: C function gdk_rgba_to_string is ignored
  */
-public class RGBA(
-    pointer: CPointer<GdkRGBA>,
-) : Record {
+public class RGBA(pointer: CPointer<GdkRGBA>) : Record {
     public val gdkRGBAPointer: CPointer<GdkRGBA> = pointer
 
     /**
@@ -86,10 +85,9 @@ public class RGBA(
      *
      * @return A newly allocated `GdkRGBA`, with the same contents as @rgba
      */
-    public fun copy(): RGBA =
-        gdk_rgba_copy(gdkRGBAPointer.reinterpret())!!.run {
-            RGBA(reinterpret())
-        }
+    public fun copy(): RGBA = gdk_rgba_copy(gdkRGBAPointer.reinterpret())!!.run {
+        RGBA(reinterpret())
+    }
 
     /**
      * Frees a `GdkRGBA`.
@@ -149,6 +147,26 @@ public class RGBA(
      * @return true if the parsing succeeded
      */
     public fun parse(spec: String): Boolean = gdk_rgba_parse(gdkRGBAPointer.reinterpret(), spec).asBoolean()
+
+    /**
+     * Returns a textual specification of @rgba in the form
+     * `rgb(r,g,b)` or `rgba(r,g,b,a)`, where “r”, “g”, “b” and
+     * “a” represent the red, green, blue and alpha values
+     * respectively. “r”, “g”, and “b” are represented as integers
+     * in the range 0 to 255, and “a” is represented as a floating
+     * point value in the range 0 to 1.
+     *
+     * These string forms are string forms that are supported by
+     * the CSS3 colors module, and can be parsed by [method@Gdk.RGBA.parse].
+     *
+     * Note that this string representation may lose some precision,
+     * since “r”, “g” and “b” are represented as 8-bit integers. If
+     * this is a concern, you should use a different representation.
+     *
+     * @return A newly allocated text string
+     */
+    override fun toString(): String =
+        gdk_rgba_to_string(gdkRGBAPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     public companion object : RecordCompanion<RGBA, GdkRGBA> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): RGBA = RGBA(pointer.reinterpret())

@@ -16,9 +16,8 @@ import org.gtkkn.native.gtk.gtk_cclosure_expression_get_type
  *
  * - parameter `marshal`: GObject.ClosureMarshal
  */
-public open class CClosureExpression(
-    pointer: CPointer<GtkCClosureExpression>,
-) : Expression(pointer.reinterpret()),
+public open class CClosureExpression(pointer: CPointer<GtkCClosureExpression>) :
+    Expression(pointer.reinterpret()),
     KGTyped {
     public val gtkCClosureExpressionPointer: CPointer<GtkCClosureExpression>
         get() = gPointer.reinterpret()

@@ -13,9 +13,7 @@ import kotlin.Unit
  * Accessible relations can be references to other widgets,
  * integers or strings.
  */
-public enum class AccessibleRelation(
-    public val nativeValue: GtkAccessibleRelation,
-) {
+public enum class AccessibleRelation(public val nativeValue: GtkAccessibleRelation) {
     /**
      * Identifies the currently active
      *    element when focus is on a composite widget, combobox, textbox, group,
@@ -133,38 +131,29 @@ public enum class AccessibleRelation(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkAccessibleRelation): AccessibleRelation =
-            when (nativeValue) {
-                GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_ACTIVE_DESCENDANT -> ACTIVE_DESCENDANT
-                GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_COL_COUNT -> COL_COUNT
-                GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_COL_INDEX -> COL_INDEX
-                GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_COL_INDEX_TEXT -> COL_INDEX_TEXT
-                GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_COL_SPAN -> COL_SPAN
-                GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_CONTROLS -> CONTROLS
-                GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_DESCRIBED_BY -> DESCRIBED_BY
-                GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_DETAILS -> DETAILS
-                GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_ERROR_MESSAGE -> ERROR_MESSAGE
-                GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_FLOW_TO -> FLOW_TO
-                GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_LABELLED_BY -> LABELLED_BY
-                GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_OWNS -> OWNS
-                GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_POS_IN_SET -> POS_IN_SET
-                GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_ROW_COUNT -> ROW_COUNT
-                GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_ROW_INDEX -> ROW_INDEX
-                GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_ROW_INDEX_TEXT -> ROW_INDEX_TEXT
-                GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_ROW_SPAN -> ROW_SPAN
-                GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_SET_SIZE -> SET_SIZE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkAccessibleRelation): AccessibleRelation = when (nativeValue) {
+            GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_ACTIVE_DESCENDANT -> ACTIVE_DESCENDANT
+            GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_COL_COUNT -> COL_COUNT
+            GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_COL_INDEX -> COL_INDEX
+            GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_COL_INDEX_TEXT -> COL_INDEX_TEXT
+            GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_COL_SPAN -> COL_SPAN
+            GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_CONTROLS -> CONTROLS
+            GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_DESCRIBED_BY -> DESCRIBED_BY
+            GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_DETAILS -> DETAILS
+            GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_ERROR_MESSAGE -> ERROR_MESSAGE
+            GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_FLOW_TO -> FLOW_TO
+            GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_LABELLED_BY -> LABELLED_BY
+            GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_OWNS -> OWNS
+            GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_POS_IN_SET -> POS_IN_SET
+            GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_ROW_COUNT -> ROW_COUNT
+            GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_ROW_INDEX -> ROW_INDEX
+            GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_ROW_INDEX_TEXT -> ROW_INDEX_TEXT
+            GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_ROW_SPAN -> ROW_SPAN
+            GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_SET_SIZE -> SET_SIZE
+            else -> error("invalid nativeValue")
+        }
 
-        /**
-         *
-         *
-         * @param relation
-         * @param value
-         */
-        public fun initValue(
-            relation: AccessibleRelation,
-            `value`: Value,
-        ): Unit = gtk_accessible_relation_init_value(relation.nativeValue, `value`.gobjectValuePointer.reinterpret())
+        public fun initValue(relation: AccessibleRelation, `value`: Value): Unit =
+            gtk_accessible_relation_init_value(relation.nativeValue, `value`.gobjectValuePointer.reinterpret())
     }
 }

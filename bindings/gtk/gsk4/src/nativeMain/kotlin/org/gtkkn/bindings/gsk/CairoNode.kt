@@ -19,9 +19,8 @@ import org.gtkkn.native.gsk.gsk_cairo_node_new
  * - method `get_draw_context`: Return type cairo.Context is unsupported
  * - method `get_surface`: Return type cairo.Surface is unsupported
  */
-public open class CairoNode(
-    pointer: CPointer<GskCairoNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class CairoNode(pointer: CPointer<GskCairoNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskCairoNodePointer: CPointer<GskCairoNode>
         get() = gPointer.reinterpret()

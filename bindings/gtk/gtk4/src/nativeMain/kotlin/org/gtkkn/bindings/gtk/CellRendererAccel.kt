@@ -40,9 +40,8 @@ import kotlin.Unit
  * - method `accel-mods`: Property has no getter nor setter
  * - method `keycode`: Property has no getter nor setter
  */
-public open class CellRendererAccel(
-    pointer: CPointer<GtkCellRendererAccel>,
-) : CellRendererText(pointer.reinterpret()),
+public open class CellRendererAccel(pointer: CPointer<GtkCellRendererAccel>) :
+    CellRendererText(pointer.reinterpret()),
     KGTyped {
     public val gtkCellRendererAccelPointer: CPointer<GtkCellRendererAccel>
         get() = gPointer.reinterpret()
@@ -63,15 +62,14 @@ public open class CellRendererAccel(
     public fun connectAccelCleared(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (pathString: String) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "accel-cleared",
-            connectAccelClearedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "accel-cleared",
+        connectAccelClearedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Gets emitted when the user has selected a new accelerator.
@@ -87,15 +85,14 @@ public open class CellRendererAccel(
             accelMods: ModifierType,
             hardwareKeycode: UInt,
         ) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "accel-edited",
-            connectAccelEditedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "accel-edited",
+        connectAccelEditedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<CellRendererAccel> {
         override val type: GeneratedClassKGType<CellRendererAccel> =
@@ -116,7 +113,8 @@ private val connectAccelClearedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> U
         userData.asStableRef<(pathString: String) -> Unit>().get().invoke(
             pathString?.toKString() ?: error("Expected not null string")
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 private val connectAccelEditedFunc: CPointer<
     CFunction<
@@ -126,32 +124,29 @@ private val connectAccelEditedFunc: CPointer<
             GdkModifierType,
             UInt,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            _: COpaquePointer,
-            pathString: CPointer<ByteVar>?,
+        >
+    > = staticCFunction {
+        _: COpaquePointer,
+        pathString: CPointer<ByteVar>?,
+        accelKey: UInt,
+        accelMods: GdkModifierType,
+        hardwareKeycode: UInt,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            pathString: String,
             accelKey: UInt,
-            accelMods: GdkModifierType,
+            accelMods: ModifierType,
             hardwareKeycode: UInt,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    pathString: String,
-                    accelKey: UInt,
-                    accelMods: ModifierType,
-                    hardwareKeycode: UInt,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                pathString?.toKString() ?: error("Expected not null string"),
-                accelKey,
-                accelMods.run {
-                    ModifierType(this)
-                },
-                hardwareKeycode
-            )
-    }.reinterpret()
+        ) -> Unit
+        >().get().invoke(
+        pathString?.toKString() ?: error("Expected not null string"),
+        accelKey,
+        accelMods.run {
+            ModifierType(this)
+        },
+        hardwareKeycode
+    )
+}
+    .reinterpret()

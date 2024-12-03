@@ -9,9 +9,7 @@ import org.gtkkn.native.javascriptcore.JSCTypedArrayType
  * @since 2.38
  */
 @JavaScriptCoreVersion2_38
-public enum class TypedArrayType(
-    public val nativeValue: JSCTypedArrayType,
-) {
+public enum class TypedArrayType(public val nativeValue: JSCTypedArrayType) {
     /**
      * Not a typed array, or type unsupported.
      */
@@ -74,21 +72,20 @@ public enum class TypedArrayType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: JSCTypedArrayType): TypedArrayType =
-            when (nativeValue) {
-                JSCTypedArrayType.JSC_TYPED_ARRAY_NONE -> NONE
-                JSCTypedArrayType.JSC_TYPED_ARRAY_INT8 -> INT8
-                JSCTypedArrayType.JSC_TYPED_ARRAY_INT16 -> INT16
-                JSCTypedArrayType.JSC_TYPED_ARRAY_INT32 -> INT32
-                JSCTypedArrayType.JSC_TYPED_ARRAY_INT64 -> INT64
-                JSCTypedArrayType.JSC_TYPED_ARRAY_UINT8 -> UINT8
-                JSCTypedArrayType.JSC_TYPED_ARRAY_UINT8_CLAMPED -> UINT8_CLAMPED
-                JSCTypedArrayType.JSC_TYPED_ARRAY_UINT16 -> UINT16
-                JSCTypedArrayType.JSC_TYPED_ARRAY_UINT32 -> UINT32
-                JSCTypedArrayType.JSC_TYPED_ARRAY_UINT64 -> UINT64
-                JSCTypedArrayType.JSC_TYPED_ARRAY_FLOAT32 -> FLOAT32
-                JSCTypedArrayType.JSC_TYPED_ARRAY_FLOAT64 -> FLOAT64
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: JSCTypedArrayType): TypedArrayType = when (nativeValue) {
+            JSCTypedArrayType.JSC_TYPED_ARRAY_NONE -> NONE
+            JSCTypedArrayType.JSC_TYPED_ARRAY_INT8 -> INT8
+            JSCTypedArrayType.JSC_TYPED_ARRAY_INT16 -> INT16
+            JSCTypedArrayType.JSC_TYPED_ARRAY_INT32 -> INT32
+            JSCTypedArrayType.JSC_TYPED_ARRAY_INT64 -> INT64
+            JSCTypedArrayType.JSC_TYPED_ARRAY_UINT8 -> UINT8
+            JSCTypedArrayType.JSC_TYPED_ARRAY_UINT8_CLAMPED -> UINT8_CLAMPED
+            JSCTypedArrayType.JSC_TYPED_ARRAY_UINT16 -> UINT16
+            JSCTypedArrayType.JSC_TYPED_ARRAY_UINT32 -> UINT32
+            JSCTypedArrayType.JSC_TYPED_ARRAY_UINT64 -> UINT64
+            JSCTypedArrayType.JSC_TYPED_ARRAY_FLOAT32 -> FLOAT32
+            JSCTypedArrayType.JSC_TYPED_ARRAY_FLOAT64 -> FLOAT64
+            else -> error("invalid nativeValue")
+        }
     }
 }

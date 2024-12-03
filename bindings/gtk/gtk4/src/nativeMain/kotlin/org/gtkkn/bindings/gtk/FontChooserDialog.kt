@@ -39,9 +39,8 @@ import kotlin.String
  * `GtkFontChooserDialog` has a single CSS node with the name `window` and style
  * class `.fontchooser`.
  */
-public open class FontChooserDialog(
-    pointer: CPointer<GtkFontChooserDialog>,
-) : Dialog(pointer.reinterpret()),
+public open class FontChooserDialog(pointer: CPointer<GtkFontChooserDialog>) :
+    Dialog(pointer.reinterpret()),
     FontChooser,
     KGTyped {
     public val gtkFontChooserDialogPointer: CPointer<GtkFontChooserDialog>

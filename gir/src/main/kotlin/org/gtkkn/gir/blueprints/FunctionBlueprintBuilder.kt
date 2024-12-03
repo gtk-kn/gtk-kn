@@ -72,7 +72,13 @@ class FunctionBlueprintBuilder(
         }
 
         val nativeName = girFunction.callable.cIdentifier
-        val nativeMemberName = MemberName(context.namespaceNativePackageName(girNamespace), nativeName)
+        val nativeMemberPackageName = if (nativeName == "g_strv_get_type" || nativeName == "g_variant_get_gtype") {
+            // `g_strv_get_type` and `g_variant_get_gtype` are defined in `gobject/glib-types.h` but used in GLib
+            "org.gtkkn.native.gobject"
+        } else {
+            context.namespaceNativePackageName(girNamespace)
+        }
+        val nativeMemberName = MemberName(nativeMemberPackageName, nativeName)
         val kotlinName = context.kotlinizeMethodName(girFunction.callable.shadows ?: girFunction.callable.name)
 
         return FunctionBlueprint(

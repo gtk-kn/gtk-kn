@@ -77,9 +77,8 @@ import kotlin.Unit
  *
  * - method `label-xalign`: Property has no getter nor setter
  */
-public open class Frame(
-    pointer: CPointer<GtkFrame>,
-) : Widget(pointer.reinterpret()),
+public open class Frame(pointer: CPointer<GtkFrame>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkFramePointer: CPointer<GtkFrame>
         get() = gPointer.reinterpret()
@@ -102,10 +101,9 @@ public open class Frame(
          *
          * @return the child widget of @frame
          */
-        get() =
-            gtk_frame_get_child(gtkFramePointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = gtk_frame_get_child(gtkFramePointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the child widget of @frame.
@@ -147,10 +145,9 @@ public open class Frame(
          *
          * @return the label widget
          */
-        get() =
-            gtk_frame_get_label_widget(gtkFramePointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = gtk_frame_get_label_widget(gtkFramePointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the label widget for the frame.
@@ -175,59 +172,11 @@ public open class Frame(
     public constructor(label: String? = null) : this(gtk_frame_new(label)!!.reinterpret())
 
     /**
-     * Gets the child widget of @frame.
-     *
-     * @return the child widget of @frame
-     */
-    public open fun getChild(): Widget? =
-        gtk_frame_get_child(gtkFramePointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Returns the frame labels text.
-     *
-     * If the frame's label widget is not a `GtkLabel`, null
-     * is returned.
-     *
-     * @return the text in the label, or null if there
-     *    was no label widget or the label widget was not a `GtkLabel`.
-     *    This string is owned by GTK and must not be modified or freed.
-     */
-    public open fun getLabel(): String? = gtk_frame_get_label(gtkFramePointer.reinterpret())?.toKString()
-
-    /**
      * Retrieves the X alignment of the frame’s label.
      *
      * @return the frames X alignment
      */
     public open fun getLabelAlign(): Float = gtk_frame_get_label_align(gtkFramePointer.reinterpret())
-
-    /**
-     * Retrieves the label widget for the frame.
-     *
-     * @return the label widget
-     */
-    public open fun getLabelWidget(): Widget? =
-        gtk_frame_get_label_widget(gtkFramePointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Sets the child widget of @frame.
-     *
-     * @param child the child widget
-     */
-    public open fun setChild(child: Widget? = null): Unit =
-        gtk_frame_set_child(gtkFramePointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
-
-    /**
-     * Creates a new `GtkLabel` with the @label and sets it as the frame's
-     * label widget.
-     *
-     * @param label the text to use as the label of the frame
-     */
-    public open fun setLabel(label: String? = null): Unit = gtk_frame_set_label(gtkFramePointer.reinterpret(), label)
 
     /**
      * Sets the X alignment of the frame widget’s label.
@@ -240,17 +189,6 @@ public open class Frame(
      */
     public open fun setLabelAlign(xalign: Float): Unit =
         gtk_frame_set_label_align(gtkFramePointer.reinterpret(), xalign)
-
-    /**
-     * Sets the label widget for the frame.
-     *
-     * This is the widget that will appear embedded in the top edge
-     * of the frame as a title.
-     *
-     * @param labelWidget the new label widget
-     */
-    public open fun setLabelWidget(labelWidget: Widget? = null): Unit =
-        gtk_frame_set_label_widget(gtkFramePointer.reinterpret(), labelWidget?.gtkWidgetPointer?.reinterpret())
 
     public companion object : TypeCompanion<Frame> {
         override val type: GeneratedClassKGType<Frame> =

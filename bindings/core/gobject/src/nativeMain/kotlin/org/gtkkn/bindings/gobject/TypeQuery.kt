@@ -18,9 +18,7 @@ import kotlin.ULong
  *
  * See also: g_type_query()
  */
-public class TypeQuery(
-    pointer: CPointer<GTypeQuery>,
-) : Record {
+public class TypeQuery(pointer: CPointer<GTypeQuery>) : Record {
     public val gobjectTypeQueryPointer: CPointer<GTypeQuery> = pointer
 
     /**

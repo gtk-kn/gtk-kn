@@ -75,13 +75,12 @@ public interface PollableOutputStream :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun createSource(cancellable: Cancellable? = null): Source =
-        g_pollable_output_stream_create_source(
-            gioPollableOutputStreamPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret()
-        )!!.run {
-            Source(reinterpret())
-        }
+    public fun createSource(cancellable: Cancellable? = null): Source = g_pollable_output_stream_create_source(
+        gioPollableOutputStreamPointer.reinterpret(),
+        cancellable?.gioCancellablePointer?.reinterpret()
+    )!!.run {
+        Source(reinterpret())
+    }
 
     /**
      * Checks if @stream can be written.
@@ -106,9 +105,7 @@ public interface PollableOutputStream :
     public fun isWritable(): Boolean =
         g_pollable_output_stream_is_writable(gioPollableOutputStreamPointer.reinterpret()).asBoolean()
 
-    private data class Wrapper(
-        private val pointer: CPointer<GPollableOutputStream>,
-    ) : PollableOutputStream {
+    private data class Wrapper(private val pointer: CPointer<GPollableOutputStream>) : PollableOutputStream {
         override val gioPollableOutputStreamPointer: CPointer<GPollableOutputStream> = pointer
     }
 

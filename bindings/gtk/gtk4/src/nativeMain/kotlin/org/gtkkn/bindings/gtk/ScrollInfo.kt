@@ -29,9 +29,7 @@ import kotlin.Unit
  * @since 4.12
  */
 @GtkVersion4_12
-public class ScrollInfo(
-    pointer: CPointer<GtkScrollInfo>,
-) : Record {
+public class ScrollInfo(pointer: CPointer<GtkScrollInfo>) : Record {
     public val gtkScrollInfoPointer: CPointer<GtkScrollInfo> = pointer
 
     /**
@@ -61,10 +59,9 @@ public class ScrollInfo(
      * @since 4.12
      */
     @GtkVersion4_12
-    public fun ref(): ScrollInfo =
-        gtk_scroll_info_ref(gtkScrollInfoPointer.reinterpret())!!.run {
-            ScrollInfo(reinterpret())
-        }
+    public fun ref(): ScrollInfo = gtk_scroll_info_ref(gtkScrollInfoPointer.reinterpret())!!.run {
+        ScrollInfo(reinterpret())
+    }
 
     /**
      * Turns horizontal scrolling on or off.

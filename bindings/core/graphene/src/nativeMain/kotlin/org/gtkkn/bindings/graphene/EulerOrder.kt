@@ -12,9 +12,7 @@ import org.gtkkn.native.graphene.graphene_euler_order_t
  * @since 1.2
  */
 @GrapheneVersion1_2
-public enum class EulerOrder(
-    public val nativeValue: graphene_euler_order_t,
-) {
+public enum class EulerOrder(public val nativeValue: graphene_euler_order_t) {
     /**
      * Rotate in the default order; the
      *   default order is one of the following enumeration values
@@ -179,40 +177,39 @@ public enum class EulerOrder(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: graphene_euler_order_t): EulerOrder =
-            when (nativeValue) {
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_DEFAULT -> DEFAULT
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_XYZ -> XYZ
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_YZX -> YZX
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_ZXY -> ZXY
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_XZY -> XZY
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_YXZ -> YXZ
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_ZYX -> ZYX
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_SXYZ -> SXYZ
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_SXYX -> SXYX
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_SXZY -> SXZY
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_SXZX -> SXZX
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_SYZX -> SYZX
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_SYZY -> SYZY
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_SYXZ -> SYXZ
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_SYXY -> SYXY
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_SZXY -> SZXY
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_SZXZ -> SZXZ
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_SZYX -> SZYX
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_SZYZ -> SZYZ
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_RZYX -> RZYX
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_RXYX -> RXYX
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_RYZX -> RYZX
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_RXZX -> RXZX
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_RXZY -> RXZY
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_RYZY -> RYZY
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_RZXY -> RZXY
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_RYXY -> RYXY
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_RYXZ -> RYXZ
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_RZXZ -> RZXZ
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_RXYZ -> RXYZ
-                graphene_euler_order_t.GRAPHENE_EULER_ORDER_RZYZ -> RZYZ
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: graphene_euler_order_t): EulerOrder = when (nativeValue) {
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_DEFAULT -> DEFAULT
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_XYZ -> XYZ
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_YZX -> YZX
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_ZXY -> ZXY
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_XZY -> XZY
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_YXZ -> YXZ
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_ZYX -> ZYX
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_SXYZ -> SXYZ
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_SXYX -> SXYX
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_SXZY -> SXZY
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_SXZX -> SXZX
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_SYZX -> SYZX
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_SYZY -> SYZY
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_SYXZ -> SYXZ
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_SYXY -> SYXY
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_SZXY -> SZXY
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_SZXZ -> SZXZ
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_SZYX -> SZYX
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_SZYZ -> SZYZ
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_RZYX -> RZYX
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_RXYX -> RXYX
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_RYZX -> RYZX
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_RXZX -> RXZX
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_RXZY -> RXZY
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_RYZY -> RYZY
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_RZXY -> RZXY
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_RYXY -> RYXY
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_RYXZ -> RYXZ
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_RZXZ -> RZXZ
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_RXYZ -> RXYZ
+            graphene_euler_order_t.GRAPHENE_EULER_ORDER_RZYZ -> RZYZ
+            else -> error("invalid nativeValue")
+        }
     }
 }

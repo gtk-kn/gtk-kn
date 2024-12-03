@@ -50,9 +50,8 @@ import kotlin.Unit
  *
  * - parameter `y`: y: Out parameter is not supported
  */
-public open class GutterLines(
-    pointer: CPointer<GtkSourceGutterLines>,
-) : Object(pointer.reinterpret()),
+public open class GutterLines(pointer: CPointer<GtkSourceGutterLines>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtksourceGutterLinesPointer: CPointer<GtkSourceGutterLines>
         get() = gPointer.reinterpret()
@@ -68,10 +67,8 @@ public open class GutterLines(
      * @param line a line number starting from zero
      * @param name a class name
      */
-    public open fun addClass(
-        line: UInt,
-        name: String,
-    ): Unit = gtk_source_gutter_lines_add_class(gtksourceGutterLinesPointer.reinterpret(), line, name)
+    public open fun addClass(line: UInt, name: String): Unit =
+        gtk_source_gutter_lines_add_class(gtksourceGutterLinesPointer.reinterpret(), line, name)
 
     /**
      * Adds the class denoted by @qname to @line.
@@ -85,10 +82,8 @@ public open class GutterLines(
      * @param line a line number starting from zero
      * @param qname a class name as a #GQuark
      */
-    public open fun addQclass(
-        line: UInt,
-        qname: Quark,
-    ): Unit = gtk_source_gutter_lines_add_qclass(gtksourceGutterLinesPointer.reinterpret(), line, qname)
+    public open fun addQclass(line: UInt, qname: Quark): Unit =
+        gtk_source_gutter_lines_add_qclass(gtksourceGutterLinesPointer.reinterpret(), line, qname)
 
     /**
      * Gets the [class@Gtk.TextBuffer] that the `GtkSourceGutterLines` represents.
@@ -114,15 +109,11 @@ public open class GutterLines(
      * @param iter a location for a #GtkTextIter
      * @param line the line number
      */
-    public open fun getIterAtLine(
-        iter: TextIter,
-        line: UInt,
-    ): Unit =
-        gtk_source_gutter_lines_get_iter_at_line(
-            gtksourceGutterLinesPointer.reinterpret(),
-            iter.gtkTextIterPointer.reinterpret(),
-            line
-        )
+    public open fun getIterAtLine(iter: TextIter, line: UInt): Unit = gtk_source_gutter_lines_get_iter_at_line(
+        gtksourceGutterLinesPointer.reinterpret(),
+        iter.gtkTextIterPointer.reinterpret(),
+        line
+    )
 
     /**
      * Gets the line number (starting from 0) for the last line that is
@@ -167,10 +158,8 @@ public open class GutterLines(
      * @param name a class name that may be converted, to a #GQuark
      * @return true if @line contains @name
      */
-    public open fun hasClass(
-        line: UInt,
-        name: String,
-    ): Boolean = gtk_source_gutter_lines_has_class(gtksourceGutterLinesPointer.reinterpret(), line, name).asBoolean()
+    public open fun hasClass(line: UInt, name: String): Boolean =
+        gtk_source_gutter_lines_has_class(gtksourceGutterLinesPointer.reinterpret(), line, name).asBoolean()
 
     /**
      * Checks to see if [method@GutterLines.add_qclass] was called with
@@ -180,10 +169,8 @@ public open class GutterLines(
      * @param qname a #GQuark containing the class name
      * @return true if @line contains @qname
      */
-    public open fun hasQclass(
-        line: UInt,
-        qname: Quark,
-    ): Boolean = gtk_source_gutter_lines_has_qclass(gtksourceGutterLinesPointer.reinterpret(), line, qname).asBoolean()
+    public open fun hasQclass(line: UInt, qname: Quark): Boolean =
+        gtk_source_gutter_lines_has_qclass(gtksourceGutterLinesPointer.reinterpret(), line, qname).asBoolean()
 
     /**
      * Checks to see if @line contains the insertion cursor.
@@ -224,10 +211,8 @@ public open class GutterLines(
      * @param line a line number starting from zero
      * @param name a class name
      */
-    public open fun removeClass(
-        line: UInt,
-        name: String,
-    ): Unit = gtk_source_gutter_lines_remove_class(gtksourceGutterLinesPointer.reinterpret(), line, name)
+    public open fun removeClass(line: UInt, name: String): Unit =
+        gtk_source_gutter_lines_remove_class(gtksourceGutterLinesPointer.reinterpret(), line, name)
 
     /**
      * Reverses a call to [method@GutterLines.add_qclass] by removing
@@ -236,10 +221,8 @@ public open class GutterLines(
      * @param line a line number starting from zero
      * @param qname a #GQuark to remove from @line
      */
-    public open fun removeQclass(
-        line: UInt,
-        qname: Quark,
-    ): Unit = gtk_source_gutter_lines_remove_qclass(gtksourceGutterLinesPointer.reinterpret(), line, qname)
+    public open fun removeQclass(line: UInt, qname: Quark): Unit =
+        gtk_source_gutter_lines_remove_qclass(gtksourceGutterLinesPointer.reinterpret(), line, qname)
 
     public companion object : TypeCompanion<GutterLines> {
         override val type: GeneratedClassKGType<GutterLines> =

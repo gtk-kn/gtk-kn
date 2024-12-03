@@ -17,9 +17,7 @@ import kotlin.UInt
  *
  * - field `pdata`: gpointer
  */
-public class PtrArray(
-    pointer: CPointer<GPtrArray>,
-) : Record {
+public class PtrArray(pointer: CPointer<GPtrArray>) : Record {
     public val glibPtrArrayPointer: CPointer<GPtrArray> = pointer
 
     /**

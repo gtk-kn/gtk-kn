@@ -22,9 +22,7 @@ import org.gtkkn.native.webkit.WebKitWebsiteDataTypes
  * Enum values with flags representing types of Website data.
  * @since 2.16
  */
-public class WebsiteDataTypes(
-    public val mask: WebKitWebsiteDataTypes,
-) : Bitfield<WebsiteDataTypes> {
+public class WebsiteDataTypes(public val mask: WebKitWebsiteDataTypes) : Bitfield<WebsiteDataTypes> {
     override infix fun or(other: WebsiteDataTypes): WebsiteDataTypes = WebsiteDataTypes(mask or other.mask)
 
     @WebKitVersion2_16

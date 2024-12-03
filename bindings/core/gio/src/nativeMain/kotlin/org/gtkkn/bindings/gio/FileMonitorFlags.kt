@@ -12,9 +12,7 @@ import org.gtkkn.native.gio.G_FILE_MONITOR_WATCH_MOVES
 /**
  * Flags used to set what a #GFileMonitor will watch for.
  */
-public class FileMonitorFlags(
-    public val mask: GFileMonitorFlags,
-) : Bitfield<FileMonitorFlags> {
+public class FileMonitorFlags(public val mask: GFileMonitorFlags) : Bitfield<FileMonitorFlags> {
     override infix fun or(other: FileMonitorFlags): FileMonitorFlags = FileMonitorFlags(mask or other.mask)
 
     public companion object {

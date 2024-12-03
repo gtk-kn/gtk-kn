@@ -19,7 +19,6 @@ import org.gtkkn.native.gio.g_unix_output_stream_new
 import org.gtkkn.native.gio.g_unix_output_stream_set_close_fd
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Unit
 
 /**
  * `GUnixOutputStream` implements [class@Gio.OutputStream] for writing to a UNIX
@@ -32,9 +31,8 @@ import kotlin.Unit
  * interfaces, thus you have to use the `gio-unix-2.0.pc` pkg-config file
  * file or the `GioUnix-2.0` GIR namespace when using it.
  */
-public open class UnixOutputStream(
-    pointer: CPointer<GUnixOutputStream>,
-) : OutputStream(pointer.reinterpret()),
+public open class UnixOutputStream(pointer: CPointer<GUnixOutputStream>) :
+    OutputStream(pointer.reinterpret()),
     FileDescriptorBased,
     PollableOutputStream,
     KGTyped {
@@ -102,37 +100,6 @@ public open class UnixOutputStream(
         fd: Int,
         closeFd: Boolean,
     ) : this(g_unix_output_stream_new(fd, closeFd.asGBoolean())!!.reinterpret())
-
-    /**
-     * Returns whether the file descriptor of @stream will be
-     * closed when the stream is closed.
-     *
-     * @return true if the file descriptor is closed when done
-     * @since 2.20
-     */
-    @GioVersion2_20
-    public open fun getCloseFd(): Boolean =
-        g_unix_output_stream_get_close_fd(gioUnixOutputStreamPointer.reinterpret()).asBoolean()
-
-    /**
-     * Return the UNIX file descriptor that the stream writes to.
-     *
-     * @return The file descriptor of @stream
-     * @since 2.20
-     */
-    @GioVersion2_20
-    public open fun getFd_(): Int = g_unix_output_stream_get_fd(gioUnixOutputStreamPointer.reinterpret())
-
-    /**
-     * Sets whether the file descriptor of @stream shall be closed
-     * when the stream is closed.
-     *
-     * @param closeFd true to close the file descriptor when done
-     * @since 2.20
-     */
-    @GioVersion2_20
-    public open fun setCloseFd(closeFd: Boolean): Unit =
-        g_unix_output_stream_set_close_fd(gioUnixOutputStreamPointer.reinterpret(), closeFd.asGBoolean())
 
     public companion object : TypeCompanion<UnixOutputStream> {
         override val type: GeneratedClassKGType<UnixOutputStream> =

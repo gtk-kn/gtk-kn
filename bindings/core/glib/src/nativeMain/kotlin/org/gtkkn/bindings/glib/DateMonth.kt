@@ -7,9 +7,7 @@ import org.gtkkn.native.glib.GDateMonth
  * Enumeration representing a month; values are %G_DATE_JANUARY,
  * %G_DATE_FEBRUARY, etc. %G_DATE_BAD_MONTH is the invalid value.
  */
-public enum class DateMonth(
-    public val nativeValue: GDateMonth,
-) {
+public enum class DateMonth(public val nativeValue: GDateMonth) {
     /**
      * invalid value
      */
@@ -77,22 +75,21 @@ public enum class DateMonth(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GDateMonth): DateMonth =
-            when (nativeValue) {
-                GDateMonth.G_DATE_BAD_MONTH -> BAD_MONTH
-                GDateMonth.G_DATE_JANUARY -> JANUARY
-                GDateMonth.G_DATE_FEBRUARY -> FEBRUARY
-                GDateMonth.G_DATE_MARCH -> MARCH
-                GDateMonth.G_DATE_APRIL -> APRIL
-                GDateMonth.G_DATE_MAY -> MAY
-                GDateMonth.G_DATE_JUNE -> JUNE
-                GDateMonth.G_DATE_JULY -> JULY
-                GDateMonth.G_DATE_AUGUST -> AUGUST
-                GDateMonth.G_DATE_SEPTEMBER -> SEPTEMBER
-                GDateMonth.G_DATE_OCTOBER -> OCTOBER
-                GDateMonth.G_DATE_NOVEMBER -> NOVEMBER
-                GDateMonth.G_DATE_DECEMBER -> DECEMBER
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GDateMonth): DateMonth = when (nativeValue) {
+            GDateMonth.G_DATE_BAD_MONTH -> BAD_MONTH
+            GDateMonth.G_DATE_JANUARY -> JANUARY
+            GDateMonth.G_DATE_FEBRUARY -> FEBRUARY
+            GDateMonth.G_DATE_MARCH -> MARCH
+            GDateMonth.G_DATE_APRIL -> APRIL
+            GDateMonth.G_DATE_MAY -> MAY
+            GDateMonth.G_DATE_JUNE -> JUNE
+            GDateMonth.G_DATE_JULY -> JULY
+            GDateMonth.G_DATE_AUGUST -> AUGUST
+            GDateMonth.G_DATE_SEPTEMBER -> SEPTEMBER
+            GDateMonth.G_DATE_OCTOBER -> OCTOBER
+            GDateMonth.G_DATE_NOVEMBER -> NOVEMBER
+            GDateMonth.G_DATE_DECEMBER -> DECEMBER
+            else -> error("invalid nativeValue")
+        }
     }
 }

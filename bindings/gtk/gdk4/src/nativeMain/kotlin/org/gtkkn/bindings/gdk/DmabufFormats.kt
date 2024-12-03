@@ -48,9 +48,7 @@ import kotlin.Unit
  * @since 4.14
  */
 @GdkVersion4_14
-public class DmabufFormats(
-    pointer: CPointer<GdkDmabufFormats>,
-) : Record {
+public class DmabufFormats(pointer: CPointer<GdkDmabufFormats>) : Record {
     public val gdkDmabufFormatsPointer: CPointer<GdkDmabufFormats> = pointer
 
     /**
@@ -63,10 +61,8 @@ public class DmabufFormats(
      * @since 4.14
      */
     @GdkVersion4_14
-    public fun contains(
-        fourcc: UInt,
-        modifier: ULong,
-    ): Boolean = gdk_dmabuf_formats_contains(gdkDmabufFormatsPointer.reinterpret(), fourcc, modifier).asBoolean()
+    public fun contains(fourcc: UInt, modifier: ULong): Boolean =
+        gdk_dmabuf_formats_contains(gdkDmabufFormatsPointer.reinterpret(), fourcc, modifier).asBoolean()
 
     /**
      * Returns whether @formats1 and @formats2 contain the
@@ -77,11 +73,10 @@ public class DmabufFormats(
      * @since 4.14
      */
     @GdkVersion4_14
-    public fun equal(formats2: DmabufFormats? = null): Boolean =
-        gdk_dmabuf_formats_equal(
-            gdkDmabufFormatsPointer.reinterpret(),
-            formats2?.gdkDmabufFormatsPointer?.reinterpret()
-        ).asBoolean()
+    public fun equal(formats2: DmabufFormats? = null): Boolean = gdk_dmabuf_formats_equal(
+        gdkDmabufFormatsPointer.reinterpret(),
+        formats2?.gdkDmabufFormatsPointer?.reinterpret()
+    ).asBoolean()
 
     /**
      * Returns the number of formats that the @formats object
@@ -104,10 +99,9 @@ public class DmabufFormats(
      * @since 4.14
      */
     @GdkVersion4_14
-    public fun ref(): DmabufFormats =
-        gdk_dmabuf_formats_ref(gdkDmabufFormatsPointer.reinterpret())!!.run {
-            DmabufFormats(reinterpret())
-        }
+    public fun ref(): DmabufFormats = gdk_dmabuf_formats_ref(gdkDmabufFormatsPointer.reinterpret())!!.run {
+        DmabufFormats(reinterpret())
+    }
 
     /**
      * Decreases the reference count of @formats.

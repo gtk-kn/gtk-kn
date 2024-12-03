@@ -103,9 +103,8 @@ import kotlin.Unit
  * GtkWidget *window = gtk_application_window_new (app);
  * ```
  */
-public open class ApplicationWindow(
-    pointer: CPointer<GtkApplicationWindow>,
-) : Window(pointer.reinterpret()),
+public open class ApplicationWindow(pointer: CPointer<GtkApplicationWindow>) :
+    Window(pointer.reinterpret()),
     ActionGroup,
     ActionMap,
     KGTyped {
@@ -198,15 +197,6 @@ public open class ApplicationWindow(
     public open fun getId(): UInt = gtk_application_window_get_id(gtkApplicationWindowPointer.reinterpret())
 
     /**
-     * Returns whether the window will display a menubar for the app menu
-     * and menubar as needed.
-     *
-     * @return true if @window will display a menubar when needed
-     */
-    public open fun getShowMenubar(): Boolean =
-        gtk_application_window_get_show_menubar(gtkApplicationWindowPointer.reinterpret()).asBoolean()
-
-    /**
      * Associates a shortcuts window with the application window.
      *
      * Additionally, sets up an action with the name
@@ -221,15 +211,6 @@ public open class ApplicationWindow(
             gtkApplicationWindowPointer.reinterpret(),
             helpOverlay?.gtkShortcutsWindowPointer?.reinterpret()
         )
-
-    /**
-     * Sets whether the window will display a menubar for the app menu
-     * and menubar as needed.
-     *
-     * @param showMenubar whether to show a menubar when needed
-     */
-    public open fun setShowMenubar(showMenubar: Boolean): Unit =
-        gtk_application_window_set_show_menubar(gtkApplicationWindowPointer.reinterpret(), showMenubar.asGBoolean())
 
     public companion object : TypeCompanion<ApplicationWindow> {
         override val type: GeneratedClassKGType<ApplicationWindow> =

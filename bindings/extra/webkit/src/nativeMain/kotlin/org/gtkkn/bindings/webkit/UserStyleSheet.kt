@@ -23,9 +23,7 @@ import kotlin.collections.List
  * @since 2.6
  */
 @WebKitVersion2_6
-public class UserStyleSheet(
-    pointer: CPointer<WebKitUserStyleSheet>,
-) : Record {
+public class UserStyleSheet(pointer: CPointer<WebKitUserStyleSheet>) : Record {
     public val webkitUserStyleSheetPointer: CPointer<WebKitUserStyleSheet> = pointer
 
     /**
@@ -37,10 +35,9 @@ public class UserStyleSheet(
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun ref(): UserStyleSheet =
-        webkit_user_style_sheet_ref(webkitUserStyleSheetPointer.reinterpret())!!.run {
-            UserStyleSheet(reinterpret())
-        }
+    public fun ref(): UserStyleSheet = webkit_user_style_sheet_ref(webkitUserStyleSheetPointer.reinterpret())!!.run {
+        UserStyleSheet(reinterpret())
+    }
 
     /**
      * Atomically decrements the reference count of @user_style_sheet by one.

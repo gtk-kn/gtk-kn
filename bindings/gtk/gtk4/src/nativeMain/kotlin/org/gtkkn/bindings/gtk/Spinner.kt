@@ -38,9 +38,8 @@ import kotlin.Unit
  * When the animation is active, the :checked pseudoclass is
  * added to this node.
  */
-public open class Spinner(
-    pointer: CPointer<GtkSpinner>,
-) : Widget(pointer.reinterpret()),
+public open class Spinner(pointer: CPointer<GtkSpinner>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkSpinnerPointer: CPointer<GtkSpinner>
         get() = gPointer.reinterpret()
@@ -78,21 +77,6 @@ public open class Spinner(
      * @return a new `GtkSpinner`
      */
     public constructor() : this(gtk_spinner_new()!!.reinterpret())
-
-    /**
-     * Returns whether the spinner is spinning.
-     *
-     * @return true if the spinner is active
-     */
-    public open fun getSpinning(): Boolean = gtk_spinner_get_spinning(gtkSpinnerPointer.reinterpret()).asBoolean()
-
-    /**
-     * Sets the activity of the spinner.
-     *
-     * @param spinning whether the spinner should be spinning
-     */
-    public open fun setSpinning(spinning: Boolean): Unit =
-        gtk_spinner_set_spinning(gtkSpinnerPointer.reinterpret(), spinning.asGBoolean())
 
     /**
      * Starts the animation of the spinner.

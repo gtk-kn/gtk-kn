@@ -18,9 +18,8 @@ import org.gtkkn.native.gsk.gsk_color_matrix_node_new
 /**
  * A render node controlling the color matrix of its single child node.
  */
-public open class ColorMatrixNode(
-    pointer: CPointer<GskColorMatrixNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class ColorMatrixNode(pointer: CPointer<GskColorMatrixNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskColorMatrixNodePointer: CPointer<GskColorMatrixNode>
         get() = gPointer.reinterpret()

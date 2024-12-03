@@ -24,9 +24,7 @@ import kotlin.ULong
  * @since 2.22
  */
 @GioVersion2_22
-public class OutputVector(
-    pointer: CPointer<GOutputVector>,
-) : Record {
+public class OutputVector(pointer: CPointer<GOutputVector>) : Record {
     public val gioOutputVectorPointer: CPointer<GOutputVector> = pointer
 
     /**

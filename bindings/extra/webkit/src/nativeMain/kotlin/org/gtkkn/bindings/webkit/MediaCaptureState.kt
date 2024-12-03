@@ -9,9 +9,7 @@ import org.gtkkn.native.webkit.WebKitMediaCaptureState
  * @since 2.34
  */
 @WebKitVersion2_34
-public enum class MediaCaptureState(
-    public val nativeValue: WebKitMediaCaptureState,
-) {
+public enum class MediaCaptureState(public val nativeValue: WebKitMediaCaptureState) {
     /**
      * Media capture is disabled.
      */
@@ -29,12 +27,11 @@ public enum class MediaCaptureState(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitMediaCaptureState): MediaCaptureState =
-            when (nativeValue) {
-                WebKitMediaCaptureState.WEBKIT_MEDIA_CAPTURE_STATE_NONE -> NONE
-                WebKitMediaCaptureState.WEBKIT_MEDIA_CAPTURE_STATE_ACTIVE -> ACTIVE
-                WebKitMediaCaptureState.WEBKIT_MEDIA_CAPTURE_STATE_MUTED -> MUTED
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitMediaCaptureState): MediaCaptureState = when (nativeValue) {
+            WebKitMediaCaptureState.WEBKIT_MEDIA_CAPTURE_STATE_NONE -> NONE
+            WebKitMediaCaptureState.WEBKIT_MEDIA_CAPTURE_STATE_ACTIVE -> ACTIVE
+            WebKitMediaCaptureState.WEBKIT_MEDIA_CAPTURE_STATE_MUTED -> MUTED
+            else -> error("invalid nativeValue")
+        }
     }
 }

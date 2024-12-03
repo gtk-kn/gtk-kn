@@ -34,9 +34,7 @@ import kotlin.Unit
  * - field `dummy5`: Record field dummy5 is private
  * - field `dummy6`: Record field dummy6 is private
  */
-public class HashTableIter(
-    pointer: CPointer<GHashTableIter>,
-) : Record {
+public class HashTableIter(pointer: CPointer<GHashTableIter>) : Record {
     public val glibHashTableIterPointer: CPointer<GHashTableIter> = pointer
 
     /**

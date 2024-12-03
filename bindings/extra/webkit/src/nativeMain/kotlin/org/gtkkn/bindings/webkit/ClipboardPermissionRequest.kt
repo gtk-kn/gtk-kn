@@ -24,9 +24,8 @@ import org.gtkkn.native.webkit.webkit_clipboard_permission_request_get_type
  * @since 2.42
  */
 @WebKitVersion2_42
-public class ClipboardPermissionRequest(
-    pointer: CPointer<WebKitClipboardPermissionRequest>,
-) : Object(pointer.reinterpret()),
+public class ClipboardPermissionRequest(pointer: CPointer<WebKitClipboardPermissionRequest>) :
+    Object(pointer.reinterpret()),
     PermissionRequest,
     KGTyped {
     public val webkitClipboardPermissionRequestPointer: CPointer<WebKitClipboardPermissionRequest>
@@ -37,9 +36,9 @@ public class ClipboardPermissionRequest(
 
     public companion object : TypeCompanion<ClipboardPermissionRequest> {
         override val type: GeneratedClassKGType<ClipboardPermissionRequest> =
-            GeneratedClassKGType(
-                webkit_clipboard_permission_request_get_type()
-            ) { ClipboardPermissionRequest(it.reinterpret()) }
+            GeneratedClassKGType(webkit_clipboard_permission_request_get_type()) {
+                ClipboardPermissionRequest(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()

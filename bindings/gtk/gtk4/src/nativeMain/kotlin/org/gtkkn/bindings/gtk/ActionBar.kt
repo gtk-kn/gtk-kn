@@ -64,9 +64,8 @@ import kotlin.Unit
  *
  * Each of the boxes contains children packed for that side.
  */
-public open class ActionBar(
-    pointer: CPointer<GtkActionBar>,
-) : Widget(pointer.reinterpret()),
+public open class ActionBar(pointer: CPointer<GtkActionBar>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkActionBarPointer: CPointer<GtkActionBar>
         get() = gPointer.reinterpret()
@@ -121,14 +120,6 @@ public open class ActionBar(
         }
 
     /**
-     * Gets whether the contents of the action bar are revealed.
-     *
-     * @return the current value of the [property@Gtk.ActionBar:revealed]
-     *   property
-     */
-    public open fun getRevealed(): Boolean = gtk_action_bar_get_revealed(gtkActionBarPointer.reinterpret()).asBoolean()
-
-    /**
      * Adds @child to @action_bar, packed with reference to the
      * end of the @action_bar.
      *
@@ -159,23 +150,10 @@ public open class ActionBar(
      *
      * @param centerWidget a widget to use for the center
      */
-    public open fun setCenterWidget(centerWidget: Widget? = null): Unit =
-        gtk_action_bar_set_center_widget(
-            gtkActionBarPointer.reinterpret(),
-            centerWidget?.gtkWidgetPointer?.reinterpret()
-        )
-
-    /**
-     * Reveals or conceals the content of the action bar.
-     *
-     * Note: this does not show or hide @action_bar in the
-     * [property@Gtk.Widget:visible] sense, so revealing has
-     * no effect if the action bar is hidden.
-     *
-     * @param revealed The new value of the property
-     */
-    public open fun setRevealed(revealed: Boolean): Unit =
-        gtk_action_bar_set_revealed(gtkActionBarPointer.reinterpret(), revealed.asGBoolean())
+    public open fun setCenterWidget(centerWidget: Widget? = null): Unit = gtk_action_bar_set_center_widget(
+        gtkActionBarPointer.reinterpret(),
+        centerWidget?.gtkWidgetPointer?.reinterpret()
+    )
 
     public companion object : TypeCompanion<ActionBar> {
         override val type: GeneratedClassKGType<ActionBar> =

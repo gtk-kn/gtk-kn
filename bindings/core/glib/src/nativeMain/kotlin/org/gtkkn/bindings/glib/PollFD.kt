@@ -19,9 +19,7 @@ import kotlin.Int
  * - field `events`: gushort
  * - field `revents`: gushort
  */
-public class PollFD(
-    pointer: CPointer<GPollFD>,
-) : Record {
+public class PollFD(pointer: CPointer<GPollFD>) : Record {
     public val glibPollFDPointer: CPointer<GPollFD> = pointer
 
     /**

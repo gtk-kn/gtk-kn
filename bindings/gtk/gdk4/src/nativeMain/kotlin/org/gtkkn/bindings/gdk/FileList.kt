@@ -22,9 +22,7 @@ import org.gtkkn.native.gdk.gdk_file_list_new_from_list
  * @since 4.6
  */
 @GdkVersion4_6
-public class FileList(
-    pointer: CPointer<GdkFileList>,
-) : Record {
+public class FileList(pointer: CPointer<GdkFileList>) : Record {
     public val gdkFileListPointer: CPointer<GdkFileList> = pointer
 
     /**
@@ -36,10 +34,9 @@ public class FileList(
      * @since 4.6
      */
     @GdkVersion4_6
-    public fun getFiles(): SList =
-        gdk_file_list_get_files(gdkFileListPointer.reinterpret())!!.run {
-            SList(reinterpret())
-        }
+    public fun getFiles(): SList = gdk_file_list_get_files(gdkFileListPointer.reinterpret())!!.run {
+        SList(reinterpret())
+    }
 
     public companion object : RecordCompanion<FileList, GdkFileList> {
         /**

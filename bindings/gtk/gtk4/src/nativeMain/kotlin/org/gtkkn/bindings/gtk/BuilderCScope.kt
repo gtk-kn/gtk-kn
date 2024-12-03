@@ -34,9 +34,8 @@ import org.gtkkn.native.gtk.gtk_builder_cscope_new
  *
  * - parameter `callback_symbol`: GObject.Callback
  */
-public open class BuilderCScope(
-    pointer: CPointer<GtkBuilderCScope>,
-) : Object(pointer.reinterpret()),
+public open class BuilderCScope(pointer: CPointer<GtkBuilderCScope>) :
+    Object(pointer.reinterpret()),
     BuilderScope,
     KGTyped {
     public val gtkBuilderCScopePointer: CPointer<GtkBuilderCScope>

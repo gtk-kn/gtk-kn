@@ -11,9 +11,7 @@ import org.gtkkn.native.gtk.GtkFilterChange
  * value to pass, %GTK_FILTER_CHANGE_DIFFERENT is always a correct
  * choice.
  */
-public enum class FilterChange(
-    public val nativeValue: GtkFilterChange,
-) {
+public enum class FilterChange(public val nativeValue: GtkFilterChange) {
     /**
      * The filter change cannot be
      *   described with any of the other enumeration values.
@@ -36,12 +34,11 @@ public enum class FilterChange(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkFilterChange): FilterChange =
-            when (nativeValue) {
-                GtkFilterChange.GTK_FILTER_CHANGE_DIFFERENT -> DIFFERENT
-                GtkFilterChange.GTK_FILTER_CHANGE_LESS_STRICT -> LESS_STRICT
-                GtkFilterChange.GTK_FILTER_CHANGE_MORE_STRICT -> MORE_STRICT
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkFilterChange): FilterChange = when (nativeValue) {
+            GtkFilterChange.GTK_FILTER_CHANGE_DIFFERENT -> DIFFERENT
+            GtkFilterChange.GTK_FILTER_CHANGE_LESS_STRICT -> LESS_STRICT
+            GtkFilterChange.GTK_FILTER_CHANGE_MORE_STRICT -> MORE_STRICT
+            else -> error("invalid nativeValue")
+        }
     }
 }

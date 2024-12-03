@@ -16,9 +16,7 @@ import org.gtkkn.native.graphene.graphene_simd4x4f_t
  * - field `z`: Record field z is private
  * - field `w`: Record field w is private
  */
-public class Simd4X4F(
-    pointer: CPointer<graphene_simd4x4f_t>,
-) : Record {
+public class Simd4X4F(pointer: CPointer<graphene_simd4x4f_t>) : Record {
     public val grapheneSimd4X4FPointer: CPointer<graphene_simd4x4f_t> = pointer
 
     public companion object : RecordCompanion<Simd4X4F, graphene_simd4x4f_t> {

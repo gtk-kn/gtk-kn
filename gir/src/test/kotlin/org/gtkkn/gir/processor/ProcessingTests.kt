@@ -73,11 +73,13 @@ class ProcessingTests {
     @Test
     fun processAboutDialogClass() {
         val clazz = gtkBlueprint.classBlueprints.first { it.kotlinName == "AboutDialog" }
-        val notNullableReturnTypeInfo = clazz.methods
-            .first { it.nativeName == "gtk_about_dialog_set_comments" }
-            .returnTypeInfo as TypeInfo.Primitive
-        val nullableReturnTypeInfo = clazz.methods
-            .first { it.nativeName == "gtk_about_dialog_get_comments" }
+        val notNullableReturnTypeInfo = clazz.properties
+            .first { it.setter?.nativeName == "gtk_about_dialog_set_comments" }
+            .setter
+            ?.returnTypeInfo as TypeInfo.Primitive
+        val nullableReturnTypeInfo = clazz.properties
+            .first { it.getter.nativeName == "gtk_about_dialog_get_comments" }
+            .getter
             .returnTypeInfo as TypeInfo.KString
         assertEquals("AboutDialog", clazz.kotlinName)
         assertEquals("AboutDialog", clazz.nativeName)

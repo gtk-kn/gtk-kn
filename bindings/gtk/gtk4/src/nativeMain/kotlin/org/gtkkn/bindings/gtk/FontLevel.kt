@@ -13,9 +13,7 @@ import org.gtkkn.native.gtk.GtkFontLevel
  * @since 4.10
  */
 @GtkVersion4_10
-public enum class FontLevel(
-    public val nativeValue: GtkFontLevel,
-) {
+public enum class FontLevel(public val nativeValue: GtkFontLevel) {
     /**
      * Select a font family
      */
@@ -38,13 +36,12 @@ public enum class FontLevel(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkFontLevel): FontLevel =
-            when (nativeValue) {
-                GtkFontLevel.GTK_FONT_LEVEL_FAMILY -> FAMILY
-                GtkFontLevel.GTK_FONT_LEVEL_FACE -> FACE
-                GtkFontLevel.GTK_FONT_LEVEL_FONT -> FONT
-                GtkFontLevel.GTK_FONT_LEVEL_FEATURES -> FEATURES
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkFontLevel): FontLevel = when (nativeValue) {
+            GtkFontLevel.GTK_FONT_LEVEL_FAMILY -> FAMILY
+            GtkFontLevel.GTK_FONT_LEVEL_FACE -> FACE
+            GtkFontLevel.GTK_FONT_LEVEL_FONT -> FONT
+            GtkFontLevel.GTK_FONT_LEVEL_FEATURES -> FEATURES
+            else -> error("invalid nativeValue")
+        }
     }
 }

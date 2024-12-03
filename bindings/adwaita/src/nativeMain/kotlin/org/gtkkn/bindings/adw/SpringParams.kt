@@ -50,9 +50,7 @@ import kotlin.Unit
  *
  * As such
  */
-public class SpringParams(
-    pointer: CPointer<AdwSpringParams>,
-) : Record {
+public class SpringParams(pointer: CPointer<AdwSpringParams>) : Record {
     public val adwSpringParamsPointer: CPointer<AdwSpringParams> = pointer
 
     /**
@@ -88,10 +86,9 @@ public class SpringParams(
      *
      * @return @self
      */
-    public fun ref(): SpringParams =
-        adw_spring_params_ref(adwSpringParamsPointer.reinterpret())!!.run {
-            SpringParams(reinterpret())
-        }
+    public fun ref(): SpringParams = adw_spring_params_ref(adwSpringParamsPointer.reinterpret())!!.run {
+        SpringParams(reinterpret())
+    }
 
     /**
      * Decreases the reference count of @self.
@@ -123,11 +120,8 @@ public class SpringParams(
          * @param stiffness the stiffness of the spring
          * @return the newly created spring parameters
          */
-        public fun new(
-            dampingRatio: Double,
-            mass: Double,
-            stiffness: Double,
-        ): SpringParams = SpringParams(adw_spring_params_new(dampingRatio, mass, stiffness)!!.reinterpret())
+        public fun new(dampingRatio: Double, mass: Double, stiffness: Double): SpringParams =
+            SpringParams(adw_spring_params_new(dampingRatio, mass, stiffness)!!.reinterpret())
 
         /**
          * Creates a new `AdwSpringParams` from @mass, @stiffness and @damping.
@@ -140,11 +134,8 @@ public class SpringParams(
          * @param stiffness the stiffness of the spring
          * @return the newly created spring parameters
          */
-        public fun newFull(
-            damping: Double,
-            mass: Double,
-            stiffness: Double,
-        ): SpringParams = SpringParams(adw_spring_params_new_full(damping, mass, stiffness)!!.reinterpret())
+        public fun newFull(damping: Double, mass: Double, stiffness: Double): SpringParams =
+            SpringParams(adw_spring_params_new_full(damping, mass, stiffness)!!.reinterpret())
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SpringParams =
             SpringParams(pointer.reinterpret())

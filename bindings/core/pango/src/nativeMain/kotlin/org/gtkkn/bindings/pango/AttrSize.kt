@@ -22,9 +22,7 @@ import kotlin.UInt
  *
  * - field `attr`: Attribute
  */
-public class AttrSize(
-    pointer: CPointer<PangoAttrSize>,
-) : Record {
+public class AttrSize(pointer: CPointer<PangoAttrSize>) : Record {
     public val pangoAttrSizePointer: CPointer<PangoAttrSize> = pointer
 
     /**
@@ -58,10 +56,9 @@ public class AttrSize(
          *   `PangoAttribute`, which should be freed with
          *   [method@Pango.Attribute.destroy]
          */
-        public fun new(size: Int): Attribute =
-            pango_attr_size_new(size)!!.run {
-                Attribute(reinterpret())
-            }
+        public fun new(size: Int): Attribute = pango_attr_size_new(size)!!.run {
+            Attribute(reinterpret())
+        }
 
         /**
          * Create a new font-size attribute in device units.
@@ -73,10 +70,9 @@ public class AttrSize(
          * @since 1.8
          */
         @PangoVersion1_8
-        public fun newAbsolute(size: Int): Attribute =
-            pango_attr_size_new_absolute(size)!!.run {
-                Attribute(reinterpret())
-            }
+        public fun newAbsolute(size: Int): Attribute = pango_attr_size_new_absolute(size)!!.run {
+            Attribute(reinterpret())
+        }
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): AttrSize = AttrSize(pointer.reinterpret())
     }

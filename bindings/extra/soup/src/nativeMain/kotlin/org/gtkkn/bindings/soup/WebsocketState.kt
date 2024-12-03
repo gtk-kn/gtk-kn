@@ -6,9 +6,7 @@ import org.gtkkn.native.soup.SoupWebsocketState
 /**
  * The state of the WebSocket connection.
  */
-public enum class WebsocketState(
-    public val nativeValue: SoupWebsocketState,
-) {
+public enum class WebsocketState(public val nativeValue: SoupWebsocketState) {
     /**
      * the connection is ready to send messages
      */
@@ -27,12 +25,11 @@ public enum class WebsocketState(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: SoupWebsocketState): WebsocketState =
-            when (nativeValue) {
-                SoupWebsocketState.SOUP_WEBSOCKET_STATE_OPEN -> OPEN
-                SoupWebsocketState.SOUP_WEBSOCKET_STATE_CLOSING -> CLOSING
-                SoupWebsocketState.SOUP_WEBSOCKET_STATE_CLOSED -> CLOSED
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: SoupWebsocketState): WebsocketState = when (nativeValue) {
+            SoupWebsocketState.SOUP_WEBSOCKET_STATE_OPEN -> OPEN
+            SoupWebsocketState.SOUP_WEBSOCKET_STATE_CLOSING -> CLOSING
+            SoupWebsocketState.SOUP_WEBSOCKET_STATE_CLOSED -> CLOSED
+            else -> error("invalid nativeValue")
+        }
     }
 }

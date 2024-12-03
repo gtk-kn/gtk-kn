@@ -40,9 +40,8 @@ import kotlin.Unit
  * g_object_unref (context);
  * ```
  */
-public open class AppLaunchContext(
-    pointer: CPointer<GdkAppLaunchContext>,
-) : org.gtkkn.bindings.gio.AppLaunchContext(pointer.reinterpret()),
+public open class AppLaunchContext(pointer: CPointer<GdkAppLaunchContext>) :
+    org.gtkkn.bindings.gio.AppLaunchContext(pointer.reinterpret()),
     KGTyped {
     public val gdkAppLaunchContextPointer: CPointer<GdkAppLaunchContext>
         get() = gPointer.reinterpret()
@@ -56,18 +55,7 @@ public open class AppLaunchContext(
          *
          * @return the display of @context
          */
-        get() =
-            gdk_app_launch_context_get_display(gdkAppLaunchContextPointer.reinterpret())!!.run {
-                Display(reinterpret())
-            }
-
-    /**
-     * Gets the `GdkDisplay` that @context is for.
-     *
-     * @return the display of @context
-     */
-    public open fun getDisplay_(): Display =
-        gdk_app_launch_context_get_display(gdkAppLaunchContextPointer.reinterpret())!!.run {
+        get() = gdk_app_launch_context_get_display(gdkAppLaunchContextPointer.reinterpret())!!.run {
             Display(reinterpret())
         }
 

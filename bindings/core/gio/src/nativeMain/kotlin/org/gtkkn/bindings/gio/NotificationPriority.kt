@@ -9,9 +9,7 @@ import org.gtkkn.native.gio.GNotificationPriority
  * @since 2.42
  */
 @GioVersion2_42
-public enum class NotificationPriority(
-    public val nativeValue: GNotificationPriority,
-) {
+public enum class NotificationPriority(public val nativeValue: GNotificationPriority) {
     /**
      * the default priority, to be used for the
      *   majority of notifications (for example email messages, software updates,
@@ -42,13 +40,12 @@ public enum class NotificationPriority(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GNotificationPriority): NotificationPriority =
-            when (nativeValue) {
-                GNotificationPriority.G_NOTIFICATION_PRIORITY_NORMAL -> NORMAL
-                GNotificationPriority.G_NOTIFICATION_PRIORITY_LOW -> LOW
-                GNotificationPriority.G_NOTIFICATION_PRIORITY_HIGH -> HIGH
-                GNotificationPriority.G_NOTIFICATION_PRIORITY_URGENT -> URGENT
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GNotificationPriority): NotificationPriority = when (nativeValue) {
+            GNotificationPriority.G_NOTIFICATION_PRIORITY_NORMAL -> NORMAL
+            GNotificationPriority.G_NOTIFICATION_PRIORITY_LOW -> LOW
+            GNotificationPriority.G_NOTIFICATION_PRIORITY_HIGH -> HIGH
+            GNotificationPriority.G_NOTIFICATION_PRIORITY_URGENT -> URGENT
+            else -> error("invalid nativeValue")
+        }
     }
 }

@@ -27,9 +27,7 @@ import kotlin.UInt
  * @since 2.44
  */
 @GioVersion2_44
-public class OutputMessage(
-    pointer: CPointer<GOutputMessage>,
-) : Record {
+public class OutputMessage(pointer: CPointer<GOutputMessage>) : Record {
     public val gioOutputMessagePointer: CPointer<GOutputMessage> = pointer
 
     /**
@@ -38,10 +36,9 @@ public class OutputMessage(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val address: SocketAddress?
-        get() =
-            gioOutputMessagePointer.pointed.address?.run {
-                SocketAddress(reinterpret())
-            }
+        get() = gioOutputMessagePointer.pointed.address?.run {
+            SocketAddress(reinterpret())
+        }
 
     /**
      * pointer to an array of output vectors
@@ -49,10 +46,9 @@ public class OutputMessage(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val vectors: OutputVector?
-        get() =
-            gioOutputMessagePointer.pointed.vectors?.run {
-                OutputVector(reinterpret())
-            }
+        get() = gioOutputMessagePointer.pointed.vectors?.run {
+            OutputVector(reinterpret())
+        }
 
     /**
      * the number of output vectors pointed to by @vectors.

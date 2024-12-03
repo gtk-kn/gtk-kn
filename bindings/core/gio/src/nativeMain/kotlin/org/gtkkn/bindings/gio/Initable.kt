@@ -106,25 +106,21 @@ public interface Initable :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun `init`(cancellable: Cancellable? = null): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_initable_init(
-                    gioInitablePointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun `init`(cancellable: Cancellable? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_initable_init(
+            gioInitablePointer.reinterpret(),
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
-    private data class Wrapper(
-        private val pointer: CPointer<GInitable>,
-    ) : Initable {
+    private data class Wrapper(private val pointer: CPointer<GInitable>) : Initable {
         override val gioInitablePointer: CPointer<GInitable> = pointer
     }
 

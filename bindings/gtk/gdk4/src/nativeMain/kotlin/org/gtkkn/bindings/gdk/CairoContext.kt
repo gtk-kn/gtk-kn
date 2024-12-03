@@ -21,9 +21,8 @@ import org.gtkkn.native.gdk.gdk_cairo_context_get_type
  *
  * - method `cairo_create`: Return type cairo.Context is unsupported
  */
-public open class CairoContext(
-    pointer: CPointer<GdkCairoContext>,
-) : DrawContext(pointer.reinterpret()),
+public open class CairoContext(pointer: CPointer<GdkCairoContext>) :
+    DrawContext(pointer.reinterpret()),
     KGTyped {
     public val gdkCairoContextPointer: CPointer<GdkCairoContext>
         get() = gPointer.reinterpret()

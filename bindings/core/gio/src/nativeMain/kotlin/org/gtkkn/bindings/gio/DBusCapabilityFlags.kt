@@ -11,9 +11,7 @@ import org.gtkkn.native.gio.G_DBUS_CAPABILITY_FLAGS_UNIX_FD_PASSING
  * Capabilities negotiated with the remote peer.
  * @since 2.26
  */
-public class DBusCapabilityFlags(
-    public val mask: GDBusCapabilityFlags,
-) : Bitfield<DBusCapabilityFlags> {
+public class DBusCapabilityFlags(public val mask: GDBusCapabilityFlags) : Bitfield<DBusCapabilityFlags> {
     override infix fun or(other: DBusCapabilityFlags): DBusCapabilityFlags = DBusCapabilityFlags(mask or other.mask)
 
     @GioVersion2_26

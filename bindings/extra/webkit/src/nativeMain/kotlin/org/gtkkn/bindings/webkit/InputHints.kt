@@ -16,9 +16,7 @@ import org.gtkkn.native.webkit.WebKitInputHints
  * Enum values used to describe hints that might be taken into account by input methods.
  * @since 2.28
  */
-public class InputHints(
-    public val mask: WebKitInputHints,
-) : Bitfield<InputHints> {
+public class InputHints(public val mask: WebKitInputHints) : Bitfield<InputHints> {
     override infix fun or(other: InputHints): InputHints = InputHints(mask or other.mask)
 
     @WebKitVersion2_28

@@ -13,9 +13,7 @@ import org.gtkkn.native.soup.SoupMessageFlags
  * Various flags that can be set on a #SoupMessage to alter its
  * behavior.
  */
-public class MessageFlags(
-    public val mask: SoupMessageFlags,
-) : Bitfield<MessageFlags> {
+public class MessageFlags(public val mask: SoupMessageFlags) : Bitfield<MessageFlags> {
     override infix fun or(other: MessageFlags): MessageFlags = MessageFlags(mask or other.mask)
 
     public companion object {

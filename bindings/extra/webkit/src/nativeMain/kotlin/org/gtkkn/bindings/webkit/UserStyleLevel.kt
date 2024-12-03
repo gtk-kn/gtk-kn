@@ -9,9 +9,7 @@ import org.gtkkn.native.webkit.WebKitUserStyleLevel
  * @since 2.6
  */
 @WebKitVersion2_6
-public enum class UserStyleLevel(
-    public val nativeValue: WebKitUserStyleLevel,
-) {
+public enum class UserStyleLevel(public val nativeValue: WebKitUserStyleLevel) {
     /**
      * The style sheet is an user style sheet,
      *   its contents always override other style sheets. This is the default.
@@ -27,11 +25,10 @@ public enum class UserStyleLevel(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitUserStyleLevel): UserStyleLevel =
-            when (nativeValue) {
-                WebKitUserStyleLevel.WEBKIT_USER_STYLE_LEVEL_USER -> USER
-                WebKitUserStyleLevel.WEBKIT_USER_STYLE_LEVEL_AUTHOR -> AUTHOR
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitUserStyleLevel): UserStyleLevel = when (nativeValue) {
+            WebKitUserStyleLevel.WEBKIT_USER_STYLE_LEVEL_USER -> USER
+            WebKitUserStyleLevel.WEBKIT_USER_STYLE_LEVEL_AUTHOR -> AUTHOR
+            else -> error("invalid nativeValue")
+        }
     }
 }

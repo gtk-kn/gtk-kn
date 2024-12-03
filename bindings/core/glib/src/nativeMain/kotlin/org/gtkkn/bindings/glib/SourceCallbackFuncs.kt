@@ -18,9 +18,7 @@ import org.gtkkn.native.glib.GSourceCallbackFuncs
  * - field `unref`: Fields with callbacks are not supported
  * - field `get`: Fields with callbacks are not supported
  */
-public class SourceCallbackFuncs(
-    pointer: CPointer<GSourceCallbackFuncs>,
-) : Record {
+public class SourceCallbackFuncs(pointer: CPointer<GSourceCallbackFuncs>) : Record {
     public val glibSourceCallbackFuncsPointer: CPointer<GSourceCallbackFuncs> = pointer
 
     public companion object : RecordCompanion<SourceCallbackFuncs, GSourceCallbackFuncs> {

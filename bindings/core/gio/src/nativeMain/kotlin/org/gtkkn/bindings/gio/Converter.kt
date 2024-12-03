@@ -46,9 +46,7 @@ public interface Converter :
     @GioVersion2_24
     public fun reset(): Unit = g_converter_reset(gioConverterPointer.reinterpret())
 
-    private data class Wrapper(
-        private val pointer: CPointer<GConverter>,
-    ) : Converter {
+    private data class Wrapper(private val pointer: CPointer<GConverter>) : Converter {
         override val gioConverterPointer: CPointer<GConverter> = pointer
     }
 

@@ -49,9 +49,8 @@ import kotlin.Unit
  * - method `gfile`: Property has no getter nor setter
  * - method `heading`: Property TypeInfo of getter and setter do not match
  */
-public open class AppChooserDialog(
-    pointer: CPointer<GtkAppChooserDialog>,
-) : Dialog(pointer.reinterpret()),
+public open class AppChooserDialog(pointer: CPointer<GtkAppChooserDialog>) :
+    Dialog(pointer.reinterpret()),
     AppChooser,
     KGTyped {
     public val gtkAppChooserDialogPointer: CPointer<GtkAppChooserDialog>

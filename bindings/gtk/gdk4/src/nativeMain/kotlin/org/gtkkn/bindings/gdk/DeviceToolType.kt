@@ -7,9 +7,7 @@ import org.gtkkn.native.gdk.GdkDeviceToolType
  * Indicates the specific type of tool being used being a tablet. Such as an
  * airbrush, pencil, etc.
  */
-public enum class DeviceToolType(
-    public val nativeValue: GdkDeviceToolType,
-) {
+public enum class DeviceToolType(public val nativeValue: GdkDeviceToolType) {
     /**
      * Tool is of an unknown type.
      */
@@ -52,17 +50,16 @@ public enum class DeviceToolType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GdkDeviceToolType): DeviceToolType =
-            when (nativeValue) {
-                GdkDeviceToolType.GDK_DEVICE_TOOL_TYPE_UNKNOWN -> UNKNOWN
-                GdkDeviceToolType.GDK_DEVICE_TOOL_TYPE_PEN -> PEN
-                GdkDeviceToolType.GDK_DEVICE_TOOL_TYPE_ERASER -> ERASER
-                GdkDeviceToolType.GDK_DEVICE_TOOL_TYPE_BRUSH -> BRUSH
-                GdkDeviceToolType.GDK_DEVICE_TOOL_TYPE_PENCIL -> PENCIL
-                GdkDeviceToolType.GDK_DEVICE_TOOL_TYPE_AIRBRUSH -> AIRBRUSH
-                GdkDeviceToolType.GDK_DEVICE_TOOL_TYPE_MOUSE -> MOUSE
-                GdkDeviceToolType.GDK_DEVICE_TOOL_TYPE_LENS -> LENS
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GdkDeviceToolType): DeviceToolType = when (nativeValue) {
+            GdkDeviceToolType.GDK_DEVICE_TOOL_TYPE_UNKNOWN -> UNKNOWN
+            GdkDeviceToolType.GDK_DEVICE_TOOL_TYPE_PEN -> PEN
+            GdkDeviceToolType.GDK_DEVICE_TOOL_TYPE_ERASER -> ERASER
+            GdkDeviceToolType.GDK_DEVICE_TOOL_TYPE_BRUSH -> BRUSH
+            GdkDeviceToolType.GDK_DEVICE_TOOL_TYPE_PENCIL -> PENCIL
+            GdkDeviceToolType.GDK_DEVICE_TOOL_TYPE_AIRBRUSH -> AIRBRUSH
+            GdkDeviceToolType.GDK_DEVICE_TOOL_TYPE_MOUSE -> MOUSE
+            GdkDeviceToolType.GDK_DEVICE_TOOL_TYPE_LENS -> LENS
+            else -> error("invalid nativeValue")
+        }
     }
 }

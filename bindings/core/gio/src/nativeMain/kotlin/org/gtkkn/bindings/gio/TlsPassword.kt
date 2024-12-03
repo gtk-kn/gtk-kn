@@ -19,7 +19,6 @@ import org.gtkkn.native.gio.g_tls_password_set_description
 import org.gtkkn.native.gio.g_tls_password_set_flags
 import org.gtkkn.native.gio.g_tls_password_set_warning
 import kotlin.String
-import kotlin.Unit
 
 /**
  * An abstract interface representing a password used in TLS. Often used in
@@ -34,9 +33,8 @@ import kotlin.Unit
  * @since 2.30
  */
 @GioVersion2_30
-public open class TlsPassword(
-    pointer: CPointer<GTlsPassword>,
-) : Object(pointer.reinterpret()),
+public open class TlsPassword(pointer: CPointer<GTlsPassword>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioTlsPasswordPointer: CPointer<GTlsPassword>
         get() = gPointer.reinterpret()
@@ -54,9 +52,8 @@ public open class TlsPassword(
          * @return The description of the password.
          * @since 2.30
          */
-        get() =
-            g_tls_password_get_description(gioTlsPasswordPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = g_tls_password_get_description(gioTlsPasswordPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Set a description string about what the password will be used for.
@@ -80,10 +77,9 @@ public open class TlsPassword(
          * @return The flags about the password.
          * @since 2.30
          */
-        get() =
-            g_tls_password_get_flags(gioTlsPasswordPointer.reinterpret()).run {
-                TlsPasswordFlags(this)
-            }
+        get() = g_tls_password_get_flags(gioTlsPasswordPointer.reinterpret()).run {
+            TlsPasswordFlags(this)
+        }
 
         /**
          * Set flags about the password.
@@ -109,9 +105,8 @@ public open class TlsPassword(
          * @return The warning.
          * @since 2.30
          */
-        get() =
-            g_tls_password_get_warning(gioTlsPasswordPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = g_tls_password_get_warning(gioTlsPasswordPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Set a user readable translated warning. Usually this warning is a
@@ -135,74 +130,6 @@ public open class TlsPassword(
         flags: TlsPasswordFlags,
         description: String,
     ) : this(g_tls_password_new(flags.mask, description)!!.reinterpret())
-
-    /**
-     * Get a description string about what the password will be used for.
-     *
-     * @return The description of the password.
-     * @since 2.30
-     */
-    @GioVersion2_30
-    public open fun getDescription(): String =
-        g_tls_password_get_description(gioTlsPasswordPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Get flags about the password.
-     *
-     * @return The flags about the password.
-     * @since 2.30
-     */
-    @GioVersion2_30
-    public open fun getFlags(): TlsPasswordFlags =
-        g_tls_password_get_flags(gioTlsPasswordPointer.reinterpret()).run {
-            TlsPasswordFlags(this)
-        }
-
-    /**
-     * Get a user readable translated warning. Usually this warning is a
-     * representation of the password flags returned from
-     * g_tls_password_get_flags().
-     *
-     * @return The warning.
-     * @since 2.30
-     */
-    @GioVersion2_30
-    public open fun getWarning(): String =
-        g_tls_password_get_warning(gioTlsPasswordPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Set a description string about what the password will be used for.
-     *
-     * @param description The description of the password
-     * @since 2.30
-     */
-    @GioVersion2_30
-    public open fun setDescription(description: String): Unit =
-        g_tls_password_set_description(gioTlsPasswordPointer.reinterpret(), description)
-
-    /**
-     * Set flags about the password.
-     *
-     * @param flags The flags about the password
-     * @since 2.30
-     */
-    @GioVersion2_30
-    public open fun setFlags(flags: TlsPasswordFlags): Unit =
-        g_tls_password_set_flags(gioTlsPasswordPointer.reinterpret(), flags.mask)
-
-    /**
-     * Set a user readable translated warning. Usually this warning is a
-     * representation of the password flags returned from
-     * g_tls_password_get_flags().
-     *
-     * @param warning The user readable warning
-     * @since 2.30
-     */
-    @GioVersion2_30
-    public open fun setWarning(warning: String): Unit =
-        g_tls_password_set_warning(gioTlsPasswordPointer.reinterpret(), warning)
 
     public companion object : TypeCompanion<TlsPassword> {
         override val type: GeneratedClassKGType<TlsPassword> =

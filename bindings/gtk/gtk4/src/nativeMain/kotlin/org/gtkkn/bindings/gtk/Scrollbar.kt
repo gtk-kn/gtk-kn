@@ -65,9 +65,8 @@ import kotlin.Unit
  *
  * - method `adjustment`: Property TypeInfo of getter and setter do not match
  */
-public open class Scrollbar(
-    pointer: CPointer<GtkScrollbar>,
-) : Widget(pointer.reinterpret()),
+public open class Scrollbar(pointer: CPointer<GtkScrollbar>) :
+    Widget(pointer.reinterpret()),
     Orientable,
     KGTyped {
     public val gtkScrollbarPointer: CPointer<GtkScrollbar>

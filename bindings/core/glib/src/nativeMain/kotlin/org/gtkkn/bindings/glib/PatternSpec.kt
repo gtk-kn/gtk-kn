@@ -38,9 +38,7 @@ import kotlin.Unit
  * instead of [func@GLib.pattern_match_simple]. This avoids the overhead of repeated
  * pattern compilation.
  */
-public class PatternSpec(
-    pointer: CPointer<GPatternSpec>,
-) : Record {
+public class PatternSpec(pointer: CPointer<GPatternSpec>) : Record {
     public val glibPatternSpecPointer: CPointer<GPatternSpec> = pointer
 
     /**
@@ -50,10 +48,9 @@ public class PatternSpec(
      * @since 2.70
      */
     @GLibVersion2_70
-    public fun copy(): PatternSpec =
-        g_pattern_spec_copy(glibPatternSpecPointer.reinterpret())!!.run {
-            PatternSpec(reinterpret())
-        }
+    public fun copy(): PatternSpec = g_pattern_spec_copy(glibPatternSpecPointer.reinterpret())!!.run {
+        PatternSpec(reinterpret())
+    }
 
     /**
      * Compares two compiled pattern specs and returns whether they will
@@ -62,11 +59,10 @@ public class PatternSpec(
      * @param pspec2 another #GPatternSpec
      * @return Whether the compiled patterns are equal
      */
-    public fun equal(pspec2: PatternSpec): Boolean =
-        g_pattern_spec_equal(
-            glibPatternSpecPointer.reinterpret(),
-            pspec2.glibPatternSpecPointer.reinterpret()
-        ).asBoolean()
+    public fun equal(pspec2: PatternSpec): Boolean = g_pattern_spec_equal(
+        glibPatternSpecPointer.reinterpret(),
+        pspec2.glibPatternSpecPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Frees the memory allocated for the #GPatternSpec.
@@ -100,11 +96,7 @@ public class PatternSpec(
      * @since 2.70
      */
     @GLibVersion2_70
-    public fun match(
-        stringLength: ULong,
-        string: String,
-        stringReversed: String? = null,
-    ): Boolean =
+    public fun match(stringLength: ULong, string: String, stringReversed: String? = null): Boolean =
         g_pattern_spec_match(glibPatternSpecPointer.reinterpret(), stringLength, string, stringReversed).asBoolean()
 
     /**

@@ -32,7 +32,6 @@ import org.gtkkn.native.adw.adw_spring_animation_set_value_to
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.UInt
-import kotlin.Unit
 
 /**
  * A spring-based [class@Animation].
@@ -67,9 +66,8 @@ import kotlin.Unit
  * If the initial and final values are equal, and the initial velocity is not 0,
  * the animation value will bounce and return to its resting position.
  */
-public class SpringAnimation(
-    pointer: CPointer<AdwSpringAnimation>,
-) : Animation(pointer.reinterpret()),
+public class SpringAnimation(pointer: CPointer<AdwSpringAnimation>) :
+    Animation(pointer.reinterpret()),
     KGTyped {
     public val adwSpringAnimationPointer: CPointer<AdwSpringAnimation>
         get() = gPointer.reinterpret()
@@ -190,10 +188,9 @@ public class SpringAnimation(
          *
          * @return the spring parameters
          */
-        get() =
-            adw_spring_animation_get_spring_params(adwSpringAnimationPointer.reinterpret())!!.run {
-                SpringParams(reinterpret())
-            }
+        get() = adw_spring_animation_get_spring_params(adwSpringAnimationPointer.reinterpret())!!.run {
+            SpringParams(reinterpret())
+        }
 
         /**
          * Sets the physical parameters of the spring of @self.
@@ -202,11 +199,10 @@ public class SpringAnimation(
          */
         set(
             springParams
-        ) =
-            adw_spring_animation_set_spring_params(
-                adwSpringAnimationPointer.reinterpret(),
-                springParams.adwSpringParamsPointer.reinterpret()
-            )
+        ) = adw_spring_animation_set_spring_params(
+            adwSpringAnimationPointer.reinterpret(),
+            springParams.adwSpringParamsPointer.reinterpret()
+        )
 
     /**
      * The value to animate from.
@@ -327,145 +323,6 @@ public class SpringAnimation(
     @AdwVersion1_3
     public fun calculateVelocity(time: UInt): Double =
         adw_spring_animation_calculate_velocity(adwSpringAnimationPointer.reinterpret(), time)
-
-    /**
-     * Gets whether @self should be clamped.
-     *
-     * @return whether @self is clamped
-     */
-    public fun getClamp(): Boolean = adw_spring_animation_get_clamp(adwSpringAnimationPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the precision of the spring.
-     *
-     * @return the epsilon value
-     */
-    public fun getEpsilon(): Double = adw_spring_animation_get_epsilon(adwSpringAnimationPointer.reinterpret())
-
-    /**
-     * Gets the estimated duration of @self, in milliseconds.
-     *
-     * Can be [const@DURATION_INFINITE] if the spring damping is set to 0.
-     *
-     * @return the estimated duration
-     */
-    public fun getEstimatedDuration(): UInt =
-        adw_spring_animation_get_estimated_duration(adwSpringAnimationPointer.reinterpret())
-
-    /**
-     * Gets the initial velocity of @self.
-     *
-     * @return the initial velocity
-     */
-    public fun getInitialVelocity(): Double =
-        adw_spring_animation_get_initial_velocity(adwSpringAnimationPointer.reinterpret())
-
-    /**
-     * Gets the physical parameters of the spring of @self.
-     *
-     * @return the spring parameters
-     */
-    public fun getSpringParams(): SpringParams =
-        adw_spring_animation_get_spring_params(adwSpringAnimationPointer.reinterpret())!!.run {
-            SpringParams(reinterpret())
-        }
-
-    /**
-     * Gets the value @self will animate from.
-     *
-     * @return the value to animate from
-     */
-    public fun getValueFrom(): Double = adw_spring_animation_get_value_from(adwSpringAnimationPointer.reinterpret())
-
-    /**
-     * Gets the value @self will animate to.
-     *
-     * @return the value to animate to
-     */
-    public fun getValueTo(): Double = adw_spring_animation_get_value_to(adwSpringAnimationPointer.reinterpret())
-
-    /**
-     * Gets the current velocity of @self.
-     *
-     * @return the current velocity
-     */
-    public fun getVelocity(): Double = adw_spring_animation_get_velocity(adwSpringAnimationPointer.reinterpret())
-
-    /**
-     * Sets whether @self should be clamped.
-     *
-     * If set to `TRUE`, the animation will abruptly end as soon as it reaches the
-     * final value, preventing overshooting.
-     *
-     * It won't prevent overshooting [property@SpringAnimation:value-from] if a
-     * relative negative [property@SpringAnimation:initial-velocity] is set.
-     *
-     * @param clamp the new value
-     */
-    public fun setClamp(clamp: Boolean): Unit =
-        adw_spring_animation_set_clamp(adwSpringAnimationPointer.reinterpret(), clamp.asGBoolean())
-
-    /**
-     * Sets the precision of the spring.
-     *
-     * The level of precision used to determine when the animation has come to a
-     * rest, that is, when the amplitude of the oscillations becomes smaller than
-     * this value.
-     *
-     * If the epsilon value is too small, the animation will take a long time to
-     * stop after the animated value has stopped visibly changing.
-     *
-     * If the epsilon value is too large, the animation will end prematurely.
-     *
-     * The default value is 0.001.
-     *
-     * @param epsilon the new value
-     */
-    public fun setEpsilon(epsilon: Double): Unit =
-        adw_spring_animation_set_epsilon(adwSpringAnimationPointer.reinterpret(), epsilon)
-
-    /**
-     * Sets the initial velocity of @self.
-     *
-     * Initial velocity affects only the animation curve, but not its duration.
-     *
-     * @param velocity the initial velocity
-     */
-    public fun setInitialVelocity(velocity: Double): Unit =
-        adw_spring_animation_set_initial_velocity(adwSpringAnimationPointer.reinterpret(), velocity)
-
-    /**
-     * Sets the physical parameters of the spring of @self.
-     *
-     * @param springParams the new spring parameters
-     */
-    public fun setSpringParams(springParams: SpringParams): Unit =
-        adw_spring_animation_set_spring_params(
-            adwSpringAnimationPointer.reinterpret(),
-            springParams.adwSpringParamsPointer.reinterpret()
-        )
-
-    /**
-     * Sets the value @self will animate from.
-     *
-     * The animation will start at this value and end at
-     * [property@SpringAnimation:value-to].
-     *
-     * @param value the value to animate from
-     */
-    public fun setValueFrom(`value`: Double): Unit =
-        adw_spring_animation_set_value_from(adwSpringAnimationPointer.reinterpret(), `value`)
-
-    /**
-     * Sets the value @self will animate to.
-     *
-     * The animation will start at [property@SpringAnimation:value-from] and end at
-     * this value.
-     *
-     * @param value the value to animate to
-     */
-    public fun setValueTo(`value`: Double): Unit =
-        adw_spring_animation_set_value_to(adwSpringAnimationPointer.reinterpret(), `value`)
 
     public companion object : TypeCompanion<SpringAnimation> {
         override val type: GeneratedClassKGType<SpringAnimation> =

@@ -43,11 +43,8 @@ import kotlin.Unit
  * - parameter `data`: gpointer
  * - method `steal_qdata`: Return type gpointer is unsupported
  */
-public open class ParamSpec(
-    pointer: CPointer<GParamSpec>,
-) {
+public open class ParamSpec(pointer: CPointer<GParamSpec>) {
     public val gPointer: CPointer<GParamSpec>
-
     init {
         gPointer = pointer.reinterpret()
     }
@@ -68,10 +65,9 @@ public open class ParamSpec(
      * @since 2.38
      */
     @GObjectVersion2_38
-    public open fun getDefaultValue(): Value =
-        g_param_spec_get_default_value(gPointer.reinterpret())!!.run {
-            Value(reinterpret())
-        }
+    public open fun getDefaultValue(): Value = g_param_spec_get_default_value(gPointer.reinterpret())!!.run {
+        Value(reinterpret())
+    }
 
     /**
      * Get the name of a #GParamSpec.
@@ -115,10 +111,9 @@ public open class ParamSpec(
      * @since 2.4
      */
     @GObjectVersion2_4
-    public open fun getRedirectTarget(): ParamSpec? =
-        g_param_spec_get_redirect_target(gPointer.reinterpret())?.run {
-            ParamSpec(reinterpret())
-        }
+    public open fun getRedirectTarget(): ParamSpec? = g_param_spec_get_redirect_target(gPointer.reinterpret())?.run {
+        ParamSpec(reinterpret())
+    }
 
     /**
      * The initial reference count of a newly created #GParamSpec is 1,

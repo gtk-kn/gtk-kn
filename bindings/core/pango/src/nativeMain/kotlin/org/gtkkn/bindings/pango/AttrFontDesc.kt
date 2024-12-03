@@ -18,9 +18,7 @@ import org.gtkkn.native.pango.pango_attr_font_desc_new
  *
  * - field `attr`: Attribute
  */
-public class AttrFontDesc(
-    pointer: CPointer<PangoAttrFontDesc>,
-) : Record {
+public class AttrFontDesc(pointer: CPointer<PangoAttrFontDesc>) : Record {
     public val pangoAttrFontDescPointer: CPointer<PangoAttrFontDesc> = pointer
 
     /**
@@ -29,10 +27,9 @@ public class AttrFontDesc(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val desc: FontDescription?
-        get() =
-            pangoAttrFontDescPointer.pointed.desc?.run {
-                FontDescription(reinterpret())
-            }
+        get() = pangoAttrFontDescPointer.pointed.desc?.run {
+            FontDescription(reinterpret())
+        }
 
     public companion object : RecordCompanion<AttrFontDesc, PangoAttrFontDesc> {
         /**

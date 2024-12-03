@@ -19,9 +19,8 @@ import kotlin.String
  * Signals that are used in this way are referred to as keybinding signals,
  * and they are expected to be defined with the %G_SIGNAL_ACTION flag.
  */
-public open class SignalAction(
-    pointer: CPointer<GtkSignalAction>,
-) : ShortcutAction(pointer.reinterpret()),
+public open class SignalAction(pointer: CPointer<GtkSignalAction>) :
+    ShortcutAction(pointer.reinterpret()),
     KGTyped {
     public val gtkSignalActionPointer: CPointer<GtkSignalAction>
         get() = gPointer.reinterpret()
@@ -35,9 +34,8 @@ public open class SignalAction(
          *
          * @return the name of the signal to emit
          */
-        get() =
-            gtk_signal_action_get_signal_name(gtkSignalActionPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_signal_action_get_signal_name(gtkSignalActionPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Creates an action that when activated, emits the given action signal
@@ -49,15 +47,6 @@ public open class SignalAction(
      * @return a new `GtkShortcutAction`
      */
     public constructor(signalName: String) : this(gtk_signal_action_new(signalName)!!.reinterpret())
-
-    /**
-     * Returns the name of the signal that will be emitted.
-     *
-     * @return the name of the signal to emit
-     */
-    public open fun getSignalName(): String =
-        gtk_signal_action_get_signal_name(gtkSignalActionPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
 
     public companion object : TypeCompanion<SignalAction> {
         override val type: GeneratedClassKGType<SignalAction> =

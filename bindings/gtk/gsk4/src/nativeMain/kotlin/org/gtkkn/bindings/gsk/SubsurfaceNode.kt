@@ -16,9 +16,8 @@ import org.gtkkn.native.gsk.gsk_subsurface_node_get_type
  * @since 4.14
  */
 @GskVersion4_14
-public open class SubsurfaceNode(
-    pointer: CPointer<GskSubsurfaceNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class SubsurfaceNode(pointer: CPointer<GskSubsurfaceNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskSubsurfaceNodePointer: CPointer<GskSubsurfaceNode>
         get() = gPointer.reinterpret()

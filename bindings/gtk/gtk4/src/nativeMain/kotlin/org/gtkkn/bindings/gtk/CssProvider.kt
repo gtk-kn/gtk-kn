@@ -8,6 +8,7 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.File
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
@@ -32,6 +33,7 @@ import org.gtkkn.native.gtk.gtk_css_provider_load_from_resource
 import org.gtkkn.native.gtk.gtk_css_provider_load_from_string
 import org.gtkkn.native.gtk.gtk_css_provider_load_named
 import org.gtkkn.native.gtk.gtk_css_provider_new
+import org.gtkkn.native.gtk.gtk_css_provider_to_string
 import kotlin.Long
 import kotlin.String
 import kotlin.ULong
@@ -67,14 +69,9 @@ import kotlin.Unit
  *
  * To track errors while loading CSS, connect to the
  * [signal@Gtk.CssProvider::parsing-error] signal.
- *
- * ## Skipped during bindings generation
- *
- * - method `to_string`: C function gtk_css_provider_to_string is ignored
  */
-public open class CssProvider(
-    pointer: CPointer<GtkCssProvider>,
-) : Object(pointer.reinterpret()),
+public open class CssProvider(pointer: CPointer<GtkCssProvider>) :
+    Object(pointer.reinterpret()),
     StyleProvider,
     KGTyped {
     public val gtkCssProviderPointer: CPointer<GtkCssProvider>
@@ -110,10 +107,8 @@ public open class CssProvider(
      * @param data CSS data to be parsed
      * @param length the length of @data in bytes, or -1 for NUL terminated strings
      */
-    public open fun loadFromData(
-        `data`: String,
-        length: Long,
-    ): Unit = gtk_css_provider_load_from_data(gtkCssProviderPointer.reinterpret(), `data`, length)
+    public open fun loadFromData(`data`: String, length: Long): Unit =
+        gtk_css_provider_load_from_data(gtkCssProviderPointer.reinterpret(), `data`, length)
 
     /**
      * Loads the data contained in @file into @css_provider.
@@ -169,10 +164,22 @@ public open class CssProvider(
      * @param variant variant to load, for example, "dark", or
      *   null for the default
      */
-    public open fun loadNamed(
-        name: String,
-        variant: String? = null,
-    ): Unit = gtk_css_provider_load_named(gtkCssProviderPointer.reinterpret(), name, variant)
+    public open fun loadNamed(name: String, variant: String? = null): Unit =
+        gtk_css_provider_load_named(gtkCssProviderPointer.reinterpret(), name, variant)
+
+    /**
+     * Converts the @provider into a string representation in CSS
+     * format.
+     *
+     * Using [method@Gtk.CssProvider.load_from_string] with the return
+     * value from this function on a new provider created with
+     * [ctor@Gtk.CssProvider.new] will basically create a duplicate
+     * of this @provider.
+     *
+     * @return a new string representing the @provider.
+     */
+    override fun toString(): String = gtk_css_provider_to_string(gtkCssProviderPointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Signals that a parsing error occurred.
@@ -195,15 +202,14 @@ public open class CssProvider(
     public fun connectParsingError(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (section: CssSection, error: Error) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "parsing-error",
-            connectParsingErrorFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "parsing-error",
+        connectParsingErrorFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<CssProvider> {
         override val type: GeneratedClassKGType<CssProvider> =
@@ -216,8 +222,7 @@ public open class CssProvider(
 }
 
 private val connectParsingErrorFunc:
-    CPointer<CFunction<(CPointer<GtkCssSection>, CPointer<GError>) -> Unit>> =
-    staticCFunction {
+    CPointer<CFunction<(CPointer<GtkCssSection>, CPointer<GError>) -> Unit>> = staticCFunction {
             _: COpaquePointer,
             section: CPointer<GtkCssSection>?,
             error: CPointer<GError>?,
@@ -231,4 +236,5 @@ private val connectParsingErrorFunc:
                 Error(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()

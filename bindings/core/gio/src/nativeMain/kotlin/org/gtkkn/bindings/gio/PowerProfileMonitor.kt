@@ -85,9 +85,7 @@ public interface PowerProfileMonitor :
     public fun getPowerSaverEnabled(): Boolean =
         g_power_profile_monitor_get_power_saver_enabled(gioPowerProfileMonitorPointer.reinterpret()).asBoolean()
 
-    private data class Wrapper(
-        private val pointer: CPointer<GPowerProfileMonitor>,
-    ) : PowerProfileMonitor {
+    private data class Wrapper(private val pointer: CPointer<GPowerProfileMonitor>) : PowerProfileMonitor {
         override val gioPowerProfileMonitorPointer: CPointer<GPowerProfileMonitor> = pointer
     }
 
@@ -108,9 +106,8 @@ public interface PowerProfileMonitor :
          * @since 2.70
          */
         @GioVersion2_70
-        public fun dupDefault(): PowerProfileMonitor =
-            g_power_profile_monitor_dup_default()!!.run {
-                PowerProfileMonitor.wrap(reinterpret())
-            }
+        public fun dupDefault(): PowerProfileMonitor = g_power_profile_monitor_dup_default()!!.run {
+            PowerProfileMonitor.wrap(reinterpret())
+        }
     }
 }

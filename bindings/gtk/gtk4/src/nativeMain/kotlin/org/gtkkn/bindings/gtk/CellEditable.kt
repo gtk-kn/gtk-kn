@@ -84,10 +84,7 @@ public interface CellEditable :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectEditingDone(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectEditingDone(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gtkCellEditablePointer.reinterpret(),
             "editing-done",
@@ -114,10 +111,7 @@ public interface CellEditable :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectRemoveWidget(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectRemoveWidget(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gtkCellEditablePointer.reinterpret(),
             "remove-widget",
@@ -127,9 +121,7 @@ public interface CellEditable :
             connectFlags.mask
         )
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkCellEditable>,
-    ) : CellEditable {
+    private data class Wrapper(private val pointer: CPointer<GtkCellEditable>) : CellEditable {
         override val gtkCellEditablePointer: CPointer<GtkCellEditable> = pointer
     }
 
@@ -145,18 +137,18 @@ public interface CellEditable :
     }
 }
 
-private val connectEditingDoneFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectEditingDoneFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectRemoveWidgetFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectRemoveWidgetFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

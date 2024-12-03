@@ -22,9 +22,8 @@ import kotlin.ULong
  * - parameter `n_stops`: n_stops: Out parameter is not supported
  * - parameter `color_stops`: ColorStop
  */
-public open class LinearGradientNode(
-    pointer: CPointer<GskLinearGradientNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class LinearGradientNode(pointer: CPointer<GskLinearGradientNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskLinearGradientNodePointer: CPointer<GskLinearGradientNode>
         get() = gPointer.reinterpret()

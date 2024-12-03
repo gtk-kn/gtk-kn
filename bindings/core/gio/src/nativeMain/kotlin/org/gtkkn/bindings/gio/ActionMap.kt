@@ -84,9 +84,7 @@ public interface ActionMap :
     public fun removeAction(actionName: String): Unit =
         g_action_map_remove_action(gioActionMapPointer.reinterpret(), actionName)
 
-    private data class Wrapper(
-        private val pointer: CPointer<GActionMap>,
-    ) : ActionMap {
+    private data class Wrapper(private val pointer: CPointer<GActionMap>) : ActionMap {
         override val gioActionMapPointer: CPointer<GActionMap> = pointer
     }
 

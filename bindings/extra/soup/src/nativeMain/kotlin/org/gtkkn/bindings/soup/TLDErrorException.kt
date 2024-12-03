@@ -2,9 +2,6 @@
 package org.gtkkn.bindings.soup
 
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 
-public class TLDErrorException(
-    error: Error,
-    public val code: TLDError,
-) : GlibException(error)
+public class TLDErrorException(error: Error, public val code: TLDError) : GLibException(error)

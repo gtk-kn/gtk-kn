@@ -14,9 +14,7 @@ import kotlin.UInt
 /**
  * A `GdkKeymapKey` is a hardware key that can be mapped to a keyval.
  */
-public class KeymapKey(
-    pointer: CPointer<GdkKeymapKey>,
-) : Record {
+public class KeymapKey(pointer: CPointer<GdkKeymapKey>) : Record {
     public val gdkKeymapKeyPointer: CPointer<GdkKeymapKey> = pointer
 
     /**

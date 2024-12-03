@@ -30,9 +30,8 @@ import kotlin.Unit
  * @since 1.4
  */
 @AdwVersion1_4
-public class ViewStackPages(
-    pointer: CPointer<AdwViewStackPages>,
-) : Object(pointer.reinterpret()),
+public class ViewStackPages(pointer: CPointer<AdwViewStackPages>) :
+    Object(pointer.reinterpret()),
     ListModel,
     SelectionModel,
     KGTyped {
@@ -70,11 +69,10 @@ public class ViewStackPages(
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun setSelectedPage(page: ViewStackPage): Unit =
-        adw_view_stack_pages_set_selected_page(
-            adwViewStackPagesPointer.reinterpret(),
-            page.adwViewStackPagePointer.reinterpret()
-        )
+    public fun setSelectedPage(page: ViewStackPage): Unit = adw_view_stack_pages_set_selected_page(
+        adwViewStackPagesPointer.reinterpret(),
+        page.adwViewStackPagePointer.reinterpret()
+    )
 
     public companion object : TypeCompanion<ViewStackPages> {
         override val type: GeneratedClassKGType<ViewStackPages> =

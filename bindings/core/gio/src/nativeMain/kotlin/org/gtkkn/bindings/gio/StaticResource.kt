@@ -25,9 +25,7 @@ import kotlin.Unit
  * - field `next`: Record field next is private
  * - field `padding`: Record field padding is private
  */
-public class StaticResource(
-    pointer: CPointer<GStaticResource>,
-) : Record {
+public class StaticResource(pointer: CPointer<GStaticResource>) : Record {
     public val gioStaticResourcePointer: CPointer<GStaticResource> = pointer
 
     /**
@@ -53,10 +51,9 @@ public class StaticResource(
      * @since 2.32
      */
     @GioVersion2_32
-    public fun getResource(): Resource =
-        g_static_resource_get_resource(gioStaticResourcePointer.reinterpret())!!.run {
-            Resource(reinterpret())
-        }
+    public fun getResource(): Resource = g_static_resource_get_resource(gioStaticResourcePointer.reinterpret())!!.run {
+        Resource(reinterpret())
+    }
 
     /**
      * Initializes a GResource from static data using a

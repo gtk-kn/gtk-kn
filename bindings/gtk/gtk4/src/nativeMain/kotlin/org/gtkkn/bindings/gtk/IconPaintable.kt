@@ -32,9 +32,8 @@ import kotlin.String
  *
  * - method `is-symbolic`: Property has no getter nor setter
  */
-public open class IconPaintable(
-    pointer: CPointer<GtkIconPaintable>,
-) : Object(pointer.reinterpret()),
+public open class IconPaintable(pointer: CPointer<GtkIconPaintable>) :
+    Object(pointer.reinterpret()),
     Paintable,
     SymbolicPaintable,
     KGTyped {
@@ -58,10 +57,9 @@ public open class IconPaintable(
          *
          * @return the `GFile` for the icon
          */
-        get() =
-            gtk_icon_paintable_get_file(gtkIconPaintablePointer.reinterpret())?.run {
-                File.wrap(reinterpret())
-            }
+        get() = gtk_icon_paintable_get_file(gtkIconPaintablePointer.reinterpret())?.run {
+            File.wrap(reinterpret())
+        }
 
     /**
      * The icon name that was chosen during lookup.
@@ -99,35 +97,6 @@ public open class IconPaintable(
         size: Int,
         scale: Int,
     ) : this(gtk_icon_paintable_new_for_file(`file`.gioFilePointer, size, scale)!!.reinterpret())
-
-    /**
-     * Gets the `GFile` that was used to load the icon.
-     *
-     * Returns null if the icon was not loaded from a file.
-     *
-     * @return the `GFile` for the icon
-     */
-    public open fun getFile(): File? =
-        gtk_icon_paintable_get_file(gtkIconPaintablePointer.reinterpret())?.run {
-            File.wrap(reinterpret())
-        }
-
-    /**
-     * Get the icon name being used for this icon.
-     *
-     * When an icon looked up in the icon theme was not available, the
-     * icon theme may use fallback icons - either those specified to
-     * gtk_icon_theme_lookup_icon() or the always-available
-     * "image-missing". The icon chosen is returned by this function.
-     *
-     * If the icon was created without an icon theme, this function
-     * returns null.
-     *
-     * @return the themed icon-name for the
-     *   icon, or null if its not a themed icon.
-     */
-    public open fun getIconName(): String? =
-        gtk_icon_paintable_get_icon_name(gtkIconPaintablePointer.reinterpret())?.toKString()
 
     /**
      * Checks if the icon is symbolic or not.

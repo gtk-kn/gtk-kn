@@ -20,9 +20,8 @@ import kotlin.ULong
  *
  * - parameter `shadows`: Shadow
  */
-public open class ShadowNode(
-    pointer: CPointer<GskShadowNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class ShadowNode(pointer: CPointer<GskShadowNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskShadowNodePointer: CPointer<GskShadowNode>
         get() = gPointer.reinterpret()
@@ -32,10 +31,9 @@ public open class ShadowNode(
      *
      * @return the child render node
      */
-    public open fun getChild(): RenderNode =
-        gsk_shadow_node_get_child(gskShadowNodePointer.reinterpret())!!.run {
-            RenderNode(reinterpret())
-        }
+    public open fun getChild(): RenderNode = gsk_shadow_node_get_child(gskShadowNodePointer.reinterpret())!!.run {
+        RenderNode(reinterpret())
+    }
 
     /**
      * Retrieves the number of shadows in the @node.

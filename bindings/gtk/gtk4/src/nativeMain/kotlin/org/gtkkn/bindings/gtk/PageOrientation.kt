@@ -6,9 +6,7 @@ import org.gtkkn.native.gtk.GtkPageOrientation
 /**
  * See also gtk_print_settings_set_orientation().
  */
-public enum class PageOrientation(
-    public val nativeValue: GtkPageOrientation,
-) {
+public enum class PageOrientation(public val nativeValue: GtkPageOrientation) {
     /**
      * Portrait mode.
      */
@@ -31,13 +29,12 @@ public enum class PageOrientation(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkPageOrientation): PageOrientation =
-            when (nativeValue) {
-                GtkPageOrientation.GTK_PAGE_ORIENTATION_PORTRAIT -> PORTRAIT
-                GtkPageOrientation.GTK_PAGE_ORIENTATION_LANDSCAPE -> LANDSCAPE
-                GtkPageOrientation.GTK_PAGE_ORIENTATION_REVERSE_PORTRAIT -> REVERSE_PORTRAIT
-                GtkPageOrientation.GTK_PAGE_ORIENTATION_REVERSE_LANDSCAPE -> REVERSE_LANDSCAPE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkPageOrientation): PageOrientation = when (nativeValue) {
+            GtkPageOrientation.GTK_PAGE_ORIENTATION_PORTRAIT -> PORTRAIT
+            GtkPageOrientation.GTK_PAGE_ORIENTATION_LANDSCAPE -> LANDSCAPE
+            GtkPageOrientation.GTK_PAGE_ORIENTATION_REVERSE_PORTRAIT -> REVERSE_PORTRAIT
+            GtkPageOrientation.GTK_PAGE_ORIENTATION_REVERSE_LANDSCAPE -> REVERSE_LANDSCAPE
+            else -> error("invalid nativeValue")
+        }
     }
 }

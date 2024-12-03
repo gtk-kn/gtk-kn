@@ -12,9 +12,7 @@ import org.gtkkn.native.glib.G_MARKUP_TREAT_CDATA_AS_TEXT
 /**
  * Flags that affect the behaviour of the parser.
  */
-public class MarkupParseFlags(
-    public val mask: GMarkupParseFlags,
-) : Bitfield<MarkupParseFlags> {
+public class MarkupParseFlags(public val mask: GMarkupParseFlags) : Bitfield<MarkupParseFlags> {
     override infix fun or(other: MarkupParseFlags): MarkupParseFlags = MarkupParseFlags(mask or other.mask)
 
     public companion object {

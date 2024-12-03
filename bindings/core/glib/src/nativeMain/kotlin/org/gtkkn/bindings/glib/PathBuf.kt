@@ -65,9 +65,7 @@ import kotlin.Unit
  * @since 2.76
  */
 @GLibVersion2_76
-public class PathBuf(
-    pointer: CPointer<GPathBuf>,
-) : Record {
+public class PathBuf(pointer: CPointer<GPathBuf>) : Record {
     public val glibPathBufPointer: CPointer<GPathBuf> = pointer
 
     /**
@@ -124,10 +122,9 @@ public class PathBuf(
      * @since 2.76
      */
     @GLibVersion2_76
-    public fun `init`(): PathBuf =
-        g_path_buf_init(glibPathBufPointer.reinterpret())!!.run {
-            PathBuf(reinterpret())
-        }
+    public fun `init`(): PathBuf = g_path_buf_init(glibPathBufPointer.reinterpret())!!.run {
+        PathBuf(reinterpret())
+    }
 
     /**
      * Initializes a `GPathBuf` instance with the given path.
@@ -207,10 +204,9 @@ public class PathBuf(
      * @since 2.76
      */
     @GLibVersion2_76
-    public fun push(path: String): PathBuf =
-        g_path_buf_push(glibPathBufPointer.reinterpret(), path)!!.run {
-            PathBuf(reinterpret())
-        }
+    public fun push(path: String): PathBuf = g_path_buf_push(glibPathBufPointer.reinterpret(), path)!!.run {
+        PathBuf(reinterpret())
+    }
 
     /**
      * Adds an extension to the file name in the path buffer.

@@ -14,9 +14,7 @@ import org.gtkkn.native.glib.G_FILE_SET_CONTENTS_ONLY_EXISTING
  * performance.
  * @since 2.66
  */
-public class FileSetContentsFlags(
-    public val mask: GFileSetContentsFlags,
-) : Bitfield<FileSetContentsFlags> {
+public class FileSetContentsFlags(public val mask: GFileSetContentsFlags) : Bitfield<FileSetContentsFlags> {
     override infix fun or(other: FileSetContentsFlags): FileSetContentsFlags = FileSetContentsFlags(mask or other.mask)
 
     @GLibVersion2_66

@@ -15,9 +15,7 @@ import kotlin.Int
  *
  * See also [method@Gtk.PrintSettings.set_page_ranges].
  */
-public class PageRange(
-    pointer: CPointer<GtkPageRange>,
-) : Record {
+public class PageRange(pointer: CPointer<GtkPageRange>) : Record {
     public val gtkPageRangePointer: CPointer<GtkPageRange> = pointer
 
     /**

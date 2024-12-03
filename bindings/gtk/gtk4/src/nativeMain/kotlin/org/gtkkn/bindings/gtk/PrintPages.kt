@@ -6,9 +6,7 @@ import org.gtkkn.native.gtk.GtkPrintPages
 /**
  * See also gtk_print_job_set_pages()
  */
-public enum class PrintPages(
-    public val nativeValue: GtkPrintPages,
-) {
+public enum class PrintPages(public val nativeValue: GtkPrintPages) {
     /**
      * All pages.
      */
@@ -31,13 +29,12 @@ public enum class PrintPages(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkPrintPages): PrintPages =
-            when (nativeValue) {
-                GtkPrintPages.GTK_PRINT_PAGES_ALL -> ALL
-                GtkPrintPages.GTK_PRINT_PAGES_CURRENT -> CURRENT
-                GtkPrintPages.GTK_PRINT_PAGES_RANGES -> RANGES
-                GtkPrintPages.GTK_PRINT_PAGES_SELECTION -> SELECTION
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkPrintPages): PrintPages = when (nativeValue) {
+            GtkPrintPages.GTK_PRINT_PAGES_ALL -> ALL
+            GtkPrintPages.GTK_PRINT_PAGES_CURRENT -> CURRENT
+            GtkPrintPages.GTK_PRINT_PAGES_RANGES -> RANGES
+            GtkPrintPages.GTK_PRINT_PAGES_SELECTION -> SELECTION
+            else -> error("invalid nativeValue")
+        }
     }
 }

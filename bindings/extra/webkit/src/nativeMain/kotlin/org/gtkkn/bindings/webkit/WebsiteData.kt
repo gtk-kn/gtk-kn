@@ -37,9 +37,7 @@ import kotlin.Unit
  * @since 2.16
  */
 @WebKitVersion2_16
-public class WebsiteData(
-    pointer: CPointer<WebKitWebsiteData>,
-) : Record {
+public class WebsiteData(pointer: CPointer<WebKitWebsiteData>) : Record {
     public val webkitWebsiteDataPointer: CPointer<WebKitWebsiteData> = pointer
 
     /**
@@ -53,9 +51,8 @@ public class WebsiteData(
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun getName(): String =
-        webkit_website_data_get_name(webkitWebsiteDataPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getName(): String = webkit_website_data_get_name(webkitWebsiteDataPointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Gets the size of the data of types @types in a #WebKitWebsiteData.
@@ -95,10 +92,9 @@ public class WebsiteData(
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun ref(): WebsiteData =
-        webkit_website_data_ref(webkitWebsiteDataPointer.reinterpret())!!.run {
-            WebsiteData(reinterpret())
-        }
+    public fun ref(): WebsiteData = webkit_website_data_ref(webkitWebsiteDataPointer.reinterpret())!!.run {
+        WebsiteData(reinterpret())
+    }
 
     /**
      * Atomically decrements the reference count of @website_data by one.

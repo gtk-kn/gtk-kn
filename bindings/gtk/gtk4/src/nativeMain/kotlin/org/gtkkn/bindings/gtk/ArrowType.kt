@@ -6,9 +6,7 @@ import org.gtkkn.native.gtk.GtkArrowType
 /**
  * Used to indicate the direction in which an arrow should point.
  */
-public enum class ArrowType(
-    public val nativeValue: GtkArrowType,
-) {
+public enum class ArrowType(public val nativeValue: GtkArrowType) {
     /**
      * Represents an upward pointing arrow.
      */
@@ -36,14 +34,13 @@ public enum class ArrowType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkArrowType): ArrowType =
-            when (nativeValue) {
-                GtkArrowType.GTK_ARROW_UP -> UP
-                GtkArrowType.GTK_ARROW_DOWN -> DOWN
-                GtkArrowType.GTK_ARROW_LEFT -> LEFT
-                GtkArrowType.GTK_ARROW_RIGHT -> RIGHT
-                GtkArrowType.GTK_ARROW_NONE -> NONE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkArrowType): ArrowType = when (nativeValue) {
+            GtkArrowType.GTK_ARROW_UP -> UP
+            GtkArrowType.GTK_ARROW_DOWN -> DOWN
+            GtkArrowType.GTK_ARROW_LEFT -> LEFT
+            GtkArrowType.GTK_ARROW_RIGHT -> RIGHT
+            GtkArrowType.GTK_ARROW_NONE -> NONE
+            else -> error("invalid nativeValue")
+        }
     }
 }

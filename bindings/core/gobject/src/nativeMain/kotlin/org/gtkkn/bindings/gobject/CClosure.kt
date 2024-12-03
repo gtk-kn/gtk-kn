@@ -39,9 +39,7 @@ import org.gtkkn.native.gobject.GCClosure
  * - field `closure`: Closure
  * - field `callback`: gpointer
  */
-public class CClosure(
-    pointer: CPointer<GCClosure>,
-) : Record {
+public class CClosure(pointer: CPointer<GCClosure>) : Record {
     public val gobjectCClosurePointer: CPointer<GCClosure> = pointer
 
     public companion object : RecordCompanion<CClosure, GCClosure> {

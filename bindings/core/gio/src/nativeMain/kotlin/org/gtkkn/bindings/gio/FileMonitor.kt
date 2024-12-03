@@ -49,9 +49,8 @@ import kotlin.Unit
  * - method `cancelled`: Property has no getter nor setter
  * - method `rate-limit`: Property has no getter
  */
-public open class FileMonitor(
-    pointer: CPointer<GFileMonitor>,
-) : Object(pointer.reinterpret()),
+public open class FileMonitor(pointer: CPointer<GFileMonitor>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioFileMonitorPointer: CPointer<GFileMonitor>
         get() = gPointer.reinterpret()
@@ -76,11 +75,7 @@ public open class FileMonitor(
      * @param otherFile a #GFile.
      * @param eventType a set of #GFileMonitorEvent flags.
      */
-    public open fun emitEvent(
-        child: File,
-        otherFile: File,
-        eventType: FileMonitorEvent,
-    ): Unit =
+    public open fun emitEvent(child: File, otherFile: File, eventType: FileMonitorEvent): Unit =
         g_file_monitor_emit_event(
             gioFileMonitorPointer.reinterpret(),
             child.gioFilePointer,
@@ -146,15 +141,14 @@ public open class FileMonitor(
             otherFile: File?,
             eventType: FileMonitorEvent,
         ) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "changed",
-            connectChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "changed",
+        connectChangedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<FileMonitor> {
         override val type: GeneratedClassKGType<FileMonitor> =
@@ -173,33 +167,30 @@ private val connectChangedFunc: CPointer<
             CPointer<GFile>?,
             GFileMonitorEvent,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            _: COpaquePointer,
-            `file`: CPointer<GFile>?,
-            otherFile: CPointer<GFile>?,
-            eventType: GFileMonitorEvent,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    `file`: File,
-                    otherFile: File?,
-                    eventType: FileMonitorEvent,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                `file`!!.run {
-                    File.wrap(reinterpret())
-                },
-                otherFile?.run {
-                    File.wrap(reinterpret())
-                },
-                eventType.run {
-                    FileMonitorEvent.fromNativeValue(this)
-                }
-            )
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        _: COpaquePointer,
+        `file`: CPointer<GFile>?,
+        otherFile: CPointer<GFile>?,
+        eventType: GFileMonitorEvent,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            `file`: File,
+            otherFile: File?,
+            eventType: FileMonitorEvent,
+        ) -> Unit
+        >().get().invoke(
+        `file`!!.run {
+            File.wrap(reinterpret())
+        },
+        otherFile?.run {
+            File.wrap(reinterpret())
+        },
+        eventType.run {
+            FileMonitorEvent.fromNativeValue(this)
+        }
+    )
+}
+    .reinterpret()

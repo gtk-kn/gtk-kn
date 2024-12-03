@@ -20,9 +20,7 @@ import kotlin.Unit
  * @since 2.12
  */
 @WebKitVersion2_12
-public class WebViewSessionState(
-    pointer: CPointer<WebKitWebViewSessionState>,
-) : Record {
+public class WebViewSessionState(pointer: CPointer<WebKitWebViewSessionState>) : Record {
     public val webkitWebViewSessionStatePointer: CPointer<WebKitWebViewSessionState> = pointer
 
     /**
@@ -73,10 +71,9 @@ public class WebViewSessionState(
          *     valid serialized #WebKitWebViewSessionState.
          * @since 2.12
          */
-        public fun new(`data`: Bytes): WebViewSessionState =
-            WebViewSessionState(
-                webkit_web_view_session_state_new(`data`.glibBytesPointer.reinterpret())!!.reinterpret()
-            )
+        public fun new(`data`: Bytes): WebViewSessionState = WebViewSessionState(
+            webkit_web_view_session_state_new(`data`.glibBytesPointer.reinterpret())!!.reinterpret()
+        )
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): WebViewSessionState =
             WebViewSessionState(pointer.reinterpret())

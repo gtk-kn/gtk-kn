@@ -35,9 +35,8 @@ import kotlin.Unit
  * `GtkEventControllerKey` is an event controller that provides access
  * to key events.
  */
-public open class EventControllerKey(
-    pointer: CPointer<GtkEventControllerKey>,
-) : EventController(pointer.reinterpret()),
+public open class EventControllerKey(pointer: CPointer<GtkEventControllerKey>) :
+    EventController(pointer.reinterpret()),
     KGTyped {
     public val gtkEventControllerKeyPointer: CPointer<GtkEventControllerKey>
         get() = gPointer.reinterpret()
@@ -60,11 +59,10 @@ public open class EventControllerKey(
      * @param widget a `GtkWidget`
      * @return whether the @widget handled the event
      */
-    public open fun forward(widget: Widget): Boolean =
-        gtk_event_controller_key_forward(
-            gtkEventControllerKeyPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret()
-        ).asBoolean()
+    public open fun forward(widget: Widget): Boolean = gtk_event_controller_key_forward(
+        gtkEventControllerKeyPointer.reinterpret(),
+        widget.gtkWidgetPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Gets the key group of the current event of this @controller.
@@ -90,11 +88,10 @@ public open class EventControllerKey(
      *
      * @param imContext a `GtkIMContext`
      */
-    public open fun setImContext(imContext: IMContext? = null): Unit =
-        gtk_event_controller_key_set_im_context(
-            gtkEventControllerKeyPointer.reinterpret(),
-            imContext?.gtkIMContextPointer?.reinterpret()
-        )
+    public open fun setImContext(imContext: IMContext? = null): Unit = gtk_event_controller_key_set_im_context(
+        gtkEventControllerKeyPointer.reinterpret(),
+        imContext?.gtkIMContextPointer?.reinterpret()
+    )
 
     /**
      * Emitted whenever the input method context filters away
@@ -106,10 +103,7 @@ public open class EventControllerKey(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectImUpdate(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectImUpdate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "im-update",
@@ -132,15 +126,14 @@ public open class EventControllerKey(
             keycode: UInt,
             state: ModifierType,
         ) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "key-pressed",
-            connectKeyPressedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "key-pressed",
+        connectKeyPressedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted whenever a key is released.
@@ -155,15 +148,14 @@ public open class EventControllerKey(
             keycode: UInt,
             state: ModifierType,
         ) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "key-released",
-            connectKeyReleasedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "key-released",
+        connectKeyReleasedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted whenever the state of modifier keys and pointer buttons change.
@@ -175,15 +167,14 @@ public open class EventControllerKey(
     public fun connectModifiers(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (state: ModifierType) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "modifiers",
-            connectModifiersFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "modifiers",
+        connectModifiersFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<EventControllerKey> {
         override val type: GeneratedClassKGType<EventControllerKey> =
@@ -195,13 +186,13 @@ public open class EventControllerKey(
     }
 }
 
-private val connectImUpdateFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectImUpdateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
 private val connectKeyPressedFunc: CPointer<
     CFunction<
@@ -210,32 +201,29 @@ private val connectKeyPressedFunc: CPointer<
             UInt,
             GdkModifierType,
         ) -> Int
-    >
-> =
-    staticCFunction {
-            _: COpaquePointer,
+        >
+    > = staticCFunction {
+        _: COpaquePointer,
+        keyval: UInt,
+        keycode: UInt,
+        state: GdkModifierType,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
             keyval: UInt,
             keycode: UInt,
-            state: GdkModifierType,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    keyval: UInt,
-                    keycode: UInt,
-                    state: ModifierType,
-                ) -> Boolean
-            >()
-            .get()
-            .invoke(
-                keyval,
-                keycode,
-                state.run {
-                    ModifierType(this)
-                }
-            ).asGBoolean()
-    }.reinterpret()
+            state: ModifierType,
+        ) -> Boolean
+        >().get().invoke(
+        keyval,
+        keycode,
+        state.run {
+            ModifierType(this)
+        }
+    ).asGBoolean()
+}
+    .reinterpret()
 
 private val connectKeyReleasedFunc: CPointer<
     CFunction<
@@ -244,45 +232,39 @@ private val connectKeyReleasedFunc: CPointer<
             UInt,
             GdkModifierType,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            _: COpaquePointer,
+        >
+    > = staticCFunction {
+        _: COpaquePointer,
+        keyval: UInt,
+        keycode: UInt,
+        state: GdkModifierType,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
             keyval: UInt,
             keycode: UInt,
-            state: GdkModifierType,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    keyval: UInt,
-                    keycode: UInt,
-                    state: ModifierType,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                keyval,
-                keycode,
-                state.run {
-                    ModifierType(this)
-                }
-            )
-    }.reinterpret()
+            state: ModifierType,
+        ) -> Unit
+        >().get().invoke(
+        keyval,
+        keycode,
+        state.run {
+            ModifierType(this)
+        }
+    )
+}
+    .reinterpret()
 
-private val connectModifiersFunc: CPointer<CFunction<(GdkModifierType) -> Int>> =
-    staticCFunction {
-            _: COpaquePointer,
-            state: GdkModifierType,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<(state: ModifierType) -> Boolean>()
-            .get()
-            .invoke(
-                state.run {
-                    ModifierType(this)
-                }
-            ).asGBoolean()
-    }.reinterpret()
+private val connectModifiersFunc: CPointer<CFunction<(GdkModifierType) -> Int>> = staticCFunction {
+        _: COpaquePointer,
+        state: GdkModifierType,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(state: ModifierType) -> Boolean>().get().invoke(
+        state.run {
+            ModifierType(this)
+        }
+    ).asGBoolean()
+}
+    .reinterpret()

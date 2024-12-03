@@ -16,9 +16,7 @@ import org.gtkkn.native.gio.GMemoryMonitorWarningLevel
  * @since 2.64
  */
 @GioVersion2_64
-public enum class MemoryMonitorWarningLevel(
-    public val nativeValue: GMemoryMonitorWarningLevel,
-) {
+public enum class MemoryMonitorWarningLevel(public val nativeValue: GMemoryMonitorWarningLevel) {
     /**
      * Memory on the device is low, processes
      *   should free up unneeded resources (for example, in-memory caches) so they can

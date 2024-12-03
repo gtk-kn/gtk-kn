@@ -9,9 +9,7 @@ import org.gtkkn.native.pango.PangoTextTransform
  * @since 1.50
  */
 @PangoVersion1_50
-public enum class TextTransform(
-    public val nativeValue: PangoTextTransform,
-) {
+public enum class TextTransform(public val nativeValue: PangoTextTransform) {
     /**
      * Leave text unchanged
      */
@@ -35,13 +33,12 @@ public enum class TextTransform(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: PangoTextTransform): TextTransform =
-            when (nativeValue) {
-                PangoTextTransform.PANGO_TEXT_TRANSFORM_NONE -> NONE
-                PangoTextTransform.PANGO_TEXT_TRANSFORM_LOWERCASE -> LOWERCASE
-                PangoTextTransform.PANGO_TEXT_TRANSFORM_UPPERCASE -> UPPERCASE
-                PangoTextTransform.PANGO_TEXT_TRANSFORM_CAPITALIZE -> CAPITALIZE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: PangoTextTransform): TextTransform = when (nativeValue) {
+            PangoTextTransform.PANGO_TEXT_TRANSFORM_NONE -> NONE
+            PangoTextTransform.PANGO_TEXT_TRANSFORM_LOWERCASE -> LOWERCASE
+            PangoTextTransform.PANGO_TEXT_TRANSFORM_UPPERCASE -> UPPERCASE
+            PangoTextTransform.PANGO_TEXT_TRANSFORM_CAPITALIZE -> CAPITALIZE
+            else -> error("invalid nativeValue")
+        }
     }
 }

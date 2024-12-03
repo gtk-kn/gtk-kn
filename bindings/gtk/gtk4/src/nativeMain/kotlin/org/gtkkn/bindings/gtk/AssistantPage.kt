@@ -20,9 +20,8 @@ import org.gtkkn.native.gtk.gtk_assistant_page_get_type
  * - method `page-type`: Property has no getter nor setter
  * - method `title`: Property has no getter nor setter
  */
-public open class AssistantPage(
-    pointer: CPointer<GtkAssistantPage>,
-) : Object(pointer.reinterpret()),
+public open class AssistantPage(pointer: CPointer<GtkAssistantPage>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkAssistantPagePointer: CPointer<GtkAssistantPage>
         get() = gPointer.reinterpret()
@@ -36,18 +35,7 @@ public open class AssistantPage(
          *
          * @return the child to which @page belongs
          */
-        get() =
-            gtk_assistant_page_get_child(gtkAssistantPagePointer.reinterpret())!!.run {
-                Widget(reinterpret())
-            }
-
-    /**
-     * Returns the child to which @page belongs.
-     *
-     * @return the child to which @page belongs
-     */
-    public open fun getChild(): Widget =
-        gtk_assistant_page_get_child(gtkAssistantPagePointer.reinterpret())!!.run {
+        get() = gtk_assistant_page_get_child(gtkAssistantPagePointer.reinterpret())!!.run {
             Widget(reinterpret())
         }
 

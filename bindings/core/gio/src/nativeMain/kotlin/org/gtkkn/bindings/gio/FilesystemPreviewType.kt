@@ -8,9 +8,7 @@ import org.gtkkn.native.gio.GFilesystemPreviewType
  * previewed in a file manager. Returned as the value of the key
  * %G_FILE_ATTRIBUTE_FILESYSTEM_USE_PREVIEW.
  */
-public enum class FilesystemPreviewType(
-    public val nativeValue: GFilesystemPreviewType,
-) {
+public enum class FilesystemPreviewType(public val nativeValue: GFilesystemPreviewType) {
     /**
      * Only preview files if user has explicitly requested it.
      */
@@ -28,12 +26,11 @@ public enum class FilesystemPreviewType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GFilesystemPreviewType): FilesystemPreviewType =
-            when (nativeValue) {
-                GFilesystemPreviewType.G_FILESYSTEM_PREVIEW_TYPE_IF_ALWAYS -> IF_ALWAYS
-                GFilesystemPreviewType.G_FILESYSTEM_PREVIEW_TYPE_IF_LOCAL -> IF_LOCAL
-                GFilesystemPreviewType.G_FILESYSTEM_PREVIEW_TYPE_NEVER -> NEVER
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GFilesystemPreviewType): FilesystemPreviewType = when (nativeValue) {
+            GFilesystemPreviewType.G_FILESYSTEM_PREVIEW_TYPE_IF_ALWAYS -> IF_ALWAYS
+            GFilesystemPreviewType.G_FILESYSTEM_PREVIEW_TYPE_IF_LOCAL -> IF_LOCAL
+            GFilesystemPreviewType.G_FILESYSTEM_PREVIEW_TYPE_NEVER -> NEVER
+            else -> error("invalid nativeValue")
+        }
     }
 }

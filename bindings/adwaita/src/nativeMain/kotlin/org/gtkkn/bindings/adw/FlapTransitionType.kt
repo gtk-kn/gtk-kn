@@ -10,9 +10,7 @@ import org.gtkkn.native.adw.AdwFlapTransitionType
  * [class@Flap] widget, as well as which areas can be swiped via
  * [property@Flap:swipe-to-open] and [property@Flap:swipe-to-close].
  */
-public enum class FlapTransitionType(
-    public val nativeValue: AdwFlapTransitionType,
-) {
+public enum class FlapTransitionType(public val nativeValue: AdwFlapTransitionType) {
     /**
      * The flap slides over the content, which is
      *   dimmed. When folded, only the flap can be swiped.
@@ -34,12 +32,11 @@ public enum class FlapTransitionType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: AdwFlapTransitionType): FlapTransitionType =
-            when (nativeValue) {
-                AdwFlapTransitionType.ADW_FLAP_TRANSITION_TYPE_OVER -> OVER
-                AdwFlapTransitionType.ADW_FLAP_TRANSITION_TYPE_UNDER -> UNDER
-                AdwFlapTransitionType.ADW_FLAP_TRANSITION_TYPE_SLIDE -> SLIDE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: AdwFlapTransitionType): FlapTransitionType = when (nativeValue) {
+            AdwFlapTransitionType.ADW_FLAP_TRANSITION_TYPE_OVER -> OVER
+            AdwFlapTransitionType.ADW_FLAP_TRANSITION_TYPE_UNDER -> UNDER
+            AdwFlapTransitionType.ADW_FLAP_TRANSITION_TYPE_SLIDE -> SLIDE
+            else -> error("invalid nativeValue")
+        }
     }
 }

@@ -9,9 +9,7 @@ import org.gtkkn.native.gio.GDriveStartStopType
  * @since 2.22
  */
 @GioVersion2_22
-public enum class DriveStartStopType(
-    public val nativeValue: GDriveStartStopType,
-) {
+public enum class DriveStartStopType(public val nativeValue: GDriveStartStopType) {
     /**
      * Unknown or drive doesn't support
      *    start/stop.
@@ -47,14 +45,13 @@ public enum class DriveStartStopType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GDriveStartStopType): DriveStartStopType =
-            when (nativeValue) {
-                GDriveStartStopType.G_DRIVE_START_STOP_TYPE_UNKNOWN -> UNKNOWN
-                GDriveStartStopType.G_DRIVE_START_STOP_TYPE_SHUTDOWN -> SHUTDOWN
-                GDriveStartStopType.G_DRIVE_START_STOP_TYPE_NETWORK -> NETWORK
-                GDriveStartStopType.G_DRIVE_START_STOP_TYPE_MULTIDISK -> MULTIDISK
-                GDriveStartStopType.G_DRIVE_START_STOP_TYPE_PASSWORD -> PASSWORD
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GDriveStartStopType): DriveStartStopType = when (nativeValue) {
+            GDriveStartStopType.G_DRIVE_START_STOP_TYPE_UNKNOWN -> UNKNOWN
+            GDriveStartStopType.G_DRIVE_START_STOP_TYPE_SHUTDOWN -> SHUTDOWN
+            GDriveStartStopType.G_DRIVE_START_STOP_TYPE_NETWORK -> NETWORK
+            GDriveStartStopType.G_DRIVE_START_STOP_TYPE_MULTIDISK -> MULTIDISK
+            GDriveStartStopType.G_DRIVE_START_STOP_TYPE_PASSWORD -> PASSWORD
+            else -> error("invalid nativeValue")
+        }
     }
 }

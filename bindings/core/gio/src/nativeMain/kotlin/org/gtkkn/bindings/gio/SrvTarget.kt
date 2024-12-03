@@ -38,9 +38,7 @@ import kotlin.Unit
  * [iface@Gio.SocketConnectable] interface and not need to worry about
  * `GSrvTarget` at all.
  */
-public class SrvTarget(
-    pointer: CPointer<GSrvTarget>,
-) : Record {
+public class SrvTarget(pointer: CPointer<GSrvTarget>) : Record {
     public val gioSrvTargetPointer: CPointer<GSrvTarget> = pointer
 
     /**
@@ -50,10 +48,9 @@ public class SrvTarget(
      * @since 2.22
      */
     @GioVersion2_22
-    public fun copy(): SrvTarget =
-        g_srv_target_copy(gioSrvTargetPointer.reinterpret())!!.run {
-            SrvTarget(reinterpret())
-        }
+    public fun copy(): SrvTarget = g_srv_target_copy(gioSrvTargetPointer.reinterpret())!!.run {
+        SrvTarget(reinterpret())
+    }
 
     /**
      * Frees @target
@@ -121,12 +118,8 @@ public class SrvTarget(
          * @return a new #GSrvTarget.
          * @since 2.22
          */
-        public fun new(
-            hostname: String,
-            port: UShort,
-            priority: UShort,
-            weight: UShort,
-        ): SrvTarget = SrvTarget(g_srv_target_new(hostname, port, priority, weight)!!.reinterpret())
+        public fun new(hostname: String, port: UShort, priority: UShort, weight: UShort): SrvTarget =
+            SrvTarget(g_srv_target_new(hostname, port, priority, weight)!!.reinterpret())
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SrvTarget = SrvTarget(pointer.reinterpret())
     }

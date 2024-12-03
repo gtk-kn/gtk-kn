@@ -43,11 +43,7 @@ public interface LoadableIcon :
      * @param callback a #GAsyncReadyCallback
      *   to call when the request is satisfied
      */
-    public fun loadAsync(
-        size: Int,
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public fun loadAsync(size: Int, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         g_loadable_icon_load_async(
             gioLoadableIconPointer.reinterpret(),
             size,
@@ -56,9 +52,7 @@ public interface LoadableIcon :
             StableRef.create(callback).asCPointer()
         )
 
-    private data class Wrapper(
-        private val pointer: CPointer<GLoadableIcon>,
-    ) : LoadableIcon {
+    private data class Wrapper(private val pointer: CPointer<GLoadableIcon>) : LoadableIcon {
         override val gioLoadableIconPointer: CPointer<GLoadableIcon> = pointer
     }
 

@@ -9,7 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.bindings.glib.Glib.resolveException
+import org.gtkkn.bindings.glib.GLib.resolveException
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_80
 import org.gtkkn.extensions.glib.Record
@@ -31,9 +31,7 @@ import kotlin.Unit
 /**
  * An opaque structure representing an opened directory.
  */
-public class Dir(
-    pointer: CPointer<GDir>,
-) : Record {
+public class Dir(pointer: CPointer<GDir>) : Record {
     public val glibDirPointer: CPointer<GDir> = pointer
 
     /**
@@ -77,10 +75,9 @@ public class Dir(
      * @since 2.80
      */
     @GLibVersion2_80
-    public fun ref(): Dir =
-        g_dir_ref(glibDirPointer.reinterpret())!!.run {
-            Dir(reinterpret())
-        }
+    public fun ref(): Dir = g_dir_ref(glibDirPointer.reinterpret())!!.run {
+        Dir(reinterpret())
+    }
 
     /**
      * Resets the given directory. The next call to g_dir_read_name()
@@ -119,10 +116,7 @@ public class Dir(
          *   If non-null, you must free the result with g_dir_close()
          *   when you are finished with it.
          */
-        public fun `open`(
-            path: String,
-            flags: UInt,
-        ): Result<Dir> {
+        public fun `open`(path: String, flags: UInt): Result<Dir> {
             memScoped {
                 val gError = allocPointerTo<GError>()
                 val gResult = g_dir_open(path, flags, gError.ptr)
@@ -156,16 +150,15 @@ public class Dir(
          * @since 2.30
          */
         @GLibVersion2_30
-        public fun makeTmp(tmpl: String? = null): Result<String> =
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                val gResult = g_dir_make_tmp(tmpl, gError.ptr)?.toKString()
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(checkNotNull(gResult))
-                }
+        public fun makeTmp(tmpl: String? = null): Result<String> = memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult = g_dir_make_tmp(tmpl, gError.ptr)?.toKString()
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(checkNotNull(gResult))
             }
+        }
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Dir = Dir(pointer.reinterpret())
     }

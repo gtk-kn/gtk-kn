@@ -25,7 +25,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.gdk.GdkContentDeserializer
 import org.gtkkn.native.gdk.GdkContentSerializer
@@ -4732,16 +4732,15 @@ public object Gdk {
         ioPriority: Int,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        gdk_content_deserialize_async(
-            stream.gioInputStreamPointer.reinterpret(),
-            mimeType,
-            type,
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = gdk_content_deserialize_async(
+        stream.gioInputStreamPointer.reinterpret(),
+        mimeType,
+        type,
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes a content deserialization operation.
@@ -4752,27 +4751,19 @@ public object Gdk {
      *   @value is set. false if an error occurred. In this case,
      *   @error is set
      */
-    public fun contentDeserializeFinish(
-        result: AsyncResult,
-        `value`: Value,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gdk_content_deserialize_finish(
-                    result.gioAsyncResultPointer,
-                    `value`.gobjectValuePointer.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.gdk.Gdk
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(gResult)
-            }
+    public fun contentDeserializeFinish(result: AsyncResult, `value`: Value): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gdk_content_deserialize_finish(
+            result.gioAsyncResultPointer,
+            `value`.gobjectValuePointer.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.gdk.Gdk.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Parses the given @string into `GdkContentFormats` and
@@ -4789,10 +4780,9 @@ public object Gdk {
      * @since 4.4
      */
     @GdkVersion4_4
-    public fun contentFormatsParse(string: String): ContentFormats? =
-        gdk_content_formats_parse(string)?.run {
-            ContentFormats(reinterpret())
-        }
+    public fun contentFormatsParse(string: String): ContentFormats? = gdk_content_formats_parse(string)?.run {
+        ContentFormats(reinterpret())
+    }
 
     /**
      * Registers a function to deserialize object of a given type.
@@ -4801,11 +4791,7 @@ public object Gdk {
      * @param type the type of objects that the function creates
      * @param deserialize the callback
      */
-    public fun contentRegisterDeserializer(
-        mimeType: String,
-        type: ULong,
-        deserialize: ContentDeserializeFunc,
-    ): Unit =
+    public fun contentRegisterDeserializer(mimeType: String, type: ULong, deserialize: ContentDeserializeFunc): Unit =
         gdk_content_register_deserializer(
             mimeType,
             type,
@@ -4821,11 +4807,7 @@ public object Gdk {
      * @param mimeType the mime type to serialize to
      * @param serialize the callback
      */
-    public fun contentRegisterSerializer(
-        type: ULong,
-        mimeType: String,
-        serialize: ContentSerializeFunc,
-    ): Unit =
+    public fun contentRegisterSerializer(type: ULong, mimeType: String, serialize: ContentSerializeFunc): Unit =
         gdk_content_register_serializer(
             type,
             mimeType,
@@ -4857,16 +4839,15 @@ public object Gdk {
         ioPriority: Int,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        gdk_content_serialize_async(
-            stream.gioOutputStreamPointer.reinterpret(),
-            mimeType,
-            `value`.gobjectValuePointer.reinterpret(),
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = gdk_content_serialize_async(
+        stream.gioOutputStreamPointer.reinterpret(),
+        mimeType,
+        `value`.gobjectValuePointer.reinterpret(),
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes a content serialization operation.
@@ -4875,19 +4856,15 @@ public object Gdk {
      * @return true if the operation was successful, false if an
      *   error occurred. In this case, @error is set
      */
-    public fun contentSerializeFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = gdk_content_serialize_finish(result.gioAsyncResultPointer, gError.ptr).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.gdk.Gdk
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(gResult)
-            }
+    public fun contentSerializeFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gdk_content_serialize_finish(result.gioAsyncResultPointer, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.gdk.Gdk.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     public fun dmabufErrorQuark(): Quark = gdk_dmabuf_error_quark()
 
@@ -5008,10 +4985,7 @@ public object Gdk {
      * @param intrinsicHeight The intrinsic height to report. Can be 0 for no height.
      * @return a `GdkPaintable`
      */
-    public fun paintableNewEmpty(
-        intrinsicWidth: Int,
-        intrinsicHeight: Int,
-    ): Paintable =
+    public fun paintableNewEmpty(intrinsicWidth: Int, intrinsicHeight: Int): Paintable =
         gdk_paintable_new_empty(intrinsicWidth, intrinsicHeight)!!.run {
             Paintable.wrap(reinterpret())
         }
@@ -5085,42 +5059,32 @@ public object Gdk {
 
     public fun vulkanErrorQuark(): Quark = gdk_vulkan_error_quark()
 
-    public fun resolveException(error: Error): GlibException {
-        val ex =
-            when (error.domain) {
-                DmabufError.quark() ->
-                    DmabufError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            DmabufErrorException(error, it)
-                        }
-                GLError.quark() ->
-                    GLError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            GLErrorException(error, it)
-                        }
-                TextureError.quark() ->
-                    TextureError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            TextureErrorException(error, it)
-                        }
-                VulkanError.quark() ->
-                    VulkanError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            VulkanErrorException(error, it)
-                        }
-                else -> null
-            }
-        return ex ?: GlibException(error)
+    public fun resolveException(error: Error): GLibException {
+        val ex = when (error.domain) {
+            DmabufError.quark() -> DmabufError.fromErrorOrNull(error)
+                ?.let {
+                    DmabufErrorException(error, it)
+                }
+            GLError.quark() -> GLError.fromErrorOrNull(error)
+                ?.let {
+                    GLErrorException(error, it)
+                }
+            TextureError.quark() -> TextureError.fromErrorOrNull(error)
+                ?.let {
+                    TextureErrorException(error, it)
+                }
+            VulkanError.quark() -> VulkanError.fromErrorOrNull(error)
+                ?.let {
+                    VulkanErrorException(error, it)
+                }
+            else -> null
+        }
+        return ex ?: GLibException(error)
     }
 }
 
 public val ContentDeserializeFuncFunc:
-    CPointer<CFunction<(CPointer<GdkContentDeserializer>) -> Unit>> =
-    staticCFunction {
+    CPointer<CFunction<(CPointer<GdkContentDeserializer>) -> Unit>> = staticCFunction {
             deserializer: CPointer<GdkContentDeserializer>?,
             userData: COpaquePointer,
         ->
@@ -5129,7 +5093,8 @@ public val ContentDeserializeFuncFunc:
                 ContentDeserializer(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val ContentSerializeFuncFunc: CPointer<CFunction<(CPointer<GdkContentSerializer>) -> Unit>> =
     staticCFunction {
@@ -5141,7 +5106,8 @@ public val ContentSerializeFuncFunc: CPointer<CFunction<(CPointer<GdkContentSeri
                 ContentSerializer(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 /**
  * The type of a function that can be registered with gdk_content_register_deserializer().

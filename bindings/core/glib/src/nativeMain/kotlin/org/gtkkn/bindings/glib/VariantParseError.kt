@@ -8,9 +8,7 @@ import kotlin.UInt
 /**
  * Error codes returned by parsing text-format GVariants.
  */
-public enum class VariantParseError(
-    public val nativeValue: GVariantParseError,
-) {
+public enum class VariantParseError(public val nativeValue: GVariantParseError) {
     /**
      * generic error (unused)
      */
@@ -108,37 +106,35 @@ public enum class VariantParseError(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GVariantParseError): VariantParseError =
-            when (nativeValue) {
-                GVariantParseError.G_VARIANT_PARSE_ERROR_FAILED -> FAILED
-                GVariantParseError.G_VARIANT_PARSE_ERROR_BASIC_TYPE_EXPECTED -> BASIC_TYPE_EXPECTED
-                GVariantParseError.G_VARIANT_PARSE_ERROR_CANNOT_INFER_TYPE -> CANNOT_INFER_TYPE
-                GVariantParseError.G_VARIANT_PARSE_ERROR_DEFINITE_TYPE_EXPECTED -> DEFINITE_TYPE_EXPECTED
-                GVariantParseError.G_VARIANT_PARSE_ERROR_INPUT_NOT_AT_END -> INPUT_NOT_AT_END
-                GVariantParseError.G_VARIANT_PARSE_ERROR_INVALID_CHARACTER -> INVALID_CHARACTER
-                GVariantParseError.G_VARIANT_PARSE_ERROR_INVALID_FORMAT_STRING -> INVALID_FORMAT_STRING
-                GVariantParseError.G_VARIANT_PARSE_ERROR_INVALID_OBJECT_PATH -> INVALID_OBJECT_PATH
-                GVariantParseError.G_VARIANT_PARSE_ERROR_INVALID_SIGNATURE -> INVALID_SIGNATURE
-                GVariantParseError.G_VARIANT_PARSE_ERROR_INVALID_TYPE_STRING -> INVALID_TYPE_STRING
-                GVariantParseError.G_VARIANT_PARSE_ERROR_NO_COMMON_TYPE -> NO_COMMON_TYPE
-                GVariantParseError.G_VARIANT_PARSE_ERROR_NUMBER_OUT_OF_RANGE -> NUMBER_OUT_OF_RANGE
-                GVariantParseError.G_VARIANT_PARSE_ERROR_NUMBER_TOO_BIG -> NUMBER_TOO_BIG
-                GVariantParseError.G_VARIANT_PARSE_ERROR_TYPE_ERROR -> TYPE_ERROR
-                GVariantParseError.G_VARIANT_PARSE_ERROR_UNEXPECTED_TOKEN -> UNEXPECTED_TOKEN
-                GVariantParseError.G_VARIANT_PARSE_ERROR_UNKNOWN_KEYWORD -> UNKNOWN_KEYWORD
-                GVariantParseError.G_VARIANT_PARSE_ERROR_UNTERMINATED_STRING_CONSTANT -> UNTERMINATED_STRING_CONSTANT
-                GVariantParseError.G_VARIANT_PARSE_ERROR_VALUE_EXPECTED -> VALUE_EXPECTED
-                GVariantParseError.G_VARIANT_PARSE_ERROR_RECURSION -> RECURSION
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GVariantParseError): VariantParseError = when (nativeValue) {
+            GVariantParseError.G_VARIANT_PARSE_ERROR_FAILED -> FAILED
+            GVariantParseError.G_VARIANT_PARSE_ERROR_BASIC_TYPE_EXPECTED -> BASIC_TYPE_EXPECTED
+            GVariantParseError.G_VARIANT_PARSE_ERROR_CANNOT_INFER_TYPE -> CANNOT_INFER_TYPE
+            GVariantParseError.G_VARIANT_PARSE_ERROR_DEFINITE_TYPE_EXPECTED -> DEFINITE_TYPE_EXPECTED
+            GVariantParseError.G_VARIANT_PARSE_ERROR_INPUT_NOT_AT_END -> INPUT_NOT_AT_END
+            GVariantParseError.G_VARIANT_PARSE_ERROR_INVALID_CHARACTER -> INVALID_CHARACTER
+            GVariantParseError.G_VARIANT_PARSE_ERROR_INVALID_FORMAT_STRING -> INVALID_FORMAT_STRING
+            GVariantParseError.G_VARIANT_PARSE_ERROR_INVALID_OBJECT_PATH -> INVALID_OBJECT_PATH
+            GVariantParseError.G_VARIANT_PARSE_ERROR_INVALID_SIGNATURE -> INVALID_SIGNATURE
+            GVariantParseError.G_VARIANT_PARSE_ERROR_INVALID_TYPE_STRING -> INVALID_TYPE_STRING
+            GVariantParseError.G_VARIANT_PARSE_ERROR_NO_COMMON_TYPE -> NO_COMMON_TYPE
+            GVariantParseError.G_VARIANT_PARSE_ERROR_NUMBER_OUT_OF_RANGE -> NUMBER_OUT_OF_RANGE
+            GVariantParseError.G_VARIANT_PARSE_ERROR_NUMBER_TOO_BIG -> NUMBER_TOO_BIG
+            GVariantParseError.G_VARIANT_PARSE_ERROR_TYPE_ERROR -> TYPE_ERROR
+            GVariantParseError.G_VARIANT_PARSE_ERROR_UNEXPECTED_TOKEN -> UNEXPECTED_TOKEN
+            GVariantParseError.G_VARIANT_PARSE_ERROR_UNKNOWN_KEYWORD -> UNKNOWN_KEYWORD
+            GVariantParseError.G_VARIANT_PARSE_ERROR_UNTERMINATED_STRING_CONSTANT -> UNTERMINATED_STRING_CONSTANT
+            GVariantParseError.G_VARIANT_PARSE_ERROR_VALUE_EXPECTED -> VALUE_EXPECTED
+            GVariantParseError.G_VARIANT_PARSE_ERROR_RECURSION -> RECURSION
+            else -> error("invalid nativeValue")
+        }
 
         public fun quark(): UInt = g_quark_from_string("g-variant-parse-error-quark")
 
-        public fun fromErrorOrNull(error: Error): VariantParseError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                VariantParseError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        public fun fromErrorOrNull(error: Error): VariantParseError? = if (error.domain != quark()) {
+            null
+        } else {
+            VariantParseError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

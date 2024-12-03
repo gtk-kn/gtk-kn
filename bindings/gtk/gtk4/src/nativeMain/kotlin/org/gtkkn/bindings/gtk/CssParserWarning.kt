@@ -9,9 +9,7 @@ import org.gtkkn.native.gtk.GtkCssParserWarning
  * Unlike `GtkCssParserError`s, warnings do not cause the parser to
  * skip any input, but they indicate issues that should be fixed.
  */
-public enum class CssParserWarning(
-    public val nativeValue: GtkCssParserWarning,
-) {
+public enum class CssParserWarning(public val nativeValue: GtkCssParserWarning) {
     /**
      * The given construct is
      *   deprecated and will be removed in a future version
@@ -31,12 +29,11 @@ public enum class CssParserWarning(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkCssParserWarning): CssParserWarning =
-            when (nativeValue) {
-                GtkCssParserWarning.GTK_CSS_PARSER_WARNING_DEPRECATED -> DEPRECATED
-                GtkCssParserWarning.GTK_CSS_PARSER_WARNING_SYNTAX -> SYNTAX
-                GtkCssParserWarning.GTK_CSS_PARSER_WARNING_UNIMPLEMENTED -> UNIMPLEMENTED
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkCssParserWarning): CssParserWarning = when (nativeValue) {
+            GtkCssParserWarning.GTK_CSS_PARSER_WARNING_DEPRECATED -> DEPRECATED
+            GtkCssParserWarning.GTK_CSS_PARSER_WARNING_SYNTAX -> SYNTAX
+            GtkCssParserWarning.GTK_CSS_PARSER_WARNING_UNIMPLEMENTED -> UNIMPLEMENTED
+            else -> error("invalid nativeValue")
+        }
     }
 }

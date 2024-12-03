@@ -40,9 +40,7 @@ import kotlin.Unit
  * - parameter `x_pos`: x_pos: Out parameter is not supported
  * - parameter `index`: index: Out parameter is not supported
  */
-public class LayoutLine(
-    pointer: CPointer<PangoLayoutLine>,
-) : Record {
+public class LayoutLine(pointer: CPointer<PangoLayoutLine>) : Record {
     public val pangoLayoutLinePointer: CPointer<PangoLayoutLine> = pointer
 
     /**
@@ -51,10 +49,9 @@ public class LayoutLine(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val layout: Layout?
-        get() =
-            pangoLayoutLinePointer.pointed.layout?.run {
-                Layout(reinterpret())
-            }
+        get() = pangoLayoutLinePointer.pointed.layout?.run {
+            Layout(reinterpret())
+        }
 
     /**
      * start of line as byte index into layout->text
@@ -81,10 +78,9 @@ public class LayoutLine(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val runs: SList?
-        get() =
-            pangoLayoutLinePointer.pointed.runs?.run {
-                SList(reinterpret())
-            }
+        get() = pangoLayoutLinePointer.pointed.runs?.run {
+            SList(reinterpret())
+        }
 
     /**
      * #TRUE if this is the first line of the paragraph
@@ -115,15 +111,11 @@ public class LayoutLine(
      * @param logicalRect rectangle used to store the logical
      *   extents of the glyph string
      */
-    public fun getExtents(
-        inkRect: Rectangle?,
-        logicalRect: Rectangle?,
-    ): Unit =
-        pango_layout_line_get_extents(
-            pangoLayoutLinePointer.reinterpret(),
-            inkRect?.pangoRectanglePointer?.reinterpret(),
-            logicalRect?.pangoRectanglePointer?.reinterpret()
-        )
+    public fun getExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit = pango_layout_line_get_extents(
+        pangoLayoutLinePointer.reinterpret(),
+        inkRect?.pangoRectanglePointer?.reinterpret(),
+        logicalRect?.pangoRectanglePointer?.reinterpret()
+    )
 
     /**
      * Returns the length of the line, in bytes.
@@ -147,10 +139,7 @@ public class LayoutLine(
      * @param logicalRect rectangle used to store the logical
      *   extents of the glyph string
      */
-    public fun getPixelExtents(
-        inkRect: Rectangle?,
-        logicalRect: Rectangle?,
-    ): Unit =
+    public fun getPixelExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit =
         pango_layout_line_get_pixel_extents(
             pangoLayoutLinePointer.reinterpret(),
             inkRect?.pangoRectanglePointer?.reinterpret(),
@@ -196,10 +185,9 @@ public class LayoutLine(
      * @since 1.10
      */
     @PangoVersion1_10
-    public fun ref(): LayoutLine? =
-        pango_layout_line_ref(pangoLayoutLinePointer.reinterpret())?.run {
-            LayoutLine(reinterpret())
-        }
+    public fun ref(): LayoutLine? = pango_layout_line_ref(pangoLayoutLinePointer.reinterpret())?.run {
+        LayoutLine(reinterpret())
+    }
 
     /**
      * Decrease the reference count of a `PangoLayoutLine` by one.

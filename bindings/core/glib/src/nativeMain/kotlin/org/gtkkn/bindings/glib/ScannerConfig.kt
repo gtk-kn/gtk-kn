@@ -21,9 +21,7 @@ import kotlin.UInt
  *
  * - field `padding_dummy`: Record field padding_dummy is private
  */
-public class ScannerConfig(
-    pointer: CPointer<GScannerConfig>,
-) : Record {
+public class ScannerConfig(pointer: CPointer<GScannerConfig>) : Record {
     public val glibScannerConfigPointer: CPointer<GScannerConfig> = pointer
 
     /**

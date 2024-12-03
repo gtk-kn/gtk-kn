@@ -15,9 +15,8 @@ import kotlin.Boolean
 /**
  * An event related to a touch-based device.
  */
-public open class TouchEvent(
-    pointer: CPointer<GdkTouchEvent>,
-) : Event(pointer.reinterpret()),
+public open class TouchEvent(pointer: CPointer<GdkTouchEvent>) :
+    Event(pointer.reinterpret()),
     KGTyped {
     public val gdkTouchEventPointer: CPointer<GdkTouchEvent>
         get() = gPointer.reinterpret()

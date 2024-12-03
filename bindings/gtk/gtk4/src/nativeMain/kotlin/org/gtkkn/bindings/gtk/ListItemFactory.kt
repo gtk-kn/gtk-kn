@@ -60,9 +60,8 @@ import org.gtkkn.native.gtk.gtk_list_item_factory_get_type
  * [method@Gtk.ListView.set_factory]. Reusing factories across different
  * views is allowed, but very uncommon.
  */
-public open class ListItemFactory(
-    pointer: CPointer<GtkListItemFactory>,
-) : Object(pointer.reinterpret()),
+public open class ListItemFactory(pointer: CPointer<GtkListItemFactory>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkListItemFactoryPointer: CPointer<GtkListItemFactory>
         get() = gPointer.reinterpret()

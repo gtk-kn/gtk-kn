@@ -25,9 +25,8 @@ import kotlin.Unit
  * component font for a particular Unicode character, and for finding a
  * composite set of metrics for the entire fontset.
  */
-public open class Fontset(
-    pointer: CPointer<PangoFontset>,
-) : Object(pointer.reinterpret()),
+public open class Fontset(pointer: CPointer<PangoFontset>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val pangoFontsetPointer: CPointer<PangoFontset>
         get() = gPointer.reinterpret()
@@ -42,12 +41,11 @@ public open class Fontset(
      * @since 1.4
      */
     @PangoVersion1_4
-    public open fun foreach(func: FontsetForeachFunc): Unit =
-        pango_fontset_foreach(
-            pangoFontsetPointer.reinterpret(),
-            FontsetForeachFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )
+    public open fun foreach(func: FontsetForeachFunc): Unit = pango_fontset_foreach(
+        pangoFontsetPointer.reinterpret(),
+        FontsetForeachFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer()
+    )
 
     /**
      * Returns the font in the fontset that contains the best
@@ -56,20 +54,18 @@ public open class Fontset(
      * @param wc a Unicode character
      * @return a `PangoFont`
      */
-    public open fun getFont(wc: UInt): Font =
-        pango_fontset_get_font(pangoFontsetPointer.reinterpret(), wc)!!.run {
-            Font(reinterpret())
-        }
+    public open fun getFont(wc: UInt): Font = pango_fontset_get_font(pangoFontsetPointer.reinterpret(), wc)!!.run {
+        Font(reinterpret())
+    }
 
     /**
      * Get overall metric information for the fonts in the fontset.
      *
      * @return a `PangoFontMetrics` object
      */
-    public open fun getMetrics(): FontMetrics =
-        pango_fontset_get_metrics(pangoFontsetPointer.reinterpret())!!.run {
-            FontMetrics(reinterpret())
-        }
+    public open fun getMetrics(): FontMetrics = pango_fontset_get_metrics(pangoFontsetPointer.reinterpret())!!.run {
+        FontMetrics(reinterpret())
+    }
 
     public companion object : TypeCompanion<Fontset> {
         override val type: GeneratedClassKGType<Fontset> =

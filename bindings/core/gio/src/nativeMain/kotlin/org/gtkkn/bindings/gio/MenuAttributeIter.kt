@@ -30,9 +30,8 @@ import kotlin.String
  * @since 2.32
  */
 @GioVersion2_32
-public open class MenuAttributeIter(
-    pointer: CPointer<GMenuAttributeIter>,
-) : Object(pointer.reinterpret()),
+public open class MenuAttributeIter(pointer: CPointer<GMenuAttributeIter>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioMenuAttributeIterPointer: CPointer<GMenuAttributeIter>
         get() = gPointer.reinterpret()

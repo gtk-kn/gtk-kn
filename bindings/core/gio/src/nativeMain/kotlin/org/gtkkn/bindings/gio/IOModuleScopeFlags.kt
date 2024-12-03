@@ -9,9 +9,7 @@ import org.gtkkn.native.gio.GIOModuleScopeFlags
  * @since 2.30
  */
 @GioVersion2_30
-public enum class IOModuleScopeFlags(
-    public val nativeValue: GIOModuleScopeFlags,
-) {
+public enum class IOModuleScopeFlags(public val nativeValue: GIOModuleScopeFlags) {
     /**
      * No module scan flags
      */
@@ -26,11 +24,10 @@ public enum class IOModuleScopeFlags(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GIOModuleScopeFlags): IOModuleScopeFlags =
-            when (nativeValue) {
-                GIOModuleScopeFlags.G_IO_MODULE_SCOPE_NONE -> NONE
-                GIOModuleScopeFlags.G_IO_MODULE_SCOPE_BLOCK_DUPLICATES -> BLOCK_DUPLICATES
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GIOModuleScopeFlags): IOModuleScopeFlags = when (nativeValue) {
+            GIOModuleScopeFlags.G_IO_MODULE_SCOPE_NONE -> NONE
+            GIOModuleScopeFlags.G_IO_MODULE_SCOPE_BLOCK_DUPLICATES -> BLOCK_DUPLICATES
+            else -> error("invalid nativeValue")
+        }
     }
 }

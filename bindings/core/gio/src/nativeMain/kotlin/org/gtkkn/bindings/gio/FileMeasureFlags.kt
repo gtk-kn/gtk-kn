@@ -13,9 +13,7 @@ import org.gtkkn.native.gio.G_FILE_MEASURE_REPORT_ANY_ERROR
  * Flags that can be used with g_file_measure_disk_usage().
  * @since 2.38
  */
-public class FileMeasureFlags(
-    public val mask: GFileMeasureFlags,
-) : Bitfield<FileMeasureFlags> {
+public class FileMeasureFlags(public val mask: GFileMeasureFlags) : Bitfield<FileMeasureFlags> {
     override infix fun or(other: FileMeasureFlags): FileMeasureFlags = FileMeasureFlags(mask or other.mask)
 
     @GioVersion2_38

@@ -5,6 +5,8 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -12,8 +14,10 @@ import org.gtkkn.native.pango.PangoColor
 import org.gtkkn.native.pango.pango_color_copy
 import org.gtkkn.native.pango.pango_color_free
 import org.gtkkn.native.pango.pango_color_parse
+import org.gtkkn.native.pango.pango_color_to_string
 import kotlin.Boolean
 import kotlin.String
+import kotlin.Suppress
 import kotlin.UShort
 import kotlin.Unit
 
@@ -24,11 +28,8 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `alpha`: alpha: Out parameter is not supported
- * - method `to_string`: C function pango_color_to_string is ignored
  */
-public class Color(
-    pointer: CPointer<PangoColor>,
-) : Record {
+public class Color(pointer: CPointer<PangoColor>) : Record {
     public val pangoColorPointer: CPointer<PangoColor> = pointer
 
     /**
@@ -69,10 +70,9 @@ public class Color(
      * @return the newly allocated `PangoColor`,
      *   which should be freed with [method@Pango.Color.free]
      */
-    public fun copy(): Color? =
-        pango_color_copy(pangoColorPointer.reinterpret())?.run {
-            Color(reinterpret())
-        }
+    public fun copy(): Color? = pango_color_copy(pangoColorPointer.reinterpret())?.run {
+        Color(reinterpret())
+    }
 
     /**
      * Frees a color allocated by [method@Pango.Color.copy].
@@ -95,6 +95,22 @@ public class Color(
      *   otherwise false
      */
     public fun parse(spec: String): Boolean = pango_color_parse(pangoColorPointer.reinterpret(), spec).asBoolean()
+
+    /**
+     * Returns a textual specification of @color.
+     *
+     * The string is in the hexadecimal form `#rrrrggggbbbb`,
+     * where `r`, `g` and `b` are hex digits representing the
+     * red, green, and blue components respectively.
+     *
+     * @return a newly-allocated text string that must
+     *   be freed with g_free().
+     * @since 1.16
+     */
+    @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
+    @PangoVersion1_16
+    override fun toString(): String =
+        pango_color_to_string(pangoColorPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     public companion object : RecordCompanion<Color, PangoColor> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Color = Color(pointer.reinterpret())

@@ -6,9 +6,7 @@ import org.gtkkn.native.gtk.GtkPadActionType
 /**
  * The type of a pad action.
  */
-public enum class PadActionType(
-    public val nativeValue: GtkPadActionType,
-) {
+public enum class PadActionType(public val nativeValue: GtkPadActionType) {
     /**
      * Action is triggered by a pad button
      */
@@ -26,12 +24,11 @@ public enum class PadActionType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkPadActionType): PadActionType =
-            when (nativeValue) {
-                GtkPadActionType.GTK_PAD_ACTION_BUTTON -> BUTTON
-                GtkPadActionType.GTK_PAD_ACTION_RING -> RING
-                GtkPadActionType.GTK_PAD_ACTION_STRIP -> STRIP
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkPadActionType): PadActionType = when (nativeValue) {
+            GtkPadActionType.GTK_PAD_ACTION_BUTTON -> BUTTON
+            GtkPadActionType.GTK_PAD_ACTION_RING -> RING
+            GtkPadActionType.GTK_PAD_ACTION_STRIP -> STRIP
+            else -> error("invalid nativeValue")
+        }
     }
 }

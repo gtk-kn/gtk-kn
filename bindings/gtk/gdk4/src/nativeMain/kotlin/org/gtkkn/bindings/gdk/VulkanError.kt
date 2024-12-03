@@ -9,9 +9,7 @@ import org.gtkkn.native.gdk.gdk_vulkan_error_quark
 /**
  * Error enumeration for `GdkVulkanContext`.
  */
-public enum class VulkanError(
-    public val nativeValue: GdkVulkanError,
-) {
+public enum class VulkanError(public val nativeValue: GdkVulkanError) {
     /**
      * Vulkan is not supported on this backend or has not been
      *   compiled in.
@@ -25,20 +23,18 @@ public enum class VulkanError(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GdkVulkanError): VulkanError =
-            when (nativeValue) {
-                GdkVulkanError.GDK_VULKAN_ERROR_UNSUPPORTED -> UNSUPPORTED
-                GdkVulkanError.GDK_VULKAN_ERROR_NOT_AVAILABLE -> NOT_AVAILABLE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GdkVulkanError): VulkanError = when (nativeValue) {
+            GdkVulkanError.GDK_VULKAN_ERROR_UNSUPPORTED -> UNSUPPORTED
+            GdkVulkanError.GDK_VULKAN_ERROR_NOT_AVAILABLE -> NOT_AVAILABLE
+            else -> error("invalid nativeValue")
+        }
 
         public fun quark(): Quark = gdk_vulkan_error_quark()
 
-        public fun fromErrorOrNull(error: Error): VulkanError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                VulkanError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        public fun fromErrorOrNull(error: Error): VulkanError? = if (error.domain != quark()) {
+            null
+        } else {
+            VulkanError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

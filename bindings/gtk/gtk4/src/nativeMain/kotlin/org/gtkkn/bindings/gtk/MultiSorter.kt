@@ -29,9 +29,8 @@ import kotlin.Unit
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class MultiSorter(
-    pointer: CPointer<GtkMultiSorter>,
-) : Sorter(pointer.reinterpret()),
+public open class MultiSorter(pointer: CPointer<GtkMultiSorter>) :
+    Sorter(pointer.reinterpret()),
     ListModel,
     Buildable,
     KGTyped {

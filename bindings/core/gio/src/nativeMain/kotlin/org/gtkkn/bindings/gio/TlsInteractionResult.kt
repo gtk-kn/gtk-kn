@@ -10,9 +10,7 @@ import org.gtkkn.native.gio.GTlsInteractionResult
  * @since 2.30
  */
 @GioVersion2_30
-public enum class TlsInteractionResult(
-    public val nativeValue: GTlsInteractionResult,
-) {
+public enum class TlsInteractionResult(public val nativeValue: GTlsInteractionResult) {
     /**
      * The interaction was unhandled (i.e. not
      *     implemented).
@@ -33,12 +31,11 @@ public enum class TlsInteractionResult(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GTlsInteractionResult): TlsInteractionResult =
-            when (nativeValue) {
-                GTlsInteractionResult.G_TLS_INTERACTION_UNHANDLED -> UNHANDLED
-                GTlsInteractionResult.G_TLS_INTERACTION_HANDLED -> HANDLED
-                GTlsInteractionResult.G_TLS_INTERACTION_FAILED -> FAILED
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GTlsInteractionResult): TlsInteractionResult = when (nativeValue) {
+            GTlsInteractionResult.G_TLS_INTERACTION_UNHANDLED -> UNHANDLED
+            GTlsInteractionResult.G_TLS_INTERACTION_HANDLED -> HANDLED
+            GTlsInteractionResult.G_TLS_INTERACTION_FAILED -> FAILED
+            else -> error("invalid nativeValue")
+        }
     }
 }

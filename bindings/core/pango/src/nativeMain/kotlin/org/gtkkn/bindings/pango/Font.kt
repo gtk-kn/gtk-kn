@@ -40,9 +40,8 @@ import kotlin.Unit
  * - parameter `descs`: Array parameter of type FontDescription is not supported
  * - parameter `context`: C Type PangoContext is ignored
  */
-public open class Font(
-    pointer: CPointer<PangoFont>,
-) : Object(pointer.reinterpret()),
+public open class Font(pointer: CPointer<PangoFont>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val pangoFontPointer: CPointer<PangoFont>
         get() = gPointer.reinterpret()
@@ -55,10 +54,9 @@ public open class Font(
      *
      * @return a newly-allocated `PangoFontDescription` object.
      */
-    public open fun describe(): FontDescription =
-        pango_font_describe(pangoFontPointer.reinterpret())!!.run {
-            FontDescription(reinterpret())
-        }
+    public open fun describe(): FontDescription = pango_font_describe(pangoFontPointer.reinterpret())!!.run {
+        FontDescription(reinterpret())
+    }
 
     /**
      * Returns a description of the font, with absolute font size set
@@ -94,10 +92,9 @@ public open class Font(
      * @since 1.46
      */
     @PangoVersion1_46
-    public open fun getFace(): FontFace =
-        pango_font_get_face(pangoFontPointer.reinterpret())!!.run {
-            FontFace(reinterpret())
-        }
+    public open fun getFace(): FontFace = pango_font_get_face(pangoFontPointer.reinterpret())!!.run {
+        FontFace(reinterpret())
+    }
 
     /**
      * Gets the font map for which the font was created.
@@ -117,10 +114,9 @@ public open class Font(
      * @since 1.10
      */
     @PangoVersion1_10
-    public open fun getFontMap(): FontMap? =
-        pango_font_get_font_map(pangoFontPointer.reinterpret())?.run {
-            FontMap(reinterpret())
-        }
+    public open fun getFontMap(): FontMap? = pango_font_get_font_map(pangoFontPointer.reinterpret())?.run {
+        FontMap(reinterpret())
+    }
 
     /**
      * Gets the logical and ink extents of a glyph within a font.
@@ -139,11 +135,7 @@ public open class Font(
      * @param inkRect rectangle used to store the extents of the glyph as drawn
      * @param logicalRect rectangle used to store the logical extents of the glyph
      */
-    public open fun getGlyphExtents(
-        glyph: Glyph,
-        inkRect: Rectangle?,
-        logicalRect: Rectangle?,
-    ): Unit =
+    public open fun getGlyphExtents(glyph: Glyph, inkRect: Rectangle?, logicalRect: Rectangle?): Unit =
         pango_font_get_glyph_extents(
             pangoFontPointer.reinterpret(),
             glyph,
@@ -197,10 +189,9 @@ public open class Font(
      * @since 1.50
      */
     @PangoVersion1_50
-    public open fun serialize(): Bytes =
-        pango_font_serialize(pangoFontPointer.reinterpret())!!.run {
-            Bytes(reinterpret())
-        }
+    public open fun serialize(): Bytes = pango_font_serialize(pangoFontPointer.reinterpret())!!.run {
+        Bytes(reinterpret())
+    }
 
     public companion object : TypeCompanion<Font> {
         override val type: GeneratedClassKGType<Font> =

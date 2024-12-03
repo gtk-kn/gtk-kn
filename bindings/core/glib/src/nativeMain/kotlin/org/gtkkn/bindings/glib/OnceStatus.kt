@@ -10,9 +10,7 @@ import org.gtkkn.native.glib.GOnceStatus
  * @since 2.4
  */
 @GLibVersion2_4
-public enum class OnceStatus(
-    public val nativeValue: GOnceStatus,
-) {
+public enum class OnceStatus(public val nativeValue: GOnceStatus) {
     /**
      * the function has not been called yet.
      */
@@ -30,12 +28,11 @@ public enum class OnceStatus(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GOnceStatus): OnceStatus =
-            when (nativeValue) {
-                GOnceStatus.G_ONCE_STATUS_NOTCALLED -> NOTCALLED
-                GOnceStatus.G_ONCE_STATUS_PROGRESS -> PROGRESS
-                GOnceStatus.G_ONCE_STATUS_READY -> READY
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GOnceStatus): OnceStatus = when (nativeValue) {
+            GOnceStatus.G_ONCE_STATUS_NOTCALLED -> NOTCALLED
+            GOnceStatus.G_ONCE_STATUS_PROGRESS -> PROGRESS
+            GOnceStatus.G_ONCE_STATUS_READY -> READY
+            else -> error("invalid nativeValue")
+        }
     }
 }

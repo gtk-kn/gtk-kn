@@ -6,9 +6,7 @@ import org.gtkkn.native.webkit.WebKitCookieAcceptPolicy
 /**
  * Enum values used to denote the cookie acceptance policies.
  */
-public enum class CookieAcceptPolicy(
-    public val nativeValue: WebKitCookieAcceptPolicy,
-) {
+public enum class CookieAcceptPolicy(public val nativeValue: WebKitCookieAcceptPolicy) {
     /**
      * Accept all cookies unconditionally.
      */
@@ -26,12 +24,11 @@ public enum class CookieAcceptPolicy(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitCookieAcceptPolicy): CookieAcceptPolicy =
-            when (nativeValue) {
-                WebKitCookieAcceptPolicy.WEBKIT_COOKIE_POLICY_ACCEPT_ALWAYS -> ALWAYS
-                WebKitCookieAcceptPolicy.WEBKIT_COOKIE_POLICY_ACCEPT_NEVER -> NEVER
-                WebKitCookieAcceptPolicy.WEBKIT_COOKIE_POLICY_ACCEPT_NO_THIRD_PARTY -> NO_THIRD_PARTY
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitCookieAcceptPolicy): CookieAcceptPolicy = when (nativeValue) {
+            WebKitCookieAcceptPolicy.WEBKIT_COOKIE_POLICY_ACCEPT_ALWAYS -> ALWAYS
+            WebKitCookieAcceptPolicy.WEBKIT_COOKIE_POLICY_ACCEPT_NEVER -> NEVER
+            WebKitCookieAcceptPolicy.WEBKIT_COOKIE_POLICY_ACCEPT_NO_THIRD_PARTY -> NO_THIRD_PARTY
+            else -> error("invalid nativeValue")
+        }
     }
 }

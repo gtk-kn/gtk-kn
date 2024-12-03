@@ -98,7 +98,7 @@ fun treeView(): Widget {
         }
 
         // set the box as the child to render
-        listItem.setChild(box)
+        listItem.child = box
     }
 
     return ListView(selection, factory)

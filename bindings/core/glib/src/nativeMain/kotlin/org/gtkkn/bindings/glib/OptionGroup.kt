@@ -31,9 +31,7 @@ import kotlin.Unit
  * - method `set_translate_func`: C function g_option_group_set_translate_func is ignored
  * - parameter `user_data`: gpointer
  */
-public class OptionGroup(
-    pointer: CPointer<GOptionGroup>,
-) : Record {
+public class OptionGroup(pointer: CPointer<GOptionGroup>) : Record {
     public val glibOptionGroupPointer: CPointer<GOptionGroup> = pointer
 
     /**
@@ -52,10 +50,9 @@ public class OptionGroup(
      * @since 2.44
      */
     @GLibVersion2_44
-    public fun ref(): OptionGroup =
-        g_option_group_ref(glibOptionGroupPointer.reinterpret())!!.run {
-            OptionGroup(reinterpret())
-        }
+    public fun ref(): OptionGroup = g_option_group_ref(glibOptionGroupPointer.reinterpret())!!.run {
+        OptionGroup(reinterpret())
+    }
 
     /**
      * A convenience function to use gettext() for translating

@@ -17,9 +17,7 @@ import org.gtkkn.native.pango.PangoAttrColor
  * - field `attr`: Attribute
  * - field `color`: Color
  */
-public class AttrColor(
-    pointer: CPointer<PangoAttrColor>,
-) : Record {
+public class AttrColor(pointer: CPointer<PangoAttrColor>) : Record {
     public val pangoAttrColorPointer: CPointer<PangoAttrColor> = pointer
 
     public companion object : RecordCompanion<AttrColor, PangoAttrColor> {

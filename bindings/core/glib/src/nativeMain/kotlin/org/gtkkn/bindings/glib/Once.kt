@@ -27,19 +27,16 @@ import org.gtkkn.native.glib.GOnce
  * @since 2.4
  */
 @GLibVersion2_4
-public class Once(
-    pointer: CPointer<GOnce>,
-) : Record {
+public class Once(pointer: CPointer<GOnce>) : Record {
     public val glibOncePointer: CPointer<GOnce> = pointer
 
     /**
      * the status of the #GOnce
      */
     public var status: OnceStatus
-        get() =
-            glibOncePointer.pointed.status.run {
-                OnceStatus.fromNativeValue(this)
-            }
+        get() = glibOncePointer.pointed.status.run {
+            OnceStatus.fromNativeValue(this)
+        }
         set(`value`) {
             glibOncePointer.pointed.status = value.nativeValue
         }

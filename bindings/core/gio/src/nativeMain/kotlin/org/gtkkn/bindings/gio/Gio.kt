@@ -56,7 +56,7 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toCStringList
 import org.gtkkn.extensions.common.toKStringList
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.gio.GAsyncResult
 import org.gtkkn.native.gio.GCancellable
@@ -1775,10 +1775,7 @@ public object Gio {
      * @since 2.38
      */
     @GioVersion2_38
-    public fun actionPrintDetailedName(
-        actionName: String,
-        targetValue: Variant? = null,
-    ): String =
+    public fun actionPrintDetailedName(actionName: String, targetValue: Variant? = null): String =
         g_action_print_detailed_name(actionName, targetValue?.glibVariantPointer?.reinterpret())?.toKString()
             ?: error("Expected not null string")
 
@@ -1800,23 +1797,18 @@ public object Gio {
         commandline: String,
         applicationName: String? = null,
         flags: AppInfoCreateFlags,
-    ): Result<AppInfo> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_app_info_create_from_commandline(commandline, applicationName, flags.mask, gError.ptr)?.run {
-                    AppInfo.wrap(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.gio.Gio
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    ): Result<AppInfo> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_app_info_create_from_commandline(commandline, applicationName, flags.mask, gError.ptr)?.run {
+            AppInfo.wrap(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Gets a list of all of the applications currently registered
@@ -1830,10 +1822,9 @@ public object Gio {
      *
      * @return a newly allocated #GList of references to #GAppInfos.
      */
-    public fun appInfoGetAll(): GlibList =
-        g_app_info_get_all()!!.run {
-            GlibList(reinterpret())
-        }
+    public fun appInfoGetAll(): GlibList = g_app_info_get_all()!!.run {
+        GlibList(reinterpret())
+    }
 
     /**
      * Gets a list of all #GAppInfos for a given content type,
@@ -1845,10 +1836,9 @@ public object Gio {
      * @return #GList of #GAppInfos
      *     for given @content_type or null on error.
      */
-    public fun appInfoGetAllForType(contentType: String): GlibList =
-        g_app_info_get_all_for_type(contentType)!!.run {
-            GlibList(reinterpret())
-        }
+    public fun appInfoGetAllForType(contentType: String): GlibList = g_app_info_get_all_for_type(contentType)!!.run {
+        GlibList(reinterpret())
+    }
 
     /**
      * Gets the default #GAppInfo for a given content type.
@@ -1859,10 +1849,7 @@ public object Gio {
      * @return #GAppInfo for given @content_type or
      *     null on error.
      */
-    public fun appInfoGetDefaultForType(
-        contentType: String,
-        mustSupportUris: Boolean,
-    ): AppInfo? =
+    public fun appInfoGetDefaultForType(contentType: String, mustSupportUris: Boolean): AppInfo? =
         g_app_info_get_default_for_type(contentType, mustSupportUris.asGBoolean())?.run {
             AppInfo.wrap(reinterpret())
         }
@@ -1883,14 +1870,13 @@ public object Gio {
         mustSupportUris: Boolean,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_app_info_get_default_for_type_async(
-            contentType,
-            mustSupportUris.asGBoolean(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_app_info_get_default_for_type_async(
+        contentType,
+        mustSupportUris.asGBoolean(),
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes a default #GAppInfo lookup started by
@@ -1904,23 +1890,18 @@ public object Gio {
      * @since 2.74
      */
     @GioVersion2_74
-    public fun appInfoGetDefaultForTypeFinish(result: AsyncResult): Result<AppInfo> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_app_info_get_default_for_type_finish(result.gioAsyncResultPointer, gError.ptr)?.run {
-                    AppInfo.wrap(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.gio.Gio
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun appInfoGetDefaultForTypeFinish(result: AsyncResult): Result<AppInfo> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_app_info_get_default_for_type_finish(result.gioAsyncResultPointer, gError.ptr)?.run {
+            AppInfo.wrap(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Gets the default application for handling URIs with
@@ -1953,13 +1934,12 @@ public object Gio {
         uriScheme: String,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_app_info_get_default_for_uri_scheme_async(
-            uriScheme,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_app_info_get_default_for_uri_scheme_async(
+        uriScheme,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes a default #GAppInfo lookup started by
@@ -1973,23 +1953,18 @@ public object Gio {
      * @since 2.74
      */
     @GioVersion2_74
-    public fun appInfoGetDefaultForUriSchemeFinish(result: AsyncResult): Result<AppInfo> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_app_info_get_default_for_uri_scheme_finish(result.gioAsyncResultPointer, gError.ptr)?.run {
-                    AppInfo.wrap(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.gio.Gio
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun appInfoGetDefaultForUriSchemeFinish(result: AsyncResult): Result<AppInfo> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_app_info_get_default_for_uri_scheme_finish(result.gioAsyncResultPointer, gError.ptr)?.run {
+            AppInfo.wrap(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Gets a list of fallback #GAppInfos for a given content type, i.e.
@@ -2040,27 +2015,19 @@ public object Gio {
      * @param context an optional #GAppLaunchContext
      * @return true on success, false on error.
      */
-    public fun appInfoLaunchDefaultForUri(
-        uri: String,
-        context: AppLaunchContext? = null,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_app_info_launch_default_for_uri(
-                    uri,
-                    context?.gioAppLaunchContextPointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.gio.Gio
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(gResult)
-            }
+    public fun appInfoLaunchDefaultForUri(uri: String, context: AppLaunchContext? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_app_info_launch_default_for_uri(
+            uri,
+            context?.gioAppLaunchContextPointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Async version of g_app_info_launch_default_for_uri().
@@ -2086,14 +2053,13 @@ public object Gio {
         context: AppLaunchContext? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_app_info_launch_default_for_uri_async(
-            uri,
-            context?.gioAppLaunchContextPointer?.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_app_info_launch_default_for_uri_async(
+        uri,
+        context?.gioAppLaunchContextPointer?.reinterpret(),
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an asynchronous launch-default-for-uri operation.
@@ -2103,19 +2069,15 @@ public object Gio {
      * @since 2.50
      */
     @GioVersion2_50
-    public fun appInfoLaunchDefaultForUriFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_app_info_launch_default_for_uri_finish(result.gioAsyncResultPointer, gError.ptr).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.gio.Gio
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(gResult)
-            }
+    public fun appInfoLaunchDefaultForUriFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_app_info_launch_default_for_uri_finish(result.gioAsyncResultPointer, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Removes all changes to the type associations done by
@@ -2155,16 +2117,15 @@ public object Gio {
         ioPriority: Int,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_async_initable_newv_async(
-            objectType,
-            nParameters,
-            parameters.gobjectParameterPointer.reinterpret(),
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_async_initable_newv_async(
+        objectType,
+        nParameters,
+        parameters.gobjectParameterPointer.reinterpret(),
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Asynchronously connects to the message bus specified by @bus_type.
@@ -2181,11 +2142,7 @@ public object Gio {
      * @since 2.26
      */
     @GioVersion2_26
-    public fun busGet(
-        busType: BusType,
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public fun busGet(busType: BusType, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         g_bus_get(
             busType.nativeValue,
             cancellable?.gioCancellablePointer?.reinterpret(),
@@ -2214,23 +2171,18 @@ public object Gio {
      * @since 2.26
      */
     @GioVersion2_26
-    public fun busGetFinish(res: AsyncResult): Result<DBusConnection> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_bus_get_finish(res.gioAsyncResultPointer, gError.ptr)?.run {
-                    DBusConnection(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.gio.Gio
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun busGetFinish(res: AsyncResult): Result<DBusConnection> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_bus_get_finish(res.gioAsyncResultPointer, gError.ptr)?.run {
+            DBusConnection(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Synchronously connects to the message bus specified by @bus_type.
@@ -2259,30 +2211,22 @@ public object Gio {
      * @since 2.26
      */
     @GioVersion2_26
-    public fun busGetSync(
-        busType: BusType,
-        cancellable: Cancellable? = null,
-    ): Result<DBusConnection> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_bus_get_sync(
-                    busType.nativeValue,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    DBusConnection(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.gio.Gio
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun busGetSync(busType: BusType, cancellable: Cancellable? = null): Result<DBusConnection> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_bus_get_sync(
+            busType.nativeValue,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            DBusConnection(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Version of g_bus_own_name_on_connection() using closures instead of
@@ -2306,14 +2250,13 @@ public object Gio {
         flags: BusNameOwnerFlags,
         nameAcquiredClosure: Closure? = null,
         nameLostClosure: Closure? = null,
-    ): UInt =
-        g_bus_own_name_on_connection_with_closures(
-            connection.gioDBusConnectionPointer.reinterpret(),
-            name,
-            flags.mask,
-            nameAcquiredClosure?.gobjectClosurePointer?.reinterpret(),
-            nameLostClosure?.gobjectClosurePointer?.reinterpret()
-        )
+    ): UInt = g_bus_own_name_on_connection_with_closures(
+        connection.gioDBusConnectionPointer.reinterpret(),
+        name,
+        flags.mask,
+        nameAcquiredClosure?.gobjectClosurePointer?.reinterpret(),
+        nameLostClosure?.gobjectClosurePointer?.reinterpret()
+    )
 
     /**
      * Version of g_bus_own_name() using closures instead of callbacks for
@@ -2340,15 +2283,14 @@ public object Gio {
         busAcquiredClosure: Closure? = null,
         nameAcquiredClosure: Closure? = null,
         nameLostClosure: Closure? = null,
-    ): UInt =
-        g_bus_own_name_with_closures(
-            busType.nativeValue,
-            name,
-            flags.mask,
-            busAcquiredClosure?.gobjectClosurePointer?.reinterpret(),
-            nameAcquiredClosure?.gobjectClosurePointer?.reinterpret(),
-            nameLostClosure?.gobjectClosurePointer?.reinterpret()
-        )
+    ): UInt = g_bus_own_name_with_closures(
+        busType.nativeValue,
+        name,
+        flags.mask,
+        busAcquiredClosure?.gobjectClosurePointer?.reinterpret(),
+        nameAcquiredClosure?.gobjectClosurePointer?.reinterpret(),
+        nameLostClosure?.gobjectClosurePointer?.reinterpret()
+    )
 
     /**
      * Stops owning a name.
@@ -2404,14 +2346,13 @@ public object Gio {
         flags: BusNameWatcherFlags,
         nameAppearedClosure: Closure? = null,
         nameVanishedClosure: Closure? = null,
-    ): UInt =
-        g_bus_watch_name_on_connection_with_closures(
-            connection.gioDBusConnectionPointer.reinterpret(),
-            name,
-            flags.mask,
-            nameAppearedClosure?.gobjectClosurePointer?.reinterpret(),
-            nameVanishedClosure?.gobjectClosurePointer?.reinterpret()
-        )
+    ): UInt = g_bus_watch_name_on_connection_with_closures(
+        connection.gioDBusConnectionPointer.reinterpret(),
+        name,
+        flags.mask,
+        nameAppearedClosure?.gobjectClosurePointer?.reinterpret(),
+        nameVanishedClosure?.gobjectClosurePointer?.reinterpret()
+    )
 
     /**
      * Version of g_bus_watch_name() using closures instead of callbacks for
@@ -2435,14 +2376,13 @@ public object Gio {
         flags: BusNameWatcherFlags,
         nameAppearedClosure: Closure? = null,
         nameVanishedClosure: Closure? = null,
-    ): UInt =
-        g_bus_watch_name_with_closures(
-            busType.nativeValue,
-            name,
-            flags.mask,
-            nameAppearedClosure?.gobjectClosurePointer?.reinterpret(),
-            nameVanishedClosure?.gobjectClosurePointer?.reinterpret()
-        )
+    ): UInt = g_bus_watch_name_with_closures(
+        busType.nativeValue,
+        name,
+        flags.mask,
+        nameAppearedClosure?.gobjectClosurePointer?.reinterpret(),
+        nameVanishedClosure?.gobjectClosurePointer?.reinterpret()
+    )
 
     /**
      * Checks if a content type can be executable. Note that for instance
@@ -2462,10 +2402,8 @@ public object Gio {
      * @return true if the two strings are identical or equivalent,
      *     false otherwise.
      */
-    public fun contentTypeEquals(
-        type1: String,
-        type2: String,
-    ): Boolean = g_content_type_equals(type1, type2).asBoolean()
+    public fun contentTypeEquals(type1: String, type2: String): Boolean =
+        g_content_type_equals(type1, type2).asBoolean()
 
     /**
      * Tries to find a content type based on the mime type name.
@@ -2511,10 +2449,9 @@ public object Gio {
      * @return #GIcon corresponding to the content type. Free the returned
      *     object with g_object_unref()
      */
-    public fun contentTypeGetIcon(type: String): Icon =
-        g_content_type_get_icon(type)!!.run {
-            Icon.wrap(reinterpret())
-        }
+    public fun contentTypeGetIcon(type: String): Icon = g_content_type_get_icon(type)!!.run {
+        Icon.wrap(reinterpret())
+    }
 
     /**
      * Get the list of directories which MIME data is loaded from. See
@@ -2547,10 +2484,9 @@ public object Gio {
      * @since 2.34
      */
     @GioVersion2_34
-    public fun contentTypeGetSymbolicIcon(type: String): Icon =
-        g_content_type_get_symbolic_icon(type)!!.run {
-            Icon.wrap(reinterpret())
-        }
+    public fun contentTypeGetSymbolicIcon(type: String): Icon = g_content_type_get_symbolic_icon(type)!!.run {
+        Icon.wrap(reinterpret())
+    }
 
     /**
      * Tries to guess the type of the tree with root @root, by
@@ -2583,10 +2519,8 @@ public object Gio {
      * @return true if @type is a kind of @supertype,
      *     false otherwise.
      */
-    public fun contentTypeIsA(
-        type: String,
-        supertype: String,
-    ): Boolean = g_content_type_is_a(type, supertype).asBoolean()
+    public fun contentTypeIsA(type: String, supertype: String): Boolean =
+        g_content_type_is_a(type, supertype).asBoolean()
 
     /**
      * Determines if @type is a subset of @mime_type.
@@ -2599,10 +2533,8 @@ public object Gio {
      * @since 2.52
      */
     @GioVersion2_52
-    public fun contentTypeIsMimeType(
-        type: String,
-        mimeType: String,
-    ): Boolean = g_content_type_is_mime_type(type, mimeType).asBoolean()
+    public fun contentTypeIsMimeType(type: String, mimeType: String): Boolean =
+        g_content_type_is_mime_type(type, mimeType).asBoolean()
 
     /**
      * Checks if the content type is the generic "unknown" type.
@@ -2646,10 +2578,9 @@ public object Gio {
      * @since 2.60
      */
     @GioVersion2_60
-    public fun contentTypeSetMimeDirs(dirs: CollectionsList<String>? = null): Unit =
-        memScoped {
-            return g_content_type_set_mime_dirs(dirs?.toCStringList(this))
-        }
+    public fun contentTypeSetMimeDirs(dirs: CollectionsList<String>? = null): Unit = memScoped {
+        return g_content_type_set_mime_dirs(dirs?.toCStringList(this))
+    }
 
     /**
      * Gets a list of strings containing all the registered content types
@@ -2659,10 +2590,9 @@ public object Gio {
      * @return list of the registered
      *     content types
      */
-    public fun contentTypesGetRegistered(): GlibList =
-        g_content_types_get_registered()!!.run {
-            GlibList(reinterpret())
-        }
+    public fun contentTypesGetRegistered(): GlibList = g_content_types_get_registered()!!.run {
+        GlibList(reinterpret())
+    }
 
     /**
      * Escape @string so it can appear in a D-Bus address as the value
@@ -2698,23 +2628,16 @@ public object Gio {
      * @since 2.26
      */
     @GioVersion2_26
-    public fun dbusAddressGetForBusSync(
-        busType: BusType,
-        cancellable: Cancellable? = null,
-    ): Result<String> =
+    public fun dbusAddressGetForBusSync(busType: BusType, cancellable: Cancellable? = null): Result<String> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                g_dbus_address_get_for_bus_sync(
-                    busType.nativeValue,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.toKString()
+            val gResult = g_dbus_address_get_for_bus_sync(
+                busType.nativeValue,
+                cancellable?.gioCancellablePointer?.reinterpret(),
+                gError.ptr
+            )?.toKString()
             return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.gio.Gio
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
+                Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -2743,13 +2666,12 @@ public object Gio {
         address: String,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_dbus_address_get_stream(
-            address,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_dbus_address_get_stream(
+        address,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Creates a D-Bus error name to use for @error. If @error matches
@@ -2838,10 +2760,7 @@ public object Gio {
      * @since 2.26
      */
     @GioVersion2_26
-    public fun dbusErrorNewForDbusError(
-        dbusErrorName: String,
-        dbusErrorMessage: String,
-    ): Error =
+    public fun dbusErrorNewForDbusError(dbusErrorName: String, dbusErrorMessage: String): Error =
         g_dbus_error_new_for_dbus_error(dbusErrorName, dbusErrorMessage)!!.run {
             Error(reinterpret())
         }
@@ -2863,11 +2782,8 @@ public object Gio {
      * @since 2.26
      */
     @GioVersion2_26
-    public fun dbusErrorRegisterError(
-        errorDomain: Quark,
-        errorCode: Int,
-        dbusErrorName: String,
-    ): Boolean = g_dbus_error_register_error(errorDomain, errorCode, dbusErrorName).asBoolean()
+    public fun dbusErrorRegisterError(errorDomain: Quark, errorCode: Int, dbusErrorName: String): Boolean =
+        g_dbus_error_register_error(errorDomain, errorCode, dbusErrorName).asBoolean()
 
     /**
      * Looks for extra information in the error message used to recover
@@ -2895,11 +2811,8 @@ public object Gio {
      * @since 2.26
      */
     @GioVersion2_26
-    public fun dbusErrorUnregisterError(
-        errorDomain: Quark,
-        errorCode: Int,
-        dbusErrorName: String,
-    ): Boolean = g_dbus_error_unregister_error(errorDomain, errorCode, dbusErrorName).asBoolean()
+    public fun dbusErrorUnregisterError(errorDomain: Quark, errorCode: Int, dbusErrorName: String): Boolean =
+        g_dbus_error_unregister_error(errorDomain, errorCode, dbusErrorName).asBoolean()
 
     /**
      * This is a language binding friendly version of g_dbus_escape_object_path_bytestring().
@@ -2969,16 +2882,12 @@ public object Gio {
      * @since 2.30
      */
     @GioVersion2_30
-    public fun dbusGvalueToGvariant(
-        gvalue: Value,
-        type: VariantType,
-    ): Variant =
-        g_dbus_gvalue_to_gvariant(
-            gvalue.gobjectValuePointer.reinterpret(),
-            type.glibVariantTypePointer.reinterpret()
-        )!!.run {
-            Variant(reinterpret())
-        }
+    public fun dbusGvalueToGvariant(gvalue: Value, type: VariantType): Variant = g_dbus_gvalue_to_gvariant(
+        gvalue.gobjectValuePointer.reinterpret(),
+        type.glibVariantTypePointer.reinterpret()
+    )!!.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Converts a #GVariant to a #GValue. If @value is floating, it is consumed.
@@ -2998,10 +2907,7 @@ public object Gio {
      * @since 2.30
      */
     @GioVersion2_30
-    public fun dbusGvariantToGvalue(
-        `value`: Variant,
-        outGvalue: Value,
-    ): Unit =
+    public fun dbusGvariantToGvalue(`value`: Variant, outGvalue: Value): Unit =
         g_dbus_gvariant_to_gvalue(`value`.glibVariantPointer.reinterpret(), outGvalue.gobjectValuePointer.reinterpret())
 
     /**
@@ -3088,19 +2994,15 @@ public object Gio {
      * @since 2.26
      */
     @GioVersion2_26
-    public fun dbusIsSupportedAddress(string: String): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_dbus_is_supported_address(string, gError.ptr).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.gio.Gio
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(gResult)
-            }
+    public fun dbusIsSupportedAddress(string: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_dbus_is_supported_address(string, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Checks if @string is a valid D-Bus unique bus name.
@@ -3126,27 +3028,22 @@ public object Gio {
     public fun dtlsClientConnectionNew(
         baseSocket: DatagramBased,
         serverIdentity: SocketConnectable? = null,
-    ): Result<DtlsClientConnection> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_dtls_client_connection_new(
-                    baseSocket.gioDatagramBasedPointer,
-                    serverIdentity?.gioSocketConnectablePointer,
-                    gError.ptr
-                )?.run {
-                    DtlsClientConnection.wrap(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.gio.Gio
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    ): Result<DtlsClientConnection> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_dtls_client_connection_new(
+            baseSocket.gioDatagramBasedPointer,
+            serverIdentity?.gioSocketConnectablePointer,
+            gError.ptr
+        )?.run {
+            DtlsClientConnection.wrap(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Creates a new #GDtlsServerConnection wrapping @base_socket.
@@ -3161,27 +3058,22 @@ public object Gio {
     public fun dtlsServerConnectionNew(
         baseSocket: DatagramBased,
         certificate: TlsCertificate? = null,
-    ): Result<DtlsServerConnection> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_dtls_server_connection_new(
-                    baseSocket.gioDatagramBasedPointer,
-                    certificate?.gioTlsCertificatePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    DtlsServerConnection.wrap(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.gio.Gio
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    ): Result<DtlsServerConnection> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_dtls_server_connection_new(
+            baseSocket.gioDatagramBasedPointer,
+            certificate?.gioTlsCertificatePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            DtlsServerConnection.wrap(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Constructs a #GFile from a vector of elements using the correct
@@ -3196,12 +3088,11 @@ public object Gio {
      * @since 2.78
      */
     @GioVersion2_78
-    public fun fileNewBuildFilenamev(args: CollectionsList<String>): File =
-        memScoped {
-            return g_file_new_build_filenamev(args.toCStringList(this))!!.run {
-                File.wrap(reinterpret())
-            }
+    public fun fileNewBuildFilenamev(args: CollectionsList<String>): File = memScoped {
+        return g_file_new_build_filenamev(args.toCStringList(this))!!.run {
+            File.wrap(reinterpret())
         }
+    }
 
     /**
      * Creates a #GFile with the given argument from the command line.
@@ -3223,10 +3114,9 @@ public object Gio {
      * @return a new #GFile.
      *   Free the returned object with g_object_unref().
      */
-    public fun fileNewForCommandlineArg(arg: String): File =
-        g_file_new_for_commandline_arg(arg)!!.run {
-            File.wrap(reinterpret())
-        }
+    public fun fileNewForCommandlineArg(arg: String): File = g_file_new_for_commandline_arg(arg)!!.run {
+        File.wrap(reinterpret())
+    }
 
     /**
      * Creates a #GFile with the given argument from the command line.
@@ -3247,10 +3137,7 @@ public object Gio {
      * @since 2.36
      */
     @GioVersion2_36
-    public fun fileNewForCommandlineArgAndCwd(
-        arg: String,
-        cwd: String,
-    ): File =
+    public fun fileNewForCommandlineArgAndCwd(arg: String, cwd: String): File =
         g_file_new_for_commandline_arg_and_cwd(arg, cwd)!!.run {
             File.wrap(reinterpret())
         }
@@ -3265,10 +3152,9 @@ public object Gio {
      * @return a new #GFile for the given @path.
      *   Free the returned object with g_object_unref().
      */
-    public fun fileNewForPath(path: String): File =
-        g_file_new_for_path(path)!!.run {
-            File.wrap(reinterpret())
-        }
+    public fun fileNewForPath(path: String): File = g_file_new_for_path(path)!!.run {
+        File.wrap(reinterpret())
+    }
 
     /**
      * Constructs a #GFile for a given URI. This operation never
@@ -3280,10 +3166,9 @@ public object Gio {
      * @return a new #GFile for the given @uri.
      *   Free the returned object with g_object_unref().
      */
-    public fun fileNewForUri(uri: String): File =
-        g_file_new_for_uri(uri)!!.run {
-            File.wrap(reinterpret())
-        }
+    public fun fileNewForUri(uri: String): File = g_file_new_for_uri(uri)!!.run {
+        File.wrap(reinterpret())
+    }
 
     /**
      * Asynchronously opens a file in the preferred directory for temporary files
@@ -3306,14 +3191,13 @@ public object Gio {
         ioPriority: Int,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_new_tmp_async(
-            tmpl,
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_new_tmp_async(
+        tmpl,
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Asynchronously creates a directory in the preferred directory for
@@ -3336,14 +3220,13 @@ public object Gio {
         ioPriority: Int,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_new_tmp_dir_async(
-            tmpl,
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_new_tmp_dir_async(
+        tmpl,
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes a temporary directory creation started by
@@ -3355,23 +3238,18 @@ public object Gio {
      * @since 2.74
      */
     @GioVersion2_74
-    public fun fileNewTmpDirFinish(result: AsyncResult): Result<File> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_new_tmp_dir_finish(result.gioAsyncResultPointer, gError.ptr)?.run {
-                    File.wrap(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.gio.Gio
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun fileNewTmpDirFinish(result: AsyncResult): Result<File> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_new_tmp_dir_finish(result.gioAsyncResultPointer, gError.ptr)?.run {
+            File.wrap(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Constructs a #GFile with the given @parse_name (i.e. something
@@ -3382,10 +3260,9 @@ public object Gio {
      * @param parseName a file name or path to be parsed
      * @return a new #GFile.
      */
-    public fun fileParseName(parseName: String): File =
-        g_file_parse_name(parseName)!!.run {
-            File.wrap(reinterpret())
-        }
+    public fun fileParseName(parseName: String): File = g_file_parse_name(parseName)!!.run {
+        File.wrap(reinterpret())
+    }
 
     /**
      * Deserializes a #GIcon previously serialized using g_icon_serialize().
@@ -3414,23 +3291,18 @@ public object Gio {
      * @since 2.20
      */
     @GioVersion2_20
-    public fun iconNewForString(str: String): Result<Icon> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_icon_new_for_string(str, gError.ptr)?.run {
-                    Icon.wrap(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.gio.Gio
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun iconNewForString(str: String): Result<Icon> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_icon_new_for_string(str, gError.ptr)?.run {
+            Icon.wrap(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Converts `errno.h` error codes into GIO error codes.
@@ -3456,10 +3328,9 @@ public object Gio {
      * @param errNo Error number as defined in errno.h.
      * @return #GIOErrorEnum value for the given `errno.h` error number
      */
-    public fun ioErrorFromErrno(errNo: Int): IOErrorEnum =
-        g_io_error_from_errno(errNo).run {
-            IOErrorEnum.fromNativeValue(this)
-        }
+    public fun ioErrorFromErrno(errNo: Int): IOErrorEnum = g_io_error_from_errno(errNo).run {
+        IOErrorEnum.fromNativeValue(this)
+    }
 
     /**
      * Converts #GFileError error codes into GIO error codes.
@@ -3549,14 +3420,13 @@ public object Gio {
         jobFunc: IOSchedulerJobFunc,
         ioPriority: Int,
         cancellable: Cancellable? = null,
-    ): Unit =
-        g_io_scheduler_push_job(
-            IOSchedulerJobFuncFunc.reinterpret(),
-            StableRef.create(jobFunc).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret()
-        )
+    ): Unit = g_io_scheduler_push_job(
+        IOSchedulerJobFuncFunc.reinterpret(),
+        StableRef.create(jobFunc).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret()
+    )
 
     /**
      * Creates a keyfile-backed #GSettingsBackend.
@@ -3619,10 +3489,9 @@ public object Gio {
         filename: String,
         rootPath: String,
         rootGroup: String? = null,
-    ): SettingsBackend =
-        g_keyfile_settings_backend_new(filename, rootPath, rootGroup)!!.run {
-            SettingsBackend(reinterpret())
-        }
+    ): SettingsBackend = g_keyfile_settings_backend_new(filename, rootPath, rootGroup)!!.run {
+        SettingsBackend(reinterpret())
+    }
 
     /**
      * Gets a reference to the default #GMemoryMonitor for the system.
@@ -3631,10 +3500,9 @@ public object Gio {
      * @since 2.64
      */
     @GioVersion2_64
-    public fun memoryMonitorDupDefault(): MemoryMonitor =
-        g_memory_monitor_dup_default()!!.run {
-            MemoryMonitor.wrap(reinterpret())
-        }
+    public fun memoryMonitorDupDefault(): MemoryMonitor = g_memory_monitor_dup_default()!!.run {
+        MemoryMonitor.wrap(reinterpret())
+    }
 
     /**
      * Creates a memory-backed #GSettingsBackend.
@@ -3647,10 +3515,9 @@ public object Gio {
      * @since 2.28
      */
     @GioVersion2_28
-    public fun memorySettingsBackendNew(): SettingsBackend =
-        g_memory_settings_backend_new()!!.run {
-            SettingsBackend(reinterpret())
-        }
+    public fun memorySettingsBackendNew(): SettingsBackend = g_memory_settings_backend_new()!!.run {
+        SettingsBackend(reinterpret())
+    }
 
     /**
      * Gets the default #GNetworkMonitor for the system.
@@ -3660,10 +3527,9 @@ public object Gio {
      * @since 2.32
      */
     @GioVersion2_32
-    public fun networkMonitorGetDefault(): NetworkMonitor =
-        g_network_monitor_get_default()!!.run {
-            NetworkMonitor.wrap(reinterpret())
-        }
+    public fun networkMonitorGetDefault(): NetworkMonitor = g_network_monitor_get_default()!!.run {
+        NetworkMonitor.wrap(reinterpret())
+    }
 
     /**
      * Creates a readonly #GSettingsBackend.
@@ -3675,10 +3541,9 @@ public object Gio {
      * @since 2.28
      */
     @GioVersion2_28
-    public fun nullSettingsBackendNew(): SettingsBackend =
-        g_null_settings_backend_new()!!.run {
-            SettingsBackend(reinterpret())
-        }
+    public fun nullSettingsBackendNew(): SettingsBackend = g_null_settings_backend_new()!!.run {
+        SettingsBackend(reinterpret())
+    }
 
     /**
      * Utility method for #GPollableInputStream and #GPollableOutputStream
@@ -3715,14 +3580,13 @@ public object Gio {
         pollableStream: Object,
         childSource: Source? = null,
         cancellable: Cancellable? = null,
-    ): Source =
-        g_pollable_source_new_full(
-            pollableStream.gPointer.reinterpret(),
-            childSource?.glibSourcePointer?.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret()
-        )!!.run {
-            Source(reinterpret())
-        }
+    ): Source = g_pollable_source_new_full(
+        pollableStream.gPointer.reinterpret(),
+        childSource?.glibSourcePointer?.reinterpret(),
+        cancellable?.gioCancellablePointer?.reinterpret()
+    )!!.run {
+        Source(reinterpret())
+    }
 
     /**
      * Gets a reference to the default #GPowerProfileMonitor for the system.
@@ -3731,10 +3595,9 @@ public object Gio {
      * @since 2.70
      */
     @GioVersion2_70
-    public fun powerProfileMonitorDupDefault(): PowerProfileMonitor =
-        g_power_profile_monitor_dup_default()!!.run {
-            PowerProfileMonitor.wrap(reinterpret())
-        }
+    public fun powerProfileMonitorDupDefault(): PowerProfileMonitor = g_power_profile_monitor_dup_default()!!.run {
+        PowerProfileMonitor.wrap(reinterpret())
+    }
 
     /**
      * Find the `gio-proxy` extension point for a proxy implementation that supports
@@ -3746,10 +3609,9 @@ public object Gio {
      * @since 2.26
      */
     @GioVersion2_26
-    public fun proxyGetDefaultForProtocol(protocol: String): Proxy? =
-        g_proxy_get_default_for_protocol(protocol)?.run {
-            Proxy.wrap(reinterpret())
-        }
+    public fun proxyGetDefaultForProtocol(protocol: String): Proxy? = g_proxy_get_default_for_protocol(protocol)?.run {
+        Proxy.wrap(reinterpret())
+    }
 
     /**
      * Gets the default #GProxyResolver for the system.
@@ -3759,10 +3621,9 @@ public object Gio {
      * @since 2.26
      */
     @GioVersion2_26
-    public fun proxyResolverGetDefault(): ProxyResolver =
-        g_proxy_resolver_get_default()!!.run {
-            ProxyResolver.wrap(reinterpret())
-        }
+    public fun proxyResolverGetDefault(): ProxyResolver = g_proxy_resolver_get_default()!!.run {
+        ProxyResolver.wrap(reinterpret())
+    }
 
     /**
      * Gets the #GResolver Error Quark.
@@ -3799,23 +3660,18 @@ public object Gio {
      * @since 2.32
      */
     @GioVersion2_32
-    public fun resourceLoad(filename: String): Result<Resource> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_resource_load(filename, gError.ptr)?.run {
-                    Resource(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.gio.Gio
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun resourceLoad(filename: String): Result<Resource> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_resource_load(filename, gError.ptr)?.run {
+            Resource(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Returns all the names of children at the specified @path in the set of
@@ -3834,19 +3690,15 @@ public object Gio {
     public fun resourcesEnumerateChildren(
         path: String,
         lookupFlags: ResourceLookupFlags,
-    ): Result<CollectionsList<String>> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_resources_enumerate_children(path, lookupFlags.mask, gError.ptr)?.toKStringList()
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.gio.Gio
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    ): Result<CollectionsList<String>> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_resources_enumerate_children(path, lookupFlags.mask, gError.ptr)?.toKStringList()
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
         }
+    }
 
     /**
      * Looks for a file at the specified @path in the set of
@@ -3871,26 +3723,18 @@ public object Gio {
      * @since 2.32
      */
     @GioVersion2_32
-    public fun resourcesLookupData(
-        path: String,
-        lookupFlags: ResourceLookupFlags,
-    ): Result<Bytes> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_resources_lookup_data(path, lookupFlags.mask, gError.ptr)?.run {
-                    Bytes(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.gio.Gio
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun resourcesLookupData(path: String, lookupFlags: ResourceLookupFlags): Result<Bytes> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_resources_lookup_data(path, lookupFlags.mask, gError.ptr)?.run {
+            Bytes(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Looks for a file at the specified @path in the set of
@@ -3906,26 +3750,18 @@ public object Gio {
      * @since 2.32
      */
     @GioVersion2_32
-    public fun resourcesOpenStream(
-        path: String,
-        lookupFlags: ResourceLookupFlags,
-    ): Result<InputStream> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_resources_open_stream(path, lookupFlags.mask, gError.ptr)?.run {
-                    InputStream(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.gio.Gio
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun resourcesOpenStream(path: String, lookupFlags: ResourceLookupFlags): Result<InputStream> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_resources_open_stream(path, lookupFlags.mask, gError.ptr)?.run {
+            InputStream(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Registers the resource with the process-global set of resources.
@@ -3968,10 +3804,9 @@ public object Gio {
      * @since 2.32
      */
     @GioVersion2_32
-    public fun settingsSchemaSourceGetDefault(): SettingsSchemaSource? =
-        g_settings_schema_source_get_default()?.run {
-            SettingsSchemaSource(reinterpret())
-        }
+    public fun settingsSchemaSourceGetDefault(): SettingsSchemaSource? = g_settings_schema_source_get_default()?.run {
+        SettingsSchemaSource(reinterpret())
+    }
 
     /**
      * Reports an error in an idle function. Similar to
@@ -3986,13 +3821,12 @@ public object Gio {
         `object`: Object? = null,
         callback: AsyncReadyCallback,
         error: Error,
-    ): Unit =
-        g_simple_async_report_gerror_in_idle(
-            `object`?.gPointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer(),
-            error.glibErrorPointer.reinterpret()
-        )
+    ): Unit = g_simple_async_report_gerror_in_idle(
+        `object`?.gPointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer(),
+        error.glibErrorPointer.reinterpret()
+    )
 
     /**
      * Gets the default #GTlsBackend for the system.
@@ -4002,10 +3836,9 @@ public object Gio {
      * @since 2.28
      */
     @GioVersion2_28
-    public fun tlsBackendGetDefault(): TlsBackend =
-        g_tls_backend_get_default()!!.run {
-            TlsBackend.wrap(reinterpret())
-        }
+    public fun tlsBackendGetDefault(): TlsBackend = g_tls_backend_get_default()!!.run {
+        TlsBackend.wrap(reinterpret())
+    }
 
     /**
      * Gets the TLS channel binding error quark.
@@ -4035,27 +3868,22 @@ public object Gio {
     public fun tlsClientConnectionNew(
         baseIoStream: IOStream,
         serverIdentity: SocketConnectable? = null,
-    ): Result<TlsClientConnection> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_tls_client_connection_new(
-                    baseIoStream.gioIOStreamPointer.reinterpret(),
-                    serverIdentity?.gioSocketConnectablePointer,
-                    gError.ptr
-                )?.run {
-                    TlsClientConnection.wrap(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.gio.Gio
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    ): Result<TlsClientConnection> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_tls_client_connection_new(
+            baseIoStream.gioIOStreamPointer.reinterpret(),
+            serverIdentity?.gioSocketConnectablePointer,
+            gError.ptr
+        )?.run {
+            TlsClientConnection.wrap(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Gets the TLS error quark.
@@ -4078,23 +3906,18 @@ public object Gio {
      * @since 2.30
      */
     @GioVersion2_30
-    public fun tlsFileDatabaseNew(anchors: String): Result<TlsFileDatabase> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_tls_file_database_new(anchors, gError.ptr)?.run {
-                    TlsFileDatabase.wrap(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.gio.Gio
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun tlsFileDatabaseNew(anchors: String): Result<TlsFileDatabase> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_tls_file_database_new(anchors, gError.ptr)?.run {
+            TlsFileDatabase.wrap(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Creates a new #GTlsServerConnection wrapping @base_io_stream (which
@@ -4114,27 +3937,22 @@ public object Gio {
     public fun tlsServerConnectionNew(
         baseIoStream: IOStream,
         certificate: TlsCertificate? = null,
-    ): Result<TlsServerConnection> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_tls_server_connection_new(
-                    baseIoStream.gioIOStreamPointer.reinterpret(),
-                    certificate?.gioTlsCertificatePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    TlsServerConnection.wrap(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(
-                    org.gtkkn.bindings.gio.Gio
-                        .resolveException(Error(gError.pointed!!.ptr))
-                )
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    ): Result<TlsServerConnection> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_tls_server_connection_new(
+            baseIoStream.gioIOStreamPointer.reinterpret(),
+            certificate?.gioTlsCertificatePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            TlsServerConnection.wrap(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Determines if @mount_path is considered an implementation of the
@@ -4191,14 +4009,10 @@ public object Gio {
      * @return 1, 0 or -1 if @mount1 is greater than, equal to,
      * or less than @mount2, respectively.
      */
-    public fun unixMountCompare(
-        mount1: UnixMountEntry,
-        mount2: UnixMountEntry,
-    ): Int =
-        g_unix_mount_compare(
-            mount1.gioUnixMountEntryPointer.reinterpret(),
-            mount2.gioUnixMountEntryPointer.reinterpret()
-        )
+    public fun unixMountCompare(mount1: UnixMountEntry, mount2: UnixMountEntry): Int = g_unix_mount_compare(
+        mount1.gioUnixMountEntryPointer.reinterpret(),
+        mount2.gioUnixMountEntryPointer.reinterpret()
+    )
 
     /**
      * Makes a copy of @mount_entry.
@@ -4376,48 +4190,35 @@ public object Gio {
      */
     public fun unixMountsChangedSince(time: ULong): Boolean = g_unix_mounts_changed_since(time).asBoolean()
 
-    public fun resolveException(error: Error): GlibException {
-        val ex =
-            when (error.domain) {
-                DBusError.quark() ->
-                    DBusError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            DBusErrorException(error, it)
-                        }
-                IOErrorEnum.quark() ->
-                    IOErrorEnum
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            IOErrorEnumException(error, it)
-                        }
-                ResolverError.quark() ->
-                    ResolverError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            ResolverErrorException(error, it)
-                        }
-                ResourceError.quark() ->
-                    ResourceError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            ResourceErrorException(error, it)
-                        }
-                TlsChannelBindingError.quark() ->
-                    TlsChannelBindingError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            TlsChannelBindingErrorException(error, it)
-                        }
-                TlsError.quark() ->
-                    TlsError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            TlsErrorException(error, it)
-                        }
-                else -> null
-            }
-        return ex ?: GlibException(error)
+    public fun resolveException(error: Error): GLibException {
+        val ex = when (error.domain) {
+            DBusError.quark() -> DBusError.fromErrorOrNull(error)
+                ?.let {
+                    DBusErrorException(error, it)
+                }
+            IOErrorEnum.quark() -> IOErrorEnum.fromErrorOrNull(error)
+                ?.let {
+                    IOErrorEnumException(error, it)
+                }
+            ResolverError.quark() -> ResolverError.fromErrorOrNull(error)
+                ?.let {
+                    ResolverErrorException(error, it)
+                }
+            ResourceError.quark() -> ResourceError.fromErrorOrNull(error)
+                ?.let {
+                    ResourceErrorException(error, it)
+                }
+            TlsChannelBindingError.quark() -> TlsChannelBindingError.fromErrorOrNull(error)
+                ?.let {
+                    TlsChannelBindingErrorException(error, it)
+                }
+            TlsError.quark() -> TlsError.fromErrorOrNull(error)
+                ?.let {
+                    TlsErrorException(error, it)
+                }
+            else -> null
+        }
+        return ex ?: GLibException(error)
     }
 }
 
@@ -4436,7 +4237,8 @@ public val AsyncReadyCallbackFunc:
                 AsyncResult.wrap(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val BusAcquiredCallbackFunc:
     CPointer<CFunction<(CPointer<GDBusConnection>, CPointer<ByteVar>) -> Unit>> =
@@ -4451,7 +4253,8 @@ public val BusAcquiredCallbackFunc:
             },
             name?.toKString() ?: error("Expected not null string")
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val BusNameAcquiredCallbackFunc:
     CPointer<CFunction<(CPointer<GDBusConnection>, CPointer<ByteVar>) -> Unit>> =
@@ -4466,7 +4269,8 @@ public val BusNameAcquiredCallbackFunc:
             },
             name?.toKString() ?: error("Expected not null string")
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val BusNameAppearedCallbackFunc: CPointer<
     CFunction<
@@ -4475,31 +4279,28 @@ public val BusNameAppearedCallbackFunc: CPointer<
             CPointer<ByteVar>,
             CPointer<ByteVar>,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            connection: CPointer<GDBusConnection>?,
-            name: CPointer<ByteVar>?,
-            nameOwner: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    connection: DBusConnection,
-                    name: String,
-                    nameOwner: String,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                connection!!.run {
-                    DBusConnection(reinterpret())
-                },
-                name?.toKString() ?: error("Expected not null string"),
-                nameOwner?.toKString() ?: error("Expected not null string")
-            )
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        connection: CPointer<GDBusConnection>?,
+        name: CPointer<ByteVar>?,
+        nameOwner: CPointer<ByteVar>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            connection: DBusConnection,
+            name: String,
+            nameOwner: String,
+        ) -> Unit
+        >().get().invoke(
+        connection!!.run {
+            DBusConnection(reinterpret())
+        },
+        name?.toKString() ?: error("Expected not null string"),
+        nameOwner?.toKString() ?: error("Expected not null string")
+    )
+}
+    .reinterpret()
 
 public val BusNameLostCallbackFunc:
     CPointer<CFunction<(CPointer<GDBusConnection>, CPointer<ByteVar>) -> Unit>> =
@@ -4514,7 +4315,8 @@ public val BusNameLostCallbackFunc:
             },
             name?.toKString() ?: error("Expected not null string")
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val BusNameVanishedCallbackFunc:
     CPointer<CFunction<(CPointer<GDBusConnection>, CPointer<ByteVar>) -> Unit>> =
@@ -4529,22 +4331,21 @@ public val BusNameVanishedCallbackFunc:
             },
             name?.toKString() ?: error("Expected not null string")
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val CancellableSourceFuncFunc: CPointer<CFunction<(CPointer<GCancellable>?) -> Int>> =
     staticCFunction {
             cancellable: CPointer<GCancellable>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(cancellable: Cancellable?) -> Boolean>()
-            .get()
-            .invoke(
-                cancellable?.run {
-                    Cancellable(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(cancellable: Cancellable?) -> Boolean>().get().invoke(
+            cancellable?.run {
+                Cancellable(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
 public val DBusInterfaceGetPropertyFuncFunc: CPointer<
     CFunction<
@@ -4556,42 +4357,39 @@ public val DBusInterfaceGetPropertyFuncFunc: CPointer<
             CPointer<ByteVar>,
             CPointer<org.gtkkn.native.glib.GError>,
         ) -> CPointer<GVariant>
-    >
-> =
-    staticCFunction {
-            connection: CPointer<GDBusConnection>?,
-            sender: CPointer<ByteVar>?,
-            objectPath: CPointer<ByteVar>?,
-            interfaceName: CPointer<ByteVar>?,
-            propertyName: CPointer<ByteVar>?,
-            error: CPointer<org.gtkkn.native.glib.GError>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    connection: DBusConnection,
-                    sender: String,
-                    objectPath: String,
-                    interfaceName: String,
-                    propertyName: String,
-                    error: Error,
-                ) -> Variant
-            >()
-            .get()
-            .invoke(
-                connection!!.run {
-                    DBusConnection(reinterpret())
-                },
-                sender?.toKString() ?: error("Expected not null string"),
-                objectPath?.toKString() ?: error("Expected not null string"),
-                interfaceName?.toKString() ?: error("Expected not null string"),
-                propertyName?.toKString() ?: error("Expected not null string"),
-                error!!.run {
-                    Error(reinterpret())
-                }
-            ).glibVariantPointer
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        connection: CPointer<GDBusConnection>?,
+        sender: CPointer<ByteVar>?,
+        objectPath: CPointer<ByteVar>?,
+        interfaceName: CPointer<ByteVar>?,
+        propertyName: CPointer<ByteVar>?,
+        error: CPointer<org.gtkkn.native.glib.GError>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            connection: DBusConnection,
+            sender: String,
+            objectPath: String,
+            interfaceName: String,
+            propertyName: String,
+            error: Error,
+        ) -> Variant
+        >().get().invoke(
+        connection!!.run {
+            DBusConnection(reinterpret())
+        },
+        sender?.toKString() ?: error("Expected not null string"),
+        objectPath?.toKString() ?: error("Expected not null string"),
+        interfaceName?.toKString() ?: error("Expected not null string"),
+        propertyName?.toKString() ?: error("Expected not null string"),
+        error!!.run {
+            Error(reinterpret())
+        }
+    ).glibVariantPointer
+}
+    .reinterpret()
 
 public val DBusInterfaceMethodCallFuncFunc: CPointer<
     CFunction<
@@ -4604,47 +4402,44 @@ public val DBusInterfaceMethodCallFuncFunc: CPointer<
             CPointer<GVariant>,
             CPointer<GDBusMethodInvocation>,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            connection: CPointer<GDBusConnection>?,
-            sender: CPointer<ByteVar>?,
-            objectPath: CPointer<ByteVar>?,
-            interfaceName: CPointer<ByteVar>?,
-            methodName: CPointer<ByteVar>?,
-            parameters: CPointer<GVariant>?,
-            invocation: CPointer<GDBusMethodInvocation>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    connection: DBusConnection,
-                    sender: String,
-                    objectPath: String,
-                    interfaceName: String,
-                    methodName: String,
-                    parameters: Variant,
-                    invocation: DBusMethodInvocation,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                connection!!.run {
-                    DBusConnection(reinterpret())
-                },
-                sender?.toKString() ?: error("Expected not null string"),
-                objectPath?.toKString() ?: error("Expected not null string"),
-                interfaceName?.toKString() ?: error("Expected not null string"),
-                methodName?.toKString() ?: error("Expected not null string"),
-                parameters!!.run {
-                    Variant(reinterpret())
-                },
-                invocation!!.run {
-                    DBusMethodInvocation(reinterpret())
-                }
-            )
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        connection: CPointer<GDBusConnection>?,
+        sender: CPointer<ByteVar>?,
+        objectPath: CPointer<ByteVar>?,
+        interfaceName: CPointer<ByteVar>?,
+        methodName: CPointer<ByteVar>?,
+        parameters: CPointer<GVariant>?,
+        invocation: CPointer<GDBusMethodInvocation>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            connection: DBusConnection,
+            sender: String,
+            objectPath: String,
+            interfaceName: String,
+            methodName: String,
+            parameters: Variant,
+            invocation: DBusMethodInvocation,
+        ) -> Unit
+        >().get().invoke(
+        connection!!.run {
+            DBusConnection(reinterpret())
+        },
+        sender?.toKString() ?: error("Expected not null string"),
+        objectPath?.toKString() ?: error("Expected not null string"),
+        interfaceName?.toKString() ?: error("Expected not null string"),
+        methodName?.toKString() ?: error("Expected not null string"),
+        parameters!!.run {
+            Variant(reinterpret())
+        },
+        invocation!!.run {
+            DBusMethodInvocation(reinterpret())
+        }
+    )
+}
+    .reinterpret()
 
 public val DBusInterfaceSetPropertyFuncFunc: CPointer<
     CFunction<
@@ -4657,47 +4452,44 @@ public val DBusInterfaceSetPropertyFuncFunc: CPointer<
             CPointer<GVariant>,
             CPointer<org.gtkkn.native.glib.GError>,
         ) -> Int
-    >
-> =
-    staticCFunction {
-            connection: CPointer<GDBusConnection>?,
-            sender: CPointer<ByteVar>?,
-            objectPath: CPointer<ByteVar>?,
-            interfaceName: CPointer<ByteVar>?,
-            propertyName: CPointer<ByteVar>?,
-            `value`: CPointer<GVariant>?,
-            error: CPointer<org.gtkkn.native.glib.GError>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    connection: DBusConnection,
-                    sender: String,
-                    objectPath: String,
-                    interfaceName: String,
-                    propertyName: String,
-                    `value`: Variant,
-                    error: Error,
-                ) -> Boolean
-            >()
-            .get()
-            .invoke(
-                connection!!.run {
-                    DBusConnection(reinterpret())
-                },
-                sender?.toKString() ?: error("Expected not null string"),
-                objectPath?.toKString() ?: error("Expected not null string"),
-                interfaceName?.toKString() ?: error("Expected not null string"),
-                propertyName?.toKString() ?: error("Expected not null string"),
-                `value`!!.run {
-                    Variant(reinterpret())
-                },
-                error!!.run {
-                    Error(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        connection: CPointer<GDBusConnection>?,
+        sender: CPointer<ByteVar>?,
+        objectPath: CPointer<ByteVar>?,
+        interfaceName: CPointer<ByteVar>?,
+        propertyName: CPointer<ByteVar>?,
+        `value`: CPointer<GVariant>?,
+        error: CPointer<org.gtkkn.native.glib.GError>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            connection: DBusConnection,
+            sender: String,
+            objectPath: String,
+            interfaceName: String,
+            propertyName: String,
+            `value`: Variant,
+            error: Error,
+        ) -> Boolean
+        >().get().invoke(
+        connection!!.run {
+            DBusConnection(reinterpret())
+        },
+        sender?.toKString() ?: error("Expected not null string"),
+        objectPath?.toKString() ?: error("Expected not null string"),
+        interfaceName?.toKString() ?: error("Expected not null string"),
+        propertyName?.toKString() ?: error("Expected not null string"),
+        `value`!!.run {
+            Variant(reinterpret())
+        },
+        error!!.run {
+            Error(reinterpret())
+        }
+    ).asGBoolean()
+}
+    .reinterpret()
 
 public val DBusMessageFilterFunctionFunc: CPointer<
     CFunction<
@@ -4706,33 +4498,30 @@ public val DBusMessageFilterFunctionFunc: CPointer<
             CPointer<GDBusMessage>,
             Int,
         ) -> CPointer<GDBusMessage>?
-    >
-> =
-    staticCFunction {
-            connection: CPointer<GDBusConnection>?,
-            message: CPointer<GDBusMessage>?,
-            incoming: Int,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    connection: DBusConnection,
-                    message: DBusMessage,
-                    incoming: Boolean,
-                ) -> DBusMessage?
-            >()
-            .get()
-            .invoke(
-                connection!!.run {
-                    DBusConnection(reinterpret())
-                },
-                message!!.run {
-                    DBusMessage(reinterpret())
-                },
-                incoming.asBoolean()
-            )?.gioDBusMessagePointer
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        connection: CPointer<GDBusConnection>?,
+        message: CPointer<GDBusMessage>?,
+        incoming: Int,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            connection: DBusConnection,
+            message: DBusMessage,
+            incoming: Boolean,
+        ) -> DBusMessage?
+        >().get().invoke(
+        connection!!.run {
+            DBusConnection(reinterpret())
+        },
+        message!!.run {
+            DBusMessage(reinterpret())
+        },
+        incoming.asBoolean()
+    )?.gioDBusMessagePointer
+}
+    .reinterpret()
 
 public val DBusProxyTypeFuncFunc: CPointer<
     CFunction<
@@ -4741,31 +4530,28 @@ public val DBusProxyTypeFuncFunc: CPointer<
             CPointer<ByteVar>,
             CPointer<ByteVar>?,
         ) -> ULong
-    >
-> =
-    staticCFunction {
-            manager: CPointer<GDBusObjectManagerClient>?,
-            objectPath: CPointer<ByteVar>?,
-            interfaceName: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    manager: DBusObjectManagerClient,
-                    objectPath: String,
-                    interfaceName: String?,
-                ) -> ULong
-            >()
-            .get()
-            .invoke(
-                manager!!.run {
-                    DBusObjectManagerClient(reinterpret())
-                },
-                objectPath?.toKString() ?: error("Expected not null string"),
-                interfaceName?.toKString()
-            )
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        manager: CPointer<GDBusObjectManagerClient>?,
+        objectPath: CPointer<ByteVar>?,
+        interfaceName: CPointer<ByteVar>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            manager: DBusObjectManagerClient,
+            objectPath: String,
+            interfaceName: String?,
+        ) -> ULong
+        >().get().invoke(
+        manager!!.run {
+            DBusObjectManagerClient(reinterpret())
+        },
+        objectPath?.toKString() ?: error("Expected not null string"),
+        interfaceName?.toKString()
+    )
+}
+    .reinterpret()
 
 public val DBusSignalCallbackFunc: CPointer<
     CFunction<
@@ -4777,42 +4563,39 @@ public val DBusSignalCallbackFunc: CPointer<
             CPointer<ByteVar>,
             CPointer<GVariant>,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            connection: CPointer<GDBusConnection>?,
-            senderName: CPointer<ByteVar>?,
-            objectPath: CPointer<ByteVar>?,
-            interfaceName: CPointer<ByteVar>?,
-            signalName: CPointer<ByteVar>?,
-            parameters: CPointer<GVariant>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    connection: DBusConnection,
-                    senderName: String?,
-                    objectPath: String,
-                    interfaceName: String,
-                    signalName: String,
-                    parameters: Variant,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                connection!!.run {
-                    DBusConnection(reinterpret())
-                },
-                senderName?.toKString(),
-                objectPath?.toKString() ?: error("Expected not null string"),
-                interfaceName?.toKString() ?: error("Expected not null string"),
-                signalName?.toKString() ?: error("Expected not null string"),
-                parameters!!.run {
-                    Variant(reinterpret())
-                }
-            )
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        connection: CPointer<GDBusConnection>?,
+        senderName: CPointer<ByteVar>?,
+        objectPath: CPointer<ByteVar>?,
+        interfaceName: CPointer<ByteVar>?,
+        signalName: CPointer<ByteVar>?,
+        parameters: CPointer<GVariant>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            connection: DBusConnection,
+            senderName: String?,
+            objectPath: String,
+            interfaceName: String,
+            signalName: String,
+            parameters: Variant,
+        ) -> Unit
+        >().get().invoke(
+        connection!!.run {
+            DBusConnection(reinterpret())
+        },
+        senderName?.toKString(),
+        objectPath?.toKString() ?: error("Expected not null string"),
+        interfaceName?.toKString() ?: error("Expected not null string"),
+        signalName?.toKString() ?: error("Expected not null string"),
+        parameters!!.run {
+            Variant(reinterpret())
+        }
+    )
+}
+    .reinterpret()
 
 public val DBusSubtreeDispatchFuncFunc: CPointer<
     CFunction<
@@ -4823,37 +4606,34 @@ public val DBusSubtreeDispatchFuncFunc: CPointer<
             CPointer<ByteVar>,
             CPointer<ByteVar>,
         ) -> CPointer<GDBusInterfaceVTable>?
-    >
-> =
-    staticCFunction {
-            connection: CPointer<GDBusConnection>?,
-            sender: CPointer<ByteVar>?,
-            objectPath: CPointer<ByteVar>?,
-            interfaceName: CPointer<ByteVar>?,
-            node: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    connection: DBusConnection,
-                    sender: String,
-                    objectPath: String,
-                    interfaceName: String,
-                    node: String,
-                ) -> DBusInterfaceVTable?
-            >()
-            .get()
-            .invoke(
-                connection!!.run {
-                    DBusConnection(reinterpret())
-                },
-                sender?.toKString() ?: error("Expected not null string"),
-                objectPath?.toKString() ?: error("Expected not null string"),
-                interfaceName?.toKString() ?: error("Expected not null string"),
-                node?.toKString() ?: error("Expected not null string")
-            )?.gioDBusInterfaceVTablePointer
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        connection: CPointer<GDBusConnection>?,
+        sender: CPointer<ByteVar>?,
+        objectPath: CPointer<ByteVar>?,
+        interfaceName: CPointer<ByteVar>?,
+        node: CPointer<ByteVar>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            connection: DBusConnection,
+            sender: String,
+            objectPath: String,
+            interfaceName: String,
+            node: String,
+        ) -> DBusInterfaceVTable?
+        >().get().invoke(
+        connection!!.run {
+            DBusConnection(reinterpret())
+        },
+        sender?.toKString() ?: error("Expected not null string"),
+        objectPath?.toKString() ?: error("Expected not null string"),
+        interfaceName?.toKString() ?: error("Expected not null string"),
+        node?.toKString() ?: error("Expected not null string")
+    )?.gioDBusInterfaceVTablePointer
+}
+    .reinterpret()
 
 public val DBusSubtreeEnumerateFuncFunc: CPointer<
     CFunction<
@@ -4862,52 +4642,46 @@ public val DBusSubtreeEnumerateFuncFunc: CPointer<
             CPointer<ByteVar>,
             CPointer<ByteVar>,
         ) -> CArrayPointer<CPointerVarOf<CPointer<ByteVar>>>
-    >
-> =
-    staticCFunction {
-            connection: CPointer<GDBusConnection>?,
-            sender: CPointer<ByteVar>?,
-            objectPath: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        memScoped {
-            userData
-                .asStableRef<
-                    (
-                        connection: DBusConnection,
-                        sender: String,
-                        objectPath: String,
-                    ) -> CollectionsList<String>
-                >()
-                .get()
-                .invoke(
-                    connection!!.run {
-                        DBusConnection(reinterpret())
-                    },
-                    sender?.toKString() ?: error("Expected not null string"),
-                    objectPath?.toKString() ?: error("Expected not null string")
-                ).toCStringList(this)
-        }
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        connection: CPointer<GDBusConnection>?,
+        sender: CPointer<ByteVar>?,
+        objectPath: CPointer<ByteVar>?,
+        userData: COpaquePointer,
+    ->
+    memScoped {
+        userData.asStableRef<
+            (
+                connection: DBusConnection,
+                sender: String,
+                objectPath: String,
+            ) -> CollectionsList<String>
+            >().get().invoke(
+            connection!!.run {
+                DBusConnection(reinterpret())
+            },
+            sender?.toKString() ?: error("Expected not null string"),
+            objectPath?.toKString() ?: error("Expected not null string")
+        ).toCStringList(this)
+    }
+}
+    .reinterpret()
 
 public val DatagramBasedSourceFuncFunc: CPointer<CFunction<(CPointer<GDatagramBased>) -> Int>> =
     staticCFunction {
             datagramBased: CPointer<GDatagramBased>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(datagramBased: DatagramBased) -> Boolean>()
-            .get()
-            .invoke(
-                datagramBased!!.run {
-                    DatagramBased.wrap(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(datagramBased: DatagramBased) -> Boolean>().get().invoke(
+            datagramBased!!.run {
+                DatagramBased.wrap(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
 public val DesktopAppLaunchCallbackFunc:
-    CPointer<CFunction<(CPointer<GDesktopAppInfo>, GPid) -> Unit>> =
-    staticCFunction {
+    CPointer<CFunction<(CPointer<GDesktopAppInfo>, GPid) -> Unit>> = staticCFunction {
             appinfo: CPointer<GDesktopAppInfo>?,
             pid: GPid,
             userData: COpaquePointer,
@@ -4918,7 +4692,8 @@ public val DesktopAppLaunchCallbackFunc:
             },
             pid
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val FileMeasureProgressCallbackFunc: CPointer<
     CFunction<
@@ -4928,44 +4703,38 @@ public val FileMeasureProgressCallbackFunc: CPointer<
             ULong,
             ULong,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            reporting: Int,
+        >
+    > = staticCFunction {
+        reporting: Int,
+        currentSize: ULong,
+        numDirs: ULong,
+        numFiles: ULong,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            reporting: Boolean,
             currentSize: ULong,
             numDirs: ULong,
             numFiles: ULong,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    reporting: Boolean,
-                    currentSize: ULong,
-                    numDirs: ULong,
-                    numFiles: ULong,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(reporting.asBoolean(), currentSize, numDirs, numFiles)
-    }.reinterpret()
+        ) -> Unit
+        >().get().invoke(reporting.asBoolean(), currentSize, numDirs, numFiles)
+}
+    .reinterpret()
 
-public val FileProgressCallbackFunc: CPointer<CFunction<(Long, Long) -> Unit>> =
-    staticCFunction {
+public val FileProgressCallbackFunc: CPointer<CFunction<(Long, Long) -> Unit>> = staticCFunction {
+        currentNumBytes: Long,
+        totalNumBytes: Long,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
             currentNumBytes: Long,
             totalNumBytes: Long,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    currentNumBytes: Long,
-                    totalNumBytes: Long,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(currentNumBytes, totalNumBytes)
-    }.reinterpret()
+        ) -> Unit
+        >().get().invoke(currentNumBytes, totalNumBytes)
+}
+    .reinterpret()
 
 public val FileReadMoreCallbackFunc: CPointer<CFunction<(CPointer<ByteVar>, Long) -> Int>> =
     staticCFunction {
@@ -4973,64 +4742,55 @@ public val FileReadMoreCallbackFunc: CPointer<CFunction<(CPointer<ByteVar>, Long
             fileSize: Long,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(fileContents: String, fileSize: Long) -> Boolean>()
-            .get()
-            .invoke(
-                fileContents?.toKString() ?: error("Expected not null string"),
-                fileSize
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(fileContents: String, fileSize: Long) -> Boolean>().get().invoke(
+            fileContents?.toKString() ?: error("Expected not null string"),
+            fileSize
+        ).asGBoolean()
+    }
+        .reinterpret()
 
 public val IOSchedulerJobFuncFunc: CPointer<CFunction<(CPointer<GCancellable>?) -> Int>> =
     staticCFunction {
             cancellable: CPointer<GCancellable>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(cancellable: Cancellable?) -> Boolean>()
-            .get()
-            .invoke(
-                cancellable?.run {
-                    Cancellable(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(cancellable: Cancellable?) -> Boolean>().get().invoke(
+            cancellable?.run {
+                Cancellable(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
 public val PollableSourceFuncFunc: CPointer<CFunction<(CPointer<GObject>) -> Int>> =
     staticCFunction {
             pollableStream: CPointer<GObject>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(pollableStream: Object) -> Boolean>()
-            .get()
-            .invoke(
-                pollableStream!!.run {
-                    Object(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(pollableStream: Object) -> Boolean>().get().invoke(
+            pollableStream!!.run {
+                Object(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
 public val SettingsBindGetMappingFunc:
-    CPointer<CFunction<(CPointer<GValue>, CPointer<GVariant>) -> Int>> =
-    staticCFunction {
+    CPointer<CFunction<(CPointer<GValue>, CPointer<GVariant>) -> Int>> = staticCFunction {
             `value`: CPointer<GValue>?,
             variant: CPointer<GVariant>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(`value`: Value, variant: Variant) -> Boolean>()
-            .get()
-            .invoke(
-                `value`!!.run {
-                    Value(reinterpret())
-                },
-                variant!!.run {
-                    Variant(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(`value`: Value, variant: Variant) -> Boolean>().get().invoke(
+            `value`!!.run {
+                Value(reinterpret())
+            },
+            variant!!.run {
+                Variant(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
 public val SettingsBindSetMappingFunc:
     CPointer<CFunction<(CPointer<GValue>, CPointer<GVariantType>) -> CPointer<GVariant>>> =
@@ -5039,33 +4799,29 @@ public val SettingsBindSetMappingFunc:
             expectedType: CPointer<GVariantType>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(`value`: Value, expectedType: VariantType) -> Variant>()
-            .get()
-            .invoke(
-                `value`!!.run {
-                    Value(reinterpret())
-                },
-                expectedType!!.run {
-                    VariantType(reinterpret())
-                }
-            ).glibVariantPointer
-    }.reinterpret()
+        userData.asStableRef<(`value`: Value, expectedType: VariantType) -> Variant>().get().invoke(
+            `value`!!.run {
+                Value(reinterpret())
+            },
+            expectedType!!.run {
+                VariantType(reinterpret())
+            }
+        ).glibVariantPointer
+    }
+        .reinterpret()
 
 public val SettingsGetMappingFunc: CPointer<CFunction<(CPointer<GVariant>) -> Int>> =
     staticCFunction {
             `value`: CPointer<GVariant>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(`value`: Variant) -> Boolean>()
-            .get()
-            .invoke(
-                `value`!!.run {
-                    Variant(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(`value`: Variant) -> Boolean>().get().invoke(
+            `value`!!.run {
+                Variant(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
 public val SimpleAsyncThreadFuncFunc: CPointer<
     CFunction<
@@ -5074,50 +4830,44 @@ public val SimpleAsyncThreadFuncFunc: CPointer<
             CPointer<GObject>,
             CPointer<GCancellable>?,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            res: CPointer<GSimpleAsyncResult>?,
-            `object`: CPointer<GObject>?,
-            cancellable: CPointer<GCancellable>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    res: SimpleAsyncResult,
-                    `object`: Object,
-                    cancellable: Cancellable?,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                res!!.run {
-                    SimpleAsyncResult(reinterpret())
-                },
-                `object`!!.run {
-                    Object(reinterpret())
-                },
-                cancellable?.run {
-                    Cancellable(reinterpret())
-                }
-            )
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        res: CPointer<GSimpleAsyncResult>?,
+        `object`: CPointer<GObject>?,
+        cancellable: CPointer<GCancellable>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            res: SimpleAsyncResult,
+            `object`: Object,
+            cancellable: Cancellable?,
+        ) -> Unit
+        >().get().invoke(
+        res!!.run {
+            SimpleAsyncResult(reinterpret())
+        },
+        `object`!!.run {
+            Object(reinterpret())
+        },
+        cancellable?.run {
+            Cancellable(reinterpret())
+        }
+    )
+}
+    .reinterpret()
 
-public val SocketSourceFuncFunc: CPointer<CFunction<(CPointer<GSocket>) -> Int>> =
-    staticCFunction {
-            socket: CPointer<GSocket>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<(socket: Socket) -> Boolean>()
-            .get()
-            .invoke(
-                socket!!.run {
-                    Socket(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+public val SocketSourceFuncFunc: CPointer<CFunction<(CPointer<GSocket>) -> Int>> = staticCFunction {
+        socket: CPointer<GSocket>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(socket: Socket) -> Boolean>().get().invoke(
+        socket!!.run {
+            Socket(reinterpret())
+        }
+    ).asGBoolean()
+}
+    .reinterpret()
 
 public val TaskThreadFuncFunc: CPointer<
     CFunction<
@@ -5126,35 +4876,32 @@ public val TaskThreadFuncFunc: CPointer<
             CPointer<GObject>,
             CPointer<GCancellable>?,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            task: CPointer<GTask>?,
-            sourceObject: CPointer<GObject>?,
-            cancellable: CPointer<GCancellable>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    task: Task,
-                    sourceObject: Object,
-                    cancellable: Cancellable?,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                task!!.run {
-                    Task(reinterpret())
-                },
-                sourceObject!!.run {
-                    Object(reinterpret())
-                },
-                cancellable?.run {
-                    Cancellable(reinterpret())
-                }
-            )
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        task: CPointer<GTask>?,
+        sourceObject: CPointer<GObject>?,
+        cancellable: CPointer<GCancellable>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            task: Task,
+            sourceObject: Object,
+            cancellable: Cancellable?,
+        ) -> Unit
+        >().get().invoke(
+        task!!.run {
+            Task(reinterpret())
+        },
+        sourceObject!!.run {
+            Object(reinterpret())
+        },
+        cancellable?.run {
+            Cancellable(reinterpret())
+        }
+    )
+}
+    .reinterpret()
 
 public val VfsFileLookupFuncFunc:
     CPointer<CFunction<(CPointer<GVfs>, CPointer<ByteVar>) -> CPointer<GFile>>> =
@@ -5163,16 +4910,14 @@ public val VfsFileLookupFuncFunc:
             identifier: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(vfs: Vfs, identifier: String) -> File>()
-            .get()
-            .invoke(
-                vfs!!.run {
-                    Vfs(reinterpret())
-                },
-                identifier?.toKString() ?: error("Expected not null string")
-            ).gioFilePointer
-    }.reinterpret()
+        userData.asStableRef<(vfs: Vfs, identifier: String) -> File>().get().invoke(
+            vfs!!.run {
+                Vfs(reinterpret())
+            },
+            identifier?.toKString() ?: error("Expected not null string")
+        ).gioFilePointer
+    }
+        .reinterpret()
 
 /**
  * Type definition for a function that will be called back when an asynchronous

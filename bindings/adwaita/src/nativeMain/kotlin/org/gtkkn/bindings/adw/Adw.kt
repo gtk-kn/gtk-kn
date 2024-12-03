@@ -12,7 +12,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gtk.Settings
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.native.adw.adw_breakpoint_condition_parse
 import org.gtkkn.native.adw.adw_easing_ease
 import org.gtkkn.native.adw.adw_get_enable_animations
@@ -196,10 +196,9 @@ public object Adw {
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun breakpointConditionParse(str: String): BreakpointCondition =
-        adw_breakpoint_condition_parse(str)!!.run {
-            BreakpointCondition(reinterpret())
-        }
+    public fun breakpointConditionParse(str: String): BreakpointCondition = adw_breakpoint_condition_parse(str)!!.run {
+        BreakpointCondition(reinterpret())
+    }
 
     /**
      * Computes easing with @easing for @value.
@@ -210,10 +209,7 @@ public object Adw {
      * @param value a value to ease
      * @return the easing for @value
      */
-    public fun easingEase(
-        self: Easing,
-        `value`: Double,
-    ): Double = adw_easing_ease(self.nativeValue, `value`)
+    public fun easingEase(self: Easing, `value`: Double): Double = adw_easing_ease(self.nativeValue, `value`)
 
     /**
      * Checks whether animations are enabled for @widget.
@@ -302,11 +298,8 @@ public object Adw {
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun lengthUnitFromPx(
-        unit: LengthUnit,
-        `value`: Double,
-        settings: Settings? = null,
-    ): Double = adw_length_unit_from_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
+    public fun lengthUnitFromPx(unit: LengthUnit, `value`: Double, settings: Settings? = null): Double =
+        adw_length_unit_from_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
 
     /**
      * Converts @value from @unit to pixels.
@@ -318,11 +311,8 @@ public object Adw {
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun lengthUnitToPx(
-        unit: LengthUnit,
-        `value`: Double,
-        settings: Settings? = null,
-    ): Double = adw_length_unit_to_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
+    public fun lengthUnitToPx(unit: LengthUnit, `value`: Double, settings: Settings? = null): Double =
+        adw_length_unit_to_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
 
     /**
      * Computes the linear interpolation between @a and @b for @t.
@@ -332,28 +322,23 @@ public object Adw {
      * @param t the interpolation rate
      * @return the computed value
      */
-    public fun lerp(
-        a: Double,
-        b: Double,
-        t: Double,
-    ): Double = adw_lerp(a, b, t)
+    public fun lerp(a: Double, b: Double, t: Double): Double = adw_lerp(a, b, t)
 
-    public fun resolveException(error: Error): GlibException {
-        val ex =
-            when (error.domain) {
-                else -> null
-            }
-        return ex ?: GlibException(error)
+    public fun resolveException(error: Error): GLibException {
+        val ex = when (error.domain) {
+            else -> null
+        }
+        return ex ?: GLibException(error)
     }
 }
 
-public val AnimationTargetFuncFunc: CPointer<CFunction<(Double) -> Unit>> =
-    staticCFunction {
-            `value`: Double,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(`value`: Double) -> Unit>().get().invoke(`value`)
-    }.reinterpret()
+public val AnimationTargetFuncFunc: CPointer<CFunction<(Double) -> Unit>> = staticCFunction {
+        `value`: Double,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(`value`: Double) -> Unit>().get().invoke(`value`)
+}
+    .reinterpret()
 
 /**
  * Prototype for animation targets based on user callbacks.

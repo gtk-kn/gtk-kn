@@ -9,9 +9,7 @@ import org.gtkkn.native.gsk.GskScalingFilter
  * The actual implementation of each filter is deferred to the
  * rendering pipeline.
  */
-public enum class ScalingFilter(
-    public val nativeValue: GskScalingFilter,
-) {
+public enum class ScalingFilter(public val nativeValue: GskScalingFilter) {
     /**
      * linear interpolation filter
      */
@@ -31,12 +29,11 @@ public enum class ScalingFilter(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GskScalingFilter): ScalingFilter =
-            when (nativeValue) {
-                GskScalingFilter.GSK_SCALING_FILTER_LINEAR -> LINEAR
-                GskScalingFilter.GSK_SCALING_FILTER_NEAREST -> NEAREST
-                GskScalingFilter.GSK_SCALING_FILTER_TRILINEAR -> TRILINEAR
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GskScalingFilter): ScalingFilter = when (nativeValue) {
+            GskScalingFilter.GSK_SCALING_FILTER_LINEAR -> LINEAR
+            GskScalingFilter.GSK_SCALING_FILTER_NEAREST -> NEAREST
+            GskScalingFilter.GSK_SCALING_FILTER_TRILINEAR -> TRILINEAR
+            else -> error("invalid nativeValue")
+        }
     }
 }

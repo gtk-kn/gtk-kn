@@ -9,9 +9,7 @@ import org.gtkkn.native.webkit.webkit_javascript_error_quark
 /**
  * Enum values used to denote errors happening when executing JavaScript
  */
-public enum class JavascriptError(
-    public val nativeValue: WebKitJavascriptError,
-) {
+public enum class JavascriptError(public val nativeValue: WebKitJavascriptError) {
     /**
      * An exception was raised in JavaScript execution
      */
@@ -29,13 +27,12 @@ public enum class JavascriptError(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitJavascriptError): JavascriptError =
-            when (nativeValue) {
-                WebKitJavascriptError.WEBKIT_JAVASCRIPT_ERROR_SCRIPT_FAILED -> SCRIPT_FAILED
-                WebKitJavascriptError.WEBKIT_JAVASCRIPT_ERROR_INVALID_PARAMETER -> INVALID_PARAMETER
-                WebKitJavascriptError.WEBKIT_JAVASCRIPT_ERROR_INVALID_RESULT -> INVALID_RESULT
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitJavascriptError): JavascriptError = when (nativeValue) {
+            WebKitJavascriptError.WEBKIT_JAVASCRIPT_ERROR_SCRIPT_FAILED -> SCRIPT_FAILED
+            WebKitJavascriptError.WEBKIT_JAVASCRIPT_ERROR_INVALID_PARAMETER -> INVALID_PARAMETER
+            WebKitJavascriptError.WEBKIT_JAVASCRIPT_ERROR_INVALID_RESULT -> INVALID_RESULT
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Gets the quark for the domain of JavaScript errors.
@@ -44,11 +41,10 @@ public enum class JavascriptError(
          */
         public fun quark(): Quark = webkit_javascript_error_quark()
 
-        public fun fromErrorOrNull(error: Error): JavascriptError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                JavascriptError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        public fun fromErrorOrNull(error: Error): JavascriptError? = if (error.domain != quark()) {
+            null
+        } else {
+            JavascriptError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

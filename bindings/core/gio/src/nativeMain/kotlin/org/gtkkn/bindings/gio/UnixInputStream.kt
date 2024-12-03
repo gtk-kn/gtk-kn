@@ -19,7 +19,6 @@ import org.gtkkn.native.gio.g_unix_input_stream_new
 import org.gtkkn.native.gio.g_unix_input_stream_set_close_fd
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Unit
 
 /**
  * `GUnixInputStream` implements [class@Gio.InputStream] for reading from a UNIX
@@ -32,9 +31,8 @@ import kotlin.Unit
  * interfaces, thus you have to use the `gio-unix-2.0.pc` pkg-config
  * file or the `GioUnix-2.0` GIR namespace when using it.
  */
-public open class UnixInputStream(
-    pointer: CPointer<GUnixInputStream>,
-) : InputStream(pointer.reinterpret()),
+public open class UnixInputStream(pointer: CPointer<GUnixInputStream>) :
+    InputStream(pointer.reinterpret()),
     FileDescriptorBased,
     PollableInputStream,
     KGTyped {
@@ -102,37 +100,6 @@ public open class UnixInputStream(
         fd: Int,
         closeFd: Boolean,
     ) : this(g_unix_input_stream_new(fd, closeFd.asGBoolean())!!.reinterpret())
-
-    /**
-     * Returns whether the file descriptor of @stream will be
-     * closed when the stream is closed.
-     *
-     * @return true if the file descriptor is closed when done
-     * @since 2.20
-     */
-    @GioVersion2_20
-    public open fun getCloseFd(): Boolean =
-        g_unix_input_stream_get_close_fd(gioUnixInputStreamPointer.reinterpret()).asBoolean()
-
-    /**
-     * Return the UNIX file descriptor that the stream reads from.
-     *
-     * @return The file descriptor of @stream
-     * @since 2.20
-     */
-    @GioVersion2_20
-    public open fun getFd_(): Int = g_unix_input_stream_get_fd(gioUnixInputStreamPointer.reinterpret())
-
-    /**
-     * Sets whether the file descriptor of @stream shall be closed
-     * when the stream is closed.
-     *
-     * @param closeFd true to close the file descriptor when done
-     * @since 2.20
-     */
-    @GioVersion2_20
-    public open fun setCloseFd(closeFd: Boolean): Unit =
-        g_unix_input_stream_set_close_fd(gioUnixInputStreamPointer.reinterpret(), closeFd.asGBoolean())
 
     public companion object : TypeCompanion<UnixInputStream> {
         override val type: GeneratedClassKGType<UnixInputStream> =

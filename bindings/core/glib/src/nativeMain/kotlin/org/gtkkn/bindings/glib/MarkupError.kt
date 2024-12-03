@@ -8,9 +8,7 @@ import kotlin.UInt
 /**
  * Error codes returned by markup parsing.
  */
-public enum class MarkupError(
-    public val nativeValue: GMarkupError,
-) {
+public enum class MarkupError(public val nativeValue: GMarkupError) {
     /**
      * text being parsed was not valid UTF-8
      */
@@ -52,25 +50,23 @@ public enum class MarkupError(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GMarkupError): MarkupError =
-            when (nativeValue) {
-                GMarkupError.G_MARKUP_ERROR_BAD_UTF8 -> BAD_UTF8
-                GMarkupError.G_MARKUP_ERROR_EMPTY -> EMPTY
-                GMarkupError.G_MARKUP_ERROR_PARSE -> PARSE
-                GMarkupError.G_MARKUP_ERROR_UNKNOWN_ELEMENT -> UNKNOWN_ELEMENT
-                GMarkupError.G_MARKUP_ERROR_UNKNOWN_ATTRIBUTE -> UNKNOWN_ATTRIBUTE
-                GMarkupError.G_MARKUP_ERROR_INVALID_CONTENT -> INVALID_CONTENT
-                GMarkupError.G_MARKUP_ERROR_MISSING_ATTRIBUTE -> MISSING_ATTRIBUTE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GMarkupError): MarkupError = when (nativeValue) {
+            GMarkupError.G_MARKUP_ERROR_BAD_UTF8 -> BAD_UTF8
+            GMarkupError.G_MARKUP_ERROR_EMPTY -> EMPTY
+            GMarkupError.G_MARKUP_ERROR_PARSE -> PARSE
+            GMarkupError.G_MARKUP_ERROR_UNKNOWN_ELEMENT -> UNKNOWN_ELEMENT
+            GMarkupError.G_MARKUP_ERROR_UNKNOWN_ATTRIBUTE -> UNKNOWN_ATTRIBUTE
+            GMarkupError.G_MARKUP_ERROR_INVALID_CONTENT -> INVALID_CONTENT
+            GMarkupError.G_MARKUP_ERROR_MISSING_ATTRIBUTE -> MISSING_ATTRIBUTE
+            else -> error("invalid nativeValue")
+        }
 
         public fun quark(): UInt = g_quark_from_string("g-markup-error-quark")
 
-        public fun fromErrorOrNull(error: Error): MarkupError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                MarkupError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        public fun fromErrorOrNull(error: Error): MarkupError? = if (error.domain != quark()) {
+            null
+        } else {
+            MarkupError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

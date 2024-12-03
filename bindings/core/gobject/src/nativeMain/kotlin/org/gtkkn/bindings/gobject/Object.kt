@@ -80,11 +80,8 @@ import kotlin.Unit
  * - parameter `data`: gpointer
  * - parameter `n_properties_p`: n_properties_p: Out parameter is not supported
  */
-public open class Object(
-    pointer: CPointer<GObject>,
-) : KGTyped {
+public open class Object(pointer: CPointer<GObject>) : KGTyped {
     public val gPointer: CPointer<GObject>
-
     init {
         gPointer = pointer.reinterpret()
         associateCustomObject()
@@ -138,16 +135,15 @@ public open class Object(
         target: Object,
         targetProperty: String,
         flags: BindingFlags,
-    ): Binding =
-        g_object_bind_property(
-            gPointer.reinterpret(),
-            sourceProperty,
-            target.gPointer.reinterpret(),
-            targetProperty,
-            flags.mask
-        )!!.run {
-            Binding(reinterpret())
-        }
+    ): Binding = g_object_bind_property(
+        gPointer.reinterpret(),
+        sourceProperty,
+        target.gPointer.reinterpret(),
+        targetProperty,
+        flags.mask
+    )!!.run {
+        Binding(reinterpret())
+    }
 
     /**
      * Creates a binding between @source_property on @source and @target_property
@@ -179,18 +175,17 @@ public open class Object(
         flags: BindingFlags,
         transformTo: Closure,
         transformFrom: Closure,
-    ): Binding =
-        g_object_bind_property_with_closures(
-            gPointer.reinterpret(),
-            sourceProperty,
-            target.gPointer.reinterpret(),
-            targetProperty,
-            flags.mask,
-            transformTo.gobjectClosurePointer.reinterpret(),
-            transformFrom.gobjectClosurePointer.reinterpret()
-        )!!.run {
-            Binding(reinterpret())
-        }
+    ): Binding = g_object_bind_property_with_closures(
+        gPointer.reinterpret(),
+        sourceProperty,
+        target.gPointer.reinterpret(),
+        targetProperty,
+        flags.mask,
+        transformTo.gobjectClosurePointer.reinterpret(),
+        transformFrom.gobjectClosurePointer.reinterpret()
+    )!!.run {
+        Binding(reinterpret())
+    }
 
     /**
      * This function is intended for #GObject implementations to re-enforce
@@ -237,10 +232,8 @@ public open class Object(
      * @param propertyName the name of the property to get
      * @param value return location for the property value
      */
-    public open fun getProperty(
-        propertyName: String,
-        `value`: Value,
-    ): Unit = g_object_get_property(gPointer.reinterpret(), propertyName, `value`.gobjectValuePointer.reinterpret())
+    public open fun getProperty(propertyName: String, `value`: Value): Unit =
+        g_object_get_property(gPointer.reinterpret(), propertyName, `value`.gobjectValuePointer.reinterpret())
 
     /**
      * Checks whether @object has a [floating][floating-ref] reference.
@@ -323,10 +316,9 @@ public open class Object(
      *
      * @return the same @object
      */
-    public open fun ref(): Object =
-        g_object_ref(gPointer.reinterpret())!!.run {
-            Object(reinterpret())
-        }
+    public open fun ref(): Object = g_object_ref(gPointer.reinterpret())!!.run {
+        Object(reinterpret())
+    }
 
     /**
      * Increase the reference count of @object, and possibly remove the
@@ -345,10 +337,9 @@ public open class Object(
      * @since 2.10
      */
     @GObjectVersion2_10
-    public open fun refSink(): Object =
-        g_object_ref_sink(gPointer.reinterpret())!!.run {
-            Object(reinterpret())
-        }
+    public open fun refSink(): Object = g_object_ref_sink(gPointer.reinterpret())!!.run {
+        Object(reinterpret())
+    }
 
     /**
      * Releases all references to other objects. This can be used to break
@@ -364,10 +355,8 @@ public open class Object(
      * @param propertyName the name of the property to set
      * @param value the value
      */
-    public open fun setProperty(
-        propertyName: String,
-        `value`: Value,
-    ): Unit = g_object_set_property(gPointer.reinterpret(), propertyName, `value`.gobjectValuePointer.reinterpret())
+    public open fun setProperty(propertyName: String, `value`: Value): Unit =
+        g_object_set_property(gPointer.reinterpret(), propertyName, `value`.gobjectValuePointer.reinterpret())
 
     /**
      * Reverts the effect of a previous call to
@@ -442,15 +431,14 @@ public open class Object(
     public fun connectNotify(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (pspec: ParamSpec) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "notify",
-            connectNotifyFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "notify",
+        connectNotifyFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<Object> {
         override val type: GeneratedClassKGType<Object> =
@@ -476,10 +464,7 @@ public open class Object(
          * @since 2.4
          */
         @GObjectVersion2_4
-        public fun interfaceFindProperty(
-            gIface: TypeInterface,
-            propertyName: String,
-        ): ParamSpec =
+        public fun interfaceFindProperty(gIface: TypeInterface, propertyName: String): ParamSpec =
             g_object_interface_find_property(gIface.gobjectTypeInterfacePointer.reinterpret(), propertyName)!!.run {
                 ParamSpec(reinterpret())
             }
@@ -509,10 +494,7 @@ public open class Object(
          * @since 2.4
          */
         @GObjectVersion2_4
-        public fun interfaceInstallProperty(
-            gIface: TypeInterface,
-            pspec: ParamSpec,
-        ): Unit =
+        public fun interfaceInstallProperty(gIface: TypeInterface, pspec: ParamSpec): Unit =
             g_object_interface_install_property(
                 gIface.gobjectTypeInterfacePointer.reinterpret(),
                 pspec.gPointer.reinterpret()
@@ -531,4 +513,5 @@ private val connectNotifyFunc: CPointer<CFunction<(CPointer<GParamSpec>) -> Unit
                 ParamSpec(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()

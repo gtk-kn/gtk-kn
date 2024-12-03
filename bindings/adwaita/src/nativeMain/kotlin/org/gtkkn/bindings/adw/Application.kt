@@ -43,9 +43,8 @@ import kotlin.String
  * - `style-hc-dark.css` contains styles used when the system high contrast
  *   preference is enabled and [property@StyleManager:dark] is `TRUE`.
  */
-public open class Application(
-    pointer: CPointer<AdwApplication>,
-) : org.gtkkn.bindings.gtk.Application(pointer.reinterpret()),
+public open class Application(pointer: CPointer<AdwApplication>) :
+    org.gtkkn.bindings.gtk.Application(pointer.reinterpret()),
     KGTyped {
     public val adwApplicationPointer: CPointer<AdwApplication>
         get() = gPointer.reinterpret()
@@ -71,10 +70,9 @@ public open class Application(
          *
          * @return the style manager
          */
-        get() =
-            adw_application_get_style_manager(adwApplicationPointer.reinterpret())!!.run {
-                StyleManager(reinterpret())
-            }
+        get() = adw_application_get_style_manager(adwApplicationPointer.reinterpret())!!.run {
+            StyleManager(reinterpret())
+        }
 
     /**
      * Creates a new `AdwApplication`.
@@ -93,19 +91,6 @@ public open class Application(
         applicationId: String? = null,
         flags: ApplicationFlags,
     ) : this(adw_application_new(applicationId, flags.mask)!!.reinterpret())
-
-    /**
-     * Gets the style manager for @self.
-     *
-     * This is a convenience property allowing to access `AdwStyleManager` through
-     * property bindings or expressions.
-     *
-     * @return the style manager
-     */
-    public open fun getStyleManager(): StyleManager =
-        adw_application_get_style_manager(adwApplicationPointer.reinterpret())!!.run {
-            StyleManager(reinterpret())
-        }
 
     public companion object : TypeCompanion<Application> {
         override val type: GeneratedClassKGType<Application> =

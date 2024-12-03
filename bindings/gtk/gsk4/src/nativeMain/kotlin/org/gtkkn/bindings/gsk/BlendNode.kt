@@ -16,9 +16,8 @@ import org.gtkkn.native.gsk.gsk_blend_node_new
 /**
  * A render node applying a blending function between its two child nodes.
  */
-public open class BlendNode(
-    pointer: CPointer<GskBlendNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class BlendNode(pointer: CPointer<GskBlendNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskBlendNodePointer: CPointer<GskBlendNode>
         get() = gPointer.reinterpret()
@@ -49,10 +48,9 @@ public open class BlendNode(
      *
      * @return the blend mode
      */
-    public open fun getBlendMode(): BlendMode =
-        gsk_blend_node_get_blend_mode(gskBlendNodePointer.reinterpret()).run {
-            BlendMode.fromNativeValue(this)
-        }
+    public open fun getBlendMode(): BlendMode = gsk_blend_node_get_blend_mode(gskBlendNodePointer.reinterpret()).run {
+        BlendMode.fromNativeValue(this)
+    }
 
     /**
      * Retrieves the bottom `GskRenderNode` child of the @node.
@@ -69,10 +67,9 @@ public open class BlendNode(
      *
      * @return the top child node
      */
-    public open fun getTopChild(): RenderNode =
-        gsk_blend_node_get_top_child(gskBlendNodePointer.reinterpret())!!.run {
-            RenderNode(reinterpret())
-        }
+    public open fun getTopChild(): RenderNode = gsk_blend_node_get_top_child(gskBlendNodePointer.reinterpret())!!.run {
+        RenderNode(reinterpret())
+    }
 
     public companion object : TypeCompanion<BlendNode> {
         override val type: GeneratedClassKGType<BlendNode> =

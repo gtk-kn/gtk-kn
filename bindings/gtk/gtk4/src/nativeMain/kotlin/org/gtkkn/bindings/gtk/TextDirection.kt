@@ -6,9 +6,7 @@ import org.gtkkn.native.gtk.GtkTextDirection
 /**
  * Reading directions for text.
  */
-public enum class TextDirection(
-    public val nativeValue: GtkTextDirection,
-) {
+public enum class TextDirection(public val nativeValue: GtkTextDirection) {
     /**
      * No direction.
      */
@@ -26,12 +24,11 @@ public enum class TextDirection(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkTextDirection): TextDirection =
-            when (nativeValue) {
-                GtkTextDirection.GTK_TEXT_DIR_NONE -> NONE
-                GtkTextDirection.GTK_TEXT_DIR_LTR -> LTR
-                GtkTextDirection.GTK_TEXT_DIR_RTL -> RTL
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkTextDirection): TextDirection = when (nativeValue) {
+            GtkTextDirection.GTK_TEXT_DIR_NONE -> NONE
+            GtkTextDirection.GTK_TEXT_DIR_LTR -> LTR
+            GtkTextDirection.GTK_TEXT_DIR_RTL -> RTL
+            else -> error("invalid nativeValue")
+        }
     }
 }

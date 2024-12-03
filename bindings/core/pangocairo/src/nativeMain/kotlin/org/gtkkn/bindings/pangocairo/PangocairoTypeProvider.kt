@@ -7,9 +7,8 @@ import kotlin.collections.Map
 import kotlin.reflect.KClass
 
 public object PangocairoTypeProvider : TypeProvider {
-    override val typeMap: Map<KClass<*>, KGType<*>> =
-        mapOf(
-            Font::class to Font.type,
-            FontMap::class to FontMap.type,
-        )
+    override val typeMap: Map<KClass<*>, KGType<*>> = mapOf(
+        Font::class to Font.type,
+        FontMap::class to FontMap.type,
+    )
 }

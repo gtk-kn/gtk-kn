@@ -19,19 +19,15 @@ import org.gtkkn.native.javascriptcore.jsc_exception_get_type
 import org.gtkkn.native.javascriptcore.jsc_exception_new
 import org.gtkkn.native.javascriptcore.jsc_exception_new_with_name
 import org.gtkkn.native.javascriptcore.jsc_exception_report
+import org.gtkkn.native.javascriptcore.jsc_exception_to_string
 import kotlin.String
 import kotlin.UInt
 
 /**
  * JSCException represents a JavaScript exception.
- *
- * ## Skipped during bindings generation
- *
- * - method `to_string`: C function jsc_exception_to_string is ignored
  */
-public class Exception(
-    pointer: CPointer<JSCException>,
-) : Object(pointer.reinterpret()),
+public class Exception(pointer: CPointer<JSCException>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val javascriptcoreExceptionPointer: CPointer<JSCException>
         get() = gPointer.reinterpret()
@@ -100,9 +96,8 @@ public class Exception(
      *
      * @return the @exception error name.
      */
-    public fun getName(): String =
-        jsc_exception_get_name(javascriptcoreExceptionPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getName(): String = jsc_exception_get_name(javascriptcoreExceptionPointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Get the source URI of @exception.
@@ -118,9 +113,16 @@ public class Exception(
      *
      * @return a new string with the exception report
      */
-    public fun report(): String =
-        jsc_exception_report(javascriptcoreExceptionPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun report(): String = jsc_exception_report(javascriptcoreExceptionPointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
+
+    /**
+     * Get the string representation of @exception error.
+     *
+     * @return the string representation of @exception.
+     */
+    override fun toString(): String = jsc_exception_to_string(javascriptcoreExceptionPointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     public companion object : TypeCompanion<Exception> {
         override val type: GeneratedClassKGType<Exception> =

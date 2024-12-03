@@ -20,9 +20,7 @@ import kotlin.Unit
  * - parameter `allocator`: Allocator
  * - field `data`: gpointer
  */
-public class SList(
-    pointer: CPointer<GSList>,
-) : Record {
+public class SList(pointer: CPointer<GSList>) : Record {
     public val glibSListPointer: CPointer<GSList> = pointer
 
     /**
@@ -31,10 +29,9 @@ public class SList(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val next: SList?
-        get() =
-            glibSListPointer.pointed.next?.run {
-                SList(reinterpret())
-            }
+        get() = glibSListPointer.pointed.next?.run {
+            SList(reinterpret())
+        }
 
     public companion object : RecordCompanion<SList, GSList> {
         public fun popAllocator(): Unit = g_slist_pop_allocator()

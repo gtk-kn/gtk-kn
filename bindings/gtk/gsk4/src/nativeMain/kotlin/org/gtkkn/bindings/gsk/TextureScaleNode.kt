@@ -20,9 +20,8 @@ import org.gtkkn.native.gsk.gsk_texture_scale_node_new
  * @since 4.10
  */
 @GskVersion4_10
-public open class TextureScaleNode(
-    pointer: CPointer<GskTextureScaleNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class TextureScaleNode(pointer: CPointer<GskTextureScaleNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskTextureScaleNodePointer: CPointer<GskTextureScaleNode>
         get() = gPointer.reinterpret()

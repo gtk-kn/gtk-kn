@@ -8,9 +8,7 @@ import org.gtkkn.native.gtk.GtkPrintOperationResult
  *
  * A value of this type is returned by [method@Gtk.PrintOperation.run].
  */
-public enum class PrintOperationResult(
-    public val nativeValue: GtkPrintOperationResult,
-) {
+public enum class PrintOperationResult(public val nativeValue: GtkPrintOperationResult) {
     /**
      * An error has occurred.
      */
@@ -35,13 +33,12 @@ public enum class PrintOperationResult(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkPrintOperationResult): PrintOperationResult =
-            when (nativeValue) {
-                GtkPrintOperationResult.GTK_PRINT_OPERATION_RESULT_ERROR -> ERROR
-                GtkPrintOperationResult.GTK_PRINT_OPERATION_RESULT_APPLY -> APPLY
-                GtkPrintOperationResult.GTK_PRINT_OPERATION_RESULT_CANCEL -> CANCEL
-                GtkPrintOperationResult.GTK_PRINT_OPERATION_RESULT_IN_PROGRESS -> IN_PROGRESS
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkPrintOperationResult): PrintOperationResult = when (nativeValue) {
+            GtkPrintOperationResult.GTK_PRINT_OPERATION_RESULT_ERROR -> ERROR
+            GtkPrintOperationResult.GTK_PRINT_OPERATION_RESULT_APPLY -> APPLY
+            GtkPrintOperationResult.GTK_PRINT_OPERATION_RESULT_CANCEL -> CANCEL
+            GtkPrintOperationResult.GTK_PRINT_OPERATION_RESULT_IN_PROGRESS -> IN_PROGRESS
+            else -> error("invalid nativeValue")
+        }
     }
 }

@@ -21,9 +21,7 @@ import org.gtkkn.native.glib.GUnixPipe
  * @since 2.80
  */
 @GLibVersion2_80
-public class UnixPipe(
-    pointer: CPointer<GUnixPipe>,
-) : Record {
+public class UnixPipe(pointer: CPointer<GUnixPipe>) : Record {
     public val glibUnixPipePointer: CPointer<GUnixPipe> = pointer
 
     public companion object : RecordCompanion<UnixPipe, GUnixPipe> {

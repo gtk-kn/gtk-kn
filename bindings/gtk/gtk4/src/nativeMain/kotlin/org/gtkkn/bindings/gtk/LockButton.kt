@@ -16,7 +16,6 @@ import org.gtkkn.native.gtk.gtk_lock_button_get_permission
 import org.gtkkn.native.gtk.gtk_lock_button_get_type
 import org.gtkkn.native.gtk.gtk_lock_button_new
 import org.gtkkn.native.gtk.gtk_lock_button_set_permission
-import kotlin.Unit
 
 /**
  * `GtkLockButton` is a widget to obtain and revoke authorizations
@@ -65,9 +64,8 @@ import kotlin.Unit
  * - method `tooltip-not-authorized`: Property has no getter nor setter
  * - method `tooltip-unlock`: Property has no getter nor setter
  */
-public open class LockButton(
-    pointer: CPointer<GtkLockButton>,
-) : Button(pointer.reinterpret()),
+public open class LockButton(pointer: CPointer<GtkLockButton>) :
+    Button(pointer.reinterpret()),
     KGTyped {
     public val gtkLockButtonPointer: CPointer<GtkLockButton>
         get() = gPointer.reinterpret()
@@ -93,10 +91,9 @@ public open class LockButton(
          *
          * @return the `GPermission` of @button
          */
-        get() =
-            gtk_lock_button_get_permission(gtkLockButtonPointer.reinterpret())?.run {
-                Permission(reinterpret())
-            }
+        get() = gtk_lock_button_get_permission(gtkLockButtonPointer.reinterpret())?.run {
+            Permission(reinterpret())
+        }
 
         /**
          * Sets the `GPermission` object that controls @button.
@@ -105,11 +102,10 @@ public open class LockButton(
          */
         set(
             permission
-        ) =
-            gtk_lock_button_set_permission(
-                gtkLockButtonPointer.reinterpret(),
-                permission?.gioPermissionPointer?.reinterpret()
-            )
+        ) = gtk_lock_button_set_permission(
+            gtkLockButtonPointer.reinterpret(),
+            permission?.gioPermissionPointer?.reinterpret()
+        )
 
     /**
      * Creates a new lock button which reflects the @permission.
@@ -120,27 +116,6 @@ public open class LockButton(
     public constructor(
         permission: Permission? = null,
     ) : this(gtk_lock_button_new(permission?.gioPermissionPointer?.reinterpret())!!.reinterpret())
-
-    /**
-     * Obtains the `GPermission` object that controls @button.
-     *
-     * @return the `GPermission` of @button
-     */
-    public open fun getPermission(): Permission? =
-        gtk_lock_button_get_permission(gtkLockButtonPointer.reinterpret())?.run {
-            Permission(reinterpret())
-        }
-
-    /**
-     * Sets the `GPermission` object that controls @button.
-     *
-     * @param permission a `GPermission` object
-     */
-    public open fun setPermission(permission: Permission? = null): Unit =
-        gtk_lock_button_set_permission(
-            gtkLockButtonPointer.reinterpret(),
-            permission?.gioPermissionPointer?.reinterpret()
-        )
 
     public companion object : TypeCompanion<LockButton> {
         override val type: GeneratedClassKGType<LockButton> =

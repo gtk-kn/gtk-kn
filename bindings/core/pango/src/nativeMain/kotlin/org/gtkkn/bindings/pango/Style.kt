@@ -6,9 +6,7 @@ import org.gtkkn.native.pango.PangoStyle
 /**
  * An enumeration specifying the various slant styles possible for a font.
  */
-public enum class Style(
-    public val nativeValue: PangoStyle,
-) {
+public enum class Style(public val nativeValue: PangoStyle) {
     /**
      * the font is upright.
      */
@@ -26,12 +24,11 @@ public enum class Style(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: PangoStyle): Style =
-            when (nativeValue) {
-                PangoStyle.PANGO_STYLE_NORMAL -> NORMAL
-                PangoStyle.PANGO_STYLE_OBLIQUE -> OBLIQUE
-                PangoStyle.PANGO_STYLE_ITALIC -> ITALIC
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: PangoStyle): Style = when (nativeValue) {
+            PangoStyle.PANGO_STYLE_NORMAL -> NORMAL
+            PangoStyle.PANGO_STYLE_OBLIQUE -> OBLIQUE
+            PangoStyle.PANGO_STYLE_ITALIC -> ITALIC
+            else -> error("invalid nativeValue")
+        }
     }
 }

@@ -45,9 +45,8 @@ import kotlin.Unit
  * an overview of the basic concepts, such as the capture and bubble
  * phases of event propagation.
  */
-public open class EventController(
-    pointer: CPointer<GtkEventController>,
-) : Object(pointer.reinterpret()),
+public open class EventController(pointer: CPointer<GtkEventController>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkEventControllerPointer: CPointer<GtkEventController>
         get() = gPointer.reinterpret()
@@ -79,10 +78,9 @@ public open class EventController(
          *
          * @return the propagation limit
          */
-        get() =
-            gtk_event_controller_get_propagation_limit(gtkEventControllerPointer.reinterpret()).run {
-                PropagationLimit.fromNativeValue(this)
-            }
+        get() = gtk_event_controller_get_propagation_limit(gtkEventControllerPointer.reinterpret()).run {
+            PropagationLimit.fromNativeValue(this)
+        }
 
         /**
          * Sets the event propagation limit on the event controller.
@@ -106,10 +104,9 @@ public open class EventController(
          *
          * @return the propagation phase
          */
-        get() =
-            gtk_event_controller_get_propagation_phase(gtkEventControllerPointer.reinterpret()).run {
-                PropagationPhase.fromNativeValue(this)
-            }
+        get() = gtk_event_controller_get_propagation_phase(gtkEventControllerPointer.reinterpret()).run {
+            PropagationPhase.fromNativeValue(this)
+        }
 
         /**
          * Sets the propagation phase at which a controller handles events.
@@ -132,10 +129,9 @@ public open class EventController(
          *
          * @return a `GtkWidget`
          */
-        get() =
-            gtk_event_controller_get_widget(gtkEventControllerPointer.reinterpret())!!.run {
-                Widget(reinterpret())
-            }
+        get() = gtk_event_controller_get_widget(gtkEventControllerPointer.reinterpret())!!.run {
+            Widget(reinterpret())
+        }
 
     /**
      * Returns the event that is currently being handled by the controller.
@@ -189,78 +185,9 @@ public open class EventController(
         gtk_event_controller_get_current_event_time(gtkEventControllerPointer.reinterpret())
 
     /**
-     * Gets the name of @controller.
-     *
-     * @return The controller name
-     */
-    public open fun getName(): String? =
-        gtk_event_controller_get_name(gtkEventControllerPointer.reinterpret())?.toKString()
-
-    /**
-     * Gets the propagation limit of the event controller.
-     *
-     * @return the propagation limit
-     */
-    public open fun getPropagationLimit(): PropagationLimit =
-        gtk_event_controller_get_propagation_limit(gtkEventControllerPointer.reinterpret()).run {
-            PropagationLimit.fromNativeValue(this)
-        }
-
-    /**
-     * Gets the propagation phase at which @controller handles events.
-     *
-     * @return the propagation phase
-     */
-    public open fun getPropagationPhase(): PropagationPhase =
-        gtk_event_controller_get_propagation_phase(gtkEventControllerPointer.reinterpret()).run {
-            PropagationPhase.fromNativeValue(this)
-        }
-
-    /**
-     * Returns the `GtkWidget` this controller relates to.
-     *
-     * @return a `GtkWidget`
-     */
-    public open fun getWidget(): Widget =
-        gtk_event_controller_get_widget(gtkEventControllerPointer.reinterpret())!!.run {
-            Widget(reinterpret())
-        }
-
-    /**
      * Resets the @controller to a clean state.
      */
     public open fun reset(): Unit = gtk_event_controller_reset(gtkEventControllerPointer.reinterpret())
-
-    /**
-     * Sets a name on the controller that can be used for debugging.
-     *
-     * @param name a name for @controller
-     */
-    public open fun setName(name: String? = null): Unit =
-        gtk_event_controller_set_name(gtkEventControllerPointer.reinterpret(), name)
-
-    /**
-     * Sets the event propagation limit on the event controller.
-     *
-     * If the limit is set to %GTK_LIMIT_SAME_NATIVE, the controller
-     * won't handle events that are targeted at widgets on a different
-     * surface, such as popovers.
-     *
-     * @param limit the propagation limit
-     */
-    public open fun setPropagationLimit(limit: PropagationLimit): Unit =
-        gtk_event_controller_set_propagation_limit(gtkEventControllerPointer.reinterpret(), limit.nativeValue)
-
-    /**
-     * Sets the propagation phase at which a controller handles events.
-     *
-     * If @phase is %GTK_PHASE_NONE, no automatic event handling will be
-     * performed, but other additional gesture maintenance will.
-     *
-     * @param phase a propagation phase
-     */
-    public open fun setPropagationPhase(phase: PropagationPhase): Unit =
-        gtk_event_controller_set_propagation_phase(gtkEventControllerPointer.reinterpret(), phase.nativeValue)
 
     /**
      * Sets a name on the controller that can be used for debugging.

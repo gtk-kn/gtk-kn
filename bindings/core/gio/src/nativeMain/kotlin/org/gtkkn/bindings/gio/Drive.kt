@@ -153,11 +153,7 @@ public interface Drive :
      * @param cancellable optional #GCancellable object, null to ignore.
      * @param callback a #GAsyncReadyCallback, or null.
      */
-    public fun eject(
-        flags: MountUnmountFlags,
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public fun eject(flags: MountUnmountFlags, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         g_drive_eject(
             gioDrivePointer.reinterpret(),
             flags.mask,
@@ -173,21 +169,19 @@ public interface Drive :
      * @return true if the drive has been ejected successfully,
      *     false otherwise.
      */
-    public fun ejectFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_drive_eject_finish(
-                    gioDrivePointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun ejectFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_drive_eject_finish(
+            gioDrivePointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Ejects a drive. This is an asynchronous operation, and is
@@ -207,15 +201,14 @@ public interface Drive :
         mountOperation: MountOperation? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_drive_eject_with_operation(
-            gioDrivePointer.reinterpret(),
-            flags.mask,
-            mountOperation?.gioMountOperationPointer?.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_drive_eject_with_operation(
+        gioDrivePointer.reinterpret(),
+        flags.mask,
+        mountOperation?.gioMountOperationPointer?.reinterpret(),
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes ejecting a drive. If any errors occurred during the operation,
@@ -226,21 +219,19 @@ public interface Drive :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun ejectWithOperationFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_drive_eject_with_operation_finish(
-                    gioDrivePointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun ejectWithOperationFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_drive_eject_with_operation_finish(
+            gioDrivePointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Gets the kinds of identifiers that @drive has.
@@ -261,10 +252,9 @@ public interface Drive :
      * @return #GIcon for the @drive.
      *    Free the returned object with g_object_unref().
      */
-    public fun getIcon(): Icon =
-        g_drive_get_icon(gioDrivePointer.reinterpret())!!.run {
-            Icon.wrap(reinterpret())
-        }
+    public fun getIcon(): Icon = g_drive_get_icon(gioDrivePointer.reinterpret())!!.run {
+        Icon.wrap(reinterpret())
+    }
 
     /**
      * Gets the identifier of the given kind for @drive. The only
@@ -304,10 +294,9 @@ public interface Drive :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun getStartStopType(): DriveStartStopType =
-        g_drive_get_start_stop_type(gioDrivePointer.reinterpret()).run {
-            DriveStartStopType.fromNativeValue(this)
-        }
+    public fun getStartStopType(): DriveStartStopType = g_drive_get_start_stop_type(gioDrivePointer.reinterpret()).run {
+        DriveStartStopType.fromNativeValue(this)
+    }
 
     /**
      * Gets the icon for @drive.
@@ -317,10 +306,9 @@ public interface Drive :
      * @since 2.34
      */
     @GioVersion2_34
-    public fun getSymbolicIcon(): Icon =
-        g_drive_get_symbolic_icon(gioDrivePointer.reinterpret())!!.run {
-            Icon.wrap(reinterpret())
-        }
+    public fun getSymbolicIcon(): Icon = g_drive_get_symbolic_icon(gioDrivePointer.reinterpret())!!.run {
+        Icon.wrap(reinterpret())
+    }
 
     /**
      * Get a list of mountable volumes for @drive.
@@ -330,10 +318,9 @@ public interface Drive :
      *
      * @return #GList containing any #GVolume objects on the given @drive.
      */
-    public fun getVolumes(): GlibList =
-        g_drive_get_volumes(gioDrivePointer.reinterpret())!!.run {
-            GlibList(reinterpret())
-        }
+    public fun getVolumes(): GlibList = g_drive_get_volumes(gioDrivePointer.reinterpret())!!.run {
+        GlibList(reinterpret())
+    }
 
     /**
      * Checks if the @drive has media. Note that the OS may not be polling
@@ -387,10 +374,7 @@ public interface Drive :
      * @param cancellable optional #GCancellable object, null to ignore.
      * @param callback a #GAsyncReadyCallback, or null.
      */
-    public fun pollForMedia(
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public fun pollForMedia(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         g_drive_poll_for_media(
             gioDrivePointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
@@ -405,21 +389,19 @@ public interface Drive :
      * @return true if the drive has been poll_for_mediaed successfully,
      *     false otherwise.
      */
-    public fun pollForMediaFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_drive_poll_for_media_finish(
-                    gioDrivePointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun pollForMediaFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_drive_poll_for_media_finish(
+            gioDrivePointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Asynchronously starts a drive.
@@ -441,15 +423,14 @@ public interface Drive :
         mountOperation: MountOperation? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_drive_start(
-            gioDrivePointer.reinterpret(),
-            flags.mask,
-            mountOperation?.gioMountOperationPointer?.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_drive_start(
+        gioDrivePointer.reinterpret(),
+        flags.mask,
+        mountOperation?.gioMountOperationPointer?.reinterpret(),
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes starting a drive.
@@ -460,21 +441,19 @@ public interface Drive :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun startFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_drive_start_finish(
-                    gioDrivePointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun startFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_drive_start_finish(
+            gioDrivePointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Asynchronously stops a drive.
@@ -496,15 +475,14 @@ public interface Drive :
         mountOperation: MountOperation? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_drive_stop(
-            gioDrivePointer.reinterpret(),
-            flags.mask,
-            mountOperation?.gioMountOperationPointer?.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_drive_stop(
+        gioDrivePointer.reinterpret(),
+        flags.mask,
+        mountOperation?.gioMountOperationPointer?.reinterpret(),
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes stopping a drive.
@@ -515,21 +493,19 @@ public interface Drive :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun stopFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_drive_stop_finish(
-                    gioDrivePointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun stopFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_drive_stop_finish(
+            gioDrivePointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Emitted when the drive's state has changed.
@@ -537,10 +513,7 @@ public interface Drive :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gioDrivePointer.reinterpret(),
             "changed",
@@ -559,10 +532,7 @@ public interface Drive :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectDisconnected(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectDisconnected(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gioDrivePointer.reinterpret(),
             "disconnected",
@@ -579,10 +549,7 @@ public interface Drive :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectEjectButton(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectEjectButton(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gioDrivePointer.reinterpret(),
             "eject-button",
@@ -601,10 +568,7 @@ public interface Drive :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun connectStopButton(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectStopButton(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gioDrivePointer.reinterpret(),
             "stop-button",
@@ -614,9 +578,7 @@ public interface Drive :
             connectFlags.mask
         )
 
-    private data class Wrapper(
-        private val pointer: CPointer<GDrive>,
-    ) : Drive {
+    private data class Wrapper(private val pointer: CPointer<GDrive>) : Drive {
         override val gioDrivePointer: CPointer<GDrive> = pointer
     }
 
@@ -632,34 +594,34 @@ public interface Drive :
     }
 }
 
-private val connectChangedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectDisconnectedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectDisconnectedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectEjectButtonFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectEjectButtonFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectStopButtonFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectStopButtonFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

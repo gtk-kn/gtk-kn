@@ -13,9 +13,7 @@ import org.gtkkn.native.gobject.GObjectConstructParam
  * The GObjectConstructParam struct is an auxiliary structure used to hand
  * #GParamSpec/#GValue pairs to the @constructor of a #GObjectClass.
  */
-public class ObjectConstructParam(
-    pointer: CPointer<GObjectConstructParam>,
-) : Record {
+public class ObjectConstructParam(pointer: CPointer<GObjectConstructParam>) : Record {
     public val gobjectObjectConstructParamPointer: CPointer<GObjectConstructParam> = pointer
 
     /**
@@ -24,10 +22,9 @@ public class ObjectConstructParam(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val pspec: ParamSpec?
-        get() =
-            gobjectObjectConstructParamPointer.pointed.pspec?.run {
-                ParamSpec(reinterpret())
-            }
+        get() = gobjectObjectConstructParamPointer.pointed.pspec?.run {
+            ParamSpec(reinterpret())
+        }
 
     /**
      * the value to set the parameter to
@@ -35,10 +32,9 @@ public class ObjectConstructParam(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val `value`: Value?
-        get() =
-            gobjectObjectConstructParamPointer.pointed.value?.run {
-                Value(reinterpret())
-            }
+        get() = gobjectObjectConstructParamPointer.pointed.value?.run {
+            Value(reinterpret())
+        }
 
     public companion object : RecordCompanion<ObjectConstructParam, GObjectConstructParam> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ObjectConstructParam =

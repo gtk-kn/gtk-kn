@@ -27,9 +27,7 @@ import kotlin.Unit
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusAnnotationInfo(
-    pointer: CPointer<GDBusAnnotationInfo>,
-) : Record {
+public class DBusAnnotationInfo(pointer: CPointer<GDBusAnnotationInfo>) : Record {
     public val gioDBusAnnotationInfoPointer: CPointer<GDBusAnnotationInfo> = pointer
 
     /**

@@ -131,11 +131,10 @@ public interface TlsBackend :
      * @since 2.60
      */
     @GioVersion2_60
-    public fun setDefaultDatabase(database: TlsDatabase? = null): Unit =
-        g_tls_backend_set_default_database(
-            gioTlsBackendPointer.reinterpret(),
-            database?.gioTlsDatabasePointer?.reinterpret()
-        )
+    public fun setDefaultDatabase(database: TlsDatabase? = null): Unit = g_tls_backend_set_default_database(
+        gioTlsBackendPointer.reinterpret(),
+        database?.gioTlsDatabasePointer?.reinterpret()
+    )
 
     /**
      * Checks if DTLS is supported. DTLS support may not be available even if TLS
@@ -157,9 +156,7 @@ public interface TlsBackend :
     @GioVersion2_28
     public fun supportsTls(): Boolean = g_tls_backend_supports_tls(gioTlsBackendPointer.reinterpret()).asBoolean()
 
-    private data class Wrapper(
-        private val pointer: CPointer<GTlsBackend>,
-    ) : TlsBackend {
+    private data class Wrapper(private val pointer: CPointer<GTlsBackend>) : TlsBackend {
         override val gioTlsBackendPointer: CPointer<GTlsBackend> = pointer
     }
 
@@ -181,9 +178,8 @@ public interface TlsBackend :
          * @since 2.28
          */
         @GioVersion2_28
-        public fun getDefault(): TlsBackend =
-            g_tls_backend_get_default()!!.run {
-                TlsBackend.wrap(reinterpret())
-            }
+        public fun getDefault(): TlsBackend = g_tls_backend_get_default()!!.run {
+            TlsBackend.wrap(reinterpret())
+        }
     }
 }

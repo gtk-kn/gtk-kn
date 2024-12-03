@@ -11,9 +11,7 @@ import org.gtkkn.native.gio.G_DBUS_SEND_MESSAGE_FLAGS_PRESERVE_SERIAL
  * Flags used when sending #GDBusMessages on a #GDBusConnection.
  * @since 2.26
  */
-public class DBusSendMessageFlags(
-    public val mask: GDBusSendMessageFlags,
-) : Bitfield<DBusSendMessageFlags> {
+public class DBusSendMessageFlags(public val mask: GDBusSendMessageFlags) : Bitfield<DBusSendMessageFlags> {
     override infix fun or(other: DBusSendMessageFlags): DBusSendMessageFlags = DBusSendMessageFlags(mask or other.mask)
 
     @GioVersion2_26

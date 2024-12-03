@@ -215,9 +215,8 @@ import kotlin.collections.List
  * - method `options`: Property has no getter nor setter
  * - method `platform-data`: Property has no getter nor setter
  */
-public open class ApplicationCommandLine(
-    pointer: CPointer<GApplicationCommandLine>,
-) : Object(pointer.reinterpret()),
+public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLine>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioApplicationCommandLinePointer: CPointer<GApplicationCommandLine>
         get() = gPointer.reinterpret()
@@ -329,16 +328,6 @@ public open class ApplicationCommandLine(
     @GioVersion2_28
     public open fun getExitStatus(): Int =
         g_application_command_line_get_exit_status(gioApplicationCommandLinePointer.reinterpret())
-
-    /**
-     * Determines if @cmdline represents a remote invocation.
-     *
-     * @return true if the invocation was remote
-     * @since 2.28
-     */
-    @GioVersion2_28
-    public open fun getIsRemote(): Boolean =
-        g_application_command_line_get_is_remote(gioApplicationCommandLinePointer.reinterpret()).asBoolean()
 
     /**
      * Gets the options that were passed to g_application_command_line().

@@ -6,9 +6,7 @@ import org.gtkkn.native.gtk.GtkDeleteType
 /**
  * Passed to various keybinding signals for deleting text.
  */
-public enum class DeleteType(
-    public val nativeValue: GtkDeleteType,
-) {
+public enum class DeleteType(public val nativeValue: GtkDeleteType) {
     /**
      * Delete characters.
      */
@@ -57,17 +55,16 @@ public enum class DeleteType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkDeleteType): DeleteType =
-            when (nativeValue) {
-                GtkDeleteType.GTK_DELETE_CHARS -> CHARS
-                GtkDeleteType.GTK_DELETE_WORD_ENDS -> WORD_ENDS
-                GtkDeleteType.GTK_DELETE_WORDS -> WORDS
-                GtkDeleteType.GTK_DELETE_DISPLAY_LINES -> DISPLAY_LINES
-                GtkDeleteType.GTK_DELETE_DISPLAY_LINE_ENDS -> DISPLAY_LINE_ENDS
-                GtkDeleteType.GTK_DELETE_PARAGRAPH_ENDS -> PARAGRAPH_ENDS
-                GtkDeleteType.GTK_DELETE_PARAGRAPHS -> PARAGRAPHS
-                GtkDeleteType.GTK_DELETE_WHITESPACE -> WHITESPACE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkDeleteType): DeleteType = when (nativeValue) {
+            GtkDeleteType.GTK_DELETE_CHARS -> CHARS
+            GtkDeleteType.GTK_DELETE_WORD_ENDS -> WORD_ENDS
+            GtkDeleteType.GTK_DELETE_WORDS -> WORDS
+            GtkDeleteType.GTK_DELETE_DISPLAY_LINES -> DISPLAY_LINES
+            GtkDeleteType.GTK_DELETE_DISPLAY_LINE_ENDS -> DISPLAY_LINE_ENDS
+            GtkDeleteType.GTK_DELETE_PARAGRAPH_ENDS -> PARAGRAPH_ENDS
+            GtkDeleteType.GTK_DELETE_PARAGRAPHS -> PARAGRAPHS
+            GtkDeleteType.GTK_DELETE_WHITESPACE -> WHITESPACE
+            else -> error("invalid nativeValue")
+        }
     }
 }

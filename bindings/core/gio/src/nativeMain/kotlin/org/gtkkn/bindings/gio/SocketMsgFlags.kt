@@ -17,9 +17,7 @@ import org.gtkkn.native.gio.G_SOCKET_MSG_PEEK
  * the right system header and pass in the flag.
  * @since 2.22
  */
-public class SocketMsgFlags(
-    public val mask: GSocketMsgFlags,
-) : Bitfield<SocketMsgFlags> {
+public class SocketMsgFlags(public val mask: GSocketMsgFlags) : Bitfield<SocketMsgFlags> {
     override infix fun or(other: SocketMsgFlags): SocketMsgFlags = SocketMsgFlags(mask or other.mask)
 
     @GioVersion2_22

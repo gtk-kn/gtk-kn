@@ -44,9 +44,8 @@ import kotlin.Int
  * The source and target, as well as their attributes, of a `GtkConstraint`
  * instance are immutable after creation.
  */
-public open class Constraint(
-    pointer: CPointer<GtkConstraint>,
-) : Object(pointer.reinterpret()),
+public open class Constraint(pointer: CPointer<GtkConstraint>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkConstraintPointer: CPointer<GtkConstraint>
         get() = gPointer.reinterpret()
@@ -84,10 +83,9 @@ public open class Constraint(
          *
          * @return a relation type
          */
-        get() =
-            gtk_constraint_get_relation(gtkConstraintPointer.reinterpret()).run {
-                ConstraintRelation.fromNativeValue(this)
-            }
+        get() = gtk_constraint_get_relation(gtkConstraintPointer.reinterpret()).run {
+            ConstraintRelation.fromNativeValue(this)
+        }
 
     /**
      * The source of the constraint.
@@ -106,10 +104,9 @@ public open class Constraint(
          *
          * @return the source of the constraint
          */
-        get() =
-            gtk_constraint_get_source(gtkConstraintPointer.reinterpret())?.run {
-                ConstraintTarget.wrap(reinterpret())
-            }
+        get() = gtk_constraint_get_source(gtkConstraintPointer.reinterpret())?.run {
+            ConstraintTarget.wrap(reinterpret())
+        }
 
     /**
      * The attribute of the [property@Gtk.Constraint:source] read by the
@@ -121,10 +118,9 @@ public open class Constraint(
          *
          * @return the source's attribute
          */
-        get() =
-            gtk_constraint_get_source_attribute(gtkConstraintPointer.reinterpret()).run {
-                ConstraintAttribute.fromNativeValue(this)
-            }
+        get() = gtk_constraint_get_source_attribute(gtkConstraintPointer.reinterpret()).run {
+            ConstraintAttribute.fromNativeValue(this)
+        }
 
     /**
      * The strength of the constraint.
@@ -158,10 +154,9 @@ public open class Constraint(
          *
          * @return a `GtkConstraintTarget`
          */
-        get() =
-            gtk_constraint_get_target(gtkConstraintPointer.reinterpret())?.run {
-                ConstraintTarget.wrap(reinterpret())
-            }
+        get() = gtk_constraint_get_target(gtkConstraintPointer.reinterpret())?.run {
+            ConstraintTarget.wrap(reinterpret())
+        }
 
     /**
      * The attribute of the [property@Gtk.Constraint:target] set by the constraint.
@@ -172,10 +167,9 @@ public open class Constraint(
          *
          * @return the target's attribute
          */
-        get() =
-            gtk_constraint_get_target_attribute(gtkConstraintPointer.reinterpret()).run {
-                ConstraintAttribute.fromNativeValue(this)
-            }
+        get() = gtk_constraint_get_target_attribute(gtkConstraintPointer.reinterpret()).run {
+            ConstraintAttribute.fromNativeValue(this)
+        }
 
     /**
      * Creates a new constraint representing a relation between a layout
@@ -239,86 +233,6 @@ public open class Constraint(
             strength
         )!!.reinterpret()
     )
-
-    /**
-     * Retrieves the constant factor added to the source attributes' value.
-     *
-     * @return a constant factor
-     */
-    public open fun getConstant(): Double = gtk_constraint_get_constant(gtkConstraintPointer.reinterpret())
-
-    /**
-     * Retrieves the multiplication factor applied to the source
-     * attribute's value.
-     *
-     * @return a multiplication factor
-     */
-    public open fun getMultiplier(): Double = gtk_constraint_get_multiplier(gtkConstraintPointer.reinterpret())
-
-    /**
-     * The order relation between the terms of the constraint.
-     *
-     * @return a relation type
-     */
-    public open fun getRelation(): ConstraintRelation =
-        gtk_constraint_get_relation(gtkConstraintPointer.reinterpret()).run {
-            ConstraintRelation.fromNativeValue(this)
-        }
-
-    /**
-     * Retrieves the [iface@Gtk.ConstraintTarget] used as the source for the
-     * constraint.
-     *
-     * If the source is set to `NULL` at creation, the constraint will use
-     * the widget using the [class@Gtk.ConstraintLayout] as the source.
-     *
-     * @return the source of the constraint
-     */
-    public open fun getSource(): ConstraintTarget? =
-        gtk_constraint_get_source(gtkConstraintPointer.reinterpret())?.run {
-            ConstraintTarget.wrap(reinterpret())
-        }
-
-    /**
-     * Retrieves the attribute of the source to be read by the constraint.
-     *
-     * @return the source's attribute
-     */
-    public open fun getSourceAttribute(): ConstraintAttribute =
-        gtk_constraint_get_source_attribute(gtkConstraintPointer.reinterpret()).run {
-            ConstraintAttribute.fromNativeValue(this)
-        }
-
-    /**
-     * Retrieves the strength of the constraint.
-     *
-     * @return the strength value
-     */
-    public open fun getStrength(): Int = gtk_constraint_get_strength(gtkConstraintPointer.reinterpret())
-
-    /**
-     * Retrieves the [iface@Gtk.ConstraintTarget] used as the target for
-     * the constraint.
-     *
-     * If the targe is set to `NULL` at creation, the constraint will use
-     * the widget using the [class@Gtk.ConstraintLayout] as the target.
-     *
-     * @return a `GtkConstraintTarget`
-     */
-    public open fun getTarget(): ConstraintTarget? =
-        gtk_constraint_get_target(gtkConstraintPointer.reinterpret())?.run {
-            ConstraintTarget.wrap(reinterpret())
-        }
-
-    /**
-     * Retrieves the attribute of the target to be set by the constraint.
-     *
-     * @return the target's attribute
-     */
-    public open fun getTargetAttribute(): ConstraintAttribute =
-        gtk_constraint_get_target_attribute(gtkConstraintPointer.reinterpret()).run {
-            ConstraintAttribute.fromNativeValue(this)
-        }
 
     /**
      * Checks whether the constraint is attached to a [class@Gtk.ConstraintLayout],

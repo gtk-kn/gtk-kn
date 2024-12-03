@@ -14,9 +14,7 @@ import kotlin.String
 /**
  * Information about a specific attribute.
  */
-public class FileAttributeInfo(
-    pointer: CPointer<GFileAttributeInfo>,
-) : Record {
+public class FileAttributeInfo(pointer: CPointer<GFileAttributeInfo>) : Record {
     public val gioFileAttributeInfoPointer: CPointer<GFileAttributeInfo> = pointer
 
     /**
@@ -31,10 +29,9 @@ public class FileAttributeInfo(
      * the #GFileAttributeType type of the attribute.
      */
     public var type: FileAttributeType
-        get() =
-            gioFileAttributeInfoPointer.pointed.type.run {
-                FileAttributeType.fromNativeValue(this)
-            }
+        get() = gioFileAttributeInfoPointer.pointed.type.run {
+            FileAttributeType.fromNativeValue(this)
+        }
         set(`value`) {
             gioFileAttributeInfoPointer.pointed.type = value.nativeValue
         }
@@ -43,10 +40,9 @@ public class FileAttributeInfo(
      * a set of #GFileAttributeInfoFlags.
      */
     public var flags: FileAttributeInfoFlags
-        get() =
-            gioFileAttributeInfoPointer.pointed.flags.run {
-                FileAttributeInfoFlags(this)
-            }
+        get() = gioFileAttributeInfoPointer.pointed.flags.run {
+            FileAttributeInfoFlags(this)
+        }
         set(`value`) {
             gioFileAttributeInfoPointer.pointed.flags = value.mask
         }

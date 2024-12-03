@@ -10,9 +10,7 @@ import org.gtkkn.native.pango.PangoCoverageLevel
  * Since 1.44, only %PANGO_COVERAGE_NONE and %PANGO_COVERAGE_EXACT
  * will be returned.
  */
-public enum class CoverageLevel(
-    public val nativeValue: PangoCoverageLevel,
-) {
+public enum class CoverageLevel(public val nativeValue: PangoCoverageLevel) {
     /**
      * The character is not representable with
      *   the font.
@@ -43,13 +41,12 @@ public enum class CoverageLevel(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: PangoCoverageLevel): CoverageLevel =
-            when (nativeValue) {
-                PangoCoverageLevel.PANGO_COVERAGE_NONE -> NONE
-                PangoCoverageLevel.PANGO_COVERAGE_FALLBACK -> FALLBACK
-                PangoCoverageLevel.PANGO_COVERAGE_APPROXIMATE -> APPROXIMATE
-                PangoCoverageLevel.PANGO_COVERAGE_EXACT -> EXACT
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: PangoCoverageLevel): CoverageLevel = when (nativeValue) {
+            PangoCoverageLevel.PANGO_COVERAGE_NONE -> NONE
+            PangoCoverageLevel.PANGO_COVERAGE_FALLBACK -> FALLBACK
+            PangoCoverageLevel.PANGO_COVERAGE_APPROXIMATE -> APPROXIMATE
+            PangoCoverageLevel.PANGO_COVERAGE_EXACT -> EXACT
+            else -> error("invalid nativeValue")
+        }
     }
 }

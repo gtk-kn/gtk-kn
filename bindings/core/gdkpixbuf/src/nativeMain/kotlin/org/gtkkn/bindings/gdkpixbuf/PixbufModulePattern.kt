@@ -47,9 +47,7 @@ import kotlin.String
  * @since 2.2
  */
 @GdkPixbufVersion2_2
-public class PixbufModulePattern(
-    pointer: CPointer<GdkPixbufModulePattern>,
-) : Record {
+public class PixbufModulePattern(pointer: CPointer<GdkPixbufModulePattern>) : Record {
     public val gdkpixbufPixbufModulePatternPointer: CPointer<GdkPixbufModulePattern> = pointer
 
     /**

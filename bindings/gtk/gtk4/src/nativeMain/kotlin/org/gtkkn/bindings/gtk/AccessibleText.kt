@@ -68,11 +68,7 @@ public interface AccessibleText :
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun updateContents(
-        change: AccessibleTextContentChange,
-        start: UInt,
-        end: UInt,
-    ): Unit =
+    public fun updateContents(change: AccessibleTextContentChange, start: UInt, end: UInt): Unit =
         gtk_accessible_text_update_contents(gtkAccessibleTextPointer.reinterpret(), change.nativeValue, start, end)
 
     /**
@@ -88,9 +84,7 @@ public interface AccessibleText :
     public fun updateSelectionBound(): Unit =
         gtk_accessible_text_update_selection_bound(gtkAccessibleTextPointer.reinterpret())
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkAccessibleText>,
-    ) : AccessibleText {
+    private data class Wrapper(private val pointer: CPointer<GtkAccessibleText>) : AccessibleText {
         override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText> = pointer
     }
 

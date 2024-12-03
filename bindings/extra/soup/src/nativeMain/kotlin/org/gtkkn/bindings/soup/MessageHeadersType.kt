@@ -7,9 +7,7 @@ import org.gtkkn.native.soup.SoupMessageHeadersType
  * Value passed to [ctor@MessageHeaders.new] to set certain default
  * behaviors.
  */
-public enum class MessageHeadersType(
-    public val nativeValue: SoupMessageHeadersType,
-) {
+public enum class MessageHeadersType(public val nativeValue: SoupMessageHeadersType) {
     /**
      * request headers
      */
@@ -27,12 +25,11 @@ public enum class MessageHeadersType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: SoupMessageHeadersType): MessageHeadersType =
-            when (nativeValue) {
-                SoupMessageHeadersType.SOUP_MESSAGE_HEADERS_REQUEST -> REQUEST
-                SoupMessageHeadersType.SOUP_MESSAGE_HEADERS_RESPONSE -> RESPONSE
-                SoupMessageHeadersType.SOUP_MESSAGE_HEADERS_MULTIPART -> MULTIPART
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: SoupMessageHeadersType): MessageHeadersType = when (nativeValue) {
+            SoupMessageHeadersType.SOUP_MESSAGE_HEADERS_REQUEST -> REQUEST
+            SoupMessageHeadersType.SOUP_MESSAGE_HEADERS_RESPONSE -> RESPONSE
+            SoupMessageHeadersType.SOUP_MESSAGE_HEADERS_MULTIPART -> MULTIPART
+            else -> error("invalid nativeValue")
+        }
     }
 }

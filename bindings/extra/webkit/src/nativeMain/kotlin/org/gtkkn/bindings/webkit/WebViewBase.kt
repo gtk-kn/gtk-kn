@@ -13,9 +13,8 @@ import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.webkit.WebKitWebViewBase
 import org.gtkkn.native.webkit.webkit_web_view_base_get_type
 
-public open class WebViewBase(
-    pointer: CPointer<WebKitWebViewBase>,
-) : Widget(pointer.reinterpret()),
+public open class WebViewBase(pointer: CPointer<WebKitWebViewBase>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val webkitWebViewBasePointer: CPointer<WebKitWebViewBase>
         get() = gPointer.reinterpret()

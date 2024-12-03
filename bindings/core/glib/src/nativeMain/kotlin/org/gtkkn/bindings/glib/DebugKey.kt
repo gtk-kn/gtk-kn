@@ -16,9 +16,7 @@ import kotlin.UInt
  * Associates a string with a bit flag.
  * Used in g_parse_debug_string().
  */
-public class DebugKey(
-    pointer: CPointer<GDebugKey>,
-) : Record {
+public class DebugKey(pointer: CPointer<GDebugKey>) : Record {
     public val glibDebugKeyPointer: CPointer<GDebugKey> = pointer
 
     /**

@@ -7,9 +7,7 @@ import org.gtkkn.native.pango.PangoTabAlign
  * `PangoTabAlign` specifies where the text appears relative to the tab stop
  * position.
  */
-public enum class TabAlign(
-    public val nativeValue: PangoTabAlign,
-) {
+public enum class TabAlign(public val nativeValue: PangoTabAlign) {
     /**
      * the text appears to the right of the tab stop position
      */
@@ -36,13 +34,12 @@ public enum class TabAlign(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: PangoTabAlign): TabAlign =
-            when (nativeValue) {
-                PangoTabAlign.PANGO_TAB_LEFT -> LEFT
-                PangoTabAlign.PANGO_TAB_RIGHT -> RIGHT
-                PangoTabAlign.PANGO_TAB_CENTER -> CENTER
-                PangoTabAlign.PANGO_TAB_DECIMAL -> DECIMAL
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: PangoTabAlign): TabAlign = when (nativeValue) {
+            PangoTabAlign.PANGO_TAB_LEFT -> LEFT
+            PangoTabAlign.PANGO_TAB_RIGHT -> RIGHT
+            PangoTabAlign.PANGO_TAB_CENTER -> CENTER
+            PangoTabAlign.PANGO_TAB_DECIMAL -> DECIMAL
+            else -> error("invalid nativeValue")
+        }
     }
 }

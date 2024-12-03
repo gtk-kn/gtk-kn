@@ -38,9 +38,7 @@ import org.gtkkn.bindings.glib.String as GlibString
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusInterfaceInfo(
-    pointer: CPointer<GDBusInterfaceInfo>,
-) : Record {
+public class DBusInterfaceInfo(pointer: CPointer<GDBusInterfaceInfo>) : Record {
     public val gioDBusInterfaceInfoPointer: CPointer<GDBusInterfaceInfo> = pointer
 
     /**
@@ -100,15 +98,11 @@ public class DBusInterfaceInfo(
      * @since 2.26
      */
     @GioVersion2_26
-    public fun generateXml(
-        indent: UInt,
-        stringBuilder: GlibString,
-    ): Unit =
-        g_dbus_interface_info_generate_xml(
-            gioDBusInterfaceInfoPointer.reinterpret(),
-            indent,
-            stringBuilder.glibStringPointer.reinterpret()
-        )
+    public fun generateXml(indent: UInt, stringBuilder: GlibString): Unit = g_dbus_interface_info_generate_xml(
+        gioDBusInterfaceInfoPointer.reinterpret(),
+        indent,
+        stringBuilder.glibStringPointer.reinterpret()
+    )
 
     /**
      * Looks up information about a method.
@@ -166,10 +160,9 @@ public class DBusInterfaceInfo(
      * @since 2.26
      */
     @GioVersion2_26
-    public fun ref(): DBusInterfaceInfo =
-        g_dbus_interface_info_ref(gioDBusInterfaceInfoPointer.reinterpret())!!.run {
-            DBusInterfaceInfo(reinterpret())
-        }
+    public fun ref(): DBusInterfaceInfo = g_dbus_interface_info_ref(gioDBusInterfaceInfoPointer.reinterpret())!!.run {
+        DBusInterfaceInfo(reinterpret())
+    }
 
     /**
      * If @info is statically allocated, does nothing. Otherwise decreases

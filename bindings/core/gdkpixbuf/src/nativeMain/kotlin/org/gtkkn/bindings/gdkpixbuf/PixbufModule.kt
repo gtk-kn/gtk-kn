@@ -75,9 +75,7 @@ import kotlin.String
  * - field `_reserved3`: Fields with callbacks are not supported
  * - field `_reserved4`: Fields with callbacks are not supported
  */
-public class PixbufModule(
-    pointer: CPointer<GdkPixbufModule>,
-) : Record {
+public class PixbufModule(pointer: CPointer<GdkPixbufModule>) : Record {
     public val gdkpixbufPixbufModulePointer: CPointer<GdkPixbufModule> = pointer
 
     /**
@@ -103,10 +101,9 @@ public class PixbufModule(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val info: PixbufFormat?
-        get() =
-            gdkpixbufPixbufModulePointer.pointed.info?.run {
-                PixbufFormat(reinterpret())
-            }
+        get() = gdkpixbufPixbufModulePointer.pointed.info?.run {
+            PixbufFormat(reinterpret())
+        }
 
     public companion object : RecordCompanion<PixbufModule, GdkPixbufModule> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PixbufModule =

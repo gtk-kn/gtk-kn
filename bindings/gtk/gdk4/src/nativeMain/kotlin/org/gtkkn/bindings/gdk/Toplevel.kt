@@ -74,10 +74,9 @@ public interface Toplevel :
          *
          * @return surface state bitfield
          */
-        get() =
-            gdk_toplevel_get_state(gdkToplevelPointer.reinterpret()).run {
-                ToplevelState(this)
-            }
+        get() = gdk_toplevel_get_state(gdkToplevelPointer.reinterpret()).run {
+            ToplevelState(this)
+        }
 
     /**
      * Begins an interactive move operation.
@@ -91,13 +90,7 @@ public interface Toplevel :
      * @param timestamp timestamp of mouse click that began the drag (use
      *   [method@Gdk.Event.get_time])
      */
-    public fun beginMove(
-        device: Device,
-        button: Int,
-        x: Double,
-        y: Double,
-        timestamp: UInt,
-    ): Unit =
+    public fun beginMove(device: Device, button: Int, x: Double, y: Double, timestamp: UInt): Unit =
         gdk_toplevel_begin_move(
             gdkToplevelPointer.reinterpret(),
             device.gdkDevicePointer.reinterpret(),
@@ -127,16 +120,15 @@ public interface Toplevel :
         x: Double,
         y: Double,
         timestamp: UInt,
-    ): Unit =
-        gdk_toplevel_begin_resize(
-            gdkToplevelPointer.reinterpret(),
-            edge.nativeValue,
-            device?.gdkDevicePointer?.reinterpret(),
-            button,
-            x,
-            y,
-            timestamp
-        )
+    ): Unit = gdk_toplevel_begin_resize(
+        gdkToplevelPointer.reinterpret(),
+        edge.nativeValue,
+        device?.gdkDevicePointer?.reinterpret(),
+        button,
+        x,
+        y,
+        timestamp
+    )
 
     /**
      * Sets keyboard focus to @surface.
@@ -155,10 +147,9 @@ public interface Toplevel :
      *
      * @return surface state bitfield
      */
-    public fun getState(): ToplevelState =
-        gdk_toplevel_get_state(gdkToplevelPointer.reinterpret()).run {
-            ToplevelState(this)
-        }
+    public fun getState(): ToplevelState = gdk_toplevel_get_state(gdkToplevelPointer.reinterpret()).run {
+        ToplevelState(this)
+    }
 
     /**
      * Requests that the @toplevel inhibit the system shortcuts.
@@ -359,9 +350,7 @@ public interface Toplevel :
     public fun titlebarGesture(gesture: TitlebarGesture): Boolean =
         gdk_toplevel_titlebar_gesture(gdkToplevelPointer.reinterpret(), gesture.nativeValue).asBoolean()
 
-    private data class Wrapper(
-        private val pointer: CPointer<GdkToplevel>,
-    ) : Toplevel {
+    private data class Wrapper(private val pointer: CPointer<GdkToplevel>) : Toplevel {
         override val gdkToplevelPointer: CPointer<GdkToplevel> = pointer
     }
 

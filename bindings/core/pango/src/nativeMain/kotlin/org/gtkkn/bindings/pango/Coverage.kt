@@ -34,9 +34,8 @@ import kotlin.Unit
  * - parameter `bytes`: bytes: Out parameter is not supported
  * - parameter `bytes`: Array parameter of type guint8 is not supported
  */
-public open class Coverage(
-    pointer: CPointer<PangoCoverage>,
-) : Object(pointer.reinterpret()),
+public open class Coverage(pointer: CPointer<PangoCoverage>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val pangoCoveragePointer: CPointer<PangoCoverage>
         get() = gPointer.reinterpret()
@@ -57,10 +56,9 @@ public open class Coverage(
      *   with a reference count of one, which should be freed with
      *   [method@Pango.Coverage.unref].
      */
-    public open fun copy(): Coverage =
-        pango_coverage_copy(pangoCoveragePointer.reinterpret())!!.run {
-            Coverage(reinterpret())
-        }
+    public open fun copy(): Coverage = pango_coverage_copy(pangoCoveragePointer.reinterpret())!!.run {
+        Coverage(reinterpret())
+    }
 
     /**
      * Determine whether a particular index is covered by @coverage.
@@ -88,10 +86,9 @@ public open class Coverage(
      *
      * @return @coverage
      */
-    public open fun ref_(): Coverage =
-        pango_coverage_ref(pangoCoveragePointer.reinterpret())!!.run {
-            Coverage(reinterpret())
-        }
+    override fun ref(): Coverage = pango_coverage_ref(pangoCoveragePointer.reinterpret())!!.run {
+        Coverage(reinterpret())
+    }
 
     /**
      * Modify a particular index within @coverage
@@ -99,17 +96,15 @@ public open class Coverage(
      * @param index the index to modify
      * @param level the new level for @index_
      */
-    public open fun `set`(
-        index: Int,
-        level: CoverageLevel,
-    ): Unit = pango_coverage_set(pangoCoveragePointer.reinterpret(), index, level.nativeValue)
+    public open fun `set`(index: Int, level: CoverageLevel): Unit =
+        pango_coverage_set(pangoCoveragePointer.reinterpret(), index, level.nativeValue)
 
     /**
      * Decrease the reference count on the `PangoCoverage` by one.
      *
      * If the result is zero, free the coverage and all associated memory.
      */
-    open override fun unref(): Unit = pango_coverage_unref(pangoCoveragePointer.reinterpret())
+    override fun unref(): Unit = pango_coverage_unref(pangoCoveragePointer.reinterpret())
 
     public companion object : TypeCompanion<Coverage> {
         override val type: GeneratedClassKGType<Coverage> =

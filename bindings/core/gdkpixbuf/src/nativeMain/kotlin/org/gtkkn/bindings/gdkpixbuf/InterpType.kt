@@ -14,9 +14,7 @@ import org.gtkkn.native.gdkpixbuf.GdkInterpType
  * **Note**: Cubic filtering is missing from the list; hyperbolic
  * interpolation is just as fast and results in higher quality.
  */
-public enum class InterpType(
-    public val nativeValue: GdkInterpType,
-) {
+public enum class InterpType(public val nativeValue: GdkInterpType) {
     /**
      * Nearest neighbor sampling; this is the fastest
      *  and lowest quality mode. Quality is normally unacceptable when scaling
@@ -56,13 +54,12 @@ public enum class InterpType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GdkInterpType): InterpType =
-            when (nativeValue) {
-                GdkInterpType.GDK_INTERP_NEAREST -> NEAREST
-                GdkInterpType.GDK_INTERP_TILES -> TILES
-                GdkInterpType.GDK_INTERP_BILINEAR -> BILINEAR
-                GdkInterpType.GDK_INTERP_HYPER -> HYPER
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GdkInterpType): InterpType = when (nativeValue) {
+            GdkInterpType.GDK_INTERP_NEAREST -> NEAREST
+            GdkInterpType.GDK_INTERP_TILES -> TILES
+            GdkInterpType.GDK_INTERP_BILINEAR -> BILINEAR
+            GdkInterpType.GDK_INTERP_HYPER -> HYPER
+            else -> error("invalid nativeValue")
+        }
     }
 }

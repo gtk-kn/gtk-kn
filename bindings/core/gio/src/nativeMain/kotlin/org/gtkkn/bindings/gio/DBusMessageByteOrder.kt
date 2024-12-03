@@ -9,9 +9,7 @@ import org.gtkkn.native.gio.GDBusMessageByteOrder
  * @since 2.26
  */
 @GioVersion2_26
-public enum class DBusMessageByteOrder(
-    public val nativeValue: GDBusMessageByteOrder,
-) {
+public enum class DBusMessageByteOrder(public val nativeValue: GDBusMessageByteOrder) {
     /**
      * The byte order is big endian.
      */
@@ -24,11 +22,10 @@ public enum class DBusMessageByteOrder(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GDBusMessageByteOrder): DBusMessageByteOrder =
-            when (nativeValue) {
-                GDBusMessageByteOrder.G_DBUS_MESSAGE_BYTE_ORDER_BIG_ENDIAN -> BIG_ENDIAN
-                GDBusMessageByteOrder.G_DBUS_MESSAGE_BYTE_ORDER_LITTLE_ENDIAN -> LITTLE_ENDIAN
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GDBusMessageByteOrder): DBusMessageByteOrder = when (nativeValue) {
+            GDBusMessageByteOrder.G_DBUS_MESSAGE_BYTE_ORDER_BIG_ENDIAN -> BIG_ENDIAN
+            GDBusMessageByteOrder.G_DBUS_MESSAGE_BYTE_ORDER_LITTLE_ENDIAN -> LITTLE_ENDIAN
+            else -> error("invalid nativeValue")
+        }
     }
 }

@@ -22,9 +22,7 @@ import org.gtkkn.native.gtk.gtk_accessible_list_new_from_list
  * @since 4.14
  */
 @GtkVersion4_14
-public class AccessibleList(
-    pointer: CPointer<GtkAccessibleList>,
-) : Record {
+public class AccessibleList(pointer: CPointer<GtkAccessibleList>) : Record {
     public val gtkAccessibleListPointer: CPointer<GtkAccessibleList> = pointer
 
     /**
@@ -34,10 +32,9 @@ public class AccessibleList(
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun getObjects(): List =
-        gtk_accessible_list_get_objects(gtkAccessibleListPointer.reinterpret())!!.run {
-            List(reinterpret())
-        }
+    public fun getObjects(): List = gtk_accessible_list_get_objects(gtkAccessibleListPointer.reinterpret())!!.run {
+        List(reinterpret())
+    }
 
     public companion object : RecordCompanion<AccessibleList, GtkAccessibleList> {
         /**

@@ -2,6 +2,7 @@
 package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.cstr
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -20,6 +21,7 @@ import org.gtkkn.native.gtk.gtk_string_list_get_type
 import org.gtkkn.native.gtk.gtk_string_list_new
 import org.gtkkn.native.gtk.gtk_string_list_remove
 import org.gtkkn.native.gtk.gtk_string_list_splice
+import org.gtkkn.native.gtk.gtk_string_list_take
 import kotlin.String
 import kotlin.UInt
 import kotlin.Unit
@@ -56,14 +58,12 @@ import kotlin.collections.List
  *
  * ## Skipped during bindings generation
  *
- * - method `take`: C function gtk_string_list_take is ignored
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  * - method `strings`: Property has no getter nor setter
  */
-public open class StringList(
-    pointer: CPointer<GtkStringList>,
-) : Object(pointer.reinterpret()),
+public open class StringList(pointer: CPointer<GtkStringList>) :
+    Object(pointer.reinterpret()),
     ListModel,
     Buildable,
     KGTyped {
@@ -140,19 +140,29 @@ public open class StringList(
      * @param nRemovals the number of strings to remove
      * @param additions The strings to add
      */
-    public open fun splice(
-        position: UInt,
-        nRemovals: UInt,
-        additions: List<String>? = null,
-    ): Unit =
-        memScoped {
-            return gtk_string_list_splice(
-                gtkStringListPointer.reinterpret(),
-                position,
-                nRemovals,
-                additions?.toCStringList(this)
-            )
-        }
+    public open fun splice(position: UInt, nRemovals: UInt, additions: List<String>? = null): Unit = memScoped {
+        return gtk_string_list_splice(
+            gtkStringListPointer.reinterpret(),
+            position,
+            nRemovals,
+            additions?.toCStringList(this)
+        )
+    }
+
+    /**
+     * Adds @string to self at the end, and takes
+     * ownership of it.
+     *
+     * This variant of [method@Gtk.StringList.append]
+     * is convenient for formatting strings:
+     *
+     * ```c
+     * gtk_string_list_take (self, g_strdup_print ("%d dollars", lots));
+     * ```
+     *
+     * @param string the string to insert
+     */
+    public open fun take(string: String): Unit = gtk_string_list_take(gtkStringListPointer.reinterpret(), string.cstr)
 
     public companion object : TypeCompanion<StringList> {
         override val type: GeneratedClassKGType<StringList> =

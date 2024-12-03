@@ -8,9 +8,7 @@ import org.gtkkn.native.gobject.GParamSpecDouble
 /**
  * A #GParamSpec derived structure that contains the meta data for double properties.
  */
-public open class ParamSpecDouble(
-    pointer: CPointer<GParamSpecDouble>,
-) : ParamSpec(pointer.reinterpret()) {
+public open class ParamSpecDouble(pointer: CPointer<GParamSpecDouble>) : ParamSpec(pointer.reinterpret()) {
     public val gobjectParamSpecDoublePointer: CPointer<GParamSpecDouble>
         get() = gPointer.reinterpret()
 }

@@ -9,9 +9,7 @@ import org.gtkkn.native.gio.GConverterResult
  * @since 2.24
  */
 @GioVersion2_24
-public enum class ConverterResult(
-    public val nativeValue: GConverterResult,
-) {
+public enum class ConverterResult(public val nativeValue: GConverterResult) {
     /**
      * There was an error during conversion.
      */
@@ -34,13 +32,12 @@ public enum class ConverterResult(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GConverterResult): ConverterResult =
-            when (nativeValue) {
-                GConverterResult.G_CONVERTER_ERROR -> ERROR
-                GConverterResult.G_CONVERTER_CONVERTED -> CONVERTED
-                GConverterResult.G_CONVERTER_FINISHED -> FINISHED
-                GConverterResult.G_CONVERTER_FLUSHED -> FLUSHED
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GConverterResult): ConverterResult = when (nativeValue) {
+            GConverterResult.G_CONVERTER_ERROR -> ERROR
+            GConverterResult.G_CONVERTER_CONVERTED -> CONVERTED
+            GConverterResult.G_CONVERTER_FINISHED -> FINISHED
+            GConverterResult.G_CONVERTER_FLUSHED -> FLUSHED
+            else -> error("invalid nativeValue")
+        }
     }
 }

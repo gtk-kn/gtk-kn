@@ -43,9 +43,8 @@ import kotlin.UShort
  * See [iface@Gio.SocketConnectable] for an example of using the connectable
  * interface.
  */
-public open class NetworkAddress(
-    pointer: CPointer<GNetworkAddress>,
-) : Object(pointer.reinterpret()),
+public open class NetworkAddress(pointer: CPointer<GNetworkAddress>) :
+    Object(pointer.reinterpret()),
     SocketConnectable,
     KGTyped {
     public val gioNetworkAddressPointer: CPointer<GNetworkAddress>
@@ -68,9 +67,8 @@ public open class NetworkAddress(
          * @return @addr's hostname
          * @since 2.22
          */
-        get() =
-            g_network_address_get_hostname(gioNetworkAddressPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = g_network_address_get_hostname(gioNetworkAddressPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Network port.
@@ -139,37 +137,6 @@ public open class NetworkAddress(
      */
     public constructor(port: UShort) : this(g_network_address_new_loopback(port)!!.reinterpret())
 
-    /**
-     * Gets @addr's hostname. This might be either UTF-8 or ASCII-encoded,
-     * depending on what @addr was created with.
-     *
-     * @return @addr's hostname
-     * @since 2.22
-     */
-    @GioVersion2_22
-    public open fun getHostname(): String =
-        g_network_address_get_hostname(gioNetworkAddressPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets @addr's port number
-     *
-     * @return @addr's port (which may be 0)
-     * @since 2.22
-     */
-    @GioVersion2_22
-    public open fun getPort(): UShort = g_network_address_get_port(gioNetworkAddressPointer.reinterpret())
-
-    /**
-     * Gets @addr's scheme
-     *
-     * @return @addr's scheme (null if not built from URI)
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public open fun getScheme(): String? =
-        g_network_address_get_scheme(gioNetworkAddressPointer.reinterpret())?.toKString()
-
     public companion object : TypeCompanion<NetworkAddress> {
         override val type: GeneratedClassKGType<NetworkAddress> =
             GeneratedClassKGType(g_network_address_get_type()) { NetworkAddress(it.reinterpret()) }
@@ -208,23 +175,18 @@ public open class NetworkAddress(
          * @since 2.22
          */
         @GioVersion2_22
-        public fun parse(
-            hostAndPort: String,
-            defaultPort: UShort,
-        ): Result<NetworkAddress> =
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                val gResult =
-                    g_network_address_parse(hostAndPort, defaultPort, gError.ptr)?.run {
-                        NetworkAddress(reinterpret())
-                    }
-
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(checkNotNull(gResult))
-                }
+        public fun parse(hostAndPort: String, defaultPort: UShort): Result<NetworkAddress> = memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult = g_network_address_parse(hostAndPort, defaultPort, gError.ptr)?.run {
+                NetworkAddress(reinterpret())
             }
+
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(checkNotNull(gResult))
+            }
+        }
 
         /**
          * Creates a new #GSocketConnectable for connecting to the given
@@ -241,22 +203,17 @@ public open class NetworkAddress(
          * @since 2.26
          */
         @GioVersion2_26
-        public fun parseUri(
-            uri: String,
-            defaultPort: UShort,
-        ): Result<NetworkAddress> =
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                val gResult =
-                    g_network_address_parse_uri(uri, defaultPort, gError.ptr)?.run {
-                        NetworkAddress(reinterpret())
-                    }
-
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(checkNotNull(gResult))
-                }
+        public fun parseUri(uri: String, defaultPort: UShort): Result<NetworkAddress> = memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult = g_network_address_parse_uri(uri, defaultPort, gError.ptr)?.run {
+                NetworkAddress(reinterpret())
             }
+
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(checkNotNull(gResult))
+            }
+        }
     }
 }

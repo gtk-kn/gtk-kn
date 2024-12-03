@@ -16,7 +16,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_34
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.native.webkit.WebKitURISchemeRequest
 import org.gtkkn.native.webkit.webkit_download_error_quark
 import org.gtkkn.native.webkit.webkit_favicon_database_error_quark
@@ -100,7 +100,7 @@ import kotlin.Unit
  * - record `WebsitePoliciesClass`: glib type struct are ignored
  * - record `WindowPropertiesClass`: glib type struct are ignored
  */
-public object Webkit {
+public object WebKit {
     /**
      * The copy clipboard command. Copies the current selection inside
      * a #WebKitWebView to the clipboard.
@@ -395,78 +395,56 @@ public object Webkit {
      */
     public fun userMessageErrorQuark(): Quark = webkit_user_message_error_quark()
 
-    public fun resolveException(error: Error): GlibException {
-        val ex =
-            when (error.domain) {
-                DownloadError.quark() ->
-                    DownloadError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            DownloadErrorException(error, it)
-                        }
-                FaviconDatabaseError.quark() ->
-                    FaviconDatabaseError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            FaviconDatabaseErrorException(error, it)
-                        }
-                JavascriptError.quark() ->
-                    JavascriptError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            JavascriptErrorException(error, it)
-                        }
-                MediaError.quark() ->
-                    MediaError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            MediaErrorException(error, it)
-                        }
-                NetworkError.quark() ->
-                    NetworkError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            NetworkErrorException(error, it)
-                        }
-                PolicyError.quark() ->
-                    PolicyError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            PolicyErrorException(error, it)
-                        }
-                PrintError.quark() ->
-                    PrintError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            PrintErrorException(error, it)
-                        }
-                SnapshotError.quark() ->
-                    SnapshotError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            SnapshotErrorException(error, it)
-                        }
-                UserContentFilterError.quark() ->
-                    UserContentFilterError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            UserContentFilterErrorException(error, it)
-                        }
-                UserMessageError.quark() ->
-                    UserMessageError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            UserMessageErrorException(error, it)
-                        }
-                else -> null
-            }
-        return ex ?: GlibException(error)
+    public fun resolveException(error: Error): GLibException {
+        val ex = when (error.domain) {
+            DownloadError.quark() -> DownloadError.fromErrorOrNull(error)
+                ?.let {
+                    DownloadErrorException(error, it)
+                }
+            FaviconDatabaseError.quark() -> FaviconDatabaseError.fromErrorOrNull(error)
+                ?.let {
+                    FaviconDatabaseErrorException(error, it)
+                }
+            JavascriptError.quark() -> JavascriptError.fromErrorOrNull(error)
+                ?.let {
+                    JavascriptErrorException(error, it)
+                }
+            MediaError.quark() -> MediaError.fromErrorOrNull(error)
+                ?.let {
+                    MediaErrorException(error, it)
+                }
+            NetworkError.quark() -> NetworkError.fromErrorOrNull(error)
+                ?.let {
+                    NetworkErrorException(error, it)
+                }
+            PolicyError.quark() -> PolicyError.fromErrorOrNull(error)
+                ?.let {
+                    PolicyErrorException(error, it)
+                }
+            PrintError.quark() -> PrintError.fromErrorOrNull(error)
+                ?.let {
+                    PrintErrorException(error, it)
+                }
+            SnapshotError.quark() -> SnapshotError.fromErrorOrNull(error)
+                ?.let {
+                    SnapshotErrorException(error, it)
+                }
+            UserContentFilterError.quark() -> UserContentFilterError.fromErrorOrNull(error)
+                ?.let {
+                    UserContentFilterErrorException(error, it)
+                }
+            UserMessageError.quark() -> UserMessageError.fromErrorOrNull(error)
+                ?.let {
+                    UserMessageErrorException(error, it)
+                }
+            else -> null
+        }
+        return ex ?: GLibException(error)
     }
 }
 
 public val URISchemeRequestCallbackFunc:
-    CPointer<CFunction<(CPointer<WebKitURISchemeRequest>) -> Unit>> =
-    staticCFunction {
+    CPointer<CFunction<(CPointer<WebKitURISchemeRequest>) -> Unit>> = staticCFunction {
             request: CPointer<WebKitURISchemeRequest>?,
             userData: COpaquePointer,
         ->
@@ -475,7 +453,8 @@ public val URISchemeRequestCallbackFunc:
                 URISchemeRequest(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 /**
  * Type definition for a function that will be called back when an URI request is

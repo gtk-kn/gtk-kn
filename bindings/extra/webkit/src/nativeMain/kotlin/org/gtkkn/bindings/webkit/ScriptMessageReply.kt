@@ -23,9 +23,7 @@ import kotlin.Unit
  * @since 2.40
  */
 @WebKitVersion2_40
-public class ScriptMessageReply(
-    pointer: CPointer<WebKitScriptMessageReply>,
-) : Record {
+public class ScriptMessageReply(pointer: CPointer<WebKitScriptMessageReply>) : Record {
     public val webkitScriptMessageReplyPointer: CPointer<WebKitScriptMessageReply> = pointer
 
     /**
@@ -59,11 +57,10 @@ public class ScriptMessageReply(
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun returnValue(replyValue: Value): Unit =
-        webkit_script_message_reply_return_value(
-            webkitScriptMessageReplyPointer.reinterpret(),
-            replyValue.javascriptcoreValuePointer.reinterpret()
-        )
+    public fun returnValue(replyValue: Value): Unit = webkit_script_message_reply_return_value(
+        webkitScriptMessageReplyPointer.reinterpret(),
+        replyValue.javascriptcoreValuePointer.reinterpret()
+    )
 
     /**
      * Atomically decrements the reference count of @script_message_reply by one.

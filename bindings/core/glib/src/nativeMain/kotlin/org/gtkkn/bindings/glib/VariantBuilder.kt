@@ -26,9 +26,7 @@ import kotlin.Unit
  * #GVariantBuilder is not threadsafe in any way.  Do not attempt to
  * access it from more than one thread.
  */
-public class VariantBuilder(
-    pointer: CPointer<GVariantBuilder>,
-) : Record {
+public class VariantBuilder(pointer: CPointer<GVariantBuilder>) : Record {
     public val glibVariantBuilderPointer: CPointer<GVariantBuilder> = pointer
 
     /**
@@ -86,10 +84,9 @@ public class VariantBuilder(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun end(): Variant =
-        g_variant_builder_end(glibVariantBuilderPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public fun end(): Variant = g_variant_builder_end(glibVariantBuilderPointer.reinterpret())!!.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Opens a subcontainer inside the given @builder.  When done adding
@@ -146,10 +143,9 @@ public class VariantBuilder(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun ref(): VariantBuilder =
-        g_variant_builder_ref(glibVariantBuilderPointer.reinterpret())!!.run {
-            VariantBuilder(reinterpret())
-        }
+    public fun ref(): VariantBuilder = g_variant_builder_ref(glibVariantBuilderPointer.reinterpret())!!.run {
+        VariantBuilder(reinterpret())
+    }
 
     /**
      * Decreases the reference count on @builder.

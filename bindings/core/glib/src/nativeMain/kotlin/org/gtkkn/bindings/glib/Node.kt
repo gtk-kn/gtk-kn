@@ -36,9 +36,7 @@ import kotlin.Unit
  * - parameter `allocator`: Allocator
  * - field `data`: gpointer
  */
-public class Node(
-    pointer: CPointer<GNode>,
-) : Record {
+public class Node(pointer: CPointer<GNode>) : Record {
     public val glibNodePointer: CPointer<GNode> = pointer
 
     /**
@@ -48,10 +46,9 @@ public class Node(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val next: Node?
-        get() =
-            glibNodePointer.pointed.next?.run {
-                Node(reinterpret())
-            }
+        get() = glibNodePointer.pointed.next?.run {
+            Node(reinterpret())
+        }
 
     /**
      * points to the node's previous sibling.
@@ -59,10 +56,9 @@ public class Node(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val prev: Node?
-        get() =
-            glibNodePointer.pointed.prev?.run {
-                Node(reinterpret())
-            }
+        get() = glibNodePointer.pointed.prev?.run {
+            Node(reinterpret())
+        }
 
     /**
      * points to the parent of the #GNode, or is null if the
@@ -71,10 +67,9 @@ public class Node(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val parent: Node?
-        get() =
-            glibNodePointer.pointed.parent?.run {
-                Node(reinterpret())
-            }
+        get() = glibNodePointer.pointed.parent?.run {
+            Node(reinterpret())
+        }
 
     /**
      * points to the first child of the #GNode.  The other
@@ -84,10 +79,9 @@ public class Node(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val children: Node?
-        get() =
-            glibNodePointer.pointed.children?.run {
-                Node(reinterpret())
-            }
+        get() = glibNodePointer.pointed.children?.run {
+            Node(reinterpret())
+        }
 
     /**
      * Gets the position of a #GNode with respect to its siblings.
@@ -109,16 +103,12 @@ public class Node(
      *     %G_TRAVERSE_ALL, %G_TRAVERSE_LEAVES and %G_TRAVERSE_NON_LEAVES
      * @param func the function to call for each visited node
      */
-    public fun childrenForeach(
-        flags: TraverseFlags,
-        func: NodeForeachFunc,
-    ): Unit =
-        g_node_children_foreach(
-            glibNodePointer.reinterpret(),
-            flags.mask,
-            NodeForeachFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )
+    public fun childrenForeach(flags: TraverseFlags, func: NodeForeachFunc): Unit = g_node_children_foreach(
+        glibNodePointer.reinterpret(),
+        flags.mask,
+        NodeForeachFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer()
+    )
 
     /**
      * Gets the depth of a #GNode.
@@ -196,12 +186,7 @@ public class Node(
      *     If depth is 2, the root and its children are visited. And so on.
      * @param func the function to call for each visited #GNode
      */
-    public fun traverse(
-        order: TraverseType,
-        flags: TraverseFlags,
-        maxDepth: Int,
-        func: NodeTraverseFunc,
-    ): Unit =
+    public fun traverse(order: TraverseType, flags: TraverseFlags, maxDepth: Int, func: NodeTraverseFunc): Unit =
         g_node_traverse(
             glibNodePointer.reinterpret(),
             order.nativeValue,

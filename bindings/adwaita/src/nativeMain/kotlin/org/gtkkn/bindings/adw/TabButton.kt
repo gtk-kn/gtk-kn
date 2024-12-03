@@ -61,9 +61,8 @@ import kotlin.Unit
  * @since 1.3
  */
 @AdwVersion1_3
-public class TabButton(
-    pointer: CPointer<AdwTabButton>,
-) : Widget(pointer.reinterpret()),
+public class TabButton(pointer: CPointer<AdwTabButton>) :
+    Widget(pointer.reinterpret()),
     Actionable,
     KGTyped {
     public val adwTabButtonPointer: CPointer<AdwTabButton>
@@ -94,10 +93,9 @@ public class TabButton(
          * @return the tab view
          * @since 1.3
          */
-        get() =
-            adw_tab_button_get_view(adwTabButtonPointer.reinterpret())?.run {
-                TabView(reinterpret())
-            }
+        get() = adw_tab_button_get_view(adwTabButtonPointer.reinterpret())?.run {
+            TabView(reinterpret())
+        }
 
         /**
          * Sets the tab view to display.
@@ -117,28 +115,6 @@ public class TabButton(
     public constructor() : this(adw_tab_button_new()!!.reinterpret())
 
     /**
-     * Gets the tab view @self displays.
-     *
-     * @return the tab view
-     * @since 1.3
-     */
-    @AdwVersion1_3
-    public fun getView(): TabView? =
-        adw_tab_button_get_view(adwTabButtonPointer.reinterpret())?.run {
-            TabView(reinterpret())
-        }
-
-    /**
-     * Sets the tab view to display.
-     *
-     * @param view a tab view
-     * @since 1.3
-     */
-    @AdwVersion1_3
-    public fun setView(view: TabView? = null): Unit =
-        adw_tab_button_set_view(adwTabButtonPointer.reinterpret(), view?.adwTabViewPointer?.reinterpret())
-
-    /**
      * Emitted to animate press then release.
      *
      * This is an action signal. Applications should never connect to this signal,
@@ -149,10 +125,7 @@ public class TabButton(
      * @since 1.3
      */
     @AdwVersion1_3
-    public fun connectActivate(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "activate",
@@ -170,10 +143,7 @@ public class TabButton(
      * @since 1.3
      */
     @AdwVersion1_3
-    public fun connectClicked(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "clicked",
@@ -193,18 +163,18 @@ public class TabButton(
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectClickedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectClickedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

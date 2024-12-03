@@ -6,9 +6,7 @@ import org.gtkkn.native.webkit.WebKitScriptDialogType
 /**
  * Enum values used for determining the type of #WebKitScriptDialog
  */
-public enum class ScriptDialogType(
-    public val nativeValue: WebKitScriptDialogType,
-) {
+public enum class ScriptDialogType(public val nativeValue: WebKitScriptDialogType) {
     /**
      * Alert script dialog, used to show a
      * message to the user.
@@ -35,13 +33,12 @@ public enum class ScriptDialogType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitScriptDialogType): ScriptDialogType =
-            when (nativeValue) {
-                WebKitScriptDialogType.WEBKIT_SCRIPT_DIALOG_ALERT -> ALERT
-                WebKitScriptDialogType.WEBKIT_SCRIPT_DIALOG_CONFIRM -> CONFIRM
-                WebKitScriptDialogType.WEBKIT_SCRIPT_DIALOG_PROMPT -> PROMPT
-                WebKitScriptDialogType.WEBKIT_SCRIPT_DIALOG_BEFORE_UNLOAD_CONFIRM -> BEFORE_UNLOAD_CONFIRM
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitScriptDialogType): ScriptDialogType = when (nativeValue) {
+            WebKitScriptDialogType.WEBKIT_SCRIPT_DIALOG_ALERT -> ALERT
+            WebKitScriptDialogType.WEBKIT_SCRIPT_DIALOG_CONFIRM -> CONFIRM
+            WebKitScriptDialogType.WEBKIT_SCRIPT_DIALOG_PROMPT -> PROMPT
+            WebKitScriptDialogType.WEBKIT_SCRIPT_DIALOG_BEFORE_UNLOAD_CONFIRM -> BEFORE_UNLOAD_CONFIRM
+            else -> error("invalid nativeValue")
+        }
     }
 }

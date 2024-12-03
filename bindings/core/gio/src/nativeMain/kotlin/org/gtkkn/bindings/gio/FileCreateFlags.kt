@@ -10,9 +10,7 @@ import org.gtkkn.native.gio.G_FILE_CREATE_REPLACE_DESTINATION
 /**
  * Flags used when an operation may create a file.
  */
-public class FileCreateFlags(
-    public val mask: GFileCreateFlags,
-) : Bitfield<FileCreateFlags> {
+public class FileCreateFlags(public val mask: GFileCreateFlags) : Bitfield<FileCreateFlags> {
     override infix fun or(other: FileCreateFlags): FileCreateFlags = FileCreateFlags(mask or other.mask)
 
     public companion object {

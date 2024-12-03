@@ -13,9 +13,7 @@ import org.gtkkn.native.gtk.GtkBuilderClosureFlags
  * for unknown values and raise a %GTK_BUILDER_ERROR_INVALID_ATTRIBUTE error
  * when they encounter one.
  */
-public class BuilderClosureFlags(
-    public val mask: GtkBuilderClosureFlags,
-) : Bitfield<BuilderClosureFlags> {
+public class BuilderClosureFlags(public val mask: GtkBuilderClosureFlags) : Bitfield<BuilderClosureFlags> {
     override infix fun or(other: BuilderClosureFlags): BuilderClosureFlags = BuilderClosureFlags(mask or other.mask)
 
     public companion object {

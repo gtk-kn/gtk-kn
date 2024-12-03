@@ -46,9 +46,8 @@ import kotlin.Result
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `fds`: Array parameter of type gint is not supported
  */
-public open class UnixFDList(
-    pointer: CPointer<GUnixFDList>,
-) : Object(pointer.reinterpret()),
+public open class UnixFDList(pointer: CPointer<GUnixFDList>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioUnixFDListPointer: CPointer<GUnixFDList>
         get() = gPointer.reinterpret()
@@ -81,16 +80,15 @@ public open class UnixFDList(
      * @since 2.24
      */
     @GioVersion2_24
-    public open fun append(fd: Int): Result<Int> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_unix_fd_list_append(gioUnixFDListPointer.reinterpret(), fd, gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun append(fd: Int): Result<Int> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_unix_fd_list_append(gioUnixFDListPointer.reinterpret(), fd, gError.ptr)
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Gets a file descriptor out of @list.
@@ -111,16 +109,15 @@ public open class UnixFDList(
      * @since 2.24
      */
     @GioVersion2_24
-    public open fun `get`(index: Int): Result<Int> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_unix_fd_list_get(gioUnixFDListPointer.reinterpret(), index, gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun `get`(index: Int): Result<Int> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_unix_fd_list_get(gioUnixFDListPointer.reinterpret(), index, gError.ptr)
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Gets the length of @list (ie: the number of file descriptors

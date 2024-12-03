@@ -6,9 +6,7 @@ import org.gtkkn.native.gsk.GskCorner
 /**
  * The corner indices used by `GskRoundedRect`.
  */
-public enum class Corner(
-    public val nativeValue: GskCorner,
-) {
+public enum class Corner(public val nativeValue: GskCorner) {
     /**
      * The top left corner
      */
@@ -31,13 +29,12 @@ public enum class Corner(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GskCorner): Corner =
-            when (nativeValue) {
-                GskCorner.GSK_CORNER_TOP_LEFT -> TOP_LEFT
-                GskCorner.GSK_CORNER_TOP_RIGHT -> TOP_RIGHT
-                GskCorner.GSK_CORNER_BOTTOM_RIGHT -> BOTTOM_RIGHT
-                GskCorner.GSK_CORNER_BOTTOM_LEFT -> BOTTOM_LEFT
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GskCorner): Corner = when (nativeValue) {
+            GskCorner.GSK_CORNER_TOP_LEFT -> TOP_LEFT
+            GskCorner.GSK_CORNER_TOP_RIGHT -> TOP_RIGHT
+            GskCorner.GSK_CORNER_BOTTOM_RIGHT -> BOTTOM_RIGHT
+            GskCorner.GSK_CORNER_BOTTOM_LEFT -> BOTTOM_LEFT
+            else -> error("invalid nativeValue")
+        }
     }
 }

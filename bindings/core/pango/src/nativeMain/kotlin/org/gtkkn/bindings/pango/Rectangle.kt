@@ -17,9 +17,7 @@ import kotlin.Int
  * extents of a single glyph or section of text. (See, for instance,
  * [method@Pango.Font.get_glyph_extents].)
  */
-public class Rectangle(
-    pointer: CPointer<PangoRectangle>,
-) : Record {
+public class Rectangle(pointer: CPointer<PangoRectangle>) : Record {
     public val pangoRectanglePointer: CPointer<PangoRectangle> = pointer
 
     /**

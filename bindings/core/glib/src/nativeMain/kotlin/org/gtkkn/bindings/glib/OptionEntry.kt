@@ -22,9 +22,7 @@ import kotlin.String
  *
  * - field `arg_data`: gpointer
  */
-public class OptionEntry(
-    pointer: CPointer<GOptionEntry>,
-) : Record {
+public class OptionEntry(pointer: CPointer<GOptionEntry>) : Record {
     public val glibOptionEntryPointer: CPointer<GOptionEntry> = pointer
 
     /**
@@ -46,10 +44,7 @@ public class OptionEntry(
      *     short name.
      */
     public var shortName: Char
-        get() =
-            glibOptionEntryPointer.pointed.short_name
-                .toInt()
-                .toChar()
+        get() = glibOptionEntryPointer.pointed.short_name.toInt().toChar()
         set(`value`) {
             glibOptionEntryPointer.pointed.short_name = value.code.toByte()
         }
@@ -67,10 +62,9 @@ public class OptionEntry(
      * The type of the option, as a #GOptionArg
      */
     public var arg: OptionArg
-        get() =
-            glibOptionEntryPointer.pointed.arg.run {
-                OptionArg.fromNativeValue(this)
-            }
+        get() = glibOptionEntryPointer.pointed.arg.run {
+            OptionArg.fromNativeValue(this)
+        }
         set(`value`) {
             glibOptionEntryPointer.pointed.arg = value.nativeValue
         }

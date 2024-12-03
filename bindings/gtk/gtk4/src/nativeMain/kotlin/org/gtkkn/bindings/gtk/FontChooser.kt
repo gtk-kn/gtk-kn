@@ -84,9 +84,8 @@ public interface FontChooser :
          *
          * @return the currently selected font features
          */
-        get() =
-            gtk_font_chooser_get_font_features(gtkFontChooserPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_font_chooser_get_font_features(gtkFontChooserPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * The language for which the font features were selected.
@@ -97,9 +96,8 @@ public interface FontChooser :
          *
          * @return the currently selected language
          */
-        get() =
-            gtk_font_chooser_get_language(gtkFontChooserPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_font_chooser_get_language(gtkFontChooserPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Sets the language to use for font features.
@@ -117,10 +115,9 @@ public interface FontChooser :
          *
          * @return the current granularity level
          */
-        get() =
-            gtk_font_chooser_get_level(gtkFontChooserPointer.reinterpret()).run {
-                FontChooserLevel(this)
-            }
+        get() = gtk_font_chooser_get_level(gtkFontChooserPointer.reinterpret()).run {
+            FontChooserLevel(this)
+        }
 
         /**
          * Sets the desired level of granularity for selecting fonts.
@@ -138,9 +135,8 @@ public interface FontChooser :
          *
          * @return the text displayed in the preview area
          */
-        get() =
-            gtk_font_chooser_get_preview_text(gtkFontChooserPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_font_chooser_get_preview_text(gtkFontChooserPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Sets the text displayed in the preview area.
@@ -217,10 +213,9 @@ public interface FontChooser :
      * @return A `PangoFontFace` representing the
      *   selected font group details
      */
-    public fun getFontFace(): FontFace? =
-        gtk_font_chooser_get_font_face(gtkFontChooserPointer.reinterpret())?.run {
-            FontFace(reinterpret())
-        }
+    public fun getFontFace(): FontFace? = gtk_font_chooser_get_font_face(gtkFontChooserPointer.reinterpret())?.run {
+        FontFace(reinterpret())
+    }
 
     /**
      * Gets the `PangoFontFamily` representing the selected font family.
@@ -274,19 +269,17 @@ public interface FontChooser :
      *
      * @return the currently selected language
      */
-    public fun getLanguage(): String =
-        gtk_font_chooser_get_language(gtkFontChooserPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getLanguage(): String = gtk_font_chooser_get_language(gtkFontChooserPointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Returns the current level of granularity for selecting fonts.
      *
      * @return the current granularity level
      */
-    public fun getLevel(): FontChooserLevel =
-        gtk_font_chooser_get_level(gtkFontChooserPointer.reinterpret()).run {
-            FontChooserLevel(this)
-        }
+    public fun getLevel(): FontChooserLevel = gtk_font_chooser_get_level(gtkFontChooserPointer.reinterpret()).run {
+        FontChooserLevel(this)
+    }
 
     /**
      * Gets the text displayed in the preview area.
@@ -311,13 +304,12 @@ public interface FontChooser :
      *
      * @param filter a `GtkFontFilterFunc`
      */
-    public fun setFilterFunc(filter: FontFilterFunc): Unit =
-        gtk_font_chooser_set_filter_func(
-            gtkFontChooserPointer.reinterpret(),
-            FontFilterFuncFunc.reinterpret(),
-            StableRef.create(filter).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public fun setFilterFunc(filter: FontFilterFunc): Unit = gtk_font_chooser_set_filter_func(
+        gtkFontChooserPointer.reinterpret(),
+        FontFilterFuncFunc.reinterpret(),
+        StableRef.create(filter).asCPointer(),
+        staticStableRefDestroy.reinterpret()
+    )
 
     /**
      * Sets the currently-selected font.
@@ -332,11 +324,10 @@ public interface FontChooser :
      *
      * @param fontDesc a `PangoFontDescription`
      */
-    public fun setFontDesc(fontDesc: FontDescription): Unit =
-        gtk_font_chooser_set_font_desc(
-            gtkFontChooserPointer.reinterpret(),
-            fontDesc.pangoFontDescriptionPointer.reinterpret()
-        )
+    public fun setFontDesc(fontDesc: FontDescription): Unit = gtk_font_chooser_set_font_desc(
+        gtkFontChooserPointer.reinterpret(),
+        fontDesc.pangoFontDescriptionPointer.reinterpret()
+    )
 
     /**
      * Sets a custom font map to use for this font chooser widget.
@@ -417,19 +408,16 @@ public interface FontChooser :
     public fun connectFontActivated(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (fontname: String) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gtkFontChooserPointer.reinterpret(),
-            "font-activated",
-            connectFontActivatedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gtkFontChooserPointer.reinterpret(),
+        "font-activated",
+        connectFontActivatedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkFontChooser>,
-    ) : FontChooser {
+    private data class Wrapper(private val pointer: CPointer<GtkFontChooser>) : FontChooser {
         override val gtkFontChooserPointer: CPointer<GtkFontChooser> = pointer
     }
 
@@ -454,4 +442,5 @@ private val connectFontActivatedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> 
         userData.asStableRef<(fontname: String) -> Unit>().get().invoke(
             fontname?.toKString() ?: error("Expected not null string")
         )
-    }.reinterpret()
+    }
+        .reinterpret()

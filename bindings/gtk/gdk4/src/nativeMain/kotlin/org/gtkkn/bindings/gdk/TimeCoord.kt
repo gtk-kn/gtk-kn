@@ -22,9 +22,7 @@ import kotlin.UInt
  *
  * - field `axes`: Fields with arrays are not supported
  */
-public class TimeCoord(
-    pointer: CPointer<GdkTimeCoord>,
-) : Record {
+public class TimeCoord(pointer: CPointer<GdkTimeCoord>) : Record {
     public val gdkTimeCoordPointer: CPointer<GdkTimeCoord> = pointer
 
     /**
@@ -40,10 +38,9 @@ public class TimeCoord(
      * Flags indicating what axes are present, see [flags@Gdk.AxisFlags]
      */
     public var flags: AxisFlags
-        get() =
-            gdkTimeCoordPointer.pointed.flags.run {
-                AxisFlags(this)
-            }
+        get() = gdkTimeCoordPointer.pointed.flags.run {
+            AxisFlags(this)
+        }
         set(`value`) {
             gdkTimeCoordPointer.pointed.flags = value.mask
         }

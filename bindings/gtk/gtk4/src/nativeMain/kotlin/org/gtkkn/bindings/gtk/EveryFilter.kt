@@ -17,9 +17,8 @@ import org.gtkkn.native.gtk.gtk_every_filter_new
  *
  * To add filters to a `GtkEveryFilter`, use [method@Gtk.MultiFilter.append].
  */
-public open class EveryFilter(
-    pointer: CPointer<GtkEveryFilter>,
-) : MultiFilter(pointer.reinterpret()),
+public open class EveryFilter(pointer: CPointer<GtkEveryFilter>) :
+    MultiFilter(pointer.reinterpret()),
     KGTyped {
     public val gtkEveryFilterPointer: CPointer<GtkEveryFilter>
         get() = gPointer.reinterpret()

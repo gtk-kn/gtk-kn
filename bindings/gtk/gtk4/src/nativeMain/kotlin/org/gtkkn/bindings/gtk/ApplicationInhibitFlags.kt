@@ -13,13 +13,10 @@ import org.gtkkn.native.gtk.GtkApplicationInhibitFlags
  *
  * See [method@Gtk.Application.inhibit].
  */
-public class ApplicationInhibitFlags(
-    public val mask: GtkApplicationInhibitFlags,
-) : Bitfield<ApplicationInhibitFlags> {
-    override infix fun or(other: ApplicationInhibitFlags): ApplicationInhibitFlags =
-        ApplicationInhibitFlags(
-            mask or other.mask
-        )
+public class ApplicationInhibitFlags(public val mask: GtkApplicationInhibitFlags) : Bitfield<ApplicationInhibitFlags> {
+    override infix fun or(other: ApplicationInhibitFlags): ApplicationInhibitFlags = ApplicationInhibitFlags(
+        mask or other.mask
+    )
 
     public companion object {
         /**

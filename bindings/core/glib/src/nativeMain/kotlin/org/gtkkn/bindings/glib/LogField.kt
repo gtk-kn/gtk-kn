@@ -29,9 +29,7 @@ import kotlin.String
  * @since 2.50
  */
 @GLibVersion2_50
-public class LogField(
-    pointer: CPointer<GLogField>,
-) : Record {
+public class LogField(pointer: CPointer<GLogField>) : Record {
     public val glibLogFieldPointer: CPointer<GLogField> = pointer
 
     /**

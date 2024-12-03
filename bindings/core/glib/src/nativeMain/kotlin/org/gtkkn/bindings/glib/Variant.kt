@@ -361,9 +361,7 @@ import kotlin.collections.List
  * @since 2.24
  */
 @GLibVersion2_24
-public class Variant(
-    pointer: CPointer<GVariant>,
-) : Record {
+public class Variant(pointer: CPointer<GVariant>) : Record {
     public val glibVariantPointer: CPointer<GVariant> = pointer
 
     /**
@@ -389,10 +387,9 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun byteswap(): Variant =
-        g_variant_byteswap(glibVariantPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public fun byteswap(): Variant = g_variant_byteswap(glibVariantPointer.reinterpret())!!.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Checks if calling g_variant_get() with @format_string on @value would
@@ -416,10 +413,7 @@ public class Variant(
      * @since 2.34
      */
     @GLibVersion2_34
-    public fun checkFormatString(
-        formatString: String,
-        copyOnly: Boolean,
-    ): Boolean =
+    public fun checkFormatString(formatString: String, copyOnly: Boolean): Boolean =
         g_variant_check_format_string(glibVariantPointer.reinterpret(), formatString, copyOnly.asGBoolean()).asBoolean()
 
     /**
@@ -429,10 +423,9 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun classify(): VariantClass =
-        g_variant_classify(glibVariantPointer.reinterpret()).run {
-            VariantClass.fromNativeValue(this)
-        }
+    public fun classify(): VariantClass = g_variant_classify(glibVariantPointer.reinterpret()).run {
+        VariantClass.fromNativeValue(this)
+    }
 
     /**
      * Returns the boolean value of @value.
@@ -503,10 +496,9 @@ public class Variant(
      * @since 2.36
      */
     @GLibVersion2_36
-    public fun getDataAsBytes(): Bytes =
-        g_variant_get_data_as_bytes(glibVariantPointer.reinterpret())!!.run {
-            Bytes(reinterpret())
-        }
+    public fun getDataAsBytes(): Bytes = g_variant_get_data_as_bytes(glibVariantPointer.reinterpret())!!.run {
+        Bytes(reinterpret())
+    }
 
     /**
      * Returns the double precision floating point value of @value.
@@ -580,10 +572,9 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getMaybe(): Variant? =
-        g_variant_get_maybe(glibVariantPointer.reinterpret())?.run {
-            Variant(reinterpret())
-        }
+    public fun getMaybe(): Variant? = g_variant_get_maybe(glibVariantPointer.reinterpret())?.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Gets a #GVariant instance that has the same value as @value and is
@@ -616,10 +607,9 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getNormalForm(): Variant =
-        g_variant_get_normal_form(glibVariantPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public fun getNormalForm(): Variant = g_variant_get_normal_form(glibVariantPointer.reinterpret())!!.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Determines the number of bytes that would be required to store @value
@@ -650,10 +640,9 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getType(): VariantType =
-        g_variant_get_type(glibVariantPointer.reinterpret())!!.run {
-            VariantType(reinterpret())
-        }
+    public fun getType(): VariantType = g_variant_get_type(glibVariantPointer.reinterpret())!!.run {
+        VariantType(reinterpret())
+    }
 
     /**
      * Returns the type string of @value.  Unlike the result of calling
@@ -711,10 +700,9 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getVariant(): Variant =
-        g_variant_get_variant(glibVariantPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public fun getVariant(): Variant = g_variant_get_variant(glibVariantPointer.reinterpret())!!.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Generates a hash value for a #GVariant instance.
@@ -820,17 +808,13 @@ public class Variant(
      * @since 2.28
      */
     @GLibVersion2_28
-    public fun lookupValue(
-        key: String,
-        expectedType: VariantType? = null,
-    ): Variant =
-        g_variant_lookup_value(
-            glibVariantPointer.reinterpret(),
-            key,
-            expectedType?.glibVariantTypePointer?.reinterpret()
-        )!!.run {
-            Variant(reinterpret())
-        }
+    public fun lookupValue(key: String, expectedType: VariantType? = null): Variant = g_variant_lookup_value(
+        glibVariantPointer.reinterpret(),
+        key,
+        expectedType?.glibVariantTypePointer?.reinterpret()
+    )!!.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Determines the number of children in a container #GVariant instance.
@@ -876,10 +860,9 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun ref(): Variant =
-        g_variant_ref(glibVariantPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public fun ref(): Variant = g_variant_ref(glibVariantPointer.reinterpret())!!.run {
+        Variant(reinterpret())
+    }
 
     /**
      * #GVariant uses a floating reference count system.  All functions with
@@ -909,10 +892,9 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun refSink(): Variant =
-        g_variant_ref_sink(glibVariantPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public fun refSink(): Variant = g_variant_ref_sink(glibVariantPointer.reinterpret())!!.run {
+        Variant(reinterpret())
+    }
 
     /**
      * If @value is floating, sink it.  Otherwise, do nothing.
@@ -950,10 +932,9 @@ public class Variant(
      *
      * @return the same @value
      */
-    public fun takeRef(): Variant =
-        g_variant_take_ref(glibVariantPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public fun takeRef(): Variant = g_variant_take_ref(glibVariantPointer.reinterpret())!!.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Decreases the reference count of @value.  When its reference count
@@ -995,10 +976,7 @@ public class Variant(
          * @return a new floating #GVariant instance
          * @since 2.26
          */
-        public fun newBytestringArray(
-            strv: List<String>,
-            length: Long,
-        ): Variant {
+        public fun newBytestringArray(strv: List<String>, length: Long): Variant {
             memScoped {
                 return Variant(g_variant_new_bytestring_array(strv.toCStringList(this), length)!!.reinterpret())
             }
@@ -1016,16 +994,12 @@ public class Variant(
          * @return a floating reference to a new dictionary entry #GVariant
          * @since 2.24
          */
-        public fun newDictEntry(
-            key: Variant,
-            `value`: Variant,
-        ): Variant =
-            Variant(
-                g_variant_new_dict_entry(
-                    key.glibVariantPointer.reinterpret(),
-                    `value`.glibVariantPointer.reinterpret()
-                )!!.reinterpret()
-            )
+        public fun newDictEntry(key: Variant, `value`: Variant): Variant = Variant(
+            g_variant_new_dict_entry(
+                key.glibVariantPointer.reinterpret(),
+                `value`.glibVariantPointer.reinterpret()
+            )!!.reinterpret()
+        )
 
         /**
          * Creates a new double #GVariant instance.
@@ -1053,18 +1027,13 @@ public class Variant(
          * @return a new #GVariant with a floating reference
          * @since 2.36
          */
-        public fun newFromBytes(
-            type: VariantType,
-            bytes: Bytes,
-            trusted: Boolean,
-        ): Variant =
-            Variant(
-                g_variant_new_from_bytes(
-                    type.glibVariantTypePointer.reinterpret(),
-                    bytes.glibBytesPointer.reinterpret(),
-                    trusted.asGBoolean()
-                )!!.reinterpret()
-            )
+        public fun newFromBytes(type: VariantType, bytes: Bytes, trusted: Boolean): Variant = Variant(
+            g_variant_new_from_bytes(
+                type.glibVariantTypePointer.reinterpret(),
+                bytes.glibBytesPointer.reinterpret(),
+                trusted.asGBoolean()
+            )!!.reinterpret()
+        )
 
         /**
          * Creates a new handle #GVariant instance.
@@ -1123,16 +1092,12 @@ public class Variant(
          * @return a floating reference to a new #GVariant maybe instance
          * @since 2.24
          */
-        public fun newMaybe(
-            childType: VariantType? = null,
-            child: Variant? = null,
-        ): Variant =
-            Variant(
-                g_variant_new_maybe(
-                    childType?.glibVariantTypePointer?.reinterpret(),
-                    child?.glibVariantPointer?.reinterpret()
-                )!!.reinterpret()
-            )
+        public fun newMaybe(childType: VariantType? = null, child: Variant? = null): Variant = Variant(
+            g_variant_new_maybe(
+                childType?.glibVariantTypePointer?.reinterpret(),
+                child?.glibVariantPointer?.reinterpret()
+            )!!.reinterpret()
+        )
 
         /**
          * Creates a D-Bus object path #GVariant with the contents of @object_path.
@@ -1160,10 +1125,7 @@ public class Variant(
          * @return a new floating #GVariant instance
          * @since 2.30
          */
-        public fun newObjv(
-            strv: List<String>,
-            length: Long,
-        ): Variant {
+        public fun newObjv(strv: List<String>, length: Long): Variant {
             memScoped {
                 return Variant(g_variant_new_objv(strv.toCStringList(this), length)!!.reinterpret())
             }
@@ -1205,10 +1167,7 @@ public class Variant(
          * @return a new floating #GVariant instance
          * @since 2.24
          */
-        public fun newStrv(
-            strv: List<String>,
-            length: Long,
-        ): Variant {
+        public fun newStrv(strv: List<String>, length: Long): Variant {
             memScoped {
                 return Variant(g_variant_new_strv(strv.toCStringList(this), length)!!.reinterpret())
             }
@@ -1324,10 +1283,7 @@ public class Variant(
          * @since 2.40
          */
         @GLibVersion2_40
-        public fun parseErrorPrintContext(
-            error: Error,
-            sourceStr: String,
-        ): String =
+        public fun parseErrorPrintContext(error: Error, sourceStr: String): String =
             g_variant_parse_error_print_context(error.glibErrorPointer.reinterpret(), sourceStr)?.toKString()
                 ?: error("Expected not null string")
 

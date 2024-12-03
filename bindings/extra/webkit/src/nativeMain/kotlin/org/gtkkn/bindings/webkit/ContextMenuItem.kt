@@ -36,9 +36,8 @@ import kotlin.Unit
  * label. These #WebKitContextMenuAction<!-- -->s denote stock actions
  * for the items. You can also create separators and submenus.
  */
-public class ContextMenuItem(
-    pointer: CPointer<WebKitContextMenuItem>,
-) : InitiallyUnowned(pointer.reinterpret()),
+public class ContextMenuItem(pointer: CPointer<WebKitContextMenuItem>) :
+    InitiallyUnowned(pointer.reinterpret()),
     KGTyped {
     public val webkitContextMenuItemPointer: CPointer<WebKitContextMenuItem>
         get() = gPointer.reinterpret()
@@ -177,11 +176,10 @@ public class ContextMenuItem(
      *
      * @param submenu a #WebKitContextMenu
      */
-    public fun setSubmenu(submenu: ContextMenu? = null): Unit =
-        webkit_context_menu_item_set_submenu(
-            webkitContextMenuItemPointer.reinterpret(),
-            submenu?.webkitContextMenuPointer?.reinterpret()
-        )
+    public fun setSubmenu(submenu: ContextMenu? = null): Unit = webkit_context_menu_item_set_submenu(
+        webkitContextMenuItemPointer.reinterpret(),
+        submenu?.webkitContextMenuPointer?.reinterpret()
+    )
 
     public companion object : TypeCompanion<ContextMenuItem> {
         override val type: GeneratedClassKGType<ContextMenuItem> =

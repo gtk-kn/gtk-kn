@@ -36,9 +36,8 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_pixbuf_new
  * - method `pixbuf-expander-open`: Property has no getter nor setter
  * - method `texture`: Property has no getter nor setter
  */
-public open class CellRendererPixbuf(
-    pointer: CPointer<GtkCellRendererPixbuf>,
-) : CellRenderer(pointer.reinterpret()),
+public open class CellRendererPixbuf(pointer: CPointer<GtkCellRendererPixbuf>) :
+    CellRenderer(pointer.reinterpret()),
     KGTyped {
     public val gtkCellRendererPixbufPointer: CPointer<GtkCellRendererPixbuf>
         get() = gPointer.reinterpret()

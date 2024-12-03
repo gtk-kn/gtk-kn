@@ -11,9 +11,7 @@ import org.gtkkn.native.gio.GTlsDatabaseLookupFlags
  * @since 2.30
  */
 @GioVersion2_30
-public enum class TlsDatabaseLookupFlags(
-    public val nativeValue: GTlsDatabaseLookupFlags,
-) {
+public enum class TlsDatabaseLookupFlags(public val nativeValue: GTlsDatabaseLookupFlags) {
     /**
      * No lookup flags
      */
@@ -27,11 +25,10 @@ public enum class TlsDatabaseLookupFlags(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GTlsDatabaseLookupFlags): TlsDatabaseLookupFlags =
-            when (nativeValue) {
-                GTlsDatabaseLookupFlags.G_TLS_DATABASE_LOOKUP_NONE -> NONE
-                GTlsDatabaseLookupFlags.G_TLS_DATABASE_LOOKUP_KEYPAIR -> KEYPAIR
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GTlsDatabaseLookupFlags): TlsDatabaseLookupFlags = when (nativeValue) {
+            GTlsDatabaseLookupFlags.G_TLS_DATABASE_LOOKUP_NONE -> NONE
+            GTlsDatabaseLookupFlags.G_TLS_DATABASE_LOOKUP_KEYPAIR -> KEYPAIR
+            else -> error("invalid nativeValue")
+        }
     }
 }

@@ -9,9 +9,7 @@ import org.gtkkn.native.gsk.GskMaskMode
  * @since 4.10
  */
 @GskVersion4_10
-public enum class MaskMode(
-    public val nativeValue: GskMaskMode,
-) {
+public enum class MaskMode(public val nativeValue: GskMaskMode) {
     /**
      * Use the alpha channel of the mask
      */
@@ -36,13 +34,12 @@ public enum class MaskMode(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GskMaskMode): MaskMode =
-            when (nativeValue) {
-                GskMaskMode.GSK_MASK_MODE_ALPHA -> ALPHA
-                GskMaskMode.GSK_MASK_MODE_INVERTED_ALPHA -> INVERTED_ALPHA
-                GskMaskMode.GSK_MASK_MODE_LUMINANCE -> LUMINANCE
-                GskMaskMode.GSK_MASK_MODE_INVERTED_LUMINANCE -> INVERTED_LUMINANCE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GskMaskMode): MaskMode = when (nativeValue) {
+            GskMaskMode.GSK_MASK_MODE_ALPHA -> ALPHA
+            GskMaskMode.GSK_MASK_MODE_INVERTED_ALPHA -> INVERTED_ALPHA
+            GskMaskMode.GSK_MASK_MODE_LUMINANCE -> LUMINANCE
+            GskMaskMode.GSK_MASK_MODE_INVERTED_LUMINANCE -> INVERTED_LUMINANCE
+            else -> error("invalid nativeValue")
+        }
     }
 }

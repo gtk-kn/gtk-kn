@@ -50,9 +50,8 @@ import kotlin.Unit
  * The `GtkAdjustment` object does not update the value itself. Instead
  * it is left up to the owner of the `GtkAdjustment` to control the value.
  */
-public open class Adjustment(
-    pointer: CPointer<GtkAdjustment>,
-) : InitiallyUnowned(pointer.reinterpret()),
+public open class Adjustment(pointer: CPointer<GtkAdjustment>) :
+    InitiallyUnowned(pointer.reinterpret()),
     KGTyped {
     public val gtkAdjustmentPointer: CPointer<GtkAdjustment>
         get() = gPointer.reinterpret()
@@ -245,10 +244,8 @@ public open class Adjustment(
      * @param lower the lower value
      * @param upper the upper value
      */
-    public open fun clampPage(
-        lower: Double,
-        upper: Double,
-    ): Unit = gtk_adjustment_clamp_page(gtkAdjustmentPointer.reinterpret(), lower, upper)
+    public open fun clampPage(lower: Double, upper: Double): Unit =
+        gtk_adjustment_clamp_page(gtkAdjustmentPointer.reinterpret(), lower, upper)
 
     /**
      * Sets all properties of the adjustment at once.
@@ -273,23 +270,15 @@ public open class Adjustment(
         stepIncrement: Double,
         pageIncrement: Double,
         pageSize: Double,
-    ): Unit =
-        gtk_adjustment_configure(
-            gtkAdjustmentPointer.reinterpret(),
-            `value`,
-            lower,
-            upper,
-            stepIncrement,
-            pageIncrement,
-            pageSize
-        )
-
-    /**
-     * Retrieves the minimum value of the adjustment.
-     *
-     * @return The current minimum value of the adjustment
-     */
-    public open fun getLower(): Double = gtk_adjustment_get_lower(gtkAdjustmentPointer.reinterpret())
+    ): Unit = gtk_adjustment_configure(
+        gtkAdjustmentPointer.reinterpret(),
+        `value`,
+        lower,
+        upper,
+        stepIncrement,
+        pageIncrement,
+        pageSize
+    )
 
     /**
      * Gets the smaller of step increment and page increment.
@@ -298,126 +287,6 @@ public open class Adjustment(
      */
     public open fun getMinimumIncrement(): Double =
         gtk_adjustment_get_minimum_increment(gtkAdjustmentPointer.reinterpret())
-
-    /**
-     * Retrieves the page increment of the adjustment.
-     *
-     * @return The current page increment of the adjustment
-     */
-    public open fun getPageIncrement(): Double = gtk_adjustment_get_page_increment(gtkAdjustmentPointer.reinterpret())
-
-    /**
-     * Retrieves the page size of the adjustment.
-     *
-     * @return The current page size of the adjustment
-     */
-    public open fun getPageSize(): Double = gtk_adjustment_get_page_size(gtkAdjustmentPointer.reinterpret())
-
-    /**
-     * Retrieves the step increment of the adjustment.
-     *
-     * @return The current step increment of the adjustment.
-     */
-    public open fun getStepIncrement(): Double = gtk_adjustment_get_step_increment(gtkAdjustmentPointer.reinterpret())
-
-    /**
-     * Retrieves the maximum value of the adjustment.
-     *
-     * @return The current maximum value of the adjustment
-     */
-    public open fun getUpper(): Double = gtk_adjustment_get_upper(gtkAdjustmentPointer.reinterpret())
-
-    /**
-     * Gets the current value of the adjustment.
-     *
-     * @return The current value of the adjustment
-     */
-    public open fun getValue(): Double = gtk_adjustment_get_value(gtkAdjustmentPointer.reinterpret())
-
-    /**
-     * Sets the minimum value of the adjustment.
-     *
-     * When setting multiple adjustment properties via their individual
-     * setters, multiple [signal@Gtk.Adjustment::changed] signals will
-     * be emitted. However, since the emission of the
-     * [signal@Gtk.Adjustment::changed] signal is tied to the emission
-     * of the ::notify signals of the changed properties, it’s possible
-     * to compress the [signal@Gtk.Adjustment::changed] signals into one
-     * by calling g_object_freeze_notify() and g_object_thaw_notify()
-     * around the calls to the individual setters.
-     *
-     * Alternatively, using a single g_object_set() for all the properties
-     * to change, or using [method@Gtk.Adjustment.configure] has the same effect.
-     *
-     * @param lower the new minimum value
-     */
-    public open fun setLower(lower: Double): Unit = gtk_adjustment_set_lower(gtkAdjustmentPointer.reinterpret(), lower)
-
-    /**
-     * Sets the page increment of the adjustment.
-     *
-     * See [method@Gtk.Adjustment.set_lower] about how to compress
-     * multiple emissions of the [signal@Gtk.Adjustment::changed]
-     * signal when setting multiple adjustment properties.
-     *
-     * @param pageIncrement the new page increment
-     */
-    public open fun setPageIncrement(pageIncrement: Double): Unit =
-        gtk_adjustment_set_page_increment(gtkAdjustmentPointer.reinterpret(), pageIncrement)
-
-    /**
-     * Sets the page size of the adjustment.
-     *
-     * See [method@Gtk.Adjustment.set_lower] about how to compress
-     * multiple emissions of the [signal@Gtk.Adjustment::changed]
-     * signal when setting multiple adjustment properties.
-     *
-     * @param pageSize the new page size
-     */
-    public open fun setPageSize(pageSize: Double): Unit =
-        gtk_adjustment_set_page_size(gtkAdjustmentPointer.reinterpret(), pageSize)
-
-    /**
-     * Sets the step increment of the adjustment.
-     *
-     * See [method@Gtk.Adjustment.set_lower] about how to compress
-     * multiple emissions of the [signal@Gtk.Adjustment::changed]
-     * signal when setting multiple adjustment properties.
-     *
-     * @param stepIncrement the new step increment
-     */
-    public open fun setStepIncrement(stepIncrement: Double): Unit =
-        gtk_adjustment_set_step_increment(gtkAdjustmentPointer.reinterpret(), stepIncrement)
-
-    /**
-     * Sets the maximum value of the adjustment.
-     *
-     * Note that values will be restricted by `upper - page-size`
-     * if the page-size property is nonzero.
-     *
-     * See [method@Gtk.Adjustment.set_lower] about how to compress
-     * multiple emissions of the [signal@Gtk.Adjustment::changed]
-     * signal when setting multiple adjustment properties.
-     *
-     * @param upper the new maximum value
-     */
-    public open fun setUpper(upper: Double): Unit = gtk_adjustment_set_upper(gtkAdjustmentPointer.reinterpret(), upper)
-
-    /**
-     * Sets the `GtkAdjustment` value.
-     *
-     * The value is clamped to lie between [property@Gtk.Adjustment:lower]
-     * and [property@Gtk.Adjustment:upper].
-     *
-     * Note that for adjustments which are used in a `GtkScrollbar`,
-     * the effective range of allowed values goes from
-     * [property@Gtk.Adjustment:lower] to
-     * [property@Gtk.Adjustment:upper] - [property@Gtk.Adjustment:page-size].
-     *
-     * @param value the new value
-     */
-    public open fun setValue(`value`: Double): Unit =
-        gtk_adjustment_set_value(gtkAdjustmentPointer.reinterpret(), `value`)
 
     /**
      * Emitted when one or more of the `GtkAdjustment` properties have been
@@ -429,10 +298,7 @@ public open class Adjustment(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "changed",
@@ -448,10 +314,7 @@ public open class Adjustment(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectValueChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectValueChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "value-changed",
@@ -471,18 +334,18 @@ public open class Adjustment(
     }
 }
 
-private val connectChangedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectValueChangedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectValueChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

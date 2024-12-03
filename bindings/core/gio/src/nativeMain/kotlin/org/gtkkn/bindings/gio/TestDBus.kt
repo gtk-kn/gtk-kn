@@ -105,9 +105,8 @@ import kotlin.Unit
  * @since 2.34
  */
 @GioVersion2_34
-public open class TestDBus(
-    pointer: CPointer<GTestDBus>,
-) : Object(pointer.reinterpret()),
+public open class TestDBus(pointer: CPointer<GTestDBus>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioTestDBusPointer: CPointer<GTestDBus>
         get() = gPointer.reinterpret()
@@ -124,10 +123,9 @@ public open class TestDBus(
          *
          * @return the value of #GTestDBus:flags property
          */
-        get() =
-            g_test_dbus_get_flags(gioTestDBusPointer.reinterpret()).run {
-                TestDBusFlags(this)
-            }
+        get() = g_test_dbus_get_flags(gioTestDBusPointer.reinterpret()).run {
+            TestDBusFlags(this)
+        }
 
     /**
      * Create a new #GTestDBus object.
@@ -164,16 +162,6 @@ public open class TestDBus(
      */
     public open fun getBusAddress(): String? =
         g_test_dbus_get_bus_address(gioTestDBusPointer.reinterpret())?.toKString()
-
-    /**
-     * Get the flags of the #GTestDBus object.
-     *
-     * @return the value of #GTestDBus:flags property
-     */
-    public open fun getFlags(): TestDBusFlags =
-        g_test_dbus_get_flags(gioTestDBusPointer.reinterpret()).run {
-            TestDBusFlags(this)
-        }
 
     /**
      * Stop the session bus started by g_test_dbus_up().

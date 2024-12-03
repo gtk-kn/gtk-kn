@@ -16,9 +16,7 @@ import kotlin.String
  * A structure which contains a single enum value, its name, and its
  * nickname.
  */
-public class EnumValue(
-    pointer: CPointer<GEnumValue>,
-) : Record {
+public class EnumValue(pointer: CPointer<GEnumValue>) : Record {
     public val gobjectEnumValuePointer: CPointer<GEnumValue> = pointer
 
     /**

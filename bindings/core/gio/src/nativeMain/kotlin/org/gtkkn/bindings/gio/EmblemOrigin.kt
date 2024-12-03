@@ -10,9 +10,7 @@ import org.gtkkn.native.gio.GEmblemOrigin
  * @since 2.18
  */
 @GioVersion2_18
-public enum class EmblemOrigin(
-    public val nativeValue: GEmblemOrigin,
-) {
+public enum class EmblemOrigin(public val nativeValue: GEmblemOrigin) {
     /**
      * Emblem of unknown origin
      */
@@ -35,13 +33,12 @@ public enum class EmblemOrigin(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GEmblemOrigin): EmblemOrigin =
-            when (nativeValue) {
-                GEmblemOrigin.G_EMBLEM_ORIGIN_UNKNOWN -> UNKNOWN
-                GEmblemOrigin.G_EMBLEM_ORIGIN_DEVICE -> DEVICE
-                GEmblemOrigin.G_EMBLEM_ORIGIN_LIVEMETADATA -> LIVEMETADATA
-                GEmblemOrigin.G_EMBLEM_ORIGIN_TAG -> TAG
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GEmblemOrigin): EmblemOrigin = when (nativeValue) {
+            GEmblemOrigin.G_EMBLEM_ORIGIN_UNKNOWN -> UNKNOWN
+            GEmblemOrigin.G_EMBLEM_ORIGIN_DEVICE -> DEVICE
+            GEmblemOrigin.G_EMBLEM_ORIGIN_LIVEMETADATA -> LIVEMETADATA
+            GEmblemOrigin.G_EMBLEM_ORIGIN_TAG -> TAG
+            else -> error("invalid nativeValue")
+        }
     }
 }

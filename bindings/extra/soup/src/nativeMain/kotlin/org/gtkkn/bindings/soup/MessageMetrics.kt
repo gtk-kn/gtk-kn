@@ -43,9 +43,7 @@ import kotlin.Unit
  * being loaded. You can connect to different [class@Message] signals to get the
  * final result of every value.
  */
-public class MessageMetrics(
-    pointer: CPointer<SoupMessageMetrics>,
-) : Record {
+public class MessageMetrics(pointer: CPointer<SoupMessageMetrics>) : Record {
     public val soupMessageMetricsPointer: CPointer<SoupMessageMetrics> = pointer
 
     /**
@@ -53,10 +51,9 @@ public class MessageMetrics(
      *
      * @return a copy of @metrics
      */
-    public fun copy(): MessageMetrics =
-        soup_message_metrics_copy(soupMessageMetricsPointer.reinterpret())!!.run {
-            MessageMetrics(reinterpret())
-        }
+    public fun copy(): MessageMetrics = soup_message_metrics_copy(soupMessageMetricsPointer.reinterpret())!!.run {
+        MessageMetrics(reinterpret())
+    }
 
     /**
      * Frees @metrics.

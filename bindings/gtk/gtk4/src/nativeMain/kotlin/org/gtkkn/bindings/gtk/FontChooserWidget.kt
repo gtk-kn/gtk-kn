@@ -37,9 +37,8 @@ import org.gtkkn.native.gtk.gtk_font_chooser_widget_new
  *
  * - method `tweak-action`: Property has no getter nor setter
  */
-public open class FontChooserWidget(
-    pointer: CPointer<GtkFontChooserWidget>,
-) : Widget(pointer.reinterpret()),
+public open class FontChooserWidget(pointer: CPointer<GtkFontChooserWidget>) :
+    Widget(pointer.reinterpret()),
     FontChooser,
     KGTyped {
     public val gtkFontChooserWidgetPointer: CPointer<GtkFontChooserWidget>

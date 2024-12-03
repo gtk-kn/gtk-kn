@@ -42,9 +42,7 @@ import kotlin.Unit
  * @since 2.30
  */
 @GLibVersion2_30
-public class Hmac(
-    pointer: CPointer<GHmac>,
-) : Record {
+public class Hmac(pointer: CPointer<GHmac>) : Record {
     public val glibHmacPointer: CPointer<GHmac> = pointer
 
     /**
@@ -57,10 +55,9 @@ public class Hmac(
      * @since 2.30
      */
     @GLibVersion2_30
-    public fun copy(): Hmac =
-        g_hmac_copy(glibHmacPointer.reinterpret())!!.run {
-            Hmac(reinterpret())
-        }
+    public fun copy(): Hmac = g_hmac_copy(glibHmacPointer.reinterpret())!!.run {
+        Hmac(reinterpret())
+    }
 
     /**
      * Gets the HMAC as a hexadecimal string.
@@ -88,10 +85,9 @@ public class Hmac(
      * @since 2.30
      */
     @GLibVersion2_30
-    public fun ref(): Hmac =
-        g_hmac_ref(glibHmacPointer.reinterpret())!!.run {
-            Hmac(reinterpret())
-        }
+    public fun ref(): Hmac = g_hmac_ref(glibHmacPointer.reinterpret())!!.run {
+        Hmac(reinterpret())
+    }
 
     /**
      * Atomically decrements the reference count of @hmac by one.

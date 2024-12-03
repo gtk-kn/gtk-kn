@@ -8,9 +8,7 @@ import org.gtkkn.native.gdkpixbuf.GdkPixbufRotation
  *
  * To make them easier to use, their numerical values are the actual degrees.
  */
-public enum class PixbufRotation(
-    public val nativeValue: GdkPixbufRotation,
-) {
+public enum class PixbufRotation(public val nativeValue: GdkPixbufRotation) {
     /**
      * No rotation.
      */
@@ -33,13 +31,12 @@ public enum class PixbufRotation(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GdkPixbufRotation): PixbufRotation =
-            when (nativeValue) {
-                GdkPixbufRotation.GDK_PIXBUF_ROTATE_NONE -> NONE
-                GdkPixbufRotation.GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE -> COUNTERCLOCKWISE
-                GdkPixbufRotation.GDK_PIXBUF_ROTATE_UPSIDEDOWN -> UPSIDEDOWN
-                GdkPixbufRotation.GDK_PIXBUF_ROTATE_CLOCKWISE -> CLOCKWISE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GdkPixbufRotation): PixbufRotation = when (nativeValue) {
+            GdkPixbufRotation.GDK_PIXBUF_ROTATE_NONE -> NONE
+            GdkPixbufRotation.GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE -> COUNTERCLOCKWISE
+            GdkPixbufRotation.GDK_PIXBUF_ROTATE_UPSIDEDOWN -> UPSIDEDOWN
+            GdkPixbufRotation.GDK_PIXBUF_ROTATE_CLOCKWISE -> CLOCKWISE
+            else -> error("invalid nativeValue")
+        }
     }
 }

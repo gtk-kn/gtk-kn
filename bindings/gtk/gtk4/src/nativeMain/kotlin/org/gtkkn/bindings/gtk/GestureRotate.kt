@@ -28,9 +28,8 @@ import kotlin.Unit
  * Whenever the angle between both handled sequences changes, the
  * [signal@Gtk.GestureRotate::angle-changed] signal is emitted.
  */
-public open class GestureRotate(
-    pointer: CPointer<GtkGestureRotate>,
-) : Gesture(pointer.reinterpret()),
+public open class GestureRotate(pointer: CPointer<GtkGestureRotate>) :
+    Gesture(pointer.reinterpret()),
     KGTyped {
     public val gtkGestureRotatePointer: CPointer<GtkGestureRotate>
         get() = gPointer.reinterpret()
@@ -63,15 +62,14 @@ public open class GestureRotate(
     public fun connectAngleChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (angle: Double, angleDelta: Double) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "angle-changed",
-            connectAngleChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "angle-changed",
+        connectAngleChangedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<GestureRotate> {
         override val type: GeneratedClassKGType<GestureRotate> =
@@ -91,4 +89,5 @@ private val connectAngleChangedFunc: CPointer<CFunction<(Double, Double) -> Unit
             userData: COpaquePointer,
         ->
         userData.asStableRef<(angle: Double, angleDelta: Double) -> Unit>().get().invoke(angle, angleDelta)
-    }.reinterpret()
+    }
+        .reinterpret()

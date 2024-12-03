@@ -25,9 +25,7 @@ import kotlin.Unit
 /**
  * Carries details to be shown in user-facing dialogs.
  */
-public class ScriptDialog(
-    pointer: CPointer<WebKitScriptDialog>,
-) : Record {
+public class ScriptDialog(pointer: CPointer<WebKitScriptDialog>) : Record {
     public val webkitScriptDialogPointer: CPointer<WebKitScriptDialog> = pointer
 
     /**
@@ -114,10 +112,9 @@ public class ScriptDialog(
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun ref(): ScriptDialog =
-        webkit_script_dialog_ref(webkitScriptDialogPointer.reinterpret())!!.run {
-            ScriptDialog(reinterpret())
-        }
+    public fun ref(): ScriptDialog = webkit_script_dialog_ref(webkitScriptDialogPointer.reinterpret())!!.run {
+        ScriptDialog(reinterpret())
+    }
 
     /**
      * Atomically decrements the reference count of @dialog by one.

@@ -7,9 +7,7 @@ import org.gtkkn.native.gtksource.GtkSourceGutterRendererAlignmentMode
  * The alignment mode of the renderer, when a cell spans multiple lines (due to
  * text wrapping).
  */
-public enum class GutterRendererAlignmentMode(
-    public val nativeValue: GtkSourceGutterRendererAlignmentMode,
-) {
+public enum class GutterRendererAlignmentMode(public val nativeValue: GtkSourceGutterRendererAlignmentMode) {
     /**
      * The full cell.
      */

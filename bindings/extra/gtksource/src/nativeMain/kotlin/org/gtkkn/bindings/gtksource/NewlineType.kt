@@ -3,9 +3,7 @@ package org.gtkkn.bindings.gtksource
 
 import org.gtkkn.native.gtksource.GtkSourceNewlineType
 
-public enum class NewlineType(
-    public val nativeValue: GtkSourceNewlineType,
-) {
+public enum class NewlineType(public val nativeValue: GtkSourceNewlineType) {
     /**
      * line feed, used on UNIX.
      */
@@ -24,12 +22,11 @@ public enum class NewlineType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkSourceNewlineType): NewlineType =
-            when (nativeValue) {
-                GtkSourceNewlineType.GTK_SOURCE_NEWLINE_TYPE_LF -> LF
-                GtkSourceNewlineType.GTK_SOURCE_NEWLINE_TYPE_CR -> CR
-                GtkSourceNewlineType.GTK_SOURCE_NEWLINE_TYPE_CR_LF -> CR_LF
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkSourceNewlineType): NewlineType = when (nativeValue) {
+            GtkSourceNewlineType.GTK_SOURCE_NEWLINE_TYPE_LF -> LF
+            GtkSourceNewlineType.GTK_SOURCE_NEWLINE_TYPE_CR -> CR
+            GtkSourceNewlineType.GTK_SOURCE_NEWLINE_TYPE_CR_LF -> CR_LF
+            else -> error("invalid nativeValue")
+        }
     }
 }

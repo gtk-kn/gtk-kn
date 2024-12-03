@@ -84,9 +84,8 @@ import kotlin.Unit
  *
  * `GtkProgressBar` uses the %GTK_ACCESSIBLE_ROLE_PROGRESS_BAR role.
  */
-public open class ProgressBar(
-    pointer: CPointer<GtkProgressBar>,
-) : Widget(pointer.reinterpret()),
+public open class ProgressBar(pointer: CPointer<GtkProgressBar>) :
+    Widget(pointer.reinterpret()),
     AccessibleRange,
     Orientable,
     KGTyped {
@@ -127,10 +126,9 @@ public open class ProgressBar(
          *
          * @return `PangoEllipsizeMode`
          */
-        get() =
-            gtk_progress_bar_get_ellipsize(gtkProgressBarPointer.reinterpret()).run {
-                EllipsizeMode.fromNativeValue(this)
-            }
+        get() = gtk_progress_bar_get_ellipsize(gtkProgressBarPointer.reinterpret()).run {
+            EllipsizeMode.fromNativeValue(this)
+        }
 
         /**
          * Sets the mode used to ellipsize the text.
@@ -284,62 +282,6 @@ public open class ProgressBar(
     public constructor() : this(gtk_progress_bar_new()!!.reinterpret())
 
     /**
-     * Returns the ellipsizing position of the progress bar.
-     *
-     * See [method@Gtk.ProgressBar.set_ellipsize].
-     *
-     * @return `PangoEllipsizeMode`
-     */
-    public open fun getEllipsize(): EllipsizeMode =
-        gtk_progress_bar_get_ellipsize(gtkProgressBarPointer.reinterpret()).run {
-            EllipsizeMode.fromNativeValue(this)
-        }
-
-    /**
-     * Returns the current fraction of the task that’s been completed.
-     *
-     * @return a fraction from 0.0 to 1.0
-     */
-    public open fun getFraction(): Double = gtk_progress_bar_get_fraction(gtkProgressBarPointer.reinterpret())
-
-    /**
-     * Returns whether the progress bar is inverted.
-     *
-     * @return true if the progress bar is inverted
-     */
-    public open fun getInverted(): Boolean =
-        gtk_progress_bar_get_inverted(gtkProgressBarPointer.reinterpret()).asBoolean()
-
-    /**
-     * Retrieves the pulse step.
-     *
-     * See [method@Gtk.ProgressBar.set_pulse_step].
-     *
-     * @return a fraction from 0.0 to 1.0
-     */
-    public open fun getPulseStep(): Double = gtk_progress_bar_get_pulse_step(gtkProgressBarPointer.reinterpret())
-
-    /**
-     * Returns whether the `GtkProgressBar` shows text.
-     *
-     * See [method@Gtk.ProgressBar.set_show_text].
-     *
-     * @return true if text is shown in the progress bar
-     */
-    public open fun getShowText(): Boolean =
-        gtk_progress_bar_get_show_text(gtkProgressBarPointer.reinterpret()).asBoolean()
-
-    /**
-     * Retrieves the text that is displayed with the progress bar.
-     *
-     * The return value is a reference to the text, not a copy of it,
-     * so will become invalid if you change the text in the progress bar.
-     *
-     * @return the text
-     */
-    public open fun getText(): String? = gtk_progress_bar_get_text(gtkProgressBarPointer.reinterpret())?.toKString()
-
-    /**
      * Indicates that some progress has been made, but you don’t know how much.
      *
      * Causes the progress bar to enter “activity mode,” where a block
@@ -348,85 +290,6 @@ public open class ProgressBar(
      * per pulse is determined by [method@Gtk.ProgressBar.set_pulse_step]).
      */
     public open fun pulse(): Unit = gtk_progress_bar_pulse(gtkProgressBarPointer.reinterpret())
-
-    /**
-     * Sets the mode used to ellipsize the text.
-     *
-     * The text is ellipsized if there is not enough space
-     * to render the entire string.
-     *
-     * @param mode a `PangoEllipsizeMode`
-     */
-    public open fun setEllipsize(mode: EllipsizeMode): Unit =
-        gtk_progress_bar_set_ellipsize(gtkProgressBarPointer.reinterpret(), mode.nativeValue)
-
-    /**
-     * Causes the progress bar to “fill in” the given fraction
-     * of the bar.
-     *
-     * The fraction should be between 0.0 and 1.0, inclusive.
-     *
-     * @param fraction fraction of the task that’s been completed
-     */
-    public open fun setFraction(fraction: Double): Unit =
-        gtk_progress_bar_set_fraction(gtkProgressBarPointer.reinterpret(), fraction)
-
-    /**
-     * Sets whether the progress bar is inverted.
-     *
-     * Progress bars normally grow from top to bottom or left to right.
-     * Inverted progress bars grow in the opposite direction.
-     *
-     * @param inverted true to invert the progress bar
-     */
-    public open fun setInverted(inverted: Boolean): Unit =
-        gtk_progress_bar_set_inverted(gtkProgressBarPointer.reinterpret(), inverted.asGBoolean())
-
-    /**
-     * Sets the fraction of total progress bar length to move the
-     * bouncing block.
-     *
-     * The bouncing block is moved when [method@Gtk.ProgressBar.pulse]
-     * is called.
-     *
-     * @param fraction fraction between 0.0 and 1.0
-     */
-    public open fun setPulseStep(fraction: Double): Unit =
-        gtk_progress_bar_set_pulse_step(gtkProgressBarPointer.reinterpret(), fraction)
-
-    /**
-     * Sets whether the progress bar will show text next to the bar.
-     *
-     * The shown text is either the value of the [property@Gtk.ProgressBar:text]
-     * property or, if that is null, the [property@Gtk.ProgressBar:fraction] value,
-     * as a percentage.
-     *
-     * To make a progress bar that is styled and sized suitably for containing
-     * text (even if the actual text is blank), set [property@Gtk.ProgressBar:show-text]
-     * to true and [property@Gtk.ProgressBar:text] to the empty string (not null).
-     *
-     * @param showText whether to show text
-     */
-    public open fun setShowText(showText: Boolean): Unit =
-        gtk_progress_bar_set_show_text(gtkProgressBarPointer.reinterpret(), showText.asGBoolean())
-
-    /**
-     * Causes the given @text to appear next to the progress bar.
-     *
-     * If @text is null and [property@Gtk.ProgressBar:show-text] is true,
-     * the current value of [property@Gtk.ProgressBar:fraction] will be displayed
-     * as a percentage.
-     *
-     * If @text is non-null and [property@Gtk.ProgressBar:show-text] is true,
-     * the text will be displayed. In this case, it will not display the progress
-     * percentage. If @text is the empty string, the progress bar will still
-     * be styled and sized suitably for containing text, as long as
-     * [property@Gtk.ProgressBar:show-text] is true.
-     *
-     * @param text a UTF-8 string
-     */
-    public open fun setText(text: String? = null): Unit =
-        gtk_progress_bar_set_text(gtkProgressBarPointer.reinterpret(), text)
 
     public companion object : TypeCompanion<ProgressBar> {
         override val type: GeneratedClassKGType<ProgressBar> =

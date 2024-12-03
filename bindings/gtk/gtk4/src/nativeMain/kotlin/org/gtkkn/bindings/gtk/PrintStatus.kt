@@ -7,9 +7,7 @@ import org.gtkkn.native.gtk.GtkPrintStatus
  * The status gives a rough indication of the completion of a running
  * print operation.
  */
-public enum class PrintStatus(
-    public val nativeValue: GtkPrintStatus,
-) {
+public enum class PrintStatus(public val nativeValue: GtkPrintStatus) {
     /**
      * The printing has not started yet; this
      *   status is set initially, and while the print dialog is shown.
@@ -63,18 +61,17 @@ public enum class PrintStatus(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkPrintStatus): PrintStatus =
-            when (nativeValue) {
-                GtkPrintStatus.GTK_PRINT_STATUS_INITIAL -> INITIAL
-                GtkPrintStatus.GTK_PRINT_STATUS_PREPARING -> PREPARING
-                GtkPrintStatus.GTK_PRINT_STATUS_GENERATING_DATA -> GENERATING_DATA
-                GtkPrintStatus.GTK_PRINT_STATUS_SENDING_DATA -> SENDING_DATA
-                GtkPrintStatus.GTK_PRINT_STATUS_PENDING -> PENDING
-                GtkPrintStatus.GTK_PRINT_STATUS_PENDING_ISSUE -> PENDING_ISSUE
-                GtkPrintStatus.GTK_PRINT_STATUS_PRINTING -> PRINTING
-                GtkPrintStatus.GTK_PRINT_STATUS_FINISHED -> FINISHED
-                GtkPrintStatus.GTK_PRINT_STATUS_FINISHED_ABORTED -> FINISHED_ABORTED
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkPrintStatus): PrintStatus = when (nativeValue) {
+            GtkPrintStatus.GTK_PRINT_STATUS_INITIAL -> INITIAL
+            GtkPrintStatus.GTK_PRINT_STATUS_PREPARING -> PREPARING
+            GtkPrintStatus.GTK_PRINT_STATUS_GENERATING_DATA -> GENERATING_DATA
+            GtkPrintStatus.GTK_PRINT_STATUS_SENDING_DATA -> SENDING_DATA
+            GtkPrintStatus.GTK_PRINT_STATUS_PENDING -> PENDING
+            GtkPrintStatus.GTK_PRINT_STATUS_PENDING_ISSUE -> PENDING_ISSUE
+            GtkPrintStatus.GTK_PRINT_STATUS_PRINTING -> PRINTING
+            GtkPrintStatus.GTK_PRINT_STATUS_FINISHED -> FINISHED
+            GtkPrintStatus.GTK_PRINT_STATUS_FINISHED_ABORTED -> FINISHED_ABORTED
+            else -> error("invalid nativeValue")
+        }
     }
 }

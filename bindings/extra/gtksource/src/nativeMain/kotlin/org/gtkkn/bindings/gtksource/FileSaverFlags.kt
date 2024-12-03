@@ -11,9 +11,7 @@ import org.gtkkn.native.gtksource.GtkSourceFileSaverFlags
 /**
  * Flags to define the behavior of a [flags@FileSaverFlags].
  */
-public class FileSaverFlags(
-    public val mask: GtkSourceFileSaverFlags,
-) : Bitfield<FileSaverFlags> {
+public class FileSaverFlags(public val mask: GtkSourceFileSaverFlags) : Bitfield<FileSaverFlags> {
     override infix fun or(other: FileSaverFlags): FileSaverFlags = FileSaverFlags(mask or other.mask)
 
     public companion object {

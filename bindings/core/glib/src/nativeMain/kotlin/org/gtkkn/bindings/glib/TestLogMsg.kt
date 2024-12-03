@@ -18,16 +18,13 @@ import kotlin.Unit
  * - field `strings`: Unsupported string with cType gchar**
  * - field `nums`: long double
  */
-public class TestLogMsg(
-    pointer: CPointer<GTestLogMsg>,
-) : Record {
+public class TestLogMsg(pointer: CPointer<GTestLogMsg>) : Record {
     public val glibTestLogMsgPointer: CPointer<GTestLogMsg> = pointer
 
     public var logType: TestLogType
-        get() =
-            glibTestLogMsgPointer.pointed.log_type.run {
-                TestLogType.fromNativeValue(this)
-            }
+        get() = glibTestLogMsgPointer.pointed.log_type.run {
+            TestLogType.fromNativeValue(this)
+        }
         set(`value`) {
             glibTestLogMsgPointer.pointed.log_type = value.nativeValue
         }

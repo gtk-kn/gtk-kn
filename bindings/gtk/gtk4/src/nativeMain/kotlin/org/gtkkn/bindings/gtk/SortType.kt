@@ -6,9 +6,7 @@ import org.gtkkn.native.gtk.GtkSortType
 /**
  * Determines the direction of a sort.
  */
-public enum class SortType(
-    public val nativeValue: GtkSortType,
-) {
+public enum class SortType(public val nativeValue: GtkSortType) {
     /**
      * Sorting is in ascending order.
      */
@@ -21,11 +19,10 @@ public enum class SortType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkSortType): SortType =
-            when (nativeValue) {
-                GtkSortType.GTK_SORT_ASCENDING -> ASCENDING
-                GtkSortType.GTK_SORT_DESCENDING -> DESCENDING
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkSortType): SortType = when (nativeValue) {
+            GtkSortType.GTK_SORT_ASCENDING -> ASCENDING
+            GtkSortType.GTK_SORT_DESCENDING -> DESCENDING
+            else -> error("invalid nativeValue")
+        }
     }
 }

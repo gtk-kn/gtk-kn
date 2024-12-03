@@ -10,9 +10,7 @@ import org.gtkkn.native.gtk.GtkAccessibleTextGranularity
  * @since 4.14
  */
 @GtkVersion4_14
-public enum class AccessibleTextGranularity(
-    public val nativeValue: GtkAccessibleTextGranularity,
-) {
+public enum class AccessibleTextGranularity(public val nativeValue: GtkAccessibleTextGranularity) {
     /**
      * Use the boundary between
      *   characters (including non-printing characters)

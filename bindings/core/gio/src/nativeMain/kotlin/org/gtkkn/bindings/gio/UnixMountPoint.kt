@@ -39,9 +39,7 @@ import kotlin.Unit
  *
  * - parameter `time_read`: time_read: Out parameter is not supported
  */
-public class UnixMountPoint(
-    pointer: CPointer<GUnixMountPoint>,
-) : Record {
+public class UnixMountPoint(pointer: CPointer<GUnixMountPoint>) : Record {
     public val gioUnixMountPointPointer: CPointer<GUnixMountPoint> = pointer
 
     /**
@@ -51,11 +49,10 @@ public class UnixMountPoint(
      * @return 1, 0 or -1 if @mount1 is greater than, equal to,
      * or less than @mount2, respectively.
      */
-    public fun compare(mount2: UnixMountPoint): Int =
-        g_unix_mount_point_compare(
-            gioUnixMountPointPointer.reinterpret(),
-            mount2.gioUnixMountPointPointer.reinterpret()
-        )
+    public fun compare(mount2: UnixMountPoint): Int = g_unix_mount_point_compare(
+        gioUnixMountPointPointer.reinterpret(),
+        mount2.gioUnixMountPointPointer.reinterpret()
+    )
 
     /**
      * Makes a copy of @mount_point.
@@ -64,10 +61,9 @@ public class UnixMountPoint(
      * @since 2.54
      */
     @GioVersion2_54
-    public fun copy(): UnixMountPoint =
-        g_unix_mount_point_copy(gioUnixMountPointPointer.reinterpret())!!.run {
-            UnixMountPoint(reinterpret())
-        }
+    public fun copy(): UnixMountPoint = g_unix_mount_point_copy(gioUnixMountPointPointer.reinterpret())!!.run {
+        UnixMountPoint(reinterpret())
+    }
 
     /**
      * Frees a unix mount point.
@@ -88,9 +84,8 @@ public class UnixMountPoint(
      *
      * @return a string containing the file system type.
      */
-    public fun getFsType(): String =
-        g_unix_mount_point_get_fs_type(gioUnixMountPointPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getFsType(): String = g_unix_mount_point_get_fs_type(gioUnixMountPointPointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Gets the mount path for a unix mount point.
@@ -124,10 +119,9 @@ public class UnixMountPoint(
      *
      * @return a #GIcon
      */
-    public fun guessIcon(): Icon =
-        g_unix_mount_point_guess_icon(gioUnixMountPointPointer.reinterpret())!!.run {
-            Icon.wrap(reinterpret())
-        }
+    public fun guessIcon(): Icon = g_unix_mount_point_guess_icon(gioUnixMountPointPointer.reinterpret())!!.run {
+        Icon.wrap(reinterpret())
+    }
 
     /**
      * Guesses the name of a Unix mount point.
@@ -136,9 +130,8 @@ public class UnixMountPoint(
      * @return A newly allocated string that must
      *     be freed with g_free()
      */
-    public fun guessName(): String =
-        g_unix_mount_point_guess_name(gioUnixMountPointPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun guessName(): String = g_unix_mount_point_guess_name(gioUnixMountPointPointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Guesses the symbolic icon of a Unix mount point.

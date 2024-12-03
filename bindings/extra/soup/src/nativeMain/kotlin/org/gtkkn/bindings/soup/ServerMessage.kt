@@ -78,9 +78,8 @@ import kotlin.Unit
  *
  * - parameter `resp_body`: Array parameter of type guint8 is not supported
  */
-public class ServerMessage(
-    pointer: CPointer<SoupServerMessage>,
-) : Object(pointer.reinterpret()),
+public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val soupServerMessagePointer: CPointer<SoupServerMessage>
         get() = gPointer.reinterpret()
@@ -101,10 +100,9 @@ public class ServerMessage(
          *    or null if @msg's connection is not SSL.
          * @since 3.2
          */
-        get() =
-            soup_server_message_get_tls_peer_certificate(soupServerMessagePointer.reinterpret())?.run {
-                TlsCertificate(reinterpret())
-            }
+        get() = soup_server_message_get_tls_peer_certificate(soupServerMessagePointer.reinterpret())?.run {
+            TlsCertificate(reinterpret())
+        }
 
     /**
      * The verification errors on #SoupServerMessage:tls-peer-certificate
@@ -121,10 +119,9 @@ public class ServerMessage(
          * @return a #GTlsCertificateFlags with @msg's TLS peer certificate errors.
          * @since 3.2
          */
-        get() =
-            soup_server_message_get_tls_peer_certificate_errors(soupServerMessagePointer.reinterpret()).run {
-                TlsCertificateFlags(this)
-            }
+        get() = soup_server_message_get_tls_peer_certificate_errors(soupServerMessagePointer.reinterpret()).run {
+            TlsCertificateFlags(this)
+        }
 
     /**
      * Get the HTTP version of @msg.
@@ -154,9 +151,8 @@ public class ServerMessage(
      *
      * @return the HTTP method.
      */
-    public fun getMethod(): String =
-        soup_server_message_get_method(soupServerMessagePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getMethod(): String = soup_server_message_get_method(soupServerMessagePointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Get the HTTP reason phrase of @msg.
@@ -243,10 +239,9 @@ public class ServerMessage(
      * @return the #GSocket that @msg is
      *   associated with, null if you used [method@Server.accept_iostream].
      */
-    public fun getSocket(): Socket? =
-        soup_server_message_get_socket(soupServerMessagePointer.reinterpret())?.run {
-            Socket(reinterpret())
-        }
+    public fun getSocket(): Socket? = soup_server_message_get_socket(soupServerMessagePointer.reinterpret())?.run {
+        Socket(reinterpret())
+    }
 
     /**
      * Get the HTTP status code of @msg.
@@ -256,43 +251,13 @@ public class ServerMessage(
     public fun getStatus(): UInt = soup_server_message_get_status(soupServerMessagePointer.reinterpret())
 
     /**
-     * Gets the peer's #GTlsCertificate associated with @msg's connection.
-     * Note that this is not set yet during the emission of
-     * SoupServerMessage::accept-certificate signal.
-     *
-     * @return @msg's TLS peer certificate,
-     *    or null if @msg's connection is not SSL.
-     * @since 3.2
-     */
-    @SoupVersion3_2
-    public fun getTlsPeerCertificate(): TlsCertificate? =
-        soup_server_message_get_tls_peer_certificate(soupServerMessagePointer.reinterpret())?.run {
-            TlsCertificate(reinterpret())
-        }
-
-    /**
-     * Gets the errors associated with validating @msg's TLS peer certificate.
-     * Note that this is not set yet during the emission of
-     * SoupServerMessage::accept-certificate signal.
-     *
-     * @return a #GTlsCertificateFlags with @msg's TLS peer certificate errors.
-     * @since 3.2
-     */
-    @SoupVersion3_2
-    public fun getTlsPeerCertificateErrors(): TlsCertificateFlags =
-        soup_server_message_get_tls_peer_certificate_errors(soupServerMessagePointer.reinterpret()).run {
-            TlsCertificateFlags(this)
-        }
-
-    /**
      * Get @msg's URI.
      *
      * @return a #GUri
      */
-    public fun getUri(): Uri =
-        soup_server_message_get_uri(soupServerMessagePointer.reinterpret())!!.run {
-            Uri(reinterpret())
-        }
+    public fun getUri(): Uri = soup_server_message_get_uri(soupServerMessagePointer.reinterpret())!!.run {
+        Uri(reinterpret())
+    }
 
     /**
      * Gets if @msg represents an OPTIONS message with the path `*`.
@@ -335,10 +300,8 @@ public class ServerMessage(
      * @param statusCode a 3xx status code
      * @param redirectUri the URI to redirect @msg to
      */
-    public fun setRedirect(
-        statusCode: UInt,
-        redirectUri: String,
-    ): Unit = soup_server_message_set_redirect(soupServerMessagePointer.reinterpret(), statusCode, redirectUri)
+    public fun setRedirect(statusCode: UInt, redirectUri: String): Unit =
+        soup_server_message_set_redirect(soupServerMessagePointer.reinterpret(), statusCode, redirectUri)
 
     /**
      * Sets @msg's status code to @status_code.
@@ -349,10 +312,8 @@ public class ServerMessage(
      * @param statusCode an HTTP status code
      * @param reasonPhrase a reason phrase
      */
-    public fun setStatus(
-        statusCode: UInt,
-        reasonPhrase: String? = null,
-    ): Unit = soup_server_message_set_status(soupServerMessagePointer.reinterpret(), statusCode, reasonPhrase)
+    public fun setStatus(statusCode: UInt, reasonPhrase: String? = null): Unit =
+        soup_server_message_set_status(soupServerMessagePointer.reinterpret(), statusCode, reasonPhrase)
 
     /**
      * "Steals" the HTTP connection associated with @msg from its #SoupServer. This
@@ -402,15 +363,14 @@ public class ServerMessage(
     public fun connectAcceptCertificate(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (tlsPeerCertificate: TlsCertificate, tlsPeerErrors: TlsCertificateFlags) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "accept-certificate",
-            connectAcceptCertificateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "accept-certificate",
+        connectAcceptCertificateFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted when the @msg's socket is connected and the TLS handshake completed.
@@ -418,10 +378,7 @@ public class ServerMessage(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectConnected(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectConnected(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "connected",
@@ -437,10 +394,7 @@ public class ServerMessage(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectDisconnected(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectDisconnected(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "disconnected",
@@ -457,10 +411,7 @@ public class ServerMessage(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectFinished(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectFinished(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "finished",
@@ -476,10 +427,7 @@ public class ServerMessage(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectGotBody(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectGotBody(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "got-body",
@@ -498,10 +446,7 @@ public class ServerMessage(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `chunk` the just-read chunk
      */
-    public fun connectGotChunk(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (chunk: Bytes) -> Unit,
-    ): ULong =
+    public fun connectGotChunk(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (chunk: Bytes) -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "got-chunk",
@@ -517,10 +462,7 @@ public class ServerMessage(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectGotHeaders(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectGotHeaders(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "got-headers",
@@ -537,10 +479,7 @@ public class ServerMessage(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectWroteBody(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectWroteBody(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "wrote-body",
@@ -560,15 +499,14 @@ public class ServerMessage(
     public fun connectWroteBodyData(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (chunkSize: UInt) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "wrote-body-data",
-            connectWroteBodyDataFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "wrote-body-data",
+        connectWroteBodyDataFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted immediately after writing a body chunk for a message.
@@ -583,10 +521,7 @@ public class ServerMessage(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectWroteChunk(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectWroteChunk(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "wrote-chunk",
@@ -603,10 +538,7 @@ public class ServerMessage(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectWroteHeaders(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectWroteHeaders(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "wrote-headers",
@@ -622,10 +554,7 @@ public class ServerMessage(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectWroteInformational(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectWroteInformational(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "wrote-informational",
@@ -653,114 +582,112 @@ private val connectAcceptCertificateFunc:
             tlsPeerErrors: GTlsCertificateFlags,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<
-                (
-                    tlsPeerCertificate: TlsCertificate,
-                    tlsPeerErrors: TlsCertificateFlags,
-                ) -> Boolean
-            >()
-            .get()
-            .invoke(
-                tlsPeerCertificate!!.run {
-                    TlsCertificate(reinterpret())
-                },
-                tlsPeerErrors.run {
-                    TlsCertificateFlags(this)
-                }
-            ).asGBoolean()
-    }.reinterpret()
-
-private val connectConnectedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
-
-private val connectDisconnectedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
-
-private val connectFinishedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
-
-private val connectGotBodyFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
-
-private val connectGotChunkFunc: CPointer<CFunction<(CPointer<GBytes>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            chunk: CPointer<GBytes>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(chunk: Bytes) -> Unit>().get().invoke(
-            chunk!!.run {
-                Bytes(reinterpret())
+        userData.asStableRef<
+            (
+                tlsPeerCertificate: TlsCertificate,
+                tlsPeerErrors: TlsCertificateFlags,
+            ) -> Boolean
+            >().get().invoke(
+            tlsPeerCertificate!!.run {
+                TlsCertificate(reinterpret())
+            },
+            tlsPeerErrors.run {
+                TlsCertificateFlags(this)
             }
-        )
-    }.reinterpret()
+        ).asGBoolean()
+    }
+        .reinterpret()
 
-private val connectGotHeadersFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectConnectedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectWroteBodyFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectDisconnectedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectWroteBodyDataFunc: CPointer<CFunction<(UInt) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            chunkSize: UInt,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(chunkSize: UInt) -> Unit>().get().invoke(chunkSize)
-    }.reinterpret()
+private val connectFinishedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectWroteChunkFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectGotBodyFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectWroteHeadersFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectGotChunkFunc: CPointer<CFunction<(CPointer<GBytes>) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        chunk: CPointer<GBytes>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(chunk: Bytes) -> Unit>().get().invoke(
+        chunk!!.run {
+            Bytes(reinterpret())
+        }
+    )
+}
+    .reinterpret()
 
-private val connectWroteInformationalFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectGotHeadersFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
+
+private val connectWroteBodyFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
+
+private val connectWroteBodyDataFunc: CPointer<CFunction<(UInt) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        chunkSize: UInt,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(chunkSize: UInt) -> Unit>().get().invoke(chunkSize)
+}
+    .reinterpret()
+
+private val connectWroteChunkFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
+
+private val connectWroteHeadersFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
+
+private val connectWroteInformationalFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

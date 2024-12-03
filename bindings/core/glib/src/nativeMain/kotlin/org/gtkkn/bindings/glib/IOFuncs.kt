@@ -23,9 +23,7 @@ import org.gtkkn.native.glib.GIOFuncs
  * - field `io_set_flags`: Fields with callbacks are not supported
  * - field `io_get_flags`: Fields with callbacks are not supported
  */
-public class IOFuncs(
-    pointer: CPointer<GIOFuncs>,
-) : Record {
+public class IOFuncs(pointer: CPointer<GIOFuncs>) : Record {
     public val glibIOFuncsPointer: CPointer<GIOFuncs> = pointer
 
     public companion object : RecordCompanion<IOFuncs, GIOFuncs> {

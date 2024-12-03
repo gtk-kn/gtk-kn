@@ -25,9 +25,8 @@ import kotlin.ULong
  * - parameter `n_stops`: n_stops: Out parameter is not supported
  * - parameter `color_stops`: ColorStop
  */
-public open class ConicGradientNode(
-    pointer: CPointer<GskConicGradientNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class ConicGradientNode(pointer: CPointer<GskConicGradientNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskConicGradientNodePointer: CPointer<GskConicGradientNode>
         get() = gPointer.reinterpret()

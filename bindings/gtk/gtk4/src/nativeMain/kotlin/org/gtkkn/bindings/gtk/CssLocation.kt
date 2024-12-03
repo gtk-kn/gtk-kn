@@ -10,9 +10,7 @@ import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gtk.GtkCssLocation
 import kotlin.ULong
 
-public class CssLocation(
-    pointer: CPointer<GtkCssLocation>,
-) : Record {
+public class CssLocation(pointer: CPointer<GtkCssLocation>) : Record {
     public val gtkCssLocationPointer: CPointer<GtkCssLocation> = pointer
 
     public var bytes: ULong

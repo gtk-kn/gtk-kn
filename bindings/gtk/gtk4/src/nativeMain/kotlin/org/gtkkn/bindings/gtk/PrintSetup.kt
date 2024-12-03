@@ -28,9 +28,7 @@ import kotlin.Unit
  * @since 4.14
  */
 @GtkVersion4_14
-public class PrintSetup(
-    pointer: CPointer<GtkPrintSetup>,
-) : Record {
+public class PrintSetup(pointer: CPointer<GtkPrintSetup>) : Record {
     public val gtkPrintSetupPointer: CPointer<GtkPrintSetup> = pointer
 
     /**
@@ -43,10 +41,9 @@ public class PrintSetup(
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun getPageSetup(): PageSetup? =
-        gtk_print_setup_get_page_setup(gtkPrintSetupPointer.reinterpret())?.run {
-            PageSetup(reinterpret())
-        }
+    public fun getPageSetup(): PageSetup? = gtk_print_setup_get_page_setup(gtkPrintSetupPointer.reinterpret())?.run {
+        PageSetup(reinterpret())
+    }
 
     /**
      * Returns the print settings of @setup.
@@ -70,10 +67,9 @@ public class PrintSetup(
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun ref(): PrintSetup =
-        gtk_print_setup_ref(gtkPrintSetupPointer.reinterpret())!!.run {
-            PrintSetup(reinterpret())
-        }
+    public fun ref(): PrintSetup = gtk_print_setup_ref(gtkPrintSetupPointer.reinterpret())!!.run {
+        PrintSetup(reinterpret())
+    }
 
     /**
      * Decrease the reference count of @setup.

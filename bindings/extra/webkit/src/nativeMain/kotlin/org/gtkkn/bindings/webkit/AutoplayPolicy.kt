@@ -9,9 +9,7 @@ import org.gtkkn.native.webkit.WebKitAutoplayPolicy
  * @since 2.30
  */
 @WebKitVersion2_30
-public enum class AutoplayPolicy(
-    public val nativeValue: WebKitAutoplayPolicy,
-) {
+public enum class AutoplayPolicy(public val nativeValue: WebKitAutoplayPolicy) {
     /**
      * Do not restrict autoplay.
      */
@@ -30,12 +28,11 @@ public enum class AutoplayPolicy(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitAutoplayPolicy): AutoplayPolicy =
-            when (nativeValue) {
-                WebKitAutoplayPolicy.WEBKIT_AUTOPLAY_ALLOW -> ALLOW
-                WebKitAutoplayPolicy.WEBKIT_AUTOPLAY_ALLOW_WITHOUT_SOUND -> ALLOW_WITHOUT_SOUND
-                WebKitAutoplayPolicy.WEBKIT_AUTOPLAY_DENY -> DENY
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitAutoplayPolicy): AutoplayPolicy = when (nativeValue) {
+            WebKitAutoplayPolicy.WEBKIT_AUTOPLAY_ALLOW -> ALLOW
+            WebKitAutoplayPolicy.WEBKIT_AUTOPLAY_ALLOW_WITHOUT_SOUND -> ALLOW_WITHOUT_SOUND
+            WebKitAutoplayPolicy.WEBKIT_AUTOPLAY_DENY -> DENY
+            else -> error("invalid nativeValue")
+        }
     }
 }

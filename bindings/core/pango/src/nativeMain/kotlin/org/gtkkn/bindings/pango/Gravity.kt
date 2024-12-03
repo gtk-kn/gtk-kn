@@ -30,9 +30,7 @@ import kotlin.Double
  * @since 1.16
  */
 @PangoVersion1_16
-public enum class Gravity(
-    public val nativeValue: PangoGravity,
-) {
+public enum class Gravity(public val nativeValue: PangoGravity) {
     /**
      * Glyphs stand upright (default) <img align="right" valign="center" src="m-south.png">
      */
@@ -60,15 +58,14 @@ public enum class Gravity(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: PangoGravity): Gravity =
-            when (nativeValue) {
-                PangoGravity.PANGO_GRAVITY_SOUTH -> SOUTH
-                PangoGravity.PANGO_GRAVITY_EAST -> EAST
-                PangoGravity.PANGO_GRAVITY_NORTH -> NORTH
-                PangoGravity.PANGO_GRAVITY_WEST -> WEST
-                PangoGravity.PANGO_GRAVITY_AUTO -> AUTO
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: PangoGravity): Gravity = when (nativeValue) {
+            PangoGravity.PANGO_GRAVITY_SOUTH -> SOUTH
+            PangoGravity.PANGO_GRAVITY_EAST -> EAST
+            PangoGravity.PANGO_GRAVITY_NORTH -> NORTH
+            PangoGravity.PANGO_GRAVITY_WEST -> WEST
+            PangoGravity.PANGO_GRAVITY_AUTO -> AUTO
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Finds the gravity that best matches the rotation component
@@ -102,11 +99,7 @@ public enum class Gravity(
          * @since 1.16
          */
         @PangoVersion1_16
-        public fun getForScript(
-            script: Script,
-            baseGravity: Gravity,
-            hint: GravityHint,
-        ): Gravity =
+        public fun getForScript(script: Script, baseGravity: Gravity, hint: GravityHint): Gravity =
             pango_gravity_get_for_script(script.nativeValue, baseGravity.nativeValue, hint.nativeValue).run {
                 Gravity.fromNativeValue(this)
             }
@@ -142,15 +135,14 @@ public enum class Gravity(
             wide: Boolean,
             baseGravity: Gravity,
             hint: GravityHint,
-        ): Gravity =
-            pango_gravity_get_for_script_and_width(
-                script.nativeValue,
-                wide.asGBoolean(),
-                baseGravity.nativeValue,
-                hint.nativeValue
-            ).run {
-                Gravity.fromNativeValue(this)
-            }
+        ): Gravity = pango_gravity_get_for_script_and_width(
+            script.nativeValue,
+            wide.asGBoolean(),
+            baseGravity.nativeValue,
+            hint.nativeValue
+        ).run {
+            Gravity.fromNativeValue(this)
+        }
 
         /**
          * Converts a `PangoGravity` value to its natural rotation in radians.

@@ -9,9 +9,7 @@ import org.gtkkn.native.webkit.WebKitWebProcessTerminationReason
  * @since 2.20
  */
 @WebKitVersion2_20
-public enum class WebProcessTerminationReason(
-    public val nativeValue: WebKitWebProcessTerminationReason,
-) {
+public enum class WebProcessTerminationReason(public val nativeValue: WebKitWebProcessTerminationReason) {
     /**
      * the web process crashed.
      */

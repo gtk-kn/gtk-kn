@@ -12,13 +12,10 @@ import org.gtkkn.native.gio.G_DBUS_PROPERTY_INFO_FLAGS_WRITABLE
  * Flags describing the access control of a D-Bus property.
  * @since 2.26
  */
-public class DBusPropertyInfoFlags(
-    public val mask: GDBusPropertyInfoFlags,
-) : Bitfield<DBusPropertyInfoFlags> {
-    override infix fun or(other: DBusPropertyInfoFlags): DBusPropertyInfoFlags =
-        DBusPropertyInfoFlags(
-            mask or other.mask
-        )
+public class DBusPropertyInfoFlags(public val mask: GDBusPropertyInfoFlags) : Bitfield<DBusPropertyInfoFlags> {
+    override infix fun or(other: DBusPropertyInfoFlags): DBusPropertyInfoFlags = DBusPropertyInfoFlags(
+        mask or other.mask
+    )
 
     @GioVersion2_26
     public companion object {

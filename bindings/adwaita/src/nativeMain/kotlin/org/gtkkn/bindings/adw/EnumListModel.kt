@@ -23,9 +23,8 @@ import kotlin.ULong
  *
  * `AdwEnumListModel` contains objects of type [class@EnumListItem].
  */
-public class EnumListModel(
-    pointer: CPointer<AdwEnumListModel>,
-) : Object(pointer.reinterpret()),
+public class EnumListModel(pointer: CPointer<AdwEnumListModel>) :
+    Object(pointer.reinterpret()),
     ListModel,
     KGTyped {
     public val adwEnumListModelPointer: CPointer<AdwEnumListModel>
@@ -62,13 +61,6 @@ public class EnumListModel(
      */
     public fun findPosition(`value`: Int): UInt =
         adw_enum_list_model_find_position(adwEnumListModelPointer.reinterpret(), `value`)
-
-    /**
-     * Gets the type of the enum represented by @self.
-     *
-     * @return the enum type
-     */
-    public fun getEnumType(): ULong = adw_enum_list_model_get_enum_type(adwEnumListModelPointer.reinterpret())
 
     public companion object : TypeCompanion<EnumListModel> {
         override val type: GeneratedClassKGType<EnumListModel> =

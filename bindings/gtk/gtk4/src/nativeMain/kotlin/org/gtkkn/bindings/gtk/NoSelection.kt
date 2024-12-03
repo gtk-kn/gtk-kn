@@ -16,7 +16,6 @@ import org.gtkkn.native.gtk.gtk_no_selection_get_model
 import org.gtkkn.native.gtk.gtk_no_selection_get_type
 import org.gtkkn.native.gtk.gtk_no_selection_new
 import org.gtkkn.native.gtk.gtk_no_selection_set_model
-import kotlin.Unit
 
 /**
  * `GtkNoSelection` is a `GtkSelectionModel` that does not allow selecting
@@ -32,9 +31,8 @@ import kotlin.Unit
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class NoSelection(
-    pointer: CPointer<GtkNoSelection>,
-) : Object(pointer.reinterpret()),
+public open class NoSelection(pointer: CPointer<GtkNoSelection>) :
+    Object(pointer.reinterpret()),
     ListModel,
     SectionModel,
     SelectionModel,
@@ -60,10 +58,9 @@ public open class NoSelection(
          *
          * @return The model being wrapped
          */
-        get() =
-            gtk_no_selection_get_model(gtkNoSelectionPointer.reinterpret())?.run {
-                ListModel.wrap(reinterpret())
-            }
+        get() = gtk_no_selection_get_model(gtkNoSelectionPointer.reinterpret())?.run {
+            ListModel.wrap(reinterpret())
+        }
 
         /**
          * Sets the model that @self should wrap.
@@ -83,26 +80,6 @@ public open class NoSelection(
     public constructor(
         model: ListModel? = null,
     ) : this(gtk_no_selection_new(model?.gioListModelPointer)!!.reinterpret())
-
-    /**
-     * Gets the model that @self is wrapping.
-     *
-     * @return The model being wrapped
-     */
-    public open fun getModel(): ListModel? =
-        gtk_no_selection_get_model(gtkNoSelectionPointer.reinterpret())?.run {
-            ListModel.wrap(reinterpret())
-        }
-
-    /**
-     * Sets the model that @self should wrap.
-     *
-     * If @model is null, this model will be empty.
-     *
-     * @param model A `GListModel` to wrap
-     */
-    public open fun setModel(model: ListModel? = null): Unit =
-        gtk_no_selection_set_model(gtkNoSelectionPointer.reinterpret(), model?.gioListModelPointer)
 
     public companion object : TypeCompanion<NoSelection> {
         override val type: GeneratedClassKGType<NoSelection> =

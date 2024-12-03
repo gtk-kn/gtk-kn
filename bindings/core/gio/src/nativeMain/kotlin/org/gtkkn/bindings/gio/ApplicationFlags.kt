@@ -20,9 +20,7 @@ import org.gtkkn.native.gio.G_APPLICATION_SEND_ENVIRONMENT
  * Flags used to define the behaviour of a #GApplication.
  * @since 2.28
  */
-public class ApplicationFlags(
-    public val mask: GApplicationFlags,
-) : Bitfield<ApplicationFlags> {
+public class ApplicationFlags(public val mask: GApplicationFlags) : Bitfield<ApplicationFlags> {
     override infix fun or(other: ApplicationFlags): ApplicationFlags = ApplicationFlags(mask or other.mask)
 
     @GioVersion2_28

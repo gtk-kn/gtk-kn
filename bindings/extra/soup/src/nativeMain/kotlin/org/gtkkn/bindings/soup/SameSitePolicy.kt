@@ -6,9 +6,7 @@ import org.gtkkn.native.soup.SoupSameSitePolicy
 /**
  * Represents the same-site policies of a cookie.
  */
-public enum class SameSitePolicy(
-    public val nativeValue: SoupSameSitePolicy,
-) {
+public enum class SameSitePolicy(public val nativeValue: SoupSameSitePolicy) {
     /**
      * The cookie is exposed with both cross-site and same-site requests
      */
@@ -26,12 +24,11 @@ public enum class SameSitePolicy(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: SoupSameSitePolicy): SameSitePolicy =
-            when (nativeValue) {
-                SoupSameSitePolicy.SOUP_SAME_SITE_POLICY_NONE -> NONE
-                SoupSameSitePolicy.SOUP_SAME_SITE_POLICY_LAX -> LAX
-                SoupSameSitePolicy.SOUP_SAME_SITE_POLICY_STRICT -> STRICT
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: SoupSameSitePolicy): SameSitePolicy = when (nativeValue) {
+            SoupSameSitePolicy.SOUP_SAME_SITE_POLICY_NONE -> NONE
+            SoupSameSitePolicy.SOUP_SAME_SITE_POLICY_LAX -> LAX
+            SoupSameSitePolicy.SOUP_SAME_SITE_POLICY_STRICT -> STRICT
+            else -> error("invalid nativeValue")
+        }
     }
 }

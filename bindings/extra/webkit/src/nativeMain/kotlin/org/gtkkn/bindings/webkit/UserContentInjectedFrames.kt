@@ -9,9 +9,7 @@ import org.gtkkn.native.webkit.WebKitUserContentInjectedFrames
  * @since 2.6
  */
 @WebKitVersion2_6
-public enum class UserContentInjectedFrames(
-    public val nativeValue: WebKitUserContentInjectedFrames,
-) {
+public enum class UserContentInjectedFrames(public val nativeValue: WebKitUserContentInjectedFrames) {
     /**
      * Insert the user style
      *   sheet in all the frames loaded by the web view, including

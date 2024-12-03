@@ -17,9 +17,8 @@ import kotlin.UInt
 /**
  * A `GtkShortcutTrigger` that triggers when a specific keyval and modifiers are pressed.
  */
-public open class KeyvalTrigger(
-    pointer: CPointer<GtkKeyvalTrigger>,
-) : ShortcutTrigger(pointer.reinterpret()),
+public open class KeyvalTrigger(pointer: CPointer<GtkKeyvalTrigger>) :
+    ShortcutTrigger(pointer.reinterpret()),
     KGTyped {
     public val gtkKeyvalTriggerPointer: CPointer<GtkKeyvalTrigger>
         get() = gPointer.reinterpret()
@@ -46,10 +45,9 @@ public open class KeyvalTrigger(
          *
          * @return the modifiers
          */
-        get() =
-            gtk_keyval_trigger_get_modifiers(gtkKeyvalTriggerPointer.reinterpret()).run {
-                ModifierType(this)
-            }
+        get() = gtk_keyval_trigger_get_modifiers(gtkKeyvalTriggerPointer.reinterpret()).run {
+            ModifierType(this)
+        }
 
     /**
      * Creates a `GtkShortcutTrigger` that will trigger whenever
@@ -63,25 +61,6 @@ public open class KeyvalTrigger(
         keyval: UInt,
         modifiers: ModifierType,
     ) : this(gtk_keyval_trigger_new(keyval, modifiers.mask)!!.reinterpret())
-
-    /**
-     * Gets the keyval that must be pressed to succeed
-     * triggering @self.
-     *
-     * @return the keyval
-     */
-    public open fun getKeyval(): UInt = gtk_keyval_trigger_get_keyval(gtkKeyvalTriggerPointer.reinterpret())
-
-    /**
-     * Gets the modifiers that must be present to succeed
-     * triggering @self.
-     *
-     * @return the modifiers
-     */
-    public open fun getModifiers(): ModifierType =
-        gtk_keyval_trigger_get_modifiers(gtkKeyvalTriggerPointer.reinterpret()).run {
-            ModifierType(this)
-        }
 
     public companion object : TypeCompanion<KeyvalTrigger> {
         override val type: GeneratedClassKGType<KeyvalTrigger> =

@@ -7,9 +7,7 @@ import org.gtkkn.native.gtk.GtkFileChooserAction
  * Describes whether a `GtkFileChooser` is being used to open existing files
  * or to save to a possibly new file.
  */
-public enum class FileChooserAction(
-    public val nativeValue: GtkFileChooserAction,
-) {
+public enum class FileChooserAction(public val nativeValue: GtkFileChooserAction) {
     /**
      * Indicates open mode.  The file chooser
      *  will only let the user pick an existing file.
@@ -32,12 +30,11 @@ public enum class FileChooserAction(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkFileChooserAction): FileChooserAction =
-            when (nativeValue) {
-                GtkFileChooserAction.GTK_FILE_CHOOSER_ACTION_OPEN -> OPEN
-                GtkFileChooserAction.GTK_FILE_CHOOSER_ACTION_SAVE -> SAVE
-                GtkFileChooserAction.GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER -> SELECT_FOLDER
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkFileChooserAction): FileChooserAction = when (nativeValue) {
+            GtkFileChooserAction.GTK_FILE_CHOOSER_ACTION_OPEN -> OPEN
+            GtkFileChooserAction.GTK_FILE_CHOOSER_ACTION_SAVE -> SAVE
+            GtkFileChooserAction.GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER -> SELECT_FOLDER
+            else -> error("invalid nativeValue")
+        }
     }
 }

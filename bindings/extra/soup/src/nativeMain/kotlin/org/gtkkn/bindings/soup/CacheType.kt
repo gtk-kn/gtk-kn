@@ -7,9 +7,7 @@ import org.gtkkn.native.soup.SoupCacheType
  * The type of cache; this affects what kinds of responses will be
  * saved.
  */
-public enum class CacheType(
-    public val nativeValue: SoupCacheType,
-) {
+public enum class CacheType(public val nativeValue: SoupCacheType) {
     /**
      * a single-user cache
      */
@@ -22,11 +20,10 @@ public enum class CacheType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: SoupCacheType): CacheType =
-            when (nativeValue) {
-                SoupCacheType.SOUP_CACHE_SINGLE_USER -> SINGLE_USER
-                SoupCacheType.SOUP_CACHE_SHARED -> SHARED
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: SoupCacheType): CacheType = when (nativeValue) {
+            SoupCacheType.SOUP_CACHE_SINGLE_USER -> SINGLE_USER
+            SoupCacheType.SOUP_CACHE_SHARED -> SHARED
+            else -> error("invalid nativeValue")
+        }
     }
 }

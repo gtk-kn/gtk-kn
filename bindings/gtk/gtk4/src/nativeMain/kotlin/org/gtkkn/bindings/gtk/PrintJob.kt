@@ -83,9 +83,8 @@ import kotlin.Unit
  * - parameter `ranges`: PageRange
  * - method `page-setup`: Property has no getter nor setter
  */
-public open class PrintJob(
-    pointer: CPointer<GtkPrintJob>,
-) : Object(pointer.reinterpret()),
+public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkPrintJobPointer: CPointer<GtkPrintJob>
         get() = gPointer.reinterpret()
@@ -99,10 +98,9 @@ public open class PrintJob(
          *
          * @return the printer of @job
          */
-        get() =
-            gtk_print_job_get_printer(gtkPrintJobPointer.reinterpret())!!.run {
-                Printer(reinterpret())
-            }
+        get() = gtk_print_job_get_printer(gtkPrintJobPointer.reinterpret())!!.run {
+            Printer(reinterpret())
+        }
 
     /**
      * Printer settings.
@@ -113,10 +111,9 @@ public open class PrintJob(
          *
          * @return the settings of @job
          */
-        get() =
-            gtk_print_job_get_settings(gtkPrintJobPointer.reinterpret())!!.run {
-                PrintSettings(reinterpret())
-            }
+        get() = gtk_print_job_get_settings(gtkPrintJobPointer.reinterpret())!!.run {
+            PrintSettings(reinterpret())
+        }
 
     /**
      * The title of the print job.
@@ -127,9 +124,8 @@ public open class PrintJob(
          *
          * @return the title of @job
          */
-        get() =
-            gtk_print_job_get_title(gtkPrintJobPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_print_job_get_title(gtkPrintJobPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * true if the print job will continue to emit status-changed
@@ -220,30 +216,18 @@ public open class PrintJob(
      *
      * @return the `GtkPageSet` setting
      */
-    public open fun getPageSet(): PageSet =
-        gtk_print_job_get_page_set(gtkPrintJobPointer.reinterpret()).run {
-            PageSet.fromNativeValue(this)
-        }
+    public open fun getPageSet(): PageSet = gtk_print_job_get_page_set(gtkPrintJobPointer.reinterpret()).run {
+        PageSet.fromNativeValue(this)
+    }
 
     /**
      * Gets the `GtkPrintPages` setting for this job.
      *
      * @return the `GtkPrintPages` setting
      */
-    public open fun getPages(): PrintPages =
-        gtk_print_job_get_pages(gtkPrintJobPointer.reinterpret()).run {
-            PrintPages.fromNativeValue(this)
-        }
-
-    /**
-     * Gets the `GtkPrinter` of the print job.
-     *
-     * @return the printer of @job
-     */
-    public open fun getPrinter(): Printer =
-        gtk_print_job_get_printer(gtkPrintJobPointer.reinterpret())!!.run {
-            Printer(reinterpret())
-        }
+    public open fun getPages(): PrintPages = gtk_print_job_get_pages(gtkPrintJobPointer.reinterpret()).run {
+        PrintPages.fromNativeValue(this)
+    }
 
     /**
      * Gets whether this job is printed reversed.
@@ -267,55 +251,25 @@ public open class PrintJob(
     public open fun getScale(): Double = gtk_print_job_get_scale(gtkPrintJobPointer.reinterpret())
 
     /**
-     * Gets the `GtkPrintSettings` of the print job.
-     *
-     * @return the settings of @job
-     */
-    public open fun getSettings(): PrintSettings =
-        gtk_print_job_get_settings(gtkPrintJobPointer.reinterpret())!!.run {
-            PrintSettings(reinterpret())
-        }
-
-    /**
      * Gets the status of the print job.
      *
      * @return the status of @job
      */
-    public open fun getStatus(): PrintStatus =
-        gtk_print_job_get_status(gtkPrintJobPointer.reinterpret()).run {
-            PrintStatus.fromNativeValue(this)
-        }
-
-    /**
-     * Gets the job title.
-     *
-     * @return the title of @job
-     */
-    public open fun getTitle(): String =
-        gtk_print_job_get_title(gtkPrintJobPointer.reinterpret())?.toKString() ?: error("Expected not null string")
-
-    /**
-     * Returns whether jobs will be tracked after printing.
-     *
-     * For details, see [method@Gtk.PrintJob.set_track_print_status].
-     *
-     * @return true if print job status will be reported after printing
-     */
-    public open fun getTrackPrintStatus(): Boolean =
-        gtk_print_job_get_track_print_status(gtkPrintJobPointer.reinterpret()).asBoolean()
+    public open fun getStatus(): PrintStatus = gtk_print_job_get_status(gtkPrintJobPointer.reinterpret()).run {
+        PrintStatus.fromNativeValue(this)
+    }
 
     /**
      * Sends the print job off to the printer.
      *
      * @param callback function to call when the job completes or an error occurs
      */
-    public open fun send(callback: PrintJobCompleteFunc): Unit =
-        gtk_print_job_send(
-            gtkPrintJobPointer.reinterpret(),
-            PrintJobCompleteFuncFunc.reinterpret(),
-            StableRef.create(callback).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public open fun send(callback: PrintJobCompleteFunc): Unit = gtk_print_job_send(
+        gtkPrintJobPointer.reinterpret(),
+        PrintJobCompleteFuncFunc.reinterpret(),
+        StableRef.create(callback).asCPointer(),
+        staticStableRefDestroy.reinterpret()
+    )
 
     /**
      * Sets whether this job is printed collated.
@@ -405,16 +359,15 @@ public open class PrintJob(
      * @param fd a file descriptor
      * @return false if an error occurred
      */
-    public open fun setSourceFd(fd: Int): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = gtk_print_job_set_source_fd(gtkPrintJobPointer.reinterpret(), fd, gError.ptr).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun setSourceFd(fd: Int): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gtk_print_job_set_source_fd(gtkPrintJobPointer.reinterpret(), fd, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Make the `GtkPrintJob` send an existing document to the
@@ -428,36 +381,15 @@ public open class PrintJob(
      * @param filename the file to be printed
      * @return false if an error occurred
      */
-    public open fun setSourceFile(filename: String): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gtk_print_job_set_source_file(
-                    gtkPrintJobPointer.reinterpret(),
-                    filename,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun setSourceFile(filename: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gtk_print_job_set_source_file(gtkPrintJobPointer.reinterpret(), filename, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
-
-    /**
-     * If track_status is true, the print job will try to continue report
-     * on the status of the print job in the printer queues and printer.
-     *
-     * This can allow your application to show things like “out of paper”
-     * issues, and when the print job actually reaches the printer.
-     *
-     * This function is often implemented using some form of polling,
-     * so it should not be enabled unless needed.
-     *
-     * @param trackStatus true to track status after printing
-     */
-    public open fun setTrackPrintStatus(trackStatus: Boolean): Unit =
-        gtk_print_job_set_track_print_status(gtkPrintJobPointer.reinterpret(), trackStatus.asGBoolean())
+    }
 
     /**
      * Emitted when the status of a job changes.
@@ -468,10 +400,7 @@ public open class PrintJob(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectStatusChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectStatusChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "status-changed",
@@ -491,10 +420,10 @@ public open class PrintJob(
     }
 }
 
-private val connectStatusChangedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectStatusChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

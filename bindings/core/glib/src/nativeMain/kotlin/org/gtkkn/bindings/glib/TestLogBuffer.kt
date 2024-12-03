@@ -17,9 +17,7 @@ import kotlin.Unit
  * - field `data`: Record field data is private
  * - field `msgs`: Record field msgs is private
  */
-public class TestLogBuffer(
-    pointer: CPointer<GTestLogBuffer>,
-) : Record {
+public class TestLogBuffer(pointer: CPointer<GTestLogBuffer>) : Record {
     public val glibTestLogBufferPointer: CPointer<GTestLogBuffer> = pointer
 
     /**

@@ -6,9 +6,7 @@ import org.gtkkn.native.gtk.GtkEntryIconPosition
 /**
  * Specifies the side of the entry at which an icon is placed.
  */
-public enum class EntryIconPosition(
-    public val nativeValue: GtkEntryIconPosition,
-) {
+public enum class EntryIconPosition(public val nativeValue: GtkEntryIconPosition) {
     /**
      * At the beginning of the entry (depending on the text direction).
      */
@@ -21,11 +19,10 @@ public enum class EntryIconPosition(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkEntryIconPosition): EntryIconPosition =
-            when (nativeValue) {
-                GtkEntryIconPosition.GTK_ENTRY_ICON_PRIMARY -> PRIMARY
-                GtkEntryIconPosition.GTK_ENTRY_ICON_SECONDARY -> SECONDARY
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkEntryIconPosition): EntryIconPosition = when (nativeValue) {
+            GtkEntryIconPosition.GTK_ENTRY_ICON_PRIMARY -> PRIMARY
+            GtkEntryIconPosition.GTK_ENTRY_ICON_SECONDARY -> SECONDARY
+            else -> error("invalid nativeValue")
+        }
     }
 }

@@ -20,9 +20,8 @@ import kotlin.Boolean
  * Calling [method@Gio.Permission.acquire] or [method@Gio.Permission.release]
  * on a `GSimplePermission` will result in errors.
  */
-public open class SimplePermission(
-    pointer: CPointer<GSimplePermission>,
-) : Permission(pointer.reinterpret()),
+public open class SimplePermission(pointer: CPointer<GSimplePermission>) :
+    Permission(pointer.reinterpret()),
     KGTyped {
     public val gioSimplePermissionPointer: CPointer<GSimplePermission>
         get() = gPointer.reinterpret()

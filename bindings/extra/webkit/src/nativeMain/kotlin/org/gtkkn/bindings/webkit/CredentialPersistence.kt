@@ -9,9 +9,7 @@ import org.gtkkn.native.webkit.WebKitCredentialPersistence
  * @since 2.2
  */
 @WebKitVersion2_2
-public enum class CredentialPersistence(
-    public val nativeValue: WebKitCredentialPersistence,
-) {
+public enum class CredentialPersistence(public val nativeValue: WebKitCredentialPersistence) {
     /**
      * Credential does not persist
      */

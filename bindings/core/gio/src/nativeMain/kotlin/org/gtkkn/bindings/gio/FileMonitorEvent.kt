@@ -6,9 +6,7 @@ import org.gtkkn.native.gio.GFileMonitorEvent
 /**
  * Specifies what type of event a monitor event is.
  */
-public enum class FileMonitorEvent(
-    public val nativeValue: GFileMonitorEvent,
-) {
+public enum class FileMonitorEvent(public val nativeValue: GFileMonitorEvent) {
     /**
      * a file changed.
      */
@@ -73,20 +71,19 @@ public enum class FileMonitorEvent(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GFileMonitorEvent): FileMonitorEvent =
-            when (nativeValue) {
-                GFileMonitorEvent.G_FILE_MONITOR_EVENT_CHANGED -> CHANGED
-                GFileMonitorEvent.G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT -> CHANGES_DONE_HINT
-                GFileMonitorEvent.G_FILE_MONITOR_EVENT_DELETED -> DELETED
-                GFileMonitorEvent.G_FILE_MONITOR_EVENT_CREATED -> CREATED
-                GFileMonitorEvent.G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED -> ATTRIBUTE_CHANGED
-                GFileMonitorEvent.G_FILE_MONITOR_EVENT_PRE_UNMOUNT -> PRE_UNMOUNT
-                GFileMonitorEvent.G_FILE_MONITOR_EVENT_UNMOUNTED -> UNMOUNTED
-                GFileMonitorEvent.G_FILE_MONITOR_EVENT_MOVED -> MOVED
-                GFileMonitorEvent.G_FILE_MONITOR_EVENT_RENAMED -> RENAMED
-                GFileMonitorEvent.G_FILE_MONITOR_EVENT_MOVED_IN -> MOVED_IN
-                GFileMonitorEvent.G_FILE_MONITOR_EVENT_MOVED_OUT -> MOVED_OUT
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GFileMonitorEvent): FileMonitorEvent = when (nativeValue) {
+            GFileMonitorEvent.G_FILE_MONITOR_EVENT_CHANGED -> CHANGED
+            GFileMonitorEvent.G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT -> CHANGES_DONE_HINT
+            GFileMonitorEvent.G_FILE_MONITOR_EVENT_DELETED -> DELETED
+            GFileMonitorEvent.G_FILE_MONITOR_EVENT_CREATED -> CREATED
+            GFileMonitorEvent.G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED -> ATTRIBUTE_CHANGED
+            GFileMonitorEvent.G_FILE_MONITOR_EVENT_PRE_UNMOUNT -> PRE_UNMOUNT
+            GFileMonitorEvent.G_FILE_MONITOR_EVENT_UNMOUNTED -> UNMOUNTED
+            GFileMonitorEvent.G_FILE_MONITOR_EVENT_MOVED -> MOVED
+            GFileMonitorEvent.G_FILE_MONITOR_EVENT_RENAMED -> RENAMED
+            GFileMonitorEvent.G_FILE_MONITOR_EVENT_MOVED_IN -> MOVED_IN
+            GFileMonitorEvent.G_FILE_MONITOR_EVENT_MOVED_OUT -> MOVED_OUT
+            else -> error("invalid nativeValue")
+        }
     }
 }

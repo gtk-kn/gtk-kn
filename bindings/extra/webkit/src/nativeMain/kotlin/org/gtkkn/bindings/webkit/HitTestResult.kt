@@ -50,9 +50,8 @@ import kotlin.UInt
  * for the mouse coordinates and #WebKitWebView::mouse-target-changed
  * signal is emitted with a #WebKitHitTestResult.
  */
-public class HitTestResult(
-    pointer: CPointer<WebKitHitTestResult>,
-) : Object(pointer.reinterpret()),
+public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val webkitHitTestResultPointer: CPointer<WebKitHitTestResult>
         get() = gPointer.reinterpret()
@@ -80,9 +79,8 @@ public class HitTestResult(
          * @return the URI of the image element in the coordinates of the Hit Test,
          *    or null if there isn't an image element in @hit_test_result context
          */
-        get() =
-            webkit_hit_test_result_get_image_uri(webkitHitTestResultPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = webkit_hit_test_result_get_image_uri(webkitHitTestResultPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * The label of the link if flag %WEBKIT_HIT_TEST_RESULT_CONTEXT_LINK
@@ -96,9 +94,8 @@ public class HitTestResult(
          *    or null if there isn't a link element in @hit_test_result context or the
          *    link element doesn't have a label
          */
-        get() =
-            webkit_hit_test_result_get_link_label(webkitHitTestResultPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = webkit_hit_test_result_get_link_label(webkitHitTestResultPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * The title of the link if flag %WEBKIT_HIT_TEST_RESULT_CONTEXT_LINK
@@ -112,9 +109,8 @@ public class HitTestResult(
          *    or null if there isn't a link element in @hit_test_result context or the
          *    link element doesn't have a title
          */
-        get() =
-            webkit_hit_test_result_get_link_title(webkitHitTestResultPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = webkit_hit_test_result_get_link_title(webkitHitTestResultPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * The URI of the link if flag %WEBKIT_HIT_TEST_RESULT_CONTEXT_LINK
@@ -127,9 +123,8 @@ public class HitTestResult(
          * @return the URI of the link element in the coordinates of the Hit Test,
          *    or null if there isn't a link element in @hit_test_result context
          */
-        get() =
-            webkit_hit_test_result_get_link_uri(webkitHitTestResultPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = webkit_hit_test_result_get_link_uri(webkitHitTestResultPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * The URI of the media if flag %WEBKIT_HIT_TEST_RESULT_CONTEXT_MEDIA
@@ -142,9 +137,8 @@ public class HitTestResult(
          * @return the URI of the media element in the coordinates of the Hit Test,
          *    or null if there isn't a media element in @hit_test_result context
          */
-        get() =
-            webkit_hit_test_result_get_media_uri(webkitHitTestResultPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = webkit_hit_test_result_get_media_uri(webkitHitTestResultPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Gets whether %WEBKIT_HIT_TEST_RESULT_CONTEXT_EDITABLE flag is present in
@@ -207,65 +201,6 @@ public class HitTestResult(
     @WebKitVersion2_8
     public fun contextIsSelection(): Boolean =
         webkit_hit_test_result_context_is_selection(webkitHitTestResultPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the value of the #WebKitHitTestResult:context property.
-     *
-     * @return a bitmask of #WebKitHitTestResultContext flags
-     */
-    public fun getContext(): UInt = webkit_hit_test_result_get_context(webkitHitTestResultPointer.reinterpret())
-
-    /**
-     * Gets the value of the #WebKitHitTestResult:image-uri property.
-     *
-     * @return the URI of the image element in the coordinates of the Hit Test,
-     *    or null if there isn't an image element in @hit_test_result context
-     */
-    public fun getImageUri(): String =
-        webkit_hit_test_result_get_image_uri(webkitHitTestResultPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets the value of the #WebKitHitTestResult:link-label property.
-     *
-     * @return the label of the link element in the coordinates of the Hit Test,
-     *    or null if there isn't a link element in @hit_test_result context or the
-     *    link element doesn't have a label
-     */
-    public fun getLinkLabel(): String =
-        webkit_hit_test_result_get_link_label(webkitHitTestResultPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets the value of the #WebKitHitTestResult:link-title property.
-     *
-     * @return the title of the link element in the coordinates of the Hit Test,
-     *    or null if there isn't a link element in @hit_test_result context or the
-     *    link element doesn't have a title
-     */
-    public fun getLinkTitle(): String =
-        webkit_hit_test_result_get_link_title(webkitHitTestResultPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets the value of the #WebKitHitTestResult:link-uri property.
-     *
-     * @return the URI of the link element in the coordinates of the Hit Test,
-     *    or null if there isn't a link element in @hit_test_result context
-     */
-    public fun getLinkUri(): String =
-        webkit_hit_test_result_get_link_uri(webkitHitTestResultPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets the value of the #WebKitHitTestResult:media-uri property.
-     *
-     * @return the URI of the media element in the coordinates of the Hit Test,
-     *    or null if there isn't a media element in @hit_test_result context
-     */
-    public fun getMediaUri(): String =
-        webkit_hit_test_result_get_media_uri(webkitHitTestResultPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
 
     public companion object : TypeCompanion<HitTestResult> {
         override val type: GeneratedClassKGType<HitTestResult> =

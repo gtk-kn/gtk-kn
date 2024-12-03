@@ -41,9 +41,8 @@ import kotlin.Unit
  * @since 2.26
  */
 @WebKitVersion2_26
-public class GeolocationManager(
-    pointer: CPointer<WebKitGeolocationManager>,
-) : Object(pointer.reinterpret()),
+public class GeolocationManager(pointer: CPointer<WebKitGeolocationManager>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val webkitGeolocationManagerPointer: CPointer<WebKitGeolocationManager>
         get() = gPointer.reinterpret()
@@ -63,10 +62,9 @@ public class GeolocationManager(
          * @return Whether the setting is enabled.
          * @since 2.26
          */
-        get() =
-            webkit_geolocation_manager_get_enable_high_accuracy(
-                webkitGeolocationManagerPointer.reinterpret()
-            ).asBoolean()
+        get() = webkit_geolocation_manager_get_enable_high_accuracy(
+            webkitGeolocationManagerPointer.reinterpret()
+        ).asBoolean()
 
     /**
      * Notify @manager that determining the position failed.
@@ -79,27 +77,16 @@ public class GeolocationManager(
         webkit_geolocation_manager_failed(webkitGeolocationManagerPointer.reinterpret(), errorMessage)
 
     /**
-     * Get whether high accuracy is enabled.
-     *
-     * @return Whether the setting is enabled.
-     * @since 2.26
-     */
-    @WebKitVersion2_26
-    public fun getEnableHighAccuracy(): Boolean =
-        webkit_geolocation_manager_get_enable_high_accuracy(webkitGeolocationManagerPointer.reinterpret()).asBoolean()
-
-    /**
      * Notify @manager that position has been updated to @position.
      *
      * @param position a #WebKitGeolocationPosition
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun updatePosition(position: GeolocationPosition): Unit =
-        webkit_geolocation_manager_update_position(
-            webkitGeolocationManagerPointer.reinterpret(),
-            position.webkitGeolocationPositionPointer.reinterpret()
-        )
+    public fun updatePosition(position: GeolocationPosition): Unit = webkit_geolocation_manager_update_position(
+        webkitGeolocationManagerPointer.reinterpret(),
+        position.webkitGeolocationPositionPointer.reinterpret()
+    )
 
     /**
      * The signal is emitted to notify that @manager needs to start receiving
@@ -117,10 +104,7 @@ public class GeolocationManager(
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun connectStart(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Boolean,
-    ): ULong =
+    public fun connectStart(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "start",
@@ -139,10 +123,7 @@ public class GeolocationManager(
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun connectStop(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectStop(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "stop",
@@ -162,22 +143,18 @@ public class GeolocationManager(
     }
 }
 
-private val connectStartFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<() -> Boolean>()
-            .get()
-            .invoke()
-            .asGBoolean()
-    }.reinterpret()
+private val connectStartFunc: CPointer<CFunction<() -> Int>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
+}
+    .reinterpret()
 
-private val connectStopFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectStopFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

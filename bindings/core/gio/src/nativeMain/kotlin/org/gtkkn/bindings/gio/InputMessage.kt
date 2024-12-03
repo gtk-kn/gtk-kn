@@ -43,9 +43,7 @@ import kotlin.ULong
  * @since 2.48
  */
 @GioVersion2_48
-public class InputMessage(
-    pointer: CPointer<GInputMessage>,
-) : Record {
+public class InputMessage(pointer: CPointer<GInputMessage>) : Record {
     public val gioInputMessagePointer: CPointer<GInputMessage> = pointer
 
     /**
@@ -55,10 +53,9 @@ public class InputMessage(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val address: SocketAddress?
-        get() =
-            gioInputMessagePointer.pointed.address?.run {
-                SocketAddress(reinterpret())
-            }
+        get() = gioInputMessagePointer.pointed.address?.run {
+            SocketAddress(reinterpret())
+        }
 
     /**
      * the number of input vectors pointed to by @vectors

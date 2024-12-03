@@ -46,9 +46,8 @@ import kotlin.Unit
  * @since 2.26
  */
 @GioVersion2_26
-public open class DBusMethodInvocation(
-    pointer: CPointer<GDBusMethodInvocation>,
-) : Object(pointer.reinterpret()),
+public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioDBusMethodInvocationPointer: CPointer<GDBusMethodInvocation>
         get() = gPointer.reinterpret()
@@ -197,10 +196,7 @@ public open class DBusMethodInvocation(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun returnDbusError(
-        errorName: String,
-        errorMessage: String,
-    ): Unit =
+    public open fun returnDbusError(errorName: String, errorMessage: String): Unit =
         g_dbus_method_invocation_return_dbus_error(
             gioDBusMethodInvocationPointer.reinterpret(),
             errorName,
@@ -220,11 +216,7 @@ public open class DBusMethodInvocation(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun returnErrorLiteral(
-        domain: Quark,
-        code: Int,
-        message: String,
-    ): Unit =
+    public open fun returnErrorLiteral(domain: Quark, code: Int, message: String): Unit =
         g_dbus_method_invocation_return_error_literal(
             gioDBusMethodInvocationPointer.reinterpret(),
             domain,
@@ -244,11 +236,10 @@ public open class DBusMethodInvocation(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun returnGerror(error: Error): Unit =
-        g_dbus_method_invocation_return_gerror(
-            gioDBusMethodInvocationPointer.reinterpret(),
-            error.glibErrorPointer.reinterpret()
-        )
+    public open fun returnGerror(error: Error): Unit = g_dbus_method_invocation_return_gerror(
+        gioDBusMethodInvocationPointer.reinterpret(),
+        error.glibErrorPointer.reinterpret()
+    )
 
     /**
      * Finishes handling a D-Bus method call by returning @parameters.
@@ -288,11 +279,10 @@ public open class DBusMethodInvocation(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun returnValue(parameters: Variant? = null): Unit =
-        g_dbus_method_invocation_return_value(
-            gioDBusMethodInvocationPointer.reinterpret(),
-            parameters?.glibVariantPointer?.reinterpret()
-        )
+    public open fun returnValue(parameters: Variant? = null): Unit = g_dbus_method_invocation_return_value(
+        gioDBusMethodInvocationPointer.reinterpret(),
+        parameters?.glibVariantPointer?.reinterpret()
+    )
 
     /**
      * Like g_dbus_method_invocation_return_value() but also takes a #GUnixFDList.
@@ -308,10 +298,7 @@ public open class DBusMethodInvocation(
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun returnValueWithUnixFdList(
-        parameters: Variant? = null,
-        fdList: UnixFDList? = null,
-    ): Unit =
+    public open fun returnValueWithUnixFdList(parameters: Variant? = null, fdList: UnixFDList? = null): Unit =
         g_dbus_method_invocation_return_value_with_unix_fd_list(
             gioDBusMethodInvocationPointer.reinterpret(),
             parameters?.glibVariantPointer?.reinterpret(),

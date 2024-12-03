@@ -88,9 +88,7 @@ import kotlin.Unit
  * - field `p`: Record field p is private
  * - field `i`: Record field i is private
  */
-public class Cond(
-    pointer: CPointer<GCond>,
-) : Record {
+public class Cond(pointer: CPointer<GCond>) : Record {
     public val glibCondPointer: CPointer<GCond> = pointer
 
     /**

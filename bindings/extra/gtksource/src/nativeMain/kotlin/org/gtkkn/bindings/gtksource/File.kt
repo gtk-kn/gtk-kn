@@ -40,9 +40,8 @@ import kotlin.Unit
  * - method `location`: Property TypeInfo of getter and setter do not match
  * - method `read-only`: Property has no getter nor setter
  */
-public open class File(
-    pointer: CPointer<GtkSourceFile>,
-) : Object(pointer.reinterpret()),
+public open class File(pointer: CPointer<GtkSourceFile>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtksourceFilePointer: CPointer<GtkSourceFile>
         get() = gPointer.reinterpret()
@@ -56,10 +55,9 @@ public open class File(
          *
          * @return the compression type.
          */
-        get() =
-            gtk_source_file_get_compression_type(gtksourceFilePointer.reinterpret()).run {
-                CompressionType.fromNativeValue(this)
-            }
+        get() = gtk_source_file_get_compression_type(gtksourceFilePointer.reinterpret()).run {
+            CompressionType.fromNativeValue(this)
+        }
 
     /**
      * The character encoding, initially null. After a successful file
@@ -72,10 +70,9 @@ public open class File(
          *
          * @return the character encoding.
          */
-        get() =
-            gtk_source_file_get_encoding(gtksourceFilePointer.reinterpret())!!.run {
-                Encoding(reinterpret())
-            }
+        get() = gtk_source_file_get_encoding(gtksourceFilePointer.reinterpret())!!.run {
+            Encoding(reinterpret())
+        }
 
     /**
      * The line ending type.
@@ -86,10 +83,9 @@ public open class File(
          *
          * @return the newline type.
          */
-        get() =
-            gtk_source_file_get_newline_type(gtksourceFilePointer.reinterpret()).run {
-                NewlineType.fromNativeValue(this)
-            }
+        get() = gtk_source_file_get_newline_type(gtksourceFilePointer.reinterpret()).run {
+            NewlineType.fromNativeValue(this)
+        }
 
     /**
      *
@@ -114,43 +110,11 @@ public open class File(
     /**
      *
      *
-     * @return the compression type.
-     */
-    public open fun getCompressionType(): CompressionType =
-        gtk_source_file_get_compression_type(gtksourceFilePointer.reinterpret()).run {
-            CompressionType.fromNativeValue(this)
-        }
-
-    /**
-     * The encoding is initially null. After a successful file loading or saving
-     * operation, the encoding is non-null.
-     *
-     * @return the character encoding.
-     */
-    public open fun getEncoding(): Encoding =
-        gtk_source_file_get_encoding(gtksourceFilePointer.reinterpret())!!.run {
-            Encoding(reinterpret())
-        }
-
-    /**
-     *
-     *
      * @return the #GFile.
      */
     public open fun getLocation(): org.gtkkn.bindings.gio.File =
         gtk_source_file_get_location(gtksourceFilePointer.reinterpret())!!.run {
-            org.gtkkn.bindings.gio.File
-                .wrap(reinterpret())
-        }
-
-    /**
-     *
-     *
-     * @return the newline type.
-     */
-    public open fun getNewlineType(): NewlineType =
-        gtk_source_file_get_newline_type(gtksourceFilePointer.reinterpret()).run {
-            NewlineType.fromNativeValue(this)
+            org.gtkkn.bindings.gio.File.wrap(reinterpret())
         }
 
     /**

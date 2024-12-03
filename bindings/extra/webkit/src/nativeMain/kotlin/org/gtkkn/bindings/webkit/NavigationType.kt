@@ -6,9 +6,7 @@ import org.gtkkn.native.webkit.WebKitNavigationType
 /**
  * Enum values used to denote the various navigation types.
  */
-public enum class NavigationType(
-    public val nativeValue: WebKitNavigationType,
-) {
+public enum class NavigationType(public val nativeValue: WebKitNavigationType) {
     /**
      * The navigation was triggered by clicking a link.
      */
@@ -41,15 +39,14 @@ public enum class NavigationType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitNavigationType): NavigationType =
-            when (nativeValue) {
-                WebKitNavigationType.WEBKIT_NAVIGATION_TYPE_LINK_CLICKED -> LINK_CLICKED
-                WebKitNavigationType.WEBKIT_NAVIGATION_TYPE_FORM_SUBMITTED -> FORM_SUBMITTED
-                WebKitNavigationType.WEBKIT_NAVIGATION_TYPE_BACK_FORWARD -> BACK_FORWARD
-                WebKitNavigationType.WEBKIT_NAVIGATION_TYPE_RELOAD -> RELOAD
-                WebKitNavigationType.WEBKIT_NAVIGATION_TYPE_FORM_RESUBMITTED -> FORM_RESUBMITTED
-                WebKitNavigationType.WEBKIT_NAVIGATION_TYPE_OTHER -> OTHER
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitNavigationType): NavigationType = when (nativeValue) {
+            WebKitNavigationType.WEBKIT_NAVIGATION_TYPE_LINK_CLICKED -> LINK_CLICKED
+            WebKitNavigationType.WEBKIT_NAVIGATION_TYPE_FORM_SUBMITTED -> FORM_SUBMITTED
+            WebKitNavigationType.WEBKIT_NAVIGATION_TYPE_BACK_FORWARD -> BACK_FORWARD
+            WebKitNavigationType.WEBKIT_NAVIGATION_TYPE_RELOAD -> RELOAD
+            WebKitNavigationType.WEBKIT_NAVIGATION_TYPE_FORM_RESUBMITTED -> FORM_RESUBMITTED
+            WebKitNavigationType.WEBKIT_NAVIGATION_TYPE_OTHER -> OTHER
+            else -> error("invalid nativeValue")
+        }
     }
 }

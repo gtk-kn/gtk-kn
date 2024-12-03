@@ -16,6 +16,7 @@ import org.gtkkn.native.pango.pango_language_get_default
 import org.gtkkn.native.pango.pango_language_get_sample_string
 import org.gtkkn.native.pango.pango_language_includes_script
 import org.gtkkn.native.pango.pango_language_matches
+import org.gtkkn.native.pango.pango_language_to_string
 import kotlin.Boolean
 import kotlin.String
 
@@ -29,12 +30,9 @@ import kotlin.String
  * ## Skipped during bindings generation
  *
  * - parameter `num_scripts`: num_scripts: Out parameter is not supported
- * - method `to_string`: C function pango_language_to_string is ignored
  * - function `get_preferred`: Array parameter of type Language is not supported
  */
-public class Language(
-    pointer: CPointer<PangoLanguage>,
-) : Record {
+public class Language(pointer: CPointer<PangoLanguage>) : Record {
     public val pangoLanguagePointer: CPointer<PangoLanguage> = pointer
 
     /**
@@ -106,6 +104,14 @@ public class Language(
     public fun matches(rangeList: String): Boolean =
         pango_language_matches(pangoLanguagePointer.reinterpret(), rangeList).asBoolean()
 
+    /**
+     * Gets the RFC-3066 format string representing the given language tag.
+     *
+     * Returns (transfer none): a string representing the language tag
+     */
+    override fun toString(): String =
+        pango_language_to_string(pangoLanguagePointer.reinterpret())?.toKString() ?: error("Expected not null string")
+
     public companion object : RecordCompanion<Language, PangoLanguage> {
         /**
          * Convert a language tag to a `PangoLanguage`.
@@ -124,10 +130,9 @@ public class Language(
          * @param language a string representing a language tag
          * @return a `PangoLanguage`
          */
-        public fun fromString(language: String? = null): Language? =
-            pango_language_from_string(language)?.run {
-                Language(reinterpret())
-            }
+        public fun fromString(language: String? = null): Language? = pango_language_from_string(language)?.run {
+            Language(reinterpret())
+        }
 
         /**
          * Returns the `PangoLanguage` for the current locale of the process.
@@ -166,10 +171,9 @@ public class Language(
          * @since 1.16
          */
         @PangoVersion1_16
-        public fun getDefault(): Language =
-            pango_language_get_default()!!.run {
-                Language(reinterpret())
-            }
+        public fun getDefault(): Language = pango_language_get_default()!!.run {
+            Language(reinterpret())
+        }
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Language = Language(pointer.reinterpret())
     }

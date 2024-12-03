@@ -15,9 +15,8 @@ import org.gtkkn.native.gdk.gdk_snapshot_get_type
  *
  * The subclass of `GdkSnapshot` used by GTK is [GtkSnapshot](../gtk4/class.Snapshot.html).
  */
-public open class Snapshot(
-    pointer: CPointer<GdkSnapshot>,
-) : Object(pointer.reinterpret()),
+public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gdkSnapshotPointer: CPointer<GdkSnapshot>
         get() = gPointer.reinterpret()

@@ -9,9 +9,7 @@ import org.gtkkn.native.glib.GVariantClass
  * @since 2.24
  */
 @GLibVersion2_24
-public enum class VariantClass(
-    public val nativeValue: GVariantClass,
-) {
+public enum class VariantClass(public val nativeValue: GVariantClass) {
     /**
      * The #GVariant is a boolean.
      */
@@ -106,27 +104,26 @@ public enum class VariantClass(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GVariantClass): VariantClass =
-            when (nativeValue) {
-                GVariantClass.G_VARIANT_CLASS_BOOLEAN -> BOOLEAN
-                GVariantClass.G_VARIANT_CLASS_BYTE -> BYTE
-                GVariantClass.G_VARIANT_CLASS_INT16 -> INT16
-                GVariantClass.G_VARIANT_CLASS_UINT16 -> UINT16
-                GVariantClass.G_VARIANT_CLASS_INT32 -> INT32
-                GVariantClass.G_VARIANT_CLASS_UINT32 -> UINT32
-                GVariantClass.G_VARIANT_CLASS_INT64 -> INT64
-                GVariantClass.G_VARIANT_CLASS_UINT64 -> UINT64
-                GVariantClass.G_VARIANT_CLASS_HANDLE -> HANDLE
-                GVariantClass.G_VARIANT_CLASS_DOUBLE -> DOUBLE
-                GVariantClass.G_VARIANT_CLASS_STRING -> STRING
-                GVariantClass.G_VARIANT_CLASS_OBJECT_PATH -> OBJECT_PATH
-                GVariantClass.G_VARIANT_CLASS_SIGNATURE -> SIGNATURE
-                GVariantClass.G_VARIANT_CLASS_VARIANT -> VARIANT
-                GVariantClass.G_VARIANT_CLASS_MAYBE -> MAYBE
-                GVariantClass.G_VARIANT_CLASS_ARRAY -> ARRAY
-                GVariantClass.G_VARIANT_CLASS_TUPLE -> TUPLE
-                GVariantClass.G_VARIANT_CLASS_DICT_ENTRY -> DICT_ENTRY
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GVariantClass): VariantClass = when (nativeValue) {
+            GVariantClass.G_VARIANT_CLASS_BOOLEAN -> BOOLEAN
+            GVariantClass.G_VARIANT_CLASS_BYTE -> BYTE
+            GVariantClass.G_VARIANT_CLASS_INT16 -> INT16
+            GVariantClass.G_VARIANT_CLASS_UINT16 -> UINT16
+            GVariantClass.G_VARIANT_CLASS_INT32 -> INT32
+            GVariantClass.G_VARIANT_CLASS_UINT32 -> UINT32
+            GVariantClass.G_VARIANT_CLASS_INT64 -> INT64
+            GVariantClass.G_VARIANT_CLASS_UINT64 -> UINT64
+            GVariantClass.G_VARIANT_CLASS_HANDLE -> HANDLE
+            GVariantClass.G_VARIANT_CLASS_DOUBLE -> DOUBLE
+            GVariantClass.G_VARIANT_CLASS_STRING -> STRING
+            GVariantClass.G_VARIANT_CLASS_OBJECT_PATH -> OBJECT_PATH
+            GVariantClass.G_VARIANT_CLASS_SIGNATURE -> SIGNATURE
+            GVariantClass.G_VARIANT_CLASS_VARIANT -> VARIANT
+            GVariantClass.G_VARIANT_CLASS_MAYBE -> MAYBE
+            GVariantClass.G_VARIANT_CLASS_ARRAY -> ARRAY
+            GVariantClass.G_VARIANT_CLASS_TUPLE -> TUPLE
+            GVariantClass.G_VARIANT_CLASS_DICT_ENTRY -> DICT_ENTRY
+            else -> error("invalid nativeValue")
+        }
     }
 }

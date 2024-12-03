@@ -8,9 +8,7 @@ import org.gtkkn.native.adw.AdwLeafletTransitionType
  *
  * New values may be added to this enumeration over time.
  */
-public enum class LeafletTransitionType(
-    public val nativeValue: AdwLeafletTransitionType,
-) {
+public enum class LeafletTransitionType(public val nativeValue: AdwLeafletTransitionType) {
     /**
      * Cover the old page or uncover the new page, sliding from or towards the end according to orientation, text direction and children order
      */
@@ -28,12 +26,11 @@ public enum class LeafletTransitionType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: AdwLeafletTransitionType): LeafletTransitionType =
-            when (nativeValue) {
-                AdwLeafletTransitionType.ADW_LEAFLET_TRANSITION_TYPE_OVER -> OVER
-                AdwLeafletTransitionType.ADW_LEAFLET_TRANSITION_TYPE_UNDER -> UNDER
-                AdwLeafletTransitionType.ADW_LEAFLET_TRANSITION_TYPE_SLIDE -> SLIDE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: AdwLeafletTransitionType): LeafletTransitionType = when (nativeValue) {
+            AdwLeafletTransitionType.ADW_LEAFLET_TRANSITION_TYPE_OVER -> OVER
+            AdwLeafletTransitionType.ADW_LEAFLET_TRANSITION_TYPE_UNDER -> UNDER
+            AdwLeafletTransitionType.ADW_LEAFLET_TRANSITION_TYPE_SLIDE -> SLIDE
+            else -> error("invalid nativeValue")
+        }
     }
 }

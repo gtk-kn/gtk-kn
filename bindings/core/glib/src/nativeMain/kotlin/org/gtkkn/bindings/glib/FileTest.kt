@@ -12,9 +12,7 @@ import org.gtkkn.native.glib.G_FILE_TEST_IS_SYMLINK
 /**
  * A test to perform on a file using g_file_test().
  */
-public class FileTest(
-    public val mask: GFileTest,
-) : Bitfield<FileTest> {
+public class FileTest(public val mask: GFileTest) : Bitfield<FileTest> {
     override infix fun or(other: FileTest): FileTest = FileTest(mask or other.mask)
 
     public companion object {

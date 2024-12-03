@@ -16,6 +16,7 @@
 
 package org.gtkkn.gir.generator
 
+import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FunSpec
@@ -53,7 +54,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
                 addModifiers(KModifier.OVERRIDE)
             }
 
-            if (property.isOpen) {
+            if (property.isOpen && !property.isOverride) {
                 addModifiers(KModifier.OPEN)
             }
 
@@ -75,10 +76,22 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
         FunSpecBuilderType.GETTER -> FunSpec.getterBuilder()
         FunSpecBuilderType.SETTER -> FunSpec.setterBuilder()
     }.apply {
-        addKdoc(buildMethodKDoc(method.kdoc, method.parameters, method.optInVersionBlueprint, method.returnTypeKDoc))
+        buildMethodKDoc(
+            method.kdoc,
+            method.parameters,
+            method.optInVersionBlueprint,
+            method.returnTypeKDoc,
+        )?.let { addKdoc(it) }
 
         // optInVersion
         if (builderType != FunSpecBuilderType.GETTER && method.optInVersionBlueprint?.typeName != null) {
+            if (method.isOverride && method.kotlinName == "toString") {
+                addAnnotation(
+                    AnnotationSpec.builder(Suppress::class)
+                        .addMember("%S", "POTENTIALLY_NON_REPORTED_ANNOTATION")
+                        .build(),
+                )
+            }
             addAnnotation(method.optInVersionBlueprint.typeName)
         }
 
@@ -95,7 +108,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
                 addModifiers(KModifier.OVERRIDE)
             }
 
-            if (method.isOpen) {
+            if (method.isOpen && !method.isOverride) {
                 addModifiers(KModifier.OPEN)
             }
         }
@@ -181,7 +194,12 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
     @Suppress("LongMethod", "CyclomaticComplexMethod")
     fun buildFunction(func: FunctionBlueprint): FunSpec = FunSpec.builder(func.kotlinName).apply {
         // kdoc
-        addKdoc(buildMethodKDoc(func.kdoc, func.parameters, func.optInVersionBlueprint, func.returnTypeKDoc))
+        buildMethodKDoc(
+            func.kdoc,
+            func.parameters,
+            func.optInVersionBlueprint,
+            func.returnTypeKDoc,
+        )?.let { addKdoc(it) }
 
         // optInVersion
         func.optInVersionBlueprint?.typeName?.let { annotationClassName ->

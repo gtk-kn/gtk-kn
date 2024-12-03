@@ -6,9 +6,7 @@ import org.gtkkn.native.soup.SoupWebsocketDataType
 /**
  * The type of data contained in a [signal@WebsocketConnection::message] signal.
  */
-public enum class WebsocketDataType(
-    public val nativeValue: SoupWebsocketDataType,
-) {
+public enum class WebsocketDataType(public val nativeValue: SoupWebsocketDataType) {
     /**
      * UTF-8 text
      */
@@ -21,11 +19,10 @@ public enum class WebsocketDataType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: SoupWebsocketDataType): WebsocketDataType =
-            when (nativeValue) {
-                SoupWebsocketDataType.SOUP_WEBSOCKET_DATA_TEXT -> TEXT
-                SoupWebsocketDataType.SOUP_WEBSOCKET_DATA_BINARY -> BINARY
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: SoupWebsocketDataType): WebsocketDataType = when (nativeValue) {
+            SoupWebsocketDataType.SOUP_WEBSOCKET_DATA_TEXT -> TEXT
+            SoupWebsocketDataType.SOUP_WEBSOCKET_DATA_BINARY -> BINARY
+            else -> error("invalid nativeValue")
+        }
     }
 }

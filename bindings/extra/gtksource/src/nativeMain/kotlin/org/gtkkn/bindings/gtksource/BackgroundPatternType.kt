@@ -3,9 +3,7 @@ package org.gtkkn.bindings.gtksource
 
 import org.gtkkn.native.gtksource.GtkSourceBackgroundPatternType
 
-public enum class BackgroundPatternType(
-    public val nativeValue: GtkSourceBackgroundPatternType,
-) {
+public enum class BackgroundPatternType(public val nativeValue: GtkSourceBackgroundPatternType) {
     /**
      * no pattern
      */

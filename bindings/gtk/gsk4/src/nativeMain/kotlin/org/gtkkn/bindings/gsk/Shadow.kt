@@ -17,9 +17,7 @@ import kotlin.Float
  *
  * - field `color`: Gdk.RGBA
  */
-public class Shadow(
-    pointer: CPointer<GskShadow>,
-) : Record {
+public class Shadow(pointer: CPointer<GskShadow>) : Record {
     public val gskShadowPointer: CPointer<GskShadow> = pointer
 
     /**

@@ -6,9 +6,7 @@ import org.gtkkn.native.gdk.GdkDevicePadFeature
 /**
  * A pad feature.
  */
-public enum class DevicePadFeature(
-    public val nativeValue: GdkDevicePadFeature,
-) {
+public enum class DevicePadFeature(public val nativeValue: GdkDevicePadFeature) {
     /**
      * a button
      */
@@ -26,12 +24,11 @@ public enum class DevicePadFeature(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GdkDevicePadFeature): DevicePadFeature =
-            when (nativeValue) {
-                GdkDevicePadFeature.GDK_DEVICE_PAD_FEATURE_BUTTON -> BUTTON
-                GdkDevicePadFeature.GDK_DEVICE_PAD_FEATURE_RING -> RING
-                GdkDevicePadFeature.GDK_DEVICE_PAD_FEATURE_STRIP -> STRIP
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GdkDevicePadFeature): DevicePadFeature = when (nativeValue) {
+            GdkDevicePadFeature.GDK_DEVICE_PAD_FEATURE_BUTTON -> BUTTON
+            GdkDevicePadFeature.GDK_DEVICE_PAD_FEATURE_RING -> RING
+            GdkDevicePadFeature.GDK_DEVICE_PAD_FEATURE_STRIP -> STRIP
+            else -> error("invalid nativeValue")
+        }
     }
 }

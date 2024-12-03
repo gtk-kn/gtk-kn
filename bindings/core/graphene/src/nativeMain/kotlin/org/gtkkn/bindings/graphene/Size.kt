@@ -27,9 +27,7 @@ import kotlin.Unit
  * @since 1.0
  */
 @GrapheneVersion1_0
-public class Size(
-    pointer: CPointer<graphene_size_t>,
-) : Record {
+public class Size(pointer: CPointer<graphene_size_t>) : Record {
     public val grapheneSizePointer: CPointer<graphene_size_t> = pointer
 
     /**
@@ -78,10 +76,7 @@ public class Size(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun `init`(
-        width: Float,
-        height: Float,
-    ): Size =
+    public fun `init`(width: Float, height: Float): Size =
         graphene_size_init(grapheneSizePointer.reinterpret(), width, height)!!.run {
             Size(reinterpret())
         }
@@ -110,17 +105,12 @@ public class Size(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun interpolate(
-        b: Size,
-        factor: Double,
-        res: Size,
-    ): Unit =
-        graphene_size_interpolate(
-            grapheneSizePointer.reinterpret(),
-            b.grapheneSizePointer.reinterpret(),
-            factor,
-            res.grapheneSizePointer.reinterpret()
-        )
+    public fun interpolate(b: Size, factor: Double, res: Size): Unit = graphene_size_interpolate(
+        grapheneSizePointer.reinterpret(),
+        b.grapheneSizePointer.reinterpret(),
+        factor,
+        res.grapheneSizePointer.reinterpret()
+    )
 
     /**
      * Scales the components of a #graphene_size_t using the given @factor.
@@ -130,10 +120,8 @@ public class Size(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun scale(
-        factor: Float,
-        res: Size,
-    ): Unit = graphene_size_scale(grapheneSizePointer.reinterpret(), factor, res.grapheneSizePointer.reinterpret())
+    public fun scale(factor: Float, res: Size): Unit =
+        graphene_size_scale(grapheneSizePointer.reinterpret(), factor, res.grapheneSizePointer.reinterpret())
 
     public companion object : RecordCompanion<Size, graphene_size_t> {
         /**
@@ -154,10 +142,9 @@ public class Size(
          * @since 1.0
          */
         @GrapheneVersion1_0
-        public fun zero(): Size =
-            graphene_size_zero()!!.run {
-                Size(reinterpret())
-            }
+        public fun zero(): Size = graphene_size_zero()!!.run {
+            Size(reinterpret())
+        }
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Size = Size(pointer.reinterpret())
     }

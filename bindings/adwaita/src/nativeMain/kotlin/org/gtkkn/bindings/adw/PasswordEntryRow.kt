@@ -39,9 +39,8 @@ import org.gtkkn.native.gtk.GtkEditable
  * @since 1.2
  */
 @AdwVersion1_2
-public class PasswordEntryRow(
-    pointer: CPointer<AdwPasswordEntryRow>,
-) : EntryRow(pointer.reinterpret()),
+public class PasswordEntryRow(pointer: CPointer<AdwPasswordEntryRow>) :
+    EntryRow(pointer.reinterpret()),
     KGTyped {
     public val adwPasswordEntryRowPointer: CPointer<AdwPasswordEntryRow>
         get() = gPointer.reinterpret()

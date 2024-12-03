@@ -21,7 +21,6 @@ import org.gtkkn.native.gtk.gtk_column_view_cell_set_child
 import org.gtkkn.native.gtk.gtk_column_view_cell_set_focusable
 import kotlin.Boolean
 import kotlin.UInt
-import kotlin.Unit
 
 /**
  * `GtkColumnViewCell` is used by [class@Gtk.ColumnViewColumn] to represent items
@@ -42,9 +41,8 @@ import kotlin.Unit
  * @since 4.12
  */
 @GtkVersion4_12
-public open class ColumnViewCell(
-    pointer: CPointer<GtkColumnViewCell>,
-) : ListItem(pointer.reinterpret()),
+public open class ColumnViewCell(pointer: CPointer<GtkColumnViewCell>) :
+    ListItem(pointer.reinterpret()),
     KGTyped {
     public val gtkColumnViewCellPointer: CPointer<GtkColumnViewCell>
         get() = gPointer.reinterpret()
@@ -55,7 +53,7 @@ public open class ColumnViewCell(
      * @since 4.12
      */
     @GtkVersion4_12
-    public open override var child: Widget?
+    public override var child: Widget?
         /**
          * Gets the child previously set via gtk_column_view_cell_set_child() or
          * null if none was set.
@@ -63,10 +61,9 @@ public open class ColumnViewCell(
          * @return The child
          * @since 4.12
          */
-        get() =
-            gtk_column_view_cell_get_child(gtkColumnViewCellPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = gtk_column_view_cell_get_child(gtkColumnViewCellPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the child to be used for this listitem.
@@ -81,11 +78,10 @@ public open class ColumnViewCell(
         @GtkVersion4_12
         set(
             child
-        ) =
-            gtk_column_view_cell_set_child(
-                gtkColumnViewCellPointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        ) = gtk_column_view_cell_set_child(
+            gtkColumnViewCellPointer.reinterpret(),
+            child?.gtkWidgetPointer?.reinterpret()
+        )
 
     /**
      * If the item can be focused with the keyboard.
@@ -93,7 +89,7 @@ public open class ColumnViewCell(
      * @since 4.12
      */
     @GtkVersion4_12
-    public open override var focusable: Boolean
+    public override var focusable: Boolean
         /**
          * Checks if a list item has been set to be focusable via
          * gtk_column_view_cell_set_focusable().
@@ -128,7 +124,7 @@ public open class ColumnViewCell(
      * @since 4.12
      */
     @GtkVersion4_12
-    public open override val item: Object?
+    public override val item: Object?
         /**
          * Gets the model item that associated with @self.
          *
@@ -137,10 +133,9 @@ public open class ColumnViewCell(
          * @return The item displayed
          * @since 4.12
          */
-        get() =
-            gtk_column_view_cell_get_item(gtkColumnViewCellPointer.reinterpret())?.run {
-                Object(reinterpret())
-            }
+        get() = gtk_column_view_cell_get_item(gtkColumnViewCellPointer.reinterpret())?.run {
+            Object(reinterpret())
+        }
 
     /**
      * Position of the item.
@@ -148,7 +143,7 @@ public open class ColumnViewCell(
      * @since 4.12
      */
     @GtkVersion4_12
-    public open override val position: UInt
+    public override val position: UInt
         /**
          * Gets the position in the model that @self currently displays.
          *
@@ -165,7 +160,7 @@ public open class ColumnViewCell(
      * @since 4.12
      */
     @GtkVersion4_12
-    public open override val selected: Boolean
+    public override val selected: Boolean
         /**
          * Checks if the item is displayed as selected.
          *
@@ -176,100 +171,6 @@ public open class ColumnViewCell(
          * @since 4.12
          */
         get() = gtk_column_view_cell_get_selected(gtkColumnViewCellPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the child previously set via gtk_column_view_cell_set_child() or
-     * null if none was set.
-     *
-     * @return The child
-     * @since 4.12
-     */
-    @GtkVersion4_12
-    open override fun getChild(): Widget? =
-        gtk_column_view_cell_get_child(gtkColumnViewCellPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Checks if a list item has been set to be focusable via
-     * gtk_column_view_cell_set_focusable().
-     *
-     * @return true if the item is focusable
-     * @since 4.12
-     */
-    @GtkVersion4_12
-    open override fun getFocusable(): Boolean =
-        gtk_column_view_cell_get_focusable(gtkColumnViewCellPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the model item that associated with @self.
-     *
-     * If @self is unbound, this function returns null.
-     *
-     * @return The item displayed
-     * @since 4.12
-     */
-    @GtkVersion4_12
-    open override fun getItem(): Object? =
-        gtk_column_view_cell_get_item(gtkColumnViewCellPointer.reinterpret())?.run {
-            Object(reinterpret())
-        }
-
-    /**
-     * Gets the position in the model that @self currently displays.
-     *
-     * If @self is unbound, %GTK_INVALID_LIST_POSITION is returned.
-     *
-     * @return The position of this item
-     * @since 4.12
-     */
-    @GtkVersion4_12
-    open override fun getPosition(): UInt = gtk_column_view_cell_get_position(gtkColumnViewCellPointer.reinterpret())
-
-    /**
-     * Checks if the item is displayed as selected.
-     *
-     * The selected state is maintained by the liste widget and its model
-     * and cannot be set otherwise.
-     *
-     * @return true if the item is selected.
-     * @since 4.12
-     */
-    @GtkVersion4_12
-    open override fun getSelected(): Boolean =
-        gtk_column_view_cell_get_selected(gtkColumnViewCellPointer.reinterpret()).asBoolean()
-
-    /**
-     * Sets the child to be used for this listitem.
-     *
-     * This function is typically called by applications when
-     * setting up a listitem so that the widget can be reused when
-     * binding it multiple times.
-     *
-     * @param child The list item's child or null to unset
-     * @since 4.12
-     */
-    @GtkVersion4_12
-    open override fun setChild(child: Widget?): Unit =
-        gtk_column_view_cell_set_child(gtkColumnViewCellPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
-
-    /**
-     * Sets @self to be focusable.
-     *
-     * If an item is focusable, it can be focused using the keyboard.
-     * This works similar to [method@Gtk.Widget.set_focusable].
-     *
-     * Note that if items are not focusable, the keyboard cannot be used to activate
-     * them and selecting only works if one of the listitem's children is focusable.
-     *
-     * By default, list items are focusable.
-     *
-     * @param focusable if the item should be focusable
-     * @since 4.12
-     */
-    @GtkVersion4_12
-    open override fun setFocusable(focusable: Boolean): Unit =
-        gtk_column_view_cell_set_focusable(gtkColumnViewCellPointer.reinterpret(), focusable.asGBoolean())
 
     public companion object : TypeCompanion<ColumnViewCell> {
         override val type: GeneratedClassKGType<ColumnViewCell> =

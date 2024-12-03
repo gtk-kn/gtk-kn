@@ -93,9 +93,7 @@ import kotlin.Unit
  * @since 2.32
  */
 @GLibVersion2_32
-public class RWLock(
-    pointer: CPointer<GRWLock>,
-) : Record {
+public class RWLock(pointer: CPointer<GRWLock>) : Record {
     public val glibRWLockPointer: CPointer<GRWLock> = pointer
 
     /**

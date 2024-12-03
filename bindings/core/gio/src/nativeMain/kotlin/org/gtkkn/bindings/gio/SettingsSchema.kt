@@ -121,9 +121,7 @@ import kotlin.collections.List
  * @since 2.32
  */
 @GioVersion2_32
-public class SettingsSchema(
-    pointer: CPointer<GSettingsSchema>,
-) : Record {
+public class SettingsSchema(pointer: CPointer<GSettingsSchema>) : Record {
     public val gioSettingsSchemaPointer: CPointer<GSettingsSchema> = pointer
 
     /**
@@ -131,9 +129,8 @@ public class SettingsSchema(
      *
      * @return the ID
      */
-    public fun getId(): String =
-        g_settings_schema_get_id(gioSettingsSchemaPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getId(): String = g_settings_schema_get_id(gioSettingsSchemaPointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Gets the key named @name from @schema.
@@ -217,10 +214,9 @@ public class SettingsSchema(
      * @since 2.32
      */
     @GioVersion2_32
-    public fun ref(): SettingsSchema =
-        g_settings_schema_ref(gioSettingsSchemaPointer.reinterpret())!!.run {
-            SettingsSchema(reinterpret())
-        }
+    public fun ref(): SettingsSchema = g_settings_schema_ref(gioSettingsSchemaPointer.reinterpret())!!.run {
+        SettingsSchema(reinterpret())
+    }
 
     /**
      * Decrease the reference count of @schema, possibly freeing it.

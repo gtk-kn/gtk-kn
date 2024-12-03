@@ -53,9 +53,8 @@ import kotlin.Unit
  *  yields U+00E! LATIN SMALL LETTER_A WITH ACUTE, i.e. á. Note that this
  *  depends on the keyboard layout including dead keys.
  */
-public open class IMContextSimple(
-    pointer: CPointer<GtkIMContextSimple>,
-) : IMContext(pointer.reinterpret()),
+public open class IMContextSimple(pointer: CPointer<GtkIMContextSimple>) :
+    IMContext(pointer.reinterpret()),
     KGTyped {
     public val gtkIMContextSimplePointer: CPointer<GtkIMContextSimple>
         get() = gPointer.reinterpret()

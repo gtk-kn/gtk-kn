@@ -51,9 +51,8 @@ import kotlin.ULong
  * @since 2.22
  */
 @GioVersion2_22
-public open class ThreadedSocketService(
-    pointer: CPointer<GThreadedSocketService>,
-) : SocketService(pointer.reinterpret()),
+public open class ThreadedSocketService(pointer: CPointer<GThreadedSocketService>) :
+    SocketService(pointer.reinterpret()),
     KGTyped {
     public val gioThreadedSocketServicePointer: CPointer<GThreadedSocketService>
         get() = gPointer.reinterpret()
@@ -81,15 +80,14 @@ public open class ThreadedSocketService(
     public fun connectRun(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (connection: SocketConnection, sourceObject: Object?) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "run",
-            connectRunFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "run",
+        connectRunFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<ThreadedSocketService> {
         override val type: GeneratedClassKGType<ThreadedSocketService> =
@@ -109,15 +107,18 @@ private val connectRunFunc:
             sourceObject: CPointer<GObject>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(connection: SocketConnection, sourceObject: Object?) -> Boolean>()
-            .get()
-            .invoke(
-                connection!!.run {
-                    SocketConnection(reinterpret())
-                },
-                sourceObject?.run {
-                    Object(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<
+            (
+                connection: SocketConnection,
+                sourceObject: Object?,
+            ) -> Boolean
+            >().get().invoke(
+            connection!!.run {
+                SocketConnection(reinterpret())
+            },
+            sourceObject?.run {
+                Object(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()

@@ -34,9 +34,8 @@ import kotlin.Unit
 /**
  * `GtkFlowBoxChild` is the kind of widget that can be added to a `GtkFlowBox`.
  */
-public open class FlowBoxChild(
-    pointer: CPointer<GtkFlowBoxChild>,
-) : Widget(pointer.reinterpret()),
+public open class FlowBoxChild(pointer: CPointer<GtkFlowBoxChild>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkFlowBoxChildPointer: CPointer<GtkFlowBoxChild>
         get() = gPointer.reinterpret()
@@ -59,10 +58,9 @@ public open class FlowBoxChild(
          *
          * @return the child widget of @self
          */
-        get() =
-            gtk_flow_box_child_get_child(gtkFlowBoxChildPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = gtk_flow_box_child_get_child(gtkFlowBoxChildPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the child widget of @self.
@@ -106,16 +104,6 @@ public open class FlowBoxChild(
     public open fun changed(): Unit = gtk_flow_box_child_changed(gtkFlowBoxChildPointer.reinterpret())
 
     /**
-     * Gets the child widget of @self.
-     *
-     * @return the child widget of @self
-     */
-    public open fun getChild(): Widget? =
-        gtk_flow_box_child_get_child(gtkFlowBoxChildPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
      * Gets the current index of the @child in its `GtkFlowBox` container.
      *
      * @return the index of the @child, or -1 if the @child is not
@@ -133,14 +121,6 @@ public open class FlowBoxChild(
         gtk_flow_box_child_is_selected(gtkFlowBoxChildPointer.reinterpret()).asBoolean()
 
     /**
-     * Sets the child widget of @self.
-     *
-     * @param child the child widget
-     */
-    public open fun setChild(child: Widget? = null): Unit =
-        gtk_flow_box_child_set_child(gtkFlowBoxChildPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
-
-    /**
      * Emitted when the user activates a child widget in a `GtkFlowBox`.
      *
      * This can happen either by clicking or double-clicking,
@@ -154,10 +134,7 @@ public open class FlowBoxChild(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectActivate(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "activate",
@@ -177,10 +154,10 @@ public open class FlowBoxChild(
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

@@ -9,9 +9,7 @@ import org.gtkkn.native.gtk.gtk_recent_manager_error_quark
 /**
  * Error codes for `GtkRecentManager` operations
  */
-public enum class RecentManagerError(
-    public val nativeValue: GtkRecentManagerError,
-) {
+public enum class RecentManagerError(public val nativeValue: GtkRecentManagerError) {
     /**
      * the URI specified does not exists in
      *   the recently used resources list.
@@ -54,25 +52,23 @@ public enum class RecentManagerError(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkRecentManagerError): RecentManagerError =
-            when (nativeValue) {
-                GtkRecentManagerError.GTK_RECENT_MANAGER_ERROR_NOT_FOUND -> NOT_FOUND
-                GtkRecentManagerError.GTK_RECENT_MANAGER_ERROR_INVALID_URI -> INVALID_URI
-                GtkRecentManagerError.GTK_RECENT_MANAGER_ERROR_INVALID_ENCODING -> INVALID_ENCODING
-                GtkRecentManagerError.GTK_RECENT_MANAGER_ERROR_NOT_REGISTERED -> NOT_REGISTERED
-                GtkRecentManagerError.GTK_RECENT_MANAGER_ERROR_READ -> READ
-                GtkRecentManagerError.GTK_RECENT_MANAGER_ERROR_WRITE -> WRITE
-                GtkRecentManagerError.GTK_RECENT_MANAGER_ERROR_UNKNOWN -> UNKNOWN
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkRecentManagerError): RecentManagerError = when (nativeValue) {
+            GtkRecentManagerError.GTK_RECENT_MANAGER_ERROR_NOT_FOUND -> NOT_FOUND
+            GtkRecentManagerError.GTK_RECENT_MANAGER_ERROR_INVALID_URI -> INVALID_URI
+            GtkRecentManagerError.GTK_RECENT_MANAGER_ERROR_INVALID_ENCODING -> INVALID_ENCODING
+            GtkRecentManagerError.GTK_RECENT_MANAGER_ERROR_NOT_REGISTERED -> NOT_REGISTERED
+            GtkRecentManagerError.GTK_RECENT_MANAGER_ERROR_READ -> READ
+            GtkRecentManagerError.GTK_RECENT_MANAGER_ERROR_WRITE -> WRITE
+            GtkRecentManagerError.GTK_RECENT_MANAGER_ERROR_UNKNOWN -> UNKNOWN
+            else -> error("invalid nativeValue")
+        }
 
         public fun quark(): Quark = gtk_recent_manager_error_quark()
 
-        public fun fromErrorOrNull(error: Error): RecentManagerError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                RecentManagerError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        public fun fromErrorOrNull(error: Error): RecentManagerError? = if (error.domain != quark()) {
+            null
+        } else {
+            RecentManagerError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

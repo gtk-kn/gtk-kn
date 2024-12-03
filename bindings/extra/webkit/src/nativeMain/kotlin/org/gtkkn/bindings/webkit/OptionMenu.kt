@@ -39,9 +39,8 @@ import kotlin.Unit
  * @since 2.18
  */
 @WebKitVersion2_18
-public class OptionMenu(
-    pointer: CPointer<WebKitOptionMenu>,
-) : Object(pointer.reinterpret()),
+public class OptionMenu(pointer: CPointer<WebKitOptionMenu>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val webkitOptionMenuPointer: CPointer<WebKitOptionMenu>
         get() = gPointer.reinterpret()
@@ -84,10 +83,9 @@ public class OptionMenu(
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun getEvent(): Event =
-        webkit_option_menu_get_event(webkitOptionMenuPointer.reinterpret())!!.run {
-            Event(reinterpret())
-        }
+    public fun getEvent(): Event = webkit_option_menu_get_event(webkitOptionMenuPointer.reinterpret())!!.run {
+        Event(reinterpret())
+    }
 
     /**
      * Returns the #WebKitOptionMenuItem at @index in @menu.
@@ -136,10 +134,7 @@ public class OptionMenu(
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun connectClose(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "close",
@@ -159,10 +154,10 @@ public class OptionMenu(
     }
 }
 
-private val connectCloseFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectCloseFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

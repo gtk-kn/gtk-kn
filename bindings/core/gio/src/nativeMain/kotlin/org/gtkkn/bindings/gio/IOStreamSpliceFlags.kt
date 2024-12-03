@@ -13,9 +13,7 @@ import org.gtkkn.native.gio.G_IO_STREAM_SPLICE_WAIT_FOR_BOTH
  * GIOStreamSpliceFlags determine how streams should be spliced.
  * @since 2.28
  */
-public class IOStreamSpliceFlags(
-    public val mask: GIOStreamSpliceFlags,
-) : Bitfield<IOStreamSpliceFlags> {
+public class IOStreamSpliceFlags(public val mask: GIOStreamSpliceFlags) : Bitfield<IOStreamSpliceFlags> {
     override infix fun or(other: IOStreamSpliceFlags): IOStreamSpliceFlags = IOStreamSpliceFlags(mask or other.mask)
 
     @GioVersion2_28

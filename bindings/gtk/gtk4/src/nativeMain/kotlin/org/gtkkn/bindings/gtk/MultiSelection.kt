@@ -16,7 +16,6 @@ import org.gtkkn.native.gtk.gtk_multi_selection_get_model
 import org.gtkkn.native.gtk.gtk_multi_selection_get_type
 import org.gtkkn.native.gtk.gtk_multi_selection_new
 import org.gtkkn.native.gtk.gtk_multi_selection_set_model
-import kotlin.Unit
 
 /**
  * `GtkMultiSelection` is a `GtkSelectionModel` that allows selecting multiple
@@ -27,9 +26,8 @@ import kotlin.Unit
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class MultiSelection(
-    pointer: CPointer<GtkMultiSelection>,
-) : Object(pointer.reinterpret()),
+public open class MultiSelection(pointer: CPointer<GtkMultiSelection>) :
+    Object(pointer.reinterpret()),
     ListModel,
     SectionModel,
     SelectionModel,
@@ -55,10 +53,9 @@ public open class MultiSelection(
          *
          * @return the underlying model
          */
-        get() =
-            gtk_multi_selection_get_model(gtkMultiSelectionPointer.reinterpret())?.run {
-                ListModel.wrap(reinterpret())
-            }
+        get() = gtk_multi_selection_get_model(gtkMultiSelectionPointer.reinterpret())?.run {
+            ListModel.wrap(reinterpret())
+        }
 
         /**
          * Sets the model that @self should wrap.
@@ -78,26 +75,6 @@ public open class MultiSelection(
     public constructor(
         model: ListModel? = null,
     ) : this(gtk_multi_selection_new(model?.gioListModelPointer)!!.reinterpret())
-
-    /**
-     * Returns the underlying model of @self.
-     *
-     * @return the underlying model
-     */
-    public open fun getModel(): ListModel? =
-        gtk_multi_selection_get_model(gtkMultiSelectionPointer.reinterpret())?.run {
-            ListModel.wrap(reinterpret())
-        }
-
-    /**
-     * Sets the model that @self should wrap.
-     *
-     * If @model is null, @self will be empty.
-     *
-     * @param model A `GListModel` to wrap
-     */
-    public open fun setModel(model: ListModel? = null): Unit =
-        gtk_multi_selection_set_model(gtkMultiSelectionPointer.reinterpret(), model?.gioListModelPointer)
 
     public companion object : TypeCompanion<MultiSelection> {
         override val type: GeneratedClassKGType<MultiSelection> =

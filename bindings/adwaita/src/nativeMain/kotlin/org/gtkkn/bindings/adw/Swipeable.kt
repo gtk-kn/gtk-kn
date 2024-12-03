@@ -73,11 +73,7 @@ public interface Swipeable :
      * @param isDrag whether the swipe is caused by a dragging gesture
      * @param rect a pointer to a rectangle to store the swipe area
      */
-    public fun getSwipeArea(
-        navigationDirection: NavigationDirection,
-        isDrag: Boolean,
-        rect: Rectangle,
-    ): Unit =
+    public fun getSwipeArea(navigationDirection: NavigationDirection, isDrag: Boolean, rect: Rectangle): Unit =
         adw_swipeable_get_swipe_area(
             adwSwipeablePointer.reinterpret(),
             navigationDirection.nativeValue,
@@ -85,9 +81,7 @@ public interface Swipeable :
             rect.gdkRectanglePointer.reinterpret()
         )
 
-    private data class Wrapper(
-        private val pointer: CPointer<AdwSwipeable>,
-    ) : Swipeable {
+    private data class Wrapper(private val pointer: CPointer<AdwSwipeable>) : Swipeable {
         override val adwSwipeablePointer: CPointer<AdwSwipeable> = pointer
     }
 

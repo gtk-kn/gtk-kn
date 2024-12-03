@@ -8,9 +8,7 @@ import org.gtkkn.native.webkit.WebKitInsecureContentEvent
  * the detection of insecure content. Since 2.46, WebKit generally no longer
  * loads insecure content in secure contexts.
  */
-public enum class InsecureContentEvent(
-    public val nativeValue: WebKitInsecureContentEvent,
-) {
+public enum class InsecureContentEvent(public val nativeValue: WebKitInsecureContentEvent) {
     /**
      * Insecure content has been detected by
      * trying to execute any kind of logic (e.g. a script) from an
@@ -27,11 +25,10 @@ public enum class InsecureContentEvent(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitInsecureContentEvent): InsecureContentEvent =
-            when (nativeValue) {
-                WebKitInsecureContentEvent.WEBKIT_INSECURE_CONTENT_RUN -> RUN
-                WebKitInsecureContentEvent.WEBKIT_INSECURE_CONTENT_DISPLAYED -> DISPLAYED
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitInsecureContentEvent): InsecureContentEvent = when (nativeValue) {
+            WebKitInsecureContentEvent.WEBKIT_INSECURE_CONTENT_RUN -> RUN
+            WebKitInsecureContentEvent.WEBKIT_INSECURE_CONTENT_DISPLAYED -> DISPLAYED
+            else -> error("invalid nativeValue")
+        }
     }
 }

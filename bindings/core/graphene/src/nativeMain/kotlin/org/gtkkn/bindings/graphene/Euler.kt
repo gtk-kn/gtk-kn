@@ -48,9 +48,7 @@ import kotlin.Unit
  * @since 1.2
  */
 @GrapheneVersion1_2
-public class Euler(
-    pointer: CPointer<graphene_euler_t>,
-) : Record {
+public class Euler(pointer: CPointer<graphene_euler_t>) : Record {
     public val grapheneEulerPointer: CPointer<graphene_euler_t> = pointer
 
     /**
@@ -121,10 +119,9 @@ public class Euler(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getOrder(): EulerOrder =
-        graphene_euler_get_order(grapheneEulerPointer.reinterpret()).run {
-            EulerOrder.fromNativeValue(this)
-        }
+    public fun getOrder(): EulerOrder = graphene_euler_get_order(grapheneEulerPointer.reinterpret()).run {
+        EulerOrder.fromNativeValue(this)
+    }
 
     /**
      * Retrieves the rotation angle on the X axis, in degrees.
@@ -165,11 +162,7 @@ public class Euler(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun `init`(
-        x: Float,
-        y: Float,
-        z: Float,
-    ): Euler =
+    public fun `init`(x: Float, y: Float, z: Float): Euler =
         graphene_euler_init(grapheneEulerPointer.reinterpret(), x, y, z)!!.run {
             Euler(reinterpret())
         }
@@ -186,13 +179,12 @@ public class Euler(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun initFromEuler(src: Euler? = null): Euler =
-        graphene_euler_init_from_euler(
-            grapheneEulerPointer.reinterpret(),
-            src?.grapheneEulerPointer?.reinterpret()
-        )!!.run {
-            Euler(reinterpret())
-        }
+    public fun initFromEuler(src: Euler? = null): Euler = graphene_euler_init_from_euler(
+        grapheneEulerPointer.reinterpret(),
+        src?.grapheneEulerPointer?.reinterpret()
+    )!!.run {
+        Euler(reinterpret())
+    }
 
     /**
      * Initializes a #graphene_euler_t using the given rotation matrix.
@@ -206,17 +198,13 @@ public class Euler(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun initFromMatrix(
-        m: Matrix? = null,
-        order: EulerOrder,
-    ): Euler =
-        graphene_euler_init_from_matrix(
-            grapheneEulerPointer.reinterpret(),
-            m?.grapheneMatrixPointer?.reinterpret(),
-            order.nativeValue
-        )!!.run {
-            Euler(reinterpret())
-        }
+    public fun initFromMatrix(m: Matrix? = null, order: EulerOrder): Euler = graphene_euler_init_from_matrix(
+        grapheneEulerPointer.reinterpret(),
+        m?.grapheneMatrixPointer?.reinterpret(),
+        order.nativeValue
+    )!!.run {
+        Euler(reinterpret())
+    }
 
     /**
      * Initializes a #graphene_euler_t using the given normalized quaternion.
@@ -230,10 +218,7 @@ public class Euler(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun initFromQuaternion(
-        q: Quaternion? = null,
-        order: EulerOrder,
-    ): Euler =
+    public fun initFromQuaternion(q: Quaternion? = null, order: EulerOrder): Euler =
         graphene_euler_init_from_quaternion(
             grapheneEulerPointer.reinterpret(),
             q?.grapheneQuaternionPointer?.reinterpret(),
@@ -254,12 +239,7 @@ public class Euler(
      * @since 1.10
      */
     @GrapheneVersion1_10
-    public fun initFromRadians(
-        x: Float,
-        y: Float,
-        z: Float,
-        order: EulerOrder,
-    ): Euler =
+    public fun initFromRadians(x: Float, y: Float, z: Float, order: EulerOrder): Euler =
         graphene_euler_init_from_radians(grapheneEulerPointer.reinterpret(), x, y, z, order.nativeValue)!!.run {
             Euler(reinterpret())
         }
@@ -278,17 +258,13 @@ public class Euler(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun initFromVec3(
-        v: Vec3? = null,
-        order: EulerOrder,
-    ): Euler =
-        graphene_euler_init_from_vec3(
-            grapheneEulerPointer.reinterpret(),
-            v?.grapheneVec3Pointer?.reinterpret(),
-            order.nativeValue
-        )!!.run {
-            Euler(reinterpret())
-        }
+    public fun initFromVec3(v: Vec3? = null, order: EulerOrder): Euler = graphene_euler_init_from_vec3(
+        grapheneEulerPointer.reinterpret(),
+        v?.grapheneVec3Pointer?.reinterpret(),
+        order.nativeValue
+    )!!.run {
+        Euler(reinterpret())
+    }
 
     /**
      * Initializes a #graphene_euler_t with the given angles and @order.
@@ -301,12 +277,7 @@ public class Euler(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun initWithOrder(
-        x: Float,
-        y: Float,
-        z: Float,
-        order: EulerOrder,
-    ): Euler =
+    public fun initWithOrder(x: Float, y: Float, z: Float, order: EulerOrder): Euler =
         graphene_euler_init_with_order(grapheneEulerPointer.reinterpret(), x, y, z, order.nativeValue)!!.run {
             Euler(reinterpret())
         }
@@ -324,15 +295,11 @@ public class Euler(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun reorder(
-        order: EulerOrder,
-        res: Euler,
-    ): Unit =
-        graphene_euler_reorder(
-            grapheneEulerPointer.reinterpret(),
-            order.nativeValue,
-            res.grapheneEulerPointer.reinterpret()
-        )
+    public fun reorder(order: EulerOrder, res: Euler): Unit = graphene_euler_reorder(
+        grapheneEulerPointer.reinterpret(),
+        order.nativeValue,
+        res.grapheneEulerPointer.reinterpret()
+    )
 
     /**
      * Converts a #graphene_euler_t into a transformation matrix expressing

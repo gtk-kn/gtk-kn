@@ -24,9 +24,8 @@ import org.gtkkn.native.gtksource.gtk_source_completion_snippets_new
  * - method `priority`: Property has no getter nor setter
  * - method `title`: Property has no getter nor setter
  */
-public open class CompletionSnippets(
-    pointer: CPointer<GtkSourceCompletionSnippets>,
-) : Object(pointer.reinterpret()),
+public open class CompletionSnippets(pointer: CPointer<GtkSourceCompletionSnippets>) :
+    Object(pointer.reinterpret()),
     CompletionProvider,
     KGTyped {
     public val gtksourceCompletionSnippetsPointer: CPointer<GtkSourceCompletionSnippets>

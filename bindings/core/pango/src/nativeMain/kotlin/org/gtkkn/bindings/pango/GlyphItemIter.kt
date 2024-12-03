@@ -66,9 +66,7 @@ import kotlin.Unit
  * @since 1.22
  */
 @PangoVersion1_22
-public class GlyphItemIter(
-    pointer: CPointer<PangoGlyphItemIter>,
-) : Record {
+public class GlyphItemIter(pointer: CPointer<PangoGlyphItemIter>) : Record {
     public val pangoGlyphItemIterPointer: CPointer<PangoGlyphItemIter> = pointer
 
     /**
@@ -77,10 +75,9 @@ public class GlyphItemIter(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val glyphItem: GlyphItem?
-        get() =
-            pangoGlyphItemIterPointer.pointed.glyph_item?.run {
-                GlyphItem(reinterpret())
-            }
+        get() = pangoGlyphItemIterPointer.pointed.glyph_item?.run {
+            GlyphItem(reinterpret())
+        }
 
     /**
      *
@@ -133,10 +130,9 @@ public class GlyphItemIter(
      * @since 1.22
      */
     @PangoVersion1_22
-    public fun copy(): GlyphItemIter? =
-        pango_glyph_item_iter_copy(pangoGlyphItemIterPointer.reinterpret())?.run {
-            GlyphItemIter(reinterpret())
-        }
+    public fun copy(): GlyphItemIter? = pango_glyph_item_iter_copy(pangoGlyphItemIterPointer.reinterpret())?.run {
+        GlyphItemIter(reinterpret())
+    }
 
     /**
      * Frees a `PangoGlyphItem`Iter.
@@ -158,15 +154,11 @@ public class GlyphItemIter(
      * @since 1.22
      */
     @PangoVersion1_22
-    public fun initEnd(
-        glyphItem: GlyphItem,
-        text: String,
-    ): Boolean =
-        pango_glyph_item_iter_init_end(
-            pangoGlyphItemIterPointer.reinterpret(),
-            glyphItem.pangoGlyphItemPointer.reinterpret(),
-            text
-        ).asBoolean()
+    public fun initEnd(glyphItem: GlyphItem, text: String): Boolean = pango_glyph_item_iter_init_end(
+        pangoGlyphItemIterPointer.reinterpret(),
+        glyphItem.pangoGlyphItemPointer.reinterpret(),
+        text
+    ).asBoolean()
 
     /**
      * Initializes a `PangoGlyphItemIter` structure to point to the
@@ -180,15 +172,11 @@ public class GlyphItemIter(
      * @since 1.22
      */
     @PangoVersion1_22
-    public fun initStart(
-        glyphItem: GlyphItem,
-        text: String,
-    ): Boolean =
-        pango_glyph_item_iter_init_start(
-            pangoGlyphItemIterPointer.reinterpret(),
-            glyphItem.pangoGlyphItemPointer.reinterpret(),
-            text
-        ).asBoolean()
+    public fun initStart(glyphItem: GlyphItem, text: String): Boolean = pango_glyph_item_iter_init_start(
+        pangoGlyphItemIterPointer.reinterpret(),
+        glyphItem.pangoGlyphItemPointer.reinterpret(),
+        text
+    ).asBoolean()
 
     /**
      * Advances the iterator to the next cluster in the glyph item.

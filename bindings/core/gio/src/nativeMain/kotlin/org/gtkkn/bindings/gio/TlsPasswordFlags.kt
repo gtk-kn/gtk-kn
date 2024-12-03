@@ -16,9 +16,7 @@ import org.gtkkn.native.gio.G_TLS_PASSWORD_RETRY
  * Various flags for the password.
  * @since 2.30
  */
-public class TlsPasswordFlags(
-    public val mask: GTlsPasswordFlags,
-) : Bitfield<TlsPasswordFlags> {
+public class TlsPasswordFlags(public val mask: GTlsPasswordFlags) : Bitfield<TlsPasswordFlags> {
     override infix fun or(other: TlsPasswordFlags): TlsPasswordFlags = TlsPasswordFlags(mask or other.mask)
 
     @GioVersion2_30

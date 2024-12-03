@@ -37,9 +37,8 @@ import kotlin.collections.List
  * The two style schemes with IDs "classic" and "tango" follow more closely the
  * GTK theme (for example for the background color).
  */
-public open class StyleScheme(
-    pointer: CPointer<GtkSourceStyleScheme>,
-) : Object(pointer.reinterpret()),
+public open class StyleScheme(pointer: CPointer<GtkSourceStyleScheme>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtksourceStyleSchemePointer: CPointer<GtkSourceStyleScheme>
         get() = gPointer.reinterpret()
@@ -77,9 +76,8 @@ public open class StyleScheme(
          *
          * @return @scheme id.
          */
-        get() =
-            gtk_source_style_scheme_get_id(gtksourceStyleSchemePointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_source_style_scheme_get_id(gtksourceStyleSchemePointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Style scheme name, a translatable string to present to the user.
@@ -90,9 +88,8 @@ public open class StyleScheme(
          *
          * @return @scheme name.
          */
-        get() =
-            gtk_source_style_scheme_get_name(gtksourceStyleSchemePointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_source_style_scheme_get_name(gtksourceStyleSchemePointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      *
@@ -103,32 +100,6 @@ public open class StyleScheme(
      */
     public open fun getAuthors(): List<String>? =
         gtk_source_style_scheme_get_authors(gtksourceStyleSchemePointer.reinterpret())?.toKStringList()
-
-    /**
-     *
-     *
-     * @return @scheme description (if defined), or null.
-     */
-    public open fun getDescription(): String? =
-        gtk_source_style_scheme_get_description(gtksourceStyleSchemePointer.reinterpret())?.toKString()
-
-    /**
-     *
-     *
-     * @return @scheme file name if the scheme was created
-     * parsing a style scheme file or null in the other cases.
-     */
-    public open fun getFilename(): String? =
-        gtk_source_style_scheme_get_filename(gtksourceStyleSchemePointer.reinterpret())?.toKString()
-
-    /**
-     *
-     *
-     * @return @scheme id.
-     */
-    public open fun getId(): String =
-        gtk_source_style_scheme_get_id(gtksourceStyleSchemePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
 
     /**
      * Gets a metadata property from the style scheme.
@@ -142,15 +113,6 @@ public open class StyleScheme(
     @GtkSourceVersion5_4
     public open fun getMetadata(name: String): String? =
         gtk_source_style_scheme_get_metadata(gtksourceStyleSchemePointer.reinterpret(), name)?.toKString()
-
-    /**
-     *
-     *
-     * @return @scheme name.
-     */
-    public open fun getName(): String =
-        gtk_source_style_scheme_get_name(gtksourceStyleSchemePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
 
     /**
      *

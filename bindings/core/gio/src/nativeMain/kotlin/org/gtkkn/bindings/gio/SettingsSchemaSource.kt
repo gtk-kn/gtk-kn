@@ -36,9 +36,7 @@ import kotlin.Unit
  * @since 2.32
  */
 @GioVersion2_32
-public class SettingsSchemaSource(
-    pointer: CPointer<GSettingsSchemaSource>,
-) : Record {
+public class SettingsSchemaSource(pointer: CPointer<GSettingsSchemaSource>) : Record {
     public val gioSettingsSchemaSourcePointer: CPointer<GSettingsSchemaSource> = pointer
 
     /**
@@ -59,17 +57,13 @@ public class SettingsSchemaSource(
      * @since 2.32
      */
     @GioVersion2_32
-    public fun lookup(
-        schemaId: String,
-        recursive: Boolean,
-    ): SettingsSchema? =
-        g_settings_schema_source_lookup(
-            gioSettingsSchemaSourcePointer.reinterpret(),
-            schemaId,
-            recursive.asGBoolean()
-        )?.run {
-            SettingsSchema(reinterpret())
-        }
+    public fun lookup(schemaId: String, recursive: Boolean): SettingsSchema? = g_settings_schema_source_lookup(
+        gioSettingsSchemaSourcePointer.reinterpret(),
+        schemaId,
+        recursive.asGBoolean()
+    )?.run {
+        SettingsSchema(reinterpret())
+    }
 
     /**
      * Increase the reference count of @source, returning a new reference.
@@ -171,10 +165,9 @@ public class SettingsSchemaSource(
          * @since 2.32
          */
         @GioVersion2_32
-        public fun getDefault(): SettingsSchemaSource? =
-            g_settings_schema_source_get_default()?.run {
-                SettingsSchemaSource(reinterpret())
-            }
+        public fun getDefault(): SettingsSchemaSource? = g_settings_schema_source_get_default()?.run {
+            SettingsSchemaSource(reinterpret())
+        }
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SettingsSchemaSource =
             SettingsSchemaSource(pointer.reinterpret())

@@ -16,9 +16,7 @@ import org.gtkkn.native.gtk.GtkFontChooserLevel
  * This enumeration may be extended in the future; applications should
  * ignore unknown values.
  */
-public class FontChooserLevel(
-    public val mask: GtkFontChooserLevel,
-) : Bitfield<FontChooserLevel> {
+public class FontChooserLevel(public val mask: GtkFontChooserLevel) : Bitfield<FontChooserLevel> {
     override infix fun or(other: FontChooserLevel): FontChooserLevel = FontChooserLevel(mask or other.mask)
 
     public companion object {

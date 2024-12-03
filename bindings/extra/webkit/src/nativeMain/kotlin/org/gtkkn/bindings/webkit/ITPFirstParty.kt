@@ -25,9 +25,7 @@ import kotlin.Unit
  * @since 2.30
  */
 @WebKitVersion2_30
-public class ITPFirstParty(
-    pointer: CPointer<WebKitITPFirstParty>,
-) : Record {
+public class ITPFirstParty(pointer: CPointer<WebKitITPFirstParty>) : Record {
     public val webkitITPFirstPartyPointer: CPointer<WebKitITPFirstParty> = pointer
 
     /**
@@ -78,10 +76,9 @@ public class ITPFirstParty(
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun ref(): ITPFirstParty =
-        webkit_itp_first_party_ref(webkitITPFirstPartyPointer.reinterpret())!!.run {
-            ITPFirstParty(reinterpret())
-        }
+    public fun ref(): ITPFirstParty = webkit_itp_first_party_ref(webkitITPFirstPartyPointer.reinterpret())!!.run {
+        ITPFirstParty(reinterpret())
+    }
 
     /**
      * Atomically decrements the reference count of @itp_first_party by one.

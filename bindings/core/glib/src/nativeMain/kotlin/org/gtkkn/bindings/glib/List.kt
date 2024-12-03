@@ -19,9 +19,7 @@ import kotlin.Unit
  * - parameter `allocator`: Allocator
  * - field `data`: gpointer
  */
-public class List(
-    pointer: CPointer<GList>,
-) : Record {
+public class List(pointer: CPointer<GList>) : Record {
     public val glibListPointer: CPointer<GList> = pointer
 
     /**
@@ -30,10 +28,9 @@ public class List(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val next: List?
-        get() =
-            glibListPointer.pointed.next?.run {
-                List(reinterpret())
-            }
+        get() = glibListPointer.pointed.next?.run {
+            List(reinterpret())
+        }
 
     /**
      * contains the link to the previous element in the list
@@ -41,10 +38,9 @@ public class List(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val prev: List?
-        get() =
-            glibListPointer.pointed.prev?.run {
-                List(reinterpret())
-            }
+        get() = glibListPointer.pointed.prev?.run {
+            List(reinterpret())
+        }
 
     public companion object : RecordCompanion<List, GList> {
         public fun popAllocator(): Unit = g_list_pop_allocator()

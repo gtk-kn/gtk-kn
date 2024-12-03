@@ -37,9 +37,8 @@ import kotlin.Unit
  * `GtkPageSetupUnixDialog` has a single CSS node with the name `window` and
  * style class `.pagesetup`.
  */
-public open class PageSetupUnixDialog(
-    pointer: CPointer<GtkPageSetupUnixDialog>,
-) : Dialog(pointer.reinterpret()),
+public open class PageSetupUnixDialog(pointer: CPointer<GtkPageSetupUnixDialog>) :
+    Dialog(pointer.reinterpret()),
     KGTyped {
     public val gtkPageSetupUnixDialogPointer: CPointer<GtkPageSetupUnixDialog>
         get() = gPointer.reinterpret()
@@ -100,11 +99,10 @@ public open class PageSetupUnixDialog(
      *
      * @param pageSetup a `GtkPageSetup`
      */
-    public open fun setPageSetup(pageSetup: PageSetup): Unit =
-        gtk_page_setup_unix_dialog_set_page_setup(
-            gtkPageSetupUnixDialogPointer.reinterpret(),
-            pageSetup.gtkPageSetupPointer.reinterpret()
-        )
+    public open fun setPageSetup(pageSetup: PageSetup): Unit = gtk_page_setup_unix_dialog_set_page_setup(
+        gtkPageSetupUnixDialogPointer.reinterpret(),
+        pageSetup.gtkPageSetupPointer.reinterpret()
+    )
 
     /**
      * Sets the `GtkPrintSettings` from which the page setup dialog

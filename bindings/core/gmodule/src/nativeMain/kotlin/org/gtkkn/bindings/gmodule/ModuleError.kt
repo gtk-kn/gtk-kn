@@ -12,9 +12,7 @@ import kotlin.UInt
  * @since 2.70
  */
 @GModuleVersion2_70
-public enum class ModuleError(
-    public val nativeValue: GModuleError,
-) {
+public enum class ModuleError(public val nativeValue: GModuleError) {
     /**
      * there was an error loading or opening a module file
      */
@@ -27,20 +25,18 @@ public enum class ModuleError(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GModuleError): ModuleError =
-            when (nativeValue) {
-                GModuleError.G_MODULE_ERROR_FAILED -> FAILED
-                GModuleError.G_MODULE_ERROR_CHECK_FAILED -> CHECK_FAILED
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GModuleError): ModuleError = when (nativeValue) {
+            GModuleError.G_MODULE_ERROR_FAILED -> FAILED
+            GModuleError.G_MODULE_ERROR_CHECK_FAILED -> CHECK_FAILED
+            else -> error("invalid nativeValue")
+        }
 
         public fun quark(): UInt = g_quark_from_string("g-module-error-quark")
 
-        public fun fromErrorOrNull(error: Error): ModuleError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                ModuleError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        public fun fromErrorOrNull(error: Error): ModuleError? = if (error.domain != quark()) {
+            null
+        } else {
+            ModuleError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

@@ -16,9 +16,7 @@ import org.gtkkn.native.gio.G_DBUS_PROXY_FLAGS_NO_MATCH_RULE
  * Flags used when constructing an instance of a #GDBusProxy derived class.
  * @since 2.26
  */
-public class DBusProxyFlags(
-    public val mask: GDBusProxyFlags,
-) : Bitfield<DBusProxyFlags> {
+public class DBusProxyFlags(public val mask: GDBusProxyFlags) : Bitfield<DBusProxyFlags> {
     override infix fun or(other: DBusProxyFlags): DBusProxyFlags = DBusProxyFlags(mask or other.mask)
 
     @GioVersion2_26

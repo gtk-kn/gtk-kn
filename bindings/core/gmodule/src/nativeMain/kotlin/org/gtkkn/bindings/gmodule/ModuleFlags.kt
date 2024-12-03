@@ -11,9 +11,7 @@ import org.gtkkn.native.gmodule.G_MODULE_BIND_MASK
  * Flags passed to g_module_open().
  * Note that these flags are not supported on all platforms.
  */
-public class ModuleFlags(
-    public val mask: GModuleFlags,
-) : Bitfield<ModuleFlags> {
+public class ModuleFlags(public val mask: GModuleFlags) : Bitfield<ModuleFlags> {
     override infix fun or(other: ModuleFlags): ModuleFlags = ModuleFlags(mask or other.mask)
 
     public companion object {

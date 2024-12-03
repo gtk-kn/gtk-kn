@@ -15,9 +15,8 @@ import org.gtkkn.native.gtk.gtk_constant_expression_new_for_value
 /**
  * A constant value in a `GtkExpression`.
  */
-public open class ConstantExpression(
-    pointer: CPointer<GtkConstantExpression>,
-) : Expression(pointer.reinterpret()),
+public open class ConstantExpression(pointer: CPointer<GtkConstantExpression>) :
+    Expression(pointer.reinterpret()),
     KGTyped {
     public val gtkConstantExpressionPointer: CPointer<GtkConstantExpression>
         get() = gPointer.reinterpret()

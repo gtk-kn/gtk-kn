@@ -9,9 +9,7 @@ import org.gtkkn.native.gio.GNetworkConnectivity
  * @since 2.44
  */
 @GioVersion2_44
-public enum class NetworkConnectivity(
-    public val nativeValue: GNetworkConnectivity,
-) {
+public enum class NetworkConnectivity(public val nativeValue: GNetworkConnectivity) {
     /**
      * The host is not configured with a
      *   route to the Internet; it may or may not be connected to a local
@@ -40,13 +38,12 @@ public enum class NetworkConnectivity(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GNetworkConnectivity): NetworkConnectivity =
-            when (nativeValue) {
-                GNetworkConnectivity.G_NETWORK_CONNECTIVITY_LOCAL -> LOCAL
-                GNetworkConnectivity.G_NETWORK_CONNECTIVITY_LIMITED -> LIMITED
-                GNetworkConnectivity.G_NETWORK_CONNECTIVITY_PORTAL -> PORTAL
-                GNetworkConnectivity.G_NETWORK_CONNECTIVITY_FULL -> FULL
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GNetworkConnectivity): NetworkConnectivity = when (nativeValue) {
+            GNetworkConnectivity.G_NETWORK_CONNECTIVITY_LOCAL -> LOCAL
+            GNetworkConnectivity.G_NETWORK_CONNECTIVITY_LIMITED -> LIMITED
+            GNetworkConnectivity.G_NETWORK_CONNECTIVITY_PORTAL -> PORTAL
+            GNetworkConnectivity.G_NETWORK_CONNECTIVITY_FULL -> FULL
+            else -> error("invalid nativeValue")
+        }
     }
 }

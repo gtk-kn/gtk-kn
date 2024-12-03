@@ -28,9 +28,7 @@ import kotlin.Unit
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusMethodInfo(
-    pointer: CPointer<GDBusMethodInfo>,
-) : Record {
+public class DBusMethodInfo(pointer: CPointer<GDBusMethodInfo>) : Record {
     public val gioDBusMethodInfoPointer: CPointer<GDBusMethodInfo> = pointer
 
     /**
@@ -58,10 +56,9 @@ public class DBusMethodInfo(
      * @since 2.26
      */
     @GioVersion2_26
-    public fun ref(): DBusMethodInfo =
-        g_dbus_method_info_ref(gioDBusMethodInfoPointer.reinterpret())!!.run {
-            DBusMethodInfo(reinterpret())
-        }
+    public fun ref(): DBusMethodInfo = g_dbus_method_info_ref(gioDBusMethodInfoPointer.reinterpret())!!.run {
+        DBusMethodInfo(reinterpret())
+    }
 
     /**
      * If @info is statically allocated, does nothing. Otherwise decreases

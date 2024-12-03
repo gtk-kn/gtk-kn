@@ -29,9 +29,8 @@ import kotlin.ULong
  * status code, the content length, the mime type, the HTTP status or
  * the suggested filename.
  */
-public class URIResponse(
-    pointer: CPointer<WebKitURIResponse>,
-) : Object(pointer.reinterpret()),
+public class URIResponse(pointer: CPointer<WebKitURIResponse>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val webkitURIResponsePointer: CPointer<WebKitURIResponse>
         get() = gPointer.reinterpret()
@@ -63,10 +62,9 @@ public class URIResponse(
          *    or null if @response is not an HTTP response.
          * @since 2.6
          */
-        get() =
-            webkit_uri_response_get_http_headers(webkitURIResponsePointer.reinterpret())!!.run {
-                MessageHeaders(reinterpret())
-            }
+        get() = webkit_uri_response_get_http_headers(webkitURIResponsePointer.reinterpret())!!.run {
+            MessageHeaders(reinterpret())
+        }
 
     /**
      * The MIME type of the response.
@@ -77,9 +75,8 @@ public class URIResponse(
          *
          * @return MIME type, as a string.
          */
-        get() =
-            webkit_uri_response_get_mime_type(webkitURIResponsePointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = webkit_uri_response_get_mime_type(webkitURIResponsePointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * The status code of the response as returned by the server.
@@ -111,9 +108,8 @@ public class URIResponse(
          * @return the suggested filename or null if
          *    the 'Content-Disposition' HTTP header is not present.
          */
-        get() =
-            webkit_uri_response_get_suggested_filename(webkitURIResponsePointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = webkit_uri_response_get_suggested_filename(webkitURIResponsePointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * The URI for which the response was made.
@@ -124,75 +120,7 @@ public class URIResponse(
          *
          * @return response URI, as a string.
          */
-        get() =
-            webkit_uri_response_get_uri(webkitURIResponsePointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
-
-    /**
-     * Get the expected content length of the #WebKitURIResponse.
-     *
-     * It can be 0 if the server provided an incorrect or missing Content-Length.
-     *
-     * @return the expected content length of @response.
-     */
-    public fun getContentLength(): ULong =
-        webkit_uri_response_get_content_length(webkitURIResponsePointer.reinterpret())
-
-    /**
-     * Get the HTTP headers of a #WebKitURIResponse as a #SoupMessageHeaders.
-     *
-     * @return a #SoupMessageHeaders with the HTTP headers of @response
-     *    or null if @response is not an HTTP response.
-     * @since 2.6
-     */
-    @WebKitVersion2_6
-    public fun getHttpHeaders(): MessageHeaders =
-        webkit_uri_response_get_http_headers(webkitURIResponsePointer.reinterpret())!!.run {
-            MessageHeaders(reinterpret())
-        }
-
-    /**
-     * Gets the MIME type of the response.
-     *
-     * @return MIME type, as a string.
-     */
-    public fun getMimeType(): String =
-        webkit_uri_response_get_mime_type(webkitURIResponsePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Get the status code of the #WebKitURIResponse.
-     *
-     * Get the status code of the #WebKitURIResponse as returned by
-     * the server. It will normally be a #SoupKnownStatusCode, for
-     * example %SOUP_STATUS_OK, though the server can respond with any
-     * unsigned integer.
-     *
-     * @return the status code of @response
-     */
-    public fun getStatusCode(): UInt = webkit_uri_response_get_status_code(webkitURIResponsePointer.reinterpret())
-
-    /**
-     * Get the suggested filename for @response.
-     *
-     * Get the suggested filename for @response, as specified by
-     * the 'Content-Disposition' HTTP header, or null if it's not
-     * present.
-     *
-     * @return the suggested filename or null if
-     *    the 'Content-Disposition' HTTP header is not present.
-     */
-    public fun getSuggestedFilename(): String =
-        webkit_uri_response_get_suggested_filename(webkitURIResponsePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets the URI which resulted in the response.
-     *
-     * @return response URI, as a string.
-     */
-    public fun getUri(): String =
-        webkit_uri_response_get_uri(webkitURIResponsePointer.reinterpret())?.toKString()
+        get() = webkit_uri_response_get_uri(webkitURIResponsePointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
 
     public companion object : TypeCompanion<URIResponse> {

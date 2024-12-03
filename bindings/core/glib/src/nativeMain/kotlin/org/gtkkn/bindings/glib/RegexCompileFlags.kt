@@ -28,9 +28,7 @@ import org.gtkkn.native.glib.G_REGEX_UNGREEDY
  * Flags specifying compile-time options.
  * @since 2.14
  */
-public class RegexCompileFlags(
-    public val mask: GRegexCompileFlags,
-) : Bitfield<RegexCompileFlags> {
+public class RegexCompileFlags(public val mask: GRegexCompileFlags) : Bitfield<RegexCompileFlags> {
     override infix fun or(other: RegexCompileFlags): RegexCompileFlags = RegexCompileFlags(mask or other.mask)
 
     @GLibVersion2_14

@@ -7,9 +7,7 @@ import org.gtkkn.native.pango.PangoUnderline
  * The `PangoUnderline` enumeration is used to specify whether text
  * should be underlined, and if so, the type of underlining.
  */
-public enum class Underline(
-    public val nativeValue: PangoUnderline,
-) {
+public enum class Underline(public val nativeValue: PangoUnderline) {
     /**
      * no underline should be drawn
      */
@@ -70,17 +68,16 @@ public enum class Underline(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: PangoUnderline): Underline =
-            when (nativeValue) {
-                PangoUnderline.PANGO_UNDERLINE_NONE -> NONE
-                PangoUnderline.PANGO_UNDERLINE_SINGLE -> SINGLE
-                PangoUnderline.PANGO_UNDERLINE_DOUBLE -> DOUBLE
-                PangoUnderline.PANGO_UNDERLINE_LOW -> LOW
-                PangoUnderline.PANGO_UNDERLINE_ERROR -> ERROR
-                PangoUnderline.PANGO_UNDERLINE_SINGLE_LINE -> SINGLE_LINE
-                PangoUnderline.PANGO_UNDERLINE_DOUBLE_LINE -> DOUBLE_LINE
-                PangoUnderline.PANGO_UNDERLINE_ERROR_LINE -> ERROR_LINE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: PangoUnderline): Underline = when (nativeValue) {
+            PangoUnderline.PANGO_UNDERLINE_NONE -> NONE
+            PangoUnderline.PANGO_UNDERLINE_SINGLE -> SINGLE
+            PangoUnderline.PANGO_UNDERLINE_DOUBLE -> DOUBLE
+            PangoUnderline.PANGO_UNDERLINE_LOW -> LOW
+            PangoUnderline.PANGO_UNDERLINE_ERROR -> ERROR
+            PangoUnderline.PANGO_UNDERLINE_SINGLE_LINE -> SINGLE_LINE
+            PangoUnderline.PANGO_UNDERLINE_DOUBLE_LINE -> DOUBLE_LINE
+            PangoUnderline.PANGO_UNDERLINE_ERROR_LINE -> ERROR_LINE
+            else -> error("invalid nativeValue")
+        }
     }
 }

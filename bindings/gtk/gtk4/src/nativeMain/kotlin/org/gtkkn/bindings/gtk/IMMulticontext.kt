@@ -23,9 +23,8 @@ import kotlin.Unit
  * to implement their `im-module` property for switching between different
  * input methods.
  */
-public open class IMMulticontext(
-    pointer: CPointer<GtkIMMulticontext>,
-) : IMContext(pointer.reinterpret()),
+public open class IMMulticontext(pointer: CPointer<GtkIMMulticontext>) :
+    IMContext(pointer.reinterpret()),
     KGTyped {
     public val gtkIMMulticontextPointer: CPointer<GtkIMMulticontext>
         get() = gPointer.reinterpret()

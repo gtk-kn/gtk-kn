@@ -30,9 +30,8 @@ import kotlin.UInt
  *
  * - parameter `n_glyphs`: n_glyphs: Out parameter is not supported
  */
-public open class TextNode(
-    pointer: CPointer<GskTextNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class TextNode(pointer: CPointer<GskTextNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskTextNodePointer: CPointer<GskTextNode>
         get() = gPointer.reinterpret()
@@ -68,20 +67,18 @@ public open class TextNode(
      *
      * @return the text color
      */
-    public open fun getColor(): RGBA =
-        gsk_text_node_get_color(gskTextNodePointer.reinterpret())!!.run {
-            RGBA(reinterpret())
-        }
+    public open fun getColor(): RGBA = gsk_text_node_get_color(gskTextNodePointer.reinterpret())!!.run {
+        RGBA(reinterpret())
+    }
 
     /**
      * Returns the font used by the text @node.
      *
      * @return the font
      */
-    public open fun getFont(): Font =
-        gsk_text_node_get_font(gskTextNodePointer.reinterpret())!!.run {
-            Font(reinterpret())
-        }
+    public open fun getFont(): Font = gsk_text_node_get_font(gskTextNodePointer.reinterpret())!!.run {
+        Font(reinterpret())
+    }
 
     /**
      * Retrieves the number of glyphs in the text node.
@@ -95,10 +92,9 @@ public open class TextNode(
      *
      * @return a point with the horizontal and vertical offsets
      */
-    public open fun getOffset(): Point =
-        gsk_text_node_get_offset(gskTextNodePointer.reinterpret())!!.run {
-            Point(reinterpret())
-        }
+    public open fun getOffset(): Point = gsk_text_node_get_offset(gskTextNodePointer.reinterpret())!!.run {
+        Point(reinterpret())
+    }
 
     /**
      * Checks whether the text @node has color glyphs.

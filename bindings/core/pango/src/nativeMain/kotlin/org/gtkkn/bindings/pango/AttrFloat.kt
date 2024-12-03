@@ -18,9 +18,7 @@ import kotlin.Double
  *
  * - field `attr`: Attribute
  */
-public class AttrFloat(
-    pointer: CPointer<PangoAttrFloat>,
-) : Record {
+public class AttrFloat(pointer: CPointer<PangoAttrFloat>) : Record {
     public val pangoAttrFloatPointer: CPointer<PangoAttrFloat> = pointer
 
     /**

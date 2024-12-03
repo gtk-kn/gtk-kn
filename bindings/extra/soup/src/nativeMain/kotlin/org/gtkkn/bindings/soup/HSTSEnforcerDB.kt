@@ -22,9 +22,8 @@ import kotlin.String
  *
  * - method `filename`: Property has no getter nor setter
  */
-public class HSTSEnforcerDB(
-    pointer: CPointer<SoupHSTSEnforcerDB>,
-) : HSTSEnforcer(pointer.reinterpret()),
+public class HSTSEnforcerDB(pointer: CPointer<SoupHSTSEnforcerDB>) :
+    HSTSEnforcer(pointer.reinterpret()),
     KGTyped {
     public val soupHSTSEnforcerDBPointer: CPointer<SoupHSTSEnforcerDB>
         get() = gPointer.reinterpret()

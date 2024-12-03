@@ -34,9 +34,8 @@ import kotlin.Unit
  * group; when all window have been removed, the window group will be
  * freed.
  */
-public open class WindowGroup(
-    pointer: CPointer<GtkWindowGroup>,
-) : Object(pointer.reinterpret()),
+public open class WindowGroup(pointer: CPointer<GtkWindowGroup>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkWindowGroupPointer: CPointer<GtkWindowGroup>
         get() = gPointer.reinterpret()
@@ -65,10 +64,9 @@ public open class WindowGroup(
      * @return A
      *   newly-allocated list of windows inside the group.
      */
-    public open fun listWindows(): List =
-        gtk_window_group_list_windows(gtkWindowGroupPointer.reinterpret())!!.run {
-            List(reinterpret())
-        }
+    public open fun listWindows(): List = gtk_window_group_list_windows(gtkWindowGroupPointer.reinterpret())!!.run {
+        List(reinterpret())
+    }
 
     /**
      * Removes a window from a `GtkWindowGroup`.

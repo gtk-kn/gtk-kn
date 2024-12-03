@@ -29,9 +29,7 @@ import kotlin.String
  * - field `change_state`: Fields with callbacks are not supported
  * - field `padding`: Record field padding is private
  */
-public class ActionEntry(
-    pointer: CPointer<GActionEntry>,
-) : Record {
+public class ActionEntry(pointer: CPointer<GActionEntry>) : Record {
     public val gioActionEntryPointer: CPointer<GActionEntry> = pointer
 
     /**

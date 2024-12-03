@@ -22,19 +22,16 @@ import org.gtkkn.native.pango.PangoAttrClass
  * - field `destroy`: Fields with callbacks are not supported
  * - field `equal`: Fields with callbacks are not supported
  */
-public class AttrClass(
-    pointer: CPointer<PangoAttrClass>,
-) : Record {
+public class AttrClass(pointer: CPointer<PangoAttrClass>) : Record {
     public val pangoAttrClassPointer: CPointer<PangoAttrClass> = pointer
 
     /**
      * the type ID for this attribute
      */
     public var type: AttrType
-        get() =
-            pangoAttrClassPointer.pointed.type.run {
-                AttrType.fromNativeValue(this)
-            }
+        get() = pangoAttrClassPointer.pointed.type.run {
+            AttrType.fromNativeValue(this)
+        }
         set(`value`) {
             pangoAttrClassPointer.pointed.type = value.nativeValue
         }

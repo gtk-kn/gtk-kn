@@ -48,9 +48,7 @@ import kotlin.Unit
  * - parameter `data`: Array parameter of type guint8 is not supported
  * - field `data`: Fields with arrays are not supported
  */
-public class MessageBody(
-    pointer: CPointer<SoupMessageBody>,
-) : Record {
+public class MessageBody(pointer: CPointer<SoupMessageBody>) : Record {
     public val soupMessageBodyPointer: CPointer<SoupMessageBody> = pointer
 
     /**
@@ -87,10 +85,9 @@ public class MessageBody(
      * @return a #GBytes containing the same data as @body.
      *   (You must [method@GLib.Bytes.unref] this if you do not want it.)
      */
-    public fun flatten(): Bytes =
-        soup_message_body_flatten(soupMessageBodyPointer.reinterpret())!!.run {
-            Bytes(reinterpret())
-        }
+    public fun flatten(): Bytes = soup_message_body_flatten(soupMessageBodyPointer.reinterpret())!!.run {
+        Bytes(reinterpret())
+    }
 
     /**
      * Gets the accumulate flag on @body.
@@ -149,10 +146,9 @@ public class MessageBody(
      *
      * @return the passed in #SoupMessageBody
      */
-    public fun ref(): MessageBody =
-        soup_message_body_ref(soupMessageBodyPointer.reinterpret())!!.run {
-            MessageBody(reinterpret())
-        }
+    public fun ref(): MessageBody = soup_message_body_ref(soupMessageBodyPointer.reinterpret())!!.run {
+        MessageBody(reinterpret())
+    }
 
     /**
      * Sets or clears the accumulate flag on @body.

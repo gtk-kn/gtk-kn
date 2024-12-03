@@ -13,9 +13,8 @@ import org.gtkkn.native.gtk.gtk_nothing_action_get_type
 /**
  * A `GtkShortcutAction` that does nothing.
  */
-public open class NothingAction(
-    pointer: CPointer<GtkNothingAction>,
-) : ShortcutAction(pointer.reinterpret()),
+public open class NothingAction(pointer: CPointer<GtkNothingAction>) :
+    ShortcutAction(pointer.reinterpret()),
     KGTyped {
     public val gtkNothingActionPointer: CPointer<GtkNothingAction>
         get() = gPointer.reinterpret()
@@ -36,9 +35,8 @@ public open class NothingAction(
          *
          * @return The nothing action
          */
-        public fun `get`(): NothingAction =
-            gtk_nothing_action_get()!!.run {
-                NothingAction(reinterpret())
-            }
+        public fun `get`(): NothingAction = gtk_nothing_action_get()!!.run {
+            NothingAction(reinterpret())
+        }
     }
 }

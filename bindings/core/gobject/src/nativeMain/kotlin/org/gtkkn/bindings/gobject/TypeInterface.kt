@@ -25,9 +25,7 @@ import kotlin.Unit
  * - field `g_type`: Record field g_type is private
  * - field `g_instance_type`: Record field g_instance_type is private
  */
-public class TypeInterface(
-    pointer: CPointer<GTypeInterface>,
-) : Record {
+public class TypeInterface(pointer: CPointer<GTypeInterface>) : Record {
     public val gobjectTypeInterfacePointer: CPointer<GTypeInterface> = pointer
 
     /**
@@ -57,10 +55,8 @@ public class TypeInterface(
          * @param interfaceType #GType value of an interface type
          * @param prerequisiteType #GType value of an interface or instantiatable type
          */
-        public fun addPrerequisite(
-            interfaceType: ULong,
-            prerequisiteType: ULong,
-        ): Unit = g_type_interface_add_prerequisite(interfaceType, prerequisiteType)
+        public fun addPrerequisite(interfaceType: ULong, prerequisiteType: ULong): Unit =
+            g_type_interface_add_prerequisite(interfaceType, prerequisiteType)
 
         /**
          * Returns the #GTypePlugin structure for the dynamic interface
@@ -73,10 +69,7 @@ public class TypeInterface(
          * @return the #GTypePlugin for the dynamic
          *     interface @interface_type of @instance_type
          */
-        public fun getPlugin(
-            instanceType: ULong,
-            interfaceType: ULong,
-        ): TypePlugin =
+        public fun getPlugin(instanceType: ULong, interfaceType: ULong): TypePlugin =
             g_type_interface_get_plugin(instanceType, interfaceType)!!.run {
                 TypePlugin.wrap(reinterpret())
             }
@@ -107,10 +100,7 @@ public class TypeInterface(
          *     structure of @iface_type if implemented by @instance_class, null
          *     otherwise
          */
-        public fun peek(
-            instanceClass: TypeClass,
-            ifaceType: ULong,
-        ): TypeInterface =
+        public fun peek(instanceClass: TypeClass, ifaceType: ULong): TypeInterface =
             g_type_interface_peek(instanceClass.gobjectTypeClassPointer.reinterpret(), ifaceType)!!.run {
                 TypeInterface(reinterpret())
             }

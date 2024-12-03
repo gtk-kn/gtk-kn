@@ -28,9 +28,7 @@ import org.gtkkn.native.gio.G_TLS_CERTIFICATE_VALIDATE_ALL
  * other problems exist with the certificate.
  * @since 2.28
  */
-public class TlsCertificateFlags(
-    public val mask: GTlsCertificateFlags,
-) : Bitfield<TlsCertificateFlags> {
+public class TlsCertificateFlags(public val mask: GTlsCertificateFlags) : Bitfield<TlsCertificateFlags> {
     override infix fun or(other: TlsCertificateFlags): TlsCertificateFlags = TlsCertificateFlags(mask or other.mask)
 
     @GioVersion2_28

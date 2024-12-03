@@ -16,9 +16,8 @@ import kotlin.Float
 /**
  * A render node controlling the opacity of its single child node.
  */
-public open class OpacityNode(
-    pointer: CPointer<GskOpacityNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class OpacityNode(pointer: CPointer<GskOpacityNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskOpacityNodePointer: CPointer<GskOpacityNode>
         get() = gPointer.reinterpret()
@@ -41,10 +40,9 @@ public open class OpacityNode(
      *
      * @return The child that is getting opacityed
      */
-    public open fun getChild(): RenderNode =
-        gsk_opacity_node_get_child(gskOpacityNodePointer.reinterpret())!!.run {
-            RenderNode(reinterpret())
-        }
+    public open fun getChild(): RenderNode = gsk_opacity_node_get_child(gskOpacityNodePointer.reinterpret())!!.run {
+        RenderNode(reinterpret())
+    }
 
     /**
      * Gets the transparency factor for an opacity node.

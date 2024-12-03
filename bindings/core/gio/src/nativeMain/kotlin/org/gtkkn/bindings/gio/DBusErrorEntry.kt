@@ -18,9 +18,7 @@ import kotlin.String
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusErrorEntry(
-    pointer: CPointer<GDBusErrorEntry>,
-) : Record {
+public class DBusErrorEntry(pointer: CPointer<GDBusErrorEntry>) : Record {
     public val gioDBusErrorEntryPointer: CPointer<GDBusErrorEntry> = pointer
 
     /**

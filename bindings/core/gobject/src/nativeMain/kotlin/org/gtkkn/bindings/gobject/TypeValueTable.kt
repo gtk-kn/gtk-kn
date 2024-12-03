@@ -24,9 +24,7 @@ import kotlin.String
  * - field `collect_value`: TypeValueCollectFunc
  * - field `lcopy_value`: TypeValueLCopyFunc
  */
-public class TypeValueTable(
-    pointer: CPointer<GTypeValueTable>,
-) : Record {
+public class TypeValueTable(pointer: CPointer<GTypeValueTable>) : Record {
     public val gobjectTypeValueTablePointer: CPointer<GTypeValueTable> = pointer
 
     /**

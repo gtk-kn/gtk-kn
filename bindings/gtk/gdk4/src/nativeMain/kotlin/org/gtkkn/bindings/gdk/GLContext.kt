@@ -99,9 +99,8 @@ import kotlin.Unit
  * - parameter `major`: major: Out parameter is not supported
  * - parameter `major`: major: Out parameter is not supported
  */
-public open class GLContext(
-    pointer: CPointer<GdkGLContext>,
-) : DrawContext(pointer.reinterpret()),
+public open class GLContext(pointer: CPointer<GdkGLContext>) :
+    DrawContext(pointer.reinterpret()),
     KGTyped {
     public val gdkGLContextPointer: CPointer<GdkGLContext>
         get() = gPointer.reinterpret()
@@ -119,10 +118,9 @@ public open class GLContext(
          * @return the allowed APIs
          * @since 4.6
          */
-        get() =
-            gdk_gl_context_get_allowed_apis(gdkGLContextPointer.reinterpret()).run {
-                GLAPI(this)
-            }
+        get() = gdk_gl_context_get_allowed_apis(gdkGLContextPointer.reinterpret()).run {
+            GLAPI(this)
+        }
 
         /**
          * Sets the allowed APIs. When gdk_gl_context_realize() is called, only the
@@ -154,10 +152,9 @@ public open class GLContext(
          * @return the currently used API
          * @since 4.6
          */
-        get() =
-            gdk_gl_context_get_api(gdkGLContextPointer.reinterpret()).run {
-                GLAPI(this)
-            }
+        get() = gdk_gl_context_get_api(gdkGLContextPointer.reinterpret()).run {
+            GLAPI(this)
+        }
 
     /**
      * Always null
@@ -174,35 +171,34 @@ public open class GLContext(
          *
          * @return null
          */
-        get() =
-            gdk_gl_context_get_shared_context(gdkGLContextPointer.reinterpret())?.run {
-                GLContext(reinterpret())
-            }
-
-    /**
-     * Gets the allowed APIs set via gdk_gl_context_set_allowed_apis().
-     *
-     * @return the allowed APIs
-     * @since 4.6
-     */
-    @GdkVersion4_6
-    public open fun getAllowedApis(): GLAPI =
-        gdk_gl_context_get_allowed_apis(gdkGLContextPointer.reinterpret()).run {
-            GLAPI(this)
+        get() = gdk_gl_context_get_shared_context(gdkGLContextPointer.reinterpret())?.run {
+            GLContext(reinterpret())
         }
 
     /**
-     * Gets the API currently in use.
-     *
-     * If the renderer has not been realized yet, 0 is returned.
-     *
-     * @return the currently used API
-     * @since 4.6
+     * The `GdkDisplay` used to create the `GdkDrawContext`.
      */
-    @GdkVersion4_6
-    public open fun getApi(): GLAPI =
-        gdk_gl_context_get_api(gdkGLContextPointer.reinterpret()).run {
-            GLAPI(this)
+    public override val display: Display?
+        /**
+         * Retrieves the display the @context is created for
+         *
+         * @return a `GdkDisplay`
+         */
+        get() = gdk_gl_context_get_display(gdkGLContextPointer.reinterpret())?.run {
+            Display(reinterpret())
+        }
+
+    /**
+     * The `GdkSurface` the context is bound to.
+     */
+    public override val surface: Surface?
+        /**
+         * Retrieves the surface used by the @context.
+         *
+         * @return a `GdkSurface`
+         */
+        get() = gdk_gl_context_get_surface(gdkGLContextPointer.reinterpret())?.run {
+            Surface(reinterpret())
         }
 
     /**
@@ -216,16 +212,6 @@ public open class GLContext(
         gdk_gl_context_get_debug_enabled(gdkGLContextPointer.reinterpret()).asBoolean()
 
     /**
-     * Retrieves the display the @context is created for
-     *
-     * @return a `GdkDisplay`
-     */
-    open override fun getDisplay(): Display? =
-        gdk_gl_context_get_display(gdkGLContextPointer.reinterpret())?.run {
-            Display(reinterpret())
-        }
-
-    /**
      * Retrieves whether the context is forward-compatible.
      *
      * See [method@Gdk.GLContext.set_forward_compatible].
@@ -234,29 +220,6 @@ public open class GLContext(
      */
     public open fun getForwardCompatible(): Boolean =
         gdk_gl_context_get_forward_compatible(gdkGLContextPointer.reinterpret()).asBoolean()
-
-    /**
-     * Used to retrieves the `GdkGLContext` that this @context share data with.
-     *
-     * As many contexts can share data now and no single shared context exists
-     * anymore, this function has been deprecated and now always returns null.
-     *
-     * @return null
-     */
-    public open fun getSharedContext(): GLContext? =
-        gdk_gl_context_get_shared_context(gdkGLContextPointer.reinterpret())?.run {
-            GLContext(reinterpret())
-        }
-
-    /**
-     * Retrieves the surface used by the @context.
-     *
-     * @return a `GdkSurface`
-     */
-    open override fun getSurface(): Surface? =
-        gdk_gl_context_get_surface(gdkGLContextPointer.reinterpret())?.run {
-            Surface(reinterpret())
-        }
 
     /**
      * Checks whether the @context is using an OpenGL or OpenGL ES profile.
@@ -323,32 +286,15 @@ public open class GLContext(
      *
      * @return true if the context is realized
      */
-    public open fun realize(): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = gdk_gl_context_realize(gdkGLContextPointer.reinterpret(), gError.ptr).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun realize(): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gdk_gl_context_realize(gdkGLContextPointer.reinterpret(), gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
-
-    /**
-     * Sets the allowed APIs. When gdk_gl_context_realize() is called, only the
-     * allowed APIs will be tried. If you set this to 0, realizing will always fail.
-     *
-     * If you set it on a realized context, the property will not have any effect.
-     * It is only relevant during gdk_gl_context_realize().
-     *
-     * By default, all APIs are allowed.
-     *
-     * @param apis the allowed APIs
-     * @since 4.6
-     */
-    @GdkVersion4_6
-    public open fun setAllowedApis(apis: GLAPI): Unit =
-        gdk_gl_context_set_allowed_apis(gdkGLContextPointer.reinterpret(), apis.mask)
+    }
 
     /**
      * Sets whether the `GdkGLContext` should perform extra validations and
@@ -394,10 +340,8 @@ public open class GLContext(
      * @param major the major version to request
      * @param minor the minor version to request
      */
-    public open fun setRequiredVersion(
-        major: Int,
-        minor: Int,
-    ): Unit = gdk_gl_context_set_required_version(gdkGLContextPointer.reinterpret(), major, minor)
+    public open fun setRequiredVersion(major: Int, minor: Int): Unit =
+        gdk_gl_context_set_required_version(gdkGLContextPointer.reinterpret(), major, minor)
 
     /**
      * Requests that GDK create an OpenGL ES context instead of an OpenGL one.
@@ -440,9 +384,8 @@ public open class GLContext(
          *
          * @return the current `GdkGLContext`
          */
-        public fun getCurrent(): GLContext? =
-            gdk_gl_context_get_current()?.run {
-                GLContext(reinterpret())
-            }
+        public fun getCurrent(): GLContext? = gdk_gl_context_get_current()?.run {
+            GLContext(reinterpret())
+        }
     }
 }

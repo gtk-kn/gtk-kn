@@ -7,9 +7,7 @@ import org.gtkkn.native.soup.SoupCookieJarAcceptPolicy
  * The policy for accepting or rejecting cookies returned in
  * responses.
  */
-public enum class CookieJarAcceptPolicy(
-    public val nativeValue: SoupCookieJarAcceptPolicy,
-) {
+public enum class CookieJarAcceptPolicy(public val nativeValue: SoupCookieJarAcceptPolicy) {
     /**
      * accept all cookies unconditionally.
      */
@@ -54,13 +52,12 @@ public enum class CookieJarAcceptPolicy(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: SoupCookieJarAcceptPolicy): CookieJarAcceptPolicy =
-            when (nativeValue) {
-                SoupCookieJarAcceptPolicy.SOUP_COOKIE_JAR_ACCEPT_ALWAYS -> ALWAYS
-                SoupCookieJarAcceptPolicy.SOUP_COOKIE_JAR_ACCEPT_NEVER -> NEVER
-                SoupCookieJarAcceptPolicy.SOUP_COOKIE_JAR_ACCEPT_NO_THIRD_PARTY -> NO_THIRD_PARTY
-                SoupCookieJarAcceptPolicy.SOUP_COOKIE_JAR_ACCEPT_GRANDFATHERED_THIRD_PARTY -> GRANDFATHERED_THIRD_PARTY
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: SoupCookieJarAcceptPolicy): CookieJarAcceptPolicy = when (nativeValue) {
+            SoupCookieJarAcceptPolicy.SOUP_COOKIE_JAR_ACCEPT_ALWAYS -> ALWAYS
+            SoupCookieJarAcceptPolicy.SOUP_COOKIE_JAR_ACCEPT_NEVER -> NEVER
+            SoupCookieJarAcceptPolicy.SOUP_COOKIE_JAR_ACCEPT_NO_THIRD_PARTY -> NO_THIRD_PARTY
+            SoupCookieJarAcceptPolicy.SOUP_COOKIE_JAR_ACCEPT_GRANDFATHERED_THIRD_PARTY -> GRANDFATHERED_THIRD_PARTY
+            else -> error("invalid nativeValue")
+        }
     }
 }

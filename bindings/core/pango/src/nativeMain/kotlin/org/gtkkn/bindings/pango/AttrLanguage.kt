@@ -18,9 +18,7 @@ import org.gtkkn.native.pango.pango_attr_language_new
  *
  * - field `attr`: Attribute
  */
-public class AttrLanguage(
-    pointer: CPointer<PangoAttrLanguage>,
-) : Record {
+public class AttrLanguage(pointer: CPointer<PangoAttrLanguage>) : Record {
     public val pangoAttrLanguagePointer: CPointer<PangoAttrLanguage> = pointer
 
     /**
@@ -29,10 +27,9 @@ public class AttrLanguage(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val `value`: Language?
-        get() =
-            pangoAttrLanguagePointer.pointed.value?.run {
-                Language(reinterpret())
-            }
+        get() = pangoAttrLanguagePointer.pointed.value?.run {
+            Language(reinterpret())
+        }
 
     public companion object : RecordCompanion<AttrLanguage, PangoAttrLanguage> {
         /**

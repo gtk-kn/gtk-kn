@@ -19,9 +19,8 @@ import org.gtkkn.native.gtk.gtk_bin_layout_new
  * [property@Gtk.Widget:halign], and [property@Gtk.Widget:valign] properties
  * of each child to determine where they should be positioned.
  */
-public open class BinLayout(
-    pointer: CPointer<GtkBinLayout>,
-) : LayoutManager(pointer.reinterpret()),
+public open class BinLayout(pointer: CPointer<GtkBinLayout>) :
+    LayoutManager(pointer.reinterpret()),
     KGTyped {
     public val gtkBinLayoutPointer: CPointer<GtkBinLayout>
         get() = gPointer.reinterpret()

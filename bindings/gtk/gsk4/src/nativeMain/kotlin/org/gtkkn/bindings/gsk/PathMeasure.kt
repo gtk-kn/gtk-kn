@@ -35,9 +35,7 @@ import kotlin.Unit
  * @since 4.14
  */
 @GskVersion4_14
-public class PathMeasure(
-    pointer: CPointer<GskPathMeasure>,
-) : Record {
+public class PathMeasure(pointer: CPointer<GskPathMeasure>) : Record {
     public val gskPathMeasurePointer: CPointer<GskPathMeasure> = pointer
 
     /**
@@ -58,10 +56,9 @@ public class PathMeasure(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getPath(): Path =
-        gsk_path_measure_get_path(gskPathMeasurePointer.reinterpret())!!.run {
-            Path(reinterpret())
-        }
+    public fun getPath(): Path = gsk_path_measure_get_path(gskPathMeasurePointer.reinterpret())!!.run {
+        Path(reinterpret())
+    }
 
     /**
      * Sets @result to the point at the given distance into the path.
@@ -74,15 +71,11 @@ public class PathMeasure(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getPoint(
-        distance: Float,
-        result: PathPoint,
-    ): Boolean =
-        gsk_path_measure_get_point(
-            gskPathMeasurePointer.reinterpret(),
-            distance,
-            result.gskPathPointPointer.reinterpret()
-        ).asBoolean()
+    public fun getPoint(distance: Float, result: PathPoint): Boolean = gsk_path_measure_get_point(
+        gskPathMeasurePointer.reinterpret(),
+        distance,
+        result.gskPathPointPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Returns the tolerance that the measure was created with.
@@ -100,10 +93,9 @@ public class PathMeasure(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun ref(): PathMeasure =
-        gsk_path_measure_ref(gskPathMeasurePointer.reinterpret())!!.run {
-            PathMeasure(reinterpret())
-        }
+    public fun ref(): PathMeasure = gsk_path_measure_ref(gskPathMeasurePointer.reinterpret())!!.run {
+        PathMeasure(reinterpret())
+    }
 
     /**
      * Decreases the reference count of a `GskPathMeasure` by one.
@@ -135,13 +127,9 @@ public class PathMeasure(
          * @return a new `GskPathMeasure` representing @path
          * @since 4.14
          */
-        public fun newWithTolerance(
-            path: Path,
-            tolerance: Float,
-        ): PathMeasure =
-            PathMeasure(
-                gsk_path_measure_new_with_tolerance(path.gskPathPointer.reinterpret(), tolerance)!!.reinterpret()
-            )
+        public fun newWithTolerance(path: Path, tolerance: Float): PathMeasure = PathMeasure(
+            gsk_path_measure_new_with_tolerance(path.gskPathPointer.reinterpret(), tolerance)!!.reinterpret()
+        )
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PathMeasure =
             PathMeasure(pointer.reinterpret())

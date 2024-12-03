@@ -13,9 +13,7 @@ import org.gtkkn.native.gtk.GtkListScrollFlags
  * a list widget.
  * @since 4.12
  */
-public class ListScrollFlags(
-    public val mask: GtkListScrollFlags,
-) : Bitfield<ListScrollFlags> {
+public class ListScrollFlags(public val mask: GtkListScrollFlags) : Bitfield<ListScrollFlags> {
     override infix fun or(other: ListScrollFlags): ListScrollFlags = ListScrollFlags(mask or other.mask)
 
     @GtkVersion4_12

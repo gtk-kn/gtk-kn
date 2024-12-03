@@ -6,9 +6,7 @@ import org.gtkkn.native.soup.SoupWebsocketConnectionType
 /**
  * The type of a [class@WebsocketConnection].
  */
-public enum class WebsocketConnectionType(
-    public val nativeValue: SoupWebsocketConnectionType,
-) {
+public enum class WebsocketConnectionType(public val nativeValue: SoupWebsocketConnectionType) {
     /**
      * unknown/invalid connection
      */

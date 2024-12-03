@@ -13,7 +13,7 @@ import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -97,9 +97,8 @@ import kotlin.Throws
  * }
  * ```
  */
-public open class PageSetup(
-    pointer: CPointer<GtkPageSetup>,
-) : Object(pointer.reinterpret()),
+public open class PageSetup(pointer: CPointer<GtkPageSetup>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkPageSetupPointer: CPointer<GtkPageSetup>
         get() = gPointer.reinterpret()
@@ -121,7 +120,7 @@ public open class PageSetup(
      * @param fileName the filename to read the page setup from
      * @return the restored `GtkPageSetup`
      */
-    @Throws(GlibException::class)
+    @Throws(GLibException::class)
     public constructor(fileName: String) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -158,7 +157,7 @@ public open class PageSetup(
      *    to use the default name “Page Setup”
      * @return the restored `GtkPageSetup`
      */
-    @Throws(GlibException::class)
+    @Throws(GLibException::class)
     public constructor(keyFile: KeyFile, groupName: String? = null) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -176,10 +175,9 @@ public open class PageSetup(
      *
      * @return a copy of @other
      */
-    public open fun copy(): PageSetup =
-        gtk_page_setup_copy(gtkPageSetupPointer.reinterpret())!!.run {
-            PageSetup(reinterpret())
-        }
+    public open fun copy(): PageSetup = gtk_page_setup_copy(gtkPageSetupPointer.reinterpret())!!.run {
+        PageSetup(reinterpret())
+    }
 
     /**
      * Gets the bottom margin in units of @unit.
@@ -253,10 +251,9 @@ public open class PageSetup(
      *
      * @return the paper size
      */
-    public open fun getPaperSize(): PaperSize =
-        gtk_page_setup_get_paper_size(gtkPageSetupPointer.reinterpret())!!.run {
-            PaperSize(reinterpret())
-        }
+    public open fun getPaperSize(): PaperSize = gtk_page_setup_get_paper_size(gtkPageSetupPointer.reinterpret())!!.run {
+        PaperSize(reinterpret())
+    }
 
     /**
      * Returns the paper width in units of @unit.
@@ -297,16 +294,15 @@ public open class PageSetup(
      * @param fileName the filename to read the page setup from
      * @return true on success
      */
-    public open fun loadFile(fileName: String): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = gtk_page_setup_load_file(gtkPageSetupPointer.reinterpret(), fileName, gError.ptr).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun loadFile(fileName: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gtk_page_setup_load_file(gtkPageSetupPointer.reinterpret(), fileName, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Reads the page setup from the group @group_name in the key file
@@ -317,25 +313,20 @@ public open class PageSetup(
      *   to use the default name “Page Setup”
      * @return true on success
      */
-    public open fun loadKeyFile(
-        keyFile: KeyFile,
-        groupName: String? = null,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gtk_page_setup_load_key_file(
-                    gtkPageSetupPointer.reinterpret(),
-                    keyFile.glibKeyFilePointer.reinterpret(),
-                    groupName,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun loadKeyFile(keyFile: KeyFile, groupName: String? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gtk_page_setup_load_key_file(
+            gtkPageSetupPointer.reinterpret(),
+            keyFile.glibKeyFilePointer.reinterpret(),
+            groupName,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Sets the bottom margin of the `GtkPageSetup`.
@@ -343,10 +334,8 @@ public open class PageSetup(
      * @param margin the new bottom margin in units of @unit
      * @param unit the units for @margin
      */
-    public open fun setBottomMargin(
-        margin: Double,
-        unit: Unit,
-    ): kotlin.Unit = gtk_page_setup_set_bottom_margin(gtkPageSetupPointer.reinterpret(), margin, unit.nativeValue)
+    public open fun setBottomMargin(margin: Double, unit: Unit): kotlin.Unit =
+        gtk_page_setup_set_bottom_margin(gtkPageSetupPointer.reinterpret(), margin, unit.nativeValue)
 
     /**
      * Sets the left margin of the `GtkPageSetup`.
@@ -354,10 +343,8 @@ public open class PageSetup(
      * @param margin the new left margin in units of @unit
      * @param unit the units for @margin
      */
-    public open fun setLeftMargin(
-        margin: Double,
-        unit: Unit,
-    ): kotlin.Unit = gtk_page_setup_set_left_margin(gtkPageSetupPointer.reinterpret(), margin, unit.nativeValue)
+    public open fun setLeftMargin(margin: Double, unit: Unit): kotlin.Unit =
+        gtk_page_setup_set_left_margin(gtkPageSetupPointer.reinterpret(), margin, unit.nativeValue)
 
     /**
      * Sets the page orientation of the `GtkPageSetup`.
@@ -396,10 +383,8 @@ public open class PageSetup(
      * @param margin the new right margin in units of @unit
      * @param unit the units for @margin
      */
-    public open fun setRightMargin(
-        margin: Double,
-        unit: Unit,
-    ): kotlin.Unit = gtk_page_setup_set_right_margin(gtkPageSetupPointer.reinterpret(), margin, unit.nativeValue)
+    public open fun setRightMargin(margin: Double, unit: Unit): kotlin.Unit =
+        gtk_page_setup_set_right_margin(gtkPageSetupPointer.reinterpret(), margin, unit.nativeValue)
 
     /**
      * Sets the top margin of the `GtkPageSetup`.
@@ -407,10 +392,8 @@ public open class PageSetup(
      * @param margin the new top margin in units of @unit
      * @param unit the units for @margin
      */
-    public open fun setTopMargin(
-        margin: Double,
-        unit: Unit,
-    ): kotlin.Unit = gtk_page_setup_set_top_margin(gtkPageSetupPointer.reinterpret(), margin, unit.nativeValue)
+    public open fun setTopMargin(margin: Double, unit: Unit): kotlin.Unit =
+        gtk_page_setup_set_top_margin(gtkPageSetupPointer.reinterpret(), margin, unit.nativeValue)
 
     /**
      * This function saves the information from @setup to @file_name.
@@ -418,26 +401,24 @@ public open class PageSetup(
      * @param fileName the file to save to
      * @return true on success
      */
-    public open fun toFile(fileName: String): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = gtk_page_setup_to_file(gtkPageSetupPointer.reinterpret(), fileName, gError.ptr).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun toFile(fileName: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gtk_page_setup_to_file(gtkPageSetupPointer.reinterpret(), fileName, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Serialize page setup to an a{sv} variant.
      *
      * @return a new, floating, `GVariant`
      */
-    public open fun toGvariant(): Variant =
-        gtk_page_setup_to_gvariant(gtkPageSetupPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public open fun toGvariant(): Variant = gtk_page_setup_to_gvariant(gtkPageSetupPointer.reinterpret())!!.run {
+        Variant(reinterpret())
+    }
 
     /**
      * This function adds the page setup from @setup to @key_file.
@@ -446,15 +427,11 @@ public open class PageSetup(
      * @param groupName the group to add the settings to in @key_file,
      *   or null to use the default name “Page Setup”
      */
-    public open fun toKeyFile(
-        keyFile: KeyFile,
-        groupName: String? = null,
-    ): kotlin.Unit =
-        gtk_page_setup_to_key_file(
-            gtkPageSetupPointer.reinterpret(),
-            keyFile.glibKeyFilePointer.reinterpret(),
-            groupName
-        )
+    public open fun toKeyFile(keyFile: KeyFile, groupName: String? = null): kotlin.Unit = gtk_page_setup_to_key_file(
+        gtkPageSetupPointer.reinterpret(),
+        keyFile.glibKeyFilePointer.reinterpret(),
+        groupName
+    )
 
     public companion object : TypeCompanion<PageSetup> {
         override val type: GeneratedClassKGType<PageSetup> =

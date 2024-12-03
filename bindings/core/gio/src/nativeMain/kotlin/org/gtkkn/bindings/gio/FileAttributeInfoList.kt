@@ -22,9 +22,7 @@ import kotlin.Unit
  * Acts as a lightweight registry for possible valid file attributes.
  * The registry stores Key-Value pair formats as #GFileAttributeInfos.
  */
-public class FileAttributeInfoList(
-    pointer: CPointer<GFileAttributeInfoList>,
-) : Record {
+public class FileAttributeInfoList(pointer: CPointer<GFileAttributeInfoList>) : Record {
     public val gioFileAttributeInfoListPointer: CPointer<GFileAttributeInfoList> = pointer
 
     /**
@@ -33,10 +31,9 @@ public class FileAttributeInfoList(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val infos: FileAttributeInfo?
-        get() =
-            gioFileAttributeInfoListPointer.pointed.infos?.run {
-                FileAttributeInfo(reinterpret())
-            }
+        get() = gioFileAttributeInfoListPointer.pointed.infos?.run {
+            FileAttributeInfo(reinterpret())
+        }
 
     /**
      * the number of values in the array.
@@ -55,11 +52,7 @@ public class FileAttributeInfoList(
      * @param type the #GFileAttributeType for the attribute.
      * @param flags #GFileAttributeInfoFlags for the attribute.
      */
-    public fun add(
-        name: String,
-        type: FileAttributeType,
-        flags: FileAttributeInfoFlags,
-    ): Unit =
+    public fun add(name: String, type: FileAttributeType, flags: FileAttributeInfoFlags): Unit =
         g_file_attribute_info_list_add(
             gioFileAttributeInfoListPointer.reinterpret(),
             name,

@@ -61,9 +61,8 @@ import kotlin.collections.List
  * @since 2.40
  */
 @GioVersion2_40
-public open class SubprocessLauncher(
-    pointer: CPointer<GSubprocessLauncher>,
-) : Object(pointer.reinterpret()),
+public open class SubprocessLauncher(pointer: CPointer<GSubprocessLauncher>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioSubprocessLauncherPointer: CPointer<GSubprocessLauncher>
         get() = gPointer.reinterpret()
@@ -152,13 +151,9 @@ public open class SubprocessLauncher(
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun setEnviron(env: List<String>): Unit =
-        memScoped {
-            return g_subprocess_launcher_set_environ(
-                gioSubprocessLauncherPointer.reinterpret(),
-                env.toCStringList(this)
-            )
-        }
+    public open fun setEnviron(env: List<String>): Unit = memScoped {
+        return g_subprocess_launcher_set_environ(gioSubprocessLauncherPointer.reinterpret(), env.toCStringList(this))
+    }
 
     /**
      * Sets the flags on the launcher.
@@ -258,17 +253,12 @@ public open class SubprocessLauncher(
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun setenv(
-        variable: String,
-        `value`: String,
-        overwrite: Boolean,
-    ): Unit =
-        g_subprocess_launcher_setenv(
-            gioSubprocessLauncherPointer.reinterpret(),
-            variable,
-            `value`,
-            overwrite.asGBoolean()
-        )
+    public open fun setenv(variable: String, `value`: String, overwrite: Boolean): Unit = g_subprocess_launcher_setenv(
+        gioSubprocessLauncherPointer.reinterpret(),
+        variable,
+        `value`,
+        overwrite.asGBoolean()
+    )
 
     /**
      * Creates a #GSubprocess given a provided array of arguments.
@@ -278,24 +268,22 @@ public open class SubprocessLauncher(
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun spawnv(argv: List<String>): Result<Subprocess> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_subprocess_launcher_spawnv(
-                    gioSubprocessLauncherPointer.reinterpret(),
-                    argv.toCStringList(this),
-                    gError.ptr
-                )?.run {
-                    Subprocess(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public open fun spawnv(argv: List<String>): Result<Subprocess> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_subprocess_launcher_spawnv(
+            gioSubprocessLauncherPointer.reinterpret(),
+            argv.toCStringList(this),
+            gError.ptr
+        )?.run {
+            Subprocess(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Transfer an arbitrary file descriptor from parent process to the
@@ -314,10 +302,8 @@ public open class SubprocessLauncher(
      * @param sourceFd File descriptor in parent process
      * @param targetFd Target descriptor for child process
      */
-    public open fun takeFd(
-        sourceFd: Int,
-        targetFd: Int,
-    ): Unit = g_subprocess_launcher_take_fd(gioSubprocessLauncherPointer.reinterpret(), sourceFd, targetFd)
+    public open fun takeFd(sourceFd: Int, targetFd: Int): Unit =
+        g_subprocess_launcher_take_fd(gioSubprocessLauncherPointer.reinterpret(), sourceFd, targetFd)
 
     /**
      * Sets the file descriptor to use as the stderr for spawned processes.

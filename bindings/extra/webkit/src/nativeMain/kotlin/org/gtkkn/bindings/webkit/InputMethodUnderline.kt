@@ -21,9 +21,7 @@ import kotlin.Unit
  * @since 2.28
  */
 @WebKitVersion2_28
-public class InputMethodUnderline(
-    pointer: CPointer<WebKitInputMethodUnderline>,
-) : Record {
+public class InputMethodUnderline(pointer: CPointer<WebKitInputMethodUnderline>) : Record {
     public val webkitInputMethodUnderlinePointer: CPointer<WebKitInputMethodUnderline> = pointer
 
     /**
@@ -56,11 +54,10 @@ public class InputMethodUnderline(
      * @since 2.28
      */
     @WebKitVersion2_28
-    public fun setColor(rgba: RGBA? = null): Unit =
-        webkit_input_method_underline_set_color(
-            webkitInputMethodUnderlinePointer.reinterpret(),
-            rgba?.gdkRGBAPointer?.reinterpret()
-        )
+    public fun setColor(rgba: RGBA? = null): Unit = webkit_input_method_underline_set_color(
+        webkitInputMethodUnderlinePointer.reinterpret(),
+        rgba?.gdkRGBAPointer?.reinterpret()
+    )
 
     public companion object : RecordCompanion<InputMethodUnderline, WebKitInputMethodUnderline> {
         /**
@@ -71,10 +68,7 @@ public class InputMethodUnderline(
          * @return A newly created #WebKitInputMethodUnderline
          * @since 2.28
          */
-        public fun new(
-            startOffset: UInt,
-            endOffset: UInt,
-        ): InputMethodUnderline =
+        public fun new(startOffset: UInt, endOffset: UInt): InputMethodUnderline =
             InputMethodUnderline(webkit_input_method_underline_new(startOffset, endOffset)!!.reinterpret())
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): InputMethodUnderline =

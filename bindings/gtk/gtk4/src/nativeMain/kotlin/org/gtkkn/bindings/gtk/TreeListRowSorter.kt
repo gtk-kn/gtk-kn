@@ -11,7 +11,6 @@ import org.gtkkn.native.gtk.gtk_tree_list_row_sorter_get_sorter
 import org.gtkkn.native.gtk.gtk_tree_list_row_sorter_get_type
 import org.gtkkn.native.gtk.gtk_tree_list_row_sorter_new
 import org.gtkkn.native.gtk.gtk_tree_list_row_sorter_set_sorter
-import kotlin.Unit
 
 /**
  * `GtkTreeListRowSorter` is a special-purpose sorter that will apply a given
@@ -28,9 +27,8 @@ import kotlin.Unit
  * gtk_column_view_set_model (view, G_LIST_MODEL (selection));
  * ```
  */
-public open class TreeListRowSorter(
-    pointer: CPointer<GtkTreeListRowSorter>,
-) : Sorter(pointer.reinterpret()),
+public open class TreeListRowSorter(pointer: CPointer<GtkTreeListRowSorter>) :
+    Sorter(pointer.reinterpret()),
     KGTyped {
     public val gtkTreeListRowSorterPointer: CPointer<GtkTreeListRowSorter>
         get() = gPointer.reinterpret()
@@ -44,10 +42,9 @@ public open class TreeListRowSorter(
          *
          * @return the sorter used
          */
-        get() =
-            gtk_tree_list_row_sorter_get_sorter(gtkTreeListRowSorterPointer.reinterpret())?.run {
-                Sorter(reinterpret())
-            }
+        get() = gtk_tree_list_row_sorter_get_sorter(gtkTreeListRowSorterPointer.reinterpret())?.run {
+            Sorter(reinterpret())
+        }
 
         /**
          * Sets the sorter to use for items with the same parent.
@@ -59,11 +56,10 @@ public open class TreeListRowSorter(
          */
         set(
             sorter
-        ) =
-            gtk_tree_list_row_sorter_set_sorter(
-                gtkTreeListRowSorterPointer.reinterpret(),
-                sorter?.gtkSorterPointer?.reinterpret()
-            )
+        ) = gtk_tree_list_row_sorter_set_sorter(
+            gtkTreeListRowSorterPointer.reinterpret(),
+            sorter?.gtkSorterPointer?.reinterpret()
+        )
 
     /**
      * Create a special-purpose sorter that applies the sorting
@@ -78,30 +74,6 @@ public open class TreeListRowSorter(
     public constructor(
         sorter: Sorter? = null,
     ) : this(gtk_tree_list_row_sorter_new(sorter?.gtkSorterPointer?.reinterpret())!!.reinterpret())
-
-    /**
-     * Returns the sorter used by @self.
-     *
-     * @return the sorter used
-     */
-    public open fun getSorter(): Sorter? =
-        gtk_tree_list_row_sorter_get_sorter(gtkTreeListRowSorterPointer.reinterpret())?.run {
-            Sorter(reinterpret())
-        }
-
-    /**
-     * Sets the sorter to use for items with the same parent.
-     *
-     * This sorter will be passed the [property@Gtk.TreeListRow:item] of
-     * the tree list rows passed to @self.
-     *
-     * @param sorter The sorter to use
-     */
-    public open fun setSorter(sorter: Sorter? = null): Unit =
-        gtk_tree_list_row_sorter_set_sorter(
-            gtkTreeListRowSorterPointer.reinterpret(),
-            sorter?.gtkSorterPointer?.reinterpret()
-        )
 
     public companion object : TypeCompanion<TreeListRowSorter> {
         override val type: GeneratedClassKGType<TreeListRowSorter> =

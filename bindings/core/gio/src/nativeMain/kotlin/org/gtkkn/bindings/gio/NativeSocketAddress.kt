@@ -24,9 +24,8 @@ import org.gtkkn.native.gio.g_native_socket_address_get_type
  * @since 2.46
  */
 @GioVersion2_46
-public open class NativeSocketAddress(
-    pointer: CPointer<GNativeSocketAddress>,
-) : SocketAddress(pointer.reinterpret()),
+public open class NativeSocketAddress(pointer: CPointer<GNativeSocketAddress>) :
+    SocketAddress(pointer.reinterpret()),
     KGTyped {
     public val gioNativeSocketAddressPointer: CPointer<GNativeSocketAddress>
         get() = gPointer.reinterpret()

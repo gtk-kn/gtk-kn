@@ -13,7 +13,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -30,7 +30,6 @@ import kotlin.Boolean
 import kotlin.String
 import kotlin.Throws
 import kotlin.UInt
-import kotlin.Unit
 
 /**
  * `GCharsetConverter` is an implementation of [iface@Gio.Converter] based on
@@ -41,9 +40,8 @@ import kotlin.Unit
  * - method `from-charset`: Property has no getter nor setter
  * - method `to-charset`: Property has no getter nor setter
  */
-public open class CharsetConverter(
-    pointer: CPointer<GCharsetConverter>,
-) : Object(pointer.reinterpret()),
+public open class CharsetConverter(pointer: CPointer<GCharsetConverter>) :
+    Object(pointer.reinterpret()),
     Converter,
     Initable,
     KGTyped {
@@ -90,7 +88,7 @@ public open class CharsetConverter(
      * @return a new #GCharsetConverter or null on error.
      * @since 2.24
      */
-    @Throws(GlibException::class)
+    @Throws(GLibException::class)
     public constructor(toCharset: String, fromCharset: String) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -111,26 +109,6 @@ public open class CharsetConverter(
     @GioVersion2_24
     public open fun getNumFallbacks(): UInt =
         g_charset_converter_get_num_fallbacks(gioCharsetConverterPointer.reinterpret())
-
-    /**
-     * Gets the #GCharsetConverter:use-fallback property.
-     *
-     * @return true if fallbacks are used by @converter
-     * @since 2.24
-     */
-    @GioVersion2_24
-    public open fun getUseFallback(): Boolean =
-        g_charset_converter_get_use_fallback(gioCharsetConverterPointer.reinterpret()).asBoolean()
-
-    /**
-     * Sets the #GCharsetConverter:use-fallback property.
-     *
-     * @param useFallback true to use fallbacks
-     * @since 2.24
-     */
-    @GioVersion2_24
-    public open fun setUseFallback(useFallback: Boolean): Unit =
-        g_charset_converter_set_use_fallback(gioCharsetConverterPointer.reinterpret(), useFallback.asGBoolean())
 
     public companion object : TypeCompanion<CharsetConverter> {
         override val type: GeneratedClassKGType<CharsetConverter> =

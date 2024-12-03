@@ -17,9 +17,7 @@ import kotlin.Float
  *
  * - field `color`: Gdk.RGBA
  */
-public class ColorStop(
-    pointer: CPointer<GskColorStop>,
-) : Record {
+public class ColorStop(pointer: CPointer<GskColorStop>) : Record {
     public val gskColorStopPointer: CPointer<GskColorStop> = pointer
 
     /**

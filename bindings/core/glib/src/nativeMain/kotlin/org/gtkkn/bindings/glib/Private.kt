@@ -36,9 +36,7 @@ import org.gtkkn.native.glib.GPrivate
  * - field `notify`: Record field notify is private
  * - field `future`: Record field future is private
  */
-public class Private(
-    pointer: CPointer<GPrivate>,
-) : Record {
+public class Private(pointer: CPointer<GPrivate>) : Record {
     public val glibPrivatePointer: CPointer<GPrivate> = pointer
 
     public companion object : RecordCompanion<Private, GPrivate> {

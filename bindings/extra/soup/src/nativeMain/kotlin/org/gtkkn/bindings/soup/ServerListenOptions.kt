@@ -16,9 +16,7 @@ import org.gtkkn.native.soup.SoupServerListenOptions
  * simply listens on whatever kind of socket you give it). And you
  * cannot specify both of them in a single call.
  */
-public class ServerListenOptions(
-    public val mask: SoupServerListenOptions,
-) : Bitfield<ServerListenOptions> {
+public class ServerListenOptions(public val mask: SoupServerListenOptions) : Bitfield<ServerListenOptions> {
     override infix fun or(other: ServerListenOptions): ServerListenOptions = ServerListenOptions(mask or other.mask)
 
     public companion object {

@@ -9,7 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.bindings.glib.Glib.resolveException
+import org.gtkkn.bindings.glib.GLib.resolveException
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_14
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_26
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
@@ -115,9 +115,7 @@ import kotlin.collections.List
  * @since 2.14
  */
 @GLibVersion2_14
-public class Regex(
-    pointer: CPointer<GRegex>,
-) : Record {
+public class Regex(pointer: CPointer<GRegex>) : Record {
     public val glibRegexPointer: CPointer<GRegex> = pointer
 
     /**
@@ -140,10 +138,9 @@ public class Regex(
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getCompileFlags(): RegexCompileFlags =
-        g_regex_get_compile_flags(glibRegexPointer.reinterpret()).run {
-            RegexCompileFlags(this)
-        }
+    public fun getCompileFlags(): RegexCompileFlags = g_regex_get_compile_flags(glibRegexPointer.reinterpret()).run {
+        RegexCompileFlags(this)
+    }
 
     /**
      * Checks whether the pattern contains explicit CR or LF references.
@@ -161,10 +158,9 @@ public class Regex(
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getMatchFlags(): RegexMatchFlags =
-        g_regex_get_match_flags(glibRegexPointer.reinterpret()).run {
-            RegexMatchFlags(this)
-        }
+    public fun getMatchFlags(): RegexMatchFlags = g_regex_get_match_flags(glibRegexPointer.reinterpret()).run {
+        RegexMatchFlags(this)
+    }
 
     /**
      * Returns the number of the highest back reference
@@ -217,10 +213,9 @@ public class Regex(
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun ref(): Regex =
-        g_regex_ref(glibRegexPointer.reinterpret())!!.run {
-            Regex(reinterpret())
-        }
+    public fun ref(): Regex = g_regex_ref(glibRegexPointer.reinterpret())!!.run {
+        Regex(reinterpret())
+    }
 
     /**
      * Breaks the string on the pattern, and returns an array of the tokens.
@@ -248,10 +243,7 @@ public class Regex(
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun split(
-        string: String,
-        matchOptions: RegexMatchFlags,
-    ): List<String> =
+    public fun split(string: String, matchOptions: RegexMatchFlags): List<String> =
         g_regex_split(glibRegexPointer.reinterpret(), string, matchOptions.mask)?.toKStringList()
             ?: error("Expected not null string array")
 
@@ -307,10 +299,8 @@ public class Regex(
          * @since 2.30
          */
         @GLibVersion2_30
-        public fun escapeNul(
-            string: String,
-            length: Int,
-        ): String = g_regex_escape_nul(string, length)?.toKString() ?: error("Expected not null string")
+        public fun escapeNul(string: String, length: Int): String =
+            g_regex_escape_nul(string, length)?.toKString() ?: error("Expected not null string")
 
         /**
          * Escapes the special characters used for regular expressions
@@ -327,10 +317,8 @@ public class Regex(
          * @since 2.14
          */
         @GLibVersion2_14
-        public fun escapeString(
-            string: String,
-            length: Int,
-        ): String = g_regex_escape_string(string, length)?.toKString() ?: error("Expected not null string")
+        public fun escapeString(string: String, length: Int): String =
+            g_regex_escape_string(string, length)?.toKString() ?: error("Expected not null string")
 
         /**
          * Scans for a match in @string for @pattern.
@@ -402,9 +390,8 @@ public class Regex(
             string: String,
             compileOptions: RegexCompileFlags,
             matchOptions: RegexMatchFlags,
-        ): List<String> =
-            g_regex_split_simple(pattern, string, compileOptions.mask, matchOptions.mask)?.toKStringList()
-                ?: error("Expected not null string array")
+        ): List<String> = g_regex_split_simple(pattern, string, compileOptions.mask, matchOptions.mask)?.toKStringList()
+            ?: error("Expected not null string array")
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Regex = Regex(pointer.reinterpret())
     }

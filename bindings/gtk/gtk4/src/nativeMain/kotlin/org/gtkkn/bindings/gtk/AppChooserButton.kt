@@ -76,9 +76,8 @@ import kotlin.Unit
  *
  * - method `heading`: Property TypeInfo of getter and setter do not match
  */
-public open class AppChooserButton(
-    pointer: CPointer<GtkAppChooserButton>,
-) : Widget(pointer.reinterpret()),
+public open class AppChooserButton(pointer: CPointer<GtkAppChooserButton>) :
+    Widget(pointer.reinterpret()),
     AppChooser,
     KGTyped {
     public val gtkAppChooserButtonPointer: CPointer<GtkAppChooserButton>
@@ -184,11 +183,7 @@ public open class AppChooserButton(
      * @param label the label for the custom item
      * @param icon the icon for the custom item
      */
-    public open fun appendCustomItem(
-        name: String,
-        label: String,
-        icon: Icon,
-    ): Unit =
+    public open fun appendCustomItem(name: String, label: String, icon: Icon): Unit =
         gtk_app_chooser_button_append_custom_item(
             gtkAppChooserButtonPointer.reinterpret(),
             name,
@@ -211,32 +206,6 @@ public open class AppChooserButton(
      */
     public open fun getHeading(): String? =
         gtk_app_chooser_button_get_heading(gtkAppChooserButtonPointer.reinterpret())?.toKString()
-
-    /**
-     * Gets whether the dialog is modal.
-     *
-     * @return true if the dialog is modal
-     */
-    public open fun getModal(): Boolean =
-        gtk_app_chooser_button_get_modal(gtkAppChooserButtonPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns whether the dropdown menu should show the default
-     * application at the top.
-     *
-     * @return the value of [property@Gtk.AppChooserButton:show-default-item]
-     */
-    public open fun getShowDefaultItem(): Boolean =
-        gtk_app_chooser_button_get_show_default_item(gtkAppChooserButtonPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns whether the dropdown menu shows an item
-     * for a `GtkAppChooserDialog`.
-     *
-     * @return the value of [property@Gtk.AppChooserButton:show-dialog-item]
-     */
-    public open fun getShowDialogItem(): Boolean =
-        gtk_app_chooser_button_get_show_dialog_item(gtkAppChooserButtonPointer.reinterpret()).asBoolean()
 
     /**
      * Selects a custom item.
@@ -262,32 +231,6 @@ public open class AppChooserButton(
         gtk_app_chooser_button_set_heading(gtkAppChooserButtonPointer.reinterpret(), heading)
 
     /**
-     * Sets whether the dialog should be modal.
-     *
-     * @param modal true to make the dialog modal
-     */
-    public open fun setModal(modal: Boolean): Unit =
-        gtk_app_chooser_button_set_modal(gtkAppChooserButtonPointer.reinterpret(), modal.asGBoolean())
-
-    /**
-     * Sets whether the dropdown menu of this button should show the
-     * default application for the given content type at top.
-     *
-     * @param setting the new value for [property@Gtk.AppChooserButton:show-default-item]
-     */
-    public open fun setShowDefaultItem(setting: Boolean): Unit =
-        gtk_app_chooser_button_set_show_default_item(gtkAppChooserButtonPointer.reinterpret(), setting.asGBoolean())
-
-    /**
-     * Sets whether the dropdown menu of this button should show an
-     * entry to trigger a `GtkAppChooserDialog`.
-     *
-     * @param setting the new value for [property@Gtk.AppChooserButton:show-dialog-item]
-     */
-    public open fun setShowDialogItem(setting: Boolean): Unit =
-        gtk_app_chooser_button_set_show_dialog_item(gtkAppChooserButtonPointer.reinterpret(), setting.asGBoolean())
-
-    /**
      * Emitted to when the button is activated.
      *
      * The `::activate` signal on `GtkAppChooserButton` is an action signal and
@@ -298,10 +241,7 @@ public open class AppChooserButton(
      * @since 4.4
      */
     @GtkVersion4_4
-    public fun connectActivate(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "activate",
@@ -317,10 +257,7 @@ public open class AppChooserButton(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "changed",
@@ -342,15 +279,14 @@ public open class AppChooserButton(
     public fun connectCustomItemActivated(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (itemName: String) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "custom-item-activated",
-            connectCustomItemActivatedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "custom-item-activated",
+        connectCustomItemActivatedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<AppChooserButton> {
         override val type: GeneratedClassKGType<AppChooserButton> =
@@ -362,21 +298,21 @@ public open class AppChooserButton(
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectChangedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
 private val connectCustomItemActivatedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
     staticCFunction {
@@ -387,4 +323,5 @@ private val connectCustomItemActivatedFunc: CPointer<CFunction<(CPointer<ByteVar
         userData.asStableRef<(itemName: String) -> Unit>().get().invoke(
             itemName?.toKString() ?: error("Expected not null string")
         )
-    }.reinterpret()
+    }
+        .reinterpret()

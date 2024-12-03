@@ -9,9 +9,7 @@ import org.gtkkn.native.gtk.GtkLevelBarMode
  * Note that this enumeration could be extended with additional modes
  * in the future.
  */
-public enum class LevelBarMode(
-    public val nativeValue: GtkLevelBarMode,
-) {
+public enum class LevelBarMode(public val nativeValue: GtkLevelBarMode) {
     /**
      * the bar has a continuous mode
      */
@@ -24,11 +22,10 @@ public enum class LevelBarMode(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkLevelBarMode): LevelBarMode =
-            when (nativeValue) {
-                GtkLevelBarMode.GTK_LEVEL_BAR_MODE_CONTINUOUS -> CONTINUOUS
-                GtkLevelBarMode.GTK_LEVEL_BAR_MODE_DISCRETE -> DISCRETE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkLevelBarMode): LevelBarMode = when (nativeValue) {
+            GtkLevelBarMode.GTK_LEVEL_BAR_MODE_CONTINUOUS -> CONTINUOUS
+            GtkLevelBarMode.GTK_LEVEL_BAR_MODE_DISCRETE -> DISCRETE
+            else -> error("invalid nativeValue")
+        }
     }
 }

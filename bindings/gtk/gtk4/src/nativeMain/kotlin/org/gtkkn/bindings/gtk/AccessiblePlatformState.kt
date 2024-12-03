@@ -10,9 +10,7 @@ import org.gtkkn.native.gtk.GtkAccessiblePlatformState
  * @since 4.10
  */
 @GtkVersion4_10
-public enum class AccessiblePlatformState(
-    public val nativeValue: GtkAccessiblePlatformState,
-) {
+public enum class AccessiblePlatformState(public val nativeValue: GtkAccessiblePlatformState) {
     /**
      * whether the accessible can be focused
      */

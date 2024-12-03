@@ -21,12 +21,13 @@ import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_34
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_36
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_44
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_54
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_66
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_68
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_74
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.gobject.GBinding
 import org.gtkkn.native.gobject.GClosure
@@ -45,10 +46,12 @@ import org.gtkkn.native.gobject.g_enum_get_value
 import org.gtkkn.native.gobject.g_enum_get_value_by_name
 import org.gtkkn.native.gobject.g_enum_get_value_by_nick
 import org.gtkkn.native.gobject.g_enum_register_static
+import org.gtkkn.native.gobject.g_enum_to_string
 import org.gtkkn.native.gobject.g_flags_get_first_value
 import org.gtkkn.native.gobject.g_flags_get_value_by_name
 import org.gtkkn.native.gobject.g_flags_get_value_by_nick
 import org.gtkkn.native.gobject.g_flags_register_static
+import org.gtkkn.native.gobject.g_flags_to_string
 import org.gtkkn.native.gobject.g_gtype_get_type
 import org.gtkkn.native.gobject.g_param_spec_boolean
 import org.gtkkn.native.gobject.g_param_spec_boxed
@@ -100,6 +103,7 @@ import org.gtkkn.native.gobject.g_signal_stop_emission_by_name
 import org.gtkkn.native.gobject.g_signal_type_cclosure_new
 import org.gtkkn.native.gobject.g_source_set_closure
 import org.gtkkn.native.gobject.g_source_set_dummy_callback
+import org.gtkkn.native.gobject.g_strdup_value_contents
 import org.gtkkn.native.gobject.g_type_add_class_private
 import org.gtkkn.native.gobject.g_type_add_instance_private
 import org.gtkkn.native.gobject.g_type_add_interface_dynamic
@@ -146,6 +150,7 @@ import org.gtkkn.native.gobject.g_type_register_static
 import org.gtkkn.native.gobject.g_type_test_flags
 import org.gtkkn.native.gobject.g_value_type_compatible
 import org.gtkkn.native.gobject.g_value_type_transformable
+import org.gtkkn.native.gobject.g_variant_get_gtype
 import kotlin.Boolean
 import kotlin.Byte
 import kotlin.Double
@@ -161,6 +166,7 @@ import kotlin.Unit
 /**
  * ## Skipped during bindings generation
  *
+ * - alias `SignalCMarshaller`: ClosureMarshal
  * - parameter `src_boxed`: gpointer
  * - parameter `boxed`: gpointer
  * - parameter `boxed_copy`: BoxedCopyFunc
@@ -189,9 +195,7 @@ import kotlin.Unit
  * - parameter `invocation_hint`: gpointer
  * - parameter `handler_id_ptr`: Unsupported pointer to primitive type
  * - parameter `info`: info: Out parameter is not supported
- * - function `enum_to_string`: C function g_enum_to_string is ignored
  * - parameter `info`: info: Out parameter is not supported
- * - function `flags_to_string`: C function g_flags_to_string is ignored
  * - parameter `dummy`: gpointer
  * - parameter `dummy`: gpointer
  * - parameter `instance_and_params`: Value
@@ -201,18 +205,15 @@ import kotlin.Unit
  * - function `signal_handlers_disconnect_matched`: Could not resolve user_data param
  * - function `signal_handlers_unblock_matched`: Could not resolve user_data param
  * - parameter `n_ids`: n_ids: Out parameter is not supported
- * - parameter `c_marshaller`: SignalCMarshaller
+ * - parameter `c_marshaller`: ClosureMarshal
  * - parameter `class_handler`: Callback
  * - parameter `signal_id_p`: signal_id_p: Out parameter is not supported
- * - parameter `va_marshaller`: SignalCVaMarshaller
- * - function `strdup_value_contents`: C function g_strdup_value_contents is ignored
  * - parameter `n_children`: n_children: Out parameter is not supported
  * - parameter `g_class`: gpointer
  * - function `type_get_qdata`: Return type gpointer is unsupported
  * - parameter `n_prerequisites`: n_prerequisites: Out parameter is not supported
  * - parameter `n_interfaces`: n_interfaces: Out parameter is not supported
  * - parameter `data`: gpointer
- * - function `variant_get_gtype`: C function g_variant_get_gtype is ignored
  * - callback `BoxedCopyFunc`: Return type gpointer is unsupported
  * - callback `TypeValueCollectFunc`: Callback with String return value is not supported
  * - callback `TypeValueLCopyFunc`: Callback with String return value is not supported
@@ -223,7 +224,7 @@ import kotlin.Unit
  * - record `ParamSpecPool`: Disguised records are ignored
  * - record `TypeModuleClass`: glib type struct are ignored
  */
-public object Gobject {
+public object GObject {
     /**
      * Mask containing the bits of #GParamSpec.flags which are reserved for GLib.
      */
@@ -332,10 +333,7 @@ public object Gobject {
      * @return the #GEnumValue for @value, or null
      *          if @value is not a member of the enumeration
      */
-    public fun enumGetValue(
-        enumClass: EnumClass,
-        `value`: Int,
-    ): EnumValue? =
+    public fun enumGetValue(enumClass: EnumClass, `value`: Int): EnumValue? =
         g_enum_get_value(enumClass.gobjectEnumClassPointer.reinterpret(), `value`)?.run {
             EnumValue(reinterpret())
         }
@@ -349,10 +347,7 @@ public object Gobject {
      *          or null if the enumeration doesn't have a member
      *          with that name
      */
-    public fun enumGetValueByName(
-        enumClass: EnumClass,
-        name: String,
-    ): EnumValue? =
+    public fun enumGetValueByName(enumClass: EnumClass, name: String): EnumValue? =
         g_enum_get_value_by_name(enumClass.gobjectEnumClassPointer.reinterpret(), name)?.run {
             EnumValue(reinterpret())
         }
@@ -366,10 +361,7 @@ public object Gobject {
      *          or null if the enumeration doesn't have a member
      *          with that nickname
      */
-    public fun enumGetValueByNick(
-        enumClass: EnumClass,
-        nick: String,
-    ): EnumValue? =
+    public fun enumGetValueByNick(enumClass: EnumClass, nick: String): EnumValue? =
         g_enum_get_value_by_nick(enumClass.gobjectEnumClassPointer.reinterpret(), nick)?.run {
             EnumValue(reinterpret())
         }
@@ -388,10 +380,23 @@ public object Gobject {
      *  be stack-allocated.
      * @return The new type identifier.
      */
-    public fun enumRegisterStatic(
-        name: String,
-        constStaticValues: EnumValue,
-    ): ULong = g_enum_register_static(name, constStaticValues.gobjectEnumValuePointer.reinterpret())
+    public fun enumRegisterStatic(name: String, constStaticValues: EnumValue): ULong =
+        g_enum_register_static(name, constStaticValues.gobjectEnumValuePointer.reinterpret())
+
+    /**
+     * Pretty-prints @value in the form of the enum’s name.
+     *
+     * This is intended to be used for debugging purposes. The format of the output
+     * may change in the future.
+     *
+     * @param gEnumType the type identifier of a #GEnumClass type
+     * @param value the value
+     * @return a newly-allocated text string
+     * @since 2.54
+     */
+    @GObjectVersion2_54
+    public fun enumToString(gEnumType: ULong, `value`: Int): String =
+        g_enum_to_string(gEnumType, `value`)?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the first #GFlagsValue which is set in @value.
@@ -401,10 +406,7 @@ public object Gobject {
      * @return the first #GFlagsValue which is set in
      *          @value, or null if none is set
      */
-    public fun flagsGetFirstValue(
-        flagsClass: FlagsClass,
-        `value`: UInt,
-    ): FlagsValue? =
+    public fun flagsGetFirstValue(flagsClass: FlagsClass, `value`: UInt): FlagsValue? =
         g_flags_get_first_value(flagsClass.gobjectFlagsClassPointer.reinterpret(), `value`)?.run {
             FlagsValue(reinterpret())
         }
@@ -417,10 +419,7 @@ public object Gobject {
      * @return the #GFlagsValue with name @name,
      *          or null if there is no flag with that name
      */
-    public fun flagsGetValueByName(
-        flagsClass: FlagsClass,
-        name: String,
-    ): FlagsValue? =
+    public fun flagsGetValueByName(flagsClass: FlagsClass, name: String): FlagsValue? =
         g_flags_get_value_by_name(flagsClass.gobjectFlagsClassPointer.reinterpret(), name)?.run {
             FlagsValue(reinterpret())
         }
@@ -433,10 +432,7 @@ public object Gobject {
      * @return the #GFlagsValue with nickname @nick,
      *          or null if there is no flag with that nickname
      */
-    public fun flagsGetValueByNick(
-        flagsClass: FlagsClass,
-        nick: String,
-    ): FlagsValue? =
+    public fun flagsGetValueByNick(flagsClass: FlagsClass, nick: String): FlagsValue? =
         g_flags_get_value_by_nick(flagsClass.gobjectFlagsClassPointer.reinterpret(), nick)?.run {
             FlagsValue(reinterpret())
         }
@@ -454,10 +450,24 @@ public object Gobject {
      *  GObject keeps a reference to the data, so it cannot be stack-allocated.
      * @return The new type identifier.
      */
-    public fun flagsRegisterStatic(
-        name: String,
-        constStaticValues: FlagsValue,
-    ): ULong = g_flags_register_static(name, constStaticValues.gobjectFlagsValuePointer.reinterpret())
+    public fun flagsRegisterStatic(name: String, constStaticValues: FlagsValue): ULong =
+        g_flags_register_static(name, constStaticValues.gobjectFlagsValuePointer.reinterpret())
+
+    /**
+     * Pretty-prints @value in the form of the flag names separated by ` | ` and
+     * sorted. Any extra bits will be shown at the end as a hexadecimal number.
+     *
+     * This is intended to be used for debugging purposes. The format of the output
+     * may change in the future.
+     *
+     * @param flagsType the type identifier of a #GFlagsClass type
+     * @param value the value
+     * @return a newly-allocated text string
+     * @since 2.54
+     */
+    @GObjectVersion2_54
+    public fun flagsToString(flagsType: ULong, `value`: UInt): String =
+        g_flags_to_string(flagsType, `value`)?.toKString() ?: error("Expected not null string")
 
     public fun gtypeGetType(): ULong = g_gtype_get_type()
 
@@ -483,10 +493,9 @@ public object Gobject {
         blurb: String? = null,
         defaultValue: Boolean,
         flags: ParamFlags,
-    ): ParamSpec =
-        g_param_spec_boolean(name, nick, blurb, defaultValue.asGBoolean(), flags.mask)!!.run {
-            ParamSpec(reinterpret())
-        }
+    ): ParamSpec = g_param_spec_boolean(name, nick, blurb, defaultValue.asGBoolean(), flags.mask)!!.run {
+        ParamSpec(reinterpret())
+    }
 
     /**
      * Creates a new #GParamSpecBoxed instance specifying a %G_TYPE_BOXED
@@ -507,10 +516,9 @@ public object Gobject {
         blurb: String? = null,
         boxedType: ULong,
         flags: ParamFlags,
-    ): ParamSpec =
-        g_param_spec_boxed(name, nick, blurb, boxedType, flags.mask)!!.run {
-            ParamSpec(reinterpret())
-        }
+    ): ParamSpec = g_param_spec_boxed(name, nick, blurb, boxedType, flags.mask)!!.run {
+        ParamSpec(reinterpret())
+    }
 
     /**
      * Creates a new #GParamSpecChar instance specifying a %G_TYPE_CHAR property.
@@ -532,10 +540,9 @@ public object Gobject {
         maximum: Byte,
         defaultValue: Byte,
         flags: ParamFlags,
-    ): ParamSpec =
-        g_param_spec_char(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-            ParamSpec(reinterpret())
-        }
+    ): ParamSpec = g_param_spec_char(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
+        ParamSpec(reinterpret())
+    }
 
     /**
      * Creates a new #GParamSpecDouble instance specifying a %G_TYPE_DOUBLE
@@ -560,10 +567,9 @@ public object Gobject {
         maximum: Double,
         defaultValue: Double,
         flags: ParamFlags,
-    ): ParamSpec =
-        g_param_spec_double(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-            ParamSpec(reinterpret())
-        }
+    ): ParamSpec = g_param_spec_double(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
+        ParamSpec(reinterpret())
+    }
 
     /**
      * Creates a new #GParamSpecEnum instance specifying a %G_TYPE_ENUM
@@ -586,10 +592,9 @@ public object Gobject {
         enumType: ULong,
         defaultValue: Int,
         flags: ParamFlags,
-    ): ParamSpec =
-        g_param_spec_enum(name, nick, blurb, enumType, defaultValue, flags.mask)!!.run {
-            ParamSpec(reinterpret())
-        }
+    ): ParamSpec = g_param_spec_enum(name, nick, blurb, enumType, defaultValue, flags.mask)!!.run {
+        ParamSpec(reinterpret())
+    }
 
     /**
      * Creates a new #GParamSpecFlags instance specifying a %G_TYPE_FLAGS
@@ -612,10 +617,9 @@ public object Gobject {
         flagsType: ULong,
         defaultValue: UInt,
         flags: ParamFlags,
-    ): ParamSpec =
-        g_param_spec_flags(name, nick, blurb, flagsType, defaultValue, flags.mask)!!.run {
-            ParamSpec(reinterpret())
-        }
+    ): ParamSpec = g_param_spec_flags(name, nick, blurb, flagsType, defaultValue, flags.mask)!!.run {
+        ParamSpec(reinterpret())
+    }
 
     /**
      * Creates a new #GParamSpecFloat instance specifying a %G_TYPE_FLOAT property.
@@ -639,10 +643,9 @@ public object Gobject {
         maximum: Float,
         defaultValue: Float,
         flags: ParamFlags,
-    ): ParamSpec =
-        g_param_spec_float(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-            ParamSpec(reinterpret())
-        }
+    ): ParamSpec = g_param_spec_float(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
+        ParamSpec(reinterpret())
+    }
 
     /**
      * Creates a new #GParamSpecGType instance specifying a
@@ -666,10 +669,9 @@ public object Gobject {
         blurb: String? = null,
         isAType: ULong,
         flags: ParamFlags,
-    ): ParamSpec =
-        g_param_spec_gtype(name, nick, blurb, isAType, flags.mask)!!.run {
-            ParamSpec(reinterpret())
-        }
+    ): ParamSpec = g_param_spec_gtype(name, nick, blurb, isAType, flags.mask)!!.run {
+        ParamSpec(reinterpret())
+    }
 
     /**
      * Creates a new #GParamSpecInt instance specifying a %G_TYPE_INT property.
@@ -693,10 +695,9 @@ public object Gobject {
         maximum: Int,
         defaultValue: Int,
         flags: ParamFlags,
-    ): ParamSpec =
-        g_param_spec_int(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-            ParamSpec(reinterpret())
-        }
+    ): ParamSpec = g_param_spec_int(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
+        ParamSpec(reinterpret())
+    }
 
     /**
      * Creates a new #GParamSpecInt64 instance specifying a %G_TYPE_INT64 property.
@@ -720,10 +721,9 @@ public object Gobject {
         maximum: Long,
         defaultValue: Long,
         flags: ParamFlags,
-    ): ParamSpec =
-        g_param_spec_int64(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-            ParamSpec(reinterpret())
-        }
+    ): ParamSpec = g_param_spec_int64(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
+        ParamSpec(reinterpret())
+    }
 
     /**
      * Creates a new #GParamSpecLong instance specifying a %G_TYPE_LONG property.
@@ -747,10 +747,9 @@ public object Gobject {
         maximum: Long,
         defaultValue: Long,
         flags: ParamFlags,
-    ): ParamSpec =
-        g_param_spec_long(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-            ParamSpec(reinterpret())
-        }
+    ): ParamSpec = g_param_spec_long(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
+        ParamSpec(reinterpret())
+    }
 
     /**
      * Creates a new #GParamSpecBoxed instance specifying a %G_TYPE_OBJECT
@@ -771,10 +770,9 @@ public object Gobject {
         blurb: String? = null,
         objectType: ULong,
         flags: ParamFlags,
-    ): ParamSpec =
-        g_param_spec_object(name, nick, blurb, objectType, flags.mask)!!.run {
-            ParamSpec(reinterpret())
-        }
+    ): ParamSpec = g_param_spec_object(name, nick, blurb, objectType, flags.mask)!!.run {
+        ParamSpec(reinterpret())
+    }
 
     /**
      * Creates a new #GParamSpecParam instance specifying a %G_TYPE_PARAM
@@ -795,10 +793,9 @@ public object Gobject {
         blurb: String? = null,
         paramType: ULong,
         flags: ParamFlags,
-    ): ParamSpec =
-        g_param_spec_param(name, nick, blurb, paramType, flags.mask)!!.run {
-            ParamSpec(reinterpret())
-        }
+    ): ParamSpec = g_param_spec_param(name, nick, blurb, paramType, flags.mask)!!.run {
+        ParamSpec(reinterpret())
+    }
 
     /**
      * Creates a new #GParamSpecPointer instance specifying a pointer property.
@@ -818,10 +815,9 @@ public object Gobject {
         nick: String? = null,
         blurb: String? = null,
         flags: ParamFlags,
-    ): ParamSpec =
-        g_param_spec_pointer(name, nick, blurb, flags.mask)!!.run {
-            ParamSpec(reinterpret())
-        }
+    ): ParamSpec = g_param_spec_pointer(name, nick, blurb, flags.mask)!!.run {
+        ParamSpec(reinterpret())
+    }
 
     /**
      * Creates a new #GParamSpecString instance.
@@ -841,10 +837,9 @@ public object Gobject {
         blurb: String? = null,
         defaultValue: String? = null,
         flags: ParamFlags,
-    ): ParamSpec =
-        g_param_spec_string(name, nick, blurb, defaultValue, flags.mask)!!.run {
-            ParamSpec(reinterpret())
-        }
+    ): ParamSpec = g_param_spec_string(name, nick, blurb, defaultValue, flags.mask)!!.run {
+        ParamSpec(reinterpret())
+    }
 
     /**
      * Creates a new #GParamSpecUChar instance specifying a %G_TYPE_UCHAR property.
@@ -866,10 +861,9 @@ public object Gobject {
         maximum: UByte,
         defaultValue: UByte,
         flags: ParamFlags,
-    ): ParamSpec =
-        g_param_spec_uchar(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-            ParamSpec(reinterpret())
-        }
+    ): ParamSpec = g_param_spec_uchar(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
+        ParamSpec(reinterpret())
+    }
 
     /**
      * Creates a new #GParamSpecUInt instance specifying a %G_TYPE_UINT property.
@@ -893,10 +887,9 @@ public object Gobject {
         maximum: UInt,
         defaultValue: UInt,
         flags: ParamFlags,
-    ): ParamSpec =
-        g_param_spec_uint(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-            ParamSpec(reinterpret())
-        }
+    ): ParamSpec = g_param_spec_uint(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
+        ParamSpec(reinterpret())
+    }
 
     /**
      * Creates a new #GParamSpecUInt64 instance specifying a %G_TYPE_UINT64
@@ -921,10 +914,9 @@ public object Gobject {
         maximum: ULong,
         defaultValue: ULong,
         flags: ParamFlags,
-    ): ParamSpec =
-        g_param_spec_uint64(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-            ParamSpec(reinterpret())
-        }
+    ): ParamSpec = g_param_spec_uint64(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
+        ParamSpec(reinterpret())
+    }
 
     /**
      * Creates a new #GParamSpecULong instance specifying a %G_TYPE_ULONG
@@ -949,10 +941,9 @@ public object Gobject {
         maximum: ULong,
         defaultValue: ULong,
         flags: ParamFlags,
-    ): ParamSpec =
-        g_param_spec_ulong(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-            ParamSpec(reinterpret())
-        }
+    ): ParamSpec = g_param_spec_ulong(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
+        ParamSpec(reinterpret())
+    }
 
     /**
      * Creates a new #GParamSpecUnichar instance specifying a %G_TYPE_UINT
@@ -974,10 +965,9 @@ public object Gobject {
         blurb: String? = null,
         defaultValue: UInt,
         flags: ParamFlags,
-    ): ParamSpec =
-        g_param_spec_unichar(name, nick, blurb, defaultValue, flags.mask)!!.run {
-            ParamSpec(reinterpret())
-        }
+    ): ParamSpec = g_param_spec_unichar(name, nick, blurb, defaultValue, flags.mask)!!.run {
+        ParamSpec(reinterpret())
+    }
 
     /**
      * Creates a new #GParamSpecVariant instance specifying a #GVariant
@@ -1005,17 +995,16 @@ public object Gobject {
         type: VariantType,
         defaultValue: Variant? = null,
         flags: ParamFlags,
-    ): ParamSpec =
-        g_param_spec_variant(
-            name,
-            nick,
-            blurb,
-            type.glibVariantTypePointer.reinterpret(),
-            defaultValue?.glibVariantPointer?.reinterpret(),
-            flags.mask
-        )!!.run {
-            ParamSpec(reinterpret())
-        }
+    ): ParamSpec = g_param_spec_variant(
+        name,
+        nick,
+        blurb,
+        type.glibVariantTypePointer.reinterpret(),
+        defaultValue?.glibVariantPointer?.reinterpret(),
+        flags.mask
+    )!!.run {
+        ParamSpec(reinterpret())
+    }
 
     /**
      * Registers @name as the name of a new static type derived
@@ -1029,10 +1018,8 @@ public object Gobject {
      * @param pspecInfo The #GParamSpecTypeInfo for this #GParamSpec type.
      * @return The new type identifier.
      */
-    public fun paramTypeRegisterStatic(
-        name: String,
-        pspecInfo: ParamSpecTypeInfo,
-    ): ULong = g_param_type_register_static(name, pspecInfo.gobjectParamSpecTypeInfoPointer.reinterpret())
+    public fun paramTypeRegisterStatic(name: String, pspecInfo: ParamSpecTypeInfo): ULong =
+        g_param_type_register_static(name, pspecInfo.gobjectParamSpecTypeInfoPointer.reinterpret())
 
     /**
      * Transforms @src_value into @dest_value if possible, and then
@@ -1056,13 +1043,12 @@ public object Gobject {
         srcValue: Value,
         destValue: Value,
         strictValidation: Boolean,
-    ): Boolean =
-        g_param_value_convert(
-            pspec.gPointer.reinterpret(),
-            srcValue.gobjectValuePointer.reinterpret(),
-            destValue.gobjectValuePointer.reinterpret(),
-            strictValidation.asGBoolean()
-        ).asBoolean()
+    ): Boolean = g_param_value_convert(
+        pspec.gPointer.reinterpret(),
+        srcValue.gobjectValuePointer.reinterpret(),
+        destValue.gobjectValuePointer.reinterpret(),
+        strictValidation.asGBoolean()
+    ).asBoolean()
 
     /**
      * Checks whether @value contains the default value as specified in @pspec.
@@ -1071,10 +1057,7 @@ public object Gobject {
      * @param value a #GValue of correct type for @pspec
      * @return whether @value contains the canonical default for this @pspec
      */
-    public fun paramValueDefaults(
-        pspec: ParamSpec,
-        `value`: Value,
-    ): Boolean =
+    public fun paramValueDefaults(pspec: ParamSpec, `value`: Value): Boolean =
         g_param_value_defaults(pspec.gPointer.reinterpret(), `value`.gobjectValuePointer.reinterpret()).asBoolean()
 
     /**
@@ -1088,10 +1071,7 @@ public object Gobject {
      * @since 2.74
      */
     @GObjectVersion2_74
-    public fun paramValueIsValid(
-        pspec: ParamSpec,
-        `value`: Value,
-    ): Boolean =
+    public fun paramValueIsValid(pspec: ParamSpec, `value`: Value): Boolean =
         g_param_value_is_valid(pspec.gPointer.reinterpret(), `value`.gobjectValuePointer.reinterpret()).asBoolean()
 
     /**
@@ -1101,10 +1081,8 @@ public object Gobject {
      * @param value a #GValue of correct type for @pspec; since 2.64, you
      *   can also pass an empty #GValue, initialized with %G_VALUE_INIT
      */
-    public fun paramValueSetDefault(
-        pspec: ParamSpec,
-        `value`: Value,
-    ): Unit = g_param_value_set_default(pspec.gPointer.reinterpret(), `value`.gobjectValuePointer.reinterpret())
+    public fun paramValueSetDefault(pspec: ParamSpec, `value`: Value): Unit =
+        g_param_value_set_default(pspec.gPointer.reinterpret(), `value`.gobjectValuePointer.reinterpret())
 
     /**
      * Ensures that the contents of @value comply with the specifications
@@ -1118,10 +1096,7 @@ public object Gobject {
      * @param value a #GValue of correct type for @pspec
      * @return whether modifying @value was necessary to ensure validity
      */
-    public fun paramValueValidate(
-        pspec: ParamSpec,
-        `value`: Value,
-    ): Boolean =
+    public fun paramValueValidate(pspec: ParamSpec, `value`: Value): Boolean =
         g_param_value_validate(pspec.gPointer.reinterpret(), `value`.gobjectValuePointer.reinterpret()).asBoolean()
 
     /**
@@ -1134,16 +1109,11 @@ public object Gobject {
      * @param value2 a #GValue of correct type for @pspec
      * @return -1, 0 or +1, for a less than, equal to or greater than result
      */
-    public fun paramValuesCmp(
-        pspec: ParamSpec,
-        value1: Value,
-        value2: Value,
-    ): Int =
-        g_param_values_cmp(
-            pspec.gPointer.reinterpret(),
-            value1.gobjectValuePointer.reinterpret(),
-            value2.gobjectValuePointer.reinterpret()
-        )
+    public fun paramValuesCmp(pspec: ParamSpec, value1: Value, value2: Value): Int = g_param_values_cmp(
+        pspec.gPointer.reinterpret(),
+        value1.gobjectValuePointer.reinterpret(),
+        value2.gobjectValuePointer.reinterpret()
+    )
 
     /**
      * Creates a new %G_TYPE_POINTER derived type id for a new
@@ -1164,11 +1134,7 @@ public object Gobject {
      * @param hookFunc a #GSignalEmissionHook function.
      * @return the hook id, for later use with g_signal_remove_emission_hook().
      */
-    public fun signalAddEmissionHook(
-        signalId: UInt,
-        detail: Quark,
-        hookFunc: SignalEmissionHook,
-    ): ULong =
+    public fun signalAddEmissionHook(signalId: UInt, detail: Quark, hookFunc: SignalEmissionHook): ULong =
         g_signal_add_emission_hook(
             signalId,
             detail,
@@ -1198,13 +1164,12 @@ public object Gobject {
         detailedSignal: String,
         closure: Closure,
         after: Boolean,
-    ): ULong =
-        g_signal_connect_closure(
-            instance.gPointer.reinterpret(),
-            detailedSignal,
-            closure.gobjectClosurePointer.reinterpret(),
-            after.asGBoolean()
-        )
+    ): ULong = g_signal_connect_closure(
+        instance.gPointer.reinterpret(),
+        detailedSignal,
+        closure.gobjectClosurePointer.reinterpret(),
+        after.asGBoolean()
+    )
 
     /**
      * Connects a closure to a signal for a particular object.
@@ -1229,14 +1194,13 @@ public object Gobject {
         detail: Quark,
         closure: Closure,
         after: Boolean,
-    ): ULong =
-        g_signal_connect_closure_by_id(
-            instance.gPointer.reinterpret(),
-            signalId,
-            detail,
-            closure.gobjectClosurePointer.reinterpret(),
-            after.asGBoolean()
-        )
+    ): ULong = g_signal_connect_closure_by_id(
+        instance.gPointer.reinterpret(),
+        signalId,
+        detail,
+        closure.gobjectClosurePointer.reinterpret(),
+        after.asGBoolean()
+    )
 
     /**
      * Returns the invocation hint of the innermost signal emission of instance.
@@ -1263,10 +1227,8 @@ public object Gobject {
      * @param instance The instance to block the signal handler of.
      * @param handlerId Handler id of the handler to be blocked.
      */
-    public fun signalHandlerBlock(
-        instance: Object,
-        handlerId: ULong,
-    ): Unit = g_signal_handler_block(instance.gPointer.reinterpret(), handlerId)
+    public fun signalHandlerBlock(instance: Object, handlerId: ULong): Unit =
+        g_signal_handler_block(instance.gPointer.reinterpret(), handlerId)
 
     /**
      * Disconnects a handler from an instance so it will not be called during
@@ -1279,10 +1241,8 @@ public object Gobject {
      * @param instance The instance to remove the signal handler from.
      * @param handlerId Handler id of the handler to be disconnected.
      */
-    public fun signalHandlerDisconnect(
-        instance: Object,
-        handlerId: ULong,
-    ): Unit = g_signal_handler_disconnect(instance.gPointer.reinterpret(), handlerId)
+    public fun signalHandlerDisconnect(instance: Object, handlerId: ULong): Unit =
+        g_signal_handler_disconnect(instance.gPointer.reinterpret(), handlerId)
 
     /**
      * Returns whether @handler_id is the ID of a handler connected to @instance.
@@ -1291,10 +1251,8 @@ public object Gobject {
      * @param handlerId the handler ID.
      * @return whether @handler_id identifies a handler connected to @instance.
      */
-    public fun signalHandlerIsConnected(
-        instance: Object,
-        handlerId: ULong,
-    ): Boolean = g_signal_handler_is_connected(instance.gPointer.reinterpret(), handlerId).asBoolean()
+    public fun signalHandlerIsConnected(instance: Object, handlerId: ULong): Boolean =
+        g_signal_handler_is_connected(instance.gPointer.reinterpret(), handlerId).asBoolean()
 
     /**
      * Undoes the effect of a previous g_signal_handler_block() call.  A
@@ -1314,10 +1272,8 @@ public object Gobject {
      * @param instance The instance to unblock the signal handler of.
      * @param handlerId Handler id of the handler to be unblocked.
      */
-    public fun signalHandlerUnblock(
-        instance: Object,
-        handlerId: ULong,
-    ): Unit = g_signal_handler_unblock(instance.gPointer.reinterpret(), handlerId)
+    public fun signalHandlerUnblock(instance: Object, handlerId: ULong): Unit =
+        g_signal_handler_unblock(instance.gPointer.reinterpret(), handlerId)
 
     /**
      * Destroy all signal handlers of a type instance. This function is
@@ -1359,13 +1315,12 @@ public object Gobject {
         signalId: UInt,
         detail: Quark,
         mayBeBlocked: Boolean,
-    ): Boolean =
-        g_signal_has_handler_pending(
-            instance.gPointer.reinterpret(),
-            signalId,
-            detail,
-            mayBeBlocked.asGBoolean()
-        ).asBoolean()
+    ): Boolean = g_signal_has_handler_pending(
+        instance.gPointer.reinterpret(),
+        signalId,
+        detail,
+        mayBeBlocked.asGBoolean()
+    ).asBoolean()
 
     /**
      * Validate a signal name. This can be useful for dynamically-generated signals
@@ -1399,10 +1354,7 @@ public object Gobject {
      * @param itype the type that the signal operates on.
      * @return the signal's identifying number, or 0 if no signal was found.
      */
-    public fun signalLookup(
-        name: String,
-        itype: ULong,
-    ): UInt = g_signal_lookup(name, itype)
+    public fun signalLookup(name: String, itype: ULong): UInt = g_signal_lookup(name, itype)
 
     /**
      * Given the signal's identifier, finds its name.
@@ -1428,11 +1380,8 @@ public object Gobject {
      *  for the signal.
      * @param classClosure the closure.
      */
-    public fun signalOverrideClassClosure(
-        signalId: UInt,
-        instanceType: ULong,
-        classClosure: Closure,
-    ): Unit = g_signal_override_class_closure(signalId, instanceType, classClosure.gobjectClosurePointer.reinterpret())
+    public fun signalOverrideClassClosure(signalId: UInt, instanceType: ULong, classClosure: Closure): Unit =
+        g_signal_override_class_closure(signalId, instanceType, classClosure.gobjectClosurePointer.reinterpret())
 
     /**
      * Queries the signal system for in-depth information about a
@@ -1446,10 +1395,8 @@ public object Gobject {
      * @param query A user provided structure that is
      *  filled in with constant values upon success.
      */
-    public fun signalQuery(
-        signalId: UInt,
-        query: SignalQuery,
-    ): Unit = g_signal_query(signalId, query.gobjectSignalQueryPointer.reinterpret())
+    public fun signalQuery(signalId: UInt, query: SignalQuery): Unit =
+        g_signal_query(signalId, query.gobjectSignalQueryPointer.reinterpret())
 
     /**
      * Deletes an emission hook.
@@ -1458,10 +1405,8 @@ public object Gobject {
      * @param hookId the id of the emission hook, as returned by
      *  g_signal_add_emission_hook()
      */
-    public fun signalRemoveEmissionHook(
-        signalId: UInt,
-        hookId: ULong,
-    ): Unit = g_signal_remove_emission_hook(signalId, hookId)
+    public fun signalRemoveEmissionHook(signalId: UInt, hookId: ULong): Unit =
+        g_signal_remove_emission_hook(signalId, hookId)
 
     /**
      * Stops a signal's current emission.
@@ -1476,11 +1421,8 @@ public object Gobject {
      * @param signalId the signal identifier, as returned by g_signal_lookup().
      * @param detail the detail which the signal was emitted with.
      */
-    public fun signalStopEmission(
-        instance: Object,
-        signalId: UInt,
-        detail: Quark,
-    ): Unit = g_signal_stop_emission(instance.gPointer.reinterpret(), signalId, detail)
+    public fun signalStopEmission(instance: Object, signalId: UInt, detail: Quark): Unit =
+        g_signal_stop_emission(instance.gPointer.reinterpret(), signalId, detail)
 
     /**
      * Stops a signal's current emission.
@@ -1491,10 +1433,8 @@ public object Gobject {
      * @param instance the object whose signal handlers you wish to stop.
      * @param detailedSignal a string of the form "signal-name::detail".
      */
-    public fun signalStopEmissionByName(
-        instance: Object,
-        detailedSignal: String,
-    ): Unit = g_signal_stop_emission_by_name(instance.gPointer.reinterpret(), detailedSignal)
+    public fun signalStopEmissionByName(instance: Object, detailedSignal: String): Unit =
+        g_signal_stop_emission_by_name(instance.gPointer.reinterpret(), detailedSignal)
 
     /**
      * Creates a new closure which invokes the function found at the offset
@@ -1506,10 +1446,7 @@ public object Gobject {
      *  structure which is to be invoked by the new closure
      * @return a floating reference to a new #GCClosure
      */
-    public fun signalTypeCclosureNew(
-        itype: ULong,
-        structOffset: UInt,
-    ): Closure =
+    public fun signalTypeCclosureNew(itype: ULong, structOffset: UInt): Closure =
         g_signal_type_cclosure_new(itype, structOffset)!!.run {
             Closure(reinterpret())
         }
@@ -1524,10 +1461,8 @@ public object Gobject {
      * @param source the source
      * @param closure a #GClosure
      */
-    public fun sourceSetClosure(
-        source: Source,
-        closure: Closure,
-    ): Unit = g_source_set_closure(source.glibSourcePointer.reinterpret(), closure.gobjectClosurePointer.reinterpret())
+    public fun sourceSetClosure(source: Source, closure: Closure): Unit =
+        g_source_set_closure(source.glibSourcePointer.reinterpret(), closure.gobjectClosurePointer.reinterpret())
 
     /**
      * Sets a dummy callback for @source. The callback will do nothing, and
@@ -1547,6 +1482,19 @@ public object Gobject {
         g_source_set_dummy_callback(source.glibSourcePointer.reinterpret())
 
     /**
+     * Return a newly allocated string, which describes the contents of a
+     * #GValue.  The main purpose of this function is to describe #GValue
+     * contents for debugging output, the way in which the contents are
+     * described may change between different GLib versions.
+     *
+     * @param value #GValue which contents are to be described.
+     * @return Newly allocated string.
+     */
+    public fun strdupValueContents(`value`: Value): String =
+        g_strdup_value_contents(`value`.gobjectValuePointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
+
+    /**
      * Registers a private class structure for a classed type;
      * when the class is allocated, the private structures for
      * the class and all of its parent types are allocated
@@ -1563,21 +1511,11 @@ public object Gobject {
      * @since 2.24
      */
     @GObjectVersion2_24
-    public fun typeAddClassPrivate(
-        classType: ULong,
-        privateSize: ULong,
-    ): Unit = g_type_add_class_private(classType, privateSize)
+    public fun typeAddClassPrivate(classType: ULong, privateSize: ULong): Unit =
+        g_type_add_class_private(classType, privateSize)
 
-    /**
-     *
-     *
-     * @param classType
-     * @param privateSize
-     */
-    public fun typeAddInstancePrivate(
-        classType: ULong,
-        privateSize: ULong,
-    ): Int = g_type_add_instance_private(classType, privateSize)
+    public fun typeAddInstancePrivate(classType: ULong, privateSize: ULong): Int =
+        g_type_add_instance_private(classType, privateSize)
 
     /**
      * Adds @interface_type to the dynamic @instance_type. The information
@@ -1588,11 +1526,8 @@ public object Gobject {
      * @param interfaceType #GType value of an interface type
      * @param plugin #GTypePlugin structure to retrieve the #GInterfaceInfo from
      */
-    public fun typeAddInterfaceDynamic(
-        instanceType: ULong,
-        interfaceType: ULong,
-        plugin: TypePlugin,
-    ): Unit = g_type_add_interface_dynamic(instanceType, interfaceType, plugin.gobjectTypePluginPointer)
+    public fun typeAddInterfaceDynamic(instanceType: ULong, interfaceType: ULong, plugin: TypePlugin): Unit =
+        g_type_add_interface_dynamic(instanceType, interfaceType, plugin.gobjectTypePluginPointer)
 
     /**
      * Adds @interface_type to the static @instance_type.
@@ -1604,22 +1539,11 @@ public object Gobject {
      * @param info #GInterfaceInfo structure for this
      *        (@instance_type, @interface_type) combination
      */
-    public fun typeAddInterfaceStatic(
-        instanceType: ULong,
-        interfaceType: ULong,
-        info: InterfaceInfo,
-    ): Unit = g_type_add_interface_static(instanceType, interfaceType, info.gobjectInterfaceInfoPointer.reinterpret())
+    public fun typeAddInterfaceStatic(instanceType: ULong, interfaceType: ULong, info: InterfaceInfo): Unit =
+        g_type_add_interface_static(instanceType, interfaceType, info.gobjectInterfaceInfoPointer.reinterpret())
 
-    /**
-     *
-     *
-     * @param gClass
-     * @param isAType
-     */
-    public fun typeCheckClassIsA(
-        gClass: TypeClass,
-        isAType: ULong,
-    ): Boolean = g_type_check_class_is_a(gClass.gobjectTypeClassPointer.reinterpret(), isAType).asBoolean()
+    public fun typeCheckClassIsA(gClass: TypeClass, isAType: ULong): Boolean =
+        g_type_check_class_is_a(gClass.gobjectTypeClassPointer.reinterpret(), isAType).asBoolean()
 
     /**
      * Private helper function to aid implementation of the
@@ -1631,57 +1555,22 @@ public object Gobject {
     public fun typeCheckInstance(instance: TypeInstance): Boolean =
         g_type_check_instance(instance.gobjectTypeInstancePointer.reinterpret()).asBoolean()
 
-    /**
-     *
-     *
-     * @param instance
-     * @param ifaceType
-     */
-    public fun typeCheckInstanceIsA(
-        instance: TypeInstance,
-        ifaceType: ULong,
-    ): Boolean = g_type_check_instance_is_a(instance.gobjectTypeInstancePointer.reinterpret(), ifaceType).asBoolean()
+    public fun typeCheckInstanceIsA(instance: TypeInstance, ifaceType: ULong): Boolean =
+        g_type_check_instance_is_a(instance.gobjectTypeInstancePointer.reinterpret(), ifaceType).asBoolean()
 
-    /**
-     *
-     *
-     * @param instance
-     * @param fundamentalType
-     */
-    public fun typeCheckInstanceIsFundamentallyA(
-        instance: TypeInstance,
-        fundamentalType: ULong,
-    ): Boolean =
+    public fun typeCheckInstanceIsFundamentallyA(instance: TypeInstance, fundamentalType: ULong): Boolean =
         g_type_check_instance_is_fundamentally_a(
             instance.gobjectTypeInstancePointer.reinterpret(),
             fundamentalType
         ).asBoolean()
 
-    /**
-     *
-     *
-     * @param type
-     */
     public fun typeCheckIsValueType(type: ULong): Boolean = g_type_check_is_value_type(type).asBoolean()
 
-    /**
-     *
-     *
-     * @param value
-     */
     public fun typeCheckValue(`value`: Value): Boolean =
         g_type_check_value(`value`.gobjectValuePointer.reinterpret()).asBoolean()
 
-    /**
-     *
-     *
-     * @param value
-     * @param type
-     */
-    public fun typeCheckValueHolds(
-        `value`: Value,
-        type: ULong,
-    ): Boolean = g_type_check_value_holds(`value`.gobjectValuePointer.reinterpret(), type).asBoolean()
+    public fun typeCheckValueHolds(`value`: Value, type: ULong): Boolean =
+        g_type_check_value_holds(`value`.gobjectValuePointer.reinterpret(), type).asBoolean()
 
     /**
      * This function is essentially the same as g_type_class_ref(),
@@ -1695,10 +1584,9 @@ public object Gobject {
      *     structure for the given type ID or null if the class does not
      *     currently exist
      */
-    public fun typeClassPeek(type: ULong): TypeClass =
-        g_type_class_peek(type)!!.run {
-            TypeClass(reinterpret())
-        }
+    public fun typeClassPeek(type: ULong): TypeClass = g_type_class_peek(type)!!.run {
+        TypeClass(reinterpret())
+    }
 
     /**
      * A more efficient version of g_type_class_peek() which works only for
@@ -1711,10 +1599,9 @@ public object Gobject {
      * @since 2.4
      */
     @GObjectVersion2_4
-    public fun typeClassPeekStatic(type: ULong): TypeClass =
-        g_type_class_peek_static(type)!!.run {
-            TypeClass(reinterpret())
-        }
+    public fun typeClassPeekStatic(type: ULong): TypeClass = g_type_class_peek_static(type)!!.run {
+        TypeClass(reinterpret())
+    }
 
     /**
      * Increments the reference count of the class structure belonging to
@@ -1725,10 +1612,9 @@ public object Gobject {
      * @return the #GTypeClass
      *     structure for the given type ID
      */
-    public fun typeClassRef(type: ULong): TypeClass =
-        g_type_class_ref(type)!!.run {
-            TypeClass(reinterpret())
-        }
+    public fun typeClassRef(type: ULong): TypeClass = g_type_class_ref(type)!!.run {
+        TypeClass(reinterpret())
+    }
 
     /**
      * If the interface type @g_type is currently in use, returns its
@@ -1741,10 +1627,9 @@ public object Gobject {
      * @since 2.4
      */
     @GObjectVersion2_4
-    public fun typeDefaultInterfacePeek(gType: ULong): TypeInterface =
-        g_type_default_interface_peek(gType)!!.run {
-            TypeInterface(reinterpret())
-        }
+    public fun typeDefaultInterfacePeek(gType: ULong): TypeInterface = g_type_default_interface_peek(gType)!!.run {
+        TypeInterface(reinterpret())
+    }
 
     /**
      * Increments the reference count for the interface type @g_type,
@@ -1765,10 +1650,9 @@ public object Gobject {
      * @since 2.4
      */
     @GObjectVersion2_4
-    public fun typeDefaultInterfaceRef(gType: ULong): TypeInterface =
-        g_type_default_interface_ref(gType)!!.run {
-            TypeInterface(reinterpret())
-        }
+    public fun typeDefaultInterfaceRef(gType: ULong): TypeInterface = g_type_default_interface_ref(gType)!!.run {
+        TypeInterface(reinterpret())
+    }
 
     /**
      * Decrements the reference count for the type corresponding to the
@@ -1878,10 +1762,9 @@ public object Gobject {
      * @return the corresponding plugin
      *     if @type is a dynamic type, null otherwise
      */
-    public fun typeGetPlugin(type: ULong): TypePlugin =
-        g_type_get_plugin(type)!!.run {
-            TypePlugin.wrap(reinterpret())
-        }
+    public fun typeGetPlugin(type: ULong): TypePlugin = g_type_get_plugin(type)!!.run {
+        TypePlugin.wrap(reinterpret())
+    }
 
     /**
      * Returns an opaque serial number that represents the state of the set
@@ -1926,10 +1809,8 @@ public object Gobject {
      * @param interfaceType #GType value of an interface type
      * @param prerequisiteType #GType value of an interface or instantiatable type
      */
-    public fun typeInterfaceAddPrerequisite(
-        interfaceType: ULong,
-        prerequisiteType: ULong,
-    ): Unit = g_type_interface_add_prerequisite(interfaceType, prerequisiteType)
+    public fun typeInterfaceAddPrerequisite(interfaceType: ULong, prerequisiteType: ULong): Unit =
+        g_type_interface_add_prerequisite(interfaceType, prerequisiteType)
 
     /**
      * Returns the #GTypePlugin structure for the dynamic interface
@@ -1942,10 +1823,7 @@ public object Gobject {
      * @return the #GTypePlugin for the dynamic
      *     interface @interface_type of @instance_type
      */
-    public fun typeInterfaceGetPlugin(
-        instanceType: ULong,
-        interfaceType: ULong,
-    ): TypePlugin =
+    public fun typeInterfaceGetPlugin(instanceType: ULong, interfaceType: ULong): TypePlugin =
         g_type_interface_get_plugin(instanceType, interfaceType)!!.run {
             TypePlugin.wrap(reinterpret())
         }
@@ -1976,10 +1854,7 @@ public object Gobject {
      *     structure of @iface_type if implemented by @instance_class, null
      *     otherwise
      */
-    public fun typeInterfacePeek(
-        instanceClass: TypeClass,
-        ifaceType: ULong,
-    ): TypeInterface =
+    public fun typeInterfacePeek(instanceClass: TypeClass, ifaceType: ULong): TypeInterface =
         g_type_interface_peek(instanceClass.gobjectTypeClassPointer.reinterpret(), ifaceType)!!.run {
             TypeInterface(reinterpret())
         }
@@ -1994,10 +1869,7 @@ public object Gobject {
      *     could conform to
      * @return true if @type is a @is_a_type
      */
-    public fun typeIsA(
-        type: ULong,
-        isAType: ULong,
-    ): Boolean = g_type_is_a(type, isAType).asBoolean()
+    public fun typeIsA(type: ULong, isAType: ULong): Boolean = g_type_is_a(type, isAType).asBoolean()
 
     /**
      * Get the unique name that is assigned to a type ID.  Note that this
@@ -2011,20 +1883,10 @@ public object Gobject {
      */
     public fun typeName(type: ULong): String? = g_type_name(type)?.toKString()
 
-    /**
-     *
-     *
-     * @param gClass
-     */
     public fun typeNameFromClass(gClass: TypeClass): String =
         g_type_name_from_class(gClass.gobjectTypeClassPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
 
-    /**
-     *
-     *
-     * @param instance
-     */
     public fun typeNameFromInstance(instance: TypeInstance): String =
         g_type_name_from_instance(instance.gobjectTypeInstancePointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -2042,10 +1904,7 @@ public object Gobject {
      * @param rootType immediate parent of the returned type
      * @return immediate child of @root_type and ancestor of @leaf_type
      */
-    public fun typeNextBase(
-        leafType: ULong,
-        rootType: ULong,
-    ): ULong = g_type_next_base(leafType, rootType)
+    public fun typeNextBase(leafType: ULong, rootType: ULong): ULong = g_type_next_base(leafType, rootType)
 
     /**
      * Return the direct parent type of the passed in type. If the passed
@@ -2080,10 +1939,8 @@ public object Gobject {
      * @param query a user provided structure that is
      *     filled in with constant values upon success
      */
-    public fun typeQuery(
-        type: ULong,
-        query: TypeQuery,
-    ): Unit = g_type_query(type, query.gobjectTypeQueryPointer.reinterpret())
+    public fun typeQuery(type: ULong, query: TypeQuery): Unit =
+        g_type_query(type, query.gobjectTypeQueryPointer.reinterpret())
 
     /**
      * Registers @type_name as the name of a new dynamic type derived from
@@ -2098,12 +1955,8 @@ public object Gobject {
      * @param flags bitwise combination of #GTypeFlags values
      * @return the new type identifier or %G_TYPE_INVALID if registration failed
      */
-    public fun typeRegisterDynamic(
-        parentType: ULong,
-        typeName: String,
-        plugin: TypePlugin,
-        flags: TypeFlags,
-    ): ULong = g_type_register_dynamic(parentType, typeName, plugin.gobjectTypePluginPointer, flags.mask)
+    public fun typeRegisterDynamic(parentType: ULong, typeName: String, plugin: TypePlugin, flags: TypeFlags): ULong =
+        g_type_register_dynamic(parentType, typeName, plugin.gobjectTypePluginPointer, flags.mask)
 
     /**
      * Registers @type_id as the predefined identifier and @type_name as the
@@ -2127,14 +1980,13 @@ public object Gobject {
         info: TypeInfo,
         finfo: TypeFundamentalInfo,
         flags: TypeFlags,
-    ): ULong =
-        g_type_register_fundamental(
-            typeId,
-            typeName,
-            info.gobjectTypeInfoPointer.reinterpret(),
-            finfo.gobjectTypeFundamentalInfoPointer.reinterpret(),
-            flags.mask
-        )
+    ): ULong = g_type_register_fundamental(
+        typeId,
+        typeName,
+        info.gobjectTypeInfoPointer.reinterpret(),
+        finfo.gobjectTypeFundamentalInfoPointer.reinterpret(),
+        flags.mask
+    )
 
     /**
      * Registers @type_name as the name of a new static type derived from
@@ -2149,23 +2001,10 @@ public object Gobject {
      * @param flags bitwise combination of #GTypeFlags values
      * @return the new type identifier
      */
-    public fun typeRegisterStatic(
-        parentType: ULong,
-        typeName: String,
-        info: TypeInfo,
-        flags: TypeFlags,
-    ): ULong = g_type_register_static(parentType, typeName, info.gobjectTypeInfoPointer.reinterpret(), flags.mask)
+    public fun typeRegisterStatic(parentType: ULong, typeName: String, info: TypeInfo, flags: TypeFlags): ULong =
+        g_type_register_static(parentType, typeName, info.gobjectTypeInfoPointer.reinterpret(), flags.mask)
 
-    /**
-     *
-     *
-     * @param type
-     * @param flags
-     */
-    public fun typeTestFlags(
-        type: ULong,
-        flags: UInt,
-    ): Boolean = g_type_test_flags(type, flags).asBoolean()
+    public fun typeTestFlags(type: ULong, flags: UInt): Boolean = g_type_test_flags(type, flags).asBoolean()
 
     /**
      * Returns whether a #GValue of type @src_type can be copied into
@@ -2175,10 +2014,8 @@ public object Gobject {
      * @param destType destination type for copying.
      * @return true if g_value_copy() is possible with @src_type and @dest_type.
      */
-    public fun valueTypeCompatible(
-        srcType: ULong,
-        destType: ULong,
-    ): Boolean = g_value_type_compatible(srcType, destType).asBoolean()
+    public fun valueTypeCompatible(srcType: ULong, destType: ULong): Boolean =
+        g_value_type_compatible(srcType, destType).asBoolean()
 
     /**
      * Check whether g_value_transform() is able to transform values
@@ -2190,17 +2027,16 @@ public object Gobject {
      * @param destType Target type.
      * @return true if the transformation is possible, false otherwise.
      */
-    public fun valueTypeTransformable(
-        srcType: ULong,
-        destType: ULong,
-    ): Boolean = g_value_type_transformable(srcType, destType).asBoolean()
+    public fun valueTypeTransformable(srcType: ULong, destType: ULong): Boolean =
+        g_value_type_transformable(srcType, destType).asBoolean()
 
-    public fun resolveException(error: Error): GlibException {
-        val ex =
-            when (error.domain) {
-                else -> null
-            }
-        return ex ?: GlibException(error)
+    public fun variantGetGtype(): ULong = g_variant_get_gtype()
+
+    public fun resolveException(error: Error): GLibException {
+        val ex = when (error.domain) {
+            else -> null
+        }
+        return ex ?: GLibException(error)
     }
 }
 
@@ -2214,19 +2050,20 @@ public val BaseFinalizeFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> Un
                 TypeClass(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
-public val BaseInitFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> Unit>> =
-    staticCFunction {
-            gClass: CPointer<GTypeClass>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(gClass: TypeClass) -> Unit>().get().invoke(
-            gClass!!.run {
-                TypeClass(reinterpret())
-            }
-        )
-    }.reinterpret()
+public val BaseInitFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> Unit>> = staticCFunction {
+        gClass: CPointer<GTypeClass>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(gClass: TypeClass) -> Unit>().get().invoke(
+        gClass!!.run {
+            TypeClass(reinterpret())
+        }
+    )
+}
+    .reinterpret()
 
 public val BindingTransformFuncFunc: CPointer<
     CFunction<
@@ -2235,45 +2072,42 @@ public val BindingTransformFuncFunc: CPointer<
             CPointer<GValue>,
             CPointer<GValue>,
         ) -> Int
-    >
-> =
-    staticCFunction {
-            binding: CPointer<GBinding>?,
-            fromValue: CPointer<GValue>?,
-            toValue: CPointer<GValue>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    binding: Binding,
-                    fromValue: Value,
-                    toValue: Value,
-                ) -> Boolean
-            >()
-            .get()
-            .invoke(
-                binding!!.run {
-                    Binding(reinterpret())
-                },
-                fromValue!!.run {
-                    Value(reinterpret())
-                },
-                toValue!!.run {
-                    Value(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        binding: CPointer<GBinding>?,
+        fromValue: CPointer<GValue>?,
+        toValue: CPointer<GValue>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            binding: Binding,
+            fromValue: Value,
+            toValue: Value,
+        ) -> Boolean
+        >().get().invoke(
+        binding!!.run {
+            Binding(reinterpret())
+        },
+        fromValue!!.run {
+            Value(reinterpret())
+        },
+        toValue!!.run {
+            Value(reinterpret())
+        }
+    ).asGBoolean()
+}
+    .reinterpret()
 
-public val BoxedFreeFuncFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+public val BoxedFreeFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-public val CallbackFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction { userData: COpaquePointer ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+public val CallbackFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
 public val ClassFinalizeFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> Unit>> =
     staticCFunction {
@@ -2285,7 +2119,8 @@ public val ClassFinalizeFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> U
                 TypeClass(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val ClassInitFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> Unit>> =
     staticCFunction {
@@ -2297,7 +2132,8 @@ public val ClassInitFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> Unit>
                 TypeClass(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val ClosureMarshalFunc: CPointer<
     CFunction<
@@ -2306,45 +2142,42 @@ public val ClosureMarshalFunc: CPointer<
             CPointer<GValue>?,
             UInt,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            closure: CPointer<GClosure>?,
-            returnValue: CPointer<GValue>?,
+        >
+    > = staticCFunction {
+        closure: CPointer<GClosure>?,
+        returnValue: CPointer<GValue>?,
+        nParamValues: UInt,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            closure: Closure,
+            returnValue: Value?,
             nParamValues: UInt,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    closure: Closure,
-                    returnValue: Value?,
-                    nParamValues: UInt,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                closure!!.run {
-                    Closure(reinterpret())
-                },
-                returnValue?.run {
-                    Value(reinterpret())
-                },
-                nParamValues
-            )
-    }.reinterpret()
+        ) -> Unit
+        >().get().invoke(
+        closure!!.run {
+            Closure(reinterpret())
+        },
+        returnValue?.run {
+            Value(reinterpret())
+        },
+        nParamValues
+    )
+}
+    .reinterpret()
 
-public val ClosureNotifyFunc: CPointer<CFunction<(CPointer<GClosure>) -> Unit>> =
-    staticCFunction {
-            closure: CPointer<GClosure>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(closure: Closure) -> Unit>().get().invoke(
-            closure!!.run {
-                Closure(reinterpret())
-            }
-        )
-    }.reinterpret()
+public val ClosureNotifyFunc: CPointer<CFunction<(CPointer<GClosure>) -> Unit>> = staticCFunction {
+        closure: CPointer<GClosure>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(closure: Closure) -> Unit>().get().invoke(
+        closure!!.run {
+            Closure(reinterpret())
+        }
+    )
+}
+    .reinterpret()
 
 public val InstanceInitFuncFunc:
     CPointer<CFunction<(CPointer<GTypeInstance>, CPointer<GTypeClass>) -> Unit>> =
@@ -2361,7 +2194,8 @@ public val InstanceInitFuncFunc:
                 TypeClass(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val InterfaceFinalizeFuncFunc: CPointer<CFunction<(CPointer<GTypeInterface>) -> Unit>> =
     staticCFunction {
@@ -2373,7 +2207,8 @@ public val InterfaceFinalizeFuncFunc: CPointer<CFunction<(CPointer<GTypeInterfac
                 TypeInterface(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val InterfaceInitFuncFunc: CPointer<CFunction<(CPointer<GTypeInterface>) -> Unit>> =
     staticCFunction {
@@ -2385,7 +2220,8 @@ public val InterfaceInitFuncFunc: CPointer<CFunction<(CPointer<GTypeInterface>) 
                 TypeInterface(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val ObjectFinalizeFuncFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> =
     staticCFunction {
@@ -2397,7 +2233,8 @@ public val ObjectFinalizeFuncFunc: CPointer<CFunction<(CPointer<GObject>) -> Uni
                 Object(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val ObjectGetPropertyFuncFunc: CPointer<
     CFunction<
@@ -2407,38 +2244,35 @@ public val ObjectGetPropertyFuncFunc: CPointer<
             CPointer<GValue>,
             CPointer<GParamSpec>,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            `object`: CPointer<GObject>?,
+        >
+    > = staticCFunction {
+        `object`: CPointer<GObject>?,
+        propertyId: UInt,
+        `value`: CPointer<GValue>?,
+        pspec: CPointer<GParamSpec>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            `object`: Object,
             propertyId: UInt,
-            `value`: CPointer<GValue>?,
-            pspec: CPointer<GParamSpec>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    `object`: Object,
-                    propertyId: UInt,
-                    `value`: Value,
-                    pspec: ParamSpec,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                `object`!!.run {
-                    Object(reinterpret())
-                },
-                propertyId,
-                `value`!!.run {
-                    Value(reinterpret())
-                },
-                pspec!!.run {
-                    ParamSpec(reinterpret())
-                }
-            )
-    }.reinterpret()
+            `value`: Value,
+            pspec: ParamSpec,
+        ) -> Unit
+        >().get().invoke(
+        `object`!!.run {
+            Object(reinterpret())
+        },
+        propertyId,
+        `value`!!.run {
+            Value(reinterpret())
+        },
+        pspec!!.run {
+            ParamSpec(reinterpret())
+        }
+    )
+}
+    .reinterpret()
 
 public val ObjectSetPropertyFuncFunc: CPointer<
     CFunction<
@@ -2448,38 +2282,35 @@ public val ObjectSetPropertyFuncFunc: CPointer<
             CPointer<GValue>,
             CPointer<GParamSpec>,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            `object`: CPointer<GObject>?,
+        >
+    > = staticCFunction {
+        `object`: CPointer<GObject>?,
+        propertyId: UInt,
+        `value`: CPointer<GValue>?,
+        pspec: CPointer<GParamSpec>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            `object`: Object,
             propertyId: UInt,
-            `value`: CPointer<GValue>?,
-            pspec: CPointer<GParamSpec>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    `object`: Object,
-                    propertyId: UInt,
-                    `value`: Value,
-                    pspec: ParamSpec,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                `object`!!.run {
-                    Object(reinterpret())
-                },
-                propertyId,
-                `value`!!.run {
-                    Value(reinterpret())
-                },
-                pspec!!.run {
-                    ParamSpec(reinterpret())
-                }
-            )
-    }.reinterpret()
+            `value`: Value,
+            pspec: ParamSpec,
+        ) -> Unit
+        >().get().invoke(
+        `object`!!.run {
+            Object(reinterpret())
+        },
+        propertyId,
+        `value`!!.run {
+            Value(reinterpret())
+        },
+        pspec!!.run {
+            ParamSpec(reinterpret())
+        }
+    )
+}
+    .reinterpret()
 
 public val SignalAccumulatorFunc: CPointer<
     CFunction<
@@ -2488,53 +2319,47 @@ public val SignalAccumulatorFunc: CPointer<
             CPointer<GValue>,
             CPointer<GValue>,
         ) -> Int
-    >
-> =
-    staticCFunction {
-            ihint: CPointer<GSignalInvocationHint>?,
-            returnAccu: CPointer<GValue>?,
-            handlerReturn: CPointer<GValue>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    ihint: SignalInvocationHint,
-                    returnAccu: Value,
-                    handlerReturn: Value,
-                ) -> Boolean
-            >()
-            .get()
-            .invoke(
-                ihint!!.run {
-                    SignalInvocationHint(reinterpret())
-                },
-                returnAccu!!.run {
-                    Value(reinterpret())
-                },
-                handlerReturn!!.run {
-                    Value(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        ihint: CPointer<GSignalInvocationHint>?,
+        returnAccu: CPointer<GValue>?,
+        handlerReturn: CPointer<GValue>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            ihint: SignalInvocationHint,
+            returnAccu: Value,
+            handlerReturn: Value,
+        ) -> Boolean
+        >().get().invoke(
+        ihint!!.run {
+            SignalInvocationHint(reinterpret())
+        },
+        returnAccu!!.run {
+            Value(reinterpret())
+        },
+        handlerReturn!!.run {
+            Value(reinterpret())
+        }
+    ).asGBoolean()
+}
+    .reinterpret()
 
 public val SignalEmissionHookFunc:
-    CPointer<CFunction<(CPointer<GSignalInvocationHint>, UInt) -> Int>> =
-    staticCFunction {
+    CPointer<CFunction<(CPointer<GSignalInvocationHint>, UInt) -> Int>> = staticCFunction {
             ihint: CPointer<GSignalInvocationHint>?,
             nParamValues: UInt,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(ihint: SignalInvocationHint, nParamValues: UInt) -> Boolean>()
-            .get()
-            .invoke(
-                ihint!!.run {
-                    SignalInvocationHint(reinterpret())
-                },
-                nParamValues
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(ihint: SignalInvocationHint, nParamValues: UInt) -> Boolean>().get().invoke(
+            ihint!!.run {
+                SignalInvocationHint(reinterpret())
+            },
+            nParamValues
+        ).asGBoolean()
+    }
+        .reinterpret()
 
 public val ToggleNotifyFunc: CPointer<CFunction<(CPointer<GObject>, Int) -> Unit>> =
     staticCFunction {
@@ -2548,22 +2373,21 @@ public val ToggleNotifyFunc: CPointer<CFunction<(CPointer<GObject>, Int) -> Unit
             },
             isLastRef.asBoolean()
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val TypeClassCacheFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> Int>> =
     staticCFunction {
             gClass: CPointer<GTypeClass>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(gClass: TypeClass) -> Boolean>()
-            .get()
-            .invoke(
-                gClass!!.run {
-                    TypeClass(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(gClass: TypeClass) -> Boolean>().get().invoke(
+            gClass!!.run {
+                TypeClass(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
 public val TypeInterfaceCheckFuncFunc: CPointer<CFunction<(CPointer<GTypeInterface>) -> Unit>> =
     staticCFunction {
@@ -2575,7 +2399,8 @@ public val TypeInterfaceCheckFuncFunc: CPointer<CFunction<(CPointer<GTypeInterfa
                 TypeInterface(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val TypePluginCompleteInterfaceInfoFunc: CPointer<
     CFunction<
@@ -2585,36 +2410,33 @@ public val TypePluginCompleteInterfaceInfoFunc: CPointer<
             ULong,
             CPointer<GInterfaceInfo>,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            plugin: CPointer<GTypePlugin>?,
+        >
+    > = staticCFunction {
+        plugin: CPointer<GTypePlugin>?,
+        instanceType: ULong,
+        interfaceType: ULong,
+        info: CPointer<GInterfaceInfo>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            plugin: TypePlugin,
             instanceType: ULong,
             interfaceType: ULong,
-            info: CPointer<GInterfaceInfo>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    plugin: TypePlugin,
-                    instanceType: ULong,
-                    interfaceType: ULong,
-                    info: InterfaceInfo,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                plugin!!.run {
-                    TypePlugin.wrap(reinterpret())
-                },
-                instanceType,
-                interfaceType,
-                info!!.run {
-                    InterfaceInfo(reinterpret())
-                }
-            )
-    }.reinterpret()
+            info: InterfaceInfo,
+        ) -> Unit
+        >().get().invoke(
+        plugin!!.run {
+            TypePlugin.wrap(reinterpret())
+        },
+        instanceType,
+        interfaceType,
+        info!!.run {
+            InterfaceInfo(reinterpret())
+        }
+    )
+}
+    .reinterpret()
 
 public val TypePluginCompleteTypeInfoFunc: CPointer<
     CFunction<
@@ -2624,38 +2446,35 @@ public val TypePluginCompleteTypeInfoFunc: CPointer<
             CPointer<GTypeInfo>,
             CPointer<GTypeValueTable>,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            plugin: CPointer<GTypePlugin>?,
+        >
+    > = staticCFunction {
+        plugin: CPointer<GTypePlugin>?,
+        gType: ULong,
+        info: CPointer<GTypeInfo>?,
+        valueTable: CPointer<GTypeValueTable>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            plugin: TypePlugin,
             gType: ULong,
-            info: CPointer<GTypeInfo>?,
-            valueTable: CPointer<GTypeValueTable>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    plugin: TypePlugin,
-                    gType: ULong,
-                    info: TypeInfo,
-                    valueTable: TypeValueTable,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                plugin!!.run {
-                    TypePlugin.wrap(reinterpret())
-                },
-                gType,
-                info!!.run {
-                    TypeInfo(reinterpret())
-                },
-                valueTable!!.run {
-                    TypeValueTable(reinterpret())
-                }
-            )
-    }.reinterpret()
+            info: TypeInfo,
+            valueTable: TypeValueTable,
+        ) -> Unit
+        >().get().invoke(
+        plugin!!.run {
+            TypePlugin.wrap(reinterpret())
+        },
+        gType,
+        info!!.run {
+            TypeInfo(reinterpret())
+        },
+        valueTable!!.run {
+            TypeValueTable(reinterpret())
+        }
+    )
+}
+    .reinterpret()
 
 public val TypePluginUnuseFunc: CPointer<CFunction<(CPointer<GTypePlugin>) -> Unit>> =
     staticCFunction {
@@ -2667,7 +2486,8 @@ public val TypePluginUnuseFunc: CPointer<CFunction<(CPointer<GTypePlugin>) -> Un
                 TypePlugin.wrap(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val TypePluginUseFunc: CPointer<CFunction<(CPointer<GTypePlugin>) -> Unit>> =
     staticCFunction {
@@ -2679,7 +2499,8 @@ public val TypePluginUseFunc: CPointer<CFunction<(CPointer<GTypePlugin>) -> Unit
                 TypePlugin.wrap(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val TypeValueCopyFuncFunc: CPointer<CFunction<(CPointer<GValue>, CPointer<GValue>) -> Unit>> =
     staticCFunction {
@@ -2695,7 +2516,8 @@ public val TypeValueCopyFuncFunc: CPointer<CFunction<(CPointer<GValue>, CPointer
                 Value(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val TypeValueFreeFuncFunc: CPointer<CFunction<(CPointer<GValue>) -> Unit>> =
     staticCFunction {
@@ -2707,7 +2529,8 @@ public val TypeValueFreeFuncFunc: CPointer<CFunction<(CPointer<GValue>) -> Unit>
                 Value(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val TypeValueInitFuncFunc: CPointer<CFunction<(CPointer<GValue>) -> Unit>> =
     staticCFunction {
@@ -2719,7 +2542,8 @@ public val TypeValueInitFuncFunc: CPointer<CFunction<(CPointer<GValue>) -> Unit>
                 Value(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 public val ValueTransformFunc: CPointer<CFunction<(CPointer<GValue>, CPointer<GValue>) -> Unit>> =
     staticCFunction {
@@ -2735,19 +2559,20 @@ public val ValueTransformFunc: CPointer<CFunction<(CPointer<GValue>, CPointer<GV
                 Value(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
-public val WeakNotifyFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> =
-    staticCFunction {
-            whereTheObjectWas: CPointer<GObject>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(whereTheObjectWas: Object) -> Unit>().get().invoke(
-            whereTheObjectWas!!.run {
-                Object(reinterpret())
-            }
-        )
-    }.reinterpret()
+public val WeakNotifyFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> = staticCFunction {
+        whereTheObjectWas: CPointer<GObject>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(whereTheObjectWas: Object) -> Unit>().get().invoke(
+        whereTheObjectWas!!.run {
+            Object(reinterpret())
+        }
+    )
+}
+    .reinterpret()
 
 /**
  * A callback function used by the type system to finalize those portions

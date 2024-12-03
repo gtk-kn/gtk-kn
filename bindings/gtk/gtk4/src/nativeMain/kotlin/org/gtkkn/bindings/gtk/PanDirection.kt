@@ -6,9 +6,7 @@ import org.gtkkn.native.gtk.GtkPanDirection
 /**
  * Describes the panning direction of a [class@GesturePan].
  */
-public enum class PanDirection(
-    public val nativeValue: GtkPanDirection,
-) {
+public enum class PanDirection(public val nativeValue: GtkPanDirection) {
     /**
      * panned towards the left
      */
@@ -31,13 +29,12 @@ public enum class PanDirection(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkPanDirection): PanDirection =
-            when (nativeValue) {
-                GtkPanDirection.GTK_PAN_DIRECTION_LEFT -> LEFT
-                GtkPanDirection.GTK_PAN_DIRECTION_RIGHT -> RIGHT
-                GtkPanDirection.GTK_PAN_DIRECTION_UP -> UP
-                GtkPanDirection.GTK_PAN_DIRECTION_DOWN -> DOWN
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkPanDirection): PanDirection = when (nativeValue) {
+            GtkPanDirection.GTK_PAN_DIRECTION_LEFT -> LEFT
+            GtkPanDirection.GTK_PAN_DIRECTION_RIGHT -> RIGHT
+            GtkPanDirection.GTK_PAN_DIRECTION_UP -> UP
+            GtkPanDirection.GTK_PAN_DIRECTION_DOWN -> DOWN
+            else -> error("invalid nativeValue")
+        }
     }
 }

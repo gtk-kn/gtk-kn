@@ -40,9 +40,7 @@ import org.gtkkn.bindings.glib.String as GlibString
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusNodeInfo(
-    pointer: CPointer<GDBusNodeInfo>,
-) : Record {
+public class DBusNodeInfo(pointer: CPointer<GDBusNodeInfo>) : Record {
     public val gioDBusNodeInfoPointer: CPointer<GDBusNodeInfo> = pointer
 
     /**
@@ -73,15 +71,11 @@ public class DBusNodeInfo(
      * @since 2.26
      */
     @GioVersion2_26
-    public fun generateXml(
-        indent: UInt,
-        stringBuilder: GlibString,
-    ): Unit =
-        g_dbus_node_info_generate_xml(
-            gioDBusNodeInfoPointer.reinterpret(),
-            indent,
-            stringBuilder.glibStringPointer.reinterpret()
-        )
+    public fun generateXml(indent: UInt, stringBuilder: GlibString): Unit = g_dbus_node_info_generate_xml(
+        gioDBusNodeInfoPointer.reinterpret(),
+        indent,
+        stringBuilder.glibStringPointer.reinterpret()
+    )
 
     /**
      * Looks up information about an interface.
@@ -106,10 +100,9 @@ public class DBusNodeInfo(
      * @since 2.26
      */
     @GioVersion2_26
-    public fun ref(): DBusNodeInfo =
-        g_dbus_node_info_ref(gioDBusNodeInfoPointer.reinterpret())!!.run {
-            DBusNodeInfo(reinterpret())
-        }
+    public fun ref(): DBusNodeInfo = g_dbus_node_info_ref(gioDBusNodeInfoPointer.reinterpret())!!.run {
+        DBusNodeInfo(reinterpret())
+    }
 
     /**
      * If @info is statically allocated, does nothing. Otherwise decreases

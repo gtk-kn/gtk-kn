@@ -27,9 +27,7 @@ import kotlin.collections.List
  * @since 2.16
  */
 @WebKitVersion2_16
-public class NetworkProxySettings(
-    pointer: CPointer<WebKitNetworkProxySettings>,
-) : Record {
+public class NetworkProxySettings(pointer: CPointer<WebKitNetworkProxySettings>) : Record {
     public val webkitNetworkProxySettingsPointer: CPointer<WebKitNetworkProxySettings> = pointer
 
     /**
@@ -44,10 +42,7 @@ public class NetworkProxySettings(
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun addProxyForScheme(
-        scheme: String,
-        proxyUri: String,
-    ): Unit =
+    public fun addProxyForScheme(scheme: String, proxyUri: String): Unit =
         webkit_network_proxy_settings_add_proxy_for_scheme(
             webkitNetworkProxySettingsPointer.reinterpret(),
             scheme,
@@ -113,10 +108,7 @@ public class NetworkProxySettings(
          * @return A new #WebKitNetworkProxySettings.
          * @since 2.16
          */
-        public fun new(
-            defaultProxyUri: String? = null,
-            ignoreHosts: List<String>? = null,
-        ): NetworkProxySettings {
+        public fun new(defaultProxyUri: String? = null, ignoreHosts: List<String>? = null): NetworkProxySettings {
             memScoped {
                 return NetworkProxySettings(
                     webkit_network_proxy_settings_new(defaultProxyUri, ignoreHosts?.toCStringList(this))!!.reinterpret()

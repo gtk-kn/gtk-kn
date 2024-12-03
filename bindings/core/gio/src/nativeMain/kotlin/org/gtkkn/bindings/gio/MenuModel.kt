@@ -152,9 +152,8 @@ import kotlin.Unit
  * @since 2.32
  */
 @GioVersion2_32
-public open class MenuModel(
-    pointer: CPointer<GMenuModel>,
-) : Object(pointer.reinterpret()),
+public open class MenuModel(pointer: CPointer<GMenuModel>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioMenuModelPointer: CPointer<GMenuModel>
         get() = gPointer.reinterpret()
@@ -184,15 +183,14 @@ public open class MenuModel(
         itemIndex: Int,
         attribute: String,
         expectedType: VariantType? = null,
-    ): Variant? =
-        g_menu_model_get_item_attribute_value(
-            gioMenuModelPointer.reinterpret(),
-            itemIndex,
-            attribute,
-            expectedType?.glibVariantTypePointer?.reinterpret()
-        )?.run {
-            Variant(reinterpret())
-        }
+    ): Variant? = g_menu_model_get_item_attribute_value(
+        gioMenuModelPointer.reinterpret(),
+        itemIndex,
+        attribute,
+        expectedType?.glibVariantTypePointer?.reinterpret()
+    )?.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Queries the item at position @item_index in @model for the link
@@ -207,10 +205,7 @@ public open class MenuModel(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun getItemLink(
-        itemIndex: Int,
-        link: String,
-    ): MenuModel? =
+    public open fun getItemLink(itemIndex: Int, link: String): MenuModel? =
         g_menu_model_get_item_link(gioMenuModelPointer.reinterpret(), itemIndex, link)?.run {
             MenuModel(reinterpret())
         }
@@ -260,11 +255,8 @@ public open class MenuModel(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun itemsChanged(
-        position: Int,
-        removed: Int,
-        added: Int,
-    ): Unit = g_menu_model_items_changed(gioMenuModelPointer.reinterpret(), position, removed, added)
+    public open fun itemsChanged(position: Int, removed: Int, added: Int): Unit =
+        g_menu_model_items_changed(gioMenuModelPointer.reinterpret(), position, removed, added)
 
     /**
      * Creates a #GMenuAttributeIter to iterate over the attributes of
@@ -330,15 +322,14 @@ public open class MenuModel(
             removed: Int,
             added: Int,
         ) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "items-changed",
-            connectItemsChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "items-changed",
+        connectItemsChangedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<MenuModel> {
         override val type: GeneratedClassKGType<MenuModel> =
@@ -357,23 +348,20 @@ private val connectItemsChangedFunc: CPointer<
             Int,
             Int,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            _: COpaquePointer,
+        >
+    > = staticCFunction {
+        _: COpaquePointer,
+        position: Int,
+        removed: Int,
+        added: Int,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
             position: Int,
             removed: Int,
             added: Int,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    position: Int,
-                    removed: Int,
-                    added: Int,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(position, removed, added)
-    }.reinterpret()
+        ) -> Unit
+        >().get().invoke(position, removed, added)
+}
+    .reinterpret()

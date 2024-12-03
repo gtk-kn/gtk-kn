@@ -11,9 +11,7 @@ import org.gtkkn.native.webkit.WebKitSnapshotOptions
  * Enum values used to specify options when taking a snapshot
  * from a #WebKitWebView.
  */
-public class SnapshotOptions(
-    public val mask: WebKitSnapshotOptions,
-) : Bitfield<SnapshotOptions> {
+public class SnapshotOptions(public val mask: WebKitSnapshotOptions) : Bitfield<SnapshotOptions> {
     override infix fun or(other: SnapshotOptions): SnapshotOptions = SnapshotOptions(mask or other.mask)
 
     public companion object {

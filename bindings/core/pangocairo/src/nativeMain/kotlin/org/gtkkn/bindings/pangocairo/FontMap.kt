@@ -98,9 +98,7 @@ public interface FontMap :
     public fun setResolution(dpi: Double): Unit =
         pango_cairo_font_map_set_resolution(pangocairoFontMapPointer.reinterpret(), dpi)
 
-    private data class Wrapper(
-        private val pointer: CPointer<PangoCairoFontMap>,
-    ) : FontMap {
+    private data class Wrapper(private val pointer: CPointer<PangoCairoFontMap>) : FontMap {
         override val pangocairoFontMapPointer: CPointer<PangoCairoFontMap> = pointer
     }
 
@@ -137,11 +135,9 @@ public interface FontMap :
          * @since 1.10
          */
         @PangoCairoVersion1_10
-        public fun getDefault(): org.gtkkn.bindings.pango.FontMap =
-            pango_cairo_font_map_get_default()!!.run {
-                org.gtkkn.bindings.pango
-                    .FontMap(reinterpret())
-            }
+        public fun getDefault(): org.gtkkn.bindings.pango.FontMap = pango_cairo_font_map_get_default()!!.run {
+            org.gtkkn.bindings.pango.FontMap(reinterpret())
+        }
 
         /**
          * Creates a new `PangoCairoFontMap` object.
@@ -168,11 +164,9 @@ public interface FontMap :
          * @since 1.10
          */
         @PangoCairoVersion1_10
-        public fun new(): org.gtkkn.bindings.pango.FontMap =
-            pango_cairo_font_map_new()!!.run {
-                org.gtkkn.bindings.pango
-                    .FontMap(reinterpret())
-            }
+        public fun new(): org.gtkkn.bindings.pango.FontMap = pango_cairo_font_map_new()!!.run {
+            org.gtkkn.bindings.pango.FontMap(reinterpret())
+        }
 
         /**
          * Creates a new `PangoCairoFontMap` object of the type suitable
@@ -191,8 +185,7 @@ public interface FontMap :
         @PangoCairoVersion1_18
         public fun newForFontType(fonttype: FontType): org.gtkkn.bindings.pango.FontMap? =
             pango_cairo_font_map_new_for_font_type(fonttype.nativeValue)?.run {
-                org.gtkkn.bindings.pango
-                    .FontMap(reinterpret())
+                org.gtkkn.bindings.pango.FontMap(reinterpret())
             }
     }
 }

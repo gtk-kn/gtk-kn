@@ -22,9 +22,7 @@ import kotlin.String
  *
  * - field `groups`: Fields with arrays are not supported
  */
-public class RecentData(
-    pointer: CPointer<GtkRecentData>,
-) : Record {
+public class RecentData(pointer: CPointer<GtkRecentData>) : Record {
     public val gtkRecentDataPointer: CPointer<GtkRecentData> = pointer
 
     /**

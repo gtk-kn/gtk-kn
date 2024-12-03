@@ -4,6 +4,7 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -15,24 +16,19 @@ import org.gtkkn.native.adw.adw_breakpoint_condition_new_length
 import org.gtkkn.native.adw.adw_breakpoint_condition_new_or
 import org.gtkkn.native.adw.adw_breakpoint_condition_new_ratio
 import org.gtkkn.native.adw.adw_breakpoint_condition_parse
+import org.gtkkn.native.adw.adw_breakpoint_condition_to_string
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlin.Suppress
 import kotlin.Unit
 
 /**
  * Describes condition for an [class@Breakpoint].
- *
- * ## Skipped during bindings generation
- *
- * - method `to_string`: C function adw_breakpoint_condition_to_string is ignored
- *
  * @since 1.4
  */
 @AdwVersion1_4
-public class BreakpointCondition(
-    pointer: CPointer<AdwBreakpointCondition>,
-) : Record {
+public class BreakpointCondition(pointer: CPointer<AdwBreakpointCondition>) : Record {
     public val adwBreakpointConditionPointer: CPointer<AdwBreakpointCondition> = pointer
 
     /**
@@ -55,6 +51,20 @@ public class BreakpointCondition(
     @AdwVersion1_4
     public fun free(): Unit = adw_breakpoint_condition_free(adwBreakpointConditionPointer.reinterpret())
 
+    /**
+     * Returns a textual representation of @self.
+     *
+     * The returned string can be parsed by [func@BreakpointCondition.parse].
+     *
+     * @return A newly allocated text string
+     * @since 1.4
+     */
+    @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
+    @AdwVersion1_4
+    override fun toString(): String =
+        adw_breakpoint_condition_to_string(adwBreakpointConditionPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
+
     public companion object : RecordCompanion<BreakpointCondition, AdwBreakpointCondition> {
         /**
          * Creates a condition that triggers when @condition_1 and @condition_2 are both
@@ -65,10 +75,7 @@ public class BreakpointCondition(
          * @return the newly created condition
          * @since 1.4
          */
-        public fun newAnd(
-            condition1: BreakpointCondition,
-            condition2: BreakpointCondition,
-        ): BreakpointCondition =
+        public fun newAnd(condition1: BreakpointCondition, condition2: BreakpointCondition): BreakpointCondition =
             BreakpointCondition(
                 adw_breakpoint_condition_new_and(
                     condition1.adwBreakpointConditionPointer.reinterpret(),
@@ -89,10 +96,9 @@ public class BreakpointCondition(
             type: BreakpointConditionLengthType,
             `value`: Double,
             unit: LengthUnit,
-        ): BreakpointCondition =
-            BreakpointCondition(
-                adw_breakpoint_condition_new_length(type.nativeValue, `value`, unit.nativeValue)!!.reinterpret()
-            )
+        ): BreakpointCondition = BreakpointCondition(
+            adw_breakpoint_condition_new_length(type.nativeValue, `value`, unit.nativeValue)!!.reinterpret()
+        )
 
         /**
          * Creates a condition that triggers when either @condition_1 or @condition_2 is
@@ -103,10 +109,7 @@ public class BreakpointCondition(
          * @return the newly created condition
          * @since 1.4
          */
-        public fun newOr(
-            condition1: BreakpointCondition,
-            condition2: BreakpointCondition,
-        ): BreakpointCondition =
+        public fun newOr(condition1: BreakpointCondition, condition2: BreakpointCondition): BreakpointCondition =
             BreakpointCondition(
                 adw_breakpoint_condition_new_or(
                     condition1.adwBreakpointConditionPointer.reinterpret(),
@@ -125,11 +128,7 @@ public class BreakpointCondition(
          * @return the newly created condition
          * @since 1.4
          */
-        public fun newRatio(
-            type: BreakpointConditionRatioType,
-            width: Int,
-            height: Int,
-        ): BreakpointCondition =
+        public fun newRatio(type: BreakpointConditionRatioType, width: Int, height: Int): BreakpointCondition =
             BreakpointCondition(adw_breakpoint_condition_new_ratio(type.nativeValue, width, height)!!.reinterpret())
 
         /**
@@ -194,10 +193,9 @@ public class BreakpointCondition(
          * @since 1.4
          */
         @AdwVersion1_4
-        public fun parse(str: String): BreakpointCondition =
-            adw_breakpoint_condition_parse(str)!!.run {
-                BreakpointCondition(reinterpret())
-            }
+        public fun parse(str: String): BreakpointCondition = adw_breakpoint_condition_parse(str)!!.run {
+            BreakpointCondition(reinterpret())
+        }
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): BreakpointCondition =
             BreakpointCondition(pointer.reinterpret())

@@ -57,9 +57,7 @@ import kotlin.Unit
  * @since 2.32
  */
 @GLibVersion2_32
-public class Bytes(
-    pointer: CPointer<GBytes>,
-) : Record {
+public class Bytes(pointer: CPointer<GBytes>) : Record {
     public val glibBytesPointer: CPointer<GBytes> = pointer
 
     /**
@@ -104,10 +102,7 @@ public class Bytes(
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun newFromBytes(
-        offset: ULong,
-        length: ULong,
-    ): Bytes =
+    public fun newFromBytes(offset: ULong, length: ULong): Bytes =
         g_bytes_new_from_bytes(glibBytesPointer.reinterpret(), offset, length)!!.run {
             Bytes(reinterpret())
         }
@@ -119,10 +114,9 @@ public class Bytes(
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun ref(): Bytes =
-        g_bytes_ref(glibBytesPointer.reinterpret())!!.run {
-            Bytes(reinterpret())
-        }
+    public fun ref(): Bytes = g_bytes_ref(glibBytesPointer.reinterpret())!!.run {
+        Bytes(reinterpret())
+    }
 
     /**
      * Releases a reference on @bytes.  This may result in the bytes being

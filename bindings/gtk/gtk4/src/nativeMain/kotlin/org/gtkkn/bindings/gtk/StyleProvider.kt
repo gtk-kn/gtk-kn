@@ -42,10 +42,7 @@ public interface StyleProvider :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectGtkPrivateChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectGtkPrivateChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gtkStyleProviderPointer.reinterpret(),
             "gtk-private-changed",
@@ -55,9 +52,7 @@ public interface StyleProvider :
             connectFlags.mask
         )
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkStyleProvider>,
-    ) : StyleProvider {
+    private data class Wrapper(private val pointer: CPointer<GtkStyleProvider>) : StyleProvider {
         override val gtkStyleProviderPointer: CPointer<GtkStyleProvider> = pointer
     }
 
@@ -73,10 +68,10 @@ public interface StyleProvider :
     }
 }
 
-private val connectGtkPrivateChangedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectGtkPrivateChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

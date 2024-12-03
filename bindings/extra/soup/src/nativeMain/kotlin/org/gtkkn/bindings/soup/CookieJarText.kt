@@ -24,9 +24,8 @@ import kotlin.String
  *
  * - method `filename`: Property has no getter nor setter
  */
-public class CookieJarText(
-    pointer: CPointer<SoupCookieJarText>,
-) : CookieJar(pointer.reinterpret()),
+public class CookieJarText(pointer: CPointer<SoupCookieJarText>) :
+    CookieJar(pointer.reinterpret()),
     KGTyped {
     public val soupCookieJarTextPointer: CPointer<SoupCookieJarText>
         get() = gPointer.reinterpret()

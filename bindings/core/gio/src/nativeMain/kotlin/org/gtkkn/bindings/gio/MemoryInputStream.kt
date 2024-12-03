@@ -29,9 +29,8 @@ import kotlin.Unit
  * - parameter `data`: Array parameter of type guint8 is not supported
  * - parameter `data`: Array parameter of type guint8 is not supported
  */
-public open class MemoryInputStream(
-    pointer: CPointer<GMemoryInputStream>,
-) : InputStream(pointer.reinterpret()),
+public open class MemoryInputStream(pointer: CPointer<GMemoryInputStream>) :
+    InputStream(pointer.reinterpret()),
     PollableInputStream,
     Seekable,
     KGTyped {

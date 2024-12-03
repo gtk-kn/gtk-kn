@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -16,21 +17,17 @@ import org.gtkkn.native.gio.g_file_attribute_matcher_matches_only
 import org.gtkkn.native.gio.g_file_attribute_matcher_new
 import org.gtkkn.native.gio.g_file_attribute_matcher_ref
 import org.gtkkn.native.gio.g_file_attribute_matcher_subtract
+import org.gtkkn.native.gio.g_file_attribute_matcher_to_string
 import org.gtkkn.native.gio.g_file_attribute_matcher_unref
 import kotlin.Boolean
 import kotlin.String
+import kotlin.Suppress
 import kotlin.Unit
 
 /**
  * Determines if a string matches a file attribute.
- *
- * ## Skipped during bindings generation
- *
- * - method `to_string`: C function g_file_attribute_matcher_to_string is ignored
  */
-public class FileAttributeMatcher(
-    pointer: CPointer<GFileAttributeMatcher>,
-) : Record {
+public class FileAttributeMatcher(pointer: CPointer<GFileAttributeMatcher>) : Record {
     public val gioFileAttributeMatcherPointer: CPointer<GFileAttributeMatcher> = pointer
 
     /**
@@ -109,6 +106,22 @@ public class FileAttributeMatcher(
         )?.run {
             FileAttributeMatcher(reinterpret())
         }
+
+    /**
+     * Prints what the matcher is matching against. The format will be
+     * equal to the format passed to g_file_attribute_matcher_new().
+     * The output however, might not be identical, as the matcher may
+     * decide to use a different order or omit needless parts.
+     *
+     * @return a string describing the attributes the matcher matches
+     *   against or null if @matcher was null.
+     * @since 2.32
+     */
+    @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
+    @GioVersion2_32
+    override fun toString(): String =
+        g_file_attribute_matcher_to_string(gioFileAttributeMatcherPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Unreferences @matcher. If the reference count falls below 1,

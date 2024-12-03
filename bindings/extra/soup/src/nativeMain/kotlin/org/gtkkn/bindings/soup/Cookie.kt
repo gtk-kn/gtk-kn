@@ -69,9 +69,7 @@ import kotlin.Unit
  * code (eg, javascript), so as to minimize the danger posed by
  * cross-site scripting attacks.
  */
-public class Cookie(
-    pointer: CPointer<SoupCookie>,
-) : Record {
+public class Cookie(pointer: CPointer<SoupCookie>) : Record {
     public val soupCookiePointer: CPointer<SoupCookie> = pointer
 
     /**
@@ -92,10 +90,9 @@ public class Cookie(
      *
      * @return a copy of @cookie
      */
-    public fun copy(): Cookie =
-        soup_cookie_copy(soupCookiePointer.reinterpret())!!.run {
-            Cookie(reinterpret())
-        }
+    public fun copy(): Cookie = soup_cookie_copy(soupCookiePointer.reinterpret())!!.run {
+        Cookie(reinterpret())
+    }
 
     /**
      * Checks if the @cookie's domain and @host match.
@@ -140,10 +137,9 @@ public class Cookie(
      * @return @cookie's expiration time, which is
      *   owned by @cookie and should not be modified or freed.
      */
-    public fun getExpires(): DateTime? =
-        soup_cookie_get_expires(soupCookiePointer.reinterpret())?.run {
-            DateTime(reinterpret())
-        }
+    public fun getExpires(): DateTime? = soup_cookie_get_expires(soupCookiePointer.reinterpret())?.run {
+        DateTime(reinterpret())
+    }
 
     /**
      * Gets @cookie's HttpOnly attribute.
@@ -334,13 +330,8 @@ public class Cookie(
          * @param maxAge max age of the cookie, or -1 for a session cookie
          * @return a new #SoupCookie.
          */
-        public fun new(
-            name: String,
-            `value`: String,
-            domain: String,
-            path: String,
-            maxAge: Int,
-        ): Cookie = Cookie(soup_cookie_new(name, `value`, domain, path, maxAge)!!.reinterpret())
+        public fun new(name: String, `value`: String, domain: String, path: String, maxAge: Int): Cookie =
+            Cookie(soup_cookie_new(name, `value`, domain, path, maxAge)!!.reinterpret())
 
         /**
          * Parses @header and returns a #SoupCookie.
@@ -363,10 +354,7 @@ public class Cookie(
          *   not be parsed, or contained an illegal "domain" attribute for a
          *   cookie originating from @origin.
          */
-        public fun parse(
-            `header`: String,
-            origin: Uri? = null,
-        ): Cookie? =
+        public fun parse(`header`: String, origin: Uri? = null): Cookie? =
             soup_cookie_parse(`header`, origin?.glibUriPointer?.reinterpret())?.run {
                 Cookie(reinterpret())
             }

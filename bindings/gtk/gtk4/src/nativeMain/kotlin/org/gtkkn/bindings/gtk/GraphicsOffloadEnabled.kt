@@ -9,9 +9,7 @@ import org.gtkkn.native.gtk.GtkGraphicsOffloadEnabled
  * @since 4.14
  */
 @GtkVersion4_14
-public enum class GraphicsOffloadEnabled(
-    public val nativeValue: GtkGraphicsOffloadEnabled,
-) {
+public enum class GraphicsOffloadEnabled(public val nativeValue: GtkGraphicsOffloadEnabled) {
     /**
      * Graphics offloading is enabled.
      */

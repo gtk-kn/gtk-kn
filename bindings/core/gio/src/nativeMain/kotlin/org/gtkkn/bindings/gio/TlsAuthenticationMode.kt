@@ -9,9 +9,7 @@ import org.gtkkn.native.gio.GTlsAuthenticationMode
  * @since 2.28
  */
 @GioVersion2_28
-public enum class TlsAuthenticationMode(
-    public val nativeValue: GTlsAuthenticationMode,
-) {
+public enum class TlsAuthenticationMode(public val nativeValue: GTlsAuthenticationMode) {
     /**
      * client authentication not required
      */
@@ -29,12 +27,11 @@ public enum class TlsAuthenticationMode(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GTlsAuthenticationMode): TlsAuthenticationMode =
-            when (nativeValue) {
-                GTlsAuthenticationMode.G_TLS_AUTHENTICATION_NONE -> NONE
-                GTlsAuthenticationMode.G_TLS_AUTHENTICATION_REQUESTED -> REQUESTED
-                GTlsAuthenticationMode.G_TLS_AUTHENTICATION_REQUIRED -> REQUIRED
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GTlsAuthenticationMode): TlsAuthenticationMode = when (nativeValue) {
+            GTlsAuthenticationMode.G_TLS_AUTHENTICATION_NONE -> NONE
+            GTlsAuthenticationMode.G_TLS_AUTHENTICATION_REQUESTED -> REQUESTED
+            GTlsAuthenticationMode.G_TLS_AUTHENTICATION_REQUIRED -> REQUIRED
+            else -> error("invalid nativeValue")
+        }
     }
 }

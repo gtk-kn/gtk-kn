@@ -6,9 +6,7 @@ import org.gtkkn.native.gtk.GtkTreeViewDropPosition
 /**
  * An enum for determining where a dropped row goes.
  */
-public enum class TreeViewDropPosition(
-    public val nativeValue: GtkTreeViewDropPosition,
-) {
+public enum class TreeViewDropPosition(public val nativeValue: GtkTreeViewDropPosition) {
     /**
      * dropped row is inserted before
      */
@@ -31,13 +29,12 @@ public enum class TreeViewDropPosition(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkTreeViewDropPosition): TreeViewDropPosition =
-            when (nativeValue) {
-                GtkTreeViewDropPosition.GTK_TREE_VIEW_DROP_BEFORE -> BEFORE
-                GtkTreeViewDropPosition.GTK_TREE_VIEW_DROP_AFTER -> AFTER
-                GtkTreeViewDropPosition.GTK_TREE_VIEW_DROP_INTO_OR_BEFORE -> INTO_OR_BEFORE
-                GtkTreeViewDropPosition.GTK_TREE_VIEW_DROP_INTO_OR_AFTER -> INTO_OR_AFTER
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkTreeViewDropPosition): TreeViewDropPosition = when (nativeValue) {
+            GtkTreeViewDropPosition.GTK_TREE_VIEW_DROP_BEFORE -> BEFORE
+            GtkTreeViewDropPosition.GTK_TREE_VIEW_DROP_AFTER -> AFTER
+            GtkTreeViewDropPosition.GTK_TREE_VIEW_DROP_INTO_OR_BEFORE -> INTO_OR_BEFORE
+            GtkTreeViewDropPosition.GTK_TREE_VIEW_DROP_INTO_OR_AFTER -> INTO_OR_AFTER
+            else -> error("invalid nativeValue")
+        }
     }
 }

@@ -42,9 +42,8 @@ import kotlin.Unit
  * request, and also finish the request with
  * webkit_uri_scheme_request_finish().
  */
-public class URISchemeRequest(
-    pointer: CPointer<WebKitURISchemeRequest>,
-) : Object(pointer.reinterpret()),
+public class URISchemeRequest(pointer: CPointer<WebKitURISchemeRequest>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val webkitURISchemeRequestPointer: CPointer<WebKitURISchemeRequest>
         get() = gPointer.reinterpret()
@@ -56,11 +55,7 @@ public class URISchemeRequest(
      * @param streamLength the length of the stream or -1 if not known
      * @param contentType the content type of the stream or null if not known
      */
-    public fun finish(
-        stream: InputStream,
-        streamLength: Long,
-        contentType: String? = null,
-    ): Unit =
+    public fun finish(stream: InputStream, streamLength: Long, contentType: String? = null): Unit =
         webkit_uri_scheme_request_finish(
             webkitURISchemeRequestPointer.reinterpret(),
             stream.gioInputStreamPointer.reinterpret(),
@@ -75,11 +70,10 @@ public class URISchemeRequest(
      * @since 2.2
      */
     @WebKitVersion2_2
-    public fun finishError(error: Error): Unit =
-        webkit_uri_scheme_request_finish_error(
-            webkitURISchemeRequestPointer.reinterpret(),
-            error.glibErrorPointer.reinterpret()
-        )
+    public fun finishError(error: Error): Unit = webkit_uri_scheme_request_finish_error(
+        webkitURISchemeRequestPointer.reinterpret(),
+        error.glibErrorPointer.reinterpret()
+    )
 
     /**
      * Finish a #WebKitURISchemeRequest by returning a #WebKitURISchemeResponse
@@ -88,11 +82,10 @@ public class URISchemeRequest(
      * @since 2.36
      */
     @WebKitVersion2_36
-    public fun finishWithResponse(response: URISchemeResponse): Unit =
-        webkit_uri_scheme_request_finish_with_response(
-            webkitURISchemeRequestPointer.reinterpret(),
-            response.webkitURISchemeResponsePointer.reinterpret()
-        )
+    public fun finishWithResponse(response: URISchemeResponse): Unit = webkit_uri_scheme_request_finish_with_response(
+        webkitURISchemeRequestPointer.reinterpret(),
+        response.webkitURISchemeResponsePointer.reinterpret()
+    )
 
     /**
      * Get the request body.

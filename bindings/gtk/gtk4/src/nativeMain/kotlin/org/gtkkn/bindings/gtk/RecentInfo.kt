@@ -56,9 +56,7 @@ import kotlin.Unit
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `length`: length: Out parameter is not supported
  */
-public class RecentInfo(
-    pointer: CPointer<GtkRecentInfo>,
-) : Record {
+public class RecentInfo(pointer: CPointer<GtkRecentInfo>) : Record {
     public val gtkRecentInfoPointer: CPointer<GtkRecentInfo> = pointer
 
     /**
@@ -72,20 +70,18 @@ public class RecentInfo(
      *   application for the MIME type is used
      * @return the newly created `GAppInfo`
      */
-    public fun createAppInfo(appName: String? = null): Result<AppInfo?> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gtk_recent_info_create_app_info(gtkRecentInfoPointer.reinterpret(), appName, gError.ptr)?.run {
-                    AppInfo.wrap(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun createAppInfo(appName: String? = null): Result<AppInfo?> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gtk_recent_info_create_app_info(gtkRecentInfoPointer.reinterpret(), appName, gError.ptr)?.run {
+            AppInfo.wrap(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
+        }
+    }
 
     /**
      * Checks whether the resource pointed by @info still exists.
@@ -103,10 +99,9 @@ public class RecentInfo(
      * @return a `GDateTime` for the time
      *    when the resource was added
      */
-    public fun getAdded(): DateTime =
-        gtk_recent_info_get_added(gtkRecentInfoPointer.reinterpret())!!.run {
-            DateTime(reinterpret())
-        }
+    public fun getAdded(): DateTime = gtk_recent_info_get_added(gtkRecentInfoPointer.reinterpret())!!.run {
+        DateTime(reinterpret())
+    }
 
     /**
      * Gets the number of days elapsed since the last update
@@ -145,10 +140,9 @@ public class RecentInfo(
      *
      * @return a `GIcon` containing the icon
      */
-    public fun getGicon(): Icon? =
-        gtk_recent_info_get_gicon(gtkRecentInfoPointer.reinterpret())?.run {
-            Icon.wrap(reinterpret())
-        }
+    public fun getGicon(): Icon? = gtk_recent_info_get_gicon(gtkRecentInfoPointer.reinterpret())?.run {
+        Icon.wrap(reinterpret())
+    }
 
     /**
      * Gets the MIME type of the resource.
@@ -156,9 +150,8 @@ public class RecentInfo(
      * @return the MIME type of the resource. The returned string
      *   is owned by the recent manager, and should not be freed.
      */
-    public fun getMimeType(): String =
-        gtk_recent_info_get_mime_type(gtkRecentInfoPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getMimeType(): String = gtk_recent_info_get_mime_type(gtkRecentInfoPointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Gets the time when the meta-data
@@ -167,10 +160,9 @@ public class RecentInfo(
      * @return a `GDateTime` for the time
      *   when the resource was last modified
      */
-    public fun getModified(): DateTime =
-        gtk_recent_info_get_modified(gtkRecentInfoPointer.reinterpret())!!.run {
-            DateTime(reinterpret())
-        }
+    public fun getModified(): DateTime = gtk_recent_info_get_modified(gtkRecentInfoPointer.reinterpret())!!.run {
+        DateTime(reinterpret())
+    }
 
     /**
      * Gets the value of the “private” flag.
@@ -194,9 +186,8 @@ public class RecentInfo(
      * @return A newly-allocated string in UTF-8 encoding
      *   free it with g_free()
      */
-    public fun getShortName(): String =
-        gtk_recent_info_get_short_name(gtkRecentInfoPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getShortName(): String = gtk_recent_info_get_short_name(gtkRecentInfoPointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Gets the URI of the resource.
@@ -227,10 +218,9 @@ public class RecentInfo(
      * @return a `GDateTime` for the time
      *    when the resource was last visited
      */
-    public fun getVisited(): DateTime =
-        gtk_recent_info_get_visited(gtkRecentInfoPointer.reinterpret())!!.run {
-            DateTime(reinterpret())
-        }
+    public fun getVisited(): DateTime = gtk_recent_info_get_visited(gtkRecentInfoPointer.reinterpret())!!.run {
+        DateTime(reinterpret())
+    }
 
     /**
      * Checks whether an application registered this resource using @app_name.
@@ -286,10 +276,9 @@ public class RecentInfo(
      * @return the recent info object with its reference count
      *   increased by one
      */
-    public fun ref(): RecentInfo =
-        gtk_recent_info_ref(gtkRecentInfoPointer.reinterpret())!!.run {
-            RecentInfo(reinterpret())
-        }
+    public fun ref(): RecentInfo = gtk_recent_info_ref(gtkRecentInfoPointer.reinterpret())!!.run {
+        RecentInfo(reinterpret())
+    }
 
     /**
      * Decreases the reference count of @info by one.

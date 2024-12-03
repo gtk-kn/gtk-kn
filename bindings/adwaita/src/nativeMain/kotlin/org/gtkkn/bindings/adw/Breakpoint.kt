@@ -84,9 +84,8 @@ import kotlin.Unit
  * @since 1.4
  */
 @AdwVersion1_4
-public class Breakpoint(
-    pointer: CPointer<AdwBreakpoint>,
-) : Object(pointer.reinterpret()),
+public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
+    Object(pointer.reinterpret()),
     Buildable,
     KGTyped {
     public val adwBreakpointPointer: CPointer<AdwBreakpoint>
@@ -108,10 +107,9 @@ public class Breakpoint(
          * @return the condition
          * @since 1.4
          */
-        get() =
-            adw_breakpoint_get_condition(adwBreakpointPointer.reinterpret())?.run {
-                BreakpointCondition(reinterpret())
-            }
+        get() = adw_breakpoint_get_condition(adwBreakpointPointer.reinterpret())?.run {
+            BreakpointCondition(reinterpret())
+        }
 
         /**
          * Sets the condition for @self.
@@ -122,11 +120,10 @@ public class Breakpoint(
         @AdwVersion1_4
         set(
             condition
-        ) =
-            adw_breakpoint_set_condition(
-                adwBreakpointPointer.reinterpret(),
-                condition?.adwBreakpointConditionPointer?.reinterpret()
-            )
+        ) = adw_breakpoint_set_condition(
+            adwBreakpointPointer.reinterpret(),
+            condition?.adwBreakpointConditionPointer?.reinterpret()
+        )
 
     /**
      * Creates a new `AdwBreakpoint` with @condition.
@@ -183,42 +180,12 @@ public class Breakpoint(
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun addSetter(
-        `object`: Object,
-        `property`: String,
-        `value`: Value,
-    ): Unit =
-        adw_breakpoint_add_setter(
-            adwBreakpointPointer.reinterpret(),
-            `object`.gPointer.reinterpret(),
-            `property`,
-            `value`.gobjectValuePointer.reinterpret()
-        )
-
-    /**
-     * Gets the condition for @self.
-     *
-     * @return the condition
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun getCondition(): BreakpointCondition? =
-        adw_breakpoint_get_condition(adwBreakpointPointer.reinterpret())?.run {
-            BreakpointCondition(reinterpret())
-        }
-
-    /**
-     * Sets the condition for @self.
-     *
-     * @param condition the new condition
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun setCondition(condition: BreakpointCondition? = null): Unit =
-        adw_breakpoint_set_condition(
-            adwBreakpointPointer.reinterpret(),
-            condition?.adwBreakpointConditionPointer?.reinterpret()
-        )
+    public fun addSetter(`object`: Object, `property`: String, `value`: Value): Unit = adw_breakpoint_add_setter(
+        adwBreakpointPointer.reinterpret(),
+        `object`.gPointer.reinterpret(),
+        `property`,
+        `value`.gobjectValuePointer.reinterpret()
+    )
 
     /**
      * Emitted when the breakpoint is applied.
@@ -230,10 +197,7 @@ public class Breakpoint(
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun connectApply(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectApply(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "apply",
@@ -253,10 +217,7 @@ public class Breakpoint(
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun connectUnapply(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectUnapply(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "unapply",
@@ -276,18 +237,18 @@ public class Breakpoint(
     }
 }
 
-private val connectApplyFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectApplyFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectUnapplyFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectUnapplyFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

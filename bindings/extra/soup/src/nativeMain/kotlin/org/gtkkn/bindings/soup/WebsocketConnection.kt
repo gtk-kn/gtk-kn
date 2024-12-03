@@ -75,9 +75,8 @@ import kotlin.Unit
  * - method `get_close_code`: Return type gushort is unsupported
  * - parameter `data`: Array parameter of type guint8 is not supported
  */
-public class WebsocketConnection(
-    pointer: CPointer<SoupWebsocketConnection>,
-) : Object(pointer.reinterpret()),
+public class WebsocketConnection(pointer: CPointer<SoupWebsocketConnection>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val soupWebsocketConnectionPointer: CPointer<SoupWebsocketConnection>
         get() = gPointer.reinterpret()
@@ -91,10 +90,9 @@ public class WebsocketConnection(
          *
          * @return the connection type
          */
-        get() =
-            soup_websocket_connection_get_connection_type(soupWebsocketConnectionPointer.reinterpret()).run {
-                WebsocketConnectionType.fromNativeValue(this)
-            }
+        get() = soup_websocket_connection_get_connection_type(soupWebsocketConnectionPointer.reinterpret()).run {
+            WebsocketConnectionType.fromNativeValue(this)
+        }
 
     /**
      * List of [class@WebsocketExtension] objects that are active in the connection.
@@ -105,10 +103,9 @@ public class WebsocketConnection(
          *
          * @return a #GList of #SoupWebsocketExtension objects
          */
-        get() =
-            soup_websocket_connection_get_extensions(soupWebsocketConnectionPointer.reinterpret())!!.run {
-                List(reinterpret())
-            }
+        get() = soup_websocket_connection_get_extensions(soupWebsocketConnectionPointer.reinterpret())!!.run {
+            List(reinterpret())
+        }
 
     /**
      * The underlying IO stream the WebSocket is communicating
@@ -122,10 +119,9 @@ public class WebsocketConnection(
          *
          * @return the WebSocket's I/O stream.
          */
-        get() =
-            soup_websocket_connection_get_io_stream(soupWebsocketConnectionPointer.reinterpret())!!.run {
-                IOStream(reinterpret())
-            }
+        get() = soup_websocket_connection_get_io_stream(soupWebsocketConnectionPointer.reinterpret())!!.run {
+            IOStream(reinterpret())
+        }
 
     /**
      * Interval in seconds on when to send a ping message which will
@@ -175,11 +171,10 @@ public class WebsocketConnection(
          */
         set(
             maxIncomingPayloadSize
-        ) =
-            soup_websocket_connection_set_max_incoming_payload_size(
-                soupWebsocketConnectionPointer.reinterpret(),
-                maxIncomingPayloadSize
-            )
+        ) = soup_websocket_connection_set_max_incoming_payload_size(
+            soupWebsocketConnectionPointer.reinterpret(),
+            maxIncomingPayloadSize
+        )
 
     /**
      * The client's Origin.
@@ -213,10 +208,9 @@ public class WebsocketConnection(
          *
          * @return the state
          */
-        get() =
-            soup_websocket_connection_get_state(soupWebsocketConnectionPointer.reinterpret()).run {
-                WebsocketState.fromNativeValue(this)
-            }
+        get() = soup_websocket_connection_get_state(soupWebsocketConnectionPointer.reinterpret()).run {
+            WebsocketState.fromNativeValue(this)
+        }
 
     /**
      * The URI of the WebSocket.
@@ -233,10 +227,9 @@ public class WebsocketConnection(
          *
          * @return the URI
          */
-        get() =
-            soup_websocket_connection_get_uri(soupWebsocketConnectionPointer.reinterpret())!!.run {
-                Uri(reinterpret())
-            }
+        get() = soup_websocket_connection_get_uri(soupWebsocketConnectionPointer.reinterpret())!!.run {
+            Uri(reinterpret())
+        }
 
     /**
      * Creates a #SoupWebsocketConnection on @stream with the given active @extensions.
@@ -284,91 +277,6 @@ public class WebsocketConnection(
             ?: error("Expected not null string")
 
     /**
-     * Get the connection type (client/server) of the connection.
-     *
-     * @return the connection type
-     */
-    public fun getConnectionType(): WebsocketConnectionType =
-        soup_websocket_connection_get_connection_type(soupWebsocketConnectionPointer.reinterpret()).run {
-            WebsocketConnectionType.fromNativeValue(this)
-        }
-
-    /**
-     * Get the extensions chosen via negotiation with the peer.
-     *
-     * @return a #GList of #SoupWebsocketExtension objects
-     */
-    public fun getExtensions(): List =
-        soup_websocket_connection_get_extensions(soupWebsocketConnectionPointer.reinterpret())!!.run {
-            List(reinterpret())
-        }
-
-    /**
-     * Get the I/O stream the WebSocket is communicating over.
-     *
-     * @return the WebSocket's I/O stream.
-     */
-    public fun getIoStream(): IOStream =
-        soup_websocket_connection_get_io_stream(soupWebsocketConnectionPointer.reinterpret())!!.run {
-            IOStream(reinterpret())
-        }
-
-    /**
-     * Gets the keepalive interval in seconds or 0 if disabled.
-     *
-     * @return the keepalive interval.
-     */
-    public fun getKeepaliveInterval(): UInt =
-        soup_websocket_connection_get_keepalive_interval(soupWebsocketConnectionPointer.reinterpret())
-
-    /**
-     * Gets the maximum payload size allowed for incoming packets.
-     *
-     * @return the maximum payload size.
-     */
-    public fun getMaxIncomingPayloadSize(): ULong =
-        soup_websocket_connection_get_max_incoming_payload_size(soupWebsocketConnectionPointer.reinterpret())
-
-    /**
-     * Get the origin of the WebSocket.
-     *
-     * @return the origin
-     */
-    public fun getOrigin(): String? =
-        soup_websocket_connection_get_origin(soupWebsocketConnectionPointer.reinterpret())?.toKString()
-
-    /**
-     * Get the protocol chosen via negotiation with the peer.
-     *
-     * @return the chosen protocol
-     */
-    public fun getProtocol(): String? =
-        soup_websocket_connection_get_protocol(soupWebsocketConnectionPointer.reinterpret())?.toKString()
-
-    /**
-     * Get the current state of the WebSocket.
-     *
-     * @return the state
-     */
-    public fun getState(): WebsocketState =
-        soup_websocket_connection_get_state(soupWebsocketConnectionPointer.reinterpret()).run {
-            WebsocketState.fromNativeValue(this)
-        }
-
-    /**
-     * Get the URI of the WebSocket.
-     *
-     * For servers this represents the address of the WebSocket, and
-     * for clients it is the address connected to.
-     *
-     * @return the URI
-     */
-    public fun getUri(): Uri =
-        soup_websocket_connection_get_uri(soupWebsocketConnectionPointer.reinterpret())!!.run {
-            Uri(reinterpret())
-        }
-
-    /**
      * Send a message of the given @type to the peer. Note that this method,
      * allows to send text messages containing null characters.
      *
@@ -378,15 +286,11 @@ public class WebsocketConnection(
      * @param type the type of message contents
      * @param message the message data as #GBytes
      */
-    public fun sendMessage(
-        type: WebsocketDataType,
-        message: Bytes,
-    ): Unit =
-        soup_websocket_connection_send_message(
-            soupWebsocketConnectionPointer.reinterpret(),
-            type.nativeValue,
-            message.glibBytesPointer.reinterpret()
-        )
+    public fun sendMessage(type: WebsocketDataType, message: Bytes): Unit = soup_websocket_connection_send_message(
+        soupWebsocketConnectionPointer.reinterpret(),
+        type.nativeValue,
+        message.glibBytesPointer.reinterpret()
+    )
 
     /**
      * Send a null-terminated text (UTF-8) message to the peer.
@@ -403,30 +307,6 @@ public class WebsocketConnection(
         soup_websocket_connection_send_text(soupWebsocketConnectionPointer.reinterpret(), text)
 
     /**
-     * Sets the interval in seconds on when to send a ping message which will serve
-     * as a keepalive message.
-     *
-     * If set to 0 the keepalive message is disabled.
-     *
-     * @param interval the interval to send a ping message or 0 to disable it
-     */
-    public fun setKeepaliveInterval(interval: UInt): Unit =
-        soup_websocket_connection_set_keepalive_interval(soupWebsocketConnectionPointer.reinterpret(), interval)
-
-    /**
-     * Sets the maximum payload size allowed for incoming packets.
-     *
-     * It does not limit the outgoing packet size.
-     *
-     * @param maxIncomingPayloadSize the maximum payload size
-     */
-    public fun setMaxIncomingPayloadSize(maxIncomingPayloadSize: ULong): Unit =
-        soup_websocket_connection_set_max_incoming_payload_size(
-            soupWebsocketConnectionPointer.reinterpret(),
-            maxIncomingPayloadSize
-        )
-
-    /**
      * Emitted when the connection has completely closed.
      *
      * This happens either due to an orderly close from the peer, one
@@ -438,10 +318,7 @@ public class WebsocketConnection(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectClosed(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "closed",
@@ -457,10 +334,7 @@ public class WebsocketConnection(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectClosing(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectClosing(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "closing",
@@ -479,10 +353,7 @@ public class WebsocketConnection(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `error` the error that occured
      */
-    public fun connectError(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (error: Error) -> Unit,
-    ): ULong =
+    public fun connectError(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (error: Error) -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "error",
@@ -505,15 +376,14 @@ public class WebsocketConnection(
     public fun connectMessage(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (type: Int, message: Bytes) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "message",
-            connectMessageFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "message",
+        connectMessageFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted when we receive a Pong frame (solicited or
@@ -526,10 +396,7 @@ public class WebsocketConnection(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `message` the application data (if any)
      */
-    public fun connectPong(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (message: Bytes) -> Unit,
-    ): ULong =
+    public fun connectPong(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (message: Bytes) -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "pong",
@@ -549,34 +416,34 @@ public class WebsocketConnection(
     }
 }
 
-private val connectClosedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectClosedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectClosingFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectClosingFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectErrorFunc: CPointer<CFunction<(CPointer<GError>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            error: CPointer<GError>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(error: Error) -> Unit>().get().invoke(
-            error!!.run {
-                Error(reinterpret())
-            }
-        )
-    }.reinterpret()
+private val connectErrorFunc: CPointer<CFunction<(CPointer<GError>) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        error: CPointer<GError>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(error: Error) -> Unit>().get().invoke(
+        error!!.run {
+            Error(reinterpret())
+        }
+    )
+}
+    .reinterpret()
 
 private val connectMessageFunc: CPointer<CFunction<(Int, CPointer<GBytes>) -> Unit>> =
     staticCFunction {
@@ -591,17 +458,18 @@ private val connectMessageFunc: CPointer<CFunction<(Int, CPointer<GBytes>) -> Un
                 Bytes(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
-private val connectPongFunc: CPointer<CFunction<(CPointer<GBytes>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            message: CPointer<GBytes>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(message: Bytes) -> Unit>().get().invoke(
-            message!!.run {
-                Bytes(reinterpret())
-            }
-        )
-    }.reinterpret()
+private val connectPongFunc: CPointer<CFunction<(CPointer<GBytes>) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        message: CPointer<GBytes>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(message: Bytes) -> Unit>().get().invoke(
+        message!!.run {
+            Bytes(reinterpret())
+        }
+    )
+}
+    .reinterpret()

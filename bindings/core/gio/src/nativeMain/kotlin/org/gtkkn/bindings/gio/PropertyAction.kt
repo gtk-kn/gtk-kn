@@ -82,9 +82,8 @@ import kotlin.String
  * @since 2.38
  */
 @GioVersion2_38
-public open class PropertyAction(
-    pointer: CPointer<GPropertyAction>,
-) : Object(pointer.reinterpret()),
+public open class PropertyAction(pointer: CPointer<GPropertyAction>) :
+    Object(pointer.reinterpret()),
     Action,
     KGTyped {
     public val gioPropertyActionPointer: CPointer<GPropertyAction>

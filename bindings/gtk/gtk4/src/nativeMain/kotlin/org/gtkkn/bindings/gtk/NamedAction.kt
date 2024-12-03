@@ -16,9 +16,8 @@ import kotlin.String
 /**
  * A `GtkShortcutAction` that activates an action by name.
  */
-public open class NamedAction(
-    pointer: CPointer<GtkNamedAction>,
-) : ShortcutAction(pointer.reinterpret()),
+public open class NamedAction(pointer: CPointer<GtkNamedAction>) :
+    ShortcutAction(pointer.reinterpret()),
     KGTyped {
     public val gtkNamedActionPointer: CPointer<GtkNamedAction>
         get() = gPointer.reinterpret()
@@ -32,9 +31,8 @@ public open class NamedAction(
          *
          * @return the name of the action to activate
          */
-        get() =
-            gtk_named_action_get_action_name(gtkNamedActionPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_named_action_get_action_name(gtkNamedActionPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Creates an action that when activated, activates
@@ -49,15 +47,6 @@ public open class NamedAction(
      * @return a new `GtkShortcutAction`
      */
     public constructor(name: String) : this(gtk_named_action_new(name)!!.reinterpret())
-
-    /**
-     * Returns the name of the action that will be activated.
-     *
-     * @return the name of the action to activate
-     */
-    public open fun getActionName(): String =
-        gtk_named_action_get_action_name(gtkNamedActionPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
 
     public companion object : TypeCompanion<NamedAction> {
         override val type: GeneratedClassKGType<NamedAction> =

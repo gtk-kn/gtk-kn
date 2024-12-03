@@ -4,7 +4,6 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
@@ -63,9 +62,8 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - parameter `pid_callback`: DesktopAppLaunchCallback
  * - function `search`: Nested array types are not supported
  */
-public open class DesktopAppInfo(
-    pointer: CPointer<GDesktopAppInfo>,
-) : Object(pointer.reinterpret()),
+public open class DesktopAppInfo(pointer: CPointer<GDesktopAppInfo>) :
+    Object(pointer.reinterpret()),
     AppInfo,
     KGTyped {
     public val gioDesktopAppInfoPointer: CPointer<GDesktopAppInfo>
@@ -158,19 +156,6 @@ public open class DesktopAppInfo(
      */
     public open fun getCategories(): String? =
         g_desktop_app_info_get_categories(gioDesktopAppInfoPointer.reinterpret())?.toKString()
-
-    /**
-     * When @info was created from a known filename, return it.  In some
-     * situations such as the #GDesktopAppInfo returned from
-     * g_desktop_app_info_new_from_keyfile(), this function will return null.
-     *
-     * @return The full path to the file for @info,
-     *     or null if not known.
-     * @since 2.24
-     */
-    @GioVersion2_24
-    public open fun getFilename(): String? =
-        g_desktop_app_info_get_filename(gioDesktopAppInfoPointer.reinterpret())?.toKString()
 
     /**
      * Gets the generic name from the desktop file.
@@ -312,10 +297,7 @@ public open class DesktopAppInfo(
      * @since 2.38
      */
     @GioVersion2_38
-    public open fun launchAction(
-        actionName: String,
-        launchContext: AppLaunchContext? = null,
-    ): Unit =
+    public open fun launchAction(actionName: String, launchContext: AppLaunchContext? = null): Unit =
         g_desktop_app_info_launch_action(
             gioDesktopAppInfoPointer.reinterpret(),
             actionName,

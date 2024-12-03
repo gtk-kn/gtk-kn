@@ -30,9 +30,7 @@ import org.gtkkn.native.gtk.GtkInputHints
  * This enumeration may be extended in the future; input methods should
  * ignore unknown values.
  */
-public class InputHints(
-    public val mask: GtkInputHints,
-) : Bitfield<InputHints> {
+public class InputHints(public val mask: GtkInputHints) : Bitfield<InputHints> {
     override infix fun or(other: InputHints): InputHints = InputHints(mask or other.mask)
 
     public companion object {

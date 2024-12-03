@@ -49,9 +49,8 @@ import kotlin.Unit
  * - method `is-cancelled`: Property has no getter nor setter
  * - method `is-for-proxy`: Property has no getter nor setter
  */
-public open class Auth(
-    pointer: CPointer<SoupAuth>,
-) : Object(pointer.reinterpret()),
+public open class Auth(pointer: CPointer<SoupAuth>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val soupAuthPointer: CPointer<SoupAuth>
         get() = gPointer.reinterpret()
@@ -92,9 +91,8 @@ public open class Auth(
          *
          * @return the scheme name
          */
-        get() =
-            soup_auth_get_scheme_name(soupAuthPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = soup_auth_get_scheme_name(soupAuthPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Creates a new #SoupAuth of type @type with the information from
@@ -124,10 +122,8 @@ public open class Auth(
      * @param username the username provided by the user or client
      * @param password the password provided by the user or client
      */
-    public open fun authenticate(
-        username: String,
-        password: String,
-    ): Unit = soup_auth_authenticate(soupAuthPointer.reinterpret(), username, password)
+    public open fun authenticate(username: String, password: String): Unit =
+        soup_auth_authenticate(soupAuthPointer.reinterpret(), username, password)
 
     /**
      * Tests if @auth is able to authenticate by providing credentials to the
@@ -145,14 +141,6 @@ public open class Auth(
      * The #SoupAuth will be cancelled on dispose if it hans't been authenticated.
      */
     public open fun cancel(): Unit = soup_auth_cancel(soupAuthPointer.reinterpret())
-
-    /**
-     * Returns the authority (host:port) that @auth is associated with.
-     *
-     * @return the authority
-     */
-    public open fun getAuthority(): String =
-        soup_auth_get_authority(soupAuthPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Generates an appropriate "Authorization" header for @msg.
@@ -196,27 +184,6 @@ public open class Auth(
         soup_auth_get_protection_space(soupAuthPointer.reinterpret(), sourceUri.glibUriPointer.reinterpret())!!.run {
             SList(reinterpret())
         }
-
-    /**
-     * Returns @auth's realm.
-     *
-     * This is an identifier that distinguishes separate authentication spaces on a
-     * given server, and may be some string that is meaningful to the user.
-     * (Although it is probably not localized.)
-     *
-     * @return the realm name
-     */
-    public open fun getRealm(): String =
-        soup_auth_get_realm(soupAuthPointer.reinterpret())?.toKString() ?: error("Expected not null string")
-
-    /**
-     * soup_auth_get_scheme_name: (attributes org.gtk.Method.get_property=scheme-name)
-     * Returns @auth's scheme name. (Eg, "Basic", "Digest", or "NTLM")
-     *
-     * @return the scheme name
-     */
-    public open fun getSchemeName(): String =
-        soup_auth_get_scheme_name(soupAuthPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Tests if @auth has been given a username and password.
@@ -265,10 +232,7 @@ public open class Auth(
      *   unauthenticated) #SoupAuth. false if something about @auth_params
      *   could not be parsed or incorporated into @auth at all.
      */
-    public open fun update(
-        msg: Message,
-        authHeader: String,
-    ): Boolean =
+    public open fun update(msg: Message, authHeader: String): Boolean =
         soup_auth_update(soupAuthPointer.reinterpret(), msg.soupMessagePointer.reinterpret(), authHeader).asBoolean()
 
     public companion object : TypeCompanion<Auth> {

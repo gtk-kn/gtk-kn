@@ -24,9 +24,7 @@ import kotlin.ULong
  * @since 2.22
  */
 @GioVersion2_22
-public class InputVector(
-    pointer: CPointer<GInputVector>,
-) : Record {
+public class InputVector(pointer: CPointer<GInputVector>) : Record {
     public val gioInputVectorPointer: CPointer<GInputVector> = pointer
 
     /**

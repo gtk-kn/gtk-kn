@@ -16,9 +16,7 @@ import kotlin.UInt
  * A structure which contains a single flags value, its name, and its
  * nickname.
  */
-public class FlagsValue(
-    pointer: CPointer<GFlagsValue>,
-) : Record {
+public class FlagsValue(pointer: CPointer<GFlagsValue>) : Record {
     public val gobjectFlagsValuePointer: CPointer<GFlagsValue> = pointer
 
     /**

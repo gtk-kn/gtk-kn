@@ -31,9 +31,8 @@ import kotlin.Unit
  * @since 2.28
  */
 @GioVersion2_28
-public open class SimpleActionGroup(
-    pointer: CPointer<GSimpleActionGroup>,
-) : Object(pointer.reinterpret()),
+public open class SimpleActionGroup(pointer: CPointer<GSimpleActionGroup>) :
+    Object(pointer.reinterpret()),
     ActionGroup,
     ActionMap,
     KGTyped {

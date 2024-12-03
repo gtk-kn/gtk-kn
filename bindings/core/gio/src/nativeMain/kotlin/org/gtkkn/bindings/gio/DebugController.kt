@@ -94,9 +94,7 @@ public interface DebugController :
     public fun setDebugEnabled(debugEnabled: Boolean): Unit =
         g_debug_controller_set_debug_enabled(gioDebugControllerPointer.reinterpret(), debugEnabled.asGBoolean())
 
-    private data class Wrapper(
-        private val pointer: CPointer<GDebugController>,
-    ) : DebugController {
+    private data class Wrapper(private val pointer: CPointer<GDebugController>) : DebugController {
         override val gioDebugControllerPointer: CPointer<GDebugController> = pointer
     }
 

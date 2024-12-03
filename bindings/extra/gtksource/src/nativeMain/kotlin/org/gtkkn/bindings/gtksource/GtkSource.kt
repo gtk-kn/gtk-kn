@@ -15,7 +15,7 @@ import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_2
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.gtksource.gtk_source_check_version
 import org.gtkkn.native.gtksource.gtk_source_encoding_get_all
@@ -92,7 +92,7 @@ import kotlin.Unit
  * - record `ViewClass`: glib type struct are ignored
  * - record `VimIMContextClass`: glib type struct are ignored
  */
-public object Gtksource {
+public object GtkSource {
     /**
      * Like gtk_source_get_major_version(), but from the headers used at
      * application compile time, rather than from the library linked
@@ -126,11 +126,8 @@ public object Gtksource {
      * @return true if the version of the GtkSourceView currently loaded
      * is the same as or newer than the passed-in version.
      */
-    public fun checkVersion(
-        major: UInt,
-        minor: UInt,
-        micro: UInt,
-    ): Boolean = gtk_source_check_version(major, minor, micro).asBoolean()
+    public fun checkVersion(major: UInt, minor: UInt, micro: UInt): Boolean =
+        gtk_source_check_version(major, minor, micro).asBoolean()
 
     /**
      * Gets all encodings.
@@ -138,10 +135,9 @@ public object Gtksource {
      * @return a list of
      * all #GtkSourceEncoding's. Free with g_slist_free().
      */
-    public fun encodingGetAll(): SList =
-        gtk_source_encoding_get_all()!!.run {
-            SList(reinterpret())
-        }
+    public fun encodingGetAll(): SList = gtk_source_encoding_get_all()!!.run {
+        SList(reinterpret())
+    }
 
     /**
      * Gets the #GtkSourceEncoding for the current locale.
@@ -150,10 +146,9 @@ public object Gtksource {
      *
      * @return the current locale encoding.
      */
-    public fun encodingGetCurrent(): Encoding =
-        gtk_source_encoding_get_current()!!.run {
-            Encoding(reinterpret())
-        }
+    public fun encodingGetCurrent(): Encoding = gtk_source_encoding_get_current()!!.run {
+        Encoding(reinterpret())
+    }
 
     /**
      * Gets the list of default candidate encodings to try when loading a file.
@@ -167,10 +162,9 @@ public object Gtksource {
      * @return the list of
      * default candidate encodings. Free with g_slist_free().
      */
-    public fun encodingGetDefaultCandidates(): SList =
-        gtk_source_encoding_get_default_candidates()!!.run {
-            SList(reinterpret())
-        }
+    public fun encodingGetDefaultCandidates(): SList = gtk_source_encoding_get_default_candidates()!!.run {
+        SList(reinterpret())
+    }
 
     /**
      * Gets a #GtkSourceEncoding from a character set such as "UTF-8" or
@@ -180,20 +174,18 @@ public object Gtksource {
      * @return the corresponding #GtkSourceEncoding, or null
      * if not found.
      */
-    public fun encodingGetFromCharset(charset: String): Encoding? =
-        gtk_source_encoding_get_from_charset(charset)?.run {
-            Encoding(reinterpret())
-        }
+    public fun encodingGetFromCharset(charset: String): Encoding? = gtk_source_encoding_get_from_charset(charset)?.run {
+        Encoding(reinterpret())
+    }
 
     /**
      *
      *
      * @return the UTF-8 encoding.
      */
-    public fun encodingGetUtf8(): Encoding =
-        gtk_source_encoding_get_utf8()!!.run {
-            Encoding(reinterpret())
-        }
+    public fun encodingGetUtf8(): Encoding = gtk_source_encoding_get_utf8()!!.run {
+        Encoding(reinterpret())
+    }
 
     public fun fileLoaderErrorQuark(): Quark = gtk_source_file_loader_error_quark()
 
@@ -281,12 +273,11 @@ public object Gtksource {
      * @since 5.2
      */
     @GtkSourceVersion5_2
-    public fun schedulerAddFull(callback: SchedulerCallback): ULong =
-        gtk_source_scheduler_add_full(
-            SchedulerCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public fun schedulerAddFull(callback: SchedulerCallback): ULong = gtk_source_scheduler_add_full(
+        SchedulerCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer(),
+        staticStableRefDestroy.reinterpret()
+    )
 
     /**
      * Removes a scheduler callback previously registered with
@@ -338,38 +329,29 @@ public object Gtksource {
     public fun utilsUnescapeSearchText(text: String): String =
         gtk_source_utils_unescape_search_text(text)?.toKString() ?: error("Expected not null string")
 
-    public fun resolveException(error: Error): GlibException {
-        val ex =
-            when (error.domain) {
-                FileLoaderError.quark() ->
-                    FileLoaderError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            FileLoaderErrorException(error, it)
-                        }
-                FileSaverError.quark() ->
-                    FileSaverError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            FileSaverErrorException(error, it)
-                        }
-                else -> null
-            }
-        return ex ?: GlibException(error)
+    public fun resolveException(error: Error): GLibException {
+        val ex = when (error.domain) {
+            FileLoaderError.quark() -> FileLoaderError.fromErrorOrNull(error)
+                ?.let {
+                    FileLoaderErrorException(error, it)
+                }
+            FileSaverError.quark() -> FileSaverError.fromErrorOrNull(error)
+                ?.let {
+                    FileSaverErrorException(error, it)
+                }
+            else -> null
+        }
+        return ex ?: GLibException(error)
     }
 }
 
-public val SchedulerCallbackFunc: CPointer<CFunction<(Long) -> Int>> =
-    staticCFunction {
-            deadline: Long,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<(deadline: Long) -> Boolean>()
-            .get()
-            .invoke(deadline)
-            .asGBoolean()
-    }.reinterpret()
+public val SchedulerCallbackFunc: CPointer<CFunction<(Long) -> Int>> = staticCFunction {
+        deadline: Long,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(deadline: Long) -> Boolean>().get().invoke(deadline).asGBoolean()
+}
+    .reinterpret()
 
 /**
  * This function is called incrementally to process additional background work.

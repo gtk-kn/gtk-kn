@@ -11,9 +11,7 @@ import org.gtkkn.native.gtk.GtkAccessibleInvalidState
  * %GTK_ACCESSIBLE_INVALID_TRUE have the same values
  * as false and true.
  */
-public enum class AccessibleInvalidState(
-    public val nativeValue: GtkAccessibleInvalidState,
-) {
+public enum class AccessibleInvalidState(public val nativeValue: GtkAccessibleInvalidState) {
     /**
      * There are no detected errors in the value
      */

@@ -53,9 +53,7 @@ import kotlin.Unit
  * - parameter `timeout`: timeout: Out parameter is not supported
  * - parameter `mutex`: Mutex
  */
-public class MainContext(
-    pointer: CPointer<GMainContext>,
-) : Record {
+public class MainContext(pointer: CPointer<GMainContext>) : Record {
     public val glibMainContextPointer: CPointer<GMainContext> = pointer
 
     /**
@@ -89,10 +87,7 @@ public class MainContext(
      *      the same as the priority used for g_source_attach() to ensure that the
      *      file descriptor is polled whenever the results may be needed.
      */
-    public fun addPoll(
-        fd: PollFD,
-        priority: Int,
-    ): Unit =
+    public fun addPoll(fd: PollFD, priority: Int): Unit =
         g_main_context_add_poll(glibMainContextPointer.reinterpret(), fd.glibPollFDPointer.reinterpret(), priority)
 
     /**
@@ -144,17 +139,13 @@ public class MainContext(
      * @since 2.28
      */
     @GLibVersion2_28
-    public fun invokeFull(
-        priority: Int,
-        function: SourceFunc,
-    ): Unit =
-        g_main_context_invoke_full(
-            glibMainContextPointer.reinterpret(),
-            priority,
-            SourceFuncFunc.reinterpret(),
-            StableRef.create(function).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public fun invokeFull(priority: Int, function: SourceFunc): Unit = g_main_context_invoke_full(
+        glibMainContextPointer.reinterpret(),
+        priority,
+        SourceFuncFunc.reinterpret(),
+        StableRef.create(function).asCPointer(),
+        staticStableRefDestroy.reinterpret()
+    )
 
     /**
      * Determines whether this thread holds the (recursive)
@@ -254,10 +245,9 @@ public class MainContext(
      *
      * @return the @context that was passed in (since 2.6)
      */
-    public fun ref(): MainContext =
-        g_main_context_ref(glibMainContextPointer.reinterpret())!!.run {
-            MainContext(reinterpret())
-        }
+    public fun ref(): MainContext = g_main_context_ref(glibMainContextPointer.reinterpret())!!.run {
+        MainContext(reinterpret())
+    }
 
     /**
      * Releases ownership of a context previously acquired by this thread
@@ -344,10 +334,9 @@ public class MainContext(
          *
          * @return the global-default main context.
          */
-        public fun default(): MainContext =
-            g_main_context_default()!!.run {
-                MainContext(reinterpret())
-            }
+        public fun default(): MainContext = g_main_context_default()!!.run {
+            MainContext(reinterpret())
+        }
 
         /**
          * Gets the thread-default #GMainContext for this thread. Asynchronous
@@ -367,10 +356,9 @@ public class MainContext(
          * @since 2.22
          */
         @GLibVersion2_22
-        public fun getThreadDefault(): MainContext? =
-            g_main_context_get_thread_default()?.run {
-                MainContext(reinterpret())
-            }
+        public fun getThreadDefault(): MainContext? = g_main_context_get_thread_default()?.run {
+            MainContext(reinterpret())
+        }
 
         /**
          * Gets the thread-default #GMainContext for this thread, as with
@@ -385,10 +373,9 @@ public class MainContext(
          * @since 2.32
          */
         @GLibVersion2_32
-        public fun refThreadDefault(): MainContext =
-            g_main_context_ref_thread_default()!!.run {
-                MainContext(reinterpret())
-            }
+        public fun refThreadDefault(): MainContext = g_main_context_ref_thread_default()!!.run {
+            MainContext(reinterpret())
+        }
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MainContext =
             MainContext(pointer.reinterpret())

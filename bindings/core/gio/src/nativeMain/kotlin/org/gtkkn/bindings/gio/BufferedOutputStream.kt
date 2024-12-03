@@ -19,7 +19,6 @@ import org.gtkkn.native.gio.g_buffered_output_stream_set_auto_grow
 import org.gtkkn.native.gio.g_buffered_output_stream_set_buffer_size
 import kotlin.Boolean
 import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Buffered output stream implements [class@Gio.FilterOutputStream] and provides
@@ -36,9 +35,8 @@ import kotlin.Unit
  * buffered output stream's buffer, use [method@Gio.BufferedOutputStream.set_buffer_size].
  * Note that the buffer's size cannot be reduced below the size of the data within the buffer.
  */
-public open class BufferedOutputStream(
-    pointer: CPointer<GBufferedOutputStream>,
-) : FilterOutputStream(pointer.reinterpret()),
+public open class BufferedOutputStream(pointer: CPointer<GBufferedOutputStream>) :
+    FilterOutputStream(pointer.reinterpret()),
     Seekable,
     KGTyped {
     public val gioBufferedOutputStreamPointer: CPointer<GBufferedOutputStream>
@@ -110,42 +108,6 @@ public open class BufferedOutputStream(
         baseStream: OutputStream,
         size: ULong,
     ) : this(g_buffered_output_stream_new_sized(baseStream.gioOutputStreamPointer.reinterpret(), size)!!.reinterpret())
-
-    /**
-     * Checks if the buffer automatically grows as data is added.
-     *
-     * @return true if the @stream's buffer automatically grows,
-     * false otherwise.
-     */
-    public open fun getAutoGrow(): Boolean =
-        g_buffered_output_stream_get_auto_grow(gioBufferedOutputStreamPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the size of the buffer in the @stream.
-     *
-     * @return the current size of the buffer.
-     */
-    public open fun getBufferSize(): ULong =
-        g_buffered_output_stream_get_buffer_size(gioBufferedOutputStreamPointer.reinterpret())
-
-    /**
-     * Sets whether or not the @stream's buffer should automatically grow.
-     * If @auto_grow is true, then each write will just make the buffer
-     * larger, and you must manually flush the buffer to actually write out
-     * the data to the underlying stream.
-     *
-     * @param autoGrow a #gboolean.
-     */
-    public open fun setAutoGrow(autoGrow: Boolean): Unit =
-        g_buffered_output_stream_set_auto_grow(gioBufferedOutputStreamPointer.reinterpret(), autoGrow.asGBoolean())
-
-    /**
-     * Sets the size of the internal buffer to @size.
-     *
-     * @param size a #gsize.
-     */
-    public open fun setBufferSize(size: ULong): Unit =
-        g_buffered_output_stream_set_buffer_size(gioBufferedOutputStreamPointer.reinterpret(), size)
 
     public companion object : TypeCompanion<BufferedOutputStream> {
         override val type: GeneratedClassKGType<BufferedOutputStream> =

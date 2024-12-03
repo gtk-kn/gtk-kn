@@ -26,7 +26,7 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.bindings.gobject.Gobject
+import org.gtkkn.bindings.gobject.GObject
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.ParamFlags
 import org.gtkkn.bindings.gobject.TypeQuery
@@ -163,7 +163,7 @@ public open class ObjectType<T : Object>(
         flags: ParamFlags = ParamFlags.READWRITE
     ): ClassPropertyDelegateProvider<T, String> = ClassPropertyDelegateProvider { propertyName ->
         StringProperty(
-            Gobject.paramSpecString(
+            GObject.paramSpecString(
                 name ?: propertyName,
                 nick,
                 blurb,
@@ -191,7 +191,7 @@ public open class ObjectType<T : Object>(
         flags: ParamFlags = ParamFlags.READWRITE
     ): ClassPropertyDelegateProvider<T, Int> = ClassPropertyDelegateProvider { propertyName ->
         IntProperty(
-            Gobject.paramSpecInt(
+            GObject.paramSpecInt(
                 name = name ?: propertyName,
                 nick = nick,
                 blurb = blurb,
@@ -219,7 +219,7 @@ public open class ObjectType<T : Object>(
         flags: ParamFlags = ParamFlags.READWRITE
     ): ClassPropertyDelegateProvider<T, Boolean> = ClassPropertyDelegateProvider { propertyName ->
         BooleanProperty(
-            Gobject.paramSpecBoolean(
+            GObject.paramSpecBoolean(
                 name = name ?: propertyName,
                 nick = nick,
                 blurb = blurb,
@@ -259,7 +259,7 @@ public open class ObjectType<T : Object>(
 
     private fun registerType(): GType = memScoped {
         val typeQueryResult = TypeQuery.allocate(this)
-        Gobject.typeQuery(parentType.gType, typeQueryResult)
+        GObject.typeQuery(parentType.gType, typeQueryResult)
 
         val parentClassSize = typeQueryResult.classSize.toLong()
         val parentInstanceSize = typeQueryResult.instanceSize.toLong()

@@ -22,9 +22,7 @@ import org.gtkkn.native.gio.GDBusSubtreeVTable
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusSubtreeVTable(
-    pointer: CPointer<GDBusSubtreeVTable>,
-) : Record {
+public class DBusSubtreeVTable(pointer: CPointer<GDBusSubtreeVTable>) : Record {
     public val gioDBusSubtreeVTablePointer: CPointer<GDBusSubtreeVTable> = pointer
 
     public companion object : RecordCompanion<DBusSubtreeVTable, GDBusSubtreeVTable> {

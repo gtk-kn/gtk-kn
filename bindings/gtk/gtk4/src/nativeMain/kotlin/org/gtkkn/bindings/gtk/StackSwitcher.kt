@@ -15,7 +15,6 @@ import org.gtkkn.native.gtk.gtk_stack_switcher_get_stack
 import org.gtkkn.native.gtk.gtk_stack_switcher_get_type
 import org.gtkkn.native.gtk.gtk_stack_switcher_new
 import org.gtkkn.native.gtk.gtk_stack_switcher_set_stack
-import kotlin.Unit
 
 /**
  * The `GtkStackSwitcher` shows a row of buttons to switch between `GtkStack`
@@ -52,9 +51,8 @@ import kotlin.Unit
  * the stack switcher to be made vertical with
  * `gtk_orientable_set_orientation()`.
  */
-public open class StackSwitcher(
-    pointer: CPointer<GtkStackSwitcher>,
-) : Widget(pointer.reinterpret()),
+public open class StackSwitcher(pointer: CPointer<GtkStackSwitcher>) :
+    Widget(pointer.reinterpret()),
     Orientable,
     KGTyped {
     public val gtkStackSwitcherPointer: CPointer<GtkStackSwitcher>
@@ -81,10 +79,9 @@ public open class StackSwitcher(
          *
          * @return the stack
          */
-        get() =
-            gtk_stack_switcher_get_stack(gtkStackSwitcherPointer.reinterpret())?.run {
-                Stack(reinterpret())
-            }
+        get() = gtk_stack_switcher_get_stack(gtkStackSwitcherPointer.reinterpret())?.run {
+            Stack(reinterpret())
+        }
 
         /**
          * Sets the stack to control.
@@ -101,24 +98,6 @@ public open class StackSwitcher(
      * @return a new `GtkStackSwitcher`.
      */
     public constructor() : this(gtk_stack_switcher_new()!!.reinterpret())
-
-    /**
-     * Retrieves the stack.
-     *
-     * @return the stack
-     */
-    public open fun getStack(): Stack? =
-        gtk_stack_switcher_get_stack(gtkStackSwitcherPointer.reinterpret())?.run {
-            Stack(reinterpret())
-        }
-
-    /**
-     * Sets the stack to control.
-     *
-     * @param stack a `GtkStack`
-     */
-    public open fun setStack(stack: Stack? = null): Unit =
-        gtk_stack_switcher_set_stack(gtkStackSwitcherPointer.reinterpret(), stack?.gtkStackPointer?.reinterpret())
 
     public companion object : TypeCompanion<StackSwitcher> {
         override val type: GeneratedClassKGType<StackSwitcher> =

@@ -6,9 +6,7 @@ import org.gtkkn.native.gdk.GdkInputSource
 /**
  * An enumeration describing the type of an input device in general terms.
  */
-public enum class InputSource(
-    public val nativeValue: GdkInputSource,
-) {
+public enum class InputSource(public val nativeValue: GdkInputSource) {
     /**
      * the device is a mouse. (This will be reported for the core
      *   pointer, even if it is something else, such as a trackball.)
@@ -50,16 +48,15 @@ public enum class InputSource(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GdkInputSource): InputSource =
-            when (nativeValue) {
-                GdkInputSource.GDK_SOURCE_MOUSE -> MOUSE
-                GdkInputSource.GDK_SOURCE_PEN -> PEN
-                GdkInputSource.GDK_SOURCE_KEYBOARD -> KEYBOARD
-                GdkInputSource.GDK_SOURCE_TOUCHSCREEN -> TOUCHSCREEN
-                GdkInputSource.GDK_SOURCE_TOUCHPAD -> TOUCHPAD
-                GdkInputSource.GDK_SOURCE_TRACKPOINT -> TRACKPOINT
-                GdkInputSource.GDK_SOURCE_TABLET_PAD -> TABLET_PAD
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GdkInputSource): InputSource = when (nativeValue) {
+            GdkInputSource.GDK_SOURCE_MOUSE -> MOUSE
+            GdkInputSource.GDK_SOURCE_PEN -> PEN
+            GdkInputSource.GDK_SOURCE_KEYBOARD -> KEYBOARD
+            GdkInputSource.GDK_SOURCE_TOUCHSCREEN -> TOUCHSCREEN
+            GdkInputSource.GDK_SOURCE_TOUCHPAD -> TOUCHPAD
+            GdkInputSource.GDK_SOURCE_TRACKPOINT -> TRACKPOINT
+            GdkInputSource.GDK_SOURCE_TABLET_PAD -> TABLET_PAD
+            else -> error("invalid nativeValue")
+        }
     }
 }

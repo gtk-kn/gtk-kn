@@ -40,9 +40,8 @@ import kotlin.Unit
  * - method `contains-focus`: Property has no getter nor setter
  * - method `is-focus`: Property has no getter nor setter
  */
-public open class EventControllerFocus(
-    pointer: CPointer<GtkEventControllerFocus>,
-) : EventController(pointer.reinterpret()),
+public open class EventControllerFocus(pointer: CPointer<GtkEventControllerFocus>) :
+    EventController(pointer.reinterpret()),
     KGTyped {
     public val gtkEventControllerFocusPointer: CPointer<GtkEventControllerFocus>
         get() = gPointer.reinterpret()
@@ -85,10 +84,7 @@ public open class EventControllerFocus(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectEnter(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectEnter(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "enter",
@@ -112,10 +108,7 @@ public open class EventControllerFocus(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectLeave(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectLeave(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "leave",
@@ -135,18 +128,18 @@ public open class EventControllerFocus(
     }
 }
 
-private val connectEnterFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectEnterFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectLeaveFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectLeaveFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

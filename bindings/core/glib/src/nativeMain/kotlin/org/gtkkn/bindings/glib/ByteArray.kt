@@ -33,9 +33,7 @@ import kotlin.UInt
  * - parameter `array`: Array parameter of type guint8 is not supported
  * - field `data`: Unsupported pointer to primitive type
  */
-public class ByteArray(
-    pointer: CPointer<GByteArray>,
-) : Record {
+public class ByteArray(pointer: CPointer<GByteArray>) : Record {
     public val glibByteArrayPointer: CPointer<GByteArray> = pointer
 
     /**

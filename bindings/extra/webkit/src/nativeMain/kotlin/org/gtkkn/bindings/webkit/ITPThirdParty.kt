@@ -22,9 +22,7 @@ import kotlin.Unit
  * @since 2.30
  */
 @WebKitVersion2_30
-public class ITPThirdParty(
-    pointer: CPointer<WebKitITPThirdParty>,
-) : Record {
+public class ITPThirdParty(pointer: CPointer<WebKitITPThirdParty>) : Record {
     public val webkitITPThirdPartyPointer: CPointer<WebKitITPThirdParty> = pointer
 
     /**
@@ -59,10 +57,9 @@ public class ITPThirdParty(
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun ref(): ITPThirdParty =
-        webkit_itp_third_party_ref(webkitITPThirdPartyPointer.reinterpret())!!.run {
-            ITPThirdParty(reinterpret())
-        }
+    public fun ref(): ITPThirdParty = webkit_itp_third_party_ref(webkitITPThirdPartyPointer.reinterpret())!!.run {
+        ITPThirdParty(reinterpret())
+    }
 
     /**
      * Atomically decrements the reference count of @itp_third_party by one.

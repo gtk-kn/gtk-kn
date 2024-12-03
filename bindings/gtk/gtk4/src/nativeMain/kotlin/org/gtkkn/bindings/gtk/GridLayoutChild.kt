@@ -17,14 +17,12 @@ import org.gtkkn.native.gtk.gtk_grid_layout_child_set_column_span
 import org.gtkkn.native.gtk.gtk_grid_layout_child_set_row
 import org.gtkkn.native.gtk.gtk_grid_layout_child_set_row_span
 import kotlin.Int
-import kotlin.Unit
 
 /**
  * `GtkLayoutChild` subclass for children in a `GtkGridLayout`.
  */
-public open class GridLayoutChild(
-    pointer: CPointer<GtkGridLayoutChild>,
-) : LayoutChild(pointer.reinterpret()),
+public open class GridLayoutChild(pointer: CPointer<GtkGridLayoutChild>) :
+    LayoutChild(pointer.reinterpret()),
     KGTyped {
     public val gtkGridLayoutChildPointer: CPointer<GtkGridLayoutChild>
         get() = gPointer.reinterpret()
@@ -100,66 +98,6 @@ public open class GridLayoutChild(
          * @param span the span of @child
          */
         set(span) = gtk_grid_layout_child_set_row_span(gtkGridLayoutChildPointer.reinterpret(), span)
-
-    /**
-     * Retrieves the column number to which @child attaches its left side.
-     *
-     * @return the column number
-     */
-    public open fun getColumn(): Int = gtk_grid_layout_child_get_column(gtkGridLayoutChildPointer.reinterpret())
-
-    /**
-     * Retrieves the number of columns that @child spans to.
-     *
-     * @return the number of columns
-     */
-    public open fun getColumnSpan(): Int =
-        gtk_grid_layout_child_get_column_span(gtkGridLayoutChildPointer.reinterpret())
-
-    /**
-     * Retrieves the row number to which @child attaches its top side.
-     *
-     * @return the row number
-     */
-    public open fun getRow(): Int = gtk_grid_layout_child_get_row(gtkGridLayoutChildPointer.reinterpret())
-
-    /**
-     * Retrieves the number of rows that @child spans to.
-     *
-     * @return the number of row
-     */
-    public open fun getRowSpan(): Int = gtk_grid_layout_child_get_row_span(gtkGridLayoutChildPointer.reinterpret())
-
-    /**
-     * Sets the column number to attach the left side of @child.
-     *
-     * @param column the attach point for @child
-     */
-    public open fun setColumn(column: Int): Unit =
-        gtk_grid_layout_child_set_column(gtkGridLayoutChildPointer.reinterpret(), column)
-
-    /**
-     * Sets the number of columns @child spans to.
-     *
-     * @param span the span of @child
-     */
-    public open fun setColumnSpan(span: Int): Unit =
-        gtk_grid_layout_child_set_column_span(gtkGridLayoutChildPointer.reinterpret(), span)
-
-    /**
-     * Sets the row to place @child in.
-     *
-     * @param row the row for @child
-     */
-    public open fun setRow(row: Int): Unit = gtk_grid_layout_child_set_row(gtkGridLayoutChildPointer.reinterpret(), row)
-
-    /**
-     * Sets the number of rows @child spans to.
-     *
-     * @param span the span of @child
-     */
-    public open fun setRowSpan(span: Int): Unit =
-        gtk_grid_layout_child_set_row_span(gtkGridLayoutChildPointer.reinterpret(), span)
 
     public companion object : TypeCompanion<GridLayoutChild> {
         override val type: GeneratedClassKGType<GridLayoutChild> =

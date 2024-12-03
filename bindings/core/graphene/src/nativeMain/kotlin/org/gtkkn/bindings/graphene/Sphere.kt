@@ -36,9 +36,7 @@ import kotlin.Unit
  * @since 1.2
  */
 @GrapheneVersion1_2
-public class Sphere(
-    pointer: CPointer<graphene_sphere_t>,
-) : Record {
+public class Sphere(pointer: CPointer<graphene_sphere_t>) : Record {
     public val grapheneSpherePointer: CPointer<graphene_sphere_t> = pointer
 
     /**
@@ -124,17 +122,13 @@ public class Sphere(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun `init`(
-        center: Point3D? = null,
-        radius: Float,
-    ): Sphere =
-        graphene_sphere_init(
-            grapheneSpherePointer.reinterpret(),
-            center?.graphenePoint3DPointer?.reinterpret(),
-            radius
-        )!!.run {
-            Sphere(reinterpret())
-        }
+    public fun `init`(center: Point3D? = null, radius: Float): Sphere = graphene_sphere_init(
+        grapheneSpherePointer.reinterpret(),
+        center?.graphenePoint3DPointer?.reinterpret(),
+        radius
+    )!!.run {
+        Sphere(reinterpret())
+    }
 
     /**
      * Checks whether the sphere has a zero radius.
@@ -154,15 +148,11 @@ public class Sphere(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun translate(
-        point: Point3D,
-        res: Sphere,
-    ): Unit =
-        graphene_sphere_translate(
-            grapheneSpherePointer.reinterpret(),
-            point.graphenePoint3DPointer.reinterpret(),
-            res.grapheneSpherePointer.reinterpret()
-        )
+    public fun translate(point: Point3D, res: Sphere): Unit = graphene_sphere_translate(
+        grapheneSpherePointer.reinterpret(),
+        point.graphenePoint3DPointer.reinterpret(),
+        res.grapheneSpherePointer.reinterpret()
+    )
 
     public companion object : RecordCompanion<Sphere, graphene_sphere_t> {
         /**

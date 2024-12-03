@@ -11,13 +11,11 @@ import org.gtkkn.native.gio.G_DBUS_INTERFACE_SKELETON_FLAGS_NONE
  * Flags describing the behavior of a #GDBusInterfaceSkeleton instance.
  * @since 2.30
  */
-public class DBusInterfaceSkeletonFlags(
-    public val mask: GDBusInterfaceSkeletonFlags,
-) : Bitfield<DBusInterfaceSkeletonFlags> {
-    override infix fun or(other: DBusInterfaceSkeletonFlags): DBusInterfaceSkeletonFlags =
-        DBusInterfaceSkeletonFlags(
-            mask or other.mask
-        )
+public class DBusInterfaceSkeletonFlags(public val mask: GDBusInterfaceSkeletonFlags) :
+    Bitfield<DBusInterfaceSkeletonFlags> {
+    override infix fun or(other: DBusInterfaceSkeletonFlags): DBusInterfaceSkeletonFlags = DBusInterfaceSkeletonFlags(
+        mask or other.mask
+    )
 
     @GioVersion2_30
     public companion object {

@@ -43,7 +43,7 @@ fun spinner(): Widget {
 
     // update the text when the button is spinning
     toggleButton.connectClicked {
-        if (toggleButton.getActive()) {
+        if (toggleButton.active) {
             toggleButton.setLabel("Stop Spinning")
         } else {
             toggleButton.setLabel("Start Spinning")

@@ -33,7 +33,6 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
 import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A `GtkLinkButton` is a button with a hyperlink.
@@ -63,9 +62,8 @@ import kotlin.Unit
  *
  * `GtkLinkButton` uses the %GTK_ACCESSIBLE_ROLE_LINK role.
  */
-public open class LinkButton(
-    pointer: CPointer<GtkLinkButton>,
-) : Button(pointer.reinterpret()),
+public open class LinkButton(pointer: CPointer<GtkLinkButton>) :
+    Button(pointer.reinterpret()),
     KGTyped {
     public val gtkLinkButtonPointer: CPointer<GtkLinkButton>
         get() = gPointer.reinterpret()
@@ -92,9 +90,8 @@ public open class LinkButton(
          * @return a valid URI. The returned string is owned by the link button
          *   and should not be modified or freed.
          */
-        get() =
-            gtk_link_button_get_uri(gtkLinkButtonPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_link_button_get_uri(gtkLinkButtonPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Sets @uri as the URI where the `GtkLinkButton` points.
@@ -153,46 +150,6 @@ public open class LinkButton(
     ) : this(gtk_link_button_new_with_label(uri, label)!!.reinterpret())
 
     /**
-     * Retrieves the URI of the `GtkLinkButton`.
-     *
-     * @return a valid URI. The returned string is owned by the link button
-     *   and should not be modified or freed.
-     */
-    public open fun getUri(): String =
-        gtk_link_button_get_uri(gtkLinkButtonPointer.reinterpret())?.toKString() ?: error("Expected not null string")
-
-    /**
-     * Retrieves the “visited” state of the `GtkLinkButton`.
-     *
-     * The button becomes visited when it is clicked. If the URI
-     * is changed on the button, the “visited” state is unset again.
-     *
-     * The state may also be changed using [method@Gtk.LinkButton.set_visited].
-     *
-     * @return true if the link has been visited, false otherwise
-     */
-    public open fun getVisited(): Boolean = gtk_link_button_get_visited(gtkLinkButtonPointer.reinterpret()).asBoolean()
-
-    /**
-     * Sets @uri as the URI where the `GtkLinkButton` points.
-     *
-     * As a side-effect this unsets the “visited” state of the button.
-     *
-     * @param uri a valid URI
-     */
-    public open fun setUri(uri: String): Unit = gtk_link_button_set_uri(gtkLinkButtonPointer.reinterpret(), uri)
-
-    /**
-     * Sets the “visited” state of the `GtkLinkButton`.
-     *
-     * See [method@Gtk.LinkButton.get_visited] for more details.
-     *
-     * @param visited the new “visited” state
-     */
-    public open fun setVisited(visited: Boolean): Unit =
-        gtk_link_button_set_visited(gtkLinkButtonPointer.reinterpret(), visited.asGBoolean())
-
-    /**
      * Emitted each time the `GtkLinkButton` is clicked.
      *
      * The default handler will call [method@Gtk.FileLauncher.launch] with the URI
@@ -205,10 +162,7 @@ public open class LinkButton(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Returns true if the signal has been handled
      */
-    public fun connectActivateLink(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Boolean,
-    ): ULong =
+    public fun connectActivateLink(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "activate-link",
@@ -228,14 +182,10 @@ public open class LinkButton(
     }
 }
 
-private val connectActivateLinkFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<() -> Boolean>()
-            .get()
-            .invoke()
-            .asGBoolean()
-    }.reinterpret()
+private val connectActivateLinkFunc: CPointer<CFunction<() -> Int>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
+}
+    .reinterpret()

@@ -55,9 +55,8 @@ import kotlin.UInt
  * @since 4.10
  */
 @GtkVersion4_10
-public open class ColumnViewSorter(
-    pointer: CPointer<GtkColumnViewSorter>,
-) : Sorter(pointer.reinterpret()),
+public open class ColumnViewSorter(pointer: CPointer<GtkColumnViewSorter>) :
+    Sorter(pointer.reinterpret()),
     KGTyped {
     public val gtkColumnViewSorterPointer: CPointer<GtkColumnViewSorter>
         get() = gPointer.reinterpret()
@@ -81,10 +80,9 @@ public open class ColumnViewSorter(
          * @return the primary sort column
          * @since 4.10
          */
-        get() =
-            gtk_column_view_sorter_get_primary_sort_column(gtkColumnViewSorterPointer.reinterpret())?.run {
-                ColumnViewColumn(reinterpret())
-            }
+        get() = gtk_column_view_sorter_get_primary_sort_column(gtkColumnViewSorterPointer.reinterpret())?.run {
+            ColumnViewColumn(reinterpret())
+        }
 
     /**
      * The primary sort order.
@@ -110,10 +108,9 @@ public open class ColumnViewSorter(
          * @return the primary sort order
          * @since 4.10
          */
-        get() =
-            gtk_column_view_sorter_get_primary_sort_order(gtkColumnViewSorterPointer.reinterpret()).run {
-                SortType.fromNativeValue(this)
-            }
+        get() = gtk_column_view_sorter_get_primary_sort_order(gtkColumnViewSorterPointer.reinterpret()).run {
+            SortType.fromNativeValue(this)
+        }
 
     /**
      * Returns the number of columns by which the sorter sorts.
@@ -131,40 +128,6 @@ public open class ColumnViewSorter(
     @GtkVersion4_10
     public open fun getNSortColumns(): UInt =
         gtk_column_view_sorter_get_n_sort_columns(gtkColumnViewSorterPointer.reinterpret())
-
-    /**
-     * Returns the primary sort column.
-     *
-     * The primary sort column is the one that displays the triangle
-     * in a column view header.
-     *
-     * @return the primary sort column
-     * @since 4.10
-     */
-    @GtkVersion4_10
-    public open fun getPrimarySortColumn(): ColumnViewColumn? =
-        gtk_column_view_sorter_get_primary_sort_column(gtkColumnViewSorterPointer.reinterpret())?.run {
-            ColumnViewColumn(reinterpret())
-        }
-
-    /**
-     * Returns the primary sort order.
-     *
-     * The primary sort order determines whether the triangle displayed
-     * in the column view header of the primary sort column points upwards
-     * or downwards.
-     *
-     * If there is no primary sort column, then this function returns
-     * `GTK_SORT_ASCENDING`.
-     *
-     * @return the primary sort order
-     * @since 4.10
-     */
-    @GtkVersion4_10
-    public open fun getPrimarySortOrder(): SortType =
-        gtk_column_view_sorter_get_primary_sort_order(gtkColumnViewSorterPointer.reinterpret()).run {
-            SortType.fromNativeValue(this)
-        }
 
     public companion object : TypeCompanion<ColumnViewSorter> {
         override val type: GeneratedClassKGType<ColumnViewSorter> =

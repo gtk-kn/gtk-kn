@@ -148,9 +148,8 @@ import kotlin.Unit
  *
  * - parameter `value`: value: Out parameter is not supported
  */
-public open class LevelBar(
-    pointer: CPointer<GtkLevelBar>,
-) : Widget(pointer.reinterpret()),
+public open class LevelBar(pointer: CPointer<GtkLevelBar>) :
+    Widget(pointer.reinterpret()),
     AccessibleRange,
     Orientable,
     KGTyped {
@@ -253,10 +252,9 @@ public open class LevelBar(
          *
          * @return a `GtkLevelBarMode`
          */
-        get() =
-            gtk_level_bar_get_mode(gtkLevelBarPointer.reinterpret()).run {
-                LevelBarMode.fromNativeValue(this)
-            }
+        get() = gtk_level_bar_get_mode(gtkLevelBarPointer.reinterpret()).run {
+            LevelBarMode.fromNativeValue(this)
+        }
 
         /**
          * Sets the `mode` of the `GtkLevelBar`.
@@ -318,49 +316,8 @@ public open class LevelBar(
      * @param name the name of the new offset
      * @param value the value for the new offset
      */
-    public open fun addOffsetValue(
-        name: String,
-        `value`: Double,
-    ): Unit = gtk_level_bar_add_offset_value(gtkLevelBarPointer.reinterpret(), name, `value`)
-
-    /**
-     * Returns whether the levelbar is inverted.
-     *
-     * @return true if the level bar is inverted
-     */
-    public open fun getInverted(): Boolean = gtk_level_bar_get_inverted(gtkLevelBarPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns the `max-value` of the `GtkLevelBar`.
-     *
-     * @return a positive value
-     */
-    public open fun getMaxValue(): Double = gtk_level_bar_get_max_value(gtkLevelBarPointer.reinterpret())
-
-    /**
-     * Returns the `min-value` of the `GtkLevelBar`.
-     *
-     * @return a positive value
-     */
-    public open fun getMinValue(): Double = gtk_level_bar_get_min_value(gtkLevelBarPointer.reinterpret())
-
-    /**
-     * Returns the `mode` of the `GtkLevelBar`.
-     *
-     * @return a `GtkLevelBarMode`
-     */
-    public open fun getMode(): LevelBarMode =
-        gtk_level_bar_get_mode(gtkLevelBarPointer.reinterpret()).run {
-            LevelBarMode.fromNativeValue(this)
-        }
-
-    /**
-     * Returns the `value` of the `GtkLevelBar`.
-     *
-     * @return a value in the interval between
-     *   [property@Gtk.LevelBar:min-value] and [property@Gtk.LevelBar:max-value]
-     */
-    public open fun getValue(): Double = gtk_level_bar_get_value(gtkLevelBarPointer.reinterpret())
+    public open fun addOffsetValue(name: String, `value`: Double): Unit =
+        gtk_level_bar_add_offset_value(gtkLevelBarPointer.reinterpret(), name, `value`)
 
     /**
      * Removes an offset marker from a `GtkLevelBar`.
@@ -372,52 +329,6 @@ public open class LevelBar(
      */
     public open fun removeOffsetValue(name: String? = null): Unit =
         gtk_level_bar_remove_offset_value(gtkLevelBarPointer.reinterpret(), name)
-
-    /**
-     * Sets whether the `GtkLevelBar` is inverted.
-     *
-     * @param inverted true to invert the level bar
-     */
-    public open fun setInverted(inverted: Boolean): Unit =
-        gtk_level_bar_set_inverted(gtkLevelBarPointer.reinterpret(), inverted.asGBoolean())
-
-    /**
-     * Sets the `max-value` of the `GtkLevelBar`.
-     *
-     * You probably want to update preexisting level offsets after calling
-     * this function.
-     *
-     * @param value a positive value
-     */
-    public open fun setMaxValue(`value`: Double): Unit =
-        gtk_level_bar_set_max_value(gtkLevelBarPointer.reinterpret(), `value`)
-
-    /**
-     * Sets the `min-value` of the `GtkLevelBar`.
-     *
-     * You probably want to update preexisting level offsets after calling
-     * this function.
-     *
-     * @param value a positive value
-     */
-    public open fun setMinValue(`value`: Double): Unit =
-        gtk_level_bar_set_min_value(gtkLevelBarPointer.reinterpret(), `value`)
-
-    /**
-     * Sets the `mode` of the `GtkLevelBar`.
-     *
-     * @param mode a `GtkLevelBarMode`
-     */
-    public open fun setMode(mode: LevelBarMode): Unit =
-        gtk_level_bar_set_mode(gtkLevelBarPointer.reinterpret(), mode.nativeValue)
-
-    /**
-     * Sets the value of the `GtkLevelBar`.
-     *
-     * @param value a value in the interval between
-     *   [property@Gtk.LevelBar:min-value] and [property@Gtk.LevelBar:max-value]
-     */
-    public open fun setValue(`value`: Double): Unit = gtk_level_bar_set_value(gtkLevelBarPointer.reinterpret(), `value`)
 
     /**
      * Emitted when an offset specified on the bar changes value.
@@ -435,15 +346,14 @@ public open class LevelBar(
     public fun connectOffsetChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (name: String) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "offset-changed",
-            connectOffsetChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "offset-changed",
+        connectOffsetChangedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<LevelBar> {
         override val type: GeneratedClassKGType<LevelBar> =
@@ -461,12 +371,10 @@ private val connectOffsetChangedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> 
             name: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<
-                (
-                    name: String,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(name?.toKString() ?: error("Expected not null string"))
-    }.reinterpret()
+        userData.asStableRef<
+            (
+                name: String,
+            ) -> Unit
+            >().get().invoke(name?.toKString() ?: error("Expected not null string"))
+    }
+        .reinterpret()

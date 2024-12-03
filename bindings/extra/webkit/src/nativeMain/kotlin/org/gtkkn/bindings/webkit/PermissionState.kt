@@ -9,9 +9,7 @@ import org.gtkkn.native.webkit.WebKitPermissionState
  * @since 2.40
  */
 @WebKitVersion2_40
-public enum class PermissionState(
-    public val nativeValue: WebKitPermissionState,
-) {
+public enum class PermissionState(public val nativeValue: WebKitPermissionState) {
     /**
      * Access to the feature is granted.
      */
@@ -29,12 +27,11 @@ public enum class PermissionState(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitPermissionState): PermissionState =
-            when (nativeValue) {
-                WebKitPermissionState.WEBKIT_PERMISSION_STATE_GRANTED -> GRANTED
-                WebKitPermissionState.WEBKIT_PERMISSION_STATE_DENIED -> DENIED
-                WebKitPermissionState.WEBKIT_PERMISSION_STATE_PROMPT -> PROMPT
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitPermissionState): PermissionState = when (nativeValue) {
+            WebKitPermissionState.WEBKIT_PERMISSION_STATE_GRANTED -> GRANTED
+            WebKitPermissionState.WEBKIT_PERMISSION_STATE_DENIED -> DENIED
+            WebKitPermissionState.WEBKIT_PERMISSION_STATE_PROMPT -> PROMPT
+            else -> error("invalid nativeValue")
+        }
     }
 }

@@ -15,7 +15,6 @@ import org.gtkkn.native.adw.adw_bin_set_child
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Unit
 
 /**
  * A widget with one child.
@@ -31,9 +30,8 @@ import kotlin.Unit
  * It is useful for deriving subclasses, since it provides common code needed
  * for handling a single child widget.
  */
-public open class Bin(
-    pointer: CPointer<AdwBin>,
-) : Widget(pointer.reinterpret()),
+public open class Bin(pointer: CPointer<AdwBin>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val adwBinPointer: CPointer<AdwBin>
         get() = gPointer.reinterpret()
@@ -56,10 +54,9 @@ public open class Bin(
          *
          * @return the child widget of @self
          */
-        get() =
-            adw_bin_get_child(adwBinPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = adw_bin_get_child(adwBinPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the child widget of @self.
@@ -74,24 +71,6 @@ public open class Bin(
      * @return the new created `AdwBin`
      */
     public constructor() : this(adw_bin_new()!!.reinterpret())
-
-    /**
-     * Gets the child widget of @self.
-     *
-     * @return the child widget of @self
-     */
-    public open fun getChild(): Widget? =
-        adw_bin_get_child(adwBinPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Sets the child widget of @self.
-     *
-     * @param child the child widget
-     */
-    public open fun setChild(child: Widget? = null): Unit =
-        adw_bin_set_child(adwBinPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     public companion object : TypeCompanion<Bin> {
         override val type: GeneratedClassKGType<Bin> =

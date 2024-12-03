@@ -30,9 +30,7 @@ import kotlin.Unit
  * - field `finalize_hook`: HookFinalizeFunc
  * - field `dummy`: Fields with arrays are not supported
  */
-public class HookList(
-    pointer: CPointer<GHookList>,
-) : Record {
+public class HookList(pointer: CPointer<GHookList>) : Record {
     public val glibHookListPointer: CPointer<GHookList> = pointer
 
     /**
@@ -68,10 +66,9 @@ public class HookList(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val hooks: Hook?
-        get() =
-            glibHookListPointer.pointed.hooks?.run {
-                Hook(reinterpret())
-            }
+        get() = glibHookListPointer.pointed.hooks?.run {
+            Hook(reinterpret())
+        }
 
     /**
      * Removes all the #GHook elements from a #GHookList.
@@ -116,16 +113,12 @@ public class HookList(
      *     these are skipped
      * @param marshaller the function to call for each #GHook
      */
-    public fun marshal(
-        mayRecurse: Boolean,
-        marshaller: HookMarshaller,
-    ): Unit =
-        g_hook_list_marshal(
-            glibHookListPointer.reinterpret(),
-            mayRecurse.asGBoolean(),
-            HookMarshallerFunc.reinterpret(),
-            StableRef.create(marshaller).asCPointer()
-        )
+    public fun marshal(mayRecurse: Boolean, marshaller: HookMarshaller): Unit = g_hook_list_marshal(
+        glibHookListPointer.reinterpret(),
+        mayRecurse.asGBoolean(),
+        HookMarshallerFunc.reinterpret(),
+        StableRef.create(marshaller).asCPointer()
+    )
 
     /**
      * Calls a function on each valid #GHook and destroys it if the
@@ -136,16 +129,12 @@ public class HookList(
      *     these are skipped
      * @param marshaller the function to call for each #GHook
      */
-    public fun marshalCheck(
-        mayRecurse: Boolean,
-        marshaller: HookCheckMarshaller,
-    ): Unit =
-        g_hook_list_marshal_check(
-            glibHookListPointer.reinterpret(),
-            mayRecurse.asGBoolean(),
-            HookCheckMarshallerFunc.reinterpret(),
-            StableRef.create(marshaller).asCPointer()
-        )
+    public fun marshalCheck(mayRecurse: Boolean, marshaller: HookCheckMarshaller): Unit = g_hook_list_marshal_check(
+        glibHookListPointer.reinterpret(),
+        mayRecurse.asGBoolean(),
+        HookCheckMarshallerFunc.reinterpret(),
+        StableRef.create(marshaller).asCPointer()
+    )
 
     public companion object : RecordCompanion<HookList, GHookList> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): HookList = HookList(pointer.reinterpret())

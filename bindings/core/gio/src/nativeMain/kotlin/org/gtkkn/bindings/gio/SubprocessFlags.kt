@@ -27,9 +27,7 @@ import org.gtkkn.native.gio.G_SUBPROCESS_FLAGS_STDOUT_SILENCE
  * %G_SUBPROCESS_FLAGS_STDOUT_SILENCE.
  * @since 2.40
  */
-public class SubprocessFlags(
-    public val mask: GSubprocessFlags,
-) : Bitfield<SubprocessFlags> {
+public class SubprocessFlags(public val mask: GSubprocessFlags) : Bitfield<SubprocessFlags> {
     override infix fun or(other: SubprocessFlags): SubprocessFlags = SubprocessFlags(mask or other.mask)
 
     @GioVersion2_40

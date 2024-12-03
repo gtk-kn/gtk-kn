@@ -10,9 +10,7 @@ import org.gtkkn.native.pango.PangoFontScale
  * @since 1.50
  */
 @PangoVersion1_50
-public enum class FontScale(
-    public val nativeValue: PangoFontScale,
-) {
+public enum class FontScale(public val nativeValue: PangoFontScale) {
     /**
      * Leave the font size unchanged
      */
@@ -35,13 +33,12 @@ public enum class FontScale(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: PangoFontScale): FontScale =
-            when (nativeValue) {
-                PangoFontScale.PANGO_FONT_SCALE_NONE -> NONE
-                PangoFontScale.PANGO_FONT_SCALE_SUPERSCRIPT -> SUPERSCRIPT
-                PangoFontScale.PANGO_FONT_SCALE_SUBSCRIPT -> SUBSCRIPT
-                PangoFontScale.PANGO_FONT_SCALE_SMALL_CAPS -> SMALL_CAPS
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: PangoFontScale): FontScale = when (nativeValue) {
+            PangoFontScale.PANGO_FONT_SCALE_NONE -> NONE
+            PangoFontScale.PANGO_FONT_SCALE_SUPERSCRIPT -> SUPERSCRIPT
+            PangoFontScale.PANGO_FONT_SCALE_SUBSCRIPT -> SUBSCRIPT
+            PangoFontScale.PANGO_FONT_SCALE_SMALL_CAPS -> SMALL_CAPS
+            else -> error("invalid nativeValue")
+        }
     }
 }

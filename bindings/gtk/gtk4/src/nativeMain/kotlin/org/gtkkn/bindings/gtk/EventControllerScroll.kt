@@ -65,9 +65,8 @@ import kotlin.Unit
  * of scrolling with two X/Y velocity arguments that are consistent with the
  * motion that was received.
  */
-public open class EventControllerScroll(
-    pointer: CPointer<GtkEventControllerScroll>,
-) : EventController(pointer.reinterpret()),
+public open class EventControllerScroll(pointer: CPointer<GtkEventControllerScroll>) :
+    EventController(pointer.reinterpret()),
     KGTyped {
     public val gtkEventControllerScrollPointer: CPointer<GtkEventControllerScroll>
         get() = gPointer.reinterpret()
@@ -81,10 +80,9 @@ public open class EventControllerScroll(
          *
          * @return the controller flags.
          */
-        get() =
-            gtk_event_controller_scroll_get_flags(gtkEventControllerScrollPointer.reinterpret()).run {
-                EventControllerScrollFlags(this)
-            }
+        get() = gtk_event_controller_scroll_get_flags(gtkEventControllerScrollPointer.reinterpret()).run {
+            EventControllerScrollFlags(this)
+        }
 
         /**
          * Sets the flags conditioning scroll controller behavior.
@@ -104,16 +102,6 @@ public open class EventControllerScroll(
     ) : this(gtk_event_controller_scroll_new(flags.mask)!!.reinterpret())
 
     /**
-     * Gets the flags conditioning the scroll controller behavior.
-     *
-     * @return the controller flags.
-     */
-    public open fun getFlags(): EventControllerScrollFlags =
-        gtk_event_controller_scroll_get_flags(gtkEventControllerScrollPointer.reinterpret()).run {
-            EventControllerScrollFlags(this)
-        }
-
-    /**
      * Gets the scroll unit of the last
      * [signal@Gtk.EventControllerScroll::scroll] signal received.
      *
@@ -130,14 +118,6 @@ public open class EventControllerScroll(
         }
 
     /**
-     * Sets the flags conditioning scroll controller behavior.
-     *
-     * @param flags flags affecting the controller behavior
-     */
-    public open fun setFlags(flags: EventControllerScrollFlags): Unit =
-        gtk_event_controller_scroll_set_flags(gtkEventControllerScrollPointer.reinterpret(), flags.mask)
-
-    /**
      * Emitted after scroll is finished if the
      * %GTK_EVENT_CONTROLLER_SCROLL_KINETIC flag is set.
      *
@@ -151,15 +131,14 @@ public open class EventControllerScroll(
     public fun connectDecelerate(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (velX: Double, velY: Double) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "decelerate",
-            connectDecelerateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "decelerate",
+        connectDecelerateFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Signals that the widget should scroll by the
@@ -175,15 +154,14 @@ public open class EventControllerScroll(
     public fun connectScroll(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (dx: Double, dy: Double) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "scroll",
-            connectScrollFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "scroll",
+        connectScrollFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Signals that a new scrolling operation has begun.
@@ -193,10 +171,7 @@ public open class EventControllerScroll(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectScrollBegin(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectScrollBegin(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "scroll-begin",
@@ -214,10 +189,7 @@ public open class EventControllerScroll(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectScrollEnd(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectScrollEnd(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "scroll-end",
@@ -237,42 +209,38 @@ public open class EventControllerScroll(
     }
 }
 
-private val connectDecelerateFunc: CPointer<CFunction<(Double, Double) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            velX: Double,
-            velY: Double,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(velX: Double, velY: Double) -> Unit>().get().invoke(velX, velY)
-    }.reinterpret()
+private val connectDecelerateFunc: CPointer<CFunction<(Double, Double) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        velX: Double,
+        velY: Double,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(velX: Double, velY: Double) -> Unit>().get().invoke(velX, velY)
+}
+    .reinterpret()
 
-private val connectScrollFunc: CPointer<CFunction<(Double, Double) -> Int>> =
-    staticCFunction {
-            _: COpaquePointer,
-            dx: Double,
-            dy: Double,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<(dx: Double, dy: Double) -> Boolean>()
-            .get()
-            .invoke(dx, dy)
-            .asGBoolean()
-    }.reinterpret()
+private val connectScrollFunc: CPointer<CFunction<(Double, Double) -> Int>> = staticCFunction {
+        _: COpaquePointer,
+        dx: Double,
+        dy: Double,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(dx: Double, dy: Double) -> Boolean>().get().invoke(dx, dy).asGBoolean()
+}
+    .reinterpret()
 
-private val connectScrollBeginFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectScrollBeginFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectScrollEndFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectScrollEndFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

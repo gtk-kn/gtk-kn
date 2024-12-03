@@ -14,9 +14,7 @@ import org.gtkkn.native.pango.PangoLayoutSerializeFlags
  * New members may be added to this enumeration over time.
  * @since 1.50
  */
-public class LayoutSerializeFlags(
-    public val mask: PangoLayoutSerializeFlags,
-) : Bitfield<LayoutSerializeFlags> {
+public class LayoutSerializeFlags(public val mask: PangoLayoutSerializeFlags) : Bitfield<LayoutSerializeFlags> {
     override infix fun or(other: LayoutSerializeFlags): LayoutSerializeFlags = LayoutSerializeFlags(mask or other.mask)
 
     @PangoVersion1_50

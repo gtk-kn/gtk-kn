@@ -23,9 +23,8 @@ import org.gtkkn.native.gtk.gtk_layout_child_get_type
  * A `GtkLayoutChild` instance is only ever valid while a widget is part
  * of a layout.
  */
-public open class LayoutChild(
-    pointer: CPointer<GtkLayoutChild>,
-) : Object(pointer.reinterpret()),
+public open class LayoutChild(pointer: CPointer<GtkLayoutChild>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkLayoutChildPointer: CPointer<GtkLayoutChild>
         get() = gPointer.reinterpret()
@@ -39,10 +38,9 @@ public open class LayoutChild(
          *
          * @return a `GtkWidget`
          */
-        get() =
-            gtk_layout_child_get_child_widget(gtkLayoutChildPointer.reinterpret())!!.run {
-                Widget(reinterpret())
-            }
+        get() = gtk_layout_child_get_child_widget(gtkLayoutChildPointer.reinterpret())!!.run {
+            Widget(reinterpret())
+        }
 
     /**
      * The layout manager that created the `GtkLayoutChild` instance.
@@ -54,29 +52,7 @@ public open class LayoutChild(
          *
          * @return a `GtkLayoutManager`
          */
-        get() =
-            gtk_layout_child_get_layout_manager(gtkLayoutChildPointer.reinterpret())!!.run {
-                LayoutManager(reinterpret())
-            }
-
-    /**
-     * Retrieves the `GtkWidget` associated to the given @layout_child.
-     *
-     * @return a `GtkWidget`
-     */
-    public open fun getChildWidget(): Widget =
-        gtk_layout_child_get_child_widget(gtkLayoutChildPointer.reinterpret())!!.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Retrieves the `GtkLayoutManager` instance that created the
-     * given @layout_child.
-     *
-     * @return a `GtkLayoutManager`
-     */
-    public open fun getLayoutManager(): LayoutManager =
-        gtk_layout_child_get_layout_manager(gtkLayoutChildPointer.reinterpret())!!.run {
+        get() = gtk_layout_child_get_layout_manager(gtkLayoutChildPointer.reinterpret())!!.run {
             LayoutManager(reinterpret())
         }
 

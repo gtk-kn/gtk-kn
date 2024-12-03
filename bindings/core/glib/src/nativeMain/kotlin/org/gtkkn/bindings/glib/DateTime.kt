@@ -107,9 +107,7 @@ import kotlin.Unit
  * @since 2.26
  */
 @GLibVersion2_26
-public class DateTime(
-    pointer: CPointer<GDateTime>,
-) : Record {
+public class DateTime(pointer: CPointer<GDateTime>) : Record {
     public val glibDateTimePointer: CPointer<GDateTime> = pointer
 
     /**
@@ -121,10 +119,9 @@ public class DateTime(
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun add(timespan: TimeSpan): DateTime? =
-        g_date_time_add(glibDateTimePointer.reinterpret(), timespan)?.run {
-            DateTime(reinterpret())
-        }
+    public fun add(timespan: TimeSpan): DateTime? = g_date_time_add(glibDateTimePointer.reinterpret(), timespan)?.run {
+        DateTime(reinterpret())
+    }
 
     /**
      * Creates a copy of @datetime and adds the specified number of days to the
@@ -136,10 +133,9 @@ public class DateTime(
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun addDays(days: Int): DateTime? =
-        g_date_time_add_days(glibDateTimePointer.reinterpret(), days)?.run {
-            DateTime(reinterpret())
-        }
+    public fun addDays(days: Int): DateTime? = g_date_time_add_days(glibDateTimePointer.reinterpret(), days)?.run {
+        DateTime(reinterpret())
+    }
 
     /**
      * Creates a new #GDateTime adding the specified values to the current date and
@@ -156,14 +152,7 @@ public class DateTime(
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun addFull(
-        years: Int,
-        months: Int,
-        days: Int,
-        hours: Int,
-        minutes: Int,
-        seconds: Double,
-    ): DateTime? =
+    public fun addFull(years: Int, months: Int, days: Int, hours: Int, minutes: Int, seconds: Double): DateTime? =
         g_date_time_add_full(glibDateTimePointer.reinterpret(), years, months, days, hours, minutes, seconds)?.run {
             DateTime(reinterpret())
         }
@@ -178,10 +167,9 @@ public class DateTime(
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun addHours(hours: Int): DateTime? =
-        g_date_time_add_hours(glibDateTimePointer.reinterpret(), hours)?.run {
-            DateTime(reinterpret())
-        }
+    public fun addHours(hours: Int): DateTime? = g_date_time_add_hours(glibDateTimePointer.reinterpret(), hours)?.run {
+        DateTime(reinterpret())
+    }
 
     /**
      * Creates a copy of @datetime adding the specified number of minutes.
@@ -243,10 +231,9 @@ public class DateTime(
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun addWeeks(weeks: Int): DateTime? =
-        g_date_time_add_weeks(glibDateTimePointer.reinterpret(), weeks)?.run {
-            DateTime(reinterpret())
-        }
+    public fun addWeeks(weeks: Int): DateTime? = g_date_time_add_weeks(glibDateTimePointer.reinterpret(), weeks)?.run {
+        DateTime(reinterpret())
+    }
 
     /**
      * Creates a copy of @datetime and adds the specified number of years to the
@@ -261,10 +248,9 @@ public class DateTime(
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun addYears(years: Int): DateTime? =
-        g_date_time_add_years(glibDateTimePointer.reinterpret(), years)?.run {
-            DateTime(reinterpret())
-        }
+    public fun addYears(years: Int): DateTime? = g_date_time_add_years(glibDateTimePointer.reinterpret(), years)?.run {
+        DateTime(reinterpret())
+    }
 
     /**
      * Calculates the difference in time between @end and @begin.  The
@@ -526,10 +512,9 @@ public class DateTime(
      * @since 2.58
      */
     @GLibVersion2_58
-    public fun getTimezone(): TimeZone =
-        g_date_time_get_timezone(glibDateTimePointer.reinterpret())!!.run {
-            TimeZone(reinterpret())
-        }
+    public fun getTimezone(): TimeZone = g_date_time_get_timezone(glibDateTimePointer.reinterpret())!!.run {
+        TimeZone(reinterpret())
+    }
 
     /**
      * Determines the time zone abbreviation to be used at the time and in
@@ -664,10 +649,9 @@ public class DateTime(
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun ref(): DateTime =
-        g_date_time_ref(glibDateTimePointer.reinterpret())!!.run {
-            DateTime(reinterpret())
-        }
+    public fun ref(): DateTime = g_date_time_ref(glibDateTimePointer.reinterpret())!!.run {
+        DateTime(reinterpret())
+    }
 
     /**
      * Creates a new #GDateTime corresponding to the same instant in time as
@@ -681,10 +665,9 @@ public class DateTime(
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun toLocal(): DateTime? =
-        g_date_time_to_local(glibDateTimePointer.reinterpret())?.run {
-            DateTime(reinterpret())
-        }
+    public fun toLocal(): DateTime? = g_date_time_to_local(glibDateTimePointer.reinterpret())?.run {
+        DateTime(reinterpret())
+    }
 
     /**
      * Stores the instant in time that @datetime represents into @tv.
@@ -765,10 +748,9 @@ public class DateTime(
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun toUtc(): DateTime? =
-        g_date_time_to_utc(glibDateTimePointer.reinterpret())?.run {
-            DateTime(reinterpret())
-        }
+    public fun toUtc(): DateTime? = g_date_time_to_utc(glibDateTimePointer.reinterpret())?.run {
+        DateTime(reinterpret())
+    }
 
     /**
      * Atomically decrements the reference count of @datetime by one.
@@ -830,18 +812,17 @@ public class DateTime(
             hour: Int,
             minute: Int,
             seconds: Double,
-        ): DateTime? =
-            DateTime(
-                g_date_time_new(
-                    tz.glibTimeZonePointer.reinterpret(),
-                    year,
-                    month,
-                    day,
-                    hour,
-                    minute,
-                    seconds
-                )!!.reinterpret()
-            )
+        ): DateTime? = DateTime(
+            g_date_time_new(
+                tz.glibTimeZonePointer.reinterpret(),
+                year,
+                month,
+                day,
+                hour,
+                minute,
+                seconds
+            )!!.reinterpret()
+        )
 
         /**
          * Creates a #GDateTime corresponding to the given
@@ -894,10 +875,7 @@ public class DateTime(
          * @return a new #GDateTime, or null
          * @since 2.56
          */
-        public fun newFromIso8601(
-            text: String,
-            defaultTz: TimeZone? = null,
-        ): DateTime? =
+        public fun newFromIso8601(text: String, defaultTz: TimeZone? = null): DateTime? =
             DateTime(g_date_time_new_from_iso8601(text, defaultTz?.glibTimeZonePointer?.reinterpret())!!.reinterpret())
 
         /**
@@ -1032,14 +1010,8 @@ public class DateTime(
          * @return a #GDateTime, or null
          * @since 2.26
          */
-        public fun newLocal(
-            year: Int,
-            month: Int,
-            day: Int,
-            hour: Int,
-            minute: Int,
-            seconds: Double,
-        ): DateTime? = DateTime(g_date_time_new_local(year, month, day, hour, minute, seconds)!!.reinterpret())
+        public fun newLocal(year: Int, month: Int, day: Int, hour: Int, minute: Int, seconds: Double): DateTime? =
+            DateTime(g_date_time_new_local(year, month, day, hour, minute, seconds)!!.reinterpret())
 
         /**
          * Creates a #GDateTime corresponding to this exact instant in the given
@@ -1098,14 +1070,8 @@ public class DateTime(
          * @return a #GDateTime, or null
          * @since 2.26
          */
-        public fun newUtc(
-            year: Int,
-            month: Int,
-            day: Int,
-            hour: Int,
-            minute: Int,
-            seconds: Double,
-        ): DateTime? = DateTime(g_date_time_new_utc(year, month, day, hour, minute, seconds)!!.reinterpret())
+        public fun newUtc(year: Int, month: Int, day: Int, hour: Int, minute: Int, seconds: Double): DateTime? =
+            DateTime(g_date_time_new_utc(year, month, day, hour, minute, seconds)!!.reinterpret())
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DateTime = DateTime(pointer.reinterpret())
     }

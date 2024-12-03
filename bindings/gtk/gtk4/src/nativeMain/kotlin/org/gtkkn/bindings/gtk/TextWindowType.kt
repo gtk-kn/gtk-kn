@@ -6,9 +6,7 @@ import org.gtkkn.native.gtk.GtkTextWindowType
 /**
  * Used to reference the parts of `GtkTextView`.
  */
-public enum class TextWindowType(
-    public val nativeValue: GtkTextWindowType,
-) {
+public enum class TextWindowType(public val nativeValue: GtkTextWindowType) {
     /**
      * Window that floats over scrolling areas.
      */
@@ -41,15 +39,14 @@ public enum class TextWindowType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkTextWindowType): TextWindowType =
-            when (nativeValue) {
-                GtkTextWindowType.GTK_TEXT_WINDOW_WIDGET -> WIDGET
-                GtkTextWindowType.GTK_TEXT_WINDOW_TEXT -> TEXT
-                GtkTextWindowType.GTK_TEXT_WINDOW_LEFT -> LEFT
-                GtkTextWindowType.GTK_TEXT_WINDOW_RIGHT -> RIGHT
-                GtkTextWindowType.GTK_TEXT_WINDOW_TOP -> TOP
-                GtkTextWindowType.GTK_TEXT_WINDOW_BOTTOM -> BOTTOM
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkTextWindowType): TextWindowType = when (nativeValue) {
+            GtkTextWindowType.GTK_TEXT_WINDOW_WIDGET -> WIDGET
+            GtkTextWindowType.GTK_TEXT_WINDOW_TEXT -> TEXT
+            GtkTextWindowType.GTK_TEXT_WINDOW_LEFT -> LEFT
+            GtkTextWindowType.GTK_TEXT_WINDOW_RIGHT -> RIGHT
+            GtkTextWindowType.GTK_TEXT_WINDOW_TOP -> TOP
+            GtkTextWindowType.GTK_TEXT_WINDOW_BOTTOM -> BOTTOM
+            else -> error("invalid nativeValue")
+        }
     }
 }

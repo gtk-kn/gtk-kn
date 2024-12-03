@@ -13,9 +13,7 @@ import org.gtkkn.native.gtk.GtkButtonsType
  * > and %GTK_BUTTONS_OK_CANCEL are discouraged by the
  * > [GNOME Human Interface Guidelines](http://library.gnome.org/devel/hig-book/stable/).
  */
-public enum class ButtonsType(
-    public val nativeValue: GtkButtonsType,
-) {
+public enum class ButtonsType(public val nativeValue: GtkButtonsType) {
     /**
      * no buttons at all
      */
@@ -48,15 +46,14 @@ public enum class ButtonsType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkButtonsType): ButtonsType =
-            when (nativeValue) {
-                GtkButtonsType.GTK_BUTTONS_NONE -> NONE
-                GtkButtonsType.GTK_BUTTONS_OK -> OK
-                GtkButtonsType.GTK_BUTTONS_CLOSE -> CLOSE
-                GtkButtonsType.GTK_BUTTONS_CANCEL -> CANCEL
-                GtkButtonsType.GTK_BUTTONS_YES_NO -> YES_NO
-                GtkButtonsType.GTK_BUTTONS_OK_CANCEL -> OK_CANCEL
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkButtonsType): ButtonsType = when (nativeValue) {
+            GtkButtonsType.GTK_BUTTONS_NONE -> NONE
+            GtkButtonsType.GTK_BUTTONS_OK -> OK
+            GtkButtonsType.GTK_BUTTONS_CLOSE -> CLOSE
+            GtkButtonsType.GTK_BUTTONS_CANCEL -> CANCEL
+            GtkButtonsType.GTK_BUTTONS_YES_NO -> YES_NO
+            GtkButtonsType.GTK_BUTTONS_OK_CANCEL -> OK_CANCEL
+            else -> error("invalid nativeValue")
+        }
     }
 }

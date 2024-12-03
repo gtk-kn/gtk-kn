@@ -13,9 +13,7 @@ import org.gtkkn.native.glib.G_FORMAT_SIZE_ONLY_VALUE
 /**
  * Flags to modify the format of the string returned by g_format_size_full().
  */
-public class FormatSizeFlags(
-    public val mask: GFormatSizeFlags,
-) : Bitfield<FormatSizeFlags> {
+public class FormatSizeFlags(public val mask: GFormatSizeFlags) : Bitfield<FormatSizeFlags> {
     override infix fun or(other: FormatSizeFlags): FormatSizeFlags = FormatSizeFlags(mask or other.mask)
 
     public companion object {

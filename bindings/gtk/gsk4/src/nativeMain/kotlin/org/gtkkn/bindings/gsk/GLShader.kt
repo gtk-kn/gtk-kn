@@ -165,9 +165,8 @@ import kotlin.Unit
  * }
  * ```
  */
-public open class GLShader(
-    pointer: CPointer<GskGLShader>,
-) : Object(pointer.reinterpret()),
+public open class GLShader(pointer: CPointer<GskGLShader>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gskGLShaderPointer: CPointer<GskGLShader>
         get() = gPointer.reinterpret()
@@ -193,10 +192,9 @@ public open class GLShader(
          *
          * @return The source code for the shader
          */
-        get() =
-            gsk_gl_shader_get_source(gskGLShaderPointer.reinterpret())!!.run {
-                Bytes(reinterpret())
-            }
+        get() = gsk_gl_shader_get_source(gskGLShaderPointer.reinterpret())!!.run {
+            Bytes(reinterpret())
+        }
 
     /**
      * Creates a `GskGLShader` that will render pixels using the specified code.
@@ -234,21 +232,19 @@ public open class GLShader(
      * @param renderer a `GskRenderer`
      * @return true on success, false if an error occurred
      */
-    public open fun compile(renderer: Renderer): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gsk_gl_shader_compile(
-                    gskGLShaderPointer.reinterpret(),
-                    renderer.gskRendererPointer.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun compile(renderer: Renderer): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gsk_gl_shader_compile(
+            gskGLShaderPointer.reinterpret(),
+            renderer.gskRendererPointer.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Looks for a uniform by the name @name, and returns the index
@@ -269,15 +265,11 @@ public open class GLShader(
      * @param idx index of the uniform
      * @return The value
      */
-    public open fun getArgBool(
-        args: Bytes,
-        idx: Int,
-    ): Boolean =
-        gsk_gl_shader_get_arg_bool(
-            gskGLShaderPointer.reinterpret(),
-            args.glibBytesPointer.reinterpret(),
-            idx
-        ).asBoolean()
+    public open fun getArgBool(args: Bytes, idx: Int): Boolean = gsk_gl_shader_get_arg_bool(
+        gskGLShaderPointer.reinterpret(),
+        args.glibBytesPointer.reinterpret(),
+        idx
+    ).asBoolean()
 
     /**
      * Gets the value of the uniform @idx in the @args block.
@@ -288,10 +280,8 @@ public open class GLShader(
      * @param idx index of the uniform
      * @return The value
      */
-    public open fun getArgFloat(
-        args: Bytes,
-        idx: Int,
-    ): Float = gsk_gl_shader_get_arg_float(gskGLShaderPointer.reinterpret(), args.glibBytesPointer.reinterpret(), idx)
+    public open fun getArgFloat(args: Bytes, idx: Int): Float =
+        gsk_gl_shader_get_arg_float(gskGLShaderPointer.reinterpret(), args.glibBytesPointer.reinterpret(), idx)
 
     /**
      * Gets the value of the uniform @idx in the @args block.
@@ -302,10 +292,8 @@ public open class GLShader(
      * @param idx index of the uniform
      * @return The value
      */
-    public open fun getArgInt(
-        args: Bytes,
-        idx: Int,
-    ): Int = gsk_gl_shader_get_arg_int(gskGLShaderPointer.reinterpret(), args.glibBytesPointer.reinterpret(), idx)
+    public open fun getArgInt(args: Bytes, idx: Int): Int =
+        gsk_gl_shader_get_arg_int(gskGLShaderPointer.reinterpret(), args.glibBytesPointer.reinterpret(), idx)
 
     /**
      * Gets the value of the uniform @idx in the @args block.
@@ -316,10 +304,8 @@ public open class GLShader(
      * @param idx index of the uniform
      * @return The value
      */
-    public open fun getArgUint(
-        args: Bytes,
-        idx: Int,
-    ): UInt = gsk_gl_shader_get_arg_uint(gskGLShaderPointer.reinterpret(), args.glibBytesPointer.reinterpret(), idx)
+    public open fun getArgUint(args: Bytes, idx: Int): UInt =
+        gsk_gl_shader_get_arg_uint(gskGLShaderPointer.reinterpret(), args.glibBytesPointer.reinterpret(), idx)
 
     /**
      * Gets the value of the uniform @idx in the @args block.
@@ -330,17 +316,12 @@ public open class GLShader(
      * @param idx index of the uniform
      * @param outValue location to store the uniform value in
      */
-    public open fun getArgVec2(
-        args: Bytes,
-        idx: Int,
-        outValue: Vec2,
-    ): Unit =
-        gsk_gl_shader_get_arg_vec2(
-            gskGLShaderPointer.reinterpret(),
-            args.glibBytesPointer.reinterpret(),
-            idx,
-            outValue.grapheneVec2Pointer.reinterpret()
-        )
+    public open fun getArgVec2(args: Bytes, idx: Int, outValue: Vec2): Unit = gsk_gl_shader_get_arg_vec2(
+        gskGLShaderPointer.reinterpret(),
+        args.glibBytesPointer.reinterpret(),
+        idx,
+        outValue.grapheneVec2Pointer.reinterpret()
+    )
 
     /**
      * Gets the value of the uniform @idx in the @args block.
@@ -351,17 +332,12 @@ public open class GLShader(
      * @param idx index of the uniform
      * @param outValue location to store the uniform value in
      */
-    public open fun getArgVec3(
-        args: Bytes,
-        idx: Int,
-        outValue: Vec3,
-    ): Unit =
-        gsk_gl_shader_get_arg_vec3(
-            gskGLShaderPointer.reinterpret(),
-            args.glibBytesPointer.reinterpret(),
-            idx,
-            outValue.grapheneVec3Pointer.reinterpret()
-        )
+    public open fun getArgVec3(args: Bytes, idx: Int, outValue: Vec3): Unit = gsk_gl_shader_get_arg_vec3(
+        gskGLShaderPointer.reinterpret(),
+        args.glibBytesPointer.reinterpret(),
+        idx,
+        outValue.grapheneVec3Pointer.reinterpret()
+    )
 
     /**
      * Gets the value of the uniform @idx in the @args block.
@@ -372,17 +348,12 @@ public open class GLShader(
      * @param idx index of the uniform
      * @param outValue location to store set the uniform value in
      */
-    public open fun getArgVec4(
-        args: Bytes,
-        idx: Int,
-        outValue: Vec4,
-    ): Unit =
-        gsk_gl_shader_get_arg_vec4(
-            gskGLShaderPointer.reinterpret(),
-            args.glibBytesPointer.reinterpret(),
-            idx,
-            outValue.grapheneVec4Pointer.reinterpret()
-        )
+    public open fun getArgVec4(args: Bytes, idx: Int, outValue: Vec4): Unit = gsk_gl_shader_get_arg_vec4(
+        gskGLShaderPointer.reinterpret(),
+        args.glibBytesPointer.reinterpret(),
+        idx,
+        outValue.grapheneVec4Pointer.reinterpret()
+    )
 
     /**
      * Get the size of the data block used to specify arguments for this shader.
@@ -408,24 +379,6 @@ public open class GLShader(
      * @return The number of declared uniforms
      */
     public open fun getNUniforms(): Int = gsk_gl_shader_get_n_uniforms(gskGLShaderPointer.reinterpret())
-
-    /**
-     * Gets the resource path for the GLSL sourcecode being used
-     * to render this shader.
-     *
-     * @return The resource path for the shader
-     */
-    public open fun getResource(): String? = gsk_gl_shader_get_resource(gskGLShaderPointer.reinterpret())?.toKString()
-
-    /**
-     * Gets the GLSL sourcecode being used to render this shader.
-     *
-     * @return The source code for the shader
-     */
-    public open fun getSource(): Bytes =
-        gsk_gl_shader_get_source(gskGLShaderPointer.reinterpret())!!.run {
-            Bytes(reinterpret())
-        }
 
     /**
      * Get the name of the declared uniform for this shader at index @idx.

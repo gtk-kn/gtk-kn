@@ -53,9 +53,7 @@ import kotlin.Unit
  * - parameter `params`: params: Out parameter is not supported
  * - parameter `ranges`: ranges: Out parameter is not supported
  */
-public class MessageHeaders(
-    pointer: CPointer<SoupMessageHeaders>,
-) : Record {
+public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : Record {
     public val soupMessageHeadersPointer: CPointer<SoupMessageHeaders> = pointer
 
     /**
@@ -71,10 +69,8 @@ public class MessageHeaders(
      * @param name the header name to add
      * @param value the new value of @name
      */
-    public fun append(
-        name: String,
-        `value`: String,
-    ): Unit = soup_message_headers_append(soupMessageHeadersPointer.reinterpret(), name, `value`)
+    public fun append(name: String, `value`: String): Unit =
+        soup_message_headers_append(soupMessageHeadersPointer.reinterpret(), name, `value`)
 
     /**
      * Removes all the headers listed in the Connection header.
@@ -103,12 +99,11 @@ public class MessageHeaders(
      *
      * @param func callback function to run for each header
      */
-    public fun foreach(func: MessageHeadersForeachFunc): Unit =
-        soup_message_headers_foreach(
-            soupMessageHeadersPointer.reinterpret(),
-            MessageHeadersForeachFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )
+    public fun foreach(func: MessageHeadersForeachFunc): Unit = soup_message_headers_foreach(
+        soupMessageHeadersPointer.reinterpret(),
+        MessageHeadersForeachFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer()
+    )
 
     /**
      * Frees the array of ranges returned from [method@MessageHeaders.get_ranges].
@@ -217,10 +212,8 @@ public class MessageHeaders(
      * @return true if the header is present and contains @token,
      *   false otherwise.
      */
-    public fun headerContains(
-        name: String,
-        token: String,
-    ): Boolean = soup_message_headers_header_contains(soupMessageHeadersPointer.reinterpret(), name, token).asBoolean()
+    public fun headerContains(name: String, token: String): Boolean =
+        soup_message_headers_header_contains(soupMessageHeadersPointer.reinterpret(), name, token).asBoolean()
 
     /**
      * Checks whether the header @name is present in @hdrs and is
@@ -231,20 +224,17 @@ public class MessageHeaders(
      * @return true if the header is present and its value is
      *   @value, false otherwise.
      */
-    public fun headerEquals(
-        name: String,
-        `value`: String,
-    ): Boolean = soup_message_headers_header_equals(soupMessageHeadersPointer.reinterpret(), name, `value`).asBoolean()
+    public fun headerEquals(name: String, `value`: String): Boolean =
+        soup_message_headers_header_equals(soupMessageHeadersPointer.reinterpret(), name, `value`).asBoolean()
 
     /**
      * Atomically increments the reference count of @hdrs by one.
      *
      * @return the passed in #SoupMessageHeaders
      */
-    public fun ref(): MessageHeaders =
-        soup_message_headers_ref(soupMessageHeadersPointer.reinterpret())!!.run {
-            MessageHeaders(reinterpret())
-        }
+    public fun ref(): MessageHeaders = soup_message_headers_ref(soupMessageHeadersPointer.reinterpret())!!.run {
+        MessageHeaders(reinterpret())
+    }
 
     /**
      * Removes @name from @hdrs.
@@ -266,10 +256,8 @@ public class MessageHeaders(
      * @param name the header name to replace
      * @param value the new value of @name
      */
-    public fun replace(
-        name: String,
-        `value`: String,
-    ): Unit = soup_message_headers_replace(soupMessageHeadersPointer.reinterpret(), name, `value`)
+    public fun replace(name: String, `value`: String): Unit =
+        soup_message_headers_replace(soupMessageHeadersPointer.reinterpret(), name, `value`)
 
     /**
      * Sets the "Content-Disposition" header in @hdrs to @disposition,
@@ -281,10 +269,7 @@ public class MessageHeaders(
      * @param disposition the disposition-type
      * @param params additional parameters
      */
-    public fun setContentDisposition(
-        disposition: String,
-        params: HashTable? = null,
-    ): Unit =
+    public fun setContentDisposition(disposition: String, params: HashTable? = null): Unit =
         soup_message_headers_set_content_disposition(
             soupMessageHeadersPointer.reinterpret(),
             disposition,
@@ -323,11 +308,8 @@ public class MessageHeaders(
      * @param end the end of the range
      * @param totalLength the total length of the resource, or -1 if unknown
      */
-    public fun setContentRange(
-        start: Long,
-        end: Long,
-        totalLength: Long,
-    ): Unit = soup_message_headers_set_content_range(soupMessageHeadersPointer.reinterpret(), start, end, totalLength)
+    public fun setContentRange(start: Long, end: Long, totalLength: Long): Unit =
+        soup_message_headers_set_content_range(soupMessageHeadersPointer.reinterpret(), start, end, totalLength)
 
     /**
      * Sets the "Content-Type" header in @hdrs to @content_type.
@@ -337,10 +319,7 @@ public class MessageHeaders(
      * @param contentType the MIME type
      * @param params additional parameters
      */
-    public fun setContentType(
-        contentType: String,
-        params: HashTable? = null,
-    ): Unit =
+    public fun setContentType(contentType: String, params: HashTable? = null): Unit =
         soup_message_headers_set_content_type(
             soupMessageHeadersPointer.reinterpret(),
             contentType,
@@ -386,10 +365,8 @@ public class MessageHeaders(
      * @param start the start of the range to request
      * @param end the end of the range to request
      */
-    public fun setRange(
-        start: Long,
-        end: Long,
-    ): Unit = soup_message_headers_set_range(soupMessageHeadersPointer.reinterpret(), start, end)
+    public fun setRange(start: Long, end: Long): Unit =
+        soup_message_headers_set_range(soupMessageHeadersPointer.reinterpret(), start, end)
 
     /**
      * Sets @hdrs's Range header to request the indicated ranges.
@@ -400,15 +377,11 @@ public class MessageHeaders(
      * @param ranges an array of #SoupRange
      * @param length the length of @range
      */
-    public fun setRanges(
-        ranges: Range,
-        length: Int,
-    ): Unit =
-        soup_message_headers_set_ranges(
-            soupMessageHeadersPointer.reinterpret(),
-            ranges.soupRangePointer.reinterpret(),
-            length
-        )
+    public fun setRanges(ranges: Range, length: Int): Unit = soup_message_headers_set_ranges(
+        soupMessageHeadersPointer.reinterpret(),
+        ranges.soupRangePointer.reinterpret(),
+        length
+    )
 
     /**
      * Atomically decrements the reference count of @hdrs by one.

@@ -71,9 +71,8 @@ import kotlin.Unit
  * - parameter `out_info`: out_info: Out parameter is not supported
  * - method `container`: Property has no getter nor setter
  */
-public open class FileEnumerator(
-    pointer: CPointer<GFileEnumerator>,
-) : Object(pointer.reinterpret()),
+public open class FileEnumerator(pointer: CPointer<GFileEnumerator>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioFileEnumeratorPointer: CPointer<GFileEnumerator>
         get() = gPointer.reinterpret()
@@ -89,21 +88,19 @@ public open class FileEnumerator(
      * @param cancellable optional #GCancellable object, null to ignore.
      * @return #TRUE on success or #FALSE on error.
      */
-    public open fun close(cancellable: Cancellable? = null): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_enumerator_close(
-                    gioFileEnumeratorPointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun close(cancellable: Cancellable? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_enumerator_close(
+            gioFileEnumeratorPointer.reinterpret(),
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Asynchronously closes the file enumerator.
@@ -118,11 +115,7 @@ public open class FileEnumerator(
      * @param callback a #GAsyncReadyCallback
      *   to call when the request is satisfied
      */
-    public open fun closeAsync(
-        ioPriority: Int,
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public open fun closeAsync(ioPriority: Int, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         g_file_enumerator_close_async(
             gioFileEnumeratorPointer.reinterpret(),
             ioPriority,
@@ -146,21 +139,19 @@ public open class FileEnumerator(
      * @param result a #GAsyncResult.
      * @return true if the close operation has finished successfully.
      */
-    public open fun closeFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_enumerator_close_finish(
-                    gioFileEnumeratorPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun closeFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_enumerator_close_finish(
+            gioFileEnumeratorPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Return a new #GFile which refers to the file named by @info in the source
@@ -183,13 +174,12 @@ public open class FileEnumerator(
      * @since 2.36
      */
     @GioVersion2_36
-    public open fun getChild(info: FileInfo): File =
-        g_file_enumerator_get_child(
-            gioFileEnumeratorPointer.reinterpret(),
-            info.gioFileInfoPointer.reinterpret()
-        )!!.run {
-            File.wrap(reinterpret())
-        }
+    public open fun getChild(info: FileInfo): File = g_file_enumerator_get_child(
+        gioFileEnumeratorPointer.reinterpret(),
+        info.gioFileInfoPointer.reinterpret()
+    )!!.run {
+        File.wrap(reinterpret())
+    }
 
     /**
      * Get the #GFile container which is being enumerated.
@@ -237,24 +227,22 @@ public open class FileEnumerator(
      *    or end of enumerator.  Free the returned object with
      *    g_object_unref() when no longer needed.
      */
-    public open fun nextFile(cancellable: Cancellable? = null): Result<FileInfo?> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_enumerator_next_file(
-                    gioFileEnumeratorPointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    FileInfo(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun nextFile(cancellable: Cancellable? = null): Result<FileInfo?> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_enumerator_next_file(
+            gioFileEnumeratorPointer.reinterpret(),
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            FileInfo(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
+        }
+    }
 
     /**
      * Request information for a number of files from the enumerator asynchronously.
@@ -333,15 +321,14 @@ public open class FileEnumerator(
         ioPriority: Int,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_enumerator_next_files_async(
-            gioFileEnumeratorPointer.reinterpret(),
-            numFiles,
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_enumerator_next_files_async(
+        gioFileEnumeratorPointer.reinterpret(),
+        numFiles,
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes the asynchronous operation started with g_file_enumerator_next_files_async().
@@ -351,24 +338,22 @@ public open class FileEnumerator(
      *     g_list_free() and unref the infos with g_object_unref() when you're
      *     done with them.
      */
-    public open fun nextFilesFinish(result: AsyncResult): Result<List> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_enumerator_next_files_finish(
-                    gioFileEnumeratorPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    List(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public open fun nextFilesFinish(result: AsyncResult): Result<List> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_enumerator_next_files_finish(
+            gioFileEnumeratorPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            List(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Sets the file enumerator as having pending operations.

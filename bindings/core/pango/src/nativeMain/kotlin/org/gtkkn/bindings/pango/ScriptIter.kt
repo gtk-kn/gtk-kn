@@ -25,9 +25,7 @@ import kotlin.Unit
  *
  * - parameter `start`: start: Out parameter is not supported
  */
-public class ScriptIter(
-    pointer: CPointer<PangoScriptIter>,
-) : Record {
+public class ScriptIter(pointer: CPointer<PangoScriptIter>) : Record {
     public val pangoScriptIterPointer: CPointer<PangoScriptIter> = pointer
 
     /**
@@ -67,10 +65,8 @@ public class ScriptIter(
          *  empty, it will point at an empty range.
          * @since 1.4
          */
-        public fun new(
-            text: String,
-            length: Int,
-        ): ScriptIter = ScriptIter(pango_script_iter_new(text, length)!!.reinterpret())
+        public fun new(text: String, length: Int): ScriptIter =
+            ScriptIter(pango_script_iter_new(text, length)!!.reinterpret())
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ScriptIter = ScriptIter(pointer.reinterpret())
     }

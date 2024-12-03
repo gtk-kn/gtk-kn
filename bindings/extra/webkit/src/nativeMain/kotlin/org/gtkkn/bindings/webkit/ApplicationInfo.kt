@@ -26,9 +26,7 @@ import kotlin.Unit
  *
  * - parameter `major`: major: Out parameter is not supported
  */
-public class ApplicationInfo(
-    pointer: CPointer<WebKitApplicationInfo>,
-) : Record {
+public class ApplicationInfo(pointer: CPointer<WebKitApplicationInfo>) : Record {
     public val webkitApplicationInfoPointer: CPointer<WebKitApplicationInfo> = pointer
 
     /**
@@ -55,10 +53,9 @@ public class ApplicationInfo(
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun ref(): ApplicationInfo =
-        webkit_application_info_ref(webkitApplicationInfoPointer.reinterpret())!!.run {
-            ApplicationInfo(reinterpret())
-        }
+    public fun ref(): ApplicationInfo = webkit_application_info_ref(webkitApplicationInfoPointer.reinterpret())!!.run {
+        ApplicationInfo(reinterpret())
+    }
 
     /**
      * Set the name of the application.
@@ -87,11 +84,8 @@ public class ApplicationInfo(
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun setVersion(
-        major: ULong,
-        minor: ULong,
-        micro: ULong,
-    ): Unit = webkit_application_info_set_version(webkitApplicationInfoPointer.reinterpret(), major, minor, micro)
+    public fun setVersion(major: ULong, minor: ULong, micro: ULong): Unit =
+        webkit_application_info_set_version(webkitApplicationInfoPointer.reinterpret(), major, minor, micro)
 
     /**
      * Atomically decrements the reference count of @info by one.

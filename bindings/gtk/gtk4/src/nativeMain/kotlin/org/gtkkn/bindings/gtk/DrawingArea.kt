@@ -109,9 +109,8 @@ import kotlin.Unit
  * If you need more complex control over your widget, you should consider
  * creating your own `GtkWidget` subclass.
  */
-public open class DrawingArea(
-    pointer: CPointer<GtkDrawingArea>,
-) : Widget(pointer.reinterpret()),
+public open class DrawingArea(pointer: CPointer<GtkDrawingArea>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkDrawingAreaPointer: CPointer<GtkDrawingArea>
         get() = gPointer.reinterpret()
@@ -183,50 +182,6 @@ public open class DrawingArea(
     public constructor() : this(gtk_drawing_area_new()!!.reinterpret())
 
     /**
-     * Retrieves the content height of the `GtkDrawingArea`.
-     *
-     * @return The height requested for content of the drawing area
-     */
-    public open fun getContentHeight(): Int = gtk_drawing_area_get_content_height(gtkDrawingAreaPointer.reinterpret())
-
-    /**
-     * Retrieves the content width of the `GtkDrawingArea`.
-     *
-     * @return The width requested for content of the drawing area
-     */
-    public open fun getContentWidth(): Int = gtk_drawing_area_get_content_width(gtkDrawingAreaPointer.reinterpret())
-
-    /**
-     * Sets the desired height of the contents of the drawing area.
-     *
-     * Note that because widgets may be allocated larger sizes than they
-     * requested, it is possible that the actual height passed to your draw
-     * function is larger than the height set here. You can use
-     * [method@Gtk.Widget.set_valign] to avoid that.
-     *
-     * If the height is set to 0 (the default), the drawing area may disappear.
-     *
-     * @param height the height of contents
-     */
-    public open fun setContentHeight(height: Int): Unit =
-        gtk_drawing_area_set_content_height(gtkDrawingAreaPointer.reinterpret(), height)
-
-    /**
-     * Sets the desired width of the contents of the drawing area.
-     *
-     * Note that because widgets may be allocated larger sizes than they
-     * requested, it is possible that the actual width passed to your draw
-     * function is larger than the width set here. You can use
-     * [method@Gtk.Widget.set_halign] to avoid that.
-     *
-     * If the width is set to 0 (the default), the drawing area may disappear.
-     *
-     * @param width the width of contents
-     */
-    public open fun setContentWidth(width: Int): Unit =
-        gtk_drawing_area_set_content_width(gtkDrawingAreaPointer.reinterpret(), width)
-
-    /**
      * Setting a draw function is the main thing you want to do when using
      * a drawing area.
      *
@@ -245,13 +200,12 @@ public open class DrawingArea(
      * @param drawFunc callback that lets you draw
      *   the drawing area's contents
      */
-    public open fun setDrawFunc(drawFunc: DrawingAreaDrawFunc): Unit =
-        gtk_drawing_area_set_draw_func(
-            gtkDrawingAreaPointer.reinterpret(),
-            DrawingAreaDrawFuncFunc.reinterpret(),
-            StableRef.create(drawFunc).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public open fun setDrawFunc(drawFunc: DrawingAreaDrawFunc): Unit = gtk_drawing_area_set_draw_func(
+        gtkDrawingAreaPointer.reinterpret(),
+        DrawingAreaDrawFuncFunc.reinterpret(),
+        StableRef.create(drawFunc).asCPointer(),
+        staticStableRefDestroy.reinterpret()
+    )
 
     /**
      * Emitted once when the widget is realized, and then each time the widget
@@ -266,15 +220,14 @@ public open class DrawingArea(
     public fun connectResize(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (width: Int, height: Int) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "resize",
-            connectResizeFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "resize",
+        connectResizeFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<DrawingArea> {
         override val type: GeneratedClassKGType<DrawingArea> =
@@ -286,12 +239,12 @@ public open class DrawingArea(
     }
 }
 
-private val connectResizeFunc: CPointer<CFunction<(Int, Int) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            width: Int,
-            height: Int,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(width: Int, height: Int) -> Unit>().get().invoke(width, height)
-    }.reinterpret()
+private val connectResizeFunc: CPointer<CFunction<(Int, Int) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        width: Int,
+        height: Int,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(width: Int, height: Int) -> Unit>().get().invoke(width, height)
+}
+    .reinterpret()

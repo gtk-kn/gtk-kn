@@ -6,9 +6,7 @@ import org.gtkkn.native.soup.SoupMemoryUse
 /**
  * The lifetime of the memory being passed.
  */
-public enum class MemoryUse(
-    public val nativeValue: SoupMemoryUse,
-) {
+public enum class MemoryUse(public val nativeValue: SoupMemoryUse) {
     /**
      * The memory is statically allocated and
      *   constant; libsoup can use the passed-in buffer directly and not
@@ -31,12 +29,11 @@ public enum class MemoryUse(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: SoupMemoryUse): MemoryUse =
-            when (nativeValue) {
-                SoupMemoryUse.SOUP_MEMORY_STATIC -> STATIC
-                SoupMemoryUse.SOUP_MEMORY_TAKE -> TAKE
-                SoupMemoryUse.SOUP_MEMORY_COPY -> COPY
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: SoupMemoryUse): MemoryUse = when (nativeValue) {
+            SoupMemoryUse.SOUP_MEMORY_STATIC -> STATIC
+            SoupMemoryUse.SOUP_MEMORY_TAKE -> TAKE
+            SoupMemoryUse.SOUP_MEMORY_COPY -> COPY
+            else -> error("invalid nativeValue")
+        }
     }
 }

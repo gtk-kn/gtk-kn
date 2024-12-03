@@ -13,9 +13,7 @@ import org.gtkkn.native.pango.PangoAlignment
  * See [method@Pango.Layout.set_auto_dir] for how text direction affects
  * the interpretation of `PangoAlignment` values.
  */
-public enum class Alignment(
-    public val nativeValue: PangoAlignment,
-) {
+public enum class Alignment(public val nativeValue: PangoAlignment) {
     /**
      * Put all available space on the right
      */
@@ -33,12 +31,11 @@ public enum class Alignment(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: PangoAlignment): Alignment =
-            when (nativeValue) {
-                PangoAlignment.PANGO_ALIGN_LEFT -> LEFT
-                PangoAlignment.PANGO_ALIGN_CENTER -> CENTER
-                PangoAlignment.PANGO_ALIGN_RIGHT -> RIGHT
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: PangoAlignment): Alignment = when (nativeValue) {
+            PangoAlignment.PANGO_ALIGN_LEFT -> LEFT
+            PangoAlignment.PANGO_ALIGN_CENTER -> CENTER
+            PangoAlignment.PANGO_ALIGN_RIGHT -> RIGHT
+            else -> error("invalid nativeValue")
+        }
     }
 }

@@ -48,10 +48,8 @@ public interface DevicePad :
      * @param featureIdx the index of the feature to get the group from
      * @return The group number of the queried pad feature.
      */
-    public fun getFeatureGroup(
-        feature: DevicePadFeature,
-        featureIdx: Int,
-    ): Int = gdk_device_pad_get_feature_group(gdkDevicePadPointer.reinterpret(), feature.nativeValue, featureIdx)
+    public fun getFeatureGroup(feature: DevicePadFeature, featureIdx: Int): Int =
+        gdk_device_pad_get_feature_group(gdkDevicePadPointer.reinterpret(), feature.nativeValue, featureIdx)
 
     /**
      * Returns the number of modes that @group may have.
@@ -82,9 +80,7 @@ public interface DevicePad :
      */
     public fun getNGroups(): Int = gdk_device_pad_get_n_groups(gdkDevicePadPointer.reinterpret())
 
-    private data class Wrapper(
-        private val pointer: CPointer<GdkDevicePad>,
-    ) : DevicePad {
+    private data class Wrapper(private val pointer: CPointer<GdkDevicePad>) : DevicePad {
         override val gdkDevicePadPointer: CPointer<GdkDevicePad> = pointer
     }
 

@@ -46,9 +46,7 @@ import kotlin.Unit
  * - parameter `data`: gpointer
  * - parameter `data`: gpointer
  */
-public class Queue(
-    pointer: CPointer<GQueue>,
-) : Record {
+public class Queue(pointer: CPointer<GQueue>) : Record {
     public val glibQueuePointer: CPointer<GQueue> = pointer
 
     /**
@@ -57,10 +55,9 @@ public class Queue(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val head: List?
-        get() =
-            glibQueuePointer.pointed.head?.run {
-                List(reinterpret())
-            }
+        get() = glibQueuePointer.pointed.head?.run {
+            List(reinterpret())
+        }
 
     /**
      * a pointer to the last element of the queue
@@ -68,10 +65,9 @@ public class Queue(
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val tail: List?
-        get() =
-            glibQueuePointer.pointed.tail?.run {
-                List(reinterpret())
-            }
+        get() = glibQueuePointer.pointed.tail?.run {
+            List(reinterpret())
+        }
 
     /**
      * the number of elements in the queue
@@ -160,12 +156,11 @@ public class Queue(
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun sort(compareFunc: CompareDataFunc): Unit =
-        g_queue_sort(
-            glibQueuePointer.reinterpret(),
-            CompareDataFuncFunc.reinterpret(),
-            StableRef.create(compareFunc).asCPointer()
-        )
+    public fun sort(compareFunc: CompareDataFunc): Unit = g_queue_sort(
+        glibQueuePointer.reinterpret(),
+        CompareDataFuncFunc.reinterpret(),
+        StableRef.create(compareFunc).asCPointer()
+    )
 
     public companion object : RecordCompanion<Queue, GQueue> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Queue = Queue(pointer.reinterpret())

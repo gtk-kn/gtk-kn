@@ -9,9 +9,7 @@ import org.gtkkn.native.gio.GBusType
  * @since 2.26
  */
 @GioVersion2_26
-public enum class BusType(
-    public val nativeValue: GBusType,
-) {
+public enum class BusType(public val nativeValue: GBusType) {
     /**
      * An alias for the message bus that activated the process, if any.
      */
@@ -34,13 +32,12 @@ public enum class BusType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GBusType): BusType =
-            when (nativeValue) {
-                GBusType.G_BUS_TYPE_STARTER -> STARTER
-                GBusType.G_BUS_TYPE_NONE -> NONE
-                GBusType.G_BUS_TYPE_SYSTEM -> SYSTEM
-                GBusType.G_BUS_TYPE_SESSION -> SESSION
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GBusType): BusType = when (nativeValue) {
+            GBusType.G_BUS_TYPE_STARTER -> STARTER
+            GBusType.G_BUS_TYPE_NONE -> NONE
+            GBusType.G_BUS_TYPE_SYSTEM -> SYSTEM
+            GBusType.G_BUS_TYPE_SESSION -> SESSION
+            else -> error("invalid nativeValue")
+        }
     }
 }

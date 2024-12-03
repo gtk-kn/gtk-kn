@@ -36,9 +36,7 @@ public interface TlsServerConnection :
     KGTyped {
     public val gioTlsServerConnectionPointer: CPointer<GTlsServerConnection>
 
-    private data class Wrapper(
-        private val pointer: CPointer<GTlsServerConnection>,
-    ) : TlsServerConnection {
+    private data class Wrapper(private val pointer: CPointer<GTlsServerConnection>) : TlsServerConnection {
         override val gioTlsServerConnectionPointer: CPointer<GTlsServerConnection> = pointer
     }
 
@@ -67,20 +65,16 @@ public interface TlsServerConnection :
          * @since 2.28
          */
         @GioVersion2_28
-        public fun new(
-            baseIoStream: IOStream,
-            certificate: TlsCertificate? = null,
-        ): Result<TlsServerConnection> =
+        public fun new(baseIoStream: IOStream, certificate: TlsCertificate? = null): Result<TlsServerConnection> =
             memScoped {
                 val gError = allocPointerTo<GError>()
-                val gResult =
-                    g_tls_server_connection_new(
-                        baseIoStream.gioIOStreamPointer.reinterpret(),
-                        certificate?.gioTlsCertificatePointer?.reinterpret(),
-                        gError.ptr
-                    )?.run {
-                        TlsServerConnection.wrap(reinterpret())
-                    }
+                val gResult = g_tls_server_connection_new(
+                    baseIoStream.gioIOStreamPointer.reinterpret(),
+                    certificate?.gioTlsCertificatePointer?.reinterpret(),
+                    gError.ptr
+                )?.run {
+                    TlsServerConnection.wrap(reinterpret())
+                }
 
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))

@@ -136,9 +136,9 @@ abstract class CallableBlueprintBuilder<T : Any>(
 
     protected fun exceptionResolvingFunction() =
         MemberName(
-            context.namespaceBindingsPackageName(girNamespace) + "." + checkNotNull(girNamespace.name).lowercase()
-                .capitalizeAsciiOnly(),
-            "resolveException",
+            packageName = context.namespaceBindingsPackageName(girNamespace) + "." +
+                checkNotNull(girNamespace.name).capitalizeAsciiOnly(),
+            simpleName = "resolveException",
         )
 }
 

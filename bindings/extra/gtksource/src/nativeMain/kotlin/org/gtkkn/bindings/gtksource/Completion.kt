@@ -73,9 +73,8 @@ import kotlin.Unit
  * - method `show-icons`: Property has no getter nor setter
  * - parameter `priority`: priority: Out parameter is not supported
  */
-public open class Completion(
-    pointer: CPointer<GtkSourceCompletion>,
-) : Object(pointer.reinterpret()),
+public open class Completion(pointer: CPointer<GtkSourceCompletion>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtksourceCompletionPointer: CPointer<GtkSourceCompletion>
         get() = gPointer.reinterpret()
@@ -90,22 +89,15 @@ public open class Completion(
          *
          * @return A #GtkSourceBuffer
          */
-        get() =
-            gtk_source_completion_get_buffer(gtksourceCompletionPointer.reinterpret())!!.run {
-                Buffer(reinterpret())
-            }
+        get() = gtk_source_completion_get_buffer(gtksourceCompletionPointer.reinterpret())!!.run {
+            Buffer(reinterpret())
+        }
 
     /**
      * The number of rows to display to the user before scrolling.
      */
     public open var pageSize: UInt
         get() = gtk_source_completion_get_page_size(gtksourceCompletionPointer.reinterpret())
-
-        /**
-         *
-         *
-         * @param pageSize
-         */
         set(pageSize) = gtk_source_completion_set_page_size(gtksourceCompletionPointer.reinterpret(), pageSize)
 
     /**
@@ -118,10 +110,9 @@ public open class Completion(
          *
          * @return A #GtkSourceView
          */
-        get() =
-            gtk_source_completion_get_view(gtksourceCompletionPointer.reinterpret())!!.run {
-                View(reinterpret())
-            }
+        get() = gtk_source_completion_get_view(gtksourceCompletionPointer.reinterpret())!!.run {
+            View(reinterpret())
+        }
 
     /**
      * Adds a [iface@CompletionProvider] to the list of providers to be queried
@@ -129,36 +120,13 @@ public open class Completion(
      *
      * @param provider a #GtkSourceCompletionProvider
      */
-    public open fun addProvider(provider: CompletionProvider): Unit =
-        gtk_source_completion_add_provider(
-            gtksourceCompletionPointer.reinterpret(),
-            provider.gtksourceCompletionProviderPointer
-        )
+    public open fun addProvider(provider: CompletionProvider): Unit = gtk_source_completion_add_provider(
+        gtksourceCompletionPointer.reinterpret(),
+        provider.gtksourceCompletionProviderPointer
+    )
 
     public open fun blockInteractive(): Unit =
         gtk_source_completion_block_interactive(gtksourceCompletionPointer.reinterpret())
-
-    /**
-     * Gets the connected [class@View]'s [class@Buffer]
-     *
-     * @return A #GtkSourceBuffer
-     */
-    public open fun getBuffer(): Buffer =
-        gtk_source_completion_get_buffer(gtksourceCompletionPointer.reinterpret())!!.run {
-            Buffer(reinterpret())
-        }
-
-    public open fun getPageSize(): UInt = gtk_source_completion_get_page_size(gtksourceCompletionPointer.reinterpret())
-
-    /**
-     * Gets the [class@View] that owns the [class@Completion].
-     *
-     * @return A #GtkSourceView
-     */
-    public open fun getView(): View =
-        gtk_source_completion_get_view(gtksourceCompletionPointer.reinterpret())!!.run {
-            View(reinterpret())
-        }
 
     /**
      * Emits the "hide" signal.
@@ -174,19 +142,10 @@ public open class Completion(
      *
      * @param provider a #GtkSourceCompletionProvider
      */
-    public open fun removeProvider(provider: CompletionProvider): Unit =
-        gtk_source_completion_remove_provider(
-            gtksourceCompletionPointer.reinterpret(),
-            provider.gtksourceCompletionProviderPointer
-        )
-
-    /**
-     *
-     *
-     * @param pageSize
-     */
-    public open fun setPageSize(pageSize: UInt): Unit =
-        gtk_source_completion_set_page_size(gtksourceCompletionPointer.reinterpret(), pageSize)
+    public open fun removeProvider(provider: CompletionProvider): Unit = gtk_source_completion_remove_provider(
+        gtksourceCompletionPointer.reinterpret(),
+        provider.gtksourceCompletionProviderPointer
+    )
 
     /**
      * Emits the "show" signal.
@@ -206,10 +165,7 @@ public open class Completion(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectHide(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectHide(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "hide",
@@ -229,15 +185,14 @@ public open class Completion(
     public fun connectProviderAdded(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (provider: CompletionProvider) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "provider-added",
-            connectProviderAddedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "provider-added",
+        connectProviderAddedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * The "provided-removed" signal is emitted when a provider has
@@ -249,15 +204,14 @@ public open class Completion(
     public fun connectProviderRemoved(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (provider: CompletionProvider) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "provider-removed",
-            connectProviderRemovedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "provider-removed",
+        connectProviderRemovedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * The "show" signal is emitted when the completion window should
@@ -266,10 +220,7 @@ public open class Completion(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectShow(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectShow(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "show",
@@ -295,27 +246,23 @@ public open class Completion(
          * @param casefoldQuery the typed-text used to highlight @haystack
          * @return a #PangoAttrList or null
          */
-        public fun fuzzyHighlight(
-            haystack: String,
-            casefoldQuery: String,
-        ): AttrList? =
+        public fun fuzzyHighlight(haystack: String, casefoldQuery: String): AttrList? =
             gtk_source_completion_fuzzy_highlight(haystack, casefoldQuery)?.run {
                 AttrList(reinterpret())
             }
     }
 }
 
-private val connectHideFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectHideFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
 private val connectProviderAddedFunc:
-    CPointer<CFunction<(CPointer<GtkSourceCompletionProvider>) -> Unit>> =
-    staticCFunction {
+    CPointer<CFunction<(CPointer<GtkSourceCompletionProvider>) -> Unit>> = staticCFunction {
             _: COpaquePointer,
             provider: CPointer<GtkSourceCompletionProvider>?,
             userData: COpaquePointer,
@@ -325,11 +272,11 @@ private val connectProviderAddedFunc:
                 CompletionProvider.wrap(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 private val connectProviderRemovedFunc:
-    CPointer<CFunction<(CPointer<GtkSourceCompletionProvider>) -> Unit>> =
-    staticCFunction {
+    CPointer<CFunction<(CPointer<GtkSourceCompletionProvider>) -> Unit>> = staticCFunction {
             _: COpaquePointer,
             provider: CPointer<GtkSourceCompletionProvider>?,
             userData: COpaquePointer,
@@ -339,12 +286,13 @@ private val connectProviderRemovedFunc:
                 CompletionProvider.wrap(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
-private val connectShowFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectShowFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

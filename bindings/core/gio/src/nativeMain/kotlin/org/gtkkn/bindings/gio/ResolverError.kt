@@ -13,9 +13,7 @@ import org.gtkkn.native.gio.g_resolver_error_quark
  * @since 2.22
  */
 @GioVersion2_22
-public enum class ResolverError(
-    public val nativeValue: GResolverError,
-) {
+public enum class ResolverError(public val nativeValue: GResolverError) {
     /**
      * the requested name/address/service was not
      *     found
@@ -35,13 +33,12 @@ public enum class ResolverError(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GResolverError): ResolverError =
-            when (nativeValue) {
-                GResolverError.G_RESOLVER_ERROR_NOT_FOUND -> NOT_FOUND
-                GResolverError.G_RESOLVER_ERROR_TEMPORARY_FAILURE -> TEMPORARY_FAILURE
-                GResolverError.G_RESOLVER_ERROR_INTERNAL -> INTERNAL
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GResolverError): ResolverError = when (nativeValue) {
+            GResolverError.G_RESOLVER_ERROR_NOT_FOUND -> NOT_FOUND
+            GResolverError.G_RESOLVER_ERROR_TEMPORARY_FAILURE -> TEMPORARY_FAILURE
+            GResolverError.G_RESOLVER_ERROR_INTERNAL -> INTERNAL
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Gets the #GResolver Error Quark.
@@ -52,11 +49,10 @@ public enum class ResolverError(
         @GioVersion2_22
         public fun quark(): Quark = g_resolver_error_quark()
 
-        public fun fromErrorOrNull(error: Error): ResolverError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                ResolverError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        public fun fromErrorOrNull(error: Error): ResolverError? = if (error.domain != quark()) {
+            null
+        } else {
+            ResolverError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

@@ -130,11 +130,10 @@ public interface Actionable :
      *
      * @param targetValue a [struct@GLib.Variant] to set as the target value
      */
-    public fun setActionTargetValue(targetValue: Variant? = null): Unit =
-        gtk_actionable_set_action_target_value(
-            gtkActionablePointer.reinterpret(),
-            targetValue?.glibVariantPointer?.reinterpret()
-        )
+    public fun setActionTargetValue(targetValue: Variant? = null): Unit = gtk_actionable_set_action_target_value(
+        gtkActionablePointer.reinterpret(),
+        targetValue?.glibVariantPointer?.reinterpret()
+    )
 
     /**
      * Sets the action-name and associated string target value of an
@@ -148,9 +147,7 @@ public interface Actionable :
     public fun setDetailedActionName(detailedActionName: String): Unit =
         gtk_actionable_set_detailed_action_name(gtkActionablePointer.reinterpret(), detailedActionName)
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkActionable>,
-    ) : Actionable {
+    private data class Wrapper(private val pointer: CPointer<GtkActionable>) : Actionable {
         override val gtkActionablePointer: CPointer<GtkActionable> = pointer
     }
 

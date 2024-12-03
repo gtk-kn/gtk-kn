@@ -28,9 +28,7 @@ import kotlin.Unit
  * - parameter `error_type_init`: ErrorInitFunc
  * - parameter `error_type_init`: ErrorInitFunc
  */
-public class Error(
-    pointer: CPointer<GError>,
-) : Record {
+public class Error(pointer: CPointer<GError>) : Record {
     public val glibErrorPointer: CPointer<GError> = pointer
 
     /**
@@ -64,10 +62,9 @@ public class Error(
      *
      * @return a new #GError
      */
-    public fun copy(): Error =
-        g_error_copy(glibErrorPointer.reinterpret())!!.run {
-            Error(reinterpret())
-        }
+    public fun copy(): Error = g_error_copy(glibErrorPointer.reinterpret())!!.run {
+        Error(reinterpret())
+    }
 
     /**
      * Frees a #GError and associated resources.
@@ -90,10 +87,8 @@ public class Error(
      * @param code an error code
      * @return whether @error has @domain and @code
      */
-    public fun matches(
-        domain: Quark,
-        code: Int,
-    ): Boolean = g_error_matches(glibErrorPointer.reinterpret(), domain, code).asBoolean()
+    public fun matches(domain: Quark, code: Int): Boolean =
+        g_error_matches(glibErrorPointer.reinterpret(), domain, code).asBoolean()
 
     public companion object : RecordCompanion<Error, GError> {
         /**
@@ -107,11 +102,8 @@ public class Error(
          * @param message error message
          * @return a new #GError
          */
-        public fun newLiteral(
-            domain: Quark,
-            code: Int,
-            message: String,
-        ): Error = Error(g_error_new_literal(domain, code, message)!!.reinterpret())
+        public fun newLiteral(domain: Quark, code: Int, message: String): Error =
+            Error(g_error_new_literal(domain, code, message)!!.reinterpret())
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Error = Error(pointer.reinterpret())
     }

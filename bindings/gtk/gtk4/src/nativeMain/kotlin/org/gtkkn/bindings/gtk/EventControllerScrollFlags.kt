@@ -13,13 +13,11 @@ import org.gtkkn.native.gtk.GtkEventControllerScrollFlags
 /**
  * Describes the behavior of a `GtkEventControllerScroll`.
  */
-public class EventControllerScrollFlags(
-    public val mask: GtkEventControllerScrollFlags,
-) : Bitfield<EventControllerScrollFlags> {
-    override infix fun or(other: EventControllerScrollFlags): EventControllerScrollFlags =
-        EventControllerScrollFlags(
-            mask or other.mask
-        )
+public class EventControllerScrollFlags(public val mask: GtkEventControllerScrollFlags) :
+    Bitfield<EventControllerScrollFlags> {
+    override infix fun or(other: EventControllerScrollFlags): EventControllerScrollFlags = EventControllerScrollFlags(
+        mask or other.mask
+    )
 
     public companion object {
         /**

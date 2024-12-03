@@ -59,9 +59,8 @@ import kotlin.Unit
  *
  * `AdwToastOverlay` uses the `GTK_ACCESSIBLE_ROLE_TAB_GROUP` role.
  */
-public class ToastOverlay(
-    pointer: CPointer<AdwToastOverlay>,
-) : Widget(pointer.reinterpret()),
+public class ToastOverlay(pointer: CPointer<AdwToastOverlay>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val adwToastOverlayPointer: CPointer<AdwToastOverlay>
         get() = gPointer.reinterpret()
@@ -84,10 +83,9 @@ public class ToastOverlay(
          *
          * @return the child widget of @self
          */
-        get() =
-            adw_toast_overlay_get_child(adwToastOverlayPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = adw_toast_overlay_get_child(adwToastOverlayPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the child widget of @self.
@@ -121,24 +119,6 @@ public class ToastOverlay(
      */
     public fun addToast(toast: Toast): Unit =
         adw_toast_overlay_add_toast(adwToastOverlayPointer.reinterpret(), toast.adwToastPointer.reinterpret())
-
-    /**
-     * Gets the child widget of @self.
-     *
-     * @return the child widget of @self
-     */
-    public fun getChild(): Widget? =
-        adw_toast_overlay_get_child(adwToastOverlayPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Sets the child widget of @self.
-     *
-     * @param child the child widget
-     */
-    public fun setChild(child: Widget? = null): Unit =
-        adw_toast_overlay_set_child(adwToastOverlayPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     public companion object : TypeCompanion<ToastOverlay> {
         override val type: GeneratedClassKGType<ToastOverlay> =

@@ -78,9 +78,7 @@ public interface DatagramBased :
     KGTyped {
     public val gioDatagramBasedPointer: CPointer<GDatagramBased>
 
-    private data class Wrapper(
-        private val pointer: CPointer<GDatagramBased>,
-    ) : DatagramBased {
+    private data class Wrapper(private val pointer: CPointer<GDatagramBased>) : DatagramBased {
         override val gioDatagramBasedPointer: CPointer<GDatagramBased> = pointer
     }
 

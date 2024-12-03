@@ -99,19 +99,16 @@ public interface MemoryMonitor :
     public fun connectLowMemoryWarning(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (level: MemoryMonitorWarningLevel) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gioMemoryMonitorPointer.reinterpret(),
-            "low-memory-warning",
-            connectLowMemoryWarningFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gioMemoryMonitorPointer.reinterpret(),
+        "low-memory-warning",
+        connectLowMemoryWarningFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
-    private data class Wrapper(
-        private val pointer: CPointer<GMemoryMonitor>,
-    ) : MemoryMonitor {
+    private data class Wrapper(private val pointer: CPointer<GMemoryMonitor>) : MemoryMonitor {
         override val gioMemoryMonitorPointer: CPointer<GMemoryMonitor> = pointer
     }
 
@@ -132,10 +129,9 @@ public interface MemoryMonitor :
          * @since 2.64
          */
         @GioVersion2_64
-        public fun dupDefault(): MemoryMonitor =
-            g_memory_monitor_dup_default()!!.run {
-                MemoryMonitor.wrap(reinterpret())
-            }
+        public fun dupDefault(): MemoryMonitor = g_memory_monitor_dup_default()!!.run {
+            MemoryMonitor.wrap(reinterpret())
+        }
     }
 }
 
@@ -150,4 +146,5 @@ private val connectLowMemoryWarningFunc: CPointer<CFunction<(GMemoryMonitorWarni
                 MemoryMonitorWarningLevel.fromNativeValue(this)
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()

@@ -26,9 +26,7 @@ import kotlin.Long
  * range", referring to the last -@start bytes of the resource body.
  * (Eg, the last 500 bytes would be @start = -500 and @end = -1.)
  */
-public class Range(
-    pointer: CPointer<SoupRange>,
-) : Record {
+public class Range(pointer: CPointer<SoupRange>) : Record {
     public val soupRangePointer: CPointer<SoupRange> = pointer
 
     /**

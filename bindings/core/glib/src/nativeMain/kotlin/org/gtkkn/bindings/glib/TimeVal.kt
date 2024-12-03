@@ -31,9 +31,7 @@ import kotlin.Unit
  * `tv_sec` is that on 32-bit systems `GTimeVal` is subject to the year 2038
  * problem.
  */
-public class TimeVal(
-    pointer: CPointer<GTimeVal>,
-) : Record {
+public class TimeVal(pointer: CPointer<GTimeVal>) : Record {
     public val glibTimeValPointer: CPointer<GTimeVal> = pointer
 
     /**
@@ -131,10 +129,8 @@ public class TimeVal(
          * @since 2.12
          */
         @GLibVersion2_12
-        public fun fromIso8601(
-            isoDate: String,
-            time: TimeVal,
-        ): Boolean = g_time_val_from_iso8601(isoDate, time.glibTimeValPointer.reinterpret()).asBoolean()
+        public fun fromIso8601(isoDate: String, time: TimeVal): Boolean =
+            g_time_val_from_iso8601(isoDate, time.glibTimeValPointer.reinterpret()).asBoolean()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TimeVal = TimeVal(pointer.reinterpret())
     }

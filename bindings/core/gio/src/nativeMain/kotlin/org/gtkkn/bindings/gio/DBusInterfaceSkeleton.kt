@@ -63,9 +63,8 @@ import kotlin.Unit
  * @since 2.30
  */
 @GioVersion2_30
-public open class DBusInterfaceSkeleton(
-    pointer: CPointer<GDBusInterfaceSkeleton>,
-) : Object(pointer.reinterpret()),
+public open class DBusInterfaceSkeleton(pointer: CPointer<GDBusInterfaceSkeleton>) :
+    Object(pointer.reinterpret()),
     DBusInterface,
     KGTyped {
     public val gioDBusInterfaceSkeletonPointer: CPointer<GDBusInterfaceSkeleton>
@@ -90,25 +89,20 @@ public open class DBusInterfaceSkeleton(
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun export(
-        connection: DBusConnection,
-        objectPath: String,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_dbus_interface_skeleton_export(
-                    gioDBusInterfaceSkeletonPointer.reinterpret(),
-                    connection.gioDBusConnectionPointer.reinterpret(),
-                    objectPath,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun export(connection: DBusConnection, objectPath: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_dbus_interface_skeleton_export(
+            gioDBusInterfaceSkeletonPointer.reinterpret(),
+            connection.gioDBusConnectionPointer.reinterpret(),
+            objectPath,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * If @interface_ has outstanding changes, request for these changes to be
@@ -174,7 +168,7 @@ public open class DBusInterfaceSkeleton(
      * @since 2.30
      */
     @GioVersion2_30
-    open override fun getInfo(): DBusInterfaceInfo =
+    override fun getInfo(): DBusInterfaceInfo =
         g_dbus_interface_skeleton_get_info(gioDBusInterfaceSkeletonPointer.reinterpret())!!.run {
             DBusInterfaceInfo(reinterpret())
         }
@@ -226,11 +220,10 @@ public open class DBusInterfaceSkeleton(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun hasConnection(connection: DBusConnection): Boolean =
-        g_dbus_interface_skeleton_has_connection(
-            gioDBusInterfaceSkeletonPointer.reinterpret(),
-            connection.gioDBusConnectionPointer.reinterpret()
-        ).asBoolean()
+    public open fun hasConnection(connection: DBusConnection): Boolean = g_dbus_interface_skeleton_has_connection(
+        gioDBusInterfaceSkeletonPointer.reinterpret(),
+        connection.gioDBusConnectionPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Sets flags describing what the behavior of @skeleton should be.
@@ -312,15 +305,14 @@ public open class DBusInterfaceSkeleton(
     public fun connectGAuthorizeMethod(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (invocation: DBusMethodInvocation) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "g-authorize-method",
-            connectGAuthorizeMethodFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "g-authorize-method",
+        connectGAuthorizeMethodFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<DBusInterfaceSkeleton> {
         override val type: GeneratedClassKGType<DBusInterfaceSkeleton> =
@@ -333,18 +325,15 @@ public open class DBusInterfaceSkeleton(
 }
 
 private val connectGAuthorizeMethodFunc:
-    CPointer<CFunction<(CPointer<GDBusMethodInvocation>) -> Int>> =
-    staticCFunction {
+    CPointer<CFunction<(CPointer<GDBusMethodInvocation>) -> Int>> = staticCFunction {
             _: COpaquePointer,
             invocation: CPointer<GDBusMethodInvocation>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(invocation: DBusMethodInvocation) -> Boolean>()
-            .get()
-            .invoke(
-                invocation!!.run {
-                    DBusMethodInvocation(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(invocation: DBusMethodInvocation) -> Boolean>().get().invoke(
+            invocation!!.run {
+                DBusMethodInvocation(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()

@@ -7,9 +7,7 @@ import org.gtkkn.native.webkit.WebKitPrintOperationResponse
  * Enum values representing the response of the print dialog shown with
  * webkit_print_operation_run_dialog().
  */
-public enum class PrintOperationResponse(
-    public val nativeValue: WebKitPrintOperationResponse,
-) {
+public enum class PrintOperationResponse(public val nativeValue: WebKitPrintOperationResponse) {
     /**
      * Print button was clicked in print dialog
      */

@@ -31,9 +31,7 @@ import kotlin.Unit
  * - parameter `seed`: Unsupported pointer to primitive type
  * - parameter `seed`: Unsupported pointer to primitive type
  */
-public class Rand(
-    pointer: CPointer<GRand>,
-) : Record {
+public class Rand(pointer: CPointer<GRand>) : Record {
     public val glibRandPointer: CPointer<GRand> = pointer
 
     /**
@@ -45,10 +43,9 @@ public class Rand(
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun copy(): Rand =
-        g_rand_copy(glibRandPointer.reinterpret())!!.run {
-            Rand(reinterpret())
-        }
+    public fun copy(): Rand = g_rand_copy(glibRandPointer.reinterpret())!!.run {
+        Rand(reinterpret())
+    }
 
     /**
      * Returns the next random #gdouble from @rand_ equally distributed over
@@ -66,10 +63,8 @@ public class Rand(
      * @param end upper open bound of the interval
      * @return a random number
      */
-    public fun doubleRange(
-        begin: Double,
-        end: Double,
-    ): Double = g_rand_double_range(glibRandPointer.reinterpret(), begin, end)
+    public fun doubleRange(begin: Double, end: Double): Double =
+        g_rand_double_range(glibRandPointer.reinterpret(), begin, end)
 
     /**
      * Frees the memory allocated for the #GRand.
@@ -92,10 +87,7 @@ public class Rand(
      * @param end upper open bound of the interval
      * @return a random number
      */
-    public fun intRange(
-        begin: Int,
-        end: Int,
-    ): Int = g_rand_int_range(glibRandPointer.reinterpret(), begin, end)
+    public fun intRange(begin: Int, end: Int): Int = g_rand_int_range(glibRandPointer.reinterpret(), begin, end)
 
     /**
      * Sets the seed for the random number generator #GRand to @seed.

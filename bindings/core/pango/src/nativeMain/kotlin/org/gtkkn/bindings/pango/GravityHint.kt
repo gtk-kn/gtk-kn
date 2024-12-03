@@ -14,9 +14,7 @@ import org.gtkkn.native.pango.PangoGravityHint
  * @since 1.16
  */
 @PangoVersion1_16
-public enum class GravityHint(
-    public val nativeValue: PangoGravityHint,
-) {
+public enum class GravityHint(public val nativeValue: PangoGravityHint) {
     /**
      * scripts will take their natural gravity based
      *   on the base gravity and the script.  This is the default.
@@ -39,12 +37,11 @@ public enum class GravityHint(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: PangoGravityHint): GravityHint =
-            when (nativeValue) {
-                PangoGravityHint.PANGO_GRAVITY_HINT_NATURAL -> NATURAL
-                PangoGravityHint.PANGO_GRAVITY_HINT_STRONG -> STRONG
-                PangoGravityHint.PANGO_GRAVITY_HINT_LINE -> LINE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: PangoGravityHint): GravityHint = when (nativeValue) {
+            PangoGravityHint.PANGO_GRAVITY_HINT_NATURAL -> NATURAL
+            PangoGravityHint.PANGO_GRAVITY_HINT_STRONG -> STRONG
+            PangoGravityHint.PANGO_GRAVITY_HINT_LINE -> LINE
+            else -> error("invalid nativeValue")
+        }
     }
 }

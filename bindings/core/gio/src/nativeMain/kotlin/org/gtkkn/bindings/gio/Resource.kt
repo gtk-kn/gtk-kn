@@ -201,9 +201,7 @@ import kotlin.collections.List
  * @since 2.32
  */
 @GioVersion2_32
-public class Resource(
-    pointer: CPointer<GResource>,
-) : Record {
+public class Resource(pointer: CPointer<GResource>) : Record {
     public val gioResourcePointer: CPointer<GResource> = pointer
 
     /**
@@ -240,25 +238,20 @@ public class Resource(
      * @since 2.32
      */
     @GioVersion2_32
-    public fun enumerateChildren(
-        path: String,
-        lookupFlags: ResourceLookupFlags,
-    ): Result<List<String>> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_resource_enumerate_children(
-                    gioResourcePointer.reinterpret(),
-                    path,
-                    lookupFlags.mask,
-                    gError.ptr
-                )?.toKStringList()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun enumerateChildren(path: String, lookupFlags: ResourceLookupFlags): Result<List<String>> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_resource_enumerate_children(
+            gioResourcePointer.reinterpret(),
+            path,
+            lookupFlags.mask,
+            gError.ptr
+        )?.toKStringList()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
         }
+    }
 
     /**
      * Looks for a file at the specified @path in the resource and
@@ -283,23 +276,23 @@ public class Resource(
      * @since 2.32
      */
     @GioVersion2_32
-    public fun lookupData(
-        path: String,
-        lookupFlags: ResourceLookupFlags,
-    ): Result<Bytes> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_resource_lookup_data(gioResourcePointer.reinterpret(), path, lookupFlags.mask, gError.ptr)?.run {
-                    Bytes(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun lookupData(path: String, lookupFlags: ResourceLookupFlags): Result<Bytes> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_resource_lookup_data(
+            gioResourcePointer.reinterpret(),
+            path,
+            lookupFlags.mask,
+            gError.ptr
+        )?.run {
+            Bytes(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Looks for a file at the specified @path in the resource and
@@ -314,23 +307,23 @@ public class Resource(
      * @since 2.32
      */
     @GioVersion2_32
-    public fun openStream(
-        path: String,
-        lookupFlags: ResourceLookupFlags,
-    ): Result<InputStream> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_resource_open_stream(gioResourcePointer.reinterpret(), path, lookupFlags.mask, gError.ptr)?.run {
-                    InputStream(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun openStream(path: String, lookupFlags: ResourceLookupFlags): Result<InputStream> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_resource_open_stream(
+            gioResourcePointer.reinterpret(),
+            path,
+            lookupFlags.mask,
+            gError.ptr
+        )?.run {
+            InputStream(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Atomically increments the reference count of @resource by one. This
@@ -340,10 +333,9 @@ public class Resource(
      * @since 2.32
      */
     @GioVersion2_32
-    public fun ref(): Resource =
-        g_resource_ref(gioResourcePointer.reinterpret())!!.run {
-            Resource(reinterpret())
-        }
+    public fun ref(): Resource = g_resource_ref(gioResourcePointer.reinterpret())!!.run {
+        Resource(reinterpret())
+    }
 
     /**
      * Atomically decrements the reference count of @resource by one. If the
@@ -404,20 +396,18 @@ public class Resource(
          * @since 2.32
          */
         @GioVersion2_32
-        public fun load(filename: String): Result<Resource> =
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                val gResult =
-                    g_resource_load(filename, gError.ptr)?.run {
-                        Resource(reinterpret())
-                    }
-
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(checkNotNull(gResult))
-                }
+        public fun load(filename: String): Result<Resource> = memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult = g_resource_load(filename, gError.ptr)?.run {
+                Resource(reinterpret())
             }
+
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(checkNotNull(gResult))
+            }
+        }
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Resource = Resource(pointer.reinterpret())
     }

@@ -78,9 +78,8 @@ import kotlin.Unit
  * - method `seekable`: Property has no getter nor setter
  * - method `seeking`: Property has no getter nor setter
  */
-public open class MediaStream(
-    pointer: CPointer<GtkMediaStream>,
-) : Object(pointer.reinterpret()),
+public open class MediaStream(pointer: CPointer<GtkMediaStream>) :
+    Object(pointer.reinterpret()),
     Paintable,
     KGTyped {
     public val gtkMediaStreamPointer: CPointer<GtkMediaStream>
@@ -126,10 +125,9 @@ public open class MediaStream(
          * @return null if not in an
          *   error state or the `GError` of the stream
          */
-        get() =
-            gtk_media_stream_get_error(gtkMediaStreamPointer.reinterpret())?.run {
-                Error(reinterpret())
-            }
+        get() = gtk_media_stream_get_error(gtkMediaStreamPointer.reinterpret())?.run {
+            Error(reinterpret())
+        }
 
     /**
      * Try to restart the media from the beginning once it ended.
@@ -264,86 +262,11 @@ public open class MediaStream(
         gtk_media_stream_gerror(gtkMediaStreamPointer.reinterpret(), error.glibErrorPointer.reinterpret())
 
     /**
-     * Gets the duration of the stream.
-     *
-     * If the duration is not known, 0 will be returned.
-     *
-     * @return the duration of the stream or 0 if not known.
-     */
-    public open fun getDuration(): Long = gtk_media_stream_get_duration(gtkMediaStreamPointer.reinterpret())
-
-    /**
      * Returns whether the streams playback is finished.
      *
      * @return true if playback is finished
      */
     public open fun getEnded(): Boolean = gtk_media_stream_get_ended(gtkMediaStreamPointer.reinterpret()).asBoolean()
-
-    /**
-     * If the stream is in an error state, returns the `GError`
-     * explaining that state.
-     *
-     * Any type of error can be reported here depending on the
-     * implementation of the media stream.
-     *
-     * A media stream in an error cannot be operated on, calls
-     * like [method@Gtk.MediaStream.play] or
-     * [method@Gtk.MediaStream.seek] will not have any effect.
-     *
-     * `GtkMediaStream` itself does not provide a way to unset
-     * an error, but implementations may provide options. For example,
-     * a [class@Gtk.MediaFile] will unset errors when a new source is
-     * set, e.g. with [method@Gtk.MediaFile.set_file].
-     *
-     * @return null if not in an
-     *   error state or the `GError` of the stream
-     */
-    public open fun getError(): Error? =
-        gtk_media_stream_get_error(gtkMediaStreamPointer.reinterpret())?.run {
-            Error(reinterpret())
-        }
-
-    /**
-     * Returns whether the stream is set to loop.
-     *
-     * See [method@Gtk.MediaStream.set_loop] for details.
-     *
-     * @return true if the stream should loop
-     */
-    public open fun getLoop(): Boolean = gtk_media_stream_get_loop(gtkMediaStreamPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns whether the audio for the stream is muted.
-     *
-     * See [method@Gtk.MediaStream.set_muted] for details.
-     *
-     * @return true if the stream is muted
-     */
-    public open fun getMuted(): Boolean = gtk_media_stream_get_muted(gtkMediaStreamPointer.reinterpret()).asBoolean()
-
-    /**
-     * Return whether the stream is currently playing.
-     *
-     * @return true if the stream is playing
-     */
-    public open fun getPlaying(): Boolean =
-        gtk_media_stream_get_playing(gtkMediaStreamPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns the current presentation timestamp in microseconds.
-     *
-     * @return the timestamp in microseconds
-     */
-    public open fun getTimestamp(): Long = gtk_media_stream_get_timestamp(gtkMediaStreamPointer.reinterpret())
-
-    /**
-     * Returns the volume of the audio for the stream.
-     *
-     * See [method@Gtk.MediaStream.set_volume] for details.
-     *
-     * @return volume of the stream from 0.0 to 1.0
-     */
-    public open fun getVolume(): Double = gtk_media_stream_get_volume(gtkMediaStreamPointer.reinterpret())
 
     /**
      * Returns whether the stream has audio.
@@ -469,62 +392,6 @@ public open class MediaStream(
     public open fun seekSuccess(): Unit = gtk_media_stream_seek_success(gtkMediaStreamPointer.reinterpret())
 
     /**
-     * Sets whether the stream should loop.
-     *
-     * In this case, it will attempt to restart playback
-     * from the beginning instead of stopping at the end.
-     *
-     * Not all streams may support looping, in particular
-     * non-seekable streams. Those streams will ignore the
-     * loop setting and just end.
-     *
-     * @param loop true if the stream should loop
-     */
-    public open fun setLoop(loop: Boolean): Unit =
-        gtk_media_stream_set_loop(gtkMediaStreamPointer.reinterpret(), loop.asGBoolean())
-
-    /**
-     * Sets whether the audio stream should be muted.
-     *
-     * Muting a stream will cause no audio to be played, but it
-     * does not modify the volume. This means that muting and
-     * then unmuting the stream will restore the volume settings.
-     *
-     * If the stream has no audio, calling this function will
-     * still work but it will not have an audible effect.
-     *
-     * @param muted true if the stream should be muted
-     */
-    public open fun setMuted(muted: Boolean): Unit =
-        gtk_media_stream_set_muted(gtkMediaStreamPointer.reinterpret(), muted.asGBoolean())
-
-    /**
-     * Starts or pauses playback of the stream.
-     *
-     * @param playing whether to start or pause playback
-     */
-    public open fun setPlaying(playing: Boolean): Unit =
-        gtk_media_stream_set_playing(gtkMediaStreamPointer.reinterpret(), playing.asGBoolean())
-
-    /**
-     * Sets the volume of the audio stream.
-     *
-     * This function call will work even if the stream is muted.
-     *
-     * The given @volume should range from 0.0 for silence to 1.0
-     * for as loud as possible. Values outside of this range will
-     * be clamped to the nearest value.
-     *
-     * If the stream has no audio or is muted, calling this function
-     * will still work but it will not have an immediate audible effect.
-     * When the stream is unmuted, the new volume setting will take effect.
-     *
-     * @param volume New volume of the stream from 0.0 to 1.0
-     */
-    public open fun setVolume(volume: Double): Unit =
-        gtk_media_stream_set_volume(gtkMediaStreamPointer.reinterpret(), volume)
-
-    /**
      * Pauses the media stream and marks it as ended.
      *
      * This is a hint only, calls to [method@Gtk.MediaStream.play]
@@ -556,12 +423,7 @@ public open class MediaStream(
      * @since 4.4
      */
     @GtkVersion4_4
-    public open fun streamPrepared(
-        hasAudio: Boolean,
-        hasVideo: Boolean,
-        seekable: Boolean,
-        duration: Long,
-    ): Unit =
+    public open fun streamPrepared(hasAudio: Boolean, hasVideo: Boolean, seekable: Boolean, duration: Long): Unit =
         gtk_media_stream_stream_prepared(
             gtkMediaStreamPointer.reinterpret(),
             hasAudio.asGBoolean(),

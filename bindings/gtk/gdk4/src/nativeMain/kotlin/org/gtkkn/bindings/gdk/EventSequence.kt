@@ -12,9 +12,7 @@ import org.gtkkn.native.gdk.GdkEventSequence
  * `GdkEventSequence` is an opaque type representing a sequence
  * of related touch events.
  */
-public class EventSequence(
-    pointer: CPointer<GdkEventSequence>,
-) : Record {
+public class EventSequence(pointer: CPointer<GdkEventSequence>) : Record {
     public val gdkEventSequencePointer: CPointer<GdkEventSequence> = pointer
 
     public companion object : RecordCompanion<EventSequence, GdkEventSequence> {
