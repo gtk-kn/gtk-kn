@@ -162,7 +162,7 @@ class MetadataProcessor(
         applyBaseType(node, tag, metadata)
         applyCHeaderFilename(node, tag, metadata)
         applyCopyFunction(node, metadata)
-        applyCType(node, metadata)
+        applyCType(node, tag, metadata)
         applyDefault(node, tag, metadata)
         applyDelegateTarget(node, metadata)
         applyDelegateTargetCName(node, metadata)
@@ -282,10 +282,15 @@ class MetadataProcessor(
         }
     }
 
-    private fun applyCType(node: Node, metadata: Metadata) {
+    private fun applyCType(node: Node, tag: String, metadata: Metadata) {
         if (metadata.hasArgument(ArgumentType.CTYPE)) {
             val cType = metadata.getString(ArgumentType.CTYPE)
-            node.setAttribute("c:type", cType)
+            if (tag == "method") {
+                val typeNode = getChildNode(node, "return-value")?.let { getChildNode(it, "type") }
+                typeNode?.setAttribute("c:type", cType) ?: node.setAttribute("c:type", cType)
+            } else {
+                node.setAttribute("c:type", cType)
+            }
         }
     }
 
