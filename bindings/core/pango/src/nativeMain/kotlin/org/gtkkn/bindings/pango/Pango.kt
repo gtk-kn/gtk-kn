@@ -88,6 +88,8 @@ import org.gtkkn.native.pango.pango_gravity_get_for_script
 import org.gtkkn.native.pango.pango_gravity_get_for_script_and_width
 import org.gtkkn.native.pango.pango_gravity_to_rotation
 import org.gtkkn.native.pango.pango_is_zero_width
+import org.gtkkn.native.pango.pango_itemize
+import org.gtkkn.native.pango.pango_itemize_with_base_dir
 import org.gtkkn.native.pango.pango_language_from_string
 import org.gtkkn.native.pango.pango_language_get_default
 import org.gtkkn.native.pango.pango_layout_deserialize_error_quark
@@ -115,15 +117,12 @@ import org.gtkkn.bindings.glib.List as GlibList
  * ## Skipped during bindings generation
  *
  * - alias `LayoutRun`: GlyphItem
- * - class `Context`: C Type PangoContext is ignored
  * - parameter `attrs`: LogAttr
  * - parameter `data`: gpointer
  * - parameter `attrs`: LogAttr
  * - parameter `paragraph_delimiter_index`: paragraph_delimiter_index: Out parameter is not supported
  * - parameter `attrs`: LogAttr
  * - parameter `mirrored_ch`: Unsupported pointer to primitive type
- * - parameter `context`: C Type PangoContext is ignored
- * - parameter `context`: C Type PangoContext is ignored
  * - function `language_get_preferred`: Array parameter of type Language is not supported
  * - function `log2vis_get_embedding_levels`: Return type guint8 is unsupported
  * - parameter `attr_list`: attr_list: Out parameter is not supported
@@ -1076,6 +1075,75 @@ public object Pango {
      */
     @PangoVersion1_10
     public fun isZeroWidth(ch: UInt): Boolean = pango_is_zero_width(ch).asBoolean()
+
+    /**
+     * Breaks a piece of text into segments with consistent directional
+     * level and font.
+     *
+     * Each byte of @text will be contained in exactly one of the items in the
+     * returned list; the generated list of items will be in logical order (the
+     * start offsets of the items are ascending).
+     *
+     * @cached_iter should be an iterator over @attrs currently positioned
+     * at a range before or containing @start_index; @cached_iter will be
+     * advanced to the range covering the position just after
+     * @start_index + @length. (i.e. if itemizing in a loop, just keep passing
+     * in the same @cached_iter).
+     *
+     * @param context a structure holding information that affects
+     *   the itemization process.
+     * @param text the text to itemize. Must be valid UTF-8
+     * @param startIndex first byte in @text to process
+     * @param length the number of bytes (not characters) to process
+     *   after @start_index. This must be >= 0.
+     * @param attrs the set of attributes that apply to @text.
+     * @param cachedIter Cached attribute iterator
+     * @return a `GList` of
+     *   [struct@Pango.Item] structures. The items should be freed using
+     *   [method@Pango.Item.free] in combination with [func@GLib.List.free_full].
+     */
+    public fun itemize(
+        context: Context,
+        text: String,
+        startIndex: Int,
+        length: Int,
+        attrs: AttrList,
+        cachedIter: AttrIterator? = null,
+    ): GlibList = pango_itemize(context.pangoContextPointer.reinterpret(), text, startIndex, length, attrs.pangoAttrListPointer.reinterpret(), cachedIter?.pangoAttrIteratorPointer?.reinterpret())!!.run {
+        GlibList(reinterpret())}
+
+    /**
+     * Like `pango_itemize()`, but with an explicitly specified base direction.
+     *
+     * The base direction is used when computing bidirectional levels.
+     * [func@itemize] gets the base direction from the `PangoContext`
+     * (see [method@Pango.Context.set_base_dir]).
+     *
+     * @param context a structure holding information that affects
+     *   the itemization process.
+     * @param baseDir base direction to use for bidirectional processing
+     * @param text the text to itemize.
+     * @param startIndex first byte in @text to process
+     * @param length the number of bytes (not characters) to process
+     *   after @start_index. This must be >= 0.
+     * @param attrs the set of attributes that apply to @text.
+     * @param cachedIter Cached attribute iterator
+     * @return a `GList` of
+     *   [struct@Pango.Item] structures. The items should be freed using
+     *   [method@Pango.Item.free] probably in combination with [func@GLib.List.free_full].
+     * @since 1.4
+     */
+    @PangoVersion1_4
+    public fun itemizeWithBaseDir(
+        context: Context,
+        baseDir: Direction,
+        text: String,
+        startIndex: Int,
+        length: Int,
+        attrs: AttrList,
+        cachedIter: AttrIterator? = null,
+    ): GlibList = pango_itemize_with_base_dir(context.pangoContextPointer.reinterpret(), baseDir.nativeValue, text, startIndex, length, attrs.pangoAttrListPointer.reinterpret(), cachedIter?.pangoAttrIteratorPointer?.reinterpret())!!.run {
+        GlibList(reinterpret())}
 
     /**
      * Convert a language tag to a `PangoLanguage`.

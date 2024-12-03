@@ -40,6 +40,7 @@ import org.gtkkn.native.glib.GError
 import org.gtkkn.native.pango.PangoLayout
 import org.gtkkn.native.pango.pango_layout_context_changed
 import org.gtkkn.native.pango.pango_layout_copy
+import org.gtkkn.native.pango.pango_layout_deserialize
 import org.gtkkn.native.pango.pango_layout_get_alignment
 import org.gtkkn.native.pango.pango_layout_get_attributes
 import org.gtkkn.native.pango.pango_layout_get_auto_dir
@@ -75,6 +76,7 @@ import org.gtkkn.native.pango.pango_layout_get_wrap
 import org.gtkkn.native.pango.pango_layout_index_to_pos
 import org.gtkkn.native.pango.pango_layout_is_ellipsized
 import org.gtkkn.native.pango.pango_layout_is_wrapped
+import org.gtkkn.native.pango.pango_layout_new
 import org.gtkkn.native.pango.pango_layout_serialize
 import org.gtkkn.native.pango.pango_layout_set_alignment
 import org.gtkkn.native.pango.pango_layout_set_attributes
@@ -146,8 +148,6 @@ import org.gtkkn.native.pango.pango_layout_write_to_file
  * - parameter `new_index`: new_index: Out parameter is not supported
  * - parameter `accel_char`: accel_char: Out parameter is not supported
  * - parameter `index`: index: Out parameter is not supported
- * - parameter `context`: C Type PangoContext is ignored
- * - parameter `context`: C Type PangoContext is ignored
  */
 public open class Layout(
     pointer: CPointer<PangoLayout>,
@@ -155,6 +155,15 @@ public open class Layout(
     KGTyped {
     public val pangoLayoutPointer: CPointer<PangoLayout>
         get() = gPointer.reinterpret()
+
+    /**
+     * Create a new `PangoLayout` object with attributes initialized to
+     * default values for a particular `PangoContext`.
+     *
+     * @param context a `PangoContext`
+     * @return the newly allocated `PangoLayout`
+     */
+    public constructor(context: Context) : this(pango_layout_new(context.pangoContextPointer.reinterpret())!!.reinterpret())
 
     /**
      * Forces recomputation of any state in the `PangoLayout` that
@@ -985,5 +994,38 @@ public open class Layout(
 
         init {
             PangoTypeProvider.register()}
+
+        /**
+         * Loads data previously created via [method@Pango.Layout.serialize].
+         *
+         * For a discussion of the supported format, see that function.
+         *
+         * Note: to verify that the returned layout is identical to
+         * the one that was serialized, you can compare @bytes to the
+         * result of serializing the layout again.
+         *
+         * @param context a `PangoContext`
+         * @param bytes the bytes containing the data
+         * @param flags `PangoLayoutDeserializeFlags`
+         * @return a new `PangoLayout`
+         * @since 1.50
+         */
+        @PangoVersion1_50
+        public fun deserialize(
+            context: Context,
+            bytes: Bytes,
+            flags: LayoutDeserializeFlags,
+        ): Result<Layout?> = memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult = pango_layout_deserialize(context.pangoContextPointer.reinterpret(), bytes.glibBytesPointer.reinterpret(), flags.mask, gError.ptr)?.run {
+                Layout(reinterpret())}
+
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            }
+            else {
+                Result.success(gResult)
+            }
+        }
     }
 }

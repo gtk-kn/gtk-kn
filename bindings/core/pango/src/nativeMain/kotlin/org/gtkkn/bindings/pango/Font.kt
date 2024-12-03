@@ -2,12 +2,19 @@
 package org.gtkkn.bindings.pango
 
 import kotlin.Boolean
+import kotlin.Result
 import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.allocPointerTo
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Bytes
+import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.pango.Pango.resolveException
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_10
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_14
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
@@ -17,9 +24,11 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.GError
 import org.gtkkn.native.pango.PangoFont
 import org.gtkkn.native.pango.pango_font_describe
 import org.gtkkn.native.pango.pango_font_describe_with_absolute_size
+import org.gtkkn.native.pango.pango_font_deserialize
 import org.gtkkn.native.pango.pango_font_get_coverage
 import org.gtkkn.native.pango.pango_font_get_face
 import org.gtkkn.native.pango.pango_font_get_font_map
@@ -38,7 +47,6 @@ import org.gtkkn.native.pango.pango_font_serialize
  * - method `get_features`: In/Out parameter is not supported
  * - method `get_languages`: Array parameter of type Language is not supported
  * - parameter `descs`: Array parameter of type FontDescription is not supported
- * - parameter `context`: C Type PangoContext is ignored
  */
 public open class Font(
     pointer: CPointer<PangoFont>,
@@ -188,5 +196,33 @@ public open class Font(
 
         init {
             PangoTypeProvider.register()}
+
+        /**
+         * Loads data previously created via [method@Pango.Font.serialize].
+         *
+         * For a discussion of the supported format, see that function.
+         *
+         * Note: to verify that the returned font is identical to
+         * the one that was serialized, you can compare @bytes to the
+         * result of serializing the font again.
+         *
+         * @param context a `PangoContext`
+         * @param bytes the bytes containing the data
+         * @return a new `PangoFont`
+         * @since 1.50
+         */
+        @PangoVersion1_50
+        public fun deserialize(context: Context, bytes: Bytes): Result<Font?> = memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult = pango_font_deserialize(context.pangoContextPointer.reinterpret(), bytes.glibBytesPointer.reinterpret(), gError.ptr)?.run {
+                Font(reinterpret())}
+
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            }
+            else {
+                Result.success(gResult)
+            }
+        }
     }
 }

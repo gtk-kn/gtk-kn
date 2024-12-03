@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Double
 import kotlin.String
 import kotlin.UInt
 import kotlin.Unit
@@ -11,6 +12,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_32_4
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_34
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_52
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -20,6 +22,9 @@ import org.gtkkn.native.pango.pango_font_map_changed
 import org.gtkkn.native.pango.pango_font_map_get_family
 import org.gtkkn.native.pango.pango_font_map_get_serial
 import org.gtkkn.native.pango.pango_font_map_get_type
+import org.gtkkn.native.pango.pango_font_map_load_font
+import org.gtkkn.native.pango.pango_font_map_load_fontset
+import org.gtkkn.native.pango.pango_font_map_reload_font
 
 /**
  * A `PangoFontMap` represents the set of fonts available for a
@@ -32,9 +37,6 @@ import org.gtkkn.native.pango.pango_font_map_get_type
  *
  * - method `create_context`: C function pango_font_map_create_context is ignored
  * - parameter `families`: families: Out parameter is not supported
- * - parameter `context`: C Type PangoContext is ignored
- * - parameter `context`: C Type PangoContext is ignored
- * - parameter `context`: C Type PangoContext is ignored
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
@@ -93,6 +95,56 @@ public open class FontMap(
      */
     @PangoVersion1_32_4
     public open fun getSerial(): UInt = pango_font_map_get_serial(pangoFontMapPointer.reinterpret())
+
+    /**
+     * Load the font in the fontmap that is the closest match for @desc.
+     *
+     * @param context the `PangoContext` the font will be used with
+     * @param desc a `PangoFontDescription` describing the font to load
+     * @return the newly allocated `PangoFont`
+     *   loaded, or null if no font matched.
+     */
+    public open fun loadFont(context: Context, desc: FontDescription): Font? = pango_font_map_load_font(pangoFontMapPointer.reinterpret(), context.pangoContextPointer.reinterpret(), desc.pangoFontDescriptionPointer.reinterpret())?.run {
+        Font(reinterpret())}
+
+    /**
+     * Load a set of fonts in the fontmap that can be used to render
+     * a font matching @desc.
+     *
+     * @param context the `PangoContext` the font will be used with
+     * @param desc a `PangoFontDescription` describing the font to load
+     * @param language a `PangoLanguage` the fonts will be used for
+     * @return the newly allocated
+     *   `PangoFontset` loaded, or null if no font matched.
+     */
+    public open fun loadFontset(
+        context: Context,
+        desc: FontDescription,
+        language: Language,
+    ): Fontset? = pango_font_map_load_fontset(pangoFontMapPointer.reinterpret(), context.pangoContextPointer.reinterpret(), desc.pangoFontDescriptionPointer.reinterpret(), language.pangoLanguagePointer.reinterpret())?.run {
+        Fontset(reinterpret())}
+
+    /**
+     * Returns a new font that is like @font, except that its size
+     * is multiplied by @scale, its backend-dependent configuration
+     * (e.g. cairo font options) is replaced by the one in @context,
+     * and its variations are replaced by @variations.
+     *
+     * @param font a font in @fontmap
+     * @param scale the scale factor to apply
+     * @param context a `PangoContext`
+     * @param variations font variations to use
+     * @return the modified font
+     * @since 1.52
+     */
+    @PangoVersion1_52
+    public open fun reloadFont(
+        font: Font,
+        scale: Double,
+        context: Context? = null,
+        variations: String? = null,
+    ): Font = pango_font_map_reload_font(pangoFontMapPointer.reinterpret(), font.pangoFontPointer.reinterpret(), scale, context?.pangoContextPointer?.reinterpret(), variations)!!.run {
+        Font(reinterpret())}
 
     public companion object : TypeCompanion<FontMap> {
         override val type: GeneratedClassKGType<FontMap> =

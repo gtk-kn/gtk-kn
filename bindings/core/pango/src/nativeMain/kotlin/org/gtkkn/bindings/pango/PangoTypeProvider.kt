@@ -8,6 +8,7 @@ import org.gtkkn.extensions.gobject.TypeProvider
 
 public object PangoTypeProvider : TypeProvider {
     override val typeMap: Map<KClass<*>, KGType<*>> = mapOf(
+    Context::class to Context.type,
     Coverage::class to Coverage.type,
     Font::class to Font.type,
     FontFace::class to FontFace.type,

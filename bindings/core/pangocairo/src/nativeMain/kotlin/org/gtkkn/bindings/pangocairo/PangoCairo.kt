@@ -2,23 +2,30 @@
 package org.gtkkn.bindings.pangocairo
 
 import kotlin.Boolean
+import kotlin.Double
 import kotlin.Int
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.cairo.FontType
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.pango.AttrShape
+import org.gtkkn.bindings.pango.Context
 import org.gtkkn.bindings.pango.FontMap
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_10
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_18
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.pango.PangoAttrShape
+import org.gtkkn.native.pangocairo.pango_cairo_context_get_resolution
+import org.gtkkn.native.pangocairo.pango_cairo_context_set_resolution
+import org.gtkkn.native.pangocairo.pango_cairo_context_set_shape_renderer
 import org.gtkkn.native.pangocairo.pango_cairo_font_map_get_default
 import org.gtkkn.native.pangocairo.pango_cairo_font_map_new
 import org.gtkkn.native.pangocairo.pango_cairo_font_map_new_for_font_type
@@ -26,11 +33,8 @@ import org.gtkkn.native.pangocairo.pango_cairo_font_map_new_for_font_type
 /**
  * ## Skipped during bindings generation
  *
- * - parameter `context`: C Type PangoContext is ignored
- * - parameter `context`: C Type PangoContext is ignored
- * - parameter `context`: C Type PangoContext is ignored
- * - parameter `context`: C Type PangoContext is ignored
- * - parameter `context`: C Type PangoContext is ignored
+ * - function `context_get_font_options`: Return type cairo.FontOptions is unsupported
+ * - parameter `options`: cairo.FontOptions
  * - parameter `cr`: cairo.Context
  * - parameter `cr`: cairo.Context
  * - parameter `cr`: cairo.Context
@@ -46,6 +50,49 @@ import org.gtkkn.native.pangocairo.pango_cairo_font_map_new_for_font_type
  * - parameter `cr`: cairo.Context
  */
 public object PangoCairo {
+    /**
+     * Gets the resolution for the context.
+     *
+     * See [func@PangoCairo.context_set_resolution]
+     *
+     * @param context a `PangoContext`, from a pangocairo font map
+     * @return the resolution in "dots per inch". A negative value will
+     *   be returned if no resolution has previously been set.
+     * @since 1.10
+     */
+    @PangoCairoVersion1_10
+    public fun contextGetResolution(context: Context): Double = pango_cairo_context_get_resolution(context.pangoContextPointer.reinterpret())
+
+    /**
+     * Sets the resolution for the context.
+     *
+     * This is a scale factor between points specified in a `PangoFontDescription`
+     * and Cairo units. The default value is 96, meaning that a 10 point font will
+     * be 13 units high. (10 * 96. / 72. = 13.3).
+     *
+     * @param context a `PangoContext`, from a pangocairo font map
+     * @param dpi the resolution in "dots per inch". (Physical inches aren't actually
+     *   involved; the terminology is conventional.) A 0 or negative value
+     *   means to use the resolution from the font map.
+     * @since 1.10
+     */
+    @PangoCairoVersion1_10
+    public fun contextSetResolution(context: Context, dpi: Double): Unit = pango_cairo_context_set_resolution(context.pangoContextPointer.reinterpret(), dpi)
+
+    /**
+     * Sets callback function for context to use for rendering attributes
+     * of type %PANGO_ATTR_SHAPE.
+     *
+     * See `PangoCairoShapeRendererFunc` for details.
+     *
+     * @param context a `PangoContext`, from a pangocairo font map
+     * @param func Callback function for rendering attributes of
+     *   type %PANGO_ATTR_SHAPE, or null to disable shape rendering.
+     * @since 1.18
+     */
+    @PangoCairoVersion1_18
+    public fun contextSetShapeRenderer(context: Context, func: ShapeRendererFunc): Unit = pango_cairo_context_set_shape_renderer(context.pangoContextPointer.reinterpret(), ShapeRendererFuncFunc.reinterpret(), StableRef.create(func).asCPointer(), staticStableRefDestroy.reinterpret())
+
     /**
      * Gets a default `PangoCairoFontMap` to use with Cairo.
      *

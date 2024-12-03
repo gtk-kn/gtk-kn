@@ -609,17 +609,8 @@ class ProcessorContext(
         private val ignoredTypes = hashSetOf(
             // callback returning a String
             "GtkScaleFormatValueFunc",
-
-            // Issues with Context being defined in pango, but used in pangocairo callbacks?
-            "PangoContext",
-            "Context",
-            "Region",
-            "CairoRegion",
-
             // not a pointed type, simd vector?
             "graphene_simd4f_t",
-
-            // Can't find it in Ubuntu 24.04
         )
 
         /**
