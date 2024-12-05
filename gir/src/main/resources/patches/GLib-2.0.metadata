@@ -19,3 +19,6 @@ mkdir ignore
 open ignore
 remove ignore
 rename ignore
+
+// Missing nullable annotation https://gitlab.gnome.org/GNOME/glib/-/issues/3552
+LogFunc.log_domain nullable

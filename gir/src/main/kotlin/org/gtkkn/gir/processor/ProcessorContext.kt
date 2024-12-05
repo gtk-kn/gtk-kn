@@ -620,13 +620,6 @@ class ProcessorContext(
             // problems with mismatched return type
             "cairo_image_surface_create",
 
-            // error pointer argument
-            "g_prefix_error_literal",
-            "g_trash_stack_height",
-
-            // problem because it needs a GObjectClass struct
-            "gtk_editable_install_properties",
-
             // problem because it uses a callback with a string return value
             "g_option_group_set_translate_func",
             "soup_auth_domain_digest_set_auth_callback",
@@ -635,17 +628,10 @@ class ProcessorContext(
             "g_thread_try_new",
             "g_thread_new",
 
-            // DBusProxyTypeFunc is not supported yet
-            "g_dbus_object_manager_client_new_for_bus_sync",
-            "g_dbus_object_manager_client_new_sync",
-
             "g_tree_traverse",
 
             // On Fedora 41 this is listed in the GIR but the header file is missing
             "g_set_prgname_once",
-
-            // Argument type mismatch
-            "soup_message_get_tls_protocol_version",
         )
 
         /**

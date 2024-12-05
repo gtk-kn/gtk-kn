@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -8,6 +9,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GTrashStack
+import org.gtkkn.native.glib.g_trash_stack_height
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -27,7 +29,6 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  *
  * ## Skipped during bindings generation
  *
- * - function `height`: C function g_trash_stack_height is ignored
  * - function `peek`: Return type gpointer is unsupported
  * - function `pop`: Return type gpointer is unsupported
  * - parameter `data_p`: gpointer
@@ -49,6 +50,17 @@ public class TrashStack(
             TrashStack(reinterpret())}
 
     public companion object : RecordCompanion<TrashStack, GTrashStack> {
+        /**
+         * Returns the height of a #GTrashStack.
+         *
+         * Note that execution of this function is of O(N) complexity
+         * where N denotes the number of items on the stack.
+         *
+         * @param stackP a #GTrashStack
+         * @return the height of the stack
+         */
+        public fun height(stackP: TrashStack): UInt = g_trash_stack_height(stackP.glibTrashStackPointer.reinterpret())
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TrashStack = TrashStack(pointer.reinterpret())
     }
 }

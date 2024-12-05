@@ -48,6 +48,8 @@ import org.gtkkn.native.gio.g_dbus_object_manager_client_get_name_owner
 import org.gtkkn.native.gio.g_dbus_object_manager_client_get_type
 import org.gtkkn.native.gio.g_dbus_object_manager_client_new_finish
 import org.gtkkn.native.gio.g_dbus_object_manager_client_new_for_bus_finish
+import org.gtkkn.native.gio.g_dbus_object_manager_client_new_for_bus_sync
+import org.gtkkn.native.gio.g_dbus_object_manager_client_new_sync
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GVariant
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -139,8 +141,6 @@ import org.gtkkn.native.gobject.g_signal_connect_data
  * - method `get-proxy-type-func`: Property has no getter nor setter
  * - method `get-proxy-type-user-data`: Property has no getter nor setter
  * - method `object-path`: Property has no getter nor setter
- * - constructor `new_for_bus_sync`: C function g_dbus_object_manager_client_new_for_bus_sync is ignored
- * - constructor `new_sync`: C function g_dbus_object_manager_client_new_sync is ignored
  * - parameter `callback`: AsyncReadyCallback
  * - parameter `callback`: AsyncReadyCallback
  *
@@ -251,6 +251,79 @@ public open class DBusObjectManagerClient(
     public constructor(res: AsyncResult) : this(memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_dbus_object_manager_client_new_finish(res.gioAsyncResultPointer, gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
+        }
+        gResult!!.reinterpret()
+    }
+    )
+
+    /**
+     * Like g_dbus_object_manager_client_new_sync() but takes a #GBusType instead
+     * of a #GDBusConnection.
+     *
+     * This is a synchronous failable constructor - the calling thread is
+     * blocked until a reply is received. See g_dbus_object_manager_client_new_for_bus()
+     * for the asynchronous version.
+     *
+     * @param busType A #GBusType.
+     * @param flags Zero or more flags from the #GDBusObjectManagerClientFlags enumeration.
+     * @param name The owner of the control object (unique or well-known name).
+     * @param objectPath The object path of the control object.
+     * @param getProxyTypeFunc A #GDBusProxyTypeFunc function or null to always construct #GDBusProxy proxies.
+     * @param cancellable A #GCancellable or null
+     * @return A
+     *   #GDBusObjectManagerClient object or null if @error is set. Free
+     *   with g_object_unref().
+     * @since 2.30
+     */
+    @Throws(GLibException::class)
+    public constructor(
+        busType: BusType,
+        flags: DBusObjectManagerClientFlags,
+        name: String,
+        objectPath: String,
+        getProxyTypeFunc: DBusProxyTypeFunc,
+        cancellable: Cancellable? = null,
+    ) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_dbus_object_manager_client_new_for_bus_sync(busType.nativeValue, flags.mask, name, objectPath, DBusProxyTypeFuncFunc.reinterpret(), StableRef.create(getProxyTypeFunc).asCPointer(), staticStableRefDestroy.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
+        }
+        gResult!!.reinterpret()
+    }
+    )
+
+    /**
+     * Creates a new #GDBusObjectManagerClient object.
+     *
+     * This is a synchronous failable constructor - the calling thread is
+     * blocked until a reply is received. See g_dbus_object_manager_client_new()
+     * for the asynchronous version.
+     *
+     * @param connection A #GDBusConnection.
+     * @param flags Zero or more flags from the #GDBusObjectManagerClientFlags enumeration.
+     * @param name The owner of the control object (unique or well-known name), or null when not using a message bus connection.
+     * @param objectPath The object path of the control object.
+     * @param getProxyTypeFunc A #GDBusProxyTypeFunc function or null to always construct #GDBusProxy proxies.
+     * @param cancellable A #GCancellable or null
+     * @return A
+     *   #GDBusObjectManagerClient object or null if @error is set. Free
+     *   with g_object_unref().
+     * @since 2.30
+     */
+    @Throws(GLibException::class)
+    public constructor(
+        connection: DBusConnection,
+        flags: DBusObjectManagerClientFlags,
+        name: String? = null,
+        objectPath: String,
+        getProxyTypeFunc: DBusProxyTypeFunc,
+        cancellable: Cancellable? = null,
+    ) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_dbus_object_manager_client_new_sync(connection.gioDBusConnectionPointer.reinterpret(), flags.mask, name, objectPath, DBusProxyTypeFuncFunc.reinterpret(), StableRef.create(getProxyTypeFunc).asCPointer(), staticStableRefDestroy.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr)
         if (gError.pointed != null) {
             throw resolveException(Error(gError.pointed!!.ptr))
         }

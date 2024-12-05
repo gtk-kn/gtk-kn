@@ -362,6 +362,7 @@ import org.gtkkn.native.glib.g_timeout_add_full
 import org.gtkkn.native.glib.g_timeout_add_seconds_full
 import org.gtkkn.native.glib.g_timeout_source_new
 import org.gtkkn.native.glib.g_timeout_source_new_seconds
+import org.gtkkn.native.glib.g_trash_stack_height
 import org.gtkkn.native.glib.g_unichar_break_type
 import org.gtkkn.native.glib.g_unichar_combining_class
 import org.gtkkn.native.glib.g_unichar_digit_value
@@ -607,7 +608,7 @@ import org.gtkkn.native.gobject.g_variant_get_gtype
  * - parameter `address`: gpointer
  * - parameter `address`: gpointer
  * - parameter `address`: gpointer
- * - function `prefix_error_literal`: C function g_prefix_error_literal is ignored
+ * - function `prefix_error_literal`: In/Out parameter is not supported
  * - parameter `dest`: dest: Out parameter is not supported
  * - parameter `pbase`: gpointer
  * - parameter `mem_block`: gpointer
@@ -665,7 +666,6 @@ import org.gtkkn.native.gobject.g_variant_get_gtype
  * - parameter `gfree_pointer`: gpointer
  * - parameter `suite`: TestSuite
  * - parameter `retval`: gpointer
- * - function `trash_stack_height`: C function g_trash_stack_height is ignored
  * - function `trash_stack_peek`: Return type gpointer is unsupported
  * - function `trash_stack_pop`: Return type gpointer is unsupported
  * - parameter `data_p`: gpointer
@@ -6532,6 +6532,17 @@ public object GLib {
         Source(reinterpret())}
 
     /**
+     * Returns the height of a #GTrashStack.
+     *
+     * Note that execution of this function is of O(N) complexity
+     * where N denotes the number of items on the stack.
+     *
+     * @param stackP a #GTrashStack
+     * @return the height of the stack
+     */
+    public fun trashStackHeight(stackP: TrashStack): UInt = g_trash_stack_height(stackP.glibTrashStackPointer.reinterpret())
+
+    /**
      * Determines the break type of @c. @c should be a Unicode character
      * (to derive a character from UTF-8 encoded text, use
      * g_utf8_get_char()). The break type is used to find word and line
@@ -8332,7 +8343,7 @@ public val IOFuncFunc: CPointer<CFunction<(CPointer<GIOChannel>, GIOCondition) -
 .reinterpret()
 
 public val LogFuncFunc: CPointer<CFunction<(
-    CPointer<ByteVar>,
+    CPointer<ByteVar>?,
     GLogLevelFlags,
     CPointer<ByteVar>,
 ) -> Unit>> = staticCFunction {
@@ -8342,10 +8353,10 @@ public val LogFuncFunc: CPointer<CFunction<(
     userData: COpaquePointer
     ->
     userData.asStableRef<(
-        logDomain: kotlin.String,
+        logDomain: kotlin.String?,
         logLevel: LogLevelFlags,
         message: kotlin.String,
-    ) -> Unit>().get().invoke(logDomain?.toKString() ?: error("Expected not null string"), logLevel.run {
+    ) -> Unit>().get().invoke(logDomain?.toKString(), logLevel.run {
         LogLevelFlags(this)}
     , message?.toKString() ?: error("Expected not null string"))}
 .reinterpret()
@@ -8847,7 +8858,7 @@ public typealias IOFunc = (source: IOChannel, condition: IOCondition) -> Boolean
  * - param `message` the message to process
  */
 public typealias LogFunc = (
-    logDomain: kotlin.String,
+    logDomain: kotlin.String?,
     logLevel: LogLevelFlags,
     message: kotlin.String,
 ) -> Unit

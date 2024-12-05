@@ -1606,6 +1606,103 @@ class MetadataProcessorTest {
     }
 
     @Test
+    fun `test apply TYPE_CTYPE argument to method return-value type`() {
+        // Prepare the XML document
+        val xmlContent =
+            """
+                <repository>
+                  <namespace name="TestNamespace">
+                    <class name="TestClass">
+                      <method name="test_method">
+                        <return-value>
+                          <type name="gchar" c:type="char"/>
+                        </return-value>
+                      </method>
+                    </class>
+                  </namespace>
+                </repository>
+            """.trimIndent()
+
+        // Prepare the metadata content
+        val metadataContent =
+            """
+                TestClass.test_method type_ctype="guint"
+            """.trimIndent()
+
+        // Parse the XML document
+        document = parseXml(xmlContent)
+
+        // Parse the metadata
+        val metadata = metadataParser.parse(metadataContent)
+
+        // Create the processor
+        processor = MetadataProcessor(metadata, document)
+
+        // Apply the metadata
+        processor.apply()
+
+        // Find the return-value node
+        val methodNode = findNodeByName(document.documentElement, "method", "test_method")
+        val returnValueNode = processor.getChildNode(checkNotNull(methodNode), "return-value")
+        assertNotNull(returnValueNode, "The method should have a return-value")
+
+        val typeNode = processor.getChildNode(returnValueNode, "type")
+        assertNotNull(typeNode, "The 'return-value' node should contain the 'type' node")
+
+        val cTypeAttr = typeNode.attributes.getNamedItem("c:type")?.nodeValue
+        assertEquals("guint", cTypeAttr, "The 'c:type' attribute should be 'guint'")
+    }
+
+    @Test
+    fun `test apply TYPE_CTYPE argument to parameter type`() {
+        // Prepare the XML document
+        val xmlContent =
+            """
+                <repository>
+                  <namespace name="TestNamespace">
+                    <class name="TestClass">
+                      <method name="test_method">
+                        <parameters>
+                          <parameter name="param1">
+                            <type name="gchar" c:type="char"/>
+                          </parameter>
+                        </parameters>
+                      </method>
+                    </class>
+                  </namespace>
+                </repository>
+            """.trimIndent()
+
+        // Prepare the metadata content
+        val metadataContent =
+            """
+                TestClass.test_method.param1 type_ctype="guint"
+            """.trimIndent()
+
+        // Parse the XML document
+        document = parseXml(xmlContent)
+
+        // Parse the metadata
+        val metadata = metadataParser.parse(metadataContent)
+
+        // Create the processor
+        processor = MetadataProcessor(metadata, document)
+
+        // Apply the metadata
+        processor.apply()
+
+        // Find the parameter node
+        val paramNode = findNodeByName(document.documentElement, "parameter", "param1")
+        assertNotNull(paramNode)
+
+        val typeNode = processor.getChildNode(paramNode, "type")
+        assertNotNull(typeNode, "The 'parameter' node should contain the 'type' node")
+
+        val cTypeAttr = typeNode.attributes.getNamedItem("c:type")?.nodeValue
+        assertEquals("guint", cTypeAttr, "The 'c:type' attribute should be 'guint'")
+    }
+
+    @Test
     fun `test apply TYPE_ID argument to class node`() {
         val xmlContent =
             """
@@ -1630,6 +1727,103 @@ class MetadataProcessorTest {
         assertNotNull(classNode)
         val getTypeAttr = classNode.attributes.getNamedItem("glib:get-type")?.nodeValue
         assertEquals("test_get_type", getTypeAttr, "The 'glib:get-type' attribute should be 'test_get_type'")
+    }
+
+    @Test
+    fun `test apply TYPE_NAME argument to method return-value type`() {
+        // Prepare the XML document
+        val xmlContent =
+            """
+                <repository>
+                  <namespace name="TestNamespace">
+                    <class name="TestClass">
+                      <method name="test_method">
+                        <return-value>
+                          <type name="gchar" c:type="char"/>
+                        </return-value>
+                      </method>
+                    </class>
+                  </namespace>
+                </repository>
+            """.trimIndent()
+
+        // Prepare the metadata content
+        val metadataContent =
+            """
+                TestClass.test_method type_name="guint"
+            """.trimIndent()
+
+        // Parse the XML document
+        document = parseXml(xmlContent)
+
+        // Parse the metadata
+        val metadata = metadataParser.parse(metadataContent)
+
+        // Create the processor
+        processor = MetadataProcessor(metadata, document)
+
+        // Apply the metadata
+        processor.apply()
+
+        // Find the return-value node
+        val methodNode = findNodeByName(document.documentElement, "method", "test_method")
+        val returnValueNode = processor.getChildNode(checkNotNull(methodNode), "return-value")
+        assertNotNull(returnValueNode, "The method should have a return-value")
+
+        val typeNode = processor.getChildNode(returnValueNode, "type")
+        assertNotNull(typeNode, "The 'return-value' node should contain the 'type' node")
+
+        val cTypeAttr = typeNode.attributes.getNamedItem("name")?.nodeValue
+        assertEquals("guint", cTypeAttr, "The 'name' attribute should be 'guint'")
+    }
+
+    @Test
+    fun `test apply TYPE_NAME argument to parameter type`() {
+        // Prepare the XML document
+        val xmlContent =
+            """
+                <repository>
+                  <namespace name="TestNamespace">
+                    <class name="TestClass">
+                      <method name="test_method">
+                        <parameters>
+                          <parameter name="param1">
+                            <type name="gchar" c:type="char"/>
+                          </parameter>
+                        </parameters>
+                      </method>
+                    </class>
+                  </namespace>
+                </repository>
+            """.trimIndent()
+
+        // Prepare the metadata content
+        val metadataContent =
+            """
+                TestClass.test_method.param1 type_name="guint"
+            """.trimIndent()
+
+        // Parse the XML document
+        document = parseXml(xmlContent)
+
+        // Parse the metadata
+        val metadata = metadataParser.parse(metadataContent)
+
+        // Create the processor
+        processor = MetadataProcessor(metadata, document)
+
+        // Apply the metadata
+        processor.apply()
+
+        // Find the parameter node
+        val paramNode = findNodeByName(document.documentElement, "parameter", "param1")
+        assertNotNull(paramNode)
+
+        val typeNode = processor.getChildNode(paramNode, "type")
+        assertNotNull(typeNode, "The 'parameter' node should contain the 'type' node")
+
+        val cTypeAttr = typeNode.attributes.getNamedItem("name")?.nodeValue
+        assertEquals("guint", cTypeAttr, "The 'name' attribute should be 'guint'")
     }
 
     @Test

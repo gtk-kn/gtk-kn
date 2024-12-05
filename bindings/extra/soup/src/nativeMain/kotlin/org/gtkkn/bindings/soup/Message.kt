@@ -69,6 +69,7 @@ import org.gtkkn.native.soup.soup_message_get_status
 import org.gtkkn.native.soup.soup_message_get_tls_ciphersuite_name
 import org.gtkkn.native.soup.soup_message_get_tls_peer_certificate
 import org.gtkkn.native.soup.soup_message_get_tls_peer_certificate_errors
+import org.gtkkn.native.soup.soup_message_get_tls_protocol_version
 import org.gtkkn.native.soup.soup_message_get_type
 import org.gtkkn.native.soup.soup_message_get_uri
 import org.gtkkn.native.soup.soup_message_is_feature_disabled
@@ -120,10 +121,8 @@ import org.gtkkn.native.soup.soup_message_tls_client_certificate_password_reques
  *
  * ## Skipped during bindings generation
  *
- * - method `get_tls_protocol_version`: C function soup_message_get_tls_protocol_version is ignored
  * - method `site-for-cookies`: Property TypeInfo of getter and setter do not match
  * - method `status-code`: Property has no getter nor setter
- * - method `tls-protocol-version`: Property has no getter nor setter
  */
 public class Message(
     pointer: CPointer<SoupMessage>,
@@ -380,6 +379,19 @@ public class Message(
          */
         get() = soup_message_get_tls_peer_certificate_errors(soupMessagePointer.reinterpret()).run {
             TlsCertificateFlags(this)}
+
+    /**
+     * The TLS protocol version negotiated for the message connection.
+     */
+    public val tlsProtocolVersion: UInt
+        /**
+         * Gets the TLS protocol version negotiated for @msg's connection.
+         *
+         * If the message connection is not SSL, %G_TLS_PROTOCOL_VERSION_UNKNOWN is returned.
+         *
+         * @return a #GTlsProtocolVersion
+         */
+        get() = soup_message_get_tls_protocol_version(soupMessagePointer.reinterpret())
 
     /**
      * The message's Request-URI.

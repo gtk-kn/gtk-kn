@@ -441,15 +441,15 @@ public open class TreeViewColumn(
      * “text” attribute of a `GtkCellRendererText` get its values from
      * column 2.
      *
-     * @param cellRenderer the `GtkCellRenderer` to set attributes on
+     * @param cell the `GtkCellRenderer` to set attributes on
      * @param attribute An attribute on the renderer
      * @param column The column position on the model to get the attribute from.
      */
     override fun addAttribute(
-        cellRenderer: CellRenderer,
+        cell: CellRenderer,
         attribute: String,
         column: Int,
-    ): Unit = gtk_tree_view_column_add_attribute(gtkTreeViewColumnPointer.reinterpret(), cellRenderer.gtkCellRendererPointer.reinterpret(), attribute, column)
+    ): Unit = gtk_tree_view_column_add_attribute(gtkTreeViewColumnPointer.reinterpret(), cell.gtkCellRendererPointer.reinterpret(), attribute, column)
 
     /**
      * Returns true if any of the cells packed into the @tree_column are visible.
@@ -487,9 +487,9 @@ public open class TreeViewColumn(
      * Clears all existing attributes previously set with
      * gtk_tree_view_column_set_attributes().
      *
-     * @param cellRenderer a `GtkCellRenderer` to clear the attribute mapping on.
+     * @param cell a `GtkCellRenderer` to clear the attribute mapping on.
      */
-    override fun clearAttributes(cellRenderer: CellRenderer): Unit = gtk_tree_view_column_clear_attributes(gtkTreeViewColumnPointer.reinterpret(), cellRenderer.gtkCellRendererPointer.reinterpret())
+    override fun clearAttributes(cell: CellRenderer): Unit = gtk_tree_view_column_clear_attributes(gtkTreeViewColumnPointer.reinterpret(), cell.gtkCellRendererPointer.reinterpret())
 
     /**
      * Emits the “clicked” signal on the column.  This function will only work if

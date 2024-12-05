@@ -232,9 +232,19 @@ enum class ArgumentType {
     THROWS,
 
     /**
+     * Indicates the c:type of the type.
+     */
+    TYPE_CTYPE,
+
+    /**
      * Type ID of the symbol.
      */
     TYPE_ID,
+
+    /**
+     * Indicates the name of the type.
+     */
+    TYPE_NAME,
 
     /**
      * Whether the symbol is unowned.

@@ -50,3 +50,8 @@ PrintUnixDialog.get_settings#method name="get_print_settings"
 
 // The `toString` method returns `null`, so it cannot override the non-null `toString` method of `Any`.
 TreePath.to_string#method name="to_string_tree_path"
+
+// The corresponding parameter in the supertype 'CellLayout' is named 'cell'. This may cause problems when
+// calling this function with named arguments.
+TreeViewColumn.add_attribute.cell_renderer#parameter name="cell"
+TreeViewColumn.clear_attributes.cell_renderer#parameter name="cell"

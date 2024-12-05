@@ -20,7 +20,6 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
-import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.glib.Source
 import org.gtkkn.bindings.glib.Variant
@@ -38,7 +37,6 @@ import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_68
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_74
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.gobject.GBinding
 import org.gtkkn.native.gobject.GClosure
@@ -1923,13 +1921,6 @@ public object GObject {
     public fun valueTypeTransformable(srcType: ULong, destType: ULong): Boolean = g_value_type_transformable(srcType, destType).asBoolean()
 
     public fun variantGetGtype(): ULong = g_variant_get_gtype()
-
-    public fun resolveException(error: Error): GLibException {
-        val ex = when (error.domain) {
-            else -> null
-        }
-        return ex ?: GLibException(error)
-    }
 }
 
 public val BaseFinalizeFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> Unit>> =

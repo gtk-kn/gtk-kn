@@ -60,7 +60,7 @@ class MetadataProcessor(
         "alias", "bitfield", "glib:boxed", "callback", "constructor",
         "class", "enumeration", "function", "instance-parameter",
         "interface", "method", "namespace", "parameter", "property", "record",
-        "glib:signal", "type", "union", "virtual-method",
+        "glib:signal", "union", "virtual-method",
     )
 
     /**
@@ -191,7 +191,9 @@ class MetadataProcessor(
         applySince(node, metadata)
         applyShadows(node, metadata)
         applyThrows(node, metadata)
+        applyTypeCType(node, tag, metadata)
         applyTypeId(node, metadata)
+        applyTypeName(node, tag, metadata)
         applyUnowned(node, tag, metadata)
         applyUnrefFunction(node, metadata)
         applyVirtual(node, metadata)
@@ -509,10 +511,34 @@ class MetadataProcessor(
         }
     }
 
+    private fun applyTypeCType(node: Node, tag: String, metadata: Metadata) {
+        if (metadata.hasArgument(ArgumentType.TYPE_CTYPE)) {
+            val typeCType = metadata.getString(ArgumentType.TYPE_CTYPE)
+            val typeNode = if (tag == "method") {
+                getChildNode(node, "return-value")?.let { getChildNode(it, "type") }
+            } else {
+                getChildNode(node, "type")
+            }
+            typeNode?.setAttribute("c:type", typeCType)
+        }
+    }
+
     private fun applyTypeId(node: Node, metadata: Metadata) {
         if (metadata.hasArgument(ArgumentType.TYPE_ID)) {
             val typeId = metadata.getString(ArgumentType.TYPE_ID)
             node.setAttribute("glib:get-type", typeId)
+        }
+    }
+
+    private fun applyTypeName(node: Node, tag: String, metadata: Metadata) {
+        if (metadata.hasArgument(ArgumentType.TYPE_NAME)) {
+            val typeName = metadata.getString(ArgumentType.TYPE_NAME)
+            val typeNode = if (tag == "method") {
+                getChildNode(node, "return-value")?.let { getChildNode(it, "type") }
+            } else {
+                getChildNode(node, "type")
+            }
+            typeNode?.setAttribute("name", typeName)
         }
     }
 

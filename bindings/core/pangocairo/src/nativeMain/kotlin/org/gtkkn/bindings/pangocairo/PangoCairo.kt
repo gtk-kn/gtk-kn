@@ -13,14 +13,12 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.cairo.FontType
-import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.pango.AttrShape
 import org.gtkkn.bindings.pango.Context
 import org.gtkkn.bindings.pango.FontMap
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_10
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_18
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.pango.PangoAttrShape
 import org.gtkkn.native.pangocairo.pango_cairo_context_get_resolution
@@ -164,13 +162,6 @@ public object PangoCairo {
     @PangoCairoVersion1_18
     public fun fontMapNewForFontType(fonttype: FontType): FontMap? = pango_cairo_font_map_new_for_font_type(fonttype.nativeValue)?.run {
         FontMap(reinterpret())}
-
-    public fun resolveException(error: Error): GLibException {
-        val ex = when (error.domain) {
-            else -> null
-        }
-        return ex ?: GLibException(error)
-    }
 }
 
 public val ShapeRendererFuncFunc: CPointer<CFunction<(CPointer<PangoAttrShape>, Int) -> Unit>> =

@@ -36,6 +36,7 @@ import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.gobject.ObjectClass
 import org.gtkkn.bindings.gobject.ParamFlags
 import org.gtkkn.bindings.gobject.ParamSpec
 import org.gtkkn.bindings.gobject.Value
@@ -92,6 +93,7 @@ import org.gtkkn.native.gtk.gtk_dialog_error_quark
 import org.gtkkn.native.gtk.gtk_disable_setlocale
 import org.gtkkn.native.gtk.gtk_editable_delegate_get_property
 import org.gtkkn.native.gtk.gtk_editable_delegate_set_property
+import org.gtkkn.native.gtk.gtk_editable_install_properties
 import org.gtkkn.native.gtk.gtk_enumerate_printers
 import org.gtkkn.native.gtk.gtk_file_chooser_error_quark
 import org.gtkkn.native.gtk.gtk_get_binary_age
@@ -146,7 +148,6 @@ import org.gtkkn.native.pango.PangoFontFamily
  * - parameter `value`: value: Out parameter is not supported
  * - parameter `value`: value: Out parameter is not supported
  * - parameter `sizes`: RequestedSize
- * - function `editable_install_properties`: C function gtk_editable_install_properties is ignored
  * - parameter `r`: r: Out parameter is not supported
  * - parameter `cr`: cairo.Context
  * - parameter `cr`: cairo.Context
@@ -1146,6 +1147,29 @@ public object Gtk {
         `value`: Value,
         pspec: ParamSpec,
     ): Boolean = gtk_editable_delegate_set_property(`object`.gPointer.reinterpret(), propId, `value`.gobjectValuePointer.reinterpret(), pspec.gPointer.reinterpret()).asBoolean()
+
+    /**
+     * Overrides the `GtkEditable` properties for @class.
+     *
+     * This is a helper function that should be called in class_init,
+     * after installing your own properties.
+     *
+     * Note that your class must have "text", "cursor-position",
+     * "selection-bound", "editable", "width-chars", "max-width-chars",
+     * "xalign" and "enable-undo" properties for this function to work.
+     *
+     * To handle the properties in your set_property and get_property
+     * functions, you can either use [func@Gtk.Editable.delegate_set_property]
+     * and [func@Gtk.Editable.delegate_get_property] (if you are using
+     * a delegate), or remember the @first_prop offset and add it to the
+     * values in the [enum@Gtk.EditableProperties] enumeration to get the
+     * property IDs for these properties.
+     *
+     * @param objectClass a `GObjectClass`
+     * @param firstProp property ID to use for the first property
+     * @return the number of properties that were installed
+     */
+    public fun editableInstallProperties(objectClass: ObjectClass, firstProp: UInt): UInt = gtk_editable_install_properties(objectClass.gobjectObjectClassPointer.reinterpret(), firstProp)
 
     /**
      * Calls a function for all `GtkPrinter`s.
