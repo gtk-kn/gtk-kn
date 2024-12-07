@@ -1,13 +1,13 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.ULong
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gtk.GtkCssLocation
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
@@ -16,31 +16,31 @@ public class CssLocation(
 ) : Record {
     public val gtkCssLocationPointer: CPointer<GtkCssLocation> = pointer
 
-    public var bytes: ULong
+    public var bytes: gsize
         get() = gtkCssLocationPointer.pointed.bytes
         set(`value`) {
             gtkCssLocationPointer.pointed.bytes = value
         }
 
-    public var chars: ULong
+    public var chars: gsize
         get() = gtkCssLocationPointer.pointed.chars
         set(`value`) {
             gtkCssLocationPointer.pointed.chars = value
         }
 
-    public var lines: ULong
+    public var lines: gsize
         get() = gtkCssLocationPointer.pointed.lines
         set(`value`) {
             gtkCssLocationPointer.pointed.lines = value
         }
 
-    public var lineBytes: ULong
+    public var lineBytes: gsize
         get() = gtkCssLocationPointer.pointed.line_bytes
         set(`value`) {
             gtkCssLocationPointer.pointed.line_bytes = value
         }
 
-    public var lineChars: ULong
+    public var lineChars: gsize
         get() = gtkCssLocationPointer.pointed.line_chars
         set(`value`) {
             gtkCssLocationPointer.pointed.line_chars = value

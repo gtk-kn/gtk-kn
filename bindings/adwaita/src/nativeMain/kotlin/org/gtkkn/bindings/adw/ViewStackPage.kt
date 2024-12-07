@@ -3,7 +3,6 @@ package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
 import kotlin.String
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -32,6 +31,8 @@ import org.gtkkn.native.adw.adw_view_stack_page_set_needs_attention
 import org.gtkkn.native.adw.adw_view_stack_page_set_title
 import org.gtkkn.native.adw.adw_view_stack_page_set_use_underline
 import org.gtkkn.native.adw.adw_view_stack_page_set_visible
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 
 /**
@@ -56,7 +57,7 @@ public class ViewStackPage(
      *
      * It can be used together with [property@ViewStack{age}:needs-attention].
      */
-    public var badgeNumber: UInt
+    public var badgeNumber: guint
         /**
          * Gets the badge number for this page.
          *
@@ -208,5 +209,12 @@ public class ViewStackPage(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of ViewStackPage
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_view_stack_page_get_type()
     }
 }

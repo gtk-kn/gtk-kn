@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -12,6 +10,9 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkGridLayout
 import org.gtkkn.native.gtk.gtk_grid_layout_get_baseline_row
 import org.gtkkn.native.gtk.gtk_grid_layout_get_column_homogeneous
@@ -55,7 +56,7 @@ public open class GridLayout(
      * The row to align to the baseline, when `GtkWidget:valign` is set
      * to %GTK_ALIGN_BASELINE.
      */
-    public open var baselineRow: Int
+    public open var baselineRow: gint
         /**
          * Retrieves the row set with gtk_grid_layout_set_baseline_row().
          *
@@ -93,7 +94,7 @@ public open class GridLayout(
     /**
      * The amount of space between to consecutive columns.
      */
-    public open var columnSpacing: UInt
+    public open var columnSpacing: guint
         /**
          * Retrieves the spacing set with gtk_grid_layout_set_column_spacing().
          *
@@ -127,7 +128,7 @@ public open class GridLayout(
     /**
      * The amount of space between to consecutive rows.
      */
-    public open var rowSpacing: UInt
+    public open var rowSpacing: guint
         /**
          * Retrieves the spacing set with gtk_grid_layout_set_row_spacing().
          *
@@ -159,7 +160,7 @@ public open class GridLayout(
      * @param row a row index
      * @return the baseline position of @row
      */
-    public open fun getRowBaselinePosition(row: Int): BaselinePosition = gtk_grid_layout_get_row_baseline_position(gtkGridLayoutPointer.reinterpret(), row).run {
+    public open fun getRowBaselinePosition(row: gint): BaselinePosition = gtk_grid_layout_get_row_baseline_position(gtkGridLayoutPointer.reinterpret(), row).run {
         BaselinePosition.fromNativeValue(this)}
 
     /**
@@ -169,7 +170,7 @@ public open class GridLayout(
      * @param row a row index
      * @param pos a `GtkBaselinePosition`
      */
-    public open fun setRowBaselinePosition(row: Int, pos: BaselinePosition): Unit = gtk_grid_layout_set_row_baseline_position(gtkGridLayoutPointer.reinterpret(), row, pos.nativeValue)
+    public open fun setRowBaselinePosition(row: gint, pos: BaselinePosition): Unit = gtk_grid_layout_set_row_baseline_position(gtkGridLayoutPointer.reinterpret(), row, pos.nativeValue)
 
     public companion object : TypeCompanion<GridLayout> {
         override val type: GeneratedClassKGType<GridLayout> =
@@ -177,5 +178,12 @@ public open class GridLayout(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of GridLayout
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_grid_layout_get_type()
     }
 }

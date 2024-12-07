@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.graphene
 
 import kotlin.Boolean
-import kotlin.Float
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -11,6 +10,8 @@ import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.graphene.graphene_triangle_alloc
 import org.gtkkn.native.graphene.graphene_triangle_contains_point
 import org.gtkkn.native.graphene.graphene_triangle_equal
@@ -22,6 +23,7 @@ import org.gtkkn.native.graphene.graphene_triangle_get_midpoint
 import org.gtkkn.native.graphene.graphene_triangle_get_normal
 import org.gtkkn.native.graphene.graphene_triangle_get_plane
 import org.gtkkn.native.graphene.graphene_triangle_get_points
+import org.gtkkn.native.graphene.graphene_triangle_get_type
 import org.gtkkn.native.graphene.graphene_triangle_get_uv
 import org.gtkkn.native.graphene.graphene_triangle_get_vertices
 import org.gtkkn.native.graphene.graphene_triangle_init_from_point3d
@@ -82,7 +84,7 @@ public class Triangle(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getArea(): Float = graphene_triangle_get_area(grapheneTrianglePointer.reinterpret())
+    public fun getArea(): gfloat = graphene_triangle_get_area(grapheneTrianglePointer.reinterpret())
 
     /**
      * Computes the [barycentric coordinates](http://en.wikipedia.org/wiki/Barycentric_coordinate_system)
@@ -263,6 +265,13 @@ public class Triangle(
          * @since 1.2
          */
         public fun alloc(): Triangle = Triangle(graphene_triangle_alloc()!!.reinterpret())
+
+        /**
+         * Get the GType of Triangle
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = graphene_triangle_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Triangle = Triangle(pointer.reinterpret())
     }

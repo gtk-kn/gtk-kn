@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.Boolean
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -23,6 +22,7 @@ import org.gtkkn.native.glib.g_queue_init
 import org.gtkkn.native.glib.g_queue_is_empty
 import org.gtkkn.native.glib.g_queue_reverse
 import org.gtkkn.native.glib.g_queue_sort
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -73,7 +73,7 @@ public class Queue(
     /**
      * the number of elements in the queue
      */
-    public var length: UInt
+    public var length: guint
         get() = glibQueuePointer.pointed.length
         set(`value`) {
             glibQueuePointer.pointed.length = value
@@ -118,7 +118,7 @@ public class Queue(
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun getLength(): UInt = g_queue_get_length(glibQueuePointer.reinterpret())
+    public fun getLength(): guint = g_queue_get_length(glibQueuePointer.reinterpret())
 
     /**
      * A statically-allocated #GQueue must be initialized with this function

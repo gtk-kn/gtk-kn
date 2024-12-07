@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_20
@@ -19,6 +18,8 @@ import org.gtkkn.native.gio.g_unix_input_stream_get_fd
 import org.gtkkn.native.gio.g_unix_input_stream_get_type
 import org.gtkkn.native.gio.g_unix_input_stream_new
 import org.gtkkn.native.gio.g_unix_input_stream_set_close_fd
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * `GUnixInputStream` implements [class@Gio.InputStream] for reading from a UNIX
@@ -77,7 +78,7 @@ public open class UnixInputStream(
      * @since 2.20
      */
     @GioVersion2_20
-    public open val fd: Int
+    public open val fd: gint
         /**
          * Return the UNIX file descriptor that the stream reads from.
          *
@@ -96,7 +97,7 @@ public open class UnixInputStream(
      * @param closeFd true to close the file descriptor when done
      * @return a new #GUnixInputStream
      */
-    public constructor(fd: Int, closeFd: Boolean) : this(g_unix_input_stream_new(fd, closeFd.asGBoolean())!!.reinterpret())
+    public constructor(fd: gint, closeFd: Boolean) : this(g_unix_input_stream_new(fd, closeFd.asGBoolean())!!.reinterpret())
 
     public companion object : TypeCompanion<UnixInputStream> {
         override val type: GeneratedClassKGType<UnixInputStream> =
@@ -104,5 +105,12 @@ public open class UnixInputStream(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of UnixInputStream
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_unix_input_stream_get_type()
     }
 }

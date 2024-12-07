@@ -2,9 +2,7 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -16,6 +14,9 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkStyleContext
 import org.gtkkn.native.gtk.gtk_style_context_add_class
 import org.gtkkn.native.gtk.gtk_style_context_add_provider
@@ -148,7 +149,7 @@ public open class StyleContext(
      *   %GTK_STYLE_PROVIDER_PRIORITY_FALLBACK and
      *   %GTK_STYLE_PROVIDER_PRIORITY_USER
      */
-    public open fun addProvider(provider: StyleProvider, priority: UInt): Unit = gtk_style_context_add_provider(gtkStyleContextPointer.reinterpret(), provider.gtkStyleProviderPointer, priority)
+    public open fun addProvider(provider: StyleProvider, priority: guint): Unit = gtk_style_context_add_provider(gtkStyleContextPointer.reinterpret(), provider.gtkStyleProviderPointer, priority)
 
     /**
      * Gets the border for a given state as a `GtkBorder`.
@@ -183,7 +184,7 @@ public open class StyleContext(
      *
      * @return the scale
      */
-    public open fun getScale(): Int = gtk_style_context_get_scale(gtkStyleContextPointer.reinterpret())
+    public open fun getScale(): gint = gtk_style_context_get_scale(gtkStyleContextPointer.reinterpret())
 
     /**
      * Returns the state used for style matching.
@@ -257,7 +258,7 @@ public open class StyleContext(
      *
      * @param scale scale
      */
-    public open fun setScale(scale: Int): Unit = gtk_style_context_set_scale(gtkStyleContextPointer.reinterpret(), scale)
+    public open fun setScale(scale: gint): Unit = gtk_style_context_set_scale(gtkStyleContextPointer.reinterpret(), scale)
 
     /**
      * Sets the state to be used for style matching.
@@ -312,7 +313,7 @@ public open class StyleContext(
         public fun addProviderForDisplay(
             display: Display,
             provider: StyleProvider,
-            priority: UInt,
+            priority: guint,
         ): Unit = gtk_style_context_add_provider_for_display(display.gdkDisplayPointer.reinterpret(), provider.gtkStyleProviderPointer, priority)
 
         /**
@@ -322,5 +323,12 @@ public open class StyleContext(
          * @param provider a `GtkStyleProvider`
          */
         public fun removeProviderForDisplay(display: Display, provider: StyleProvider): Unit = gtk_style_context_remove_provider_for_display(display.gdkDisplayPointer.reinterpret(), provider.gtkStyleProviderPointer)
+
+        /**
+         * Get the GType of StyleContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_style_context_get_type()
     }
 }

@@ -21,6 +21,7 @@ import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GResource
 import org.gtkkn.native.gio.g_resource_enumerate_children
+import org.gtkkn.native.gio.g_resource_get_type
 import org.gtkkn.native.gio.g_resource_load
 import org.gtkkn.native.gio.g_resource_lookup_data
 import org.gtkkn.native.gio.g_resource_new_from_data
@@ -30,6 +31,7 @@ import org.gtkkn.native.gio.g_resource_unref
 import org.gtkkn.native.gio.g_resources_register
 import org.gtkkn.native.gio.g_resources_unregister
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -397,6 +399,13 @@ public class Resource(
                 Result.success(checkNotNull(gResult))
             }
         }
+
+        /**
+         * Get the GType of Resource
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_resource_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Resource = Resource(pointer.reinterpret())
     }

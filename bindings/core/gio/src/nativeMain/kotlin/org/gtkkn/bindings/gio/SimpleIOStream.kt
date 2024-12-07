@@ -10,6 +10,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GSimpleIOStream
 import org.gtkkn.native.gio.g_simple_io_stream_get_type
 import org.gtkkn.native.gio.g_simple_io_stream_new
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GSimpleIOStream` creates a [class@Gio.IOStream] from an arbitrary
@@ -55,5 +56,12 @@ public open class SimpleIOStream(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of SimpleIOStream
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_simple_io_stream_get_type()
     }
 }

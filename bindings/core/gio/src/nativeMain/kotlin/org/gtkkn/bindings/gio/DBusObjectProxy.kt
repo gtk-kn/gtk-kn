@@ -14,6 +14,7 @@ import org.gtkkn.native.gio.GDBusObjectProxy
 import org.gtkkn.native.gio.g_dbus_object_proxy_get_connection
 import org.gtkkn.native.gio.g_dbus_object_proxy_get_type
 import org.gtkkn.native.gio.g_dbus_object_proxy_new
+import org.gtkkn.native.gobject.GType
 
 /**
  * A `GDBusObjectProxy` is an object used to represent a remote object
@@ -68,5 +69,12 @@ public open class DBusObjectProxy(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of DBusObjectProxy
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_object_proxy_get_type()
     }
 }

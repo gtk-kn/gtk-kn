@@ -2,10 +2,8 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
@@ -54,6 +52,11 @@ import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GVariant
 import org.gtkkn.native.gobject.GObject
 import org.gtkkn.native.gobject.GValue
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.guint32
+import org.gtkkn.native.gobject.gunichar
 import org.gtkkn.native.gtk.GtkCellLayout
 import org.gtkkn.native.gtk.GtkCellRenderer
 import org.gtkkn.native.gtk.GtkDrawingArea
@@ -678,14 +681,14 @@ public object Gtk {
      * An undefined value. The accessible attribute is either unset, or its
      * value is undefined.
      */
-    public const val ACCESSIBLE_VALUE_UNDEFINED: Int = -1
+    public const val ACCESSIBLE_VALUE_UNDEFINED: gint = -1
 
     /**
      * Like [func@get_binary_age], but from the headers used at
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val BINARY_AGE: Int = 1402
+    public const val BINARY_AGE: gint = 1402
 
     public const val IM_MODULE_EXTENSION_POINT_NAME: String = "gtk-im-module"
 
@@ -695,14 +698,14 @@ public object Gtk {
      *
      * See [signal@Gtk.SpinButton::input].
      */
-    public const val INPUT_ERROR: Int = -1
+    public const val INPUT_ERROR: gint = -1
 
     /**
      * Like [func@get_interface_age], but from the headers used at
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val INTERFACE_AGE: Int = 2
+    public const val INTERFACE_AGE: gint = 2
 
     /**
      * The value used to refer to a guaranteed invalid position
@@ -715,7 +718,7 @@ public object Gtk {
      * Refer to each function's documentation for if this value is
      * allowed and what it does.
      */
-    public const val INVALID_LIST_POSITION: UInt = UInt.MAX_VALUE
+    public const val INVALID_LIST_POSITION: guint32 = UInt.MAX_VALUE
 
     /**
      * The name used for the stock full offset included by `GtkLevelBar`.
@@ -737,9 +740,9 @@ public object Gtk {
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val MAJOR_VERSION: Int = 4
+    public const val MAJOR_VERSION: gint = 4
 
-    public const val MAX_COMPOSE_LEN: Int = 7
+    public const val MAX_COMPOSE_LEN: gint = 7
 
     public const val MEDIA_FILE_EXTENSION_POINT_NAME: String = "gtk-media-file"
 
@@ -748,14 +751,14 @@ public object Gtk {
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val MICRO_VERSION: Int = 2
+    public const val MICRO_VERSION: gint = 2
 
     /**
      * Like [func@get_minor_version], but from the headers used at
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val MINOR_VERSION: Int = 14
+    public const val MINOR_VERSION: gint = 14
 
     /**
      * Name for the A3 paper size.
@@ -881,13 +884,13 @@ public object Gtk {
      * This priority is higher than %GDK_PRIORITY_REDRAW to avoid
      * resizing a widget which was just redrawn.
      */
-    public const val PRIORITY_RESIZE: Int = 110
+    public const val PRIORITY_RESIZE: gint = 110
 
     /**
      * A priority that can be used when adding a `GtkStyleProvider`
      * for application-specific style information.
      */
-    public const val STYLE_PROVIDER_PRIORITY_APPLICATION: Int = 600
+    public const val STYLE_PROVIDER_PRIORITY_APPLICATION: gint = 600
 
     /**
      * The priority used for default style information
@@ -898,7 +901,7 @@ public object Gtk {
      * override styling provided at this priority with
      * catch-all `* {...}` rules.
      */
-    public const val STYLE_PROVIDER_PRIORITY_FALLBACK: Int = 1
+    public const val STYLE_PROVIDER_PRIORITY_FALLBACK: gint = 1
 
     /**
      * The priority used for style information provided
@@ -907,13 +910,13 @@ public object Gtk {
      * This priority is higher than %GTK_STYLE_PROVIDER_PRIORITY_THEME
      * to let settings override themes.
      */
-    public const val STYLE_PROVIDER_PRIORITY_SETTINGS: Int = 400
+    public const val STYLE_PROVIDER_PRIORITY_SETTINGS: gint = 400
 
     /**
      * The priority used for style information provided
      * by themes.
      */
-    public const val STYLE_PROVIDER_PRIORITY_THEME: Int = 200
+    public const val STYLE_PROVIDER_PRIORITY_THEME: gint = 200
 
     /**
      * The priority used for the style information from
@@ -922,27 +925,27 @@ public object Gtk {
      * You should not use priorities higher than this, to
      * give the user the last word.
      */
-    public const val STYLE_PROVIDER_PRIORITY_USER: Int = 800
+    public const val STYLE_PROVIDER_PRIORITY_USER: gint = 800
 
     /**
      * The priority at which the text view validates onscreen lines
      * in an idle job in the background.
      */
-    public const val TEXT_VIEW_PRIORITY_VALIDATE: Int = 125
+    public const val TEXT_VIEW_PRIORITY_VALIDATE: gint = 125
 
     /**
      * Uses the default sort function in a [iface@Gtk.TreeSortable].
      *
      * See also: [method@Gtk.TreeSortable.set_sort_column_id]
      */
-    public const val TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID: Int = -1
+    public const val TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID: gint = -1
 
     /**
      * Disables sorting in a [iface@Gtk.TreeSortable].
      *
      * See also: [method@Gtk.TreeSortable.set_sort_column_id]
      */
-    public const val TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID: Int = -2
+    public const val TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID: gint = -2
 
     /**
      * Gets the modifier mask.
@@ -964,7 +967,7 @@ public object Gtk {
      * @param acceleratorMods accelerator modifier mask
      * @return a newly-allocated string representing the accelerator
      */
-    public fun acceleratorGetLabel(acceleratorKey: UInt, acceleratorMods: ModifierType): String = gtk_accelerator_get_label(acceleratorKey, acceleratorMods.mask)?.toKString() ?: error("Expected not null string")
+    public fun acceleratorGetLabel(acceleratorKey: guint, acceleratorMods: ModifierType): String = gtk_accelerator_get_label(acceleratorKey, acceleratorMods.mask)?.toKString() ?: error("Expected not null string")
 
     /**
      * Converts an accelerator keyval and modifier mask
@@ -985,8 +988,8 @@ public object Gtk {
      */
     public fun acceleratorGetLabelWithKeycode(
         display: Display? = null,
-        acceleratorKey: UInt,
-        keycode: UInt,
+        acceleratorKey: guint,
+        keycode: guint,
         acceleratorMods: ModifierType,
     ): String = gtk_accelerator_get_label_with_keycode(display?.gdkDisplayPointer?.reinterpret(), acceleratorKey, keycode, acceleratorMods.mask)?.toKString() ?: error("Expected not null string")
 
@@ -1004,7 +1007,7 @@ public object Gtk {
      * @param acceleratorMods accelerator modifier mask
      * @return a newly-allocated accelerator name
      */
-    public fun acceleratorName(acceleratorKey: UInt, acceleratorMods: ModifierType): String = gtk_accelerator_name(acceleratorKey, acceleratorMods.mask)?.toKString() ?: error("Expected not null string")
+    public fun acceleratorName(acceleratorKey: guint, acceleratorMods: ModifierType): String = gtk_accelerator_name(acceleratorKey, acceleratorMods.mask)?.toKString() ?: error("Expected not null string")
 
     /**
      * Converts an accelerator keyval and modifier mask
@@ -1022,8 +1025,8 @@ public object Gtk {
      */
     public fun acceleratorNameWithKeycode(
         display: Display? = null,
-        acceleratorKey: UInt,
-        keycode: UInt,
+        acceleratorKey: guint,
+        keycode: guint,
         acceleratorMods: ModifierType,
     ): String = gtk_accelerator_name_with_keycode(display?.gdkDisplayPointer?.reinterpret(), acceleratorKey, keycode, acceleratorMods.mask)?.toKString() ?: error("Expected not null string")
 
@@ -1039,7 +1042,7 @@ public object Gtk {
      * @param modifiers modifier mask
      * @return true if the accelerator is valid
      */
-    public fun acceleratorValid(keyval: UInt, modifiers: ModifierType): Boolean = gtk_accelerator_valid(keyval, modifiers.mask).asBoolean()
+    public fun acceleratorValid(keyval: guint, modifiers: ModifierType): Boolean = gtk_accelerator_valid(keyval, modifiers.mask).asBoolean()
 
     public fun accessiblePropertyInitValue(`property`: AccessibleProperty, `value`: Value): Unit = gtk_accessible_property_init_value(`property`.nativeValue, `value`.gobjectValuePointer.reinterpret())
 
@@ -1083,9 +1086,9 @@ public object Gtk {
      *   or freed.
      */
     public fun checkVersion(
-        requiredMajor: UInt,
-        requiredMinor: UInt,
-        requiredMicro: UInt,
+        requiredMajor: guint,
+        requiredMinor: guint,
+        requiredMicro: guint,
     ): String? = gtk_check_version(requiredMajor, requiredMinor, requiredMicro)?.toKString()
 
     public fun constraintVflParserErrorQuark(): Quark = gtk_constraint_vfl_parser_error_quark()
@@ -1123,7 +1126,7 @@ public object Gtk {
      */
     public fun editableDelegateGetProperty(
         `object`: Object,
-        propId: UInt,
+        propId: guint,
         `value`: Value,
         pspec: ParamSpec,
     ): Boolean = gtk_editable_delegate_get_property(`object`.gPointer.reinterpret(), propId, `value`.gobjectValuePointer.reinterpret(), pspec.gPointer.reinterpret()).asBoolean()
@@ -1143,7 +1146,7 @@ public object Gtk {
      */
     public fun editableDelegateSetProperty(
         `object`: Object,
-        propId: UInt,
+        propId: guint,
         `value`: Value,
         pspec: ParamSpec,
     ): Boolean = gtk_editable_delegate_set_property(`object`.gPointer.reinterpret(), propId, `value`.gobjectValuePointer.reinterpret(), pspec.gPointer.reinterpret()).asBoolean()
@@ -1169,7 +1172,7 @@ public object Gtk {
      * @param firstProp property ID to use for the first property
      * @return the number of properties that were installed
      */
-    public fun editableInstallProperties(objectClass: ObjectClass, firstProp: UInt): UInt = gtk_editable_install_properties(objectClass.gobjectObjectClassPointer.reinterpret(), firstProp)
+    public fun editableInstallProperties(objectClass: ObjectClass, firstProp: guint): guint = gtk_editable_install_properties(objectClass.gobjectObjectClassPointer.reinterpret(), firstProp)
 
     /**
      * Calls a function for all `GtkPrinter`s.
@@ -1196,7 +1199,7 @@ public object Gtk {
      *
      * @return the binary age of the GTK library
      */
-    public fun getBinaryAge(): UInt = gtk_get_binary_age()
+    public fun getBinaryAge(): guint = gtk_get_binary_age()
 
     /**
      * Returns the GTK debug flags that are currently active.
@@ -1235,7 +1238,7 @@ public object Gtk {
      *
      * @return the interface age of the GTK library
      */
-    public fun getInterfaceAge(): UInt = gtk_get_interface_age()
+    public fun getInterfaceAge(): guint = gtk_get_interface_age()
 
     /**
      * Get the direction of the current locale. This is the expected
@@ -1282,7 +1285,7 @@ public object Gtk {
      *
      * @return the major version number of the GTK library
      */
-    public fun getMajorVersion(): UInt = gtk_get_major_version()
+    public fun getMajorVersion(): guint = gtk_get_major_version()
 
     /**
      * Returns the micro version number of the GTK library.
@@ -1296,7 +1299,7 @@ public object Gtk {
      *
      * @return the micro version number of the GTK library
      */
-    public fun getMicroVersion(): UInt = gtk_get_micro_version()
+    public fun getMicroVersion(): guint = gtk_get_micro_version()
 
     /**
      * Returns the minor version number of the GTK library.
@@ -1310,7 +1313,7 @@ public object Gtk {
      *
      * @return the minor version number of the GTK library
      */
-    public fun getMinorVersion(): UInt = gtk_get_minor_version()
+    public fun getMinorVersion(): guint = gtk_get_minor_version()
 
     public fun iconThemeErrorQuark(): Quark = gtk_icon_theme_error_quark()
 
@@ -1477,7 +1480,7 @@ public object Gtk {
     public fun showUri(
         parent: Window? = null,
         uri: String,
-        timestamp: UInt,
+        timestamp: guint,
     ): Unit = gtk_show_uri(parent?.gtkWindowPointer?.reinterpret(), uri, timestamp)
 
     /**
@@ -1499,7 +1502,7 @@ public object Gtk {
     public fun showUriFull(
         parent: Window? = null,
         uri: String,
-        timestamp: UInt,
+        timestamp: guint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = gtk_show_uri_full(parent?.gtkWindowPointer?.reinterpret(), uri, timestamp, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -1527,7 +1530,7 @@ public object Gtk {
     public fun testAccessibleAssertionMessageRole(
         domain: String,
         `file`: String,
-        line: Int,
+        line: gint,
         func: String,
         expr: String,
         accessible: Accessible,
@@ -1703,18 +1706,18 @@ public object Gtk {
     }
 }
 
-public val AssistantPageFuncFunc: CPointer<CFunction<(Int) -> Int>> = staticCFunction {
-    currentPage: Int,
+public val AssistantPageFuncFunc: CPointer<CFunction<(gint) -> gint>> = staticCFunction {
+    currentPage: gint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(currentPage: Int) -> Int>().get().invoke(currentPage)}
+    userData.asStableRef<(currentPage: gint) -> gint>().get().invoke(currentPage)}
 .reinterpret()
 
 public val CellAllocCallbackFunc: CPointer<CFunction<(
     CPointer<GtkCellRenderer>,
     CPointer<GdkRectangle>,
     CPointer<GdkRectangle>,
-) -> Int>> = staticCFunction {
+) -> gboolean>> = staticCFunction {
     renderer: CPointer<GtkCellRenderer>?,
     cellArea: CPointer<GdkRectangle>?,
     cellBackground: CPointer<GdkRectangle>?,
@@ -1733,7 +1736,7 @@ public val CellAllocCallbackFunc: CPointer<CFunction<(
     ).asGBoolean()}
 .reinterpret()
 
-public val CellCallbackFunc: CPointer<CFunction<(CPointer<GtkCellRenderer>) -> Int>> =
+public val CellCallbackFunc: CPointer<CFunction<(CPointer<GtkCellRenderer>) -> gboolean>> =
         staticCFunction {
     renderer: CPointer<GtkCellRenderer>?,
     userData: COpaquePointer
@@ -1771,7 +1774,8 @@ public val CellLayoutDataFuncFunc: CPointer<CFunction<(
     )}
 .reinterpret()
 
-public val CustomFilterFuncFunc: CPointer<CFunction<(CPointer<GObject>) -> Int>> = staticCFunction {
+public val CustomFilterFuncFunc: CPointer<CFunction<(CPointer<GObject>) -> gboolean>> =
+        staticCFunction {
     item: CPointer<GObject>?,
     userData: COpaquePointer
     ->
@@ -1782,18 +1786,18 @@ public val CustomFilterFuncFunc: CPointer<CFunction<(CPointer<GObject>) -> Int>>
 
 public val DrawingAreaDrawFuncFunc: CPointer<CFunction<(
     CPointer<GtkDrawingArea>,
-    Int,
-    Int,
+    gint,
+    gint,
 ) -> Unit>> = staticCFunction {
     drawingArea: CPointer<GtkDrawingArea>?,
-    width: Int,
-    height: Int,
+    width: gint,
+    height: gint,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         drawingArea: DrawingArea,
-        width: Int,
-        height: Int,
+        width: gint,
+        height: gint,
     ) -> Unit>().get().invoke(drawingArea!!.run {
         DrawingArea(reinterpret())}
     , width, height)}
@@ -1803,7 +1807,7 @@ public val EntryCompletionMatchFuncFunc: CPointer<CFunction<(
     CPointer<GtkEntryCompletion>,
     CPointer<ByteVar>,
     CPointer<GtkTreeIter>,
-) -> Int>> = staticCFunction {
+) -> gboolean>> = staticCFunction {
     completion: CPointer<GtkEntryCompletion>?,
     key: CPointer<ByteVar>?,
     iter: CPointer<GtkTreeIter>?,
@@ -1836,7 +1840,7 @@ public val FlowBoxCreateWidgetFuncFunc:
     ).gtkWidgetPointer}
 .reinterpret()
 
-public val FlowBoxFilterFuncFunc: CPointer<CFunction<(CPointer<GtkFlowBoxChild>) -> Int>> =
+public val FlowBoxFilterFuncFunc: CPointer<CFunction<(CPointer<GtkFlowBoxChild>) -> gboolean>> =
         staticCFunction {
     child: CPointer<GtkFlowBoxChild>?,
     userData: COpaquePointer
@@ -1861,13 +1865,13 @@ public val FlowBoxForeachFuncFunc:
 .reinterpret()
 
 public val FlowBoxSortFuncFunc:
-        CPointer<CFunction<(CPointer<GtkFlowBoxChild>, CPointer<GtkFlowBoxChild>) -> Int>> =
+        CPointer<CFunction<(CPointer<GtkFlowBoxChild>, CPointer<GtkFlowBoxChild>) -> gint>> =
         staticCFunction {
     child1: CPointer<GtkFlowBoxChild>?,
     child2: CPointer<GtkFlowBoxChild>?,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(child1: FlowBoxChild, child2: FlowBoxChild) -> Int>().get().invoke(child1!!.run {
+    userData.asStableRef<(child1: FlowBoxChild, child2: FlowBoxChild) -> gint>().get().invoke(child1!!.run {
         FlowBoxChild(reinterpret())}
     , child2!!.run {
         FlowBoxChild(reinterpret())}
@@ -1875,7 +1879,7 @@ public val FlowBoxSortFuncFunc:
 .reinterpret()
 
 public val FontFilterFuncFunc:
-        CPointer<CFunction<(CPointer<PangoFontFamily>, CPointer<PangoFontFace>) -> Int>> =
+        CPointer<CFunction<(CPointer<PangoFontFamily>, CPointer<PangoFontFace>) -> gboolean>> =
         staticCFunction {
     family: CPointer<PangoFontFamily>?,
     face: CPointer<PangoFontFace>?,
@@ -1912,7 +1916,7 @@ public val ListBoxCreateWidgetFuncFunc:
     ).gtkWidgetPointer}
 .reinterpret()
 
-public val ListBoxFilterFuncFunc: CPointer<CFunction<(CPointer<GtkListBoxRow>) -> Int>> =
+public val ListBoxFilterFuncFunc: CPointer<CFunction<(CPointer<GtkListBoxRow>) -> gboolean>> =
         staticCFunction {
     row: CPointer<GtkListBoxRow>?,
     userData: COpaquePointer
@@ -1937,13 +1941,13 @@ public val ListBoxForeachFuncFunc:
 .reinterpret()
 
 public val ListBoxSortFuncFunc:
-        CPointer<CFunction<(CPointer<GtkListBoxRow>, CPointer<GtkListBoxRow>) -> Int>> =
+        CPointer<CFunction<(CPointer<GtkListBoxRow>, CPointer<GtkListBoxRow>) -> gint>> =
         staticCFunction {
     row1: CPointer<GtkListBoxRow>?,
     row2: CPointer<GtkListBoxRow>?,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(row1: ListBoxRow, row2: ListBoxRow) -> Int>().get().invoke(row1!!.run {
+    userData.asStableRef<(row1: ListBoxRow, row2: ListBoxRow) -> gint>().get().invoke(row1!!.run {
         ListBoxRow(reinterpret())}
     , row2!!.run {
         ListBoxRow(reinterpret())}
@@ -2017,7 +2021,8 @@ public val PrintSettingsFuncFunc:
     userData.asStableRef<(key: String, `value`: String) -> Unit>().get().invoke(key?.toKString() ?: error("Expected not null string"), `value`?.toKString() ?: error("Expected not null string"))}
 .reinterpret()
 
-public val PrinterFuncFunc: CPointer<CFunction<(CPointer<GtkPrinter>) -> Int>> = staticCFunction {
+public val PrinterFuncFunc: CPointer<CFunction<(CPointer<GtkPrinter>) -> gboolean>> =
+        staticCFunction {
     printer: CPointer<GtkPrinter>?,
     userData: COpaquePointer
     ->
@@ -2026,8 +2031,9 @@ public val PrinterFuncFunc: CPointer<CFunction<(CPointer<GtkPrinter>) -> Int>> =
     ).asGBoolean()}
 .reinterpret()
 
-public val ShortcutFuncFunc: CPointer<CFunction<(CPointer<GtkWidget>, CPointer<GVariant>?) -> Int>>
-        = staticCFunction {
+public val ShortcutFuncFunc:
+        CPointer<CFunction<(CPointer<GtkWidget>, CPointer<GVariant>?) -> gboolean>> =
+        staticCFunction {
     widget: CPointer<GtkWidget>?,
     args: CPointer<GVariant>?,
     userData: COpaquePointer
@@ -2039,11 +2045,11 @@ public val ShortcutFuncFunc: CPointer<CFunction<(CPointer<GtkWidget>, CPointer<G
     ).asGBoolean()}
 .reinterpret()
 
-public val TextCharPredicateFunc: CPointer<CFunction<(UInt) -> Int>> = staticCFunction {
-    ch: UInt,
+public val TextCharPredicateFunc: CPointer<CFunction<(gunichar) -> gboolean>> = staticCFunction {
+    ch: gunichar,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(ch: UInt) -> Boolean>().get().invoke(ch).asGBoolean()}
+    userData.asStableRef<(ch: gunichar) -> Boolean>().get().invoke(ch).asGBoolean()}
 .reinterpret()
 
 public val TextTagTableForeachFunc: CPointer<CFunction<(CPointer<GtkTextTag>) -> Unit>> =
@@ -2057,7 +2063,7 @@ public val TextTagTableForeachFunc: CPointer<CFunction<(CPointer<GtkTextTag>) ->
 .reinterpret()
 
 public val TickCallbackFunc:
-        CPointer<CFunction<(CPointer<GtkWidget>, CPointer<GdkFrameClock>) -> Int>> =
+        CPointer<CFunction<(CPointer<GtkWidget>, CPointer<GdkFrameClock>) -> gboolean>> =
         staticCFunction {
     widget: CPointer<GtkWidget>?,
     frameClock: CPointer<GdkFrameClock>?,
@@ -2102,7 +2108,7 @@ public val TreeIterCompareFuncFunc: CPointer<CFunction<(
     CPointer<GtkTreeModel>,
     CPointer<GtkTreeIter>,
     CPointer<GtkTreeIter>,
-) -> Int>> = staticCFunction {
+) -> gint>> = staticCFunction {
     model: CPointer<GtkTreeModel>?,
     a: CPointer<GtkTreeIter>?,
     b: CPointer<GtkTreeIter>?,
@@ -2112,7 +2118,7 @@ public val TreeIterCompareFuncFunc: CPointer<CFunction<(
         model: TreeModel,
         a: TreeIter,
         b: TreeIter,
-    ) -> Int>().get().invoke(model!!.run {
+    ) -> gint>().get().invoke(model!!.run {
         TreeModel.wrap(reinterpret())}
     , a!!.run {
         TreeIter(reinterpret())}
@@ -2135,19 +2141,19 @@ public val TreeModelFilterModifyFuncFunc: CPointer<CFunction<(
     CPointer<GtkTreeModel>,
     CPointer<GtkTreeIter>,
     CPointer<GValue>,
-    Int,
+    gint,
 ) -> Unit>> = staticCFunction {
     model: CPointer<GtkTreeModel>?,
     iter: CPointer<GtkTreeIter>?,
     `value`: CPointer<GValue>?,
-    column: Int,
+    column: gint,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         model: TreeModel,
         iter: TreeIter,
         `value`: Value,
-        column: Int,
+        column: gint,
     ) -> Unit>().get().invoke(model!!.run {
         TreeModel.wrap(reinterpret())}
     , iter!!.run {
@@ -2158,7 +2164,7 @@ public val TreeModelFilterModifyFuncFunc: CPointer<CFunction<(
 .reinterpret()
 
 public val TreeModelFilterVisibleFuncFunc:
-        CPointer<CFunction<(CPointer<GtkTreeModel>, CPointer<GtkTreeIter>) -> Int>> =
+        CPointer<CFunction<(CPointer<GtkTreeModel>, CPointer<GtkTreeIter>) -> gboolean>> =
         staticCFunction {
     model: CPointer<GtkTreeModel>?,
     iter: CPointer<GtkTreeIter>?,
@@ -2175,7 +2181,7 @@ public val TreeModelForeachFuncFunc: CPointer<CFunction<(
     CPointer<GtkTreeModel>,
     CPointer<GtkTreePath>,
     CPointer<GtkTreeIter>,
-) -> Int>> = staticCFunction {
+) -> gboolean>> = staticCFunction {
     model: CPointer<GtkTreeModel>?,
     path: CPointer<GtkTreePath>?,
     iter: CPointer<GtkTreeIter>?,
@@ -2221,12 +2227,12 @@ public val TreeSelectionFuncFunc: CPointer<CFunction<(
     CPointer<GtkTreeSelection>,
     CPointer<GtkTreeModel>,
     CPointer<GtkTreePath>,
-    Int,
-) -> Int>> = staticCFunction {
+    gboolean,
+) -> gboolean>> = staticCFunction {
     selection: CPointer<GtkTreeSelection>?,
     model: CPointer<GtkTreeModel>?,
     path: CPointer<GtkTreePath>?,
-    pathCurrentlySelected: Int,
+    pathCurrentlySelected: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
@@ -2248,7 +2254,7 @@ public val TreeViewColumnDropFuncFunc: CPointer<CFunction<(
     CPointer<GtkTreeViewColumn>,
     CPointer<GtkTreeViewColumn>,
     CPointer<GtkTreeViewColumn>,
-) -> Int>> = staticCFunction {
+) -> gboolean>> = staticCFunction {
     treeView: CPointer<GtkTreeView>?,
     column: CPointer<GtkTreeViewColumn>?,
     prevColumn: CPointer<GtkTreeViewColumn>?,
@@ -2286,7 +2292,7 @@ public val TreeViewMappingFuncFunc:
 .reinterpret()
 
 public val TreeViewRowSeparatorFuncFunc:
-        CPointer<CFunction<(CPointer<GtkTreeModel>, CPointer<GtkTreeIter>) -> Int>> =
+        CPointer<CFunction<(CPointer<GtkTreeModel>, CPointer<GtkTreeIter>) -> gboolean>> =
         staticCFunction {
     model: CPointer<GtkTreeModel>?,
     iter: CPointer<GtkTreeIter>?,
@@ -2301,19 +2307,19 @@ public val TreeViewRowSeparatorFuncFunc:
 
 public val TreeViewSearchEqualFuncFunc: CPointer<CFunction<(
     CPointer<GtkTreeModel>,
-    Int,
+    gint,
     CPointer<ByteVar>,
     CPointer<GtkTreeIter>,
-) -> Int>> = staticCFunction {
+) -> gboolean>> = staticCFunction {
     model: CPointer<GtkTreeModel>?,
-    column: Int,
+    column: gint,
     key: CPointer<ByteVar>?,
     iter: CPointer<GtkTreeIter>?,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         model: TreeModel,
-        column: Int,
+        column: gint,
         key: String,
         iter: TreeIter,
     ) -> Boolean>().get().invoke(model!!.run {
@@ -2355,7 +2361,7 @@ public val WidgetActionActivateFuncFunc: CPointer<CFunction<(
  * - param `currentPage` The page number used to calculate the next page.
  * - return The next page number
  */
-public typealias AssistantPageFunc = (currentPage: Int) -> Int
+public typealias AssistantPageFunc = (currentPage: gint) -> gint
 
 /**
  * The type of the callback functions used for iterating over the
@@ -2425,8 +2431,8 @@ public typealias CustomFilterFunc = (item: Object) -> Boolean
  */
 public typealias DrawingAreaDrawFunc = (
     drawingArea: DrawingArea,
-    width: Int,
-    height: Int,
+    width: gint,
+    height: gint,
 ) -> Unit
 
 /**
@@ -2496,7 +2502,7 @@ public typealias FlowBoxForeachFunc = (box: FlowBox, child: FlowBoxChild) -> Uni
  * - return < 0 if @child1 should be before @child2, 0 if
  *   they are equal, and > 0 otherwise
  */
-public typealias FlowBoxSortFunc = (child1: FlowBoxChild, child2: FlowBoxChild) -> Int
+public typealias FlowBoxSortFunc = (child1: FlowBoxChild, child2: FlowBoxChild) -> gint
 
 /**
  * The type of function that is used for deciding what fonts get
@@ -2560,7 +2566,7 @@ public typealias ListBoxForeachFunc = (box: ListBox, row: ListBoxRow) -> Unit
  * - return < 0 if @row1 should be before @row2, 0 if they are
  *   equal and > 0 otherwise
  */
-public typealias ListBoxSortFunc = (row1: ListBoxRow, row2: ListBoxRow) -> Int
+public typealias ListBoxSortFunc = (row1: ListBoxRow, row2: ListBoxRow) -> gint
 
 /**
  * Whenever @row changes or which row is before @row changes this
@@ -2657,7 +2663,7 @@ public typealias ShortcutFunc = (widget: Widget, args: Variant?) -> Boolean
  * - return true if the predicate is satisfied, and the iteration should
  *   stop, and false otherwise
  */
-public typealias TextCharPredicate = (ch: UInt) -> Boolean
+public typealias TextCharPredicate = (ch: gunichar) -> Boolean
 
 /**
  * A function used with gtk_text_tag_table_foreach(),
@@ -2723,7 +2729,7 @@ public typealias TreeIterCompareFunc = (
     model: TreeModel,
     a: TreeIter,
     b: TreeIter,
-) -> Int
+) -> gint
 
 /**
  * Prototype of the function called to create new child models when
@@ -2758,7 +2764,7 @@ public typealias TreeModelFilterModifyFunc = (
     model: TreeModel,
     iter: TreeIter,
     `value`: Value,
-    column: Int,
+    column: gint,
 ) -> Unit
 
 /**
@@ -2879,7 +2885,7 @@ public typealias TreeViewRowSeparatorFunc = (model: TreeModel, iter: TreeIter) -
  */
 public typealias TreeViewSearchEqualFunc = (
     model: TreeModel,
-    column: Int,
+    column: gint,
     key: String,
     iter: TreeIter,
 ) -> Boolean

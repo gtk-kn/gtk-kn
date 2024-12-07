@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtksource
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -11,6 +10,8 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -81,7 +82,7 @@ public open class Gutter(
      * @param position the renderer position.
      * @return true if operation succeeded. Otherwise false.
      */
-    public open fun insert(renderer: GutterRenderer, position: Int): Boolean = gtk_source_gutter_insert(gtksourceGutterPointer.reinterpret(), renderer.gtksourceGutterRendererPointer.reinterpret(), position).asBoolean()
+    public open fun insert(renderer: GutterRenderer, position: gint): Boolean = gtk_source_gutter_insert(gtksourceGutterPointer.reinterpret(), renderer.gtksourceGutterRendererPointer.reinterpret(), position).asBoolean()
 
     public open fun remove(renderer: GutterRenderer): Unit = gtk_source_gutter_remove(gtksourceGutterPointer.reinterpret(), renderer.gtksourceGutterRendererPointer.reinterpret())
 
@@ -91,7 +92,7 @@ public open class Gutter(
      * @param renderer a #GtkCellRenderer.
      * @param position the new renderer position.
      */
-    public open fun reorder(renderer: GutterRenderer, position: Int): Unit = gtk_source_gutter_reorder(gtksourceGutterPointer.reinterpret(), renderer.gtksourceGutterRendererPointer.reinterpret(), position)
+    public open fun reorder(renderer: GutterRenderer, position: gint): Unit = gtk_source_gutter_reorder(gtksourceGutterPointer.reinterpret(), renderer.gtksourceGutterRendererPointer.reinterpret(), position)
 
     public companion object : TypeCompanion<Gutter> {
         override val type: GeneratedClassKGType<Gutter> =
@@ -99,5 +100,12 @@ public open class Gutter(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of Gutter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_gutter_get_type()
     }
 }

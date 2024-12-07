@@ -9,6 +9,7 @@ import org.gtkkn.bindings.gsk.annotations.GskVersion4_10
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskTextureScaleNode
 import org.gtkkn.native.gsk.gsk_texture_scale_node_get_filter
 import org.gtkkn.native.gsk.gsk_texture_scale_node_get_texture
@@ -79,5 +80,12 @@ public open class TextureScaleNode(
 
         init {
             GskTypeProvider.register()}
+
+        /**
+         * Get the GType of TextureScaleNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_texture_scale_node_get_type()
     }
 }

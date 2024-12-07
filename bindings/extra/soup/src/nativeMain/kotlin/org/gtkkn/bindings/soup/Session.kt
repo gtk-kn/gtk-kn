@@ -2,11 +2,9 @@
 package org.gtkkn.bindings.soup
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Long
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
@@ -48,7 +46,10 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.soup.SoupMessage
 import org.gtkkn.native.soup.SoupSession
 import org.gtkkn.native.soup.soup_session_abort
@@ -182,7 +183,7 @@ public open class Session(
      * if you want to ensure that all future connections will have
      * this timeout value.
      */
-    public open var idleTimeout: UInt
+    public open var idleTimeout: guint
         /**
          * Get the timeout in seconds for idle connection lifetime currently used by
          * @session.
@@ -220,7 +221,7 @@ public open class Session(
     /**
      * The maximum number of connections that the session can open at once.
      */
-    public open val maxConns: UInt
+    public open val maxConns: guint
         /**
          * Get the maximum number of connections that @session can open at once.
          *
@@ -232,7 +233,7 @@ public open class Session(
      * The maximum number of connections that the session can open at once
      * to a given host.
      */
-    public open val maxConnsPerHost: UInt
+    public open val maxConnsPerHost: guint
         /**
          * Get the maximum number of connections that @session can open at once to a
          * given host.
@@ -302,7 +303,7 @@ public open class Session(
      * the length of time that idle persistent connections will be
      * kept open).
      */
-    public open var timeout: UInt
+    public open var timeout: guint
         /**
          * Get the timeout in seconds for socket I/O operations currently used by
          * @session.
@@ -411,7 +412,7 @@ public open class Session(
      *
      * @param featureType a #GType
      */
-    public open fun addFeatureByType(featureType: ULong): Unit = soup_session_add_feature_by_type(soupSessionPointer.reinterpret(), featureType)
+    public open fun addFeatureByType(featureType: GType): Unit = soup_session_add_feature_by_type(soupSessionPointer.reinterpret(), featureType)
 
     /**
      * Get the value used by @session for the "Accept-Language" header on new
@@ -440,7 +441,7 @@ public open class Session(
      * @return a #SoupSessionFeature, or null. The
      *   feature is owned by @session.
      */
-    public open fun getFeature(featureType: ULong): SessionFeature? = soup_session_get_feature(soupSessionPointer.reinterpret(), featureType)?.run {
+    public open fun getFeature(featureType: GType): SessionFeature? = soup_session_get_feature(soupSessionPointer.reinterpret(), featureType)?.run {
         SessionFeature.wrap(reinterpret())}
 
     /**
@@ -452,7 +453,7 @@ public open class Session(
      * @return a #SoupSessionFeature. The feature is
      *   owned by @session.
      */
-    public open fun getFeatureForMessage(featureType: ULong, msg: Message): SessionFeature? = soup_session_get_feature_for_message(soupSessionPointer.reinterpret(), featureType, msg.soupMessagePointer.reinterpret())?.run {
+    public open fun getFeatureForMessage(featureType: GType, msg: Message): SessionFeature? = soup_session_get_feature_for_message(soupSessionPointer.reinterpret(), featureType, msg.soupMessagePointer.reinterpret())?.run {
         SessionFeature.wrap(reinterpret())}
 
     /**
@@ -470,7 +471,7 @@ public open class Session(
      * @param featureType the #GType of the class of features to check for
      * @return true or false
      */
-    public open fun hasFeature(featureType: ULong): Boolean = soup_session_has_feature(soupSessionPointer.reinterpret(), featureType).asBoolean()
+    public open fun hasFeature(featureType: GType): Boolean = soup_session_has_feature(soupSessionPointer.reinterpret(), featureType).asBoolean()
 
     /**
      * Start a preconnection to @msg.
@@ -492,7 +493,7 @@ public open class Session(
      */
     public open fun preconnectAsync(
         msg: Message,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = soup_session_preconnect_async(soupSessionPointer.reinterpret(), msg.soupMessagePointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -527,7 +528,7 @@ public open class Session(
      *
      * @param featureType a #GType
      */
-    public open fun removeFeatureByType(featureType: ULong): Unit = soup_session_remove_feature_by_type(soupSessionPointer.reinterpret(), featureType)
+    public open fun removeFeatureByType(featureType: GType): Unit = soup_session_remove_feature_by_type(soupSessionPointer.reinterpret(), featureType)
 
     /**
      * Synchronously sends @msg and waits for the beginning of a response.
@@ -611,7 +612,7 @@ public open class Session(
      */
     public open fun sendAndReadAsync(
         msg: Message,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = soup_session_send_and_read_async(soupSessionPointer.reinterpret(), msg.soupMessagePointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -686,7 +687,7 @@ public open class Session(
         msg: Message,
         outStream: OutputStream,
         flags: OutputStreamSpliceFlags,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = soup_session_send_and_splice_async(soupSessionPointer.reinterpret(), msg.soupMessagePointer.reinterpret(), outStream.gioOutputStreamPointer.reinterpret(), flags.mask, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -727,7 +728,7 @@ public open class Session(
      */
     public open fun sendAsync(
         msg: Message,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = soup_session_send_async(soupSessionPointer.reinterpret(), msg.soupMessagePointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -810,7 +811,7 @@ public open class Session(
         msg: Message,
         origin: String? = null,
         protocols: List<String>? = null,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = memScoped {
@@ -893,6 +894,13 @@ public open class Session(
 
         init {
             SoupTypeProvider.register()}
+
+        /**
+         * Get the GType of Session
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_session_get_type()
     }
 }
 

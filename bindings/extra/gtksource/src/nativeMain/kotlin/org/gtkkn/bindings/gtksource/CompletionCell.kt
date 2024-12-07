@@ -12,6 +12,7 @@ import org.gtkkn.bindings.pango.AttrList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -104,5 +105,12 @@ public open class CompletionCell(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of CompletionCell
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_completion_cell_get_type()
     }
 }

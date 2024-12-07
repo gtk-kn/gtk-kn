@@ -24,6 +24,7 @@ import org.gtkkn.native.adw.adw_button_content_set_can_shrink
 import org.gtkkn.native.adw.adw_button_content_set_icon_name
 import org.gtkkn.native.adw.adw_button_content_set_label
 import org.gtkkn.native.adw.adw_button_content_set_use_underline
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -200,5 +201,12 @@ public class ButtonContent(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of ButtonContent
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_button_content_get_type()
     }
 }

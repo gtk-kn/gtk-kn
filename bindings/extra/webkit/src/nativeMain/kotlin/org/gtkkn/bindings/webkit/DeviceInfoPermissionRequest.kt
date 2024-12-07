@@ -8,6 +8,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_24
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitDeviceInfoPermissionRequest
 import org.gtkkn.native.webkit.WebKitPermissionRequest
 import org.gtkkn.native.webkit.webkit_device_info_permission_request_get_type
@@ -41,5 +42,12 @@ public class DeviceInfoPermissionRequest(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of DeviceInfoPermissionRequest
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_device_info_permission_request_get_type()
     }
 }

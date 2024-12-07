@@ -10,6 +10,7 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionBar
 import org.gtkkn.native.gtk.GtkBuildable
@@ -153,5 +154,12 @@ public open class ActionBar(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of ActionBar
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_action_bar_get_type()
     }
 }

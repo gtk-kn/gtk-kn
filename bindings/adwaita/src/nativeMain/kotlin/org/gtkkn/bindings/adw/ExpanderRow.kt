@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
@@ -38,6 +37,8 @@ import org.gtkkn.native.adw.adw_expander_row_set_show_enable_switch
 import org.gtkkn.native.adw.adw_expander_row_set_subtitle
 import org.gtkkn.native.adw.adw_expander_row_set_subtitle_lines
 import org.gtkkn.native.adw.adw_expander_row_set_title_lines
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
@@ -261,7 +262,7 @@ public open class ExpanderRow(
      * @since 1.3
      */
     @AdwVersion1_3
-    public open fun setSubtitleLines(subtitleLines: Int): Unit = adw_expander_row_set_subtitle_lines(adwExpanderRowPointer.reinterpret(), subtitleLines)
+    public open fun setSubtitleLines(subtitleLines: gint): Unit = adw_expander_row_set_subtitle_lines(adwExpanderRowPointer.reinterpret(), subtitleLines)
 
     /**
      * Sets the number of lines at the end of which the title label will be
@@ -273,7 +274,7 @@ public open class ExpanderRow(
      * @since 1.3
      */
     @AdwVersion1_3
-    public open fun setTitleLines(titleLines: Int): Unit = adw_expander_row_set_title_lines(adwExpanderRowPointer.reinterpret(), titleLines)
+    public open fun setTitleLines(titleLines: gint): Unit = adw_expander_row_set_title_lines(adwExpanderRowPointer.reinterpret(), titleLines)
 
     public companion object : TypeCompanion<ExpanderRow> {
         override val type: GeneratedClassKGType<ExpanderRow> =
@@ -281,5 +282,12 @@ public open class ExpanderRow(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of ExpanderRow
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_expander_row_get_type()
     }
 }

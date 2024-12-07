@@ -1,9 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlin.Double
-import kotlin.Int
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -21,6 +18,11 @@ import org.gtkkn.native.glib.g_rand_int_range
 import org.gtkkn.native.glib.g_rand_new
 import org.gtkkn.native.glib.g_rand_new_with_seed
 import org.gtkkn.native.glib.g_rand_set_seed
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_rand_get_type
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -55,7 +57,7 @@ public class Rand(
      *
      * @return a random number
      */
-    public fun double(): Double = g_rand_double(glibRandPointer.reinterpret())
+    public fun double(): gdouble = g_rand_double(glibRandPointer.reinterpret())
 
     /**
      * Returns the next random #gdouble from @rand_ equally distributed over
@@ -65,7 +67,7 @@ public class Rand(
      * @param end upper open bound of the interval
      * @return a random number
      */
-    public fun doubleRange(begin: Double, end: Double): Double = g_rand_double_range(glibRandPointer.reinterpret(), begin, end)
+    public fun doubleRange(begin: gdouble, end: gdouble): gdouble = g_rand_double_range(glibRandPointer.reinterpret(), begin, end)
 
     /**
      * Frees the memory allocated for the #GRand.
@@ -78,7 +80,7 @@ public class Rand(
      *
      * @return a random number
      */
-    public fun int(): UInt = g_rand_int(glibRandPointer.reinterpret())
+    public fun int(): guint = g_rand_int(glibRandPointer.reinterpret())
 
     /**
      * Returns the next random #gint32 from @rand_ equally distributed over
@@ -88,14 +90,14 @@ public class Rand(
      * @param end upper open bound of the interval
      * @return a random number
      */
-    public fun intRange(begin: Int, end: Int): Int = g_rand_int_range(glibRandPointer.reinterpret(), begin, end)
+    public fun intRange(begin: gint, end: gint): gint = g_rand_int_range(glibRandPointer.reinterpret(), begin, end)
 
     /**
      * Sets the seed for the random number generator #GRand to @seed.
      *
      * @param seed a value to reinitialize the random number generator
      */
-    public fun setSeed(seed: UInt): Unit = g_rand_set_seed(glibRandPointer.reinterpret(), seed)
+    public fun setSeed(seed: guint): Unit = g_rand_set_seed(glibRandPointer.reinterpret(), seed)
 
     public companion object : RecordCompanion<Rand, GRand> {
         /**
@@ -115,7 +117,14 @@ public class Rand(
          * @param seed a value to initialize the random number generator
          * @return the new #GRand
          */
-        public fun newWithSeed(seed: UInt): Rand = Rand(g_rand_new_with_seed(seed)!!.reinterpret())
+        public fun newWithSeed(seed: guint): Rand = Rand(g_rand_new_with_seed(seed)!!.reinterpret())
+
+        /**
+         * Get the GType of Rand
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_rand_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Rand = Rand(pointer.reinterpret())
     }

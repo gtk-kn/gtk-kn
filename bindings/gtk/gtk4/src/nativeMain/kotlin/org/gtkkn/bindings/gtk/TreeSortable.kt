@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -20,6 +19,7 @@ import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkTreeModel
 import org.gtkkn.native.gtk.GtkTreeSortable
 import org.gtkkn.native.gtk.gtk_tree_sortable_get_type
@@ -84,7 +84,7 @@ public interface TreeSortable : Interface, TreeModel, KGTyped {
      * @param sortColumnId the sort column id to set
      * @param order The sort order of the column
      */
-    public fun setSortColumnId(sortColumnId: Int, order: SortType): Unit = gtk_tree_sortable_set_sort_column_id(gtkTreeSortablePointer.reinterpret(), sortColumnId, order.nativeValue)
+    public fun setSortColumnId(sortColumnId: gint, order: SortType): Unit = gtk_tree_sortable_set_sort_column_id(gtkTreeSortablePointer.reinterpret(), sortColumnId, order.nativeValue)
 
     /**
      * Sets the comparison function used when sorting to be @sort_func. If the
@@ -94,7 +94,7 @@ public interface TreeSortable : Interface, TreeModel, KGTyped {
      * @param sortColumnId the sort column id to set the function for
      * @param sortFunc The comparison function
      */
-    public fun setSortFunc(sortColumnId: Int, sortFunc: TreeIterCompareFunc): Unit = gtk_tree_sortable_set_sort_func(gtkTreeSortablePointer.reinterpret(), sortColumnId, TreeIterCompareFuncFunc.reinterpret(), StableRef.create(sortFunc).asCPointer(), staticStableRefDestroy.reinterpret())
+    public fun setSortFunc(sortColumnId: gint, sortFunc: TreeIterCompareFunc): Unit = gtk_tree_sortable_set_sort_func(gtkTreeSortablePointer.reinterpret(), sortColumnId, TreeIterCompareFuncFunc.reinterpret(), StableRef.create(sortFunc).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Emits a `GtkTreeSortable::sort-column-changed` signal on @sortable.

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -27,7 +26,9 @@ import org.gtkkn.native.gio.g_file_monitor_emit_event
 import org.gtkkn.native.gio.g_file_monitor_get_type
 import org.gtkkn.native.gio.g_file_monitor_is_cancelled
 import org.gtkkn.native.gio.g_file_monitor_set_rate_limit
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 
 /**
  * Monitors a file or directory for changes.
@@ -96,7 +97,7 @@ public open class FileMonitor(
      * @param limitMsecs a non-negative integer with the limit in milliseconds
      *     to poll for changes
      */
-    public open fun setRateLimit(limitMsecs: Int): Unit = g_file_monitor_set_rate_limit(gioFileMonitorPointer.reinterpret(), limitMsecs)
+    public open fun setRateLimit(limitMsecs: gint): Unit = g_file_monitor_set_rate_limit(gioFileMonitorPointer.reinterpret(), limitMsecs)
 
     /**
      * Emitted when @file has been changed.
@@ -143,6 +144,13 @@ public open class FileMonitor(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of FileMonitor
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_file_monitor_get_type()
     }
 }
 

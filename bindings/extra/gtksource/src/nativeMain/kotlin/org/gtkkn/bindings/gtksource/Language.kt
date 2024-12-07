@@ -13,6 +13,7 @@ import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceLanguage
 import org.gtkkn.native.gtksource.gtk_source_language_get_globs
 import org.gtkkn.native.gtksource.gtk_source_language_get_hidden
@@ -160,5 +161,12 @@ public open class Language(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of Language
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_language_get_type()
     }
 }

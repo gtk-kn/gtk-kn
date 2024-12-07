@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.Unit
@@ -43,6 +42,8 @@ import org.gtkkn.native.gio.g_subprocess_launcher_take_stdin_fd
 import org.gtkkn.native.gio.g_subprocess_launcher_take_stdout_fd
 import org.gtkkn.native.gio.g_subprocess_launcher_unsetenv
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * This class contains a set of options for launching child processes,
@@ -291,7 +292,7 @@ public open class SubprocessLauncher(
      * @param sourceFd File descriptor in parent process
      * @param targetFd Target descriptor for child process
      */
-    public open fun takeFd(sourceFd: Int, targetFd: Int): Unit = g_subprocess_launcher_take_fd(gioSubprocessLauncherPointer.reinterpret(), sourceFd, targetFd)
+    public open fun takeFd(sourceFd: gint, targetFd: gint): Unit = g_subprocess_launcher_take_fd(gioSubprocessLauncherPointer.reinterpret(), sourceFd, targetFd)
 
     /**
      * Sets the file descriptor to use as the stderr for spawned processes.
@@ -315,7 +316,7 @@ public open class SubprocessLauncher(
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun takeStderrFd(fd: Int): Unit = g_subprocess_launcher_take_stderr_fd(gioSubprocessLauncherPointer.reinterpret(), fd)
+    public open fun takeStderrFd(fd: gint): Unit = g_subprocess_launcher_take_stderr_fd(gioSubprocessLauncherPointer.reinterpret(), fd)
 
     /**
      * Sets the file descriptor to use as the stdin for spawned processes.
@@ -341,7 +342,7 @@ public open class SubprocessLauncher(
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun takeStdinFd(fd: Int): Unit = g_subprocess_launcher_take_stdin_fd(gioSubprocessLauncherPointer.reinterpret(), fd)
+    public open fun takeStdinFd(fd: gint): Unit = g_subprocess_launcher_take_stdin_fd(gioSubprocessLauncherPointer.reinterpret(), fd)
 
     /**
      * Sets the file descriptor to use as the stdout for spawned processes.
@@ -366,7 +367,7 @@ public open class SubprocessLauncher(
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun takeStdoutFd(fd: Int): Unit = g_subprocess_launcher_take_stdout_fd(gioSubprocessLauncherPointer.reinterpret(), fd)
+    public open fun takeStdoutFd(fd: gint): Unit = g_subprocess_launcher_take_stdout_fd(gioSubprocessLauncherPointer.reinterpret(), fd)
 
     /**
      * Removes the environment variable @variable from the environment of
@@ -388,5 +389,12 @@ public open class SubprocessLauncher(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of SubprocessLauncher
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_subprocess_launcher_get_type()
     }
 }

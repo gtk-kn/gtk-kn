@@ -10,6 +10,7 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceFile
 import org.gtkkn.native.gtksource.gtk_source_file_check_file_on_disk
 import org.gtkkn.native.gtksource.gtk_source_file_get_compression_type
@@ -167,5 +168,12 @@ public open class File(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of File
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_file_get_type()
     }
 }

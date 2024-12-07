@@ -16,6 +16,7 @@ import org.gtkkn.native.gio.g_memory_input_stream_add_bytes
 import org.gtkkn.native.gio.g_memory_input_stream_get_type
 import org.gtkkn.native.gio.g_memory_input_stream_new
 import org.gtkkn.native.gio.g_memory_input_stream_new_from_bytes
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GMemoryInputStream` is a class for using arbitrary
@@ -75,5 +76,12 @@ public open class MemoryInputStream(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of MemoryInputStream
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_memory_input_stream_get_type()
     }
 }

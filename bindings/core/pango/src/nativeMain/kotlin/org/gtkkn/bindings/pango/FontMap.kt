@@ -1,9 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
-import kotlin.Double
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -18,6 +16,9 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.pango.PangoFontMap
 import org.gtkkn.native.pango.pango_font_map_changed
 import org.gtkkn.native.pango.pango_font_map_create_context
@@ -114,7 +115,7 @@ public open class FontMap(
      * @since 1.32.4
      */
     @PangoVersion1_32_4
-    public open fun getSerial(): UInt = pango_font_map_get_serial(pangoFontMapPointer.reinterpret())
+    public open fun getSerial(): guint = pango_font_map_get_serial(pangoFontMapPointer.reinterpret())
 
     /**
      * Load the font in the fontmap that is the closest match for @desc.
@@ -160,7 +161,7 @@ public open class FontMap(
     @PangoVersion1_52
     public open fun reloadFont(
         font: Font,
-        scale: Double,
+        scale: gdouble,
         context: Context? = null,
         variations: String? = null,
     ): Font = pango_font_map_reload_font(pangoFontMapPointer.reinterpret(), font.pangoFontPointer.reinterpret(), scale, context?.pangoContextPointer?.reinterpret(), variations)!!.run {
@@ -172,5 +173,12 @@ public open class FontMap(
 
         init {
             PangoTypeProvider.register()}
+
+        /**
+         * Get the GType of FontMap
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_font_map_get_type()
     }
 }

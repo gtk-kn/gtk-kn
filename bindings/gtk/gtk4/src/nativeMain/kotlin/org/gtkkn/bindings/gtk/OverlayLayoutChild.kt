@@ -9,6 +9,7 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkOverlayLayoutChild
 import org.gtkkn.native.gtk.gtk_overlay_layout_child_get_clip_overlay
 import org.gtkkn.native.gtk.gtk_overlay_layout_child_get_measure
@@ -67,5 +68,12 @@ public open class OverlayLayoutChild(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of OverlayLayoutChild
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_overlay_layout_child_get_type()
     }
 }

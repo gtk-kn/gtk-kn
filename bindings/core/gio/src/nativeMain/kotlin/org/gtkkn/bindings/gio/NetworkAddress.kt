@@ -3,7 +3,6 @@ package org.gtkkn.bindings.gio
 
 import kotlin.Result
 import kotlin.String
-import kotlin.UShort
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -30,6 +29,8 @@ import org.gtkkn.native.gio.g_network_address_new_loopback
 import org.gtkkn.native.gio.g_network_address_parse
 import org.gtkkn.native.gio.g_network_address_parse_uri
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint16
 
 /**
  * `GNetworkAddress` provides an easy way to resolve a hostname and
@@ -76,7 +77,7 @@ public open class NetworkAddress(
      * @since 2.22
      */
     @GioVersion2_22
-    public open val port: UShort
+    public open val port: guint16
         /**
          * Gets @addr's port number
          *
@@ -115,7 +116,7 @@ public open class NetworkAddress(
      * @return the new #GNetworkAddress
      * @since 2.22
      */
-    public constructor(hostname: String, port: UShort) : this(g_network_address_new(hostname, port)!!.reinterpret())
+    public constructor(hostname: String, port: guint16) : this(g_network_address_new(hostname, port)!!.reinterpret())
 
     /**
      * Creates a new #GSocketConnectable for connecting to the local host
@@ -135,7 +136,7 @@ public open class NetworkAddress(
      * @return the new #GNetworkAddress
      * @since 2.44
      */
-    public constructor(port: UShort) : this(g_network_address_new_loopback(port)!!.reinterpret())
+    public constructor(port: guint16) : this(g_network_address_new_loopback(port)!!.reinterpret())
 
     public companion object : TypeCompanion<NetworkAddress> {
         override val type: GeneratedClassKGType<NetworkAddress> =
@@ -174,7 +175,7 @@ public open class NetworkAddress(
          * @since 2.22
          */
         @GioVersion2_22
-        public fun parse(hostAndPort: String, defaultPort: UShort): Result<NetworkAddress> = memScoped {
+        public fun parse(hostAndPort: String, defaultPort: guint16): Result<NetworkAddress> = memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_network_address_parse(hostAndPort, defaultPort, gError.ptr)?.run {
                 NetworkAddress(reinterpret())}
@@ -202,7 +203,7 @@ public open class NetworkAddress(
          * @since 2.26
          */
         @GioVersion2_26
-        public fun parseUri(uri: String, defaultPort: UShort): Result<NetworkAddress> = memScoped {
+        public fun parseUri(uri: String, defaultPort: guint16): Result<NetworkAddress> = memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_network_address_parse_uri(uri, defaultPort, gError.ptr)?.run {
                 NetworkAddress(reinterpret())}
@@ -214,5 +215,12 @@ public open class NetworkAddress(
                 Result.success(checkNotNull(gResult))
             }
         }
+
+        /**
+         * Get the GType of NetworkAddress
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_network_address_get_type()
     }
 }

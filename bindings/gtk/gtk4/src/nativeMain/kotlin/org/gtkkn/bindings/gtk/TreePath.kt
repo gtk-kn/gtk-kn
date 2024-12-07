@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
@@ -12,6 +11,8 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkTreePath
 import org.gtkkn.native.gtk.gtk_tree_path_append_index
 import org.gtkkn.native.gtk.gtk_tree_path_compare
@@ -19,6 +20,7 @@ import org.gtkkn.native.gtk.gtk_tree_path_copy
 import org.gtkkn.native.gtk.gtk_tree_path_down
 import org.gtkkn.native.gtk.gtk_tree_path_free
 import org.gtkkn.native.gtk.gtk_tree_path_get_depth
+import org.gtkkn.native.gtk.gtk_tree_path_get_type
 import org.gtkkn.native.gtk.gtk_tree_path_is_ancestor
 import org.gtkkn.native.gtk.gtk_tree_path_is_descendant
 import org.gtkkn.native.gtk.gtk_tree_path_new
@@ -51,7 +53,7 @@ public class TreePath(
      *
      * @param index the index
      */
-    public fun appendIndex(index: Int): Unit = gtk_tree_path_append_index(gtkTreePathPointer.reinterpret(), index)
+    public fun appendIndex(index: gint): Unit = gtk_tree_path_append_index(gtkTreePathPointer.reinterpret(), index)
 
     /**
      * Compares two paths.
@@ -63,7 +65,7 @@ public class TreePath(
      * @param b a `GtkTreePath` to compare with
      * @return the relative positions of @a and @b
      */
-    public fun compare(b: TreePath): Int = gtk_tree_path_compare(gtkTreePathPointer.reinterpret(), b.gtkTreePathPointer.reinterpret())
+    public fun compare(b: TreePath): gint = gtk_tree_path_compare(gtkTreePathPointer.reinterpret(), b.gtkTreePathPointer.reinterpret())
 
     /**
      * Creates a new `GtkTreePath` as a copy of @path.
@@ -88,7 +90,7 @@ public class TreePath(
      *
      * @return The depth of @path
      */
-    public fun getDepth(): Int = gtk_tree_path_get_depth(gtkTreePathPointer.reinterpret())
+    public fun getDepth(): gint = gtk_tree_path_get_depth(gtkTreePathPointer.reinterpret())
 
     /**
      * Returns true if @descendant is a descendant of @path.
@@ -118,7 +120,7 @@ public class TreePath(
      *
      * @param index the index
      */
-    public fun prependIndex(index: Int): Unit = gtk_tree_path_prepend_index(gtkTreePathPointer.reinterpret(), index)
+    public fun prependIndex(index: gint): Unit = gtk_tree_path_prepend_index(gtkTreePathPointer.reinterpret(), index)
 
     /**
      * Moves the @path to point to the previous node at the
@@ -179,6 +181,13 @@ public class TreePath(
          * @return A newly-created `GtkTreePath`
          */
         public fun newFromString(path: String): TreePath? = TreePath(gtk_tree_path_new_from_string(path)!!.reinterpret())
+
+        /**
+         * Get the GType of TreePath
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_tree_path_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TreePath = TreePath(pointer.reinterpret())
     }

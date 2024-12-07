@@ -13,6 +13,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_28
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitUserMessage
 import org.gtkkn.native.webkit.webkit_user_message_get_fd_list
 import org.gtkkn.native.webkit.webkit_user_message_get_name
@@ -134,5 +135,12 @@ public class UserMessage(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of UserMessage
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_user_message_get_type()
     }
 }

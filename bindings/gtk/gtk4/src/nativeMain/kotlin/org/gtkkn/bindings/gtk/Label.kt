@@ -2,10 +2,7 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Float
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.ByteVar
@@ -32,7 +29,12 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAccessibleText
 import org.gtkkn.native.gtk.GtkBuildable
@@ -456,7 +458,7 @@ public open class Label(
      * This property has no effect if the label is not wrapping or ellipsized.
      * Set this property to -1 if you don't want to limit the number of lines.
      */
-    public open var lines: Int
+    public open var lines: gint
         /**
          * Gets the number of lines to which an ellipsized, wrapping
          * label should be limited.
@@ -486,7 +488,7 @@ public open class Label(
      * [property@Gtk.Label:width-chars] and [property@Gtk.Label:max-width-chars]
      * determine the width of ellipsized and wrapped labels.
      */
-    public open var maxWidthChars: Int
+    public open var maxWidthChars: gint
         /**
          * Retrieves the desired maximum width of @label, in characters.
          *
@@ -505,7 +507,7 @@ public open class Label(
     /**
      * The mnemonic accelerator key for the label.
      */
-    public open val mnemonicKeyval: UInt
+    public open val mnemonicKeyval: guint
         /**
          * Return the mnemonic accelerator.
          *
@@ -714,7 +716,7 @@ public open class Label(
      * [property@Gtk.Label:width-chars] and [property@Gtk.Label:max-width-chars]
      * determine the width of ellipsized and wrapped labels.
      */
-    public open var widthChars: Int
+    public open var widthChars: gint
         /**
          * Retrieves the desired width of @label, in characters.
          *
@@ -799,7 +801,7 @@ public open class Label(
      * Compare this to [property@Gtk.Widget:halign], which determines how the
      * labels size allocation is positioned in the space available for the label.
      */
-    public open var xalign: Float
+    public open var xalign: gfloat
         /**
          * Gets the `xalign` of the label.
          *
@@ -823,7 +825,7 @@ public open class Label(
      * Compare this to [property@Gtk.Widget:valign], which determines how the
      * labels size allocation is positioned in the space available for the label.
      */
-    public open var yalign: Float
+    public open var yalign: gfloat
         /**
          * Gets the `yalign` of the label.
          *
@@ -901,7 +903,7 @@ public open class Label(
      * @param startOffset start offset (in characters not bytes)
      * @param endOffset end offset (in characters not bytes)
      */
-    public open fun selectRegion(startOffset: Int, endOffset: Int): Unit = gtk_label_select_region(gtkLabelPointer.reinterpret(), startOffset, endOffset)
+    public open fun selectRegion(startOffset: gint, endOffset: gint): Unit = gtk_label_select_region(gtkLabelPointer.reinterpret(), startOffset, endOffset)
 
     /**
      * Sets the labels text and attributes from markup.
@@ -1045,7 +1047,7 @@ public open class Label(
      */
     public fun connectMoveCursor(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
         step: MovementStep,
-        count: Int,
+        count: gint,
         extendSelection: Boolean,
     ) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "move-cursor", connectMoveCursorFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
@@ -1087,6 +1089,13 @@ public open class Label(
          * @return the new `GtkLabel`
          */
         public fun newWithMnemonic(str: String? = null): Label = Label(gtk_label_new_with_mnemonic(str)!!.reinterpret())
+
+        /**
+         * Get the GType of Label
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_label_get_type()
     }
 }
 
@@ -1097,7 +1106,7 @@ private val connectActivateCurrentLinkFunc: CPointer<CFunction<() -> Unit>> = st
     userData.asStableRef<() -> Unit>().get().invoke()}
 .reinterpret()
 
-private val connectActivateLinkFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Int>> =
+private val connectActivateLinkFunc: CPointer<CFunction<(CPointer<ByteVar>) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     uri: CPointer<ByteVar>?,
@@ -1115,18 +1124,18 @@ private val connectCopyClipboardFunc: CPointer<CFunction<() -> Unit>> = staticCF
 
 private val connectMoveCursorFunc: CPointer<CFunction<(
     GtkMovementStep,
-    Int,
-    Int,
+    gint,
+    gboolean,
 ) -> Unit>> = staticCFunction {
     _: COpaquePointer,
     step: GtkMovementStep,
-    count: Int,
-    extendSelection: Int,
+    count: gint,
+    extendSelection: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         step: MovementStep,
-        count: Int,
+        count: gint,
         extendSelection: Boolean,
     ) -> Unit>().get().invoke(step.run {
         MovementStep.fromNativeValue(this)}

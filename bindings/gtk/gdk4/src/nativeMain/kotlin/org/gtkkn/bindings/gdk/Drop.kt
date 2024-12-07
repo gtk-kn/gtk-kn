@@ -1,10 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
 import kotlinx.cinterop.CPointer
@@ -40,6 +38,8 @@ import org.gtkkn.native.gdk.gdk_drop_read_value_async
 import org.gtkkn.native.gdk.gdk_drop_read_value_finish
 import org.gtkkn.native.gdk.gdk_drop_status
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * The `GdkDrop` object represents the target of an ongoing DND operation.
@@ -179,7 +179,7 @@ public open class Drop(
      */
     public open fun readAsync(
         mimeTypes: List<String>,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = memScoped {
@@ -203,8 +203,8 @@ public open class Drop(
      * @param callback callback to call when the request is satisfied
      */
     public open fun readValueAsync(
-        type: ULong,
-        ioPriority: Int,
+        type: GType,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = gdk_drop_read_value_async(gdkDropPointer.reinterpret(), type, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -258,5 +258,12 @@ public open class Drop(
 
         init {
             GdkTypeProvider.register()}
+
+        /**
+         * Get the GType of Drop
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_drop_get_type()
     }
 }

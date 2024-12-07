@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.Unit
@@ -37,6 +36,9 @@ import org.gtkkn.native.glib.g_match_info_matches
 import org.gtkkn.native.glib.g_match_info_next
 import org.gtkkn.native.glib.g_match_info_ref
 import org.gtkkn.native.glib.g_match_info_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_match_info_get_type
+import org.gtkkn.native.gobject.gint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -112,7 +114,7 @@ public class MatchInfo(
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun fetch(matchNum: Int): String? = g_match_info_fetch(glibMatchInfoPointer.reinterpret(), matchNum)?.toKString()
+    public fun fetch(matchNum: gint): String? = g_match_info_fetch(glibMatchInfoPointer.reinterpret(), matchNum)?.toKString()
 
     /**
      * Bundles up pointers to each of the matching substrings from a match
@@ -181,7 +183,7 @@ public class MatchInfo(
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun getMatchCount(): Int = g_match_info_get_match_count(glibMatchInfoPointer.reinterpret())
+    public fun getMatchCount(): gint = g_match_info_get_match_count(glibMatchInfoPointer.reinterpret())
 
     /**
      * Returns #GRegex object used in @match_info. It belongs to Glib
@@ -300,6 +302,13 @@ public class MatchInfo(
     public fun unref(): Unit = g_match_info_unref(glibMatchInfoPointer.reinterpret())
 
     public companion object : RecordCompanion<MatchInfo, GMatchInfo> {
+        /**
+         * Get the GType of MatchInfo
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_match_info_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MatchInfo = MatchInfo(pointer.reinterpret())
     }
 }

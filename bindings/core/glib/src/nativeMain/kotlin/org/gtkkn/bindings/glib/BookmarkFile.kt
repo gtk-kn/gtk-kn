@@ -2,10 +2,8 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
 import kotlinx.cinterop.CPointed
@@ -60,6 +58,10 @@ import org.gtkkn.native.glib.g_bookmark_file_set_modified_date_time
 import org.gtkkn.native.glib.g_bookmark_file_set_title
 import org.gtkkn.native.glib.g_bookmark_file_set_visited_date_time
 import org.gtkkn.native.glib.g_bookmark_file_to_file
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_bookmark_file_get_type
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gsize
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -324,7 +326,7 @@ public class BookmarkFile(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun getSize(): Int = g_bookmark_file_get_size(glibBookmarkFilePointer.reinterpret())
+    public fun getSize(): gint = g_bookmark_file_get_size(glibBookmarkFilePointer.reinterpret())
 
     /**
      * Returns the title of the bookmark for @uri.
@@ -608,7 +610,7 @@ public class BookmarkFile(
         uri: String,
         name: String,
         exec: String,
-        count: Int,
+        count: gint,
         stamp: DateTime? = null,
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
@@ -651,7 +653,7 @@ public class BookmarkFile(
     public fun setGroups(
         uri: String,
         groups: List<String>? = null,
-        length: ULong,
+        length: gsize,
     ): Unit = memScoped {
         return g_bookmark_file_set_groups(glibBookmarkFilePointer.reinterpret(), uri, groups?.toCStringList(this), length)}
 
@@ -782,6 +784,13 @@ public class BookmarkFile(
         public fun new(): BookmarkFile = BookmarkFile(g_bookmark_file_new()!!.reinterpret())
 
         public fun errorQuark(): Quark = g_bookmark_file_error_quark()
+
+        /**
+         * Get the GType of BookmarkFile
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_bookmark_file_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): BookmarkFile = BookmarkFile(pointer.reinterpret())
     }

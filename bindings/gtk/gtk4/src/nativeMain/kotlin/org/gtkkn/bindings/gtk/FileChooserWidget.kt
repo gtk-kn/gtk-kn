@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -19,7 +18,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -210,7 +211,7 @@ public open class FileChooserWidget(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `bookmarkIndex` the number of the bookmark to switch to
      */
-    public fun connectQuickBookmark(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (bookmarkIndex: Int) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "quick-bookmark", connectQuickBookmarkFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectQuickBookmark(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (bookmarkIndex: gint) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "quick-bookmark", connectQuickBookmarkFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the user asks for it.
@@ -275,6 +276,13 @@ public open class FileChooserWidget(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of FileChooserWidget
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_file_chooser_widget_get_type()
     }
 }
 
@@ -329,12 +337,12 @@ private val connectPlacesShortcutFunc: CPointer<CFunction<() -> Unit>> = staticC
     userData.asStableRef<() -> Unit>().get().invoke()}
 .reinterpret()
 
-private val connectQuickBookmarkFunc: CPointer<CFunction<(Int) -> Unit>> = staticCFunction {
+private val connectQuickBookmarkFunc: CPointer<CFunction<(gint) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    bookmarkIndex: Int,
+    bookmarkIndex: gint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(bookmarkIndex: Int) -> Unit>().get().invoke(bookmarkIndex)}
+    userData.asStableRef<(bookmarkIndex: gint) -> Unit>().get().invoke(bookmarkIndex)}
 .reinterpret()
 
 private val connectRecentShortcutFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {

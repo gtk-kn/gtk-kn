@@ -7,6 +7,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitNavigationPolicyDecision
 import org.gtkkn.native.webkit.webkit_navigation_policy_decision_get_navigation_action
 import org.gtkkn.native.webkit.webkit_navigation_policy_decision_get_type
@@ -47,5 +48,12 @@ public class NavigationPolicyDecision(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of NavigationPolicyDecision
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_navigation_policy_decision_get_type()
     }
 }

@@ -2,9 +2,7 @@
 package org.gtkkn.bindings.webkit
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.ByteVar
@@ -26,7 +24,10 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitInputMethodContext
 import org.gtkkn.native.webkit.webkit_input_method_context_filter_key_event
 import org.gtkkn.native.webkit.webkit_input_method_context_get_input_hints
@@ -139,10 +140,10 @@ public open class InputMethodContext(
      */
     @WebKitVersion2_28
     public open fun notifyCursorArea(
-        x: Int,
-        y: Int,
-        width: Int,
-        height: Int,
+        x: gint,
+        y: gint,
+        width: gint,
+        height: gint,
     ): Unit = webkit_input_method_context_notify_cursor_area(webkitInputMethodContextPointer.reinterpret(), x, y, width, height)
 
     /**
@@ -175,9 +176,9 @@ public open class InputMethodContext(
     @WebKitVersion2_28
     public open fun notifySurrounding(
         text: String,
-        length: Int,
-        cursorIndex: UInt,
-        selectionIndex: UInt,
+        length: gint,
+        cursorIndex: guint,
+        selectionIndex: guint,
     ): Unit = webkit_input_method_context_notify_surrounding(webkitInputMethodContextPointer.reinterpret(), text, length, cursorIndex, selectionIndex)
 
     /**
@@ -220,7 +221,7 @@ public open class InputMethodContext(
      * @since 2.28
      */
     @WebKitVersion2_28
-    public fun connectDeleteSurrounding(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (offset: Int, nChars: UInt) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "delete-surrounding", connectDeleteSurroundingFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectDeleteSurrounding(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (offset: gint, nChars: guint) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "delete-surrounding", connectDeleteSurroundingFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted whenever the preedit sequence currently being entered has changed.
@@ -260,6 +261,13 @@ public open class InputMethodContext(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of InputMethodContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_input_method_context_get_type()
     }
 }
 
@@ -272,14 +280,14 @@ private val connectCommittedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit
     userData.asStableRef<(text: String) -> Unit>().get().invoke(text?.toKString() ?: error("Expected not null string"))}
 .reinterpret()
 
-private val connectDeleteSurroundingFunc: CPointer<CFunction<(Int, UInt) -> Unit>> =
+private val connectDeleteSurroundingFunc: CPointer<CFunction<(gint, guint) -> Unit>> =
         staticCFunction {
     _: COpaquePointer,
-    offset: Int,
-    nChars: UInt,
+    offset: gint,
+    nChars: guint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(offset: Int, nChars: UInt) -> Unit>().get().invoke(offset, nChars)}
+    userData.asStableRef<(offset: gint, nChars: guint) -> Unit>().get().invoke(offset, nChars)}
 .reinterpret()
 
 private val connectPreeditChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -22,7 +21,10 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -274,7 +276,7 @@ public open class ListBox(
      * @param index the index of the row
      * @return the child `GtkWidget`
      */
-    public open fun getRowAtIndex(index: Int): ListBoxRow? = gtk_list_box_get_row_at_index(gtkListBoxPointer.reinterpret(), index)?.run {
+    public open fun getRowAtIndex(index: gint): ListBoxRow? = gtk_list_box_get_row_at_index(gtkListBoxPointer.reinterpret(), index)?.run {
         ListBoxRow(reinterpret())}
 
     /**
@@ -283,7 +285,7 @@ public open class ListBox(
      * @param y position
      * @return the row
      */
-    public open fun getRowAtY(y: Int): ListBoxRow? = gtk_list_box_get_row_at_y(gtkListBoxPointer.reinterpret(), y)?.run {
+    public open fun getRowAtY(y: gint): ListBoxRow? = gtk_list_box_get_row_at_y(gtkListBoxPointer.reinterpret(), y)?.run {
         ListBoxRow(reinterpret())}
 
     /**
@@ -319,7 +321,7 @@ public open class ListBox(
      * @param child the `GtkWidget` to add
      * @param position the position to insert @child in
      */
-    public open fun insert(child: Widget, position: Int): Unit = gtk_list_box_insert(gtkListBoxPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), position)
+    public open fun insert(child: Widget, position: gint): Unit = gtk_list_box_insert(gtkListBoxPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), position)
 
     /**
      * Update the filtering for all rows.
@@ -518,7 +520,7 @@ public open class ListBox(
      */
     public fun connectMoveCursor(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
         `object`: MovementStep,
-        p0: Int,
+        p0: gint,
         p1: Boolean,
         p2: Boolean,
     ) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "move-cursor", connectMoveCursorFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
@@ -593,6 +595,13 @@ public open class ListBox(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of ListBox
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_list_box_get_type()
     }
 }
 
@@ -605,20 +614,20 @@ private val connectActivateCursorRowFunc: CPointer<CFunction<() -> Unit>> = stat
 
 private val connectMoveCursorFunc: CPointer<CFunction<(
     GtkMovementStep,
-    Int,
-    Int,
-    Int,
+    gint,
+    gboolean,
+    gboolean,
 ) -> Unit>> = staticCFunction {
     _: COpaquePointer,
     `object`: GtkMovementStep,
-    p0: Int,
-    p1: Int,
-    p2: Int,
+    p0: gint,
+    p1: gboolean,
+    p2: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         `object`: MovementStep,
-        p0: Int,
+        p0: gint,
         p1: Boolean,
         p2: Boolean,
     ) -> Unit>().get().invoke(`object`.run {

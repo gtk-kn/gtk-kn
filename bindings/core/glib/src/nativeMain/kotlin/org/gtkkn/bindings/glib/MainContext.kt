@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.Boolean
-import kotlin.Int
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -39,6 +37,10 @@ import org.gtkkn.native.glib.g_main_context_release
 import org.gtkkn.native.glib.g_main_context_remove_poll
 import org.gtkkn.native.glib.g_main_context_unref
 import org.gtkkn.native.glib.g_main_context_wakeup
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_main_context_get_type
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -90,7 +92,7 @@ public class MainContext(
      *      the same as the priority used for g_source_attach() to ensure that the
      *      file descriptor is polled whenever the results may be needed.
      */
-    public fun addPoll(fd: PollFD, priority: Int): Unit = g_main_context_add_poll(glibMainContextPointer.reinterpret(), fd.glibPollFDPointer.reinterpret(), priority)
+    public fun addPoll(fd: PollFD, priority: gint): Unit = g_main_context_add_poll(glibMainContextPointer.reinterpret(), fd.glibPollFDPointer.reinterpret(), priority)
 
     /**
      * Dispatches all pending sources.
@@ -120,7 +122,7 @@ public class MainContext(
      * @param sourceId the source ID, as returned by g_source_get_id().
      * @return the #GSource
      */
-    public fun findSourceById(sourceId: UInt): Source = g_main_context_find_source_by_id(glibMainContextPointer.reinterpret(), sourceId)!!.run {
+    public fun findSourceById(sourceId: guint): Source = g_main_context_find_source_by_id(glibMainContextPointer.reinterpret(), sourceId)!!.run {
         Source(reinterpret())}
 
     /**
@@ -139,7 +141,7 @@ public class MainContext(
      * @since 2.28
      */
     @GLibVersion2_28
-    public fun invokeFull(priority: Int, function: SourceFunc): Unit = g_main_context_invoke_full(glibMainContextPointer.reinterpret(), priority, SourceFuncFunc.reinterpret(), StableRef.create(function).asCPointer(), staticStableRefDestroy.reinterpret())
+    public fun invokeFull(priority: gint, function: SourceFunc): Unit = g_main_context_invoke_full(glibMainContextPointer.reinterpret(), priority, SourceFuncFunc.reinterpret(), StableRef.create(function).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Determines whether this thread holds the (recursive)
@@ -363,6 +365,13 @@ public class MainContext(
         @GLibVersion2_32
         public fun refThreadDefault(): MainContext = g_main_context_ref_thread_default()!!.run {
             MainContext(reinterpret())}
+
+        /**
+         * Get the GType of MainContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_main_context_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MainContext = MainContext(pointer.reinterpret())
     }

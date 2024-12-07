@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.javascriptcore
 
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -15,6 +14,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.javascriptcore.JSCClass
 import org.gtkkn.native.javascriptcore.jsc_class_add_constructor_variadic
 import org.gtkkn.native.javascriptcore.jsc_class_add_method_variadic
@@ -86,7 +86,7 @@ public class Class(
     public fun addConstructorVariadic(
         name: String? = null,
         callback: Callback,
-        returnType: ULong,
+        returnType: GType,
     ): Value = jsc_class_add_constructor_variadic(javascriptcoreClassPointer.reinterpret(), name, CallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret(), returnType)!!.run {
         Value(reinterpret())}
 
@@ -108,7 +108,7 @@ public class Class(
     public fun addMethodVariadic(
         name: String,
         callback: Callback,
-        returnType: ULong,
+        returnType: GType,
     ): Unit = jsc_class_add_method_variadic(javascriptcoreClassPointer.reinterpret(), name, CallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret(), returnType)
 
     public companion object : TypeCompanion<Class> {
@@ -117,5 +117,12 @@ public class Class(
 
         init {
             JavascriptcoreTypeProvider.register()}
+
+        /**
+         * Get the GType of Class
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = jsc_class_get_type()
     }
 }

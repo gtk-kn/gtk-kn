@@ -2,9 +2,6 @@
 package org.gtkkn.bindings.gsk
 
 import kotlin.Boolean
-import kotlin.Float
-import kotlin.Int
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -16,7 +13,12 @@ import org.gtkkn.bindings.graphene.Vec4
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gsk.GskShaderArgsBuilder
+import org.gtkkn.native.gsk.gsk_shader_args_builder_get_type
 import org.gtkkn.native.gsk.gsk_shader_args_builder_new
 import org.gtkkn.native.gsk.gsk_shader_args_builder_ref
 import org.gtkkn.native.gsk.gsk_shader_args_builder_set_bool
@@ -54,7 +56,7 @@ public class ShaderArgsBuilder(
      * @param idx index of the uniform
      * @param value value to set the uniform to
      */
-    public fun setBool(idx: Int, `value`: Boolean): Unit = gsk_shader_args_builder_set_bool(gskShaderArgsBuilderPointer.reinterpret(), idx, `value`.asGBoolean())
+    public fun setBool(idx: gint, `value`: Boolean): Unit = gsk_shader_args_builder_set_bool(gskShaderArgsBuilderPointer.reinterpret(), idx, `value`.asGBoolean())
 
     /**
      * Sets the value of the uniform @idx.
@@ -64,7 +66,7 @@ public class ShaderArgsBuilder(
      * @param idx index of the uniform
      * @param value value to set the uniform to
      */
-    public fun setFloat(idx: Int, `value`: Float): Unit = gsk_shader_args_builder_set_float(gskShaderArgsBuilderPointer.reinterpret(), idx, `value`)
+    public fun setFloat(idx: gint, `value`: gfloat): Unit = gsk_shader_args_builder_set_float(gskShaderArgsBuilderPointer.reinterpret(), idx, `value`)
 
     /**
      * Sets the value of the uniform @idx.
@@ -74,7 +76,7 @@ public class ShaderArgsBuilder(
      * @param idx index of the uniform
      * @param value value to set the uniform to
      */
-    public fun setInt(idx: Int, `value`: Int): Unit = gsk_shader_args_builder_set_int(gskShaderArgsBuilderPointer.reinterpret(), idx, `value`)
+    public fun setInt(idx: gint, `value`: gint): Unit = gsk_shader_args_builder_set_int(gskShaderArgsBuilderPointer.reinterpret(), idx, `value`)
 
     /**
      * Sets the value of the uniform @idx.
@@ -84,7 +86,7 @@ public class ShaderArgsBuilder(
      * @param idx index of the uniform
      * @param value value to set the uniform to
      */
-    public fun setUint(idx: Int, `value`: UInt): Unit = gsk_shader_args_builder_set_uint(gskShaderArgsBuilderPointer.reinterpret(), idx, `value`)
+    public fun setUint(idx: gint, `value`: guint): Unit = gsk_shader_args_builder_set_uint(gskShaderArgsBuilderPointer.reinterpret(), idx, `value`)
 
     /**
      * Sets the value of the uniform @idx.
@@ -94,7 +96,7 @@ public class ShaderArgsBuilder(
      * @param idx index of the uniform
      * @param value value to set the uniform too
      */
-    public fun setVec2(idx: Int, `value`: Vec2): Unit = gsk_shader_args_builder_set_vec2(gskShaderArgsBuilderPointer.reinterpret(), idx, `value`.grapheneVec2Pointer.reinterpret())
+    public fun setVec2(idx: gint, `value`: Vec2): Unit = gsk_shader_args_builder_set_vec2(gskShaderArgsBuilderPointer.reinterpret(), idx, `value`.grapheneVec2Pointer.reinterpret())
 
     /**
      * Sets the value of the uniform @idx.
@@ -104,7 +106,7 @@ public class ShaderArgsBuilder(
      * @param idx index of the uniform
      * @param value value to set the uniform too
      */
-    public fun setVec3(idx: Int, `value`: Vec3): Unit = gsk_shader_args_builder_set_vec3(gskShaderArgsBuilderPointer.reinterpret(), idx, `value`.grapheneVec3Pointer.reinterpret())
+    public fun setVec3(idx: gint, `value`: Vec3): Unit = gsk_shader_args_builder_set_vec3(gskShaderArgsBuilderPointer.reinterpret(), idx, `value`.grapheneVec3Pointer.reinterpret())
 
     /**
      * Sets the value of the uniform @idx.
@@ -114,7 +116,7 @@ public class ShaderArgsBuilder(
      * @param idx index of the uniform
      * @param value value to set the uniform too
      */
-    public fun setVec4(idx: Int, `value`: Vec4): Unit = gsk_shader_args_builder_set_vec4(gskShaderArgsBuilderPointer.reinterpret(), idx, `value`.grapheneVec4Pointer.reinterpret())
+    public fun setVec4(idx: gint, `value`: Vec4): Unit = gsk_shader_args_builder_set_vec4(gskShaderArgsBuilderPointer.reinterpret(), idx, `value`.grapheneVec4Pointer.reinterpret())
 
     /**
      * Creates a new `GBytes` args from the current state of the
@@ -153,6 +155,13 @@ public class ShaderArgsBuilder(
          *     [method@Gsk.ShaderArgsBuilder.unref]
          */
         public fun new(shader: GLShader, initialValues: Bytes? = null): ShaderArgsBuilder = ShaderArgsBuilder(gsk_shader_args_builder_new(shader.gskGLShaderPointer.reinterpret(), initialValues?.glibBytesPointer?.reinterpret())!!.reinterpret())
+
+        /**
+         * Get the GType of ShaderArgsBuilder
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_shader_args_builder_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ShaderArgsBuilder = ShaderArgsBuilder(pointer.reinterpret())
     }

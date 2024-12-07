@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -11,6 +10,7 @@ import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GTestLogMsg
 import org.gtkkn.native.glib.g_test_log_msg_free
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -31,13 +31,13 @@ public class TestLogMsg(
             glibTestLogMsgPointer.pointed.log_type = value.nativeValue
         }
 
-    public var nStrings: UInt
+    public var nStrings: guint
         get() = glibTestLogMsgPointer.pointed.n_strings
         set(`value`) {
             glibTestLogMsgPointer.pointed.n_strings = value
         }
 
-    public var nNums: UInt
+    public var nNums: guint
         get() = glibTestLogMsgPointer.pointed.n_nums
         set(`value`) {
             glibTestLogMsgPointer.pointed.n_nums = value

@@ -2,11 +2,8 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
-import kotlin.UShort
 import kotlin.Unit
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
@@ -29,7 +26,13 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.gobject.guint16
+import org.gtkkn.native.gobject.gunichar
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAccessibleText
 import org.gtkkn.native.gtk.GtkBuildable
@@ -331,7 +334,7 @@ public open class Text(
     /**
      * The character to used when masking contents (in “password mode”).
      */
-    public open var invisibleChar: UInt
+    public open var invisibleChar: gunichar
         /**
          * Retrieves the character displayed when visibility is set to false.
          *
@@ -360,7 +363,7 @@ public open class Text(
      *
      * Zero indicates no limit.
      */
-    public open var maxLength: Int
+    public open var maxLength: gint
         /**
          * Retrieves the maximum allowed length of the text in @self.
          *
@@ -555,7 +558,7 @@ public open class Text(
      */
     @GtkVersion4_4
     public open fun computeCursorExtents(
-        position: ULong,
+        position: gsize,
         strong: Rect?,
         weak: Rect?,
     ): Unit = gtk_text_compute_cursor_extents(gtkTextPointer.reinterpret(), position, strong?.grapheneRectPointer?.reinterpret(), weak?.grapheneRectPointer?.reinterpret())
@@ -569,7 +572,7 @@ public open class Text(
      * @return the current number of characters
      *   in `GtkText`, or 0 if there are none.
      */
-    public open fun getTextLength(): UShort = gtk_text_get_text_length(gtkTextPointer.reinterpret())
+    public open fun getTextLength(): guint16 = gtk_text_get_text_length(gtkTextPointer.reinterpret())
 
     /**
      * Causes @self to have keyboard focus.
@@ -660,7 +663,7 @@ public open class Text(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `type` the granularity of the deletion, as a `GtkDeleteType`; `count` the number of @type units to delete
      */
-    public fun connectDeleteFromCursor(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (type: DeleteType, count: Int) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "delete-from-cursor", connectDeleteFromCursorFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectDeleteFromCursor(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (type: DeleteType, count: gint) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "delete-from-cursor", connectDeleteFromCursorFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the user initiates the insertion of a
@@ -716,7 +719,7 @@ public open class Text(
      */
     public fun connectMoveCursor(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
         step: MovementStep,
-        count: Int,
+        count: gint,
         extend: Boolean,
     ) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "move-cursor", connectMoveCursorFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
@@ -763,6 +766,13 @@ public open class Text(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of Text
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_text_get_type()
     }
 }
 
@@ -794,14 +804,14 @@ private val connectCutClipboardFunc: CPointer<CFunction<() -> Unit>> = staticCFu
     userData.asStableRef<() -> Unit>().get().invoke()}
 .reinterpret()
 
-private val connectDeleteFromCursorFunc: CPointer<CFunction<(GtkDeleteType, Int) -> Unit>> =
+private val connectDeleteFromCursorFunc: CPointer<CFunction<(GtkDeleteType, gint) -> Unit>> =
         staticCFunction {
     _: COpaquePointer,
     type: GtkDeleteType,
-    count: Int,
+    count: gint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(type: DeleteType, count: Int) -> Unit>().get().invoke(type.run {
+    userData.asStableRef<(type: DeleteType, count: gint) -> Unit>().get().invoke(type.run {
         DeleteType.fromNativeValue(this)}
     , count)}
 .reinterpret()
@@ -824,18 +834,18 @@ private val connectInsertEmojiFunc: CPointer<CFunction<() -> Unit>> = staticCFun
 
 private val connectMoveCursorFunc: CPointer<CFunction<(
     GtkMovementStep,
-    Int,
-    Int,
+    gint,
+    gboolean,
 ) -> Unit>> = staticCFunction {
     _: COpaquePointer,
     step: GtkMovementStep,
-    count: Int,
-    extend: Int,
+    count: gint,
+    extend: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         step: MovementStep,
-        count: Int,
+        count: gint,
         extend: Boolean,
     ) -> Unit>().get().invoke(step.run {
         MovementStep.fromNativeValue(this)}

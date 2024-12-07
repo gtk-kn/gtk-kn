@@ -15,6 +15,7 @@ import org.gtkkn.native.gio.g_filter_output_stream_get_base_stream
 import org.gtkkn.native.gio.g_filter_output_stream_get_close_base_stream
 import org.gtkkn.native.gio.g_filter_output_stream_get_type
 import org.gtkkn.native.gio.g_filter_output_stream_set_close_base_stream
+import org.gtkkn.native.gobject.GType
 
 /**
  * Base class for output stream implementations that perform some
@@ -63,5 +64,12 @@ public open class FilterOutputStream(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of FilterOutputStream
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_filter_output_stream_get_type()
     }
 }

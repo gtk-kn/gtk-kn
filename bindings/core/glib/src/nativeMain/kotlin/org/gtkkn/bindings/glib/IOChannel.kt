@@ -2,12 +2,8 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.Boolean
-import kotlin.Int
-import kotlin.Long
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -50,6 +46,12 @@ import org.gtkkn.native.glib.g_io_channel_unix_get_fd
 import org.gtkkn.native.glib.g_io_channel_unix_new
 import org.gtkkn.native.glib.g_io_channel_unref
 import org.gtkkn.native.glib.g_io_channel_write_unichar
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_io_channel_get_type
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gint64
+import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.gobject.gunichar
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -169,7 +171,7 @@ public class IOChannel(
      *
      * @return the size of the buffer.
      */
-    public fun getBufferSize(): ULong = g_io_channel_get_buffer_size(glibIOChannelPointer.reinterpret())
+    public fun getBufferSize(): gsize = g_io_channel_get_buffer_size(glibIOChannelPointer.reinterpret())
 
     /**
      * Returns whether @channel is buffered.
@@ -242,7 +244,7 @@ public class IOChannel(
      *        (the end of the file)
      * @return %G_IO_ERROR_NONE if the operation was successful.
      */
-    public fun seek(offset: Long, type: SeekType): IOError = g_io_channel_seek(glibIOChannelPointer.reinterpret(), offset, type.nativeValue).run {
+    public fun seek(offset: gint64, type: SeekType): IOError = g_io_channel_seek(glibIOChannelPointer.reinterpret(), offset, type.nativeValue).run {
         IOError.fromNativeValue(this)}
 
     /**
@@ -255,7 +257,7 @@ public class IOChannel(
      *                      g_io_channel_set_encoding () for details.
      * @return the status of the operation.
      */
-    public fun seekPosition(offset: Long, type: SeekType): Result<IOStatus> = memScoped {
+    public fun seekPosition(offset: gint64, type: SeekType): Result<IOStatus> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_io_channel_seek_position(glibIOChannelPointer.reinterpret(), offset, type.nativeValue, gError.ptr).run {
             IOStatus.fromNativeValue(this)}
@@ -273,7 +275,7 @@ public class IOChannel(
      *
      * @param size the size of the buffer, or 0 to let GLib pick a good size
      */
-    public fun setBufferSize(size: ULong): Unit = g_io_channel_set_buffer_size(glibIOChannelPointer.reinterpret(), size)
+    public fun setBufferSize(size: gsize): Unit = g_io_channel_set_buffer_size(glibIOChannelPointer.reinterpret(), size)
 
     /**
      * The buffering state can only be set if the channel's encoding
@@ -396,7 +398,7 @@ public class IOChannel(
      *          string is assumed to be nul-terminated. This option allows
      *          termination strings with embedded nuls.
      */
-    public fun setLineTerm(lineTerm: String? = null, length: Int): Unit = g_io_channel_set_line_term(glibIOChannelPointer.reinterpret(), lineTerm, length)
+    public fun setLineTerm(lineTerm: String? = null, length: gint): Unit = g_io_channel_set_line_term(glibIOChannelPointer.reinterpret(), lineTerm, length)
 
     /**
      * Close an IO channel. Any pending data to be written will be
@@ -427,7 +429,7 @@ public class IOChannel(
      *
      * @return the file descriptor of the #GIOChannel.
      */
-    public fun unixGetFd(): Int = g_io_channel_unix_get_fd(glibIOChannelPointer.reinterpret())
+    public fun unixGetFd(): gint = g_io_channel_unix_get_fd(glibIOChannelPointer.reinterpret())
 
     /**
      * Decrements the reference count of a #GIOChannel.
@@ -441,7 +443,7 @@ public class IOChannel(
      * @param thechar a character
      * @return a #GIOStatus
      */
-    public fun writeUnichar(thechar: UInt): Result<IOStatus> = memScoped {
+    public fun writeUnichar(thechar: gunichar): Result<IOStatus> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_io_channel_write_unichar(glibIOChannelPointer.reinterpret(), thechar, gError.ptr).run {
             IOStatus.fromNativeValue(this)}
@@ -507,7 +509,7 @@ public class IOChannel(
          * @param fd a file descriptor.
          * @return a new #GIOChannel.
          */
-        public fun unixNew(fd: Int): IOChannel = IOChannel(g_io_channel_unix_new(fd)!!.reinterpret())
+        public fun unixNew(fd: gint): IOChannel = IOChannel(g_io_channel_unix_new(fd)!!.reinterpret())
 
         /**
          * Converts an `errno` error number to a #GIOChannelError.
@@ -516,10 +518,17 @@ public class IOChannel(
          * @return a #GIOChannelError error number, e.g.
          *      %G_IO_CHANNEL_ERROR_INVAL.
          */
-        public fun errorFromErrno(en: Int): IOChannelError = g_io_channel_error_from_errno(en).run {
+        public fun errorFromErrno(en: gint): IOChannelError = g_io_channel_error_from_errno(en).run {
             IOChannelError.fromNativeValue(this)}
 
         public fun errorQuark(): Quark = g_io_channel_error_quark()
+
+        /**
+         * Get the GType of IOChannel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_io_channel_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): IOChannel = IOChannel(pointer.reinterpret())
     }

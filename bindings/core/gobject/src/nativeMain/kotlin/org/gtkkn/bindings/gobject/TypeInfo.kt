@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
-import kotlin.UShort
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GTypeInfo
+import org.gtkkn.native.gobject.guint16
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -39,7 +39,7 @@ public class TypeInfo(
     /**
      * Size of the class structure (required for interface, classed and instantiatable types)
      */
-    public var classSize: UShort
+    public var classSize: guint16
         get() = gobjectTypeInfoPointer.pointed.class_size
         set(`value`) {
             gobjectTypeInfoPointer.pointed.class_size = value
@@ -48,7 +48,7 @@ public class TypeInfo(
     /**
      * Size of the instance (object) structure (required for instantiatable types only)
      */
-    public var instanceSize: UShort
+    public var instanceSize: guint16
         get() = gobjectTypeInfoPointer.pointed.instance_size
         set(`value`) {
             gobjectTypeInfoPointer.pointed.instance_size = value
@@ -57,7 +57,7 @@ public class TypeInfo(
     /**
      * Prior to GLib 2.10, it specified the number of pre-allocated (cached) instances to reserve memory for (0 indicates no caching). Since GLib 2.10 this field is ignored.
      */
-    public var nPreallocs: UShort
+    public var nPreallocs: guint16
         get() = gobjectTypeInfoPointer.pointed.n_preallocs
         set(`value`) {
             gobjectTypeInfoPointer.pointed.n_preallocs = value

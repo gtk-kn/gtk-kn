@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -25,7 +24,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAccessibleRange
 import org.gtkkn.native.gtk.GtkBuildable
@@ -159,7 +160,7 @@ public open class ScaleButton(
     /**
      * The value of the scale.
      */
-    public open var `value`: Double
+    public open var `value`: gdouble
         /**
          * Gets the current value of the scale button.
          *
@@ -195,9 +196,9 @@ public open class ScaleButton(
      * @return a new `GtkScaleButton`
      */
     public constructor(
-        min: Double,
-        max: Double,
-        step: Double,
+        min: gdouble,
+        max: gdouble,
+        step: gdouble,
         icons: List<String>? = null,
     ) : this(memScoped {
         gtk_scale_button_new(min, max, step, icons?.toCStringList(this))!!.reinterpret()}
@@ -268,7 +269,7 @@ public open class ScaleButton(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `value` the new value
      */
-    public fun connectValueChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`value`: Double) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "value-changed", connectValueChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectValueChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`value`: gdouble) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "value-changed", connectValueChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<ScaleButton> {
         override val type: GeneratedClassKGType<ScaleButton> =
@@ -276,6 +277,13 @@ public open class ScaleButton(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of ScaleButton
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_scale_button_get_type()
     }
 }
 
@@ -293,10 +301,10 @@ private val connectPopupFunc: CPointer<CFunction<() -> Unit>> = staticCFunction 
     userData.asStableRef<() -> Unit>().get().invoke()}
 .reinterpret()
 
-private val connectValueChangedFunc: CPointer<CFunction<(Double) -> Unit>> = staticCFunction {
+private val connectValueChangedFunc: CPointer<CFunction<(gdouble) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    `value`: Double,
+    `value`: gdouble,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(`value`: Double) -> Unit>().get().invoke(`value`)}
+    userData.asStableRef<(`value`: gdouble) -> Unit>().get().invoke(`value`)}
 .reinterpret()

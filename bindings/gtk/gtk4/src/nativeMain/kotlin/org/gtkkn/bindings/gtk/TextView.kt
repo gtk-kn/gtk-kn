@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -29,7 +27,11 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAccessibleText
 import org.gtkkn.native.gtk.GtkBuildable
@@ -220,7 +222,7 @@ public open class TextView(
      *
      * Don't confuse this property with [property@Gtk.Widget:margin-bottom].
      */
-    public open var bottomMargin: Int
+    public open var bottomMargin: gint
         /**
          * Gets the bottom margin for text in the @text_view.
          *
@@ -286,7 +288,7 @@ public open class TextView(
      * That is, the first line will have the full width, and subsequent
      * lines will be indented by the absolute value of indent.
      */
-    public open var indent: Int
+    public open var indent: gint
         /**
          * Gets the default indentation of paragraphs in @text_view.
          *
@@ -375,7 +377,7 @@ public open class TextView(
      * the value set here is padding, and it is applied in addition
      * to the padding from the theme.
      */
-    public open var leftMargin: Int
+    public open var leftMargin: gint
         /**
          * Gets the default left margin size of paragraphs in the @text_view.
          *
@@ -434,7 +436,7 @@ public open class TextView(
          */
         set(overwrite) = gtk_text_view_set_overwrite(gtkTextViewPointer.reinterpret(), overwrite.asGBoolean())
 
-    public open var pixelsAboveLines: Int
+    public open var pixelsAboveLines: gint
         /**
          * Gets the default number of pixels to put above paragraphs.
          *
@@ -453,7 +455,7 @@ public open class TextView(
          */
         set(pixelsAboveLines) = gtk_text_view_set_pixels_above_lines(gtkTextViewPointer.reinterpret(), pixelsAboveLines)
 
-    public open var pixelsBelowLines: Int
+    public open var pixelsBelowLines: gint
         /**
          * Gets the default number of pixels to put below paragraphs.
          *
@@ -473,7 +475,7 @@ public open class TextView(
          */
         set(pixelsBelowLines) = gtk_text_view_set_pixels_below_lines(gtkTextViewPointer.reinterpret(), pixelsBelowLines)
 
-    public open var pixelsInsideWrap: Int
+    public open var pixelsInsideWrap: gint
         /**
          * Gets the default number of pixels to put between wrapped lines
          * inside a paragraph.
@@ -500,7 +502,7 @@ public open class TextView(
      * the value set here is padding, and it is applied in addition
      * to the padding from the theme.
      */
-    public open var rightMargin: Int
+    public open var rightMargin: gint
         /**
          * Gets the default right margin for text in @text_view.
          *
@@ -530,7 +532,7 @@ public open class TextView(
      *
      * Don't confuse this property with [property@Gtk.Widget:margin-top].
      */
-    public open var topMargin: Int
+    public open var topMargin: gint
         /**
          * Gets the top margin for text in the @text_view.
          *
@@ -613,8 +615,8 @@ public open class TextView(
      */
     public open fun addOverlay(
         child: Widget,
-        xpos: Int,
-        ypos: Int,
+        xpos: gint,
+        ypos: gint,
     ): Unit = gtk_text_view_add_overlay(gtkTextViewPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), xpos, ypos)
 
     /**
@@ -762,8 +764,8 @@ public open class TextView(
      */
     public open fun getIterAtLocation(
         iter: TextIter,
-        x: Int,
-        y: Int,
+        x: gint,
+        y: gint,
     ): Boolean = gtk_text_view_get_iter_at_location(gtkTextViewPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret(), x, y).asBoolean()
 
     /**
@@ -887,8 +889,8 @@ public open class TextView(
      */
     public open fun moveOverlay(
         child: Widget,
-        xpos: Int,
-        ypos: Int,
+        xpos: gint,
+        ypos: gint,
     ): Unit = gtk_text_view_move_overlay(gtkTextViewPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), xpos, ypos)
 
     /**
@@ -910,7 +912,7 @@ public open class TextView(
      *    positive moves right)
      * @return true if @iter moved and is not on the end iterator
      */
-    public open fun moveVisually(iter: TextIter, count: Int): Boolean = gtk_text_view_move_visually(gtkTextViewPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret(), count).asBoolean()
+    public open fun moveVisually(iter: TextIter, count: gint): Boolean = gtk_text_view_move_visually(gtkTextViewPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret(), count).asBoolean()
 
     /**
      * Moves the cursor to the currently visible region of the
@@ -982,10 +984,10 @@ public open class TextView(
      */
     public open fun scrollToIter(
         iter: TextIter,
-        withinMargin: Double,
+        withinMargin: gdouble,
         useAlign: Boolean,
-        xalign: Double,
-        yalign: Double,
+        xalign: gdouble,
+        yalign: gdouble,
     ): Boolean = gtk_text_view_scroll_to_iter(gtkTextViewPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret(), withinMargin, useAlign.asGBoolean(), xalign, yalign).asBoolean()
 
     /**
@@ -1007,10 +1009,10 @@ public open class TextView(
      */
     public open fun scrollToMark(
         mark: TextMark,
-        withinMargin: Double,
+        withinMargin: gdouble,
         useAlign: Boolean,
-        xalign: Double,
-        yalign: Double,
+        xalign: gdouble,
+        yalign: gdouble,
     ): Unit = gtk_text_view_scroll_to_mark(gtkTextViewPointer.reinterpret(), mark.gtkTextMarkPointer.reinterpret(), withinMargin, useAlign.asGBoolean(), xalign, yalign)
 
     /**
@@ -1124,7 +1126,7 @@ public open class TextView(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `type` the granularity of the deletion, as a `GtkDeleteType`; `count` the number of @type units to delete
      */
-    public fun connectDeleteFromCursor(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (type: DeleteType, count: Int) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "delete-from-cursor", connectDeleteFromCursorFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectDeleteFromCursor(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (type: DeleteType, count: gint) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "delete-from-cursor", connectDeleteFromCursorFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the selection needs to be extended at @location.
@@ -1197,7 +1199,7 @@ public open class TextView(
      */
     public fun connectMoveCursor(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
         step: MovementStep,
-        count: Int,
+        count: gint,
         extendSelection: Boolean,
     ) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "move-cursor", connectMoveCursorFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
@@ -1214,7 +1216,7 @@ public open class TextView(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `step` the granularity of the movement, as a `GtkScrollStep`; `count` the number of @step units to move
      */
-    public fun connectMoveViewport(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (step: ScrollStep, count: Int) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "move-viewport", connectMoveViewportFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectMoveViewport(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (step: ScrollStep, count: gint) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "move-viewport", connectMoveViewportFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Gets emitted to paste the contents of the clipboard
@@ -1308,6 +1310,13 @@ public open class TextView(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of TextView
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_text_view_get_type()
     }
 }
 
@@ -1332,14 +1341,14 @@ private val connectCutClipboardFunc: CPointer<CFunction<() -> Unit>> = staticCFu
     userData.asStableRef<() -> Unit>().get().invoke()}
 .reinterpret()
 
-private val connectDeleteFromCursorFunc: CPointer<CFunction<(GtkDeleteType, Int) -> Unit>> =
+private val connectDeleteFromCursorFunc: CPointer<CFunction<(GtkDeleteType, gint) -> Unit>> =
         staticCFunction {
     _: COpaquePointer,
     type: GtkDeleteType,
-    count: Int,
+    count: gint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(type: DeleteType, count: Int) -> Unit>().get().invoke(type.run {
+    userData.asStableRef<(type: DeleteType, count: gint) -> Unit>().get().invoke(type.run {
         DeleteType.fromNativeValue(this)}
     , count)}
 .reinterpret()
@@ -1349,7 +1358,7 @@ private val connectExtendSelectionFunc: CPointer<CFunction<(
     CPointer<GtkTextIter>,
     CPointer<GtkTextIter>,
     CPointer<GtkTextIter>,
-) -> Int>> = staticCFunction {
+) -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     granularity: GtkTextExtendSelection,
     location: CPointer<GtkTextIter>?,
@@ -1391,32 +1400,32 @@ private val connectInsertEmojiFunc: CPointer<CFunction<() -> Unit>> = staticCFun
 
 private val connectMoveCursorFunc: CPointer<CFunction<(
     GtkMovementStep,
-    Int,
-    Int,
+    gint,
+    gboolean,
 ) -> Unit>> = staticCFunction {
     _: COpaquePointer,
     step: GtkMovementStep,
-    count: Int,
-    extendSelection: Int,
+    count: gint,
+    extendSelection: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         step: MovementStep,
-        count: Int,
+        count: gint,
         extendSelection: Boolean,
     ) -> Unit>().get().invoke(step.run {
         MovementStep.fromNativeValue(this)}
     , count, extendSelection.asBoolean())}
 .reinterpret()
 
-private val connectMoveViewportFunc: CPointer<CFunction<(GtkScrollStep, Int) -> Unit>> =
+private val connectMoveViewportFunc: CPointer<CFunction<(GtkScrollStep, gint) -> Unit>> =
         staticCFunction {
     _: COpaquePointer,
     step: GtkScrollStep,
-    count: Int,
+    count: gint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(step: ScrollStep, count: Int) -> Unit>().get().invoke(step.run {
+    userData.asStableRef<(step: ScrollStep, count: gint) -> Unit>().get().invoke(step.run {
         ScrollStep.fromNativeValue(this)}
     , count)}
 .reinterpret()
@@ -1437,9 +1446,9 @@ private val connectPreeditChangedFunc: CPointer<CFunction<(CPointer<ByteVar>) ->
     userData.asStableRef<(preedit: String) -> Unit>().get().invoke(preedit?.toKString() ?: error("Expected not null string"))}
 .reinterpret()
 
-private val connectSelectAllFunc: CPointer<CFunction<(Int) -> Unit>> = staticCFunction {
+private val connectSelectAllFunc: CPointer<CFunction<(gboolean) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    select: Int,
+    select: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(select: Boolean) -> Unit>().get().invoke(select.asBoolean())}

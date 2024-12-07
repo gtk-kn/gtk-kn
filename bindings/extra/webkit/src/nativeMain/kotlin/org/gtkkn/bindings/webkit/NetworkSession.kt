@@ -35,6 +35,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.webkit.WebKitDownload
 import org.gtkkn.native.webkit.WebKitNetworkSession
@@ -345,6 +346,13 @@ public class NetworkSession(
          */
         @WebKitVersion2_40
         public fun setMemoryPressureSettings(settings: MemoryPressureSettings): Unit = webkit_network_session_set_memory_pressure_settings(settings.webkitMemoryPressureSettingsPointer.reinterpret())
+
+        /**
+         * Get the GType of NetworkSession
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_network_session_get_type()
     }
 }
 

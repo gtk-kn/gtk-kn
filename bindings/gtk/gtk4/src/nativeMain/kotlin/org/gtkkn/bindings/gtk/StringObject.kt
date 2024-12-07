@@ -9,6 +9,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkStringObject
 import org.gtkkn.native.gtk.gtk_string_object_get_string
 import org.gtkkn.native.gtk.gtk_string_object_get_type
@@ -53,5 +54,12 @@ public open class StringObject(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of StringObject
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_string_object_get_type()
     }
 }

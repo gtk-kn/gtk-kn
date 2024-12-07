@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gdk
 
 import kotlin.Boolean
-import kotlin.UInt
-import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
 import kotlinx.cinterop.CPointed
@@ -19,6 +17,7 @@ import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gdk.GdkContentFormats
 import org.gtkkn.native.gdk.gdk_content_formats_contain_gtype
 import org.gtkkn.native.gdk.gdk_content_formats_contain_mime_type
+import org.gtkkn.native.gdk.gdk_content_formats_get_type
 import org.gtkkn.native.gdk.gdk_content_formats_match
 import org.gtkkn.native.gdk.gdk_content_formats_match_gtype
 import org.gtkkn.native.gdk.gdk_content_formats_match_mime_type
@@ -34,6 +33,8 @@ import org.gtkkn.native.gdk.gdk_content_formats_union_deserialize_mime_types
 import org.gtkkn.native.gdk.gdk_content_formats_union_serialize_gtypes
 import org.gtkkn.native.gdk.gdk_content_formats_union_serialize_mime_types
 import org.gtkkn.native.gdk.gdk_content_formats_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import kotlin.String as KotlinString
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 import org.gtkkn.bindings.glib.String as GlibString
@@ -88,7 +89,7 @@ public class ContentFormats(
      * @param type the `GType` to search for
      * @return true if the `GType` was found
      */
-    public fun containGtype(type: ULong): Boolean = gdk_content_formats_contain_gtype(gdkContentFormatsPointer.reinterpret(), type).asBoolean()
+    public fun containGtype(type: GType): Boolean = gdk_content_formats_contain_gtype(gdkContentFormatsPointer.reinterpret(), type).asBoolean()
 
     /**
      * Checks if a given mime type is part of the given @formats.
@@ -115,7 +116,7 @@ public class ContentFormats(
      * @param second the `GdkContentFormats` to intersect with
      * @return The first common `GType` or %G_TYPE_INVALID if none.
      */
-    public fun matchGtype(second: ContentFormats): ULong = gdk_content_formats_match_gtype(gdkContentFormatsPointer.reinterpret(), second.gdkContentFormatsPointer.reinterpret())
+    public fun matchGtype(second: ContentFormats): GType = gdk_content_formats_match_gtype(gdkContentFormatsPointer.reinterpret(), second.gdkContentFormatsPointer.reinterpret())
 
     /**
      * Finds the first mime type from @first that is also contained
@@ -224,7 +225,7 @@ public class ContentFormats(
          * @param nMimeTypes number of entries in @mime_types.
          * @return the new `GdkContentFormats`.
          */
-        public fun new(mimeTypes: List<KotlinString>? = null, nMimeTypes: UInt): ContentFormats {
+        public fun new(mimeTypes: List<KotlinString>? = null, nMimeTypes: guint): ContentFormats {
             memScoped {
                 return ContentFormats(gdk_content_formats_new(mimeTypes?.toCStringList(this), nMimeTypes)!!.reinterpret())}
         }
@@ -235,7 +236,7 @@ public class ContentFormats(
          * @param type a `GType`
          * @return a new `GdkContentFormats`
          */
-        public fun newForGtype(type: ULong): ContentFormats = ContentFormats(gdk_content_formats_new_for_gtype(type)!!.reinterpret())
+        public fun newForGtype(type: GType): ContentFormats = ContentFormats(gdk_content_formats_new_for_gtype(type)!!.reinterpret())
 
         /**
          * Parses the given @string into `GdkContentFormats` and
@@ -254,6 +255,13 @@ public class ContentFormats(
         @GdkVersion4_4
         public fun parse(string: KotlinString): ContentFormats? = gdk_content_formats_parse(string)?.run {
             ContentFormats(reinterpret())}
+
+        /**
+         * Get the GType of ContentFormats
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_content_formats_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ContentFormats = ContentFormats(pointer.reinterpret())
     }

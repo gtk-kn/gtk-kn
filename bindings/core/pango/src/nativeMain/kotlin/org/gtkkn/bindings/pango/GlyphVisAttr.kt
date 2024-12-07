@@ -1,13 +1,13 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
-import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.pango.PangoGlyphVisAttr
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
@@ -31,7 +31,7 @@ public class GlyphVisAttr(
     /**
      * set for the first logical glyph in each cluster.
      */
-    public var isClusterStart: UInt
+    public var isClusterStart: guint
         get() = pangoGlyphVisAttrPointer.pointed.is_cluster_start
         set(`value`) {
             pangoGlyphVisAttrPointer.pointed.is_cluster_start = value
@@ -40,7 +40,7 @@ public class GlyphVisAttr(
     /**
      * set if the the font will render this glyph with color. Since 1.50
      */
-    public var isColor: UInt
+    public var isColor: guint
         get() = pangoGlyphVisAttrPointer.pointed.is_color
         set(`value`) {
             pangoGlyphVisAttrPointer.pointed.is_color = value

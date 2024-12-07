@@ -2,12 +2,9 @@
 package org.gtkkn.bindings.webkit
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.Long
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
@@ -65,7 +62,12 @@ import org.gtkkn.native.gdk.GdkRectangle
 import org.gtkkn.native.gio.GTlsCertificate
 import org.gtkkn.native.gio.GTlsCertificateFlags
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -343,7 +345,7 @@ public open class WebView(
      * to be received for a document, including all its possible subresources
      * and child documents.
      */
-    public open val estimatedLoadProgress: Double
+    public open val estimatedLoadProgress: gdouble
         /**
          * Gets the value of the #WebKitWebView:estimated-load-progress property.
          *
@@ -473,7 +475,7 @@ public open class WebView(
      * @since 2.28
      */
     @WebKitVersion2_28
-    public open val pageId: ULong
+    public open val pageId: guint64
         /**
          * Get the identifier of the #WebKitWebPage corresponding to
          * the #WebKitWebView
@@ -626,7 +628,7 @@ public open class WebView(
      * The zoom level of the #WebKitWebView content.
      * See webkit_web_view_set_zoom_level() for more details.
      */
-    public open var zoomLevel: Double
+    public open var zoomLevel: gdouble
         /**
          * Set the zoom level of @web_view.
          *
@@ -1857,7 +1859,7 @@ public open class WebView(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `hitTestResult` a #WebKitHitTestResult; `modifiers` a bitmask of #GdkModifierType
      */
-    public fun connectMouseTargetChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (hitTestResult: HitTestResult, modifiers: UInt) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "mouse-target-changed", connectMouseTargetChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectMouseTargetChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (hitTestResult: HitTestResult, modifiers: guint) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "mouse-target-changed", connectMouseTargetChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * This signal is emitted when WebKit is requesting the client to
@@ -2146,11 +2148,18 @@ public open class WebView(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of WebView
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_web_view_get_type()
     }
 }
 
 private val connectAuthenticateFunc:
-        CPointer<CFunction<(CPointer<WebKitAuthenticationRequest>) -> Int>> = staticCFunction {
+        CPointer<CFunction<(CPointer<WebKitAuthenticationRequest>) -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     request: CPointer<WebKitAuthenticationRequest>?,
     userData: COpaquePointer
@@ -2168,8 +2177,8 @@ private val connectCloseFunc: CPointer<CFunction<() -> Unit>> = staticCFunction 
 .reinterpret()
 
 private val connectContextMenuFunc:
-        CPointer<CFunction<(CPointer<WebKitContextMenu>, CPointer<WebKitHitTestResult>) -> Int>> =
-        staticCFunction {
+        CPointer<CFunction<(CPointer<WebKitContextMenu>, CPointer<WebKitHitTestResult>) -> gboolean>>
+        = staticCFunction {
     _: COpaquePointer,
     contextMenu: CPointer<WebKitContextMenu>?,
     hitTestResult: CPointer<WebKitHitTestResult>?,
@@ -2202,8 +2211,8 @@ private val connectCreateFunc:
 .reinterpret()
 
 private val connectDecidePolicyFunc:
-        CPointer<CFunction<(CPointer<WebKitPolicyDecision>, WebKitPolicyDecisionType) -> Int>> =
-        staticCFunction {
+        CPointer<CFunction<(CPointer<WebKitPolicyDecision>, WebKitPolicyDecisionType) -> gboolean>>
+        = staticCFunction {
     _: COpaquePointer,
     decision: CPointer<WebKitPolicyDecision>?,
     decisionType: WebKitPolicyDecisionType,
@@ -2216,7 +2225,7 @@ private val connectDecidePolicyFunc:
     ).asGBoolean()}
 .reinterpret()
 
-private val connectEnterFullscreenFunc: CPointer<CFunction<() -> Int>> = staticCFunction {
+private val connectEnterFullscreenFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     userData: COpaquePointer
     ->
@@ -2234,7 +2243,7 @@ private val connectInsecureContentDetectedFunc:
     )}
 .reinterpret()
 
-private val connectLeaveFullscreenFunc: CPointer<CFunction<() -> Int>> = staticCFunction {
+private val connectLeaveFullscreenFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     userData: COpaquePointer
     ->
@@ -2256,7 +2265,7 @@ private val connectLoadFailedFunc: CPointer<CFunction<(
     WebKitLoadEvent,
     CPointer<ByteVar>,
     CPointer<org.gtkkn.native.glib.GError>,
-) -> Int>> = staticCFunction {
+) -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     loadEvent: WebKitLoadEvent,
     failingUri: CPointer<ByteVar>?,
@@ -2278,7 +2287,7 @@ private val connectLoadFailedWithTlsErrorsFunc: CPointer<CFunction<(
     CPointer<ByteVar>,
     CPointer<GTlsCertificate>,
     GTlsCertificateFlags,
-) -> Int>> = staticCFunction {
+) -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     failingUri: CPointer<ByteVar>?,
     certificate: CPointer<GTlsCertificate>?,
@@ -2297,19 +2306,19 @@ private val connectLoadFailedWithTlsErrorsFunc: CPointer<CFunction<(
 .reinterpret()
 
 private val connectMouseTargetChangedFunc:
-        CPointer<CFunction<(CPointer<WebKitHitTestResult>, UInt) -> Unit>> = staticCFunction {
+        CPointer<CFunction<(CPointer<WebKitHitTestResult>, guint) -> Unit>> = staticCFunction {
     _: COpaquePointer,
     hitTestResult: CPointer<WebKitHitTestResult>?,
-    modifiers: UInt,
+    modifiers: guint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(hitTestResult: HitTestResult, modifiers: UInt) -> Unit>().get().invoke(hitTestResult!!.run {
+    userData.asStableRef<(hitTestResult: HitTestResult, modifiers: guint) -> Unit>().get().invoke(hitTestResult!!.run {
         HitTestResult(reinterpret())}
     , modifiers)}
 .reinterpret()
 
 private val connectPermissionRequestFunc:
-        CPointer<CFunction<(CPointer<WebKitPermissionRequest>) -> Int>> = staticCFunction {
+        CPointer<CFunction<(CPointer<WebKitPermissionRequest>) -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     request: CPointer<WebKitPermissionRequest>?,
     userData: COpaquePointer
@@ -2319,7 +2328,7 @@ private val connectPermissionRequestFunc:
     ).asGBoolean()}
 .reinterpret()
 
-private val connectPrintFunc: CPointer<CFunction<(CPointer<WebKitPrintOperation>) -> Int>> =
+private val connectPrintFunc: CPointer<CFunction<(CPointer<WebKitPrintOperation>) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     printOperation: CPointer<WebKitPrintOperation>?,
@@ -2331,7 +2340,7 @@ private val connectPrintFunc: CPointer<CFunction<(CPointer<WebKitPrintOperation>
 .reinterpret()
 
 private val connectQueryPermissionStateFunc:
-        CPointer<CFunction<(CPointer<WebKitPermissionStateQuery>) -> Int>> = staticCFunction {
+        CPointer<CFunction<(CPointer<WebKitPermissionStateQuery>) -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     query: CPointer<WebKitPermissionStateQuery>?,
     userData: COpaquePointer
@@ -2371,7 +2380,7 @@ private val connectRunAsModalFunc: CPointer<CFunction<() -> Unit>> = staticCFunc
 .reinterpret()
 
 private val connectRunColorChooserFunc:
-        CPointer<CFunction<(CPointer<WebKitColorChooserRequest>) -> Int>> = staticCFunction {
+        CPointer<CFunction<(CPointer<WebKitColorChooserRequest>) -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     request: CPointer<WebKitColorChooserRequest>?,
     userData: COpaquePointer
@@ -2382,7 +2391,7 @@ private val connectRunColorChooserFunc:
 .reinterpret()
 
 private val connectRunFileChooserFunc:
-        CPointer<CFunction<(CPointer<WebKitFileChooserRequest>) -> Int>> = staticCFunction {
+        CPointer<CFunction<(CPointer<WebKitFileChooserRequest>) -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     request: CPointer<WebKitFileChooserRequest>?,
     userData: COpaquePointer
@@ -2392,8 +2401,8 @@ private val connectRunFileChooserFunc:
     ).asGBoolean()}
 .reinterpret()
 
-private val connectScriptDialogFunc: CPointer<CFunction<(CPointer<WebKitScriptDialog>) -> Int>> =
-        staticCFunction {
+private val connectScriptDialogFunc: CPointer<CFunction<(CPointer<WebKitScriptDialog>) -> gboolean>>
+        = staticCFunction {
     _: COpaquePointer,
     dialog: CPointer<WebKitScriptDialog>?,
     userData: COpaquePointer
@@ -2403,8 +2412,8 @@ private val connectScriptDialogFunc: CPointer<CFunction<(CPointer<WebKitScriptDi
     ).asGBoolean()}
 .reinterpret()
 
-private val connectShowNotificationFunc: CPointer<CFunction<(CPointer<WebKitNotification>) -> Int>>
-        = staticCFunction {
+private val connectShowNotificationFunc:
+        CPointer<CFunction<(CPointer<WebKitNotification>) -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     notification: CPointer<WebKitNotification>?,
     userData: COpaquePointer
@@ -2415,7 +2424,7 @@ private val connectShowNotificationFunc: CPointer<CFunction<(CPointer<WebKitNoti
 .reinterpret()
 
 private val connectShowOptionMenuFunc:
-        CPointer<CFunction<(CPointer<WebKitOptionMenu>, CPointer<GdkRectangle>) -> Int>> =
+        CPointer<CFunction<(CPointer<WebKitOptionMenu>, CPointer<GdkRectangle>) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     menu: CPointer<WebKitOptionMenu>?,
@@ -2441,7 +2450,7 @@ private val connectSubmitFormFunc:
 .reinterpret()
 
 private val connectUserMessageReceivedFunc:
-        CPointer<CFunction<(CPointer<WebKitUserMessage>) -> Int>> = staticCFunction {
+        CPointer<CFunction<(CPointer<WebKitUserMessage>) -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     message: CPointer<WebKitUserMessage>?,
     userData: COpaquePointer

@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gsk.annotations.GskVersion4_10
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskMaskNode
 import org.gtkkn.native.gsk.gsk_mask_node_get_mask
 import org.gtkkn.native.gsk.gsk_mask_node_get_mask_mode
@@ -81,5 +82,12 @@ public open class MaskNode(
 
         init {
             GskTypeProvider.register()}
+
+        /**
+         * Get the GType of MaskNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_mask_node_get_type()
     }
 }

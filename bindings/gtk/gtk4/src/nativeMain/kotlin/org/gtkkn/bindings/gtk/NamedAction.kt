@@ -8,6 +8,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkNamedAction
 import org.gtkkn.native.gtk.gtk_named_action_get_action_name
 import org.gtkkn.native.gtk.gtk_named_action_get_type
@@ -54,5 +55,12 @@ public open class NamedAction(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of NamedAction
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_named_action_get_type()
     }
 }

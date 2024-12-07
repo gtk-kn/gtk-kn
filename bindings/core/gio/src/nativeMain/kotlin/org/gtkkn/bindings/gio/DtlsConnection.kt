@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.ULong
@@ -67,6 +66,8 @@ import org.gtkkn.native.gio.g_dtls_connection_shutdown_async
 import org.gtkkn.native.gio.g_dtls_connection_shutdown_finish
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
 
 /**
  * `GDtlsConnection` is the base DTLS connection class type, which wraps
@@ -434,7 +435,7 @@ public interface DtlsConnection : Interface, DatagramBased, KGTyped {
      */
     @GioVersion2_48
     public fun closeAsync(
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_dtls_connection_close_async(gioDtlsConnectionPointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -652,7 +653,7 @@ public interface DtlsConnection : Interface, DatagramBased, KGTyped {
      */
     @GioVersion2_48
     public fun handshakeAsync(
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_dtls_connection_handshake_async(gioDtlsConnectionPointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -857,7 +858,7 @@ public interface DtlsConnection : Interface, DatagramBased, KGTyped {
     public fun shutdownAsync(
         shutdownRead: Boolean,
         shutdownWrite: Boolean,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_dtls_connection_shutdown_async(gioDtlsConnectionPointer.reinterpret(), shutdownRead.asGBoolean(), shutdownWrite.asGBoolean(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -955,7 +956,7 @@ public interface DtlsConnection : Interface, DatagramBased, KGTyped {
 }
 
 private val connectAcceptCertificateFunc:
-        CPointer<CFunction<(CPointer<GTlsCertificate>, GTlsCertificateFlags) -> Int>> =
+        CPointer<CFunction<(CPointer<GTlsCertificate>, GTlsCertificateFlags) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     peerCert: CPointer<GTlsCertificate>?,

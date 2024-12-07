@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gdk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
@@ -42,6 +41,8 @@ import org.gtkkn.native.gdk.gdk_gl_context_set_forward_compatible
 import org.gtkkn.native.gdk.gdk_gl_context_set_required_version
 import org.gtkkn.native.gdk.gdk_gl_context_set_use_es
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * `GdkGLContext` is an object representing a platform-specific
@@ -331,7 +332,7 @@ public open class GLContext(
      * @param major the major version to request
      * @param minor the minor version to request
      */
-    public open fun setRequiredVersion(major: Int, minor: Int): Unit = gdk_gl_context_set_required_version(gdkGLContextPointer.reinterpret(), major, minor)
+    public open fun setRequiredVersion(major: gint, minor: gint): Unit = gdk_gl_context_set_required_version(gdkGLContextPointer.reinterpret(), major, minor)
 
     /**
      * Requests that GDK create an OpenGL ES context instead of an OpenGL one.
@@ -351,7 +352,7 @@ public open class GLContext(
      * @param useEs whether the context should use OpenGL ES instead of OpenGL,
      *   or -1 to allow auto-detection
      */
-    public open fun setUseEs(useEs: Int): Unit = gdk_gl_context_set_use_es(gdkGLContextPointer.reinterpret(), useEs)
+    public open fun setUseEs(useEs: gint): Unit = gdk_gl_context_set_use_es(gdkGLContextPointer.reinterpret(), useEs)
 
     public companion object : TypeCompanion<GLContext> {
         override val type: GeneratedClassKGType<GLContext> =
@@ -375,5 +376,12 @@ public open class GLContext(
          */
         public fun getCurrent(): GLContext? = gdk_gl_context_get_current()?.run {
             GLContext(reinterpret())}
+
+        /**
+         * Get the GType of GLContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_gl_context_get_type()
     }
 }

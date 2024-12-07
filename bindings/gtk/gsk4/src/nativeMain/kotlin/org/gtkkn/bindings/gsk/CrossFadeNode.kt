@@ -1,12 +1,13 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
-import kotlin.Float
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskCrossFadeNode
 import org.gtkkn.native.gsk.gsk_cross_fade_node_get_end_child
 import org.gtkkn.native.gsk.gsk_cross_fade_node_get_progress
@@ -36,7 +37,7 @@ public open class CrossFadeNode(
     public constructor(
         start: RenderNode,
         end: RenderNode,
-        progress: Float,
+        progress: gfloat,
     ) : this(gsk_cross_fade_node_new(start.gPointer.reinterpret(), end.gPointer.reinterpret(), progress)!!.reinterpret())
 
     /**
@@ -52,7 +53,7 @@ public open class CrossFadeNode(
      *
      * @return the progress value, between 0 and 1
      */
-    public open fun getProgress(): Float = gsk_cross_fade_node_get_progress(gskCrossFadeNodePointer.reinterpret())
+    public open fun getProgress(): gfloat = gsk_cross_fade_node_get_progress(gskCrossFadeNodePointer.reinterpret())
 
     /**
      * Retrieves the child `GskRenderNode` at the beginning of the cross-fade.
@@ -68,5 +69,12 @@ public open class CrossFadeNode(
 
         init {
             GskTypeProvider.register()}
+
+        /**
+         * Get the GType of CrossFadeNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_cross_fade_node_get_type()
     }
 }

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -19,6 +18,7 @@ import org.gtkkn.native.gio.g_dbus_error_quark
 import org.gtkkn.native.gio.g_dbus_error_register_error
 import org.gtkkn.native.gio.g_dbus_error_strip_remote_error
 import org.gtkkn.native.gio.g_dbus_error_unregister_error
+import org.gtkkn.native.gobject.gint
 
 /**
  * Error codes for the %G_DBUS_ERROR error domain.
@@ -375,7 +375,7 @@ public enum class DBusError(
         @GioVersion2_26
         public fun registerError(
             errorDomain: Quark,
-            errorCode: Int,
+            errorCode: gint,
             dbusErrorName: String,
         ): Boolean = g_dbus_error_register_error(errorDomain, errorCode, dbusErrorName).asBoolean()
 
@@ -406,7 +406,7 @@ public enum class DBusError(
         @GioVersion2_26
         public fun unregisterError(
             errorDomain: Quark,
-            errorCode: Int,
+            errorCode: gint,
             dbusErrorName: String,
         ): Boolean = g_dbus_error_unregister_error(errorDomain, errorCode, dbusErrorName).asBoolean()
 

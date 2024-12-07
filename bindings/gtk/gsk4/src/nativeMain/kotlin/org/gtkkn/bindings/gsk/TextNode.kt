@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gsk
 
 import kotlin.Boolean
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.RGBA
@@ -14,6 +13,8 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gsk.GskTextNode
 import org.gtkkn.native.gsk.gsk_text_node_get_color
 import org.gtkkn.native.gsk.gsk_text_node_get_font
@@ -77,7 +78,7 @@ public open class TextNode(
      *
      * @return the number of glyphs
      */
-    public open fun getNumGlyphs(): UInt = gsk_text_node_get_num_glyphs(gskTextNodePointer.reinterpret())
+    public open fun getNumGlyphs(): guint = gsk_text_node_get_num_glyphs(gskTextNodePointer.reinterpret())
 
     /**
      * Retrieves the offset applied to the text.
@@ -102,5 +103,12 @@ public open class TextNode(
 
         init {
             GskTypeProvider.register()}
+
+        /**
+         * Get the GType of TextNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_text_node_get_type()
     }
 }

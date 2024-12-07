@@ -3,7 +3,6 @@ package org.gtkkn.bindings.webkit
 
 import kotlin.Boolean
 import kotlin.String
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -13,6 +12,8 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitHitTestResult
 import org.gtkkn.native.webkit.webkit_hit_test_result_context_is_editable
 import org.gtkkn.native.webkit.webkit_hit_test_result_context_is_image
@@ -61,7 +62,7 @@ public class HitTestResult(
      * Bitmask of #WebKitHitTestResultContext flags representing
      * the context of the #WebKitHitTestResult.
      */
-    public val context: UInt
+    public val context: guint
         /**
          * Gets the value of the #WebKitHitTestResult:context property.
          *
@@ -198,5 +199,12 @@ public class HitTestResult(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of HitTestResult
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_hit_test_result_get_type()
     }
 }

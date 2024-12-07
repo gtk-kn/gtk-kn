@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.Int
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -16,7 +15,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -128,7 +129,7 @@ public open class DrawingArea(
     /**
      * The content height.
      */
-    public open var contentHeight: Int
+    public open var contentHeight: gint
         /**
          * Retrieves the content height of the `GtkDrawingArea`.
          *
@@ -152,7 +153,7 @@ public open class DrawingArea(
     /**
      * The content width.
      */
-    public open var contentWidth: Int
+    public open var contentWidth: gint
         /**
          * Retrieves the content width of the `GtkDrawingArea`.
          *
@@ -211,7 +212,7 @@ public open class DrawingArea(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `width` the width of the viewport; `height` the height of the viewport
      */
-    public fun connectResize(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (width: Int, height: Int) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "resize", connectResizeFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectResize(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (width: gint, height: gint) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "resize", connectResizeFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<DrawingArea> {
         override val type: GeneratedClassKGType<DrawingArea> =
@@ -219,14 +220,21 @@ public open class DrawingArea(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of DrawingArea
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_drawing_area_get_type()
     }
 }
 
-private val connectResizeFunc: CPointer<CFunction<(Int, Int) -> Unit>> = staticCFunction {
+private val connectResizeFunc: CPointer<CFunction<(gint, gint) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    width: Int,
-    height: Int,
+    width: gint,
+    height: gint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(width: Int, height: Int) -> Unit>().get().invoke(width, height)}
+    userData.asStableRef<(width: gint, height: gint) -> Unit>().get().invoke(width, height)}
 .reinterpret()

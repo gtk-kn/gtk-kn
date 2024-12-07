@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -15,6 +14,8 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GActionGroup
 import org.gtkkn.native.gio.GActionMap
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkApplicationWindow
 import org.gtkkn.native.gtk.GtkBuildable
@@ -188,7 +189,7 @@ public open class ApplicationWindow(
      * @return the unique ID for @window, or `0` if the window
      *   has not yet been added to a `GtkApplication`
      */
-    public open fun getId(): UInt = gtk_application_window_get_id(gtkApplicationWindowPointer.reinterpret())
+    public open fun getId(): guint = gtk_application_window_get_id(gtkApplicationWindowPointer.reinterpret())
 
     /**
      * Associates a shortcuts window with the application window.
@@ -208,5 +209,12 @@ public open class ApplicationWindow(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of ApplicationWindow
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_application_window_get_type()
     }
 }

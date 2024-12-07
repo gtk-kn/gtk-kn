@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -17,6 +15,9 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkShortcutTrigger
 import org.gtkkn.native.gtk.gtk_shortcut_trigger_compare
 import org.gtkkn.native.gtk.gtk_shortcut_trigger_equal
@@ -85,7 +86,7 @@ public open class ShortcutTrigger(
      *   @trigger1 is found, respectively, to be less than, to match,
      *   or be greater than @trigger2.
      */
-    public open fun compare(trigger2: ShortcutTrigger): Int = gtk_shortcut_trigger_compare(gtkShortcutTriggerPointer.reinterpret(), trigger2.gtkShortcutTriggerPointer.reinterpret())
+    public open fun compare(trigger2: ShortcutTrigger): gint = gtk_shortcut_trigger_compare(gtkShortcutTriggerPointer.reinterpret(), trigger2.gtkShortcutTriggerPointer.reinterpret())
 
     /**
      * Checks if @trigger1 and @trigger2 trigger under the same conditions.
@@ -111,7 +112,7 @@ public open class ShortcutTrigger(
      *
      * @return a hash value corresponding to @trigger
      */
-    public open fun hash(): UInt = gtk_shortcut_trigger_hash(gtkShortcutTriggerPointer.reinterpret())
+    public open fun hash(): guint = gtk_shortcut_trigger_hash(gtkShortcutTriggerPointer.reinterpret())
 
     /**
      * Prints the given trigger into a string for the developer.
@@ -192,5 +193,12 @@ public open class ShortcutTrigger(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of ShortcutTrigger
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_shortcut_trigger_get_type()
     }
 }

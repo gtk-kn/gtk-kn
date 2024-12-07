@@ -9,6 +9,7 @@ import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBuilderListItemFactory
 import org.gtkkn.native.gtk.gtk_builder_list_item_factory_get_bytes
 import org.gtkkn.native.gtk.gtk_builder_list_item_factory_get_resource
@@ -111,5 +112,12 @@ public open class BuilderListItemFactory(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of BuilderListItemFactory
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_builder_list_item_factory_get_type()
     }
 }

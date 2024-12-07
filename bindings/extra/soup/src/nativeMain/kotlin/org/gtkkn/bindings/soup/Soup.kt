@@ -2,11 +2,8 @@
 package org.gtkkn.bindings.soup
 
 import kotlin.Boolean
-import kotlin.Byte
 import kotlin.Char
-import kotlin.Int
 import kotlin.Result
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
@@ -31,6 +28,10 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GHashTable
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gchar
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.soup.SoupAuthDomain
 import org.gtkkn.native.soup.SoupAuthDomainBasic
 import org.gtkkn.native.soup.SoupLogger
@@ -124,28 +125,28 @@ public object Soup {
      *
      * For use with [ctor@Cookie.new] and [method@Cookie.set_max_age].
      */
-    public const val COOKIE_MAX_AGE_ONE_DAY: Int = 0
+    public const val COOKIE_MAX_AGE_ONE_DAY: gint = 0
 
     /**
      * A constant corresponding to 1 hour.
      *
      * For use with [ctor@Cookie.new] and [method@Cookie.set_max_age].
      */
-    public const val COOKIE_MAX_AGE_ONE_HOUR: Int = 3600
+    public const val COOKIE_MAX_AGE_ONE_HOUR: gint = 3600
 
     /**
      * A constant corresponding to 1 week.
      *
      * For use with [ctor@Cookie.new] and [method@Cookie.set_max_age].
      */
-    public const val COOKIE_MAX_AGE_ONE_WEEK: Int = 0
+    public const val COOKIE_MAX_AGE_ONE_WEEK: gint = 0
 
     /**
      * A constant corresponding to 1 year.
      *
      * For use with [ctor@Cookie.new] and [method@Cookie.set_max_age].
      */
-    public const val COOKIE_MAX_AGE_ONE_YEAR: Int = 0
+    public const val COOKIE_MAX_AGE_ONE_YEAR: gint = 0
 
     /**
      * A macro containing the value
@@ -164,33 +165,33 @@ public object Soup {
     /**
      * An expiration date that is always in the past.
      */
-    public const val HSTS_POLICY_MAX_AGE_PAST: Int = 0
+    public const val HSTS_POLICY_MAX_AGE_PAST: gint = 0
 
     /**
      * The set of #GUriFlags libsoup expects all #GUri to use.
      */
-    public const val HTTP_URI_FLAGS: Int = 482
+    public const val HTTP_URI_FLAGS: gint = 482
 
     /**
      * Like [func@get_major_version], but from the headers used at application
      * compile time, rather than from the library linked against at application run
      * time.
      */
-    public const val MAJOR_VERSION: Int = 3
+    public const val MAJOR_VERSION: gint = 3
 
     /**
      * Like [func@get_micro_version], but from the headers used at
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val MICRO_VERSION: Int = 4
+    public const val MICRO_VERSION: gint = 4
 
     /**
      * Like [func@get_minor_version], but from the headers used at
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val MINOR_VERSION: Int = 4
+    public const val MINOR_VERSION: gint = 4
 
     /**
      * A macro that should be defined by the user prior to including
@@ -207,7 +208,7 @@ public object Soup {
      * %SOUP_VERSION_MIN_REQUIRED or earlier will cause warnings (but
      * using functions deprecated in later releases will not).
      */
-    public const val VERSION_MIN_REQUIRED: Int = 2
+    public const val VERSION_MIN_REQUIRED: gint = 2
 
     /**
      * Like [func@CHECK_VERSION], but the check for soup_check_version is
@@ -223,9 +224,9 @@ public object Soup {
      *   is the same as or newer than the passed-in version.
      */
     public fun checkVersion(
-        major: UInt,
-        minor: UInt,
-        micro: UInt,
+        major: guint,
+        minor: guint,
+        micro: guint,
     ): Boolean = soup_check_version(major, minor, micro).asBoolean()
 
     /**
@@ -383,7 +384,7 @@ public object Soup {
      *
      * @return the major version number of the libsoup library
      */
-    public fun getMajorVersion(): UInt = soup_get_major_version()
+    public fun getMajorVersion(): guint = soup_get_major_version()
 
     /**
      * Returns the micro version number of the libsoup library.
@@ -397,7 +398,7 @@ public object Soup {
      *
      * @return the micro version number of the libsoup library
      */
-    public fun getMicroVersion(): UInt = soup_get_micro_version()
+    public fun getMicroVersion(): guint = soup_get_micro_version()
 
     /**
      * Returns the minor version number of the libsoup library.
@@ -411,7 +412,7 @@ public object Soup {
      *
      * @return the minor version number of the libsoup library
      */
-    public fun getMinorVersion(): UInt = soup_get_minor_version()
+    public fun getMinorVersion(): guint = soup_get_minor_version()
 
     /**
      * Parses @header to see if it contains the token @token (matched
@@ -576,7 +577,7 @@ public object Soup {
      */
     public fun headersParse(
         str: KotlinString,
-        len: Int,
+        len: gint,
         dest: MessageHeaders,
     ): Boolean = soup_headers_parse(str, len, dest.soupMessageHeadersPointer.reinterpret()).asBoolean()
 
@@ -612,7 +613,7 @@ public object Soup {
      * @param statusCode an HTTP status code
      * @return the (terse, English) description of @status_code
      */
-    public fun statusGetPhrase(statusCode: UInt): KotlinString = soup_status_get_phrase(statusCode)?.toKString() ?: error("Expected not null string")
+    public fun statusGetPhrase(statusCode: guint): KotlinString = soup_status_get_phrase(statusCode)?.toKString() ?: error("Expected not null string")
 
     /**
      * Looks whether the @domain passed as argument is a public domain
@@ -706,7 +707,7 @@ public val AuthDomainBasicAuthCallbackFunc: CPointer<CFunction<(
     CPointer<SoupServerMessage>,
     CPointer<ByteVar>,
     CPointer<ByteVar>,
-) -> Int>> = staticCFunction {
+) -> gboolean>> = staticCFunction {
     domain: CPointer<SoupAuthDomainBasic>?,
     msg: CPointer<SoupServerMessage>?,
     username: CPointer<ByteVar>?,
@@ -726,7 +727,7 @@ public val AuthDomainBasicAuthCallbackFunc: CPointer<CFunction<(
 .reinterpret()
 
 public val AuthDomainFilterFunc:
-        CPointer<CFunction<(CPointer<SoupAuthDomain>, CPointer<SoupServerMessage>) -> Int>> =
+        CPointer<CFunction<(CPointer<SoupAuthDomain>, CPointer<SoupServerMessage>) -> gboolean>> =
         staticCFunction {
     domain: CPointer<SoupAuthDomain>?,
     msg: CPointer<SoupServerMessage>?,
@@ -743,7 +744,7 @@ public val AuthDomainGenericAuthCallbackFunc: CPointer<CFunction<(
     CPointer<SoupAuthDomain>,
     CPointer<SoupServerMessage>,
     CPointer<ByteVar>,
-) -> Int>> = staticCFunction {
+) -> gboolean>> = staticCFunction {
     domain: CPointer<SoupAuthDomain>?,
     msg: CPointer<SoupServerMessage>?,
     username: CPointer<ByteVar>?,
@@ -777,12 +778,12 @@ public val LoggerFilterFunc:
 public val LoggerPrinterFunc: CPointer<CFunction<(
     CPointer<SoupLogger>,
     SoupLoggerLogLevel,
-    Byte,
+    gchar,
     CPointer<ByteVar>,
 ) -> Unit>> = staticCFunction {
     logger: CPointer<SoupLogger>?,
     level: SoupLoggerLogLevel,
-    direction: Byte,
+    direction: gchar,
     `data`: CPointer<ByteVar>?,
     userData: COpaquePointer
     ->

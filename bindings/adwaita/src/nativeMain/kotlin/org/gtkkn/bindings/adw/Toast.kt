@@ -3,7 +3,6 @@ package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -47,7 +46,9 @@ import org.gtkkn.native.adw.adw_toast_set_priority
 import org.gtkkn.native.adw.adw_toast_set_timeout
 import org.gtkkn.native.adw.adw_toast_set_title
 import org.gtkkn.native.adw.adw_toast_set_use_markup
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.guint
 
 /**
  * A helper object for [class@ToastOverlay].
@@ -315,7 +316,7 @@ public class Toast(
      * Toasts cannot disappear while being hovered, pressed (on touchscreen), or
      * have keyboard focus inside them.
      */
-    public var timeout: UInt
+    public var timeout: guint
         /**
          * Gets timeout for @self.
          *
@@ -459,6 +460,13 @@ public class Toast(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of Toast
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_toast_get_type()
     }
 }
 

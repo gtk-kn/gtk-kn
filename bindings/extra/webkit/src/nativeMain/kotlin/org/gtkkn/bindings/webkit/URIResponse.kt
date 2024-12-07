@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.webkit
 
 import kotlin.String
-import kotlin.UInt
-import kotlin.ULong
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -13,6 +11,9 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.webkit.WebKitURIResponse
 import org.gtkkn.native.webkit.webkit_uri_response_get_content_length
 import org.gtkkn.native.webkit.webkit_uri_response_get_http_headers
@@ -39,7 +40,7 @@ public class URIResponse(
     /**
      * The expected content length of the response.
      */
-    public val contentLength: ULong
+    public val contentLength: guint64
         /**
          * Get the expected content length of the #WebKitURIResponse.
          *
@@ -80,7 +81,7 @@ public class URIResponse(
     /**
      * The status code of the response as returned by the server.
      */
-    public val statusCode: UInt
+    public val statusCode: guint
         /**
          * Get the status code of the #WebKitURIResponse.
          *
@@ -126,5 +127,12 @@ public class URIResponse(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of URIResponse
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_uri_response_get_type()
     }
 }

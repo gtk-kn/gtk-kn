@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -42,7 +41,9 @@ import org.gtkkn.native.adw.adw_action_row_set_subtitle
 import org.gtkkn.native.adw.adw_action_row_set_subtitle_lines
 import org.gtkkn.native.adw.adw_action_row_set_subtitle_selectable
 import org.gtkkn.native.adw.adw_action_row_set_title_lines
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
@@ -163,7 +164,7 @@ public open class ActionRow(
      *
      * If the value is 0, the number of lines won't be limited.
      */
-    public open var subtitleLines: Int
+    public open var subtitleLines: gint
         /**
          * Gets the number of lines at the end of which the subtitle label will be
          * ellipsized.
@@ -214,7 +215,7 @@ public open class ActionRow(
      *
      * If the value is 0, the number of lines won't be limited.
      */
-    public open var titleLines: Int
+    public open var titleLines: gint
         /**
          * Gets the number of lines at the end of which the title label will be
          * ellipsized.
@@ -297,6 +298,13 @@ public open class ActionRow(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of ActionRow
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_action_row_get_type()
     }
 }
 

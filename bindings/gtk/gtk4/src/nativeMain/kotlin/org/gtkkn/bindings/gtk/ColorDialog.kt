@@ -28,6 +28,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkColorDialog
 import org.gtkkn.native.gtk.gtk_color_dialog_choose_rgba
 import org.gtkkn.native.gtk.gtk_color_dialog_choose_rgba_finish
@@ -201,5 +202,12 @@ public open class ColorDialog(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of ColorDialog
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_color_dialog_get_type()
     }
 }

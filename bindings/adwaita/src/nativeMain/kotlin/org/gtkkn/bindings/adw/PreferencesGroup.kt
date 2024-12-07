@@ -22,6 +22,7 @@ import org.gtkkn.native.adw.adw_preferences_group_remove
 import org.gtkkn.native.adw.adw_preferences_group_set_description
 import org.gtkkn.native.adw.adw_preferences_group_set_header_suffix
 import org.gtkkn.native.adw.adw_preferences_group_set_title
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -169,5 +170,12 @@ public open class PreferencesGroup(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of PreferencesGroup
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_preferences_group_get_type()
     }
 }

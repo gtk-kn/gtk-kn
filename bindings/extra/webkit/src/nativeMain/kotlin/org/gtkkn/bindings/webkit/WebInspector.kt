@@ -2,9 +2,7 @@
 package org.gtkkn.bindings.webkit
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -24,7 +22,10 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitWebInspector
 import org.gtkkn.native.webkit.webkit_web_inspector_attach
 import org.gtkkn.native.webkit.webkit_web_inspector_close
@@ -72,7 +73,7 @@ public class WebInspector(
     /**
      * The height that the inspector view should have when it is attached.
      */
-    public val attachedHeight: UInt
+    public val attachedHeight: guint
         /**
          * Get the height that the inspector view when attached.
          *
@@ -249,17 +250,24 @@ public class WebInspector(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of WebInspector
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_web_inspector_get_type()
     }
 }
 
-private val connectAttachFunc: CPointer<CFunction<() -> Int>> = staticCFunction {
+private val connectAttachFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     userData: COpaquePointer
     ->
     userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()}
 .reinterpret()
 
-private val connectBringToFrontFunc: CPointer<CFunction<() -> Int>> = staticCFunction {
+private val connectBringToFrontFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     userData: COpaquePointer
     ->
@@ -273,14 +281,14 @@ private val connectClosedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction
     userData.asStableRef<() -> Unit>().get().invoke()}
 .reinterpret()
 
-private val connectDetachFunc: CPointer<CFunction<() -> Int>> = staticCFunction {
+private val connectDetachFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     userData: COpaquePointer
     ->
     userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()}
 .reinterpret()
 
-private val connectOpenWindowFunc: CPointer<CFunction<() -> Int>> = staticCFunction {
+private val connectOpenWindowFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     userData: COpaquePointer
     ->

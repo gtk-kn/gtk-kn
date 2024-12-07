@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.Throws
 import kotlin.ULong
@@ -43,7 +42,9 @@ import org.gtkkn.native.gio.g_dbus_server_new_sync
 import org.gtkkn.native.gio.g_dbus_server_start
 import org.gtkkn.native.gio.g_dbus_server_stop
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 
 /**
  * `GDBusServer` is a helper for listening to and accepting D-Bus
@@ -250,10 +251,17 @@ public open class DBusServer(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of DBusServer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_server_get_type()
     }
 }
 
-private val connectNewConnectionFunc: CPointer<CFunction<(CPointer<GDBusConnection>) -> Int>> =
+private val connectNewConnectionFunc: CPointer<CFunction<(CPointer<GDBusConnection>) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     connection: CPointer<GDBusConnection>?,

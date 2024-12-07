@@ -30,6 +30,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitUserContentFilterStore
 import org.gtkkn.native.webkit.webkit_user_content_filter_store_fetch_identifiers
 import org.gtkkn.native.webkit.webkit_user_content_filter_store_fetch_identifiers_finish
@@ -308,5 +309,12 @@ public class UserContentFilterStore(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of UserContentFilterStore
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_user_content_filter_store_get_type()
     }
 }

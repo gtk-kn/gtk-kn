@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkNumericSorter
 import org.gtkkn.native.gtk.gtk_numeric_sorter_get_expression
 import org.gtkkn.native.gtk.gtk_numeric_sorter_get_sort_order
@@ -86,5 +87,12 @@ public open class NumericSorter(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of NumericSorter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_numeric_sorter_get_type()
     }
 }

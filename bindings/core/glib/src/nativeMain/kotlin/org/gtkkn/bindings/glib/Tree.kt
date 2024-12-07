@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlin.Int
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -21,6 +20,9 @@ import org.gtkkn.native.glib.g_tree_nnodes
 import org.gtkkn.native.glib.g_tree_ref
 import org.gtkkn.native.glib.g_tree_remove_all
 import org.gtkkn.native.glib.g_tree_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_tree_get_type
+import org.gtkkn.native.gobject.gint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -104,7 +106,7 @@ public class Tree(
      *
      * @return the height of @tree
      */
-    public fun height(): Int = g_tree_height(glibTreePointer.reinterpret())
+    public fun height(): gint = g_tree_height(glibTreePointer.reinterpret())
 
     /**
      * Gets the number of nodes in a #GTree.
@@ -116,7 +118,7 @@ public class Tree(
      * compatibility issues (can be cast back to #guint to
      * support its full range of values).
      */
-    public fun nnodes(): Int = g_tree_nnodes(glibTreePointer.reinterpret())
+    public fun nnodes(): gint = g_tree_nnodes(glibTreePointer.reinterpret())
 
     /**
      * Increments the reference count of @tree by one.
@@ -153,6 +155,13 @@ public class Tree(
     public fun unref(): Unit = g_tree_unref(glibTreePointer.reinterpret())
 
     public companion object : RecordCompanion<Tree, GTree> {
+        /**
+         * Get the GType of Tree
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_tree_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Tree = Tree(pointer.reinterpret())
     }
 }

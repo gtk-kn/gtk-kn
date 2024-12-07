@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -23,7 +22,10 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkCellLayout
 import org.gtkkn.native.gtk.GtkEntryCompletion
@@ -156,7 +158,7 @@ public open class EntryCompletion(
          */
         set(inlineSelection) = gtk_entry_completion_set_inline_selection(gtkEntryCompletionPointer.reinterpret(), inlineSelection.asGBoolean())
 
-    public open var minimumKeyLength: Int
+    public open var minimumKeyLength: gint
         /**
          * Returns the minimum key length as set for @completion.
          *
@@ -267,7 +269,7 @@ public open class EntryCompletion(
      *
      * Note that the strings must be UTF-8.
      */
-    public open var textColumn: Int
+    public open var textColumn: gint
         /**
          * Returns the column in the model of @completion to get strings from.
          *
@@ -426,11 +428,18 @@ public open class EntryCompletion(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of EntryCompletion
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_entry_completion_get_type()
     }
 }
 
 private val connectCursorOnMatchFunc:
-        CPointer<CFunction<(CPointer<GtkTreeModel>, CPointer<GtkTreeIter>) -> Int>> =
+        CPointer<CFunction<(CPointer<GtkTreeModel>, CPointer<GtkTreeIter>) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     model: CPointer<GtkTreeModel>?,
@@ -444,7 +453,7 @@ private val connectCursorOnMatchFunc:
     ).asGBoolean()}
 .reinterpret()
 
-private val connectInsertPrefixFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Int>> =
+private val connectInsertPrefixFunc: CPointer<CFunction<(CPointer<ByteVar>) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     prefix: CPointer<ByteVar>?,
@@ -454,7 +463,7 @@ private val connectInsertPrefixFunc: CPointer<CFunction<(CPointer<ByteVar>) -> I
 .reinterpret()
 
 private val connectMatchSelectedFunc:
-        CPointer<CFunction<(CPointer<GtkTreeModel>, CPointer<GtkTreeIter>) -> Int>> =
+        CPointer<CFunction<(CPointer<GtkTreeModel>, CPointer<GtkTreeIter>) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     model: CPointer<GtkTreeModel>?,

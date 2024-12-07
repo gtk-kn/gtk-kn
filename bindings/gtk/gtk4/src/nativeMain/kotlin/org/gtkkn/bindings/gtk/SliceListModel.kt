@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
@@ -10,6 +9,8 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkSectionModel
 import org.gtkkn.native.gtk.GtkSliceListModel
 import org.gtkkn.native.gtk.gtk_slice_list_model_get_model
@@ -73,7 +74,7 @@ public open class SliceListModel(
     /**
      * Offset of slice.
      */
-    public open var offset: UInt
+    public open var offset: guint
         /**
          * Gets the offset set via gtk_slice_list_model_set_offset().
          *
@@ -93,7 +94,7 @@ public open class SliceListModel(
     /**
      * Maximum size of slice.
      */
-    public open var size: UInt
+    public open var size: guint
         /**
          * Gets the size set via gtk_slice_list_model_set_size().
          *
@@ -124,8 +125,8 @@ public open class SliceListModel(
      */
     public constructor(
         model: ListModel? = null,
-        offset: UInt,
-        size: UInt,
+        offset: guint,
+        size: guint,
     ) : this(gtk_slice_list_model_new(model?.gioListModelPointer, offset, size)!!.reinterpret())
 
     public companion object : TypeCompanion<SliceListModel> {
@@ -134,5 +135,12 @@ public open class SliceListModel(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of SliceListModel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_slice_list_model_get_type()
     }
 }

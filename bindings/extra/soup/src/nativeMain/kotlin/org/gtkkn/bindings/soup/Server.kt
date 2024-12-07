@@ -4,7 +4,6 @@ package org.gtkkn.bindings.soup
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
@@ -37,7 +36,9 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.soup.SoupServer
 import org.gtkkn.native.soup.SoupServerMessage
 import org.gtkkn.native.soup.soup_server_accept_iostream
@@ -316,7 +317,7 @@ public open class Server(
      *
      * @param extensionType a #GType
      */
-    public open fun addWebsocketExtension(extensionType: ULong): Unit = soup_server_add_websocket_extension(soupServerPointer.reinterpret(), extensionType)
+    public open fun addWebsocketExtension(extensionType: GType): Unit = soup_server_add_websocket_extension(soupServerPointer.reinterpret(), extensionType)
 
     /**
      * Adds a WebSocket handler to @server for requests prefixed by @path.
@@ -482,7 +483,7 @@ public open class Server(
      * @return true on success, false if @port could not be bound
      *   or any other error occurred (in which case @error will be set).
      */
-    public open fun listenAll(port: UInt, options: ServerListenOptions): Result<Boolean> = memScoped {
+    public open fun listenAll(port: guint, options: ServerListenOptions): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = soup_server_listen_all(soupServerPointer.reinterpret(), port, options.mask, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
@@ -509,7 +510,7 @@ public open class Server(
      * @return true on success, false if @port could not be bound
      *   or any other error occurred (in which case @error will be set).
      */
-    public open fun listenLocal(port: UInt, options: ServerListenOptions): Result<Boolean> = memScoped {
+    public open fun listenLocal(port: guint, options: ServerListenOptions): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = soup_server_listen_local(soupServerPointer.reinterpret(), port, options.mask, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
@@ -577,7 +578,7 @@ public open class Server(
      *
      * @param extensionType a #GType
      */
-    public open fun removeWebsocketExtension(extensionType: ULong): Unit = soup_server_remove_websocket_extension(soupServerPointer.reinterpret(), extensionType)
+    public open fun removeWebsocketExtension(extensionType: GType): Unit = soup_server_remove_websocket_extension(soupServerPointer.reinterpret(), extensionType)
 
     /**
      * Sets @server up to do https, using the given SSL/TLS @certificate.
@@ -677,6 +678,13 @@ public open class Server(
 
         init {
             SoupTypeProvider.register()}
+
+        /**
+         * Get the GType of Server
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_server_get_type()
     }
 }
 

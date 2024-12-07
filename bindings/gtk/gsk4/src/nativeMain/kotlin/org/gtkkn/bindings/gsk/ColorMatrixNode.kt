@@ -8,6 +8,7 @@ import org.gtkkn.bindings.graphene.Vec4
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskColorMatrixNode
 import org.gtkkn.native.gsk.gsk_color_matrix_node_get_child
 import org.gtkkn.native.gsk.gsk_color_matrix_node_get_color_matrix
@@ -77,5 +78,12 @@ public open class ColorMatrixNode(
 
         init {
             GskTypeProvider.register()}
+
+        /**
+         * Get the GType of ColorMatrixNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_color_matrix_node_get_type()
     }
 }

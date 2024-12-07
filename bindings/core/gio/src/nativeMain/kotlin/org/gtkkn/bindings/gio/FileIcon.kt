@@ -13,6 +13,7 @@ import org.gtkkn.native.gio.GLoadableIcon
 import org.gtkkn.native.gio.g_file_icon_get_file
 import org.gtkkn.native.gio.g_file_icon_get_type
 import org.gtkkn.native.gio.g_file_icon_new
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GFileIcon` specifies an icon by pointing to an image file
@@ -62,5 +63,12 @@ public open class FileIcon(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of FileIcon
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_file_icon_get_type()
     }
 }

@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -9,6 +8,8 @@ import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkListHeader
 import org.gtkkn.native.gtk.gtk_list_header_get_child
 import org.gtkkn.native.gtk.gtk_list_header_get_end
@@ -70,7 +71,7 @@ public open class ListHeader(
      * @since 4.12
      */
     @GtkVersion4_12
-    public open val end: UInt
+    public open val end: guint
         /**
          * Gets the end position in the model of the section that @self is
          * currently the header for.
@@ -108,7 +109,7 @@ public open class ListHeader(
      * @since 4.12
      */
     @GtkVersion4_12
-    public open val nItems: UInt
+    public open val nItems: guint
         /**
          * Gets the the number of items in the section.
          *
@@ -125,7 +126,7 @@ public open class ListHeader(
      * @since 4.12
      */
     @GtkVersion4_12
-    public open val start: UInt
+    public open val start: guint
         /**
          * Gets the start position in the model of the section that @self is
          * currently the header for.
@@ -143,5 +144,12 @@ public open class ListHeader(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of ListHeader
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_list_header_get_type()
     }
 }

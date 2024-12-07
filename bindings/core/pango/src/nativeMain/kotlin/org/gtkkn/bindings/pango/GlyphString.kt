@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
-import kotlin.Int
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -10,11 +9,14 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_14
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.pango.PangoGlyphString
 import org.gtkkn.native.pango.pango_glyph_string_copy
 import org.gtkkn.native.pango.pango_glyph_string_extents
 import org.gtkkn.native.pango.pango_glyph_string_extents_range
 import org.gtkkn.native.pango.pango_glyph_string_free
+import org.gtkkn.native.pango.pango_glyph_string_get_type
 import org.gtkkn.native.pango.pango_glyph_string_get_width
 import org.gtkkn.native.pango.pango_glyph_string_new
 import org.gtkkn.native.pango.pango_glyph_string_set_size
@@ -45,7 +47,7 @@ public class GlyphString(
     /**
      * number of glyphs in this glyph string
      */
-    public var numGlyphs: Int
+    public var numGlyphs: gint
         get() = pangoGlyphStringPointer.pointed.num_glyphs
         set(`value`) {
             pangoGlyphStringPointer.pointed.num_glyphs = value
@@ -96,8 +98,8 @@ public class GlyphString(
      *   store the logical extents of the glyph string range
      */
     public fun extentsRange(
-        start: Int,
-        end: Int,
+        start: gint,
+        end: gint,
         font: Font,
         inkRect: Rectangle?,
         logicalRect: Rectangle?,
@@ -120,14 +122,14 @@ public class GlyphString(
      * @since 1.14
      */
     @PangoVersion1_14
-    public fun getWidth(): Int = pango_glyph_string_get_width(pangoGlyphStringPointer.reinterpret())
+    public fun getWidth(): gint = pango_glyph_string_get_width(pangoGlyphStringPointer.reinterpret())
 
     /**
      * Resize a glyph string to the given length.
      *
      * @param newLen the new length of the string
      */
-    public fun setSize(newLen: Int): Unit = pango_glyph_string_set_size(pangoGlyphStringPointer.reinterpret(), newLen)
+    public fun setSize(newLen: gint): Unit = pango_glyph_string_set_size(pangoGlyphStringPointer.reinterpret(), newLen)
 
     public companion object : RecordCompanion<GlyphString, PangoGlyphString> {
         /**
@@ -137,6 +139,13 @@ public class GlyphString(
          *   should be freed with [method@Pango.GlyphString.free].
          */
         public fun new(): GlyphString = GlyphString(pango_glyph_string_new()!!.reinterpret())
+
+        /**
+         * Get the GType of GlyphString
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_glyph_string_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): GlyphString = GlyphString(pointer.reinterpret())
     }

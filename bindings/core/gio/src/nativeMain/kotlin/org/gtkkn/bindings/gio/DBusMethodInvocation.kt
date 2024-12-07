@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
@@ -33,6 +32,8 @@ import org.gtkkn.native.gio.g_dbus_method_invocation_return_error_literal
 import org.gtkkn.native.gio.g_dbus_method_invocation_return_gerror
 import org.gtkkn.native.gio.g_dbus_method_invocation_return_value
 import org.gtkkn.native.gio.g_dbus_method_invocation_return_value_with_unix_fd_list
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * Instances of the `GDBusMethodInvocation` class are used when
@@ -196,7 +197,7 @@ public open class DBusMethodInvocation(
     @GioVersion2_26
     public open fun returnErrorLiteral(
         domain: Quark,
-        code: Int,
+        code: gint,
         message: String,
     ): Unit = g_dbus_method_invocation_return_error_literal(gioDBusMethodInvocationPointer.reinterpret(), domain, code, message)
 
@@ -276,5 +277,12 @@ public open class DBusMethodInvocation(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of DBusMethodInvocation
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_method_invocation_get_type()
     }
 }

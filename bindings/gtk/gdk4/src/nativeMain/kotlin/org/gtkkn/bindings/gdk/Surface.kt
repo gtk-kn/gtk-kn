@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gdk
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.Result
 import kotlin.ULong
 import kotlin.Unit
@@ -56,7 +54,11 @@ import org.gtkkn.native.gdk.gdk_surface_request_layout
 import org.gtkkn.native.gdk.gdk_surface_set_cursor
 import org.gtkkn.native.gdk.gdk_surface_set_device_cursor
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
 
 /**
  * A `GdkSurface` is a rectangular region on the screen.
@@ -146,7 +148,7 @@ public open class Surface(
     /**
      * The height of the surface, in pixels.
      */
-    public open val height: Int
+    public open val height: gint
         /**
          * Returns the height of the given @surface.
          *
@@ -177,7 +179,7 @@ public open class Surface(
      * @since 4.12
      */
     @GdkVersion4_12
-    public open val scale: Double
+    public open val scale: gdouble
         /**
          * Returns the internal scale that maps from surface coordinates
          * to the actual device pixels.
@@ -202,7 +204,7 @@ public open class Surface(
      * The scale factor is the next larger integer,
      * compared to [property@Gdk.Surface:scale].
      */
-    public open val scaleFactor: Int
+    public open val scaleFactor: gint
         /**
          * Returns the internal scale factor that maps from surface coordinates
          * to the actual device pixels.
@@ -223,7 +225,7 @@ public open class Surface(
     /**
      * The width of the surface in pixels.
      */
-    public open val width: Int
+    public open val width: gint
         /**
          * Returns the width of the given @surface.
          *
@@ -412,7 +414,7 @@ public open class Surface(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `width` the current width; `height` the current height
      */
-    public fun connectLayout(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (width: Int, height: Int) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "layout", connectLayoutFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectLayout(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (width: gint, height: gint) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "layout", connectLayoutFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when @surface stops being present on the monitor.
@@ -428,6 +430,13 @@ public open class Surface(
 
         init {
             GdkTypeProvider.register()}
+
+        /**
+         * Get the GType of Surface
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_surface_get_type()
     }
 }
 
@@ -442,7 +451,8 @@ private val connectEnterMonitorFunc: CPointer<CFunction<(CPointer<GdkMonitor>) -
     )}
 .reinterpret()
 
-private val connectEventFunc: CPointer<CFunction<(CPointer<GdkEvent>) -> Int>> = staticCFunction {
+private val connectEventFunc: CPointer<CFunction<(CPointer<GdkEvent>) -> gboolean>> =
+        staticCFunction {
     _: COpaquePointer,
     event: CPointer<GdkEvent>?,
     userData: COpaquePointer
@@ -452,13 +462,13 @@ private val connectEventFunc: CPointer<CFunction<(CPointer<GdkEvent>) -> Int>> =
     ).asGBoolean()}
 .reinterpret()
 
-private val connectLayoutFunc: CPointer<CFunction<(Int, Int) -> Unit>> = staticCFunction {
+private val connectLayoutFunc: CPointer<CFunction<(gint, gint) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    width: Int,
-    height: Int,
+    width: gint,
+    height: gint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(width: Int, height: Int) -> Unit>().get().invoke(width, height)}
+    userData.asStableRef<(width: gint, height: gint) -> Unit>().get().invoke(width, height)}
 .reinterpret()
 
 private val connectLeaveMonitorFunc: CPointer<CFunction<(CPointer<GdkMonitor>) -> Unit>> =

@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
-import kotlin.Int
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
@@ -21,6 +20,8 @@ import org.gtkkn.native.adw.adw_clamp_set_child
 import org.gtkkn.native.adw.adw_clamp_set_maximum_size
 import org.gtkkn.native.adw.adw_clamp_set_tightening_threshold
 import org.gtkkn.native.adw.adw_clamp_set_unit
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -96,7 +97,7 @@ public class Clamp(
      *
      * It is the width if the clamp is horizontal, or the height if it is vertical.
      */
-    public var maximumSize: Int
+    public var maximumSize: gint
         /**
          * Gets the maximum size allocated to the child.
          *
@@ -128,7 +129,7 @@ public class Clamp(
      * Effectively, tightening the grip on the child before it reaches its maximum
      * size makes transitions to and from the maximum size smoother when resizing.
      */
-    public var tighteningThreshold: Int
+    public var tighteningThreshold: gint
         /**
          * Gets the size above which the child is clamped.
          *
@@ -196,5 +197,12 @@ public class Clamp(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of Clamp
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_clamp_get_type()
     }
 }

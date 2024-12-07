@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.webkit
 
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -11,8 +10,11 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_18
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.webkit.WebKitApplicationInfo
 import org.gtkkn.native.webkit.webkit_application_info_get_name
+import org.gtkkn.native.webkit.webkit_application_info_get_type
 import org.gtkkn.native.webkit.webkit_application_info_new
 import org.gtkkn.native.webkit.webkit_application_info_ref
 import org.gtkkn.native.webkit.webkit_application_info_set_name
@@ -84,9 +86,9 @@ public class ApplicationInfo(
      */
     @WebKitVersion2_18
     public fun setVersion(
-        major: ULong,
-        minor: ULong,
-        micro: ULong,
+        major: guint64,
+        minor: guint64,
+        micro: guint64,
     ): Unit = webkit_application_info_set_version(webkitApplicationInfoPointer.reinterpret(), major, minor, micro)
 
     /**
@@ -110,6 +112,13 @@ public class ApplicationInfo(
          * @since 2.18
          */
         public fun new(): ApplicationInfo = ApplicationInfo(webkit_application_info_new()!!.reinterpret())
+
+        /**
+         * Get the GType of ApplicationInfo
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_application_info_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ApplicationInfo = ApplicationInfo(pointer.reinterpret())
     }

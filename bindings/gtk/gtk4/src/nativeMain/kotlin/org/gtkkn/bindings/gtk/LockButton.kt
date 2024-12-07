@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gio.Permission
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
@@ -115,5 +116,12 @@ public open class LockButton(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of LockButton
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_lock_button_get_type()
     }
 }

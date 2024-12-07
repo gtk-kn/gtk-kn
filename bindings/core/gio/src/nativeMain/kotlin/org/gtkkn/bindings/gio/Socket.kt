@@ -2,13 +2,10 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Long
 import kotlin.Result
 import kotlin.String
 import kotlin.Throws
-import kotlin.UInt
-import kotlin.ULong
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -83,6 +80,11 @@ import org.gtkkn.native.gio.g_socket_set_ttl
 import org.gtkkn.native.gio.g_socket_shutdown
 import org.gtkkn.native.gio.g_socket_speaks_ipv4
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gint64
+import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.gobject.guint
 
 /**
  * A `GSocket` is a low-level networking primitive. It is a more or less
@@ -274,7 +276,7 @@ public open class Socket(
      * @since 2.22
      */
     @GioVersion2_22
-    public open val fd: Int
+    public open val fd: gint
         /**
          * Returns the underlying OS socket object. On unix this
          * is a socket file descriptor, and on Windows this is
@@ -331,7 +333,7 @@ public open class Socket(
      * @since 2.22
      */
     @GioVersion2_22
-    public open var listenBacklog: Int
+    public open var listenBacklog: gint
         /**
          * Gets the listen backlog setting of the socket. For details on this,
          * see g_socket_set_listen_backlog().
@@ -389,7 +391,7 @@ public open class Socket(
      * @since 2.32
      */
     @GioVersion2_32
-    public open var multicastTtl: UInt
+    public open var multicastTtl: guint
         /**
          * Gets the multicast time-to-live setting on @socket; see
          * g_socket_set_multicast_ttl() for more details.
@@ -432,7 +434,7 @@ public open class Socket(
      * @since 2.26
      */
     @GioVersion2_26
-    public open var timeout: UInt
+    public open var timeout: guint
         /**
          * Gets the timeout setting of the socket. For details on this, see
          * g_socket_set_timeout().
@@ -475,7 +477,7 @@ public open class Socket(
      * @since 2.32
      */
     @GioVersion2_32
-    public open var ttl: UInt
+    public open var ttl: guint
         /**
          * Gets the unicast time-to-live setting on @socket; see
          * g_socket_set_ttl() for more details.
@@ -552,7 +554,7 @@ public open class Socket(
      * @since 2.22
      */
     @Throws(GLibException::class)
-    public constructor(fd: Int) : this(memScoped {
+    public constructor(fd: gint) : this(memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_new_from_fd(fd, gError.ptr)
         if (gError.pointed != null) {
@@ -755,7 +757,7 @@ public open class Socket(
     @GioVersion2_32
     public open fun conditionTimedWait(
         condition: IOCondition,
-        timeoutUs: Long,
+        timeoutUs: gint64,
         cancellable: Cancellable? = null,
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
@@ -1171,8 +1173,8 @@ public open class Socket(
      */
     @GioVersion2_80
     public open fun receiveBytes(
-        size: ULong,
-        timeoutUs: Long,
+        size: gsize,
+        timeoutUs: gint64,
         cancellable: Cancellable? = null,
     ): Result<Bytes> = memScoped {
         val gError = allocPointerTo<GError>()
@@ -1208,9 +1210,9 @@ public open class Socket(
      */
     @GioVersion2_36
     public open fun setOption(
-        level: Int,
-        optname: Int,
-        `value`: Int,
+        level: gint,
+        optname: gint,
+        `value`: gint,
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_set_option(gioSocketPointer.reinterpret(), level, optname, `value`, gError.ptr).asBoolean()
@@ -1278,5 +1280,12 @@ public open class Socket(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of Socket
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_socket_get_type()
     }
 }

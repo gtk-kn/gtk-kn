@@ -1,8 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
-import kotlin.Int
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.List
@@ -10,6 +8,9 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitBackForwardList
 import org.gtkkn.native.webkit.webkit_back_forward_list_get_back_item
 import org.gtkkn.native.webkit.webkit_back_forward_list_get_back_list
@@ -75,7 +76,7 @@ public class BackForwardList(
      * @return a #GList of
      *    items preceding the current item limited by @limit.
      */
-    public fun getBackListWithLimit(limit: UInt): List = webkit_back_forward_list_get_back_list_with_limit(webkitBackForwardListPointer.reinterpret(), limit)!!.run {
+    public fun getBackListWithLimit(limit: guint): List = webkit_back_forward_list_get_back_list_with_limit(webkitBackForwardListPointer.reinterpret(), limit)!!.run {
         List(reinterpret())}
 
     /**
@@ -112,7 +113,7 @@ public class BackForwardList(
      * @return a #GList of
      *    items following the current item limited by @limit.
      */
-    public fun getForwardListWithLimit(limit: UInt): List = webkit_back_forward_list_get_forward_list_with_limit(webkitBackForwardListPointer.reinterpret(), limit)!!.run {
+    public fun getForwardListWithLimit(limit: guint): List = webkit_back_forward_list_get_forward_list_with_limit(webkitBackForwardListPointer.reinterpret(), limit)!!.run {
         List(reinterpret())}
 
     /**
@@ -120,7 +121,7 @@ public class BackForwardList(
      *
      * @return the length of @back_forward_list.
      */
-    public fun getLength(): UInt = webkit_back_forward_list_get_length(webkitBackForwardListPointer.reinterpret())
+    public fun getLength(): guint = webkit_back_forward_list_get_length(webkitBackForwardListPointer.reinterpret())
 
     /**
      * Returns the item at a given index relative to the current item.
@@ -129,7 +130,7 @@ public class BackForwardList(
      * @return the #WebKitBackForwardListItem
      *    located at the specified index relative to the current item or null.
      */
-    public fun getNthItem(index: Int): BackForwardListItem? = webkit_back_forward_list_get_nth_item(webkitBackForwardListPointer.reinterpret(), index)?.run {
+    public fun getNthItem(index: gint): BackForwardListItem? = webkit_back_forward_list_get_nth_item(webkitBackForwardListPointer.reinterpret(), index)?.run {
         BackForwardListItem(reinterpret())}
 
     public companion object : TypeCompanion<BackForwardList> {
@@ -138,5 +139,12 @@ public class BackForwardList(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of BackForwardList
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_back_forward_list_get_type()
     }
 }

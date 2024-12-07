@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -21,7 +19,11 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAccessibleRange
 import org.gtkkn.native.gtk.GtkBuildable
@@ -120,7 +122,7 @@ public open class Range(
     /**
      * The fill level (e.g. prebuffering of a network stream).
      */
-    public open var fillLevel: Double
+    public open var fillLevel: gdouble
         /**
          * Gets the current position of the fill level indicator.
          *
@@ -201,7 +203,7 @@ public open class Range(
      *
      * See [signal@Gtk.Range::change-value].
      */
-    public open var roundDigits: Int
+    public open var roundDigits: gint
         /**
          * Gets the number of digits to round the value to when
          * it changes.
@@ -275,7 +277,7 @@ public open class Range(
      *
      * @return current value of the range.
      */
-    public open fun getValue(): Double = gtk_range_get_value(gtkRangePointer.reinterpret())
+    public open fun getValue(): gdouble = gtk_range_get_value(gtkRangePointer.reinterpret())
 
     /**
      * Sets whether the `GtkRange` respects text direction.
@@ -299,7 +301,7 @@ public open class Range(
      * @param step step size
      * @param page page size
      */
-    public open fun setIncrements(step: Double, page: Double): Unit = gtk_range_set_increments(gtkRangePointer.reinterpret(), step, page)
+    public open fun setIncrements(step: gdouble, page: gdouble): Unit = gtk_range_set_increments(gtkRangePointer.reinterpret(), step, page)
 
     /**
      * Sets the allowable values in the `GtkRange`.
@@ -311,7 +313,7 @@ public open class Range(
      * @param min minimum range value
      * @param max maximum range value
      */
-    public open fun setRange(min: Double, max: Double): Unit = gtk_range_set_range(gtkRangePointer.reinterpret(), min, max)
+    public open fun setRange(min: gdouble, max: gdouble): Unit = gtk_range_set_range(gtkRangePointer.reinterpret(), min, max)
 
     /**
      * Sets whether the range’s slider has a fixed size, or a size that
@@ -332,7 +334,7 @@ public open class Range(
      *
      * @param value new value of the range
      */
-    public open fun setValue(`value`: Double): Unit = gtk_range_set_value(gtkRangePointer.reinterpret(), `value`)
+    public open fun setValue(`value`: gdouble): Unit = gtk_range_set_value(gtkRangePointer.reinterpret(), `value`)
 
     /**
      * Emitted before clamping a value, to give the application a
@@ -341,7 +343,7 @@ public open class Range(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `value` the value before we clamp
      */
-    public fun connectAdjustBounds(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`value`: Double) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "adjust-bounds", connectAdjustBoundsFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectAdjustBounds(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`value`: gdouble) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "adjust-bounds", connectAdjustBoundsFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when a scroll action is performed on a range.
@@ -361,7 +363,7 @@ public open class Range(
      * @param handler the Callback to connect. Params: `scroll` the type of scroll action that was performed; `value` the new value resulting from the scroll action. Returns true to prevent other handlers from being invoked for
      *     the signal, false to propagate the signal further
      */
-    public fun connectChangeValue(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (scroll: ScrollType, `value`: Double) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "change-value", connectChangeValueFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectChangeValue(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (scroll: ScrollType, `value`: gdouble) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "change-value", connectChangeValueFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Virtual function that moves the slider.
@@ -387,25 +389,32 @@ public open class Range(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of Range
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_range_get_type()
     }
 }
 
-private val connectAdjustBoundsFunc: CPointer<CFunction<(Double) -> Unit>> = staticCFunction {
+private val connectAdjustBoundsFunc: CPointer<CFunction<(gdouble) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    `value`: Double,
+    `value`: gdouble,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(`value`: Double) -> Unit>().get().invoke(`value`)}
+    userData.asStableRef<(`value`: gdouble) -> Unit>().get().invoke(`value`)}
 .reinterpret()
 
-private val connectChangeValueFunc: CPointer<CFunction<(GtkScrollType, Double) -> Int>> =
+private val connectChangeValueFunc: CPointer<CFunction<(GtkScrollType, gdouble) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     scroll: GtkScrollType,
-    `value`: Double,
+    `value`: gdouble,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(scroll: ScrollType, `value`: Double) -> Boolean>().get().invoke(scroll.run {
+    userData.asStableRef<(scroll: ScrollType, `value`: gdouble) -> Boolean>().get().invoke(scroll.run {
         ScrollType.fromNativeValue(this)}
     , `value`).asGBoolean()}
 .reinterpret()

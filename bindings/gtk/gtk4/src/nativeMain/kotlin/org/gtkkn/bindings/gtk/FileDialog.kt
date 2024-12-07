@@ -29,6 +29,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkFileDialog
 import org.gtkkn.native.gtk.gtk_file_dialog_get_accept_label
 import org.gtkkn.native.gtk.gtk_file_dialog_get_default_filter
@@ -556,5 +557,12 @@ public open class FileDialog(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of FileDialog
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_file_dialog_get_type()
     }
 }

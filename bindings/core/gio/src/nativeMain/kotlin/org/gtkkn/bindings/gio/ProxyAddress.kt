@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.String
-import kotlin.UShort
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -22,6 +21,8 @@ import org.gtkkn.native.gio.g_proxy_address_get_type
 import org.gtkkn.native.gio.g_proxy_address_get_uri
 import org.gtkkn.native.gio.g_proxy_address_get_username
 import org.gtkkn.native.gio.g_proxy_address_new
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint16
 
 /**
  * A [class@Gio.InetSocketAddress] representing a connection via a proxy server.
@@ -61,7 +62,7 @@ public open class ProxyAddress(
      * @since 2.26
      */
     @GioVersion2_26
-    public open val destinationPort: UShort
+    public open val destinationPort: guint16
         /**
          * Gets @proxy's destination port; that is, the port on the
          * destination host that will be connected to via the proxy, not the
@@ -172,10 +173,10 @@ public open class ProxyAddress(
      */
     public constructor(
         inetaddr: InetAddress,
-        port: UShort,
+        port: guint16,
         protocol: String,
         destHostname: String,
-        destPort: UShort,
+        destPort: guint16,
         username: String? = null,
         password: String? = null,
     ) : this(g_proxy_address_new(inetaddr.gioInetAddressPointer.reinterpret(), port, protocol, destHostname, destPort, username, password)!!.reinterpret())
@@ -186,5 +187,12 @@ public open class ProxyAddress(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of ProxyAddress
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_proxy_address_get_type()
     }
 }

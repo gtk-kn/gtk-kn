@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskFillNode
 import org.gtkkn.native.gsk.gsk_fill_node_get_child
 import org.gtkkn.native.gsk.gsk_fill_node_get_fill_rule
@@ -80,5 +81,12 @@ public open class FillNode(
 
         init {
             GskTypeProvider.register()}
+
+        /**
+         * Get the GType of FillNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_fill_node_get_type()
     }
 }

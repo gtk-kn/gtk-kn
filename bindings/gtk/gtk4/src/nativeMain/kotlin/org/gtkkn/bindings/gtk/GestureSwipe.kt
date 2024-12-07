@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.Double
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -16,7 +15,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gtk.GtkGestureSwipe
 import org.gtkkn.native.gtk.gtk_gesture_swipe_get_type
 import org.gtkkn.native.gtk.gtk_gesture_swipe_new
@@ -61,7 +62,7 @@ public open class GestureSwipe(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `velocityX` velocity in the X axis, in pixels/sec; `velocityY` velocity in the Y axis, in pixels/sec
      */
-    public fun connectSwipe(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (velocityX: Double, velocityY: Double) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "swipe", connectSwipeFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectSwipe(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (velocityX: gdouble, velocityY: gdouble) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "swipe", connectSwipeFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<GestureSwipe> {
         override val type: GeneratedClassKGType<GestureSwipe> =
@@ -69,14 +70,21 @@ public open class GestureSwipe(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of GestureSwipe
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_gesture_swipe_get_type()
     }
 }
 
-private val connectSwipeFunc: CPointer<CFunction<(Double, Double) -> Unit>> = staticCFunction {
+private val connectSwipeFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    velocityX: Double,
-    velocityY: Double,
+    velocityX: gdouble,
+    velocityY: gdouble,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(velocityX: Double, velocityY: Double) -> Unit>().get().invoke(velocityX, velocityY)}
+    userData.asStableRef<(velocityX: gdouble, velocityY: gdouble) -> Unit>().get().invoke(velocityX, velocityY)}
 .reinterpret()

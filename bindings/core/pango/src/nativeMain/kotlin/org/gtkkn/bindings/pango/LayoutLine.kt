@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.pango
 
 import kotlin.Boolean
-import kotlin.Int
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -15,12 +13,16 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.pango.PangoLayoutLine
 import org.gtkkn.native.pango.pango_layout_line_get_extents
 import org.gtkkn.native.pango.pango_layout_line_get_length
 import org.gtkkn.native.pango.pango_layout_line_get_pixel_extents
 import org.gtkkn.native.pango.pango_layout_line_get_resolved_direction
 import org.gtkkn.native.pango.pango_layout_line_get_start_index
+import org.gtkkn.native.pango.pango_layout_line_get_type
 import org.gtkkn.native.pango.pango_layout_line_is_paragraph_start
 import org.gtkkn.native.pango.pango_layout_line_ref
 import org.gtkkn.native.pango.pango_layout_line_unref
@@ -58,7 +60,7 @@ public class LayoutLine(
     /**
      * start of line as byte index into layout->text
      */
-    public var startIndex: Int
+    public var startIndex: gint
         get() = pangoLayoutLinePointer.pointed.start_index
         set(`value`) {
             pangoLayoutLinePointer.pointed.start_index = value
@@ -67,7 +69,7 @@ public class LayoutLine(
     /**
      * length of line in bytes
      */
-    public var length: Int
+    public var length: gint
         get() = pangoLayoutLinePointer.pointed.length
         set(`value`) {
             pangoLayoutLinePointer.pointed.length = value
@@ -86,7 +88,7 @@ public class LayoutLine(
     /**
      * #TRUE if this is the first line of the paragraph
      */
-    public var isParagraphStart: UInt
+    public var isParagraphStart: guint
         get() = pangoLayoutLinePointer.pointed.is_paragraph_start
         set(`value`) {
             pangoLayoutLinePointer.pointed.is_paragraph_start = value
@@ -95,7 +97,7 @@ public class LayoutLine(
     /**
      * #Resolved PangoDirection of line
      */
-    public var resolvedDir: UInt
+    public var resolvedDir: guint
         get() = pangoLayoutLinePointer.pointed.resolved_dir
         set(`value`) {
             pangoLayoutLinePointer.pointed.resolved_dir = value
@@ -121,7 +123,7 @@ public class LayoutLine(
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun getLength(): Int = pango_layout_line_get_length(pangoLayoutLinePointer.reinterpret())
+    public fun getLength(): gint = pango_layout_line_get_length(pangoLayoutLinePointer.reinterpret())
 
     /**
      * Computes the logical and ink extents of @layout_line in device units.
@@ -156,7 +158,7 @@ public class LayoutLine(
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun getStartIndex(): Int = pango_layout_line_get_start_index(pangoLayoutLinePointer.reinterpret())
+    public fun getStartIndex(): gint = pango_layout_line_get_start_index(pangoLayoutLinePointer.reinterpret())
 
     /**
      * Returns whether this is the first line of the paragraph.
@@ -186,6 +188,13 @@ public class LayoutLine(
     public fun unref(): Unit = pango_layout_line_unref(pangoLayoutLinePointer.reinterpret())
 
     public companion object : RecordCompanion<LayoutLine, PangoLayoutLine> {
+        /**
+         * Get the GType of LayoutLine
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_layout_line_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): LayoutLine = LayoutLine(pointer.reinterpret())
     }
 }

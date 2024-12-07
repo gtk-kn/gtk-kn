@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.graphene
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Float
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -12,9 +10,13 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.graphene.graphene_size_alloc
 import org.gtkkn.native.graphene.graphene_size_equal
 import org.gtkkn.native.graphene.graphene_size_free
+import org.gtkkn.native.graphene.graphene_size_get_type
 import org.gtkkn.native.graphene.graphene_size_init
 import org.gtkkn.native.graphene.graphene_size_init_from_size
 import org.gtkkn.native.graphene.graphene_size_interpolate
@@ -36,7 +38,7 @@ public class Size(
     /**
      * the width
      */
-    public var width: Float
+    public var width: gfloat
         get() = grapheneSizePointer.pointed.width
         set(`value`) {
             grapheneSizePointer.pointed.width = value
@@ -45,7 +47,7 @@ public class Size(
     /**
      * the height
      */
-    public var height: Float
+    public var height: gfloat
         get() = grapheneSizePointer.pointed.height
         set(`value`) {
             grapheneSizePointer.pointed.height = value
@@ -78,7 +80,7 @@ public class Size(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun `init`(width: Float, height: Float): Size = graphene_size_init(grapheneSizePointer.reinterpret(), width, height)!!.run {
+    public fun `init`(width: gfloat, height: gfloat): Size = graphene_size_init(grapheneSizePointer.reinterpret(), width, height)!!.run {
         Size(reinterpret())}
 
     /**
@@ -105,7 +107,7 @@ public class Size(
     @GrapheneVersion1_0
     public fun interpolate(
         b: Size,
-        factor: Double,
+        factor: gdouble,
         res: Size,
     ): Unit = graphene_size_interpolate(grapheneSizePointer.reinterpret(), b.grapheneSizePointer.reinterpret(), factor, res.grapheneSizePointer.reinterpret())
 
@@ -117,7 +119,7 @@ public class Size(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun scale(factor: Float, res: Size): Unit = graphene_size_scale(grapheneSizePointer.reinterpret(), factor, res.grapheneSizePointer.reinterpret())
+    public fun scale(factor: gfloat, res: Size): Unit = graphene_size_scale(grapheneSizePointer.reinterpret(), factor, res.grapheneSizePointer.reinterpret())
 
     public companion object : RecordCompanion<Size, graphene_size_t> {
         /**
@@ -140,6 +142,13 @@ public class Size(
         @GrapheneVersion1_0
         public fun zero(): Size = graphene_size_zero()!!.run {
             Size(reinterpret())}
+
+        /**
+         * Get the GType of Size
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = graphene_size_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Size = Size(pointer.reinterpret())
     }

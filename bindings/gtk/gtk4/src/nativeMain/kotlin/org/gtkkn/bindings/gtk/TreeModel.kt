@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -22,7 +21,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkTreeIter
 import org.gtkkn.native.gtk.GtkTreeModel
 import org.gtkkn.native.gtk.GtkTreePath
@@ -284,7 +285,7 @@ public interface TreeModel : Interface, KGTyped {
      * @param index the column index
      * @return the type of the column
      */
-    public fun getColumnType(index: Int): ULong = gtk_tree_model_get_column_type(gtkTreeModelPointer.reinterpret(), index)
+    public fun getColumnType(index: gint): GType = gtk_tree_model_get_column_type(gtkTreeModelPointer.reinterpret(), index)
 
     /**
      * Returns a set of flags supported by this interface.
@@ -338,7 +339,7 @@ public interface TreeModel : Interface, KGTyped {
      *
      * @return the number of columns
      */
-    public fun getNColumns(): Int = gtk_tree_model_get_n_columns(gtkTreeModelPointer.reinterpret())
+    public fun getNColumns(): gint = gtk_tree_model_get_n_columns(gtkTreeModelPointer.reinterpret())
 
     /**
      * Returns a newly-created `GtkTreePath` referenced by @iter.
@@ -375,7 +376,7 @@ public interface TreeModel : Interface, KGTyped {
      */
     public fun getValue(
         iter: TreeIter,
-        column: Int,
+        column: gint,
         `value`: Value,
     ): Unit = gtk_tree_model_get_value(gtkTreeModelPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret(), column, `value`.gobjectValuePointer.reinterpret())
 
@@ -412,7 +413,7 @@ public interface TreeModel : Interface, KGTyped {
      * @param iter the `GtkTreeIter`
      * @return the number of children of @iter
      */
-    public fun iterNChildren(iter: TreeIter? = null): Int = gtk_tree_model_iter_n_children(gtkTreeModelPointer.reinterpret(), iter?.gtkTreeIterPointer?.reinterpret())
+    public fun iterNChildren(iter: TreeIter? = null): gint = gtk_tree_model_iter_n_children(gtkTreeModelPointer.reinterpret(), iter?.gtkTreeIterPointer?.reinterpret())
 
     /**
      * Sets @iter to point to the node following it at the current level.
@@ -442,7 +443,7 @@ public interface TreeModel : Interface, KGTyped {
     public fun iterNthChild(
         iter: TreeIter,
         parent: TreeIter? = null,
-        n: Int,
+        n: gint,
     ): Boolean = gtk_tree_model_iter_nth_child(gtkTreeModelPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret(), parent?.gtkTreeIterPointer?.reinterpret(), n).asBoolean()
 
     /**

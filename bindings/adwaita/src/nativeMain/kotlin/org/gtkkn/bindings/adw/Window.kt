@@ -20,6 +20,7 @@ import org.gtkkn.native.adw.adw_window_get_type
 import org.gtkkn.native.adw.adw_window_get_visible_dialog
 import org.gtkkn.native.adw.adw_window_new
 import org.gtkkn.native.adw.adw_window_set_content
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -224,5 +225,12 @@ public open class Window(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of Window
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_window_get_type()
     }
 }

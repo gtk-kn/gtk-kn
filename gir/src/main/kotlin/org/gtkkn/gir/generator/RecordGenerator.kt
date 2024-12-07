@@ -26,7 +26,6 @@ import org.gtkkn.gir.blueprints.ConstructorBlueprint
 import org.gtkkn.gir.blueprints.FieldBlueprint
 import org.gtkkn.gir.blueprints.RecordBlueprint
 import org.gtkkn.gir.blueprints.TypeInfo
-import org.gtkkn.gir.processor.NativeTypes.KP_WILDCARD_CPOINTER
 
 interface RecordGenerator : MiscGenerator, KDocGenerator {
     fun buildRecord(record: RecordBlueprint): TypeSpec =
@@ -73,7 +72,7 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
                 FunSpec.builder("wrapRecordPointer")
                     .addModifiers(KModifier.OVERRIDE)
                     .returns(record.kotlinTypeName)
-                    .addParameter("pointer", KP_WILDCARD_CPOINTER)
+                    .addParameter("pointer", BindingsGenerator.KP_WILDCARD_CPOINTER)
                     .addStatement("return·%T(pointer.%M())", record.kotlinTypeName, BindingsGenerator.REINTERPRET_FUNC)
                     .build(),
             )

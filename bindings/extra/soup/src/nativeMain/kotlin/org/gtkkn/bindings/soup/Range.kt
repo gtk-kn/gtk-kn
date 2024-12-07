@@ -1,13 +1,13 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
-import kotlin.Long
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.gint64
 import org.gtkkn.native.soup.SoupRange
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
@@ -35,7 +35,7 @@ public class Range(
     /**
      * the start of the range
      */
-    public var start: Long
+    public var start: gint64
         get() = soupRangePointer.pointed.start
         set(`value`) {
             soupRangePointer.pointed.start = value
@@ -44,7 +44,7 @@ public class Range(
     /**
      * the end of the range
      */
-    public var end: Long
+    public var end: gint64
         get() = soupRangePointer.pointed.end
         set(`value`) {
             soupRangePointer.pointed.end = value

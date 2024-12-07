@@ -18,6 +18,7 @@ import org.gtkkn.native.gio.g_menu_attribute_iter_get_name
 import org.gtkkn.native.gio.g_menu_attribute_iter_get_type
 import org.gtkkn.native.gio.g_menu_attribute_iter_get_value
 import org.gtkkn.native.gio.g_menu_attribute_iter_next
+import org.gtkkn.native.gobject.GType
 
 /**
  * #GMenuAttributeIter is an opaque structure type.  You must access it
@@ -84,5 +85,12 @@ public open class MenuAttributeIter(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of MenuAttributeIter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_menu_attribute_iter_get_type()
     }
 }

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.ULong
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -24,7 +23,10 @@ import org.gtkkn.native.gio.GThreadedSocketService
 import org.gtkkn.native.gio.g_threaded_socket_service_get_type
 import org.gtkkn.native.gio.g_threaded_socket_service_new
 import org.gtkkn.native.gobject.GObject
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
 
 /**
  * A `GThreadedSocketService` is a simple subclass of [class@Gio.SocketService]
@@ -67,7 +69,7 @@ public open class ThreadedSocketService(
      * @return a new #GSocketService.
      * @since 2.22
      */
-    public constructor(maxThreads: Int) : this(g_threaded_socket_service_new(maxThreads)!!.reinterpret())
+    public constructor(maxThreads: gint) : this(g_threaded_socket_service_new(maxThreads)!!.reinterpret())
 
     /**
      * The ::run signal is emitted in a worker thread in response to an
@@ -86,11 +88,18 @@ public open class ThreadedSocketService(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of ThreadedSocketService
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_threaded_socket_service_get_type()
     }
 }
 
 private val connectRunFunc:
-        CPointer<CFunction<(CPointer<GSocketConnection>, CPointer<GObject>?) -> Int>> =
+        CPointer<CFunction<(CPointer<GSocketConnection>, CPointer<GObject>?) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     connection: CPointer<GSocketConnection>?,

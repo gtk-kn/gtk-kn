@@ -19,6 +19,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.webkit.WebKitColorChooserRequest
 import org.gtkkn.native.webkit.webkit_color_chooser_request_cancel
@@ -129,6 +130,13 @@ public class ColorChooserRequest(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of ColorChooserRequest
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_color_chooser_request_get_type()
     }
 }
 

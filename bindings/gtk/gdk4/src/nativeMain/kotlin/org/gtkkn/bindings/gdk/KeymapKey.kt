@@ -1,8 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
-import kotlin.Int
-import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -10,6 +8,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gdk.GdkKeymapKey
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -24,7 +24,7 @@ public class KeymapKey(
      * the hardware keycode. This is an identifying number for a
      *   physical key.
      */
-    public var keycode: UInt
+    public var keycode: guint
         get() = gdkKeymapKeyPointer.pointed.keycode
         set(`value`) {
             gdkKeymapKeyPointer.pointed.keycode = value
@@ -36,7 +36,7 @@ public class KeymapKey(
      *   characters, and in group 1 it might have two Hebrew characters. The Hebrew
      *   characters will be printed on the key next to the English characters.
      */
-    public var group: Int
+    public var group: gint
         get() = gdkKeymapKeyPointer.pointed.group
         set(`value`) {
             gdkKeymapKeyPointer.pointed.group = value
@@ -50,7 +50,7 @@ public class KeymapKey(
      *   letter at level 0, and an uppercase letter at level 1, though only the
      *   uppercase letter is printed.
      */
-    public var level: Int
+    public var level: gint
         get() = gdkKeymapKeyPointer.pointed.level
         set(`value`) {
             gdkKeymapKeyPointer.pointed.level = value

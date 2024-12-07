@@ -92,7 +92,7 @@ class CallbackBlueprintBuilder(
             lambdaTypeName = callbackLambdaTypeName,
             parameters = callbackParameters,
             throws = girCallback.throws == true,
-            exceptionResolvingFunctionMember = exceptionResolvingFunction(),
+            exceptionResolvingFunctionMember = girNamespace.exceptionResolvingFunction(),
             kdoc = context.processKdoc(girCallback.doc?.doc?.text),
             returnTypeKDoc = context.processKdoc(girCallback.returnValue.doc?.doc?.text),
         )

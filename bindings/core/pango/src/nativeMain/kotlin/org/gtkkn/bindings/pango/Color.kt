@@ -4,7 +4,6 @@ package org.gtkkn.bindings.pango
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Suppress
-import kotlin.UShort
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -15,9 +14,12 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint16
 import org.gtkkn.native.pango.PangoColor
 import org.gtkkn.native.pango.pango_color_copy
 import org.gtkkn.native.pango.pango_color_free
+import org.gtkkn.native.pango.pango_color_get_type
 import org.gtkkn.native.pango.pango_color_parse
 import org.gtkkn.native.pango.pango_color_to_string
 import kotlinx.cinterop.alloc as nativePlacementAlloc
@@ -38,7 +40,7 @@ public class Color(
     /**
      * value of red component
      */
-    public var red: UShort
+    public var red: guint16
         get() = pangoColorPointer.pointed.red
         set(`value`) {
             pangoColorPointer.pointed.red = value
@@ -47,7 +49,7 @@ public class Color(
     /**
      * value of green component
      */
-    public var green: UShort
+    public var green: guint16
         get() = pangoColorPointer.pointed.green
         set(`value`) {
             pangoColorPointer.pointed.green = value
@@ -56,7 +58,7 @@ public class Color(
     /**
      * value of blue component
      */
-    public var blue: UShort
+    public var blue: guint16
         get() = pangoColorPointer.pointed.blue
         set(`value`) {
             pangoColorPointer.pointed.blue = value
@@ -114,6 +116,13 @@ public class Color(
     override fun toString(): String = pango_color_to_string(pangoColorPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     public companion object : RecordCompanion<Color, PangoColor> {
+        /**
+         * Get the GType of Color
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_color_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Color = Color(pointer.reinterpret())
     }
 }

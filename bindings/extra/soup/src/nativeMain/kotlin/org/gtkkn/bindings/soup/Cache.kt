@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.soup
 
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -10,6 +9,8 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.soup.SoupCache
 import org.gtkkn.native.soup.SoupSessionFeature
 import org.gtkkn.native.soup.soup_cache_clear
@@ -88,7 +89,7 @@ public open class Cache(
      *
      * @return the maximum size of the cache, in bytes.
      */
-    public open fun getMaxSize(): UInt = soup_cache_get_max_size(soupCachePointer.reinterpret())
+    public open fun getMaxSize(): guint = soup_cache_get_max_size(soupCachePointer.reinterpret())
 
     /**
      * Loads the contents of @cache's index into memory.
@@ -102,7 +103,7 @@ public open class Cache(
      *
      * @param maxSize the maximum size of the cache, in bytes
      */
-    public open fun setMaxSize(maxSize: UInt): Unit = soup_cache_set_max_size(soupCachePointer.reinterpret(), maxSize)
+    public open fun setMaxSize(maxSize: guint): Unit = soup_cache_set_max_size(soupCachePointer.reinterpret(), maxSize)
 
     public companion object : TypeCompanion<Cache> {
         override val type: GeneratedClassKGType<Cache> =
@@ -110,5 +111,12 @@ public open class Cache(
 
         init {
             SoupTypeProvider.register()}
+
+        /**
+         * Get the GType of Cache
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_cache_get_type()
     }
 }

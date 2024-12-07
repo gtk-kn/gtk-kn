@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkListItemFactory
 import org.gtkkn.native.gtk.gtk_list_item_factory_get_type
 
@@ -73,5 +74,12 @@ public open class ListItemFactory(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of ListItemFactory
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_list_item_factory_get_type()
     }
 }

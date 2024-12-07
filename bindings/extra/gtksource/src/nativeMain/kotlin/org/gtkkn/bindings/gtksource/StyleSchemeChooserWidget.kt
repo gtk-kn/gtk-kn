@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -60,5 +61,12 @@ public open class StyleSchemeChooserWidget(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of StyleSchemeChooserWidget
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_style_scheme_chooser_widget_get_type()
     }
 }

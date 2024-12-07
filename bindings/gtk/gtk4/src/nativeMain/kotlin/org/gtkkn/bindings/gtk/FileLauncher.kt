@@ -28,6 +28,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkFileLauncher
 import org.gtkkn.native.gtk.gtk_file_launcher_get_always_ask
 import org.gtkkn.native.gtk.gtk_file_launcher_get_file
@@ -237,5 +238,12 @@ public open class FileLauncher(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of FileLauncher
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_file_launcher_get_type()
     }
 }

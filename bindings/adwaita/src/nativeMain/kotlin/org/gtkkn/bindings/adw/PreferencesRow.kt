@@ -25,6 +25,7 @@ import org.gtkkn.native.adw.adw_preferences_row_set_title
 import org.gtkkn.native.adw.adw_preferences_row_set_title_selectable
 import org.gtkkn.native.adw.adw_preferences_row_set_use_markup
 import org.gtkkn.native.adw.adw_preferences_row_set_use_underline
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
@@ -171,5 +172,12 @@ public open class PreferencesRow(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of PreferencesRow
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_preferences_row_get_type()
     }
 }

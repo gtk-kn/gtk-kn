@@ -10,6 +10,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceEncoding
 import org.gtkkn.native.gtksource.gtk_source_encoding_copy
 import org.gtkkn.native.gtksource.gtk_source_encoding_free
@@ -19,6 +20,7 @@ import org.gtkkn.native.gtksource.gtk_source_encoding_get_current
 import org.gtkkn.native.gtksource.gtk_source_encoding_get_default_candidates
 import org.gtkkn.native.gtksource.gtk_source_encoding_get_from_charset
 import org.gtkkn.native.gtksource.gtk_source_encoding_get_name
+import org.gtkkn.native.gtksource.gtk_source_encoding_get_type
 import org.gtkkn.native.gtksource.gtk_source_encoding_get_utf8
 import org.gtkkn.native.gtksource.gtk_source_encoding_to_string
 import kotlinx.cinterop.alloc as nativePlacementAlloc
@@ -123,6 +125,13 @@ public class Encoding(
          */
         public fun getUtf8(): Encoding = gtk_source_encoding_get_utf8()!!.run {
             Encoding(reinterpret())}
+
+        /**
+         * Get the GType of Encoding
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_encoding_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Encoding = Encoding(pointer.reinterpret())
     }

@@ -2,10 +2,7 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
-import kotlin.UInt
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -31,6 +28,9 @@ import org.gtkkn.native.gio.g_async_initable_init_finish
 import org.gtkkn.native.gio.g_async_initable_new_finish
 import org.gtkkn.native.gio.g_async_initable_newv_async
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 
 /**
  * `GAsyncInitable` is an interface for asynchronously initializable objects.
@@ -185,7 +185,7 @@ public interface AsyncInitable : Interface, KGTyped {
      */
     @GioVersion2_22
     public fun initAsync(
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_async_initable_init_async(gioAsyncInitablePointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -268,10 +268,10 @@ public interface AsyncInitable : Interface, KGTyped {
          */
         @GioVersion2_22
         public fun newvAsync(
-            objectType: ULong,
-            nParameters: UInt,
+            objectType: GType,
+            nParameters: guint,
             parameters: Parameter,
-            ioPriority: Int,
+            ioPriority: gint,
             cancellable: Cancellable? = null,
             callback: AsyncReadyCallback,
         ): Unit = g_async_initable_newv_async(objectType, nParameters, parameters.gobjectParameterPointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())

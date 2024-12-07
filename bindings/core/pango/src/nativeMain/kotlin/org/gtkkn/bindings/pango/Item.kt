@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
-import kotlin.Int
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -10,10 +9,13 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.pango.PangoItem
 import org.gtkkn.native.pango.pango_item_apply_attrs
 import org.gtkkn.native.pango.pango_item_copy
 import org.gtkkn.native.pango.pango_item_free
+import org.gtkkn.native.pango.pango_item_get_type
 import org.gtkkn.native.pango.pango_item_new
 import org.gtkkn.native.pango.pango_item_split
 import kotlinx.cinterop.alloc as nativePlacementAlloc
@@ -36,7 +38,7 @@ public class Item(
     /**
      * byte offset of the start of this item in text.
      */
-    public var offset: Int
+    public var offset: gint
         get() = pangoItemPointer.pointed.offset
         set(`value`) {
             pangoItemPointer.pointed.offset = value
@@ -45,7 +47,7 @@ public class Item(
     /**
      * length of this item in bytes.
      */
-    public var length: Int
+    public var length: gint
         get() = pangoItemPointer.pointed.length
         set(`value`) {
             pangoItemPointer.pointed.length = value
@@ -54,7 +56,7 @@ public class Item(
     /**
      * number of Unicode characters in the item.
      */
-    public var numChars: Int
+    public var numChars: gint
         get() = pangoItemPointer.pointed.num_chars
         set(`value`) {
             pangoItemPointer.pointed.num_chars = value
@@ -112,7 +114,7 @@ public class Item(
      * @return new item representing text before @split_index, which
      *   should be freed with [method@Pango.Item.free].
      */
-    public fun split(splitIndex: Int, splitOffset: Int): Item = pango_item_split(pangoItemPointer.reinterpret(), splitIndex, splitOffset)!!.run {
+    public fun split(splitIndex: gint, splitOffset: gint): Item = pango_item_split(pangoItemPointer.reinterpret(), splitIndex, splitOffset)!!.run {
         Item(reinterpret())}
 
     public companion object : RecordCompanion<Item, PangoItem> {
@@ -123,6 +125,13 @@ public class Item(
          *   be freed with [method@Pango.Item.free].
          */
         public fun new(): Item = Item(pango_item_new()!!.reinterpret())
+
+        /**
+         * Get the GType of Item
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_item_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Item = Item(pointer.reinterpret())
     }

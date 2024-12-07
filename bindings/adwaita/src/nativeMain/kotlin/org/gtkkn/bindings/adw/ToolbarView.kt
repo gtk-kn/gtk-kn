@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -35,6 +34,8 @@ import org.gtkkn.native.adw.adw_toolbar_view_set_extend_content_to_top_edge
 import org.gtkkn.native.adw.adw_toolbar_view_set_reveal_bottom_bars
 import org.gtkkn.native.adw.adw_toolbar_view_set_reveal_top_bars
 import org.gtkkn.native.adw.adw_toolbar_view_set_top_bar_style
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -168,7 +169,7 @@ public class ToolbarView(
      * @since 1.4
      */
     @AdwVersion1_4
-    public val bottomBarHeight: Int
+    public val bottomBarHeight: gint
         /**
          * Gets the current bottom bar height for @self.
          *
@@ -432,7 +433,7 @@ public class ToolbarView(
      * @since 1.4
      */
     @AdwVersion1_4
-    public val topBarHeight: Int
+    public val topBarHeight: gint
         /**
          * Gets the current top bar height for @self.
          *
@@ -557,5 +558,12 @@ public class ToolbarView(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of ToolbarView
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_toolbar_view_get_type()
     }
 }

@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gdk
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -34,7 +32,10 @@ import org.gtkkn.native.gdk.gdk_drag_get_selected_action
 import org.gtkkn.native.gdk.gdk_drag_get_surface
 import org.gtkkn.native.gdk.gdk_drag_get_type
 import org.gtkkn.native.gdk.gdk_drag_set_hotspot
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
 
 /**
  * The `GdkDrag` object represents the source of an ongoing DND operation.
@@ -179,7 +180,7 @@ public open class Drag(
      * @param hotX x coordinate of the drag surface hotspot
      * @param hotY y coordinate of the drag surface hotspot
      */
-    public open fun setHotspot(hotX: Int, hotY: Int): Unit = gdk_drag_set_hotspot(gdkDragPointer.reinterpret(), hotX, hotY)
+    public open fun setHotspot(hotX: gint, hotY: gint): Unit = gdk_drag_set_hotspot(gdkDragPointer.reinterpret(), hotX, hotY)
 
     /**
      * Emitted when the drag operation is cancelled.
@@ -243,10 +244,17 @@ public open class Drag(
             device: Device,
             content: ContentProvider,
             actions: DragAction,
-            dx: Double,
-            dy: Double,
+            dx: gdouble,
+            dy: gdouble,
         ): Drag? = gdk_drag_begin(surface.gdkSurfacePointer.reinterpret(), device.gdkDevicePointer.reinterpret(), content.gdkContentProviderPointer.reinterpret(), actions.mask, dx, dy)?.run {
             Drag(reinterpret())}
+
+        /**
+         * Get the GType of Drag
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_drag_get_type()
     }
 }
 

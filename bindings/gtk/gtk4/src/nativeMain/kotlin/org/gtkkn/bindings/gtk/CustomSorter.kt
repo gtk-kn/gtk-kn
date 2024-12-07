@@ -11,6 +11,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkCustomSorter
 import org.gtkkn.native.gtk.gtk_custom_sorter_get_type
 import org.gtkkn.native.gtk.gtk_custom_sorter_new
@@ -59,5 +60,12 @@ public open class CustomSorter(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of CustomSorter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_custom_sorter_get_type()
     }
 }

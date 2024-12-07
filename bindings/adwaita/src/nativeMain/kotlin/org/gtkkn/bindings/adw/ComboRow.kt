@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
@@ -33,6 +32,8 @@ import org.gtkkn.native.adw.adw_combo_row_set_list_factory
 import org.gtkkn.native.adw.adw_combo_row_set_model
 import org.gtkkn.native.adw.adw_combo_row_set_selected
 import org.gtkkn.native.adw.adw_combo_row_set_use_subtitle
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
@@ -244,7 +245,7 @@ public open class ComboRow(
      * If no item is selected, the property has the value
      * [const@Gtk.INVALID_LIST_POSITION]
      */
-    public open var selected: UInt
+    public open var selected: guint
         /**
          * Gets the position of the selected item.
          *
@@ -318,5 +319,12 @@ public open class ComboRow(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of ComboRow
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_combo_row_get_type()
     }
 }

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -10,6 +9,8 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkCellAreaBox
 import org.gtkkn.native.gtk.GtkCellLayout
@@ -62,7 +63,7 @@ public open class CellAreaBox(
     /**
      * The amount of space to reserve between cells.
      */
-    public open var spacing: Int
+    public open var spacing: gint
         /**
          * Gets the spacing added between cell renderers.
          *
@@ -127,5 +128,12 @@ public open class CellAreaBox(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of CellAreaBox
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_cell_area_box_get_type()
     }
 }

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -12,6 +11,8 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkColumnViewCell
 import org.gtkkn.native.gtk.gtk_column_view_cell_get_child
 import org.gtkkn.native.gtk.gtk_column_view_cell_get_focusable
@@ -133,7 +134,7 @@ public open class ColumnViewCell(
      * @since 4.12
      */
     @GtkVersion4_12
-    public override val position: UInt
+    public override val position: guint
         /**
          * Gets the position in the model that @self currently displays.
          *
@@ -168,5 +169,12 @@ public open class ColumnViewCell(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of ColumnViewCell
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_column_view_cell_get_type()
     }
 }

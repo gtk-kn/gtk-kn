@@ -2,9 +2,7 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -32,6 +30,8 @@ import org.gtkkn.native.glib.g_thread_pool_set_max_threads
 import org.gtkkn.native.glib.g_thread_pool_set_max_unused_threads
 import org.gtkkn.native.glib.g_thread_pool_stop_unused_threads
 import org.gtkkn.native.glib.g_thread_pool_unprocessed
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -109,14 +109,14 @@ public class ThreadPool(
      *
      * @return the maximal number of threads
      */
-    public fun getMaxThreads(): Int = g_thread_pool_get_max_threads(glibThreadPoolPointer.reinterpret())
+    public fun getMaxThreads(): gint = g_thread_pool_get_max_threads(glibThreadPoolPointer.reinterpret())
 
     /**
      * Returns the number of threads currently running in @pool.
      *
      * @return the number of threads currently running
      */
-    public fun getNumThreads(): UInt = g_thread_pool_get_num_threads(glibThreadPoolPointer.reinterpret())
+    public fun getNumThreads(): guint = g_thread_pool_get_num_threads(glibThreadPoolPointer.reinterpret())
 
     /**
      * Sets the maximal allowed number of threads for @pool.
@@ -144,7 +144,7 @@ public class ThreadPool(
      *     or -1 for unlimited
      * @return true on success, false if an error occurred
      */
-    public fun setMaxThreads(maxThreads: Int): Result<Boolean> = memScoped {
+    public fun setMaxThreads(maxThreads: gint): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_thread_pool_set_max_threads(glibThreadPoolPointer.reinterpret(), maxThreads, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
@@ -160,7 +160,7 @@ public class ThreadPool(
      *
      * @return the number of unprocessed tasks
      */
-    public fun unprocessed(): UInt = g_thread_pool_unprocessed(glibThreadPoolPointer.reinterpret())
+    public fun unprocessed(): guint = g_thread_pool_unprocessed(glibThreadPoolPointer.reinterpret())
 
     public companion object : RecordCompanion<ThreadPool, GThreadPool> {
         /**
@@ -177,21 +177,21 @@ public class ThreadPool(
          * @since 2.10
          */
         @GLibVersion2_10
-        public fun getMaxIdleTime(): UInt = g_thread_pool_get_max_idle_time()
+        public fun getMaxIdleTime(): guint = g_thread_pool_get_max_idle_time()
 
         /**
          * Returns the maximal allowed number of unused threads.
          *
          * @return the maximal number of unused threads
          */
-        public fun getMaxUnusedThreads(): Int = g_thread_pool_get_max_unused_threads()
+        public fun getMaxUnusedThreads(): gint = g_thread_pool_get_max_unused_threads()
 
         /**
          * Returns the number of currently unused threads.
          *
          * @return the number of currently unused threads
          */
-        public fun getNumUnusedThreads(): UInt = g_thread_pool_get_num_unused_threads()
+        public fun getNumUnusedThreads(): guint = g_thread_pool_get_num_unused_threads()
 
         /**
          * This function will set the maximum @interval that a thread
@@ -209,7 +209,7 @@ public class ThreadPool(
          * @since 2.10
          */
         @GLibVersion2_10
-        public fun setMaxIdleTime(interval: UInt): Unit = g_thread_pool_set_max_idle_time(interval)
+        public fun setMaxIdleTime(interval: guint): Unit = g_thread_pool_set_max_idle_time(interval)
 
         /**
          * Sets the maximal number of unused threads to @max_threads.
@@ -220,7 +220,7 @@ public class ThreadPool(
          *
          * @param maxThreads maximal number of unused threads
          */
-        public fun setMaxUnusedThreads(maxThreads: Int): Unit = g_thread_pool_set_max_unused_threads(maxThreads)
+        public fun setMaxUnusedThreads(maxThreads: gint): Unit = g_thread_pool_set_max_unused_threads(maxThreads)
 
         /**
          * Stops all currently unused threads. This does not change the

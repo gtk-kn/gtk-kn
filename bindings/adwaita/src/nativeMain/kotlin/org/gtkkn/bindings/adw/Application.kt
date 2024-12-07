@@ -14,6 +14,7 @@ import org.gtkkn.native.adw.adw_application_get_type
 import org.gtkkn.native.adw.adw_application_new
 import org.gtkkn.native.gio.GActionGroup
 import org.gtkkn.native.gio.GActionMap
+import org.gtkkn.native.gobject.GType
 
 /**
  * A base class for Adwaita applications.
@@ -95,5 +96,12 @@ public open class Application(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of Application
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_application_get_type()
     }
 }

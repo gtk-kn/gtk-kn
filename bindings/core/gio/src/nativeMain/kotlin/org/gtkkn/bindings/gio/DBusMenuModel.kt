@@ -11,6 +11,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GDBusMenuModel
 import org.gtkkn.native.gio.g_dbus_menu_model_get
 import org.gtkkn.native.gio.g_dbus_menu_model_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GDBusMenuModel` is an implementation of [class@Gio.MenuModel] that can be
@@ -56,5 +57,12 @@ public open class DBusMenuModel(
             objectPath: String,
         ): DBusMenuModel = g_dbus_menu_model_get(connection.gioDBusConnectionPointer.reinterpret(), busName, objectPath)!!.run {
             DBusMenuModel(reinterpret())}
+
+        /**
+         * Get the GType of DBusMenuModel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_menu_model_get_type()
     }
 }

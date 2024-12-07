@@ -1,9 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
-import kotlin.Long
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -14,6 +12,9 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_36
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint64
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitURISchemeResponse
 import org.gtkkn.native.webkit.webkit_uri_scheme_response_get_type
 import org.gtkkn.native.webkit.webkit_uri_scheme_response_new
@@ -55,7 +56,7 @@ public class URISchemeResponse(
      * @return the newly created #WebKitURISchemeResponse.
      * @since 2.36
      */
-    public constructor(inputStream: InputStream, streamLength: Long) : this(webkit_uri_scheme_response_new(inputStream.gioInputStreamPointer.reinterpret(), streamLength)!!.reinterpret())
+    public constructor(inputStream: InputStream, streamLength: gint64) : this(webkit_uri_scheme_response_new(inputStream.gioInputStreamPointer.reinterpret(), streamLength)!!.reinterpret())
 
     /**
      * Sets the content type for the @response
@@ -88,7 +89,7 @@ public class URISchemeResponse(
      * @since 2.36
      */
     @WebKitVersion2_36
-    public fun setStatus(statusCode: UInt, reasonPhrase: String? = null): Unit = webkit_uri_scheme_response_set_status(webkitURISchemeResponsePointer.reinterpret(), statusCode, reasonPhrase)
+    public fun setStatus(statusCode: guint, reasonPhrase: String? = null): Unit = webkit_uri_scheme_response_set_status(webkitURISchemeResponsePointer.reinterpret(), statusCode, reasonPhrase)
 
     public companion object : TypeCompanion<URISchemeResponse> {
         override val type: GeneratedClassKGType<URISchemeResponse> =
@@ -96,5 +97,12 @@ public class URISchemeResponse(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of URISchemeResponse
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_uri_scheme_response_get_type()
     }
 }

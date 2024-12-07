@@ -9,6 +9,7 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkMountOperation
 import org.gtkkn.native.gtk.gtk_mount_operation_get_display
 import org.gtkkn.native.gtk.gtk_mount_operation_get_parent
@@ -104,5 +105,12 @@ public open class MountOperation(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of MountOperation
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_mount_operation_get_type()
     }
 }

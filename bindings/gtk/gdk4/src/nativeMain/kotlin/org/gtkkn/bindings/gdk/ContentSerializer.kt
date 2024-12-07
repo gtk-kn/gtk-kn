@@ -1,9 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
-import kotlin.Int
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -28,6 +26,8 @@ import org.gtkkn.native.gdk.gdk_content_serializer_get_value
 import org.gtkkn.native.gdk.gdk_content_serializer_return_error
 import org.gtkkn.native.gdk.gdk_content_serializer_return_success
 import org.gtkkn.native.gio.GAsyncResult
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * A `GdkContentSerializer` is used to serialize content for
@@ -75,7 +75,7 @@ public open class ContentSerializer(
      *
      * @return the `GType` for the current operation
      */
-    public open fun getGtype(): ULong = gdk_content_serializer_get_gtype(gdkContentSerializerPointer.reinterpret())
+    public open fun getGtype(): GType = gdk_content_serializer_get_gtype(gdkContentSerializerPointer.reinterpret())
 
     /**
      * Gets the mime type to serialize to.
@@ -101,7 +101,7 @@ public open class ContentSerializer(
      *
      * @return the I/O priority for the current operation
      */
-    public open fun getPriority(): Int = gdk_content_serializer_get_priority(gdkContentSerializerPointer.reinterpret())
+    public open fun getPriority(): gint = gdk_content_serializer_get_priority(gdkContentSerializerPointer.reinterpret())
 
     /**
      * Gets the `GValue` to read the object to serialize from.
@@ -131,5 +131,12 @@ public open class ContentSerializer(
 
         init {
             GdkTypeProvider.register()}
+
+        /**
+         * Get the GType of ContentSerializer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_content_serializer_get_type()
     }
 }

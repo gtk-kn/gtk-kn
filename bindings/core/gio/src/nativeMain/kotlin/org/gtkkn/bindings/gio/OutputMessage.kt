@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -10,6 +9,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_44
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GOutputMessage
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -54,7 +54,7 @@ public class OutputMessage(
     /**
      * the number of output vectors pointed to by @vectors.
      */
-    public var numVectors: UInt
+    public var numVectors: guint
         get() = gioOutputMessagePointer.pointed.num_vectors
         set(`value`) {
             gioOutputMessagePointer.pointed.num_vectors = value
@@ -64,7 +64,7 @@ public class OutputMessage(
      * initialize to 0. Will be set to the number of bytes
      *     that have been sent
      */
-    public var bytesSent: UInt
+    public var bytesSent: guint
         get() = gioOutputMessagePointer.pointed.bytes_sent
         set(`value`) {
             gioOutputMessagePointer.pointed.bytes_sent = value
@@ -73,7 +73,7 @@ public class OutputMessage(
     /**
      * number of elements in @control_messages.
      */
-    public var numControlMessages: UInt
+    public var numControlMessages: guint
         get() = gioOutputMessagePointer.pointed.num_control_messages
         set(`value`) {
             gioOutputMessagePointer.pointed.num_control_messages = value

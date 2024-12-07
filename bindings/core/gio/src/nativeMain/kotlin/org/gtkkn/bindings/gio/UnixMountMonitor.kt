@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlin.Int
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -24,7 +23,9 @@ import org.gtkkn.native.gio.g_unix_mount_monitor_get
 import org.gtkkn.native.gio.g_unix_mount_monitor_get_type
 import org.gtkkn.native.gio.g_unix_mount_monitor_new
 import org.gtkkn.native.gio.g_unix_mount_monitor_set_rate_limit
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 
 /**
  * Watches #GUnixMounts for changes.
@@ -60,7 +61,7 @@ public open class UnixMountMonitor(
      * @since 2.18
      */
     @GioVersion2_18
-    public open fun setRateLimit(limitMsec: Int): Unit = g_unix_mount_monitor_set_rate_limit(gioUnixMountMonitorPointer.reinterpret(), limitMsec)
+    public open fun setRateLimit(limitMsec: gint): Unit = g_unix_mount_monitor_set_rate_limit(gioUnixMountMonitorPointer.reinterpret(), limitMsec)
 
     /**
      * Emitted when the unix mount points have changed.
@@ -102,6 +103,13 @@ public open class UnixMountMonitor(
         @GioVersion2_44
         public fun `get`(): UnixMountMonitor = g_unix_mount_monitor_get()!!.run {
             UnixMountMonitor(reinterpret())}
+
+        /**
+         * Get the GType of UnixMountMonitor
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_unix_mount_monitor_get_type()
     }
 }
 

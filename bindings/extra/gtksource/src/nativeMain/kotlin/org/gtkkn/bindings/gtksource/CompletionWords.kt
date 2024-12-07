@@ -10,6 +10,7 @@ import org.gtkkn.bindings.gtk.TextBuffer
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceCompletionProvider
 import org.gtkkn.native.gtksource.GtkSourceCompletionWords
 import org.gtkkn.native.gtksource.gtk_source_completion_words_get_type
@@ -71,5 +72,12 @@ public open class CompletionWords(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of CompletionWords
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_completion_words_get_type()
     }
 }

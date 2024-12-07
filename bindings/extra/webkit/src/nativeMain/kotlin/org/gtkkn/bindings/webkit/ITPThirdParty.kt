@@ -11,9 +11,11 @@ import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_30
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitITPThirdParty
 import org.gtkkn.native.webkit.webkit_itp_third_party_get_domain
 import org.gtkkn.native.webkit.webkit_itp_third_party_get_first_parties
+import org.gtkkn.native.webkit.webkit_itp_third_party_get_type
 import org.gtkkn.native.webkit.webkit_itp_third_party_ref
 import org.gtkkn.native.webkit.webkit_itp_third_party_unref
 import kotlinx.cinterop.alloc as nativePlacementAlloc
@@ -72,6 +74,13 @@ public class ITPThirdParty(
     public fun unref(): Unit = webkit_itp_third_party_unref(webkitITPThirdPartyPointer.reinterpret())
 
     public companion object : RecordCompanion<ITPThirdParty, WebKitITPThirdParty> {
+        /**
+         * Get the GType of ITPThirdParty
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_itp_third_party_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ITPThirdParty = ITPThirdParty(pointer.reinterpret())
     }
 }

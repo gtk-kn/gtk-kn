@@ -2,9 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.Boolean
-import kotlin.Int
-import kotlin.UInt
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -21,6 +18,9 @@ import org.gtkkn.native.glib.g_hook_free
 import org.gtkkn.native.glib.g_hook_insert_before
 import org.gtkkn.native.glib.g_hook_prepend
 import org.gtkkn.native.glib.g_hook_unref
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.gulong
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -59,7 +59,7 @@ public class Hook(
     /**
      * the reference count of this hook
      */
-    public var refCount: UInt
+    public var refCount: guint
         get() = glibHookPointer.pointed.ref_count
         set(`value`) {
             glibHookPointer.pointed.ref_count = value
@@ -68,7 +68,7 @@ public class Hook(
     /**
      * the id of this hook, which is unique within its list
      */
-    public var hookId: ULong
+    public var hookId: gulong
         get() = glibHookPointer.pointed.hook_id
         set(`value`) {
             glibHookPointer.pointed.hook_id = value
@@ -78,7 +78,7 @@ public class Hook(
      * flags which are set for this hook. See #GHookFlagMask for
      *     predefined flags
      */
-    public var flags: UInt
+    public var flags: guint
         get() = glibHookPointer.pointed.flags
         set(`value`) {
             glibHookPointer.pointed.flags = value
@@ -91,7 +91,7 @@ public class Hook(
      * @param sibling a #GHook to compare with @new_hook
      * @return a value <= 0 if the id of @sibling is >= the id of @new_hook
      */
-    public fun compareIds(sibling: Hook): Int = g_hook_compare_ids(glibHookPointer.reinterpret(), sibling.glibHookPointer.reinterpret())
+    public fun compareIds(sibling: Hook): gint = g_hook_compare_ids(glibHookPointer.reinterpret(), sibling.glibHookPointer.reinterpret())
 
     public companion object : RecordCompanion<Hook, GHook> {
         /**
@@ -101,7 +101,7 @@ public class Hook(
          * @param hookId a hook ID
          * @return true if the #GHook was found in the #GHookList and destroyed
          */
-        public fun destroy(hookList: HookList, hookId: ULong): Boolean = g_hook_destroy(hookList.glibHookListPointer.reinterpret(), hookId).asBoolean()
+        public fun destroy(hookList: HookList, hookId: gulong): Boolean = g_hook_destroy(hookList.glibHookListPointer.reinterpret(), hookId).asBoolean()
 
         /**
          * Removes one #GHook from a #GHookList, marking it

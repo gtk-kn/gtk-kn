@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gdk
 
 import kotlin.Boolean
-import kotlin.Long
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -17,8 +16,11 @@ import org.gtkkn.native.gdk.gdk_frame_timings_get_frame_time
 import org.gtkkn.native.gdk.gdk_frame_timings_get_predicted_presentation_time
 import org.gtkkn.native.gdk.gdk_frame_timings_get_presentation_time
 import org.gtkkn.native.gdk.gdk_frame_timings_get_refresh_interval
+import org.gtkkn.native.gdk.gdk_frame_timings_get_type
 import org.gtkkn.native.gdk.gdk_frame_timings_ref
 import org.gtkkn.native.gdk.gdk_frame_timings_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint64
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -62,7 +64,7 @@ public class FrameTimings(
      *
      * @return the frame counter value for this frame
      */
-    public fun getFrameCounter(): Long = gdk_frame_timings_get_frame_counter(gdkFrameTimingsPointer.reinterpret())
+    public fun getFrameCounter(): gint64 = gdk_frame_timings_get_frame_counter(gdkFrameTimingsPointer.reinterpret())
 
     /**
      * Returns the frame time for the frame.
@@ -73,7 +75,7 @@ public class FrameTimings(
      * @return the frame time for the frame, in the timescale
      *  of g_get_monotonic_time()
      */
-    public fun getFrameTime(): Long = gdk_frame_timings_get_frame_time(gdkFrameTimingsPointer.reinterpret())
+    public fun getFrameTime(): gint64 = gdk_frame_timings_get_frame_time(gdkFrameTimingsPointer.reinterpret())
 
     /**
      * Gets the predicted time at which this frame will be displayed.
@@ -93,7 +95,7 @@ public class FrameTimings(
      *   in the timescale of g_get_monotonic_time(), or 0 if no predicted
      *   presentation time is available.
      */
-    public fun getPredictedPresentationTime(): Long = gdk_frame_timings_get_predicted_presentation_time(gdkFrameTimingsPointer.reinterpret())
+    public fun getPredictedPresentationTime(): gint64 = gdk_frame_timings_get_predicted_presentation_time(gdkFrameTimingsPointer.reinterpret())
 
     /**
      * Reurns the presentation time.
@@ -104,7 +106,7 @@ public class FrameTimings(
      *   timescale of g_get_monotonic_time(), or 0 if no presentation
      *   time is available. See [method@Gdk.FrameTimings.get_complete]
      */
-    public fun getPresentationTime(): Long = gdk_frame_timings_get_presentation_time(gdkFrameTimingsPointer.reinterpret())
+    public fun getPresentationTime(): gint64 = gdk_frame_timings_get_presentation_time(gdkFrameTimingsPointer.reinterpret())
 
     /**
      * Gets the natural interval between presentation times for
@@ -117,7 +119,7 @@ public class FrameTimings(
      *   or 0 if the refresh interval is not available.
      *   See [method@Gdk.FrameTimings.get_complete].
      */
-    public fun getRefreshInterval(): Long = gdk_frame_timings_get_refresh_interval(gdkFrameTimingsPointer.reinterpret())
+    public fun getRefreshInterval(): gint64 = gdk_frame_timings_get_refresh_interval(gdkFrameTimingsPointer.reinterpret())
 
     /**
      * Increases the reference count of @timings.
@@ -135,6 +137,13 @@ public class FrameTimings(
     public fun unref(): Unit = gdk_frame_timings_unref(gdkFrameTimingsPointer.reinterpret())
 
     public companion object : RecordCompanion<FrameTimings, GdkFrameTimings> {
+        /**
+         * Get the GType of FrameTimings
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_frame_timings_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FrameTimings = FrameTimings(pointer.reinterpret())
     }
 }

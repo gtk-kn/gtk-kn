@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -19,7 +18,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
@@ -162,7 +163,7 @@ public open class ListBoxRow(
      *
      * @return the index of the @row, or -1 if the @row is not in a listbox
      */
-    public open fun getIndex(): Int = gtk_list_box_row_get_index(gtkListBoxRowPointer.reinterpret())
+    public open fun getIndex(): gint = gtk_list_box_row_get_index(gtkListBoxRowPointer.reinterpret())
 
     /**
      * Returns whether the child is currently selected in its
@@ -202,6 +203,13 @@ public open class ListBoxRow(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of ListBoxRow
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_list_box_row_get_type()
     }
 }
 

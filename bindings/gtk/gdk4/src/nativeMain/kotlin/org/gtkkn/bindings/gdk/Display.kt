@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gdk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.ULong
@@ -66,7 +65,9 @@ import org.gtkkn.native.gdk.gdk_display_supports_input_shapes
 import org.gtkkn.native.gdk.gdk_display_supports_shadow_width
 import org.gtkkn.native.gdk.gdk_display_sync
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 
 /**
  * `GdkDisplay` objects are the GDK representation of a workstation.
@@ -491,12 +492,19 @@ public open class Display(
          */
         public fun `open`(displayName: String? = null): Display? = gdk_display_open(displayName)?.run {
             Display(reinterpret())}
+
+        /**
+         * Get the GType of Display
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_display_get_type()
     }
 }
 
-private val connectClosedFunc: CPointer<CFunction<(Int) -> Unit>> = staticCFunction {
+private val connectClosedFunc: CPointer<CFunction<(gboolean) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    isError: Int,
+    isError: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(isError: Boolean) -> Unit>().get().invoke(isError.asBoolean())}

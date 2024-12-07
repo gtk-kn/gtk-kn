@@ -12,7 +12,9 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
 import org.gtkkn.extensions.common.toCStringList
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitUserStyleSheet
+import org.gtkkn.native.webkit.webkit_user_style_sheet_get_type
 import org.gtkkn.native.webkit.webkit_user_style_sheet_new
 import org.gtkkn.native.webkit.webkit_user_style_sheet_new_for_world
 import org.gtkkn.native.webkit.webkit_user_style_sheet_ref
@@ -110,6 +112,13 @@ public class UserStyleSheet(
             memScoped {
                 return UserStyleSheet(webkit_user_style_sheet_new_for_world(source, injectedFrames.nativeValue, level.nativeValue, worldName, allowList?.toCStringList(this), blockList?.toCStringList(this))!!.reinterpret())}
         }
+
+        /**
+         * Get the GType of UserStyleSheet
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_user_style_sheet_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): UserStyleSheet = UserStyleSheet(pointer.reinterpret())
     }

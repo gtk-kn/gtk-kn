@@ -7,6 +7,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GUnixMountEntry
+import org.gtkkn.native.gio.g_unix_mount_entry_get_type
+import org.gtkkn.native.gobject.GType
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -19,6 +21,13 @@ public class UnixMountEntry(
     public val gioUnixMountEntryPointer: CPointer<GUnixMountEntry> = pointer
 
     public companion object : RecordCompanion<UnixMountEntry, GUnixMountEntry> {
+        /**
+         * Get the GType of UnixMountEntry
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_unix_mount_entry_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): UnixMountEntry = UnixMountEntry(pointer.reinterpret())
     }
 }

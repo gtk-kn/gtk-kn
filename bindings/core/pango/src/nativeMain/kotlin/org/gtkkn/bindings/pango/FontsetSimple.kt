@@ -1,13 +1,14 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
-import kotlin.Int
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.pango.PangoFontsetSimple
 import org.gtkkn.native.pango.pango_fontset_simple_append
 import org.gtkkn.native.pango.pango_fontset_simple_get_type
@@ -50,7 +51,7 @@ public open class FontsetSimple(
      *
      * @return the size of @fontset
      */
-    public open fun size(): Int = pango_fontset_simple_size(pangoFontsetSimplePointer.reinterpret())
+    public open fun size(): gint = pango_fontset_simple_size(pangoFontsetSimplePointer.reinterpret())
 
     public companion object : TypeCompanion<FontsetSimple> {
         override val type: GeneratedClassKGType<FontsetSimple> =
@@ -58,5 +59,12 @@ public open class FontsetSimple(
 
         init {
             PangoTypeProvider.register()}
+
+        /**
+         * Get the GType of FontsetSimple
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_fontset_simple_get_type()
     }
 }

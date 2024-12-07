@@ -12,7 +12,9 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
 import org.gtkkn.extensions.common.toCStringList
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitUserScript
+import org.gtkkn.native.webkit.webkit_user_script_get_type
 import org.gtkkn.native.webkit.webkit_user_script_new
 import org.gtkkn.native.webkit.webkit_user_script_new_for_world
 import org.gtkkn.native.webkit.webkit_user_script_ref
@@ -109,6 +111,13 @@ public class UserScript(
             memScoped {
                 return UserScript(webkit_user_script_new_for_world(source, injectedFrames.nativeValue, injectionTime.nativeValue, worldName, allowList?.toCStringList(this), blockList?.toCStringList(this))!!.reinterpret())}
         }
+
+        /**
+         * Get the GType of UserScript
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_user_script_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): UserScript = UserScript(pointer.reinterpret())
     }

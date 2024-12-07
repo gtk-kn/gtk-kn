@@ -11,6 +11,7 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitSecurityManager
 import org.gtkkn.native.webkit.webkit_security_manager_get_type
 import org.gtkkn.native.webkit.webkit_security_manager_register_uri_scheme_as_cors_enabled
@@ -169,5 +170,12 @@ public class SecurityManager(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of SecurityManager
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_security_manager_get_type()
     }
 }

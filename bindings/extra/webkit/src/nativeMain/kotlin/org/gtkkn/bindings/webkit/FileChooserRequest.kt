@@ -16,6 +16,7 @@ import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitFileChooserRequest
 import org.gtkkn.native.webkit.webkit_file_chooser_request_cancel
 import org.gtkkn.native.webkit.webkit_file_chooser_request_get_mime_types
@@ -171,5 +172,12 @@ public class FileChooserRequest(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of FileChooserRequest
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_file_chooser_request_get_type()
     }
 }

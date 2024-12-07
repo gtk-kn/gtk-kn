@@ -14,6 +14,7 @@ import org.gtkkn.native.gdk.gdk_scroll_event_get_direction
 import org.gtkkn.native.gdk.gdk_scroll_event_get_type
 import org.gtkkn.native.gdk.gdk_scroll_event_get_unit
 import org.gtkkn.native.gdk.gdk_scroll_event_is_stop
+import org.gtkkn.native.gobject.GType
 
 /**
  * An event related to a scrolling motion.
@@ -71,5 +72,12 @@ public open class ScrollEvent(
 
         init {
             GdkTypeProvider.register()}
+
+        /**
+         * Get the GType of ScrollEvent
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_scroll_event_get_type()
     }
 }

@@ -52,6 +52,7 @@ import org.gtkkn.native.gio.g_dbus_object_manager_client_new_for_bus_sync
 import org.gtkkn.native.gio.g_dbus_object_manager_client_new_sync
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GVariant
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 
 /**
@@ -428,6 +429,13 @@ public open class DBusObjectManagerClient(
                 Result.success(DBusObjectManagerClient(checkNotNull(gResult).reinterpret()))
             }
         }
+
+        /**
+         * Get the GType of DBusObjectManagerClient
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_object_manager_client_get_type()
     }
 }
 

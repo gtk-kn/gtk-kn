@@ -1,11 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlin.UInt
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
 import org.gtkkn.native.glib.GUnicodeScript
 import org.gtkkn.native.glib.g_unicode_script_from_iso15924
 import org.gtkkn.native.glib.g_unicode_script_to_iso15924
+import org.gtkkn.native.gobject.guint
 
 /**
  * The #GUnicodeScript enumeration identifies different writing
@@ -876,7 +876,7 @@ public enum class UnicodeScript(
          * @since 2.30
          */
         @GLibVersion2_30
-        public fun fromIso15924(iso15924: UInt): UnicodeScript = g_unicode_script_from_iso15924(iso15924).run {
+        public fun fromIso15924(iso15924: guint): UnicodeScript = g_unicode_script_from_iso15924(iso15924).run {
             UnicodeScript.fromNativeValue(this)}
 
         /**
@@ -897,6 +897,6 @@ public enum class UnicodeScript(
          * @since 2.30
          */
         @GLibVersion2_30
-        public fun toIso15924(script: UnicodeScript): UInt = g_unicode_script_to_iso15924(script.nativeValue)
+        public fun toIso15924(script: UnicodeScript): guint = g_unicode_script_to_iso15924(script.nativeValue)
     }
 }

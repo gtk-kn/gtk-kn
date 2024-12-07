@@ -12,10 +12,12 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_16
 import org.gtkkn.extensions.common.toCStringList
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitNetworkProxySettings
 import org.gtkkn.native.webkit.webkit_network_proxy_settings_add_proxy_for_scheme
 import org.gtkkn.native.webkit.webkit_network_proxy_settings_copy
 import org.gtkkn.native.webkit.webkit_network_proxy_settings_free
+import org.gtkkn.native.webkit.webkit_network_proxy_settings_get_type
 import org.gtkkn.native.webkit.webkit_network_proxy_settings_new
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
@@ -108,6 +110,13 @@ public class NetworkProxySettings(
             memScoped {
                 return NetworkProxySettings(webkit_network_proxy_settings_new(defaultProxyUri, ignoreHosts?.toCStringList(this))!!.reinterpret())}
         }
+
+        /**
+         * Get the GType of NetworkProxySettings
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_network_proxy_settings_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): NetworkProxySettings = NetworkProxySettings(pointer.reinterpret())
     }

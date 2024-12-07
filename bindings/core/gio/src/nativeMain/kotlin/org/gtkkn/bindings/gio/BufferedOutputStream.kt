@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.ULong
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asBoolean
@@ -19,6 +18,8 @@ import org.gtkkn.native.gio.g_buffered_output_stream_new
 import org.gtkkn.native.gio.g_buffered_output_stream_new_sized
 import org.gtkkn.native.gio.g_buffered_output_stream_set_auto_grow
 import org.gtkkn.native.gio.g_buffered_output_stream_set_buffer_size
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gsize
 
 /**
  * Buffered output stream implements [class@Gio.FilterOutputStream] and provides
@@ -70,7 +71,7 @@ public open class BufferedOutputStream(
     /**
      * The size of the backend buffer, in bytes.
      */
-    public open var bufferSize: ULong
+    public open var bufferSize: gsize
         /**
          * Gets the size of the buffer in the @stream.
          *
@@ -99,7 +100,7 @@ public open class BufferedOutputStream(
      * @param size a #gsize.
      * @return a #GOutputStream with an internal buffer set to @size.
      */
-    public constructor(baseStream: OutputStream, size: ULong) : this(g_buffered_output_stream_new_sized(baseStream.gioOutputStreamPointer.reinterpret(), size)!!.reinterpret())
+    public constructor(baseStream: OutputStream, size: gsize) : this(g_buffered_output_stream_new_sized(baseStream.gioOutputStreamPointer.reinterpret(), size)!!.reinterpret())
 
     public companion object : TypeCompanion<BufferedOutputStream> {
         override val type: GeneratedClassKGType<BufferedOutputStream> =
@@ -107,5 +108,12 @@ public open class BufferedOutputStream(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of BufferedOutputStream
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_buffered_output_stream_get_type()
     }
 }

@@ -1,8 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
-import kotlin.Int
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -15,6 +13,9 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitContextMenu
 import org.gtkkn.native.webkit.webkit_context_menu_append
 import org.gtkkn.native.webkit.webkit_context_menu_first
@@ -131,7 +132,7 @@ public class ContextMenu(
      * @return the #WebKitContextMenuItem at position @position in @menu,
      *    or null if the position is off the end of the @menu.
      */
-    public fun getItemAtPosition(position: UInt): ContextMenuItem = webkit_context_menu_get_item_at_position(webkitContextMenuPointer.reinterpret(), position)!!.run {
+    public fun getItemAtPosition(position: guint): ContextMenuItem = webkit_context_menu_get_item_at_position(webkitContextMenuPointer.reinterpret(), position)!!.run {
         ContextMenuItem(reinterpret())}
 
     /**
@@ -148,7 +149,7 @@ public class ContextMenu(
      *
      * @return the number of #WebKitContextMenuItem<!-- -->s in @menu
      */
-    public fun getNItems(): UInt = webkit_context_menu_get_n_items(webkitContextMenuPointer.reinterpret())
+    public fun getNItems(): guint = webkit_context_menu_get_n_items(webkitContextMenuPointer.reinterpret())
 
     /**
      * Gets the user data of @menu.
@@ -173,7 +174,7 @@ public class ContextMenu(
      * @param item the #WebKitContextMenuItem to add
      * @param position the position to insert the item
      */
-    public fun insert(item: ContextMenuItem, position: Int): Unit = webkit_context_menu_insert(webkitContextMenuPointer.reinterpret(), item.webkitContextMenuItemPointer.reinterpret(), position)
+    public fun insert(item: ContextMenuItem, position: gint): Unit = webkit_context_menu_insert(webkitContextMenuPointer.reinterpret(), item.webkitContextMenuItemPointer.reinterpret(), position)
 
     /**
      * Gets the last item in the @menu.
@@ -195,7 +196,7 @@ public class ContextMenu(
      * @param item the #WebKitContextMenuItem to add
      * @param position the new position to move the item
      */
-    public fun moveItem(item: ContextMenuItem, position: Int): Unit = webkit_context_menu_move_item(webkitContextMenuPointer.reinterpret(), item.webkitContextMenuItemPointer.reinterpret(), position)
+    public fun moveItem(item: ContextMenuItem, position: gint): Unit = webkit_context_menu_move_item(webkitContextMenuPointer.reinterpret(), item.webkitContextMenuItemPointer.reinterpret(), position)
 
     /**
      * Adds @item at the beginning of the @menu.
@@ -237,5 +238,12 @@ public class ContextMenu(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of ContextMenu
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_context_menu_get_type()
     }
 }

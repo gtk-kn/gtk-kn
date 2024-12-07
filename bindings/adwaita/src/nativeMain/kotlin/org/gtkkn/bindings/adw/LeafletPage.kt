@@ -20,6 +20,7 @@ import org.gtkkn.native.adw.adw_leaflet_page_get_navigatable
 import org.gtkkn.native.adw.adw_leaflet_page_get_type
 import org.gtkkn.native.adw.adw_leaflet_page_set_name
 import org.gtkkn.native.adw.adw_leaflet_page_set_navigatable
+import org.gtkkn.native.gobject.GType
 
 /**
  * An auxiliary class used by [class@Leaflet].
@@ -94,5 +95,12 @@ public class LeafletPage(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of LeafletPage
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_leaflet_page_get_type()
     }
 }

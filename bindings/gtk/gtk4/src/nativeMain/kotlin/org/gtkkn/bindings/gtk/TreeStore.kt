@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -12,6 +11,8 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkTreeDragDest
 import org.gtkkn.native.gtk.GtkTreeDragSource
@@ -141,7 +142,7 @@ public open class TreeStore(
     public open fun insert(
         iter: TreeIter,
         parent: TreeIter? = null,
-        position: Int,
+        position: gint,
     ): Unit = gtk_tree_store_insert(gtkTreeStorePointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret(), parent?.gtkTreeIterPointer?.reinterpret(), position)
 
     /**
@@ -212,7 +213,7 @@ public open class TreeStore(
      * @param iter A valid `GtkTreeIter`
      * @return The depth of the position pointed by the iterator
      */
-    public open fun iterDepth(iter: TreeIter): Int = gtk_tree_store_iter_depth(gtkTreeStorePointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret())
+    public open fun iterDepth(iter: TreeIter): gint = gtk_tree_store_iter_depth(gtkTreeStorePointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret())
 
     /**
      * Checks if the given iter is a valid iter for this `GtkTreeStore`.
@@ -290,7 +291,7 @@ public open class TreeStore(
      */
     public open fun setValue(
         iter: TreeIter,
-        column: Int,
+        column: gint,
         `value`: Value,
     ): Unit = gtk_tree_store_set_value(gtkTreeStorePointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret(), column, `value`.gobjectValuePointer.reinterpret())
 
@@ -310,5 +311,12 @@ public open class TreeStore(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of TreeStore
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_tree_store_get_type()
     }
 }

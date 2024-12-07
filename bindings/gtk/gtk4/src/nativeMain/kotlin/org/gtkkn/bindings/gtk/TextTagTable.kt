@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -20,7 +19,10 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkTextTag
 import org.gtkkn.native.gtk.GtkTextTagTable
@@ -103,7 +105,7 @@ public open class TextTagTable(
      *
      * @return number of tags in @table
      */
-    public open fun getSize(): Int = gtk_text_tag_table_get_size(gtkTextTagTablePointer.reinterpret())
+    public open fun getSize(): gint = gtk_text_tag_table_get_size(gtkTextTagTablePointer.reinterpret())
 
     /**
      * Look up a named tag.
@@ -159,6 +161,13 @@ public open class TextTagTable(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of TextTagTable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_text_tag_table_get_type()
     }
 }
 
@@ -173,11 +182,11 @@ private val connectTagAddedFunc: CPointer<CFunction<(CPointer<GtkTextTag>) -> Un
     )}
 .reinterpret()
 
-private val connectTagChangedFunc: CPointer<CFunction<(CPointer<GtkTextTag>, Int) -> Unit>> =
+private val connectTagChangedFunc: CPointer<CFunction<(CPointer<GtkTextTag>, gboolean) -> Unit>> =
         staticCFunction {
     _: COpaquePointer,
     tag: CPointer<GtkTextTag>?,
-    sizeChanged: Int,
+    sizeChanged: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(tag: TextTag, sizeChanged: Boolean) -> Unit>().get().invoke(tag!!.run {

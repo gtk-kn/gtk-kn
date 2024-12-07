@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Orientable
@@ -48,6 +46,9 @@ import org.gtkkn.native.adw.adw_flap_set_separator
 import org.gtkkn.native.adw.adw_flap_set_swipe_to_close
 import org.gtkkn.native.adw.adw_flap_set_swipe_to_open
 import org.gtkkn.native.adw.adw_flap_set_transition_type
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -207,7 +208,7 @@ public class Flap(
     /**
      * The fold transition animation duration, in milliseconds.
      */
-    public var foldDuration: UInt
+    public var foldDuration: guint
         /**
          * Gets the fold transition animation duration for @self, in milliseconds.
          *
@@ -388,7 +389,7 @@ public class Flap(
      *
      * See [property@Flap:reveal-flap].
      */
-    public val revealProgress: Double
+    public val revealProgress: gdouble
         /**
          * Gets the current reveal progress for @self.
          *
@@ -513,5 +514,12 @@ public class Flap(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of Flap
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_flap_get_type()
     }
 }

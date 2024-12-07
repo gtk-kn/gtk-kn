@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -12,6 +11,8 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkListStore
 import org.gtkkn.native.gtk.GtkTreeDragDest
@@ -236,7 +237,7 @@ public open class ListStore(
      * @param iter An unset `GtkTreeIter` to set to the new row
      * @param position position to insert the new row, or -1 for last
      */
-    public open fun insert(iter: TreeIter, position: Int): Unit = gtk_list_store_insert(gtkListStorePointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret(), position)
+    public open fun insert(iter: TreeIter, position: gint): Unit = gtk_list_store_insert(gtkListStorePointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret(), position)
 
     /**
      * Inserts a new row after @sibling. If @sibling is null, then the row will be
@@ -321,7 +322,7 @@ public open class ListStore(
      */
     public open fun setValue(
         iter: TreeIter,
-        column: Int,
+        column: gint,
         `value`: Value,
     ): Unit = gtk_list_store_set_value(gtkListStorePointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret(), column, `value`.gobjectValuePointer.reinterpret())
 
@@ -340,5 +341,12 @@ public open class ListStore(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of ListStore
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_list_store_get_type()
     }
 }

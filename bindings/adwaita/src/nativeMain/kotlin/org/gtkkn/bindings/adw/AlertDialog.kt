@@ -55,6 +55,7 @@ import org.gtkkn.native.adw.adw_alert_dialog_set_heading_use_markup
 import org.gtkkn.native.adw.adw_alert_dialog_set_response_appearance
 import org.gtkkn.native.adw.adw_alert_dialog_set_response_enabled
 import org.gtkkn.native.adw.adw_alert_dialog_set_response_label
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -626,6 +627,13 @@ public open class AlertDialog(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of AlertDialog
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_alert_dialog_get_type()
     }
 }
 

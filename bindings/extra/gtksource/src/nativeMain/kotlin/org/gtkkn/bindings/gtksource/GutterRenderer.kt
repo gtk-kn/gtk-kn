@@ -2,9 +2,6 @@
 package org.gtkkn.bindings.gtksource
 
 import kotlin.Boolean
-import kotlin.Float
-import kotlin.Int
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -29,7 +26,12 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkModifierType
 import org.gtkkn.native.gdk.GdkRectangle
 import org.gtkkn.native.gobject.GObject
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -151,7 +153,7 @@ public open class GutterRenderer(
      * Set to 0 for a left alignment. 1 for a right alignment. And 0.5 for centering the cells.
      * A value lower than 0 doesn't modify the alignment.
      */
-    public open var xalign: Float
+    public open var xalign: gfloat
         /**
          * Gets the `xalign` property.
          *
@@ -170,7 +172,7 @@ public open class GutterRenderer(
     /**
      * The left and right padding of the renderer.
      */
-    public open var xpad: Int
+    public open var xpad: gint
         /**
          * Gets the `xpad` property.
          *
@@ -192,7 +194,7 @@ public open class GutterRenderer(
      * Set to 0 for a top alignment. 1 for a bottom alignment. And 0.5 for centering the cells.
      * A value lower than 0 doesn't modify the alignment.
      */
-    public open var yalign: Float
+    public open var yalign: gfloat
         /**
          * Gets the `yalign` property.
          *
@@ -211,7 +213,7 @@ public open class GutterRenderer(
     /**
      * The top and bottom padding of the renderer.
      */
-    public open var ypad: Int
+    public open var ypad: gint
         /**
          * Gets the `ypad` property.
          *
@@ -240,9 +242,9 @@ public open class GutterRenderer(
     public open fun activate(
         iter: TextIter,
         area: Rectangle,
-        button: UInt,
+        button: guint,
         state: ModifierType,
-        nPresses: Int,
+        nPresses: gint,
     ): Unit = gtk_source_gutter_renderer_activate(gtksourceGutterRendererPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret(), area.gdkRectanglePointer.reinterpret(), button, state.mask, nPresses)
 
     /**
@@ -273,9 +275,9 @@ public open class GutterRenderer(
     public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
         iter: TextIter,
         area: Rectangle,
-        button: UInt,
+        button: guint,
         state: ModifierType,
-        nPresses: Int,
+        nPresses: gint,
     ) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "activate", connectActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
@@ -292,7 +294,7 @@ public open class GutterRenderer(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `object` ; `p0` 
      */
-    public fun connectQueryData(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`object`: Object, p0: UInt) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "query-data", connectQueryDataFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectQueryData(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`object`: Object, p0: guint) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "query-data", connectQueryDataFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<GutterRenderer> {
         override val type: GeneratedClassKGType<GutterRenderer> =
@@ -300,30 +302,37 @@ public open class GutterRenderer(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of GutterRenderer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_gutter_renderer_get_type()
     }
 }
 
 private val connectActivateFunc: CPointer<CFunction<(
     CPointer<GtkTextIter>,
     CPointer<GdkRectangle>,
-    UInt,
+    guint,
     GdkModifierType,
-    Int,
+    gint,
 ) -> Unit>> = staticCFunction {
     _: COpaquePointer,
     iter: CPointer<GtkTextIter>?,
     area: CPointer<GdkRectangle>?,
-    button: UInt,
+    button: guint,
     state: GdkModifierType,
-    nPresses: Int,
+    nPresses: gint,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         iter: TextIter,
         area: Rectangle,
-        button: UInt,
+        button: guint,
         state: ModifierType,
-        nPresses: Int,
+        nPresses: gint,
     ) -> Unit>().get().invoke(iter!!.run {
         TextIter(reinterpret())}
     , area!!.run {
@@ -334,7 +343,7 @@ private val connectActivateFunc: CPointer<CFunction<(
 .reinterpret()
 
 private val connectQueryActivatableFunc:
-        CPointer<CFunction<(CPointer<GtkTextIter>, CPointer<GdkRectangle>) -> Int>> =
+        CPointer<CFunction<(CPointer<GtkTextIter>, CPointer<GdkRectangle>) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     iter: CPointer<GtkTextIter>?,
@@ -348,14 +357,14 @@ private val connectQueryActivatableFunc:
     ).asGBoolean()}
 .reinterpret()
 
-private val connectQueryDataFunc: CPointer<CFunction<(CPointer<GObject>, UInt) -> Unit>> =
+private val connectQueryDataFunc: CPointer<CFunction<(CPointer<GObject>, guint) -> Unit>> =
         staticCFunction {
     _: COpaquePointer,
     `object`: CPointer<GObject>?,
-    p0: UInt,
+    p0: guint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(`object`: Object, p0: UInt) -> Unit>().get().invoke(`object`!!.run {
+    userData.asStableRef<(`object`: Object, p0: guint) -> Unit>().get().invoke(`object`!!.run {
         Object(reinterpret())}
     , p0)}
 .reinterpret()

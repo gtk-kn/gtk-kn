@@ -9,6 +9,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkIMMulticontext
 import org.gtkkn.native.gtk.gtk_im_multicontext_get_context_id
 import org.gtkkn.native.gtk.gtk_im_multicontext_get_type
@@ -64,5 +65,12 @@ public open class IMMulticontext(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of IMMulticontext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_im_multicontext_get_type()
     }
 }

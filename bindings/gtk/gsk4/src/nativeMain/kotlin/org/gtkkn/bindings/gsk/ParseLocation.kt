@@ -1,13 +1,13 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
-import kotlin.ULong
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gsk.GskParseLocation
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
@@ -22,7 +22,7 @@ public class ParseLocation(
     /**
      * the offset of the location in the parse buffer, as bytes
      */
-    public var bytes: ULong
+    public var bytes: gsize
         get() = gskParseLocationPointer.pointed.bytes
         set(`value`) {
             gskParseLocationPointer.pointed.bytes = value
@@ -31,7 +31,7 @@ public class ParseLocation(
     /**
      * the offset of the location in the parse buffer, as characters
      */
-    public var chars: ULong
+    public var chars: gsize
         get() = gskParseLocationPointer.pointed.chars
         set(`value`) {
             gskParseLocationPointer.pointed.chars = value
@@ -40,7 +40,7 @@ public class ParseLocation(
     /**
      * the line of the location in the parse buffer
      */
-    public var lines: ULong
+    public var lines: gsize
         get() = gskParseLocationPointer.pointed.lines
         set(`value`) {
             gskParseLocationPointer.pointed.lines = value
@@ -49,7 +49,7 @@ public class ParseLocation(
     /**
      * the position in the line, as bytes
      */
-    public var lineBytes: ULong
+    public var lineBytes: gsize
         get() = gskParseLocationPointer.pointed.line_bytes
         set(`value`) {
             gskParseLocationPointer.pointed.line_bytes = value
@@ -58,7 +58,7 @@ public class ParseLocation(
     /**
      * the position in the line, as characters
      */
-    public var lineChars: ULong
+    public var lineChars: gsize
         get() = gskParseLocationPointer.pointed.line_chars
         set(`value`) {
             gskParseLocationPointer.pointed.line_chars = value

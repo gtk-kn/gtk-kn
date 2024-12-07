@@ -8,6 +8,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GNativeVolumeMonitor
 import org.gtkkn.native.gio.g_native_volume_monitor_get_type
+import org.gtkkn.native.gobject.GType
 
 public open class NativeVolumeMonitor(
     pointer: CPointer<GNativeVolumeMonitor>,
@@ -22,5 +23,12 @@ public open class NativeVolumeMonitor(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of NativeVolumeMonitor
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_native_volume_monitor_get_type()
     }
 }

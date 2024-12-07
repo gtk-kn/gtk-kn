@@ -4,7 +4,6 @@ package org.gtkkn.bindings.gio
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Suppress
-import kotlin.ULong
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -34,6 +33,8 @@ import org.gtkkn.native.gio.g_inet_address_new_any
 import org.gtkkn.native.gio.g_inet_address_new_from_string
 import org.gtkkn.native.gio.g_inet_address_new_loopback
 import org.gtkkn.native.gio.g_inet_address_to_string
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gsize
 
 /**
  * `GInetAddress` represents an IPv4 or IPv6 internet address. Use
@@ -281,7 +282,7 @@ public open class InetAddress(
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun getNativeSize(): ULong = g_inet_address_get_native_size(gioInetAddressPointer.reinterpret())
+    public open fun getNativeSize(): gsize = g_inet_address_get_native_size(gioInetAddressPointer.reinterpret())
 
     /**
      * Converts @address to string form.
@@ -323,5 +324,12 @@ public open class InetAddress(
          * @since 2.22
          */
         public fun newLoopback(family: SocketFamily): InetAddress = InetAddress(g_inet_address_new_loopback(family.nativeValue)!!.reinterpret())
+
+        /**
+         * Get the GType of InetAddress
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_inet_address_get_type()
     }
 }

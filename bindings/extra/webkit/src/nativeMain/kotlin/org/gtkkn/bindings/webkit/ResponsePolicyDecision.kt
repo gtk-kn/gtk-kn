@@ -10,6 +10,7 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitResponsePolicyDecision
 import org.gtkkn.native.webkit.webkit_response_policy_decision_get_request
 import org.gtkkn.native.webkit.webkit_response_policy_decision_get_response
@@ -92,5 +93,12 @@ public class ResponsePolicyDecision(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of ResponsePolicyDecision
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_response_policy_decision_get_type()
     }
 }

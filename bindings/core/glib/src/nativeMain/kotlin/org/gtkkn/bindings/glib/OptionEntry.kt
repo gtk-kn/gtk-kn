@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.Char
-import kotlin.Int
 import kotlin.String
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -12,6 +11,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GOptionEntry
+import org.gtkkn.native.gobject.gint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -55,7 +55,7 @@ public class OptionEntry(
     /**
      * Flags from #GOptionFlags
      */
-    public var flags: Int
+    public var flags: gint
         get() = glibOptionEntryPointer.pointed.flags
         set(`value`) {
             glibOptionEntryPointer.pointed.flags = value

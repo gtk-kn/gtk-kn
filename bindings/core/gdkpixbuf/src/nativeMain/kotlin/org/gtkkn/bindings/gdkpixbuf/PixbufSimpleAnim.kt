@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gdkpixbuf
 
 import kotlin.Boolean
-import kotlin.Float
-import kotlin.Int
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -20,6 +18,9 @@ import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_simple_anim_get_loop
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_simple_anim_get_type
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_simple_anim_new
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_simple_anim_set_loop
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.gobject.gint
 
 /**
  * An opaque struct representing a simple animation.
@@ -64,9 +65,9 @@ public open class PixbufSimpleAnim(
      * @since 2.8
      */
     public constructor(
-        width: Int,
-        height: Int,
-        rate: Float,
+        width: gint,
+        height: gint,
+        rate: gfloat,
     ) : this(gdk_pixbuf_simple_anim_new(width, height, rate)!!.reinterpret())
 
     /**
@@ -86,5 +87,12 @@ public open class PixbufSimpleAnim(
 
         init {
             GdkpixbufTypeProvider.register()}
+
+        /**
+         * Get the GType of PixbufSimpleAnim
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_pixbuf_simple_anim_get_type()
     }
 }

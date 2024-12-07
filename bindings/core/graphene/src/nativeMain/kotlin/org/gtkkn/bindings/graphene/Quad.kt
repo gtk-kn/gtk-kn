@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.graphene
 
 import kotlin.Boolean
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -10,11 +9,14 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.graphene.graphene_quad_alloc
 import org.gtkkn.native.graphene.graphene_quad_bounds
 import org.gtkkn.native.graphene.graphene_quad_contains
 import org.gtkkn.native.graphene.graphene_quad_free
 import org.gtkkn.native.graphene.graphene_quad_get_point
+import org.gtkkn.native.graphene.graphene_quad_get_type
 import org.gtkkn.native.graphene.graphene_quad_init
 import org.gtkkn.native.graphene.graphene_quad_init_from_rect
 import org.gtkkn.native.graphene.graphene_quad_t
@@ -74,7 +76,7 @@ public class Quad(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun getPoint(index: UInt): Point = graphene_quad_get_point(grapheneQuadPointer.reinterpret(), index)!!.run {
+    public fun getPoint(index: guint): Point = graphene_quad_get_point(grapheneQuadPointer.reinterpret(), index)!!.run {
         Point(reinterpret())}
 
     /**
@@ -118,6 +120,13 @@ public class Quad(
          * @since 1.0
          */
         public fun alloc(): Quad = Quad(graphene_quad_alloc()!!.reinterpret())
+
+        /**
+         * Get the GType of Quad
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = graphene_quad_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Quad = Quad(pointer.reinterpret())
     }

@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdkpixbuf
 
-import kotlin.Int
 import kotlin.String
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -12,6 +11,7 @@ import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_2
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gdkpixbuf.GdkPixbufModulePattern
+import org.gtkkn.native.gobject.gint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -73,7 +73,7 @@ public class PixbufModulePattern(
     /**
      * relevance of this pattern
      */
-    public var relevance: Int
+    public var relevance: gint
         get() = gdkpixbufPixbufModulePatternPointer.pointed.relevance
         set(`value`) {
             gdkpixbufPixbufModulePatternPointer.pointed.relevance = value

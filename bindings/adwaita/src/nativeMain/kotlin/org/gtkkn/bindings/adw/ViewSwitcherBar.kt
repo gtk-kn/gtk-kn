@@ -17,6 +17,7 @@ import org.gtkkn.native.adw.adw_view_switcher_bar_get_type
 import org.gtkkn.native.adw.adw_view_switcher_bar_new
 import org.gtkkn.native.adw.adw_view_switcher_bar_set_reveal
 import org.gtkkn.native.adw.adw_view_switcher_bar_set_stack
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -148,5 +149,12 @@ public class ViewSwitcherBar(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of ViewSwitcherBar
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_view_switcher_bar_get_type()
     }
 }

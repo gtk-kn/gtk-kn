@@ -11,6 +11,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkPaintable
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkMediaFile
 import org.gtkkn.native.gtk.gtk_media_file_clear
 import org.gtkkn.native.gtk.gtk_media_file_get_file
@@ -187,5 +188,12 @@ public open class MediaFile(
          * @return a new `GtkMediaFile` playing @resource_path
          */
         public fun newForResource(resourcePath: String): MediaFile = MediaFile(gtk_media_file_new_for_resource(resourcePath)!!.reinterpret())
+
+        /**
+         * Get the GType of MediaFile
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_media_file_get_type()
     }
 }

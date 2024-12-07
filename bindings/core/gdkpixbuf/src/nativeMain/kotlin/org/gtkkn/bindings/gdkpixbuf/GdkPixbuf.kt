@@ -2,9 +2,7 @@
 package org.gtkkn.bindings.gdkpixbuf
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
 import kotlinx.cinterop.ByteVar
@@ -28,6 +26,9 @@ import org.gtkkn.native.gdkpixbuf.GdkPixbufAnimation
 import org.gtkkn.native.gdkpixbuf.GdkPixbufFormat
 import org.gtkkn.native.gdkpixbuf.GdkPixbufModule
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_error_quark
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gsize
 
 /**
  * ## Skipped during bindings generation
@@ -49,19 +50,19 @@ public object GdkPixbuf {
      * Major version of gdk-pixbuf library, that is the "0" in
      * "0.8.2" for example.
      */
-    public const val PIXBUF_MAJOR: Int = 2
+    public const val PIXBUF_MAJOR: gint = 2
 
     /**
      * Micro version of gdk-pixbuf library, that is the "2" in
      * "0.8.2" for example.
      */
-    public const val PIXBUF_MICRO: Int = 10
+    public const val PIXBUF_MICRO: gint = 10
 
     /**
      * Minor version of gdk-pixbuf library, that is the "8" in
      * "0.8.2" for example.
      */
-    public const val PIXBUF_MINOR: Int = 42
+    public const val PIXBUF_MINOR: gint = 42
 
     /**
      * Contains the full version of GdkPixbuf as a string.
@@ -136,8 +137,8 @@ public val PixbufModulePreparedFuncFunc:
     )}
 .reinterpret()
 
-public val PixbufModuleSaveOptionSupportedFuncFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Int>>
-        = staticCFunction {
+public val PixbufModuleSaveOptionSupportedFuncFunc:
+        CPointer<CFunction<(CPointer<ByteVar>) -> gboolean>> = staticCFunction {
     optionKey: CPointer<ByteVar>?,
     userData: COpaquePointer
     ->
@@ -152,34 +153,34 @@ public val PixbufModuleSizeFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFu
 
 public val PixbufModuleUpdatedFuncFunc: CPointer<CFunction<(
     CPointer<GdkPixbuf>,
-    Int,
-    Int,
-    Int,
-    Int,
+    gint,
+    gint,
+    gint,
+    gint,
 ) -> Unit>> = staticCFunction {
     pixbuf: CPointer<GdkPixbuf>?,
-    x: Int,
-    y: Int,
-    width: Int,
-    height: Int,
+    x: gint,
+    y: gint,
+    width: gint,
+    height: gint,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         pixbuf: Pixbuf,
-        x: Int,
-        y: Int,
-        width: Int,
-        height: Int,
+        x: gint,
+        y: gint,
+        width: gint,
+        height: gint,
     ) -> Unit>().get().invoke(pixbuf!!.run {
         Pixbuf(reinterpret())}
     , x, y, width, height)}
 .reinterpret()
 
-public val PixbufSaveFuncFunc: CPointer<CFunction<(ULong) -> Int>> = staticCFunction {
-    count: ULong,
+public val PixbufSaveFuncFunc: CPointer<CFunction<(gsize) -> gboolean>> = staticCFunction {
+    count: gsize,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(count: ULong) -> Boolean>().get().invoke(count).asGBoolean()}
+    userData.asStableRef<(count: gsize) -> Boolean>().get().invoke(count).asGBoolean()}
 .reinterpret()
 
 /**
@@ -271,10 +272,10 @@ public typealias PixbufModuleSizeFunc = () -> Unit
  */
 public typealias PixbufModuleUpdatedFunc = (
     pixbuf: Pixbuf,
-    x: Int,
-    y: Int,
-    width: Int,
-    height: Int,
+    x: gint,
+    y: gint,
+    width: gint,
+    height: gint,
 ) -> Unit
 
 /**
@@ -290,4 +291,4 @@ public typealias PixbufModuleUpdatedFunc = (
  * - param `count` number of bytes in @buf.
  * - return `TRUE` if successful, `FALSE` otherwise
  */
-public typealias PixbufSaveFunc = (count: ULong) -> Boolean
+public typealias PixbufSaveFunc = (count: gsize) -> Boolean

@@ -23,6 +23,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.extensions.gobject.associateCustomObject
 import org.gtkkn.native.gobject.GObject
 import org.gtkkn.native.gobject.GParamSpec
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_object_bind_property
 import org.gtkkn.native.gobject.g_object_bind_property_with_closures
 import org.gtkkn.native.gobject.g_object_force_floating
@@ -462,6 +463,13 @@ public open class Object(
          */
         @GObjectVersion2_4
         public fun interfaceInstallProperty(gIface: TypeInterface, pspec: ParamSpec): Unit = g_object_interface_install_property(gIface.gobjectTypeInterfacePointer.reinterpret(), pspec.gPointer.reinterpret())
+
+        /**
+         * Get the GType of Object
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_object_get_type()
     }
 }
 

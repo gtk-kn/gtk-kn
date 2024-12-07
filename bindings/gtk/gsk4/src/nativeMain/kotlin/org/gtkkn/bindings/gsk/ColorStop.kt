@@ -1,13 +1,13 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
-import kotlin.Float
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskColorStop
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
@@ -26,7 +26,7 @@ public class ColorStop(
     /**
      * the offset of the color stop
      */
-    public var offset: Float
+    public var offset: gfloat
         get() = gskColorStopPointer.pointed.offset
         set(`value`) {
             gskColorStopPointer.pointed.offset = value

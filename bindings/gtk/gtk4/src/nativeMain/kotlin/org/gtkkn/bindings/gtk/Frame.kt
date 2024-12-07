@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.Float
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
@@ -10,6 +9,8 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -170,7 +171,7 @@ public open class Frame(
      *
      * @return the frames X alignment
      */
-    public open fun getLabelAlign(): Float = gtk_frame_get_label_align(gtkFramePointer.reinterpret())
+    public open fun getLabelAlign(): gfloat = gtk_frame_get_label_align(gtkFramePointer.reinterpret())
 
     /**
      * Sets the X alignment of the frame widget’s label.
@@ -181,7 +182,7 @@ public open class Frame(
      *   of the widget. A value of 0.0 represents left alignment;
      *   1.0 represents right alignment.
      */
-    public open fun setLabelAlign(xalign: Float): Unit = gtk_frame_set_label_align(gtkFramePointer.reinterpret(), xalign)
+    public open fun setLabelAlign(xalign: gfloat): Unit = gtk_frame_set_label_align(gtkFramePointer.reinterpret(), xalign)
 
     public companion object : TypeCompanion<Frame> {
         override val type: GeneratedClassKGType<Frame> =
@@ -189,5 +190,12 @@ public open class Frame(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of Frame
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_frame_get_type()
     }
 }

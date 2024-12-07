@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkNotebookPage
 import org.gtkkn.native.gtk.gtk_notebook_page_get_child
 import org.gtkkn.native.gtk.gtk_notebook_page_get_type
@@ -51,5 +52,12 @@ public open class NotebookPage(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of NotebookPage
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_notebook_page_get_type()
     }
 }

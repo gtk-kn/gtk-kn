@@ -1,13 +1,13 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.Int
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkRequestedSize
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
@@ -28,7 +28,7 @@ public class RequestedSize(
     /**
      * The minimum size needed for allocation in a given orientation
      */
-    public var minimumSize: Int
+    public var minimumSize: gint
         get() = gtkRequestedSizePointer.pointed.minimum_size
         set(`value`) {
             gtkRequestedSizePointer.pointed.minimum_size = value
@@ -37,7 +37,7 @@ public class RequestedSize(
     /**
      * The natural size for allocation in a given orientation
      */
-    public var naturalSize: Int
+    public var naturalSize: gint
         get() = gtkRequestedSizePointer.pointed.natural_size
         set(`value`) {
             gtkRequestedSizePointer.pointed.natural_size = value

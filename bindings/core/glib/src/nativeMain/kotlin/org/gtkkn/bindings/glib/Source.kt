@@ -2,10 +2,7 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.Boolean
-import kotlin.Int
-import kotlin.Long
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -50,6 +47,11 @@ import org.gtkkn.native.glib.g_source_set_priority
 import org.gtkkn.native.glib.g_source_set_ready_time
 import org.gtkkn.native.glib.g_source_set_static_name
 import org.gtkkn.native.glib.g_source_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_source_get_type
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gint64
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -140,7 +142,7 @@ public class Source(
      * @return the ID (greater than 0) for the source within the
      *   #GMainContext.
      */
-    public fun attach(context: MainContext? = null): UInt = g_source_attach(glibSourcePointer.reinterpret(), context?.glibMainContextPointer?.reinterpret())
+    public fun attach(context: MainContext? = null): guint = g_source_attach(glibSourcePointer.reinterpret(), context?.glibMainContextPointer?.reinterpret())
 
     /**
      * Removes a source from its #GMainContext, if any, and mark it as
@@ -206,7 +208,7 @@ public class Source(
      *
      * @return the ID (greater than 0) for the source
      */
-    public fun getId(): UInt = g_source_get_id(glibSourcePointer.reinterpret())
+    public fun getId(): guint = g_source_get_id(glibSourcePointer.reinterpret())
 
     /**
      * Gets a name for the source, used in debugging and profiling.  The
@@ -223,7 +225,7 @@ public class Source(
      *
      * @return the priority of the source
      */
-    public fun getPriority(): Int = g_source_get_priority(glibSourcePointer.reinterpret())
+    public fun getPriority(): gint = g_source_get_priority(glibSourcePointer.reinterpret())
 
     /**
      * Gets the "ready time" of @source, as set by
@@ -234,7 +236,7 @@ public class Source(
      *
      * @return the monotonic ready time, -1 for "never"
      */
-    public fun getReadyTime(): Long = g_source_get_ready_time(glibSourcePointer.reinterpret())
+    public fun getReadyTime(): gint64 = g_source_get_ready_time(glibSourcePointer.reinterpret())
 
     /**
      * Gets the time to be used when checking this source. The advantage of
@@ -249,7 +251,7 @@ public class Source(
      * @since 2.28
      */
     @GLibVersion2_28
-    public fun getTime(): Long = g_source_get_time(glibSourcePointer.reinterpret())
+    public fun getTime(): gint64 = g_source_get_time(glibSourcePointer.reinterpret())
 
     /**
      * Returns whether @source has been destroyed.
@@ -453,7 +455,7 @@ public class Source(
      *
      * @param priority the new priority.
      */
-    public fun setPriority(priority: Int): Unit = g_source_set_priority(glibSourcePointer.reinterpret(), priority)
+    public fun setPriority(priority: gint): Unit = g_source_set_priority(glibSourcePointer.reinterpret(), priority)
 
     /**
      * Sets a #GSource to be dispatched when the given monotonic time is
@@ -484,7 +486,7 @@ public class Source(
      * @since 2.36
      */
     @GLibVersion2_36
-    public fun setReadyTime(readyTime: Long): Unit = g_source_set_ready_time(glibSourcePointer.reinterpret(), readyTime)
+    public fun setReadyTime(readyTime: gint64): Unit = g_source_set_ready_time(glibSourcePointer.reinterpret(), readyTime)
 
     /**
      * A variant of g_source_set_name() that does not
@@ -520,7 +522,7 @@ public class Source(
          * @param structSize size of the #GSource structure to create.
          * @return the newly-created #GSource.
          */
-        public fun new(sourceFuncs: SourceFuncs, structSize: UInt): Source = Source(g_source_new(sourceFuncs.glibSourceFuncsPointer.reinterpret(), structSize)!!.reinterpret())
+        public fun new(sourceFuncs: SourceFuncs, structSize: guint): Source = Source(g_source_new(sourceFuncs.glibSourceFuncsPointer.reinterpret(), structSize)!!.reinterpret())
 
         /**
          * Removes the source with the given ID from the default main context. You must
@@ -546,7 +548,7 @@ public class Source(
          * @param tag the ID of the source to remove.
          * @return true if the source was found and removed.
          */
-        public fun remove(tag: UInt): Boolean = g_source_remove(tag).asBoolean()
+        public fun remove(tag: guint): Boolean = g_source_remove(tag).asBoolean()
 
         /**
          * Sets the name of a source using its ID.
@@ -571,7 +573,14 @@ public class Source(
          * @since 2.26
          */
         @GLibVersion2_26
-        public fun setNameById(tag: UInt, name: String): Unit = g_source_set_name_by_id(tag, name)
+        public fun setNameById(tag: guint, name: String): Unit = g_source_set_name_by_id(tag, name)
+
+        /**
+         * Get the GType of Source
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_source_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Source = Source(pointer.reinterpret())
     }

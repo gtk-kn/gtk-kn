@@ -3,8 +3,6 @@ package org.gtkkn.bindings.glib
 
 import kotlin.Boolean
 import kotlin.String
-import kotlin.UInt
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -42,6 +40,10 @@ import org.gtkkn.native.glib.g_variant_type_next
 import org.gtkkn.native.glib.g_variant_type_string_get_depth_
 import org.gtkkn.native.glib.g_variant_type_string_is_valid
 import org.gtkkn.native.glib.g_variant_type_value
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_variant_type_get_gtype
+import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -288,7 +290,7 @@ public class VariantType(
      *
      * Since 2.24
      */
-    public fun getStringLength(): ULong = g_variant_type_get_string_length(glibVariantTypePointer.reinterpret())
+    public fun getStringLength(): gsize = g_variant_type_get_string_length(glibVariantTypePointer.reinterpret())
 
     /**
      * Hashes @type.
@@ -301,7 +303,7 @@ public class VariantType(
      *
      * Since 2.24
      */
-    public fun hash(): UInt = g_variant_type_hash(glibVariantTypePointer.reinterpret())
+    public fun hash(): guint = g_variant_type_hash(glibVariantTypePointer.reinterpret())
 
     /**
      * Determines if the given @type is an array type.  This is true if the
@@ -463,7 +465,7 @@ public class VariantType(
      *
      * Since 2.24
      */
-    public fun nItems(): ULong = g_variant_type_n_items(glibVariantTypePointer.reinterpret())
+    public fun nItems(): gsize = g_variant_type_n_items(glibVariantTypePointer.reinterpret())
 
     /**
      * Determines the next item type of a tuple or dictionary entry
@@ -555,7 +557,7 @@ public class VariantType(
         public fun checked(typeString: String): VariantType = g_variant_type_checked_(typeString)!!.run {
             VariantType(reinterpret())}
 
-        public fun stringGetDepth(typeString: String): ULong = g_variant_type_string_get_depth_(typeString)
+        public fun stringGetDepth(typeString: String): gsize = g_variant_type_string_get_depth_(typeString)
 
         /**
          * Checks if @type_string is a valid GVariant type string.  This call is
@@ -568,6 +570,13 @@ public class VariantType(
          * Since 2.24
          */
         public fun stringIsValid(typeString: String): Boolean = g_variant_type_string_is_valid(typeString).asBoolean()
+
+        /**
+         * Get the GType of VariantType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_variant_type_get_gtype()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): VariantType = VariantType(pointer.reinterpret())
     }

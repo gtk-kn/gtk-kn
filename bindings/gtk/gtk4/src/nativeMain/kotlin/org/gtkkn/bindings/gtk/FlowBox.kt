@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -24,7 +22,11 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -164,7 +166,7 @@ public open class FlowBox(
     /**
      * The amount of horizontal space between two children.
      */
-    public open var columnSpacing: UInt
+    public open var columnSpacing: guint
         /**
          * Gets the horizontal spacing.
          *
@@ -202,7 +204,7 @@ public open class FlowBox(
      * The maximum amount of children to request space for consecutively
      * in the given orientation.
      */
-    public open var maxChildrenPerLine: UInt
+    public open var maxChildrenPerLine: guint
         /**
          * Gets the maximum number of children per line.
          *
@@ -229,7 +231,7 @@ public open class FlowBox(
      * that a reasonably small height will be requested
      * for the overall minimum width of the box.
      */
-    public open var minChildrenPerLine: UInt
+    public open var minChildrenPerLine: guint
         /**
          * Gets the minimum number of children per line.
          *
@@ -247,7 +249,7 @@ public open class FlowBox(
     /**
      * The amount of vertical space between two children.
      */
-    public open var rowSpacing: UInt
+    public open var rowSpacing: guint
         /**
          * Gets the vertical spacing.
          *
@@ -330,7 +332,7 @@ public open class FlowBox(
      *   always be a `GtkFlowBoxChild` or null in case no child widget
      *   with the given index exists.
      */
-    public open fun getChildAtIndex(idx: Int): FlowBoxChild? = gtk_flow_box_get_child_at_index(gtkFlowBoxPointer.reinterpret(), idx)?.run {
+    public open fun getChildAtIndex(idx: gint): FlowBoxChild? = gtk_flow_box_get_child_at_index(gtkFlowBoxPointer.reinterpret(), idx)?.run {
         FlowBoxChild(reinterpret())}
 
     /**
@@ -344,7 +346,7 @@ public open class FlowBox(
      *   always be a `GtkFlowBoxChild` or null in case no child widget
      *   exists for the given x and y coordinates.
      */
-    public open fun getChildAtPos(x: Int, y: Int): FlowBoxChild? = gtk_flow_box_get_child_at_pos(gtkFlowBoxPointer.reinterpret(), x, y)?.run {
+    public open fun getChildAtPos(x: gint, y: gint): FlowBoxChild? = gtk_flow_box_get_child_at_pos(gtkFlowBoxPointer.reinterpret(), x, y)?.run {
         FlowBoxChild(reinterpret())}
 
     /**
@@ -368,7 +370,7 @@ public open class FlowBox(
      * @param widget the `GtkWidget` to add
      * @param position the position to insert @child in
      */
-    public open fun insert(widget: Widget, position: Int): Unit = gtk_flow_box_insert(gtkFlowBoxPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret(), position)
+    public open fun insert(widget: Widget, position: gint): Unit = gtk_flow_box_insert(gtkFlowBoxPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret(), position)
 
     /**
      * Updates the filtering for all children.
@@ -573,7 +575,7 @@ public open class FlowBox(
      */
     public fun connectMoveCursor(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
         step: MovementStep,
-        count: Int,
+        count: gint,
         extend: Boolean,
         modify: Boolean,
     ) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "move-cursor", connectMoveCursorFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
@@ -634,6 +636,13 @@ public open class FlowBox(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of FlowBox
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_flow_box_get_type()
     }
 }
 
@@ -657,20 +666,20 @@ private val connectChildActivatedFunc: CPointer<CFunction<(CPointer<GtkFlowBoxCh
 
 private val connectMoveCursorFunc: CPointer<CFunction<(
     GtkMovementStep,
-    Int,
-    Int,
-    Int,
-) -> Int>> = staticCFunction {
+    gint,
+    gboolean,
+    gboolean,
+) -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     step: GtkMovementStep,
-    count: Int,
-    extend: Int,
-    modify: Int,
+    count: gint,
+    extend: gboolean,
+    modify: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         step: MovementStep,
-        count: Int,
+        count: gint,
         extend: Boolean,
         modify: Boolean,
     ) -> Boolean>().get().invoke(step.run {

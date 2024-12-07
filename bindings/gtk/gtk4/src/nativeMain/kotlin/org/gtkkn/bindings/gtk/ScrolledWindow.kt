@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -19,7 +18,10 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -227,7 +229,7 @@ public open class ScrolledWindow(
     /**
      * The maximum content height of @scrolled_window.
      */
-    public open var maxContentHeight: Int
+    public open var maxContentHeight: gint
         /**
          * Returns the maximum content height set.
          *
@@ -250,7 +252,7 @@ public open class ScrolledWindow(
     /**
      * The maximum content width of @scrolled_window.
      */
-    public open var maxContentWidth: Int
+    public open var maxContentWidth: gint
         /**
          * Returns the maximum content width set.
          *
@@ -273,7 +275,7 @@ public open class ScrolledWindow(
     /**
      * The minimum content height of @scrolled_window.
      */
-    public open var minContentHeight: Int
+    public open var minContentHeight: gint
         /**
          * Gets the minimal content height of @scrolled_window.
          *
@@ -296,7 +298,7 @@ public open class ScrolledWindow(
     /**
      * The minimum content width of @scrolled_window.
      */
-    public open var minContentWidth: Int
+    public open var minContentWidth: gint
         /**
          * Gets the minimum content width of @scrolled_window.
          *
@@ -560,6 +562,13 @@ public open class ScrolledWindow(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of ScrolledWindow
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_scrolled_window_get_type()
     }
 }
 
@@ -596,11 +605,11 @@ private val connectMoveFocusOutFunc: CPointer<CFunction<(GtkDirectionType) -> Un
     )}
 .reinterpret()
 
-private val connectScrollChildFunc: CPointer<CFunction<(GtkScrollType, Int) -> Int>> =
+private val connectScrollChildFunc: CPointer<CFunction<(GtkScrollType, gboolean) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     scroll: GtkScrollType,
-    horizontal: Int,
+    horizontal: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(scroll: ScrollType, horizontal: Boolean) -> Boolean>().get().invoke(scroll.run {

@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gtk.annotations.GtkVersion4_4
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkPasswordEntryBuffer
 import org.gtkkn.native.gtk.gtk_password_entry_buffer_get_type
 import org.gtkkn.native.gtk.gtk_password_entry_buffer_new
@@ -39,5 +40,12 @@ public open class PasswordEntryBuffer(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of PasswordEntryBuffer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_password_entry_buffer_get_type()
     }
 }

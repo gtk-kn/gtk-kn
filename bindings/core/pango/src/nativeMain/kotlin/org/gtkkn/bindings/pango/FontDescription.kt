@@ -2,10 +2,7 @@
 package org.gtkkn.bindings.pango
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -18,6 +15,10 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.pango.PangoFontDescription
 import org.gtkkn.native.pango.pango_font_description_better_match
 import org.gtkkn.native.pango.pango_font_description_copy
@@ -32,6 +33,7 @@ import org.gtkkn.native.pango.pango_font_description_get_size
 import org.gtkkn.native.pango.pango_font_description_get_size_is_absolute
 import org.gtkkn.native.pango.pango_font_description_get_stretch
 import org.gtkkn.native.pango.pango_font_description_get_style
+import org.gtkkn.native.pango.pango_font_description_get_type
 import org.gtkkn.native.pango.pango_font_description_get_variant
 import org.gtkkn.native.pango.pango_font_description_get_variations
 import org.gtkkn.native.pango.pango_font_description_get_weight
@@ -179,7 +181,7 @@ public class FontDescription(
      *   Use [method@Pango.FontDescription.get_set_fields] to find out
      *   if the field was explicitly set or not.
      */
-    public fun getSize(): Int = pango_font_description_get_size(pangoFontDescriptionPointer.reinterpret())
+    public fun getSize(): gint = pango_font_description_get_size(pangoFontDescriptionPointer.reinterpret())
 
     /**
      * Determines whether the size of the font is in points (not absolute)
@@ -266,7 +268,7 @@ public class FontDescription(
      *
      * @return the hash value.
      */
-    public fun hash(): UInt = pango_font_description_hash(pangoFontDescriptionPointer.reinterpret())
+    public fun hash(): guint = pango_font_description_hash(pangoFontDescriptionPointer.reinterpret())
 
     /**
      * Merges the fields that are set in @desc_to_merge into the fields in
@@ -314,7 +316,7 @@ public class FontDescription(
      * @since 1.8
      */
     @PangoVersion1_8
-    public fun setAbsoluteSize(size: Double): Unit = pango_font_description_set_absolute_size(pangoFontDescriptionPointer.reinterpret(), size)
+    public fun setAbsoluteSize(size: gdouble): Unit = pango_font_description_set_absolute_size(pangoFontDescriptionPointer.reinterpret(), size)
 
     /**
      * Sets the family name field of a font description.
@@ -374,7 +376,7 @@ public class FontDescription(
      *   Use [method@Pango.FontDescription.set_absolute_size] if you need
      *   a particular size in device units.
      */
-    public fun setSize(size: Int): Unit = pango_font_description_set_size(pangoFontDescriptionPointer.reinterpret(), size)
+    public fun setSize(size: gint): Unit = pango_font_description_set_size(pangoFontDescriptionPointer.reinterpret(), size)
 
     /**
      * Sets the stretch field of a font description.
@@ -557,6 +559,13 @@ public class FontDescription(
          */
         public fun fromString(str: String): FontDescription = pango_font_description_from_string(str)!!.run {
             FontDescription(reinterpret())}
+
+        /**
+         * Get the GType of FontDescription
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_font_description_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FontDescription = FontDescription(pointer.reinterpret())
     }

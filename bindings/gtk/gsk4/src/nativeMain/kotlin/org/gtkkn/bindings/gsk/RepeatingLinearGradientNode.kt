@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskRepeatingLinearGradientNode
 import org.gtkkn.native.gsk.gsk_repeating_linear_gradient_node_get_type
 
@@ -29,5 +30,12 @@ public open class RepeatingLinearGradientNode(
 
         init {
             GskTypeProvider.register()}
+
+        /**
+         * Get the GType of RepeatingLinearGradientNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_repeating_linear_gradient_node_get_type()
     }
 }

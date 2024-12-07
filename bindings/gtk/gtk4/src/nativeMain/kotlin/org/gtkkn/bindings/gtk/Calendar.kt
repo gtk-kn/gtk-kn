@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -22,7 +20,10 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkCalendar
@@ -118,7 +119,7 @@ public open class Calendar(
     /**
      * The selected day (as a number between 1 and 31).
      */
-    public open var day: Int
+    public open var day: gint
         /**
          * Gets the day of the selected date.
          *
@@ -143,7 +144,7 @@ public open class Calendar(
      *
      * This property gets initially set to the current month.
      */
-    public open var month: Int
+    public open var month: gint
         /**
          * Gets the month of the selected date.
          *
@@ -233,7 +234,7 @@ public open class Calendar(
      *
      * This property gets initially set to the current year.
      */
-    public open var year: Int
+    public open var year: gint
         /**
          * Gets the year of the selected date.
          *
@@ -283,14 +284,14 @@ public open class Calendar(
      * @param day the day number between 1 and 31.
      * @return whether the day is marked.
      */
-    public open fun getDayIsMarked(day: UInt): Boolean = gtk_calendar_get_day_is_marked(gtkCalendarPointer.reinterpret(), day).asBoolean()
+    public open fun getDayIsMarked(day: guint): Boolean = gtk_calendar_get_day_is_marked(gtkCalendarPointer.reinterpret(), day).asBoolean()
 
     /**
      * Places a visual marker on a particular day of the current month.
      *
      * @param day the day number to mark between 1 and 31.
      */
-    public open fun markDay(day: UInt): Unit = gtk_calendar_mark_day(gtkCalendarPointer.reinterpret(), day)
+    public open fun markDay(day: guint): Unit = gtk_calendar_mark_day(gtkCalendarPointer.reinterpret(), day)
 
     /**
      * Switches to @date's year and month and select its day.
@@ -304,7 +305,7 @@ public open class Calendar(
      *
      * @param day the day number to unmark between 1 and 31.
      */
-    public open fun unmarkDay(day: UInt): Unit = gtk_calendar_unmark_day(gtkCalendarPointer.reinterpret(), day)
+    public open fun unmarkDay(day: guint): Unit = gtk_calendar_unmark_day(gtkCalendarPointer.reinterpret(), day)
 
     /**
      * Emitted when the user selects a day.
@@ -352,6 +353,13 @@ public open class Calendar(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of Calendar
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_calendar_get_type()
     }
 }
 

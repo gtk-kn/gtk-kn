@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -10,6 +9,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAccessibleText
 import org.gtkkn.native.gtk.gtk_accessible_text_get_type
@@ -66,8 +66,8 @@ public interface AccessibleText : Interface, Accessible, KGTyped {
     @GtkVersion4_14
     public fun updateContents(
         change: AccessibleTextContentChange,
-        start: UInt,
-        end: UInt,
+        start: guint,
+        end: guint,
     ): Unit = gtk_accessible_text_update_contents(gtkAccessibleTextPointer.reinterpret(), change.nativeValue, start, end)
 
     /**

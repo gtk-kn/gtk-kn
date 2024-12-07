@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -22,7 +21,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkNativeDialog
 import org.gtkkn.native.gtk.gtk_native_dialog_destroy
 import org.gtkkn.native.gtk.gtk_native_dialog_get_modal
@@ -189,7 +190,7 @@ public open class NativeDialog(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `responseId` the response ID
      */
-    public fun connectResponse(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (responseId: Int) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "response", connectResponseFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectResponse(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (responseId: gint) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "response", connectResponseFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<NativeDialog> {
         override val type: GeneratedClassKGType<NativeDialog> =
@@ -197,13 +198,20 @@ public open class NativeDialog(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of NativeDialog
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_native_dialog_get_type()
     }
 }
 
-private val connectResponseFunc: CPointer<CFunction<(Int) -> Unit>> = staticCFunction {
+private val connectResponseFunc: CPointer<CFunction<(gint) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    responseId: Int,
+    responseId: gint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(responseId: Int) -> Unit>().get().invoke(responseId)}
+    userData.asStableRef<(responseId: gint) -> Unit>().get().invoke(responseId)}
 .reinterpret()

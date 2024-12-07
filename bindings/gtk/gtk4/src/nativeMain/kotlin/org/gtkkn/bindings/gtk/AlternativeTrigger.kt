@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAlternativeTrigger
 import org.gtkkn.native.gtk.gtk_alternative_trigger_get_first
 import org.gtkkn.native.gtk.gtk_alternative_trigger_get_second
@@ -77,5 +78,12 @@ public open class AlternativeTrigger(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of AlternativeTrigger
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_alternative_trigger_get_type()
     }
 }

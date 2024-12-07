@@ -21,6 +21,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceFileLoader
 import org.gtkkn.native.gtksource.gtk_source_file_loader_get_buffer
 import org.gtkkn.native.gtksource.gtk_source_file_loader_get_compression_type
@@ -218,5 +219,12 @@ public open class FileLoader(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of FileLoader
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_file_loader_get_type()
     }
 }

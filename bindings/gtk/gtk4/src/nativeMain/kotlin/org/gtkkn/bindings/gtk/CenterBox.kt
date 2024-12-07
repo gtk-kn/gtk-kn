@@ -11,6 +11,7 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkCenterBox
@@ -236,5 +237,12 @@ public open class CenterBox(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of CenterBox
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_center_box_get_type()
     }
 }

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
-import kotlin.Float
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
@@ -50,6 +49,8 @@ import org.gtkkn.native.adw.adw_tab_page_set_thumbnail_xalign
 import org.gtkkn.native.adw.adw_tab_page_set_thumbnail_yalign
 import org.gtkkn.native.adw.adw_tab_page_set_title
 import org.gtkkn.native.adw.adw_tab_page_set_tooltip
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gtk.GtkAccessible
 
 /**
@@ -383,7 +384,7 @@ public class TabPage(
      * @since 1.3
      */
     @AdwVersion1_3
-    public var thumbnailXalign: Float
+    public var thumbnailXalign: gfloat
         /**
          * Gets the horizontal alignment of the thumbnail for @self.
          *
@@ -424,7 +425,7 @@ public class TabPage(
      * @since 1.3
      */
     @AdwVersion1_3
-    public var thumbnailYalign: Float
+    public var thumbnailYalign: gfloat
         /**
          * Gets the vertical alignment of the thumbnail for @self.
          *
@@ -544,5 +545,12 @@ public class TabPage(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of TabPage
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_tab_page_get_type()
     }
 }

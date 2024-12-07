@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Long
 import kotlin.Result
 import kotlin.String
@@ -61,6 +60,8 @@ import org.gtkkn.native.gio.g_task_set_priority
 import org.gtkkn.native.gio.g_task_set_return_on_cancel
 import org.gtkkn.native.gio.g_task_set_static_name
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * A `GTask` represents and manages a cancellable ‘task’.
@@ -725,7 +726,7 @@ public open class Task(
      * @since 2.36
      */
     @GioVersion2_36
-    public open fun getPriority(): Int = g_task_get_priority(gioTaskPointer.reinterpret())
+    public open fun getPriority(): gint = g_task_get_priority(gioTaskPointer.reinterpret())
 
     /**
      * Gets @task's return-on-cancel flag. See
@@ -903,7 +904,7 @@ public open class Task(
     @GioVersion2_80
     public open fun returnNewErrorLiteral(
         domain: Quark,
-        code: Int,
+        code: gint,
         message: String,
     ): Unit = g_task_return_new_error_literal(gioTaskPointer.reinterpret(), domain, code, message)
 
@@ -978,7 +979,7 @@ public open class Task(
      * @since 2.36
      */
     @GioVersion2_36
-    public open fun setPriority(priority: Int): Unit = g_task_set_priority(gioTaskPointer.reinterpret(), priority)
+    public open fun setPriority(priority: gint): Unit = g_task_set_priority(gioTaskPointer.reinterpret(), priority)
 
     /**
      * Sets or clears @task's return-on-cancel flag. This is only
@@ -1052,5 +1053,12 @@ public open class Task(
          */
         @GioVersion2_36
         public fun isValid(result: AsyncResult, sourceObject: Object? = null): Boolean = g_task_is_valid(result.gioAsyncResultPointer, sourceObject?.gPointer?.reinterpret()).asBoolean()
+
+        /**
+         * Get the GType of Task
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_task_get_type()
     }
 }

@@ -2,11 +2,7 @@
 package org.gtkkn.bindings.javascriptcore
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
-import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
 import kotlinx.cinterop.ByteVar
@@ -26,6 +22,11 @@ import org.gtkkn.bindings.javascriptcore.annotations.JavaScriptCoreVersion2_24
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toCStringList
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.javascriptcore.JSCClass
 import org.gtkkn.native.javascriptcore.JSCContext
 import org.gtkkn.native.javascriptcore.JSCException
@@ -67,21 +68,21 @@ public object JavaScriptCore {
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val MAJOR_VERSION: Int = 2
+    public const val MAJOR_VERSION: gint = 2
 
     /**
      * Like jsc_get_micro_version(), but from the headers used at
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val MICRO_VERSION: Int = 3
+    public const val MICRO_VERSION: gint = 3
 
     /**
      * Like jsc_get_minor_version(), but from the headers used at
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val MINOR_VERSION: Int = 46
+    public const val MINOR_VERSION: gint = 46
 
     /**
      * Allows the DFG JIT to be used if true.
@@ -130,7 +131,7 @@ public object JavaScriptCore {
      *
      * @return the major version number of the JavaScriptCore library
      */
-    public fun getMajorVersion(): UInt = jsc_get_major_version()
+    public fun getMajorVersion(): guint = jsc_get_major_version()
 
     /**
      * Returns the micro version number of the JavaScriptCore library.
@@ -143,7 +144,7 @@ public object JavaScriptCore {
      *
      * @return the micro version number of the JavaScriptCore library
      */
-    public fun getMicroVersion(): UInt = jsc_get_micro_version()
+    public fun getMicroVersion(): guint = jsc_get_micro_version()
 
     /**
      * Returns the minor version number of the JavaScriptCore library.
@@ -156,7 +157,7 @@ public object JavaScriptCore {
      *
      * @return the minor version number of the JavaScriptCore library
      */
-    public fun getMinorVersion(): UInt = jsc_get_minor_version()
+    public fun getMinorVersion(): guint = jsc_get_minor_version()
 
     /**
      * Iterates all available options calling @function for each one. Iteration can
@@ -204,7 +205,7 @@ public object JavaScriptCore {
      * @since 2.24
      */
     @JavaScriptCoreVersion2_24
-    public fun optionsSetDouble(option: String, `value`: Double): Boolean = jsc_options_set_double(option, `value`).asBoolean()
+    public fun optionsSetDouble(option: String, `value`: gdouble): Boolean = jsc_options_set_double(option, `value`).asBoolean()
 
     /**
      * Set @option as a #gint value.
@@ -215,7 +216,7 @@ public object JavaScriptCore {
      * @since 2.24
      */
     @JavaScriptCoreVersion2_24
-    public fun optionsSetInt(option: String, `value`: Int): Boolean = jsc_options_set_int(option, `value`).asBoolean()
+    public fun optionsSetInt(option: String, `value`: gint): Boolean = jsc_options_set_int(option, `value`).asBoolean()
 
     /**
      * Set @option as a range string. The string must be in the
@@ -240,7 +241,7 @@ public object JavaScriptCore {
      * @since 2.24
      */
     @JavaScriptCoreVersion2_24
-    public fun optionsSetSize(option: String, `value`: ULong): Boolean = jsc_options_set_size(option, `value`).asBoolean()
+    public fun optionsSetSize(option: String, `value`: gsize): Boolean = jsc_options_set_size(option, `value`).asBoolean()
 
     /**
      * Set @option as a string.
@@ -262,14 +263,14 @@ public object JavaScriptCore {
      * @since 2.24
      */
     @JavaScriptCoreVersion2_24
-    public fun optionsSetUint(option: String, `value`: UInt): Boolean = jsc_options_set_uint(option, `value`).asBoolean()
+    public fun optionsSetUint(option: String, `value`: guint): Boolean = jsc_options_set_uint(option, `value`).asBoolean()
 }
 
 public val ClassDeletePropertyFunctionFunc: CPointer<CFunction<(
     CPointer<JSCClass>,
     CPointer<JSCContext>,
     CPointer<ByteVar>,
-) -> Int>> = staticCFunction {
+) -> gboolean>> = staticCFunction {
     jscClass: CPointer<JSCClass>?,
     context: CPointer<JSCContext>?,
     name: CPointer<ByteVar>?,
@@ -327,7 +328,7 @@ public val ClassHasPropertyFunctionFunc: CPointer<CFunction<(
     CPointer<JSCClass>,
     CPointer<JSCContext>,
     CPointer<ByteVar>,
-) -> Int>> = staticCFunction {
+) -> gboolean>> = staticCFunction {
     jscClass: CPointer<JSCClass>?,
     context: CPointer<JSCContext>?,
     name: CPointer<ByteVar>?,
@@ -349,7 +350,7 @@ public val ClassSetPropertyFunctionFunc: CPointer<CFunction<(
     CPointer<JSCContext>,
     CPointer<ByteVar>,
     CPointer<JSCValue>,
-) -> Int>> = staticCFunction {
+) -> gboolean>> = staticCFunction {
     jscClass: CPointer<JSCClass>?,
     context: CPointer<JSCContext>?,
     name: CPointer<ByteVar>?,
@@ -388,7 +389,7 @@ public val OptionsFuncFunc: CPointer<CFunction<(
     CPointer<ByteVar>,
     JSCOptionType,
     CPointer<ByteVar>?,
-) -> Int>> = staticCFunction {
+) -> gboolean>> = staticCFunction {
     option: CPointer<ByteVar>?,
     type: JSCOptionType,
     description: CPointer<ByteVar>?,

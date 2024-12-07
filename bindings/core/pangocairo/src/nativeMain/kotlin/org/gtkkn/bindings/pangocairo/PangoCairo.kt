@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.pangocairo
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -20,6 +18,8 @@ import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_10
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_18
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.pango.PangoAttrShape
 import org.gtkkn.native.pangocairo.pango_cairo_context_get_resolution
 import org.gtkkn.native.pangocairo.pango_cairo_context_set_resolution
@@ -59,7 +59,7 @@ public object PangoCairo {
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun contextGetResolution(context: Context): Double = pango_cairo_context_get_resolution(context.pangoContextPointer.reinterpret())
+    public fun contextGetResolution(context: Context): gdouble = pango_cairo_context_get_resolution(context.pangoContextPointer.reinterpret())
 
     /**
      * Sets the resolution for the context.
@@ -75,7 +75,7 @@ public object PangoCairo {
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun contextSetResolution(context: Context, dpi: Double): Unit = pango_cairo_context_set_resolution(context.pangoContextPointer.reinterpret(), dpi)
+    public fun contextSetResolution(context: Context, dpi: gdouble): Unit = pango_cairo_context_set_resolution(context.pangoContextPointer.reinterpret(), dpi)
 
     /**
      * Sets callback function for context to use for rendering attributes
@@ -164,10 +164,10 @@ public object PangoCairo {
         FontMap(reinterpret())}
 }
 
-public val ShapeRendererFuncFunc: CPointer<CFunction<(CPointer<PangoAttrShape>, Int) -> Unit>> =
-        staticCFunction {
+public val ShapeRendererFuncFunc: CPointer<CFunction<(CPointer<PangoAttrShape>, gboolean) -> Unit>>
+        = staticCFunction {
     attr: CPointer<PangoAttrShape>?,
-    doPath: Int,
+    doPath: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(attr: AttrShape, doPath: Boolean) -> Unit>().get().invoke(attr!!.run {

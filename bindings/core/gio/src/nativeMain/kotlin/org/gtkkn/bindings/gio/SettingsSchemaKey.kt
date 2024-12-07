@@ -22,10 +22,12 @@ import org.gtkkn.native.gio.g_settings_schema_key_get_description
 import org.gtkkn.native.gio.g_settings_schema_key_get_name
 import org.gtkkn.native.gio.g_settings_schema_key_get_range
 import org.gtkkn.native.gio.g_settings_schema_key_get_summary
+import org.gtkkn.native.gio.g_settings_schema_key_get_type
 import org.gtkkn.native.gio.g_settings_schema_key_get_value_type
 import org.gtkkn.native.gio.g_settings_schema_key_range_check
 import org.gtkkn.native.gio.g_settings_schema_key_ref
 import org.gtkkn.native.gio.g_settings_schema_key_unref
+import org.gtkkn.native.gobject.GType
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -190,6 +192,13 @@ public class SettingsSchemaKey(
     public fun unref(): Unit = g_settings_schema_key_unref(gioSettingsSchemaKeyPointer.reinterpret())
 
     public companion object : RecordCompanion<SettingsSchemaKey, GSettingsSchemaKey> {
+        /**
+         * Get the GType of SettingsSchemaKey
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_settings_schema_key_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SettingsSchemaKey = SettingsSchemaKey(pointer.reinterpret())
     }
 }

@@ -43,6 +43,7 @@ import org.gtkkn.native.gio.g_tls_certificate_new_from_pem
 import org.gtkkn.native.gio.g_tls_certificate_new_from_pkcs11_uris
 import org.gtkkn.native.gio.g_tls_certificate_verify
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 
 /**
  * A certificate used for TLS authentication and encryption.
@@ -463,5 +464,12 @@ public open class TlsCertificate(
                 Result.success(checkNotNull(gResult))
             }
         }
+
+        /**
+         * Get the GType of TlsCertificate
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_tls_certificate_get_type()
     }
 }

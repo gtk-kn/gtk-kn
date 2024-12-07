@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
-import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -10,6 +9,7 @@ import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GSignalInvocationHint
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -24,7 +24,7 @@ public class SignalInvocationHint(
     /**
      * The signal id of the signal invoking the callback
      */
-    public var signalId: UInt
+    public var signalId: guint
         get() = gobjectSignalInvocationHintPointer.pointed.signal_id
         set(`value`) {
             gobjectSignalInvocationHintPointer.pointed.signal_id = value

@@ -13,6 +13,7 @@ import org.gtkkn.native.adw.adw_carousel_indicator_dots_get_carousel
 import org.gtkkn.native.adw.adw_carousel_indicator_dots_get_type
 import org.gtkkn.native.adw.adw_carousel_indicator_dots_new
 import org.gtkkn.native.adw.adw_carousel_indicator_dots_set_carousel
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -89,5 +90,12 @@ public class CarouselIndicatorDots(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of CarouselIndicatorDots
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_carousel_indicator_dots_get_type()
     }
 }

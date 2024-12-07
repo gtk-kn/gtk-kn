@@ -13,6 +13,7 @@ import org.gtkkn.native.gio.GZlibDecompressor
 import org.gtkkn.native.gio.g_zlib_decompressor_get_file_info
 import org.gtkkn.native.gio.g_zlib_decompressor_get_type
 import org.gtkkn.native.gio.g_zlib_decompressor_new
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GZlibDecompressor` is an implementation of [iface@Gio.Converter] that
@@ -71,5 +72,12 @@ public open class ZlibDecompressor(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of ZlibDecompressor
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_zlib_decompressor_get_type()
     }
 }

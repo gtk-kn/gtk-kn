@@ -2,9 +2,7 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -30,6 +28,8 @@ import org.gtkkn.native.glib.g_scanner_scope_remove_symbol
 import org.gtkkn.native.glib.g_scanner_set_scope
 import org.gtkkn.native.glib.g_scanner_sync_file_offset
 import org.gtkkn.native.glib.g_scanner_unexp_token
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -73,7 +73,7 @@ public class Scanner(
     /**
      * unused
      */
-    public var maxParseErrors: UInt
+    public var maxParseErrors: guint
         get() = glibScannerPointer.pointed.max_parse_errors
         set(`value`) {
             glibScannerPointer.pointed.max_parse_errors = value
@@ -82,7 +82,7 @@ public class Scanner(
     /**
      * g_scanner_error() increments this field
      */
-    public var parseErrors: UInt
+    public var parseErrors: guint
         get() = glibScannerPointer.pointed.parse_errors
         set(`value`) {
             glibScannerPointer.pointed.parse_errors = value
@@ -118,7 +118,7 @@ public class Scanner(
     /**
      * line number of the last token from g_scanner_get_next_token()
      */
-    public var line: UInt
+    public var line: guint
         get() = glibScannerPointer.pointed.line
         set(`value`) {
             glibScannerPointer.pointed.line = value
@@ -127,7 +127,7 @@ public class Scanner(
     /**
      * char number of the last token from g_scanner_get_next_token()
      */
-    public var position: UInt
+    public var position: guint
         get() = glibScannerPointer.pointed.position
         set(`value`) {
             glibScannerPointer.pointed.position = value
@@ -146,7 +146,7 @@ public class Scanner(
     /**
      * line number of the last token from g_scanner_peek_next_token()
      */
-    public var nextLine: UInt
+    public var nextLine: guint
         get() = glibScannerPointer.pointed.next_line
         set(`value`) {
             glibScannerPointer.pointed.next_line = value
@@ -155,7 +155,7 @@ public class Scanner(
     /**
      * char number of the last token from g_scanner_peek_next_token()
      */
-    public var nextPosition: UInt
+    public var nextPosition: guint
         get() = glibScannerPointer.pointed.next_position
         set(`value`) {
             glibScannerPointer.pointed.next_position = value
@@ -168,7 +168,7 @@ public class Scanner(
      *
      * @return the current line
      */
-    public fun curLine(): UInt = g_scanner_cur_line(glibScannerPointer.reinterpret())
+    public fun curLine(): guint = g_scanner_cur_line(glibScannerPointer.reinterpret())
 
     /**
      * Returns the current position in the current line (counting
@@ -177,7 +177,7 @@ public class Scanner(
      *
      * @return the current position on the line
      */
-    public fun curPosition(): UInt = g_scanner_cur_position(glibScannerPointer.reinterpret())
+    public fun curPosition(): guint = g_scanner_cur_position(glibScannerPointer.reinterpret())
 
     /**
      * Gets the current token type. This is simply the @token
@@ -218,7 +218,7 @@ public class Scanner(
      *
      * @param inputFd a file descriptor
      */
-    public fun inputFile(inputFd: Int): Unit = g_scanner_input_file(glibScannerPointer.reinterpret(), inputFd)
+    public fun inputFile(inputFd: gint): Unit = g_scanner_input_file(glibScannerPointer.reinterpret(), inputFd)
 
     /**
      * Prepares to scan a text buffer.
@@ -226,7 +226,7 @@ public class Scanner(
      * @param text the text buffer to scan
      * @param textLen the length of the text buffer
      */
-    public fun inputText(text: String, textLen: UInt): Unit = g_scanner_input_text(glibScannerPointer.reinterpret(), text, textLen)
+    public fun inputText(text: String, textLen: guint): Unit = g_scanner_input_text(glibScannerPointer.reinterpret(), text, textLen)
 
     /**
      * Parses the next token, without removing it from the input stream.
@@ -255,7 +255,7 @@ public class Scanner(
      * @param scopeId the scope id
      * @param func the function to call for each symbol/value pair
      */
-    public fun scopeForeachSymbol(scopeId: UInt, func: HFunc): Unit = g_scanner_scope_foreach_symbol(glibScannerPointer.reinterpret(), scopeId, HFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
+    public fun scopeForeachSymbol(scopeId: guint, func: HFunc): Unit = g_scanner_scope_foreach_symbol(glibScannerPointer.reinterpret(), scopeId, HFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Removes a symbol from a scope.
@@ -263,7 +263,7 @@ public class Scanner(
      * @param scopeId the scope id
      * @param symbol the symbol to remove
      */
-    public fun scopeRemoveSymbol(scopeId: UInt, symbol: String): Unit = g_scanner_scope_remove_symbol(glibScannerPointer.reinterpret(), scopeId, symbol)
+    public fun scopeRemoveSymbol(scopeId: guint, symbol: String): Unit = g_scanner_scope_remove_symbol(glibScannerPointer.reinterpret(), scopeId, symbol)
 
     /**
      * Sets the current scope.
@@ -271,7 +271,7 @@ public class Scanner(
      * @param scopeId the new scope id
      * @return the old scope id
      */
-    public fun setScope(scopeId: UInt): UInt = g_scanner_set_scope(glibScannerPointer.reinterpret(), scopeId)
+    public fun setScope(scopeId: guint): guint = g_scanner_set_scope(glibScannerPointer.reinterpret(), scopeId)
 
     /**
      * Rewinds the filedescriptor to the current buffer position
@@ -312,7 +312,7 @@ public class Scanner(
         symbolSpec: String,
         symbolName: String,
         message: String,
-        isError: Int,
+        isError: gint,
     ): Unit = g_scanner_unexp_token(glibScannerPointer.reinterpret(), expectedToken.nativeValue, identifierSpec, symbolSpec, symbolName, message, isError)
 
     public companion object : RecordCompanion<Scanner, GScanner> {

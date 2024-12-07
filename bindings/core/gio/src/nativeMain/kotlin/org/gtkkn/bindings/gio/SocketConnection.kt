@@ -2,9 +2,7 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -33,6 +31,8 @@ import org.gtkkn.native.gio.g_socket_connection_get_socket
 import org.gtkkn.native.gio.g_socket_connection_get_type
 import org.gtkkn.native.gio.g_socket_connection_is_connected
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * `GSocketConnection` is a [class@Gio.IOStream] for a connected socket. They
@@ -224,8 +224,8 @@ public open class SocketConnection(
         public fun factoryLookupType(
             family: SocketFamily,
             type: SocketType,
-            protocolId: Int,
-        ): ULong = g_socket_connection_factory_lookup_type(family.nativeValue, type.nativeValue, protocolId)
+            protocolId: gint,
+        ): GType = g_socket_connection_factory_lookup_type(family.nativeValue, type.nativeValue, protocolId)
 
         /**
          * Looks up the #GType to be used when creating socket connections on
@@ -241,10 +241,17 @@ public open class SocketConnection(
          */
         @GioVersion2_22
         public fun factoryRegisterType(
-            gType: ULong,
+            gType: GType,
             family: SocketFamily,
             type: SocketType,
-            protocol: Int,
+            protocol: gint,
         ): Unit = g_socket_connection_factory_register_type(gType, family.nativeValue, type.nativeValue, protocol)
+
+        /**
+         * Get the GType of SocketConnection
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_socket_connection_get_type()
     }
 }

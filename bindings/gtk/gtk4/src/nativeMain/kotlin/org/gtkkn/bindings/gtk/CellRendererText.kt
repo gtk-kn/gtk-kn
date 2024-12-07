@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -19,7 +18,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkCellRendererText
 import org.gtkkn.native.gtk.gtk_cell_renderer_text_get_type
 import org.gtkkn.native.gtk.gtk_cell_renderer_text_new
@@ -115,7 +116,7 @@ public open class CellRendererText(
      *
      * @param numberOfRows Number of rows of text each cell renderer is allocated, or -1
      */
-    public open fun setFixedHeightFromFont(numberOfRows: Int): Unit = gtk_cell_renderer_text_set_fixed_height_from_font(gtkCellRendererTextPointer.reinterpret(), numberOfRows)
+    public open fun setFixedHeightFromFont(numberOfRows: gint): Unit = gtk_cell_renderer_text_set_fixed_height_from_font(gtkCellRendererTextPointer.reinterpret(), numberOfRows)
 
     /**
      * This signal is emitted after @renderer has been edited.
@@ -134,6 +135,13 @@ public open class CellRendererText(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of CellRendererText
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_cell_renderer_text_get_type()
     }
 }
 

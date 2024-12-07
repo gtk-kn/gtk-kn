@@ -18,6 +18,7 @@ import org.gtkkn.native.gio.g_simple_action_group_insert
 import org.gtkkn.native.gio.g_simple_action_group_lookup
 import org.gtkkn.native.gio.g_simple_action_group_new
 import org.gtkkn.native.gio.g_simple_action_group_remove
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GSimpleActionGroup` is a hash table filled with [iface@Gio.Action] objects,
@@ -98,5 +99,12 @@ public open class SimpleActionGroup(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of SimpleActionGroup
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_simple_action_group_get_type()
     }
 }

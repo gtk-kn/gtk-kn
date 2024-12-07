@@ -23,6 +23,7 @@ import org.gtkkn.native.adw.adw_tab_button_get_type
 import org.gtkkn.native.adw.adw_tab_button_get_view
 import org.gtkkn.native.adw.adw_tab_button_new
 import org.gtkkn.native.adw.adw_tab_button_set_view
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
@@ -142,6 +143,13 @@ public class TabButton(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of TabButton
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_tab_button_get_type()
     }
 }
 

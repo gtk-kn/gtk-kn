@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.webkit
 
 import kotlin.String
-import kotlin.UShort
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -11,10 +10,13 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_16
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint16
 import org.gtkkn.native.webkit.WebKitSecurityOrigin
 import org.gtkkn.native.webkit.webkit_security_origin_get_host
 import org.gtkkn.native.webkit.webkit_security_origin_get_port
 import org.gtkkn.native.webkit.webkit_security_origin_get_protocol
+import org.gtkkn.native.webkit.webkit_security_origin_get_type
 import org.gtkkn.native.webkit.webkit_security_origin_new
 import org.gtkkn.native.webkit.webkit_security_origin_new_for_uri
 import org.gtkkn.native.webkit.webkit_security_origin_ref
@@ -66,7 +68,7 @@ public class SecurityOrigin(
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun getPort(): UShort = webkit_security_origin_get_port(webkitSecurityOriginPointer.reinterpret())
+    public fun getPort(): guint16 = webkit_security_origin_get_port(webkitSecurityOriginPointer.reinterpret())
 
     /**
      * Gets the protocol of @origin.
@@ -129,7 +131,7 @@ public class SecurityOrigin(
         public fun new(
             protocol: String,
             host: String,
-            port: UShort,
+            port: guint16,
         ): SecurityOrigin = SecurityOrigin(webkit_security_origin_new(protocol, host, port)!!.reinterpret())
 
         /**
@@ -144,6 +146,13 @@ public class SecurityOrigin(
          * @since 2.16
          */
         public fun newForUri(uri: String): SecurityOrigin = SecurityOrigin(webkit_security_origin_new_for_uri(uri)!!.reinterpret())
+
+        /**
+         * Get the GType of SecurityOrigin
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_security_origin_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SecurityOrigin = SecurityOrigin(pointer.reinterpret())
     }

@@ -4,7 +4,6 @@ package org.gtkkn.bindings.gio
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
@@ -70,6 +69,8 @@ import org.gtkkn.native.gio.g_dbus_message_set_signature
 import org.gtkkn.native.gio.g_dbus_message_set_unix_fd_list
 import org.gtkkn.native.gio.g_dbus_message_to_gerror
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 
 /**
  * A type for representing D-Bus messages that can be sent or received
@@ -291,7 +292,7 @@ public open class DBusMessage(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getNumUnixFds(): UInt = g_dbus_message_get_num_unix_fds(gioDBusMessagePointer.reinterpret())
+    public open fun getNumUnixFds(): guint = g_dbus_message_get_num_unix_fds(gioDBusMessagePointer.reinterpret())
 
     /**
      * Convenience getter for the %G_DBUS_MESSAGE_HEADER_FIELD_PATH header field.
@@ -309,7 +310,7 @@ public open class DBusMessage(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getReplySerial(): UInt = g_dbus_message_get_reply_serial(gioDBusMessagePointer.reinterpret())
+    public open fun getReplySerial(): guint = g_dbus_message_get_reply_serial(gioDBusMessagePointer.reinterpret())
 
     /**
      * Convenience getter for the %G_DBUS_MESSAGE_HEADER_FIELD_SENDER header field.
@@ -327,7 +328,7 @@ public open class DBusMessage(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getSerial(): UInt = g_dbus_message_get_serial(gioDBusMessagePointer.reinterpret())
+    public open fun getSerial(): guint = g_dbus_message_get_serial(gioDBusMessagePointer.reinterpret())
 
     /**
      * Convenience getter for the %G_DBUS_MESSAGE_HEADER_FIELD_SIGNATURE header field.
@@ -428,7 +429,7 @@ public open class DBusMessage(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun print(indent: UInt): String = g_dbus_message_print(gioDBusMessagePointer.reinterpret(), indent)?.toKString() ?: error("Expected not null string")
+    public open fun print(indent: guint): String = g_dbus_message_print(gioDBusMessagePointer.reinterpret(), indent)?.toKString() ?: error("Expected not null string")
 
     /**
      * Sets the body @message. As a side-effect the
@@ -524,7 +525,7 @@ public open class DBusMessage(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setNumUnixFds(`value`: UInt): Unit = g_dbus_message_set_num_unix_fds(gioDBusMessagePointer.reinterpret(), `value`)
+    public open fun setNumUnixFds(`value`: guint): Unit = g_dbus_message_set_num_unix_fds(gioDBusMessagePointer.reinterpret(), `value`)
 
     /**
      * Convenience setter for the %G_DBUS_MESSAGE_HEADER_FIELD_PATH header field.
@@ -542,7 +543,7 @@ public open class DBusMessage(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setReplySerial(`value`: UInt): Unit = g_dbus_message_set_reply_serial(gioDBusMessagePointer.reinterpret(), `value`)
+    public open fun setReplySerial(`value`: guint): Unit = g_dbus_message_set_reply_serial(gioDBusMessagePointer.reinterpret(), `value`)
 
     /**
      * Convenience setter for the %G_DBUS_MESSAGE_HEADER_FIELD_SENDER header field.
@@ -560,7 +561,7 @@ public open class DBusMessage(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setSerial(serial: UInt): Unit = g_dbus_message_set_serial(gioDBusMessagePointer.reinterpret(), serial)
+    public open fun setSerial(serial: guint): Unit = g_dbus_message_set_serial(gioDBusMessagePointer.reinterpret(), serial)
 
     /**
      * Convenience setter for the %G_DBUS_MESSAGE_HEADER_FIELD_SIGNATURE header field.
@@ -620,5 +621,12 @@ public open class DBusMessage(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of DBusMessage
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_message_get_type()
     }
 }

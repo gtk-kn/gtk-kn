@@ -31,6 +31,6 @@ data class RecordBlueprint(
     val cStructTypeName: ClassName,
     val skippedObjects: List<SkippedObject>,
     val isOpaque: Boolean,
-    val kdoc: String?,
     val optInVersionBlueprint: OptInVersionBlueprint?,
+    val kdoc: String?,
 )

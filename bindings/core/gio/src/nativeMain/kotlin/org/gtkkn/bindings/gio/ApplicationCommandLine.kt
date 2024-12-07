@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlin.collections.List
@@ -37,6 +36,8 @@ import org.gtkkn.native.gio.g_application_command_line_getenv
 import org.gtkkn.native.gio.g_application_command_line_print_literal
 import org.gtkkn.native.gio.g_application_command_line_printerr_literal
 import org.gtkkn.native.gio.g_application_command_line_set_exit_status
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * `GApplicationCommandLine` represents a command-line invocation of
@@ -322,7 +323,7 @@ public open class ApplicationCommandLine(
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun getExitStatus(): Int = g_application_command_line_get_exit_status(gioApplicationCommandLinePointer.reinterpret())
+    public open fun getExitStatus(): gint = g_application_command_line_get_exit_status(gioApplicationCommandLinePointer.reinterpret())
 
     /**
      * Gets the options that were passed to g_application_command_line().
@@ -460,7 +461,7 @@ public open class ApplicationCommandLine(
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun setExitStatus(exitStatus: Int): Unit = g_application_command_line_set_exit_status(gioApplicationCommandLinePointer.reinterpret(), exitStatus)
+    public open fun setExitStatus(exitStatus: gint): Unit = g_application_command_line_set_exit_status(gioApplicationCommandLinePointer.reinterpret(), exitStatus)
 
     public companion object : TypeCompanion<ApplicationCommandLine> {
         override val type: GeneratedClassKGType<ApplicationCommandLine> =
@@ -468,5 +469,12 @@ public open class ApplicationCommandLine(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of ApplicationCommandLine
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_application_command_line_get_type()
     }
 }

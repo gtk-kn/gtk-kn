@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gdk
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -39,7 +37,10 @@ import org.gtkkn.native.gdk.gdk_monitor_get_subpixel_layout
 import org.gtkkn.native.gdk.gdk_monitor_get_type
 import org.gtkkn.native.gdk.gdk_monitor_get_width_mm
 import org.gtkkn.native.gdk.gdk_monitor_is_valid
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
 
 /**
  * `GdkMonitor` objects represent the individual outputs that are
@@ -109,7 +110,7 @@ public open class Monitor(
     /**
      * The height of the monitor, in millimeters.
      */
-    public open val heightMm: Int
+    public open val heightMm: gint
         /**
          * Gets the height in millimeters of the monitor.
          *
@@ -148,7 +149,7 @@ public open class Monitor(
     /**
      * The refresh rate, in milli-Hertz.
      */
-    public open val refreshRate: Int
+    public open val refreshRate: gint
         /**
          * Gets the refresh rate of the monitor, if available.
          *
@@ -165,7 +166,7 @@ public open class Monitor(
      * @since 4.14
      */
     @GdkVersion4_14
-    public open val scale: Double
+    public open val scale: gdouble
         /**
          * Gets the internal scale factor that maps from monitor coordinates
          * to device pixels.
@@ -185,7 +186,7 @@ public open class Monitor(
      * The scale factor is the next larger integer,
      * compared to [property@Gdk.Surface:scale].
      */
-    public open val scaleFactor: Int
+    public open val scaleFactor: gint
         /**
          * Gets the internal scale factor that maps from monitor coordinates
          * to device pixels.
@@ -217,7 +218,7 @@ public open class Monitor(
     /**
      * The width of the monitor, in millimeters.
      */
-    public open val widthMm: Int
+    public open val widthMm: gint
         /**
          * Gets the width in millimeters of the monitor.
          *
@@ -261,6 +262,13 @@ public open class Monitor(
 
         init {
             GdkTypeProvider.register()}
+
+        /**
+         * Get the GType of Monitor
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_monitor_get_type()
     }
 }
 

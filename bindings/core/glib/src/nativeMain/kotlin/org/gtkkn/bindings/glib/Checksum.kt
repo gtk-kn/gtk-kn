@@ -19,6 +19,8 @@ import org.gtkkn.native.glib.g_checksum_get_string
 import org.gtkkn.native.glib.g_checksum_new
 import org.gtkkn.native.glib.g_checksum_reset
 import org.gtkkn.native.glib.g_checksum_type_get_length
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_checksum_get_type
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -129,6 +131,13 @@ public class Checksum(
          */
         @GLibVersion2_16
         public fun typeGetLength(checksumType: ChecksumType): Long = g_checksum_type_get_length(checksumType.nativeValue)
+
+        /**
+         * Get the GType of Checksum
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_checksum_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Checksum = Checksum(pointer.reinterpret())
     }

@@ -17,6 +17,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkEventControllerFocus
 import org.gtkkn.native.gtk.gtk_event_controller_focus_contains_focus
@@ -107,6 +108,13 @@ public open class EventControllerFocus(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of EventControllerFocus
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_event_controller_focus_get_type()
     }
 }
 

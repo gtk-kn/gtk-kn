@@ -9,6 +9,7 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBoolFilter
 import org.gtkkn.native.gtk.gtk_bool_filter_get_expression
 import org.gtkkn.native.gtk.gtk_bool_filter_get_invert
@@ -81,5 +82,12 @@ public open class BoolFilter(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of BoolFilter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_bool_filter_get_type()
     }
 }

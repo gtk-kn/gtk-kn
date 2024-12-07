@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -28,7 +26,11 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkContentProvider
 import org.gtkkn.native.gdk.GdkDrag
 import org.gtkkn.native.gdk.GdkDragCancelReason
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkDragSource
 import org.gtkkn.native.gtk.gtk_drag_source_drag_cancel
 import org.gtkkn.native.gtk.gtk_drag_source_get_actions
@@ -220,8 +222,8 @@ public open class DragSource(
      */
     public open fun setIcon(
         paintable: Paintable? = null,
-        hotX: Int,
-        hotY: Int,
+        hotX: gint,
+        hotY: gint,
     ): Unit = gtk_drag_source_set_icon(gtkDragSourcePointer.reinterpret(), paintable?.gdkPaintablePointer, hotX, hotY)
 
     /**
@@ -271,7 +273,7 @@ public open class DragSource(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `x` the X coordinate of the drag starting point; `y` the Y coordinate of the drag starting point. Returns a `GdkContentProvider`
      */
-    public fun connectPrepare(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (x: Double, y: Double) -> ContentProvider?): ULong = g_signal_connect_data(gPointer.reinterpret(), "prepare", connectPrepareFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectPrepare(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (x: gdouble, y: gdouble) -> ContentProvider?): ULong = g_signal_connect_data(gPointer.reinterpret(), "prepare", connectPrepareFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<DragSource> {
         override val type: GeneratedClassKGType<DragSource> =
@@ -279,6 +281,13 @@ public open class DragSource(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of DragSource
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_drag_source_get_type()
     }
 }
 
@@ -294,7 +303,8 @@ private val connectDragBeginFunc: CPointer<CFunction<(CPointer<GdkDrag>) -> Unit
 .reinterpret()
 
 private val connectDragCancelFunc:
-        CPointer<CFunction<(CPointer<GdkDrag>, GdkDragCancelReason) -> Int>> = staticCFunction {
+        CPointer<CFunction<(CPointer<GdkDrag>, GdkDragCancelReason) -> gboolean>> =
+        staticCFunction {
     _: COpaquePointer,
     drag: CPointer<GdkDrag>?,
     reason: GdkDragCancelReason,
@@ -307,11 +317,11 @@ private val connectDragCancelFunc:
     ).asGBoolean()}
 .reinterpret()
 
-private val connectDragEndFunc: CPointer<CFunction<(CPointer<GdkDrag>, Int) -> Unit>> =
+private val connectDragEndFunc: CPointer<CFunction<(CPointer<GdkDrag>, gboolean) -> Unit>> =
         staticCFunction {
     _: COpaquePointer,
     drag: CPointer<GdkDrag>?,
-    deleteData: Int,
+    deleteData: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(drag: Drag, deleteData: Boolean) -> Unit>().get().invoke(drag!!.run {
@@ -320,11 +330,11 @@ private val connectDragEndFunc: CPointer<CFunction<(CPointer<GdkDrag>, Int) -> U
 .reinterpret()
 
 private val connectPrepareFunc:
-        CPointer<CFunction<(Double, Double) -> CPointer<GdkContentProvider>?>> = staticCFunction {
+        CPointer<CFunction<(gdouble, gdouble) -> CPointer<GdkContentProvider>?>> = staticCFunction {
     _: COpaquePointer,
-    x: Double,
-    y: Double,
+    x: gdouble,
+    y: gdouble,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(x: Double, y: Double) -> ContentProvider?>().get().invoke(x, y)?.gdkContentProviderPointer}
+    userData.asStableRef<(x: gdouble, y: gdouble) -> ContentProvider?>().get().invoke(x, y)?.gdkContentProviderPointer}
 .reinterpret()

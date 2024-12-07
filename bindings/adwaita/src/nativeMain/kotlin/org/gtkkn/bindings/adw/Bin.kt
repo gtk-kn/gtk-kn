@@ -12,6 +12,7 @@ import org.gtkkn.native.adw.adw_bin_get_child
 import org.gtkkn.native.adw.adw_bin_get_type
 import org.gtkkn.native.adw.adw_bin_new
 import org.gtkkn.native.adw.adw_bin_set_child
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -77,5 +78,12 @@ public open class Bin(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of Bin
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_bin_get_type()
     }
 }

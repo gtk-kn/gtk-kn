@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.ULong
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -18,7 +17,10 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAccessibleRange
 import org.gtkkn.native.gtk.GtkBuildable
@@ -167,7 +169,7 @@ public open class Paned(
     /**
      * Position of the separator in pixels, from the left/top.
      */
-    public open var position: Int
+    public open var position: gint
         /**
          * Obtains the position of the divider between the two panes.
          *
@@ -386,40 +388,50 @@ public open class Paned(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of Paned
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_paned_get_type()
     }
 }
 
-private val connectAcceptPositionFunc: CPointer<CFunction<() -> Int>> = staticCFunction {
+private val connectAcceptPositionFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     userData: COpaquePointer
     ->
     userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()}
 .reinterpret()
 
-private val connectCancelPositionFunc: CPointer<CFunction<() -> Int>> = staticCFunction {
+private val connectCancelPositionFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     userData: COpaquePointer
     ->
     userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()}
 .reinterpret()
 
-private val connectCycleChildFocusFunc: CPointer<CFunction<(Int) -> Int>> = staticCFunction {
+private val connectCycleChildFocusFunc: CPointer<CFunction<(gboolean) -> gboolean>> =
+        staticCFunction {
     _: COpaquePointer,
-    reversed: Int,
+    reversed: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(reversed: Boolean) -> Boolean>().get().invoke(reversed.asBoolean()).asGBoolean()}
 .reinterpret()
 
-private val connectCycleHandleFocusFunc: CPointer<CFunction<(Int) -> Int>> = staticCFunction {
+private val connectCycleHandleFocusFunc: CPointer<CFunction<(gboolean) -> gboolean>> =
+        staticCFunction {
     _: COpaquePointer,
-    reversed: Int,
+    reversed: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(reversed: Boolean) -> Boolean>().get().invoke(reversed.asBoolean()).asGBoolean()}
 .reinterpret()
 
-private val connectMoveHandleFunc: CPointer<CFunction<(GtkScrollType) -> Int>> = staticCFunction {
+private val connectMoveHandleFunc: CPointer<CFunction<(GtkScrollType) -> gboolean>> =
+        staticCFunction {
     _: COpaquePointer,
     scrollType: GtkScrollType,
     userData: COpaquePointer
@@ -429,7 +441,7 @@ private val connectMoveHandleFunc: CPointer<CFunction<(GtkScrollType) -> Int>> =
     ).asGBoolean()}
 .reinterpret()
 
-private val connectToggleHandleFocusFunc: CPointer<CFunction<() -> Int>> = staticCFunction {
+private val connectToggleHandleFocusFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     userData: COpaquePointer
     ->

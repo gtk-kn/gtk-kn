@@ -9,7 +9,9 @@ import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_12
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitWebViewSessionState
+import org.gtkkn.native.webkit.webkit_web_view_session_state_get_type
 import org.gtkkn.native.webkit.webkit_web_view_session_state_new
 import org.gtkkn.native.webkit.webkit_web_view_session_state_ref
 import org.gtkkn.native.webkit.webkit_web_view_session_state_serialize
@@ -71,6 +73,13 @@ public class WebViewSessionState(
          * @since 2.12
          */
         public fun new(`data`: Bytes): WebViewSessionState = WebViewSessionState(webkit_web_view_session_state_new(`data`.glibBytesPointer.reinterpret())!!.reinterpret())
+
+        /**
+         * Get the GType of WebViewSessionState
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_web_view_session_state_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): WebViewSessionState = WebViewSessionState(pointer.reinterpret())
     }

@@ -20,6 +20,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GAppInfoMonitor
 import org.gtkkn.native.gio.g_app_info_monitor_get
 import org.gtkkn.native.gio.g_app_info_monitor_get_type
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 
 /**
@@ -111,6 +112,13 @@ public open class AppInfoMonitor(
         @GioVersion2_40
         public fun `get`(): AppInfoMonitor = g_app_info_monitor_get()!!.run {
             AppInfoMonitor(reinterpret())}
+
+        /**
+         * Get the GType of AppInfoMonitor
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_app_info_monitor_get_type()
     }
 }
 

@@ -26,6 +26,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkUriLauncher
 import org.gtkkn.native.gtk.gtk_uri_launcher_get_type
 import org.gtkkn.native.gtk.gtk_uri_launcher_get_uri
@@ -137,5 +138,12 @@ public open class UriLauncher(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of UriLauncher
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_uri_launcher_get_type()
     }
 }

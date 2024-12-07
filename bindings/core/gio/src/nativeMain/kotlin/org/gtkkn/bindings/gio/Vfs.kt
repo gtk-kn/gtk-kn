@@ -23,6 +23,7 @@ import org.gtkkn.native.gio.g_vfs_get_type
 import org.gtkkn.native.gio.g_vfs_is_active
 import org.gtkkn.native.gio.g_vfs_parse_name
 import org.gtkkn.native.gio.g_vfs_unregister_uri_scheme
+import org.gtkkn.native.gobject.GType
 
 /**
  * Entry point for using GIO functionality.
@@ -126,5 +127,12 @@ public open class Vfs(
          */
         public fun getLocal(): Vfs = g_vfs_get_local()!!.run {
             Vfs(reinterpret())}
+
+        /**
+         * Get the GType of Vfs
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_vfs_get_type()
     }
 }

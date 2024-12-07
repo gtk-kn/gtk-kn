@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gdk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.Throws
@@ -46,6 +45,8 @@ import org.gtkkn.native.gdk.gdk_texture_save_to_tiff_bytes
 import org.gtkkn.native.gio.GIcon
 import org.gtkkn.native.gio.GLoadableIcon
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * `GdkTexture` is the basic element used to refer to pixel data.
@@ -90,7 +91,7 @@ public open class Texture(
     /**
      * The height of the texture, in pixels.
      */
-    public open val height: Int
+    public open val height: gint
         /**
          * Returns the height of the @texture, in pixels.
          *
@@ -101,7 +102,7 @@ public open class Texture(
     /**
      * The width of the texture, in pixels.
      */
-    public open val width: Int
+    public open val width: gint
         /**
          * Returns the width of @texture, in pixels.
          *
@@ -343,5 +344,12 @@ public open class Texture(
          * @return A newly-created `GdkTexture`
          */
         public fun newFromResource(resourcePath: String): Texture = Texture(gdk_texture_new_from_resource(resourcePath)!!.reinterpret())
+
+        /**
+         * Get the GType of Texture
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_texture_get_type()
     }
 }

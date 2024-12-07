@@ -1,10 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlin.Int
 import kotlin.Long
 import kotlin.Result
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -31,6 +29,9 @@ import org.gtkkn.native.gio.g_buffered_input_stream_new_sized
 import org.gtkkn.native.gio.g_buffered_input_stream_read_byte
 import org.gtkkn.native.gio.g_buffered_input_stream_set_buffer_size
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gsize
 
 /**
  * Buffered input stream implements #GFilterInputStream and provides
@@ -66,7 +67,7 @@ public open class BufferedInputStream(
     /**
      * The size of the backend buffer, in bytes.
      */
-    public open var bufferSize: ULong
+    public open var bufferSize: gsize
         /**
          * Gets the size of the input buffer.
          *
@@ -99,7 +100,7 @@ public open class BufferedInputStream(
      * @param size a #gsize
      * @return a #GInputStream.
      */
-    public constructor(baseStream: InputStream, size: ULong) : this(g_buffered_input_stream_new_sized(baseStream.gioInputStreamPointer.reinterpret(), size)!!.reinterpret())
+    public constructor(baseStream: InputStream, size: gsize) : this(g_buffered_input_stream_new_sized(baseStream.gioInputStreamPointer.reinterpret(), size)!!.reinterpret())
 
     /**
      * Tries to read @count bytes from the stream into the buffer.
@@ -158,7 +159,7 @@ public open class BufferedInputStream(
      */
     public open fun fillAsync(
         count: Long,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_buffered_input_stream_fill_async(gioBufferedInputStreamPointer.reinterpret(), count, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -185,7 +186,7 @@ public open class BufferedInputStream(
      *
      * @return size of the available stream.
      */
-    public open fun getAvailable(): ULong = g_buffered_input_stream_get_available(gioBufferedInputStreamPointer.reinterpret())
+    public open fun getAvailable(): gsize = g_buffered_input_stream_get_available(gioBufferedInputStreamPointer.reinterpret())
 
     /**
      * Tries to read a single byte from the stream or the buffer. Will block
@@ -205,7 +206,7 @@ public open class BufferedInputStream(
      * @param cancellable optional #GCancellable object, null to ignore
      * @return the byte read from the @stream, or -1 on end of stream or error.
      */
-    public open fun readInt(cancellable: Cancellable? = null): Result<Int> = memScoped {
+    public open fun readInt(cancellable: Cancellable? = null): Result<gint> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_buffered_input_stream_read_byte(gioBufferedInputStreamPointer.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr)
         return if (gError.pointed != null) {
@@ -222,5 +223,12 @@ public open class BufferedInputStream(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of BufferedInputStream
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_buffered_input_stream_get_type()
     }
 }

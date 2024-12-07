@@ -8,6 +8,7 @@ import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -58,5 +59,12 @@ public open class HoverDisplay(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of HoverDisplay
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_hover_display_get_type()
     }
 }

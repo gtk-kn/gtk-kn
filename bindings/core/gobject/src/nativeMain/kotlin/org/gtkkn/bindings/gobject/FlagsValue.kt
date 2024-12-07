@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gobject
 
 import kotlin.String
-import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -11,6 +10,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GFlagsValue
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -25,7 +25,7 @@ public class FlagsValue(
     /**
      * the flags value
      */
-    public var `value`: UInt
+    public var `value`: guint
         get() = gobjectFlagsValuePointer.pointed.value
         set(`value`) {
             gobjectFlagsValuePointer.pointed.value = value

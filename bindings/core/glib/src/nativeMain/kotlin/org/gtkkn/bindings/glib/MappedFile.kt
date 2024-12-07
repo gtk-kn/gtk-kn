@@ -2,10 +2,8 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -32,6 +30,10 @@ import org.gtkkn.native.glib.g_mapped_file_new
 import org.gtkkn.native.glib.g_mapped_file_new_from_fd
 import org.gtkkn.native.glib.g_mapped_file_ref
 import org.gtkkn.native.glib.g_mapped_file_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_mapped_file_get_type
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gsize
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -87,7 +89,7 @@ public class MappedFile(
      * @since 2.8
      */
     @GLibVersion2_8
-    public fun getLength(): ULong = g_mapped_file_get_length(glibMappedFilePointer.reinterpret())
+    public fun getLength(): gsize = g_mapped_file_get_length(glibMappedFilePointer.reinterpret())
 
     /**
      * Increments the reference count of @file by one.  It is safe to call
@@ -168,7 +170,7 @@ public class MappedFile(
          *    with g_mapped_file_unref(), or null if the mapping failed.
          * @since 2.32
          */
-        public fun newFromFd(fd: Int, writable: Boolean): Result<MappedFile> {
+        public fun newFromFd(fd: gint, writable: Boolean): Result<MappedFile> {
             memScoped {
                 val gError = allocPointerTo<GError>()
                 val gResult = g_mapped_file_new_from_fd(fd, writable.asGBoolean(), gError.ptr)
@@ -180,6 +182,13 @@ public class MappedFile(
                 }
             }
         }
+
+        /**
+         * Get the GType of MappedFile
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_mapped_file_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MappedFile = MappedFile(pointer.reinterpret())
     }

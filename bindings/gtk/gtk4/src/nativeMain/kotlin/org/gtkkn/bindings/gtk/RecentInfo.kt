@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.Unit
@@ -23,6 +22,8 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkRecentInfo
 import org.gtkkn.native.gtk.gtk_recent_info_create_app_info
 import org.gtkkn.native.gtk.gtk_recent_info_exists
@@ -35,6 +36,7 @@ import org.gtkkn.native.gtk.gtk_recent_info_get_mime_type
 import org.gtkkn.native.gtk.gtk_recent_info_get_modified
 import org.gtkkn.native.gtk.gtk_recent_info_get_private_hint
 import org.gtkkn.native.gtk.gtk_recent_info_get_short_name
+import org.gtkkn.native.gtk.gtk_recent_info_get_type
 import org.gtkkn.native.gtk.gtk_recent_info_get_uri
 import org.gtkkn.native.gtk.gtk_recent_info_get_uri_display
 import org.gtkkn.native.gtk.gtk_recent_info_get_visited
@@ -112,7 +114,7 @@ public class RecentInfo(
      * @return a positive integer containing the number of days
      *   elapsed since the time this resource was last modified
      */
-    public fun getAge(): Int = gtk_recent_info_get_age(gtkRecentInfoPointer.reinterpret())
+    public fun getAge(): gint = gtk_recent_info_get_age(gtkRecentInfoPointer.reinterpret())
 
     /**
      * Gets the (short) description of the resource.
@@ -273,6 +275,13 @@ public class RecentInfo(
     public fun unref(): Unit = gtk_recent_info_unref(gtkRecentInfoPointer.reinterpret())
 
     public companion object : RecordCompanion<RecentInfo, GtkRecentInfo> {
+        /**
+         * Get the GType of RecentInfo
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_recent_info_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): RecentInfo = RecentInfo(pointer.reinterpret())
     }
 }

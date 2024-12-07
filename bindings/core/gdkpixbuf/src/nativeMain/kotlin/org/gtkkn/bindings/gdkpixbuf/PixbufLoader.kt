@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gdkpixbuf
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.Throws
@@ -45,7 +44,9 @@ import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_loader_new_with_type
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_loader_set_size
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_loader_write_bytes
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 
 /**
  * Incremental image loader.
@@ -238,7 +239,7 @@ public open class PixbufLoader(
      * @since 2.2
      */
     @GdkPixbufVersion2_2
-    public open fun setSize(width: Int, height: Int): Unit = gdk_pixbuf_loader_set_size(gdkpixbufPixbufLoaderPointer.reinterpret(), width, height)
+    public open fun setSize(width: gint, height: gint): Unit = gdk_pixbuf_loader_set_size(gdkpixbufPixbufLoaderPointer.reinterpret(), width, height)
 
     /**
      * Parses the next contents of the given image buffer.
@@ -287,10 +288,10 @@ public open class PixbufLoader(
      * @param handler the Callback to connect. Params: `x` X offset of upper-left corner of the updated area.; `y` Y offset of upper-left corner of the updated area.; `width` Width of updated area.; `height` Height of updated area.
      */
     public fun connectAreaUpdated(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
-        x: Int,
-        y: Int,
-        width: Int,
-        height: Int,
+        x: gint,
+        y: gint,
+        width: gint,
+        height: gint,
     ) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "area-updated", connectAreaUpdatedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
@@ -317,7 +318,7 @@ public open class PixbufLoader(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `width` the original width of the image; `height` the original height of the image
      */
-    public fun connectSizePrepared(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (width: Int, height: Int) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "size-prepared", connectSizePreparedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectSizePrepared(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (width: gint, height: gint) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "size-prepared", connectSizePreparedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<PixbufLoader> {
         override val type: GeneratedClassKGType<PixbufLoader> =
@@ -389,6 +390,13 @@ public open class PixbufLoader(
                 Result.success(PixbufLoader(checkNotNull(gResult).reinterpret()))
             }
         }
+
+        /**
+         * Get the GType of PixbufLoader
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_pixbuf_loader_get_type()
     }
 }
 
@@ -400,23 +408,23 @@ private val connectAreaPreparedFunc: CPointer<CFunction<() -> Unit>> = staticCFu
 .reinterpret()
 
 private val connectAreaUpdatedFunc: CPointer<CFunction<(
-    Int,
-    Int,
-    Int,
-    Int,
+    gint,
+    gint,
+    gint,
+    gint,
 ) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    x: Int,
-    y: Int,
-    width: Int,
-    height: Int,
+    x: gint,
+    y: gint,
+    width: gint,
+    height: gint,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
-        x: Int,
-        y: Int,
-        width: Int,
-        height: Int,
+        x: gint,
+        y: gint,
+        width: gint,
+        height: gint,
     ) -> Unit>().get().invoke(x, y, width, height)}
 .reinterpret()
 
@@ -427,11 +435,11 @@ private val connectClosedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction
     userData.asStableRef<() -> Unit>().get().invoke()}
 .reinterpret()
 
-private val connectSizePreparedFunc: CPointer<CFunction<(Int, Int) -> Unit>> = staticCFunction {
+private val connectSizePreparedFunc: CPointer<CFunction<(gint, gint) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    width: Int,
-    height: Int,
+    width: gint,
+    height: gint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(width: Int, height: Int) -> Unit>().get().invoke(width, height)}
+    userData.asStableRef<(width: gint, height: gint) -> Unit>().get().invoke(width, height)}
 .reinterpret()

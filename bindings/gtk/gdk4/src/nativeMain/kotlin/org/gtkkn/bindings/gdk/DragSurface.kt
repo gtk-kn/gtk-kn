@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gdk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asBoolean
@@ -13,6 +12,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkDragSurface
 import org.gtkkn.native.gdk.gdk_drag_surface_get_type
 import org.gtkkn.native.gdk.gdk_drag_surface_present
+import org.gtkkn.native.gobject.gint
 
 /**
  * A `GdkDragSurface` is an interface for surfaces used during DND.
@@ -31,7 +31,7 @@ public interface DragSurface : Interface, KGTyped {
      * @param height the unconstrained drag_surface height to layout
      * @return false if it failed to be presented, otherwise true.
      */
-    public fun present(width: Int, height: Int): Boolean = gdk_drag_surface_present(gdkDragSurfacePointer.reinterpret(), width, height).asBoolean()
+    public fun present(width: gint, height: gint): Boolean = gdk_drag_surface_present(gdkDragSurfacePointer.reinterpret(), width, height).asBoolean()
 
     private data class Wrapper(
         private val pointer: CPointer<GdkDragSurface>,

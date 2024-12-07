@@ -8,6 +8,7 @@ import org.gtkkn.bindings.gsk.Transform
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkFixedLayoutChild
 import org.gtkkn.native.gtk.gtk_fixed_layout_child_get_transform
 import org.gtkkn.native.gtk.gtk_fixed_layout_child_get_type
@@ -48,5 +49,12 @@ public open class FixedLayoutChild(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of FixedLayoutChild
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_fixed_layout_child_get_type()
     }
 }

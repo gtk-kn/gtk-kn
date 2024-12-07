@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -15,6 +14,8 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkPaintable
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkIconPaintable
 import org.gtkkn.native.gtk.GtkSymbolicPaintable
 import org.gtkkn.native.gtk.gtk_icon_paintable_get_file
@@ -94,8 +95,8 @@ public open class IconPaintable(
      */
     public constructor(
         `file`: File,
-        size: Int,
-        scale: Int,
+        size: gint,
+        scale: gint,
     ) : this(gtk_icon_paintable_new_for_file(`file`.gioFilePointer, size, scale)!!.reinterpret())
 
     /**
@@ -117,5 +118,12 @@ public open class IconPaintable(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of IconPaintable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_icon_paintable_get_type()
     }
 }

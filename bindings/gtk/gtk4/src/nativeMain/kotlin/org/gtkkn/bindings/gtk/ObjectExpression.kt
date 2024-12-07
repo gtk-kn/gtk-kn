@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkObjectExpression
 import org.gtkkn.native.gtk.gtk_object_expression_get_object
 import org.gtkkn.native.gtk.gtk_object_expression_get_type
@@ -50,5 +51,12 @@ public open class ObjectExpression(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of ObjectExpression
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_object_expression_get_type()
     }
 }

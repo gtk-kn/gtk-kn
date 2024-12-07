@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
@@ -13,8 +12,11 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GDBusPropertyInfo
+import org.gtkkn.native.gio.g_dbus_property_info_get_type
 import org.gtkkn.native.gio.g_dbus_property_info_ref
 import org.gtkkn.native.gio.g_dbus_property_info_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -35,7 +37,7 @@ public class DBusPropertyInfo(
     /**
      * The reference count or -1 if statically allocated.
      */
-    public var refCount: Int
+    public var refCount: gint
         get() = gioDBusPropertyInfoPointer.pointed.ref_count
         set(`value`) {
             gioDBusPropertyInfoPointer.pointed.ref_count = value
@@ -89,6 +91,13 @@ public class DBusPropertyInfo(
     public fun unref(): Unit = g_dbus_property_info_unref(gioDBusPropertyInfoPointer.reinterpret())
 
     public companion object : RecordCompanion<DBusPropertyInfo, GDBusPropertyInfo> {
+        /**
+         * Get the GType of DBusPropertyInfo
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_property_info_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusPropertyInfo = DBusPropertyInfo(pointer.reinterpret())
     }
 }

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -15,6 +14,8 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkTreeListModel
 import org.gtkkn.native.gtk.gtk_tree_list_model_get_autoexpand
 import org.gtkkn.native.gtk.gtk_tree_list_model_get_child_row
@@ -135,7 +136,7 @@ public open class TreeListModel(
      * @param position position of the child to get
      * @return the child in @position
      */
-    public open fun getChildRow(position: UInt): TreeListRow? = gtk_tree_list_model_get_child_row(gtkTreeListModelPointer.reinterpret(), position)?.run {
+    public open fun getChildRow(position: guint): TreeListRow? = gtk_tree_list_model_get_child_row(gtkTreeListModelPointer.reinterpret(), position)?.run {
         TreeListRow(reinterpret())}
 
     /**
@@ -160,7 +161,7 @@ public open class TreeListModel(
      * @param position the position of the row to fetch
      * @return The row item
      */
-    public open fun getRow(position: UInt): TreeListRow? = gtk_tree_list_model_get_row(gtkTreeListModelPointer.reinterpret(), position)?.run {
+    public open fun getRow(position: guint): TreeListRow? = gtk_tree_list_model_get_row(gtkTreeListModelPointer.reinterpret(), position)?.run {
         TreeListRow(reinterpret())}
 
     public companion object : TypeCompanion<TreeListModel> {
@@ -169,5 +170,12 @@ public open class TreeListModel(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of TreeListModel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_tree_list_model_get_type()
     }
 }

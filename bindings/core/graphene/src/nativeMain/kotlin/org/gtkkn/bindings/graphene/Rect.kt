@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.graphene
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Float
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -13,6 +11,9 @@ import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_4
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.graphene.graphene_rect_alloc
 import org.gtkkn.native.graphene.graphene_rect_contains_point
 import org.gtkkn.native.graphene.graphene_rect_contains_rect
@@ -26,6 +27,7 @@ import org.gtkkn.native.graphene.graphene_rect_get_center
 import org.gtkkn.native.graphene.graphene_rect_get_height
 import org.gtkkn.native.graphene.graphene_rect_get_top_left
 import org.gtkkn.native.graphene.graphene_rect_get_top_right
+import org.gtkkn.native.graphene.graphene_rect_get_type
 import org.gtkkn.native.graphene.graphene_rect_get_width
 import org.gtkkn.native.graphene.graphene_rect_get_x
 import org.gtkkn.native.graphene.graphene_rect_get_y
@@ -132,7 +134,7 @@ public class Rect(
      * @since 1.10
      */
     @GrapheneVersion1_10
-    public fun getArea(): Float = graphene_rect_get_area(grapheneRectPointer.reinterpret())
+    public fun getArea(): gfloat = graphene_rect_get_area(grapheneRectPointer.reinterpret())
 
     /**
      * Retrieves the coordinates of the bottom-left corner of the given rectangle.
@@ -168,7 +170,7 @@ public class Rect(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun getHeight(): Float = graphene_rect_get_height(grapheneRectPointer.reinterpret())
+    public fun getHeight(): gfloat = graphene_rect_get_height(grapheneRectPointer.reinterpret())
 
     /**
      * Retrieves the coordinates of the top-left corner of the given rectangle.
@@ -195,7 +197,7 @@ public class Rect(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun getWidth(): Float = graphene_rect_get_width(grapheneRectPointer.reinterpret())
+    public fun getWidth(): gfloat = graphene_rect_get_width(grapheneRectPointer.reinterpret())
 
     /**
      * Retrieves the normalized X coordinate of the origin of the given
@@ -205,7 +207,7 @@ public class Rect(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun getX(): Float = graphene_rect_get_x(grapheneRectPointer.reinterpret())
+    public fun getX(): gfloat = graphene_rect_get_x(grapheneRectPointer.reinterpret())
 
     /**
      * Retrieves the normalized Y coordinate of the origin of the given
@@ -215,7 +217,7 @@ public class Rect(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun getY(): Float = graphene_rect_get_y(grapheneRectPointer.reinterpret())
+    public fun getY(): gfloat = graphene_rect_get_y(grapheneRectPointer.reinterpret())
 
     /**
      * Initializes the given #graphene_rect_t with the given values.
@@ -232,10 +234,10 @@ public class Rect(
      */
     @GrapheneVersion1_0
     public fun `init`(
-        x: Float,
-        y: Float,
-        width: Float,
-        height: Float,
+        x: gfloat,
+        y: gfloat,
+        width: gfloat,
+        height: gfloat,
     ): Rect = graphene_rect_init(grapheneRectPointer.reinterpret(), x, y, width, height)!!.run {
         Rect(reinterpret())}
 
@@ -275,7 +277,7 @@ public class Rect(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun inset(dX: Float, dY: Float): Rect = graphene_rect_inset(grapheneRectPointer.reinterpret(), dX, dY)!!.run {
+    public fun inset(dX: gfloat, dY: gfloat): Rect = graphene_rect_inset(grapheneRectPointer.reinterpret(), dX, dY)!!.run {
         Rect(reinterpret())}
 
     /**
@@ -301,8 +303,8 @@ public class Rect(
      */
     @GrapheneVersion1_4
     public fun insetR(
-        dX: Float,
-        dY: Float,
+        dX: gfloat,
+        dY: gfloat,
         res: Rect,
     ): Unit = graphene_rect_inset_r(grapheneRectPointer.reinterpret(), dX, dY, res.grapheneRectPointer.reinterpret())
 
@@ -319,7 +321,7 @@ public class Rect(
     @GrapheneVersion1_0
     public fun interpolate(
         b: Rect,
-        factor: Double,
+        factor: gdouble,
         res: Rect,
     ): Unit = graphene_rect_interpolate(grapheneRectPointer.reinterpret(), b.grapheneRectPointer.reinterpret(), factor, res.grapheneRectPointer.reinterpret())
 
@@ -381,7 +383,7 @@ public class Rect(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun offset(dX: Float, dY: Float): Rect = graphene_rect_offset(grapheneRectPointer.reinterpret(), dX, dY)!!.run {
+    public fun offset(dX: gfloat, dY: gfloat): Rect = graphene_rect_offset(grapheneRectPointer.reinterpret(), dX, dY)!!.run {
         Rect(reinterpret())}
 
     /**
@@ -397,8 +399,8 @@ public class Rect(
      */
     @GrapheneVersion1_4
     public fun offsetR(
-        dX: Float,
-        dY: Float,
+        dX: gfloat,
+        dY: gfloat,
         res: Rect,
     ): Unit = graphene_rect_offset_r(grapheneRectPointer.reinterpret(), dX, dY, res.grapheneRectPointer.reinterpret())
 
@@ -474,8 +476,8 @@ public class Rect(
      */
     @GrapheneVersion1_10
     public fun scale(
-        sH: Float,
-        sV: Float,
+        sH: gfloat,
+        sV: gfloat,
         res: Rect,
     ): Unit = graphene_rect_scale(grapheneRectPointer.reinterpret(), sH, sV, res.grapheneRectPointer.reinterpret())
 
@@ -516,6 +518,13 @@ public class Rect(
         @GrapheneVersion1_4
         public fun zero(): Rect = graphene_rect_zero()!!.run {
             Rect(reinterpret())}
+
+        /**
+         * Get the GType of Rect
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = graphene_rect_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Rect = Rect(pointer.reinterpret())
     }

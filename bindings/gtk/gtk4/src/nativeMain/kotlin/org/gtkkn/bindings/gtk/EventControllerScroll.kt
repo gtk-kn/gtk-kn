@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -21,7 +19,10 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gtk.GtkEventControllerScroll
 import org.gtkkn.native.gtk.gtk_event_controller_scroll_get_flags
 import org.gtkkn.native.gtk.gtk_event_controller_scroll_get_type
@@ -123,7 +124,7 @@ public open class EventControllerScroll(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `velX` X velocity; `velY` Y velocity
      */
-    public fun connectDecelerate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (velX: Double, velY: Double) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "decelerate", connectDecelerateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectDecelerate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (velX: gdouble, velY: gdouble) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "decelerate", connectDecelerateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Signals that the widget should scroll by the
@@ -136,7 +137,7 @@ public open class EventControllerScroll(
      * @param handler the Callback to connect. Params: `dx` X delta; `dy` Y delta. Returns true if the scroll event was handled,
      *   false otherwise.
      */
-    public fun connectScroll(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (dx: Double, dy: Double) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "scroll", connectScrollFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectScroll(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (dx: gdouble, dy: gdouble) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "scroll", connectScrollFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Signals that a new scrolling operation has begun.
@@ -164,25 +165,34 @@ public open class EventControllerScroll(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of EventControllerScroll
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_event_controller_scroll_get_type()
     }
 }
 
-private val connectDecelerateFunc: CPointer<CFunction<(Double, Double) -> Unit>> = staticCFunction {
+private val connectDecelerateFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> =
+        staticCFunction {
     _: COpaquePointer,
-    velX: Double,
-    velY: Double,
+    velX: gdouble,
+    velY: gdouble,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(velX: Double, velY: Double) -> Unit>().get().invoke(velX, velY)}
+    userData.asStableRef<(velX: gdouble, velY: gdouble) -> Unit>().get().invoke(velX, velY)}
 .reinterpret()
 
-private val connectScrollFunc: CPointer<CFunction<(Double, Double) -> Int>> = staticCFunction {
+private val connectScrollFunc: CPointer<CFunction<(gdouble, gdouble) -> gboolean>> =
+        staticCFunction {
     _: COpaquePointer,
-    dx: Double,
-    dy: Double,
+    dx: gdouble,
+    dy: gdouble,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(dx: Double, dy: Double) -> Boolean>().get().invoke(dx, dy).asGBoolean()}
+    userData.asStableRef<(dx: gdouble, dy: gdouble) -> Boolean>().get().invoke(dx, dy).asGBoolean()}
 .reinterpret()
 
 private val connectScrollBeginFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {

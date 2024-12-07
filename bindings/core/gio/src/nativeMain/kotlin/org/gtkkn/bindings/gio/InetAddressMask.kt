@@ -5,7 +5,6 @@ import kotlin.Boolean
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Throws
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -34,6 +33,8 @@ import org.gtkkn.native.gio.g_inet_address_mask_new
 import org.gtkkn.native.gio.g_inet_address_mask_new_from_string
 import org.gtkkn.native.gio.g_inet_address_mask_to_string
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 
 /**
  * `GInetAddressMask` represents a range of IPv4 or IPv6 addresses
@@ -92,7 +93,7 @@ public open class InetAddressMask(
      * @since 2.32
      */
     @GioVersion2_32
-    public open val length: UInt
+    public open val length: guint
         /**
          * Gets @mask's length
          *
@@ -111,7 +112,7 @@ public open class InetAddressMask(
      * @since 2.32
      */
     @Throws(GLibException::class)
-    public constructor(addr: InetAddress, length: UInt) : this(memScoped {
+    public constructor(addr: InetAddress, length: guint) : this(memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_inet_address_mask_new(addr.gioInetAddressPointer.reinterpret(), length, gError.ptr)
         if (gError.pointed != null) {
@@ -180,5 +181,12 @@ public open class InetAddressMask(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of InetAddressMask
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_inet_address_mask_get_type()
     }
 }

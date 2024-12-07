@@ -3,7 +3,6 @@ package org.gtkkn.bindings.glib
 
 import kotlin.Boolean
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -19,6 +18,9 @@ import org.gtkkn.native.glib.g_pattern_spec_free
 import org.gtkkn.native.glib.g_pattern_spec_match
 import org.gtkkn.native.glib.g_pattern_spec_match_string
 import org.gtkkn.native.glib.g_pattern_spec_new
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_pattern_spec_get_type
+import org.gtkkn.native.gobject.gsize
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -96,7 +98,7 @@ public class PatternSpec(
      */
     @GLibVersion2_70
     public fun match(
-        stringLength: ULong,
+        stringLength: gsize,
         string: String,
         stringReversed: String? = null,
     ): Boolean = g_pattern_spec_match(glibPatternSpecPointer.reinterpret(), stringLength, string, stringReversed).asBoolean()
@@ -121,6 +123,13 @@ public class PatternSpec(
          * @return a newly-allocated #GPatternSpec
          */
         public fun new(pattern: String): PatternSpec = PatternSpec(g_pattern_spec_new(pattern)!!.reinterpret())
+
+        /**
+         * Get the GType of PatternSpec
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_pattern_spec_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PatternSpec = PatternSpec(pointer.reinterpret())
     }

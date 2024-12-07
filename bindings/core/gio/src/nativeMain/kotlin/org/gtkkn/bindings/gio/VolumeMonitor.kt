@@ -32,6 +32,7 @@ import org.gtkkn.native.gio.g_volume_monitor_get_mounts
 import org.gtkkn.native.gio.g_volume_monitor_get_type
 import org.gtkkn.native.gio.g_volume_monitor_get_volume_for_uuid
 import org.gtkkn.native.gio.g_volume_monitor_get_volumes
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 
 /**
@@ -262,6 +263,13 @@ public open class VolumeMonitor(
          */
         public fun `get`(): VolumeMonitor = g_volume_monitor_get()!!.run {
             VolumeMonitor(reinterpret())}
+
+        /**
+         * Get the GType of VolumeMonitor
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_volume_monitor_get_type()
     }
 }
 

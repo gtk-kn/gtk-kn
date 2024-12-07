@@ -9,6 +9,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkMultiSelection
 import org.gtkkn.native.gtk.GtkSectionModel
 import org.gtkkn.native.gtk.GtkSelectionModel
@@ -79,5 +80,12 @@ public open class MultiSelection(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of MultiSelection
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_multi_selection_get_type()
     }
 }

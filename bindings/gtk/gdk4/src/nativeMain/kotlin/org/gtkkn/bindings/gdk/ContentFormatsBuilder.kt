@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gdk
 
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -13,10 +12,12 @@ import org.gtkkn.native.gdk.GdkContentFormatsBuilder
 import org.gtkkn.native.gdk.gdk_content_formats_builder_add_formats
 import org.gtkkn.native.gdk.gdk_content_formats_builder_add_gtype
 import org.gtkkn.native.gdk.gdk_content_formats_builder_add_mime_type
+import org.gtkkn.native.gdk.gdk_content_formats_builder_get_type
 import org.gtkkn.native.gdk.gdk_content_formats_builder_new
 import org.gtkkn.native.gdk.gdk_content_formats_builder_ref
 import org.gtkkn.native.gdk.gdk_content_formats_builder_to_formats
 import org.gtkkn.native.gdk.gdk_content_formats_builder_unref
+import org.gtkkn.native.gobject.GType
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -41,7 +42,7 @@ public class ContentFormatsBuilder(
      *
      * @param type a `GType`
      */
-    public fun addGtype(type: ULong): Unit = gdk_content_formats_builder_add_gtype(gdkContentFormatsBuilderPointer.reinterpret(), type)
+    public fun addGtype(type: GType): Unit = gdk_content_formats_builder_add_gtype(gdkContentFormatsBuilderPointer.reinterpret(), type)
 
     /**
      * Appends @mime_type to @builder if it has not already been added.
@@ -92,6 +93,13 @@ public class ContentFormatsBuilder(
          * @return a new `GdkContentFormatsBuilder`
          */
         public fun new(): ContentFormatsBuilder = ContentFormatsBuilder(gdk_content_formats_builder_new()!!.reinterpret())
+
+        /**
+         * Get the GType of ContentFormatsBuilder
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_content_formats_builder_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ContentFormatsBuilder = ContentFormatsBuilder(pointer.reinterpret())
     }

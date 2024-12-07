@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gobject
 
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -14,6 +13,7 @@ import org.gtkkn.native.gobject.GObjectClass
 import org.gtkkn.native.gobject.g_object_class_find_property
 import org.gtkkn.native.gobject.g_object_class_install_property
 import org.gtkkn.native.gobject.g_object_class_override_property
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -94,7 +94,7 @@ public class ObjectClass(
      * @param propertyId the id for the new property
      * @param pspec the #GParamSpec for the new property
      */
-    public fun installProperty(propertyId: UInt, pspec: ParamSpec): Unit = g_object_class_install_property(gobjectObjectClassPointer.reinterpret(), propertyId, pspec.gPointer.reinterpret())
+    public fun installProperty(propertyId: guint, pspec: ParamSpec): Unit = g_object_class_install_property(gobjectObjectClassPointer.reinterpret(), propertyId, pspec.gPointer.reinterpret())
 
     /**
      * Registers @property_id as referring to a property with the name
@@ -120,7 +120,7 @@ public class ObjectClass(
      * @since 2.4
      */
     @GObjectVersion2_4
-    public fun overrideProperty(propertyId: UInt, name: String): Unit = g_object_class_override_property(gobjectObjectClassPointer.reinterpret(), propertyId, name)
+    public fun overrideProperty(propertyId: guint, name: String): Unit = g_object_class_override_property(gobjectObjectClassPointer.reinterpret(), propertyId, name)
 
     public companion object : RecordCompanion<ObjectClass, GObjectClass> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ObjectClass = ObjectClass(pointer.reinterpret())

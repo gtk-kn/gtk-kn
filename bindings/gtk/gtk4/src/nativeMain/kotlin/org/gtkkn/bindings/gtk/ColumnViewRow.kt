@@ -3,7 +3,6 @@ package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
 import kotlin.String
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -14,6 +13,8 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkColumnViewRow
 import org.gtkkn.native.gtk.gtk_column_view_row_get_accessible_description
 import org.gtkkn.native.gtk.gtk_column_view_row_get_accessible_label
@@ -181,7 +182,7 @@ public open class ColumnViewRow(
      * @since 4.12
      */
     @GtkVersion4_12
-    public open val position: UInt
+    public open val position: guint
         /**
          * Gets the position in the model that @self currently displays.
          *
@@ -252,5 +253,12 @@ public open class ColumnViewRow(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of ColumnViewRow
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_column_view_row_get_type()
     }
 }

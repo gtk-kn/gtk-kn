@@ -3,7 +3,6 @@ package org.gtkkn.bindings.soup
 
 import kotlin.Boolean
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -15,6 +14,7 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupAuth
 import org.gtkkn.native.soup.soup_auth_authenticate
 import org.gtkkn.native.soup.soup_auth_can_authenticate
@@ -108,7 +108,7 @@ public open class Auth(
      *   not be created
      */
     public constructor(
-        type: ULong,
+        type: GType,
         msg: Message,
         authHeader: String,
     ) : this(soup_auth_new(type, msg.soupMessagePointer.reinterpret(), authHeader)!!.reinterpret())
@@ -233,5 +233,12 @@ public open class Auth(
 
         init {
             SoupTypeProvider.register()}
+
+        /**
+         * Get the GType of Auth
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_auth_get_type()
     }
 }

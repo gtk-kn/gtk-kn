@@ -10,6 +10,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkShortcutController
 import org.gtkkn.native.gtk.gtk_shortcut_controller_add_shortcut
@@ -187,5 +188,12 @@ public open class ShortcutController(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of ShortcutController
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_shortcut_controller_get_type()
     }
 }

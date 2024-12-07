@@ -1,12 +1,13 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.Int
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkGridLayoutChild
 import org.gtkkn.native.gtk.gtk_grid_layout_child_get_column
 import org.gtkkn.native.gtk.gtk_grid_layout_child_get_column_span
@@ -31,7 +32,7 @@ public open class GridLayoutChild(
     /**
      * The column to place the child in.
      */
-    public open var column: Int
+    public open var column: gint
         /**
          * Retrieves the column number to which @child attaches its left side.
          *
@@ -48,7 +49,7 @@ public open class GridLayoutChild(
     /**
      * The number of columns the child spans to.
      */
-    public open var columnSpan: Int
+    public open var columnSpan: gint
         /**
          * Retrieves the number of columns that @child spans to.
          *
@@ -65,7 +66,7 @@ public open class GridLayoutChild(
     /**
      * The row to place the child in.
      */
-    public open var row: Int
+    public open var row: gint
         /**
          * Retrieves the row number to which @child attaches its top side.
          *
@@ -82,7 +83,7 @@ public open class GridLayoutChild(
     /**
      * The number of rows the child spans to.
      */
-    public open var rowSpan: Int
+    public open var rowSpan: gint
         /**
          * Retrieves the number of rows that @child spans to.
          *
@@ -102,5 +103,12 @@ public open class GridLayoutChild(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of GridLayoutChild
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_grid_layout_child_get_type()
     }
 }

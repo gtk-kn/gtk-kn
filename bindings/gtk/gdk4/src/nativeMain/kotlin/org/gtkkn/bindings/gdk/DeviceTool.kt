@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
-import kotlin.ULong
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -14,6 +13,8 @@ import org.gtkkn.native.gdk.gdk_device_tool_get_hardware_id
 import org.gtkkn.native.gdk.gdk_device_tool_get_serial
 import org.gtkkn.native.gdk.gdk_device_tool_get_tool_type
 import org.gtkkn.native.gdk.gdk_device_tool_get_type
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint64
 
 /**
  * A physical tool associated to a `GdkDevice`.
@@ -40,7 +41,7 @@ public open class DeviceTool(
     /**
      * The hardware ID of the tool.
      */
-    public open val hardwareId: ULong
+    public open val hardwareId: guint64
         /**
          * Gets the hardware ID of this tool, or 0 if it's not known.
          *
@@ -61,7 +62,7 @@ public open class DeviceTool(
     /**
      * The serial number of the tool.
      */
-    public open val serial: ULong
+    public open val serial: guint64
         /**
          * Gets the serial number of this tool.
          *
@@ -92,5 +93,12 @@ public open class DeviceTool(
 
         init {
             GdkTypeProvider.register()}
+
+        /**
+         * Get the GType of DeviceTool
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_device_tool_get_type()
     }
 }

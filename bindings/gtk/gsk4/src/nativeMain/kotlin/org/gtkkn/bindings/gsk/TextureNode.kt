@@ -8,6 +8,7 @@ import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskTextureNode
 import org.gtkkn.native.gsk.gsk_texture_node_get_texture
 import org.gtkkn.native.gsk.gsk_texture_node_get_type
@@ -51,5 +52,12 @@ public open class TextureNode(
 
         init {
             GskTypeProvider.register()}
+
+        /**
+         * Get the GType of TextureNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_texture_node_get_type()
     }
 }

@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlin.Int
 import kotlin.Result
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
@@ -23,6 +22,8 @@ import org.gtkkn.native.gio.g_unix_fd_list_get_length
 import org.gtkkn.native.gio.g_unix_fd_list_get_type
 import org.gtkkn.native.gio.g_unix_fd_list_new
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * A `GUnixFDList` contains a list of file descriptors.  It owns the file
@@ -81,7 +82,7 @@ public open class UnixFDList(
      * @since 2.24
      */
     @GioVersion2_24
-    public open fun append(fd: Int): Result<Int> = memScoped {
+    public open fun append(fd: gint): Result<gint> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_unix_fd_list_append(gioUnixFDListPointer.reinterpret(), fd, gError.ptr)
         return if (gError.pointed != null) {
@@ -111,7 +112,7 @@ public open class UnixFDList(
      * @since 2.24
      */
     @GioVersion2_24
-    public open fun `get`(index: Int): Result<Int> = memScoped {
+    public open fun `get`(index: gint): Result<gint> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_unix_fd_list_get(gioUnixFDListPointer.reinterpret(), index, gError.ptr)
         return if (gError.pointed != null) {
@@ -130,7 +131,7 @@ public open class UnixFDList(
      * @since 2.24
      */
     @GioVersion2_24
-    public open fun getLength(): Int = g_unix_fd_list_get_length(gioUnixFDListPointer.reinterpret())
+    public open fun getLength(): gint = g_unix_fd_list_get_length(gioUnixFDListPointer.reinterpret())
 
     public companion object : TypeCompanion<UnixFDList> {
         override val type: GeneratedClassKGType<UnixFDList> =
@@ -138,5 +139,12 @@ public open class UnixFDList(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of UnixFDList
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_unix_fd_list_get_type()
     }
 }

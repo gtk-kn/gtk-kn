@@ -19,6 +19,7 @@ import org.gtkkn.native.gio.g_tls_password_new
 import org.gtkkn.native.gio.g_tls_password_set_description
 import org.gtkkn.native.gio.g_tls_password_set_flags
 import org.gtkkn.native.gio.g_tls_password_set_warning
+import org.gtkkn.native.gobject.GType
 
 /**
  * An abstract interface representing a password used in TLS. Often used in
@@ -129,5 +130,12 @@ public open class TlsPassword(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of TlsPassword
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_tls_password_get_type()
     }
 }

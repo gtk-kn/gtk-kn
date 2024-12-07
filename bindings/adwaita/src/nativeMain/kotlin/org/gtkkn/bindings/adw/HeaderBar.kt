@@ -34,6 +34,7 @@ import org.gtkkn.native.adw.adw_header_bar_set_show_end_title_buttons
 import org.gtkkn.native.adw.adw_header_bar_set_show_start_title_buttons
 import org.gtkkn.native.adw.adw_header_bar_set_show_title
 import org.gtkkn.native.adw.adw_header_bar_set_title_widget
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -397,5 +398,12 @@ public class HeaderBar(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of HeaderBar
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_header_bar_get_type()
     }
 }

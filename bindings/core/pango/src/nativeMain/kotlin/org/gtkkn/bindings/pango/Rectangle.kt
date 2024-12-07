@@ -1,13 +1,13 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
-import kotlin.Int
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.pango.PangoRectangle
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
@@ -26,7 +26,7 @@ public class Rectangle(
     /**
      * X coordinate of the left side of the rectangle.
      */
-    public var x: Int
+    public var x: gint
         get() = pangoRectanglePointer.pointed.x
         set(`value`) {
             pangoRectanglePointer.pointed.x = value
@@ -35,7 +35,7 @@ public class Rectangle(
     /**
      * Y coordinate of the the top side of the rectangle.
      */
-    public var y: Int
+    public var y: gint
         get() = pangoRectanglePointer.pointed.y
         set(`value`) {
             pangoRectanglePointer.pointed.y = value
@@ -44,7 +44,7 @@ public class Rectangle(
     /**
      * width of the rectangle.
      */
-    public var width: Int
+    public var width: gint
         get() = pangoRectanglePointer.pointed.width
         set(`value`) {
             pangoRectanglePointer.pointed.width = value
@@ -53,7 +53,7 @@ public class Rectangle(
     /**
      * height of the rectangle.
      */
-    public var height: Int
+    public var height: gint
         get() = pangoRectanglePointer.pointed.height
         set(`value`) {
             pangoRectanglePointer.pointed.height = value

@@ -10,10 +10,12 @@ import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_6
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.graphene.graphene_frustum_alloc
 import org.gtkkn.native.graphene.graphene_frustum_contains_point
 import org.gtkkn.native.graphene.graphene_frustum_equal
 import org.gtkkn.native.graphene.graphene_frustum_free
+import org.gtkkn.native.graphene.graphene_frustum_get_type
 import org.gtkkn.native.graphene.graphene_frustum_init
 import org.gtkkn.native.graphene.graphene_frustum_init_from_frustum
 import org.gtkkn.native.graphene.graphene_frustum_init_from_matrix
@@ -151,6 +153,13 @@ public class Frustum(
          * @since 1.2
          */
         public fun alloc(): Frustum = Frustum(graphene_frustum_alloc()!!.reinterpret())
+
+        /**
+         * Get the GType of Frustum
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = graphene_frustum_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Frustum = Frustum(pointer.reinterpret())
     }

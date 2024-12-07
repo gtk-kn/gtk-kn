@@ -19,6 +19,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkVulkanContext
 import org.gtkkn.native.gdk.gdk_vulkan_context_get_type
 import org.gtkkn.native.gio.GInitable
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 
 /**
@@ -60,6 +61,13 @@ public open class VulkanContext(
 
         init {
             GdkTypeProvider.register()}
+
+        /**
+         * Get the GType of VulkanContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_vulkan_context_get_type()
     }
 }
 

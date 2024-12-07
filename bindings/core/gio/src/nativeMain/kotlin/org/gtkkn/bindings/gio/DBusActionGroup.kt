@@ -14,6 +14,7 @@ import org.gtkkn.native.gio.GDBusActionGroup
 import org.gtkkn.native.gio.GRemoteActionGroup
 import org.gtkkn.native.gio.g_dbus_action_group_get
 import org.gtkkn.native.gio.g_dbus_action_group_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GDBusActionGroup` is an implementation of the [iface@Gio.ActionGroup]
@@ -73,5 +74,12 @@ public open class DBusActionGroup(
             objectPath: String,
         ): DBusActionGroup = g_dbus_action_group_get(connection.gioDBusConnectionPointer.reinterpret(), busName, objectPath)!!.run {
             DBusActionGroup(reinterpret())}
+
+        /**
+         * Get the GType of DBusActionGroup
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_action_group_get_type()
     }
 }

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -28,6 +27,7 @@ import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkFontChooser
 import org.gtkkn.native.gtk.gtk_font_chooser_get_font
 import org.gtkkn.native.gtk.gtk_font_chooser_get_font_desc
@@ -241,7 +241,7 @@ public interface FontChooser : Interface, KGTyped {
      * @return A n integer representing the selected font size,
      *   or -1 if no font size is selected.
      */
-    public fun getFontSize(): Int = gtk_font_chooser_get_font_size(gtkFontChooserPointer.reinterpret())
+    public fun getFontSize(): gint = gtk_font_chooser_get_font_size(gtkFontChooserPointer.reinterpret())
 
     /**
      * Gets the language that is used for font features.

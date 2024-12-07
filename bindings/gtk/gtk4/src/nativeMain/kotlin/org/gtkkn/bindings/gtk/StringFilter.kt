@@ -11,6 +11,7 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkStringFilter
 import org.gtkkn.native.gtk.gtk_string_filter_get_expression
 import org.gtkkn.native.gtk.gtk_string_filter_get_ignore_case
@@ -137,5 +138,12 @@ public open class StringFilter(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of StringFilter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_string_filter_get_type()
     }
 }

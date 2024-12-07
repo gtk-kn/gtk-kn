@@ -2,13 +2,8 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Float
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
-import kotlin.UShort
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -33,7 +28,13 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint16
+import org.gtkkn.native.gobject.gunichar
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkCellEditable
@@ -394,7 +395,7 @@ public open class Entry(
     /**
      * The character to use when masking entry contents (“password mode”).
      */
-    public open var invisibleChar: UInt
+    public open var invisibleChar: gunichar
         /**
          * Retrieves the character displayed in place of the actual text
          * in “password mode”.
@@ -422,7 +423,7 @@ public open class Entry(
     /**
      * Maximum number of characters for this entry.
      */
-    public open var maxLength: Int
+    public open var maxLength: gint
         /**
          * Retrieves the maximum allowed length of the text in @entry.
          *
@@ -493,7 +494,7 @@ public open class Entry(
     /**
      * The current fraction of the task that's been completed.
      */
-    public open var progressFraction: Double
+    public open var progressFraction: gdouble
         /**
          * Returns the current fraction of the task that’s been completed.
          *
@@ -518,7 +519,7 @@ public open class Entry(
      *
      * See [method@Gtk.Entry.progress_pulse].
      */
-    public open var progressPulseStep: Double
+    public open var progressPulseStep: gdouble
         /**
          * Retrieves the pulse step set with
          * gtk_entry_set_progress_pulse_step().
@@ -559,7 +560,7 @@ public open class Entry(
     /**
      * The length of the text in the `GtkEntry`.
      */
-    public open val textLength: UShort
+    public open val textLength: guint16
         /**
          * Retrieves the current length of the text in @entry.
          *
@@ -626,7 +627,7 @@ public open class Entry(
      *
      * @return the alignment
      */
-    override fun getAlignment(): Float = gtk_entry_get_alignment(gtkEntryPointer.reinterpret())
+    override fun getAlignment(): gfloat = gtk_entry_get_alignment(gtkEntryPointer.reinterpret())
 
     /**
      * Gets the attribute list of the `GtkEntry`.
@@ -645,7 +646,7 @@ public open class Entry(
      * @return index of the icon which is the source of the
      *   current DND operation, or -1.
      */
-    public open fun getCurrentIconDragSource(): Int = gtk_entry_get_current_icon_drag_source(gtkEntryPointer.reinterpret())
+    public open fun getCurrentIconDragSource(): gint = gtk_entry_get_current_icon_drag_source(gtkEntryPointer.reinterpret())
 
     /**
      * Returns whether the icon is activatable.
@@ -683,7 +684,7 @@ public open class Entry(
      * @param y the y coordinate of the position to find, relative to @entry
      * @return the index of the icon at the given position, or -1
      */
-    public open fun getIconAtPos(x: Int, y: Int): Int = gtk_entry_get_icon_at_pos(gtkEntryPointer.reinterpret(), x, y)
+    public open fun getIconAtPos(x: gint, y: gint): gint = gtk_entry_get_icon_at_pos(gtkEntryPointer.reinterpret(), x, y)
 
     /**
      * Retrieves the `GIcon` used for the icon.
@@ -803,7 +804,7 @@ public open class Entry(
      * @param xalign The horizontal alignment, from 0 (left) to 1 (right).
      *   Reversed for RTL layouts
      */
-    override fun setAlignment(xalign: Float): Unit = gtk_entry_set_alignment(gtkEntryPointer.reinterpret(), xalign)
+    override fun setAlignment(xalign: gfloat): Unit = gtk_entry_set_alignment(gtkEntryPointer.reinterpret(), xalign)
 
     /**
      * Sets a `PangoAttrList`.
@@ -970,6 +971,13 @@ public open class Entry(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of Entry
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_entry_get_type()
     }
 }
 

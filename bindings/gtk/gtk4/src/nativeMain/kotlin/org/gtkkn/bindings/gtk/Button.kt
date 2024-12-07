@@ -21,6 +21,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
@@ -326,6 +327,13 @@ public open class Button(
          * @return a new `GtkButton` displaying the themed icon
          */
         public fun newFromIconName(iconName: String): Button = Button(gtk_button_new_from_icon_name(iconName)!!.reinterpret())
+
+        /**
+         * Get the GType of Button
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_button_get_type()
     }
 }
 

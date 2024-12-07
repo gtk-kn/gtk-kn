@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -21,7 +20,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkColumnView
@@ -408,7 +409,7 @@ public open class ColumnView(
      * @param position the position to insert @column at
      * @param column the `GtkColumnViewColumn` to insert
      */
-    public open fun insertColumn(position: UInt, column: ColumnViewColumn): Unit = gtk_column_view_insert_column(gtkColumnViewPointer.reinterpret(), position, column.gtkColumnViewColumnPointer.reinterpret())
+    public open fun insertColumn(position: guint, column: ColumnViewColumn): Unit = gtk_column_view_insert_column(gtkColumnViewPointer.reinterpret(), position, column.gtkColumnViewColumnPointer.reinterpret())
 
     /**
      * Removes the @column from the list of columns of @self.
@@ -434,7 +435,7 @@ public open class ColumnView(
      */
     @GtkVersion4_12
     public open fun scrollTo(
-        pos: UInt,
+        pos: guint,
         column: ColumnViewColumn? = null,
         flags: ListScrollFlags,
         scroll: ScrollInfo? = null,
@@ -470,7 +471,7 @@ public open class ColumnView(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `position` position of item to activate
      */
-    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (position: UInt) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "activate", connectActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (position: guint) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "activate", connectActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<ColumnView> {
         override val type: GeneratedClassKGType<ColumnView> =
@@ -478,13 +479,20 @@ public open class ColumnView(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of ColumnView
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_column_view_get_type()
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<(UInt) -> Unit>> = staticCFunction {
+private val connectActivateFunc: CPointer<CFunction<(guint) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    position: UInt,
+    position: guint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(position: UInt) -> Unit>().get().invoke(position)}
+    userData.asStableRef<(position: guint) -> Unit>().get().invoke(position)}
 .reinterpret()

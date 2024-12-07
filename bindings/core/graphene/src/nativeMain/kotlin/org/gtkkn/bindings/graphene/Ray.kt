@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.graphene
 
 import kotlin.Boolean
-import kotlin.Float
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -11,6 +10,8 @@ import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_4
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.graphene.graphene_ray_alloc
 import org.gtkkn.native.graphene.graphene_ray_equal
 import org.gtkkn.native.graphene.graphene_ray_free
@@ -20,6 +21,7 @@ import org.gtkkn.native.graphene.graphene_ray_get_distance_to_plane
 import org.gtkkn.native.graphene.graphene_ray_get_distance_to_point
 import org.gtkkn.native.graphene.graphene_ray_get_origin
 import org.gtkkn.native.graphene.graphene_ray_get_position_at
+import org.gtkkn.native.graphene.graphene_ray_get_type
 import org.gtkkn.native.graphene.graphene_ray_init
 import org.gtkkn.native.graphene.graphene_ray_init_from_ray
 import org.gtkkn.native.graphene.graphene_ray_init_from_vec3
@@ -100,7 +102,7 @@ public class Ray(
      * @since 1.4
      */
     @GrapheneVersion1_4
-    public fun getDistanceToPlane(p: Plane): Float = graphene_ray_get_distance_to_plane(grapheneRayPointer.reinterpret(), p.graphenePlanePointer.reinterpret())
+    public fun getDistanceToPlane(p: Plane): gfloat = graphene_ray_get_distance_to_plane(grapheneRayPointer.reinterpret(), p.graphenePlanePointer.reinterpret())
 
     /**
      * Computes the distance of the closest approach between the
@@ -115,7 +117,7 @@ public class Ray(
      * @since 1.4
      */
     @GrapheneVersion1_4
-    public fun getDistanceToPoint(p: Point3D): Float = graphene_ray_get_distance_to_point(grapheneRayPointer.reinterpret(), p.graphenePoint3DPointer.reinterpret())
+    public fun getDistanceToPoint(p: Point3D): gfloat = graphene_ray_get_distance_to_point(grapheneRayPointer.reinterpret(), p.graphenePoint3DPointer.reinterpret())
 
     /**
      * Retrieves the origin of the given #graphene_ray_t.
@@ -135,7 +137,7 @@ public class Ray(
      * @since 1.4
      */
     @GrapheneVersion1_4
-    public fun getPositionAt(t: Float, position: Point3D): Unit = graphene_ray_get_position_at(grapheneRayPointer.reinterpret(), t, position.graphenePoint3DPointer.reinterpret())
+    public fun getPositionAt(t: gfloat, position: Point3D): Unit = graphene_ray_get_position_at(grapheneRayPointer.reinterpret(), t, position.graphenePoint3DPointer.reinterpret())
 
     /**
      * Initializes the given #graphene_ray_t using the given @origin
@@ -225,6 +227,13 @@ public class Ray(
          * @since 1.4
          */
         public fun alloc(): Ray = Ray(graphene_ray_alloc()!!.reinterpret())
+
+        /**
+         * Get the GType of Ray
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = graphene_ray_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Ray = Ray(pointer.reinterpret())
     }

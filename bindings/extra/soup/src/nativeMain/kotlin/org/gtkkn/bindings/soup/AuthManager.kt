@@ -9,6 +9,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupAuthManager
 import org.gtkkn.native.soup.SoupSessionFeature
 import org.gtkkn.native.soup.soup_auth_manager_clear_cached_credentials
@@ -73,5 +74,12 @@ public class AuthManager(
 
         init {
             SoupTypeProvider.register()}
+
+        /**
+         * Get the GType of AuthManager
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_auth_manager_get_type()
     }
 }

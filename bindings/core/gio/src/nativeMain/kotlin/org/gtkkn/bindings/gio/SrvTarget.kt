@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.String
-import kotlin.UShort
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -17,8 +16,11 @@ import org.gtkkn.native.gio.g_srv_target_free
 import org.gtkkn.native.gio.g_srv_target_get_hostname
 import org.gtkkn.native.gio.g_srv_target_get_port
 import org.gtkkn.native.gio.g_srv_target_get_priority
+import org.gtkkn.native.gio.g_srv_target_get_type
 import org.gtkkn.native.gio.g_srv_target_get_weight
 import org.gtkkn.native.gio.g_srv_target_new
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint16
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -81,7 +83,7 @@ public class SrvTarget(
      * @since 2.22
      */
     @GioVersion2_22
-    public fun getPort(): UShort = g_srv_target_get_port(gioSrvTargetPointer.reinterpret())
+    public fun getPort(): guint16 = g_srv_target_get_port(gioSrvTargetPointer.reinterpret())
 
     /**
      * Gets @target's priority. You should not need to look at this;
@@ -92,7 +94,7 @@ public class SrvTarget(
      * @since 2.22
      */
     @GioVersion2_22
-    public fun getPriority(): UShort = g_srv_target_get_priority(gioSrvTargetPointer.reinterpret())
+    public fun getPriority(): guint16 = g_srv_target_get_priority(gioSrvTargetPointer.reinterpret())
 
     /**
      * Gets @target's weight. You should not need to look at this;
@@ -103,7 +105,7 @@ public class SrvTarget(
      * @since 2.22
      */
     @GioVersion2_22
-    public fun getWeight(): UShort = g_srv_target_get_weight(gioSrvTargetPointer.reinterpret())
+    public fun getWeight(): guint16 = g_srv_target_get_weight(gioSrvTargetPointer.reinterpret())
 
     public companion object : RecordCompanion<SrvTarget, GSrvTarget> {
         /**
@@ -121,10 +123,17 @@ public class SrvTarget(
          */
         public fun new(
             hostname: String,
-            port: UShort,
-            priority: UShort,
-            weight: UShort,
+            port: guint16,
+            priority: guint16,
+            weight: guint16,
         ): SrvTarget = SrvTarget(g_srv_target_new(hostname, port, priority, weight)!!.reinterpret())
+
+        /**
+         * Get the GType of SrvTarget
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_srv_target_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SrvTarget = SrvTarget(pointer.reinterpret())
     }

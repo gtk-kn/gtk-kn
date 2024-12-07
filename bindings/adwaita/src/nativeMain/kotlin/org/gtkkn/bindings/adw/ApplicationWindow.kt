@@ -23,6 +23,7 @@ import org.gtkkn.native.adw.adw_application_window_new
 import org.gtkkn.native.adw.adw_application_window_set_content
 import org.gtkkn.native.gio.GActionGroup
 import org.gtkkn.native.gio.GActionMap
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -191,5 +192,12 @@ public open class ApplicationWindow(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of ApplicationWindow
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_application_window_get_type()
     }
 }

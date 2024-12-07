@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
@@ -14,6 +13,8 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkSectionModel
 import org.gtkkn.native.gtk.GtkSortListModel
 import org.gtkkn.native.gtk.gtk_sort_list_model_get_incremental
@@ -133,7 +134,7 @@ public open class SortListModel(
     /**
      * Estimate of unsorted items remaining.
      */
-    public open val pending: UInt
+    public open val pending: guint
         /**
          * Estimates progress of an ongoing sorting operation.
          *
@@ -215,5 +216,12 @@ public open class SortListModel(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of SortListModel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_sort_list_model_get_type()
     }
 }

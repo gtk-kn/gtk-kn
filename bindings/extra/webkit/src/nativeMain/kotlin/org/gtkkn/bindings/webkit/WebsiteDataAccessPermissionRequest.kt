@@ -10,6 +10,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_30
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitPermissionRequest
 import org.gtkkn.native.webkit.WebKitWebsiteDataAccessPermissionRequest
 import org.gtkkn.native.webkit.webkit_website_data_access_permission_request_get_current_domain
@@ -63,5 +64,12 @@ public class WebsiteDataAccessPermissionRequest(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of WebsiteDataAccessPermissionRequest
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_website_data_access_permission_request_get_type()
     }
 }

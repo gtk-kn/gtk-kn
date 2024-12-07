@@ -12,6 +12,7 @@ import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceStyleScheme
 import org.gtkkn.native.gtksource.gtk_source_style_scheme_get_authors
 import org.gtkkn.native.gtksource.gtk_source_style_scheme_get_description
@@ -128,5 +129,12 @@ public open class StyleScheme(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of StyleScheme
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_style_scheme_get_type()
     }
 }

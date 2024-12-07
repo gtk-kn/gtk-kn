@@ -8,6 +8,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_30
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitWebsitePolicies
 import org.gtkkn.native.webkit.webkit_website_policies_get_autoplay_policy
 import org.gtkkn.native.webkit.webkit_website_policies_get_type
@@ -57,5 +58,12 @@ public class WebsitePolicies(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of WebsitePolicies
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_website_policies_get_type()
     }
 }

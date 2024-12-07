@@ -11,6 +11,7 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkCenterLayout
 import org.gtkkn.native.gtk.gtk_center_layout_get_baseline_position
 import org.gtkkn.native.gtk.gtk_center_layout_get_center_widget
@@ -174,5 +175,12 @@ public open class CenterLayout(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of CenterLayout
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_center_layout_get_type()
     }
 }

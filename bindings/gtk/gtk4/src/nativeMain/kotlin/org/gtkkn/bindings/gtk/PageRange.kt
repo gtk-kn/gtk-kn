@@ -1,13 +1,13 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.Int
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkPageRange
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
@@ -24,7 +24,7 @@ public class PageRange(
     /**
      * start of page range.
      */
-    public var start: Int
+    public var start: gint
         get() = gtkPageRangePointer.pointed.start
         set(`value`) {
             gtkPageRangePointer.pointed.start = value
@@ -33,7 +33,7 @@ public class PageRange(
     /**
      * end of page range.
      */
-    public var end: Int
+    public var end: gint
         get() = gtkPageRangePointer.pointed.end
         set(`value`) {
             gtkPageRangePointer.pointed.end = value

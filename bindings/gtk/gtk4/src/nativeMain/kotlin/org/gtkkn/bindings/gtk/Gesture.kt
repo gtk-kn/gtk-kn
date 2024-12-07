@@ -23,6 +23,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkEventSequence
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkEventSequenceState
 import org.gtkkn.native.gtk.GtkGesture
@@ -472,6 +473,13 @@ public open class Gesture(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of Gesture
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_gesture_get_type()
     }
 }
 

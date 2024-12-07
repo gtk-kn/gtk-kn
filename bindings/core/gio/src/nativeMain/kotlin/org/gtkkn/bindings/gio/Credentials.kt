@@ -2,11 +2,9 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.Suppress
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -32,6 +30,9 @@ import org.gtkkn.native.gio.g_credentials_new
 import org.gtkkn.native.gio.g_credentials_set_unix_user
 import org.gtkkn.native.gio.g_credentials_to_string
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 
 /**
  * The `GCredentials` type is a reference-counted wrapper for native
@@ -105,7 +106,7 @@ public open class Credentials(
      * @since 2.36
      */
     @GioVersion2_36
-    public open fun getUnixPid(): Result<Int> = memScoped {
+    public open fun getUnixPid(): Result<gint> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_credentials_get_unix_pid(gioCredentialsPointer.reinterpret(), gError.ptr)
         return if (gError.pointed != null) {
@@ -128,7 +129,7 @@ public open class Credentials(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getUnixUser(): Result<UInt> = memScoped {
+    public open fun getUnixUser(): Result<guint> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_credentials_get_unix_user(gioCredentialsPointer.reinterpret(), gError.ptr)
         return if (gError.pointed != null) {
@@ -176,7 +177,7 @@ public open class Credentials(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setUnixUser(uid: UInt): Result<Boolean> = memScoped {
+    public open fun setUnixUser(uid: guint): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_credentials_set_unix_user(gioCredentialsPointer.reinterpret(), uid, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
@@ -205,5 +206,12 @@ public open class Credentials(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of Credentials
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_credentials_get_type()
     }
 }

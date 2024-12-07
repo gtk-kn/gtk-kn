@@ -21,6 +21,8 @@ import org.gtkkn.native.glib.g_variant_dict_new
 import org.gtkkn.native.glib.g_variant_dict_ref
 import org.gtkkn.native.glib.g_variant_dict_remove
 import org.gtkkn.native.glib.g_variant_dict_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_variant_dict_get_type
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -258,6 +260,13 @@ public class VariantDict(
          * @since 2.40
          */
         public fun new(fromAsv: Variant? = null): VariantDict = VariantDict(g_variant_dict_new(fromAsv?.glibVariantPointer?.reinterpret())!!.reinterpret())
+
+        /**
+         * Get the GType of VariantDict
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_variant_dict_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): VariantDict = VariantDict(pointer.reinterpret())
     }

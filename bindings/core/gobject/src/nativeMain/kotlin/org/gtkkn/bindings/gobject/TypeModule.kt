@@ -3,7 +3,6 @@ package org.gtkkn.bindings.gobject
 
 import kotlin.Boolean
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -12,6 +11,7 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GTypeModule
 import org.gtkkn.native.gobject.GTypePlugin
 import org.gtkkn.native.gobject.g_type_module_add_interface
@@ -83,8 +83,8 @@ public open class TypeModule(
      * @param interfaceInfo type information structure
      */
     public open fun addInterface(
-        instanceType: ULong,
-        interfaceType: ULong,
+        instanceType: GType,
+        interfaceType: GType,
         interfaceInfo: InterfaceInfo,
     ): Unit = g_type_module_add_interface(gobjectTypeModulePointer.reinterpret(), instanceType, interfaceType, interfaceInfo.gobjectInterfaceInfoPointer.reinterpret())
 
@@ -109,7 +109,7 @@ public open class TypeModule(
      * @since 2.6
      */
     @GObjectVersion2_6
-    public open fun registerEnum(name: String, constStaticValues: EnumValue): ULong = g_type_module_register_enum(gobjectTypeModulePointer.reinterpret(), name, constStaticValues.gobjectEnumValuePointer.reinterpret())
+    public open fun registerEnum(name: String, constStaticValues: EnumValue): GType = g_type_module_register_enum(gobjectTypeModulePointer.reinterpret(), name, constStaticValues.gobjectEnumValuePointer.reinterpret())
 
     /**
      * Looks up or registers a flags type that is implemented with a particular
@@ -132,7 +132,7 @@ public open class TypeModule(
      * @since 2.6
      */
     @GObjectVersion2_6
-    public open fun registerFlags(name: String, constStaticValues: FlagsValue): ULong = g_type_module_register_flags(gobjectTypeModulePointer.reinterpret(), name, constStaticValues.gobjectFlagsValuePointer.reinterpret())
+    public open fun registerFlags(name: String, constStaticValues: FlagsValue): GType = g_type_module_register_flags(gobjectTypeModulePointer.reinterpret(), name, constStaticValues.gobjectFlagsValuePointer.reinterpret())
 
     /**
      * Looks up or registers a type that is implemented with a particular
@@ -157,11 +157,11 @@ public open class TypeModule(
      * @return the new or existing type ID
      */
     public open fun registerType(
-        parentType: ULong,
+        parentType: GType,
         typeName: String,
         typeInfo: TypeInfo,
         flags: TypeFlags,
-    ): ULong = g_type_module_register_type(gobjectTypeModulePointer.reinterpret(), parentType, typeName, typeInfo.gobjectTypeInfoPointer.reinterpret(), flags.mask)
+    ): GType = g_type_module_register_type(gobjectTypeModulePointer.reinterpret(), parentType, typeName, typeInfo.gobjectTypeInfoPointer.reinterpret(), flags.mask)
 
     /**
      * Sets the name for a #GTypeModule
@@ -196,5 +196,12 @@ public open class TypeModule(
 
         init {
             GobjectTypeProvider.register()}
+
+        /**
+         * Get the GType of TypeModule
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_type_module_get_type()
     }
 }

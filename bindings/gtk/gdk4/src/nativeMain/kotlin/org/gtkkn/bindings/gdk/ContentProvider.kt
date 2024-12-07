@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gdk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.ULong
@@ -45,7 +44,9 @@ import org.gtkkn.native.gdk.gdk_content_provider_ref_storable_formats
 import org.gtkkn.native.gdk.gdk_content_provider_write_mime_type_async
 import org.gtkkn.native.gdk.gdk_content_provider_write_mime_type_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 
 /**
  * A `GdkContentProvider` is used to provide content for the clipboard or
@@ -162,7 +163,7 @@ public open class ContentProvider(
     public open fun writeMimeTypeAsync(
         mimeType: String,
         stream: OutputStream,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = gdk_content_provider_write_mime_type_async(gdkContentProviderPointer.reinterpret(), mimeType, stream.gioOutputStreamPointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -201,6 +202,13 @@ public open class ContentProvider(
 
         init {
             GdkTypeProvider.register()}
+
+        /**
+         * Get the GType of ContentProvider
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_content_provider_get_type()
     }
 }
 

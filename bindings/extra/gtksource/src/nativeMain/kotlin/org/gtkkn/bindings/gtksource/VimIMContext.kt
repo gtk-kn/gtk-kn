@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtksource
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -24,7 +23,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gtk.GtkTextIter
 import org.gtkkn.native.gtksource.GtkSourceView
 import org.gtkkn.native.gtksource.GtkSourceVimIMContext
@@ -181,6 +182,13 @@ public open class VimIMContext(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of VimIMContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_vim_im_context_get_type()
     }
 }
 
@@ -197,7 +205,7 @@ private val connectEditFunc:
     , path?.toKString())}
 .reinterpret()
 
-private val connectExecuteCommandFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Int>> =
+private val connectExecuteCommandFunc: CPointer<CFunction<(CPointer<ByteVar>) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     command: CPointer<ByteVar>?,

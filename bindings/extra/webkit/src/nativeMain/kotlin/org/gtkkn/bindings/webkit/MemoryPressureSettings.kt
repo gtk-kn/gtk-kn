@@ -1,8 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
-import kotlin.Double
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -10,6 +8,9 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_34
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitMemoryPressureSettings
 import org.gtkkn.native.webkit.webkit_memory_pressure_settings_copy
 import org.gtkkn.native.webkit.webkit_memory_pressure_settings_free
@@ -18,6 +19,7 @@ import org.gtkkn.native.webkit.webkit_memory_pressure_settings_get_kill_threshol
 import org.gtkkn.native.webkit.webkit_memory_pressure_settings_get_memory_limit
 import org.gtkkn.native.webkit.webkit_memory_pressure_settings_get_poll_interval
 import org.gtkkn.native.webkit.webkit_memory_pressure_settings_get_strict_threshold
+import org.gtkkn.native.webkit.webkit_memory_pressure_settings_get_type
 import org.gtkkn.native.webkit.webkit_memory_pressure_settings_new
 import org.gtkkn.native.webkit.webkit_memory_pressure_settings_set_conservative_threshold
 import org.gtkkn.native.webkit.webkit_memory_pressure_settings_set_kill_threshold
@@ -80,7 +82,7 @@ public class MemoryPressureSettings(
      * @since 2.34
      */
     @WebKitVersion2_34
-    public fun getConservativeThreshold(): Double = webkit_memory_pressure_settings_get_conservative_threshold(webkitMemoryPressureSettingsPointer.reinterpret())
+    public fun getConservativeThreshold(): gdouble = webkit_memory_pressure_settings_get_conservative_threshold(webkitMemoryPressureSettingsPointer.reinterpret())
 
     /**
      * Gets the kill memory usage threshold.
@@ -89,7 +91,7 @@ public class MemoryPressureSettings(
      * @since 2.34
      */
     @WebKitVersion2_34
-    public fun getKillThreshold(): Double = webkit_memory_pressure_settings_get_kill_threshold(webkitMemoryPressureSettingsPointer.reinterpret())
+    public fun getKillThreshold(): gdouble = webkit_memory_pressure_settings_get_kill_threshold(webkitMemoryPressureSettingsPointer.reinterpret())
 
     /**
      * Gets the memory usage limit.
@@ -98,7 +100,7 @@ public class MemoryPressureSettings(
      * @since 2.34
      */
     @WebKitVersion2_34
-    public fun getMemoryLimit(): UInt = webkit_memory_pressure_settings_get_memory_limit(webkitMemoryPressureSettingsPointer.reinterpret())
+    public fun getMemoryLimit(): guint = webkit_memory_pressure_settings_get_memory_limit(webkitMemoryPressureSettingsPointer.reinterpret())
 
     /**
      * Gets the interval at which memory usage is checked.
@@ -107,7 +109,7 @@ public class MemoryPressureSettings(
      * @since 2.34
      */
     @WebKitVersion2_34
-    public fun getPollInterval(): Double = webkit_memory_pressure_settings_get_poll_interval(webkitMemoryPressureSettingsPointer.reinterpret())
+    public fun getPollInterval(): gdouble = webkit_memory_pressure_settings_get_poll_interval(webkitMemoryPressureSettingsPointer.reinterpret())
 
     /**
      * Gets the strict memory usage threshold.
@@ -116,7 +118,7 @@ public class MemoryPressureSettings(
      * @since 2.34
      */
     @WebKitVersion2_34
-    public fun getStrictThreshold(): Double = webkit_memory_pressure_settings_get_strict_threshold(webkitMemoryPressureSettingsPointer.reinterpret())
+    public fun getStrictThreshold(): gdouble = webkit_memory_pressure_settings_get_strict_threshold(webkitMemoryPressureSettingsPointer.reinterpret())
 
     /**
      * Sets the memory limit for the conservative policy to start working.
@@ -132,7 +134,7 @@ public class MemoryPressureSettings(
      * @since 2.34
      */
     @WebKitVersion2_34
-    public fun setConservativeThreshold(`value`: Double): Unit = webkit_memory_pressure_settings_set_conservative_threshold(webkitMemoryPressureSettingsPointer.reinterpret(), `value`)
+    public fun setConservativeThreshold(`value`: gdouble): Unit = webkit_memory_pressure_settings_set_conservative_threshold(webkitMemoryPressureSettingsPointer.reinterpret(), `value`)
 
     /**
      * Sets @value as the fraction of the defined memory limit where the process will be
@@ -147,7 +149,7 @@ public class MemoryPressureSettings(
      * @since 2.34
      */
     @WebKitVersion2_34
-    public fun setKillThreshold(`value`: Double): Unit = webkit_memory_pressure_settings_set_kill_threshold(webkitMemoryPressureSettingsPointer.reinterpret(), `value`)
+    public fun setKillThreshold(`value`: gdouble): Unit = webkit_memory_pressure_settings_set_kill_threshold(webkitMemoryPressureSettingsPointer.reinterpret(), `value`)
 
     /**
      * Sets @memory_limit the memory limit value to @settings.
@@ -158,7 +160,7 @@ public class MemoryPressureSettings(
      * @since 2.34
      */
     @WebKitVersion2_34
-    public fun setMemoryLimit(memoryLimit: UInt): Unit = webkit_memory_pressure_settings_set_memory_limit(webkitMemoryPressureSettingsPointer.reinterpret(), memoryLimit)
+    public fun setMemoryLimit(memoryLimit: guint): Unit = webkit_memory_pressure_settings_set_memory_limit(webkitMemoryPressureSettingsPointer.reinterpret(), memoryLimit)
 
     /**
      * Sets @value as the poll interval used by @settings.
@@ -169,7 +171,7 @@ public class MemoryPressureSettings(
      * @since 2.34
      */
     @WebKitVersion2_34
-    public fun setPollInterval(`value`: Double): Unit = webkit_memory_pressure_settings_set_poll_interval(webkitMemoryPressureSettingsPointer.reinterpret(), `value`)
+    public fun setPollInterval(`value`: gdouble): Unit = webkit_memory_pressure_settings_set_poll_interval(webkitMemoryPressureSettingsPointer.reinterpret(), `value`)
 
     /**
      * Sets the memory limit for the strict policy to start working.
@@ -186,7 +188,7 @@ public class MemoryPressureSettings(
      * @since 2.34
      */
     @WebKitVersion2_34
-    public fun setStrictThreshold(`value`: Double): Unit = webkit_memory_pressure_settings_set_strict_threshold(webkitMemoryPressureSettingsPointer.reinterpret(), `value`)
+    public fun setStrictThreshold(`value`: gdouble): Unit = webkit_memory_pressure_settings_set_strict_threshold(webkitMemoryPressureSettingsPointer.reinterpret(), `value`)
 
     public companion object : RecordCompanion<MemoryPressureSettings, WebKitMemoryPressureSettings> {
         /**
@@ -196,6 +198,13 @@ public class MemoryPressureSettings(
          * @since 2.34
          */
         public fun new(): MemoryPressureSettings = MemoryPressureSettings(webkit_memory_pressure_settings_new()!!.reinterpret())
+
+        /**
+         * Get the GType of MemoryPressureSettings
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_memory_pressure_settings_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MemoryPressureSettings = MemoryPressureSettings(pointer.reinterpret())
     }

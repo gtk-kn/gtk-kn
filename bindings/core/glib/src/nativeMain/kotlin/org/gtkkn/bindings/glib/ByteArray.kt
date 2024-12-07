@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,6 +8,9 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GByteArray
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_byte_array_get_type
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -42,13 +44,20 @@ public class ByteArray(
     /**
      * the number of elements in the #GByteArray
      */
-    public var len: UInt
+    public var len: guint
         get() = glibByteArrayPointer.pointed.len
         set(`value`) {
             glibByteArrayPointer.pointed.len = value
         }
 
     public companion object : RecordCompanion<ByteArray, GByteArray> {
+        /**
+         * Get the GType of ByteArray
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_byte_array_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ByteArray = ByteArray(pointer.reinterpret())
     }
 }

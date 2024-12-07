@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -21,7 +20,9 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkRectangle
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -199,11 +200,18 @@ public open class Overlay(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of Overlay
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_overlay_get_type()
     }
 }
 
 private val connectGetChildPositionFunc:
-        CPointer<CFunction<(CPointer<GtkWidget>, CPointer<GdkRectangle>) -> Int>> =
+        CPointer<CFunction<(CPointer<GtkWidget>, CPointer<GdkRectangle>) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     widget: CPointer<GtkWidget>?,

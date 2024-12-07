@@ -9,6 +9,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkSizeGroup
 import org.gtkkn.native.gtk.gtk_size_group_add_widget
@@ -167,5 +168,12 @@ public open class SizeGroup(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of SizeGroup
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_size_group_get_type()
     }
 }

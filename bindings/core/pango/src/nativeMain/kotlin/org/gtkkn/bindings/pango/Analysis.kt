@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
-import kotlin.UByte
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.guint8
 import org.gtkkn.native.pango.PangoAnalysis
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
@@ -38,7 +38,7 @@ public class Analysis(
     /**
      * the bidirectional level for this segment.
      */
-    public var level: UByte
+    public var level: guint8
         get() = pangoAnalysisPointer.pointed.level
         set(`value`) {
             pangoAnalysisPointer.pointed.level = value
@@ -47,7 +47,7 @@ public class Analysis(
     /**
      * the glyph orientation for this segment (A `PangoGravity`).
      */
-    public var gravity: UByte
+    public var gravity: guint8
         get() = pangoAnalysisPointer.pointed.gravity
         set(`value`) {
             pangoAnalysisPointer.pointed.gravity = value
@@ -56,7 +56,7 @@ public class Analysis(
     /**
      * boolean flags for this segment (Since: 1.16).
      */
-    public var flags: UByte
+    public var flags: guint8
         get() = pangoAnalysisPointer.pointed.flags
         set(`value`) {
             pangoAnalysisPointer.pointed.flags = value
@@ -65,7 +65,7 @@ public class Analysis(
     /**
      * the detected script for this segment (A `PangoScript`) (Since: 1.18).
      */
-    public var script: UByte
+    public var script: guint8
         get() = pangoAnalysisPointer.pointed.script
         set(`value`) {
             pangoAnalysisPointer.pointed.script = value

@@ -1,8 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
-import kotlin.Double
-import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -16,12 +14,16 @@ import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.adw.AdwBreakpointCondition
 import org.gtkkn.native.adw.adw_breakpoint_condition_copy
 import org.gtkkn.native.adw.adw_breakpoint_condition_free
+import org.gtkkn.native.adw.adw_breakpoint_condition_get_type
 import org.gtkkn.native.adw.adw_breakpoint_condition_new_and
 import org.gtkkn.native.adw.adw_breakpoint_condition_new_length
 import org.gtkkn.native.adw.adw_breakpoint_condition_new_or
 import org.gtkkn.native.adw.adw_breakpoint_condition_new_ratio
 import org.gtkkn.native.adw.adw_breakpoint_condition_parse
 import org.gtkkn.native.adw.adw_breakpoint_condition_to_string
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -87,7 +89,7 @@ public class BreakpointCondition(
          */
         public fun newLength(
             type: BreakpointConditionLengthType,
-            `value`: Double,
+            `value`: gdouble,
             unit: LengthUnit,
         ): BreakpointCondition = BreakpointCondition(adw_breakpoint_condition_new_length(type.nativeValue, `value`, unit.nativeValue)!!.reinterpret())
 
@@ -115,8 +117,8 @@ public class BreakpointCondition(
          */
         public fun newRatio(
             type: BreakpointConditionRatioType,
-            width: Int,
-            height: Int,
+            width: gint,
+            height: gint,
         ): BreakpointCondition = BreakpointCondition(adw_breakpoint_condition_new_ratio(type.nativeValue, width, height)!!.reinterpret())
 
         /**
@@ -183,6 +185,13 @@ public class BreakpointCondition(
         @AdwVersion1_4
         public fun parse(str: String): BreakpointCondition = adw_breakpoint_condition_parse(str)!!.run {
             BreakpointCondition(reinterpret())}
+
+        /**
+         * Get the GType of BreakpointCondition
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_breakpoint_condition_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): BreakpointCondition = BreakpointCondition(pointer.reinterpret())
     }

@@ -16,6 +16,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.javascriptcore.JSCWeakValue
 import org.gtkkn.native.javascriptcore.jsc_weak_value_get_type
@@ -68,6 +69,13 @@ public class WeakValue(
 
         init {
             JavascriptcoreTypeProvider.register()}
+
+        /**
+         * Get the GType of WeakValue
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = jsc_weak_value_get_type()
     }
 }
 

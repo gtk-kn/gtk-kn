@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gdk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -18,6 +17,7 @@ import org.gtkkn.native.gdk.gdk_popup_layout_get_anchor_hints
 import org.gtkkn.native.gdk.gdk_popup_layout_get_anchor_rect
 import org.gtkkn.native.gdk.gdk_popup_layout_get_rect_anchor
 import org.gtkkn.native.gdk.gdk_popup_layout_get_surface_anchor
+import org.gtkkn.native.gdk.gdk_popup_layout_get_type
 import org.gtkkn.native.gdk.gdk_popup_layout_new
 import org.gtkkn.native.gdk.gdk_popup_layout_ref
 import org.gtkkn.native.gdk.gdk_popup_layout_set_anchor_hints
@@ -27,6 +27,8 @@ import org.gtkkn.native.gdk.gdk_popup_layout_set_rect_anchor
 import org.gtkkn.native.gdk.gdk_popup_layout_set_shadow_width
 import org.gtkkn.native.gdk.gdk_popup_layout_set_surface_anchor
 import org.gtkkn.native.gdk.gdk_popup_layout_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -157,7 +159,7 @@ public class PopupLayout(
      * @param dx x delta to offset the anchor rectangle with
      * @param dy y delta to offset the anchor rectangle with
      */
-    public fun setOffset(dx: Int, dy: Int): Unit = gdk_popup_layout_set_offset(gdkPopupLayoutPointer.reinterpret(), dx, dy)
+    public fun setOffset(dx: gint, dy: gint): Unit = gdk_popup_layout_set_offset(gdkPopupLayoutPointer.reinterpret(), dx, dy)
 
     /**
      * Set the anchor on the anchor rectangle.
@@ -181,10 +183,10 @@ public class PopupLayout(
      */
     @GdkVersion4_2
     public fun setShadowWidth(
-        left: Int,
-        right: Int,
-        top: Int,
-        bottom: Int,
+        left: gint,
+        right: gint,
+        top: gint,
+        bottom: gint,
     ): Unit = gdk_popup_layout_set_shadow_width(gdkPopupLayoutPointer.reinterpret(), left, right, top, bottom)
 
     /**
@@ -224,6 +226,13 @@ public class PopupLayout(
             rectAnchor: Gravity,
             surfaceAnchor: Gravity,
         ): PopupLayout = PopupLayout(gdk_popup_layout_new(anchorRect.gdkRectanglePointer.reinterpret(), rectAnchor.nativeValue, surfaceAnchor.nativeValue)!!.reinterpret())
+
+        /**
+         * Get the GType of PopupLayout
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_popup_layout_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PopupLayout = PopupLayout(pointer.reinterpret())
     }

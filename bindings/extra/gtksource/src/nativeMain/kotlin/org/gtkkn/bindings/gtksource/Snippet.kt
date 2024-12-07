@@ -1,10 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtksource
 
-import kotlin.Int
 import kotlin.String
 import kotlin.Throws
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
@@ -21,6 +19,9 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtksource.GtkSourceSnippet
 import org.gtkkn.native.gtksource.gtk_source_snippet_add_chunk
 import org.gtkkn.native.gtksource.gtk_source_snippet_copy
@@ -78,7 +79,7 @@ public open class Snippet(
          */
         set(description) = gtk_source_snippet_set_description(gtksourceSnippetPointer.reinterpret(), description)
 
-    public open val focusPosition: Int
+    public open val focusPosition: gint
         /**
          * Gets the current focus for the snippet.
          *
@@ -180,7 +181,7 @@ public open class Snippet(
      *
      * @return The number of chunks.
      */
-    public open fun getNChunks(): UInt = gtk_source_snippet_get_n_chunks(gtksourceSnippetPointer.reinterpret())
+    public open fun getNChunks(): guint = gtk_source_snippet_get_n_chunks(gtksourceSnippetPointer.reinterpret())
 
     /**
      * Gets the chunk at @nth.
@@ -188,7 +189,7 @@ public open class Snippet(
      * @param nth the nth chunk to get
      * @return an #GtkSourceSnippetChunk
      */
-    public open fun getNthChunk(nth: UInt): SnippetChunk = gtk_source_snippet_get_nth_chunk(gtksourceSnippetPointer.reinterpret(), nth)!!.run {
+    public open fun getNthChunk(nth: guint): SnippetChunk = gtk_source_snippet_get_nth_chunk(gtksourceSnippetPointer.reinterpret(), nth)!!.run {
         SnippetChunk(reinterpret())}
 
     /**
@@ -214,5 +215,12 @@ public open class Snippet(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of Snippet
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_snippet_get_type()
     }
 }

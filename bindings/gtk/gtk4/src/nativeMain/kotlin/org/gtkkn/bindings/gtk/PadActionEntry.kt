@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.Int
 import kotlin.String
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -10,6 +9,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkPadActionEntry
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
@@ -35,7 +35,7 @@ public class PadActionEntry(
      * the 0-indexed button/ring/strip number that will trigger this action
      *   entry.
      */
-    public var index: Int
+    public var index: gint
         get() = gtkPadActionEntryPointer.pointed.index
         set(`value`) {
             gtkPadActionEntryPointer.pointed.index = value
@@ -44,7 +44,7 @@ public class PadActionEntry(
     /**
      * the mode that will trigger this action entry, or -1 for all modes.
      */
-    public var mode: Int
+    public var mode: gint
         get() = gtkPadActionEntryPointer.pointed.mode
         set(`value`) {
             gtkPadActionEntryPointer.pointed.mode = value

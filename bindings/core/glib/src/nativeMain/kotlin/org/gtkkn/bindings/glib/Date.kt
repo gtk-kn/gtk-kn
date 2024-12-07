@@ -2,10 +2,7 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
-import kotlin.UByte
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -64,6 +61,11 @@ import org.gtkkn.native.glib.g_date_valid_julian
 import org.gtkkn.native.glib.g_date_valid_month
 import org.gtkkn.native.glib.g_date_valid_weekday
 import org.gtkkn.native.glib.g_date_valid_year
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_date_get_type
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.guint8
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -120,7 +122,7 @@ public class Date(
     /**
      * the Julian representation of the date
      */
-    public var julianDays: UInt
+    public var julianDays: guint
         get() = glibDatePointer.pointed.julian_days
         set(`value`) {
             glibDatePointer.pointed.julian_days = value
@@ -129,7 +131,7 @@ public class Date(
     /**
      * this bit is set if @julian_days is valid
      */
-    public var julian: UInt
+    public var julian: guint
         get() = glibDatePointer.pointed.julian
         set(`value`) {
             glibDatePointer.pointed.julian = value
@@ -138,7 +140,7 @@ public class Date(
     /**
      * this is set if @day, @month and @year are valid
      */
-    public var dmy: UInt
+    public var dmy: guint
         get() = glibDatePointer.pointed.dmy
         set(`value`) {
             glibDatePointer.pointed.dmy = value
@@ -148,7 +150,7 @@ public class Date(
      * the day of the day-month-year representation of the date,
      *   as a number between 1 and 31
      */
-    public var day: UInt
+    public var day: guint
         get() = glibDatePointer.pointed.day
         set(`value`) {
             glibDatePointer.pointed.day = value
@@ -158,7 +160,7 @@ public class Date(
      * the month of the day-month-year representation of the date,
      *   as a number between 1 and 12
      */
-    public var month: UInt
+    public var month: guint
         get() = glibDatePointer.pointed.month
         set(`value`) {
             glibDatePointer.pointed.month = value
@@ -167,7 +169,7 @@ public class Date(
     /**
      * the year of the day-month-year representation of the date
      */
-    public var year: UInt
+    public var year: guint
         get() = glibDatePointer.pointed.year
         set(`value`) {
             glibDatePointer.pointed.year = value
@@ -180,7 +182,7 @@ public class Date(
      *
      * @param nDays number of days to move the date forward
      */
-    public fun addDays(nDays: UInt): Unit = g_date_add_days(glibDatePointer.reinterpret(), nDays)
+    public fun addDays(nDays: guint): Unit = g_date_add_days(glibDatePointer.reinterpret(), nDays)
 
     /**
      * Increments a date by some number of months.
@@ -191,7 +193,7 @@ public class Date(
      *
      * @param nMonths number of months to move forward
      */
-    public fun addMonths(nMonths: UInt): Unit = g_date_add_months(glibDatePointer.reinterpret(), nMonths)
+    public fun addMonths(nMonths: guint): Unit = g_date_add_months(glibDatePointer.reinterpret(), nMonths)
 
     /**
      * Increments a date by some number of years.
@@ -201,7 +203,7 @@ public class Date(
      *
      * @param nYears number of years to move forward
      */
-    public fun addYears(nYears: UInt): Unit = g_date_add_years(glibDatePointer.reinterpret(), nYears)
+    public fun addYears(nYears: guint): Unit = g_date_add_years(glibDatePointer.reinterpret(), nYears)
 
     /**
      * If @date is prior to @min_date, sets @date equal to @min_date.
@@ -223,7 +225,7 @@ public class Date(
      *
      * @param nDates number of dates to clear
      */
-    public fun clear(nDates: UInt): Unit = g_date_clear(glibDatePointer.reinterpret(), nDates)
+    public fun clear(nDates: guint): Unit = g_date_clear(glibDatePointer.reinterpret(), nDates)
 
     /**
      * qsort()-style comparison function for dates.
@@ -233,7 +235,7 @@ public class Date(
      * @return 0 for equal, less than zero if @lhs is less than @rhs,
      *     greater than zero if @lhs is greater than @rhs
      */
-    public fun compare(rhs: Date): Int = g_date_compare(glibDatePointer.reinterpret(), rhs.glibDatePointer.reinterpret())
+    public fun compare(rhs: Date): gint = g_date_compare(glibDatePointer.reinterpret(), rhs.glibDatePointer.reinterpret())
 
     /**
      * Copies a GDate to a newly-allocated GDate. If the input was invalid
@@ -255,7 +257,7 @@ public class Date(
      * @param date2 the second date
      * @return the number of days between @date1 and @date2
      */
-    public fun daysBetween(date2: Date): Int = g_date_days_between(glibDatePointer.reinterpret(), date2.glibDatePointer.reinterpret())
+    public fun daysBetween(date2: Date): gint = g_date_days_between(glibDatePointer.reinterpret(), date2.glibDatePointer.reinterpret())
 
     /**
      * Frees a #GDate returned from g_date_new().
@@ -275,7 +277,7 @@ public class Date(
      *
      * @return day of the year
      */
-    public fun getDayOfYear(): UInt = g_date_get_day_of_year(glibDatePointer.reinterpret())
+    public fun getDayOfYear(): guint = g_date_get_day_of_year(glibDatePointer.reinterpret())
 
     /**
      * Returns the week of the year, where weeks are interpreted according
@@ -285,7 +287,7 @@ public class Date(
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun getIso8601WeekOfYear(): UInt = g_date_get_iso8601_week_of_year(glibDatePointer.reinterpret())
+    public fun getIso8601WeekOfYear(): guint = g_date_get_iso8601_week_of_year(glibDatePointer.reinterpret())
 
     /**
      * Returns the Julian day or "serial number" of the #GDate. The
@@ -295,7 +297,7 @@ public class Date(
      *
      * @return Julian day
      */
-    public fun getJulian(): UInt = g_date_get_julian(glibDatePointer.reinterpret())
+    public fun getJulian(): guint = g_date_get_julian(glibDatePointer.reinterpret())
 
     /**
      * Returns the week of the year, where weeks are understood to start on
@@ -304,7 +306,7 @@ public class Date(
      *
      * @return week of the year
      */
-    public fun getMondayWeekOfYear(): UInt = g_date_get_monday_week_of_year(glibDatePointer.reinterpret())
+    public fun getMondayWeekOfYear(): guint = g_date_get_monday_week_of_year(glibDatePointer.reinterpret())
 
     /**
      * Returns the month of the year. The date must be valid.
@@ -321,7 +323,7 @@ public class Date(
      *
      * @return week number
      */
-    public fun getSundayWeekOfYear(): UInt = g_date_get_sunday_week_of_year(glibDatePointer.reinterpret())
+    public fun getSundayWeekOfYear(): guint = g_date_get_sunday_week_of_year(glibDatePointer.reinterpret())
 
     /**
      * Returns the day of the week for a #GDate. The date must be valid.
@@ -391,7 +393,7 @@ public class Date(
      *
      * @param julianDate Julian day number (days since January 1, Year 1)
      */
-    public fun setJulian(julianDate: UInt): Unit = g_date_set_julian(glibDatePointer.reinterpret(), julianDate)
+    public fun setJulian(julianDate: guint): Unit = g_date_set_julian(glibDatePointer.reinterpret(), julianDate)
 
     /**
      * Sets the month of the year for a #GDate.  If the resulting
@@ -454,7 +456,7 @@ public class Date(
      *
      * @param nDays number of days to move
      */
-    public fun subtractDays(nDays: UInt): Unit = g_date_subtract_days(glibDatePointer.reinterpret(), nDays)
+    public fun subtractDays(nDays: guint): Unit = g_date_subtract_days(glibDatePointer.reinterpret(), nDays)
 
     /**
      * Moves a date some number of months into the past.
@@ -464,7 +466,7 @@ public class Date(
      *
      * @param nMonths number of months to move
      */
-    public fun subtractMonths(nMonths: UInt): Unit = g_date_subtract_months(glibDatePointer.reinterpret(), nMonths)
+    public fun subtractMonths(nMonths: guint): Unit = g_date_subtract_months(glibDatePointer.reinterpret(), nMonths)
 
     /**
      * Moves a date some number of years into the past.
@@ -475,7 +477,7 @@ public class Date(
      *
      * @param nYears number of years to move
      */
-    public fun subtractYears(nYears: UInt): Unit = g_date_subtract_years(glibDatePointer.reinterpret(), nYears)
+    public fun subtractYears(nYears: guint): Unit = g_date_subtract_years(glibDatePointer.reinterpret(), nYears)
 
     /**
      * Returns true if the #GDate represents an existing day. The date must not
@@ -527,7 +529,7 @@ public class Date(
          * @return a newly-allocated #GDate initialized
          *   with @julian_day
          */
-        public fun newJulian(julianDay: UInt): Date = Date(g_date_new_julian(julianDay)!!.reinterpret())
+        public fun newJulian(julianDay: guint): Date = Date(g_date_new_julian(julianDay)!!.reinterpret())
 
         /**
          * Returns the number of days in a month, taking leap
@@ -537,7 +539,7 @@ public class Date(
          * @param year year
          * @return number of days in @month during the @year
          */
-        public fun getDaysInMonth(month: DateMonth, year: DateYear): UByte = g_date_get_days_in_month(month.nativeValue, year)
+        public fun getDaysInMonth(month: DateMonth, year: DateYear): guint8 = g_date_get_days_in_month(month.nativeValue, year)
 
         /**
          * Returns the number of weeks in the year, where weeks
@@ -551,7 +553,7 @@ public class Date(
          * @param year a year
          * @return number of Mondays in the year
          */
-        public fun getMondayWeeksInYear(year: DateYear): UByte = g_date_get_monday_weeks_in_year(year)
+        public fun getMondayWeeksInYear(year: DateYear): guint8 = g_date_get_monday_weeks_in_year(year)
 
         /**
          * Returns the number of weeks in the year, where weeks
@@ -565,7 +567,7 @@ public class Date(
          * @param year year to count weeks in
          * @return the number of weeks in @year
          */
-        public fun getSundayWeeksInYear(year: DateYear): UByte = g_date_get_sunday_weeks_in_year(year)
+        public fun getSundayWeeksInYear(year: DateYear): guint8 = g_date_get_sunday_weeks_in_year(year)
 
         /**
          * Returns true if the year is a leap year.
@@ -612,7 +614,7 @@ public class Date(
          * @param julianDate Julian day to check
          * @return true if the Julian day is valid
          */
-        public fun validJulian(julianDate: UInt): Boolean = g_date_valid_julian(julianDate).asBoolean()
+        public fun validJulian(julianDate: guint): Boolean = g_date_valid_julian(julianDate).asBoolean()
 
         /**
          * Returns true if the month value is valid. The 12 #GDateMonth
@@ -640,6 +642,13 @@ public class Date(
          * @return true if the year is valid
          */
         public fun validYear(year: DateYear): Boolean = g_date_valid_year(year).asBoolean()
+
+        /**
+         * Get the GType of Date
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_date_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Date = Date(pointer.reinterpret())
     }

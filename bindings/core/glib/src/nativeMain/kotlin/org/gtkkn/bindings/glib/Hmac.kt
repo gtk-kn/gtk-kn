@@ -15,6 +15,8 @@ import org.gtkkn.native.glib.g_hmac_copy
 import org.gtkkn.native.glib.g_hmac_get_string
 import org.gtkkn.native.glib.g_hmac_ref
 import org.gtkkn.native.glib.g_hmac_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_hmac_get_type
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -103,6 +105,13 @@ public class Hmac(
     public fun unref(): Unit = g_hmac_unref(glibHmacPointer.reinterpret())
 
     public companion object : RecordCompanion<Hmac, GHmac> {
+        /**
+         * Get the GType of Hmac
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_hmac_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Hmac = Hmac(pointer.reinterpret())
     }
 }

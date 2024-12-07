@@ -1,8 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlin.UInt
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -16,6 +14,10 @@ import org.gtkkn.native.glib.g_bytes_hash
 import org.gtkkn.native.glib.g_bytes_new_from_bytes
 import org.gtkkn.native.glib.g_bytes_ref
 import org.gtkkn.native.glib.g_bytes_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_bytes_get_type
+import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -72,7 +74,7 @@ public class Bytes(
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun getSize(): ULong = g_bytes_get_size(glibBytesPointer.reinterpret())
+    public fun getSize(): gsize = g_bytes_get_size(glibBytesPointer.reinterpret())
 
     /**
      * Creates an integer hash code for the byte data in the #GBytes.
@@ -84,7 +86,7 @@ public class Bytes(
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun hash(): UInt = g_bytes_hash(glibBytesPointer.reinterpret())
+    public fun hash(): guint = g_bytes_hash(glibBytesPointer.reinterpret())
 
     /**
      * Creates a #GBytes which is a subsection of another #GBytes. The @offset +
@@ -105,7 +107,7 @@ public class Bytes(
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun newFromBytes(offset: ULong, length: ULong): Bytes = g_bytes_new_from_bytes(glibBytesPointer.reinterpret(), offset, length)!!.run {
+    public fun newFromBytes(offset: gsize, length: gsize): Bytes = g_bytes_new_from_bytes(glibBytesPointer.reinterpret(), offset, length)!!.run {
         Bytes(reinterpret())}
 
     /**
@@ -128,6 +130,13 @@ public class Bytes(
     public fun unref(): Unit = g_bytes_unref(glibBytesPointer.reinterpret())
 
     public companion object : RecordCompanion<Bytes, GBytes> {
+        /**
+         * Get the GType of Bytes
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_bytes_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Bytes = Bytes(pointer.reinterpret())
     }
 }

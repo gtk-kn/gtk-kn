@@ -71,15 +71,19 @@ class FunctionBlueprintBuilder(
             }
         }
 
-        val nativeName = girFunction.callable.cIdentifier
-        val nativeMemberPackageName = if (nativeName == "g_strv_get_type" || nativeName == "g_variant_get_gtype") {
-            // `g_strv_get_type` and `g_variant_get_gtype` are defined in `gobject/glib-types.h` but used in GLib
-            "org.gtkkn.native.gobject"
-        } else {
-            context.namespaceNativePackageName(girNamespace)
-        }
-        val nativeMemberName = MemberName(nativeMemberPackageName, nativeName)
         val kotlinName = context.kotlinizeMethodName(girFunction.callable.shadows ?: girFunction.callable.name)
+        val nativeName = girFunction.callable.cIdentifier
+        val nativeMemberPackageName =
+            if (kotlinName == "getType" && girNamespace.name == "GLib" ||
+                nativeName == "g_strv_get_type" ||
+                nativeName == "g_variant_get_gtype"
+            ) {
+                // these native functions are defined in `gobject/glib-types.h` but used in GLib
+                "org.gtkkn.native.gobject"
+            } else {
+                context.namespaceNativePackageName(girNamespace)
+            }
+        val nativeMemberName = MemberName(nativeMemberPackageName, nativeName)
 
         return FunctionBlueprint(
             kotlinName = kotlinName,
@@ -88,7 +92,7 @@ class FunctionBlueprintBuilder(
             parameters = sanitizeParameters(parameterBlueprints),
             returnTypeInfo = returnTypeInfo,
             throws = girFunction.callable.throws == true,
-            exceptionResolvingFunctionMember = exceptionResolvingFunction(),
+            exceptionResolvingFunctionMember = girNamespace.exceptionResolvingFunction(),
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(
                 context,
                 girNamespace,

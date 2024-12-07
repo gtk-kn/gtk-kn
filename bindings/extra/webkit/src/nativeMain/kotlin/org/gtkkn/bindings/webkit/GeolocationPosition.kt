@@ -1,8 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
-import kotlin.Double
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -10,9 +8,13 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_26
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.webkit.WebKitGeolocationPosition
 import org.gtkkn.native.webkit.webkit_geolocation_position_copy
 import org.gtkkn.native.webkit.webkit_geolocation_position_free
+import org.gtkkn.native.webkit.webkit_geolocation_position_get_type
 import org.gtkkn.native.webkit.webkit_geolocation_position_new
 import org.gtkkn.native.webkit.webkit_geolocation_position_set_altitude
 import org.gtkkn.native.webkit.webkit_geolocation_position_set_altitude_accuracy
@@ -59,7 +61,7 @@ public class GeolocationPosition(
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun setAltitude(altitude: Double): Unit = webkit_geolocation_position_set_altitude(webkitGeolocationPositionPointer.reinterpret(), altitude)
+    public fun setAltitude(altitude: gdouble): Unit = webkit_geolocation_position_set_altitude(webkitGeolocationPositionPointer.reinterpret(), altitude)
 
     /**
      * Set the accuracy of @position altitude.
@@ -68,7 +70,7 @@ public class GeolocationPosition(
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun setAltitudeAccuracy(altitudeAccuracy: Double): Unit = webkit_geolocation_position_set_altitude_accuracy(webkitGeolocationPositionPointer.reinterpret(), altitudeAccuracy)
+    public fun setAltitudeAccuracy(altitudeAccuracy: gdouble): Unit = webkit_geolocation_position_set_altitude_accuracy(webkitGeolocationPositionPointer.reinterpret(), altitudeAccuracy)
 
     /**
      * Set the @position heading.
@@ -80,7 +82,7 @@ public class GeolocationPosition(
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun setHeading(heading: Double): Unit = webkit_geolocation_position_set_heading(webkitGeolocationPositionPointer.reinterpret(), heading)
+    public fun setHeading(heading: gdouble): Unit = webkit_geolocation_position_set_heading(webkitGeolocationPositionPointer.reinterpret(), heading)
 
     /**
      * Set the @position speed.
@@ -89,7 +91,7 @@ public class GeolocationPosition(
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun setSpeed(speed: Double): Unit = webkit_geolocation_position_set_speed(webkitGeolocationPositionPointer.reinterpret(), speed)
+    public fun setSpeed(speed: gdouble): Unit = webkit_geolocation_position_set_speed(webkitGeolocationPositionPointer.reinterpret(), speed)
 
     /**
      * Set the @position timestamp.
@@ -100,7 +102,7 @@ public class GeolocationPosition(
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun setTimestamp(timestamp: ULong): Unit = webkit_geolocation_position_set_timestamp(webkitGeolocationPositionPointer.reinterpret(), timestamp)
+    public fun setTimestamp(timestamp: guint64): Unit = webkit_geolocation_position_set_timestamp(webkitGeolocationPositionPointer.reinterpret(), timestamp)
 
     public companion object : RecordCompanion<GeolocationPosition, WebKitGeolocationPosition> {
         /**
@@ -113,10 +115,17 @@ public class GeolocationPosition(
          * @since 2.26
          */
         public fun new(
-            latitude: Double,
-            longitude: Double,
-            accuracy: Double,
+            latitude: gdouble,
+            longitude: gdouble,
+            accuracy: gdouble,
         ): GeolocationPosition = GeolocationPosition(webkit_geolocation_position_new(latitude, longitude, accuracy)!!.reinterpret())
+
+        /**
+         * Get the GType of GeolocationPosition
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_geolocation_position_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): GeolocationPosition = GeolocationPosition(pointer.reinterpret())
     }

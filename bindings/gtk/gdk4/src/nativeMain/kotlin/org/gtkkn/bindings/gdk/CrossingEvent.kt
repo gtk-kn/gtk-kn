@@ -13,6 +13,7 @@ import org.gtkkn.native.gdk.gdk_crossing_event_get_detail
 import org.gtkkn.native.gdk.gdk_crossing_event_get_focus
 import org.gtkkn.native.gdk.gdk_crossing_event_get_mode
 import org.gtkkn.native.gdk.gdk_crossing_event_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * An event caused by a pointing device moving between surfaces.
@@ -53,5 +54,12 @@ public open class CrossingEvent(
 
         init {
             GdkTypeProvider.register()}
+
+        /**
+         * Get the GType of CrossingEvent
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_crossing_event_get_type()
     }
 }

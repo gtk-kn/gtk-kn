@@ -34,6 +34,7 @@ import org.gtkkn.native.adw.adw_navigation_page_set_can_pop
 import org.gtkkn.native.adw.adw_navigation_page_set_child
 import org.gtkkn.native.adw.adw_navigation_page_set_tag
 import org.gtkkn.native.adw.adw_navigation_page_set_title
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -307,6 +308,13 @@ public open class NavigationPage(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of NavigationPage
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_navigation_page_get_type()
     }
 }
 

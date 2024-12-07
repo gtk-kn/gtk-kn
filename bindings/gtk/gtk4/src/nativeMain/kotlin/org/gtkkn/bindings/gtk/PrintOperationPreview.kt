@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -20,6 +19,7 @@ import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkPageSetup
 import org.gtkkn.native.gtk.GtkPrintContext
 import org.gtkkn.native.gtk.GtkPrintOperationPreview
@@ -53,7 +53,7 @@ public interface PrintOperationPreview : Interface, KGTyped {
      * @param pageNr a page number
      * @return true if the page has been selected for printing
      */
-    public fun isSelected(pageNr: Int): Boolean = gtk_print_operation_preview_is_selected(gtkPrintOperationPreviewPointer.reinterpret(), pageNr).asBoolean()
+    public fun isSelected(pageNr: gint): Boolean = gtk_print_operation_preview_is_selected(gtkPrintOperationPreviewPointer.reinterpret(), pageNr).asBoolean()
 
     /**
      * Renders a page to the preview.
@@ -70,7 +70,7 @@ public interface PrintOperationPreview : Interface, KGTyped {
      *
      * @param pageNr the page to render
      */
-    public fun renderPage(pageNr: Int): Unit = gtk_print_operation_preview_render_page(gtkPrintOperationPreviewPointer.reinterpret(), pageNr)
+    public fun renderPage(pageNr: gint): Unit = gtk_print_operation_preview_render_page(gtkPrintOperationPreviewPointer.reinterpret(), pageNr)
 
     /**
      * Emitted once for each page that gets rendered to the preview.

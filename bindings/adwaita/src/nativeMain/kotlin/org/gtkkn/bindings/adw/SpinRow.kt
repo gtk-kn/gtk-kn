@@ -2,9 +2,6 @@
 package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -48,7 +45,11 @@ import org.gtkkn.native.adw.adw_spin_row_set_update_policy
 import org.gtkkn.native.adw.adw_spin_row_set_value
 import org.gtkkn.native.adw.adw_spin_row_set_wrap
 import org.gtkkn.native.adw.adw_spin_row_update
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
@@ -124,7 +125,7 @@ public class SpinRow(
      * @since 1.4
      */
     @AdwVersion1_4
-    public var climbRate: Double
+    public var climbRate: gdouble
         /**
          * Gets the acceleration rate when you hold down a button or key.
          *
@@ -147,7 +148,7 @@ public class SpinRow(
      * @since 1.4
      */
     @AdwVersion1_4
-    public var digits: UInt
+    public var digits: guint
         /**
          * Gets the number of decimal places to display.
          *
@@ -244,7 +245,7 @@ public class SpinRow(
      * @since 1.4
      */
     @AdwVersion1_4
-    public var `value`: Double
+    public var `value`: gdouble
         /**
          * Gets the current value.
          *
@@ -295,8 +296,8 @@ public class SpinRow(
      */
     public constructor(
         adjustment: Adjustment? = null,
-        climbRate: Double,
-        digits: UInt,
+        climbRate: gdouble,
+        digits: guint,
     ) : this(adw_spin_row_new(adjustment?.gtkAdjustmentPointer?.reinterpret(), climbRate, digits)!!.reinterpret())
 
     /**
@@ -319,9 +320,9 @@ public class SpinRow(
      * @since 1.4
      */
     public constructor(
-        min: Double,
-        max: Double,
-        step: Double,
+        min: gdouble,
+        max: gdouble,
+        step: gdouble,
     ) : this(adw_spin_row_new_with_range(min, max, step)!!.reinterpret())
 
     /**
@@ -338,8 +339,8 @@ public class SpinRow(
     @AdwVersion1_4
     public fun configure(
         adjustment: Adjustment? = null,
-        climbRate: Double,
-        digits: UInt,
+        climbRate: gdouble,
+        digits: guint,
     ): Unit = adw_spin_row_configure(adwSpinRowPointer.reinterpret(), adjustment?.gtkAdjustmentPointer?.reinterpret(), climbRate, digits)
 
     /**
@@ -372,7 +373,7 @@ public class SpinRow(
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun setRange(min: Double, max: Double): Unit = adw_spin_row_set_range(adwSpinRowPointer.reinterpret(), min, max)
+    public fun setRange(min: gdouble, max: gdouble): Unit = adw_spin_row_set_range(adwSpinRowPointer.reinterpret(), min, max)
 
     /**
      * Manually force an update of the spin row.
@@ -412,10 +413,17 @@ public class SpinRow(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of SpinRow
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_spin_row_get_type()
     }
 }
 
-private val connectOutputFunc: CPointer<CFunction<() -> Int>> = staticCFunction {
+private val connectOutputFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     userData: COpaquePointer
     ->

@@ -9,6 +9,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_30
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitPolicyDecision
 import org.gtkkn.native.webkit.webkit_policy_decision_download
 import org.gtkkn.native.webkit.webkit_policy_decision_get_type
@@ -77,5 +78,12 @@ public open class PolicyDecision(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of PolicyDecision
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_policy_decision_get_type()
     }
 }

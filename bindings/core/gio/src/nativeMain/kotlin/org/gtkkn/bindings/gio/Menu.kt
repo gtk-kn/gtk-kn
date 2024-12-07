@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
@@ -29,6 +28,8 @@ import org.gtkkn.native.gio.g_menu_prepend_section
 import org.gtkkn.native.gio.g_menu_prepend_submenu
 import org.gtkkn.native.gio.g_menu_remove
 import org.gtkkn.native.gio.g_menu_remove_all
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * `GMenu` is a simple implementation of [class@Gio.MenuModel].
@@ -133,7 +134,7 @@ public open class Menu(
      */
     @GioVersion2_32
     public open fun insert(
-        position: Int,
+        position: gint,
         label: String? = null,
         detailedAction: String? = null,
     ): Unit = g_menu_insert(gioMenuPointer.reinterpret(), position, label, detailedAction)
@@ -162,7 +163,7 @@ public open class Menu(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun insertItem(position: Int, item: MenuItem): Unit = g_menu_insert_item(gioMenuPointer.reinterpret(), position, item.gioMenuItemPointer.reinterpret())
+    public open fun insertItem(position: gint, item: MenuItem): Unit = g_menu_insert_item(gioMenuPointer.reinterpret(), position, item.gioMenuItemPointer.reinterpret())
 
     /**
      * Convenience function for inserting a section menu item into @menu.
@@ -176,7 +177,7 @@ public open class Menu(
      */
     @GioVersion2_32
     public open fun insertSection(
-        position: Int,
+        position: gint,
         label: String? = null,
         section: MenuModel,
     ): Unit = g_menu_insert_section(gioMenuPointer.reinterpret(), position, label, section.gioMenuModelPointer.reinterpret())
@@ -193,7 +194,7 @@ public open class Menu(
      */
     @GioVersion2_32
     public open fun insertSubmenu(
-        position: Int,
+        position: gint,
         label: String? = null,
         submenu: MenuModel,
     ): Unit = g_menu_insert_submenu(gioMenuPointer.reinterpret(), position, label, submenu.gioMenuModelPointer.reinterpret())
@@ -261,7 +262,7 @@ public open class Menu(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun remove(position: Int): Unit = g_menu_remove(gioMenuPointer.reinterpret(), position)
+    public open fun remove(position: gint): Unit = g_menu_remove(gioMenuPointer.reinterpret(), position)
 
     /**
      * Removes all items in the menu.
@@ -277,5 +278,12 @@ public open class Menu(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of Menu
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_menu_get_type()
     }
 }

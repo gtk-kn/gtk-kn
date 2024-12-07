@@ -15,6 +15,7 @@ import org.gtkkn.native.gio.GIOModule
 import org.gtkkn.native.gio.g_io_module_get_type
 import org.gtkkn.native.gio.g_io_module_new
 import org.gtkkn.native.gio.g_io_module_query
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GTypePlugin
 
 /**
@@ -89,5 +90,12 @@ public open class IOModule(
          */
         @GioVersion2_24
         public fun query(): List<String> = g_io_module_query()?.toKStringList() ?: error("Expected not null string array")
+
+        /**
+         * Get the GType of IOModule
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_io_module_get_type()
     }
 }

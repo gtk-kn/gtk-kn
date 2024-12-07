@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asBoolean
@@ -10,6 +9,8 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -125,7 +126,7 @@ public open class Revealer(
     /**
      * The animation duration, in milliseconds.
      */
-    public open var transitionDuration: UInt
+    public open var transitionDuration: guint
         /**
          * Returns the amount of time (in milliseconds) that
          * transitions will take.
@@ -175,5 +176,12 @@ public open class Revealer(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of Revealer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_revealer_get_type()
     }
 }

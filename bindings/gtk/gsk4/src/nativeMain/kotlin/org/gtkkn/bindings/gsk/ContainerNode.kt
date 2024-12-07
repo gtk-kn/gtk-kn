@@ -1,12 +1,13 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gsk.GskContainerNode
 import org.gtkkn.native.gsk.gsk_container_node_get_child
 import org.gtkkn.native.gsk.gsk_container_node_get_n_children
@@ -32,7 +33,7 @@ public open class ContainerNode(
      * @param idx the position of the child to get
      * @return the @idx'th child of @container
      */
-    public open fun getChild(idx: UInt): RenderNode = gsk_container_node_get_child(gskContainerNodePointer.reinterpret(), idx)!!.run {
+    public open fun getChild(idx: guint): RenderNode = gsk_container_node_get_child(gskContainerNodePointer.reinterpret(), idx)!!.run {
         RenderNode(reinterpret())}
 
     /**
@@ -40,7 +41,7 @@ public open class ContainerNode(
      *
      * @return the number of children of the `GskRenderNode`
      */
-    public open fun getNChildren(): UInt = gsk_container_node_get_n_children(gskContainerNodePointer.reinterpret())
+    public open fun getNChildren(): guint = gsk_container_node_get_n_children(gskContainerNodePointer.reinterpret())
 
     public companion object : TypeCompanion<ContainerNode> {
         override val type: GeneratedClassKGType<ContainerNode> =
@@ -48,5 +49,12 @@ public open class ContainerNode(
 
         init {
             GskTypeProvider.register()}
+
+        /**
+         * Get the GType of ContainerNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_container_node_get_type()
     }
 }

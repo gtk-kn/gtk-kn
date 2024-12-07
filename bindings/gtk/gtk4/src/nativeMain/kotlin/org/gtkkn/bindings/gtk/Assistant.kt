@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -22,7 +21,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAssistant
 import org.gtkkn.native.gtk.GtkBuildable
@@ -156,7 +157,7 @@ public open class Assistant(
      * @param page a `GtkWidget`
      * @return the index (starting at 0) of the inserted page
      */
-    public open fun appendPage(page: Widget): Int = gtk_assistant_append_page(gtkAssistantPointer.reinterpret(), page.gtkWidgetPointer.reinterpret())
+    public open fun appendPage(page: Widget): gint = gtk_assistant_append_page(gtkAssistantPointer.reinterpret(), page.gtkWidgetPointer.reinterpret())
 
     /**
      * Erases the visited page history.
@@ -179,14 +180,14 @@ public open class Assistant(
      *   page in the @assistant, or -1 if the @assistant has no pages,
      *   or no current page
      */
-    public open fun getCurrentPage(): Int = gtk_assistant_get_current_page(gtkAssistantPointer.reinterpret())
+    public open fun getCurrentPage(): gint = gtk_assistant_get_current_page(gtkAssistantPointer.reinterpret())
 
     /**
      * Returns the number of pages in the @assistant
      *
      * @return the number of pages in the @assistant
      */
-    public open fun getNPages(): Int = gtk_assistant_get_n_pages(gtkAssistantPointer.reinterpret())
+    public open fun getNPages(): gint = gtk_assistant_get_n_pages(gtkAssistantPointer.reinterpret())
 
     /**
      * Returns the child widget contained in page number @page_num.
@@ -196,7 +197,7 @@ public open class Assistant(
      * @return the child widget, or null
      *   if @page_num is out of bounds
      */
-    public open fun getNthPage(pageNum: Int): Widget? = gtk_assistant_get_nth_page(gtkAssistantPointer.reinterpret(), pageNum)?.run {
+    public open fun getNthPage(pageNum: gint): Widget? = gtk_assistant_get_nth_page(gtkAssistantPointer.reinterpret(), pageNum)?.run {
         Widget(reinterpret())}
 
     /**
@@ -241,7 +242,7 @@ public open class Assistant(
      *   or -1 to append the page to the @assistant
      * @return the index (starting from 0) of the inserted page
      */
-    public open fun insertPage(page: Widget, position: Int): Int = gtk_assistant_insert_page(gtkAssistantPointer.reinterpret(), page.gtkWidgetPointer.reinterpret(), position)
+    public open fun insertPage(page: Widget, position: gint): gint = gtk_assistant_insert_page(gtkAssistantPointer.reinterpret(), page.gtkWidgetPointer.reinterpret(), position)
 
     /**
      * Navigate to the next page.
@@ -260,7 +261,7 @@ public open class Assistant(
      * @param page a `GtkWidget`
      * @return the index (starting at 0) of the inserted page
      */
-    public open fun prependPage(page: Widget): Int = gtk_assistant_prepend_page(gtkAssistantPointer.reinterpret(), page.gtkWidgetPointer.reinterpret())
+    public open fun prependPage(page: Widget): gint = gtk_assistant_prepend_page(gtkAssistantPointer.reinterpret(), page.gtkWidgetPointer.reinterpret())
 
     /**
      * Navigate to the previous visited page.
@@ -286,7 +287,7 @@ public open class Assistant(
      * @param pageNum the index of a page in the @assistant,
      *   or -1 to remove the last page
      */
-    public open fun removePage(pageNum: Int): Unit = gtk_assistant_remove_page(gtkAssistantPointer.reinterpret(), pageNum)
+    public open fun removePage(pageNum: gint): Unit = gtk_assistant_remove_page(gtkAssistantPointer.reinterpret(), pageNum)
 
     /**
      * Switches the page to @page_num.
@@ -300,7 +301,7 @@ public open class Assistant(
      *   than the number of pages in the @assistant, nothing
      *   will be done.
      */
-    public open fun setCurrentPage(pageNum: Int): Unit = gtk_assistant_set_current_page(gtkAssistantPointer.reinterpret(), pageNum)
+    public open fun setCurrentPage(pageNum: gint): Unit = gtk_assistant_set_current_page(gtkAssistantPointer.reinterpret(), pageNum)
 
     /**
      * Sets the page forwarding function to be @page_func.
@@ -423,6 +424,13 @@ public open class Assistant(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of Assistant
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_assistant_get_type()
     }
 }
 

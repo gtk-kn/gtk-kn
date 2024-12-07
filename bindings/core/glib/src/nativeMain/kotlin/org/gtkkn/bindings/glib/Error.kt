@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
@@ -18,6 +17,9 @@ import org.gtkkn.native.glib.g_error_copy
 import org.gtkkn.native.glib.g_error_free
 import org.gtkkn.native.glib.g_error_matches
 import org.gtkkn.native.glib.g_error_new_literal
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_error_get_type
+import org.gtkkn.native.gobject.gint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -46,7 +48,7 @@ public class Error(
     /**
      * error code, e.g. %G_FILE_ERROR_NOENT
      */
-    public var code: Int
+    public var code: gint
         get() = glibErrorPointer.pointed.code
         set(`value`) {
             glibErrorPointer.pointed.code = value
@@ -89,7 +91,7 @@ public class Error(
      * @param code an error code
      * @return whether @error has @domain and @code
      */
-    public fun matches(domain: Quark, code: Int): Boolean = g_error_matches(glibErrorPointer.reinterpret(), domain, code).asBoolean()
+    public fun matches(domain: Quark, code: gint): Boolean = g_error_matches(glibErrorPointer.reinterpret(), domain, code).asBoolean()
 
     public companion object : RecordCompanion<Error, GError> {
         /**
@@ -105,9 +107,16 @@ public class Error(
          */
         public fun newLiteral(
             domain: Quark,
-            code: Int,
+            code: gint,
             message: String,
         ): Error = Error(g_error_new_literal(domain, code, message)!!.reinterpret())
+
+        /**
+         * Get the GType of Error
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_error_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Error = Error(pointer.reinterpret())
     }

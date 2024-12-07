@@ -2,12 +2,8 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
-import kotlin.Long
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
-import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
 import kotlinx.cinterop.CPointer
@@ -166,6 +162,10 @@ import org.gtkkn.native.gio.g_file_unmount_mountable_finish
 import org.gtkkn.native.gio.g_file_unmount_mountable_with_operation
 import org.gtkkn.native.gio.g_file_unmount_mountable_with_operation_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gint64
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.guint64
 
 /**
  * `GFile` is a high level abstraction for manipulating files on a
@@ -339,7 +339,7 @@ public interface File : Interface, KGTyped {
      */
     public fun appendToAsync(
         flags: FileCreateFlags,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_file_append_to_async(gioFilePointer.reinterpret(), flags.mask, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -572,7 +572,7 @@ public interface File : Interface, KGTyped {
      */
     public fun createAsync(
         flags: FileCreateFlags,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_file_create_async(gioFilePointer.reinterpret(), flags.mask, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -667,7 +667,7 @@ public interface File : Interface, KGTyped {
     @GioVersion2_22
     public fun createReadwriteAsync(
         flags: FileCreateFlags,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_file_create_readwrite_async(gioFilePointer.reinterpret(), flags.mask, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -747,7 +747,7 @@ public interface File : Interface, KGTyped {
      */
     @GioVersion2_34
     public fun deleteAsync(
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_file_delete_async(gioFilePointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -952,7 +952,7 @@ public interface File : Interface, KGTyped {
     public fun enumerateChildrenAsync(
         attributes: String,
         flags: FileQueryInfoFlags,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_file_enumerate_children_async(gioFilePointer.reinterpret(), attributes, flags.mask, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -1040,7 +1040,7 @@ public interface File : Interface, KGTyped {
      *   to call when the request is satisfied
      */
     public fun findEnclosingMountAsync(
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_file_find_enclosing_mount_async(gioFilePointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -1282,7 +1282,7 @@ public interface File : Interface, KGTyped {
      *   This function is intended for easily hashing a #GFile to
      *   add to a #GHashTable or similar data structure.
      */
-    public fun hash(): UInt = g_file_hash(gioFilePointer.reinterpret())
+    public fun hash(): guint = g_file_hash(gioFilePointer.reinterpret())
 
     /**
      * Checks to see if a file is native to the platform.
@@ -1384,7 +1384,7 @@ public interface File : Interface, KGTyped {
      */
     @GioVersion2_38
     public fun makeDirectoryAsync(
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_file_make_directory_async(gioFilePointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -1483,7 +1483,7 @@ public interface File : Interface, KGTyped {
     @GioVersion2_74
     public fun makeSymbolicLinkAsync(
         symlinkValue: String,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_file_make_symbolic_link_async(gioFilePointer.reinterpret(), symlinkValue, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -1839,7 +1839,7 @@ public interface File : Interface, KGTyped {
      */
     @GioVersion2_22
     public fun openReadwriteAsync(
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_file_open_readwrite_async(gioFilePointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -1961,7 +1961,7 @@ public interface File : Interface, KGTyped {
      */
     @GioVersion2_60
     public fun queryDefaultHandlerAsync(
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_file_query_default_handler_async(gioFilePointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -2106,7 +2106,7 @@ public interface File : Interface, KGTyped {
      */
     public fun queryFilesystemInfoAsync(
         attributes: String,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_file_query_filesystem_info_async(gioFilePointer.reinterpret(), attributes, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -2211,7 +2211,7 @@ public interface File : Interface, KGTyped {
     public fun queryInfoAsync(
         attributes: String,
         flags: FileQueryInfoFlags,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_file_query_info_async(gioFilePointer.reinterpret(), attributes, flags.mask, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -2344,7 +2344,7 @@ public interface File : Interface, KGTyped {
      *   to call when the request is satisfied
      */
     public fun readAsync(
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_file_read_async(gioFilePointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -2465,7 +2465,7 @@ public interface File : Interface, KGTyped {
         etag: String? = null,
         makeBackup: Boolean,
         flags: FileCreateFlags,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_file_replace_async(gioFilePointer.reinterpret(), etag, makeBackup.asGBoolean(), flags.mask, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -2588,7 +2588,7 @@ public interface File : Interface, KGTyped {
         etag: String? = null,
         makeBackup: Boolean,
         flags: FileCreateFlags,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_file_replace_readwrite_async(gioFilePointer.reinterpret(), etag, makeBackup.asGBoolean(), flags.mask, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -2681,7 +2681,7 @@ public interface File : Interface, KGTyped {
      */
     public fun setAttributeInt32(
         attribute: String,
-        `value`: Int,
+        `value`: gint,
         flags: FileQueryInfoFlags,
         cancellable: Cancellable? = null,
     ): Result<Boolean> = memScoped {
@@ -2712,7 +2712,7 @@ public interface File : Interface, KGTyped {
      */
     public fun setAttributeInt64(
         attribute: String,
-        `value`: Long,
+        `value`: gint64,
         flags: FileQueryInfoFlags,
         cancellable: Cancellable? = null,
     ): Result<Boolean> = memScoped {
@@ -2775,7 +2775,7 @@ public interface File : Interface, KGTyped {
      */
     public fun setAttributeUint32(
         attribute: String,
-        `value`: UInt,
+        `value`: guint,
         flags: FileQueryInfoFlags,
         cancellable: Cancellable? = null,
     ): Result<Boolean> = memScoped {
@@ -2807,7 +2807,7 @@ public interface File : Interface, KGTyped {
      */
     public fun setAttributeUint64(
         attribute: String,
-        `value`: ULong,
+        `value`: guint64,
         flags: FileQueryInfoFlags,
         cancellable: Cancellable? = null,
     ): Result<Boolean> = memScoped {
@@ -2842,7 +2842,7 @@ public interface File : Interface, KGTyped {
     public fun setAttributesAsync(
         info: FileInfo,
         flags: FileQueryInfoFlags,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_file_set_attributes_async(gioFilePointer.reinterpret(), info.gioFileInfoPointer.reinterpret(), flags.mask, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -2938,7 +2938,7 @@ public interface File : Interface, KGTyped {
      */
     public fun setDisplayNameAsync(
         displayName: String,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_file_set_display_name_async(gioFilePointer.reinterpret(), displayName, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -3116,7 +3116,7 @@ public interface File : Interface, KGTyped {
      */
     @GioVersion2_38
     public fun trashAsync(
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_file_trash_async(gioFilePointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -3359,7 +3359,7 @@ public interface File : Interface, KGTyped {
         @GioVersion2_74
         public fun newTmpAsync(
             tmpl: String? = null,
-            ioPriority: Int,
+            ioPriority: gint,
             cancellable: Cancellable? = null,
             callback: AsyncReadyCallback,
         ): Unit = g_file_new_tmp_async(tmpl, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -3382,7 +3382,7 @@ public interface File : Interface, KGTyped {
         @GioVersion2_74
         public fun newTmpDirAsync(
             tmpl: String? = null,
-            ioPriority: Int,
+            ioPriority: gint,
             cancellable: Cancellable? = null,
             callback: AsyncReadyCallback,
         ): Unit = g_file_new_tmp_dir_async(tmpl, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())

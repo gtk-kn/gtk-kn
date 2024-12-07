@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gmodule
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -20,6 +19,7 @@ import org.gtkkn.native.gmodule.g_module_build_path
 import org.gtkkn.native.gmodule.g_module_error
 import org.gtkkn.native.gmodule.g_module_error_quark
 import org.gtkkn.native.gmodule.g_module_supported
+import org.gtkkn.native.gobject.gint
 
 /**
  * ## Skipped during bindings generation
@@ -28,13 +28,13 @@ import org.gtkkn.native.gmodule.g_module_supported
  * - record `Module`: Disguised records are ignored
  */
 public object GModule {
-    public const val MODULE_IMPL_AR: Int = 7
+    public const val MODULE_IMPL_AR: gint = 7
 
-    public const val MODULE_IMPL_DL: Int = 1
+    public const val MODULE_IMPL_DL: gint = 1
 
-    public const val MODULE_IMPL_NONE: Int = 0
+    public const val MODULE_IMPL_NONE: gint = 0
 
-    public const val MODULE_IMPL_WIN32: Int = 3
+    public const val MODULE_IMPL_WIN32: gint = 3
 
     /**
      * A portable way to build the filename of a module. The platform-specific

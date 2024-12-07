@@ -2,10 +2,8 @@
 package org.gtkkn.bindings.gtksource
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -27,6 +25,9 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtksource.GtkSourceSearchContext
 import org.gtkkn.native.gtksource.gtk_source_search_context_backward_async
 import org.gtkkn.native.gtksource.gtk_source_search_context_forward_async
@@ -148,7 +149,7 @@ public open class SearchContext(
      * the value is 0. If the buffer is not already fully scanned, the value
      * is -1.
      */
-    public open val occurrencesCount: Int
+    public open val occurrencesCount: gint
         /**
          * Gets the total number of search occurrences.
          *
@@ -268,7 +269,7 @@ public open class SearchContext(
      * position 1 (not 0). Returns 0 if @match_start and @match_end don't delimit
      * an occurrence. Returns -1 if the position is not yet known.
      */
-    public open fun getOccurrencePosition(matchStart: TextIter, matchEnd: TextIter): Int = gtk_source_search_context_get_occurrence_position(gtksourceSearchContextPointer.reinterpret(), matchStart.gtkTextIterPointer.reinterpret(), matchEnd.gtkTextIterPointer.reinterpret())
+    public open fun getOccurrencePosition(matchStart: TextIter, matchEnd: TextIter): gint = gtk_source_search_context_get_occurrence_position(gtksourceSearchContextPointer.reinterpret(), matchStart.gtkTextIterPointer.reinterpret(), matchEnd.gtkTextIterPointer.reinterpret())
 
     /**
      * Replaces a search match by another text. If @match_start and @match_end
@@ -291,7 +292,7 @@ public open class SearchContext(
         matchStart: TextIter,
         matchEnd: TextIter,
         replace: String,
-        replaceLength: Int,
+        replaceLength: gint,
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_source_search_context_replace(gtksourceSearchContextPointer.reinterpret(), matchStart.gtkTextIterPointer.reinterpret(), matchEnd.gtkTextIterPointer.reinterpret(), replace, replaceLength, gError.ptr).asBoolean()
@@ -316,7 +317,7 @@ public open class SearchContext(
      * @param replaceLength the length of @replace in bytes, or -1.
      * @return the number of replaced matches.
      */
-    public open fun replaceAll(replace: String, replaceLength: Int): Result<UInt> = memScoped {
+    public open fun replaceAll(replace: String, replaceLength: gint): Result<guint> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_source_search_context_replace_all(gtksourceSearchContextPointer.reinterpret(), replace, replaceLength, gError.ptr)
         return if (gError.pointed != null) {
@@ -343,5 +344,12 @@ public open class SearchContext(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of SearchContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_search_context_get_type()
     }
 }

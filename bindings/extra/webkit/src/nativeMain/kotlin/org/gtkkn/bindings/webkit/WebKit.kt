@@ -2,9 +2,7 @@
 package org.gtkkn.bindings.webkit
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -22,6 +20,8 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitURISchemeRequest
 import org.gtkkn.native.webkit.webkit_download_error_quark
 import org.gtkkn.native.webkit.webkit_favicon_database_error_quark
@@ -195,21 +195,21 @@ public object WebKit {
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val MAJOR_VERSION: Int = 2
+    public const val MAJOR_VERSION: gint = 2
 
     /**
      * Like webkit_get_micro_version(), but from the headers used at
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val MICRO_VERSION: Int = 3
+    public const val MICRO_VERSION: gint = 3
 
     /**
      * Like webkit_get_minor_version(), but from the headers used at
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val MINOR_VERSION: Int = 46
+    public const val MINOR_VERSION: gint = 46
 
     /**
      * Gets the quark for the domain of download errors.
@@ -237,7 +237,7 @@ public object WebKit {
      *
      * @return the major version number of the WebKit library
      */
-    public fun getMajorVersion(): UInt = webkit_get_major_version()
+    public fun getMajorVersion(): guint = webkit_get_major_version()
 
     /**
      * Returns the micro version number of the WebKit library.
@@ -251,7 +251,7 @@ public object WebKit {
      *
      * @return the micro version number of the WebKit library
      */
-    public fun getMicroVersion(): UInt = webkit_get_micro_version()
+    public fun getMicroVersion(): guint = webkit_get_micro_version()
 
     /**
      * Returns the minor version number of the WebKit library.
@@ -265,7 +265,7 @@ public object WebKit {
      *
      * @return the minor version number of the WebKit library
      */
-    public fun getMinorVersion(): UInt = webkit_get_minor_version()
+    public fun getMinorVersion(): guint = webkit_get_minor_version()
 
     /**
      * Gets the quark for the domain of JavaScript errors.

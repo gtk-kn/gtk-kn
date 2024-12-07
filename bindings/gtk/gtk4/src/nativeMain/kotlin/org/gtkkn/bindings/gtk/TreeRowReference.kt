@@ -10,12 +10,14 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkTreeRowReference
 import org.gtkkn.native.gtk.gtk_tree_row_reference_copy
 import org.gtkkn.native.gtk.gtk_tree_row_reference_deleted
 import org.gtkkn.native.gtk.gtk_tree_row_reference_free
 import org.gtkkn.native.gtk.gtk_tree_row_reference_get_model
 import org.gtkkn.native.gtk.gtk_tree_row_reference_get_path
+import org.gtkkn.native.gtk.gtk_tree_row_reference_get_type
 import org.gtkkn.native.gtk.gtk_tree_row_reference_inserted
 import org.gtkkn.native.gtk.gtk_tree_row_reference_new
 import org.gtkkn.native.gtk.gtk_tree_row_reference_new_proxy
@@ -141,6 +143,13 @@ public class TreeRowReference(
          * @param path the row position that was inserted
          */
         public fun inserted(proxy: Object, path: TreePath): Unit = gtk_tree_row_reference_inserted(proxy.gPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
+
+        /**
+         * Get the GType of TreeRowReference
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_tree_row_reference_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TreeRowReference = TreeRowReference(pointer.reinterpret())
     }

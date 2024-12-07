@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
@@ -14,6 +12,9 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAccessibleRange
 import org.gtkkn.native.gtk.GtkBuildable
@@ -147,7 +148,7 @@ public open class Scale(
     /**
      * The number of decimal places that are displayed in the value.
      */
-    public open var digits: Int
+    public open var digits: gint
         /**
          * Gets the number of decimal places that are displayed in the value.
          *
@@ -262,9 +263,9 @@ public open class Scale(
      */
     public constructor(
         orientation: Orientation,
-        min: Double,
-        max: Double,
-        step: Double,
+        min: gdouble,
+        max: gdouble,
+        step: gdouble,
     ) : this(gtk_scale_new_with_range(orientation.nativeValue, min, max, step)!!.reinterpret())
 
     /**
@@ -287,7 +288,7 @@ public open class Scale(
      * @param markup Text to be shown at the mark, using Pango markup
      */
     public open fun addMark(
-        `value`: Double,
+        `value`: gdouble,
         position: PositionType,
         markup: String? = null,
     ): Unit = gtk_scale_add_mark(gtkScalePointer.reinterpret(), `value`, position.nativeValue, markup)
@@ -316,5 +317,12 @@ public open class Scale(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of Scale
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_scale_get_type()
     }
 }

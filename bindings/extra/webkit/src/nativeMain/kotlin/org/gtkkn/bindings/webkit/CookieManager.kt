@@ -35,6 +35,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.webkit.WebKitCookieManager
 import org.gtkkn.native.webkit.webkit_cookie_manager_add_cookie
@@ -340,6 +341,13 @@ public class CookieManager(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of CookieManager
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_cookie_manager_get_type()
     }
 }
 

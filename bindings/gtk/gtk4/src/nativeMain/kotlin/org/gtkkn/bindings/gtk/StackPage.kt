@@ -13,6 +13,7 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkStackPage
 import org.gtkkn.native.gtk.gtk_stack_page_get_child
@@ -169,5 +170,12 @@ public open class StackPage(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of StackPage
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_stack_page_get_type()
     }
 }

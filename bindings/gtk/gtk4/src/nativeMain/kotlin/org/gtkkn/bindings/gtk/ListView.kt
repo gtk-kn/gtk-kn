@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -20,7 +19,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -342,7 +343,7 @@ public open class ListView(
      */
     @GtkVersion4_12
     public open fun scrollTo(
-        pos: UInt,
+        pos: guint,
         flags: ListScrollFlags,
         scroll: ScrollInfo? = null,
     ): Unit = gtk_list_view_scroll_to(gtkListViewPointer.reinterpret(), pos, flags.mask, scroll?.gtkScrollInfoPointer?.reinterpret())
@@ -358,7 +359,7 @@ public open class ListView(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `position` position of item to activate
      */
-    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (position: UInt) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "activate", connectActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (position: guint) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "activate", connectActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<ListView> {
         override val type: GeneratedClassKGType<ListView> =
@@ -366,13 +367,20 @@ public open class ListView(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of ListView
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_list_view_get_type()
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<(UInt) -> Unit>> = staticCFunction {
+private val connectActivateFunc: CPointer<CFunction<(guint) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    position: UInt,
+    position: guint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(position: UInt) -> Unit>().get().invoke(position)}
+    userData.asStableRef<(position: guint) -> Unit>().get().invoke(position)}
 .reinterpret()

@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Float
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -26,7 +24,10 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkCellEditable
 import org.gtkkn.native.gtk.GtkCellRenderer
 import org.gtkkn.native.gtk.gtk_cell_renderer_activate
@@ -262,7 +263,7 @@ public open class CellRenderer(
      * @param xalign the x alignment of the cell renderer
      * @param yalign the y alignment of the cell renderer
      */
-    public open fun setAlignment(xalign: Float, yalign: Float): Unit = gtk_cell_renderer_set_alignment(gtkCellRendererPointer.reinterpret(), xalign, yalign)
+    public open fun setAlignment(xalign: gfloat, yalign: gfloat): Unit = gtk_cell_renderer_set_alignment(gtkCellRendererPointer.reinterpret(), xalign, yalign)
 
     /**
      * Sets the renderer size to be explicit, independent of the properties set.
@@ -270,7 +271,7 @@ public open class CellRenderer(
      * @param width the width of the cell renderer, or -1
      * @param height the height of the cell renderer, or -1
      */
-    public open fun setFixedSize(width: Int, height: Int): Unit = gtk_cell_renderer_set_fixed_size(gtkCellRendererPointer.reinterpret(), width, height)
+    public open fun setFixedSize(width: gint, height: gint): Unit = gtk_cell_renderer_set_fixed_size(gtkCellRendererPointer.reinterpret(), width, height)
 
     /**
      * Sets the renderer’s padding.
@@ -278,7 +279,7 @@ public open class CellRenderer(
      * @param xpad the x padding of the cell renderer
      * @param ypad the y padding of the cell renderer
      */
-    public open fun setPadding(xpad: Int, ypad: Int): Unit = gtk_cell_renderer_set_padding(gtkCellRendererPointer.reinterpret(), xpad, ypad)
+    public open fun setPadding(xpad: gint, ypad: gint): Unit = gtk_cell_renderer_set_padding(gtkCellRendererPointer.reinterpret(), xpad, ypad)
 
     /**
      * Starts editing the contents of this @cell, through a new `GtkCellEditable`
@@ -371,6 +372,13 @@ public open class CellRenderer(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of CellRenderer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_cell_renderer_get_type()
     }
 }
 

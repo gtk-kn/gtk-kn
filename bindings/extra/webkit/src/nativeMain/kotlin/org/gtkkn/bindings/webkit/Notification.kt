@@ -21,7 +21,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.webkit.WebKitNotification
 import org.gtkkn.native.webkit.webkit_notification_clicked
 import org.gtkkn.native.webkit.webkit_notification_close
@@ -64,7 +66,7 @@ public class Notification(
      * @since 2.8
      */
     @WebKitVersion2_8
-    public val id: ULong
+    public val id: guint64
         /**
          * Obtains the unique id for the notification.
          *
@@ -151,6 +153,13 @@ public class Notification(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of Notification
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_notification_get_type()
     }
 }
 

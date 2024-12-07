@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gdk
 
 import kotlin.Boolean
-import kotlin.Int
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_12
@@ -30,6 +28,9 @@ import org.gtkkn.native.gdk.gdk_gl_texture_builder_set_height
 import org.gtkkn.native.gdk.gdk_gl_texture_builder_set_id
 import org.gtkkn.native.gdk.gdk_gl_texture_builder_set_update_texture
 import org.gtkkn.native.gdk.gdk_gl_texture_builder_set_width
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 
 /**
  * `GdkGLTextureBuilder` is a builder used to construct [class@Gdk.Texture] objects from
@@ -163,7 +164,7 @@ public open class GLTextureBuilder(
      * @since 4.12
      */
     @GdkVersion4_12
-    public open var height: Int
+    public open var height: gint
         /**
          * Gets the height previously set via gdk_gl_texture_builder_set_height() or
          * 0 if the height wasn't set.
@@ -189,7 +190,7 @@ public open class GLTextureBuilder(
      * @since 4.12
      */
     @GdkVersion4_12
-    public open var id: UInt
+    public open var id: guint
         /**
          * Gets the texture id previously set via gdk_gl_texture_builder_set_id() or
          * 0 if the id wasn't set.
@@ -243,7 +244,7 @@ public open class GLTextureBuilder(
      * @since 4.12
      */
     @GdkVersion4_12
-    public open var width: Int
+    public open var width: gint
         /**
          * Gets the width previously set via gdk_gl_texture_builder_set_width() or
          * 0 if the width wasn't set.
@@ -277,5 +278,12 @@ public open class GLTextureBuilder(
 
         init {
             GdkTypeProvider.register()}
+
+        /**
+         * Get the GType of GLTextureBuilder
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_gl_texture_builder_get_type()
     }
 }

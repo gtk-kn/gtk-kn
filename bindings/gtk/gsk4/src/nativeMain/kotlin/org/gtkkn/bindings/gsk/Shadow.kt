@@ -1,13 +1,13 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
-import kotlin.Float
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskShadow
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
@@ -26,7 +26,7 @@ public class Shadow(
     /**
      * the horizontal offset of the shadow
      */
-    public var dx: Float
+    public var dx: gfloat
         get() = gskShadowPointer.pointed.dx
         set(`value`) {
             gskShadowPointer.pointed.dx = value
@@ -35,7 +35,7 @@ public class Shadow(
     /**
      * the vertical offset of the shadow
      */
-    public var dy: Float
+    public var dy: gfloat
         get() = gskShadowPointer.pointed.dy
         set(`value`) {
             gskShadowPointer.pointed.dy = value
@@ -44,7 +44,7 @@ public class Shadow(
     /**
      * the radius of the shadow
      */
-    public var radius: Float
+    public var radius: gfloat
         get() = gskShadowPointer.pointed.radius
         set(`value`) {
             gskShadowPointer.pointed.radius = value

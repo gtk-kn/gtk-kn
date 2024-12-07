@@ -16,6 +16,7 @@ import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GFileAttributeMatcher
 import org.gtkkn.native.gio.g_file_attribute_matcher_enumerate_namespace
 import org.gtkkn.native.gio.g_file_attribute_matcher_enumerate_next
+import org.gtkkn.native.gio.g_file_attribute_matcher_get_type
 import org.gtkkn.native.gio.g_file_attribute_matcher_matches
 import org.gtkkn.native.gio.g_file_attribute_matcher_matches_only
 import org.gtkkn.native.gio.g_file_attribute_matcher_new
@@ -23,6 +24,7 @@ import org.gtkkn.native.gio.g_file_attribute_matcher_ref
 import org.gtkkn.native.gio.g_file_attribute_matcher_subtract
 import org.gtkkn.native.gio.g_file_attribute_matcher_to_string
 import org.gtkkn.native.gio.g_file_attribute_matcher_unref
+import org.gtkkn.native.gobject.GType
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -145,6 +147,13 @@ public class FileAttributeMatcher(
          * @return a #GFileAttributeMatcher
          */
         public fun new(attributes: String): FileAttributeMatcher = FileAttributeMatcher(g_file_attribute_matcher_new(attributes)!!.reinterpret())
+
+        /**
+         * Get the GType of FileAttributeMatcher
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_file_attribute_matcher_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FileAttributeMatcher = FileAttributeMatcher(pointer.reinterpret())
     }

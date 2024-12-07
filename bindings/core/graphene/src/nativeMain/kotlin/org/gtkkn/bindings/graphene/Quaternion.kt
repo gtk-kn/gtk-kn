@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.graphene
 
 import kotlin.Boolean
-import kotlin.Float
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -12,11 +11,14 @@ import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.graphene.graphene_quaternion_add
 import org.gtkkn.native.graphene.graphene_quaternion_alloc
 import org.gtkkn.native.graphene.graphene_quaternion_dot
 import org.gtkkn.native.graphene.graphene_quaternion_equal
 import org.gtkkn.native.graphene.graphene_quaternion_free
+import org.gtkkn.native.graphene.graphene_quaternion_get_type
 import org.gtkkn.native.graphene.graphene_quaternion_init
 import org.gtkkn.native.graphene.graphene_quaternion_init_from_angle_vec3
 import org.gtkkn.native.graphene.graphene_quaternion_init_from_angles
@@ -78,7 +80,7 @@ public class Quaternion(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun dot(b: Quaternion): Float = graphene_quaternion_dot(grapheneQuaternionPointer.reinterpret(), b.grapheneQuaternionPointer.reinterpret())
+    public fun dot(b: Quaternion): gfloat = graphene_quaternion_dot(grapheneQuaternionPointer.reinterpret(), b.grapheneQuaternionPointer.reinterpret())
 
     /**
      * Checks whether the given quaternions are equal.
@@ -110,10 +112,10 @@ public class Quaternion(
      */
     @GrapheneVersion1_0
     public fun `init`(
-        x: Float,
-        y: Float,
-        z: Float,
-        w: Float,
+        x: gfloat,
+        y: gfloat,
+        z: gfloat,
+        w: gfloat,
     ): Quaternion = graphene_quaternion_init(grapheneQuaternionPointer.reinterpret(), x, y, z, w)!!.run {
         Quaternion(reinterpret())}
 
@@ -127,7 +129,7 @@ public class Quaternion(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initFromAngleVec3(angle: Float, axis: Vec3): Quaternion = graphene_quaternion_init_from_angle_vec3(grapheneQuaternionPointer.reinterpret(), angle, axis.grapheneVec3Pointer.reinterpret())!!.run {
+    public fun initFromAngleVec3(angle: gfloat, axis: Vec3): Quaternion = graphene_quaternion_init_from_angle_vec3(grapheneQuaternionPointer.reinterpret(), angle, axis.grapheneVec3Pointer.reinterpret())!!.run {
         Quaternion(reinterpret())}
 
     /**
@@ -145,9 +147,9 @@ public class Quaternion(
      */
     @GrapheneVersion1_0
     public fun initFromAngles(
-        degX: Float,
-        degY: Float,
-        degZ: Float,
+        degX: gfloat,
+        degY: gfloat,
+        degZ: gfloat,
     ): Quaternion = graphene_quaternion_init_from_angles(grapheneQuaternionPointer.reinterpret(), degX, degY, degZ)!!.run {
         Quaternion(reinterpret())}
 
@@ -200,9 +202,9 @@ public class Quaternion(
      */
     @GrapheneVersion1_0
     public fun initFromRadians(
-        radX: Float,
-        radY: Float,
-        radZ: Float,
+        radX: gfloat,
+        radY: gfloat,
+        radZ: gfloat,
     ): Quaternion = graphene_quaternion_init_from_radians(grapheneQuaternionPointer.reinterpret(), radX, radY, radZ)!!.run {
         Quaternion(reinterpret())}
 
@@ -268,7 +270,7 @@ public class Quaternion(
      * @since 1.10
      */
     @GrapheneVersion1_10
-    public fun scale(factor: Float, res: Quaternion): Unit = graphene_quaternion_scale(grapheneQuaternionPointer.reinterpret(), factor, res.grapheneQuaternionPointer.reinterpret())
+    public fun scale(factor: gfloat, res: Quaternion): Unit = graphene_quaternion_scale(grapheneQuaternionPointer.reinterpret(), factor, res.grapheneQuaternionPointer.reinterpret())
 
     /**
      * Interpolates between the two given quaternions using a spherical
@@ -284,7 +286,7 @@ public class Quaternion(
     @GrapheneVersion1_0
     public fun slerp(
         b: Quaternion,
-        factor: Float,
+        factor: gfloat,
         res: Quaternion,
     ): Unit = graphene_quaternion_slerp(grapheneQuaternionPointer.reinterpret(), b.grapheneQuaternionPointer.reinterpret(), factor, res.grapheneQuaternionPointer.reinterpret())
 
@@ -319,6 +321,13 @@ public class Quaternion(
          * @since 1.0
          */
         public fun alloc(): Quaternion = Quaternion(graphene_quaternion_alloc()!!.reinterpret())
+
+        /**
+         * Get the GType of Quaternion
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = graphene_quaternion_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Quaternion = Quaternion(pointer.reinterpret())
     }

@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
@@ -10,6 +9,8 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkFlattenListModel
 import org.gtkkn.native.gtk.GtkSectionModel
 import org.gtkkn.native.gtk.gtk_flatten_list_model_get_model
@@ -76,7 +77,7 @@ public open class FlattenListModel(
      * @param position a position
      * @return the model containing the item at @position
      */
-    public open fun getModelForItem(position: UInt): ListModel? = gtk_flatten_list_model_get_model_for_item(gtkFlattenListModelPointer.reinterpret(), position)?.run {
+    public open fun getModelForItem(position: guint): ListModel? = gtk_flatten_list_model_get_model_for_item(gtkFlattenListModelPointer.reinterpret(), position)?.run {
         ListModel.wrap(reinterpret())}
 
     public companion object : TypeCompanion<FlattenListModel> {
@@ -85,5 +86,12 @@ public open class FlattenListModel(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of FlattenListModel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_flatten_list_model_get_type()
     }
 }

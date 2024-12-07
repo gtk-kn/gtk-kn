@@ -15,6 +15,8 @@ import org.gtkkn.native.glib.g_option_group_free
 import org.gtkkn.native.glib.g_option_group_ref
 import org.gtkkn.native.glib.g_option_group_set_translation_domain
 import org.gtkkn.native.glib.g_option_group_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_option_group_get_type
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -77,6 +79,13 @@ public class OptionGroup(
     public fun unref(): Unit = g_option_group_unref(glibOptionGroupPointer.reinterpret())
 
     public companion object : RecordCompanion<OptionGroup, GOptionGroup> {
+        /**
+         * Get the GType of OptionGroup
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_option_group_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): OptionGroup = OptionGroup(pointer.reinterpret())
     }
 }

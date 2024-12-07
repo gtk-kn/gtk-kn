@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
@@ -31,6 +30,8 @@ import org.gtkkn.native.gio.g_menu_item_set_label
 import org.gtkkn.native.gio.g_menu_item_set_link
 import org.gtkkn.native.gio.g_menu_item_set_section
 import org.gtkkn.native.gio.g_menu_item_set_submenu
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * #GMenuItem is an opaque structure type.  You must access it using the
@@ -74,7 +75,7 @@ public open class MenuItem(
      * @return a new #GMenuItem.
      * @since 2.34
      */
-    public constructor(model: MenuModel, itemIndex: Int) : this(g_menu_item_new_from_model(model.gioMenuModelPointer.reinterpret(), itemIndex)!!.reinterpret())
+    public constructor(model: MenuModel, itemIndex: gint) : this(g_menu_item_new_from_model(model.gioMenuModelPointer.reinterpret(), itemIndex)!!.reinterpret())
 
     /**
      * Creates a new #GMenuItem representing a section.
@@ -433,5 +434,12 @@ public open class MenuItem(
          * @since 2.32
          */
         public fun newSubmenu(label: String? = null, submenu: MenuModel): MenuItem = MenuItem(g_menu_item_new_submenu(label, submenu.gioMenuModelPointer.reinterpret())!!.reinterpret())
+
+        /**
+         * Get the GType of MenuItem
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_menu_item_get_type()
     }
 }

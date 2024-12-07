@@ -35,6 +35,7 @@ import org.gtkkn.native.gio.g_app_launch_context_new
 import org.gtkkn.native.gio.g_app_launch_context_setenv
 import org.gtkkn.native.gio.g_app_launch_context_unsetenv
 import org.gtkkn.native.glib.GVariant
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import kotlin.collections.List as CollectionsList
 import org.gtkkn.bindings.glib.List as GlibList
@@ -211,6 +212,13 @@ public open class AppLaunchContext(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of AppLaunchContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_app_launch_context_get_type()
     }
 }
 

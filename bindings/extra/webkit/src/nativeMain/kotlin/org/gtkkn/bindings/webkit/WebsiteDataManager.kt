@@ -32,6 +32,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitWebsiteDataManager
 import org.gtkkn.native.webkit.webkit_website_data_manager_clear
 import org.gtkkn.native.webkit.webkit_website_data_manager_clear_finish
@@ -328,5 +329,12 @@ public class WebsiteDataManager(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of WebsiteDataManager
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_website_data_manager_get_type()
     }
 }

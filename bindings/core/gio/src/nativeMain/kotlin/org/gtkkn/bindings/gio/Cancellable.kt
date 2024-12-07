@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.ULong
 import kotlin.Unit
@@ -49,7 +48,10 @@ import org.gtkkn.native.gio.g_cancellable_reset
 import org.gtkkn.native.gio.g_cancellable_set_error_if_cancelled
 import org.gtkkn.native.gio.g_cancellable_source_new
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gulong
 
 /**
  * `GCancellable` allows operations to be cancelled.
@@ -125,7 +127,7 @@ public open class Cancellable(
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun connect(callback: Callback): ULong = g_cancellable_connect(gioCancellablePointer.reinterpret(), CallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret())
+    public open fun connect(callback: Callback): gulong = g_cancellable_connect(gioCancellablePointer.reinterpret(), CallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Disconnects a handler from a cancellable instance similar to
@@ -147,7 +149,7 @@ public open class Cancellable(
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun disconnect(handlerId: ULong): Unit = g_cancellable_disconnect(gioCancellablePointer.reinterpret(), handlerId)
+    public open fun disconnect(handlerId: gulong): Unit = g_cancellable_disconnect(gioCancellablePointer.reinterpret(), handlerId)
 
     /**
      * Gets the file descriptor for a cancellable job. This can be used to
@@ -167,7 +169,7 @@ public open class Cancellable(
      * @return A valid file descriptor. `-1` if the file descriptor
      * is not supported, or on errors.
      */
-    public open fun getFd(): Int = g_cancellable_get_fd(gioCancellablePointer.reinterpret())
+    public open fun getFd(): gint = g_cancellable_get_fd(gioCancellablePointer.reinterpret())
 
     /**
      * Checks if a cancellable job has been cancelled.
@@ -362,6 +364,13 @@ public open class Cancellable(
          */
         public fun getCurrent(): Cancellable? = g_cancellable_get_current()?.run {
             Cancellable(reinterpret())}
+
+        /**
+         * Get the GType of Cancellable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_cancellable_get_type()
     }
 }
 

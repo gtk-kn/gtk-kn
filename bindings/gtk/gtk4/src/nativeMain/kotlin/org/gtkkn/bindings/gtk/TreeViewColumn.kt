@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Float
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -23,7 +21,10 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkCellLayout
 import org.gtkkn.native.gtk.GtkTreeViewColumn
@@ -111,7 +112,7 @@ public open class TreeViewColumn(
     override val gtkCellLayoutPointer: CPointer<GtkCellLayout>
         get() = gPointer.reinterpret()
 
-    public open var alignment: Float
+    public open var alignment: gfloat
         /**
          * Returns the current x alignment of @tree_column.  This value can range
          * between 0.0 and 1.0.
@@ -163,7 +164,7 @@ public open class TreeViewColumn(
          */
         set(expand) = gtk_tree_view_column_set_expand(gtkTreeViewColumnPointer.reinterpret(), expand.asGBoolean())
 
-    public open var fixedWidth: Int
+    public open var fixedWidth: gint
         /**
          * Gets the fixed width of the column.  This may not be the actual displayed
          * width of the column; for that, use gtk_tree_view_column_get_width().
@@ -188,7 +189,7 @@ public open class TreeViewColumn(
          */
         set(fixedWidth) = gtk_tree_view_column_set_fixed_width(gtkTreeViewColumnPointer.reinterpret(), fixedWidth)
 
-    public open var maxWidth: Int
+    public open var maxWidth: gint
         /**
          * Returns the maximum width in pixels of the @tree_column, or -1 if no maximum
          * width is set.
@@ -206,7 +207,7 @@ public open class TreeViewColumn(
          */
         set(maxWidth) = gtk_tree_view_column_set_max_width(gtkTreeViewColumnPointer.reinterpret(), maxWidth)
 
-    public open var minWidth: Int
+    public open var minWidth: gint
         /**
          * Returns the minimum width in pixels of the @tree_column, or -1 if no minimum
          * width is set.
@@ -275,7 +276,7 @@ public open class TreeViewColumn(
      * Logical sort column ID this column sorts on when selected for sorting. Setting the sort column ID makes the column header
      * clickable. Set to -1 to make the column unsortable.
      */
-    public open var sortColumnId: Int
+    public open var sortColumnId: gint
         /**
          * Gets the logical @sort_column_id that the model sorts on
          * when this column is selected for sorting.
@@ -336,7 +337,7 @@ public open class TreeViewColumn(
          */
         set(order) = gtk_tree_view_column_set_sort_order(gtkTreeViewColumnPointer.reinterpret(), order.nativeValue)
 
-    public open var spacing: Int
+    public open var spacing: gint
         /**
          * Returns the spacing of @tree_column.
          *
@@ -400,7 +401,7 @@ public open class TreeViewColumn(
          */
         set(widget) = gtk_tree_view_column_set_widget(gtkTreeViewColumnPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
 
-    public open val width: Int
+    public open val width: gint
         /**
          * Returns the current size of @tree_column in pixels.
          *
@@ -408,7 +409,7 @@ public open class TreeViewColumn(
          */
         get() = gtk_tree_view_column_get_width(gtkTreeViewColumnPointer.reinterpret())
 
-    public open val xOffset: Int
+    public open val xOffset: gint
         /**
          * Returns the current X offset of @tree_column in pixels.
          *
@@ -448,7 +449,7 @@ public open class TreeViewColumn(
     override fun addAttribute(
         cell: CellRenderer,
         attribute: String,
-        column: Int,
+        column: gint,
     ): Unit = gtk_tree_view_column_add_attribute(gtkTreeViewColumnPointer.reinterpret(), cell.gtkCellRendererPointer.reinterpret(), attribute, column)
 
     /**
@@ -578,6 +579,13 @@ public open class TreeViewColumn(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of TreeViewColumn
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_tree_view_column_get_type()
     }
 }
 

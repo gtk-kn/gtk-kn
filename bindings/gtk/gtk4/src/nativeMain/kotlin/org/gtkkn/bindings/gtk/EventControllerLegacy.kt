@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.ULong
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -19,7 +18,9 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkEvent
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gtk.GtkEventControllerLegacy
 import org.gtkkn.native.gtk.gtk_event_controller_legacy_get_type
 import org.gtkkn.native.gtk.gtk_event_controller_legacy_new
@@ -60,10 +61,18 @@ public open class EventControllerLegacy(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of EventControllerLegacy
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_event_controller_legacy_get_type()
     }
 }
 
-private val connectEventFunc: CPointer<CFunction<(CPointer<GdkEvent>) -> Int>> = staticCFunction {
+private val connectEventFunc: CPointer<CFunction<(CPointer<GdkEvent>) -> gboolean>> =
+        staticCFunction {
     _: COpaquePointer,
     event: CPointer<GdkEvent>?,
     userData: COpaquePointer

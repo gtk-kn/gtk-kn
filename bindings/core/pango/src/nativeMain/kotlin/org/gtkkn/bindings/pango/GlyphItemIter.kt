@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.pango
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
@@ -14,9 +13,12 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_22
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.pango.PangoGlyphItemIter
 import org.gtkkn.native.pango.pango_glyph_item_iter_copy
 import org.gtkkn.native.pango.pango_glyph_item_iter_free
+import org.gtkkn.native.pango.pango_glyph_item_iter_get_type
 import org.gtkkn.native.pango.pango_glyph_item_iter_init_end
 import org.gtkkn.native.pango.pango_glyph_item_iter_init_start
 import org.gtkkn.native.pango.pango_glyph_item_iter_next_cluster
@@ -89,37 +91,37 @@ public class GlyphItemIter(
     public val text: String?
         get() = pangoGlyphItemIterPointer.pointed.text?.toKString()
 
-    public var startGlyph: Int
+    public var startGlyph: gint
         get() = pangoGlyphItemIterPointer.pointed.start_glyph
         set(`value`) {
             pangoGlyphItemIterPointer.pointed.start_glyph = value
         }
 
-    public var startIndex: Int
+    public var startIndex: gint
         get() = pangoGlyphItemIterPointer.pointed.start_index
         set(`value`) {
             pangoGlyphItemIterPointer.pointed.start_index = value
         }
 
-    public var startChar: Int
+    public var startChar: gint
         get() = pangoGlyphItemIterPointer.pointed.start_char
         set(`value`) {
             pangoGlyphItemIterPointer.pointed.start_char = value
         }
 
-    public var endGlyph: Int
+    public var endGlyph: gint
         get() = pangoGlyphItemIterPointer.pointed.end_glyph
         set(`value`) {
             pangoGlyphItemIterPointer.pointed.end_glyph = value
         }
 
-    public var endIndex: Int
+    public var endIndex: gint
         get() = pangoGlyphItemIterPointer.pointed.end_index
         set(`value`) {
             pangoGlyphItemIterPointer.pointed.end_index = value
         }
 
-    public var endChar: Int
+    public var endChar: gint
         get() = pangoGlyphItemIterPointer.pointed.end_char
         set(`value`) {
             pangoGlyphItemIterPointer.pointed.end_char = value
@@ -195,6 +197,13 @@ public class GlyphItemIter(
     public fun prevCluster(): Boolean = pango_glyph_item_iter_prev_cluster(pangoGlyphItemIterPointer.reinterpret()).asBoolean()
 
     public companion object : RecordCompanion<GlyphItemIter, PangoGlyphItemIter> {
+        /**
+         * Get the GType of GlyphItemIter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_glyph_item_iter_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): GlyphItemIter = GlyphItemIter(pointer.reinterpret())
     }
 }

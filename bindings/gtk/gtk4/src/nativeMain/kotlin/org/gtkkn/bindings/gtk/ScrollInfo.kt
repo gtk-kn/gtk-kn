@@ -11,9 +11,11 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkScrollInfo
 import org.gtkkn.native.gtk.gtk_scroll_info_get_enable_horizontal
 import org.gtkkn.native.gtk.gtk_scroll_info_get_enable_vertical
+import org.gtkkn.native.gtk.gtk_scroll_info_get_type
 import org.gtkkn.native.gtk.gtk_scroll_info_new
 import org.gtkkn.native.gtk.gtk_scroll_info_ref
 import org.gtkkn.native.gtk.gtk_scroll_info_set_enable_horizontal
@@ -101,6 +103,13 @@ public class ScrollInfo(
          * @since 4.12
          */
         public fun new(): ScrollInfo = ScrollInfo(gtk_scroll_info_new()!!.reinterpret())
+
+        /**
+         * Get the GType of ScrollInfo
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_scroll_info_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ScrollInfo = ScrollInfo(pointer.reinterpret())
     }

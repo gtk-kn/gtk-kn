@@ -1,9 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.Float
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -14,6 +12,9 @@ import org.gtkkn.bindings.pango.WrapMode
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAccessibleText
 import org.gtkkn.native.gtk.GtkBuildable
@@ -126,7 +127,7 @@ public open class Inscription(
      * @since 4.8
      */
     @GtkVersion4_8
-    public open var minChars: UInt
+    public open var minChars: guint
         /**
          * Gets the `min-chars` of the inscription.
          *
@@ -162,7 +163,7 @@ public open class Inscription(
      * @since 4.8
      */
     @GtkVersion4_8
-    public open var minLines: UInt
+    public open var minLines: guint
         /**
          * Gets the `min-lines` of the inscription.
          *
@@ -196,7 +197,7 @@ public open class Inscription(
      * @since 4.8
      */
     @GtkVersion4_8
-    public open var natChars: UInt
+    public open var natChars: guint
         /**
          * Gets the `nat-chars` of the inscription.
          *
@@ -230,7 +231,7 @@ public open class Inscription(
      * @since 4.8
      */
     @GtkVersion4_8
-    public open var natLines: UInt
+    public open var natLines: guint
         /**
          * Gets the `nat-lines` of the inscription.
          *
@@ -335,7 +336,7 @@ public open class Inscription(
      * @since 4.8
      */
     @GtkVersion4_8
-    public open var xalign: Float
+    public open var xalign: gfloat
         /**
          * Gets the `xalign` of the inscription.
          *
@@ -365,7 +366,7 @@ public open class Inscription(
      * @since 4.8
      */
     @GtkVersion4_8
-    public open var yalign: Float
+    public open var yalign: gfloat
         /**
          * Gets the `yalign` of the inscription.
          *
@@ -412,5 +413,12 @@ public open class Inscription(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of Inscription
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_inscription_get_type()
     }
 }

@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -11,6 +10,7 @@ import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GTuples
 import org.gtkkn.native.glib.g_tuples_destroy
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -31,7 +31,7 @@ public class Tuples(
     /**
      * the number of records that matched.
      */
-    public var len: UInt
+    public var len: guint
         get() = glibTuplesPointer.pointed.len
         set(`value`) {
             glibTuplesPointer.pointed.len = value

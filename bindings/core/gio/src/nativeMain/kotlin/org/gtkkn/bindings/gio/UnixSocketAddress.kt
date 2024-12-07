@@ -3,7 +3,6 @@ package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
 import kotlin.String
-import kotlin.ULong
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -21,6 +20,8 @@ import org.gtkkn.native.gio.g_unix_socket_address_get_path
 import org.gtkkn.native.gio.g_unix_socket_address_get_path_len
 import org.gtkkn.native.gio.g_unix_socket_address_get_type
 import org.gtkkn.native.gio.g_unix_socket_address_new
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gsize
 
 /**
  * Support for UNIX-domain (also known as local) sockets, corresponding to
@@ -126,7 +127,7 @@ public open class UnixSocketAddress(
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun getPathLen(): ULong = g_unix_socket_address_get_path_len(gioUnixSocketAddressPointer.reinterpret())
+    public open fun getPathLen(): gsize = g_unix_socket_address_get_path_len(gioUnixSocketAddressPointer.reinterpret())
 
     public companion object : TypeCompanion<UnixSocketAddress> {
         override val type: GeneratedClassKGType<UnixSocketAddress> =
@@ -143,5 +144,12 @@ public open class UnixSocketAddress(
          */
         @GioVersion2_22
         public fun abstractNamesSupported(): Boolean = g_unix_socket_address_abstract_names_supported().asBoolean()
+
+        /**
+         * Get the GType of UnixSocketAddress
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_unix_socket_address_get_type()
     }
 }

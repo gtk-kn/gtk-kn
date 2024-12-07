@@ -1,13 +1,13 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
-import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.pango.PangoLogAttr
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
@@ -23,7 +23,7 @@ public class LogAttr(
     /**
      * if set, can break line in front of character
      */
-    public var isLineBreak: UInt
+    public var isLineBreak: guint
         get() = pangoLogAttrPointer.pointed.is_line_break
         set(`value`) {
             pangoLogAttrPointer.pointed.is_line_break = value
@@ -32,7 +32,7 @@ public class LogAttr(
     /**
      * if set, must break line in front of character
      */
-    public var isMandatoryBreak: UInt
+    public var isMandatoryBreak: guint
         get() = pangoLogAttrPointer.pointed.is_mandatory_break
         set(`value`) {
             pangoLogAttrPointer.pointed.is_mandatory_break = value
@@ -41,7 +41,7 @@ public class LogAttr(
     /**
      * if set, can break here when doing character wrapping
      */
-    public var isCharBreak: UInt
+    public var isCharBreak: guint
         get() = pangoLogAttrPointer.pointed.is_char_break
         set(`value`) {
             pangoLogAttrPointer.pointed.is_char_break = value
@@ -50,7 +50,7 @@ public class LogAttr(
     /**
      * is whitespace character
      */
-    public var isWhite: UInt
+    public var isWhite: guint
         get() = pangoLogAttrPointer.pointed.is_white
         set(`value`) {
             pangoLogAttrPointer.pointed.is_white = value
@@ -63,7 +63,7 @@ public class LogAttr(
      *   [Grapheme Cluster Boundaries](http://www.unicode.org/reports/tr29/)
      *   semantics.
      */
-    public var isCursorPosition: UInt
+    public var isCursorPosition: guint
         get() = pangoLogAttrPointer.pointed.is_cursor_position
         set(`value`) {
             pangoLogAttrPointer.pointed.is_cursor_position = value
@@ -72,7 +72,7 @@ public class LogAttr(
     /**
      * is first character in a word
      */
-    public var isWordStart: UInt
+    public var isWordStart: guint
         get() = pangoLogAttrPointer.pointed.is_word_start
         set(`value`) {
             pangoLogAttrPointer.pointed.is_word_start = value
@@ -83,7 +83,7 @@ public class LogAttr(
      *   Note that in degenerate cases, you could have both @is_word_start
      *   and @is_word_end set for some character.
      */
-    public var isWordEnd: UInt
+    public var isWordEnd: guint
         get() = pangoLogAttrPointer.pointed.is_word_end
         set(`value`) {
             pangoLogAttrPointer.pointed.is_word_end = value
@@ -98,7 +98,7 @@ public class LogAttr(
      *   between-sentence spaces, etc. to any sentence, so
      *   @is_sentence_start/@is_sentence_end mark the boundaries of those sentences.
      */
-    public var isSentenceBoundary: UInt
+    public var isSentenceBoundary: guint
         get() = pangoLogAttrPointer.pointed.is_sentence_boundary
         set(`value`) {
             pangoLogAttrPointer.pointed.is_sentence_boundary = value
@@ -107,7 +107,7 @@ public class LogAttr(
     /**
      * is first character in a sentence
      */
-    public var isSentenceStart: UInt
+    public var isSentenceStart: guint
         get() = pangoLogAttrPointer.pointed.is_sentence_start
         set(`value`) {
             pangoLogAttrPointer.pointed.is_sentence_start = value
@@ -119,7 +119,7 @@ public class LogAttr(
      *   and @is_sentence_end set for some character. (e.g. no space after a
      *   period, so the next sentence starts right away)
      */
-    public var isSentenceEnd: UInt
+    public var isSentenceEnd: guint
         get() = pangoLogAttrPointer.pointed.is_sentence_end
         set(`value`) {
             pangoLogAttrPointer.pointed.is_sentence_end = value
@@ -134,7 +134,7 @@ public class LogAttr(
      *   implementation of [func@break], this bit is set on all grapheme boundaries
      *   except those following Latin, Cyrillic or Greek base characters.
      */
-    public var backspaceDeletesCharacter: UInt
+    public var backspaceDeletesCharacter: guint
         get() = pangoLogAttrPointer.pointed.backspace_deletes_character
         set(`value`) {
             pangoLogAttrPointer.pointed.backspace_deletes_character = value
@@ -144,7 +144,7 @@ public class LogAttr(
      * is a whitespace character that can possibly be
      *   expanded for justification purposes. (Since: 1.18)
      */
-    public var isExpandableSpace: UInt
+    public var isExpandableSpace: guint
         get() = pangoLogAttrPointer.pointed.is_expandable_space
         set(`value`) {
             pangoLogAttrPointer.pointed.is_expandable_space = value
@@ -158,7 +158,7 @@ public class LogAttr(
      *   implements Unicode's [Word Boundaries](http://www.unicode.org/reports/tr29/)
      *   semantics. (Since: 1.22)
      */
-    public var isWordBoundary: UInt
+    public var isWordBoundary: guint
         get() = pangoLogAttrPointer.pointed.is_word_boundary
         set(`value`) {
             pangoLogAttrPointer.pointed.is_word_boundary = value
@@ -168,7 +168,7 @@ public class LogAttr(
      * when breaking lines before this char, insert a hyphen.
      *   Since: 1.50
      */
-    public var breakInsertsHyphen: UInt
+    public var breakInsertsHyphen: guint
         get() = pangoLogAttrPointer.pointed.break_inserts_hyphen
         set(`value`) {
             pangoLogAttrPointer.pointed.break_inserts_hyphen = value
@@ -178,13 +178,13 @@ public class LogAttr(
      * when breaking lines before this char, remove the
      *   preceding char. Since 1.50
      */
-    public var breakRemovesPreceding: UInt
+    public var breakRemovesPreceding: guint
         get() = pangoLogAttrPointer.pointed.break_removes_preceding
         set(`value`) {
             pangoLogAttrPointer.pointed.break_removes_preceding = value
         }
 
-    public var reserved: UInt
+    public var reserved: guint
         get() = pangoLogAttrPointer.pointed.reserved
         set(`value`) {
             pangoLogAttrPointer.pointed.reserved = value

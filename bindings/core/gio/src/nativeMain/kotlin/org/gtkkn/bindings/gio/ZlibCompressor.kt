@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlin.Int
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
@@ -15,6 +14,8 @@ import org.gtkkn.native.gio.g_zlib_compressor_get_file_info
 import org.gtkkn.native.gio.g_zlib_compressor_get_type
 import org.gtkkn.native.gio.g_zlib_compressor_new
 import org.gtkkn.native.gio.g_zlib_compressor_set_file_info
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * `GZlibCompressor` is an implementation of [iface@Gio.Converter] that
@@ -77,7 +78,7 @@ public open class ZlibCompressor(
      * @return a new #GZlibCompressor
      * @since 2.24
      */
-    public constructor(format: ZlibCompressorFormat, level: Int) : this(g_zlib_compressor_new(format.nativeValue, level)!!.reinterpret())
+    public constructor(format: ZlibCompressorFormat, level: gint) : this(g_zlib_compressor_new(format.nativeValue, level)!!.reinterpret())
 
     public companion object : TypeCompanion<ZlibCompressor> {
         override val type: GeneratedClassKGType<ZlibCompressor> =
@@ -85,5 +86,12 @@ public open class ZlibCompressor(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of ZlibCompressor
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_zlib_compressor_get_type()
     }
 }

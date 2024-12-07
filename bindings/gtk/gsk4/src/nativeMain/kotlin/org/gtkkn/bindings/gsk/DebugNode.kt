@@ -9,6 +9,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskDebugNode
 import org.gtkkn.native.gsk.gsk_debug_node_get_child
 import org.gtkkn.native.gsk.gsk_debug_node_get_message
@@ -59,5 +60,12 @@ public open class DebugNode(
 
         init {
             GskTypeProvider.register()}
+
+        /**
+         * Get the GType of DebugNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_debug_node_get_type()
     }
 }

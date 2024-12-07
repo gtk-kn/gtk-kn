@@ -8,6 +8,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkFileChooser
 import org.gtkkn.native.gtk.GtkFileChooserNative
 import org.gtkkn.native.gtk.gtk_file_chooser_native_get_accept_label
@@ -250,5 +251,12 @@ public open class FileChooserNative(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of FileChooserNative
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_file_chooser_native_get_type()
     }
 }

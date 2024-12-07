@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -18,7 +17,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gtk.GtkEventControllerMotion
 import org.gtkkn.native.gtk.gtk_event_controller_motion_contains_pointer
 import org.gtkkn.native.gtk.gtk_event_controller_motion_get_type
@@ -75,7 +76,7 @@ public open class EventControllerMotion(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `x` coordinates of pointer location; `y` coordinates of pointer location
      */
-    public fun connectEnter(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (x: Double, y: Double) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "enter", connectEnterFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectEnter(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (x: gdouble, y: gdouble) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "enter", connectEnterFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Signals that the pointer has left the widget.
@@ -91,7 +92,7 @@ public open class EventControllerMotion(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `x` the x coordinate; `y` the y coordinate
      */
-    public fun connectMotion(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (x: Double, y: Double) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "motion", connectMotionFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectMotion(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (x: gdouble, y: gdouble) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "motion", connectMotionFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<EventControllerMotion> {
         override val type: GeneratedClassKGType<EventControllerMotion> =
@@ -99,16 +100,23 @@ public open class EventControllerMotion(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of EventControllerMotion
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_event_controller_motion_get_type()
     }
 }
 
-private val connectEnterFunc: CPointer<CFunction<(Double, Double) -> Unit>> = staticCFunction {
+private val connectEnterFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    x: Double,
-    y: Double,
+    x: gdouble,
+    y: gdouble,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(x: Double, y: Double) -> Unit>().get().invoke(x, y)}
+    userData.asStableRef<(x: gdouble, y: gdouble) -> Unit>().get().invoke(x, y)}
 .reinterpret()
 
 private val connectLeaveFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
@@ -118,11 +126,11 @@ private val connectLeaveFunc: CPointer<CFunction<() -> Unit>> = staticCFunction 
     userData.asStableRef<() -> Unit>().get().invoke()}
 .reinterpret()
 
-private val connectMotionFunc: CPointer<CFunction<(Double, Double) -> Unit>> = staticCFunction {
+private val connectMotionFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    x: Double,
-    y: Double,
+    x: gdouble,
+    y: gdouble,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(x: Double, y: Double) -> Unit>().get().invoke(x, y)}
+    userData.asStableRef<(x: gdouble, y: gdouble) -> Unit>().get().invoke(x, y)}
 .reinterpret()

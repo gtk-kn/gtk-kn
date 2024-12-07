@@ -2,10 +2,7 @@
 package org.gtkkn.bindings.gsk
 
 import kotlin.Boolean
-import kotlin.Float
-import kotlin.Int
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -22,6 +19,9 @@ import org.gtkkn.bindings.gsk.annotations.GskVersion4_6
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.graphene.graphene_point_t
 import org.gtkkn.native.gsk.GskParseLocation
 import org.gtkkn.native.gsk.GskPathOperation
@@ -168,20 +168,20 @@ public val ParseErrorFuncFunc: CPointer<CFunction<(
 public val PathForeachFuncFunc: CPointer<CFunction<(
     GskPathOperation,
     CPointer<graphene_point_t>,
-    ULong,
-    Float,
-) -> Int>> = staticCFunction {
+    gsize,
+    gfloat,
+) -> gboolean>> = staticCFunction {
     op: GskPathOperation,
     pts: CPointer<graphene_point_t>?,
-    nPts: ULong,
-    weight: Float,
+    nPts: gsize,
+    weight: gfloat,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         op: PathOperation,
         pts: Point,
-        nPts: ULong,
-        weight: Float,
+        nPts: gsize,
+        weight: gfloat,
     ) -> Boolean>().get().invoke(op.run {
         PathOperation.fromNativeValue(this)}
     , pts!!.run {
@@ -225,6 +225,6 @@ public typealias ParseErrorFunc = (
 public typealias PathForeachFunc = (
     op: PathOperation,
     pts: Point,
-    nPts: ULong,
-    weight: Float,
+    nPts: gsize,
+    weight: gfloat,
 ) -> Boolean

@@ -1,9 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -18,6 +16,9 @@ import org.gtkkn.native.gdk.gdk_app_launch_context_set_desktop
 import org.gtkkn.native.gdk.gdk_app_launch_context_set_icon
 import org.gtkkn.native.gdk.gdk_app_launch_context_set_icon_name
 import org.gtkkn.native.gdk.gdk_app_launch_context_set_timestamp
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 
 /**
  * `GdkAppLaunchContext` handles launching an application in a graphical context.
@@ -76,7 +77,7 @@ public open class AppLaunchContext(
      *
      * @param desktop the number of a workspace, or -1
      */
-    public open fun setDesktop(desktop: Int): Unit = gdk_app_launch_context_set_desktop(gdkAppLaunchContextPointer.reinterpret(), desktop)
+    public open fun setDesktop(desktop: gint): Unit = gdk_app_launch_context_set_desktop(gdkAppLaunchContextPointer.reinterpret(), desktop)
 
     /**
      * Sets the icon for applications that are launched with this
@@ -119,7 +120,7 @@ public open class AppLaunchContext(
      *
      * @param timestamp a timestamp
      */
-    public open fun setTimestamp(timestamp: UInt): Unit = gdk_app_launch_context_set_timestamp(gdkAppLaunchContextPointer.reinterpret(), timestamp)
+    public open fun setTimestamp(timestamp: guint): Unit = gdk_app_launch_context_set_timestamp(gdkAppLaunchContextPointer.reinterpret(), timestamp)
 
     public companion object : TypeCompanion<AppLaunchContext> {
         override val type: GeneratedClassKGType<AppLaunchContext> =
@@ -127,5 +128,12 @@ public open class AppLaunchContext(
 
         init {
             GdkTypeProvider.register()}
+
+        /**
+         * Get the GType of AppLaunchContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_app_launch_context_get_type()
     }
 }

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -15,6 +14,8 @@ import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkEventController
 import org.gtkkn.native.gtk.gtk_event_controller_get_current_event
 import org.gtkkn.native.gtk.gtk_event_controller_get_current_event_device
@@ -166,7 +167,7 @@ public open class EventController(
      *
      * @return timestamp of the event is currently handled by @controller
      */
-    public open fun getCurrentEventTime(): UInt = gtk_event_controller_get_current_event_time(gtkEventControllerPointer.reinterpret())
+    public open fun getCurrentEventTime(): guint = gtk_event_controller_get_current_event_time(gtkEventControllerPointer.reinterpret())
 
     /**
      * Resets the @controller to a clean state.
@@ -188,5 +189,12 @@ public open class EventController(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of EventController
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_event_controller_get_type()
     }
 }

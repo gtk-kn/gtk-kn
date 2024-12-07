@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
@@ -23,6 +22,7 @@ import org.gtkkn.native.gio.g_unix_mount_point_get_device_path
 import org.gtkkn.native.gio.g_unix_mount_point_get_fs_type
 import org.gtkkn.native.gio.g_unix_mount_point_get_mount_path
 import org.gtkkn.native.gio.g_unix_mount_point_get_options
+import org.gtkkn.native.gio.g_unix_mount_point_get_type
 import org.gtkkn.native.gio.g_unix_mount_point_guess_can_eject
 import org.gtkkn.native.gio.g_unix_mount_point_guess_icon
 import org.gtkkn.native.gio.g_unix_mount_point_guess_name
@@ -30,6 +30,8 @@ import org.gtkkn.native.gio.g_unix_mount_point_guess_symbolic_icon
 import org.gtkkn.native.gio.g_unix_mount_point_is_loopback
 import org.gtkkn.native.gio.g_unix_mount_point_is_readonly
 import org.gtkkn.native.gio.g_unix_mount_point_is_user_mountable
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -52,7 +54,7 @@ public class UnixMountPoint(
      * @return 1, 0 or -1 if @mount1 is greater than, equal to,
      * or less than @mount2, respectively.
      */
-    public fun compare(mount2: UnixMountPoint): Int = g_unix_mount_point_compare(gioUnixMountPointPointer.reinterpret(), mount2.gioUnixMountPointPointer.reinterpret())
+    public fun compare(mount2: UnixMountPoint): gint = g_unix_mount_point_compare(gioUnixMountPointPointer.reinterpret(), mount2.gioUnixMountPointPointer.reinterpret())
 
     /**
      * Makes a copy of @mount_point.
@@ -155,6 +157,13 @@ public class UnixMountPoint(
     public fun isUserMountable(): Boolean = g_unix_mount_point_is_user_mountable(gioUnixMountPointPointer.reinterpret()).asBoolean()
 
     public companion object : RecordCompanion<UnixMountPoint, GUnixMountPoint> {
+        /**
+         * Get the GType of UnixMountPoint
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_unix_mount_point_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): UnixMountPoint = UnixMountPoint(pointer.reinterpret())
     }
 }

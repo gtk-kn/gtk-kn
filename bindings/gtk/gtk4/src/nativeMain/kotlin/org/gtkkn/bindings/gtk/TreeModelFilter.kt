@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -13,6 +12,8 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkTreeDragSource
 import org.gtkkn.native.gtk.GtkTreeModel
 import org.gtkkn.native.gtk.GtkTreeModelFilter
@@ -198,7 +199,7 @@ public open class TreeModelFilter(
      *
      * @param column A `int` which is the column containing the visible information
      */
-    public open fun setVisibleColumn(column: Int): Unit = gtk_tree_model_filter_set_visible_column(gtkTreeModelFilterPointer.reinterpret(), column)
+    public open fun setVisibleColumn(column: gint): Unit = gtk_tree_model_filter_set_visible_column(gtkTreeModelFilterPointer.reinterpret(), column)
 
     /**
      * Sets the visible function used when filtering the @filter to be @func.
@@ -247,5 +248,12 @@ public open class TreeModelFilter(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of TreeModelFilter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_tree_model_filter_get_type()
     }
 }

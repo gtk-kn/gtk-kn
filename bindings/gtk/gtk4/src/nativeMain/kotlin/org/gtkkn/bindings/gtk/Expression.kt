@@ -3,7 +3,6 @@ package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -15,6 +14,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkExpression
 import org.gtkkn.native.gtk.gtk_expression_bind
 import org.gtkkn.native.gtk.gtk_expression_evaluate
@@ -237,7 +237,7 @@ public open class Expression(
      *
      * @return The type returned from [method@Gtk.Expression.evaluate]
      */
-    public open fun getValueType(): ULong = gtk_expression_get_value_type(gPointer.reinterpret())
+    public open fun getValueType(): GType = gtk_expression_get_value_type(gPointer.reinterpret())
 
     /**
      * Checks if the expression is static.
@@ -296,5 +296,12 @@ public open class Expression(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of Expression
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_expression_get_type()
     }
 }

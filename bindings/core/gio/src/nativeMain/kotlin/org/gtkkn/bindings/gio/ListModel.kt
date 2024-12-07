@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -25,7 +24,9 @@ import org.gtkkn.native.gio.g_list_model_get_n_items
 import org.gtkkn.native.gio.g_list_model_get_object
 import org.gtkkn.native.gio.g_list_model_get_type
 import org.gtkkn.native.gio.g_list_model_items_changed
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.guint
 
 /**
  * `GListModel` is an interface that represents a mutable list of
@@ -110,7 +111,7 @@ public interface ListModel : Interface, KGTyped {
      * @since 2.44
      */
     @GioVersion2_44
-    public fun getItemType(): ULong = g_list_model_get_item_type(gioListModelPointer.reinterpret())
+    public fun getItemType(): GType = g_list_model_get_item_type(gioListModelPointer.reinterpret())
 
     /**
      * Gets the number of items in @list.
@@ -123,7 +124,7 @@ public interface ListModel : Interface, KGTyped {
      * @since 2.44
      */
     @GioVersion2_44
-    public fun getNItems(): UInt = g_list_model_get_n_items(gioListModelPointer.reinterpret())
+    public fun getNItems(): guint = g_list_model_get_n_items(gioListModelPointer.reinterpret())
 
     /**
      * Get the item at @position.
@@ -144,7 +145,7 @@ public interface ListModel : Interface, KGTyped {
      * @since 2.44
      */
     @GioVersion2_44
-    public fun getItem(position: UInt): Object? = g_list_model_get_object(gioListModelPointer.reinterpret(), position)?.run {
+    public fun getItem(position: guint): Object? = g_list_model_get_object(gioListModelPointer.reinterpret(), position)?.run {
         Object(reinterpret())}
 
     /**
@@ -176,9 +177,9 @@ public interface ListModel : Interface, KGTyped {
      */
     @GioVersion2_44
     public fun itemsChanged(
-        position: UInt,
-        removed: UInt,
-        added: UInt,
+        position: guint,
+        removed: guint,
+        added: guint,
     ): Unit = g_list_model_items_changed(gioListModelPointer.reinterpret(), position, removed, added)
 
     /**
@@ -195,9 +196,9 @@ public interface ListModel : Interface, KGTyped {
      */
     @GioVersion2_44
     public fun connectItemsChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
-        position: UInt,
-        removed: UInt,
-        added: UInt,
+        position: guint,
+        removed: guint,
+        added: guint,
     ) -> Unit): ULong = g_signal_connect_data(gioListModelPointer.reinterpret(), "items-changed", connectItemsChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     private data class Wrapper(
@@ -218,19 +219,19 @@ public interface ListModel : Interface, KGTyped {
 }
 
 private val connectItemsChangedFunc: CPointer<CFunction<(
-    UInt,
-    UInt,
-    UInt,
+    guint,
+    guint,
+    guint,
 ) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    position: UInt,
-    removed: UInt,
-    added: UInt,
+    position: guint,
+    removed: guint,
+    added: guint,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
-        position: UInt,
-        removed: UInt,
-        added: UInt,
+        position: guint,
+        removed: guint,
+        added: guint,
     ) -> Unit>().get().invoke(position, removed, added)}
 .reinterpret()

@@ -2,10 +2,8 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.ULong
-import kotlin.UShort
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -43,7 +41,10 @@ import org.gtkkn.native.gio.g_socket_listener_get_type
 import org.gtkkn.native.gio.g_socket_listener_new
 import org.gtkkn.native.gio.g_socket_listener_set_backlog
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint16
 
 /**
  * A `GSocketListener` is an object that keeps track of a set
@@ -136,7 +137,7 @@ public open class SocketListener(
      * @since 2.24
      */
     @GioVersion2_24
-    public open fun addAnyInetPort(sourceObject: Object? = null): Result<UShort> = memScoped {
+    public open fun addAnyInetPort(sourceObject: Object? = null): Result<guint16> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_listener_add_any_inet_port(gioSocketListenerPointer.reinterpret(), sourceObject?.gPointer?.reinterpret(), gError.ptr)
         return if (gError.pointed != null) {
@@ -167,7 +168,7 @@ public open class SocketListener(
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun addInetPort(port: UShort, sourceObject: Object? = null): Result<Boolean> = memScoped {
+    public open fun addInetPort(port: guint16, sourceObject: Object? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_listener_add_inet_port(gioSocketListenerPointer.reinterpret(), port, sourceObject?.gPointer?.reinterpret(), gError.ptr).asBoolean()
         return if (gError.pointed != null) {
@@ -229,7 +230,7 @@ public open class SocketListener(
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun setBacklog(listenBacklog: Int): Unit = g_socket_listener_set_backlog(gioSocketListenerPointer.reinterpret(), listenBacklog)
+    public open fun setBacklog(listenBacklog: gint): Unit = g_socket_listener_set_backlog(gioSocketListenerPointer.reinterpret(), listenBacklog)
 
     /**
      * Emitted when @listener's activity on @socket changes state.
@@ -250,6 +251,13 @@ public open class SocketListener(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of SocketListener
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_socket_listener_get_type()
     }
 }
 

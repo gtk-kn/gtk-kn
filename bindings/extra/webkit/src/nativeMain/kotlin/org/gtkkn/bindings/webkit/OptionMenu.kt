@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -20,7 +19,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitOptionMenu
 import org.gtkkn.native.webkit.webkit_option_menu_activate_item
 import org.gtkkn.native.webkit.webkit_option_menu_close
@@ -58,7 +59,7 @@ public class OptionMenu(
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun activateItem(index: UInt): Unit = webkit_option_menu_activate_item(webkitOptionMenuPointer.reinterpret(), index)
+    public fun activateItem(index: guint): Unit = webkit_option_menu_activate_item(webkitOptionMenuPointer.reinterpret(), index)
 
     /**
      * Request to close a #WebKitOptionMenu.
@@ -94,7 +95,7 @@ public class OptionMenu(
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun getItem(index: UInt): OptionMenuItem = webkit_option_menu_get_item(webkitOptionMenuPointer.reinterpret(), index)!!.run {
+    public fun getItem(index: guint): OptionMenuItem = webkit_option_menu_get_item(webkitOptionMenuPointer.reinterpret(), index)!!.run {
         OptionMenuItem(reinterpret())}
 
     /**
@@ -104,7 +105,7 @@ public class OptionMenu(
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun getNItems(): UInt = webkit_option_menu_get_n_items(webkitOptionMenuPointer.reinterpret())
+    public fun getNItems(): guint = webkit_option_menu_get_n_items(webkitOptionMenuPointer.reinterpret())
 
     /**
      * Selects the #WebKitOptionMenuItem at @index in @menu.
@@ -118,7 +119,7 @@ public class OptionMenu(
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun selectItem(index: UInt): Unit = webkit_option_menu_select_item(webkitOptionMenuPointer.reinterpret(), index)
+    public fun selectItem(index: guint): Unit = webkit_option_menu_select_item(webkitOptionMenuPointer.reinterpret(), index)
 
     /**
      * Emitted when closing a #WebKitOptionMenu is requested. This can happen
@@ -138,6 +139,13 @@ public class OptionMenu(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of OptionMenu
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_option_menu_get_type()
     }
 }
 

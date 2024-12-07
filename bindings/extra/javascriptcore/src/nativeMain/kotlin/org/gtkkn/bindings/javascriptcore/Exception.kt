@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.javascriptcore
 
 import kotlin.String
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -10,6 +9,8 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.javascriptcore.JSCException
 import org.gtkkn.native.javascriptcore.jsc_exception_get_backtrace_string
 import org.gtkkn.native.javascriptcore.jsc_exception_get_column_number
@@ -68,14 +69,14 @@ public class Exception(
      *
      * @return the column number of @exception.
      */
-    public fun getColumnNumber(): UInt = jsc_exception_get_column_number(javascriptcoreExceptionPointer.reinterpret())
+    public fun getColumnNumber(): guint = jsc_exception_get_column_number(javascriptcoreExceptionPointer.reinterpret())
 
     /**
      * Get the line number at which @exception happened.
      *
      * @return the line number of @exception.
      */
-    public fun getLineNumber(): UInt = jsc_exception_get_line_number(javascriptcoreExceptionPointer.reinterpret())
+    public fun getLineNumber(): guint = jsc_exception_get_line_number(javascriptcoreExceptionPointer.reinterpret())
 
     /**
      * Get the error message of @exception.
@@ -119,5 +120,12 @@ public class Exception(
 
         init {
             JavascriptcoreTypeProvider.register()}
+
+        /**
+         * Get the GType of Exception
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = jsc_exception_get_type()
     }
 }

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -19,7 +18,10 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -99,7 +101,7 @@ public open class ShortcutsSection(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `object` 
      */
-    public fun connectChangeCurrentPage(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`object`: Int) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "change-current-page", connectChangeCurrentPageFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectChangeCurrentPage(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`object`: gint) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "change-current-page", connectChangeCurrentPageFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<ShortcutsSection> {
         override val type: GeneratedClassKGType<ShortcutsSection> =
@@ -107,13 +109,21 @@ public open class ShortcutsSection(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of ShortcutsSection
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_shortcuts_section_get_type()
     }
 }
 
-private val connectChangeCurrentPageFunc: CPointer<CFunction<(Int) -> Int>> = staticCFunction {
+private val connectChangeCurrentPageFunc: CPointer<CFunction<(gint) -> gboolean>> =
+        staticCFunction {
     _: COpaquePointer,
-    `object`: Int,
+    `object`: gint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(`object`: Int) -> Boolean>().get().invoke(`object`).asGBoolean()}
+    userData.asStableRef<(`object`: gint) -> Boolean>().get().invoke(`object`).asGBoolean()}
 .reinterpret()

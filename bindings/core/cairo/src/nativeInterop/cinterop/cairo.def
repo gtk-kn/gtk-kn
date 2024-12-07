@@ -1,6 +1,6 @@
-headers = cairo.h
+headers = cairo.h cairo-gobject.h
 package = org.gtkkn.native.cairo
-headerFilter = cairo.h
+headerFilter = cairo.h cairo-*.h
 
 # pkg-config --cflags cairo | tr ' ' '\n' | sed '$!s/$/ \\/'
 compilerOpts.linux =\

@@ -44,6 +44,7 @@ import org.gtkkn.native.gio.g_desktop_app_info_new
 import org.gtkkn.native.gio.g_desktop_app_info_new_from_filename
 import org.gtkkn.native.gio.g_desktop_app_info_new_from_keyfile
 import org.gtkkn.native.gio.g_desktop_app_info_set_desktop_env
+import org.gtkkn.native.gobject.GType
 import kotlin.collections.List as CollectionsList
 import org.gtkkn.bindings.glib.List as GlibList
 
@@ -359,5 +360,12 @@ public open class DesktopAppInfo(
          * @param desktopEnv a string specifying what desktop this is
          */
         public fun setDesktopEnv(desktopEnv: String): Unit = g_desktop_app_info_set_desktop_env(desktopEnv)
+
+        /**
+         * Get the GType of DesktopAppInfo
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_desktop_app_info_get_type()
     }
 }

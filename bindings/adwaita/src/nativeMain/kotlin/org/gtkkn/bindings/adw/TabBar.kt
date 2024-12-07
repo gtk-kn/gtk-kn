@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.ULong
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -45,8 +44,10 @@ import org.gtkkn.native.adw.adw_tab_bar_set_inverted
 import org.gtkkn.native.adw.adw_tab_bar_set_start_action_widget
 import org.gtkkn.native.adw.adw_tab_bar_set_view
 import org.gtkkn.native.gdk.GdkDragAction
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GValue
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -342,11 +343,19 @@ public class TabBar(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of TabBar
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_tab_bar_get_type()
     }
 }
 
 private val connectExtraDragDropFunc:
-        CPointer<CFunction<(CPointer<AdwTabPage>, CPointer<GValue>) -> Int>> = staticCFunction {
+        CPointer<CFunction<(CPointer<AdwTabPage>, CPointer<GValue>) -> gboolean>> =
+        staticCFunction {
     _: COpaquePointer,
     page: CPointer<AdwTabPage>?,
     `value`: CPointer<GValue>?,

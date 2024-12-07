@@ -27,6 +27,7 @@ import org.gtkkn.native.gio.g_notification_set_icon
 import org.gtkkn.native.gio.g_notification_set_priority
 import org.gtkkn.native.gio.g_notification_set_title
 import org.gtkkn.native.gio.g_notification_set_urgent
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GNotification` is a mechanism for creating a notification to be shown
@@ -235,5 +236,12 @@ public open class Notification(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of Notification
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_notification_get_type()
     }
 }

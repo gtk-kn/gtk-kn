@@ -16,6 +16,7 @@ import org.gtkkn.native.adw.adw_squeezer_page_get_child
 import org.gtkkn.native.adw.adw_squeezer_page_get_enabled
 import org.gtkkn.native.adw.adw_squeezer_page_get_type
 import org.gtkkn.native.adw.adw_squeezer_page_set_enabled
+import org.gtkkn.native.gobject.GType
 
 /**
  * An auxiliary class used by [class@Squeezer].
@@ -80,5 +81,12 @@ public class SqueezerPage(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of SqueezerPage
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_squeezer_page_get_type()
     }
 }

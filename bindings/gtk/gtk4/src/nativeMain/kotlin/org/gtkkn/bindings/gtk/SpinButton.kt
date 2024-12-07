@@ -2,9 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -22,7 +19,12 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAccessibleRange
 import org.gtkkn.native.gtk.GtkBuildable
@@ -261,7 +263,7 @@ public open class SpinButton(
     /**
      * The acceleration rate when you hold down a button or key.
      */
-    public open var climbRate: Double
+    public open var climbRate: gdouble
         /**
          * Returns the acceleration rate for repeated changes.
          *
@@ -279,7 +281,7 @@ public open class SpinButton(
     /**
      * The number of decimal places to display.
      */
-    public open var digits: UInt
+    public open var digits: guint
         /**
          * Fetches the precision of @spin_button.
          *
@@ -361,7 +363,7 @@ public open class SpinButton(
     /**
      * The current value.
      */
-    public open var `value`: Double
+    public open var `value`: gdouble
         /**
          * Get the value in the @spin_button.
          *
@@ -407,8 +409,8 @@ public open class SpinButton(
      */
     public constructor(
         adjustment: Adjustment? = null,
-        climbRate: Double,
-        digits: UInt,
+        climbRate: gdouble,
+        digits: guint,
     ) : this(gtk_spin_button_new(adjustment?.gtkAdjustmentPointer?.reinterpret(), climbRate, digits)!!.reinterpret())
 
     /**
@@ -432,9 +434,9 @@ public open class SpinButton(
      * @return The new `GtkSpinButton`
      */
     public constructor(
-        min: Double,
-        max: Double,
-        step: Double,
+        min: gdouble,
+        max: gdouble,
+        step: gdouble,
     ) : this(gtk_spin_button_new_with_range(min, max, step)!!.reinterpret())
 
     /**
@@ -450,8 +452,8 @@ public open class SpinButton(
      */
     public open fun configure(
         adjustment: Adjustment? = null,
-        climbRate: Double,
-        digits: UInt,
+        climbRate: gdouble,
+        digits: guint,
     ): Unit = gtk_spin_button_configure(gtkSpinButtonPointer.reinterpret(), adjustment?.gtkAdjustmentPointer?.reinterpret(), climbRate, digits)
 
     /**
@@ -459,7 +461,7 @@ public open class SpinButton(
      *
      * @return the value of @spin_button
      */
-    public open fun getValueAsInt(): Int = gtk_spin_button_get_value_as_int(gtkSpinButtonPointer.reinterpret())
+    public open fun getValueAsInt(): gint = gtk_spin_button_get_value_as_int(gtkSpinButtonPointer.reinterpret())
 
     /**
      * Sets the step and page increments for spin_button.
@@ -470,7 +472,7 @@ public open class SpinButton(
      * @param step increment applied for a button 1 press.
      * @param page increment applied for a button 2 press.
      */
-    public open fun setIncrements(step: Double, page: Double): Unit = gtk_spin_button_set_increments(gtkSpinButtonPointer.reinterpret(), step, page)
+    public open fun setIncrements(step: gdouble, page: gdouble): Unit = gtk_spin_button_set_increments(gtkSpinButtonPointer.reinterpret(), step, page)
 
     /**
      * Sets the minimum and maximum allowable values for @spin_button.
@@ -481,7 +483,7 @@ public open class SpinButton(
      * @param min minimum allowable value
      * @param max maximum allowable value
      */
-    public open fun setRange(min: Double, max: Double): Unit = gtk_spin_button_set_range(gtkSpinButtonPointer.reinterpret(), min, max)
+    public open fun setRange(min: gdouble, max: gdouble): Unit = gtk_spin_button_set_range(gtkSpinButtonPointer.reinterpret(), min, max)
 
     /**
      * Increment or decrement a spin button’s value in a specified
@@ -490,7 +492,7 @@ public open class SpinButton(
      * @param direction a `GtkSpinType` indicating the direction to spin
      * @param increment step increment to apply in the specified direction
      */
-    public open fun spin(direction: SpinType, increment: Double): Unit = gtk_spin_button_spin(gtkSpinButtonPointer.reinterpret(), direction.nativeValue, increment)
+    public open fun spin(direction: SpinType, increment: gdouble): Unit = gtk_spin_button_spin(gtkSpinButtonPointer.reinterpret(), direction.nativeValue, increment)
 
     /**
      * Manually force an update of the spin button.
@@ -580,6 +582,13 @@ public open class SpinButton(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of SpinButton
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_spin_button_get_type()
     }
 }
 
@@ -600,7 +609,7 @@ private val connectChangeValueFunc: CPointer<CFunction<(GtkScrollType) -> Unit>>
     )}
 .reinterpret()
 
-private val connectOutputFunc: CPointer<CFunction<() -> Int>> = staticCFunction {
+private val connectOutputFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     userData: COpaquePointer
     ->

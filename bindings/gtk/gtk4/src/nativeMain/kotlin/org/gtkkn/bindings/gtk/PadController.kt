@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
@@ -11,6 +10,8 @@ import org.gtkkn.bindings.gio.ActionGroup
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkPadController
 import org.gtkkn.native.gtk.gtk_pad_controller_get_type
 import org.gtkkn.native.gtk.gtk_pad_controller_new
@@ -120,8 +121,8 @@ public open class PadController(
      */
     public open fun setAction(
         type: PadActionType,
-        index: Int,
-        mode: Int,
+        index: gint,
+        mode: gint,
         label: String,
         actionName: String,
     ): Unit = gtk_pad_controller_set_action(gtkPadControllerPointer.reinterpret(), type.nativeValue, index, mode, label, actionName)
@@ -132,5 +133,12 @@ public open class PadController(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of PadController
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_pad_controller_get_type()
     }
 }

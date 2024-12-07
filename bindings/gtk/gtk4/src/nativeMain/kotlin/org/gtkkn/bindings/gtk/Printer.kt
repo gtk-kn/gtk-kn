@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -22,7 +21,10 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkPrinter
 import org.gtkkn.native.gtk.gtk_printer_accepts_pdf
 import org.gtkkn.native.gtk.gtk_printer_accepts_ps
@@ -89,7 +91,7 @@ public open class Printer(
     /**
      * Number of jobs queued in the printer.
      */
-    public open val jobCount: Int
+    public open val jobCount: gint
         /**
          * Gets the number of jobs currently queued on the printer.
          *
@@ -154,7 +156,7 @@ public open class Printer(
      * @return 0 if the printer match, a negative value if @a < @b,
      *   or a positive value if @a > @b
      */
-    public open fun compare(b: Printer): Int = gtk_printer_compare(gtkPrinterPointer.reinterpret(), b.gtkPrinterPointer.reinterpret())
+    public open fun compare(b: Printer): gint = gtk_printer_compare(gtkPrinterPointer.reinterpret(), b.gtkPrinterPointer.reinterpret())
 
     /**
      * Returns the printer’s capabilities.
@@ -276,12 +278,19 @@ public open class Printer(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of Printer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_printer_get_type()
     }
 }
 
-private val connectDetailsAcquiredFunc: CPointer<CFunction<(Int) -> Unit>> = staticCFunction {
+private val connectDetailsAcquiredFunc: CPointer<CFunction<(gboolean) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    success: Int,
+    success: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(success: Boolean) -> Unit>().get().invoke(success.asBoolean())}

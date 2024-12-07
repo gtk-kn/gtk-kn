@@ -10,7 +10,9 @@ import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gdk.GdkFileList
 import org.gtkkn.native.gdk.gdk_file_list_get_files
+import org.gtkkn.native.gdk.gdk_file_list_get_type
 import org.gtkkn.native.gdk.gdk_file_list_new_from_list
+import org.gtkkn.native.gobject.GType
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -52,6 +54,13 @@ public class FileList(
          * @since 4.8
          */
         public fun newFromList(files: SList): FileList = FileList(gdk_file_list_new_from_list(files.glibSListPointer.reinterpret())!!.reinterpret())
+
+        /**
+         * Get the GType of FileList
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_file_list_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FileList = FileList(pointer.reinterpret())
     }

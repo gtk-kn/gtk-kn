@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
@@ -13,6 +12,8 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkSectionModel
 import org.gtkkn.native.gtk.GtkSelectionModel
 import org.gtkkn.native.gtk.GtkSingleSelection
@@ -129,7 +130,7 @@ public open class SingleSelection(
     /**
      * Position of the selected item.
      */
-    public open var selected: UInt
+    public open var selected: guint
         /**
          * Gets the position of the selected item.
          *
@@ -180,5 +181,12 @@ public open class SingleSelection(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of SingleSelection
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_single_selection_get_type()
     }
 }

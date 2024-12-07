@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
@@ -37,6 +36,8 @@ import org.gtkkn.native.gio.g_file_enumerator_next_files_async
 import org.gtkkn.native.gio.g_file_enumerator_next_files_finish
 import org.gtkkn.native.gio.g_file_enumerator_set_pending
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * `GFileEnumerator` allows you to operate on a set of [iface@Gio.File] objects,
@@ -114,7 +115,7 @@ public open class FileEnumerator(
      *   to call when the request is satisfied
      */
     public open fun closeAsync(
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_file_enumerator_close_async(gioFileEnumeratorPointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -297,8 +298,8 @@ public open class FileEnumerator(
      *   to call when the request is satisfied
      */
     public open fun nextFilesAsync(
-        numFiles: Int,
-        ioPriority: Int,
+        numFiles: gint,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_file_enumerator_next_files_async(gioFileEnumeratorPointer.reinterpret(), numFiles, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -337,5 +338,12 @@ public open class FileEnumerator(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of FileEnumerator
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_file_enumerator_get_type()
     }
 }

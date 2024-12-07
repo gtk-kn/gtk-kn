@@ -9,6 +9,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkPaintable
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkWidgetPaintable
 import org.gtkkn.native.gtk.gtk_widget_paintable_get_type
 import org.gtkkn.native.gtk.gtk_widget_paintable_get_widget
@@ -80,5 +81,12 @@ public open class WidgetPaintable(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of WidgetPaintable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_widget_paintable_get_type()
     }
 }

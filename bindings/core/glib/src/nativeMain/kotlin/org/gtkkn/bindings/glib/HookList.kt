@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.Boolean
-import kotlin.UInt
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -20,6 +18,8 @@ import org.gtkkn.native.glib.g_hook_list_invoke
 import org.gtkkn.native.glib.g_hook_list_invoke_check
 import org.gtkkn.native.glib.g_hook_list_marshal
 import org.gtkkn.native.glib.g_hook_list_marshal_check
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.gulong
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -39,7 +39,7 @@ public class HookList(
     /**
      * the next free #GHook id
      */
-    public var seqId: ULong
+    public var seqId: gulong
         get() = glibHookListPointer.pointed.seq_id
         set(`value`) {
             glibHookListPointer.pointed.seq_id = value
@@ -48,7 +48,7 @@ public class HookList(
     /**
      * the size of the #GHookList elements, in bytes
      */
-    public var hookSize: UInt
+    public var hookSize: guint
         get() = glibHookListPointer.pointed.hook_size
         set(`value`) {
             glibHookListPointer.pointed.hook_size = value
@@ -57,7 +57,7 @@ public class HookList(
     /**
      * 1 if the #GHookList has been initialized
      */
-    public var isSetup: UInt
+    public var isSetup: guint
         get() = glibHookListPointer.pointed.is_setup
         set(`value`) {
             glibHookListPointer.pointed.is_setup = value
@@ -84,7 +84,7 @@ public class HookList(
      * @param hookSize the size of each element in the #GHookList,
      *     typically `sizeof (GHook)`.
      */
-    public fun `init`(hookSize: UInt): Unit = g_hook_list_init(glibHookListPointer.reinterpret(), hookSize)
+    public fun `init`(hookSize: guint): Unit = g_hook_list_init(glibHookListPointer.reinterpret(), hookSize)
 
     /**
      * Calls all of the #GHook functions in a #GHookList.

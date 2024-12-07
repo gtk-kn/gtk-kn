@@ -1,8 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
-import kotlin.ULong
-import kotlin.UShort
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -10,6 +8,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GParamSpecTypeInfo
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint16
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -38,7 +38,7 @@ public class ParamSpecTypeInfo(
     /**
      * Size of the instance (object) structure.
      */
-    public var instanceSize: UShort
+    public var instanceSize: guint16
         get() = gobjectParamSpecTypeInfoPointer.pointed.instance_size
         set(`value`) {
             gobjectParamSpecTypeInfoPointer.pointed.instance_size = value
@@ -47,7 +47,7 @@ public class ParamSpecTypeInfo(
     /**
      * Prior to GLib 2.10, it specified the number of pre-allocated (cached) instances to reserve memory for (0 indicates no caching). Since GLib 2.10, it is ignored, since instances are allocated with the [slice allocator][glib-Memory-Slices] now.
      */
-    public var nPreallocs: UShort
+    public var nPreallocs: guint16
         get() = gobjectParamSpecTypeInfoPointer.pointed.n_preallocs
         set(`value`) {
             gobjectParamSpecTypeInfoPointer.pointed.n_preallocs = value
@@ -56,7 +56,7 @@ public class ParamSpecTypeInfo(
     /**
      * The #GType of values conforming to this #GParamSpec
      */
-    public var valueType: ULong
+    public var valueType: GType
         get() = gobjectParamSpecTypeInfoPointer.pointed.value_type
         set(`value`) {
             gobjectParamSpecTypeInfoPointer.pointed.value_type = value

@@ -3,10 +3,8 @@ package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
 import kotlin.Char
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
@@ -91,7 +89,11 @@ import org.gtkkn.native.gio.g_application_unmark_busy
 import org.gtkkn.native.gio.g_application_withdraw_notification
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GVariantDict
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 
 /**
  * `GApplication` is the core class for application support.
@@ -310,7 +312,7 @@ public open class Application(
      * @since 2.28
      */
     @GioVersion2_28
-    public open var inactivityTimeout: UInt
+    public open var inactivityTimeout: guint
         /**
          * Gets the current inactivity timeout for the application.
          *
@@ -807,7 +809,7 @@ public open class Application(
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun run(argc: Int, argv: List<String>? = null): Int = memScoped {
+    public open fun run(argc: gint, argv: List<String>? = null): gint = memScoped {
         return g_application_run(gioApplicationPointer.reinterpret(), argc, argv?.toCStringList(this))}
 
     /**
@@ -989,7 +991,7 @@ public open class Application(
      *     passed commandline. Returns An integer that is set as the exit status for the calling
      *   process. See g_application_command_line_set_exit_status().
      */
-    public fun connectCommandLine(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (commandLine: ApplicationCommandLine) -> Int): ULong = g_signal_connect_data(gPointer.reinterpret(), "command-line", connectCommandLineFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectCommandLine(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (commandLine: ApplicationCommandLine) -> gint): ULong = g_signal_connect_data(gPointer.reinterpret(), "command-line", connectCommandLineFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * The ::handle-local-options signal is emitted on the local instance
@@ -1042,7 +1044,7 @@ public open class Application(
      * @since 2.40
      */
     @GioVersion2_40
-    public fun connectHandleLocalOptions(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (options: VariantDict) -> Int): ULong = g_signal_connect_data(gPointer.reinterpret(), "handle-local-options", connectHandleLocalOptionsFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectHandleLocalOptions(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (options: VariantDict) -> gint): ULong = g_signal_connect_data(gPointer.reinterpret(), "handle-local-options", connectHandleLocalOptionsFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * The ::name-lost signal is emitted only on the registered primary instance
@@ -1150,6 +1152,13 @@ public open class Application(
          * @return true if @application_id is valid
          */
         public fun idIsValid(applicationId: String): Boolean = g_application_id_is_valid(applicationId).asBoolean()
+
+        /**
+         * Get the GType of Application
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_application_get_type()
     }
 }
 
@@ -1160,29 +1169,29 @@ private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFuncti
     userData.asStableRef<() -> Unit>().get().invoke()}
 .reinterpret()
 
-private val connectCommandLineFunc: CPointer<CFunction<(CPointer<GApplicationCommandLine>) -> Int>>
+private val connectCommandLineFunc: CPointer<CFunction<(CPointer<GApplicationCommandLine>) -> gint>>
         = staticCFunction {
     _: COpaquePointer,
     commandLine: CPointer<GApplicationCommandLine>?,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(commandLine: ApplicationCommandLine) -> Int>().get().invoke(commandLine!!.run {
+    userData.asStableRef<(commandLine: ApplicationCommandLine) -> gint>().get().invoke(commandLine!!.run {
         ApplicationCommandLine(reinterpret())}
     )}
 .reinterpret()
 
-private val connectHandleLocalOptionsFunc: CPointer<CFunction<(CPointer<GVariantDict>) -> Int>> =
+private val connectHandleLocalOptionsFunc: CPointer<CFunction<(CPointer<GVariantDict>) -> gint>> =
         staticCFunction {
     _: COpaquePointer,
     options: CPointer<GVariantDict>?,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(options: VariantDict) -> Int>().get().invoke(options!!.run {
+    userData.asStableRef<(options: VariantDict) -> gint>().get().invoke(options!!.run {
         VariantDict(reinterpret())}
     )}
 .reinterpret()
 
-private val connectNameLostFunc: CPointer<CFunction<() -> Int>> = staticCFunction {
+private val connectNameLostFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     userData: COpaquePointer
     ->

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.ULong
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -51,8 +50,10 @@ import org.gtkkn.native.adw.adw_tab_overview_set_show_end_title_buttons
 import org.gtkkn.native.adw.adw_tab_overview_set_show_start_title_buttons
 import org.gtkkn.native.adw.adw_tab_overview_set_view
 import org.gtkkn.native.gdk.GdkDragAction
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GValue
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -522,6 +523,13 @@ public class TabOverview(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of TabOverview
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_tab_overview_get_type()
     }
 }
 
@@ -534,7 +542,8 @@ private val connectCreateTabFunc: CPointer<CFunction<() -> CPointer<AdwTabPage>>
 .reinterpret()
 
 private val connectExtraDragDropFunc:
-        CPointer<CFunction<(CPointer<AdwTabPage>, CPointer<GValue>) -> Int>> = staticCFunction {
+        CPointer<CFunction<(CPointer<AdwTabPage>, CPointer<GValue>) -> gboolean>> =
+        staticCFunction {
     _: COpaquePointer,
     page: CPointer<AdwTabPage>?,
     `value`: CPointer<GValue>?,

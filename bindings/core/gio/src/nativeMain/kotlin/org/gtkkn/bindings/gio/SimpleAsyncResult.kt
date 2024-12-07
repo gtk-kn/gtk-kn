@@ -36,6 +36,7 @@ import org.gtkkn.native.gio.g_simple_async_result_set_handle_cancellation
 import org.gtkkn.native.gio.g_simple_async_result_set_op_res_gboolean
 import org.gtkkn.native.gio.g_simple_async_result_set_op_res_gssize
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 
 /**
  * As of GLib 2.46, `GSimpleAsyncResult` is deprecated in favor of
@@ -355,5 +356,12 @@ public open class SimpleAsyncResult(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of SimpleAsyncResult
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_simple_async_result_get_type()
     }
 }

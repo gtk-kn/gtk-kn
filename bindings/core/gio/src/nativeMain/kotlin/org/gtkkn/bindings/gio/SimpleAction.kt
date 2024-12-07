@@ -33,6 +33,7 @@ import org.gtkkn.native.gio.g_simple_action_set_enabled
 import org.gtkkn.native.gio.g_simple_action_set_state
 import org.gtkkn.native.gio.g_simple_action_set_state_hint
 import org.gtkkn.native.glib.GVariant
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 
 /**
@@ -210,6 +211,13 @@ public open class SimpleAction(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of SimpleAction
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_simple_action_get_type()
     }
 }
 

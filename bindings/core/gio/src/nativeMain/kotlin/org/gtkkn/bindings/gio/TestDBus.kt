@@ -21,6 +21,7 @@ import org.gtkkn.native.gio.g_test_dbus_new
 import org.gtkkn.native.gio.g_test_dbus_stop
 import org.gtkkn.native.gio.g_test_dbus_unset
 import org.gtkkn.native.gio.g_test_dbus_up
+import org.gtkkn.native.gobject.GType
 
 /**
  * A helper class for testing code which uses D-Bus without touching the user’s
@@ -199,5 +200,12 @@ public open class TestDBus(
          * g_test_dbus_up() before acquiring the session bus.
          */
         public fun unset(): Unit = g_test_dbus_unset()
+
+        /**
+         * Get the GType of TestDBus
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_test_dbus_get_type()
     }
 }

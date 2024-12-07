@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -29,7 +28,9 @@ import org.gtkkn.native.gio.g_socket_service_new
 import org.gtkkn.native.gio.g_socket_service_start
 import org.gtkkn.native.gio.g_socket_service_stop
 import org.gtkkn.native.gobject.GObject
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 
 /**
  * A `GSocketService` is an object that represents a service that
@@ -158,11 +159,18 @@ public open class SocketService(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of SocketService
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_socket_service_get_type()
     }
 }
 
 private val connectIncomingFunc:
-        CPointer<CFunction<(CPointer<GSocketConnection>, CPointer<GObject>?) -> Int>> =
+        CPointer<CFunction<(CPointer<GSocketConnection>, CPointer<GObject>?) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     connection: CPointer<GSocketConnection>?,

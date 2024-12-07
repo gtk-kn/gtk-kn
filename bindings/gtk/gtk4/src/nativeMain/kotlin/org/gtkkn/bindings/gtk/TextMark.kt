@@ -13,6 +13,7 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkTextMark
 import org.gtkkn.native.gtk.gtk_text_mark_get_buffer
 import org.gtkkn.native.gtk.gtk_text_mark_get_deleted
@@ -149,5 +150,12 @@ public open class TextMark(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of TextMark
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_text_mark_get_type()
     }
 }

@@ -12,6 +12,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_42
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitFeature
 import org.gtkkn.native.webkit.webkit_feature_get_category
 import org.gtkkn.native.webkit.webkit_feature_get_default_value
@@ -19,6 +20,7 @@ import org.gtkkn.native.webkit.webkit_feature_get_details
 import org.gtkkn.native.webkit.webkit_feature_get_identifier
 import org.gtkkn.native.webkit.webkit_feature_get_name
 import org.gtkkn.native.webkit.webkit_feature_get_status
+import org.gtkkn.native.webkit.webkit_feature_get_type
 import org.gtkkn.native.webkit.webkit_feature_ref
 import org.gtkkn.native.webkit.webkit_feature_unref
 import kotlinx.cinterop.alloc as nativePlacementAlloc
@@ -168,6 +170,13 @@ public class Feature(
     public fun unref(): Unit = webkit_feature_unref(webkitFeaturePointer.reinterpret())
 
     public companion object : RecordCompanion<Feature, WebKitFeature> {
+        /**
+         * Get the GType of Feature
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_feature_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Feature = Feature(pointer.reinterpret())
     }
 }

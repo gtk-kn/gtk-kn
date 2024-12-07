@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
@@ -13,6 +12,8 @@ import org.gtkkn.bindings.gio.Icon
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -184,7 +185,7 @@ public open class Image(
      * [property@Gtk.Image:icon-size] property for images of type
      * `GTK_IMAGE_ICON_NAME`.
      */
-    public open var pixelSize: Int
+    public open var pixelSize: gint
         /**
          * Gets the pixel size used for named icons.
          *
@@ -411,5 +412,12 @@ public open class Image(
          * @return a new `GtkImage`
          */
         public fun newFromResource(resourcePath: String): Image = Image(gtk_image_new_from_resource(resourcePath)!!.reinterpret())
+
+        /**
+         * Get the GType of Image
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_image_get_type()
     }
 }

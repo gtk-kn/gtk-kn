@@ -20,9 +20,12 @@ import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.MemberName
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeAliasSpec
+import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.WildcardTypeName
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -350,6 +353,15 @@ class BindingsGenerator(
         internal val ALLOC_POINTER_TO = MemberName("kotlinx.cinterop", "allocPointerTo")
         internal val AS_STABLE_REF_FUNC = MemberName("kotlinx.cinterop", "asStableRef")
         internal val CSTR_FUNC = MemberName("kotlinx.cinterop", "cstr")
+        internal val KP_BYTEVAR = ClassName("kotlinx.cinterop", "ByteVar")
+        internal val KP_CFUNCTION = ClassName("kotlinx.cinterop", "CFunction")
+        internal val KP_CPOINTED = ClassName("kotlinx.cinterop", "CPointed")
+        internal val KP_CPOINTER = ClassName("kotlinx.cinterop", "CPointer")
+        internal val KP_OPAQUE_POINTER = ClassName("kotlinx.cinterop", "COpaquePointer")
+        internal val KP_STRING_ARRAY = ClassName("kotlinx.cinterop", "CArrayPointer").parameterizedBy(
+            ClassName("kotlinx.cinterop", "CPointerVarOf").parameterizedBy(cpointerOf(KP_BYTEVAR)),
+        )
+        internal val KP_WILDCARD_CPOINTER = cpointerOf(WildcardTypeName.producerOf(KP_CPOINTED))
         internal val MEMSCOPED = MemberName("kotlinx.cinterop", "memScoped")
         internal val NATIVE_HEAP_OBJECT = ClassName("kotlinx.cinterop", "nativeHeap")
         internal val NATIVE_PLACEMENT_ALLOC = ClassName("kotlinx.cinterop", "alloc")
@@ -378,5 +390,29 @@ class BindingsGenerator(
         // glib members
         internal val G_ERROR_MEMBER = MemberName("org.gtkkn.native.glib", "GError")
         internal val G_QUARK_FROM_STRING_FUNC = MemberName("org.gtkkn.native.glib", "g_quark_from_string")
+
+        /**
+         * A [TypeName] for kotlinx.cinterop.CPointer pointing to [typeName]
+         */
+        internal fun cpointerOf(typeName: TypeName): TypeName = KP_CPOINTER.parameterizedBy(typeName)
     }
 }
+
+// gobject types
+internal val G_BOOLEAN = ClassName("org.gtkkn.native.gobject", "gboolean")
+internal val G_CHAR = ClassName("org.gtkkn.native.gobject", "gchar")
+internal val G_DOUBLE = ClassName("org.gtkkn.native.gobject", "gdouble")
+internal val G_FLOAT = ClassName("org.gtkkn.native.gobject", "gfloat")
+internal val G_INT = ClassName("org.gtkkn.native.gobject", "gint")
+internal val G_INT64 = ClassName("org.gtkkn.native.gobject", "gint64")
+internal val G_INT8 = ClassName("org.gtkkn.native.gobject", "gint8")
+internal val G_LONG = ClassName("org.gtkkn.native.gobject", "glong")
+internal val G_SIZE = ClassName("org.gtkkn.native.gobject", "gsize")
+internal val G_TYPE = ClassName("org.gtkkn.native.gobject", "GType")
+internal val G_UINT = ClassName("org.gtkkn.native.gobject", "guint")
+internal val G_UINT16 = ClassName("org.gtkkn.native.gobject", "guint16")
+internal val G_UINT32 = ClassName("org.gtkkn.native.gobject", "guint32")
+internal val G_UINT64 = ClassName("org.gtkkn.native.gobject", "guint64")
+internal val G_UINT8 = ClassName("org.gtkkn.native.gobject", "guint8")
+internal val G_ULONG = ClassName("org.gtkkn.native.gobject", "gulong")
+internal val G_UNICHAR = ClassName("org.gtkkn.native.gobject", "gunichar")

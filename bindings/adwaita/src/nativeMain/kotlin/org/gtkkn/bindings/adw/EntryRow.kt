@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -47,7 +46,9 @@ import org.gtkkn.native.adw.adw_entry_row_set_enable_emoji_completion
 import org.gtkkn.native.adw.adw_entry_row_set_input_hints
 import org.gtkkn.native.adw.adw_entry_row_set_input_purpose
 import org.gtkkn.native.adw.adw_entry_row_set_show_apply_button
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
@@ -300,7 +301,7 @@ public open class EntryRow(
      * @since 1.5
      */
     @AdwVersion1_5
-    public open val textLength: UInt
+    public open val textLength: guint
         /**
          * Retrieves the current length of the text in @self.
          *
@@ -383,6 +384,13 @@ public open class EntryRow(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of EntryRow
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_entry_row_get_type()
     }
 }
 

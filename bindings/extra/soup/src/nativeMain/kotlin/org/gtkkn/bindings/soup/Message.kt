@@ -2,10 +2,8 @@
 package org.gtkkn.bindings.soup
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Long
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.ByteVar
@@ -45,7 +43,11 @@ import org.gtkkn.native.gio.GTlsCertificateFlags
 import org.gtkkn.native.gio.GTlsClientConnection
 import org.gtkkn.native.gio.GTlsPassword
 import org.gtkkn.native.glib.GHashTable
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.soup.SoupAuth
 import org.gtkkn.native.soup.SoupMessage
 import org.gtkkn.native.soup.soup_message_add_flags
@@ -383,7 +385,7 @@ public class Message(
     /**
      * The TLS protocol version negotiated for the message connection.
      */
-    public val tlsProtocolVersion: UInt
+    public val tlsProtocolVersion: guint
         /**
          * Gets the TLS protocol version negotiated for @msg's connection.
          *
@@ -497,7 +499,7 @@ public class Message(
      *
      * @param featureType the #GType of a #SoupSessionFeature
      */
-    public fun disableFeature(featureType: ULong): Unit = soup_message_disable_feature(soupMessagePointer.reinterpret(), featureType)
+    public fun disableFeature(featureType: GType): Unit = soup_message_disable_feature(soupMessagePointer.reinterpret(), featureType)
 
     /**
      * Returns the unique idenfier for the last connection used.
@@ -507,7 +509,7 @@ public class Message(
      *
      * @return An id or 0 if no connection.
      */
-    public fun getConnectionId(): ULong = soup_message_get_connection_id(soupMessagePointer.reinterpret())
+    public fun getConnectionId(): guint64 = soup_message_get_connection_id(soupMessagePointer.reinterpret())
 
     /**
      * Returns whether HTTP/1 version is currently demanded for the @msg send.
@@ -554,7 +556,7 @@ public class Message(
      * @param featureType the #GType of a #SoupSessionFeature
      * @return true if feature is disabled, or false otherwise.
      */
-    public fun isFeatureDisabled(featureType: ULong): Boolean = soup_message_is_feature_disabled(soupMessagePointer.reinterpret(), featureType).asBoolean()
+    public fun isFeatureDisabled(featureType: GType): Boolean = soup_message_is_feature_disabled(soupMessagePointer.reinterpret(), featureType).asBoolean()
 
     /**
      * Determines whether or not @msg's connection can be kept alive for
@@ -739,7 +741,7 @@ public class Message(
      * @since 3.4
      */
     @SoupVersion3_4
-    public fun connectGotBodyData(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (chunkSize: UInt) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "got-body-data", connectGotBodyDataFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectGotBodyData(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (chunkSize: guint) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "got-body-data", connectGotBodyDataFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted after receiving the Status-Line and response headers.
@@ -884,7 +886,7 @@ public class Message(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `chunkSize` the number of bytes written
      */
-    public fun connectWroteBodyData(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (chunkSize: UInt) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "wrote-body-data", connectWroteBodyDataFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectWroteBodyData(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (chunkSize: guint) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "wrote-body-data", connectWroteBodyDataFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted immediately after writing the request headers for a
@@ -901,11 +903,18 @@ public class Message(
 
         init {
             SoupTypeProvider.register()}
+
+        /**
+         * Get the GType of Message
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_message_get_type()
     }
 }
 
 private val connectAcceptCertificateFunc:
-        CPointer<CFunction<(CPointer<GTlsCertificate>, GTlsCertificateFlags) -> Int>> =
+        CPointer<CFunction<(CPointer<GTlsCertificate>, GTlsCertificateFlags) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     tlsPeerCertificate: CPointer<GTlsCertificate>?,
@@ -919,11 +928,11 @@ private val connectAcceptCertificateFunc:
     ).asGBoolean()}
 .reinterpret()
 
-private val connectAuthenticateFunc: CPointer<CFunction<(CPointer<SoupAuth>, Int) -> Int>> =
-        staticCFunction {
+private val connectAuthenticateFunc: CPointer<CFunction<(CPointer<SoupAuth>, gboolean) -> gboolean>>
+        = staticCFunction {
     _: COpaquePointer,
     auth: CPointer<SoupAuth>?,
-    retrying: Int,
+    retrying: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(auth: Auth, retrying: Boolean) -> Boolean>().get().invoke(auth!!.run {
@@ -957,12 +966,12 @@ private val connectGotBodyFunc: CPointer<CFunction<() -> Unit>> = staticCFunctio
     userData.asStableRef<() -> Unit>().get().invoke()}
 .reinterpret()
 
-private val connectGotBodyDataFunc: CPointer<CFunction<(UInt) -> Unit>> = staticCFunction {
+private val connectGotBodyDataFunc: CPointer<CFunction<(guint) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    chunkSize: UInt,
+    chunkSize: guint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(chunkSize: UInt) -> Unit>().get().invoke(chunkSize)}
+    userData.asStableRef<(chunkSize: guint) -> Unit>().get().invoke(chunkSize)}
 .reinterpret()
 
 private val connectGotHeadersFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
@@ -1001,7 +1010,7 @@ private val connectNetworkEventFunc:
 .reinterpret()
 
 private val connectRequestCertificateFunc:
-        CPointer<CFunction<(CPointer<GTlsClientConnection>) -> Int>> = staticCFunction {
+        CPointer<CFunction<(CPointer<GTlsClientConnection>) -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     tlsConnection: CPointer<GTlsClientConnection>?,
     userData: COpaquePointer
@@ -1012,7 +1021,7 @@ private val connectRequestCertificateFunc:
 .reinterpret()
 
 private val connectRequestCertificatePasswordFunc:
-        CPointer<CFunction<(CPointer<GTlsPassword>) -> Int>> = staticCFunction {
+        CPointer<CFunction<(CPointer<GTlsPassword>) -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     tlsPassword: CPointer<GTlsPassword>?,
     userData: COpaquePointer
@@ -1043,12 +1052,12 @@ private val connectWroteBodyFunc: CPointer<CFunction<() -> Unit>> = staticCFunct
     userData.asStableRef<() -> Unit>().get().invoke()}
 .reinterpret()
 
-private val connectWroteBodyDataFunc: CPointer<CFunction<(UInt) -> Unit>> = staticCFunction {
+private val connectWroteBodyDataFunc: CPointer<CFunction<(guint) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    chunkSize: UInt,
+    chunkSize: guint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(chunkSize: UInt) -> Unit>().get().invoke(chunkSize)}
+    userData.asStableRef<(chunkSize: guint) -> Unit>().get().invoke(chunkSize)}
 .reinterpret()
 
 private val connectWroteHeadersFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {

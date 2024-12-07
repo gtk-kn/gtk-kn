@@ -13,6 +13,7 @@ import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkFileFilter
 import org.gtkkn.native.gtk.gtk_file_filter_add_mime_type
@@ -217,5 +218,12 @@ public open class FileFilter(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of FileFilter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_file_filter_get_type()
     }
 }

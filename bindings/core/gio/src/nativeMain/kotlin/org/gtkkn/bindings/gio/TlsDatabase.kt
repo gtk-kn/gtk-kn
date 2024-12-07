@@ -34,6 +34,7 @@ import org.gtkkn.native.gio.g_tls_database_verify_chain
 import org.gtkkn.native.gio.g_tls_database_verify_chain_async
 import org.gtkkn.native.gio.g_tls_database_verify_chain_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GTlsDatabase` is used to look up certificates and other information
@@ -437,5 +438,12 @@ public open class TlsDatabase(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of TlsDatabase
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_tls_database_get_type()
     }
 }

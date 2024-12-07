@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -23,7 +22,10 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkCellEditable
@@ -161,7 +163,7 @@ public open class ComboBox(
      * `gtk_tree_path_get_indices (path)[0]`, where `path` is the
      * [struct@Gtk.TreePath] of the active item.
      */
-    public open var active: Int
+    public open var active: gint
         /**
          * Returns the index of the currently active item.
          *
@@ -231,7 +233,7 @@ public open class ComboBox(
      * This is property only relevant if the combo was created with
      * [property@Gtk.ComboBox:has-entry] is true.
      */
-    public open var entryTextColumn: Int
+    public open var entryTextColumn: gint
         /**
          * Returns the column which @combo_box is using to get the strings
          * from to display in the internal entry.
@@ -272,7 +274,7 @@ public open class ComboBox(
      * The model column that provides string IDs for the values
      * in the model, if != -1.
      */
-    public open var idColumn: Int
+    public open var idColumn: gint
         /**
          * Returns the column which @combo_box is using to get string IDs
          * for values from.
@@ -544,6 +546,13 @@ public open class ComboBox(
          * @return A new `GtkComboBox`
          */
         public fun newWithModelAndEntry(model: TreeModel): ComboBox = ComboBox(gtk_combo_box_new_with_model_and_entry(model.gtkTreeModelPointer)!!.reinterpret())
+
+        /**
+         * Get the GType of ComboBox
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_combo_box_get_type()
     }
 }
 
@@ -571,7 +580,7 @@ private val connectMoveActiveFunc: CPointer<CFunction<(GtkScrollType) -> Unit>> 
     )}
 .reinterpret()
 
-private val connectPopdownFunc: CPointer<CFunction<() -> Int>> = staticCFunction {
+private val connectPopdownFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     userData: COpaquePointer
     ->

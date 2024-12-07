@@ -4,7 +4,6 @@ package org.gtkkn.bindings.gio
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -31,6 +30,7 @@ import org.gtkkn.native.gio.g_icon_new_for_string
 import org.gtkkn.native.gio.g_icon_serialize
 import org.gtkkn.native.gio.g_icon_to_string
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.guint
 
 /**
  * `GIcon` is a very minimal interface for icons. It provides functions
@@ -81,7 +81,7 @@ public interface Icon : Interface, KGTyped {
      * @return a #guint containing a hash for the @icon, suitable for
      *   use in a #GHashTable or similar data structure.
      */
-    public fun hash(): UInt = g_icon_hash(gioIconPointer.reinterpret())
+    public fun hash(): guint = g_icon_hash(gioIconPointer.reinterpret())
 
     /**
      * Serializes a #GIcon into a #GVariant. An equivalent #GIcon can be retrieved

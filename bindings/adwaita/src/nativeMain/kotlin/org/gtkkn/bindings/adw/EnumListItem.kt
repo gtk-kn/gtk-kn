@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
-import kotlin.Int
 import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -15,6 +14,8 @@ import org.gtkkn.native.adw.adw_enum_list_item_get_name
 import org.gtkkn.native.adw.adw_enum_list_item_get_nick
 import org.gtkkn.native.adw.adw_enum_list_item_get_type
 import org.gtkkn.native.adw.adw_enum_list_item_get_value
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * `AdwEnumListItem` is the type of items in a [class@EnumListModel].
@@ -51,7 +52,7 @@ public class EnumListItem(
     /**
      * The enum value.
      */
-    public val `value`: Int
+    public val `value`: gint
         /**
          * Gets the enum value.
          *
@@ -65,5 +66,12 @@ public class EnumListItem(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of EnumListItem
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_enum_list_item_get_type()
     }
 }

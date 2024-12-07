@@ -21,6 +21,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskRenderNode
 import org.gtkkn.native.gsk.gsk_render_node_deserialize
 import org.gtkkn.native.gsk.gsk_render_node_get_bounds
@@ -148,5 +149,12 @@ public open class RenderNode(
          */
         public fun deserialize(bytes: Bytes, errorFunc: ParseErrorFunc): RenderNode? = gsk_render_node_deserialize(bytes.glibBytesPointer.reinterpret(), ParseErrorFuncFunc.reinterpret(), StableRef.create(errorFunc).asCPointer())?.run {
             RenderNode(reinterpret())}
+
+        /**
+         * Get the GType of RenderNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_render_node_get_type()
     }
 }

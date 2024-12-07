@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBuilderCScope
 import org.gtkkn.native.gtk.GtkBuilderScope
 import org.gtkkn.native.gtk.gtk_builder_cscope_get_type
@@ -62,5 +63,12 @@ public open class BuilderCScope(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of BuilderCScope
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_builder_cscope_get_type()
     }
 }

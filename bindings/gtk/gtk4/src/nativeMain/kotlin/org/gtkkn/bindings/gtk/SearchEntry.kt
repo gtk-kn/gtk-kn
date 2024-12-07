@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -21,7 +20,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -188,7 +189,7 @@ public open class SearchEntry(
      * @since 4.8
      */
     @GtkVersion4_8
-    public open var searchDelay: UInt
+    public open var searchDelay: guint
         /**
          * Get the delay to be used between the last keypress and the
          * [signal@Gtk.SearchEntry::search-changed] signal being emitted.
@@ -326,6 +327,13 @@ public open class SearchEntry(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of SearchEntry
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_search_entry_get_type()
     }
 }
 

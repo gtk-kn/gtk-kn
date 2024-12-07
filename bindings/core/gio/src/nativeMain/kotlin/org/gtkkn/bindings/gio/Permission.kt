@@ -33,6 +33,7 @@ import org.gtkkn.native.gio.g_permission_release
 import org.gtkkn.native.gio.g_permission_release_async
 import org.gtkkn.native.gio.g_permission_release_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 
 /**
  * A `GPermission` represents the status of the caller’s permission to
@@ -266,5 +267,12 @@ public open class Permission(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of Permission
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_permission_get_type()
     }
 }

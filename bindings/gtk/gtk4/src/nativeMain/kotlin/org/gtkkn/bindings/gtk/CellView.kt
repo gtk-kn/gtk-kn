@@ -12,6 +12,7 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkCellLayout
@@ -247,5 +248,12 @@ public open class CellView(
          * @return A newly created `GtkCellView` widget.
          */
         public fun newWithMarkup(markup: String): CellView = CellView(gtk_cell_view_new_with_markup(markup)!!.reinterpret())
+
+        /**
+         * Get the GType of CellView
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_cell_view_get_type()
     }
 }

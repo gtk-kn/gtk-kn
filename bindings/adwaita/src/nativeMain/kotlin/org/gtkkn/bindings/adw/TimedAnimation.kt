@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Widget
@@ -29,6 +27,9 @@ import org.gtkkn.native.adw.adw_timed_animation_set_repeat_count
 import org.gtkkn.native.adw.adw_timed_animation_set_reverse
 import org.gtkkn.native.adw.adw_timed_animation_set_value_from
 import org.gtkkn.native.adw.adw_timed_animation_set_value_to
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.guint
 
 /**
  * A time-based [class@Animation].
@@ -80,7 +81,7 @@ public class TimedAnimation(
      * If the animation repeats more than once, describes the duration of one
      * iteration.
      */
-    public var duration: UInt
+    public var duration: guint
         /**
          * Gets the duration of @self.
          *
@@ -125,7 +126,7 @@ public class TimedAnimation(
      *
      * If set to 0, the animation will repeat endlessly.
      */
-    public var repeatCount: UInt
+    public var repeatCount: guint
         /**
          * Gets the number of times @self will play.
          *
@@ -167,7 +168,7 @@ public class TimedAnimation(
      * If [property@TimedAnimation:reverse] is `TRUE`, the animation will end at
      * this value instead.
      */
-    public var valueFrom: Double
+    public var valueFrom: gdouble
         /**
          * Gets the value @self will animate from.
          *
@@ -196,7 +197,7 @@ public class TimedAnimation(
      * If [property@TimedAnimation:reverse] is `TRUE`, the animation will start
      * at this value instead.
      */
-    public var valueTo: Double
+    public var valueTo: gdouble
         /**
          * Gets the value @self will animate to.
          *
@@ -229,9 +230,9 @@ public class TimedAnimation(
      */
     public constructor(
         widget: Widget,
-        from: Double,
-        to: Double,
-        duration: UInt,
+        from: gdouble,
+        to: gdouble,
+        duration: guint,
         target: AnimationTarget,
     ) : this(adw_timed_animation_new(widget.gtkWidgetPointer.reinterpret(), from, to, duration, target.adwAnimationTargetPointer.reinterpret())!!.reinterpret())
 
@@ -241,5 +242,12 @@ public class TimedAnimation(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of TimedAnimation
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_timed_animation_get_type()
     }
 }

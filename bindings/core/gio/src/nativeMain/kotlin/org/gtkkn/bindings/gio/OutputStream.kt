@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Long
 import kotlin.Result
 import kotlin.Unit
@@ -43,6 +42,8 @@ import org.gtkkn.native.gio.g_output_stream_write_bytes_async
 import org.gtkkn.native.gio.g_output_stream_write_bytes_finish
 import org.gtkkn.native.gio.g_output_stream_write_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * `GOutputStream` is a base class for implementing streaming output.
@@ -152,7 +153,7 @@ public open class OutputStream(
      *   to call when the request is satisfied
      */
     public open fun closeAsync(
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_output_stream_close_async(gioOutputStreamPointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -214,7 +215,7 @@ public open class OutputStream(
      *   to call when the request is satisfied
      */
     public open fun flushAsync(
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_output_stream_flush_async(gioOutputStreamPointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -326,7 +327,7 @@ public open class OutputStream(
     public open fun spliceAsync(
         source: InputStream,
         flags: OutputStreamSpliceFlags,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_output_stream_splice_async(gioOutputStreamPointer.reinterpret(), source.gioInputStreamPointer.reinterpret(), flags.mask, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -402,7 +403,7 @@ public open class OutputStream(
      */
     public open fun writeBytesAsync(
         bytes: Bytes,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_output_stream_write_bytes_async(gioOutputStreamPointer.reinterpret(), bytes.glibBytesPointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -447,5 +448,12 @@ public open class OutputStream(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of OutputStream
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_output_stream_get_type()
     }
 }

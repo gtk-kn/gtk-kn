@@ -2,15 +2,9 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.Long
 import kotlin.Short
 import kotlin.String
-import kotlin.UByte
-import kotlin.UInt
-import kotlin.ULong
-import kotlin.UShort
 import kotlin.Unit
 import kotlin.collections.List
 import kotlinx.cinterop.CPointed
@@ -88,6 +82,14 @@ import org.gtkkn.native.glib.g_variant_ref
 import org.gtkkn.native.glib.g_variant_ref_sink
 import org.gtkkn.native.glib.g_variant_take_ref
 import org.gtkkn.native.glib.g_variant_unref
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gint64
+import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.guint16
+import org.gtkkn.native.gobject.guint64
+import org.gtkkn.native.gobject.guint8
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -449,7 +451,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getByte(): UByte = g_variant_get_byte(glibVariantPointer.reinterpret())
+    public fun getByte(): guint8 = g_variant_get_byte(glibVariantPointer.reinterpret())
 
     /**
      * Reads a child item out of a container #GVariant instance.  This
@@ -481,7 +483,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getChildValue(index: ULong): Variant = g_variant_get_child_value(glibVariantPointer.reinterpret(), index)!!.run {
+    public fun getChildValue(index: gsize): Variant = g_variant_get_child_value(glibVariantPointer.reinterpret(), index)!!.run {
         Variant(reinterpret())}
 
     /**
@@ -507,7 +509,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getDouble(): Double = g_variant_get_double(glibVariantPointer.reinterpret())
+    public fun getDouble(): gdouble = g_variant_get_double(glibVariantPointer.reinterpret())
 
     /**
      * Returns the 32-bit signed integer value of @value.
@@ -523,7 +525,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getHandle(): Int = g_variant_get_handle(glibVariantPointer.reinterpret())
+    public fun getHandle(): gint = g_variant_get_handle(glibVariantPointer.reinterpret())
 
     /**
      * Returns the 16-bit signed integer value of @value.
@@ -547,7 +549,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getInt32(): Int = g_variant_get_int32(glibVariantPointer.reinterpret())
+    public fun getInt32(): gint = g_variant_get_int32(glibVariantPointer.reinterpret())
 
     /**
      * Returns the 64-bit signed integer value of @value.
@@ -559,7 +561,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getInt64(): Long = g_variant_get_int64(glibVariantPointer.reinterpret())
+    public fun getInt64(): gint64 = g_variant_get_int64(glibVariantPointer.reinterpret())
 
     /**
      * Given a maybe-typed #GVariant instance, extract its value.  If the
@@ -623,7 +625,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getSize(): ULong = g_variant_get_size(glibVariantPointer.reinterpret())
+    public fun getSize(): gsize = g_variant_get_size(glibVariantPointer.reinterpret())
 
     /**
      * Determines the type of @value.
@@ -659,7 +661,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getUint16(): UShort = g_variant_get_uint16(glibVariantPointer.reinterpret())
+    public fun getUint16(): guint16 = g_variant_get_uint16(glibVariantPointer.reinterpret())
 
     /**
      * Returns the 32-bit unsigned integer value of @value.
@@ -671,7 +673,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getUint32(): UInt = g_variant_get_uint32(glibVariantPointer.reinterpret())
+    public fun getUint32(): guint = g_variant_get_uint32(glibVariantPointer.reinterpret())
 
     /**
      * Returns the 64-bit unsigned integer value of @value.
@@ -683,7 +685,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getUint64(): ULong = g_variant_get_uint64(glibVariantPointer.reinterpret())
+    public fun getUint64(): guint64 = g_variant_get_uint64(glibVariantPointer.reinterpret())
 
     /**
      * Unboxes @value.  The result is the #GVariant instance that was
@@ -711,7 +713,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun hash(): UInt = g_variant_hash(glibVariantPointer.reinterpret())
+    public fun hash(): guint = g_variant_hash(glibVariantPointer.reinterpret())
 
     /**
      * Checks if @value is a container.
@@ -819,7 +821,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun nChildren(): ULong = g_variant_n_children(glibVariantPointer.reinterpret())
+    public fun nChildren(): gsize = g_variant_n_children(glibVariantPointer.reinterpret())
 
     /**
      * Pretty-prints @value in the format understood by g_variant_parse().
@@ -943,7 +945,7 @@ public class Variant(
          * @return a floating reference to a new byte #GVariant instance
          * @since 2.24
          */
-        public fun newByte(`value`: UByte): Variant = Variant(g_variant_new_byte(`value`)!!.reinterpret())
+        public fun newByte(`value`: guint8): Variant = Variant(g_variant_new_byte(`value`)!!.reinterpret())
 
         /**
          * Constructs an array of bytestring #GVariant from the given array of
@@ -982,7 +984,7 @@ public class Variant(
          * @return a floating reference to a new double #GVariant instance
          * @since 2.24
          */
-        public fun newDouble(`value`: Double): Variant = Variant(g_variant_new_double(`value`)!!.reinterpret())
+        public fun newDouble(`value`: gdouble): Variant = Variant(g_variant_new_double(`value`)!!.reinterpret())
 
         /**
          * Constructs a new serialized-mode #GVariant instance.  This is the
@@ -1018,7 +1020,7 @@ public class Variant(
          * @return a floating reference to a new handle #GVariant instance
          * @since 2.24
          */
-        public fun newHandle(`value`: Int): Variant = Variant(g_variant_new_handle(`value`)!!.reinterpret())
+        public fun newHandle(`value`: gint): Variant = Variant(g_variant_new_handle(`value`)!!.reinterpret())
 
         /**
          * Creates a new int16 #GVariant instance.
@@ -1036,7 +1038,7 @@ public class Variant(
          * @return a floating reference to a new int32 #GVariant instance
          * @since 2.24
          */
-        public fun newInt32(`value`: Int): Variant = Variant(g_variant_new_int32(`value`)!!.reinterpret())
+        public fun newInt32(`value`: gint): Variant = Variant(g_variant_new_int32(`value`)!!.reinterpret())
 
         /**
          * Creates a new int64 #GVariant instance.
@@ -1045,7 +1047,7 @@ public class Variant(
          * @return a floating reference to a new int64 #GVariant instance
          * @since 2.24
          */
-        public fun newInt64(`value`: Long): Variant = Variant(g_variant_new_int64(`value`)!!.reinterpret())
+        public fun newInt64(`value`: gint64): Variant = Variant(g_variant_new_int64(`value`)!!.reinterpret())
 
         /**
          * Depending on if @child is null, either wraps @child inside of a
@@ -1143,7 +1145,7 @@ public class Variant(
          * @return a floating reference to a new uint16 #GVariant instance
          * @since 2.24
          */
-        public fun newUint16(`value`: UShort): Variant = Variant(g_variant_new_uint16(`value`)!!.reinterpret())
+        public fun newUint16(`value`: guint16): Variant = Variant(g_variant_new_uint16(`value`)!!.reinterpret())
 
         /**
          * Creates a new uint32 #GVariant instance.
@@ -1152,7 +1154,7 @@ public class Variant(
          * @return a floating reference to a new uint32 #GVariant instance
          * @since 2.24
          */
-        public fun newUint32(`value`: UInt): Variant = Variant(g_variant_new_uint32(`value`)!!.reinterpret())
+        public fun newUint32(`value`: guint): Variant = Variant(g_variant_new_uint32(`value`)!!.reinterpret())
 
         /**
          * Creates a new uint64 #GVariant instance.
@@ -1161,7 +1163,7 @@ public class Variant(
          * @return a floating reference to a new uint64 #GVariant instance
          * @since 2.24
          */
-        public fun newUint64(`value`: ULong): Variant = Variant(g_variant_new_uint64(`value`)!!.reinterpret())
+        public fun newUint64(`value`: guint64): Variant = Variant(g_variant_new_uint64(`value`)!!.reinterpret())
 
         /**
          * Boxes @value.  The result is a #GVariant instance representing a

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gdkpixbuf
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.TimeVal
@@ -17,6 +16,8 @@ import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_animation_iter_get_delay_time
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_animation_iter_get_pixbuf
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_animation_iter_get_type
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_animation_iter_on_currently_loading_frame
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * An opaque object representing an iterator which points to a
@@ -70,7 +71,7 @@ public open class PixbufAnimationIter(
      *
      * @return delay time in milliseconds (thousandths of a second)
      */
-    public open fun getDelayTime(): Int = gdk_pixbuf_animation_iter_get_delay_time(gdkpixbufPixbufAnimationIterPointer.reinterpret())
+    public open fun getDelayTime(): gint = gdk_pixbuf_animation_iter_get_delay_time(gdkpixbufPixbufAnimationIterPointer.reinterpret())
 
     /**
      * Gets the current pixbuf which should be displayed.
@@ -112,5 +113,12 @@ public open class PixbufAnimationIter(
 
         init {
             GdkpixbufTypeProvider.register()}
+
+        /**
+         * Get the GType of PixbufAnimationIter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_pixbuf_animation_iter_get_type()
     }
 }

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gdkpixbuf
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.Throws
@@ -43,6 +42,8 @@ import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_animation_new_from_stream
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_animation_new_from_stream_async
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_animation_new_from_stream_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * An opaque object representing an animation.
@@ -145,7 +146,7 @@ public open class PixbufAnimation(
      *
      * @return Height of the bounding box of the animation.
      */
-    public open fun getHeight(): Int = gdk_pixbuf_animation_get_height(gdkpixbufPixbufAnimationPointer.reinterpret())
+    public open fun getHeight(): gint = gdk_pixbuf_animation_get_height(gdkpixbufPixbufAnimationPointer.reinterpret())
 
     /**
      * Get an iterator for displaying an animation.
@@ -212,7 +213,7 @@ public open class PixbufAnimation(
      *
      * @return Width of the bounding box of the animation.
      */
-    public open fun getWidth(): Int = gdk_pixbuf_animation_get_width(gdkpixbufPixbufAnimationPointer.reinterpret())
+    public open fun getWidth(): gint = gdk_pixbuf_animation_get_width(gdkpixbufPixbufAnimationPointer.reinterpret())
 
     /**
      * Checks whether the animation is a static image.
@@ -302,5 +303,12 @@ public open class PixbufAnimation(
             cancellable: Cancellable? = null,
             callback: AsyncReadyCallback,
         ): Unit = gdk_pixbuf_animation_new_from_stream_async(stream.gioInputStreamPointer.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
+
+        /**
+         * Get the GType of PixbufAnimation
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_pixbuf_animation_get_type()
     }
 }

@@ -11,6 +11,7 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitWindowProperties
 import org.gtkkn.native.webkit.webkit_window_properties_get_fullscreen
 import org.gtkkn.native.webkit.webkit_window_properties_get_geometry
@@ -179,5 +180,12 @@ public class WindowProperties(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of WindowProperties
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_window_properties_get_type()
     }
 }

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
@@ -24,6 +23,8 @@ import org.gtkkn.native.gio.g_unix_fd_message_get_type
 import org.gtkkn.native.gio.g_unix_fd_message_new
 import org.gtkkn.native.gio.g_unix_fd_message_new_with_fd_list
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * This [class@Gio.SocketControlMessage] contains a [class@Gio.UnixFDList].
@@ -102,7 +103,7 @@ public open class UnixFDMessage(
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun appendFd(fd: Int): Result<Boolean> = memScoped {
+    public open fun appendFd(fd: gint): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_unix_fd_message_append_fd(gioUnixFDMessagePointer.reinterpret(), fd, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
@@ -119,5 +120,12 @@ public open class UnixFDMessage(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of UnixFDMessage
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_unix_fd_message_get_type()
     }
 }

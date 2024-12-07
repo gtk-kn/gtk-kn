@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.Throws
@@ -52,6 +51,8 @@ import org.gtkkn.native.gio.g_subprocess_wait_check_async
 import org.gtkkn.native.gio.g_subprocess_wait_check_finish
 import org.gtkkn.native.gio.g_subprocess_wait_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * `GSubprocess` allows the creation of and interaction with child
@@ -213,7 +214,7 @@ public open class Subprocess(
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun getExitStatus(): Int = g_subprocess_get_exit_status(gioSubprocessPointer.reinterpret())
+    public open fun getExitStatus(): gint = g_subprocess_get_exit_status(gioSubprocessPointer.reinterpret())
 
     /**
      * On UNIX, returns the process ID as a decimal string.
@@ -273,7 +274,7 @@ public open class Subprocess(
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun getStatus(): Int = g_subprocess_get_status(gioSubprocessPointer.reinterpret())
+    public open fun getStatus(): gint = g_subprocess_get_status(gioSubprocessPointer.reinterpret())
 
     /**
      * Gets the #GInputStream from which to read the stderr output of
@@ -344,7 +345,7 @@ public open class Subprocess(
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun getTermSig(): Int = g_subprocess_get_term_sig(gioSubprocessPointer.reinterpret())
+    public open fun getTermSig(): gint = g_subprocess_get_term_sig(gioSubprocessPointer.reinterpret())
 
     /**
      * Sends the UNIX signal @signal_num to the subprocess, if it is still
@@ -359,7 +360,7 @@ public open class Subprocess(
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun sendSignal(signalNum: Int): Unit = g_subprocess_send_signal(gioSubprocessPointer.reinterpret(), signalNum)
+    public open fun sendSignal(signalNum: gint): Unit = g_subprocess_send_signal(gioSubprocessPointer.reinterpret(), signalNum)
 
     /**
      * Synchronously wait for the subprocess to terminate.
@@ -480,5 +481,12 @@ public open class Subprocess(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of Subprocess
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_subprocess_get_type()
     }
 }

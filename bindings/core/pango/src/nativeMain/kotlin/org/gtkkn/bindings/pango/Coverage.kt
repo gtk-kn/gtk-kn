@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
-import kotlin.Int
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -9,6 +8,8 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.pango.PangoCoverage
 import org.gtkkn.native.pango.pango_coverage_copy
 import org.gtkkn.native.pango.pango_coverage_get
@@ -66,7 +67,7 @@ public open class Coverage(
      * @param index the index to check
      * @return the coverage level of @coverage for character @index_.
      */
-    public open fun `get`(index: Int): CoverageLevel = pango_coverage_get(pangoCoveragePointer.reinterpret(), index).run {
+    public open fun `get`(index: gint): CoverageLevel = pango_coverage_get(pangoCoveragePointer.reinterpret(), index).run {
         CoverageLevel.fromNativeValue(this)}
 
     /**
@@ -92,7 +93,7 @@ public open class Coverage(
      * @param index the index to modify
      * @param level the new level for @index_
      */
-    public open fun `set`(index: Int, level: CoverageLevel): Unit = pango_coverage_set(pangoCoveragePointer.reinterpret(), index, level.nativeValue)
+    public open fun `set`(index: gint, level: CoverageLevel): Unit = pango_coverage_set(pangoCoveragePointer.reinterpret(), index, level.nativeValue)
 
     /**
      * Decrease the reference count on the `PangoCoverage` by one.
@@ -107,5 +108,12 @@ public open class Coverage(
 
         init {
             PangoTypeProvider.register()}
+
+        /**
+         * Get the GType of Coverage
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_coverage_get_type()
     }
 }

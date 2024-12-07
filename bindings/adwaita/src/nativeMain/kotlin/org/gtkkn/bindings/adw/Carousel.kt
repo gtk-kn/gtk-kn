@@ -2,9 +2,6 @@
 package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -50,7 +47,11 @@ import org.gtkkn.native.adw.adw_carousel_set_interactive
 import org.gtkkn.native.adw.adw_carousel_set_reveal_duration
 import org.gtkkn.native.adw.adw_carousel_set_scroll_params
 import org.gtkkn.native.adw.adw_carousel_set_spacing
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -188,7 +189,7 @@ public class Carousel(
     /**
      * The number of pages in a `AdwCarousel`.
      */
-    public val nPages: UInt
+    public val nPages: guint
         /**
          * Gets the number of pages in @self.
          *
@@ -201,7 +202,7 @@ public class Carousel(
      *
      * 1 matches 1 page. Use [method@Carousel.scroll_to] for changing it.
      */
-    public val position: Double
+    public val position: gdouble
         /**
          * Gets current scroll position in @self, unitless.
          *
@@ -216,7 +217,7 @@ public class Carousel(
      *
      * Reveal duration is used when animating adding or removing pages.
      */
-    public var revealDuration: UInt
+    public var revealDuration: guint
         /**
          * Gets the page reveal duration, in milliseconds.
          *
@@ -265,7 +266,7 @@ public class Carousel(
     /**
      * Spacing between pages in pixels.
      */
-    public var spacing: UInt
+    public var spacing: guint
         /**
          * Gets spacing between pages in pixels.
          *
@@ -299,7 +300,7 @@ public class Carousel(
      * @param n index of the page
      * @return the page
      */
-    public fun getNthPage(n: UInt): Widget = adw_carousel_get_nth_page(adwCarouselPointer.reinterpret(), n)!!.run {
+    public fun getNthPage(n: guint): Widget = adw_carousel_get_nth_page(adwCarouselPointer.reinterpret(), n)!!.run {
         Widget(reinterpret())}
 
     /**
@@ -311,7 +312,7 @@ public class Carousel(
      * @param child a widget to add
      * @param position the position to insert @child at
      */
-    public fun insert(child: Widget, position: Int): Unit = adw_carousel_insert(adwCarouselPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), position)
+    public fun insert(child: Widget, position: gint): Unit = adw_carousel_insert(adwCarouselPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), position)
 
     /**
      * Prepends @child to @self.
@@ -336,7 +337,7 @@ public class Carousel(
      * @param child a widget to add
      * @param position the position to move @child to
      */
-    public fun reorder(child: Widget, position: Int): Unit = adw_carousel_reorder(adwCarouselPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), position)
+    public fun reorder(child: Widget, position: gint): Unit = adw_carousel_reorder(adwCarouselPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), position)
 
     /**
      * Scrolls to @widget.
@@ -360,7 +361,7 @@ public class Carousel(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `index` current page
      */
-    public fun connectPageChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (index: UInt) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "page-changed", connectPageChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectPageChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (index: guint) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "page-changed", connectPageChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<Carousel> {
         override val type: GeneratedClassKGType<Carousel> =
@@ -368,13 +369,20 @@ public class Carousel(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of Carousel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_carousel_get_type()
     }
 }
 
-private val connectPageChangedFunc: CPointer<CFunction<(UInt) -> Unit>> = staticCFunction {
+private val connectPageChangedFunc: CPointer<CFunction<(guint) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    index: UInt,
+    index: guint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(index: UInt) -> Unit>().get().invoke(index)}
+    userData.asStableRef<(index: guint) -> Unit>().get().invoke(index)}
 .reinterpret()

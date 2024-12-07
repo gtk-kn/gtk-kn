@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -29,6 +28,8 @@ import org.gtkkn.native.adw.adw_avatar_set_icon_name
 import org.gtkkn.native.adw.adw_avatar_set_show_initials
 import org.gtkkn.native.adw.adw_avatar_set_size
 import org.gtkkn.native.adw.adw_avatar_set_text
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -141,7 +142,7 @@ public class Avatar(
     /**
      * The size of the avatar.
      */
-    public var size: Int
+    public var size: gint
         /**
          * Gets the size of the avatar.
          *
@@ -188,7 +189,7 @@ public class Avatar(
      * @return the newly created `AdwAvatar`
      */
     public constructor(
-        size: Int,
+        size: gint,
         text: String? = null,
         showInitials: Boolean,
     ) : this(adw_avatar_new(size, text, showInitials.asGBoolean())!!.reinterpret())
@@ -201,7 +202,7 @@ public class Avatar(
      * @param scaleFactor The scale factor
      * @return the texture
      */
-    public fun drawToTexture(scaleFactor: Int): Texture = adw_avatar_draw_to_texture(adwAvatarPointer.reinterpret(), scaleFactor)!!.run {
+    public fun drawToTexture(scaleFactor: gint): Texture = adw_avatar_draw_to_texture(adwAvatarPointer.reinterpret(), scaleFactor)!!.run {
         Texture(reinterpret())}
 
     public companion object : TypeCompanion<Avatar> {
@@ -210,5 +211,12 @@ public class Avatar(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of Avatar
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_avatar_get_type()
     }
 }

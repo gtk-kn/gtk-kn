@@ -4,7 +4,6 @@ package org.gtkkn.bindings.webkit
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
@@ -38,6 +37,8 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitSettings
 import org.gtkkn.native.webkit.webkit_settings_apply_from_key_file
 import org.gtkkn.native.webkit.webkit_settings_font_size_to_pixels
@@ -367,7 +368,7 @@ public class Settings(
      * The default font size in pixels to use for content displayed if
      * no font size is specified.
      */
-    public var defaultFontSize: UInt
+    public var defaultFontSize: guint
         /**
          * Gets the #WebKitSettings:default-font-size property.
          *
@@ -385,7 +386,7 @@ public class Settings(
      * The default font size in pixels to use for content displayed in
      * monospace font if no font size is specified.
      */
-    public var defaultMonospaceFontSize: UInt
+    public var defaultMonospaceFontSize: guint
         /**
          * Gets the #WebKitSettings:default-monospace-font-size property.
          *
@@ -1215,7 +1216,7 @@ public class Settings(
      * controls the absolute smallest size. Values other than 0 can
      * potentially break page layouts.
      */
-    public var minimumFontSize: UInt
+    public var minimumFontSize: guint
         /**
          * Gets the #WebKitSettings:minimum-font-size property.
          *
@@ -1461,7 +1462,7 @@ public class Settings(
          * @since 2.20
          */
         @WebKitVersion2_20
-        public fun fontSizeToPixels(points: UInt): UInt = webkit_settings_font_size_to_pixels(points)
+        public fun fontSizeToPixels(points: guint): guint = webkit_settings_font_size_to_pixels(points)
 
         /**
          * Convert @pixels to the equivalent value in points.
@@ -1476,7 +1477,7 @@ public class Settings(
          * @since 2.20
          */
         @WebKitVersion2_20
-        public fun fontSizeToPoints(pixels: UInt): UInt = webkit_settings_font_size_to_points(pixels)
+        public fun fontSizeToPoints(pixels: guint): guint = webkit_settings_font_size_to_points(pixels)
 
         /**
          * Gets the list of all available WebKit features.
@@ -1526,5 +1527,12 @@ public class Settings(
         @WebKitVersion2_42
         public fun getExperimentalFeatures(): FeatureList = webkit_settings_get_experimental_features()!!.run {
             FeatureList(reinterpret())}
+
+        /**
+         * Get the GType of Settings
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_settings_get_type()
     }
 }

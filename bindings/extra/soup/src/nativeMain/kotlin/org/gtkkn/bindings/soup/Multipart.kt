@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
@@ -10,12 +9,15 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.soup.SoupMultipart
 import org.gtkkn.native.soup.soup_multipart_append_form_file
 import org.gtkkn.native.soup.soup_multipart_append_form_string
 import org.gtkkn.native.soup.soup_multipart_append_part
 import org.gtkkn.native.soup.soup_multipart_free
 import org.gtkkn.native.soup.soup_multipart_get_length
+import org.gtkkn.native.soup.soup_multipart_get_type
 import org.gtkkn.native.soup.soup_multipart_new
 import org.gtkkn.native.soup.soup_multipart_new_from_message
 import kotlinx.cinterop.alloc as nativePlacementAlloc
@@ -93,7 +95,7 @@ public class Multipart(
      *
      * @return the number of body parts in @multipart
      */
-    public fun getLength(): Int = soup_multipart_get_length(soupMultipartPointer.reinterpret())
+    public fun getLength(): gint = soup_multipart_get_length(soupMultipartPointer.reinterpret())
 
     public companion object : RecordCompanion<Multipart, SoupMultipart> {
         /**
@@ -118,6 +120,13 @@ public class Multipart(
          *   message couldn't be parsed or wasn't multipart).
          */
         public fun newFromMessage(headers: MessageHeaders, body: Bytes): Multipart? = Multipart(soup_multipart_new_from_message(headers.soupMessageHeadersPointer.reinterpret(), body.glibBytesPointer.reinterpret())!!.reinterpret())
+
+        /**
+         * Get the GType of Multipart
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_multipart_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Multipart = Multipart(pointer.reinterpret())
     }

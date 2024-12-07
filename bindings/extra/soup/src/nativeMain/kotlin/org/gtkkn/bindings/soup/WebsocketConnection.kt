@@ -1,9 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -27,7 +25,11 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GBytes
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.soup.SoupWebsocketConnection
 import org.gtkkn.native.soup.soup_websocket_connection_get_close_data
 import org.gtkkn.native.soup.soup_websocket_connection_get_connection_type
@@ -127,7 +129,7 @@ public class WebsocketConnection(
      *
      * If set to 0 the keepalive message is disabled.
      */
-    public var keepaliveInterval: UInt
+    public var keepaliveInterval: guint
         /**
          * Gets the keepalive interval in seconds or 0 if disabled.
          *
@@ -149,7 +151,7 @@ public class WebsocketConnection(
      *
      * The protocol expects or 0 to not limit it.
      */
-    public var maxIncomingPayloadSize: ULong
+    public var maxIncomingPayloadSize: guint64
         /**
          * Gets the maximum payload size allowed for incoming packets.
          *
@@ -320,7 +322,7 @@ public class WebsocketConnection(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `type` the type of message contents; `message` the message data
      */
-    public fun connectMessage(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (type: Int, message: Bytes) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "message", connectMessageFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectMessage(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (type: gint, message: Bytes) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "message", connectMessageFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when we receive a Pong frame (solicited or
@@ -341,6 +343,13 @@ public class WebsocketConnection(
 
         init {
             SoupTypeProvider.register()}
+
+        /**
+         * Get the GType of WebsocketConnection
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_websocket_connection_get_type()
     }
 }
 
@@ -368,14 +377,14 @@ private val connectErrorFunc: CPointer<CFunction<(CPointer<GError>) -> Unit>> = 
     )}
 .reinterpret()
 
-private val connectMessageFunc: CPointer<CFunction<(Int, CPointer<GBytes>) -> Unit>> =
+private val connectMessageFunc: CPointer<CFunction<(gint, CPointer<GBytes>) -> Unit>> =
         staticCFunction {
     _: COpaquePointer,
-    type: Int,
+    type: gint,
     message: CPointer<GBytes>?,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(type: Int, message: Bytes) -> Unit>().get().invoke(type, message!!.run {
+    userData.asStableRef<(type: gint, message: Bytes) -> Unit>().get().invoke(type, message!!.run {
         Bytes(reinterpret())}
     )}
 .reinterpret()

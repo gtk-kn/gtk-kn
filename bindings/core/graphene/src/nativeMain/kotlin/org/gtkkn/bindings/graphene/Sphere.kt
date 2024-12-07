@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.graphene
 
 import kotlin.Boolean
-import kotlin.Float
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -10,6 +9,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.graphene.graphene_sphere_alloc
 import org.gtkkn.native.graphene.graphene_sphere_contains_point
 import org.gtkkn.native.graphene.graphene_sphere_distance
@@ -18,6 +19,7 @@ import org.gtkkn.native.graphene.graphene_sphere_free
 import org.gtkkn.native.graphene.graphene_sphere_get_bounding_box
 import org.gtkkn.native.graphene.graphene_sphere_get_center
 import org.gtkkn.native.graphene.graphene_sphere_get_radius
+import org.gtkkn.native.graphene.graphene_sphere_get_type
 import org.gtkkn.native.graphene.graphene_sphere_init
 import org.gtkkn.native.graphene.graphene_sphere_is_empty
 import org.gtkkn.native.graphene.graphene_sphere_t
@@ -62,7 +64,7 @@ public class Sphere(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun distance(point: Point3D): Float = graphene_sphere_distance(grapheneSpherePointer.reinterpret(), point.graphenePoint3DPointer.reinterpret())
+    public fun distance(point: Point3D): gfloat = graphene_sphere_distance(grapheneSpherePointer.reinterpret(), point.graphenePoint3DPointer.reinterpret())
 
     /**
      * Checks whether two #graphene_sphere_t are equal.
@@ -108,7 +110,7 @@ public class Sphere(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getRadius(): Float = graphene_sphere_get_radius(grapheneSpherePointer.reinterpret())
+    public fun getRadius(): gfloat = graphene_sphere_get_radius(grapheneSpherePointer.reinterpret())
 
     /**
      * Initializes the given #graphene_sphere_t with the given @center and @radius.
@@ -120,7 +122,7 @@ public class Sphere(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun `init`(center: Point3D? = null, radius: Float): Sphere = graphene_sphere_init(grapheneSpherePointer.reinterpret(), center?.graphenePoint3DPointer?.reinterpret(), radius)!!.run {
+    public fun `init`(center: Point3D? = null, radius: gfloat): Sphere = graphene_sphere_init(grapheneSpherePointer.reinterpret(), center?.graphenePoint3DPointer?.reinterpret(), radius)!!.run {
         Sphere(reinterpret())}
 
     /**
@@ -154,6 +156,13 @@ public class Sphere(
          * @since 1.2
          */
         public fun alloc(): Sphere = Sphere(graphene_sphere_alloc()!!.reinterpret())
+
+        /**
+         * Get the GType of Sphere
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = graphene_sphere_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Sphere = Sphere(pointer.reinterpret())
     }

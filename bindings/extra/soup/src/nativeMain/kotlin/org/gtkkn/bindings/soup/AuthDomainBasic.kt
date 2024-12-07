@@ -9,6 +9,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupAuthDomainBasic
 import org.gtkkn.native.soup.soup_auth_domain_basic_get_type
 import org.gtkkn.native.soup.soup_auth_domain_basic_set_auth_callback
@@ -54,5 +55,12 @@ public class AuthDomainBasic(
 
         init {
             SoupTypeProvider.register()}
+
+        /**
+         * Get the GType of AuthDomainBasic
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_auth_domain_basic_get_type()
     }
 }

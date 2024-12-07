@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
@@ -12,6 +11,8 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkTreeListRow
 import org.gtkkn.native.gtk.gtk_tree_list_row_get_child_row
 import org.gtkkn.native.gtk.gtk_tree_list_row_get_children
@@ -68,7 +69,7 @@ public open class TreeListRow(
     /**
      * The depth in the tree of this row.
      */
-    public open val depth: UInt
+    public open val depth: guint
         /**
          * Gets the depth of this row.
          *
@@ -128,7 +129,7 @@ public open class TreeListRow(
      * @param position position of the child to get
      * @return the child in @position
      */
-    public open fun getChildRow(position: UInt): TreeListRow? = gtk_tree_list_row_get_child_row(gtkTreeListRowPointer.reinterpret(), position)?.run {
+    public open fun getChildRow(position: guint): TreeListRow? = gtk_tree_list_row_get_child_row(gtkTreeListRowPointer.reinterpret(), position)?.run {
         TreeListRow(reinterpret())}
 
     /**
@@ -155,7 +156,7 @@ public open class TreeListRow(
      *
      * @return The position in the model
      */
-    public open fun getPosition(): UInt = gtk_tree_list_row_get_position(gtkTreeListRowPointer.reinterpret())
+    public open fun getPosition(): guint = gtk_tree_list_row_get_position(gtkTreeListRowPointer.reinterpret())
 
     /**
      * Checks if a row can be expanded.
@@ -176,5 +177,12 @@ public open class TreeListRow(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of TreeListRow
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_tree_list_row_get_type()
     }
 }

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Long
 import kotlin.Result
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
@@ -26,6 +25,7 @@ import org.gtkkn.native.gio.g_datagram_based_condition_wait
 import org.gtkkn.native.gio.g_datagram_based_create_source
 import org.gtkkn.native.gio.g_datagram_based_get_type
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.gint64
 
 /**
  * Interface for socket-like objects with datagram semantics.
@@ -153,7 +153,7 @@ public interface DatagramBased : Interface, KGTyped {
     @GioVersion2_48
     public fun conditionWait(
         condition: IOCondition,
-        timeout: Long,
+        timeout: gint64,
         cancellable: Cancellable? = null,
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()

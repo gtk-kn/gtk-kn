@@ -13,9 +13,11 @@ import org.gtkkn.native.gdk.gdk_texture_downloader_copy
 import org.gtkkn.native.gdk.gdk_texture_downloader_free
 import org.gtkkn.native.gdk.gdk_texture_downloader_get_format
 import org.gtkkn.native.gdk.gdk_texture_downloader_get_texture
+import org.gtkkn.native.gdk.gdk_texture_downloader_get_type
 import org.gtkkn.native.gdk.gdk_texture_downloader_new
 import org.gtkkn.native.gdk.gdk_texture_downloader_set_format
 import org.gtkkn.native.gdk.gdk_texture_downloader_set_texture
+import org.gtkkn.native.gobject.GType
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -112,6 +114,13 @@ public class TextureDownloader(
          * @since 4.10
          */
         public fun new(texture: Texture): TextureDownloader = TextureDownloader(gdk_texture_downloader_new(texture.gdkTexturePointer.reinterpret())!!.reinterpret())
+
+        /**
+         * Get the GType of TextureDownloader
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_texture_downloader_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TextureDownloader = TextureDownloader(pointer.reinterpret())
     }

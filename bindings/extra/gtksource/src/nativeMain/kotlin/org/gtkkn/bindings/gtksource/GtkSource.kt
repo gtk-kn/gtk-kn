@@ -2,11 +2,7 @@
 package org.gtkkn.bindings.gtksource
 
 import kotlin.Boolean
-import kotlin.Int
-import kotlin.Long
 import kotlin.String
-import kotlin.UInt
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -24,6 +20,11 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gint64
+import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtksource.gtk_source_check_version
 import org.gtkkn.native.gtksource.gtk_source_encoding_get_all
 import org.gtkkn.native.gtksource.gtk_source_encoding_get_current
@@ -98,21 +99,21 @@ public object GtkSource {
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val MAJOR_VERSION: Int = 5
+    public const val MAJOR_VERSION: gint = 5
 
     /**
      * Like gtk_source_get_micro_version(), but from the headers used at
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val MICRO_VERSION: Int = 0
+    public const val MICRO_VERSION: gint = 0
 
     /**
      * Like gtk_source_get_minor_version(), but from the headers used at
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val MINOR_VERSION: Int = 12
+    public const val MINOR_VERSION: gint = 12
 
     /**
      * Like GTK_SOURCE_CHECK_VERSION, but the check for gtk_source_check_version is
@@ -127,9 +128,9 @@ public object GtkSource {
      * is the same as or newer than the passed-in version.
      */
     public fun checkVersion(
-        major: UInt,
-        minor: UInt,
-        micro: UInt,
+        major: guint,
+        minor: guint,
+        micro: guint,
     ): Boolean = gtk_source_check_version(major, minor, micro).asBoolean()
 
     /**
@@ -210,7 +211,7 @@ public object GtkSource {
      *
      * @return the major version number of the GtkSourceView library
      */
-    public fun getMajorVersion(): UInt = gtk_source_get_major_version()
+    public fun getMajorVersion(): guint = gtk_source_get_major_version()
 
     /**
      * Returns the micro version number of the GtkSourceView library.
@@ -223,7 +224,7 @@ public object GtkSource {
      *
      * @return the micro version number of the GtkSourceView library
      */
-    public fun getMicroVersion(): UInt = gtk_source_get_micro_version()
+    public fun getMicroVersion(): guint = gtk_source_get_micro_version()
 
     /**
      * Returns the minor version number of the GtkSourceView library.
@@ -236,7 +237,7 @@ public object GtkSource {
      *
      * @return the minor version number of the GtkSourceView library
      */
-    public fun getMinorVersion(): UInt = gtk_source_get_minor_version()
+    public fun getMinorVersion(): guint = gtk_source_get_minor_version()
 
     /**
      * Initializes the GtkSourceView library (e.g. for the internationalization).
@@ -253,7 +254,7 @@ public object GtkSource {
      * @since 5.2
      */
     @GtkSourceVersion5_2
-    public fun schedulerAdd(callback: SchedulerCallback): ULong = gtk_source_scheduler_add(SchedulerCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
+    public fun schedulerAdd(callback: SchedulerCallback): gsize = gtk_source_scheduler_add(SchedulerCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
 
     /**
      * Adds a new callback that will be executed as time permits on the main thread.
@@ -270,7 +271,7 @@ public object GtkSource {
      * @since 5.2
      */
     @GtkSourceVersion5_2
-    public fun schedulerAddFull(callback: SchedulerCallback): ULong = gtk_source_scheduler_add_full(SchedulerCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret())
+    public fun schedulerAddFull(callback: SchedulerCallback): gsize = gtk_source_scheduler_add_full(SchedulerCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Removes a scheduler callback previously registered with
@@ -280,7 +281,7 @@ public object GtkSource {
      * @since 5.2
      */
     @GtkSourceVersion5_2
-    public fun schedulerRemove(handlerId: ULong): Unit = gtk_source_scheduler_remove(handlerId)
+    public fun schedulerRemove(handlerId: gsize): Unit = gtk_source_scheduler_remove(handlerId)
 
     /**
      * Use this function to escape the following characters: `\n`, `\r`, `\t` and `\`.
@@ -336,11 +337,11 @@ public object GtkSource {
     }
 }
 
-public val SchedulerCallbackFunc: CPointer<CFunction<(Long) -> Int>> = staticCFunction {
-    deadline: Long,
+public val SchedulerCallbackFunc: CPointer<CFunction<(gint64) -> gboolean>> = staticCFunction {
+    deadline: gint64,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(deadline: Long) -> Boolean>().get().invoke(deadline).asGBoolean()}
+    userData.asStableRef<(deadline: gint64) -> Boolean>().get().invoke(deadline).asGBoolean()}
 .reinterpret()
 
 /**
@@ -355,4 +356,4 @@ public val SchedulerCallbackFunc: CPointer<CFunction<(Long) -> Int>> = staticCFu
  * - return true if there is more work to process, otherwise false and the
  *   handler is unregistered.
  */
-public typealias SchedulerCallback = (deadline: Long) -> Boolean
+public typealias SchedulerCallback = (deadline: gint64) -> Boolean

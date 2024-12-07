@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupSessionFeature
 import org.gtkkn.native.soup.SoupWebsocketExtensionManager
 import org.gtkkn.native.soup.soup_websocket_extension_manager_get_type
@@ -38,5 +39,12 @@ public class WebsocketExtensionManager(
 
         init {
             SoupTypeProvider.register()}
+
+        /**
+         * Get the GType of WebsocketExtensionManager
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_websocket_extension_manager_get_type()
     }
 }

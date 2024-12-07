@@ -10,6 +10,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkSettings
 import org.gtkkn.native.gtk.GtkStyleProvider
 import org.gtkkn.native.gtk.gtk_settings_get_default
@@ -150,5 +151,12 @@ public open class Settings(
          */
         public fun getForDisplay(display: Display): Settings = gtk_settings_get_for_display(display.gdkDisplayPointer.reinterpret())!!.run {
             Settings(reinterpret())}
+
+        /**
+         * Get the GType of Settings
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_settings_get_type()
     }
 }

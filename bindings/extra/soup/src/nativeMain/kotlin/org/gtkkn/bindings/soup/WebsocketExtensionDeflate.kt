@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupWebsocketExtensionDeflate
 import org.gtkkn.native.soup.soup_websocket_extension_deflate_get_type
 
@@ -29,5 +30,12 @@ public class WebsocketExtensionDeflate(
 
         init {
             SoupTypeProvider.register()}
+
+        /**
+         * Get the GType of WebsocketExtensionDeflate
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_websocket_extension_deflate_get_type()
     }
 }

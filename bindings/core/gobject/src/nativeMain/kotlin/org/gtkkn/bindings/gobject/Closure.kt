@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -10,11 +9,14 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GClosure
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_closure_get_type
 import org.gtkkn.native.gobject.g_closure_invalidate
 import org.gtkkn.native.gobject.g_closure_new_object
 import org.gtkkn.native.gobject.g_closure_ref
 import org.gtkkn.native.gobject.g_closure_sink
 import org.gtkkn.native.gobject.g_closure_unref
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -88,7 +90,7 @@ public class Closure(
      * Indicates whether the closure is currently being invoked with
      *   g_closure_invoke()
      */
-    public var inMarshal: UInt
+    public var inMarshal: guint
         get() = gobjectClosurePointer.pointed.in_marshal
         set(`value`) {
             gobjectClosurePointer.pointed.in_marshal = value
@@ -98,7 +100,7 @@ public class Closure(
      * Indicates whether the closure has been invalidated by
      *   g_closure_invalidate()
      */
-    public var isInvalid: UInt
+    public var isInvalid: guint
         get() = gobjectClosurePointer.pointed.is_invalid
         set(`value`) {
             gobjectClosurePointer.pointed.is_invalid = value
@@ -205,7 +207,14 @@ public class Closure(
          *  allocated #GClosure
          * @return a newly allocated #GClosure
          */
-        public fun newObject(sizeofClosure: UInt, `object`: Object): Closure = Closure(g_closure_new_object(sizeofClosure, `object`.gPointer.reinterpret())!!.reinterpret())
+        public fun newObject(sizeofClosure: guint, `object`: Object): Closure = Closure(g_closure_new_object(sizeofClosure, `object`.gPointer.reinterpret())!!.reinterpret())
+
+        /**
+         * Get the GType of Closure
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_closure_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Closure = Closure(pointer.reinterpret())
     }

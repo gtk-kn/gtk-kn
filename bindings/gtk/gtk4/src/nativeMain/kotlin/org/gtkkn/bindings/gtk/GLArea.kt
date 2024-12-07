@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -24,7 +23,9 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkGLContext
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -423,7 +424,7 @@ public open class GLArea(
      * @param major the major version
      * @param minor the minor version
      */
-    public open fun setRequiredVersion(major: Int, minor: Int): Unit = gtk_gl_area_set_required_version(gtkGLAreaPointer.reinterpret(), major, minor)
+    public open fun setRequiredVersion(major: gint, minor: gint): Unit = gtk_gl_area_set_required_version(gtkGLAreaPointer.reinterpret(), major, minor)
 
     /**
      * Emitted when the widget is being realized.
@@ -458,7 +459,7 @@ public open class GLArea(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `width` the width of the viewport; `height` the height of the viewport
      */
-    public fun connectResize(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (width: Int, height: Int) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "resize", connectResizeFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectResize(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (width: gint, height: gint) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "resize", connectResizeFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<GLArea> {
         override val type: GeneratedClassKGType<GLArea> =
@@ -466,6 +467,13 @@ public open class GLArea(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of GLArea
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_gl_area_get_type()
     }
 }
 
@@ -477,11 +485,11 @@ private val connectCreateContextFunc: CPointer<CFunction<() -> CPointer<GdkGLCon
     userData.asStableRef<() -> GLContext>().get().invoke().gdkGLContextPointer}
 .reinterpret()
 
-private val connectResizeFunc: CPointer<CFunction<(Int, Int) -> Unit>> = staticCFunction {
+private val connectResizeFunc: CPointer<CFunction<(gint, gint) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    width: Int,
-    height: Int,
+    width: gint,
+    height: gint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(width: Int, height: Int) -> Unit>().get().invoke(width, height)}
+    userData.asStableRef<(width: gint, height: gint) -> Unit>().get().invoke(width, height)}
 .reinterpret()

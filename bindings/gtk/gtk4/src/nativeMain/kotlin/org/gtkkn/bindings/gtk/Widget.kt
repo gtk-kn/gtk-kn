@@ -2,10 +2,7 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -46,7 +43,12 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -993,7 +995,7 @@ public open class Widget(
      * request, the margin will be added in addition to the size from
      * [method@Gtk.Widget.set_size_request] for example.
      */
-    public open var marginBottom: Int
+    public open var marginBottom: gint
         /**
          * Gets the bottom margin of @widget.
          *
@@ -1017,7 +1019,7 @@ public open class Widget(
      * request, the margin will be added in addition to the size from
      * [method@Gtk.Widget.set_size_request] for example.
      */
-    public open var marginEnd: Int
+    public open var marginEnd: gint
         /**
          * Gets the end margin of @widget.
          *
@@ -1041,7 +1043,7 @@ public open class Widget(
      * request, the margin will be added in addition to the size from
      * [method@Gtk.Widget.set_size_request] for example.
      */
-    public open var marginStart: Int
+    public open var marginStart: gint
         /**
          * Gets the start margin of @widget.
          *
@@ -1062,7 +1064,7 @@ public open class Widget(
      * request, the margin will be added in addition to the size from
      * [method@Gtk.Widget.set_size_request] for example.
      */
-    public open var marginTop: Int
+    public open var marginTop: gint
         /**
          * Gets the top margin of @widget.
          *
@@ -1109,7 +1111,7 @@ public open class Widget(
     /**
      * The requested opacity of the widget.
      */
-    public open var opacity: Double
+    public open var opacity: gdouble
         /**
          * #Fetches the requested opacity for this widget.
          *
@@ -1233,7 +1235,7 @@ public open class Widget(
     /**
      * The scale factor of the widget.
      */
-    public open val scaleFactor: Int
+    public open val scaleFactor: gint
         /**
          * Retrieves the internal scale factor that maps from window
          * coordinates to the actual device pixels.
@@ -1568,7 +1570,7 @@ public open class Widget(
      *   by passing the id returned from this function to
      *   [method@Gtk.Widget.remove_tick_callback]
      */
-    public open fun addTickCallback(callback: TickCallback): UInt = gtk_widget_add_tick_callback(gtkWidgetPointer.reinterpret(), TickCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret())
+    public open fun addTickCallback(callback: TickCallback): guint = gtk_widget_add_tick_callback(gtkWidgetPointer.reinterpret(), TickCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * This function is only used by `GtkWidget` subclasses, to
@@ -1588,9 +1590,9 @@ public open class Widget(
      * @param transform Transformation to be applied to @widget
      */
     public open fun allocate(
-        width: Int,
-        height: Int,
-        baseline: Int,
+        width: gint,
+        height: gint,
+        baseline: gint,
         transform: Transform? = null,
     ): Unit = gtk_widget_allocate(gtkWidgetPointer.reinterpret(), width, height, baseline, transform?.gskTransformPointer?.reinterpret())
 
@@ -1709,7 +1711,7 @@ public open class Widget(
      * @param y Y coordinate to test, relative to @widget's origin
      * @return true if @widget contains (@x, @y).
      */
-    public open fun contains(x: Double, y: Double): Boolean = gtk_widget_contains(gtkWidgetPointer.reinterpret(), x, y).asBoolean()
+    public open fun contains(x: gdouble, y: gdouble): Boolean = gtk_widget_contains(gtkWidgetPointer.reinterpret(), x, y).asBoolean()
 
     /**
      * Creates a new `PangoContext` with the appropriate font map,
@@ -1770,7 +1772,7 @@ public open class Widget(
      * @since 4.8
      */
     @GtkVersion4_8
-    public open fun disposeTemplate(widgetType: ULong): Unit = gtk_widget_dispose_template(gtkWidgetPointer.reinterpret(), widgetType)
+    public open fun disposeTemplate(widgetType: GType): Unit = gtk_widget_dispose_template(gtkWidgetPointer.reinterpret(), widgetType)
 
     /**
      * Checks to see if a drag movement has passed the GTK drag threshold.
@@ -1782,10 +1784,10 @@ public open class Widget(
      * @return true if the drag threshold has been passed.
      */
     public open fun dragCheckThreshold(
-        startX: Int,
-        startY: Int,
-        currentX: Int,
-        currentY: Int,
+        startX: gint,
+        startY: gint,
+        currentX: gint,
+        currentY: gint,
     ): Boolean = gtk_drag_check_threshold(gtkWidgetPointer.reinterpret(), startX, startY, currentX, currentY).asBoolean()
 
     /**
@@ -1809,7 +1811,7 @@ public open class Widget(
      *
      * @return the baseline of the @widget, or -1 if none
      */
-    public open fun getAllocatedBaseline(): Int = gtk_widget_get_allocated_baseline(gtkWidgetPointer.reinterpret())
+    public open fun getAllocatedBaseline(): gint = gtk_widget_get_allocated_baseline(gtkWidgetPointer.reinterpret())
 
     /**
      * Returns the height that has currently been allocated to @widget.
@@ -1819,7 +1821,7 @@ public open class Widget(
      *
      * @return the height of the @widget
      */
-    public open fun getAllocatedHeight(): Int = gtk_widget_get_allocated_height(gtkWidgetPointer.reinterpret())
+    public open fun getAllocatedHeight(): gint = gtk_widget_get_allocated_height(gtkWidgetPointer.reinterpret())
 
     /**
      * Returns the width that has currently been allocated to @widget.
@@ -1829,7 +1831,7 @@ public open class Widget(
      *
      * @return the width of the @widget
      */
-    public open fun getAllocatedWidth(): Int = gtk_widget_get_allocated_width(gtkWidgetPointer.reinterpret())
+    public open fun getAllocatedWidth(): gint = gtk_widget_get_allocated_width(gtkWidgetPointer.reinterpret())
 
     /**
      * Gets the first ancestor of @widget with type @widget_type.
@@ -1845,7 +1847,7 @@ public open class Widget(
      * @param widgetType ancestor type
      * @return the ancestor widget
      */
-    public open fun getAncestor(widgetType: ULong): Widget? = gtk_widget_get_ancestor(gtkWidgetPointer.reinterpret(), widgetType)?.run {
+    public open fun getAncestor(widgetType: GType): Widget? = gtk_widget_get_ancestor(gtkWidgetPointer.reinterpret(), widgetType)?.run {
         Widget(reinterpret())}
 
     /**
@@ -1859,7 +1861,7 @@ public open class Widget(
      * @since 4.12
      */
     @GtkVersion4_12
-    public open fun getBaseline(): Int = gtk_widget_get_baseline(gtkWidgetPointer.reinterpret())
+    public open fun getBaseline(): gint = gtk_widget_get_baseline(gtkWidgetPointer.reinterpret())
 
     /**
      * Gets the value set with gtk_widget_set_child_visible().
@@ -2001,7 +2003,7 @@ public open class Widget(
      *
      * @return The height of @widget
      */
-    public open fun getHeight(): Int = gtk_widget_get_height(gtkWidgetPointer.reinterpret())
+    public open fun getHeight(): gint = gtk_widget_get_height(gtkWidgetPointer.reinterpret())
 
     /**
      * Returns the widget’s last child.
@@ -2155,7 +2157,7 @@ public open class Widget(
      * @param orientation the orientation to query
      * @return The size of @widget in @orientation.
      */
-    public open fun getSize(orientation: Orientation): Int = gtk_widget_get_size(gtkWidgetPointer.reinterpret(), orientation.nativeValue)
+    public open fun getSize(orientation: Orientation): gint = gtk_widget_get_size(gtkWidgetPointer.reinterpret(), orientation.nativeValue)
 
     /**
      * Returns the widget state as a flag set.
@@ -2201,7 +2203,7 @@ public open class Widget(
      * @return The object built in the template XML with
      *   the id @name
      */
-    public open fun getTemplateChild(widgetType: ULong, name: String): Object = gtk_widget_get_template_child(gtkWidgetPointer.reinterpret(), widgetType, name)!!.run {
+    public open fun getTemplateChild(widgetType: GType, name: String): Object = gtk_widget_get_template_child(gtkWidgetPointer.reinterpret(), widgetType, name)!!.run {
         Object(reinterpret())}
 
     /**
@@ -2218,7 +2220,7 @@ public open class Widget(
      *
      * @return The width of @widget
      */
-    public open fun getWidth(): Int = gtk_widget_get_width(gtkWidgetPointer.reinterpret())
+    public open fun getWidth(): gint = gtk_widget_get_width(gtkWidgetPointer.reinterpret())
 
     /**
      * Causes @widget to have the keyboard focus for the `GtkWindow` it's inside.
@@ -2565,8 +2567,8 @@ public open class Widget(
      *   the given point
      */
     public open fun pick(
-        x: Double,
-        y: Double,
+        x: gdouble,
+        y: gdouble,
         flags: PickFlags,
     ): Widget? = gtk_widget_pick(gtkWidgetPointer.reinterpret(), x, y, flags.mask)?.run {
         Widget(reinterpret())}
@@ -2672,7 +2674,7 @@ public open class Widget(
      *
      * @param id an id returned by [method@Gtk.Widget.add_tick_callback]
      */
-    public open fun removeTickCallback(id: UInt): Unit = gtk_widget_remove_tick_callback(gtkWidgetPointer.reinterpret(), id)
+    public open fun removeTickCallback(id: guint): Unit = gtk_widget_remove_tick_callback(gtkWidgetPointer.reinterpret(), id)
 
     /**
      * Sets whether @widget should be mapped along with its parent.
@@ -2814,7 +2816,7 @@ public open class Widget(
      * @param width width @widget should request, or -1 to unset
      * @param height height @widget should request, or -1 to unset
      */
-    public open fun setSizeRequest(width: Int, height: Int): Unit = gtk_widget_set_size_request(gtkWidgetPointer.reinterpret(), width, height)
+    public open fun setSizeRequest(width: gint, height: gint): Unit = gtk_widget_set_size_request(gtkWidgetPointer.reinterpret(), width, height)
 
     /**
      * Turns on flag values in the current widget state.
@@ -3002,8 +3004,8 @@ public open class Widget(
      *   been emitted, relative to @widget's top; `keyboardMode` true if the tooltip was triggered using the keyboard; `tooltip` a `GtkTooltip`. Returns true if @tooltip should be shown right now, false otherwise.
      */
     public fun connectQueryTooltip(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
-        x: Int,
-        y: Int,
+        x: gint,
+        y: gint,
         keyboardMode: Boolean,
         tooltip: Tooltip,
     ) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "query-tooltip", connectQueryTooltipFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
@@ -3087,6 +3089,13 @@ public open class Widget(
          * @param dir the new default direction. This cannot be %GTK_TEXT_DIR_NONE.
          */
         public fun setDefaultDirection(dir: TextDirection): Unit = gtk_widget_set_default_direction(dir.nativeValue)
+
+        /**
+         * Get the GType of Widget
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_widget_get_type()
     }
 }
 
@@ -3115,7 +3124,7 @@ private val connectHideFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
     userData.asStableRef<() -> Unit>().get().invoke()}
 .reinterpret()
 
-private val connectKeynavFailedFunc: CPointer<CFunction<(GtkDirectionType) -> Int>> =
+private val connectKeynavFailedFunc: CPointer<CFunction<(GtkDirectionType) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     direction: GtkDirectionType,
@@ -3133,9 +3142,10 @@ private val connectMapFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
     userData.asStableRef<() -> Unit>().get().invoke()}
 .reinterpret()
 
-private val connectMnemonicActivateFunc: CPointer<CFunction<(Int) -> Int>> = staticCFunction {
+private val connectMnemonicActivateFunc: CPointer<CFunction<(gboolean) -> gboolean>> =
+        staticCFunction {
     _: COpaquePointer,
-    groupCycling: Int,
+    groupCycling: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(groupCycling: Boolean) -> Boolean>().get().invoke(groupCycling.asBoolean()).asGBoolean()}
@@ -3153,21 +3163,21 @@ private val connectMoveFocusFunc: CPointer<CFunction<(GtkDirectionType) -> Unit>
 .reinterpret()
 
 private val connectQueryTooltipFunc: CPointer<CFunction<(
-    Int,
-    Int,
-    Int,
+    gint,
+    gint,
+    gboolean,
     CPointer<GtkTooltip>,
-) -> Int>> = staticCFunction {
+) -> gboolean>> = staticCFunction {
     _: COpaquePointer,
-    x: Int,
-    y: Int,
-    keyboardMode: Int,
+    x: gint,
+    y: gint,
+    keyboardMode: gboolean,
     tooltip: CPointer<GtkTooltip>?,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
-        x: Int,
-        y: Int,
+        x: gint,
+        y: gint,
         keyboardMode: Boolean,
         tooltip: Tooltip,
     ) -> Boolean>().get().invoke(x, y, keyboardMode.asBoolean(), tooltip!!.run {

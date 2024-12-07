@@ -17,6 +17,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoFontFamily
 import org.gtkkn.native.pango.pango_font_family_get_face
 import org.gtkkn.native.pango.pango_font_family_get_name
@@ -124,5 +125,12 @@ public open class FontFamily(
 
         init {
             PangoTypeProvider.register()}
+
+        /**
+         * Get the GType of FontFamily
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_font_family_get_type()
     }
 }

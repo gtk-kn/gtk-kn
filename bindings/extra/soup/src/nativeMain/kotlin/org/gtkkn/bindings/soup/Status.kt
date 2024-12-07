@@ -2,8 +2,8 @@
 package org.gtkkn.bindings.soup
 
 import kotlin.String
-import kotlin.UInt
 import kotlinx.cinterop.toKString
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.soup.SoupStatus
 import org.gtkkn.native.soup.soup_status_get_phrase
 
@@ -325,6 +325,6 @@ public enum class Status(
          * @param statusCode an HTTP status code
          * @return the (terse, English) description of @status_code
          */
-        public fun getPhrase(statusCode: UInt): String = soup_status_get_phrase(statusCode)?.toKString() ?: error("Expected not null string")
+        public fun getPhrase(statusCode: guint): String = soup_status_get_phrase(statusCode)?.toKString() ?: error("Expected not null string")
     }
 }

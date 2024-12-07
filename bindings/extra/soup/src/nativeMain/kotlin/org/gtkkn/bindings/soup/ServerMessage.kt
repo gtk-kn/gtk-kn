@@ -2,9 +2,7 @@
 package org.gtkkn.bindings.soup
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -34,7 +32,10 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GTlsCertificate
 import org.gtkkn.native.gio.GTlsCertificateFlags
 import org.gtkkn.native.glib.GBytes
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.soup.SoupServerMessage
 import org.gtkkn.native.soup.soup_server_message_get_http_version
 import org.gtkkn.native.soup.soup_server_message_get_local_address
@@ -229,7 +230,7 @@ public class ServerMessage(
      *
      * @return the HTTP status code.
      */
-    public fun getStatus(): UInt = soup_server_message_get_status(soupServerMessagePointer.reinterpret())
+    public fun getStatus(): guint = soup_server_message_get_status(soupServerMessagePointer.reinterpret())
 
     /**
      * Get @msg's URI.
@@ -278,7 +279,7 @@ public class ServerMessage(
      * @param statusCode a 3xx status code
      * @param redirectUri the URI to redirect @msg to
      */
-    public fun setRedirect(statusCode: UInt, redirectUri: String): Unit = soup_server_message_set_redirect(soupServerMessagePointer.reinterpret(), statusCode, redirectUri)
+    public fun setRedirect(statusCode: guint, redirectUri: String): Unit = soup_server_message_set_redirect(soupServerMessagePointer.reinterpret(), statusCode, redirectUri)
 
     /**
      * Sets @msg's status code to @status_code.
@@ -289,7 +290,7 @@ public class ServerMessage(
      * @param statusCode an HTTP status code
      * @param reasonPhrase a reason phrase
      */
-    public fun setStatus(statusCode: UInt, reasonPhrase: String? = null): Unit = soup_server_message_set_status(soupServerMessagePointer.reinterpret(), statusCode, reasonPhrase)
+    public fun setStatus(statusCode: guint, reasonPhrase: String? = null): Unit = soup_server_message_set_status(soupServerMessagePointer.reinterpret(), statusCode, reasonPhrase)
 
     /**
      * "Steals" the HTTP connection associated with @msg from its #SoupServer. This
@@ -404,7 +405,7 @@ public class ServerMessage(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `chunkSize` the number of bytes written
      */
-    public fun connectWroteBodyData(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (chunkSize: UInt) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "wrote-body-data", connectWroteBodyDataFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectWroteBodyData(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (chunkSize: guint) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "wrote-body-data", connectWroteBodyDataFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted immediately after writing a body chunk for a message.
@@ -444,11 +445,18 @@ public class ServerMessage(
 
         init {
             SoupTypeProvider.register()}
+
+        /**
+         * Get the GType of ServerMessage
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_server_message_get_type()
     }
 }
 
 private val connectAcceptCertificateFunc:
-        CPointer<CFunction<(CPointer<GTlsCertificate>, GTlsCertificateFlags) -> Int>> =
+        CPointer<CFunction<(CPointer<GTlsCertificate>, GTlsCertificateFlags) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     tlsPeerCertificate: CPointer<GTlsCertificate>?,
@@ -514,12 +522,12 @@ private val connectWroteBodyFunc: CPointer<CFunction<() -> Unit>> = staticCFunct
     userData.asStableRef<() -> Unit>().get().invoke()}
 .reinterpret()
 
-private val connectWroteBodyDataFunc: CPointer<CFunction<(UInt) -> Unit>> = staticCFunction {
+private val connectWroteBodyDataFunc: CPointer<CFunction<(guint) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    chunkSize: UInt,
+    chunkSize: guint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(chunkSize: UInt) -> Unit>().get().invoke(chunkSize)}
+    userData.asStableRef<(chunkSize: guint) -> Unit>().get().invoke(chunkSize)}
 .reinterpret()
 
 private val connectWroteChunkFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {

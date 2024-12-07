@@ -27,6 +27,7 @@ import org.gtkkn.native.adw.adw_preferences_dialog_remove
 import org.gtkkn.native.adw.adw_preferences_dialog_set_search_enabled
 import org.gtkkn.native.adw.adw_preferences_dialog_set_visible_page
 import org.gtkkn.native.adw.adw_preferences_dialog_set_visible_page_name
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -196,5 +197,12 @@ public open class PreferencesDialog(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of PreferencesDialog
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_preferences_dialog_get_type()
     }
 }

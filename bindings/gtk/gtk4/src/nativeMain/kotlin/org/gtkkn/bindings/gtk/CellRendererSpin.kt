@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkCellRendererSpin
 import org.gtkkn.native.gtk.gtk_cell_renderer_spin_get_type
 import org.gtkkn.native.gtk.gtk_cell_renderer_spin_new
@@ -51,5 +52,12 @@ public open class CellRendererSpin(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of CellRendererSpin
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_cell_renderer_spin_get_type()
     }
 }

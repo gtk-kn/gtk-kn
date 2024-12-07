@@ -19,6 +19,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
@@ -234,6 +235,13 @@ public open class ToggleButton(
          * @return a new `GtkToggleButton`
          */
         public fun newWithMnemonic(label: String): ToggleButton = ToggleButton(gtk_toggle_button_new_with_mnemonic(label)!!.reinterpret())
+
+        /**
+         * Get the GType of ToggleButton
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_toggle_button_get_type()
     }
 }
 

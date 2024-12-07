@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.String
-import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -11,6 +10,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GScannerConfig
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -72,7 +72,7 @@ public class ScannerConfig(
      * specifies if symbols are case sensitive (the
      *     default is false).
      */
-    public var caseSensitive: UInt
+    public var caseSensitive: guint
         get() = glibScannerConfigPointer.pointed.case_sensitive
         set(`value`) {
             glibScannerConfigPointer.pointed.case_sensitive = value
@@ -82,7 +82,7 @@ public class ScannerConfig(
      * specifies if multi-line comments are skipped
      *     and not returned as tokens (the default is true).
      */
-    public var skipCommentMulti: UInt
+    public var skipCommentMulti: guint
         get() = glibScannerConfigPointer.pointed.skip_comment_multi
         set(`value`) {
             glibScannerConfigPointer.pointed.skip_comment_multi = value
@@ -92,7 +92,7 @@ public class ScannerConfig(
      * specifies if single-line comments are skipped
      *     and not returned as tokens (the default is true).
      */
-    public var skipCommentSingle: UInt
+    public var skipCommentSingle: guint
         get() = glibScannerConfigPointer.pointed.skip_comment_single
         set(`value`) {
             glibScannerConfigPointer.pointed.skip_comment_single = value
@@ -102,7 +102,7 @@ public class ScannerConfig(
      * specifies if multi-line comments are recognized
      *     (the default is true).
      */
-    public var scanCommentMulti: UInt
+    public var scanCommentMulti: guint
         get() = glibScannerConfigPointer.pointed.scan_comment_multi
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_comment_multi = value
@@ -112,7 +112,7 @@ public class ScannerConfig(
      * specifies if identifiers are recognized (the
      *     default is true).
      */
-    public var scanIdentifier: UInt
+    public var scanIdentifier: guint
         get() = glibScannerConfigPointer.pointed.scan_identifier
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_identifier = value
@@ -122,7 +122,7 @@ public class ScannerConfig(
      * specifies if single-character
      *     identifiers are recognized (the default is false).
      */
-    public var scanIdentifier1char: UInt
+    public var scanIdentifier1char: guint
         get() = glibScannerConfigPointer.pointed.scan_identifier_1char
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_identifier_1char = value
@@ -132,7 +132,7 @@ public class ScannerConfig(
      * specifies if null is reported as
      *     %G_TOKEN_IDENTIFIER_NULL (the default is false).
      */
-    public var scanIdentifierNull: UInt
+    public var scanIdentifierNull: guint
         get() = glibScannerConfigPointer.pointed.scan_identifier_NULL
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_identifier_NULL = value
@@ -142,7 +142,7 @@ public class ScannerConfig(
      * specifies if symbols are recognized (the default
      *     is true).
      */
-    public var scanSymbols: UInt
+    public var scanSymbols: guint
         get() = glibScannerConfigPointer.pointed.scan_symbols
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_symbols = value
@@ -152,7 +152,7 @@ public class ScannerConfig(
      * specifies if binary numbers are recognized (the
      *     default is false).
      */
-    public var scanBinary: UInt
+    public var scanBinary: guint
         get() = glibScannerConfigPointer.pointed.scan_binary
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_binary = value
@@ -162,7 +162,7 @@ public class ScannerConfig(
      * specifies if octal numbers are recognized (the
      *     default is true).
      */
-    public var scanOctal: UInt
+    public var scanOctal: guint
         get() = glibScannerConfigPointer.pointed.scan_octal
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_octal = value
@@ -172,7 +172,7 @@ public class ScannerConfig(
      * specifies if floating point numbers are recognized
      *     (the default is true).
      */
-    public var scanFloat: UInt
+    public var scanFloat: guint
         get() = glibScannerConfigPointer.pointed.scan_float
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_float = value
@@ -182,7 +182,7 @@ public class ScannerConfig(
      * specifies if hexadecimal numbers are recognized (the
      *     default is true).
      */
-    public var scanHex: UInt
+    public var scanHex: guint
         get() = glibScannerConfigPointer.pointed.scan_hex
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_hex = value
@@ -192,7 +192,7 @@ public class ScannerConfig(
      * specifies if '$' is recognized as a prefix for
      *     hexadecimal numbers (the default is false).
      */
-    public var scanHexDollar: UInt
+    public var scanHexDollar: guint
         get() = glibScannerConfigPointer.pointed.scan_hex_dollar
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_hex_dollar = value
@@ -202,7 +202,7 @@ public class ScannerConfig(
      * specifies if strings can be enclosed in single
      *     quotes (the default is true).
      */
-    public var scanStringSq: UInt
+    public var scanStringSq: guint
         get() = glibScannerConfigPointer.pointed.scan_string_sq
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_string_sq = value
@@ -212,7 +212,7 @@ public class ScannerConfig(
      * specifies if strings can be enclosed in double
      *     quotes (the default is true).
      */
-    public var scanStringDq: UInt
+    public var scanStringDq: guint
         get() = glibScannerConfigPointer.pointed.scan_string_dq
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_string_dq = value
@@ -222,7 +222,7 @@ public class ScannerConfig(
      * specifies if binary, octal and hexadecimal numbers
      *     are reported as %G_TOKEN_INT (the default is true).
      */
-    public var numbers2Int: UInt
+    public var numbers2Int: guint
         get() = glibScannerConfigPointer.pointed.numbers_2_int
         set(`value`) {
             glibScannerConfigPointer.pointed.numbers_2_int = value
@@ -232,7 +232,7 @@ public class ScannerConfig(
      * specifies if all numbers are reported as %G_TOKEN_FLOAT
      *     (the default is false).
      */
-    public var int2Float: UInt
+    public var int2Float: guint
         get() = glibScannerConfigPointer.pointed.int_2_float
         set(`value`) {
             glibScannerConfigPointer.pointed.int_2_float = value
@@ -242,7 +242,7 @@ public class ScannerConfig(
      * specifies if identifiers are reported as strings
      *     (the default is false).
      */
-    public var identifier2String: UInt
+    public var identifier2String: guint
         get() = glibScannerConfigPointer.pointed.identifier_2_string
         set(`value`) {
             glibScannerConfigPointer.pointed.identifier_2_string = value
@@ -252,7 +252,7 @@ public class ScannerConfig(
      * specifies if characters are reported by setting
      *     `token = ch` or as %G_TOKEN_CHAR (the default is true).
      */
-    public var char2Token: UInt
+    public var char2Token: guint
         get() = glibScannerConfigPointer.pointed.char_2_token
         set(`value`) {
             glibScannerConfigPointer.pointed.char_2_token = value
@@ -262,7 +262,7 @@ public class ScannerConfig(
      * specifies if symbols are reported by setting
      *     `token = v_symbol` or as %G_TOKEN_SYMBOL (the default is false).
      */
-    public var symbol2Token: UInt
+    public var symbol2Token: guint
         get() = glibScannerConfigPointer.pointed.symbol_2_token
         set(`value`) {
             glibScannerConfigPointer.pointed.symbol_2_token = value
@@ -272,7 +272,7 @@ public class ScannerConfig(
      * specifies if a symbol is searched for in the
      *     default scope in addition to the current scope (the default is false).
      */
-    public var scope0Fallback: UInt
+    public var scope0Fallback: guint
         get() = glibScannerConfigPointer.pointed.scope_0_fallback
         set(`value`) {
             glibScannerConfigPointer.pointed.scope_0_fallback = value
@@ -281,7 +281,7 @@ public class ScannerConfig(
     /**
      * use value.v_int64 rather than v_int
      */
-    public var storeInt64: UInt
+    public var storeInt64: guint
         get() = glibScannerConfigPointer.pointed.store_int64
         set(`value`) {
             glibScannerConfigPointer.pointed.store_int64 = value

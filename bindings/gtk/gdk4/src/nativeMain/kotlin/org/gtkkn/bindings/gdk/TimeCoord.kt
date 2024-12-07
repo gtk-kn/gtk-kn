@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
-import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gdk.GdkTimeCoord
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -31,7 +31,7 @@ public class TimeCoord(
     /**
      * The timestamp for this event
      */
-    public var time: UInt
+    public var time: guint
         get() = gdkTimeCoordPointer.pointed.time
         set(`value`) {
             gdkTimeCoordPointer.pointed.time = value

@@ -8,6 +8,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitPermissionRequest
 import org.gtkkn.native.webkit.WebKitUserMediaPermissionRequest
 import org.gtkkn.native.webkit.webkit_user_media_permission_request_get_type
@@ -47,5 +48,12 @@ public class UserMediaPermissionRequest(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of UserMediaPermissionRequest
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_user_media_permission_request_get_type()
     }
 }

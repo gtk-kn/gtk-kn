@@ -1,9 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlin.Int
-import kotlin.UInt
-import kotlin.ULong
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -12,6 +9,9 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_48
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GInputMessage
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -62,7 +62,7 @@ public class InputMessage(
     /**
      * the number of input vectors pointed to by @vectors
      */
-    public var numVectors: UInt
+    public var numVectors: guint
         get() = gioInputMessagePointer.pointed.num_vectors
         set(`value`) {
             gioInputMessagePointer.pointed.num_vectors = value
@@ -72,7 +72,7 @@ public class InputMessage(
      * will be set to the number of bytes that have been
      *   received
      */
-    public var bytesReceived: ULong
+    public var bytesReceived: gsize
         get() = gioInputMessagePointer.pointed.bytes_received
         set(`value`) {
             gioInputMessagePointer.pointed.bytes_received = value
@@ -82,7 +82,7 @@ public class InputMessage(
      * collection of #GSocketMsgFlags for the received message,
      *   outputted by the call
      */
-    public var flags: Int
+    public var flags: gint
         get() = gioInputMessagePointer.pointed.flags
         set(`value`) {
             gioInputMessagePointer.pointed.flags = value

@@ -1,8 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlin.Int
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -17,11 +15,15 @@ import org.gtkkn.native.gio.GDBusInterfaceInfo
 import org.gtkkn.native.gio.g_dbus_interface_info_cache_build
 import org.gtkkn.native.gio.g_dbus_interface_info_cache_release
 import org.gtkkn.native.gio.g_dbus_interface_info_generate_xml
+import org.gtkkn.native.gio.g_dbus_interface_info_get_type
 import org.gtkkn.native.gio.g_dbus_interface_info_lookup_method
 import org.gtkkn.native.gio.g_dbus_interface_info_lookup_property
 import org.gtkkn.native.gio.g_dbus_interface_info_lookup_signal
 import org.gtkkn.native.gio.g_dbus_interface_info_ref
 import org.gtkkn.native.gio.g_dbus_interface_info_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import kotlin.String as KotlinString
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 import org.gtkkn.bindings.glib.String as GlibString
@@ -47,7 +49,7 @@ public class DBusInterfaceInfo(
     /**
      * The reference count or -1 if statically allocated.
      */
-    public var refCount: Int
+    public var refCount: gint
         get() = gioDBusInterfaceInfoPointer.pointed.ref_count
         set(`value`) {
             gioDBusInterfaceInfoPointer.pointed.ref_count = value
@@ -101,7 +103,7 @@ public class DBusInterfaceInfo(
      * @since 2.26
      */
     @GioVersion2_26
-    public fun generateXml(indent: UInt, stringBuilder: GlibString): Unit = g_dbus_interface_info_generate_xml(gioDBusInterfaceInfoPointer.reinterpret(), indent, stringBuilder.glibStringPointer.reinterpret())
+    public fun generateXml(indent: guint, stringBuilder: GlibString): Unit = g_dbus_interface_info_generate_xml(gioDBusInterfaceInfoPointer.reinterpret(), indent, stringBuilder.glibStringPointer.reinterpret())
 
     /**
      * Looks up information about a method.
@@ -167,6 +169,13 @@ public class DBusInterfaceInfo(
     public fun unref(): Unit = g_dbus_interface_info_unref(gioDBusInterfaceInfoPointer.reinterpret())
 
     public companion object : RecordCompanion<DBusInterfaceInfo, GDBusInterfaceInfo> {
+        /**
+         * Get the GType of DBusInterfaceInfo
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_interface_info_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusInterfaceInfo = DBusInterfaceInfo(pointer.reinterpret())
     }
 }

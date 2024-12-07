@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlin.ULong
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_24
@@ -18,6 +17,8 @@ import org.gtkkn.native.gio.g_memory_output_stream_get_size
 import org.gtkkn.native.gio.g_memory_output_stream_get_type
 import org.gtkkn.native.gio.g_memory_output_stream_new_resizable
 import org.gtkkn.native.gio.g_memory_output_stream_steal_as_bytes
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gsize
 
 /**
  * `GMemoryOutputStream` is a class for using arbitrary
@@ -53,7 +54,7 @@ public open class MemoryOutputStream(
      * @since 2.24
      */
     @GioVersion2_24
-    public open val dataSize: ULong
+    public open val dataSize: gsize
         /**
          * Returns the number of bytes from the start up to including the last
          * byte written in the stream that has not been truncated away.
@@ -69,7 +70,7 @@ public open class MemoryOutputStream(
      * @since 2.24
      */
     @GioVersion2_24
-    public open val size: ULong
+    public open val size: gsize
         /**
          * Gets the size of the currently allocated data area (available from
          * g_memory_output_stream_get_data()).
@@ -116,5 +117,12 @@ public open class MemoryOutputStream(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of MemoryOutputStream
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_memory_output_stream_get_type()
     }
 }

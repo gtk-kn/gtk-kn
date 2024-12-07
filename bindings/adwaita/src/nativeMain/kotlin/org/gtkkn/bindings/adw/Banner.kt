@@ -34,6 +34,7 @@ import org.gtkkn.native.adw.adw_banner_set_button_label
 import org.gtkkn.native.adw.adw_banner_set_revealed
 import org.gtkkn.native.adw.adw_banner_set_title
 import org.gtkkn.native.adw.adw_banner_set_use_markup
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
@@ -223,6 +224,13 @@ public class Banner(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of Banner
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_banner_get_type()
     }
 }
 

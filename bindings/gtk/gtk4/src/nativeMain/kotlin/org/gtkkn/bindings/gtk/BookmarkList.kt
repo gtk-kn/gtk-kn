@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -14,6 +13,8 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkBookmarkList
 import org.gtkkn.native.gtk.gtk_bookmark_list_get_attributes
 import org.gtkkn.native.gtk.gtk_bookmark_list_get_filename
@@ -86,7 +87,7 @@ public open class BookmarkList(
     /**
      * Priority used when loading.
      */
-    public open var ioPriority: Int
+    public open var ioPriority: gint
         /**
          * Gets the IO priority to use while loading file.
          *
@@ -128,5 +129,12 @@ public open class BookmarkList(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of BookmarkList
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_bookmark_list_get_type()
     }
 }

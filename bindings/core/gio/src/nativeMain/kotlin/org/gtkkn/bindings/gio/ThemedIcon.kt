@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlin.collections.List
@@ -24,6 +23,8 @@ import org.gtkkn.native.gio.g_themed_icon_new
 import org.gtkkn.native.gio.g_themed_icon_new_from_names
 import org.gtkkn.native.gio.g_themed_icon_new_with_default_fallbacks
 import org.gtkkn.native.gio.g_themed_icon_prepend_name
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * `GThemedIcon` is an implementation of [iface@Gio.Icon] that supports icon
@@ -79,7 +80,7 @@ public open class ThemedIcon(
      *     null-terminated
      * @return a new #GThemedIcon
      */
-    public constructor(iconnames: List<String>, len: Int) : this(memScoped {
+    public constructor(iconnames: List<String>, len: gint) : this(memScoped {
         g_themed_icon_new_from_names(iconnames.toCStringList(this), len)!!.reinterpret()}
     )
 
@@ -141,5 +142,12 @@ public open class ThemedIcon(
          * @return a new #GThemedIcon.
          */
         public fun newWithDefaultFallbacks(iconname: String): ThemedIcon = ThemedIcon(g_themed_icon_new_with_default_fallbacks(iconname)!!.reinterpret())
+
+        /**
+         * Get the GType of ThemedIcon
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_themed_icon_get_type()
     }
 }

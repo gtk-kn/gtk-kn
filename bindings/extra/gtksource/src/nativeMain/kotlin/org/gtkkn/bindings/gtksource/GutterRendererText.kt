@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtksource
 
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
@@ -9,6 +8,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -54,9 +55,9 @@ public open class GutterRendererText(
      */
     public constructor() : this(gtk_source_gutter_renderer_text_new()!!.reinterpret())
 
-    public open fun setMarkup(markup: String, length: Int): Unit = gtk_source_gutter_renderer_text_set_markup(gtksourceGutterRendererTextPointer.reinterpret(), markup, length)
+    public open fun setMarkup(markup: String, length: gint): Unit = gtk_source_gutter_renderer_text_set_markup(gtksourceGutterRendererTextPointer.reinterpret(), markup, length)
 
-    public open fun setText(text: String, length: Int): Unit = gtk_source_gutter_renderer_text_set_text(gtksourceGutterRendererTextPointer.reinterpret(), text, length)
+    public open fun setText(text: String, length: gint): Unit = gtk_source_gutter_renderer_text_set_text(gtksourceGutterRendererTextPointer.reinterpret(), text, length)
 
     public companion object : TypeCompanion<GutterRendererText> {
         override val type: GeneratedClassKGType<GutterRendererText> =
@@ -64,5 +65,12 @@ public open class GutterRendererText(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of GutterRendererText
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_gutter_renderer_text_get_type()
     }
 }

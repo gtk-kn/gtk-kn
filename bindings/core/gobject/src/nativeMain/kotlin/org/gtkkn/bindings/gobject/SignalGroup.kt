@@ -21,6 +21,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GObject
 import org.gtkkn.native.gobject.GSignalGroup
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_group_block
 import org.gtkkn.native.gobject.g_signal_group_connect_closure
@@ -75,7 +76,7 @@ public open class SignalGroup(
      * @return a new #GSignalGroup
      * @since 2.72
      */
-    public constructor(targetType: ULong) : this(g_signal_group_new(targetType)!!.reinterpret())
+    public constructor(targetType: GType) : this(g_signal_group_new(targetType)!!.reinterpret())
 
     /**
      * Blocks all signal handlers managed by @self so they will not
@@ -192,6 +193,13 @@ public open class SignalGroup(
 
         init {
             GobjectTypeProvider.register()}
+
+        /**
+         * Get the GType of SignalGroup
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_signal_group_get_type()
     }
 }
 

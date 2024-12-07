@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -9,6 +8,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GTypePlugin
 import org.gtkkn.native.gobject.g_type_plugin_complete_interface_info
 import org.gtkkn.native.gobject.g_type_plugin_complete_type_info
@@ -80,8 +80,8 @@ public interface TypePlugin : Interface, KGTyped {
      * @param info the #GInterfaceInfo to fill in
      */
     public fun completeInterfaceInfo(
-        instanceType: ULong,
-        interfaceType: ULong,
+        instanceType: GType,
+        interfaceType: GType,
         info: InterfaceInfo,
     ): Unit = g_type_plugin_complete_interface_info(gobjectTypePluginPointer.reinterpret(), instanceType, interfaceType, info.gobjectInterfaceInfoPointer.reinterpret())
 
@@ -95,7 +95,7 @@ public interface TypePlugin : Interface, KGTyped {
      * @param valueTable the #GTypeValueTable to fill in
      */
     public fun completeTypeInfo(
-        gType: ULong,
+        gType: GType,
         info: TypeInfo,
         valueTable: TypeValueTable,
     ): Unit = g_type_plugin_complete_type_info(gobjectTypePluginPointer.reinterpret(), gType, info.gobjectTypeInfoPointer.reinterpret(), valueTable.gobjectTypeValueTablePointer.reinterpret())

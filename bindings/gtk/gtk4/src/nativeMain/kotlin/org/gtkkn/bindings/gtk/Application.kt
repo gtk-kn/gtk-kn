@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -25,7 +24,9 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GActionGroup
 import org.gtkkn.native.gio.GActionMap
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkApplication
 import org.gtkkn.native.gtk.GtkWindow
 import org.gtkkn.native.gtk.gtk_application_add_window
@@ -290,7 +291,7 @@ public open class Application(
      * @param id an identifier number
      * @return the window for the given `id`
      */
-    public open fun getWindowById(id: UInt): Window? = gtk_application_get_window_by_id(gtkApplicationPointer.reinterpret(), id)?.run {
+    public open fun getWindowById(id: guint): Window? = gtk_application_get_window_by_id(gtkApplicationPointer.reinterpret(), id)?.run {
         Window(reinterpret())}
 
     /**
@@ -348,7 +349,7 @@ public open class Application(
         window: Window? = null,
         flags: ApplicationInhibitFlags,
         reason: String? = null,
-    ): UInt = gtk_application_inhibit(gtkApplicationPointer.reinterpret(), window?.gtkWindowPointer?.reinterpret(), flags.mask, reason)
+    ): guint = gtk_application_inhibit(gtkApplicationPointer.reinterpret(), window?.gtkWindowPointer?.reinterpret(), flags.mask, reason)
 
     /**
      * Lists the detailed action names which have associated accelerators.
@@ -403,7 +404,7 @@ public open class Application(
      *
      * @param cookie a cookie that was returned by [method@Gtk.Application.inhibit]
      */
-    public open fun uninhibit(cookie: UInt): Unit = gtk_application_uninhibit(gtkApplicationPointer.reinterpret(), cookie)
+    public open fun uninhibit(cookie: guint): Unit = gtk_application_uninhibit(gtkApplicationPointer.reinterpret(), cookie)
 
     /**
      * Emitted when the session manager is about to end the session.
@@ -444,6 +445,13 @@ public open class Application(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of Application
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_application_get_type()
     }
 }
 

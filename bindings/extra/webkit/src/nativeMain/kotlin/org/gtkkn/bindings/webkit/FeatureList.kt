@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -9,9 +8,12 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_42
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.webkit.WebKitFeatureList
 import org.gtkkn.native.webkit.webkit_feature_list_get
 import org.gtkkn.native.webkit.webkit_feature_list_get_length
+import org.gtkkn.native.webkit.webkit_feature_list_get_type
 import org.gtkkn.native.webkit.webkit_feature_list_ref
 import org.gtkkn.native.webkit.webkit_feature_list_unref
 import kotlinx.cinterop.alloc as nativePlacementAlloc
@@ -50,7 +52,7 @@ public class FeatureList(
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun `get`(index: ULong): Feature = webkit_feature_list_get(webkitFeatureListPointer.reinterpret(), index)!!.run {
+    public fun `get`(index: gsize): Feature = webkit_feature_list_get(webkitFeatureListPointer.reinterpret(), index)!!.run {
         Feature(reinterpret())}
 
     /**
@@ -60,7 +62,7 @@ public class FeatureList(
      *
      * Since 2.42
      */
-    public fun getLength(): ULong = webkit_feature_list_get_length(webkitFeatureListPointer.reinterpret())
+    public fun getLength(): gsize = webkit_feature_list_get_length(webkitFeatureListPointer.reinterpret())
 
     /**
      * Atomically acquires a reference on the given @feature_list.
@@ -87,6 +89,13 @@ public class FeatureList(
     public fun unref(): Unit = webkit_feature_list_unref(webkitFeatureListPointer.reinterpret())
 
     public companion object : RecordCompanion<FeatureList, WebKitFeatureList> {
+        /**
+         * Get the GType of FeatureList
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_feature_list_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FeatureList = FeatureList(pointer.reinterpret())
     }
 }

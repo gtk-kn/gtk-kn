@@ -32,6 +32,7 @@ import org.gtkkn.native.adw.adw_preferences_window_set_can_navigate_back
 import org.gtkkn.native.adw.adw_preferences_window_set_search_enabled
 import org.gtkkn.native.adw.adw_preferences_window_set_visible_page
 import org.gtkkn.native.adw.adw_preferences_window_set_visible_page_name
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -245,5 +246,12 @@ public open class PreferencesWindow(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of PreferencesWindow
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_preferences_window_get_type()
     }
 }

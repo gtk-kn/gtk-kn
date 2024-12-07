@@ -2,9 +2,7 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.ByteVar
@@ -31,7 +29,11 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkIMContext
 import org.gtkkn.native.gtk.gtk_im_context_activate_osk
 import org.gtkkn.native.gtk.gtk_im_context_delete_surrounding
@@ -131,7 +133,7 @@ public open class IMContext(
      * @param nChars number of characters to delete.
      * @return true if the signal was handled.
      */
-    public open fun deleteSurrounding(offset: Int, nChars: Int): Boolean = gtk_im_context_delete_surrounding(gtkIMContextPointer.reinterpret(), offset, nChars).asBoolean()
+    public open fun deleteSurrounding(offset: gint, nChars: gint): Boolean = gtk_im_context_delete_surrounding(gtkIMContextPointer.reinterpret(), offset, nChars).asBoolean()
 
     /**
      * Allow an input method to forward key press and release events
@@ -151,10 +153,10 @@ public open class IMContext(
         press: Boolean,
         surface: Surface,
         device: Device,
-        time: UInt,
-        keycode: UInt,
+        time: guint,
+        keycode: guint,
         state: ModifierType,
-        group: Int,
+        group: gint,
     ): Boolean = gtk_im_context_filter_key(gtkIMContextPointer.reinterpret(), press.asGBoolean(), surface.gdkSurfacePointer.reinterpret(), device.gdkDevicePointer.reinterpret(), time, keycode, state.mask, group).asBoolean()
 
     /**
@@ -232,8 +234,8 @@ public open class IMContext(
      */
     public open fun setSurrounding(
         text: String,
-        len: Int,
-        cursorIndex: Int,
+        len: gint,
+        cursorIndex: gint,
     ): Unit = gtk_im_context_set_surrounding(gtkIMContextPointer.reinterpret(), text, len, cursorIndex)
 
     /**
@@ -252,9 +254,9 @@ public open class IMContext(
     @GtkVersion4_2
     public open fun setSurroundingWithSelection(
         text: String,
-        len: Int,
-        cursorIndex: Int,
-        anchorIndex: Int,
+        len: gint,
+        cursorIndex: gint,
+        anchorIndex: gint,
     ): Unit = gtk_im_context_set_surrounding_with_selection(gtkIMContextPointer.reinterpret(), text, len, cursorIndex, anchorIndex)
 
     /**
@@ -293,7 +295,7 @@ public open class IMContext(
      *   to be deleted. A negative value indicates a position before
      *   the cursor.; `nChars` the number of characters to be deleted. Returns true if the signal was handled.
      */
-    public fun connectDeleteSurrounding(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (offset: Int, nChars: Int) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "delete-surrounding", connectDeleteSurroundingFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectDeleteSurrounding(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (offset: gint, nChars: gint) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "delete-surrounding", connectDeleteSurroundingFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * The ::preedit-changed signal is emitted whenever the preedit sequence
@@ -343,6 +345,13 @@ public open class IMContext(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of IMContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_im_context_get_type()
     }
 }
 
@@ -354,13 +363,14 @@ private val connectCommitFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> 
     userData.asStableRef<(str: String) -> Unit>().get().invoke(str?.toKString() ?: error("Expected not null string"))}
 .reinterpret()
 
-private val connectDeleteSurroundingFunc: CPointer<CFunction<(Int, Int) -> Int>> = staticCFunction {
+private val connectDeleteSurroundingFunc: CPointer<CFunction<(gint, gint) -> gboolean>> =
+        staticCFunction {
     _: COpaquePointer,
-    offset: Int,
-    nChars: Int,
+    offset: gint,
+    nChars: gint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(offset: Int, nChars: Int) -> Boolean>().get().invoke(offset, nChars).asGBoolean()}
+    userData.asStableRef<(offset: gint, nChars: gint) -> Boolean>().get().invoke(offset, nChars).asGBoolean()}
 .reinterpret()
 
 private val connectPreeditChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
@@ -384,7 +394,7 @@ private val connectPreeditStartFunc: CPointer<CFunction<() -> Unit>> = staticCFu
     userData.asStableRef<() -> Unit>().get().invoke()}
 .reinterpret()
 
-private val connectRetrieveSurroundingFunc: CPointer<CFunction<() -> Int>> = staticCFunction {
+private val connectRetrieveSurroundingFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     userData: COpaquePointer
     ->

@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
-import kotlin.Long
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
@@ -17,6 +16,8 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint64
 import org.gtkkn.native.webkit.WebKitURISchemeRequest
 import org.gtkkn.native.webkit.webkit_uri_scheme_request_finish
 import org.gtkkn.native.webkit.webkit_uri_scheme_request_finish_error
@@ -58,7 +59,7 @@ public class URISchemeRequest(
      */
     public fun finish(
         stream: InputStream,
-        streamLength: Long,
+        streamLength: gint64,
         contentType: String? = null,
     ): Unit = webkit_uri_scheme_request_finish(webkitURISchemeRequestPointer.reinterpret(), stream.gioInputStreamPointer.reinterpret(), streamLength, contentType)
 
@@ -144,5 +145,12 @@ public class URISchemeRequest(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of URISchemeRequest
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_uri_scheme_request_get_type()
     }
 }

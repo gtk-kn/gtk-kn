@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -9,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GTypeClass
 import org.gtkkn.native.gobject.g_type_class_add_private
 import org.gtkkn.native.gobject.g_type_class_peek
@@ -16,6 +16,7 @@ import org.gtkkn.native.gobject.g_type_class_peek_parent
 import org.gtkkn.native.gobject.g_type_class_peek_static
 import org.gtkkn.native.gobject.g_type_class_ref
 import org.gtkkn.native.gobject.g_type_class_unref
+import org.gtkkn.native.gobject.gsize
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -100,7 +101,7 @@ public class TypeClass(
      * @since 2.4
      */
     @GObjectVersion2_4
-    public fun addPrivate(privateSize: ULong): Unit = g_type_class_add_private(gobjectTypeClassPointer.reinterpret(), privateSize)
+    public fun addPrivate(privateSize: gsize): Unit = g_type_class_add_private(gobjectTypeClassPointer.reinterpret(), privateSize)
 
     /**
      * This is a convenience function often needed in class initializers.
@@ -139,7 +140,7 @@ public class TypeClass(
          *     structure for the given type ID or null if the class does not
          *     currently exist
          */
-        public fun peek(type: ULong): TypeClass = g_type_class_peek(type)!!.run {
+        public fun peek(type: GType): TypeClass = g_type_class_peek(type)!!.run {
             TypeClass(reinterpret())}
 
         /**
@@ -153,7 +154,7 @@ public class TypeClass(
          * @since 2.4
          */
         @GObjectVersion2_4
-        public fun peekStatic(type: ULong): TypeClass = g_type_class_peek_static(type)!!.run {
+        public fun peekStatic(type: GType): TypeClass = g_type_class_peek_static(type)!!.run {
             TypeClass(reinterpret())}
 
         /**
@@ -165,7 +166,7 @@ public class TypeClass(
          * @return the #GTypeClass
          *     structure for the given type ID
          */
-        public fun ref(type: ULong): TypeClass = g_type_class_ref(type)!!.run {
+        public fun ref(type: GType): TypeClass = g_type_class_ref(type)!!.run {
             TypeClass(reinterpret())}
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TypeClass = TypeClass(pointer.reinterpret())

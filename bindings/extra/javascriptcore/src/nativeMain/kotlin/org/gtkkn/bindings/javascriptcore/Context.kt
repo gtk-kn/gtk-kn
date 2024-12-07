@@ -3,7 +3,6 @@ package org.gtkkn.bindings.javascriptcore
 
 import kotlin.Long
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -13,6 +12,8 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.javascriptcore.JSCContext
 import org.gtkkn.native.javascriptcore.jsc_context_clear_exception
 import org.gtkkn.native.javascriptcore.jsc_context_evaluate
@@ -113,7 +114,7 @@ public class Context(
         code: String,
         length: Long,
         uri: String,
-        lineNumber: UInt,
+        lineNumber: guint,
     ): Value = jsc_context_evaluate_with_source_uri(javascriptcoreContextPointer.reinterpret(), code, length, uri, lineNumber)!!.run {
         Value(reinterpret())}
 
@@ -210,5 +211,12 @@ public class Context(
          */
         public fun getCurrent(): Context? = jsc_context_get_current()?.run {
             Context(reinterpret())}
+
+        /**
+         * Get the GType of Context
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = jsc_context_get_type()
     }
 }

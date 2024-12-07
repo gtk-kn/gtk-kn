@@ -28,6 +28,7 @@ import org.gtkkn.native.gio.g_filename_completer_get_completions
 import org.gtkkn.native.gio.g_filename_completer_get_type
 import org.gtkkn.native.gio.g_filename_completer_new
 import org.gtkkn.native.gio.g_filename_completer_set_dirs_only
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 
 /**
@@ -90,6 +91,13 @@ public open class FilenameCompleter(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of FilenameCompleter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_filename_completer_get_type()
     }
 }
 

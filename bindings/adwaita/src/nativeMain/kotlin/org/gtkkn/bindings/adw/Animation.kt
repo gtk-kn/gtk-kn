@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -36,7 +35,9 @@ import org.gtkkn.native.adw.adw_animation_resume
 import org.gtkkn.native.adw.adw_animation_set_follow_enable_animations_setting
 import org.gtkkn.native.adw.adw_animation_set_target
 import org.gtkkn.native.adw.adw_animation_skip
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gdouble
 
 /**
  * A base class for animations.
@@ -170,7 +171,7 @@ public open class Animation(
     /**
      * The current value of the animation.
      */
-    public open val `value`: Double
+    public open val `value`: gdouble
         /**
          * Gets the current value of @self.
          *
@@ -275,6 +276,13 @@ public open class Animation(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of Animation
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_animation_get_type()
     }
 }
 

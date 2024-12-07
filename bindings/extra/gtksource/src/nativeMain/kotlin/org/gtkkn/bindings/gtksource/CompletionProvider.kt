@@ -2,10 +2,8 @@
 package org.gtkkn.bindings.gtksource
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -30,6 +28,9 @@ import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.gunichar
 import org.gtkkn.native.gtksource.GtkSourceCompletionProvider
 import org.gtkkn.native.gtksource.gtk_source_completion_provider_activate
 import org.gtkkn.native.gtksource.gtk_source_completion_provider_display
@@ -104,7 +105,7 @@ public interface CompletionProvider : Interface, KGTyped {
      *
      * @param context a #GtkSourceCompletionContext
      */
-    public fun getPriority(context: CompletionContext): Int = gtk_source_completion_provider_get_priority(gtksourceCompletionProviderPointer.reinterpret(), context.gtksourceCompletionContextPointer.reinterpret())
+    public fun getPriority(context: CompletionContext): gint = gtk_source_completion_provider_get_priority(gtksourceCompletionProviderPointer.reinterpret(), context.gtksourceCompletionContextPointer.reinterpret())
 
     /**
      * Gets the title of the completion provider, if any.
@@ -130,7 +131,7 @@ public interface CompletionProvider : Interface, KGTyped {
      * @param iter a #GtkTextIter
      * @param ch a #gunichar of the character inserted
      */
-    public fun isTrigger(iter: TextIter, ch: UInt): Boolean = gtk_source_completion_provider_is_trigger(gtksourceCompletionProviderPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret(), ch).asBoolean()
+    public fun isTrigger(iter: TextIter, ch: gunichar): Boolean = gtk_source_completion_provider_is_trigger(gtksourceCompletionProviderPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret(), ch).asBoolean()
 
     /**
      * This function is used to determine if a key typed by the user should
@@ -148,7 +149,7 @@ public interface CompletionProvider : Interface, KGTyped {
     public fun keyActivates(
         context: CompletionContext,
         proposal: CompletionProposal,
-        keyval: UInt,
+        keyval: guint,
         state: ModifierType,
     ): Boolean = gtk_source_completion_provider_key_activates(gtksourceCompletionProviderPointer.reinterpret(), context.gtksourceCompletionContextPointer.reinterpret(), proposal.gtksourceCompletionProposalPointer, keyval, state.mask).asBoolean()
 

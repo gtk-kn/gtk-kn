@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkLayoutChild
 import org.gtkkn.native.gtk.gtk_layout_child_get_child_widget
 import org.gtkkn.native.gtk.gtk_layout_child_get_layout_manager
@@ -61,5 +62,12 @@ public open class LayoutChild(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of LayoutChild
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_layout_child_get_type()
     }
 }

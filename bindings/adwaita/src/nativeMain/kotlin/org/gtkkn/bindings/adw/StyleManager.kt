@@ -20,6 +20,7 @@ import org.gtkkn.native.adw.adw_style_manager_get_high_contrast
 import org.gtkkn.native.adw.adw_style_manager_get_system_supports_color_schemes
 import org.gtkkn.native.adw.adw_style_manager_get_type
 import org.gtkkn.native.adw.adw_style_manager_set_color_scheme
+import org.gtkkn.native.gobject.GType
 
 /**
  * A class for managing application-wide styling.
@@ -224,5 +225,12 @@ public class StyleManager(
          */
         public fun getForDisplay(display: Display): StyleManager = adw_style_manager_get_for_display(display.gdkDisplayPointer.reinterpret())!!.run {
             StyleManager(reinterpret())}
+
+        /**
+         * Get the GType of StyleManager
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_style_manager_get_type()
     }
 }

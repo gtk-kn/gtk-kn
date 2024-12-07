@@ -11,6 +11,7 @@ import org.gtkkn.native.gio.GTcpWrapperConnection
 import org.gtkkn.native.gio.g_tcp_wrapper_connection_get_base_io_stream
 import org.gtkkn.native.gio.g_tcp_wrapper_connection_get_type
 import org.gtkkn.native.gio.g_tcp_wrapper_connection_new
+import org.gtkkn.native.gobject.GType
 
 /**
  * A `GTcpWrapperConnection` can be used to wrap a [class@Gio.IOStream] that is
@@ -60,5 +61,12 @@ public open class TcpWrapperConnection(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of TcpWrapperConnection
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_tcp_wrapper_connection_get_type()
     }
 }

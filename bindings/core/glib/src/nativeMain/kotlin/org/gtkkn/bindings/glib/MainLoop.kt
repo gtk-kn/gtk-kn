@@ -18,6 +18,8 @@ import org.gtkkn.native.glib.g_main_loop_quit
 import org.gtkkn.native.glib.g_main_loop_ref
 import org.gtkkn.native.glib.g_main_loop_run
 import org.gtkkn.native.glib.g_main_loop_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_main_loop_get_type
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -87,6 +89,13 @@ public class MainLoop(
          * @return a new #GMainLoop.
          */
         public fun new(context: MainContext? = null, isRunning: Boolean): MainLoop = MainLoop(g_main_loop_new(context?.glibMainContextPointer?.reinterpret(), isRunning.asGBoolean())!!.reinterpret())
+
+        /**
+         * Get the GType of MainLoop
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_main_loop_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MainLoop = MainLoop(pointer.reinterpret())
     }

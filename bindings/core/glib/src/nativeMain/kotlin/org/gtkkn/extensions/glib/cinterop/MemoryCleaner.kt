@@ -19,6 +19,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+/*
+ * Portions of this class are inspired by the open-source project Java-GI.
+ * Original source: https://github.com/jwharm/java-gi/
+ * Copyright (c) 2024 jwharm
+ *
+ * This project is licensed under the same terms as Java-GI or a compatible license.
+ */
 
 package org.gtkkn.extensions.glib.cinterop
 
@@ -29,6 +36,7 @@ import org.gtkkn.extensions.glib.cinterop.MemoryCleaner.setBoxedType
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner.setFreeFunc
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner.takeOwnership
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner.yieldOwnership
+import org.gtkkn.native.gobject.GType
 import kotlin.native.ref.createCleaner
 
 /**
@@ -111,7 +119,7 @@ public object MemoryCleaner {
      * @param proxy The `Proxy` instance.
      * @param boxedType The `Type` representing the boxed type.
      */
-    public fun setBoxedType(proxy: Proxy, boxedType: Type) {
+    public fun setBoxedType(proxy: Proxy, boxedType: GType) {
         lock.withLock {
             val cached = getOrRegister(proxy)
             cache[proxy.handle] = cached.copy(boxedType = boxedType)
@@ -200,7 +208,7 @@ public object MemoryCleaner {
     private fun runFreeFunction(
         cPointer: COpaquePointer?,
         freeFunc: ((COpaquePointer?) -> Unit)?,
-        boxedType: Type?
+        boxedType: GType?
     ) {
         when {
             boxedType != null -> nativeFunctions.g_boxed_free(boxedType, cPointer)
@@ -219,7 +227,7 @@ public object MemoryCleaner {
     private data class Cached(
         val owned: Boolean,
         val freeFunc: ((COpaquePointer?) -> Unit)?,
-        val boxedType: Type?,
+        val boxedType: GType?,
     )
 
     /**
@@ -255,5 +263,3 @@ public object MemoryCleaner {
         }
     }
 }
-
-public typealias Type = ULong

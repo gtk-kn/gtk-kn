@@ -15,12 +15,14 @@ import org.gtkkn.native.gdk.gdk_toplevel_layout_copy
 import org.gtkkn.native.gdk.gdk_toplevel_layout_equal
 import org.gtkkn.native.gdk.gdk_toplevel_layout_get_fullscreen_monitor
 import org.gtkkn.native.gdk.gdk_toplevel_layout_get_resizable
+import org.gtkkn.native.gdk.gdk_toplevel_layout_get_type
 import org.gtkkn.native.gdk.gdk_toplevel_layout_new
 import org.gtkkn.native.gdk.gdk_toplevel_layout_ref
 import org.gtkkn.native.gdk.gdk_toplevel_layout_set_fullscreen
 import org.gtkkn.native.gdk.gdk_toplevel_layout_set_maximized
 import org.gtkkn.native.gdk.gdk_toplevel_layout_set_resizable
 import org.gtkkn.native.gdk.gdk_toplevel_layout_unref
+import org.gtkkn.native.gobject.GType
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -129,6 +131,13 @@ public class ToplevelLayout(
          * @return newly created instance of `GdkToplevelLayout`
          */
         public fun new(): ToplevelLayout = ToplevelLayout(gdk_toplevel_layout_new()!!.reinterpret())
+
+        /**
+         * Get the GType of ToplevelLayout
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_toplevel_layout_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ToplevelLayout = ToplevelLayout(pointer.reinterpret())
     }

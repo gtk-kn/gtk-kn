@@ -8,6 +8,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupAuthDomainDigest
 import org.gtkkn.native.soup.soup_auth_domain_digest_encode_password
 import org.gtkkn.native.soup.soup_auth_domain_digest_get_type
@@ -65,5 +66,12 @@ public class AuthDomainDigest(
             realm: String,
             password: String,
         ): String = soup_auth_domain_digest_encode_password(username, realm, password)?.toKString() ?: error("Expected not null string")
+
+        /**
+         * Get the GType of AuthDomainDigest
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_auth_domain_digest_get_type()
     }
 }

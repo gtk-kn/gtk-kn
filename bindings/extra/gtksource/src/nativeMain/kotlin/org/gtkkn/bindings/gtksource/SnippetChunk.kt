@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtksource
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
@@ -14,6 +13,8 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtksource.GtkSourceSnippetChunk
 import org.gtkkn.native.gtksource.gtk_source_snippet_chunk_copy
 import org.gtkkn.native.gtksource.gtk_source_snippet_chunk_get_context
@@ -60,7 +61,7 @@ public open class SnippetChunk(
             SnippetContext(reinterpret())}
         set(context) = gtk_source_snippet_chunk_set_context(gtksourceSnippetChunkPointer.reinterpret(), context.gtksourceSnippetContextPointer.reinterpret())
 
-    public open var focusPosition: Int
+    public open var focusPosition: gint
         /**
          * Gets the [property@SnippetChunk:focus-position].
          *
@@ -177,5 +178,12 @@ public open class SnippetChunk(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of SnippetChunk
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_snippet_chunk_get_type()
     }
 }

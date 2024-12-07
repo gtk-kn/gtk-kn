@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
-import kotlin.Int
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -11,6 +10,8 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.soup.SoupLogger
 import org.gtkkn.native.soup.SoupSessionFeature
 import org.gtkkn.native.soup.soup_logger_get_max_body_size
@@ -101,7 +102,7 @@ public class Logger(
      * the maximum number of bytes of the body that will be logged.
      * (-1 means "no limit".)
      */
-    public var maxBodySize: Int
+    public var maxBodySize: gint
         /**
          * Get the maximum body size for @logger.
          *
@@ -165,5 +166,12 @@ public class Logger(
 
         init {
             SoupTypeProvider.register()}
+
+        /**
+         * Get the GType of Logger
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_logger_get_type()
     }
 }

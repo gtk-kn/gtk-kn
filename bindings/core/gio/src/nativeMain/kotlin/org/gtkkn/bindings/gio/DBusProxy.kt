@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.Throws
@@ -67,7 +66,9 @@ import org.gtkkn.native.gio.g_dbus_proxy_set_default_timeout
 import org.gtkkn.native.gio.g_dbus_proxy_set_interface_info
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GVariant
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 
 /**
  * `GDBusProxy` is a base class used for proxies to access a D-Bus
@@ -321,7 +322,7 @@ public open class DBusProxy(
         methodName: String,
         parameters: Variant? = null,
         flags: DBusCallFlags,
-        timeoutMsec: Int,
+        timeoutMsec: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_dbus_proxy_call(gioDBusProxyPointer.reinterpret(), methodName, parameters?.glibVariantPointer?.reinterpret(), flags.mask, timeoutMsec, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -400,7 +401,7 @@ public open class DBusProxy(
         methodName: String,
         parameters: Variant? = null,
         flags: DBusCallFlags,
-        timeoutMsec: Int,
+        timeoutMsec: gint,
         cancellable: Cancellable? = null,
     ): Result<Variant> = memScoped {
         val gError = allocPointerTo<GError>()
@@ -436,7 +437,7 @@ public open class DBusProxy(
         methodName: String,
         parameters: Variant? = null,
         flags: DBusCallFlags,
-        timeoutMsec: Int,
+        timeoutMsec: gint,
         fdList: UnixFDList? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
@@ -493,7 +494,7 @@ public open class DBusProxy(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getDefaultTimeout(): Int = g_dbus_proxy_get_default_timeout(gioDBusProxyPointer.reinterpret())
+    public open fun getDefaultTimeout(): gint = g_dbus_proxy_get_default_timeout(gioDBusProxyPointer.reinterpret())
 
     /**
      * Gets the flags that @proxy was constructed with.
@@ -615,7 +616,7 @@ public open class DBusProxy(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setDefaultTimeout(timeoutMsec: Int): Unit = g_dbus_proxy_set_default_timeout(gioDBusProxyPointer.reinterpret(), timeoutMsec)
+    public open fun setDefaultTimeout(timeoutMsec: gint): Unit = g_dbus_proxy_set_default_timeout(gioDBusProxyPointer.reinterpret(), timeoutMsec)
 
     /**
      * Ensure that interactions with @proxy conform to the given
@@ -792,6 +793,13 @@ public open class DBusProxy(
             cancellable: Cancellable? = null,
             callback: AsyncReadyCallback,
         ): Unit = g_dbus_proxy_new_for_bus(busType.nativeValue, flags.mask, info?.gioDBusInterfaceInfoPointer?.reinterpret(), name, objectPath, interfaceName, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
+
+        /**
+         * Get the GType of DBusProxy
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_proxy_get_type()
     }
 }
 

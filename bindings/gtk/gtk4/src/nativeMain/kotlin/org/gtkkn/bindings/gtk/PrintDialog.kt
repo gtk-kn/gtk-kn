@@ -29,6 +29,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkPrintDialog
 import org.gtkkn.native.gtk.gtk_print_dialog_get_accept_label
 import org.gtkkn.native.gtk.gtk_print_dialog_get_modal
@@ -362,5 +363,12 @@ public open class PrintDialog(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of PrintDialog
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_print_dialog_get_type()
     }
 }

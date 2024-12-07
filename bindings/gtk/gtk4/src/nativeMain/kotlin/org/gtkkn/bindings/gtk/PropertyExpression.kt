@@ -2,13 +2,13 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.String
-import kotlin.ULong
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.ParamSpec
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkPropertyExpression
 import org.gtkkn.native.gtk.gtk_property_expression_get_expression
 import org.gtkkn.native.gtk.gtk_property_expression_get_pspec
@@ -46,7 +46,7 @@ public open class PropertyExpression(
      * @return a new `GtkExpression`
      */
     public constructor(
-        thisType: ULong,
+        thisType: GType,
         expression: Expression? = null,
         propertyName: String,
     ) : this(gtk_property_expression_new(thisType, expression?.gPointer?.reinterpret(), propertyName)!!.reinterpret())
@@ -93,5 +93,12 @@ public open class PropertyExpression(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of PropertyExpression
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_property_expression_get_type()
     }
 }

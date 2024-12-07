@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.Unit
@@ -31,6 +30,8 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAlertDialog
 import org.gtkkn.native.gtk.gtk_alert_dialog_choose
 import org.gtkkn.native.gtk.gtk_alert_dialog_choose_finish
@@ -88,7 +89,7 @@ public open class AlertDialog(
      * @since 4.10
      */
     @GtkVersion4_10
-    public open var cancelButton: Int
+    public open var cancelButton: gint
         /**
          * Returns the index of the cancel button.
          *
@@ -122,7 +123,7 @@ public open class AlertDialog(
      * @since 4.10
      */
     @GtkVersion4_10
-    public open var defaultButton: Int
+    public open var defaultButton: gint
         /**
          * Returns the index of the default button.
          *
@@ -247,7 +248,7 @@ public open class AlertDialog(
      * @since 4.10
      */
     @GtkVersion4_10
-    public open fun chooseFinish(result: AsyncResult): Result<Int> = memScoped {
+    public open fun chooseFinish(result: AsyncResult): Result<gint> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_alert_dialog_choose_finish(gtkAlertDialogPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)
         return if (gError.pointed != null) {
@@ -298,5 +299,12 @@ public open class AlertDialog(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of AlertDialog
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_alert_dialog_get_type()
     }
 }

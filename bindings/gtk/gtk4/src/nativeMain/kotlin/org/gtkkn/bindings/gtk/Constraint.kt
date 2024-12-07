@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -11,6 +9,9 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkConstraint
 import org.gtkkn.native.gtk.gtk_constraint_get_constant
 import org.gtkkn.native.gtk.gtk_constraint_get_multiplier
@@ -54,7 +55,7 @@ public open class Constraint(
     /**
      * The constant value to be added to the [property@Gtk.Constraint:source-attribute].
      */
-    public open val constant: Double
+    public open val constant: gdouble
         /**
          * Retrieves the constant factor added to the source attributes' value.
          *
@@ -66,7 +67,7 @@ public open class Constraint(
      * The multiplication factor to be applied to
      * the [property@Gtk.Constraint:source-attribute].
      */
-    public open val multiplier: Double
+    public open val multiplier: gdouble
         /**
          * Retrieves the multiplication factor applied to the source
          * attribute's value.
@@ -127,7 +128,7 @@ public open class Constraint(
      * of the [enum@Gtk.ConstraintStrength] enumeration, or any positive integer
      * value.
      */
-    public open val strength: Int
+    public open val strength: gint
         /**
          * Retrieves the strength of the constraint.
          *
@@ -187,9 +188,9 @@ public open class Constraint(
         relation: ConstraintRelation,
         source: ConstraintTarget? = null,
         sourceAttribute: ConstraintAttribute,
-        multiplier: Double,
-        constant: Double,
-        strength: Int,
+        multiplier: gdouble,
+        constant: gdouble,
+        strength: gint,
     ) : this(gtk_constraint_new(target?.gtkConstraintTargetPointer, targetAttribute.nativeValue, relation.nativeValue, source?.gtkConstraintTargetPointer, sourceAttribute.nativeValue, multiplier, constant, strength)!!.reinterpret())
 
     /**
@@ -207,8 +208,8 @@ public open class Constraint(
         target: ConstraintTarget? = null,
         targetAttribute: ConstraintAttribute,
         relation: ConstraintRelation,
-        constant: Double,
-        strength: Int,
+        constant: gdouble,
+        strength: gint,
     ) : this(gtk_constraint_new_constant(target?.gtkConstraintTargetPointer, targetAttribute.nativeValue, relation.nativeValue, constant, strength)!!.reinterpret())
 
     /**
@@ -241,5 +242,12 @@ public open class Constraint(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of Constraint
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_constraint_get_type()
     }
 }

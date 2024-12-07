@@ -9,9 +9,11 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBorder
 import org.gtkkn.native.gtk.gtk_border_copy
 import org.gtkkn.native.gtk.gtk_border_free
+import org.gtkkn.native.gtk.gtk_border_get_type
 import org.gtkkn.native.gtk.gtk_border_new
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
@@ -82,6 +84,13 @@ public class Border(
          *  Free with [method@Gtk.Border.free]
          */
         public fun new(): Border = Border(gtk_border_new()!!.reinterpret())
+
+        /**
+         * Get the GType of Border
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_border_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Border = Border(pointer.reinterpret())
     }

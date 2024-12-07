@@ -23,6 +23,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.soup.SoupCookie
 import org.gtkkn.native.soup.SoupCookieJar
@@ -308,6 +309,13 @@ public open class CookieJar(
 
         init {
             SoupTypeProvider.register()}
+
+        /**
+         * Get the GType of CookieJar
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_cookie_jar_get_type()
     }
 }
 

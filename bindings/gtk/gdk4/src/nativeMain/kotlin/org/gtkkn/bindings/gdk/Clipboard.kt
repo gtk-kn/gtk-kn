@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gdk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.ULong
@@ -53,7 +52,9 @@ import org.gtkkn.native.gdk.gdk_clipboard_set_value
 import org.gtkkn.native.gdk.gdk_clipboard_store_async
 import org.gtkkn.native.gdk.gdk_clipboard_store_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 
 /**
  * The `GdkClipboard` object represents data shared between applications or
@@ -157,7 +158,7 @@ public open class Clipboard(
      */
     public open fun readAsync(
         mimeTypes: List<String>,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = memScoped {
@@ -250,8 +251,8 @@ public open class Clipboard(
      * @param callback callback to call when the request is satisfied
      */
     public open fun readValueAsync(
-        type: ULong,
-        ioPriority: Int,
+        type: GType,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = gdk_clipboard_read_value_async(gdkClipboardPointer.reinterpret(), type, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -325,7 +326,7 @@ public open class Clipboard(
      * @param callback callback to call when the request is satisfied
      */
     public open fun storeAsync(
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = gdk_clipboard_store_async(gdkClipboardPointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -363,6 +364,13 @@ public open class Clipboard(
 
         init {
             GdkTypeProvider.register()}
+
+        /**
+         * Get the GType of Clipboard
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_clipboard_get_type()
     }
 }
 

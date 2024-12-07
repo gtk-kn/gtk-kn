@@ -10,6 +10,7 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkStringSorter
 import org.gtkkn.native.gtk.gtk_string_sorter_get_collation
 import org.gtkkn.native.gtk.gtk_string_sorter_get_expression
@@ -122,5 +123,12 @@ public open class StringSorter(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of StringSorter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_string_sorter_get_type()
     }
 }

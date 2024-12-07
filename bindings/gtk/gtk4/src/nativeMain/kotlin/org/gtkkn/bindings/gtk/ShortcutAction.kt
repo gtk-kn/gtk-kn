@@ -12,6 +12,7 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkShortcutAction
 import org.gtkkn.native.gtk.gtk_shortcut_action_activate
 import org.gtkkn.native.gtk.gtk_shortcut_action_get_type
@@ -124,5 +125,12 @@ public open class ShortcutAction(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of ShortcutAction
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_shortcut_action_get_type()
     }
 }

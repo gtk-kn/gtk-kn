@@ -2,11 +2,8 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -32,7 +29,11 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkPrintJob
 import org.gtkkn.native.gtk.gtk_print_job_get_collate
 import org.gtkkn.native.gtk.gtk_print_job_get_n_up
@@ -180,7 +181,7 @@ public open class PrintJob(
      *
      * @return the n-up setting
      */
-    public open fun getNUp(): UInt = gtk_print_job_get_n_up(gtkPrintJobPointer.reinterpret())
+    public open fun getNUp(): guint = gtk_print_job_get_n_up(gtkPrintJobPointer.reinterpret())
 
     /**
      * Gets the n-up layout setting for this job.
@@ -195,7 +196,7 @@ public open class PrintJob(
      *
      * @return the number of copies
      */
-    public open fun getNumCopies(): Int = gtk_print_job_get_num_copies(gtkPrintJobPointer.reinterpret())
+    public open fun getNumCopies(): gint = gtk_print_job_get_num_copies(gtkPrintJobPointer.reinterpret())
 
     /**
      * Gets the `GtkPageSet` setting for this job.
@@ -232,7 +233,7 @@ public open class PrintJob(
      *
      * @return the scale
      */
-    public open fun getScale(): Double = gtk_print_job_get_scale(gtkPrintJobPointer.reinterpret())
+    public open fun getScale(): gdouble = gtk_print_job_get_scale(gtkPrintJobPointer.reinterpret())
 
     /**
      * Gets the status of the print job.
@@ -261,7 +262,7 @@ public open class PrintJob(
      *
      * @param nUp the n-up value
      */
-    public open fun setNUp(nUp: UInt): Unit = gtk_print_job_set_n_up(gtkPrintJobPointer.reinterpret(), nUp)
+    public open fun setNUp(nUp: guint): Unit = gtk_print_job_set_n_up(gtkPrintJobPointer.reinterpret(), nUp)
 
     /**
      * Sets the n-up layout setting for this job.
@@ -275,7 +276,7 @@ public open class PrintJob(
      *
      * @param numCopies the number of copies
      */
-    public open fun setNumCopies(numCopies: Int): Unit = gtk_print_job_set_num_copies(gtkPrintJobPointer.reinterpret(), numCopies)
+    public open fun setNumCopies(numCopies: gint): Unit = gtk_print_job_set_num_copies(gtkPrintJobPointer.reinterpret(), numCopies)
 
     /**
      * Sets the `GtkPageSet` setting for this job.
@@ -312,7 +313,7 @@ public open class PrintJob(
      *
      * @param scale the scale
      */
-    public open fun setScale(scale: Double): Unit = gtk_print_job_set_scale(gtkPrintJobPointer.reinterpret(), scale)
+    public open fun setScale(scale: gdouble): Unit = gtk_print_job_set_scale(gtkPrintJobPointer.reinterpret(), scale)
 
     /**
      * Make the `GtkPrintJob` send an existing document to the
@@ -330,7 +331,7 @@ public open class PrintJob(
      * @param fd a file descriptor
      * @return false if an error occurred
      */
-    public open fun setSourceFd(fd: Int): Result<Boolean> = memScoped {
+    public open fun setSourceFd(fd: gint): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_print_job_set_source_fd(gtkPrintJobPointer.reinterpret(), fd, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
@@ -381,6 +382,13 @@ public open class PrintJob(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of PrintJob
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_print_job_get_type()
     }
 }
 

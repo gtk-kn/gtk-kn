@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.graphene
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Float
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -13,9 +11,13 @@ import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_4
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.graphene.graphene_point_alloc
 import org.gtkkn.native.graphene.graphene_point_equal
 import org.gtkkn.native.graphene.graphene_point_free
+import org.gtkkn.native.graphene.graphene_point_get_type
 import org.gtkkn.native.graphene.graphene_point_init
 import org.gtkkn.native.graphene.graphene_point_init_from_point
 import org.gtkkn.native.graphene.graphene_point_init_from_vec2
@@ -44,7 +46,7 @@ public class Point(
     /**
      * the X coordinate of the point
      */
-    public var x: Float
+    public var x: gfloat
         get() = graphenePointPointer.pointed.x
         set(`value`) {
             graphenePointPointer.pointed.x = value
@@ -53,7 +55,7 @@ public class Point(
     /**
      * the Y coordinate of the point
      */
-    public var y: Float
+    public var y: gfloat
         get() = graphenePointPointer.pointed.y
         set(`value`) {
             graphenePointPointer.pointed.y = value
@@ -93,7 +95,7 @@ public class Point(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun `init`(x: Float, y: Float): Point = graphene_point_init(graphenePointPointer.reinterpret(), x, y)!!.run {
+    public fun `init`(x: gfloat, y: gfloat): Point = graphene_point_init(graphenePointPointer.reinterpret(), x, y)!!.run {
         Point(reinterpret())}
 
     /**
@@ -131,7 +133,7 @@ public class Point(
     @GrapheneVersion1_0
     public fun interpolate(
         b: Point,
-        factor: Double,
+        factor: gdouble,
         res: Point,
     ): Unit = graphene_point_interpolate(graphenePointPointer.reinterpret(), b.graphenePointPointer.reinterpret(), factor, res.graphenePointPointer.reinterpret())
 
@@ -145,7 +147,7 @@ public class Point(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun near(b: Point, epsilon: Float): Boolean = graphene_point_near(graphenePointPointer.reinterpret(), b.graphenePointPointer.reinterpret(), epsilon)
+    public fun near(b: Point, epsilon: gfloat): Boolean = graphene_point_near(graphenePointPointer.reinterpret(), b.graphenePointPointer.reinterpret(), epsilon)
 
     /**
      * Stores the coordinates of the given #graphene_point_t into a
@@ -196,6 +198,13 @@ public class Point(
         @GrapheneVersion1_0
         public fun zero(): Point = graphene_point_zero()!!.run {
             Point(reinterpret())}
+
+        /**
+         * Get the GType of Point
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = graphene_point_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Point = Point(pointer.reinterpret())
     }

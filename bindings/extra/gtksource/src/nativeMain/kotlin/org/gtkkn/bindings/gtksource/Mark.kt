@@ -9,6 +9,7 @@ import org.gtkkn.bindings.gtk.TextMark
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceMark
 import org.gtkkn.native.gtksource.gtk_source_mark_get_category
 import org.gtkkn.native.gtksource.gtk_source_mark_get_type
@@ -102,5 +103,12 @@ public open class Mark(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of Mark
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_mark_get_type()
     }
 }

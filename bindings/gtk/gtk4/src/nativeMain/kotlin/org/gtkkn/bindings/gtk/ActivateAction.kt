@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkActivateAction
 import org.gtkkn.native.gtk.gtk_activate_action_get
 import org.gtkkn.native.gtk.gtk_activate_action_get_type
@@ -37,5 +38,12 @@ public open class ActivateAction(
          */
         public fun `get`(): ActivateAction = gtk_activate_action_get()!!.run {
             ActivateAction(reinterpret())}
+
+        /**
+         * Get the GType of ActivateAction
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_activate_action_get_type()
     }
 }

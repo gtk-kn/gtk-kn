@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.webkit
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -27,7 +25,11 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.webkit.WebKitDownload
 import org.gtkkn.native.webkit.webkit_download_cancel
 import org.gtkkn.native.webkit.webkit_download_get_allow_overwrite
@@ -113,7 +115,7 @@ public class Download(
      * If you need a more accurate progress information you can connect to
      * #WebKitDownload::received-data signal to track the progress.
      */
-    public val estimatedProgress: Double
+    public val estimatedProgress: gdouble
         /**
          * Gets the value of the #WebKitDownload:estimated-progress property.
          * Gets the value of the #WebKitDownload:estimated-progress property.
@@ -161,7 +163,7 @@ public class Download(
      *
      * @return seconds since the download was started
      */
-    public fun getElapsedTime(): Double = webkit_download_get_elapsed_time(webkitDownloadPointer.reinterpret())
+    public fun getElapsedTime(): gdouble = webkit_download_get_elapsed_time(webkitDownloadPointer.reinterpret())
 
     /**
      * Gets the length of the data already downloaded for @download.
@@ -171,7 +173,7 @@ public class Download(
      *
      * @return the amount of bytes already downloaded.
      */
-    public fun getReceivedDataLength(): ULong = webkit_download_get_received_data_length(webkitDownloadPointer.reinterpret())
+    public fun getReceivedDataLength(): guint64 = webkit_download_get_received_data_length(webkitDownloadPointer.reinterpret())
 
     /**
      * Retrieves the #WebKitURIRequest object that backs the download
@@ -271,7 +273,7 @@ public class Download(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `dataLength` the length of data received in bytes
      */
-    public fun connectReceivedData(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (dataLength: ULong) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "received-data", connectReceivedDataFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectReceivedData(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (dataLength: guint64) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "received-data", connectReceivedDataFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<Download> {
         override val type: GeneratedClassKGType<Download> =
@@ -279,6 +281,13 @@ public class Download(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of Download
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_download_get_type()
     }
 }
 
@@ -291,7 +300,7 @@ private val connectCreatedDestinationFunc: CPointer<CFunction<(CPointer<ByteVar>
     userData.asStableRef<(destination: String) -> Unit>().get().invoke(destination?.toKString() ?: error("Expected not null string"))}
 .reinterpret()
 
-private val connectDecideDestinationFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Int>> =
+private val connectDecideDestinationFunc: CPointer<CFunction<(CPointer<ByteVar>) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     suggestedFilename: CPointer<ByteVar>?,
@@ -317,10 +326,10 @@ private val connectFinishedFunc: CPointer<CFunction<() -> Unit>> = staticCFuncti
     userData.asStableRef<() -> Unit>().get().invoke()}
 .reinterpret()
 
-private val connectReceivedDataFunc: CPointer<CFunction<(ULong) -> Unit>> = staticCFunction {
+private val connectReceivedDataFunc: CPointer<CFunction<(guint64) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    dataLength: ULong,
+    dataLength: guint64,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(dataLength: ULong) -> Unit>().get().invoke(dataLength)}
+    userData.asStableRef<(dataLength: guint64) -> Unit>().get().invoke(dataLength)}
 .reinterpret()

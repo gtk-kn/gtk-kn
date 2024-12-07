@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlin.Int
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -14,6 +13,7 @@ import org.gtkkn.native.gio.GIcon
 import org.gtkkn.native.gio.GLoadableIcon
 import org.gtkkn.native.gio.g_loadable_icon_get_type
 import org.gtkkn.native.gio.g_loadable_icon_load_async
+import org.gtkkn.native.gobject.gint
 
 /**
  * `GLoadableIcon` extends the [iface@Gio.Icon] interface and adds the ability
@@ -41,7 +41,7 @@ public interface LoadableIcon : Interface, Icon, KGTyped {
      *   to call when the request is satisfied
      */
     public fun loadAsync(
-        size: Int,
+        size: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_loadable_icon_load_async(gioLoadableIconPointer.reinterpret(), size, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())

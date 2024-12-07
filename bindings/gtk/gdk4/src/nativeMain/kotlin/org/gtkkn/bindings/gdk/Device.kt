@@ -3,7 +3,6 @@ package org.gtkkn.bindings.gdk
 
 import kotlin.Boolean
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -42,7 +41,9 @@ import org.gtkkn.native.gdk.gdk_device_get_timestamp
 import org.gtkkn.native.gdk.gdk_device_get_type
 import org.gtkkn.native.gdk.gdk_device_get_vendor_id
 import org.gtkkn.native.gdk.gdk_device_has_bidi_layouts
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.guint
 
 /**
  * The `GdkDevice` object represents an input device, such
@@ -175,7 +176,7 @@ public open class Device(
      * Will be 0 if the device is not a touch device or if the number
      * of touches is unknown.
      */
-    public open val numTouches: UInt
+    public open val numTouches: guint
         /**
          * Retrieves the number of touch points associated to @device.
          *
@@ -297,7 +298,7 @@ public open class Device(
      * @since 4.2
      */
     @GdkVersion4_2
-    public open fun getTimestamp(): UInt = gdk_device_get_timestamp(gdkDevicePointer.reinterpret())
+    public open fun getTimestamp(): guint = gdk_device_get_timestamp(gdkDevicePointer.reinterpret())
 
     /**
      * Determines if layouts for both right-to-left and
@@ -337,6 +338,13 @@ public open class Device(
 
         init {
             GdkTypeProvider.register()}
+
+        /**
+         * Get the GType of Device
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_device_get_type()
     }
 }
 

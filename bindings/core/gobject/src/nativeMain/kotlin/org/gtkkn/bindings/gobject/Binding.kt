@@ -13,6 +13,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GBinding
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_binding_dup_source
 import org.gtkkn.native.gobject.g_binding_dup_target
 import org.gtkkn.native.gobject.g_binding_get_flags
@@ -269,5 +270,12 @@ public open class Binding(
 
         init {
             GobjectTypeProvider.register()}
+
+        /**
+         * Get the GType of Binding
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_binding_get_type()
     }
 }

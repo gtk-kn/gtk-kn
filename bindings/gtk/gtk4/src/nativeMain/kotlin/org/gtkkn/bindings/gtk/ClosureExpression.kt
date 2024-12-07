@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkClosureExpression
 import org.gtkkn.native.gtk.gtk_closure_expression_get_type
 
@@ -30,5 +31,12 @@ public open class ClosureExpression(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of ClosureExpression
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_closure_expression_get_type()
     }
 }

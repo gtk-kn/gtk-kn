@@ -2,9 +2,7 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -29,7 +27,11 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -814,7 +816,7 @@ public open class Window(
      * @param timestamp the timestamp of the user interaction (typically a
      *   button or key press event) which triggered this call
      */
-    public open fun presentWithTime(timestamp: UInt): Unit = gtk_window_present_with_time(gtkWindowPointer.reinterpret(), timestamp)
+    public open fun presentWithTime(timestamp: guint): Unit = gtk_window_present_with_time(gtkWindowPointer.reinterpret(), timestamp)
 
     /**
      * Sets the default size of a window.
@@ -850,7 +852,7 @@ public open class Window(
      * @param width width in pixels, or -1 to unset the default width
      * @param height height in pixels, or -1 to unset the default height
      */
-    public open fun setDefaultSize(width: Int, height: Int): Unit = gtk_window_set_default_size(gtkWindowPointer.reinterpret(), width, height)
+    public open fun setDefaultSize(width: gint, height: gint): Unit = gtk_window_set_default_size(gtkWindowPointer.reinterpret(), width, height)
 
     /**
      * Sets the `GdkDisplay` where the @window is displayed.
@@ -1081,6 +1083,13 @@ public open class Window(
          * @param enable true to enable interactive debugging
          */
         public fun setInteractiveDebugging(enable: Boolean): Unit = gtk_window_set_interactive_debugging(enable.asGBoolean())
+
+        /**
+         * Get the GType of Window
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_window_get_type()
     }
 }
 
@@ -1098,16 +1107,17 @@ private val connectActivateFocusFunc: CPointer<CFunction<() -> Unit>> = staticCF
     userData.asStableRef<() -> Unit>().get().invoke()}
 .reinterpret()
 
-private val connectCloseRequestFunc: CPointer<CFunction<() -> Int>> = staticCFunction {
+private val connectCloseRequestFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     userData: COpaquePointer
     ->
     userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()}
 .reinterpret()
 
-private val connectEnableDebuggingFunc: CPointer<CFunction<(Int) -> Int>> = staticCFunction {
+private val connectEnableDebuggingFunc: CPointer<CFunction<(gboolean) -> gboolean>> =
+        staticCFunction {
     _: COpaquePointer,
-    toggle: Int,
+    toggle: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(toggle: Boolean) -> Boolean>().get().invoke(toggle.asBoolean()).asGBoolean()}

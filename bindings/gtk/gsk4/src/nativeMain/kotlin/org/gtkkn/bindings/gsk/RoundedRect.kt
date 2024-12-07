@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gsk
 
 import kotlin.Boolean
-import kotlin.Float
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -12,6 +11,7 @@ import org.gtkkn.bindings.graphene.Size
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskRoundedRect
 import org.gtkkn.native.gsk.gsk_rounded_rect_contains_point
 import org.gtkkn.native.gsk.gsk_rounded_rect_contains_rect
@@ -108,7 +108,7 @@ public class RoundedRect(
      * @param radius the border radius
      * @return the initialized rectangle
      */
-    public fun initFromRect(bounds: Rect, radius: Float): RoundedRect = gsk_rounded_rect_init_from_rect(gskRoundedRectPointer.reinterpret(), bounds.grapheneRectPointer.reinterpret(), radius)!!.run {
+    public fun initFromRect(bounds: Rect, radius: gfloat): RoundedRect = gsk_rounded_rect_init_from_rect(gskRoundedRectPointer.reinterpret(), bounds.grapheneRectPointer.reinterpret(), radius)!!.run {
         RoundedRect(reinterpret())}
 
     /**
@@ -151,7 +151,7 @@ public class RoundedRect(
      * @param dy the vertical offset
      * @return the offset rectangle
      */
-    public fun offset(dx: Float, dy: Float): RoundedRect = gsk_rounded_rect_offset(gskRoundedRectPointer.reinterpret(), dx, dy)!!.run {
+    public fun offset(dx: gfloat, dy: gfloat): RoundedRect = gsk_rounded_rect_offset(gskRoundedRectPointer.reinterpret(), dx, dy)!!.run {
         RoundedRect(reinterpret())}
 
     /**
@@ -171,10 +171,10 @@ public class RoundedRect(
      * @return the resized `GskRoundedRect`
      */
     public fun shrink(
-        top: Float,
-        right: Float,
-        bottom: Float,
-        left: Float,
+        top: gfloat,
+        right: gfloat,
+        bottom: gfloat,
+        left: gfloat,
     ): RoundedRect = gsk_rounded_rect_shrink(gskRoundedRectPointer.reinterpret(), top, right, bottom, left)!!.run {
         RoundedRect(reinterpret())}
 

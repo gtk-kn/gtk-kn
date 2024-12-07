@@ -94,7 +94,7 @@ class MethodBlueprintBuilder(
             isOverride = isOverride,
             isOpen = isOpen,
             throws = girMethod.callable.throws == true,
-            exceptionResolvingFunctionMember = exceptionResolvingFunction(),
+            exceptionResolvingFunctionMember = girNamespace.exceptionResolvingFunction(),
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girMethod.callable.info)
                 .build()
                 .getOrNull(),
@@ -130,10 +130,8 @@ class MethodBlueprintBuilder(
 /**
  * A debug string containing parameter details for comparing methods for override purposes.
  */
-private fun GirMethod.debugParameterSignature(): String {
-    val paramsSignature = parameters?.parameters.orEmpty().joinToString(",") { it.debugSignature() }
-    return "$paramsSignature"
-}
+private fun GirMethod.debugParameterSignature(): String =
+    parameters?.parameters.orEmpty().joinToString(",") { it.debugSignature() }
 
 private fun GirParameter.debugSignature(): String = when (type) {
     is GirArrayType -> "array[${type.debugSignature()}]"

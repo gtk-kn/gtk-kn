@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -23,6 +22,9 @@ import org.gtkkn.native.glib.g_hash_table_remove_all
 import org.gtkkn.native.glib.g_hash_table_size
 import org.gtkkn.native.glib.g_hash_table_steal_all
 import org.gtkkn.native.glib.g_hash_table_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_hash_table_get_type
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -94,7 +96,7 @@ public class HashTable(
          * @param func the function to call for each key/value pair
          * @return the number of key/value pairs removed
          */
-        public fun foreachRemove(hashTable: HashTable, func: HRFunc): UInt = g_hash_table_foreach_remove(hashTable.glibHashTablePointer.reinterpret(), HRFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
+        public fun foreachRemove(hashTable: HashTable, func: HRFunc): guint = g_hash_table_foreach_remove(hashTable.glibHashTablePointer.reinterpret(), HRFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
         /**
          * Calls the given function for each key/value pair in the
@@ -109,7 +111,7 @@ public class HashTable(
          * @param func the function to call for each key/value pair
          * @return the number of key/value pairs removed.
          */
-        public fun foreachSteal(hashTable: HashTable, func: HRFunc): UInt = g_hash_table_foreach_steal(hashTable.glibHashTablePointer.reinterpret(), HRFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
+        public fun foreachSteal(hashTable: HashTable, func: HRFunc): guint = g_hash_table_foreach_steal(hashTable.glibHashTablePointer.reinterpret(), HRFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
         /**
          * Creates a new #GHashTable like g_hash_table_new_full() with a reference
@@ -161,7 +163,7 @@ public class HashTable(
          * @param hashTable a #GHashTable
          * @return the number of key/value pairs in the #GHashTable.
          */
-        public fun size(hashTable: HashTable): UInt = g_hash_table_size(hashTable.glibHashTablePointer.reinterpret())
+        public fun size(hashTable: HashTable): guint = g_hash_table_size(hashTable.glibHashTablePointer.reinterpret())
 
         /**
          * Removes all keys and their associated values from a #GHashTable
@@ -184,6 +186,13 @@ public class HashTable(
          */
         @GLibVersion2_10
         public fun unref(hashTable: HashTable): Unit = g_hash_table_unref(hashTable.glibHashTablePointer.reinterpret())
+
+        /**
+         * Get the GType of HashTable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_hash_table_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): HashTable = HashTable(pointer.reinterpret())
     }

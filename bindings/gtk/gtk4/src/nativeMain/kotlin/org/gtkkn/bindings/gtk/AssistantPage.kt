@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAssistantPage
 import org.gtkkn.native.gtk.gtk_assistant_page_get_child
 import org.gtkkn.native.gtk.gtk_assistant_page_get_type
@@ -45,5 +46,12 @@ public open class AssistantPage(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of AssistantPage
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_assistant_page_get_type()
     }
 }

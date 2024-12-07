@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitGeolocationPermissionRequest
 import org.gtkkn.native.webkit.WebKitPermissionRequest
 import org.gtkkn.native.webkit.webkit_geolocation_permission_request_get_type
@@ -55,5 +56,12 @@ public class GeolocationPermissionRequest(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of GeolocationPermissionRequest
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_geolocation_permission_request_get_type()
     }
 }

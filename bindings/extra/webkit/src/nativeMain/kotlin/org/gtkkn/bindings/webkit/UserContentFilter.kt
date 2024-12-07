@@ -10,8 +10,10 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_24
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitUserContentFilter
 import org.gtkkn.native.webkit.webkit_user_content_filter_get_identifier
+import org.gtkkn.native.webkit.webkit_user_content_filter_get_type
 import org.gtkkn.native.webkit.webkit_user_content_filter_ref
 import org.gtkkn.native.webkit.webkit_user_content_filter_unref
 import kotlinx.cinterop.alloc as nativePlacementAlloc
@@ -63,6 +65,13 @@ public class UserContentFilter(
     public fun unref(): Unit = webkit_user_content_filter_unref(webkitUserContentFilterPointer.reinterpret())
 
     public companion object : RecordCompanion<UserContentFilter, WebKitUserContentFilter> {
+        /**
+         * Get the GType of UserContentFilter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_user_content_filter_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): UserContentFilter = UserContentFilter(pointer.reinterpret())
     }
 }

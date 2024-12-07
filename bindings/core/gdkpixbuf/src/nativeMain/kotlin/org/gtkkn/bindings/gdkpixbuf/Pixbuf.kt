@@ -2,15 +2,9 @@
 package org.gtkkn.bindings.gdkpixbuf
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Float
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.Throws
-import kotlin.UByte
-import kotlin.UInt
-import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
 import kotlinx.cinterop.CPointer
@@ -108,6 +102,13 @@ import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_set_option
 import org.gtkkn.native.gio.GIcon
 import org.gtkkn.native.gio.GLoadableIcon
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.guint8
 
 /**
  * A pixel buffer.
@@ -279,7 +280,7 @@ public open class Pixbuf(
      *
      * Currently only 8 bit per sample are supported.
      */
-    public open val bitsPerSample: Int
+    public open val bitsPerSample: gint
         /**
          * Queries the number of bits per color sample in a pixbuf.
          *
@@ -315,7 +316,7 @@ public open class Pixbuf(
     /**
      * The number of rows of the pixbuf.
      */
-    public open val height: Int
+    public open val height: gint
         /**
          * Queries the height of a pixbuf.
          *
@@ -328,7 +329,7 @@ public open class Pixbuf(
      *
      * Currently, only 3 or 4 samples per pixel are supported.
      */
-    public open val nChannels: Int
+    public open val nChannels: gint
         /**
          * Queries the number of channels of a pixbuf.
          *
@@ -343,7 +344,7 @@ public open class Pixbuf(
      * This number must (obviously) be at least as large as the
      * width of the pixbuf.
      */
-    public open val rowstride: Int
+    public open val rowstride: gint
         /**
          * Queries the rowstride of a pixbuf, which is the number of bytes between
          * the start of a row and the start of the next row.
@@ -355,7 +356,7 @@ public open class Pixbuf(
     /**
      * The number of columns of the pixbuf.
      */
-    public open val width: Int
+    public open val width: gint
         /**
          * Queries the width of a pixbuf.
          *
@@ -381,9 +382,9 @@ public open class Pixbuf(
     public constructor(
         colorspace: Colorspace,
         hasAlpha: Boolean,
-        bitsPerSample: Int,
-        width: Int,
-        height: Int,
+        bitsPerSample: gint,
+        width: gint,
+        height: gint,
     ) : this(gdk_pixbuf_new(colorspace.nativeValue, hasAlpha.asGBoolean(), bitsPerSample, width, height)!!.reinterpret())
 
     /**
@@ -408,10 +409,10 @@ public open class Pixbuf(
         `data`: Bytes,
         colorspace: Colorspace,
         hasAlpha: Boolean,
-        bitsPerSample: Int,
-        width: Int,
-        height: Int,
-        rowstride: Int,
+        bitsPerSample: gint,
+        width: gint,
+        height: gint,
+        rowstride: gint,
     ) : this(gdk_pixbuf_new_from_bytes(`data`.glibBytesPointer.reinterpret(), colorspace.nativeValue, hasAlpha.asGBoolean(), bitsPerSample, width, height, rowstride)!!.reinterpret())
 
     /**
@@ -478,8 +479,8 @@ public open class Pixbuf(
     @Throws(GLibException::class)
     public constructor(
         filename: String,
-        width: Int,
-        height: Int,
+        width: gint,
+        height: gint,
         preserveAspectRatio: Boolean,
     ) : this(memScoped {
         val gError = allocPointerTo<GError>()
@@ -521,8 +522,8 @@ public open class Pixbuf(
     @Throws(GLibException::class)
     public constructor(
         filename: String,
-        width: Int,
-        height: Int,
+        width: gint,
+        height: gint,
     ) : this(memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gdk_pixbuf_new_from_file_at_size(filename, width, height, gError.ptr)
@@ -597,8 +598,8 @@ public open class Pixbuf(
     @Throws(GLibException::class)
     public constructor(
         stream: InputStream,
-        width: Int,
-        height: Int,
+        width: gint,
+        height: gint,
         preserveAspectRatio: Boolean,
         cancellable: Cancellable? = null,
     ) : this(memScoped {
@@ -666,9 +667,9 @@ public open class Pixbuf(
      */
     public open fun addAlpha(
         substituteColor: Boolean,
-        r: UByte,
-        g: UByte,
-        b: UByte,
+        r: guint8,
+        g: guint8,
+        b: guint8,
     ): Pixbuf = gdk_pixbuf_add_alpha(gdkpixbufPixbufPointer.reinterpret(), substituteColor.asGBoolean(), r, g, b)!!.run {
         Pixbuf(reinterpret())}
 
@@ -720,16 +721,16 @@ public open class Pixbuf(
      */
     public open fun composite(
         dest: Pixbuf,
-        destX: Int,
-        destY: Int,
-        destWidth: Int,
-        destHeight: Int,
-        offsetX: Double,
-        offsetY: Double,
-        scaleX: Double,
-        scaleY: Double,
+        destX: gint,
+        destY: gint,
+        destWidth: gint,
+        destHeight: gint,
+        offsetX: gdouble,
+        offsetY: gdouble,
+        scaleX: gdouble,
+        scaleY: gdouble,
         interpType: InterpType,
-        overallAlpha: Int,
+        overallAlpha: gint,
     ): Unit = gdk_pixbuf_composite(gdkpixbufPixbufPointer.reinterpret(), dest.gdkpixbufPixbufPointer.reinterpret(), destX, destY, destWidth, destHeight, offsetX, offsetY, scaleX, scaleY, interpType.nativeValue, overallAlpha)
 
     /**
@@ -765,21 +766,21 @@ public open class Pixbuf(
      */
     public open fun compositeColor(
         dest: Pixbuf,
-        destX: Int,
-        destY: Int,
-        destWidth: Int,
-        destHeight: Int,
-        offsetX: Double,
-        offsetY: Double,
-        scaleX: Double,
-        scaleY: Double,
+        destX: gint,
+        destY: gint,
+        destWidth: gint,
+        destHeight: gint,
+        offsetX: gdouble,
+        offsetY: gdouble,
+        scaleX: gdouble,
+        scaleY: gdouble,
         interpType: InterpType,
-        overallAlpha: Int,
-        checkX: Int,
-        checkY: Int,
-        checkSize: Int,
-        color1: UInt,
-        color2: UInt,
+        overallAlpha: gint,
+        checkX: gint,
+        checkY: gint,
+        checkSize: gint,
+        color1: guint,
+        color2: guint,
     ): Unit = gdk_pixbuf_composite_color(gdkpixbufPixbufPointer.reinterpret(), dest.gdkpixbufPixbufPointer.reinterpret(), destX, destY, destWidth, destHeight, offsetX, offsetY, scaleX, scaleY, interpType.nativeValue, overallAlpha, checkX, checkY, checkSize, color1, color2)
 
     /**
@@ -797,13 +798,13 @@ public open class Pixbuf(
      * @return the new pixbuf
      */
     public open fun compositeColorSimple(
-        destWidth: Int,
-        destHeight: Int,
+        destWidth: gint,
+        destHeight: gint,
         interpType: InterpType,
-        overallAlpha: Int,
-        checkSize: Int,
-        color1: UInt,
-        color2: UInt,
+        overallAlpha: gint,
+        checkSize: gint,
+        color1: guint,
+        color2: guint,
     ): Pixbuf? = gdk_pixbuf_composite_color_simple(gdkpixbufPixbufPointer.reinterpret(), destWidth, destHeight, interpType.nativeValue, overallAlpha, checkSize, color1, color2)?.run {
         Pixbuf(reinterpret())}
 
@@ -837,13 +838,13 @@ public open class Pixbuf(
      * @param destY Y coordinate within @dest_pixbuf.
      */
     public open fun copyArea(
-        srcX: Int,
-        srcY: Int,
-        width: Int,
-        height: Int,
+        srcX: gint,
+        srcY: gint,
+        width: gint,
+        height: gint,
         destPixbuf: Pixbuf,
-        destX: Int,
-        destY: Int,
+        destX: gint,
+        destY: gint,
     ): Unit = gdk_pixbuf_copy_area(gdkpixbufPixbufPointer.reinterpret(), srcX, srcY, width, height, destPixbuf.gdkpixbufPixbufPointer.reinterpret(), destX, destY)
 
     /**
@@ -871,7 +872,7 @@ public open class Pixbuf(
      * @param pixel RGBA pixel to used to clear (`0xffffffff` is opaque white,
      *   `0x00000000` transparent black)
      */
-    public open fun fill(pixel: UInt): Unit = gdk_pixbuf_fill(gdkpixbufPixbufPointer.reinterpret(), pixel)
+    public open fun fill(pixel: guint): Unit = gdk_pixbuf_fill(gdkpixbufPixbufPointer.reinterpret(), pixel)
 
     /**
      * Flips a pixbuf horizontally or vertically and returns the
@@ -892,7 +893,7 @@ public open class Pixbuf(
      * @since 2.26
      */
     @GdkPixbufVersion2_26
-    public open fun getByteLength(): ULong = gdk_pixbuf_get_byte_length(gdkpixbufPixbufPointer.reinterpret())
+    public open fun getByteLength(): gsize = gdk_pixbuf_get_byte_length(gdkpixbufPixbufPointer.reinterpret())
 
     /**
      * Looks up @key in the list of options that may have been attached to the
@@ -947,10 +948,10 @@ public open class Pixbuf(
      * @return a new pixbuf
      */
     public open fun newSubpixbuf(
-        srcX: Int,
-        srcY: Int,
-        width: Int,
-        height: Int,
+        srcX: gint,
+        srcY: gint,
+        width: gint,
+        height: gint,
     ): Pixbuf = gdk_pixbuf_new_subpixbuf(gdkpixbufPixbufPointer.reinterpret(), srcX, srcY, width, height)!!.run {
         Pixbuf(reinterpret())}
 
@@ -1017,7 +1018,7 @@ public open class Pixbuf(
      */
     public open fun saturateAndPixelate(
         dest: Pixbuf,
-        saturation: Float,
+        saturation: gfloat,
         pixelate: Boolean,
     ): Unit = gdk_pixbuf_saturate_and_pixelate(gdkpixbufPixbufPointer.reinterpret(), dest.gdkpixbufPixbufPointer.reinterpret(), saturation, pixelate.asGBoolean())
 
@@ -1180,14 +1181,14 @@ public open class Pixbuf(
      */
     public open fun scale(
         dest: Pixbuf,
-        destX: Int,
-        destY: Int,
-        destWidth: Int,
-        destHeight: Int,
-        offsetX: Double,
-        offsetY: Double,
-        scaleX: Double,
-        scaleY: Double,
+        destX: gint,
+        destY: gint,
+        destWidth: gint,
+        destHeight: gint,
+        offsetX: gdouble,
+        offsetY: gdouble,
+        scaleX: gdouble,
+        scaleY: gdouble,
         interpType: InterpType,
     ): Unit = gdk_pixbuf_scale(gdkpixbufPixbufPointer.reinterpret(), dest.gdkpixbufPixbufPointer.reinterpret(), destX, destY, destWidth, destHeight, offsetX, offsetY, scaleX, scaleY, interpType.nativeValue)
 
@@ -1217,8 +1218,8 @@ public open class Pixbuf(
      * @return the new pixbuf
      */
     public open fun scaleSimple(
-        destWidth: Int,
-        destHeight: Int,
+        destWidth: gint,
+        destHeight: gint,
         interpType: InterpType,
     ): Pixbuf? = gdk_pixbuf_scale_simple(gdkpixbufPixbufPointer.reinterpret(), destWidth, destHeight, interpType.nativeValue)?.run {
         Pixbuf(reinterpret())}
@@ -1330,8 +1331,8 @@ public open class Pixbuf(
          */
         public fun newFromFileAtScale(
             filename: String,
-            width: Int,
-            height: Int,
+            width: gint,
+            height: gint,
             preserveAspectRatio: Boolean,
         ): Result<Pixbuf> = memScoped {
             val gError = allocPointerTo<GError>()
@@ -1369,8 +1370,8 @@ public open class Pixbuf(
          */
         public fun newFromResourceAtScale(
             resourcePath: String,
-            width: Int,
-            height: Int,
+            width: gint,
+            height: gint,
             preserveAspectRatio: Boolean,
         ): Result<Pixbuf> = memScoped {
             val gError = allocPointerTo<GError>()
@@ -1403,10 +1404,10 @@ public open class Pixbuf(
         public fun calculateRowstride(
             colorspace: Colorspace,
             hasAlpha: Boolean,
-            bitsPerSample: Int,
-            width: Int,
-            height: Int,
-        ): Int = gdk_pixbuf_calculate_rowstride(colorspace.nativeValue, hasAlpha.asGBoolean(), bitsPerSample, width, height)
+            bitsPerSample: gint,
+            width: gint,
+            height: gint,
+        ): gint = gdk_pixbuf_calculate_rowstride(colorspace.nativeValue, hasAlpha.asGBoolean(), bitsPerSample, width, height)
 
         /**
          * Asynchronously parses an image file far enough to determine its
@@ -1515,8 +1516,8 @@ public open class Pixbuf(
         @GdkPixbufVersion2_24
         public fun newFromStreamAtScaleAsync(
             stream: InputStream,
-            width: Int,
-            height: Int,
+            width: gint,
+            height: gint,
             preserveAspectRatio: Boolean,
             cancellable: Cancellable? = null,
             callback: AsyncReadyCallback,
@@ -1541,5 +1542,12 @@ public open class Pixbuf(
                 Result.success(gResult)
             }
         }
+
+        /**
+         * Get the GType of Pixbuf
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_pixbuf_get_type()
     }
 }

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
@@ -12,6 +11,8 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkTextTag
 import org.gtkkn.native.gtk.gtk_text_tag_changed
 import org.gtkkn.native.gtk.gtk_text_tag_get_priority
@@ -162,7 +163,7 @@ public open class TextTag(
      *
      * @return The tag’s priority.
      */
-    public open fun getPriority(): Int = gtk_text_tag_get_priority(gtkTextTagPointer.reinterpret())
+    public open fun getPriority(): gint = gtk_text_tag_get_priority(gtkTextTagPointer.reinterpret())
 
     /**
      * Sets the priority of a `GtkTextTag`.
@@ -182,7 +183,7 @@ public open class TextTag(
      *
      * @param priority the new priority
      */
-    public open fun setPriority(priority: Int): Unit = gtk_text_tag_set_priority(gtkTextTagPointer.reinterpret(), priority)
+    public open fun setPriority(priority: gint): Unit = gtk_text_tag_set_priority(gtkTextTagPointer.reinterpret(), priority)
 
     public companion object : TypeCompanion<TextTag> {
         override val type: GeneratedClassKGType<TextTag> =
@@ -190,5 +191,12 @@ public open class TextTag(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of TextTag
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_text_tag_get_type()
     }
 }

@@ -13,6 +13,7 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceSearchSettings
 import org.gtkkn.native.gtksource.gtk_source_search_settings_get_at_word_boundaries
 import org.gtkkn.native.gtksource.gtk_source_search_settings_get_case_sensitive
@@ -201,5 +202,12 @@ public open class SearchSettings(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of SearchSettings
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_search_settings_get_type()
     }
 }

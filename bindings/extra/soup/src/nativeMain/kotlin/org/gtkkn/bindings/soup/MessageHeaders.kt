@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.soup
 
 import kotlin.Boolean
-import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
@@ -15,6 +13,9 @@ import org.gtkkn.bindings.glib.HashTable
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gint64
 import org.gtkkn.native.soup.SoupMessageHeaders
 import org.gtkkn.native.soup.soup_message_headers_append
 import org.gtkkn.native.soup.soup_message_headers_clean_connection_headers
@@ -27,6 +28,7 @@ import org.gtkkn.native.soup.soup_message_headers_get_expectations
 import org.gtkkn.native.soup.soup_message_headers_get_headers_type
 import org.gtkkn.native.soup.soup_message_headers_get_list
 import org.gtkkn.native.soup.soup_message_headers_get_one
+import org.gtkkn.native.soup.soup_message_headers_get_type
 import org.gtkkn.native.soup.soup_message_headers_header_contains
 import org.gtkkn.native.soup.soup_message_headers_header_equals
 import org.gtkkn.native.soup.soup_message_headers_new
@@ -117,7 +119,7 @@ public class MessageHeaders(
      *
      * @return the message body length declared by @hdrs.
      */
-    public fun getContentLength(): Long = soup_message_headers_get_content_length(soupMessageHeadersPointer.reinterpret())
+    public fun getContentLength(): gint64 = soup_message_headers_get_content_length(soupMessageHeadersPointer.reinterpret())
 
     /**
      * Gets the message body encoding that @hdrs declare.
@@ -269,7 +271,7 @@ public class MessageHeaders(
      *
      * @param contentLength the message body length
      */
-    public fun setContentLength(contentLength: Long): Unit = soup_message_headers_set_content_length(soupMessageHeadersPointer.reinterpret(), contentLength)
+    public fun setContentLength(contentLength: gint64): Unit = soup_message_headers_set_content_length(soupMessageHeadersPointer.reinterpret(), contentLength)
 
     /**
      * Sets @hdrs's Content-Range header according to the given values.
@@ -286,9 +288,9 @@ public class MessageHeaders(
      * @param totalLength the total length of the resource, or -1 if unknown
      */
     public fun setContentRange(
-        start: Long,
-        end: Long,
-        totalLength: Long,
+        start: gint64,
+        end: gint64,
+        totalLength: gint64,
     ): Unit = soup_message_headers_set_content_range(soupMessageHeadersPointer.reinterpret(), start, end, totalLength)
 
     /**
@@ -338,7 +340,7 @@ public class MessageHeaders(
      * @param start the start of the range to request
      * @param end the end of the range to request
      */
-    public fun setRange(start: Long, end: Long): Unit = soup_message_headers_set_range(soupMessageHeadersPointer.reinterpret(), start, end)
+    public fun setRange(start: gint64, end: gint64): Unit = soup_message_headers_set_range(soupMessageHeadersPointer.reinterpret(), start, end)
 
     /**
      * Sets @hdrs's Range header to request the indicated ranges.
@@ -349,7 +351,7 @@ public class MessageHeaders(
      * @param ranges an array of #SoupRange
      * @param length the length of @range
      */
-    public fun setRanges(ranges: Range, length: Int): Unit = soup_message_headers_set_ranges(soupMessageHeadersPointer.reinterpret(), ranges.soupRangePointer.reinterpret(), length)
+    public fun setRanges(ranges: Range, length: gint): Unit = soup_message_headers_set_ranges(soupMessageHeadersPointer.reinterpret(), ranges.soupRangePointer.reinterpret(), length)
 
     /**
      * Atomically decrements the reference count of @hdrs by one.
@@ -371,6 +373,13 @@ public class MessageHeaders(
          * @return a new #SoupMessageHeaders
          */
         public fun new(type: MessageHeadersType): MessageHeaders = MessageHeaders(soup_message_headers_new(type.nativeValue)!!.reinterpret())
+
+        /**
+         * Get the GType of MessageHeaders
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_message_headers_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MessageHeaders = MessageHeaders(pointer.reinterpret())
     }

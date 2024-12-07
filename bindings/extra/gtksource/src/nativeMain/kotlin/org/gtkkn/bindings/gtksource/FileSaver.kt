@@ -19,6 +19,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceFileSaver
 import org.gtkkn.native.gtksource.gtk_source_file_saver_get_buffer
 import org.gtkkn.native.gtksource.gtk_source_file_saver_get_compression_type
@@ -234,5 +235,12 @@ public open class FileSaver(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of FileSaver
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_file_saver_get_type()
     }
 }

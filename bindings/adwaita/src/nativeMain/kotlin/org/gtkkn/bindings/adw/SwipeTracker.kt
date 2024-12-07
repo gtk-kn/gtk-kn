@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -43,7 +42,9 @@ import org.gtkkn.native.adw.adw_swipe_tracker_set_lower_overshoot
 import org.gtkkn.native.adw.adw_swipe_tracker_set_reversed
 import org.gtkkn.native.adw.adw_swipe_tracker_set_upper_overshoot
 import org.gtkkn.native.adw.adw_swipe_tracker_shift_position
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gtk.GtkOrientable
 
 /**
@@ -257,7 +258,7 @@ public class SwipeTracker(
      *
      * @param delta the position delta
      */
-    public fun shiftPosition(delta: Double): Unit = adw_swipe_tracker_shift_position(adwSwipeTrackerPointer.reinterpret(), delta)
+    public fun shiftPosition(delta: gdouble): Unit = adw_swipe_tracker_shift_position(adwSwipeTrackerPointer.reinterpret(), delta)
 
     /**
      * This signal is emitted right before a swipe will be started, after the
@@ -279,7 +280,7 @@ public class SwipeTracker(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `velocity` the velocity of the swipe; `to` the progress value to animate to
      */
-    public fun connectEndSwipe(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (velocity: Double, to: Double) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "end-swipe", connectEndSwipeFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectEndSwipe(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (velocity: gdouble, to: gdouble) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "end-swipe", connectEndSwipeFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * This signal is emitted when a possible swipe is detected.
@@ -298,7 +299,7 @@ public class SwipeTracker(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `progress` the current animation progress value
      */
-    public fun connectUpdateSwipe(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (progress: Double) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "update-swipe", connectUpdateSwipeFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectUpdateSwipe(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (progress: gdouble) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "update-swipe", connectUpdateSwipeFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<SwipeTracker> {
         override val type: GeneratedClassKGType<SwipeTracker> =
@@ -306,6 +307,13 @@ public class SwipeTracker(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of SwipeTracker
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_swipe_tracker_get_type()
     }
 }
 
@@ -316,13 +324,13 @@ private val connectBeginSwipeFunc: CPointer<CFunction<() -> Unit>> = staticCFunc
     userData.asStableRef<() -> Unit>().get().invoke()}
 .reinterpret()
 
-private val connectEndSwipeFunc: CPointer<CFunction<(Double, Double) -> Unit>> = staticCFunction {
+private val connectEndSwipeFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    velocity: Double,
-    to: Double,
+    velocity: gdouble,
+    to: gdouble,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(velocity: Double, to: Double) -> Unit>().get().invoke(velocity, to)}
+    userData.asStableRef<(velocity: gdouble, to: gdouble) -> Unit>().get().invoke(velocity, to)}
 .reinterpret()
 
 private val connectPrepareFunc: CPointer<CFunction<(AdwNavigationDirection) -> Unit>> =
@@ -336,10 +344,10 @@ private val connectPrepareFunc: CPointer<CFunction<(AdwNavigationDirection) -> U
     )}
 .reinterpret()
 
-private val connectUpdateSwipeFunc: CPointer<CFunction<(Double) -> Unit>> = staticCFunction {
+private val connectUpdateSwipeFunc: CPointer<CFunction<(gdouble) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    progress: Double,
+    progress: gdouble,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(progress: Double) -> Unit>().get().invoke(progress)}
+    userData.asStableRef<(progress: gdouble) -> Unit>().get().invoke(progress)}
 .reinterpret()

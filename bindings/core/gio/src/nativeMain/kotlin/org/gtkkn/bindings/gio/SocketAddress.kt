@@ -14,6 +14,7 @@ import org.gtkkn.native.gio.GSocketConnectable
 import org.gtkkn.native.gio.g_socket_address_get_family
 import org.gtkkn.native.gio.g_socket_address_get_native_size
 import org.gtkkn.native.gio.g_socket_address_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GSocketAddress` is the equivalent of
@@ -71,5 +72,12 @@ public open class SocketAddress(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of SocketAddress
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_socket_address_get_type()
     }
 }

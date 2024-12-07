@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -18,6 +17,7 @@ import org.gtkkn.native.adw.adw_swipeable_get_distance
 import org.gtkkn.native.adw.adw_swipeable_get_progress
 import org.gtkkn.native.adw.adw_swipeable_get_swipe_area
 import org.gtkkn.native.adw.adw_swipeable_get_type
+import org.gtkkn.native.gobject.gdouble
 
 /**
  * An interface for swipeable widgets.
@@ -38,7 +38,7 @@ public interface Swipeable : Interface, KGTyped {
      *
      * @return the cancel progress, unitless
      */
-    public fun getCancelProgress(): Double = adw_swipeable_get_cancel_progress(adwSwipeablePointer.reinterpret())
+    public fun getCancelProgress(): gdouble = adw_swipeable_get_cancel_progress(adwSwipeablePointer.reinterpret())
 
     /**
      * Gets the swipe distance of @self.
@@ -47,14 +47,14 @@ public interface Swipeable : Interface, KGTyped {
      *
      * @return the swipe distance in pixels
      */
-    public fun getDistance(): Double = adw_swipeable_get_distance(adwSwipeablePointer.reinterpret())
+    public fun getDistance(): gdouble = adw_swipeable_get_distance(adwSwipeablePointer.reinterpret())
 
     /**
      * Gets the current progress of @self.
      *
      * @return the current progress, unitless
      */
-    public fun getProgress(): Double = adw_swipeable_get_progress(adwSwipeablePointer.reinterpret())
+    public fun getProgress(): gdouble = adw_swipeable_get_progress(adwSwipeablePointer.reinterpret())
 
     /**
      * Gets the area @self can start a swipe from for the given direction and

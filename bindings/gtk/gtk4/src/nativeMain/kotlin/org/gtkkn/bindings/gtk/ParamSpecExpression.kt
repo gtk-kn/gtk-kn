@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gobject.ParamSpec
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkParamSpecExpression
 import org.gtkkn.native.gtk.gtk_param_expression_get_type
 
@@ -26,5 +27,12 @@ public open class ParamSpecExpression(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of ParamSpecExpression
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_param_expression_get_type()
     }
 }

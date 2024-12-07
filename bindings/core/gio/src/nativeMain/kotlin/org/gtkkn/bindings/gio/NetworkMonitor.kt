@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.ULong
 import kotlin.Unit
@@ -41,6 +40,7 @@ import org.gtkkn.native.gio.g_network_monitor_get_network_metered
 import org.gtkkn.native.gio.g_network_monitor_get_type
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 
 /**
  * `GNetworkMonitor` provides an easy-to-use cross-platform API
@@ -328,9 +328,9 @@ public interface NetworkMonitor : Interface, Initable, KGTyped {
     }
 }
 
-private val connectNetworkChangedFunc: CPointer<CFunction<(Int) -> Unit>> = staticCFunction {
+private val connectNetworkChangedFunc: CPointer<CFunction<(gboolean) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    networkAvailable: Int,
+    networkAvailable: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(networkAvailable: Boolean) -> Unit>().get().invoke(networkAvailable.asBoolean())}

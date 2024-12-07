@@ -3,12 +3,8 @@ package org.gtkkn.bindings.glib
 
 import kotlin.Boolean
 import kotlin.Char
-import kotlin.Double
-import kotlin.Int
-import kotlin.Long
 import kotlin.Result
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
 import kotlinx.cinterop.CPointed
@@ -68,6 +64,13 @@ import org.gtkkn.native.glib.g_key_file_set_string_list
 import org.gtkkn.native.glib.g_key_file_set_uint64
 import org.gtkkn.native.glib.g_key_file_set_value
 import org.gtkkn.native.glib.g_key_file_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_key_file_get_type
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gint64
+import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.gobject.guint64
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -294,7 +297,7 @@ public class KeyFile(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun getDouble(groupName: String, key: String): Result<Double> = memScoped {
+    public fun getDouble(groupName: String, key: String): Result<gdouble> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_key_file_get_double(glibKeyFilePointer.reinterpret(), groupName, key, gError.ptr)
         return if (gError.pointed != null) {
@@ -317,7 +320,7 @@ public class KeyFile(
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getInt64(groupName: String, key: String): Result<Long> = memScoped {
+    public fun getInt64(groupName: String, key: String): Result<gint64> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_key_file_get_int64(glibKeyFilePointer.reinterpret(), groupName, key, gError.ptr)
         return if (gError.pointed != null) {
@@ -345,7 +348,7 @@ public class KeyFile(
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun getInteger(groupName: String, key: String): Result<Int> = memScoped {
+    public fun getInteger(groupName: String, key: String): Result<gint> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_key_file_get_integer(glibKeyFilePointer.reinterpret(), groupName, key, gError.ptr)
         return if (gError.pointed != null) {
@@ -467,7 +470,7 @@ public class KeyFile(
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getUint64(groupName: String, key: String): Result<ULong> = memScoped {
+    public fun getUint64(groupName: String, key: String): Result<guint64> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_key_file_get_uint64(glibKeyFilePointer.reinterpret(), groupName, key, gError.ptr)
         return if (gError.pointed != null) {
@@ -550,7 +553,7 @@ public class KeyFile(
     @GLibVersion2_6
     public fun loadFromData(
         `data`: String,
-        length: ULong,
+        length: gsize,
         flags: KeyFileFlags,
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
@@ -739,7 +742,7 @@ public class KeyFile(
     public fun setDouble(
         groupName: String,
         key: String,
-        `value`: Double,
+        `value`: gdouble,
     ): Unit = g_key_file_set_double(glibKeyFilePointer.reinterpret(), groupName, key, `value`)
 
     /**
@@ -755,7 +758,7 @@ public class KeyFile(
     public fun setInt64(
         groupName: String,
         key: String,
-        `value`: Long,
+        `value`: gint64,
     ): Unit = g_key_file_set_int64(glibKeyFilePointer.reinterpret(), groupName, key, `value`)
 
     /**
@@ -771,7 +774,7 @@ public class KeyFile(
     public fun setInteger(
         groupName: String,
         key: String,
-        `value`: Int,
+        `value`: gint,
     ): Unit = g_key_file_set_integer(glibKeyFilePointer.reinterpret(), groupName, key, `value`)
 
     /**
@@ -821,7 +824,7 @@ public class KeyFile(
         key: String,
         locale: String,
         list: List<String>,
-        length: ULong,
+        length: gsize,
     ): Unit = memScoped {
         return g_key_file_set_locale_string_list(glibKeyFilePointer.reinterpret(), groupName, key, locale, list.toCStringList(this), length)}
 
@@ -860,7 +863,7 @@ public class KeyFile(
         groupName: String,
         key: String,
         list: List<String>,
-        length: ULong,
+        length: gsize,
     ): Unit = memScoped {
         return g_key_file_set_string_list(glibKeyFilePointer.reinterpret(), groupName, key, list.toCStringList(this), length)}
 
@@ -877,7 +880,7 @@ public class KeyFile(
     public fun setUint64(
         groupName: String,
         key: String,
-        `value`: ULong,
+        `value`: guint64,
     ): Unit = g_key_file_set_uint64(glibKeyFilePointer.reinterpret(), groupName, key, `value`)
 
     /**
@@ -922,6 +925,13 @@ public class KeyFile(
         public fun new(): KeyFile = KeyFile(g_key_file_new()!!.reinterpret())
 
         public fun errorQuark(): Quark = g_key_file_error_quark()
+
+        /**
+         * Get the GType of KeyFile
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_key_file_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): KeyFile = KeyFile(pointer.reinterpret())
     }

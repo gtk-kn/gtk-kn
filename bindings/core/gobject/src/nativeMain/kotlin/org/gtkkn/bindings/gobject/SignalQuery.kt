@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gobject
 
 import kotlin.String
-import kotlin.UInt
-import kotlin.ULong
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -12,6 +10,8 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GSignalQuery
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -32,7 +32,7 @@ public class SignalQuery(
      * The signal id of the signal being queried, or 0 if the
      *  signal to be queried was unknown.
      */
-    public var signalId: UInt
+    public var signalId: guint
         get() = gobjectSignalQueryPointer.pointed.signal_id
         set(`value`) {
             gobjectSignalQueryPointer.pointed.signal_id = value
@@ -49,7 +49,7 @@ public class SignalQuery(
     /**
      * The interface/instance type that this signal can be emitted for.
      */
-    public var itype: ULong
+    public var itype: GType
         get() = gobjectSignalQueryPointer.pointed.itype
         set(`value`) {
             gobjectSignalQueryPointer.pointed.itype = value
@@ -68,7 +68,7 @@ public class SignalQuery(
     /**
      * The return type for user callbacks.
      */
-    public var returnType: ULong
+    public var returnType: GType
         get() = gobjectSignalQueryPointer.pointed.return_type
         set(`value`) {
             gobjectSignalQueryPointer.pointed.return_type = value
@@ -77,7 +77,7 @@ public class SignalQuery(
     /**
      * The number of parameters that user callbacks take.
      */
-    public var nParams: UInt
+    public var nParams: guint
         get() = gobjectSignalQueryPointer.pointed.n_params
         set(`value`) {
             gobjectSignalQueryPointer.pointed.n_params = value

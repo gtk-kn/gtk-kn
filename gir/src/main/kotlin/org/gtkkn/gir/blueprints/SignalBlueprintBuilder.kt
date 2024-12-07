@@ -82,7 +82,7 @@ class SignalBlueprintBuilder(
             parameters = signalParameters,
             lambdaTypeName = handlerLambdaTypeName,
             throws = false, // signals cannot throw
-            exceptionResolvingFunctionMember = exceptionResolvingFunction(),
+            exceptionResolvingFunctionMember = girNamespace.exceptionResolvingFunction(),
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girSignal.info)
                 .build()
                 .getOrNull(),

@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
@@ -12,6 +10,9 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkBoxLayout
 import org.gtkkn.native.gtk.GtkOrientable
 import org.gtkkn.native.gtk.gtk_box_layout_get_baseline_child
@@ -63,7 +64,7 @@ public open class BoxLayout(
      * @since 4.12
      */
     @GtkVersion4_12
-    public open var baselineChild: Int
+    public open var baselineChild: gint
         /**
          * Gets the value set by gtk_box_layout_set_baseline_child().
          *
@@ -132,7 +133,7 @@ public open class BoxLayout(
     /**
      * The space to put between the children.
      */
-    public open var spacing: UInt
+    public open var spacing: guint
         /**
          * Returns the space that @box_layout puts between children.
          *
@@ -160,5 +161,12 @@ public open class BoxLayout(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of BoxLayout
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_box_layout_get_type()
     }
 }

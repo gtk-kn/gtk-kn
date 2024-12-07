@@ -22,6 +22,7 @@ import org.gtkkn.native.gio.g_socket_address_enumerator_next
 import org.gtkkn.native.gio.g_socket_address_enumerator_next_async
 import org.gtkkn.native.gio.g_socket_address_enumerator_next_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GSocketAddressEnumerator` is an enumerator type for
@@ -123,5 +124,12 @@ public open class SocketAddressEnumerator(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of SocketAddressEnumerator
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_socket_address_enumerator_get_type()
     }
 }

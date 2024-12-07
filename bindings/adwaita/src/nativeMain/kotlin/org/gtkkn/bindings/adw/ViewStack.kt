@@ -34,6 +34,7 @@ import org.gtkkn.native.adw.adw_view_stack_set_hhomogeneous
 import org.gtkkn.native.adw.adw_view_stack_set_vhomogeneous
 import org.gtkkn.native.adw.adw_view_stack_set_visible_child
 import org.gtkkn.native.adw.adw_view_stack_set_visible_child_name
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -323,5 +324,12 @@ public class ViewStack(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of ViewStack
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_view_stack_get_type()
     }
 }

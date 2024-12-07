@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.Unit
@@ -44,6 +43,9 @@ import org.gtkkn.native.glib.g_regex_ref
 import org.gtkkn.native.glib.g_regex_split
 import org.gtkkn.native.glib.g_regex_split_simple
 import org.gtkkn.native.glib.g_regex_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_regex_get_type
+import org.gtkkn.native.gobject.gint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -128,7 +130,7 @@ public class Regex(
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun getCaptureCount(): Int = g_regex_get_capture_count(glibRegexPointer.reinterpret())
+    public fun getCaptureCount(): gint = g_regex_get_capture_count(glibRegexPointer.reinterpret())
 
     /**
      * Returns the compile options that @regex was created with.
@@ -172,7 +174,7 @@ public class Regex(
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun getMaxBackref(): Int = g_regex_get_max_backref(glibRegexPointer.reinterpret())
+    public fun getMaxBackref(): gint = g_regex_get_max_backref(glibRegexPointer.reinterpret())
 
     /**
      * Gets the number of characters in the longest lookbehind assertion in the
@@ -183,7 +185,7 @@ public class Regex(
      * @since 2.38
      */
     @GLibVersion2_38
-    public fun getMaxLookbehind(): Int = g_regex_get_max_lookbehind(glibRegexPointer.reinterpret())
+    public fun getMaxLookbehind(): gint = g_regex_get_max_lookbehind(glibRegexPointer.reinterpret())
 
     /**
      * Gets the pattern string associated with @regex, i.e. a copy of
@@ -204,7 +206,7 @@ public class Regex(
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun getStringNumber(name: String): Int = g_regex_get_string_number(glibRegexPointer.reinterpret(), name)
+    public fun getStringNumber(name: String): gint = g_regex_get_string_number(glibRegexPointer.reinterpret(), name)
 
     /**
      * Increases reference count of @regex by 1.
@@ -297,7 +299,7 @@ public class Regex(
          * @since 2.30
          */
         @GLibVersion2_30
-        public fun escapeNul(string: String, length: Int): String = g_regex_escape_nul(string, length)?.toKString() ?: error("Expected not null string")
+        public fun escapeNul(string: String, length: gint): String = g_regex_escape_nul(string, length)?.toKString() ?: error("Expected not null string")
 
         /**
          * Escapes the special characters used for regular expressions
@@ -314,7 +316,7 @@ public class Regex(
          * @since 2.14
          */
         @GLibVersion2_14
-        public fun escapeString(string: String, length: Int): String = g_regex_escape_string(string, length)?.toKString() ?: error("Expected not null string")
+        public fun escapeString(string: String, length: gint): String = g_regex_escape_string(string, length)?.toKString() ?: error("Expected not null string")
 
         /**
          * Scans for a match in @string for @pattern.
@@ -387,6 +389,13 @@ public class Regex(
             compileOptions: RegexCompileFlags,
             matchOptions: RegexMatchFlags,
         ): List<String> = g_regex_split_simple(pattern, string, compileOptions.mask, matchOptions.mask)?.toKStringList() ?: error("Expected not null string array")
+
+        /**
+         * Get the GType of Regex
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_regex_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Regex = Regex(pointer.reinterpret())
     }

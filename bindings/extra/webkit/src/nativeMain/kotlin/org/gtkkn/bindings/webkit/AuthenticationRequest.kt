@@ -3,7 +3,6 @@ package org.gtkkn.bindings.webkit
 
 import kotlin.Boolean
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -26,7 +25,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitAuthenticationRequest
 import org.gtkkn.native.webkit.WebKitCredential
 import org.gtkkn.native.webkit.webkit_authentication_request_authenticate
@@ -133,7 +134,7 @@ public class AuthenticationRequest(
      * @since 2.2
      */
     @WebKitVersion2_2
-    public fun getPort(): UInt = webkit_authentication_request_get_port(webkitAuthenticationRequestPointer.reinterpret())
+    public fun getPort(): guint = webkit_authentication_request_get_port(webkitAuthenticationRequestPointer.reinterpret())
 
     /**
      * Get the #WebKitCredential of the proposed authentication challenge.
@@ -263,6 +264,13 @@ public class AuthenticationRequest(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of AuthenticationRequest
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_authentication_request_get_type()
     }
 }
 

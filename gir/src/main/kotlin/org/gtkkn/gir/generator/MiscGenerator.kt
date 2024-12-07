@@ -38,7 +38,6 @@ import org.gtkkn.gir.blueprints.ParameterBlueprint
 import org.gtkkn.gir.blueprints.PropertyBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
 import org.gtkkn.gir.blueprints.SignalBlueprint
-import org.gtkkn.gir.processor.NativeTypes
 
 interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
     fun buildProperty(property: PropertyBlueprint, instancePointer: String?): PropertySpec =
@@ -350,7 +349,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
 
         // lambda signature
         if (closure.hasInstanceParameter) {
-            addStatement("_: %T,", NativeTypes.KP_OPAQUE_POINTER)
+            addStatement("_: %T,", BindingsGenerator.KP_OPAQUE_POINTER)
         }
         closure.parameters.forEach { param ->
             // cinterop maps methods return values with pointer types as nullable
@@ -363,7 +362,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             }
             addStatement("%N: %T$forceNullable,", param.kotlinName, param.typeInfo.nativeTypeName)
         }
-        addStatement("userData: %T", NativeTypes.KP_OPAQUE_POINTER)
+        addStatement("userData: %T", BindingsGenerator.KP_OPAQUE_POINTER)
         addStatement("->")
 
         if (closure.needsMemscoped || closure.needsMemscopedReturnValue) {
@@ -406,8 +405,8 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
         resultTypeName: TypeName,
         parameters: List<ParameterSpec> = emptyList()
     ) =
-        NativeTypes.KP_CPOINTER.parameterizedBy(
-            NativeTypes.KP_CFUNCTION.parameterizedBy(
+        BindingsGenerator.KP_CPOINTER.parameterizedBy(
+            BindingsGenerator.KP_CFUNCTION.parameterizedBy(
                 LambdaTypeName.get(
                     returnType = resultTypeName,
                     parameters = parameters,

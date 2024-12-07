@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -11,6 +10,8 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_4
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.pango.PangoFontset
 import org.gtkkn.native.pango.pango_fontset_foreach
 import org.gtkkn.native.pango.pango_fontset_get_font
@@ -51,7 +52,7 @@ public open class Fontset(
      * @param wc a Unicode character
      * @return a `PangoFont`
      */
-    public open fun getFont(wc: UInt): Font = pango_fontset_get_font(pangoFontsetPointer.reinterpret(), wc)!!.run {
+    public open fun getFont(wc: guint): Font = pango_fontset_get_font(pangoFontsetPointer.reinterpret(), wc)!!.run {
         Font(reinterpret())}
 
     /**
@@ -68,5 +69,12 @@ public open class Fontset(
 
         init {
             PangoTypeProvider.register()}
+
+        /**
+         * Get the GType of Fontset
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_fontset_get_type()
     }
 }

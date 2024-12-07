@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlinx.cinterop.CFunction
@@ -20,7 +19,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
@@ -165,10 +166,17 @@ public open class LinkButton(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of LinkButton
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_link_button_get_type()
     }
 }
 
-private val connectActivateLinkFunc: CPointer<CFunction<() -> Int>> = staticCFunction {
+private val connectActivateLinkFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     userData: COpaquePointer
     ->

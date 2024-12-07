@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gdk.RGBA
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskBorderNode
 import org.gtkkn.native.gsk.gsk_border_node_get_colors
 import org.gtkkn.native.gsk.gsk_border_node_get_outline
@@ -50,5 +51,12 @@ public open class BorderNode(
 
         init {
             GskTypeProvider.register()}
+
+        /**
+         * Get the GType of BorderNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_border_node_get_type()
     }
 }

@@ -9,6 +9,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkNoSelection
 import org.gtkkn.native.gtk.GtkSectionModel
 import org.gtkkn.native.gtk.GtkSelectionModel
@@ -84,5 +85,12 @@ public open class NoSelection(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of NoSelection
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_no_selection_get_type()
     }
 }

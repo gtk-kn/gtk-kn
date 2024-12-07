@@ -13,6 +13,7 @@ import org.gtkkn.native.adw.adw_carousel_indicator_lines_get_carousel
 import org.gtkkn.native.adw.adw_carousel_indicator_lines_get_type
 import org.gtkkn.native.adw.adw_carousel_indicator_lines_new
 import org.gtkkn.native.adw.adw_carousel_indicator_lines_set_carousel
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -88,5 +89,12 @@ public class CarouselIndicatorLines(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of CarouselIndicatorLines
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_carousel_indicator_lines_get_type()
     }
 }

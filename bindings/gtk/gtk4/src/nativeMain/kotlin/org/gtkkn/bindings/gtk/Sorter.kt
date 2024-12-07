@@ -16,6 +16,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkSorter
 import org.gtkkn.native.gtk.GtkSorterChange
@@ -130,6 +131,13 @@ public open class Sorter(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of Sorter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_sorter_get_type()
     }
 }
 

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.soup
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
@@ -15,6 +14,8 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.soup.SoupCookie
 import org.gtkkn.native.soup.soup_cookie_applies_to_uri
 import org.gtkkn.native.soup.soup_cookie_copy
@@ -28,6 +29,7 @@ import org.gtkkn.native.soup.soup_cookie_get_name
 import org.gtkkn.native.soup.soup_cookie_get_path
 import org.gtkkn.native.soup.soup_cookie_get_same_site_policy
 import org.gtkkn.native.soup.soup_cookie_get_secure
+import org.gtkkn.native.soup.soup_cookie_get_type
 import org.gtkkn.native.soup.soup_cookie_get_value
 import org.gtkkn.native.soup.soup_cookie_new
 import org.gtkkn.native.soup.soup_cookie_parse
@@ -225,7 +227,7 @@ public class Cookie(
      *
      * @param maxAge the new max age
      */
-    public fun setMaxAge(maxAge: Int): Unit = soup_cookie_set_max_age(soupCookiePointer.reinterpret(), maxAge)
+    public fun setMaxAge(maxAge: gint): Unit = soup_cookie_set_max_age(soupCookiePointer.reinterpret(), maxAge)
 
     /**
      * Sets @cookie's name to @name.
@@ -320,7 +322,7 @@ public class Cookie(
             `value`: String,
             domain: String,
             path: String,
-            maxAge: Int,
+            maxAge: gint,
         ): Cookie = Cookie(soup_cookie_new(name, `value`, domain, path, maxAge)!!.reinterpret())
 
         /**
@@ -346,6 +348,13 @@ public class Cookie(
          */
         public fun parse(`header`: String, origin: Uri? = null): Cookie? = soup_cookie_parse(`header`, origin?.glibUriPointer?.reinterpret())?.run {
             Cookie(reinterpret())}
+
+        /**
+         * Get the GType of Cookie
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_cookie_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Cookie = Cookie(pointer.reinterpret())
     }

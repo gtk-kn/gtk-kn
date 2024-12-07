@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.ULong
@@ -30,7 +29,10 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GObject
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkPageSetup
 import org.gtkkn.native.gtk.GtkPrintContext
 import org.gtkkn.native.gtk.GtkPrintOperation
@@ -216,7 +218,7 @@ public open class PrintOperation(
      *
      * This is typically used to track the progress of print operation.
      */
-    public open val nPagesToPrint: Int
+    public open val nPagesToPrint: gint
         /**
          * Returns the number of pages that will be printed.
          *
@@ -493,7 +495,7 @@ public open class PrintOperation(
      *
      * @param currentPage the current page, 0-based
      */
-    public open fun setCurrentPage(currentPage: Int): kotlin.Unit = gtk_print_operation_set_current_page(gtkPrintOperationPointer.reinterpret(), currentPage)
+    public open fun setCurrentPage(currentPage: gint): kotlin.Unit = gtk_print_operation_set_current_page(gtkPrintOperationPointer.reinterpret(), currentPage)
 
     /**
      * Sets the label for the tab holding custom widgets.
@@ -568,7 +570,7 @@ public open class PrintOperation(
      *
      * @param nPages the number of pages
      */
-    public open fun setNPages(nPages: Int): kotlin.Unit = gtk_print_operation_set_n_pages(gtkPrintOperationPointer.reinterpret(), nPages)
+    public open fun setNPages(nPages: gint): kotlin.Unit = gtk_print_operation_set_n_pages(gtkPrintOperationPointer.reinterpret(), nPages)
 
     /**
      * If @show_progress is true, the print operation will show
@@ -733,7 +735,7 @@ public open class PrintOperation(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `context` the `GtkPrintContext` for the current operation; `pageNr` the number of the currently printed page (0-based)
      */
-    public fun connectDrawPage(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (context: PrintContext, pageNr: Int) -> kotlin.Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "draw-page", connectDrawPageFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectDrawPage(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (context: PrintContext, pageNr: gint) -> kotlin.Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "draw-page", connectDrawPageFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted after all pages have been rendered.
@@ -807,7 +809,7 @@ public open class PrintOperation(
      */
     public fun connectRequestPageSetup(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
         context: PrintContext,
-        pageNr: Int,
+        pageNr: gint,
         setup: PageSetup,
     ) -> kotlin.Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "request-page-setup", connectRequestPageSetupFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
@@ -844,6 +846,13 @@ public open class PrintOperation(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of PrintOperation
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_print_operation_get_type()
     }
 }
 
@@ -889,13 +898,13 @@ private val connectDoneFunc: CPointer<CFunction<(GtkPrintOperationResult) -> kot
 .reinterpret()
 
 private val connectDrawPageFunc:
-        CPointer<CFunction<(CPointer<GtkPrintContext>, Int) -> kotlin.Unit>> = staticCFunction {
+        CPointer<CFunction<(CPointer<GtkPrintContext>, gint) -> kotlin.Unit>> = staticCFunction {
     _: COpaquePointer,
     context: CPointer<GtkPrintContext>?,
-    pageNr: Int,
+    pageNr: gint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(context: PrintContext, pageNr: Int) -> kotlin.Unit>().get().invoke(context!!.run {
+    userData.asStableRef<(context: PrintContext, pageNr: gint) -> kotlin.Unit>().get().invoke(context!!.run {
         PrintContext(reinterpret())}
     , pageNr)}
 .reinterpret()
@@ -911,7 +920,7 @@ private val connectEndPrintFunc: CPointer<CFunction<(CPointer<GtkPrintContext>) 
     )}
 .reinterpret()
 
-private val connectPaginateFunc: CPointer<CFunction<(CPointer<GtkPrintContext>) -> Int>> =
+private val connectPaginateFunc: CPointer<CFunction<(CPointer<GtkPrintContext>) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     context: CPointer<GtkPrintContext>?,
@@ -926,7 +935,7 @@ private val connectPreviewFunc: CPointer<CFunction<(
     CPointer<GtkPrintOperationPreview>,
     CPointer<GtkPrintContext>,
     CPointer<GtkWindow>?,
-) -> Int>> = staticCFunction {
+) -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     preview: CPointer<GtkPrintOperationPreview>?,
     context: CPointer<GtkPrintContext>?,
@@ -948,18 +957,18 @@ private val connectPreviewFunc: CPointer<CFunction<(
 
 private val connectRequestPageSetupFunc: CPointer<CFunction<(
     CPointer<GtkPrintContext>,
-    Int,
+    gint,
     CPointer<GtkPageSetup>,
 ) -> kotlin.Unit>> = staticCFunction {
     _: COpaquePointer,
     context: CPointer<GtkPrintContext>?,
-    pageNr: Int,
+    pageNr: gint,
     setup: CPointer<GtkPageSetup>?,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         context: PrintContext,
-        pageNr: Int,
+        pageNr: gint,
         setup: PageSetup,
     ) -> kotlin.Unit>().get().invoke(context!!.run {
         PrintContext(reinterpret())}

@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.Int
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -9,6 +8,8 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkLayoutManager
 import org.gtkkn.native.gtk.gtk_layout_manager_allocate
 import org.gtkkn.native.gtk.gtk_layout_manager_get_layout_child
@@ -90,9 +91,9 @@ public open class LayoutManager(
      */
     public open fun allocate(
         widget: Widget,
-        width: Int,
-        height: Int,
-        baseline: Int,
+        width: gint,
+        height: gint,
+        baseline: gint,
     ): Unit = gtk_layout_manager_allocate(gtkLayoutManagerPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret(), width, height, baseline)
 
     /**
@@ -141,5 +142,12 @@ public open class LayoutManager(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of LayoutManager
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_layout_manager_get_type()
     }
 }

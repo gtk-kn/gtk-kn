@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.Boolean
-import kotlin.Int
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -26,6 +24,8 @@ import org.gtkkn.native.glib.g_node_pop_allocator
 import org.gtkkn.native.glib.g_node_reverse_children
 import org.gtkkn.native.glib.g_node_traverse
 import org.gtkkn.native.glib.g_node_unlink
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -90,7 +90,7 @@ public class Node(
      * @param child a child of @node
      * @return the position of @child with respect to its siblings
      */
-    public fun childPosition(child: Node): Int = g_node_child_position(glibNodePointer.reinterpret(), child.glibNodePointer.reinterpret())
+    public fun childPosition(child: Node): gint = g_node_child_position(glibNodePointer.reinterpret(), child.glibNodePointer.reinterpret())
 
     /**
      * Calls a function for each of the children of a #GNode. Note that it
@@ -111,7 +111,7 @@ public class Node(
      *
      * @return the depth of the #GNode
      */
-    public fun depth(): UInt = g_node_depth(glibNodePointer.reinterpret())
+    public fun depth(): guint = g_node_depth(glibNodePointer.reinterpret())
 
     /**
      * Removes @root and its children from the tree, freeing any memory
@@ -138,14 +138,14 @@ public class Node(
      *
      * @return the maximum height of the tree beneath @root
      */
-    public fun maxHeight(): UInt = g_node_max_height(glibNodePointer.reinterpret())
+    public fun maxHeight(): guint = g_node_max_height(glibNodePointer.reinterpret())
 
     /**
      * Gets the number of children of a #GNode.
      *
      * @return the number of children of @node
      */
-    public fun nChildren(): UInt = g_node_n_children(glibNodePointer.reinterpret())
+    public fun nChildren(): guint = g_node_n_children(glibNodePointer.reinterpret())
 
     /**
      * Gets the number of nodes in a tree.
@@ -154,7 +154,7 @@ public class Node(
      *     %G_TRAVERSE_ALL, %G_TRAVERSE_LEAVES and %G_TRAVERSE_NON_LEAVES
      * @return the number of nodes in the tree
      */
-    public fun nNodes(flags: TraverseFlags): UInt = g_node_n_nodes(glibNodePointer.reinterpret(), flags.mask)
+    public fun nNodes(flags: TraverseFlags): guint = g_node_n_nodes(glibNodePointer.reinterpret(), flags.mask)
 
     /**
      * Reverses the order of the children of a #GNode.
@@ -181,7 +181,7 @@ public class Node(
     public fun traverse(
         order: TraverseType,
         flags: TraverseFlags,
-        maxDepth: Int,
+        maxDepth: gint,
         func: NodeTraverseFunc,
     ): Unit = g_node_traverse(glibNodePointer.reinterpret(), order.nativeValue, flags.mask, maxDepth, NodeTraverseFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 

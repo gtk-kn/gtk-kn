@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
@@ -12,6 +11,8 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -129,7 +130,7 @@ public open class PrintUnixDialog(
     /**
      * The current page in the document.
      */
-    public open var currentPage: Int
+    public open var currentPage: gint
         /**
          * Gets the current page of the `GtkPrintUnixDialog`.
          *
@@ -304,5 +305,12 @@ public open class PrintUnixDialog(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of PrintUnixDialog
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_print_unix_dialog_get_type()
     }
 }

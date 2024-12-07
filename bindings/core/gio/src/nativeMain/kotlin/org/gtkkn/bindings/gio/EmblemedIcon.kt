@@ -19,6 +19,7 @@ import org.gtkkn.native.gio.g_emblemed_icon_get_emblems
 import org.gtkkn.native.gio.g_emblemed_icon_get_icon
 import org.gtkkn.native.gio.g_emblemed_icon_get_type
 import org.gtkkn.native.gio.g_emblemed_icon_new
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GEmblemedIcon` is an implementation of [iface@Gio.Icon] that supports
@@ -97,5 +98,12 @@ public open class EmblemedIcon(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of EmblemedIcon
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_emblemed_icon_get_type()
     }
 }

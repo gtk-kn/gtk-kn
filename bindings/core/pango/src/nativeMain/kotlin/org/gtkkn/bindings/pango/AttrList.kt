@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.pango
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -20,6 +19,8 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.pango.PangoAttrList
 import org.gtkkn.native.pango.pango_attr_list_change
 import org.gtkkn.native.pango.pango_attr_list_copy
@@ -28,6 +29,7 @@ import org.gtkkn.native.pango.pango_attr_list_filter
 import org.gtkkn.native.pango.pango_attr_list_from_string
 import org.gtkkn.native.pango.pango_attr_list_get_attributes
 import org.gtkkn.native.pango.pango_attr_list_get_iterator
+import org.gtkkn.native.pango.pango_attr_list_get_type
 import org.gtkkn.native.pango.pango_attr_list_insert
 import org.gtkkn.native.pango.pango_attr_list_insert_before
 import org.gtkkn.native.pango.pango_attr_list_new
@@ -200,8 +202,8 @@ public class AttrList(
      */
     public fun splice(
         other: AttrList,
-        pos: Int,
-        len: Int,
+        pos: gint,
+        len: gint,
     ): Unit = pango_attr_list_splice(pangoAttrListPointer.reinterpret(), other.pangoAttrListPointer.reinterpret(), pos, len)
 
     /**
@@ -279,9 +281,9 @@ public class AttrList(
      */
     @PangoVersion1_44
     public fun update(
-        pos: Int,
-        remove: Int,
-        add: Int,
+        pos: gint,
+        remove: gint,
+        add: gint,
     ): Unit = pango_attr_list_update(pangoAttrListPointer.reinterpret(), pos, remove, add)
 
     public companion object : RecordCompanion<AttrList, PangoAttrList> {
@@ -308,6 +310,13 @@ public class AttrList(
         @PangoVersion1_50
         public fun fromString(text: String): AttrList? = pango_attr_list_from_string(text)?.run {
             AttrList(reinterpret())}
+
+        /**
+         * Get the GType of AttrList
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_attr_list_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): AttrList = AttrList(pointer.reinterpret())
     }

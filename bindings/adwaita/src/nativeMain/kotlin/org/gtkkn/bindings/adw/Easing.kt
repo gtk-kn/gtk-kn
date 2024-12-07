@@ -1,9 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
-import kotlin.Double
 import org.gtkkn.native.adw.AdwEasing
 import org.gtkkn.native.adw.adw_easing_ease
+import org.gtkkn.native.gobject.gdouble
 
 /**
  * Describes the available easing functions for use with
@@ -200,6 +200,6 @@ public enum class Easing(
          * @param value a value to ease
          * @return the easing for @value
          */
-        public fun ease(self: Easing, `value`: Double): Double = adw_easing_ease(self.nativeValue, `value`)
+        public fun ease(self: Easing, `value`: gdouble): gdouble = adw_easing_ease(self.nativeValue, `value`)
     }
 }

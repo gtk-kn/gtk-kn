@@ -2,9 +2,7 @@
 package org.gtkkn.bindings.gtksource
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -25,7 +23,11 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkModifierType
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -283,7 +285,7 @@ public open class View(
     /**
      * Width of an indentation step expressed in number of spaces.
      */
-    public open var indentWidth: Int
+    public open var indentWidth: gint
         /**
          * Returns the number of spaces to use for each step of indent.
          *
@@ -363,7 +365,7 @@ public open class View(
     /**
      * Position of the right margin.
      */
-    public open var rightMarginPosition: UInt
+    public open var rightMarginPosition: guint
         /**
          * Gets the position of the right margin in the given @view.
          *
@@ -485,7 +487,7 @@ public open class View(
     /**
      * Width of a tab character expressed in number of spaces.
      */
-    public open var tabWidth: UInt
+    public open var tabWidth: guint
         /**
          * Returns the width of tabulation in characters.
          *
@@ -536,7 +538,7 @@ public open class View(
      * @param windowType the gutter window type.
      * @return the #GtkSourceGutter.
      */
-    public open fun getGutterView(windowType: UInt): Gutter = gtk_source_view_get_gutter(gtksourceViewPointer.reinterpret(), windowType)!!.run {
+    public open fun getGutterView(windowType: guint): Gutter = gtk_source_view_get_gutter(gtksourceViewPointer.reinterpret(), windowType)!!.run {
         Gutter(reinterpret())}
 
     /**
@@ -557,7 +559,7 @@ public open class View(
      * @param iter a position in @view.
      * @return the visual column at @iter.
      */
-    public open fun getVisualColumn(iter: TextIter): UInt = gtk_source_view_get_visual_column(gtksourceViewPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret())
+    public open fun getVisualColumn(iter: TextIter): guint = gtk_source_view_get_visual_column(gtksourceViewPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret())
 
     /**
      * Inserts one indentation level at the beginning of the specified lines. The
@@ -590,7 +592,7 @@ public open class View(
     public open fun setMarkAttributes(
         category: String,
         attributes: MarkAttributes,
-        priority: Int,
+        priority: gint,
     ): Unit = gtk_source_view_set_mark_attributes(gtksourceViewPointer.reinterpret(), category, attributes.gtksourceMarkAttributesPointer.reinterpret(), priority)
 
     /**
@@ -616,7 +618,7 @@ public open class View(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `count` the number to add to the number at the current position
      */
-    public fun connectChangeNumber(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (count: Int) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "change-number", connectChangeNumberFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectChangeNumber(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (count: gint) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "change-number", connectChangeNumberFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Keybinding signal to join the lines currently selected.
@@ -637,9 +639,9 @@ public open class View(
      */
     public fun connectLineMarkActivated(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
         iter: TextIter,
-        button: UInt,
+        button: guint,
         state: ModifierType,
-        nPresses: Int,
+        nPresses: gint,
     ) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "line-mark-activated", connectLineMarkActivatedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
@@ -670,7 +672,7 @@ public open class View(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `count` the number of words to move over
      */
-    public fun connectMoveWords(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (count: Int) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "move-words", connectMoveWordsFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectMoveWords(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (count: gint) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "move-words", connectMoveWordsFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * The signal is a key binding signal which gets
@@ -700,7 +702,7 @@ public open class View(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `iter` a #GtkTextIter; `count` the count
      */
-    public fun connectSmartHomeEnd(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (iter: TextIter, count: Int) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "smart-home-end", connectSmartHomeEndFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectSmartHomeEnd(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (iter: TextIter, count: gint) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "smart-home-end", connectSmartHomeEndFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<View> {
         override val type: GeneratedClassKGType<View> =
@@ -708,6 +710,13 @@ public open class View(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of View
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_view_get_type()
     }
 }
 
@@ -722,12 +731,12 @@ private val connectChangeCaseFunc: CPointer<CFunction<(GtkSourceChangeCaseType) 
     )}
 .reinterpret()
 
-private val connectChangeNumberFunc: CPointer<CFunction<(Int) -> Unit>> = staticCFunction {
+private val connectChangeNumberFunc: CPointer<CFunction<(gint) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    count: Int,
+    count: gint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(count: Int) -> Unit>().get().invoke(count)}
+    userData.asStableRef<(count: gint) -> Unit>().get().invoke(count)}
 .reinterpret()
 
 private val connectJoinLinesFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
@@ -739,22 +748,22 @@ private val connectJoinLinesFunc: CPointer<CFunction<() -> Unit>> = staticCFunct
 
 private val connectLineMarkActivatedFunc: CPointer<CFunction<(
     CPointer<GtkTextIter>,
-    UInt,
+    guint,
     GdkModifierType,
-    Int,
+    gint,
 ) -> Unit>> = staticCFunction {
     _: COpaquePointer,
     iter: CPointer<GtkTextIter>?,
-    button: UInt,
+    button: guint,
     state: GdkModifierType,
-    nPresses: Int,
+    nPresses: gint,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         iter: TextIter,
-        button: UInt,
+        button: guint,
         state: ModifierType,
-        nPresses: Int,
+        nPresses: gint,
     ) -> Unit>().get().invoke(iter!!.run {
         TextIter(reinterpret())}
     , button, state.run {
@@ -762,28 +771,29 @@ private val connectLineMarkActivatedFunc: CPointer<CFunction<(
     , nPresses)}
 .reinterpret()
 
-private val connectMoveLinesFunc: CPointer<CFunction<(Int) -> Unit>> = staticCFunction {
+private val connectMoveLinesFunc: CPointer<CFunction<(gboolean) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    down: Int,
+    down: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(down: Boolean) -> Unit>().get().invoke(down.asBoolean())}
 .reinterpret()
 
-private val connectMoveToMatchingBracketFunc: CPointer<CFunction<(Int) -> Unit>> = staticCFunction {
+private val connectMoveToMatchingBracketFunc: CPointer<CFunction<(gboolean) -> Unit>> =
+        staticCFunction {
     _: COpaquePointer,
-    extendSelection: Int,
+    extendSelection: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(extendSelection: Boolean) -> Unit>().get().invoke(extendSelection.asBoolean())}
 .reinterpret()
 
-private val connectMoveWordsFunc: CPointer<CFunction<(Int) -> Unit>> = staticCFunction {
+private val connectMoveWordsFunc: CPointer<CFunction<(gint) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    count: Int,
+    count: gint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(count: Int) -> Unit>().get().invoke(count)}
+    userData.asStableRef<(count: gint) -> Unit>().get().invoke(count)}
 .reinterpret()
 
 private val connectShowCompletionFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
@@ -793,14 +803,14 @@ private val connectShowCompletionFunc: CPointer<CFunction<() -> Unit>> = staticC
     userData.asStableRef<() -> Unit>().get().invoke()}
 .reinterpret()
 
-private val connectSmartHomeEndFunc: CPointer<CFunction<(CPointer<GtkTextIter>, Int) -> Unit>> =
+private val connectSmartHomeEndFunc: CPointer<CFunction<(CPointer<GtkTextIter>, gint) -> Unit>> =
         staticCFunction {
     _: COpaquePointer,
     iter: CPointer<GtkTextIter>?,
-    count: Int,
+    count: gint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(iter: TextIter, count: Int) -> Unit>().get().invoke(iter!!.run {
+    userData.asStableRef<(iter: TextIter, count: gint) -> Unit>().get().invoke(iter!!.run {
         TextIter(reinterpret())}
     , count)}
 .reinterpret()

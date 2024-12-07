@@ -12,10 +12,12 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_4
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoLanguage
 import org.gtkkn.native.pango.pango_language_from_string
 import org.gtkkn.native.pango.pango_language_get_default
 import org.gtkkn.native.pango.pango_language_get_sample_string
+import org.gtkkn.native.pango.pango_language_get_type
 import org.gtkkn.native.pango.pango_language_includes_script
 import org.gtkkn.native.pango.pango_language_matches
 import org.gtkkn.native.pango.pango_language_to_string
@@ -170,6 +172,13 @@ public class Language(
         @PangoVersion1_16
         public fun getDefault(): Language = pango_language_get_default()!!.run {
             Language(reinterpret())}
+
+        /**
+         * Get the GType of Language
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_language_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Language = Language(pointer.reinterpret())
     }

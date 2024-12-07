@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtksource
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -21,7 +20,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtksource.GtkSourceSnippetContext
 import org.gtkkn.native.gtksource.gtk_source_snippet_context_clear_variables
 import org.gtkkn.native.gtksource.gtk_source_snippet_context_expand
@@ -92,7 +93,7 @@ public open class SnippetContext(
 
     public open fun setLinePrefix(linePrefix: String): Unit = gtk_source_snippet_context_set_line_prefix(gtksourceSnippetContextPointer.reinterpret(), linePrefix)
 
-    public open fun setTabWidth(tabWidth: Int): Unit = gtk_source_snippet_context_set_tab_width(gtksourceSnippetContextPointer.reinterpret(), tabWidth)
+    public open fun setTabWidth(tabWidth: gint): Unit = gtk_source_snippet_context_set_tab_width(gtksourceSnippetContextPointer.reinterpret(), tabWidth)
 
     public open fun setUseSpaces(useSpaces: Boolean): Unit = gtk_source_snippet_context_set_use_spaces(gtksourceSnippetContextPointer.reinterpret(), useSpaces.asGBoolean())
 
@@ -124,6 +125,13 @@ public open class SnippetContext(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of SnippetContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_snippet_context_get_type()
     }
 }
 

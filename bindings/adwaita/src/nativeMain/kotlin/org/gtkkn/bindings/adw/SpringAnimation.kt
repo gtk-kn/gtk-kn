@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
@@ -32,6 +30,9 @@ import org.gtkkn.native.adw.adw_spring_animation_set_initial_velocity
 import org.gtkkn.native.adw.adw_spring_animation_set_spring_params
 import org.gtkkn.native.adw.adw_spring_animation_set_value_from
 import org.gtkkn.native.adw.adw_spring_animation_set_value_to
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.guint
 
 /**
  * A spring-based [class@Animation].
@@ -116,7 +117,7 @@ public class SpringAnimation(
      *
      * The default value is 0.001.
      */
-    public var epsilon: Double
+    public var epsilon: gdouble
         /**
          * Gets the precision of the spring.
          *
@@ -146,7 +147,7 @@ public class SpringAnimation(
      *
      * Can be [const@DURATION_INFINITE] if the spring damping is set to 0.
      */
-    public val estimatedDuration: UInt
+    public val estimatedDuration: guint
         /**
          * Gets the estimated duration of @self, in milliseconds.
          *
@@ -161,7 +162,7 @@ public class SpringAnimation(
      *
      * Initial velocity affects only the animation curve, but not its duration.
      */
-    public var initialVelocity: Double
+    public var initialVelocity: gdouble
         /**
          * Gets the initial velocity of @self.
          *
@@ -201,7 +202,7 @@ public class SpringAnimation(
      * The animation will start at this value and end at
      * [property@SpringAnimation:value-to].
      */
-    public var valueFrom: Double
+    public var valueFrom: gdouble
         /**
          * Gets the value @self will animate from.
          *
@@ -224,7 +225,7 @@ public class SpringAnimation(
      * The animation will start at [property@SpringAnimation:value-from] and end
      * at this value.
      */
-    public var valueTo: Double
+    public var valueTo: gdouble
         /**
          * Gets the value @self will animate to.
          *
@@ -244,7 +245,7 @@ public class SpringAnimation(
     /**
      * Current velocity of the animation.
      */
-    public val velocity: Double
+    public val velocity: gdouble
         /**
          * Gets the current velocity of @self.
          *
@@ -267,8 +268,8 @@ public class SpringAnimation(
      */
     public constructor(
         widget: Widget,
-        from: Double,
-        to: Double,
+        from: gdouble,
+        to: gdouble,
         springParams: SpringParams,
         target: AnimationTarget,
     ) : this(adw_spring_animation_new(widget.gtkWidgetPointer.reinterpret(), from, to, springParams.adwSpringParamsPointer.reinterpret(), target.adwAnimationTargetPointer.reinterpret())!!.reinterpret())
@@ -286,7 +287,7 @@ public class SpringAnimation(
      * @since 1.3
      */
     @AdwVersion1_3
-    public fun calculateValue(time: UInt): Double = adw_spring_animation_calculate_value(adwSpringAnimationPointer.reinterpret(), time)
+    public fun calculateValue(time: guint): gdouble = adw_spring_animation_calculate_value(adwSpringAnimationPointer.reinterpret(), time)
 
     /**
      * Calculates the velocity @self will have at @time.
@@ -301,7 +302,7 @@ public class SpringAnimation(
      * @since 1.3
      */
     @AdwVersion1_3
-    public fun calculateVelocity(time: UInt): Double = adw_spring_animation_calculate_velocity(adwSpringAnimationPointer.reinterpret(), time)
+    public fun calculateVelocity(time: guint): gdouble = adw_spring_animation_calculate_velocity(adwSpringAnimationPointer.reinterpret(), time)
 
     public companion object : TypeCompanion<SpringAnimation> {
         override val type: GeneratedClassKGType<SpringAnimation> =
@@ -309,5 +310,12 @@ public class SpringAnimation(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of SpringAnimation
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_spring_animation_get_type()
     }
 }

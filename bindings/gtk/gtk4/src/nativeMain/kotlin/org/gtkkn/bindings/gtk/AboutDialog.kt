@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -27,7 +26,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gtk.GtkAboutDialog
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -574,10 +575,17 @@ public open class AboutDialog(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of AboutDialog
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_about_dialog_get_type()
     }
 }
 
-private val connectActivateLinkFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Int>> =
+private val connectActivateLinkFunc: CPointer<CFunction<(CPointer<ByteVar>) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     uri: CPointer<ByteVar>?,

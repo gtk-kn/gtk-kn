@@ -16,6 +16,8 @@ import org.gtkkn.native.glib.g_variant_builder_new
 import org.gtkkn.native.glib.g_variant_builder_open
 import org.gtkkn.native.glib.g_variant_builder_ref
 import org.gtkkn.native.glib.g_variant_builder_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_variant_builder_get_type
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -177,6 +179,13 @@ public class VariantBuilder(
          * @since 2.24
          */
         public fun new(type: VariantType): VariantBuilder = VariantBuilder(g_variant_builder_new(type.glibVariantTypePointer.reinterpret())!!.reinterpret())
+
+        /**
+         * Get the GType of VariantBuilder
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_variant_builder_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): VariantBuilder = VariantBuilder(pointer.reinterpret())
     }

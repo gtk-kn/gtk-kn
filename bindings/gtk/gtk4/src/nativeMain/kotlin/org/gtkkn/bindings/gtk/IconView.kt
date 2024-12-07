@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Float
-import kotlin.Int
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -26,7 +24,11 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkCellLayout
@@ -176,7 +178,7 @@ public open class IconView(
      * The column-spacing property specifies the space which is inserted between
      * the columns of the icon view.
      */
-    public open var columnSpacing: Int
+    public open var columnSpacing: gint
         /**
          * Returns the value of the ::column-spacing property.
          *
@@ -196,7 +198,7 @@ public open class IconView(
      * items should be displayed. If it is -1, the number of columns will
      * be chosen automatically to fill the available area.
      */
-    public open var columns: Int
+    public open var columns: gint
         /**
          * Returns the value of the ::columns property.
          *
@@ -238,7 +240,7 @@ public open class IconView(
      * The item-padding property specifies the padding around each
      * of the icon view's item.
      */
-    public open var itemPadding: Int
+    public open var itemPadding: gint
         /**
          * Returns the value of the ::item-padding property.
          *
@@ -258,7 +260,7 @@ public open class IconView(
      * If it is set to -1, the icon view will automatically determine a
      * suitable item size.
      */
-    public open var itemWidth: Int
+    public open var itemWidth: gint
         /**
          * Returns the value of the ::item-width property.
          *
@@ -278,7 +280,7 @@ public open class IconView(
      * The margin property specifies the space which is inserted
      * at the edges of the icon view.
      */
-    public open var margin: Int
+    public open var margin: gint
         /**
          * Returns the value of the ::margin property.
          *
@@ -301,7 +303,7 @@ public open class IconView(
      * are both set to column numbers, it overrides the text column.
      * If both are set to -1, no texts are displayed.
      */
-    public open var markupColumn: Int
+    public open var markupColumn: gint
         /**
          * Returns the column with markup text for @icon_view.
          *
@@ -343,7 +345,7 @@ public open class IconView(
      * of type `GDK_TYPE_PIXBUF`. Setting this property to -1 turns off the
      * display of pixbufs.
      */
-    public open var pixbufColumn: Int
+    public open var pixbufColumn: gint
         /**
          * Returns the column with pixbufs for @icon_view.
          *
@@ -392,7 +394,7 @@ public open class IconView(
      * The row-spacing property specifies the space which is inserted between
      * the rows of the icon view.
      */
-    public open var rowSpacing: Int
+    public open var rowSpacing: gint
         /**
          * Returns the value of the ::row-spacing property.
          *
@@ -431,7 +433,7 @@ public open class IconView(
      * The spacing property specifies the space which is inserted between
      * the cells (i.e. the icon and the text) of an item.
      */
-    public open var spacing: Int
+    public open var spacing: gint
         /**
          * Returns the value of the ::spacing property.
          *
@@ -453,7 +455,7 @@ public open class IconView(
      * of type `G_TYPE_STRING`. If this property and the :markup-column
      * property are both set to -1, no texts are displayed.
      */
-    public open var textColumn: Int
+    public open var textColumn: gint
         /**
          * Returns the column with text for @icon_view.
          *
@@ -468,7 +470,7 @@ public open class IconView(
          */
         set(column) = gtk_icon_view_set_text_column(gtkIconViewPointer.reinterpret(), column)
 
-    public open var tooltipColumn: Int
+    public open var tooltipColumn: gint
         /**
          * Returns the column of @icon_view’s model which is being used for
          * displaying tooltips on @icon_view’s rows.
@@ -576,7 +578,7 @@ public open class IconView(
      * @param path the `GtkTreePath` of the item
      * @return The column in which the item is displayed
      */
-    public open fun getItemColumn(path: TreePath): Int = gtk_icon_view_get_item_column(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
+    public open fun getItemColumn(path: TreePath): gint = gtk_icon_view_get_item_column(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
 
     /**
      * Gets the row in which the item @path is currently
@@ -585,7 +587,7 @@ public open class IconView(
      * @param path the `GtkTreePath` of the item
      * @return The row in which the item is displayed
      */
-    public open fun getItemRow(path: TreePath): Int = gtk_icon_view_get_item_row(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
+    public open fun getItemRow(path: TreePath): gint = gtk_icon_view_get_item_row(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
 
     /**
      * Gets the path for the icon at the given position.
@@ -595,7 +597,7 @@ public open class IconView(
      * @return The `GtkTreePath` corresponding
      * to the icon or null if no icon exists at that position.
      */
-    public open fun getPathAtPos(x: Int, y: Int): TreePath? = gtk_icon_view_get_path_at_pos(gtkIconViewPointer.reinterpret(), x, y)?.run {
+    public open fun getPathAtPos(x: gint, y: gint): TreePath? = gtk_icon_view_get_path_at_pos(gtkIconViewPointer.reinterpret(), x, y)?.run {
         TreePath(reinterpret())}
 
     /**
@@ -661,8 +663,8 @@ public open class IconView(
     public open fun scrollToPath(
         path: TreePath,
         useAlign: Boolean,
-        rowAlign: Float,
-        colAlign: Float,
+        rowAlign: gfloat,
+        colAlign: gfloat,
     ): Unit = gtk_icon_view_scroll_to_path(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret(), useAlign.asGBoolean(), rowAlign, colAlign)
 
     /**
@@ -816,7 +818,7 @@ public open class IconView(
      */
     public fun connectMoveCursor(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
         step: MovementStep,
-        count: Int,
+        count: gint,
         extend: Boolean,
         modify: Boolean,
     ) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "move-cursor", connectMoveCursorFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
@@ -899,10 +901,17 @@ public open class IconView(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of IconView
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_icon_view_get_type()
     }
 }
 
-private val connectActivateCursorItemFunc: CPointer<CFunction<() -> Int>> = staticCFunction {
+private val connectActivateCursorItemFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     userData: COpaquePointer
     ->
@@ -922,20 +931,20 @@ private val connectItemActivatedFunc: CPointer<CFunction<(CPointer<GtkTreePath>)
 
 private val connectMoveCursorFunc: CPointer<CFunction<(
     GtkMovementStep,
-    Int,
-    Int,
-    Int,
-) -> Int>> = staticCFunction {
+    gint,
+    gboolean,
+    gboolean,
+) -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     step: GtkMovementStep,
-    count: Int,
-    extend: Int,
-    modify: Int,
+    count: gint,
+    extend: gboolean,
+    modify: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         step: MovementStep,
-        count: Int,
+        count: gint,
         extend: Boolean,
         modify: Boolean,
     ) -> Boolean>().get().invoke(step.run {

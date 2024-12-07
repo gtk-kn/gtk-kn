@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gsk
 
 import kotlin.Boolean
-import kotlin.Float
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -17,9 +16,12 @@ import org.gtkkn.bindings.gsk.annotations.GskVersion4_6
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskTransform
 import org.gtkkn.native.gsk.gsk_transform_equal
 import org.gtkkn.native.gsk.gsk_transform_get_category
+import org.gtkkn.native.gsk.gsk_transform_get_type
 import org.gtkkn.native.gsk.gsk_transform_invert
 import org.gtkkn.native.gsk.gsk_transform_matrix
 import org.gtkkn.native.gsk.gsk_transform_new
@@ -119,7 +121,7 @@ public class Transform(
      *   perspective effect.
      * @return The new transform
      */
-    public fun perspective(depth: Float): Transform = gsk_transform_perspective(gskTransformPointer.reinterpret(), depth)!!.run {
+    public fun perspective(depth: gfloat): Transform = gsk_transform_perspective(gskTransformPointer.reinterpret(), depth)!!.run {
         Transform(reinterpret())}
 
     /**
@@ -148,7 +150,7 @@ public class Transform(
      * @param angle the rotation angle, in degrees (clockwise)
      * @return The new transform
      */
-    public fun rotate(angle: Float): Transform? = gsk_transform_rotate(gskTransformPointer.reinterpret(), angle)?.run {
+    public fun rotate(angle: gfloat): Transform? = gsk_transform_rotate(gskTransformPointer.reinterpret(), angle)?.run {
         Transform(reinterpret())}
 
     /**
@@ -160,7 +162,7 @@ public class Transform(
      * @param axis The rotation axis
      * @return The new transform
      */
-    public fun rotate3d(angle: Float, axis: Vec3): Transform? = gsk_transform_rotate_3d(gskTransformPointer.reinterpret(), angle, axis.grapheneVec3Pointer.reinterpret())?.run {
+    public fun rotate3d(angle: gfloat, axis: Vec3): Transform? = gsk_transform_rotate_3d(gskTransformPointer.reinterpret(), angle, axis.grapheneVec3Pointer.reinterpret())?.run {
         Transform(reinterpret())}
 
     /**
@@ -172,7 +174,7 @@ public class Transform(
      * @param factorY scaling factor on the Y axis
      * @return The new transform
      */
-    public fun scale(factorX: Float, factorY: Float): Transform? = gsk_transform_scale(gskTransformPointer.reinterpret(), factorX, factorY)?.run {
+    public fun scale(factorX: gfloat, factorY: gfloat): Transform? = gsk_transform_scale(gskTransformPointer.reinterpret(), factorX, factorY)?.run {
         Transform(reinterpret())}
 
     /**
@@ -184,9 +186,9 @@ public class Transform(
      * @return The new transform
      */
     public fun scale3d(
-        factorX: Float,
-        factorY: Float,
-        factorZ: Float,
+        factorX: gfloat,
+        factorY: gfloat,
+        factorZ: gfloat,
     ): Transform? = gsk_transform_scale_3d(gskTransformPointer.reinterpret(), factorX, factorY, factorZ)?.run {
         Transform(reinterpret())}
 
@@ -199,7 +201,7 @@ public class Transform(
      * @since 4.6
      */
     @GskVersion4_6
-    public fun skew(skewX: Float, skewY: Float): Transform? = gsk_transform_skew(gskTransformPointer.reinterpret(), skewX, skewY)?.run {
+    public fun skew(skewX: gfloat, skewY: gfloat): Transform? = gsk_transform_skew(gskTransformPointer.reinterpret(), skewX, skewY)?.run {
         Transform(reinterpret())}
 
     /**
@@ -279,6 +281,13 @@ public class Transform(
 
     public companion object : RecordCompanion<Transform, GskTransform> {
         public fun new(): Transform = Transform(gsk_transform_new()!!.reinterpret())
+
+        /**
+         * Get the GType of Transform
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_transform_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Transform = Transform(pointer.reinterpret())
     }

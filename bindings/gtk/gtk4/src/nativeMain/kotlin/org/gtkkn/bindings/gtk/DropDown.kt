@@ -3,7 +3,6 @@ package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
@@ -27,7 +26,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -295,7 +296,7 @@ public open class DropDown(
      * If no item is selected, the property has the value
      * %GTK_INVALID_LIST_POSITION.
      */
-    public open var selected: UInt
+    public open var selected: guint
         /**
          * Gets the position of the selected item.
          *
@@ -387,6 +388,13 @@ public open class DropDown(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of DropDown
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_drop_down_get_type()
     }
 }
 

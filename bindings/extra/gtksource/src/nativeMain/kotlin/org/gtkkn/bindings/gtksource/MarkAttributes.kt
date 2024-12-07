@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtksource
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
@@ -18,6 +17,8 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtksource.GtkSourceMarkAttributes
 import org.gtkkn.native.gtksource.gtk_source_mark_attributes_get_background
 import org.gtkkn.native.gtksource.gtk_source_mark_attributes_get_gicon
@@ -194,7 +195,7 @@ public open class MarkAttributes(
      * @return A #GdkPaintable. The paintable belongs to @attributes
      * and should not be unreffed.
      */
-    public open fun renderIcon(widget: Widget, size: Int): Paintable = gtk_source_mark_attributes_render_icon(gtksourceMarkAttributesPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret(), size)!!.run {
+    public open fun renderIcon(widget: Widget, size: gint): Paintable = gtk_source_mark_attributes_render_icon(gtksourceMarkAttributesPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret(), size)!!.run {
         Paintable.wrap(reinterpret())}
 
     /**
@@ -210,5 +211,12 @@ public open class MarkAttributes(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of MarkAttributes
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_mark_attributes_get_type()
     }
 }

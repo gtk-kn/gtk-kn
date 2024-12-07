@@ -16,6 +16,7 @@ import org.gtkkn.native.adw.adw_view_stack_pages_get_selected_page
 import org.gtkkn.native.adw.adw_view_stack_pages_get_type
 import org.gtkkn.native.adw.adw_view_stack_pages_set_selected_page
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkSelectionModel
 
 /**
@@ -76,5 +77,12 @@ public class ViewStackPages(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of ViewStackPages
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_view_stack_pages_get_type()
     }
 }

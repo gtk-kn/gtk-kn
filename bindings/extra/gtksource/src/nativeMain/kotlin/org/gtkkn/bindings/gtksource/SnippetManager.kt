@@ -15,6 +15,7 @@ import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceSnippetManager
 import org.gtkkn.native.gtksource.gtk_source_snippet_manager_get_default
 import org.gtkkn.native.gtksource.gtk_source_snippet_manager_get_search_path
@@ -154,5 +155,12 @@ public open class SnippetManager(
          */
         public fun getDefault(): SnippetManager = gtk_source_snippet_manager_get_default()!!.run {
             SnippetManager(reinterpret())}
+
+        /**
+         * Get the GType of SnippetManager
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_snippet_manager_get_type()
     }
 }

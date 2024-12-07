@@ -1,12 +1,13 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
-import kotlin.ULong
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gsk.GskShadowNode
 import org.gtkkn.native.gsk.gsk_shadow_node_get_child
 import org.gtkkn.native.gsk.gsk_shadow_node_get_n_shadows
@@ -40,7 +41,7 @@ public open class ShadowNode(
      *
      * @return the number of shadows.
      */
-    public open fun getNShadows(): ULong = gsk_shadow_node_get_n_shadows(gskShadowNodePointer.reinterpret())
+    public open fun getNShadows(): gsize = gsk_shadow_node_get_n_shadows(gskShadowNodePointer.reinterpret())
 
     /**
      * Retrieves the shadow data at the given index @i.
@@ -48,7 +49,7 @@ public open class ShadowNode(
      * @param i the given index
      * @return the shadow data
      */
-    public open fun getShadow(i: ULong): Shadow = gsk_shadow_node_get_shadow(gskShadowNodePointer.reinterpret(), i)!!.run {
+    public open fun getShadow(i: gsize): Shadow = gsk_shadow_node_get_shadow(gskShadowNodePointer.reinterpret(), i)!!.run {
         Shadow(reinterpret())}
 
     public companion object : TypeCompanion<ShadowNode> {
@@ -57,5 +58,12 @@ public open class ShadowNode(
 
         init {
             GskTypeProvider.register()}
+
+        /**
+         * Get the GType of ShadowNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_shadow_node_get_type()
     }
 }

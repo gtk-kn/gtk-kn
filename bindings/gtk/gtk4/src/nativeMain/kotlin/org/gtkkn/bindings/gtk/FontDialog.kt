@@ -32,6 +32,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkFontDialog
 import org.gtkkn.native.gtk.gtk_font_dialog_choose_face
 import org.gtkkn.native.gtk.gtk_font_dialog_choose_face_finish
@@ -394,5 +395,12 @@ public open class FontDialog(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of FontDialog
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_font_dialog_get_type()
     }
 }

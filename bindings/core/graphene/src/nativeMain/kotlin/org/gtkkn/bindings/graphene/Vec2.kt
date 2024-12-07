@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.graphene
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Float
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -13,12 +11,16 @@ import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.graphene.graphene_vec2_add
 import org.gtkkn.native.graphene.graphene_vec2_alloc
 import org.gtkkn.native.graphene.graphene_vec2_divide
 import org.gtkkn.native.graphene.graphene_vec2_dot
 import org.gtkkn.native.graphene.graphene_vec2_equal
 import org.gtkkn.native.graphene.graphene_vec2_free
+import org.gtkkn.native.graphene.graphene_vec2_get_type
 import org.gtkkn.native.graphene.graphene_vec2_get_x
 import org.gtkkn.native.graphene.graphene_vec2_get_y
 import org.gtkkn.native.graphene.graphene_vec2_init
@@ -88,7 +90,7 @@ public class Vec2(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun dot(b: Vec2): Float = graphene_vec2_dot(grapheneVec2Pointer.reinterpret(), b.grapheneVec2Pointer.reinterpret())
+    public fun dot(b: Vec2): gfloat = graphene_vec2_dot(grapheneVec2Pointer.reinterpret(), b.grapheneVec2Pointer.reinterpret())
 
     /**
      * Checks whether the two given #graphene_vec2_t are equal.
@@ -115,7 +117,7 @@ public class Vec2(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun getX(): Float = graphene_vec2_get_x(grapheneVec2Pointer.reinterpret())
+    public fun getX(): gfloat = graphene_vec2_get_x(grapheneVec2Pointer.reinterpret())
 
     /**
      * Retrieves the Y component of the #graphene_vec2_t.
@@ -124,7 +126,7 @@ public class Vec2(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun getY(): Float = graphene_vec2_get_y(grapheneVec2Pointer.reinterpret())
+    public fun getY(): gfloat = graphene_vec2_get_y(grapheneVec2Pointer.reinterpret())
 
     /**
      * Initializes a #graphene_vec2_t using the given values.
@@ -137,7 +139,7 @@ public class Vec2(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun `init`(x: Float, y: Float): Vec2 = graphene_vec2_init(grapheneVec2Pointer.reinterpret(), x, y)!!.run {
+    public fun `init`(x: gfloat, y: gfloat): Vec2 = graphene_vec2_init(grapheneVec2Pointer.reinterpret(), x, y)!!.run {
         Vec2(reinterpret())}
 
     /**
@@ -162,7 +164,7 @@ public class Vec2(
     @GrapheneVersion1_10
     public fun interpolate(
         v2: Vec2,
-        factor: Double,
+        factor: gdouble,
         res: Vec2,
     ): Unit = graphene_vec2_interpolate(grapheneVec2Pointer.reinterpret(), v2.grapheneVec2Pointer.reinterpret(), factor, res.grapheneVec2Pointer.reinterpret())
 
@@ -173,7 +175,7 @@ public class Vec2(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun length(): Float = graphene_vec2_length(grapheneVec2Pointer.reinterpret())
+    public fun length(): gfloat = graphene_vec2_length(grapheneVec2Pointer.reinterpret())
 
     /**
      * Compares the two given vectors and places the maximum
@@ -218,7 +220,7 @@ public class Vec2(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun near(v2: Vec2, epsilon: Float): Boolean = graphene_vec2_near(grapheneVec2Pointer.reinterpret(), v2.grapheneVec2Pointer.reinterpret(), epsilon)
+    public fun near(v2: Vec2, epsilon: gfloat): Boolean = graphene_vec2_near(grapheneVec2Pointer.reinterpret(), v2.grapheneVec2Pointer.reinterpret(), epsilon)
 
     /**
      * Negates the given #graphene_vec2_t.
@@ -247,7 +249,7 @@ public class Vec2(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun scale(factor: Float, res: Vec2): Unit = graphene_vec2_scale(grapheneVec2Pointer.reinterpret(), factor, res.grapheneVec2Pointer.reinterpret())
+    public fun scale(factor: gfloat, res: Vec2): Unit = graphene_vec2_scale(grapheneVec2Pointer.reinterpret(), factor, res.grapheneVec2Pointer.reinterpret())
 
     /**
      * Subtracts from each component of the first operand @a the
@@ -315,6 +317,13 @@ public class Vec2(
         @GrapheneVersion1_0
         public fun zero(): Vec2 = graphene_vec2_zero()!!.run {
             Vec2(reinterpret())}
+
+        /**
+         * Get the GType of Vec2
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = graphene_vec2_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Vec2 = Vec2(pointer.reinterpret())
     }

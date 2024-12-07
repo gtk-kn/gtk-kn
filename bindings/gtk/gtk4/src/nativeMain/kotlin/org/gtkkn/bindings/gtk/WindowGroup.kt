@@ -9,6 +9,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkWindowGroup
 import org.gtkkn.native.gtk.gtk_window_group_add_window
 import org.gtkkn.native.gtk.gtk_window_group_get_type
@@ -80,5 +81,12 @@ public open class WindowGroup(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of WindowGroup
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_window_group_get_type()
     }
 }

@@ -15,6 +15,7 @@ import org.gtkkn.native.gio.g_emblem_get_origin
 import org.gtkkn.native.gio.g_emblem_get_type
 import org.gtkkn.native.gio.g_emblem_new
 import org.gtkkn.native.gio.g_emblem_new_with_origin
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GEmblem` is an implementation of [iface@Gio.Icon] that supports
@@ -93,5 +94,12 @@ public open class Emblem(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of Emblem
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_emblem_get_type()
     }
 }

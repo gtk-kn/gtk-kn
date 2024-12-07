@@ -11,6 +11,7 @@ import org.gtkkn.native.gio.GPollableInputStream
 import org.gtkkn.native.gio.g_converter_input_stream_get_converter
 import org.gtkkn.native.gio.g_converter_input_stream_get_type
 import org.gtkkn.native.gio.g_converter_input_stream_new
+import org.gtkkn.native.gobject.GType
 
 /**
  * Converter input stream implements [class@Gio.InputStream] and allows
@@ -58,5 +59,12 @@ public open class ConverterInputStream(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of ConverterInputStream
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_converter_input_stream_get_type()
     }
 }

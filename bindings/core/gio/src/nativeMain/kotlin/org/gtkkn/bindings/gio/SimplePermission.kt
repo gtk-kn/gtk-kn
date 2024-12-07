@@ -11,6 +11,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GSimplePermission
 import org.gtkkn.native.gio.g_simple_permission_get_type
 import org.gtkkn.native.gio.g_simple_permission_new
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GSimplePermission` is a trivial implementation of [class@Gio.Permission]
@@ -43,5 +44,12 @@ public open class SimplePermission(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of SimplePermission
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_simple_permission_get_type()
     }
 }

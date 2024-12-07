@@ -1,9 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
-import kotlin.Int
-import kotlin.UInt
-import kotlin.ULong
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
@@ -17,6 +14,9 @@ import org.gtkkn.native.adw.adw_enum_list_model_get_enum_type
 import org.gtkkn.native.adw.adw_enum_list_model_get_type
 import org.gtkkn.native.adw.adw_enum_list_model_new
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 
 /**
  * A [iface@Gio.ListModel] representing values of a given enum.
@@ -37,7 +37,7 @@ public class EnumListModel(
     /**
      * The type of the enum represented by the model.
      */
-    public val enumType: ULong
+    public val enumType: GType
         /**
          * Gets the type of the enum represented by @self.
          *
@@ -51,7 +51,7 @@ public class EnumListModel(
      * @param enumType the type of the enum to construct the model from
      * @return the newly created `AdwEnumListModel`
      */
-    public constructor(enumType: ULong) : this(adw_enum_list_model_new(enumType)!!.reinterpret())
+    public constructor(enumType: GType) : this(adw_enum_list_model_new(enumType)!!.reinterpret())
 
     /**
      * Finds the position of a given enum value in @self.
@@ -60,7 +60,7 @@ public class EnumListModel(
      *
      * @param value an enum value
      */
-    public fun findPosition(`value`: Int): UInt = adw_enum_list_model_find_position(adwEnumListModelPointer.reinterpret(), `value`)
+    public fun findPosition(`value`: gint): guint = adw_enum_list_model_find_position(adwEnumListModelPointer.reinterpret(), `value`)
 
     public companion object : TypeCompanion<EnumListModel> {
         override val type: GeneratedClassKGType<EnumListModel> =
@@ -68,5 +68,12 @@ public class EnumListModel(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of EnumListModel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_enum_list_model_get_type()
     }
 }

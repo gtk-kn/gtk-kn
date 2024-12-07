@@ -2,14 +2,16 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkBitsetIter
+import org.gtkkn.native.gtk.gtk_bitset_iter_get_type
 import org.gtkkn.native.gtk.gtk_bitset_iter_get_value
 import org.gtkkn.native.gtk.gtk_bitset_iter_is_valid
 import kotlinx.cinterop.alloc as nativePlacementAlloc
@@ -44,7 +46,7 @@ public class BitsetIter(
      *
      * @return The current value pointer to by @iter
      */
-    public fun getValue(): UInt = gtk_bitset_iter_get_value(gtkBitsetIterPointer.reinterpret())
+    public fun getValue(): guint = gtk_bitset_iter_get_value(gtkBitsetIterPointer.reinterpret())
 
     /**
      * Checks if @iter points to a valid value.
@@ -54,6 +56,13 @@ public class BitsetIter(
     public fun isValid(): Boolean = gtk_bitset_iter_is_valid(gtkBitsetIterPointer.reinterpret()).asBoolean()
 
     public companion object : RecordCompanion<BitsetIter, GtkBitsetIter> {
+        /**
+         * Get the GType of BitsetIter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_bitset_iter_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): BitsetIter = BitsetIter(pointer.reinterpret())
     }
 }

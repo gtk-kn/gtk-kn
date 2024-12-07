@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
@@ -13,10 +12,13 @@ import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GFileAttributeInfoList
 import org.gtkkn.native.gio.g_file_attribute_info_list_add
 import org.gtkkn.native.gio.g_file_attribute_info_list_dup
+import org.gtkkn.native.gio.g_file_attribute_info_list_get_type
 import org.gtkkn.native.gio.g_file_attribute_info_list_lookup
 import org.gtkkn.native.gio.g_file_attribute_info_list_new
 import org.gtkkn.native.gio.g_file_attribute_info_list_ref
 import org.gtkkn.native.gio.g_file_attribute_info_list_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -40,7 +42,7 @@ public class FileAttributeInfoList(
     /**
      * the number of values in the array.
      */
-    public var nInfos: Int
+    public var nInfos: gint
         get() = gioFileAttributeInfoListPointer.pointed.n_infos
         set(`value`) {
             gioFileAttributeInfoListPointer.pointed.n_infos = value
@@ -99,6 +101,13 @@ public class FileAttributeInfoList(
          * @return a #GFileAttributeInfoList.
          */
         public fun new(): FileAttributeInfoList = FileAttributeInfoList(g_file_attribute_info_list_new()!!.reinterpret())
+
+        /**
+         * Get the GType of FileAttributeInfoList
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_file_attribute_info_list_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FileAttributeInfoList = FileAttributeInfoList(pointer.reinterpret())
     }

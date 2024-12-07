@@ -15,6 +15,7 @@ import org.gtkkn.native.gio.g_unix_credentials_message_get_type
 import org.gtkkn.native.gio.g_unix_credentials_message_is_supported
 import org.gtkkn.native.gio.g_unix_credentials_message_new
 import org.gtkkn.native.gio.g_unix_credentials_message_new_with_credentials
+import org.gtkkn.native.gobject.GType
 
 /**
  * This [class@Gio.SocketControlMessage] contains a [class@Gio.Credentials]
@@ -94,5 +95,12 @@ public open class UnixCredentialsMessage(
          */
         @GioVersion2_26
         public fun isSupported(): Boolean = g_unix_credentials_message_is_supported().asBoolean()
+
+        /**
+         * Get the GType of UnixCredentialsMessage
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_unix_credentials_message_get_type()
     }
 }

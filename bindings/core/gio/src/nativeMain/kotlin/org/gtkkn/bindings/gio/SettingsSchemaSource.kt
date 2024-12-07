@@ -20,11 +20,13 @@ import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GSettingsSchemaSource
 import org.gtkkn.native.gio.g_settings_schema_source_get_default
+import org.gtkkn.native.gio.g_settings_schema_source_get_type
 import org.gtkkn.native.gio.g_settings_schema_source_lookup
 import org.gtkkn.native.gio.g_settings_schema_source_new_from_directory
 import org.gtkkn.native.gio.g_settings_schema_source_ref
 import org.gtkkn.native.gio.g_settings_schema_source_unref
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -158,6 +160,13 @@ public class SettingsSchemaSource(
         @GioVersion2_32
         public fun getDefault(): SettingsSchemaSource? = g_settings_schema_source_get_default()?.run {
             SettingsSchemaSource(reinterpret())}
+
+        /**
+         * Get the GType of SettingsSchemaSource
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_settings_schema_source_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SettingsSchemaSource = SettingsSchemaSource(pointer.reinterpret())
     }

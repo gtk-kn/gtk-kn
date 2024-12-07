@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlinx.cinterop.ByteVar
@@ -31,7 +30,9 @@ import org.gtkkn.native.gio.g_dbus_auth_observer_allow_mechanism
 import org.gtkkn.native.gio.g_dbus_auth_observer_authorize_authenticated_peer
 import org.gtkkn.native.gio.g_dbus_auth_observer_get_type
 import org.gtkkn.native.gio.g_dbus_auth_observer_new
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 
 /**
  * `GDBusAuthObserver` provides a mechanism for participating
@@ -163,10 +164,17 @@ public open class DBusAuthObserver(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of DBusAuthObserver
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_auth_observer_get_type()
     }
 }
 
-private val connectAllowMechanismFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Int>> =
+private val connectAllowMechanismFunc: CPointer<CFunction<(CPointer<ByteVar>) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     mechanism: CPointer<ByteVar>?,
@@ -176,7 +184,7 @@ private val connectAllowMechanismFunc: CPointer<CFunction<(CPointer<ByteVar>) ->
 .reinterpret()
 
 private val connectAuthorizeAuthenticatedPeerFunc:
-        CPointer<CFunction<(CPointer<GIOStream>, CPointer<GCredentials>?) -> Int>> =
+        CPointer<CFunction<(CPointer<GIOStream>, CPointer<GCredentials>?) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     stream: CPointer<GIOStream>?,

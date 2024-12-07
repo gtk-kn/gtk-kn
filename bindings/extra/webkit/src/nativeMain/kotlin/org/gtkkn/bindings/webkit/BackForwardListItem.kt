@@ -9,6 +9,7 @@ import org.gtkkn.bindings.gobject.InitiallyUnowned
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitBackForwardListItem
 import org.gtkkn.native.webkit.webkit_back_forward_list_item_get_original_uri
 import org.gtkkn.native.webkit.webkit_back_forward_list_item_get_title
@@ -64,5 +65,12 @@ public class BackForwardListItem(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of BackForwardListItem
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_back_forward_list_item_get_type()
     }
 }

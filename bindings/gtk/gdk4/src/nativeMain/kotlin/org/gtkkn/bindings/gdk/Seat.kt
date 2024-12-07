@@ -27,6 +27,7 @@ import org.gtkkn.native.gdk.gdk_seat_get_keyboard
 import org.gtkkn.native.gdk.gdk_seat_get_pointer
 import org.gtkkn.native.gdk.gdk_seat_get_tools
 import org.gtkkn.native.gdk.gdk_seat_get_type
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 
 /**
@@ -142,6 +143,13 @@ public open class Seat(
 
         init {
             GdkTypeProvider.register()}
+
+        /**
+         * Get the GType of Seat
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_seat_get_type()
     }
 }
 

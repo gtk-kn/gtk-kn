@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.Unit
@@ -26,6 +25,8 @@ import org.gtkkn.native.gio.g_file_output_stream_query_info
 import org.gtkkn.native.gio.g_file_output_stream_query_info_async
 import org.gtkkn.native.gio.g_file_output_stream_query_info_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * `GFileOutputStream` provides output streams that write their
@@ -115,7 +116,7 @@ public open class FileOutputStream(
      */
     public open fun queryInfoAsync(
         attributes: String,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_file_output_stream_query_info_async(gioFileOutputStreamPointer.reinterpret(), attributes, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -146,5 +147,12 @@ public open class FileOutputStream(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of FileOutputStream
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_file_output_stream_get_type()
     }
 }

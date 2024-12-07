@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.pango
 
 import kotlin.Boolean
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -16,6 +15,8 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.pango.PangoContext
 import org.gtkkn.native.pango.pango_context_changed
 import org.gtkkn.native.pango.pango_context_get_base_dir
@@ -242,7 +243,7 @@ public open class Context(
      * @since 1.32.4
      */
     @PangoVersion1_32_4
-    public open fun getSerial(): UInt = pango_context_get_serial(pangoContextPointer.reinterpret())
+    public open fun getSerial(): guint = pango_context_get_serial(pangoContextPointer.reinterpret())
 
     /**
      * Loads the font in one of the fontmaps in the context
@@ -375,5 +376,12 @@ public open class Context(
 
         init {
             PangoTypeProvider.register()}
+
+        /**
+         * Get the GType of Context
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_context_get_type()
     }
 }

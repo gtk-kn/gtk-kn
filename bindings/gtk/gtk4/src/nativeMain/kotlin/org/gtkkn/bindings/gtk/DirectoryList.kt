@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -17,6 +16,8 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkDirectoryList
 import org.gtkkn.native.gtk.gtk_directory_list_get_attributes
 import org.gtkkn.native.gtk.gtk_directory_list_get_error
@@ -135,7 +136,7 @@ public open class DirectoryList(
     /**
      * Priority used when loading.
      */
-    public open var ioPriority: Int
+    public open var ioPriority: gint
         /**
          * Gets the IO priority set via gtk_directory_list_set_io_priority().
          *
@@ -215,5 +216,12 @@ public open class DirectoryList(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of DirectoryList
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_directory_list_get_type()
     }
 }

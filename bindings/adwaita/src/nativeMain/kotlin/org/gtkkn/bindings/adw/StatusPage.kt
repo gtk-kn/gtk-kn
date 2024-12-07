@@ -23,6 +23,7 @@ import org.gtkkn.native.adw.adw_status_page_set_description
 import org.gtkkn.native.adw.adw_status_page_set_icon_name
 import org.gtkkn.native.adw.adw_status_page_set_paintable
 import org.gtkkn.native.adw.adw_status_page_set_title
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -176,5 +177,12 @@ public class StatusPage(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of StatusPage
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_status_page_get_type()
     }
 }

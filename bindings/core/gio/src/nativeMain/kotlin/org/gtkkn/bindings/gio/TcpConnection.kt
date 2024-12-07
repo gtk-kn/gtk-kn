@@ -14,6 +14,7 @@ import org.gtkkn.native.gio.GTcpConnection
 import org.gtkkn.native.gio.g_tcp_connection_get_graceful_disconnect
 import org.gtkkn.native.gio.g_tcp_connection_get_type
 import org.gtkkn.native.gio.g_tcp_connection_set_graceful_disconnect
+import org.gtkkn.native.gobject.GType
 
 /**
  * This is the subclass of [class@Gio.SocketConnection] that is created
@@ -66,5 +67,12 @@ public open class TcpConnection(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of TcpConnection
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_tcp_connection_get_type()
     }
 }

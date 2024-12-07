@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.graphene
 
 import kotlin.Boolean
-import kotlin.Float
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -10,6 +9,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.graphene.graphene_box_alloc
 import org.gtkkn.native.graphene.graphene_box_contains_box
 import org.gtkkn.native.graphene.graphene_box_contains_point
@@ -26,6 +27,7 @@ import org.gtkkn.native.graphene.graphene_box_get_height
 import org.gtkkn.native.graphene.graphene_box_get_max
 import org.gtkkn.native.graphene.graphene_box_get_min
 import org.gtkkn.native.graphene.graphene_box_get_size
+import org.gtkkn.native.graphene.graphene_box_get_type
 import org.gtkkn.native.graphene.graphene_box_get_width
 import org.gtkkn.native.graphene.graphene_box_infinite
 import org.gtkkn.native.graphene.graphene_box_init
@@ -112,7 +114,7 @@ public class Box(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun expandScalar(scalar: Float, res: Box): Unit = graphene_box_expand_scalar(grapheneBoxPointer.reinterpret(), scalar, res.grapheneBoxPointer.reinterpret())
+    public fun expandScalar(scalar: gfloat, res: Box): Unit = graphene_box_expand_scalar(grapheneBoxPointer.reinterpret(), scalar, res.grapheneBoxPointer.reinterpret())
 
     /**
      * Expands the dimensions of @box to include the coordinates of the
@@ -160,7 +162,7 @@ public class Box(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getDepth(): Float = graphene_box_get_depth(grapheneBoxPointer.reinterpret())
+    public fun getDepth(): gfloat = graphene_box_get_depth(grapheneBoxPointer.reinterpret())
 
     /**
      * Retrieves the size of the @box on the Y axis.
@@ -169,7 +171,7 @@ public class Box(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getHeight(): Float = graphene_box_get_height(grapheneBoxPointer.reinterpret())
+    public fun getHeight(): gfloat = graphene_box_get_height(grapheneBoxPointer.reinterpret())
 
     /**
      * Retrieves the coordinates of the maximum point of the given
@@ -208,7 +210,7 @@ public class Box(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getWidth(): Float = graphene_box_get_width(grapheneBoxPointer.reinterpret())
+    public fun getWidth(): gfloat = graphene_box_get_width(grapheneBoxPointer.reinterpret())
 
     /**
      * Initializes the given #graphene_box_t with two vertices.
@@ -357,6 +359,13 @@ public class Box(
         @GrapheneVersion1_2
         public fun zero(): Box = graphene_box_zero()!!.run {
             Box(reinterpret())}
+
+        /**
+         * Get the GType of Box
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = graphene_box_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Box = Box(pointer.reinterpret())
     }

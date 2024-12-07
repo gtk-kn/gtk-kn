@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Long
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -18,6 +16,9 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkPaintable
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint64
 import org.gtkkn.native.gtk.GtkMediaStream
 import org.gtkkn.native.gtk.gtk_media_stream_gerror
 import org.gtkkn.native.gtk.gtk_media_stream_get_duration
@@ -92,7 +93,7 @@ public open class MediaStream(
     /**
      * The stream's duration in microseconds or 0 if unknown.
      */
-    public open val duration: Long
+    public open val duration: gint64
         /**
          * Gets the duration of the stream.
          *
@@ -201,7 +202,7 @@ public open class MediaStream(
     /**
      * The current presentation timestamp in microseconds.
      */
-    public open val timestamp: Long
+    public open val timestamp: gint64
         /**
          * Returns the current presentation timestamp in microseconds.
          *
@@ -212,7 +213,7 @@ public open class MediaStream(
     /**
      * Volume of the audio stream.
      */
-    public open var volume: Double
+    public open var volume: gdouble
         /**
          * Returns the volume of the audio for the stream.
          *
@@ -359,7 +360,7 @@ public open class MediaStream(
      *
      * @param timestamp timestamp to seek to.
      */
-    public open fun seek(timestamp: Long): Unit = gtk_media_stream_seek(gtkMediaStreamPointer.reinterpret(), timestamp)
+    public open fun seek(timestamp: gint64): Unit = gtk_media_stream_seek(gtkMediaStreamPointer.reinterpret(), timestamp)
 
     /**
      * Ends a seek operation started via GtkMediaStream.seek() as a failure.
@@ -419,7 +420,7 @@ public open class MediaStream(
         hasAudio: Boolean,
         hasVideo: Boolean,
         seekable: Boolean,
-        duration: Long,
+        duration: gint64,
     ): Unit = gtk_media_stream_stream_prepared(gtkMediaStreamPointer.reinterpret(), hasAudio.asGBoolean(), hasVideo.asGBoolean(), seekable.asGBoolean(), duration)
 
     /**
@@ -455,7 +456,7 @@ public open class MediaStream(
      *
      * @param timestamp the new timestamp
      */
-    public open fun update(timestamp: Long): Unit = gtk_media_stream_update(gtkMediaStreamPointer.reinterpret(), timestamp)
+    public open fun update(timestamp: gint64): Unit = gtk_media_stream_update(gtkMediaStreamPointer.reinterpret(), timestamp)
 
     public companion object : TypeCompanion<MediaStream> {
         override val type: GeneratedClassKGType<MediaStream> =
@@ -463,5 +464,12 @@ public open class MediaStream(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of MediaStream
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_media_stream_get_type()
     }
 }

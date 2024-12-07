@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
@@ -15,6 +14,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkCellLayout
 import org.gtkkn.native.gtk.gtk_cell_layout_add_attribute
 import org.gtkkn.native.gtk.gtk_cell_layout_clear
@@ -156,7 +156,7 @@ public interface CellLayout : Interface, KGTyped {
     public fun addAttribute(
         cell: CellRenderer,
         attribute: String,
-        column: Int,
+        column: gint,
     ): Unit = gtk_cell_layout_add_attribute(gtkCellLayoutPointer.reinterpret(), cell.gtkCellRendererPointer.reinterpret(), attribute, column)
 
     /**
@@ -226,7 +226,7 @@ public interface CellLayout : Interface, KGTyped {
      * @param cell a `GtkCellRenderer` to reorder
      * @param position new position to insert @cell at
      */
-    public fun reorder(cell: CellRenderer, position: Int): Unit = gtk_cell_layout_reorder(gtkCellLayoutPointer.reinterpret(), cell.gtkCellRendererPointer.reinterpret(), position)
+    public fun reorder(cell: CellRenderer, position: gint): Unit = gtk_cell_layout_reorder(gtkCellLayoutPointer.reinterpret(), cell.gtkCellRendererPointer.reinterpret(), position)
 
     /**
      * Sets the `GtkCellLayout`DataFunc to use for @cell_layout.

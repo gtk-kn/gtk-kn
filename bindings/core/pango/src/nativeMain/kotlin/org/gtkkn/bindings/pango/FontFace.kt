@@ -13,6 +13,7 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoFontFace
 import org.gtkkn.native.pango.pango_font_face_describe
 import org.gtkkn.native.pango.pango_font_face_get_face_name
@@ -90,5 +91,12 @@ public open class FontFace(
 
         init {
             PangoTypeProvider.register()}
+
+        /**
+         * Get the GType of FontFace
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_font_face_get_type()
     }
 }

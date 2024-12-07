@@ -1,13 +1,14 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gsk.GskGLShaderNode
 import org.gtkkn.native.gsk.gsk_gl_shader_node_get_args
 import org.gtkkn.native.gsk.gsk_gl_shader_node_get_child
@@ -43,7 +44,7 @@ public open class GLShaderNode(
      * @param idx the position of the child to get
      * @return the @idx'th child of @node
      */
-    public open fun getChild(idx: UInt): RenderNode = gsk_gl_shader_node_get_child(gskGLShaderNodePointer.reinterpret(), idx)!!.run {
+    public open fun getChild(idx: guint): RenderNode = gsk_gl_shader_node_get_child(gskGLShaderNodePointer.reinterpret(), idx)!!.run {
         RenderNode(reinterpret())}
 
     /**
@@ -51,7 +52,7 @@ public open class GLShaderNode(
      *
      * @return The number of children
      */
-    public open fun getNChildren(): UInt = gsk_gl_shader_node_get_n_children(gskGLShaderNodePointer.reinterpret())
+    public open fun getNChildren(): guint = gsk_gl_shader_node_get_n_children(gskGLShaderNodePointer.reinterpret())
 
     /**
      * Gets shader code for the node.
@@ -67,5 +68,12 @@ public open class GLShaderNode(
 
         init {
             GskTypeProvider.register()}
+
+        /**
+         * Get the GType of GLShaderNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_gl_shader_node_get_type()
     }
 }

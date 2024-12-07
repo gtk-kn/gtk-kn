@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
-import kotlin.Double
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -12,12 +11,15 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_6
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.pango.PangoMatrix
 import org.gtkkn.native.pango.pango_matrix_concat
 import org.gtkkn.native.pango.pango_matrix_copy
 import org.gtkkn.native.pango.pango_matrix_free
 import org.gtkkn.native.pango.pango_matrix_get_font_scale_factor
 import org.gtkkn.native.pango.pango_matrix_get_slant_ratio
+import org.gtkkn.native.pango.pango_matrix_get_type
 import org.gtkkn.native.pango.pango_matrix_rotate
 import org.gtkkn.native.pango.pango_matrix_scale
 import org.gtkkn.native.pango.pango_matrix_translate
@@ -53,7 +55,7 @@ public class Matrix(
     /**
      * 1st component of the transformation matrix
      */
-    public var xx: Double
+    public var xx: gdouble
         get() = pangoMatrixPointer.pointed.xx
         set(`value`) {
             pangoMatrixPointer.pointed.xx = value
@@ -62,7 +64,7 @@ public class Matrix(
     /**
      * 2nd component of the transformation matrix
      */
-    public var xy: Double
+    public var xy: gdouble
         get() = pangoMatrixPointer.pointed.xy
         set(`value`) {
             pangoMatrixPointer.pointed.xy = value
@@ -71,7 +73,7 @@ public class Matrix(
     /**
      * 3rd component of the transformation matrix
      */
-    public var yx: Double
+    public var yx: gdouble
         get() = pangoMatrixPointer.pointed.yx
         set(`value`) {
             pangoMatrixPointer.pointed.yx = value
@@ -80,7 +82,7 @@ public class Matrix(
     /**
      * 4th component of the transformation matrix
      */
-    public var yy: Double
+    public var yy: gdouble
         get() = pangoMatrixPointer.pointed.yy
         set(`value`) {
             pangoMatrixPointer.pointed.yy = value
@@ -89,7 +91,7 @@ public class Matrix(
     /**
      * x translation
      */
-    public var x0: Double
+    public var x0: gdouble
         get() = pangoMatrixPointer.pointed.x0
         set(`value`) {
             pangoMatrixPointer.pointed.x0 = value
@@ -98,7 +100,7 @@ public class Matrix(
     /**
      * y translation
      */
-    public var y0: Double
+    public var y0: gdouble
         get() = pangoMatrixPointer.pointed.y0
         set(`value`) {
             pangoMatrixPointer.pointed.y0 = value
@@ -145,7 +147,7 @@ public class Matrix(
      * @since 1.12
      */
     @PangoVersion1_12
-    public fun getFontScaleFactor(): Double = pango_matrix_get_font_scale_factor(pangoMatrixPointer.reinterpret())
+    public fun getFontScaleFactor(): gdouble = pango_matrix_get_font_scale_factor(pangoMatrixPointer.reinterpret())
 
     /**
      * Gets the slant ratio of a matrix.
@@ -161,7 +163,7 @@ public class Matrix(
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun getSlantRatio(): Double = pango_matrix_get_slant_ratio(pangoMatrixPointer.reinterpret())
+    public fun getSlantRatio(): gdouble = pango_matrix_get_slant_ratio(pangoMatrixPointer.reinterpret())
 
     /**
      * Changes the transformation represented by @matrix to be the
@@ -172,7 +174,7 @@ public class Matrix(
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun rotate(degrees: Double): Unit = pango_matrix_rotate(pangoMatrixPointer.reinterpret(), degrees)
+    public fun rotate(degrees: gdouble): Unit = pango_matrix_rotate(pangoMatrixPointer.reinterpret(), degrees)
 
     /**
      * Changes the transformation represented by @matrix to be the
@@ -185,7 +187,7 @@ public class Matrix(
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun scale(scaleX: Double, scaleY: Double): Unit = pango_matrix_scale(pangoMatrixPointer.reinterpret(), scaleX, scaleY)
+    public fun scale(scaleX: gdouble, scaleY: gdouble): Unit = pango_matrix_scale(pangoMatrixPointer.reinterpret(), scaleX, scaleY)
 
     /**
      * Changes the transformation represented by @matrix to be the
@@ -197,9 +199,16 @@ public class Matrix(
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun translate(tx: Double, ty: Double): Unit = pango_matrix_translate(pangoMatrixPointer.reinterpret(), tx, ty)
+    public fun translate(tx: gdouble, ty: gdouble): Unit = pango_matrix_translate(pangoMatrixPointer.reinterpret(), tx, ty)
 
     public companion object : RecordCompanion<Matrix, PangoMatrix> {
+        /**
+         * Get the GType of Matrix
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_matrix_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Matrix = Matrix(pointer.reinterpret())
     }
 }

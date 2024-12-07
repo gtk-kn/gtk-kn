@@ -26,6 +26,7 @@ import org.gtkkn.native.adw.adw_breakpoint_get_condition
 import org.gtkkn.native.adw.adw_breakpoint_get_type
 import org.gtkkn.native.adw.adw_breakpoint_new
 import org.gtkkn.native.adw.adw_breakpoint_set_condition
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkBuildable
 
@@ -208,6 +209,13 @@ public class Breakpoint(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of Breakpoint
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_breakpoint_get_type()
     }
 }
 

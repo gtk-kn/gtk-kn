@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.EventSequence
@@ -11,6 +10,8 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkGestureSingle
 import org.gtkkn.native.gtk.gtk_gesture_single_get_button
 import org.gtkkn.native.gtk.gtk_gesture_single_get_current_button
@@ -48,7 +49,7 @@ public open class GestureSingle(
     /**
      * Mouse button number to listen to, or 0 to listen for any button.
      */
-    public open var button: UInt
+    public open var button: guint
         /**
          * Returns the button number @gesture listens for.
          *
@@ -120,7 +121,7 @@ public open class GestureSingle(
      *
      * @return The current button number
      */
-    public open fun getCurrentButton(): UInt = gtk_gesture_single_get_current_button(gtkGestureSinglePointer.reinterpret())
+    public open fun getCurrentButton(): guint = gtk_gesture_single_get_current_button(gtkGestureSinglePointer.reinterpret())
 
     /**
      * Returns the event sequence currently interacting with @gesture.
@@ -139,5 +140,12 @@ public open class GestureSingle(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of GestureSingle
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_gesture_single_get_type()
     }
 }

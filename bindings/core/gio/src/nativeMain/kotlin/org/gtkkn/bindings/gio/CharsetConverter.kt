@@ -4,7 +4,6 @@ package org.gtkkn.bindings.gio
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Throws
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -30,6 +29,8 @@ import org.gtkkn.native.gio.g_charset_converter_get_use_fallback
 import org.gtkkn.native.gio.g_charset_converter_new
 import org.gtkkn.native.gio.g_charset_converter_set_use_fallback
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 
 /**
  * `GCharsetConverter` is an implementation of [iface@Gio.Converter] based on
@@ -104,7 +105,7 @@ public open class CharsetConverter(
      * @since 2.24
      */
     @GioVersion2_24
-    public open fun getNumFallbacks(): UInt = g_charset_converter_get_num_fallbacks(gioCharsetConverterPointer.reinterpret())
+    public open fun getNumFallbacks(): guint = g_charset_converter_get_num_fallbacks(gioCharsetConverterPointer.reinterpret())
 
     public companion object : TypeCompanion<CharsetConverter> {
         override val type: GeneratedClassKGType<CharsetConverter> =
@@ -112,5 +113,12 @@ public open class CharsetConverter(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of CharsetConverter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_charset_converter_get_type()
     }
 }

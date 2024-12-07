@@ -26,6 +26,7 @@ import org.gtkkn.native.gdk.gdk_display_manager_get_type
 import org.gtkkn.native.gdk.gdk_display_manager_list_displays
 import org.gtkkn.native.gdk.gdk_display_manager_open_display
 import org.gtkkn.native.gdk.gdk_display_manager_set_default_display
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 
 /**
@@ -147,6 +148,13 @@ public open class DisplayManager(
          */
         public fun `get`(): DisplayManager = gdk_display_manager_get()!!.run {
             DisplayManager(reinterpret())}
+
+        /**
+         * Get the GType of DisplayManager
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_display_manager_get_type()
     }
 }
 

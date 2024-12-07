@@ -22,6 +22,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GAppInfo
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAppChooser
@@ -253,6 +254,13 @@ public open class AppChooserWidget(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of AppChooserWidget
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_app_chooser_widget_get_type()
     }
 }
 

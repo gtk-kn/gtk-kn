@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -20,7 +19,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -216,7 +217,7 @@ public open class InfoBar(
      * @param child an activatable widget
      * @param responseId response ID for @child
      */
-    public open fun addActionWidget(child: Widget, responseId: Int): Unit = gtk_info_bar_add_action_widget(gtkInfoBarPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), responseId)
+    public open fun addActionWidget(child: Widget, responseId: gint): Unit = gtk_info_bar_add_action_widget(gtkInfoBarPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), responseId)
 
     /**
      * Adds a button with the given text.
@@ -231,7 +232,7 @@ public open class InfoBar(
      * @return the `GtkButton` widget
      * that was added
      */
-    public open fun addButton(buttonText: String, responseId: Int): Button = gtk_info_bar_add_button(gtkInfoBarPointer.reinterpret(), buttonText, responseId)!!.run {
+    public open fun addButton(buttonText: String, responseId: gint): Button = gtk_info_bar_add_button(gtkInfoBarPointer.reinterpret(), buttonText, responseId)!!.run {
         Button(reinterpret())}
 
     /**
@@ -263,7 +264,7 @@ public open class InfoBar(
      *
      * @param responseId a response ID
      */
-    public open fun response(responseId: Int): Unit = gtk_info_bar_response(gtkInfoBarPointer.reinterpret(), responseId)
+    public open fun response(responseId: gint): Unit = gtk_info_bar_response(gtkInfoBarPointer.reinterpret(), responseId)
 
     /**
      * Sets the last widget in the info bar’s action area with
@@ -276,7 +277,7 @@ public open class InfoBar(
      *
      * @param responseId a response ID
      */
-    public open fun setDefaultResponse(responseId: Int): Unit = gtk_info_bar_set_default_response(gtkInfoBarPointer.reinterpret(), responseId)
+    public open fun setDefaultResponse(responseId: gint): Unit = gtk_info_bar_set_default_response(gtkInfoBarPointer.reinterpret(), responseId)
 
     /**
      * Sets the sensitivity of action widgets for @response_id.
@@ -288,7 +289,7 @@ public open class InfoBar(
      * @param responseId a response ID
      * @param setting TRUE for sensitive
      */
-    public open fun setResponseSensitive(responseId: Int, setting: Boolean): Unit = gtk_info_bar_set_response_sensitive(gtkInfoBarPointer.reinterpret(), responseId, setting.asGBoolean())
+    public open fun setResponseSensitive(responseId: gint, setting: Boolean): Unit = gtk_info_bar_set_response_sensitive(gtkInfoBarPointer.reinterpret(), responseId, setting.asGBoolean())
 
     /**
      * Gets emitted when the user uses a keybinding to dismiss the info bar.
@@ -312,7 +313,7 @@ public open class InfoBar(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `responseId` the response ID
      */
-    public fun connectResponse(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (responseId: Int) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "response", connectResponseFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectResponse(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (responseId: gint) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "response", connectResponseFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<InfoBar> {
         override val type: GeneratedClassKGType<InfoBar> =
@@ -320,6 +321,13 @@ public open class InfoBar(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of InfoBar
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_info_bar_get_type()
     }
 }
 
@@ -330,10 +338,10 @@ private val connectCloseFunc: CPointer<CFunction<() -> Unit>> = staticCFunction 
     userData.asStableRef<() -> Unit>().get().invoke()}
 .reinterpret()
 
-private val connectResponseFunc: CPointer<CFunction<(Int) -> Unit>> = staticCFunction {
+private val connectResponseFunc: CPointer<CFunction<(gint) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    responseId: Int,
+    responseId: gint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(responseId: Int) -> Unit>().get().invoke(responseId)}
+    userData.asStableRef<(responseId: gint) -> Unit>().get().invoke(responseId)}
 .reinterpret()

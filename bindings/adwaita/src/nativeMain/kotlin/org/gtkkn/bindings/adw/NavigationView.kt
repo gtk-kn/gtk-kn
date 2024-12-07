@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -47,7 +46,9 @@ import org.gtkkn.native.adw.adw_navigation_view_remove
 import org.gtkkn.native.adw.adw_navigation_view_replace_with_tags
 import org.gtkkn.native.adw.adw_navigation_view_set_animate_transitions
 import org.gtkkn.native.adw.adw_navigation_view_set_pop_on_escape
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -515,7 +516,7 @@ public class NavigationView(
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun replaceWithTags(tags: List<String>, nTags: Int): Unit = memScoped {
+    public fun replaceWithTags(tags: List<String>, nTags: gint): Unit = memScoped {
         return adw_navigation_view_replace_with_tags(adwNavigationViewPointer.reinterpret(), tags.toCStringList(this), nTags)}
 
     /**
@@ -584,6 +585,13 @@ public class NavigationView(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of NavigationView
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_navigation_view_get_type()
     }
 }
 

@@ -2,10 +2,7 @@
 package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -28,6 +25,10 @@ import org.gtkkn.native.adw.adw_is_initialized
 import org.gtkkn.native.adw.adw_length_unit_from_px
 import org.gtkkn.native.adw.adw_length_unit_to_px
 import org.gtkkn.native.adw.adw_lerp
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.guint32
 
 /**
  * ## Skipped during bindings generation
@@ -109,22 +110,22 @@ public object Adw {
      *
      * This value is mostly used internally.
      */
-    public const val DURATION_INFINITE: UInt = UInt.MAX_VALUE
+    public const val DURATION_INFINITE: guint32 = UInt.MAX_VALUE
 
     /**
      * Adwaita major version component (e.g. 1 if the version is 1.2.3).
      */
-    public const val MAJOR_VERSION: Int = 1
+    public const val MAJOR_VERSION: gint = 1
 
     /**
      * Adwaita micro version component (e.g. 3 if the version is 1.2.3).
      */
-    public const val MICRO_VERSION: Int = 0
+    public const val MICRO_VERSION: gint = 0
 
     /**
      * Adwaita minor version component (e.g. 2 if the version is 1.2.3).
      */
-    public const val MINOR_VERSION: Int = 5
+    public const val MINOR_VERSION: gint = 5
 
     /**
      * Adwaita version, encoded as a string, useful for printing and
@@ -206,7 +207,7 @@ public object Adw {
      * @param value a value to ease
      * @return the easing for @value
      */
-    public fun easingEase(self: Easing, `value`: Double): Double = adw_easing_ease(self.nativeValue, `value`)
+    public fun easingEase(self: Easing, `value`: gdouble): gdouble = adw_easing_ease(self.nativeValue, `value`)
 
     /**
      * Checks whether animations are enabled for @widget.
@@ -231,7 +232,7 @@ public object Adw {
      *
      * @return the major version number of the Adwaita library
      */
-    public fun getMajorVersion(): UInt = adw_get_major_version()
+    public fun getMajorVersion(): guint = adw_get_major_version()
 
     /**
      * Returns the micro version number of the Adwaita library.
@@ -245,7 +246,7 @@ public object Adw {
      *
      * @return the micro version number of the Adwaita library
      */
-    public fun getMicroVersion(): UInt = adw_get_micro_version()
+    public fun getMicroVersion(): guint = adw_get_micro_version()
 
     /**
      * Returns the minor version number of the Adwaita library.
@@ -259,7 +260,7 @@ public object Adw {
      *
      * @return the minor version number of the Adwaita library
      */
-    public fun getMinorVersion(): UInt = adw_get_minor_version()
+    public fun getMinorVersion(): guint = adw_get_minor_version()
 
     /**
      * Initializes Libadwaita.
@@ -296,9 +297,9 @@ public object Adw {
     @AdwVersion1_4
     public fun lengthUnitFromPx(
         unit: LengthUnit,
-        `value`: Double,
+        `value`: gdouble,
         settings: Settings? = null,
-    ): Double = adw_length_unit_from_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
+    ): gdouble = adw_length_unit_from_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
 
     /**
      * Converts @value from @unit to pixels.
@@ -312,9 +313,9 @@ public object Adw {
     @AdwVersion1_4
     public fun lengthUnitToPx(
         unit: LengthUnit,
-        `value`: Double,
+        `value`: gdouble,
         settings: Settings? = null,
-    ): Double = adw_length_unit_to_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
+    ): gdouble = adw_length_unit_to_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
 
     /**
      * Computes the linear interpolation between @a and @b for @t.
@@ -325,17 +326,17 @@ public object Adw {
      * @return the computed value
      */
     public fun lerp(
-        a: Double,
-        b: Double,
-        t: Double,
-    ): Double = adw_lerp(a, b, t)
+        a: gdouble,
+        b: gdouble,
+        t: gdouble,
+    ): gdouble = adw_lerp(a, b, t)
 }
 
-public val AnimationTargetFuncFunc: CPointer<CFunction<(Double) -> Unit>> = staticCFunction {
-    `value`: Double,
+public val AnimationTargetFuncFunc: CPointer<CFunction<(gdouble) -> Unit>> = staticCFunction {
+    `value`: gdouble,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(`value`: Double) -> Unit>().get().invoke(`value`)}
+    userData.asStableRef<(`value`: gdouble) -> Unit>().get().invoke(`value`)}
 .reinterpret()
 
 /**
@@ -343,4 +344,4 @@ public val AnimationTargetFuncFunc: CPointer<CFunction<(Double) -> Unit>> = stat
  *
  * - param `value` The animation value
  */
-public typealias AnimationTargetFunc = (`value`: Double) -> Unit
+public typealias AnimationTargetFunc = (`value`: gdouble) -> Unit

@@ -85,7 +85,7 @@ class ConstructorBlueprintBuilder(
             returnTypeInfo = returnTypeInfo,
             parameters = parameterBlueprints,
             throws = girConstructor.callable.throws == true,
-            exceptionResolvingFunctionMember = exceptionResolvingFunction(),
+            exceptionResolvingFunctionMember = girNamespace.exceptionResolvingFunction(),
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girConstructor.callable.info)
                 .build()
                 .getOrNull(),

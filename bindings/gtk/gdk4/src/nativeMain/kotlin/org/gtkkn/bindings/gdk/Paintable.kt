@@ -1,8 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
-import kotlin.Double
-import kotlin.Int
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -30,6 +28,8 @@ import org.gtkkn.native.gdk.gdk_paintable_invalidate_size
 import org.gtkkn.native.gdk.gdk_paintable_new_empty
 import org.gtkkn.native.gdk.gdk_paintable_snapshot
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
 
 /**
  * `GdkPaintable` is a simple interface used by GTK to represent content that
@@ -132,7 +132,7 @@ public interface Paintable : Interface, KGTyped {
      *
      * @return the intrinsic aspect ratio of @paintable or 0 if none.
      */
-    public fun getIntrinsicAspectRatio(): Double = gdk_paintable_get_intrinsic_aspect_ratio(gdkPaintablePointer.reinterpret())
+    public fun getIntrinsicAspectRatio(): gdouble = gdk_paintable_get_intrinsic_aspect_ratio(gdkPaintablePointer.reinterpret())
 
     /**
      * Gets the preferred height the @paintable would like to be displayed at.
@@ -148,7 +148,7 @@ public interface Paintable : Interface, KGTyped {
      *
      * @return the intrinsic height of @paintable or 0 if none.
      */
-    public fun getIntrinsicHeight(): Int = gdk_paintable_get_intrinsic_height(gdkPaintablePointer.reinterpret())
+    public fun getIntrinsicHeight(): gint = gdk_paintable_get_intrinsic_height(gdkPaintablePointer.reinterpret())
 
     /**
      * Gets the preferred width the @paintable would like to be displayed at.
@@ -164,7 +164,7 @@ public interface Paintable : Interface, KGTyped {
      *
      * @return the intrinsic width of @paintable or 0 if none.
      */
-    public fun getIntrinsicWidth(): Int = gdk_paintable_get_intrinsic_width(gdkPaintablePointer.reinterpret())
+    public fun getIntrinsicWidth(): gint = gdk_paintable_get_intrinsic_width(gdkPaintablePointer.reinterpret())
 
     /**
      * Called by implementations of `GdkPaintable` to invalidate their contents.
@@ -207,8 +207,8 @@ public interface Paintable : Interface, KGTyped {
      */
     public fun snapshot(
         snapshot: Snapshot,
-        width: Double,
-        height: Double,
+        width: gdouble,
+        height: gdouble,
     ): Unit = gdk_paintable_snapshot(gdkPaintablePointer.reinterpret(), snapshot.gdkSnapshotPointer.reinterpret(), width, height)
 
     /**
@@ -267,7 +267,7 @@ public interface Paintable : Interface, KGTyped {
          * @param intrinsicHeight The intrinsic height to report. Can be 0 for no height.
          * @return a `GdkPaintable`
          */
-        public fun newEmpty(intrinsicWidth: Int, intrinsicHeight: Int): Paintable = gdk_paintable_new_empty(intrinsicWidth, intrinsicHeight)!!.run {
+        public fun newEmpty(intrinsicWidth: gint, intrinsicHeight: gint): Paintable = gdk_paintable_new_empty(intrinsicWidth, intrinsicHeight)!!.run {
             Paintable.wrap(reinterpret())}
     }
 }

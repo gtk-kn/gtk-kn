@@ -17,6 +17,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GObject
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkSignalListItemFactory
 import org.gtkkn.native.gtk.gtk_signal_list_item_factory_get_type
@@ -142,6 +143,13 @@ public open class SignalListItemFactory(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of SignalListItemFactory
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_signal_list_item_factory_get_type()
     }
 }
 

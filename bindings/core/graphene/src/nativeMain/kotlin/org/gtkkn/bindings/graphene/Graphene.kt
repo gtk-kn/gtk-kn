@@ -1,12 +1,12 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.graphene
 
-import kotlin.Double
-import kotlin.Int
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_4
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.graphene.graphene_box_empty
 import org.gtkkn.native.graphene.graphene_box_infinite
 import org.gtkkn.native.graphene.graphene_box_minus_one
@@ -40,9 +40,9 @@ import org.gtkkn.native.graphene.graphene_vec4_zero
  * - record `Simd4F`: C Type graphene_simd4f_t is ignored
  */
 public object Graphene {
-    public const val PI: Double = 3.141593
+    public const val PI: gdouble = 3.141593
 
-    public const val PI_2: Double = 1.570796
+    public const val PI_2: gdouble = 1.570796
 
     /**
      * Evaluates to the number of components of a #graphene_vec2_t.
@@ -63,7 +63,7 @@ public object Graphene {
      *
      * @since 1.0
      */
-    public const val VEC2_LEN: Int = 2
+    public const val VEC2_LEN: gint = 2
 
     /**
      * Evaluates to the number of components of a #graphene_vec3_t.
@@ -84,7 +84,7 @@ public object Graphene {
      *
      * @since 1.0
      */
-    public const val VEC3_LEN: Int = 3
+    public const val VEC3_LEN: gint = 3
 
     /**
      * Evaluates to the number of components of a #graphene_vec4_t.
@@ -105,7 +105,7 @@ public object Graphene {
      *
      * @since 1.0
      */
-    public const val VEC4_LEN: Int = 4
+    public const val VEC4_LEN: gint = 4
 
     /**
      * A degenerate #graphene_box_t that can only be expanded.

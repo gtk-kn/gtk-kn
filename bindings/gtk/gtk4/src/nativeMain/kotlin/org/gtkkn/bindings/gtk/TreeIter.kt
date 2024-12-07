@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.Int
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -9,9 +8,12 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkTreeIter
 import org.gtkkn.native.gtk.gtk_tree_iter_copy
 import org.gtkkn.native.gtk.gtk_tree_iter_free
+import org.gtkkn.native.gtk.gtk_tree_iter_get_type
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -35,7 +37,7 @@ public class TreeIter(
     /**
      * a unique stamp to catch invalid iterators
      */
-    public var stamp: Int
+    public var stamp: gint
         get() = gtkTreeIterPointer.pointed.stamp
         set(`value`) {
             gtkTreeIterPointer.pointed.stamp = value
@@ -62,6 +64,13 @@ public class TreeIter(
     public fun free(): Unit = gtk_tree_iter_free(gtkTreeIterPointer.reinterpret())
 
     public companion object : RecordCompanion<TreeIter, GtkTreeIter> {
+        /**
+         * Get the GType of TreeIter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_tree_iter_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TreeIter = TreeIter(pointer.reinterpret())
     }
 }

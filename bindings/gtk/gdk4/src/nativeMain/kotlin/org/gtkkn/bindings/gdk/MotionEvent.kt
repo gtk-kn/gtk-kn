@@ -8,6 +8,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkMotionEvent
 import org.gtkkn.native.gdk.gdk_motion_event_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * An event related to a pointer or touch device motion.
@@ -25,5 +26,12 @@ public open class MotionEvent(
 
         init {
             GdkTypeProvider.register()}
+
+        /**
+         * Get the GType of MotionEvent
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_motion_event_get_type()
     }
 }

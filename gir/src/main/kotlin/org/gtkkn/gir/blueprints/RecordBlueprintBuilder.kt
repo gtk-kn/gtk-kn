@@ -96,6 +96,7 @@ class RecordBlueprintBuilder(
         val objectPointerTypeName = context.resolveRecordObjectPointerTypeName(girNamespace, girRecord)
 
         val kotlinName = context.kotlinizeRecordName(girRecord.name)
+
         return RecordBlueprint(
             kotlinName = kotlinName,
             kotlinTypeName = ClassName(context.namespaceBindingsPackageName(girNamespace), kotlinName),
@@ -110,10 +111,10 @@ class RecordBlueprintBuilder(
                 girRecord.cType ?: error("unknown cType"),
             ),
             isOpaque = girRecord.opaque == true,
-            kdoc = context.processKdoc(girRecord.doc?.doc?.text),
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girRecord.info)
                 .build()
                 .getOrNull(),
+            kdoc = context.processKdoc(girRecord.doc?.doc?.text),
             skippedObjects = skippedObjects,
         )
     }

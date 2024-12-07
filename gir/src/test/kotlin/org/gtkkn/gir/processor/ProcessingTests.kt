@@ -20,6 +20,7 @@ import com.squareup.kotlinpoet.ClassName
 import io.github.oshai.kotlinlogging.Level
 import org.gtkkn.gir.blueprints.TypeInfo
 import org.gtkkn.gir.config.Config
+import org.gtkkn.gir.generator.BindingsGenerator
 import org.gtkkn.gir.parser.gir.GirParser
 import org.gtkkn.gir.parser.metadata.MetadataParser
 import org.gtkkn.gir.util.loadResourceAsFile
@@ -60,7 +61,7 @@ class ProcessingTests {
         assertEquals(ClassName("org.gtkkn.bindings.gtk", "Window"), clazz.parentTypeName)
         assertEquals("gtkAboutDialogPointer", clazz.objectPointerName)
         assertEquals(
-            NativeTypes.cpointerOf(
+            BindingsGenerator.cpointerOf(
                 ClassName("org.gtkkn.native.gtk", "GtkAboutDialog"),
             ),
             clazz.objectPointerTypeName,

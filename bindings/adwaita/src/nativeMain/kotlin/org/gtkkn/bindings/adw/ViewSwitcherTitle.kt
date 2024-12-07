@@ -24,6 +24,7 @@ import org.gtkkn.native.adw.adw_view_switcher_title_set_stack
 import org.gtkkn.native.adw.adw_view_switcher_title_set_subtitle
 import org.gtkkn.native.adw.adw_view_switcher_title_set_title
 import org.gtkkn.native.adw.adw_view_switcher_title_set_view_switcher_enabled
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -228,5 +229,12 @@ public class ViewSwitcherTitle(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of ViewSwitcherTitle
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_view_switcher_title_get_type()
     }
 }

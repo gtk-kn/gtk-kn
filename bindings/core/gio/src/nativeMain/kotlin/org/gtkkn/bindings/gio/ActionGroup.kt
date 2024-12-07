@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -45,6 +44,7 @@ import org.gtkkn.native.gio.g_action_group_has_action
 import org.gtkkn.native.gio.g_action_group_list_actions
 import org.gtkkn.native.glib.GVariant
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 
 /**
  * `GActionGroup` represents a group of actions.
@@ -408,11 +408,11 @@ private val connectActionAddedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Un
     userData.asStableRef<(actionName: String) -> Unit>().get().invoke(actionName?.toKString() ?: error("Expected not null string"))}
 .reinterpret()
 
-private val connectActionEnabledChangedFunc: CPointer<CFunction<(CPointer<ByteVar>, Int) -> Unit>> =
-        staticCFunction {
+private val connectActionEnabledChangedFunc:
+        CPointer<CFunction<(CPointer<ByteVar>, gboolean) -> Unit>> = staticCFunction {
     _: COpaquePointer,
     actionName: CPointer<ByteVar>?,
-    enabled: Int,
+    enabled: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(actionName: String, enabled: Boolean) -> Unit>().get().invoke(actionName?.toKString() ?: error("Expected not null string"), enabled.asBoolean())}

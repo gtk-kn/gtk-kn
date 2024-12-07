@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
-import kotlin.Int
 import kotlin.String
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -11,6 +10,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GEnumValue
+import org.gtkkn.native.gobject.gint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -25,7 +25,7 @@ public class EnumValue(
     /**
      * the enum value
      */
-    public var `value`: Int
+    public var `value`: gint
         get() = gobjectEnumValuePointer.pointed.value
         set(`value`) {
             gobjectEnumValuePointer.pointed.value = value

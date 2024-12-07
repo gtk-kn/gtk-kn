@@ -3,7 +3,6 @@ package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -13,6 +12,8 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -177,7 +178,7 @@ public open class Stack(
     /**
      * The animation duration, in milliseconds.
      */
-    public open var transitionDuration: UInt
+    public open var transitionDuration: guint
         /**
          * Returns the amount of time (in milliseconds) that
          * transitions between pages in @stack will take.
@@ -395,5 +396,12 @@ public open class Stack(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of Stack
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_stack_get_type()
     }
 }

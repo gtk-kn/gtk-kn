@@ -16,6 +16,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -155,6 +156,13 @@ public open class ShortcutsWindow(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of ShortcutsWindow
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_shortcuts_window_get_type()
     }
 }
 

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -49,7 +48,9 @@ import org.gtkkn.native.adw.adw_dialog_set_focus
 import org.gtkkn.native.adw.adw_dialog_set_follows_content_size
 import org.gtkkn.native.adw.adw_dialog_set_presentation_mode
 import org.gtkkn.native.adw.adw_dialog_set_title
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -199,7 +200,7 @@ public open class Dialog(
      * @since 1.5
      */
     @AdwVersion1_5
-    public open var contentHeight: Int
+    public open var contentHeight: gint
         /**
          * Gets the height of the dialog's contents.
          *
@@ -230,7 +231,7 @@ public open class Dialog(
      * @since 1.5
      */
     @AdwVersion1_5
-    public open var contentWidth: Int
+    public open var contentWidth: gint
         /**
          * Gets the width of the dialog's contents.
          *
@@ -507,6 +508,13 @@ public open class Dialog(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of Dialog
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_dialog_get_type()
     }
 }
 

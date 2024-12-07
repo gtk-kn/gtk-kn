@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pangocairo
 
-import kotlin.Double
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -13,6 +12,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.pangocairo.PangoCairoFontMap
 import org.gtkkn.native.pangocairo.pango_cairo_font_map_get_default
 import org.gtkkn.native.pangocairo.pango_cairo_font_map_get_font_type
@@ -54,7 +54,7 @@ public interface FontMap : Interface, KGTyped {
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun getResolution(): Double = pango_cairo_font_map_get_resolution(pangocairoFontMapPointer.reinterpret())
+    public fun getResolution(): gdouble = pango_cairo_font_map_get_resolution(pangocairoFontMapPointer.reinterpret())
 
     /**
      * Sets a default `PangoCairoFontMap` to use with Cairo.
@@ -91,7 +91,7 @@ public interface FontMap : Interface, KGTyped {
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun setResolution(dpi: Double): Unit = pango_cairo_font_map_set_resolution(pangocairoFontMapPointer.reinterpret(), dpi)
+    public fun setResolution(dpi: gdouble): Unit = pango_cairo_font_map_set_resolution(pangocairoFontMapPointer.reinterpret(), dpi)
 
     private data class Wrapper(
         private val pointer: CPointer<PangoCairoFontMap>,

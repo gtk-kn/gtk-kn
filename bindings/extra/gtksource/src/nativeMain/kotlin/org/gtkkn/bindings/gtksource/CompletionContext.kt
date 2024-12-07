@@ -24,6 +24,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtksource.GtkSourceCompletionContext
 import org.gtkkn.native.gtksource.GtkSourceCompletionProvider
@@ -226,6 +227,13 @@ public open class CompletionContext(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of CompletionContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_completion_context_get_type()
     }
 }
 

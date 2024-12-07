@@ -20,6 +20,7 @@ import org.gtkkn.native.gio.g_network_service_get_service
 import org.gtkkn.native.gio.g_network_service_get_type
 import org.gtkkn.native.gio.g_network_service_new
 import org.gtkkn.native.gio.g_network_service_set_scheme
+import org.gtkkn.native.gobject.GType
 
 /**
  * Like [class@Gio.NetworkAddress] does with hostnames, `GNetworkService`
@@ -137,5 +138,12 @@ public open class NetworkService(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of NetworkService
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_network_service_get_type()
     }
 }

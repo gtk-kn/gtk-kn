@@ -2,9 +2,7 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.ByteVar
@@ -29,7 +27,10 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkClipboard
 import org.gtkkn.native.gdk.GdkPaintable
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkTextBuffer
 import org.gtkkn.native.gtk.GtkTextChildAnchor
 import org.gtkkn.native.gtk.GtkTextIter
@@ -519,7 +520,7 @@ public open class TextBuffer(
      *
      * @return number of characters in the buffer
      */
-    public open fun getCharCount(): Int = gtk_text_buffer_get_char_count(gtkTextBufferPointer.reinterpret())
+    public open fun getCharCount(): gint = gtk_text_buffer_get_char_count(gtkTextBufferPointer.reinterpret())
 
     /**
      * Initializes @iter with the “end iterator,” one past the last valid
@@ -565,7 +566,7 @@ public open class TextBuffer(
      * @param lineNumber line number counting from 0
      * @return whether the exact position has been found
      */
-    public open fun getIterAtLine(iter: TextIter, lineNumber: Int): Boolean = gtk_text_buffer_get_iter_at_line(gtkTextBufferPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret(), lineNumber).asBoolean()
+    public open fun getIterAtLine(iter: TextIter, lineNumber: gint): Boolean = gtk_text_buffer_get_iter_at_line(gtkTextBufferPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret(), lineNumber).asBoolean()
 
     /**
      * Obtains an iterator pointing to @byte_index within the given line.
@@ -584,8 +585,8 @@ public open class TextBuffer(
      */
     public open fun getIterAtLineIndex(
         iter: TextIter,
-        lineNumber: Int,
-        byteIndex: Int,
+        lineNumber: gint,
+        byteIndex: gint,
     ): Boolean = gtk_text_buffer_get_iter_at_line_index(gtkTextBufferPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret(), lineNumber, byteIndex).asBoolean()
 
     /**
@@ -605,8 +606,8 @@ public open class TextBuffer(
      */
     public open fun getIterAtLineOffset(
         iter: TextIter,
-        lineNumber: Int,
-        charOffset: Int,
+        lineNumber: gint,
+        charOffset: gint,
     ): Boolean = gtk_text_buffer_get_iter_at_line_offset(gtkTextBufferPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret(), lineNumber, charOffset).asBoolean()
 
     /**
@@ -628,7 +629,7 @@ public open class TextBuffer(
      * @param iter iterator to initialize
      * @param charOffset char offset from start of buffer, counting from 0, or -1
      */
-    public open fun getIterAtOffset(iter: TextIter, charOffset: Int): Unit = gtk_text_buffer_get_iter_at_offset(gtkTextBufferPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret(), charOffset)
+    public open fun getIterAtOffset(iter: TextIter, charOffset: gint): Unit = gtk_text_buffer_get_iter_at_offset(gtkTextBufferPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret(), charOffset)
 
     /**
      * Obtains the number of lines in the buffer.
@@ -637,7 +638,7 @@ public open class TextBuffer(
      *
      * @return number of lines in the buffer
      */
-    public open fun getLineCount(): Int = gtk_text_buffer_get_line_count(gtkTextBufferPointer.reinterpret())
+    public open fun getLineCount(): gint = gtk_text_buffer_get_line_count(gtkTextBufferPointer.reinterpret())
 
     /**
      * Returns the mark named @name in buffer @buffer, or null if no such
@@ -658,7 +659,7 @@ public open class TextBuffer(
      *
      * @return The max number of undo levels allowed (0 indicates unlimited).
      */
-    public open fun getMaxUndoLevels(): UInt = gtk_text_buffer_get_max_undo_levels(gtkTextBufferPointer.reinterpret())
+    public open fun getMaxUndoLevels(): guint = gtk_text_buffer_get_max_undo_levels(gtkTextBufferPointer.reinterpret())
 
     /**
      * Indicates whether the buffer has been modified since the last call
@@ -787,7 +788,7 @@ public open class TextBuffer(
     public open fun insert(
         iter: TextIter,
         text: String,
-        len: Int,
+        len: gint,
     ): Unit = gtk_text_buffer_insert(gtkTextBufferPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret(), text, len)
 
     /**
@@ -799,7 +800,7 @@ public open class TextBuffer(
      * @param text text in UTF-8 format
      * @param len length of text, in bytes
      */
-    public open fun insertAtCursor(text: String, len: Int): Unit = gtk_text_buffer_insert_at_cursor(gtkTextBufferPointer.reinterpret(), text, len)
+    public open fun insertAtCursor(text: String, len: gint): Unit = gtk_text_buffer_insert_at_cursor(gtkTextBufferPointer.reinterpret(), text, len)
 
     /**
      * Inserts a child widget anchor into the text buffer at @iter.
@@ -842,7 +843,7 @@ public open class TextBuffer(
     public open fun insertInteractive(
         iter: TextIter,
         text: String,
-        len: Int,
+        len: gint,
         defaultEditable: Boolean,
     ): Boolean = gtk_text_buffer_insert_interactive(gtkTextBufferPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret(), text, len, defaultEditable.asGBoolean()).asBoolean()
 
@@ -863,7 +864,7 @@ public open class TextBuffer(
      */
     public open fun insertInteractiveAtCursor(
         text: String,
-        len: Int,
+        len: gint,
         defaultEditable: Boolean,
     ): Boolean = gtk_text_buffer_insert_interactive_at_cursor(gtkTextBufferPointer.reinterpret(), text, len, defaultEditable.asGBoolean()).asBoolean()
 
@@ -882,7 +883,7 @@ public open class TextBuffer(
     public open fun insertMarkup(
         iter: TextIter,
         markup: String,
-        len: Int,
+        len: gint,
     ): Unit = gtk_text_buffer_insert_markup(gtkTextBufferPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret(), markup, len)
 
     /**
@@ -1090,7 +1091,7 @@ public open class TextBuffer(
      *
      * @param maxUndoLevels the maximum number of undo actions to perform
      */
-    public open fun setMaxUndoLevels(maxUndoLevels: UInt): Unit = gtk_text_buffer_set_max_undo_levels(gtkTextBufferPointer.reinterpret(), maxUndoLevels)
+    public open fun setMaxUndoLevels(maxUndoLevels: guint): Unit = gtk_text_buffer_set_max_undo_levels(gtkTextBufferPointer.reinterpret(), maxUndoLevels)
 
     /**
      * Used to keep track of whether the buffer has been
@@ -1119,7 +1120,7 @@ public open class TextBuffer(
      * @param text UTF-8 text to insert
      * @param len length of @text in bytes
      */
-    public open fun setText(text: String, len: Int): Unit = gtk_text_buffer_set_text(gtkTextBufferPointer.reinterpret(), text, len)
+    public open fun setText(text: String, len: gint): Unit = gtk_text_buffer_set_text(gtkTextBufferPointer.reinterpret(), text, len)
 
     /**
      * Undoes the last undoable action on the buffer, if there is one.
@@ -1263,7 +1264,7 @@ public open class TextBuffer(
     public fun connectInsertText(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
         location: TextIter,
         text: String,
-        len: Int,
+        len: gint,
     ) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "insert-text", connectInsertTextFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
@@ -1356,6 +1357,13 @@ public open class TextBuffer(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of TextBuffer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_text_buffer_get_type()
     }
 }
 
@@ -1452,18 +1460,18 @@ private val connectInsertPaintableFunc:
 private val connectInsertTextFunc: CPointer<CFunction<(
     CPointer<GtkTextIter>,
     CPointer<ByteVar>,
-    Int,
+    gint,
 ) -> Unit>> = staticCFunction {
     _: COpaquePointer,
     location: CPointer<GtkTextIter>?,
     text: CPointer<ByteVar>?,
-    len: Int,
+    len: gint,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         location: TextIter,
         text: String,
-        len: Int,
+        len: gint,
     ) -> Unit>().get().invoke(location!!.run {
         TextIter(reinterpret())}
     , text?.toKString() ?: error("Expected not null string"), len)}

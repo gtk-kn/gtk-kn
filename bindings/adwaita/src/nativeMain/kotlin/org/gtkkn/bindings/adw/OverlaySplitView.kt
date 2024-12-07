@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
-import kotlin.Double
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
@@ -41,6 +40,8 @@ import org.gtkkn.native.adw.adw_overlay_split_view_set_sidebar
 import org.gtkkn.native.adw.adw_overlay_split_view_set_sidebar_position
 import org.gtkkn.native.adw.adw_overlay_split_view_set_sidebar_width_fraction
 import org.gtkkn.native.adw.adw_overlay_split_view_set_sidebar_width_unit
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -321,7 +322,7 @@ public class OverlaySplitView(
      * @since 1.4
      */
     @AdwVersion1_4
-    public var maxSidebarWidth: Double
+    public var maxSidebarWidth: gdouble
         /**
          * Gets the maximum sidebar width for @self.
          *
@@ -355,7 +356,7 @@ public class OverlaySplitView(
      * @since 1.4
      */
     @AdwVersion1_4
-    public var minSidebarWidth: Double
+    public var minSidebarWidth: gdouble
         /**
          * Gets the minimum sidebar width for @self.
          *
@@ -498,7 +499,7 @@ public class OverlaySplitView(
      * @since 1.4
      */
     @AdwVersion1_4
-    public var sidebarWidthFraction: Double
+    public var sidebarWidthFraction: gdouble
         /**
          * Gets the preferred sidebar width fraction for @self.
          *
@@ -566,5 +567,12 @@ public class OverlaySplitView(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of OverlaySplitView
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_overlay_split_view_get_type()
     }
 }

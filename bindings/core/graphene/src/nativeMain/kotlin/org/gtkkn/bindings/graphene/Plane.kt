@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.graphene
 
 import kotlin.Boolean
-import kotlin.Float
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -11,12 +10,15 @@ import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.graphene.graphene_plane_alloc
 import org.gtkkn.native.graphene.graphene_plane_distance
 import org.gtkkn.native.graphene.graphene_plane_equal
 import org.gtkkn.native.graphene.graphene_plane_free
 import org.gtkkn.native.graphene.graphene_plane_get_constant
 import org.gtkkn.native.graphene.graphene_plane_get_normal
+import org.gtkkn.native.graphene.graphene_plane_get_type
 import org.gtkkn.native.graphene.graphene_plane_init
 import org.gtkkn.native.graphene.graphene_plane_init_from_plane
 import org.gtkkn.native.graphene.graphene_plane_init_from_point
@@ -55,7 +57,7 @@ public class Plane(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun distance(point: Point3D): Float = graphene_plane_distance(graphenePlanePointer.reinterpret(), point.graphenePoint3DPointer.reinterpret())
+    public fun distance(point: Point3D): gfloat = graphene_plane_distance(graphenePlanePointer.reinterpret(), point.graphenePoint3DPointer.reinterpret())
 
     /**
      * Checks whether the two given #graphene_plane_t are equal.
@@ -83,7 +85,7 @@ public class Plane(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getConstant(): Float = graphene_plane_get_constant(graphenePlanePointer.reinterpret())
+    public fun getConstant(): gfloat = graphene_plane_get_constant(graphenePlanePointer.reinterpret())
 
     /**
      * Retrieves the normal vector pointing towards the origin of the
@@ -108,7 +110,7 @@ public class Plane(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun `init`(normal: Vec3? = null, constant: Float): Plane = graphene_plane_init(graphenePlanePointer.reinterpret(), normal?.grapheneVec3Pointer?.reinterpret(), constant)!!.run {
+    public fun `init`(normal: Vec3? = null, constant: gfloat): Plane = graphene_plane_init(graphenePlanePointer.reinterpret(), normal?.grapheneVec3Pointer?.reinterpret(), constant)!!.run {
         Plane(reinterpret())}
 
     /**
@@ -224,6 +226,13 @@ public class Plane(
          * @since 1.2
          */
         public fun alloc(): Plane = Plane(graphene_plane_alloc()!!.reinterpret())
+
+        /**
+         * Get the GType of Plane
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = graphene_plane_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Plane = Plane(pointer.reinterpret())
     }

@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
@@ -13,8 +12,11 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GDBusAnnotationInfo
+import org.gtkkn.native.gio.g_dbus_annotation_info_get_type
 import org.gtkkn.native.gio.g_dbus_annotation_info_ref
 import org.gtkkn.native.gio.g_dbus_annotation_info_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -36,7 +38,7 @@ public class DBusAnnotationInfo(
     /**
      * The reference count or -1 if statically allocated.
      */
-    public var refCount: Int
+    public var refCount: gint
         get() = gioDBusAnnotationInfoPointer.pointed.ref_count
         set(`value`) {
             gioDBusAnnotationInfoPointer.pointed.ref_count = value
@@ -80,6 +82,13 @@ public class DBusAnnotationInfo(
     public fun unref(): Unit = g_dbus_annotation_info_unref(gioDBusAnnotationInfoPointer.reinterpret())
 
     public companion object : RecordCompanion<DBusAnnotationInfo, GDBusAnnotationInfo> {
+        /**
+         * Get the GType of DBusAnnotationInfo
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_annotation_info_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusAnnotationInfo = DBusAnnotationInfo(pointer.reinterpret())
     }
 }

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -22,7 +21,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAccessibleRange
 import org.gtkkn.native.gtk.GtkBuildable
@@ -195,7 +196,7 @@ public open class LevelBar(
     /**
      * Determines the maximum value of the interval that can be displayed by the bar.
      */
-    public open var maxValue: Double
+    public open var maxValue: gdouble
         /**
          * Returns the `max-value` of the `GtkLevelBar`.
          *
@@ -215,7 +216,7 @@ public open class LevelBar(
     /**
      * Determines the minimum value of the interval that can be displayed by the bar.
      */
-    public open var minValue: Double
+    public open var minValue: gdouble
         /**
          * Returns the `min-value` of the `GtkLevelBar`.
          *
@@ -262,7 +263,7 @@ public open class LevelBar(
     /**
      * Determines the currently filled value of the level bar.
      */
-    public open var `value`: Double
+    public open var `value`: gdouble
         /**
          * Returns the `value` of the `GtkLevelBar`.
          *
@@ -292,7 +293,7 @@ public open class LevelBar(
      * @param maxValue a positive value
      * @return a `GtkLevelBar`
      */
-    public constructor(minValue: Double, maxValue: Double) : this(gtk_level_bar_new_for_interval(minValue, maxValue)!!.reinterpret())
+    public constructor(minValue: gdouble, maxValue: gdouble) : this(gtk_level_bar_new_for_interval(minValue, maxValue)!!.reinterpret())
 
     /**
      * Adds a new offset marker on @self at the position specified by @value.
@@ -308,7 +309,7 @@ public open class LevelBar(
      * @param name the name of the new offset
      * @param value the value for the new offset
      */
-    public open fun addOffsetValue(name: String, `value`: Double): Unit = gtk_level_bar_add_offset_value(gtkLevelBarPointer.reinterpret(), name, `value`)
+    public open fun addOffsetValue(name: String, `value`: gdouble): Unit = gtk_level_bar_add_offset_value(gtkLevelBarPointer.reinterpret(), name, `value`)
 
     /**
      * Removes an offset marker from a `GtkLevelBar`.
@@ -341,6 +342,13 @@ public open class LevelBar(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of LevelBar
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_level_bar_get_type()
     }
 }
 

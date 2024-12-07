@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -28,7 +27,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkIconTheme
 import org.gtkkn.native.gtk.gtk_icon_theme_add_resource_path
 import org.gtkkn.native.gtk.gtk_icon_theme_add_search_path
@@ -277,8 +278,8 @@ public open class IconTheme(
      */
     public open fun lookupByGicon(
         icon: Icon,
-        size: Int,
-        scale: Int,
+        size: gint,
+        scale: gint,
         direction: TextDirection,
         flags: IconLookupFlags,
     ): IconPaintable = gtk_icon_theme_lookup_by_gicon(gtkIconThemePointer.reinterpret(), icon.gioIconPointer, size, scale, direction.nativeValue, flags.mask)!!.run {
@@ -314,8 +315,8 @@ public open class IconTheme(
     public open fun lookupIcon(
         iconName: String,
         fallbacks: List<String>? = null,
-        size: Int,
-        scale: Int,
+        size: gint,
+        scale: gint,
         direction: TextDirection,
         flags: IconLookupFlags,
     ): IconPaintable = memScoped {
@@ -371,6 +372,13 @@ public open class IconTheme(
          */
         public fun getForDisplay(display: Display): IconTheme = gtk_icon_theme_get_for_display(display.gdkDisplayPointer.reinterpret())!!.run {
             IconTheme(reinterpret())}
+
+        /**
+         * Get the GType of IconTheme
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_icon_theme_get_type()
     }
 }
 

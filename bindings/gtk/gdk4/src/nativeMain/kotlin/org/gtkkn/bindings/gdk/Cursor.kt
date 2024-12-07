@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
-import kotlin.Int
 import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -19,6 +18,8 @@ import org.gtkkn.native.gdk.gdk_cursor_get_texture
 import org.gtkkn.native.gdk.gdk_cursor_get_type
 import org.gtkkn.native.gdk.gdk_cursor_new_from_name
 import org.gtkkn.native.gdk.gdk_cursor_new_from_texture
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * `GdkCursor` is used to create and destroy cursors.
@@ -85,7 +86,7 @@ public open class Cursor(
     /**
      * X position of the cursor hotspot in the cursor image.
      */
-    public open val hotspotX: Int
+    public open val hotspotX: gint
         /**
          * Returns the horizontal offset of the hotspot.
          *
@@ -102,7 +103,7 @@ public open class Cursor(
     /**
      * Y position of the cursor hotspot in the cursor image.
      */
-    public open val hotspotY: Int
+    public open val hotspotY: gint
         /**
          * Returns the vertical offset of the hotspot.
          *
@@ -188,8 +189,8 @@ public open class Cursor(
      */
     public constructor(
         texture: Texture,
-        hotspotX: Int,
-        hotspotY: Int,
+        hotspotX: gint,
+        hotspotY: gint,
         fallback: Cursor? = null,
     ) : this(gdk_cursor_new_from_texture(texture.gdkTexturePointer.reinterpret(), hotspotX, hotspotY, fallback?.gdkCursorPointer?.reinterpret())!!.reinterpret())
 
@@ -199,5 +200,12 @@ public open class Cursor(
 
         init {
             GdkTypeProvider.register()}
+
+        /**
+         * Get the GType of Cursor
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_cursor_get_type()
     }
 }

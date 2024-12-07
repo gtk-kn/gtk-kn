@@ -2,10 +2,7 @@
 package org.gtkkn.bindings.gdk
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -38,6 +35,9 @@ import org.gtkkn.native.gdk.gdk_toplevel_set_transient_for
 import org.gtkkn.native.gdk.gdk_toplevel_show_window_menu
 import org.gtkkn.native.gdk.gdk_toplevel_supports_edge_constraints
 import org.gtkkn.native.gdk.gdk_toplevel_titlebar_gesture
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 
 /**
  * A `GdkToplevel` is a freestanding toplevel surface.
@@ -89,10 +89,10 @@ public interface Toplevel : Interface, KGTyped {
      */
     public fun beginMove(
         device: Device,
-        button: Int,
-        x: Double,
-        y: Double,
-        timestamp: UInt,
+        button: gint,
+        x: gdouble,
+        y: gdouble,
+        timestamp: guint,
     ): Unit = gdk_toplevel_begin_move(gdkToplevelPointer.reinterpret(), device.gdkDevicePointer.reinterpret(), button, x, y, timestamp)
 
     /**
@@ -111,10 +111,10 @@ public interface Toplevel : Interface, KGTyped {
     public fun beginResize(
         edge: SurfaceEdge,
         device: Device? = null,
-        button: Int,
-        x: Double,
-        y: Double,
-        timestamp: UInt,
+        button: gint,
+        x: gdouble,
+        y: gdouble,
+        timestamp: guint,
     ): Unit = gdk_toplevel_begin_resize(gdkToplevelPointer.reinterpret(), edge.nativeValue, device?.gdkDevicePointer?.reinterpret(), button, x, y, timestamp)
 
     /**
@@ -126,7 +126,7 @@ public interface Toplevel : Interface, KGTyped {
      *
      * @param timestamp timestamp of the event triggering the surface focus
      */
-    public fun focus(timestamp: UInt): Unit = gdk_toplevel_focus(gdkToplevelPointer.reinterpret(), timestamp)
+    public fun focus(timestamp: guint): Unit = gdk_toplevel_focus(gdkToplevelPointer.reinterpret(), timestamp)
 
     /**
      * Gets the bitwise or of the currently active surface state flags,

@@ -3,7 +3,6 @@ package org.gtkkn.bindings.gio
 
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -53,7 +52,9 @@ import org.gtkkn.native.gio.g_resolver_lookup_service_finish
 import org.gtkkn.native.gio.g_resolver_set_default
 import org.gtkkn.native.gio.g_resolver_set_timeout
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.guint
 
 /**
  * The object that handles DNS resolution. Use [func@Gio.Resolver.get_default]
@@ -98,7 +99,7 @@ public open class Resolver(
      * @since 2.78
      */
     @GioVersion2_78
-    public open var timeout: UInt
+    public open var timeout: guint
         /**
          * Get the timeout applied to all resolver lookups. See #GResolver:timeout.
          *
@@ -595,6 +596,13 @@ public open class Resolver(
         @GioVersion2_22
         public fun getDefault(): Resolver = g_resolver_get_default()!!.run {
             Resolver(reinterpret())}
+
+        /**
+         * Get the GType of Resolver
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_resolver_get_type()
     }
 }
 

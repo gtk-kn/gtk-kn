@@ -3,7 +3,6 @@ package org.gtkkn.bindings.pango
 
 import kotlin.Boolean
 import kotlin.Result
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
@@ -25,6 +24,8 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gunichar
 import org.gtkkn.native.pango.PangoFont
 import org.gtkkn.native.pango.pango_font_describe
 import org.gtkkn.native.pango.pango_font_describe_with_absolute_size
@@ -170,7 +171,7 @@ public open class Font(
      * @since 1.44
      */
     @PangoVersion1_44
-    public open fun hasChar(wc: UInt): Boolean = pango_font_has_char(pangoFontPointer.reinterpret(), wc).asBoolean()
+    public open fun hasChar(wc: gunichar): Boolean = pango_font_has_char(pangoFontPointer.reinterpret(), wc).asBoolean()
 
     /**
      * Serializes the @font in a way that can be uniquely identified.
@@ -224,5 +225,12 @@ public open class Font(
                 Result.success(gResult)
             }
         }
+
+        /**
+         * Get the GType of Font
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_font_get_type()
     }
 }

@@ -20,6 +20,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -341,6 +342,13 @@ public open class Expander(
          * @return a new `GtkExpander` widget.
          */
         public fun newWithMnemonic(label: String? = null): Expander = Expander(gtk_expander_new_with_mnemonic(label)!!.reinterpret())
+
+        /**
+         * Get the GType of Expander
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_expander_get_type()
     }
 }
 

@@ -14,6 +14,8 @@ import org.gtkkn.native.glib.g_thread_ref
 import org.gtkkn.native.glib.g_thread_self
 import org.gtkkn.native.glib.g_thread_unref
 import org.gtkkn.native.glib.g_thread_yield
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_thread_get_type
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -96,6 +98,13 @@ public class Thread(
          * This function is often used as a method to make busy wait less evil.
          */
         public fun `yield`(): Unit = g_thread_yield()
+
+        /**
+         * Get the GType of Thread
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_thread_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Thread = Thread(pointer.reinterpret())
     }

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.ULong
@@ -51,7 +50,9 @@ import org.gtkkn.native.gio.g_dbus_interface_skeleton_set_flags
 import org.gtkkn.native.gio.g_dbus_interface_skeleton_unexport
 import org.gtkkn.native.gio.g_dbus_interface_skeleton_unexport_from_connection
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 
 /**
  * Abstract base class for D-Bus interfaces on the service side.
@@ -286,11 +287,18 @@ public open class DBusInterfaceSkeleton(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of DBusInterfaceSkeleton
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_interface_skeleton_get_type()
     }
 }
 
 private val connectGAuthorizeMethodFunc:
-        CPointer<CFunction<(CPointer<GDBusMethodInvocation>) -> Int>> = staticCFunction {
+        CPointer<CFunction<(CPointer<GDBusMethodInvocation>) -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     invocation: CPointer<GDBusMethodInvocation>?,
     userData: COpaquePointer

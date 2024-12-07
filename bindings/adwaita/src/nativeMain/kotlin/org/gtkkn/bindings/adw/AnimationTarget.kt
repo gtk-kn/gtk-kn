@@ -9,6 +9,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.adw.AdwAnimationTarget
 import org.gtkkn.native.adw.adw_animation_target_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Represents a value [class@Animation] can animate.
@@ -26,5 +27,12 @@ public open class AnimationTarget(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of AnimationTarget
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_animation_target_get_type()
     }
 }

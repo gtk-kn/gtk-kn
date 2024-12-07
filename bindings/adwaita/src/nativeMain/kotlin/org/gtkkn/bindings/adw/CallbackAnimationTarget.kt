@@ -11,6 +11,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.adw.AdwCallbackAnimationTarget
 import org.gtkkn.native.adw.adw_callback_animation_target_get_type
 import org.gtkkn.native.adw.adw_callback_animation_target_new
+import org.gtkkn.native.gobject.GType
 
 /**
  * An [class@AnimationTarget] that calls a given callback during the
@@ -38,5 +39,12 @@ public class CallbackAnimationTarget(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of CallbackAnimationTarget
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_callback_animation_target_get_type()
     }
 }

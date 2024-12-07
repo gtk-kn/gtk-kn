@@ -1,12 +1,13 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
-import kotlin.Float
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskBlurNode
 import org.gtkkn.native.gsk.gsk_blur_node_get_child
 import org.gtkkn.native.gsk.gsk_blur_node_get_radius
@@ -30,7 +31,7 @@ public open class BlurNode(
      * @param radius the blur radius. Must be positive
      * @return a new `GskRenderNode`
      */
-    public constructor(child: RenderNode, radius: Float) : this(gsk_blur_node_new(child.gPointer.reinterpret(), radius)!!.reinterpret())
+    public constructor(child: RenderNode, radius: gfloat) : this(gsk_blur_node_new(child.gPointer.reinterpret(), radius)!!.reinterpret())
 
     /**
      * Retrieves the child `GskRenderNode` of the blur @node.
@@ -45,7 +46,7 @@ public open class BlurNode(
      *
      * @return the blur radius
      */
-    public open fun getRadius(): Float = gsk_blur_node_get_radius(gskBlurNodePointer.reinterpret())
+    public open fun getRadius(): gfloat = gsk_blur_node_get_radius(gskBlurNodePointer.reinterpret())
 
     public companion object : TypeCompanion<BlurNode> {
         override val type: GeneratedClassKGType<BlurNode> =
@@ -53,5 +54,12 @@ public open class BlurNode(
 
         init {
             GskTypeProvider.register()}
+
+        /**
+         * Get the GType of BlurNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_blur_node_get_type()
     }
 }

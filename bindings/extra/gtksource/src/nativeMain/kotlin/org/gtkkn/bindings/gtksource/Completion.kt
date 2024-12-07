@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtksource
 
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -19,7 +18,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtksource.GtkSourceCompletion
 import org.gtkkn.native.gtksource.GtkSourceCompletionProvider
 import org.gtkkn.native.gtksource.gtk_source_completion_add_provider
@@ -96,7 +97,7 @@ public open class Completion(
     /**
      * The number of rows to display to the user before scrolling.
      */
-    public open var pageSize: UInt
+    public open var pageSize: guint
         get() = gtk_source_completion_get_page_size(gtksourceCompletionPointer.reinterpret())
         set(pageSize) = gtk_source_completion_set_page_size(gtksourceCompletionPointer.reinterpret(), pageSize)
 
@@ -202,6 +203,13 @@ public open class Completion(
          */
         public fun fuzzyHighlight(haystack: String, casefoldQuery: String): AttrList? = gtk_source_completion_fuzzy_highlight(haystack, casefoldQuery)?.run {
             AttrList(reinterpret())}
+
+        /**
+         * Get the GType of Completion
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_completion_get_type()
     }
 }
 

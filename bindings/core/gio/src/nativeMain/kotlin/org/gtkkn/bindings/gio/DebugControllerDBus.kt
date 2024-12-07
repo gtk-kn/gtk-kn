@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Throws
 import kotlin.ULong
 import kotlin.Unit
@@ -36,7 +35,9 @@ import org.gtkkn.native.gio.g_debug_controller_dbus_get_type
 import org.gtkkn.native.gio.g_debug_controller_dbus_new
 import org.gtkkn.native.gio.g_debug_controller_dbus_stop
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 
 /**
  * `GDebugControllerDBus` is an implementation of [iface@Gio.DebugController]
@@ -253,11 +254,18 @@ public open class DebugControllerDBus(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of DebugControllerDBus
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_debug_controller_dbus_get_type()
     }
 }
 
-private val connectAuthorizeFunc: CPointer<CFunction<(CPointer<GDBusMethodInvocation>) -> Int>> =
-        staticCFunction {
+private val connectAuthorizeFunc: CPointer<CFunction<(CPointer<GDBusMethodInvocation>) -> gboolean>>
+        = staticCFunction {
     _: COpaquePointer,
     invocation: CPointer<GDBusMethodInvocation>?,
     userData: COpaquePointer

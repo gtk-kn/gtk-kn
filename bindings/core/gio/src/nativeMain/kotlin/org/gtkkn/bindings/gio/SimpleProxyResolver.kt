@@ -20,6 +20,7 @@ import org.gtkkn.native.gio.g_simple_proxy_resolver_new
 import org.gtkkn.native.gio.g_simple_proxy_resolver_set_default_proxy
 import org.gtkkn.native.gio.g_simple_proxy_resolver_set_ignore_hosts
 import org.gtkkn.native.gio.g_simple_proxy_resolver_set_uri_proxy
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GSimpleProxyResolver` is a simple [iface@Gio.ProxyResolver] implementation
@@ -121,5 +122,12 @@ public open class SimpleProxyResolver(
             return g_simple_proxy_resolver_new(defaultProxy, ignoreHosts?.toCStringList(this))!!.run {
                 ProxyResolver.wrap(reinterpret())}
         }
+
+        /**
+         * Get the GType of SimpleProxyResolver
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_simple_proxy_resolver_get_type()
     }
 }

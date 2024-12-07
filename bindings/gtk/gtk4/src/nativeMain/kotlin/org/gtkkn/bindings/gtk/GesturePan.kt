@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.Double
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -16,7 +15,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gtk.GtkGesturePan
 import org.gtkkn.native.gtk.GtkPanDirection
 import org.gtkkn.native.gtk.gtk_gesture_pan_get_orientation
@@ -79,7 +80,7 @@ public open class GesturePan(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `direction` current direction of the pan gesture; `offset` Offset along the gesture orientation
      */
-    public fun connectPan(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (direction: PanDirection, offset: Double) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "pan", connectPanFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
+    public fun connectPan(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (direction: PanDirection, offset: gdouble) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "pan", connectPanFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<GesturePan> {
         override val type: GeneratedClassKGType<GesturePan> =
@@ -87,17 +88,24 @@ public open class GesturePan(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of GesturePan
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_gesture_pan_get_type()
     }
 }
 
-private val connectPanFunc: CPointer<CFunction<(GtkPanDirection, Double) -> Unit>> =
+private val connectPanFunc: CPointer<CFunction<(GtkPanDirection, gdouble) -> Unit>> =
         staticCFunction {
     _: COpaquePointer,
     direction: GtkPanDirection,
-    offset: Double,
+    offset: gdouble,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(direction: PanDirection, offset: Double) -> Unit>().get().invoke(direction.run {
+    userData.asStableRef<(direction: PanDirection, offset: gdouble) -> Unit>().get().invoke(direction.run {
         PanDirection.fromNativeValue(this)}
     , offset)}
 .reinterpret()

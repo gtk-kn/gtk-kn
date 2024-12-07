@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
@@ -13,6 +12,8 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkFilterListModel
 import org.gtkkn.native.gtk.GtkSectionModel
 import org.gtkkn.native.gtk.gtk_filter_list_model_get_filter
@@ -136,7 +137,7 @@ public open class FilterListModel(
     /**
      * Number of items not yet filtered.
      */
-    public open val pending: UInt
+    public open val pending: guint
         /**
          * Returns the number of items that have not been filtered yet.
          *
@@ -175,5 +176,12 @@ public open class FilterListModel(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of FilterListModel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_filter_list_model_get_type()
     }
 }

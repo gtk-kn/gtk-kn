@@ -14,6 +14,7 @@ import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceLanguageManager
 import org.gtkkn.native.gtksource.gtk_source_language_manager_append_search_path
 import org.gtkkn.native.gtksource.gtk_source_language_manager_get_default
@@ -199,5 +200,12 @@ public open class LanguageManager(
          */
         public fun getDefault(): LanguageManager = gtk_source_language_manager_get_default()!!.run {
             LanguageManager(reinterpret())}
+
+        /**
+         * Get the GType of LanguageManager
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_language_manager_get_type()
     }
 }

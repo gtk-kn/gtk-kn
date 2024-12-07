@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gobject
 
 import kotlin.String
-import kotlin.UInt
-import kotlin.ULong
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -11,7 +9,9 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GTypeQuery
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -27,7 +27,7 @@ public class TypeQuery(
     /**
      * the #GType value of the type
      */
-    public var type: ULong
+    public var type: GType
         get() = gobjectTypeQueryPointer.pointed.type
         set(`value`) {
             gobjectTypeQueryPointer.pointed.type = value
@@ -44,7 +44,7 @@ public class TypeQuery(
     /**
      * the size of the class structure
      */
-    public var classSize: UInt
+    public var classSize: guint
         get() = gobjectTypeQueryPointer.pointed.class_size
         set(`value`) {
             gobjectTypeQueryPointer.pointed.class_size = value
@@ -53,7 +53,7 @@ public class TypeQuery(
     /**
      * the size of the instance structure
      */
-    public var instanceSize: UInt
+    public var instanceSize: guint
         get() = gobjectTypeQueryPointer.pointed.instance_size
         set(`value`) {
             gobjectTypeQueryPointer.pointed.instance_size = value

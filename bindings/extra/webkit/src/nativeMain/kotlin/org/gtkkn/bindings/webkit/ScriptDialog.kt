@@ -12,11 +12,13 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_24
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitScriptDialog
 import org.gtkkn.native.webkit.webkit_script_dialog_close
 import org.gtkkn.native.webkit.webkit_script_dialog_confirm_set_confirmed
 import org.gtkkn.native.webkit.webkit_script_dialog_get_dialog_type
 import org.gtkkn.native.webkit.webkit_script_dialog_get_message
+import org.gtkkn.native.webkit.webkit_script_dialog_get_type
 import org.gtkkn.native.webkit.webkit_script_dialog_prompt_get_default_text
 import org.gtkkn.native.webkit.webkit_script_dialog_prompt_set_text
 import org.gtkkn.native.webkit.webkit_script_dialog_ref
@@ -124,6 +126,13 @@ public class ScriptDialog(
     public fun unref(): Unit = webkit_script_dialog_unref(webkitScriptDialogPointer.reinterpret())
 
     public companion object : RecordCompanion<ScriptDialog, WebKitScriptDialog> {
+        /**
+         * Get the GType of ScriptDialog
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_script_dialog_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ScriptDialog = ScriptDialog(pointer.reinterpret())
     }
 }

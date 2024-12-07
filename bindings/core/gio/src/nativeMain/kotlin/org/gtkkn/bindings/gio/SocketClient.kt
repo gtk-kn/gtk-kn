@@ -4,9 +4,7 @@ package org.gtkkn.bindings.gio
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
-import kotlin.UShort
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -72,7 +70,10 @@ import org.gtkkn.native.gio.g_socket_client_set_timeout
 import org.gtkkn.native.gio.g_socket_client_set_tls
 import org.gtkkn.native.gio.g_socket_client_set_tls_validation_flags
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.guint16
 
 /**
  * `GSocketClient` is a lightweight high-level utility class for connecting to
@@ -234,7 +235,7 @@ public open class SocketClient(
      * @since 2.22
      */
     @GioVersion2_22
-    public open var timeout: UInt
+    public open var timeout: guint
         /**
          * Gets the I/O timeout time for sockets created by @client.
          *
@@ -508,7 +509,7 @@ public open class SocketClient(
     @GioVersion2_22
     public open fun connectToHost(
         hostAndPort: String,
-        defaultPort: UShort,
+        defaultPort: guint16,
         cancellable: Cancellable? = null,
     ): Result<SocketConnection> = memScoped {
         val gError = allocPointerTo<GError>()
@@ -539,7 +540,7 @@ public open class SocketClient(
     @GioVersion2_22
     public open fun connectToHostAsync(
         hostAndPort: String,
-        defaultPort: UShort,
+        defaultPort: guint16,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_socket_client_connect_to_host_async(gioSocketClientPointer.reinterpret(), hostAndPort, defaultPort, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -674,7 +675,7 @@ public open class SocketClient(
     @GioVersion2_26
     public open fun connectToUri(
         uri: String,
-        defaultPort: UShort,
+        defaultPort: guint16,
         cancellable: Cancellable? = null,
     ): Result<SocketConnection> = memScoped {
         val gError = allocPointerTo<GError>()
@@ -705,7 +706,7 @@ public open class SocketClient(
     @GioVersion2_26
     public open fun connectToUriAsync(
         uri: String,
-        defaultPort: UShort,
+        defaultPort: guint16,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_socket_client_connect_to_uri_async(gioSocketClientPointer.reinterpret(), uri, defaultPort, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -854,6 +855,13 @@ public open class SocketClient(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of SocketClient
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_socket_client_get_type()
     }
 }
 

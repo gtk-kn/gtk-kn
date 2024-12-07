@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -28,7 +27,10 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkRectangle
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkCellArea
 import org.gtkkn.native.gtk.GtkCellEditable
@@ -556,7 +558,7 @@ public open class CellArea(
     public open fun attributeConnect(
         renderer: CellRenderer,
         attribute: String,
-        column: Int,
+        column: gint,
     ): Unit = gtk_cell_area_attribute_connect(gtkCellAreaPointer.reinterpret(), renderer.gtkCellRendererPointer.reinterpret(), attribute, column)
 
     /**
@@ -577,7 +579,7 @@ public open class CellArea(
      * @param attribute an attribute on the renderer
      * @return the model column, or -1
      */
-    public open fun attributeGetColumn(renderer: CellRenderer, attribute: String): Int = gtk_cell_area_attribute_get_column(gtkCellAreaPointer.reinterpret(), renderer.gtkCellRendererPointer.reinterpret(), attribute)
+    public open fun attributeGetColumn(renderer: CellRenderer, attribute: String): gint = gtk_cell_area_attribute_get_column(gtkCellAreaPointer.reinterpret(), renderer.gtkCellRendererPointer.reinterpret(), attribute)
 
     /**
      * Gets the value of a cell property for @renderer in @area.
@@ -653,7 +655,7 @@ public open class CellArea(
         event: Event,
         cellArea: Rectangle,
         flags: CellRendererState,
-    ): Int = gtk_cell_area_event(gtkCellAreaPointer.reinterpret(), context.gtkCellAreaContextPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret(), event.gPointer.reinterpret(), cellArea.gdkRectanglePointer.reinterpret(), flags.mask)
+    ): gint = gtk_cell_area_event(gtkCellAreaPointer.reinterpret(), context.gtkCellAreaContextPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret(), event.gPointer.reinterpret(), cellArea.gdkRectanglePointer.reinterpret(), flags.mask)
 
     /**
      * This should be called by the @area’s owning layout widget
@@ -731,8 +733,8 @@ public open class CellArea(
         context: CellAreaContext,
         widget: Widget,
         cellArea: Rectangle,
-        x: Int,
-        y: Int,
+        x: gint,
+        y: gint,
         allocArea: Rectangle?,
     ): CellRenderer = gtk_cell_area_get_cell_at_position(gtkCellAreaPointer.reinterpret(), context.gtkCellAreaContextPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret(), cellArea.gdkRectanglePointer.reinterpret(), x, y, allocArea?.gdkRectanglePointer?.reinterpret())!!.run {
         CellRenderer(reinterpret())}
@@ -915,6 +917,13 @@ public open class CellArea(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of CellArea
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_cell_area_get_type()
     }
 }
 
@@ -948,14 +957,14 @@ private val connectAddEditableFunc: CPointer<CFunction<(
 private val connectApplyAttributesFunc: CPointer<CFunction<(
     CPointer<GtkTreeModel>,
     CPointer<GtkTreeIter>,
-    Int,
-    Int,
+    gboolean,
+    gboolean,
 ) -> Unit>> = staticCFunction {
     _: COpaquePointer,
     model: CPointer<GtkTreeModel>?,
     iter: CPointer<GtkTreeIter>?,
-    isExpander: Int,
-    isExpanded: Int,
+    isExpander: gboolean,
+    isExpanded: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(

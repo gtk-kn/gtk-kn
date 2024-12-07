@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
@@ -35,6 +34,8 @@ import org.gtkkn.native.gio.g_io_stream_set_pending
 import org.gtkkn.native.gio.g_io_stream_splice_async
 import org.gtkkn.native.gio.g_io_stream_splice_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * `GIOStream` represents an object that has both read and write streams.
@@ -215,7 +216,7 @@ public open class IOStream(
      */
     @GioVersion2_22
     public open fun closeAsync(
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_io_stream_close_async(gioIOStreamPointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -298,7 +299,7 @@ public open class IOStream(
     public open fun spliceAsync(
         stream2: IOStream,
         flags: IOStreamSpliceFlags,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_io_stream_splice_async(gioIOStreamPointer.reinterpret(), stream2.gioIOStreamPointer.reinterpret(), flags.mask, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -328,5 +329,12 @@ public open class IOStream(
                 Result.success(gResult)
             }
         }
+
+        /**
+         * Get the GType of IOStream
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_io_stream_get_type()
     }
 }

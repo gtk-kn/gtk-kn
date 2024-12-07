@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -66,5 +67,12 @@ public open class Separator(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of Separator
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_separator_get_type()
     }
 }

@@ -13,9 +13,11 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_30
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitITPFirstParty
 import org.gtkkn.native.webkit.webkit_itp_first_party_get_domain
 import org.gtkkn.native.webkit.webkit_itp_first_party_get_last_update_time
+import org.gtkkn.native.webkit.webkit_itp_first_party_get_type
 import org.gtkkn.native.webkit.webkit_itp_first_party_get_website_data_access_allowed
 import org.gtkkn.native.webkit.webkit_itp_first_party_ref
 import org.gtkkn.native.webkit.webkit_itp_first_party_unref
@@ -90,6 +92,13 @@ public class ITPFirstParty(
     public fun unref(): Unit = webkit_itp_first_party_unref(webkitITPFirstPartyPointer.reinterpret())
 
     public companion object : RecordCompanion<ITPFirstParty, WebKitITPFirstParty> {
+        /**
+         * Get the GType of ITPFirstParty
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_itp_first_party_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ITPFirstParty = ITPFirstParty(pointer.reinterpret())
     }
 }

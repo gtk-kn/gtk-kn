@@ -15,12 +15,14 @@ import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskPath
 import org.gtkkn.native.gsk.gsk_path_foreach
 import org.gtkkn.native.gsk.gsk_path_get_bounds
 import org.gtkkn.native.gsk.gsk_path_get_end_point
 import org.gtkkn.native.gsk.gsk_path_get_start_point
 import org.gtkkn.native.gsk.gsk_path_get_stroke_bounds
+import org.gtkkn.native.gsk.gsk_path_get_type
 import org.gtkkn.native.gsk.gsk_path_in_fill
 import org.gtkkn.native.gsk.gsk_path_is_closed
 import org.gtkkn.native.gsk.gsk_path_is_empty
@@ -279,6 +281,13 @@ public class Path(
         @GskVersion4_14
         public fun parse(string: KotlinString): Path? = gsk_path_parse(string)?.run {
             Path(reinterpret())}
+
+        /**
+         * Get the GType of Path
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_path_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Path = Path(pointer.reinterpret())
     }

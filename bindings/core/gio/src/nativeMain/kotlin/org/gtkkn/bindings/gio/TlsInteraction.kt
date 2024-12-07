@@ -29,6 +29,7 @@ import org.gtkkn.native.gio.g_tls_interaction_request_certificate
 import org.gtkkn.native.gio.g_tls_interaction_request_certificate_async
 import org.gtkkn.native.gio.g_tls_interaction_request_certificate_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GTlsInteraction` provides a mechanism for the TLS connection and database
@@ -341,5 +342,12 @@ public open class TlsInteraction(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of TlsInteraction
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_tls_interaction_get_type()
     }
 }

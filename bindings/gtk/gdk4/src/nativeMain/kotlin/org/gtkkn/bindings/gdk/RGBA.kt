@@ -2,9 +2,7 @@
 package org.gtkkn.bindings.gdk
 
 import kotlin.Boolean
-import kotlin.Float
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -17,11 +15,15 @@ import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gdk.GdkRGBA
 import org.gtkkn.native.gdk.gdk_rgba_copy
 import org.gtkkn.native.gdk.gdk_rgba_free
+import org.gtkkn.native.gdk.gdk_rgba_get_type
 import org.gtkkn.native.gdk.gdk_rgba_hash
 import org.gtkkn.native.gdk.gdk_rgba_is_clear
 import org.gtkkn.native.gdk.gdk_rgba_is_opaque
 import org.gtkkn.native.gdk.gdk_rgba_parse
 import org.gtkkn.native.gdk.gdk_rgba_to_string
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -47,7 +49,7 @@ public class RGBA(
     /**
      * The intensity of the red channel from 0.0 to 1.0 inclusive
      */
-    public var red: Float
+    public var red: gfloat
         get() = gdkRGBAPointer.pointed.red
         set(`value`) {
             gdkRGBAPointer.pointed.red = value
@@ -56,7 +58,7 @@ public class RGBA(
     /**
      * The intensity of the green channel from 0.0 to 1.0 inclusive
      */
-    public var green: Float
+    public var green: gfloat
         get() = gdkRGBAPointer.pointed.green
         set(`value`) {
             gdkRGBAPointer.pointed.green = value
@@ -65,7 +67,7 @@ public class RGBA(
     /**
      * The intensity of the blue channel from 0.0 to 1.0 inclusive
      */
-    public var blue: Float
+    public var blue: gfloat
         get() = gdkRGBAPointer.pointed.blue
         set(`value`) {
             gdkRGBAPointer.pointed.blue = value
@@ -75,7 +77,7 @@ public class RGBA(
      * The opacity of the color from 0.0 for completely translucent to
      *   1.0 for opaque
      */
-    public var alpha: Float
+    public var alpha: gfloat
         get() = gdkRGBAPointer.pointed.alpha
         set(`value`) {
             gdkRGBAPointer.pointed.alpha = value
@@ -102,7 +104,7 @@ public class RGBA(
      *
      * @return The hash value for @p
      */
-    public fun hash(): UInt = gdk_rgba_hash(gdkRGBAPointer.reinterpret())
+    public fun hash(): guint = gdk_rgba_hash(gdkRGBAPointer.reinterpret())
 
     /**
      * Checks if an @rgba value is transparent.
@@ -170,6 +172,13 @@ public class RGBA(
     override fun toString(): String = gdk_rgba_to_string(gdkRGBAPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     public companion object : RecordCompanion<RGBA, GdkRGBA> {
+        /**
+         * Get the GType of RGBA
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_rgba_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): RGBA = RGBA(pointer.reinterpret())
     }
 }

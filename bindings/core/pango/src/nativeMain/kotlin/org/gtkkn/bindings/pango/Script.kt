@@ -1,9 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
-import kotlin.UInt
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_4
+import org.gtkkn.native.gobject.gunichar
 import org.gtkkn.native.pango.PangoScript
 import org.gtkkn.native.pango.pango_script_for_unichar
 import org.gtkkn.native.pango.pango_script_get_sample_language
@@ -640,7 +640,7 @@ public enum class Script(
          * @since 1.4
          */
         @PangoVersion1_4
-        public fun forUnichar(ch: UInt): Script = pango_script_for_unichar(ch).run {
+        public fun forUnichar(ch: gunichar): Script = pango_script_for_unichar(ch).run {
             Script.fromNativeValue(this)}
 
         /**

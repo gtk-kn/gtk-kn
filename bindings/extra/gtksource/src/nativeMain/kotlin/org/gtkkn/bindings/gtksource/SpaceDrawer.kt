@@ -15,6 +15,7 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceSpaceDrawer
 import org.gtkkn.native.gtksource.gtk_source_space_drawer_bind_matrix_setting
 import org.gtkkn.native.gtksource.gtk_source_space_drawer_get_enable_matrix
@@ -191,5 +192,12 @@ public open class SpaceDrawer(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of SpaceDrawer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_space_drawer_get_type()
     }
 }

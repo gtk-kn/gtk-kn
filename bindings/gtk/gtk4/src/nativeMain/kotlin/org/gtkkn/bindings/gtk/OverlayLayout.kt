@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkOverlayLayout
 import org.gtkkn.native.gtk.gtk_overlay_layout_get_type
 import org.gtkkn.native.gtk.gtk_overlay_layout_new
@@ -39,5 +40,12 @@ public open class OverlayLayout(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of OverlayLayout
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_overlay_layout_get_type()
     }
 }

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtksource
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -28,7 +27,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkTextIter
 import org.gtkkn.native.gtk.GtkTextMark
 import org.gtkkn.native.gtksource.GtkSourceBracketMatchType
@@ -404,7 +405,7 @@ public open class Buffer(
      * @param category category to search for, or null
      * @return a newly allocated #GSList.
      */
-    public open fun getSourceMarksAtLine(line: Int, category: String? = null): SList = gtk_source_buffer_get_source_marks_at_line(gtksourceBufferPointer.reinterpret(), line, category)!!.run {
+    public open fun getSourceMarksAtLine(line: gint, category: String? = null): SList = gtk_source_buffer_get_source_marks_at_line(gtksourceBufferPointer.reinterpret(), line, category)!!.run {
         SList(reinterpret())}
 
     /**
@@ -453,7 +454,7 @@ public open class Buffer(
         start: TextIter,
         end: TextIter,
         flags: SortFlags,
-        column: Int,
+        column: gint,
     ): Unit = gtk_source_buffer_sort_lines(gtksourceBufferPointer.reinterpret(), start.gtkTextIterPointer.reinterpret(), end.gtkTextIterPointer.reinterpret(), flags.mask, column)
 
     /**
@@ -504,6 +505,13 @@ public open class Buffer(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of Buffer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_buffer_get_type()
     }
 }
 

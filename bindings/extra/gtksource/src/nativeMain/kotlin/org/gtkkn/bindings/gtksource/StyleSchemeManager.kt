@@ -13,6 +13,7 @@ import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceStyleSchemeManager
 import org.gtkkn.native.gtksource.gtk_source_style_scheme_manager_append_search_path
 import org.gtkkn.native.gtksource.gtk_source_style_scheme_manager_force_rescan
@@ -136,5 +137,12 @@ public open class StyleSchemeManager(
          */
         public fun getDefault(): StyleSchemeManager = gtk_source_style_scheme_manager_get_default()!!.run {
             StyleSchemeManager(reinterpret())}
+
+        /**
+         * Get the GType of StyleSchemeManager
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_style_scheme_manager_get_type()
     }
 }

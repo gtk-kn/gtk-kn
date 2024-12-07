@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Long
 import kotlin.Result
 import kotlin.String
@@ -57,6 +56,9 @@ import org.gtkkn.native.glib.g_uri_to_string_partial
 import org.gtkkn.native.glib.g_uri_unescape_bytes
 import org.gtkkn.native.glib.g_uri_unescape_segment
 import org.gtkkn.native.glib.g_uri_unescape_string
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_uri_get_type
+import org.gtkkn.native.gobject.gint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -317,7 +319,7 @@ public class Uri(
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun getPort(): Int = g_uri_get_port(glibUriPointer.reinterpret())
+    public fun getPort(): gint = g_uri_get_port(glibUriPointer.reinterpret())
 
     /**
      * Gets @uri's query, which may contain `%`-encoding, depending on the
@@ -447,7 +449,7 @@ public class Uri(
             scheme: String,
             userinfo: String? = null,
             host: String? = null,
-            port: Int,
+            port: gint,
             path: String,
             query: String? = null,
             fragment: String? = null,
@@ -485,7 +487,7 @@ public class Uri(
             password: String? = null,
             authParams: String? = null,
             host: String? = null,
-            port: Int,
+            port: gint,
             path: String,
             query: String? = null,
             fragment: String? = null,
@@ -579,7 +581,7 @@ public class Uri(
             scheme: String? = null,
             userinfo: String? = null,
             host: String? = null,
-            port: Int,
+            port: gint,
             path: String,
             query: String? = null,
             fragment: String? = null,
@@ -619,7 +621,7 @@ public class Uri(
             password: String? = null,
             authParams: String? = null,
             host: String? = null,
-            port: Int,
+            port: gint,
             path: String,
             query: String? = null,
             fragment: String? = null,
@@ -879,6 +881,13 @@ public class Uri(
          */
         @GLibVersion2_16
         public fun unescapeString(escapedString: String, illegalCharacters: String? = null): String? = g_uri_unescape_string(escapedString, illegalCharacters)?.toKString()
+
+        /**
+         * Get the GType of Uri
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_uri_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Uri = Uri(pointer.reinterpret())
     }

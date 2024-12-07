@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.Double
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -17,7 +16,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gtk.GtkAdjustment
 import org.gtkkn.native.gtk.gtk_adjustment_clamp_page
 import org.gtkkn.native.gtk.gtk_adjustment_configure
@@ -60,7 +61,7 @@ public open class Adjustment(
     /**
      * The minimum value of the adjustment.
      */
-    public open var lower: Double
+    public open var lower: gdouble
         /**
          * Retrieves the minimum value of the adjustment.
          *
@@ -89,7 +90,7 @@ public open class Adjustment(
     /**
      * The page increment of the adjustment.
      */
-    public open var pageIncrement: Double
+    public open var pageIncrement: gdouble
         /**
          * Retrieves the page increment of the adjustment.
          *
@@ -114,7 +115,7 @@ public open class Adjustment(
      * if the adjustment is used for a simple scalar value, e.g. in a
      * `GtkSpinButton`.
      */
-    public open var pageSize: Double
+    public open var pageSize: gdouble
         /**
          * Retrieves the page size of the adjustment.
          *
@@ -135,7 +136,7 @@ public open class Adjustment(
     /**
      * The step increment of the adjustment.
      */
-    public open var stepIncrement: Double
+    public open var stepIncrement: gdouble
         /**
          * Retrieves the step increment of the adjustment.
          *
@@ -159,7 +160,7 @@ public open class Adjustment(
      * Note that values will be restricted by `upper - page-size` if the page-size
      * property is nonzero.
      */
-    public open var upper: Double
+    public open var upper: gdouble
         /**
          * Retrieves the maximum value of the adjustment.
          *
@@ -183,7 +184,7 @@ public open class Adjustment(
     /**
      * The value of the adjustment.
      */
-    public open var `value`: Double
+    public open var `value`: gdouble
         /**
          * Gets the current value of the adjustment.
          *
@@ -217,12 +218,12 @@ public open class Adjustment(
      * @return a new `GtkAdjustment`
      */
     public constructor(
-        `value`: Double,
-        lower: Double,
-        upper: Double,
-        stepIncrement: Double,
-        pageIncrement: Double,
-        pageSize: Double,
+        `value`: gdouble,
+        lower: gdouble,
+        upper: gdouble,
+        stepIncrement: gdouble,
+        pageIncrement: gdouble,
+        pageSize: gdouble,
     ) : this(gtk_adjustment_new(`value`, lower, upper, stepIncrement, pageIncrement, pageSize)!!.reinterpret())
 
     /**
@@ -239,7 +240,7 @@ public open class Adjustment(
      * @param lower the lower value
      * @param upper the upper value
      */
-    public open fun clampPage(lower: Double, upper: Double): Unit = gtk_adjustment_clamp_page(gtkAdjustmentPointer.reinterpret(), lower, upper)
+    public open fun clampPage(lower: gdouble, upper: gdouble): Unit = gtk_adjustment_clamp_page(gtkAdjustmentPointer.reinterpret(), lower, upper)
 
     /**
      * Sets all properties of the adjustment at once.
@@ -258,12 +259,12 @@ public open class Adjustment(
      * @param pageSize the new page size
      */
     public open fun configure(
-        `value`: Double,
-        lower: Double,
-        upper: Double,
-        stepIncrement: Double,
-        pageIncrement: Double,
-        pageSize: Double,
+        `value`: gdouble,
+        lower: gdouble,
+        upper: gdouble,
+        stepIncrement: gdouble,
+        pageIncrement: gdouble,
+        pageSize: gdouble,
     ): Unit = gtk_adjustment_configure(gtkAdjustmentPointer.reinterpret(), `value`, lower, upper, stepIncrement, pageIncrement, pageSize)
 
     /**
@@ -271,7 +272,7 @@ public open class Adjustment(
      *
      * @return the minimum increment of @adjustment
      */
-    public open fun getMinimumIncrement(): Double = gtk_adjustment_get_minimum_increment(gtkAdjustmentPointer.reinterpret())
+    public open fun getMinimumIncrement(): gdouble = gtk_adjustment_get_minimum_increment(gtkAdjustmentPointer.reinterpret())
 
     /**
      * Emitted when one or more of the `GtkAdjustment` properties have been
@@ -299,6 +300,13 @@ public open class Adjustment(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of Adjustment
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_adjustment_get_type()
     }
 }
 

@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkTreeListRowSorter
 import org.gtkkn.native.gtk.gtk_tree_list_row_sorter_get_sorter
 import org.gtkkn.native.gtk.gtk_tree_list_row_sorter_get_type
@@ -73,5 +74,12 @@ public open class TreeListRowSorter(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of TreeListRowSorter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_tree_list_row_sorter_get_type()
     }
 }

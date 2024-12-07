@@ -7,6 +7,7 @@ import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskClipNode
 import org.gtkkn.native.gsk.gsk_clip_node_get_child
 import org.gtkkn.native.gsk.gsk_clip_node_get_clip
@@ -55,5 +56,12 @@ public open class ClipNode(
 
         init {
             GskTypeProvider.register()}
+
+        /**
+         * Get the GType of ClipNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_clip_node_get_type()
     }
 }

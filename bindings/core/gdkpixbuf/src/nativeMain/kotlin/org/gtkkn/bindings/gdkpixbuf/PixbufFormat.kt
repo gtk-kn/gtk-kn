@@ -3,7 +3,6 @@ package org.gtkkn.bindings.gdkpixbuf
 
 import kotlin.Boolean
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlin.collections.List
 import kotlinx.cinterop.CPointed
@@ -28,11 +27,14 @@ import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_format_get_extensions
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_format_get_license
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_format_get_mime_types
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_format_get_name
+import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_format_get_type
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_format_is_disabled
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_format_is_save_option_supported
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_format_is_scalable
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_format_is_writable
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_format_set_disabled
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -91,7 +93,7 @@ public class PixbufFormat(
     /**
      * a combination of `GdkPixbufFormatFlags`
      */
-    public var flags: UInt
+    public var flags: guint
         get() = gdkpixbufPixbufFormatPointer.pointed.flags
         set(`value`) {
             gdkpixbufPixbufFormatPointer.pointed.flags = value
@@ -247,6 +249,13 @@ public class PixbufFormat(
     public fun setDisabled(disabled: Boolean): Unit = gdk_pixbuf_format_set_disabled(gdkpixbufPixbufFormatPointer.reinterpret(), disabled.asGBoolean())
 
     public companion object : RecordCompanion<PixbufFormat, GdkPixbufFormat> {
+        /**
+         * Get the GType of PixbufFormat
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_pixbuf_format_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PixbufFormat = PixbufFormat(pointer.reinterpret())
     }
 }

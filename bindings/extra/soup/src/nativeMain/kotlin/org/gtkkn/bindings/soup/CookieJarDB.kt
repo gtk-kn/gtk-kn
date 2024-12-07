@@ -9,6 +9,7 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupCookieJarDB
 import org.gtkkn.native.soup.SoupSessionFeature
 import org.gtkkn.native.soup.soup_cookie_jar_db_get_type
@@ -59,5 +60,12 @@ public class CookieJarDB(
 
         init {
             SoupTypeProvider.register()}
+
+        /**
+         * Get the GType of CookieJarDB
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_cookie_jar_db_get_type()
     }
 }

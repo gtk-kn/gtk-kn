@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskVulkanRenderer
 import org.gtkkn.native.gsk.gsk_vulkan_renderer_get_type
 import org.gtkkn.native.gsk.gsk_vulkan_renderer_new
@@ -30,5 +31,12 @@ public open class VulkanRenderer(
 
         init {
             GskTypeProvider.register()}
+
+        /**
+         * Get the GType of VulkanRenderer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_vulkan_renderer_get_type()
     }
 }

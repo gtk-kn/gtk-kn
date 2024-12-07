@@ -11,11 +11,13 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_2
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoAttrIterator
 import org.gtkkn.native.pango.pango_attr_iterator_copy
 import org.gtkkn.native.pango.pango_attr_iterator_destroy
 import org.gtkkn.native.pango.pango_attr_iterator_get
 import org.gtkkn.native.pango.pango_attr_iterator_get_attrs
+import org.gtkkn.native.pango.pango_attr_iterator_get_type
 import org.gtkkn.native.pango.pango_attr_iterator_next
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
@@ -91,6 +93,13 @@ public class AttrIterator(
     public fun next(): Boolean = pango_attr_iterator_next(pangoAttrIteratorPointer.reinterpret()).asBoolean()
 
     public companion object : RecordCompanion<AttrIterator, PangoAttrIterator> {
+        /**
+         * Get the GType of AttrIterator
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_attr_iterator_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): AttrIterator = AttrIterator(pointer.reinterpret())
     }
 }

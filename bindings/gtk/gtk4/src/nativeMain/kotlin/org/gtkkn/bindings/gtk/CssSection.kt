@@ -9,11 +9,13 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.File
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkCssSection
 import org.gtkkn.native.gtk.gtk_css_section_get_end_location
 import org.gtkkn.native.gtk.gtk_css_section_get_file
 import org.gtkkn.native.gtk.gtk_css_section_get_parent
 import org.gtkkn.native.gtk.gtk_css_section_get_start_location
+import org.gtkkn.native.gtk.gtk_css_section_get_type
 import org.gtkkn.native.gtk.gtk_css_section_new
 import org.gtkkn.native.gtk.gtk_css_section_print
 import org.gtkkn.native.gtk.gtk_css_section_ref
@@ -127,6 +129,13 @@ public class CssSection(
             start: CssLocation,
             end: CssLocation,
         ): CssSection = CssSection(gtk_css_section_new(`file`?.gioFilePointer, start.gtkCssLocationPointer.reinterpret(), end.gtkCssLocationPointer.reinterpret())!!.reinterpret())
+
+        /**
+         * Get the GType of CssSection
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_css_section_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): CssSection = CssSection(pointer.reinterpret())
     }

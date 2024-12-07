@@ -2,10 +2,7 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
-import kotlin.Long
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
@@ -57,7 +54,11 @@ import org.gtkkn.native.gio.g_mount_operation_set_password
 import org.gtkkn.native.gio.g_mount_operation_set_password_save
 import org.gtkkn.native.gio.g_mount_operation_set_pim
 import org.gtkkn.native.gio.g_mount_operation_set_username
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gint64
+import org.gtkkn.native.gobject.guint
 
 /**
  * `GMountOperation` provides a mechanism for interacting with the user.
@@ -116,7 +117,7 @@ public open class MountOperation(
      * The index of the user's choice when a question is asked during the
      * mount operation. See the #GMountOperation::ask-question signal.
      */
-    public open var choice: Int
+    public open var choice: gint
         /**
          * Gets a choice from the mount operation.
          *
@@ -244,7 +245,7 @@ public open class MountOperation(
      * @since 2.58
      */
     @GioVersion2_58
-    public open var pim: UInt
+    public open var pim: guint
         /**
          * Gets a PIM from the mount operation.
          *
@@ -373,8 +374,8 @@ public open class MountOperation(
     @GioVersion2_34
     public fun connectShowUnmountProgress(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
         message: String,
-        timeLeft: Long,
-        bytesLeft: Long,
+        timeLeft: gint64,
+        bytesLeft: gint64,
     ) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "show-unmount-progress", connectShowUnmountProgressFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<MountOperation> {
@@ -383,6 +384,13 @@ public open class MountOperation(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of MountOperation
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_mount_operation_get_type()
     }
 }
 
@@ -442,18 +450,18 @@ private val connectReplyFunc: CPointer<CFunction<(GMountOperationResult) -> Unit
 
 private val connectShowUnmountProgressFunc: CPointer<CFunction<(
     CPointer<ByteVar>,
-    Long,
-    Long,
+    gint64,
+    gint64,
 ) -> Unit>> = staticCFunction {
     _: COpaquePointer,
     message: CPointer<ByteVar>?,
-    timeLeft: Long,
-    bytesLeft: Long,
+    timeLeft: gint64,
+    bytesLeft: gint64,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         message: String,
-        timeLeft: Long,
-        bytesLeft: Long,
+        timeLeft: gint64,
+        bytesLeft: gint64,
     ) -> Unit>().get().invoke(message?.toKString() ?: error("Expected not null string"), timeLeft, bytesLeft)}
 .reinterpret()

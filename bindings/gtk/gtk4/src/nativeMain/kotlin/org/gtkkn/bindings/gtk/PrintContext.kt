@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.Double
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -11,6 +10,8 @@ import org.gtkkn.bindings.pango.Layout
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gtk.GtkPrintContext
 import org.gtkkn.native.gtk.gtk_print_context_create_pango_context
 import org.gtkkn.native.gtk.gtk_print_context_create_pango_layout
@@ -130,7 +131,7 @@ public open class PrintContext(
      *
      * @return the horizontal resolution of @context
      */
-    public open fun getDpiX(): Double = gtk_print_context_get_dpi_x(gtkPrintContextPointer.reinterpret())
+    public open fun getDpiX(): gdouble = gtk_print_context_get_dpi_x(gtkPrintContextPointer.reinterpret())
 
     /**
      * Obtains the vertical resolution of the `GtkPrintContext`,
@@ -138,14 +139,14 @@ public open class PrintContext(
      *
      * @return the vertical resolution of @context
      */
-    public open fun getDpiY(): Double = gtk_print_context_get_dpi_y(gtkPrintContextPointer.reinterpret())
+    public open fun getDpiY(): gdouble = gtk_print_context_get_dpi_y(gtkPrintContextPointer.reinterpret())
 
     /**
      * Obtains the height of the `GtkPrintContext`, in pixels.
      *
      * @return the height of @context
      */
-    public open fun getHeight(): Double = gtk_print_context_get_height(gtkPrintContextPointer.reinterpret())
+    public open fun getHeight(): gdouble = gtk_print_context_get_height(gtkPrintContextPointer.reinterpret())
 
     /**
      * Obtains the `GtkPageSetup` that determines the page
@@ -170,7 +171,7 @@ public open class PrintContext(
      *
      * @return the width of @context
      */
-    public open fun getWidth(): Double = gtk_print_context_get_width(gtkPrintContextPointer.reinterpret())
+    public open fun getWidth(): gdouble = gtk_print_context_get_width(gtkPrintContextPointer.reinterpret())
 
     public companion object : TypeCompanion<PrintContext> {
         override val type: GeneratedClassKGType<PrintContext> =
@@ -178,5 +179,12 @@ public open class PrintContext(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of PrintContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_print_context_get_type()
     }
 }

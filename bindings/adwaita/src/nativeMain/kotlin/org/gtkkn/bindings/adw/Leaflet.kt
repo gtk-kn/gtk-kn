@@ -3,7 +3,6 @@ package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -52,6 +51,8 @@ import org.gtkkn.native.adw.adw_leaflet_set_mode_transition_duration
 import org.gtkkn.native.adw.adw_leaflet_set_transition_type
 import org.gtkkn.native.adw.adw_leaflet_set_visible_child
 import org.gtkkn.native.adw.adw_leaflet_set_visible_child_name
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -350,7 +351,7 @@ public class Leaflet(
     /**
      * The mode transition animation duration, in milliseconds.
      */
-    public var modeTransitionDuration: UInt
+    public var modeTransitionDuration: guint
         /**
          * Gets the mode transition animation duration for @self.
          *
@@ -558,5 +559,12 @@ public class Leaflet(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of Leaflet
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_leaflet_get_type()
     }
 }

@@ -2,15 +2,7 @@
 package org.gtkkn.bindings.gobject
 
 import kotlin.Boolean
-import kotlin.Byte
-import kotlin.Double
-import kotlin.Float
-import kotlin.Int
-import kotlin.Long
 import kotlin.String
-import kotlin.UByte
-import kotlin.UInt
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -44,6 +36,7 @@ import org.gtkkn.native.gobject.GInterfaceInfo
 import org.gtkkn.native.gobject.GObject
 import org.gtkkn.native.gobject.GParamSpec
 import org.gtkkn.native.gobject.GSignalInvocationHint
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GTypeClass
 import org.gtkkn.native.gobject.GTypeInfo
 import org.gtkkn.native.gobject.GTypeInstance
@@ -160,6 +153,19 @@ import org.gtkkn.native.gobject.g_type_test_flags
 import org.gtkkn.native.gobject.g_value_type_compatible
 import org.gtkkn.native.gobject.g_value_type_transformable
 import org.gtkkn.native.gobject.g_variant_get_gtype
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gint64
+import org.gtkkn.native.gobject.gint8
+import org.gtkkn.native.gobject.glong
+import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.guint64
+import org.gtkkn.native.gobject.guint8
+import org.gtkkn.native.gobject.gulong
+import org.gtkkn.native.gobject.gunichar
 
 /**
  * ## Skipped during bindings generation
@@ -225,7 +231,7 @@ public object GObject {
     /**
      * Mask containing the bits of #GParamSpec.flags which are reserved for GLib.
      */
-    public const val PARAM_MASK: UByte = UByte.MAX_VALUE
+    public const val PARAM_MASK: guint8 = UByte.MAX_VALUE
 
     /**
      * #GParamFlags value alias for %G_PARAM_STATIC_NAME | %G_PARAM_STATIC_NICK | %G_PARAM_STATIC_BLURB.
@@ -238,23 +244,23 @@ public object GObject {
      *
      * Since 2.13.0
      */
-    public const val PARAM_STATIC_STRINGS: Int = 224
+    public const val PARAM_STATIC_STRINGS: gint = 224
 
     /**
      * Minimum shift count to be used for user defined flags, to be stored in
      * #GParamSpec.flags. The maximum allowed is 10.
      */
-    public const val PARAM_USER_SHIFT: Int = 8
+    public const val PARAM_USER_SHIFT: gint = 8
 
     /**
      * A mask for all #GSignalFlags bits.
      */
-    public const val SIGNAL_FLAGS_MASK: Int = 511
+    public const val SIGNAL_FLAGS_MASK: gint = 511
 
     /**
      * A mask for all #GSignalMatchType bits.
      */
-    public const val SIGNAL_MATCH_MASK: Int = 63
+    public const val SIGNAL_MATCH_MASK: gint = 63
 
     /**
      * A bit in the type number that's supposed to be left untouched.
@@ -265,46 +271,46 @@ public object GObject {
      * An integer constant that represents the number of identifiers reserved
      * for types that are assigned at compile-time.
      */
-    public const val TYPE_FUNDAMENTAL_MAX: Int = 1020
+    public const val TYPE_FUNDAMENTAL_MAX: gint = 1020
 
     /**
      * Shift value used in converting numbers to type IDs.
      */
-    public const val TYPE_FUNDAMENTAL_SHIFT: Int = 2
+    public const val TYPE_FUNDAMENTAL_SHIFT: gint = 2
 
     /**
      * First fundamental type number to create a new fundamental type id with
      * G_TYPE_MAKE_FUNDAMENTAL() reserved for BSE.
      */
-    public const val TYPE_RESERVED_BSE_FIRST: Int = 32
+    public const val TYPE_RESERVED_BSE_FIRST: gint = 32
 
     /**
      * Last fundamental type number reserved for BSE.
      */
-    public const val TYPE_RESERVED_BSE_LAST: Int = 48
+    public const val TYPE_RESERVED_BSE_LAST: gint = 48
 
     /**
      * First fundamental type number to create a new fundamental type id with
      * G_TYPE_MAKE_FUNDAMENTAL() reserved for GLib.
      */
-    public const val TYPE_RESERVED_GLIB_FIRST: Int = 22
+    public const val TYPE_RESERVED_GLIB_FIRST: gint = 22
 
     /**
      * Last fundamental type number reserved for GLib.
      */
-    public const val TYPE_RESERVED_GLIB_LAST: Int = 31
+    public const val TYPE_RESERVED_GLIB_LAST: gint = 31
 
     /**
      * First available fundamental type number to create new fundamental
      * type id with G_TYPE_MAKE_FUNDAMENTAL().
      */
-    public const val TYPE_RESERVED_USER_FIRST: Int = 49
+    public const val TYPE_RESERVED_USER_FIRST: gint = 49
 
     /**
      * The maximal number of #GTypeCValues which can be collected for a
      * single #GValue.
      */
-    public const val VALUE_COLLECT_FORMAT_MAX_LENGTH: Int = 8
+    public const val VALUE_COLLECT_FORMAT_MAX_LENGTH: gint = 8
 
     /**
      * For string values, indicates that the string contained is canonical and will
@@ -312,7 +318,7 @@ public object GObject {
      *
      * @since 2.66
      */
-    public const val VALUE_INTERNED_STRING: Int = 268435456
+    public const val VALUE_INTERNED_STRING: gint = 268435456
 
     /**
      * If passed to G_VALUE_COLLECT(), allocated data won't be copied
@@ -320,7 +326,7 @@ public object GObject {
      * objects. This does not affect usage of g_value_copy(), the data will
      * be copied if it is not ref-counted.
      */
-    public const val VALUE_NOCOPY_CONTENTS: Int = 134217728
+    public const val VALUE_NOCOPY_CONTENTS: gint = 134217728
 
     /**
      * Returns the #GEnumValue for a value.
@@ -330,7 +336,7 @@ public object GObject {
      * @return the #GEnumValue for @value, or null
      *          if @value is not a member of the enumeration
      */
-    public fun enumGetValue(enumClass: EnumClass, `value`: Int): EnumValue? = g_enum_get_value(enumClass.gobjectEnumClassPointer.reinterpret(), `value`)?.run {
+    public fun enumGetValue(enumClass: EnumClass, `value`: gint): EnumValue? = g_enum_get_value(enumClass.gobjectEnumClassPointer.reinterpret(), `value`)?.run {
         EnumValue(reinterpret())}
 
     /**
@@ -371,7 +377,7 @@ public object GObject {
      *  be stack-allocated.
      * @return The new type identifier.
      */
-    public fun enumRegisterStatic(name: String, constStaticValues: EnumValue): ULong = g_enum_register_static(name, constStaticValues.gobjectEnumValuePointer.reinterpret())
+    public fun enumRegisterStatic(name: String, constStaticValues: EnumValue): GType = g_enum_register_static(name, constStaticValues.gobjectEnumValuePointer.reinterpret())
 
     /**
      * Pretty-prints @value in the form of the enum’s name.
@@ -385,7 +391,7 @@ public object GObject {
      * @since 2.54
      */
     @GObjectVersion2_54
-    public fun enumToString(gEnumType: ULong, `value`: Int): String = g_enum_to_string(gEnumType, `value`)?.toKString() ?: error("Expected not null string")
+    public fun enumToString(gEnumType: GType, `value`: gint): String = g_enum_to_string(gEnumType, `value`)?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the first #GFlagsValue which is set in @value.
@@ -395,7 +401,7 @@ public object GObject {
      * @return the first #GFlagsValue which is set in
      *          @value, or null if none is set
      */
-    public fun flagsGetFirstValue(flagsClass: FlagsClass, `value`: UInt): FlagsValue? = g_flags_get_first_value(flagsClass.gobjectFlagsClassPointer.reinterpret(), `value`)?.run {
+    public fun flagsGetFirstValue(flagsClass: FlagsClass, `value`: guint): FlagsValue? = g_flags_get_first_value(flagsClass.gobjectFlagsClassPointer.reinterpret(), `value`)?.run {
         FlagsValue(reinterpret())}
 
     /**
@@ -433,7 +439,7 @@ public object GObject {
      *  GObject keeps a reference to the data, so it cannot be stack-allocated.
      * @return The new type identifier.
      */
-    public fun flagsRegisterStatic(name: String, constStaticValues: FlagsValue): ULong = g_flags_register_static(name, constStaticValues.gobjectFlagsValuePointer.reinterpret())
+    public fun flagsRegisterStatic(name: String, constStaticValues: FlagsValue): GType = g_flags_register_static(name, constStaticValues.gobjectFlagsValuePointer.reinterpret())
 
     /**
      * Pretty-prints @value in the form of the flag names separated by ` | ` and
@@ -448,9 +454,9 @@ public object GObject {
      * @since 2.54
      */
     @GObjectVersion2_54
-    public fun flagsToString(flagsType: ULong, `value`: UInt): String = g_flags_to_string(flagsType, `value`)?.toKString() ?: error("Expected not null string")
+    public fun flagsToString(flagsType: GType, `value`: guint): String = g_flags_to_string(flagsType, `value`)?.toKString() ?: error("Expected not null string")
 
-    public fun gtypeGetType(): ULong = g_gtype_get_type()
+    public fun gtypeGetType(): GType = g_gtype_get_type()
 
     /**
      * Creates a new #GParamSpecBoolean instance specifying a %G_TYPE_BOOLEAN
@@ -494,7 +500,7 @@ public object GObject {
         name: String,
         nick: String? = null,
         blurb: String? = null,
-        boxedType: ULong,
+        boxedType: GType,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_boxed(name, nick, blurb, boxedType, flags.mask)!!.run {
         ParamSpec(reinterpret())}
@@ -515,9 +521,9 @@ public object GObject {
         name: String,
         nick: String? = null,
         blurb: String? = null,
-        minimum: Byte,
-        maximum: Byte,
-        defaultValue: Byte,
+        minimum: gint8,
+        maximum: gint8,
+        defaultValue: gint8,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_char(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
         ParamSpec(reinterpret())}
@@ -541,9 +547,9 @@ public object GObject {
         name: String,
         nick: String? = null,
         blurb: String? = null,
-        minimum: Double,
-        maximum: Double,
-        defaultValue: Double,
+        minimum: gdouble,
+        maximum: gdouble,
+        defaultValue: gdouble,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_double(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
         ParamSpec(reinterpret())}
@@ -566,8 +572,8 @@ public object GObject {
         name: String,
         nick: String? = null,
         blurb: String? = null,
-        enumType: ULong,
-        defaultValue: Int,
+        enumType: GType,
+        defaultValue: gint,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_enum(name, nick, blurb, enumType, defaultValue, flags.mask)!!.run {
         ParamSpec(reinterpret())}
@@ -590,8 +596,8 @@ public object GObject {
         name: String,
         nick: String? = null,
         blurb: String? = null,
-        flagsType: ULong,
-        defaultValue: UInt,
+        flagsType: GType,
+        defaultValue: guint,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_flags(name, nick, blurb, flagsType, defaultValue, flags.mask)!!.run {
         ParamSpec(reinterpret())}
@@ -614,9 +620,9 @@ public object GObject {
         name: String,
         nick: String? = null,
         blurb: String? = null,
-        minimum: Float,
-        maximum: Float,
-        defaultValue: Float,
+        minimum: gfloat,
+        maximum: gfloat,
+        defaultValue: gfloat,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_float(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
         ParamSpec(reinterpret())}
@@ -641,7 +647,7 @@ public object GObject {
         name: String,
         nick: String? = null,
         blurb: String? = null,
-        isAType: ULong,
+        isAType: GType,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_gtype(name, nick, blurb, isAType, flags.mask)!!.run {
         ParamSpec(reinterpret())}
@@ -664,9 +670,9 @@ public object GObject {
         name: String,
         nick: String? = null,
         blurb: String? = null,
-        minimum: Int,
-        maximum: Int,
-        defaultValue: Int,
+        minimum: gint,
+        maximum: gint,
+        defaultValue: gint,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_int(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
         ParamSpec(reinterpret())}
@@ -689,9 +695,9 @@ public object GObject {
         name: String,
         nick: String? = null,
         blurb: String? = null,
-        minimum: Long,
-        maximum: Long,
-        defaultValue: Long,
+        minimum: gint64,
+        maximum: gint64,
+        defaultValue: gint64,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_int64(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
         ParamSpec(reinterpret())}
@@ -714,9 +720,9 @@ public object GObject {
         name: String,
         nick: String? = null,
         blurb: String? = null,
-        minimum: Long,
-        maximum: Long,
-        defaultValue: Long,
+        minimum: glong,
+        maximum: glong,
+        defaultValue: glong,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_long(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
         ParamSpec(reinterpret())}
@@ -738,7 +744,7 @@ public object GObject {
         name: String,
         nick: String? = null,
         blurb: String? = null,
-        objectType: ULong,
+        objectType: GType,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_object(name, nick, blurb, objectType, flags.mask)!!.run {
         ParamSpec(reinterpret())}
@@ -760,7 +766,7 @@ public object GObject {
         name: String,
         nick: String? = null,
         blurb: String? = null,
-        paramType: ULong,
+        paramType: GType,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_param(name, nick, blurb, paramType, flags.mask)!!.run {
         ParamSpec(reinterpret())}
@@ -823,9 +829,9 @@ public object GObject {
         name: String,
         nick: String? = null,
         blurb: String? = null,
-        minimum: UByte,
-        maximum: UByte,
-        defaultValue: UByte,
+        minimum: guint8,
+        maximum: guint8,
+        defaultValue: guint8,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_uchar(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
         ParamSpec(reinterpret())}
@@ -848,9 +854,9 @@ public object GObject {
         name: String,
         nick: String? = null,
         blurb: String? = null,
-        minimum: UInt,
-        maximum: UInt,
-        defaultValue: UInt,
+        minimum: guint,
+        maximum: guint,
+        defaultValue: guint,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_uint(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
         ParamSpec(reinterpret())}
@@ -874,9 +880,9 @@ public object GObject {
         name: String,
         nick: String? = null,
         blurb: String? = null,
-        minimum: ULong,
-        maximum: ULong,
-        defaultValue: ULong,
+        minimum: guint64,
+        maximum: guint64,
+        defaultValue: guint64,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_uint64(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
         ParamSpec(reinterpret())}
@@ -900,9 +906,9 @@ public object GObject {
         name: String,
         nick: String? = null,
         blurb: String? = null,
-        minimum: ULong,
-        maximum: ULong,
-        defaultValue: ULong,
+        minimum: gulong,
+        maximum: gulong,
+        defaultValue: gulong,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_ulong(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
         ParamSpec(reinterpret())}
@@ -925,7 +931,7 @@ public object GObject {
         name: String,
         nick: String? = null,
         blurb: String? = null,
-        defaultValue: UInt,
+        defaultValue: gunichar,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_unichar(name, nick, blurb, defaultValue, flags.mask)!!.run {
         ParamSpec(reinterpret())}
@@ -971,7 +977,7 @@ public object GObject {
      * @param pspecInfo The #GParamSpecTypeInfo for this #GParamSpec type.
      * @return The new type identifier.
      */
-    public fun paramTypeRegisterStatic(name: String, pspecInfo: ParamSpecTypeInfo): ULong = g_param_type_register_static(name, pspecInfo.gobjectParamSpecTypeInfoPointer.reinterpret())
+    public fun paramTypeRegisterStatic(name: String, pspecInfo: ParamSpecTypeInfo): GType = g_param_type_register_static(name, pspecInfo.gobjectParamSpecTypeInfoPointer.reinterpret())
 
     /**
      * Transforms @src_value into @dest_value if possible, and then
@@ -1056,7 +1062,7 @@ public object GObject {
         pspec: ParamSpec,
         value1: Value,
         value2: Value,
-    ): Int = g_param_values_cmp(pspec.gPointer.reinterpret(), value1.gobjectValuePointer.reinterpret(), value2.gobjectValuePointer.reinterpret())
+    ): gint = g_param_values_cmp(pspec.gPointer.reinterpret(), value1.gobjectValuePointer.reinterpret(), value2.gobjectValuePointer.reinterpret())
 
     /**
      * Creates a new %G_TYPE_POINTER derived type id for a new
@@ -1065,7 +1071,7 @@ public object GObject {
      * @param name the name of the new pointer type.
      * @return a new %G_TYPE_POINTER derived type id for @name.
      */
-    public fun pointerTypeRegisterStatic(name: String): ULong = g_pointer_type_register_static(name)
+    public fun pointerTypeRegisterStatic(name: String): GType = g_pointer_type_register_static(name)
 
     /**
      * Adds an emission hook for a signal, which will get called for any emission
@@ -1078,10 +1084,10 @@ public object GObject {
      * @return the hook id, for later use with g_signal_remove_emission_hook().
      */
     public fun signalAddEmissionHook(
-        signalId: UInt,
+        signalId: guint,
         detail: Quark,
         hookFunc: SignalEmissionHook,
-    ): ULong = g_signal_add_emission_hook(signalId, detail, SignalEmissionHookFunc.reinterpret(), StableRef.create(hookFunc).asCPointer(), staticStableRefDestroy.reinterpret())
+    ): gulong = g_signal_add_emission_hook(signalId, detail, SignalEmissionHookFunc.reinterpret(), StableRef.create(hookFunc).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Connects a closure to a signal for a particular object.
@@ -1104,7 +1110,7 @@ public object GObject {
         detailedSignal: String,
         closure: Closure,
         after: Boolean,
-    ): ULong = g_signal_connect_closure(instance.gPointer.reinterpret(), detailedSignal, closure.gobjectClosurePointer.reinterpret(), after.asGBoolean())
+    ): gulong = g_signal_connect_closure(instance.gPointer.reinterpret(), detailedSignal, closure.gobjectClosurePointer.reinterpret(), after.asGBoolean())
 
     /**
      * Connects a closure to a signal for a particular object.
@@ -1125,11 +1131,11 @@ public object GObject {
      */
     public fun signalConnectClosureById(
         instance: Object,
-        signalId: UInt,
+        signalId: guint,
         detail: Quark,
         closure: Closure,
         after: Boolean,
-    ): ULong = g_signal_connect_closure_by_id(instance.gPointer.reinterpret(), signalId, detail, closure.gobjectClosurePointer.reinterpret(), after.asGBoolean())
+    ): gulong = g_signal_connect_closure_by_id(instance.gPointer.reinterpret(), signalId, detail, closure.gobjectClosurePointer.reinterpret(), after.asGBoolean())
 
     /**
      * Returns the invocation hint of the innermost signal emission of instance.
@@ -1154,7 +1160,7 @@ public object GObject {
      * @param instance The instance to block the signal handler of.
      * @param handlerId Handler id of the handler to be blocked.
      */
-    public fun signalHandlerBlock(instance: Object, handlerId: ULong): Unit = g_signal_handler_block(instance.gPointer.reinterpret(), handlerId)
+    public fun signalHandlerBlock(instance: Object, handlerId: gulong): Unit = g_signal_handler_block(instance.gPointer.reinterpret(), handlerId)
 
     /**
      * Disconnects a handler from an instance so it will not be called during
@@ -1167,7 +1173,7 @@ public object GObject {
      * @param instance The instance to remove the signal handler from.
      * @param handlerId Handler id of the handler to be disconnected.
      */
-    public fun signalHandlerDisconnect(instance: Object, handlerId: ULong): Unit = g_signal_handler_disconnect(instance.gPointer.reinterpret(), handlerId)
+    public fun signalHandlerDisconnect(instance: Object, handlerId: gulong): Unit = g_signal_handler_disconnect(instance.gPointer.reinterpret(), handlerId)
 
     /**
      * Returns whether @handler_id is the ID of a handler connected to @instance.
@@ -1176,7 +1182,7 @@ public object GObject {
      * @param handlerId the handler ID.
      * @return whether @handler_id identifies a handler connected to @instance.
      */
-    public fun signalHandlerIsConnected(instance: Object, handlerId: ULong): Boolean = g_signal_handler_is_connected(instance.gPointer.reinterpret(), handlerId).asBoolean()
+    public fun signalHandlerIsConnected(instance: Object, handlerId: gulong): Boolean = g_signal_handler_is_connected(instance.gPointer.reinterpret(), handlerId).asBoolean()
 
     /**
      * Undoes the effect of a previous g_signal_handler_block() call.  A
@@ -1196,7 +1202,7 @@ public object GObject {
      * @param instance The instance to unblock the signal handler of.
      * @param handlerId Handler id of the handler to be unblocked.
      */
-    public fun signalHandlerUnblock(instance: Object, handlerId: ULong): Unit = g_signal_handler_unblock(instance.gPointer.reinterpret(), handlerId)
+    public fun signalHandlerUnblock(instance: Object, handlerId: gulong): Unit = g_signal_handler_unblock(instance.gPointer.reinterpret(), handlerId)
 
     /**
      * Destroy all signal handlers of a type instance. This function is
@@ -1234,7 +1240,7 @@ public object GObject {
      */
     public fun signalHasHandlerPending(
         instance: Object,
-        signalId: UInt,
+        signalId: guint,
         detail: Quark,
         mayBeBlocked: Boolean,
     ): Boolean = g_signal_has_handler_pending(instance.gPointer.reinterpret(), signalId, detail, mayBeBlocked.asGBoolean()).asBoolean()
@@ -1271,7 +1277,7 @@ public object GObject {
      * @param itype the type that the signal operates on.
      * @return the signal's identifying number, or 0 if no signal was found.
      */
-    public fun signalLookup(name: String, itype: ULong): UInt = g_signal_lookup(name, itype)
+    public fun signalLookup(name: String, itype: GType): guint = g_signal_lookup(name, itype)
 
     /**
      * Given the signal's identifier, finds its name.
@@ -1281,7 +1287,7 @@ public object GObject {
      * @param signalId the signal's identifying number.
      * @return the signal name, or null if the signal number was invalid.
      */
-    public fun signalName(signalId: UInt): String? = g_signal_name(signalId)?.toKString()
+    public fun signalName(signalId: guint): String? = g_signal_name(signalId)?.toKString()
 
     /**
      * Overrides the class closure (i.e. the default handler) for the given signal
@@ -1298,8 +1304,8 @@ public object GObject {
      * @param classClosure the closure.
      */
     public fun signalOverrideClassClosure(
-        signalId: UInt,
-        instanceType: ULong,
+        signalId: guint,
+        instanceType: GType,
         classClosure: Closure,
     ): Unit = g_signal_override_class_closure(signalId, instanceType, classClosure.gobjectClosurePointer.reinterpret())
 
@@ -1315,7 +1321,7 @@ public object GObject {
      * @param query A user provided structure that is
      *  filled in with constant values upon success.
      */
-    public fun signalQuery(signalId: UInt, query: SignalQuery): Unit = g_signal_query(signalId, query.gobjectSignalQueryPointer.reinterpret())
+    public fun signalQuery(signalId: guint, query: SignalQuery): Unit = g_signal_query(signalId, query.gobjectSignalQueryPointer.reinterpret())
 
     /**
      * Deletes an emission hook.
@@ -1324,7 +1330,7 @@ public object GObject {
      * @param hookId the id of the emission hook, as returned by
      *  g_signal_add_emission_hook()
      */
-    public fun signalRemoveEmissionHook(signalId: UInt, hookId: ULong): Unit = g_signal_remove_emission_hook(signalId, hookId)
+    public fun signalRemoveEmissionHook(signalId: guint, hookId: gulong): Unit = g_signal_remove_emission_hook(signalId, hookId)
 
     /**
      * Stops a signal's current emission.
@@ -1341,7 +1347,7 @@ public object GObject {
      */
     public fun signalStopEmission(
         instance: Object,
-        signalId: UInt,
+        signalId: guint,
         detail: Quark,
     ): Unit = g_signal_stop_emission(instance.gPointer.reinterpret(), signalId, detail)
 
@@ -1366,7 +1372,7 @@ public object GObject {
      *  structure which is to be invoked by the new closure
      * @return a floating reference to a new #GCClosure
      */
-    public fun signalTypeCclosureNew(itype: ULong, structOffset: UInt): Closure = g_signal_type_cclosure_new(itype, structOffset)!!.run {
+    public fun signalTypeCclosureNew(itype: GType, structOffset: guint): Closure = g_signal_type_cclosure_new(itype, structOffset)!!.run {
         Closure(reinterpret())}
 
     /**
@@ -1425,9 +1431,9 @@ public object GObject {
      * @since 2.24
      */
     @GObjectVersion2_24
-    public fun typeAddClassPrivate(classType: ULong, privateSize: ULong): Unit = g_type_add_class_private(classType, privateSize)
+    public fun typeAddClassPrivate(classType: GType, privateSize: gsize): Unit = g_type_add_class_private(classType, privateSize)
 
-    public fun typeAddInstancePrivate(classType: ULong, privateSize: ULong): Int = g_type_add_instance_private(classType, privateSize)
+    public fun typeAddInstancePrivate(classType: GType, privateSize: gsize): gint = g_type_add_instance_private(classType, privateSize)
 
     /**
      * Adds @interface_type to the dynamic @instance_type. The information
@@ -1439,8 +1445,8 @@ public object GObject {
      * @param plugin #GTypePlugin structure to retrieve the #GInterfaceInfo from
      */
     public fun typeAddInterfaceDynamic(
-        instanceType: ULong,
-        interfaceType: ULong,
+        instanceType: GType,
+        interfaceType: GType,
         plugin: TypePlugin,
     ): Unit = g_type_add_interface_dynamic(instanceType, interfaceType, plugin.gobjectTypePluginPointer)
 
@@ -1455,12 +1461,12 @@ public object GObject {
      *        (@instance_type, @interface_type) combination
      */
     public fun typeAddInterfaceStatic(
-        instanceType: ULong,
-        interfaceType: ULong,
+        instanceType: GType,
+        interfaceType: GType,
         info: InterfaceInfo,
     ): Unit = g_type_add_interface_static(instanceType, interfaceType, info.gobjectInterfaceInfoPointer.reinterpret())
 
-    public fun typeCheckClassIsA(gClass: TypeClass, isAType: ULong): Boolean = g_type_check_class_is_a(gClass.gobjectTypeClassPointer.reinterpret(), isAType).asBoolean()
+    public fun typeCheckClassIsA(gClass: TypeClass, isAType: GType): Boolean = g_type_check_class_is_a(gClass.gobjectTypeClassPointer.reinterpret(), isAType).asBoolean()
 
     /**
      * Private helper function to aid implementation of the
@@ -1471,15 +1477,15 @@ public object GObject {
      */
     public fun typeCheckInstance(instance: TypeInstance): Boolean = g_type_check_instance(instance.gobjectTypeInstancePointer.reinterpret()).asBoolean()
 
-    public fun typeCheckInstanceIsA(instance: TypeInstance, ifaceType: ULong): Boolean = g_type_check_instance_is_a(instance.gobjectTypeInstancePointer.reinterpret(), ifaceType).asBoolean()
+    public fun typeCheckInstanceIsA(instance: TypeInstance, ifaceType: GType): Boolean = g_type_check_instance_is_a(instance.gobjectTypeInstancePointer.reinterpret(), ifaceType).asBoolean()
 
-    public fun typeCheckInstanceIsFundamentallyA(instance: TypeInstance, fundamentalType: ULong): Boolean = g_type_check_instance_is_fundamentally_a(instance.gobjectTypeInstancePointer.reinterpret(), fundamentalType).asBoolean()
+    public fun typeCheckInstanceIsFundamentallyA(instance: TypeInstance, fundamentalType: GType): Boolean = g_type_check_instance_is_fundamentally_a(instance.gobjectTypeInstancePointer.reinterpret(), fundamentalType).asBoolean()
 
-    public fun typeCheckIsValueType(type: ULong): Boolean = g_type_check_is_value_type(type).asBoolean()
+    public fun typeCheckIsValueType(type: GType): Boolean = g_type_check_is_value_type(type).asBoolean()
 
     public fun typeCheckValue(`value`: Value): Boolean = g_type_check_value(`value`.gobjectValuePointer.reinterpret()).asBoolean()
 
-    public fun typeCheckValueHolds(`value`: Value, type: ULong): Boolean = g_type_check_value_holds(`value`.gobjectValuePointer.reinterpret(), type).asBoolean()
+    public fun typeCheckValueHolds(`value`: Value, type: GType): Boolean = g_type_check_value_holds(`value`.gobjectValuePointer.reinterpret(), type).asBoolean()
 
     /**
      * This function is essentially the same as g_type_class_ref(),
@@ -1493,7 +1499,7 @@ public object GObject {
      *     structure for the given type ID or null if the class does not
      *     currently exist
      */
-    public fun typeClassPeek(type: ULong): TypeClass = g_type_class_peek(type)!!.run {
+    public fun typeClassPeek(type: GType): TypeClass = g_type_class_peek(type)!!.run {
         TypeClass(reinterpret())}
 
     /**
@@ -1507,7 +1513,7 @@ public object GObject {
      * @since 2.4
      */
     @GObjectVersion2_4
-    public fun typeClassPeekStatic(type: ULong): TypeClass = g_type_class_peek_static(type)!!.run {
+    public fun typeClassPeekStatic(type: GType): TypeClass = g_type_class_peek_static(type)!!.run {
         TypeClass(reinterpret())}
 
     /**
@@ -1519,7 +1525,7 @@ public object GObject {
      * @return the #GTypeClass
      *     structure for the given type ID
      */
-    public fun typeClassRef(type: ULong): TypeClass = g_type_class_ref(type)!!.run {
+    public fun typeClassRef(type: GType): TypeClass = g_type_class_ref(type)!!.run {
         TypeClass(reinterpret())}
 
     /**
@@ -1533,7 +1539,7 @@ public object GObject {
      * @since 2.4
      */
     @GObjectVersion2_4
-    public fun typeDefaultInterfacePeek(gType: ULong): TypeInterface = g_type_default_interface_peek(gType)!!.run {
+    public fun typeDefaultInterfacePeek(gType: GType): TypeInterface = g_type_default_interface_peek(gType)!!.run {
         TypeInterface(reinterpret())}
 
     /**
@@ -1555,7 +1561,7 @@ public object GObject {
      * @since 2.4
      */
     @GObjectVersion2_4
-    public fun typeDefaultInterfaceRef(gType: ULong): TypeInterface = g_type_default_interface_ref(gType)!!.run {
+    public fun typeDefaultInterfaceRef(gType: GType): TypeInterface = g_type_default_interface_ref(gType)!!.run {
         TypeInterface(reinterpret())}
 
     /**
@@ -1579,7 +1585,7 @@ public object GObject {
      * @param type a #GType
      * @return the depth of @type
      */
-    public fun typeDepth(type: ULong): UInt = g_type_depth(type)
+    public fun typeDepth(type: GType): guint = g_type_depth(type)
 
     /**
      * Ensures that the indicated @type has been registered with the
@@ -1599,7 +1605,7 @@ public object GObject {
      * @since 2.34
      */
     @GObjectVersion2_34
-    public fun typeEnsure(type: ULong): Unit = g_type_ensure(type)
+    public fun typeEnsure(type: GType): Unit = g_type_ensure(type)
 
     /**
      * Frees an instance of a type, returning it to the instance pool for
@@ -1621,7 +1627,7 @@ public object GObject {
      * @param name type name to look up
      * @return corresponding type ID or 0
      */
-    public fun typeFromName(name: String): ULong = g_type_from_name(name)
+    public fun typeFromName(name: String): GType = g_type_from_name(name)
 
     /**
      * Internal function, used to extract the fundamental type ID portion.
@@ -1630,7 +1636,7 @@ public object GObject {
      * @param typeId valid type ID
      * @return fundamental type ID
      */
-    public fun typeFundamental(typeId: ULong): ULong = g_type_fundamental(typeId)
+    public fun typeFundamental(typeId: GType): GType = g_type_fundamental(typeId)
 
     /**
      * Returns the next free fundamental type id which can be used to
@@ -1641,7 +1647,7 @@ public object GObject {
      * @return the next available fundamental type ID to be registered,
      *     or 0 if the type system ran out of fundamental type IDs
      */
-    public fun typeFundamentalNext(): ULong = g_type_fundamental_next()
+    public fun typeFundamentalNext(): GType = g_type_fundamental_next()
 
     /**
      * Returns the number of instances allocated of the particular type;
@@ -1655,7 +1661,7 @@ public object GObject {
      * @since 2.44
      */
     @GObjectVersion2_44
-    public fun typeGetInstanceCount(type: ULong): Int = g_type_get_instance_count(type)
+    public fun typeGetInstanceCount(type: GType): gint = g_type_get_instance_count(type)
 
     /**
      * Returns the #GTypePlugin structure for @type.
@@ -1664,7 +1670,7 @@ public object GObject {
      * @return the corresponding plugin
      *     if @type is a dynamic type, null otherwise
      */
-    public fun typeGetPlugin(type: ULong): TypePlugin = g_type_get_plugin(type)!!.run {
+    public fun typeGetPlugin(type: GType): TypePlugin = g_type_get_plugin(type)!!.run {
         TypePlugin.wrap(reinterpret())}
 
     /**
@@ -1678,7 +1684,7 @@ public object GObject {
      * @since 2.36
      */
     @GObjectVersion2_36
-    public fun typeGetTypeRegistrationSerial(): UInt = g_type_get_type_registration_serial()
+    public fun typeGetTypeRegistrationSerial(): guint = g_type_get_type_registration_serial()
 
     /**
      * This function used to initialise the type system.  Since GLib 2.36,
@@ -1710,7 +1716,7 @@ public object GObject {
      * @param interfaceType #GType value of an interface type
      * @param prerequisiteType #GType value of an interface or instantiatable type
      */
-    public fun typeInterfaceAddPrerequisite(interfaceType: ULong, prerequisiteType: ULong): Unit = g_type_interface_add_prerequisite(interfaceType, prerequisiteType)
+    public fun typeInterfaceAddPrerequisite(interfaceType: GType, prerequisiteType: GType): Unit = g_type_interface_add_prerequisite(interfaceType, prerequisiteType)
 
     /**
      * Returns the #GTypePlugin structure for the dynamic interface
@@ -1723,7 +1729,7 @@ public object GObject {
      * @return the #GTypePlugin for the dynamic
      *     interface @interface_type of @instance_type
      */
-    public fun typeInterfaceGetPlugin(instanceType: ULong, interfaceType: ULong): TypePlugin = g_type_interface_get_plugin(instanceType, interfaceType)!!.run {
+    public fun typeInterfaceGetPlugin(instanceType: GType, interfaceType: GType): TypePlugin = g_type_interface_get_plugin(instanceType, interfaceType)!!.run {
         TypePlugin.wrap(reinterpret())}
 
     /**
@@ -1739,7 +1745,7 @@ public object GObject {
      * @since 2.68
      */
     @GObjectVersion2_68
-    public fun typeInterfaceInstantiatablePrerequisite(interfaceType: ULong): ULong = g_type_interface_instantiatable_prerequisite(interfaceType)
+    public fun typeInterfaceInstantiatablePrerequisite(interfaceType: GType): GType = g_type_interface_instantiatable_prerequisite(interfaceType)
 
     /**
      * Returns the #GTypeInterface structure of an interface to which the
@@ -1751,7 +1757,7 @@ public object GObject {
      *     structure of @iface_type if implemented by @instance_class, null
      *     otherwise
      */
-    public fun typeInterfacePeek(instanceClass: TypeClass, ifaceType: ULong): TypeInterface = g_type_interface_peek(instanceClass.gobjectTypeClassPointer.reinterpret(), ifaceType)!!.run {
+    public fun typeInterfacePeek(instanceClass: TypeClass, ifaceType: GType): TypeInterface = g_type_interface_peek(instanceClass.gobjectTypeClassPointer.reinterpret(), ifaceType)!!.run {
         TypeInterface(reinterpret())}
 
     /**
@@ -1764,7 +1770,7 @@ public object GObject {
      *     could conform to
      * @return true if @type is a @is_a_type
      */
-    public fun typeIsA(type: ULong, isAType: ULong): Boolean = g_type_is_a(type, isAType).asBoolean()
+    public fun typeIsA(type: GType, isAType: GType): Boolean = g_type_is_a(type, isAType).asBoolean()
 
     /**
      * Get the unique name that is assigned to a type ID.  Note that this
@@ -1776,7 +1782,7 @@ public object GObject {
      * @param type type to return name for
      * @return static type name or null
      */
-    public fun typeName(type: ULong): String? = g_type_name(type)?.toKString()
+    public fun typeName(type: GType): String? = g_type_name(type)?.toKString()
 
     public fun typeNameFromClass(gClass: TypeClass): String = g_type_name_from_class(gClass.gobjectTypeClassPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
@@ -1795,7 +1801,7 @@ public object GObject {
      * @param rootType immediate parent of the returned type
      * @return immediate child of @root_type and ancestor of @leaf_type
      */
-    public fun typeNextBase(leafType: ULong, rootType: ULong): ULong = g_type_next_base(leafType, rootType)
+    public fun typeNextBase(leafType: GType, rootType: GType): GType = g_type_next_base(leafType, rootType)
 
     /**
      * Return the direct parent type of the passed in type. If the passed
@@ -1804,7 +1810,7 @@ public object GObject {
      * @param type the derived type
      * @return the parent type
      */
-    public fun typeParent(type: ULong): ULong = g_type_parent(type)
+    public fun typeParent(type: GType): GType = g_type_parent(type)
 
     /**
      * Get the corresponding quark of the type IDs name.
@@ -1812,7 +1818,7 @@ public object GObject {
      * @param type type to return quark of type name for
      * @return the type names quark or 0
      */
-    public fun typeQname(type: ULong): Quark = g_type_qname(type)
+    public fun typeQname(type: GType): Quark = g_type_qname(type)
 
     /**
      * Queries the type system for information about a specific type.
@@ -1830,7 +1836,7 @@ public object GObject {
      * @param query a user provided structure that is
      *     filled in with constant values upon success
      */
-    public fun typeQuery(type: ULong, query: TypeQuery): Unit = g_type_query(type, query.gobjectTypeQueryPointer.reinterpret())
+    public fun typeQuery(type: GType, query: TypeQuery): Unit = g_type_query(type, query.gobjectTypeQueryPointer.reinterpret())
 
     /**
      * Registers @type_name as the name of a new dynamic type derived from
@@ -1846,11 +1852,11 @@ public object GObject {
      * @return the new type identifier or %G_TYPE_INVALID if registration failed
      */
     public fun typeRegisterDynamic(
-        parentType: ULong,
+        parentType: GType,
         typeName: String,
         plugin: TypePlugin,
         flags: TypeFlags,
-    ): ULong = g_type_register_dynamic(parentType, typeName, plugin.gobjectTypePluginPointer, flags.mask)
+    ): GType = g_type_register_dynamic(parentType, typeName, plugin.gobjectTypePluginPointer, flags.mask)
 
     /**
      * Registers @type_id as the predefined identifier and @type_name as the
@@ -1869,12 +1875,12 @@ public object GObject {
      * @return the predefined type identifier
      */
     public fun typeRegisterFundamental(
-        typeId: ULong,
+        typeId: GType,
         typeName: String,
         info: TypeInfo,
         finfo: TypeFundamentalInfo,
         flags: TypeFlags,
-    ): ULong = g_type_register_fundamental(typeId, typeName, info.gobjectTypeInfoPointer.reinterpret(), finfo.gobjectTypeFundamentalInfoPointer.reinterpret(), flags.mask)
+    ): GType = g_type_register_fundamental(typeId, typeName, info.gobjectTypeInfoPointer.reinterpret(), finfo.gobjectTypeFundamentalInfoPointer.reinterpret(), flags.mask)
 
     /**
      * Registers @type_name as the name of a new static type derived from
@@ -1890,13 +1896,13 @@ public object GObject {
      * @return the new type identifier
      */
     public fun typeRegisterStatic(
-        parentType: ULong,
+        parentType: GType,
         typeName: String,
         info: TypeInfo,
         flags: TypeFlags,
-    ): ULong = g_type_register_static(parentType, typeName, info.gobjectTypeInfoPointer.reinterpret(), flags.mask)
+    ): GType = g_type_register_static(parentType, typeName, info.gobjectTypeInfoPointer.reinterpret(), flags.mask)
 
-    public fun typeTestFlags(type: ULong, flags: UInt): Boolean = g_type_test_flags(type, flags).asBoolean()
+    public fun typeTestFlags(type: GType, flags: guint): Boolean = g_type_test_flags(type, flags).asBoolean()
 
     /**
      * Returns whether a #GValue of type @src_type can be copied into
@@ -1906,7 +1912,7 @@ public object GObject {
      * @param destType destination type for copying.
      * @return true if g_value_copy() is possible with @src_type and @dest_type.
      */
-    public fun valueTypeCompatible(srcType: ULong, destType: ULong): Boolean = g_value_type_compatible(srcType, destType).asBoolean()
+    public fun valueTypeCompatible(srcType: GType, destType: GType): Boolean = g_value_type_compatible(srcType, destType).asBoolean()
 
     /**
      * Check whether g_value_transform() is able to transform values
@@ -1918,9 +1924,9 @@ public object GObject {
      * @param destType Target type.
      * @return true if the transformation is possible, false otherwise.
      */
-    public fun valueTypeTransformable(srcType: ULong, destType: ULong): Boolean = g_value_type_transformable(srcType, destType).asBoolean()
+    public fun valueTypeTransformable(srcType: GType, destType: GType): Boolean = g_value_type_transformable(srcType, destType).asBoolean()
 
-    public fun variantGetGtype(): ULong = g_variant_get_gtype()
+    public fun variantGetGtype(): GType = g_variant_get_gtype()
 }
 
 public val BaseFinalizeFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> Unit>> =
@@ -1946,7 +1952,7 @@ public val BindingTransformFuncFunc: CPointer<CFunction<(
     CPointer<GBinding>,
     CPointer<GValue>,
     CPointer<GValue>,
-) -> Int>> = staticCFunction {
+) -> gboolean>> = staticCFunction {
     binding: CPointer<GBinding>?,
     fromValue: CPointer<GValue>?,
     toValue: CPointer<GValue>?,
@@ -2000,17 +2006,17 @@ public val ClassInitFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> Unit>
 public val ClosureMarshalFunc: CPointer<CFunction<(
     CPointer<GClosure>,
     CPointer<GValue>?,
-    UInt,
+    guint,
 ) -> Unit>> = staticCFunction {
     closure: CPointer<GClosure>?,
     returnValue: CPointer<GValue>?,
-    nParamValues: UInt,
+    nParamValues: guint,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         closure: Closure,
         returnValue: Value?,
-        nParamValues: UInt,
+        nParamValues: guint,
     ) -> Unit>().get().invoke(closure!!.run {
         Closure(reinterpret())}
     , returnValue?.run {
@@ -2073,19 +2079,19 @@ public val ObjectFinalizeFuncFunc: CPointer<CFunction<(CPointer<GObject>) -> Uni
 
 public val ObjectGetPropertyFuncFunc: CPointer<CFunction<(
     CPointer<GObject>,
-    UInt,
+    guint,
     CPointer<GValue>,
     CPointer<GParamSpec>,
 ) -> Unit>> = staticCFunction {
     `object`: CPointer<GObject>?,
-    propertyId: UInt,
+    propertyId: guint,
     `value`: CPointer<GValue>?,
     pspec: CPointer<GParamSpec>?,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         `object`: Object,
-        propertyId: UInt,
+        propertyId: guint,
         `value`: Value,
         pspec: ParamSpec,
     ) -> Unit>().get().invoke(`object`!!.run {
@@ -2099,19 +2105,19 @@ public val ObjectGetPropertyFuncFunc: CPointer<CFunction<(
 
 public val ObjectSetPropertyFuncFunc: CPointer<CFunction<(
     CPointer<GObject>,
-    UInt,
+    guint,
     CPointer<GValue>,
     CPointer<GParamSpec>,
 ) -> Unit>> = staticCFunction {
     `object`: CPointer<GObject>?,
-    propertyId: UInt,
+    propertyId: guint,
     `value`: CPointer<GValue>?,
     pspec: CPointer<GParamSpec>?,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         `object`: Object,
-        propertyId: UInt,
+        propertyId: guint,
         `value`: Value,
         pspec: ParamSpec,
     ) -> Unit>().get().invoke(`object`!!.run {
@@ -2127,7 +2133,7 @@ public val SignalAccumulatorFunc: CPointer<CFunction<(
     CPointer<GSignalInvocationHint>,
     CPointer<GValue>,
     CPointer<GValue>,
-) -> Int>> = staticCFunction {
+) -> gboolean>> = staticCFunction {
     ihint: CPointer<GSignalInvocationHint>?,
     returnAccu: CPointer<GValue>?,
     handlerReturn: CPointer<GValue>?,
@@ -2147,20 +2153,21 @@ public val SignalAccumulatorFunc: CPointer<CFunction<(
 .reinterpret()
 
 public val SignalEmissionHookFunc:
-        CPointer<CFunction<(CPointer<GSignalInvocationHint>, UInt) -> Int>> = staticCFunction {
+        CPointer<CFunction<(CPointer<GSignalInvocationHint>, guint) -> gboolean>> =
+        staticCFunction {
     ihint: CPointer<GSignalInvocationHint>?,
-    nParamValues: UInt,
+    nParamValues: guint,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(ihint: SignalInvocationHint, nParamValues: UInt) -> Boolean>().get().invoke(ihint!!.run {
+    userData.asStableRef<(ihint: SignalInvocationHint, nParamValues: guint) -> Boolean>().get().invoke(ihint!!.run {
         SignalInvocationHint(reinterpret())}
     , nParamValues).asGBoolean()}
 .reinterpret()
 
-public val ToggleNotifyFunc: CPointer<CFunction<(CPointer<GObject>, Int) -> Unit>> =
+public val ToggleNotifyFunc: CPointer<CFunction<(CPointer<GObject>, gboolean) -> Unit>> =
         staticCFunction {
     `object`: CPointer<GObject>?,
-    isLastRef: Int,
+    isLastRef: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(`object`: Object, isLastRef: Boolean) -> Unit>().get().invoke(`object`!!.run {
@@ -2168,7 +2175,7 @@ public val ToggleNotifyFunc: CPointer<CFunction<(CPointer<GObject>, Int) -> Unit
     , isLastRef.asBoolean())}
 .reinterpret()
 
-public val TypeClassCacheFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> Int>> =
+public val TypeClassCacheFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> gboolean>> =
         staticCFunction {
     gClass: CPointer<GTypeClass>?,
     userData: COpaquePointer
@@ -2190,20 +2197,20 @@ public val TypeInterfaceCheckFuncFunc: CPointer<CFunction<(CPointer<GTypeInterfa
 
 public val TypePluginCompleteInterfaceInfoFunc: CPointer<CFunction<(
     CPointer<GTypePlugin>,
-    ULong,
-    ULong,
+    GType,
+    GType,
     CPointer<GInterfaceInfo>,
 ) -> Unit>> = staticCFunction {
     plugin: CPointer<GTypePlugin>?,
-    instanceType: ULong,
-    interfaceType: ULong,
+    instanceType: GType,
+    interfaceType: GType,
     info: CPointer<GInterfaceInfo>?,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         plugin: TypePlugin,
-        instanceType: ULong,
-        interfaceType: ULong,
+        instanceType: GType,
+        interfaceType: GType,
         info: InterfaceInfo,
     ) -> Unit>().get().invoke(plugin!!.run {
         TypePlugin.wrap(reinterpret())}
@@ -2214,19 +2221,19 @@ public val TypePluginCompleteInterfaceInfoFunc: CPointer<CFunction<(
 
 public val TypePluginCompleteTypeInfoFunc: CPointer<CFunction<(
     CPointer<GTypePlugin>,
-    ULong,
+    GType,
     CPointer<GTypeInfo>,
     CPointer<GTypeValueTable>,
 ) -> Unit>> = staticCFunction {
     plugin: CPointer<GTypePlugin>?,
-    gType: ULong,
+    gType: GType,
     info: CPointer<GTypeInfo>?,
     valueTable: CPointer<GTypeValueTable>?,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         plugin: TypePlugin,
-        gType: ULong,
+        gType: GType,
         info: TypeInfo,
         valueTable: TypeValueTable,
     ) -> Unit>().get().invoke(plugin!!.run {
@@ -2513,7 +2520,7 @@ public typealias ClassInitFunc = (gClass: TypeClass) -> Unit
 public typealias ClosureMarshal = (
     closure: Closure,
     returnValue: Value?,
-    nParamValues: UInt,
+    nParamValues: guint,
 ) -> Unit
 
 /**
@@ -2587,7 +2594,7 @@ public typealias ObjectFinalizeFunc = (`object`: Object) -> Unit
  */
 public typealias ObjectGetPropertyFunc = (
     `object`: Object,
-    propertyId: UInt,
+    propertyId: guint,
     `value`: Value,
     pspec: ParamSpec,
 ) -> Unit
@@ -2603,7 +2610,7 @@ public typealias ObjectGetPropertyFunc = (
  */
 public typealias ObjectSetPropertyFunc = (
     `object`: Object,
-    propertyId: UInt,
+    propertyId: guint,
     `value`: Value,
     pspec: ParamSpec,
 ) -> Unit
@@ -2649,7 +2656,7 @@ public typealias SignalAccumulator = (
  * - return whether it wants to stay connected. If it returns false, the signal
  *  hook is disconnected (and destroyed).
  */
-public typealias SignalEmissionHook = (ihint: SignalInvocationHint, nParamValues: UInt) -> Boolean
+public typealias SignalEmissionHook = (ihint: SignalInvocationHint, nParamValues: guint) -> Boolean
 
 /**
  * A callback function used for notification when the state
@@ -2705,8 +2712,8 @@ public typealias TypeInterfaceCheckFunc = (gIface: TypeInterface) -> Unit
  */
 public typealias TypePluginCompleteInterfaceInfo = (
     plugin: TypePlugin,
-    instanceType: ULong,
-    interfaceType: ULong,
+    instanceType: GType,
+    interfaceType: GType,
     info: InterfaceInfo,
 ) -> Unit
 
@@ -2720,7 +2727,7 @@ public typealias TypePluginCompleteInterfaceInfo = (
  */
 public typealias TypePluginCompleteTypeInfo = (
     plugin: TypePlugin,
-    gType: ULong,
+    gType: GType,
     info: TypeInfo,
     valueTable: TypeValueTable,
 ) -> Unit
@@ -2825,4 +2832,4 @@ public typealias WeakNotify = (whereTheObjectWas: Object) -> Unit
  * A numerical value which represents the unique identifier of a registered
  * type.
  */
-public typealias Type = ULong
+public typealias Type = gsize

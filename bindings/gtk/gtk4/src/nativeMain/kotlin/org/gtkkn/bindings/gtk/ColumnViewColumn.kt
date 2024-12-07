@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -15,6 +14,8 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkColumnViewColumn
 import org.gtkkn.native.gtk.gtk_column_view_column_get_column_view
 import org.gtkkn.native.gtk.gtk_column_view_column_get_expand
@@ -117,7 +118,7 @@ public open class ColumnViewColumn(
      * If not -1, this is the width that the column is allocated,
      * regardless of the size of its content.
      */
-    public open var fixedWidth: Int
+    public open var fixedWidth: gint
         /**
          * Gets the fixed width of the column.
          *
@@ -296,5 +297,12 @@ public open class ColumnViewColumn(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of ColumnViewColumn
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_column_view_column_get_type()
     }
 }

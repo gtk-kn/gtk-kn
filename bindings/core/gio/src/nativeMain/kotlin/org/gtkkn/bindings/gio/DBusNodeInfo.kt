@@ -1,9 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlin.Int
 import kotlin.Result
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -20,11 +18,15 @@ import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GDBusNodeInfo
 import org.gtkkn.native.gio.g_dbus_node_info_generate_xml
+import org.gtkkn.native.gio.g_dbus_node_info_get_type
 import org.gtkkn.native.gio.g_dbus_node_info_lookup_interface
 import org.gtkkn.native.gio.g_dbus_node_info_new_for_xml
 import org.gtkkn.native.gio.g_dbus_node_info_ref
 import org.gtkkn.native.gio.g_dbus_node_info_unref
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import kotlin.String as KotlinString
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 import org.gtkkn.bindings.glib.String as GlibString
@@ -49,7 +51,7 @@ public class DBusNodeInfo(
     /**
      * The reference count or -1 if statically allocated.
      */
-    public var refCount: Int
+    public var refCount: gint
         get() = gioDBusNodeInfoPointer.pointed.ref_count
         set(`value`) {
             gioDBusNodeInfoPointer.pointed.ref_count = value
@@ -74,7 +76,7 @@ public class DBusNodeInfo(
      * @since 2.26
      */
     @GioVersion2_26
-    public fun generateXml(indent: UInt, stringBuilder: GlibString): Unit = g_dbus_node_info_generate_xml(gioDBusNodeInfoPointer.reinterpret(), indent, stringBuilder.glibStringPointer.reinterpret())
+    public fun generateXml(indent: guint, stringBuilder: GlibString): Unit = g_dbus_node_info_generate_xml(gioDBusNodeInfoPointer.reinterpret(), indent, stringBuilder.glibStringPointer.reinterpret())
 
     /**
      * Looks up information about an interface.
@@ -138,6 +140,13 @@ public class DBusNodeInfo(
                 }
             }
         }
+
+        /**
+         * Get the GType of DBusNodeInfo
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_node_info_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusNodeInfo = DBusNodeInfo(pointer.reinterpret())
     }

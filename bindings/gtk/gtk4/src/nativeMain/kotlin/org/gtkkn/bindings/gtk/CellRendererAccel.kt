@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.ByteVar
@@ -21,7 +20,9 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkModifierType
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkCellRendererAccel
 import org.gtkkn.native.gtk.gtk_cell_renderer_accel_get_type
 import org.gtkkn.native.gtk.gtk_cell_renderer_accel_new
@@ -70,9 +71,9 @@ public open class CellRendererAccel(
      */
     public fun connectAccelEdited(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
         pathString: String,
-        accelKey: UInt,
+        accelKey: guint,
         accelMods: ModifierType,
-        hardwareKeycode: UInt,
+        hardwareKeycode: guint,
     ) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "accel-edited", connectAccelEditedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<CellRendererAccel> {
@@ -81,6 +82,13 @@ public open class CellRendererAccel(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of CellRendererAccel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_cell_renderer_accel_get_type()
     }
 }
 
@@ -95,22 +103,22 @@ private val connectAccelClearedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> U
 
 private val connectAccelEditedFunc: CPointer<CFunction<(
     CPointer<ByteVar>,
-    UInt,
+    guint,
     GdkModifierType,
-    UInt,
+    guint,
 ) -> Unit>> = staticCFunction {
     _: COpaquePointer,
     pathString: CPointer<ByteVar>?,
-    accelKey: UInt,
+    accelKey: guint,
     accelMods: GdkModifierType,
-    hardwareKeycode: UInt,
+    hardwareKeycode: guint,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         pathString: String,
-        accelKey: UInt,
+        accelKey: guint,
         accelMods: ModifierType,
-        hardwareKeycode: UInt,
+        hardwareKeycode: guint,
     ) -> Unit>().get().invoke(pathString?.toKString() ?: error("Expected not null string"), accelKey, accelMods.run {
         ModifierType(this)}
     , hardwareKeycode)}

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Float
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asBoolean
@@ -10,6 +9,8 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAspectFrame
 import org.gtkkn.native.gtk.GtkBuildable
@@ -104,7 +105,7 @@ public open class AspectFrame(
      * This property is only used if
      * [property@Gtk.AspectFrame:obey-child] is set to false.
      */
-    public open var ratio: Float
+    public open var ratio: gfloat
         /**
          * Returns the desired aspect ratio of the child.
          *
@@ -121,7 +122,7 @@ public open class AspectFrame(
     /**
      * The horizontal alignment of the child.
      */
-    public open var xalign: Float
+    public open var xalign: gfloat
         /**
          * Returns the horizontal alignment of the child within the
          * allocation of the `GtkAspectFrame`.
@@ -140,7 +141,7 @@ public open class AspectFrame(
     /**
      * The vertical alignment of the child.
      */
-    public open var yalign: Float
+    public open var yalign: gfloat
         /**
          * Returns the vertical alignment of the child within the
          * allocation of the `GtkAspectFrame`.
@@ -169,9 +170,9 @@ public open class AspectFrame(
      * @return the new `GtkAspectFrame`.
      */
     public constructor(
-        xalign: Float,
-        yalign: Float,
-        ratio: Float,
+        xalign: gfloat,
+        yalign: gfloat,
+        ratio: gfloat,
         obeyChild: Boolean,
     ) : this(gtk_aspect_frame_new(xalign, yalign, ratio, obeyChild.asGBoolean())!!.reinterpret())
 
@@ -181,5 +182,12 @@ public open class AspectFrame(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of AspectFrame
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_aspect_frame_get_type()
     }
 }

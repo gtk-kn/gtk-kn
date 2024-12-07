@@ -22,6 +22,8 @@ import org.gtkkn.native.glib.g_strv_builder_new
 import org.gtkkn.native.glib.g_strv_builder_ref
 import org.gtkkn.native.glib.g_strv_builder_take
 import org.gtkkn.native.glib.g_strv_builder_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_strv_builder_get_type
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -115,6 +117,13 @@ public class StrvBuilder(
          * @since 2.68
          */
         public fun new(): StrvBuilder = StrvBuilder(g_strv_builder_new()!!.reinterpret())
+
+        /**
+         * Get the GType of StrvBuilder
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_strv_builder_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): StrvBuilder = StrvBuilder(pointer.reinterpret())
     }

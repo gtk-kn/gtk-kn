@@ -30,6 +30,8 @@ import org.gtkkn.native.glib.g_markup_parse_context_get_element_stack
 import org.gtkkn.native.glib.g_markup_parse_context_parse
 import org.gtkkn.native.glib.g_markup_parse_context_ref
 import org.gtkkn.native.glib.g_markup_parse_context_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_markup_parse_context_get_type
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -160,6 +162,13 @@ public class MarkupParseContext(
     public fun unref(): Unit = g_markup_parse_context_unref(glibMarkupParseContextPointer.reinterpret())
 
     public companion object : RecordCompanion<MarkupParseContext, GMarkupParseContext> {
+        /**
+         * Get the GType of MarkupParseContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_markup_parse_context_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MarkupParseContext = MarkupParseContext(pointer.reinterpret())
     }
 }

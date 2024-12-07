@@ -13,6 +13,7 @@ import org.gtkkn.native.gio.GAction
 import org.gtkkn.native.gio.GPropertyAction
 import org.gtkkn.native.gio.g_property_action_get_type
 import org.gtkkn.native.gio.g_property_action_new
+import org.gtkkn.native.gobject.GType
 
 /**
  * A `GPropertyAction` is a way to get a [iface@Gio.Action] with a state value
@@ -122,5 +123,12 @@ public open class PropertyAction(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of PropertyAction
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_property_action_get_type()
     }
 }

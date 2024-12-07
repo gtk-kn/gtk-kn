@@ -1,8 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
-import kotlin.UInt
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_22
+import org.gtkkn.native.gobject.gunichar
 import org.gtkkn.native.pango.PangoBidiType
 import org.gtkkn.native.pango.pango_bidi_type_for_unichar
 
@@ -153,7 +153,7 @@ public enum class BidiType(
          * @since 1.22
          */
         @PangoVersion1_22
-        public fun forUnichar(ch: UInt): BidiType = pango_bidi_type_for_unichar(ch).run {
+        public fun forUnichar(ch: gunichar): BidiType = pango_bidi_type_for_unichar(ch).run {
             BidiType.fromNativeValue(this)}
     }
 }

@@ -11,6 +11,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkTouchEvent
 import org.gtkkn.native.gdk.gdk_touch_event_get_emulating_pointer
 import org.gtkkn.native.gdk.gdk_touch_event_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * An event related to a touch-based device.
@@ -35,5 +36,12 @@ public open class TouchEvent(
 
         init {
             GdkTypeProvider.register()}
+
+        /**
+         * Get the GType of TouchEvent
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_touch_event_get_type()
     }
 }

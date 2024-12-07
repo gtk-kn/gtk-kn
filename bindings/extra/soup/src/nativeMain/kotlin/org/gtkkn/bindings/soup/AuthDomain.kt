@@ -14,6 +14,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupAuthDomain
 import org.gtkkn.native.soup.soup_auth_domain_accepts
 import org.gtkkn.native.soup.soup_auth_domain_add_path
@@ -211,5 +212,12 @@ public open class AuthDomain(
 
         init {
             SoupTypeProvider.register()}
+
+        /**
+         * Get the GType of AuthDomain
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_auth_domain_get_type()
     }
 }

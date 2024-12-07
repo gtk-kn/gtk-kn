@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkNeverTrigger
 import org.gtkkn.native.gtk.gtk_never_trigger_get
 import org.gtkkn.native.gtk.gtk_never_trigger_get_type
@@ -38,5 +39,12 @@ public open class NeverTrigger(
          */
         public fun `get`(): NeverTrigger = gtk_never_trigger_get()!!.run {
             NeverTrigger(reinterpret())}
+
+        /**
+         * Get the GType of NeverTrigger
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_never_trigger_get_type()
     }
 }

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Result
 import kotlin.String
 import kotlinx.cinterop.CPointed
@@ -23,6 +22,8 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gtk.GtkPaperSize
 import org.gtkkn.native.gtk.gtk_paper_size_copy
 import org.gtkkn.native.gtk.gtk_paper_size_free
@@ -36,6 +37,7 @@ import org.gtkkn.native.gtk.gtk_paper_size_get_height
 import org.gtkkn.native.gtk.gtk_paper_size_get_name
 import org.gtkkn.native.gtk.gtk_paper_size_get_paper_sizes
 import org.gtkkn.native.gtk.gtk_paper_size_get_ppd_name
+import org.gtkkn.native.gtk.gtk_paper_size_get_type
 import org.gtkkn.native.gtk.gtk_paper_size_get_width
 import org.gtkkn.native.gtk.gtk_paper_size_is_custom
 import org.gtkkn.native.gtk.gtk_paper_size_is_equal
@@ -88,7 +90,7 @@ public class PaperSize(
      * @param unit the unit for the return value, not %GTK_UNIT_NONE
      * @return the default bottom margin
      */
-    public fun getDefaultBottomMargin(unit: Unit): Double = gtk_paper_size_get_default_bottom_margin(gtkPaperSizePointer.reinterpret(), unit.nativeValue)
+    public fun getDefaultBottomMargin(unit: Unit): gdouble = gtk_paper_size_get_default_bottom_margin(gtkPaperSizePointer.reinterpret(), unit.nativeValue)
 
     /**
      * Gets the default left margin for the `GtkPaperSize`.
@@ -96,7 +98,7 @@ public class PaperSize(
      * @param unit the unit for the return value, not %GTK_UNIT_NONE
      * @return the default left margin
      */
-    public fun getDefaultLeftMargin(unit: Unit): Double = gtk_paper_size_get_default_left_margin(gtkPaperSizePointer.reinterpret(), unit.nativeValue)
+    public fun getDefaultLeftMargin(unit: Unit): gdouble = gtk_paper_size_get_default_left_margin(gtkPaperSizePointer.reinterpret(), unit.nativeValue)
 
     /**
      * Gets the default right margin for the `GtkPaperSize`.
@@ -104,7 +106,7 @@ public class PaperSize(
      * @param unit the unit for the return value, not %GTK_UNIT_NONE
      * @return the default right margin
      */
-    public fun getDefaultRightMargin(unit: Unit): Double = gtk_paper_size_get_default_right_margin(gtkPaperSizePointer.reinterpret(), unit.nativeValue)
+    public fun getDefaultRightMargin(unit: Unit): gdouble = gtk_paper_size_get_default_right_margin(gtkPaperSizePointer.reinterpret(), unit.nativeValue)
 
     /**
      * Gets the default top margin for the `GtkPaperSize`.
@@ -112,7 +114,7 @@ public class PaperSize(
      * @param unit the unit for the return value, not %GTK_UNIT_NONE
      * @return the default top margin
      */
-    public fun getDefaultTopMargin(unit: Unit): Double = gtk_paper_size_get_default_top_margin(gtkPaperSizePointer.reinterpret(), unit.nativeValue)
+    public fun getDefaultTopMargin(unit: Unit): gdouble = gtk_paper_size_get_default_top_margin(gtkPaperSizePointer.reinterpret(), unit.nativeValue)
 
     /**
      * Gets the human-readable name of the `GtkPaperSize`.
@@ -128,7 +130,7 @@ public class PaperSize(
      * @param unit the unit for the return value, not %GTK_UNIT_NONE
      * @return the paper height
      */
-    public fun getHeight(unit: Unit): Double = gtk_paper_size_get_height(gtkPaperSizePointer.reinterpret(), unit.nativeValue)
+    public fun getHeight(unit: Unit): gdouble = gtk_paper_size_get_height(gtkPaperSizePointer.reinterpret(), unit.nativeValue)
 
     /**
      * Gets the name of the `GtkPaperSize`.
@@ -152,7 +154,7 @@ public class PaperSize(
      * @param unit the unit for the return value, not %GTK_UNIT_NONE
      * @return the paper width
      */
-    public fun getWidth(unit: Unit): Double = gtk_paper_size_get_width(gtkPaperSizePointer.reinterpret(), unit.nativeValue)
+    public fun getWidth(unit: Unit): gdouble = gtk_paper_size_get_width(gtkPaperSizePointer.reinterpret(), unit.nativeValue)
 
     /**
      * Returns true if @size is not a standard paper size.
@@ -185,8 +187,8 @@ public class PaperSize(
      * @param unit the unit for @width and @height
      */
     public fun setSize(
-        width: Double,
-        height: Double,
+        width: gdouble,
+        height: gdouble,
         unit: Unit,
     ): kotlin.Unit = gtk_paper_size_set_size(gtkPaperSizePointer.reinterpret(), width, height, unit.nativeValue)
 
@@ -236,8 +238,8 @@ public class PaperSize(
         public fun newCustom(
             name: String,
             displayName: String,
-            width: Double,
-            height: Double,
+            width: gdouble,
+            height: gdouble,
             unit: Unit,
         ): PaperSize = PaperSize(gtk_paper_size_new_custom(name, displayName, width, height, unit.nativeValue)!!.reinterpret())
 
@@ -268,8 +270,8 @@ public class PaperSize(
          */
         public fun newFromIpp(
             ippName: String,
-            width: Double,
-            height: Double,
+            width: gdouble,
+            height: gdouble,
         ): PaperSize = PaperSize(gtk_paper_size_new_from_ipp(ippName, width, height)!!.reinterpret())
 
         /**
@@ -312,8 +314,8 @@ public class PaperSize(
         public fun newFromPpd(
             ppdName: String,
             ppdDisplayName: String,
-            width: Double,
-            height: Double,
+            width: gdouble,
+            height: gdouble,
         ): PaperSize = PaperSize(gtk_paper_size_new_from_ppd(ppdName, ppdDisplayName, width, height)!!.reinterpret())
 
         /**
@@ -335,6 +337,13 @@ public class PaperSize(
          */
         public fun getPaperSizes(includeCustom: Boolean): List = gtk_paper_size_get_paper_sizes(includeCustom.asGBoolean())!!.run {
             List(reinterpret())}
+
+        /**
+         * Get the GType of PaperSize
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_paper_size_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PaperSize = PaperSize(pointer.reinterpret())
     }

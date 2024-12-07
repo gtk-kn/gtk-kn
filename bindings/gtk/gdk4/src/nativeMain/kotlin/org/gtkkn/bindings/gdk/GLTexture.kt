@@ -13,6 +13,7 @@ import org.gtkkn.native.gdk.gdk_gl_texture_get_type
 import org.gtkkn.native.gdk.gdk_gl_texture_release
 import org.gtkkn.native.gio.GIcon
 import org.gtkkn.native.gio.GLoadableIcon
+import org.gtkkn.native.gobject.GType
 
 /**
  * A GdkTexture representing a GL texture object.
@@ -52,5 +53,12 @@ public open class GLTexture(
 
         init {
             GdkTypeProvider.register()}
+
+        /**
+         * Get the GType of GLTexture
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_gl_texture_get_type()
     }
 }

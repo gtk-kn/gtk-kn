@@ -1,13 +1,14 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
-import kotlin.ULong
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gsk.GskLinearGradientNode
 import org.gtkkn.native.gsk.gsk_linear_gradient_node_get_end
 import org.gtkkn.native.gsk.gsk_linear_gradient_node_get_n_color_stops
@@ -42,7 +43,7 @@ public open class LinearGradientNode(
      *
      * @return the number of color stops
      */
-    public open fun getNColorStops(): ULong = gsk_linear_gradient_node_get_n_color_stops(gskLinearGradientNodePointer.reinterpret())
+    public open fun getNColorStops(): gsize = gsk_linear_gradient_node_get_n_color_stops(gskLinearGradientNodePointer.reinterpret())
 
     /**
      * Retrieves the initial point of the linear gradient.
@@ -58,5 +59,12 @@ public open class LinearGradientNode(
 
         init {
             GskTypeProvider.register()}
+
+        /**
+         * Get the GType of LinearGradientNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_linear_gradient_node_get_type()
     }
 }

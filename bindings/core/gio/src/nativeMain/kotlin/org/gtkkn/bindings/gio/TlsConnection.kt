@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.ULong
@@ -61,7 +60,10 @@ import org.gtkkn.native.gio.g_tls_connection_set_rehandshake_mode
 import org.gtkkn.native.gio.g_tls_connection_set_require_close_notify
 import org.gtkkn.native.gio.g_tls_connection_set_use_system_certdb
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
 
 /**
  * `GTlsConnection` is the base TLS connection class type, which wraps
@@ -483,7 +485,7 @@ public open class TlsConnection(
      */
     @GioVersion2_28
     public open fun handshakeAsync(
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_tls_connection_handshake_async(gioTlsConnectionPointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -615,11 +617,18 @@ public open class TlsConnection(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of TlsConnection
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_tls_connection_get_type()
     }
 }
 
 private val connectAcceptCertificateFunc:
-        CPointer<CFunction<(CPointer<GTlsCertificate>, GTlsCertificateFlags) -> Int>> =
+        CPointer<CFunction<(CPointer<GTlsCertificate>, GTlsCertificateFlags) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     peerCert: CPointer<GTlsCertificate>?,

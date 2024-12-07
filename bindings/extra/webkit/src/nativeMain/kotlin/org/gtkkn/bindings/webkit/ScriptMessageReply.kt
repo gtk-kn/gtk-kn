@@ -10,7 +10,9 @@ import org.gtkkn.bindings.javascriptcore.Value
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitScriptMessageReply
+import org.gtkkn.native.webkit.webkit_script_message_reply_get_type
 import org.gtkkn.native.webkit.webkit_script_message_reply_ref
 import org.gtkkn.native.webkit.webkit_script_message_reply_return_error_message
 import org.gtkkn.native.webkit.webkit_script_message_reply_return_value
@@ -72,6 +74,13 @@ public class ScriptMessageReply(
     public fun unref(): Unit = webkit_script_message_reply_unref(webkitScriptMessageReplyPointer.reinterpret())
 
     public companion object : RecordCompanion<ScriptMessageReply, WebKitScriptMessageReply> {
+        /**
+         * Get the GType of ScriptMessageReply
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_script_message_reply_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ScriptMessageReply = ScriptMessageReply(pointer.reinterpret())
     }
 }

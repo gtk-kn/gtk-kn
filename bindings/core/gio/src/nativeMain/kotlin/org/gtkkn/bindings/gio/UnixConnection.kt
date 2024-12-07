@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
@@ -32,6 +31,8 @@ import org.gtkkn.native.gio.g_unix_connection_send_credentials_async
 import org.gtkkn.native.gio.g_unix_connection_send_credentials_finish
 import org.gtkkn.native.gio.g_unix_connection_send_fd
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * This is the subclass of [class@Gio.SocketConnection] that is created
@@ -149,7 +150,7 @@ public open class UnixConnection(
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun receiveFd(cancellable: Cancellable? = null): Result<Int> = memScoped {
+    public open fun receiveFd(cancellable: Cancellable? = null): Result<gint> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_unix_connection_receive_fd(gioUnixConnectionPointer.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr)
         return if (gError.pointed != null) {
@@ -249,7 +250,7 @@ public open class UnixConnection(
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun sendFd(fd: Int, cancellable: Cancellable? = null): Result<Boolean> = memScoped {
+    public open fun sendFd(fd: gint, cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_unix_connection_send_fd(gioUnixConnectionPointer.reinterpret(), fd, cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr).asBoolean()
         return if (gError.pointed != null) {
@@ -266,5 +267,12 @@ public open class UnixConnection(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of UnixConnection
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_unix_connection_get_type()
     }
 }

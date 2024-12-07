@@ -1,9 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
-import kotlin.Int
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -28,6 +26,8 @@ import org.gtkkn.native.gdk.gdk_content_deserializer_get_value
 import org.gtkkn.native.gdk.gdk_content_deserializer_return_error
 import org.gtkkn.native.gdk.gdk_content_deserializer_return_success
 import org.gtkkn.native.gio.GAsyncResult
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * A `GdkContentDeserializer` is used to deserialize content received via
@@ -74,7 +74,7 @@ public open class ContentDeserializer(
      *
      * @return the `GType` for the current operation
      */
-    public open fun getGtype(): ULong = gdk_content_deserializer_get_gtype(gdkContentDeserializerPointer.reinterpret())
+    public open fun getGtype(): GType = gdk_content_deserializer_get_gtype(gdkContentDeserializerPointer.reinterpret())
 
     /**
      * Gets the input stream for the current operation.
@@ -100,7 +100,7 @@ public open class ContentDeserializer(
      *
      * @return the I/O priority for the current operation
      */
-    public open fun getPriority(): Int = gdk_content_deserializer_get_priority(gdkContentDeserializerPointer.reinterpret())
+    public open fun getPriority(): gint = gdk_content_deserializer_get_priority(gdkContentDeserializerPointer.reinterpret())
 
     /**
      * Gets the `GValue` to store the deserialized object in.
@@ -130,5 +130,12 @@ public open class ContentDeserializer(
 
         init {
             GdkTypeProvider.register()}
+
+        /**
+         * Get the GType of ContentDeserializer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_content_deserializer_get_type()
     }
 }

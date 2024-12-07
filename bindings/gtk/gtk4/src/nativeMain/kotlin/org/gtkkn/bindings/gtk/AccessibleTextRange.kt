@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.ULong
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gtk.GtkAccessibleTextRange
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
@@ -25,7 +25,7 @@ public class AccessibleTextRange(
     /**
      * the start of the range, in characters
      */
-    public var start: ULong
+    public var start: gsize
         get() = gtkAccessibleTextRangePointer.pointed.start
         set(`value`) {
             gtkAccessibleTextRangePointer.pointed.start = value
@@ -34,7 +34,7 @@ public class AccessibleTextRange(
     /**
      * the length of the range, in characters
      */
-    public var length: ULong
+    public var length: gsize
         get() = gtkAccessibleTextRangePointer.pointed.length
         set(`value`) {
             gtkAccessibleTextRangePointer.pointed.length = value

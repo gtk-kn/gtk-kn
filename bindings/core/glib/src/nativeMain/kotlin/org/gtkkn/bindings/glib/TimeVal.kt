@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.Boolean
-import kotlin.Long
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
@@ -18,6 +17,7 @@ import org.gtkkn.native.glib.GTimeVal
 import org.gtkkn.native.glib.g_time_val_add
 import org.gtkkn.native.glib.g_time_val_from_iso8601
 import org.gtkkn.native.glib.g_time_val_to_iso8601
+import org.gtkkn.native.gobject.glong
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -40,7 +40,7 @@ public class TimeVal(
     /**
      * seconds
      */
-    public var tvSec: Long
+    public var tvSec: glong
         get() = glibTimeValPointer.pointed.tv_sec
         set(`value`) {
             glibTimeValPointer.pointed.tv_sec = value
@@ -49,7 +49,7 @@ public class TimeVal(
     /**
      * microseconds
      */
-    public var tvUsec: Long
+    public var tvUsec: glong
         get() = glibTimeValPointer.pointed.tv_usec
         set(`value`) {
             glibTimeValPointer.pointed.tv_usec = value
@@ -61,7 +61,7 @@ public class TimeVal(
      *
      * @param microseconds number of microseconds to add to @time
      */
-    public fun add(microseconds: Long): Unit = g_time_val_add(glibTimeValPointer.reinterpret(), microseconds)
+    public fun add(microseconds: glong): Unit = g_time_val_add(glibTimeValPointer.reinterpret(), microseconds)
 
     /**
      * Converts @time_ into an RFC 3339 encoded string, relative to the

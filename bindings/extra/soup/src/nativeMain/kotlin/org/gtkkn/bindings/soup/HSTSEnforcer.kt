@@ -21,6 +21,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.soup.SoupHSTSEnforcer
 import org.gtkkn.native.soup.SoupHSTSPolicy
@@ -167,6 +168,13 @@ public open class HSTSEnforcer(
 
         init {
             SoupTypeProvider.register()}
+
+        /**
+         * Get the GType of HSTSEnforcer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_hsts_enforcer_get_type()
     }
 }
 

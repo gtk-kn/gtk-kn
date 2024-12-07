@@ -1,8 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
-import kotlin.Double
-import kotlin.Long
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -29,7 +27,10 @@ import org.gtkkn.native.gdk.gdk_frame_clock_get_history_start
 import org.gtkkn.native.gdk.gdk_frame_clock_get_timings
 import org.gtkkn.native.gdk.gdk_frame_clock_get_type
 import org.gtkkn.native.gdk.gdk_frame_clock_request_phase
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint64
 
 /**
  * A `GdkFrameClock` tells the application when to update and repaint
@@ -112,7 +113,7 @@ public open class FrameClock(
      *
      * @return the current fps, as a `double`
      */
-    public open fun getFps(): Double = gdk_frame_clock_get_fps(gdkFrameClockPointer.reinterpret())
+    public open fun getFps(): gdouble = gdk_frame_clock_get_fps(gdkFrameClockPointer.reinterpret())
 
     /**
      * `GdkFrameClock` maintains a 64-bit counter that increments for
@@ -122,7 +123,7 @@ public open class FrameClock(
      *   for the current frame. Outside of frame processing, the frame
      *   counter for the last frame.
      */
-    public open fun getFrameCounter(): Long = gdk_frame_clock_get_frame_counter(gdkFrameClockPointer.reinterpret())
+    public open fun getFrameCounter(): gint64 = gdk_frame_clock_get_frame_counter(gdkFrameClockPointer.reinterpret())
 
     /**
      * Gets the time that should currently be used for animations.
@@ -136,7 +137,7 @@ public open class FrameClock(
      * @return a timestamp in microseconds, in the timescale of
      *  of g_get_monotonic_time().
      */
-    public open fun getFrameTime(): Long = gdk_frame_clock_get_frame_time(gdkFrameClockPointer.reinterpret())
+    public open fun getFrameTime(): gint64 = gdk_frame_clock_get_frame_time(gdkFrameClockPointer.reinterpret())
 
     /**
      * Returns the frame counter for the oldest frame available in history.
@@ -152,7 +153,7 @@ public open class FrameClock(
      *  that is available in the internal frame history of the
      *  `GdkFrameClock`
      */
-    public open fun getHistoryStart(): Long = gdk_frame_clock_get_history_start(gdkFrameClockPointer.reinterpret())
+    public open fun getHistoryStart(): gint64 = gdk_frame_clock_get_history_start(gdkFrameClockPointer.reinterpret())
 
     /**
      * Retrieves a `GdkFrameTimings` object holding timing information
@@ -167,7 +168,7 @@ public open class FrameClock(
      * @return the `GdkFrameTimings` object
      *   for the specified frame, or null if it is not available
      */
-    public open fun getTimings(frameCounter: Long): FrameTimings? = gdk_frame_clock_get_timings(gdkFrameClockPointer.reinterpret(), frameCounter)?.run {
+    public open fun getTimings(frameCounter: gint64): FrameTimings? = gdk_frame_clock_get_timings(gdkFrameClockPointer.reinterpret(), frameCounter)?.run {
         FrameTimings(reinterpret())}
 
     /**
@@ -275,6 +276,13 @@ public open class FrameClock(
 
         init {
             GdkTypeProvider.register()}
+
+        /**
+         * Get the GType of FrameClock
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_frame_clock_get_type()
     }
 }
 

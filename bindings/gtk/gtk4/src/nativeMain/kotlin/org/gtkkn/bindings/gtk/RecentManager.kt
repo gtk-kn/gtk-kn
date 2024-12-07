@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.ULong
@@ -29,7 +28,9 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkRecentManager
 import org.gtkkn.native.gtk.gtk_recent_manager_add_full
 import org.gtkkn.native.gtk.gtk_recent_manager_add_item
@@ -246,7 +247,7 @@ public open class RecentManager(
      * @return the number of items that have been removed from the
      *   recently used resources list
      */
-    public open fun purgeItems(): Result<Int> = memScoped {
+    public open fun purgeItems(): Result<gint> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_recent_manager_purge_items(gtkRecentManagerPointer.reinterpret(), gError.ptr)
         return if (gError.pointed != null) {
@@ -304,6 +305,13 @@ public open class RecentManager(
          */
         public fun getDefault(): RecentManager = gtk_recent_manager_get_default()!!.run {
             RecentManager(reinterpret())}
+
+        /**
+         * Get the GType of RecentManager
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_recent_manager_get_type()
     }
 }
 

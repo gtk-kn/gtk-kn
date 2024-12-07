@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -10,6 +9,8 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkMultiFilter
 import org.gtkkn.native.gtk.gtk_multi_filter_append
@@ -55,7 +56,7 @@ public open class MultiFilter(
      *
      * @param position position of filter to remove
      */
-    public open fun remove(position: UInt): Unit = gtk_multi_filter_remove(gtkMultiFilterPointer.reinterpret(), position)
+    public open fun remove(position: guint): Unit = gtk_multi_filter_remove(gtkMultiFilterPointer.reinterpret(), position)
 
     public companion object : TypeCompanion<MultiFilter> {
         override val type: GeneratedClassKGType<MultiFilter> =
@@ -63,5 +64,12 @@ public open class MultiFilter(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of MultiFilter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_multi_filter_get_type()
     }
 }

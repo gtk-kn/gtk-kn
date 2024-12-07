@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkCellRendererPixbuf
 import org.gtkkn.native.gtk.gtk_cell_renderer_pixbuf_get_type
 import org.gtkkn.native.gtk.gtk_cell_renderer_pixbuf_new
@@ -62,5 +63,12 @@ public open class CellRendererPixbuf(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of CellRendererPixbuf
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_cell_renderer_pixbuf_get_type()
     }
 }

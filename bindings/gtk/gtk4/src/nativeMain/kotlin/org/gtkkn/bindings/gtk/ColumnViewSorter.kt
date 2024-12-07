@@ -1,13 +1,14 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkColumnViewSorter
 import org.gtkkn.native.gtk.gtk_column_view_sorter_get_n_sort_columns
 import org.gtkkn.native.gtk.gtk_column_view_sorter_get_primary_sort_column
@@ -125,7 +126,7 @@ public open class ColumnViewSorter(
      * @since 4.10
      */
     @GtkVersion4_10
-    public open fun getNSortColumns(): UInt = gtk_column_view_sorter_get_n_sort_columns(gtkColumnViewSorterPointer.reinterpret())
+    public open fun getNSortColumns(): guint = gtk_column_view_sorter_get_n_sort_columns(gtkColumnViewSorterPointer.reinterpret())
 
     public companion object : TypeCompanion<ColumnViewSorter> {
         override val type: GeneratedClassKGType<ColumnViewSorter> =
@@ -133,5 +134,12 @@ public open class ColumnViewSorter(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of ColumnViewSorter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_column_view_sorter_get_type()
     }
 }

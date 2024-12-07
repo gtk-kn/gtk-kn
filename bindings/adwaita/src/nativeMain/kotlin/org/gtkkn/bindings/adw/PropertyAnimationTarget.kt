@@ -16,6 +16,7 @@ import org.gtkkn.native.adw.adw_property_animation_target_get_pspec
 import org.gtkkn.native.adw.adw_property_animation_target_get_type
 import org.gtkkn.native.adw.adw_property_animation_target_new
 import org.gtkkn.native.adw.adw_property_animation_target_new_for_pspec
+import org.gtkkn.native.gobject.GType
 
 /**
  * An [class@AnimationTarget] changing the value of a property of a
@@ -98,5 +99,12 @@ public class PropertyAnimationTarget(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of PropertyAnimationTarget
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_property_animation_target_get_type()
     }
 }

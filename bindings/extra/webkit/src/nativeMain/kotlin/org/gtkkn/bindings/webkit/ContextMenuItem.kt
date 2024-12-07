@@ -14,6 +14,7 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitContextMenuItem
 import org.gtkkn.native.webkit.webkit_context_menu_item_get_gaction
 import org.gtkkn.native.webkit.webkit_context_menu_item_get_stock_action
@@ -162,5 +163,12 @@ public class ContextMenuItem(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of ContextMenuItem
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_context_menu_item_get_type()
     }
 }

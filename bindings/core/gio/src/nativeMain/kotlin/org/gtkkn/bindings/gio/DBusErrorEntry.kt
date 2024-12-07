@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlin.Int
 import kotlin.String
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -12,6 +11,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GDBusErrorEntry
+import org.gtkkn.native.gobject.gint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -27,7 +27,7 @@ public class DBusErrorEntry(
     /**
      * An error code.
      */
-    public var errorCode: Int
+    public var errorCode: gint
         get() = gioDBusErrorEntryPointer.pointed.error_code
         set(`value`) {
             gioDBusErrorEntryPointer.pointed.error_code = value

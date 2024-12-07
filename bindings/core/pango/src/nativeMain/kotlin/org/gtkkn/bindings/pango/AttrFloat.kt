@@ -1,13 +1,13 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
-import kotlin.Double
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.pango.PangoAttrFloat
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
@@ -27,7 +27,7 @@ public class AttrFloat(
     /**
      * the value of the attribute
      */
-    public var `value`: Double
+    public var `value`: gdouble
         get() = pangoAttrFloatPointer.pointed.value
         set(`value`) {
             pangoAttrFloatPointer.pointed.value = value

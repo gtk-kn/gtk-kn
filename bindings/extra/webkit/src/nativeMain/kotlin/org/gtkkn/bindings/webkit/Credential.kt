@@ -14,12 +14,14 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_34
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitCredential
 import org.gtkkn.native.webkit.webkit_credential_copy
 import org.gtkkn.native.webkit.webkit_credential_free
 import org.gtkkn.native.webkit.webkit_credential_get_certificate
 import org.gtkkn.native.webkit.webkit_credential_get_password
 import org.gtkkn.native.webkit.webkit_credential_get_persistence
+import org.gtkkn.native.webkit.webkit_credential_get_type
 import org.gtkkn.native.webkit.webkit_credential_get_username
 import org.gtkkn.native.webkit.webkit_credential_has_password
 import org.gtkkn.native.webkit.webkit_credential_new
@@ -141,6 +143,13 @@ public class Credential(
          * @since 2.34
          */
         public fun newForCertificatePin(pin: String, persistence: CredentialPersistence): Credential = Credential(webkit_credential_new_for_certificate_pin(pin, persistence.nativeValue)!!.reinterpret())
+
+        /**
+         * Get the GType of Credential
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_credential_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Credential = Credential(pointer.reinterpret())
     }

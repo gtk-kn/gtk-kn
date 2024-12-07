@@ -2,12 +2,8 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
-import kotlin.Long
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CArrayPointer
@@ -219,7 +215,13 @@ import org.gtkkn.native.glib.GPid
 import org.gtkkn.native.glib.GVariant
 import org.gtkkn.native.glib.GVariantType
 import org.gtkkn.native.gobject.GObject
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GValue
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gint64
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.guint64
 import kotlin.collections.List as CollectionsList
 import org.gtkkn.bindings.glib.List as GlibList
 
@@ -1614,7 +1616,7 @@ public object Gio {
      *
      * @since 2.76
      */
-    public const val MENU_EXPORTER_MAX_SECTION_SIZE: Int = 1000
+    public const val MENU_EXPORTER_MAX_SECTION_SIZE: gint = 1000
 
     /**
      * The name of the link that associates a menu item with a section.  The linked
@@ -2082,10 +2084,10 @@ public object Gio {
      */
     @GioVersion2_22
     public fun asyncInitableNewvAsync(
-        objectType: ULong,
-        nParameters: UInt,
+        objectType: GType,
+        nParameters: guint,
         parameters: Parameter,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_async_initable_newv_async(objectType, nParameters, parameters.gobjectParameterPointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -2207,7 +2209,7 @@ public object Gio {
         flags: BusNameOwnerFlags,
         nameAcquiredClosure: Closure? = null,
         nameLostClosure: Closure? = null,
-    ): UInt = g_bus_own_name_on_connection_with_closures(connection.gioDBusConnectionPointer.reinterpret(), name, flags.mask, nameAcquiredClosure?.gobjectClosurePointer?.reinterpret(), nameLostClosure?.gobjectClosurePointer?.reinterpret())
+    ): guint = g_bus_own_name_on_connection_with_closures(connection.gioDBusConnectionPointer.reinterpret(), name, flags.mask, nameAcquiredClosure?.gobjectClosurePointer?.reinterpret(), nameLostClosure?.gobjectClosurePointer?.reinterpret())
 
     /**
      * Version of g_bus_own_name() using closures instead of callbacks for
@@ -2234,7 +2236,7 @@ public object Gio {
         busAcquiredClosure: Closure? = null,
         nameAcquiredClosure: Closure? = null,
         nameLostClosure: Closure? = null,
-    ): UInt = g_bus_own_name_with_closures(busType.nativeValue, name, flags.mask, busAcquiredClosure?.gobjectClosurePointer?.reinterpret(), nameAcquiredClosure?.gobjectClosurePointer?.reinterpret(), nameLostClosure?.gobjectClosurePointer?.reinterpret())
+    ): guint = g_bus_own_name_with_closures(busType.nativeValue, name, flags.mask, busAcquiredClosure?.gobjectClosurePointer?.reinterpret(), nameAcquiredClosure?.gobjectClosurePointer?.reinterpret(), nameLostClosure?.gobjectClosurePointer?.reinterpret())
 
     /**
      * Stops owning a name.
@@ -2250,7 +2252,7 @@ public object Gio {
      * @since 2.26
      */
     @GioVersion2_26
-    public fun busUnownName(ownerId: UInt): Unit = g_bus_unown_name(ownerId)
+    public fun busUnownName(ownerId: guint): Unit = g_bus_unown_name(ownerId)
 
     /**
      * Stops watching a name.
@@ -2266,7 +2268,7 @@ public object Gio {
      * @since 2.26
      */
     @GioVersion2_26
-    public fun busUnwatchName(watcherId: UInt): Unit = g_bus_unwatch_name(watcherId)
+    public fun busUnwatchName(watcherId: guint): Unit = g_bus_unwatch_name(watcherId)
 
     /**
      * Version of g_bus_watch_name_on_connection() using closures instead of callbacks for
@@ -2290,7 +2292,7 @@ public object Gio {
         flags: BusNameWatcherFlags,
         nameAppearedClosure: Closure? = null,
         nameVanishedClosure: Closure? = null,
-    ): UInt = g_bus_watch_name_on_connection_with_closures(connection.gioDBusConnectionPointer.reinterpret(), name, flags.mask, nameAppearedClosure?.gobjectClosurePointer?.reinterpret(), nameVanishedClosure?.gobjectClosurePointer?.reinterpret())
+    ): guint = g_bus_watch_name_on_connection_with_closures(connection.gioDBusConnectionPointer.reinterpret(), name, flags.mask, nameAppearedClosure?.gobjectClosurePointer?.reinterpret(), nameVanishedClosure?.gobjectClosurePointer?.reinterpret())
 
     /**
      * Version of g_bus_watch_name() using closures instead of callbacks for
@@ -2314,7 +2316,7 @@ public object Gio {
         flags: BusNameWatcherFlags,
         nameAppearedClosure: Closure? = null,
         nameVanishedClosure: Closure? = null,
-    ): UInt = g_bus_watch_name_with_closures(busType.nativeValue, name, flags.mask, nameAppearedClosure?.gobjectClosurePointer?.reinterpret(), nameVanishedClosure?.gobjectClosurePointer?.reinterpret())
+    ): guint = g_bus_watch_name_with_closures(busType.nativeValue, name, flags.mask, nameAppearedClosure?.gobjectClosurePointer?.reinterpret(), nameVanishedClosure?.gobjectClosurePointer?.reinterpret())
 
     /**
      * Checks if a content type can be executable. Note that for instance
@@ -2689,7 +2691,7 @@ public object Gio {
     @GioVersion2_26
     public fun dbusErrorRegisterError(
         errorDomain: Quark,
-        errorCode: Int,
+        errorCode: gint,
         dbusErrorName: String,
     ): Boolean = g_dbus_error_register_error(errorDomain, errorCode, dbusErrorName).asBoolean()
 
@@ -2720,7 +2722,7 @@ public object Gio {
     @GioVersion2_26
     public fun dbusErrorUnregisterError(
         errorDomain: Quark,
-        errorCode: Int,
+        errorCode: gint,
         dbusErrorName: String,
     ): Boolean = g_dbus_error_unregister_error(errorDomain, errorCode, dbusErrorName).asBoolean()
 
@@ -3073,7 +3075,7 @@ public object Gio {
     @GioVersion2_74
     public fun fileNewTmpAsync(
         tmpl: String? = null,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_file_new_tmp_async(tmpl, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -3096,7 +3098,7 @@ public object Gio {
     @GioVersion2_74
     public fun fileNewTmpDirAsync(
         tmpl: String? = null,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_file_new_tmp_dir_async(tmpl, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -3198,7 +3200,7 @@ public object Gio {
      * @param errNo Error number as defined in errno.h.
      * @return #GIOErrorEnum value for the given `errno.h` error number
      */
-    public fun ioErrorFromErrno(errNo: Int): IOErrorEnum = g_io_error_from_errno(errNo).run {
+    public fun ioErrorFromErrno(errNo: gint): IOErrorEnum = g_io_error_from_errno(errNo).run {
         IOErrorEnum.fromNativeValue(this)}
 
     /**
@@ -3283,7 +3285,7 @@ public object Gio {
      */
     public fun ioSchedulerPushJob(
         jobFunc: IOSchedulerJobFunc,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
     ): Unit = g_io_scheduler_push_job(IOSchedulerJobFuncFunc.reinterpret(), StableRef.create(jobFunc).asCPointer(), staticStableRefDestroy.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret())
 
@@ -3837,7 +3839,7 @@ public object Gio {
      * @return 1, 0 or -1 if @mount1 is greater than, equal to,
      * or less than @mount2, respectively.
      */
-    public fun unixMountCompare(mount1: UnixMountEntry, mount2: UnixMountEntry): Int = g_unix_mount_compare(mount1.gioUnixMountEntryPointer.reinterpret(), mount2.gioUnixMountEntryPointer.reinterpret())
+    public fun unixMountCompare(mount1: UnixMountEntry, mount2: UnixMountEntry): gint = g_unix_mount_compare(mount1.gioUnixMountEntryPointer.reinterpret(), mount2.gioUnixMountEntryPointer.reinterpret())
 
     /**
      * Makes a copy of @mount_entry.
@@ -3984,7 +3986,7 @@ public object Gio {
      * @param time guint64 to contain a timestamp.
      * @return true if the mount points have changed since @time.
      */
-    public fun unixMountPointsChangedSince(time: ULong): Boolean = g_unix_mount_points_changed_since(time).asBoolean()
+    public fun unixMountPointsChangedSince(time: guint64): Boolean = g_unix_mount_points_changed_since(time).asBoolean()
 
     /**
      * Checks if the unix mounts have changed since a given unix time.
@@ -3992,7 +3994,7 @@ public object Gio {
      * @param time guint64 to contain a timestamp.
      * @return true if the mounts have changed since @time.
      */
-    public fun unixMountsChangedSince(time: ULong): Boolean = g_unix_mounts_changed_since(time).asBoolean()
+    public fun unixMountsChangedSince(time: guint64): Boolean = g_unix_mounts_changed_since(time).asBoolean()
 
     public fun resolveException(error: Error): GLibException {
         val ex = when (error.domain) {
@@ -4107,7 +4109,7 @@ public val BusNameVanishedCallbackFunc:
     , name?.toKString() ?: error("Expected not null string"))}
 .reinterpret()
 
-public val CancellableSourceFuncFunc: CPointer<CFunction<(CPointer<GCancellable>?) -> Int>> =
+public val CancellableSourceFuncFunc: CPointer<CFunction<(CPointer<GCancellable>?) -> gboolean>> =
         staticCFunction {
     cancellable: CPointer<GCancellable>?,
     userData: COpaquePointer
@@ -4190,7 +4192,7 @@ public val DBusInterfaceSetPropertyFuncFunc: CPointer<CFunction<(
     CPointer<ByteVar>,
     CPointer<GVariant>,
     CPointer<org.gtkkn.native.glib.GError>,
-) -> Int>> = staticCFunction {
+) -> gboolean>> = staticCFunction {
     connection: CPointer<GDBusConnection>?,
     sender: CPointer<ByteVar>?,
     objectPath: CPointer<ByteVar>?,
@@ -4220,11 +4222,11 @@ public val DBusInterfaceSetPropertyFuncFunc: CPointer<CFunction<(
 public val DBusMessageFilterFunctionFunc: CPointer<CFunction<(
     CPointer<GDBusConnection>,
     CPointer<GDBusMessage>,
-    Int,
+    gboolean,
 ) -> CPointer<GDBusMessage>?>> = staticCFunction {
     connection: CPointer<GDBusConnection>?,
     message: CPointer<GDBusMessage>?,
-    incoming: Int,
+    incoming: gboolean,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
@@ -4242,7 +4244,7 @@ public val DBusProxyTypeFuncFunc: CPointer<CFunction<(
     CPointer<GDBusObjectManagerClient>,
     CPointer<ByteVar>,
     CPointer<ByteVar>?,
-) -> ULong>> = staticCFunction {
+) -> GType>> = staticCFunction {
     manager: CPointer<GDBusObjectManagerClient>?,
     objectPath: CPointer<ByteVar>?,
     interfaceName: CPointer<ByteVar>?,
@@ -4252,7 +4254,7 @@ public val DBusProxyTypeFuncFunc: CPointer<CFunction<(
         manager: DBusObjectManagerClient,
         objectPath: String,
         interfaceName: String?,
-    ) -> ULong>().get().invoke(manager!!.run {
+    ) -> GType>().get().invoke(manager!!.run {
         DBusObjectManagerClient(reinterpret())}
     , objectPath?.toKString() ?: error("Expected not null string"), interfaceName?.toKString())}
 .reinterpret()
@@ -4334,7 +4336,8 @@ public val DBusSubtreeEnumerateFuncFunc: CPointer<CFunction<(
 .reinterpret()
 
 public val DatagramBasedSourceFuncFunc:
-        CPointer<CFunction<(CPointer<GDatagramBased>, GIOCondition) -> Int>> = staticCFunction {
+        CPointer<CFunction<(CPointer<GDatagramBased>, GIOCondition) -> gboolean>> =
+        staticCFunction {
     datagramBased: CPointer<GDatagramBased>?,
     condition: GIOCondition,
     userData: COpaquePointer
@@ -4358,43 +4361,44 @@ public val DesktopAppLaunchCallbackFunc:
 .reinterpret()
 
 public val FileMeasureProgressCallbackFunc: CPointer<CFunction<(
-    Int,
-    ULong,
-    ULong,
-    ULong,
+    gboolean,
+    guint64,
+    guint64,
+    guint64,
 ) -> Unit>> = staticCFunction {
-    reporting: Int,
-    currentSize: ULong,
-    numDirs: ULong,
-    numFiles: ULong,
+    reporting: gboolean,
+    currentSize: guint64,
+    numDirs: guint64,
+    numFiles: guint64,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         reporting: Boolean,
-        currentSize: ULong,
-        numDirs: ULong,
-        numFiles: ULong,
+        currentSize: guint64,
+        numDirs: guint64,
+        numFiles: guint64,
     ) -> Unit>().get().invoke(reporting.asBoolean(), currentSize, numDirs, numFiles)}
 .reinterpret()
 
-public val FileProgressCallbackFunc: CPointer<CFunction<(Long, Long) -> Unit>> = staticCFunction {
-    currentNumBytes: Long,
-    totalNumBytes: Long,
+public val FileProgressCallbackFunc: CPointer<CFunction<(gint64, gint64) -> Unit>> =
+        staticCFunction {
+    currentNumBytes: gint64,
+    totalNumBytes: gint64,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(currentNumBytes: Long, totalNumBytes: Long) -> Unit>().get().invoke(currentNumBytes, totalNumBytes)}
+    userData.asStableRef<(currentNumBytes: gint64, totalNumBytes: gint64) -> Unit>().get().invoke(currentNumBytes, totalNumBytes)}
 .reinterpret()
 
-public val FileReadMoreCallbackFunc: CPointer<CFunction<(CPointer<ByteVar>, Long) -> Int>> =
+public val FileReadMoreCallbackFunc: CPointer<CFunction<(CPointer<ByteVar>, gint64) -> gboolean>> =
         staticCFunction {
     fileContents: CPointer<ByteVar>?,
-    fileSize: Long,
+    fileSize: gint64,
     userData: COpaquePointer
     ->
-    userData.asStableRef<(fileContents: String, fileSize: Long) -> Boolean>().get().invoke(fileContents?.toKString() ?: error("Expected not null string"), fileSize).asGBoolean()}
+    userData.asStableRef<(fileContents: String, fileSize: gint64) -> Boolean>().get().invoke(fileContents?.toKString() ?: error("Expected not null string"), fileSize).asGBoolean()}
 .reinterpret()
 
-public val IOSchedulerJobFuncFunc: CPointer<CFunction<(CPointer<GCancellable>?) -> Int>> =
+public val IOSchedulerJobFuncFunc: CPointer<CFunction<(CPointer<GCancellable>?) -> gboolean>> =
         staticCFunction {
     cancellable: CPointer<GCancellable>?,
     userData: COpaquePointer
@@ -4404,7 +4408,7 @@ public val IOSchedulerJobFuncFunc: CPointer<CFunction<(CPointer<GCancellable>?) 
     ).asGBoolean()}
 .reinterpret()
 
-public val PollableSourceFuncFunc: CPointer<CFunction<(CPointer<GObject>) -> Int>> =
+public val PollableSourceFuncFunc: CPointer<CFunction<(CPointer<GObject>) -> gboolean>> =
         staticCFunction {
     pollableStream: CPointer<GObject>?,
     userData: COpaquePointer
@@ -4415,7 +4419,7 @@ public val PollableSourceFuncFunc: CPointer<CFunction<(CPointer<GObject>) -> Int
 .reinterpret()
 
 public val SettingsBindGetMappingFunc:
-        CPointer<CFunction<(CPointer<GValue>, CPointer<GVariant>) -> Int>> = staticCFunction {
+        CPointer<CFunction<(CPointer<GValue>, CPointer<GVariant>) -> gboolean>> = staticCFunction {
     `value`: CPointer<GValue>?,
     variant: CPointer<GVariant>?,
     userData: COpaquePointer
@@ -4441,7 +4445,7 @@ public val SettingsBindSetMappingFunc:
     ).glibVariantPointer}
 .reinterpret()
 
-public val SettingsGetMappingFunc: CPointer<CFunction<(CPointer<GVariant>) -> Int>> =
+public val SettingsGetMappingFunc: CPointer<CFunction<(CPointer<GVariant>) -> gboolean>> =
         staticCFunction {
     `value`: CPointer<GVariant>?,
     userData: COpaquePointer
@@ -4474,8 +4478,8 @@ public val SimpleAsyncThreadFuncFunc: CPointer<CFunction<(
     )}
 .reinterpret()
 
-public val SocketSourceFuncFunc: CPointer<CFunction<(CPointer<GSocket>, GIOCondition) -> Int>> =
-        staticCFunction {
+public val SocketSourceFuncFunc: CPointer<CFunction<(CPointer<GSocket>, GIOCondition) -> gboolean>>
+        = staticCFunction {
     socket: CPointer<GSocket>?,
     condition: GIOCondition,
     userData: COpaquePointer
@@ -4761,7 +4765,7 @@ public typealias DBusProxyTypeFunc = (
     manager: DBusObjectManagerClient,
     objectPath: String,
     interfaceName: String?,
-) -> ULong
+) -> GType
 
 /**
  * Signature for callback function used in g_dbus_connection_signal_subscribe().
@@ -4885,9 +4889,9 @@ public typealias DesktopAppLaunchCallback = (appinfo: DesktopAppInfo, pid: Pid) 
  */
 public typealias FileMeasureProgressCallback = (
     reporting: Boolean,
-    currentSize: ULong,
-    numDirs: ULong,
-    numFiles: ULong,
+    currentSize: guint64,
+    numDirs: guint64,
+    numFiles: guint64,
 ) -> Unit
 
 /**
@@ -4898,7 +4902,7 @@ public typealias FileMeasureProgressCallback = (
  * - param `currentNumBytes` the current number of bytes in the operation.
  * - param `totalNumBytes` the total number of bytes in the operation.
  */
-public typealias FileProgressCallback = (currentNumBytes: Long, totalNumBytes: Long) -> Unit
+public typealias FileProgressCallback = (currentNumBytes: gint64, totalNumBytes: gint64) -> Unit
 
 /**
  * When loading the partial contents of a file with g_file_load_partial_contents_async(),
@@ -4910,7 +4914,7 @@ public typealias FileProgressCallback = (currentNumBytes: Long, totalNumBytes: L
  * - param `fileSize` the size of the data currently read.
  * - return true if more data should be read back. false otherwise.
  */
-public typealias FileReadMoreCallback = (fileContents: String, fileSize: Long) -> Boolean
+public typealias FileReadMoreCallback = (fileContents: String, fileSize: gint64) -> Boolean
 
 /**
  * I/O Job function.

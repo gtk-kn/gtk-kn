@@ -1,8 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
-import kotlin.Int
-import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -10,6 +8,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GEnumClass
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -28,7 +28,7 @@ public class EnumClass(
     /**
      * the smallest possible value.
      */
-    public var minimum: Int
+    public var minimum: gint
         get() = gobjectEnumClassPointer.pointed.minimum
         set(`value`) {
             gobjectEnumClassPointer.pointed.minimum = value
@@ -37,7 +37,7 @@ public class EnumClass(
     /**
      * the largest possible value.
      */
-    public var maximum: Int
+    public var maximum: gint
         get() = gobjectEnumClassPointer.pointed.maximum
         set(`value`) {
             gobjectEnumClassPointer.pointed.maximum = value
@@ -46,7 +46,7 @@ public class EnumClass(
     /**
      * the number of possible values.
      */
-    public var nValues: UInt
+    public var nValues: guint
         get() = gobjectEnumClassPointer.pointed.n_values
         set(`value`) {
             gobjectEnumClassPointer.pointed.n_values = value

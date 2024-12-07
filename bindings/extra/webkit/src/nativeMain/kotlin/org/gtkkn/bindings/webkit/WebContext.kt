@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.webkit
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -33,7 +32,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.webkit.WebKitAutomationSession
 import org.gtkkn.native.webkit.WebKitUserMessage
 import org.gtkkn.native.webkit.WebKitWebContext
@@ -486,6 +487,13 @@ public class WebContext(
          */
         public fun getDefault(): WebContext = webkit_web_context_get_default()!!.run {
             WebContext(reinterpret())}
+
+        /**
+         * Get the GType of WebContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_web_context_get_type()
     }
 }
 
@@ -517,7 +525,7 @@ private val connectInitializeWebProcessExtensionsFunc: CPointer<CFunction<() -> 
 .reinterpret()
 
 private val connectUserMessageReceivedFunc:
-        CPointer<CFunction<(CPointer<WebKitUserMessage>) -> Int>> = staticCFunction {
+        CPointer<CFunction<(CPointer<WebKitUserMessage>) -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     message: CPointer<WebKitUserMessage>?,
     userData: COpaquePointer

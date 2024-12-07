@@ -2,10 +2,7 @@
 package org.gtkkn.bindings.gtksource
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -19,6 +16,10 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtksource.GtkSourcePrintCompositor
 import org.gtkkn.native.gtksource.gtk_source_print_compositor_draw_page
 import org.gtkkn.native.gtksource.gtk_source_print_compositor_get_body_font_name
@@ -172,7 +173,7 @@ public open class PrintCompositor(
      * The number of pages in the document or <code>-1</code> if the
      * document has not been completely paginated.
      */
-    public open val nPages: Int
+    public open val nPages: gint
         /**
          * Returns the number of pages in the document or <code>-1</code> if the
          * document has not been completely paginated.
@@ -267,7 +268,7 @@ public open class PrintCompositor(
      * The value of this property cannot be changed anymore after the first
      * call to the [method@PrintCompositor.paginate] function.
      */
-    public open var printLineNumbers: UInt
+    public open var printLineNumbers: guint
         /**
          * Returns the interval used for line number printing.
          *
@@ -298,7 +299,7 @@ public open class PrintCompositor(
      * The value of this property cannot be changed anymore after the first
      * call to the [method@PrintCompositor.paginate] function.
      */
-    public open var tabWidth: UInt
+    public open var tabWidth: guint
         /**
          * Returns the width of tabulation in characters for printed text.
          *
@@ -391,7 +392,7 @@ public open class PrintCompositor(
      *           drawing the page for printing.
      * @param pageNr the number of the page to print.
      */
-    public open fun drawPage(context: PrintContext, pageNr: Int): KotlinUnit = gtk_source_print_compositor_draw_page(gtksourcePrintCompositorPointer.reinterpret(), context.gtkPrintContextPointer.reinterpret(), pageNr)
+    public open fun drawPage(context: PrintContext, pageNr: gint): KotlinUnit = gtk_source_print_compositor_draw_page(gtksourcePrintCompositorPointer.reinterpret(), context.gtkPrintContextPointer.reinterpret(), pageNr)
 
     /**
      * Gets the bottom margin in units of @unit.
@@ -399,7 +400,7 @@ public open class PrintCompositor(
      * @param unit the unit for the return value.
      * @return the bottom margin.
      */
-    public open fun getBottomMargin(unit: GtkUnit): Double = gtk_source_print_compositor_get_bottom_margin(gtksourcePrintCompositorPointer.reinterpret(), unit.nativeValue)
+    public open fun getBottomMargin(unit: GtkUnit): gdouble = gtk_source_print_compositor_get_bottom_margin(gtksourcePrintCompositorPointer.reinterpret(), unit.nativeValue)
 
     /**
      * Returns the name of the font used to print the page footer.
@@ -427,7 +428,7 @@ public open class PrintCompositor(
      * @param unit the unit for the return value.
      * @return the left margin
      */
-    public open fun getLeftMargin(unit: GtkUnit): Double = gtk_source_print_compositor_get_left_margin(gtksourcePrintCompositorPointer.reinterpret(), unit.nativeValue)
+    public open fun getLeftMargin(unit: GtkUnit): gdouble = gtk_source_print_compositor_get_left_margin(gtksourcePrintCompositorPointer.reinterpret(), unit.nativeValue)
 
     /**
      * Returns the name of the font used to print line numbers on the left margin.
@@ -444,7 +445,7 @@ public open class PrintCompositor(
      *
      * @return a fraction from 0.0 to 1.0 inclusive.
      */
-    public open fun getPaginationProgress(): Double = gtk_source_print_compositor_get_pagination_progress(gtksourcePrintCompositorPointer.reinterpret())
+    public open fun getPaginationProgress(): gdouble = gtk_source_print_compositor_get_pagination_progress(gtksourcePrintCompositorPointer.reinterpret())
 
     /**
      * Gets the right margin in units of @unit.
@@ -452,7 +453,7 @@ public open class PrintCompositor(
      * @param unit the unit for the return value.
      * @return the right margin.
      */
-    public open fun getRightMargin(unit: GtkUnit): Double = gtk_source_print_compositor_get_right_margin(gtksourcePrintCompositorPointer.reinterpret(), unit.nativeValue)
+    public open fun getRightMargin(unit: GtkUnit): gdouble = gtk_source_print_compositor_get_right_margin(gtksourcePrintCompositorPointer.reinterpret(), unit.nativeValue)
 
     /**
      * Gets the top margin in units of @unit.
@@ -460,7 +461,7 @@ public open class PrintCompositor(
      * @param unit the unit for the return value.
      * @return the top margin.
      */
-    public open fun getTopMargin(unit: GtkUnit): Double = gtk_source_print_compositor_get_top_margin(gtksourcePrintCompositorPointer.reinterpret(), unit.nativeValue)
+    public open fun getTopMargin(unit: GtkUnit): gdouble = gtk_source_print_compositor_get_top_margin(gtksourcePrintCompositorPointer.reinterpret(), unit.nativeValue)
 
     /**
      * Specifies a tag whose style should be ignored when compositing the
@@ -546,7 +547,7 @@ public open class PrintCompositor(
      * @param margin the new bottom margin in units of @unit.
      * @param unit the units for @margin.
      */
-    public open fun setBottomMargin(margin: Double, unit: GtkUnit): KotlinUnit = gtk_source_print_compositor_set_bottom_margin(gtksourcePrintCompositorPointer.reinterpret(), margin, unit.nativeValue)
+    public open fun setBottomMargin(margin: gdouble, unit: GtkUnit): KotlinUnit = gtk_source_print_compositor_set_bottom_margin(gtksourcePrintCompositorPointer.reinterpret(), margin, unit.nativeValue)
 
     /**
      * Sets the font for printing the page footer.
@@ -643,7 +644,7 @@ public open class PrintCompositor(
      * @param margin the new left margin in units of @unit.
      * @param unit the units for @margin.
      */
-    public open fun setLeftMargin(margin: Double, unit: GtkUnit): KotlinUnit = gtk_source_print_compositor_set_left_margin(gtksourcePrintCompositorPointer.reinterpret(), margin, unit.nativeValue)
+    public open fun setLeftMargin(margin: gdouble, unit: GtkUnit): KotlinUnit = gtk_source_print_compositor_set_left_margin(gtksourcePrintCompositorPointer.reinterpret(), margin, unit.nativeValue)
 
     /**
      * Sets the font for printing line numbers on the left margin.
@@ -669,7 +670,7 @@ public open class PrintCompositor(
      * @param margin the new right margin in units of @unit.
      * @param unit the units for @margin.
      */
-    public open fun setRightMargin(margin: Double, unit: GtkUnit): KotlinUnit = gtk_source_print_compositor_set_right_margin(gtksourcePrintCompositorPointer.reinterpret(), margin, unit.nativeValue)
+    public open fun setRightMargin(margin: gdouble, unit: GtkUnit): KotlinUnit = gtk_source_print_compositor_set_right_margin(gtksourcePrintCompositorPointer.reinterpret(), margin, unit.nativeValue)
 
     /**
      * Sets the top margin used by @compositor.
@@ -677,7 +678,7 @@ public open class PrintCompositor(
      * @param margin the new top margin in units of @unit
      * @param unit the units for @margin
      */
-    public open fun setTopMargin(margin: Double, unit: GtkUnit): KotlinUnit = gtk_source_print_compositor_set_top_margin(gtksourcePrintCompositorPointer.reinterpret(), margin, unit.nativeValue)
+    public open fun setTopMargin(margin: gdouble, unit: GtkUnit): KotlinUnit = gtk_source_print_compositor_set_top_margin(gtksourcePrintCompositorPointer.reinterpret(), margin, unit.nativeValue)
 
     public companion object : TypeCompanion<PrintCompositor> {
         override val type: GeneratedClassKGType<PrintCompositor> =
@@ -685,5 +686,12 @@ public open class PrintCompositor(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of PrintCompositor
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_print_compositor_get_type()
     }
 }

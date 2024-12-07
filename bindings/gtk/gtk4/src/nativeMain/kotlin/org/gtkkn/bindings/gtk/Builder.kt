@@ -5,7 +5,6 @@ import kotlin.Boolean
 import kotlin.Long
 import kotlin.Result
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
 import kotlinx.cinterop.CPointer
@@ -28,6 +27,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBuilder
 import org.gtkkn.native.gtk.gtk_builder_add_from_file
 import org.gtkkn.native.gtk.gtk_builder_add_from_resource
@@ -739,7 +739,7 @@ public open class Builder(
      */
     public open fun extendWithTemplate(
         `object`: Object,
-        templateType: ULong,
+        templateType: GType,
         buffer: String,
         length: Long,
     ): Result<Boolean> = memScoped {
@@ -798,7 +798,7 @@ public open class Builder(
      * @return the `GType` found for @type_name or %G_TYPE_INVALID
      *   if no type was found
      */
-    public open fun getTypeFromName(typeName: String): ULong = gtk_builder_get_type_from_name(gtkBuilderPointer.reinterpret(), typeName)
+    public open fun getTypeFromName(typeName: String): GType = gtk_builder_get_type_from_name(gtkBuilderPointer.reinterpret(), typeName)
 
     /**
      * Sets the scope the builder should operate in.
@@ -860,7 +860,7 @@ public open class Builder(
      * @return true on success
      */
     public open fun valueFromStringType(
-        type: ULong,
+        type: GType,
         string: String,
         `value`: Value,
     ): Result<Boolean> = memScoped {
@@ -903,5 +903,12 @@ public open class Builder(
          * @return a `GtkBuilder` containing the described interface
          */
         public fun newFromResource(resourcePath: String): Builder = Builder(gtk_builder_new_from_resource(resourcePath)!!.reinterpret())
+
+        /**
+         * Get the GType of Builder
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_builder_get_type()
     }
 }

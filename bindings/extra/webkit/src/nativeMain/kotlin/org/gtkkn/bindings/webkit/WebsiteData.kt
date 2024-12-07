@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.webkit
 
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -11,9 +10,12 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_16
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.webkit.WebKitWebsiteData
 import org.gtkkn.native.webkit.webkit_website_data_get_name
 import org.gtkkn.native.webkit.webkit_website_data_get_size
+import org.gtkkn.native.webkit.webkit_website_data_get_type
 import org.gtkkn.native.webkit.webkit_website_data_get_types
 import org.gtkkn.native.webkit.webkit_website_data_ref
 import org.gtkkn.native.webkit.webkit_website_data_unref
@@ -67,7 +69,7 @@ public class WebsiteData(
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun getSize(types: WebsiteDataTypes): ULong = webkit_website_data_get_size(webkitWebsiteDataPointer.reinterpret(), types.mask)
+    public fun getSize(types: WebsiteDataTypes): guint64 = webkit_website_data_get_size(webkitWebsiteDataPointer.reinterpret(), types.mask)
 
     /**
      * Gets the types of data stored in the client for a #WebKitWebsiteData.
@@ -107,6 +109,13 @@ public class WebsiteData(
     public fun unref(): Unit = webkit_website_data_unref(webkitWebsiteDataPointer.reinterpret())
 
     public companion object : RecordCompanion<WebsiteData, WebKitWebsiteData> {
+        /**
+         * Get the GType of WebsiteData
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_website_data_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): WebsiteData = WebsiteData(pointer.reinterpret())
     }
 }

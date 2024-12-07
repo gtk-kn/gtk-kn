@@ -17,12 +17,8 @@
 package org.gtkkn.gir.processor
 
 import com.squareup.kotlinpoet.BOOLEAN
-import com.squareup.kotlinpoet.BYTE
 import com.squareup.kotlinpoet.CHAR
 import com.squareup.kotlinpoet.ClassName
-import com.squareup.kotlinpoet.DOUBLE
-import com.squareup.kotlinpoet.FLOAT
-import com.squareup.kotlinpoet.INT
 import com.squareup.kotlinpoet.LIST
 import com.squareup.kotlinpoet.LONG
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
@@ -30,15 +26,28 @@ import com.squareup.kotlinpoet.SHORT
 import com.squareup.kotlinpoet.STRING
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.UNIT
-import com.squareup.kotlinpoet.U_BYTE
-import com.squareup.kotlinpoet.U_INT
-import com.squareup.kotlinpoet.U_LONG
-import com.squareup.kotlinpoet.U_SHORT
 import org.gtkkn.gir.blueprints.OptInVersionBlueprint
 import org.gtkkn.gir.blueprints.TypeInfo
 import org.gtkkn.gir.config.Config
 import org.gtkkn.gir.ext.toCamelCase
 import org.gtkkn.gir.ext.toPascalCase
+import org.gtkkn.gir.generator.BindingsGenerator
+import org.gtkkn.gir.generator.G_BOOLEAN
+import org.gtkkn.gir.generator.G_CHAR
+import org.gtkkn.gir.generator.G_DOUBLE
+import org.gtkkn.gir.generator.G_FLOAT
+import org.gtkkn.gir.generator.G_INT
+import org.gtkkn.gir.generator.G_INT64
+import org.gtkkn.gir.generator.G_INT8
+import org.gtkkn.gir.generator.G_LONG
+import org.gtkkn.gir.generator.G_SIZE
+import org.gtkkn.gir.generator.G_TYPE
+import org.gtkkn.gir.generator.G_UINT
+import org.gtkkn.gir.generator.G_UINT16
+import org.gtkkn.gir.generator.G_UINT64
+import org.gtkkn.gir.generator.G_UINT8
+import org.gtkkn.gir.generator.G_ULONG
+import org.gtkkn.gir.generator.G_UNICHAR
 import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.model.GirAnyType
 import org.gtkkn.gir.model.GirArrayType
@@ -118,7 +127,7 @@ class ProcessorContext(
      */
     @Throws(UnresolvableTypeException::class)
     fun resolveClassObjectPointerTypeName(namespace: GirNamespace, clazz: GirClass): TypeName =
-        NativeTypes.cpointerOf(
+        BindingsGenerator.cpointerOf(
             ClassName(
                 namespaceNativePackageName(namespace),
                 clazz.cType
@@ -131,7 +140,7 @@ class ProcessorContext(
      */
     @Throws(UnresolvableTypeException::class)
     fun resolveRecordObjectPointerTypeName(namespace: GirNamespace, record: GirRecord): TypeName =
-        NativeTypes.cpointerOf(
+        BindingsGenerator.cpointerOf(
             ClassName(
                 namespaceNativePackageName(namespace),
                 record.cType
@@ -144,7 +153,7 @@ class ProcessorContext(
      */
     @Throws(UnresolvableTypeException::class)
     fun resolveInterfaceObjectPointerTypeName(namespace: GirNamespace, iface: GirInterface): TypeName =
-        NativeTypes.cpointerOf(
+        BindingsGenerator.cpointerOf(
             ClassName(
                 namespaceNativePackageName(namespace),
                 iface.cType ?: throw UnresolvableTypeException("Missing cType on interface"),
@@ -292,10 +301,10 @@ class ProcessorContext(
             return when (type.cType) {
                 "const char*",
                 "const gchar*",
-                null -> TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING, true)
+                null -> TypeInfo.KString(BindingsGenerator.cpointerOf(BindingsGenerator.KP_BYTEVAR), STRING, true)
 
                 "char*",
-                "gchar*" -> TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING, false)
+                "gchar*" -> TypeInfo.KString(BindingsGenerator.cpointerOf(BindingsGenerator.KP_BYTEVAR), STRING, false)
 
                 else -> {
                     logger.error { "Skipping string type with cType: ${type.cType}" }
@@ -320,7 +329,7 @@ class ProcessorContext(
                 "gPointer"
             }
             return TypeInfo.ObjectPointer(
-                NativeTypes.KP_CPOINTER.parameterizedBy(buildNativeClassName(namespace, girClass)),
+                BindingsGenerator.KP_CPOINTER.parameterizedBy(buildNativeClassName(namespace, girClass)),
                 kotlinClassTypeName,
                 objectPointerName,
             ).withNullable(nullable)
@@ -332,7 +341,7 @@ class ProcessorContext(
             val (namespace, girInterface) = findInterfaceByName(girNamespace, type.name)
             val objectPointerName = "${namespacePrefix(namespace)}${girInterface.name}Pointer"
             return TypeInfo.InterfacePointer(
-                NativeTypes.KP_CPOINTER.parameterizedBy(buildNativeClassName(namespace, girInterface)),
+                BindingsGenerator.KP_CPOINTER.parameterizedBy(buildNativeClassName(namespace, girInterface)),
                 kotlinInterfaceTypeName,
                 objectPointerName,
             ).withNullable(nullable)
@@ -374,7 +383,7 @@ class ProcessorContext(
                 val objectPointerName = "${namespacePrefix(namespace)}${girRecord.name}Pointer"
                 return TypeInfo.RecordPointer(
                     kotlinTypeName = kotlinRecordTypeName,
-                    nativeTypeName = NativeTypes.KP_CPOINTER.parameterizedBy(
+                    nativeTypeName = BindingsGenerator.KP_CPOINTER.parameterizedBy(
                         buildNativeClassName(
                             namespace,
                             girRecord,
@@ -412,7 +421,7 @@ class ProcessorContext(
                 if (arrayTypeInfo is TypeInfo.KString) {
                     val nullTerminated = array.zeroTerminated == null || array.zeroTerminated == true
                     TypeInfo.StringList(
-                        nativeTypeName = NativeTypes.KP_STRING_ARRAY,
+                        nativeTypeName = BindingsGenerator.KP_STRING_ARRAY,
                         kotlinTypeName = LIST.parameterizedBy(STRING),
                         nullTerminated,
                         array.fixedSize,
@@ -580,20 +589,28 @@ class ProcessorContext(
     private fun getPrimitiveTypeInfo(type: GirType): TypeInfo? =
         when (type.name) {
             "none" -> TypeInfo.Primitive(UNIT)
-            "GType", "gsize", "guint64", "gulong" -> TypeInfo.Primitive(U_LONG)
-            "gchar" -> TypeInfo.GChar(BYTE, CHAR)
-            "gdouble" -> TypeInfo.Primitive(DOUBLE)
-            "gfloat" -> TypeInfo.Primitive(FLOAT)
-            "gint", "gint32" -> TypeInfo.Primitive(INT)
+            "GType" -> TypeInfo.Primitive(G_TYPE)
+            "gchar" -> TypeInfo.GChar(G_CHAR, CHAR)
+            "gdouble" -> TypeInfo.Primitive(G_DOUBLE)
+            "gfloat" -> TypeInfo.Primitive(G_FLOAT)
+            "gint" -> TypeInfo.Primitive(G_INT)
             "gint16" -> TypeInfo.Primitive(SHORT)
-            "gint64", "glong", "gssize" -> TypeInfo.Primitive(LONG)
-            "gint8" -> TypeInfo.Primitive(BYTE)
-            "guint", "guint32", "gunichar" -> TypeInfo.Primitive(U_INT)
-            "guint16" -> TypeInfo.Primitive(U_SHORT)
-            "guint8" -> TypeInfo.Primitive(U_BYTE)
+            "gint32" -> TypeInfo.Primitive(G_INT)
+            "gint64" -> TypeInfo.Primitive(G_INT64)
+            "gint8" -> TypeInfo.Primitive(G_INT8)
+            "glong" -> TypeInfo.Primitive(G_LONG)
+            "gsize" -> TypeInfo.Primitive(G_SIZE)
+            "gssize" -> TypeInfo.Primitive(LONG)
+            "guint" -> TypeInfo.Primitive(G_UINT)
+            "guint16" -> TypeInfo.Primitive(G_UINT16)
+            "guint32" -> TypeInfo.Primitive(G_UINT)
+            "guint64" -> TypeInfo.Primitive(G_UINT64)
+            "guint8" -> TypeInfo.Primitive(G_UINT8)
+            "gulong" -> TypeInfo.Primitive(G_ULONG)
+            "gunichar" -> TypeInfo.Primitive(G_UNICHAR)
             "gboolean" -> when (type.cType) {
-                "gboolean" -> TypeInfo.GBoolean(INT, BOOLEAN)
-                "const gboolean" -> TypeInfo.GBoolean(INT, BOOLEAN)
+                "gboolean" -> TypeInfo.GBoolean(G_BOOLEAN, BOOLEAN)
+                "const gboolean" -> TypeInfo.GBoolean(G_BOOLEAN, BOOLEAN)
                 "_Bool" -> TypeInfo.Primitive(BOOLEAN)
                 null -> error("gboolean with null cType")
                 else -> null

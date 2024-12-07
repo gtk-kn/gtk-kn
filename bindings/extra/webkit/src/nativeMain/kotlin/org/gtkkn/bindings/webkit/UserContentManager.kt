@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.webkit
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -28,7 +27,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.javascriptcore.JSCValue
 import org.gtkkn.native.webkit.WebKitScriptMessageReply
 import org.gtkkn.native.webkit.WebKitUserContentManager
@@ -308,6 +309,13 @@ public class UserContentManager(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of UserContentManager
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_user_content_manager_get_type()
     }
 }
 
@@ -323,7 +331,7 @@ private val connectScriptMessageReceivedFunc: CPointer<CFunction<(CPointer<JSCVa
 .reinterpret()
 
 private val connectScriptMessageWithReplyReceivedFunc:
-        CPointer<CFunction<(CPointer<JSCValue>, CPointer<WebKitScriptMessageReply>) -> Int>> =
+        CPointer<CFunction<(CPointer<JSCValue>, CPointer<WebKitScriptMessageReply>) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     `value`: CPointer<JSCValue>?,

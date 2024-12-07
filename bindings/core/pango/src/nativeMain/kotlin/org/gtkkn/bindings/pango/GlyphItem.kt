@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
@@ -14,10 +13,13 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_20
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_6
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.pango.PangoGlyphItem
 import org.gtkkn.native.pango.pango_glyph_item_apply_attrs
 import org.gtkkn.native.pango.pango_glyph_item_copy
 import org.gtkkn.native.pango.pango_glyph_item_free
+import org.gtkkn.native.pango.pango_glyph_item_get_type
 import org.gtkkn.native.pango.pango_glyph_item_split
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
@@ -61,7 +63,7 @@ public class GlyphItem(
      * shift of the baseline, relative to the baseline
      *   of the containing line. Positive values shift upwards
      */
-    public var yOffset: Int
+    public var yOffset: gint
         get() = pangoGlyphItemPointer.pointed.y_offset
         set(`value`) {
             pangoGlyphItemPointer.pointed.y_offset = value
@@ -71,7 +73,7 @@ public class GlyphItem(
      * horizontal displacement to apply before the
      *   glyph item. Positive values shift right
      */
-    public var startXOffset: Int
+    public var startXOffset: gint
         get() = pangoGlyphItemPointer.pointed.start_x_offset
         set(`value`) {
             pangoGlyphItemPointer.pointed.start_x_offset = value
@@ -81,7 +83,7 @@ public class GlyphItem(
      * horizontal displacement to apply after th
      *   glyph item. Positive values shift right
      */
-    public var endXOffset: Int
+    public var endXOffset: gint
         get() = pangoGlyphItemPointer.pointed.end_x_offset
         set(`value`) {
             pangoGlyphItemPointer.pointed.end_x_offset = value
@@ -158,10 +160,17 @@ public class GlyphItem(
      * @since 1.2
      */
     @PangoVersion1_2
-    public fun split(text: String, splitIndex: Int): GlyphItem? = pango_glyph_item_split(pangoGlyphItemPointer.reinterpret(), text, splitIndex)?.run {
+    public fun split(text: String, splitIndex: gint): GlyphItem? = pango_glyph_item_split(pangoGlyphItemPointer.reinterpret(), text, splitIndex)?.run {
         GlyphItem(reinterpret())}
 
     public companion object : RecordCompanion<GlyphItem, PangoGlyphItem> {
+        /**
+         * Get the GType of GlyphItem
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_glyph_item_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): GlyphItem = GlyphItem(pointer.reinterpret())
     }
 }

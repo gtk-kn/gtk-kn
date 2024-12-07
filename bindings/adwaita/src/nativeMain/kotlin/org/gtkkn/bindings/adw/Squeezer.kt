@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
-import kotlin.Float
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -40,6 +38,9 @@ import org.gtkkn.native.adw.adw_squeezer_set_transition_duration
 import org.gtkkn.native.adw.adw_squeezer_set_transition_type
 import org.gtkkn.native.adw.adw_squeezer_set_xalign
 import org.gtkkn.native.adw.adw_squeezer_set_yalign
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -221,7 +222,7 @@ public class Squeezer(
     /**
      * The transition animation duration, in milliseconds.
      */
-    public var transitionDuration: UInt
+    public var transitionDuration: guint
         /**
          * Gets the transition animation duration for @self.
          *
@@ -293,7 +294,7 @@ public class Squeezer(
      * For example, 0.5 means the child will be centered, 0 means it will keep the
      * start side aligned and overflow the end side, and 1 means the opposite.
      */
-    public var xalign: Float
+    public var xalign: gfloat
         /**
          * Gets the horizontal alignment, from 0 (start) to 1 (end).
          *
@@ -322,7 +323,7 @@ public class Squeezer(
      * For example, 0.5 means the child will be centered, 0 means it will keep the
      * top side aligned and overflow the bottom side, and 1 means the opposite.
      */
-    public var yalign: Float
+    public var yalign: gfloat
         /**
          * Gets the vertical alignment, from 0 (top) to 1 (bottom).
          *
@@ -380,5 +381,12 @@ public class Squeezer(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of Squeezer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_squeezer_get_type()
     }
 }

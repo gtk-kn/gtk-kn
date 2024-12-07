@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -32,7 +31,9 @@ import org.gtkkn.native.gio.g_menu_model_is_mutable
 import org.gtkkn.native.gio.g_menu_model_items_changed
 import org.gtkkn.native.gio.g_menu_model_iterate_item_attributes
 import org.gtkkn.native.gio.g_menu_model_iterate_item_links
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 
 /**
  * `GMenuModel` represents the contents of a menu — an ordered list of
@@ -181,7 +182,7 @@ public open class MenuModel(
      */
     @GioVersion2_32
     public open fun getItemAttributeValue(
-        itemIndex: Int,
+        itemIndex: gint,
         attribute: String,
         expectedType: VariantType? = null,
     ): Variant? = g_menu_model_get_item_attribute_value(gioMenuModelPointer.reinterpret(), itemIndex, attribute, expectedType?.glibVariantTypePointer?.reinterpret())?.run {
@@ -200,7 +201,7 @@ public open class MenuModel(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun getItemLink(itemIndex: Int, link: String): MenuModel? = g_menu_model_get_item_link(gioMenuModelPointer.reinterpret(), itemIndex, link)?.run {
+    public open fun getItemLink(itemIndex: gint, link: String): MenuModel? = g_menu_model_get_item_link(gioMenuModelPointer.reinterpret(), itemIndex, link)?.run {
         MenuModel(reinterpret())}
 
     /**
@@ -210,7 +211,7 @@ public open class MenuModel(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun getNItems(): Int = g_menu_model_get_n_items(gioMenuModelPointer.reinterpret())
+    public open fun getNItems(): gint = g_menu_model_get_n_items(gioMenuModelPointer.reinterpret())
 
     /**
      * Queries if @model is mutable.
@@ -249,9 +250,9 @@ public open class MenuModel(
      */
     @GioVersion2_32
     public open fun itemsChanged(
-        position: Int,
-        removed: Int,
-        added: Int,
+        position: gint,
+        removed: gint,
+        added: gint,
     ): Unit = g_menu_model_items_changed(gioMenuModelPointer.reinterpret(), position, removed, added)
 
     /**
@@ -265,7 +266,7 @@ public open class MenuModel(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun iterateItemAttributes(itemIndex: Int): MenuAttributeIter = g_menu_model_iterate_item_attributes(gioMenuModelPointer.reinterpret(), itemIndex)!!.run {
+    public open fun iterateItemAttributes(itemIndex: gint): MenuAttributeIter = g_menu_model_iterate_item_attributes(gioMenuModelPointer.reinterpret(), itemIndex)!!.run {
         MenuAttributeIter(reinterpret())}
 
     /**
@@ -279,7 +280,7 @@ public open class MenuModel(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun iterateItemLinks(itemIndex: Int): MenuLinkIter = g_menu_model_iterate_item_links(gioMenuModelPointer.reinterpret(), itemIndex)!!.run {
+    public open fun iterateItemLinks(itemIndex: gint): MenuLinkIter = g_menu_model_iterate_item_links(gioMenuModelPointer.reinterpret(), itemIndex)!!.run {
         MenuLinkIter(reinterpret())}
 
     /**
@@ -308,9 +309,9 @@ public open class MenuModel(
      * @param handler the Callback to connect. Params: `position` the position of the change; `removed` the number of items removed; `added` the number of items added
      */
     public fun connectItemsChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
-        position: Int,
-        removed: Int,
-        added: Int,
+        position: gint,
+        removed: gint,
+        added: gint,
     ) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "items-changed", connectItemsChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<MenuModel> {
@@ -319,23 +320,30 @@ public open class MenuModel(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of MenuModel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_menu_model_get_type()
     }
 }
 
 private val connectItemsChangedFunc: CPointer<CFunction<(
-    Int,
-    Int,
-    Int,
+    gint,
+    gint,
+    gint,
 ) -> Unit>> = staticCFunction {
     _: COpaquePointer,
-    position: Int,
-    removed: Int,
-    added: Int,
+    position: gint,
+    removed: gint,
+    added: gint,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
-        position: Int,
-        removed: Int,
-        added: Int,
+        position: gint,
+        removed: gint,
+        added: gint,
     ) -> Unit>().get().invoke(position, removed, added)}
 .reinterpret()

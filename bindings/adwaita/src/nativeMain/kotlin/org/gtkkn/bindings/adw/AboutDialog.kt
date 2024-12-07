@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.adw
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -75,7 +74,9 @@ import org.gtkkn.native.adw.adw_about_dialog_set_support_url
 import org.gtkkn.native.adw.adw_about_dialog_set_translator_credits
 import org.gtkkn.native.adw.adw_about_dialog_set_version
 import org.gtkkn.native.adw.adw_about_dialog_set_website
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -1294,10 +1295,17 @@ public class AboutDialog(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of AboutDialog
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_about_dialog_get_type()
     }
 }
 
-private val connectActivateLinkFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Int>> =
+private val connectActivateLinkFunc: CPointer<CFunction<(CPointer<ByteVar>) -> gboolean>> =
         staticCFunction {
     _: COpaquePointer,
     uri: CPointer<ByteVar>?,

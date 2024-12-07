@@ -12,11 +12,13 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_18
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitOptionMenuItem
 import org.gtkkn.native.webkit.webkit_option_menu_item_copy
 import org.gtkkn.native.webkit.webkit_option_menu_item_free
 import org.gtkkn.native.webkit.webkit_option_menu_item_get_label
 import org.gtkkn.native.webkit.webkit_option_menu_item_get_tooltip
+import org.gtkkn.native.webkit.webkit_option_menu_item_get_type
 import org.gtkkn.native.webkit.webkit_option_menu_item_is_enabled
 import org.gtkkn.native.webkit.webkit_option_menu_item_is_group_child
 import org.gtkkn.native.webkit.webkit_option_menu_item_is_group_label
@@ -111,6 +113,13 @@ public class OptionMenuItem(
     public fun isSelected(): Boolean = webkit_option_menu_item_is_selected(webkitOptionMenuItemPointer.reinterpret()).asBoolean()
 
     public companion object : RecordCompanion<OptionMenuItem, WebKitOptionMenuItem> {
+        /**
+         * Get the GType of OptionMenuItem
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_option_menu_item_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): OptionMenuItem = OptionMenuItem(pointer.reinterpret())
     }
 }

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -12,6 +11,8 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBox
 import org.gtkkn.native.gtk.GtkBuildable
@@ -95,7 +96,7 @@ public open class Box(
      * @since 4.12
      */
     @GtkVersion4_12
-    public open var baselineChild: Int
+    public open var baselineChild: gint
         /**
          * Gets the value set by gtk_box_set_baseline_child().
          *
@@ -161,7 +162,7 @@ public open class Box(
     /**
      * The amount of space between children.
      */
-    public open var spacing: Int
+    public open var spacing: gint
         /**
          * Gets the value set by gtk_box_set_spacing().
          *
@@ -182,7 +183,7 @@ public open class Box(
      * @param spacing the number of pixels to place by default between children
      * @return a new `GtkBox`.
      */
-    public constructor(orientation: Orientation, spacing: Int) : this(gtk_box_new(orientation.nativeValue, spacing)!!.reinterpret())
+    public constructor(orientation: Orientation, spacing: gint) : this(gtk_box_new(orientation.nativeValue, spacing)!!.reinterpret())
 
     /**
      * Adds @child as the last child to @box.
@@ -237,5 +238,12 @@ public open class Box(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of Box
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_box_get_type()
     }
 }

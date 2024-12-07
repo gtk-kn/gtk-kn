@@ -10,6 +10,7 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkTreeDragSource
 import org.gtkkn.native.gtk.GtkTreeModel
 import org.gtkkn.native.gtk.GtkTreeModelSort
@@ -239,5 +240,12 @@ public open class TreeModelSort(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of TreeModelSort
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_tree_model_sort_get_type()
     }
 }

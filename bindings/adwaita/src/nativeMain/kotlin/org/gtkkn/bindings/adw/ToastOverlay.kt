@@ -14,6 +14,7 @@ import org.gtkkn.native.adw.adw_toast_overlay_get_child
 import org.gtkkn.native.adw.adw_toast_overlay_get_type
 import org.gtkkn.native.adw.adw_toast_overlay_new
 import org.gtkkn.native.adw.adw_toast_overlay_set_child
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -122,5 +123,12 @@ public class ToastOverlay(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of ToastOverlay
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_toast_overlay_get_type()
     }
 }

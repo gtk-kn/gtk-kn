@@ -23,6 +23,7 @@ import org.gtkkn.native.gio.g_dbus_object_manager_server_is_exported
 import org.gtkkn.native.gio.g_dbus_object_manager_server_new
 import org.gtkkn.native.gio.g_dbus_object_manager_server_set_connection
 import org.gtkkn.native.gio.g_dbus_object_manager_server_unexport
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GDBusObjectManagerServer` is used to export [iface@Gio.DBusObject] instances
@@ -165,5 +166,12 @@ public open class DBusObjectManagerServer(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of DBusObjectManagerServer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_object_manager_server_get_type()
     }
 }

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gdk
 
 import kotlin.Boolean
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
@@ -25,6 +24,8 @@ import org.gtkkn.native.gdk.gdk_event_get_type
 import org.gtkkn.native.gdk.gdk_event_ref
 import org.gtkkn.native.gdk.gdk_event_triggers_context_menu
 import org.gtkkn.native.gdk.gdk_event_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 
 /**
  * `GdkEvent`s are immutable data structures, created by GDK to
@@ -145,7 +146,7 @@ public open class Event(
      *
      * @return timestamp field from @event
      */
-    public open fun getTime(): UInt = gdk_event_get_time(gPointer.reinterpret())
+    public open fun getTime(): guint = gdk_event_get_time(gPointer.reinterpret())
 
     /**
      * Increase the ref count of @event.
@@ -181,5 +182,12 @@ public open class Event(
 
         init {
             GdkTypeProvider.register()}
+
+        /**
+         * Get the GType of Event
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_event_get_type()
     }
 }

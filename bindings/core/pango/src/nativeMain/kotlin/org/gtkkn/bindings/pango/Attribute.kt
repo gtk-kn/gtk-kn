@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.pango
 
 import kotlin.Boolean
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -13,6 +12,8 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.pango.PangoAttribute
 import org.gtkkn.native.pango.pango_attribute_as_color
 import org.gtkkn.native.pango.pango_attribute_as_float
@@ -26,6 +27,7 @@ import org.gtkkn.native.pango.pango_attribute_as_string
 import org.gtkkn.native.pango.pango_attribute_copy
 import org.gtkkn.native.pango.pango_attribute_destroy
 import org.gtkkn.native.pango.pango_attribute_equal
+import org.gtkkn.native.pango.pango_attribute_get_type
 import org.gtkkn.native.pango.pango_attribute_init
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
@@ -56,7 +58,7 @@ public class Attribute(
     /**
      * the start index of the range (in bytes).
      */
-    public var startIndex: UInt
+    public var startIndex: guint
         get() = pangoAttributePointer.pointed.start_index
         set(`value`) {
             pangoAttributePointer.pointed.start_index = value
@@ -66,7 +68,7 @@ public class Attribute(
      * end index of the range (in bytes). The character at this index
      *   is not included in the range.
      */
-    public var endIndex: UInt
+    public var endIndex: guint
         get() = pangoAttributePointer.pointed.end_index
         set(`value`) {
             pangoAttributePointer.pointed.end_index = value
@@ -229,6 +231,13 @@ public class Attribute(
     public fun `init`(klass: AttrClass): Unit = pango_attribute_init(pangoAttributePointer.reinterpret(), klass.pangoAttrClassPointer.reinterpret())
 
     public companion object : RecordCompanion<Attribute, PangoAttribute> {
+        /**
+         * Get the GType of Attribute
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_attribute_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Attribute = Attribute(pointer.reinterpret())
     }
 }

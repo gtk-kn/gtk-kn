@@ -50,6 +50,7 @@ import org.gtkkn.native.adw.adw_split_button_set_label
 import org.gtkkn.native.adw.adw_split_button_set_menu_model
 import org.gtkkn.native.adw.adw_split_button_set_popover
 import org.gtkkn.native.adw.adw_split_button_set_use_underline
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
@@ -396,6 +397,13 @@ public class SplitButton(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of SplitButton
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_split_button_get_type()
     }
 }
 

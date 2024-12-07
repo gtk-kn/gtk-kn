@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gdk
 
 import kotlin.Boolean
-import kotlin.UInt
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -16,8 +14,13 @@ import org.gtkkn.native.gdk.GdkDmabufFormats
 import org.gtkkn.native.gdk.gdk_dmabuf_formats_contains
 import org.gtkkn.native.gdk.gdk_dmabuf_formats_equal
 import org.gtkkn.native.gdk.gdk_dmabuf_formats_get_n_formats
+import org.gtkkn.native.gdk.gdk_dmabuf_formats_get_type
 import org.gtkkn.native.gdk.gdk_dmabuf_formats_ref
 import org.gtkkn.native.gdk.gdk_dmabuf_formats_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.guint64
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -64,7 +67,7 @@ public class DmabufFormats(
      * @since 4.14
      */
     @GdkVersion4_14
-    public fun contains(fourcc: UInt, modifier: ULong): Boolean = gdk_dmabuf_formats_contains(gdkDmabufFormatsPointer.reinterpret(), fourcc, modifier).asBoolean()
+    public fun contains(fourcc: guint, modifier: guint64): Boolean = gdk_dmabuf_formats_contains(gdkDmabufFormatsPointer.reinterpret(), fourcc, modifier).asBoolean()
 
     /**
      * Returns whether @formats1 and @formats2 contain the
@@ -89,7 +92,7 @@ public class DmabufFormats(
      * @since 4.14
      */
     @GdkVersion4_14
-    public fun getNFormats(): ULong = gdk_dmabuf_formats_get_n_formats(gdkDmabufFormatsPointer.reinterpret())
+    public fun getNFormats(): gsize = gdk_dmabuf_formats_get_n_formats(gdkDmabufFormatsPointer.reinterpret())
 
     /**
      * Increases the reference count of @formats.
@@ -113,6 +116,13 @@ public class DmabufFormats(
     public fun unref(): Unit = gdk_dmabuf_formats_unref(gdkDmabufFormatsPointer.reinterpret())
 
     public companion object : RecordCompanion<DmabufFormats, GdkDmabufFormats> {
+        /**
+         * Get the GType of DmabufFormats
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_dmabuf_formats_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DmabufFormats = DmabufFormats(pointer.reinterpret())
     }
 }

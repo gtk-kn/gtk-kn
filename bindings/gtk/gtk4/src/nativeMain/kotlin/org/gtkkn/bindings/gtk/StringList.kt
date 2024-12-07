@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlin.collections.List
 import kotlinx.cinterop.CPointer
@@ -17,6 +16,8 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkStringList
 import org.gtkkn.native.gtk.gtk_string_list_append
@@ -108,7 +109,7 @@ public open class StringList(
      * @param position the position to get the string for
      * @return the string at the given position
      */
-    public open fun getString(position: UInt): String? = gtk_string_list_get_string(gtkStringListPointer.reinterpret(), position)?.toKString()
+    public open fun getString(position: guint): String? = gtk_string_list_get_string(gtkStringListPointer.reinterpret(), position)?.toKString()
 
     /**
      * Removes the string at @position from @self.
@@ -118,7 +119,7 @@ public open class StringList(
      *
      * @param position the position of the string that is to be removed
      */
-    public open fun remove(position: UInt): Unit = gtk_string_list_remove(gtkStringListPointer.reinterpret(), position)
+    public open fun remove(position: guint): Unit = gtk_string_list_remove(gtkStringListPointer.reinterpret(), position)
 
     /**
      * Changes @self by removing @n_removals strings and adding @additions
@@ -139,8 +140,8 @@ public open class StringList(
      * @param additions The strings to add
      */
     public open fun splice(
-        position: UInt,
-        nRemovals: UInt,
+        position: guint,
+        nRemovals: guint,
         additions: List<String>? = null,
     ): Unit = memScoped {
         return gtk_string_list_splice(gtkStringListPointer.reinterpret(), position, nRemovals, additions?.toCStringList(this))}
@@ -166,5 +167,12 @@ public open class StringList(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of StringList
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_string_list_get_type()
     }
 }

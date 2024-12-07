@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlin.ULong
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -10,6 +9,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GInputVector
+import org.gtkkn.native.gobject.gsize
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -33,7 +33,7 @@ public class InputVector(
     /**
      * the available size in @buffer.
      */
-    public var size: ULong
+    public var size: gsize
         get() = gioInputVectorPointer.pointed.size
         set(`value`) {
             gioInputVectorPointer.pointed.size = value

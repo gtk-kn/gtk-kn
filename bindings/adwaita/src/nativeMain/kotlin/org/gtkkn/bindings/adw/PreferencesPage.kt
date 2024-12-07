@@ -31,6 +31,7 @@ import org.gtkkn.native.adw.adw_preferences_page_set_icon_name
 import org.gtkkn.native.adw.adw_preferences_page_set_name
 import org.gtkkn.native.adw.adw_preferences_page_set_title
 import org.gtkkn.native.adw.adw_preferences_page_set_use_underline
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -198,5 +199,12 @@ public open class PreferencesPage(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of PreferencesPage
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_preferences_page_get_type()
     }
 }

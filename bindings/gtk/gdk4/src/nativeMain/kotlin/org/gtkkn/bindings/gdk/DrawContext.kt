@@ -16,6 +16,7 @@ import org.gtkkn.native.gdk.gdk_draw_context_get_display
 import org.gtkkn.native.gdk.gdk_draw_context_get_surface
 import org.gtkkn.native.gdk.gdk_draw_context_get_type
 import org.gtkkn.native.gdk.gdk_draw_context_is_in_frame
+import org.gtkkn.native.gobject.GType
 
 /**
  * Base class for objects implementing different rendering methods.
@@ -94,5 +95,12 @@ public open class DrawContext(
 
         init {
             GdkTypeProvider.register()}
+
+        /**
+         * Get the GType of DrawContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_draw_context_get_type()
     }
 }

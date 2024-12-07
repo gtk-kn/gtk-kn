@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gdk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asBoolean
@@ -19,6 +18,7 @@ import org.gtkkn.native.gdk.gdk_popup_get_rect_anchor
 import org.gtkkn.native.gdk.gdk_popup_get_surface_anchor
 import org.gtkkn.native.gdk.gdk_popup_get_type
 import org.gtkkn.native.gdk.gdk_popup_present
+import org.gtkkn.native.gobject.gint
 
 /**
  * A `GdkPopup` is a surface that is attached to another surface.
@@ -75,14 +75,14 @@ public interface Popup : Interface, KGTyped {
      *
      * @return the X coordinate of @popup position
      */
-    public fun getPositionX(): Int = gdk_popup_get_position_x(gdkPopupPointer.reinterpret())
+    public fun getPositionX(): gint = gdk_popup_get_position_x(gdkPopupPointer.reinterpret())
 
     /**
      * Obtains the position of the popup relative to its parent.
      *
      * @return the Y coordinate of @popup position
      */
-    public fun getPositionY(): Int = gdk_popup_get_position_y(gdkPopupPointer.reinterpret())
+    public fun getPositionY(): gint = gdk_popup_get_position_y(gdkPopupPointer.reinterpret())
 
     /**
      * Gets the current popup rectangle anchor.
@@ -129,8 +129,8 @@ public interface Popup : Interface, KGTyped {
      * @return false if it failed to be presented, otherwise true.
      */
     public fun present(
-        width: Int,
-        height: Int,
+        width: gint,
+        height: gint,
         layout: PopupLayout,
     ): Boolean = gdk_popup_present(gdkPopupPointer.reinterpret(), width, height, layout.gdkPopupLayoutPointer.reinterpret()).asBoolean()
 

@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
@@ -10,6 +9,8 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkCellEditable
@@ -165,7 +166,7 @@ public open class ComboBoxText(
      * @param text A string to display
      */
     public open fun insert(
-        position: Int,
+        position: gint,
         id: String? = null,
         text: String,
     ): Unit = gtk_combo_box_text_insert(gtkComboBoxTextPointer.reinterpret(), position, id, text)
@@ -181,7 +182,7 @@ public open class ComboBoxText(
      * @param position An index to insert @text
      * @param text A string
      */
-    public open fun insertText(position: Int, text: String): Unit = gtk_combo_box_text_insert_text(gtkComboBoxTextPointer.reinterpret(), position, text)
+    public open fun insertText(position: gint, text: String): Unit = gtk_combo_box_text_insert_text(gtkComboBoxTextPointer.reinterpret(), position, text)
 
     /**
      * Prepends @text to the list of strings stored in @combo_box.
@@ -211,7 +212,7 @@ public open class ComboBoxText(
      *
      * @param position Index of the item to remove
      */
-    public open fun remove(position: Int): Unit = gtk_combo_box_text_remove(gtkComboBoxTextPointer.reinterpret(), position)
+    public open fun remove(position: gint): Unit = gtk_combo_box_text_remove(gtkComboBoxTextPointer.reinterpret(), position)
 
     /**
      * Removes all the text entries from the combo box.
@@ -231,5 +232,12 @@ public open class ComboBoxText(
          * @return a new `GtkComboBoxText`
          */
         public fun newWithEntry(): ComboBoxText = ComboBoxText(gtk_combo_box_text_new_with_entry()!!.reinterpret())
+
+        /**
+         * Get the GType of ComboBoxText
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_combo_box_text_get_type()
     }
 }

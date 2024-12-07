@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
-import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -9,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GFlagsClass
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -27,7 +27,7 @@ public class FlagsClass(
     /**
      * a mask covering all possible values.
      */
-    public var mask: UInt
+    public var mask: guint
         get() = gobjectFlagsClassPointer.pointed.mask
         set(`value`) {
             gobjectFlagsClassPointer.pointed.mask = value
@@ -36,7 +36,7 @@ public class FlagsClass(
     /**
      * the number of possible values.
      */
-    public var nValues: UInt
+    public var nValues: guint
         get() = gobjectFlagsClassPointer.pointed.n_values
         set(`value`) {
             gobjectFlagsClassPointer.pointed.n_values = value

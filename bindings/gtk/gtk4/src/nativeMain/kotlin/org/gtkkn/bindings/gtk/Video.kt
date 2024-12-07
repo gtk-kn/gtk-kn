@@ -13,6 +13,7 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -255,5 +256,12 @@ public open class Video(
          * @return a new `GtkVideo`
          */
         public fun newForResource(resourcePath: String? = null): Video = Video(gtk_video_new_for_resource(resourcePath)!!.reinterpret())
+
+        /**
+         * Get the GType of Video
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_video_get_type()
     }
 }

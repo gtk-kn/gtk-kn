@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gdk
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -14,8 +13,11 @@ import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gdk.GdkRectangle
 import org.gtkkn.native.gdk.gdk_rectangle_contains_point
 import org.gtkkn.native.gdk.gdk_rectangle_equal
+import org.gtkkn.native.gdk.gdk_rectangle_get_type
 import org.gtkkn.native.gdk.gdk_rectangle_intersect
 import org.gtkkn.native.gdk.gdk_rectangle_union
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -43,7 +45,7 @@ public class Rectangle(
     /**
      * the x coordinate of the top left corner
      */
-    public var x: Int
+    public var x: gint
         get() = gdkRectanglePointer.pointed.x
         set(`value`) {
             gdkRectanglePointer.pointed.x = value
@@ -52,7 +54,7 @@ public class Rectangle(
     /**
      * the y coordinate of the top left corner
      */
-    public var y: Int
+    public var y: gint
         get() = gdkRectanglePointer.pointed.y
         set(`value`) {
             gdkRectanglePointer.pointed.y = value
@@ -61,7 +63,7 @@ public class Rectangle(
     /**
      * the width of the rectangle
      */
-    public var width: Int
+    public var width: gint
         get() = gdkRectanglePointer.pointed.width
         set(`value`) {
             gdkRectanglePointer.pointed.width = value
@@ -70,7 +72,7 @@ public class Rectangle(
     /**
      * the height of the rectangle
      */
-    public var height: Int
+    public var height: gint
         get() = gdkRectanglePointer.pointed.height
         set(`value`) {
             gdkRectanglePointer.pointed.height = value
@@ -83,7 +85,7 @@ public class Rectangle(
      * @param y Y coordinate
      * @return true if @rect contains the point
      */
-    public fun containsPoint(x: Int, y: Int): Boolean = gdk_rectangle_contains_point(gdkRectanglePointer.reinterpret(), x, y).asBoolean()
+    public fun containsPoint(x: gint, y: gint): Boolean = gdk_rectangle_contains_point(gdkRectanglePointer.reinterpret(), x, y).asBoolean()
 
     /**
      * Checks if the two given rectangles are equal.
@@ -125,6 +127,13 @@ public class Rectangle(
     public fun union(src2: Rectangle, dest: Rectangle): Unit = gdk_rectangle_union(gdkRectanglePointer.reinterpret(), src2.gdkRectanglePointer.reinterpret(), dest.gdkRectanglePointer.reinterpret())
 
     public companion object : RecordCompanion<Rectangle, GdkRectangle> {
+        /**
+         * Get the GType of Rectangle
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_rectangle_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Rectangle = Rectangle(pointer.reinterpret())
     }
 }

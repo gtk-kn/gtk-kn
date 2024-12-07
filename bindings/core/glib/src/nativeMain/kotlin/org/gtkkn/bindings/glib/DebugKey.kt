@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.String
-import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -11,6 +10,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GDebugKey
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -33,7 +33,7 @@ public class DebugKey(
     /**
      * the flag
      */
-    public var `value`: UInt
+    public var `value`: guint
         get() = glibDebugKeyPointer.pointed.value
         set(`value`) {
             glibDebugKeyPointer.pointed.value = value

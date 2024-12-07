@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gtk.Button
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
@@ -63,5 +64,12 @@ public open class StyleSchemeChooserButton(
 
         init {
             GtksourceTypeProvider.register()}
+
+        /**
+         * Get the GType of StyleSchemeChooserButton
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_style_scheme_chooser_button_get_type()
     }
 }

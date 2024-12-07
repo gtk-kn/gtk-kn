@@ -7,6 +7,7 @@ import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskCairoNode
 import org.gtkkn.native.gsk.gsk_cairo_node_get_type
 import org.gtkkn.native.gsk.gsk_cairo_node_new
@@ -43,5 +44,12 @@ public open class CairoNode(
 
         init {
             GskTypeProvider.register()}
+
+        /**
+         * Get the GType of CairoNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_cairo_node_get_type()
     }
 }

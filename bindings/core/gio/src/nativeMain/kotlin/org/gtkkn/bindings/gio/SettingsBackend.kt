@@ -16,6 +16,7 @@ import org.gtkkn.native.gio.g_settings_backend_get_default
 import org.gtkkn.native.gio.g_settings_backend_get_type
 import org.gtkkn.native.gio.g_settings_backend_path_writable_changed
 import org.gtkkn.native.gio.g_settings_backend_writable_changed
+import org.gtkkn.native.gobject.GType
 
 /**
  * The `GSettingsBackend` interface defines a generic interface for
@@ -104,5 +105,12 @@ public open class SettingsBackend(
         @GioVersion2_28
         public fun getDefault(): SettingsBackend = g_settings_backend_get_default()!!.run {
             SettingsBackend(reinterpret())}
+
+        /**
+         * Get the GType of SettingsBackend
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_settings_backend_get_type()
     }
 }

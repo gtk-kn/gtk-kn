@@ -3,7 +3,6 @@ package org.gtkkn.bindings.glib
 
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -27,6 +26,9 @@ import org.gtkkn.native.glib.g_dir_read_name
 import org.gtkkn.native.glib.g_dir_ref
 import org.gtkkn.native.glib.g_dir_rewind
 import org.gtkkn.native.glib.g_dir_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_dir_get_type
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -117,7 +119,7 @@ public class Dir(
          *   If non-null, you must free the result with g_dir_close()
          *   when you are finished with it.
          */
-        public fun `open`(path: String, flags: UInt): Result<Dir> {
+        public fun `open`(path: String, flags: guint): Result<Dir> {
             memScoped {
                 val gError = allocPointerTo<GError>()
                 val gResult = g_dir_open(path, flags, gError.ptr)
@@ -162,6 +164,13 @@ public class Dir(
                 Result.success(checkNotNull(gResult))
             }
         }
+
+        /**
+         * Get the GType of Dir
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dir_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Dir = Dir(pointer.reinterpret())
     }

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.String
-import kotlin.UInt
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -11,6 +10,9 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GArray
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_array_get_type
+import org.gtkkn.native.gobject.guint
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -34,13 +36,20 @@ public class Array(
      * the number of elements in the #GArray not including the
      *     possible terminating zero element.
      */
-    public var len: UInt
+    public var len: guint
         get() = glibArrayPointer.pointed.len
         set(`value`) {
             glibArrayPointer.pointed.len = value
         }
 
     public companion object : RecordCompanion<Array, GArray> {
+        /**
+         * Get the GType of Array
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_array_get_type()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Array = Array(pointer.reinterpret())
     }
 }

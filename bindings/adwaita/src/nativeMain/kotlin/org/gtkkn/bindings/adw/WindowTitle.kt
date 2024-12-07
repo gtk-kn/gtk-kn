@@ -16,6 +16,7 @@ import org.gtkkn.native.adw.adw_window_title_get_type
 import org.gtkkn.native.adw.adw_window_title_new
 import org.gtkkn.native.adw.adw_window_title_set_subtitle
 import org.gtkkn.native.adw.adw_window_title_set_title
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -110,5 +111,12 @@ public class WindowTitle(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of WindowTitle
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_window_title_get_type()
     }
 }

@@ -4,8 +4,6 @@ package org.gtkkn.bindings.glib
 import kotlin.Boolean
 import kotlin.Char
 import kotlin.Long
-import kotlin.UInt
-import kotlin.ULong
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.cstr
@@ -55,6 +53,11 @@ import org.gtkkn.native.glib.g_string_set_size
 import org.gtkkn.native.glib.g_string_sized_new
 import org.gtkkn.native.glib.g_string_truncate
 import org.gtkkn.native.glib.g_string_up
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_gstring_get_type
+import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.gunichar
 import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
@@ -88,7 +91,7 @@ public class String(
      * contains the length of the string, not including the
      *   terminating nul byte.
      */
-    public var len: ULong
+    public var len: gsize
         get() = glibStringPointer.pointed.len
         set(`value`) {
             glibStringPointer.pointed.len = value
@@ -98,7 +101,7 @@ public class String(
      * the number of bytes that can be stored in the
      *   string before it needs to be reallocated. May be larger than @len.
      */
-    public var allocatedLen: ULong
+    public var allocatedLen: gsize
         get() = glibStringPointer.pointed.allocated_len
         set(`value`) {
             glibStringPointer.pointed.allocated_len = value
@@ -149,7 +152,7 @@ public class String(
      * @param wc a Unicode character
      * @return @string
      */
-    public fun appendUnichar(wc: UInt): String = g_string_append_unichar(glibStringPointer.reinterpret(), wc)!!.run {
+    public fun appendUnichar(wc: gunichar): String = g_string_append_unichar(glibStringPointer.reinterpret(), wc)!!.run {
         String(reinterpret())}
 
     /**
@@ -282,7 +285,7 @@ public class String(
      *
      * @return hash code for @str
      */
-    public fun hash(): UInt = g_string_hash(glibStringPointer.reinterpret())
+    public fun hash(): guint = g_string_hash(glibStringPointer.reinterpret())
 
     /**
      * Inserts a copy of a string into a #GString,
@@ -339,7 +342,7 @@ public class String(
      * @param wc a Unicode character
      * @return @string
      */
-    public fun insertUnichar(pos: Long, wc: UInt): String = g_string_insert_unichar(glibStringPointer.reinterpret(), pos, wc)!!.run {
+    public fun insertUnichar(pos: Long, wc: gunichar): String = g_string_insert_unichar(glibStringPointer.reinterpret(), pos, wc)!!.run {
         String(reinterpret())}
 
     /**
@@ -351,7 +354,7 @@ public class String(
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun overwrite(pos: ULong, `val`: kotlin.String): String = g_string_overwrite(glibStringPointer.reinterpret(), pos, `val`)!!.run {
+    public fun overwrite(pos: gsize, `val`: kotlin.String): String = g_string_overwrite(glibStringPointer.reinterpret(), pos, `val`)!!.run {
         String(reinterpret())}
 
     /**
@@ -366,7 +369,7 @@ public class String(
      */
     @GLibVersion2_14
     public fun overwriteLen(
-        pos: ULong,
+        pos: gsize,
         `val`: kotlin.String,
         len: Long,
     ): String = g_string_overwrite_len(glibStringPointer.reinterpret(), pos, `val`, len)!!.run {
@@ -417,7 +420,7 @@ public class String(
      * @param wc a Unicode character
      * @return @string
      */
-    public fun prependUnichar(wc: UInt): String = g_string_prepend_unichar(glibStringPointer.reinterpret(), wc)!!.run {
+    public fun prependUnichar(wc: gunichar): String = g_string_prepend_unichar(glibStringPointer.reinterpret(), wc)!!.run {
         String(reinterpret())}
 
     /**
@@ -442,8 +445,8 @@ public class String(
     public fun replace(
         find: kotlin.String,
         replace: kotlin.String,
-        limit: UInt,
-    ): UInt = g_string_replace(glibStringPointer.reinterpret(), find, replace, limit)
+        limit: guint,
+    ): guint = g_string_replace(glibStringPointer.reinterpret(), find, replace, limit)
 
     /**
      * Sets the length of a #GString. If the length is less than
@@ -455,7 +458,7 @@ public class String(
      * @param len the new length
      * @return @string
      */
-    public fun setSize(len: ULong): String = g_string_set_size(glibStringPointer.reinterpret(), len)!!.run {
+    public fun setSize(len: gsize): String = g_string_set_size(glibStringPointer.reinterpret(), len)!!.run {
         String(reinterpret())}
 
     /**
@@ -464,7 +467,7 @@ public class String(
      * @param len the new size of @string
      * @return @string
      */
-    public fun truncate(len: ULong): String = g_string_truncate(glibStringPointer.reinterpret(), len)!!.run {
+    public fun truncate(len: gsize): String = g_string_truncate(glibStringPointer.reinterpret(), len)!!.run {
         String(reinterpret())}
 
     /**
@@ -524,7 +527,14 @@ public class String(
          * @param dflSize the default size of the space allocated to hold the string
          * @return the new #GString
          */
-        public fun sizedNew(dflSize: ULong): String = String(g_string_sized_new(dflSize)!!.reinterpret())
+        public fun sizedNew(dflSize: gsize): String = String(g_string_sized_new(dflSize)!!.reinterpret())
+
+        /**
+         * Get the GType of String
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_gstring_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): String = String(pointer.reinterpret())
     }

@@ -17,6 +17,7 @@ import org.gtkkn.native.gio.g_menu_link_iter_get_name
 import org.gtkkn.native.gio.g_menu_link_iter_get_type
 import org.gtkkn.native.gio.g_menu_link_iter_get_value
 import org.gtkkn.native.gio.g_menu_link_iter_next
+import org.gtkkn.native.gobject.GType
 
 /**
  * #GMenuLinkIter is an opaque structure type.  You must access it using
@@ -81,5 +82,12 @@ public open class MenuLinkIter(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of MenuLinkIter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_menu_link_iter_get_type()
     }
 }

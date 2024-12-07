@@ -23,6 +23,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskRenderer
 import org.gtkkn.native.gsk.gsk_renderer_get_surface
 import org.gtkkn.native.gsk.gsk_renderer_get_type
@@ -170,5 +171,12 @@ public open class Renderer(
 
         init {
             GskTypeProvider.register()}
+
+        /**
+         * Get the GType of Renderer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_renderer_get_type()
     }
 }

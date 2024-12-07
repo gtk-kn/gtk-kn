@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtksource
 
 import kotlin.Boolean
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.ModifierType
@@ -12,6 +11,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtksource.GtkSourceIndenter
 import org.gtkkn.native.gtksource.gtk_source_indenter_get_type
 import org.gtkkn.native.gtksource.gtk_source_indenter_is_trigger
@@ -74,7 +74,7 @@ public interface Indenter : Interface, KGTyped {
         view: View,
         location: TextIter,
         state: ModifierType,
-        keyval: UInt,
+        keyval: guint,
     ): Boolean = gtk_source_indenter_is_trigger(gtksourceIndenterPointer.reinterpret(), view.gtksourceViewPointer.reinterpret(), location.gtkTextIterPointer.reinterpret(), state.mask, keyval).asBoolean()
 
     private data class Wrapper(

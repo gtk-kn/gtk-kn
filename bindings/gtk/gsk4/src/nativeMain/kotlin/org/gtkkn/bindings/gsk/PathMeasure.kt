@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gsk
 
 import kotlin.Boolean
-import kotlin.Float
 import kotlin.Unit
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
@@ -11,11 +10,14 @@ import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskPathMeasure
 import org.gtkkn.native.gsk.gsk_path_measure_get_length
 import org.gtkkn.native.gsk.gsk_path_measure_get_path
 import org.gtkkn.native.gsk.gsk_path_measure_get_point
 import org.gtkkn.native.gsk.gsk_path_measure_get_tolerance
+import org.gtkkn.native.gsk.gsk_path_measure_get_type
 import org.gtkkn.native.gsk.gsk_path_measure_new
 import org.gtkkn.native.gsk.gsk_path_measure_new_with_tolerance
 import org.gtkkn.native.gsk.gsk_path_measure_ref
@@ -50,7 +52,7 @@ public class PathMeasure(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getLength(): Float = gsk_path_measure_get_length(gskPathMeasurePointer.reinterpret())
+    public fun getLength(): gfloat = gsk_path_measure_get_length(gskPathMeasurePointer.reinterpret())
 
     /**
      * Returns the path that the measure was created for.
@@ -73,7 +75,7 @@ public class PathMeasure(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getPoint(distance: Float, result: PathPoint): Boolean = gsk_path_measure_get_point(gskPathMeasurePointer.reinterpret(), distance, result.gskPathPointPointer.reinterpret()).asBoolean()
+    public fun getPoint(distance: gfloat, result: PathPoint): Boolean = gsk_path_measure_get_point(gskPathMeasurePointer.reinterpret(), distance, result.gskPathPointPointer.reinterpret()).asBoolean()
 
     /**
      * Returns the tolerance that the measure was created with.
@@ -82,7 +84,7 @@ public class PathMeasure(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getTolerance(): Float = gsk_path_measure_get_tolerance(gskPathMeasurePointer.reinterpret())
+    public fun getTolerance(): gfloat = gsk_path_measure_get_tolerance(gskPathMeasurePointer.reinterpret())
 
     /**
      * Increases the reference count of a `GskPathMeasure` by one.
@@ -123,7 +125,14 @@ public class PathMeasure(
          * @return a new `GskPathMeasure` representing @path
          * @since 4.14
          */
-        public fun newWithTolerance(path: Path, tolerance: Float): PathMeasure = PathMeasure(gsk_path_measure_new_with_tolerance(path.gskPathPointer.reinterpret(), tolerance)!!.reinterpret())
+        public fun newWithTolerance(path: Path, tolerance: gfloat): PathMeasure = PathMeasure(gsk_path_measure_new_with_tolerance(path.gskPathPointer.reinterpret(), tolerance)!!.reinterpret())
+
+        /**
+         * Get the GType of PathMeasure
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_path_measure_get_type()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PathMeasure = PathMeasure(pointer.reinterpret())
     }

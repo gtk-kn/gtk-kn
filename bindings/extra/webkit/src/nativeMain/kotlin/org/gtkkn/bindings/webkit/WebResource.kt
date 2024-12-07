@@ -28,6 +28,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GTlsCertificate
 import org.gtkkn.native.gio.GTlsCertificateFlags
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.webkit.WebKitURIRequest
 import org.gtkkn.native.webkit.WebKitURIResponse
@@ -175,6 +176,13 @@ public class WebResource(
 
         init {
             WebkitTypeProvider.register()}
+
+        /**
+         * Get the GType of WebResource
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_web_resource_get_type()
     }
 }
 

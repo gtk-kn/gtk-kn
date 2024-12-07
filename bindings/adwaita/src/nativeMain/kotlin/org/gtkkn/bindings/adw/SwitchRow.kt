@@ -15,6 +15,7 @@ import org.gtkkn.native.adw.adw_switch_row_get_active
 import org.gtkkn.native.adw.adw_switch_row_get_type
 import org.gtkkn.native.adw.adw_switch_row_new
 import org.gtkkn.native.adw.adw_switch_row_set_active
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
@@ -106,5 +107,12 @@ public class SwitchRow(
 
         init {
             AdwTypeProvider.register()}
+
+        /**
+         * Get the GType of SwitchRow
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_switch_row_get_type()
     }
 }

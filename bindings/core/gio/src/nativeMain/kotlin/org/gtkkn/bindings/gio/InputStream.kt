@@ -2,10 +2,8 @@
 package org.gtkkn.bindings.gio
 
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Long
 import kotlin.Result
-import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -40,6 +38,9 @@ import org.gtkkn.native.gio.g_input_stream_skip
 import org.gtkkn.native.gio.g_input_stream_skip_async
 import org.gtkkn.native.gio.g_input_stream_skip_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gsize
 
 /**
  * `GInputStream` is a base class for implementing streaming input.
@@ -133,7 +134,7 @@ public open class InputStream(
      *   to call when the request is satisfied
      */
     public open fun closeAsync(
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_input_stream_close_async(gioInputStreamPointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -201,7 +202,7 @@ public open class InputStream(
      * @since 2.34
      */
     @GioVersion2_34
-    public open fun readBytes(count: ULong, cancellable: Cancellable? = null): Result<Bytes> = memScoped {
+    public open fun readBytes(count: gsize, cancellable: Cancellable? = null): Result<Bytes> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_input_stream_read_bytes(gioInputStreamPointer.reinterpret(), count, cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr)?.run {
             Bytes(reinterpret())}
@@ -245,8 +246,8 @@ public open class InputStream(
      */
     @GioVersion2_34
     public open fun readBytesAsync(
-        count: ULong,
-        ioPriority: Int,
+        count: gsize,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_input_stream_read_bytes_async(gioInputStreamPointer.reinterpret(), count, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -327,7 +328,7 @@ public open class InputStream(
      * @param cancellable optional #GCancellable object, null to ignore.
      * @return Number of bytes skipped, or -1 on error
      */
-    public open fun skip(count: ULong, cancellable: Cancellable? = null): Result<Long> = memScoped {
+    public open fun skip(count: gsize, cancellable: Cancellable? = null): Result<Long> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_input_stream_skip(gioInputStreamPointer.reinterpret(), count, cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr)
         return if (gError.pointed != null) {
@@ -370,8 +371,8 @@ public open class InputStream(
      *   to call when the request is satisfied
      */
     public open fun skipAsync(
-        count: ULong,
-        ioPriority: Int,
+        count: gsize,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
     ): Unit = g_input_stream_skip_async(gioInputStreamPointer.reinterpret(), count, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
@@ -399,5 +400,12 @@ public open class InputStream(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Get the GType of InputStream
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_input_stream_get_type()
     }
 }

@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.ULong
 import kotlin.Unit
 import kotlinx.cinterop.CFunction
@@ -24,7 +22,10 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkDragAction
 import org.gtkkn.native.gdk.GdkDrop
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gtk.GtkDropTargetAsync
 import org.gtkkn.native.gtk.gtk_drop_target_async_get_actions
 import org.gtkkn.native.gtk.gtk_drop_target_async_get_formats
@@ -167,8 +168,8 @@ public open class DropTargetAsync(
      */
     public fun connectDragEnter(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
         drop: Drop,
-        x: Double,
-        y: Double,
+        x: gdouble,
+        y: gdouble,
     ) -> DragAction): ULong = g_signal_connect_data(gPointer.reinterpret(), "drag-enter", connectDragEnterFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
@@ -190,8 +191,8 @@ public open class DropTargetAsync(
      */
     public fun connectDragMotion(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
         drop: Drop,
-        x: Double,
-        y: Double,
+        x: gdouble,
+        y: gdouble,
     ) -> DragAction): ULong = g_signal_connect_data(gPointer.reinterpret(), "drag-motion", connectDragMotionFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
@@ -215,8 +216,8 @@ public open class DropTargetAsync(
      */
     public fun connectDrop(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
         drop: Drop,
-        x: Double,
-        y: Double,
+        x: gdouble,
+        y: gdouble,
     ) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "drop", connectDropFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<DropTargetAsync> {
@@ -225,10 +226,18 @@ public open class DropTargetAsync(
 
         init {
             GtkTypeProvider.register()}
+
+        /**
+         * Get the GType of DropTargetAsync
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_drop_target_async_get_type()
     }
 }
 
-private val connectAcceptFunc: CPointer<CFunction<(CPointer<GdkDrop>) -> Int>> = staticCFunction {
+private val connectAcceptFunc: CPointer<CFunction<(CPointer<GdkDrop>) -> gboolean>> =
+        staticCFunction {
     _: COpaquePointer,
     drop: CPointer<GdkDrop>?,
     userData: COpaquePointer
@@ -240,19 +249,19 @@ private val connectAcceptFunc: CPointer<CFunction<(CPointer<GdkDrop>) -> Int>> =
 
 private val connectDragEnterFunc: CPointer<CFunction<(
     CPointer<GdkDrop>,
-    Double,
-    Double,
+    gdouble,
+    gdouble,
 ) -> GdkDragAction>> = staticCFunction {
     _: COpaquePointer,
     drop: CPointer<GdkDrop>?,
-    x: Double,
-    y: Double,
+    x: gdouble,
+    y: gdouble,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         drop: Drop,
-        x: Double,
-        y: Double,
+        x: gdouble,
+        y: gdouble,
     ) -> DragAction>().get().invoke(drop!!.run {
         Drop(reinterpret())}
     , x, y).mask}
@@ -271,19 +280,19 @@ private val connectDragLeaveFunc: CPointer<CFunction<(CPointer<GdkDrop>) -> Unit
 
 private val connectDragMotionFunc: CPointer<CFunction<(
     CPointer<GdkDrop>,
-    Double,
-    Double,
+    gdouble,
+    gdouble,
 ) -> GdkDragAction>> = staticCFunction {
     _: COpaquePointer,
     drop: CPointer<GdkDrop>?,
-    x: Double,
-    y: Double,
+    x: gdouble,
+    y: gdouble,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         drop: Drop,
-        x: Double,
-        y: Double,
+        x: gdouble,
+        y: gdouble,
     ) -> DragAction>().get().invoke(drop!!.run {
         Drop(reinterpret())}
     , x, y).mask}
@@ -291,19 +300,19 @@ private val connectDragMotionFunc: CPointer<CFunction<(
 
 private val connectDropFunc: CPointer<CFunction<(
     CPointer<GdkDrop>,
-    Double,
-    Double,
-) -> Int>> = staticCFunction {
+    gdouble,
+    gdouble,
+) -> gboolean>> = staticCFunction {
     _: COpaquePointer,
     drop: CPointer<GdkDrop>?,
-    x: Double,
-    y: Double,
+    x: gdouble,
+    y: gdouble,
     userData: COpaquePointer
     ->
     userData.asStableRef<(
         drop: Drop,
-        x: Double,
-        y: Double,
+        x: gdouble,
+        y: gdouble,
     ) -> Boolean>().get().invoke(drop!!.run {
         Drop(reinterpret())}
     , x, y).asGBoolean()}
