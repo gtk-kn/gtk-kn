@@ -8,6 +8,8 @@ import org.gtkkn.native.gio.G_IO_STREAM_SPLICE_CLOSE_STREAM1
 import org.gtkkn.native.gio.G_IO_STREAM_SPLICE_CLOSE_STREAM2
 import org.gtkkn.native.gio.G_IO_STREAM_SPLICE_NONE
 import org.gtkkn.native.gio.G_IO_STREAM_SPLICE_WAIT_FOR_BOTH
+import org.gtkkn.native.gio.g_io_stream_splice_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * GIOStreamSpliceFlags determine how streams should be spliced.
@@ -45,5 +47,12 @@ public class IOStreamSpliceFlags(
          */
         public val WAIT_FOR_BOTH: IOStreamSpliceFlags =
                 IOStreamSpliceFlags(G_IO_STREAM_SPLICE_WAIT_FOR_BOTH)
+
+        /**
+         * Get the GType of IOStreamSpliceFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_io_stream_splice_flags_get_type()
     }
 }

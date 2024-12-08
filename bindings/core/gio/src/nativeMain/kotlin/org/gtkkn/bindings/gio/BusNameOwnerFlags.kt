@@ -8,6 +8,8 @@ import org.gtkkn.native.gio.G_BUS_NAME_OWNER_FLAGS_ALLOW_REPLACEMENT
 import org.gtkkn.native.gio.G_BUS_NAME_OWNER_FLAGS_DO_NOT_QUEUE
 import org.gtkkn.native.gio.G_BUS_NAME_OWNER_FLAGS_NONE
 import org.gtkkn.native.gio.G_BUS_NAME_OWNER_FLAGS_REPLACE
+import org.gtkkn.native.gio.g_bus_name_owner_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags used in g_bus_own_name().
@@ -43,5 +45,12 @@ public class BusNameOwnerFlags(
          */
         public val DO_NOT_QUEUE: BusNameOwnerFlags =
                 BusNameOwnerFlags(G_BUS_NAME_OWNER_FLAGS_DO_NOT_QUEUE)
+
+        /**
+         * Get the GType of BusNameOwnerFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_bus_name_owner_flags_get_type()
     }
 }

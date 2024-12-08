@@ -13,6 +13,8 @@ import org.gtkkn.native.gio.G_TLS_CERTIFICATE_NO_FLAGS
 import org.gtkkn.native.gio.G_TLS_CERTIFICATE_REVOKED
 import org.gtkkn.native.gio.G_TLS_CERTIFICATE_UNKNOWN_CA
 import org.gtkkn.native.gio.G_TLS_CERTIFICATE_VALIDATE_ALL
+import org.gtkkn.native.gio.g_tls_certificate_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * A set of flags describing TLS certification validation. This can be
@@ -91,5 +93,12 @@ public class TlsCertificateFlags(
          */
         public val VALIDATE_ALL: TlsCertificateFlags =
                 TlsCertificateFlags(G_TLS_CERTIFICATE_VALIDATE_ALL)
+
+        /**
+         * Get the GType of TlsCertificateFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_tls_certificate_flags_get_type()
     }
 }

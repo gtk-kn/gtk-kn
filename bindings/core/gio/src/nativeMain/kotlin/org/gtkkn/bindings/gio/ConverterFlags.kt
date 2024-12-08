@@ -7,6 +7,8 @@ import org.gtkkn.native.gio.GConverterFlags
 import org.gtkkn.native.gio.G_CONVERTER_FLUSH
 import org.gtkkn.native.gio.G_CONVERTER_INPUT_AT_END
 import org.gtkkn.native.gio.G_CONVERTER_NO_FLAGS
+import org.gtkkn.native.gio.g_converter_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags used when calling a g_converter_convert().
@@ -33,5 +35,12 @@ public class ConverterFlags(
          * Flush data
          */
         public val FLUSH: ConverterFlags = ConverterFlags(G_CONVERTER_FLUSH)
+
+        /**
+         * Get the GType of ConverterFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_converter_flags_get_type()
     }
 }

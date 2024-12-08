@@ -5,6 +5,8 @@ import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GMountUnmountFlags
 import org.gtkkn.native.gio.G_MOUNT_UNMOUNT_FORCE
 import org.gtkkn.native.gio.G_MOUNT_UNMOUNT_NONE
+import org.gtkkn.native.gio.g_mount_unmount_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags used when an unmounting a mount.
@@ -25,5 +27,12 @@ public class MountUnmountFlags(
          *  file operations on the mount.
          */
         public val FORCE: MountUnmountFlags = MountUnmountFlags(G_MOUNT_UNMOUNT_FORCE)
+
+        /**
+         * Get the GType of MountUnmountFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_mount_unmount_flags_get_type()
     }
 }

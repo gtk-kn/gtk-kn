@@ -7,6 +7,8 @@ import org.gtkkn.native.gio.GDBusCallFlags
 import org.gtkkn.native.gio.G_DBUS_CALL_FLAGS_ALLOW_INTERACTIVE_AUTHORIZATION
 import org.gtkkn.native.gio.G_DBUS_CALL_FLAGS_NONE
 import org.gtkkn.native.gio.G_DBUS_CALL_FLAGS_NO_AUTO_START
+import org.gtkkn.native.gio.g_dbus_call_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags used in g_dbus_connection_call() and similar APIs.
@@ -37,5 +39,12 @@ public class DBusCallFlags(
          */
         public val ALLOW_INTERACTIVE_AUTHORIZATION: DBusCallFlags =
                 DBusCallFlags(G_DBUS_CALL_FLAGS_ALLOW_INTERACTIVE_AUTHORIZATION)
+
+        /**
+         * Get the GType of DBusCallFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_call_flags_get_type()
     }
 }

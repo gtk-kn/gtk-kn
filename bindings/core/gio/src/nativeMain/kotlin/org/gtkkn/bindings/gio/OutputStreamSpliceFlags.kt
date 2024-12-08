@@ -6,6 +6,8 @@ import org.gtkkn.native.gio.GOutputStreamSpliceFlags
 import org.gtkkn.native.gio.G_OUTPUT_STREAM_SPLICE_CLOSE_SOURCE
 import org.gtkkn.native.gio.G_OUTPUT_STREAM_SPLICE_CLOSE_TARGET
 import org.gtkkn.native.gio.G_OUTPUT_STREAM_SPLICE_NONE
+import org.gtkkn.native.gio.g_output_stream_splice_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * GOutputStreamSpliceFlags determine how streams should be spliced.
@@ -35,5 +37,12 @@ public class OutputStreamSpliceFlags(
          */
         public val CLOSE_TARGET: OutputStreamSpliceFlags =
                 OutputStreamSpliceFlags(G_OUTPUT_STREAM_SPLICE_CLOSE_TARGET)
+
+        /**
+         * Get the GType of OutputStreamSpliceFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_output_stream_splice_flags_get_type()
     }
 }

@@ -3,10 +3,12 @@ package org.gtkkn.bindings.pango
 
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.glib.Bitfield
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PANGO_LAYOUT_SERIALIZE_CONTEXT
 import org.gtkkn.native.pango.PANGO_LAYOUT_SERIALIZE_DEFAULT
 import org.gtkkn.native.pango.PANGO_LAYOUT_SERIALIZE_OUTPUT
 import org.gtkkn.native.pango.PangoLayoutSerializeFlags
+import org.gtkkn.native.pango.pango_layout_serialize_flags_get_type
 
 /**
  * Flags that influence the behavior of [method@Pango.Layout.serialize].
@@ -38,5 +40,12 @@ public class LayoutSerializeFlags(
          */
         public val OUTPUT: LayoutSerializeFlags =
                 LayoutSerializeFlags(PANGO_LAYOUT_SERIALIZE_OUTPUT)
+
+        /**
+         * Get the GType of LayoutSerializeFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_layout_serialize_flags_get_type()
     }
 }

@@ -2,6 +2,7 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.extensions.glib.Bitfield
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GTK_CELL_RENDERER_EXPANDABLE
 import org.gtkkn.native.gtk.GTK_CELL_RENDERER_EXPANDED
 import org.gtkkn.native.gtk.GTK_CELL_RENDERER_FOCUSED
@@ -10,6 +11,7 @@ import org.gtkkn.native.gtk.GTK_CELL_RENDERER_PRELIT
 import org.gtkkn.native.gtk.GTK_CELL_RENDERER_SELECTED
 import org.gtkkn.native.gtk.GTK_CELL_RENDERER_SORTED
 import org.gtkkn.native.gtk.GtkCellRendererState
+import org.gtkkn.native.gtk.gtk_cell_renderer_state_get_type
 
 /**
  * Tells how a cell is to be rendered.
@@ -55,5 +57,12 @@ public class CellRendererState(
          * The cell is in a row that is expanded
          */
         public val EXPANDED: CellRendererState = CellRendererState(GTK_CELL_RENDERER_EXPANDED)
+
+        /**
+         * Get the GType of CellRendererState
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_cell_renderer_state_get_type()
     }
 }

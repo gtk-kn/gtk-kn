@@ -7,6 +7,8 @@ import org.gtkkn.native.gio.G_APP_INFO_CREATE_NEEDS_TERMINAL
 import org.gtkkn.native.gio.G_APP_INFO_CREATE_NONE
 import org.gtkkn.native.gio.G_APP_INFO_CREATE_SUPPORTS_STARTUP_NOTIFICATION
 import org.gtkkn.native.gio.G_APP_INFO_CREATE_SUPPORTS_URIS
+import org.gtkkn.native.gio.g_app_info_create_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags used when creating a #GAppInfo.
@@ -39,5 +41,12 @@ public class AppInfoCreateFlags(
          */
         public val SUPPORTS_STARTUP_NOTIFICATION: AppInfoCreateFlags =
                 AppInfoCreateFlags(G_APP_INFO_CREATE_SUPPORTS_STARTUP_NOTIFICATION)
+
+        /**
+         * Get the GType of AppInfoCreateFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_app_info_create_flags_get_type()
     }
 }

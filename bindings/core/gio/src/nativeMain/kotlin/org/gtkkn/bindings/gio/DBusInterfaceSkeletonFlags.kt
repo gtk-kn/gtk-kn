@@ -6,6 +6,8 @@ import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GDBusInterfaceSkeletonFlags
 import org.gtkkn.native.gio.G_DBUS_INTERFACE_SKELETON_FLAGS_HANDLE_METHOD_INVOCATIONS_IN_THREAD
 import org.gtkkn.native.gio.G_DBUS_INTERFACE_SKELETON_FLAGS_NONE
+import org.gtkkn.native.gio.g_dbus_interface_skeleton_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags describing the behavior of a #GDBusInterfaceSkeleton instance.
@@ -32,5 +34,12 @@ public class DBusInterfaceSkeletonFlags(
          */
         public val HANDLE_METHOD_INVOCATIONS_IN_THREAD: DBusInterfaceSkeletonFlags =
                 DBusInterfaceSkeletonFlags(G_DBUS_INTERFACE_SKELETON_FLAGS_HANDLE_METHOD_INVOCATIONS_IN_THREAD)
+
+        /**
+         * Get the GType of DBusInterfaceSkeletonFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_interface_skeleton_flags_get_type()
     }
 }

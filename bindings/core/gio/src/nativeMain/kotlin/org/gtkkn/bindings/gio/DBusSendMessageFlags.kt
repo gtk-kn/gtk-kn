@@ -6,6 +6,8 @@ import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GDBusSendMessageFlags
 import org.gtkkn.native.gio.G_DBUS_SEND_MESSAGE_FLAGS_NONE
 import org.gtkkn.native.gio.G_DBUS_SEND_MESSAGE_FLAGS_PRESERVE_SERIAL
+import org.gtkkn.native.gio.g_dbus_send_message_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags used when sending #GDBusMessages on a #GDBusConnection.
@@ -30,5 +32,12 @@ public class DBusSendMessageFlags(
          */
         public val PRESERVE_SERIAL: DBusSendMessageFlags =
                 DBusSendMessageFlags(G_DBUS_SEND_MESSAGE_FLAGS_PRESERVE_SERIAL)
+
+        /**
+         * Get the GType of DBusSendMessageFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_send_message_flags_get_type()
     }
 }

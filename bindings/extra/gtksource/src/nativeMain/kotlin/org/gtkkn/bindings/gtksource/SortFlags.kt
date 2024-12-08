@@ -2,11 +2,13 @@
 package org.gtkkn.bindings.gtksource
 
 import org.gtkkn.extensions.glib.Bitfield
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GTK_SOURCE_SORT_FLAGS_CASE_SENSITIVE
 import org.gtkkn.native.gtksource.GTK_SOURCE_SORT_FLAGS_NONE
 import org.gtkkn.native.gtksource.GTK_SOURCE_SORT_FLAGS_REMOVE_DUPLICATES
 import org.gtkkn.native.gtksource.GTK_SOURCE_SORT_FLAGS_REVERSE_ORDER
 import org.gtkkn.native.gtksource.GtkSourceSortFlags
+import org.gtkkn.native.gtksource.gtk_source_sort_flags_get_type
 
 public class SortFlags(
     public val mask: GtkSourceSortFlags,
@@ -33,5 +35,12 @@ public class SortFlags(
          * remove duplicates
          */
         public val REMOVE_DUPLICATES: SortFlags = SortFlags(GTK_SOURCE_SORT_FLAGS_REMOVE_DUPLICATES)
+
+        /**
+         * Get the GType of SortFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_sort_flags_get_type()
     }
 }

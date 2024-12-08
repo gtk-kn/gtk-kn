@@ -5,6 +5,8 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GDriveStartFlags
 import org.gtkkn.native.gio.G_DRIVE_START_NONE
+import org.gtkkn.native.gio.g_drive_start_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags used when starting a drive.
@@ -21,5 +23,12 @@ public class DriveStartFlags(
          * No flags set.
          */
         public val NONE: DriveStartFlags = DriveStartFlags(G_DRIVE_START_NONE)
+
+        /**
+         * Get the GType of DriveStartFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_drive_start_flags_get_type()
     }
 }

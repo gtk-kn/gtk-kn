@@ -6,6 +6,8 @@ import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GResourceFlags
 import org.gtkkn.native.gio.G_RESOURCE_FLAGS_COMPRESSED
 import org.gtkkn.native.gio.G_RESOURCE_FLAGS_NONE
+import org.gtkkn.native.gio.g_resource_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * GResourceFlags give information about a particular file inside a resource
@@ -28,5 +30,12 @@ public class ResourceFlags(
          * The file is compressed.
          */
         public val COMPRESSED: ResourceFlags = ResourceFlags(G_RESOURCE_FLAGS_COMPRESSED)
+
+        /**
+         * Get the GType of ResourceFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_resource_flags_get_type()
     }
 }

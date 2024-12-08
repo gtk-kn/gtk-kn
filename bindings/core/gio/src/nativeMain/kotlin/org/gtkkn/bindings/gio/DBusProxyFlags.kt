@@ -11,6 +11,8 @@ import org.gtkkn.native.gio.G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES
 import org.gtkkn.native.gio.G_DBUS_PROXY_FLAGS_GET_INVALIDATED_PROPERTIES
 import org.gtkkn.native.gio.G_DBUS_PROXY_FLAGS_NONE
 import org.gtkkn.native.gio.G_DBUS_PROXY_FLAGS_NO_MATCH_RULE
+import org.gtkkn.native.gio.g_dbus_proxy_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags used when constructing an instance of a #GDBusProxy derived class.
@@ -69,5 +71,12 @@ public class DBusProxyFlags(
          *    over which match rules you add (but you must add them manually). (Since: 2.72)
          */
         public val NO_MATCH_RULE: DBusProxyFlags = DBusProxyFlags(G_DBUS_PROXY_FLAGS_NO_MATCH_RULE)
+
+        /**
+         * Get the GType of DBusProxyFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_proxy_flags_get_type()
     }
 }

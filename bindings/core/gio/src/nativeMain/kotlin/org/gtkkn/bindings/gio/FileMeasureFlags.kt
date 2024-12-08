@@ -8,6 +8,8 @@ import org.gtkkn.native.gio.G_FILE_MEASURE_APPARENT_SIZE
 import org.gtkkn.native.gio.G_FILE_MEASURE_NONE
 import org.gtkkn.native.gio.G_FILE_MEASURE_NO_XDEV
 import org.gtkkn.native.gio.G_FILE_MEASURE_REPORT_ANY_ERROR
+import org.gtkkn.native.gio.g_file_measure_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags that can be used with g_file_measure_disk_usage().
@@ -49,5 +51,12 @@ public class FileMeasureFlags(
          *   Compare with `du -x`.
          */
         public val NO_XDEV: FileMeasureFlags = FileMeasureFlags(G_FILE_MEASURE_NO_XDEV)
+
+        /**
+         * Get the GType of FileMeasureFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_file_measure_flags_get_type()
     }
 }

@@ -2,10 +2,12 @@
 package org.gtkkn.bindings.soup
 
 import org.gtkkn.extensions.glib.Bitfield
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SOUP_SERVER_LISTEN_HTTPS
 import org.gtkkn.native.soup.SOUP_SERVER_LISTEN_IPV4_ONLY
 import org.gtkkn.native.soup.SOUP_SERVER_LISTEN_IPV6_ONLY
 import org.gtkkn.native.soup.SoupServerListenOptions
+import org.gtkkn.native.soup.soup_server_listen_options_get_type
 
 /**
  * Options to pass to [method@Server.listen], etc.
@@ -39,5 +41,12 @@ public class ServerListenOptions(
          */
         public val IPV6_ONLY: ServerListenOptions =
                 ServerListenOptions(SOUP_SERVER_LISTEN_IPV6_ONLY)
+
+        /**
+         * Get the GType of ServerListenOptions
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_server_listen_options_get_type()
     }
 }

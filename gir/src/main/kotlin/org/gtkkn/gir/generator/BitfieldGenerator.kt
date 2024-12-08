@@ -65,9 +65,8 @@ interface BitfieldGenerator : MiscGenerator, KDocGenerator {
                     .build(),
             )
             addFunction(orFuncSpec)
-            addType(companionSpecBuilder.build())
-
-            // add functions // TODO
+            // add functions
             bitfield.functionBlueprints.forEach { companionSpecBuilder.addFunction(buildFunction(it)) }
+            addType(companionSpecBuilder.build())
         }.build()
 }

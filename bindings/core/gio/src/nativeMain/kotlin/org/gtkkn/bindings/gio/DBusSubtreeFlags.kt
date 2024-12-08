@@ -6,6 +6,8 @@ import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GDBusSubtreeFlags
 import org.gtkkn.native.gio.G_DBUS_SUBTREE_FLAGS_DISPATCH_TO_UNENUMERATED_NODES
 import org.gtkkn.native.gio.G_DBUS_SUBTREE_FLAGS_NONE
+import org.gtkkn.native.gio.g_dbus_subtree_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags passed to g_dbus_connection_register_subtree().
@@ -30,5 +32,12 @@ public class DBusSubtreeFlags(
          */
         public val DISPATCH_TO_UNENUMERATED_NODES: DBusSubtreeFlags =
                 DBusSubtreeFlags(G_DBUS_SUBTREE_FLAGS_DISPATCH_TO_UNENUMERATED_NODES)
+
+        /**
+         * Get the GType of DBusSubtreeFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_subtree_flags_get_type()
     }
 }

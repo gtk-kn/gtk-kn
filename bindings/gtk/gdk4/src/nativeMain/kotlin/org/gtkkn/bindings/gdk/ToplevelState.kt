@@ -20,6 +20,8 @@ import org.gtkkn.native.gdk.GDK_TOPLEVEL_STATE_TILED
 import org.gtkkn.native.gdk.GDK_TOPLEVEL_STATE_TOP_RESIZABLE
 import org.gtkkn.native.gdk.GDK_TOPLEVEL_STATE_TOP_TILED
 import org.gtkkn.native.gdk.GdkToplevelState
+import org.gtkkn.native.gdk.gdk_toplevel_state_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Specifies the state of a toplevel surface.
@@ -122,5 +124,12 @@ public class ToplevelState(
          * the surface is not visible to the user
          */
         public val SUSPENDED: ToplevelState = ToplevelState(GDK_TOPLEVEL_STATE_SUSPENDED)
+
+        /**
+         * Get the GType of ToplevelState
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_toplevel_state_get_type()
     }
 }

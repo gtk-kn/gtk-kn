@@ -8,6 +8,8 @@ import org.gtkkn.native.gio.G_DBUS_MESSAGE_FLAGS_ALLOW_INTERACTIVE_AUTHORIZATION
 import org.gtkkn.native.gio.G_DBUS_MESSAGE_FLAGS_NONE
 import org.gtkkn.native.gio.G_DBUS_MESSAGE_FLAGS_NO_AUTO_START
 import org.gtkkn.native.gio.G_DBUS_MESSAGE_FLAGS_NO_REPLY_EXPECTED
+import org.gtkkn.native.gio.g_dbus_message_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Message flags used in #GDBusMessage.
@@ -45,5 +47,12 @@ public class DBusMessageFlags(
          */
         public val ALLOW_INTERACTIVE_AUTHORIZATION: DBusMessageFlags =
                 DBusMessageFlags(G_DBUS_MESSAGE_FLAGS_ALLOW_INTERACTIVE_AUTHORIZATION)
+
+        /**
+         * Get the GType of DBusMessageFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_message_flags_get_type()
     }
 }

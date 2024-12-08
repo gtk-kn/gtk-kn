@@ -2,10 +2,12 @@
 package org.gtkkn.bindings.webkit
 
 import org.gtkkn.extensions.glib.Bitfield
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WEBKIT_SNAPSHOT_OPTIONS_INCLUDE_SELECTION_HIGHLIGHTING
 import org.gtkkn.native.webkit.WEBKIT_SNAPSHOT_OPTIONS_NONE
 import org.gtkkn.native.webkit.WEBKIT_SNAPSHOT_OPTIONS_TRANSPARENT_BACKGROUND
 import org.gtkkn.native.webkit.WebKitSnapshotOptions
+import org.gtkkn.native.webkit.webkit_snapshot_options_get_type
 
 /**
  * Enum values used to specify options when taking a snapshot
@@ -35,5 +37,12 @@ public class SnapshotOptions(
          */
         public val TRANSPARENT_BACKGROUND: SnapshotOptions =
                 SnapshotOptions(WEBKIT_SNAPSHOT_OPTIONS_TRANSPARENT_BACKGROUND)
+
+        /**
+         * Get the GType of SnapshotOptions
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_snapshot_options_get_type()
     }
 }

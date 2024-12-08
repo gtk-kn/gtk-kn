@@ -8,6 +8,8 @@ import org.gtkkn.native.gio.G_DBUS_SIGNAL_FLAGS_MATCH_ARG0_NAMESPACE
 import org.gtkkn.native.gio.G_DBUS_SIGNAL_FLAGS_MATCH_ARG0_PATH
 import org.gtkkn.native.gio.G_DBUS_SIGNAL_FLAGS_NONE
 import org.gtkkn.native.gio.G_DBUS_SIGNAL_FLAGS_NO_MATCH_RULE
+import org.gtkkn.native.gio.g_dbus_signal_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags used when subscribing to signals via g_dbus_connection_signal_subscribe().
@@ -47,5 +49,12 @@ public class DBusSignalFlags(
          */
         public val MATCH_ARG0_PATH: DBusSignalFlags =
                 DBusSignalFlags(G_DBUS_SIGNAL_FLAGS_MATCH_ARG0_PATH)
+
+        /**
+         * Get the GType of DBusSignalFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_signal_flags_get_type()
     }
 }

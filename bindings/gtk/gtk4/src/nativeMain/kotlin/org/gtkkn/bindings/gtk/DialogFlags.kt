@@ -2,10 +2,12 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.extensions.glib.Bitfield
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GTK_DIALOG_DESTROY_WITH_PARENT
 import org.gtkkn.native.gtk.GTK_DIALOG_MODAL
 import org.gtkkn.native.gtk.GTK_DIALOG_USE_HEADER_BAR
 import org.gtkkn.native.gtk.GtkDialogFlags
+import org.gtkkn.native.gtk.gtk_dialog_flags_get_type
 
 /**
  * Flags used to influence dialog construction.
@@ -31,5 +33,12 @@ public class DialogFlags(
          *   bar instead of action area
          */
         public val USE_HEADER_BAR: DialogFlags = DialogFlags(GTK_DIALOG_USE_HEADER_BAR)
+
+        /**
+         * Get the GType of DialogFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_dialog_flags_get_type()
     }
 }

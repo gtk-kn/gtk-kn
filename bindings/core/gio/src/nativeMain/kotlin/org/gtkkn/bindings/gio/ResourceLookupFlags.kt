@@ -5,6 +5,8 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GResourceLookupFlags
 import org.gtkkn.native.gio.G_RESOURCE_LOOKUP_FLAGS_NONE
+import org.gtkkn.native.gio.g_resource_lookup_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * GResourceLookupFlags determine how resource path lookups are handled.
@@ -21,5 +23,12 @@ public class ResourceLookupFlags(
          * No flags set.
          */
         public val NONE: ResourceLookupFlags = ResourceLookupFlags(G_RESOURCE_LOOKUP_FLAGS_NONE)
+
+        /**
+         * Get the GType of ResourceLookupFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_resource_lookup_flags_get_type()
     }
 }

@@ -2,8 +2,10 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.extensions.glib.Bitfield
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GTK_BUILDER_CLOSURE_SWAPPED
 import org.gtkkn.native.gtk.GtkBuilderClosureFlags
+import org.gtkkn.native.gtk.gtk_builder_closure_flags_get_type
 
 /**
  * The list of flags that can be passed to gtk_builder_create_closure().
@@ -24,5 +26,12 @@ public class BuilderClosureFlags(
          *   g_cclosure_new_swap() for details.
          */
         public val SWAPPED: BuilderClosureFlags = BuilderClosureFlags(GTK_BUILDER_CLOSURE_SWAPPED)
+
+        /**
+         * Get the GType of BuilderClosureFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_builder_closure_flags_get_type()
     }
 }

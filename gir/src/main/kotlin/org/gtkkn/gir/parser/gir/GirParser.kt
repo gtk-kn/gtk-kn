@@ -231,10 +231,8 @@ class GirParser(
                     line = "1",
                 ),
             ),
-            annotations = listOf(),
             parameters = GirParameters(),
             returnValue = GirReturnValue(
-                annotations = listOf(),
                 doc = GirDoc(
                     doc = GirDocText(
                         text = "the GType",

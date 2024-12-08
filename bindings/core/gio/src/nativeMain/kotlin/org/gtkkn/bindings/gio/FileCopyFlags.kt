@@ -11,6 +11,8 @@ import org.gtkkn.native.gio.G_FILE_COPY_NO_FALLBACK_FOR_MOVE
 import org.gtkkn.native.gio.G_FILE_COPY_OVERWRITE
 import org.gtkkn.native.gio.G_FILE_COPY_TARGET_DEFAULT_MODIFIED_TIME
 import org.gtkkn.native.gio.G_FILE_COPY_TARGET_DEFAULT_PERMS
+import org.gtkkn.native.gio.g_file_copy_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags used when copying or moving files.
@@ -64,5 +66,12 @@ public class FileCopyFlags(
          */
         public val TARGET_DEFAULT_MODIFIED_TIME: FileCopyFlags =
                 FileCopyFlags(G_FILE_COPY_TARGET_DEFAULT_MODIFIED_TIME)
+
+        /**
+         * Get the GType of FileCopyFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_file_copy_flags_get_type()
     }
 }

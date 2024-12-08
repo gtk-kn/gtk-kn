@@ -16,6 +16,8 @@ import org.gtkkn.native.gdk.GDK_NO_MODIFIER_MASK
 import org.gtkkn.native.gdk.GDK_SHIFT_MASK
 import org.gtkkn.native.gdk.GDK_SUPER_MASK
 import org.gtkkn.native.gdk.GdkModifierType
+import org.gtkkn.native.gdk.gdk_modifier_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags to indicate the state of modifier keys and mouse buttons
@@ -102,5 +104,12 @@ public class ModifierType(
          * the Meta modifier
          */
         public val META_MASK: ModifierType = ModifierType(GDK_META_MASK)
+
+        /**
+         * Get the GType of ModifierType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_modifier_type_get_type()
     }
 }

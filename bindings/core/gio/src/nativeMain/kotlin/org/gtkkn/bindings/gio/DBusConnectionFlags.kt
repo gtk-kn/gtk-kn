@@ -12,6 +12,8 @@ import org.gtkkn.native.gio.G_DBUS_CONNECTION_FLAGS_CROSS_NAMESPACE
 import org.gtkkn.native.gio.G_DBUS_CONNECTION_FLAGS_DELAY_MESSAGE_PROCESSING
 import org.gtkkn.native.gio.G_DBUS_CONNECTION_FLAGS_MESSAGE_BUS_CONNECTION
 import org.gtkkn.native.gio.G_DBUS_CONNECTION_FLAGS_NONE
+import org.gtkkn.native.gio.g_dbus_connection_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags used when creating a new #GDBusConnection.
@@ -80,5 +82,12 @@ public class DBusConnectionFlags(
          */
         public val CROSS_NAMESPACE: DBusConnectionFlags =
                 DBusConnectionFlags(G_DBUS_CONNECTION_FLAGS_CROSS_NAMESPACE)
+
+        /**
+         * Get the GType of DBusConnectionFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_connection_flags_get_type()
     }
 }

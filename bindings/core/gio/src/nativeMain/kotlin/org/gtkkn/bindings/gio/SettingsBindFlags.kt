@@ -9,6 +9,8 @@ import org.gtkkn.native.gio.G_SETTINGS_BIND_GET_NO_CHANGES
 import org.gtkkn.native.gio.G_SETTINGS_BIND_INVERT_BOOLEAN
 import org.gtkkn.native.gio.G_SETTINGS_BIND_NO_SENSITIVITY
 import org.gtkkn.native.gio.G_SETTINGS_BIND_SET
+import org.gtkkn.native.gio.g_settings_bind_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags used when creating a binding. These flags determine in which
@@ -58,5 +60,12 @@ public class SettingsBindFlags(
          */
         public val INVERT_BOOLEAN: SettingsBindFlags =
                 SettingsBindFlags(G_SETTINGS_BIND_INVERT_BOOLEAN)
+
+        /**
+         * Get the GType of SettingsBindFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_settings_bind_flags_get_type()
     }
 }
