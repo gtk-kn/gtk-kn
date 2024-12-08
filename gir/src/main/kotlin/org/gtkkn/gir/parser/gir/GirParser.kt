@@ -347,28 +347,36 @@ class GirParser(
         doc = parseGirDocElements(node),
     )
 
-    private fun parseGirUnion(node: Node): GirUnion = GirUnion(
-        info = parseGirInfo(node),
-        name = node.attributeValueOrNull("name"),
-        cType = node.attributeValueOrNull("c:type"),
-        cSymbolPrefix = node.attributeValueOrNull("c:symbol-prefix"),
-        glibTypeName = node.attributeValueOrNull("glib:type-name"),
-        glibGetType = node.attributeValueOrNull("glib:get-type"),
-        copyFunction = node.attributeValueOrNull("copy-function"),
-        freeFunction = node.attributeValueOrNull("free-function"),
-        doc = parseGirDocElements(node),
-        annotations = node.childNodesWithName("attribute").map { parseGirAnnotation(it) },
-        fields = node.childNodesWithName("field").map { parseGirField(it) },
-        constructors = node.childNodesWithName("constructor").map { parseGirConstructor(it) },
-        methods = node.childNodesWithName("method").map { parseGirMethod(it) },
-        methodInlines = node.childNodesWithName("method-inline").map { parseGirMethodInline(it) },
-        functions = node.childNodesWithName("function").map { parseGirFunction(it) },
-        functionInlines = node.childNodesWithName("function-inline").map { parseGirFunctionInline(it) },
-        records = node.childNodesWithName("record").mapNotNull { record ->
-            // ignoring records without name for now: https://gitlab.com/gtk-kn/gtk-kn/-/issues/99
-            record.attributeValueOrNull("name")?.let { parseGirRecord(record) }
-        },
-    )
+    private fun parseGirUnion(node: Node): GirUnion {
+        val name = node.attributeValueOrNull("name")
+        val glibGetType = node.attributeValueOrNull("glib:get-type")
+        val functions = node.childNodesWithName("function").map { parseGirFunction(it) }.toMutableList()
+        if (name != null) {
+            getTypeGirFunction(glibGetType, name)?.let { functions.add(it) }
+        }
+        return GirUnion(
+            info = parseGirInfo(node),
+            name = node.attributeValueOrNull("name"),
+            cType = node.attributeValueOrNull("c:type"),
+            cSymbolPrefix = node.attributeValueOrNull("c:symbol-prefix"),
+            glibTypeName = node.attributeValueOrNull("glib:type-name"),
+            glibGetType = glibGetType,
+            copyFunction = node.attributeValueOrNull("copy-function"),
+            freeFunction = node.attributeValueOrNull("free-function"),
+            doc = parseGirDocElements(node),
+            annotations = node.childNodesWithName("attribute").map { parseGirAnnotation(it) },
+            fields = node.childNodesWithName("field").map { parseGirField(it) },
+            constructors = node.childNodesWithName("constructor").map { parseGirConstructor(it) },
+            methods = node.childNodesWithName("method").map { parseGirMethod(it) },
+            methodInlines = node.childNodesWithName("method-inline").map { parseGirMethodInline(it) },
+            functions = functions,
+            functionInlines = node.childNodesWithName("function-inline").map { parseGirFunctionInline(it) },
+            records = node.childNodesWithName("record").mapNotNull { record ->
+                // ignoring records without name for now: https://gitlab.com/gtk-kn/gtk-kn/-/issues/99
+                record.attributeValueOrNull("name")?.let { parseGirRecord(record) }
+            },
+        )
+    }
 
     private fun parseGirBitfield(node: Node): GirBitfield {
         val name = node.attributeValue("name")
