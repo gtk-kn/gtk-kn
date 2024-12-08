@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_38
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitWebExtensionMode
+import org.gtkkn.native.webkit.webkit_web_extension_mode_get_type
 
 /**
  * Enum values used for setting if a #WebKitWebView is intended for
@@ -34,5 +36,12 @@ public enum class WebExtensionMode(
             WebKitWebExtensionMode.WEBKIT_WEB_EXTENSION_MODE_MANIFESTV3 -> MANIFESTV3
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of WebExtensionMode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_web_extension_mode_get_type()
     }
 }

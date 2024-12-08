@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkSpinType
+import org.gtkkn.native.gtk.gtk_spin_type_get_type
 
 /**
  * The values of the GtkSpinType enumeration are used to specify the
@@ -51,5 +53,12 @@ public enum class SpinType(
             GtkSpinType.GTK_SPIN_USER_DEFINED -> USER_DEFINED
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of SpinType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_spin_type_get_type()
     }
 }

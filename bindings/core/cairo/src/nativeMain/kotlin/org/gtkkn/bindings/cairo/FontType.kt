@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.cairo
 
 import org.gtkkn.native.cairo.cairo_font_type_t
+import org.gtkkn.native.cairo.cairo_gobject_font_type_get_type
+import org.gtkkn.native.gobject.GType
 
 public enum class FontType(
     public val nativeValue: cairo_font_type_t,
@@ -22,5 +24,12 @@ public enum class FontType(
             cairo_font_type_t.CAIRO_FONT_TYPE_USER -> USER
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of FontType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = cairo_gobject_font_type_get_type()
     }
 }

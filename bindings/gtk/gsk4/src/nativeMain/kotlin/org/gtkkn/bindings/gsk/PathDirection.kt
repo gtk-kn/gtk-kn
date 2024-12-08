@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.gsk
 
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskPathDirection
+import org.gtkkn.native.gsk.gsk_path_direction_get_type
 
 /**
  * The values of the `GskPathDirection` enum are used to pick one
@@ -52,5 +54,12 @@ public enum class PathDirection(
             GskPathDirection.GSK_PATH_FROM_END -> FROM_END
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of PathDirection
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_path_direction_get_type()
     }
 }

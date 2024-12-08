@@ -6,7 +6,9 @@ import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Settings
 import org.gtkkn.native.adw.AdwLengthUnit
 import org.gtkkn.native.adw.adw_length_unit_from_px
+import org.gtkkn.native.adw.adw_length_unit_get_type
 import org.gtkkn.native.adw.adw_length_unit_to_px
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
 
 /**
@@ -78,5 +80,12 @@ public enum class LengthUnit(
             `value`: gdouble,
             settings: Settings? = null,
         ): gdouble = adw_length_unit_to_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
+
+        /**
+         * Get the GType of LengthUnit
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_length_unit_get_type()
     }
 }

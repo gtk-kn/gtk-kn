@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkArrowType
+import org.gtkkn.native.gtk.gtk_arrow_type_get_type
 
 /**
  * Used to indicate the direction in which an arrow should point.
@@ -40,5 +42,12 @@ public enum class ArrowType(
             GtkArrowType.GTK_ARROW_NONE -> NONE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of ArrowType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_arrow_type_get_type()
     }
 }

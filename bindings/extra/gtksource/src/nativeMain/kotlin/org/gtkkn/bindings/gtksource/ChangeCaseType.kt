@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtksource
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceChangeCaseType
+import org.gtkkn.native.gtksource.gtk_source_change_case_type_get_type
 
 public enum class ChangeCaseType(
     public val nativeValue: GtkSourceChangeCaseType,
@@ -32,5 +34,12 @@ public enum class ChangeCaseType(
             GtkSourceChangeCaseType.GTK_SOURCE_CHANGE_CASE_TITLE -> TITLE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of ChangeCaseType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_change_case_type_get_type()
     }
 }

@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkSizeRequestMode
+import org.gtkkn.native.gtk.gtk_size_request_mode_get_type
 
 /**
  * Specifies a preference for height-for-width or
@@ -31,5 +33,12 @@ public enum class SizeRequestMode(
             GtkSizeRequestMode.GTK_SIZE_REQUEST_CONSTANT_SIZE -> CONSTANT_SIZE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of SizeRequestMode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_size_request_mode_get_type()
     }
 }

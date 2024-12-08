@@ -4,7 +4,9 @@ package org.gtkkn.bindings.gdkpixbuf
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.gdkpixbuf.GdkPixbufError
+import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_error_get_type
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_error_quark
+import org.gtkkn.native.gobject.GType
 
 /**
  * An error code in the `GDK_PIXBUF_ERROR` domain.
@@ -59,6 +61,13 @@ public enum class PixbufError(
         }
 
         public fun quark(): Quark = gdk_pixbuf_error_quark()
+
+        /**
+         * Get the GType of PixbufError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_pixbuf_error_get_type()
 
         public fun fromErrorOrNull(error: Error): PixbufError? = if (error.domain != quark()) {
             null

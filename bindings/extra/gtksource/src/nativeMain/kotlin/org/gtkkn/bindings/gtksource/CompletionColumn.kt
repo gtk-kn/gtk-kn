@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtksource
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GTK_SOURCE_COMPLETION_COLUMN_AFTER
 import org.gtkkn.native.gtksource.GTK_SOURCE_COMPLETION_COLUMN_BEFORE
 import org.gtkkn.native.gtksource.GTK_SOURCE_COMPLETION_COLUMN_COMMENT
@@ -8,6 +9,7 @@ import org.gtkkn.native.gtksource.GTK_SOURCE_COMPLETION_COLUMN_DETAILS
 import org.gtkkn.native.gtksource.GTK_SOURCE_COMPLETION_COLUMN_ICON
 import org.gtkkn.native.gtksource.GTK_SOURCE_COMPLETION_COLUMN_TYPED_TEXT
 import org.gtkkn.native.gtksource.GtkSourceCompletionColumn
+import org.gtkkn.native.gtksource.gtk_source_completion_column_get_type
 
 public enum class CompletionColumn(
     public val nativeValue: GtkSourceCompletionColumn,
@@ -30,5 +32,12 @@ public enum class CompletionColumn(
             GTK_SOURCE_COMPLETION_COLUMN_DETAILS -> DETAILS
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of CompletionColumn
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_completion_column_get_type()
     }
 }

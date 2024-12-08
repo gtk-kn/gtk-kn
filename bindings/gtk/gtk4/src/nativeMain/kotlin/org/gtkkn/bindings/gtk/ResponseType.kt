@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkResponseType
+import org.gtkkn.native.gtk.gtk_response_type_get_type
 
 /**
  * Predefined values for use as response ids in gtk_dialog_add_button().
@@ -74,5 +76,12 @@ public enum class ResponseType(
             GtkResponseType.GTK_RESPONSE_HELP -> HELP
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of ResponseType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_response_type_get_type()
     }
 }

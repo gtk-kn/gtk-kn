@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoTabAlign
+import org.gtkkn.native.pango.pango_tab_align_get_type
 
 /**
  * `PangoTabAlign` specifies where the text appears relative to the tab stop
@@ -40,5 +42,12 @@ public enum class TabAlign(
             PangoTabAlign.PANGO_TAB_DECIMAL -> DECIMAL
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of TabAlign
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_tab_align_get_type()
     }
 }

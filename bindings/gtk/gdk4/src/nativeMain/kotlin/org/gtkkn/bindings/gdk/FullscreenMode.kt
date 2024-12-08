@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.native.gdk.GdkFullscreenMode
+import org.gtkkn.native.gdk.gdk_fullscreen_mode_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Indicates which monitor a surface should span over when in fullscreen mode.
@@ -25,5 +27,12 @@ public enum class FullscreenMode(
             GdkFullscreenMode.GDK_FULLSCREEN_ON_ALL_MONITORS -> ALL_MONITORS
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of FullscreenMode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_fullscreen_mode_get_type()
     }
 }

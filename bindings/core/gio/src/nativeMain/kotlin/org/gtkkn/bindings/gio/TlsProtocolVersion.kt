@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_70
 import org.gtkkn.native.gio.GTlsProtocolVersion
+import org.gtkkn.native.gio.g_tls_protocol_version_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * The TLS or DTLS protocol version used by a #GTlsConnection or
@@ -66,5 +68,12 @@ public enum class TlsProtocolVersion(
             GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_DTLS_1_2 -> DTLS_1_2
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of TlsProtocolVersion
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_tls_protocol_version_get_type()
     }
 }

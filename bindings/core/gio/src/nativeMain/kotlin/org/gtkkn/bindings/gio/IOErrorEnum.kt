@@ -4,7 +4,9 @@ package org.gtkkn.bindings.gio
 import kotlin.UInt
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.native.gio.GIOErrorEnum
+import org.gtkkn.native.gio.g_io_error_enum_get_type
 import org.gtkkn.native.glib.g_quark_from_string
+import org.gtkkn.native.gobject.GType
 
 /**
  * Error codes returned by GIO functions.
@@ -298,6 +300,13 @@ public enum class IOErrorEnum(
             GIOErrorEnum.G_IO_ERROR_DESTINATION_UNSET -> DESTINATION_UNSET
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of IOErrorEnum
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_io_error_enum_get_type()
 
         public fun quark(): UInt = g_quark_from_string("g-io-error-quark")
 

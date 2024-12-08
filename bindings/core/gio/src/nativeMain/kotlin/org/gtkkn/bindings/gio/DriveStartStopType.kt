@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.native.gio.GDriveStartStopType
+import org.gtkkn.native.gio.g_drive_start_stop_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Enumeration describing how a drive can be started/stopped.
@@ -51,5 +53,12 @@ public enum class DriveStartStopType(
             GDriveStartStopType.G_DRIVE_START_STOP_TYPE_PASSWORD -> PASSWORD
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of DriveStartStopType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_drive_start_stop_type_get_type()
     }
 }

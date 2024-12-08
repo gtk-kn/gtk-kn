@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.adw
 
 import org.gtkkn.native.adw.AdwFlapTransitionType
+import org.gtkkn.native.adw.adw_flap_transition_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Describes transitions types of a [class@Flap] widget.
@@ -38,5 +40,12 @@ public enum class FlapTransitionType(
             AdwFlapTransitionType.ADW_FLAP_TRANSITION_TYPE_SLIDE -> SLIDE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of FlapTransitionType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_flap_transition_type_get_type()
     }
 }

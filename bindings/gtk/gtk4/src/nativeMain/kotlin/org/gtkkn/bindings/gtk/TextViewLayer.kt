@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkTextViewLayer
+import org.gtkkn.native.gtk.gtk_text_view_layer_get_type
 
 /**
  * Used to reference the layers of `GtkTextView` for the purpose of customized
@@ -26,5 +28,12 @@ public enum class TextViewLayer(
             GtkTextViewLayer.GTK_TEXT_VIEW_LAYER_ABOVE_TEXT -> ABOVE_TEXT
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of TextViewLayer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_text_view_layer_get_type()
     }
 }

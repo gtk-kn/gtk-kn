@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.glib
 
 import org.gtkkn.native.glib.GUnicodeBreakType
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_unicode_break_type_get_type
 
 /**
  * These are the possible line break classifications.
@@ -257,5 +259,12 @@ public enum class UnicodeBreakType(
             GUnicodeBreakType.G_UNICODE_BREAK_VIRAMA -> VIRAMA
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of UnicodeBreakType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_unicode_break_type_get_type()
     }
 }

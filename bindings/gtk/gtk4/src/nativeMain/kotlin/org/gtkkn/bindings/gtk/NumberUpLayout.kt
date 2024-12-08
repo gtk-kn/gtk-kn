@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkNumberUpLayout
+import org.gtkkn.native.gtk.gtk_number_up_layout_get_type
 
 /**
  * Used to determine the layout of pages on a sheet when printing
@@ -56,5 +58,12 @@ public enum class NumberUpLayout(
             GtkNumberUpLayout.GTK_NUMBER_UP_LAYOUT_BOTTOM_TO_TOP_RIGHT_TO_LEFT -> BTRL
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of NumberUpLayout
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_number_up_layout_get_type()
     }
 }

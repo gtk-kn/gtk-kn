@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkShortcutScope
+import org.gtkkn.native.gtk.gtk_shortcut_scope_get_type
 
 /**
  * Describes where [class@Shortcut]s added to a
@@ -34,5 +36,12 @@ public enum class ShortcutScope(
             GtkShortcutScope.GTK_SHORTCUT_SCOPE_GLOBAL -> GLOBAL
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of ShortcutScope
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_shortcut_scope_get_type()
     }
 }

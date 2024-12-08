@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkInscriptionOverflow
+import org.gtkkn.native.gtk.gtk_inscription_overflow_get_type
 
 /**
  * The different methods to handle text in #GtkInscription when it doesn't
@@ -39,5 +41,12 @@ public enum class InscriptionOverflow(
             GtkInscriptionOverflow.GTK_INSCRIPTION_OVERFLOW_ELLIPSIZE_END -> ELLIPSIZE_END
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of InscriptionOverflow
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_inscription_overflow_get_type()
     }
 }

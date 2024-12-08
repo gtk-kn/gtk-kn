@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.cairo
 
+import org.gtkkn.native.cairo.cairo_gobject_operator_get_type
 import org.gtkkn.native.cairo.cairo_operator_t
+import org.gtkkn.native.gobject.GType
 
 public enum class Operator(
     public val nativeValue: cairo_operator_t,
@@ -70,5 +72,12 @@ public enum class Operator(
             cairo_operator_t.CAIRO_OPERATOR_HSL_LUMINOSITY -> HSL_LUMINOSITY
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of Operator
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = cairo_gobject_operator_get_type()
     }
 }

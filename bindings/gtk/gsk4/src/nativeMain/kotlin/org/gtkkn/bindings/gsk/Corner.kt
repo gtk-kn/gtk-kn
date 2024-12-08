@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskCorner
+import org.gtkkn.native.gsk.gsk_corner_get_type
 
 /**
  * The corner indices used by `GskRoundedRect`.
@@ -35,5 +37,12 @@ public enum class Corner(
             GskCorner.GSK_CORNER_BOTTOM_LEFT -> BOTTOM_LEFT
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of Corner
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_corner_get_type()
     }
 }

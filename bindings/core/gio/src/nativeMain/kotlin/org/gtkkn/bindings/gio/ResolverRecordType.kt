@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.native.gio.GResolverRecordType
+import org.gtkkn.native.gio.g_resolver_record_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * The type of record that g_resolver_lookup_records() or
@@ -72,5 +74,12 @@ public enum class ResolverRecordType(
             GResolverRecordType.G_RESOLVER_RECORD_NS -> NS
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of ResolverRecordType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_resolver_record_type_get_type()
     }
 }

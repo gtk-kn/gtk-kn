@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_18
 import org.gtkkn.native.gio.GEmblemOrigin
+import org.gtkkn.native.gio.g_emblem_origin_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * GEmblemOrigin is used to add information about the origin of the emblem
@@ -39,5 +41,12 @@ public enum class EmblemOrigin(
             GEmblemOrigin.G_EMBLEM_ORIGIN_TAG -> TAG
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of EmblemOrigin
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_emblem_origin_get_type()
     }
 }

@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkContentFit
+import org.gtkkn.native.gtk.gtk_content_fit_get_type
 
 /**
  * Controls how a content should be made to fit inside an allocation.
@@ -48,5 +50,12 @@ public enum class ContentFit(
             GtkContentFit.GTK_CONTENT_FIT_SCALE_DOWN -> SCALE_DOWN
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of ContentFit
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_content_fit_get_type()
     }
 }

@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkJustification
+import org.gtkkn.native.gtk.gtk_justification_get_type
 
 /**
  * Used for justifying the text inside a [class@Label] widget.
@@ -35,5 +37,12 @@ public enum class Justification(
             GtkJustification.GTK_JUSTIFY_FILL -> FILL
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of Justification
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_justification_get_type()
     }
 }

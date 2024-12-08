@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskBlendMode
+import org.gtkkn.native.gsk.gsk_blend_mode_get_type
 
 /**
  * The blend modes available for render nodes.
@@ -104,5 +106,12 @@ public enum class BlendMode(
             GskBlendMode.GSK_BLEND_MODE_LUMINOSITY -> LUMINOSITY
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of BlendMode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_blend_mode_get_type()
     }
 }

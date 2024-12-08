@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoUnderline
+import org.gtkkn.native.pango.pango_underline_get_type
 
 /**
  * The `PangoUnderline` enumeration is used to specify whether text
@@ -74,5 +76,12 @@ public enum class Underline(
             PangoUnderline.PANGO_UNDERLINE_ERROR_LINE -> ERROR_LINE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of Underline
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_underline_get_type()
     }
 }

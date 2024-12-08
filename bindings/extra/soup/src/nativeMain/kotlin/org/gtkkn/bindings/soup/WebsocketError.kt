@@ -3,7 +3,9 @@ package org.gtkkn.bindings.soup
 
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupWebsocketError
+import org.gtkkn.native.soup.soup_websocket_error_get_type
 import org.gtkkn.native.soup.soup_websocket_error_quark
 
 /**
@@ -48,6 +50,13 @@ public enum class WebsocketError(
          * @return Error quark for SoupWebsocket.
          */
         public fun quark(): Quark = soup_websocket_error_quark()
+
+        /**
+         * Get the GType of WebsocketError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_websocket_error_get_type()
 
         public fun fromErrorOrNull(error: Error): WebsocketError? = if (error.domain != quark()) {
             null

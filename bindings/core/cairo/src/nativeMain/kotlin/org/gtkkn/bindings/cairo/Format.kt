@@ -9,6 +9,8 @@ import org.gtkkn.native.cairo.CAIRO_FORMAT_RGB16_565
 import org.gtkkn.native.cairo.CAIRO_FORMAT_RGB24
 import org.gtkkn.native.cairo.CAIRO_FORMAT_RGB30
 import org.gtkkn.native.cairo.cairo_format_t
+import org.gtkkn.native.cairo.cairo_gobject_format_get_type
+import org.gtkkn.native.gobject.GType
 
 public enum class Format(
     public val nativeValue: cairo_format_t,
@@ -33,5 +35,12 @@ public enum class Format(
             CAIRO_FORMAT_RGB30 -> RGB30
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of Format
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = cairo_gobject_format_get_type()
     }
 }

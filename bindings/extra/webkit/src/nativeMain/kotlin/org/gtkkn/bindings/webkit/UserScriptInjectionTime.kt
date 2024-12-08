@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitUserScriptInjectionTime
+import org.gtkkn.native.webkit.webkit_user_script_injection_time_get_type
 
 /**
  * Specifies at which place of documents an user script will be inserted.
@@ -30,5 +32,12 @@ public enum class UserScriptInjectionTime(
             WebKitUserScriptInjectionTime.WEBKIT_USER_SCRIPT_INJECT_AT_DOCUMENT_END -> END
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of UserScriptInjectionTime
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_user_script_injection_time_get_type()
     }
 }

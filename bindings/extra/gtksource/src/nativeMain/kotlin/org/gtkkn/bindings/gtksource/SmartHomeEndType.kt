@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtksource
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceSmartHomeEndType
+import org.gtkkn.native.gtksource.gtk_source_smart_home_end_type_get_type
 
 public enum class SmartHomeEndType(
     public val nativeValue: GtkSourceSmartHomeEndType,
@@ -37,5 +39,12 @@ public enum class SmartHomeEndType(
             GtkSourceSmartHomeEndType.GTK_SOURCE_SMART_HOME_END_ALWAYS -> ALWAYS
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of SmartHomeEndType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_smart_home_end_type_get_type()
     }
 }

@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoWeight
+import org.gtkkn.native.pango.pango_weight_get_type
 
 /**
  * An enumeration specifying the weight (boldness) of a font.
@@ -78,5 +80,12 @@ public enum class Weight(
             PangoWeight.PANGO_WEIGHT_ULTRAHEAVY -> ULTRAHEAVY
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of Weight
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_weight_get_type()
     }
 }

@@ -4,7 +4,9 @@ package org.gtkkn.bindings.gdk
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.gdk.GdkGLError
+import org.gtkkn.native.gdk.gdk_gl_error_get_type
 import org.gtkkn.native.gdk.gdk_gl_error_quark
+import org.gtkkn.native.gobject.GType
 
 /**
  * Error enumeration for `GdkGLContext`.
@@ -45,6 +47,13 @@ public enum class GLError(
         }
 
         public fun quark(): Quark = gdk_gl_error_quark()
+
+        /**
+         * Get the GType of GLError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_gl_error_get_type()
 
         public fun fromErrorOrNull(error: Error): GLError? = if (error.domain != quark()) {
             null

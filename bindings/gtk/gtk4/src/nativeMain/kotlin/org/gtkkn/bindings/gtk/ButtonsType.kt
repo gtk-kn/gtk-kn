@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkButtonsType
+import org.gtkkn.native.gtk.gtk_buttons_type_get_type
 
 /**
  * Prebuilt sets of buttons for `GtkDialog`.
@@ -52,5 +54,12 @@ public enum class ButtonsType(
             GtkButtonsType.GTK_BUTTONS_OK_CANCEL -> OK_CANCEL
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of ButtonsType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_buttons_type_get_type()
     }
 }

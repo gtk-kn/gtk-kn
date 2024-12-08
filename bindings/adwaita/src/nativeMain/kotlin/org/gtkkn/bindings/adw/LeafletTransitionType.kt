@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.adw
 
 import org.gtkkn.native.adw.AdwLeafletTransitionType
+import org.gtkkn.native.adw.adw_leaflet_transition_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Describes the possible transitions in a [class@Leaflet] widget.
@@ -32,5 +34,12 @@ public enum class LeafletTransitionType(
             AdwLeafletTransitionType.ADW_LEAFLET_TRANSITION_TYPE_SLIDE -> SLIDE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of LeafletTransitionType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_leaflet_transition_type_get_type()
     }
 }

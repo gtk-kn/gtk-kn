@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gdkpixbuf
 
 import org.gtkkn.native.gdkpixbuf.GdkInterpType
+import org.gtkkn.native.gdkpixbuf.gdk_interp_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Interpolation modes for scaling functions.
@@ -60,5 +62,12 @@ public enum class InterpType(
             GdkInterpType.GDK_INTERP_HYPER -> HYPER
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of InterpType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_interp_type_get_type()
     }
 }

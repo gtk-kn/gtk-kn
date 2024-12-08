@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.native.gdk.GdkSubpixelLayout
+import org.gtkkn.native.gdk.gdk_subpixel_layout_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * This enumeration describes how the red, green and blue components
@@ -46,5 +48,12 @@ public enum class SubpixelLayout(
             GdkSubpixelLayout.GDK_SUBPIXEL_LAYOUT_VERTICAL_BGR -> VERTICAL_BGR
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of SubpixelLayout
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_subpixel_layout_get_type()
     }
 }

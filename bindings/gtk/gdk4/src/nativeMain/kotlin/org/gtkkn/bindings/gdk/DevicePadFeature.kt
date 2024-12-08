@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.native.gdk.GdkDevicePadFeature
+import org.gtkkn.native.gdk.gdk_device_pad_feature_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * A pad feature.
@@ -30,5 +32,12 @@ public enum class DevicePadFeature(
             GdkDevicePadFeature.GDK_DEVICE_PAD_FEATURE_STRIP -> STRIP
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of DevicePadFeature
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_device_pad_feature_get_type()
     }
 }

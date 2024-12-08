@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gdkpixbuf
 
 import org.gtkkn.native.gdkpixbuf.GdkColorspace
+import org.gtkkn.native.gdkpixbuf.gdk_colorspace_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * This enumeration defines the color spaces that are supported by
@@ -23,5 +25,12 @@ public enum class Colorspace(
             GdkColorspace.GDK_COLORSPACE_RGB -> RGB
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of Colorspace
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_colorspace_get_type()
     }
 }

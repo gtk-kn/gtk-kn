@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoDirection
+import org.gtkkn.native.pango.pango_direction_get_type
 
 /**
  * `PangoDirection` represents a direction in the Unicode bidirectional
@@ -69,5 +71,12 @@ public enum class Direction(
             PangoDirection.PANGO_DIRECTION_NEUTRAL -> NEUTRAL
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of Direction
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_direction_get_type()
     }
 }

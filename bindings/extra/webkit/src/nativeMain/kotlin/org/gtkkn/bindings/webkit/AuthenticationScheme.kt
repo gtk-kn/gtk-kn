@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_2
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitAuthenticationScheme
+import org.gtkkn.native.webkit.webkit_authentication_scheme_get_type
 
 /**
  * Enum values representing the authentication scheme.
@@ -68,5 +70,12 @@ public enum class AuthenticationScheme(
             WebKitAuthenticationScheme.WEBKIT_AUTHENTICATION_SCHEME_UNKNOWN -> UNKNOWN
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of AuthenticationScheme
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_authentication_scheme_get_type()
     }
 }

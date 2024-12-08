@@ -3,7 +3,9 @@ package org.gtkkn.bindings.soup
 
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupTLDError
+import org.gtkkn.native.soup.soup_tld_error_get_type
 import org.gtkkn.native.soup.soup_tld_error_quark
 
 /**
@@ -57,6 +59,13 @@ public enum class TLDError(
          * @return Error quark for Soup TLD functions.
          */
         public fun quark(): Quark = soup_tld_error_quark()
+
+        /**
+         * Get the GType of TLDError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_tld_error_get_type()
 
         public fun fromErrorOrNull(error: Error): TLDError? = if (error.domain != quark()) {
             null

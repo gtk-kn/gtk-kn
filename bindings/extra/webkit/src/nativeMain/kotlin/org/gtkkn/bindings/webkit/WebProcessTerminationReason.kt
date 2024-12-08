@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_20
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitWebProcessTerminationReason
+import org.gtkkn.native.webkit.webkit_web_process_termination_reason_get_type
 
 /**
  * Enum values used to specify the reason why the web process terminated abnormally.
@@ -33,5 +35,12 @@ public enum class WebProcessTerminationReason(
             WebKitWebProcessTerminationReason.WEBKIT_WEB_PROCESS_TERMINATED_BY_API -> TERMINATED_BY_API
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of WebProcessTerminationReason
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_web_process_termination_reason_get_type()
     }
 }

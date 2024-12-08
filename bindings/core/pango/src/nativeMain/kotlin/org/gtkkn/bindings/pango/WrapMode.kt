@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoWrapMode
+import org.gtkkn.native.pango.pango_wrap_mode_get_type
 
 /**
  * `PangoWrapMode` describes how to wrap the lines of a `PangoLayout`
@@ -37,5 +39,12 @@ public enum class WrapMode(
             PangoWrapMode.PANGO_WRAP_WORD_CHAR -> WORD_CHAR
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of WrapMode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_wrap_mode_get_type()
     }
 }

@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.native.gio.GSocketProtocol
+import org.gtkkn.native.gio.g_socket_protocol_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * A protocol identifier is specified when creating a #GSocket, which is a
@@ -49,5 +51,12 @@ public enum class SocketProtocol(
             GSocketProtocol.G_SOCKET_PROTOCOL_SCTP -> SCTP
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of SocketProtocol
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_socket_protocol_get_type()
     }
 }

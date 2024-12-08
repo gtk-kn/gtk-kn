@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.gsk
 
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskLineCap
+import org.gtkkn.native.gsk.gsk_line_cap_get_type
 
 /**
  * Specifies how to render the start and end points of contours or
@@ -49,5 +51,12 @@ public enum class LineCap(
             GskLineCap.GSK_LINE_CAP_SQUARE -> SQUARE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of LineCap
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_line_cap_get_type()
     }
 }

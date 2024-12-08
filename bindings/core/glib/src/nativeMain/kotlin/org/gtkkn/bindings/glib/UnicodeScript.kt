@@ -5,6 +5,8 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
 import org.gtkkn.native.glib.GUnicodeScript
 import org.gtkkn.native.glib.g_unicode_script_from_iso15924
 import org.gtkkn.native.glib.g_unicode_script_to_iso15924
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_unicode_script_get_type
 import org.gtkkn.native.gobject.guint
 
 /**
@@ -898,5 +900,12 @@ public enum class UnicodeScript(
          */
         @GLibVersion2_30
         public fun toIso15924(script: UnicodeScript): guint = g_unicode_script_to_iso15924(script.nativeValue)
+
+        /**
+         * Get the GType of UnicodeScript
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_unicode_script_get_type()
     }
 }

@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.native.gio.GSocketFamily
+import org.gtkkn.native.gio.g_socket_family_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * The protocol family of a #GSocketAddress. (These values are
@@ -40,5 +42,12 @@ public enum class SocketFamily(
             GSocketFamily.G_SOCKET_FAMILY_IPV6 -> IPV6
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of SocketFamily
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_socket_family_get_type()
     }
 }

@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkSensitivityType
+import org.gtkkn.native.gtk.gtk_sensitivity_type_get_type
 
 /**
  * Determines how GTK handles the sensitivity of various controls,
@@ -32,5 +34,12 @@ public enum class SensitivityType(
             GtkSensitivityType.GTK_SENSITIVITY_OFF -> OFF
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of SensitivityType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_sensitivity_type_get_type()
     }
 }

@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.cairo
 
+import org.gtkkn.native.cairo.cairo_gobject_hint_style_get_type
 import org.gtkkn.native.cairo.cairo_hint_style_t
+import org.gtkkn.native.gobject.GType
 
 public enum class HintStyle(
     public val nativeValue: cairo_hint_style_t,
@@ -22,5 +24,12 @@ public enum class HintStyle(
             cairo_hint_style_t.CAIRO_HINT_STYLE_FULL -> FULL
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of HintStyle
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = cairo_gobject_hint_style_get_type()
     }
 }

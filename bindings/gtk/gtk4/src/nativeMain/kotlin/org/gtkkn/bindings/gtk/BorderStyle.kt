@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBorderStyle
+import org.gtkkn.native.gtk.gtk_border_style_get_type
 
 /**
  * Describes how the border of a UI element should be rendered.
@@ -65,5 +67,12 @@ public enum class BorderStyle(
             GtkBorderStyle.GTK_BORDER_STYLE_RIDGE -> RIDGE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of BorderStyle
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_border_style_get_type()
     }
 }

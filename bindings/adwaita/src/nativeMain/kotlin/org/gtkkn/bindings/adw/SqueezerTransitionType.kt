@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.adw
 
 import org.gtkkn.native.adw.AdwSqueezerTransitionType
+import org.gtkkn.native.adw.adw_squeezer_transition_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Describes the possible transitions in a [class@Squeezer] widget.
@@ -25,5 +27,12 @@ public enum class SqueezerTransitionType(
             AdwSqueezerTransitionType.ADW_SQUEEZER_TRANSITION_TYPE_CROSSFADE -> CROSSFADE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of SqueezerTransitionType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_squeezer_transition_type_get_type()
     }
 }

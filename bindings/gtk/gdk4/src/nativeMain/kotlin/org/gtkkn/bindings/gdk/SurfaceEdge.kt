@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.native.gdk.GdkSurfaceEdge
+import org.gtkkn.native.gdk.gdk_surface_edge_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Determines a surface edge or corner.
@@ -55,5 +57,12 @@ public enum class SurfaceEdge(
             GdkSurfaceEdge.GDK_SURFACE_EDGE_SOUTH_EAST -> SOUTH_EAST
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of SurfaceEdge
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_surface_edge_get_type()
     }
 }

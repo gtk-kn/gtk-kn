@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.adw
 
 import org.gtkkn.native.adw.AdwCenteringPolicy
+import org.gtkkn.native.adw.adw_centering_policy_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Describes title centering behavior of a [class@HeaderBar] widget.
@@ -25,5 +27,12 @@ public enum class CenteringPolicy(
             AdwCenteringPolicy.ADW_CENTERING_POLICY_STRICT -> STRICT
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of CenteringPolicy
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_centering_policy_get_type()
     }
 }

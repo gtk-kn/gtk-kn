@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkSizeGroupMode
+import org.gtkkn.native.gtk.gtk_size_group_mode_get_type
 
 /**
  * The mode of the size group determines the directions in which the size
@@ -36,5 +38,12 @@ public enum class SizeGroupMode(
             GtkSizeGroupMode.GTK_SIZE_GROUP_BOTH -> BOTH
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of SizeGroupMode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_size_group_mode_get_type()
     }
 }

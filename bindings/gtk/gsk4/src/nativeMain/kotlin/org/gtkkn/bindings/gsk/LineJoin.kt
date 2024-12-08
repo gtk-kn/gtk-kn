@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.gsk
 
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskLineJoin
+import org.gtkkn.native.gsk.gsk_line_join_get_type
 
 /**
  * Specifies how to render the junction of two lines when stroking.
@@ -47,5 +49,12 @@ public enum class LineJoin(
             GskLineJoin.GSK_LINE_JOIN_BEVEL -> BEVEL
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of LineJoin
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_line_join_get_type()
     }
 }

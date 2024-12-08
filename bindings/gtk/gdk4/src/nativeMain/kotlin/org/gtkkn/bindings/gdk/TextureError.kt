@@ -5,7 +5,9 @@ import org.gtkkn.bindings.gdk.annotations.GdkVersion4_6
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.gdk.GdkTextureError
+import org.gtkkn.native.gdk.gdk_texture_error_get_type
 import org.gtkkn.native.gdk.gdk_texture_error_quark
+import org.gtkkn.native.gobject.GType
 
 /**
  * Possible errors that can be returned by `GdkTexture` constructors.
@@ -44,6 +46,13 @@ public enum class TextureError(
         }
 
         public fun quark(): Quark = gdk_texture_error_quark()
+
+        /**
+         * Get the GType of TextureError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_texture_error_get_type()
 
         public fun fromErrorOrNull(error: Error): TextureError? = if (error.domain != quark()) {
             null

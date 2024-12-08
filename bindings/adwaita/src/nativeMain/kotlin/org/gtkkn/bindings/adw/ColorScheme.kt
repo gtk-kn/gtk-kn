@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.adw
 
 import org.gtkkn.native.adw.AdwColorScheme
+import org.gtkkn.native.adw.adw_color_scheme_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Application color schemes for [property@StyleManager:color-scheme].
@@ -44,5 +46,12 @@ public enum class ColorScheme(
             AdwColorScheme.ADW_COLOR_SCHEME_FORCE_DARK -> FORCE_DARK
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of ColorScheme
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_color_scheme_get_type()
     }
 }

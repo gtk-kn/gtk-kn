@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.native.gdk.GdkMemoryFormat
+import org.gtkkn.native.gdk.gdk_memory_format_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GdkMemoryFormat` describes formats that image data can have in memory.
@@ -228,5 +230,12 @@ public enum class MemoryFormat(
             GdkMemoryFormat.GDK_MEMORY_N_FORMATS -> N_FORMATS
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of MemoryFormat
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_memory_format_get_type()
     }
 }

@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.native.gdk.GdkDragCancelReason
+import org.gtkkn.native.gdk.gdk_drag_cancel_reason_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Used in `GdkDrag` to the reason of a cancelled DND operation.
@@ -30,5 +32,12 @@ public enum class DragCancelReason(
             GdkDragCancelReason.GDK_DRAG_CANCEL_ERROR -> ERROR
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of DragCancelReason
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_drag_cancel_reason_get_type()
     }
 }

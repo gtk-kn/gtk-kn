@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoAlignment
+import org.gtkkn.native.pango.pango_alignment_get_type
 
 /**
  * `PangoAlignment` describes how to align the lines of a `PangoLayout`
@@ -37,5 +39,12 @@ public enum class Alignment(
             PangoAlignment.PANGO_ALIGN_RIGHT -> RIGHT
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of Alignment
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_alignment_get_type()
     }
 }

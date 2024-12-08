@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.native.gdk.GdkCrossingMode
+import org.gtkkn.native.gdk.gdk_crossing_mode_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Specifies the crossing mode for enter and leave events.
@@ -65,5 +67,12 @@ public enum class CrossingMode(
             GdkCrossingMode.GDK_CROSSING_DEVICE_SWITCH -> DEVICE_SWITCH
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of CrossingMode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_crossing_mode_get_type()
     }
 }

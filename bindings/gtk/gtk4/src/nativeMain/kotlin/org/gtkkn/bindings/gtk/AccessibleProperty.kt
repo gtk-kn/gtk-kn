@@ -4,7 +4,9 @@ package org.gtkkn.bindings.gtk
 import kotlin.Unit
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Value
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessibleProperty
+import org.gtkkn.native.gtk.gtk_accessible_property_get_type
 import org.gtkkn.native.gtk.gtk_accessible_property_init_value
 
 /**
@@ -143,5 +145,12 @@ public enum class AccessibleProperty(
         }
 
         public fun initValue(`property`: AccessibleProperty, `value`: Value): Unit = gtk_accessible_property_init_value(`property`.nativeValue, `value`.gobjectValuePointer.reinterpret())
+
+        /**
+         * Get the GType of AccessibleProperty
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_accessible_property_get_type()
     }
 }

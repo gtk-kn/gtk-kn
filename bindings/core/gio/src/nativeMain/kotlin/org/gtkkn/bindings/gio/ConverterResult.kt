@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.native.gio.GConverterResult
+import org.gtkkn.native.gio.g_converter_result_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Results returned from g_converter_convert().
@@ -38,5 +40,12 @@ public enum class ConverterResult(
             GConverterResult.G_CONVERTER_FLUSHED -> FLUSHED
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of ConverterResult
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_converter_result_get_type()
     }
 }

@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkCellRendererMode
+import org.gtkkn.native.gtk.gtk_cell_renderer_mode_get_type
 
 /**
  * Identifies how the user can interact with a particular cell.
@@ -33,5 +35,12 @@ public enum class CellRendererMode(
             GtkCellRendererMode.GTK_CELL_RENDERER_MODE_EDITABLE -> EDITABLE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of CellRendererMode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_cell_renderer_mode_get_type()
     }
 }

@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBaselinePosition
+import org.gtkkn.native.gtk.gtk_baseline_position_get_type
 
 /**
  * Baseline position in a row of widgets.
@@ -37,5 +39,12 @@ public enum class BaselinePosition(
             GtkBaselinePosition.GTK_BASELINE_POSITION_BOTTOM -> BOTTOM
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of BaselinePosition
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_baseline_position_get_type()
     }
 }

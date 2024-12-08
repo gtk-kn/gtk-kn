@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_16
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitNetworkProxyMode
+import org.gtkkn.native.webkit.webkit_network_proxy_mode_get_type
 
 /**
  * Enum values used to set the network proxy mode.
@@ -33,5 +35,12 @@ public enum class NetworkProxyMode(
             WebKitNetworkProxyMode.WEBKIT_NETWORK_PROXY_MODE_CUSTOM -> CUSTOM
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of NetworkProxyMode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_network_proxy_mode_get_type()
     }
 }

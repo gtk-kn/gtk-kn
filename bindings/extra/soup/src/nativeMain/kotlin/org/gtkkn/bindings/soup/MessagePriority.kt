@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupMessagePriority
+import org.gtkkn.native.soup.soup_message_priority_get_type
 
 /**
  * Priorities that can be set on a [class@Message] to instruct the message queue
@@ -48,5 +50,12 @@ public enum class MessagePriority(
             SoupMessagePriority.SOUP_MESSAGE_PRIORITY_VERY_HIGH -> VERY_HIGH
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of MessagePriority
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_message_priority_get_type()
     }
 }

@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkFilterChange
+import org.gtkkn.native.gtk.gtk_filter_change_get_type
 
 /**
  * Describes changes in a filter in more detail and allows objects
@@ -40,5 +42,12 @@ public enum class FilterChange(
             GtkFilterChange.GTK_FILTER_CHANGE_MORE_STRICT -> MORE_STRICT
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of FilterChange
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_filter_change_get_type()
     }
 }

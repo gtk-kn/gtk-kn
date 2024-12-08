@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkOrdering
+import org.gtkkn.native.gtk.gtk_ordering_get_type
 
 /**
  * Describes the way two values can be compared.
@@ -35,5 +37,12 @@ public enum class Ordering(
             GtkOrdering.GTK_ORDERING_LARGER -> LARGER
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of Ordering
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_ordering_get_type()
     }
 }

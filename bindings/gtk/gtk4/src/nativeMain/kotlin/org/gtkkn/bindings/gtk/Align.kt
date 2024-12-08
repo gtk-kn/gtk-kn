@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAlign
+import org.gtkkn.native.gtk.gtk_align_get_type
 
 /**
  * Controls how a widget deals with extra space in a single dimension.
@@ -68,5 +70,12 @@ public enum class Align(
             GtkAlign.GTK_ALIGN_BASELINE_CENTER -> BASELINE_CENTER
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of Align
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_align_get_type()
     }
 }

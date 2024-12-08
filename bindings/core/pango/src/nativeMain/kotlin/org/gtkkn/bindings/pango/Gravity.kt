@@ -6,11 +6,13 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_26
 import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.pango.PangoGravity
 import org.gtkkn.native.pango.pango_gravity_get_for_matrix
 import org.gtkkn.native.pango.pango_gravity_get_for_script
 import org.gtkkn.native.pango.pango_gravity_get_for_script_and_width
+import org.gtkkn.native.pango.pango_gravity_get_type
 import org.gtkkn.native.pango.pango_gravity_to_rotation
 
 /**
@@ -149,5 +151,12 @@ public enum class Gravity(
          */
         @PangoVersion1_16
         public fun toRotation(gravity: Gravity): gdouble = pango_gravity_to_rotation(gravity.nativeValue)
+
+        /**
+         * Get the GType of Gravity
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_gravity_get_type()
     }
 }

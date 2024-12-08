@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.cairo
 
 import org.gtkkn.native.cairo.cairo_extend_t
+import org.gtkkn.native.cairo.cairo_gobject_extend_get_type
+import org.gtkkn.native.gobject.GType
 
 public enum class Extend(
     public val nativeValue: cairo_extend_t,
@@ -20,5 +22,12 @@ public enum class Extend(
             cairo_extend_t.CAIRO_EXTEND_PAD -> PAD
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of Extend
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = cairo_gobject_extend_get_type()
     }
 }

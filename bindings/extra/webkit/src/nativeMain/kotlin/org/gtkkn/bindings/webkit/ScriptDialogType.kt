@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitScriptDialogType
+import org.gtkkn.native.webkit.webkit_script_dialog_type_get_type
 
 /**
  * Enum values used for determining the type of #WebKitScriptDialog
@@ -39,5 +41,12 @@ public enum class ScriptDialogType(
             WebKitScriptDialogType.WEBKIT_SCRIPT_DIALOG_BEFORE_UNLOAD_CONFIRM -> BEFORE_UNLOAD_CONFIRM
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of ScriptDialogType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_script_dialog_type_get_type()
     }
 }

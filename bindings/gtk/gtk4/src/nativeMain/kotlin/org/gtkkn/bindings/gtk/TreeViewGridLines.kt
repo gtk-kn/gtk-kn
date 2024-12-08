@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkTreeViewGridLines
+import org.gtkkn.native.gtk.gtk_tree_view_grid_lines_get_type
 
 /**
  * Used to indicate which grid lines to draw in a tree view.
@@ -35,5 +37,12 @@ public enum class TreeViewGridLines(
             GtkTreeViewGridLines.GTK_TREE_VIEW_GRID_LINES_BOTH -> BOTH
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of TreeViewGridLines
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_tree_view_grid_lines_get_type()
     }
 }

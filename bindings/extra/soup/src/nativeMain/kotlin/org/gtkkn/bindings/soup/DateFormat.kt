@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupDateFormat
+import org.gtkkn.native.soup.soup_date_format_get_type
 
 /**
  * Date formats that [func@date_time_to_string] can use.
@@ -32,5 +34,12 @@ public enum class DateFormat(
             SoupDateFormat.SOUP_DATE_COOKIE -> COOKIE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of DateFormat
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_date_format_get_type()
     }
 }

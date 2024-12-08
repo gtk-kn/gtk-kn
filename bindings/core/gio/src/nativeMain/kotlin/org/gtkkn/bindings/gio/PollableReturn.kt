@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_60
 import org.gtkkn.native.gio.GPollableReturn
+import org.gtkkn.native.gio.g_pollable_return_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Return value for various IO operations that signal errors via the
@@ -41,5 +43,12 @@ public enum class PollableReturn(
             GPollableReturn.G_POLLABLE_RETURN_WOULD_BLOCK -> WOULD_BLOCK
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of PollableReturn
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_pollable_return_get_type()
     }
 }

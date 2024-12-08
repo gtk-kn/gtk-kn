@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoStretch
+import org.gtkkn.native.pango.pango_stretch_get_type
 
 /**
  * An enumeration specifying the width of the font relative to other designs
@@ -61,5 +63,12 @@ public enum class Stretch(
             PangoStretch.PANGO_STRETCH_ULTRA_EXPANDED -> ULTRA_EXPANDED
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of Stretch
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_stretch_get_type()
     }
 }

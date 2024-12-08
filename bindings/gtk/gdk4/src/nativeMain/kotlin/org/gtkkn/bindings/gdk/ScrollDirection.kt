@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.native.gdk.GdkScrollDirection
+import org.gtkkn.native.gdk.gdk_scroll_direction_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Specifies the direction for scroll events.
@@ -41,5 +43,12 @@ public enum class ScrollDirection(
             GdkScrollDirection.GDK_SCROLL_SMOOTH -> SMOOTH
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of ScrollDirection
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_scroll_direction_get_type()
     }
 }

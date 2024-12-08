@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.native.gio.GCredentialsType
+import org.gtkkn.native.gio.g_credentials_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Enumeration describing different kinds of native credential types.
@@ -58,5 +60,12 @@ public enum class CredentialsType(
             GCredentialsType.G_CREDENTIALS_TYPE_WIN32_PID -> WIN32_PID
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of CredentialsType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_credentials_type_get_type()
     }
 }

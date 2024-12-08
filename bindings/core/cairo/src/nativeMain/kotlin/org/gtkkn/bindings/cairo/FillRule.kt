@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.cairo
 
 import org.gtkkn.native.cairo.cairo_fill_rule_t
+import org.gtkkn.native.cairo.cairo_gobject_fill_rule_get_type
+import org.gtkkn.native.gobject.GType
 
 public enum class FillRule(
     public val nativeValue: cairo_fill_rule_t,
@@ -16,5 +18,12 @@ public enum class FillRule(
             cairo_fill_rule_t.CAIRO_FILL_RULE_EVEN_ODD -> EVEN_ODD
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of FillRule
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = cairo_gobject_fill_rule_get_type()
     }
 }

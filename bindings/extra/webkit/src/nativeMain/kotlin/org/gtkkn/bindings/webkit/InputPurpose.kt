@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_28
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitInputPurpose
+import org.gtkkn.native.webkit.webkit_input_purpose_get_type
 
 /**
  * Enum values used to describe the primary purpose of the active editable element.
@@ -53,5 +55,12 @@ public enum class InputPurpose(
             WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_PASSWORD -> PASSWORD
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of InputPurpose
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_input_purpose_get_type()
     }
 }

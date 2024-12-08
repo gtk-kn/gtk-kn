@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkStackTransitionType
+import org.gtkkn.native.gtk.gtk_stack_transition_type_get_type
 
 /**
  * Possible transitions between pages in a `GtkStack` widget.
@@ -132,5 +134,12 @@ public enum class StackTransitionType(
             GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_ROTATE_LEFT_RIGHT -> ROTATE_LEFT_RIGHT
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of StackTransitionType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_stack_transition_type_get_type()
     }
 }

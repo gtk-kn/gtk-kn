@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.native.gio.GIOModuleScopeFlags
+import org.gtkkn.native.gio.g_io_module_scope_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags for use with g_io_module_scope_new().
@@ -30,5 +32,12 @@ public enum class IOModuleScopeFlags(
             GIOModuleScopeFlags.G_IO_MODULE_SCOPE_BLOCK_DUPLICATES -> BLOCK_DUPLICATES
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of IOModuleScopeFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_io_module_scope_flags_get_type()
     }
 }

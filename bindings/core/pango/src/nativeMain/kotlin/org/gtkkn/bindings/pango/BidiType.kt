@@ -2,9 +2,11 @@
 package org.gtkkn.bindings.pango
 
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_22
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gunichar
 import org.gtkkn.native.pango.PangoBidiType
 import org.gtkkn.native.pango.pango_bidi_type_for_unichar
+import org.gtkkn.native.pango.pango_bidi_type_get_type
 
 /**
  * `PangoBidiType` represents the bidirectional character
@@ -155,5 +157,12 @@ public enum class BidiType(
         @PangoVersion1_22
         public fun forUnichar(ch: gunichar): BidiType = pango_bidi_type_for_unichar(ch).run {
             BidiType.fromNativeValue(this)}
+
+        /**
+         * Get the GType of BidiType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_bidi_type_get_type()
     }
 }

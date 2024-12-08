@@ -3,6 +3,8 @@ package org.gtkkn.bindings.adw
 
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.native.adw.AdwToolbarStyle
+import org.gtkkn.native.adw.adw_toolbar_style_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Describes the possible top or bottom bar styles in an [class@ToolbarView]
@@ -72,5 +74,12 @@ public enum class ToolbarStyle(
             AdwToolbarStyle.ADW_TOOLBAR_RAISED_BORDER -> RAISED_BORDER
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of ToolbarStyle
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_toolbar_style_get_type()
     }
 }

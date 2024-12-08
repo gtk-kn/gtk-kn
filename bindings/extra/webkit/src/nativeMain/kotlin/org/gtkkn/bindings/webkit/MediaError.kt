@@ -4,7 +4,9 @@ package org.gtkkn.bindings.webkit
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitMediaError
+import org.gtkkn.native.webkit.webkit_media_error_get_type
 import org.gtkkn.native.webkit.webkit_media_error_quark
 
 /**
@@ -35,6 +37,13 @@ public enum class MediaError(
          */
         @WebKitVersion2_40
         public fun quark(): Quark = webkit_media_error_quark()
+
+        /**
+         * Get the GType of MediaError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_media_error_get_type()
 
         public fun fromErrorOrNull(error: Error): MediaError? = if (error.domain != quark()) {
             null

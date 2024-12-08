@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gio
 
 import org.gtkkn.native.gio.GFileType
+import org.gtkkn.native.gio.g_file_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Indicates the file's on-disk type.
@@ -61,5 +63,12 @@ public enum class FileType(
             GFileType.G_FILE_TYPE_MOUNTABLE -> MOUNTABLE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of FileType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_file_type_get_type()
     }
 }

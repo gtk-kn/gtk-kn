@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.pango
 
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoTextTransform
+import org.gtkkn.native.pango.pango_text_transform_get_type
 
 /**
  * An enumeration that affects how Pango treats characters during shaping.
@@ -39,5 +41,12 @@ public enum class TextTransform(
             PangoTextTransform.PANGO_TEXT_TRANSFORM_CAPITALIZE -> CAPITALIZE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of TextTransform
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_text_transform_get_type()
     }
 }

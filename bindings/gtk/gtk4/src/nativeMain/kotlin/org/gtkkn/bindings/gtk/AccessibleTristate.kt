@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessibleTristate
+import org.gtkkn.native.gtk.gtk_accessible_tristate_get_type
 
 /**
  * The possible values for the %GTK_ACCESSIBLE_STATE_PRESSED
@@ -35,5 +37,12 @@ public enum class AccessibleTristate(
             GtkAccessibleTristate.GTK_ACCESSIBLE_TRISTATE_MIXED -> MIXED
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of AccessibleTristate
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_accessible_tristate_get_type()
     }
 }

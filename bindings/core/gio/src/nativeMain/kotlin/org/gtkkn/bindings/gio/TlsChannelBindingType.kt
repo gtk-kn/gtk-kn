@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_66
 import org.gtkkn.native.gio.GTlsChannelBindingType
+import org.gtkkn.native.gio.g_tls_channel_binding_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * The type of TLS channel binding data to retrieve from #GTlsConnection
@@ -39,5 +41,12 @@ public enum class TlsChannelBindingType(
             GTlsChannelBindingType.G_TLS_CHANNEL_BINDING_TLS_EXPORTER -> EXPORTER
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of TlsChannelBindingType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_tls_channel_binding_type_get_type()
     }
 }

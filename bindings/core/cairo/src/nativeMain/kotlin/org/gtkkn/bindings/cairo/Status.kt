@@ -40,7 +40,9 @@ import org.gtkkn.native.cairo.CAIRO_STATUS_USER_FONT_ERROR
 import org.gtkkn.native.cairo.CAIRO_STATUS_USER_FONT_IMMUTABLE
 import org.gtkkn.native.cairo.CAIRO_STATUS_USER_FONT_NOT_IMPLEMENTED
 import org.gtkkn.native.cairo.CAIRO_STATUS_WRITE_ERROR
+import org.gtkkn.native.cairo.cairo_gobject_status_get_type
 import org.gtkkn.native.cairo.cairo_status_t
+import org.gtkkn.native.gobject.GType
 
 public enum class Status(
     public val nativeValue: cairo_status_t,
@@ -129,5 +131,12 @@ public enum class Status(
             CAIRO_STATUS_JBIG2_GLOBAL_MISSING -> JBIG2_GLOBAL_MISSING
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of Status
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = cairo_gobject_status_get_type()
     }
 }

@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.native.gdk.GdkAxisUse
+import org.gtkkn.native.gdk.gdk_axis_use_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Defines how device axes are interpreted by GTK.
@@ -84,5 +86,12 @@ public enum class AxisUse(
             GdkAxisUse.GDK_AXIS_LAST -> LAST
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of AxisUse
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_axis_use_get_type()
     }
 }

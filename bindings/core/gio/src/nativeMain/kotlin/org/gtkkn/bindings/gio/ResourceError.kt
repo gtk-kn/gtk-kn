@@ -5,7 +5,9 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.gio.GResourceError
+import org.gtkkn.native.gio.g_resource_error_get_type
 import org.gtkkn.native.gio.g_resource_error_quark
+import org.gtkkn.native.gobject.GType
 
 /**
  * An error code used with %G_RESOURCE_ERROR in a #GError returned
@@ -41,6 +43,13 @@ public enum class ResourceError(
          */
         @GioVersion2_32
         public fun quark(): Quark = g_resource_error_quark()
+
+        /**
+         * Get the GType of ResourceError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_resource_error_get_type()
 
         public fun fromErrorOrNull(error: Error): ResourceError? = if (error.domain != quark()) {
             null

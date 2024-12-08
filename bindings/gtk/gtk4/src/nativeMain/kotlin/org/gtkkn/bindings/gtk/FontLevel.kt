@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkFontLevel
+import org.gtkkn.native.gtk.gtk_font_level_get_type
 
 /**
  * The level of granularity for the font selection.
@@ -42,5 +44,12 @@ public enum class FontLevel(
             GtkFontLevel.GTK_FONT_LEVEL_FEATURES -> FEATURES
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of FontLevel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_font_level_get_type()
     }
 }

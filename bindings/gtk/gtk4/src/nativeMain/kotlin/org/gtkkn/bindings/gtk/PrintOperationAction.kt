@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkPrintOperationAction
+import org.gtkkn.native.gtk.gtk_print_operation_action_get_type
 
 /**
  * Determines what action the print operation should perform.
@@ -39,5 +41,12 @@ public enum class PrintOperationAction(
             GtkPrintOperationAction.GTK_PRINT_OPERATION_ACTION_EXPORT -> EXPORT
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of PrintOperationAction
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_print_operation_action_get_type()
     }
 }

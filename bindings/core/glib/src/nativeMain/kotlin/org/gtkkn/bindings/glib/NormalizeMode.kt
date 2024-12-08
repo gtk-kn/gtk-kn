@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.glib
 
 import org.gtkkn.native.glib.GNormalizeMode
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_normalize_mode_get_type
 
 /**
  * Defines how a Unicode string is transformed in a canonical
@@ -66,5 +68,12 @@ public enum class NormalizeMode(
             GNormalizeMode.G_NORMALIZE_NFKC -> NFKC
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of NormalizeMode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_normalize_mode_get_type()
     }
 }

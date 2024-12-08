@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gio
 
 import org.gtkkn.native.gio.GDataStreamNewlineType
+import org.gtkkn.native.gio.g_data_stream_newline_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * #GDataStreamNewlineType is used when checking for or setting the line endings for a given file.
@@ -35,5 +37,12 @@ public enum class DataStreamNewlineType(
             GDataStreamNewlineType.G_DATA_STREAM_NEWLINE_TYPE_ANY -> ANY
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of DataStreamNewlineType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_data_stream_newline_type_get_type()
     }
 }

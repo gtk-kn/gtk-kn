@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.native.gdk.GdkTouchpadGesturePhase
+import org.gtkkn.native.gdk.gdk_touchpad_gesture_phase_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Specifies the current state of a touchpad gesture.
@@ -54,5 +56,12 @@ public enum class TouchpadGesturePhase(
             GdkTouchpadGesturePhase.GDK_TOUCHPAD_GESTURE_PHASE_CANCEL -> CANCEL
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of TouchpadGesturePhase
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_touchpad_gesture_phase_get_type()
     }
 }

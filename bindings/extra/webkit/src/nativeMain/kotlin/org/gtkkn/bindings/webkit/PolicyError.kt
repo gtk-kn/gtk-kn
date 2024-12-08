@@ -3,7 +3,9 @@ package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitPolicyError
+import org.gtkkn.native.webkit.webkit_policy_error_get_type
 import org.gtkkn.native.webkit.webkit_policy_error_quark
 
 /**
@@ -50,6 +52,13 @@ public enum class PolicyError(
          * @return policy error domain.
          */
         public fun quark(): Quark = webkit_policy_error_quark()
+
+        /**
+         * Get the GType of PolicyError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_policy_error_get_type()
 
         public fun fromErrorOrNull(error: Error): PolicyError? = if (error.domain != quark()) {
             null

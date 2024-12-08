@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gdkpixbuf
 
 import org.gtkkn.native.gdkpixbuf.GdkPixbufAlphaMode
+import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_alpha_mode_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Control the alpha channel for drawables.
@@ -40,5 +42,12 @@ public enum class PixbufAlphaMode(
             GdkPixbufAlphaMode.GDK_PIXBUF_ALPHA_FULL -> FULL
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of PixbufAlphaMode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_pixbuf_alpha_mode_get_type()
     }
 }

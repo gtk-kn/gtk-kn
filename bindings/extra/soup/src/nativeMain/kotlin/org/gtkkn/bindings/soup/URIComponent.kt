@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupURIComponent
+import org.gtkkn.native.soup.soup_uri_component_get_type
 
 /**
  * Enum values passed to [func@uri_copy] to indicate the components of
@@ -66,5 +68,12 @@ public enum class URIComponent(
             SoupURIComponent.SOUP_URI_FRAGMENT -> FRAGMENT
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of URIComponent
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_uri_component_get_type()
     }
 }

@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkConstraintStrength
+import org.gtkkn.native.gtk.gtk_constraint_strength_get_type
 
 /**
  * The strength of a constraint, expressed as a symbolic constant.
@@ -38,5 +40,12 @@ public enum class ConstraintStrength(
             GtkConstraintStrength.GTK_CONSTRAINT_STRENGTH_WEAK -> WEAK
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of ConstraintStrength
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_constraint_strength_get_type()
     }
 }

@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_44
 import org.gtkkn.native.gio.GNetworkConnectivity
+import org.gtkkn.native.gio.g_network_connectivity_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * The host's network connectivity state, as reported by #GNetworkMonitor.
@@ -44,5 +46,12 @@ public enum class NetworkConnectivity(
             GNetworkConnectivity.G_NETWORK_CONNECTIVITY_FULL -> FULL
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of NetworkConnectivity
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_network_connectivity_get_type()
     }
 }

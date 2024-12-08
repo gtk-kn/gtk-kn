@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gio
 
 import org.gtkkn.native.gio.GFileAttributeStatus
+import org.gtkkn.native.gio.g_file_attribute_status_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Used by g_file_set_attributes_from_info() when setting file attributes.
@@ -30,5 +32,12 @@ public enum class FileAttributeStatus(
             GFileAttributeStatus.G_FILE_ATTRIBUTE_STATUS_ERROR_SETTING -> ERROR_SETTING
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of FileAttributeStatus
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_file_attribute_status_get_type()
     }
 }

@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskTransformCategory
+import org.gtkkn.native.gsk.gsk_transform_category_get_type
 
 /**
  * The categories of matrices relevant for GSK and GTK.
@@ -66,5 +68,12 @@ public enum class TransformCategory(
             GskTransformCategory.GSK_TRANSFORM_CATEGORY_IDENTITY -> IDENTITY
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of TransformCategory
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_transform_category_get_type()
     }
 }

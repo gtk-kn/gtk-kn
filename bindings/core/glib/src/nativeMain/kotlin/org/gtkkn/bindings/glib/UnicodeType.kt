@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.glib
 
 import org.gtkkn.native.glib.GUnicodeType
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_unicode_type_get_type
 
 /**
  * These are the possible character classifications from the
@@ -167,5 +169,12 @@ public enum class UnicodeType(
             GUnicodeType.G_UNICODE_SPACE_SEPARATOR -> SPACE_SEPARATOR
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of UnicodeType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_unicode_type_get_type()
     }
 }

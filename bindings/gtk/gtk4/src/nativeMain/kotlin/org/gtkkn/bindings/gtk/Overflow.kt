@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkOverflow
+import org.gtkkn.native.gtk.gtk_overflow_get_type
 
 /**
  * Defines how content overflowing a given area should be handled.
@@ -31,5 +33,12 @@ public enum class Overflow(
             GtkOverflow.GTK_OVERFLOW_HIDDEN -> HIDDEN
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of Overflow
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_overflow_get_type()
     }
 }

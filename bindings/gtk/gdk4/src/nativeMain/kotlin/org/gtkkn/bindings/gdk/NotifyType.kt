@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.native.gdk.GdkNotifyType
+import org.gtkkn.native.gdk.gdk_notify_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Specifies the kind of crossing for enter and leave events.
@@ -55,5 +57,12 @@ public enum class NotifyType(
             GdkNotifyType.GDK_NOTIFY_UNKNOWN -> UNKNOWN
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of NotifyType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_notify_type_get_type()
     }
 }

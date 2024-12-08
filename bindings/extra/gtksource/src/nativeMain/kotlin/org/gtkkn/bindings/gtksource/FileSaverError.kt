@@ -3,7 +3,9 @@ package org.gtkkn.bindings.gtksource
 
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceFileSaverError
+import org.gtkkn.native.gtksource.gtk_source_file_saver_error_get_type
 import org.gtkkn.native.gtksource.gtk_source_file_saver_error_quark
 
 /**
@@ -32,6 +34,13 @@ public enum class FileSaverError(
         }
 
         public fun quark(): Quark = gtk_source_file_saver_error_quark()
+
+        /**
+         * Get the GType of FileSaverError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_file_saver_error_get_type()
 
         public fun fromErrorOrNull(error: Error): FileSaverError? = if (error.domain != quark()) {
             null

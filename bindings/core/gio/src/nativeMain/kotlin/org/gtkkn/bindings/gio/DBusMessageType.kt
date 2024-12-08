@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.native.gio.GDBusMessageType
+import org.gtkkn.native.gio.g_dbus_message_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Message types used in #GDBusMessage.
@@ -43,5 +45,12 @@ public enum class DBusMessageType(
             GDBusMessageType.G_DBUS_MESSAGE_TYPE_SIGNAL -> SIGNAL
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of DBusMessageType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_message_type_get_type()
     }
 }

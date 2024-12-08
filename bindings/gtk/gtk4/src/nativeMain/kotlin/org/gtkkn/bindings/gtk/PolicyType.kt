@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkPolicyType
+import org.gtkkn.native.gtk.gtk_policy_type_get_type
 
 /**
  * Determines how the size should be computed to achieve the one of the
@@ -41,5 +43,12 @@ public enum class PolicyType(
             GtkPolicyType.GTK_POLICY_EXTERNAL -> EXTERNAL
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of PolicyType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_policy_type_get_type()
     }
 }

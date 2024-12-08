@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkNotebookTab
+import org.gtkkn.native.gtk.gtk_notebook_tab_get_type
 
 /**
  * The parameter used in the action signals of `GtkNotebook`.
@@ -25,5 +27,12 @@ public enum class NotebookTab(
             GtkNotebookTab.GTK_NOTEBOOK_TAB_LAST -> LAST
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of NotebookTab
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_notebook_tab_get_type()
     }
 }

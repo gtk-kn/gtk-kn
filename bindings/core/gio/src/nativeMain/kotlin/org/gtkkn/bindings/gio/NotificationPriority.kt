@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_42
 import org.gtkkn.native.gio.GNotificationPriority
+import org.gtkkn.native.gio.g_notification_priority_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Priority levels for #GNotifications.
@@ -46,5 +48,12 @@ public enum class NotificationPriority(
             GNotificationPriority.G_NOTIFICATION_PRIORITY_URGENT -> URGENT
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of NotificationPriority
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_notification_priority_get_type()
     }
 }

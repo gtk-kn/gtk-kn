@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupMemoryUse
+import org.gtkkn.native.soup.soup_memory_use_get_type
 
 /**
  * The lifetime of the memory being passed.
@@ -35,5 +37,12 @@ public enum class MemoryUse(
             SoupMemoryUse.SOUP_MEMORY_COPY -> COPY
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of MemoryUse
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_memory_use_get_type()
     }
 }

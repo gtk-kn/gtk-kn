@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoCoverageLevel
+import org.gtkkn.native.pango.pango_coverage_level_get_type
 
 /**
  * `PangoCoverageLevel` is used to indicate how well a font can
@@ -47,5 +49,12 @@ public enum class CoverageLevel(
             PangoCoverageLevel.PANGO_COVERAGE_EXACT -> EXACT
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of CoverageLevel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_coverage_level_get_type()
     }
 }

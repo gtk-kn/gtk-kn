@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_6
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkSymbolicColor
+import org.gtkkn.native.gtk.gtk_symbolic_color_get_type
 
 /**
  * The indexes of colors passed to symbolic color rendering, such as
@@ -41,5 +43,12 @@ public enum class SymbolicColor(
             GtkSymbolicColor.GTK_SYMBOLIC_COLOR_SUCCESS -> SUCCESS
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of SymbolicColor
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_symbolic_color_get_type()
     }
 }

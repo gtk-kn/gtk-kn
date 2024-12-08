@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.native.gio.GTlsRehandshakeMode
+import org.gtkkn.native.gio.g_tls_rehandshake_mode_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * When to allow rehandshaking. See
@@ -34,5 +36,12 @@ public enum class TlsRehandshakeMode(
             GTlsRehandshakeMode.G_TLS_REHANDSHAKE_UNSAFELY -> UNSAFELY
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of TlsRehandshakeMode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_tls_rehandshake_mode_get_type()
     }
 }

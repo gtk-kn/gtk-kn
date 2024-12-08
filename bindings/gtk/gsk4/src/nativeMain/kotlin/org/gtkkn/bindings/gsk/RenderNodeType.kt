@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskRenderNodeType
+import org.gtkkn.native.gsk.gsk_render_node_type_get_type
 
 /**
  * The type of a node determines what the node is rendering.
@@ -175,5 +177,12 @@ public enum class RenderNodeType(
             GskRenderNodeType.GSK_SUBSURFACE_NODE -> SUBSURFACE_NODE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of RenderNodeType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_render_node_type_get_type()
     }
 }

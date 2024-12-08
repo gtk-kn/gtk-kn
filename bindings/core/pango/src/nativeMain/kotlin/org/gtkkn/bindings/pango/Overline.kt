@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.pango
 
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoOverline
+import org.gtkkn.native.pango.pango_overline_get_type
 
 /**
  * The `PangoOverline` enumeration is used to specify whether text
@@ -30,5 +32,12 @@ public enum class Overline(
             PangoOverline.PANGO_OVERLINE_SINGLE -> SINGLE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of Overline
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_overline_get_type()
     }
 }

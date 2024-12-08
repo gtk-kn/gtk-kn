@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.pango
 
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoGravityHint
+import org.gtkkn.native.pango.pango_gravity_hint_get_type
 
 /**
  * `PangoGravityHint` defines how horizontal scripts should behave in a
@@ -43,5 +45,12 @@ public enum class GravityHint(
             PangoGravityHint.PANGO_GRAVITY_HINT_LINE -> LINE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of GravityHint
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_gravity_hint_get_type()
     }
 }

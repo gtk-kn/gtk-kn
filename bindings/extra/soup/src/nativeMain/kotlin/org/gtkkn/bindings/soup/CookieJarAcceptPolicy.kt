@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupCookieJarAcceptPolicy
+import org.gtkkn.native.soup.soup_cookie_jar_accept_policy_get_type
 
 /**
  * The policy for accepting or rejecting cookies returned in
@@ -58,5 +60,12 @@ public enum class CookieJarAcceptPolicy(
             SoupCookieJarAcceptPolicy.SOUP_COOKIE_JAR_ACCEPT_GRANDFATHERED_THIRD_PARTY -> GRANDFATHERED_THIRD_PARTY
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of CookieJarAcceptPolicy
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_cookie_jar_accept_policy_get_type()
     }
 }

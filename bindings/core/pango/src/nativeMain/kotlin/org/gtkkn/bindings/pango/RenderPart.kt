@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.pango
 
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_8
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoRenderPart
+import org.gtkkn.native.pango.pango_render_part_get_type
 
 /**
  * `PangoRenderPart` defines different items to render for such
@@ -44,5 +46,12 @@ public enum class RenderPart(
             PangoRenderPart.PANGO_RENDER_PART_OVERLINE -> OVERLINE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of RenderPart
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_render_part_get_type()
     }
 }

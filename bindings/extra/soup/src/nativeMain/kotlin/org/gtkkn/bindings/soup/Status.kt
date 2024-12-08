@@ -3,9 +3,11 @@ package org.gtkkn.bindings.soup
 
 import kotlin.String
 import kotlinx.cinterop.toKString
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.soup.SoupStatus
 import org.gtkkn.native.soup.soup_status_get_phrase
+import org.gtkkn.native.soup.soup_status_get_type
 
 /**
  * These represent the known HTTP status code values, plus various
@@ -326,5 +328,12 @@ public enum class Status(
          * @return the (terse, English) description of @status_code
          */
         public fun getPhrase(statusCode: guint): String = soup_status_get_phrase(statusCode)?.toKString() ?: error("Expected not null string")
+
+        /**
+         * Get the GType of Status
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_status_get_type()
     }
 }

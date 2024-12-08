@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkFileChooserAction
+import org.gtkkn.native.gtk.gtk_file_chooser_action_get_type
 
 /**
  * Describes whether a `GtkFileChooser` is being used to open existing files
@@ -36,5 +38,12 @@ public enum class FileChooserAction(
             GtkFileChooserAction.GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER -> SELECT_FOLDER
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of FileChooserAction
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_file_chooser_action_get_type()
     }
 }

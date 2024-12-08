@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.gsk
 
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_10
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskMaskMode
+import org.gtkkn.native.gsk.gsk_mask_mode_get_type
 
 /**
  * The mask modes available for mask nodes.
@@ -40,5 +42,12 @@ public enum class MaskMode(
             GskMaskMode.GSK_MASK_MODE_INVERTED_LUMINANCE -> INVERTED_LUMINANCE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of MaskMode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_mask_mode_get_type()
     }
 }

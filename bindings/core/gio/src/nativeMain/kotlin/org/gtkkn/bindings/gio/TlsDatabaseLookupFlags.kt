@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.native.gio.GTlsDatabaseLookupFlags
+import org.gtkkn.native.gio.g_tls_database_lookup_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags for g_tls_database_lookup_certificate_for_handle(),
@@ -31,5 +33,12 @@ public enum class TlsDatabaseLookupFlags(
             GTlsDatabaseLookupFlags.G_TLS_DATABASE_LOOKUP_KEYPAIR -> KEYPAIR
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of TlsDatabaseLookupFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_tls_database_lookup_flags_get_type()
     }
 }

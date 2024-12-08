@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gio
 
 import org.gtkkn.native.gio.GDataStreamByteOrder
+import org.gtkkn.native.gio.g_data_stream_byte_order_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * #GDataStreamByteOrder is used to ensure proper endianness of streaming data sources
@@ -31,5 +33,12 @@ public enum class DataStreamByteOrder(
             GDataStreamByteOrder.G_DATA_STREAM_BYTE_ORDER_HOST_ENDIAN -> HOST_ENDIAN
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of DataStreamByteOrder
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_data_stream_byte_order_get_type()
     }
 }

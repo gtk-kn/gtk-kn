@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.gsk
 
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskPathOperation
+import org.gtkkn.native.gsk.gsk_path_operation_get_type
 
 /**
  * Path operations are used to describe the segments of a `GskPath`.
@@ -58,5 +60,12 @@ public enum class PathOperation(
             GskPathOperation.GSK_PATH_CONIC -> CONIC
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of PathOperation
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_path_operation_get_type()
     }
 }

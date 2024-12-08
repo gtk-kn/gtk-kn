@@ -3,7 +3,9 @@ package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkFileChooserError
+import org.gtkkn.native.gtk.gtk_file_chooser_error_get_type
 import org.gtkkn.native.gtk.gtk_file_chooser_error_quark
 
 /**
@@ -48,6 +50,13 @@ public enum class FileChooserError(
          * @return The error quark used for `GtkFileChooser` errors.
          */
         public fun quark(): Quark = gtk_file_chooser_error_quark()
+
+        /**
+         * Get the GType of FileChooserError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_file_chooser_error_get_type()
 
         public fun fromErrorOrNull(error: Error): FileChooserError? = if (error.domain != quark()) {
             null

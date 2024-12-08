@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.native.gio.GSocketType
+import org.gtkkn.native.gio.g_socket_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags used when creating a #GSocket. Some protocols may not implement
@@ -41,5 +43,12 @@ public enum class SocketType(
             GSocketType.G_SOCKET_TYPE_SEQPACKET -> SEQPACKET
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of SocketType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_socket_type_get_type()
     }
 }

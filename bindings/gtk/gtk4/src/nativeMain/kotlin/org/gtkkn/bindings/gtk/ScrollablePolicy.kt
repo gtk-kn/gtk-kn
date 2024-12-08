@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkScrollablePolicy
+import org.gtkkn.native.gtk.gtk_scrollable_policy_get_type
 
 /**
  * Defines the policy to be used in a scrollable widget when updating
@@ -26,5 +28,12 @@ public enum class ScrollablePolicy(
             GtkScrollablePolicy.GTK_SCROLL_NATURAL -> NATURAL
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of ScrollablePolicy
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_scrollable_policy_get_type()
     }
 }

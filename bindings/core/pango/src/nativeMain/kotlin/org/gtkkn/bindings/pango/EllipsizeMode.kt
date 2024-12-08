@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoEllipsizeMode
+import org.gtkkn.native.pango.pango_ellipsize_mode_get_type
 
 /**
  * `PangoEllipsizeMode` describes what sort of ellipsization
@@ -40,5 +42,12 @@ public enum class EllipsizeMode(
             PangoEllipsizeMode.PANGO_ELLIPSIZE_END -> END
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of EllipsizeMode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_ellipsize_mode_get_type()
     }
 }

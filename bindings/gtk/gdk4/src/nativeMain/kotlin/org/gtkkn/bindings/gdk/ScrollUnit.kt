@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gdk
 
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_8
 import org.gtkkn.native.gdk.GdkScrollUnit
+import org.gtkkn.native.gdk.gdk_scroll_unit_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Specifies the unit of scroll deltas.
@@ -44,5 +46,12 @@ public enum class ScrollUnit(
             GdkScrollUnit.GDK_SCROLL_UNIT_SURFACE -> SURFACE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of ScrollUnit
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_scroll_unit_get_type()
     }
 }

@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskScalingFilter
+import org.gtkkn.native.gsk.gsk_scaling_filter_get_type
 
 /**
  * The filters used when scaling texture data.
@@ -35,5 +37,12 @@ public enum class ScalingFilter(
             GskScalingFilter.GSK_SCALING_FILTER_TRILINEAR -> TRILINEAR
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of ScalingFilter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_scaling_filter_get_type()
     }
 }

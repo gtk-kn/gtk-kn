@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkConstraintAttribute
+import org.gtkkn.native.gtk.gtk_constraint_attribute_get_type
 
 /**
  * The widget attributes that can be used when creating a [class@Constraint].
@@ -84,5 +86,12 @@ public enum class ConstraintAttribute(
             GtkConstraintAttribute.GTK_CONSTRAINT_ATTRIBUTE_BASELINE -> BASELINE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of ConstraintAttribute
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_constraint_attribute_get_type()
     }
 }

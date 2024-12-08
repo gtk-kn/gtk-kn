@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.native.gio.GBusType
+import org.gtkkn.native.gio.g_bus_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * An enumeration for well-known message buses.
@@ -38,5 +40,12 @@ public enum class BusType(
             GBusType.G_BUS_TYPE_SESSION -> SESSION
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of BusType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_bus_type_get_type()
     }
 }

@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_46
 import org.gtkkn.native.gio.GSocketListenerEvent
+import org.gtkkn.native.gio.g_socket_listener_event_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Describes an event occurring on a #GSocketListener. See the
@@ -43,5 +45,12 @@ public enum class SocketListenerEvent(
             GSocketListenerEvent.G_SOCKET_LISTENER_LISTENED -> LISTENED
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of SocketListenerEvent
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_socket_listener_event_get_type()
     }
 }

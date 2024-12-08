@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoVariant
+import org.gtkkn.native.pango.pango_variant_get_type
 
 /**
  * An enumeration specifying capitalization variant of the font.
@@ -58,5 +60,12 @@ public enum class Variant(
             PangoVariant.PANGO_VARIANT_TITLE_CAPS -> TITLE_CAPS
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of Variant
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_variant_get_type()
     }
 }

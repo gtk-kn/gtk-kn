@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.gsk
 
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskFillRule
+import org.gtkkn.native.gsk.gsk_fill_rule_get_type
 
 /**
  * `GskFillRule` is used to select how paths are filled.
@@ -46,5 +48,12 @@ public enum class FillRule(
             GskFillRule.GSK_FILL_RULE_EVEN_ODD -> EVEN_ODD
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of FillRule
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_fill_rule_get_type()
     }
 }

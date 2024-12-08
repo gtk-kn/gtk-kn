@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitLoadEvent
+import org.gtkkn.native.webkit.webkit_load_event_get_type
 
 /**
  * Enum values used to denote the different events that happen during a
@@ -44,5 +46,12 @@ public enum class LoadEvent(
             WebKitLoadEvent.WEBKIT_LOAD_FINISHED -> FINISHED
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of LoadEvent
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_load_event_get_type()
     }
 }

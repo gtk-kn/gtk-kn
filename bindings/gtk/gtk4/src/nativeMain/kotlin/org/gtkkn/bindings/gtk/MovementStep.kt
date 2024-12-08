@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkMovementStep
+import org.gtkkn.native.gtk.gtk_movement_step_get_type
 
 /**
  * Passed as argument to various keybinding signals for moving the
@@ -66,5 +68,12 @@ public enum class MovementStep(
             GtkMovementStep.GTK_MOVEMENT_HORIZONTAL_PAGES -> HORIZONTAL_PAGES
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of MovementStep
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_movement_step_get_type()
     }
 }

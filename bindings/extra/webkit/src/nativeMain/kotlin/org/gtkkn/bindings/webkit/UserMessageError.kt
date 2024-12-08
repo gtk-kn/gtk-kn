@@ -4,7 +4,9 @@ package org.gtkkn.bindings.webkit
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_28
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitUserMessageError
+import org.gtkkn.native.webkit.webkit_user_message_error_get_type
 import org.gtkkn.native.webkit.webkit_user_message_error_quark
 
 /**
@@ -33,6 +35,13 @@ public enum class UserMessageError(
          * @return user message error domain.
          */
         public fun quark(): Quark = webkit_user_message_error_quark()
+
+        /**
+         * Get the GType of UserMessageError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_user_message_error_get_type()
 
         public fun fromErrorOrNull(error: Error): UserMessageError? = if (error.domain != quark()) {
             null

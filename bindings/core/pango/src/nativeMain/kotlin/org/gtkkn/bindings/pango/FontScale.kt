@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.pango
 
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoFontScale
+import org.gtkkn.native.pango.pango_font_scale_get_type
 
 /**
  * An enumeration that affects font sizes for superscript
@@ -39,5 +41,12 @@ public enum class FontScale(
             PangoFontScale.PANGO_FONT_SCALE_SMALL_CAPS -> SMALL_CAPS
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of FontScale
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_font_scale_get_type()
     }
 }

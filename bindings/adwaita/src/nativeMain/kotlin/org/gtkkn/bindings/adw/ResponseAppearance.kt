@@ -3,6 +3,8 @@ package org.gtkkn.bindings.adw
 
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
 import org.gtkkn.native.adw.AdwResponseAppearance
+import org.gtkkn.native.adw.adw_response_appearance_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Describes the possible styles of [class@AlertDialog] response buttons.
@@ -38,5 +40,12 @@ public enum class ResponseAppearance(
             AdwResponseAppearance.ADW_RESPONSE_DESTRUCTIVE -> DESTRUCTIVE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of ResponseAppearance
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_response_appearance_get_type()
     }
 }

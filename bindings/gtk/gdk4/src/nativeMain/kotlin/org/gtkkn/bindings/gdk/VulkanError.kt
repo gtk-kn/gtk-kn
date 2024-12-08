@@ -4,7 +4,9 @@ package org.gtkkn.bindings.gdk
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.gdk.GdkVulkanError
+import org.gtkkn.native.gdk.gdk_vulkan_error_get_type
 import org.gtkkn.native.gdk.gdk_vulkan_error_quark
+import org.gtkkn.native.gobject.GType
 
 /**
  * Error enumeration for `GdkVulkanContext`.
@@ -31,6 +33,13 @@ public enum class VulkanError(
         }
 
         public fun quark(): Quark = gdk_vulkan_error_quark()
+
+        /**
+         * Get the GType of VulkanError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_vulkan_error_get_type()
 
         public fun fromErrorOrNull(error: Error): VulkanError? = if (error.domain != quark()) {
             null

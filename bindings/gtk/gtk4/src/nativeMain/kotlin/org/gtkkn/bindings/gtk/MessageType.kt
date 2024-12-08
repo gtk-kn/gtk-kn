@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkMessageType
+import org.gtkkn.native.gtk.gtk_message_type_get_type
 
 /**
  * The type of message being displayed in a [class@MessageDialog].
@@ -40,5 +42,12 @@ public enum class MessageType(
             GtkMessageType.GTK_MESSAGE_OTHER -> OTHER
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of MessageType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_message_type_get_type()
     }
 }

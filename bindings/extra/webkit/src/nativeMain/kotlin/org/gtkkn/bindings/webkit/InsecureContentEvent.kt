@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitInsecureContentEvent
+import org.gtkkn.native.webkit.webkit_insecure_content_event_get_type
 
 /**
  * Enum values previously used to denote the different events which can trigger
@@ -31,5 +33,12 @@ public enum class InsecureContentEvent(
             WebKitInsecureContentEvent.WEBKIT_INSECURE_CONTENT_DISPLAYED -> DISPLAYED
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of InsecureContentEvent
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_insecure_content_event_get_type()
     }
 }

@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkScrollStep
+import org.gtkkn.native.gtk.gtk_scroll_step_get_type
 
 /**
  * Passed as argument to various keybinding signals.
@@ -45,5 +47,12 @@ public enum class ScrollStep(
             GtkScrollStep.GTK_SCROLL_HORIZONTAL_ENDS -> HORIZONTAL_ENDS
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of ScrollStep
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_scroll_step_get_type()
     }
 }

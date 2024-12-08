@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_6
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkNaturalWrapMode
+import org.gtkkn.native.gtk.gtk_natural_wrap_mode_get_type
 
 /**
  * Options for selecting a different wrap mode for natural size
@@ -41,5 +43,12 @@ public enum class NaturalWrapMode(
             GtkNaturalWrapMode.GTK_NATURAL_WRAP_WORD -> WORD
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of NaturalWrapMode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_natural_wrap_mode_get_type()
     }
 }

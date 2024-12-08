@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkImageType
+import org.gtkkn.native.gtk.gtk_image_type_get_type
 
 /**
  * Describes the image data representation used by a [class@Gtk.Image].
@@ -42,5 +44,12 @@ public enum class ImageType(
             GtkImageType.GTK_IMAGE_PAINTABLE -> PAINTABLE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of ImageType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_image_type_get_type()
     }
 }

@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitPolicyDecisionType
+import org.gtkkn.native.webkit.webkit_policy_decision_type_get_type
 
 /**
  * Enum values used for determining the type of a policy decision during
@@ -50,5 +52,12 @@ public enum class PolicyDecisionType(
             WebKitPolicyDecisionType.WEBKIT_POLICY_DECISION_TYPE_RESPONSE -> RESPONSE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of PolicyDecisionType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_policy_decision_type_get_type()
     }
 }

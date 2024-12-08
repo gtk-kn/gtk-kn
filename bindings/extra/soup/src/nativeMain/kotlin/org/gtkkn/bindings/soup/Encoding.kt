@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupEncoding
+import org.gtkkn.native.soup.soup_encoding_get_type
 
 /**
  * How a message body is encoded for transport
@@ -48,5 +50,12 @@ public enum class Encoding(
             SoupEncoding.SOUP_ENCODING_BYTERANGES -> BYTERANGES
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of Encoding
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_encoding_get_type()
     }
 }

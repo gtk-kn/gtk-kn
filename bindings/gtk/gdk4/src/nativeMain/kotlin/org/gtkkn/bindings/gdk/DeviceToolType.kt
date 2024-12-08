@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.native.gdk.GdkDeviceToolType
+import org.gtkkn.native.gdk.gdk_device_tool_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Indicates the specific type of tool being used being a tablet. Such as an
@@ -56,5 +58,12 @@ public enum class DeviceToolType(
             GdkDeviceToolType.GDK_DEVICE_TOOL_TYPE_LENS -> LENS
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of DeviceToolType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_device_tool_type_get_type()
     }
 }

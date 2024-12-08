@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkDirectionType
+import org.gtkkn.native.gtk.gtk_direction_type_get_type
 
 /**
  * Focus movement types.
@@ -45,5 +47,12 @@ public enum class DirectionType(
             GtkDirectionType.GTK_DIR_RIGHT -> RIGHT
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of DirectionType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_direction_type_get_type()
     }
 }

@@ -3,6 +3,8 @@ package org.gtkkn.bindings.adw
 
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_5
 import org.gtkkn.native.adw.AdwDialogPresentationMode
+import org.gtkkn.native.adw.adw_dialog_presentation_mode_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Describes the available presentation modes for [class@Dialog].
@@ -38,5 +40,12 @@ public enum class DialogPresentationMode(
             AdwDialogPresentationMode.ADW_DIALOG_BOTTOM_SHEET -> BOTTOM_SHEET
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of DialogPresentationMode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_dialog_presentation_mode_get_type()
     }
 }

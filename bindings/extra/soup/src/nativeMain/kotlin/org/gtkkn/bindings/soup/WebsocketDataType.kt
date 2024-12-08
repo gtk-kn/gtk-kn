@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupWebsocketDataType
+import org.gtkkn.native.soup.soup_websocket_data_type_get_type
 
 /**
  * The type of data contained in a [signal@WebsocketConnection::message] signal.
@@ -25,5 +27,12 @@ public enum class WebsocketDataType(
             SoupWebsocketDataType.SOUP_WEBSOCKET_DATA_BINARY -> BINARY
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of WebsocketDataType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_websocket_data_type_get_type()
     }
 }

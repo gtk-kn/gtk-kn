@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkLevelBarMode
+import org.gtkkn.native.gtk.gtk_level_bar_mode_get_type
 
 /**
  * Describes how [class@LevelBar] contents should be rendered.
@@ -28,5 +30,12 @@ public enum class LevelBarMode(
             GtkLevelBarMode.GTK_LEVEL_BAR_MODE_DISCRETE -> DISCRETE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of LevelBarMode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_level_bar_mode_get_type()
     }
 }

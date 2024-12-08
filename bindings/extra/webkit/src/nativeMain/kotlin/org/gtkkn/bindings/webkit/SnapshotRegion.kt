@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitSnapshotRegion
+import org.gtkkn.native.webkit.webkit_snapshot_region_get_type
 
 /**
  * Enum values used to specify the region from which to get a #WebKitWebView
@@ -27,5 +29,12 @@ public enum class SnapshotRegion(
             WebKitSnapshotRegion.WEBKIT_SNAPSHOT_REGION_FULL_DOCUMENT -> FULL_DOCUMENT
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of SnapshotRegion
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_snapshot_region_get_type()
     }
 }

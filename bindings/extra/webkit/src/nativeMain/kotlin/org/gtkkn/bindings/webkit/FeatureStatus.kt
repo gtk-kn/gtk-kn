@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_42
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitFeatureStatus
+import org.gtkkn.native.webkit.webkit_feature_status_get_type
 
 /**
  * Describes the status of a [struct@WebKitFeature].
@@ -76,5 +78,12 @@ public enum class FeatureStatus(
             WebKitFeatureStatus.WEBKIT_FEATURE_STATUS_MATURE -> MATURE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of FeatureStatus
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_feature_status_get_type()
     }
 }

@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkPrintOperationResult
+import org.gtkkn.native.gtk.gtk_print_operation_result_get_type
 
 /**
  * The result of a print operation.
@@ -39,5 +41,12 @@ public enum class PrintOperationResult(
             GtkPrintOperationResult.GTK_PRINT_OPERATION_RESULT_IN_PROGRESS -> IN_PROGRESS
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of PrintOperationResult
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_print_operation_result_get_type()
     }
 }

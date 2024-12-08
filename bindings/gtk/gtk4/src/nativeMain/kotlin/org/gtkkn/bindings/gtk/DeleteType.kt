@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkDeleteType
+import org.gtkkn.native.gtk.gtk_delete_type_get_type
 
 /**
  * Passed to various keybinding signals for deleting text.
@@ -61,5 +63,12 @@ public enum class DeleteType(
             GtkDeleteType.GTK_DELETE_WHITESPACE -> WHITESPACE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of DeleteType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_delete_type_get_type()
     }
 }

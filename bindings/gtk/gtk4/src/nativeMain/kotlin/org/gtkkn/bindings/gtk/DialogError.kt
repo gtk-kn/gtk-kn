@@ -4,7 +4,9 @@ package org.gtkkn.bindings.gtk
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkDialogError
+import org.gtkkn.native.gtk.gtk_dialog_error_get_type
 import org.gtkkn.native.gtk.gtk_dialog_error_quark
 
 /**
@@ -42,6 +44,13 @@ public enum class DialogError(
         }
 
         public fun quark(): Quark = gtk_dialog_error_quark()
+
+        /**
+         * Get the GType of DialogError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_dialog_error_get_type()
 
         public fun fromErrorOrNull(error: Error): DialogError? = if (error.domain != quark()) {
             null

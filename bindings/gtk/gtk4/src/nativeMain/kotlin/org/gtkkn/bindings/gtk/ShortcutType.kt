@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkShortcutType
+import org.gtkkn.native.gtk.gtk_shortcut_type_get_type
 
 /**
  * GtkShortcutType specifies the kind of shortcut that is being described.
@@ -69,5 +71,12 @@ public enum class ShortcutType(
             GtkShortcutType.GTK_SHORTCUT_GESTURE_SWIPE_RIGHT -> GESTURE_SWIPE_RIGHT
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of ShortcutType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_shortcut_type_get_type()
     }
 }

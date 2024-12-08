@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gio
 
 import org.gtkkn.native.gio.GFileAttributeType
+import org.gtkkn.native.gio.g_file_attribute_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * The data types for file attributes.
@@ -65,5 +67,12 @@ public enum class FileAttributeType(
             GFileAttributeType.G_FILE_ATTRIBUTE_TYPE_STRINGV -> STRINGV
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of FileAttributeType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_file_attribute_type_get_type()
     }
 }

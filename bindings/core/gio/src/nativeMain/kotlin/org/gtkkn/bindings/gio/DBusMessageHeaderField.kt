@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.native.gio.GDBusMessageHeaderField
+import org.gtkkn.native.gio.g_dbus_message_header_field_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Header fields used in #GDBusMessage.
@@ -68,5 +70,12 @@ public enum class DBusMessageHeaderField(
             GDBusMessageHeaderField.G_DBUS_MESSAGE_HEADER_FIELD_NUM_UNIX_FDS -> NUM_UNIX_FDS
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of DBusMessageHeaderField
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_message_header_field_get_type()
     }
 }

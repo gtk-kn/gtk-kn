@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gio
 
 import org.gtkkn.native.gio.GFilesystemPreviewType
+import org.gtkkn.native.gio.g_filesystem_preview_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Indicates a hint from the file system whether files should be
@@ -32,5 +34,12 @@ public enum class FilesystemPreviewType(
             GFilesystemPreviewType.G_FILESYSTEM_PREVIEW_TYPE_NEVER -> NEVER
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of FilesystemPreviewType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_filesystem_preview_type_get_type()
     }
 }

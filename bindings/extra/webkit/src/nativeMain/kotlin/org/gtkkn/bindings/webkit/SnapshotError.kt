@@ -3,7 +3,9 @@ package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitSnapshotError
+import org.gtkkn.native.webkit.webkit_snapshot_error_get_type
 import org.gtkkn.native.webkit.webkit_snapshot_error_quark
 
 /**
@@ -30,6 +32,13 @@ public enum class SnapshotError(
          * @return snapshot error domain.
          */
         public fun quark(): Quark = webkit_snapshot_error_quark()
+
+        /**
+         * Get the GType of SnapshotError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_snapshot_error_get_type()
 
         public fun fromErrorOrNull(error: Error): SnapshotError? = if (error.domain != quark()) {
             null

@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkCollation
+import org.gtkkn.native.gtk.gtk_collation_get_type
 
 /**
  * Describes how a [class@Gtk.StringSorter] turns strings into sort keys to
@@ -37,5 +39,12 @@ public enum class Collation(
             GtkCollation.GTK_COLLATION_FILENAME -> FILENAME
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of Collation
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_collation_get_type()
     }
 }

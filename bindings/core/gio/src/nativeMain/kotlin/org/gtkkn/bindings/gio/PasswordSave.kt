@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gio
 
 import org.gtkkn.native.gio.GPasswordSave
+import org.gtkkn.native.gio.g_password_save_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * #GPasswordSave is used to indicate the lifespan of a saved password.
@@ -33,5 +35,12 @@ public enum class PasswordSave(
             GPasswordSave.G_PASSWORD_SAVE_PERMANENTLY -> PERMANENTLY
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of PasswordSave
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_password_save_get_type()
     }
 }

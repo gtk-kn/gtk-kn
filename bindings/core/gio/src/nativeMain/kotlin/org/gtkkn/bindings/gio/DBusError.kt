@@ -12,12 +12,14 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.native.gio.GDBusError
 import org.gtkkn.native.gio.g_dbus_error_encode_gerror
 import org.gtkkn.native.gio.g_dbus_error_get_remote_error
+import org.gtkkn.native.gio.g_dbus_error_get_type
 import org.gtkkn.native.gio.g_dbus_error_is_remote_error
 import org.gtkkn.native.gio.g_dbus_error_new_for_dbus_error
 import org.gtkkn.native.gio.g_dbus_error_quark
 import org.gtkkn.native.gio.g_dbus_error_register_error
 import org.gtkkn.native.gio.g_dbus_error_strip_remote_error
 import org.gtkkn.native.gio.g_dbus_error_unregister_error
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 
 /**
@@ -409,6 +411,13 @@ public enum class DBusError(
             errorCode: gint,
             dbusErrorName: String,
         ): Boolean = g_dbus_error_unregister_error(errorDomain, errorCode, dbusErrorName).asBoolean()
+
+        /**
+         * Get the GType of DBusError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_error_get_type()
 
         public fun fromErrorOrNull(error: Error): DBusError? = if (error.domain != quark()) {
             null

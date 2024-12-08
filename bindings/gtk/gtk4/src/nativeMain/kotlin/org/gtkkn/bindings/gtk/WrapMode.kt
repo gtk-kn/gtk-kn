@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkWrapMode
+import org.gtkkn.native.gtk.gtk_wrap_mode_get_type
 
 /**
  * Describes a type of line wrapping.
@@ -38,5 +40,12 @@ public enum class WrapMode(
             GtkWrapMode.GTK_WRAP_WORD_CHAR -> WORD_CHAR
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of WrapMode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_wrap_mode_get_type()
     }
 }

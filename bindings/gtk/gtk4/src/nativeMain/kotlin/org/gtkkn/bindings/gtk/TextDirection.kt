@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkTextDirection
+import org.gtkkn.native.gtk.gtk_text_direction_get_type
 
 /**
  * Reading directions for text.
@@ -30,5 +32,12 @@ public enum class TextDirection(
             GtkTextDirection.GTK_TEXT_DIR_RTL -> RTL
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of TextDirection
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_text_direction_get_type()
     }
 }

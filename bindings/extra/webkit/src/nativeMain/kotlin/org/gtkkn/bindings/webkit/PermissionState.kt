@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitPermissionState
+import org.gtkkn.native.webkit.webkit_permission_state_get_type
 
 /**
  * Enum values representing query permission results.
@@ -33,5 +35,12 @@ public enum class PermissionState(
             WebKitPermissionState.WEBKIT_PERMISSION_STATE_PROMPT -> PROMPT
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of PermissionState
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_permission_state_get_type()
     }
 }

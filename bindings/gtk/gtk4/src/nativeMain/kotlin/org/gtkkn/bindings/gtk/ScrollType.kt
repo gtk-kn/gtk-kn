@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkScrollType
+import org.gtkkn.native.gtk.gtk_scroll_type_get_type
 
 /**
  * Scrolling types.
@@ -95,5 +97,12 @@ public enum class ScrollType(
             GtkScrollType.GTK_SCROLL_END -> END
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of ScrollType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_scroll_type_get_type()
     }
 }

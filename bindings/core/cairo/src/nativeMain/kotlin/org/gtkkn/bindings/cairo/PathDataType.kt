@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.cairo
 
+import org.gtkkn.native.cairo.cairo_gobject_path_data_type_get_type
 import org.gtkkn.native.cairo.cairo_path_data_type_t
+import org.gtkkn.native.gobject.GType
 
 public enum class PathDataType(
     public val nativeValue: cairo_path_data_type_t,
@@ -20,5 +22,12 @@ public enum class PathDataType(
             cairo_path_data_type_t.CAIRO_PATH_CLOSE_PATH -> CLOSE_PATH
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of PathDataType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = cairo_gobject_path_data_type_get_type()
     }
 }

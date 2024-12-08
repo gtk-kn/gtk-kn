@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkEditableProperties
+import org.gtkkn.native.gtk.gtk_editable_properties_get_type
 
 /**
  * The identifiers for [iface@Gtk.Editable] properties.
@@ -63,5 +65,12 @@ public enum class EditableProperties(
             GtkEditableProperties.GTK_EDITABLE_NUM_PROPERTIES -> NUM_PROPERTIES
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of EditableProperties
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_editable_properties_get_type()
     }
 }

@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.adw
 
 import org.gtkkn.native.adw.AdwNavigationDirection
+import org.gtkkn.native.adw.adw_navigation_direction_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Describes the direction of a swipe navigation gesture.
@@ -25,5 +27,12 @@ public enum class NavigationDirection(
             AdwNavigationDirection.ADW_NAVIGATION_DIRECTION_FORWARD -> FORWARD
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of NavigationDirection
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_navigation_direction_get_type()
     }
 }

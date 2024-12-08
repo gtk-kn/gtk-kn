@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkPrintQuality
+import org.gtkkn.native.gtk.gtk_print_quality_get_type
 
 /**
  * See also gtk_print_settings_set_quality().
@@ -35,5 +37,12 @@ public enum class PrintQuality(
             GtkPrintQuality.GTK_PRINT_QUALITY_DRAFT -> DRAFT
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of PrintQuality
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_print_quality_get_type()
     }
 }

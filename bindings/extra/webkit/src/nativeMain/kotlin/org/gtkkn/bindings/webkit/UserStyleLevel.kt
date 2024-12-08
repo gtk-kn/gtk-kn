@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitUserStyleLevel
+import org.gtkkn.native.webkit.webkit_user_style_level_get_type
 
 /**
  * Specifies how to treat an user style sheet.
@@ -31,5 +33,12 @@ public enum class UserStyleLevel(
             WebKitUserStyleLevel.WEBKIT_USER_STYLE_LEVEL_AUTHOR -> AUTHOR
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of UserStyleLevel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_user_style_level_get_type()
     }
 }

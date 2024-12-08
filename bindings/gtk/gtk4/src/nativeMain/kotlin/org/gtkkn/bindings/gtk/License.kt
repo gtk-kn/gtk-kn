@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkLicense
+import org.gtkkn.native.gtk.gtk_license_get_type
 
 /**
  * The type of license for an application.
@@ -113,5 +115,12 @@ public enum class License(
             GtkLicense.GTK_LICENSE_0BSD -> `0BSD`
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of License
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_license_get_type()
     }
 }

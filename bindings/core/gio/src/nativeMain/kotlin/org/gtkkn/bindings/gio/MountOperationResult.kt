@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gio
 
 import org.gtkkn.native.gio.GMountOperationResult
+import org.gtkkn.native.gio.g_mount_operation_result_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * #GMountOperationResult is returned as a result when a request for
@@ -34,5 +36,12 @@ public enum class MountOperationResult(
             GMountOperationResult.G_MOUNT_OPERATION_UNHANDLED -> UNHANDLED
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of MountOperationResult
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_mount_operation_result_get_type()
     }
 }

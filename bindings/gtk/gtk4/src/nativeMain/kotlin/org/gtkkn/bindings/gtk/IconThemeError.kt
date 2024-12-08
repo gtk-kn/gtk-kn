@@ -3,7 +3,9 @@ package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkIconThemeError
+import org.gtkkn.native.gtk.gtk_icon_theme_error_get_type
 import org.gtkkn.native.gtk.gtk_icon_theme_error_quark
 
 /**
@@ -30,6 +32,13 @@ public enum class IconThemeError(
         }
 
         public fun quark(): Quark = gtk_icon_theme_error_quark()
+
+        /**
+         * Get the GType of IconThemeError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_icon_theme_error_get_type()
 
         public fun fromErrorOrNull(error: Error): IconThemeError? = if (error.domain != quark()) {
             null

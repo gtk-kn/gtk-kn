@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.adw
 
 import org.gtkkn.native.adw.AdwToastPriority
+import org.gtkkn.native.adw.adw_toast_priority_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * [class@Toast] behavior when another toast is already displayed.
@@ -27,5 +29,12 @@ public enum class ToastPriority(
             AdwToastPriority.ADW_TOAST_PRIORITY_HIGH -> HIGH
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of ToastPriority
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_toast_priority_get_type()
     }
 }

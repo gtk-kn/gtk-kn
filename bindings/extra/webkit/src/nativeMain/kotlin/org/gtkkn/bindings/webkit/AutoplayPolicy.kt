@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_30
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitAutoplayPolicy
+import org.gtkkn.native.webkit.webkit_autoplay_policy_get_type
 
 /**
  * Enum values used to specify autoplay policies.
@@ -34,5 +36,12 @@ public enum class AutoplayPolicy(
             WebKitAutoplayPolicy.WEBKIT_AUTOPLAY_DENY -> DENY
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of AutoplayPolicy
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_autoplay_policy_get_type()
     }
 }

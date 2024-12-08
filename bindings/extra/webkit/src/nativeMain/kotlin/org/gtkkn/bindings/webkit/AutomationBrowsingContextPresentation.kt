@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_28
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitAutomationBrowsingContextPresentation
+import org.gtkkn.native.webkit.webkit_automation_browsing_context_presentation_get_type
 
 /**
  * Enum values used for determining the automation browsing context presentation.
@@ -28,5 +30,12 @@ public enum class AutomationBrowsingContextPresentation(
             WebKitAutomationBrowsingContextPresentation.WEBKIT_AUTOMATION_BROWSING_CONTEXT_PRESENTATION_TAB -> TAB
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of AutomationBrowsingContextPresentation
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_automation_browsing_context_presentation_get_type()
     }
 }

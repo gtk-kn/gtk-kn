@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAssistantPageType
+import org.gtkkn.native.gtk.gtk_assistant_page_type_get_type
 
 /**
  * Determines the page role inside a `GtkAssistant`.
@@ -63,5 +65,12 @@ public enum class AssistantPageType(
             GtkAssistantPageType.GTK_ASSISTANT_PAGE_CUSTOM -> CUSTOM
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of AssistantPageType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_assistant_page_type_get_type()
     }
 }

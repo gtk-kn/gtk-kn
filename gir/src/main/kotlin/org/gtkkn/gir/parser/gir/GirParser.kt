@@ -312,19 +312,25 @@ class GirParser(
         )
     }
 
-    private fun parseGirEnumeration(node: Node): GirEnumeration = GirEnumeration(
-        info = parseGirInfo(node),
-        name = node.attributeValue("name"),
-        cType = node.attributeValue("c:type"),
-        glibTypeName = node.attributeValueOrNull("glib:type-name"),
-        glibGetType = node.attributeValueOrNull("glib:get-type"),
-        glibErrorDomain = node.attributeValueOrNull("glib:error-domain"),
-        doc = parseGirDocElements(node),
-        annotations = node.childNodesWithName("attribute").map { parseGirAnnotation(it) },
-        members = node.childNodesWithName("member").map { parseGirMember(it) },
-        functions = node.childNodesWithName("function").map { parseGirFunction(it) },
-        functionInlines = node.childNodesWithName("function-inline").map { parseGirFunctionInline(it) },
-    )
+    private fun parseGirEnumeration(node: Node): GirEnumeration {
+        val name = node.attributeValue("name")
+        val glibGetType = node.attributeValueOrNull("glib:get-type")
+        val functions = node.childNodesWithName("function").map { parseGirFunction(it) }.toMutableList()
+        getTypeGirFunction(glibGetType, name)?.let { functions.add(it) }
+        return GirEnumeration(
+            info = parseGirInfo(node),
+            name = name,
+            cType = node.attributeValue("c:type"),
+            glibTypeName = node.attributeValueOrNull("glib:type-name"),
+            glibGetType = glibGetType,
+            glibErrorDomain = node.attributeValueOrNull("glib:error-domain"),
+            doc = parseGirDocElements(node),
+            annotations = node.childNodesWithName("attribute").map { parseGirAnnotation(it) },
+            members = node.childNodesWithName("member").map { parseGirMember(it) },
+            functions = functions,
+            functionInlines = node.childNodesWithName("function-inline").map { parseGirFunctionInline(it) },
+        )
+    }
 
     private fun parseGirFunction(node: Node): GirFunction = GirFunction(
         callable = parseGirCallable(node),

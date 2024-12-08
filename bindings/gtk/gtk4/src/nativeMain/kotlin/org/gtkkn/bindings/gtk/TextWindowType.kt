@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkTextWindowType
+import org.gtkkn.native.gtk.gtk_text_window_type_get_type
 
 /**
  * Used to reference the parts of `GtkTextView`.
@@ -45,5 +47,12 @@ public enum class TextWindowType(
             GtkTextWindowType.GTK_TEXT_WINDOW_BOTTOM -> BOTTOM
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of TextWindowType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_text_window_type_get_type()
     }
 }

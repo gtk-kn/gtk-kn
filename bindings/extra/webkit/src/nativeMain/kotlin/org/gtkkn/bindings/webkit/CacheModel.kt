@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitCacheModel
+import org.gtkkn.native.webkit.webkit_cache_model_get_type
 
 /**
  * Enum values used for determining the #WebKitWebContext cache model.
@@ -36,5 +38,12 @@ public enum class CacheModel(
             WebKitCacheModel.WEBKIT_CACHE_MODEL_DOCUMENT_BROWSER -> DOCUMENT_BROWSER
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of CacheModel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_cache_model_get_type()
     }
 }

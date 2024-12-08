@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkTreeViewDropPosition
+import org.gtkkn.native.gtk.gtk_tree_view_drop_position_get_type
 
 /**
  * An enum for determining where a dropped row goes.
@@ -35,5 +37,12 @@ public enum class TreeViewDropPosition(
             GtkTreeViewDropPosition.GTK_TREE_VIEW_DROP_INTO_OR_AFTER -> INTO_OR_AFTER
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of TreeViewDropPosition
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_tree_view_drop_position_get_type()
     }
 }

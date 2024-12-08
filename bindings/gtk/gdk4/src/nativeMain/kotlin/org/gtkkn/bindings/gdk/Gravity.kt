@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.native.gdk.GdkGravity
+import org.gtkkn.native.gdk.gdk_gravity_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Defines the reference point of a surface and is used in `GdkPopupLayout`.
@@ -66,5 +68,12 @@ public enum class Gravity(
             GdkGravity.GDK_GRAVITY_STATIC -> STATIC
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of Gravity
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_gravity_get_type()
     }
 }

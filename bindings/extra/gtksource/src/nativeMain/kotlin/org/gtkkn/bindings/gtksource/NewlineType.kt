@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtksource
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceNewlineType
+import org.gtkkn.native.gtksource.gtk_source_newline_type_get_type
 
 public enum class NewlineType(
     public val nativeValue: GtkSourceNewlineType,
@@ -28,5 +30,12 @@ public enum class NewlineType(
             GtkSourceNewlineType.GTK_SOURCE_NEWLINE_TYPE_CR_LF -> CR_LF
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of NewlineType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_newline_type_get_type()
     }
 }

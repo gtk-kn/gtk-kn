@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.pango
 
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoBaselineShift
+import org.gtkkn.native.pango.pango_baseline_shift_get_type
 
 /**
  * An enumeration that affects baseline shifts between runs.
@@ -35,5 +37,12 @@ public enum class BaselineShift(
             PangoBaselineShift.PANGO_BASELINE_SHIFT_SUBSCRIPT -> SUBSCRIPT
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of BaselineShift
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_baseline_shift_get_type()
     }
 }

@@ -3,7 +3,9 @@ package org.gtkkn.bindings.gsk
 
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskSerializationError
+import org.gtkkn.native.gsk.gsk_serialization_error_get_type
 import org.gtkkn.native.gsk.gsk_serialization_error_quark
 
 /**
@@ -37,6 +39,13 @@ public enum class SerializationError(
         }
 
         public fun quark(): Quark = gsk_serialization_error_quark()
+
+        /**
+         * Get the GType of SerializationError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_serialization_error_get_type()
 
         public fun fromErrorOrNull(error: Error): SerializationError? = if (error.domain != quark()) {
             null

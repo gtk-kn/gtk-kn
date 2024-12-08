@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupWebsocketCloseCode
+import org.gtkkn.native.soup.soup_websocket_close_code_get_type
 
 /**
  * Pre-defined close codes that can be passed to
@@ -89,5 +91,12 @@ public enum class WebsocketCloseCode(
             SoupWebsocketCloseCode.SOUP_WEBSOCKET_CLOSE_TLS_HANDSHAKE -> TLS_HANDSHAKE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of WebsocketCloseCode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_websocket_close_code_get_type()
     }
 }

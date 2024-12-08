@@ -5,7 +5,9 @@ import org.gtkkn.bindings.gdk.annotations.GdkVersion4_14
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.gdk.GdkDmabufError
+import org.gtkkn.native.gdk.gdk_dmabuf_error_get_type
 import org.gtkkn.native.gdk.gdk_dmabuf_error_quark
+import org.gtkkn.native.gobject.GType
 
 /**
  * Error enumeration for `GdkDmabufTexture`.
@@ -40,6 +42,13 @@ public enum class DmabufError(
         }
 
         public fun quark(): Quark = gdk_dmabuf_error_quark()
+
+        /**
+         * Get the GType of DmabufError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_dmabuf_error_get_type()
 
         public fun fromErrorOrNull(error: Error): DmabufError? = if (error.domain != quark()) {
             null

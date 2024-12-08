@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.cairo
 
 import org.gtkkn.native.cairo.cairo_antialias_t
+import org.gtkkn.native.cairo.cairo_gobject_antialias_get_type
+import org.gtkkn.native.gobject.GType
 
 public enum class Antialias(
     public val nativeValue: cairo_antialias_t,
@@ -26,5 +28,12 @@ public enum class Antialias(
             cairo_antialias_t.CAIRO_ANTIALIAS_BEST -> BEST
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of Antialias
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = cairo_gobject_antialias_get_type()
     }
 }

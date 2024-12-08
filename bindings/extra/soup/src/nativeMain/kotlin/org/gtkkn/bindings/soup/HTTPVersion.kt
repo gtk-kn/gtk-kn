@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupHTTPVersion
+import org.gtkkn.native.soup.soup_http_version_get_type
 
 /**
  * Indicates the HTTP protocol version being used.
@@ -30,5 +32,12 @@ public enum class HTTPVersion(
             SoupHTTPVersion.SOUP_HTTP_2_0 -> HTTP_2_0
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of HTTPVersion
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_http_version_get_type()
     }
 }

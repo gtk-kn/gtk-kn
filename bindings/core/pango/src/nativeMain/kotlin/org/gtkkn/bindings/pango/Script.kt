@@ -3,10 +3,12 @@ package org.gtkkn.bindings.pango
 
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_4
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gunichar
 import org.gtkkn.native.pango.PangoScript
 import org.gtkkn.native.pango.pango_script_for_unichar
 import org.gtkkn.native.pango.pango_script_get_sample_language
+import org.gtkkn.native.pango.pango_script_get_type
 
 /**
  * The `PangoScript` enumeration identifies different writing
@@ -682,5 +684,12 @@ public enum class Script(
         @PangoVersion1_4
         public fun getSampleLanguage(script: Script): Language? = pango_script_get_sample_language(script.nativeValue)?.run {
             Language(reinterpret())}
+
+        /**
+         * Get the GType of Script
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_script_get_type()
     }
 }

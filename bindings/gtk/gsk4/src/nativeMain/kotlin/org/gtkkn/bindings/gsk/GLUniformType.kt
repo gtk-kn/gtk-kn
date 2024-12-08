@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskGLUniformType
+import org.gtkkn.native.gsk.gsk_gl_uniform_type_get_type
 
 /**
  * This defines the types of the uniforms that `GskGLShaders`
@@ -59,5 +61,12 @@ public enum class GLUniformType(
             GskGLUniformType.GSK_GL_UNIFORM_TYPE_VEC4 -> VEC4
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of GLUniformType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_gl_uniform_type_get_type()
     }
 }

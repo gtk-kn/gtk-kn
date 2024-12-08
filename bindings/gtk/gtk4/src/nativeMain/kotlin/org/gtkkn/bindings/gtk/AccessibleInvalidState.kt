@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessibleInvalidState
+import org.gtkkn.native.gtk.gtk_accessible_invalid_state_get_type
 
 /**
  * The possible values for the %GTK_ACCESSIBLE_STATE_INVALID
@@ -40,5 +42,12 @@ public enum class AccessibleInvalidState(
             GtkAccessibleInvalidState.GTK_ACCESSIBLE_INVALID_SPELLING -> SPELLING
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of AccessibleInvalidState
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_accessible_invalid_state_get_type()
     }
 }

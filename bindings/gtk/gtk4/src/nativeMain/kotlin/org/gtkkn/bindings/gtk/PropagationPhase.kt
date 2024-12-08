@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkPropagationPhase
+import org.gtkkn.native.gtk.gtk_propagation_phase_get_type
 
 /**
  * Describes the stage at which events are fed into a [class@EventController].
@@ -42,5 +44,12 @@ public enum class PropagationPhase(
             GtkPropagationPhase.GTK_PHASE_TARGET -> TARGET
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of PropagationPhase
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_propagation_phase_get_type()
     }
 }

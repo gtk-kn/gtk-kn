@@ -4,8 +4,10 @@ package org.gtkkn.bindings.pango
 import kotlin.String
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_22
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoAttrType
 import org.gtkkn.native.pango.pango_attr_type_get_name
+import org.gtkkn.native.pango.pango_attr_type_get_type
 import org.gtkkn.native.pango.pango_attr_type_register
 
 /**
@@ -244,5 +246,12 @@ public enum class AttrType(
          */
         public fun register(name: String): AttrType = pango_attr_type_register(name).run {
             AttrType.fromNativeValue(this)}
+
+        /**
+         * Get the GType of AttrType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_attr_type_get_type()
     }
 }

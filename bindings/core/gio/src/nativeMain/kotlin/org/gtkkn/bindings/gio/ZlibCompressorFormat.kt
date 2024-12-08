@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.native.gio.GZlibCompressorFormat
+import org.gtkkn.native.gio.g_zlib_compressor_format_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Used to select the type of data format to use for #GZlibDecompressor
@@ -34,5 +36,12 @@ public enum class ZlibCompressorFormat(
             GZlibCompressorFormat.G_ZLIB_COMPRESSOR_FORMAT_RAW -> RAW
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of ZlibCompressorFormat
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_zlib_compressor_format_get_type()
     }
 }

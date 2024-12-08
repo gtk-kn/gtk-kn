@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkCornerType
+import org.gtkkn.native.gtk.gtk_corner_type_get_type
 
 /**
  * Specifies which corner a child widget should be placed in when packed into
@@ -42,5 +44,12 @@ public enum class CornerType(
             GtkCornerType.GTK_CORNER_BOTTOM_RIGHT -> BOTTOM_RIGHT
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of CornerType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_corner_type_get_type()
     }
 }

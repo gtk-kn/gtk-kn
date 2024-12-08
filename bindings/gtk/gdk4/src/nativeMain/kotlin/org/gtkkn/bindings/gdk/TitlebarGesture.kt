@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gdk
 
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_4
 import org.gtkkn.native.gdk.GdkTitlebarGesture
+import org.gtkkn.native.gdk.gdk_titlebar_gesture_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  *
@@ -24,5 +26,12 @@ public enum class TitlebarGesture(
             GdkTitlebarGesture.GDK_TITLEBAR_GESTURE_MIDDLE_CLICK -> MIDDLE_CLICK
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of TitlebarGesture
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_titlebar_gesture_get_type()
     }
 }

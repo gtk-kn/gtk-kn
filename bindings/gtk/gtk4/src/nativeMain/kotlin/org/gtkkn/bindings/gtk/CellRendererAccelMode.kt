@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkCellRendererAccelMode
+import org.gtkkn.native.gtk.gtk_cell_renderer_accel_mode_get_type
 
 /**
  * The available modes for [property@Gtk.CellRendererAccel:accel-mode].
@@ -25,5 +27,12 @@ public enum class CellRendererAccelMode(
             GtkCellRendererAccelMode.GTK_CELL_RENDERER_ACCEL_MODE_OTHER -> OTHER
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of CellRendererAccelMode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_cell_renderer_accel_mode_get_type()
     }
 }

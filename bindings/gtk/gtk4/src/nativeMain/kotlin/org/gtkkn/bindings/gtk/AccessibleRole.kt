@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessibleRole
+import org.gtkkn.native.gtk.gtk_accessible_role_get_type
 
 /**
  * The accessible role for a [iface@Accessible] implementation.
@@ -478,5 +480,12 @@ public enum class AccessibleRole(
             GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TERMINAL -> TERMINAL
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of AccessibleRole
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_accessible_role_get_type()
     }
 }

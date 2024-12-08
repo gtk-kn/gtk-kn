@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.cairo
 
+import org.gtkkn.native.cairo.cairo_gobject_surface_type_get_type
 import org.gtkkn.native.cairo.cairo_surface_type_t
+import org.gtkkn.native.gobject.GType
 
 public enum class SurfaceType(
     public val nativeValue: cairo_surface_type_t,
@@ -62,5 +64,12 @@ public enum class SurfaceType(
             cairo_surface_type_t.CAIRO_SURFACE_TYPE_COGL -> COGL
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of SurfaceType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = cairo_gobject_surface_type_get_type()
     }
 }

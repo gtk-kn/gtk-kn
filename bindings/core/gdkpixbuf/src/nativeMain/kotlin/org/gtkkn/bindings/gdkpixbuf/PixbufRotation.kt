@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gdkpixbuf
 
 import org.gtkkn.native.gdkpixbuf.GdkPixbufRotation
+import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_rotation_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * The possible rotations which can be passed to gdk_pixbuf_rotate_simple().
@@ -37,5 +39,12 @@ public enum class PixbufRotation(
             GdkPixbufRotation.GDK_PIXBUF_ROTATE_CLOCKWISE -> CLOCKWISE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of PixbufRotation
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_pixbuf_rotation_get_type()
     }
 }

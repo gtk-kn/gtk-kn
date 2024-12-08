@@ -11,6 +11,8 @@ import org.gtkkn.native.cairo.CAIRO_DEVICE_TYPE_XCB
 import org.gtkkn.native.cairo.CAIRO_DEVICE_TYPE_XLIB
 import org.gtkkn.native.cairo.CAIRO_DEVICE_TYPE_XML
 import org.gtkkn.native.cairo.cairo_device_type_t
+import org.gtkkn.native.cairo.cairo_gobject_device_type_get_type
+import org.gtkkn.native.gobject.GType
 
 public enum class DeviceType(
     public val nativeValue: cairo_device_type_t,
@@ -39,5 +41,12 @@ public enum class DeviceType(
             CAIRO_DEVICE_TYPE_INVALID -> INVALID
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of DeviceType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = cairo_gobject_device_type_get_type()
     }
 }

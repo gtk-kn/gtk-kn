@@ -3,7 +3,9 @@ package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitJavascriptError
+import org.gtkkn.native.webkit.webkit_javascript_error_get_type
 import org.gtkkn.native.webkit.webkit_javascript_error_quark
 
 /**
@@ -40,6 +42,13 @@ public enum class JavascriptError(
          * @return JavaScript error domain.
          */
         public fun quark(): Quark = webkit_javascript_error_quark()
+
+        /**
+         * Get the GType of JavascriptError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_javascript_error_get_type()
 
         public fun fromErrorOrNull(error: Error): JavascriptError? = if (error.domain != quark()) {
             null

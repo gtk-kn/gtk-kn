@@ -3,7 +3,9 @@ package org.gtkkn.bindings.soup
 
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupSessionError
+import org.gtkkn.native.soup.soup_session_error_get_type
 import org.gtkkn.native.soup.soup_session_error_quark
 
 /**
@@ -67,6 +69,13 @@ public enum class SessionError(
          * @return Error quark for SoupSession.
          */
         public fun quark(): Quark = soup_session_error_quark()
+
+        /**
+         * Get the GType of SessionError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_session_error_get_type()
 
         public fun fromErrorOrNull(error: Error): SessionError? = if (error.domain != quark()) {
             null

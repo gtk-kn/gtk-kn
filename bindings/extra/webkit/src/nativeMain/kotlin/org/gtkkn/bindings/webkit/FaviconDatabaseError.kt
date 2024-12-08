@@ -3,7 +3,9 @@ package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitFaviconDatabaseError
+import org.gtkkn.native.webkit.webkit_favicon_database_error_get_type
 import org.gtkkn.native.webkit.webkit_favicon_database_error_quark
 
 /**
@@ -40,6 +42,13 @@ public enum class FaviconDatabaseError(
          * @return favicon database error domain.
          */
         public fun quark(): Quark = webkit_favicon_database_error_quark()
+
+        /**
+         * Get the GType of FaviconDatabaseError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_favicon_database_error_get_type()
 
         public fun fromErrorOrNull(error: Error): FaviconDatabaseError? = if (error.domain != quark()) {
             null

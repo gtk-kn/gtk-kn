@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.cairo
 
+import org.gtkkn.native.cairo.cairo_gobject_line_join_get_type
 import org.gtkkn.native.cairo.cairo_line_join_t
+import org.gtkkn.native.gobject.GType
 
 public enum class LineJoin(
     public val nativeValue: cairo_line_join_t,
@@ -18,5 +20,12 @@ public enum class LineJoin(
             cairo_line_join_t.CAIRO_LINE_JOIN_BEVEL -> BEVEL
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of LineJoin
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = cairo_gobject_line_join_get_type()
     }
 }

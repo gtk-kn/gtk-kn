@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.native.gio.GUnixSocketAddressType
+import org.gtkkn.native.gio.g_unix_socket_address_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * The type of name used by a #GUnixSocketAddress.
@@ -56,5 +58,12 @@ public enum class UnixSocketAddressType(
             GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_ABSTRACT_PADDED -> ABSTRACT_PADDED
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of UnixSocketAddressType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_unix_socket_address_type_get_type()
     }
 }

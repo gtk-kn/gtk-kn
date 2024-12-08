@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupCacheType
+import org.gtkkn.native.soup.soup_cache_type_get_type
 
 /**
  * The type of cache; this affects what kinds of responses will be
@@ -26,5 +28,12 @@ public enum class CacheType(
             SoupCacheType.SOUP_CACHE_SHARED -> SHARED
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of CacheType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_cache_type_get_type()
     }
 }

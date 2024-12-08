@@ -3,7 +3,9 @@ package org.gtkkn.bindings.gtksource
 
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceFileLoaderError
+import org.gtkkn.native.gtksource.gtk_source_file_loader_error_get_type
 import org.gtkkn.native.gtksource.gtk_source_file_loader_error_quark
 
 /**
@@ -37,6 +39,13 @@ public enum class FileLoaderError(
         }
 
         public fun quark(): Quark = gtk_source_file_loader_error_quark()
+
+        /**
+         * Get the GType of FileLoaderError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_file_loader_error_get_type()
 
         public fun fromErrorOrNull(error: Error): FileLoaderError? = if (error.domain != quark()) {
             null

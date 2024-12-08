@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.cairo
 
+import org.gtkkn.native.cairo.cairo_gobject_subpixel_order_get_type
 import org.gtkkn.native.cairo.cairo_subpixel_order_t
+import org.gtkkn.native.gobject.GType
 
 public enum class SubpixelOrder(
     public val nativeValue: cairo_subpixel_order_t,
@@ -22,5 +24,12 @@ public enum class SubpixelOrder(
             cairo_subpixel_order_t.CAIRO_SUBPIXEL_ORDER_VBGR -> VBGR
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of SubpixelOrder
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = cairo_gobject_subpixel_order_get_type()
     }
 }

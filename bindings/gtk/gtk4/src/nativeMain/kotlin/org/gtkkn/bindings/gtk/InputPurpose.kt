@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkInputPurpose
+import org.gtkkn.native.gtk.gtk_input_purpose_get_type
 
 /**
  * Describes primary purpose of the input widget.
@@ -88,5 +90,12 @@ public enum class InputPurpose(
             GtkInputPurpose.GTK_INPUT_PURPOSE_TERMINAL -> TERMINAL
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of InputPurpose
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_input_purpose_get_type()
     }
 }

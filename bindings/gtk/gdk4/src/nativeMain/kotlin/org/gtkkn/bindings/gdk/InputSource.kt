@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.native.gdk.GdkInputSource
+import org.gtkkn.native.gdk.gdk_input_source_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * An enumeration describing the type of an input device in general terms.
@@ -54,5 +56,12 @@ public enum class InputSource(
             GdkInputSource.GDK_SOURCE_TABLET_PAD -> TABLET_PAD
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of InputSource
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_input_source_get_type()
     }
 }

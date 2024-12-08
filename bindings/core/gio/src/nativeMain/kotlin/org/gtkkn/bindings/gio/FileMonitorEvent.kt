@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gio
 
 import org.gtkkn.native.gio.GFileMonitorEvent
+import org.gtkkn.native.gio.g_file_monitor_event_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Specifies what type of event a monitor event is.
@@ -77,5 +79,12 @@ public enum class FileMonitorEvent(
             GFileMonitorEvent.G_FILE_MONITOR_EVENT_MOVED_OUT -> MOVED_OUT
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of FileMonitorEvent
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_file_monitor_event_get_type()
     }
 }

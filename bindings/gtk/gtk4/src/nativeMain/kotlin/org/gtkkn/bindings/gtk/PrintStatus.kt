@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkPrintStatus
+import org.gtkkn.native.gtk.gtk_print_status_get_type
 
 /**
  * The status gives a rough indication of the completion of a running
@@ -67,5 +69,12 @@ public enum class PrintStatus(
             GtkPrintStatus.GTK_PRINT_STATUS_FINISHED_ABORTED -> FINISHED_ABORTED
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of PrintStatus
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_print_status_get_type()
     }
 }

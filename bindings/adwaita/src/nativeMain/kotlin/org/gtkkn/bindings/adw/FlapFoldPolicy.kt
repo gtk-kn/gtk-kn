@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.adw
 
 import org.gtkkn.native.adw.AdwFlapFoldPolicy
+import org.gtkkn.native.adw.adw_flap_fold_policy_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Describes the possible folding behavior of a [class@Flap] widget.
@@ -32,5 +34,12 @@ public enum class FlapFoldPolicy(
             AdwFlapFoldPolicy.ADW_FLAP_FOLD_POLICY_AUTO -> AUTO
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of FlapFoldPolicy
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_flap_fold_policy_get_type()
     }
 }

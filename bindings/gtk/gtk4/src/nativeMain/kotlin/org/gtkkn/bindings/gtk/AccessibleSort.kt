@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessibleSort
+import org.gtkkn.native.gtk.gtk_accessible_sort_get_type
 
 /**
  * The possible values for the %GTK_ACCESSIBLE_PROPERTY_SORT
@@ -37,5 +39,12 @@ public enum class AccessibleSort(
             GtkAccessibleSort.GTK_ACCESSIBLE_SORT_OTHER -> OTHER
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of AccessibleSort
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_accessible_sort_get_type()
     }
 }

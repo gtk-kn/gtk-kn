@@ -3,6 +3,8 @@ package org.gtkkn.bindings.adw
 
 import org.gtkkn.native.adw.AdwEasing
 import org.gtkkn.native.adw.adw_easing_ease
+import org.gtkkn.native.adw.adw_easing_get_type
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
 
 /**
@@ -201,5 +203,12 @@ public enum class Easing(
          * @return the easing for @value
          */
         public fun ease(self: Easing, `value`: gdouble): gdouble = adw_easing_ease(self.nativeValue, `value`)
+
+        /**
+         * Get the GType of Easing
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_easing_get_type()
     }
 }

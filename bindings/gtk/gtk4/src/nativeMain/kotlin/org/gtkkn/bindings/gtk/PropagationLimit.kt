@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkPropagationLimit
+import org.gtkkn.native.gtk.gtk_propagation_limit_get_type
 
 /**
  * Describes limits of a [class@EventController] for handling events
@@ -29,5 +31,12 @@ public enum class PropagationLimit(
             GtkPropagationLimit.GTK_LIMIT_SAME_NATIVE -> SAME_NATIVE
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of PropagationLimit
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_propagation_limit_get_type()
     }
 }

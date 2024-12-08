@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkTreeViewColumnSizing
+import org.gtkkn.native.gtk.gtk_tree_view_column_sizing_get_type
 
 /**
  * The sizing method the column uses to determine its width.  Please note
@@ -32,5 +34,12 @@ public enum class TreeViewColumnSizing(
             GtkTreeViewColumnSizing.GTK_TREE_VIEW_COLUMN_FIXED -> FIXED
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of TreeViewColumnSizing
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_tree_view_column_sizing_get_type()
     }
 }

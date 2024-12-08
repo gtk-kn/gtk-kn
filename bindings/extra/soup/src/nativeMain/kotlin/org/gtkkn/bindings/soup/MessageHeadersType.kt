@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupMessageHeadersType
+import org.gtkkn.native.soup.soup_message_headers_type_get_type
 
 /**
  * Value passed to [ctor@MessageHeaders.new] to set certain default
@@ -31,5 +33,12 @@ public enum class MessageHeadersType(
             SoupMessageHeadersType.SOUP_MESSAGE_HEADERS_MULTIPART -> MULTIPART
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of MessageHeadersType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_message_headers_type_get_type()
     }
 }

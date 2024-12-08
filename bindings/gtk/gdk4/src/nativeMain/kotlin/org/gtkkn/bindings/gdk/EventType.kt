@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.native.gdk.GdkEventType
+import org.gtkkn.native.gdk.gdk_event_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Specifies the type of the event.
@@ -174,5 +176,12 @@ public enum class EventType(
             GdkEventType.GDK_EVENT_LAST -> EVENT_LAST
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of EventType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_event_type_get_type()
     }
 }

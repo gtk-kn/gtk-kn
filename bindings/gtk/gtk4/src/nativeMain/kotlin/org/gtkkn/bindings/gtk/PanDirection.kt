@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkPanDirection
+import org.gtkkn.native.gtk.gtk_pan_direction_get_type
 
 /**
  * Describes the panning direction of a [class@GesturePan].
@@ -35,5 +37,12 @@ public enum class PanDirection(
             GtkPanDirection.GTK_PAN_DIRECTION_DOWN -> DOWN
             else -> error("invalid nativeValue")
         }
+
+        /**
+         * Get the GType of PanDirection
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_pan_direction_get_type()
     }
 }
