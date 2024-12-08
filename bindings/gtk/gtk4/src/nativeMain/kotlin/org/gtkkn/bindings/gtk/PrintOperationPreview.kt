@@ -18,6 +18,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkPageSetup
@@ -109,6 +110,13 @@ public interface PrintOperationPreview : Interface, KGTyped {
             GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkPrintOperationPreview>): PrintOperationPreview = Wrapper(pointer)
+
+        /**
+         * Get the GType of PrintOperationPreview
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_print_operation_preview_get_type()
     }
 }
 

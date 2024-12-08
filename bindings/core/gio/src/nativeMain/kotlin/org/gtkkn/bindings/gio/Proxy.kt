@@ -28,6 +28,7 @@ import org.gtkkn.native.gio.g_proxy_get_default_for_protocol
 import org.gtkkn.native.gio.g_proxy_get_type
 import org.gtkkn.native.gio.g_proxy_supports_hostname
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 
 /**
  * A `GProxy` handles connecting to a remote host via a given type of
@@ -154,5 +155,12 @@ public interface Proxy : Interface, KGTyped {
         @GioVersion2_26
         public fun getDefaultForProtocol(protocol: String): Proxy? = g_proxy_get_default_for_protocol(protocol)?.run {
             Proxy.wrap(reinterpret())}
+
+        /**
+         * Get the GType of Proxy
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_proxy_get_type()
     }
 }

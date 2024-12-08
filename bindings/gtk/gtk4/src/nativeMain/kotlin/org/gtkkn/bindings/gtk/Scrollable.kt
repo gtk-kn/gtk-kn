@@ -10,6 +10,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkScrollable
 import org.gtkkn.native.gtk.gtk_scrollable_get_border
 import org.gtkkn.native.gtk.gtk_scrollable_get_hadjustment
@@ -230,5 +231,12 @@ public interface Scrollable : Interface, KGTyped {
             GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkScrollable>): Scrollable = Wrapper(pointer)
+
+        /**
+         * Get the GType of Scrollable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_scrollable_get_type()
     }
 }

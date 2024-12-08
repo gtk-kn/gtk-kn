@@ -12,6 +12,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkDragSurface
 import org.gtkkn.native.gdk.gdk_drag_surface_get_type
 import org.gtkkn.native.gdk.gdk_drag_surface_present
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 
 /**
@@ -47,5 +48,12 @@ public interface DragSurface : Interface, KGTyped {
             GdkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GdkDragSurface>): DragSurface = Wrapper(pointer)
+
+        /**
+         * Get the GType of DragSurface
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_drag_surface_get_type()
     }
 }

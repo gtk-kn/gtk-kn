@@ -275,5 +275,12 @@ public interface AsyncInitable : Interface, KGTyped {
             cancellable: Cancellable? = null,
             callback: AsyncReadyCallback,
         ): Unit = g_async_initable_newv_async(objectType, nParameters, parameters.gobjectParameterPointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
+
+        /**
+         * Get the GType of AsyncInitable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_async_initable_get_type()
     }
 }

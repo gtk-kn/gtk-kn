@@ -8,6 +8,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceStyleSchemeChooser
 import org.gtkkn.native.gtksource.gtk_source_style_scheme_chooser_get_style_scheme
 import org.gtkkn.native.gtksource.gtk_source_style_scheme_chooser_get_type
@@ -75,5 +76,12 @@ public interface StyleSchemeChooser : Interface, KGTyped {
             GtksourceTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkSourceStyleSchemeChooser>): StyleSchemeChooser = Wrapper(pointer)
+
+        /**
+         * Get the GType of StyleSchemeChooser
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_style_scheme_chooser_get_type()
     }
 }

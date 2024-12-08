@@ -170,5 +170,12 @@ public interface TlsBackend : Interface, KGTyped {
         @GioVersion2_28
         public fun getDefault(): TlsBackend = g_tls_backend_get_default()!!.run {
             TlsBackend.wrap(reinterpret())}
+
+        /**
+         * Get the GType of TlsBackend
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_tls_backend_get_type()
     }
 }

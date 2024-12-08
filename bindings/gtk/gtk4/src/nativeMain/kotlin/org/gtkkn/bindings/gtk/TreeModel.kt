@@ -620,6 +620,13 @@ public interface TreeModel : Interface, KGTyped {
             GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkTreeModel>): TreeModel = Wrapper(pointer)
+
+        /**
+         * Get the GType of TreeModel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_tree_model_get_type()
     }
 }
 

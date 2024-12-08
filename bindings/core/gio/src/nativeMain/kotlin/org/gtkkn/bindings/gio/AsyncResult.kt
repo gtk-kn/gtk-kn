@@ -23,6 +23,7 @@ import org.gtkkn.native.gio.g_async_result_get_source_object
 import org.gtkkn.native.gio.g_async_result_get_type
 import org.gtkkn.native.gio.g_async_result_legacy_propagate_error
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GAsyncResult` provides a base class for implementing asynchronous function results.
@@ -170,5 +171,12 @@ public interface AsyncResult : Interface, KGTyped {
             GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GAsyncResult>): AsyncResult = Wrapper(pointer)
+
+        /**
+         * Get the GType of AsyncResult
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_async_result_get_type()
     }
 }

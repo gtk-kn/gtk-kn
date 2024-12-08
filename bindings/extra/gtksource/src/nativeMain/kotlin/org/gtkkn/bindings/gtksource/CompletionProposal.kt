@@ -10,6 +10,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceCompletionProposal
 import org.gtkkn.native.gtksource.gtk_source_completion_proposal_get_type
 import org.gtkkn.native.gtksource.gtk_source_completion_proposal_get_typed_text
@@ -55,5 +56,12 @@ public interface CompletionProposal : Interface, KGTyped {
             GtksourceTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkSourceCompletionProposal>): CompletionProposal = Wrapper(pointer)
+
+        /**
+         * Get the GType of CompletionProposal
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_completion_proposal_get_type()
     }
 }

@@ -11,6 +11,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GDesktopAppInfoLookup
 import org.gtkkn.native.gio.g_desktop_app_info_lookup_get_default_for_uri_scheme
 import org.gtkkn.native.gio.g_desktop_app_info_lookup_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * #GDesktopAppInfoLookup is an opaque data structure and can only be accessed
@@ -50,5 +51,12 @@ public interface DesktopAppInfoLookup : Interface, KGTyped {
             GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GDesktopAppInfoLookup>): DesktopAppInfoLookup = Wrapper(pointer)
+
+        /**
+         * Get the GType of DesktopAppInfoLookup
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_desktop_app_info_lookup_get_type()
     }
 }

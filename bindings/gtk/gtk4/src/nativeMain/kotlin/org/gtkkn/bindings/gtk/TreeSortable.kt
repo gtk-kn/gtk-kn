@@ -18,6 +18,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkTreeModel
@@ -125,6 +126,13 @@ public interface TreeSortable : Interface, TreeModel, KGTyped {
             GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkTreeSortable>): TreeSortable = Wrapper(pointer)
+
+        /**
+         * Get the GType of TreeSortable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_tree_sortable_get_type()
     }
 }
 

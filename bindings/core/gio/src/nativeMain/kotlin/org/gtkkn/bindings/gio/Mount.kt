@@ -65,6 +65,7 @@ import org.gtkkn.native.gio.g_mount_unmount_with_operation
 import org.gtkkn.native.gio.g_mount_unmount_with_operation_finish
 import org.gtkkn.native.gio.g_mount_unshadow
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 
 /**
@@ -575,6 +576,13 @@ public interface Mount : Interface, KGTyped {
             GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GMount>): Mount = Wrapper(pointer)
+
+        /**
+         * Get the GType of Mount
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_mount_get_type()
     }
 }
 

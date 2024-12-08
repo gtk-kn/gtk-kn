@@ -17,6 +17,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkCellEditable
 import org.gtkkn.native.gtk.gtk_cell_editable_editing_done
@@ -116,6 +117,13 @@ public interface CellEditable : Interface, KGTyped {
             GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkCellEditable>): CellEditable = Wrapper(pointer)
+
+        /**
+         * Get the GType of CellEditable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_cell_editable_get_type()
     }
 }
 

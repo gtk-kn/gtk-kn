@@ -128,5 +128,12 @@ public interface TypePlugin : Interface, KGTyped {
             GobjectTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GTypePlugin>): TypePlugin = Wrapper(pointer)
+
+        /**
+         * Get the GType of TypePlugin
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_type_plugin_get_type()
     }
 }

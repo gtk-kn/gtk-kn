@@ -17,6 +17,7 @@ import org.gtkkn.native.gio.g_socket_connectable_enumerate
 import org.gtkkn.native.gio.g_socket_connectable_get_type
 import org.gtkkn.native.gio.g_socket_connectable_proxy_enumerate
 import org.gtkkn.native.gio.g_socket_connectable_to_string
+import org.gtkkn.native.gobject.GType
 
 /**
  * Objects that describe one or more potential socket endpoints
@@ -135,5 +136,12 @@ public interface SocketConnectable : Interface, KGTyped {
             GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GSocketConnectable>): SocketConnectable = Wrapper(pointer)
+
+        /**
+         * Get the GType of SocketConnectable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_socket_connectable_get_type()
     }
 }

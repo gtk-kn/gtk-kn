@@ -7,6 +7,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.gtk_constraint_target_get_type
 
@@ -33,5 +34,12 @@ public interface ConstraintTarget : Interface, KGTyped {
             GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkConstraintTarget>): ConstraintTarget = Wrapper(pointer)
+
+        /**
+         * Get the GType of ConstraintTarget
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_constraint_target_get_type()
     }
 }

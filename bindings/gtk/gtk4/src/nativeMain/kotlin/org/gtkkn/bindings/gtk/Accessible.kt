@@ -13,6 +13,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.gtk_accessible_announce
 import org.gtkkn.native.gtk.gtk_accessible_get_accessible_parent
@@ -232,5 +233,12 @@ public interface Accessible : Interface, KGTyped {
             GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkAccessible>): Accessible = Wrapper(pointer)
+
+        /**
+         * Get the GType of Accessible
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_accessible_get_type()
     }
 }

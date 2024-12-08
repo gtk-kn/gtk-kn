@@ -43,6 +43,7 @@ import org.gtkkn.native.gio.g_action_group_get_type
 import org.gtkkn.native.gio.g_action_group_has_action
 import org.gtkkn.native.gio.g_action_group_list_actions
 import org.gtkkn.native.glib.GVariant
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.gboolean
 
@@ -396,6 +397,13 @@ public interface ActionGroup : Interface, KGTyped {
             GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GActionGroup>): ActionGroup = Wrapper(pointer)
+
+        /**
+         * Get the GType of ActionGroup
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_action_group_get_type()
     }
 }
 

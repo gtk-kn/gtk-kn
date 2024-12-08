@@ -11,6 +11,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.gtk_actionable_get_action_name
 import org.gtkkn.native.gtk.gtk_actionable_get_action_target_value
@@ -150,5 +151,12 @@ public interface Actionable : Interface, KGTyped {
             GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkActionable>): Actionable = Wrapper(pointer)
+
+        /**
+         * Get the GType of Actionable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_actionable_get_type()
     }
 }

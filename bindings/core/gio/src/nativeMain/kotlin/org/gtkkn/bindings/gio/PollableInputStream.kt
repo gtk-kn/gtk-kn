@@ -16,6 +16,7 @@ import org.gtkkn.native.gio.g_pollable_input_stream_can_poll
 import org.gtkkn.native.gio.g_pollable_input_stream_create_source
 import org.gtkkn.native.gio.g_pollable_input_stream_get_type
 import org.gtkkn.native.gio.g_pollable_input_stream_is_readable
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GPollableInputStream` is implemented by [class@Gio.InputStream]s that
@@ -110,5 +111,12 @@ public interface PollableInputStream : Interface, KGTyped {
             GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GPollableInputStream>): PollableInputStream = Wrapper(pointer)
+
+        /**
+         * Get the GType of PollableInputStream
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_pollable_input_stream_get_type()
     }
 }

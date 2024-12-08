@@ -28,6 +28,7 @@ import org.gtkkn.native.gio.g_dbus_object_manager_get_object
 import org.gtkkn.native.gio.g_dbus_object_manager_get_object_path
 import org.gtkkn.native.gio.g_dbus_object_manager_get_objects
 import org.gtkkn.native.gio.g_dbus_object_manager_get_type
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 
 /**
@@ -150,6 +151,13 @@ public interface DBusObjectManager : Interface, KGTyped {
             GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GDBusObjectManager>): DBusObjectManager = Wrapper(pointer)
+
+        /**
+         * Get the GType of DBusObjectManager
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_object_manager_get_type()
     }
 }
 

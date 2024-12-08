@@ -7,6 +7,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupSessionFeature
 import org.gtkkn.native.soup.soup_session_feature_get_type
 
@@ -38,5 +39,12 @@ public interface SessionFeature : Interface, KGTyped {
             SoupTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<SoupSessionFeature>): SessionFeature = Wrapper(pointer)
+
+        /**
+         * Get the GType of SessionFeature
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_session_feature_get_type()
     }
 }

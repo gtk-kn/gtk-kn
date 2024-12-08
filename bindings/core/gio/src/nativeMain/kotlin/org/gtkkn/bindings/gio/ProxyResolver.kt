@@ -30,6 +30,7 @@ import org.gtkkn.native.gio.g_proxy_resolver_lookup
 import org.gtkkn.native.gio.g_proxy_resolver_lookup_async
 import org.gtkkn.native.gio.g_proxy_resolver_lookup_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GProxyResolver` provides synchronous and asynchronous network proxy
@@ -157,5 +158,12 @@ public interface ProxyResolver : Interface, KGTyped {
         @GioVersion2_26
         public fun getDefault(): ProxyResolver = g_proxy_resolver_get_default()!!.run {
             ProxyResolver.wrap(reinterpret())}
+
+        /**
+         * Get the GType of ProxyResolver
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_proxy_resolver_get_type()
     }
 }

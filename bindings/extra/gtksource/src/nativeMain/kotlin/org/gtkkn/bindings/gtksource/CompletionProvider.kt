@@ -28,6 +28,7 @@ import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gobject.gunichar
@@ -219,5 +220,12 @@ public interface CompletionProvider : Interface, KGTyped {
             GtksourceTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkSourceCompletionProvider>): CompletionProvider = Wrapper(pointer)
+
+        /**
+         * Get the GType of CompletionProvider
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_completion_provider_get_type()
     }
 }

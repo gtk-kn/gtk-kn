@@ -17,6 +17,7 @@ import org.gtkkn.native.gio.GInitable
 import org.gtkkn.native.gio.g_debug_controller_get_debug_enabled
 import org.gtkkn.native.gio.g_debug_controller_get_type
 import org.gtkkn.native.gio.g_debug_controller_set_debug_enabled
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GDebugController` is an interface to expose control of debugging features and
@@ -100,5 +101,12 @@ public interface DebugController : Interface, Initable, KGTyped {
             GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GDebugController>): DebugController = Wrapper(pointer)
+
+        /**
+         * Get the GType of DebugController
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_debug_controller_get_type()
     }
 }

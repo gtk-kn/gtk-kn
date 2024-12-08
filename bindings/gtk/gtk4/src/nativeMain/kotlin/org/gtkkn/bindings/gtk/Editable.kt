@@ -26,6 +26,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gobject.gint
@@ -652,6 +653,13 @@ public interface Editable : Interface, KGTyped {
          * @return the number of properties that were installed
          */
         public fun installProperties(objectClass: ObjectClass, firstProp: guint): guint = gtk_editable_install_properties(objectClass.gobjectObjectClassPointer.reinterpret(), firstProp)
+
+        /**
+         * Get the GType of Editable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_editable_get_type()
     }
 }
 

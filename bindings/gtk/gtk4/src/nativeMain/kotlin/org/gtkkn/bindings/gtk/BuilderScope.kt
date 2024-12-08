@@ -7,6 +7,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBuilderScope
 import org.gtkkn.native.gtk.gtk_builder_scope_get_type
 
@@ -47,5 +48,12 @@ public interface BuilderScope : Interface, KGTyped {
             GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkBuilderScope>): BuilderScope = Wrapper(pointer)
+
+        /**
+         * Get the GType of BuilderScope
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_builder_scope_get_type()
     }
 }

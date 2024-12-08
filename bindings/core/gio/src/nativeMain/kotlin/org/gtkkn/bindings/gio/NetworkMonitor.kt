@@ -39,6 +39,7 @@ import org.gtkkn.native.gio.g_network_monitor_get_network_available
 import org.gtkkn.native.gio.g_network_monitor_get_network_metered
 import org.gtkkn.native.gio.g_network_monitor_get_type
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.gboolean
 
@@ -325,6 +326,13 @@ public interface NetworkMonitor : Interface, Initable, KGTyped {
         @GioVersion2_32
         public fun getDefault(): NetworkMonitor = g_network_monitor_get_default()!!.run {
             NetworkMonitor.wrap(reinterpret())}
+
+        /**
+         * Get the GType of NetworkMonitor
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_network_monitor_get_type()
     }
 }
 

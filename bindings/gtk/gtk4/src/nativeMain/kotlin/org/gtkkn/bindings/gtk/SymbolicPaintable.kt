@@ -10,6 +10,7 @@ import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkPaintable
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkSymbolicPaintable
 import org.gtkkn.native.gtk.gtk_symbolic_paintable_get_type
 
@@ -54,5 +55,12 @@ public interface SymbolicPaintable : Interface, Paintable, KGTyped {
             GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkSymbolicPaintable>): SymbolicPaintable = Wrapper(pointer)
+
+        /**
+         * Get the GType of SymbolicPaintable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_symbolic_paintable_get_type()
     }
 }

@@ -15,6 +15,7 @@ import org.gtkkn.native.gio.g_action_map_add_action
 import org.gtkkn.native.gio.g_action_map_get_type
 import org.gtkkn.native.gio.g_action_map_lookup_action
 import org.gtkkn.native.gio.g_action_map_remove_action
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GActionMap` is an interface for action containers.
@@ -92,5 +93,12 @@ public interface ActionMap : Interface, KGTyped {
             GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GActionMap>): ActionMap = Wrapper(pointer)
+
+        /**
+         * Get the GType of ActionMap
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_action_map_get_type()
     }
 }

@@ -13,6 +13,7 @@ import org.gtkkn.native.gdk.gdk_device_pad_get_group_n_modes
 import org.gtkkn.native.gdk.gdk_device_pad_get_n_features
 import org.gtkkn.native.gdk.gdk_device_pad_get_n_groups
 import org.gtkkn.native.gdk.gdk_device_pad_get_type
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 
 /**
@@ -89,5 +90,12 @@ public interface DevicePad : Interface, KGTyped {
             GdkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GdkDevicePad>): DevicePad = Wrapper(pointer)
+
+        /**
+         * Get the GType of DevicePad
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_device_pad_get_type()
     }
 }

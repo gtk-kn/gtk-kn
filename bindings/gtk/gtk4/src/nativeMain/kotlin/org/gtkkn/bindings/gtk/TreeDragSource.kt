@@ -10,6 +10,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkTreeDragSource
 import org.gtkkn.native.gtk.gtk_tree_drag_source_drag_data_delete
 import org.gtkkn.native.gtk.gtk_tree_drag_source_drag_data_get
@@ -70,5 +71,12 @@ public interface TreeDragSource : Interface, KGTyped {
             GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkTreeDragSource>): TreeDragSource = Wrapper(pointer)
+
+        /**
+         * Get the GType of TreeDragSource
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_tree_drag_source_get_type()
     }
 }

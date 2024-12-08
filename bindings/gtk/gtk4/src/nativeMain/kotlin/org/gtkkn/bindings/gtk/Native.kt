@@ -10,6 +10,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkNative
 import org.gtkkn.native.gtk.gtk_native_get_for_surface
 import org.gtkkn.native.gtk.gtk_native_get_renderer
@@ -95,5 +96,12 @@ public interface Native : Interface, KGTyped {
          */
         public fun getForSurface(surface: Surface): Native? = gtk_native_get_for_surface(surface.gdkSurfacePointer.reinterpret())?.run {
             Native.wrap(reinterpret())}
+
+        /**
+         * Get the GType of Native
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_native_get_type()
     }
 }

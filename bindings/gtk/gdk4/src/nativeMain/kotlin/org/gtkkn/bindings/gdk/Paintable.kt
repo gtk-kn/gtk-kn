@@ -27,6 +27,7 @@ import org.gtkkn.native.gdk.gdk_paintable_invalidate_contents
 import org.gtkkn.native.gdk.gdk_paintable_invalidate_size
 import org.gtkkn.native.gdk.gdk_paintable_new_empty
 import org.gtkkn.native.gdk.gdk_paintable_snapshot
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gobject.gint
@@ -269,6 +270,13 @@ public interface Paintable : Interface, KGTyped {
          */
         public fun newEmpty(intrinsicWidth: gint, intrinsicHeight: gint): Paintable = gdk_paintable_new_empty(intrinsicWidth, intrinsicHeight)!!.run {
             Paintable.wrap(reinterpret())}
+
+        /**
+         * Get the GType of Paintable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_paintable_get_type()
     }
 }
 

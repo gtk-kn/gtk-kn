@@ -72,6 +72,7 @@ import org.gtkkn.native.gio.g_app_info_should_show
 import org.gtkkn.native.gio.g_app_info_supports_files
 import org.gtkkn.native.gio.g_app_info_supports_uris
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import kotlin.collections.List as CollectionsList
 import org.gtkkn.bindings.glib.List as GlibList
 
@@ -791,5 +792,12 @@ public interface AppInfo : Interface, KGTyped {
          */
         @GioVersion2_20
         public fun resetTypeAssociations(contentType: String): Unit = g_app_info_reset_type_associations(contentType)
+
+        /**
+         * Get the GType of AppInfo
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_app_info_get_type()
     }
 }

@@ -19,6 +19,7 @@ import org.gtkkn.native.gio.GTlsServerConnection
 import org.gtkkn.native.gio.g_tls_server_connection_get_type
 import org.gtkkn.native.gio.g_tls_server_connection_new
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GTlsServerConnection` is the server-side subclass of
@@ -76,5 +77,12 @@ public interface TlsServerConnection : Interface, KGTyped {
                 Result.success(checkNotNull(gResult))
             }
         }
+
+        /**
+         * Get the GType of TlsServerConnection
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_tls_server_connection_get_type()
     }
 }

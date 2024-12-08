@@ -35,6 +35,7 @@ import org.gtkkn.native.gdk.gdk_toplevel_set_transient_for
 import org.gtkkn.native.gdk.gdk_toplevel_show_window_menu
 import org.gtkkn.native.gdk.gdk_toplevel_supports_edge_constraints
 import org.gtkkn.native.gdk.gdk_toplevel_titlebar_gesture
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
@@ -339,5 +340,12 @@ public interface Toplevel : Interface, KGTyped {
             GdkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GdkToplevel>): Toplevel = Wrapper(pointer)
+
+        /**
+         * Get the GType of Toplevel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_toplevel_get_type()
     }
 }

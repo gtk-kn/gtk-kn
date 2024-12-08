@@ -25,6 +25,7 @@ import org.gtkkn.native.gio.g_seekable_seek
 import org.gtkkn.native.gio.g_seekable_tell
 import org.gtkkn.native.gio.g_seekable_truncate
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint64
 
 /**
@@ -149,5 +150,12 @@ public interface Seekable : Interface, KGTyped {
             GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GSeekable>): Seekable = Wrapper(pointer)
+
+        /**
+         * Get the GType of Seekable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_seekable_get_type()
     }
 }

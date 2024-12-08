@@ -11,6 +11,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GFileDescriptorBased
 import org.gtkkn.native.gio.g_file_descriptor_based_get_fd
 import org.gtkkn.native.gio.g_file_descriptor_based_get_type
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 
 /**
@@ -51,5 +52,12 @@ public interface FileDescriptorBased : Interface, KGTyped {
             GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GFileDescriptorBased>): FileDescriptorBased = Wrapper(pointer)
+
+        /**
+         * Get the GType of FileDescriptorBased
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_file_descriptor_based_get_type()
     }
 }

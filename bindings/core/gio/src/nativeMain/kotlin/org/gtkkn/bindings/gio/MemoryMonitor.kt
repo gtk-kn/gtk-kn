@@ -22,6 +22,7 @@ import org.gtkkn.native.gio.GMemoryMonitor
 import org.gtkkn.native.gio.GMemoryMonitorWarningLevel
 import org.gtkkn.native.gio.g_memory_monitor_dup_default
 import org.gtkkn.native.gio.g_memory_monitor_get_type
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 
 /**
@@ -119,6 +120,13 @@ public interface MemoryMonitor : Interface, Initable, KGTyped {
         @GioVersion2_64
         public fun dupDefault(): MemoryMonitor = g_memory_monitor_dup_default()!!.run {
             MemoryMonitor.wrap(reinterpret())}
+
+        /**
+         * Get the GType of MemoryMonitor
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_memory_monitor_get_type()
     }
 }
 

@@ -25,6 +25,7 @@ import org.gtkkn.native.gio.g_datagram_based_condition_wait
 import org.gtkkn.native.gio.g_datagram_based_create_source
 import org.gtkkn.native.gio.g_datagram_based_get_type
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint64
 
 /**
@@ -205,5 +206,12 @@ public interface DatagramBased : Interface, KGTyped {
             GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GDatagramBased>): DatagramBased = Wrapper(pointer)
+
+        /**
+         * Get the GType of DatagramBased
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_datagram_based_get_type()
     }
 }

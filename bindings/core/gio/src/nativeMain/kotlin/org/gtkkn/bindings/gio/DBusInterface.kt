@@ -15,6 +15,7 @@ import org.gtkkn.native.gio.g_dbus_interface_dup_object
 import org.gtkkn.native.gio.g_dbus_interface_get_info
 import org.gtkkn.native.gio.g_dbus_interface_get_type
 import org.gtkkn.native.gio.g_dbus_interface_set_object
+import org.gtkkn.native.gobject.GType
 
 /**
  * Base type for D-Bus interfaces.
@@ -75,5 +76,12 @@ public interface DBusInterface : Interface, KGTyped {
             GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GDBusInterface>): DBusInterface = Wrapper(pointer)
+
+        /**
+         * Get the GType of DBusInterface
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_interface_get_type()
     }
 }

@@ -9,6 +9,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAccessibleText
@@ -96,5 +97,12 @@ public interface AccessibleText : Interface, Accessible, KGTyped {
             GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkAccessibleText>): AccessibleText = Wrapper(pointer)
+
+        /**
+         * Get the GType of AccessibleText
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_accessible_text_get_type()
     }
 }

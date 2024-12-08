@@ -63,6 +63,7 @@ import org.gtkkn.native.gio.g_drive_start_finish
 import org.gtkkn.native.gio.g_drive_stop
 import org.gtkkn.native.gio.g_drive_stop_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import kotlin.collections.List as CollectionsList
 import org.gtkkn.bindings.glib.List as GlibList
@@ -504,6 +505,13 @@ public interface Drive : Interface, KGTyped {
             GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GDrive>): Drive = Wrapper(pointer)
+
+        /**
+         * Get the GType of Drive
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_drive_get_type()
     }
 }
 

@@ -28,6 +28,7 @@ import org.gtkkn.native.gio.g_dtls_client_connection_new
 import org.gtkkn.native.gio.g_dtls_client_connection_set_server_identity
 import org.gtkkn.native.gio.g_dtls_client_connection_set_validation_flags
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GDtlsClientConnection` is the client-side subclass of
@@ -274,5 +275,12 @@ public interface DtlsClientConnection : Interface, DatagramBased, DtlsConnection
                 Result.success(checkNotNull(gResult))
             }
         }
+
+        /**
+         * Get the GType of DtlsClientConnection
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dtls_client_connection_get_type()
     }
 }

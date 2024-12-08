@@ -20,6 +20,7 @@ import org.gtkkn.native.gio.GTlsFileDatabase
 import org.gtkkn.native.gio.g_tls_file_database_get_type
 import org.gtkkn.native.gio.g_tls_file_database_new
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GTlsFileDatabase` is implemented by [class@Gio.TlsDatabase] objects which
@@ -75,5 +76,12 @@ public interface TlsFileDatabase : Interface, KGTyped {
                 Result.success(checkNotNull(gResult))
             }
         }
+
+        /**
+         * Get the GType of TlsFileDatabase
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_tls_file_database_get_type()
     }
 }

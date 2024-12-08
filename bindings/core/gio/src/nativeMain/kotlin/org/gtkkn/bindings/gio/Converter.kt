@@ -12,6 +12,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GConverter
 import org.gtkkn.native.gio.g_converter_get_type
 import org.gtkkn.native.gio.g_converter_reset
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GConverter` is an interface for streaming conversions.
@@ -58,5 +59,12 @@ public interface Converter : Interface, KGTyped {
             GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GConverter>): Converter = Wrapper(pointer)
+
+        /**
+         * Get the GType of Converter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_converter_get_type()
     }
 }

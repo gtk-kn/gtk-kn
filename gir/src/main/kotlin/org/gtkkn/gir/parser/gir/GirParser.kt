@@ -250,30 +250,36 @@ class GirParser(
         null
     }
 
-    private fun parseGirInterface(node: Node): GirInterface = GirInterface(
-        info = parseGirInfo(node),
-        name = node.attributeValueOrNull("name"),
-        glibTypeName = node.attributeValue("glib:type-name"),
-        glibGetType = node.attributeValue("glib:get-type"),
-        cSymbolPrefix = node.attributeValueOrNull("c:symbol-prefix"),
-        cType = node.attributeValueOrNull("c:type"),
-        glibTypeStruct = node.attributeValueOrNull("glib:type-struct"),
-        doc = parseGirDocElements(node),
-        annotations = node.childNodesWithName("attribute").map { parseGirAnnotation(it) },
-        prerequisites = node.childNodesWithName("prerequisite").map { parseGirPrerequisite(it) },
-        implements = node.childNodesWithName("implements").map { parseGirImplements(it) },
-        functions = node.childNodesWithName("function").map { parseGirFunction(it) },
-        functionInlines = node.childNodesWithName("function-inline").map { parseGirFunctionInline(it) },
-        constructor = node.childNodesWithName("constructor").firstOrNull()?.let { parseGirConstructor(it) },
-        methods = node.childNodesWithName("method").map { parseGirMethod(it) },
-        methodInlines = node.childNodesWithName("method-inline").map { parseGirMethodInline(it) },
-        virtualMethods = node.childNodesWithName("virtual-method").map { parseGirVirtualMethod(it) },
-        fields = node.childNodesWithName("field").map { parseGirField(it) },
-        properties = node.childNodesWithName("property").map { parseGirProperty(it) },
-        signals = node.childNodesWithName("glib:signal").map { parseGirSignal(it) },
-        callbacks = node.childNodesWithName("callback").map { parseGirCallback(it) },
-        constants = node.childNodesWithName("constant").map { parseGirConstant(it) },
-    )
+    private fun parseGirInterface(node: Node): GirInterface {
+        val name = node.attributeValueOrNull("name")
+        val glibGetType = node.attributeValue("glib:get-type")
+        val functions = node.childNodesWithName("function").map { parseGirFunction(it) }.toMutableList()
+        getTypeGirFunction(glibGetType, checkNotNull(name))?.let { functions.add(it) }
+        return GirInterface(
+            info = parseGirInfo(node),
+            name = node.attributeValueOrNull("name"),
+            glibTypeName = node.attributeValue("glib:type-name"),
+            glibGetType = glibGetType,
+            cSymbolPrefix = node.attributeValueOrNull("c:symbol-prefix"),
+            cType = node.attributeValueOrNull("c:type"),
+            glibTypeStruct = node.attributeValueOrNull("glib:type-struct"),
+            doc = parseGirDocElements(node),
+            annotations = node.childNodesWithName("attribute").map { parseGirAnnotation(it) },
+            prerequisites = node.childNodesWithName("prerequisite").map { parseGirPrerequisite(it) },
+            implements = node.childNodesWithName("implements").map { parseGirImplements(it) },
+            functions = functions,
+            functionInlines = node.childNodesWithName("function-inline").map { parseGirFunctionInline(it) },
+            constructor = node.childNodesWithName("constructor").firstOrNull()?.let { parseGirConstructor(it) },
+            methods = node.childNodesWithName("method").map { parseGirMethod(it) },
+            methodInlines = node.childNodesWithName("method-inline").map { parseGirMethodInline(it) },
+            virtualMethods = node.childNodesWithName("virtual-method").map { parseGirVirtualMethod(it) },
+            fields = node.childNodesWithName("field").map { parseGirField(it) },
+            properties = node.childNodesWithName("property").map { parseGirProperty(it) },
+            signals = node.childNodesWithName("glib:signal").map { parseGirSignal(it) },
+            callbacks = node.childNodesWithName("callback").map { parseGirCallback(it) },
+            constants = node.childNodesWithName("constant").map { parseGirConstant(it) },
+        )
+    }
 
     private fun parseGirRecord(node: Node): GirRecord {
         val name = node.attributeValue("name")

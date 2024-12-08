@@ -21,6 +21,7 @@ import org.gtkkn.native.gio.GDtlsServerConnection
 import org.gtkkn.native.gio.g_dtls_server_connection_get_type
 import org.gtkkn.native.gio.g_dtls_server_connection_new
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GDtlsServerConnection` is the server-side subclass of
@@ -79,5 +80,12 @@ public interface DtlsServerConnection : Interface, DatagramBased, DtlsConnection
                 Result.success(checkNotNull(gResult))
             }
         }
+
+        /**
+         * Get the GType of DtlsServerConnection
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dtls_server_connection_get_type()
     }
 }

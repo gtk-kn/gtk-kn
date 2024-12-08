@@ -23,6 +23,7 @@ import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceHoverProvider
 import org.gtkkn.native.gtksource.gtk_source_hover_provider_get_type
 import org.gtkkn.native.gtksource.gtk_source_hover_provider_populate_async
@@ -75,5 +76,12 @@ public interface HoverProvider : Interface, KGTyped {
             GtksourceTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkSourceHoverProvider>): HoverProvider = Wrapper(pointer)
+
+        /**
+         * Get the GType of HoverProvider
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_hover_provider_get_type()
     }
 }

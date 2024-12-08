@@ -29,6 +29,7 @@ import org.gtkkn.native.gio.g_action_get_state_type
 import org.gtkkn.native.gio.g_action_get_type
 import org.gtkkn.native.gio.g_action_name_is_valid
 import org.gtkkn.native.gio.g_action_print_detailed_name
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GAction` represents a single named action.
@@ -367,5 +368,12 @@ public interface Action : Interface, KGTyped {
          */
         @GioVersion2_38
         public fun printDetailedName(actionName: String, targetValue: Variant? = null): String = g_action_print_detailed_name(actionName, targetValue?.glibVariantPointer?.reinterpret())?.toKString() ?: error("Expected not null string")
+
+        /**
+         * Get the GType of Action
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_action_get_type()
     }
 }

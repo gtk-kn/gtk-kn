@@ -8,6 +8,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pangocairo.PangoCairoFont
 import org.gtkkn.native.pangocairo.pango_cairo_font_get_type
 
@@ -42,5 +43,12 @@ public interface Font : Interface, KGTyped {
             PangocairoTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<PangoCairoFont>): Font = Wrapper(pointer)
+
+        /**
+         * Get the GType of Font
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_cairo_font_get_type()
     }
 }

@@ -30,6 +30,7 @@ import org.gtkkn.native.gio.g_icon_new_for_string
 import org.gtkkn.native.gio.g_icon_serialize
 import org.gtkkn.native.gio.g_icon_to_string
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.guint
 
 /**
@@ -174,5 +175,12 @@ public interface Icon : Interface, KGTyped {
                 Result.success(checkNotNull(gResult))
             }
         }
+
+        /**
+         * Get the GType of Icon
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_icon_get_type()
     }
 }

@@ -8,6 +8,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkOrientable
 import org.gtkkn.native.gtk.gtk_orientable_get_orientation
 import org.gtkkn.native.gtk.gtk_orientable_get_type
@@ -76,5 +77,12 @@ public interface Orientable : Interface, KGTyped {
             GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkOrientable>): Orientable = Wrapper(pointer)
+
+        /**
+         * Get the GType of Orientable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_orientable_get_type()
     }
 }

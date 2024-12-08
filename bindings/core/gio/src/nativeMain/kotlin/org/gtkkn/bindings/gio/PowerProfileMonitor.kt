@@ -15,6 +15,7 @@ import org.gtkkn.native.gio.GPowerProfileMonitor
 import org.gtkkn.native.gio.g_power_profile_monitor_dup_default
 import org.gtkkn.native.gio.g_power_profile_monitor_get_power_saver_enabled
 import org.gtkkn.native.gio.g_power_profile_monitor_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GPowerProfileMonitor` makes it possible for applications as well as OS
@@ -105,5 +106,12 @@ public interface PowerProfileMonitor : Interface, Initable, KGTyped {
         @GioVersion2_70
         public fun dupDefault(): PowerProfileMonitor = g_power_profile_monitor_dup_default()!!.run {
             PowerProfileMonitor.wrap(reinterpret())}
+
+        /**
+         * Get the GType of PowerProfileMonitor
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_power_profile_monitor_get_type()
     }
 }

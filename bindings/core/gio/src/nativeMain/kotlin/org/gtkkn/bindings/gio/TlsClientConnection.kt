@@ -33,6 +33,7 @@ import org.gtkkn.native.gio.g_tls_client_connection_set_server_identity
 import org.gtkkn.native.gio.g_tls_client_connection_set_use_ssl3
 import org.gtkkn.native.gio.g_tls_client_connection_set_validation_flags
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GTlsClientConnection` is the client-side subclass of
@@ -339,5 +340,12 @@ public interface TlsClientConnection : Interface, KGTyped {
                 Result.success(checkNotNull(gResult))
             }
         }
+
+        /**
+         * Get the GType of TlsClientConnection
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_tls_client_connection_get_type()
     }
 }

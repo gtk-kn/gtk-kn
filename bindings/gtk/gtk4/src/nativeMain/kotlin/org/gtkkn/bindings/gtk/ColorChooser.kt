@@ -21,6 +21,7 @@ import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkRGBA
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkColorChooser
 import org.gtkkn.native.gtk.gtk_color_chooser_get_rgba
@@ -127,6 +128,13 @@ public interface ColorChooser : Interface, KGTyped {
             GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkColorChooser>): ColorChooser = Wrapper(pointer)
+
+        /**
+         * Get the GType of ColorChooser
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_color_chooser_get_type()
     }
 }
 

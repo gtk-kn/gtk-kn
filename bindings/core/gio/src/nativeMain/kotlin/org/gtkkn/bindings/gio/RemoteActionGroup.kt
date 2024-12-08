@@ -16,6 +16,7 @@ import org.gtkkn.native.gio.GRemoteActionGroup
 import org.gtkkn.native.gio.g_remote_action_group_activate_action_full
 import org.gtkkn.native.gio.g_remote_action_group_change_action_state_full
 import org.gtkkn.native.gio.g_remote_action_group_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * The `GRemoteActionGroup` interface is implemented by [iface@Gio.ActionGroup]
@@ -108,5 +109,12 @@ public interface RemoteActionGroup : Interface, ActionGroup, KGTyped {
             GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GRemoteActionGroup>): RemoteActionGroup = Wrapper(pointer)
+
+        /**
+         * Get the GType of RemoteActionGroup
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_remote_action_group_get_type()
     }
 }

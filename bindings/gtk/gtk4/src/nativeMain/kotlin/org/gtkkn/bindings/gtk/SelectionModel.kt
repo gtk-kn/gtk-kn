@@ -21,6 +21,7 @@ import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkSelectionModel
@@ -263,6 +264,13 @@ public interface SelectionModel : Interface, ListModel, KGTyped {
             GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkSelectionModel>): SelectionModel = Wrapper(pointer)
+
+        /**
+         * Get the GType of SelectionModel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_selection_model_get_type()
     }
 }
 

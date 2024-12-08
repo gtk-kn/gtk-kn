@@ -9,6 +9,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkNative
 import org.gtkkn.native.gtk.GtkRoot
 import org.gtkkn.native.gtk.gtk_root_get_display
@@ -87,5 +88,12 @@ public interface Root : Interface, Native, KGTyped {
             GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkRoot>): Root = Wrapper(pointer)
+
+        /**
+         * Get the GType of Root
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_root_get_type()
     }
 }

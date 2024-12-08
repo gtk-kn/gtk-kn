@@ -18,6 +18,7 @@ import org.gtkkn.native.gdk.gdk_popup_get_rect_anchor
 import org.gtkkn.native.gdk.gdk_popup_get_surface_anchor
 import org.gtkkn.native.gdk.gdk_popup_get_type
 import org.gtkkn.native.gdk.gdk_popup_present
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 
 /**
@@ -148,5 +149,12 @@ public interface Popup : Interface, KGTyped {
             GdkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GdkPopup>): Popup = Wrapper(pointer)
+
+        /**
+         * Get the GType of Popup
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_popup_get_type()
     }
 }

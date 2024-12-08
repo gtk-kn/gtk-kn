@@ -25,6 +25,7 @@ import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkFileChooser
 import org.gtkkn.native.gtk.gtk_file_chooser_add_choice
 import org.gtkkn.native.gtk.gtk_file_chooser_add_filter
@@ -581,5 +582,12 @@ public interface FileChooser : Interface, KGTyped {
             GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkFileChooser>): FileChooser = Wrapper(pointer)
+
+        /**
+         * Get the GType of FileChooser
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_file_chooser_get_type()
     }
 }

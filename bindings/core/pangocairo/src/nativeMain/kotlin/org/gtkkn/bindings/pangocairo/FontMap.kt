@@ -12,6 +12,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.pangocairo.PangoCairoFontMap
 import org.gtkkn.native.pangocairo.pango_cairo_font_map_get_default
@@ -179,5 +180,12 @@ public interface FontMap : Interface, KGTyped {
         @PangoCairoVersion1_18
         public fun newForFontType(fonttype: FontType): org.gtkkn.bindings.pango.FontMap? = pango_cairo_font_map_new_for_font_type(fonttype.nativeValue)?.run {
             org.gtkkn.bindings.pango.FontMap(reinterpret())}
+
+        /**
+         * Get the GType of FontMap
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_cairo_font_map_get_type()
     }
 }

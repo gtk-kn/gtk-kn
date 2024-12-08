@@ -21,6 +21,7 @@ import org.gtkkn.native.gio.GInitable
 import org.gtkkn.native.gio.g_initable_get_type
 import org.gtkkn.native.gio.g_initable_init
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GInitable` is implemented by objects that can fail during
@@ -129,5 +130,12 @@ public interface Initable : Interface, KGTyped {
             GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GInitable>): Initable = Wrapper(pointer)
+
+        /**
+         * Get the GType of Initable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_initable_get_type()
     }
 }

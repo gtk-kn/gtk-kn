@@ -215,6 +215,13 @@ public interface ListModel : Interface, KGTyped {
             GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GListModel>): ListModel = Wrapper(pointer)
+
+        /**
+         * Get the GType of ListModel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_list_model_get_type()
     }
 }
 

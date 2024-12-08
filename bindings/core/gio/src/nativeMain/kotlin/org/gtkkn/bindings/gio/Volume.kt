@@ -55,6 +55,7 @@ import org.gtkkn.native.gio.g_volume_mount
 import org.gtkkn.native.gio.g_volume_mount_finish
 import org.gtkkn.native.gio.g_volume_should_automount
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 
 /**
@@ -398,6 +399,13 @@ public interface Volume : Interface, KGTyped {
             GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GVolume>): Volume = Wrapper(pointer)
+
+        /**
+         * Get the GType of Volume
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_volume_get_type()
     }
 }
 

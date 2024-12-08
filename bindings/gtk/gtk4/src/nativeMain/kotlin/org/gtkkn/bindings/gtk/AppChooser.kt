@@ -11,6 +11,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAppChooser
 import org.gtkkn.native.gtk.gtk_app_chooser_get_app_info
 import org.gtkkn.native.gtk.gtk_app_chooser_get_content_type
@@ -91,5 +92,12 @@ public interface AppChooser : Interface, KGTyped {
             GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkAppChooser>): AppChooser = Wrapper(pointer)
+
+        /**
+         * Get the GType of AppChooser
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_app_chooser_get_type()
     }
 }

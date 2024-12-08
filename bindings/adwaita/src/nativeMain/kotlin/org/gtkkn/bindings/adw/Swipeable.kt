@@ -17,6 +17,7 @@ import org.gtkkn.native.adw.adw_swipeable_get_distance
 import org.gtkkn.native.adw.adw_swipeable_get_progress
 import org.gtkkn.native.adw.adw_swipeable_get_swipe_area
 import org.gtkkn.native.adw.adw_swipeable_get_type
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
 
 /**
@@ -91,5 +92,12 @@ public interface Swipeable : Interface, KGTyped {
             AdwTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<AdwSwipeable>): Swipeable = Wrapper(pointer)
+
+        /**
+         * Get the GType of Swipeable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_swipeable_get_type()
     }
 }
