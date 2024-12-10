@@ -19,6 +19,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_14
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_4
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_62
 import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GQueue
 import org.gtkkn.native.glib.g_queue_clear
@@ -86,6 +87,7 @@ public class Queue(
     public var head: List?
         get() = glibQueuePointer.pointed.head?.run {
             List(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             glibQueuePointer.pointed.head = value?.glibListPointer
         }
@@ -96,6 +98,7 @@ public class Queue(
     public var tail: List?
         get() = glibQueuePointer.pointed.tail?.run {
             List(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             glibQueuePointer.pointed.tail = value?.glibListPointer
         }
@@ -105,6 +108,7 @@ public class Queue(
      */
     public var length: guint
         get() = glibQueuePointer.pointed.length
+        @UnsafeFieldSetter
         set(`value`) {
             glibQueuePointer.pointed.length = value
         }

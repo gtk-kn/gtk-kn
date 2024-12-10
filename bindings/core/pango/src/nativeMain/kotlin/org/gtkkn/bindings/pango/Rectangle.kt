@@ -11,6 +11,7 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.pango.PangoRectangle
@@ -33,6 +34,7 @@ public class Rectangle(
      */
     public var x: gint
         get() = pangoRectanglePointer.pointed.x
+        @UnsafeFieldSetter
         set(`value`) {
             pangoRectanglePointer.pointed.x = value
         }
@@ -42,6 +44,7 @@ public class Rectangle(
      */
     public var y: gint
         get() = pangoRectanglePointer.pointed.y
+        @UnsafeFieldSetter
         set(`value`) {
             pangoRectanglePointer.pointed.y = value
         }
@@ -51,6 +54,7 @@ public class Rectangle(
      */
     public var width: gint
         get() = pangoRectanglePointer.pointed.width
+        @UnsafeFieldSetter
         set(`value`) {
             pangoRectanglePointer.pointed.width = value
         }
@@ -60,6 +64,7 @@ public class Rectangle(
      */
     public var height: gint
         get() = pangoRectanglePointer.pointed.height
+        @UnsafeFieldSetter
         set(`value`) {
             pangoRectanglePointer.pointed.height = value
         }

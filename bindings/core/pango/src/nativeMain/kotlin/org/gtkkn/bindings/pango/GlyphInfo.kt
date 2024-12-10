@@ -11,6 +11,7 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.pango.PangoGlyphInfo
 
@@ -34,6 +35,7 @@ public class GlyphInfo(
      */
     public var glyph: Glyph
         get() = pangoGlyphInfoPointer.pointed.glyph
+        @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphInfoPointer.pointed.glyph = value
         }

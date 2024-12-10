@@ -11,6 +11,7 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GPollFD
 import org.gtkkn.native.gobject.GType
@@ -37,6 +38,7 @@ public class PollFD(
      */
     public var fd: gint
         get() = glibPollFDPointer.pointed.fd
+        @UnsafeFieldSetter
         set(`value`) {
             glibPollFDPointer.pointed.fd = value
         }

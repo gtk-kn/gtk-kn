@@ -15,6 +15,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
@@ -40,6 +41,7 @@ public class RecentData(
      */
     public var displayName: String?
         get() = gtkRecentDataPointer.pointed.display_name?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gtkRecentDataPointer.pointed.display_name?.let { g_free(it) }
             gtkRecentDataPointer.pointed.display_name = value?.let { g_strdup(it) }
@@ -51,6 +53,7 @@ public class RecentData(
      */
     public var description: String?
         get() = gtkRecentDataPointer.pointed.description?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gtkRecentDataPointer.pointed.description?.let { g_free(it) }
             gtkRecentDataPointer.pointed.description = value?.let { g_strdup(it) }
@@ -61,6 +64,7 @@ public class RecentData(
      */
     public var mimeType: String?
         get() = gtkRecentDataPointer.pointed.mime_type?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gtkRecentDataPointer.pointed.mime_type?.let { g_free(it) }
             gtkRecentDataPointer.pointed.mime_type = value?.let { g_strdup(it) }
@@ -72,6 +76,7 @@ public class RecentData(
      */
     public var appName: String?
         get() = gtkRecentDataPointer.pointed.app_name?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gtkRecentDataPointer.pointed.app_name?.let { g_free(it) }
             gtkRecentDataPointer.pointed.app_name = value?.let { g_strdup(it) }
@@ -85,6 +90,7 @@ public class RecentData(
      */
     public var appExec: String?
         get() = gtkRecentDataPointer.pointed.app_exec?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gtkRecentDataPointer.pointed.app_exec?.let { g_free(it) }
             gtkRecentDataPointer.pointed.app_exec = value?.let { g_strdup(it) }
@@ -96,6 +102,7 @@ public class RecentData(
      */
     public var isPrivate: Boolean
         get() = gtkRecentDataPointer.pointed.is_private.asBoolean()
+        @UnsafeFieldSetter
         set(`value`) {
             gtkRecentDataPointer.pointed.is_private = value.asGBoolean()
         }

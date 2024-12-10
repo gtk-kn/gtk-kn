@@ -11,6 +11,7 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.gint64
 import org.gtkkn.native.soup.SoupRange
@@ -42,6 +43,7 @@ public class Range(
      */
     public var start: gint64
         get() = soupRangePointer.pointed.start
+        @UnsafeFieldSetter
         set(`value`) {
             soupRangePointer.pointed.start = value
         }
@@ -51,6 +53,7 @@ public class Range(
      */
     public var end: gint64
         get() = soupRangePointer.pointed.end
+        @UnsafeFieldSetter
         set(`value`) {
             soupRangePointer.pointed.end = value
         }

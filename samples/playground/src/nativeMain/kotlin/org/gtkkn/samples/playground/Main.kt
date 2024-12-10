@@ -33,9 +33,11 @@ import org.gtkkn.bindings.gtk.Align
 import org.gtkkn.bindings.gtk.Box
 import org.gtkkn.bindings.gtk.Label
 import org.gtkkn.bindings.gtk.Orientation
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.util.Log
 import org.gtkkn.native.gobject.G_TYPE_STRING
 
+@OptIn(UnsafeFieldSetter::class)
 fun main() = Application {
     // setup a HeaderBar since adw windows don't have any by default
     val headerBar = HeaderBar().apply {
@@ -68,6 +70,8 @@ fun main() = Application {
             scope = this,
         )
 
+        val x = r.x
+        r.x = 2
         val result = r.containsPoint(2, 3)
         Log.m("playground", "rectangle: $r")
         Log.m("playground", "2,3 is contained: $result")

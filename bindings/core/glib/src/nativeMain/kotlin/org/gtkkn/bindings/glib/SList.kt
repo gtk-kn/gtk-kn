@@ -14,6 +14,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GSList
 import org.gtkkn.native.glib.g_slist_alloc
@@ -70,6 +71,7 @@ public class SList(
     public var next: SList?
         get() = glibSListPointer.pointed.next?.run {
             SList(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             glibSListPointer.pointed.next = value?.glibSListPointer
         }

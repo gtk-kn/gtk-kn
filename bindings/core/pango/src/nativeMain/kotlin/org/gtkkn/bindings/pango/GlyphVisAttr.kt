@@ -11,6 +11,7 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.pango.PangoGlyphVisAttr
@@ -38,6 +39,7 @@ public class GlyphVisAttr(
      */
     public var isClusterStart: guint
         get() = pangoGlyphVisAttrPointer.pointed.is_cluster_start
+        @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphVisAttrPointer.pointed.is_cluster_start = value
         }
@@ -47,6 +49,7 @@ public class GlyphVisAttr(
      */
     public var isColor: guint
         get() = pangoGlyphVisAttrPointer.pointed.is_color
+        @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphVisAttrPointer.pointed.is_color = value
         }

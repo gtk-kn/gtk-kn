@@ -12,6 +12,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GTrashStack
 import org.gtkkn.native.glib.g_trash_stack_height
@@ -52,6 +53,7 @@ public class TrashStack(
     public var next: TrashStack?
         get() = glibTrashStackPointer.pointed.next?.run {
             TrashStack(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             glibTrashStackPointer.pointed.next = value?.glibTrashStackPointer
         }

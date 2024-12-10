@@ -11,6 +11,7 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GPtrArray
 import org.gtkkn.native.gobject.GType
@@ -70,6 +71,7 @@ public class PtrArray(
      */
     public var len: guint
         get() = glibPtrArrayPointer.pointed.len
+        @UnsafeFieldSetter
         set(`value`) {
             glibPtrArrayPointer.pointed.len = value
         }

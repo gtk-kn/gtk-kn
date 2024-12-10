@@ -14,6 +14,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GTestConfig
 
@@ -25,36 +26,42 @@ public class TestConfig(
 
     public var testInitialized: Boolean
         get() = glibTestConfigPointer.pointed.test_initialized.asBoolean()
+        @UnsafeFieldSetter
         set(`value`) {
             glibTestConfigPointer.pointed.test_initialized = value.asGBoolean()
         }
 
     public var testQuick: Boolean
         get() = glibTestConfigPointer.pointed.test_quick.asBoolean()
+        @UnsafeFieldSetter
         set(`value`) {
             glibTestConfigPointer.pointed.test_quick = value.asGBoolean()
         }
 
     public var testPerf: Boolean
         get() = glibTestConfigPointer.pointed.test_perf.asBoolean()
+        @UnsafeFieldSetter
         set(`value`) {
             glibTestConfigPointer.pointed.test_perf = value.asGBoolean()
         }
 
     public var testVerbose: Boolean
         get() = glibTestConfigPointer.pointed.test_verbose.asBoolean()
+        @UnsafeFieldSetter
         set(`value`) {
             glibTestConfigPointer.pointed.test_verbose = value.asGBoolean()
         }
 
     public var testQuiet: Boolean
         get() = glibTestConfigPointer.pointed.test_quiet.asBoolean()
+        @UnsafeFieldSetter
         set(`value`) {
             glibTestConfigPointer.pointed.test_quiet = value.asGBoolean()
         }
 
     public var testUndefined: Boolean
         get() = glibTestConfigPointer.pointed.test_undefined.asBoolean()
+        @UnsafeFieldSetter
         set(`value`) {
             glibTestConfigPointer.pointed.test_undefined = value.asGBoolean()
         }

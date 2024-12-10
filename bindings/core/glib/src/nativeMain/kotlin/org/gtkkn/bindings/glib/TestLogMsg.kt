@@ -13,6 +13,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GTestLogMsg
 import org.gtkkn.native.glib.g_test_log_msg_free
@@ -33,18 +34,21 @@ public class TestLogMsg(
     public var logType: TestLogType
         get() = glibTestLogMsgPointer.pointed.log_type.run {
             TestLogType.fromNativeValue(this)}
+        @UnsafeFieldSetter
         set(`value`) {
             glibTestLogMsgPointer.pointed.log_type = value.nativeValue
         }
 
     public var nStrings: guint
         get() = glibTestLogMsgPointer.pointed.n_strings
+        @UnsafeFieldSetter
         set(`value`) {
             glibTestLogMsgPointer.pointed.n_strings = value
         }
 
     public var nNums: guint
         get() = glibTestLogMsgPointer.pointed.n_nums
+        @UnsafeFieldSetter
         set(`value`) {
             glibTestLogMsgPointer.pointed.n_nums = value
         }

@@ -12,6 +12,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
@@ -33,6 +34,7 @@ public class PadActionEntry(
     public var type: PadActionType
         get() = gtkPadActionEntryPointer.pointed.type.run {
             PadActionType.fromNativeValue(this)}
+        @UnsafeFieldSetter
         set(`value`) {
             gtkPadActionEntryPointer.pointed.type = value.nativeValue
         }
@@ -43,6 +45,7 @@ public class PadActionEntry(
      */
     public var index: gint
         get() = gtkPadActionEntryPointer.pointed.index
+        @UnsafeFieldSetter
         set(`value`) {
             gtkPadActionEntryPointer.pointed.index = value
         }
@@ -52,6 +55,7 @@ public class PadActionEntry(
      */
     public var mode: gint
         get() = gtkPadActionEntryPointer.pointed.mode
+        @UnsafeFieldSetter
         set(`value`) {
             gtkPadActionEntryPointer.pointed.mode = value
         }
@@ -62,6 +66,7 @@ public class PadActionEntry(
      */
     public var label: String?
         get() = gtkPadActionEntryPointer.pointed.label?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gtkPadActionEntryPointer.pointed.label?.let { g_free(it) }
             gtkPadActionEntryPointer.pointed.label = value?.let { g_strdup(it) }
@@ -72,6 +77,7 @@ public class PadActionEntry(
      */
     public var actionName: String?
         get() = gtkPadActionEntryPointer.pointed.action_name?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gtkPadActionEntryPointer.pointed.action_name?.let { g_free(it) }
             gtkPadActionEntryPointer.pointed.action_name = value?.let { g_strdup(it) }

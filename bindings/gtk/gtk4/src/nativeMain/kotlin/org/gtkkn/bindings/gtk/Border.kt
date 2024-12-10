@@ -7,6 +7,7 @@ import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBorder
@@ -30,6 +31,7 @@ public class Border(
      */
     public var left: Short
         get() = gtkBorderPointer.pointed.left
+        @UnsafeFieldSetter
         set(`value`) {
             gtkBorderPointer.pointed.left = value
         }
@@ -39,6 +41,7 @@ public class Border(
      */
     public var right: Short
         get() = gtkBorderPointer.pointed.right
+        @UnsafeFieldSetter
         set(`value`) {
             gtkBorderPointer.pointed.right = value
         }
@@ -48,6 +51,7 @@ public class Border(
      */
     public var top: Short
         get() = gtkBorderPointer.pointed.top
+        @UnsafeFieldSetter
         set(`value`) {
             gtkBorderPointer.pointed.top = value
         }
@@ -57,6 +61,7 @@ public class Border(
      */
     public var bottom: Short
         get() = gtkBorderPointer.pointed.bottom
+        @UnsafeFieldSetter
         set(`value`) {
             gtkBorderPointer.pointed.bottom = value
         }

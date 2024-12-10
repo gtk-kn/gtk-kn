@@ -12,6 +12,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GFileAttributeInfo
 import org.gtkkn.native.glib.g_free
@@ -31,6 +32,7 @@ public class FileAttributeInfo(
      */
     public var name: String?
         get() = gioFileAttributeInfoPointer.pointed.name?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gioFileAttributeInfoPointer.pointed.name?.let { g_free(it) }
             gioFileAttributeInfoPointer.pointed.name = value?.let { g_strdup(it) }
@@ -42,6 +44,7 @@ public class FileAttributeInfo(
     public var type: FileAttributeType
         get() = gioFileAttributeInfoPointer.pointed.type.run {
             FileAttributeType.fromNativeValue(this)}
+        @UnsafeFieldSetter
         set(`value`) {
             gioFileAttributeInfoPointer.pointed.type = value.nativeValue
         }
@@ -52,6 +55,7 @@ public class FileAttributeInfo(
     public var flags: FileAttributeInfoFlags
         get() = gioFileAttributeInfoPointer.pointed.flags.run {
             FileAttributeInfoFlags(this)}
+        @UnsafeFieldSetter
         set(`value`) {
             gioFileAttributeInfoPointer.pointed.flags = value.mask
         }

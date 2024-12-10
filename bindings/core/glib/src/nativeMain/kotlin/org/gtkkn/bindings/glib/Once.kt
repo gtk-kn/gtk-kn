@@ -12,6 +12,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_4
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GOnce
 
@@ -45,6 +46,7 @@ public class Once(
     public var status: OnceStatus
         get() = glibOncePointer.pointed.status.run {
             OnceStatus.fromNativeValue(this)}
+        @UnsafeFieldSetter
         set(`value`) {
             glibOncePointer.pointed.status = value.nativeValue
         }

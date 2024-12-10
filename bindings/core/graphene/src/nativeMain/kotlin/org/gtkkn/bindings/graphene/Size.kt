@@ -15,6 +15,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
@@ -46,6 +47,7 @@ public class Size(
      */
     public var width: gfloat
         get() = grapheneSizePointer.pointed.width
+        @UnsafeFieldSetter
         set(`value`) {
             grapheneSizePointer.pointed.width = value
         }
@@ -55,6 +57,7 @@ public class Size(
      */
     public var height: gfloat
         get() = grapheneSizePointer.pointed.height
+        @UnsafeFieldSetter
         set(`value`) {
             grapheneSizePointer.pointed.height = value
         }

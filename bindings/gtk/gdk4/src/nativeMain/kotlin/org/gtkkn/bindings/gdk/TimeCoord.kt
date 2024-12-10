@@ -11,6 +11,7 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkTimeCoord
 import org.gtkkn.native.gobject.guint
@@ -38,6 +39,7 @@ public class TimeCoord(
      */
     public var time: guint
         get() = gdkTimeCoordPointer.pointed.time
+        @UnsafeFieldSetter
         set(`value`) {
             gdkTimeCoordPointer.pointed.time = value
         }
@@ -48,6 +50,7 @@ public class TimeCoord(
     public var flags: AxisFlags
         get() = gdkTimeCoordPointer.pointed.flags.run {
             AxisFlags(this)}
+        @UnsafeFieldSetter
         set(`value`) {
             gdkTimeCoordPointer.pointed.flags = value.mask
         }

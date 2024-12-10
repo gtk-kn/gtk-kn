@@ -19,6 +19,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GDBusNodeInfo
 import org.gtkkn.native.gio.g_dbus_node_info_generate_xml
@@ -59,6 +60,7 @@ public class DBusNodeInfo(
      */
     public var refCount: gint
         get() = gioDBusNodeInfoPointer.pointed.ref_count
+        @UnsafeFieldSetter
         set(`value`) {
             gioDBusNodeInfoPointer.pointed.ref_count = value
         }
@@ -68,6 +70,7 @@ public class DBusNodeInfo(
      */
     public var path: KotlinString?
         get() = gioDBusNodeInfoPointer.pointed.path?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gioDBusNodeInfoPointer.pointed.path?.let { g_free(it) }
             gioDBusNodeInfoPointer.pointed.path = value?.let { g_strdup(it) }

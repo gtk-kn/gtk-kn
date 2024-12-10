@@ -6,6 +6,7 @@ import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
@@ -30,6 +31,7 @@ public class Requisition(
      */
     public var width: gint
         get() = gtkRequisitionPointer.pointed.width
+        @UnsafeFieldSetter
         set(`value`) {
             gtkRequisitionPointer.pointed.width = value
         }
@@ -39,6 +41,7 @@ public class Requisition(
      */
     public var height: gint
         get() = gtkRequisitionPointer.pointed.height
+        @UnsafeFieldSetter
         set(`value`) {
             gtkRequisitionPointer.pointed.height = value
         }

@@ -12,6 +12,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.pango.PangoAttrFontDesc
 import org.gtkkn.native.pango.pango_attr_font_desc_new
@@ -36,6 +37,7 @@ public class AttrFontDesc(
     public var desc: FontDescription?
         get() = pangoAttrFontDescPointer.pointed.desc?.run {
             FontDescription(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             pangoAttrFontDescPointer.pointed.desc = value?.pangoFontDescriptionPointer
         }

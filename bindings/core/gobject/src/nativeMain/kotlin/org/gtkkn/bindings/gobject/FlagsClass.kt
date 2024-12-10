@@ -12,6 +12,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GFlagsClass
 import org.gtkkn.native.gobject.guint
@@ -35,6 +36,7 @@ public class FlagsClass(
      */
     public var mask: guint
         get() = gobjectFlagsClassPointer.pointed.mask
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectFlagsClassPointer.pointed.mask = value
         }
@@ -44,6 +46,7 @@ public class FlagsClass(
      */
     public var nValues: guint
         get() = gobjectFlagsClassPointer.pointed.n_values
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectFlagsClassPointer.pointed.n_values = value
         }
@@ -55,6 +58,7 @@ public class FlagsClass(
     public var values: FlagsValue?
         get() = gobjectFlagsClassPointer.pointed.values?.run {
             FlagsValue(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectFlagsClassPointer.pointed.values = value?.gobjectFlagsValuePointer
         }

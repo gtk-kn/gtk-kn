@@ -17,6 +17,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GHook
 import org.gtkkn.native.glib.g_hook_alloc
@@ -61,6 +62,7 @@ public class Hook(
     public var next: Hook?
         get() = glibHookPointer.pointed.next?.run {
             Hook(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             glibHookPointer.pointed.next = value?.glibHookPointer
         }
@@ -71,6 +73,7 @@ public class Hook(
     public var prev: Hook?
         get() = glibHookPointer.pointed.prev?.run {
             Hook(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             glibHookPointer.pointed.prev = value?.glibHookPointer
         }
@@ -80,6 +83,7 @@ public class Hook(
      */
     public var refCount: guint
         get() = glibHookPointer.pointed.ref_count
+        @UnsafeFieldSetter
         set(`value`) {
             glibHookPointer.pointed.ref_count = value
         }
@@ -89,6 +93,7 @@ public class Hook(
      */
     public var hookId: gulong
         get() = glibHookPointer.pointed.hook_id
+        @UnsafeFieldSetter
         set(`value`) {
             glibHookPointer.pointed.hook_id = value
         }
@@ -99,6 +104,7 @@ public class Hook(
      */
     public var flags: guint
         get() = glibHookPointer.pointed.flags
+        @UnsafeFieldSetter
         set(`value`) {
             glibHookPointer.pointed.flags = value
         }

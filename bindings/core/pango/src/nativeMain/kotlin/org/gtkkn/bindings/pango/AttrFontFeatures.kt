@@ -14,6 +14,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_38
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
@@ -42,6 +43,7 @@ public class AttrFontFeatures(
      */
     public var features: String?
         get() = pangoAttrFontFeaturesPointer.pointed.features?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             pangoAttrFontFeaturesPointer.pointed.features?.let { g_free(it) }
             pangoAttrFontFeaturesPointer.pointed.features = value?.let { g_strdup(it) }

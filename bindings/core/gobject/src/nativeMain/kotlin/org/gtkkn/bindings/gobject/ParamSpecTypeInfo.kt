@@ -11,6 +11,7 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GParamSpecTypeInfo
 import org.gtkkn.native.gobject.GType
@@ -45,6 +46,7 @@ public class ParamSpecTypeInfo(
      */
     public var instanceSize: guint16
         get() = gobjectParamSpecTypeInfoPointer.pointed.instance_size
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectParamSpecTypeInfoPointer.pointed.instance_size = value
         }
@@ -54,6 +56,7 @@ public class ParamSpecTypeInfo(
      */
     public var nPreallocs: guint16
         get() = gobjectParamSpecTypeInfoPointer.pointed.n_preallocs
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectParamSpecTypeInfoPointer.pointed.n_preallocs = value
         }
@@ -63,6 +66,7 @@ public class ParamSpecTypeInfo(
      */
     public var valueType: GType
         get() = gobjectParamSpecTypeInfoPointer.pointed.value_type
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectParamSpecTypeInfoPointer.pointed.value_type = value
         }

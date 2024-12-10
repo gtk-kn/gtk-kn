@@ -12,6 +12,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.glib.Quark
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GSignalInvocationHint
 import org.gtkkn.native.gobject.guint
@@ -31,6 +32,7 @@ public class SignalInvocationHint(
      */
     public var signalId: guint
         get() = gobjectSignalInvocationHintPointer.pointed.signal_id
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectSignalInvocationHintPointer.pointed.signal_id = value
         }
@@ -40,6 +42,7 @@ public class SignalInvocationHint(
      */
     public var detail: Quark
         get() = gobjectSignalInvocationHintPointer.pointed.detail
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectSignalInvocationHintPointer.pointed.detail = value
         }
@@ -54,6 +57,7 @@ public class SignalInvocationHint(
     public var runType: SignalFlags
         get() = gobjectSignalInvocationHintPointer.pointed.run_type.run {
             SignalFlags(this)}
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectSignalInvocationHintPointer.pointed.run_type = value.mask
         }

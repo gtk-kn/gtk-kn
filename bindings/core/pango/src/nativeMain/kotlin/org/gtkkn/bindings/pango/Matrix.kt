@@ -16,6 +16,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_12
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_6
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
@@ -63,6 +64,7 @@ public class Matrix(
      */
     public var xx: gdouble
         get() = pangoMatrixPointer.pointed.xx
+        @UnsafeFieldSetter
         set(`value`) {
             pangoMatrixPointer.pointed.xx = value
         }
@@ -72,6 +74,7 @@ public class Matrix(
      */
     public var xy: gdouble
         get() = pangoMatrixPointer.pointed.xy
+        @UnsafeFieldSetter
         set(`value`) {
             pangoMatrixPointer.pointed.xy = value
         }
@@ -81,6 +84,7 @@ public class Matrix(
      */
     public var yx: gdouble
         get() = pangoMatrixPointer.pointed.yx
+        @UnsafeFieldSetter
         set(`value`) {
             pangoMatrixPointer.pointed.yx = value
         }
@@ -90,6 +94,7 @@ public class Matrix(
      */
     public var yy: gdouble
         get() = pangoMatrixPointer.pointed.yy
+        @UnsafeFieldSetter
         set(`value`) {
             pangoMatrixPointer.pointed.yy = value
         }
@@ -99,6 +104,7 @@ public class Matrix(
      */
     public var x0: gdouble
         get() = pangoMatrixPointer.pointed.x0
+        @UnsafeFieldSetter
         set(`value`) {
             pangoMatrixPointer.pointed.x0 = value
         }
@@ -108,6 +114,7 @@ public class Matrix(
      */
     public var y0: gdouble
         get() = pangoMatrixPointer.pointed.y0
+        @UnsafeFieldSetter
         set(`value`) {
             pangoMatrixPointer.pointed.y0 = value
         }

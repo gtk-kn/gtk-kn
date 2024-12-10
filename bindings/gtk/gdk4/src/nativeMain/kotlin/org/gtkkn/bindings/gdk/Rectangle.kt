@@ -15,6 +15,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkRectangle
 import org.gtkkn.native.gdk.gdk_rectangle_contains_point
@@ -53,6 +54,7 @@ public class Rectangle(
      */
     public var x: gint
         get() = gdkRectanglePointer.pointed.x
+        @UnsafeFieldSetter
         set(`value`) {
             gdkRectanglePointer.pointed.x = value
         }
@@ -62,6 +64,7 @@ public class Rectangle(
      */
     public var y: gint
         get() = gdkRectanglePointer.pointed.y
+        @UnsafeFieldSetter
         set(`value`) {
             gdkRectanglePointer.pointed.y = value
         }
@@ -71,6 +74,7 @@ public class Rectangle(
      */
     public var width: gint
         get() = gdkRectanglePointer.pointed.width
+        @UnsafeFieldSetter
         set(`value`) {
             gdkRectanglePointer.pointed.width = value
         }
@@ -80,6 +84,7 @@ public class Rectangle(
      */
     public var height: gint
         get() = gdkRectanglePointer.pointed.height
+        @UnsafeFieldSetter
         set(`value`) {
             gdkRectanglePointer.pointed.height = value
         }

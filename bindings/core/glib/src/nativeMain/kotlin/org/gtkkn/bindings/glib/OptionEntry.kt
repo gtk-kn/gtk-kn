@@ -13,6 +13,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GOptionEntry
 import org.gtkkn.native.glib.g_free
@@ -43,6 +44,7 @@ public class OptionEntry(
      */
     public var longName: String?
         get() = glibOptionEntryPointer.pointed.long_name?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             glibOptionEntryPointer.pointed.long_name?.let { g_free(it) }
             glibOptionEntryPointer.pointed.long_name = value?.let { g_strdup(it) }
@@ -56,6 +58,7 @@ public class OptionEntry(
      */
     public var shortName: Char
         get() = glibOptionEntryPointer.pointed.short_name.toInt().toChar()
+        @UnsafeFieldSetter
         set(`value`) {
             glibOptionEntryPointer.pointed.short_name = value.code.toByte()
         }
@@ -65,6 +68,7 @@ public class OptionEntry(
      */
     public var flags: gint
         get() = glibOptionEntryPointer.pointed.flags
+        @UnsafeFieldSetter
         set(`value`) {
             glibOptionEntryPointer.pointed.flags = value
         }
@@ -75,6 +79,7 @@ public class OptionEntry(
     public var arg: OptionArg
         get() = glibOptionEntryPointer.pointed.arg.run {
             OptionArg.fromNativeValue(this)}
+        @UnsafeFieldSetter
         set(`value`) {
             glibOptionEntryPointer.pointed.arg = value.nativeValue
         }
@@ -86,6 +91,7 @@ public class OptionEntry(
      */
     public var description: String?
         get() = glibOptionEntryPointer.pointed.description?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             glibOptionEntryPointer.pointed.description?.let { g_free(it) }
             glibOptionEntryPointer.pointed.description = value?.let { g_strdup(it) }
@@ -99,6 +105,7 @@ public class OptionEntry(
      */
     public var argDescription: String?
         get() = glibOptionEntryPointer.pointed.arg_description?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             glibOptionEntryPointer.pointed.arg_description?.let { g_free(it) }
             glibOptionEntryPointer.pointed.arg_description = value?.let { g_strdup(it) }

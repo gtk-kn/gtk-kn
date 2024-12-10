@@ -13,6 +13,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
@@ -55,6 +56,7 @@ public class TypeValueTable(
      */
     public var collectFormat: String?
         get() = gobjectTypeValueTablePointer.pointed.collect_format?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectTypeValueTablePointer.pointed.collect_format?.let { g_free(it) }
             gobjectTypeValueTablePointer.pointed.collect_format = value?.let { g_strdup(it) }
@@ -67,6 +69,7 @@ public class TypeValueTable(
      */
     public var lcopyFormat: String?
         get() = gobjectTypeValueTablePointer.pointed.lcopy_format?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectTypeValueTablePointer.pointed.lcopy_format?.let { g_free(it) }
             gobjectTypeValueTablePointer.pointed.lcopy_format = value?.let { g_strdup(it) }

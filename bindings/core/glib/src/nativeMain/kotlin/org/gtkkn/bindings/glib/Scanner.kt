@@ -17,6 +17,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GScanner
 import org.gtkkn.native.glib.g_free
@@ -86,6 +87,7 @@ public class Scanner(
      */
     public var maxParseErrors: guint
         get() = glibScannerPointer.pointed.max_parse_errors
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerPointer.pointed.max_parse_errors = value
         }
@@ -95,6 +97,7 @@ public class Scanner(
      */
     public var parseErrors: guint
         get() = glibScannerPointer.pointed.parse_errors
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerPointer.pointed.parse_errors = value
         }
@@ -104,6 +107,7 @@ public class Scanner(
      */
     public var inputName: String?
         get() = glibScannerPointer.pointed.input_name?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerPointer.pointed.input_name?.let { g_free(it) }
             glibScannerPointer.pointed.input_name = value?.let { g_strdup(it) }
@@ -115,6 +119,7 @@ public class Scanner(
     public var config: ScannerConfig?
         get() = glibScannerPointer.pointed.config?.run {
             ScannerConfig(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerPointer.pointed.config = value?.glibScannerConfigPointer
         }
@@ -125,6 +130,7 @@ public class Scanner(
     public var token: TokenType
         get() = glibScannerPointer.pointed.token.run {
             TokenType.fromNativeValue(this)}
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerPointer.pointed.token = value.nativeValue
         }
@@ -134,6 +140,7 @@ public class Scanner(
      */
     public var line: guint
         get() = glibScannerPointer.pointed.line
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerPointer.pointed.line = value
         }
@@ -143,6 +150,7 @@ public class Scanner(
      */
     public var position: guint
         get() = glibScannerPointer.pointed.position
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerPointer.pointed.position = value
         }
@@ -153,6 +161,7 @@ public class Scanner(
     public var nextToken: TokenType
         get() = glibScannerPointer.pointed.next_token.run {
             TokenType.fromNativeValue(this)}
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerPointer.pointed.next_token = value.nativeValue
         }
@@ -162,6 +171,7 @@ public class Scanner(
      */
     public var nextLine: guint
         get() = glibScannerPointer.pointed.next_line
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerPointer.pointed.next_line = value
         }
@@ -171,6 +181,7 @@ public class Scanner(
      */
     public var nextPosition: guint
         get() = glibScannerPointer.pointed.next_position
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerPointer.pointed.next_position = value
         }

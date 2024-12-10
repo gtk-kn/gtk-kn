@@ -12,6 +12,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
@@ -33,6 +34,7 @@ public class FlagsValue(
      */
     public var `value`: guint
         get() = gobjectFlagsValuePointer.pointed.value
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectFlagsValuePointer.pointed.value = value
         }
@@ -42,6 +44,7 @@ public class FlagsValue(
      */
     public var valueName: String?
         get() = gobjectFlagsValuePointer.pointed.value_name?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectFlagsValuePointer.pointed.value_name?.let { g_free(it) }
             gobjectFlagsValuePointer.pointed.value_name = value?.let { g_strdup(it) }
@@ -52,6 +55,7 @@ public class FlagsValue(
      */
     public var valueNick: String?
         get() = gobjectFlagsValuePointer.pointed.value_nick?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectFlagsValuePointer.pointed.value_nick?.let { g_free(it) }
             gobjectFlagsValuePointer.pointed.value_nick = value?.let { g_strdup(it) }

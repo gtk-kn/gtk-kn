@@ -15,6 +15,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GDBusArgInfo
 import org.gtkkn.native.gio.g_dbus_arg_info_get_type
@@ -46,6 +47,7 @@ public class DBusArgInfo(
      */
     public var refCount: gint
         get() = gioDBusArgInfoPointer.pointed.ref_count
+        @UnsafeFieldSetter
         set(`value`) {
             gioDBusArgInfoPointer.pointed.ref_count = value
         }
@@ -55,6 +57,7 @@ public class DBusArgInfo(
      */
     public var name: String?
         get() = gioDBusArgInfoPointer.pointed.name?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gioDBusArgInfoPointer.pointed.name?.let { g_free(it) }
             gioDBusArgInfoPointer.pointed.name = value?.let { g_strdup(it) }
@@ -65,6 +68,7 @@ public class DBusArgInfo(
      */
     public var signature: String?
         get() = gioDBusArgInfoPointer.pointed.signature?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gioDBusArgInfoPointer.pointed.signature?.let { g_free(it) }
             gioDBusArgInfoPointer.pointed.signature = value?.let { g_strdup(it) }

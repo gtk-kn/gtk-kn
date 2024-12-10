@@ -14,6 +14,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GCompletion
 import org.gtkkn.native.glib.g_completion_add_items
@@ -67,6 +68,7 @@ public class Completion(
     public var items: List?
         get() = glibCompletionPointer.pointed.items?.run {
             List(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             glibCompletionPointer.pointed.items = value?.glibListPointer
         }
@@ -77,6 +79,7 @@ public class Completion(
      */
     public var prefix: String?
         get() = glibCompletionPointer.pointed.prefix?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             glibCompletionPointer.pointed.prefix?.let { g_free(it) }
             glibCompletionPointer.pointed.prefix = value?.let { g_strdup(it) }
@@ -88,6 +91,7 @@ public class Completion(
     public var cache: List?
         get() = glibCompletionPointer.pointed.cache?.run {
             List(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             glibCompletionPointer.pointed.cache = value?.glibListPointer
         }

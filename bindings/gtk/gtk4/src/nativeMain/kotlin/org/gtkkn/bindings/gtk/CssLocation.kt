@@ -11,6 +11,7 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gtk.GtkCssLocation
@@ -23,30 +24,35 @@ public class CssLocation(
 
     public var bytes: gsize
         get() = gtkCssLocationPointer.pointed.bytes
+        @UnsafeFieldSetter
         set(`value`) {
             gtkCssLocationPointer.pointed.bytes = value
         }
 
     public var chars: gsize
         get() = gtkCssLocationPointer.pointed.chars
+        @UnsafeFieldSetter
         set(`value`) {
             gtkCssLocationPointer.pointed.chars = value
         }
 
     public var lines: gsize
         get() = gtkCssLocationPointer.pointed.lines
+        @UnsafeFieldSetter
         set(`value`) {
             gtkCssLocationPointer.pointed.lines = value
         }
 
     public var lineBytes: gsize
         get() = gtkCssLocationPointer.pointed.line_bytes
+        @UnsafeFieldSetter
         set(`value`) {
             gtkCssLocationPointer.pointed.line_bytes = value
         }
 
     public var lineChars: gsize
         get() = gtkCssLocationPointer.pointed.line_chars
+        @UnsafeFieldSetter
         set(`value`) {
             gtkCssLocationPointer.pointed.line_chars = value
         }

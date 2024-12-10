@@ -13,6 +13,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GClosure
 import org.gtkkn.native.gobject.GType
@@ -105,6 +106,7 @@ public class Closure(
      */
     public var inMarshal: guint
         get() = gobjectClosurePointer.pointed.in_marshal
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectClosurePointer.pointed.in_marshal = value
         }
@@ -115,6 +117,7 @@ public class Closure(
      */
     public var isInvalid: guint
         get() = gobjectClosurePointer.pointed.is_invalid
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectClosurePointer.pointed.is_invalid = value
         }

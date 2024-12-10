@@ -11,6 +11,7 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GTypeFundamentalInfo
 
@@ -30,6 +31,7 @@ public class TypeFundamentalInfo(
     public var typeFlags: TypeFundamentalFlags
         get() = gobjectTypeFundamentalInfoPointer.pointed.type_flags.run {
             TypeFundamentalFlags(this)}
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectTypeFundamentalInfoPointer.pointed.type_flags = value.mask
         }

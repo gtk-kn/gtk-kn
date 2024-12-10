@@ -12,6 +12,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GActionEntry
 import org.gtkkn.native.glib.g_free
@@ -46,6 +47,7 @@ public class ActionEntry(
      */
     public var name: String?
         get() = gioActionEntryPointer.pointed.name?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gioActionEntryPointer.pointed.name?.let { g_free(it) }
             gioActionEntryPointer.pointed.name = value?.let { g_strdup(it) }
@@ -58,6 +60,7 @@ public class ActionEntry(
      */
     public var parameterType: String?
         get() = gioActionEntryPointer.pointed.parameter_type?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gioActionEntryPointer.pointed.parameter_type?.let { g_free(it) }
             gioActionEntryPointer.pointed.parameter_type = value?.let { g_strdup(it) }
@@ -72,6 +75,7 @@ public class ActionEntry(
      */
     public var state: String?
         get() = gioActionEntryPointer.pointed.state?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gioActionEntryPointer.pointed.state?.let { g_free(it) }
             gioActionEntryPointer.pointed.state = value?.let { g_strdup(it) }

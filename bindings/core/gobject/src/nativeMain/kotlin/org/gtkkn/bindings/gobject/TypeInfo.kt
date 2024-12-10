@@ -12,6 +12,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GTypeInfo
 import org.gtkkn.native.gobject.guint16
@@ -47,6 +48,7 @@ public class TypeInfo(
      */
     public var classSize: guint16
         get() = gobjectTypeInfoPointer.pointed.class_size
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectTypeInfoPointer.pointed.class_size = value
         }
@@ -56,6 +58,7 @@ public class TypeInfo(
      */
     public var instanceSize: guint16
         get() = gobjectTypeInfoPointer.pointed.instance_size
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectTypeInfoPointer.pointed.instance_size = value
         }
@@ -65,6 +68,7 @@ public class TypeInfo(
      */
     public var nPreallocs: guint16
         get() = gobjectTypeInfoPointer.pointed.n_preallocs
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectTypeInfoPointer.pointed.n_preallocs = value
         }
@@ -76,6 +80,7 @@ public class TypeInfo(
     public var valueTable: TypeValueTable?
         get() = gobjectTypeInfoPointer.pointed.value_table?.run {
             TypeValueTable(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectTypeInfoPointer.pointed.value_table = value?.gobjectTypeValueTablePointer
         }

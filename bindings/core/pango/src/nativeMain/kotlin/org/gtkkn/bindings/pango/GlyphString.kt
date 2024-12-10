@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_14
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
@@ -47,6 +48,7 @@ public class GlyphString(
      */
     public var numGlyphs: gint
         get() = pangoGlyphStringPointer.pointed.num_glyphs
+        @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphStringPointer.pointed.num_glyphs = value
         }

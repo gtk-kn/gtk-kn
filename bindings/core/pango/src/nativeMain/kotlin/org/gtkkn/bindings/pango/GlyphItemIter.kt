@@ -17,6 +17,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_22
 import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
@@ -84,12 +85,14 @@ public class GlyphItemIter(
     public var glyphItem: GlyphItem?
         get() = pangoGlyphItemIterPointer.pointed.glyph_item?.run {
             GlyphItem(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphItemIterPointer.pointed.glyph_item = value?.pangoGlyphItemPointer
         }
 
     public var text: String?
         get() = pangoGlyphItemIterPointer.pointed.text?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphItemIterPointer.pointed.text?.let { g_free(it) }
             pangoGlyphItemIterPointer.pointed.text = value?.let { g_strdup(it) }
@@ -97,36 +100,42 @@ public class GlyphItemIter(
 
     public var startGlyph: gint
         get() = pangoGlyphItemIterPointer.pointed.start_glyph
+        @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphItemIterPointer.pointed.start_glyph = value
         }
 
     public var startIndex: gint
         get() = pangoGlyphItemIterPointer.pointed.start_index
+        @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphItemIterPointer.pointed.start_index = value
         }
 
     public var startChar: gint
         get() = pangoGlyphItemIterPointer.pointed.start_char
+        @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphItemIterPointer.pointed.start_char = value
         }
 
     public var endGlyph: gint
         get() = pangoGlyphItemIterPointer.pointed.end_glyph
+        @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphItemIterPointer.pointed.end_glyph = value
         }
 
     public var endIndex: gint
         get() = pangoGlyphItemIterPointer.pointed.end_index
+        @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphItemIterPointer.pointed.end_index = value
         }
 
     public var endChar: gint
         get() = pangoGlyphItemIterPointer.pointed.end_char
+        @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphItemIterPointer.pointed.end_char = value
         }

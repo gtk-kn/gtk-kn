@@ -11,6 +11,7 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.pango.PangoLogAttr
@@ -30,6 +31,7 @@ public class LogAttr(
      */
     public var isLineBreak: guint
         get() = pangoLogAttrPointer.pointed.is_line_break
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.is_line_break = value
         }
@@ -39,6 +41,7 @@ public class LogAttr(
      */
     public var isMandatoryBreak: guint
         get() = pangoLogAttrPointer.pointed.is_mandatory_break
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.is_mandatory_break = value
         }
@@ -48,6 +51,7 @@ public class LogAttr(
      */
     public var isCharBreak: guint
         get() = pangoLogAttrPointer.pointed.is_char_break
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.is_char_break = value
         }
@@ -57,6 +61,7 @@ public class LogAttr(
      */
     public var isWhite: guint
         get() = pangoLogAttrPointer.pointed.is_white
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.is_white = value
         }
@@ -70,6 +75,7 @@ public class LogAttr(
      */
     public var isCursorPosition: guint
         get() = pangoLogAttrPointer.pointed.is_cursor_position
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.is_cursor_position = value
         }
@@ -79,6 +85,7 @@ public class LogAttr(
      */
     public var isWordStart: guint
         get() = pangoLogAttrPointer.pointed.is_word_start
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.is_word_start = value
         }
@@ -90,6 +97,7 @@ public class LogAttr(
      */
     public var isWordEnd: guint
         get() = pangoLogAttrPointer.pointed.is_word_end
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.is_word_end = value
         }
@@ -105,6 +113,7 @@ public class LogAttr(
      */
     public var isSentenceBoundary: guint
         get() = pangoLogAttrPointer.pointed.is_sentence_boundary
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.is_sentence_boundary = value
         }
@@ -114,6 +123,7 @@ public class LogAttr(
      */
     public var isSentenceStart: guint
         get() = pangoLogAttrPointer.pointed.is_sentence_start
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.is_sentence_start = value
         }
@@ -126,6 +136,7 @@ public class LogAttr(
      */
     public var isSentenceEnd: guint
         get() = pangoLogAttrPointer.pointed.is_sentence_end
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.is_sentence_end = value
         }
@@ -141,6 +152,7 @@ public class LogAttr(
      */
     public var backspaceDeletesCharacter: guint
         get() = pangoLogAttrPointer.pointed.backspace_deletes_character
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.backspace_deletes_character = value
         }
@@ -151,6 +163,7 @@ public class LogAttr(
      */
     public var isExpandableSpace: guint
         get() = pangoLogAttrPointer.pointed.is_expandable_space
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.is_expandable_space = value
         }
@@ -165,6 +178,7 @@ public class LogAttr(
      */
     public var isWordBoundary: guint
         get() = pangoLogAttrPointer.pointed.is_word_boundary
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.is_word_boundary = value
         }
@@ -175,6 +189,7 @@ public class LogAttr(
      */
     public var breakInsertsHyphen: guint
         get() = pangoLogAttrPointer.pointed.break_inserts_hyphen
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.break_inserts_hyphen = value
         }
@@ -185,12 +200,14 @@ public class LogAttr(
      */
     public var breakRemovesPreceding: guint
         get() = pangoLogAttrPointer.pointed.break_removes_preceding
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.break_removes_preceding = value
         }
 
     public var reserved: guint
         get() = pangoLogAttrPointer.pointed.reserved
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.reserved = value
         }

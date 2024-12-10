@@ -13,6 +13,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_2
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdkpixbuf.GdkPixbufModulePattern
 import org.gtkkn.native.glib.g_free
@@ -64,6 +65,7 @@ public class PixbufModulePattern(
      */
     public var prefix: String?
         get() = gdkpixbufPixbufModulePatternPointer.pointed.prefix?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gdkpixbufPixbufModulePatternPointer.pointed.prefix?.let { g_free(it) }
             gdkpixbufPixbufModulePatternPointer.pointed.prefix = value?.let { g_strdup(it) }
@@ -75,6 +77,7 @@ public class PixbufModulePattern(
      */
     public var mask: String?
         get() = gdkpixbufPixbufModulePatternPointer.pointed.mask?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gdkpixbufPixbufModulePatternPointer.pointed.mask?.let { g_free(it) }
             gdkpixbufPixbufModulePatternPointer.pointed.mask = value?.let { g_strdup(it) }
@@ -85,6 +88,7 @@ public class PixbufModulePattern(
      */
     public var relevance: gint
         get() = gdkpixbufPixbufModulePatternPointer.pointed.relevance
+        @UnsafeFieldSetter
         set(`value`) {
             gdkpixbufPixbufModulePatternPointer.pointed.relevance = value
         }

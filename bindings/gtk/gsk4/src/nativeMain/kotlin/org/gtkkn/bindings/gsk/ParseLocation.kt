@@ -11,6 +11,7 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gsk.GskParseLocation
@@ -29,6 +30,7 @@ public class ParseLocation(
      */
     public var bytes: gsize
         get() = gskParseLocationPointer.pointed.bytes
+        @UnsafeFieldSetter
         set(`value`) {
             gskParseLocationPointer.pointed.bytes = value
         }
@@ -38,6 +40,7 @@ public class ParseLocation(
      */
     public var chars: gsize
         get() = gskParseLocationPointer.pointed.chars
+        @UnsafeFieldSetter
         set(`value`) {
             gskParseLocationPointer.pointed.chars = value
         }
@@ -47,6 +50,7 @@ public class ParseLocation(
      */
     public var lines: gsize
         get() = gskParseLocationPointer.pointed.lines
+        @UnsafeFieldSetter
         set(`value`) {
             gskParseLocationPointer.pointed.lines = value
         }
@@ -56,6 +60,7 @@ public class ParseLocation(
      */
     public var lineBytes: gsize
         get() = gskParseLocationPointer.pointed.line_bytes
+        @UnsafeFieldSetter
         set(`value`) {
             gskParseLocationPointer.pointed.line_bytes = value
         }
@@ -65,6 +70,7 @@ public class ParseLocation(
      */
     public var lineChars: gsize
         get() = gskParseLocationPointer.pointed.line_chars
+        @UnsafeFieldSetter
         set(`value`) {
             gskParseLocationPointer.pointed.line_chars = value
         }

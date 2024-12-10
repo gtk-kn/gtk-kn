@@ -11,6 +11,7 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.cairo.cairo_gobject_rectangle_get_type
 import org.gtkkn.native.cairo.cairo_rectangle_t
@@ -25,24 +26,28 @@ public class Rectangle(
 
     public var x: gdouble
         get() = cairoRectanglePointer.pointed.x
+        @UnsafeFieldSetter
         set(`value`) {
             cairoRectanglePointer.pointed.x = value
         }
 
     public var y: gdouble
         get() = cairoRectanglePointer.pointed.y
+        @UnsafeFieldSetter
         set(`value`) {
             cairoRectanglePointer.pointed.y = value
         }
 
     public var width: gdouble
         get() = cairoRectanglePointer.pointed.width
+        @UnsafeFieldSetter
         set(`value`) {
             cairoRectanglePointer.pointed.width = value
         }
 
     public var height: gdouble
         get() = cairoRectanglePointer.pointed.height
+        @UnsafeFieldSetter
         set(`value`) {
             cairoRectanglePointer.pointed.height = value
         }

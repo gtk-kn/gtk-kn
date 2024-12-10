@@ -6,6 +6,7 @@ import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GFileAttributeInfoList
 import org.gtkkn.native.gio.g_file_attribute_info_list_add
@@ -33,6 +34,7 @@ public class FileAttributeInfoList(
     public var infos: FileAttributeInfo?
         get() = gioFileAttributeInfoListPointer.pointed.infos?.run {
             FileAttributeInfo(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             gioFileAttributeInfoListPointer.pointed.infos = value?.gioFileAttributeInfoPointer
         }
@@ -42,6 +44,7 @@ public class FileAttributeInfoList(
      */
     public var nInfos: gint
         get() = gioFileAttributeInfoListPointer.pointed.n_infos
+        @UnsafeFieldSetter
         set(`value`) {
             gioFileAttributeInfoListPointer.pointed.n_infos = value
         }

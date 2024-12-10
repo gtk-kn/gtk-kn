@@ -12,6 +12,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GScannerConfig
 import org.gtkkn.native.glib.g_free
@@ -40,6 +41,7 @@ public class ScannerConfig(
      */
     public var csetSkipCharacters: String?
         get() = glibScannerConfigPointer.pointed.cset_skip_characters?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.cset_skip_characters?.let { g_free(it) }
             glibScannerConfigPointer.pointed.cset_skip_characters = value?.let { g_strdup(it) }
@@ -51,6 +53,7 @@ public class ScannerConfig(
      */
     public var csetIdentifierFirst: String?
         get() = glibScannerConfigPointer.pointed.cset_identifier_first?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.cset_identifier_first?.let { g_free(it) }
             glibScannerConfigPointer.pointed.cset_identifier_first = value?.let { g_strdup(it) }
@@ -64,6 +67,7 @@ public class ScannerConfig(
      */
     public var csetIdentifierNth: String?
         get() = glibScannerConfigPointer.pointed.cset_identifier_nth?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.cset_identifier_nth?.let { g_free(it) }
             glibScannerConfigPointer.pointed.cset_identifier_nth = value?.let { g_strdup(it) }
@@ -77,6 +81,7 @@ public class ScannerConfig(
      */
     public var cpairCommentSingle: String?
         get() = glibScannerConfigPointer.pointed.cpair_comment_single?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.cpair_comment_single?.let { g_free(it) }
             glibScannerConfigPointer.pointed.cpair_comment_single = value?.let { g_strdup(it) }
@@ -88,6 +93,7 @@ public class ScannerConfig(
      */
     public var caseSensitive: guint
         get() = glibScannerConfigPointer.pointed.case_sensitive
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.case_sensitive = value
         }
@@ -98,6 +104,7 @@ public class ScannerConfig(
      */
     public var skipCommentMulti: guint
         get() = glibScannerConfigPointer.pointed.skip_comment_multi
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.skip_comment_multi = value
         }
@@ -108,6 +115,7 @@ public class ScannerConfig(
      */
     public var skipCommentSingle: guint
         get() = glibScannerConfigPointer.pointed.skip_comment_single
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.skip_comment_single = value
         }
@@ -118,6 +126,7 @@ public class ScannerConfig(
      */
     public var scanCommentMulti: guint
         get() = glibScannerConfigPointer.pointed.scan_comment_multi
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_comment_multi = value
         }
@@ -128,6 +137,7 @@ public class ScannerConfig(
      */
     public var scanIdentifier: guint
         get() = glibScannerConfigPointer.pointed.scan_identifier
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_identifier = value
         }
@@ -138,6 +148,7 @@ public class ScannerConfig(
      */
     public var scanIdentifier1char: guint
         get() = glibScannerConfigPointer.pointed.scan_identifier_1char
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_identifier_1char = value
         }
@@ -148,6 +159,7 @@ public class ScannerConfig(
      */
     public var scanIdentifierNull: guint
         get() = glibScannerConfigPointer.pointed.scan_identifier_NULL
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_identifier_NULL = value
         }
@@ -158,6 +170,7 @@ public class ScannerConfig(
      */
     public var scanSymbols: guint
         get() = glibScannerConfigPointer.pointed.scan_symbols
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_symbols = value
         }
@@ -168,6 +181,7 @@ public class ScannerConfig(
      */
     public var scanBinary: guint
         get() = glibScannerConfigPointer.pointed.scan_binary
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_binary = value
         }
@@ -178,6 +192,7 @@ public class ScannerConfig(
      */
     public var scanOctal: guint
         get() = glibScannerConfigPointer.pointed.scan_octal
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_octal = value
         }
@@ -188,6 +203,7 @@ public class ScannerConfig(
      */
     public var scanFloat: guint
         get() = glibScannerConfigPointer.pointed.scan_float
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_float = value
         }
@@ -198,6 +214,7 @@ public class ScannerConfig(
      */
     public var scanHex: guint
         get() = glibScannerConfigPointer.pointed.scan_hex
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_hex = value
         }
@@ -208,6 +225,7 @@ public class ScannerConfig(
      */
     public var scanHexDollar: guint
         get() = glibScannerConfigPointer.pointed.scan_hex_dollar
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_hex_dollar = value
         }
@@ -218,6 +236,7 @@ public class ScannerConfig(
      */
     public var scanStringSq: guint
         get() = glibScannerConfigPointer.pointed.scan_string_sq
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_string_sq = value
         }
@@ -228,6 +247,7 @@ public class ScannerConfig(
      */
     public var scanStringDq: guint
         get() = glibScannerConfigPointer.pointed.scan_string_dq
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_string_dq = value
         }
@@ -238,6 +258,7 @@ public class ScannerConfig(
      */
     public var numbers2Int: guint
         get() = glibScannerConfigPointer.pointed.numbers_2_int
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.numbers_2_int = value
         }
@@ -248,6 +269,7 @@ public class ScannerConfig(
      */
     public var int2Float: guint
         get() = glibScannerConfigPointer.pointed.int_2_float
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.int_2_float = value
         }
@@ -258,6 +280,7 @@ public class ScannerConfig(
      */
     public var identifier2String: guint
         get() = glibScannerConfigPointer.pointed.identifier_2_string
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.identifier_2_string = value
         }
@@ -268,6 +291,7 @@ public class ScannerConfig(
      */
     public var char2Token: guint
         get() = glibScannerConfigPointer.pointed.char_2_token
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.char_2_token = value
         }
@@ -278,6 +302,7 @@ public class ScannerConfig(
      */
     public var symbol2Token: guint
         get() = glibScannerConfigPointer.pointed.symbol_2_token
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.symbol_2_token = value
         }
@@ -288,6 +313,7 @@ public class ScannerConfig(
      */
     public var scope0Fallback: guint
         get() = glibScannerConfigPointer.pointed.scope_0_fallback
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scope_0_fallback = value
         }
@@ -297,6 +323,7 @@ public class ScannerConfig(
      */
     public var storeInt64: guint
         get() = glibScannerConfigPointer.pointed.store_int64
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.store_int64 = value
         }

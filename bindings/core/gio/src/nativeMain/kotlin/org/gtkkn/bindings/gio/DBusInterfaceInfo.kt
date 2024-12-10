@@ -15,6 +15,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GDBusInterfaceInfo
 import org.gtkkn.native.gio.g_dbus_interface_info_cache_build
@@ -58,6 +59,7 @@ public class DBusInterfaceInfo(
      */
     public var refCount: gint
         get() = gioDBusInterfaceInfoPointer.pointed.ref_count
+        @UnsafeFieldSetter
         set(`value`) {
             gioDBusInterfaceInfoPointer.pointed.ref_count = value
         }
@@ -67,6 +69,7 @@ public class DBusInterfaceInfo(
      */
     public var name: KotlinString?
         get() = gioDBusInterfaceInfoPointer.pointed.name?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gioDBusInterfaceInfoPointer.pointed.name?.let { g_free(it) }
             gioDBusInterfaceInfoPointer.pointed.name = value?.let { g_strdup(it) }

@@ -12,6 +12,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GEnumClass
 import org.gtkkn.native.gobject.gint
@@ -36,6 +37,7 @@ public class EnumClass(
      */
     public var minimum: gint
         get() = gobjectEnumClassPointer.pointed.minimum
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectEnumClassPointer.pointed.minimum = value
         }
@@ -45,6 +47,7 @@ public class EnumClass(
      */
     public var maximum: gint
         get() = gobjectEnumClassPointer.pointed.maximum
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectEnumClassPointer.pointed.maximum = value
         }
@@ -54,6 +57,7 @@ public class EnumClass(
      */
     public var nValues: guint
         get() = gobjectEnumClassPointer.pointed.n_values
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectEnumClassPointer.pointed.n_values = value
         }
@@ -65,6 +69,7 @@ public class EnumClass(
     public var values: EnumValue?
         get() = gobjectEnumClassPointer.pointed.values?.run {
             EnumValue(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectEnumClassPointer.pointed.values = value?.gobjectEnumValuePointer
         }

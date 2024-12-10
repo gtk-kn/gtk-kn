@@ -16,6 +16,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_68
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_76
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GString
 import org.gtkkn.native.glib.g_free
@@ -90,6 +91,7 @@ public class String(
      */
     public var str: kotlin.String?
         get() = glibStringPointer.pointed.str?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             glibStringPointer.pointed.str?.let { g_free(it) }
             glibStringPointer.pointed.str = value?.let { g_strdup(it) }
@@ -101,6 +103,7 @@ public class String(
      */
     public var len: gsize
         get() = glibStringPointer.pointed.len
+        @UnsafeFieldSetter
         set(`value`) {
             glibStringPointer.pointed.len = value
         }
@@ -111,6 +114,7 @@ public class String(
      */
     public var allocatedLen: gsize
         get() = glibStringPointer.pointed.allocated_len
+        @UnsafeFieldSetter
         set(`value`) {
             glibStringPointer.pointed.allocated_len = value
         }

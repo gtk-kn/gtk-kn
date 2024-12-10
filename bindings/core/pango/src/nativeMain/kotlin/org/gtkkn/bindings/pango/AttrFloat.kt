@@ -11,6 +11,7 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.pango.PangoAttrFloat
@@ -34,6 +35,7 @@ public class AttrFloat(
      */
     public var `value`: gdouble
         get() = pangoAttrFloatPointer.pointed.value
+        @UnsafeFieldSetter
         set(`value`) {
             pangoAttrFloatPointer.pointed.value = value
         }

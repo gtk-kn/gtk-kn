@@ -12,6 +12,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
@@ -40,6 +41,7 @@ public class SignalQuery(
      */
     public var signalId: guint
         get() = gobjectSignalQueryPointer.pointed.signal_id
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectSignalQueryPointer.pointed.signal_id = value
         }
@@ -49,6 +51,7 @@ public class SignalQuery(
      */
     public var signalName: String?
         get() = gobjectSignalQueryPointer.pointed.signal_name?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectSignalQueryPointer.pointed.signal_name?.let { g_free(it) }
             gobjectSignalQueryPointer.pointed.signal_name = value?.let { g_strdup(it) }
@@ -59,6 +62,7 @@ public class SignalQuery(
      */
     public var itype: GType
         get() = gobjectSignalQueryPointer.pointed.itype
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectSignalQueryPointer.pointed.itype = value
         }
@@ -69,6 +73,7 @@ public class SignalQuery(
     public var signalFlags: SignalFlags
         get() = gobjectSignalQueryPointer.pointed.signal_flags.run {
             SignalFlags(this)}
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectSignalQueryPointer.pointed.signal_flags = value.mask
         }
@@ -78,6 +83,7 @@ public class SignalQuery(
      */
     public var returnType: GType
         get() = gobjectSignalQueryPointer.pointed.return_type
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectSignalQueryPointer.pointed.return_type = value
         }
@@ -87,6 +93,7 @@ public class SignalQuery(
      */
     public var nParams: guint
         get() = gobjectSignalQueryPointer.pointed.n_params
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectSignalQueryPointer.pointed.n_params = value
         }

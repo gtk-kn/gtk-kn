@@ -13,6 +13,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_48
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GInputMessage
 import org.gtkkn.native.gobject.gint
@@ -62,6 +63,7 @@ public class InputMessage(
     public var address: SocketAddress?
         get() = gioInputMessagePointer.pointed.address?.run {
             SocketAddress(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             gioInputMessagePointer.pointed.address = value?.gioSocketAddressPointer?.reinterpret()
         }
@@ -71,6 +73,7 @@ public class InputMessage(
      */
     public var numVectors: guint
         get() = gioInputMessagePointer.pointed.num_vectors
+        @UnsafeFieldSetter
         set(`value`) {
             gioInputMessagePointer.pointed.num_vectors = value
         }
@@ -81,6 +84,7 @@ public class InputMessage(
      */
     public var bytesReceived: gsize
         get() = gioInputMessagePointer.pointed.bytes_received
+        @UnsafeFieldSetter
         set(`value`) {
             gioInputMessagePointer.pointed.bytes_received = value
         }
@@ -91,6 +95,7 @@ public class InputMessage(
      */
     public var flags: gint
         get() = gioInputMessagePointer.pointed.flags
+        @UnsafeFieldSetter
         set(`value`) {
             gioInputMessagePointer.pointed.flags = value
         }

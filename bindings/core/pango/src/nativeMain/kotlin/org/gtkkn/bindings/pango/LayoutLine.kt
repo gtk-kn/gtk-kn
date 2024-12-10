@@ -18,6 +18,7 @@ import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_10
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
@@ -60,6 +61,7 @@ public class LayoutLine(
     public var layout: Layout?
         get() = pangoLayoutLinePointer.pointed.layout?.run {
             Layout(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLayoutLinePointer.pointed.layout = value?.pangoLayoutPointer?.reinterpret()
         }
@@ -69,6 +71,7 @@ public class LayoutLine(
      */
     public var startIndex: gint
         get() = pangoLayoutLinePointer.pointed.start_index
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLayoutLinePointer.pointed.start_index = value
         }
@@ -78,6 +81,7 @@ public class LayoutLine(
      */
     public var length: gint
         get() = pangoLayoutLinePointer.pointed.length
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLayoutLinePointer.pointed.length = value
         }
@@ -89,6 +93,7 @@ public class LayoutLine(
     public var runs: SList?
         get() = pangoLayoutLinePointer.pointed.runs?.run {
             SList(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLayoutLinePointer.pointed.runs = value?.glibSListPointer
         }
@@ -98,6 +103,7 @@ public class LayoutLine(
      */
     public var isParagraphStart: guint
         get() = pangoLayoutLinePointer.pointed.is_paragraph_start
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLayoutLinePointer.pointed.is_paragraph_start = value
         }
@@ -107,6 +113,7 @@ public class LayoutLine(
      */
     public var resolvedDir: guint
         get() = pangoLayoutLinePointer.pointed.resolved_dir
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLayoutLinePointer.pointed.resolved_dir = value
         }

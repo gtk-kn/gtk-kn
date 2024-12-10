@@ -10,6 +10,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint64
@@ -58,6 +59,7 @@ public class MessageBody(
      */
     public var length: gint64
         get() = soupMessageBodyPointer.pointed.length
+        @UnsafeFieldSetter
         set(`value`) {
             soupMessageBodyPointer.pointed.length = value
         }

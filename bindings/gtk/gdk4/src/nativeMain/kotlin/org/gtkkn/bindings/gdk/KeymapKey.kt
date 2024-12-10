@@ -11,6 +11,7 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkKeymapKey
 import org.gtkkn.native.gobject.gint
@@ -31,6 +32,7 @@ public class KeymapKey(
      */
     public var keycode: guint
         get() = gdkKeymapKeyPointer.pointed.keycode
+        @UnsafeFieldSetter
         set(`value`) {
             gdkKeymapKeyPointer.pointed.keycode = value
         }
@@ -43,6 +45,7 @@ public class KeymapKey(
      */
     public var group: gint
         get() = gdkKeymapKeyPointer.pointed.group
+        @UnsafeFieldSetter
         set(`value`) {
             gdkKeymapKeyPointer.pointed.group = value
         }
@@ -57,6 +60,7 @@ public class KeymapKey(
      */
     public var level: gint
         get() = gdkKeymapKeyPointer.pointed.level
+        @UnsafeFieldSetter
         set(`value`) {
             gdkKeymapKeyPointer.pointed.level = value
         }

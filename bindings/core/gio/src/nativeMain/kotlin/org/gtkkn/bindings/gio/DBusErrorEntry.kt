@@ -13,6 +13,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GDBusErrorEntry
 import org.gtkkn.native.glib.g_free
@@ -35,6 +36,7 @@ public class DBusErrorEntry(
      */
     public var errorCode: gint
         get() = gioDBusErrorEntryPointer.pointed.error_code
+        @UnsafeFieldSetter
         set(`value`) {
             gioDBusErrorEntryPointer.pointed.error_code = value
         }
@@ -44,6 +46,7 @@ public class DBusErrorEntry(
      */
     public var dbusErrorName: String?
         get() = gioDBusErrorEntryPointer.pointed.dbus_error_name?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gioDBusErrorEntryPointer.pointed.dbus_error_name?.let { g_free(it) }
             gioDBusErrorEntryPointer.pointed.dbus_error_name = value?.let { g_strdup(it) }

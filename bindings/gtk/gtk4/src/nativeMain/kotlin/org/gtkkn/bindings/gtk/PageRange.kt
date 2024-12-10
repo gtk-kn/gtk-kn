@@ -11,6 +11,7 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkPageRange
@@ -31,6 +32,7 @@ public class PageRange(
      */
     public var start: gint
         get() = gtkPageRangePointer.pointed.start
+        @UnsafeFieldSetter
         set(`value`) {
             gtkPageRangePointer.pointed.start = value
         }
@@ -40,6 +42,7 @@ public class PageRange(
      */
     public var end: gint
         get() = gtkPageRangePointer.pointed.end
+        @UnsafeFieldSetter
         set(`value`) {
             gtkPageRangePointer.pointed.end = value
         }

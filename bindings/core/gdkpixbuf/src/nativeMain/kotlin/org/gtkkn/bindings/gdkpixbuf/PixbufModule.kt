@@ -13,6 +13,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdkpixbuf.GdkPixbufModule
 import org.gtkkn.native.glib.g_free
@@ -94,6 +95,7 @@ public class PixbufModule(
      */
     public var moduleName: String?
         get() = gdkpixbufPixbufModulePointer.pointed.module_name?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gdkpixbufPixbufModulePointer.pointed.module_name?.let { g_free(it) }
             gdkpixbufPixbufModulePointer.pointed.module_name = value?.let { g_strdup(it) }
@@ -104,6 +106,7 @@ public class PixbufModule(
      */
     public var modulePath: String?
         get() = gdkpixbufPixbufModulePointer.pointed.module_path?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gdkpixbufPixbufModulePointer.pointed.module_path?.let { g_free(it) }
             gdkpixbufPixbufModulePointer.pointed.module_path = value?.let { g_strdup(it) }
@@ -115,6 +118,7 @@ public class PixbufModule(
     public var info: PixbufFormat?
         get() = gdkpixbufPixbufModulePointer.pointed.info?.run {
             PixbufFormat(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             gdkpixbufPixbufModulePointer.pointed.info = value?.gdkpixbufPixbufFormatPointer
         }

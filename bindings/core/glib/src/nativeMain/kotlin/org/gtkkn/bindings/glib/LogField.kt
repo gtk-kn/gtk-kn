@@ -14,6 +14,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_50
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GLogField
 import org.gtkkn.native.glib.g_free
@@ -46,6 +47,7 @@ public class LogField(
      */
     public var key: String?
         get() = glibLogFieldPointer.pointed.key?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             glibLogFieldPointer.pointed.key?.let { g_free(it) }
             glibLogFieldPointer.pointed.key = value?.let { g_strdup(it) }
@@ -56,6 +58,7 @@ public class LogField(
      */
     public var length: Long
         get() = glibLogFieldPointer.pointed.length
+        @UnsafeFieldSetter
         set(`value`) {
             glibLogFieldPointer.pointed.length = value
         }

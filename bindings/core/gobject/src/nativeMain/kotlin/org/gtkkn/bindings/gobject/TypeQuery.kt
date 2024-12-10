@@ -12,6 +12,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
@@ -35,6 +36,7 @@ public class TypeQuery(
      */
     public var type: GType
         get() = gobjectTypeQueryPointer.pointed.type
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectTypeQueryPointer.pointed.type = value
         }
@@ -44,6 +46,7 @@ public class TypeQuery(
      */
     public var typeName: String?
         get() = gobjectTypeQueryPointer.pointed.type_name?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectTypeQueryPointer.pointed.type_name?.let { g_free(it) }
             gobjectTypeQueryPointer.pointed.type_name = value?.let { g_strdup(it) }
@@ -54,6 +57,7 @@ public class TypeQuery(
      */
     public var classSize: guint
         get() = gobjectTypeQueryPointer.pointed.class_size
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectTypeQueryPointer.pointed.class_size = value
         }
@@ -63,6 +67,7 @@ public class TypeQuery(
      */
     public var instanceSize: guint
         get() = gobjectTypeQueryPointer.pointed.instance_size
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectTypeQueryPointer.pointed.instance_size = value
         }

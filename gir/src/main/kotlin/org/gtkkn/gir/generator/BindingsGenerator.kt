@@ -332,11 +332,12 @@ class BindingsGenerator(
         internal val GOBJECT_KG_TYPE = ClassName("org.gtkkn.extensions.gobject", "KGType")
         internal val GOBJECT_TYPE_COMPANION = ClassName("org.gtkkn.extensions.gobject", "TypeCompanion")
         internal val KG_TYPED_INTERFACE_TYPE = ClassName("org.gtkkn.extensions.gobject", "KGTyped")
+        internal val PROXY_INSTANCE_TYPE = ClassName("org.gtkkn.extensions.glib.cinterop", "ProxyInstance")
         internal val STATIC_STABLEREF_DESTROY = MemberName("org.gtkkn.extensions.glib", "staticStableRefDestroy")
         internal val TO_C_STRING_LIST = MemberName("org.gtkkn.extensions.common", "toCStringList")
         internal val TO_K_STRING_LIST = MemberName("org.gtkkn.extensions.common", "toKStringList")
         internal val TYPE_PROVIDER_INTERFACE_TYPE = ClassName("org.gtkkn.extensions.gobject", "TypeProvider")
-        internal val PROXY_INSTANCE_TYPE = ClassName("org.gtkkn.extensions.glib.cinterop", "ProxyInstance")
+        internal val UNSAFE_FIELD_SETTER_TYPE = ClassName("org.gtkkn.extensions.glib.annotations", "UnsafeFieldSetter")
 
         // gtk-kn marker interfaces
         internal val GLIB_BITFIELD_MARKER_TYPE = ClassName("org.gtkkn.extensions.glib", "Bitfield")

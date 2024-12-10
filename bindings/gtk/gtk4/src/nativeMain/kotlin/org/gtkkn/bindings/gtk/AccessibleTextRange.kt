@@ -12,6 +12,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gtk.GtkAccessibleTextRange
@@ -32,6 +33,7 @@ public class AccessibleTextRange(
      */
     public var start: gsize
         get() = gtkAccessibleTextRangePointer.pointed.start
+        @UnsafeFieldSetter
         set(`value`) {
             gtkAccessibleTextRangePointer.pointed.start = value
         }
@@ -41,6 +43,7 @@ public class AccessibleTextRange(
      */
     public var length: gsize
         get() = gtkAccessibleTextRangePointer.pointed.length
+        @UnsafeFieldSetter
         set(`value`) {
             gtkAccessibleTextRangePointer.pointed.length = value
         }

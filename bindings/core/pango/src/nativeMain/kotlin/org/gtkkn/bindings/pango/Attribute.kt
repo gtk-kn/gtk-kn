@@ -17,6 +17,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_20
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.guint
@@ -58,6 +59,7 @@ public class Attribute(
     public var klass: AttrClass?
         get() = pangoAttributePointer.pointed.klass?.run {
             AttrClass(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             pangoAttributePointer.pointed.klass = value?.pangoAttrClassPointer
         }
@@ -67,6 +69,7 @@ public class Attribute(
      */
     public var startIndex: guint
         get() = pangoAttributePointer.pointed.start_index
+        @UnsafeFieldSetter
         set(`value`) {
             pangoAttributePointer.pointed.start_index = value
         }
@@ -77,6 +80,7 @@ public class Attribute(
      */
     public var endIndex: guint
         get() = pangoAttributePointer.pointed.end_index
+        @UnsafeFieldSetter
         set(`value`) {
             pangoAttributePointer.pointed.end_index = value
         }

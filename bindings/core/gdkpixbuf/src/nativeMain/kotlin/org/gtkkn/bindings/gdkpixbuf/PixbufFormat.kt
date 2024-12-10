@@ -23,6 +23,7 @@ import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_6
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toKStringList
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdkpixbuf.GdkPixbufFormat
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_format_copy
@@ -69,6 +70,7 @@ public class PixbufFormat(
      */
     public var name: String?
         get() = gdkpixbufPixbufFormatPointer.pointed.name?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gdkpixbufPixbufFormatPointer.pointed.name?.let { g_free(it) }
             gdkpixbufPixbufFormatPointer.pointed.name = value?.let { g_strdup(it) }
@@ -80,6 +82,7 @@ public class PixbufFormat(
     public var signature: PixbufModulePattern?
         get() = gdkpixbufPixbufFormatPointer.pointed.signature?.run {
             PixbufModulePattern(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             gdkpixbufPixbufFormatPointer.pointed.signature = value?.gdkpixbufPixbufModulePatternPointer
         }
@@ -89,6 +92,7 @@ public class PixbufFormat(
      */
     public var domain: String?
         get() = gdkpixbufPixbufFormatPointer.pointed.domain?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gdkpixbufPixbufFormatPointer.pointed.domain?.let { g_free(it) }
             gdkpixbufPixbufFormatPointer.pointed.domain = value?.let { g_strdup(it) }
@@ -99,6 +103,7 @@ public class PixbufFormat(
      */
     public var description: String?
         get() = gdkpixbufPixbufFormatPointer.pointed.description?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gdkpixbufPixbufFormatPointer.pointed.description?.let { g_free(it) }
             gdkpixbufPixbufFormatPointer.pointed.description = value?.let { g_strdup(it) }
@@ -109,6 +114,7 @@ public class PixbufFormat(
      */
     public var flags: guint
         get() = gdkpixbufPixbufFormatPointer.pointed.flags
+        @UnsafeFieldSetter
         set(`value`) {
             gdkpixbufPixbufFormatPointer.pointed.flags = value
         }
@@ -118,6 +124,7 @@ public class PixbufFormat(
      */
     public var disabled: Boolean
         get() = gdkpixbufPixbufFormatPointer.pointed.disabled.asBoolean()
+        @UnsafeFieldSetter
         set(`value`) {
             gdkpixbufPixbufFormatPointer.pointed.disabled = value.asGBoolean()
         }
@@ -128,6 +135,7 @@ public class PixbufFormat(
      */
     public var license: String?
         get() = gdkpixbufPixbufFormatPointer.pointed.license?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gdkpixbufPixbufFormatPointer.pointed.license?.let { g_free(it) }
             gdkpixbufPixbufFormatPointer.pointed.license = value?.let { g_strdup(it) }

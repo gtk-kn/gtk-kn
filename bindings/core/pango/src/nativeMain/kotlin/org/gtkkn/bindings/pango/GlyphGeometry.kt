@@ -11,6 +11,7 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.pango.PangoGlyphGeometry
 
@@ -42,6 +43,7 @@ public class GlyphGeometry(
      */
     public var width: GlyphUnit
         get() = pangoGlyphGeometryPointer.pointed.width
+        @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphGeometryPointer.pointed.width = value
         }
@@ -51,6 +53,7 @@ public class GlyphGeometry(
      */
     public var xOffset: GlyphUnit
         get() = pangoGlyphGeometryPointer.pointed.x_offset
+        @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphGeometryPointer.pointed.x_offset = value
         }
@@ -60,6 +63,7 @@ public class GlyphGeometry(
      */
     public var yOffset: GlyphUnit
         get() = pangoGlyphGeometryPointer.pointed.y_offset
+        @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphGeometryPointer.pointed.y_offset = value
         }

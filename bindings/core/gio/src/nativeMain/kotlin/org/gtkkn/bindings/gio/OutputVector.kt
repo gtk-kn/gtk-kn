@@ -12,6 +12,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GOutputVector
 import org.gtkkn.native.gobject.gsize
@@ -40,6 +41,7 @@ public class OutputVector(
      */
     public var size: gsize
         get() = gioOutputVectorPointer.pointed.size
+        @UnsafeFieldSetter
         set(`value`) {
             gioOutputVectorPointer.pointed.size = value
         }

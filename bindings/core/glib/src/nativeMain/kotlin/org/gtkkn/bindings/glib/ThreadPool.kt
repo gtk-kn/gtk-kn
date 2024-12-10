@@ -23,6 +23,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_10
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_70
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.glib.GError
@@ -90,6 +91,7 @@ public class ThreadPool(
      */
     public var exclusive: Boolean
         get() = glibThreadPoolPointer.pointed.exclusive.asBoolean()
+        @UnsafeFieldSetter
         set(`value`) {
             glibThreadPoolPointer.pointed.exclusive = value.asGBoolean()
         }

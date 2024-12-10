@@ -12,6 +12,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GArray
 import org.gtkkn.native.glib.g_free
@@ -59,6 +60,7 @@ public class Array(
      */
     public var `data`: String?
         get() = glibArrayPointer.pointed.data?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             glibArrayPointer.pointed.data?.let { g_free(it) }
             glibArrayPointer.pointed.data = value?.let { g_strdup(it) }
@@ -70,6 +72,7 @@ public class Array(
      */
     public var len: guint
         get() = glibArrayPointer.pointed.len
+        @UnsafeFieldSetter
         set(`value`) {
             glibArrayPointer.pointed.len = value
         }

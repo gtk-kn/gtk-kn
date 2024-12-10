@@ -12,6 +12,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
@@ -36,6 +37,7 @@ public class AttrString(
      */
     public var `value`: String?
         get() = pangoAttrStringPointer.pointed.value?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             pangoAttrStringPointer.pointed.value?.let { g_free(it) }
             pangoAttrStringPointer.pointed.value = value?.let { g_strdup(it) }

@@ -18,6 +18,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
 import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.guint16
@@ -47,6 +48,7 @@ public class Color(
      */
     public var red: guint16
         get() = pangoColorPointer.pointed.red
+        @UnsafeFieldSetter
         set(`value`) {
             pangoColorPointer.pointed.red = value
         }
@@ -56,6 +58,7 @@ public class Color(
      */
     public var green: guint16
         get() = pangoColorPointer.pointed.green
+        @UnsafeFieldSetter
         set(`value`) {
             pangoColorPointer.pointed.green = value
         }
@@ -65,6 +68,7 @@ public class Color(
      */
     public var blue: guint16
         get() = pangoColorPointer.pointed.blue
+        @UnsafeFieldSetter
         set(`value`) {
             pangoColorPointer.pointed.blue = value
         }

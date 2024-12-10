@@ -13,6 +13,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_8
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
@@ -40,6 +41,7 @@ public class AttrSize(
      */
     public var size: gint
         get() = pangoAttrSizePointer.pointed.size
+        @UnsafeFieldSetter
         set(`value`) {
             pangoAttrSizePointer.pointed.size = value
         }
@@ -52,6 +54,7 @@ public class AttrSize(
      */
     public var absolute: guint
         get() = pangoAttrSizePointer.pointed.absolute
+        @UnsafeFieldSetter
         set(`value`) {
             pangoAttrSizePointer.pointed.absolute = value
         }

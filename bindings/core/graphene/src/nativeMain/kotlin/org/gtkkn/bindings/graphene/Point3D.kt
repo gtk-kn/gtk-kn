@@ -16,6 +16,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_4
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
@@ -56,6 +57,7 @@ public class Point3D(
      */
     public var x: gfloat
         get() = graphenePoint3DPointer.pointed.x
+        @UnsafeFieldSetter
         set(`value`) {
             graphenePoint3DPointer.pointed.x = value
         }
@@ -65,6 +67,7 @@ public class Point3D(
      */
     public var y: gfloat
         get() = graphenePoint3DPointer.pointed.y
+        @UnsafeFieldSetter
         set(`value`) {
             graphenePoint3DPointer.pointed.y = value
         }
@@ -74,6 +77,7 @@ public class Point3D(
      */
     public var z: gfloat
         get() = graphenePoint3DPointer.pointed.z
+        @UnsafeFieldSetter
         set(`value`) {
             graphenePoint3DPointer.pointed.z = value
         }

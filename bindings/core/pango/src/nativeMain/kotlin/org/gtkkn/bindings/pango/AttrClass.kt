@@ -11,6 +11,7 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.pango.PangoAttrClass
 
@@ -39,6 +40,7 @@ public class AttrClass(
     public var type: AttrType
         get() = pangoAttrClassPointer.pointed.type.run {
             AttrType.fromNativeValue(this)}
+        @UnsafeFieldSetter
         set(`value`) {
             pangoAttrClassPointer.pointed.type = value.nativeValue
         }

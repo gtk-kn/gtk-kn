@@ -11,6 +11,7 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GByteArray
 import org.gtkkn.native.gobject.GType
@@ -51,6 +52,7 @@ public class ByteArray(
      */
     public var len: guint
         get() = glibByteArrayPointer.pointed.len
+        @UnsafeFieldSetter
         set(`value`) {
             glibByteArrayPointer.pointed.len = value
         }

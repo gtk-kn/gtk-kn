@@ -54,6 +54,11 @@ kotlin {
             mustRunAfter(girTask)
         }
     }
+    sourceSets {
+        all {
+            languageSettings.optIn("org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter")
+        }
+    }
 }
 
 tasks {

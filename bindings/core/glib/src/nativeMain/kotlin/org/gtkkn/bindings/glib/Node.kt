@@ -16,6 +16,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GNode
 import org.gtkkn.native.glib.g_node_child_position
@@ -69,6 +70,7 @@ public class Node(
     public var next: Node?
         get() = glibNodePointer.pointed.next?.run {
             Node(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             glibNodePointer.pointed.next = value?.glibNodePointer
         }
@@ -79,6 +81,7 @@ public class Node(
     public var prev: Node?
         get() = glibNodePointer.pointed.prev?.run {
             Node(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             glibNodePointer.pointed.prev = value?.glibNodePointer
         }
@@ -90,6 +93,7 @@ public class Node(
     public var parent: Node?
         get() = glibNodePointer.pointed.parent?.run {
             Node(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             glibNodePointer.pointed.parent = value?.glibNodePointer
         }
@@ -102,6 +106,7 @@ public class Node(
     public var children: Node?
         get() = glibNodePointer.pointed.children?.run {
             Node(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             glibNodePointer.pointed.children = value?.glibNodePointer
         }

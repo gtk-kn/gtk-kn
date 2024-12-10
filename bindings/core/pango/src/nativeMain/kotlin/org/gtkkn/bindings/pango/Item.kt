@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
@@ -38,6 +39,7 @@ public class Item(
      */
     public var offset: gint
         get() = pangoItemPointer.pointed.offset
+        @UnsafeFieldSetter
         set(`value`) {
             pangoItemPointer.pointed.offset = value
         }
@@ -47,6 +49,7 @@ public class Item(
      */
     public var length: gint
         get() = pangoItemPointer.pointed.length
+        @UnsafeFieldSetter
         set(`value`) {
             pangoItemPointer.pointed.length = value
         }
@@ -56,6 +59,7 @@ public class Item(
      */
     public var numChars: gint
         get() = pangoItemPointer.pointed.num_chars
+        @UnsafeFieldSetter
         set(`value`) {
             pangoItemPointer.pointed.num_chars = value
         }

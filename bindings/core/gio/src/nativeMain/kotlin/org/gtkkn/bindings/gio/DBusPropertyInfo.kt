@@ -15,6 +15,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GDBusPropertyInfo
 import org.gtkkn.native.gio.g_dbus_property_info_get_type
@@ -46,6 +47,7 @@ public class DBusPropertyInfo(
      */
     public var refCount: gint
         get() = gioDBusPropertyInfoPointer.pointed.ref_count
+        @UnsafeFieldSetter
         set(`value`) {
             gioDBusPropertyInfoPointer.pointed.ref_count = value
         }
@@ -55,6 +57,7 @@ public class DBusPropertyInfo(
      */
     public var name: String?
         get() = gioDBusPropertyInfoPointer.pointed.name?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gioDBusPropertyInfoPointer.pointed.name?.let { g_free(it) }
             gioDBusPropertyInfoPointer.pointed.name = value?.let { g_strdup(it) }
@@ -65,6 +68,7 @@ public class DBusPropertyInfo(
      */
     public var signature: String?
         get() = gioDBusPropertyInfoPointer.pointed.signature?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gioDBusPropertyInfoPointer.pointed.signature?.let { g_free(it) }
             gioDBusPropertyInfoPointer.pointed.signature = value?.let { g_strdup(it) }
@@ -76,6 +80,7 @@ public class DBusPropertyInfo(
     public var flags: DBusPropertyInfoFlags
         get() = gioDBusPropertyInfoPointer.pointed.flags.run {
             DBusPropertyInfoFlags(this)}
+        @UnsafeFieldSetter
         set(`value`) {
             gioDBusPropertyInfoPointer.pointed.flags = value.mask
         }

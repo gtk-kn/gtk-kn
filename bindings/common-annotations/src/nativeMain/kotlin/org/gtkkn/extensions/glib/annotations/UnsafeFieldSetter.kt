@@ -20,9 +20,13 @@
  * SOFTWARE.
  */
 
-package org.gtkkn.extensions.glib
+package org.gtkkn.extensions.glib.annotations
 
-/**
- * Marker interface for wrapper classes that represent C structs.
- */
-public interface Record
+@RequiresOptIn(
+    level = RequiresOptIn.Level.ERROR,
+    message = "This declaration needs opt-in. Accessing writable fields directly may require updating related " +
+        "struct state, ensuring thread-safety, or using specific mutexes. Use with caution.",
+)
+@Retention(AnnotationRetention.BINARY)
+@Target(AnnotationTarget.PROPERTY_SETTER)
+public annotation class UnsafeFieldSetter

@@ -9,6 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.g_error_copy
@@ -42,6 +43,7 @@ public class Error(
      */
     public var domain: Quark
         get() = glibErrorPointer.pointed.domain
+        @UnsafeFieldSetter
         set(`value`) {
             glibErrorPointer.pointed.domain = value
         }
@@ -51,6 +53,7 @@ public class Error(
      */
     public var code: gint
         get() = glibErrorPointer.pointed.code
+        @UnsafeFieldSetter
         set(`value`) {
             glibErrorPointer.pointed.code = value
         }
@@ -60,6 +63,7 @@ public class Error(
      */
     public var message: String?
         get() = glibErrorPointer.pointed.message?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             glibErrorPointer.pointed.message?.let { g_free(it) }
             glibErrorPointer.pointed.message = value?.let { g_strdup(it) }

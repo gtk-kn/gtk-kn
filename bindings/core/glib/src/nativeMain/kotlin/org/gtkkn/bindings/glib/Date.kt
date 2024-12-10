@@ -11,6 +11,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_10
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_56
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_6
 import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GDate
 import org.gtkkn.native.glib.g_date_add_days
@@ -121,6 +122,7 @@ public class Date(
      */
     public var julianDays: guint
         get() = glibDatePointer.pointed.julian_days
+        @UnsafeFieldSetter
         set(`value`) {
             glibDatePointer.pointed.julian_days = value
         }
@@ -130,6 +132,7 @@ public class Date(
      */
     public var julian: guint
         get() = glibDatePointer.pointed.julian
+        @UnsafeFieldSetter
         set(`value`) {
             glibDatePointer.pointed.julian = value
         }
@@ -139,6 +142,7 @@ public class Date(
      */
     public var dmy: guint
         get() = glibDatePointer.pointed.dmy
+        @UnsafeFieldSetter
         set(`value`) {
             glibDatePointer.pointed.dmy = value
         }
@@ -149,6 +153,7 @@ public class Date(
      */
     public var day: guint
         get() = glibDatePointer.pointed.day
+        @UnsafeFieldSetter
         set(`value`) {
             glibDatePointer.pointed.day = value
         }
@@ -159,6 +164,7 @@ public class Date(
      */
     public var month: guint
         get() = glibDatePointer.pointed.month
+        @UnsafeFieldSetter
         set(`value`) {
             glibDatePointer.pointed.month = value
         }
@@ -168,6 +174,7 @@ public class Date(
      */
     public var year: guint
         get() = glibDatePointer.pointed.year
+        @UnsafeFieldSetter
         set(`value`) {
             glibDatePointer.pointed.year = value
         }

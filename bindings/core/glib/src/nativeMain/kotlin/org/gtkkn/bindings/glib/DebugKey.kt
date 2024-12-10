@@ -12,6 +12,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GDebugKey
 import org.gtkkn.native.glib.g_free
@@ -33,6 +34,7 @@ public class DebugKey(
      */
     public var key: String?
         get() = glibDebugKeyPointer.pointed.key?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             glibDebugKeyPointer.pointed.key?.let { g_free(it) }
             glibDebugKeyPointer.pointed.key = value?.let { g_strdup(it) }
@@ -43,6 +45,7 @@ public class DebugKey(
      */
     public var `value`: guint
         get() = glibDebugKeyPointer.pointed.value
+        @UnsafeFieldSetter
         set(`value`) {
             glibDebugKeyPointer.pointed.value = value
         }

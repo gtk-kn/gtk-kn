@@ -12,6 +12,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.pango.PangoAttrLanguage
 import org.gtkkn.native.pango.pango_attr_language_new
@@ -36,6 +37,7 @@ public class AttrLanguage(
     public var `value`: Language?
         get() = pangoAttrLanguagePointer.pointed.value?.run {
             Language(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             pangoAttrLanguagePointer.pointed.value = value?.pangoLanguagePointer
         }

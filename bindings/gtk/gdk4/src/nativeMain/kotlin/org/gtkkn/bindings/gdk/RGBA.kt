@@ -16,6 +16,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkRGBA
 import org.gtkkn.native.gdk.gdk_rgba_copy
@@ -56,6 +57,7 @@ public class RGBA(
      */
     public var red: gfloat
         get() = gdkRGBAPointer.pointed.red
+        @UnsafeFieldSetter
         set(`value`) {
             gdkRGBAPointer.pointed.red = value
         }
@@ -65,6 +67,7 @@ public class RGBA(
      */
     public var green: gfloat
         get() = gdkRGBAPointer.pointed.green
+        @UnsafeFieldSetter
         set(`value`) {
             gdkRGBAPointer.pointed.green = value
         }
@@ -74,6 +77,7 @@ public class RGBA(
      */
     public var blue: gfloat
         get() = gdkRGBAPointer.pointed.blue
+        @UnsafeFieldSetter
         set(`value`) {
             gdkRGBAPointer.pointed.blue = value
         }
@@ -84,6 +88,7 @@ public class RGBA(
      */
     public var alpha: gfloat
         get() = gdkRGBAPointer.pointed.alpha
+        @UnsafeFieldSetter
         set(`value`) {
             gdkRGBAPointer.pointed.alpha = value
         }

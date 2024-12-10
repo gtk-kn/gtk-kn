@@ -12,6 +12,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
@@ -33,6 +34,7 @@ public class EnumValue(
      */
     public var `value`: gint
         get() = gobjectEnumValuePointer.pointed.value
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectEnumValuePointer.pointed.value = value
         }
@@ -42,6 +44,7 @@ public class EnumValue(
      */
     public var valueName: String?
         get() = gobjectEnumValuePointer.pointed.value_name?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectEnumValuePointer.pointed.value_name?.let { g_free(it) }
             gobjectEnumValuePointer.pointed.value_name = value?.let { g_strdup(it) }
@@ -52,6 +55,7 @@ public class EnumValue(
      */
     public var valueNick: String?
         get() = gobjectEnumValuePointer.pointed.value_nick?.toKString()
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectEnumValuePointer.pointed.value_nick?.let { g_free(it) }
             gobjectEnumValuePointer.pointed.value_nick = value?.let { g_strdup(it) }

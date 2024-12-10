@@ -13,6 +13,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_44
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GOutputMessage
 import org.gtkkn.native.gobject.guint
@@ -45,6 +46,7 @@ public class OutputMessage(
     public var address: SocketAddress?
         get() = gioOutputMessagePointer.pointed.address?.run {
             SocketAddress(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             gioOutputMessagePointer.pointed.address = value?.gioSocketAddressPointer?.reinterpret()
         }
@@ -55,6 +57,7 @@ public class OutputMessage(
     public var vectors: OutputVector?
         get() = gioOutputMessagePointer.pointed.vectors?.run {
             OutputVector(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             gioOutputMessagePointer.pointed.vectors = value?.gioOutputVectorPointer
         }
@@ -64,6 +67,7 @@ public class OutputMessage(
      */
     public var numVectors: guint
         get() = gioOutputMessagePointer.pointed.num_vectors
+        @UnsafeFieldSetter
         set(`value`) {
             gioOutputMessagePointer.pointed.num_vectors = value
         }
@@ -74,6 +78,7 @@ public class OutputMessage(
      */
     public var bytesSent: guint
         get() = gioOutputMessagePointer.pointed.bytes_sent
+        @UnsafeFieldSetter
         set(`value`) {
             gioOutputMessagePointer.pointed.bytes_sent = value
         }
@@ -83,6 +88,7 @@ public class OutputMessage(
      */
     public var numControlMessages: guint
         get() = gioOutputMessagePointer.pointed.num_control_messages
+        @UnsafeFieldSetter
         set(`value`) {
             gioOutputMessagePointer.pointed.num_control_messages = value
         }

@@ -16,6 +16,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GHookList
 import org.gtkkn.native.glib.g_hook_list_clear
@@ -47,6 +48,7 @@ public class HookList(
      */
     public var seqId: gulong
         get() = glibHookListPointer.pointed.seq_id
+        @UnsafeFieldSetter
         set(`value`) {
             glibHookListPointer.pointed.seq_id = value
         }
@@ -56,6 +58,7 @@ public class HookList(
      */
     public var hookSize: guint
         get() = glibHookListPointer.pointed.hook_size
+        @UnsafeFieldSetter
         set(`value`) {
             glibHookListPointer.pointed.hook_size = value
         }
@@ -65,6 +68,7 @@ public class HookList(
      */
     public var isSetup: guint
         get() = glibHookListPointer.pointed.is_setup
+        @UnsafeFieldSetter
         set(`value`) {
             glibHookListPointer.pointed.is_setup = value
         }
@@ -75,6 +79,7 @@ public class HookList(
     public var hooks: Hook?
         get() = glibHookListPointer.pointed.hooks?.run {
             Hook(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             glibHookListPointer.pointed.hooks = value?.glibHookPointer
         }

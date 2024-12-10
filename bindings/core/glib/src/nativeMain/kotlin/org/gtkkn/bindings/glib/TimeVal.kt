@@ -17,6 +17,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_12
 import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GTimeVal
 import org.gtkkn.native.glib.g_time_val_add
@@ -47,6 +48,7 @@ public class TimeVal(
      */
     public var tvSec: glong
         get() = glibTimeValPointer.pointed.tv_sec
+        @UnsafeFieldSetter
         set(`value`) {
             glibTimeValPointer.pointed.tv_sec = value
         }
@@ -56,6 +58,7 @@ public class TimeVal(
      */
     public var tvUsec: glong
         get() = glibTimeValPointer.pointed.tv_usec
+        @UnsafeFieldSetter
         set(`value`) {
             glibTimeValPointer.pointed.tv_usec = value
         }

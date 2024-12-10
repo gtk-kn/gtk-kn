@@ -9,6 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.CompareDataFunc
 import org.gtkkn.bindings.glib.CompareDataFuncFunc
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GValueArray
@@ -63,6 +64,7 @@ public class ValueArray(
      */
     public var nValues: guint
         get() = gobjectValueArrayPointer.pointed.n_values
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectValueArrayPointer.pointed.n_values = value
         }
@@ -73,6 +75,7 @@ public class ValueArray(
     public var values: Value?
         get() = gobjectValueArrayPointer.pointed.values?.run {
             Value(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectValueArrayPointer.pointed.values = value?.gobjectValuePointer
         }

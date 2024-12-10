@@ -456,6 +456,7 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
             propertyBuilder.mutable(true)
             propertyBuilder.setter(
                 FunSpec.setterBuilder().apply {
+                    addAnnotation(BindingsGenerator.UNSAFE_FIELD_SETTER_TYPE)
                     addParameter("value", field.typeInfo.kotlinTypeName)
                     if (field.typeInfo is TypeInfo.KString) {
                         if (field.typeInfo.isCinteropNullable) {

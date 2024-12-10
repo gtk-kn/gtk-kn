@@ -910,7 +910,7 @@ class MetadataProcessorTest {
     }
 
     @Test
-    fun `test apply NAME argument to remove suffix with introspectable="0"`() {
+    fun `test apply NAME argument to remove suffix with introspectable=0`() {
         // Prepare the XML document
         val xmlContent =
             """

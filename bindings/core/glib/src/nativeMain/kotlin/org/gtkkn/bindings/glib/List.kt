@@ -15,6 +15,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_62
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GList
 import org.gtkkn.native.glib.g_list_alloc
@@ -73,6 +74,7 @@ public class List(
     public var next: List?
         get() = glibListPointer.pointed.next?.run {
             List(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             glibListPointer.pointed.next = value?.glibListPointer
         }
@@ -83,6 +85,7 @@ public class List(
     public var prev: List?
         get() = glibListPointer.pointed.prev?.run {
             List(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             glibListPointer.pointed.prev = value?.glibListPointer
         }

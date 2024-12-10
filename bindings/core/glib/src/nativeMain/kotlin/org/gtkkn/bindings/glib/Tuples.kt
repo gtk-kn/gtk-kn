@@ -13,6 +13,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GTuples
 import org.gtkkn.native.glib.g_tuples_destroy
@@ -39,6 +40,7 @@ public class Tuples(
      */
     public var len: guint
         get() = glibTuplesPointer.pointed.len
+        @UnsafeFieldSetter
         set(`value`) {
             glibTuplesPointer.pointed.len = value
         }

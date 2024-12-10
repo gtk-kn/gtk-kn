@@ -17,6 +17,7 @@ import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_2
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_20
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_6
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
@@ -52,6 +53,7 @@ public class GlyphItem(
     public var item: Item?
         get() = pangoGlyphItemPointer.pointed.item?.run {
             Item(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphItemPointer.pointed.item = value?.pangoItemPointer
         }
@@ -62,6 +64,7 @@ public class GlyphItem(
     public var glyphs: GlyphString?
         get() = pangoGlyphItemPointer.pointed.glyphs?.run {
             GlyphString(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphItemPointer.pointed.glyphs = value?.pangoGlyphStringPointer
         }
@@ -72,6 +75,7 @@ public class GlyphItem(
      */
     public var yOffset: gint
         get() = pangoGlyphItemPointer.pointed.y_offset
+        @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphItemPointer.pointed.y_offset = value
         }
@@ -82,6 +86,7 @@ public class GlyphItem(
      */
     public var startXOffset: gint
         get() = pangoGlyphItemPointer.pointed.start_x_offset
+        @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphItemPointer.pointed.start_x_offset = value
         }
@@ -92,6 +97,7 @@ public class GlyphItem(
      */
     public var endXOffset: gint
         get() = pangoGlyphItemPointer.pointed.end_x_offset
+        @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphItemPointer.pointed.end_x_offset = value
         }

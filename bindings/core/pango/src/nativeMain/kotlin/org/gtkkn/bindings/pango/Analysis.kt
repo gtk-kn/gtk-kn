@@ -13,6 +13,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.SList
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.guint8
 import org.gtkkn.native.pango.PangoAnalysis
@@ -38,6 +39,7 @@ public class Analysis(
     public var font: Font?
         get() = pangoAnalysisPointer.pointed.font?.run {
             Font(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             pangoAnalysisPointer.pointed.font = value?.pangoFontPointer?.reinterpret()
         }
@@ -47,6 +49,7 @@ public class Analysis(
      */
     public var level: guint8
         get() = pangoAnalysisPointer.pointed.level
+        @UnsafeFieldSetter
         set(`value`) {
             pangoAnalysisPointer.pointed.level = value
         }
@@ -56,6 +59,7 @@ public class Analysis(
      */
     public var gravity: guint8
         get() = pangoAnalysisPointer.pointed.gravity
+        @UnsafeFieldSetter
         set(`value`) {
             pangoAnalysisPointer.pointed.gravity = value
         }
@@ -65,6 +69,7 @@ public class Analysis(
      */
     public var flags: guint8
         get() = pangoAnalysisPointer.pointed.flags
+        @UnsafeFieldSetter
         set(`value`) {
             pangoAnalysisPointer.pointed.flags = value
         }
@@ -74,6 +79,7 @@ public class Analysis(
      */
     public var script: guint8
         get() = pangoAnalysisPointer.pointed.script
+        @UnsafeFieldSetter
         set(`value`) {
             pangoAnalysisPointer.pointed.script = value
         }
@@ -84,6 +90,7 @@ public class Analysis(
     public var language: Language?
         get() = pangoAnalysisPointer.pointed.language?.run {
             Language(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             pangoAnalysisPointer.pointed.language = value?.pangoLanguagePointer
         }
@@ -94,6 +101,7 @@ public class Analysis(
     public var extraAttrs: SList?
         get() = pangoAnalysisPointer.pointed.extra_attrs?.run {
             SList(reinterpret())}
+        @UnsafeFieldSetter
         set(`value`) {
             pangoAnalysisPointer.pointed.extra_attrs = value?.glibSListPointer
         }

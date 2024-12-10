@@ -11,6 +11,7 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskShadow
@@ -33,6 +34,7 @@ public class Shadow(
      */
     public var dx: gfloat
         get() = gskShadowPointer.pointed.dx
+        @UnsafeFieldSetter
         set(`value`) {
             gskShadowPointer.pointed.dx = value
         }
@@ -42,6 +44,7 @@ public class Shadow(
      */
     public var dy: gfloat
         get() = gskShadowPointer.pointed.dy
+        @UnsafeFieldSetter
         set(`value`) {
             gskShadowPointer.pointed.dy = value
         }
@@ -51,6 +54,7 @@ public class Shadow(
      */
     public var radius: gfloat
         get() = gskShadowPointer.pointed.radius
+        @UnsafeFieldSetter
         set(`value`) {
             gskShadowPointer.pointed.radius = value
         }

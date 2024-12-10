@@ -13,6 +13,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
@@ -45,6 +46,7 @@ public class TreeIter(
      */
     public var stamp: gint
         get() = gtkTreeIterPointer.pointed.stamp
+        @UnsafeFieldSetter
         set(`value`) {
             gtkTreeIterPointer.pointed.stamp = value
         }
