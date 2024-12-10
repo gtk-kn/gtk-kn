@@ -136,10 +136,7 @@ interface ConversionBlockGenerator {
 
                 is TypeInfo.GBoolean -> add("$safeCall.%M()", BindingsGenerator.AS_GBOOLEAN_FUNC)
                 is TypeInfo.GChar -> add("$safeCall.code.toByte()")
-                is TypeInfo.KString -> if (!typeInfo.immutable) {
-                    add("$safeCall.%M", BindingsGenerator.CSTR_FUNC)
-                }
-
+                is TypeInfo.KString -> add("$safeCall.let { %M(it) }", BindingsGenerator.G_STRDUP_FUNC)
                 is TypeInfo.Bitfield -> add("$safeCall.mask")
                 is TypeInfo.StringList -> add(
                     "$safeCall.%M(this)",

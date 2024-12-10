@@ -4,7 +4,6 @@ package org.gtkkn.bindings.glib
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -13,8 +12,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_58
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_62
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_80
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GDateTime
 import org.gtkkn.native.glib.g_date_time_add
 import org.gtkkn.native.glib.g_date_time_add_days
@@ -72,7 +70,6 @@ import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.gint64
 import org.gtkkn.native.gobject.guint
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * `GDateTime` is a structure that combines a Gregorian date and time
@@ -112,7 +109,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GLibVersion2_26
 public class DateTime(
     pointer: CPointer<GDateTime>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibDateTimePointer: CPointer<GDateTime> = pointer
 
     /**
@@ -750,7 +747,7 @@ public class DateTime(
     @GLibVersion2_26
     public fun unref(): Unit = g_date_time_unref(glibDateTimePointer.reinterpret())
 
-    public companion object : RecordCompanion<DateTime, GDateTime> {
+    public companion object {
         /**
          * Creates a new #GDateTime corresponding to the given date and time in
          * the time zone @tz.
@@ -1062,7 +1059,5 @@ public class DateTime(
          * @return the GType
          */
         public fun getType(): GType = g_date_time_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DateTime = DateTime(pointer.reinterpret())
     }
 }

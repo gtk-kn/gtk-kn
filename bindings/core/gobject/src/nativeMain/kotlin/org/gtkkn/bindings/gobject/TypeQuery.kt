@@ -1,18 +1,23 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Pair
 import kotlin.String
-import kotlinx.cinterop.CPointed
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
-import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.glib.g_free
+import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GTypeQuery
 import org.gtkkn.native.gobject.guint
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A structure holding information for a specific type.
@@ -21,7 +26,8 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class TypeQuery(
     pointer: CPointer<GTypeQuery>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gobjectTypeQueryPointer: CPointer<GTypeQuery> = pointer
 
     /**
@@ -35,11 +41,13 @@ public class TypeQuery(
 
     /**
      * the name of the type
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val typeName: String?
+    public var typeName: String?
         get() = gobjectTypeQueryPointer.pointed.type_name?.toKString()
+        set(`value`) {
+            gobjectTypeQueryPointer.pointed.type_name?.let { g_free(it) }
+            gobjectTypeQueryPointer.pointed.type_name = value?.let { g_strdup(it) }
+        }
 
     /**
      * the size of the class structure
@@ -59,7 +67,80 @@ public class TypeQuery(
             gobjectTypeQueryPointer.pointed.instance_size = value
         }
 
-    public companion object : RecordCompanion<TypeQuery, GTypeQuery> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TypeQuery = TypeQuery(pointer.reinterpret())
+    /**
+     * Allocate a new TypeQuery.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GTypeQuery>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
     }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to TypeQuery and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GTypeQuery>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new TypeQuery using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GTypeQuery>().ptr)
+
+    /**
+     * Allocate a new TypeQuery.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param type the #GType value of the type
+     * @param typeName the name of the type
+     * @param classSize the size of the class structure
+     * @param instanceSize the size of the instance structure
+     */
+    public constructor(
+        type: GType,
+        typeName: String?,
+        classSize: guint,
+        instanceSize: guint,
+    ) : this() {
+        this.type = type
+        this.typeName = typeName
+        this.classSize = classSize
+        this.instanceSize = instanceSize
+    }
+
+    /**
+     * Allocate a new TypeQuery using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param type the #GType value of the type
+     * @param typeName the name of the type
+     * @param classSize the size of the class structure
+     * @param instanceSize the size of the instance structure
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        type: GType,
+        typeName: String?,
+        classSize: guint,
+        instanceSize: guint,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.type = type
+        this.typeName = typeName
+        this.classSize = classSize
+        this.instanceSize = instanceSize
+    }
+
+    override fun toString(): String = "TypeQuery(type=$type, typeName=$typeName, classSize=$classSize, instanceSize=$instanceSize)"
 }

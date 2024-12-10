@@ -37,6 +37,7 @@ import org.gtkkn.native.gtk.gtk_actionable_set_detailed_action_name
  *
  * ## Skipped during bindings generation
  *
+ * - method `set_action_target`: Varargs parameter is not supported
  * - method `action-target`: Property has no getter nor setter
  */
 public interface Actionable : Interface, KGTyped {

@@ -89,6 +89,7 @@ import org.gtkkn.native.javascriptcore.jsc_value_typed_array_get_type
  * - parameter `setter`: GObject.Callback
  * - parameter `parameters`: Array parameter of type Value is not supported
  * - parameter `length`: length: Out parameter is not supported
+ * - constructor `new_array`: Varargs parameter is not supported
  * - parameter `data`: gpointer
  * - parameter `array`: Array parameter of type Value is not supported
  * - parameter `parameter_types`: Array parameter of type GType is not supported

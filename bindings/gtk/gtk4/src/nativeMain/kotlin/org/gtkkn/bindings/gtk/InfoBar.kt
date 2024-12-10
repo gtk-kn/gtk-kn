@@ -117,6 +117,11 @@ import org.gtkkn.native.gtk.gtk_info_bar_set_show_close_button
  * on the message type.
  * If the info bar shows a close button, that button will have the .close
  * style class applied.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `add_buttons`: Varargs parameter is not supported
+ * - constructor `new_with_buttons`: Varargs parameter is not supported
  */
 public open class InfoBar(
     pointer: CPointer<GtkInfoBar>,

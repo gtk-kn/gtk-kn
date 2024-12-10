@@ -5,7 +5,6 @@ import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -16,8 +15,7 @@ import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GSettingsSchemaSource
 import org.gtkkn.native.gio.g_settings_schema_source_get_default
 import org.gtkkn.native.gio.g_settings_schema_source_get_type
@@ -27,7 +25,6 @@ import org.gtkkn.native.gio.g_settings_schema_source_ref
 import org.gtkkn.native.gio.g_settings_schema_source_unref
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * This is an opaque structure type.  You may not access it directly.
@@ -41,7 +38,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GioVersion2_32
 public class SettingsSchemaSource(
     pointer: CPointer<GSettingsSchemaSource>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gioSettingsSchemaSourcePointer: CPointer<GSettingsSchemaSource> = pointer
 
     /**
@@ -83,7 +80,7 @@ public class SettingsSchemaSource(
     @GioVersion2_32
     public fun unref(): Unit = g_settings_schema_source_unref(gioSettingsSchemaSourcePointer.reinterpret())
 
-    public companion object : RecordCompanion<SettingsSchemaSource, GSettingsSchemaSource> {
+    public companion object {
         /**
          * Attempts to create a new schema source corresponding to the contents
          * of the given directory.
@@ -167,7 +164,5 @@ public class SettingsSchemaSource(
          * @return the GType
          */
         public fun getType(): GType = g_settings_schema_source_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SettingsSchemaSource = SettingsSchemaSource(pointer.reinterpret())
     }
 }

@@ -2,13 +2,11 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.File
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkCssSection
 import org.gtkkn.native.gtk.gtk_css_section_get_end_location
@@ -22,7 +20,6 @@ import org.gtkkn.native.gtk.gtk_css_section_ref
 import org.gtkkn.native.gtk.gtk_css_section_to_string
 import org.gtkkn.native.gtk.gtk_css_section_unref
 import kotlin.String as KotlinString
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 import org.gtkkn.bindings.glib.String as GlibString
 
 /**
@@ -33,7 +30,7 @@ import org.gtkkn.bindings.glib.String as GlibString
  */
 public class CssSection(
     pointer: CPointer<GtkCssSection>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gtkCssSectionPointer: CPointer<GtkCssSection> = pointer
 
     /**
@@ -113,7 +110,7 @@ public class CssSection(
      */
     public fun unref(): Unit = gtk_css_section_unref(gtkCssSectionPointer.reinterpret())
 
-    public companion object : RecordCompanion<CssSection, GtkCssSection> {
+    public companion object {
         /**
          * Creates a new `GtkCssSection` referring to the section
          * in the given `file` from the `start` location to the
@@ -136,7 +133,5 @@ public class CssSection(
          * @return the GType
          */
         public fun getType(): GType = gtk_css_section_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): CssSection = CssSection(pointer.reinterpret())
     }
 }

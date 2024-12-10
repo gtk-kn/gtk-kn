@@ -51,6 +51,8 @@ import org.gtkkn.native.gobject.GType
  *
  * ## Skipped during bindings generation
  *
+ * - function `new`: Varargs parameter is not supported
+ * - parameter `var_args`: va_list
  * - parameter `parameters`: GObject.Parameter
  *
  * @since 2.22

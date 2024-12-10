@@ -165,7 +165,9 @@ import org.gtkkn.native.gtk.gtk_dialog_set_response_sensitive
  *
  * ## Skipped during bindings generation
  *
+ * - method `add_buttons`: Varargs parameter is not supported
  * - method `use-header-bar`: Property has no getter nor setter
+ * - constructor `new_with_buttons`: Varargs parameter is not supported
  */
 public open class Dialog(
     pointer: CPointer<GtkDialog>,

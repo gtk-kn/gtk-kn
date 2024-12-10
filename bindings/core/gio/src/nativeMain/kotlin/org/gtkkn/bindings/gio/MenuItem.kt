@@ -36,6 +36,13 @@ import org.gtkkn.native.gobject.gint
 /**
  * #GMenuItem is an opaque structure type.  You must access it using the
  * functions below.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `get_attribute`: Varargs parameter is not supported
+ * - method `set_action_and_target`: Varargs parameter is not supported
+ * - method `set_attribute`: Varargs parameter is not supported
+ *
  * @since 2.32
  */
 @GioVersion2_32

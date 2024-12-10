@@ -5,7 +5,6 @@ import kotlin.Boolean
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -17,8 +16,7 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.pango.PangoAttrList
@@ -38,7 +36,6 @@ import org.gtkkn.native.pango.pango_attr_list_splice
 import org.gtkkn.native.pango.pango_attr_list_to_string
 import org.gtkkn.native.pango.pango_attr_list_unref
 import org.gtkkn.native.pango.pango_attr_list_update
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `PangoAttrList` represents a list of attributes that apply to a section
@@ -55,7 +52,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class AttrList(
     pointer: CPointer<PangoAttrList>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val pangoAttrListPointer: CPointer<PangoAttrList> = pointer
 
     /**
@@ -286,7 +283,7 @@ public class AttrList(
         add: gint,
     ): Unit = pango_attr_list_update(pangoAttrListPointer.reinterpret(), pos, remove, add)
 
-    public companion object : RecordCompanion<AttrList, PangoAttrList> {
+    public companion object {
         /**
          * Create a new empty attribute list with a reference
          * count of one.
@@ -317,7 +314,5 @@ public class AttrList(
          * @return the GType
          */
         public fun getType(): GType = pango_attr_list_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): AttrList = AttrList(pointer.reinterpret())
     }
 }

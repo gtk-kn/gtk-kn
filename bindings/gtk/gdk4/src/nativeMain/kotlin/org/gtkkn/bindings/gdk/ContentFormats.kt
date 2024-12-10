@@ -4,7 +4,6 @@ package org.gtkkn.bindings.gdk
 import kotlin.Boolean
 import kotlin.Unit
 import kotlin.collections.List
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
@@ -12,8 +11,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_4
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.toCStringList
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkContentFormats
 import org.gtkkn.native.gdk.gdk_content_formats_contain_gtype
 import org.gtkkn.native.gdk.gdk_content_formats_contain_mime_type
@@ -36,7 +34,6 @@ import org.gtkkn.native.gdk.gdk_content_formats_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.guint
 import kotlin.String as KotlinString
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 import org.gtkkn.bindings.glib.String as GlibString
 
 /**
@@ -80,7 +77,7 @@ import org.gtkkn.bindings.glib.String as GlibString
  */
 public class ContentFormats(
     pointer: CPointer<GdkContentFormats>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gdkContentFormatsPointer: CPointer<GdkContentFormats> = pointer
 
     /**
@@ -212,7 +209,7 @@ public class ContentFormats(
      */
     public fun unref(): Unit = gdk_content_formats_unref(gdkContentFormatsPointer.reinterpret())
 
-    public companion object : RecordCompanion<ContentFormats, GdkContentFormats> {
+    public companion object {
         /**
          * Creates a new `GdkContentFormats` from an array of mime types.
          *
@@ -262,7 +259,5 @@ public class ContentFormats(
          * @return the GType
          */
         public fun getType(): GType = gdk_content_formats_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ContentFormats = ContentFormats(pointer.reinterpret())
     }
 }

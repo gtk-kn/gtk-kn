@@ -31,6 +31,8 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GResolver
+import org.gtkkn.native.gio.g_resolver_free_addresses
+import org.gtkkn.native.gio.g_resolver_free_targets
 import org.gtkkn.native.gio.g_resolver_get_default
 import org.gtkkn.native.gio.g_resolver_get_timeout
 import org.gtkkn.native.gio.g_resolver_get_type
@@ -584,6 +586,30 @@ public open class Resolver(
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Frees @addresses (which should be the return value from
+         * g_resolver_lookup_by_name() or g_resolver_lookup_by_name_finish()).
+         * (This is a convenience method; you can also simply free the results
+         * by hand.)
+         *
+         * @param addresses a #GList of #GInetAddress
+         * @since 2.22
+         */
+        @GioVersion2_22
+        public fun freeAddresses(addresses: List): Unit = g_resolver_free_addresses(addresses.glibListPointer.reinterpret())
+
+        /**
+         * Frees @targets (which should be the return value from
+         * g_resolver_lookup_service() or g_resolver_lookup_service_finish()).
+         * (This is a convenience method; you can also simply free the
+         * results by hand.)
+         *
+         * @param targets a #GList of #GSrvTarget
+         * @since 2.22
+         */
+        @GioVersion2_22
+        public fun freeTargets(targets: List): Unit = g_resolver_free_targets(targets.glibListPointer.reinterpret())
 
         /**
          * Gets the default #GResolver. You should unref it when you are done

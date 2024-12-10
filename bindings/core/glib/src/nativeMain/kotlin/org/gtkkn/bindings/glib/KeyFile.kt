@@ -7,7 +7,6 @@ import kotlin.Result
 import kotlin.String
 import kotlin.Unit
 import kotlin.collections.List
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -26,11 +25,11 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_6
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toCStringList
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GKeyFile
 import org.gtkkn.native.glib.g_key_file_error_quark
+import org.gtkkn.native.glib.g_key_file_free
 import org.gtkkn.native.glib.g_key_file_get_boolean
 import org.gtkkn.native.glib.g_key_file_get_comment
 import org.gtkkn.native.glib.g_key_file_get_double
@@ -43,10 +42,12 @@ import org.gtkkn.native.glib.g_key_file_get_string
 import org.gtkkn.native.glib.g_key_file_get_uint64
 import org.gtkkn.native.glib.g_key_file_get_value
 import org.gtkkn.native.glib.g_key_file_has_group
+import org.gtkkn.native.glib.g_key_file_has_key
 import org.gtkkn.native.glib.g_key_file_load_from_bytes
 import org.gtkkn.native.glib.g_key_file_load_from_data
 import org.gtkkn.native.glib.g_key_file_load_from_file
 import org.gtkkn.native.glib.g_key_file_new
+import org.gtkkn.native.glib.g_key_file_ref
 import org.gtkkn.native.glib.g_key_file_remove_comment
 import org.gtkkn.native.glib.g_key_file_remove_group
 import org.gtkkn.native.glib.g_key_file_remove_key
@@ -71,7 +72,6 @@ import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.gint64
 import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gobject.guint64
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * `GKeyFile` parses .ini-like config files.
@@ -224,8 +224,18 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class KeyFile(
     pointer: CPointer<GKeyFile>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibKeyFilePointer: CPointer<GKeyFile> = pointer
+
+    /**
+     * Clears all keys and groups from @key_file, and decreases the
+     * reference count by 1. If the reference count reaches zero,
+     * frees the key file and all its allocated memory.
+     *
+     * @since 2.6
+     */
+    @GLibVersion2_6
+    public fun free(): Unit = g_key_file_free(glibKeyFilePointer.reinterpret())
 
     /**
      * Returns the value associated with @key under @group_name as a
@@ -520,6 +530,35 @@ public class KeyFile(
     public fun hasGroup(groupName: String): Boolean = g_key_file_has_group(glibKeyFilePointer.reinterpret(), groupName).asBoolean()
 
     /**
+     * Looks whether the key file has the key @key in the group
+     * @group_name.
+     *
+     * Note that this function does not follow the rules for #GError strictly;
+     * the return value both carries meaning and signals an error.  To use
+     * this function, you must pass a #GError pointer in @error, and check
+     * whether it is not null to see if an error occurred.
+     *
+     * Language bindings should use g_key_file_get_value() to test whether
+     * or not a key exists.
+     *
+     * @param groupName a group name
+     * @param key a key name
+     * @return true if @key is a part of @group_name, false otherwise
+     * @since 2.6
+     */
+    @GLibVersion2_6
+    public fun hasKey(groupName: String, key: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_key_file_has_key(glibKeyFilePointer.reinterpret(), groupName, key, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        }
+        else {
+            Result.success(gResult)
+        }
+    }
+
+    /**
      * Loads a key file from the data in @bytes into an empty #GKeyFile structure.
      * If the object cannot be created then %error is set to a #GKeyFileError.
      *
@@ -592,6 +631,16 @@ public class KeyFile(
             Result.success(gResult)
         }
     }
+
+    /**
+     * Increases the reference count of @key_file.
+     *
+     * @return the same @key_file.
+     * @since 2.32
+     */
+    @GLibVersion2_32
+    public fun ref(): KeyFile = g_key_file_ref(glibKeyFilePointer.reinterpret())!!.run {
+        KeyFile(reinterpret())}
 
     /**
      * Removes a comment above @key from @group_name.
@@ -912,7 +961,7 @@ public class KeyFile(
     @GLibVersion2_32
     public fun unref(): Unit = g_key_file_unref(glibKeyFilePointer.reinterpret())
 
-    public companion object : RecordCompanion<KeyFile, GKeyFile> {
+    public companion object {
         /**
          * Creates a new empty #GKeyFile object. Use
          * g_key_file_load_from_file(), g_key_file_load_from_data(),
@@ -932,7 +981,5 @@ public class KeyFile(
          * @return the GType
          */
         public fun getType(): GType = g_key_file_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): KeyFile = KeyFile(pointer.reinterpret())
     }
 }

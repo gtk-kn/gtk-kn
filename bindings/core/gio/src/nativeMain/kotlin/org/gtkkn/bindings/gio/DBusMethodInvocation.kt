@@ -32,6 +32,7 @@ import org.gtkkn.native.gio.g_dbus_method_invocation_return_error_literal
 import org.gtkkn.native.gio.g_dbus_method_invocation_return_gerror
 import org.gtkkn.native.gio.g_dbus_method_invocation_return_value
 import org.gtkkn.native.gio.g_dbus_method_invocation_return_value_with_unix_fd_list
+import org.gtkkn.native.gio.g_dbus_method_invocation_take_error
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 
@@ -44,6 +45,13 @@ import org.gtkkn.native.gobject.gint
  * it as an argument to the `handle_method_call()` function in a
  * [type@Gio.DBusInterfaceVTable] that was passed to
  * [method@Gio.DBusConnection.register_object].
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `get_user_data`: Return type gpointer is unsupported
+ * - method `return_error`: Varargs parameter is not supported
+ * - parameter `var_args`: va_list
+ *
  * @since 2.26
  */
 @GioVersion2_26
@@ -270,6 +278,20 @@ public open class DBusMethodInvocation(
      */
     @GioVersion2_30
     public open fun returnValueWithUnixFdList(parameters: Variant? = null, fdList: UnixFDList? = null): Unit = g_dbus_method_invocation_return_value_with_unix_fd_list(gioDBusMethodInvocationPointer.reinterpret(), parameters?.glibVariantPointer?.reinterpret(), fdList?.gioUnixFDListPointer?.reinterpret())
+
+    /**
+     * Like g_dbus_method_invocation_return_gerror() but takes ownership
+     * of @error so the caller does not need to free it.
+     *
+     * This method will take ownership of @invocation. See
+     * #GDBusInterfaceVTable for more information about the ownership of
+     * @invocation.
+     *
+     * @param error A #GError.
+     * @since 2.30
+     */
+    @GioVersion2_30
+    public open fun takeError(error: Error): Unit = g_dbus_method_invocation_take_error(gioDBusMethodInvocationPointer.reinterpret(), error.glibErrorPointer.reinterpret())
 
     public companion object : TypeCompanion<DBusMethodInvocation> {
         override val type: GeneratedClassKGType<DBusMethodInvocation> =

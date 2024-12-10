@@ -21,8 +21,6 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_18
-import org.gtkkn.bindings.gio.annotations.GioVersion2_20
-import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_28
@@ -30,20 +28,14 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.gio.annotations.GioVersion2_36
-import org.gtkkn.bindings.gio.annotations.GioVersion2_38
-import org.gtkkn.bindings.gio.annotations.GioVersion2_48
-import org.gtkkn.bindings.gio.annotations.GioVersion2_50
 import org.gtkkn.bindings.gio.annotations.GioVersion2_52
 import org.gtkkn.bindings.gio.annotations.GioVersion2_54
 import org.gtkkn.bindings.gio.annotations.GioVersion2_56
 import org.gtkkn.bindings.gio.annotations.GioVersion2_58
 import org.gtkkn.bindings.gio.annotations.GioVersion2_60
-import org.gtkkn.bindings.gio.annotations.GioVersion2_64
-import org.gtkkn.bindings.gio.annotations.GioVersion2_66
 import org.gtkkn.bindings.gio.annotations.GioVersion2_68
 import org.gtkkn.bindings.gio.annotations.GioVersion2_70
 import org.gtkkn.bindings.gio.annotations.GioVersion2_74
-import org.gtkkn.bindings.gio.annotations.GioVersion2_78
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.FileError
@@ -55,7 +47,6 @@ import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantType
 import org.gtkkn.bindings.gobject.Closure
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.bindings.gobject.Parameter
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
@@ -77,24 +68,6 @@ import org.gtkkn.native.gio.GSimpleAsyncResult
 import org.gtkkn.native.gio.GSocket
 import org.gtkkn.native.gio.GTask
 import org.gtkkn.native.gio.GVfs
-import org.gtkkn.native.gio.g_action_name_is_valid
-import org.gtkkn.native.gio.g_action_print_detailed_name
-import org.gtkkn.native.gio.g_app_info_create_from_commandline
-import org.gtkkn.native.gio.g_app_info_get_all
-import org.gtkkn.native.gio.g_app_info_get_all_for_type
-import org.gtkkn.native.gio.g_app_info_get_default_for_type
-import org.gtkkn.native.gio.g_app_info_get_default_for_type_async
-import org.gtkkn.native.gio.g_app_info_get_default_for_type_finish
-import org.gtkkn.native.gio.g_app_info_get_default_for_uri_scheme
-import org.gtkkn.native.gio.g_app_info_get_default_for_uri_scheme_async
-import org.gtkkn.native.gio.g_app_info_get_default_for_uri_scheme_finish
-import org.gtkkn.native.gio.g_app_info_get_fallback_for_type
-import org.gtkkn.native.gio.g_app_info_get_recommended_for_type
-import org.gtkkn.native.gio.g_app_info_launch_default_for_uri
-import org.gtkkn.native.gio.g_app_info_launch_default_for_uri_async
-import org.gtkkn.native.gio.g_app_info_launch_default_for_uri_finish
-import org.gtkkn.native.gio.g_app_info_reset_type_associations
-import org.gtkkn.native.gio.g_async_initable_newv_async
 import org.gtkkn.native.gio.g_bus_get
 import org.gtkkn.native.gio.g_bus_get_finish
 import org.gtkkn.native.gio.g_bus_get_sync
@@ -122,14 +95,6 @@ import org.gtkkn.native.gio.g_content_types_get_registered
 import org.gtkkn.native.gio.g_dbus_address_escape_value
 import org.gtkkn.native.gio.g_dbus_address_get_for_bus_sync
 import org.gtkkn.native.gio.g_dbus_address_get_stream
-import org.gtkkn.native.gio.g_dbus_error_encode_gerror
-import org.gtkkn.native.gio.g_dbus_error_get_remote_error
-import org.gtkkn.native.gio.g_dbus_error_is_remote_error
-import org.gtkkn.native.gio.g_dbus_error_new_for_dbus_error
-import org.gtkkn.native.gio.g_dbus_error_quark
-import org.gtkkn.native.gio.g_dbus_error_register_error
-import org.gtkkn.native.gio.g_dbus_error_strip_remote_error
-import org.gtkkn.native.gio.g_dbus_error_unregister_error
 import org.gtkkn.native.gio.g_dbus_escape_object_path
 import org.gtkkn.native.gio.g_dbus_generate_guid
 import org.gtkkn.native.gio.g_dbus_gvalue_to_gvariant
@@ -142,19 +107,6 @@ import org.gtkkn.native.gio.g_dbus_is_member_name
 import org.gtkkn.native.gio.g_dbus_is_name
 import org.gtkkn.native.gio.g_dbus_is_supported_address
 import org.gtkkn.native.gio.g_dbus_is_unique_name
-import org.gtkkn.native.gio.g_dtls_client_connection_new
-import org.gtkkn.native.gio.g_dtls_server_connection_new
-import org.gtkkn.native.gio.g_file_new_build_filenamev
-import org.gtkkn.native.gio.g_file_new_for_commandline_arg
-import org.gtkkn.native.gio.g_file_new_for_commandline_arg_and_cwd
-import org.gtkkn.native.gio.g_file_new_for_path
-import org.gtkkn.native.gio.g_file_new_for_uri
-import org.gtkkn.native.gio.g_file_new_tmp_async
-import org.gtkkn.native.gio.g_file_new_tmp_dir_async
-import org.gtkkn.native.gio.g_file_new_tmp_dir_finish
-import org.gtkkn.native.gio.g_file_parse_name
-import org.gtkkn.native.gio.g_icon_deserialize
-import org.gtkkn.native.gio.g_icon_new_for_string
 import org.gtkkn.native.gio.g_io_error_from_errno
 import org.gtkkn.native.gio.g_io_error_from_file_error
 import org.gtkkn.native.gio.g_io_error_quark
@@ -163,32 +115,18 @@ import org.gtkkn.native.gio.g_io_modules_scan_all_in_directory
 import org.gtkkn.native.gio.g_io_scheduler_cancel_all_jobs
 import org.gtkkn.native.gio.g_io_scheduler_push_job
 import org.gtkkn.native.gio.g_keyfile_settings_backend_new
-import org.gtkkn.native.gio.g_memory_monitor_dup_default
 import org.gtkkn.native.gio.g_memory_settings_backend_new
-import org.gtkkn.native.gio.g_network_monitor_get_default
 import org.gtkkn.native.gio.g_networking_init
 import org.gtkkn.native.gio.g_null_settings_backend_new
 import org.gtkkn.native.gio.g_pollable_source_new
 import org.gtkkn.native.gio.g_pollable_source_new_full
-import org.gtkkn.native.gio.g_power_profile_monitor_dup_default
-import org.gtkkn.native.gio.g_proxy_get_default_for_protocol
-import org.gtkkn.native.gio.g_proxy_resolver_get_default
-import org.gtkkn.native.gio.g_resolver_error_quark
-import org.gtkkn.native.gio.g_resource_error_quark
-import org.gtkkn.native.gio.g_resource_load
 import org.gtkkn.native.gio.g_resources_enumerate_children
 import org.gtkkn.native.gio.g_resources_lookup_data
 import org.gtkkn.native.gio.g_resources_open_stream
 import org.gtkkn.native.gio.g_resources_register
 import org.gtkkn.native.gio.g_resources_unregister
-import org.gtkkn.native.gio.g_settings_schema_source_get_default
 import org.gtkkn.native.gio.g_simple_async_report_gerror_in_idle
-import org.gtkkn.native.gio.g_tls_backend_get_default
-import org.gtkkn.native.gio.g_tls_channel_binding_error_quark
-import org.gtkkn.native.gio.g_tls_client_connection_new
-import org.gtkkn.native.gio.g_tls_error_quark
-import org.gtkkn.native.gio.g_tls_file_database_new
-import org.gtkkn.native.gio.g_tls_server_connection_new
+import org.gtkkn.native.gio.g_simple_async_report_take_gerror_in_idle
 import org.gtkkn.native.gio.g_unix_is_mount_path_system_internal
 import org.gtkkn.native.gio.g_unix_is_system_device_path
 import org.gtkkn.native.gio.g_unix_is_system_fs_type
@@ -228,31 +166,18 @@ import org.gtkkn.bindings.glib.List as GlibList
 /**
  * ## Skipped during bindings generation
  *
- * - parameter `action_name`: action_name: Out parameter is not supported
- * - function `bus_own_name`: g_bus_own_name is shadowedBy bus_own_name_with_closures
- * - function `bus_own_name_on_connection`: g_bus_own_name_on_connection is shadowedBy bus_own_name_on_connection_with_closures
- * - function `bus_watch_name`: g_bus_watch_name is shadowedBy bus_watch_name_with_closures
- * - function `bus_watch_name_on_connection`: g_bus_watch_name_on_connection is shadowedBy bus_watch_name_on_connection_with_closures
  * - parameter `data`: Array parameter of type guint8 is not supported
  * - parameter `out_guid`: out_guid: Out parameter is not supported
  * - parameter `out_guid`: out_guid: Out parameter is not supported
- * - parameter `annotations`: Array parameter of type DBusAnnotationInfo is not supported
- * - parameter `quark_volatile`: Unsupported pointer to primitive type
  * - parameter `bytes`: Array parameter of type guint8 is not supported
  * - function `dbus_unescape_object_path`: Array parameter of type guint8 is not supported
- * - parameter `iostream`: iostream: Out parameter is not supported
- * - parameter `iostream`: iostream: Out parameter is not supported
- * - parameter `parameters`: GObject.Parameter
- * - function `io_extension_point_implement`: Return type IOExtension is unsupported
- * - function `io_extension_point_lookup`: Return type IOExtensionPoint is unsupported
- * - function `io_extension_point_register`: Return type IOExtensionPoint is unsupported
  * - parameter `scope`: IOModuleScope
  * - parameter `scope`: IOModuleScope
  * - parameter `buffer`: Array parameter of type guint8 is not supported
  * - parameter `buffer`: Array parameter of type guint8 is not supported
  * - parameter `buffer`: Array parameter of type guint8 is not supported
  * - parameter `size`: size: Out parameter is not supported
- * - parameter `time_read`: time_read: Out parameter is not supported
+ * - function `simple_async_report_error_in_idle`: Varargs parameter is not supported
  * - parameter `time_read`: time_read: Out parameter is not supported
  * - parameter `time_read`: time_read: Out parameter is not supported
  * - parameter `time_read`: time_read: Out parameter is not supported
@@ -264,45 +189,29 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - record `ActionMapInterface`: glib type struct are ignored
  * - record `AppInfoIface`: glib type struct are ignored
  * - record `AppLaunchContextClass`: glib type struct are ignored
- * - record `AppLaunchContextPrivate`: Disguised records are ignored
  * - record `ApplicationClass`: glib type struct are ignored
  * - record `ApplicationCommandLineClass`: glib type struct are ignored
- * - record `ApplicationCommandLinePrivate`: Disguised records are ignored
- * - record `ApplicationPrivate`: Disguised records are ignored
  * - record `AsyncInitableIface`: glib type struct are ignored
  * - record `AsyncResultIface`: glib type struct are ignored
  * - record `BufferedInputStreamClass`: glib type struct are ignored
- * - record `BufferedInputStreamPrivate`: Disguised records are ignored
  * - record `BufferedOutputStreamClass`: glib type struct are ignored
- * - record `BufferedOutputStreamPrivate`: Disguised records are ignored
  * - record `CancellableClass`: glib type struct are ignored
- * - record `CancellablePrivate`: Disguised records are ignored
  * - record `CharsetConverterClass`: glib type struct are ignored
  * - record `ConverterIface`: glib type struct are ignored
  * - record `ConverterInputStreamClass`: glib type struct are ignored
- * - record `ConverterInputStreamPrivate`: Disguised records are ignored
  * - record `ConverterOutputStreamClass`: glib type struct are ignored
- * - record `ConverterOutputStreamPrivate`: Disguised records are ignored
  * - record `CredentialsClass`: glib type struct are ignored
  * - record `DBusInterfaceIface`: glib type struct are ignored
  * - record `DBusInterfaceSkeletonClass`: glib type struct are ignored
- * - record `DBusInterfaceSkeletonPrivate`: Disguised records are ignored
  * - record `DBusObjectIface`: glib type struct are ignored
  * - record `DBusObjectManagerClientClass`: glib type struct are ignored
- * - record `DBusObjectManagerClientPrivate`: Disguised records are ignored
  * - record `DBusObjectManagerIface`: glib type struct are ignored
  * - record `DBusObjectManagerServerClass`: glib type struct are ignored
- * - record `DBusObjectManagerServerPrivate`: Disguised records are ignored
  * - record `DBusObjectProxyClass`: glib type struct are ignored
- * - record `DBusObjectProxyPrivate`: Disguised records are ignored
  * - record `DBusObjectSkeletonClass`: glib type struct are ignored
- * - record `DBusObjectSkeletonPrivate`: Disguised records are ignored
  * - record `DBusProxyClass`: glib type struct are ignored
- * - record `DBusProxyPrivate`: Disguised records are ignored
  * - record `DataInputStreamClass`: glib type struct are ignored
- * - record `DataInputStreamPrivate`: Disguised records are ignored
  * - record `DataOutputStreamClass`: glib type struct are ignored
- * - record `DataOutputStreamPrivate`: Disguised records are ignored
  * - record `DatagramBasedInterface`: glib type struct are ignored
  * - record `DebugControllerDBusClass`: glib type struct are ignored
  * - record `DebugControllerInterface`: glib type struct are ignored
@@ -314,146 +223,91 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - record `DtlsServerConnectionInterface`: glib type struct are ignored
  * - record `EmblemClass`: glib type struct are ignored
  * - record `EmblemedIconClass`: glib type struct are ignored
- * - record `EmblemedIconPrivate`: Disguised records are ignored
  * - record `FileDescriptorBasedIface`: glib type struct are ignored
  * - record `FileEnumeratorClass`: glib type struct are ignored
- * - record `FileEnumeratorPrivate`: Disguised records are ignored
  * - record `FileIOStreamClass`: glib type struct are ignored
- * - record `FileIOStreamPrivate`: Disguised records are ignored
  * - record `FileIconClass`: glib type struct are ignored
  * - record `FileIface`: glib type struct are ignored
  * - record `FileInfoClass`: glib type struct are ignored
  * - record `FileInputStreamClass`: glib type struct are ignored
- * - record `FileInputStreamPrivate`: Disguised records are ignored
  * - record `FileMonitorClass`: glib type struct are ignored
- * - record `FileMonitorPrivate`: Disguised records are ignored
  * - record `FileOutputStreamClass`: glib type struct are ignored
- * - record `FileOutputStreamPrivate`: Disguised records are ignored
  * - record `FilenameCompleterClass`: glib type struct are ignored
  * - record `FilterInputStreamClass`: glib type struct are ignored
  * - record `FilterOutputStreamClass`: glib type struct are ignored
- * - record `IOExtension`: Disguised records are ignored
- * - record `IOExtensionPoint`: Disguised records are ignored
  * - record `IOModuleClass`: glib type struct are ignored
- * - record `IOModuleScope`: Disguised records are ignored
- * - record `IOSchedulerJob`: Disguised records are ignored
- * - record `IOStreamAdapter`: Disguised records are ignored
  * - record `IOStreamClass`: glib type struct are ignored
- * - record `IOStreamPrivate`: Disguised records are ignored
  * - record `IconIface`: glib type struct are ignored
  * - record `InetAddressClass`: glib type struct are ignored
  * - record `InetAddressMaskClass`: glib type struct are ignored
- * - record `InetAddressMaskPrivate`: Disguised records are ignored
- * - record `InetAddressPrivate`: Disguised records are ignored
  * - record `InetSocketAddressClass`: glib type struct are ignored
- * - record `InetSocketAddressPrivate`: Disguised records are ignored
  * - record `InitableIface`: glib type struct are ignored
  * - record `InputStreamClass`: glib type struct are ignored
- * - record `InputStreamPrivate`: Disguised records are ignored
  * - record `ListModelInterface`: glib type struct are ignored
  * - record `ListStoreClass`: glib type struct are ignored
  * - record `LoadableIconIface`: glib type struct are ignored
  * - record `MemoryInputStreamClass`: glib type struct are ignored
- * - record `MemoryInputStreamPrivate`: Disguised records are ignored
  * - record `MemoryMonitorInterface`: glib type struct are ignored
  * - record `MemoryOutputStreamClass`: glib type struct are ignored
- * - record `MemoryOutputStreamPrivate`: Disguised records are ignored
  * - record `MenuAttributeIterClass`: glib type struct are ignored
- * - record `MenuAttributeIterPrivate`: Disguised records are ignored
  * - record `MenuLinkIterClass`: glib type struct are ignored
- * - record `MenuLinkIterPrivate`: Disguised records are ignored
  * - record `MenuModelClass`: glib type struct are ignored
- * - record `MenuModelPrivate`: Disguised records are ignored
  * - record `MountIface`: glib type struct are ignored
  * - record `MountOperationClass`: glib type struct are ignored
- * - record `MountOperationPrivate`: Disguised records are ignored
  * - record `NativeSocketAddressClass`: glib type struct are ignored
- * - record `NativeSocketAddressPrivate`: Disguised records are ignored
  * - record `NativeVolumeMonitorClass`: glib type struct are ignored
  * - record `NetworkAddressClass`: glib type struct are ignored
- * - record `NetworkAddressPrivate`: Disguised records are ignored
  * - record `NetworkMonitorInterface`: glib type struct are ignored
  * - record `NetworkServiceClass`: glib type struct are ignored
- * - record `NetworkServicePrivate`: Disguised records are ignored
  * - record `OutputStreamClass`: glib type struct are ignored
- * - record `OutputStreamPrivate`: Disguised records are ignored
  * - record `PermissionClass`: glib type struct are ignored
- * - record `PermissionPrivate`: Disguised records are ignored
  * - record `PollableInputStreamInterface`: glib type struct are ignored
  * - record `PollableOutputStreamInterface`: glib type struct are ignored
  * - record `PowerProfileMonitorInterface`: glib type struct are ignored
  * - record `ProxyAddressClass`: glib type struct are ignored
  * - record `ProxyAddressEnumeratorClass`: glib type struct are ignored
- * - record `ProxyAddressEnumeratorPrivate`: Disguised records are ignored
- * - record `ProxyAddressPrivate`: Disguised records are ignored
  * - record `ProxyInterface`: glib type struct are ignored
  * - record `ProxyResolverInterface`: glib type struct are ignored
  * - record `RemoteActionGroupInterface`: glib type struct are ignored
  * - record `ResolverClass`: glib type struct are ignored
- * - record `ResolverPrivate`: Disguised records are ignored
  * - record `SeekableIface`: glib type struct are ignored
  * - record `SettingsBackendClass`: glib type struct are ignored
- * - record `SettingsBackendPrivate`: Disguised records are ignored
  * - record `SettingsClass`: glib type struct are ignored
- * - record `SettingsPrivate`: Disguised records are ignored
  * - record `SimpleActionGroupClass`: glib type struct are ignored
- * - record `SimpleActionGroupPrivate`: Disguised records are ignored
  * - record `SimpleAsyncResultClass`: glib type struct are ignored
  * - record `SimpleProxyResolverClass`: glib type struct are ignored
- * - record `SimpleProxyResolverPrivate`: Disguised records are ignored
  * - record `SocketAddressClass`: glib type struct are ignored
  * - record `SocketAddressEnumeratorClass`: glib type struct are ignored
  * - record `SocketClass`: glib type struct are ignored
  * - record `SocketClientClass`: glib type struct are ignored
- * - record `SocketClientPrivate`: Disguised records are ignored
  * - record `SocketConnectableIface`: glib type struct are ignored
  * - record `SocketConnectionClass`: glib type struct are ignored
- * - record `SocketConnectionPrivate`: Disguised records are ignored
  * - record `SocketControlMessageClass`: glib type struct are ignored
- * - record `SocketControlMessagePrivate`: Disguised records are ignored
  * - record `SocketListenerClass`: glib type struct are ignored
- * - record `SocketListenerPrivate`: Disguised records are ignored
- * - record `SocketPrivate`: Disguised records are ignored
  * - record `SocketServiceClass`: glib type struct are ignored
- * - record `SocketServicePrivate`: Disguised records are ignored
  * - record `TaskClass`: glib type struct are ignored
  * - record `TcpConnectionClass`: glib type struct are ignored
- * - record `TcpConnectionPrivate`: Disguised records are ignored
  * - record `TcpWrapperConnectionClass`: glib type struct are ignored
- * - record `TcpWrapperConnectionPrivate`: Disguised records are ignored
  * - record `ThemedIconClass`: glib type struct are ignored
  * - record `ThreadedResolverClass`: glib type struct are ignored
  * - record `ThreadedSocketServiceClass`: glib type struct are ignored
- * - record `ThreadedSocketServicePrivate`: Disguised records are ignored
  * - record `TlsBackendInterface`: glib type struct are ignored
  * - record `TlsCertificateClass`: glib type struct are ignored
- * - record `TlsCertificatePrivate`: Disguised records are ignored
  * - record `TlsClientConnectionInterface`: glib type struct are ignored
  * - record `TlsConnectionClass`: glib type struct are ignored
- * - record `TlsConnectionPrivate`: Disguised records are ignored
  * - record `TlsDatabaseClass`: glib type struct are ignored
- * - record `TlsDatabasePrivate`: Disguised records are ignored
  * - record `TlsFileDatabaseInterface`: glib type struct are ignored
  * - record `TlsInteractionClass`: glib type struct are ignored
- * - record `TlsInteractionPrivate`: Disguised records are ignored
  * - record `TlsPasswordClass`: glib type struct are ignored
- * - record `TlsPasswordPrivate`: Disguised records are ignored
  * - record `TlsServerConnectionInterface`: glib type struct are ignored
  * - record `UnixConnectionClass`: glib type struct are ignored
- * - record `UnixConnectionPrivate`: Disguised records are ignored
  * - record `UnixCredentialsMessageClass`: glib type struct are ignored
- * - record `UnixCredentialsMessagePrivate`: Disguised records are ignored
  * - record `UnixFDListClass`: glib type struct are ignored
- * - record `UnixFDListPrivate`: Disguised records are ignored
  * - record `UnixFDMessageClass`: glib type struct are ignored
- * - record `UnixFDMessagePrivate`: Disguised records are ignored
  * - record `UnixInputStreamClass`: glib type struct are ignored
- * - record `UnixInputStreamPrivate`: Disguised records are ignored
  * - record `UnixMountMonitorClass`: glib type struct are ignored
  * - record `UnixOutputStreamClass`: glib type struct are ignored
- * - record `UnixOutputStreamPrivate`: Disguised records are ignored
  * - record `UnixSocketAddressClass`: glib type struct are ignored
- * - record `UnixSocketAddressPrivate`: Disguised records are ignored
  * - record `VfsClass`: glib type struct are ignored
  * - record `VolumeIface`: glib type struct are ignored
  * - record `VolumeMonitorClass`: glib type struct are ignored
@@ -1746,353 +1600,6 @@ public object Gio {
     public const val VOLUME_MONITOR_EXTENSION_POINT_NAME: String = "gio-volume-monitor"
 
     /**
-     * Checks if @action_name is valid.
-     *
-     * @action_name is valid if it consists only of alphanumeric characters,
-     * plus '-' and '.'.  The empty string is not a valid action name.
-     *
-     * It is an error to call this function with a non-utf8 @action_name.
-     * @action_name must not be null.
-     *
-     * @param actionName a potential action name
-     * @return true if @action_name is valid
-     * @since 2.38
-     */
-    @GioVersion2_38
-    public fun actionNameIsValid(actionName: String): Boolean = g_action_name_is_valid(actionName).asBoolean()
-
-    /**
-     * Formats a detailed action name from @action_name and @target_value.
-     *
-     * It is an error to call this function with an invalid action name.
-     *
-     * This function is the opposite of g_action_parse_detailed_name().
-     * It will produce a string that can be parsed back to the @action_name
-     * and @target_value by that function.
-     *
-     * See that function for the types of strings that will be printed by
-     * this function.
-     *
-     * @param actionName a valid action name
-     * @param targetValue a #GVariant target value, or null
-     * @return a detailed format string
-     * @since 2.38
-     */
-    @GioVersion2_38
-    public fun actionPrintDetailedName(actionName: String, targetValue: Variant? = null): String = g_action_print_detailed_name(actionName, targetValue?.glibVariantPointer?.reinterpret())?.toKString() ?: error("Expected not null string")
-
-    /**
-     * Creates a new #GAppInfo from the given information.
-     *
-     * Note that for @commandline, the quoting rules of the Exec key of the
-     * [freedesktop.org Desktop Entry Specification](http://freedesktop.org/Standards/desktop-entry-spec)
-     * are applied. For example, if the @commandline contains
-     * percent-encoded URIs, the percent-character must be doubled in order to prevent it from
-     * being swallowed by Exec key unquoting. See the specification for exact quoting rules.
-     *
-     * @param commandline the commandline to use
-     * @param applicationName the application name, or null to use @commandline
-     * @param flags flags that can specify details of the created #GAppInfo
-     * @return new #GAppInfo for given command.
-     */
-    public fun appInfoCreateFromCommandline(
-        commandline: String,
-        applicationName: String? = null,
-        flags: AppInfoCreateFlags,
-    ): Result<AppInfo> = memScoped {
-        val gError = allocPointerTo<GError>()
-        val gResult = g_app_info_create_from_commandline(commandline, applicationName, flags.mask, gError.ptr)?.run {
-            AppInfo.wrap(reinterpret())}
-
-        return if (gError.pointed != null) {
-            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
-        }
-        else {
-            Result.success(checkNotNull(gResult))
-        }
-    }
-
-    /**
-     * Gets a list of all of the applications currently registered
-     * on this system.
-     *
-     * For desktop files, this includes applications that have
-     * `NoDisplay=true` set or are excluded from display by means
-     * of `OnlyShowIn` or `NotShowIn`. See g_app_info_should_show().
-     * The returned list does not include applications which have
-     * the `Hidden` key set.
-     *
-     * @return a newly allocated #GList of references to #GAppInfos.
-     */
-    public fun appInfoGetAll(): GlibList = g_app_info_get_all()!!.run {
-        GlibList(reinterpret())}
-
-    /**
-     * Gets a list of all #GAppInfos for a given content type,
-     * including the recommended and fallback #GAppInfos. See
-     * g_app_info_get_recommended_for_type() and
-     * g_app_info_get_fallback_for_type().
-     *
-     * @param contentType the content type to find a #GAppInfo for
-     * @return #GList of #GAppInfos
-     *     for given @content_type or null on error.
-     */
-    public fun appInfoGetAllForType(contentType: String): GlibList = g_app_info_get_all_for_type(contentType)!!.run {
-        GlibList(reinterpret())}
-
-    /**
-     * Gets the default #GAppInfo for a given content type.
-     *
-     * @param contentType the content type to find a #GAppInfo for
-     * @param mustSupportUris if true, the #GAppInfo is expected to
-     *     support URIs
-     * @return #GAppInfo for given @content_type or
-     *     null on error.
-     */
-    public fun appInfoGetDefaultForType(contentType: String, mustSupportUris: Boolean): AppInfo? = g_app_info_get_default_for_type(contentType, mustSupportUris.asGBoolean())?.run {
-        AppInfo.wrap(reinterpret())}
-
-    /**
-     * Asynchronously gets the default #GAppInfo for a given content type.
-     *
-     * @param contentType the content type to find a #GAppInfo for
-     * @param mustSupportUris if true, the #GAppInfo is expected to
-     *     support URIs
-     * @param cancellable optional #GCancellable object, null to ignore
-     * @param callback a #GAsyncReadyCallback to call when the request is done
-     * @since 2.74
-     */
-    @GioVersion2_74
-    public fun appInfoGetDefaultForTypeAsync(
-        contentType: String,
-        mustSupportUris: Boolean,
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit = g_app_info_get_default_for_type_async(contentType, mustSupportUris.asGBoolean(), cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
-
-    /**
-     * Finishes a default #GAppInfo lookup started by
-     * g_app_info_get_default_for_type_async().
-     *
-     * If no #GAppInfo is found, then @error will be set to %G_IO_ERROR_NOT_FOUND.
-     *
-     * @param result a #GAsyncResult
-     * @return #GAppInfo for given @content_type or
-     *     null on error.
-     * @since 2.74
-     */
-    @GioVersion2_74
-    public fun appInfoGetDefaultForTypeFinish(result: AsyncResult): Result<AppInfo> = memScoped {
-        val gError = allocPointerTo<GError>()
-        val gResult = g_app_info_get_default_for_type_finish(result.gioAsyncResultPointer, gError.ptr)?.run {
-            AppInfo.wrap(reinterpret())}
-
-        return if (gError.pointed != null) {
-            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
-        }
-        else {
-            Result.success(checkNotNull(gResult))
-        }
-    }
-
-    /**
-     * Gets the default application for handling URIs with
-     * the given URI scheme. A URI scheme is the initial part
-     * of the URI, up to but not including the ':', e.g. "http",
-     * "ftp" or "sip".
-     *
-     * @param uriScheme a string containing a URI scheme.
-     * @return #GAppInfo for given @uri_scheme or
-     *     null on error.
-     */
-    public fun appInfoGetDefaultForUriScheme(uriScheme: String): AppInfo? = g_app_info_get_default_for_uri_scheme(uriScheme)?.run {
-        AppInfo.wrap(reinterpret())}
-
-    /**
-     * Asynchronously gets the default application for handling URIs with
-     * the given URI scheme. A URI scheme is the initial part
-     * of the URI, up to but not including the ':', e.g. "http",
-     * "ftp" or "sip".
-     *
-     * @param uriScheme a string containing a URI scheme.
-     * @param cancellable optional #GCancellable object, null to ignore
-     * @param callback a #GAsyncReadyCallback to call when the request is done
-     * @since 2.74
-     */
-    @GioVersion2_74
-    public fun appInfoGetDefaultForUriSchemeAsync(
-        uriScheme: String,
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit = g_app_info_get_default_for_uri_scheme_async(uriScheme, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
-
-    /**
-     * Finishes a default #GAppInfo lookup started by
-     * g_app_info_get_default_for_uri_scheme_async().
-     *
-     * If no #GAppInfo is found, then @error will be set to %G_IO_ERROR_NOT_FOUND.
-     *
-     * @param result a #GAsyncResult
-     * @return #GAppInfo for given @uri_scheme or
-     *     null on error.
-     * @since 2.74
-     */
-    @GioVersion2_74
-    public fun appInfoGetDefaultForUriSchemeFinish(result: AsyncResult): Result<AppInfo> = memScoped {
-        val gError = allocPointerTo<GError>()
-        val gResult = g_app_info_get_default_for_uri_scheme_finish(result.gioAsyncResultPointer, gError.ptr)?.run {
-            AppInfo.wrap(reinterpret())}
-
-        return if (gError.pointed != null) {
-            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
-        }
-        else {
-            Result.success(checkNotNull(gResult))
-        }
-    }
-
-    /**
-     * Gets a list of fallback #GAppInfos for a given content type, i.e.
-     * those applications which claim to support the given content type
-     * by MIME type subclassing and not directly.
-     *
-     * @param contentType the content type to find a #GAppInfo for
-     * @return #GList of #GAppInfos
-     *     for given @content_type or null on error.
-     * @since 2.28
-     */
-    @GioVersion2_28
-    public fun appInfoGetFallbackForType(contentType: String): GlibList = g_app_info_get_fallback_for_type(contentType)!!.run {
-        GlibList(reinterpret())}
-
-    /**
-     * Gets a list of recommended #GAppInfos for a given content type, i.e.
-     * those applications which claim to support the given content type exactly,
-     * and not by MIME type subclassing.
-     * Note that the first application of the list is the last used one, i.e.
-     * the last one for which g_app_info_set_as_last_used_for_type() has been
-     * called.
-     *
-     * @param contentType the content type to find a #GAppInfo for
-     * @return #GList of #GAppInfos
-     *     for given @content_type or null on error.
-     * @since 2.28
-     */
-    @GioVersion2_28
-    public fun appInfoGetRecommendedForType(contentType: String): GlibList = g_app_info_get_recommended_for_type(contentType)!!.run {
-        GlibList(reinterpret())}
-
-    /**
-     * Utility function that launches the default application
-     * registered to handle the specified uri. Synchronous I/O
-     * is done on the uri to detect the type of the file if
-     * required.
-     *
-     * The D-Bus–activated applications don't have to be started if your application
-     * terminates too soon after this function. To prevent this, use
-     * g_app_info_launch_default_for_uri_async() instead.
-     *
-     * @param uri the uri to show
-     * @param context an optional #GAppLaunchContext
-     * @return true on success, false on error.
-     */
-    public fun appInfoLaunchDefaultForUri(uri: String, context: AppLaunchContext? = null): Result<Boolean> = memScoped {
-        val gError = allocPointerTo<GError>()
-        val gResult = g_app_info_launch_default_for_uri(uri, context?.gioAppLaunchContextPointer?.reinterpret(), gError.ptr).asBoolean()
-        return if (gError.pointed != null) {
-            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
-        }
-        else {
-            Result.success(gResult)
-        }
-    }
-
-    /**
-     * Async version of g_app_info_launch_default_for_uri().
-     *
-     * This version is useful if you are interested in receiving
-     * error information in the case where the application is
-     * sandboxed and the portal may present an application chooser
-     * dialog to the user.
-     *
-     * This is also useful if you want to be sure that the D-Bus–activated
-     * applications are really started before termination and if you are interested
-     * in receiving error information from their activation.
-     *
-     * @param uri the uri to show
-     * @param context an optional #GAppLaunchContext
-     * @param cancellable a #GCancellable
-     * @param callback a #GAsyncReadyCallback to call when the request is done
-     * @since 2.50
-     */
-    @GioVersion2_50
-    public fun appInfoLaunchDefaultForUriAsync(
-        uri: String,
-        context: AppLaunchContext? = null,
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit = g_app_info_launch_default_for_uri_async(uri, context?.gioAppLaunchContextPointer?.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
-
-    /**
-     * Finishes an asynchronous launch-default-for-uri operation.
-     *
-     * @param result a #GAsyncResult
-     * @return true if the launch was successful, false if @error is set
-     * @since 2.50
-     */
-    @GioVersion2_50
-    public fun appInfoLaunchDefaultForUriFinish(result: AsyncResult): Result<Boolean> = memScoped {
-        val gError = allocPointerTo<GError>()
-        val gResult = g_app_info_launch_default_for_uri_finish(result.gioAsyncResultPointer, gError.ptr).asBoolean()
-        return if (gError.pointed != null) {
-            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
-        }
-        else {
-            Result.success(gResult)
-        }
-    }
-
-    /**
-     * Removes all changes to the type associations done by
-     * g_app_info_set_as_default_for_type(),
-     * g_app_info_set_as_default_for_extension(),
-     * g_app_info_add_supports_type() or
-     * g_app_info_remove_supports_type().
-     *
-     * @param contentType a content type
-     * @since 2.20
-     */
-    @GioVersion2_20
-    public fun appInfoResetTypeAssociations(contentType: String): Unit = g_app_info_reset_type_associations(contentType)
-
-    /**
-     * Helper function for constructing #GAsyncInitable object. This is
-     * similar to g_object_newv() but also initializes the object asynchronously.
-     *
-     * When the initialization is finished, @callback will be called. You can
-     * then call g_async_initable_new_finish() to get the new object and check
-     * for any errors.
-     *
-     * @param objectType a #GType supporting #GAsyncInitable.
-     * @param nParameters the number of parameters in @parameters
-     * @param parameters the parameters to use to construct the object
-     * @param ioPriority the [I/O priority][io-priority] of the operation
-     * @param cancellable optional #GCancellable object, null to ignore.
-     * @param callback a #GAsyncReadyCallback to call when the initialization is
-     *     finished
-     * @since 2.22
-     */
-    @GioVersion2_22
-    public fun asyncInitableNewvAsync(
-        objectType: GType,
-        nParameters: guint,
-        parameters: Parameter,
-        ioPriority: gint,
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit = g_async_initable_newv_async(objectType, nParameters, parameters.gobjectParameterPointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
-
-    /**
      * Asynchronously connects to the message bus specified by @bus_type.
      *
      * When the operation is finished, @callback will be invoked. You can
@@ -2587,146 +2094,6 @@ public object Gio {
     ): Unit = g_dbus_address_get_stream(address, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
 
     /**
-     * Creates a D-Bus error name to use for @error. If @error matches
-     * a registered error (cf. g_dbus_error_register_error()), the corresponding
-     * D-Bus error name will be returned.
-     *
-     * Otherwise the a name of the form
-     * `org.gtk.GDBus.UnmappedGError.Quark._ESCAPED_QUARK_NAME.Code_ERROR_CODE`
-     * will be used. This allows other GDBus applications to map the error
-     * on the wire back to a #GError using g_dbus_error_new_for_dbus_error().
-     *
-     * This function is typically only used in object mappings to put a
-     * #GError on the wire. Regular applications should not use it.
-     *
-     * @param error A #GError.
-     * @return A D-Bus error name (never null).
-     *     Free with g_free().
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public fun dbusErrorEncodeGerror(error: Error): String = g_dbus_error_encode_gerror(error.glibErrorPointer.reinterpret())?.toKString() ?: error("Expected not null string")
-
-    /**
-     * Gets the D-Bus error name used for @error, if any.
-     *
-     * This function is guaranteed to return a D-Bus error name for all
-     * #GErrors returned from functions handling remote method calls
-     * (e.g. g_dbus_connection_call_finish()) unless
-     * g_dbus_error_strip_remote_error() has been used on @error.
-     *
-     * @param error a #GError
-     * @return an allocated string or null if the
-     *     D-Bus error name could not be found. Free with g_free().
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public fun dbusErrorGetRemoteError(error: Error): String? = g_dbus_error_get_remote_error(error.glibErrorPointer.reinterpret())?.toKString()
-
-    /**
-     * Checks if @error represents an error received via D-Bus from a remote peer. If so,
-     * use g_dbus_error_get_remote_error() to get the name of the error.
-     *
-     * @param error A #GError.
-     * @return true if @error represents an error from a remote peer,
-     * false otherwise.
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public fun dbusErrorIsRemoteError(error: Error): Boolean = g_dbus_error_is_remote_error(error.glibErrorPointer.reinterpret()).asBoolean()
-
-    /**
-     * Creates a #GError based on the contents of @dbus_error_name and
-     * @dbus_error_message.
-     *
-     * Errors registered with g_dbus_error_register_error() will be looked
-     * up using @dbus_error_name and if a match is found, the error domain
-     * and code is used. Applications can use g_dbus_error_get_remote_error()
-     * to recover @dbus_error_name.
-     *
-     * If a match against a registered error is not found and the D-Bus
-     * error name is in a form as returned by g_dbus_error_encode_gerror()
-     * the error domain and code encoded in the name is used to
-     * create the #GError. Also, @dbus_error_name is added to the error message
-     * such that it can be recovered with g_dbus_error_get_remote_error().
-     *
-     * Otherwise, a #GError with the error code %G_IO_ERROR_DBUS_ERROR
-     * in the %G_IO_ERROR error domain is returned. Also, @dbus_error_name is
-     * added to the error message such that it can be recovered with
-     * g_dbus_error_get_remote_error().
-     *
-     * In all three cases, @dbus_error_name can always be recovered from the
-     * returned #GError using the g_dbus_error_get_remote_error() function
-     * (unless g_dbus_error_strip_remote_error() hasn't been used on the returned error).
-     *
-     * This function is typically only used in object mappings to prepare
-     * #GError instances for applications. Regular applications should not use
-     * it.
-     *
-     * @param dbusErrorName D-Bus error name.
-     * @param dbusErrorMessage D-Bus error message.
-     * @return An allocated #GError. Free with g_error_free().
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public fun dbusErrorNewForDbusError(dbusErrorName: String, dbusErrorMessage: String): Error = g_dbus_error_new_for_dbus_error(dbusErrorName, dbusErrorMessage)!!.run {
-        Error(reinterpret())}
-
-    public fun dbusErrorQuark(): Quark = g_dbus_error_quark()
-
-    /**
-     * Creates an association to map between @dbus_error_name and
-     * #GErrors specified by @error_domain and @error_code.
-     *
-     * This is typically done in the routine that returns the #GQuark for
-     * an error domain.
-     *
-     * @param errorDomain A #GQuark for an error domain.
-     * @param errorCode An error code.
-     * @param dbusErrorName A D-Bus error name.
-     * @return true if the association was created, false if it already
-     * exists.
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public fun dbusErrorRegisterError(
-        errorDomain: Quark,
-        errorCode: gint,
-        dbusErrorName: String,
-    ): Boolean = g_dbus_error_register_error(errorDomain, errorCode, dbusErrorName).asBoolean()
-
-    /**
-     * Looks for extra information in the error message used to recover
-     * the D-Bus error name and strips it if found. If stripped, the
-     * message field in @error will correspond exactly to what was
-     * received on the wire.
-     *
-     * This is typically used when presenting errors to the end user.
-     *
-     * @param error A #GError.
-     * @return true if information was stripped, false otherwise.
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public fun dbusErrorStripRemoteError(error: Error): Boolean = g_dbus_error_strip_remote_error(error.glibErrorPointer.reinterpret()).asBoolean()
-
-    /**
-     * Destroys an association previously set up with g_dbus_error_register_error().
-     *
-     * @param errorDomain A #GQuark for an error domain.
-     * @param errorCode An error code.
-     * @param dbusErrorName A D-Bus error name.
-     * @return true if the association was destroyed, false if it wasn't found.
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public fun dbusErrorUnregisterError(
-        errorDomain: Quark,
-        errorCode: gint,
-        dbusErrorName: String,
-    ): Boolean = g_dbus_error_unregister_error(errorDomain, errorCode, dbusErrorName).asBoolean()
-
-    /**
      * This is a language binding friendly version of g_dbus_escape_object_path_bytestring().
      *
      * @param s the string to escape
@@ -2922,261 +2289,6 @@ public object Gio {
     public fun dbusIsUniqueName(string: String): Boolean = g_dbus_is_unique_name(string).asBoolean()
 
     /**
-     * Creates a new #GDtlsClientConnection wrapping @base_socket which is
-     * assumed to communicate with the server identified by @server_identity.
-     *
-     * @param baseSocket the #GDatagramBased to wrap
-     * @param serverIdentity the expected identity of the server
-     * @return the new
-     *   #GDtlsClientConnection, or null on error
-     * @since 2.48
-     */
-    @GioVersion2_48
-    public fun dtlsClientConnectionNew(baseSocket: DatagramBased, serverIdentity: SocketConnectable? = null): Result<DtlsClientConnection> = memScoped {
-        val gError = allocPointerTo<GError>()
-        val gResult = g_dtls_client_connection_new(baseSocket.gioDatagramBasedPointer, serverIdentity?.gioSocketConnectablePointer, gError.ptr)?.run {
-            DtlsClientConnection.wrap(reinterpret())}
-
-        return if (gError.pointed != null) {
-            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
-        }
-        else {
-            Result.success(checkNotNull(gResult))
-        }
-    }
-
-    /**
-     * Creates a new #GDtlsServerConnection wrapping @base_socket.
-     *
-     * @param baseSocket the #GDatagramBased to wrap
-     * @param certificate the default server certificate, or null
-     * @return the new
-     *   #GDtlsServerConnection, or null on error
-     * @since 2.48
-     */
-    @GioVersion2_48
-    public fun dtlsServerConnectionNew(baseSocket: DatagramBased, certificate: TlsCertificate? = null): Result<DtlsServerConnection> = memScoped {
-        val gError = allocPointerTo<GError>()
-        val gResult = g_dtls_server_connection_new(baseSocket.gioDatagramBasedPointer, certificate?.gioTlsCertificatePointer?.reinterpret(), gError.ptr)?.run {
-            DtlsServerConnection.wrap(reinterpret())}
-
-        return if (gError.pointed != null) {
-            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
-        }
-        else {
-            Result.success(checkNotNull(gResult))
-        }
-    }
-
-    /**
-     * Constructs a #GFile from a vector of elements using the correct
-     * separator for filenames.
-     *
-     * Using this function is equivalent to calling g_build_filenamev(),
-     * followed by g_file_new_for_path() on the result.
-     *
-     * @param args null-terminated
-     *   array of strings containing the path elements.
-     * @return a new #GFile
-     * @since 2.78
-     */
-    @GioVersion2_78
-    public fun fileNewBuildFilenamev(args: CollectionsList<String>): File = memScoped {
-        return g_file_new_build_filenamev(args.toCStringList(this))!!.run {
-            File.wrap(reinterpret())}
-    }
-
-    /**
-     * Creates a #GFile with the given argument from the command line.
-     * The value of @arg can be either a URI, an absolute path or a
-     * relative path resolved relative to the current working directory.
-     * This operation never fails, but the returned object might not
-     * support any I/O operation if @arg points to a malformed path.
-     *
-     * Note that on Windows, this function expects its argument to be in
-     * UTF-8 -- not the system code page.  This means that you
-     * should not use this function with string from argv as it is passed
-     * to main().  g_win32_get_command_line() will return a UTF-8 version of
-     * the commandline.  #GApplication also uses UTF-8 but
-     * g_application_command_line_create_file_for_arg() may be more useful
-     * for you there.  It is also always possible to use this function with
-     * #GOptionContext arguments of type %G_OPTION_ARG_FILENAME.
-     *
-     * @param arg a command line string
-     * @return a new #GFile.
-     *   Free the returned object with g_object_unref().
-     */
-    public fun fileNewForCommandlineArg(arg: String): File = g_file_new_for_commandline_arg(arg)!!.run {
-        File.wrap(reinterpret())}
-
-    /**
-     * Creates a #GFile with the given argument from the command line.
-     *
-     * This function is similar to g_file_new_for_commandline_arg() except
-     * that it allows for passing the current working directory as an
-     * argument instead of using the current working directory of the
-     * process.
-     *
-     * This is useful if the commandline argument was given in a context
-     * other than the invocation of the current process.
-     *
-     * See also g_application_command_line_create_file_for_arg().
-     *
-     * @param arg a command line string
-     * @param cwd the current working directory of the commandline
-     * @return a new #GFile
-     * @since 2.36
-     */
-    @GioVersion2_36
-    public fun fileNewForCommandlineArgAndCwd(arg: String, cwd: String): File = g_file_new_for_commandline_arg_and_cwd(arg, cwd)!!.run {
-        File.wrap(reinterpret())}
-
-    /**
-     * Constructs a #GFile for a given path. This operation never
-     * fails, but the returned object might not support any I/O
-     * operation if @path is malformed.
-     *
-     * @param path a string containing a relative or absolute path.
-     *   The string must be encoded in the glib filename encoding.
-     * @return a new #GFile for the given @path.
-     *   Free the returned object with g_object_unref().
-     */
-    public fun fileNewForPath(path: String): File = g_file_new_for_path(path)!!.run {
-        File.wrap(reinterpret())}
-
-    /**
-     * Constructs a #GFile for a given URI. This operation never
-     * fails, but the returned object might not support any I/O
-     * operation if @uri is malformed or if the uri type is
-     * not supported.
-     *
-     * @param uri a UTF-8 string containing a URI
-     * @return a new #GFile for the given @uri.
-     *   Free the returned object with g_object_unref().
-     */
-    public fun fileNewForUri(uri: String): File = g_file_new_for_uri(uri)!!.run {
-        File.wrap(reinterpret())}
-
-    /**
-     * Asynchronously opens a file in the preferred directory for temporary files
-     *  (as returned by g_get_tmp_dir()) as g_file_new_tmp().
-     *
-     * @tmpl should be a string in the GLib file name encoding
-     * containing a sequence of six 'X' characters, and containing no
-     * directory components. If it is null, a default template is used.
-     *
-     * @param tmpl Template for the file
-     *   name, as in g_file_open_tmp(), or null for a default template
-     * @param ioPriority the [I/O priority][io-priority] of the request
-     * @param cancellable optional #GCancellable object, null to ignore
-     * @param callback a #GAsyncReadyCallback to call when the request is done
-     * @since 2.74
-     */
-    @GioVersion2_74
-    public fun fileNewTmpAsync(
-        tmpl: String? = null,
-        ioPriority: gint,
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit = g_file_new_tmp_async(tmpl, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
-
-    /**
-     * Asynchronously creates a directory in the preferred directory for
-     * temporary files (as returned by g_get_tmp_dir()) as g_dir_make_tmp().
-     *
-     * @tmpl should be a string in the GLib file name encoding
-     * containing a sequence of six 'X' characters, and containing no
-     * directory components. If it is null, a default template is used.
-     *
-     * @param tmpl Template for the file
-     *   name, as in g_dir_make_tmp(), or null for a default template
-     * @param ioPriority the [I/O priority][io-priority] of the request
-     * @param cancellable optional #GCancellable object, null to ignore
-     * @param callback a #GAsyncReadyCallback to call when the request is done
-     * @since 2.74
-     */
-    @GioVersion2_74
-    public fun fileNewTmpDirAsync(
-        tmpl: String? = null,
-        ioPriority: gint,
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit = g_file_new_tmp_dir_async(tmpl, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
-
-    /**
-     * Finishes a temporary directory creation started by
-     * g_file_new_tmp_dir_async().
-     *
-     * @param result a #GAsyncResult
-     * @return a new #GFile.
-     *   Free the returned object with g_object_unref().
-     * @since 2.74
-     */
-    @GioVersion2_74
-    public fun fileNewTmpDirFinish(result: AsyncResult): Result<File> = memScoped {
-        val gError = allocPointerTo<GError>()
-        val gResult = g_file_new_tmp_dir_finish(result.gioAsyncResultPointer, gError.ptr)?.run {
-            File.wrap(reinterpret())}
-
-        return if (gError.pointed != null) {
-            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
-        }
-        else {
-            Result.success(checkNotNull(gResult))
-        }
-    }
-
-    /**
-     * Constructs a #GFile with the given @parse_name (i.e. something
-     * given by g_file_get_parse_name()). This operation never fails,
-     * but the returned object might not support any I/O operation if
-     * the @parse_name cannot be parsed.
-     *
-     * @param parseName a file name or path to be parsed
-     * @return a new #GFile.
-     */
-    public fun fileParseName(parseName: String): File = g_file_parse_name(parseName)!!.run {
-        File.wrap(reinterpret())}
-
-    /**
-     * Deserializes a #GIcon previously serialized using g_icon_serialize().
-     *
-     * @param value a #GVariant created with g_icon_serialize()
-     * @return a #GIcon, or null when deserialization fails.
-     * @since 2.38
-     */
-    @GioVersion2_38
-    public fun iconDeserialize(`value`: Variant): Icon? = g_icon_deserialize(`value`.glibVariantPointer.reinterpret())?.run {
-        Icon.wrap(reinterpret())}
-
-    /**
-     * Generate a #GIcon instance from @str. This function can fail if
-     * @str is not valid - see g_icon_to_string() for discussion.
-     *
-     * If your application or library provides one or more #GIcon
-     * implementations you need to ensure that each #GType is registered
-     * with the type system prior to calling g_icon_new_for_string().
-     *
-     * @param str A string obtained via g_icon_to_string().
-     * @return An object implementing the #GIcon
-     *          interface or null if @error is set.
-     * @since 2.20
-     */
-    @GioVersion2_20
-    public fun iconNewForString(str: String): Result<Icon> = memScoped {
-        val gError = allocPointerTo<GError>()
-        val gResult = g_icon_new_for_string(str, gError.ptr)?.run {
-            Icon.wrap(reinterpret())}
-
-        return if (gError.pointed != null) {
-            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
-        }
-        else {
-            Result.success(checkNotNull(gResult))
-        }
-    }
-
-    /**
      * Converts `errno.h` error codes into GIO error codes.
      *
      * The fallback value %G_IO_ERROR_FAILED is returned for error codes not
@@ -3354,16 +2466,6 @@ public object Gio {
         SettingsBackend(reinterpret())}
 
     /**
-     * Gets a reference to the default #GMemoryMonitor for the system.
-     *
-     * @return a new reference to the default #GMemoryMonitor
-     * @since 2.64
-     */
-    @GioVersion2_64
-    public fun memoryMonitorDupDefault(): MemoryMonitor = g_memory_monitor_dup_default()!!.run {
-        MemoryMonitor.wrap(reinterpret())}
-
-    /**
      * Creates a memory-backed #GSettingsBackend.
      *
      * This backend allows changes to settings, but does not write them
@@ -3376,17 +2478,6 @@ public object Gio {
     @GioVersion2_28
     public fun memorySettingsBackendNew(): SettingsBackend = g_memory_settings_backend_new()!!.run {
         SettingsBackend(reinterpret())}
-
-    /**
-     * Gets the default #GNetworkMonitor for the system.
-     *
-     * @return a #GNetworkMonitor, which will be
-     *     a dummy object if no network monitor is available
-     * @since 2.32
-     */
-    @GioVersion2_32
-    public fun networkMonitorGetDefault(): NetworkMonitor = g_network_monitor_get_default()!!.run {
-        NetworkMonitor.wrap(reinterpret())}
 
     /**
      * Initializes the platform networking libraries (eg, on Windows, this
@@ -3447,88 +2538,6 @@ public object Gio {
         cancellable: Cancellable? = null,
     ): Source = g_pollable_source_new_full(pollableStream.gPointer.reinterpret(), childSource?.glibSourcePointer?.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret())!!.run {
         Source(reinterpret())}
-
-    /**
-     * Gets a reference to the default #GPowerProfileMonitor for the system.
-     *
-     * @return a new reference to the default #GPowerProfileMonitor
-     * @since 2.70
-     */
-    @GioVersion2_70
-    public fun powerProfileMonitorDupDefault(): PowerProfileMonitor = g_power_profile_monitor_dup_default()!!.run {
-        PowerProfileMonitor.wrap(reinterpret())}
-
-    /**
-     * Find the `gio-proxy` extension point for a proxy implementation that supports
-     * the specified protocol.
-     *
-     * @param protocol the proxy protocol name (e.g. http, socks, etc)
-     * @return return a #GProxy or NULL if protocol
-     *               is not supported.
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public fun proxyGetDefaultForProtocol(protocol: String): Proxy? = g_proxy_get_default_for_protocol(protocol)?.run {
-        Proxy.wrap(reinterpret())}
-
-    /**
-     * Gets the default #GProxyResolver for the system.
-     *
-     * @return the default #GProxyResolver, which
-     *     will be a dummy object if no proxy resolver is available
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public fun proxyResolverGetDefault(): ProxyResolver = g_proxy_resolver_get_default()!!.run {
-        ProxyResolver.wrap(reinterpret())}
-
-    /**
-     * Gets the #GResolver Error Quark.
-     *
-     * @return a #GQuark.
-     * @since 2.22
-     */
-    @GioVersion2_22
-    public fun resolverErrorQuark(): Quark = g_resolver_error_quark()
-
-    /**
-     * Gets the #GResource Error Quark.
-     *
-     * @return a #GQuark
-     * @since 2.32
-     */
-    @GioVersion2_32
-    public fun resourceErrorQuark(): Quark = g_resource_error_quark()
-
-    /**
-     * Loads a binary resource bundle and creates a #GResource representation of it, allowing
-     * you to query it for data.
-     *
-     * If you want to use this resource in the global resource namespace you need
-     * to register it with g_resources_register().
-     *
-     * If @filename is empty or the data in it is corrupt,
-     * %G_RESOURCE_ERROR_INTERNAL will be returned. If @filename doesn’t exist, or
-     * there is an error in reading it, an error from g_mapped_file_new() will be
-     * returned.
-     *
-     * @param filename the path of a filename to load, in the GLib filename encoding
-     * @return a new #GResource, or null on error
-     * @since 2.32
-     */
-    @GioVersion2_32
-    public fun resourceLoad(filename: String): Result<Resource> = memScoped {
-        val gError = allocPointerTo<GError>()
-        val gResult = g_resource_load(filename, gError.ptr)?.run {
-            Resource(reinterpret())}
-
-        return if (gError.pointed != null) {
-            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
-        }
-        else {
-            Result.success(checkNotNull(gResult))
-        }
-    }
 
     /**
      * Returns all the names of children at the specified @path in the set of
@@ -3639,28 +2648,6 @@ public object Gio {
     public fun resourcesUnregister(resource: Resource): Unit = g_resources_unregister(resource.gioResourcePointer.reinterpret())
 
     /**
-     * Gets the default system schema source.
-     *
-     * This function is not required for normal uses of #GSettings but it
-     * may be useful to authors of plugin management systems or to those who
-     * want to introspect the content of schemas.
-     *
-     * If no schemas are installed, null will be returned.
-     *
-     * The returned source may actually consist of multiple schema sources
-     * from different directories, depending on which directories were given
-     * in `XDG_DATA_DIRS` and `GSETTINGS_SCHEMA_DIR`. For this reason, all
-     * lookups performed against the default source should probably be done
-     * recursively.
-     *
-     * @return the default schema source
-     * @since 2.32
-     */
-    @GioVersion2_32
-    public fun settingsSchemaSourceGetDefault(): SettingsSchemaSource? = g_settings_schema_source_get_default()?.run {
-        SettingsSchemaSource(reinterpret())}
-
-    /**
      * Reports an error in an idle function. Similar to
      * g_simple_async_report_error_in_idle(), but takes a #GError rather
      * than building a new one.
@@ -3676,115 +2663,21 @@ public object Gio {
     ): Unit = g_simple_async_report_gerror_in_idle(`object`?.gPointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), error.glibErrorPointer.reinterpret())
 
     /**
-     * Gets the default #GTlsBackend for the system.
+     * Reports an error in an idle function. Similar to
+     * g_simple_async_report_gerror_in_idle(), but takes over the caller's
+     * ownership of @error, so the caller does not have to free it any more.
      *
-     * @return a #GTlsBackend, which will be a
-     *     dummy object if no TLS backend is available
+     * @param object a #GObject, or null
+     * @param callback a #GAsyncReadyCallback.
+     * @param error the #GError to report
      * @since 2.28
      */
     @GioVersion2_28
-    public fun tlsBackendGetDefault(): TlsBackend = g_tls_backend_get_default()!!.run {
-        TlsBackend.wrap(reinterpret())}
-
-    /**
-     * Gets the TLS channel binding error quark.
-     *
-     * @return a #GQuark.
-     * @since 2.66
-     */
-    @GioVersion2_66
-    public fun tlsChannelBindingErrorQuark(): Quark = g_tls_channel_binding_error_quark()
-
-    /**
-     * Creates a new #GTlsClientConnection wrapping @base_io_stream (which
-     * must have pollable input and output streams) which is assumed to
-     * communicate with the server identified by @server_identity.
-     *
-     * See the documentation for #GTlsConnection:base-io-stream for restrictions
-     * on when application code can run operations on the @base_io_stream after
-     * this function has returned.
-     *
-     * @param baseIoStream the #GIOStream to wrap
-     * @param serverIdentity the expected identity of the server
-     * @return the new
-     * #GTlsClientConnection, or null on error
-     * @since 2.28
-     */
-    @GioVersion2_28
-    public fun tlsClientConnectionNew(baseIoStream: IOStream, serverIdentity: SocketConnectable? = null): Result<TlsClientConnection> = memScoped {
-        val gError = allocPointerTo<GError>()
-        val gResult = g_tls_client_connection_new(baseIoStream.gioIOStreamPointer.reinterpret(), serverIdentity?.gioSocketConnectablePointer, gError.ptr)?.run {
-            TlsClientConnection.wrap(reinterpret())}
-
-        return if (gError.pointed != null) {
-            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
-        }
-        else {
-            Result.success(checkNotNull(gResult))
-        }
-    }
-
-    /**
-     * Gets the TLS error quark.
-     *
-     * @return a #GQuark.
-     * @since 2.28
-     */
-    @GioVersion2_28
-    public fun tlsErrorQuark(): Quark = g_tls_error_quark()
-
-    /**
-     * Creates a new #GTlsFileDatabase which uses anchor certificate authorities
-     * in @anchors to verify certificate chains.
-     *
-     * The certificates in @anchors must be PEM encoded.
-     *
-     * @param anchors filename of anchor certificate authorities.
-     * @return the new
-     * #GTlsFileDatabase, or null on error
-     * @since 2.30
-     */
-    @GioVersion2_30
-    public fun tlsFileDatabaseNew(anchors: String): Result<TlsFileDatabase> = memScoped {
-        val gError = allocPointerTo<GError>()
-        val gResult = g_tls_file_database_new(anchors, gError.ptr)?.run {
-            TlsFileDatabase.wrap(reinterpret())}
-
-        return if (gError.pointed != null) {
-            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
-        }
-        else {
-            Result.success(checkNotNull(gResult))
-        }
-    }
-
-    /**
-     * Creates a new #GTlsServerConnection wrapping @base_io_stream (which
-     * must have pollable input and output streams).
-     *
-     * See the documentation for #GTlsConnection:base-io-stream for restrictions
-     * on when application code can run operations on the @base_io_stream after
-     * this function has returned.
-     *
-     * @param baseIoStream the #GIOStream to wrap
-     * @param certificate the default server certificate, or null
-     * @return the new
-     * #GTlsServerConnection, or null on error
-     * @since 2.28
-     */
-    @GioVersion2_28
-    public fun tlsServerConnectionNew(baseIoStream: IOStream, certificate: TlsCertificate? = null): Result<TlsServerConnection> = memScoped {
-        val gError = allocPointerTo<GError>()
-        val gResult = g_tls_server_connection_new(baseIoStream.gioIOStreamPointer.reinterpret(), certificate?.gioTlsCertificatePointer?.reinterpret(), gError.ptr)?.run {
-            TlsServerConnection.wrap(reinterpret())}
-
-        return if (gError.pointed != null) {
-            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
-        }
-        else {
-            Result.success(checkNotNull(gResult))
-        }
-    }
+    public fun simpleAsyncReportTakeGerrorInIdle(
+        `object`: Object? = null,
+        callback: AsyncReadyCallback,
+        error: Error,
+    ): Unit = g_simple_async_report_take_gerror_in_idle(`object`?.gPointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), error.glibErrorPointer.reinterpret())
 
     /**
      * Determines if @mount_path is considered an implementation of the

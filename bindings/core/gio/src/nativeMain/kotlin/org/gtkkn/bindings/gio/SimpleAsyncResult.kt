@@ -13,6 +13,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
@@ -29,12 +30,14 @@ import org.gtkkn.native.gio.g_simple_async_result_get_op_res_gboolean
 import org.gtkkn.native.gio.g_simple_async_result_get_op_res_gssize
 import org.gtkkn.native.gio.g_simple_async_result_get_type
 import org.gtkkn.native.gio.g_simple_async_result_new_from_error
+import org.gtkkn.native.gio.g_simple_async_result_new_take_error
 import org.gtkkn.native.gio.g_simple_async_result_propagate_error
 import org.gtkkn.native.gio.g_simple_async_result_set_check_cancellable
 import org.gtkkn.native.gio.g_simple_async_result_set_from_error
 import org.gtkkn.native.gio.g_simple_async_result_set_handle_cancellation
 import org.gtkkn.native.gio.g_simple_async_result_set_op_res_gboolean
 import org.gtkkn.native.gio.g_simple_async_result_set_op_res_gssize
+import org.gtkkn.native.gio.g_simple_async_result_take_error
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 
@@ -208,7 +211,14 @@ import org.gtkkn.native.gobject.GType
  *
  * ## Skipped during bindings generation
  *
+ * - method `get_op_res_gpointer`: Return type gpointer is unsupported
+ * - method `get_source_tag`: Return type gpointer is unsupported
+ * - parameter `func`: SimpleAsyncThreadFunc
+ * - method `set_error`: Varargs parameter is not supported
+ * - parameter `args`: va_list
+ * - parameter `op_res`: gpointer
  * - parameter `source_tag`: gpointer
+ * - constructor `new_error`: Varargs parameter is not supported
  * - parameter `source_tag`: gpointer
  */
 public open class SimpleAsyncResult(
@@ -350,12 +360,52 @@ public open class SimpleAsyncResult(
      */
     public open fun setOpResGssize(opRes: Long): Unit = g_simple_async_result_set_op_res_gssize(gioSimpleAsyncResultPointer.reinterpret(), opRes)
 
+    /**
+     * Sets the result from @error, and takes over the caller's ownership
+     * of @error, so the caller does not need to free it any more.
+     *
+     * @param error a #GError
+     * @since 2.28
+     */
+    @GioVersion2_28
+    public open fun takeError(error: Error): Unit = g_simple_async_result_take_error(gioSimpleAsyncResultPointer.reinterpret(), error.glibErrorPointer.reinterpret())
+
     public companion object : TypeCompanion<SimpleAsyncResult> {
         override val type: GeneratedClassKGType<SimpleAsyncResult> =
                 GeneratedClassKGType(g_simple_async_result_get_type()) { SimpleAsyncResult(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
+
+        /**
+         * Creates a #GSimpleAsyncResult from an error condition.
+         *
+         * @param sourceObject a #GObject, or null.
+         * @param callback a #GAsyncReadyCallback.
+         * @param error a #GError
+         * @return a #GSimpleAsyncResult.
+         */
+        public fun newFromError(
+            sourceObject: Object? = null,
+            callback: AsyncReadyCallback,
+            error: Error,
+        ): SimpleAsyncResult = SimpleAsyncResult(g_simple_async_result_new_from_error(sourceObject?.gPointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), error.glibErrorPointer.reinterpret())!!.reinterpret())
+
+        /**
+         * Creates a #GSimpleAsyncResult from an error condition, and takes over the
+         * caller's ownership of @error, so the caller does not need to free it anymore.
+         *
+         * @param sourceObject a #GObject, or null
+         * @param callback a #GAsyncReadyCallback.
+         * @param error a #GError
+         * @return a #GSimpleAsyncResult
+         * @since 2.28
+         */
+        public fun newTakeError(
+            sourceObject: Object? = null,
+            callback: AsyncReadyCallback,
+            error: Error,
+        ): SimpleAsyncResult = SimpleAsyncResult(g_simple_async_result_new_take_error(sourceObject?.gPointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), error.glibErrorPointer.reinterpret())!!.reinterpret())
 
         /**
          * Get the GType of SimpleAsyncResult

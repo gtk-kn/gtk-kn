@@ -24,6 +24,7 @@ import org.gtkkn.native.soup.soup_auth_domain_basic_set_auth_callback
  *
  * - method `auth-callback`: Property has no getter
  * - method `auth-data`: Property has no getter nor setter
+ * - constructor `new`: Varargs parameter is not supported
  */
 public class AuthDomainBasic(
     pointer: CPointer<SoupAuthDomainBasic>,

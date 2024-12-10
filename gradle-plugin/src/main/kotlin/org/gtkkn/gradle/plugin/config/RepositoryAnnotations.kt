@@ -98,6 +98,7 @@ internal val repositoryAnnotations: Map<String, List<Pair<String, String>>> = ma
         "GLibVersion2.40" to "org.gtkkn.bindings.glib.annotations.GLibVersion2_40",
         "GLibVersion2.44" to "org.gtkkn.bindings.glib.annotations.GLibVersion2_44",
         "GLibVersion2.46" to "org.gtkkn.bindings.glib.annotations.GLibVersion2_46",
+        "GLibVersion2.48" to "org.gtkkn.bindings.glib.annotations.GLibVersion2_48",
         "GLibVersion2.50" to "org.gtkkn.bindings.glib.annotations.GLibVersion2_50",
         "GLibVersion2.52" to "org.gtkkn.bindings.glib.annotations.GLibVersion2_52",
         "GLibVersion2.54" to "org.gtkkn.bindings.glib.annotations.GLibVersion2_54",
@@ -125,6 +126,7 @@ internal val repositoryAnnotations: Map<String, List<Pair<String, String>>> = ma
         "GObjectVersion2.12" to "org.gtkkn.bindings.gobject.annotations.GObjectVersion2_12",
         "GObjectVersion2.24" to "org.gtkkn.bindings.gobject.annotations.GObjectVersion2_24",
         "GObjectVersion2.26" to "org.gtkkn.bindings.gobject.annotations.GObjectVersion2_26",
+        "GObjectVersion2.28" to "org.gtkkn.bindings.gobject.annotations.GObjectVersion2_28",
         "GObjectVersion2.32" to "org.gtkkn.bindings.gobject.annotations.GObjectVersion2_32",
         "GObjectVersion2.34" to "org.gtkkn.bindings.gobject.annotations.GObjectVersion2_34",
         "GObjectVersion2.36" to "org.gtkkn.bindings.gobject.annotations.GObjectVersion2_36",
@@ -137,8 +139,10 @@ internal val repositoryAnnotations: Map<String, List<Pair<String, String>>> = ma
         "GObjectVersion2.6" to "org.gtkkn.bindings.gobject.annotations.GObjectVersion2_6",
         "GObjectVersion2.66" to "org.gtkkn.bindings.gobject.annotations.GObjectVersion2_66",
         "GObjectVersion2.68" to "org.gtkkn.bindings.gobject.annotations.GObjectVersion2_68",
+        "GObjectVersion2.70" to "org.gtkkn.bindings.gobject.annotations.GObjectVersion2_70",
         "GObjectVersion2.72" to "org.gtkkn.bindings.gobject.annotations.GObjectVersion2_72",
         "GObjectVersion2.74" to "org.gtkkn.bindings.gobject.annotations.GObjectVersion2_74",
+        "GObjectVersion2.8" to "org.gtkkn.bindings.gobject.annotations.GObjectVersion2_8",
         "GObjectVersion2.80" to "org.gtkkn.bindings.gobject.annotations.GObjectVersion2_80"
     ),
     "graphene" to listOf(

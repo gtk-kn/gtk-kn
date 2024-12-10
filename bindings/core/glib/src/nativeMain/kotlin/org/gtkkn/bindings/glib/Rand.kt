@@ -2,12 +2,10 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_4
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GRand
 import org.gtkkn.native.glib.g_rand_copy
 import org.gtkkn.native.glib.g_rand_double
@@ -23,7 +21,6 @@ import org.gtkkn.native.gobject.g_rand_get_type
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The GRand struct is an opaque data structure. It should only be
@@ -36,7 +33,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class Rand(
     pointer: CPointer<GRand>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibRandPointer: CPointer<GRand> = pointer
 
     /**
@@ -99,7 +96,7 @@ public class Rand(
      */
     public fun setSeed(seed: guint): Unit = g_rand_set_seed(glibRandPointer.reinterpret(), seed)
 
-    public companion object : RecordCompanion<Rand, GRand> {
+    public companion object {
         /**
          * Creates a new random number generator initialized with a seed taken
          * either from `/dev/urandom` (if existing) or from the current time
@@ -125,7 +122,5 @@ public class Rand(
          * @return the GType
          */
         public fun getType(): GType = g_rand_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Rand = Rand(pointer.reinterpret())
     }
 }

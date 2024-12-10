@@ -3,22 +3,20 @@ package org.gtkkn.bindings.gdk
 
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkContentFormatsBuilder
 import org.gtkkn.native.gdk.gdk_content_formats_builder_add_formats
 import org.gtkkn.native.gdk.gdk_content_formats_builder_add_gtype
 import org.gtkkn.native.gdk.gdk_content_formats_builder_add_mime_type
+import org.gtkkn.native.gdk.gdk_content_formats_builder_free_to_formats
 import org.gtkkn.native.gdk.gdk_content_formats_builder_get_type
 import org.gtkkn.native.gdk.gdk_content_formats_builder_new
 import org.gtkkn.native.gdk.gdk_content_formats_builder_ref
 import org.gtkkn.native.gdk.gdk_content_formats_builder_to_formats
 import org.gtkkn.native.gdk.gdk_content_formats_builder_unref
 import org.gtkkn.native.gobject.GType
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GdkContentFormatsBuilder` is an auxiliary struct used to create
@@ -26,7 +24,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class ContentFormatsBuilder(
     pointer: CPointer<GdkContentFormatsBuilder>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gdkContentFormatsBuilderPointer: CPointer<GdkContentFormatsBuilder> = pointer
 
     /**
@@ -50,6 +48,16 @@ public class ContentFormatsBuilder(
      * @param mimeType a mime type
      */
     public fun addMimeType(mimeType: String): Unit = gdk_content_formats_builder_add_mime_type(gdkContentFormatsBuilderPointer.reinterpret(), mimeType)
+
+    /**
+     * Creates a new `GdkContentFormats` from the current state of the
+     * given @builder, and frees the @builder instance.
+     *
+     * @return the newly created `GdkContentFormats`
+     *   with all the formats added to @builder
+     */
+    public fun freeToFormats(): ContentFormats = gdk_content_formats_builder_free_to_formats(gdkContentFormatsBuilderPointer.reinterpret())!!.run {
+        ContentFormats(reinterpret())}
 
     /**
      * Acquires a reference on the given @builder.
@@ -83,7 +91,7 @@ public class ContentFormatsBuilder(
      */
     public fun unref(): Unit = gdk_content_formats_builder_unref(gdkContentFormatsBuilderPointer.reinterpret())
 
-    public companion object : RecordCompanion<ContentFormatsBuilder, GdkContentFormatsBuilder> {
+    public companion object {
         /**
          * Create a new `GdkContentFormatsBuilder` object.
          *
@@ -100,7 +108,5 @@ public class ContentFormatsBuilder(
          * @return the GType
          */
         public fun getType(): GType = gdk_content_formats_builder_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ContentFormatsBuilder = ContentFormatsBuilder(pointer.reinterpret())
     }
 }

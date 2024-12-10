@@ -19,6 +19,7 @@ import org.gtkkn.native.soup.SoupAuth
 import org.gtkkn.native.soup.soup_auth_authenticate
 import org.gtkkn.native.soup.soup_auth_can_authenticate
 import org.gtkkn.native.soup.soup_auth_cancel
+import org.gtkkn.native.soup.soup_auth_free_protection_space
 import org.gtkkn.native.soup.soup_auth_get_authority
 import org.gtkkn.native.soup.soup_auth_get_authorization
 import org.gtkkn.native.soup.soup_auth_get_info
@@ -140,6 +141,13 @@ public open class Auth(
      * The #SoupAuth will be cancelled on dispose if it hans't been authenticated.
      */
     public open fun cancel(): Unit = soup_auth_cancel(soupAuthPointer.reinterpret())
+
+    /**
+     * Frees @space.
+     *
+     * @param space the return value from [method@Auth.get_protection_space]
+     */
+    public open fun freeProtectionSpace(space: SList): Unit = soup_auth_free_protection_space(soupAuthPointer.reinterpret(), space.glibSListPointer.reinterpret())
 
     /**
      * Generates an appropriate "Authorization" header for @msg.

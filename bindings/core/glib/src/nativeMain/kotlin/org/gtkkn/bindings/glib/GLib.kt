@@ -30,7 +30,6 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_18
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_2
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_20
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_22
-import org.gtkkn.bindings.glib.annotations.GLibVersion2_24
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_26
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_28
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
@@ -49,10 +48,10 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_6
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_60
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_62
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_64
-import org.gtkkn.bindings.glib.annotations.GLibVersion2_66
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_68
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_70
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_72
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_74
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_78
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_8
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_80
@@ -91,17 +90,16 @@ import org.gtkkn.native.glib.g_assertion_message
 import org.gtkkn.native.glib.g_assertion_message_cmpint
 import org.gtkkn.native.glib.g_assertion_message_cmpstr
 import org.gtkkn.native.glib.g_assertion_message_error
+import org.gtkkn.native.glib.g_assertion_message_expr
 import org.gtkkn.native.glib.g_basename
 import org.gtkkn.native.glib.g_bit_nth_lsf
 import org.gtkkn.native.glib.g_bit_nth_msf
 import org.gtkkn.native.glib.g_bit_storage
 import org.gtkkn.native.glib.g_blow_chunks
-import org.gtkkn.native.glib.g_bookmark_file_error_quark
 import org.gtkkn.native.glib.g_build_filenamev
 import org.gtkkn.native.glib.g_build_pathv
 import org.gtkkn.native.glib.g_canonicalize_filename
 import org.gtkkn.native.glib.g_chdir
-import org.gtkkn.native.glib.g_checksum_type_get_length
 import org.gtkkn.native.glib.g_child_watch_add_full
 import org.gtkkn.native.glib.g_child_watch_source_new
 import org.gtkkn.native.glib.g_clear_error
@@ -111,19 +109,8 @@ import org.gtkkn.native.glib.g_compute_checksum_for_bytes
 import org.gtkkn.native.glib.g_compute_checksum_for_string
 import org.gtkkn.native.glib.g_compute_hmac_for_bytes
 import org.gtkkn.native.glib.g_convert_error_quark
-import org.gtkkn.native.glib.g_date_get_days_in_month
-import org.gtkkn.native.glib.g_date_get_monday_weeks_in_year
-import org.gtkkn.native.glib.g_date_get_sunday_weeks_in_year
-import org.gtkkn.native.glib.g_date_is_leap_year
-import org.gtkkn.native.glib.g_date_valid_day
-import org.gtkkn.native.glib.g_date_valid_dmy
-import org.gtkkn.native.glib.g_date_valid_julian
-import org.gtkkn.native.glib.g_date_valid_month
-import org.gtkkn.native.glib.g_date_valid_weekday
-import org.gtkkn.native.glib.g_date_valid_year
 import org.gtkkn.native.glib.g_dcgettext
 import org.gtkkn.native.glib.g_dgettext
-import org.gtkkn.native.glib.g_dir_make_tmp
 import org.gtkkn.native.glib.g_dngettext
 import org.gtkkn.native.glib.g_dpgettext
 import org.gtkkn.native.glib.g_dpgettext2
@@ -169,37 +156,18 @@ import org.gtkkn.native.glib.g_get_user_runtime_dir
 import org.gtkkn.native.glib.g_get_user_special_dir
 import org.gtkkn.native.glib.g_get_user_state_dir
 import org.gtkkn.native.glib.g_getenv
-import org.gtkkn.native.glib.g_hash_table_destroy
-import org.gtkkn.native.glib.g_hash_table_foreach
-import org.gtkkn.native.glib.g_hash_table_foreach_remove
-import org.gtkkn.native.glib.g_hash_table_foreach_steal
-import org.gtkkn.native.glib.g_hash_table_new_similar
-import org.gtkkn.native.glib.g_hash_table_ref
-import org.gtkkn.native.glib.g_hash_table_remove_all
-import org.gtkkn.native.glib.g_hash_table_size
-import org.gtkkn.native.glib.g_hash_table_steal_all
-import org.gtkkn.native.glib.g_hash_table_unref
-import org.gtkkn.native.glib.g_hook_destroy
-import org.gtkkn.native.glib.g_hook_destroy_link
-import org.gtkkn.native.glib.g_hook_free
-import org.gtkkn.native.glib.g_hook_insert_before
-import org.gtkkn.native.glib.g_hook_prepend
-import org.gtkkn.native.glib.g_hook_unref
 import org.gtkkn.native.glib.g_hostname_is_ascii_encoded
 import org.gtkkn.native.glib.g_hostname_is_ip_address
 import org.gtkkn.native.glib.g_hostname_is_non_ascii
 import org.gtkkn.native.glib.g_hostname_to_ascii
 import org.gtkkn.native.glib.g_hostname_to_unicode
 import org.gtkkn.native.glib.g_idle_add_full
+import org.gtkkn.native.glib.g_idle_add_once
 import org.gtkkn.native.glib.g_idle_source_new
 import org.gtkkn.native.glib.g_intern_static_string
 import org.gtkkn.native.glib.g_intern_string
 import org.gtkkn.native.glib.g_io_add_watch_full
-import org.gtkkn.native.glib.g_io_channel_error_from_errno
-import org.gtkkn.native.glib.g_io_channel_error_quark
 import org.gtkkn.native.glib.g_io_create_watch
-import org.gtkkn.native.glib.g_key_file_error_quark
-import org.gtkkn.native.glib.g_list_pop_allocator
 import org.gtkkn.native.glib.g_listenv
 import org.gtkkn.native.glib.g_log_get_debug_enabled
 import org.gtkkn.native.glib.g_log_remove_handler
@@ -213,19 +181,18 @@ import org.gtkkn.native.glib.g_log_writer_default_set_use_stderr
 import org.gtkkn.native.glib.g_log_writer_default_would_drop
 import org.gtkkn.native.glib.g_log_writer_is_journald
 import org.gtkkn.native.glib.g_log_writer_supports_color
-import org.gtkkn.native.glib.g_main_context_default
-import org.gtkkn.native.glib.g_main_context_get_thread_default
-import org.gtkkn.native.glib.g_main_context_ref_thread_default
 import org.gtkkn.native.glib.g_main_current_source
 import org.gtkkn.native.glib.g_main_depth
 import org.gtkkn.native.glib.g_markup_error_quark
 import org.gtkkn.native.glib.g_markup_escape_text
-import org.gtkkn.native.glib.g_mem_chunk_info
 import org.gtkkn.native.glib.g_mem_is_system_malloc
 import org.gtkkn.native.glib.g_mem_profile
 import org.gtkkn.native.glib.g_mem_set_vtable
 import org.gtkkn.native.glib.g_mkdir_with_parents
-import org.gtkkn.native.glib.g_node_pop_allocator
+import org.gtkkn.native.glib.g_mkdtemp
+import org.gtkkn.native.glib.g_mkdtemp_full
+import org.gtkkn.native.glib.g_mkstemp
+import org.gtkkn.native.glib.g_mkstemp_full
 import org.gtkkn.native.glib.g_number_parser_error_quark
 import org.gtkkn.native.glib.g_on_error_query
 import org.gtkkn.native.glib.g_on_error_stack_trace
@@ -234,7 +201,9 @@ import org.gtkkn.native.glib.g_path_get_basename
 import org.gtkkn.native.glib.g_path_get_dirname
 import org.gtkkn.native.glib.g_path_is_absolute
 import org.gtkkn.native.glib.g_path_skip_root
+import org.gtkkn.native.glib.g_pattern_match
 import org.gtkkn.native.glib.g_pattern_match_simple
+import org.gtkkn.native.glib.g_pattern_match_string
 import org.gtkkn.native.glib.g_poll
 import org.gtkkn.native.glib.g_quark_from_static_string
 import org.gtkkn.native.glib.g_quark_from_string
@@ -251,12 +220,8 @@ import org.gtkkn.native.glib.g_ref_string_new
 import org.gtkkn.native.glib.g_ref_string_new_intern
 import org.gtkkn.native.glib.g_ref_string_new_len
 import org.gtkkn.native.glib.g_ref_string_release
-import org.gtkkn.native.glib.g_regex_error_quark
-import org.gtkkn.native.glib.g_regex_escape_nul
-import org.gtkkn.native.glib.g_regex_escape_string
-import org.gtkkn.native.glib.g_regex_match_simple
-import org.gtkkn.native.glib.g_regex_split_simple
 import org.gtkkn.native.glib.g_reload_user_special_dirs_cache
+import org.gtkkn.native.glib.g_return_if_fail_warning
 import org.gtkkn.native.glib.g_rmdir
 import org.gtkkn.native.glib.g_set_application_name
 import org.gtkkn.native.glib.g_set_prgname
@@ -266,9 +231,6 @@ import org.gtkkn.native.glib.g_shell_quote
 import org.gtkkn.native.glib.g_shell_unquote
 import org.gtkkn.native.glib.g_slice_get_config
 import org.gtkkn.native.glib.g_slice_set_config
-import org.gtkkn.native.glib.g_slist_pop_allocator
-import org.gtkkn.native.glib.g_source_remove
-import org.gtkkn.native.glib.g_source_set_name_by_id
 import org.gtkkn.native.glib.g_spaced_primes_closest
 import org.gtkkn.native.glib.g_spawn_check_exit_status
 import org.gtkkn.native.glib.g_spawn_check_wait_status
@@ -322,6 +284,7 @@ import org.gtkkn.native.glib.g_test_failed
 import org.gtkkn.native.glib.g_test_get_dir
 import org.gtkkn.native.glib.g_test_get_path
 import org.gtkkn.native.glib.g_test_incomplete
+import org.gtkkn.native.glib.g_test_log_set_fatal_handler
 import org.gtkkn.native.glib.g_test_log_type_name
 import org.gtkkn.native.glib.g_test_rand_double
 import org.gtkkn.native.glib.g_test_rand_double_range
@@ -341,21 +304,12 @@ import org.gtkkn.native.glib.g_test_trap_has_passed
 import org.gtkkn.native.glib.g_test_trap_reached_timeout
 import org.gtkkn.native.glib.g_test_trap_subprocess
 import org.gtkkn.native.glib.g_test_trap_subprocess_with_envp
-import org.gtkkn.native.glib.g_thread_error_quark
-import org.gtkkn.native.glib.g_thread_pool_get_max_idle_time
-import org.gtkkn.native.glib.g_thread_pool_get_max_unused_threads
-import org.gtkkn.native.glib.g_thread_pool_get_num_unused_threads
-import org.gtkkn.native.glib.g_thread_pool_set_max_idle_time
-import org.gtkkn.native.glib.g_thread_pool_set_max_unused_threads
-import org.gtkkn.native.glib.g_thread_pool_stop_unused_threads
-import org.gtkkn.native.glib.g_thread_self
-import org.gtkkn.native.glib.g_thread_yield
-import org.gtkkn.native.glib.g_time_val_from_iso8601
 import org.gtkkn.native.glib.g_timeout_add_full
+import org.gtkkn.native.glib.g_timeout_add_once
 import org.gtkkn.native.glib.g_timeout_add_seconds_full
+import org.gtkkn.native.glib.g_timeout_add_seconds_once
 import org.gtkkn.native.glib.g_timeout_source_new
 import org.gtkkn.native.glib.g_timeout_source_new_seconds
-import org.gtkkn.native.glib.g_trash_stack_height
 import org.gtkkn.native.glib.g_unichar_break_type
 import org.gtkkn.native.glib.g_unichar_combining_class
 import org.gtkkn.native.glib.g_unichar_digit_value
@@ -383,9 +337,8 @@ import org.gtkkn.native.glib.g_unichar_toupper
 import org.gtkkn.native.glib.g_unichar_type
 import org.gtkkn.native.glib.g_unichar_validate
 import org.gtkkn.native.glib.g_unichar_xdigit_value
-import org.gtkkn.native.glib.g_unicode_script_from_iso15924
-import org.gtkkn.native.glib.g_unicode_script_to_iso15924
 import org.gtkkn.native.glib.g_unix_error_quark
+import org.gtkkn.native.glib.g_unix_fd_add
 import org.gtkkn.native.glib.g_unix_fd_add_full
 import org.gtkkn.native.glib.g_unix_fd_source_new
 import org.gtkkn.native.glib.g_unix_set_fd_nonblocking
@@ -393,22 +346,6 @@ import org.gtkkn.native.glib.g_unix_signal_add_full
 import org.gtkkn.native.glib.g_unix_signal_source_new
 import org.gtkkn.native.glib.g_unlink
 import org.gtkkn.native.glib.g_unsetenv
-import org.gtkkn.native.glib.g_uri_build
-import org.gtkkn.native.glib.g_uri_build_with_user
-import org.gtkkn.native.glib.g_uri_error_quark
-import org.gtkkn.native.glib.g_uri_escape_string
-import org.gtkkn.native.glib.g_uri_is_valid
-import org.gtkkn.native.glib.g_uri_join
-import org.gtkkn.native.glib.g_uri_join_with_user
-import org.gtkkn.native.glib.g_uri_list_extract_uris
-import org.gtkkn.native.glib.g_uri_parse
-import org.gtkkn.native.glib.g_uri_parse_params
-import org.gtkkn.native.glib.g_uri_parse_scheme
-import org.gtkkn.native.glib.g_uri_peek_scheme
-import org.gtkkn.native.glib.g_uri_resolve_relative
-import org.gtkkn.native.glib.g_uri_unescape_bytes
-import org.gtkkn.native.glib.g_uri_unescape_segment
-import org.gtkkn.native.glib.g_uri_unescape_string
 import org.gtkkn.native.glib.g_usleep
 import org.gtkkn.native.glib.g_utf8_casefold
 import org.gtkkn.native.glib.g_utf8_collate
@@ -434,14 +371,7 @@ import org.gtkkn.native.glib.g_utf8_substring
 import org.gtkkn.native.glib.g_utf8_truncate_middle
 import org.gtkkn.native.glib.g_uuid_string_is_valid
 import org.gtkkn.native.glib.g_uuid_string_random
-import org.gtkkn.native.glib.g_variant_is_object_path
-import org.gtkkn.native.glib.g_variant_is_signature
-import org.gtkkn.native.glib.g_variant_parse_error_print_context
-import org.gtkkn.native.glib.g_variant_parse_error_quark
-import org.gtkkn.native.glib.g_variant_parser_get_error_quark
-import org.gtkkn.native.glib.g_variant_type_checked_
-import org.gtkkn.native.glib.g_variant_type_string_get_depth_
-import org.gtkkn.native.glib.g_variant_type_string_is_valid
+import org.gtkkn.native.glib.g_warn_message
 import org.gtkkn.native.glib.glib_check_version
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_strv_get_type
@@ -474,6 +404,7 @@ import org.gtkkn.native.gobject.gunichar
  * - parameter `endptr`: endptr: Out parameter is not supported
  * - parameter `endptr`: endptr: Out parameter is not supported
  * - parameter `endptr`: endptr: Out parameter is not supported
+ * - parameter `arg1`: long double
  * - parameter `arg1`: Unsupported string with cType const char* const*
  * - parameter `func`: VoidFunc
  * - parameter `atomic`: Unsupported pointer to primitive type
@@ -510,31 +441,24 @@ import org.gtkkn.native.gobject.gunichar
  * - parameter `arc`: Unsupported pointer to primitive type
  * - parameter `out_len`: out_len: Out parameter is not supported
  * - function `base64_decode_inplace`: In/Out parameter is not supported
+ * - function `base64_decode_step`: In/Out parameter is not supported
  * - parameter `data`: Array parameter of type guint8 is not supported
  * - function `base64_encode_close`: In/Out parameter is not supported
  * - function `base64_encode_step`: In/Out parameter is not supported
  * - parameter `address`: Unsupported pointer to primitive type
  * - parameter `address`: Unsupported pointer to primitive type
  * - parameter `address`: Unsupported pointer to primitive type
- * - parameter `array`: Array parameter of type guint8 is not supported
- * - parameter `array`: Array parameter of type guint8 is not supported
- * - parameter `array`: Array parameter of type guint8 is not supported
- * - function `byte_array_new`: Array parameter of type guint8 is not supported
- * - parameter `data`: Array parameter of type guint8 is not supported
- * - parameter `array`: Array parameter of type guint8 is not supported
- * - parameter `array`: Array parameter of type guint8 is not supported
- * - parameter `array`: Array parameter of type guint8 is not supported
- * - parameter `array`: Array parameter of type guint8 is not supported
- * - parameter `array`: Array parameter of type guint8 is not supported
- * - parameter `array`: Array parameter of type guint8 is not supported
- * - function `byte_array_sized_new`: Array parameter of type guint8 is not supported
- * - parameter `array`: Array parameter of type guint8 is not supported
- * - parameter `array`: Array parameter of type guint8 is not supported
- * - parameter `array`: Array parameter of type guint8 is not supported
- * - parameter `array`: Array parameter of type guint8 is not supported
+ * - function `build_filename`: Varargs parameter is not supported
+ * - parameter `args`: va_list
+ * - function `build_path`: Varargs parameter is not supported
+ * - parameter `tag_ptr`: Unsupported pointer to primitive type
+ * - parameter `destroy`: DestroyNotify
+ * - function `clear_pointer`: In/Out parameter is not supported
+ * - parameter `destroy`: DestroyNotify
  * - parameter `data`: Array parameter of type guint8 is not supported
  * - parameter `key`: Array parameter of type guint8 is not supported
  * - parameter `key`: Array parameter of type guint8 is not supported
+ * - parameter `str`: Array parameter of type guint8 is not supported
  * - parameter `str`: Array parameter of type guint8 is not supported
  * - parameter `str`: Array parameter of type guint8 is not supported
  * - parameter `datalist`: Data
@@ -544,6 +468,14 @@ import org.gtkkn.native.gobject.gunichar
  * - parameter `datalist`: Data
  * - parameter `datalist`: Data
  * - parameter `datalist`: Data
+ * - parameter `datalist`: Data
+ * - parameter `datalist`: Data
+ * - parameter `datalist`: Data
+ * - parameter `datalist`: Data
+ * - parameter `datalist`: Data
+ * - parameter `datalist`: Data
+ * - parameter `dataset_location`: gpointer
+ * - parameter `dataset_location`: gpointer
  * - parameter `dataset_location`: gpointer
  * - parameter `dataset_location`: gpointer
  * - parameter `dataset_location`: gpointer
@@ -551,8 +483,6 @@ import org.gtkkn.native.gobject.gunichar
  * - parameter `v`: gpointer
  * - parameter `v1`: gpointer
  * - parameter `v`: gpointer
- * - parameter `error_type_init`: ErrorInitFunc
- * - parameter `error_type_init`: ErrorInitFunc
  * - parameter `contents`: contents: Out parameter is not supported
  * - parameter `name_used`: name_used: Out parameter is not supported
  * - parameter `contents`: Array parameter of type guint8 is not supported
@@ -561,63 +491,60 @@ import org.gtkkn.native.gobject.gunichar
  * - parameter `bytes_read`: bytes_read: Out parameter is not supported
  * - parameter `bytes_read`: bytes_read: Out parameter is not supported
  * - function `fopen`: Return type gpointer is unsupported
+ * - function `fprintf`: Varargs parameter is not supported
  * - parameter `mem`: gpointer
  * - parameter `mem`: gpointer
  * - parameter `stream`: gpointer
  * - parameter `charset`: charset: Out parameter is not supported
  * - parameter `charset`: charset: Out parameter is not supported
  * - parameter `filename_charsets`: filename_charsets: Out parameter is not supported
- * - parameter `key`: gpointer
- * - parameter `key`: gpointer
- * - function `hash_table_find`: Return type gpointer is unsupported
- * - parameter `key`: gpointer
- * - parameter `key`: gpointer
- * - parameter `lookup_key`: gpointer
- * - parameter `key`: gpointer
- * - parameter `key`: gpointer
- * - parameter `key`: gpointer
- * - parameter `lookup_key`: gpointer
- * - parameter `func`: HookCompareFunc
+ * - function `iconv`: In/Out parameter is not supported
  * - parameter `data`: gpointer
  * - parameter `v1`: gpointer
  * - parameter `v`: gpointer
  * - parameter `v1`: gpointer
  * - parameter `v`: gpointer
- * - parameter `allocator`: Allocator
  * - parameter `bytes_read`: bytes_read: Out parameter is not supported
  * - parameter `opsysstring`: Array parameter of type guint8 is not supported
+ * - function `log`: Varargs parameter is not supported
  * - parameter `unused_data`: gpointer
+ * - function `log_set_default_handler`: Return type LogFunc is unsupported
+ * - function `log_structured`: Varargs parameter is not supported
  * - parameter `fields`: LogField
+ * - function `log_structured_standard`: Varargs parameter is not supported
  * - parameter `fields`: LogField
  * - parameter `domains`: Unsupported string with cType const gchar* const*
  * - parameter `fields`: LogField
  * - parameter `fields`: LogField
  * - parameter `fields`: LogField
  * - parameter `fields`: LogField
+ * - parameter `args`: va_list
  * - parameter `buf`: StatBuf
  * - function `malloc`: Return type gpointer is unsupported
  * - function `malloc0`: Return type gpointer is unsupported
  * - function `malloc0_n`: Return type gpointer is unsupported
  * - function `malloc_n`: Return type gpointer is unsupported
+ * - function `markup_collect_attributes`: Varargs parameter is not supported
+ * - function `markup_printf_escaped`: Varargs parameter is not supported
+ * - parameter `args`: va_list
  * - parameter `mem`: gpointer
  * - parameter `mem`: gpointer
- * - parameter `allocator`: Allocator
  * - parameter `nullify_location`: gpointer
- * - function `once_init_enter`: In/Out parameter is not supported
- * - parameter `location`: Unsupported pointer to primitive type
- * - parameter `location`: gpointer
- * - function `once_init_leave`: In/Out parameter is not supported
- * - parameter `location`: gpointer
  * - parameter `keys`: DebugKey
- * - parameter `v1`: gpointer
  * - parameter `address`: gpointer
  * - parameter `address`: gpointer
  * - parameter `ptr`: gpointer
  * - parameter `address`: gpointer
  * - parameter `address`: gpointer
  * - parameter `address`: gpointer
+ * - function `prefix_error`: In/Out parameter is not supported
  * - function `prefix_error_literal`: In/Out parameter is not supported
+ * - function `print`: Varargs parameter is not supported
+ * - function `printerr`: Varargs parameter is not supported
+ * - function `printf`: Varargs parameter is not supported
+ * - parameter `args`: va_list
  * - parameter `dest`: dest: Out parameter is not supported
+ * - function `propagate_prefixed_error`: Varargs parameter is not supported
  * - parameter `pbase`: gpointer
  * - parameter `mem_block`: gpointer
  * - function `rc_box_alloc`: Return type gpointer is unsupported
@@ -632,20 +559,10 @@ import org.gtkkn.native.gobject.gunichar
  * - parameter `rc`: Unsupported pointer to primitive type
  * - parameter `rc`: Unsupported pointer to primitive type
  * - parameter `rc`: Unsupported pointer to primitive type
- * - parameter `has_references`: has_references: Out parameter is not supported
- * - parameter `begin`: SequenceIter
- * - parameter `iter`: SequenceIter
- * - parameter `iter`: SequenceIter
- * - parameter `src`: SequenceIter
- * - parameter `dest`: SequenceIter
- * - parameter `begin`: SequenceIter
- * - parameter `iter`: SequenceIter
- * - parameter `begin`: SequenceIter
- * - parameter `iter`: SequenceIter
- * - parameter `iter`: SequenceIter
- * - parameter `iter`: SequenceIter
- * - parameter `a`: SequenceIter
+ * - function `set_error`: Varargs parameter is not supported
  * - parameter `err`: err: Out parameter is not supported
+ * - parameter `func`: PrintFunc
+ * - parameter `func`: PrintFunc
  * - parameter `argcp`: argcp: Out parameter is not supported
  * - function `slice_alloc`: Return type gpointer is unsupported
  * - function `slice_alloc0`: Return type gpointer is unsupported
@@ -653,30 +570,42 @@ import org.gtkkn.native.gobject.gunichar
  * - parameter `mem_block`: gpointer
  * - parameter `mem_chain`: gpointer
  * - parameter `n_values`: Unsupported pointer to primitive type
- * - parameter `allocator`: Allocator
- * - parameter `user_data`: gpointer
- * - parameter `user_data`: gpointer
+ * - function `snprintf`: Varargs parameter is not supported
  * - parameter `child_pid`: child_pid: Out parameter is not supported
  * - parameter `child_pid`: child_pid: Out parameter is not supported
  * - parameter `child_pid`: child_pid: Out parameter is not supported
  * - parameter `source_fds`: Array parameter of type gint is not supported
  * - parameter `standard_output`: standard_output: Out parameter is not supported
  * - parameter `standard_output`: standard_output: Out parameter is not supported
+ * - function `sprintf`: Varargs parameter is not supported
  * - parameter `buf`: StatBuf
  * - parameter `v1`: gpointer
  * - parameter `v`: gpointer
  * - parameter `ascii_alternates`: ascii_alternates: Out parameter is not supported
+ * - function `strconcat`: Varargs parameter is not supported
+ * - function `strdup_printf`: Varargs parameter is not supported
+ * - parameter `args`: va_list
+ * - function `strjoin`: Varargs parameter is not supported
  * - parameter `endptr`: endptr: Out parameter is not supported
  * - parameter `test_data`: gpointer
  * - parameter `test_data`: gpointer
  * - parameter `test_func`: TestFunc
+ * - parameter `test_data`: gpointer
+ * - function `test_build_filename`: Varargs parameter is not supported
+ * - parameter `test_data`: gpointer
+ * - function `test_create_suite`: Return type TestSuite is unsupported
+ * - function `test_fail_printf`: Varargs parameter is not supported
+ * - function `test_get_filename`: Varargs parameter is not supported
+ * - function `test_get_root`: Return type TestSuite is unsupported
+ * - function `test_incomplete_printf`: Varargs parameter is not supported
+ * - function `test_init`: Varargs parameter is not supported
+ * - function `test_maximized_result`: Varargs parameter is not supported
+ * - function `test_message`: Varargs parameter is not supported
+ * - function `test_minimized_result`: Varargs parameter is not supported
  * - parameter `destroy_func`: DestroyNotify
  * - parameter `gfree_pointer`: gpointer
  * - parameter `suite`: TestSuite
- * - parameter `retval`: gpointer
- * - function `trash_stack_peek`: Return type gpointer is unsupported
- * - function `trash_stack_pop`: Return type gpointer is unsupported
- * - parameter `data_p`: gpointer
+ * - function `test_skip_printf`: Varargs parameter is not supported
  * - function `try_malloc`: Return type gpointer is unsupported
  * - function `try_malloc0`: Return type gpointer is unsupported
  * - function `try_malloc0_n`: Return type gpointer is unsupported
@@ -694,10 +623,6 @@ import org.gtkkn.native.gobject.gunichar
  * - parameter `string`: Array parameter of type gunichar is not supported
  * - function `unix_get_passwd_entry`: Return type gpointer is unsupported
  * - parameter `fds`: Array parameter of type gint is not supported
- * - parameter `unescaped`: Array parameter of type guint8 is not supported
- * - parameter `scheme`: scheme: Out parameter is not supported
- * - parameter `scheme`: scheme: Out parameter is not supported
- * - parameter `scheme`: scheme: Out parameter is not supported
  * - parameter `str`: Array parameter of type guint16 is not supported
  * - parameter `str`: Array parameter of type guint16 is not supported
  * - parameter `items_read`: items_read: Out parameter is not supported
@@ -706,8 +631,11 @@ import org.gtkkn.native.gobject.gunichar
  * - parameter `str`: Array parameter of type guint8 is not supported
  * - parameter `str`: Array parameter of type guint8 is not supported
  * - parameter `utb`: gpointer
- * - parameter `endptr`: Unsupported string with cType const gchar**
- * - parameter `endptr`: endptr: Out parameter is not supported
+ * - parameter `string`: string: Out parameter is not supported
+ * - parameter `file`: gpointer
+ * - parameter `args`: va_list
+ * - parameter `args`: va_list
+ * - parameter `args`: va_list
  * - callback `CacheDupFunc`: Return type gpointer is unsupported
  * - callback `CacheNewFunc`: Return type gpointer is unsupported
  * - callback `CompletionFunc`: Callback with String return value is not supported
@@ -718,22 +646,6 @@ import org.gtkkn.native.gobject.gunichar
  * - callback `OptionParseFunc`: Callbacks that throw are not supported
  * - callback `ThreadFunc`: Return type gpointer is unsupported
  * - callback `TranslateFunc`: Callback with String return value is not supported
- * - record `Allocator`: Disguised records are ignored
- * - record `AsyncQueue`: Disguised records are ignored
- * - record `Cache`: Disguised records are ignored
- * - record `Data`: Disguised records are ignored
- * - record `MemChunk`: Disguised records are ignored
- * - record `OptionContext`: Disguised records are ignored
- * - record `Relation`: Disguised records are ignored
- * - record `Sequence`: Disguised records are ignored
- * - record `SequenceIter`: Disguised records are ignored
- * - record `SourcePrivate`: Disguised records are ignored
- * - record `StatBuf`: Disguised records are ignored
- * - record `StringChunk`: Disguised records are ignored
- * - record `TestCase`: Disguised records are ignored
- * - record `TestSuite`: Disguised records are ignored
- * - record `Timer`: Disguised records are ignored
- * - record `TreeNode`: Disguised records are ignored
  */
 public object GLib {
     public const val ALLOCATOR_LIST: gint = 1
@@ -1729,6 +1641,24 @@ public object GLib {
     ): Unit = g_assertion_message_error(domain, `file`, line, func, expr, error.glibErrorPointer.reinterpret(), errorDomain, errorCode)
 
     /**
+     * Internal function used to print messages from the public g_assert() and
+     * g_assert_not_reached() macros.
+     *
+     * @param domain log domain
+     * @param file file containing the assertion
+     * @param line line number of the assertion
+     * @param func function containing the assertion
+     * @param expr expression which failed
+     */
+    public fun assertionMessageExpr(
+        domain: kotlin.String? = null,
+        `file`: kotlin.String,
+        line: gint,
+        func: kotlin.String,
+        expr: kotlin.String? = null,
+    ): Unit = g_assertion_message_expr(domain, `file`, line, func, expr)
+
+    /**
      * Gets the name of the file without any leading directory
      * components. It returns a pointer into the given file name
      * string.
@@ -1776,8 +1706,6 @@ public object GLib {
     public fun bitStorage(number: gulong): guint = g_bit_storage(number)
 
     public fun blowChunks(): Unit = g_blow_chunks()
-
-    public fun bookmarkFileErrorQuark(): Quark = g_bookmark_file_error_quark()
 
     /**
      * Creates a filename from a vector of elements using the correct
@@ -1888,17 +1816,6 @@ public object GLib {
         requiredMinor: guint,
         requiredMicro: guint,
     ): kotlin.String? = glib_check_version(requiredMajor, requiredMinor, requiredMicro)?.toKString()
-
-    /**
-     * Gets the length in bytes of digests of type @checksum_type
-     *
-     * @param checksumType a #GChecksumType
-     * @return the checksum length, or -1 if @checksum_type is
-     * not supported.
-     * @since 2.16
-     */
-    @GLibVersion2_16
-    public fun checksumTypeGetLength(checksumType: ChecksumType): Long = g_checksum_type_get_length(checksumType.nativeValue)
 
     /**
      * Sets a function to be called when the child indicated by @pid
@@ -2128,118 +2045,6 @@ public object GLib {
     public fun convertErrorQuark(): Quark = g_convert_error_quark()
 
     /**
-     * Returns the number of days in a month, taking leap
-     * years into account.
-     *
-     * @param month month
-     * @param year year
-     * @return number of days in @month during the @year
-     */
-    public fun dateGetDaysInMonth(month: DateMonth, year: DateYear): guint8 = g_date_get_days_in_month(month.nativeValue, year)
-
-    /**
-     * Returns the number of weeks in the year, where weeks
-     * are taken to start on Monday. Will be 52 or 53. The
-     * date must be valid. (Years always have 52 7-day periods,
-     * plus 1 or 2 extra days depending on whether it's a leap
-     * year. This function is basically telling you how many
-     * Mondays are in the year, i.e. there are 53 Mondays if
-     * one of the extra days happens to be a Monday.)
-     *
-     * @param year a year
-     * @return number of Mondays in the year
-     */
-    public fun dateGetMondayWeeksInYear(year: DateYear): guint8 = g_date_get_monday_weeks_in_year(year)
-
-    /**
-     * Returns the number of weeks in the year, where weeks
-     * are taken to start on Sunday. Will be 52 or 53. The
-     * date must be valid. (Years always have 52 7-day periods,
-     * plus 1 or 2 extra days depending on whether it's a leap
-     * year. This function is basically telling you how many
-     * Sundays are in the year, i.e. there are 53 Sundays if
-     * one of the extra days happens to be a Sunday.)
-     *
-     * @param year year to count weeks in
-     * @return the number of weeks in @year
-     */
-    public fun dateGetSundayWeeksInYear(year: DateYear): guint8 = g_date_get_sunday_weeks_in_year(year)
-
-    /**
-     * Returns true if the year is a leap year.
-     *
-     * For the purposes of this function, leap year is every year
-     * divisible by 4 unless that year is divisible by 100. If it
-     * is divisible by 100 it would be a leap year only if that year
-     * is also divisible by 400.
-     *
-     * @param year year to check
-     * @return true if the year is a leap year
-     */
-    public fun dateIsLeapYear(year: DateYear): Boolean = g_date_is_leap_year(year).asBoolean()
-
-    /**
-     * Returns true if the day of the month is valid (a day is valid if it's
-     * between 1 and 31 inclusive).
-     *
-     * @param day day to check
-     * @return true if the day is valid
-     */
-    public fun dateValidDay(day: DateDay): Boolean = g_date_valid_day(day).asBoolean()
-
-    /**
-     * Returns true if the day-month-year triplet forms a valid, existing day
-     * in the range of days #GDate understands (Year 1 or later, no more than
-     * a few thousand years in the future).
-     *
-     * @param day day
-     * @param month month
-     * @param year year
-     * @return true if the date is a valid one
-     */
-    public fun dateValidDmy(
-        day: DateDay,
-        month: DateMonth,
-        year: DateYear,
-    ): Boolean = g_date_valid_dmy(day, month.nativeValue, year).asBoolean()
-
-    /**
-     * Returns true if the Julian day is valid. Anything greater than zero
-     * is basically a valid Julian, though there is a 32-bit limit.
-     *
-     * @param julianDate Julian day to check
-     * @return true if the Julian day is valid
-     */
-    public fun dateValidJulian(julianDate: guint): Boolean = g_date_valid_julian(julianDate).asBoolean()
-
-    /**
-     * Returns true if the month value is valid. The 12 #GDateMonth
-     * enumeration values are the only valid months.
-     *
-     * @param month month
-     * @return true if the month is valid
-     */
-    public fun dateValidMonth(month: DateMonth): Boolean = g_date_valid_month(month.nativeValue).asBoolean()
-
-    /**
-     * Returns true if the weekday is valid. The seven #GDateWeekday enumeration
-     * values are the only valid weekdays.
-     *
-     * @param weekday weekday
-     * @return true if the weekday is valid
-     */
-    public fun dateValidWeekday(weekday: DateWeekday): Boolean = g_date_valid_weekday(weekday.nativeValue).asBoolean()
-
-    /**
-     * Returns true if the year is valid. Any year greater than 0 is valid,
-     * though there is a 16-bit limit to what #GDate will understand.
-     *
-     * @param year year
-     * @return true if the year is valid
-     */
-    public fun dateValidYear(year: DateYear): Boolean = g_date_valid_year(year).asBoolean()
-
-    /**
      * This is a variant of g_dgettext() that allows specifying a locale
      * category instead of always using `LC_MESSAGES`. See g_dgettext() for
      * more information about how this functions differs from calling
@@ -2301,39 +2106,6 @@ public object GLib {
      */
     @GLibVersion2_18
     public fun dgettext(domain: kotlin.String? = null, msgid: kotlin.String): kotlin.String = g_dgettext(domain, msgid)?.toKString() ?: error("Expected not null string")
-
-    /**
-     * Creates a subdirectory in the preferred directory for temporary
-     * files (as returned by g_get_tmp_dir()).
-     *
-     * @tmpl should be a string in the GLib file name encoding containing
-     * a sequence of six 'X' characters, as the parameter to g_mkstemp().
-     * However, unlike these functions, the template should only be a
-     * basename, no directory components are allowed. If template is
-     * null, a default template is used.
-     *
-     * Note that in contrast to g_mkdtemp() (and mkdtemp()) @tmpl is not
-     * modified, and might thus be a read-only literal string.
-     *
-     * @param tmpl Template for directory name,
-     *   as in g_mkdtemp(), basename only, or null for a default template
-     * @return The actual name used. This string
-     *   should be freed with g_free() when not needed any longer and is
-     *   is in the GLib file name encoding. In case of errors, null is
-     *   returned and @error will be set.
-     * @since 2.30
-     */
-    @GLibVersion2_30
-    public fun dirMakeTmp(tmpl: kotlin.String? = null): Result<kotlin.String> = memScoped {
-        val gError = allocPointerTo<GError>()
-        val gResult = g_dir_make_tmp(tmpl, gError.ptr)?.toKString()
-        return if (gError.pointed != null) {
-            Result.failure(org.gtkkn.bindings.glib.GLib.resolveException(Error(gError.pointed!!.ptr)))
-        }
-        else {
-            Result.success(checkNotNull(gResult))
-        }
-    }
 
     /**
      * This function is a wrapper of dngettext() which does not translate
@@ -3319,200 +3091,6 @@ public object GLib {
     public fun getenv(variable: kotlin.String): kotlin.String? = g_getenv(variable)?.toKString()
 
     /**
-     * Destroys all keys and values in the #GHashTable and decrements its
-     * reference count by 1. If keys and/or values are dynamically allocated,
-     * you should either free them first or create the #GHashTable with destroy
-     * notifiers using g_hash_table_new_full(). In the latter case the destroy
-     * functions you supplied will be called on all keys and values during the
-     * destruction phase.
-     *
-     * @param hashTable a #GHashTable
-     */
-    public fun hashTableDestroy(hashTable: HashTable): Unit = g_hash_table_destroy(hashTable.glibHashTablePointer.reinterpret())
-
-    /**
-     * Calls the given function for each of the key/value pairs in the
-     * #GHashTable.  The function is passed the key and value of each
-     * pair, and the given @user_data parameter.  The hash table may not
-     * be modified while iterating over it (you can't add/remove
-     * items). To remove all items matching a predicate, use
-     * g_hash_table_foreach_remove().
-     *
-     * The order in which g_hash_table_foreach() iterates over the keys/values in
-     * the hash table is not defined.
-     *
-     * See g_hash_table_find() for performance caveats for linear
-     * order searches in contrast to g_hash_table_lookup().
-     *
-     * @param hashTable a #GHashTable
-     * @param func the function to call for each key/value pair
-     */
-    public fun hashTableForeach(hashTable: HashTable, func: HFunc): Unit = g_hash_table_foreach(hashTable.glibHashTablePointer.reinterpret(), HFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
-
-    /**
-     * Calls the given function for each key/value pair in the
-     * #GHashTable. If the function returns true, then the key/value
-     * pair is removed from the #GHashTable. If you supplied key or
-     * value destroy functions when creating the #GHashTable, they are
-     * used to free the memory allocated for the removed keys and values.
-     *
-     * See #GHashTableIter for an alternative way to loop over the
-     * key/value pairs in the hash table.
-     *
-     * @param hashTable a #GHashTable
-     * @param func the function to call for each key/value pair
-     * @return the number of key/value pairs removed
-     */
-    public fun hashTableForeachRemove(hashTable: HashTable, func: HRFunc): guint = g_hash_table_foreach_remove(hashTable.glibHashTablePointer.reinterpret(), HRFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
-
-    /**
-     * Calls the given function for each key/value pair in the
-     * #GHashTable. If the function returns true, then the key/value
-     * pair is removed from the #GHashTable, but no key or value
-     * destroy functions are called.
-     *
-     * See #GHashTableIter for an alternative way to loop over the
-     * key/value pairs in the hash table.
-     *
-     * @param hashTable a #GHashTable
-     * @param func the function to call for each key/value pair
-     * @return the number of key/value pairs removed.
-     */
-    public fun hashTableForeachSteal(hashTable: HashTable, func: HRFunc): guint = g_hash_table_foreach_steal(hashTable.glibHashTablePointer.reinterpret(), HRFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
-
-    /**
-     * Creates a new #GHashTable like g_hash_table_new_full() with a reference
-     * count of 1.
-     *
-     * It inherits the hash function, the key equal function, the key destroy function,
-     * as well as the value destroy function, from @other_hash_table.
-     *
-     * The returned hash table will be empty; it will not contain the keys
-     * or values from @other_hash_table.
-     *
-     * @param otherHashTable Another #GHashTable
-     * @return a new #GHashTable
-     * @since 2.72
-     */
-    @GLibVersion2_72
-    public fun hashTableNewSimilar(otherHashTable: HashTable): HashTable = g_hash_table_new_similar(otherHashTable.glibHashTablePointer.reinterpret())!!.run {
-        HashTable(reinterpret())}
-
-    /**
-     * Atomically increments the reference count of @hash_table by one.
-     * This function is MT-safe and may be called from any thread.
-     *
-     * @param hashTable a valid #GHashTable
-     * @return the passed in #GHashTable
-     * @since 2.10
-     */
-    @GLibVersion2_10
-    public fun hashTableRef(hashTable: HashTable): HashTable = g_hash_table_ref(hashTable.glibHashTablePointer.reinterpret())!!.run {
-        HashTable(reinterpret())}
-
-    /**
-     * Removes all keys and their associated values from a #GHashTable.
-     *
-     * If the #GHashTable was created using g_hash_table_new_full(),
-     * the keys and values are freed using the supplied destroy functions,
-     * otherwise you have to make sure that any dynamically allocated
-     * values are freed yourself.
-     *
-     * @param hashTable a #GHashTable
-     * @since 2.12
-     */
-    @GLibVersion2_12
-    public fun hashTableRemoveAll(hashTable: HashTable): Unit = g_hash_table_remove_all(hashTable.glibHashTablePointer.reinterpret())
-
-    /**
-     * Returns the number of elements contained in the #GHashTable.
-     *
-     * @param hashTable a #GHashTable
-     * @return the number of key/value pairs in the #GHashTable.
-     */
-    public fun hashTableSize(hashTable: HashTable): guint = g_hash_table_size(hashTable.glibHashTablePointer.reinterpret())
-
-    /**
-     * Removes all keys and their associated values from a #GHashTable
-     * without calling the key and value destroy functions.
-     *
-     * @param hashTable a #GHashTable
-     * @since 2.12
-     */
-    @GLibVersion2_12
-    public fun hashTableStealAll(hashTable: HashTable): Unit = g_hash_table_steal_all(hashTable.glibHashTablePointer.reinterpret())
-
-    /**
-     * Atomically decrements the reference count of @hash_table by one.
-     * If the reference count drops to 0, all keys and values will be
-     * destroyed, and all memory allocated by the hash table is released.
-     * This function is MT-safe and may be called from any thread.
-     *
-     * @param hashTable a valid #GHashTable
-     * @since 2.10
-     */
-    @GLibVersion2_10
-    public fun hashTableUnref(hashTable: HashTable): Unit = g_hash_table_unref(hashTable.glibHashTablePointer.reinterpret())
-
-    /**
-     * Destroys a #GHook, given its ID.
-     *
-     * @param hookList a #GHookList
-     * @param hookId a hook ID
-     * @return true if the #GHook was found in the #GHookList and destroyed
-     */
-    public fun hookDestroy(hookList: HookList, hookId: gulong): Boolean = g_hook_destroy(hookList.glibHookListPointer.reinterpret(), hookId).asBoolean()
-
-    /**
-     * Removes one #GHook from a #GHookList, marking it
-     * inactive and calling g_hook_unref() on it.
-     *
-     * @param hookList a #GHookList
-     * @param hook the #GHook to remove
-     */
-    public fun hookDestroyLink(hookList: HookList, hook: Hook): Unit = g_hook_destroy_link(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
-
-    /**
-     * Calls the #GHookList @finalize_hook function if it exists,
-     * and frees the memory allocated for the #GHook.
-     *
-     * @param hookList a #GHookList
-     * @param hook the #GHook to free
-     */
-    public fun hookFree(hookList: HookList, hook: Hook): Unit = g_hook_free(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
-
-    /**
-     * Inserts a #GHook into a #GHookList, before a given #GHook.
-     *
-     * @param hookList a #GHookList
-     * @param sibling the #GHook to insert the new #GHook before
-     * @param hook the #GHook to insert
-     */
-    public fun hookInsertBefore(
-        hookList: HookList,
-        sibling: Hook? = null,
-        hook: Hook,
-    ): Unit = g_hook_insert_before(hookList.glibHookListPointer.reinterpret(), sibling?.glibHookPointer?.reinterpret(), hook.glibHookPointer.reinterpret())
-
-    /**
-     * Prepends a #GHook on the start of a #GHookList.
-     *
-     * @param hookList a #GHookList
-     * @param hook the #GHook to add to the start of @hook_list
-     */
-    public fun hookPrepend(hookList: HookList, hook: Hook): Unit = g_hook_prepend(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
-
-    /**
-     * Decrements the reference count of a #GHook.
-     * If the reference count falls to 0, the #GHook is removed
-     * from the #GHookList and g_hook_free() is called to free it.
-     *
-     * @param hookList a #GHookList
-     * @param hook the #GHook to unref
-     */
-    public fun hookUnref(hookList: HookList, hook: Hook): Unit = g_hook_unref(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
-
-    /**
      * Tests if @hostname contains segments with an ASCII-compatible
      * encoding of an Internationalized Domain Name. If this returns
      * true, you should decode the hostname with g_hostname_to_unicode()
@@ -3613,6 +3191,23 @@ public object GLib {
     public fun idleAdd(priority: gint, function: SourceFunc): guint = g_idle_add_full(priority, SourceFuncFunc.reinterpret(), StableRef.create(function).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
+     * Adds a function to be called whenever there are no higher priority
+     * events pending to the default main loop. The function is given the
+     * default idle priority, %G_PRIORITY_DEFAULT_IDLE.
+     *
+     * The function will only be called once and then the source will be
+     * automatically removed from the main context.
+     *
+     * This function otherwise behaves like g_idle_add().
+     *
+     * @param function function to call
+     * @return the ID (greater than 0) of the event source
+     * @since 2.74
+     */
+    @GLibVersion2_74
+    public fun idleAddOnce(function: SourceOnceFunc): guint = g_idle_add_once(SourceOnceFuncFunc.reinterpret(), StableRef.create(function).asCPointer())
+
+    /**
      * Creates a new idle source.
      *
      * The source will not initially be associated with any #GMainContext
@@ -3681,18 +3276,6 @@ public object GLib {
     ): guint = g_io_add_watch_full(channel.glibIOChannelPointer.reinterpret(), priority, condition.mask, IOFuncFunc.reinterpret(), StableRef.create(func).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
-     * Converts an `errno` error number to a #GIOChannelError.
-     *
-     * @param en an `errno` error number, e.g. `EINVAL`
-     * @return a #GIOChannelError error number, e.g.
-     *      %G_IO_CHANNEL_ERROR_INVAL.
-     */
-    public fun ioChannelErrorFromErrno(en: gint): IOChannelError = g_io_channel_error_from_errno(en).run {
-        IOChannelError.fromNativeValue(this)}
-
-    public fun ioChannelErrorQuark(): Quark = g_io_channel_error_quark()
-
-    /**
      * Creates a #GSource that's dispatched when @condition is met for the
      * given @channel. For example, if condition is %G_IO_IN, the source will
      * be dispatched when there's data available for reading.
@@ -3714,10 +3297,6 @@ public object GLib {
      */
     public fun ioCreateWatch(channel: IOChannel, condition: IOCondition): Source = g_io_create_watch(channel.glibIOChannelPointer.reinterpret(), condition.mask)!!.run {
         Source(reinterpret())}
-
-    public fun keyFileErrorQuark(): Quark = g_key_file_error_quark()
-
-    public fun listPopAllocator(): Unit = g_list_pop_allocator()
 
     /**
      * Gets the names of all variables set in the environment.
@@ -3996,54 +3575,6 @@ public object GLib {
     public fun logWriterSupportsColor(outputFd: gint): Boolean = g_log_writer_supports_color(outputFd).asBoolean()
 
     /**
-     * Returns the global-default main context. This is the main context
-     * used for main loop functions when a main loop is not explicitly
-     * specified, and corresponds to the "main" main loop. See also
-     * g_main_context_get_thread_default().
-     *
-     * @return the global-default main context.
-     */
-    public fun mainContextDefault(): MainContext = g_main_context_default()!!.run {
-        MainContext(reinterpret())}
-
-    /**
-     * Gets the thread-default #GMainContext for this thread. Asynchronous
-     * operations that want to be able to be run in contexts other than
-     * the default one should call this method or
-     * g_main_context_ref_thread_default() to get a #GMainContext to add
-     * their #GSources to. (Note that even in single-threaded
-     * programs applications may sometimes want to temporarily push a
-     * non-default context, so it is not safe to assume that this will
-     * always return null if you are running in the default thread.)
-     *
-     * If you need to hold a reference on the context, use
-     * g_main_context_ref_thread_default() instead.
-     *
-     * @return the thread-default #GMainContext, or
-     * null if the thread-default context is the global-default main context.
-     * @since 2.22
-     */
-    @GLibVersion2_22
-    public fun mainContextGetThreadDefault(): MainContext? = g_main_context_get_thread_default()?.run {
-        MainContext(reinterpret())}
-
-    /**
-     * Gets the thread-default #GMainContext for this thread, as with
-     * g_main_context_get_thread_default(), but also adds a reference to
-     * it with g_main_context_ref(). In addition, unlike
-     * g_main_context_get_thread_default(), if the thread-default context
-     * is the global-default context, this will return that #GMainContext
-     * (with a ref added to it) rather than returning null.
-     *
-     * @return the thread-default #GMainContext. Unref
-     *     with g_main_context_unref() when you are done with it.
-     * @since 2.32
-     */
-    @GLibVersion2_32
-    public fun mainContextRefThreadDefault(): MainContext = g_main_context_ref_thread_default()!!.run {
-        MainContext(reinterpret())}
-
-    /**
      * Returns the currently firing source for this thread.
      *
      * @return The currently firing source or null.
@@ -4184,8 +3715,6 @@ public object GLib {
      */
     public fun markupEscapeText(text: kotlin.String, length: Long): kotlin.String = g_markup_escape_text(text, length)?.toKString() ?: error("Expected not null string")
 
-    public fun memChunkInfo(): Unit = g_mem_chunk_info()
-
     /**
      * Checks whether the allocator used by g_malloc() is the system's
      * malloc implementation. If it returns true memory allocated with
@@ -4227,7 +3756,109 @@ public object GLib {
     @GLibVersion2_8
     public fun mkdirWithParents(pathname: kotlin.String, mode: gint): gint = g_mkdir_with_parents(pathname, mode)
 
-    public fun nodePopAllocator(): Unit = g_node_pop_allocator()
+    /**
+     * Creates a temporary directory. See the mkdtemp() documentation
+     * on most UNIX-like systems.
+     *
+     * The parameter is a string that should follow the rules for
+     * mkdtemp() templates, i.e. contain the string "XXXXXX".
+     * g_mkdtemp() is slightly more flexible than mkdtemp() in that the
+     * sequence does not have to occur at the very end of the template.
+     * The X string will be modified to form the name of a directory that
+     * didn't exist.
+     * The string should be in the GLib file name encoding. Most importantly,
+     * on Windows it should be in UTF-8.
+     *
+     * If you are going to be creating a temporary directory inside the
+     * directory returned by g_get_tmp_dir(), you might want to use
+     * g_dir_make_tmp() instead.
+     *
+     * @param tmpl template directory name
+     * @return A pointer to @tmpl, which has been
+     *   modified to hold the directory name.  In case of errors, null is
+     *   returned and %errno will be set.
+     * @since 2.30
+     */
+    @GLibVersion2_30
+    public fun mkdtemp(tmpl: kotlin.String): kotlin.String? = g_mkdtemp(tmpl.cstr)?.toKString()
+
+    /**
+     * Creates a temporary directory. See the mkdtemp() documentation
+     * on most UNIX-like systems.
+     *
+     * The parameter is a string that should follow the rules for
+     * mkdtemp() templates, i.e. contain the string "XXXXXX".
+     * g_mkdtemp_full() is slightly more flexible than mkdtemp() in that the
+     * sequence does not have to occur at the very end of the template
+     * and you can pass a @mode. The X string will be modified to form
+     * the name of a directory that didn't exist. The string should be
+     * in the GLib file name encoding. Most importantly, on Windows it
+     * should be in UTF-8.
+     *
+     * If you are going to be creating a temporary directory inside the
+     * directory returned by g_get_tmp_dir(), you might want to use
+     * g_dir_make_tmp() instead.
+     *
+     * @param tmpl template directory name
+     * @param mode permissions to create the temporary directory with
+     * @return A pointer to @tmpl, which has been
+     *   modified to hold the directory name. In case of errors, null is
+     *   returned, and %errno will be set.
+     * @since 2.30
+     */
+    @GLibVersion2_30
+    public fun mkdtempFull(tmpl: kotlin.String, mode: gint): kotlin.String? = g_mkdtemp_full(tmpl.cstr, mode)?.toKString()
+
+    /**
+     * Opens a temporary file. See the mkstemp() documentation
+     * on most UNIX-like systems.
+     *
+     * The parameter is a string that should follow the rules for
+     * mkstemp() templates, i.e. contain the string "XXXXXX".
+     * g_mkstemp() is slightly more flexible than mkstemp() in that the
+     * sequence does not have to occur at the very end of the template.
+     * The X string will be modified to form the name of a file that
+     * didn't exist. The string should be in the GLib file name encoding.
+     * Most importantly, on Windows it should be in UTF-8.
+     *
+     * @param tmpl template filename
+     * @return A file handle (as from open()) to the file
+     *   opened for reading and writing. The file is opened in binary
+     *   mode on platforms where there is a difference. The file handle
+     *   should be closed with close(). In case of errors, -1 is
+     *   returned and %errno will be set.
+     */
+    public fun mkstemp(tmpl: kotlin.String): gint = g_mkstemp(tmpl.cstr)
+
+    /**
+     * Opens a temporary file. See the mkstemp() documentation
+     * on most UNIX-like systems.
+     *
+     * The parameter is a string that should follow the rules for
+     * mkstemp() templates, i.e. contain the string "XXXXXX".
+     * g_mkstemp_full() is slightly more flexible than mkstemp()
+     * in that the sequence does not have to occur at the very end of the
+     * template and you can pass a @mode and additional @flags. The X
+     * string will be modified to form the name of a file that didn't exist.
+     * The string should be in the GLib file name encoding. Most importantly,
+     * on Windows it should be in UTF-8.
+     *
+     * @param tmpl template filename
+     * @param flags flags to pass to an open() call in addition to O_EXCL
+     *   and O_CREAT, which are passed automatically
+     * @param mode permissions to create the temporary file with
+     * @return A file handle (as from open()) to the file
+     *   opened for reading and writing. The file handle should be
+     *   closed with close(). In case of errors, -1 is returned
+     *   and %errno will be set.
+     * @since 2.22
+     */
+    @GLibVersion2_22
+    public fun mkstempFull(
+        tmpl: kotlin.String,
+        flags: gint,
+        mode: gint,
+    ): gint = g_mkstemp_full(tmpl.cstr, flags, mode)
 
     public fun numberParserErrorQuark(): Quark = g_number_parser_error_quark()
 
@@ -4378,6 +4009,39 @@ public object GLib {
     public fun pathSkipRoot(fileName: kotlin.String): kotlin.String? = g_path_skip_root(fileName)?.toKString()
 
     /**
+     * Matches a string against a compiled pattern. Passing the correct
+     * length of the string given is mandatory. The reversed string can be
+     * omitted by passing null, this is more efficient if the reversed
+     * version of the string to be matched is not at hand, as
+     * g_pattern_match() will only construct it if the compiled pattern
+     * requires reverse matches.
+     *
+     * Note that, if the user code will (possibly) match a string against a
+     * multitude of patterns containing wildcards, chances are high that
+     * some patterns will require a reversed string. In this case, it's
+     * more efficient to provide the reversed string to avoid multiple
+     * constructions thereof in the various calls to g_pattern_match().
+     *
+     * Note also that the reverse of a UTF-8 encoded string can in general
+     * not be obtained by g_strreverse(). This works only if the string
+     * does not contain any multibyte characters. GLib offers the
+     * g_utf8_strreverse() function to reverse UTF-8 encoded strings.
+     *
+     * @param pspec a #GPatternSpec
+     * @param stringLength the length of @string (in bytes, i.e. strlen(),
+     *     not g_utf8_strlen())
+     * @param string the UTF-8 encoded string to match
+     * @param stringReversed the reverse of @string or null
+     * @return true if @string matches @pspec
+     */
+    public fun patternMatch(
+        pspec: PatternSpec,
+        stringLength: guint,
+        string: kotlin.String,
+        stringReversed: kotlin.String? = null,
+    ): Boolean = g_pattern_match(pspec.glibPatternSpecPointer.reinterpret(), stringLength, string, stringReversed).asBoolean()
+
+    /**
      * Matches a string against a pattern given as a string. If this
      * function is to be called in a loop, it's more efficient to compile
      * the pattern once with g_pattern_spec_new() and call
@@ -4388,6 +4052,17 @@ public object GLib {
      * @return true if @string matches @pspec
      */
     public fun patternMatchSimple(pattern: kotlin.String, string: kotlin.String): Boolean = g_pattern_match_simple(pattern, string).asBoolean()
+
+    /**
+     * Matches a string against a compiled pattern. If the string is to be
+     * matched against more than one pattern, consider using
+     * g_pattern_match() instead while supplying the reversed string.
+     *
+     * @param pspec a #GPatternSpec
+     * @param string the UTF-8 encoded string to match
+     * @return true if @string matches @pspec
+     */
+    public fun patternMatchString(pspec: PatternSpec, string: kotlin.String): Boolean = g_pattern_match_string(pspec.glibPatternSpecPointer.reinterpret(), string).asBoolean()
 
     /**
      * Polls @fds, as with the poll() system call, but portably. (On
@@ -4599,112 +4274,6 @@ public object GLib {
     @GLibVersion2_58
     public fun refStringRelease(str: kotlin.String): Unit = g_ref_string_release(str.cstr)
 
-    public fun regexErrorQuark(): Quark = g_regex_error_quark()
-
-    /**
-     * Escapes the nul characters in @string to "\x00".  It can be used
-     * to compile a regex with embedded nul characters.
-     *
-     * For completeness, @length can be -1 for a nul-terminated string.
-     * In this case the output string will be of course equal to @string.
-     *
-     * @param string the string to escape
-     * @param length the length of @string
-     * @return a newly-allocated escaped string
-     * @since 2.30
-     */
-    @GLibVersion2_30
-    public fun regexEscapeNul(string: kotlin.String, length: gint): kotlin.String = g_regex_escape_nul(string, length)?.toKString() ?: error("Expected not null string")
-
-    /**
-     * Escapes the special characters used for regular expressions
-     * in @string, for instance "a.b*c" becomes "a\.b\*c". This
-     * function is useful to dynamically generate regular expressions.
-     *
-     * @string can contain nul characters that are replaced with "\0",
-     * in this case remember to specify the correct length of @string
-     * in @length.
-     *
-     * @param string the string to escape
-     * @param length the length of @string, in bytes, or -1 if @string is nul-terminated
-     * @return a newly-allocated escaped string
-     * @since 2.14
-     */
-    @GLibVersion2_14
-    public fun regexEscapeString(string: kotlin.String, length: gint): kotlin.String = g_regex_escape_string(string, length)?.toKString() ?: error("Expected not null string")
-
-    /**
-     * Scans for a match in @string for @pattern.
-     *
-     * This function is equivalent to g_regex_match() but it does not
-     * require to compile the pattern with g_regex_new(), avoiding some
-     * lines of code when you need just to do a match without extracting
-     * substrings, capture counts, and so on.
-     *
-     * If this function is to be called on the same @pattern more than
-     * once, it's more efficient to compile the pattern once with
-     * g_regex_new() and then use g_regex_match().
-     *
-     * @param pattern the regular expression
-     * @param string the string to scan for matches
-     * @param compileOptions compile options for the regular expression, or 0
-     * @param matchOptions match options, or 0
-     * @return true if the string matched, false otherwise
-     * @since 2.14
-     */
-    @GLibVersion2_14
-    public fun regexMatchSimple(
-        pattern: kotlin.String,
-        string: kotlin.String,
-        compileOptions: RegexCompileFlags,
-        matchOptions: RegexMatchFlags,
-    ): Boolean = g_regex_match_simple(pattern, string, compileOptions.mask, matchOptions.mask).asBoolean()
-
-    /**
-     * Breaks the string on the pattern, and returns an array of
-     * the tokens. If the pattern contains capturing parentheses,
-     * then the text for each of the substrings will also be returned.
-     * If the pattern does not match anywhere in the string, then the
-     * whole string is returned as the first token.
-     *
-     * This function is equivalent to g_regex_split() but it does
-     * not require to compile the pattern with g_regex_new(), avoiding
-     * some lines of code when you need just to do a split without
-     * extracting substrings, capture counts, and so on.
-     *
-     * If this function is to be called on the same @pattern more than
-     * once, it's more efficient to compile the pattern once with
-     * g_regex_new() and then use g_regex_split().
-     *
-     * As a special case, the result of splitting the empty string ""
-     * is an empty vector, not a vector containing a single string.
-     * The reason for this special case is that being able to represent
-     * an empty vector is typically more useful than consistent handling
-     * of empty elements. If you do need to represent empty elements,
-     * you'll need to check for the empty string before calling this
-     * function.
-     *
-     * A pattern that can match empty strings splits @string into
-     * separate characters wherever it matches the empty string between
-     * characters. For example splitting "ab c" using as a separator
-     * "\s*", you will get "a", "b" and "c".
-     *
-     * @param pattern the regular expression
-     * @param string the string to scan for matches
-     * @param compileOptions compile options for the regular expression, or 0
-     * @param matchOptions match options, or 0
-     * @return a null-terminated array of strings. Free
-     * it using g_strfreev()
-     * @since 2.14
-     */
-    @GLibVersion2_14
-    public fun regexSplitSimple(
-        pattern: kotlin.String,
-        string: kotlin.String,
-        compileOptions: RegexCompileFlags,
-        matchOptions: RegexMatchFlags,
-    ): List<kotlin.String> = g_regex_split_simple(pattern, string, compileOptions.mask, matchOptions.mask)?.toKStringList() ?: error("Expected not null string array")
-
     /**
      * Resets the cache used for g_get_user_special_dir(), so
      * that the latest on-disk version is used. Call this only
@@ -4719,6 +4288,20 @@ public object GLib {
      */
     @GLibVersion2_22
     public fun reloadUserSpecialDirsCache(): Unit = g_reload_user_special_dirs_cache()
+
+    /**
+     * Internal function used to print messages from the public [func@GLib.return_if_fail]
+     * and [func@GLib.return_val_if_fail] macros.
+     *
+     * @param logDomain log domain
+     * @param prettyFunction function containing the assertion
+     * @param expression expression which failed
+     */
+    public fun returnIfFailWarning(
+        logDomain: kotlin.String? = null,
+        prettyFunction: kotlin.String,
+        expression: kotlin.String? = null,
+    ): Unit = g_return_if_fail_warning(logDomain, prettyFunction, expression)
 
     /**
      * A wrapper for the POSIX rmdir() function. The rmdir() function
@@ -4873,59 +4456,6 @@ public object GLib {
     public fun sliceGetConfig(ckey: SliceConfig): gint64 = g_slice_get_config(ckey.nativeValue)
 
     public fun sliceSetConfig(ckey: SliceConfig, `value`: gint64): Unit = g_slice_set_config(ckey.nativeValue, `value`)
-
-    public fun slistPopAllocator(): Unit = g_slist_pop_allocator()
-
-    /**
-     * Removes the source with the given ID from the default main context. You must
-     * use g_source_destroy() for sources added to a non-default main context.
-     *
-     * The ID of a #GSource is given by g_source_get_id(), or will be
-     * returned by the functions g_source_attach(), g_idle_add(),
-     * g_idle_add_full(), g_timeout_add(), g_timeout_add_full(),
-     * g_child_watch_add(), g_child_watch_add_full(), g_io_add_watch(), and
-     * g_io_add_watch_full().
-     *
-     * It is a programmer error to attempt to remove a non-existent source.
-     *
-     * More specifically: source IDs can be reissued after a source has been
-     * destroyed and therefore it is never valid to use this function with a
-     * source ID which may have already been removed.  An example is when
-     * scheduling an idle to run in another thread with g_idle_add(): the
-     * idle may already have run and been removed by the time this function
-     * is called on its (now invalid) source ID.  This source ID may have
-     * been reissued, leading to the operation being performed against the
-     * wrong source.
-     *
-     * @param tag the ID of the source to remove.
-     * @return true if the source was found and removed.
-     */
-    public fun sourceRemove(tag: guint): Boolean = g_source_remove(tag).asBoolean()
-
-    /**
-     * Sets the name of a source using its ID.
-     *
-     * This is a convenience utility to set source names from the return
-     * value of g_idle_add(), g_timeout_add(), etc.
-     *
-     * It is a programmer error to attempt to set the name of a non-existent
-     * source.
-     *
-     * More specifically: source IDs can be reissued after a source has been
-     * destroyed and therefore it is never valid to use this function with a
-     * source ID which may have already been removed.  An example is when
-     * scheduling an idle to run in another thread with g_idle_add(): the
-     * idle may already have run and been removed by the time this function
-     * is called on its (now invalid) source ID.  This source ID may have
-     * been reissued, leading to the operation being performed against the
-     * wrong source.
-     *
-     * @param tag a #GSource ID
-     * @param name debug name for the source
-     * @since 2.26
-     */
-    @GLibVersion2_26
-    public fun sourceSetNameById(tag: guint, name: kotlin.String): Unit = g_source_set_name_by_id(tag, name)
 
     /**
      * Gets the smallest prime number from a built-in array of primes which
@@ -5902,6 +5432,35 @@ public object GLib {
     @GLibVersion2_38
     public fun testIncomplete(msg: kotlin.String? = null): Unit = g_test_incomplete(msg)
 
+    /**
+     * Installs a non-error fatal log handler which can be
+     * used to decide whether log messages which are counted
+     * as fatal abort the program.
+     *
+     * The use case here is that you are running a test case
+     * that depends on particular libraries or circumstances
+     * and cannot prevent certain known critical or warning
+     * messages. So you install a handler that compares the
+     * domain and message to precisely not abort in such a case.
+     *
+     * Note that the handler is reset at the beginning of
+     * any test case, so you have to set it inside each test
+     * function which needs the special behavior.
+     *
+     * This handler has no effect on g_error messages.
+     *
+     * This handler also has no effect on structured log messages (using
+     * [func@GLib.log_structured] or [func@GLib.log_structured_array]). To change the fatal
+     * behaviour for specific log messages, programs must install a custom log
+     * writer function using [func@GLib.log_set_writer_func].See
+     * [Using Structured Logging](logging.html#using-structured-logging).
+     *
+     * @param logFunc the log handler function.
+     * @since 2.22
+     */
+    @GLibVersion2_22
+    public fun testLogSetFatalHandler(logFunc: TestLogFatalFunc): Unit = g_test_log_set_fatal_handler(TestLogFatalFuncFunc.reinterpret(), StableRef.create(logFunc).asCPointer())
+
     public fun testLogTypeName(logType: TestLogType): kotlin.String = g_test_log_type_name(logType.nativeValue)?.toKString() ?: error("Expected not null string")
 
     /**
@@ -6289,125 +5848,6 @@ public object GLib {
     ): Unit = memScoped {
         return g_test_trap_subprocess_with_envp(testPath, envp?.toCStringList(this), usecTimeout, testFlags.mask)}
 
-    public fun threadErrorQuark(): Quark = g_thread_error_quark()
-
-    /**
-     * This function will return the maximum @interval that a
-     * thread will wait in the thread pool for new tasks before
-     * being stopped.
-     *
-     * If this function returns 0, threads waiting in the thread
-     * pool for new work are not stopped.
-     *
-     * @return the maximum @interval (milliseconds) to wait
-     *     for new tasks in the thread pool before stopping the
-     *     thread
-     * @since 2.10
-     */
-    @GLibVersion2_10
-    public fun threadPoolGetMaxIdleTime(): guint = g_thread_pool_get_max_idle_time()
-
-    /**
-     * Returns the maximal allowed number of unused threads.
-     *
-     * @return the maximal number of unused threads
-     */
-    public fun threadPoolGetMaxUnusedThreads(): gint = g_thread_pool_get_max_unused_threads()
-
-    /**
-     * Returns the number of currently unused threads.
-     *
-     * @return the number of currently unused threads
-     */
-    public fun threadPoolGetNumUnusedThreads(): guint = g_thread_pool_get_num_unused_threads()
-
-    /**
-     * This function will set the maximum @interval that a thread
-     * waiting in the pool for new tasks can be idle for before
-     * being stopped. This function is similar to calling
-     * g_thread_pool_stop_unused_threads() on a regular timeout,
-     * except this is done on a per thread basis.
-     *
-     * By setting @interval to 0, idle threads will not be stopped.
-     *
-     * The default value is 15000 (15 seconds).
-     *
-     * @param interval the maximum @interval (in milliseconds)
-     *     a thread can be idle
-     * @since 2.10
-     */
-    @GLibVersion2_10
-    public fun threadPoolSetMaxIdleTime(interval: guint): Unit = g_thread_pool_set_max_idle_time(interval)
-
-    /**
-     * Sets the maximal number of unused threads to @max_threads.
-     * If @max_threads is -1, no limit is imposed on the number
-     * of unused threads.
-     *
-     * The default value is 2.
-     *
-     * @param maxThreads maximal number of unused threads
-     */
-    public fun threadPoolSetMaxUnusedThreads(maxThreads: gint): Unit = g_thread_pool_set_max_unused_threads(maxThreads)
-
-    /**
-     * Stops all currently unused threads. This does not change the
-     * maximal number of unused threads. This function can be used to
-     * regularly stop all unused threads e.g. from g_timeout_add().
-     */
-    public fun threadPoolStopUnusedThreads(): Unit = g_thread_pool_stop_unused_threads()
-
-    /**
-     * This function returns the #GThread corresponding to the
-     * current thread. Note that this function does not increase
-     * the reference count of the returned struct.
-     *
-     * This function will return a #GThread even for threads that
-     * were not created by GLib (i.e. those created by other threading
-     * APIs). This may be useful for thread identification purposes
-     * (i.e. comparisons) but you must not use GLib functions (such
-     * as g_thread_join()) on these threads.
-     *
-     * @return the #GThread representing the current thread
-     */
-    public fun threadSelf(): Thread = g_thread_self()!!.run {
-        Thread(reinterpret())}
-
-    /**
-     * Causes the calling thread to voluntarily relinquish the CPU, so
-     * that other threads can run.
-     *
-     * This function is often used as a method to make busy wait less evil.
-     */
-    public fun threadYield(): Unit = g_thread_yield()
-
-    /**
-     * Converts a string containing an ISO 8601 encoded date and time
-     * to a #GTimeVal and puts it into @time_.
-     *
-     * @iso_date must include year, month, day, hours, minutes, and
-     * seconds. It can optionally include fractions of a second and a time
-     * zone indicator. (In the absence of any time zone indication, the
-     * timestamp is assumed to be in local time.)
-     *
-     * Any leading or trailing space in @iso_date is ignored.
-     *
-     * This function was deprecated, along with #GTimeVal itself, in GLib 2.62.
-     * Equivalent functionality is available using code like:
-     * |[
-     * GDateTime *dt = g_date_time_new_from_iso8601 (iso8601_string, NULL);
-     * gint64 time_val = g_date_time_to_unix (dt);
-     * g_date_time_unref (dt);
-     * ]|
-     *
-     * @param isoDate an ISO 8601 encoded date string
-     * @param time a #GTimeVal
-     * @return true if the conversion was successful.
-     * @since 2.12
-     */
-    @GLibVersion2_12
-    public fun timeValFromIso8601(isoDate: kotlin.String, time: TimeVal): Boolean = g_time_val_from_iso8601(isoDate, time.glibTimeValPointer.reinterpret()).asBoolean()
-
     /**
      * Sets a function to be called at regular intervals, with the given
      * priority.  The function is called repeatedly until it returns
@@ -6446,6 +5886,24 @@ public object GLib {
         interval: guint,
         function: SourceFunc,
     ): guint = g_timeout_add_full(priority, interval, SourceFuncFunc.reinterpret(), StableRef.create(function).asCPointer(), staticStableRefDestroy.reinterpret())
+
+    /**
+     * Sets a function to be called after @interval milliseconds have elapsed,
+     * with the default priority, %G_PRIORITY_DEFAULT.
+     *
+     * The given @function is called once and then the source will be automatically
+     * removed from the main context.
+     *
+     * This function otherwise behaves like g_timeout_add().
+     *
+     * @param interval the time after which the function will be called, in
+     *   milliseconds (1/1000ths of a second)
+     * @param function function to call
+     * @return the ID (greater than 0) of the event source
+     * @since 2.74
+     */
+    @GLibVersion2_74
+    public fun timeoutAddOnce(interval: guint, function: SourceOnceFunc): guint = g_timeout_add_once(interval, SourceOnceFuncFunc.reinterpret(), StableRef.create(function).asCPointer())
 
     /**
      * Sets a function to be called at regular intervals, with @priority.
@@ -6503,6 +5961,17 @@ public object GLib {
     ): guint = g_timeout_add_seconds_full(priority, interval, SourceFuncFunc.reinterpret(), StableRef.create(function).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
+     * This function behaves like g_timeout_add_once() but with a range in seconds.
+     *
+     * @param interval the time after which the function will be called, in seconds
+     * @param function function to call
+     * @return the ID (greater than 0) of the event source
+     * @since 2.78
+     */
+    @GLibVersion2_78
+    public fun timeoutAddSecondsOnce(interval: guint, function: SourceOnceFunc): guint = g_timeout_add_seconds_once(interval, SourceOnceFuncFunc.reinterpret(), StableRef.create(function).asCPointer())
+
+    /**
      * Creates a new timeout source.
      *
      * The source will not initially be associated with any #GMainContext
@@ -6538,17 +6007,6 @@ public object GLib {
     @GLibVersion2_14
     public fun timeoutSourceNewSeconds(interval: guint): Source = g_timeout_source_new_seconds(interval)!!.run {
         Source(reinterpret())}
-
-    /**
-     * Returns the height of a #GTrashStack.
-     *
-     * Note that execution of this function is of O(N) complexity
-     * where N denotes the number of items on the stack.
-     *
-     * @param stackP a #GTrashStack
-     * @return the height of the stack
-     */
-    public fun trashStackHeight(stackP: TrashStack): guint = g_trash_stack_height(stackP.glibTrashStackPointer.reinterpret())
 
     /**
      * Determines the break type of @c. @c should be a Unicode character
@@ -6859,48 +6317,35 @@ public object GLib {
      */
     public fun unicharXdigitValue(c: gunichar): gint = g_unichar_xdigit_value(c)
 
-    /**
-     * Looks up the Unicode script for @iso15924.  ISO 15924 assigns four-letter
-     * codes to scripts.  For example, the code for Arabic is 'Arab'.
-     * This function accepts four letter codes encoded as a @guint32 in a
-     * big-endian fashion.  That is, the code expected for Arabic is
-     * 0x41726162 (0x41 is ASCII code for 'A', 0x72 is ASCII code for 'r', etc).
-     *
-     * See
-     * [Codes for the representation of names of scripts](http://unicode.org/iso15924/codelists.html)
-     * for details.
-     *
-     * @param iso15924 a Unicode script
-     * @return the Unicode script for @iso15924, or
-     *   of %G_UNICODE_SCRIPT_INVALID_CODE if @iso15924 is zero and
-     *   %G_UNICODE_SCRIPT_UNKNOWN if @iso15924 is unknown.
-     * @since 2.30
-     */
-    @GLibVersion2_30
-    public fun unicodeScriptFromIso15924(iso15924: guint): UnicodeScript = g_unicode_script_from_iso15924(iso15924).run {
-        UnicodeScript.fromNativeValue(this)}
-
-    /**
-     * Looks up the ISO 15924 code for @script.  ISO 15924 assigns four-letter
-     * codes to scripts.  For example, the code for Arabic is 'Arab'.  The
-     * four letter codes are encoded as a @guint32 by this function in a
-     * big-endian fashion.  That is, the code returned for Arabic is
-     * 0x41726162 (0x41 is ASCII code for 'A', 0x72 is ASCII code for 'r', etc).
-     *
-     * See
-     * [Codes for the representation of names of scripts](http://unicode.org/iso15924/codelists.html)
-     * for details.
-     *
-     * @param script a Unicode script
-     * @return the ISO 15924 code for @script, encoded as an integer,
-     *   of zero if @script is %G_UNICODE_SCRIPT_INVALID_CODE or
-     *   ISO 15924 code 'Zzzz' (script code for UNKNOWN) if @script is not understood.
-     * @since 2.30
-     */
-    @GLibVersion2_30
-    public fun unicodeScriptToIso15924(script: UnicodeScript): guint = g_unicode_script_to_iso15924(script.nativeValue)
-
     public fun unixErrorQuark(): Quark = g_unix_error_quark()
+
+    /**
+     * Sets a function to be called when the IO condition, as specified by
+     * @condition becomes true for @fd.
+     *
+     * @function will be called when the specified IO condition becomes
+     * true.  The function is expected to clear whatever event caused the
+     * IO condition to become true and return true in order to be notified
+     * when it happens again.  If @function returns false then the watch
+     * will be cancelled.
+     *
+     * The return value of this function can be passed to g_source_remove()
+     * to cancel the watch at any time that it exists.
+     *
+     * The source will never close the fd -- you must do it yourself.
+     *
+     * @param fd a file descriptor
+     * @param condition IO conditions to watch for on @fd
+     * @param function a #GUnixFDSourceFunc
+     * @return the ID (greater than 0) of the event source
+     * @since 2.36
+     */
+    @GLibVersion2_36
+    public fun unixFdAdd(
+        fd: gint,
+        condition: IOCondition,
+        function: UnixFDSourceFunc,
+    ): guint = g_unix_fd_add(fd, condition.mask, UnixFDSourceFuncFunc.reinterpret(), StableRef.create(function).asCPointer())
 
     /**
      * Sets a function to be called when the IO condition, as specified by
@@ -7061,462 +6506,6 @@ public object GLib {
      */
     @GLibVersion2_4
     public fun unsetenv(variable: kotlin.String): Unit = g_unsetenv(variable)
-
-    /**
-     * Creates a new #GUri from the given components according to @flags.
-     *
-     * See also g_uri_build_with_user(), which allows specifying the
-     * components of the "userinfo" separately.
-     *
-     * @param flags flags describing how to build the #GUri
-     * @param scheme the URI scheme
-     * @param userinfo the userinfo component, or null
-     * @param host the host component, or null
-     * @param port the port, or `-1`
-     * @param path the path component
-     * @param query the query component, or null
-     * @param fragment the fragment, or null
-     * @return a new #GUri
-     * @since 2.66
-     */
-    @GLibVersion2_66
-    public fun uriBuild(
-        flags: UriFlags,
-        scheme: kotlin.String,
-        userinfo: kotlin.String? = null,
-        host: kotlin.String? = null,
-        port: gint,
-        path: kotlin.String,
-        query: kotlin.String? = null,
-        fragment: kotlin.String? = null,
-    ): Uri = g_uri_build(flags.mask, scheme, userinfo, host, port, path, query, fragment)!!.run {
-        Uri(reinterpret())}
-
-    /**
-     * Creates a new #GUri from the given components according to @flags
-     * (%G_URI_FLAGS_HAS_PASSWORD is added unconditionally). The @flags must be
-     * coherent with the passed values, in particular use `%`-encoded values with
-     * %G_URI_FLAGS_ENCODED.
-     *
-     * In contrast to g_uri_build(), this allows specifying the components
-     * of the ‘userinfo’ field separately. Note that @user must be non-null
-     * if either @password or @auth_params is non-null.
-     *
-     * @param flags flags describing how to build the #GUri
-     * @param scheme the URI scheme
-     * @param user the user component of the userinfo, or null
-     * @param password the password component of the userinfo, or null
-     * @param authParams the auth params of the userinfo, or null
-     * @param host the host component, or null
-     * @param port the port, or `-1`
-     * @param path the path component
-     * @param query the query component, or null
-     * @param fragment the fragment, or null
-     * @return a new #GUri
-     * @since 2.66
-     */
-    @GLibVersion2_66
-    public fun uriBuildWithUser(
-        flags: UriFlags,
-        scheme: kotlin.String,
-        user: kotlin.String? = null,
-        password: kotlin.String? = null,
-        authParams: kotlin.String? = null,
-        host: kotlin.String? = null,
-        port: gint,
-        path: kotlin.String,
-        query: kotlin.String? = null,
-        fragment: kotlin.String? = null,
-    ): Uri = g_uri_build_with_user(flags.mask, scheme, user, password, authParams, host, port, path, query, fragment)!!.run {
-        Uri(reinterpret())}
-
-    public fun uriErrorQuark(): Quark = g_uri_error_quark()
-
-    /**
-     * Escapes a string for use in a URI.
-     *
-     * Normally all characters that are not "unreserved" (i.e. ASCII
-     * alphanumerical characters plus dash, dot, underscore and tilde) are
-     * escaped. But if you specify characters in @reserved_chars_allowed
-     * they are not escaped. This is useful for the "reserved" characters
-     * in the URI specification, since those are allowed unescaped in some
-     * portions of a URI.
-     *
-     * @param unescaped the unescaped input string.
-     * @param reservedCharsAllowed a string of reserved
-     *   characters that are allowed to be used, or null.
-     * @param allowUtf8 true if the result can include UTF-8 characters.
-     * @return an escaped version of @unescaped. The
-     * returned string should be freed when no longer needed.
-     * @since 2.16
-     */
-    @GLibVersion2_16
-    public fun uriEscapeString(
-        unescaped: kotlin.String,
-        reservedCharsAllowed: kotlin.String? = null,
-        allowUtf8: Boolean,
-    ): kotlin.String = g_uri_escape_string(unescaped, reservedCharsAllowed, allowUtf8.asGBoolean())?.toKString() ?: error("Expected not null string")
-
-    /**
-     * Parses @uri_string according to @flags, to determine whether it is a valid
-     * [absolute URI](#relative-and-absolute-uris), i.e. it does not need to be resolved
-     * relative to another URI using g_uri_parse_relative().
-     *
-     * If it’s not a valid URI, an error is returned explaining how it’s invalid.
-     *
-     * See g_uri_split(), and the definition of #GUriFlags, for more
-     * information on the effect of @flags.
-     *
-     * @param uriString a string containing an absolute URI
-     * @param flags flags for parsing @uri_string
-     * @return true if @uri_string is a valid absolute URI, false on error.
-     * @since 2.66
-     */
-    @GLibVersion2_66
-    public fun uriIsValid(uriString: kotlin.String, flags: UriFlags): Result<Boolean> = memScoped {
-        val gError = allocPointerTo<GError>()
-        val gResult = g_uri_is_valid(uriString, flags.mask, gError.ptr).asBoolean()
-        return if (gError.pointed != null) {
-            Result.failure(org.gtkkn.bindings.glib.GLib.resolveException(Error(gError.pointed!!.ptr)))
-        }
-        else {
-            Result.success(gResult)
-        }
-    }
-
-    /**
-     * Joins the given components together according to @flags to create
-     * an absolute URI string. @path may not be null (though it may be the empty
-     * string).
-     *
-     * When @host is present, @path must either be empty or begin with a slash (`/`)
-     * character. When @host is not present, @path cannot begin with two slash
-     * characters (`//`). See
-     * [RFC 3986, section 3](https://tools.ietf.org/html/rfc3986#section-3).
-     *
-     * See also g_uri_join_with_user(), which allows specifying the
-     * components of the ‘userinfo’ separately.
-     *
-     * %G_URI_FLAGS_HAS_PASSWORD and %G_URI_FLAGS_HAS_AUTH_PARAMS are ignored if set
-     * in @flags.
-     *
-     * @param flags flags describing how to build the URI string
-     * @param scheme the URI scheme, or null
-     * @param userinfo the userinfo component, or null
-     * @param host the host component, or null
-     * @param port the port, or `-1`
-     * @param path the path component
-     * @param query the query component, or null
-     * @param fragment the fragment, or null
-     * @return an absolute URI string
-     * @since 2.66
-     */
-    @GLibVersion2_66
-    public fun uriJoin(
-        flags: UriFlags,
-        scheme: kotlin.String? = null,
-        userinfo: kotlin.String? = null,
-        host: kotlin.String? = null,
-        port: gint,
-        path: kotlin.String,
-        query: kotlin.String? = null,
-        fragment: kotlin.String? = null,
-    ): kotlin.String = g_uri_join(flags.mask, scheme, userinfo, host, port, path, query, fragment)?.toKString() ?: error("Expected not null string")
-
-    /**
-     * Joins the given components together according to @flags to create
-     * an absolute URI string. @path may not be null (though it may be the empty
-     * string).
-     *
-     * In contrast to g_uri_join(), this allows specifying the components
-     * of the ‘userinfo’ separately. It otherwise behaves the same.
-     *
-     * %G_URI_FLAGS_HAS_PASSWORD and %G_URI_FLAGS_HAS_AUTH_PARAMS are ignored if set
-     * in @flags.
-     *
-     * @param flags flags describing how to build the URI string
-     * @param scheme the URI scheme, or null
-     * @param user the user component of the userinfo, or null
-     * @param password the password component of the userinfo, or
-     *   null
-     * @param authParams the auth params of the userinfo, or
-     *   null
-     * @param host the host component, or null
-     * @param port the port, or `-1`
-     * @param path the path component
-     * @param query the query component, or null
-     * @param fragment the fragment, or null
-     * @return an absolute URI string
-     * @since 2.66
-     */
-    @GLibVersion2_66
-    public fun uriJoinWithUser(
-        flags: UriFlags,
-        scheme: kotlin.String? = null,
-        user: kotlin.String? = null,
-        password: kotlin.String? = null,
-        authParams: kotlin.String? = null,
-        host: kotlin.String? = null,
-        port: gint,
-        path: kotlin.String,
-        query: kotlin.String? = null,
-        fragment: kotlin.String? = null,
-    ): kotlin.String = g_uri_join_with_user(flags.mask, scheme, user, password, authParams, host, port, path, query, fragment)?.toKString() ?: error("Expected not null string")
-
-    /**
-     * Splits an URI list conforming to the text/uri-list
-     * mime type defined in RFC 2483 into individual URIs,
-     * discarding any comments. The URIs are not validated.
-     *
-     * @param uriList an URI list
-     * @return a newly allocated null-terminated list
-     *   of strings holding the individual URIs. The array should be freed
-     *   with g_strfreev().
-     * @since 2.6
-     */
-    @GLibVersion2_6
-    public fun uriListExtractUris(uriList: kotlin.String): List<kotlin.String> = g_uri_list_extract_uris(uriList)?.toKStringList() ?: error("Expected not null string array")
-
-    /**
-     * Parses @uri_string according to @flags. If the result is not a
-     * valid [absolute URI](#relative-and-absolute-uris), it will be discarded, and an
-     * error returned.
-     *
-     * @param uriString a string representing an absolute URI
-     * @param flags flags describing how to parse @uri_string
-     * @return a new #GUri, or NULL on error.
-     * @since 2.66
-     */
-    @GLibVersion2_66
-    public fun uriParse(uriString: kotlin.String, flags: UriFlags): Result<Uri> = memScoped {
-        val gError = allocPointerTo<GError>()
-        val gResult = g_uri_parse(uriString, flags.mask, gError.ptr)?.run {
-            Uri(reinterpret())}
-
-        return if (gError.pointed != null) {
-            Result.failure(org.gtkkn.bindings.glib.GLib.resolveException(Error(gError.pointed!!.ptr)))
-        }
-        else {
-            Result.success(checkNotNull(gResult))
-        }
-    }
-
-    /**
-     * Many URI schemes include one or more attribute/value pairs as part of the URI
-     * value. This method can be used to parse them into a hash table. When an
-     * attribute has multiple occurrences, the last value is the final returned
-     * value. If you need to handle repeated attributes differently, use
-     * #GUriParamsIter.
-     *
-     * The @params string is assumed to still be `%`-encoded, but the returned
-     * values will be fully decoded. (Thus it is possible that the returned values
-     * may contain `=` or @separators, if the value was encoded in the input.)
-     * Invalid `%`-encoding is treated as with the %G_URI_FLAGS_PARSE_RELAXED
-     * rules for g_uri_parse(). (However, if @params is the path or query string
-     * from a #GUri that was parsed without %G_URI_FLAGS_PARSE_RELAXED and
-     * %G_URI_FLAGS_ENCODED, then you already know that it does not contain any
-     * invalid encoding.)
-     *
-     * %G_URI_PARAMS_WWW_FORM is handled as documented for g_uri_params_iter_init().
-     *
-     * If %G_URI_PARAMS_CASE_INSENSITIVE is passed to @flags, attributes will be
-     * compared case-insensitively, so a params string `attr=123&Attr=456` will only
-     * return a single attribute–value pair, `Attr=456`. Case will be preserved in
-     * the returned attributes.
-     *
-     * If @params cannot be parsed (for example, it contains two @separators
-     * characters in a row), then @error is set and null is returned.
-     *
-     * @param params a `%`-encoded string containing `attribute=value`
-     *   parameters
-     * @param length the length of @params, or `-1` if it is nul-terminated
-     * @param separators the separator byte character set between parameters. (usually
-     *   `&`, but sometimes `;` or both `&;`). Note that this function works on
-     *   bytes not characters, so it can't be used to delimit UTF-8 strings for
-     *   anything but ASCII characters. You may pass an empty set, in which case
-     *   no splitting will occur.
-     * @param flags flags to modify the way the parameters are handled.
-     * @return A hash table of attribute/value pairs, with both names and values
-     *     fully-decoded; or null on error.
-     * @since 2.66
-     */
-    @GLibVersion2_66
-    public fun uriParseParams(
-        params: kotlin.String,
-        length: Long,
-        separators: kotlin.String,
-        flags: UriParamsFlags,
-    ): Result<HashTable> = memScoped {
-        val gError = allocPointerTo<GError>()
-        val gResult = g_uri_parse_params(params, length, separators, flags.mask, gError.ptr)?.run {
-            HashTable(reinterpret())}
-
-        return if (gError.pointed != null) {
-            Result.failure(org.gtkkn.bindings.glib.GLib.resolveException(Error(gError.pointed!!.ptr)))
-        }
-        else {
-            Result.success(checkNotNull(gResult))
-        }
-    }
-
-    /**
-     * Gets the scheme portion of a URI string.
-     * [RFC 3986](https://tools.ietf.org/html/rfc3986#section-3) decodes the scheme
-     * as:
-     * |[
-     * URI = scheme ":" hier-part [ "?" query ] [ "#" fragment ]
-     * ]|
-     * Common schemes include `file`, `https`, `svn+ssh`, etc.
-     *
-     * @param uri a valid URI.
-     * @return The ‘scheme’ component of the URI, or
-     *     null on error. The returned string should be freed when no longer needed.
-     * @since 2.16
-     */
-    @GLibVersion2_16
-    public fun uriParseScheme(uri: kotlin.String): kotlin.String? = g_uri_parse_scheme(uri)?.toKString()
-
-    /**
-     * Gets the scheme portion of a URI string.
-     * [RFC 3986](https://tools.ietf.org/html/rfc3986#section-3) decodes the scheme
-     * as:
-     * |[
-     * URI = scheme ":" hier-part [ "?" query ] [ "#" fragment ]
-     * ]|
-     * Common schemes include `file`, `https`, `svn+ssh`, etc.
-     *
-     * Unlike g_uri_parse_scheme(), the returned scheme is normalized to
-     * all-lowercase and does not need to be freed.
-     *
-     * @param uri a valid URI.
-     * @return The ‘scheme’ component of the URI, or
-     *     null on error. The returned string is normalized to all-lowercase, and
-     *     interned via g_intern_string(), so it does not need to be freed.
-     * @since 2.66
-     */
-    @GLibVersion2_66
-    public fun uriPeekScheme(uri: kotlin.String): kotlin.String? = g_uri_peek_scheme(uri)?.toKString()
-
-    /**
-     * Parses @uri_ref according to @flags and, if it is a
-     * [relative URI](#relative-and-absolute-uris), resolves it relative to
-     * @base_uri_string. If the result is not a valid absolute URI, it will be
-     * discarded, and an error returned.
-     *
-     * (If @base_uri_string is null, this just returns @uri_ref, or
-     * null if @uri_ref is invalid or not absolute.)
-     *
-     * @param baseUriString a string representing a base URI
-     * @param uriRef a string representing a relative or absolute URI
-     * @param flags flags describing how to parse @uri_ref
-     * @return the resolved URI string,
-     * or NULL on error.
-     * @since 2.66
-     */
-    @GLibVersion2_66
-    public fun uriResolveRelative(
-        baseUriString: kotlin.String? = null,
-        uriRef: kotlin.String,
-        flags: UriFlags,
-    ): Result<kotlin.String> = memScoped {
-        val gError = allocPointerTo<GError>()
-        val gResult = g_uri_resolve_relative(baseUriString, uriRef, flags.mask, gError.ptr)?.toKString()
-        return if (gError.pointed != null) {
-            Result.failure(org.gtkkn.bindings.glib.GLib.resolveException(Error(gError.pointed!!.ptr)))
-        }
-        else {
-            Result.success(checkNotNull(gResult))
-        }
-    }
-
-    /**
-     * Unescapes a segment of an escaped string as binary data.
-     *
-     * Note that in contrast to g_uri_unescape_string(), this does allow
-     * nul bytes to appear in the output.
-     *
-     * If any of the characters in @illegal_characters appears as an escaped
-     * character in @escaped_string, then that is an error and null will be
-     * returned. This is useful if you want to avoid for instance having a slash
-     * being expanded in an escaped path element, which might confuse pathname
-     * handling.
-     *
-     * @param escapedString A URI-escaped string
-     * @param length the length (in bytes) of @escaped_string to escape, or `-1` if it
-     *   is nul-terminated.
-     * @param illegalCharacters a string of illegal characters
-     *   not to be allowed, or null.
-     * @return an unescaped version of @escaped_string
-     *     or null on error (if decoding failed, using %G_URI_ERROR_FAILED error
-     *     code). The returned #GBytes should be unreffed when no longer needed.
-     * @since 2.66
-     */
-    @GLibVersion2_66
-    public fun uriUnescapeBytes(
-        escapedString: kotlin.String,
-        length: Long,
-        illegalCharacters: kotlin.String? = null,
-    ): Result<Bytes> = memScoped {
-        val gError = allocPointerTo<GError>()
-        val gResult = g_uri_unescape_bytes(escapedString, length, illegalCharacters, gError.ptr)?.run {
-            Bytes(reinterpret())}
-
-        return if (gError.pointed != null) {
-            Result.failure(org.gtkkn.bindings.glib.GLib.resolveException(Error(gError.pointed!!.ptr)))
-        }
-        else {
-            Result.success(checkNotNull(gResult))
-        }
-    }
-
-    /**
-     * Unescapes a segment of an escaped string.
-     *
-     * If any of the characters in @illegal_characters or the NUL
-     * character appears as an escaped character in @escaped_string, then
-     * that is an error and null will be returned. This is useful if you
-     * want to avoid for instance having a slash being expanded in an
-     * escaped path element, which might confuse pathname handling.
-     *
-     * Note: `NUL` byte is not accepted in the output, in contrast to
-     * g_uri_unescape_bytes().
-     *
-     * @param escapedString A string, may be null
-     * @param escapedStringEnd Pointer to end of @escaped_string,
-     *   may be null
-     * @param illegalCharacters An optional string of illegal
-     *   characters not to be allowed, may be null
-     * @return an unescaped version of @escaped_string,
-     * or null on error. The returned string should be freed when no longer
-     * needed.  As a special case if null is given for @escaped_string, this
-     * function will return null.
-     * @since 2.16
-     */
-    @GLibVersion2_16
-    public fun uriUnescapeSegment(
-        escapedString: kotlin.String? = null,
-        escapedStringEnd: kotlin.String? = null,
-        illegalCharacters: kotlin.String? = null,
-    ): kotlin.String? = g_uri_unescape_segment(escapedString, escapedStringEnd, illegalCharacters)?.toKString()
-
-    /**
-     * Unescapes a whole escaped string.
-     *
-     * If any of the characters in @illegal_characters or the NUL
-     * character appears as an escaped character in @escaped_string, then
-     * that is an error and null will be returned. This is useful if you
-     * want to avoid for instance having a slash being expanded in an
-     * escaped path element, which might confuse pathname handling.
-     *
-     * @param escapedString an escaped string to be unescaped.
-     * @param illegalCharacters a string of illegal characters
-     *   not to be allowed, or null.
-     * @return an unescaped version of @escaped_string.
-     * The returned string should be freed when no longer needed.
-     * @since 2.16
-     */
-    @GLibVersion2_16
-    public fun uriUnescapeString(escapedString: kotlin.String, illegalCharacters: kotlin.String? = null): kotlin.String? = g_uri_unescape_string(escapedString, illegalCharacters)?.toKString()
 
     /**
      * Pauses the current thread for the given number of microseconds.
@@ -7974,99 +6963,22 @@ public object GLib {
     public fun variantGetGtype(): GType = g_variant_get_gtype()
 
     /**
-     * Determines if a given string is a valid D-Bus object path.  You
-     * should ensure that a string is a valid D-Bus object path before
-     * passing it to g_variant_new_object_path().
+     * Internal function used to print messages from the public [func@GLib.warn_if_reached]
+     * and [func@GLib.warn_if_fail] macros.
      *
-     * A valid object path starts with `/` followed by zero or more
-     * sequences of characters separated by `/` characters.  Each sequence
-     * must contain only the characters `[A-Z][a-z][0-9]_`.  No sequence
-     * (including the one following the final `/` character) may be empty.
-     *
-     * @param string a normal C nul-terminated string
-     * @return true if @string is a D-Bus object path
-     * @since 2.24
+     * @param domain log domain
+     * @param file file containing the warning
+     * @param line line number of the warning
+     * @param func function containing the warning
+     * @param warnexpr expression which failed
      */
-    @GLibVersion2_24
-    public fun variantIsObjectPath(string: kotlin.String): Boolean = g_variant_is_object_path(string).asBoolean()
-
-    /**
-     * Determines if a given string is a valid D-Bus type signature.  You
-     * should ensure that a string is a valid D-Bus type signature before
-     * passing it to g_variant_new_signature().
-     *
-     * D-Bus type signatures consist of zero or more definite #GVariantType
-     * strings in sequence.
-     *
-     * @param string a normal C nul-terminated string
-     * @return true if @string is a D-Bus type signature
-     * @since 2.24
-     */
-    @GLibVersion2_24
-    public fun variantIsSignature(string: kotlin.String): Boolean = g_variant_is_signature(string).asBoolean()
-
-    /**
-     * Pretty-prints a message showing the context of a #GVariant parse
-     * error within the string for which parsing was attempted.
-     *
-     * The resulting string is suitable for output to the console or other
-     * monospace media where newlines are treated in the usual way.
-     *
-     * The message will typically look something like one of the following:
-     *
-     * |[
-     * unterminated string constant:
-     *   (1, 2, 3, 'abc
-     *             ^^^^
-     * ]|
-     *
-     * or
-     *
-     * |[
-     * unable to find a common type:
-     *   [1, 2, 3, 'str']
-     *    ^        ^^^^^
-     * ]|
-     *
-     * The format of the message may change in a future version.
-     *
-     * @error must have come from a failed attempt to g_variant_parse() and
-     * @source_str must be exactly the same string that caused the error.
-     * If @source_str was not nul-terminated when you passed it to
-     * g_variant_parse() then you must add nul termination before using this
-     * function.
-     *
-     * @param error a #GError from the #GVariantParseError domain
-     * @param sourceStr the string that was given to the parser
-     * @return the printed message
-     * @since 2.40
-     */
-    @GLibVersion2_40
-    public fun variantParseErrorPrintContext(error: Error, sourceStr: kotlin.String): kotlin.String = g_variant_parse_error_print_context(error.glibErrorPointer.reinterpret(), sourceStr)?.toKString() ?: error("Expected not null string")
-
-    public fun variantParseErrorQuark(): Quark = g_variant_parse_error_quark()
-
-    /**
-     * Same as g_variant_error_quark().
-     */
-    public fun variantParserGetErrorQuark(): Quark = g_variant_parser_get_error_quark()
-
-    public fun variantTypeChecked(typeString: kotlin.String): VariantType = g_variant_type_checked_(typeString)!!.run {
-        VariantType(reinterpret())}
-
-    public fun variantTypeStringGetDepth(typeString: kotlin.String): gsize = g_variant_type_string_get_depth_(typeString)
-
-    /**
-     * Checks if @type_string is a valid GVariant type string.  This call is
-     * equivalent to calling g_variant_type_string_scan() and confirming
-     * that the following character is a nul terminator.
-     *
-     * @param typeString a pointer to any string
-     * @return true if @type_string is exactly one valid type string
-     *
-     * Since 2.24
-     */
-    public fun variantTypeStringIsValid(typeString: kotlin.String): Boolean = g_variant_type_string_is_valid(typeString).asBoolean()
+    public fun warnMessage(
+        domain: kotlin.String? = null,
+        `file`: kotlin.String,
+        line: gint,
+        func: kotlin.String,
+        warnexpr: kotlin.String? = null,
+    ): Unit = g_warn_message(domain, `file`, line, func, warnexpr)
 
     public fun resolveException(error: Error): GLibException {
         val ex = when (error.domain) {

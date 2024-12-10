@@ -24,6 +24,7 @@ import org.gtkkn.native.soup.soup_auth_domain_digest_get_type
  * - method `set_auth_callback`: C function soup_auth_domain_digest_set_auth_callback is ignored
  * - method `auth-callback`: Property has no getter nor setter
  * - method `auth-data`: Property has no getter nor setter
+ * - constructor `new`: Varargs parameter is not supported
  */
 public class AuthDomainDigest(
     pointer: CPointer<SoupAuthDomainDigest>,

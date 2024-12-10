@@ -1,17 +1,21 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
-import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GPollFD
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_pollfd_get_type
 import org.gtkkn.native.gobject.gint
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Represents a file descriptor, which events to poll for, and which events
@@ -24,7 +28,8 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class PollFD(
     pointer: CPointer<GPollFD>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibPollFDPointer: CPointer<GPollFD> = pointer
 
     /**
@@ -36,14 +41,66 @@ public class PollFD(
             glibPollFDPointer.pointed.fd = value
         }
 
-    public companion object : RecordCompanion<PollFD, GPollFD> {
+    /**
+     * Allocate a new PollFD.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GPollFD>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to PollFD and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GPollFD>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new PollFD using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GPollFD>().ptr)
+
+    /**
+     * Allocate a new PollFD.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param fd the file descriptor to poll (or a HANDLE on Win32)
+     */
+    public constructor(fd: gint) : this() {
+        this.fd = fd
+    }
+
+    /**
+     * Allocate a new PollFD using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param fd the file descriptor to poll (or a HANDLE on Win32)
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(fd: gint, scope: AutofreeScope) : this(scope) {
+        this.fd = fd
+    }
+
+    override fun toString(): String = "PollFD(fd=$fd)"
+
+    public companion object {
         /**
          * Get the GType of PollFD
          *
          * @return the GType
          */
         public fun getType(): GType = g_pollfd_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PollFD = PollFD(pointer.reinterpret())
     }
 }

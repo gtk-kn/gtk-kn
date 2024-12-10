@@ -3,15 +3,13 @@ package org.gtkkn.bindings.pango
 
 import kotlin.Boolean
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_20
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.pango.PangoLayoutIter
@@ -34,7 +32,6 @@ import org.gtkkn.native.pango.pango_layout_iter_next_char
 import org.gtkkn.native.pango.pango_layout_iter_next_cluster
 import org.gtkkn.native.pango.pango_layout_iter_next_line
 import org.gtkkn.native.pango.pango_layout_iter_next_run
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `PangoLayoutIter` can be used to iterate over the visual
@@ -52,7 +49,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class LayoutIter(
     pointer: CPointer<PangoLayoutIter>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val pangoLayoutIterPointer: CPointer<PangoLayoutIter> = pointer
 
     /**
@@ -240,14 +237,12 @@ public class LayoutIter(
      */
     public fun nextRun(): Boolean = pango_layout_iter_next_run(pangoLayoutIterPointer.reinterpret()).asBoolean()
 
-    public companion object : RecordCompanion<LayoutIter, PangoLayoutIter> {
+    public companion object {
         /**
          * Get the GType of LayoutIter
          *
          * @return the GType
          */
         public fun getType(): GType = pango_layout_iter_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): LayoutIter = LayoutIter(pointer.reinterpret())
     }
 }

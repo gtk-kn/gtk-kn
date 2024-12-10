@@ -18,3 +18,8 @@ BufferedInputStream.read_byte#method name="read_int"
 // prevents interfaces from providing their own implementation of `toString`.
 Icon.to_string#method name="to_string_icon"
 SocketConnectable.to_string#method name="to_string_socket_connectable"
+
+// https://gitlab.com/gtk-kn/gtk-kn/-/issues/91
+IOModule
+    .load ignore
+    .unload ignore

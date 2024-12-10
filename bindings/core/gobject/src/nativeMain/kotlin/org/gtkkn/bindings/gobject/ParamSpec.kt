@@ -8,20 +8,26 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Quark
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_10
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_38
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_46
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_66
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.native.gobject.GParamSpec
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_param_spec_get_blurb
 import org.gtkkn.native.gobject.g_param_spec_get_default_value
 import org.gtkkn.native.gobject.g_param_spec_get_name
 import org.gtkkn.native.gobject.g_param_spec_get_name_quark
 import org.gtkkn.native.gobject.g_param_spec_get_nick
 import org.gtkkn.native.gobject.g_param_spec_get_redirect_target
+import org.gtkkn.native.gobject.g_param_spec_internal
 import org.gtkkn.native.gobject.g_param_spec_is_valid_name
+import org.gtkkn.native.gobject.g_param_spec_ref
+import org.gtkkn.native.gobject.g_param_spec_ref_sink
 import org.gtkkn.native.gobject.g_param_spec_sink
+import org.gtkkn.native.gobject.g_param_spec_unref
 
 /**
  * `GParamSpec` encapsulates the metadata required to specify parameters, such as `GObject` properties.
@@ -40,6 +46,7 @@ import org.gtkkn.native.gobject.g_param_spec_sink
  * ## Skipped during bindings generation
  *
  * - method `get_qdata`: Return type gpointer is unsupported
+ * - parameter `data`: gpointer
  * - parameter `data`: gpointer
  * - method `steal_qdata`: Return type gpointer is unsupported
  */
@@ -114,6 +121,24 @@ public open class ParamSpec(
         ParamSpec(reinterpret())}
 
     /**
+     * Increments the reference count of @pspec.
+     *
+     * @return the #GParamSpec that was passed into this function
+     */
+    public open fun ref(): ParamSpec = g_param_spec_ref(gPointer.reinterpret())!!.run {
+        ParamSpec(reinterpret())}
+
+    /**
+     * Convenience function to ref and sink a #GParamSpec.
+     *
+     * @return the #GParamSpec that was passed into this function
+     * @since 2.10
+     */
+    @GObjectVersion2_10
+    public open fun refSink(): ParamSpec = g_param_spec_ref_sink(gPointer.reinterpret())!!.run {
+        ParamSpec(reinterpret())}
+
+    /**
      * The initial reference count of a newly created #GParamSpec is 1,
      * even though no one has explicitly called g_param_spec_ref() on it
      * yet. So the initial reference count is flagged as "floating", until
@@ -124,7 +149,43 @@ public open class ParamSpec(
      */
     public open fun sink(): Unit = g_param_spec_sink(gPointer.reinterpret())
 
+    /**
+     * Decrements the reference count of a @pspec.
+     */
+    public open fun unref(): Unit = g_param_spec_unref(gPointer.reinterpret())
+
     public companion object {
+        /**
+         * Creates a new #GParamSpec instance.
+         *
+         * See [canonical parameter names][canonical-parameter-names] for details of
+         * the rules for @name. Names which violate these rules lead to undefined
+         * behaviour.
+         *
+         * Beyond the name, #GParamSpecs have two more descriptive strings, the
+         * @nick and @blurb, which may be used as a localized label and description.
+         * For GTK and related libraries these are considered deprecated and may be
+         * omitted, while for other libraries such as GStreamer and its plugins they
+         * are essential. When in doubt, follow the conventions used in the
+         * surrounding code and supporting libraries.
+         *
+         * @param paramType the #GType for the property; must be derived from %G_TYPE_PARAM
+         * @param name the canonical name of the property
+         * @param nick the nickname of the property
+         * @param blurb a short description of the property
+         * @param flags a combination of #GParamFlags
+         * @return (transfer floating): a newly allocated
+         *     #GParamSpec instance, which is initially floating
+         */
+        public fun `internal`(
+            paramType: GType,
+            name: String,
+            nick: String? = null,
+            blurb: String? = null,
+            flags: ParamFlags,
+        ): ParamSpec = g_param_spec_internal(paramType, name, nick, blurb, flags.mask)!!.run {
+            ParamSpec(reinterpret())}
+
         /**
          * Validate a property name for a #GParamSpec. This can be useful for
          * dynamically-generated properties which need to be validated at run-time

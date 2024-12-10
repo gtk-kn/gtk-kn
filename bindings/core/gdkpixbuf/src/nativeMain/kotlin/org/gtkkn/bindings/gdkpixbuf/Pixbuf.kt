@@ -88,6 +88,7 @@ import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_new_from_stream_finish
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_new_from_xpm_data
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_new_subpixbuf
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_read_pixel_bytes
+import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_ref
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_remove_option
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_rotate_simple
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_saturate_and_pixelate
@@ -99,6 +100,7 @@ import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_savev
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_scale
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_scale_simple
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_set_option
+import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_unref
 import org.gtkkn.native.gio.GIcon
 import org.gtkkn.native.gio.GLoadableIcon
 import org.gtkkn.native.glib.GError
@@ -249,10 +251,14 @@ import org.gtkkn.native.gobject.guint8
  *
  * ## Skipped during bindings generation
  *
- * - method `get_pixels`: gdk_pixbuf_get_pixels is shadowedBy get_pixels_with_length
  * - parameter `length`: length: Out parameter is not supported
  * - method `read_pixels`: Return type guint8 is unsupported
+ * - method `save`: Varargs parameter is not supported
+ * - method `save_to_buffer`: Varargs parameter is not supported
  * - parameter `buffer`: buffer: Out parameter is not supported
+ * - method `save_to_callback`: Varargs parameter is not supported
+ * - method `save_to_stream`: Varargs parameter is not supported
+ * - method `save_to_stream_async`: Varargs parameter is not supported
  * - method `pixel-bytes`: Property has no getter nor setter
  * - method `pixels`: Property has no getter nor setter
  * - parameter `data`: Array parameter of type guint8 is not supported
@@ -973,6 +979,14 @@ public open class Pixbuf(
         Bytes(reinterpret())}
 
     /**
+     * Adds a reference to a pixbuf.
+     *
+     * @return The same as the @pixbuf argument.
+     */
+    override fun ref(): Pixbuf = gdk_pixbuf_ref(gdkpixbufPixbufPointer.reinterpret())!!.run {
+        Pixbuf(reinterpret())}
+
+    /**
      * Removes the key/value pair option attached to a `GdkPixbuf`.
      *
      * @param key a nul-terminated string representing the key to remove.
@@ -1237,6 +1251,11 @@ public open class Pixbuf(
      */
     @GdkPixbufVersion2_2
     public open fun setOption(key: String, `value`: String): Boolean = gdk_pixbuf_set_option(gdkpixbufPixbufPointer.reinterpret(), key, `value`).asBoolean()
+
+    /**
+     * Removes a reference from a pixbuf.
+     */
+    override fun unref(): Unit = gdk_pixbuf_unref(gdkpixbufPixbufPointer.reinterpret())
 
     public companion object : TypeCompanion<Pixbuf> {
         override val type: GeneratedClassKGType<Pixbuf> =

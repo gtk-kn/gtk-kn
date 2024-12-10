@@ -3,13 +3,11 @@ package org.gtkkn.bindings.gdk
 
 import kotlin.Boolean
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_14
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkDmabufFormats
 import org.gtkkn.native.gdk.gdk_dmabuf_formats_contains
 import org.gtkkn.native.gdk.gdk_dmabuf_formats_equal
@@ -21,7 +19,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gobject.guint64
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `GdkDmabufFormats` struct provides information about
@@ -54,7 +51,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GdkVersion4_14
 public class DmabufFormats(
     pointer: CPointer<GdkDmabufFormats>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gdkDmabufFormatsPointer: CPointer<GdkDmabufFormats> = pointer
 
     /**
@@ -115,14 +112,12 @@ public class DmabufFormats(
     @GdkVersion4_14
     public fun unref(): Unit = gdk_dmabuf_formats_unref(gdkDmabufFormatsPointer.reinterpret())
 
-    public companion object : RecordCompanion<DmabufFormats, GdkDmabufFormats> {
+    public companion object {
         /**
          * Get the GType of DmabufFormats
          *
          * @return the GType
          */
         public fun getType(): GType = gdk_dmabuf_formats_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DmabufFormats = DmabufFormats(pointer.reinterpret())
     }
 }

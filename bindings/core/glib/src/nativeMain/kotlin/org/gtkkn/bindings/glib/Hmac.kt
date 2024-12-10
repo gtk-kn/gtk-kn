@@ -3,13 +3,11 @@ package org.gtkkn.bindings.glib
 
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GHmac
 import org.gtkkn.native.glib.g_hmac_copy
 import org.gtkkn.native.glib.g_hmac_get_string
@@ -17,7 +15,6 @@ import org.gtkkn.native.glib.g_hmac_ref
 import org.gtkkn.native.glib.g_hmac_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_hmac_get_type
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * HMACs should be used when producing a cookie or hash based on data
@@ -47,7 +44,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GLibVersion2_30
 public class Hmac(
     pointer: CPointer<GHmac>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibHmacPointer: CPointer<GHmac> = pointer
 
     /**
@@ -104,14 +101,12 @@ public class Hmac(
     @GLibVersion2_30
     public fun unref(): Unit = g_hmac_unref(glibHmacPointer.reinterpret())
 
-    public companion object : RecordCompanion<Hmac, GHmac> {
+    public companion object {
         /**
          * Get the GType of Hmac
          *
          * @return the GType
          */
         public fun getType(): GType = g_hmac_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Hmac = Hmac(pointer.reinterpret())
     }
 }

@@ -33,7 +33,6 @@ import org.gtkkn.bindings.gtk.Align
 import org.gtkkn.bindings.gtk.Box
 import org.gtkkn.bindings.gtk.Label
 import org.gtkkn.bindings.gtk.Orientation
-import org.gtkkn.extensions.glib.allocate
 import org.gtkkn.extensions.glib.util.Log
 import org.gtkkn.native.gobject.G_TYPE_STRING
 
@@ -58,55 +57,62 @@ fun main() = Application {
         vexpand = true
     }
 
-    // and add your widget to the layout to display it
-    layout.append(label)
-
     Log.m("playground", "#### Record test")
 
-    val rectangleRef = Rectangle.allocate()
-    rectangleRef.use { r ->
-        r.x = 1
-        r.y = 2
-        r.height = 3
-        r.width = 4
+    memScoped {
+        val r = Rectangle(
+            x = 1,
+            y = 2,
+            height = 3,
+            width = 4,
+            scope = this,
+        )
 
         val result = r.containsPoint(2, 3)
-        Log.m("playground", "Result is: $result")
+        Log.m("playground", "rectangle: $r")
+        Log.m("playground", "2,3 is contained: $result")
     }
 
     /*
      * Heap allocation with use
      */
-    val value1Ref = Value.allocate()
-    value1Ref.use { v ->
-        v.init(G_TYPE_STRING)
-        v.setString("Hello Value")
-        val result = v.getString()
-        Log.m("playground", "Result is: $result")
-    }
+    val value1 = Value()
+    value1.init(G_TYPE_STRING)
+    value1.setString("Hello Value")
+    val result = value1.getString()
+    Log.m("playground", "Result is: $result")
     // value1Ref is automatically freed after use()
-
-    /*
-     * Heap allocation with manual free
-     */
-    val value2Ref = Value.allocate()
-    val value2 = value2Ref.get()
-    value2.init(G_TYPE_STRING)
-    value2.setString("Hello Value2")
-    val result2 = value2.getString()
-    Log.m("playground", "Result2 is $result2")
-    // have to free manually
-    value2Ref.free()
-
+//
+//    /*
+//     * Heap allocation with manual free
+//     */
+//    val value2Ref = Value.allocate()
+//    val value2 = value2Ref.get()
+//    value2.init(G_TYPE_STRING)
+//    value2.setString("Hello Value2")
+//    val result2 = value2.getString()
+//    Log.m("playground", "Result2 is $result2")
+//    // have to free manually
+//    value2Ref.free()
+//
     /*
      * Allocation within MemScope
      */
     memScoped {
-        val value3 = Value.allocate(this)
+        val value3 = Value(this)
         value3.init(G_TYPE_STRING)
         value3.setString("Hello Value3")
         val result3 = value3.getString()
         Log.m("playground", "Result3 is $result3")
+        Log.m("playground", "value3 is $value3")
     }
-    // value3 is automatically freed after memScoped block
+//    // value3 is automatically freed after memScoped block
+
+    // and add your widget to the layout to display it
+//    val button = Button()
+//    button.name = "ciao"
+//    button.connectClicked {
+//        Log.m("playground", "rectangle2: x=${r.x} y=${r.y} h=${r.height} w=${r.width}")
+//    }
+    layout.append(label)
 }

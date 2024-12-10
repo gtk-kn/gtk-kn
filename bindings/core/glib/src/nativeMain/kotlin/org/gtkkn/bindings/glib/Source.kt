@@ -4,7 +4,6 @@ package org.gtkkn.bindings.glib
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -16,8 +15,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_36
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_70
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.glib.GSource
 import org.gtkkn.native.glib.g_source_add_child_source
@@ -52,7 +50,6 @@ import org.gtkkn.native.gobject.g_source_get_type
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.gint64
 import org.gtkkn.native.gobject.guint
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `GSource` struct is an opaque data type
@@ -65,6 +62,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  * - parameter `tag`: gpointer
  * - parameter `tag`: gpointer
  * - parameter `callback_data`: gpointer
+ * - parameter `dispose`: SourceDisposeFunc
  * - parameter `user_data`: gpointer
  * - parameter `user_data`: gpointer
  * - field `callback_data`: Record field callback_data is private
@@ -83,7 +81,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class Source(
     pointer: CPointer<GSource>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibSourcePointer: CPointer<GSource> = pointer
 
     /**
@@ -506,7 +504,7 @@ public class Source(
      */
     public fun unref(): Unit = g_source_unref(glibSourcePointer.reinterpret())
 
-    public companion object : RecordCompanion<Source, GSource> {
+    public companion object {
         /**
          * Creates a new #GSource structure. The size is specified to
          * allow creating structures derived from #GSource that contain
@@ -581,7 +579,5 @@ public class Source(
          * @return the GType
          */
         public fun getType(): GType = g_source_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Source = Source(pointer.reinterpret())
     }
 }

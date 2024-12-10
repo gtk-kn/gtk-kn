@@ -6,7 +6,6 @@ import kotlin.Result
 import kotlin.String
 import kotlin.Unit
 import kotlin.collections.List
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -22,8 +21,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_34
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_38
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.toKStringList
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GRegex
 import org.gtkkn.native.glib.g_regex_error_quark
@@ -46,7 +44,6 @@ import org.gtkkn.native.glib.g_regex_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_regex_get_type
 import org.gtkkn.native.gobject.gint
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GRegex` is the "compiled" form of a regular expression pattern.
@@ -120,7 +117,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GLibVersion2_14
 public class Regex(
     pointer: CPointer<GRegex>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibRegexPointer: CPointer<GRegex> = pointer
 
     /**
@@ -255,7 +252,7 @@ public class Regex(
     @GLibVersion2_14
     public fun unref(): Unit = g_regex_unref(glibRegexPointer.reinterpret())
 
-    public companion object : RecordCompanion<Regex, GRegex> {
+    public companion object {
         /**
          * Compiles the regular expression to an internal form, and does
          * the initial setup of the #GRegex structure.
@@ -396,7 +393,5 @@ public class Regex(
          * @return the GType
          */
         public fun getType(): GType = g_regex_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Regex = Regex(pointer.reinterpret())
     }
 }

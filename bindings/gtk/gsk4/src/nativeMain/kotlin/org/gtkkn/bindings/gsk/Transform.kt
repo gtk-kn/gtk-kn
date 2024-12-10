@@ -3,7 +3,6 @@ package org.gtkkn.bindings.gsk
 
 import kotlin.Boolean
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -14,8 +13,7 @@ import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.graphene.Vec3
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_6
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskTransform
@@ -42,7 +40,6 @@ import org.gtkkn.native.gsk.gsk_transform_translate
 import org.gtkkn.native.gsk.gsk_transform_translate_3d
 import org.gtkkn.native.gsk.gsk_transform_unref
 import kotlin.String as KotlinString
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 import org.gtkkn.bindings.glib.String as GlibString
 
 /**
@@ -66,7 +63,7 @@ import org.gtkkn.bindings.glib.String as GlibString
  */
 public class Transform(
     pointer: CPointer<GskTransform>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gskTransformPointer: CPointer<GskTransform> = pointer
 
     /**
@@ -279,7 +276,7 @@ public class Transform(
      */
     public fun unref(): Unit = gsk_transform_unref(gskTransformPointer.reinterpret())
 
-    public companion object : RecordCompanion<Transform, GskTransform> {
+    public companion object {
         public fun new(): Transform = Transform(gsk_transform_new()!!.reinterpret())
 
         /**
@@ -288,7 +285,5 @@ public class Transform(
          * @return the GType
          */
         public fun getType(): GType = gsk_transform_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Transform = Transform(pointer.reinterpret())
     }
 }

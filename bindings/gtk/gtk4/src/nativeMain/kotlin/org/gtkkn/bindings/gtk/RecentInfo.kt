@@ -5,7 +5,6 @@ import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -19,8 +18,7 @@ import org.gtkkn.bindings.glib.DateTime
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gtk.Gtk.resolveException
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
@@ -47,7 +45,6 @@ import org.gtkkn.native.gtk.gtk_recent_info_last_application
 import org.gtkkn.native.gtk.gtk_recent_info_match
 import org.gtkkn.native.gtk.gtk_recent_info_ref
 import org.gtkkn.native.gtk.gtk_recent_info_unref
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * `GtkRecentInfo` contains the metadata associated with an item in the
@@ -61,7 +58,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class RecentInfo(
     pointer: CPointer<GtkRecentInfo>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gtkRecentInfoPointer: CPointer<GtkRecentInfo> = pointer
 
     /**
@@ -274,14 +271,12 @@ public class RecentInfo(
      */
     public fun unref(): Unit = gtk_recent_info_unref(gtkRecentInfoPointer.reinterpret())
 
-    public companion object : RecordCompanion<RecentInfo, GtkRecentInfo> {
+    public companion object {
         /**
          * Get the GType of RecentInfo
          *
          * @return the GType
          */
         public fun getType(): GType = gtk_recent_info_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): RecentInfo = RecentInfo(pointer.reinterpret())
     }
 }

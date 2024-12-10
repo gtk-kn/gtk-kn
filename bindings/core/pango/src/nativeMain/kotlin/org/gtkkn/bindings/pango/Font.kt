@@ -46,6 +46,7 @@ import org.gtkkn.native.pango.pango_font_serialize
  * ## Skipped during bindings generation
  *
  * - method `get_features`: In/Out parameter is not supported
+ * - method `get_hb_font`: Return type HarfBuzz.font_t is unsupported
  * - method `get_languages`: Array parameter of type Language is not supported
  * - parameter `descs`: Array parameter of type FontDescription is not supported
  */

@@ -12,35 +12,23 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_24
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_32
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_34
-import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitURISchemeRequest
-import org.gtkkn.native.webkit.webkit_download_error_quark
-import org.gtkkn.native.webkit.webkit_favicon_database_error_quark
 import org.gtkkn.native.webkit.webkit_get_major_version
 import org.gtkkn.native.webkit.webkit_get_micro_version
 import org.gtkkn.native.webkit.webkit_get_minor_version
-import org.gtkkn.native.webkit.webkit_javascript_error_quark
-import org.gtkkn.native.webkit.webkit_media_error_quark
 import org.gtkkn.native.webkit.webkit_media_key_system_permission_get_name
-import org.gtkkn.native.webkit.webkit_network_error_quark
-import org.gtkkn.native.webkit.webkit_policy_error_quark
-import org.gtkkn.native.webkit.webkit_print_error_quark
-import org.gtkkn.native.webkit.webkit_snapshot_error_quark
 import org.gtkkn.native.webkit.webkit_uri_for_display
-import org.gtkkn.native.webkit.webkit_user_content_filter_error_quark
 import org.gtkkn.native.webkit.webkit_user_media_permission_is_for_audio_device
 import org.gtkkn.native.webkit.webkit_user_media_permission_is_for_display_device
 import org.gtkkn.native.webkit.webkit_user_media_permission_is_for_video_device
-import org.gtkkn.native.webkit.webkit_user_message_error_quark
 
 /**
  * ## Skipped during bindings generation
@@ -65,7 +53,6 @@ import org.gtkkn.native.webkit.webkit_user_message_error_quark
  * - record `GeolocationPermissionRequestClass`: glib type struct are ignored
  * - record `HitTestResultClass`: glib type struct are ignored
  * - record `InputMethodContextClass`: glib type struct are ignored
- * - record `InputMethodContextPrivate`: Disguised records are ignored
  * - record `MediaKeySystemPermissionRequestClass`: glib type struct are ignored
  * - record `NavigationPolicyDecisionClass`: glib type struct are ignored
  * - record `NetworkSessionClass`: glib type struct are ignored
@@ -75,7 +62,6 @@ import org.gtkkn.native.webkit.webkit_user_message_error_quark
  * - record `PermissionRequestInterface`: glib type struct are ignored
  * - record `PointerLockPermissionRequestClass`: glib type struct are ignored
  * - record `PolicyDecisionClass`: glib type struct are ignored
- * - record `PolicyDecisionPrivate`: Disguised records are ignored
  * - record `PrintOperationClass`: glib type struct are ignored
  * - record `ResponsePolicyDecisionClass`: glib type struct are ignored
  * - record `SecurityManagerClass`: glib type struct are ignored
@@ -92,9 +78,7 @@ import org.gtkkn.native.webkit.webkit_user_message_error_quark
  * - record `WebInspectorClass`: glib type struct are ignored
  * - record `WebResourceClass`: glib type struct are ignored
  * - record `WebViewBaseClass`: glib type struct are ignored
- * - record `WebViewBasePrivate`: Disguised records are ignored
  * - record `WebViewClass`: glib type struct are ignored
- * - record `WebViewPrivate`: Disguised records are ignored
  * - record `WebsiteDataAccessPermissionRequestClass`: glib type struct are ignored
  * - record `WebsiteDataManagerClass`: glib type struct are ignored
  * - record `WebsitePoliciesClass`: glib type struct are ignored
@@ -202,7 +186,7 @@ public object WebKit {
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val MICRO_VERSION: gint = 3
+    public const val MICRO_VERSION: gint = 4
 
     /**
      * Like webkit_get_minor_version(), but from the headers used at
@@ -210,20 +194,6 @@ public object WebKit {
      * against at application run time.
      */
     public const val MINOR_VERSION: gint = 46
-
-    /**
-     * Gets the quark for the domain of download errors.
-     *
-     * @return download error domain.
-     */
-    public fun downloadErrorQuark(): Quark = webkit_download_error_quark()
-
-    /**
-     * Gets the quark for the domain of favicon database errors.
-     *
-     * @return favicon database error domain.
-     */
-    public fun faviconDatabaseErrorQuark(): Quark = webkit_favicon_database_error_quark()
 
     /**
      * Returns the major version number of the WebKit library.
@@ -268,22 +238,6 @@ public object WebKit {
     public fun getMinorVersion(): guint = webkit_get_minor_version()
 
     /**
-     * Gets the quark for the domain of JavaScript errors.
-     *
-     * @return JavaScript error domain.
-     */
-    public fun javascriptErrorQuark(): Quark = webkit_javascript_error_quark()
-
-    /**
-     * Gets the quark for the domain of media errors.
-     *
-     * @return media error domin.
-     * @since 2.40
-     */
-    @WebKitVersion2_40
-    public fun mediaErrorQuark(): Quark = webkit_media_error_quark()
-
-    /**
      * Get the key system for which access permission is being requested.
      *
      * @param request a #WebKitMediaKeySystemPermissionRequest
@@ -292,34 +246,6 @@ public object WebKit {
      */
     @WebKitVersion2_32
     public fun mediaKeySystemPermissionGetName(request: MediaKeySystemPermissionRequest): String = webkit_media_key_system_permission_get_name(request.webkitMediaKeySystemPermissionRequestPointer.reinterpret())?.toKString() ?: error("Expected not null string")
-
-    /**
-     * Gets the quark for the domain of networking errors.
-     *
-     * @return network error domain.
-     */
-    public fun networkErrorQuark(): Quark = webkit_network_error_quark()
-
-    /**
-     * Gets the quark for the domain of policy errors.
-     *
-     * @return policy error domain.
-     */
-    public fun policyErrorQuark(): Quark = webkit_policy_error_quark()
-
-    /**
-     * Gets the quark for the domain of printing errors.
-     *
-     * @return print error domain.
-     */
-    public fun printErrorQuark(): Quark = webkit_print_error_quark()
-
-    /**
-     * Gets the quark for the domain of page snapshot errors.
-     *
-     * @return snapshot error domain.
-     */
-    public fun snapshotErrorQuark(): Quark = webkit_snapshot_error_quark()
 
     /**
      * Use this function to format a URI for display.
@@ -337,13 +263,6 @@ public object WebKit {
      */
     @WebKitVersion2_24
     public fun uriForDisplay(uri: String): String? = webkit_uri_for_display(uri)?.toKString()
-
-    /**
-     * Gets the quark for the domain of user content filter errors.
-     *
-     * @return user content filter error domain.
-     */
-    public fun userContentFilterErrorQuark(): Quark = webkit_user_content_filter_error_quark()
 
     /**
      * Check whether the permission request is for an audio device.
@@ -374,13 +293,6 @@ public object WebKit {
      */
     @WebKitVersion2_8
     public fun userMediaPermissionIsForVideoDevice(request: UserMediaPermissionRequest): Boolean = webkit_user_media_permission_is_for_video_device(request.webkitUserMediaPermissionRequestPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the quark for the domain of user message errors.
-     *
-     * @return user message error domain.
-     */
-    public fun userMessageErrorQuark(): Quark = webkit_user_message_error_quark()
 
     public fun resolveException(error: Error): GLibException {
         val ex = when (error.domain) {

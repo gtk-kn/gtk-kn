@@ -2,16 +2,15 @@
 package org.gtkkn.bindings.soup
 
 import kotlin.Boolean
+import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint64
 import org.gtkkn.native.soup.SoupMessageBody
@@ -28,7 +27,6 @@ import org.gtkkn.native.soup.soup_message_body_set_accumulate
 import org.gtkkn.native.soup.soup_message_body_truncate
 import org.gtkkn.native.soup.soup_message_body_unref
 import org.gtkkn.native.soup.soup_message_body_wrote_chunk
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * #SoupMessageBody represents the request or response body of a
@@ -47,13 +45,12 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  *
  * ## Skipped during bindings generation
  *
- * - method `append`: soup_message_body_append is shadowedBy append_take
  * - parameter `data`: Array parameter of type guint8 is not supported
  * - field `data`: Fields with arrays are not supported
  */
 public class MessageBody(
     pointer: CPointer<SoupMessageBody>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val soupMessageBodyPointer: CPointer<SoupMessageBody> = pointer
 
     /**
@@ -195,7 +192,9 @@ public class MessageBody(
      */
     public fun wroteChunk(chunk: Bytes): Unit = soup_message_body_wrote_chunk(soupMessageBodyPointer.reinterpret(), chunk.glibBytesPointer.reinterpret())
 
-    public companion object : RecordCompanion<MessageBody, SoupMessageBody> {
+    override fun toString(): String = "MessageBody(length=$length)"
+
+    public companion object {
         /**
          * Creates a new #SoupMessageBody.
          *
@@ -212,7 +211,5 @@ public class MessageBody(
          * @return the GType
          */
         public fun getType(): GType = soup_message_body_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MessageBody = MessageBody(pointer.reinterpret())
     }
 }

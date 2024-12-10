@@ -2,13 +2,18 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.Boolean
+import kotlin.Pair
 import kotlin.Result
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
@@ -16,8 +21,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.GLib.resolveException
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GIOChannel
 import org.gtkkn.native.glib.g_io_channel_close
@@ -52,7 +56,6 @@ import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.gint64
 import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gobject.gunichar
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `GIOChannel` data type aims to provide a portable method for
@@ -126,8 +129,37 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class IOChannel(
     pointer: CPointer<GIOChannel>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibIOChannelPointer: CPointer<GIOChannel> = pointer
+
+    /**
+     * Allocate a new IOChannel.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GIOChannel>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to IOChannel and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GIOChannel>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new IOChannel using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GIOChannel>().ptr)
 
     /**
      * Close an IO channel. Any pending data to be written will be
@@ -456,7 +488,7 @@ public class IOChannel(
         }
     }
 
-    public companion object : RecordCompanion<IOChannel, GIOChannel> {
+    public companion object {
         /**
          * Open a file @filename as a #GIOChannel using mode @mode. This
          * channel will be closed when the last reference to it is dropped,
@@ -529,7 +561,5 @@ public class IOChannel(
          * @return the GType
          */
         public fun getType(): GType = g_io_channel_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): IOChannel = IOChannel(pointer.reinterpret())
     }
 }

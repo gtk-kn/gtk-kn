@@ -48,6 +48,8 @@ import org.gtkkn.native.gdk.gdk_clipboard_read_texture_finish
 import org.gtkkn.native.gdk.gdk_clipboard_read_value_async
 import org.gtkkn.native.gdk.gdk_clipboard_read_value_finish
 import org.gtkkn.native.gdk.gdk_clipboard_set_content
+import org.gtkkn.native.gdk.gdk_clipboard_set_text
+import org.gtkkn.native.gdk.gdk_clipboard_set_texture
 import org.gtkkn.native.gdk.gdk_clipboard_set_value
 import org.gtkkn.native.gdk.gdk_clipboard_store_async
 import org.gtkkn.native.gdk.gdk_clipboard_store_finish
@@ -78,6 +80,7 @@ import org.gtkkn.native.gobject.gint
  * ## Skipped during bindings generation
  *
  * - parameter `out_mime_type`: out_mime_type: Out parameter is not supported
+ * - parameter `args`: va_list
  * - method `local`: Property has no getter nor setter
  */
 public open class Clipboard(
@@ -297,6 +300,20 @@ public open class Clipboard(
      * @return true if setting the clipboard succeeded
      */
     public open fun setContent(provider: ContentProvider? = null): Boolean = gdk_clipboard_set_content(gdkClipboardPointer.reinterpret(), provider?.gdkContentProviderPointer?.reinterpret()).asBoolean()
+
+    /**
+     * Puts the given @text into the clipboard.
+     *
+     * @param text Text to put into the clipboard
+     */
+    public open fun setText(text: String): Unit = gdk_clipboard_set_text(gdkClipboardPointer.reinterpret(), text)
+
+    /**
+     * Puts the given @texture into the clipboard.
+     *
+     * @param texture a `GdkTexture` to put into the clipboard
+     */
+    public open fun setTexture(texture: Texture): Unit = gdk_clipboard_set_texture(gdkClipboardPointer.reinterpret(), texture.gdkTexturePointer.reinterpret())
 
     /**
      * Sets the @clipboard to contain the given @value.

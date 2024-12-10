@@ -193,6 +193,15 @@ import org.gtkkn.native.gtk.GtkConstraintTarget
  *   </responses>
  * </object>
  * ```
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `add_responses`: Varargs parameter is not supported
+ * - method `format_body`: Varargs parameter is not supported
+ * - method `format_body_markup`: Varargs parameter is not supported
+ * - method `format_heading`: Varargs parameter is not supported
+ * - method `format_heading_markup`: Varargs parameter is not supported
+ *
  * @since 1.5
  */
 @AdwVersion1_5

@@ -4,15 +4,13 @@ package org.gtkkn.bindings.webkit
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.DateTime
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_30
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitITPFirstParty
 import org.gtkkn.native.webkit.webkit_itp_first_party_get_domain
@@ -21,7 +19,6 @@ import org.gtkkn.native.webkit.webkit_itp_first_party_get_type
 import org.gtkkn.native.webkit.webkit_itp_first_party_get_website_data_access_allowed
 import org.gtkkn.native.webkit.webkit_itp_first_party_ref
 import org.gtkkn.native.webkit.webkit_itp_first_party_unref
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Describes a first party origin.
@@ -30,7 +27,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @WebKitVersion2_30
 public class ITPFirstParty(
     pointer: CPointer<WebKitITPFirstParty>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val webkitITPFirstPartyPointer: CPointer<WebKitITPFirstParty> = pointer
 
     /**
@@ -91,14 +88,12 @@ public class ITPFirstParty(
     @WebKitVersion2_30
     public fun unref(): Unit = webkit_itp_first_party_unref(webkitITPFirstPartyPointer.reinterpret())
 
-    public companion object : RecordCompanion<ITPFirstParty, WebKitITPFirstParty> {
+    public companion object {
         /**
          * Get the GType of ITPFirstParty
          *
          * @return the GType
          */
         public fun getType(): GType = webkit_itp_first_party_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ITPFirstParty = ITPFirstParty(pointer.reinterpret())
     }
 }

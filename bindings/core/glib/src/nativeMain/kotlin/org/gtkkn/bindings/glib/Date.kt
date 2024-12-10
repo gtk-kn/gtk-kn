@@ -4,7 +4,6 @@ package org.gtkkn.bindings.glib
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
@@ -12,8 +11,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_10
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_56
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_6
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GDate
 import org.gtkkn.native.glib.g_date_add_days
 import org.gtkkn.native.glib.g_date_add_months
@@ -66,7 +64,6 @@ import org.gtkkn.native.gobject.g_date_get_type
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gobject.guint8
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * `GDate` is a struct for calendrical calculations.
@@ -116,7 +113,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class Date(
     pointer: CPointer<GDate>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibDatePointer: CPointer<GDate> = pointer
 
     /**
@@ -488,7 +485,9 @@ public class Date(
      */
     public fun valid(): Boolean = g_date_valid(glibDatePointer.reinterpret()).asBoolean()
 
-    public companion object : RecordCompanion<Date, GDate> {
+    override fun toString(): String = "Date(julianDays=$julianDays, julian=$julian, dmy=$dmy, day=$day, month=$month, year=$year)"
+
+    public companion object {
         /**
          * Allocates a #GDate and initializes
          * it to a safe state. The new date will
@@ -649,7 +648,5 @@ public class Date(
          * @return the GType
          */
         public fun getType(): GType = g_date_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Date = Date(pointer.reinterpret())
     }
 }

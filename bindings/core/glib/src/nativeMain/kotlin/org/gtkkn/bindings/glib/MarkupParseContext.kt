@@ -6,7 +6,6 @@ import kotlin.Long
 import kotlin.Result
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -19,8 +18,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_16
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_2
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_36
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GMarkupParseContext
 import org.gtkkn.native.glib.g_markup_parse_context_end_parse
@@ -32,7 +30,6 @@ import org.gtkkn.native.glib.g_markup_parse_context_ref
 import org.gtkkn.native.glib.g_markup_parse_context_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_markup_parse_context_get_type
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A parse context is used to parse a stream of bytes that
@@ -51,7 +48,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class MarkupParseContext(
     pointer: CPointer<GMarkupParseContext>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibMarkupParseContextPointer: CPointer<GMarkupParseContext> = pointer
 
     /**
@@ -161,14 +158,12 @@ public class MarkupParseContext(
     @GLibVersion2_36
     public fun unref(): Unit = g_markup_parse_context_unref(glibMarkupParseContextPointer.reinterpret())
 
-    public companion object : RecordCompanion<MarkupParseContext, GMarkupParseContext> {
+    public companion object {
         /**
          * Get the GType of MarkupParseContext
          *
          * @return the GType
          */
         public fun getType(): GType = g_markup_parse_context_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MarkupParseContext = MarkupParseContext(pointer.reinterpret())
     }
 }

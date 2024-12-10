@@ -1,14 +1,13 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.pango.PangoItem
@@ -18,7 +17,6 @@ import org.gtkkn.native.pango.pango_item_free
 import org.gtkkn.native.pango.pango_item_get_type
 import org.gtkkn.native.pango.pango_item_new
 import org.gtkkn.native.pango.pango_item_split
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `PangoItem` structure stores information about a segment of text.
@@ -32,7 +30,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class Item(
     pointer: CPointer<PangoItem>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val pangoItemPointer: CPointer<PangoItem> = pointer
 
     /**
@@ -117,7 +115,9 @@ public class Item(
     public fun split(splitIndex: gint, splitOffset: gint): Item = pango_item_split(pangoItemPointer.reinterpret(), splitIndex, splitOffset)!!.run {
         Item(reinterpret())}
 
-    public companion object : RecordCompanion<Item, PangoItem> {
+    override fun toString(): String = "Item(offset=$offset, length=$length, numChars=$numChars)"
+
+    public companion object {
         /**
          * Creates a new `PangoItem` structure initialized to default values.
          *
@@ -132,7 +132,5 @@ public class Item(
          * @return the GType
          */
         public fun getType(): GType = pango_item_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Item = Item(pointer.reinterpret())
     }
 }

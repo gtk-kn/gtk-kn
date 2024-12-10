@@ -23,6 +23,7 @@ import org.gtkkn.native.webkit.webkit_website_policies_new
  * ## Skipped during bindings generation
  *
  * - method `autoplay`: Property has no getter nor setter
+ * - constructor `new_with_policies`: Varargs parameter is not supported
  *
  * @since 2.30
  */

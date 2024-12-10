@@ -4,14 +4,12 @@ package org.gtkkn.bindings.webkit
 import kotlin.String
 import kotlin.Unit
 import kotlin.collections.List
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
 import org.gtkkn.extensions.common.toCStringList
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitUserStyleSheet
 import org.gtkkn.native.webkit.webkit_user_style_sheet_get_type
@@ -19,7 +17,6 @@ import org.gtkkn.native.webkit.webkit_user_style_sheet_new
 import org.gtkkn.native.webkit.webkit_user_style_sheet_new_for_world
 import org.gtkkn.native.webkit.webkit_user_style_sheet_ref
 import org.gtkkn.native.webkit.webkit_user_style_sheet_unref
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A CSS style sheet which can be injected in loaded pages.
@@ -28,7 +25,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @WebKitVersion2_6
 public class UserStyleSheet(
     pointer: CPointer<WebKitUserStyleSheet>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val webkitUserStyleSheetPointer: CPointer<WebKitUserStyleSheet> = pointer
 
     /**
@@ -55,7 +52,7 @@ public class UserStyleSheet(
     @WebKitVersion2_6
     public fun unref(): Unit = webkit_user_style_sheet_unref(webkitUserStyleSheetPointer.reinterpret())
 
-    public companion object : RecordCompanion<UserStyleSheet, WebKitUserStyleSheet> {
+    public companion object {
         /**
          * Creates a new user style sheet.
          *
@@ -119,7 +116,5 @@ public class UserStyleSheet(
          * @return the GType
          */
         public fun getType(): GType = webkit_user_style_sheet_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): UserStyleSheet = UserStyleSheet(pointer.reinterpret())
     }
 }

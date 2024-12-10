@@ -35,6 +35,10 @@ import org.gtkkn.native.gtk.gtk_shortcut_set_trigger
  * `GtkShortcut` does provide functionality to make it easy for users
  * to work with shortcuts, either by providing informational strings
  * for display purposes or by allowing shortcuts to be configured.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - constructor `new_with_arguments`: Varargs parameter is not supported
  */
 public open class Shortcut(
     pointer: CPointer<GtkShortcut>,

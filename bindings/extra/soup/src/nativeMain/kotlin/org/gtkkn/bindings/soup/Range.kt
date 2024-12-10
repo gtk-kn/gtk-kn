@@ -1,15 +1,19 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
-import kotlinx.cinterop.CPointed
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
-import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.gint64
 import org.gtkkn.native.soup.SoupRange
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Represents a byte range as used in the Range header.
@@ -29,7 +33,8 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class Range(
     pointer: CPointer<SoupRange>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val soupRangePointer: CPointer<SoupRange> = pointer
 
     /**
@@ -50,7 +55,65 @@ public class Range(
             soupRangePointer.pointed.end = value
         }
 
-    public companion object : RecordCompanion<Range, SoupRange> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Range = Range(pointer.reinterpret())
+    /**
+     * Allocate a new Range.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<SoupRange>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
     }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Range and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<SoupRange>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Range using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<SoupRange>().ptr)
+
+    /**
+     * Allocate a new Range.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param start the start of the range
+     * @param end the end of the range
+     */
+    public constructor(start: gint64, end: gint64) : this() {
+        this.start = start
+        this.end = end
+    }
+
+    /**
+     * Allocate a new Range using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param start the start of the range
+     * @param end the end of the range
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        start: gint64,
+        end: gint64,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.start = start
+        this.end = end
+    }
+
+    override fun toString(): String = "Range(start=$start, end=$end)"
 }

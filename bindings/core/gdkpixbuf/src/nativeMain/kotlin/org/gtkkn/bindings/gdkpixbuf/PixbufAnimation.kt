@@ -41,6 +41,8 @@ import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_animation_new_from_resource
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_animation_new_from_stream
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_animation_new_from_stream_async
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_animation_new_from_stream_finish
+import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_animation_ref
+import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_animation_unref
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
@@ -226,6 +228,19 @@ public open class PixbufAnimation(
      * @return `TRUE` if the "animation" was really just an image
      */
     public open fun isStaticImage(): Boolean = gdk_pixbuf_animation_is_static_image(gdkpixbufPixbufAnimationPointer.reinterpret()).asBoolean()
+
+    /**
+     * Adds a reference to an animation.
+     *
+     * @return The same as the @animation argument.
+     */
+    override fun ref(): PixbufAnimation = gdk_pixbuf_animation_ref(gdkpixbufPixbufAnimationPointer.reinterpret())!!.run {
+        PixbufAnimation(reinterpret())}
+
+    /**
+     * Removes a reference from an animation.
+     */
+    override fun unref(): Unit = gdk_pixbuf_animation_unref(gdkpixbufPixbufAnimationPointer.reinterpret())
 
     public companion object : TypeCompanion<PixbufAnimation> {
         override val type: GeneratedClassKGType<PixbufAnimation> =

@@ -4,7 +4,6 @@ package org.gtkkn.bindings.webkit
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -12,8 +11,7 @@ import org.gtkkn.bindings.gio.TlsCertificate
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_2
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_34
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitCredential
 import org.gtkkn.native.webkit.webkit_credential_copy
@@ -27,7 +25,6 @@ import org.gtkkn.native.webkit.webkit_credential_has_password
 import org.gtkkn.native.webkit.webkit_credential_new
 import org.gtkkn.native.webkit.webkit_credential_new_for_certificate
 import org.gtkkn.native.webkit.webkit_credential_new_for_certificate_pin
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Groups information used for user authentication.
@@ -36,7 +33,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @WebKitVersion2_2
 public class Credential(
     pointer: CPointer<WebKitCredential>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val webkitCredentialPointer: CPointer<WebKitCredential> = pointer
 
     /**
@@ -104,7 +101,7 @@ public class Credential(
     @WebKitVersion2_2
     public fun hasPassword(): Boolean = webkit_credential_has_password(webkitCredentialPointer.reinterpret()).asBoolean()
 
-    public companion object : RecordCompanion<Credential, WebKitCredential> {
+    public companion object {
         /**
          * Create a new credential from the provided username, password and persistence mode.
          *
@@ -150,7 +147,5 @@ public class Credential(
          * @return the GType
          */
         public fun getType(): GType = webkit_credential_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Credential = Credential(pointer.reinterpret())
     }
 }

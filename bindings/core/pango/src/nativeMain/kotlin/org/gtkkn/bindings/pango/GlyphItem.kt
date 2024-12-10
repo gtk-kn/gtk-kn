@@ -1,18 +1,23 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_2
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_20
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_6
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.pango.PangoGlyphItem
@@ -21,7 +26,6 @@ import org.gtkkn.native.pango.pango_glyph_item_copy
 import org.gtkkn.native.pango.pango_glyph_item_free
 import org.gtkkn.native.pango.pango_glyph_item_get_type
 import org.gtkkn.native.pango.pango_glyph_item_split
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `PangoGlyphItem` is a pair of a `PangoItem` and the glyphs
@@ -38,26 +42,29 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class GlyphItem(
     pointer: CPointer<PangoGlyphItem>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val pangoGlyphItemPointer: CPointer<PangoGlyphItem> = pointer
 
     /**
      * corresponding `PangoItem`
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val item: Item?
+    public var item: Item?
         get() = pangoGlyphItemPointer.pointed.item?.run {
             Item(reinterpret())}
+        set(`value`) {
+            pangoGlyphItemPointer.pointed.item = value?.pangoItemPointer
+        }
 
     /**
      * corresponding `PangoGlyphString`
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val glyphs: GlyphString?
+    public var glyphs: GlyphString?
         get() = pangoGlyphItemPointer.pointed.glyphs?.run {
             GlyphString(reinterpret())}
+        set(`value`) {
+            pangoGlyphItemPointer.pointed.glyphs = value?.pangoGlyphStringPointer
+        }
 
     /**
      * shift of the baseline, relative to the baseline
@@ -88,6 +95,93 @@ public class GlyphItem(
         set(`value`) {
             pangoGlyphItemPointer.pointed.end_x_offset = value
         }
+
+    /**
+     * Allocate a new GlyphItem.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<PangoGlyphItem>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to GlyphItem and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<PangoGlyphItem>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new GlyphItem using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<PangoGlyphItem>().ptr)
+
+    /**
+     * Allocate a new GlyphItem.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param item corresponding `PangoItem`
+     * @param glyphs corresponding `PangoGlyphString`
+     * @param yOffset shift of the baseline, relative to the baseline
+     *   of the containing line. Positive values shift upwards
+     * @param startXOffset horizontal displacement to apply before the
+     *   glyph item. Positive values shift right
+     * @param endXOffset horizontal displacement to apply after th
+     *   glyph item. Positive values shift right
+     */
+    public constructor(
+        item: Item?,
+        glyphs: GlyphString?,
+        yOffset: gint,
+        startXOffset: gint,
+        endXOffset: gint,
+    ) : this() {
+        this.item = item
+        this.glyphs = glyphs
+        this.yOffset = yOffset
+        this.startXOffset = startXOffset
+        this.endXOffset = endXOffset
+    }
+
+    /**
+     * Allocate a new GlyphItem using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param item corresponding `PangoItem`
+     * @param glyphs corresponding `PangoGlyphString`
+     * @param yOffset shift of the baseline, relative to the baseline
+     *   of the containing line. Positive values shift upwards
+     * @param startXOffset horizontal displacement to apply before the
+     *   glyph item. Positive values shift right
+     * @param endXOffset horizontal displacement to apply after th
+     *   glyph item. Positive values shift right
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        item: Item?,
+        glyphs: GlyphString?,
+        yOffset: gint,
+        startXOffset: gint,
+        endXOffset: gint,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.item = item
+        this.glyphs = glyphs
+        this.yOffset = yOffset
+        this.startXOffset = startXOffset
+        this.endXOffset = endXOffset
+    }
 
     /**
      * Splits a shaped item (`PangoGlyphItem`) into multiple items based
@@ -163,14 +257,14 @@ public class GlyphItem(
     public fun split(text: String, splitIndex: gint): GlyphItem? = pango_glyph_item_split(pangoGlyphItemPointer.reinterpret(), text, splitIndex)?.run {
         GlyphItem(reinterpret())}
 
-    public companion object : RecordCompanion<GlyphItem, PangoGlyphItem> {
+    override fun toString(): String = "GlyphItem(item=$item, glyphs=$glyphs, yOffset=$yOffset, startXOffset=$startXOffset, endXOffset=$endXOffset)"
+
+    public companion object {
         /**
          * Get the GType of GlyphItem
          *
          * @return the GType
          */
         public fun getType(): GType = pango_glyph_item_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): GlyphItem = GlyphItem(pointer.reinterpret())
     }
 }

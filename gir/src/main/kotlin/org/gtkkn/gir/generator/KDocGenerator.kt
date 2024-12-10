@@ -45,7 +45,7 @@ interface KDocGenerator {
     fun buildMethodKDoc(
         kdoc: String?,
         parameters: List<ParameterBlueprint> = emptyList(),
-        optInVersionBlueprint: OptInVersionBlueprint?,
+        optInVersionBlueprint: OptInVersionBlueprint? = null,
         returnTypeKDoc: String? = null,
     ): CodeBlock? =
         if (!kdoc.isNullOrBlank() ||

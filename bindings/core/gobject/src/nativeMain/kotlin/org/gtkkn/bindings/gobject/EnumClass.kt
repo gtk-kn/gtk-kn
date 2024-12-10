@@ -1,16 +1,21 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
-import kotlinx.cinterop.CPointed
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GEnumClass
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The class of an enumeration type holds information about its
@@ -22,7 +27,8 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class EnumClass(
     pointer: CPointer<GEnumClass>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gobjectEnumClassPointer: CPointer<GEnumClass> = pointer
 
     /**
@@ -55,14 +61,90 @@ public class EnumClass(
     /**
      * an array of #GEnumValue structs describing the
      *  individual values.
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val values: EnumValue?
+    public var values: EnumValue?
         get() = gobjectEnumClassPointer.pointed.values?.run {
             EnumValue(reinterpret())}
+        set(`value`) {
+            gobjectEnumClassPointer.pointed.values = value?.gobjectEnumValuePointer
+        }
 
-    public companion object : RecordCompanion<EnumClass, GEnumClass> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): EnumClass = EnumClass(pointer.reinterpret())
+    /**
+     * Allocate a new EnumClass.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GEnumClass>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
     }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to EnumClass and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GEnumClass>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new EnumClass using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GEnumClass>().ptr)
+
+    /**
+     * Allocate a new EnumClass.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param minimum the smallest possible value.
+     * @param maximum the largest possible value.
+     * @param nValues the number of possible values.
+     * @param values an array of #GEnumValue structs describing the
+     *  individual values.
+     */
+    public constructor(
+        minimum: gint,
+        maximum: gint,
+        nValues: guint,
+        values: EnumValue?,
+    ) : this() {
+        this.minimum = minimum
+        this.maximum = maximum
+        this.nValues = nValues
+        this.values = values
+    }
+
+    /**
+     * Allocate a new EnumClass using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param minimum the smallest possible value.
+     * @param maximum the largest possible value.
+     * @param nValues the number of possible values.
+     * @param values an array of #GEnumValue structs describing the
+     *  individual values.
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        minimum: gint,
+        maximum: gint,
+        nValues: guint,
+        values: EnumValue?,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.minimum = minimum
+        this.maximum = maximum
+        this.nValues = nValues
+        this.values = values
+    }
+
+    override fun toString(): String = "EnumClass(minimum=$minimum, maximum=$maximum, nValues=$nValues, values=$values)"
 }

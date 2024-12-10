@@ -172,7 +172,6 @@ class BindingsGenerator(
                             record.kotlinTypeName,
                             buildRecord(record),
                             repositorySrcDir(moduleOutputDir),
-                            isRecord = true,
                             ktLintFormatter = ktLintFormatter,
                         )
                     }
@@ -228,7 +227,6 @@ class BindingsGenerator(
         outputDirectory: File,
         additionalProperties: List<PropertySpec> = emptyList(),
         additionalTypeAliases: List<TypeAliasSpec> = emptyList(),
-        isRecord: Boolean = false,
         ktLintFormatter: KtLintFormatter
     ) {
         logger.debug { "Writing ${className.canonicalName}" }
@@ -239,11 +237,6 @@ class BindingsGenerator(
             .addType(typeSpec)
             .apply { additionalProperties.forEach { addProperty(it) } }
             .apply { additionalTypeAliases.forEach { addTypeAlias(it) } }
-            .apply {
-                if (isRecord) {
-                    addAliasedImport(NATIVE_PLACEMENT_ALLOC, "nativePlacementAlloc")
-                }
-            }
             .build()
             .apply {
                 if (config.skipFormat) {
@@ -343,15 +336,16 @@ class BindingsGenerator(
         internal val TO_C_STRING_LIST = MemberName("org.gtkkn.extensions.common", "toCStringList")
         internal val TO_K_STRING_LIST = MemberName("org.gtkkn.extensions.common", "toKStringList")
         internal val TYPE_PROVIDER_INTERFACE_TYPE = ClassName("org.gtkkn.extensions.gobject", "TypeProvider")
+        internal val PROXY_INSTANCE_TYPE = ClassName("org.gtkkn.extensions.glib.cinterop", "ProxyInstance")
 
         // gtk-kn marker interfaces
         internal val GLIB_BITFIELD_MARKER_TYPE = ClassName("org.gtkkn.extensions.glib", "Bitfield")
         internal val GLIB_INTERFACE_MARKER_TYPE = ClassName("org.gtkkn.extensions.glib", "Interface")
-        internal val GLIB_RECORD_MARKER_TYPE = ClassName("org.gtkkn.extensions.glib", "Record")
 
         // cinterop helper function members
         internal val ALLOC_POINTER_TO = MemberName("kotlinx.cinterop", "allocPointerTo")
         internal val AS_STABLE_REF_FUNC = MemberName("kotlinx.cinterop", "asStableRef")
+        internal val AUTOFREE_SCOPE = ClassName("kotlinx.cinterop", "AutofreeScope")
         internal val CSTR_FUNC = MemberName("kotlinx.cinterop", "cstr")
         internal val KP_BYTEVAR = ClassName("kotlinx.cinterop", "ByteVar")
         internal val KP_CFUNCTION = ClassName("kotlinx.cinterop", "CFunction")
@@ -374,6 +368,10 @@ class BindingsGenerator(
         internal val TO_KSTRING_FUNC = MemberName("kotlinx.cinterop", "toKString")
         internal val VALUE_PROPERTY = MemberName("kotlinx.cinterop", "value")
 
+        // kotlin native helper function members
+        internal val CLEANER = ClassName("kotlin.native.ref", "Cleaner")
+        internal val CREATE_CLEANER = MemberName("kotlin.native.ref", "createCleaner")
+
         // kotlin helpers
         internal val ANNOTATION_RETENTION_TYPE = ClassName("kotlin.annotation", "AnnotationRetention")
         internal val KCLASS_TYPE = ClassName("kotlin.reflect", "KClass")
@@ -384,12 +382,15 @@ class BindingsGenerator(
         internal val RETENTION_TYPE = ClassName("kotlin.annotation", "Retention")
         internal val THROWS_TYPE = ClassName("kotlin", "Throws")
 
-        // gobject members
+        // gobject
+        internal val G_OBJECT = ClassName("org.gtkkn.bindings.gobject", "GObject")
         internal val G_SIGNAL_CONNECT_DATA = MemberName("org.gtkkn.native.gobject", "g_signal_connect_data")
 
         // glib members
         internal val G_ERROR_MEMBER = MemberName("org.gtkkn.native.glib", "GError")
+        internal val G_FREE_FUNC = MemberName("org.gtkkn.native.glib", "g_free")
         internal val G_QUARK_FROM_STRING_FUNC = MemberName("org.gtkkn.native.glib", "g_quark_from_string")
+        internal val G_STRDUP_FUNC = MemberName("org.gtkkn.native.glib", "g_strdup")
 
         /**
          * A [TypeName] for kotlinx.cinterop.CPointer pointing to [typeName]

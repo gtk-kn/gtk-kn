@@ -3,13 +3,11 @@ package org.gtkkn.bindings.gdk
 
 import kotlin.Boolean
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkToplevelLayout
 import org.gtkkn.native.gdk.gdk_toplevel_layout_copy
 import org.gtkkn.native.gdk.gdk_toplevel_layout_equal
@@ -23,7 +21,6 @@ import org.gtkkn.native.gdk.gdk_toplevel_layout_set_maximized
 import org.gtkkn.native.gdk.gdk_toplevel_layout_set_resizable
 import org.gtkkn.native.gdk.gdk_toplevel_layout_unref
 import org.gtkkn.native.gobject.GType
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `GdkToplevelLayout` struct contains information that
@@ -43,7 +40,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class ToplevelLayout(
     pointer: CPointer<GdkToplevelLayout>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gdkToplevelLayoutPointer: CPointer<GdkToplevelLayout> = pointer
 
     /**
@@ -118,7 +115,7 @@ public class ToplevelLayout(
      */
     public fun unref(): Unit = gdk_toplevel_layout_unref(gdkToplevelLayoutPointer.reinterpret())
 
-    public companion object : RecordCompanion<ToplevelLayout, GdkToplevelLayout> {
+    public companion object {
         /**
          * Create a toplevel layout description.
          *
@@ -138,7 +135,5 @@ public class ToplevelLayout(
          * @return the GType
          */
         public fun getType(): GType = gdk_toplevel_layout_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ToplevelLayout = ToplevelLayout(pointer.reinterpret())
     }
 }

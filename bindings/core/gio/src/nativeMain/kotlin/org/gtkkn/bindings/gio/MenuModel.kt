@@ -150,6 +150,11 @@ import org.gtkkn.native.gobject.gint
  * of the action with the target value as the parameter. The menu item should
  * be rendered as ‘selected’ when the state of the action is equal to the
  * target value of the menu item.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `get_item_attribute`: Varargs parameter is not supported
+ *
  * @since 2.32
  */
 @GioVersion2_32

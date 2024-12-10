@@ -199,6 +199,15 @@ import org.gtkkn.native.gtk.GtkShortcutManager
  * ## Accessibility
  *
  * `AdwMessageDialog` uses the `GTK_ACCESSIBLE_ROLE_DIALOG` role.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `add_responses`: Varargs parameter is not supported
+ * - method `format_body`: Varargs parameter is not supported
+ * - method `format_body_markup`: Varargs parameter is not supported
+ * - method `format_heading`: Varargs parameter is not supported
+ * - method `format_heading_markup`: Varargs parameter is not supported
+ *
  * @since 1.2
  */
 @AdwVersion1_2

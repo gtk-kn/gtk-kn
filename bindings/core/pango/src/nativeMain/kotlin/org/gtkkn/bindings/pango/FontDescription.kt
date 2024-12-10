@@ -4,7 +4,6 @@ package org.gtkkn.bindings.pango
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -13,8 +12,7 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_42
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_8
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gobject.gint
@@ -55,7 +53,6 @@ import org.gtkkn.native.pango.pango_font_description_set_weight
 import org.gtkkn.native.pango.pango_font_description_to_filename
 import org.gtkkn.native.pango.pango_font_description_to_string
 import org.gtkkn.native.pango.pango_font_description_unset_fields
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `PangoFontDescription` describes a font in an implementation-independent
@@ -67,7 +64,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class FontDescription(
     pointer: CPointer<PangoFontDescription>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val pangoFontDescriptionPointer: CPointer<PangoFontDescription> = pointer
 
     /**
@@ -499,7 +496,7 @@ public class FontDescription(
      */
     public fun unsetFields(toUnset: FontMask): Unit = pango_font_description_unset_fields(pangoFontDescriptionPointer.reinterpret(), toUnset.mask)
 
-    public companion object : RecordCompanion<FontDescription, PangoFontDescription> {
+    public companion object {
         /**
          * Creates a new font description structure with all fields unset.
          *
@@ -566,7 +563,5 @@ public class FontDescription(
          * @return the GType
          */
         public fun getType(): GType = pango_font_description_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FontDescription = FontDescription(pointer.reinterpret())
     }
 }

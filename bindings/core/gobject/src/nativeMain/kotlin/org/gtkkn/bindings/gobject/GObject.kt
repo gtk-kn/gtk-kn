@@ -13,19 +13,18 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Quark
-import org.gtkkn.bindings.glib.Source
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantType
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_10
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_24
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_26
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_28
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_34
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_36
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_44
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_54
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_66
-import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_68
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_74
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
@@ -44,6 +43,7 @@ import org.gtkkn.native.gobject.GTypeInterface
 import org.gtkkn.native.gobject.GTypePlugin
 import org.gtkkn.native.gobject.GTypeValueTable
 import org.gtkkn.native.gobject.GValue
+import org.gtkkn.native.gobject.g_clear_object
 import org.gtkkn.native.gobject.g_enum_get_value
 import org.gtkkn.native.gobject.g_enum_get_value_by_name
 import org.gtkkn.native.gobject.g_enum_get_value_by_nick
@@ -67,6 +67,7 @@ import org.gtkkn.native.gobject.g_param_spec_int
 import org.gtkkn.native.gobject.g_param_spec_int64
 import org.gtkkn.native.gobject.g_param_spec_long
 import org.gtkkn.native.gobject.g_param_spec_object
+import org.gtkkn.native.gobject.g_param_spec_override
 import org.gtkkn.native.gobject.g_param_spec_param
 import org.gtkkn.native.gobject.g_param_spec_pointer
 import org.gtkkn.native.gobject.g_param_spec_string
@@ -75,6 +76,7 @@ import org.gtkkn.native.gobject.g_param_spec_uint
 import org.gtkkn.native.gobject.g_param_spec_uint64
 import org.gtkkn.native.gobject.g_param_spec_ulong
 import org.gtkkn.native.gobject.g_param_spec_unichar
+import org.gtkkn.native.gobject.g_param_spec_value_array
 import org.gtkkn.native.gobject.g_param_spec_variant
 import org.gtkkn.native.gobject.g_param_type_register_static
 import org.gtkkn.native.gobject.g_param_value_convert
@@ -103,23 +105,21 @@ import org.gtkkn.native.gobject.g_signal_remove_emission_hook
 import org.gtkkn.native.gobject.g_signal_stop_emission
 import org.gtkkn.native.gobject.g_signal_stop_emission_by_name
 import org.gtkkn.native.gobject.g_signal_type_cclosure_new
-import org.gtkkn.native.gobject.g_source_set_closure
-import org.gtkkn.native.gobject.g_source_set_dummy_callback
 import org.gtkkn.native.gobject.g_strdup_value_contents
 import org.gtkkn.native.gobject.g_type_add_class_private
 import org.gtkkn.native.gobject.g_type_add_instance_private
 import org.gtkkn.native.gobject.g_type_add_interface_dynamic
 import org.gtkkn.native.gobject.g_type_add_interface_static
+import org.gtkkn.native.gobject.g_type_check_class_cast
 import org.gtkkn.native.gobject.g_type_check_class_is_a
 import org.gtkkn.native.gobject.g_type_check_instance
+import org.gtkkn.native.gobject.g_type_check_instance_cast
 import org.gtkkn.native.gobject.g_type_check_instance_is_a
 import org.gtkkn.native.gobject.g_type_check_instance_is_fundamentally_a
 import org.gtkkn.native.gobject.g_type_check_is_value_type
 import org.gtkkn.native.gobject.g_type_check_value
 import org.gtkkn.native.gobject.g_type_check_value_holds
-import org.gtkkn.native.gobject.g_type_class_peek
-import org.gtkkn.native.gobject.g_type_class_peek_static
-import org.gtkkn.native.gobject.g_type_class_ref
+import org.gtkkn.native.gobject.g_type_create_instance
 import org.gtkkn.native.gobject.g_type_default_interface_peek
 import org.gtkkn.native.gobject.g_type_default_interface_ref
 import org.gtkkn.native.gobject.g_type_default_interface_unref
@@ -134,10 +134,6 @@ import org.gtkkn.native.gobject.g_type_get_plugin
 import org.gtkkn.native.gobject.g_type_get_type_registration_serial
 import org.gtkkn.native.gobject.g_type_init
 import org.gtkkn.native.gobject.g_type_init_with_debug_flags
-import org.gtkkn.native.gobject.g_type_interface_add_prerequisite
-import org.gtkkn.native.gobject.g_type_interface_get_plugin
-import org.gtkkn.native.gobject.g_type_interface_instantiatable_prerequisite
-import org.gtkkn.native.gobject.g_type_interface_peek
 import org.gtkkn.native.gobject.g_type_is_a
 import org.gtkkn.native.gobject.g_type_name
 import org.gtkkn.native.gobject.g_type_name_from_class
@@ -150,8 +146,6 @@ import org.gtkkn.native.gobject.g_type_register_dynamic
 import org.gtkkn.native.gobject.g_type_register_fundamental
 import org.gtkkn.native.gobject.g_type_register_static
 import org.gtkkn.native.gobject.g_type_test_flags
-import org.gtkkn.native.gobject.g_value_type_compatible
-import org.gtkkn.native.gobject.g_value_type_transformable
 import org.gtkkn.native.gobject.g_variant_get_gtype
 import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gobject.gdouble
@@ -174,49 +168,38 @@ import org.gtkkn.native.gobject.gunichar
  * - parameter `src_boxed`: gpointer
  * - parameter `boxed`: gpointer
  * - parameter `boxed_copy`: BoxedCopyFunc
- * - parameter `invocation_hint`: gpointer
- * - parameter `invocation_hint`: gpointer
- * - parameter `invocation_hint`: gpointer
- * - parameter `invocation_hint`: gpointer
- * - parameter `invocation_hint`: gpointer
- * - parameter `invocation_hint`: gpointer
- * - parameter `invocation_hint`: gpointer
- * - parameter `invocation_hint`: gpointer
- * - parameter `invocation_hint`: gpointer
- * - parameter `invocation_hint`: gpointer
- * - parameter `invocation_hint`: gpointer
- * - parameter `invocation_hint`: gpointer
- * - parameter `invocation_hint`: gpointer
- * - parameter `invocation_hint`: gpointer
- * - parameter `invocation_hint`: gpointer
- * - parameter `invocation_hint`: gpointer
- * - parameter `invocation_hint`: gpointer
- * - parameter `invocation_hint`: gpointer
- * - parameter `invocation_hint`: gpointer
- * - parameter `invocation_hint`: gpointer
- * - parameter `invocation_hint`: gpointer
- * - parameter `invocation_hint`: gpointer
- * - parameter `invocation_hint`: gpointer
  * - parameter `handler_id_ptr`: Unsupported pointer to primitive type
  * - parameter `info`: info: Out parameter is not supported
  * - parameter `info`: info: Out parameter is not supported
  * - parameter `dummy`: gpointer
  * - parameter `dummy`: gpointer
  * - parameter `instance_and_params`: Value
+ * - function `signal_chain_from_overridden_handler`: Varargs parameter is not supported
+ * - parameter `destroy_data`: ClosureNotify
+ * - parameter `c_handler`: Callback
+ * - function `signal_emit`: Varargs parameter is not supported
+ * - function `signal_emit_by_name`: Varargs parameter is not supported
+ * - parameter `var_args`: va_list
  * - function `signal_emitv`: In/Out parameter is not supported
  * - function `signal_handler_find`: Could not resolve user_data param
  * - function `signal_handlers_block_matched`: Could not resolve user_data param
  * - function `signal_handlers_disconnect_matched`: Could not resolve user_data param
  * - function `signal_handlers_unblock_matched`: Could not resolve user_data param
  * - parameter `n_ids`: n_ids: Out parameter is not supported
+ * - function `signal_new`: Varargs parameter is not supported
+ * - function `signal_new_class_handler`: Varargs parameter is not supported
+ * - parameter `c_marshaller`: ClosureMarshal
  * - parameter `c_marshaller`: ClosureMarshal
  * - parameter `class_handler`: Callback
  * - parameter `signal_id_p`: signal_id_p: Out parameter is not supported
+ * - parameter `cache_data`: gpointer
+ * - parameter `check_data`: gpointer
  * - parameter `n_children`: n_children: Out parameter is not supported
- * - parameter `g_class`: gpointer
  * - function `type_get_qdata`: Return type gpointer is unsupported
- * - parameter `n_prerequisites`: n_prerequisites: Out parameter is not supported
  * - parameter `n_interfaces`: n_interfaces: Out parameter is not supported
+ * - parameter `class_init`: ClassInitFunc
+ * - parameter `cache_data`: gpointer
+ * - parameter `check_data`: gpointer
  * - parameter `data`: gpointer
  * - callback `BoxedCopyFunc`: Return type gpointer is unsupported
  * - callback `TypeValueCollectFunc`: Callback with String return value is not supported
@@ -224,7 +207,6 @@ import org.gtkkn.native.gobject.gunichar
  * - callback `TypeValuePeekPointerFunc`: Return type gpointer is unsupported
  * - record `InitiallyUnownedClass`: glib type struct are ignored
  * - record `ParamSpecClass`: glib type struct are ignored
- * - record `ParamSpecPool`: Disguised records are ignored
  * - record `TypeModuleClass`: glib type struct are ignored
  */
 public object GObject {
@@ -327,6 +309,24 @@ public object GObject {
      * be copied if it is not ref-counted.
      */
     public const val VALUE_NOCOPY_CONTENTS: gint = 134217728
+
+    /**
+     * Clears a reference to a #GObject.
+     *
+     * @object_ptr must not be null.
+     *
+     * If the reference is null then this function does nothing.
+     * Otherwise, the reference count of the object is decreased and the
+     * pointer is set to null.
+     *
+     * A macro is also included that allows this function to be used without
+     * pointer casts.
+     *
+     * @param objectPtr a pointer to a #GObject reference
+     * @since 2.28
+     */
+    @GObjectVersion2_28
+    public fun clearObject(objectPtr: Object): Unit = g_clear_object(objectPtr.gPointer.reinterpret())
 
     /**
      * Returns the #GEnumValue for a value.
@@ -750,6 +750,20 @@ public object GObject {
         ParamSpec(reinterpret())}
 
     /**
+     * Creates a new property of type #GParamSpecOverride. This is used
+     * to direct operations to another paramspec, and will not be directly
+     * useful unless you are implementing a new base type similar to GObject.
+     *
+     * @param name the name of the property.
+     * @param overridden The property that is being overridden
+     * @return the newly created #GParamSpec
+     * @since 2.4
+     */
+    @GObjectVersion2_4
+    public fun paramSpecOverride(name: String, overridden: ParamSpec): ParamSpec = g_param_spec_override(name, overridden.gPointer.reinterpret())!!.run {
+        ParamSpec(reinterpret())}
+
+    /**
      * Creates a new #GParamSpecParam instance specifying a %G_TYPE_PARAM
      * property.
      *
@@ -934,6 +948,31 @@ public object GObject {
         defaultValue: gunichar,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_unichar(name, nick, blurb, defaultValue, flags.mask)!!.run {
+        ParamSpec(reinterpret())}
+
+    /**
+     * Creates a new #GParamSpecValueArray instance specifying a
+     * %G_TYPE_VALUE_ARRAY property. %G_TYPE_VALUE_ARRAY is a
+     * %G_TYPE_BOXED type, as such, #GValue structures for this property
+     * can be accessed with g_value_set_boxed() and g_value_get_boxed().
+     *
+     * See g_param_spec_internal() for details on property names.
+     *
+     * @param name canonical name of the property specified
+     * @param nick nick name for the property specified
+     * @param blurb description of the property specified
+     * @param elementSpec a #GParamSpec describing the elements contained in
+     *  arrays of this property, may be null
+     * @param flags flags for the property specified
+     * @return a newly created parameter specification
+     */
+    public fun paramSpecValueArray(
+        name: String,
+        nick: String? = null,
+        blurb: String? = null,
+        elementSpec: ParamSpec,
+        flags: ParamFlags,
+    ): ParamSpec = g_param_spec_value_array(name, nick, blurb, elementSpec.gPointer.reinterpret(), flags.mask)!!.run {
         ParamSpec(reinterpret())}
 
     /**
@@ -1376,34 +1415,6 @@ public object GObject {
         Closure(reinterpret())}
 
     /**
-     * Set the callback for a source as a #GClosure.
-     *
-     * If the source is not one of the standard GLib types, the @closure_callback
-     * and @closure_marshal fields of the #GSourceFuncs structure must have been
-     * filled in with pointers to appropriate functions.
-     *
-     * @param source the source
-     * @param closure a #GClosure
-     */
-    public fun sourceSetClosure(source: Source, closure: Closure): Unit = g_source_set_closure(source.glibSourcePointer.reinterpret(), closure.gobjectClosurePointer.reinterpret())
-
-    /**
-     * Sets a dummy callback for @source. The callback will do nothing, and
-     * if the source expects a #gboolean return value, it will return true.
-     * (If the source expects any other type of return value, it will return
-     * a 0/null value; whatever g_value_init() initializes a #GValue to for
-     * that type.)
-     *
-     * If the source is not one of the standard GLib types, the
-     * @closure_callback and @closure_marshal fields of the #GSourceFuncs
-     * structure must have been filled in with pointers to appropriate
-     * functions.
-     *
-     * @param source the source
-     */
-    public fun sourceSetDummyCallback(source: Source): Unit = g_source_set_dummy_callback(source.glibSourcePointer.reinterpret())
-
-    /**
      * Return a newly allocated string, which describes the contents of a
      * #GValue.  The main purpose of this function is to describe #GValue
      * contents for debugging output, the way in which the contents are
@@ -1466,6 +1477,9 @@ public object GObject {
         info: InterfaceInfo,
     ): Unit = g_type_add_interface_static(instanceType, interfaceType, info.gobjectInterfaceInfoPointer.reinterpret())
 
+    public fun typeCheckClassCast(gClass: TypeClass, isAType: GType): TypeClass = g_type_check_class_cast(gClass.gobjectTypeClassPointer.reinterpret(), isAType)!!.run {
+        TypeClass(reinterpret())}
+
     public fun typeCheckClassIsA(gClass: TypeClass, isAType: GType): Boolean = g_type_check_class_is_a(gClass.gobjectTypeClassPointer.reinterpret(), isAType).asBoolean()
 
     /**
@@ -1476,6 +1490,9 @@ public object GObject {
      * @return true if @instance is valid, false otherwise
      */
     public fun typeCheckInstance(instance: TypeInstance): Boolean = g_type_check_instance(instance.gobjectTypeInstancePointer.reinterpret()).asBoolean()
+
+    public fun typeCheckInstanceCast(instance: TypeInstance, ifaceType: GType): TypeInstance = g_type_check_instance_cast(instance.gobjectTypeInstancePointer.reinterpret(), ifaceType)!!.run {
+        TypeInstance(reinterpret())}
 
     public fun typeCheckInstanceIsA(instance: TypeInstance, ifaceType: GType): Boolean = g_type_check_instance_is_a(instance.gobjectTypeInstancePointer.reinterpret(), ifaceType).asBoolean()
 
@@ -1488,45 +1505,29 @@ public object GObject {
     public fun typeCheckValueHolds(`value`: Value, type: GType): Boolean = g_type_check_value_holds(`value`.gobjectValuePointer.reinterpret(), type).asBoolean()
 
     /**
-     * This function is essentially the same as g_type_class_ref(),
-     * except that the classes reference count isn't incremented.
-     * As a consequence, this function may return null if the class
-     * of the type passed in does not currently exist (hasn't been
-     * referenced before).
+     * Creates and initializes an instance of @type if @type is valid and
+     * can be instantiated. The type system only performs basic allocation
+     * and structure setups for instances: actual instance creation should
+     * happen through functions supplied by the type's fundamental type
+     * implementation.  So use of g_type_create_instance() is reserved for
+     * implementers of fundamental types only. E.g. instances of the
+     * #GObject hierarchy should be created via g_object_new() and never
+     * directly through g_type_create_instance() which doesn't handle things
+     * like singleton objects or object construction.
      *
-     * @param type type ID of a classed type
-     * @return the #GTypeClass
-     *     structure for the given type ID or null if the class does not
-     *     currently exist
-     */
-    public fun typeClassPeek(type: GType): TypeClass = g_type_class_peek(type)!!.run {
-        TypeClass(reinterpret())}
-
-    /**
-     * A more efficient version of g_type_class_peek() which works only for
-     * static types.
+     * The extended members of the returned instance are guaranteed to be filled
+     * with zeros.
      *
-     * @param type type ID of a classed type
-     * @return the #GTypeClass
-     *     structure for the given type ID or null if the class does not
-     *     currently exist or is dynamically loaded
-     * @since 2.4
-     */
-    @GObjectVersion2_4
-    public fun typeClassPeekStatic(type: GType): TypeClass = g_type_class_peek_static(type)!!.run {
-        TypeClass(reinterpret())}
-
-    /**
-     * Increments the reference count of the class structure belonging to
-     * @type. This function will demand-create the class if it doesn't
-     * exist already.
+     * Note: Do not use this function, unless you're implementing a
+     * fundamental type. Also language bindings should not use this
+     * function, but g_object_new() instead.
      *
-     * @param type type ID of a classed type
-     * @return the #GTypeClass
-     *     structure for the given type ID
+     * @param type an instantiatable type to create an instance for
+     * @return an allocated and initialized instance, subject to further
+     *     treatment by the fundamental type implementation
      */
-    public fun typeClassRef(type: GType): TypeClass = g_type_class_ref(type)!!.run {
-        TypeClass(reinterpret())}
+    public fun typeCreateInstance(type: GType): TypeInstance = g_type_create_instance(type)!!.run {
+        TypeInstance(reinterpret())}
 
     /**
      * If the interface type @g_type is currently in use, returns its
@@ -1707,60 +1708,6 @@ public object GObject {
     public fun typeInitWithDebugFlags(debugFlags: TypeDebugFlags): Unit = g_type_init_with_debug_flags(debugFlags.mask)
 
     /**
-     * Adds @prerequisite_type to the list of prerequisites of @interface_type.
-     * This means that any type implementing @interface_type must also implement
-     * @prerequisite_type. Prerequisites can be thought of as an alternative to
-     * interface derivation (which GType doesn't support). An interface can have
-     * at most one instantiatable prerequisite type.
-     *
-     * @param interfaceType #GType value of an interface type
-     * @param prerequisiteType #GType value of an interface or instantiatable type
-     */
-    public fun typeInterfaceAddPrerequisite(interfaceType: GType, prerequisiteType: GType): Unit = g_type_interface_add_prerequisite(interfaceType, prerequisiteType)
-
-    /**
-     * Returns the #GTypePlugin structure for the dynamic interface
-     * @interface_type which has been added to @instance_type, or null
-     * if @interface_type has not been added to @instance_type or does
-     * not have a #GTypePlugin structure. See g_type_add_interface_dynamic().
-     *
-     * @param instanceType #GType of an instantiatable type
-     * @param interfaceType #GType of an interface type
-     * @return the #GTypePlugin for the dynamic
-     *     interface @interface_type of @instance_type
-     */
-    public fun typeInterfaceGetPlugin(instanceType: GType, interfaceType: GType): TypePlugin = g_type_interface_get_plugin(instanceType, interfaceType)!!.run {
-        TypePlugin.wrap(reinterpret())}
-
-    /**
-     * Returns the most specific instantiatable prerequisite of an
-     * interface type. If the interface type has no instantiatable
-     * prerequisite, %G_TYPE_INVALID is returned.
-     *
-     * See g_type_interface_add_prerequisite() for more information
-     * about prerequisites.
-     *
-     * @param interfaceType an interface type
-     * @return the instantiatable prerequisite type or %G_TYPE_INVALID if none
-     * @since 2.68
-     */
-    @GObjectVersion2_68
-    public fun typeInterfaceInstantiatablePrerequisite(interfaceType: GType): GType = g_type_interface_instantiatable_prerequisite(interfaceType)
-
-    /**
-     * Returns the #GTypeInterface structure of an interface to which the
-     * passed in class conforms.
-     *
-     * @param instanceClass a #GTypeClass structure
-     * @param ifaceType an interface ID which this class conforms to
-     * @return the #GTypeInterface
-     *     structure of @iface_type if implemented by @instance_class, null
-     *     otherwise
-     */
-    public fun typeInterfacePeek(instanceClass: TypeClass, ifaceType: GType): TypeInterface = g_type_interface_peek(instanceClass.gobjectTypeClassPointer.reinterpret(), ifaceType)!!.run {
-        TypeInterface(reinterpret())}
-
-    /**
      * If @is_a_type is a derivable type, check whether @type is a
      * descendant of @is_a_type. If @is_a_type is an interface, check
      * whether @type conforms to it.
@@ -1903,28 +1850,6 @@ public object GObject {
     ): GType = g_type_register_static(parentType, typeName, info.gobjectTypeInfoPointer.reinterpret(), flags.mask)
 
     public fun typeTestFlags(type: GType, flags: guint): Boolean = g_type_test_flags(type, flags).asBoolean()
-
-    /**
-     * Returns whether a #GValue of type @src_type can be copied into
-     * a #GValue of type @dest_type.
-     *
-     * @param srcType source type to be copied.
-     * @param destType destination type for copying.
-     * @return true if g_value_copy() is possible with @src_type and @dest_type.
-     */
-    public fun valueTypeCompatible(srcType: GType, destType: GType): Boolean = g_value_type_compatible(srcType, destType).asBoolean()
-
-    /**
-     * Check whether g_value_transform() is able to transform values
-     * of type @src_type into values of type @dest_type. Note that for
-     * the types to be transformable, they must be compatible or a
-     * transformation function must be registered.
-     *
-     * @param srcType Source type.
-     * @param destType Target type.
-     * @return true if the transformation is possible, false otherwise.
-     */
-    public fun valueTypeTransformable(srcType: GType, destType: GType): Boolean = g_value_type_transformable(srcType, destType).asBoolean()
 
     public fun variantGetGtype(): GType = g_variant_get_gtype()
 }

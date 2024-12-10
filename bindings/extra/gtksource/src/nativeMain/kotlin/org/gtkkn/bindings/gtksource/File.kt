@@ -4,9 +4,11 @@ package org.gtkkn.bindings.gtksource
 import kotlin.Boolean
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -24,6 +26,7 @@ import org.gtkkn.native.gtksource.gtk_source_file_is_local
 import org.gtkkn.native.gtksource.gtk_source_file_is_readonly
 import org.gtkkn.native.gtksource.gtk_source_file_new
 import org.gtkkn.native.gtksource.gtk_source_file_set_location
+import org.gtkkn.native.gtksource.gtk_source_file_set_mount_operation_factory
 
 /**
  * On-disk representation of a [class@Buffer].
@@ -161,6 +164,20 @@ public open class File(
      * @param location the new #GFile, or null.
      */
     public open fun setLocation(location: org.gtkkn.bindings.gio.File? = null): Unit = gtk_source_file_set_location(gtksourceFilePointer.reinterpret(), location?.gioFilePointer)
+
+    /**
+     * Sets a [callback@MountOperationFactory] function that will be called when a
+     * [class@Gio.MountOperation] must be created.
+     *
+     * This is useful for creating a [class@Gtk.MountOperation] with the parent [class@Gtk.Window].
+     *
+     * If a mount operation factory isn't set, [ctor@Gio.MountOperation.new] will be
+     * called.
+     *
+     * @param callback a #GtkSourceMountOperationFactory to call when a
+     *   #GMountOperation is needed.
+     */
+    public open fun setMountOperationFactory(callback: MountOperationFactory): Unit = gtk_source_file_set_mount_operation_factory(gtksourceFilePointer.reinterpret(), MountOperationFactoryFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret())
 
     public companion object : TypeCompanion<File> {
         override val type: GeneratedClassKGType<File> =

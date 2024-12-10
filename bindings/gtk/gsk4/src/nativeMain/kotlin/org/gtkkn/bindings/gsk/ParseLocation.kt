@@ -1,22 +1,27 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
-import kotlinx.cinterop.CPointed
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
-import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gsk.GskParseLocation
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A location in a parse buffer.
  */
 public class ParseLocation(
     pointer: CPointer<GskParseLocation>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gskParseLocationPointer: CPointer<GskParseLocation> = pointer
 
     /**
@@ -64,7 +69,86 @@ public class ParseLocation(
             gskParseLocationPointer.pointed.line_chars = value
         }
 
-    public companion object : RecordCompanion<ParseLocation, GskParseLocation> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ParseLocation = ParseLocation(pointer.reinterpret())
+    /**
+     * Allocate a new ParseLocation.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GskParseLocation>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
     }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to ParseLocation and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GskParseLocation>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new ParseLocation using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GskParseLocation>().ptr)
+
+    /**
+     * Allocate a new ParseLocation.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param bytes the offset of the location in the parse buffer, as bytes
+     * @param chars the offset of the location in the parse buffer, as characters
+     * @param lines the line of the location in the parse buffer
+     * @param lineBytes the position in the line, as bytes
+     * @param lineChars the position in the line, as characters
+     */
+    public constructor(
+        bytes: gsize,
+        chars: gsize,
+        lines: gsize,
+        lineBytes: gsize,
+        lineChars: gsize,
+    ) : this() {
+        this.bytes = bytes
+        this.chars = chars
+        this.lines = lines
+        this.lineBytes = lineBytes
+        this.lineChars = lineChars
+    }
+
+    /**
+     * Allocate a new ParseLocation using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param bytes the offset of the location in the parse buffer, as bytes
+     * @param chars the offset of the location in the parse buffer, as characters
+     * @param lines the line of the location in the parse buffer
+     * @param lineBytes the position in the line, as bytes
+     * @param lineChars the position in the line, as characters
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        bytes: gsize,
+        chars: gsize,
+        lines: gsize,
+        lineBytes: gsize,
+        lineChars: gsize,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.bytes = bytes
+        this.chars = chars
+        this.lines = lines
+        this.lineBytes = lineBytes
+        this.lineChars = lineChars
+    }
+
+    override fun toString(): String = "ParseLocation(bytes=$bytes, chars=$chars, lines=$lines, lineBytes=$lineBytes, lineChars=$lineChars)"
 }

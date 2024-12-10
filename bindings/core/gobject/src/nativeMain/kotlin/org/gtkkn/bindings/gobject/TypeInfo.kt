@@ -1,15 +1,20 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
-import kotlinx.cinterop.CPointed
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GTypeInfo
 import org.gtkkn.native.gobject.guint16
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * This structure is used to provide the type system with the information
@@ -33,7 +38,8 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class TypeInfo(
     pointer: CPointer<GTypeInfo>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gobjectTypeInfoPointer: CPointer<GTypeInfo> = pointer
 
     /**
@@ -66,14 +72,90 @@ public class TypeInfo(
     /**
      * A #GTypeValueTable function table for generic handling of GValues
      *  of this type (usually only useful for fundamental types)
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val valueTable: TypeValueTable?
+    public var valueTable: TypeValueTable?
         get() = gobjectTypeInfoPointer.pointed.value_table?.run {
             TypeValueTable(reinterpret())}
+        set(`value`) {
+            gobjectTypeInfoPointer.pointed.value_table = value?.gobjectTypeValueTablePointer
+        }
 
-    public companion object : RecordCompanion<TypeInfo, GTypeInfo> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TypeInfo = TypeInfo(pointer.reinterpret())
+    /**
+     * Allocate a new TypeInfo.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GTypeInfo>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
     }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to TypeInfo and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GTypeInfo>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new TypeInfo using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GTypeInfo>().ptr)
+
+    /**
+     * Allocate a new TypeInfo.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param classSize Size of the class structure (required for interface, classed and instantiatable types)
+     * @param instanceSize Size of the instance (object) structure (required for instantiatable types only)
+     * @param nPreallocs Prior to GLib 2.10, it specified the number of pre-allocated (cached) instances to reserve memory for (0 indicates no caching). Since GLib 2.10 this field is ignored.
+     * @param valueTable A #GTypeValueTable function table for generic handling of GValues
+     *  of this type (usually only useful for fundamental types)
+     */
+    public constructor(
+        classSize: guint16,
+        instanceSize: guint16,
+        nPreallocs: guint16,
+        valueTable: TypeValueTable?,
+    ) : this() {
+        this.classSize = classSize
+        this.instanceSize = instanceSize
+        this.nPreallocs = nPreallocs
+        this.valueTable = valueTable
+    }
+
+    /**
+     * Allocate a new TypeInfo using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param classSize Size of the class structure (required for interface, classed and instantiatable types)
+     * @param instanceSize Size of the instance (object) structure (required for instantiatable types only)
+     * @param nPreallocs Prior to GLib 2.10, it specified the number of pre-allocated (cached) instances to reserve memory for (0 indicates no caching). Since GLib 2.10 this field is ignored.
+     * @param valueTable A #GTypeValueTable function table for generic handling of GValues
+     *  of this type (usually only useful for fundamental types)
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        classSize: guint16,
+        instanceSize: guint16,
+        nPreallocs: guint16,
+        valueTable: TypeValueTable?,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.classSize = classSize
+        this.instanceSize = instanceSize
+        this.nPreallocs = nPreallocs
+        this.valueTable = valueTable
+    }
+
+    override fun toString(): String = "TypeInfo(classSize=$classSize, instanceSize=$instanceSize, nPreallocs=$nPreallocs, valueTable=$valueTable)"
 }

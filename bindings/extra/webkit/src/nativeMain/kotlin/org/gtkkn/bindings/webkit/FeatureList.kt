@@ -2,12 +2,10 @@
 package org.gtkkn.bindings.webkit
 
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_42
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.webkit.WebKitFeatureList
@@ -16,7 +14,6 @@ import org.gtkkn.native.webkit.webkit_feature_list_get_length
 import org.gtkkn.native.webkit.webkit_feature_list_get_type
 import org.gtkkn.native.webkit.webkit_feature_list_ref
 import org.gtkkn.native.webkit.webkit_feature_list_unref
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Contains a set of toggle-able web engine features.
@@ -41,7 +38,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @WebKitVersion2_42
 public class FeatureList(
     pointer: CPointer<WebKitFeatureList>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val webkitFeatureListPointer: CPointer<WebKitFeatureList> = pointer
 
     /**
@@ -88,14 +85,12 @@ public class FeatureList(
     @WebKitVersion2_42
     public fun unref(): Unit = webkit_feature_list_unref(webkitFeatureListPointer.reinterpret())
 
-    public companion object : RecordCompanion<FeatureList, WebKitFeatureList> {
+    public companion object {
         /**
          * Get the GType of FeatureList
          *
          * @return the GType
          */
         public fun getType(): GType = webkit_feature_list_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FeatureList = FeatureList(pointer.reinterpret())
     }
 }

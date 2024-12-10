@@ -2,15 +2,20 @@
 package org.gtkkn.bindings.gsk
 
 import kotlin.Boolean
-import kotlinx.cinterop.CPointed
+import kotlin.Pair
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.graphene.Size
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskRoundedRect
 import org.gtkkn.native.gsk.gsk_rounded_rect_contains_point
@@ -23,7 +28,6 @@ import org.gtkkn.native.gsk.gsk_rounded_rect_is_rectilinear
 import org.gtkkn.native.gsk.gsk_rounded_rect_normalize
 import org.gtkkn.native.gsk.gsk_rounded_rect_offset
 import org.gtkkn.native.gsk.gsk_rounded_rect_shrink
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A rectangular region with rounded corners.
@@ -47,8 +51,37 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class RoundedRect(
     pointer: CPointer<GskRoundedRect>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gskRoundedRectPointer: CPointer<GskRoundedRect> = pointer
+
+    /**
+     * Allocate a new RoundedRect.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GskRoundedRect>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to RoundedRect and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GskRoundedRect>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new RoundedRect using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GskRoundedRect>().ptr)
 
     /**
      * Checks if the given @point is inside the rounded rectangle.
@@ -177,8 +210,4 @@ public class RoundedRect(
         left: gfloat,
     ): RoundedRect = gsk_rounded_rect_shrink(gskRoundedRectPointer.reinterpret(), top, right, bottom, left)!!.run {
         RoundedRect(reinterpret())}
-
-    public companion object : RecordCompanion<RoundedRect, GskRoundedRect> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): RoundedRect = RoundedRect(pointer.reinterpret())
-    }
 }

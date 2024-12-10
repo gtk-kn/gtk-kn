@@ -79,6 +79,8 @@ import org.gtkkn.native.gobject.guint
  * ## Skipped during bindings generation
  *
  * - method `get_header_fields`: Array parameter of type guint8 is not supported
+ * - method `new_method_error`: Varargs parameter is not supported
+ * - parameter `var_args`: va_list
  * - parameter `out_size`: out_size: Out parameter is not supported
  * - parameter `blob`: Array parameter of type guint8 is not supported
  * - parameter `blob`: Array parameter of type guint8 is not supported

@@ -4,7 +4,6 @@ package org.gtkkn.bindings.gsk
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -13,8 +12,7 @@ import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskPath
 import org.gtkkn.native.gsk.gsk_path_foreach
@@ -32,7 +30,6 @@ import org.gtkkn.native.gsk.gsk_path_ref
 import org.gtkkn.native.gsk.gsk_path_to_string
 import org.gtkkn.native.gsk.gsk_path_unref
 import kotlin.String as KotlinString
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 import org.gtkkn.bindings.glib.String as GlibString
 
 /**
@@ -66,7 +63,7 @@ import org.gtkkn.bindings.glib.String as GlibString
 @GskVersion4_14
 public class Path(
     pointer: CPointer<GskPath>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gskPathPointer: CPointer<GskPath> = pointer
 
     /**
@@ -246,7 +243,7 @@ public class Path(
     @GskVersion4_14
     public fun unref(): Unit = gsk_path_unref(gskPathPointer.reinterpret())
 
-    public companion object : RecordCompanion<Path, GskPath> {
+    public companion object {
         /**
          * This is a convenience function that constructs a `GskPath`
          * from a serialized form.
@@ -288,7 +285,5 @@ public class Path(
          * @return the GType
          */
         public fun getType(): GType = gsk_path_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Path = Path(pointer.reinterpret())
     }
 }

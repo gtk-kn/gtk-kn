@@ -3,13 +3,11 @@ package org.gtkkn.bindings.webkit
 
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_16
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.webkit.WebKitWebsiteData
@@ -19,7 +17,6 @@ import org.gtkkn.native.webkit.webkit_website_data_get_type
 import org.gtkkn.native.webkit.webkit_website_data_get_types
 import org.gtkkn.native.webkit.webkit_website_data_ref
 import org.gtkkn.native.webkit.webkit_website_data_unref
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Data stored locally by a web site.
@@ -42,7 +39,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @WebKitVersion2_16
 public class WebsiteData(
     pointer: CPointer<WebKitWebsiteData>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val webkitWebsiteDataPointer: CPointer<WebKitWebsiteData> = pointer
 
     /**
@@ -108,14 +105,12 @@ public class WebsiteData(
     @WebKitVersion2_16
     public fun unref(): Unit = webkit_website_data_unref(webkitWebsiteDataPointer.reinterpret())
 
-    public companion object : RecordCompanion<WebsiteData, WebKitWebsiteData> {
+    public companion object {
         /**
          * Get the GType of WebsiteData
          *
          * @return the GType
          */
         public fun getType(): GType = webkit_website_data_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): WebsiteData = WebsiteData(pointer.reinterpret())
     }
 }

@@ -1,14 +1,17 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
+import kotlin.Pair
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_80
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GUnixPipe
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A Unix pipe. The advantage of this type over `int[2]` is that it can
@@ -24,10 +27,35 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GLibVersion2_80
 public class UnixPipe(
     pointer: CPointer<GUnixPipe>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibUnixPipePointer: CPointer<GUnixPipe> = pointer
 
-    public companion object : RecordCompanion<UnixPipe, GUnixPipe> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): UnixPipe = UnixPipe(pointer.reinterpret())
+    /**
+     * Allocate a new UnixPipe.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GUnixPipe>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
     }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to UnixPipe and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GUnixPipe>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new UnixPipe using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GUnixPipe>().ptr)
 }

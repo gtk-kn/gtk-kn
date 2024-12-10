@@ -4,13 +4,11 @@ package org.gtkkn.bindings.adw
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.adw.AdwBreakpointCondition
 import org.gtkkn.native.adw.adw_breakpoint_condition_copy
 import org.gtkkn.native.adw.adw_breakpoint_condition_free
@@ -24,7 +22,6 @@ import org.gtkkn.native.adw.adw_breakpoint_condition_to_string
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gobject.gint
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Describes condition for an [class@Breakpoint].
@@ -33,7 +30,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @AdwVersion1_4
 public class BreakpointCondition(
     pointer: CPointer<AdwBreakpointCondition>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val adwBreakpointConditionPointer: CPointer<AdwBreakpointCondition> = pointer
 
     /**
@@ -66,7 +63,7 @@ public class BreakpointCondition(
     @AdwVersion1_4
     override fun toString(): String = adw_breakpoint_condition_to_string(adwBreakpointConditionPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
-    public companion object : RecordCompanion<BreakpointCondition, AdwBreakpointCondition> {
+    public companion object {
         /**
          * Creates a condition that triggers when @condition_1 and @condition_2 are both
          * true.
@@ -192,7 +189,5 @@ public class BreakpointCondition(
          * @return the GType
          */
         public fun getType(): GType = adw_breakpoint_condition_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): BreakpointCondition = BreakpointCondition(pointer.reinterpret())
     }
 }

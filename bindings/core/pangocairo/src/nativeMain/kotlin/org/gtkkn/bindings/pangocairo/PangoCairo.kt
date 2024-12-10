@@ -10,10 +10,8 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
-import org.gtkkn.bindings.cairo.FontType
 import org.gtkkn.bindings.pango.AttrShape
 import org.gtkkn.bindings.pango.Context
-import org.gtkkn.bindings.pango.FontMap
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_10
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_18
 import org.gtkkn.extensions.common.asBoolean
@@ -24,14 +22,12 @@ import org.gtkkn.native.pango.PangoAttrShape
 import org.gtkkn.native.pangocairo.pango_cairo_context_get_resolution
 import org.gtkkn.native.pangocairo.pango_cairo_context_set_resolution
 import org.gtkkn.native.pangocairo.pango_cairo_context_set_shape_renderer
-import org.gtkkn.native.pangocairo.pango_cairo_font_map_get_default
-import org.gtkkn.native.pangocairo.pango_cairo_font_map_new
-import org.gtkkn.native.pangocairo.pango_cairo_font_map_new_for_font_type
 
 /**
  * ## Skipped during bindings generation
  *
  * - function `context_get_font_options`: Return type cairo.FontOptions is unsupported
+ * - parameter `data`: gpointer
  * - parameter `options`: cairo.FontOptions
  * - parameter `cr`: cairo.Context
  * - parameter `cr`: cairo.Context
@@ -90,78 +86,6 @@ public object PangoCairo {
      */
     @PangoCairoVersion1_18
     public fun contextSetShapeRenderer(context: Context, func: ShapeRendererFunc): Unit = pango_cairo_context_set_shape_renderer(context.pangoContextPointer.reinterpret(), ShapeRendererFuncFunc.reinterpret(), StableRef.create(func).asCPointer(), staticStableRefDestroy.reinterpret())
-
-    /**
-     * Gets a default `PangoCairoFontMap` to use with Cairo.
-     *
-     * Note that the type of the returned object will depend on the
-     * particular font backend Cairo was compiled to use; you generally
-     * should only use the `PangoFontMap` and `PangoCairoFontMap`
-     * interfaces on the returned object.
-     *
-     * The default Cairo fontmap can be changed by using
-     * [method@PangoCairo.FontMap.set_default]. This can be used to
-     * change the Cairo font backend that the default fontmap uses
-     * for example.
-     *
-     * Note that since Pango 1.32.6, the default fontmap is per-thread.
-     * Each thread gets its own default fontmap. In this way, PangoCairo
-     * can be used safely from multiple threads.
-     *
-     * @return the default PangoCairo fontmap
-     *  for the current thread. This object is owned by Pango and must
-     *  not be freed.
-     * @since 1.10
-     */
-    @PangoCairoVersion1_10
-    public fun fontMapGetDefault(): FontMap = pango_cairo_font_map_get_default()!!.run {
-        FontMap(reinterpret())}
-
-    /**
-     * Creates a new `PangoCairoFontMap` object.
-     *
-     * A fontmap is used to cache information about available fonts,
-     * and holds certain global parameters such as the resolution.
-     * In most cases, you can use `func@PangoCairo.font_map_get_default]
-     * instead.
-     *
-     * Note that the type of the returned object will depend
-     * on the particular font backend Cairo was compiled to use;
-     * You generally should only use the `PangoFontMap` and
-     * `PangoCairoFontMap` interfaces on the returned object.
-     *
-     * You can override the type of backend returned by using an
-     * environment variable %PANGOCAIRO_BACKEND. Supported types,
-     * based on your build, are fc (fontconfig), win32, and coretext.
-     * If requested type is not available, NULL is returned. Ie.
-     * this is only useful for testing, when at least two backends
-     * are compiled in.
-     *
-     * @return the newly allocated `PangoFontMap`,
-     *   which should be freed with g_object_unref().
-     * @since 1.10
-     */
-    @PangoCairoVersion1_10
-    public fun fontMapNew(): FontMap = pango_cairo_font_map_new()!!.run {
-        FontMap(reinterpret())}
-
-    /**
-     * Creates a new `PangoCairoFontMap` object of the type suitable
-     * to be used with cairo font backend of type @fonttype.
-     *
-     * In most cases one should simply use [func@PangoCairo.FontMap.new], or
-     * in fact in most of those cases, just use [func@PangoCairo.FontMap.get_default].
-     *
-     * @param fonttype desired #cairo_font_type_t
-     * @return the newly allocated
-     *   `PangoFontMap` of suitable type which should be freed with
-     *   g_object_unref(), or null if the requested cairo font backend
-     *   is not supported / compiled in.
-     * @since 1.18
-     */
-    @PangoCairoVersion1_18
-    public fun fontMapNewForFontType(fonttype: FontType): FontMap? = pango_cairo_font_map_new_for_font_type(fonttype.nativeValue)?.run {
-        FontMap(reinterpret())}
 }
 
 public val ShapeRendererFuncFunc: CPointer<CFunction<(CPointer<PangoAttrShape>, gboolean) -> Unit>>

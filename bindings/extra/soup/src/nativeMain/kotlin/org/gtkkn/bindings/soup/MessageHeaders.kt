@@ -4,15 +4,13 @@ package org.gtkkn.bindings.soup
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.HashTable
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.gint64
@@ -44,7 +42,6 @@ import org.gtkkn.native.soup.soup_message_headers_set_expectations
 import org.gtkkn.native.soup.soup_message_headers_set_range
 import org.gtkkn.native.soup.soup_message_headers_set_ranges
 import org.gtkkn.native.soup.soup_message_headers_unref
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The HTTP message headers associated with a request or response.
@@ -58,7 +55,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class MessageHeaders(
     pointer: CPointer<SoupMessageHeaders>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val soupMessageHeadersPointer: CPointer<SoupMessageHeaders> = pointer
 
     /**
@@ -361,7 +358,7 @@ public class MessageHeaders(
      */
     public fun unref(): Unit = soup_message_headers_unref(soupMessageHeadersPointer.reinterpret())
 
-    public companion object : RecordCompanion<MessageHeaders, SoupMessageHeaders> {
+    public companion object {
         /**
          * Creates a #SoupMessageHeaders.
          *
@@ -380,7 +377,5 @@ public class MessageHeaders(
          * @return the GType
          */
         public fun getType(): GType = soup_message_headers_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MessageHeaders = MessageHeaders(pointer.reinterpret())
     }
 }

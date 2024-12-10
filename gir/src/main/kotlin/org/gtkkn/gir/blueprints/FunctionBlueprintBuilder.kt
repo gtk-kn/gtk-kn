@@ -24,7 +24,6 @@ import org.gtkkn.gir.model.GirType
 import org.gtkkn.gir.processor.BlueprintException
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
-import org.gtkkn.gir.processor.ShadowedFunctionException
 import org.gtkkn.gir.processor.UnresolvableTypeException
 
 class FunctionBlueprintBuilder(
@@ -33,22 +32,15 @@ class FunctionBlueprintBuilder(
     private val girFunction: GirFunction,
 ) : CallableBlueprintBuilder<FunctionBlueprint>(context, girNamespace) {
     override fun blueprintObjectType(): String = "function"
-    override fun blueprintObjectName(): String = girFunction.callable.name
+    override fun blueprintObjectName(): String = girFunction.callable.getName()
 
     override fun buildInternal(): FunctionBlueprint {
-        if (!girFunction.callable.info.shouldBeGenerated()) {
-            throw NotIntrospectableException(girFunction.callable.cIdentifier ?: girFunction.callable.name)
-        }
-
-        if (girFunction.callable.shadowedBy != null) {
-            throw ShadowedFunctionException(
-                girFunction.callable.cIdentifier ?: girFunction.callable.name,
-                girFunction.callable.shadowedBy,
-            )
+        if (!girFunction.callable.shouldBeGenerated()) {
+            throw NotIntrospectableException(girFunction.callable.cIdentifier ?: girFunction.callable.getName())
         }
 
         if (girFunction.callable.cIdentifier == null) {
-            throw UnresolvableTypeException("Function ${girFunction.callable.name} does not have cIdentifier")
+            throw UnresolvableTypeException("Function ${girFunction.callable.getName()} does not have cIdentifier")
         }
         if (girFunction.parameters?.instanceParameter != null) {
             throw UnresolvableTypeException("Function with instance parameter is not supported yet")
@@ -71,7 +63,7 @@ class FunctionBlueprintBuilder(
             }
         }
 
-        val kotlinName = context.kotlinizeMethodName(girFunction.callable.shadows ?: girFunction.callable.name)
+        val kotlinName = context.kotlinizeMethodName(girFunction.callable.getName())
         val nativeName = girFunction.callable.cIdentifier
         val nativeMemberPackageName =
             if (kotlinName == "getType" && girNamespace.name == "GLib" ||

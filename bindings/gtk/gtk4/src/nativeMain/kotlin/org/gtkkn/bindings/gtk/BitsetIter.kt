@@ -2,19 +2,23 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
-import kotlinx.cinterop.CPointed
+import kotlin.Pair
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkBitsetIter
 import org.gtkkn.native.gtk.gtk_bitset_iter_get_type
 import org.gtkkn.native.gtk.gtk_bitset_iter_get_value
 import org.gtkkn.native.gtk.gtk_bitset_iter_is_valid
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * An opaque, stack-allocated struct for iterating
@@ -35,8 +39,37 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class BitsetIter(
     pointer: CPointer<GtkBitsetIter>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gtkBitsetIterPointer: CPointer<GtkBitsetIter> = pointer
+
+    /**
+     * Allocate a new BitsetIter.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GtkBitsetIter>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to BitsetIter and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GtkBitsetIter>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new BitsetIter using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GtkBitsetIter>().ptr)
 
     /**
      * Gets the current value that @iter points to.
@@ -55,14 +88,12 @@ public class BitsetIter(
      */
     public fun isValid(): Boolean = gtk_bitset_iter_is_valid(gtkBitsetIterPointer.reinterpret()).asBoolean()
 
-    public companion object : RecordCompanion<BitsetIter, GtkBitsetIter> {
+    public companion object {
         /**
          * Get the GType of BitsetIter
          *
          * @return the GType
          */
         public fun getType(): GType = gtk_bitset_iter_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): BitsetIter = BitsetIter(pointer.reinterpret())
     }
 }

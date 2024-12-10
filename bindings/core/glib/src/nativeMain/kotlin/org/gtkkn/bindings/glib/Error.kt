@@ -4,23 +4,22 @@ package org.gtkkn.bindings.glib
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.g_error_copy
 import org.gtkkn.native.glib.g_error_free
 import org.gtkkn.native.glib.g_error_matches
 import org.gtkkn.native.glib.g_error_new_literal
+import org.gtkkn.native.glib.g_free
+import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_error_get_type
 import org.gtkkn.native.gobject.gint
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `GError` structure contains information about
@@ -28,12 +27,14 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  *
  * ## Skipped during bindings generation
  *
+ * - constructor `new`: Varargs parameter is not supported
+ * - parameter `args`: va_list
  * - parameter `error_type_init`: ErrorInitFunc
  * - parameter `error_type_init`: ErrorInitFunc
  */
 public class Error(
     pointer: CPointer<GError>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibErrorPointer: CPointer<GError> = pointer
 
     /**
@@ -56,11 +57,13 @@ public class Error(
 
     /**
      * human-readable informative error message
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val message: String?
+    public var message: String?
         get() = glibErrorPointer.pointed.message?.toKString()
+        set(`value`) {
+            glibErrorPointer.pointed.message?.let { g_free(it) }
+            glibErrorPointer.pointed.message = value?.let { g_strdup(it) }
+        }
 
     /**
      * Makes a copy of @error.
@@ -93,7 +96,9 @@ public class Error(
      */
     public fun matches(domain: Quark, code: gint): Boolean = g_error_matches(glibErrorPointer.reinterpret(), domain, code).asBoolean()
 
-    public companion object : RecordCompanion<Error, GError> {
+    override fun toString(): String = "Error(domain=$domain, code=$code, message=$message)"
+
+    public companion object {
         /**
          * Creates a new #GError; unlike g_error_new(), @message is
          * not a printf()-style format string. Use this function if
@@ -117,7 +122,5 @@ public class Error(
          * @return the GType
          */
         public fun getType(): GType = g_error_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Error = Error(pointer.reinterpret())
     }
 }

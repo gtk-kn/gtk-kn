@@ -2,12 +2,10 @@
 package org.gtkkn.bindings.gsk
 
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskStroke
@@ -25,7 +23,6 @@ import org.gtkkn.native.gsk.gsk_stroke_set_line_cap
 import org.gtkkn.native.gsk.gsk_stroke_set_line_join
 import org.gtkkn.native.gsk.gsk_stroke_set_line_width
 import org.gtkkn.native.gsk.gsk_stroke_set_miter_limit
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GskStroke` struct collects the parameters that influence
@@ -43,7 +40,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GskVersion4_14
 public class Stroke(
     pointer: CPointer<GskStroke>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gskStrokePointer: CPointer<GskStroke> = pointer
 
     /**
@@ -176,7 +173,7 @@ public class Stroke(
     @GskVersion4_14
     public fun setMiterLimit(limit: gfloat): Unit = gsk_stroke_set_miter_limit(gskStrokePointer.reinterpret(), limit)
 
-    public companion object : RecordCompanion<Stroke, GskStroke> {
+    public companion object {
         /**
          * Creates a new `GskStroke` with the given @line_width.
          *
@@ -192,7 +189,5 @@ public class Stroke(
          * @return the GType
          */
         public fun getType(): GType = gsk_stroke_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Stroke = Stroke(pointer.reinterpret())
     }
 }

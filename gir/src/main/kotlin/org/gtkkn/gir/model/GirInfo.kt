@@ -41,7 +41,7 @@ data class GirInfo(
         // No children
     }
 
-    fun shouldBeGenerated() = introspectable != false && gtkKnIgnore != true
+    fun shouldBeGenerated() = gtkKnIgnore != true
 
     enum class Stability {
         STABLE,

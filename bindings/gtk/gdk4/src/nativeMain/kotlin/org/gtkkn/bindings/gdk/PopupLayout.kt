@@ -3,13 +3,11 @@ package org.gtkkn.bindings.gdk
 
 import kotlin.Boolean
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_2
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkPopupLayout
 import org.gtkkn.native.gdk.gdk_popup_layout_copy
 import org.gtkkn.native.gdk.gdk_popup_layout_equal
@@ -29,7 +27,6 @@ import org.gtkkn.native.gdk.gdk_popup_layout_set_surface_anchor
 import org.gtkkn.native.gdk.gdk_popup_layout_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `GdkPopupLayout` struct contains information that is
@@ -73,7 +70,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class PopupLayout(
     pointer: CPointer<GdkPopupLayout>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gdkPopupLayoutPointer: CPointer<GdkPopupLayout> = pointer
 
     /**
@@ -201,7 +198,7 @@ public class PopupLayout(
      */
     public fun unref(): Unit = gdk_popup_layout_unref(gdkPopupLayoutPointer.reinterpret())
 
-    public companion object : RecordCompanion<PopupLayout, GdkPopupLayout> {
+    public companion object {
         /**
          * Create a popup layout description.
          *
@@ -233,7 +230,5 @@ public class PopupLayout(
          * @return the GType
          */
         public fun getType(): GType = gdk_popup_layout_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PopupLayout = PopupLayout(pointer.reinterpret())
     }
 }

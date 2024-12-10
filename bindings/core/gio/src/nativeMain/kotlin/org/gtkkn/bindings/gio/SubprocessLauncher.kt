@@ -7,6 +7,7 @@ import kotlin.String
 import kotlin.Unit
 import kotlin.collections.List
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
@@ -17,9 +18,12 @@ import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_40
 import org.gtkkn.bindings.gio.annotations.GioVersion2_68
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.SpawnChildSetupFunc
+import org.gtkkn.bindings.glib.SpawnChildSetupFuncFunc
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toCStringList
+import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -28,6 +32,7 @@ import org.gtkkn.native.gio.g_subprocess_launcher_close
 import org.gtkkn.native.gio.g_subprocess_launcher_get_type
 import org.gtkkn.native.gio.g_subprocess_launcher_getenv
 import org.gtkkn.native.gio.g_subprocess_launcher_new
+import org.gtkkn.native.gio.g_subprocess_launcher_set_child_setup
 import org.gtkkn.native.gio.g_subprocess_launcher_set_cwd
 import org.gtkkn.native.gio.g_subprocess_launcher_set_environ
 import org.gtkkn.native.gio.g_subprocess_launcher_set_flags
@@ -57,6 +62,7 @@ import org.gtkkn.native.gobject.gint
  *
  * ## Skipped during bindings generation
  *
+ * - method `spawn`: Varargs parameter is not supported
  * - method `flags`: Property has no getter nor setter
  *
  * @since 2.40
@@ -112,6 +118,27 @@ public open class SubprocessLauncher(
      */
     @GioVersion2_40
     public open fun getenv(variable: String): String? = g_subprocess_launcher_getenv(gioSubprocessLauncherPointer.reinterpret(), variable)?.toKString()
+
+    /**
+     * Sets up a child setup function.
+     *
+     * The child setup function will be called after fork() but before
+     * exec() on the child's side.
+     *
+     * @destroy_notify will not be automatically called on the child's side
+     * of the fork().  It will only be called when the last reference on the
+     * #GSubprocessLauncher is dropped or when a new child setup function is
+     * given.
+     *
+     * null can be given as @child_setup to disable the functionality.
+     *
+     * Child setup functions are only available on UNIX.
+     *
+     * @param childSetup a #GSpawnChildSetupFunc to use as the child setup function
+     * @since 2.40
+     */
+    @GioVersion2_40
+    public open fun setChildSetup(childSetup: SpawnChildSetupFunc): Unit = g_subprocess_launcher_set_child_setup(gioSubprocessLauncherPointer.reinterpret(), SpawnChildSetupFuncFunc.reinterpret(), StableRef.create(childSetup).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Sets the current working directory that processes will be launched

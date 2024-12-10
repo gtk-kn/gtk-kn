@@ -6,7 +6,6 @@ import kotlin.Result
 import kotlin.String
 import kotlin.Unit
 import kotlin.collections.List
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -19,8 +18,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_14
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.toKStringList
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GMatchInfo
 import org.gtkkn.native.glib.g_match_info_expand_references
@@ -39,7 +37,6 @@ import org.gtkkn.native.glib.g_match_info_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_match_info_get_type
 import org.gtkkn.native.gobject.gint
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A GMatchInfo is an opaque struct used to return information about
@@ -52,7 +49,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class MatchInfo(
     pointer: CPointer<GMatchInfo>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibMatchInfoPointer: CPointer<GMatchInfo> = pointer
 
     /**
@@ -301,14 +298,12 @@ public class MatchInfo(
     @GLibVersion2_30
     public fun unref(): Unit = g_match_info_unref(glibMatchInfoPointer.reinterpret())
 
-    public companion object : RecordCompanion<MatchInfo, GMatchInfo> {
+    public companion object {
         /**
          * Get the GType of MatchInfo
          *
          * @return the GType
          */
         public fun getType(): GType = g_match_info_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MatchInfo = MatchInfo(pointer.reinterpret())
     }
 }

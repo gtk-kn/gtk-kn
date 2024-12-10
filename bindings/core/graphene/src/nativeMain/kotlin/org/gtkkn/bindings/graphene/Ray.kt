@@ -2,14 +2,19 @@
 package org.gtkkn.bindings.graphene
 
 import kotlin.Boolean
+import kotlin.Pair
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_4
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.graphene.graphene_ray_alloc
@@ -29,7 +34,6 @@ import org.gtkkn.native.graphene.graphene_ray_intersects_box
 import org.gtkkn.native.graphene.graphene_ray_intersects_sphere
 import org.gtkkn.native.graphene.graphene_ray_intersects_triangle
 import org.gtkkn.native.graphene.graphene_ray_t
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A ray emitted from an origin in a given direction.
@@ -50,8 +54,37 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GrapheneVersion1_4
 public class Ray(
     pointer: CPointer<graphene_ray_t>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val grapheneRayPointer: CPointer<graphene_ray_t> = pointer
+
+    /**
+     * Allocate a new Ray.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<graphene_ray_t>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Ray and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<graphene_ray_t>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Ray using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_ray_t>().ptr)
 
     /**
      * Checks whether the two given #graphene_ray_t are equal.
@@ -215,7 +248,7 @@ public class Ray(
     @GrapheneVersion1_10
     public fun intersectsTriangle(t: Triangle): Boolean = graphene_ray_intersects_triangle(grapheneRayPointer.reinterpret(), t.grapheneTrianglePointer.reinterpret())
 
-    public companion object : RecordCompanion<Ray, graphene_ray_t> {
+    public companion object {
         /**
          * Allocates a new #graphene_ray_t structure.
          *
@@ -234,7 +267,5 @@ public class Ray(
          * @return the GType
          */
         public fun getType(): GType = graphene_ray_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Ray = Ray(pointer.reinterpret())
     }
 }

@@ -175,8 +175,10 @@ import org.gtkkn.native.gobject.guint
  *
  * ## Skipped during bindings generation
  *
+ * - method `set_action_target`: Varargs parameter is not supported
  * - method `action-target`: Property has no getter nor setter
  * - method `title`: Property TypeInfo of getter and setter do not match
+ * - constructor `new_format`: Varargs parameter is not supported
  */
 public class Toast(
     pointer: CPointer<AdwToast>,

@@ -2,16 +2,21 @@
 package org.gtkkn.bindings.gsk
 
 import kotlin.Boolean
+import kotlin.Pair
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.graphene.Vec2
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gobject.gint
@@ -26,7 +31,6 @@ import org.gtkkn.native.gsk.gsk_path_point_get_position
 import org.gtkkn.native.gsk.gsk_path_point_get_rotation
 import org.gtkkn.native.gsk.gsk_path_point_get_tangent
 import org.gtkkn.native.gsk.gsk_path_point_get_type
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * `GskPathPoint` is an opaque type representing a point on a path.
@@ -47,8 +51,37 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GskVersion4_14
 public class PathPoint(
     pointer: CPointer<GskPathPoint>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gskPathPointPointer: CPointer<GskPathPoint> = pointer
+
+    /**
+     * Allocate a new PathPoint.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GskPathPoint>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to PathPoint and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GskPathPoint>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new PathPoint using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GskPathPoint>().ptr)
 
     /**
      * Returns whether @point1 is before or after @point2.
@@ -187,14 +220,12 @@ public class PathPoint(
         tangent: Vec2,
     ): Unit = gsk_path_point_get_tangent(gskPathPointPointer.reinterpret(), path.gskPathPointer.reinterpret(), direction.nativeValue, tangent.grapheneVec2Pointer.reinterpret())
 
-    public companion object : RecordCompanion<PathPoint, GskPathPoint> {
+    public companion object {
         /**
          * Get the GType of PathPoint
          *
          * @return the GType
          */
         public fun getType(): GType = gsk_path_point_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PathPoint = PathPoint(pointer.reinterpret())
     }
 }

@@ -137,6 +137,7 @@ import org.gtkkn.native.soup.soup_session_websocket_connect_finish
  *
  * - method `accept-language`: Property TypeInfo of getter and setter do not match
  * - method `user-agent`: Property TypeInfo of getter and setter do not match
+ * - constructor `new_with_options`: Varargs parameter is not supported
  */
 public open class Session(
     pointer: CPointer<SoupSession>,

@@ -22,6 +22,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_80
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.IOCondition
+import org.gtkkn.bindings.glib.Source
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
@@ -41,6 +42,7 @@ import org.gtkkn.native.gio.g_socket_condition_timed_wait
 import org.gtkkn.native.gio.g_socket_condition_wait
 import org.gtkkn.native.gio.g_socket_connect
 import org.gtkkn.native.gio.g_socket_connection_factory_create_connection
+import org.gtkkn.native.gio.g_socket_create_source
 import org.gtkkn.native.gio.g_socket_get_available_bytes
 import org.gtkkn.native.gio.g_socket_get_blocking
 import org.gtkkn.native.gio.g_socket_get_broadcast
@@ -844,6 +846,37 @@ public open class Socket(
     @GioVersion2_22
     public open fun connectionFactoryCreateConnection(): SocketConnection = g_socket_connection_factory_create_connection(gioSocketPointer.reinterpret())!!.run {
         SocketConnection(reinterpret())}
+
+    /**
+     * Creates a #GSource that can be attached to a %GMainContext to monitor
+     * for the availability of the specified @condition on the socket. The #GSource
+     * keeps a reference to the @socket.
+     *
+     * The callback on the source is of the #GSocketSourceFunc type.
+     *
+     * It is meaningless to specify %G_IO_ERR or %G_IO_HUP in @condition;
+     * these conditions will always be reported output if they are true.
+     *
+     * @cancellable if not null can be used to cancel the source, which will
+     * cause the source to trigger, reporting the current condition (which
+     * is likely 0 unless cancellation happened at the same time as a
+     * condition change). You can check for this in the callback using
+     * g_cancellable_is_cancelled().
+     *
+     * If @socket has a timeout set, and it is reached before @condition
+     * occurs, the source will then trigger anyway, reporting %G_IO_IN or
+     * %G_IO_OUT depending on @condition. However, @socket will have been
+     * marked as having had a timeout, and so the next #GSocket I/O method
+     * you call will then fail with a %G_IO_ERROR_TIMED_OUT.
+     *
+     * @param condition a #GIOCondition mask to monitor
+     * @param cancellable a %GCancellable or null
+     * @return a newly allocated %GSource, free with g_source_unref().
+     * @since 2.22
+     */
+    @GioVersion2_22
+    override fun createSource(condition: IOCondition, cancellable: Cancellable?): Source = g_socket_create_source(gioSocketPointer.reinterpret(), condition.mask, cancellable?.gioCancellablePointer?.reinterpret())!!.run {
+        Source(reinterpret())}
 
     /**
      * Get the amount of data pending in the OS input buffer, without blocking.

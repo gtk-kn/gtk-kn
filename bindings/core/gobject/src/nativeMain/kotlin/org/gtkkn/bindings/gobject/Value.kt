@@ -3,27 +3,34 @@ package org.gtkkn.bindings.gobject
 
 import kotlin.Boolean
 import kotlin.Char
+import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_12
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_26
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_32
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_42
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_66
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_80
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GValue
 import org.gtkkn.native.gobject.g_value_copy
 import org.gtkkn.native.gobject.g_value_dup_object
+import org.gtkkn.native.gobject.g_value_dup_param
 import org.gtkkn.native.gobject.g_value_dup_string
 import org.gtkkn.native.gobject.g_value_dup_variant
 import org.gtkkn.native.gobject.g_value_fits_pointer
@@ -63,6 +70,7 @@ import org.gtkkn.native.gobject.g_value_set_interned_string
 import org.gtkkn.native.gobject.g_value_set_long
 import org.gtkkn.native.gobject.g_value_set_object
 import org.gtkkn.native.gobject.g_value_set_param
+import org.gtkkn.native.gobject.g_value_set_param_take_ownership
 import org.gtkkn.native.gobject.g_value_set_schar
 import org.gtkkn.native.gobject.g_value_set_static_string
 import org.gtkkn.native.gobject.g_value_set_string
@@ -72,6 +80,7 @@ import org.gtkkn.native.gobject.g_value_set_uint64
 import org.gtkkn.native.gobject.g_value_set_ulong
 import org.gtkkn.native.gobject.g_value_set_variant
 import org.gtkkn.native.gobject.g_value_steal_string
+import org.gtkkn.native.gobject.g_value_take_param
 import org.gtkkn.native.gobject.g_value_take_variant
 import org.gtkkn.native.gobject.g_value_transform
 import org.gtkkn.native.gobject.g_value_type_compatible
@@ -87,7 +96,6 @@ import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.gobject.guint8
 import org.gtkkn.native.gobject.gulong
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * An opaque structure used to hold different types of values.
@@ -103,22 +111,55 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  *
  * ## Skipped during bindings generation
  *
+ * - method `dup_boxed`: Return type gpointer is unsupported
  * - method `get_boxed`: Return type gpointer is unsupported
  * - method `get_pointer`: Return type gpointer is unsupported
  * - method `peek_pointer`: Return type gpointer is unsupported
  * - parameter `v_boxed`: gpointer
  * - parameter `v_boxed`: gpointer
  * - parameter `instance`: gpointer
+ * - parameter `v_object`: gpointer
  * - parameter `v_pointer`: gpointer
  * - parameter `v_boxed`: gpointer
  * - parameter `v_boxed`: gpointer
+ * - parameter `v_object`: gpointer
+ * - parameter `transform_func`: ValueTransform
  * - field `g_type`: Record field g_type is private
  * - field `data`: Fields with arrays are not supported
  */
 public class Value(
     pointer: CPointer<GValue>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gobjectValuePointer: CPointer<GValue> = pointer
+
+    /**
+     * Allocate a new Value.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GValue>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Value and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GValue>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Value using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GValue>().ptr)
 
     /**
      * Copies the value of @src_value into @dest_value.
@@ -137,6 +178,16 @@ public class Value(
      */
     public fun dupObject(): Object? = g_value_dup_object(gobjectValuePointer.reinterpret())?.run {
         Object(reinterpret())}
+
+    /**
+     * Get the contents of a %G_TYPE_PARAM #GValue, increasing its
+     * reference count.
+     *
+     * @return #GParamSpec content of @value, should be
+     *     unreferenced when no longer needed.
+     */
+    public fun dupParam(): ParamSpec = g_value_dup_param(gobjectValuePointer.reinterpret())!!.run {
+        ParamSpec(reinterpret())}
 
     /**
      * Get a copy the contents of a %G_TYPE_STRING #GValue.
@@ -451,6 +502,13 @@ public class Value(
     public fun setParam(`param`: ParamSpec? = null): Unit = g_value_set_param(gobjectValuePointer.reinterpret(), `param`?.gPointer?.reinterpret())
 
     /**
+     * This is an internal function introduced mainly for C marshallers.
+     *
+     * @param param the #GParamSpec to be set
+     */
+    public fun setParamTakeOwnership(`param`: ParamSpec? = null): Unit = g_value_set_param_take_ownership(gobjectValuePointer.reinterpret(), `param`?.gPointer?.reinterpret())
+
+    /**
      * Set the contents of a %G_TYPE_CHAR #GValue to @v_char.
      *
      * @param vChar signed 8 bit integer to be set
@@ -535,6 +593,17 @@ public class Value(
     public fun stealString(): String? = g_value_steal_string(gobjectValuePointer.reinterpret())?.toKString()
 
     /**
+     * Sets the contents of a %G_TYPE_PARAM #GValue to @param and takes
+     * over the ownership of the caller’s reference to @param; the caller
+     * doesn’t have to unref it any more.
+     *
+     * @param param the #GParamSpec to be set
+     * @since 2.4
+     */
+    @GObjectVersion2_4
+    public fun takeParam(`param`: ParamSpec? = null): Unit = g_value_take_param(gobjectValuePointer.reinterpret(), `param`?.gPointer?.reinterpret())
+
+    /**
      * Set the contents of a variant #GValue to @variant, and takes over
      * the ownership of the caller's reference to @variant;
      * the caller doesn't have to unref it any more (i.e. the reference
@@ -577,7 +646,9 @@ public class Value(
      */
     public fun unset(): Unit = g_value_unset(gobjectValuePointer.reinterpret())
 
-    public companion object : RecordCompanion<Value, GValue> {
+    override fun toString(): String = GObject.strdupValueContents(this)
+
+    public companion object {
         /**
          * Returns whether a #GValue of type @src_type can be copied into
          * a #GValue of type @dest_type.
@@ -606,7 +677,5 @@ public class Value(
          * @return the GType
          */
         public fun getType(): GType = g_value_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Value = Value(pointer.reinterpret())
     }
 }

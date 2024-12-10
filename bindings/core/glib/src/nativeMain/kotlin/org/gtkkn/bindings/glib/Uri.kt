@@ -6,8 +6,8 @@ import kotlin.Long
 import kotlin.Result
 import kotlin.String
 import kotlin.Suppress
+import kotlin.Unit
 import kotlin.collections.List
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -22,8 +22,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_66
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toKStringList
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GUri
 import org.gtkkn.native.glib.g_uri_build
@@ -50,16 +49,17 @@ import org.gtkkn.native.glib.g_uri_parse_params
 import org.gtkkn.native.glib.g_uri_parse_relative
 import org.gtkkn.native.glib.g_uri_parse_scheme
 import org.gtkkn.native.glib.g_uri_peek_scheme
+import org.gtkkn.native.glib.g_uri_ref
 import org.gtkkn.native.glib.g_uri_resolve_relative
 import org.gtkkn.native.glib.g_uri_to_string
 import org.gtkkn.native.glib.g_uri_to_string_partial
 import org.gtkkn.native.glib.g_uri_unescape_bytes
 import org.gtkkn.native.glib.g_uri_unescape_segment
 import org.gtkkn.native.glib.g_uri_unescape_string
+import org.gtkkn.native.glib.g_uri_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_uri_get_type
 import org.gtkkn.native.gobject.gint
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `GUri` type and related functions can be used to parse URIs into
@@ -236,7 +236,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GLibVersion2_66
 public class Uri(
     pointer: CPointer<GUri>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibUriPointer: CPointer<GUri> = pointer
 
     /**
@@ -392,6 +392,16 @@ public class Uri(
     }
 
     /**
+     * Increments the reference count of @uri by one.
+     *
+     * @return @uri
+     * @since 2.66
+     */
+    @GLibVersion2_66
+    public fun ref(): Uri = g_uri_ref(glibUriPointer.reinterpret())!!.run {
+        Uri(reinterpret())}
+
+    /**
      * Returns a string representing @uri.
      *
      * This is not guaranteed to return a string which is identical to the
@@ -425,7 +435,18 @@ public class Uri(
     @GLibVersion2_66
     public fun toStringPartial(flags: UriHideFlags): String = g_uri_to_string_partial(glibUriPointer.reinterpret(), flags.mask)?.toKString() ?: error("Expected not null string")
 
-    public companion object : RecordCompanion<Uri, GUri> {
+    /**
+     * Atomically decrements the reference count of @uri by one.
+     *
+     * When the reference count reaches zero, the resources allocated by
+     * @uri are freed
+     *
+     * @since 2.66
+     */
+    @GLibVersion2_66
+    public fun unref(): Unit = g_uri_unref(glibUriPointer.reinterpret())
+
+    public companion object {
         /**
          * Creates a new #GUri from the given components according to @flags.
          *
@@ -888,7 +909,5 @@ public class Uri(
          * @return the GType
          */
         public fun getType(): GType = g_uri_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Uri = Uri(pointer.reinterpret())
     }
 }

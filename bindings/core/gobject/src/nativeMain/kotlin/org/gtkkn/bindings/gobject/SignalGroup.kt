@@ -24,6 +24,8 @@ import org.gtkkn.native.gobject.GSignalGroup
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_group_block
+import org.gtkkn.native.gobject.g_signal_group_connect
+import org.gtkkn.native.gobject.g_signal_group_connect_after
 import org.gtkkn.native.gobject.g_signal_group_connect_closure
 import org.gtkkn.native.gobject.g_signal_group_connect_swapped
 import org.gtkkn.native.gobject.g_signal_group_dup_target
@@ -56,6 +58,7 @@ import org.gtkkn.native.gobject.g_signal_group_unblock
  * ## Skipped during bindings generation
  *
  * - parameter `notify`: ClosureNotify
+ * - parameter `c_handler`: Callback
  * - method `target`: Property has no getter
  * - method `target-type`: Property has no getter nor setter
  *
@@ -89,6 +92,34 @@ public open class SignalGroup(
      */
     @GObjectVersion2_72
     public open fun block(): Unit = g_signal_group_block(gobjectSignalGroupPointer.reinterpret())
+
+    /**
+     * Connects @c_handler to the signal @detailed_signal
+     * on the target instance of @self.
+     *
+     * You cannot connect a signal handler after #GSignalGroup:target has been set.
+     *
+     * @param detailedSignal a string of the form "signal-name::detail"
+     * @param cHandler the #GCallback to connect
+     * @since 2.72
+     */
+    @GObjectVersion2_72
+    public open fun connect(detailedSignal: String, cHandler: Callback): Unit = g_signal_group_connect(gobjectSignalGroupPointer.reinterpret(), detailedSignal, CallbackFunc.reinterpret(), StableRef.create(cHandler).asCPointer())
+
+    /**
+     * Connects @c_handler to the signal @detailed_signal
+     * on the target instance of @self.
+     *
+     * The @c_handler will be called after the default handler of the signal.
+     *
+     * You cannot connect a signal handler after #GSignalGroup:target has been set.
+     *
+     * @param detailedSignal a string of the form "signal-name::detail"
+     * @param cHandler the #GCallback to connect
+     * @since 2.72
+     */
+    @GObjectVersion2_72
+    public open fun connectAfter(detailedSignal: String, cHandler: Callback): Unit = g_signal_group_connect_after(gobjectSignalGroupPointer.reinterpret(), detailedSignal, CallbackFunc.reinterpret(), StableRef.create(cHandler).asCPointer())
 
     /**
      * Connects @closure to the signal @detailed_signal on #GSignalGroup:target.

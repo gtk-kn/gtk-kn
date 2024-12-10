@@ -1,18 +1,23 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Pair
 import kotlin.String
-import kotlinx.cinterop.CPointed
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
-import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GDBusErrorEntry
+import org.gtkkn.native.glib.g_free
+import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.gobject.gint
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Struct used in g_dbus_error_register_error_domain().
@@ -21,7 +26,8 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GioVersion2_26
 public class DBusErrorEntry(
     pointer: CPointer<GDBusErrorEntry>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gioDBusErrorEntryPointer: CPointer<GDBusErrorEntry> = pointer
 
     /**
@@ -35,13 +41,73 @@ public class DBusErrorEntry(
 
     /**
      * The D-Bus error name to associate with @error_code.
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val dbusErrorName: String?
+    public var dbusErrorName: String?
         get() = gioDBusErrorEntryPointer.pointed.dbus_error_name?.toKString()
+        set(`value`) {
+            gioDBusErrorEntryPointer.pointed.dbus_error_name?.let { g_free(it) }
+            gioDBusErrorEntryPointer.pointed.dbus_error_name = value?.let { g_strdup(it) }
+        }
 
-    public companion object : RecordCompanion<DBusErrorEntry, GDBusErrorEntry> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusErrorEntry = DBusErrorEntry(pointer.reinterpret())
+    /**
+     * Allocate a new DBusErrorEntry.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GDBusErrorEntry>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
     }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to DBusErrorEntry and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GDBusErrorEntry>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new DBusErrorEntry using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GDBusErrorEntry>().ptr)
+
+    /**
+     * Allocate a new DBusErrorEntry.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param errorCode An error code.
+     * @param dbusErrorName The D-Bus error name to associate with @error_code.
+     */
+    public constructor(errorCode: gint, dbusErrorName: String?) : this() {
+        this.errorCode = errorCode
+        this.dbusErrorName = dbusErrorName
+    }
+
+    /**
+     * Allocate a new DBusErrorEntry using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param errorCode An error code.
+     * @param dbusErrorName The D-Bus error name to associate with @error_code.
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        errorCode: gint,
+        dbusErrorName: String?,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.errorCode = errorCode
+        this.dbusErrorName = dbusErrorName
+    }
+
+    override fun toString(): String = "DBusErrorEntry(errorCode=$errorCode, dbusErrorName=$dbusErrorName)"
 }

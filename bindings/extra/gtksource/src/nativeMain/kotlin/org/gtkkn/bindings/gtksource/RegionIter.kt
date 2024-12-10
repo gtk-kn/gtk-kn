@@ -2,18 +2,22 @@
 package org.gtkkn.bindings.gtksource
 
 import kotlin.Boolean
-import kotlinx.cinterop.CPointed
+import kotlin.Pair
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gtksource.GtkSourceRegionIter
 import org.gtkkn.native.gtksource.gtk_source_region_iter_get_subregion
 import org.gtkkn.native.gtksource.gtk_source_region_iter_is_end
 import org.gtkkn.native.gtksource.gtk_source_region_iter_next
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * An opaque datatype.
@@ -28,8 +32,37 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class RegionIter(
     pointer: CPointer<GtkSourceRegionIter>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gtksourceRegionIterPointer: CPointer<GtkSourceRegionIter> = pointer
+
+    /**
+     * Allocate a new RegionIter.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GtkSourceRegionIter>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to RegionIter and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GtkSourceRegionIter>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new RegionIter using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GtkSourceRegionIter>().ptr)
 
     /**
      * Gets the subregion at this iterator.
@@ -55,8 +88,4 @@ public class RegionIter(
      *   been set to the end iterator.
      */
     public fun next(): Boolean = gtk_source_region_iter_next(gtksourceRegionIterPointer.reinterpret()).asBoolean()
-
-    public companion object : RecordCompanion<RegionIter, GtkSourceRegionIter> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): RegionIter = RegionIter(pointer.reinterpret())
-    }
 }

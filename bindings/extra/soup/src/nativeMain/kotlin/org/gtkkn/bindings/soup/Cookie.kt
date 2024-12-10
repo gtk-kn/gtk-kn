@@ -4,7 +4,6 @@ package org.gtkkn.bindings.soup
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -12,8 +11,7 @@ import org.gtkkn.bindings.glib.DateTime
 import org.gtkkn.bindings.glib.Uri
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.soup.SoupCookie
@@ -44,7 +42,6 @@ import org.gtkkn.native.soup.soup_cookie_set_secure
 import org.gtkkn.native.soup.soup_cookie_set_value
 import org.gtkkn.native.soup.soup_cookie_to_cookie_header
 import org.gtkkn.native.soup.soup_cookie_to_set_cookie_header
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Implements HTTP cookies, as described by
@@ -74,7 +71,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class Cookie(
     pointer: CPointer<SoupCookie>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val soupCookiePointer: CPointer<SoupCookie> = pointer
 
     /**
@@ -286,7 +283,7 @@ public class Cookie(
      */
     public fun toSetCookieHeader(): String = soup_cookie_to_set_cookie_header(soupCookiePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
-    public companion object : RecordCompanion<Cookie, SoupCookie> {
+    public companion object {
         /**
          * Creates a new #SoupCookie with the given attributes.
          *
@@ -355,7 +352,5 @@ public class Cookie(
          * @return the GType
          */
         public fun getType(): GType = soup_cookie_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Cookie = Cookie(pointer.reinterpret())
     }
 }

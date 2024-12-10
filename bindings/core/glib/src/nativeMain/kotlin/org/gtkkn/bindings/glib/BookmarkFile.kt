@@ -6,7 +6,6 @@ import kotlin.Result
 import kotlin.String
 import kotlin.Unit
 import kotlin.collections.List
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -21,8 +20,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_76
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toCStringList
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GBookmarkFile
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.g_bookmark_file_add_application
@@ -62,7 +60,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_bookmark_file_get_type
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.gsize
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * `GBookmarkFile` lets you parse, edit or create files containing bookmarks.
@@ -127,7 +124,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GLibVersion2_12
 public class BookmarkFile(
     pointer: CPointer<GBookmarkFile>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibBookmarkFilePointer: CPointer<GBookmarkFile> = pointer
 
     /**
@@ -770,7 +767,7 @@ public class BookmarkFile(
         }
     }
 
-    public companion object : RecordCompanion<BookmarkFile, GBookmarkFile> {
+    public companion object {
         /**
          * Creates a new empty #GBookmarkFile object.
          *
@@ -791,7 +788,5 @@ public class BookmarkFile(
          * @return the GType
          */
         public fun getType(): GType = g_bookmark_file_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): BookmarkFile = BookmarkFile(pointer.reinterpret())
     }
 }

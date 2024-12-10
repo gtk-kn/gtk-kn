@@ -3,7 +3,6 @@ package org.gtkkn.bindings.gsk
 
 import kotlin.Boolean
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Bytes
@@ -11,13 +10,13 @@ import org.gtkkn.bindings.graphene.Vec2
 import org.gtkkn.bindings.graphene.Vec3
 import org.gtkkn.bindings.graphene.Vec4
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gsk.GskShaderArgsBuilder
+import org.gtkkn.native.gsk.gsk_shader_args_builder_free_to_args
 import org.gtkkn.native.gsk.gsk_shader_args_builder_get_type
 import org.gtkkn.native.gsk.gsk_shader_args_builder_new
 import org.gtkkn.native.gsk.gsk_shader_args_builder_ref
@@ -30,15 +29,27 @@ import org.gtkkn.native.gsk.gsk_shader_args_builder_set_vec3
 import org.gtkkn.native.gsk.gsk_shader_args_builder_set_vec4
 import org.gtkkn.native.gsk.gsk_shader_args_builder_to_args
 import org.gtkkn.native.gsk.gsk_shader_args_builder_unref
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * An object to build the uniforms data for a `GskGLShader`.
  */
 public class ShaderArgsBuilder(
     pointer: CPointer<GskShaderArgsBuilder>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gskShaderArgsBuilderPointer: CPointer<GskShaderArgsBuilder> = pointer
+
+    /**
+     * Creates a new `GBytes` args from the current state of the
+     * given @builder, and frees the @builder instance.
+     *
+     * Any uniforms of the shader that have not been explicitly set
+     * on the @builder are zero-initialized.
+     *
+     * @return the newly allocated buffer with
+     *   all the args added to @builder
+     */
+    public fun freeToArgs(): Bytes = gsk_shader_args_builder_free_to_args(gskShaderArgsBuilderPointer.reinterpret())!!.run {
+        Bytes(reinterpret())}
 
     /**
      * Increases the reference count of a `GskShaderArgsBuilder` by one.
@@ -144,7 +155,7 @@ public class ShaderArgsBuilder(
      */
     public fun unref(): Unit = gsk_shader_args_builder_unref(gskShaderArgsBuilderPointer.reinterpret())
 
-    public companion object : RecordCompanion<ShaderArgsBuilder, GskShaderArgsBuilder> {
+    public companion object {
         /**
          * Allocates a builder that can be used to construct a new uniform data
          * chunk.
@@ -162,7 +173,5 @@ public class ShaderArgsBuilder(
          * @return the GType
          */
         public fun getType(): GType = gsk_shader_args_builder_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ShaderArgsBuilder = ShaderArgsBuilder(pointer.reinterpret())
     }
 }

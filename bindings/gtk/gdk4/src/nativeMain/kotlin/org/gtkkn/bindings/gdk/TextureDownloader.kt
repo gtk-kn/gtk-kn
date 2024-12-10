@@ -2,12 +2,10 @@
 package org.gtkkn.bindings.gdk
 
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_10
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkTextureDownloader
 import org.gtkkn.native.gdk.gdk_texture_downloader_copy
 import org.gtkkn.native.gdk.gdk_texture_downloader_free
@@ -18,7 +16,6 @@ import org.gtkkn.native.gdk.gdk_texture_downloader_new
 import org.gtkkn.native.gdk.gdk_texture_downloader_set_format
 import org.gtkkn.native.gdk.gdk_texture_downloader_set_texture
 import org.gtkkn.native.gobject.GType
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `GdkTextureDownloader` is used to download the contents of a
@@ -42,7 +39,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GdkVersion4_10
 public class TextureDownloader(
     pointer: CPointer<GdkTextureDownloader>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gdkTextureDownloaderPointer: CPointer<GdkTextureDownloader> = pointer
 
     /**
@@ -105,7 +102,7 @@ public class TextureDownloader(
     @GdkVersion4_10
     public fun setTexture(texture: Texture): Unit = gdk_texture_downloader_set_texture(gdkTextureDownloaderPointer.reinterpret(), texture.gdkTexturePointer.reinterpret())
 
-    public companion object : RecordCompanion<TextureDownloader, GdkTextureDownloader> {
+    public companion object {
         /**
          * Creates a new texture downloader for @texture.
          *
@@ -121,7 +118,5 @@ public class TextureDownloader(
          * @return the GType
          */
         public fun getType(): GType = gdk_texture_downloader_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TextureDownloader = TextureDownloader(pointer.reinterpret())
     }
 }

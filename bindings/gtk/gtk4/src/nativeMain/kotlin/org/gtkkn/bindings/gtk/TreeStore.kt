@@ -71,7 +71,9 @@ import org.gtkkn.native.gtk.gtk_tree_store_swap
  * ## Skipped during bindings generation
  *
  * - parameter `columns`: Array parameter of type gint is not supported
+ * - parameter `new_order`: Array parameter of type gint is not supported
  * - parameter `types`: Array parameter of type GType is not supported
+ * - parameter `var_args`: va_list
  * - parameter `columns`: Array parameter of type gint is not supported
  * - parameter `types`: Array parameter of type GType is not supported
  */

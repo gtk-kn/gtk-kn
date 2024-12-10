@@ -2,16 +2,21 @@
 package org.gtkkn.bindings.graphene
 
 import kotlin.Boolean
+import kotlin.Pair
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_4
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gobject.gfloat
@@ -82,7 +87,6 @@ import org.gtkkn.native.graphene.graphene_matrix_transpose
 import org.gtkkn.native.graphene.graphene_matrix_unproject_point3d
 import org.gtkkn.native.graphene.graphene_matrix_untransform_bounds
 import org.gtkkn.native.graphene.graphene_matrix_untransform_point
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A structure capable of holding a 4x4 matrix.
@@ -99,8 +103,37 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class Matrix(
     pointer: CPointer<graphene_matrix_t>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val grapheneMatrixPointer: CPointer<graphene_matrix_t> = pointer
+
+    /**
+     * Allocate a new Matrix.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<graphene_matrix_t>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Matrix and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<graphene_matrix_t>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Matrix using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_matrix_t>().ptr)
 
     /**
      * Decomposes a transformation matrix into its component transformations.
@@ -984,7 +1017,7 @@ public class Matrix(
         res: Point,
     ): Boolean = graphene_matrix_untransform_point(grapheneMatrixPointer.reinterpret(), p.graphenePointPointer.reinterpret(), bounds.grapheneRectPointer.reinterpret(), res.graphenePointPointer.reinterpret())
 
-    public companion object : RecordCompanion<Matrix, graphene_matrix_t> {
+    public companion object {
         /**
          * Allocates a new #graphene_matrix_t.
          *
@@ -999,7 +1032,5 @@ public class Matrix(
          * @return the GType
          */
         public fun getType(): GType = graphene_matrix_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Matrix = Matrix(pointer.reinterpret())
     }
 }

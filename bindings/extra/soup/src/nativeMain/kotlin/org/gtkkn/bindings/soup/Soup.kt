@@ -20,7 +20,6 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.DateTime
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.HashTable
-import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.glib.Uri
 import org.gtkkn.extensions.common.asBoolean
@@ -41,7 +40,7 @@ import org.gtkkn.native.soup.SoupServer
 import org.gtkkn.native.soup.SoupServerMessage
 import org.gtkkn.native.soup.SoupWebsocketConnection
 import org.gtkkn.native.soup.soup_check_version
-import org.gtkkn.native.soup.soup_cookie_parse
+import org.gtkkn.native.soup.soup_cookies_free
 import org.gtkkn.native.soup.soup_cookies_from_request
 import org.gtkkn.native.soup.soup_cookies_from_response
 import org.gtkkn.native.soup.soup_cookies_to_cookie_header
@@ -55,6 +54,7 @@ import org.gtkkn.native.soup.soup_get_major_version
 import org.gtkkn.native.soup.soup_get_micro_version
 import org.gtkkn.native.soup.soup_get_minor_version
 import org.gtkkn.native.soup.soup_header_contains
+import org.gtkkn.native.soup.soup_header_free_list
 import org.gtkkn.native.soup.soup_header_free_param_list
 import org.gtkkn.native.soup.soup_header_g_string_append_param
 import org.gtkkn.native.soup.soup_header_g_string_append_param_quoted
@@ -64,14 +64,9 @@ import org.gtkkn.native.soup.soup_header_parse_param_list_strict
 import org.gtkkn.native.soup.soup_header_parse_semi_param_list
 import org.gtkkn.native.soup.soup_header_parse_semi_param_list_strict
 import org.gtkkn.native.soup.soup_headers_parse
-import org.gtkkn.native.soup.soup_message_headers_iter_init
-import org.gtkkn.native.soup.soup_session_error_quark
-import org.gtkkn.native.soup.soup_status_get_phrase
 import org.gtkkn.native.soup.soup_tld_domain_is_public_suffix
-import org.gtkkn.native.soup.soup_tld_error_quark
 import org.gtkkn.native.soup.soup_tld_get_base_domain
 import org.gtkkn.native.soup.soup_uri_equal
-import org.gtkkn.native.soup.soup_websocket_error_quark
 import kotlin.String as KotlinString
 import org.gtkkn.bindings.glib.String as GlibString
 
@@ -83,11 +78,14 @@ import org.gtkkn.bindings.glib.String as GlibString
  * - class `AuthNTLM`: Missing cType on class
  * - class `AuthNegotiate`: Missing cType on class
  * - parameter `filename`: filename: Out parameter is not supported
+ * - function `form_encode`: Varargs parameter is not supported
  * - parameter `form_data_set`: GLib.Data
+ * - parameter `args`: va_list
  * - parameter `unacceptable`: unacceptable: Out parameter is not supported
  * - parameter `req_method`: req_method: Out parameter is not supported
  * - parameter `ver`: ver: Out parameter is not supported
  * - parameter `ver`: ver: Out parameter is not supported
+ * - function `uri_copy`: Varargs parameter is not supported
  * - parameter `content_type`: content_type: Out parameter is not supported
  * - parameter `supported_extensions`: Array parameter of type GObject.TypeClass is not supported
  * - parameter `supported_extensions`: Array parameter of type GObject.TypeClass is not supported
@@ -230,28 +228,11 @@ public object Soup {
     ): Boolean = soup_check_version(major, minor, micro).asBoolean()
 
     /**
-     * Parses @header and returns a #SoupCookie.
+     * Frees @cookies.
      *
-     * If @header contains multiple cookies, only the first one will be parsed.
-     *
-     * If @header does not have "path" or "domain" attributes, they will
-     * be defaulted from @origin. If @origin is null, path will default
-     * to "/", but domain will be left as null. Note that this is not a
-     * valid state for a #SoupCookie, and you will need to fill in some
-     * appropriate string for the domain if you want to actually make use
-     * of the cookie.
-     *
-     * As of version 3.4.0 the default value of a cookie's same-site-policy
-     * is %SOUP_SAME_SITE_POLICY_LAX.
-     *
-     * @param header a cookie string (eg, the value of a Set-Cookie header)
-     * @param origin origin of the cookie
-     * @return a new #SoupCookie, or null if it could
-     *   not be parsed, or contained an illegal "domain" attribute for a
-     *   cookie originating from @origin.
+     * @param cookies a #GSList of #SoupCookie
      */
-    public fun cookieParse(`header`: KotlinString, origin: Uri? = null): Cookie? = soup_cookie_parse(`header`, origin?.glibUriPointer?.reinterpret())?.run {
-        Cookie(reinterpret())}
+    public fun cookiesFree(cookies: SList): Unit = soup_cookies_free(cookies.glibSListPointer.reinterpret())
 
     /**
      * Parses @msg's Cookie request header and returns a [struct@GLib.SList] of
@@ -428,6 +409,14 @@ public object Soup {
     public fun headerContains(`header`: KotlinString, token: KotlinString): Boolean = soup_header_contains(`header`, token).asBoolean()
 
     /**
+     * Frees @list.
+     *
+     * @param list a #GSList returned from [func@header_parse_list] or
+     * [func@header_parse_quality_list]
+     */
+    public fun headerFreeList(list: SList): Unit = soup_header_free_list(list.glibSListPointer.reinterpret())
+
+    /**
      * Frees @param_list.
      *
      * @param paramList a #GHashTable returned from
@@ -582,40 +571,6 @@ public object Soup {
     ): Boolean = soup_headers_parse(str, len, dest.soupMessageHeadersPointer.reinterpret()).asBoolean()
 
     /**
-     * Initializes @iter for iterating @hdrs.
-     *
-     * @param iter a pointer to a %SoupMessageHeadersIter
-     *   structure
-     * @param hdrs a %SoupMessageHeaders
-     */
-    public fun messageHeadersIterInit(iter: MessageHeadersIter, hdrs: MessageHeaders): Unit = soup_message_headers_iter_init(iter.soupMessageHeadersIterPointer.reinterpret(), hdrs.soupMessageHeadersPointer.reinterpret())
-
-    /**
-     * Registers error quark for SoupSession if needed.
-     *
-     * @return Error quark for SoupSession.
-     */
-    public fun sessionErrorQuark(): Quark = soup_session_error_quark()
-
-    /**
-     * Looks up the stock HTTP description of @status_code.
-     *
-     * *There is no reason for you to ever use this
-     * function.* If you wanted the textual description for the
-     * [property@Message:status-code] of a given [class@Message], you should just
-     * look at the message's [property@Message:reason-phrase]. However, you
-     * should only do that for use in debugging messages; HTTP reason
-     * phrases are not localized, and are not generally very descriptive
-     * anyway, and so they should never be presented to the user directly.
-     * Instead, you should create you own error messages based on the
-     * status code, and on what you were trying to do.
-     *
-     * @param statusCode an HTTP status code
-     * @return the (terse, English) description of @status_code
-     */
-    public fun statusGetPhrase(statusCode: guint): KotlinString = soup_status_get_phrase(statusCode)?.toKString() ?: error("Expected not null string")
-
-    /**
      * Looks whether the @domain passed as argument is a public domain
      * suffix (.org, .com, .co.uk, etc) or not.
      *
@@ -627,13 +582,6 @@ public object Soup {
      * @return true if it is a public domain, false otherwise.
      */
     public fun tldDomainIsPublicSuffix(domain: KotlinString): Boolean = soup_tld_domain_is_public_suffix(domain).asBoolean()
-
-    /**
-     * Registers error quark for soup_tld_get_base_domain() if needed.
-     *
-     * @return Error quark for Soup TLD functions.
-     */
-    public fun tldErrorQuark(): Quark = soup_tld_error_quark()
 
     /**
      * Finds the base domain for a given @hostname
@@ -674,13 +622,6 @@ public object Soup {
      * @return true if equal otherwise false
      */
     public fun uriEqual(uri1: Uri, uri2: Uri): Boolean = soup_uri_equal(uri1.glibUriPointer.reinterpret(), uri2.glibUriPointer.reinterpret()).asBoolean()
-
-    /**
-     * Registers error quark for SoupWebsocket if needed.
-     *
-     * @return Error quark for SoupWebsocket.
-     */
-    public fun websocketErrorQuark(): Quark = soup_websocket_error_quark()
 
     public fun resolveException(error: Error): GLibException {
         val ex = when (error.domain) {

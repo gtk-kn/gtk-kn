@@ -4,14 +4,12 @@ package org.gtkkn.bindings.glib
 import kotlin.Long
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_16
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_18
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GChecksum
 import org.gtkkn.native.glib.g_checksum_copy
 import org.gtkkn.native.glib.g_checksum_free
@@ -21,7 +19,6 @@ import org.gtkkn.native.glib.g_checksum_reset
 import org.gtkkn.native.glib.g_checksum_type_get_length
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_checksum_get_type
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * GLib provides a generic API for computing checksums (or ‘digests’)
@@ -43,6 +40,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  *
  * ## Skipped during bindings generation
  *
+ * - method `get_digest`: In/Out parameter is not supported
  * - parameter `data`: Array parameter of type guint8 is not supported
  *
  * @since 2.16
@@ -50,7 +48,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GLibVersion2_16
 public class Checksum(
     pointer: CPointer<GChecksum>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibChecksumPointer: CPointer<GChecksum> = pointer
 
     /**
@@ -98,7 +96,7 @@ public class Checksum(
     @GLibVersion2_18
     public fun reset(): Unit = g_checksum_reset(glibChecksumPointer.reinterpret())
 
-    public companion object : RecordCompanion<Checksum, GChecksum> {
+    public companion object {
         /**
          * Creates a new #GChecksum, using the checksum algorithm @checksum_type.
          * If the @checksum_type is not known, null is returned.
@@ -138,7 +136,5 @@ public class Checksum(
          * @return the GType
          */
         public fun getType(): GType = g_checksum_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Checksum = Checksum(pointer.reinterpret())
     }
 }

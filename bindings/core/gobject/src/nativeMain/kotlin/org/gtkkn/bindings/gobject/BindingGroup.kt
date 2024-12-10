@@ -29,7 +29,6 @@ import org.gtkkn.native.gobject.g_binding_group_set_source
  *
  * ## Skipped during bindings generation
  *
- * - method `bind_full`: g_binding_group_bind_full is shadowedBy bind_with_closures
  * - method `source`: Property has no getter
  *
  * @since 2.72

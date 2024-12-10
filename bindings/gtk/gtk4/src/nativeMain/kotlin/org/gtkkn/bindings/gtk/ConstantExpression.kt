@@ -15,6 +15,10 @@ import org.gtkkn.native.gtk.gtk_constant_expression_new_for_value
 
 /**
  * A constant value in a `GtkExpression`.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - constructor `new`: Varargs parameter is not supported
  */
 public open class ConstantExpression(
     pointer: CPointer<GtkConstantExpression>,

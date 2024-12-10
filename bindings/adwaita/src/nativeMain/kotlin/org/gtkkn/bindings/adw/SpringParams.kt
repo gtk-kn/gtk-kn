@@ -2,11 +2,9 @@
 package org.gtkkn.bindings.adw
 
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.adw.AdwSpringParams
 import org.gtkkn.native.adw.adw_spring_params_get_damping
 import org.gtkkn.native.adw.adw_spring_params_get_damping_ratio
@@ -19,7 +17,6 @@ import org.gtkkn.native.adw.adw_spring_params_ref
 import org.gtkkn.native.adw.adw_spring_params_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Physical parameters of a spring for [class@SpringAnimation].
@@ -55,7 +52,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class SpringParams(
     pointer: CPointer<AdwSpringParams>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val adwSpringParamsPointer: CPointer<AdwSpringParams> = pointer
 
     /**
@@ -101,7 +98,7 @@ public class SpringParams(
      */
     public fun unref(): Unit = adw_spring_params_unref(adwSpringParamsPointer.reinterpret())
 
-    public companion object : RecordCompanion<SpringParams, AdwSpringParams> {
+    public companion object {
         /**
          * Creates a new `AdwSpringParams` from @mass, @stiffness and @damping_ratio.
          *
@@ -153,7 +150,5 @@ public class SpringParams(
          * @return the GType
          */
         public fun getType(): GType = adw_spring_params_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SpringParams = SpringParams(pointer.reinterpret())
     }
 }

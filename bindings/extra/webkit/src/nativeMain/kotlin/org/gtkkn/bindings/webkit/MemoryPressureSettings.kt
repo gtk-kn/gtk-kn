@@ -2,12 +2,10 @@
 package org.gtkkn.bindings.webkit
 
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_34
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gobject.guint
@@ -26,7 +24,6 @@ import org.gtkkn.native.webkit.webkit_memory_pressure_settings_set_kill_threshol
 import org.gtkkn.native.webkit.webkit_memory_pressure_settings_set_memory_limit
 import org.gtkkn.native.webkit.webkit_memory_pressure_settings_set_poll_interval
 import org.gtkkn.native.webkit.webkit_memory_pressure_settings_set_strict_threshold
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A boxed type representing the settings for the memory pressure handler
@@ -54,7 +51,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @WebKitVersion2_34
 public class MemoryPressureSettings(
     pointer: CPointer<WebKitMemoryPressureSettings>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val webkitMemoryPressureSettingsPointer: CPointer<WebKitMemoryPressureSettings> = pointer
 
     /**
@@ -190,7 +187,7 @@ public class MemoryPressureSettings(
     @WebKitVersion2_34
     public fun setStrictThreshold(`value`: gdouble): Unit = webkit_memory_pressure_settings_set_strict_threshold(webkitMemoryPressureSettingsPointer.reinterpret(), `value`)
 
-    public companion object : RecordCompanion<MemoryPressureSettings, WebKitMemoryPressureSettings> {
+    public companion object {
         /**
          * Create a new #WebKitMemoryPressureSettings with the default values.
          *
@@ -205,7 +202,5 @@ public class MemoryPressureSettings(
          * @return the GType
          */
         public fun getType(): GType = webkit_memory_pressure_settings_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MemoryPressureSettings = MemoryPressureSettings(pointer.reinterpret())
     }
 }

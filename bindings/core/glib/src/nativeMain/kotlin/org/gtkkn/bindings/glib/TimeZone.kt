@@ -4,15 +4,13 @@ package org.gtkkn.bindings.glib
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_26
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_58
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GTimeZone
 import org.gtkkn.native.glib.g_time_zone_find_interval
 import org.gtkkn.native.glib.g_time_zone_get_abbreviation
@@ -30,7 +28,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_time_zone_get_type
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.gint64
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GTimeZone` represents a time zone, at no particular point in time.
@@ -69,7 +66,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GLibVersion2_26
 public class TimeZone(
     pointer: CPointer<GTimeZone>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibTimeZonePointer: CPointer<GTimeZone> = pointer
 
     /**
@@ -176,7 +173,7 @@ public class TimeZone(
     @GLibVersion2_26
     public fun unref(): Unit = g_time_zone_unref(glibTimeZonePointer.reinterpret())
 
-    public companion object : RecordCompanion<TimeZone, GTimeZone> {
+    public companion object {
         /**
          * A version of g_time_zone_new_identifier() which returns the UTC time zone
          * if @identifier could not be parsed or loaded.
@@ -319,7 +316,5 @@ public class TimeZone(
          * @return the GType
          */
         public fun getType(): GType = g_time_zone_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TimeZone = TimeZone(pointer.reinterpret())
     }
 }

@@ -17,7 +17,6 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
-import org.gtkkn.bindings.gdk.annotations.GdkVersion4_4
 import org.gtkkn.bindings.gdkpixbuf.Pixbuf
 import org.gtkkn.bindings.gio.AsyncReadyCallback
 import org.gtkkn.bindings.gio.AsyncReadyCallbackFunc
@@ -26,7 +25,6 @@ import org.gtkkn.bindings.gio.Cancellable
 import org.gtkkn.bindings.gio.InputStream
 import org.gtkkn.bindings.gio.OutputStream
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.GLibException
@@ -35,15 +33,11 @@ import org.gtkkn.native.gdk.GdkContentDeserializer
 import org.gtkkn.native.gdk.GdkContentSerializer
 import org.gtkkn.native.gdk.gdk_content_deserialize_async
 import org.gtkkn.native.gdk.gdk_content_deserialize_finish
-import org.gtkkn.native.gdk.gdk_content_formats_parse
 import org.gtkkn.native.gdk.gdk_content_register_deserializer
 import org.gtkkn.native.gdk.gdk_content_register_serializer
 import org.gtkkn.native.gdk.gdk_content_serialize_async
 import org.gtkkn.native.gdk.gdk_content_serialize_finish
-import org.gtkkn.native.gdk.gdk_dmabuf_error_quark
-import org.gtkkn.native.gdk.gdk_drag_action_is_unique
 import org.gtkkn.native.gdk.gdk_drag_surface_size_get_type
-import org.gtkkn.native.gdk.gdk_gl_error_quark
 import org.gtkkn.native.gdk.gdk_intern_mime_type
 import org.gtkkn.native.gdk.gdk_keyval_from_name
 import org.gtkkn.native.gdk.gdk_keyval_is_lower
@@ -52,13 +46,10 @@ import org.gtkkn.native.gdk.gdk_keyval_name
 import org.gtkkn.native.gdk.gdk_keyval_to_lower
 import org.gtkkn.native.gdk.gdk_keyval_to_unicode
 import org.gtkkn.native.gdk.gdk_keyval_to_upper
-import org.gtkkn.native.gdk.gdk_paintable_new_empty
 import org.gtkkn.native.gdk.gdk_pixbuf_get_from_texture
 import org.gtkkn.native.gdk.gdk_set_allowed_backends
-import org.gtkkn.native.gdk.gdk_texture_error_quark
 import org.gtkkn.native.gdk.gdk_toplevel_size_get_type
 import org.gtkkn.native.gdk.gdk_unicode_to_keyval
-import org.gtkkn.native.gdk.gdk_vulkan_error_quark
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
@@ -78,15 +69,15 @@ import org.gtkkn.native.gobject.guint8
  * - parameter `x`: x: Out parameter is not supported
  * - parameter `distance`: distance: Out parameter is not supported
  * - parameter `lower`: lower: Out parameter is not supported
+ * - parameter `index_ranges`: Unsupported pointer to primitive type
+ * - parameter `index_ranges`: Array parameter of type gint is not supported
  * - parameter `surface`: cairo.Surface
  * - record `ContentProviderClass`: glib type struct are ignored
  * - record `DevicePadInterface`: glib type struct are ignored
  * - record `DmabufTextureBuilderClass`: glib type struct are ignored
  * - record `DmabufTextureClass`: glib type struct are ignored
  * - record `DragSurfaceInterface`: glib type struct are ignored
- * - record `DragSurfaceSize`: Disguised records are ignored
  * - record `FrameClockClass`: glib type struct are ignored
- * - record `FrameClockPrivate`: Disguised records are ignored
  * - record `GLTextureBuilderClass`: glib type struct are ignored
  * - record `GLTextureClass`: glib type struct are ignored
  * - record `MemoryTextureClass`: glib type struct are ignored
@@ -97,7 +88,6 @@ import org.gtkkn.native.gobject.guint8
  * - record `SurfaceClass`: glib type struct are ignored
  * - record `TextureClass`: glib type struct are ignored
  * - record `ToplevelInterface`: glib type struct are ignored
- * - record `ToplevelSize`: Disguised records are ignored
  */
 public object Gdk {
     /**
@@ -4755,24 +4745,6 @@ public object Gdk {
     }
 
     /**
-     * Parses the given @string into `GdkContentFormats` and
-     * returns the formats.
-     *
-     * Strings printed via [method@Gdk.ContentFormats.to_string]
-     * can be read in again successfully using this function.
-     *
-     * If @string does not describe valid content formats, null
-     * is returned.
-     *
-     * @param string the string to parse
-     * @return the content formats if @string is valid
-     * @since 4.4
-     */
-    @GdkVersion4_4
-    public fun contentFormatsParse(string: String): ContentFormats? = gdk_content_formats_parse(string)?.run {
-        ContentFormats(reinterpret())}
-
-    /**
      * Registers a function to deserialize object of a given type.
      *
      * @param mimeType the mime type which the function can deserialize from
@@ -4841,23 +4813,7 @@ public object Gdk {
         }
     }
 
-    public fun dmabufErrorQuark(): Quark = gdk_dmabuf_error_quark()
-
-    /**
-     * Checks if @action represents a single action or includes
-     * multiple actions.
-     *
-     * When @action is 0 - ie no action was given, true
-     * is returned.
-     *
-     * @param action a `GdkDragAction`
-     * @return true if exactly one action was given
-     */
-    public fun dragActionIsUnique(action: DragAction): Boolean = gdk_drag_action_is_unique(action.mask).asBoolean()
-
     public fun dragSurfaceSizeGetType(): GType = gdk_drag_surface_size_get_type()
-
-    public fun glErrorQuark(): Quark = gdk_gl_error_quark()
 
     /**
      * Canonicalizes the given mime type and interns the result.
@@ -4948,22 +4904,6 @@ public object Gdk {
     public fun keyvalToUpper(keyval: guint): guint = gdk_keyval_to_upper(keyval)
 
     /**
-     * Returns a paintable that has the given intrinsic size and draws nothing.
-     *
-     * This is often useful for implementing the
-     * [vfunc@Gdk.Paintable.get_current_image] virtual function
-     * when the paintable is in an incomplete state (like a
-     * [GtkMediaStream](../gtk4/class.MediaStream.html) before receiving
-     * the first frame).
-     *
-     * @param intrinsicWidth The intrinsic width to report. Can be 0 for no width.
-     * @param intrinsicHeight The intrinsic height to report. Can be 0 for no height.
-     * @return a `GdkPaintable`
-     */
-    public fun paintableNewEmpty(intrinsicWidth: gint, intrinsicHeight: gint): Paintable = gdk_paintable_new_empty(intrinsicWidth, intrinsicHeight)!!.run {
-        Paintable.wrap(reinterpret())}
-
-    /**
      * Creates a new pixbuf from @texture.
      *
      * This should generally not be used in newly written code as later
@@ -5015,8 +4955,6 @@ public object Gdk {
      */
     public fun setAllowedBackends(backends: String): Unit = gdk_set_allowed_backends(backends)
 
-    public fun textureErrorQuark(): Quark = gdk_texture_error_quark()
-
     public fun toplevelSizeGetType(): GType = gdk_toplevel_size_get_type()
 
     /**
@@ -5027,8 +4965,6 @@ public object Gdk {
      *   or, if there is no corresponding symbol, wc | 0x01000000
      */
     public fun unicodeToKeyval(wc: guint): guint = gdk_unicode_to_keyval(wc)
-
-    public fun vulkanErrorQuark(): Quark = gdk_vulkan_error_quark()
 
     public fun resolveException(error: Error): GLibException {
         val ex = when (error.domain) {

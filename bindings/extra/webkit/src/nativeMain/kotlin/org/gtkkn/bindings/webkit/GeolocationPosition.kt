@@ -2,12 +2,10 @@
 package org.gtkkn.bindings.webkit
 
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_26
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gobject.guint64
@@ -21,7 +19,6 @@ import org.gtkkn.native.webkit.webkit_geolocation_position_set_altitude_accuracy
 import org.gtkkn.native.webkit.webkit_geolocation_position_set_heading
 import org.gtkkn.native.webkit.webkit_geolocation_position_set_speed
 import org.gtkkn.native.webkit.webkit_geolocation_position_set_timestamp
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * An opaque struct to provide position updates to a #WebKitGeolocationManager.
@@ -33,7 +30,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @WebKitVersion2_26
 public class GeolocationPosition(
     pointer: CPointer<WebKitGeolocationPosition>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val webkitGeolocationPositionPointer: CPointer<WebKitGeolocationPosition> = pointer
 
     /**
@@ -104,7 +101,7 @@ public class GeolocationPosition(
     @WebKitVersion2_26
     public fun setTimestamp(timestamp: guint64): Unit = webkit_geolocation_position_set_timestamp(webkitGeolocationPositionPointer.reinterpret(), timestamp)
 
-    public companion object : RecordCompanion<GeolocationPosition, WebKitGeolocationPosition> {
+    public companion object {
         /**
          * Create a new #WebKitGeolocationPosition.
          *
@@ -126,7 +123,5 @@ public class GeolocationPosition(
          * @return the GType
          */
         public fun getType(): GType = webkit_geolocation_position_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): GeolocationPosition = GeolocationPosition(pointer.reinterpret())
     }
 }

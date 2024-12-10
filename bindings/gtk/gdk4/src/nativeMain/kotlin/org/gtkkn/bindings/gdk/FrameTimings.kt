@@ -3,12 +3,10 @@ package org.gtkkn.bindings.gdk
 
 import kotlin.Boolean
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkFrameTimings
 import org.gtkkn.native.gdk.gdk_frame_timings_get_complete
 import org.gtkkn.native.gdk.gdk_frame_timings_get_frame_counter
@@ -21,7 +19,6 @@ import org.gtkkn.native.gdk.gdk_frame_timings_ref
 import org.gtkkn.native.gdk.gdk_frame_timings_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint64
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GdkFrameTimings` object holds timing information for a single frame
@@ -35,7 +32,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class FrameTimings(
     pointer: CPointer<GdkFrameTimings>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gdkFrameTimingsPointer: CPointer<GdkFrameTimings> = pointer
 
     /**
@@ -136,14 +133,12 @@ public class FrameTimings(
      */
     public fun unref(): Unit = gdk_frame_timings_unref(gdkFrameTimingsPointer.reinterpret())
 
-    public companion object : RecordCompanion<FrameTimings, GdkFrameTimings> {
+    public companion object {
         /**
          * Get the GType of FrameTimings
          *
          * @return the GType
          */
         public fun getType(): GType = gdk_frame_timings_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FrameTimings = FrameTimings(pointer.reinterpret())
     }
 }

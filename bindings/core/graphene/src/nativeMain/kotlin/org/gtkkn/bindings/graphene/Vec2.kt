@@ -2,15 +2,20 @@
 package org.gtkkn.bindings.graphene
 
 import kotlin.Boolean
+import kotlin.Pair
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gobject.gfloat
@@ -40,7 +45,6 @@ import org.gtkkn.native.graphene.graphene_vec2_t
 import org.gtkkn.native.graphene.graphene_vec2_x_axis
 import org.gtkkn.native.graphene.graphene_vec2_y_axis
 import org.gtkkn.native.graphene.graphene_vec2_zero
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A structure capable of holding a vector with two dimensions, x and y.
@@ -56,8 +60,37 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class Vec2(
     pointer: CPointer<graphene_vec2_t>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val grapheneVec2Pointer: CPointer<graphene_vec2_t> = pointer
+
+    /**
+     * Allocate a new Vec2.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<graphene_vec2_t>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Vec2 and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<graphene_vec2_t>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Vec2 using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_vec2_t>().ptr)
 
     /**
      * Adds each component of the two passed vectors and places
@@ -263,7 +296,7 @@ public class Vec2(
     @GrapheneVersion1_0
     public fun subtract(b: Vec2, res: Vec2): Unit = graphene_vec2_subtract(grapheneVec2Pointer.reinterpret(), b.grapheneVec2Pointer.reinterpret(), res.grapheneVec2Pointer.reinterpret())
 
-    public companion object : RecordCompanion<Vec2, graphene_vec2_t> {
+    public companion object {
         /**
          * Allocates a new #graphene_vec2_t structure.
          *
@@ -324,7 +357,5 @@ public class Vec2(
          * @return the GType
          */
         public fun getType(): GType = graphene_vec2_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Vec2 = Vec2(pointer.reinterpret())
     }
 }

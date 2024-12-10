@@ -95,7 +95,9 @@ import org.gtkkn.native.gtk.gtk_tree_view_column_set_widget
  *
  * - parameter `x_offset`: x_offset: Out parameter is not supported
  * - parameter `x_offset`: x_offset: Out parameter is not supported
+ * - method `set_attributes`: Varargs parameter is not supported
  * - method `cell-area`: Property has no getter nor setter
+ * - constructor `new_with_attributes`: Varargs parameter is not supported
  */
 public open class TreeViewColumn(
     pointer: CPointer<GtkTreeViewColumn>,

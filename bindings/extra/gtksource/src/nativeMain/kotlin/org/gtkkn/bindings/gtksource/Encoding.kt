@@ -3,13 +3,11 @@ package org.gtkkn.bindings.gtksource
 
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.SList
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceEncoding
 import org.gtkkn.native.gtksource.gtk_source_encoding_copy
@@ -23,7 +21,6 @@ import org.gtkkn.native.gtksource.gtk_source_encoding_get_name
 import org.gtkkn.native.gtksource.gtk_source_encoding_get_type
 import org.gtkkn.native.gtksource.gtk_source_encoding_get_utf8
 import org.gtkkn.native.gtksource.gtk_source_encoding_to_string
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Character encoding.
@@ -34,7 +31,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class Encoding(
     pointer: CPointer<GtkSourceEncoding>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gtksourceEncodingPointer: CPointer<GtkSourceEncoding> = pointer
 
     /**
@@ -72,7 +69,7 @@ public class Encoding(
      */
     override fun toString(): String = gtk_source_encoding_to_string(gtksourceEncodingPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
-    public companion object : RecordCompanion<Encoding, GtkSourceEncoding> {
+    public companion object {
         /**
          * Gets all encodings.
          *
@@ -132,7 +129,5 @@ public class Encoding(
          * @return the GType
          */
         public fun getType(): GType = gtk_source_encoding_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Encoding = Encoding(pointer.reinterpret())
     }
 }

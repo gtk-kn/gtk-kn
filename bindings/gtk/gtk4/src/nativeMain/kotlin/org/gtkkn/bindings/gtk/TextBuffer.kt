@@ -119,6 +119,9 @@ import org.gtkkn.native.gtk.gtk_text_buffer_undo
  *
  * ## Skipped during bindings generation
  *
+ * - method `create_tag`: Varargs parameter is not supported
+ * - method `insert_with_tags`: Varargs parameter is not supported
+ * - method `insert_with_tags_by_name`: Varargs parameter is not supported
  * - method `cursor-position`: Property has no getter nor setter
  * - method `text`: Property has no getter nor setter
  */

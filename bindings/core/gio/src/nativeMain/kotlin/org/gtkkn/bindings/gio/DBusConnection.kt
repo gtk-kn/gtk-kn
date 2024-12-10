@@ -148,7 +148,6 @@ import org.gtkkn.native.gobject.guint
  *
  * - parameter `out_fd_list`: out_fd_list: Out parameter is not supported
  * - parameter `out_fd_list`: out_fd_list: Out parameter is not supported
- * - method `register_object`: g_dbus_connection_register_object is shadowedBy register_object_with_closures
  * - parameter `user_data`: gpointer
  * - parameter `out_serial`: out_serial: Out parameter is not supported
  * - parameter `out_serial`: out_serial: Out parameter is not supported

@@ -20,12 +20,12 @@ package org.gtkkn.gir.model
  * Attributes of a callable (functions, callbacks, closures, etc.).
  *
  * @property info Common attributes for GIR elements.
- * @property name Name of the callable.
+ * @param name Name of the callable.
  * @property cIdentifier C identifier in the source code of the callable.
  * @property shadowedBy Name of the callable that shadows this callable.
- * @property shadows Name of the callable that this callable shadows.
+ * @param shadows Name of the callable that this callable shadows.
  * @property throws Indicates if the callable can throw an error.
- * @property movedTo Indicates the new name of the callable if it has been moved.
+ * @param movedTo Indicates the new name of the callable if it has been moved.
  * @property glibAsyncFunc Name of the asynchronous version of this callable.
  * @property glibSyncFunc Name of the synchronous version of this callable.
  * @property glibFinishFunc Name of the callable that finishes the asynchronous operation of this function.
@@ -33,12 +33,12 @@ package org.gtkkn.gir.model
 @Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirCallable(
     val info: GirInfo,
-    val name: String,
+    private val name: String,
     val cIdentifier: String? = null,
     val shadowedBy: String? = null,
-    val shadows: String? = null,
+    private val shadows: String? = null,
     val throws: Boolean? = null,
-    val movedTo: String? = null,
+    private val movedTo: String? = null,
     val glibAsyncFunc: String? = null,
     val glibSyncFunc: String? = null,
     val glibFinishFunc: String? = null,
@@ -48,4 +48,16 @@ data class GirCallable(
     override fun initializeChildren(namespace: GirNamespace) {
         info.initialize(this, namespace)
     }
+
+    fun getName(): String = when {
+        !movedTo.isNullOrBlank() -> movedTo
+        !shadows.isNullOrBlank() -> shadows
+        name.isNotBlank() -> name
+        else -> error("Name must not be blank")
+    }
+
+    fun shouldBeGenerated(): Boolean =
+        info.shouldBeGenerated() &&
+            shadowedBy.isNullOrEmpty() &&
+            movedTo?.contains(".") != true
 }

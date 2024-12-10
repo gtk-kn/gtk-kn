@@ -2,15 +2,21 @@
 package org.gtkkn.bindings.graphene
 
 import kotlin.Boolean
+import kotlin.Pair
+import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_4
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gobject.gfloat
@@ -33,7 +39,6 @@ import org.gtkkn.native.graphene.graphene_point3d_scale
 import org.gtkkn.native.graphene.graphene_point3d_t
 import org.gtkkn.native.graphene.graphene_point3d_to_vec3
 import org.gtkkn.native.graphene.graphene_point3d_zero
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A point with three components: X, Y, and Z.
@@ -42,7 +47,8 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GrapheneVersion1_0
 public class Point3D(
     pointer: CPointer<graphene_point3d_t>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val graphenePoint3DPointer: CPointer<graphene_point3d_t> = pointer
 
     /**
@@ -71,6 +77,75 @@ public class Point3D(
         set(`value`) {
             graphenePoint3DPointer.pointed.z = value
         }
+
+    /**
+     * Allocate a new Point3D.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<graphene_point3d_t>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Point3D and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<graphene_point3d_t>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Point3D using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_point3d_t>().ptr)
+
+    /**
+     * Allocate a new Point3D.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param x the X coordinate
+     * @param y the Y coordinate
+     * @param z the Z coordinate
+     */
+    public constructor(
+        x: gfloat,
+        y: gfloat,
+        z: gfloat,
+    ) : this() {
+        this.x = x
+        this.y = y
+        this.z = z
+    }
+
+    /**
+     * Allocate a new Point3D using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param x the X coordinate
+     * @param y the Y coordinate
+     * @param z the Z coordinate
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        x: gfloat,
+        y: gfloat,
+        z: gfloat,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.x = x
+        this.y = y
+        this.z = z
+    }
 
     /**
      * Computes the cross product of the two given #graphene_point3d_t.
@@ -259,7 +334,9 @@ public class Point3D(
     @GrapheneVersion1_0
     public fun toVec3(v: Vec3): Unit = graphene_point3d_to_vec3(graphenePoint3DPointer.reinterpret(), v.grapheneVec3Pointer.reinterpret())
 
-    public companion object : RecordCompanion<Point3D, graphene_point3d_t> {
+    override fun toString(): String = "Point3D(x=$x, y=$y, z=$z)"
+
+    public companion object {
         /**
          * Allocates a #graphene_point3d_t structure.
          *
@@ -286,7 +363,5 @@ public class Point3D(
          * @return the GType
          */
         public fun getType(): GType = graphene_point3d_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Point3D = Point3D(pointer.reinterpret())
     }
 }

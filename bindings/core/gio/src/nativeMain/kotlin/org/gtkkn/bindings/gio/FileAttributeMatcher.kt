@@ -5,14 +5,12 @@ import kotlin.Boolean
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GFileAttributeMatcher
 import org.gtkkn.native.gio.g_file_attribute_matcher_enumerate_namespace
 import org.gtkkn.native.gio.g_file_attribute_matcher_enumerate_next
@@ -25,14 +23,13 @@ import org.gtkkn.native.gio.g_file_attribute_matcher_subtract
 import org.gtkkn.native.gio.g_file_attribute_matcher_to_string
 import org.gtkkn.native.gio.g_file_attribute_matcher_unref
 import org.gtkkn.native.gobject.GType
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Determines if a string matches a file attribute.
  */
 public class FileAttributeMatcher(
     pointer: CPointer<GFileAttributeMatcher>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gioFileAttributeMatcherPointer: CPointer<GFileAttributeMatcher> = pointer
 
     /**
@@ -121,7 +118,7 @@ public class FileAttributeMatcher(
      */
     public fun unref(): Unit = g_file_attribute_matcher_unref(gioFileAttributeMatcherPointer.reinterpret())
 
-    public companion object : RecordCompanion<FileAttributeMatcher, GFileAttributeMatcher> {
+    public companion object {
         /**
          * Creates a new file attribute matcher, which matches attributes
          * against a given string. #GFileAttributeMatchers are reference
@@ -154,7 +151,5 @@ public class FileAttributeMatcher(
          * @return the GType
          */
         public fun getType(): GType = g_file_attribute_matcher_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FileAttributeMatcher = FileAttributeMatcher(pointer.reinterpret())
     }
 }

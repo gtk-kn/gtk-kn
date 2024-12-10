@@ -32,6 +32,9 @@ import org.gtkkn.native.gobject.gsize
  * - method `get_data`: Return type gpointer is unsupported
  * - method `steal_data`: Return type gpointer is unsupported
  * - method `data`: Property has no getter nor setter
+ * - method `destroy-function`: Property has no getter nor setter
+ * - method `realloc-function`: Property has no getter nor setter
+ * - parameter `data`: gpointer
  */
 public open class MemoryOutputStream(
     pointer: CPointer<GMemoryOutputStream>,

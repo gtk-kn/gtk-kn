@@ -268,8 +268,10 @@ import org.gtkkn.native.gobject.guint64
  * - parameter `etag_out`: etag_out: Out parameter is not supported
  * - parameter `contents`: contents: Out parameter is not supported
  * - parameter `contents`: contents: Out parameter is not supported
+ * - parameter `callback`: AsyncReadyCallback
  * - parameter `contents`: contents: Out parameter is not supported
  * - parameter `disk_usage`: disk_usage: Out parameter is not supported
+ * - parameter `callback`: AsyncReadyCallback
  * - parameter `disk_usage`: disk_usage: Out parameter is not supported
  * - parameter `callback`: AsyncReadyCallback
  * - parameter `contents`: Array parameter of type guint8 is not supported
@@ -277,6 +279,7 @@ import org.gtkkn.native.gobject.guint64
  * - parameter `new_etag`: new_etag: Out parameter is not supported
  * - parameter `value_p`: gpointer
  * - parameter `info`: info: Out parameter is not supported
+ * - function `new_build_filename`: Varargs parameter is not supported
  * - parameter `iostream`: iostream: Out parameter is not supported
  * - parameter `iostream`: iostream: Out parameter is not supported
  */

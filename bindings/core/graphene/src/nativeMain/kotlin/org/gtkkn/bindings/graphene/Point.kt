@@ -2,15 +2,21 @@
 package org.gtkkn.bindings.graphene
 
 import kotlin.Boolean
+import kotlin.Pair
+import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_4
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gobject.gfloat
@@ -26,7 +32,6 @@ import org.gtkkn.native.graphene.graphene_point_near
 import org.gtkkn.native.graphene.graphene_point_t
 import org.gtkkn.native.graphene.graphene_point_to_vec2
 import org.gtkkn.native.graphene.graphene_point_zero
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A point with two coordinates.
@@ -40,7 +45,8 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GrapheneVersion1_0
 public class Point(
     pointer: CPointer<graphene_point_t>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val graphenePointPointer: CPointer<graphene_point_t> = pointer
 
     /**
@@ -60,6 +66,66 @@ public class Point(
         set(`value`) {
             graphenePointPointer.pointed.y = value
         }
+
+    /**
+     * Allocate a new Point.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<graphene_point_t>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Point and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<graphene_point_t>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Point using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_point_t>().ptr)
+
+    /**
+     * Allocate a new Point.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param x the X coordinate of the point
+     * @param y the Y coordinate of the point
+     */
+    public constructor(x: gfloat, y: gfloat) : this() {
+        this.x = x
+        this.y = y
+    }
+
+    /**
+     * Allocate a new Point using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param x the X coordinate of the point
+     * @param y the Y coordinate of the point
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        x: gfloat,
+        y: gfloat,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.x = x
+        this.y = y
+    }
 
     /**
      * Checks if the two points @a and @b point to the same
@@ -159,7 +225,9 @@ public class Point(
     @GrapheneVersion1_4
     public fun toVec2(v: Vec2): Unit = graphene_point_to_vec2(graphenePointPointer.reinterpret(), v.grapheneVec2Pointer.reinterpret())
 
-    public companion object : RecordCompanion<Point, graphene_point_t> {
+    override fun toString(): String = "Point(x=$x, y=$y)"
+
+    public companion object {
         /**
          * Allocates a new #graphene_point_t structure.
          *
@@ -205,7 +273,5 @@ public class Point(
          * @return the GType
          */
         public fun getType(): GType = graphene_point_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Point = Point(pointer.reinterpret())
     }
 }

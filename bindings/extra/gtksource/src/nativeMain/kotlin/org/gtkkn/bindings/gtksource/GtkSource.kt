@@ -12,27 +12,21 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.MountOperation
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.bindings.glib.Quark
-import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_2
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.native.gio.GMountOperation
 import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.gint64
 import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gtksource.GtkSourceFile
 import org.gtkkn.native.gtksource.gtk_source_check_version
-import org.gtkkn.native.gtksource.gtk_source_encoding_get_all
-import org.gtkkn.native.gtksource.gtk_source_encoding_get_current
-import org.gtkkn.native.gtksource.gtk_source_encoding_get_default_candidates
-import org.gtkkn.native.gtksource.gtk_source_encoding_get_from_charset
-import org.gtkkn.native.gtksource.gtk_source_encoding_get_utf8
-import org.gtkkn.native.gtksource.gtk_source_file_loader_error_quark
-import org.gtkkn.native.gtksource.gtk_source_file_saver_error_quark
 import org.gtkkn.native.gtksource.gtk_source_finalize
 import org.gtkkn.native.gtksource.gtk_source_get_major_version
 import org.gtkkn.native.gtksource.gtk_source_get_micro_version
@@ -132,63 +126,6 @@ public object GtkSource {
         minor: guint,
         micro: guint,
     ): Boolean = gtk_source_check_version(major, minor, micro).asBoolean()
-
-    /**
-     * Gets all encodings.
-     *
-     * @return a list of
-     * all #GtkSourceEncoding's. Free with g_slist_free().
-     */
-    public fun encodingGetAll(): SList = gtk_source_encoding_get_all()!!.run {
-        SList(reinterpret())}
-
-    /**
-     * Gets the #GtkSourceEncoding for the current locale.
-     *
-     * See also [func@GLib.get_charset].
-     *
-     * @return the current locale encoding.
-     */
-    public fun encodingGetCurrent(): Encoding = gtk_source_encoding_get_current()!!.run {
-        Encoding(reinterpret())}
-
-    /**
-     * Gets the list of default candidate encodings to try when loading a file.
-     *
-     * See [method@FileLoader.set_candidate_encodings].
-     *
-     * This function returns a different list depending on the current locale (i.e.
-     * language, country and default encoding). The UTF-8 encoding and the current
-     * locale encoding are guaranteed to be present in the returned list.
-     *
-     * @return the list of
-     * default candidate encodings. Free with g_slist_free().
-     */
-    public fun encodingGetDefaultCandidates(): SList = gtk_source_encoding_get_default_candidates()!!.run {
-        SList(reinterpret())}
-
-    /**
-     * Gets a #GtkSourceEncoding from a character set such as "UTF-8" or
-     * "ISO-8859-1".
-     *
-     * @param charset a character set.
-     * @return the corresponding #GtkSourceEncoding, or null
-     * if not found.
-     */
-    public fun encodingGetFromCharset(charset: String): Encoding? = gtk_source_encoding_get_from_charset(charset)?.run {
-        Encoding(reinterpret())}
-
-    /**
-     *
-     *
-     * @return the UTF-8 encoding.
-     */
-    public fun encodingGetUtf8(): Encoding = gtk_source_encoding_get_utf8()!!.run {
-        Encoding(reinterpret())}
-
-    public fun fileLoaderErrorQuark(): Quark = gtk_source_file_loader_error_quark()
-
-    public fun fileSaverErrorQuark(): Quark = gtk_source_file_saver_error_quark()
 
     /**
      * Free the resources allocated by GtkSourceView. For example it unrefs the
@@ -337,12 +274,31 @@ public object GtkSource {
     }
 }
 
+public val MountOperationFactoryFunc:
+        CPointer<CFunction<(CPointer<GtkSourceFile>) -> CPointer<GMountOperation>>> =
+        staticCFunction {
+    `file`: CPointer<GtkSourceFile>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(`file`: File) -> MountOperation>().get().invoke(`file`!!.run {
+        File(reinterpret())}
+    ).gioMountOperationPointer}
+.reinterpret()
+
 public val SchedulerCallbackFunc: CPointer<CFunction<(gint64) -> gboolean>> = staticCFunction {
     deadline: gint64,
     userData: COpaquePointer
     ->
     userData.asStableRef<(deadline: gint64) -> Boolean>().get().invoke(deadline).asGBoolean()}
 .reinterpret()
+
+/**
+ * Type definition for a function that will be called to create a
+ * [class@Gio.MountOperation]. This is useful for creating a [class@Gtk.MountOperation].
+ *
+ * - param `file` a #GtkSourceFile.
+ */
+public typealias MountOperationFactory = (`file`: File) -> MountOperation
 
 /**
  * This function is called incrementally to process additional background work.

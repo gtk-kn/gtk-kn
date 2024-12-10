@@ -4,7 +4,6 @@ package org.gtkkn.bindings.webkit
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -12,8 +11,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_20
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitNavigationAction
@@ -27,14 +25,13 @@ import org.gtkkn.native.webkit.webkit_navigation_action_get_request
 import org.gtkkn.native.webkit.webkit_navigation_action_get_type
 import org.gtkkn.native.webkit.webkit_navigation_action_is_redirect
 import org.gtkkn.native.webkit.webkit_navigation_action_is_user_gesture
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Provides details about interaction resulting in a resource load.
  */
 public class NavigationAction(
     pointer: CPointer<WebKitNavigationAction>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val webkitNavigationActionPointer: CPointer<WebKitNavigationAction> = pointer
 
     /**
@@ -134,14 +131,12 @@ public class NavigationAction(
     @WebKitVersion2_6
     public fun isUserGesture(): Boolean = webkit_navigation_action_is_user_gesture(webkitNavigationActionPointer.reinterpret()).asBoolean()
 
-    public companion object : RecordCompanion<NavigationAction, WebKitNavigationAction> {
+    public companion object {
         /**
          * Get the GType of NavigationAction
          *
          * @return the GType
          */
         public fun getType(): GType = webkit_navigation_action_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): NavigationAction = NavigationAction(pointer.reinterpret())
     }
 }

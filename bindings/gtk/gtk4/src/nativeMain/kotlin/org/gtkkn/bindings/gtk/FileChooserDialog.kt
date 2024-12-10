@@ -190,6 +190,10 @@ import org.gtkkn.native.gtk.gtk_file_chooser_dialog_get_type
  *
  * `GtkFileChooserDialog` has a single CSS node with the name `window` and style
  * class `.filechooser`.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - constructor `new`: Varargs parameter is not supported
  */
 public open class FileChooserDialog(
     pointer: CPointer<GtkFileChooserDialog>,

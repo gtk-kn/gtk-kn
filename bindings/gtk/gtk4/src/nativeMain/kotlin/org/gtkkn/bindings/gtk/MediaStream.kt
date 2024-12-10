@@ -20,6 +20,7 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gobject.gint64
 import org.gtkkn.native.gtk.GtkMediaStream
+import org.gtkkn.native.gtk.gtk_media_stream_ended
 import org.gtkkn.native.gtk.gtk_media_stream_gerror
 import org.gtkkn.native.gtk.gtk_media_stream_get_duration
 import org.gtkkn.native.gtk.gtk_media_stream_get_ended
@@ -37,6 +38,7 @@ import org.gtkkn.native.gtk.gtk_media_stream_is_seekable
 import org.gtkkn.native.gtk.gtk_media_stream_is_seeking
 import org.gtkkn.native.gtk.gtk_media_stream_pause
 import org.gtkkn.native.gtk.gtk_media_stream_play
+import org.gtkkn.native.gtk.gtk_media_stream_prepared
 import org.gtkkn.native.gtk.gtk_media_stream_realize
 import org.gtkkn.native.gtk.gtk_media_stream_seek
 import org.gtkkn.native.gtk.gtk_media_stream_seek_failed
@@ -48,6 +50,7 @@ import org.gtkkn.native.gtk.gtk_media_stream_set_volume
 import org.gtkkn.native.gtk.gtk_media_stream_stream_ended
 import org.gtkkn.native.gtk.gtk_media_stream_stream_prepared
 import org.gtkkn.native.gtk.gtk_media_stream_stream_unprepared
+import org.gtkkn.native.gtk.gtk_media_stream_unprepared
 import org.gtkkn.native.gtk.gtk_media_stream_unrealize
 import org.gtkkn.native.gtk.gtk_media_stream_update
 
@@ -72,6 +75,8 @@ import org.gtkkn.native.gtk.gtk_media_stream_update
  *
  * ## Skipped during bindings generation
  *
+ * - method `error`: Varargs parameter is not supported
+ * - parameter `args`: va_list
  * - method `ended`: Property has no getter nor setter
  * - method `has-audio`: Property has no getter nor setter
  * - method `has-video`: Property has no getter nor setter
@@ -240,6 +245,16 @@ public open class MediaStream(
         set(volume) = gtk_media_stream_set_volume(gtkMediaStreamPointer.reinterpret(), volume)
 
     /**
+     * Pauses the media stream and marks it as ended.
+     *
+     * This is a hint only, calls to [method@Gtk.MediaStream.play]
+     * may still happen.
+     *
+     * The media stream must be prepared when this function is called.
+     */
+    public open fun ended(): Unit = gtk_media_stream_ended(gtkMediaStreamPointer.reinterpret())
+
+    /**
      * Sets @self into an error state.
      *
      * This will pause the stream (you can check for an error
@@ -322,6 +337,21 @@ public open class MediaStream(
      * If the stream is in error or already playing, do nothing.
      */
     public open fun play(): Unit = gtk_media_stream_play(gtkMediaStreamPointer.reinterpret())
+
+    /**
+     * Same as gtk_media_stream_stream_prepared().
+     *
+     * @param hasAudio true if the stream should advertise audio support
+     * @param hasVideo true if the stream should advertise video support
+     * @param seekable true if the stream should advertise seekability
+     * @param duration The duration of the stream or 0 if unknown
+     */
+    public open fun prepared(
+        hasAudio: Boolean,
+        hasVideo: Boolean,
+        seekable: Boolean,
+        duration: gint64,
+    ): Unit = gtk_media_stream_prepared(gtkMediaStreamPointer.reinterpret(), hasAudio.asGBoolean(), hasVideo.asGBoolean(), seekable.asGBoolean(), duration)
 
     /**
      * Called by users to attach the media stream to a `GdkSurface` they manage.
@@ -434,6 +464,11 @@ public open class MediaStream(
      */
     @GtkVersion4_4
     public open fun streamUnprepared(): Unit = gtk_media_stream_stream_unprepared(gtkMediaStreamPointer.reinterpret())
+
+    /**
+     * Same as gtk_media_stream_stream_unprepared().
+     */
+    public open fun unprepared(): Unit = gtk_media_stream_unprepared(gtkMediaStreamPointer.reinterpret())
 
     /**
      * Undoes a previous call to gtk_media_stream_realize().

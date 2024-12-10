@@ -4,11 +4,10 @@ package org.gtkkn.bindings.glib
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Short
-import kotlin.String
 import kotlin.Unit
 import kotlin.collections.List
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.cstr
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -21,8 +20,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_40
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toCStringList
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GVariant
 import org.gtkkn.native.glib.g_variant_byteswap
 import org.gtkkn.native.glib.g_variant_check_format_string
@@ -52,6 +50,7 @@ import org.gtkkn.native.glib.g_variant_is_normal_form
 import org.gtkkn.native.glib.g_variant_is_object_path
 import org.gtkkn.native.glib.g_variant_is_of_type
 import org.gtkkn.native.glib.g_variant_is_signature
+import org.gtkkn.native.glib.g_variant_iter_new
 import org.gtkkn.native.glib.g_variant_lookup_value
 import org.gtkkn.native.glib.g_variant_n_children
 import org.gtkkn.native.glib.g_variant_new_boolean
@@ -70,6 +69,7 @@ import org.gtkkn.native.glib.g_variant_new_objv
 import org.gtkkn.native.glib.g_variant_new_signature
 import org.gtkkn.native.glib.g_variant_new_string
 import org.gtkkn.native.glib.g_variant_new_strv
+import org.gtkkn.native.glib.g_variant_new_take_string
 import org.gtkkn.native.glib.g_variant_new_uint16
 import org.gtkkn.native.glib.g_variant_new_uint32
 import org.gtkkn.native.glib.g_variant_new_uint64
@@ -78,6 +78,7 @@ import org.gtkkn.native.glib.g_variant_parse_error_print_context
 import org.gtkkn.native.glib.g_variant_parse_error_quark
 import org.gtkkn.native.glib.g_variant_parser_get_error_quark
 import org.gtkkn.native.glib.g_variant_print
+import org.gtkkn.native.glib.g_variant_print_string
 import org.gtkkn.native.glib.g_variant_ref
 import org.gtkkn.native.glib.g_variant_ref_sink
 import org.gtkkn.native.glib.g_variant_take_ref
@@ -90,7 +91,6 @@ import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gobject.guint16
 import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.gobject.guint8
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * `GVariant` is a variant datatype; it can contain one or more values
@@ -347,18 +347,28 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `two`: Variant
+ * - method `get`: Varargs parameter is not supported
  * - method `get_bytestring`: Array parameter of type guint8 is not supported
  * - parameter `length`: length: Out parameter is not supported
+ * - method `get_child`: Varargs parameter is not supported
  * - method `get_data`: Return type gpointer is unsupported
+ * - parameter `n_elements`: n_elements: Out parameter is not supported
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `length`: length: Out parameter is not supported
+ * - parameter `endptr`: Unsupported string with cType const gchar**
+ * - method `lookup`: Varargs parameter is not supported
  * - parameter `data`: gpointer
+ * - constructor `new`: Varargs parameter is not supported
  * - parameter `children`: Array parameter of type Variant is not supported
  * - parameter `string`: Array parameter of type guint8 is not supported
  * - parameter `elements`: gpointer
  * - parameter `data`: Array parameter of type guint8 is not supported
+ * - constructor `new_parsed`: Varargs parameter is not supported
+ * - parameter `app`: va_list
+ * - constructor `new_printf`: Varargs parameter is not supported
  * - parameter `children`: Array parameter of type Variant is not supported
+ * - parameter `endptr`: Unsupported string with cType const gchar**
  * - parameter `endptr`: Unsupported string with cType const gchar**
  *
  * @since 2.24
@@ -366,7 +376,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GLibVersion2_24
 public class Variant(
     pointer: CPointer<GVariant>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibVariantPointer: CPointer<GVariant> = pointer
 
     /**
@@ -417,7 +427,7 @@ public class Variant(
      * @since 2.34
      */
     @GLibVersion2_34
-    public fun checkFormatString(formatString: String, copyOnly: Boolean): Boolean = g_variant_check_format_string(glibVariantPointer.reinterpret(), formatString, copyOnly.asGBoolean()).asBoolean()
+    public fun checkFormatString(formatString: kotlin.String, copyOnly: Boolean): Boolean = g_variant_check_format_string(glibVariantPointer.reinterpret(), formatString, copyOnly.asGBoolean()).asBoolean()
 
     /**
      * Classifies @value according to its top-level type.
@@ -649,7 +659,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getTypeString(): String = g_variant_get_type_string(glibVariantPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun getTypeString(): kotlin.String = g_variant_get_type_string(glibVariantPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the 16-bit unsigned integer value of @value.
@@ -773,6 +783,23 @@ public class Variant(
     public fun isOfType(type: VariantType): Boolean = g_variant_is_of_type(glibVariantPointer.reinterpret(), type.glibVariantTypePointer.reinterpret()).asBoolean()
 
     /**
+     * Creates a heap-allocated #GVariantIter for iterating over the items
+     * in @value.
+     *
+     * Use g_variant_iter_free() to free the return value when you no longer
+     * need it.
+     *
+     * A reference is taken to @value and will be released only when
+     * g_variant_iter_free() is called.
+     *
+     * @return a new heap-allocated #GVariantIter
+     * @since 2.24
+     */
+    @GLibVersion2_24
+    public fun iterNew(): VariantIter = g_variant_iter_new(glibVariantPointer.reinterpret())!!.run {
+        VariantIter(reinterpret())}
+
+    /**
      * Looks up a value in a dictionary #GVariant.
      *
      * This function works with dictionaries of the type a{s*} (and equally
@@ -801,7 +828,7 @@ public class Variant(
      * @since 2.28
      */
     @GLibVersion2_28
-    public fun lookupValue(key: String, expectedType: VariantType? = null): Variant = g_variant_lookup_value(glibVariantPointer.reinterpret(), key, expectedType?.glibVariantTypePointer?.reinterpret())!!.run {
+    public fun lookupValue(key: kotlin.String, expectedType: VariantType? = null): Variant = g_variant_lookup_value(glibVariantPointer.reinterpret(), key, expectedType?.glibVariantTypePointer?.reinterpret())!!.run {
         Variant(reinterpret())}
 
     /**
@@ -837,7 +864,23 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun print(typeAnnotate: Boolean): String = g_variant_print(glibVariantPointer.reinterpret(), typeAnnotate.asGBoolean())?.toKString() ?: error("Expected not null string")
+    public fun print(typeAnnotate: Boolean): kotlin.String = g_variant_print(glibVariantPointer.reinterpret(), typeAnnotate.asGBoolean())?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Behaves as g_variant_print(), but operates on a #GString.
+     *
+     * If @string is non-null then it is appended to and returned.  Else,
+     * a new empty #GString is allocated and it is returned.
+     *
+     * @param string a #GString, or null
+     * @param typeAnnotate true if type information should be included in
+     *                 the output
+     * @return a #GString containing the string
+     * @since 2.24
+     */
+    @GLibVersion2_24
+    public fun printString(string: String? = null, typeAnnotate: Boolean): String = g_variant_print_string(glibVariantPointer.reinterpret(), string?.glibStringPointer?.reinterpret(), typeAnnotate.asGBoolean())!!.run {
+        String(reinterpret())}
 
     /**
      * Increases the reference count of @value.
@@ -928,7 +971,7 @@ public class Variant(
     @GLibVersion2_24
     public fun unref(): Unit = g_variant_unref(glibVariantPointer.reinterpret())
 
-    public companion object : RecordCompanion<Variant, GVariant> {
+    public companion object {
         /**
          * Creates a new boolean #GVariant instance -- either true or false.
          *
@@ -958,7 +1001,7 @@ public class Variant(
          * @return a new floating #GVariant instance
          * @since 2.26
          */
-        public fun newBytestringArray(strv: List<String>, length: Long): Variant {
+        public fun newBytestringArray(strv: List<kotlin.String>, length: Long): Variant {
             memScoped {
                 return Variant(g_variant_new_bytestring_array(strv.toCStringList(this), length)!!.reinterpret())}
         }
@@ -1077,7 +1120,7 @@ public class Variant(
          * @return a floating reference to a new object path #GVariant instance
          * @since 2.24
          */
-        public fun newObjectPath(objectPath: String): Variant = Variant(g_variant_new_object_path(objectPath)!!.reinterpret())
+        public fun newObjectPath(objectPath: kotlin.String): Variant = Variant(g_variant_new_object_path(objectPath)!!.reinterpret())
 
         /**
          * Constructs an array of object paths #GVariant from the given array of
@@ -1093,7 +1136,7 @@ public class Variant(
          * @return a new floating #GVariant instance
          * @since 2.30
          */
-        public fun newObjv(strv: List<String>, length: Long): Variant {
+        public fun newObjv(strv: List<kotlin.String>, length: Long): Variant {
             memScoped {
                 return Variant(g_variant_new_objv(strv.toCStringList(this), length)!!.reinterpret())}
         }
@@ -1107,7 +1150,7 @@ public class Variant(
          * @return a floating reference to a new signature #GVariant instance
          * @since 2.24
          */
-        public fun newSignature(signature: String): Variant = Variant(g_variant_new_signature(signature)!!.reinterpret())
+        public fun newSignature(signature: kotlin.String): Variant = Variant(g_variant_new_signature(signature)!!.reinterpret())
 
         /**
          * Creates a string #GVariant with the contents of @string.
@@ -1120,7 +1163,7 @@ public class Variant(
          * @return a floating reference to a new string #GVariant instance
          * @since 2.24
          */
-        public fun newString(string: String): Variant = Variant(g_variant_new_string(string)!!.reinterpret())
+        public fun newString(string: kotlin.String): Variant = Variant(g_variant_new_string(string)!!.reinterpret())
 
         /**
          * Constructs an array of strings #GVariant from the given array of
@@ -1133,10 +1176,31 @@ public class Variant(
          * @return a new floating #GVariant instance
          * @since 2.24
          */
-        public fun newStrv(strv: List<String>, length: Long): Variant {
+        public fun newStrv(strv: List<kotlin.String>, length: Long): Variant {
             memScoped {
                 return Variant(g_variant_new_strv(strv.toCStringList(this), length)!!.reinterpret())}
         }
+
+        /**
+         * Creates a string #GVariant with the contents of @string.
+         *
+         * @string must be valid UTF-8, and must not be null. To encode
+         * potentially-null strings, use this with g_variant_new_maybe().
+         *
+         * After this call, @string belongs to the #GVariant and may no longer be
+         * modified by the caller. The memory of @data has to be dynamically
+         * allocated and will eventually be freed with g_free().
+         *
+         * You must not modify or access @string in any other way after passing
+         * it to this function.  It is even possible that @string is immediately
+         * freed.
+         *
+         * @param string a normal UTF-8 nul-terminated string
+         * @return a floating reference to a new string
+         *   #GVariant instance
+         * @since 2.38
+         */
+        public fun newTakeString(string: kotlin.String): Variant = Variant(g_variant_new_take_string(string.cstr)!!.reinterpret())
 
         /**
          * Creates a new uint16 #GVariant instance.
@@ -1193,7 +1257,7 @@ public class Variant(
          * @since 2.24
          */
         @GLibVersion2_24
-        public fun isObjectPath(string: String): Boolean = g_variant_is_object_path(string).asBoolean()
+        public fun isObjectPath(string: kotlin.String): Boolean = g_variant_is_object_path(string).asBoolean()
 
         /**
          * Determines if a given string is a valid D-Bus type signature.  You
@@ -1208,7 +1272,7 @@ public class Variant(
          * @since 2.24
          */
         @GLibVersion2_24
-        public fun isSignature(string: String): Boolean = g_variant_is_signature(string).asBoolean()
+        public fun isSignature(string: kotlin.String): Boolean = g_variant_is_signature(string).asBoolean()
 
         /**
          * Pretty-prints a message showing the context of a #GVariant parse
@@ -1247,7 +1311,7 @@ public class Variant(
          * @since 2.40
          */
         @GLibVersion2_40
-        public fun parseErrorPrintContext(error: Error, sourceStr: String): String = g_variant_parse_error_print_context(error.glibErrorPointer.reinterpret(), sourceStr)?.toKString() ?: error("Expected not null string")
+        public fun parseErrorPrintContext(error: Error, sourceStr: kotlin.String): kotlin.String = g_variant_parse_error_print_context(error.glibErrorPointer.reinterpret(), sourceStr)?.toKString() ?: error("Expected not null string")
 
         public fun parseErrorQuark(): Quark = g_variant_parse_error_quark()
 
@@ -1255,7 +1319,5 @@ public class Variant(
          * Same as g_variant_error_quark().
          */
         public fun parserGetErrorQuark(): Quark = g_variant_parser_get_error_quark()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Variant = Variant(pointer.reinterpret())
     }
 }

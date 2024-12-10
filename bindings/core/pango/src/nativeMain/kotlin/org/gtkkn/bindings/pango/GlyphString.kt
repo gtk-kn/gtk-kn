@@ -1,14 +1,13 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_14
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.pango.PangoGlyphString
@@ -20,7 +19,6 @@ import org.gtkkn.native.pango.pango_glyph_string_get_type
 import org.gtkkn.native.pango.pango_glyph_string_get_width
 import org.gtkkn.native.pango.pango_glyph_string_new
 import org.gtkkn.native.pango.pango_glyph_string_set_size
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `PangoGlyphString` is used to store strings of glyphs with geometry
@@ -41,7 +39,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class GlyphString(
     pointer: CPointer<PangoGlyphString>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val pangoGlyphStringPointer: CPointer<PangoGlyphString> = pointer
 
     /**
@@ -131,7 +129,9 @@ public class GlyphString(
      */
     public fun setSize(newLen: gint): Unit = pango_glyph_string_set_size(pangoGlyphStringPointer.reinterpret(), newLen)
 
-    public companion object : RecordCompanion<GlyphString, PangoGlyphString> {
+    override fun toString(): String = "GlyphString(numGlyphs=$numGlyphs)"
+
+    public companion object {
         /**
          * Create a new `PangoGlyphString`.
          *
@@ -146,7 +146,5 @@ public class GlyphString(
          * @return the GType
          */
         public fun getType(): GType = pango_glyph_string_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): GlyphString = GlyphString(pointer.reinterpret())
     }
 }

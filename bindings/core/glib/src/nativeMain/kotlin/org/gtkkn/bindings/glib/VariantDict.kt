@@ -4,17 +4,16 @@ package org.gtkkn.bindings.glib
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_40
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GVariantDict
 import org.gtkkn.native.glib.g_variant_dict_clear
 import org.gtkkn.native.glib.g_variant_dict_contains
 import org.gtkkn.native.glib.g_variant_dict_end
+import org.gtkkn.native.glib.g_variant_dict_init
 import org.gtkkn.native.glib.g_variant_dict_insert_value
 import org.gtkkn.native.glib.g_variant_dict_lookup_value
 import org.gtkkn.native.glib.g_variant_dict_new
@@ -23,7 +22,6 @@ import org.gtkkn.native.glib.g_variant_dict_remove
 import org.gtkkn.native.glib.g_variant_dict_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_variant_dict_get_type
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * #GVariantDict is a mutable interface to #GVariant dictionaries.
@@ -115,12 +113,18 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  *     return result;
  *   }
  * ]|
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `insert`: Varargs parameter is not supported
+ * - method `lookup`: Varargs parameter is not supported
+ *
  * @since 2.40
  */
 @GLibVersion2_40
 public class VariantDict(
     pointer: CPointer<GVariantDict>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibVariantDictPointer: CPointer<GVariantDict> = pointer
 
     /**
@@ -169,6 +173,30 @@ public class VariantDict(
     @GLibVersion2_40
     public fun end(): Variant = g_variant_dict_end(glibVariantDictPointer.reinterpret())!!.run {
         Variant(reinterpret())}
+
+    /**
+     * Initialises a #GVariantDict structure.
+     *
+     * If @from_asv is given, it is used to initialise the dictionary.
+     *
+     * This function completely ignores the previous contents of @dict.  On
+     * one hand this means that it is valid to pass in completely
+     * uninitialised memory.  On the other hand, this means that if you are
+     * initialising over top of an existing #GVariantDict you need to first
+     * call g_variant_dict_clear() in order to avoid leaking memory.
+     *
+     * You must not call g_variant_dict_ref() or g_variant_dict_unref() on a
+     * #GVariantDict that was initialised with this function.  If you ever
+     * pass a reference to a #GVariantDict outside of the control of your
+     * own code then you should assume that the person receiving that
+     * reference may try to use reference counting; you should use
+     * g_variant_dict_new() instead of this function.
+     *
+     * @param fromAsv the initial value for @dict
+     * @since 2.40
+     */
+    @GLibVersion2_40
+    public fun `init`(fromAsv: Variant? = null): Unit = g_variant_dict_init(glibVariantDictPointer.reinterpret(), fromAsv?.glibVariantPointer?.reinterpret())
 
     /**
      * Inserts (or replaces) a key in a #GVariantDict.
@@ -241,7 +269,7 @@ public class VariantDict(
     @GLibVersion2_40
     public fun unref(): Unit = g_variant_dict_unref(glibVariantDictPointer.reinterpret())
 
-    public companion object : RecordCompanion<VariantDict, GVariantDict> {
+    public companion object {
         /**
          * Allocates and initialises a new #GVariantDict.
          *
@@ -267,7 +295,5 @@ public class VariantDict(
          * @return the GType
          */
         public fun getType(): GType = g_variant_dict_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): VariantDict = VariantDict(pointer.reinterpret())
     }
 }

@@ -5,15 +5,13 @@ import kotlin.Boolean
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.gunichar
@@ -32,7 +30,6 @@ import org.gtkkn.native.pango.pango_tab_array_set_positions_in_pixels
 import org.gtkkn.native.pango.pango_tab_array_set_tab
 import org.gtkkn.native.pango.pango_tab_array_sort
 import org.gtkkn.native.pango.pango_tab_array_to_string
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `PangoTabArray` contains an array of tab stops.
@@ -45,10 +42,11 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  *
  * - parameter `alignment`: alignment: Out parameter is not supported
  * - parameter `alignments`: alignments: Out parameter is not supported
+ * - constructor `new_with_positions`: Varargs parameter is not supported
  */
 public class TabArray(
     pointer: CPointer<PangoTabArray>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val pangoTabArrayPointer: CPointer<PangoTabArray> = pointer
 
     /**
@@ -171,7 +169,7 @@ public class TabArray(
     @PangoVersion1_50
     override fun toString(): String = pango_tab_array_to_string(pangoTabArrayPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
-    public companion object : RecordCompanion<TabArray, PangoTabArray> {
+    public companion object {
         /**
          * Creates an array of @initial_size tab stops.
          *
@@ -205,7 +203,5 @@ public class TabArray(
          * @return the GType
          */
         public fun getType(): GType = pango_tab_array_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TabArray = TabArray(pointer.reinterpret())
     }
 }

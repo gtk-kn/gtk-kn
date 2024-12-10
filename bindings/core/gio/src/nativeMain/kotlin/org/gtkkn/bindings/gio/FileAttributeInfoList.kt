@@ -3,12 +3,10 @@ package org.gtkkn.bindings.gio
 
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GFileAttributeInfoList
 import org.gtkkn.native.gio.g_file_attribute_info_list_add
 import org.gtkkn.native.gio.g_file_attribute_info_list_dup
@@ -19,7 +17,6 @@ import org.gtkkn.native.gio.g_file_attribute_info_list_ref
 import org.gtkkn.native.gio.g_file_attribute_info_list_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Acts as a lightweight registry for possible valid file attributes.
@@ -27,17 +24,18 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class FileAttributeInfoList(
     pointer: CPointer<GFileAttributeInfoList>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gioFileAttributeInfoListPointer: CPointer<GFileAttributeInfoList> = pointer
 
     /**
      * an array of #GFileAttributeInfos.
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val infos: FileAttributeInfo?
+    public var infos: FileAttributeInfo?
         get() = gioFileAttributeInfoListPointer.pointed.infos?.run {
             FileAttributeInfo(reinterpret())}
+        set(`value`) {
+            gioFileAttributeInfoListPointer.pointed.infos = value?.gioFileAttributeInfoPointer
+        }
 
     /**
      * the number of values in the array.
@@ -94,7 +92,9 @@ public class FileAttributeInfoList(
      */
     public fun unref(): Unit = g_file_attribute_info_list_unref(gioFileAttributeInfoListPointer.reinterpret())
 
-    public companion object : RecordCompanion<FileAttributeInfoList, GFileAttributeInfoList> {
+    override fun toString(): String = "FileAttributeInfoList(infos=$infos, nInfos=$nInfos)"
+
+    public companion object {
         /**
          * Creates a new file attribute info list.
          *
@@ -108,7 +108,5 @@ public class FileAttributeInfoList(
          * @return the GType
          */
         public fun getType(): GType = g_file_attribute_info_list_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FileAttributeInfoList = FileAttributeInfoList(pointer.reinterpret())
     }
 }

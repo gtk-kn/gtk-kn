@@ -4,7 +4,6 @@ package org.gtkkn.bindings.glib
 import kotlin.Boolean
 import kotlin.Char
 import kotlin.Long
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.cstr
 import kotlinx.cinterop.pointed
@@ -17,9 +16,10 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_68
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_76
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GString
+import org.gtkkn.native.glib.g_free
+import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.g_string_append
 import org.gtkkn.native.glib.g_string_append_c
 import org.gtkkn.native.glib.g_string_append_len
@@ -58,7 +58,6 @@ import org.gtkkn.native.gobject.g_gstring_get_type
 import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gobject.gunichar
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GString` is an object that handles the memory management of a C string.
@@ -71,21 +70,30 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  * which includes any possible embedded nul characters in the data. Conceptually then,
  * `GString` is like a `GByteArray` with the addition of many convenience methods for
  * text, and a guaranteed nul terminator.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `append_printf`: Varargs parameter is not supported
+ * - parameter `args`: va_list
+ * - method `printf`: Varargs parameter is not supported
+ * - parameter `args`: va_list
  */
 public class String(
     pointer: CPointer<GString>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibStringPointer: CPointer<GString> = pointer
 
     /**
      * points to the character data. It may move as text is added.
      *   The @str field is null-terminated and so
      *   can be used as an ordinary C string.
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val str: kotlin.String?
+    public var str: kotlin.String?
         get() = glibStringPointer.pointed.str?.toKString()
+        set(`value`) {
+            glibStringPointer.pointed.str?.let { g_free(it) }
+            glibStringPointer.pointed.str = value?.let { g_strdup(it) }
+        }
 
     /**
      * contains the length of the string, not including the
@@ -478,7 +486,9 @@ public class String(
     public fun up(): String = g_string_up(glibStringPointer.reinterpret())!!.run {
         String(reinterpret())}
 
-    public companion object : RecordCompanion<String, GString> {
+    override fun toString(): kotlin.String = "String(str=$str, len=$len, allocatedLen=$allocatedLen)"
+
+    public companion object {
         /**
          * Creates a new #GString, initialized with the given string.
          *
@@ -535,7 +545,5 @@ public class String(
          * @return the GType
          */
         public fun getType(): GType = g_gstring_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): String = String(pointer.reinterpret())
     }
 }

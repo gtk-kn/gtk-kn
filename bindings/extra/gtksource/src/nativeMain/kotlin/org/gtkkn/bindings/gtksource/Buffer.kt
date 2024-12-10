@@ -128,6 +128,7 @@ import org.gtkkn.native.gtksource.gtk_source_buffer_sort_lines
  * ## Skipped during bindings generation
  *
  * - method `backward_iter_to_source_mark`: In/Out parameter is not supported
+ * - method `create_source_tag`: Varargs parameter is not supported
  * - method `forward_iter_to_source_mark`: In/Out parameter is not supported
  * - method `iter_backward_to_context_class_toggle`: In/Out parameter is not supported
  * - method `iter_forward_to_context_class_toggle`: In/Out parameter is not supported

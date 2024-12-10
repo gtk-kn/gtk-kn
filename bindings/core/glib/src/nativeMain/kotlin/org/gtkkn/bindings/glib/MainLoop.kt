@@ -3,13 +3,11 @@ package org.gtkkn.bindings.glib
 
 import kotlin.Boolean
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GMainLoop
 import org.gtkkn.native.glib.g_main_loop_get_context
 import org.gtkkn.native.glib.g_main_loop_is_running
@@ -20,7 +18,6 @@ import org.gtkkn.native.glib.g_main_loop_run
 import org.gtkkn.native.glib.g_main_loop_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_main_loop_get_type
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `GMainLoop` struct is an opaque data type
@@ -28,7 +25,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class MainLoop(
     pointer: CPointer<GMainLoop>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibMainLoopPointer: CPointer<GMainLoop> = pointer
 
     /**
@@ -77,7 +74,7 @@ public class MainLoop(
      */
     public fun unref(): Unit = g_main_loop_unref(glibMainLoopPointer.reinterpret())
 
-    public companion object : RecordCompanion<MainLoop, GMainLoop> {
+    public companion object {
         /**
          * Creates a new #GMainLoop structure.
          *
@@ -96,7 +93,5 @@ public class MainLoop(
          * @return the GType
          */
         public fun getType(): GType = g_main_loop_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MainLoop = MainLoop(pointer.reinterpret())
     }
 }

@@ -2,20 +2,18 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Short
+import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBorder
 import org.gtkkn.native.gtk.gtk_border_copy
 import org.gtkkn.native.gtk.gtk_border_free
 import org.gtkkn.native.gtk.gtk_border_get_type
 import org.gtkkn.native.gtk.gtk_border_new
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A struct that specifies a border around a rectangular area.
@@ -24,7 +22,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class Border(
     pointer: CPointer<GtkBorder>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gtkBorderPointer: CPointer<GtkBorder> = pointer
 
     /**
@@ -76,7 +74,9 @@ public class Border(
      */
     public fun free(): Unit = gtk_border_free(gtkBorderPointer.reinterpret())
 
-    public companion object : RecordCompanion<Border, GtkBorder> {
+    override fun toString(): String = "Border(left=$left, right=$right, top=$top, bottom=$bottom)"
+
+    public companion object {
         /**
          * Allocates a new `GtkBorder` struct and initializes its elements to zero.
          *
@@ -91,7 +91,5 @@ public class Border(
          * @return the GType
          */
         public fun getType(): GType = gtk_border_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Border = Border(pointer.reinterpret())
     }
 }

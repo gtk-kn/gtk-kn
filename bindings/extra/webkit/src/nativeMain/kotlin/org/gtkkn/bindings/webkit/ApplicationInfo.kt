@@ -3,13 +3,11 @@ package org.gtkkn.bindings.webkit
 
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_18
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.webkit.WebKitApplicationInfo
@@ -20,7 +18,6 @@ import org.gtkkn.native.webkit.webkit_application_info_ref
 import org.gtkkn.native.webkit.webkit_application_info_set_name
 import org.gtkkn.native.webkit.webkit_application_info_set_version
 import org.gtkkn.native.webkit.webkit_application_info_unref
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Information about an application running in automation mode.
@@ -31,7 +28,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class ApplicationInfo(
     pointer: CPointer<WebKitApplicationInfo>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val webkitApplicationInfoPointer: CPointer<WebKitApplicationInfo> = pointer
 
     /**
@@ -104,7 +101,7 @@ public class ApplicationInfo(
     @WebKitVersion2_18
     public fun unref(): Unit = webkit_application_info_unref(webkitApplicationInfoPointer.reinterpret())
 
-    public companion object : RecordCompanion<ApplicationInfo, WebKitApplicationInfo> {
+    public companion object {
         /**
          * Creates a new #WebKitApplicationInfo
          *
@@ -119,7 +116,5 @@ public class ApplicationInfo(
          * @return the GType
          */
         public fun getType(): GType = webkit_application_info_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ApplicationInfo = ApplicationInfo(pointer.reinterpret())
     }
 }

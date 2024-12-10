@@ -4,7 +4,6 @@ package org.gtkkn.bindings.gtk
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -19,8 +18,7 @@ import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gtk.Gtk.resolveException
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
@@ -51,7 +49,6 @@ import org.gtkkn.native.gtk.gtk_paper_size_new_from_ppd
 import org.gtkkn.native.gtk.gtk_paper_size_set_size
 import org.gtkkn.native.gtk.gtk_paper_size_to_gvariant
 import org.gtkkn.native.gtk.gtk_paper_size_to_key_file
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * `GtkPaperSize` handles paper sizes.
@@ -68,7 +65,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class PaperSize(
     pointer: CPointer<GtkPaperSize>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gtkPaperSizePointer: CPointer<GtkPaperSize> = pointer
 
     /**
@@ -208,7 +205,7 @@ public class PaperSize(
      */
     public fun toKeyFile(keyFile: KeyFile, groupName: String): kotlin.Unit = gtk_paper_size_to_key_file(gtkPaperSizePointer.reinterpret(), keyFile.glibKeyFilePointer.reinterpret(), groupName)
 
-    public companion object : RecordCompanion<PaperSize, GtkPaperSize> {
+    public companion object {
         /**
          * Creates a new `GtkPaperSize` object by parsing a
          * [PWG 5101.1-2002](ftp://ftp.pwg.org/pub/pwg/candidates/cs-pwgmsn10-20020226-5101.1.pdf)
@@ -344,7 +341,5 @@ public class PaperSize(
          * @return the GType
          */
         public fun getType(): GType = gtk_paper_size_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PaperSize = PaperSize(pointer.reinterpret())
     }
 }

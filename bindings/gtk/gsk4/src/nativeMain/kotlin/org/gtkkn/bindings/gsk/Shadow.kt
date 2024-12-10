@@ -1,15 +1,19 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
-import kotlinx.cinterop.CPointed
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
-import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskShadow
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The shadow parameters in a shadow node.
@@ -20,7 +24,8 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class Shadow(
     pointer: CPointer<GskShadow>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gskShadowPointer: CPointer<GskShadow> = pointer
 
     /**
@@ -50,7 +55,74 @@ public class Shadow(
             gskShadowPointer.pointed.radius = value
         }
 
-    public companion object : RecordCompanion<Shadow, GskShadow> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Shadow = Shadow(pointer.reinterpret())
+    /**
+     * Allocate a new Shadow.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GskShadow>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
     }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Shadow and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GskShadow>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Shadow using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GskShadow>().ptr)
+
+    /**
+     * Allocate a new Shadow.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param dx the horizontal offset of the shadow
+     * @param dy the vertical offset of the shadow
+     * @param radius the radius of the shadow
+     */
+    public constructor(
+        dx: gfloat,
+        dy: gfloat,
+        radius: gfloat,
+    ) : this() {
+        this.dx = dx
+        this.dy = dy
+        this.radius = radius
+    }
+
+    /**
+     * Allocate a new Shadow using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param dx the horizontal offset of the shadow
+     * @param dy the vertical offset of the shadow
+     * @param radius the radius of the shadow
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        dx: gfloat,
+        dy: gfloat,
+        radius: gfloat,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.dx = dx
+        this.dy = dy
+        this.radius = radius
+    }
+
+    override fun toString(): String = "Shadow(dx=$dx, dy=$dy, radius=$radius)"
 }

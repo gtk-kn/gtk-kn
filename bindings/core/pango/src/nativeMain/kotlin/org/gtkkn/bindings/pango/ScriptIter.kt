@@ -4,13 +4,11 @@ package org.gtkkn.bindings.pango
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_4
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.pango.PangoScriptIter
@@ -18,7 +16,6 @@ import org.gtkkn.native.pango.pango_script_iter_free
 import org.gtkkn.native.pango.pango_script_iter_get_type
 import org.gtkkn.native.pango.pango_script_iter_new
 import org.gtkkn.native.pango.pango_script_iter_next
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `PangoScriptIter` is used to iterate through a string
@@ -30,7 +27,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class ScriptIter(
     pointer: CPointer<PangoScriptIter>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val pangoScriptIterPointer: CPointer<PangoScriptIter> = pointer
 
     /**
@@ -53,7 +50,7 @@ public class ScriptIter(
     @PangoVersion1_4
     public fun next(): Boolean = pango_script_iter_next(pangoScriptIterPointer.reinterpret()).asBoolean()
 
-    public companion object : RecordCompanion<ScriptIter, PangoScriptIter> {
+    public companion object {
         /**
          * Create a new `PangoScriptIter`, used to break a string of
          * Unicode text into runs by Unicode script.
@@ -78,7 +75,5 @@ public class ScriptIter(
          * @return the GType
          */
         public fun getType(): GType = pango_script_iter_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ScriptIter = ScriptIter(pointer.reinterpret())
     }
 }

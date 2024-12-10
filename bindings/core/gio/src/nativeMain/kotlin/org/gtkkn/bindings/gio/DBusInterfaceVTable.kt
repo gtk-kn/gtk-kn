@@ -1,14 +1,17 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlinx.cinterop.CPointed
+import kotlin.Pair
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GDBusInterfaceVTable
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Virtual table for handling properties and method calls for a D-Bus
@@ -65,10 +68,35 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GioVersion2_26
 public class DBusInterfaceVTable(
     pointer: CPointer<GDBusInterfaceVTable>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gioDBusInterfaceVTablePointer: CPointer<GDBusInterfaceVTable> = pointer
 
-    public companion object : RecordCompanion<DBusInterfaceVTable, GDBusInterfaceVTable> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusInterfaceVTable = DBusInterfaceVTable(pointer.reinterpret())
+    /**
+     * Allocate a new DBusInterfaceVTable.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GDBusInterfaceVTable>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
     }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to DBusInterfaceVTable and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GDBusInterfaceVTable>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new DBusInterfaceVTable using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GDBusInterfaceVTable>().ptr)
 }

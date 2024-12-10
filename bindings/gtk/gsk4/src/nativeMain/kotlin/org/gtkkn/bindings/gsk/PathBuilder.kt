@@ -3,7 +3,6 @@ package org.gtkkn.bindings.gsk
 
 import kotlin.Boolean
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.Point
@@ -11,8 +10,7 @@ import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.bindings.pango.Layout
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskPathBuilder
@@ -27,6 +25,7 @@ import org.gtkkn.native.gsk.gsk_path_builder_arc_to
 import org.gtkkn.native.gsk.gsk_path_builder_close
 import org.gtkkn.native.gsk.gsk_path_builder_conic_to
 import org.gtkkn.native.gsk.gsk_path_builder_cubic_to
+import org.gtkkn.native.gsk.gsk_path_builder_free_to_path
 import org.gtkkn.native.gsk.gsk_path_builder_get_current_point
 import org.gtkkn.native.gsk.gsk_path_builder_get_type
 import org.gtkkn.native.gsk.gsk_path_builder_html_arc_to
@@ -46,7 +45,6 @@ import org.gtkkn.native.gsk.gsk_path_builder_rel_svg_arc_to
 import org.gtkkn.native.gsk.gsk_path_builder_svg_arc_to
 import org.gtkkn.native.gsk.gsk_path_builder_to_path
 import org.gtkkn.native.gsk.gsk_path_builder_unref
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * `GskPathBuilder` is an auxiliary object for constructing
@@ -98,7 +96,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GskVersion4_14
 public class PathBuilder(
     pointer: CPointer<GskPathBuilder>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gskPathBuilderPointer: CPointer<GskPathBuilder> = pointer
 
     /**
@@ -297,6 +295,18 @@ public class PathBuilder(
         x3: gfloat,
         y3: gfloat,
     ): Unit = gsk_path_builder_cubic_to(gskPathBuilderPointer.reinterpret(), x1, y1, x2, y2, x3, y3)
+
+    /**
+     * Creates a new `GskPath` from the current state of the
+     * given builder, and unrefs the @builder instance.
+     *
+     * @return the newly created `GskPath`
+     *   with all the contours added to the builder
+     * @since 4.14
+     */
+    @GskVersion4_14
+    public fun freeToPath(): Path = gsk_path_builder_free_to_path(gskPathBuilderPointer.reinterpret())!!.run {
+        Path(reinterpret())}
 
     /**
      * Gets the current point.
@@ -638,7 +648,7 @@ public class PathBuilder(
     @GskVersion4_14
     public fun unref(): Unit = gsk_path_builder_unref(gskPathBuilderPointer.reinterpret())
 
-    public companion object : RecordCompanion<PathBuilder, GskPathBuilder> {
+    public companion object {
         /**
          * Create a new `GskPathBuilder` object.
          *
@@ -656,7 +666,5 @@ public class PathBuilder(
          * @return the GType
          */
         public fun getType(): GType = gsk_path_builder_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PathBuilder = PathBuilder(pointer.reinterpret())
     }
 }

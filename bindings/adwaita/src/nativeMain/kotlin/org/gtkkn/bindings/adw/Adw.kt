@@ -10,20 +10,14 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
-import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
-import org.gtkkn.bindings.gtk.Settings
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.native.adw.adw_breakpoint_condition_parse
-import org.gtkkn.native.adw.adw_easing_ease
 import org.gtkkn.native.adw.adw_get_enable_animations
 import org.gtkkn.native.adw.adw_get_major_version
 import org.gtkkn.native.adw.adw_get_micro_version
 import org.gtkkn.native.adw.adw_get_minor_version
 import org.gtkkn.native.adw.adw_init
 import org.gtkkn.native.adw.adw_is_initialized
-import org.gtkkn.native.adw.adw_length_unit_from_px
-import org.gtkkn.native.adw.adw_length_unit_to_px
 import org.gtkkn.native.adw.adw_lerp
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gobject.gint
@@ -33,6 +27,10 @@ import org.gtkkn.native.gobject.guint32
 /**
  * ## Skipped during bindings generation
  *
+ * - function `show_about_dialog`: Varargs parameter is not supported
+ * - function `show_about_dialog_from_appdata`: Varargs parameter is not supported
+ * - function `show_about_window`: Varargs parameter is not supported
+ * - function `show_about_window_from_appdata`: Varargs parameter is not supported
  * - record `AboutDialogClass`: glib type struct are ignored
  * - record `AboutWindowClass`: glib type struct are ignored
  * - record `ActionRowClass`: glib type struct are ignored
@@ -134,82 +132,6 @@ public object Adw {
     public const val VERSION_S: String = "1.5.0"
 
     /**
-     * Parses a condition from a string.
-     *
-     * Length conditions are specified as `<type>: <value>[<unit>]`, where:
-     *
-     * - `<type>` can be `min-width`, `max-width`, `min-height` or `max-height`
-     * - `<value>` is a fractional number
-     * - `<unit>` can be `px`, `pt` or `sp`
-     *
-     * If the unit is omitted, `px` is assumed.
-     *
-     * See [ctor@BreakpointCondition.new_length].
-     *
-     * Examples:
-     *
-     * - `min-width: 500px`
-     * - `min-height: 400pt`
-     * - `max-width: 100sp`
-     * - `max-height: 500`
-     *
-     * Ratio conditions are specified as `<type>: <width>[/<height>]`, where:
-     *
-     * - `<type>` can be `min-aspect-ratio` or `max-aspect-ratio`
-     * - `<width>` and `<height>` are integer numbers
-     *
-     * See [ctor@BreakpointCondition.new_ratio].
-     *
-     * The ratio is represented as `<width>` divided by `<height>`.
-     *
-     * If `<height>` is omitted, it's assumed to be 1.
-     *
-     * Examples:
-     *
-     * - `min-aspect-ratio: 4/3`
-     * - `max-aspect-ratio: 1`
-     *
-     * The logical operators `and`, `or` can be used to compose a complex condition
-     * as follows:
-     *
-     * - `<condition> and <condition>`: the condition is true when both
-     *   `<condition>`s are true, same as when using
-     *   [ctor@BreakpointCondition.new_and]
-     * - `<condition> or <condition>`: the condition is true when either of the
-     *   `<condition>`s is true, same as when using
-     *   [ctor@BreakpointCondition.new_or]
-     *
-     * Examples:
-     *
-     * - `min-width: 400px and max-aspect-ratio: 4/3`
-     * - `max-width: 360sp or max-width: 360px`
-     *
-     * Conditions can be further nested using parentheses, for example:
-     *
-     * - `min-width: 400px and (max-aspect-ratio: 4/3 or max-height: 400px)`
-     *
-     * If parentheses are omitted, the first operator takes priority.
-     *
-     * @param str the string specifying the condition
-     * @return the parsed condition
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun breakpointConditionParse(str: String): BreakpointCondition = adw_breakpoint_condition_parse(str)!!.run {
-        BreakpointCondition(reinterpret())}
-
-    /**
-     * Computes easing with @easing for @value.
-     *
-     * @value should generally be in the [0, 1] range.
-     *
-     * @param self an easing value
-     * @param value a value to ease
-     * @return the easing for @value
-     */
-    public fun easingEase(self: Easing, `value`: gdouble): gdouble = adw_easing_ease(self.nativeValue, `value`)
-
-    /**
      * Checks whether animations are enabled for @widget.
      *
      * This should be used when implementing an animated widget to know whether to
@@ -284,38 +206,6 @@ public object Adw {
      * @return the initialization status
      */
     public fun isInitialized(): Boolean = adw_is_initialized().asBoolean()
-
-    /**
-     * Converts @value from pixels to @unit.
-     *
-     * @param unit a length unit
-     * @param value a value in pixels
-     * @param settings settings to use, or `NULL` for default settings
-     * @return the length in @unit
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun lengthUnitFromPx(
-        unit: LengthUnit,
-        `value`: gdouble,
-        settings: Settings? = null,
-    ): gdouble = adw_length_unit_from_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
-
-    /**
-     * Converts @value from @unit to pixels.
-     *
-     * @param unit a length unit
-     * @param value a value in @unit
-     * @param settings settings to use, or `NULL` for default settings
-     * @return the length in pixels
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun lengthUnitToPx(
-        unit: LengthUnit,
-        `value`: gdouble,
-        settings: Settings? = null,
-    ): gdouble = adw_length_unit_to_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
 
     /**
      * Computes the linear interpolation between @a and @b for @t.

@@ -2,12 +2,10 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GBytes
 import org.gtkkn.native.glib.g_bytes_get_size
 import org.gtkkn.native.glib.g_bytes_hash
@@ -18,7 +16,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_bytes_get_type
 import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gobject.guint
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A simple refcounted data type representing an immutable sequence of zero or
@@ -56,13 +53,15 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  * - parameter `size`: size: Out parameter is not supported
  * - parameter `data`: Array parameter of type guint8 is not supported
  * - parameter `data`: Array parameter of type guint8 is not supported
+ * - parameter `data`: Array parameter of type guint8 is not supported
+ * - parameter `data`: Array parameter of type guint8 is not supported
  *
  * @since 2.32
  */
 @GLibVersion2_32
 public class Bytes(
     pointer: CPointer<GBytes>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibBytesPointer: CPointer<GBytes> = pointer
 
     /**
@@ -129,14 +128,12 @@ public class Bytes(
     @GLibVersion2_32
     public fun unref(): Unit = g_bytes_unref(glibBytesPointer.reinterpret())
 
-    public companion object : RecordCompanion<Bytes, GBytes> {
+    public companion object {
         /**
          * Get the GType of Bytes
          *
          * @return the GType
          */
         public fun getType(): GType = g_bytes_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Bytes = Bytes(pointer.reinterpret())
     }
 }

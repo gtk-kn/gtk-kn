@@ -160,6 +160,7 @@ import org.gtkkn.native.soup.soup_server_unpause_message
  * - method `server-header`: Property has no getter nor setter
  * - method `tls-certificate`: Property TypeInfo of getter and setter do not match
  * - method `tls-database`: Property TypeInfo of getter and setter do not match
+ * - constructor `new`: Varargs parameter is not supported
  */
 public open class Server(
     pointer: CPointer<SoupServer>,

@@ -134,6 +134,12 @@ import org.gtkkn.native.gobject.guint
  *   iface->init_finish = foo_init_finish;
  * }
  * ```
+ *
+ * ## Skipped during bindings generation
+ *
+ * - function `new_async`: Varargs parameter is not supported
+ * - parameter `var_args`: va_list
+ *
  * @since 2.22
  */
 @GioVersion2_22

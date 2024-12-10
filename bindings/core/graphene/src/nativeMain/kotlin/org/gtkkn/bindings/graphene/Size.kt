@@ -2,14 +2,20 @@
 package org.gtkkn.bindings.graphene
 
 import kotlin.Boolean
+import kotlin.Pair
+import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gobject.gfloat
@@ -23,7 +29,6 @@ import org.gtkkn.native.graphene.graphene_size_interpolate
 import org.gtkkn.native.graphene.graphene_size_scale
 import org.gtkkn.native.graphene.graphene_size_t
 import org.gtkkn.native.graphene.graphene_size_zero
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A size.
@@ -32,7 +37,8 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GrapheneVersion1_0
 public class Size(
     pointer: CPointer<graphene_size_t>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val grapheneSizePointer: CPointer<graphene_size_t> = pointer
 
     /**
@@ -52,6 +58,66 @@ public class Size(
         set(`value`) {
             grapheneSizePointer.pointed.height = value
         }
+
+    /**
+     * Allocate a new Size.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<graphene_size_t>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Size and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<graphene_size_t>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Size using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_size_t>().ptr)
+
+    /**
+     * Allocate a new Size.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param width the width
+     * @param height the height
+     */
+    public constructor(width: gfloat, height: gfloat) : this() {
+        this.width = width
+        this.height = height
+    }
+
+    /**
+     * Allocate a new Size using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param width the width
+     * @param height the height
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        width: gfloat,
+        height: gfloat,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.width = width
+        this.height = height
+    }
 
     /**
      * Checks whether the two give #graphene_size_t are equal.
@@ -121,7 +187,9 @@ public class Size(
     @GrapheneVersion1_0
     public fun scale(factor: gfloat, res: Size): Unit = graphene_size_scale(grapheneSizePointer.reinterpret(), factor, res.grapheneSizePointer.reinterpret())
 
-    public companion object : RecordCompanion<Size, graphene_size_t> {
+    override fun toString(): String = "Size(width=$width, height=$height)"
+
+    public companion object {
         /**
          * Allocates a new #graphene_size_t.
          *
@@ -149,7 +217,5 @@ public class Size(
          * @return the GType
          */
         public fun getType(): GType = graphene_size_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Size = Size(pointer.reinterpret())
     }
 }

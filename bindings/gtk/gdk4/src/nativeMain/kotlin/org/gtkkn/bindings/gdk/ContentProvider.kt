@@ -63,6 +63,7 @@ import org.gtkkn.native.gobject.gint
  *
  * - method `formats`: Property has no getter nor setter
  * - method `storable-formats`: Property has no getter nor setter
+ * - constructor `new_typed`: Varargs parameter is not supported
  * - parameter `providers`: Array parameter of type ContentProvider is not supported
  */
 public open class ContentProvider(

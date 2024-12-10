@@ -2,14 +2,19 @@
 package org.gtkkn.bindings.graphene
 
 import kotlin.Boolean
+import kotlin.Pair
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.graphene.graphene_euler_alloc
@@ -35,7 +40,6 @@ import org.gtkkn.native.graphene.graphene_euler_t
 import org.gtkkn.native.graphene.graphene_euler_to_matrix
 import org.gtkkn.native.graphene.graphene_euler_to_quaternion
 import org.gtkkn.native.graphene.graphene_euler_to_vec3
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Describe a rotation using Euler angles.
@@ -53,8 +57,37 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GrapheneVersion1_2
 public class Euler(
     pointer: CPointer<graphene_euler_t>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val grapheneEulerPointer: CPointer<graphene_euler_t> = pointer
+
+    /**
+     * Allocate a new Euler.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<graphene_euler_t>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Euler and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<graphene_euler_t>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Euler using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_euler_t>().ptr)
 
     /**
      * Checks if two #graphene_euler_t are equal.
@@ -331,7 +364,7 @@ public class Euler(
     @GrapheneVersion1_2
     public fun toVec3(res: Vec3): Unit = graphene_euler_to_vec3(grapheneEulerPointer.reinterpret(), res.grapheneVec3Pointer.reinterpret())
 
-    public companion object : RecordCompanion<Euler, graphene_euler_t> {
+    public companion object {
         /**
          * Allocates a new #graphene_euler_t.
          *
@@ -348,7 +381,5 @@ public class Euler(
          * @return the GType
          */
         public fun getType(): GType = graphene_euler_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Euler = Euler(pointer.reinterpret())
     }
 }

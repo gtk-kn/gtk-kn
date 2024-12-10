@@ -3,12 +3,10 @@ package org.gtkkn.bindings.soup
 
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Bytes
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.soup.SoupMultipart
@@ -20,7 +18,6 @@ import org.gtkkn.native.soup.soup_multipart_get_length
 import org.gtkkn.native.soup.soup_multipart_get_type
 import org.gtkkn.native.soup.soup_multipart_new
 import org.gtkkn.native.soup.soup_multipart_new_from_message
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Represents a multipart HTTP message body, parsed according to the
@@ -43,7 +40,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class Multipart(
     pointer: CPointer<SoupMultipart>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val soupMultipartPointer: CPointer<SoupMultipart> = pointer
 
     /**
@@ -97,7 +94,7 @@ public class Multipart(
      */
     public fun getLength(): gint = soup_multipart_get_length(soupMultipartPointer.reinterpret())
 
-    public companion object : RecordCompanion<Multipart, SoupMultipart> {
+    public companion object {
         /**
          * Creates a new empty #SoupMultipart with a randomly-generated
          * boundary string.
@@ -127,7 +124,5 @@ public class Multipart(
          * @return the GType
          */
         public fun getType(): GType = soup_multipart_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Multipart = Multipart(pointer.reinterpret())
     }
 }

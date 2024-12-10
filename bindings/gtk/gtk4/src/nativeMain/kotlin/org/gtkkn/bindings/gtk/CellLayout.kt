@@ -137,6 +137,10 @@ import org.gtkkn.native.gtk.gtk_cell_layout_set_cell_data_func
  * to support alternative cell areas, you can do so by moving the
  * problematic calls out of `init()` and into a `constructor()`
  * for your class.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `set_attributes`: Varargs parameter is not supported
  */
 public interface CellLayout : Interface, KGTyped {
     public val gtkCellLayoutPointer: CPointer<GtkCellLayout>

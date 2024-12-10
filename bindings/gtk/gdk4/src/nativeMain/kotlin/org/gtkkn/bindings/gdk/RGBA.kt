@@ -2,16 +2,21 @@
 package org.gtkkn.bindings.gdk
 
 import kotlin.Boolean
+import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkRGBA
 import org.gtkkn.native.gdk.gdk_rgba_copy
 import org.gtkkn.native.gdk.gdk_rgba_free
@@ -24,7 +29,6 @@ import org.gtkkn.native.gdk.gdk_rgba_to_string
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gobject.guint
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GdkRGBA` is used to represent a color, in a way that is compatible
@@ -43,7 +47,8 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class RGBA(
     pointer: CPointer<GdkRGBA>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gdkRGBAPointer: CPointer<GdkRGBA> = pointer
 
     /**
@@ -82,6 +87,83 @@ public class RGBA(
         set(`value`) {
             gdkRGBAPointer.pointed.alpha = value
         }
+
+    /**
+     * Allocate a new RGBA.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GdkRGBA>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to RGBA and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GdkRGBA>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new RGBA using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GdkRGBA>().ptr)
+
+    /**
+     * Allocate a new RGBA.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param red The intensity of the red channel from 0.0 to 1.0 inclusive
+     * @param green The intensity of the green channel from 0.0 to 1.0 inclusive
+     * @param blue The intensity of the blue channel from 0.0 to 1.0 inclusive
+     * @param alpha The opacity of the color from 0.0 for completely translucent to
+     *   1.0 for opaque
+     */
+    public constructor(
+        red: gfloat,
+        green: gfloat,
+        blue: gfloat,
+        alpha: gfloat,
+    ) : this() {
+        this.red = red
+        this.green = green
+        this.blue = blue
+        this.alpha = alpha
+    }
+
+    /**
+     * Allocate a new RGBA using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param red The intensity of the red channel from 0.0 to 1.0 inclusive
+     * @param green The intensity of the green channel from 0.0 to 1.0 inclusive
+     * @param blue The intensity of the blue channel from 0.0 to 1.0 inclusive
+     * @param alpha The opacity of the color from 0.0 for completely translucent to
+     *   1.0 for opaque
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        red: gfloat,
+        green: gfloat,
+        blue: gfloat,
+        alpha: gfloat,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.red = red
+        this.green = green
+        this.blue = blue
+        this.alpha = alpha
+    }
 
     /**
      * Makes a copy of a `GdkRGBA`.
@@ -171,14 +253,12 @@ public class RGBA(
      */
     override fun toString(): String = gdk_rgba_to_string(gdkRGBAPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
-    public companion object : RecordCompanion<RGBA, GdkRGBA> {
+    public companion object {
         /**
          * Get the GType of RGBA
          *
          * @return the GType
          */
         public fun getType(): GType = gdk_rgba_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): RGBA = RGBA(pointer.reinterpret())
     }
 }

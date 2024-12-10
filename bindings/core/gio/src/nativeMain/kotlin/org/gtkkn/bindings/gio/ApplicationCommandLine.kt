@@ -212,6 +212,8 @@ import org.gtkkn.native.gobject.gint
  * ## Skipped during bindings generation
  *
  * - parameter `argc`: argc: Out parameter is not supported
+ * - method `print`: Varargs parameter is not supported
+ * - method `printerr`: Varargs parameter is not supported
  * - method `arguments`: Property has no getter nor setter
  * - method `options`: Property has no getter nor setter
  * - method `platform-data`: Property has no getter nor setter

@@ -27,6 +27,8 @@ import org.gtkkn.bindings.gio.TlsPassword
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.HashTable
 import org.gtkkn.bindings.glib.Uri
+import org.gtkkn.bindings.gobject.Callback
+import org.gtkkn.bindings.gobject.CallbackFunc
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.soup.annotations.SoupVersion3_4
@@ -51,6 +53,8 @@ import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.soup.SoupAuth
 import org.gtkkn.native.soup.SoupMessage
 import org.gtkkn.native.soup.soup_message_add_flags
+import org.gtkkn.native.soup.soup_message_add_header_handler
+import org.gtkkn.native.soup.soup_message_add_status_code_handler
 import org.gtkkn.native.soup.soup_message_disable_feature
 import org.gtkkn.native.soup.soup_message_get_connection_id
 import org.gtkkn.native.soup.soup_message_get_first_party
@@ -483,6 +487,44 @@ public class Message(
      * @param flags a set of #SoupMessageFlags values
      */
     public fun addFlags(flags: MessageFlags): Unit = soup_message_add_flags(soupMessagePointer.reinterpret(), flags.mask)
+
+    /**
+     * Adds a signal handler to @msg for @signal.
+     *
+     * Similar to [func@GObject.signal_connect], but the @callback will only be run
+     * if @msg's incoming messages headers (that is, the `request_headers`) contain
+     * a header named @header.
+     *
+     * @param signal signal to connect the handler to.
+     * @param header HTTP response header to match against
+     * @param callback the header handler
+     * @return the handler ID from [func@GObject.signal_connect]
+     */
+    public fun addHeaderHandler(
+        signal: String,
+        `header`: String,
+        callback: Callback,
+    ): guint = soup_message_add_header_handler(soupMessagePointer.reinterpret(), signal, `header`, CallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
+
+    /**
+     * Adds a signal handler to @msg for @signal.
+     *
+     * Similar to [func@GObject.signal_connect], but the @callback will only be run
+     * if @msg has the status @status_code.
+     *
+     * @signal must be a signal that will be emitted after @msg's status
+     * is set (this means it can't be a "wrote" signal).
+     *
+     * @param signal signal to connect the handler to.
+     * @param statusCode status code to match against
+     * @param callback the header handler
+     * @return the handler ID from [func@GObject.signal_connect]
+     */
+    public fun addStatusCodeHandler(
+        signal: String,
+        statusCode: guint,
+        callback: Callback,
+    ): guint = soup_message_add_status_code_handler(soupMessagePointer.reinterpret(), signal, statusCode, CallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
 
     /**
      * Disables the actions of [iface@SessionFeature]s with the

@@ -1,13 +1,16 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
+import kotlin.Pair
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GMarkupParser
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Any of the fields in #GMarkupParser can be null, in which case they
@@ -28,10 +31,35 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class MarkupParser(
     pointer: CPointer<GMarkupParser>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibMarkupParserPointer: CPointer<GMarkupParser> = pointer
 
-    public companion object : RecordCompanion<MarkupParser, GMarkupParser> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MarkupParser = MarkupParser(pointer.reinterpret())
+    /**
+     * Allocate a new MarkupParser.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GMarkupParser>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
     }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to MarkupParser and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GMarkupParser>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new MarkupParser using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GMarkupParser>().ptr)
 }

@@ -4,14 +4,12 @@ package org.gtkkn.bindings.glib
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_24
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GVariantType
 import org.gtkkn.native.glib.g_variant_type_checked_
 import org.gtkkn.native.glib.g_variant_type_copy
@@ -37,6 +35,7 @@ import org.gtkkn.native.glib.g_variant_type_new_array
 import org.gtkkn.native.glib.g_variant_type_new_dict_entry
 import org.gtkkn.native.glib.g_variant_type_new_maybe
 import org.gtkkn.native.glib.g_variant_type_next
+import org.gtkkn.native.glib.g_variant_type_peek_string
 import org.gtkkn.native.glib.g_variant_type_string_get_depth_
 import org.gtkkn.native.glib.g_variant_type_string_is_valid
 import org.gtkkn.native.glib.g_variant_type_value
@@ -44,7 +43,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_variant_type_get_gtype
 import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gobject.guint
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A type in the [type@GLib.Variant] type system.
@@ -210,7 +208,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GLibVersion2_24
 public class VariantType(
     pointer: CPointer<GVariantType>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibVariantTypePointer: CPointer<GVariantType> = pointer
 
     /**
@@ -488,6 +486,19 @@ public class VariantType(
         VariantType(reinterpret())}
 
     /**
+     * Returns the type string corresponding to the given @type.  The
+     * result is not nul-terminated; in order to determine its length you
+     * must call g_variant_type_get_string_length().
+     *
+     * To get a nul-terminated string, see g_variant_type_dup_string().
+     *
+     * @return the corresponding type string (not nul-terminated)
+     *
+     * Since 2.24
+     */
+    public fun peekString(): String = g_variant_type_peek_string(glibVariantTypePointer.reinterpret())?.toKString() ?: error("Expected not null string")
+
+    /**
      * Determines the value type of a dictionary entry type.
      *
      * This function may only be used with a dictionary entry type.
@@ -499,7 +510,7 @@ public class VariantType(
     public fun `value`(): VariantType = g_variant_type_value(glibVariantTypePointer.reinterpret())!!.run {
         VariantType(reinterpret())}
 
-    public companion object : RecordCompanion<VariantType, GVariantType> {
+    public companion object {
         /**
          * Creates a new #GVariantType corresponding to the type string given
          * by @type_string.  It is appropriate to call g_variant_type_free() on
@@ -577,7 +588,5 @@ public class VariantType(
          * @return the GType
          */
         public fun getType(): GType = g_variant_type_get_gtype()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): VariantType = VariantType(pointer.reinterpret())
     }
 }

@@ -182,6 +182,7 @@ import org.gtkkn.native.webkit.webkit_settings_set_zoom_text_only
  *
  * - method `media-content-types-requiring-hardware-support`: Property TypeInfo of getter and setter do not match
  * - method `user-agent`: Property TypeInfo of getter and setter do not match
+ * - constructor `new_with_settings`: Varargs parameter is not supported
  */
 public class Settings(
     pointer: CPointer<WebKitSettings>,

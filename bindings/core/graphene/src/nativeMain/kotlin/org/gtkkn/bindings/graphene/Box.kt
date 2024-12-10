@@ -2,13 +2,18 @@
 package org.gtkkn.bindings.graphene
 
 import kotlin.Boolean
+import kotlin.Pair
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.graphene.graphene_box_alloc
@@ -40,7 +45,6 @@ import org.gtkkn.native.graphene.graphene_box_one_minus_one
 import org.gtkkn.native.graphene.graphene_box_t
 import org.gtkkn.native.graphene.graphene_box_union
 import org.gtkkn.native.graphene.graphene_box_zero
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A 3D box, described as the volume between a minimum and
@@ -59,8 +63,37 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GrapheneVersion1_2
 public class Box(
     pointer: CPointer<graphene_box_t>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val grapheneBoxPointer: CPointer<graphene_box_t> = pointer
+
+    /**
+     * Allocate a new Box.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<graphene_box_t>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Box and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<graphene_box_t>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Box using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_box_t>().ptr)
 
     /**
      * Checks whether the #graphene_box_t @a contains the given
@@ -273,7 +306,7 @@ public class Box(
     @GrapheneVersion1_2
     public fun union(b: Box, res: Box): Unit = graphene_box_union(grapheneBoxPointer.reinterpret(), b.grapheneBoxPointer.reinterpret(), res.grapheneBoxPointer.reinterpret())
 
-    public companion object : RecordCompanion<Box, graphene_box_t> {
+    public companion object {
         /**
          * Allocates a new #graphene_box_t.
          *
@@ -366,7 +399,5 @@ public class Box(
          * @return the GType
          */
         public fun getType(): GType = graphene_box_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Box = Box(pointer.reinterpret())
     }
 }

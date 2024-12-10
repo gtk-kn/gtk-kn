@@ -47,6 +47,8 @@ import org.gtkkn.native.javascriptcore.jsc_context_throw_with_name
  * - parameter `exception`: exception: Out parameter is not supported
  * - parameter `object_instance`: gpointer
  * - parameter `destroy_notify`: GLib.DestroyNotify
+ * - method `throw_printf`: Varargs parameter is not supported
+ * - method `throw_with_name_printf`: Varargs parameter is not supported
  */
 public class Context(
     pointer: CPointer<JSCContext>,

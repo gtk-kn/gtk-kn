@@ -217,8 +217,11 @@ import org.gtkkn.native.gtk.gtk_tree_view_unset_rows_drag_source
  * - parameter `path`: path: Out parameter is not supported
  * - parameter `path`: path: Out parameter is not supported
  * - parameter `path`: path: Out parameter is not supported
+ * - method `get_row_separator_func`: Return type TreeViewRowSeparatorFunc is unsupported
+ * - method `get_search_equal_func`: Return type TreeViewSearchEqualFunc is unsupported
  * - parameter `model`: model: Out parameter is not supported
  * - parameter `start_path`: start_path: Out parameter is not supported
+ * - method `insert_column_with_attributes`: Varargs parameter is not supported
  * - parameter `path`: path: Out parameter is not supported
  * - method `enable-grid-lines`: Property has no getter nor setter
  */

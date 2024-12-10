@@ -2,13 +2,11 @@
 package org.gtkkn.bindings.webkit
 
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_12
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitWebViewSessionState
 import org.gtkkn.native.webkit.webkit_web_view_session_state_get_type
@@ -16,7 +14,6 @@ import org.gtkkn.native.webkit.webkit_web_view_session_state_new
 import org.gtkkn.native.webkit.webkit_web_view_session_state_ref
 import org.gtkkn.native.webkit.webkit_web_view_session_state_serialize
 import org.gtkkn.native.webkit.webkit_web_view_session_state_unref
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Handles serialization of a web view's browsing state.
@@ -25,7 +22,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @WebKitVersion2_12
 public class WebViewSessionState(
     pointer: CPointer<WebKitWebViewSessionState>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val webkitWebViewSessionStatePointer: CPointer<WebKitWebViewSessionState> = pointer
 
     /**
@@ -63,7 +60,7 @@ public class WebViewSessionState(
     @WebKitVersion2_12
     public fun unref(): Unit = webkit_web_view_session_state_unref(webkitWebViewSessionStatePointer.reinterpret())
 
-    public companion object : RecordCompanion<WebViewSessionState, WebKitWebViewSessionState> {
+    public companion object {
         /**
          * Creates a new #WebKitWebViewSessionState from serialized data.
          *
@@ -80,7 +77,5 @@ public class WebViewSessionState(
          * @return the GType
          */
         public fun getType(): GType = webkit_web_view_session_state_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): WebViewSessionState = WebViewSessionState(pointer.reinterpret())
     }
 }

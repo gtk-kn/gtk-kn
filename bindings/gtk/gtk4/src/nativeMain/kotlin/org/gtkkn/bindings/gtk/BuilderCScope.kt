@@ -34,6 +34,8 @@ import org.gtkkn.native.gtk.gtk_builder_cscope_new
  * ## Skipped during bindings generation
  *
  * - parameter `callback_symbol`: GObject.Callback
+ * - method `add_callback_symbols`: Varargs parameter is not supported
+ * - method `lookup_callback_symbol`: Return type GObject.Callback is unsupported
  */
 public open class BuilderCScope(
     pointer: CPointer<GtkBuilderCScope>,

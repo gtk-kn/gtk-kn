@@ -5,7 +5,6 @@ import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
 import kotlin.collections.List
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -15,8 +14,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_44
 import org.gtkkn.bindings.gio.annotations.GioVersion2_46
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.toKStringList
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GSettingsSchema
 import org.gtkkn.native.gio.g_settings_schema_get_id
 import org.gtkkn.native.gio.g_settings_schema_get_key
@@ -28,7 +26,6 @@ import org.gtkkn.native.gio.g_settings_schema_list_keys
 import org.gtkkn.native.gio.g_settings_schema_ref
 import org.gtkkn.native.gio.g_settings_schema_unref
 import org.gtkkn.native.gobject.GType
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The [struct@Gio.SettingsSchemaSource] and `GSettingsSchema` APIs provide a
@@ -126,7 +123,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GioVersion2_32
 public class SettingsSchema(
     pointer: CPointer<GSettingsSchema>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gioSettingsSchemaPointer: CPointer<GSettingsSchema> = pointer
 
     /**
@@ -222,14 +219,12 @@ public class SettingsSchema(
     @GioVersion2_32
     public fun unref(): Unit = g_settings_schema_unref(gioSettingsSchemaPointer.reinterpret())
 
-    public companion object : RecordCompanion<SettingsSchema, GSettingsSchema> {
+    public companion object {
         /**
          * Get the GType of SettingsSchema
          *
          * @return the GType
          */
         public fun getType(): GType = g_settings_schema_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SettingsSchema = SettingsSchema(pointer.reinterpret())
     }
 }

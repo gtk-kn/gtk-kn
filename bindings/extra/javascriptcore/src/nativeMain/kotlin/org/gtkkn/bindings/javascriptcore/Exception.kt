@@ -26,6 +26,13 @@ import org.gtkkn.native.javascriptcore.jsc_exception_to_string
 
 /**
  * JSCException represents a JavaScript exception.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - constructor `new_printf`: Varargs parameter is not supported
+ * - parameter `args`: va_list
+ * - constructor `new_with_name_printf`: Varargs parameter is not supported
+ * - parameter `args`: va_list
  */
 public class Exception(
     pointer: CPointer<JSCException>,

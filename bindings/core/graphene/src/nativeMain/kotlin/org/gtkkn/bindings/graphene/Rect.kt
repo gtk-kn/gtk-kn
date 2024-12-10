@@ -2,15 +2,20 @@
 package org.gtkkn.bindings.graphene
 
 import kotlin.Boolean
+import kotlin.Pair
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_4
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gobject.gfloat
@@ -48,7 +53,6 @@ import org.gtkkn.native.graphene.graphene_rect_scale
 import org.gtkkn.native.graphene.graphene_rect_t
 import org.gtkkn.native.graphene.graphene_rect_union
 import org.gtkkn.native.graphene.graphene_rect_zero
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The location and size of a rectangle region.
@@ -75,8 +79,37 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GrapheneVersion1_0
 public class Rect(
     pointer: CPointer<graphene_rect_t>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val grapheneRectPointer: CPointer<graphene_rect_t> = pointer
+
+    /**
+     * Allocate a new Rect.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<graphene_rect_t>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Rect and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<graphene_rect_t>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Rect using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_rect_t>().ptr)
 
     /**
      * Checks whether a #graphene_rect_t contains the given coordinates.
@@ -495,7 +528,7 @@ public class Rect(
     @GrapheneVersion1_0
     public fun union(b: Rect, res: Rect): Unit = graphene_rect_union(grapheneRectPointer.reinterpret(), b.grapheneRectPointer.reinterpret(), res.grapheneRectPointer.reinterpret())
 
-    public companion object : RecordCompanion<Rect, graphene_rect_t> {
+    public companion object {
         /**
          * Allocates a new #graphene_rect_t.
          *
@@ -525,7 +558,5 @@ public class Rect(
          * @return the GType
          */
         public fun getType(): GType = graphene_rect_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Rect = Rect(pointer.reinterpret())
     }
 }

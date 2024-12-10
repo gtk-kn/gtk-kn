@@ -22,3 +22,7 @@ rename ignore
 
 // Missing nullable annotation https://gitlab.gnome.org/GNOME/glib/-/issues/3552
 LogFunc.log_domain nullable
+
+// K/N cinterop can't find it, maybe something is missing in the glib.def file?
+TestCase ignore
+TestSuite ignore

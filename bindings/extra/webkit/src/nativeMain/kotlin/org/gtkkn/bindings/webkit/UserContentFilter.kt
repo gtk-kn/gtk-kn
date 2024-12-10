@@ -3,20 +3,17 @@ package org.gtkkn.bindings.webkit
 
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_24
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitUserContentFilter
 import org.gtkkn.native.webkit.webkit_user_content_filter_get_identifier
 import org.gtkkn.native.webkit.webkit_user_content_filter_get_type
 import org.gtkkn.native.webkit.webkit_user_content_filter_ref
 import org.gtkkn.native.webkit.webkit_user_content_filter_unref
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A compiled set of rules which applied to resource loads.
@@ -25,7 +22,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @WebKitVersion2_24
 public class UserContentFilter(
     pointer: CPointer<WebKitUserContentFilter>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val webkitUserContentFilterPointer: CPointer<WebKitUserContentFilter> = pointer
 
     /**
@@ -64,14 +61,12 @@ public class UserContentFilter(
     @WebKitVersion2_24
     public fun unref(): Unit = webkit_user_content_filter_unref(webkitUserContentFilterPointer.reinterpret())
 
-    public companion object : RecordCompanion<UserContentFilter, WebKitUserContentFilter> {
+    public companion object {
         /**
          * Get the GType of UserContentFilter
          *
          * @return the GType
          */
         public fun getType(): GType = webkit_user_content_filter_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): UserContentFilter = UserContentFilter(pointer.reinterpret())
     }
 }

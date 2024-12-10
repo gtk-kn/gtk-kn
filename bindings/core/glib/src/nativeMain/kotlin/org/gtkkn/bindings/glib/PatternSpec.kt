@@ -4,13 +4,11 @@ package org.gtkkn.bindings.glib
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_70
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GPatternSpec
 import org.gtkkn.native.glib.g_pattern_spec_copy
 import org.gtkkn.native.glib.g_pattern_spec_equal
@@ -21,7 +19,6 @@ import org.gtkkn.native.glib.g_pattern_spec_new
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_pattern_spec_get_type
 import org.gtkkn.native.gobject.gsize
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GPatternSpec` struct is the 'compiled' form of a glob-style pattern.
@@ -43,7 +40,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class PatternSpec(
     pointer: CPointer<GPatternSpec>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibPatternSpecPointer: CPointer<GPatternSpec> = pointer
 
     /**
@@ -115,7 +112,7 @@ public class PatternSpec(
     @GLibVersion2_70
     public fun matchString(string: String): Boolean = g_pattern_spec_match_string(glibPatternSpecPointer.reinterpret(), string).asBoolean()
 
-    public companion object : RecordCompanion<PatternSpec, GPatternSpec> {
+    public companion object {
         /**
          * Compiles a pattern to a #GPatternSpec.
          *
@@ -130,7 +127,5 @@ public class PatternSpec(
          * @return the GType
          */
         public fun getType(): GType = g_pattern_spec_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PatternSpec = PatternSpec(pointer.reinterpret())
     }
 }

@@ -4,7 +4,6 @@ package org.gtkkn.bindings.glib
 import kotlin.Result
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -15,8 +14,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.GLib.resolveException
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_80
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GDir
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.g_dir_close
@@ -29,14 +27,13 @@ import org.gtkkn.native.glib.g_dir_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_dir_get_type
 import org.gtkkn.native.gobject.guint
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * An opaque structure representing an opened directory.
  */
 public class Dir(
     pointer: CPointer<GDir>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibDirPointer: CPointer<GDir> = pointer
 
     /**
@@ -106,7 +103,7 @@ public class Dir(
     @GLibVersion2_80
     public fun unref(): Unit = g_dir_unref(glibDirPointer.reinterpret())
 
-    public companion object : RecordCompanion<Dir, GDir> {
+    public companion object {
         /**
          * Opens a directory for reading. The names of the files in the
          * directory can then be retrieved using g_dir_read_name().  Note
@@ -171,7 +168,5 @@ public class Dir(
          * @return the GType
          */
         public fun getType(): GType = g_dir_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Dir = Dir(pointer.reinterpret())
     }
 }

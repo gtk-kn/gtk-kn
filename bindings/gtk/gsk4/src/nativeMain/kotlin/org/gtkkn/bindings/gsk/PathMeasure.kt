@@ -3,13 +3,11 @@ package org.gtkkn.bindings.gsk
 
 import kotlin.Boolean
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskPathMeasure
@@ -22,7 +20,6 @@ import org.gtkkn.native.gsk.gsk_path_measure_new
 import org.gtkkn.native.gsk.gsk_path_measure_new_with_tolerance
 import org.gtkkn.native.gsk.gsk_path_measure_ref
 import org.gtkkn.native.gsk.gsk_path_measure_unref
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * `GskPathMeasure` is an object that allows measurements
@@ -40,7 +37,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GskVersion4_14
 public class PathMeasure(
     pointer: CPointer<GskPathMeasure>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gskPathMeasurePointer: CPointer<GskPathMeasure> = pointer
 
     /**
@@ -106,7 +103,7 @@ public class PathMeasure(
     @GskVersion4_14
     public fun unref(): Unit = gsk_path_measure_unref(gskPathMeasurePointer.reinterpret())
 
-    public companion object : RecordCompanion<PathMeasure, GskPathMeasure> {
+    public companion object {
         /**
          * Creates a measure object for the given @path with the
          * default tolerance.
@@ -133,7 +130,5 @@ public class PathMeasure(
          * @return the GType
          */
         public fun getType(): GType = gsk_path_measure_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PathMeasure = PathMeasure(pointer.reinterpret())
     }
 }

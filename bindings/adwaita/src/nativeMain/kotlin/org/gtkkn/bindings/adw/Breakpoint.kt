@@ -80,6 +80,7 @@ import org.gtkkn.native.gtk.GtkBuildable
  *
  * ## Skipped during bindings generation
  *
+ * - parameter `args`: va_list
  * - parameter `objects`: Array parameter of type GObject.Object is not supported
  *
  * @since 1.4

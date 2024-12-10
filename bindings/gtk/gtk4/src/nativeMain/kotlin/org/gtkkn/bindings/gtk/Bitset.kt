@@ -3,12 +3,10 @@ package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gobject.guint64
@@ -43,7 +41,6 @@ import org.gtkkn.native.gtk.gtk_bitset_splice
 import org.gtkkn.native.gtk.gtk_bitset_subtract
 import org.gtkkn.native.gtk.gtk_bitset_union
 import org.gtkkn.native.gtk.gtk_bitset_unref
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GtkBitset` represents a set of unsigned integers.
@@ -64,7 +61,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class Bitset(
     pointer: CPointer<GtkBitset>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gtkBitsetPointer: CPointer<GtkBitset> = pointer
 
     /**
@@ -352,7 +349,7 @@ public class Bitset(
      */
     public fun unref(): Unit = gtk_bitset_unref(gtkBitsetPointer.reinterpret())
 
-    public companion object : RecordCompanion<Bitset, GtkBitset> {
+    public companion object {
         /**
          * Creates a new empty bitset.
          *
@@ -375,7 +372,5 @@ public class Bitset(
          * @return the GType
          */
         public fun getType(): GType = gtk_bitset_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Bitset = Bitset(pointer.reinterpret())
     }
 }

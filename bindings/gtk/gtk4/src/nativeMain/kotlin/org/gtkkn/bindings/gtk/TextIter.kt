@@ -2,11 +2,17 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
+import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Paintable
@@ -14,8 +20,7 @@ import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.pango.Language
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.gunichar
@@ -111,7 +116,6 @@ import org.gtkkn.native.gtk.gtk_text_iter_starts_sentence
 import org.gtkkn.native.gtk.gtk_text_iter_starts_tag
 import org.gtkkn.native.gtk.gtk_text_iter_starts_word
 import org.gtkkn.native.gtk.gtk_text_iter_toggles_tag
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * An iterator for the contents of a `GtkTextBuffer`.
@@ -140,8 +144,37 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class TextIter(
     pointer: CPointer<GtkTextIter>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gtkTextIterPointer: CPointer<GtkTextIter> = pointer
+
+    /**
+     * Allocate a new TextIter.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GtkTextIter>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to TextIter and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GtkTextIter>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new TextIter using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GtkTextIter>().ptr)
 
     /**
      * Assigns the value of @other to @iter.
@@ -1271,14 +1304,12 @@ public class TextIter(
      */
     public fun togglesTag(tag: TextTag? = null): Boolean = gtk_text_iter_toggles_tag(gtkTextIterPointer.reinterpret(), tag?.gtkTextTagPointer?.reinterpret()).asBoolean()
 
-    public companion object : RecordCompanion<TextIter, GtkTextIter> {
+    public companion object {
         /**
          * Get the GType of TextIter
          *
          * @return the GType
          */
         public fun getType(): GType = gtk_text_iter_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TextIter = TextIter(pointer.reinterpret())
     }
 }

@@ -1,16 +1,21 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Pair
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GDBusInterfaceInfo
 import org.gtkkn.native.gio.g_dbus_interface_info_cache_build
 import org.gtkkn.native.gio.g_dbus_interface_info_cache_release
@@ -21,11 +26,12 @@ import org.gtkkn.native.gio.g_dbus_interface_info_lookup_property
 import org.gtkkn.native.gio.g_dbus_interface_info_lookup_signal
 import org.gtkkn.native.gio.g_dbus_interface_info_ref
 import org.gtkkn.native.gio.g_dbus_interface_info_unref
+import org.gtkkn.native.glib.g_free
+import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
 import kotlin.String as KotlinString
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 import org.gtkkn.bindings.glib.String as GlibString
 
 /**
@@ -43,7 +49,8 @@ import org.gtkkn.bindings.glib.String as GlibString
 @GioVersion2_26
 public class DBusInterfaceInfo(
     pointer: CPointer<GDBusInterfaceInfo>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gioDBusInterfaceInfoPointer: CPointer<GDBusInterfaceInfo> = pointer
 
     /**
@@ -57,11 +64,73 @@ public class DBusInterfaceInfo(
 
     /**
      * The name of the D-Bus interface, e.g. "org.freedesktop.DBus.Properties".
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val name: KotlinString?
+    public var name: KotlinString?
         get() = gioDBusInterfaceInfoPointer.pointed.name?.toKString()
+        set(`value`) {
+            gioDBusInterfaceInfoPointer.pointed.name?.let { g_free(it) }
+            gioDBusInterfaceInfoPointer.pointed.name = value?.let { g_strdup(it) }
+        }
+
+    /**
+     * Allocate a new DBusInterfaceInfo.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GDBusInterfaceInfo>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to DBusInterfaceInfo and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GDBusInterfaceInfo>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new DBusInterfaceInfo using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GDBusInterfaceInfo>().ptr)
+
+    /**
+     * Allocate a new DBusInterfaceInfo.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param refCount The reference count or -1 if statically allocated.
+     * @param name The name of the D-Bus interface, e.g. "org.freedesktop.DBus.Properties".
+     */
+    public constructor(refCount: gint, name: KotlinString?) : this() {
+        this.refCount = refCount
+        this.name = name
+    }
+
+    /**
+     * Allocate a new DBusInterfaceInfo using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param refCount The reference count or -1 if statically allocated.
+     * @param name The name of the D-Bus interface, e.g. "org.freedesktop.DBus.Properties".
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        refCount: gint,
+        name: KotlinString?,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.refCount = refCount
+        this.name = name
+    }
 
     /**
      * Builds a lookup-cache to speed up
@@ -168,14 +237,14 @@ public class DBusInterfaceInfo(
     @GioVersion2_26
     public fun unref(): Unit = g_dbus_interface_info_unref(gioDBusInterfaceInfoPointer.reinterpret())
 
-    public companion object : RecordCompanion<DBusInterfaceInfo, GDBusInterfaceInfo> {
+    override fun toString(): KotlinString = "DBusInterfaceInfo(refCount=$refCount, name=$name)"
+
+    public companion object {
         /**
          * Get the GType of DBusInterfaceInfo
          *
          * @return the GType
          */
         public fun getType(): GType = g_dbus_interface_info_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusInterfaceInfo = DBusInterfaceInfo(pointer.reinterpret())
     }
 }

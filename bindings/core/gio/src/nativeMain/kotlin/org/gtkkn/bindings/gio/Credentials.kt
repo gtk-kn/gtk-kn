@@ -73,6 +73,7 @@ import org.gtkkn.native.gobject.guint
  *
  * ## Skipped during bindings generation
  *
+ * - method `get_native`: Return type gpointer is unsupported
  * - parameter `native`: gpointer
  *
  * @since 2.26

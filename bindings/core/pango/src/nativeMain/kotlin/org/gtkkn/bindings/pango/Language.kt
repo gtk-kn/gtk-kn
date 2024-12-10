@@ -3,15 +3,13 @@ package org.gtkkn.bindings.pango
 
 import kotlin.Boolean
 import kotlin.String
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_4
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoLanguage
 import org.gtkkn.native.pango.pango_language_from_string
@@ -21,7 +19,6 @@ import org.gtkkn.native.pango.pango_language_get_type
 import org.gtkkn.native.pango.pango_language_includes_script
 import org.gtkkn.native.pango.pango_language_matches
 import org.gtkkn.native.pango.pango_language_to_string
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `PangoLanguage` structure is used to
@@ -37,7 +34,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class Language(
     pointer: CPointer<PangoLanguage>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val pangoLanguagePointer: CPointer<PangoLanguage> = pointer
 
     /**
@@ -112,7 +109,7 @@ public class Language(
      */
     override fun toString(): String = pango_language_to_string(pangoLanguagePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
-    public companion object : RecordCompanion<Language, PangoLanguage> {
+    public companion object {
         /**
          * Convert a language tag to a `PangoLanguage`.
          *
@@ -179,7 +176,5 @@ public class Language(
          * @return the GType
          */
         public fun getType(): GType = pango_language_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Language = Language(pointer.reinterpret())
     }
 }

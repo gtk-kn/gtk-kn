@@ -80,12 +80,16 @@ import org.gtkkn.native.gtk.gtk_message_dialog_set_markup
  *
  * ## Skipped during bindings generation
  *
+ * - method `format_secondary_markup`: Varargs parameter is not supported
+ * - method `format_secondary_text`: Varargs parameter is not supported
  * - method `buttons`: Property has no getter nor setter
  * - method `message-type`: Property has no getter nor setter
  * - method `secondary-text`: Property has no getter nor setter
  * - method `secondary-use-markup`: Property has no getter nor setter
  * - method `text`: Property has no getter nor setter
  * - method `use-markup`: Property has no getter nor setter
+ * - constructor `new`: Varargs parameter is not supported
+ * - constructor `new_with_markup`: Varargs parameter is not supported
  */
 public open class MessageDialog(
     pointer: CPointer<GtkMessageDialog>,

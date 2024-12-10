@@ -4,7 +4,6 @@ package org.gtkkn.bindings.gio
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -14,8 +13,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_44
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantType
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GSettingsSchemaKey
 import org.gtkkn.native.gio.g_settings_schema_key_get_default_value
 import org.gtkkn.native.gio.g_settings_schema_key_get_description
@@ -28,7 +26,6 @@ import org.gtkkn.native.gio.g_settings_schema_key_range_check
 import org.gtkkn.native.gio.g_settings_schema_key_ref
 import org.gtkkn.native.gio.g_settings_schema_key_unref
 import org.gtkkn.native.gobject.GType
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * #GSettingsSchemaKey is an opaque data structure and can only be accessed
@@ -36,7 +33,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class SettingsSchemaKey(
     pointer: CPointer<GSettingsSchemaKey>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gioSettingsSchemaKeyPointer: CPointer<GSettingsSchemaKey> = pointer
 
     /**
@@ -191,14 +188,12 @@ public class SettingsSchemaKey(
     @GioVersion2_40
     public fun unref(): Unit = g_settings_schema_key_unref(gioSettingsSchemaKeyPointer.reinterpret())
 
-    public companion object : RecordCompanion<SettingsSchemaKey, GSettingsSchemaKey> {
+    public companion object {
         /**
          * Get the GType of SettingsSchemaKey
          *
          * @return the GType
          */
         public fun getType(): GType = g_settings_schema_key_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SettingsSchemaKey = SettingsSchemaKey(pointer.reinterpret())
     }
 }

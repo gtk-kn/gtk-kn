@@ -4,15 +4,13 @@ package org.gtkkn.bindings.soup
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.DateTime
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gulong
 import org.gtkkn.native.soup.SoupHSTSPolicy
@@ -30,7 +28,6 @@ import org.gtkkn.native.soup.soup_hsts_policy_new
 import org.gtkkn.native.soup.soup_hsts_policy_new_from_response
 import org.gtkkn.native.soup.soup_hsts_policy_new_full
 import org.gtkkn.native.soup.soup_hsts_policy_new_session_policy
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * #SoupHSTSPolicy implements HTTP policies, as described by
@@ -53,7 +50,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class HSTSPolicy(
     pointer: CPointer<SoupHSTSPolicy>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val soupHSTSPolicyPointer: CPointer<SoupHSTSPolicy> = pointer
 
     /**
@@ -124,7 +121,7 @@ public class HSTSPolicy(
      */
     public fun isSessionPolicy(): Boolean = soup_hsts_policy_is_session_policy(soupHSTSPolicyPointer.reinterpret()).asBoolean()
 
-    public companion object : RecordCompanion<HSTSPolicy, SoupHSTSPolicy> {
+    public companion object {
         /**
          * Creates a new #SoupHSTSPolicy with the given attributes.
          *
@@ -205,7 +202,5 @@ public class HSTSPolicy(
          * @return the GType
          */
         public fun getType(): GType = soup_hsts_policy_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): HSTSPolicy = HSTSPolicy(pointer.reinterpret())
     }
 }

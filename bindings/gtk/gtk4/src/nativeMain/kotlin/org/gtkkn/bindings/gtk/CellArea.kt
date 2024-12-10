@@ -390,6 +390,11 @@ import org.gtkkn.native.gtk.gtk_cell_area_stop_editing
  *
  * ## Skipped during bindings generation
  *
+ * - method `add_with_properties`: Varargs parameter is not supported
+ * - method `cell_get`: Varargs parameter is not supported
+ * - parameter `var_args`: va_list
+ * - method `cell_set`: Varargs parameter is not supported
+ * - parameter `var_args`: va_list
  * - parameter `minimum_height`: minimum_height: Out parameter is not supported
  * - parameter `minimum_height`: minimum_height: Out parameter is not supported
  * - parameter `minimum_width`: minimum_width: Out parameter is not supported

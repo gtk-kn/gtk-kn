@@ -24,6 +24,8 @@ import kotlinx.coroutines.DisposableHandle
 import kotlinx.coroutines.MainCoroutineDispatcher
 import kotlinx.coroutines.Runnable
 import org.gtkkn.bindings.glib.GLib
+import org.gtkkn.bindings.glib.MainContext
+import org.gtkkn.bindings.glib.Source
 import org.gtkkn.native.glib.G_PRIORITY_HIGH_IDLE
 import kotlin.coroutines.CoroutineContext
 
@@ -111,7 +113,7 @@ public object GtkDispatcher : MainCoroutineDispatcher(), Delay {
             },
         )
         continuation.invokeOnCancellation {
-            GLib.sourceRemove(sourceId)
+            Source.remove(sourceId)
         }
     }
 
@@ -129,13 +131,13 @@ public object GtkDispatcher : MainCoroutineDispatcher(), Delay {
             },
         )
         return DisposableHandle {
-            GLib.sourceRemove(sourceId)
+            Source.remove(sourceId)
         }
     }
 
     override fun isDispatchNeeded(context: CoroutineContext): Boolean =
         // Only dispatch if not already on the GTK main thread
-        !GLib.mainContextDefault().isOwner()
+        !MainContext.default().isOwner()
 
     override fun toString(): String = "GtkDispatcher"
 }

@@ -4,7 +4,6 @@ package org.gtkkn.bindings.glib
 import kotlin.String
 import kotlin.Unit
 import kotlin.collections.List
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.cstr
 import kotlinx.cinterop.memScoped
@@ -12,8 +11,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_68
 import org.gtkkn.extensions.common.toCStringList
 import org.gtkkn.extensions.common.toKStringList
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GStrvBuilder
 import org.gtkkn.native.glib.g_strv_builder_add
 import org.gtkkn.native.glib.g_strv_builder_addv
@@ -24,7 +22,6 @@ import org.gtkkn.native.glib.g_strv_builder_take
 import org.gtkkn.native.glib.g_strv_builder_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_strv_builder_get_type
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * `GStrvBuilder` is a helper object to build a null-terminated string arrays.
@@ -37,12 +34,17 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  *   g_strv_builder_add (builder, "world");
  *   g_auto(GStrv) array = g_strv_builder_end (builder);
  * ```
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `add_many`: Varargs parameter is not supported
+ *
  * @since 2.68
  */
 @GLibVersion2_68
 public class StrvBuilder(
     pointer: CPointer<GStrvBuilder>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibStrvBuilderPointer: CPointer<GStrvBuilder> = pointer
 
     /**
@@ -108,7 +110,7 @@ public class StrvBuilder(
     @GLibVersion2_68
     public fun unref(): Unit = g_strv_builder_unref(glibStrvBuilderPointer.reinterpret())
 
-    public companion object : RecordCompanion<StrvBuilder, GStrvBuilder> {
+    public companion object {
         /**
          * Creates a new #GStrvBuilder with a reference count of 1.
          * Use g_strv_builder_unref() on the returned value when no longer needed.
@@ -124,7 +126,5 @@ public class StrvBuilder(
          * @return the GType
          */
         public fun getType(): GType = g_strv_builder_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): StrvBuilder = StrvBuilder(pointer.reinterpret())
     }
 }

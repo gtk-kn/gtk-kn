@@ -1,14 +1,19 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
-import kotlinx.cinterop.CPointed
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GObjectConstructParam
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The GObjectConstructParam struct is an auxiliary structure used to hand
@@ -16,28 +21,89 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class ObjectConstructParam(
     pointer: CPointer<GObjectConstructParam>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gobjectObjectConstructParamPointer: CPointer<GObjectConstructParam> = pointer
 
     /**
      * the #GParamSpec of the construct parameter
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val pspec: ParamSpec?
+    public var pspec: ParamSpec?
         get() = gobjectObjectConstructParamPointer.pointed.pspec?.run {
             ParamSpec(reinterpret())}
+        set(`value`) {
+            gobjectObjectConstructParamPointer.pointed.pspec = value?.gPointer?.reinterpret()
+        }
 
     /**
      * the value to set the parameter to
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val `value`: Value?
+    public var `value`: Value?
         get() = gobjectObjectConstructParamPointer.pointed.value?.run {
             Value(reinterpret())}
+        set(`value`) {
+            gobjectObjectConstructParamPointer.pointed.value = value?.gobjectValuePointer
+        }
 
-    public companion object : RecordCompanion<ObjectConstructParam, GObjectConstructParam> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ObjectConstructParam = ObjectConstructParam(pointer.reinterpret())
+    /**
+     * Allocate a new ObjectConstructParam.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GObjectConstructParam>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
     }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to ObjectConstructParam and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GObjectConstructParam>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new ObjectConstructParam using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GObjectConstructParam>().ptr)
+
+    /**
+     * Allocate a new ObjectConstructParam.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param pspec the #GParamSpec of the construct parameter
+     * @param value the value to set the parameter to
+     */
+    public constructor(pspec: ParamSpec?, `value`: Value?) : this() {
+        this.pspec = pspec
+        this.value = value
+    }
+
+    /**
+     * Allocate a new ObjectConstructParam using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param pspec the #GParamSpec of the construct parameter
+     * @param value the value to set the parameter to
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        pspec: ParamSpec?,
+        `value`: Value?,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.pspec = pspec
+        this.value = value
+    }
+
+    override fun toString(): String = "ObjectConstructParam(pspec=$pspec, value=$value)"
 }

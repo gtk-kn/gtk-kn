@@ -589,15 +589,19 @@ import org.gtkkn.native.gobject.gint
  *
  * ## Skipped during bindings generation
  *
+ * - parameter `callback`: GLib.SourceFunc
  * - method `get_source_tag`: Return type gpointer is unsupported
  * - method `get_task_data`: Return type gpointer is unsupported
  * - method `propagate_pointer`: Return type gpointer is unsupported
+ * - method `return_new_error`: Varargs parameter is not supported
  * - parameter `result`: gpointer
+ * - method `return_prefixed_error`: Varargs parameter is not supported
  * - parameter `task_func`: TaskThreadFunc
  * - parameter `task_func`: TaskThreadFunc
  * - parameter `source_tag`: gpointer
  * - parameter `task_data`: gpointer
  * - parameter `source_tag`: gpointer
+ * - function `report_new_error`: Varargs parameter is not supported
  */
 public open class Task(
     pointer: CPointer<GTask>,

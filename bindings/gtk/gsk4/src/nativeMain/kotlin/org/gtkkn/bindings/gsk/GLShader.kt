@@ -165,6 +165,11 @@ import org.gtkkn.native.gsk.gsk_gl_shader_new_from_resource
  *   fragColor = position * source1 + (1.0 - position) * source2;
  * }
  * ```
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `format_args`: Varargs parameter is not supported
+ * - parameter `uniforms`: va_list
  */
 public open class GLShader(
     pointer: CPointer<GskGLShader>,

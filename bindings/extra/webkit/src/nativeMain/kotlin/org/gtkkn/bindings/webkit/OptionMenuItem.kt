@@ -4,14 +4,12 @@ package org.gtkkn.bindings.webkit
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_18
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitOptionMenuItem
 import org.gtkkn.native.webkit.webkit_option_menu_item_copy
@@ -23,7 +21,6 @@ import org.gtkkn.native.webkit.webkit_option_menu_item_is_enabled
 import org.gtkkn.native.webkit.webkit_option_menu_item_is_group_child
 import org.gtkkn.native.webkit.webkit_option_menu_item_is_group_label
 import org.gtkkn.native.webkit.webkit_option_menu_item_is_selected
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * One item of a #WebKitOptionMenu.
@@ -37,7 +34,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @WebKitVersion2_18
 public class OptionMenuItem(
     pointer: CPointer<WebKitOptionMenuItem>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val webkitOptionMenuItemPointer: CPointer<WebKitOptionMenuItem> = pointer
 
     /**
@@ -112,14 +109,12 @@ public class OptionMenuItem(
     @WebKitVersion2_18
     public fun isSelected(): Boolean = webkit_option_menu_item_is_selected(webkitOptionMenuItemPointer.reinterpret()).asBoolean()
 
-    public companion object : RecordCompanion<OptionMenuItem, WebKitOptionMenuItem> {
+    public companion object {
         /**
          * Get the GType of OptionMenuItem
          *
          * @return the GType
          */
         public fun getType(): GType = webkit_option_menu_item_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): OptionMenuItem = OptionMenuItem(pointer.reinterpret())
     }
 }

@@ -4,13 +4,11 @@ package org.gtkkn.bindings.gtk
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkTreePath
@@ -31,7 +29,6 @@ import org.gtkkn.native.gtk.gtk_tree_path_prepend_index
 import org.gtkkn.native.gtk.gtk_tree_path_prev
 import org.gtkkn.native.gtk.gtk_tree_path_to_string
 import org.gtkkn.native.gtk.gtk_tree_path_up
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * An opaque structure representing a path to a row in a model.
@@ -43,7 +40,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class TreePath(
     pointer: CPointer<GtkTreePath>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gtkTreePathPointer: CPointer<GtkTreePath> = pointer
 
     /**
@@ -150,7 +147,7 @@ public class TreePath(
      */
     public fun up(): Boolean = gtk_tree_path_up(gtkTreePathPointer.reinterpret()).asBoolean()
 
-    public companion object : RecordCompanion<TreePath, GtkTreePath> {
+    public companion object {
         /**
          * Creates a new `GtkTreePath`
          * This refers to a row.
@@ -188,7 +185,5 @@ public class TreePath(
          * @return the GType
          */
         public fun getType(): GType = gtk_tree_path_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TreePath = TreePath(pointer.reinterpret())
     }
 }

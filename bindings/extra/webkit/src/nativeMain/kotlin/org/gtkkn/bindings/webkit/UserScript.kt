@@ -4,14 +4,12 @@ package org.gtkkn.bindings.webkit
 import kotlin.String
 import kotlin.Unit
 import kotlin.collections.List
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
 import org.gtkkn.extensions.common.toCStringList
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitUserScript
 import org.gtkkn.native.webkit.webkit_user_script_get_type
@@ -19,7 +17,6 @@ import org.gtkkn.native.webkit.webkit_user_script_new
 import org.gtkkn.native.webkit.webkit_user_script_new_for_world
 import org.gtkkn.native.webkit.webkit_user_script_ref
 import org.gtkkn.native.webkit.webkit_user_script_unref
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A JavaScript snippet which can be injected in loaded pages.
@@ -28,7 +25,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @WebKitVersion2_6
 public class UserScript(
     pointer: CPointer<WebKitUserScript>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val webkitUserScriptPointer: CPointer<WebKitUserScript> = pointer
 
     /**
@@ -55,7 +52,7 @@ public class UserScript(
     @WebKitVersion2_6
     public fun unref(): Unit = webkit_user_script_unref(webkitUserScriptPointer.reinterpret())
 
-    public companion object : RecordCompanion<UserScript, WebKitUserScript> {
+    public companion object {
         /**
          * Creates a new user script.
          *
@@ -118,7 +115,5 @@ public class UserScript(
          * @return the GType
          */
         public fun getType(): GType = webkit_user_script_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): UserScript = UserScript(pointer.reinterpret())
     }
 }

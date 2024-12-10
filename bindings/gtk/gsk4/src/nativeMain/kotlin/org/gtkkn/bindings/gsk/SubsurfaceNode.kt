@@ -14,6 +14,12 @@ import org.gtkkn.native.gsk.gsk_subsurface_node_get_type
 
 /**
  * A render node that potentially diverts a part of the scene graph to a subsurface.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - parameter `subsurface`: gpointer
+ * - function `get_subsurface`: Return type gpointer is unsupported
+ *
  * @since 4.14
  */
 @GskVersion4_14

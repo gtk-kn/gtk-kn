@@ -50,6 +50,7 @@ import org.gtkkn.native.gobject.gsize
  *
  * ## Skipped during bindings generation
  *
+ * - method `to_bytes`: Return type guint8 is unsupported
  * - method `bytes`: Property has no getter nor setter
  * - parameter `bytes`: Array parameter of type guint8 is not supported
  */

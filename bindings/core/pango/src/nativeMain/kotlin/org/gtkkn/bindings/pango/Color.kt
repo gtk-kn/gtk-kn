@@ -2,18 +2,23 @@
 package org.gtkkn.bindings.pango
 
 import kotlin.Boolean
+import kotlin.Pair
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.guint16
 import org.gtkkn.native.pango.PangoColor
@@ -22,7 +27,6 @@ import org.gtkkn.native.pango.pango_color_free
 import org.gtkkn.native.pango.pango_color_get_type
 import org.gtkkn.native.pango.pango_color_parse
 import org.gtkkn.native.pango.pango_color_to_string
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `PangoColor` structure is used to
@@ -34,7 +38,8 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class Color(
     pointer: CPointer<PangoColor>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val pangoColorPointer: CPointer<PangoColor> = pointer
 
     /**
@@ -63,6 +68,75 @@ public class Color(
         set(`value`) {
             pangoColorPointer.pointed.blue = value
         }
+
+    /**
+     * Allocate a new Color.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<PangoColor>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Color and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<PangoColor>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Color using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<PangoColor>().ptr)
+
+    /**
+     * Allocate a new Color.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param red value of red component
+     * @param green value of green component
+     * @param blue value of blue component
+     */
+    public constructor(
+        red: guint16,
+        green: guint16,
+        blue: guint16,
+    ) : this() {
+        this.red = red
+        this.green = green
+        this.blue = blue
+    }
+
+    /**
+     * Allocate a new Color using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param red value of red component
+     * @param green value of green component
+     * @param blue value of blue component
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        red: guint16,
+        green: guint16,
+        blue: guint16,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.red = red
+        this.green = green
+        this.blue = blue
+    }
 
     /**
      * Creates a copy of @src.
@@ -115,14 +189,12 @@ public class Color(
     @PangoVersion1_16
     override fun toString(): String = pango_color_to_string(pangoColorPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
-    public companion object : RecordCompanion<Color, PangoColor> {
+    public companion object {
         /**
          * Get the GType of Color
          *
          * @return the GType
          */
         public fun getType(): GType = pango_color_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Color = Color(pointer.reinterpret())
     }
 }

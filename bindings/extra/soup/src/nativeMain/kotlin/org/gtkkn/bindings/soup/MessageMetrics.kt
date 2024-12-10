@@ -2,11 +2,9 @@
 package org.gtkkn.bindings.soup
 
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.soup.SoupMessageMetrics
@@ -28,7 +26,6 @@ import org.gtkkn.native.soup.soup_message_metrics_get_response_header_bytes_rece
 import org.gtkkn.native.soup.soup_message_metrics_get_response_start
 import org.gtkkn.native.soup.soup_message_metrics_get_tls_start
 import org.gtkkn.native.soup.soup_message_metrics_get_type
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Contains metrics collected while loading a [class@Message] either from the
@@ -48,7 +45,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class MessageMetrics(
     pointer: CPointer<SoupMessageMetrics>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val soupMessageMetricsPointer: CPointer<SoupMessageMetrics> = pointer
 
     /**
@@ -229,14 +226,12 @@ public class MessageMetrics(
      */
     public fun getTlsStart(): guint64 = soup_message_metrics_get_tls_start(soupMessageMetricsPointer.reinterpret())
 
-    public companion object : RecordCompanion<MessageMetrics, SoupMessageMetrics> {
+    public companion object {
         /**
          * Get the GType of MessageMetrics
          *
          * @return the GType
          */
         public fun getType(): GType = soup_message_metrics_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MessageMetrics = MessageMetrics(pointer.reinterpret())
     }
 }

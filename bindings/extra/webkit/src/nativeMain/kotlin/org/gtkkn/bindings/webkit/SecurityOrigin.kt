@@ -3,13 +3,11 @@ package org.gtkkn.bindings.webkit
 
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_16
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.guint16
 import org.gtkkn.native.webkit.WebKitSecurityOrigin
@@ -22,7 +20,6 @@ import org.gtkkn.native.webkit.webkit_security_origin_new_for_uri
 import org.gtkkn.native.webkit.webkit_security_origin_ref
 import org.gtkkn.native.webkit.webkit_security_origin_to_string
 import org.gtkkn.native.webkit.webkit_security_origin_unref
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A security boundary for websites.
@@ -40,7 +37,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @WebKitVersion2_16
 public class SecurityOrigin(
     pointer: CPointer<WebKitSecurityOrigin>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val webkitSecurityOriginPointer: CPointer<WebKitSecurityOrigin> = pointer
 
     /**
@@ -116,7 +113,7 @@ public class SecurityOrigin(
     @WebKitVersion2_16
     public fun unref(): Unit = webkit_security_origin_unref(webkitSecurityOriginPointer.reinterpret())
 
-    public companion object : RecordCompanion<SecurityOrigin, WebKitSecurityOrigin> {
+    public companion object {
         /**
          * Create a new security origin from the provided protocol, host and
          * port.
@@ -153,7 +150,5 @@ public class SecurityOrigin(
          * @return the GType
          */
         public fun getType(): GType = webkit_security_origin_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SecurityOrigin = SecurityOrigin(pointer.reinterpret())
     }
 }

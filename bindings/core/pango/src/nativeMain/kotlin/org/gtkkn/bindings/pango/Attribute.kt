@@ -2,16 +2,22 @@
 package org.gtkkn.bindings.pango
 
 import kotlin.Boolean
+import kotlin.Pair
+import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_20
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.pango.PangoAttribute
@@ -29,7 +35,6 @@ import org.gtkkn.native.pango.pango_attribute_destroy
 import org.gtkkn.native.pango.pango_attribute_equal
 import org.gtkkn.native.pango.pango_attribute_get_type
 import org.gtkkn.native.pango.pango_attribute_init
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `PangoAttribute` structure represents the common portions of all
@@ -43,17 +48,19 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class Attribute(
     pointer: CPointer<PangoAttribute>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val pangoAttributePointer: CPointer<PangoAttribute> = pointer
 
     /**
      * the class structure holding information about the type of the attribute
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val klass: AttrClass?
+    public var klass: AttrClass?
         get() = pangoAttributePointer.pointed.klass?.run {
             AttrClass(reinterpret())}
+        set(`value`) {
+            pangoAttributePointer.pointed.klass = value?.pangoAttrClassPointer
+        }
 
     /**
      * the start index of the range (in bytes).
@@ -73,6 +80,77 @@ public class Attribute(
         set(`value`) {
             pangoAttributePointer.pointed.end_index = value
         }
+
+    /**
+     * Allocate a new Attribute.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<PangoAttribute>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Attribute and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<PangoAttribute>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Attribute using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<PangoAttribute>().ptr)
+
+    /**
+     * Allocate a new Attribute.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param klass the class structure holding information about the type of the attribute
+     * @param startIndex the start index of the range (in bytes).
+     * @param endIndex end index of the range (in bytes). The character at this index
+     *   is not included in the range.
+     */
+    public constructor(
+        klass: AttrClass?,
+        startIndex: guint,
+        endIndex: guint,
+    ) : this() {
+        this.klass = klass
+        this.startIndex = startIndex
+        this.endIndex = endIndex
+    }
+
+    /**
+     * Allocate a new Attribute using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param klass the class structure holding information about the type of the attribute
+     * @param startIndex the start index of the range (in bytes).
+     * @param endIndex end index of the range (in bytes). The character at this index
+     *   is not included in the range.
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        klass: AttrClass?,
+        startIndex: guint,
+        endIndex: guint,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.klass = klass
+        this.startIndex = startIndex
+        this.endIndex = endIndex
+    }
 
     /**
      * Returns the attribute cast to `PangoAttrColor`.
@@ -230,14 +308,14 @@ public class Attribute(
     @PangoVersion1_20
     public fun `init`(klass: AttrClass): Unit = pango_attribute_init(pangoAttributePointer.reinterpret(), klass.pangoAttrClassPointer.reinterpret())
 
-    public companion object : RecordCompanion<Attribute, PangoAttribute> {
+    override fun toString(): String = "Attribute(klass=$klass, startIndex=$startIndex, endIndex=$endIndex)"
+
+    public companion object {
         /**
          * Get the GType of Attribute
          *
          * @return the GType
          */
         public fun getType(): GType = pango_attribute_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Attribute = Attribute(pointer.reinterpret())
     }
 }

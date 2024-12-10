@@ -4,14 +4,12 @@ package org.gtkkn.bindings.webkit
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_42
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitFeature
 import org.gtkkn.native.webkit.webkit_feature_get_category
@@ -23,7 +21,6 @@ import org.gtkkn.native.webkit.webkit_feature_get_status
 import org.gtkkn.native.webkit.webkit_feature_get_type
 import org.gtkkn.native.webkit.webkit_feature_ref
 import org.gtkkn.native.webkit.webkit_feature_unref
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Describes a web engine feature that may be toggled at runtime.
@@ -64,7 +61,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @WebKitVersion2_42
 public class Feature(
     pointer: CPointer<WebKitFeature>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val webkitFeaturePointer: CPointer<WebKitFeature> = pointer
 
     /**
@@ -169,14 +166,12 @@ public class Feature(
     @WebKitVersion2_42
     public fun unref(): Unit = webkit_feature_unref(webkitFeaturePointer.reinterpret())
 
-    public companion object : RecordCompanion<Feature, WebKitFeature> {
+    public companion object {
         /**
          * Get the GType of Feature
          *
          * @return the GType
          */
         public fun getType(): GType = webkit_feature_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Feature = Feature(pointer.reinterpret())
     }
 }

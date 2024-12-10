@@ -1,13 +1,16 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.javascriptcore
 
-import kotlinx.cinterop.CPointed
+import kotlin.Pair
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.javascriptcore.JSCClassVTable
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Virtual table for a JSCClass. This can be optionally used when registering a #JSCClass in a #JSCContext
@@ -32,10 +35,35 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class ClassVTable(
     pointer: CPointer<JSCClassVTable>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val javascriptcoreClassVTablePointer: CPointer<JSCClassVTable> = pointer
 
-    public companion object : RecordCompanion<ClassVTable, JSCClassVTable> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ClassVTable = ClassVTable(pointer.reinterpret())
+    /**
+     * Allocate a new ClassVTable.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<JSCClassVTable>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
     }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to ClassVTable and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<JSCClassVTable>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new ClassVTable using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<JSCClassVTable>().ptr)
 }

@@ -1,22 +1,27 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_10
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_20
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GThread
 import org.gtkkn.native.glib.g_thread_error_quark
+import org.gtkkn.native.glib.g_thread_foreach
+import org.gtkkn.native.glib.g_thread_get_initialized
 import org.gtkkn.native.glib.g_thread_ref
 import org.gtkkn.native.glib.g_thread_self
+import org.gtkkn.native.glib.g_thread_set_priority
 import org.gtkkn.native.glib.g_thread_unref
 import org.gtkkn.native.glib.g_thread_yield
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_thread_get_type
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The #GThread struct represents a running thread. This struct
@@ -38,7 +43,11 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  * - method `join`: Return type gpointer is unsupported
  * - constructor `new`: C function g_thread_new is ignored
  * - constructor `try_new`: C function g_thread_try_new is ignored
+ * - function `create`: C function g_thread_create is ignored
+ * - function `create_full`: C function g_thread_create_full is ignored
  * - parameter `retval`: gpointer
+ * - parameter `vtable`: gpointer
+ * - parameter `vtable`: gpointer
  * - field `func`: Record field func is private
  * - field `data`: Record field data is private
  * - field `joinable`: Record field joinable is private
@@ -46,7 +55,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class Thread(
     pointer: CPointer<GThread>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibThreadPointer: CPointer<GThread> = pointer
 
     /**
@@ -58,6 +67,13 @@ public class Thread(
     @GLibVersion2_32
     public fun ref(): Thread = g_thread_ref(glibThreadPointer.reinterpret())!!.run {
         Thread(reinterpret())}
+
+    /**
+     * This function does nothing.
+     *
+     * @param priority ignored
+     */
+    public fun setPriority(priority: ThreadPriority): Unit = g_thread_set_priority(glibThreadPointer.reinterpret(), priority.nativeValue)
 
     /**
      * Decrease the reference count on @thread, possibly freeing all
@@ -72,8 +88,36 @@ public class Thread(
     @GLibVersion2_32
     public fun unref(): Unit = g_thread_unref(glibThreadPointer.reinterpret())
 
-    public companion object : RecordCompanion<Thread, GThread> {
+    public companion object {
         public fun errorQuark(): Quark = g_thread_error_quark()
+
+        /**
+         * Call @thread_func on all #GThreads that have been
+         * created with g_thread_create().
+         *
+         * Note that threads may decide to exit while @thread_func is
+         * running, so without intimate knowledge about the lifetime of
+         * foreign threads, @thread_func shouldn't access the GThread*
+         * pointer passed in as first argument. However, @thread_func will
+         * not be called for threads which are known to have exited already.
+         *
+         * Due to thread lifetime checks, this function has an execution complexity
+         * which is quadratic in the number of existing threads.
+         *
+         * @param threadFunc function to call for all #GThread structures
+         * @since 2.10
+         */
+        @GLibVersion2_10
+        public fun foreach(threadFunc: Func): Unit = g_thread_foreach(FuncFunc.reinterpret(), StableRef.create(threadFunc).asCPointer())
+
+        /**
+         * Indicates if g_thread_init() has been called.
+         *
+         * @return true if threads have been initialized.
+         * @since 2.20
+         */
+        @GLibVersion2_20
+        public fun getInitialized(): Boolean = g_thread_get_initialized().asBoolean()
 
         /**
          * This function returns the #GThread corresponding to the
@@ -105,7 +149,5 @@ public class Thread(
          * @return the GType
          */
         public fun getType(): GType = g_thread_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Thread = Thread(pointer.reinterpret())
     }
 }

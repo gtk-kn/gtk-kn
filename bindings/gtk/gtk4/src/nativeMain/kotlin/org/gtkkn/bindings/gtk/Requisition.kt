@@ -1,13 +1,12 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkRequisition
@@ -15,7 +14,6 @@ import org.gtkkn.native.gtk.gtk_requisition_copy
 import org.gtkkn.native.gtk.gtk_requisition_free
 import org.gtkkn.native.gtk.gtk_requisition_get_type
 import org.gtkkn.native.gtk.gtk_requisition_new
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GtkRequisition` represents the desired size of a widget. See
@@ -24,7 +22,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class Requisition(
     pointer: CPointer<GtkRequisition>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gtkRequisitionPointer: CPointer<GtkRequisition> = pointer
 
     /**
@@ -58,7 +56,9 @@ public class Requisition(
      */
     public fun free(): Unit = gtk_requisition_free(gtkRequisitionPointer.reinterpret())
 
-    public companion object : RecordCompanion<Requisition, GtkRequisition> {
+    override fun toString(): String = "Requisition(width=$width, height=$height)"
+
+    public companion object {
         /**
          * Allocates a new `GtkRequisition`.
          *
@@ -76,7 +76,5 @@ public class Requisition(
          * @return the GType
          */
         public fun getType(): GType = gtk_requisition_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Requisition = Requisition(pointer.reinterpret())
     }
 }

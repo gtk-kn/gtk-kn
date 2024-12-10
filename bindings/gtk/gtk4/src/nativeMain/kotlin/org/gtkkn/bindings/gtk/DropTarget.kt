@@ -165,6 +165,20 @@ public open class DropTarget(
             Drop(reinterpret())}
 
     /**
+     * The `GdkDrop` that is currently being performed.
+     */
+    public open val drop: Drop?
+        /**
+         * Gets the currently handled drop operation.
+         *
+         * If no drop operation is going on, null is returned.
+         *
+         * @return The current drop
+         */
+        get() = gtk_drop_target_get_drop(gtkDropTargetPointer.reinterpret())?.run {
+            Drop(reinterpret())}
+
+    /**
      * The `GdkContentFormats` that determine the supported data formats.
      */
     public open val formats: ContentFormats?
@@ -244,16 +258,6 @@ public open class DropTarget(
      * @return the new `GtkDropTarget`
      */
     public constructor(type: GType, actions: DragAction) : this(gtk_drop_target_new(type, actions.mask)!!.reinterpret())
-
-    /**
-     * Gets the currently handled drop operation.
-     *
-     * If no drop operation is going on, null is returned.
-     *
-     * @return The current drop
-     */
-    public open fun getDrop(): Drop? = gtk_drop_target_get_drop(gtkDropTargetPointer.reinterpret())?.run {
-        Drop(reinterpret())}
 
     /**
      * Rejects the ongoing drop operation.

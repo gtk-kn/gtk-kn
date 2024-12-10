@@ -66,6 +66,7 @@ import org.gtkkn.native.gtk.gtk_printer_request_details
  * - method `accepting-jobs`: Property has no getter nor setter
  * - method `accepts-pdf`: Property has no getter nor setter
  * - method `accepts-ps`: Property has no getter nor setter
+ * - method `backend`: Property has no getter nor setter
  * - method `is-virtual`: Property has no getter nor setter
  * - method `paused`: Property has no getter nor setter
  * - parameter `backend`: PrintBackend

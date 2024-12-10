@@ -3,14 +3,12 @@ package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkScrollInfo
 import org.gtkkn.native.gtk.gtk_scroll_info_get_enable_horizontal
@@ -21,7 +19,6 @@ import org.gtkkn.native.gtk.gtk_scroll_info_ref
 import org.gtkkn.native.gtk.gtk_scroll_info_set_enable_horizontal
 import org.gtkkn.native.gtk.gtk_scroll_info_set_enable_vertical
 import org.gtkkn.native.gtk.gtk_scroll_info_unref
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `GtkScrollInfo` can be used to provide more accurate data on how a scroll
@@ -34,7 +31,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GtkVersion4_12
 public class ScrollInfo(
     pointer: CPointer<GtkScrollInfo>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gtkScrollInfoPointer: CPointer<GtkScrollInfo> = pointer
 
     /**
@@ -95,7 +92,7 @@ public class ScrollInfo(
     @GtkVersion4_12
     public fun unref(): Unit = gtk_scroll_info_unref(gtkScrollInfoPointer.reinterpret())
 
-    public companion object : RecordCompanion<ScrollInfo, GtkScrollInfo> {
+    public companion object {
         /**
          * Creates a new scroll info for scrolling an element into view.
          *
@@ -110,7 +107,5 @@ public class ScrollInfo(
          * @return the GType
          */
         public fun getType(): GType = gtk_scroll_info_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ScrollInfo = ScrollInfo(pointer.reinterpret())
     }
 }

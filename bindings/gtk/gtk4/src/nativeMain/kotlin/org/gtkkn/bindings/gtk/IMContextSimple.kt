@@ -53,6 +53,10 @@ import org.gtkkn.native.gtk.gtk_im_context_simple_new
  *
  *  yields U+00E! LATIN SMALL LETTER_A WITH ACUTE, i.e. á. Note that this
  *  depends on the keyboard layout including dead keys.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - parameter `data`: Array parameter of type guint16 is not supported
  */
 public open class IMContextSimple(
     pointer: CPointer<GtkIMContextSimple>,

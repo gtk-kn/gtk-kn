@@ -5,7 +5,6 @@ import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -18,8 +17,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_22
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_34
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_8
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GMappedFile
 import org.gtkkn.native.glib.g_mapped_file_free
@@ -34,7 +32,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_mapped_file_get_type
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.gsize
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The #GMappedFile represents a file mapping created with
@@ -43,7 +40,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class MappedFile(
     pointer: CPointer<GMappedFile>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibMappedFilePointer: CPointer<GMappedFile> = pointer
 
     /**
@@ -112,7 +109,7 @@ public class MappedFile(
      */
     public fun unref(): Unit = g_mapped_file_unref(glibMappedFilePointer.reinterpret())
 
-    public companion object : RecordCompanion<MappedFile, GMappedFile> {
+    public companion object {
         /**
          * Maps a file into memory. On UNIX, this is using the mmap() function.
          *
@@ -189,7 +186,5 @@ public class MappedFile(
          * @return the GType
          */
         public fun getType(): GType = g_mapped_file_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MappedFile = MappedFile(pointer.reinterpret())
     }
 }

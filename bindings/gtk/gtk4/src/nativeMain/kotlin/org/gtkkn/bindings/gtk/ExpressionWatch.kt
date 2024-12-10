@@ -3,13 +3,11 @@ package org.gtkkn.bindings.gtk
 
 import kotlin.Boolean
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkExpressionWatch
 import org.gtkkn.native.gtk.gtk_expression_watch_evaluate
@@ -17,7 +15,6 @@ import org.gtkkn.native.gtk.gtk_expression_watch_get_type
 import org.gtkkn.native.gtk.gtk_expression_watch_ref
 import org.gtkkn.native.gtk.gtk_expression_watch_unref
 import org.gtkkn.native.gtk.gtk_expression_watch_unwatch
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * An opaque structure representing a watched `GtkExpression`.
@@ -27,7 +24,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class ExpressionWatch(
     pointer: CPointer<GtkExpressionWatch>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gtkExpressionWatchPointer: CPointer<GtkExpressionWatch> = pointer
 
     /**
@@ -66,14 +63,12 @@ public class ExpressionWatch(
      */
     public fun unwatch(): Unit = gtk_expression_watch_unwatch(gtkExpressionWatchPointer.reinterpret())
 
-    public companion object : RecordCompanion<ExpressionWatch, GtkExpressionWatch> {
+    public companion object {
         /**
          * Get the GType of ExpressionWatch
          *
          * @return the GType
          */
         public fun getType(): GType = gtk_expression_watch_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ExpressionWatch = ExpressionWatch(pointer.reinterpret())
     }
 }

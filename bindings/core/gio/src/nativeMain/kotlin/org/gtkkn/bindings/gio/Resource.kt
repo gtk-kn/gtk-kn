@@ -5,7 +5,6 @@ import kotlin.Result
 import kotlin.String
 import kotlin.Unit
 import kotlin.collections.List
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -17,8 +16,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.common.toKStringList
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GResource
 import org.gtkkn.native.gio.g_resource_enumerate_children
 import org.gtkkn.native.gio.g_resource_get_type
@@ -32,7 +30,6 @@ import org.gtkkn.native.gio.g_resources_register
 import org.gtkkn.native.gio.g_resources_unregister
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Applications and libraries often contain binary or textual data that is
@@ -206,7 +203,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GioVersion2_32
 public class Resource(
     pointer: CPointer<GResource>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gioResourcePointer: CPointer<GResource> = pointer
 
     /**
@@ -217,7 +214,7 @@ public class Resource(
      * @since 2.32
      */
     @GioVersion2_32
-    public fun register(): Unit = g_resources_register(gioResourcePointer.reinterpret())
+    public fun resourcesRegister(): Unit = g_resources_register(gioResourcePointer.reinterpret())
 
     /**
      * Unregisters the resource from the process-global set of resources.
@@ -225,7 +222,7 @@ public class Resource(
      * @since 2.32
      */
     @GioVersion2_32
-    public fun unregister(): Unit = g_resources_unregister(gioResourcePointer.reinterpret())
+    public fun resourcesUnregister(): Unit = g_resources_unregister(gioResourcePointer.reinterpret())
 
     /**
      * Returns all the names of children at the specified @path in the resource.
@@ -338,7 +335,7 @@ public class Resource(
     @GioVersion2_32
     public fun unref(): Unit = g_resource_unref(gioResourcePointer.reinterpret())
 
-    public companion object : RecordCompanion<Resource, GResource> {
+    public companion object {
         /**
          * Creates a GResource from a reference to the binary resource bundle.
          * This will keep a reference to @data while the resource lives, so
@@ -406,7 +403,5 @@ public class Resource(
          * @return the GType
          */
         public fun getType(): GType = g_resource_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Resource = Resource(pointer.reinterpret())
     }
 }

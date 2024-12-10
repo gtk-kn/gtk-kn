@@ -4,14 +4,12 @@ package org.gtkkn.bindings.webkit
 import kotlin.String
 import kotlin.Unit
 import kotlin.collections.List
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_16
 import org.gtkkn.extensions.common.toCStringList
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitNetworkProxySettings
 import org.gtkkn.native.webkit.webkit_network_proxy_settings_add_proxy_for_scheme
@@ -19,7 +17,6 @@ import org.gtkkn.native.webkit.webkit_network_proxy_settings_copy
 import org.gtkkn.native.webkit.webkit_network_proxy_settings_free
 import org.gtkkn.native.webkit.webkit_network_proxy_settings_get_type
 import org.gtkkn.native.webkit.webkit_network_proxy_settings_new
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * Configures network proxies.
@@ -32,7 +29,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @WebKitVersion2_16
 public class NetworkProxySettings(
     pointer: CPointer<WebKitNetworkProxySettings>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val webkitNetworkProxySettingsPointer: CPointer<WebKitNetworkProxySettings> = pointer
 
     /**
@@ -67,7 +64,7 @@ public class NetworkProxySettings(
     @WebKitVersion2_16
     public fun free(): Unit = webkit_network_proxy_settings_free(webkitNetworkProxySettingsPointer.reinterpret())
 
-    public companion object : RecordCompanion<NetworkProxySettings, WebKitNetworkProxySettings> {
+    public companion object {
         /**
          * Create a new #WebKitNetworkProxySettings with the given @default_proxy_uri and @ignore_hosts.
          *
@@ -117,7 +114,5 @@ public class NetworkProxySettings(
          * @return the GType
          */
         public fun getType(): GType = webkit_network_proxy_settings_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): NetworkProxySettings = NetworkProxySettings(pointer.reinterpret())
     }
 }

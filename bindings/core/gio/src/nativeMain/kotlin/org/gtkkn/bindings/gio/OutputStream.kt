@@ -66,6 +66,8 @@ import org.gtkkn.native.gobject.gint
  *
  * ## Skipped during bindings generation
  *
+ * - method `printf`: Varargs parameter is not supported
+ * - parameter `bytes_written`: bytes_written: Out parameter is not supported
  * - parameter `buffer`: Array parameter of type guint8 is not supported
  * - parameter `buffer`: Array parameter of type guint8 is not supported
  * - parameter `buffer`: Array parameter of type guint8 is not supported

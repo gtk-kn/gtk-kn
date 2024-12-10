@@ -2,20 +2,19 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_22
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_68
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_70
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GTree
 import org.gtkkn.native.glib.g_tree_destroy
 import org.gtkkn.native.glib.g_tree_foreach
 import org.gtkkn.native.glib.g_tree_foreach_node
 import org.gtkkn.native.glib.g_tree_height
+import org.gtkkn.native.glib.g_tree_new_with_data
 import org.gtkkn.native.glib.g_tree_nnodes
 import org.gtkkn.native.glib.g_tree_ref
 import org.gtkkn.native.glib.g_tree_remove_all
@@ -23,7 +22,6 @@ import org.gtkkn.native.glib.g_tree_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_tree_get_type
 import org.gtkkn.native.gobject.gint
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The GTree struct is an opaque data structure representing a
@@ -48,11 +46,12 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  * - parameter `key`: gpointer
  * - method `traverse`: C function g_tree_traverse is ignored
  * - parameter `key`: gpointer
+ * - parameter `key_compare_func`: CompareFunc
  * - parameter `value_destroy_func`: DestroyNotify
  */
 public class Tree(
     pointer: CPointer<GTree>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val glibTreePointer: CPointer<GTree> = pointer
 
     /**
@@ -154,14 +153,21 @@ public class Tree(
     @GLibVersion2_22
     public fun unref(): Unit = g_tree_unref(glibTreePointer.reinterpret())
 
-    public companion object : RecordCompanion<Tree, GTree> {
+    public companion object {
+        /**
+         * Creates a new #GTree with a comparison function that accepts user data.
+         * See g_tree_new() for more details.
+         *
+         * @param keyCompareFunc qsort()-style comparison function
+         * @return a newly allocated #GTree
+         */
+        public fun newWithData(keyCompareFunc: CompareDataFunc): Tree = Tree(g_tree_new_with_data(CompareDataFuncFunc.reinterpret(), StableRef.create(keyCompareFunc).asCPointer())!!.reinterpret())
+
         /**
          * Get the GType of Tree
          *
          * @return the GType
          */
         public fun getType(): GType = g_tree_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Tree = Tree(pointer.reinterpret())
     }
 }

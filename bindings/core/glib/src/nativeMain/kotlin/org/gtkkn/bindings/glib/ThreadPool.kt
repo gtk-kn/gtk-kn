@@ -2,21 +2,29 @@
 package org.gtkkn.bindings.glib
 
 import kotlin.Boolean
+import kotlin.Pair
 import kotlin.Result
+import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.StableRef
+import kotlinx.cinterop.alloc
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.GLib.resolveException
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_10
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_70
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GThreadPool
 import org.gtkkn.native.glib.g_thread_pool_free
@@ -25,14 +33,16 @@ import org.gtkkn.native.glib.g_thread_pool_get_max_threads
 import org.gtkkn.native.glib.g_thread_pool_get_max_unused_threads
 import org.gtkkn.native.glib.g_thread_pool_get_num_threads
 import org.gtkkn.native.glib.g_thread_pool_get_num_unused_threads
+import org.gtkkn.native.glib.g_thread_pool_new
+import org.gtkkn.native.glib.g_thread_pool_new_full
 import org.gtkkn.native.glib.g_thread_pool_set_max_idle_time
 import org.gtkkn.native.glib.g_thread_pool_set_max_threads
 import org.gtkkn.native.glib.g_thread_pool_set_max_unused_threads
+import org.gtkkn.native.glib.g_thread_pool_set_sort_function
 import org.gtkkn.native.glib.g_thread_pool_stop_unused_threads
 import org.gtkkn.native.glib.g_thread_pool_unprocessed
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * The `GThreadPool` struct represents a thread pool.
@@ -71,7 +81,8 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class ThreadPool(
     pointer: CPointer<GThreadPool>,
-) : Record {
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibThreadPoolPointer: CPointer<GThreadPool> = pointer
 
     /**
@@ -82,6 +93,58 @@ public class ThreadPool(
         set(`value`) {
             glibThreadPoolPointer.pointed.exclusive = value.asGBoolean()
         }
+
+    /**
+     * Allocate a new ThreadPool.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GThreadPool>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to ThreadPool and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GThreadPool>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new ThreadPool using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GThreadPool>().ptr)
+
+    /**
+     * Allocate a new ThreadPool.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param exclusive are all threads exclusive to this pool
+     */
+    public constructor(exclusive: Boolean) : this() {
+        this.exclusive = exclusive
+    }
+
+    /**
+     * Allocate a new ThreadPool using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param exclusive are all threads exclusive to this pool
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(exclusive: Boolean, scope: AutofreeScope) : this(scope) {
+        this.exclusive = exclusive
+    }
 
     /**
      * Frees all resources allocated for @pool.
@@ -156,13 +219,37 @@ public class ThreadPool(
     }
 
     /**
+     * Sets the function used to sort the list of tasks. This allows the
+     * tasks to be processed by a priority determined by @func, and not
+     * just in the order in which they were added to the pool.
+     *
+     * Note, if the maximum number of threads is more than 1, the order
+     * that threads are executed cannot be guaranteed 100%. Threads are
+     * scheduled by the operating system and are executed at random. It
+     * cannot be assumed that threads are executed in the order they are
+     * created.
+     *
+     * @param func the #GCompareDataFunc used to sort the list of tasks.
+     *     This function is passed two tasks. It should return
+     *     0 if the order in which they are handled does not matter,
+     *     a negative value if the first task should be processed before
+     *     the second or a positive value if the second task should be
+     *     processed first.
+     * @since 2.10
+     */
+    @GLibVersion2_10
+    public fun setSortFunction(func: CompareDataFunc): Unit = g_thread_pool_set_sort_function(glibThreadPoolPointer.reinterpret(), CompareDataFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
+
+    /**
      * Returns the number of tasks still unprocessed in @pool.
      *
      * @return the number of unprocessed tasks
      */
     public fun unprocessed(): guint = g_thread_pool_unprocessed(glibThreadPoolPointer.reinterpret())
 
-    public companion object : RecordCompanion<ThreadPool, GThreadPool> {
+    override fun toString(): String = "ThreadPool(exclusive=$exclusive)"
+
+    public companion object {
         /**
          * This function will return the maximum @interval that a
          * thread will wait in the thread pool for new tasks before
@@ -192,6 +279,105 @@ public class ThreadPool(
          * @return the number of currently unused threads
          */
         public fun getNumUnusedThreads(): guint = g_thread_pool_get_num_unused_threads()
+
+        /**
+         * This function creates a new thread pool.
+         *
+         * Whenever you call g_thread_pool_push(), either a new thread is
+         * created or an unused one is reused. At most @max_threads threads
+         * are running concurrently for this thread pool. @max_threads = -1
+         * allows unlimited threads to be created for this thread pool. The
+         * newly created or reused thread now executes the function @func
+         * with the two arguments. The first one is the parameter to
+         * g_thread_pool_push() and the second one is @user_data.
+         *
+         * Pass g_get_num_processors() to @max_threads to create as many threads as
+         * there are logical processors on the system. This will not pin each thread to
+         * a specific processor.
+         *
+         * The parameter @exclusive determines whether the thread pool owns
+         * all threads exclusive or shares them with other thread pools.
+         * If @exclusive is true, @max_threads threads are started
+         * immediately and they will run exclusively for this thread pool
+         * until it is destroyed by g_thread_pool_free(). If @exclusive is
+         * false, threads are created when needed and shared between all
+         * non-exclusive thread pools. This implies that @max_threads may
+         * not be -1 for exclusive thread pools. Besides, exclusive thread
+         * pools are not affected by g_thread_pool_set_max_idle_time()
+         * since their threads are never considered idle and returned to the
+         * global pool.
+         *
+         * Note that the threads used by exclusive thread pools will all inherit the
+         * scheduler settings of the current thread while the threads used by
+         * non-exclusive thread pools will inherit the scheduler settings from the
+         * first thread that created such a thread pool.
+         *
+         * At least one thread will be spawned when this function is called, either to
+         * create the @max_threads exclusive threads, or to preserve the scheduler
+         * settings of the current thread for future spawns.
+         *
+         * @error can be null to ignore errors, or non-null to report
+         * errors. An error can only occur when @exclusive is set to true
+         * and not all @max_threads threads could be created.
+         * See #GThreadError for possible errors that may occur.
+         * Note, even in case of error a valid #GThreadPool is returned.
+         *
+         * @param func a function to execute in the threads of the new thread pool
+         * @param maxThreads the maximal number of threads to execute concurrently
+         *     in  the new thread pool, -1 means no limit
+         * @param exclusive should this thread pool be exclusive?
+         * @return the new #GThreadPool
+         */
+        public fun new(
+            func: Func,
+            maxThreads: gint,
+            exclusive: Boolean,
+        ): Result<ThreadPool> = memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult = g_thread_pool_new(FuncFunc.reinterpret(), StableRef.create(func).asCPointer(), maxThreads, exclusive.asGBoolean(), gError.ptr)?.run {
+                ThreadPool(reinterpret())}
+
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            }
+            else {
+                Result.success(checkNotNull(gResult))
+            }
+        }
+
+        /**
+         * This function creates a new thread pool similar to g_thread_pool_new()
+         * but allowing @item_free_func to be specified to free the data passed
+         * to g_thread_pool_push() in the case that the #GThreadPool is stopped
+         * and freed before all tasks have been executed.
+         *
+         * @item_free_func will *not* be called on items successfully passed to @func.
+         * @func is responsible for freeing the items passed to it.
+         *
+         * @param func a function to execute in the threads of the new thread pool
+         * @param maxThreads the maximal number of threads to execute concurrently
+         *     in the new thread pool, `-1` means no limit
+         * @param exclusive should this thread pool be exclusive?
+         * @return the new #GThreadPool
+         * @since 2.70
+         */
+        @GLibVersion2_70
+        public fun newFull(
+            func: Func,
+            maxThreads: gint,
+            exclusive: Boolean,
+        ): Result<ThreadPool> = memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult = g_thread_pool_new_full(FuncFunc.reinterpret(), StableRef.create(func).asCPointer(), staticStableRefDestroy.reinterpret(), maxThreads, exclusive.asGBoolean(), gError.ptr)?.run {
+                ThreadPool(reinterpret())}
+
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            }
+            else {
+                Result.success(checkNotNull(gResult))
+            }
+        }
 
         /**
          * This function will set the maximum @interval that a thread
@@ -228,7 +414,5 @@ public class ThreadPool(
          * regularly stop all unused threads e.g. from g_timeout_add().
          */
         public fun stopUnusedThreads(): Unit = g_thread_pool_stop_unused_threads()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ThreadPool = ThreadPool(pointer.reinterpret())
     }
 }

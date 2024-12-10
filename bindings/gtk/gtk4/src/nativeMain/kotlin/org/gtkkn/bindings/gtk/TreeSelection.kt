@@ -69,8 +69,10 @@ import org.gtkkn.native.gtk.gtk_tree_selection_unselect_range
  *
  * ## Skipped during bindings generation
  *
+ * - method `get_select_function`: Return type TreeSelectionFunc is unsupported
  * - parameter `model`: model: Out parameter is not supported
  * - parameter `model`: model: Out parameter is not supported
+ * - method `get_user_data`: Return type gpointer is unsupported
  */
 public open class TreeSelection(
     pointer: CPointer<GtkTreeSelection>,

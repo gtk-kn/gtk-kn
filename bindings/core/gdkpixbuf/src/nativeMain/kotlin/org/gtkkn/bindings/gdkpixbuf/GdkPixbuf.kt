@@ -17,7 +17,6 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.glib.GLibException
@@ -25,7 +24,6 @@ import org.gtkkn.native.gdkpixbuf.GdkPixbuf
 import org.gtkkn.native.gdkpixbuf.GdkPixbufAnimation
 import org.gtkkn.native.gdkpixbuf.GdkPixbufFormat
 import org.gtkkn.native.gdkpixbuf.GdkPixbufModule
-import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_error_quark
 import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.gsize
@@ -35,9 +33,11 @@ import org.gtkkn.native.gobject.gsize
  *
  * - class `PixbufNonAnim`: Missing cType on class
  * - class `PixbufSimpleAnimIter`: Missing cType on class
+ * - callback `PixbufModuleBeginLoadFunc`: Callbacks that throw are not supported
  * - callback `PixbufModuleIncrementLoadFunc`: Callbacks that throw are not supported
  * - callback `PixbufModuleLoadAnimationFunc`: Callbacks that throw are not supported
  * - callback `PixbufModuleLoadFunc`: Callbacks that throw are not supported
+ * - callback `PixbufModuleSaveCallbackFunc`: Callbacks that throw are not supported
  * - callback `PixbufModuleSaveFunc`: Callbacks that throw are not supported
  * - callback `PixbufModuleStopLoadFunc`: Callbacks that throw are not supported
  * - record `PixbufAnimationClass`: glib type struct are ignored
@@ -71,8 +71,6 @@ public object GdkPixbuf {
      * `gdk_pixbuf_version`.
      */
     public const val PIXBUF_VERSION: String = "2.42.10"
-
-    public fun pixbufErrorQuark(): Quark = gdk_pixbuf_error_quark()
 
     public fun resolveException(error: Error): GLibException {
         val ex = when (error.domain) {

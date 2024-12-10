@@ -139,14 +139,17 @@ class ProcessorContext(
      * Resolve the [TypeName] for the objectPointer we have in all records.
      */
     @Throws(UnresolvableTypeException::class)
-    fun resolveRecordObjectPointerTypeName(namespace: GirNamespace, record: GirRecord): TypeName =
-        BindingsGenerator.cpointerOf(
-            ClassName(
-                namespaceNativePackageName(namespace),
-                record.cType
-                    ?: throw UnresolvableTypeException("Missing cType on record"),
-            ),
+    fun resolveRecordObjectPointerTypeName(namespace: GirNamespace, record: GirRecord): TypeName {
+        val className = ClassName(
+            namespaceNativePackageName(namespace),
+            record.cType ?: throw UnresolvableTypeException("Missing cType on record"),
         )
+        return if (record.pointer == true) {
+            className
+        } else {
+            BindingsGenerator.cpointerOf(className)
+        }
+    }
 
     /**
      * Resolve the [TypeName] for the objectPointer we have in all interfaces.
@@ -446,7 +449,7 @@ class ProcessorContext(
                 ?: throw UnresolvableTypeException("missing cType for interface ${girInterface.name}"),
         )
 
-    private fun buildNativeClassName(girNamespace: GirNamespace, girRecord: GirRecord) =
+    fun buildNativeClassName(girNamespace: GirNamespace, girRecord: GirRecord) =
         ClassName(
             namespaceNativePackageName(girNamespace),
             girRecord.cType
@@ -639,16 +642,27 @@ class ProcessorContext(
 
             // problem because it uses a callback with a string return value
             "g_option_group_set_translate_func",
+            "g_option_context_set_translate_func",
             "soup_auth_domain_digest_set_auth_callback",
 
             // ThreadFunc is not supported yet
-            "g_thread_try_new",
+            "g_thread_create",
+            "g_thread_create_full",
             "g_thread_new",
+            "g_thread_try_new",
+
+            // CopyFunc is not supported yet
+            "g_list_copy_deep",
+            "g_node_copy_deep",
+            "g_slist_copy_deep",
 
             "g_tree_traverse",
 
             // On Fedora 41 this is listed in the GIR but the header file is missing
             "g_set_prgname_once",
+
+            // need to convert a org.gtkkn.native.glib.GPtrArray to a List<String>
+            "gtk_buildable_parse_context_get_element_stack",
         )
 
         /**

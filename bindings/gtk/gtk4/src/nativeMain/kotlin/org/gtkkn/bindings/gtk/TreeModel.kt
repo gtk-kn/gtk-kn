@@ -253,6 +253,8 @@ import org.gtkkn.native.gtk.gtk_tree_model_unref_node
  *
  * ## Skipped during bindings generation
  *
+ * - method `get`: Varargs parameter is not supported
+ * - parameter `var_args`: va_list
  * - parameter `new_order`: Array parameter of type gint is not supported
  * - signal `rows-reordered`: Unsupported parameter `new_order` : gpointer
  */

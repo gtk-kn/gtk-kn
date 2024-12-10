@@ -3,13 +3,12 @@ package org.gtkkn.bindings.gio
 
 import kotlin.String
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.bindings.glib.List
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GSrvTarget
 import org.gtkkn.native.gio.g_srv_target_copy
 import org.gtkkn.native.gio.g_srv_target_free
@@ -18,10 +17,10 @@ import org.gtkkn.native.gio.g_srv_target_get_port
 import org.gtkkn.native.gio.g_srv_target_get_priority
 import org.gtkkn.native.gio.g_srv_target_get_type
 import org.gtkkn.native.gio.g_srv_target_get_weight
+import org.gtkkn.native.gio.g_srv_target_list_sort
 import org.gtkkn.native.gio.g_srv_target_new
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.guint16
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A single target host/port that a network service is running on.
@@ -43,7 +42,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  */
 public class SrvTarget(
     pointer: CPointer<GSrvTarget>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gioSrvTargetPointer: CPointer<GSrvTarget> = pointer
 
     /**
@@ -107,7 +106,7 @@ public class SrvTarget(
     @GioVersion2_22
     public fun getWeight(): guint16 = g_srv_target_get_weight(gioSrvTargetPointer.reinterpret())
 
-    public companion object : RecordCompanion<SrvTarget, GSrvTarget> {
+    public companion object {
         /**
          * Creates a new #GSrvTarget with the given parameters.
          *
@@ -129,12 +128,21 @@ public class SrvTarget(
         ): SrvTarget = SrvTarget(g_srv_target_new(hostname, port, priority, weight)!!.reinterpret())
 
         /**
+         * Sorts @targets in place according to the algorithm in RFC 2782.
+         *
+         * @param targets a #GList of #GSrvTarget
+         * @return the head of the sorted list.
+         * @since 2.22
+         */
+        @GioVersion2_22
+        public fun listSort(targets: List): List = g_srv_target_list_sort(targets.glibListPointer.reinterpret())!!.run {
+            List(reinterpret())}
+
+        /**
          * Get the GType of SrvTarget
          *
          * @return the GType
          */
         public fun getType(): GType = g_srv_target_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SrvTarget = SrvTarget(pointer.reinterpret())
     }
 }

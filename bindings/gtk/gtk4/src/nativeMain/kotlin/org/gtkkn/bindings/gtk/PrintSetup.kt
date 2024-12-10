@@ -2,12 +2,10 @@
 package org.gtkkn.bindings.gtk
 
 import kotlin.Unit
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkPrintSetup
 import org.gtkkn.native.gtk.gtk_print_setup_get_page_setup
@@ -15,7 +13,6 @@ import org.gtkkn.native.gtk.gtk_print_setup_get_print_settings
 import org.gtkkn.native.gtk.gtk_print_setup_get_type
 import org.gtkkn.native.gtk.gtk_print_setup_ref
 import org.gtkkn.native.gtk.gtk_print_setup_unref
-import kotlinx.cinterop.alloc as nativePlacementAlloc
 
 /**
  * A `GtkPrintSetup` is an auxiliary object for printing that allows decoupling
@@ -33,7 +30,7 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
 @GtkVersion4_14
 public class PrintSetup(
     pointer: CPointer<GtkPrintSetup>,
-) : Record {
+) : ProxyInstance(pointer) {
     public val gtkPrintSetupPointer: CPointer<GtkPrintSetup> = pointer
 
     /**
@@ -83,14 +80,12 @@ public class PrintSetup(
     @GtkVersion4_14
     public fun unref(): Unit = gtk_print_setup_unref(gtkPrintSetupPointer.reinterpret())
 
-    public companion object : RecordCompanion<PrintSetup, GtkPrintSetup> {
+    public companion object {
         /**
          * Get the GType of PrintSetup
          *
          * @return the GType
          */
         public fun getType(): GType = gtk_print_setup_get_type()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PrintSetup = PrintSetup(pointer.reinterpret())
     }
 }

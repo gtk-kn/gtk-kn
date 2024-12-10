@@ -384,7 +384,10 @@ import org.gtkkn.native.gobject.guint64
  *
  * ## Skipped during bindings generation
  *
+ * - parameter `get_mapping`: SettingsBindGetMapping
+ * - method `get`: Varargs parameter is not supported
  * - method `get_mapped`: Return type gpointer is unsupported
+ * - method `set`: Varargs parameter is not supported
  * - method `backend`: Property has no getter nor setter
  * - method `delay-apply`: Property has no getter nor setter
  * - method `path`: Property has no getter nor setter

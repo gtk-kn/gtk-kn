@@ -23,18 +23,15 @@ import org.gtkkn.bindings.gdk.Display
 import org.gtkkn.bindings.gdk.FrameClock
 import org.gtkkn.bindings.gdk.ModifierType
 import org.gtkkn.bindings.gdk.Rectangle
-import org.gtkkn.bindings.gdk.Surface
 import org.gtkkn.bindings.gio.AsyncReadyCallback
 import org.gtkkn.bindings.gio.AsyncReadyCallbackFunc
 import org.gtkkn.bindings.gio.AsyncResult
 import org.gtkkn.bindings.gio.Cancellable
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.bindings.gobject.ObjectClass
 import org.gtkkn.bindings.gobject.ParamFlags
 import org.gtkkn.bindings.gobject.ParamSpec
 import org.gtkkn.bindings.gobject.Value
@@ -84,21 +81,11 @@ import org.gtkkn.native.gtk.gtk_accelerator_get_label_with_keycode
 import org.gtkkn.native.gtk.gtk_accelerator_name
 import org.gtkkn.native.gtk.gtk_accelerator_name_with_keycode
 import org.gtkkn.native.gtk.gtk_accelerator_valid
-import org.gtkkn.native.gtk.gtk_accessible_property_init_value
-import org.gtkkn.native.gtk.gtk_accessible_relation_init_value
-import org.gtkkn.native.gtk.gtk_accessible_state_init_value
-import org.gtkkn.native.gtk.gtk_builder_error_quark
 import org.gtkkn.native.gtk.gtk_check_version
-import org.gtkkn.native.gtk.gtk_constraint_vfl_parser_error_quark
 import org.gtkkn.native.gtk.gtk_css_parser_error_quark
 import org.gtkkn.native.gtk.gtk_css_parser_warning_quark
-import org.gtkkn.native.gtk.gtk_dialog_error_quark
 import org.gtkkn.native.gtk.gtk_disable_setlocale
-import org.gtkkn.native.gtk.gtk_editable_delegate_get_property
-import org.gtkkn.native.gtk.gtk_editable_delegate_set_property
-import org.gtkkn.native.gtk.gtk_editable_install_properties
 import org.gtkkn.native.gtk.gtk_enumerate_printers
-import org.gtkkn.native.gtk.gtk_file_chooser_error_quark
 import org.gtkkn.native.gtk.gtk_get_binary_age
 import org.gtkkn.native.gtk.gtk_get_debug_flags
 import org.gtkkn.native.gtk.gtk_get_default_language
@@ -107,18 +94,12 @@ import org.gtkkn.native.gtk.gtk_get_locale_direction
 import org.gtkkn.native.gtk.gtk_get_major_version
 import org.gtkkn.native.gtk.gtk_get_micro_version
 import org.gtkkn.native.gtk.gtk_get_minor_version
-import org.gtkkn.native.gtk.gtk_icon_theme_error_quark
 import org.gtkkn.native.gtk.gtk_init
 import org.gtkkn.native.gtk.gtk_init_check
 import org.gtkkn.native.gtk.gtk_is_initialized
-import org.gtkkn.native.gtk.gtk_native_get_for_surface
-import org.gtkkn.native.gtk.gtk_paper_size_get_default
-import org.gtkkn.native.gtk.gtk_paper_size_get_paper_sizes
 import org.gtkkn.native.gtk.gtk_param_spec_expression
-import org.gtkkn.native.gtk.gtk_print_error_quark
 import org.gtkkn.native.gtk.gtk_print_run_page_setup_dialog
 import org.gtkkn.native.gtk.gtk_print_run_page_setup_dialog_async
-import org.gtkkn.native.gtk.gtk_recent_manager_error_quark
 import org.gtkkn.native.gtk.gtk_set_debug_flags
 import org.gtkkn.native.gtk.gtk_show_uri
 import org.gtkkn.native.gtk.gtk_show_uri_full
@@ -131,8 +112,6 @@ import org.gtkkn.native.gtk.gtk_test_accessible_has_state
 import org.gtkkn.native.gtk.gtk_test_register_all_types
 import org.gtkkn.native.gtk.gtk_test_widget_wait_for_draw
 import org.gtkkn.native.gtk.gtk_tree_create_row_drag_content
-import org.gtkkn.native.gtk.gtk_tree_row_reference_deleted
-import org.gtkkn.native.gtk.gtk_tree_row_reference_inserted
 import org.gtkkn.native.gtk.gtk_value_dup_expression
 import org.gtkkn.native.gtk.gtk_value_get_expression
 import org.gtkkn.native.gtk.gtk_value_set_expression
@@ -147,9 +126,6 @@ import org.gtkkn.native.pango.PangoFontFamily
  * - class `Snapshot`: Missing cType on class
  * - parameter `accelerator_key`: accelerator_key: Out parameter is not supported
  * - parameter `accelerator_key`: accelerator_key: Out parameter is not supported
- * - parameter `value`: value: Out parameter is not supported
- * - parameter `value`: value: Out parameter is not supported
- * - parameter `value`: value: Out parameter is not supported
  * - parameter `sizes`: RequestedSize
  * - parameter `r`: r: Out parameter is not supported
  * - parameter `cr`: cairo.Context
@@ -165,6 +141,11 @@ import org.gtkkn.native.pango.PangoFontFamily
  * - parameter `cr`: cairo.Context
  * - parameter `cr`: cairo.Context
  * - parameter `h`: h: Out parameter is not supported
+ * - function `show_about_dialog`: Varargs parameter is not supported
+ * - function `test_accessible_check_property`: Varargs parameter is not supported
+ * - function `test_accessible_check_relation`: Varargs parameter is not supported
+ * - function `test_accessible_check_state`: Varargs parameter is not supported
+ * - function `test_init`: In/Out parameter is not supported
  * - parameter `n_types`: n_types: Out parameter is not supported
  * - parameter `tree_model`: tree_model: Out parameter is not supported
  * - callback `ScaleFormatValueFunc`: Callback with String return value is not supported
@@ -186,22 +167,17 @@ import org.gtkkn.native.pango.PangoFontFamily
  * - record `BoxClass`: glib type struct are ignored
  * - record `BoxLayoutClass`: glib type struct are ignored
  * - record `BuildableIface`: glib type struct are ignored
- * - record `BuildableParseContext`: Disguised records are ignored
  * - record `BuilderCScopeClass`: glib type struct are ignored
  * - record `BuilderClass`: glib type struct are ignored
  * - record `BuilderListItemFactoryClass`: glib type struct are ignored
  * - record `BuilderScopeInterface`: glib type struct are ignored
  * - record `ButtonClass`: glib type struct are ignored
- * - record `ButtonPrivate`: Disguised records are ignored
  * - record `CallbackActionClass`: glib type struct are ignored
  * - record `CellAreaClass`: glib type struct are ignored
  * - record `CellAreaContextClass`: glib type struct are ignored
- * - record `CellAreaContextPrivate`: Disguised records are ignored
  * - record `CellEditableIface`: glib type struct are ignored
  * - record `CellLayoutIface`: glib type struct are ignored
  * - record `CellRendererClass`: glib type struct are ignored
- * - record `CellRendererClassPrivate`: Disguised records are ignored
- * - record `CellRendererPrivate`: Disguised records are ignored
  * - record `CellRendererTextClass`: glib type struct are ignored
  * - record `CenterBoxClass`: glib type struct are ignored
  * - record `CenterLayoutClass`: glib type struct are ignored
@@ -221,8 +197,6 @@ import org.gtkkn.native.pango.PangoFontFamily
  * - record `ConstraintLayoutClass`: glib type struct are ignored
  * - record `ConstraintTargetInterface`: glib type struct are ignored
  * - record `CssProviderClass`: glib type struct are ignored
- * - record `CssProviderPrivate`: Disguised records are ignored
- * - record `CssStyleChange`: Disguised records are ignored
  * - record `CustomFilterClass`: glib type struct are ignored
  * - record `CustomSorterClass`: glib type struct are ignored
  * - record `DialogClass`: glib type struct are ignored
@@ -278,9 +252,7 @@ import org.gtkkn.native.pango.PangoFontFamily
  * - record `GridViewClass`: glib type struct are ignored
  * - record `IMContextClass`: glib type struct are ignored
  * - record `IMContextSimpleClass`: glib type struct are ignored
- * - record `IMContextSimplePrivate`: Disguised records are ignored
  * - record `IMMulticontextClass`: glib type struct are ignored
- * - record `IMMulticontextPrivate`: Disguised records are ignored
  * - record `InscriptionClass`: glib type struct are ignored
  * - record `KeyvalTriggerClass`: glib type struct are ignored
  * - record `LayoutChildClass`: glib type struct are ignored
@@ -291,7 +263,6 @@ import org.gtkkn.native.pango.PangoFontFamily
  * - record `ListItemClass`: glib type struct are ignored
  * - record `ListItemFactoryClass`: glib type struct are ignored
  * - record `ListStoreClass`: glib type struct are ignored
- * - record `ListStorePrivate`: Disguised records are ignored
  * - record `ListViewClass`: glib type struct are ignored
  * - record `MapListModelClass`: glib type struct are ignored
  * - record `MediaControlsClass`: glib type struct are ignored
@@ -301,7 +272,6 @@ import org.gtkkn.native.pango.PangoFontFamily
  * - record `MnemonicActionClass`: glib type struct are ignored
  * - record `MnemonicTriggerClass`: glib type struct are ignored
  * - record `MountOperationClass`: glib type struct are ignored
- * - record `MountOperationPrivate`: Disguised records are ignored
  * - record `MultiFilterClass`: glib type struct are ignored
  * - record `MultiSelectionClass`: glib type struct are ignored
  * - record `MultiSorterClass`: glib type struct are ignored
@@ -320,14 +290,11 @@ import org.gtkkn.native.pango.PangoFontFamily
  * - record `PasswordEntryClass`: glib type struct are ignored
  * - record `PictureClass`: glib type struct are ignored
  * - record `PopoverClass`: glib type struct are ignored
- * - record `PrintBackend`: Disguised records are ignored
  * - record `PrintDialogClass`: glib type struct are ignored
  * - record `PrintOperationClass`: glib type struct are ignored
  * - record `PrintOperationPreviewIface`: glib type struct are ignored
- * - record `PrintOperationPrivate`: Disguised records are ignored
  * - record `RangeClass`: glib type struct are ignored
  * - record `RecentManagerClass`: glib type struct are ignored
- * - record `RecentManagerPrivate`: Disguised records are ignored
  * - record `RootInterface`: glib type struct are ignored
  * - record `ScaleButtonClass`: glib type struct are ignored
  * - record `ScaleClass`: glib type struct are ignored
@@ -358,13 +325,10 @@ import org.gtkkn.native.pango.PangoFontFamily
  * - record `StyleContextClass`: glib type struct are ignored
  * - record `SymbolicPaintableInterface`: glib type struct are ignored
  * - record `TextBufferClass`: glib type struct are ignored
- * - record `TextBufferPrivate`: Disguised records are ignored
  * - record `TextChildAnchorClass`: glib type struct are ignored
  * - record `TextMarkClass`: glib type struct are ignored
  * - record `TextTagClass`: glib type struct are ignored
- * - record `TextTagPrivate`: Disguised records are ignored
  * - record `TextViewClass`: glib type struct are ignored
- * - record `TextViewPrivate`: Disguised records are ignored
  * - record `ToggleButtonClass`: glib type struct are ignored
  * - record `TreeDragDestIface`: glib type struct are ignored
  * - record `TreeDragSourceIface`: glib type struct are ignored
@@ -373,24 +337,18 @@ import org.gtkkn.native.pango.PangoFontFamily
  * - record `TreeListRowClass`: glib type struct are ignored
  * - record `TreeListRowSorterClass`: glib type struct are ignored
  * - record `TreeModelFilterClass`: glib type struct are ignored
- * - record `TreeModelFilterPrivate`: Disguised records are ignored
  * - record `TreeModelIface`: glib type struct are ignored
  * - record `TreeModelSortClass`: glib type struct are ignored
- * - record `TreeModelSortPrivate`: Disguised records are ignored
  * - record `TreeSortableIface`: glib type struct are ignored
  * - record `TreeStoreClass`: glib type struct are ignored
- * - record `TreeStorePrivate`: Disguised records are ignored
  * - record `TreeViewClass`: glib type struct are ignored
  * - record `UriLauncherClass`: glib type struct are ignored
  * - record `VideoClass`: glib type struct are ignored
  * - record `WidgetClass`: glib type struct are ignored
- * - record `WidgetClassPrivate`: Disguised records are ignored
  * - record `WidgetPaintableClass`: glib type struct are ignored
- * - record `WidgetPrivate`: Disguised records are ignored
  * - record `WindowClass`: glib type struct are ignored
  * - record `WindowControlsClass`: glib type struct are ignored
  * - record `WindowGroupClass`: glib type struct are ignored
- * - record `WindowGroupPrivate`: Disguised records are ignored
  * - record `WindowHandleClass`: glib type struct are ignored
  */
 public object Gtk {
@@ -1044,14 +1002,6 @@ public object Gtk {
      */
     public fun acceleratorValid(keyval: guint, modifiers: ModifierType): Boolean = gtk_accelerator_valid(keyval, modifiers.mask).asBoolean()
 
-    public fun accessiblePropertyInitValue(`property`: AccessibleProperty, `value`: Value): Unit = gtk_accessible_property_init_value(`property`.nativeValue, `value`.gobjectValuePointer.reinterpret())
-
-    public fun accessibleRelationInitValue(relation: AccessibleRelation, `value`: Value): Unit = gtk_accessible_relation_init_value(relation.nativeValue, `value`.gobjectValuePointer.reinterpret())
-
-    public fun accessibleStateInitValue(state: AccessibleState, `value`: Value): Unit = gtk_accessible_state_init_value(state.nativeValue, `value`.gobjectValuePointer.reinterpret())
-
-    public fun builderErrorQuark(): Quark = gtk_builder_error_quark()
-
     /**
      * Checks that the GTK library in use is compatible with the
      * given version.
@@ -1091,13 +1041,9 @@ public object Gtk {
         requiredMicro: guint,
     ): String? = gtk_check_version(requiredMajor, requiredMinor, requiredMicro)?.toKString()
 
-    public fun constraintVflParserErrorQuark(): Quark = gtk_constraint_vfl_parser_error_quark()
-
     public fun cssParserErrorQuark(): Quark = gtk_css_parser_error_quark()
 
     public fun cssParserWarningQuark(): Quark = gtk_css_parser_warning_quark()
-
-    public fun dialogErrorQuark(): Quark = gtk_dialog_error_quark()
 
     /**
      * Prevents [func@Gtk.init] and [func@Gtk.init_check] from automatically calling
@@ -1112,69 +1058,6 @@ public object Gtk {
     public fun disableSetlocale(): Unit = gtk_disable_setlocale()
 
     /**
-     * Gets a property of the `GtkEditable` delegate for @object.
-     *
-     * This is helper function that should be called in the `get_property`
-     * function of your `GtkEditable` implementation, before handling your
-     * own properties.
-     *
-     * @param object a `GObject`
-     * @param propId a property ID
-     * @param value value to set
-     * @param pspec the `GParamSpec` for the property
-     * @return true if the property was found
-     */
-    public fun editableDelegateGetProperty(
-        `object`: Object,
-        propId: guint,
-        `value`: Value,
-        pspec: ParamSpec,
-    ): Boolean = gtk_editable_delegate_get_property(`object`.gPointer.reinterpret(), propId, `value`.gobjectValuePointer.reinterpret(), pspec.gPointer.reinterpret()).asBoolean()
-
-    /**
-     * Sets a property on the `GtkEditable` delegate for @object.
-     *
-     * This is a helper function that should be called in the `set_property`
-     * function of your `GtkEditable` implementation, before handling your
-     * own properties.
-     *
-     * @param object a `GObject`
-     * @param propId a property ID
-     * @param value value to set
-     * @param pspec the `GParamSpec` for the property
-     * @return true if the property was found
-     */
-    public fun editableDelegateSetProperty(
-        `object`: Object,
-        propId: guint,
-        `value`: Value,
-        pspec: ParamSpec,
-    ): Boolean = gtk_editable_delegate_set_property(`object`.gPointer.reinterpret(), propId, `value`.gobjectValuePointer.reinterpret(), pspec.gPointer.reinterpret()).asBoolean()
-
-    /**
-     * Overrides the `GtkEditable` properties for @class.
-     *
-     * This is a helper function that should be called in class_init,
-     * after installing your own properties.
-     *
-     * Note that your class must have "text", "cursor-position",
-     * "selection-bound", "editable", "width-chars", "max-width-chars",
-     * "xalign" and "enable-undo" properties for this function to work.
-     *
-     * To handle the properties in your set_property and get_property
-     * functions, you can either use [func@Gtk.Editable.delegate_set_property]
-     * and [func@Gtk.Editable.delegate_get_property] (if you are using
-     * a delegate), or remember the @first_prop offset and add it to the
-     * values in the [enum@Gtk.EditableProperties] enumeration to get the
-     * property IDs for these properties.
-     *
-     * @param objectClass a `GObjectClass`
-     * @param firstProp property ID to use for the first property
-     * @return the number of properties that were installed
-     */
-    public fun editableInstallProperties(objectClass: ObjectClass, firstProp: guint): guint = gtk_editable_install_properties(objectClass.gobjectObjectClassPointer.reinterpret(), firstProp)
-
-    /**
      * Calls a function for all `GtkPrinter`s.
      *
      * If @func returns true, the enumeration is stopped.
@@ -1184,13 +1067,6 @@ public object Gtk {
      *    all printers are enumerated; otherwise return early
      */
     public fun enumeratePrinters(func: PrinterFunc, wait: Boolean): Unit = gtk_enumerate_printers(PrinterFuncFunc.reinterpret(), StableRef.create(func).asCPointer(), staticStableRefDestroy.reinterpret(), wait.asGBoolean())
-
-    /**
-     * Registers an error quark for `GtkFileChooser` errors.
-     *
-     * @return The error quark used for `GtkFileChooser` errors.
-     */
-    public fun fileChooserErrorQuark(): Quark = gtk_file_chooser_error_quark()
 
     /**
      * Returns the binary age as passed to `libtool`.
@@ -1315,8 +1191,6 @@ public object Gtk {
      */
     public fun getMinorVersion(): guint = gtk_get_minor_version()
 
-    public fun iconThemeErrorQuark(): Quark = gtk_icon_theme_error_quark()
-
     /**
      * Call this function before using any other GTK functions in your GUI
      * applications. It will initialize everything needed to operate the
@@ -1364,35 +1238,6 @@ public object Gtk {
     public fun isInitialized(): Boolean = gtk_is_initialized().asBoolean()
 
     /**
-     * Finds the `GtkNative` associated with the surface.
-     *
-     * @param surface a `GdkSurface`
-     * @return the `GtkNative` that is associated with @surface
-     */
-    public fun nativeGetForSurface(surface: Surface): Native? = gtk_native_get_for_surface(surface.gdkSurfacePointer.reinterpret())?.run {
-        Native.wrap(reinterpret())}
-
-    /**
-     * Returns the name of the default paper size, which
-     * depends on the current locale.
-     *
-     * @return the name of the default paper size. The string
-     * is owned by GTK and should not be modified.
-     */
-    public fun paperSizeGetDefault(): String = gtk_paper_size_get_default()?.toKString() ?: error("Expected not null string")
-
-    /**
-     * Creates a list of known paper sizes.
-     *
-     * @param includeCustom whether to include custom paper sizes
-     *   as defined in the page setup dialog
-     * @return a newly allocated list of newly
-     *    allocated `GtkPaperSize` objects
-     */
-    public fun paperSizeGetPaperSizes(includeCustom: Boolean): List = gtk_paper_size_get_paper_sizes(includeCustom.asGBoolean())!!.run {
-        List(reinterpret())}
-
-    /**
      * Creates a new `GParamSpec` instance for a property holding a `GtkExpression`.
      *
      * See `g_param_spec_internal()` for details on the property strings.
@@ -1410,13 +1255,6 @@ public object Gtk {
         flags: ParamFlags,
     ): ParamSpec = gtk_param_spec_expression(name, nick, blurb, flags.mask)!!.run {
         ParamSpec(reinterpret())}
-
-    /**
-     * Registers an error quark for `GtkPrintOperation` if necessary.
-     *
-     * @return The error quark used for `GtkPrintOperation` errors.
-     */
-    public fun printErrorQuark(): Quark = gtk_print_error_quark()
 
     /**
      * Runs a page setup dialog, letting the user modify the values from
@@ -1459,8 +1297,6 @@ public object Gtk {
         settings: PrintSettings,
         doneCb: PageSetupDoneFunc,
     ): Unit = gtk_print_run_page_setup_dialog_async(parent?.gtkWindowPointer?.reinterpret(), pageSetup?.gtkPageSetupPointer?.reinterpret(), settings.gtkPrintSettingsPointer.reinterpret(), PageSetupDoneFuncFunc.reinterpret(), StableRef.create(doneCb).asCPointer())
-
-    public fun recentManagerErrorQuark(): Quark = gtk_recent_manager_error_quark()
 
     /**
      * Sets the GTK debug flags.
@@ -1606,26 +1442,6 @@ public object Gtk {
      */
     public fun treeCreateRowDragContent(treeModel: TreeModel, path: TreePath): ContentProvider = gtk_tree_create_row_drag_content(treeModel.gtkTreeModelPointer, path.gtkTreePathPointer.reinterpret())!!.run {
         ContentProvider(reinterpret())}
-
-    /**
-     * Lets a set of row reference created by
-     * gtk_tree_row_reference_new_proxy() know that the
-     * model emitted the ::row-deleted signal.
-     *
-     * @param proxy a `GObject`
-     * @param path the path position that was deleted
-     */
-    public fun treeRowReferenceDeleted(proxy: Object, path: TreePath): Unit = gtk_tree_row_reference_deleted(proxy.gPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
-
-    /**
-     * Lets a set of row reference created by
-     * gtk_tree_row_reference_new_proxy() know that the
-     * model emitted the ::row-inserted signal.
-     *
-     * @param proxy a `GObject`
-     * @param path the row position that was inserted
-     */
-    public fun treeRowReferenceInserted(proxy: Object, path: TreePath): Unit = gtk_tree_row_reference_inserted(proxy.gPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
 
     /**
      * Retrieves the `GtkExpression` stored inside the given `value`, and acquires

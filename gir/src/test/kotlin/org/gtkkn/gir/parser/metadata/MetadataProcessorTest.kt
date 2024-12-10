@@ -910,6 +910,51 @@ class MetadataProcessorTest {
     }
 
     @Test
+    fun `test apply NAME argument to remove suffix with introspectable="0"`() {
+        // Prepare the XML document
+        val xmlContent =
+            """
+                <repository>
+                  <namespace name="TestNamespace">
+                    <record name="Array">
+                      <function name="new" introspectable="0">
+                        <parameters>
+                          <parameter name="clear_" />
+                        </parameters>
+                      </function>
+                    </record>
+                  </namespace>
+                </repository>
+            """.trimIndent()
+
+        // Prepare the metadata content
+        val metadataContent =
+            """
+                *.*.*#parameter name="(.+)_$"
+            """.trimIndent()
+
+        // Parse the XML document
+        document = parseXml(xmlContent)
+
+        // Parse the metadata
+        val metadata = metadataParser.parse(metadataContent)
+
+        // Create the processor
+        processor = MetadataProcessor(metadata, document)
+
+        // Apply the metadata
+        processor.apply()
+
+        // Find the parameter node with the new name
+        val paramNode = findNodeByName(document.documentElement, "parameter", "clear")
+        assertNotNull(paramNode, "The parameter node should be renamed to 'clear'")
+
+        // Ensure the old parameter name does not exist
+        val oldParamNode = findNodeByName(document.documentElement, "parameter", "clear_")
+        assertNull(oldParamNode, "The old parameter name 'clear_' should not exist")
+    }
+
+    @Test
     fun `test apply NAME argument to replace dashes with underscores in parameter names`() {
         // Prepare the XML document
         val xmlContent =

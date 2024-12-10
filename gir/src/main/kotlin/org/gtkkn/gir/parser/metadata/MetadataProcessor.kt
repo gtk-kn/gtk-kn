@@ -95,23 +95,17 @@ class MetadataProcessor(
             popMetadata()
         }
 
-        // Check if the node is introspectable (default is true)
-        val introspectableAttr = node.attributes?.getNamedItem("introspectable")
-        val introspectable = introspectableAttr?.nodeValue?.toBoolean() != false
+        // Copy the child nodes into a list to avoid issues with modifications during iteration
+        val childNodes = node.childNodes
+        val nodesList = mutableListOf<Node>()
+        for (i in 0 until childNodes.length) {
+            val childNode = childNodes.item(i)
+            nodesList.add(childNode)
+        }
 
-        if (introspectable) {
-            // Copy the child nodes into a list to avoid issues with modifications during iteration
-            val childNodes = node.childNodes
-            val nodesList = mutableListOf<Node>()
-            for (i in 0 until childNodes.length) {
-                val childNode = childNodes.item(i)
-                nodesList.add(childNode)
-            }
-
-            for (childNode in nodesList) {
-                if (childNode.nodeType == Node.ELEMENT_NODE) {
-                    processNode(childNode)
-                }
+        for (childNode in nodesList) {
+            if (childNode.nodeType == Node.ELEMENT_NODE) {
+                processNode(childNode)
             }
         }
 

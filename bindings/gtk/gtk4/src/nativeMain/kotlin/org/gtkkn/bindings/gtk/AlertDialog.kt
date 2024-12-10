@@ -64,6 +64,7 @@ import org.gtkkn.native.gtk.gtk_alert_dialog_show
  * ## Skipped during bindings generation
  *
  * - method `buttons`: Property TypeInfo of getter and setter do not match
+ * - constructor `new`: Varargs parameter is not supported
  *
  * @since 4.10
  */
