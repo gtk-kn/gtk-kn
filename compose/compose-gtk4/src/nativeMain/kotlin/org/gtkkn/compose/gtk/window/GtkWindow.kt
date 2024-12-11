@@ -20,15 +20,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.gtkkn.bindings.gtk.Window
 import org.gtkkn.compose.gtk.internal.GtkComposeInternalApi
 import org.gtkkn.compose.gtk.node.GtkContainerNode
-import org.gtkkn.compose.gtk.platform.MainUiDispatcher
 import org.gtkkn.compose.gtk.platform.rememberLogger
 import org.gtkkn.compose.gtk.util.Ref
 import org.gtkkn.compose.gtk.util.UpdateEffect
+import org.gtkkn.coroutines.Gtk
 
 
 /**
@@ -108,7 +109,7 @@ internal fun <TNode : GtkContainerNode<Window>> GtkWindow(
         //
         // So we will have the wrong window active (window1).
         logger.d { "Scheduling show job" }
-        val showJob = GlobalScope.launch(MainUiDispatcher) {
+        val showJob = GlobalScope.launch(Dispatchers.Gtk) {
             val window = window().widget
             if (visible) {
                 logger.v { "Presenting" }

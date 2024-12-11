@@ -211,7 +211,7 @@ public fun Window(
         create = { application ->
             WindowNode(
                 Window().apply {
-                    setApplication(application)
+                    this.application = application
                 },
             )
         },

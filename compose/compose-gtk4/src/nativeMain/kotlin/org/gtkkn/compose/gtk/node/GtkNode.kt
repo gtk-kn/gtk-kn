@@ -25,7 +25,7 @@ import androidx.compose.runtime.DisposableEffectScope
 import androidx.compose.runtime.SkippableUpdater
 import androidx.compose.runtime.Updater
 import androidx.compose.runtime.remember
-import org.gtkkn.bindings.gobject.Gobject
+import org.gtkkn.bindings.gobject.GObject
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.compose.gtk.internal.GtkComposeInternalApi
 import org.gtkkn.compose.gtk.internal.GtkNodeApplier
@@ -43,7 +43,7 @@ public sealed class GtkNode<out TWidget : Widget> : AutoCloseable {
     internal var signals: List<ULong> = emptyList()
         set(value) {
             field.forEach {
-                Gobject.signalHandlerDisconnect(widget, it)
+                GObject.signalHandlerDisconnect(widget, it)
             }
             field = value
         }
