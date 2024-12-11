@@ -17,6 +17,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskRenderNode
 import org.gtkkn.native.gsk.gsk_render_node_deserialize
 import org.gtkkn.native.gsk.gsk_render_node_get_bounds
@@ -50,11 +51,8 @@ import kotlin.Unit
  *
  * - parameter `cr`: cairo.Context
  */
-public open class RenderNode(
-    pointer: CPointer<GskRenderNode>,
-) : KGTyped {
+public open class RenderNode(pointer: CPointer<GskRenderNode>) : KGTyped {
     public val gPointer: CPointer<GskRenderNode>
-
     init {
         gPointer = pointer.reinterpret()
     }
@@ -74,20 +72,18 @@ public open class RenderNode(
      *
      * @return the type of the `GskRenderNode`
      */
-    public open fun getNodeType(): RenderNodeType =
-        gsk_render_node_get_node_type(gPointer.reinterpret()).run {
-            RenderNodeType.fromNativeValue(this)
-        }
+    public open fun getNodeType(): RenderNodeType = gsk_render_node_get_node_type(gPointer.reinterpret()).run {
+        RenderNodeType.fromNativeValue(this)
+    }
 
     /**
      * Acquires a reference on the given `GskRenderNode`.
      *
      * @return the `GskRenderNode` with an additional reference
      */
-    public open fun ref(): RenderNode =
-        gsk_render_node_ref(gPointer.reinterpret())!!.run {
-            RenderNode(reinterpret())
-        }
+    public open fun ref(): RenderNode = gsk_render_node_ref(gPointer.reinterpret())!!.run {
+        RenderNode(reinterpret())
+    }
 
     /**
      * Serializes the @node for later deserialization via
@@ -102,10 +98,9 @@ public open class RenderNode(
      *
      * @return a `GBytes` representing the node.
      */
-    public open fun serialize(): Bytes =
-        gsk_render_node_serialize(gPointer.reinterpret())!!.run {
-            Bytes(reinterpret())
-        }
+    public open fun serialize(): Bytes = gsk_render_node_serialize(gPointer.reinterpret())!!.run {
+        Bytes(reinterpret())
+    }
 
     /**
      * Releases a reference on the given `GskRenderNode`.
@@ -127,16 +122,15 @@ public open class RenderNode(
      * @param filename the file to save it to.
      * @return true if saving was successful
      */
-    public open fun writeToFile(filename: String): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = gsk_render_node_write_to_file(gPointer.reinterpret(), filename, gError.ptr).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun writeToFile(filename: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gsk_render_node_write_to_file(gPointer.reinterpret(), filename, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     public companion object : TypeCompanion<RenderNode> {
         override val type: GeneratedClassKGType<RenderNode> =
@@ -155,16 +149,19 @@ public open class RenderNode(
          * @param errorFunc Callback on parsing errors
          * @return a new `GskRenderNode`
          */
-        public fun deserialize(
-            bytes: Bytes,
-            errorFunc: ParseErrorFunc,
-        ): RenderNode? =
-            gsk_render_node_deserialize(
-                bytes.glibBytesPointer.reinterpret(),
-                ParseErrorFuncFunc.reinterpret(),
-                StableRef.create(errorFunc).asCPointer()
-            )?.run {
-                RenderNode(reinterpret())
-            }
+        public fun deserialize(bytes: Bytes, errorFunc: ParseErrorFunc): RenderNode? = gsk_render_node_deserialize(
+            bytes.glibBytesPointer.reinterpret(),
+            ParseErrorFuncFunc.reinterpret(),
+            StableRef.create(errorFunc).asCPointer()
+        )?.run {
+            RenderNode(reinterpret())
+        }
+
+        /**
+         * Get the GType of RenderNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_render_node_get_type()
     }
 }

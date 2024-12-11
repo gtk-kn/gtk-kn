@@ -13,6 +13,7 @@ import org.gtkkn.native.gio.GSocketConnectable
 import org.gtkkn.native.gio.g_socket_address_get_family
 import org.gtkkn.native.gio.g_socket_address_get_native_size
 import org.gtkkn.native.gio.g_socket_address_get_type
+import org.gtkkn.native.gobject.GType
 import kotlin.Long
 
 /**
@@ -26,9 +27,8 @@ import kotlin.Long
  * - parameter `dest`: gpointer
  * - parameter `native`: gpointer
  */
-public open class SocketAddress(
-    pointer: CPointer<GSocketAddress>,
-) : Object(pointer.reinterpret()),
+public open class SocketAddress(pointer: CPointer<GSocketAddress>) :
+    Object(pointer.reinterpret()),
     SocketConnectable,
     KGTyped {
     public val gioSocketAddressPointer: CPointer<GSocketAddress>
@@ -50,20 +50,7 @@ public open class SocketAddress(
          * @return the socket family type of @address
          * @since 2.22
          */
-        get() =
-            g_socket_address_get_family(gioSocketAddressPointer.reinterpret()).run {
-                SocketFamily.fromNativeValue(this)
-            }
-
-    /**
-     * Gets the socket family type of @address.
-     *
-     * @return the socket family type of @address
-     * @since 2.22
-     */
-    @GioVersion2_22
-    public open fun getFamily(): SocketFamily =
-        g_socket_address_get_family(gioSocketAddressPointer.reinterpret()).run {
+        get() = g_socket_address_get_family(gioSocketAddressPointer.reinterpret()).run {
             SocketFamily.fromNativeValue(this)
         }
 
@@ -86,5 +73,12 @@ public open class SocketAddress(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of SocketAddress
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_socket_address_get_type()
     }
 }

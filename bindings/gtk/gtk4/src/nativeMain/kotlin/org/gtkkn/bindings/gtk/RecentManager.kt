@@ -23,7 +23,9 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkRecentManager
 import org.gtkkn.native.gtk.gtk_recent_manager_add_full
 import org.gtkkn.native.gtk.gtk_recent_manager_add_item
@@ -37,7 +39,6 @@ import org.gtkkn.native.gtk.gtk_recent_manager_new
 import org.gtkkn.native.gtk.gtk_recent_manager_purge_items
 import org.gtkkn.native.gtk.gtk_recent_manager_remove_item
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.ULong
@@ -106,9 +107,8 @@ import kotlin.Unit
  * - method `filename`: Property has no getter nor setter
  * - method `size`: Property has no getter nor setter
  */
-public open class RecentManager(
-    pointer: CPointer<GtkRecentManager>,
-) : Object(pointer.reinterpret()),
+public open class RecentManager(pointer: CPointer<GtkRecentManager>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkRecentManagerPointer: CPointer<GtkRecentManager>
         get() = gPointer.reinterpret()
@@ -155,15 +155,11 @@ public open class RecentManager(
      * @return true if the new item was successfully added to the
      *   recently used resources list, false otherwise
      */
-    public open fun addFull(
-        uri: String,
-        recentData: RecentData,
-    ): Boolean =
-        gtk_recent_manager_add_full(
-            gtkRecentManagerPointer.reinterpret(),
-            uri,
-            recentData.gtkRecentDataPointer.reinterpret()
-        ).asBoolean()
+    public open fun addFull(uri: String, recentData: RecentData): Boolean = gtk_recent_manager_add_full(
+        gtkRecentManagerPointer.reinterpret(),
+        uri,
+        recentData.gtkRecentDataPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Adds a new resource, pointed by @uri, into the recently used
@@ -191,10 +187,9 @@ public open class RecentManager(
      *   [method@Gtk.RecentInfo.unref] on each item inside the list, and then
      *   free the list itself using g_list_free().
      */
-    public open fun getItems(): List =
-        gtk_recent_manager_get_items(gtkRecentManagerPointer.reinterpret())!!.run {
-            List(reinterpret())
-        }
+    public open fun getItems(): List = gtk_recent_manager_get_items(gtkRecentManagerPointer.reinterpret())!!.run {
+        List(reinterpret())
+    }
 
     /**
      * Checks whether there is a recently used resource registered
@@ -217,20 +212,18 @@ public open class RecentManager(
      *   not registered in the recently used resources list. Free with
      *   [method@Gtk.RecentInfo.unref].
      */
-    public open fun lookupItem(uri: String): Result<RecentInfo?> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gtk_recent_manager_lookup_item(gtkRecentManagerPointer.reinterpret(), uri, gError.ptr)?.run {
-                    RecentInfo(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun lookupItem(uri: String): Result<RecentInfo?> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gtk_recent_manager_lookup_item(gtkRecentManagerPointer.reinterpret(), uri, gError.ptr)?.run {
+            RecentInfo(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
+        }
+    }
 
     /**
      * Changes the location of a recently used resource from @uri to @new_uri.
@@ -243,25 +236,20 @@ public open class RecentManager(
      *    null to remove the item pointed by @uri in the list
      * @return true on success
      */
-    public open fun moveItem(
-        uri: String,
-        newUri: String? = null,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gtk_recent_manager_move_item(
-                    gtkRecentManagerPointer.reinterpret(),
-                    uri,
-                    newUri,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun moveItem(uri: String, newUri: String? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gtk_recent_manager_move_item(
+            gtkRecentManagerPointer.reinterpret(),
+            uri,
+            newUri,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Purges every item from the recently used resources list.
@@ -269,16 +257,15 @@ public open class RecentManager(
      * @return the number of items that have been removed from the
      *   recently used resources list
      */
-    public open fun purgeItems(): Result<Int> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = gtk_recent_manager_purge_items(gtkRecentManagerPointer.reinterpret(), gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun purgeItems(): Result<gint> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gtk_recent_manager_purge_items(gtkRecentManagerPointer.reinterpret(), gError.ptr)
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Removes a resource pointed by @uri from the recently used resources
@@ -288,21 +275,15 @@ public open class RecentManager(
      * @return true if the item pointed by @uri has been successfully
      *   removed by the recently used resources list, and false otherwise
      */
-    public open fun removeItem(uri: String): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gtk_recent_manager_remove_item(
-                    gtkRecentManagerPointer.reinterpret(),
-                    uri,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun removeItem(uri: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gtk_recent_manager_remove_item(gtkRecentManagerPointer.reinterpret(), uri, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Emitted when the current recently used resources manager changes
@@ -314,10 +295,7 @@ public open class RecentManager(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "changed",
@@ -342,17 +320,23 @@ public open class RecentManager(
          * @return A unique `GtkRecentManager`. Do not ref or
          *   unref it.
          */
-        public fun getDefault(): RecentManager =
-            gtk_recent_manager_get_default()!!.run {
-                RecentManager(reinterpret())
-            }
+        public fun getDefault(): RecentManager = gtk_recent_manager_get_default()!!.run {
+            RecentManager(reinterpret())
+        }
+
+        /**
+         * Get the GType of RecentManager
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_recent_manager_get_type()
     }
 }
 
-private val connectChangedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

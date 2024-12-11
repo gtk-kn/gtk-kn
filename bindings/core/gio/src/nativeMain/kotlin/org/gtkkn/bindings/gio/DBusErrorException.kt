@@ -2,9 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 
-public class DBusErrorException(
-    error: Error,
-    public val code: DBusError,
-) : GlibException(error)
+public class DBusErrorException(error: Error, public val code: DBusError) : GLibException(error)

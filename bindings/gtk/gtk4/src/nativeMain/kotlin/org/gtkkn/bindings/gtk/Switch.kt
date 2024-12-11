@@ -15,7 +15,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
@@ -28,7 +30,6 @@ import org.gtkkn.native.gtk.gtk_switch_new
 import org.gtkkn.native.gtk.gtk_switch_set_active
 import org.gtkkn.native.gtk.gtk_switch_set_state
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.ULong
 import kotlin.Unit
 
@@ -67,9 +68,8 @@ import kotlin.Unit
  *
  * `GtkSwitch` uses the %GTK_ACCESSIBLE_ROLE_SWITCH role.
  */
-public open class Switch(
-    pointer: CPointer<GtkSwitch>,
-) : Widget(pointer.reinterpret()),
+public open class Switch(pointer: CPointer<GtkSwitch>) :
+    Widget(pointer.reinterpret()),
     Actionable,
     KGTyped {
     public val gtkSwitchPointer: CPointer<GtkSwitch>
@@ -138,41 +138,6 @@ public open class Switch(
     public constructor() : this(gtk_switch_new()!!.reinterpret())
 
     /**
-     * Gets whether the `GtkSwitch` is in its “on” or “off” state.
-     *
-     * @return true if the `GtkSwitch` is active, and false otherwise
-     */
-    public open fun getActive(): Boolean = gtk_switch_get_active(gtkSwitchPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the underlying state of the `GtkSwitch`.
-     *
-     * @return the underlying state
-     */
-    public open fun getState(): Boolean = gtk_switch_get_state(gtkSwitchPointer.reinterpret()).asBoolean()
-
-    /**
-     * Changes the state of @self to the desired one.
-     *
-     * @param isActive true if @self should be active, and false otherwise
-     */
-    public open fun setActive(isActive: Boolean): Unit =
-        gtk_switch_set_active(gtkSwitchPointer.reinterpret(), isActive.asGBoolean())
-
-    /**
-     * Sets the underlying state of the `GtkSwitch`.
-     *
-     * This function is typically called from a [signal@Gtk.Switch::state-set]
-     * signal handler in order to set up delayed state changes.
-     *
-     * See [signal@Gtk.Switch::state-set] for details.
-     *
-     * @param state the new state
-     */
-    public open fun setState(state: Boolean): Unit =
-        gtk_switch_set_state(gtkSwitchPointer.reinterpret(), state.asGBoolean())
-
-    /**
      * Emitted to animate the switch.
      *
      * Applications should never connect to this signal,
@@ -181,10 +146,7 @@ public open class Switch(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectActivate(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "activate",
@@ -217,15 +179,14 @@ public open class Switch(
     public fun connectStateSet(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (state: Boolean) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "state-set",
-            connectStateSetFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "state-set",
+        connectStateSetFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<Switch> {
         override val type: GeneratedClassKGType<Switch> =
@@ -234,26 +195,29 @@ public open class Switch(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Switch
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_switch_get_type()
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectStateSetFunc: CPointer<CFunction<(Int) -> Int>> =
-    staticCFunction {
-            _: COpaquePointer,
-            state: Int,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<(state: Boolean) -> Boolean>()
-            .get()
-            .invoke(state.asBoolean())
-            .asGBoolean()
-    }.reinterpret()
+private val connectStateSetFunc: CPointer<CFunction<(gboolean) -> gboolean>> = staticCFunction {
+        _: COpaquePointer,
+        state: gboolean,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(state: Boolean) -> Boolean>().get().invoke(state.asBoolean()).asGBoolean()
+}
+    .reinterpret()

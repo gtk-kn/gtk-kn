@@ -1,36 +1,33 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GFileAttributeMatcher
 import org.gtkkn.native.gio.g_file_attribute_matcher_enumerate_namespace
 import org.gtkkn.native.gio.g_file_attribute_matcher_enumerate_next
+import org.gtkkn.native.gio.g_file_attribute_matcher_get_type
 import org.gtkkn.native.gio.g_file_attribute_matcher_matches
 import org.gtkkn.native.gio.g_file_attribute_matcher_matches_only
 import org.gtkkn.native.gio.g_file_attribute_matcher_new
 import org.gtkkn.native.gio.g_file_attribute_matcher_ref
 import org.gtkkn.native.gio.g_file_attribute_matcher_subtract
+import org.gtkkn.native.gio.g_file_attribute_matcher_to_string
 import org.gtkkn.native.gio.g_file_attribute_matcher_unref
+import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 import kotlin.String
+import kotlin.Suppress
 import kotlin.Unit
 
 /**
  * Determines if a string matches a file attribute.
- *
- * ## Skipped during bindings generation
- *
- * - method `to_string`: C function g_file_attribute_matcher_to_string is ignored
  */
-public class FileAttributeMatcher(
-    pointer: CPointer<GFileAttributeMatcher>,
-) : Record {
+public class FileAttributeMatcher(pointer: CPointer<GFileAttributeMatcher>) : ProxyInstance(pointer) {
     public val gioFileAttributeMatcherPointer: CPointer<GFileAttributeMatcher> = pointer
 
     /**
@@ -111,12 +108,28 @@ public class FileAttributeMatcher(
         }
 
     /**
+     * Prints what the matcher is matching against. The format will be
+     * equal to the format passed to g_file_attribute_matcher_new().
+     * The output however, might not be identical, as the matcher may
+     * decide to use a different order or omit needless parts.
+     *
+     * @return a string describing the attributes the matcher matches
+     *   against or null if @matcher was null.
+     * @since 2.32
+     */
+    @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
+    @GioVersion2_32
+    override fun toString(): String =
+        g_file_attribute_matcher_to_string(gioFileAttributeMatcherPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
+
+    /**
      * Unreferences @matcher. If the reference count falls below 1,
      * the @matcher is automatically freed.
      */
     public fun unref(): Unit = g_file_attribute_matcher_unref(gioFileAttributeMatcherPointer.reinterpret())
 
-    public companion object : RecordCompanion<FileAttributeMatcher, GFileAttributeMatcher> {
+    public companion object {
         /**
          * Creates a new file attribute matcher, which matches attributes
          * against a given string. #GFileAttributeMatchers are reference
@@ -144,7 +157,11 @@ public class FileAttributeMatcher(
         public fun new(attributes: String): FileAttributeMatcher =
             FileAttributeMatcher(g_file_attribute_matcher_new(attributes)!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FileAttributeMatcher =
-            FileAttributeMatcher(pointer.reinterpret())
+        /**
+         * Get the GType of FileAttributeMatcher
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_file_attribute_matcher_get_type()
     }
 }

@@ -3,8 +3,10 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
+import org.gtkkn.bindings.gio.annotations.GioVersion2_48
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -13,6 +15,9 @@ import org.gtkkn.native.gio.GSocketConnectable
 import org.gtkkn.native.gio.g_socket_connectable_enumerate
 import org.gtkkn.native.gio.g_socket_connectable_get_type
 import org.gtkkn.native.gio.g_socket_connectable_proxy_enumerate
+import org.gtkkn.native.gio.g_socket_connectable_to_string
+import org.gtkkn.native.gobject.GType
+import kotlin.String
 
 /**
  * Objects that describe one or more potential socket endpoints
@@ -72,10 +77,6 @@ import org.gtkkn.native.gio.g_socket_connectable_proxy_enumerate
  *     }
  * }
  * ```
- *
- * ## Skipped during bindings generation
- *
- * - method `to_string`: C function g_socket_connectable_to_string is ignored
  */
 public interface SocketConnectable :
     Interface,
@@ -112,9 +113,24 @@ public interface SocketConnectable :
             SocketAddressEnumerator(reinterpret())
         }
 
-    private data class Wrapper(
-        private val pointer: CPointer<GSocketConnectable>,
-    ) : SocketConnectable {
+    /**
+     * Format a #GSocketConnectable as a string. This is a human-readable format for
+     * use in debugging output, and is not a stable serialization format. It is not
+     * suitable for use in user interfaces as it exposes too much information for a
+     * user.
+     *
+     * If the #GSocketConnectable implementation does not support string formatting,
+     * the implementation’s type name will be returned as a fallback.
+     *
+     * @return the formatted string
+     * @since 2.48
+     */
+    @GioVersion2_48
+    public fun toStringSocketConnectable(): String =
+        g_socket_connectable_to_string(gioSocketConnectablePointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
+
+    private data class Wrapper(private val pointer: CPointer<GSocketConnectable>) : SocketConnectable {
         override val gioSocketConnectablePointer: CPointer<GSocketConnectable> = pointer
     }
 
@@ -127,5 +143,12 @@ public interface SocketConnectable :
         }
 
         public fun wrap(pointer: CPointer<GSocketConnectable>): SocketConnectable = Wrapper(pointer)
+
+        /**
+         * Get the GType of SocketConnectable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_socket_connectable_get_type()
     }
 }

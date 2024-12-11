@@ -33,10 +33,11 @@ import org.gtkkn.native.gdk.gdk_monitor_get_subpixel_layout
 import org.gtkkn.native.gdk.gdk_monitor_get_type
 import org.gtkkn.native.gdk.gdk_monitor_get_width_mm
 import org.gtkkn.native.gdk.gdk_monitor_is_valid
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -55,9 +56,8 @@ import kotlin.Unit
  * - method `geometry`: Property has no getter nor setter
  * - method `valid`: Property has no getter nor setter
  */
-public open class Monitor(
-    pointer: CPointer<GdkMonitor>,
-) : Object(pointer.reinterpret()),
+public open class Monitor(pointer: CPointer<GdkMonitor>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gdkMonitorPointer: CPointer<GdkMonitor>
         get() = gPointer.reinterpret()
@@ -103,15 +103,14 @@ public open class Monitor(
          *
          * @return the display
          */
-        get() =
-            gdk_monitor_get_display(gdkMonitorPointer.reinterpret())!!.run {
-                Display(reinterpret())
-            }
+        get() = gdk_monitor_get_display(gdkMonitorPointer.reinterpret())!!.run {
+            Display(reinterpret())
+        }
 
     /**
      * The height of the monitor, in millimeters.
      */
-    public open val heightMm: Int
+    public open val heightMm: gint
         /**
          * Gets the height in millimeters of the monitor.
          *
@@ -150,7 +149,7 @@ public open class Monitor(
     /**
      * The refresh rate, in milli-Hertz.
      */
-    public open val refreshRate: Int
+    public open val refreshRate: gint
         /**
          * Gets the refresh rate of the monitor, if available.
          *
@@ -167,7 +166,7 @@ public open class Monitor(
      * @since 4.14
      */
     @GdkVersion4_14
-    public open val scale: Double
+    public open val scale: gdouble
         /**
          * Gets the internal scale factor that maps from monitor coordinates
          * to device pixels.
@@ -187,7 +186,7 @@ public open class Monitor(
      * The scale factor is the next larger integer,
      * compared to [property@Gdk.Surface:scale].
      */
-    public open val scaleFactor: Int
+    public open val scaleFactor: gint
         /**
          * Gets the internal scale factor that maps from monitor coordinates
          * to device pixels.
@@ -213,54 +212,20 @@ public open class Monitor(
          *
          * @return the subpixel layout
          */
-        get() =
-            gdk_monitor_get_subpixel_layout(gdkMonitorPointer.reinterpret()).run {
-                SubpixelLayout.fromNativeValue(this)
-            }
+        get() = gdk_monitor_get_subpixel_layout(gdkMonitorPointer.reinterpret()).run {
+            SubpixelLayout.fromNativeValue(this)
+        }
 
     /**
      * The width of the monitor, in millimeters.
      */
-    public open val widthMm: Int
+    public open val widthMm: gint
         /**
          * Gets the width in millimeters of the monitor.
          *
          * @return the physical width of the monitor
          */
         get() = gdk_monitor_get_width_mm(gdkMonitorPointer.reinterpret())
-
-    /**
-     * Gets the name of the monitor's connector, if available.
-     *
-     * These are strings such as "eDP-1", or "HDMI-2". They depend
-     * on software and hardware configuration, and should not be
-     * relied on as stable identifiers of a specific monitor.
-     *
-     * @return the name of the connector
-     */
-    public open fun getConnector(): String? = gdk_monitor_get_connector(gdkMonitorPointer.reinterpret())?.toKString()
-
-    /**
-     * Gets a string describing the monitor, if available.
-     *
-     * This can be used to identify a monitor in the UI.
-     *
-     * @return the monitor description
-     * @since 4.10
-     */
-    @GdkVersion4_10
-    public open fun getDescription(): String? =
-        gdk_monitor_get_description(gdkMonitorPointer.reinterpret())?.toKString()
-
-    /**
-     * Gets the display that this monitor belongs to.
-     *
-     * @return the display
-     */
-    public open fun getDisplay(): Display =
-        gdk_monitor_get_display(gdkMonitorPointer.reinterpret())!!.run {
-            Display(reinterpret())
-        }
 
     /**
      * Retrieves the size and position of the monitor within the
@@ -273,91 +238,6 @@ public open class Monitor(
      */
     public open fun getGeometry(geometry: Rectangle): Unit =
         gdk_monitor_get_geometry(gdkMonitorPointer.reinterpret(), geometry.gdkRectanglePointer.reinterpret())
-
-    /**
-     * Gets the height in millimeters of the monitor.
-     *
-     * @return the physical height of the monitor
-     */
-    public open fun getHeightMm(): Int = gdk_monitor_get_height_mm(gdkMonitorPointer.reinterpret())
-
-    /**
-     * Gets the name or PNP ID of the monitor's manufacturer.
-     *
-     * Note that this value might also vary depending on actual
-     * display backend.
-     *
-     * The PNP ID registry is located at
-     * [https://uefi.org/pnp_id_list](https://uefi.org/pnp_id_list).
-     *
-     * @return the name of the manufacturer
-     */
-    public open fun getManufacturer(): String? =
-        gdk_monitor_get_manufacturer(gdkMonitorPointer.reinterpret())?.toKString()
-
-    /**
-     * Gets the string identifying the monitor model, if available.
-     *
-     * @return the monitor model
-     */
-    public open fun getModel(): String? = gdk_monitor_get_model(gdkMonitorPointer.reinterpret())?.toKString()
-
-    /**
-     * Gets the refresh rate of the monitor, if available.
-     *
-     * The value is in milli-Hertz, so a refresh rate of 60Hz
-     * is returned as 60000.
-     *
-     * @return the refresh rate in milli-Hertz, or 0
-     */
-    public open fun getRefreshRate(): Int = gdk_monitor_get_refresh_rate(gdkMonitorPointer.reinterpret())
-
-    /**
-     * Gets the internal scale factor that maps from monitor coordinates
-     * to device pixels.
-     *
-     * This can be used if you want to create pixel based data for a
-     * particular monitor, but most of the time you’re drawing to a surface
-     * where it is better to use [method@Gdk.Surface.get_scale] instead.
-     *
-     * @return the scale
-     * @since 4.14
-     */
-    @GdkVersion4_14
-    public open fun getScale(): Double = gdk_monitor_get_scale(gdkMonitorPointer.reinterpret())
-
-    /**
-     * Gets the internal scale factor that maps from monitor coordinates
-     * to device pixels.
-     *
-     * On traditional systems this is 1, but on very high density outputs
-     * it can be a higher value (often 2).
-     *
-     * This can be used if you want to create pixel based data for a
-     * particular monitor, but most of the time you’re drawing to a surface
-     * where it is better to use [method@Gdk.Surface.get_scale_factor] instead.
-     *
-     * @return the scale factor
-     */
-    public open fun getScaleFactor(): Int = gdk_monitor_get_scale_factor(gdkMonitorPointer.reinterpret())
-
-    /**
-     * Gets information about the layout of red, green and blue
-     * primaries for pixels.
-     *
-     * @return the subpixel layout
-     */
-    public open fun getSubpixelLayout(): SubpixelLayout =
-        gdk_monitor_get_subpixel_layout(gdkMonitorPointer.reinterpret()).run {
-            SubpixelLayout.fromNativeValue(this)
-        }
-
-    /**
-     * Gets the width in millimeters of the monitor.
-     *
-     * @return the physical width of the monitor
-     */
-    public open fun getWidthMm(): Int = gdk_monitor_get_width_mm(gdkMonitorPointer.reinterpret())
 
     /**
      * Returns true if the @monitor object corresponds to a
@@ -376,10 +256,7 @@ public open class Monitor(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectInvalidate(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectInvalidate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "invalidate",
@@ -396,13 +273,20 @@ public open class Monitor(
         init {
             GdkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Monitor
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_monitor_get_type()
     }
 }
 
-private val connectInvalidateFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectInvalidateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

@@ -9,6 +9,7 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -101,9 +102,8 @@ import kotlin.Unit
  *
  * `GtkHeaderBar` uses the %GTK_ACCESSIBLE_ROLE_GROUP role.
  */
-public open class HeaderBar(
-    pointer: CPointer<GtkHeaderBar>,
-) : Widget(pointer.reinterpret()),
+public open class HeaderBar(pointer: CPointer<GtkHeaderBar>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkHeaderBarPointer: CPointer<GtkHeaderBar>
         get() = gPointer.reinterpret()
@@ -187,10 +187,9 @@ public open class HeaderBar(
          *
          * @return the title widget of the header
          */
-        get() =
-            gtk_header_bar_get_title_widget(gtkHeaderBarPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = gtk_header_bar_get_title_widget(gtkHeaderBarPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the title for the `GtkHeaderBar`.
@@ -209,11 +208,10 @@ public open class HeaderBar(
          */
         set(
             titleWidget
-        ) =
-            gtk_header_bar_set_title_widget(
-                gtkHeaderBarPointer.reinterpret(),
-                titleWidget?.gtkWidgetPointer?.reinterpret()
-            )
+        ) = gtk_header_bar_set_title_widget(
+            gtkHeaderBarPointer.reinterpret(),
+            titleWidget?.gtkWidgetPointer?.reinterpret()
+        )
 
     /**
      * Creates a new `GtkHeaderBar` widget.
@@ -221,35 +219,6 @@ public open class HeaderBar(
      * @return a new `GtkHeaderBar`
      */
     public constructor() : this(gtk_header_bar_new()!!.reinterpret())
-
-    /**
-     * Gets the decoration layout of the `GtkHeaderBar`.
-     *
-     * @return the decoration layout
-     */
-    public open fun getDecorationLayout(): String? =
-        gtk_header_bar_get_decoration_layout(gtkHeaderBarPointer.reinterpret())?.toKString()
-
-    /**
-     * Returns whether this header bar shows the standard window
-     * title buttons.
-     *
-     * @return true if title buttons are shown
-     */
-    public open fun getShowTitleButtons(): Boolean =
-        gtk_header_bar_get_show_title_buttons(gtkHeaderBarPointer.reinterpret()).asBoolean()
-
-    /**
-     * Retrieves the title widget of the header.
-     *
-     * See [method@Gtk.HeaderBar.set_title_widget].
-     *
-     * @return the title widget of the header
-     */
-    public open fun getTitleWidget(): Widget? =
-        gtk_header_bar_get_title_widget(gtkHeaderBarPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
 
     /**
      * Adds @child to @bar, packed with reference to the
@@ -282,57 +251,6 @@ public open class HeaderBar(
     public open fun remove(child: Widget): Unit =
         gtk_header_bar_remove(gtkHeaderBarPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
-    /**
-     * Sets the decoration layout for this header bar.
-     *
-     * This property overrides the
-     * [property@Gtk.Settings:gtk-decoration-layout] setting.
-     *
-     * There can be valid reasons for overriding the setting, such
-     * as a header bar design that does not allow for buttons to take
-     * room on the right, or only offers room for a single close button.
-     * Split header bars are another example for overriding the setting.
-     *
-     * The format of the string is button names, separated by commas.
-     * A colon separates the buttons that should appear on the left
-     * from those on the right. Recognized button names are minimize,
-     * maximize, close and icon (the window icon).
-     *
-     * For example, “icon:minimize,maximize,close” specifies an icon
-     * on the left, and minimize, maximize and close buttons on the right.
-     *
-     * @param layout a decoration layout, or null to unset the layout
-     */
-    public open fun setDecorationLayout(layout: String? = null): Unit =
-        gtk_header_bar_set_decoration_layout(gtkHeaderBarPointer.reinterpret(), layout)
-
-    /**
-     * Sets whether this header bar shows the standard window
-     * title buttons.
-     *
-     * @param setting true to show standard title buttons
-     */
-    public open fun setShowTitleButtons(setting: Boolean): Unit =
-        gtk_header_bar_set_show_title_buttons(gtkHeaderBarPointer.reinterpret(), setting.asGBoolean())
-
-    /**
-     * Sets the title for the `GtkHeaderBar`.
-     *
-     * When set to null, the headerbar will display the title of
-     * the window it is contained in.
-     *
-     * The title should help a user identify the current view.
-     * To achieve the same style as the builtin title, use the
-     * “title” style class.
-     *
-     * You should set the title widget to null, for the window
-     * title label to be visible again.
-     *
-     * @param titleWidget a widget to use for a title
-     */
-    public open fun setTitleWidget(titleWidget: Widget? = null): Unit =
-        gtk_header_bar_set_title_widget(gtkHeaderBarPointer.reinterpret(), titleWidget?.gtkWidgetPointer?.reinterpret())
-
     public companion object : TypeCompanion<HeaderBar> {
         override val type: GeneratedClassKGType<HeaderBar> =
             GeneratedClassKGType(gtk_header_bar_get_type()) { HeaderBar(it.reinterpret()) }
@@ -340,5 +258,12 @@ public open class HeaderBar(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of HeaderBar
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_header_bar_get_type()
     }
 }

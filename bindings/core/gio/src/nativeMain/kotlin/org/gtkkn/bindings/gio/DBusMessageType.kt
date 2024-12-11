@@ -3,15 +3,15 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.native.gio.GDBusMessageType
+import org.gtkkn.native.gio.g_dbus_message_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Message types used in #GDBusMessage.
  * @since 2.26
  */
 @GioVersion2_26
-public enum class DBusMessageType(
-    public val nativeValue: GDBusMessageType,
-) {
+public enum class DBusMessageType(public val nativeValue: GDBusMessageType) {
     /**
      * Message is of invalid type.
      */
@@ -39,14 +39,20 @@ public enum class DBusMessageType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GDBusMessageType): DBusMessageType =
-            when (nativeValue) {
-                GDBusMessageType.G_DBUS_MESSAGE_TYPE_INVALID -> INVALID
-                GDBusMessageType.G_DBUS_MESSAGE_TYPE_METHOD_CALL -> METHOD_CALL
-                GDBusMessageType.G_DBUS_MESSAGE_TYPE_METHOD_RETURN -> METHOD_RETURN
-                GDBusMessageType.G_DBUS_MESSAGE_TYPE_ERROR -> ERROR
-                GDBusMessageType.G_DBUS_MESSAGE_TYPE_SIGNAL -> SIGNAL
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GDBusMessageType): DBusMessageType = when (nativeValue) {
+            GDBusMessageType.G_DBUS_MESSAGE_TYPE_INVALID -> INVALID
+            GDBusMessageType.G_DBUS_MESSAGE_TYPE_METHOD_CALL -> METHOD_CALL
+            GDBusMessageType.G_DBUS_MESSAGE_TYPE_METHOD_RETURN -> METHOD_RETURN
+            GDBusMessageType.G_DBUS_MESSAGE_TYPE_ERROR -> ERROR
+            GDBusMessageType.G_DBUS_MESSAGE_TYPE_SIGNAL -> SIGNAL
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of DBusMessageType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_message_type_get_type()
     }
 }

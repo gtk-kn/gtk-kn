@@ -13,6 +13,8 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkTreeListModel
 import org.gtkkn.native.gtk.gtk_tree_list_model_get_autoexpand
 import org.gtkkn.native.gtk.gtk_tree_list_model_get_child_row
@@ -23,8 +25,6 @@ import org.gtkkn.native.gtk.gtk_tree_list_model_get_type
 import org.gtkkn.native.gtk.gtk_tree_list_model_new
 import org.gtkkn.native.gtk.gtk_tree_list_model_set_autoexpand
 import kotlin.Boolean
-import kotlin.UInt
-import kotlin.Unit
 
 /**
  * `GtkTreeListModel` is a list model that can create child models on demand.
@@ -34,9 +34,8 @@ import kotlin.Unit
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class TreeListModel(
-    pointer: CPointer<GtkTreeListModel>,
-) : Object(pointer.reinterpret()),
+public open class TreeListModel(pointer: CPointer<GtkTreeListModel>) :
+    Object(pointer.reinterpret()),
     ListModel,
     KGTyped {
     public val gtkTreeListModelPointer: CPointer<GtkTreeListModel>
@@ -82,10 +81,9 @@ public open class TreeListModel(
          *
          * @return the root model
          */
-        get() =
-            gtk_tree_list_model_get_model(gtkTreeListModelPointer.reinterpret())!!.run {
-                ListModel.wrap(reinterpret())
-            }
+        get() = gtk_tree_list_model_get_model(gtkTreeListModelPointer.reinterpret())!!.run {
+            ListModel.wrap(reinterpret())
+        }
 
     /**
      * Gets whether the model is in passthrough mode.
@@ -139,18 +137,6 @@ public open class TreeListModel(
     )
 
     /**
-     * Gets whether the model is set to automatically expand new rows
-     * that get added.
-     *
-     * This can be either rows added by changes to the underlying
-     * models or via [method@Gtk.TreeListRow.set_expanded].
-     *
-     * @return true if the model is set to autoexpand
-     */
-    public open fun getAutoexpand(): Boolean =
-        gtk_tree_list_model_get_autoexpand(gtkTreeListModelPointer.reinterpret()).asBoolean()
-
-    /**
      * Gets the row item corresponding to the child at index @position for
      * @self's root model.
      *
@@ -162,37 +148,10 @@ public open class TreeListModel(
      * @param position position of the child to get
      * @return the child in @position
      */
-    public open fun getChildRow(position: UInt): TreeListRow? =
+    public open fun getChildRow(position: guint): TreeListRow? =
         gtk_tree_list_model_get_child_row(gtkTreeListModelPointer.reinterpret(), position)?.run {
             TreeListRow(reinterpret())
         }
-
-    /**
-     * Gets the root model that @self was created with.
-     *
-     * @return the root model
-     */
-    public open fun getModel(): ListModel =
-        gtk_tree_list_model_get_model(gtkTreeListModelPointer.reinterpret())!!.run {
-            ListModel.wrap(reinterpret())
-        }
-
-    /**
-     * Gets whether the model is passing through original row items.
-     *
-     * If this function returns false, the `GListModel` functions for @self
-     * return custom `GtkTreeListRow` objects. You need to call
-     * [method@Gtk.TreeListRow.get_item] on these objects to get the original
-     * item.
-     *
-     * If true, the values of the child models are passed through in their
-     * original state. You then need to call [method@Gtk.TreeListModel.get_row]
-     * to get the custom `GtkTreeListRow`s.
-     *
-     * @return true if the model is passing through original row items
-     */
-    public open fun getPassthrough(): Boolean =
-        gtk_tree_list_model_get_passthrough(gtkTreeListModelPointer.reinterpret()).asBoolean()
 
     /**
      * Gets the row object for the given row.
@@ -216,22 +175,10 @@ public open class TreeListModel(
      * @param position the position of the row to fetch
      * @return The row item
      */
-    public open fun getRow(position: UInt): TreeListRow? =
+    public open fun getRow(position: guint): TreeListRow? =
         gtk_tree_list_model_get_row(gtkTreeListModelPointer.reinterpret(), position)?.run {
             TreeListRow(reinterpret())
         }
-
-    /**
-     * Sets whether the model should autoexpand.
-     *
-     * If set to true, the model will recursively expand all rows that
-     * get added to the model. This can be either rows added by changes
-     * to the underlying models or via [method@Gtk.TreeListRow.set_expanded].
-     *
-     * @param autoexpand true to make the model autoexpand its rows
-     */
-    public open fun setAutoexpand(autoexpand: Boolean): Unit =
-        gtk_tree_list_model_set_autoexpand(gtkTreeListModelPointer.reinterpret(), autoexpand.asGBoolean())
 
     public companion object : TypeCompanion<TreeListModel> {
         override val type: GeneratedClassKGType<TreeListModel> =
@@ -240,5 +187,12 @@ public open class TreeListModel(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of TreeListModel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_tree_list_model_get_type()
     }
 }

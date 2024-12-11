@@ -13,15 +13,15 @@ import org.gtkkn.native.gdk.gdk_memory_texture_get_type
 import org.gtkkn.native.gdk.gdk_memory_texture_new
 import org.gtkkn.native.gio.GIcon
 import org.gtkkn.native.gio.GLoadableIcon
-import kotlin.Int
-import kotlin.ULong
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gsize
 
 /**
  * A `GdkTexture` representing image data in memory.
  */
-public open class MemoryTexture(
-    pointer: CPointer<GdkMemoryTexture>,
-) : Texture(pointer.reinterpret()),
+public open class MemoryTexture(pointer: CPointer<GdkMemoryTexture>) :
+    Texture(pointer.reinterpret()),
     KGTyped {
     public val gdkMemoryTexturePointer: CPointer<GdkMemoryTexture>
         get() = gPointer.reinterpret()
@@ -49,11 +49,11 @@ public open class MemoryTexture(
      * @return A newly-created `GdkTexture`
      */
     public constructor(
-        width: Int,
-        height: Int,
+        width: gint,
+        height: gint,
         format: MemoryFormat,
         bytes: Bytes,
-        stride: ULong,
+        stride: gsize,
     ) : this(
         gdk_memory_texture_new(
             width,
@@ -71,5 +71,12 @@ public open class MemoryTexture(
         init {
             GdkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of MemoryTexture
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_memory_texture_get_type()
     }
 }

@@ -23,6 +23,7 @@ import org.gtkkn.native.gio.g_filename_completer_get_completions
 import org.gtkkn.native.gio.g_filename_completer_get_type
 import org.gtkkn.native.gio.g_filename_completer_new
 import org.gtkkn.native.gio.g_filename_completer_set_dirs_only
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import kotlin.Boolean
 import kotlin.String
@@ -35,9 +36,8 @@ import kotlin.collections.List
  * looking in the file system for clues. Can return a list of possible
  * completion strings for widget implementations.
  */
-public open class FilenameCompleter(
-    pointer: CPointer<GFilenameCompleter>,
-) : Object(pointer.reinterpret()),
+public open class FilenameCompleter(pointer: CPointer<GFilenameCompleter>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioFilenameCompleterPointer: CPointer<GFilenameCompleter>
         get() = gPointer.reinterpret()
@@ -86,10 +86,7 @@ public open class FilenameCompleter(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectGotCompletionData(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectGotCompletionData(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "got-completion-data",
@@ -106,13 +103,20 @@ public open class FilenameCompleter(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of FilenameCompleter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_filename_completer_get_type()
     }
 }
 
-private val connectGotCompletionDataFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectGotCompletionDataFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

@@ -17,6 +17,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
@@ -82,9 +83,8 @@ import kotlin.Unit
  * - method `icon-name`: Property TypeInfo of getter and setter do not match
  * - method `label`: Property TypeInfo of getter and setter do not match
  */
-public open class Button(
-    pointer: CPointer<GtkButton>,
-) : Widget(pointer.reinterpret()),
+public open class Button(pointer: CPointer<GtkButton>) :
+    Widget(pointer.reinterpret()),
     Actionable,
     KGTyped {
     public val gtkButtonPointer: CPointer<GtkButton>
@@ -147,10 +147,9 @@ public open class Button(
          *
          * @return the child widget of @button
          */
-        get() =
-            gtk_button_get_child(gtkButtonPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = gtk_button_get_child(gtkButtonPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the child widget of @button.
@@ -228,33 +227,6 @@ public open class Button(
     public constructor(label: String) : this(gtk_button_new_with_label(label)!!.reinterpret())
 
     /**
-     * Retrieves whether the button can be smaller than the natural
-     * size of its contents.
-     *
-     * @return true if the button can shrink, and false otherwise
-     * @since 4.12
-     */
-    @GtkVersion4_12
-    public open fun getCanShrink(): Boolean = gtk_button_get_can_shrink(gtkButtonPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the child widget of @button.
-     *
-     * @return the child widget of @button
-     */
-    public open fun getChild(): Widget? =
-        gtk_button_get_child(gtkButtonPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Returns whether the button has a frame.
-     *
-     * @return true if the button has a frame
-     */
-    public open fun getHasFrame(): Boolean = gtk_button_get_has_frame(gtkButtonPointer.reinterpret()).asBoolean()
-
-    /**
      * Returns the icon name of the button.
      *
      * If the icon name has not been set with [method@Gtk.Button.set_icon_name]
@@ -278,56 +250,6 @@ public open class Button(
     public open fun getLabel(): String? = gtk_button_get_label(gtkButtonPointer.reinterpret())?.toKString()
 
     /**
-     * gets whether underlines are interpreted as mnemonics.
-     *
-     * See [method@Gtk.Button.set_use_underline].
-     *
-     * @return true if an embedded underline in the button label
-     *   indicates the mnemonic accelerator keys.
-     */
-    public open fun getUseUnderline(): Boolean =
-        gtk_button_get_use_underline(gtkButtonPointer.reinterpret()).asBoolean()
-
-    /**
-     * Sets whether the button size can be smaller than the natural size of
-     * its contents.
-     *
-     * For text buttons, setting @can_shrink to true will ellipsize the label.
-     *
-     * For icons and custom children, this function has no effect.
-     *
-     * @param canShrink whether the button can shrink
-     * @since 4.12
-     */
-    @GtkVersion4_12
-    public open fun setCanShrink(canShrink: Boolean): Unit =
-        gtk_button_set_can_shrink(gtkButtonPointer.reinterpret(), canShrink.asGBoolean())
-
-    /**
-     * Sets the child widget of @button.
-     *
-     * Note that by using this API, you take full responsibility for setting
-     * up the proper accessibility label and description information for @button.
-     * Most likely, you'll either set the accessibility label or description
-     * for @button explicitly, or you'll set a labelled-by or described-by
-     * relations from @child to @button.
-     *
-     * @param child the child widget
-     */
-    public open fun setChild(child: Widget? = null): Unit =
-        gtk_button_set_child(gtkButtonPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
-
-    /**
-     * Sets the style of the button.
-     *
-     * Buttons can have a flat appearance or have a frame drawn around them.
-     *
-     * @param hasFrame whether the button should have a visible frame
-     */
-    public open fun setHasFrame(hasFrame: Boolean): Unit =
-        gtk_button_set_has_frame(gtkButtonPointer.reinterpret(), hasFrame.asGBoolean())
-
-    /**
      * Adds a `GtkImage` with the given icon name as a child.
      *
      * If @button already contains a child widget, that child widget will
@@ -348,17 +270,6 @@ public open class Button(
     public open fun setLabel(label: String): Unit = gtk_button_set_label(gtkButtonPointer.reinterpret(), label)
 
     /**
-     * Sets whether to use underlines as mnemonics.
-     *
-     * If true, an underline in the text of the button label indicates
-     * the next character should be used for the mnemonic accelerator key.
-     *
-     * @param useUnderline true if underlines in the text indicate mnemonics
-     */
-    public open fun setUseUnderline(useUnderline: Boolean): Unit =
-        gtk_button_set_use_underline(gtkButtonPointer.reinterpret(), useUnderline.asGBoolean())
-
-    /**
      * Emitted to animate press then release.
      *
      * This is an action signal. Applications should never connect
@@ -370,10 +281,7 @@ public open class Button(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectActivate(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "activate",
@@ -389,10 +297,7 @@ public open class Button(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectClicked(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "clicked",
@@ -445,21 +350,28 @@ public open class Button(
          */
         public fun newFromIconName(iconName: String): Button =
             Button(gtk_button_new_from_icon_name(iconName)!!.reinterpret())
+
+        /**
+         * Get the GType of Button
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_button_get_type()
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectClickedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectClickedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

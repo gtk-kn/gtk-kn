@@ -11,7 +11,8 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GFileDescriptorBased
 import org.gtkkn.native.gio.g_file_descriptor_based_get_fd
 import org.gtkkn.native.gio.g_file_descriptor_based_get_type
-import kotlin.Int
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * `GFileDescriptorBased` is an interface for file descriptor based IO.
@@ -37,11 +38,9 @@ public interface FileDescriptorBased :
      * @since 2.24
      */
     @GioVersion2_24
-    public fun getFd(): Int = g_file_descriptor_based_get_fd(gioFileDescriptorBasedPointer.reinterpret())
+    public fun getFd(): gint = g_file_descriptor_based_get_fd(gioFileDescriptorBasedPointer.reinterpret())
 
-    private data class Wrapper(
-        private val pointer: CPointer<GFileDescriptorBased>,
-    ) : FileDescriptorBased {
+    private data class Wrapper(private val pointer: CPointer<GFileDescriptorBased>) : FileDescriptorBased {
         override val gioFileDescriptorBasedPointer: CPointer<GFileDescriptorBased> = pointer
     }
 
@@ -54,5 +53,12 @@ public interface FileDescriptorBased :
         }
 
         public fun wrap(pointer: CPointer<GFileDescriptorBased>): FileDescriptorBased = Wrapper(pointer)
+
+        /**
+         * Get the GType of FileDescriptorBased
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_file_descriptor_based_get_type()
     }
 }

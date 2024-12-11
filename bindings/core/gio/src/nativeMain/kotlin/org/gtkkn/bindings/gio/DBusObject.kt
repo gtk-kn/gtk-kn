@@ -23,6 +23,7 @@ import org.gtkkn.native.gio.g_dbus_object_get_interface
 import org.gtkkn.native.gio.g_dbus_object_get_interfaces
 import org.gtkkn.native.gio.g_dbus_object_get_object_path
 import org.gtkkn.native.gio.g_dbus_object_get_type
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import kotlin.String
 import kotlin.ULong
@@ -63,10 +64,9 @@ public interface DBusObject :
      * @since 2.30
      */
     @GioVersion2_30
-    public fun getInterfaces(): List =
-        g_dbus_object_get_interfaces(gioDBusObjectPointer.reinterpret())!!.run {
-            List(reinterpret())
-        }
+    public fun getInterfaces(): List = g_dbus_object_get_interfaces(gioDBusObjectPointer.reinterpret())!!.run {
+        List(reinterpret())
+    }
 
     /**
      * Gets the object path for @object.
@@ -75,9 +75,8 @@ public interface DBusObject :
      * @since 2.30
      */
     @GioVersion2_30
-    public fun getObjectPath(): String =
-        g_dbus_object_get_object_path(gioDBusObjectPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getObjectPath(): String = g_dbus_object_get_object_path(gioDBusObjectPointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Emitted when @interface is added to @object.
@@ -90,15 +89,14 @@ public interface DBusObject :
     public fun connectInterfaceAdded(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`interface`: DBusInterface) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gioDBusObjectPointer.reinterpret(),
-            "interface-added",
-            connectInterfaceAddedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gioDBusObjectPointer.reinterpret(),
+        "interface-added",
+        connectInterfaceAddedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted when @interface is removed from @object.
@@ -111,19 +109,16 @@ public interface DBusObject :
     public fun connectInterfaceRemoved(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`interface`: DBusInterface) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gioDBusObjectPointer.reinterpret(),
-            "interface-removed",
-            connectInterfaceRemovedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gioDBusObjectPointer.reinterpret(),
+        "interface-removed",
+        connectInterfaceRemovedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
-    private data class Wrapper(
-        private val pointer: CPointer<GDBusObject>,
-    ) : DBusObject {
+    private data class Wrapper(private val pointer: CPointer<GDBusObject>) : DBusObject {
         override val gioDBusObjectPointer: CPointer<GDBusObject> = pointer
     }
 
@@ -136,6 +131,13 @@ public interface DBusObject :
         }
 
         public fun wrap(pointer: CPointer<GDBusObject>): DBusObject = Wrapper(pointer)
+
+        /**
+         * Get the GType of DBusObject
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_object_get_type()
     }
 }
 
@@ -150,7 +152,8 @@ private val connectInterfaceAddedFunc: CPointer<CFunction<(CPointer<GDBusInterfa
                 DBusInterface.wrap(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 private val connectInterfaceRemovedFunc: CPointer<CFunction<(CPointer<GDBusInterface>) -> Unit>> =
     staticCFunction {
@@ -163,4 +166,5 @@ private val connectInterfaceRemovedFunc: CPointer<CFunction<(CPointer<GDBusInter
                 DBusInterface.wrap(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()

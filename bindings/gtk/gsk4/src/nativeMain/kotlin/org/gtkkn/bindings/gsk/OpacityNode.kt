@@ -6,19 +6,19 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskOpacityNode
 import org.gtkkn.native.gsk.gsk_opacity_node_get_child
 import org.gtkkn.native.gsk.gsk_opacity_node_get_opacity
 import org.gtkkn.native.gsk.gsk_opacity_node_get_type
 import org.gtkkn.native.gsk.gsk_opacity_node_new
-import kotlin.Float
 
 /**
  * A render node controlling the opacity of its single child node.
  */
-public open class OpacityNode(
-    pointer: CPointer<GskOpacityNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class OpacityNode(pointer: CPointer<GskOpacityNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskOpacityNodePointer: CPointer<GskOpacityNode>
         get() = gPointer.reinterpret()
@@ -33,7 +33,7 @@ public open class OpacityNode(
      */
     public constructor(
         child: RenderNode,
-        opacity: Float,
+        opacity: gfloat,
     ) : this(gsk_opacity_node_new(child.gPointer.reinterpret(), opacity)!!.reinterpret())
 
     /**
@@ -41,17 +41,16 @@ public open class OpacityNode(
      *
      * @return The child that is getting opacityed
      */
-    public open fun getChild(): RenderNode =
-        gsk_opacity_node_get_child(gskOpacityNodePointer.reinterpret())!!.run {
-            RenderNode(reinterpret())
-        }
+    public open fun getChild(): RenderNode = gsk_opacity_node_get_child(gskOpacityNodePointer.reinterpret())!!.run {
+        RenderNode(reinterpret())
+    }
 
     /**
      * Gets the transparency factor for an opacity node.
      *
      * @return the opacity factor
      */
-    public open fun getOpacity(): Float = gsk_opacity_node_get_opacity(gskOpacityNodePointer.reinterpret())
+    public open fun getOpacity(): gfloat = gsk_opacity_node_get_opacity(gskOpacityNodePointer.reinterpret())
 
     public companion object : TypeCompanion<OpacityNode> {
         override val type: GeneratedClassKGType<OpacityNode> =
@@ -60,5 +59,12 @@ public open class OpacityNode(
         init {
             GskTypeProvider.register()
         }
+
+        /**
+         * Get the GType of OpacityNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_opacity_node_get_type()
     }
 }

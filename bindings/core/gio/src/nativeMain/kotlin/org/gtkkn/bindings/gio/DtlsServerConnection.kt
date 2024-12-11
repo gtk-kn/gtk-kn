@@ -20,6 +20,7 @@ import org.gtkkn.native.gio.GDtlsServerConnection
 import org.gtkkn.native.gio.g_dtls_server_connection_get_type
 import org.gtkkn.native.gio.g_dtls_server_connection_new
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import kotlin.Result
 
 /**
@@ -46,9 +47,7 @@ public interface DtlsServerConnection :
     override val gioDtlsConnectionPointer: CPointer<GDtlsConnection>
         get() = gioDtlsServerConnectionPointer.reinterpret()
 
-    private data class Wrapper(
-        private val pointer: CPointer<GDtlsServerConnection>,
-    ) : DtlsServerConnection {
+    private data class Wrapper(private val pointer: CPointer<GDtlsServerConnection>) : DtlsServerConnection {
         override val gioDtlsServerConnectionPointer: CPointer<GDtlsServerConnection> = pointer
     }
 
@@ -72,20 +71,16 @@ public interface DtlsServerConnection :
          * @since 2.48
          */
         @GioVersion2_48
-        public fun new(
-            baseSocket: DatagramBased,
-            certificate: TlsCertificate? = null,
-        ): Result<DtlsServerConnection> =
+        public fun new(baseSocket: DatagramBased, certificate: TlsCertificate? = null): Result<DtlsServerConnection> =
             memScoped {
                 val gError = allocPointerTo<GError>()
-                val gResult =
-                    g_dtls_server_connection_new(
-                        baseSocket.gioDatagramBasedPointer,
-                        certificate?.gioTlsCertificatePointer?.reinterpret(),
-                        gError.ptr
-                    )?.run {
-                        DtlsServerConnection.wrap(reinterpret())
-                    }
+                val gResult = g_dtls_server_connection_new(
+                    baseSocket.gioDatagramBasedPointer,
+                    certificate?.gioTlsCertificatePointer?.reinterpret(),
+                    gError.ptr
+                )?.run {
+                    DtlsServerConnection.wrap(reinterpret())
+                }
 
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -93,5 +88,12 @@ public interface DtlsServerConnection :
                     Result.success(checkNotNull(gResult))
                 }
             }
+
+        /**
+         * Get the GType of DtlsServerConnection
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dtls_server_connection_get_type()
     }
 }

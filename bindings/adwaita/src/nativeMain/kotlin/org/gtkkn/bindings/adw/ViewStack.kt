@@ -31,6 +31,7 @@ import org.gtkkn.native.adw.adw_view_stack_set_hhomogeneous
 import org.gtkkn.native.adw.adw_view_stack_set_vhomogeneous
 import org.gtkkn.native.adw.adw_view_stack_set_visible_child
 import org.gtkkn.native.adw.adw_view_stack_set_visible_child_name
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -99,9 +100,8 @@ import kotlin.Unit
  * - method `visible-child`: Property TypeInfo of getter and setter do not match
  * - method `visible-child-name`: Property TypeInfo of getter and setter do not match
  */
-public class ViewStack(
-    pointer: CPointer<AdwViewStack>,
-) : Widget(pointer.reinterpret()),
+public class ViewStack(pointer: CPointer<AdwViewStack>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val adwViewStackPointer: CPointer<AdwViewStack>
         get() = gPointer.reinterpret()
@@ -164,10 +164,9 @@ public class ViewStack(
          *
          * @return a `GtkSelectionModel` for the stack's children
          */
-        get() =
-            adw_view_stack_get_pages(adwViewStackPointer.reinterpret())!!.run {
-                SelectionModel.wrap(reinterpret())
-            }
+        get() = adw_view_stack_get_pages(adwViewStackPointer.reinterpret())!!.run {
+            SelectionModel.wrap(reinterpret())
+        }
 
     /**
      * Whether the stack is vertically homogeneous.
@@ -228,10 +227,7 @@ public class ViewStack(
      * @param name the name for @child
      * @return the `AdwViewStackPage` for @child
      */
-    public fun addNamed(
-        child: Widget,
-        name: String? = null,
-    ): ViewStackPage =
+    public fun addNamed(child: Widget, name: String? = null): ViewStackPage =
         adw_view_stack_add_named(adwViewStackPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), name)!!.run {
             ViewStackPage(reinterpret())
         }
@@ -247,19 +243,14 @@ public class ViewStack(
      * @param title a human-readable title for @child
      * @return the `AdwViewStackPage` for @child
      */
-    public fun addTitled(
-        child: Widget,
-        name: String? = null,
-        title: String,
-    ): ViewStackPage =
-        adw_view_stack_add_titled(
-            adwViewStackPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret(),
-            name,
-            title
-        )!!.run {
-            ViewStackPage(reinterpret())
-        }
+    public fun addTitled(child: Widget, name: String? = null, title: String): ViewStackPage = adw_view_stack_add_titled(
+        adwViewStackPointer.reinterpret(),
+        child.gtkWidgetPointer.reinterpret(),
+        name,
+        title
+    )!!.run {
+        ViewStackPage(reinterpret())
+    }
 
     /**
      * Adds a child to @self.
@@ -275,12 +266,7 @@ public class ViewStack(
      * @since 1.2
      */
     @AdwVersion1_2
-    public fun addTitledWithIcon(
-        child: Widget,
-        name: String? = null,
-        title: String,
-        iconName: String,
-    ): ViewStackPage =
+    public fun addTitledWithIcon(child: Widget, name: String? = null, title: String, iconName: String): ViewStackPage =
         adw_view_stack_add_titled_with_icon(
             adwViewStackPointer.reinterpret(),
             child.gtkWidgetPointer.reinterpret(),
@@ -303,14 +289,6 @@ public class ViewStack(
         }
 
     /**
-     * Gets whether @self is horizontally homogeneous.
-     *
-     * @return whether @self is horizontally homogeneous
-     */
-    public fun getHhomogeneous(): Boolean =
-        adw_view_stack_get_hhomogeneous(adwViewStackPointer.reinterpret()).asBoolean()
-
-    /**
      * Gets the [class@ViewStackPage] object for @child.
      *
      * @param child a child of @self
@@ -322,36 +300,13 @@ public class ViewStack(
         }
 
     /**
-     * Returns a [iface@Gio.ListModel] that contains the pages of the stack.
-     *
-     * This can be used to keep an up-to-date view. The model also implements
-     * [iface@Gtk.SelectionModel] and can be used to track and change the visible
-     * page.
-     *
-     * @return a `GtkSelectionModel` for the stack's children
-     */
-    public fun getPages(): SelectionModel =
-        adw_view_stack_get_pages(adwViewStackPointer.reinterpret())!!.run {
-            SelectionModel.wrap(reinterpret())
-        }
-
-    /**
-     * Gets whether @self is vertically homogeneous.
-     *
-     * @return whether @self is vertically homogeneous
-     */
-    public fun getVhomogeneous(): Boolean =
-        adw_view_stack_get_vhomogeneous(adwViewStackPointer.reinterpret()).asBoolean()
-
-    /**
      * Gets the currently visible child of @self, .
      *
      * @return the visible child
      */
-    public fun getVisibleChild(): Widget? =
-        adw_view_stack_get_visible_child(adwViewStackPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
+    public fun getVisibleChild(): Widget? = adw_view_stack_get_visible_child(adwViewStackPointer.reinterpret())?.run {
+        Widget(reinterpret())
+    }
 
     /**
      * Returns the name of the currently visible child of @self.
@@ -368,34 +323,6 @@ public class ViewStack(
      */
     public fun remove(child: Widget): Unit =
         adw_view_stack_remove(adwViewStackPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
-
-    /**
-     * Sets @self to be horizontally homogeneous or not.
-     *
-     * If the stack is horizontally homogeneous, it allocates the same width for
-     * all children.
-     *
-     * If it's `FALSE`, the stack may change width when a different child becomes
-     * visible.
-     *
-     * @param hhomogeneous whether to make @self horizontally homogeneous
-     */
-    public fun setHhomogeneous(hhomogeneous: Boolean): Unit =
-        adw_view_stack_set_hhomogeneous(adwViewStackPointer.reinterpret(), hhomogeneous.asGBoolean())
-
-    /**
-     * Sets @self to be vertically homogeneous or not.
-     *
-     * If the stack is vertically homogeneous, it allocates the same height for
-     * all children.
-     *
-     * If it's `FALSE`, the stack may change height when a different child becomes
-     * visible.
-     *
-     * @param vhomogeneous whether to make @self vertically homogeneous
-     */
-    public fun setVhomogeneous(vhomogeneous: Boolean): Unit =
-        adw_view_stack_set_vhomogeneous(adwViewStackPointer.reinterpret(), vhomogeneous.asGBoolean())
 
     /**
      * Makes @child the visible child of @self.
@@ -422,5 +349,12 @@ public class ViewStack(
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ViewStack
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_view_stack_get_type()
     }
 }

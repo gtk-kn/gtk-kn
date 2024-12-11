@@ -3,6 +3,7 @@ package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_16
 import org.gtkkn.extensions.glib.Bitfield
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WEBKIT_WEBSITE_DATA_ALL
 import org.gtkkn.native.webkit.WEBKIT_WEBSITE_DATA_COOKIES
 import org.gtkkn.native.webkit.WEBKIT_WEBSITE_DATA_DEVICE_ID_HASH_SALT
@@ -17,14 +18,13 @@ import org.gtkkn.native.webkit.WEBKIT_WEBSITE_DATA_OFFLINE_APPLICATION_CACHE
 import org.gtkkn.native.webkit.WEBKIT_WEBSITE_DATA_SERVICE_WORKER_REGISTRATIONS
 import org.gtkkn.native.webkit.WEBKIT_WEBSITE_DATA_SESSION_STORAGE
 import org.gtkkn.native.webkit.WebKitWebsiteDataTypes
+import org.gtkkn.native.webkit.webkit_website_data_types_get_type
 
 /**
  * Enum values with flags representing types of Website data.
  * @since 2.16
  */
-public class WebsiteDataTypes(
-    public val mask: WebKitWebsiteDataTypes,
-) : Bitfield<WebsiteDataTypes> {
+public class WebsiteDataTypes(public val mask: WebKitWebsiteDataTypes) : Bitfield<WebsiteDataTypes> {
     override infix fun or(other: WebsiteDataTypes): WebsiteDataTypes = WebsiteDataTypes(mask or other.mask)
 
     @WebKitVersion2_16
@@ -100,5 +100,12 @@ public class WebsiteDataTypes(
          * All types.
          */
         public val ALL: WebsiteDataTypes = WebsiteDataTypes(WEBKIT_WEBSITE_DATA_ALL)
+
+        /**
+         * Get the GType of WebsiteDataTypes
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_website_data_types_get_type()
     }
 }

@@ -2,14 +2,31 @@
 package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.allocPointerTo
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_48
+import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.IOCondition
+import org.gtkkn.bindings.glib.Source
+import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GDatagramBased
+import org.gtkkn.native.gio.g_datagram_based_condition_check
+import org.gtkkn.native.gio.g_datagram_based_condition_wait
+import org.gtkkn.native.gio.g_datagram_based_create_source
 import org.gtkkn.native.gio.g_datagram_based_get_type
+import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint64
+import kotlin.Boolean
+import kotlin.Result
 
 /**
  * Interface for socket-like objects with datagram semantics.
@@ -64,9 +81,6 @@ import org.gtkkn.native.gio.g_datagram_based_get_type
  *
  * ## Skipped during bindings generation
  *
- * - parameter `condition`: C Type GIOCondition is ignored
- * - parameter `condition`: C Type GIOCondition is ignored
- * - parameter `condition`: C Type GIOCondition is ignored
  * - parameter `messages`: InputMessage
  * - parameter `messages`: OutputMessage
  *
@@ -78,9 +92,122 @@ public interface DatagramBased :
     KGTyped {
     public val gioDatagramBasedPointer: CPointer<GDatagramBased>
 
-    private data class Wrapper(
-        private val pointer: CPointer<GDatagramBased>,
-    ) : DatagramBased {
+    /**
+     * Checks on the readiness of @datagram_based to perform operations. The
+     * operations specified in @condition are checked for and masked against the
+     * currently-satisfied conditions on @datagram_based. The result is returned.
+     *
+     * %G_IO_IN will be set in the return value if data is available to read with
+     * g_datagram_based_receive_messages(), or if the connection is closed remotely
+     * (EOS); and if the datagram_based has not been closed locally using some
+     * implementation-specific method (such as g_socket_close() or
+     * g_socket_shutdown() with @shutdown_read set, if it’s a #GSocket).
+     *
+     * If the connection is shut down or closed (by calling g_socket_close() or
+     * g_socket_shutdown() with @shutdown_read set, if it’s a #GSocket, for
+     * example), all calls to this function will return %G_IO_ERROR_CLOSED.
+     *
+     * %G_IO_OUT will be set if it is expected that at least one byte can be sent
+     * using g_datagram_based_send_messages() without blocking. It will not be set
+     * if the datagram_based has been closed locally.
+     *
+     * %G_IO_HUP will be set if the connection has been closed locally.
+     *
+     * %G_IO_ERR will be set if there was an asynchronous error in transmitting data
+     * previously enqueued using g_datagram_based_send_messages().
+     *
+     * Note that on Windows, it is possible for an operation to return
+     * %G_IO_ERROR_WOULD_BLOCK even immediately after
+     * g_datagram_based_condition_check() has claimed that the #GDatagramBased is
+     * ready for writing. Rather than calling g_datagram_based_condition_check() and
+     * then writing to the #GDatagramBased if it succeeds, it is generally better to
+     * simply try writing right away, and try again later if the initial attempt
+     * returns %G_IO_ERROR_WOULD_BLOCK.
+     *
+     * It is meaningless to specify %G_IO_ERR or %G_IO_HUP in @condition; these
+     * conditions will always be set in the output if they are true. Apart from
+     * these flags, the output is guaranteed to be masked by @condition.
+     *
+     * This call never blocks.
+     *
+     * @param condition a #GIOCondition mask to check
+     * @return the #GIOCondition mask of the current state
+     * @since 2.48
+     */
+    @GioVersion2_48
+    public fun conditionCheck(condition: IOCondition): IOCondition =
+        g_datagram_based_condition_check(gioDatagramBasedPointer.reinterpret(), condition.mask).run {
+            IOCondition(this)
+        }
+
+    /**
+     * Waits for up to @timeout microseconds for condition to become true on
+     * @datagram_based. If the condition is met, true is returned.
+     *
+     * If @cancellable is cancelled before the condition is met, or if @timeout is
+     * reached before the condition is met, then false is returned and @error is
+     * set appropriately (%G_IO_ERROR_CANCELLED or %G_IO_ERROR_TIMED_OUT).
+     *
+     * @param condition a #GIOCondition mask to wait for
+     * @param timeout the maximum time (in microseconds) to wait, 0 to not block, or -1
+     *   to block indefinitely
+     * @param cancellable a #GCancellable
+     * @return true if the condition was met, false otherwise
+     * @since 2.48
+     */
+    @GioVersion2_48
+    public fun conditionWait(
+        condition: IOCondition,
+        timeout: gint64,
+        cancellable: Cancellable? = null,
+    ): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_datagram_based_condition_wait(
+            gioDatagramBasedPointer.reinterpret(),
+            condition.mask,
+            timeout,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
+        }
+    }
+
+    /**
+     * Creates a #GSource that can be attached to a #GMainContext to monitor for
+     * the availability of the specified @condition on the #GDatagramBased. The
+     * #GSource keeps a reference to the @datagram_based.
+     *
+     * The callback on the source is of the #GDatagramBasedSourceFunc type.
+     *
+     * It is meaningless to specify %G_IO_ERR or %G_IO_HUP in @condition; these
+     * conditions will always be reported in the callback if they are true.
+     *
+     * If non-null, @cancellable can be used to cancel the source, which will
+     * cause the source to trigger, reporting the current condition (which is
+     * likely 0 unless cancellation happened at the same time as a condition
+     * change). You can check for this in the callback using
+     * g_cancellable_is_cancelled().
+     *
+     * @param condition a #GIOCondition mask to monitor
+     * @param cancellable a #GCancellable
+     * @return a newly allocated #GSource
+     * @since 2.48
+     */
+    @GioVersion2_48
+    public fun createSource(condition: IOCondition, cancellable: Cancellable? = null): Source =
+        g_datagram_based_create_source(
+            gioDatagramBasedPointer.reinterpret(),
+            condition.mask,
+            cancellable?.gioCancellablePointer?.reinterpret()
+        )!!.run {
+            Source(reinterpret())
+        }
+
+    private data class Wrapper(private val pointer: CPointer<GDatagramBased>) : DatagramBased {
         override val gioDatagramBasedPointer: CPointer<GDatagramBased> = pointer
     }
 
@@ -93,5 +220,12 @@ public interface DatagramBased :
         }
 
         public fun wrap(pointer: CPointer<GDatagramBased>): DatagramBased = Wrapper(pointer)
+
+        /**
+         * Get the GType of DatagramBased
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_datagram_based_get_type()
     }
 }

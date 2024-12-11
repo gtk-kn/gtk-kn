@@ -15,6 +15,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkCellRendererCombo
 import org.gtkkn.native.gtk.GtkTreeIter
@@ -44,9 +45,8 @@ import kotlin.Unit
  * - method `model`: Property has no getter nor setter
  * - method `text-column`: Property has no getter nor setter
  */
-public open class CellRendererCombo(
-    pointer: CPointer<GtkCellRendererCombo>,
-) : CellRendererText(pointer.reinterpret()),
+public open class CellRendererCombo(pointer: CPointer<GtkCellRendererCombo>) :
+    CellRendererText(pointer.reinterpret()),
     KGTyped {
     public val gtkCellRendererComboPointer: CPointer<GtkCellRendererCombo>
         get() = gPointer.reinterpret()
@@ -85,15 +85,14 @@ public open class CellRendererCombo(
     public fun connectChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (pathString: String, newIter: TreeIter) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "changed",
-            connectChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "changed",
+        connectChangedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<CellRendererCombo> {
         override val type: GeneratedClassKGType<CellRendererCombo> =
@@ -102,12 +101,18 @@ public open class CellRendererCombo(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of CellRendererCombo
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_cell_renderer_combo_get_type()
     }
 }
 
 private val connectChangedFunc:
-    CPointer<CFunction<(CPointer<ByteVar>, CPointer<GtkTreeIter>) -> Unit>> =
-    staticCFunction {
+    CPointer<CFunction<(CPointer<ByteVar>, CPointer<GtkTreeIter>) -> Unit>> = staticCFunction {
             _: COpaquePointer,
             pathString: CPointer<ByteVar>?,
             newIter: CPointer<GtkTreeIter>?,
@@ -119,4 +124,5 @@ private val connectChangedFunc:
                 TreeIter(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()

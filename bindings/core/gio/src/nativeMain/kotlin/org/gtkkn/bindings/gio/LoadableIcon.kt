@@ -12,7 +12,8 @@ import org.gtkkn.native.gio.GIcon
 import org.gtkkn.native.gio.GLoadableIcon
 import org.gtkkn.native.gio.g_loadable_icon_get_type
 import org.gtkkn.native.gio.g_loadable_icon_load_async
-import kotlin.Int
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import kotlin.Unit
 
 /**
@@ -43,11 +44,7 @@ public interface LoadableIcon :
      * @param callback a #GAsyncReadyCallback
      *   to call when the request is satisfied
      */
-    public fun loadAsync(
-        size: Int,
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public fun loadAsync(size: gint, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         g_loadable_icon_load_async(
             gioLoadableIconPointer.reinterpret(),
             size,
@@ -56,9 +53,7 @@ public interface LoadableIcon :
             StableRef.create(callback).asCPointer()
         )
 
-    private data class Wrapper(
-        private val pointer: CPointer<GLoadableIcon>,
-    ) : LoadableIcon {
+    private data class Wrapper(private val pointer: CPointer<GLoadableIcon>) : LoadableIcon {
         override val gioLoadableIconPointer: CPointer<GLoadableIcon> = pointer
     }
 
@@ -71,5 +66,12 @@ public interface LoadableIcon :
         }
 
         public fun wrap(pointer: CPointer<GLoadableIcon>): LoadableIcon = Wrapper(pointer)
+
+        /**
+         * Get the GType of LoadableIcon
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_loadable_icon_get_type()
     }
 }

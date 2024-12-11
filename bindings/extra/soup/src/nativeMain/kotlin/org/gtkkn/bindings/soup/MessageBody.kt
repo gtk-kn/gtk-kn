@@ -1,21 +1,23 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint64
 import org.gtkkn.native.soup.SoupMessageBody
 import org.gtkkn.native.soup.soup_message_body_append_bytes
 import org.gtkkn.native.soup.soup_message_body_complete
 import org.gtkkn.native.soup.soup_message_body_flatten
 import org.gtkkn.native.soup.soup_message_body_get_accumulate
 import org.gtkkn.native.soup.soup_message_body_get_chunk
+import org.gtkkn.native.soup.soup_message_body_get_type
 import org.gtkkn.native.soup.soup_message_body_got_chunk
 import org.gtkkn.native.soup.soup_message_body_new
 import org.gtkkn.native.soup.soup_message_body_ref
@@ -24,7 +26,7 @@ import org.gtkkn.native.soup.soup_message_body_truncate
 import org.gtkkn.native.soup.soup_message_body_unref
 import org.gtkkn.native.soup.soup_message_body_wrote_chunk
 import kotlin.Boolean
-import kotlin.Long
+import kotlin.String
 import kotlin.Unit
 
 /**
@@ -44,20 +46,19 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - method `append`: soup_message_body_append is shadowedBy append_take
  * - parameter `data`: Array parameter of type guint8 is not supported
  * - field `data`: Fields with arrays are not supported
  */
-public class MessageBody(
-    pointer: CPointer<SoupMessageBody>,
-) : Record {
+public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(pointer) {
     public val soupMessageBodyPointer: CPointer<SoupMessageBody> = pointer
 
     /**
      * length of @data
      */
-    public var length: Long
+    public var length: gint64
         get() = soupMessageBodyPointer.pointed.length
+
+        @UnsafeFieldSetter
         set(`value`) {
             soupMessageBodyPointer.pointed.length = value
         }
@@ -87,10 +88,9 @@ public class MessageBody(
      * @return a #GBytes containing the same data as @body.
      *   (You must [method@GLib.Bytes.unref] this if you do not want it.)
      */
-    public fun flatten(): Bytes =
-        soup_message_body_flatten(soupMessageBodyPointer.reinterpret())!!.run {
-            Bytes(reinterpret())
-        }
+    public fun flatten(): Bytes = soup_message_body_flatten(soupMessageBodyPointer.reinterpret())!!.run {
+        Bytes(reinterpret())
+    }
 
     /**
      * Gets the accumulate flag on @body.
@@ -123,7 +123,7 @@ public class MessageBody(
      * @param offset an offset
      * @return a #GBytes
      */
-    public fun getChunk(offset: Long): Bytes? =
+    public fun getChunk(offset: gint64): Bytes? =
         soup_message_body_get_chunk(soupMessageBodyPointer.reinterpret(), offset)?.run {
             Bytes(reinterpret())
         }
@@ -149,10 +149,9 @@ public class MessageBody(
      *
      * @return the passed in #SoupMessageBody
      */
-    public fun ref(): MessageBody =
-        soup_message_body_ref(soupMessageBodyPointer.reinterpret())!!.run {
-            MessageBody(reinterpret())
-        }
+    public fun ref(): MessageBody = soup_message_body_ref(soupMessageBodyPointer.reinterpret())!!.run {
+        MessageBody(reinterpret())
+    }
 
     /**
      * Sets or clears the accumulate flag on @body.
@@ -203,7 +202,9 @@ public class MessageBody(
     public fun wroteChunk(chunk: Bytes): Unit =
         soup_message_body_wrote_chunk(soupMessageBodyPointer.reinterpret(), chunk.glibBytesPointer.reinterpret())
 
-    public companion object : RecordCompanion<MessageBody, SoupMessageBody> {
+    override fun toString(): String = "MessageBody(length=$length)"
+
+    public companion object {
         /**
          * Creates a new #SoupMessageBody.
          *
@@ -214,7 +215,11 @@ public class MessageBody(
          */
         public fun new(): MessageBody = MessageBody(soup_message_body_new()!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MessageBody =
-            MessageBody(pointer.reinterpret())
+        /**
+         * Get the GType of MessageBody
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_message_body_get_type()
     }
 }

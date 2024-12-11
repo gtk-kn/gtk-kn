@@ -20,6 +20,7 @@ import org.gtkkn.native.gio.g_dbus_object_manager_server_is_exported
 import org.gtkkn.native.gio.g_dbus_object_manager_server_new
 import org.gtkkn.native.gio.g_dbus_object_manager_server_set_connection
 import org.gtkkn.native.gio.g_dbus_object_manager_server_unexport
+import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
@@ -54,9 +55,8 @@ import kotlin.Unit
  * @since 2.30
  */
 @GioVersion2_30
-public open class DBusObjectManagerServer(
-    pointer: CPointer<GDBusObjectManagerServer>,
-) : Object(pointer.reinterpret()),
+public open class DBusObjectManagerServer(pointer: CPointer<GDBusObjectManagerServer>) :
+    Object(pointer.reinterpret()),
     DBusObjectManager,
     KGTyped {
     public val gioDBusObjectManagerServerPointer: CPointer<GDBusObjectManagerServer>
@@ -80,10 +80,9 @@ public open class DBusObjectManagerServer(
          *   be freed with g_object_unref().
          * @since 2.30
          */
-        get() =
-            g_dbus_object_manager_server_get_connection(gioDBusObjectManagerServerPointer.reinterpret())?.run {
-                DBusConnection(reinterpret())
-            }
+        get() = g_dbus_object_manager_server_get_connection(gioDBusObjectManagerServerPointer.reinterpret())?.run {
+            DBusConnection(reinterpret())
+        }
 
         /**
          * Exports all objects managed by @manager on @connection. If
@@ -93,11 +92,10 @@ public open class DBusObjectManagerServer(
          */
         set(
             connection
-        ) =
-            g_dbus_object_manager_server_set_connection(
-                gioDBusObjectManagerServerPointer.reinterpret(),
-                connection?.gioDBusConnectionPointer?.reinterpret()
-            )
+        ) = g_dbus_object_manager_server_set_connection(
+            gioDBusObjectManagerServerPointer.reinterpret(),
+            connection?.gioDBusConnectionPointer?.reinterpret()
+        )
 
     /**
      * Creates a new #GDBusObjectManagerServer object.
@@ -130,11 +128,10 @@ public open class DBusObjectManagerServer(
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun export(`object`: DBusObjectSkeleton): Unit =
-        g_dbus_object_manager_server_export(
-            gioDBusObjectManagerServerPointer.reinterpret(),
-            `object`.gioDBusObjectSkeletonPointer.reinterpret()
-        )
+    public open fun export(`object`: DBusObjectSkeleton): Unit = g_dbus_object_manager_server_export(
+        gioDBusObjectManagerServerPointer.reinterpret(),
+        `object`.gioDBusObjectSkeletonPointer.reinterpret()
+    )
 
     /**
      * Like g_dbus_object_manager_server_export() but appends a string of
@@ -146,25 +143,10 @@ public open class DBusObjectManagerServer(
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun exportUniquely(`object`: DBusObjectSkeleton): Unit =
-        g_dbus_object_manager_server_export_uniquely(
-            gioDBusObjectManagerServerPointer.reinterpret(),
-            `object`.gioDBusObjectSkeletonPointer.reinterpret()
-        )
-
-    /**
-     * Gets the #GDBusConnection used by @manager.
-     *
-     * @return A #GDBusConnection object or null if
-     *   @manager isn't exported on a connection. The returned object should
-     *   be freed with g_object_unref().
-     * @since 2.30
-     */
-    @GioVersion2_30
-    public open fun getConnection(): DBusConnection? =
-        g_dbus_object_manager_server_get_connection(gioDBusObjectManagerServerPointer.reinterpret())?.run {
-            DBusConnection(reinterpret())
-        }
+    public open fun exportUniquely(`object`: DBusObjectSkeleton): Unit = g_dbus_object_manager_server_export_uniquely(
+        gioDBusObjectManagerServerPointer.reinterpret(),
+        `object`.gioDBusObjectSkeletonPointer.reinterpret()
+    )
 
     /**
      * Returns whether @object is currently exported on @manager.
@@ -174,23 +156,10 @@ public open class DBusObjectManagerServer(
      * @since 2.34
      */
     @GioVersion2_34
-    public open fun isExported(`object`: DBusObjectSkeleton): Boolean =
-        g_dbus_object_manager_server_is_exported(
-            gioDBusObjectManagerServerPointer.reinterpret(),
-            `object`.gioDBusObjectSkeletonPointer.reinterpret()
-        ).asBoolean()
-
-    /**
-     * Exports all objects managed by @manager on @connection. If
-     * @connection is null, stops exporting objects.
-     *
-     * @param connection A #GDBusConnection or null.
-     */
-    public open fun setConnection(connection: DBusConnection? = null): Unit =
-        g_dbus_object_manager_server_set_connection(
-            gioDBusObjectManagerServerPointer.reinterpret(),
-            connection?.gioDBusConnectionPointer?.reinterpret()
-        )
+    public open fun isExported(`object`: DBusObjectSkeleton): Boolean = g_dbus_object_manager_server_is_exported(
+        gioDBusObjectManagerServerPointer.reinterpret(),
+        `object`.gioDBusObjectSkeletonPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * If @manager has an object at @path, removes the object. Otherwise
@@ -209,12 +178,19 @@ public open class DBusObjectManagerServer(
 
     public companion object : TypeCompanion<DBusObjectManagerServer> {
         override val type: GeneratedClassKGType<DBusObjectManagerServer> =
-            GeneratedClassKGType(
-                g_dbus_object_manager_server_get_type()
-            ) { DBusObjectManagerServer(it.reinterpret()) }
+            GeneratedClassKGType(g_dbus_object_manager_server_get_type()) {
+                DBusObjectManagerServer(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of DBusObjectManagerServer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_object_manager_server_get_type()
     }
 }

@@ -37,12 +37,13 @@ import org.gtkkn.native.gio.g_socket_listener_get_type
 import org.gtkkn.native.gio.g_socket_listener_new
 import org.gtkkn.native.gio.g_socket_listener_set_backlog
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint16
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.ULong
-import kotlin.UShort
 import kotlin.Unit
 
 /**
@@ -74,9 +75,8 @@ import kotlin.Unit
  * @since 2.22
  */
 @GioVersion2_22
-public open class SocketListener(
-    pointer: CPointer<GSocketListener>,
-) : Object(pointer.reinterpret()),
+public open class SocketListener(pointer: CPointer<GSocketListener>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioSocketListenerPointer: CPointer<GSocketListener>
         get() = gPointer.reinterpret()
@@ -103,10 +103,7 @@ public open class SocketListener(
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun acceptAsync(
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public open fun acceptAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         g_socket_listener_accept_async(
             gioSocketListenerPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
@@ -126,10 +123,7 @@ public open class SocketListener(
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun acceptSocketAsync(
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public open fun acceptSocketAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         g_socket_listener_accept_socket_async(
             gioSocketListenerPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
@@ -154,21 +148,20 @@ public open class SocketListener(
      * @since 2.24
      */
     @GioVersion2_24
-    public open fun addAnyInetPort(sourceObject: Object? = null): Result<UShort> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_socket_listener_add_any_inet_port(
-                    gioSocketListenerPointer.reinterpret(),
-                    sourceObject?.gPointer?.reinterpret(),
-                    gError.ptr
-                )
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun addAnyInetPort(sourceObject: Object? = null): Result<guint16> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult =
+            g_socket_listener_add_any_inet_port(
+                gioSocketListenerPointer.reinterpret(),
+                sourceObject?.gPointer?.reinterpret(),
+                gError.ptr
+            )
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Helper function for g_socket_listener_add_address() that
@@ -190,25 +183,20 @@ public open class SocketListener(
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun addInetPort(
-        port: UShort,
-        sourceObject: Object? = null,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_socket_listener_add_inet_port(
-                    gioSocketListenerPointer.reinterpret(),
-                    port,
-                    sourceObject?.gPointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun addInetPort(port: guint16, sourceObject: Object? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_socket_listener_add_inet_port(
+            gioSocketListenerPointer.reinterpret(),
+            port,
+            sourceObject?.gPointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Adds @socket to the set of sockets that we try to accept
@@ -231,25 +219,20 @@ public open class SocketListener(
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun addSocket(
-        socket: Socket,
-        sourceObject: Object? = null,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_socket_listener_add_socket(
-                    gioSocketListenerPointer.reinterpret(),
-                    socket.gioSocketPointer.reinterpret(),
-                    sourceObject?.gPointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun addSocket(socket: Socket, sourceObject: Object? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_socket_listener_add_socket(
+            gioSocketListenerPointer.reinterpret(),
+            socket.gioSocketPointer.reinterpret(),
+            sourceObject?.gPointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Closes all the sockets in the listener.
@@ -270,7 +253,7 @@ public open class SocketListener(
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun setBacklog(listenBacklog: Int): Unit =
+    public open fun setBacklog(listenBacklog: gint): Unit =
         g_socket_listener_set_backlog(gioSocketListenerPointer.reinterpret(), listenBacklog)
 
     /**
@@ -287,15 +270,14 @@ public open class SocketListener(
     public fun connectEvent(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (event: SocketListenerEvent, socket: Socket) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "event",
-            connectEventFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "event",
+        connectEventFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<SocketListener> {
         override val type: GeneratedClassKGType<SocketListener> =
@@ -304,6 +286,13 @@ public open class SocketListener(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of SocketListener
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_socket_listener_get_type()
     }
 }
 
@@ -322,4 +311,5 @@ private val connectEventFunc: CPointer<CFunction<(GSocketListenerEvent, CPointer
                 Socket(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()

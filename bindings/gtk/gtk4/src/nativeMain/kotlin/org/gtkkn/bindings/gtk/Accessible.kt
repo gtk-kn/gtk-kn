@@ -10,6 +10,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.gtk_accessible_announce
 import org.gtkkn.native.gtk.gtk_accessible_get_accessible_parent
@@ -82,10 +83,9 @@ public interface Accessible :
          *
          * @return the accessible role
          */
-        get() =
-            gtk_accessible_get_accessible_role(gtkAccessiblePointer.reinterpret()).run {
-                AccessibleRole.fromNativeValue(this)
-            }
+        get() = gtk_accessible_get_accessible_role(gtkAccessiblePointer.reinterpret()).run {
+            AccessibleRole.fromNativeValue(this)
+        }
 
     /**
      * Requests the user's screen reader to announce the given message.
@@ -103,10 +103,8 @@ public interface Accessible :
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun announce(
-        message: String,
-        priority: AccessibleAnnouncementPriority,
-    ): Unit = gtk_accessible_announce(gtkAccessiblePointer.reinterpret(), message, priority.nativeValue)
+    public fun announce(message: String, priority: AccessibleAnnouncementPriority): Unit =
+        gtk_accessible_announce(gtkAccessiblePointer.reinterpret(), message, priority.nativeValue)
 
     /**
      * Retrieves the accessible parent for an accessible object.
@@ -139,10 +137,9 @@ public interface Accessible :
      * @since 4.10
      */
     @GtkVersion4_10
-    public fun getAtContext(): ATContext =
-        gtk_accessible_get_at_context(gtkAccessiblePointer.reinterpret())!!.run {
-            ATContext(reinterpret())
-        }
+    public fun getAtContext(): ATContext = gtk_accessible_get_at_context(gtkAccessiblePointer.reinterpret())!!.run {
+        ATContext(reinterpret())
+    }
 
     /**
      * Retrieves the first accessible child of an accessible object.
@@ -225,10 +222,7 @@ public interface Accessible :
      * @since 4.10
      */
     @GtkVersion4_10
-    public fun setAccessibleParent(
-        parent: Accessible? = null,
-        nextSibling: Accessible? = null,
-    ): Unit =
+    public fun setAccessibleParent(parent: Accessible? = null, nextSibling: Accessible? = null): Unit =
         gtk_accessible_set_accessible_parent(
             gtkAccessiblePointer.reinterpret(),
             parent?.gtkAccessiblePointer,
@@ -251,9 +245,7 @@ public interface Accessible :
             newSibling?.gtkAccessiblePointer
         )
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkAccessible>,
-    ) : Accessible {
+    private data class Wrapper(private val pointer: CPointer<GtkAccessible>) : Accessible {
         override val gtkAccessiblePointer: CPointer<GtkAccessible> = pointer
     }
 
@@ -266,5 +258,12 @@ public interface Accessible :
         }
 
         public fun wrap(pointer: CPointer<GtkAccessible>): Accessible = Wrapper(pointer)
+
+        /**
+         * Get the GType of Accessible
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_accessible_get_type()
     }
 }

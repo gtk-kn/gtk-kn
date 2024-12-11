@@ -24,6 +24,7 @@ import org.gtkkn.native.adw.adw_preferences_dialog_remove
 import org.gtkkn.native.adw.adw_preferences_dialog_set_search_enabled
 import org.gtkkn.native.adw.adw_preferences_dialog_set_visible_page
 import org.gtkkn.native.adw.adw_preferences_dialog_set_visible_page_name
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -55,9 +56,8 @@ import kotlin.Unit
  * @since 1.5
  */
 @AdwVersion1_5
-public open class PreferencesDialog(
-    pointer: CPointer<AdwPreferencesDialog>,
-) : Dialog(pointer.reinterpret()),
+public open class PreferencesDialog(pointer: CPointer<AdwPreferencesDialog>) :
+    Dialog(pointer.reinterpret()),
     KGTyped {
     public val adwPreferencesDialogPointer: CPointer<AdwPreferencesDialog>
         get() = gPointer.reinterpret()
@@ -95,11 +95,10 @@ public open class PreferencesDialog(
         @AdwVersion1_5
         set(
             searchEnabled
-        ) =
-            adw_preferences_dialog_set_search_enabled(
-                adwPreferencesDialogPointer.reinterpret(),
-                searchEnabled.asGBoolean()
-            )
+        ) = adw_preferences_dialog_set_search_enabled(
+            adwPreferencesDialogPointer.reinterpret(),
+            searchEnabled.asGBoolean()
+        )
 
     /**
      * Creates a new `AdwPreferencesDialog`.
@@ -116,11 +115,10 @@ public open class PreferencesDialog(
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun add(page: PreferencesPage): Unit =
-        adw_preferences_dialog_add(
-            adwPreferencesDialogPointer.reinterpret(),
-            page.adwPreferencesPagePointer.reinterpret()
-        )
+    public open fun add(page: PreferencesPage): Unit = adw_preferences_dialog_add(
+        adwPreferencesDialogPointer.reinterpret(),
+        page.adwPreferencesPagePointer.reinterpret()
+    )
 
     /**
      * Displays @toast.
@@ -133,16 +131,6 @@ public open class PreferencesDialog(
     @AdwVersion1_5
     public open fun addToast(toast: Toast): Unit =
         adw_preferences_dialog_add_toast(adwPreferencesDialogPointer.reinterpret(), toast.adwToastPointer.reinterpret())
-
-    /**
-     * Gets whether search is enabled for @self.
-     *
-     * @return whether search is enabled for @self.
-     * @since 1.5
-     */
-    @AdwVersion1_5
-    public open fun getSearchEnabled(): Boolean =
-        adw_preferences_dialog_get_search_enabled(adwPreferencesDialogPointer.reinterpret()).asBoolean()
 
     /**
      * Gets the currently visible page of @self.
@@ -185,11 +173,10 @@ public open class PreferencesDialog(
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun pushSubpage(page: NavigationPage): Unit =
-        adw_preferences_dialog_push_subpage(
-            adwPreferencesDialogPointer.reinterpret(),
-            page.adwNavigationPagePointer.reinterpret()
-        )
+    public open fun pushSubpage(page: NavigationPage): Unit = adw_preferences_dialog_push_subpage(
+        adwPreferencesDialogPointer.reinterpret(),
+        page.adwNavigationPagePointer.reinterpret()
+    )
 
     /**
      * Removes a page from @self.
@@ -198,21 +185,10 @@ public open class PreferencesDialog(
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun remove(page: PreferencesPage): Unit =
-        adw_preferences_dialog_remove(
-            adwPreferencesDialogPointer.reinterpret(),
-            page.adwPreferencesPagePointer.reinterpret()
-        )
-
-    /**
-     * Sets whether search is enabled for @self.
-     *
-     * @param searchEnabled whether search is enabled
-     * @since 1.5
-     */
-    @AdwVersion1_5
-    public open fun setSearchEnabled(searchEnabled: Boolean): Unit =
-        adw_preferences_dialog_set_search_enabled(adwPreferencesDialogPointer.reinterpret(), searchEnabled.asGBoolean())
+    public open fun remove(page: PreferencesPage): Unit = adw_preferences_dialog_remove(
+        adwPreferencesDialogPointer.reinterpret(),
+        page.adwPreferencesPagePointer.reinterpret()
+    )
 
     /**
      * Makes @page the visible page of @self.
@@ -221,11 +197,10 @@ public open class PreferencesDialog(
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun setVisiblePage(page: PreferencesPage): Unit =
-        adw_preferences_dialog_set_visible_page(
-            adwPreferencesDialogPointer.reinterpret(),
-            page.adwPreferencesPagePointer.reinterpret()
-        )
+    public open fun setVisiblePage(page: PreferencesPage): Unit = adw_preferences_dialog_set_visible_page(
+        adwPreferencesDialogPointer.reinterpret(),
+        page.adwPreferencesPagePointer.reinterpret()
+    )
 
     /**
      * Makes the page with the given name visible.
@@ -246,5 +221,12 @@ public open class PreferencesDialog(
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of PreferencesDialog
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_preferences_dialog_get_type()
     }
 }

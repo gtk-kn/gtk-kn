@@ -3,6 +3,7 @@ package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_28
 import org.gtkkn.extensions.glib.Bitfield
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WEBKIT_INPUT_HINT_INHIBIT_OSK
 import org.gtkkn.native.webkit.WEBKIT_INPUT_HINT_LOWERCASE
 import org.gtkkn.native.webkit.WEBKIT_INPUT_HINT_NONE
@@ -11,14 +12,13 @@ import org.gtkkn.native.webkit.WEBKIT_INPUT_HINT_UPPERCASE_CHARS
 import org.gtkkn.native.webkit.WEBKIT_INPUT_HINT_UPPERCASE_SENTENCES
 import org.gtkkn.native.webkit.WEBKIT_INPUT_HINT_UPPERCASE_WORDS
 import org.gtkkn.native.webkit.WebKitInputHints
+import org.gtkkn.native.webkit.webkit_input_hints_get_type
 
 /**
  * Enum values used to describe hints that might be taken into account by input methods.
  * @since 2.28
  */
-public class InputHints(
-    public val mask: WebKitInputHints,
-) : Bitfield<InputHints> {
+public class InputHints(public val mask: WebKitInputHints) : Bitfield<InputHints> {
     override infix fun or(other: InputHints): InputHints = InputHints(mask or other.mask)
 
     @WebKitVersion2_28
@@ -58,5 +58,12 @@ public class InputHints(
          * Suggest to not show an onscreen keyboard
          */
         public val INHIBIT_OSK: InputHints = InputHints(WEBKIT_INPUT_HINT_INHIBIT_OSK)
+
+        /**
+         * Get the GType of InputHints
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_input_hints_get_type()
     }
 }

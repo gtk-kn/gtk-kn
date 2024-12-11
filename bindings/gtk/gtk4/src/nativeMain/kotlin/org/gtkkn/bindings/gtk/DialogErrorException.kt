@@ -2,9 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 
-public class DialogErrorException(
-    error: Error,
-    public val code: DialogError,
-) : GlibException(error)
+public class DialogErrorException(error: Error, public val code: DialogError) : GLibException(error)

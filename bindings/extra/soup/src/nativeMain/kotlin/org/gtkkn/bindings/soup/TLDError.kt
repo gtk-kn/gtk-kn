@@ -3,15 +3,15 @@ package org.gtkkn.bindings.soup
 
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupTLDError
+import org.gtkkn.native.soup.soup_tld_error_get_type
 import org.gtkkn.native.soup.soup_tld_error_quark
 
 /**
  * Error codes for %SOUP_TLD_ERROR.
  */
-public enum class TLDError(
-    public val nativeValue: SoupTLDError,
-) {
+public enum class TLDError(public val nativeValue: SoupTLDError) {
     /**
      * A hostname was syntactically
      *   invalid.
@@ -46,15 +46,14 @@ public enum class TLDError(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: SoupTLDError): TLDError =
-            when (nativeValue) {
-                SoupTLDError.SOUP_TLD_ERROR_INVALID_HOSTNAME -> INVALID_HOSTNAME
-                SoupTLDError.SOUP_TLD_ERROR_IS_IP_ADDRESS -> IS_IP_ADDRESS
-                SoupTLDError.SOUP_TLD_ERROR_NOT_ENOUGH_DOMAINS -> NOT_ENOUGH_DOMAINS
-                SoupTLDError.SOUP_TLD_ERROR_NO_BASE_DOMAIN -> NO_BASE_DOMAIN
-                SoupTLDError.SOUP_TLD_ERROR_NO_PSL_DATA -> NO_PSL_DATA
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: SoupTLDError): TLDError = when (nativeValue) {
+            SoupTLDError.SOUP_TLD_ERROR_INVALID_HOSTNAME -> INVALID_HOSTNAME
+            SoupTLDError.SOUP_TLD_ERROR_IS_IP_ADDRESS -> IS_IP_ADDRESS
+            SoupTLDError.SOUP_TLD_ERROR_NOT_ENOUGH_DOMAINS -> NOT_ENOUGH_DOMAINS
+            SoupTLDError.SOUP_TLD_ERROR_NO_BASE_DOMAIN -> NO_BASE_DOMAIN
+            SoupTLDError.SOUP_TLD_ERROR_NO_PSL_DATA -> NO_PSL_DATA
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Registers error quark for soup_tld_get_base_domain() if needed.
@@ -63,11 +62,17 @@ public enum class TLDError(
          */
         public fun quark(): Quark = soup_tld_error_quark()
 
-        public fun fromErrorOrNull(error: Error): TLDError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                TLDError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        /**
+         * Get the GType of TLDError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_tld_error_get_type()
+
+        public fun fromErrorOrNull(error: Error): TLDError? = if (error.domain != quark()) {
+            null
+        } else {
+            TLDError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

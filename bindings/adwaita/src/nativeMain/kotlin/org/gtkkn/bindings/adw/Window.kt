@@ -19,6 +19,7 @@ import org.gtkkn.native.adw.adw_window_get_type
 import org.gtkkn.native.adw.adw_window_get_visible_dialog
 import org.gtkkn.native.adw.adw_window_new
 import org.gtkkn.native.adw.adw_window_set_content
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -103,9 +104,8 @@ import kotlin.Unit
  * minimum size, and [property@Gtk.Widget:width-request] and
  * [property@Gtk.Widget:height-request] properties must be set manually.
  */
-public open class Window(
-    pointer: CPointer<AdwWindow>,
-) : org.gtkkn.bindings.gtk.Window(pointer.reinterpret()),
+public open class Window(pointer: CPointer<AdwWindow>) :
+    org.gtkkn.bindings.gtk.Window(pointer.reinterpret()),
     KGTyped {
     public val adwWindowPointer: CPointer<AdwWindow>
         get() = gPointer.reinterpret()
@@ -141,10 +141,9 @@ public open class Window(
          *
          * @return the content widget of @self
          */
-        get() =
-            adw_window_get_content(adwWindowPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = adw_window_get_content(adwWindowPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the content widget of @self.
@@ -168,10 +167,9 @@ public open class Window(
          * @return the current breakpoint
          * @since 1.4
          */
-        get() =
-            adw_window_get_current_breakpoint(adwWindowPointer.reinterpret())?.run {
-                Breakpoint(reinterpret())
-            }
+        get() = adw_window_get_current_breakpoint(adwWindowPointer.reinterpret())?.run {
+            Breakpoint(reinterpret())
+        }
 
     /**
      * The open dialogs.
@@ -188,10 +186,9 @@ public open class Window(
          * @return a list model for the dialogs of @self
          * @since 1.5
          */
-        get() =
-            adw_window_get_dialogs(adwWindowPointer.reinterpret())!!.run {
-                ListModel.wrap(reinterpret())
-            }
+        get() = adw_window_get_dialogs(adwWindowPointer.reinterpret())!!.run {
+            ListModel.wrap(reinterpret())
+        }
 
     /**
      * The currently visible dialog
@@ -206,10 +203,9 @@ public open class Window(
          * @return the visible dialog
          * @since 1.5
          */
-        get() =
-            adw_window_get_visible_dialog(adwWindowPointer.reinterpret())?.run {
-                Dialog(reinterpret())
-            }
+        get() = adw_window_get_visible_dialog(adwWindowPointer.reinterpret())?.run {
+            Dialog(reinterpret())
+        }
 
     /**
      * Creates a new `AdwWindow`.
@@ -228,66 +224,6 @@ public open class Window(
     public open fun addBreakpoint(breakpoint: Breakpoint): Unit =
         adw_window_add_breakpoint(adwWindowPointer.reinterpret(), breakpoint.adwBreakpointPointer.reinterpret())
 
-    /**
-     * Gets the content widget of @self.
-     *
-     * This method should always be used instead of [method@Gtk.Window.get_child].
-     *
-     * @return the content widget of @self
-     */
-    public open fun getContent(): Widget? =
-        adw_window_get_content(adwWindowPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Gets the current breakpoint.
-     *
-     * @return the current breakpoint
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public open fun getCurrentBreakpoint(): Breakpoint? =
-        adw_window_get_current_breakpoint(adwWindowPointer.reinterpret())?.run {
-            Breakpoint(reinterpret())
-        }
-
-    /**
-     * Returns a [iface@Gio.ListModel] that contains the open dialogs of @self.
-     *
-     * This can be used to keep an up-to-date view.
-     *
-     * @return a list model for the dialogs of @self
-     * @since 1.5
-     */
-    @AdwVersion1_5
-    public open fun getDialogs(): ListModel =
-        adw_window_get_dialogs(adwWindowPointer.reinterpret())!!.run {
-            ListModel.wrap(reinterpret())
-        }
-
-    /**
-     * Returns the currently visible dialog in @self, if there's one.
-     *
-     * @return the visible dialog
-     * @since 1.5
-     */
-    @AdwVersion1_5
-    public open fun getVisibleDialog(): Dialog? =
-        adw_window_get_visible_dialog(adwWindowPointer.reinterpret())?.run {
-            Dialog(reinterpret())
-        }
-
-    /**
-     * Sets the content widget of @self.
-     *
-     * This method should always be used instead of [method@Gtk.Window.set_child].
-     *
-     * @param content the content widget
-     */
-    public open fun setContent(content: Widget? = null): Unit =
-        adw_window_set_content(adwWindowPointer.reinterpret(), content?.gtkWidgetPointer?.reinterpret())
-
     public companion object : TypeCompanion<Window> {
         override val type: GeneratedClassKGType<Window> =
             GeneratedClassKGType(adw_window_get_type()) { Window(it.reinterpret()) }
@@ -295,5 +231,12 @@ public open class Window(
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Window
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_window_get_type()
     }
 }

@@ -6,13 +6,13 @@ import org.gtkkn.native.gio.GFileCreateFlags
 import org.gtkkn.native.gio.G_FILE_CREATE_NONE
 import org.gtkkn.native.gio.G_FILE_CREATE_PRIVATE
 import org.gtkkn.native.gio.G_FILE_CREATE_REPLACE_DESTINATION
+import org.gtkkn.native.gio.g_file_create_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags used when an operation may create a file.
  */
-public class FileCreateFlags(
-    public val mask: GFileCreateFlags,
-) : Bitfield<FileCreateFlags> {
+public class FileCreateFlags(public val mask: GFileCreateFlags) : Bitfield<FileCreateFlags> {
     override infix fun or(other: FileCreateFlags): FileCreateFlags = FileCreateFlags(mask or other.mask)
 
     public companion object {
@@ -41,5 +41,12 @@ public class FileCreateFlags(
          */
         public val REPLACE_DESTINATION: FileCreateFlags =
             FileCreateFlags(G_FILE_CREATE_REPLACE_DESTINATION)
+
+        /**
+         * Get the GType of FileCreateFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_file_create_flags_get_type()
     }
 }

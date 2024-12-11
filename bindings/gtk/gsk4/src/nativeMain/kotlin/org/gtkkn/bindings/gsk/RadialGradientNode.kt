@@ -7,6 +7,9 @@ import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gsk.GskRadialGradientNode
 import org.gtkkn.native.gsk.gsk_radial_gradient_node_get_center
 import org.gtkkn.native.gsk.gsk_radial_gradient_node_get_end
@@ -15,8 +18,6 @@ import org.gtkkn.native.gsk.gsk_radial_gradient_node_get_n_color_stops
 import org.gtkkn.native.gsk.gsk_radial_gradient_node_get_start
 import org.gtkkn.native.gsk.gsk_radial_gradient_node_get_type
 import org.gtkkn.native.gsk.gsk_radial_gradient_node_get_vradius
-import kotlin.Float
-import kotlin.ULong
 
 /**
  * A render node for a radial gradient.
@@ -26,9 +27,8 @@ import kotlin.ULong
  * - parameter `n_stops`: n_stops: Out parameter is not supported
  * - parameter `color_stops`: ColorStop
  */
-public open class RadialGradientNode(
-    pointer: CPointer<GskRadialGradientNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class RadialGradientNode(pointer: CPointer<GskRadialGradientNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskRadialGradientNodePointer: CPointer<GskRadialGradientNode>
         get() = gPointer.reinterpret()
@@ -48,14 +48,14 @@ public open class RadialGradientNode(
      *
      * @return the end value for the gradient
      */
-    public open fun getEnd(): Float = gsk_radial_gradient_node_get_end(gskRadialGradientNodePointer.reinterpret())
+    public open fun getEnd(): gfloat = gsk_radial_gradient_node_get_end(gskRadialGradientNodePointer.reinterpret())
 
     /**
      * Retrieves the horizontal radius for the gradient.
      *
      * @return the horizontal radius for the gradient
      */
-    public open fun getHradius(): Float =
+    public open fun getHradius(): gfloat =
         gsk_radial_gradient_node_get_hradius(gskRadialGradientNodePointer.reinterpret())
 
     /**
@@ -63,7 +63,7 @@ public open class RadialGradientNode(
      *
      * @return the number of color stops
      */
-    public open fun getNColorStops(): ULong =
+    public open fun getNColorStops(): gsize =
         gsk_radial_gradient_node_get_n_color_stops(gskRadialGradientNodePointer.reinterpret())
 
     /**
@@ -71,14 +71,14 @@ public open class RadialGradientNode(
      *
      * @return the start value for the gradient
      */
-    public open fun getStart(): Float = gsk_radial_gradient_node_get_start(gskRadialGradientNodePointer.reinterpret())
+    public open fun getStart(): gfloat = gsk_radial_gradient_node_get_start(gskRadialGradientNodePointer.reinterpret())
 
     /**
      * Retrieves the vertical radius for the gradient.
      *
      * @return the vertical radius for the gradient
      */
-    public open fun getVradius(): Float =
+    public open fun getVradius(): gfloat =
         gsk_radial_gradient_node_get_vradius(gskRadialGradientNodePointer.reinterpret())
 
     public companion object : TypeCompanion<RadialGradientNode> {
@@ -88,5 +88,12 @@ public open class RadialGradientNode(
         init {
             GskTypeProvider.register()
         }
+
+        /**
+         * Get the GType of RadialGradientNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_radial_gradient_node_get_type()
     }
 }

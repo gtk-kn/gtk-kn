@@ -1,20 +1,20 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_10
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkTextureDownloader
 import org.gtkkn.native.gdk.gdk_texture_downloader_copy
 import org.gtkkn.native.gdk.gdk_texture_downloader_free
 import org.gtkkn.native.gdk.gdk_texture_downloader_get_format
 import org.gtkkn.native.gdk.gdk_texture_downloader_get_texture
+import org.gtkkn.native.gdk.gdk_texture_downloader_get_type
 import org.gtkkn.native.gdk.gdk_texture_downloader_new
 import org.gtkkn.native.gdk.gdk_texture_downloader_set_format
 import org.gtkkn.native.gdk.gdk_texture_downloader_set_texture
+import org.gtkkn.native.gobject.GType
 import kotlin.Unit
 
 /**
@@ -37,9 +37,7 @@ import kotlin.Unit
  * @since 4.10
  */
 @GdkVersion4_10
-public class TextureDownloader(
-    pointer: CPointer<GdkTextureDownloader>,
-) : Record {
+public class TextureDownloader(pointer: CPointer<GdkTextureDownloader>) : ProxyInstance(pointer) {
     public val gdkTextureDownloaderPointer: CPointer<GdkTextureDownloader> = pointer
 
     /**
@@ -107,13 +105,12 @@ public class TextureDownloader(
      * @since 4.10
      */
     @GdkVersion4_10
-    public fun setTexture(texture: Texture): Unit =
-        gdk_texture_downloader_set_texture(
-            gdkTextureDownloaderPointer.reinterpret(),
-            texture.gdkTexturePointer.reinterpret()
-        )
+    public fun setTexture(texture: Texture): Unit = gdk_texture_downloader_set_texture(
+        gdkTextureDownloaderPointer.reinterpret(),
+        texture.gdkTexturePointer.reinterpret()
+    )
 
-    public companion object : RecordCompanion<TextureDownloader, GdkTextureDownloader> {
+    public companion object {
         /**
          * Creates a new texture downloader for @texture.
          *
@@ -124,7 +121,11 @@ public class TextureDownloader(
         public fun new(texture: Texture): TextureDownloader =
             TextureDownloader(gdk_texture_downloader_new(texture.gdkTexturePointer.reinterpret())!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TextureDownloader =
-            TextureDownloader(pointer.reinterpret())
+        /**
+         * Get the GType of TextureDownloader
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_texture_downloader_get_type()
     }
 }

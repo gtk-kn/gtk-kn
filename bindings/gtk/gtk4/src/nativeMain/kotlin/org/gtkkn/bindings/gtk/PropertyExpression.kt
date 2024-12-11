@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gobject.ParamSpec
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkPropertyExpression
 import org.gtkkn.native.gtk.gtk_property_expression_get_expression
 import org.gtkkn.native.gtk.gtk_property_expression_get_pspec
@@ -14,14 +15,12 @@ import org.gtkkn.native.gtk.gtk_property_expression_get_type
 import org.gtkkn.native.gtk.gtk_property_expression_new
 import org.gtkkn.native.gtk.gtk_property_expression_new_for_pspec
 import kotlin.String
-import kotlin.ULong
 
 /**
  * A `GObject` property value in a `GtkExpression`.
  */
-public open class PropertyExpression(
-    pointer: CPointer<GtkPropertyExpression>,
-) : Expression(pointer.reinterpret()),
+public open class PropertyExpression(pointer: CPointer<GtkPropertyExpression>) :
+    Expression(pointer.reinterpret()),
     KGTyped {
     public val gtkPropertyExpressionPointer: CPointer<GtkPropertyExpression>
         get() = gPointer.reinterpret()
@@ -46,7 +45,7 @@ public open class PropertyExpression(
      * @return a new `GtkExpression`
      */
     public constructor(
-        thisType: ULong,
+        thisType: GType,
         expression: Expression? = null,
         propertyName: String,
     ) : this(gtk_property_expression_new(thisType, expression?.gPointer?.reinterpret(), propertyName)!!.reinterpret())
@@ -106,5 +105,12 @@ public open class PropertyExpression(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of PropertyExpression
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_property_expression_get_type()
     }
 }

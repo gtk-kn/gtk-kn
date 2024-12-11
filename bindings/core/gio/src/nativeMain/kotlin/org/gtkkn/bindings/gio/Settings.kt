@@ -77,13 +77,16 @@ import org.gtkkn.native.gio.g_settings_set_uint64
 import org.gtkkn.native.gio.g_settings_set_value
 import org.gtkkn.native.gio.g_settings_sync
 import org.gtkkn.native.gio.g_settings_unbind
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gint64
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.guint64
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
-import kotlin.Long
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
@@ -381,7 +384,10 @@ import kotlin.collections.List
  *
  * ## Skipped during bindings generation
  *
+ * - parameter `get_mapping`: SettingsBindGetMapping
+ * - method `get`: Varargs parameter is not supported
  * - method `get_mapped`: Return type gpointer is unsupported
+ * - method `set`: Varargs parameter is not supported
  * - method `backend`: Property has no getter nor setter
  * - method `delay-apply`: Property has no getter nor setter
  * - method `path`: Property has no getter nor setter
@@ -390,9 +396,8 @@ import kotlin.collections.List
  * - method `settings-schema`: Property has no getter nor setter
  * - signal `change-event`: Unsupported parameter `keys` : Array parameter of type GLib.Quark is not supported
  */
-public open class Settings(
-    pointer: CPointer<GSettings>,
-) : Object(pointer.reinterpret()),
+public open class Settings(pointer: CPointer<GSettings>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioSettingsPointer: CPointer<GSettings>
         get() = gPointer.reinterpret()
@@ -579,12 +584,7 @@ public open class Settings(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun bind(
-        key: String,
-        `object`: Object,
-        `property`: String,
-        flags: SettingsBindFlags,
-    ): Unit =
+    public open fun bind(key: String, `object`: Object, `property`: String, flags: SettingsBindFlags): Unit =
         g_settings_bind(gioSettingsPointer.reinterpret(), key, `object`.gPointer.reinterpret(), `property`, flags.mask)
 
     /**
@@ -613,12 +613,7 @@ public open class Settings(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun bindWritable(
-        key: String,
-        `object`: Object,
-        `property`: String,
-        inverted: Boolean,
-    ): Unit =
+    public open fun bindWritable(key: String, `object`: Object, `property`: String, inverted: Boolean): Unit =
         g_settings_bind_writable(
             gioSettingsPointer.reinterpret(),
             key,
@@ -746,7 +741,7 @@ public open class Settings(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getDouble(key: String): Double = g_settings_get_double(gioSettingsPointer.reinterpret(), key)
+    public open fun getDouble(key: String): gdouble = g_settings_get_double(gioSettingsPointer.reinterpret(), key)
 
     /**
      * Gets the value that is stored in @settings for @key and converts it
@@ -767,7 +762,7 @@ public open class Settings(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getEnum(key: String): Int = g_settings_get_enum(gioSettingsPointer.reinterpret(), key)
+    public open fun getEnum(key: String): gint = g_settings_get_enum(gioSettingsPointer.reinterpret(), key)
 
     /**
      * Gets the value that is stored in @settings for @key and converts it
@@ -788,18 +783,7 @@ public open class Settings(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getFlags(key: String): UInt = g_settings_get_flags(gioSettingsPointer.reinterpret(), key)
-
-    /**
-     * Returns whether the #GSettings object has any unapplied
-     * changes.  This can only be the case if it is in 'delayed-apply' mode.
-     *
-     * @return true if @settings has unapplied changes
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public open fun getHasUnapplied(): Boolean =
-        g_settings_get_has_unapplied(gioSettingsPointer.reinterpret()).asBoolean()
+    public open fun getFlags(key: String): guint = g_settings_get_flags(gioSettingsPointer.reinterpret(), key)
 
     /**
      * Gets the value that is stored at @key in @settings.
@@ -814,7 +798,7 @@ public open class Settings(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getInt(key: String): Int = g_settings_get_int(gioSettingsPointer.reinterpret(), key)
+    public open fun getInt(key: String): gint = g_settings_get_int(gioSettingsPointer.reinterpret(), key)
 
     /**
      * Gets the value that is stored at @key in @settings.
@@ -829,7 +813,7 @@ public open class Settings(
      * @since 2.50
      */
     @GioVersion2_50
-    public open fun getInt64(key: String): Long = g_settings_get_int64(gioSettingsPointer.reinterpret(), key)
+    public open fun getInt64(key: String): gint64 = g_settings_get_int64(gioSettingsPointer.reinterpret(), key)
 
     /**
      * Queries the range of a key.
@@ -838,10 +822,9 @@ public open class Settings(
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun getRange(key: String): Variant =
-        g_settings_get_range(gioSettingsPointer.reinterpret(), key)!!.run {
-            Variant(reinterpret())
-        }
+    public open fun getRange(key: String): Variant = g_settings_get_range(gioSettingsPointer.reinterpret(), key)!!.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Gets the value that is stored at @key in @settings.
@@ -890,7 +873,7 @@ public open class Settings(
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun getUint(key: String): UInt = g_settings_get_uint(gioSettingsPointer.reinterpret(), key)
+    public open fun getUint(key: String): guint = g_settings_get_uint(gioSettingsPointer.reinterpret(), key)
 
     /**
      * Gets the value that is stored at @key in @settings.
@@ -906,7 +889,7 @@ public open class Settings(
      * @since 2.50
      */
     @GioVersion2_50
-    public open fun getUint64(key: String): ULong = g_settings_get_uint64(gioSettingsPointer.reinterpret(), key)
+    public open fun getUint64(key: String): guint64 = g_settings_get_uint64(gioSettingsPointer.reinterpret(), key)
 
     /**
      * Checks the "user value" of a key, if there is one.
@@ -949,10 +932,9 @@ public open class Settings(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getValue(key: String): Variant =
-        g_settings_get_value(gioSettingsPointer.reinterpret(), key)!!.run {
-            Variant(reinterpret())
-        }
+    public open fun getValue(key: String): Variant = g_settings_get_value(gioSettingsPointer.reinterpret(), key)!!.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Finds out if a key can be written or not
@@ -998,9 +980,8 @@ public open class Settings(
      * @return a list
      *    of the keys on @settings, in no defined order
      */
-    public open fun listKeys(): List<String> =
-        g_settings_list_keys(gioSettingsPointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
+    public open fun listKeys(): List<String> = g_settings_list_keys(gioSettingsPointer.reinterpret())?.toKStringList()
+        ?: error("Expected not null string array")
 
     /**
      * Checks if the given @value is of the correct type and within the
@@ -1012,15 +993,11 @@ public open class Settings(
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun rangeCheck(
-        key: String,
-        `value`: Variant,
-    ): Boolean =
-        g_settings_range_check(
-            gioSettingsPointer.reinterpret(),
-            key,
-            `value`.glibVariantPointer.reinterpret()
-        ).asBoolean()
+    public open fun rangeCheck(key: String, `value`: Variant): Boolean = g_settings_range_check(
+        gioSettingsPointer.reinterpret(),
+        key,
+        `value`.glibVariantPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Resets @key to its default value.
@@ -1058,10 +1035,8 @@ public open class Settings(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setBoolean(
-        key: String,
-        `value`: Boolean,
-    ): Boolean = g_settings_set_boolean(gioSettingsPointer.reinterpret(), key, `value`.asGBoolean()).asBoolean()
+    public open fun setBoolean(key: String, `value`: Boolean): Boolean =
+        g_settings_set_boolean(gioSettingsPointer.reinterpret(), key, `value`.asGBoolean()).asBoolean()
 
     /**
      * Sets @key in @settings to @value.
@@ -1078,10 +1053,8 @@ public open class Settings(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setDouble(
-        key: String,
-        `value`: Double,
-    ): Boolean = g_settings_set_double(gioSettingsPointer.reinterpret(), key, `value`).asBoolean()
+    public open fun setDouble(key: String, `value`: gdouble): Boolean =
+        g_settings_set_double(gioSettingsPointer.reinterpret(), key, `value`).asBoolean()
 
     /**
      * Looks up the enumerated type nick for @value and writes it to @key,
@@ -1099,10 +1072,8 @@ public open class Settings(
      * @param value an enumerated value
      * @return true, if the set succeeds
      */
-    public open fun setEnum(
-        key: String,
-        `value`: Int,
-    ): Boolean = g_settings_set_enum(gioSettingsPointer.reinterpret(), key, `value`).asBoolean()
+    public open fun setEnum(key: String, `value`: gint): Boolean =
+        g_settings_set_enum(gioSettingsPointer.reinterpret(), key, `value`).asBoolean()
 
     /**
      * Looks up the flags type nicks for the bits specified by @value, puts
@@ -1121,10 +1092,8 @@ public open class Settings(
      * @param value a flags value
      * @return true, if the set succeeds
      */
-    public open fun setFlags(
-        key: String,
-        `value`: UInt,
-    ): Boolean = g_settings_set_flags(gioSettingsPointer.reinterpret(), key, `value`).asBoolean()
+    public open fun setFlags(key: String, `value`: guint): Boolean =
+        g_settings_set_flags(gioSettingsPointer.reinterpret(), key, `value`).asBoolean()
 
     /**
      * Sets @key in @settings to @value.
@@ -1141,10 +1110,8 @@ public open class Settings(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setInt(
-        key: String,
-        `value`: Int,
-    ): Boolean = g_settings_set_int(gioSettingsPointer.reinterpret(), key, `value`).asBoolean()
+    public open fun setInt(key: String, `value`: gint): Boolean =
+        g_settings_set_int(gioSettingsPointer.reinterpret(), key, `value`).asBoolean()
 
     /**
      * Sets @key in @settings to @value.
@@ -1161,10 +1128,8 @@ public open class Settings(
      * @since 2.50
      */
     @GioVersion2_50
-    public open fun setInt64(
-        key: String,
-        `value`: Long,
-    ): Boolean = g_settings_set_int64(gioSettingsPointer.reinterpret(), key, `value`).asBoolean()
+    public open fun setInt64(key: String, `value`: gint64): Boolean =
+        g_settings_set_int64(gioSettingsPointer.reinterpret(), key, `value`).asBoolean()
 
     /**
      * Sets @key in @settings to @value.
@@ -1181,10 +1146,8 @@ public open class Settings(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setString(
-        key: String,
-        `value`: String,
-    ): Boolean = g_settings_set_string(gioSettingsPointer.reinterpret(), key, `value`).asBoolean()
+    public open fun setString(key: String, `value`: String): Boolean =
+        g_settings_set_string(gioSettingsPointer.reinterpret(), key, `value`).asBoolean()
 
     /**
      * Sets @key in @settings to @value.
@@ -1202,13 +1165,9 @@ public open class Settings(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setStrv(
-        key: String,
-        `value`: List<String>? = null,
-    ): Boolean =
-        memScoped {
-            return g_settings_set_strv(gioSettingsPointer.reinterpret(), key, `value`?.toCStringList(this)).asBoolean()
-        }
+    public open fun setStrv(key: String, `value`: List<String>? = null): Boolean = memScoped {
+        return g_settings_set_strv(gioSettingsPointer.reinterpret(), key, `value`?.toCStringList(this)).asBoolean()
+    }
 
     /**
      * Sets @key in @settings to @value.
@@ -1226,10 +1185,8 @@ public open class Settings(
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun setUint(
-        key: String,
-        `value`: UInt,
-    ): Boolean = g_settings_set_uint(gioSettingsPointer.reinterpret(), key, `value`).asBoolean()
+    public open fun setUint(key: String, `value`: guint): Boolean =
+        g_settings_set_uint(gioSettingsPointer.reinterpret(), key, `value`).asBoolean()
 
     /**
      * Sets @key in @settings to @value.
@@ -1247,10 +1204,8 @@ public open class Settings(
      * @since 2.50
      */
     @GioVersion2_50
-    public open fun setUint64(
-        key: String,
-        `value`: ULong,
-    ): Boolean = g_settings_set_uint64(gioSettingsPointer.reinterpret(), key, `value`).asBoolean()
+    public open fun setUint64(key: String, `value`: guint64): Boolean =
+        g_settings_set_uint64(gioSettingsPointer.reinterpret(), key, `value`).asBoolean()
 
     /**
      * Sets @key in @settings to @value.
@@ -1268,15 +1223,11 @@ public open class Settings(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setValue(
-        key: String,
-        `value`: Variant,
-    ): Boolean =
-        g_settings_set_value(
-            gioSettingsPointer.reinterpret(),
-            key,
-            `value`.glibVariantPointer.reinterpret()
-        ).asBoolean()
+    public open fun setValue(key: String, `value`: Variant): Boolean = g_settings_set_value(
+        gioSettingsPointer.reinterpret(),
+        key,
+        `value`.glibVariantPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * The "changed" signal is emitted when a key has potentially changed.
@@ -1293,10 +1244,7 @@ public open class Settings(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `key` the name of the key that changed
      */
-    public fun connectChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (key: String) -> Unit,
-    ): ULong =
+    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (key: String) -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "changed",
@@ -1332,16 +1280,15 @@ public open class Settings(
      */
     public fun connectWritableChangeEvent(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (key: UInt) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "writable-change-event",
-            connectWritableChangeEventFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+        handler: (key: guint) -> Boolean,
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "writable-change-event",
+        connectWritableChangeEventFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * The "writable-changed" signal is emitted when the writability of a
@@ -1358,15 +1305,14 @@ public open class Settings(
     public fun connectWritableChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (key: String) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "writable-changed",
-            connectWritableChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "writable-changed",
+        connectWritableChangedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<Settings> {
         override val type: GeneratedClassKGType<Settings> =
@@ -1426,41 +1372,36 @@ public open class Settings(
          * @since 2.26
          */
         @GioVersion2_26
-        public fun unbind(
-            `object`: Object,
-            `property`: String,
-        ): Unit = g_settings_unbind(`object`.gPointer.reinterpret(), `property`)
+        public fun unbind(`object`: Object, `property`: String): Unit =
+            g_settings_unbind(`object`.gPointer.reinterpret(), `property`)
+
+        /**
+         * Get the GType of Settings
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_settings_get_type()
     }
 }
 
-private val connectChangedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            key: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    key: String,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(key?.toKString() ?: error("Expected not null string"))
-    }.reinterpret()
+private val connectChangedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        key: CPointer<ByteVar>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(key: String) -> Unit>().get().invoke(key?.toKString() ?: error("Expected not null string"))
+}
+    .reinterpret()
 
-private val connectWritableChangeEventFunc: CPointer<CFunction<(UInt) -> Int>> =
+private val connectWritableChangeEventFunc: CPointer<CFunction<(guint) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
-            key: UInt,
+            key: guint,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(key: UInt) -> Boolean>()
-            .get()
-            .invoke(key)
-            .asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(key: guint) -> Boolean>().get().invoke(key).asGBoolean()
+    }
+        .reinterpret()
 
 private val connectWritableChangedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
     staticCFunction {
@@ -1468,12 +1409,10 @@ private val connectWritableChangedFunc: CPointer<CFunction<(CPointer<ByteVar>) -
             key: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<
-                (
-                    key: String,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(key?.toKString() ?: error("Expected not null string"))
-    }.reinterpret()
+        userData.asStableRef<
+            (
+                key: String,
+            ) -> Unit
+            >().get().invoke(key?.toKString() ?: error("Expected not null string"))
+    }
+        .reinterpret()

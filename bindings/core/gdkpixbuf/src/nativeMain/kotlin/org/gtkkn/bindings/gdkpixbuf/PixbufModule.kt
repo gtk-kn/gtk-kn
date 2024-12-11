@@ -1,13 +1,23 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdkpixbuf
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdkpixbuf.GdkPixbufModule
+import org.gtkkn.native.glib.g_free
+import org.gtkkn.native.glib.g_strdup
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * A `GdkPixbufModule` contains the necessary functions to load and save
@@ -58,8 +68,6 @@ import org.gtkkn.native.gdkpixbuf.GdkPixbufModule
  *
  * ## Skipped during bindings generation
  *
- * - field `module_name`: Unsupported string type with cType: char*
- * - field `module_path`: Unsupported string type with cType: char*
  * - field `module`: GModule.Module
  * - field `load`: PixbufModuleLoadFunc
  * - field `load_xpm_data`: PixbufModuleLoadXpmDataFunc
@@ -75,24 +83,120 @@ import org.gtkkn.native.gdkpixbuf.GdkPixbufModule
  * - field `_reserved3`: Fields with callbacks are not supported
  * - field `_reserved4`: Fields with callbacks are not supported
  */
-public class PixbufModule(
-    pointer: CPointer<GdkPixbufModule>,
-) : Record {
+public class PixbufModule(pointer: CPointer<GdkPixbufModule>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gdkpixbufPixbufModulePointer: CPointer<GdkPixbufModule> = pointer
 
     /**
-     * a `GdkPixbufFormat` holding information about the module.
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
+     * the name of the module, usually the same as the
+     *  usual file extension for images of this type, eg. "xpm", "jpeg" or "png".
      */
-    public val info: PixbufFormat?
-        get() =
-            gdkpixbufPixbufModulePointer.pointed.info?.run {
-                PixbufFormat(reinterpret())
-            }
+    public var moduleName: String?
+        get() = gdkpixbufPixbufModulePointer.pointed.module_name?.toKString()
 
-    public companion object : RecordCompanion<PixbufModule, GdkPixbufModule> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PixbufModule =
-            PixbufModule(pointer.reinterpret())
+        @UnsafeFieldSetter
+        set(`value`) {
+            gdkpixbufPixbufModulePointer.pointed.module_name?.let { g_free(it) }
+            gdkpixbufPixbufModulePointer.pointed.module_name = value?.let { g_strdup(it) }
+        }
+
+    /**
+     * the path from which the module is loaded.
+     */
+    public var modulePath: String?
+        get() = gdkpixbufPixbufModulePointer.pointed.module_path?.toKString()
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            gdkpixbufPixbufModulePointer.pointed.module_path?.let { g_free(it) }
+            gdkpixbufPixbufModulePointer.pointed.module_path = value?.let { g_strdup(it) }
+        }
+
+    /**
+     * a `GdkPixbufFormat` holding information about the module.
+     */
+    public var info: PixbufFormat?
+        get() = gdkpixbufPixbufModulePointer.pointed.info?.run {
+            PixbufFormat(reinterpret())
+        }
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            gdkpixbufPixbufModulePointer.pointed.info = value?.gdkpixbufPixbufFormatPointer
+        }
+
+    /**
+     * Allocate a new PixbufModule.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<GdkPixbufModule>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to PixbufModule and a [Cleaner] instance.
+     */
+    private constructor(
+        pair: Pair<CPointer<GdkPixbufModule>, Cleaner>,
+    ) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new PixbufModule using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GdkPixbufModule>().ptr)
+
+    /**
+     * Allocate a new PixbufModule.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param moduleName the name of the module, usually the same as the
+     *  usual file extension for images of this type, eg. "xpm", "jpeg" or "png".
+     * @param modulePath the path from which the module is loaded.
+     * @param info a `GdkPixbufFormat` holding information about the module.
+     */
+    public constructor(
+        moduleName: String?,
+        modulePath: String?,
+        info: PixbufFormat?,
+    ) : this() {
+        this.moduleName = moduleName
+        this.modulePath = modulePath
+        this.info = info
     }
+
+    /**
+     * Allocate a new PixbufModule using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param moduleName the name of the module, usually the same as the
+     *  usual file extension for images of this type, eg. "xpm", "jpeg" or "png".
+     * @param modulePath the path from which the module is loaded.
+     * @param info a `GdkPixbufFormat` holding information about the module.
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        moduleName: String?,
+        modulePath: String?,
+        info: PixbufFormat?,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.moduleName = moduleName
+        this.modulePath = modulePath
+        this.info = info
+    }
+
+    override fun toString(): String = "PixbufModule(moduleName=$moduleName, modulePath=$modulePath, info=$info)"
 }

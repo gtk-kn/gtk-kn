@@ -1,14 +1,14 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkPropagationPhase
+import org.gtkkn.native.gtk.gtk_propagation_phase_get_type
 
 /**
  * Describes the stage at which events are fed into a [class@EventController].
  */
-public enum class PropagationPhase(
-    public val nativeValue: GtkPropagationPhase,
-) {
+public enum class PropagationPhase(public val nativeValue: GtkPropagationPhase) {
     /**
      * Events are not delivered.
      */
@@ -38,13 +38,19 @@ public enum class PropagationPhase(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkPropagationPhase): PropagationPhase =
-            when (nativeValue) {
-                GtkPropagationPhase.GTK_PHASE_NONE -> NONE
-                GtkPropagationPhase.GTK_PHASE_CAPTURE -> CAPTURE
-                GtkPropagationPhase.GTK_PHASE_BUBBLE -> BUBBLE
-                GtkPropagationPhase.GTK_PHASE_TARGET -> TARGET
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkPropagationPhase): PropagationPhase = when (nativeValue) {
+            GtkPropagationPhase.GTK_PHASE_NONE -> NONE
+            GtkPropagationPhase.GTK_PHASE_CAPTURE -> CAPTURE
+            GtkPropagationPhase.GTK_PHASE_BUBBLE -> BUBBLE
+            GtkPropagationPhase.GTK_PHASE_TARGET -> TARGET
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of PropagationPhase
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_propagation_phase_get_type()
     }
 }

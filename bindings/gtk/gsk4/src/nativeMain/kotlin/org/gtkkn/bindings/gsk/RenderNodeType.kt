@@ -1,14 +1,14 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskRenderNodeType
+import org.gtkkn.native.gsk.gsk_render_node_type_get_type
 
 /**
  * The type of a node determines what the node is rendering.
  */
-public enum class RenderNodeType(
-    public val nativeValue: GskRenderNodeType,
-) {
+public enum class RenderNodeType(public val nativeValue: GskRenderNodeType) {
     /**
      * Error type. No node will ever have this type.
      */
@@ -171,40 +171,46 @@ public enum class RenderNodeType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GskRenderNodeType): RenderNodeType =
-            when (nativeValue) {
-                GskRenderNodeType.GSK_NOT_A_RENDER_NODE -> NOT_A_RENDER_NODE
-                GskRenderNodeType.GSK_CONTAINER_NODE -> CONTAINER_NODE
-                GskRenderNodeType.GSK_CAIRO_NODE -> CAIRO_NODE
-                GskRenderNodeType.GSK_COLOR_NODE -> COLOR_NODE
-                GskRenderNodeType.GSK_LINEAR_GRADIENT_NODE -> LINEAR_GRADIENT_NODE
-                GskRenderNodeType.GSK_REPEATING_LINEAR_GRADIENT_NODE -> REPEATING_LINEAR_GRADIENT_NODE
-                GskRenderNodeType.GSK_RADIAL_GRADIENT_NODE -> RADIAL_GRADIENT_NODE
-                GskRenderNodeType.GSK_REPEATING_RADIAL_GRADIENT_NODE -> REPEATING_RADIAL_GRADIENT_NODE
-                GskRenderNodeType.GSK_CONIC_GRADIENT_NODE -> CONIC_GRADIENT_NODE
-                GskRenderNodeType.GSK_BORDER_NODE -> BORDER_NODE
-                GskRenderNodeType.GSK_TEXTURE_NODE -> TEXTURE_NODE
-                GskRenderNodeType.GSK_INSET_SHADOW_NODE -> INSET_SHADOW_NODE
-                GskRenderNodeType.GSK_OUTSET_SHADOW_NODE -> OUTSET_SHADOW_NODE
-                GskRenderNodeType.GSK_TRANSFORM_NODE -> TRANSFORM_NODE
-                GskRenderNodeType.GSK_OPACITY_NODE -> OPACITY_NODE
-                GskRenderNodeType.GSK_COLOR_MATRIX_NODE -> COLOR_MATRIX_NODE
-                GskRenderNodeType.GSK_REPEAT_NODE -> REPEAT_NODE
-                GskRenderNodeType.GSK_CLIP_NODE -> CLIP_NODE
-                GskRenderNodeType.GSK_ROUNDED_CLIP_NODE -> ROUNDED_CLIP_NODE
-                GskRenderNodeType.GSK_SHADOW_NODE -> SHADOW_NODE
-                GskRenderNodeType.GSK_BLEND_NODE -> BLEND_NODE
-                GskRenderNodeType.GSK_CROSS_FADE_NODE -> CROSS_FADE_NODE
-                GskRenderNodeType.GSK_TEXT_NODE -> TEXT_NODE
-                GskRenderNodeType.GSK_BLUR_NODE -> BLUR_NODE
-                GskRenderNodeType.GSK_DEBUG_NODE -> DEBUG_NODE
-                GskRenderNodeType.GSK_GL_SHADER_NODE -> GL_SHADER_NODE
-                GskRenderNodeType.GSK_TEXTURE_SCALE_NODE -> TEXTURE_SCALE_NODE
-                GskRenderNodeType.GSK_MASK_NODE -> MASK_NODE
-                GskRenderNodeType.GSK_FILL_NODE -> FILL_NODE
-                GskRenderNodeType.GSK_STROKE_NODE -> STROKE_NODE
-                GskRenderNodeType.GSK_SUBSURFACE_NODE -> SUBSURFACE_NODE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GskRenderNodeType): RenderNodeType = when (nativeValue) {
+            GskRenderNodeType.GSK_NOT_A_RENDER_NODE -> NOT_A_RENDER_NODE
+            GskRenderNodeType.GSK_CONTAINER_NODE -> CONTAINER_NODE
+            GskRenderNodeType.GSK_CAIRO_NODE -> CAIRO_NODE
+            GskRenderNodeType.GSK_COLOR_NODE -> COLOR_NODE
+            GskRenderNodeType.GSK_LINEAR_GRADIENT_NODE -> LINEAR_GRADIENT_NODE
+            GskRenderNodeType.GSK_REPEATING_LINEAR_GRADIENT_NODE -> REPEATING_LINEAR_GRADIENT_NODE
+            GskRenderNodeType.GSK_RADIAL_GRADIENT_NODE -> RADIAL_GRADIENT_NODE
+            GskRenderNodeType.GSK_REPEATING_RADIAL_GRADIENT_NODE -> REPEATING_RADIAL_GRADIENT_NODE
+            GskRenderNodeType.GSK_CONIC_GRADIENT_NODE -> CONIC_GRADIENT_NODE
+            GskRenderNodeType.GSK_BORDER_NODE -> BORDER_NODE
+            GskRenderNodeType.GSK_TEXTURE_NODE -> TEXTURE_NODE
+            GskRenderNodeType.GSK_INSET_SHADOW_NODE -> INSET_SHADOW_NODE
+            GskRenderNodeType.GSK_OUTSET_SHADOW_NODE -> OUTSET_SHADOW_NODE
+            GskRenderNodeType.GSK_TRANSFORM_NODE -> TRANSFORM_NODE
+            GskRenderNodeType.GSK_OPACITY_NODE -> OPACITY_NODE
+            GskRenderNodeType.GSK_COLOR_MATRIX_NODE -> COLOR_MATRIX_NODE
+            GskRenderNodeType.GSK_REPEAT_NODE -> REPEAT_NODE
+            GskRenderNodeType.GSK_CLIP_NODE -> CLIP_NODE
+            GskRenderNodeType.GSK_ROUNDED_CLIP_NODE -> ROUNDED_CLIP_NODE
+            GskRenderNodeType.GSK_SHADOW_NODE -> SHADOW_NODE
+            GskRenderNodeType.GSK_BLEND_NODE -> BLEND_NODE
+            GskRenderNodeType.GSK_CROSS_FADE_NODE -> CROSS_FADE_NODE
+            GskRenderNodeType.GSK_TEXT_NODE -> TEXT_NODE
+            GskRenderNodeType.GSK_BLUR_NODE -> BLUR_NODE
+            GskRenderNodeType.GSK_DEBUG_NODE -> DEBUG_NODE
+            GskRenderNodeType.GSK_GL_SHADER_NODE -> GL_SHADER_NODE
+            GskRenderNodeType.GSK_TEXTURE_SCALE_NODE -> TEXTURE_SCALE_NODE
+            GskRenderNodeType.GSK_MASK_NODE -> MASK_NODE
+            GskRenderNodeType.GSK_FILL_NODE -> FILL_NODE
+            GskRenderNodeType.GSK_STROKE_NODE -> STROKE_NODE
+            GskRenderNodeType.GSK_SUBSURFACE_NODE -> SUBSURFACE_NODE
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of RenderNodeType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_render_node_type_get_type()
     }
 }

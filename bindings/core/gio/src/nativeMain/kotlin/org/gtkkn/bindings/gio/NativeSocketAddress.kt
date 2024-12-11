@@ -10,6 +10,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GNativeSocketAddress
 import org.gtkkn.native.gio.GSocketConnectable
 import org.gtkkn.native.gio.g_native_socket_address_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * A socket address of some unknown native type.
@@ -24,9 +25,8 @@ import org.gtkkn.native.gio.g_native_socket_address_get_type
  * @since 2.46
  */
 @GioVersion2_46
-public open class NativeSocketAddress(
-    pointer: CPointer<GNativeSocketAddress>,
-) : SocketAddress(pointer.reinterpret()),
+public open class NativeSocketAddress(pointer: CPointer<GNativeSocketAddress>) :
+    SocketAddress(pointer.reinterpret()),
     KGTyped {
     public val gioNativeSocketAddressPointer: CPointer<GNativeSocketAddress>
         get() = gPointer.reinterpret()
@@ -41,5 +41,12 @@ public open class NativeSocketAddress(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of NativeSocketAddress
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_native_socket_address_get_type()
     }
 }

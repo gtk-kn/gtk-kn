@@ -6,11 +6,12 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkMnemonicTrigger
 import org.gtkkn.native.gtk.gtk_mnemonic_trigger_get_keyval
 import org.gtkkn.native.gtk.gtk_mnemonic_trigger_get_type
 import org.gtkkn.native.gtk.gtk_mnemonic_trigger_new
-import kotlin.UInt
 
 /**
  * A `GtkShortcutTrigger` that triggers when a specific mnemonic is pressed.
@@ -18,9 +19,8 @@ import kotlin.UInt
  * Mnemonics require a *mnemonic modifier* (typically <kbd>Alt</kbd>) to be
  * pressed together with the mnemonic key.
  */
-public open class MnemonicTrigger(
-    pointer: CPointer<GtkMnemonicTrigger>,
-) : ShortcutTrigger(pointer.reinterpret()),
+public open class MnemonicTrigger(pointer: CPointer<GtkMnemonicTrigger>) :
+    ShortcutTrigger(pointer.reinterpret()),
     KGTyped {
     public val gtkMnemonicTriggerPointer: CPointer<GtkMnemonicTrigger>
         get() = gPointer.reinterpret()
@@ -28,7 +28,7 @@ public open class MnemonicTrigger(
     /**
      * The key value for the trigger.
      */
-    public open val keyval: UInt
+    public open val keyval: guint
         /**
          * Gets the keyval that must be pressed to succeed triggering @self.
          *
@@ -46,14 +46,7 @@ public open class MnemonicTrigger(
      * @param keyval The keyval to trigger for
      * @return A new `GtkShortcutTrigger`
      */
-    public constructor(keyval: UInt) : this(gtk_mnemonic_trigger_new(keyval)!!.reinterpret())
-
-    /**
-     * Gets the keyval that must be pressed to succeed triggering @self.
-     *
-     * @return the keyval
-     */
-    public open fun getKeyval(): UInt = gtk_mnemonic_trigger_get_keyval(gtkMnemonicTriggerPointer.reinterpret())
+    public constructor(keyval: guint) : this(gtk_mnemonic_trigger_new(keyval)!!.reinterpret())
 
     public companion object : TypeCompanion<MnemonicTrigger> {
         override val type: GeneratedClassKGType<MnemonicTrigger> =
@@ -62,5 +55,12 @@ public open class MnemonicTrigger(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of MnemonicTrigger
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_mnemonic_trigger_get_type()
     }
 }

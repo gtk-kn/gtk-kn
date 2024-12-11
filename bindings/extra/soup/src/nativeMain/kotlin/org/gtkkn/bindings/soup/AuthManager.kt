@@ -8,6 +8,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupAuthManager
 import org.gtkkn.native.soup.SoupSessionFeature
 import org.gtkkn.native.soup.soup_auth_manager_clear_cached_credentials
@@ -34,9 +35,8 @@ import kotlin.Unit
  * always existed in the background, and you can use `g_type_from_name
  * ("SoupAuthManager")` to get its [alias@GLib.Type] in earlier releases.)
  */
-public class AuthManager(
-    pointer: CPointer<SoupAuthManager>,
-) : Object(pointer.reinterpret()),
+public class AuthManager(pointer: CPointer<SoupAuthManager>) :
+    Object(pointer.reinterpret()),
     SessionFeature,
     KGTyped {
     public val soupAuthManagerPointer: CPointer<SoupAuthManager>
@@ -66,15 +66,11 @@ public class AuthManager(
      * @param uri the #GUri under which @auth is to be used
      * @param auth the #SoupAuth to use
      */
-    public fun useAuth(
-        uri: Uri,
-        auth: Auth,
-    ): Unit =
-        soup_auth_manager_use_auth(
-            soupAuthManagerPointer.reinterpret(),
-            uri.glibUriPointer.reinterpret(),
-            auth.soupAuthPointer.reinterpret()
-        )
+    public fun useAuth(uri: Uri, auth: Auth): Unit = soup_auth_manager_use_auth(
+        soupAuthManagerPointer.reinterpret(),
+        uri.glibUriPointer.reinterpret(),
+        auth.soupAuthPointer.reinterpret()
+    )
 
     public companion object : TypeCompanion<AuthManager> {
         override val type: GeneratedClassKGType<AuthManager> =
@@ -83,5 +79,12 @@ public class AuthManager(
         init {
             SoupTypeProvider.register()
         }
+
+        /**
+         * Get the GType of AuthManager
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_auth_manager_get_type()
     }
 }

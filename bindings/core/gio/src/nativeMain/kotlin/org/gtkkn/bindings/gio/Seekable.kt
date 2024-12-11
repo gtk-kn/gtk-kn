@@ -23,8 +23,9 @@ import org.gtkkn.native.gio.g_seekable_seek
 import org.gtkkn.native.gio.g_seekable_tell
 import org.gtkkn.native.gio.g_seekable_truncate
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint64
 import kotlin.Boolean
-import kotlin.Long
 import kotlin.Result
 
 /**
@@ -86,27 +87,21 @@ public interface Seekable :
      *     has occurred, this function will return false and set @error
      *     appropriately if present.
      */
-    public fun seek(
-        offset: Long,
-        type: SeekType,
-        cancellable: Cancellable? = null,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_seekable_seek(
-                    gioSeekablePointer.reinterpret(),
-                    offset,
-                    type.nativeValue,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun seek(offset: gint64, type: SeekType, cancellable: Cancellable? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_seekable_seek(
+            gioSeekablePointer.reinterpret(),
+            offset,
+            type.nativeValue,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Tells the current position within the stream.
@@ -114,7 +109,7 @@ public interface Seekable :
      * @return the (positive or zero) offset from the beginning of the
      * buffer, zero if the target is not seekable.
      */
-    public fun tell(): Long = g_seekable_tell(gioSeekablePointer.reinterpret())
+    public fun tell(): gint64 = g_seekable_tell(gioSeekablePointer.reinterpret())
 
     /**
      * Sets the length of the stream to @offset. If the stream was previously
@@ -133,29 +128,22 @@ public interface Seekable :
      *     has occurred, this function will return false and set @error
      *     appropriately if present.
      */
-    public fun truncate(
-        offset: Long,
-        cancellable: Cancellable? = null,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_seekable_truncate(
-                    gioSeekablePointer.reinterpret(),
-                    offset,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun truncate(offset: gint64, cancellable: Cancellable? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_seekable_truncate(
+            gioSeekablePointer.reinterpret(),
+            offset,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
-    private data class Wrapper(
-        private val pointer: CPointer<GSeekable>,
-    ) : Seekable {
+    private data class Wrapper(private val pointer: CPointer<GSeekable>) : Seekable {
         override val gioSeekablePointer: CPointer<GSeekable> = pointer
     }
 
@@ -168,5 +156,12 @@ public interface Seekable :
         }
 
         public fun wrap(pointer: CPointer<GSeekable>): Seekable = Wrapper(pointer)
+
+        /**
+         * Get the GType of Seekable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_seekable_get_type()
     }
 }

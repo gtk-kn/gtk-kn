@@ -10,6 +10,8 @@ import org.gtkkn.bindings.gio.Icon
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -37,7 +39,6 @@ import org.gtkkn.native.gtk.gtk_image_set_from_pixbuf
 import org.gtkkn.native.gtk.gtk_image_set_from_resource
 import org.gtkkn.native.gtk.gtk_image_set_icon_size
 import org.gtkkn.native.gtk.gtk_image_set_pixel_size
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 
@@ -88,9 +89,8 @@ import kotlin.Unit
  * - method `resource`: Property has no getter nor setter
  * - method `use-fallback`: Property has no getter nor setter
  */
-public open class Image(
-    pointer: CPointer<GtkImage>,
-) : Widget(pointer.reinterpret()),
+public open class Image(pointer: CPointer<GtkImage>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkImagePointer: CPointer<GtkImage>
         get() = gPointer.reinterpret()
@@ -121,10 +121,9 @@ public open class Image(
          *
          * @return a `GIcon`
          */
-        get() =
-            gtk_image_get_gicon(gtkImagePointer.reinterpret())?.run {
-                Icon.wrap(reinterpret())
-            }
+        get() = gtk_image_get_gicon(gtkImagePointer.reinterpret())?.run {
+            Icon.wrap(reinterpret())
+        }
 
     /**
      * The name of the icon in the icon theme.
@@ -153,10 +152,9 @@ public open class Image(
          *
          * @return the image size used by icons
          */
-        get() =
-            gtk_image_get_icon_size(gtkImagePointer.reinterpret()).run {
-                IconSize.fromNativeValue(this)
-            }
+        get() = gtk_image_get_icon_size(gtkImagePointer.reinterpret()).run {
+            IconSize.fromNativeValue(this)
+        }
 
         /**
          * Suggests an icon size to the theme for named icons.
@@ -179,10 +177,9 @@ public open class Image(
          *
          * @return the displayed paintable
          */
-        get() =
-            gtk_image_get_paintable(gtkImagePointer.reinterpret())?.run {
-                Paintable.wrap(reinterpret())
-            }
+        get() = gtk_image_get_paintable(gtkImagePointer.reinterpret())?.run {
+            Paintable.wrap(reinterpret())
+        }
 
     /**
      * The size in pixels to display icons at.
@@ -191,7 +188,7 @@ public open class Image(
      * [property@Gtk.Image:icon-size] property for images of type
      * `GTK_IMAGE_ICON_NAME`.
      */
-    public open var pixelSize: Int
+    public open var pixelSize: gint
         /**
          * Gets the pixel size used for named icons.
          *
@@ -222,10 +219,9 @@ public open class Image(
          *
          * @return image representation being used
          */
-        get() =
-            gtk_image_get_storage_type(gtkImagePointer.reinterpret()).run {
-                ImageType.fromNativeValue(this)
-            }
+        get() = gtk_image_get_storage_type(gtkImagePointer.reinterpret()).run {
+            ImageType.fromNativeValue(this)
+        }
 
     /**
      * Creates a new empty `GtkImage` widget.
@@ -322,79 +318,6 @@ public open class Image(
     public open fun clear(): Unit = gtk_image_clear(gtkImagePointer.reinterpret())
 
     /**
-     * Gets the `GIcon` being displayed by the `GtkImage`.
-     *
-     * The storage type of the image must be %GTK_IMAGE_EMPTY or
-     * %GTK_IMAGE_GICON (see [method@Gtk.Image.get_storage_type]).
-     * The caller of this function does not own a reference to the
-     * returned `GIcon`.
-     *
-     * @return a `GIcon`
-     */
-    public open fun getGicon(): Icon? =
-        gtk_image_get_gicon(gtkImagePointer.reinterpret())?.run {
-            Icon.wrap(reinterpret())
-        }
-
-    /**
-     * Gets the icon name and size being displayed by the `GtkImage`.
-     *
-     * The storage type of the image must be %GTK_IMAGE_EMPTY or
-     * %GTK_IMAGE_ICON_NAME (see [method@Gtk.Image.get_storage_type]).
-     * The returned string is owned by the `GtkImage` and should not
-     * be freed.
-     *
-     * @return the icon name
-     */
-    public open fun getIconName(): String? = gtk_image_get_icon_name(gtkImagePointer.reinterpret())?.toKString()
-
-    /**
-     * Gets the icon size used by the @image when rendering icons.
-     *
-     * @return the image size used by icons
-     */
-    public open fun getIconSize(): IconSize =
-        gtk_image_get_icon_size(gtkImagePointer.reinterpret()).run {
-            IconSize.fromNativeValue(this)
-        }
-
-    /**
-     * Gets the image `GdkPaintable` being displayed by the `GtkImage`.
-     *
-     * The storage type of the image must be %GTK_IMAGE_EMPTY or
-     * %GTK_IMAGE_PAINTABLE (see [method@Gtk.Image.get_storage_type]).
-     * The caller of this function does not own a reference to the
-     * returned paintable.
-     *
-     * @return the displayed paintable
-     */
-    public open fun getPaintable(): Paintable? =
-        gtk_image_get_paintable(gtkImagePointer.reinterpret())?.run {
-            Paintable.wrap(reinterpret())
-        }
-
-    /**
-     * Gets the pixel size used for named icons.
-     *
-     * @return the pixel size used for named icons.
-     */
-    public open fun getPixelSize(): Int = gtk_image_get_pixel_size(gtkImagePointer.reinterpret())
-
-    /**
-     * Gets the type of representation being used by the `GtkImage`
-     * to store image data.
-     *
-     * If the `GtkImage` has no image data, the return value will
-     * be %GTK_IMAGE_EMPTY.
-     *
-     * @return image representation being used
-     */
-    public open fun getStorageType(): ImageType =
-        gtk_image_get_storage_type(gtkImagePointer.reinterpret()).run {
-            ImageType.fromNativeValue(this)
-        }
-
-    /**
      * Sets a `GtkImage` to show a file.
      *
      * See [ctor@Gtk.Image.new_from_file] for details.
@@ -458,25 +381,6 @@ public open class Image(
     public open fun setFromResource(resourcePath: String? = null): Unit =
         gtk_image_set_from_resource(gtkImagePointer.reinterpret(), resourcePath)
 
-    /**
-     * Suggests an icon size to the theme for named icons.
-     *
-     * @param iconSize the new icon size
-     */
-    public open fun setIconSize(iconSize: IconSize): Unit =
-        gtk_image_set_icon_size(gtkImagePointer.reinterpret(), iconSize.nativeValue)
-
-    /**
-     * Sets the pixel size to use for named icons.
-     *
-     * If the pixel size is set to a value != -1, it is used instead
-     * of the icon size set by [method@Gtk.Image.set_from_icon_name].
-     *
-     * @param pixelSize the new pixel size
-     */
-    public open fun setPixelSize(pixelSize: Int): Unit =
-        gtk_image_set_pixel_size(gtkImagePointer.reinterpret(), pixelSize)
-
     public companion object : TypeCompanion<Image> {
         override val type: GeneratedClassKGType<Image> =
             GeneratedClassKGType(gtk_image_get_type()) { Image(it.reinterpret()) }
@@ -525,5 +429,12 @@ public open class Image(
          */
         public fun newFromResource(resourcePath: String): Image =
             Image(gtk_image_new_from_resource(resourcePath)!!.reinterpret())
+
+        /**
+         * Get the GType of Image
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_image_get_type()
     }
 }

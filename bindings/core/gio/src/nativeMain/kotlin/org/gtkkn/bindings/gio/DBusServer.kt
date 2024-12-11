@@ -20,7 +20,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -37,9 +37,10 @@ import org.gtkkn.native.gio.g_dbus_server_new_sync
 import org.gtkkn.native.gio.g_dbus_server_start
 import org.gtkkn.native.gio.g_dbus_server_stop
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.Throws
 import kotlin.ULong
@@ -76,9 +77,8 @@ import kotlin.Unit
  * @since 2.26
  */
 @GioVersion2_26
-public open class DBusServer(
-    pointer: CPointer<GDBusServer>,
-) : Object(pointer.reinterpret()),
+public open class DBusServer(pointer: CPointer<GDBusServer>) :
+    Object(pointer.reinterpret()),
     Initable,
     KGTyped {
     public val gioDBusServerPointer: CPointer<GDBusServer>
@@ -105,9 +105,8 @@ public open class DBusServer(
          * by @server.
          * @since 2.26
          */
-        get() =
-            g_dbus_server_get_client_address(gioDBusServerPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = g_dbus_server_get_client_address(gioDBusServerPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Flags from the #GDBusServerFlags enumeration.
@@ -122,10 +121,9 @@ public open class DBusServer(
          * @return A set of flags from the #GDBusServerFlags enumeration.
          * @since 2.26
          */
-        get() =
-            g_dbus_server_get_flags(gioDBusServerPointer.reinterpret()).run {
-                DBusServerFlags(this)
-            }
+        get() = g_dbus_server_get_flags(gioDBusServerPointer.reinterpret()).run {
+            DBusServerFlags(this)
+        }
 
     /**
      * The GUID of the server.
@@ -142,9 +140,8 @@ public open class DBusServer(
          * @return A D-Bus GUID. Do not free this string, it is owned by @server.
          * @since 2.26
          */
-        get() =
-            g_dbus_server_get_guid(gioDBusServerPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = g_dbus_server_get_guid(gioDBusServerPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Creates a new D-Bus server that listens on the first address in
@@ -177,7 +174,7 @@ public open class DBusServer(
      * g_object_unref().
      * @since 2.26
      */
-    @Throws(GlibException::class)
+    @Throws(GLibException::class)
     public constructor(
         address: String,
         flags: DBusServerFlags,
@@ -202,44 +199,6 @@ public open class DBusServer(
             gResult!!.reinterpret()
         }
     )
-
-    /**
-     * Gets a
-     * [D-Bus address](https://dbus.freedesktop.org/doc/dbus-specification.html#addresses)
-     * string that can be used by clients to connect to @server.
-     *
-     * This is valid and non-empty if initializing the #GDBusServer succeeded.
-     *
-     * @return A D-Bus address string. Do not free, the string is owned
-     * by @server.
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public open fun getClientAddress(): String =
-        g_dbus_server_get_client_address(gioDBusServerPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets the flags for @server.
-     *
-     * @return A set of flags from the #GDBusServerFlags enumeration.
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public open fun getFlags(): DBusServerFlags =
-        g_dbus_server_get_flags(gioDBusServerPointer.reinterpret()).run {
-            DBusServerFlags(this)
-        }
-
-    /**
-     * Gets the GUID for @server, as provided to g_dbus_server_new_sync().
-     *
-     * @return A D-Bus GUID. Do not free this string, it is owned by @server.
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public open fun getGuid(): String =
-        g_dbus_server_get_guid(gioDBusServerPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets whether @server is active.
@@ -298,15 +257,14 @@ public open class DBusServer(
     public fun connectNewConnection(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (connection: DBusConnection) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "new-connection",
-            connectNewConnectionFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "new-connection",
+        connectNewConnectionFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<DBusServer> {
         override val type: GeneratedClassKGType<DBusServer> =
@@ -315,21 +273,26 @@ public open class DBusServer(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of DBusServer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_server_get_type()
     }
 }
 
-private val connectNewConnectionFunc: CPointer<CFunction<(CPointer<GDBusConnection>) -> Int>> =
+private val connectNewConnectionFunc: CPointer<CFunction<(CPointer<GDBusConnection>) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
             connection: CPointer<GDBusConnection>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(connection: DBusConnection) -> Boolean>()
-            .get()
-            .invoke(
-                connection!!.run {
-                    DBusConnection(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(connection: DBusConnection) -> Boolean>().get().invoke(
+            connection!!.run {
+                DBusConnection(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()

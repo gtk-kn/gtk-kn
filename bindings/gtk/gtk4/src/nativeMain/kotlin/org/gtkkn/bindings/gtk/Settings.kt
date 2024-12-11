@@ -8,6 +8,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkSettings
 import org.gtkkn.native.gtk.GtkStyleProvider
 import org.gtkkn.native.gtk.gtk_settings_get_default
@@ -101,9 +102,8 @@ import kotlin.Unit
  * - method `gtk-xft-hintstyle`: Property has no getter nor setter
  * - method `gtk-xft-rgba`: Property has no getter nor setter
  */
-public open class Settings(
-    pointer: CPointer<GtkSettings>,
-) : Object(pointer.reinterpret()),
+public open class Settings(pointer: CPointer<GtkSettings>) :
+    Object(pointer.reinterpret()),
     StyleProvider,
     KGTyped {
     public val gtkSettingsPointer: CPointer<GtkSettings>
@@ -141,10 +141,9 @@ public open class Settings(
          * @return a `GtkSettings` object. If there is
          *   no default display, then returns null.
          */
-        public fun getDefault(): Settings? =
-            gtk_settings_get_default()?.run {
-                Settings(reinterpret())
-            }
+        public fun getDefault(): Settings? = gtk_settings_get_default()?.run {
+            Settings(reinterpret())
+        }
 
         /**
          * Gets the `GtkSettings` object for @display, creating it if necessary.
@@ -156,5 +155,12 @@ public open class Settings(
             gtk_settings_get_for_display(display.gdkDisplayPointer.reinterpret())!!.run {
                 Settings(reinterpret())
             }
+
+        /**
+         * Get the GType of Settings
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_settings_get_type()
     }
 }

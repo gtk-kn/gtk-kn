@@ -1,8 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.cstr
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -15,8 +15,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_40
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toCStringList
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GVariant
 import org.gtkkn.native.glib.g_variant_byteswap
 import org.gtkkn.native.glib.g_variant_check_format_string
@@ -46,6 +45,7 @@ import org.gtkkn.native.glib.g_variant_is_normal_form
 import org.gtkkn.native.glib.g_variant_is_object_path
 import org.gtkkn.native.glib.g_variant_is_of_type
 import org.gtkkn.native.glib.g_variant_is_signature
+import org.gtkkn.native.glib.g_variant_iter_new
 import org.gtkkn.native.glib.g_variant_lookup_value
 import org.gtkkn.native.glib.g_variant_n_children
 import org.gtkkn.native.glib.g_variant_new_boolean
@@ -64,6 +64,7 @@ import org.gtkkn.native.glib.g_variant_new_objv
 import org.gtkkn.native.glib.g_variant_new_signature
 import org.gtkkn.native.glib.g_variant_new_string
 import org.gtkkn.native.glib.g_variant_new_strv
+import org.gtkkn.native.glib.g_variant_new_take_string
 import org.gtkkn.native.glib.g_variant_new_uint16
 import org.gtkkn.native.glib.g_variant_new_uint32
 import org.gtkkn.native.glib.g_variant_new_uint64
@@ -72,20 +73,22 @@ import org.gtkkn.native.glib.g_variant_parse_error_print_context
 import org.gtkkn.native.glib.g_variant_parse_error_quark
 import org.gtkkn.native.glib.g_variant_parser_get_error_quark
 import org.gtkkn.native.glib.g_variant_print
+import org.gtkkn.native.glib.g_variant_print_string
 import org.gtkkn.native.glib.g_variant_ref
 import org.gtkkn.native.glib.g_variant_ref_sink
 import org.gtkkn.native.glib.g_variant_take_ref
 import org.gtkkn.native.glib.g_variant_unref
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gint64
+import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.guint16
+import org.gtkkn.native.gobject.guint64
+import org.gtkkn.native.gobject.guint8
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.Long
 import kotlin.Short
-import kotlin.String
-import kotlin.UByte
-import kotlin.UInt
-import kotlin.ULong
-import kotlin.UShort
 import kotlin.Unit
 import kotlin.collections.List
 
@@ -344,26 +347,34 @@ import kotlin.collections.List
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `two`: Variant
+ * - method `get`: Varargs parameter is not supported
  * - method `get_bytestring`: Array parameter of type guint8 is not supported
  * - parameter `length`: length: Out parameter is not supported
+ * - method `get_child`: Varargs parameter is not supported
  * - method `get_data`: Return type gpointer is unsupported
+ * - parameter `n_elements`: n_elements: Out parameter is not supported
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `length`: length: Out parameter is not supported
+ * - parameter `endptr`: Unsupported string with cType const gchar**
+ * - method `lookup`: Varargs parameter is not supported
  * - parameter `data`: gpointer
+ * - constructor `new`: Varargs parameter is not supported
  * - parameter `children`: Array parameter of type Variant is not supported
  * - parameter `string`: Array parameter of type guint8 is not supported
  * - parameter `elements`: gpointer
  * - parameter `data`: Array parameter of type guint8 is not supported
+ * - constructor `new_parsed`: Varargs parameter is not supported
+ * - parameter `app`: va_list
+ * - constructor `new_printf`: Varargs parameter is not supported
  * - parameter `children`: Array parameter of type Variant is not supported
+ * - parameter `endptr`: Unsupported string with cType const gchar**
  * - parameter `endptr`: Unsupported string with cType const gchar**
  *
  * @since 2.24
  */
 @GLibVersion2_24
-public class Variant(
-    pointer: CPointer<GVariant>,
-) : Record {
+public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
     public val glibVariantPointer: CPointer<GVariant> = pointer
 
     /**
@@ -389,10 +400,9 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun byteswap(): Variant =
-        g_variant_byteswap(glibVariantPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public fun byteswap(): Variant = g_variant_byteswap(glibVariantPointer.reinterpret())!!.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Checks if calling g_variant_get() with @format_string on @value would
@@ -416,10 +426,7 @@ public class Variant(
      * @since 2.34
      */
     @GLibVersion2_34
-    public fun checkFormatString(
-        formatString: String,
-        copyOnly: Boolean,
-    ): Boolean =
+    public fun checkFormatString(formatString: kotlin.String, copyOnly: Boolean): Boolean =
         g_variant_check_format_string(glibVariantPointer.reinterpret(), formatString, copyOnly.asGBoolean()).asBoolean()
 
     /**
@@ -429,10 +436,9 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun classify(): VariantClass =
-        g_variant_classify(glibVariantPointer.reinterpret()).run {
-            VariantClass.fromNativeValue(this)
-        }
+    public fun classify(): VariantClass = g_variant_classify(glibVariantPointer.reinterpret()).run {
+        VariantClass.fromNativeValue(this)
+    }
 
     /**
      * Returns the boolean value of @value.
@@ -456,7 +462,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getByte(): UByte = g_variant_get_byte(glibVariantPointer.reinterpret())
+    public fun getByte(): guint8 = g_variant_get_byte(glibVariantPointer.reinterpret())
 
     /**
      * Reads a child item out of a container #GVariant instance.  This
@@ -488,7 +494,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getChildValue(index: ULong): Variant =
+    public fun getChildValue(index: gsize): Variant =
         g_variant_get_child_value(glibVariantPointer.reinterpret(), index)!!.run {
             Variant(reinterpret())
         }
@@ -503,10 +509,9 @@ public class Variant(
      * @since 2.36
      */
     @GLibVersion2_36
-    public fun getDataAsBytes(): Bytes =
-        g_variant_get_data_as_bytes(glibVariantPointer.reinterpret())!!.run {
-            Bytes(reinterpret())
-        }
+    public fun getDataAsBytes(): Bytes = g_variant_get_data_as_bytes(glibVariantPointer.reinterpret())!!.run {
+        Bytes(reinterpret())
+    }
 
     /**
      * Returns the double precision floating point value of @value.
@@ -518,7 +523,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getDouble(): Double = g_variant_get_double(glibVariantPointer.reinterpret())
+    public fun getDouble(): gdouble = g_variant_get_double(glibVariantPointer.reinterpret())
 
     /**
      * Returns the 32-bit signed integer value of @value.
@@ -534,7 +539,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getHandle(): Int = g_variant_get_handle(glibVariantPointer.reinterpret())
+    public fun getHandle(): gint = g_variant_get_handle(glibVariantPointer.reinterpret())
 
     /**
      * Returns the 16-bit signed integer value of @value.
@@ -558,7 +563,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getInt32(): Int = g_variant_get_int32(glibVariantPointer.reinterpret())
+    public fun getInt32(): gint = g_variant_get_int32(glibVariantPointer.reinterpret())
 
     /**
      * Returns the 64-bit signed integer value of @value.
@@ -570,7 +575,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getInt64(): Long = g_variant_get_int64(glibVariantPointer.reinterpret())
+    public fun getInt64(): gint64 = g_variant_get_int64(glibVariantPointer.reinterpret())
 
     /**
      * Given a maybe-typed #GVariant instance, extract its value.  If the
@@ -580,10 +585,9 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getMaybe(): Variant? =
-        g_variant_get_maybe(glibVariantPointer.reinterpret())?.run {
-            Variant(reinterpret())
-        }
+    public fun getMaybe(): Variant? = g_variant_get_maybe(glibVariantPointer.reinterpret())?.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Gets a #GVariant instance that has the same value as @value and is
@@ -616,10 +620,9 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getNormalForm(): Variant =
-        g_variant_get_normal_form(glibVariantPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public fun getNormalForm(): Variant = g_variant_get_normal_form(glibVariantPointer.reinterpret())!!.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Determines the number of bytes that would be required to store @value
@@ -638,7 +641,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getSize(): ULong = g_variant_get_size(glibVariantPointer.reinterpret())
+    public fun getSize(): gsize = g_variant_get_size(glibVariantPointer.reinterpret())
 
     /**
      * Determines the type of @value.
@@ -650,10 +653,9 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getType(): VariantType =
-        g_variant_get_type(glibVariantPointer.reinterpret())!!.run {
-            VariantType(reinterpret())
-        }
+    public fun getType(): VariantType = g_variant_get_type(glibVariantPointer.reinterpret())!!.run {
+        VariantType(reinterpret())
+    }
 
     /**
      * Returns the type string of @value.  Unlike the result of calling
@@ -664,7 +666,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getTypeString(): String =
+    public fun getTypeString(): kotlin.String =
         g_variant_get_type_string(glibVariantPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
@@ -677,7 +679,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getUint16(): UShort = g_variant_get_uint16(glibVariantPointer.reinterpret())
+    public fun getUint16(): guint16 = g_variant_get_uint16(glibVariantPointer.reinterpret())
 
     /**
      * Returns the 32-bit unsigned integer value of @value.
@@ -689,7 +691,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getUint32(): UInt = g_variant_get_uint32(glibVariantPointer.reinterpret())
+    public fun getUint32(): guint = g_variant_get_uint32(glibVariantPointer.reinterpret())
 
     /**
      * Returns the 64-bit unsigned integer value of @value.
@@ -701,7 +703,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getUint64(): ULong = g_variant_get_uint64(glibVariantPointer.reinterpret())
+    public fun getUint64(): guint64 = g_variant_get_uint64(glibVariantPointer.reinterpret())
 
     /**
      * Unboxes @value.  The result is the #GVariant instance that was
@@ -711,10 +713,9 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getVariant(): Variant =
-        g_variant_get_variant(glibVariantPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public fun getVariant(): Variant = g_variant_get_variant(glibVariantPointer.reinterpret())!!.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Generates a hash value for a #GVariant instance.
@@ -731,7 +732,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun hash(): UInt = g_variant_hash(glibVariantPointer.reinterpret())
+    public fun hash(): guint = g_variant_hash(glibVariantPointer.reinterpret())
 
     /**
      * Checks if @value is a container.
@@ -792,6 +793,24 @@ public class Variant(
         g_variant_is_of_type(glibVariantPointer.reinterpret(), type.glibVariantTypePointer.reinterpret()).asBoolean()
 
     /**
+     * Creates a heap-allocated #GVariantIter for iterating over the items
+     * in @value.
+     *
+     * Use g_variant_iter_free() to free the return value when you no longer
+     * need it.
+     *
+     * A reference is taken to @value and will be released only when
+     * g_variant_iter_free() is called.
+     *
+     * @return a new heap-allocated #GVariantIter
+     * @since 2.24
+     */
+    @GLibVersion2_24
+    public fun iterNew(): VariantIter = g_variant_iter_new(glibVariantPointer.reinterpret())!!.run {
+        VariantIter(reinterpret())
+    }
+
+    /**
      * Looks up a value in a dictionary #GVariant.
      *
      * This function works with dictionaries of the type a{s*} (and equally
@@ -820,17 +839,13 @@ public class Variant(
      * @since 2.28
      */
     @GLibVersion2_28
-    public fun lookupValue(
-        key: String,
-        expectedType: VariantType? = null,
-    ): Variant =
-        g_variant_lookup_value(
-            glibVariantPointer.reinterpret(),
-            key,
-            expectedType?.glibVariantTypePointer?.reinterpret()
-        )!!.run {
-            Variant(reinterpret())
-        }
+    public fun lookupValue(key: kotlin.String, expectedType: VariantType? = null): Variant = g_variant_lookup_value(
+        glibVariantPointer.reinterpret(),
+        key,
+        expectedType?.glibVariantTypePointer?.reinterpret()
+    )!!.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Determines the number of children in a container #GVariant instance.
@@ -849,7 +864,7 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun nChildren(): ULong = g_variant_n_children(glibVariantPointer.reinterpret())
+    public fun nChildren(): gsize = g_variant_n_children(glibVariantPointer.reinterpret())
 
     /**
      * Pretty-prints @value in the format understood by g_variant_parse().
@@ -865,9 +880,30 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun print(typeAnnotate: Boolean): String =
+    public fun print(typeAnnotate: Boolean): kotlin.String =
         g_variant_print(glibVariantPointer.reinterpret(), typeAnnotate.asGBoolean())?.toKString()
             ?: error("Expected not null string")
+
+    /**
+     * Behaves as g_variant_print(), but operates on a #GString.
+     *
+     * If @string is non-null then it is appended to and returned.  Else,
+     * a new empty #GString is allocated and it is returned.
+     *
+     * @param string a #GString, or null
+     * @param typeAnnotate true if type information should be included in
+     *                 the output
+     * @return a #GString containing the string
+     * @since 2.24
+     */
+    @GLibVersion2_24
+    public fun printString(string: String? = null, typeAnnotate: Boolean): String = g_variant_print_string(
+        glibVariantPointer.reinterpret(),
+        string?.glibStringPointer?.reinterpret(),
+        typeAnnotate.asGBoolean()
+    )!!.run {
+        String(reinterpret())
+    }
 
     /**
      * Increases the reference count of @value.
@@ -876,10 +912,9 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun ref(): Variant =
-        g_variant_ref(glibVariantPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public fun ref(): Variant = g_variant_ref(glibVariantPointer.reinterpret())!!.run {
+        Variant(reinterpret())
+    }
 
     /**
      * #GVariant uses a floating reference count system.  All functions with
@@ -909,10 +944,9 @@ public class Variant(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun refSink(): Variant =
-        g_variant_ref_sink(glibVariantPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public fun refSink(): Variant = g_variant_ref_sink(glibVariantPointer.reinterpret())!!.run {
+        Variant(reinterpret())
+    }
 
     /**
      * If @value is floating, sink it.  Otherwise, do nothing.
@@ -950,10 +984,9 @@ public class Variant(
      *
      * @return the same @value
      */
-    public fun takeRef(): Variant =
-        g_variant_take_ref(glibVariantPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public fun takeRef(): Variant = g_variant_take_ref(glibVariantPointer.reinterpret())!!.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Decreases the reference count of @value.  When its reference count
@@ -964,7 +997,7 @@ public class Variant(
     @GLibVersion2_24
     public fun unref(): Unit = g_variant_unref(glibVariantPointer.reinterpret())
 
-    public companion object : RecordCompanion<Variant, GVariant> {
+    public companion object {
         /**
          * Creates a new boolean #GVariant instance -- either true or false.
          *
@@ -982,7 +1015,7 @@ public class Variant(
          * @return a floating reference to a new byte #GVariant instance
          * @since 2.24
          */
-        public fun newByte(`value`: UByte): Variant = Variant(g_variant_new_byte(`value`)!!.reinterpret())
+        public fun newByte(`value`: guint8): Variant = Variant(g_variant_new_byte(`value`)!!.reinterpret())
 
         /**
          * Constructs an array of bytestring #GVariant from the given array of
@@ -995,10 +1028,7 @@ public class Variant(
          * @return a new floating #GVariant instance
          * @since 2.26
          */
-        public fun newBytestringArray(
-            strv: List<String>,
-            length: Long,
-        ): Variant {
+        public fun newBytestringArray(strv: List<kotlin.String>, length: Long): Variant {
             memScoped {
                 return Variant(g_variant_new_bytestring_array(strv.toCStringList(this), length)!!.reinterpret())
             }
@@ -1016,16 +1046,12 @@ public class Variant(
          * @return a floating reference to a new dictionary entry #GVariant
          * @since 2.24
          */
-        public fun newDictEntry(
-            key: Variant,
-            `value`: Variant,
-        ): Variant =
-            Variant(
-                g_variant_new_dict_entry(
-                    key.glibVariantPointer.reinterpret(),
-                    `value`.glibVariantPointer.reinterpret()
-                )!!.reinterpret()
-            )
+        public fun newDictEntry(key: Variant, `value`: Variant): Variant = Variant(
+            g_variant_new_dict_entry(
+                key.glibVariantPointer.reinterpret(),
+                `value`.glibVariantPointer.reinterpret()
+            )!!.reinterpret()
+        )
 
         /**
          * Creates a new double #GVariant instance.
@@ -1034,7 +1060,7 @@ public class Variant(
          * @return a floating reference to a new double #GVariant instance
          * @since 2.24
          */
-        public fun newDouble(`value`: Double): Variant = Variant(g_variant_new_double(`value`)!!.reinterpret())
+        public fun newDouble(`value`: gdouble): Variant = Variant(g_variant_new_double(`value`)!!.reinterpret())
 
         /**
          * Constructs a new serialized-mode #GVariant instance.  This is the
@@ -1053,18 +1079,13 @@ public class Variant(
          * @return a new #GVariant with a floating reference
          * @since 2.36
          */
-        public fun newFromBytes(
-            type: VariantType,
-            bytes: Bytes,
-            trusted: Boolean,
-        ): Variant =
-            Variant(
-                g_variant_new_from_bytes(
-                    type.glibVariantTypePointer.reinterpret(),
-                    bytes.glibBytesPointer.reinterpret(),
-                    trusted.asGBoolean()
-                )!!.reinterpret()
-            )
+        public fun newFromBytes(type: VariantType, bytes: Bytes, trusted: Boolean): Variant = Variant(
+            g_variant_new_from_bytes(
+                type.glibVariantTypePointer.reinterpret(),
+                bytes.glibBytesPointer.reinterpret(),
+                trusted.asGBoolean()
+            )!!.reinterpret()
+        )
 
         /**
          * Creates a new handle #GVariant instance.
@@ -1077,7 +1098,7 @@ public class Variant(
          * @return a floating reference to a new handle #GVariant instance
          * @since 2.24
          */
-        public fun newHandle(`value`: Int): Variant = Variant(g_variant_new_handle(`value`)!!.reinterpret())
+        public fun newHandle(`value`: gint): Variant = Variant(g_variant_new_handle(`value`)!!.reinterpret())
 
         /**
          * Creates a new int16 #GVariant instance.
@@ -1095,7 +1116,7 @@ public class Variant(
          * @return a floating reference to a new int32 #GVariant instance
          * @since 2.24
          */
-        public fun newInt32(`value`: Int): Variant = Variant(g_variant_new_int32(`value`)!!.reinterpret())
+        public fun newInt32(`value`: gint): Variant = Variant(g_variant_new_int32(`value`)!!.reinterpret())
 
         /**
          * Creates a new int64 #GVariant instance.
@@ -1104,7 +1125,7 @@ public class Variant(
          * @return a floating reference to a new int64 #GVariant instance
          * @since 2.24
          */
-        public fun newInt64(`value`: Long): Variant = Variant(g_variant_new_int64(`value`)!!.reinterpret())
+        public fun newInt64(`value`: gint64): Variant = Variant(g_variant_new_int64(`value`)!!.reinterpret())
 
         /**
          * Depending on if @child is null, either wraps @child inside of a
@@ -1123,16 +1144,12 @@ public class Variant(
          * @return a floating reference to a new #GVariant maybe instance
          * @since 2.24
          */
-        public fun newMaybe(
-            childType: VariantType? = null,
-            child: Variant? = null,
-        ): Variant =
-            Variant(
-                g_variant_new_maybe(
-                    childType?.glibVariantTypePointer?.reinterpret(),
-                    child?.glibVariantPointer?.reinterpret()
-                )!!.reinterpret()
-            )
+        public fun newMaybe(childType: VariantType? = null, child: Variant? = null): Variant = Variant(
+            g_variant_new_maybe(
+                childType?.glibVariantTypePointer?.reinterpret(),
+                child?.glibVariantPointer?.reinterpret()
+            )!!.reinterpret()
+        )
 
         /**
          * Creates a D-Bus object path #GVariant with the contents of @object_path.
@@ -1143,7 +1160,7 @@ public class Variant(
          * @return a floating reference to a new object path #GVariant instance
          * @since 2.24
          */
-        public fun newObjectPath(objectPath: String): Variant =
+        public fun newObjectPath(objectPath: kotlin.String): Variant =
             Variant(g_variant_new_object_path(objectPath)!!.reinterpret())
 
         /**
@@ -1160,10 +1177,7 @@ public class Variant(
          * @return a new floating #GVariant instance
          * @since 2.30
          */
-        public fun newObjv(
-            strv: List<String>,
-            length: Long,
-        ): Variant {
+        public fun newObjv(strv: List<kotlin.String>, length: Long): Variant {
             memScoped {
                 return Variant(g_variant_new_objv(strv.toCStringList(this), length)!!.reinterpret())
             }
@@ -1178,7 +1192,7 @@ public class Variant(
          * @return a floating reference to a new signature #GVariant instance
          * @since 2.24
          */
-        public fun newSignature(signature: String): Variant =
+        public fun newSignature(signature: kotlin.String): Variant =
             Variant(g_variant_new_signature(signature)!!.reinterpret())
 
         /**
@@ -1192,7 +1206,7 @@ public class Variant(
          * @return a floating reference to a new string #GVariant instance
          * @since 2.24
          */
-        public fun newString(string: String): Variant = Variant(g_variant_new_string(string)!!.reinterpret())
+        public fun newString(string: kotlin.String): Variant = Variant(g_variant_new_string(string)!!.reinterpret())
 
         /**
          * Constructs an array of strings #GVariant from the given array of
@@ -1205,14 +1219,33 @@ public class Variant(
          * @return a new floating #GVariant instance
          * @since 2.24
          */
-        public fun newStrv(
-            strv: List<String>,
-            length: Long,
-        ): Variant {
+        public fun newStrv(strv: List<kotlin.String>, length: Long): Variant {
             memScoped {
                 return Variant(g_variant_new_strv(strv.toCStringList(this), length)!!.reinterpret())
             }
         }
+
+        /**
+         * Creates a string #GVariant with the contents of @string.
+         *
+         * @string must be valid UTF-8, and must not be null. To encode
+         * potentially-null strings, use this with g_variant_new_maybe().
+         *
+         * After this call, @string belongs to the #GVariant and may no longer be
+         * modified by the caller. The memory of @data has to be dynamically
+         * allocated and will eventually be freed with g_free().
+         *
+         * You must not modify or access @string in any other way after passing
+         * it to this function.  It is even possible that @string is immediately
+         * freed.
+         *
+         * @param string a normal UTF-8 nul-terminated string
+         * @return a floating reference to a new string
+         *   #GVariant instance
+         * @since 2.38
+         */
+        public fun newTakeString(string: kotlin.String): Variant =
+            Variant(g_variant_new_take_string(string.cstr)!!.reinterpret())
 
         /**
          * Creates a new uint16 #GVariant instance.
@@ -1221,7 +1254,7 @@ public class Variant(
          * @return a floating reference to a new uint16 #GVariant instance
          * @since 2.24
          */
-        public fun newUint16(`value`: UShort): Variant = Variant(g_variant_new_uint16(`value`)!!.reinterpret())
+        public fun newUint16(`value`: guint16): Variant = Variant(g_variant_new_uint16(`value`)!!.reinterpret())
 
         /**
          * Creates a new uint32 #GVariant instance.
@@ -1230,7 +1263,7 @@ public class Variant(
          * @return a floating reference to a new uint32 #GVariant instance
          * @since 2.24
          */
-        public fun newUint32(`value`: UInt): Variant = Variant(g_variant_new_uint32(`value`)!!.reinterpret())
+        public fun newUint32(`value`: guint): Variant = Variant(g_variant_new_uint32(`value`)!!.reinterpret())
 
         /**
          * Creates a new uint64 #GVariant instance.
@@ -1239,7 +1272,7 @@ public class Variant(
          * @return a floating reference to a new uint64 #GVariant instance
          * @since 2.24
          */
-        public fun newUint64(`value`: ULong): Variant = Variant(g_variant_new_uint64(`value`)!!.reinterpret())
+        public fun newUint64(`value`: guint64): Variant = Variant(g_variant_new_uint64(`value`)!!.reinterpret())
 
         /**
          * Boxes @value.  The result is a #GVariant instance representing a
@@ -1270,7 +1303,7 @@ public class Variant(
          * @since 2.24
          */
         @GLibVersion2_24
-        public fun isObjectPath(string: String): Boolean = g_variant_is_object_path(string).asBoolean()
+        public fun isObjectPath(string: kotlin.String): Boolean = g_variant_is_object_path(string).asBoolean()
 
         /**
          * Determines if a given string is a valid D-Bus type signature.  You
@@ -1285,7 +1318,7 @@ public class Variant(
          * @since 2.24
          */
         @GLibVersion2_24
-        public fun isSignature(string: String): Boolean = g_variant_is_signature(string).asBoolean()
+        public fun isSignature(string: kotlin.String): Boolean = g_variant_is_signature(string).asBoolean()
 
         /**
          * Pretty-prints a message showing the context of a #GVariant parse
@@ -1324,10 +1357,7 @@ public class Variant(
          * @since 2.40
          */
         @GLibVersion2_40
-        public fun parseErrorPrintContext(
-            error: Error,
-            sourceStr: String,
-        ): String =
+        public fun parseErrorPrintContext(error: Error, sourceStr: kotlin.String): kotlin.String =
             g_variant_parse_error_print_context(error.glibErrorPointer.reinterpret(), sourceStr)?.toKString()
                 ?: error("Expected not null string")
 
@@ -1337,7 +1367,5 @@ public class Variant(
          * Same as g_variant_error_quark().
          */
         public fun parserGetErrorQuark(): Quark = g_variant_parser_get_error_quark()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Variant = Variant(pointer.reinterpret())
     }
 }

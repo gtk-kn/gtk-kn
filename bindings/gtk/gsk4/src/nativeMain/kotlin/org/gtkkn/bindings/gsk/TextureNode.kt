@@ -8,6 +8,7 @@ import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskTextureNode
 import org.gtkkn.native.gsk.gsk_texture_node_get_texture
 import org.gtkkn.native.gsk.gsk_texture_node_get_type
@@ -16,9 +17,8 @@ import org.gtkkn.native.gsk.gsk_texture_node_new
 /**
  * A render node for a `GdkTexture`.
  */
-public open class TextureNode(
-    pointer: CPointer<GskTextureNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class TextureNode(pointer: CPointer<GskTextureNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskTextureNodePointer: CPointer<GskTextureNode>
         get() = gPointer.reinterpret()
@@ -50,10 +50,9 @@ public open class TextureNode(
      *
      * @return the `GdkTexture`
      */
-    public open fun getTexture(): Texture =
-        gsk_texture_node_get_texture(gskTextureNodePointer.reinterpret())!!.run {
-            Texture(reinterpret())
-        }
+    public open fun getTexture(): Texture = gsk_texture_node_get_texture(gskTextureNodePointer.reinterpret())!!.run {
+        Texture(reinterpret())
+    }
 
     public companion object : TypeCompanion<TextureNode> {
         override val type: GeneratedClassKGType<TextureNode> =
@@ -62,5 +61,12 @@ public open class TextureNode(
         init {
             GskTypeProvider.register()
         }
+
+        /**
+         * Get the GType of TextureNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_texture_node_get_type()
     }
 }

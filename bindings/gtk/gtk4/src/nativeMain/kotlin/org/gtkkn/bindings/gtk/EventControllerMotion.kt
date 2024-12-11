@@ -14,14 +14,15 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gtk.GtkEventControllerMotion
 import org.gtkkn.native.gtk.gtk_event_controller_motion_contains_pointer
 import org.gtkkn.native.gtk.gtk_event_controller_motion_get_type
 import org.gtkkn.native.gtk.gtk_event_controller_motion_is_pointer
 import org.gtkkn.native.gtk.gtk_event_controller_motion_new
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.ULong
 import kotlin.Unit
 
@@ -41,9 +42,8 @@ import kotlin.Unit
  * - method `contains-pointer`: Property has no getter nor setter
  * - method `is-pointer`: Property has no getter nor setter
  */
-public open class EventControllerMotion(
-    pointer: CPointer<GtkEventControllerMotion>,
-) : EventController(pointer.reinterpret()),
+public open class EventControllerMotion(pointer: CPointer<GtkEventControllerMotion>) :
+    EventController(pointer.reinterpret()),
     KGTyped {
     public val gtkEventControllerMotionPointer: CPointer<GtkEventControllerMotion>
         get() = gPointer.reinterpret()
@@ -79,16 +79,15 @@ public open class EventControllerMotion(
      */
     public fun connectEnter(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (x: Double, y: Double) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "enter",
-            connectEnterFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+        handler: (x: gdouble, y: gdouble) -> Unit,
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "enter",
+        connectEnterFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Signals that the pointer has left the widget.
@@ -96,10 +95,7 @@ public open class EventControllerMotion(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectLeave(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectLeave(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "leave",
@@ -117,16 +113,15 @@ public open class EventControllerMotion(
      */
     public fun connectMotion(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (x: Double, y: Double) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "motion",
-            connectMotionFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+        handler: (x: gdouble, y: gdouble) -> Unit,
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "motion",
+        connectMotionFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<EventControllerMotion> {
         override val type: GeneratedClassKGType<EventControllerMotion> =
@@ -135,33 +130,40 @@ public open class EventControllerMotion(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of EventControllerMotion
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_event_controller_motion_get_type()
     }
 }
 
-private val connectEnterFunc: CPointer<CFunction<(Double, Double) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            x: Double,
-            y: Double,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(x: Double, y: Double) -> Unit>().get().invoke(x, y)
-    }.reinterpret()
+private val connectEnterFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        x: gdouble,
+        y: gdouble,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(x: gdouble, y: gdouble) -> Unit>().get().invoke(x, y)
+}
+    .reinterpret()
 
-private val connectLeaveFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectLeaveFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectMotionFunc: CPointer<CFunction<(Double, Double) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            x: Double,
-            y: Double,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(x: Double, y: Double) -> Unit>().get().invoke(x, y)
-    }.reinterpret()
+private val connectMotionFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        x: gdouble,
+        y: gdouble,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(x: gdouble, y: gdouble) -> Unit>().get().invoke(x, y)
+}
+    .reinterpret()

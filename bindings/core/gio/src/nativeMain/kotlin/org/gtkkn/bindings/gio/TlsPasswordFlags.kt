@@ -11,14 +11,14 @@ import org.gtkkn.native.gio.G_TLS_PASSWORD_PKCS11_CONTEXT_SPECIFIC
 import org.gtkkn.native.gio.G_TLS_PASSWORD_PKCS11_SECURITY_OFFICER
 import org.gtkkn.native.gio.G_TLS_PASSWORD_PKCS11_USER
 import org.gtkkn.native.gio.G_TLS_PASSWORD_RETRY
+import org.gtkkn.native.gio.g_tls_password_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Various flags for the password.
  * @since 2.30
  */
-public class TlsPasswordFlags(
-    public val mask: GTlsPasswordFlags,
-) : Bitfield<TlsPasswordFlags> {
+public class TlsPasswordFlags(public val mask: GTlsPasswordFlags) : Bitfield<TlsPasswordFlags> {
     override infix fun or(other: TlsPasswordFlags): TlsPasswordFlags = TlsPasswordFlags(mask or other.mask)
 
     @GioVersion2_30
@@ -64,5 +64,12 @@ public class TlsPasswordFlags(
          */
         public val PKCS11_CONTEXT_SPECIFIC: TlsPasswordFlags =
             TlsPasswordFlags(G_TLS_PASSWORD_PKCS11_CONTEXT_SPECIFIC)
+
+        /**
+         * Get the GType of TlsPasswordFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_tls_password_flags_get_type()
     }
 }

@@ -8,9 +8,7 @@ import kotlin.UInt
 /**
  * Error codes returned by character set conversion routines.
  */
-public enum class ConvertError(
-    public val nativeValue: GConvertError,
-) {
+public enum class ConvertError(public val nativeValue: GConvertError) {
     /**
      * Conversion between the requested character
      *     sets is not supported.
@@ -58,26 +56,24 @@ public enum class ConvertError(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GConvertError): ConvertError =
-            when (nativeValue) {
-                GConvertError.G_CONVERT_ERROR_NO_CONVERSION -> NO_CONVERSION
-                GConvertError.G_CONVERT_ERROR_ILLEGAL_SEQUENCE -> ILLEGAL_SEQUENCE
-                GConvertError.G_CONVERT_ERROR_FAILED -> FAILED
-                GConvertError.G_CONVERT_ERROR_PARTIAL_INPUT -> PARTIAL_INPUT
-                GConvertError.G_CONVERT_ERROR_BAD_URI -> BAD_URI
-                GConvertError.G_CONVERT_ERROR_NOT_ABSOLUTE_PATH -> NOT_ABSOLUTE_PATH
-                GConvertError.G_CONVERT_ERROR_NO_MEMORY -> NO_MEMORY
-                GConvertError.G_CONVERT_ERROR_EMBEDDED_NUL -> EMBEDDED_NUL
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GConvertError): ConvertError = when (nativeValue) {
+            GConvertError.G_CONVERT_ERROR_NO_CONVERSION -> NO_CONVERSION
+            GConvertError.G_CONVERT_ERROR_ILLEGAL_SEQUENCE -> ILLEGAL_SEQUENCE
+            GConvertError.G_CONVERT_ERROR_FAILED -> FAILED
+            GConvertError.G_CONVERT_ERROR_PARTIAL_INPUT -> PARTIAL_INPUT
+            GConvertError.G_CONVERT_ERROR_BAD_URI -> BAD_URI
+            GConvertError.G_CONVERT_ERROR_NOT_ABSOLUTE_PATH -> NOT_ABSOLUTE_PATH
+            GConvertError.G_CONVERT_ERROR_NO_MEMORY -> NO_MEMORY
+            GConvertError.G_CONVERT_ERROR_EMBEDDED_NUL -> EMBEDDED_NUL
+            else -> error("invalid nativeValue")
+        }
 
         public fun quark(): UInt = g_quark_from_string("g_convert_error")
 
-        public fun fromErrorOrNull(error: Error): ConvertError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                ConvertError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        public fun fromErrorOrNull(error: Error): ConvertError? = if (error.domain != quark()) {
+            null
+        } else {
+            ConvertError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

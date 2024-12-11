@@ -8,6 +8,7 @@ import org.gtkkn.bindings.gtk.TextMark
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceMark
 import org.gtkkn.native.gtksource.gtk_source_mark_get_category
 import org.gtkkn.native.gtksource.gtk_source_mark_get_type
@@ -31,9 +32,8 @@ import kotlin.String
  * there are multiple marks in the same line, the pixbufs will be drawn on top
  * of each other. The mark with the highest priority will be drawn on top.
  */
-public open class Mark(
-    pointer: CPointer<GtkSourceMark>,
-) : TextMark(pointer.reinterpret()),
+public open class Mark(pointer: CPointer<GtkSourceMark>) :
+    TextMark(pointer.reinterpret()),
     KGTyped {
     public val gtksourceMarkPointer: CPointer<GtkSourceMark>
         get() = gPointer.reinterpret()
@@ -48,9 +48,8 @@ public open class Mark(
          *
          * @return the category of the #GtkSourceMark.
          */
-        get() =
-            gtk_source_mark_get_category(gtksourceMarkPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_source_mark_get_category(gtksourceMarkPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Creates a text mark.
@@ -72,15 +71,6 @@ public open class Mark(
         name: String? = null,
         category: String,
     ) : this(gtk_source_mark_new(name, category)!!.reinterpret())
-
-    /**
-     * Returns the mark category.
-     *
-     * @return the category of the #GtkSourceMark.
-     */
-    public open fun getCategory(): String =
-        gtk_source_mark_get_category(gtksourceMarkPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
 
     /**
      * Returns the next `GtkSourceMark` in the buffer or null if the mark
@@ -121,5 +111,12 @@ public open class Mark(
         init {
             GtksourceTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Mark
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_mark_get_type()
     }
 }

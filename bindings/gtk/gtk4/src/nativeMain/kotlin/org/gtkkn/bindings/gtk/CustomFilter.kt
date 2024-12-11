@@ -8,6 +8,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkCustomFilter
 import org.gtkkn.native.gtk.gtk_custom_filter_get_type
 import org.gtkkn.native.gtk.gtk_custom_filter_new
@@ -17,9 +18,8 @@ import kotlin.Unit
 /**
  * `GtkCustomFilter` determines whether to include items with a callback.
  */
-public open class CustomFilter(
-    pointer: CPointer<GtkCustomFilter>,
-) : Filter(pointer.reinterpret()),
+public open class CustomFilter(pointer: CPointer<GtkCustomFilter>) :
+    Filter(pointer.reinterpret()),
     KGTyped {
     public val gtkCustomFilterPointer: CPointer<GtkCustomFilter>
         get() = gPointer.reinterpret()
@@ -59,13 +59,12 @@ public open class CustomFilter(
      *
      * @param matchFunc function to filter items
      */
-    public open fun setFilterFunc(matchFunc: CustomFilterFunc): Unit =
-        gtk_custom_filter_set_filter_func(
-            gtkCustomFilterPointer.reinterpret(),
-            CustomFilterFuncFunc.reinterpret(),
-            StableRef.create(matchFunc).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public open fun setFilterFunc(matchFunc: CustomFilterFunc): Unit = gtk_custom_filter_set_filter_func(
+        gtkCustomFilterPointer.reinterpret(),
+        CustomFilterFuncFunc.reinterpret(),
+        StableRef.create(matchFunc).asCPointer(),
+        staticStableRefDestroy.reinterpret()
+    )
 
     public companion object : TypeCompanion<CustomFilter> {
         override val type: GeneratedClassKGType<CustomFilter> =
@@ -74,5 +73,12 @@ public open class CustomFilter(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of CustomFilter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_custom_filter_get_type()
     }
 }

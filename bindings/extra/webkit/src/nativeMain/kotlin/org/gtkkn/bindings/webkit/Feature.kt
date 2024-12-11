@@ -1,14 +1,13 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_42
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitFeature
 import org.gtkkn.native.webkit.webkit_feature_get_category
 import org.gtkkn.native.webkit.webkit_feature_get_default_value
@@ -16,6 +15,7 @@ import org.gtkkn.native.webkit.webkit_feature_get_details
 import org.gtkkn.native.webkit.webkit_feature_get_identifier
 import org.gtkkn.native.webkit.webkit_feature_get_name
 import org.gtkkn.native.webkit.webkit_feature_get_status
+import org.gtkkn.native.webkit.webkit_feature_get_type
 import org.gtkkn.native.webkit.webkit_feature_ref
 import org.gtkkn.native.webkit.webkit_feature_unref
 import kotlin.Boolean
@@ -59,9 +59,7 @@ import kotlin.Unit
  * @since 2.42
  */
 @WebKitVersion2_42
-public class Feature(
-    pointer: CPointer<WebKitFeature>,
-) : Record {
+public class Feature(pointer: CPointer<WebKitFeature>) : ProxyInstance(pointer) {
     public val webkitFeaturePointer: CPointer<WebKitFeature> = pointer
 
     /**
@@ -74,9 +72,8 @@ public class Feature(
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun getCategory(): String =
-        webkit_feature_get_category(webkitFeaturePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getCategory(): String = webkit_feature_get_category(webkitFeaturePointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Gets whether the feature is enabled by default.
@@ -118,9 +115,8 @@ public class Feature(
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun getIdentifier(): String =
-        webkit_feature_get_identifier(webkitFeaturePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getIdentifier(): String = webkit_feature_get_identifier(webkitFeaturePointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Gets a short name for the @feature.
@@ -144,10 +140,9 @@ public class Feature(
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun getStatus(): FeatureStatus =
-        webkit_feature_get_status(webkitFeaturePointer.reinterpret()).run {
-            FeatureStatus.fromNativeValue(this)
-        }
+    public fun getStatus(): FeatureStatus = webkit_feature_get_status(webkitFeaturePointer.reinterpret()).run {
+        FeatureStatus.fromNativeValue(this)
+    }
 
     /**
      * Atomically acquires a reference on the given @feature.
@@ -158,10 +153,9 @@ public class Feature(
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun ref(): Feature =
-        webkit_feature_ref(webkitFeaturePointer.reinterpret())!!.run {
-            Feature(reinterpret())
-        }
+    public fun ref(): Feature = webkit_feature_ref(webkitFeaturePointer.reinterpret())!!.run {
+        Feature(reinterpret())
+    }
 
     /**
      * Atomically releases a reference on the given @feature.
@@ -175,7 +169,12 @@ public class Feature(
     @WebKitVersion2_42
     public fun unref(): Unit = webkit_feature_unref(webkitFeaturePointer.reinterpret())
 
-    public companion object : RecordCompanion<Feature, WebKitFeature> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Feature = Feature(pointer.reinterpret())
+    public companion object {
+        /**
+         * Get the GType of Feature
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_feature_get_type()
     }
 }

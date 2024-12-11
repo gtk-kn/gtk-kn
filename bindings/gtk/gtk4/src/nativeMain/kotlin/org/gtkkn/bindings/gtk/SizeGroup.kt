@@ -8,6 +8,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkSizeGroup
 import org.gtkkn.native.gtk.gtk_size_group_add_widget
@@ -85,9 +86,8 @@ import kotlin.Unit
  * </object>
  * ```
  */
-public open class SizeGroup(
-    pointer: CPointer<GtkSizeGroup>,
-) : Object(pointer.reinterpret()),
+public open class SizeGroup(pointer: CPointer<GtkSizeGroup>) :
+    Object(pointer.reinterpret()),
     Buildable,
     KGTyped {
     public val gtkSizeGroupPointer: CPointer<GtkSizeGroup>
@@ -105,10 +105,9 @@ public open class SizeGroup(
          *
          * @return the current mode of the size group.
          */
-        get() =
-            gtk_size_group_get_mode(gtkSizeGroupPointer.reinterpret()).run {
-                SizeGroupMode.fromNativeValue(this)
-            }
+        get() = gtk_size_group_get_mode(gtkSizeGroupPointer.reinterpret()).run {
+            SizeGroupMode.fromNativeValue(this)
+        }
 
         /**
          * Sets the `GtkSizeGroupMode` of the size group.
@@ -150,25 +149,14 @@ public open class SizeGroup(
         gtk_size_group_add_widget(gtkSizeGroupPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
-     * Gets the current mode of the size group.
-     *
-     * @return the current mode of the size group.
-     */
-    public open fun getMode(): SizeGroupMode =
-        gtk_size_group_get_mode(gtkSizeGroupPointer.reinterpret()).run {
-            SizeGroupMode.fromNativeValue(this)
-        }
-
-    /**
      * Returns the list of widgets associated with @size_group.
      *
      * @return a `GSList` of
      *   widgets. The list is owned by GTK and should not be modified.
      */
-    public open fun getWidgets(): SList =
-        gtk_size_group_get_widgets(gtkSizeGroupPointer.reinterpret())!!.run {
-            SList(reinterpret())
-        }
+    public open fun getWidgets(): SList = gtk_size_group_get_widgets(gtkSizeGroupPointer.reinterpret())!!.run {
+        SList(reinterpret())
+    }
 
     /**
      * Removes a widget from a `GtkSizeGroup`.
@@ -178,20 +166,6 @@ public open class SizeGroup(
     public open fun removeWidget(widget: Widget): Unit =
         gtk_size_group_remove_widget(gtkSizeGroupPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
-    /**
-     * Sets the `GtkSizeGroupMode` of the size group.
-     *
-     * The mode of the size group determines whether the widgets in the
-     * size group should all have the same horizontal requisition
-     * (%GTK_SIZE_GROUP_HORIZONTAL) all have the same vertical requisition
-     * (%GTK_SIZE_GROUP_VERTICAL), or should all have the same requisition
-     * in both directions (%GTK_SIZE_GROUP_BOTH).
-     *
-     * @param mode the mode to set for the size group.
-     */
-    public open fun setMode(mode: SizeGroupMode): Unit =
-        gtk_size_group_set_mode(gtkSizeGroupPointer.reinterpret(), mode.nativeValue)
-
     public companion object : TypeCompanion<SizeGroup> {
         override val type: GeneratedClassKGType<SizeGroup> =
             GeneratedClassKGType(gtk_size_group_get_type()) { SizeGroup(it.reinterpret()) }
@@ -199,5 +173,12 @@ public open class SizeGroup(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of SizeGroup
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_size_group_get_type()
     }
 }

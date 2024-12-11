@@ -1,30 +1,28 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkContentFormatsBuilder
 import org.gtkkn.native.gdk.gdk_content_formats_builder_add_formats
 import org.gtkkn.native.gdk.gdk_content_formats_builder_add_gtype
 import org.gtkkn.native.gdk.gdk_content_formats_builder_add_mime_type
+import org.gtkkn.native.gdk.gdk_content_formats_builder_free_to_formats
+import org.gtkkn.native.gdk.gdk_content_formats_builder_get_type
 import org.gtkkn.native.gdk.gdk_content_formats_builder_new
 import org.gtkkn.native.gdk.gdk_content_formats_builder_ref
 import org.gtkkn.native.gdk.gdk_content_formats_builder_to_formats
 import org.gtkkn.native.gdk.gdk_content_formats_builder_unref
+import org.gtkkn.native.gobject.GType
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 
 /**
  * A `GdkContentFormatsBuilder` is an auxiliary struct used to create
  * new `GdkContentFormats`, and should not be kept around.
  */
-public class ContentFormatsBuilder(
-    pointer: CPointer<GdkContentFormatsBuilder>,
-) : Record {
+public class ContentFormatsBuilder(pointer: CPointer<GdkContentFormatsBuilder>) : ProxyInstance(pointer) {
     public val gdkContentFormatsBuilderPointer: CPointer<GdkContentFormatsBuilder> = pointer
 
     /**
@@ -33,18 +31,17 @@ public class ContentFormatsBuilder(
      *
      * @param formats the formats to add
      */
-    public fun addFormats(formats: ContentFormats): Unit =
-        gdk_content_formats_builder_add_formats(
-            gdkContentFormatsBuilderPointer.reinterpret(),
-            formats.gdkContentFormatsPointer.reinterpret()
-        )
+    public fun addFormats(formats: ContentFormats): Unit = gdk_content_formats_builder_add_formats(
+        gdkContentFormatsBuilderPointer.reinterpret(),
+        formats.gdkContentFormatsPointer.reinterpret()
+    )
 
     /**
      * Appends @type to @builder if it has not already been added.
      *
      * @param type a `GType`
      */
-    public fun addGtype(type: ULong): Unit =
+    public fun addGtype(type: GType): Unit =
         gdk_content_formats_builder_add_gtype(gdkContentFormatsBuilderPointer.reinterpret(), type)
 
     /**
@@ -54,6 +51,18 @@ public class ContentFormatsBuilder(
      */
     public fun addMimeType(mimeType: String): Unit =
         gdk_content_formats_builder_add_mime_type(gdkContentFormatsBuilderPointer.reinterpret(), mimeType)
+
+    /**
+     * Creates a new `GdkContentFormats` from the current state of the
+     * given @builder, and frees the @builder instance.
+     *
+     * @return the newly created `GdkContentFormats`
+     *   with all the formats added to @builder
+     */
+    public fun freeToFormats(): ContentFormats =
+        gdk_content_formats_builder_free_to_formats(gdkContentFormatsBuilderPointer.reinterpret())!!.run {
+            ContentFormats(reinterpret())
+        }
 
     /**
      * Acquires a reference on the given @builder.
@@ -91,7 +100,7 @@ public class ContentFormatsBuilder(
      */
     public fun unref(): Unit = gdk_content_formats_builder_unref(gdkContentFormatsBuilderPointer.reinterpret())
 
-    public companion object : RecordCompanion<ContentFormatsBuilder, GdkContentFormatsBuilder> {
+    public companion object {
         /**
          * Create a new `GdkContentFormatsBuilder` object.
          *
@@ -103,7 +112,11 @@ public class ContentFormatsBuilder(
         public fun new(): ContentFormatsBuilder =
             ContentFormatsBuilder(gdk_content_formats_builder_new()!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ContentFormatsBuilder =
-            ContentFormatsBuilder(pointer.reinterpret())
+        /**
+         * Get the GType of ContentFormatsBuilder
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_content_formats_builder_get_type()
     }
 }

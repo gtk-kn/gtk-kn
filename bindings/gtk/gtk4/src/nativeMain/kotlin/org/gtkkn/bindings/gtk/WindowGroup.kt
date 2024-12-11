@@ -8,6 +8,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkWindowGroup
 import org.gtkkn.native.gtk.gtk_window_group_add_window
 import org.gtkkn.native.gtk.gtk_window_group_get_type
@@ -34,9 +35,8 @@ import kotlin.Unit
  * group; when all window have been removed, the window group will be
  * freed.
  */
-public open class WindowGroup(
-    pointer: CPointer<GtkWindowGroup>,
-) : Object(pointer.reinterpret()),
+public open class WindowGroup(pointer: CPointer<GtkWindowGroup>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkWindowGroupPointer: CPointer<GtkWindowGroup>
         get() = gPointer.reinterpret()
@@ -65,10 +65,9 @@ public open class WindowGroup(
      * @return A
      *   newly-allocated list of windows inside the group.
      */
-    public open fun listWindows(): List =
-        gtk_window_group_list_windows(gtkWindowGroupPointer.reinterpret())!!.run {
-            List(reinterpret())
-        }
+    public open fun listWindows(): List = gtk_window_group_list_windows(gtkWindowGroupPointer.reinterpret())!!.run {
+        List(reinterpret())
+    }
 
     /**
      * Removes a window from a `GtkWindowGroup`.
@@ -85,5 +84,12 @@ public open class WindowGroup(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of WindowGroup
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_window_group_get_type()
     }
 }

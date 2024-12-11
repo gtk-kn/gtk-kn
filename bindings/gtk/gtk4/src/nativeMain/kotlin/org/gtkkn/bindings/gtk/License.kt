@@ -1,16 +1,16 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkLicense
+import org.gtkkn.native.gtk.gtk_license_get_type
 
 /**
  * The type of license for an application.
  *
  * This enumeration can be expanded at later date.
  */
-public enum class License(
-    public val nativeValue: GtkLicense,
-) {
+public enum class License(public val nativeValue: GtkLicense) {
     /**
      * No license specified
      */
@@ -109,28 +109,34 @@ public enum class License(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkLicense): License =
-            when (nativeValue) {
-                GtkLicense.GTK_LICENSE_UNKNOWN -> UNKNOWN
-                GtkLicense.GTK_LICENSE_CUSTOM -> CUSTOM
-                GtkLicense.GTK_LICENSE_GPL_2_0 -> GPL_2_0
-                GtkLicense.GTK_LICENSE_GPL_3_0 -> GPL_3_0
-                GtkLicense.GTK_LICENSE_LGPL_2_1 -> LGPL_2_1
-                GtkLicense.GTK_LICENSE_LGPL_3_0 -> LGPL_3_0
-                GtkLicense.GTK_LICENSE_BSD -> BSD
-                GtkLicense.GTK_LICENSE_MIT_X11 -> MIT_X11
-                GtkLicense.GTK_LICENSE_ARTISTIC -> ARTISTIC
-                GtkLicense.GTK_LICENSE_GPL_2_0_ONLY -> GPL_2_0_ONLY
-                GtkLicense.GTK_LICENSE_GPL_3_0_ONLY -> GPL_3_0_ONLY
-                GtkLicense.GTK_LICENSE_LGPL_2_1_ONLY -> LGPL_2_1_ONLY
-                GtkLicense.GTK_LICENSE_LGPL_3_0_ONLY -> LGPL_3_0_ONLY
-                GtkLicense.GTK_LICENSE_AGPL_3_0 -> AGPL_3_0
-                GtkLicense.GTK_LICENSE_AGPL_3_0_ONLY -> AGPL_3_0_ONLY
-                GtkLicense.GTK_LICENSE_BSD_3 -> BSD_3
-                GtkLicense.GTK_LICENSE_APACHE_2_0 -> APACHE_2_0
-                GtkLicense.GTK_LICENSE_MPL_2_0 -> MPL_2_0
-                GtkLicense.GTK_LICENSE_0BSD -> `0BSD`
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkLicense): License = when (nativeValue) {
+            GtkLicense.GTK_LICENSE_UNKNOWN -> UNKNOWN
+            GtkLicense.GTK_LICENSE_CUSTOM -> CUSTOM
+            GtkLicense.GTK_LICENSE_GPL_2_0 -> GPL_2_0
+            GtkLicense.GTK_LICENSE_GPL_3_0 -> GPL_3_0
+            GtkLicense.GTK_LICENSE_LGPL_2_1 -> LGPL_2_1
+            GtkLicense.GTK_LICENSE_LGPL_3_0 -> LGPL_3_0
+            GtkLicense.GTK_LICENSE_BSD -> BSD
+            GtkLicense.GTK_LICENSE_MIT_X11 -> MIT_X11
+            GtkLicense.GTK_LICENSE_ARTISTIC -> ARTISTIC
+            GtkLicense.GTK_LICENSE_GPL_2_0_ONLY -> GPL_2_0_ONLY
+            GtkLicense.GTK_LICENSE_GPL_3_0_ONLY -> GPL_3_0_ONLY
+            GtkLicense.GTK_LICENSE_LGPL_2_1_ONLY -> LGPL_2_1_ONLY
+            GtkLicense.GTK_LICENSE_LGPL_3_0_ONLY -> LGPL_3_0_ONLY
+            GtkLicense.GTK_LICENSE_AGPL_3_0 -> AGPL_3_0
+            GtkLicense.GTK_LICENSE_AGPL_3_0_ONLY -> AGPL_3_0_ONLY
+            GtkLicense.GTK_LICENSE_BSD_3 -> BSD_3
+            GtkLicense.GTK_LICENSE_APACHE_2_0 -> APACHE_2_0
+            GtkLicense.GTK_LICENSE_MPL_2_0 -> MPL_2_0
+            GtkLicense.GTK_LICENSE_0BSD -> `0BSD`
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of License
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_license_get_type()
     }
 }

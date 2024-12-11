@@ -1,13 +1,19 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
-import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.pango.PangoAttrClass
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * The `PangoAttrClass` structure stores the type and operations for
@@ -22,24 +28,76 @@ import org.gtkkn.native.pango.PangoAttrClass
  * - field `destroy`: Fields with callbacks are not supported
  * - field `equal`: Fields with callbacks are not supported
  */
-public class AttrClass(
-    pointer: CPointer<PangoAttrClass>,
-) : Record {
+public class AttrClass(pointer: CPointer<PangoAttrClass>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val pangoAttrClassPointer: CPointer<PangoAttrClass> = pointer
 
     /**
      * the type ID for this attribute
      */
     public var type: AttrType
-        get() =
-            pangoAttrClassPointer.pointed.type.run {
-                AttrType.fromNativeValue(this)
-            }
+        get() = pangoAttrClassPointer.pointed.type.run {
+            AttrType.fromNativeValue(this)
+        }
+
+        @UnsafeFieldSetter
         set(`value`) {
             pangoAttrClassPointer.pointed.type = value.nativeValue
         }
 
-    public companion object : RecordCompanion<AttrClass, PangoAttrClass> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): AttrClass = AttrClass(pointer.reinterpret())
+    /**
+     * Allocate a new AttrClass.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<PangoAttrClass>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to AttrClass and a [Cleaner] instance.
+     */
+    private constructor(
+        pair: Pair<CPointer<PangoAttrClass>, Cleaner>,
+    ) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new AttrClass using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<PangoAttrClass>().ptr)
+
+    /**
+     * Allocate a new AttrClass.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param type the type ID for this attribute
+     */
+    public constructor(type: AttrType) : this() {
+        this.type = type
     }
+
+    /**
+     * Allocate a new AttrClass using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param type the type ID for this attribute
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(type: AttrType, scope: AutofreeScope) : this(scope) {
+        this.type = type
+    }
+
+    override fun toString(): String = "AttrClass(type=$type)"
 }

@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkInputPurpose
+import org.gtkkn.native.gtk.gtk_input_purpose_get_type
 
 /**
  * Describes primary purpose of the input widget.
@@ -24,9 +26,7 @@ import org.gtkkn.native.gtk.GtkInputPurpose
  * This enumeration may be extended in the future; input methods should
  * interpret unknown values as “free form”.
  */
-public enum class InputPurpose(
-    public val nativeValue: GtkInputPurpose,
-) {
+public enum class InputPurpose(public val nativeValue: GtkInputPurpose) {
     /**
      * Allow any character
      */
@@ -84,20 +84,26 @@ public enum class InputPurpose(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkInputPurpose): InputPurpose =
-            when (nativeValue) {
-                GtkInputPurpose.GTK_INPUT_PURPOSE_FREE_FORM -> FREE_FORM
-                GtkInputPurpose.GTK_INPUT_PURPOSE_ALPHA -> ALPHA
-                GtkInputPurpose.GTK_INPUT_PURPOSE_DIGITS -> DIGITS
-                GtkInputPurpose.GTK_INPUT_PURPOSE_NUMBER -> NUMBER
-                GtkInputPurpose.GTK_INPUT_PURPOSE_PHONE -> PHONE
-                GtkInputPurpose.GTK_INPUT_PURPOSE_URL -> URL
-                GtkInputPurpose.GTK_INPUT_PURPOSE_EMAIL -> EMAIL
-                GtkInputPurpose.GTK_INPUT_PURPOSE_NAME -> NAME
-                GtkInputPurpose.GTK_INPUT_PURPOSE_PASSWORD -> PASSWORD
-                GtkInputPurpose.GTK_INPUT_PURPOSE_PIN -> PIN
-                GtkInputPurpose.GTK_INPUT_PURPOSE_TERMINAL -> TERMINAL
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkInputPurpose): InputPurpose = when (nativeValue) {
+            GtkInputPurpose.GTK_INPUT_PURPOSE_FREE_FORM -> FREE_FORM
+            GtkInputPurpose.GTK_INPUT_PURPOSE_ALPHA -> ALPHA
+            GtkInputPurpose.GTK_INPUT_PURPOSE_DIGITS -> DIGITS
+            GtkInputPurpose.GTK_INPUT_PURPOSE_NUMBER -> NUMBER
+            GtkInputPurpose.GTK_INPUT_PURPOSE_PHONE -> PHONE
+            GtkInputPurpose.GTK_INPUT_PURPOSE_URL -> URL
+            GtkInputPurpose.GTK_INPUT_PURPOSE_EMAIL -> EMAIL
+            GtkInputPurpose.GTK_INPUT_PURPOSE_NAME -> NAME
+            GtkInputPurpose.GTK_INPUT_PURPOSE_PASSWORD -> PASSWORD
+            GtkInputPurpose.GTK_INPUT_PURPOSE_PIN -> PIN
+            GtkInputPurpose.GTK_INPUT_PURPOSE_TERMINAL -> TERMINAL
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of InputPurpose
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_input_purpose_get_type()
     }
 }

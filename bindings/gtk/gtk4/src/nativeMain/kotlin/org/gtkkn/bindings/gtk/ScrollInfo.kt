@@ -1,17 +1,17 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkScrollInfo
 import org.gtkkn.native.gtk.gtk_scroll_info_get_enable_horizontal
 import org.gtkkn.native.gtk.gtk_scroll_info_get_enable_vertical
+import org.gtkkn.native.gtk.gtk_scroll_info_get_type
 import org.gtkkn.native.gtk.gtk_scroll_info_new
 import org.gtkkn.native.gtk.gtk_scroll_info_ref
 import org.gtkkn.native.gtk.gtk_scroll_info_set_enable_horizontal
@@ -29,9 +29,7 @@ import kotlin.Unit
  * @since 4.12
  */
 @GtkVersion4_12
-public class ScrollInfo(
-    pointer: CPointer<GtkScrollInfo>,
-) : Record {
+public class ScrollInfo(pointer: CPointer<GtkScrollInfo>) : ProxyInstance(pointer) {
     public val gtkScrollInfoPointer: CPointer<GtkScrollInfo> = pointer
 
     /**
@@ -61,10 +59,9 @@ public class ScrollInfo(
      * @since 4.12
      */
     @GtkVersion4_12
-    public fun ref(): ScrollInfo =
-        gtk_scroll_info_ref(gtkScrollInfoPointer.reinterpret())!!.run {
-            ScrollInfo(reinterpret())
-        }
+    public fun ref(): ScrollInfo = gtk_scroll_info_ref(gtkScrollInfoPointer.reinterpret())!!.run {
+        ScrollInfo(reinterpret())
+    }
 
     /**
      * Turns horizontal scrolling on or off.
@@ -98,7 +95,7 @@ public class ScrollInfo(
     @GtkVersion4_12
     public fun unref(): Unit = gtk_scroll_info_unref(gtkScrollInfoPointer.reinterpret())
 
-    public companion object : RecordCompanion<ScrollInfo, GtkScrollInfo> {
+    public companion object {
         /**
          * Creates a new scroll info for scrolling an element into view.
          *
@@ -107,6 +104,11 @@ public class ScrollInfo(
          */
         public fun new(): ScrollInfo = ScrollInfo(gtk_scroll_info_new()!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ScrollInfo = ScrollInfo(pointer.reinterpret())
+        /**
+         * Get the GType of ScrollInfo
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_scroll_info_get_type()
     }
 }

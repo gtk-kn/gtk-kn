@@ -7,6 +7,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupAuthDomainDigest
 import org.gtkkn.native.soup.soup_auth_domain_digest_encode_password
 import org.gtkkn.native.soup.soup_auth_domain_digest_get_type
@@ -23,10 +24,10 @@ import kotlin.String
  * - method `set_auth_callback`: C function soup_auth_domain_digest_set_auth_callback is ignored
  * - method `auth-callback`: Property has no getter nor setter
  * - method `auth-data`: Property has no getter nor setter
+ * - constructor `new`: Varargs parameter is not supported
  */
-public class AuthDomainDigest(
-    pointer: CPointer<SoupAuthDomainDigest>,
-) : AuthDomain(pointer.reinterpret()),
+public class AuthDomainDigest(pointer: CPointer<SoupAuthDomainDigest>) :
+    AuthDomain(pointer.reinterpret()),
     KGTyped {
     public val soupAuthDomainDigestPointer: CPointer<SoupAuthDomainDigest>
         get() = gPointer.reinterpret()
@@ -61,12 +62,15 @@ public class AuthDomainDigest(
          * @param password the password for @username in @realm
          * @return the encoded password
          */
-        public fun encodePassword(
-            username: String,
-            realm: String,
-            password: String,
-        ): String =
+        public fun encodePassword(username: String, realm: String, password: String): String =
             soup_auth_domain_digest_encode_password(username, realm, password)?.toKString()
                 ?: error("Expected not null string")
+
+        /**
+         * Get the GType of AuthDomainDigest
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_auth_domain_digest_get_type()
     }
 }

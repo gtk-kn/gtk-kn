@@ -3,15 +3,15 @@ package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitFaviconDatabaseError
+import org.gtkkn.native.webkit.webkit_favicon_database_error_get_type
 import org.gtkkn.native.webkit.webkit_favicon_database_error_quark
 
 /**
  * Enum values used to denote the various errors related to the #WebKitFaviconDatabase.
  */
-public enum class FaviconDatabaseError(
-    public val nativeValue: WebKitFaviconDatabaseError,
-) {
+public enum class FaviconDatabaseError(public val nativeValue: WebKitFaviconDatabaseError) {
     /**
      * The #WebKitFaviconDatabase is closed
      */
@@ -29,13 +29,12 @@ public enum class FaviconDatabaseError(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitFaviconDatabaseError): FaviconDatabaseError =
-            when (nativeValue) {
-                WebKitFaviconDatabaseError.WEBKIT_FAVICON_DATABASE_ERROR_NOT_INITIALIZED -> NOT_INITIALIZED
-                WebKitFaviconDatabaseError.WEBKIT_FAVICON_DATABASE_ERROR_FAVICON_NOT_FOUND -> FAVICON_NOT_FOUND
-                WebKitFaviconDatabaseError.WEBKIT_FAVICON_DATABASE_ERROR_FAVICON_UNKNOWN -> FAVICON_UNKNOWN
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitFaviconDatabaseError): FaviconDatabaseError = when (nativeValue) {
+            WebKitFaviconDatabaseError.WEBKIT_FAVICON_DATABASE_ERROR_NOT_INITIALIZED -> NOT_INITIALIZED
+            WebKitFaviconDatabaseError.WEBKIT_FAVICON_DATABASE_ERROR_FAVICON_NOT_FOUND -> FAVICON_NOT_FOUND
+            WebKitFaviconDatabaseError.WEBKIT_FAVICON_DATABASE_ERROR_FAVICON_UNKNOWN -> FAVICON_UNKNOWN
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Gets the quark for the domain of favicon database errors.
@@ -44,11 +43,17 @@ public enum class FaviconDatabaseError(
          */
         public fun quark(): Quark = webkit_favicon_database_error_quark()
 
-        public fun fromErrorOrNull(error: Error): FaviconDatabaseError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                FaviconDatabaseError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        /**
+         * Get the GType of FaviconDatabaseError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_favicon_database_error_get_type()
+
+        public fun fromErrorOrNull(error: Error): FaviconDatabaseError? = if (error.domain != quark()) {
+            null
+        } else {
+            FaviconDatabaseError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

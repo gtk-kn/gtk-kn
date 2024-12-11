@@ -7,6 +7,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitPermissionRequest
 import org.gtkkn.native.webkit.webkit_permission_request_allow
 import org.gtkkn.native.webkit.webkit_permission_request_deny
@@ -38,9 +39,7 @@ public interface PermissionRequest :
      */
     public fun deny(): Unit = webkit_permission_request_deny(webkitPermissionRequestPointer.reinterpret())
 
-    private data class Wrapper(
-        private val pointer: CPointer<WebKitPermissionRequest>,
-    ) : PermissionRequest {
+    private data class Wrapper(private val pointer: CPointer<WebKitPermissionRequest>) : PermissionRequest {
         override val webkitPermissionRequestPointer: CPointer<WebKitPermissionRequest> = pointer
     }
 
@@ -53,5 +52,12 @@ public interface PermissionRequest :
         }
 
         public fun wrap(pointer: CPointer<WebKitPermissionRequest>): PermissionRequest = Wrapper(pointer)
+
+        /**
+         * Get the GType of PermissionRequest
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_permission_request_get_type()
     }
 }

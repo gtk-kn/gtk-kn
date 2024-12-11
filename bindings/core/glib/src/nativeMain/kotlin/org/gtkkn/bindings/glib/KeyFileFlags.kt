@@ -10,9 +10,7 @@ import org.gtkkn.native.glib.G_KEY_FILE_NONE
 /**
  * Flags which influence the parsing.
  */
-public class KeyFileFlags(
-    public val mask: GKeyFileFlags,
-) : Bitfield<KeyFileFlags> {
+public class KeyFileFlags(public val mask: GKeyFileFlags) : Bitfield<KeyFileFlags> {
     override infix fun or(other: KeyFileFlags): KeyFileFlags = KeyFileFlags(mask or other.mask)
 
     public companion object {

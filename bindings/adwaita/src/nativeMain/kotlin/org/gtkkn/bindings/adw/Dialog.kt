@@ -44,12 +44,13 @@ import org.gtkkn.native.adw.adw_dialog_set_focus
 import org.gtkkn.native.adw.adw_dialog_set_follows_content_size
 import org.gtkkn.native.adw.adw_dialog_set_presentation_mode
 import org.gtkkn.native.adw.adw_dialog_set_title
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -116,9 +117,8 @@ import kotlin.Unit
  * @since 1.5
  */
 @AdwVersion1_5
-public open class Dialog(
-    pointer: CPointer<AdwDialog>,
-) : Widget(pointer.reinterpret()),
+public open class Dialog(pointer: CPointer<AdwDialog>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val adwDialogPointer: CPointer<AdwDialog>
         get() = gPointer.reinterpret()
@@ -179,10 +179,9 @@ public open class Dialog(
          * @return the child widget of @self
          * @since 1.5
          */
-        get() =
-            adw_dialog_get_child(adwDialogPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = adw_dialog_get_child(adwDialogPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the child widget of @self.
@@ -203,7 +202,7 @@ public open class Dialog(
      * @since 1.5
      */
     @AdwVersion1_5
-    public open var contentHeight: Int
+    public open var contentHeight: gint
         /**
          * Gets the height of the dialog's contents.
          *
@@ -235,7 +234,7 @@ public open class Dialog(
      * @since 1.5
      */
     @AdwVersion1_5
-    public open var contentWidth: Int
+    public open var contentWidth: gint
         /**
          * Gets the width of the dialog's contents.
          *
@@ -270,10 +269,9 @@ public open class Dialog(
          * @return the current breakpoint
          * @since 1.5
          */
-        get() =
-            adw_dialog_get_current_breakpoint(adwDialogPointer.reinterpret())?.run {
-                Breakpoint(reinterpret())
-            }
+        get() = adw_dialog_get_current_breakpoint(adwDialogPointer.reinterpret())?.run {
+            Breakpoint(reinterpret())
+        }
 
     /**
      * The default widget.
@@ -290,10 +288,9 @@ public open class Dialog(
          * @return the default widget
          * @since 1.5
          */
-        get() =
-            adw_dialog_get_default_widget(adwDialogPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = adw_dialog_get_default_widget(adwDialogPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the default widget for @self.
@@ -306,11 +303,10 @@ public open class Dialog(
         @AdwVersion1_5
         set(
             defaultWidget
-        ) =
-            adw_dialog_set_default_widget(
-                adwDialogPointer.reinterpret(),
-                defaultWidget?.gtkWidgetPointer?.reinterpret()
-            )
+        ) = adw_dialog_set_default_widget(
+            adwDialogPointer.reinterpret(),
+            defaultWidget?.gtkWidgetPointer?.reinterpret()
+        )
 
     /**
      * Whether to size content automatically.
@@ -373,10 +369,9 @@ public open class Dialog(
          * @return the presentation mode
          * @since 1.5
          */
-        get() =
-            adw_dialog_get_presentation_mode(adwDialogPointer.reinterpret()).run {
-                DialogPresentationMode.fromNativeValue(this)
-            }
+        get() = adw_dialog_get_presentation_mode(adwDialogPointer.reinterpret()).run {
+            DialogPresentationMode.fromNativeValue(this)
+        }
 
         /**
          * Sets presentation mode for @self.
@@ -467,111 +462,15 @@ public open class Dialog(
     public open fun forceClose(): Unit = adw_dialog_force_close(adwDialogPointer.reinterpret())
 
     /**
-     * Gets whether @self can be closed.
-     *
-     * @return whether the dialog can be closed
-     * @since 1.5
-     */
-    @AdwVersion1_5
-    public open fun getCanClose(): Boolean = adw_dialog_get_can_close(adwDialogPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the child widget of @self.
-     *
-     * @return the child widget of @self
-     * @since 1.5
-     */
-    @AdwVersion1_5
-    public open fun getChild(): Widget? =
-        adw_dialog_get_child(adwDialogPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Gets the height of the dialog's contents.
-     *
-     * @return the content height
-     * @since 1.5
-     */
-    @AdwVersion1_5
-    public open fun getContentHeight(): Int = adw_dialog_get_content_height(adwDialogPointer.reinterpret())
-
-    /**
-     * Gets the width of the dialog's contents.
-     *
-     * @return the content width
-     * @since 1.5
-     */
-    @AdwVersion1_5
-    public open fun getContentWidth(): Int = adw_dialog_get_content_width(adwDialogPointer.reinterpret())
-
-    /**
-     * Gets the current breakpoint.
-     *
-     * @return the current breakpoint
-     * @since 1.5
-     */
-    @AdwVersion1_5
-    public open fun getCurrentBreakpoint(): Breakpoint? =
-        adw_dialog_get_current_breakpoint(adwDialogPointer.reinterpret())?.run {
-            Breakpoint(reinterpret())
-        }
-
-    /**
-     * Gets the default widget for @self.
-     *
-     * @return the default widget
-     * @since 1.5
-     */
-    @AdwVersion1_5
-    public open fun getDefaultWidget(): Widget? =
-        adw_dialog_get_default_widget(adwDialogPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
      * Gets the focus widget for @self.
      *
      * @return the focus widget
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun getFocus(): Widget? =
-        adw_dialog_get_focus(adwDialogPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Gets whether to size content of @self automatically.
-     *
-     * @return whether to size content automatically
-     * @since 1.5
-     */
-    @AdwVersion1_5
-    public open fun getFollowsContentSize(): Boolean =
-        adw_dialog_get_follows_content_size(adwDialogPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets presentation mode for @self.
-     *
-     * @return the presentation mode
-     * @since 1.5
-     */
-    @AdwVersion1_5
-    public open fun getPresentationMode(): DialogPresentationMode =
-        adw_dialog_get_presentation_mode(adwDialogPointer.reinterpret()).run {
-            DialogPresentationMode.fromNativeValue(this)
-        }
-
-    /**
-     * Gets the title of @self.
-     *
-     * @return the title
-     * @since 1.5
-     */
-    @AdwVersion1_5
-    public open fun getTitle(): String =
-        adw_dialog_get_title(adwDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public open fun getFocus(): Widget? = adw_dialog_get_focus(adwDialogPointer.reinterpret())?.run {
+        Widget(reinterpret())
+    }
 
     /**
      * Presents @self within @parent's window.
@@ -587,71 +486,6 @@ public open class Dialog(
     @AdwVersion1_5
     public open fun present(parent: Widget? = null): Unit =
         adw_dialog_present(adwDialogPointer.reinterpret(), parent?.gtkWidgetPointer?.reinterpret())
-
-    /**
-     * Sets whether @self can be closed.
-     *
-     * If set to `FALSE`, the close button, shortcuts and
-     * [method@Dialog.close] will result in [signal@Dialog::close-attempt] being
-     * emitted instead, and bottom sheet close swipe will be disabled.
-     * [method@Dialog.force_close] still works.
-     *
-     * @param canClose whether to allow closing
-     * @since 1.5
-     */
-    @AdwVersion1_5
-    public open fun setCanClose(canClose: Boolean): Unit =
-        adw_dialog_set_can_close(adwDialogPointer.reinterpret(), canClose.asGBoolean())
-
-    /**
-     * Sets the child widget of @self.
-     *
-     * @param child the child widget
-     * @since 1.5
-     */
-    @AdwVersion1_5
-    public open fun setChild(child: Widget? = null): Unit =
-        adw_dialog_set_child(adwDialogPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
-
-    /**
-     * Sets the height of the dialog's contents.
-     *
-     * Set it to -1 to reset it to the content's natural height.
-     *
-     * See also: [property@Gtk.Window:default-height]
-     *
-     * @param contentHeight the content height
-     * @since 1.5
-     */
-    @AdwVersion1_5
-    public open fun setContentHeight(contentHeight: Int): Unit =
-        adw_dialog_set_content_height(adwDialogPointer.reinterpret(), contentHeight)
-
-    /**
-     * Sets the width of the dialog's contents.
-     *
-     * Set it to -1 to reset it to the content's natural width.
-     *
-     * See also: [property@Gtk.Window:default-width]
-     *
-     * @param contentWidth the content width
-     * @since 1.5
-     */
-    @AdwVersion1_5
-    public open fun setContentWidth(contentWidth: Int): Unit =
-        adw_dialog_set_content_width(adwDialogPointer.reinterpret(), contentWidth)
-
-    /**
-     * Sets the default widget for @self.
-     *
-     * It's activated when the user presses Enter.
-     *
-     * @param defaultWidget the default widget
-     * @since 1.5
-     */
-    @AdwVersion1_5
-    public open fun setDefaultWidget(defaultWidget: Widget? = null): Unit =
-        adw_dialog_set_default_widget(adwDialogPointer.reinterpret(), defaultWidget?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets the focus widget for @self.
@@ -671,51 +505,6 @@ public open class Dialog(
         adw_dialog_set_focus(adwDialogPointer.reinterpret(), focus?.gtkWidgetPointer?.reinterpret())
 
     /**
-     * Sets whether to size content of @self automatically.
-     *
-     * If set to `TRUE`, always use the content's natural size instead of
-     * [property@Dialog:content-width] and [property@Dialog:content-height]. If
-     * the content resizes, the dialog will immediately resize as well.
-     *
-     * See also: [property@Gtk.Window:resizable]
-     *
-     * @param followsContentSize whether to size content automatically
-     * @since 1.5
-     */
-    @AdwVersion1_5
-    public open fun setFollowsContentSize(followsContentSize: Boolean): Unit =
-        adw_dialog_set_follows_content_size(adwDialogPointer.reinterpret(), followsContentSize.asGBoolean())
-
-    /**
-     * Sets presentation mode for @self.
-     *
-     * When set to `ADW_DIALOG_AUTO`, the dialog appears as a bottom sheet when the
-     * following condition is met: `max-width: 450px or max-height: 360px`, and as a
-     * floating window otherwise.
-     *
-     * Set it to `ADW_DIALOG_FLOATING` or `ADW_DIALOG_BOTTOM_SHEET` to always
-     * present it a floating window or a bottom sheet respectively, regardless of
-     * available size.
-     *
-     * Presentation mode does nothing for dialogs presented as a window.
-     *
-     * @param presentationMode the new presentation mode
-     * @since 1.5
-     */
-    @AdwVersion1_5
-    public open fun setPresentationMode(presentationMode: DialogPresentationMode): Unit =
-        adw_dialog_set_presentation_mode(adwDialogPointer.reinterpret(), presentationMode.nativeValue)
-
-    /**
-     * Sets the title of @self.
-     *
-     * @param title the new title
-     * @since 1.5
-     */
-    @AdwVersion1_5
-    public open fun setTitle(title: String): Unit = adw_dialog_set_title(adwDialogPointer.reinterpret(), title)
-
-    /**
      * Emitted when the close button or shortcut is used, or
      * [method@Dialog.close] is called while [property@Dialog:can-close] is set to
      * `FALSE`.
@@ -725,10 +514,7 @@ public open class Dialog(
      * @since 1.5
      */
     @AdwVersion1_5
-    public fun connectCloseAttempt(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectCloseAttempt(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "close-attempt",
@@ -746,10 +532,7 @@ public open class Dialog(
      * @since 1.5
      */
     @AdwVersion1_5
-    public fun connectClosed(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "closed",
@@ -766,21 +549,28 @@ public open class Dialog(
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Dialog
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_dialog_get_type()
     }
 }
 
-private val connectCloseAttemptFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectCloseAttemptFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectClosedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectClosedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

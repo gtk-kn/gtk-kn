@@ -38,9 +38,10 @@ import org.gtkkn.native.gio.g_action_group_get_type
 import org.gtkkn.native.gio.g_action_group_has_action
 import org.gtkkn.native.gio.g_action_group_list_actions
 import org.gtkkn.native.glib.GVariant
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -123,10 +124,7 @@ public interface ActionGroup :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun actionEnabledChanged(
-        actionName: String,
-        enabled: Boolean,
-    ): Unit =
+    public fun actionEnabledChanged(actionName: String, enabled: Boolean): Unit =
         g_action_group_action_enabled_changed(gioActionGroupPointer.reinterpret(), actionName, enabled.asGBoolean())
 
     /**
@@ -151,15 +149,11 @@ public interface ActionGroup :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun actionStateChanged(
-        actionName: String,
-        state: Variant,
-    ): Unit =
-        g_action_group_action_state_changed(
-            gioActionGroupPointer.reinterpret(),
-            actionName,
-            state.glibVariantPointer.reinterpret()
-        )
+    public fun actionStateChanged(actionName: String, state: Variant): Unit = g_action_group_action_state_changed(
+        gioActionGroupPointer.reinterpret(),
+        actionName,
+        state.glibVariantPointer.reinterpret()
+    )
 
     /**
      * Activate the named action within @action_group.
@@ -201,15 +195,11 @@ public interface ActionGroup :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun activateAction_(
-        actionName: String,
-        parameter: Variant? = null,
-    ): Unit =
-        g_action_group_activate_action(
-            gioActionGroupPointer.reinterpret(),
-            actionName,
-            parameter?.glibVariantPointer?.reinterpret()
-        )
+    public fun activateAction(actionName: String, parameter: Variant? = null): Unit = g_action_group_activate_action(
+        gioActionGroupPointer.reinterpret(),
+        actionName,
+        parameter?.glibVariantPointer?.reinterpret()
+    )
 
     /**
      * Request for the state of the named action within @action_group to be
@@ -229,15 +219,11 @@ public interface ActionGroup :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun changeActionState(
-        actionName: String,
-        `value`: Variant,
-    ): Unit =
-        g_action_group_change_action_state(
-            gioActionGroupPointer.reinterpret(),
-            actionName,
-            `value`.glibVariantPointer.reinterpret()
-        )
+    public fun changeActionState(actionName: String, `value`: Variant): Unit = g_action_group_change_action_state(
+        gioActionGroupPointer.reinterpret(),
+        actionName,
+        `value`.glibVariantPointer.reinterpret()
+    )
 
     /**
      * Checks if the named action within @action_group is currently enabled.
@@ -395,15 +381,14 @@ public interface ActionGroup :
     public fun connectActionAdded(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (actionName: String) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gioActionGroupPointer.reinterpret(),
-            "action-added",
-            connectActionAddedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gioActionGroupPointer.reinterpret(),
+        "action-added",
+        connectActionAddedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Signals that the enabled status of the named action has changed.
@@ -416,15 +401,14 @@ public interface ActionGroup :
     public fun connectActionEnabledChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (actionName: String, enabled: Boolean) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gioActionGroupPointer.reinterpret(),
-            "action-enabled-changed",
-            connectActionEnabledChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gioActionGroupPointer.reinterpret(),
+        "action-enabled-changed",
+        connectActionEnabledChangedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Signals that an action is just about to be removed from the group.
@@ -439,15 +423,14 @@ public interface ActionGroup :
     public fun connectActionRemoved(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (actionName: String) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gioActionGroupPointer.reinterpret(),
-            "action-removed",
-            connectActionRemovedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gioActionGroupPointer.reinterpret(),
+        "action-removed",
+        connectActionRemovedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Signals that the state of the named action has changed.
@@ -460,19 +443,16 @@ public interface ActionGroup :
     public fun connectActionStateChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (actionName: String, `value`: Variant) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gioActionGroupPointer.reinterpret(),
-            "action-state-changed",
-            connectActionStateChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gioActionGroupPointer.reinterpret(),
+        "action-state-changed",
+        connectActionStateChangedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
-    private data class Wrapper(
-        private val pointer: CPointer<GActionGroup>,
-    ) : ActionGroup {
+    private data class Wrapper(private val pointer: CPointer<GActionGroup>) : ActionGroup {
         override val gioActionGroupPointer: CPointer<GActionGroup> = pointer
     }
 
@@ -485,6 +465,13 @@ public interface ActionGroup :
         }
 
         public fun wrap(pointer: CPointer<GActionGroup>): ActionGroup = Wrapper(pointer)
+
+        /**
+         * Get the GType of ActionGroup
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_action_group_get_type()
     }
 }
 
@@ -497,20 +484,22 @@ private val connectActionAddedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Un
         userData.asStableRef<(actionName: String) -> Unit>().get().invoke(
             actionName?.toKString() ?: error("Expected not null string")
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
-private val connectActionEnabledChangedFunc: CPointer<CFunction<(CPointer<ByteVar>, Int) -> Unit>> =
-    staticCFunction {
+private val connectActionEnabledChangedFunc:
+    CPointer<CFunction<(CPointer<ByteVar>, gboolean) -> Unit>> = staticCFunction {
             _: COpaquePointer,
             actionName: CPointer<ByteVar>?,
-            enabled: Int,
+            enabled: gboolean,
             userData: COpaquePointer,
         ->
         userData.asStableRef<(actionName: String, enabled: Boolean) -> Unit>().get().invoke(
             actionName?.toKString() ?: error("Expected not null string"),
             enabled.asBoolean()
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 private val connectActionRemovedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
     staticCFunction {
@@ -521,11 +510,11 @@ private val connectActionRemovedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> 
         userData.asStableRef<(actionName: String) -> Unit>().get().invoke(
             actionName?.toKString() ?: error("Expected not null string")
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 private val connectActionStateChangedFunc:
-    CPointer<CFunction<(CPointer<ByteVar>, CPointer<GVariant>) -> Unit>> =
-    staticCFunction {
+    CPointer<CFunction<(CPointer<ByteVar>, CPointer<GVariant>) -> Unit>> = staticCFunction {
             _: COpaquePointer,
             actionName: CPointer<ByteVar>?,
             `value`: CPointer<GVariant>?,
@@ -537,4 +526,5 @@ private val connectActionStateChangedFunc:
                 Variant(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()

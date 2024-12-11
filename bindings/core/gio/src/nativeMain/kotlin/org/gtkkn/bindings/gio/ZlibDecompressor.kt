@@ -13,6 +13,7 @@ import org.gtkkn.native.gio.GZlibDecompressor
 import org.gtkkn.native.gio.g_zlib_decompressor_get_file_info
 import org.gtkkn.native.gio.g_zlib_decompressor_get_type
 import org.gtkkn.native.gio.g_zlib_decompressor_new
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GZlibDecompressor` is an implementation of [iface@Gio.Converter] that
@@ -22,9 +23,8 @@ import org.gtkkn.native.gio.g_zlib_decompressor_new
  *
  * - method `format`: Property has no getter nor setter
  */
-public open class ZlibDecompressor(
-    pointer: CPointer<GZlibDecompressor>,
-) : Object(pointer.reinterpret()),
+public open class ZlibDecompressor(pointer: CPointer<GZlibDecompressor>) :
+    Object(pointer.reinterpret()),
     Converter,
     KGTyped {
     public val gioZlibDecompressorPointer: CPointer<GZlibDecompressor>
@@ -53,10 +53,9 @@ public open class ZlibDecompressor(
          * @return a #GFileInfo, or null
          * @since 2.26
          */
-        get() =
-            g_zlib_decompressor_get_file_info(gioZlibDecompressorPointer.reinterpret())?.run {
-                FileInfo(reinterpret())
-            }
+        get() = g_zlib_decompressor_get_file_info(gioZlibDecompressorPointer.reinterpret())?.run {
+            FileInfo(reinterpret())
+        }
 
     /**
      * Creates a new #GZlibDecompressor.
@@ -67,22 +66,6 @@ public open class ZlibDecompressor(
      */
     public constructor(format: ZlibCompressorFormat) : this(g_zlib_decompressor_new(format.nativeValue)!!.reinterpret())
 
-    /**
-     * Retrieves the #GFileInfo constructed from the GZIP header data
-     * of compressed data processed by @compressor, or null if @decompressor's
-     * #GZlibDecompressor:format property is not %G_ZLIB_COMPRESSOR_FORMAT_GZIP,
-     * or the header data was not fully processed yet, or it not present in the
-     * data stream at all.
-     *
-     * @return a #GFileInfo, or null
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public open fun getFileInfo(): FileInfo? =
-        g_zlib_decompressor_get_file_info(gioZlibDecompressorPointer.reinterpret())?.run {
-            FileInfo(reinterpret())
-        }
-
     public companion object : TypeCompanion<ZlibDecompressor> {
         override val type: GeneratedClassKGType<ZlibDecompressor> =
             GeneratedClassKGType(g_zlib_decompressor_get_type()) { ZlibDecompressor(it.reinterpret()) }
@@ -90,5 +73,12 @@ public open class ZlibDecompressor(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ZlibDecompressor
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_zlib_decompressor_get_type()
     }
 }

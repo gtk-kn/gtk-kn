@@ -29,10 +29,11 @@ import org.gtkkn.native.gdk.gdk_drag_get_selected_action
 import org.gtkkn.native.gdk.gdk_drag_get_surface
 import org.gtkkn.native.gdk.gdk_drag_get_type
 import org.gtkkn.native.gdk.gdk_drag_set_hotspot
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.ULong
 import kotlin.Unit
 
@@ -48,9 +49,8 @@ import kotlin.Unit
  * and so they are not normally needed in GTK applications. See the
  * "Drag and Drop" section of the GTK documentation for more information.
  */
-public open class Drag(
-    pointer: CPointer<GdkDrag>,
-) : Object(pointer.reinterpret()),
+public open class Drag(pointer: CPointer<GdkDrag>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gdkDragPointer: CPointer<GdkDrag>
         get() = gPointer.reinterpret()
@@ -64,10 +64,9 @@ public open class Drag(
          *
          * @return the `GdkDragAction` flags
          */
-        get() =
-            gdk_drag_get_actions(gdkDragPointer.reinterpret()).run {
-                DragAction(this)
-            }
+        get() = gdk_drag_get_actions(gdkDragPointer.reinterpret()).run {
+            DragAction(this)
+        }
 
     /**
      * The `GdkContentProvider`.
@@ -78,10 +77,9 @@ public open class Drag(
          *
          * @return The `GdkContentProvider` associated to @drag.
          */
-        get() =
-            gdk_drag_get_content(gdkDragPointer.reinterpret())!!.run {
-                ContentProvider(reinterpret())
-            }
+        get() = gdk_drag_get_content(gdkDragPointer.reinterpret())!!.run {
+            ContentProvider(reinterpret())
+        }
 
     /**
      * The `GdkDevice` that is performing the drag.
@@ -92,10 +90,9 @@ public open class Drag(
          *
          * @return The `GdkDevice` associated to @drag.
          */
-        get() =
-            gdk_drag_get_device(gdkDragPointer.reinterpret())!!.run {
-                Device(reinterpret())
-            }
+        get() = gdk_drag_get_device(gdkDragPointer.reinterpret())!!.run {
+            Device(reinterpret())
+        }
 
     /**
      * The `GdkDisplay` that the drag belongs to.
@@ -106,10 +103,9 @@ public open class Drag(
          *
          * @return a `GdkDisplay`
          */
-        get() =
-            gdk_drag_get_display(gdkDragPointer.reinterpret())!!.run {
-                Display(reinterpret())
-            }
+        get() = gdk_drag_get_display(gdkDragPointer.reinterpret())!!.run {
+            Display(reinterpret())
+        }
 
     /**
      * The possible formats that the drag can provide its data in.
@@ -120,10 +116,9 @@ public open class Drag(
          *
          * @return a `GdkContentFormats`
          */
-        get() =
-            gdk_drag_get_formats(gdkDragPointer.reinterpret())!!.run {
-                ContentFormats(reinterpret())
-            }
+        get() = gdk_drag_get_formats(gdkDragPointer.reinterpret())!!.run {
+            ContentFormats(reinterpret())
+        }
 
     /**
      * The currently selected action of the drag.
@@ -134,10 +129,9 @@ public open class Drag(
          *
          * @return a `GdkDragAction` value
          */
-        get() =
-            gdk_drag_get_selected_action(gdkDragPointer.reinterpret()).run {
-                DragAction(this)
-            }
+        get() = gdk_drag_get_selected_action(gdkDragPointer.reinterpret()).run {
+            DragAction(this)
+        }
 
     /**
      * The surface where the drag originates.
@@ -148,10 +142,9 @@ public open class Drag(
          *
          * @return The `GdkSurface` where the drag originates
          */
-        get() =
-            gdk_drag_get_surface(gdkDragPointer.reinterpret())!!.run {
-                Surface(reinterpret())
-            }
+        get() = gdk_drag_get_surface(gdkDragPointer.reinterpret())!!.run {
+            Surface(reinterpret())
+        }
 
     /**
      * Informs GDK that the drop ended.
@@ -172,46 +165,6 @@ public open class Drag(
         gdk_drag_drop_done(gdkDragPointer.reinterpret(), success.asGBoolean())
 
     /**
-     * Determines the bitmask of possible actions proposed by the source.
-     *
-     * @return the `GdkDragAction` flags
-     */
-    public open fun getActions(): DragAction =
-        gdk_drag_get_actions(gdkDragPointer.reinterpret()).run {
-            DragAction(this)
-        }
-
-    /**
-     * Returns the `GdkContentProvider` associated to the `GdkDrag` object.
-     *
-     * @return The `GdkContentProvider` associated to @drag.
-     */
-    public open fun getContent(): ContentProvider =
-        gdk_drag_get_content(gdkDragPointer.reinterpret())!!.run {
-            ContentProvider(reinterpret())
-        }
-
-    /**
-     * Returns the `GdkDevice` associated to the `GdkDrag` object.
-     *
-     * @return The `GdkDevice` associated to @drag.
-     */
-    public open fun getDevice(): Device =
-        gdk_drag_get_device(gdkDragPointer.reinterpret())!!.run {
-            Device(reinterpret())
-        }
-
-    /**
-     * Gets the `GdkDisplay` that the drag object was created for.
-     *
-     * @return a `GdkDisplay`
-     */
-    public open fun getDisplay(): Display =
-        gdk_drag_get_display(gdkDragPointer.reinterpret())!!.run {
-            Display(reinterpret())
-        }
-
-    /**
      * Returns the surface on which the drag icon should be rendered
      * during the drag operation.
      *
@@ -222,40 +175,9 @@ public open class Drag(
      *
      * @return the drag surface
      */
-    public open fun getDragSurface(): Surface? =
-        gdk_drag_get_drag_surface(gdkDragPointer.reinterpret())?.run {
-            Surface(reinterpret())
-        }
-
-    /**
-     * Retrieves the formats supported by this `GdkDrag` object.
-     *
-     * @return a `GdkContentFormats`
-     */
-    public open fun getFormats(): ContentFormats =
-        gdk_drag_get_formats(gdkDragPointer.reinterpret())!!.run {
-            ContentFormats(reinterpret())
-        }
-
-    /**
-     * Determines the action chosen by the drag destination.
-     *
-     * @return a `GdkDragAction` value
-     */
-    public open fun getSelectedAction(): DragAction =
-        gdk_drag_get_selected_action(gdkDragPointer.reinterpret()).run {
-            DragAction(this)
-        }
-
-    /**
-     * Returns the `GdkSurface` where the drag originates.
-     *
-     * @return The `GdkSurface` where the drag originates
-     */
-    public open fun getSurface(): Surface =
-        gdk_drag_get_surface(gdkDragPointer.reinterpret())!!.run {
-            Surface(reinterpret())
-        }
+    public open fun getDragSurface(): Surface? = gdk_drag_get_drag_surface(gdkDragPointer.reinterpret())?.run {
+        Surface(reinterpret())
+    }
 
     /**
      * Sets the position of the drag surface that will be kept
@@ -266,10 +188,8 @@ public open class Drag(
      * @param hotX x coordinate of the drag surface hotspot
      * @param hotY y coordinate of the drag surface hotspot
      */
-    public open fun setHotspot(
-        hotX: Int,
-        hotY: Int,
-    ): Unit = gdk_drag_set_hotspot(gdkDragPointer.reinterpret(), hotX, hotY)
+    public open fun setHotspot(hotX: gint, hotY: gint): Unit =
+        gdk_drag_set_hotspot(gdkDragPointer.reinterpret(), hotX, hotY)
 
     /**
      * Emitted when the drag operation is cancelled.
@@ -280,15 +200,14 @@ public open class Drag(
     public fun connectCancel(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (reason: DragCancelReason) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "cancel",
-            connectCancelFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "cancel",
+        connectCancelFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted when the destination side has finished reading all data.
@@ -298,10 +217,7 @@ public open class Drag(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectDndFinished(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectDndFinished(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "dnd-finished",
@@ -317,10 +233,7 @@ public open class Drag(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectDropPerformed(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectDropPerformed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "drop-performed",
@@ -367,19 +280,25 @@ public open class Drag(
             device: Device,
             content: ContentProvider,
             actions: DragAction,
-            dx: Double,
-            dy: Double,
-        ): Drag? =
-            gdk_drag_begin(
-                surface.gdkSurfacePointer.reinterpret(),
-                device.gdkDevicePointer.reinterpret(),
-                content.gdkContentProviderPointer.reinterpret(),
-                actions.mask,
-                dx,
-                dy
-            )?.run {
-                Drag(reinterpret())
-            }
+            dx: gdouble,
+            dy: gdouble,
+        ): Drag? = gdk_drag_begin(
+            surface.gdkSurfacePointer.reinterpret(),
+            device.gdkDevicePointer.reinterpret(),
+            content.gdkContentProviderPointer.reinterpret(),
+            actions.mask,
+            dx,
+            dy
+        )?.run {
+            Drag(reinterpret())
+        }
+
+        /**
+         * Get the GType of Drag
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_drag_get_type()
     }
 }
 
@@ -394,20 +313,21 @@ private val connectCancelFunc: CPointer<CFunction<(GdkDragCancelReason) -> Unit>
                 DragCancelReason.fromNativeValue(this)
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
-private val connectDndFinishedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectDndFinishedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectDropPerformedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectDropPerformedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

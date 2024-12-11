@@ -13,8 +13,9 @@ import org.gtkkn.native.gio.g_socket_control_message_get_level
 import org.gtkkn.native.gio.g_socket_control_message_get_msg_type
 import org.gtkkn.native.gio.g_socket_control_message_get_size
 import org.gtkkn.native.gio.g_socket_control_message_get_type
-import kotlin.Int
-import kotlin.ULong
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gsize
 
 /**
  * A `GSocketControlMessage` is a special-purpose utility message that
@@ -46,9 +47,8 @@ import kotlin.ULong
  * @since 2.22
  */
 @GioVersion2_22
-public open class SocketControlMessage(
-    pointer: CPointer<GSocketControlMessage>,
-) : Object(pointer.reinterpret()),
+public open class SocketControlMessage(pointer: CPointer<GSocketControlMessage>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioSocketControlMessagePointer: CPointer<GSocketControlMessage>
         get() = gPointer.reinterpret()
@@ -61,7 +61,7 @@ public open class SocketControlMessage(
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun getLevel(): Int = g_socket_control_message_get_level(gioSocketControlMessagePointer.reinterpret())
+    public open fun getLevel(): gint = g_socket_control_message_get_level(gioSocketControlMessagePointer.reinterpret())
 
     /**
      * Returns the protocol specific type of the control message.
@@ -71,7 +71,7 @@ public open class SocketControlMessage(
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun getMsgType(): Int =
+    public open fun getMsgType(): gint =
         g_socket_control_message_get_msg_type(gioSocketControlMessagePointer.reinterpret())
 
     /**
@@ -82,7 +82,7 @@ public open class SocketControlMessage(
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun getSize(): ULong = g_socket_control_message_get_size(gioSocketControlMessagePointer.reinterpret())
+    public open fun getSize(): gsize = g_socket_control_message_get_size(gioSocketControlMessagePointer.reinterpret())
 
     public companion object : TypeCompanion<SocketControlMessage> {
         override val type: GeneratedClassKGType<SocketControlMessage> =
@@ -91,5 +91,12 @@ public open class SocketControlMessage(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of SocketControlMessage
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_socket_control_message_get_type()
     }
 }

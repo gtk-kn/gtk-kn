@@ -14,6 +14,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkStyleProvider
 import org.gtkkn.native.gtk.gtk_style_provider_get_type
@@ -42,10 +43,7 @@ public interface StyleProvider :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectGtkPrivateChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectGtkPrivateChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gtkStyleProviderPointer.reinterpret(),
             "gtk-private-changed",
@@ -55,9 +53,7 @@ public interface StyleProvider :
             connectFlags.mask
         )
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkStyleProvider>,
-    ) : StyleProvider {
+    private data class Wrapper(private val pointer: CPointer<GtkStyleProvider>) : StyleProvider {
         override val gtkStyleProviderPointer: CPointer<GtkStyleProvider> = pointer
     }
 
@@ -70,13 +66,20 @@ public interface StyleProvider :
         }
 
         public fun wrap(pointer: CPointer<GtkStyleProvider>): StyleProvider = Wrapper(pointer)
+
+        /**
+         * Get the GType of StyleProvider
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_style_provider_get_type()
     }
 }
 
-private val connectGtkPrivateChangedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectGtkPrivateChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

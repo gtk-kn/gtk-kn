@@ -8,6 +8,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkShortcut
 import org.gtkkn.native.gtk.gtk_shortcut_get_action
 import org.gtkkn.native.gtk.gtk_shortcut_get_arguments
@@ -17,7 +18,6 @@ import org.gtkkn.native.gtk.gtk_shortcut_new
 import org.gtkkn.native.gtk.gtk_shortcut_set_action
 import org.gtkkn.native.gtk.gtk_shortcut_set_arguments
 import org.gtkkn.native.gtk.gtk_shortcut_set_trigger
-import kotlin.Unit
 
 /**
  * A `GtkShortcut` describes a keyboard shortcut.
@@ -35,10 +35,13 @@ import kotlin.Unit
  * `GtkShortcut` does provide functionality to make it easy for users
  * to work with shortcuts, either by providing informational strings
  * for display purposes or by allowing shortcuts to be configured.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - constructor `new_with_arguments`: Varargs parameter is not supported
  */
-public open class Shortcut(
-    pointer: CPointer<GtkShortcut>,
-) : Object(pointer.reinterpret()),
+public open class Shortcut(pointer: CPointer<GtkShortcut>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkShortcutPointer: CPointer<GtkShortcut>
         get() = gPointer.reinterpret()
@@ -52,10 +55,9 @@ public open class Shortcut(
          *
          * @return the action
          */
-        get() =
-            gtk_shortcut_get_action(gtkShortcutPointer.reinterpret())?.run {
-                ShortcutAction(reinterpret())
-            }
+        get() = gtk_shortcut_get_action(gtkShortcutPointer.reinterpret())?.run {
+            ShortcutAction(reinterpret())
+        }
 
         /**
          * Sets the new action for @self to be @action.
@@ -76,10 +78,9 @@ public open class Shortcut(
          *
          * @return the arguments
          */
-        get() =
-            gtk_shortcut_get_arguments(gtkShortcutPointer.reinterpret())?.run {
-                Variant(reinterpret())
-            }
+        get() = gtk_shortcut_get_arguments(gtkShortcutPointer.reinterpret())?.run {
+            Variant(reinterpret())
+        }
 
         /**
          * Sets the arguments to pass when activating the shortcut.
@@ -99,10 +100,9 @@ public open class Shortcut(
          *
          * @return the trigger used
          */
-        get() =
-            gtk_shortcut_get_trigger(gtkShortcutPointer.reinterpret())?.run {
-                ShortcutTrigger(reinterpret())
-            }
+        get() = gtk_shortcut_get_trigger(gtkShortcutPointer.reinterpret())?.run {
+            ShortcutTrigger(reinterpret())
+        }
 
         /**
          * Sets the new trigger for @self to be @trigger.
@@ -112,11 +112,10 @@ public open class Shortcut(
          */
         set(
             trigger
-        ) =
-            gtk_shortcut_set_trigger(
-                gtkShortcutPointer.reinterpret(),
-                trigger?.gtkShortcutTriggerPointer?.reinterpret()
-            )
+        ) = gtk_shortcut_set_trigger(
+            gtkShortcutPointer.reinterpret(),
+            trigger?.gtkShortcutTriggerPointer?.reinterpret()
+        )
 
     /**
      * Creates a new `GtkShortcut` that is triggered by
@@ -137,62 +136,6 @@ public open class Shortcut(
         )!!.reinterpret()
     )
 
-    /**
-     * Gets the action that is activated by this shortcut.
-     *
-     * @return the action
-     */
-    public open fun getAction(): ShortcutAction? =
-        gtk_shortcut_get_action(gtkShortcutPointer.reinterpret())?.run {
-            ShortcutAction(reinterpret())
-        }
-
-    /**
-     * Gets the arguments that are passed when activating the shortcut.
-     *
-     * @return the arguments
-     */
-    public open fun getArguments(): Variant? =
-        gtk_shortcut_get_arguments(gtkShortcutPointer.reinterpret())?.run {
-            Variant(reinterpret())
-        }
-
-    /**
-     * Gets the trigger used to trigger @self.
-     *
-     * @return the trigger used
-     */
-    public open fun getTrigger(): ShortcutTrigger? =
-        gtk_shortcut_get_trigger(gtkShortcutPointer.reinterpret())?.run {
-            ShortcutTrigger(reinterpret())
-        }
-
-    /**
-     * Sets the new action for @self to be @action.
-     *
-     * @param action The new action.
-     *   If the @action is null, the nothing action will be used.
-     */
-    public open fun setAction(action: ShortcutAction? = null): Unit =
-        gtk_shortcut_set_action(gtkShortcutPointer.reinterpret(), action?.gtkShortcutActionPointer?.reinterpret())
-
-    /**
-     * Sets the arguments to pass when activating the shortcut.
-     *
-     * @param args arguments to pass when activating @self
-     */
-    public open fun setArguments(args: Variant? = null): Unit =
-        gtk_shortcut_set_arguments(gtkShortcutPointer.reinterpret(), args?.glibVariantPointer?.reinterpret())
-
-    /**
-     * Sets the new trigger for @self to be @trigger.
-     *
-     * @param trigger The new trigger.
-     *   If the @trigger is null, the never trigger will be used.
-     */
-    public open fun setTrigger(trigger: ShortcutTrigger? = null): Unit =
-        gtk_shortcut_set_trigger(gtkShortcutPointer.reinterpret(), trigger?.gtkShortcutTriggerPointer?.reinterpret())
-
     public companion object : TypeCompanion<Shortcut> {
         override val type: GeneratedClassKGType<Shortcut> =
             GeneratedClassKGType(gtk_shortcut_get_type()) { Shortcut(it.reinterpret()) }
@@ -200,5 +143,12 @@ public open class Shortcut(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Shortcut
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_shortcut_get_type()
     }
 }

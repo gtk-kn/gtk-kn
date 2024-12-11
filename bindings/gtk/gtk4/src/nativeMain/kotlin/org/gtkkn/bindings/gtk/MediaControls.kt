@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -14,7 +15,6 @@ import org.gtkkn.native.gtk.gtk_media_controls_get_media_stream
 import org.gtkkn.native.gtk.gtk_media_controls_get_type
 import org.gtkkn.native.gtk.gtk_media_controls_new
 import org.gtkkn.native.gtk.gtk_media_controls_set_media_stream
-import kotlin.Unit
 
 /**
  * `GtkMediaControls` is a widget to show controls for a video.
@@ -23,9 +23,8 @@ import kotlin.Unit
  *
  * Usually, `GtkMediaControls` is used as part of [class@Gtk.Video].
  */
-public open class MediaControls(
-    pointer: CPointer<GtkMediaControls>,
-) : Widget(pointer.reinterpret()),
+public open class MediaControls(pointer: CPointer<GtkMediaControls>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkMediaControlsPointer: CPointer<GtkMediaControls>
         get() = gPointer.reinterpret()
@@ -48,10 +47,9 @@ public open class MediaControls(
          *
          * @return The media stream managed by @controls
          */
-        get() =
-            gtk_media_controls_get_media_stream(gtkMediaControlsPointer.reinterpret())?.run {
-                MediaStream(reinterpret())
-            }
+        get() = gtk_media_controls_get_media_stream(gtkMediaControlsPointer.reinterpret())?.run {
+            MediaStream(reinterpret())
+        }
 
         /**
          * Sets the stream that is controlled by @controls.
@@ -60,11 +58,10 @@ public open class MediaControls(
          */
         set(
             stream
-        ) =
-            gtk_media_controls_set_media_stream(
-                gtkMediaControlsPointer.reinterpret(),
-                stream?.gtkMediaStreamPointer?.reinterpret()
-            )
+        ) = gtk_media_controls_set_media_stream(
+            gtkMediaControlsPointer.reinterpret(),
+            stream?.gtkMediaStreamPointer?.reinterpret()
+        )
 
     /**
      * Creates a new `GtkMediaControls` managing the @stream passed to it.
@@ -76,27 +73,6 @@ public open class MediaControls(
         stream: MediaStream? = null,
     ) : this(gtk_media_controls_new(stream?.gtkMediaStreamPointer?.reinterpret())!!.reinterpret())
 
-    /**
-     * Gets the media stream managed by @controls or null if none.
-     *
-     * @return The media stream managed by @controls
-     */
-    public open fun getMediaStream(): MediaStream? =
-        gtk_media_controls_get_media_stream(gtkMediaControlsPointer.reinterpret())?.run {
-            MediaStream(reinterpret())
-        }
-
-    /**
-     * Sets the stream that is controlled by @controls.
-     *
-     * @param stream a `GtkMediaStream`
-     */
-    public open fun setMediaStream(stream: MediaStream? = null): Unit =
-        gtk_media_controls_set_media_stream(
-            gtkMediaControlsPointer.reinterpret(),
-            stream?.gtkMediaStreamPointer?.reinterpret()
-        )
-
     public companion object : TypeCompanion<MediaControls> {
         override val type: GeneratedClassKGType<MediaControls> =
             GeneratedClassKGType(gtk_media_controls_get_type()) { MediaControls(it.reinterpret()) }
@@ -104,5 +80,12 @@ public open class MediaControls(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of MediaControls
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_media_controls_get_type()
     }
 }

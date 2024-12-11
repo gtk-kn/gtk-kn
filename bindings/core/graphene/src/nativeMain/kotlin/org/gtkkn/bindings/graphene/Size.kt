@@ -1,16 +1,23 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.graphene
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.graphene.graphene_size_alloc
 import org.gtkkn.native.graphene.graphene_size_equal
 import org.gtkkn.native.graphene.graphene_size_free
+import org.gtkkn.native.graphene.graphene_size_get_type
 import org.gtkkn.native.graphene.graphene_size_init
 import org.gtkkn.native.graphene.graphene_size_init_from_size
 import org.gtkkn.native.graphene.graphene_size_interpolate
@@ -18,25 +25,27 @@ import org.gtkkn.native.graphene.graphene_size_scale
 import org.gtkkn.native.graphene.graphene_size_t
 import org.gtkkn.native.graphene.graphene_size_zero
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Float
+import kotlin.Pair
+import kotlin.String
 import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * A size.
  * @since 1.0
  */
 @GrapheneVersion1_0
-public class Size(
-    pointer: CPointer<graphene_size_t>,
-) : Record {
+public class Size(pointer: CPointer<graphene_size_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val grapheneSizePointer: CPointer<graphene_size_t> = pointer
 
     /**
      * the width
      */
-    public var width: Float
+    public var width: gfloat
         get() = grapheneSizePointer.pointed.width
+
+        @UnsafeFieldSetter
         set(`value`) {
             grapheneSizePointer.pointed.width = value
         }
@@ -44,11 +53,76 @@ public class Size(
     /**
      * the height
      */
-    public var height: Float
+    public var height: gfloat
         get() = grapheneSizePointer.pointed.height
+
+        @UnsafeFieldSetter
         set(`value`) {
             grapheneSizePointer.pointed.height = value
         }
+
+    /**
+     * Allocate a new Size.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<graphene_size_t>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Size and a [Cleaner] instance.
+     */
+    private constructor(
+        pair: Pair<CPointer<graphene_size_t>, Cleaner>,
+    ) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Size using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_size_t>().ptr)
+
+    /**
+     * Allocate a new Size.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param width the width
+     * @param height the height
+     */
+    public constructor(width: gfloat, height: gfloat) : this() {
+        this.width = width
+        this.height = height
+    }
+
+    /**
+     * Allocate a new Size using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param width the width
+     * @param height the height
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        width: gfloat,
+        height: gfloat,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.width = width
+        this.height = height
+    }
 
     /**
      * Checks whether the two give #graphene_size_t are equal.
@@ -78,10 +152,7 @@ public class Size(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun `init`(
-        width: Float,
-        height: Float,
-    ): Size =
+    public fun `init`(width: gfloat, height: gfloat): Size =
         graphene_size_init(grapheneSizePointer.reinterpret(), width, height)!!.run {
             Size(reinterpret())
         }
@@ -110,17 +181,12 @@ public class Size(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun interpolate(
-        b: Size,
-        factor: Double,
-        res: Size,
-    ): Unit =
-        graphene_size_interpolate(
-            grapheneSizePointer.reinterpret(),
-            b.grapheneSizePointer.reinterpret(),
-            factor,
-            res.grapheneSizePointer.reinterpret()
-        )
+    public fun interpolate(b: Size, factor: gdouble, res: Size): Unit = graphene_size_interpolate(
+        grapheneSizePointer.reinterpret(),
+        b.grapheneSizePointer.reinterpret(),
+        factor,
+        res.grapheneSizePointer.reinterpret()
+    )
 
     /**
      * Scales the components of a #graphene_size_t using the given @factor.
@@ -130,12 +196,12 @@ public class Size(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun scale(
-        factor: Float,
-        res: Size,
-    ): Unit = graphene_size_scale(grapheneSizePointer.reinterpret(), factor, res.grapheneSizePointer.reinterpret())
+    public fun scale(factor: gfloat, res: Size): Unit =
+        graphene_size_scale(grapheneSizePointer.reinterpret(), factor, res.grapheneSizePointer.reinterpret())
 
-    public companion object : RecordCompanion<Size, graphene_size_t> {
+    override fun toString(): String = "Size(width=$width, height=$height)"
+
+    public companion object {
         /**
          * Allocates a new #graphene_size_t.
          *
@@ -154,11 +220,15 @@ public class Size(
          * @since 1.0
          */
         @GrapheneVersion1_0
-        public fun zero(): Size =
-            graphene_size_zero()!!.run {
-                Size(reinterpret())
-            }
+        public fun zero(): Size = graphene_size_zero()!!.run {
+            Size(reinterpret())
+        }
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Size = Size(pointer.reinterpret())
+        /**
+         * Get the GType of Size
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = graphene_size_get_type()
     }
 }

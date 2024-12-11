@@ -25,8 +25,8 @@ import org.gtkkn.native.gio.g_tls_backend_get_type
 import org.gtkkn.native.gio.g_tls_backend_set_default_database
 import org.gtkkn.native.gio.g_tls_backend_supports_dtls
 import org.gtkkn.native.gio.g_tls_backend_supports_tls
+import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
-import kotlin.ULong
 import kotlin.Unit
 
 /**
@@ -49,7 +49,7 @@ public interface TlsBackend :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun getCertificateType(): ULong = g_tls_backend_get_certificate_type(gioTlsBackendPointer.reinterpret())
+    public fun getCertificateType(): GType = g_tls_backend_get_certificate_type(gioTlsBackendPointer.reinterpret())
 
     /**
      * Gets the #GType of @backend's #GTlsClientConnection implementation.
@@ -59,7 +59,7 @@ public interface TlsBackend :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun getClientConnectionType(): ULong =
+    public fun getClientConnectionType(): GType =
         g_tls_backend_get_client_connection_type(gioTlsBackendPointer.reinterpret())
 
     /**
@@ -83,7 +83,7 @@ public interface TlsBackend :
      * @since 2.48
      */
     @GioVersion2_48
-    public fun getDtlsClientConnectionType(): ULong =
+    public fun getDtlsClientConnectionType(): GType =
         g_tls_backend_get_dtls_client_connection_type(gioTlsBackendPointer.reinterpret())
 
     /**
@@ -94,7 +94,7 @@ public interface TlsBackend :
      * @since 2.48
      */
     @GioVersion2_48
-    public fun getDtlsServerConnectionType(): ULong =
+    public fun getDtlsServerConnectionType(): GType =
         g_tls_backend_get_dtls_server_connection_type(gioTlsBackendPointer.reinterpret())
 
     /**
@@ -104,7 +104,7 @@ public interface TlsBackend :
      * @since 2.30
      */
     @GioVersion2_30
-    public fun getFileDatabaseType(): ULong = g_tls_backend_get_file_database_type(gioTlsBackendPointer.reinterpret())
+    public fun getFileDatabaseType(): GType = g_tls_backend_get_file_database_type(gioTlsBackendPointer.reinterpret())
 
     /**
      * Gets the #GType of @backend's #GTlsServerConnection implementation.
@@ -114,7 +114,7 @@ public interface TlsBackend :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun getServerConnectionType(): ULong =
+    public fun getServerConnectionType(): GType =
         g_tls_backend_get_server_connection_type(gioTlsBackendPointer.reinterpret())
 
     /**
@@ -131,11 +131,10 @@ public interface TlsBackend :
      * @since 2.60
      */
     @GioVersion2_60
-    public fun setDefaultDatabase(database: TlsDatabase? = null): Unit =
-        g_tls_backend_set_default_database(
-            gioTlsBackendPointer.reinterpret(),
-            database?.gioTlsDatabasePointer?.reinterpret()
-        )
+    public fun setDefaultDatabase(database: TlsDatabase? = null): Unit = g_tls_backend_set_default_database(
+        gioTlsBackendPointer.reinterpret(),
+        database?.gioTlsDatabasePointer?.reinterpret()
+    )
 
     /**
      * Checks if DTLS is supported. DTLS support may not be available even if TLS
@@ -157,9 +156,7 @@ public interface TlsBackend :
     @GioVersion2_28
     public fun supportsTls(): Boolean = g_tls_backend_supports_tls(gioTlsBackendPointer.reinterpret()).asBoolean()
 
-    private data class Wrapper(
-        private val pointer: CPointer<GTlsBackend>,
-    ) : TlsBackend {
+    private data class Wrapper(private val pointer: CPointer<GTlsBackend>) : TlsBackend {
         override val gioTlsBackendPointer: CPointer<GTlsBackend> = pointer
     }
 
@@ -181,9 +178,15 @@ public interface TlsBackend :
          * @since 2.28
          */
         @GioVersion2_28
-        public fun getDefault(): TlsBackend =
-            g_tls_backend_get_default()!!.run {
-                TlsBackend.wrap(reinterpret())
-            }
+        public fun getDefault(): TlsBackend = g_tls_backend_get_default()!!.run {
+            TlsBackend.wrap(reinterpret())
+        }
+
+        /**
+         * Get the GType of TlsBackend
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_tls_backend_get_type()
     }
 }

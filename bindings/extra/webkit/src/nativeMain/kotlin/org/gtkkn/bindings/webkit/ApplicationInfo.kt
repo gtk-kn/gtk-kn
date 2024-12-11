@@ -1,22 +1,22 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_18
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.webkit.WebKitApplicationInfo
 import org.gtkkn.native.webkit.webkit_application_info_get_name
+import org.gtkkn.native.webkit.webkit_application_info_get_type
 import org.gtkkn.native.webkit.webkit_application_info_new
 import org.gtkkn.native.webkit.webkit_application_info_ref
 import org.gtkkn.native.webkit.webkit_application_info_set_name
 import org.gtkkn.native.webkit.webkit_application_info_set_version
 import org.gtkkn.native.webkit.webkit_application_info_unref
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 
 /**
@@ -26,9 +26,7 @@ import kotlin.Unit
  *
  * - parameter `major`: major: Out parameter is not supported
  */
-public class ApplicationInfo(
-    pointer: CPointer<WebKitApplicationInfo>,
-) : Record {
+public class ApplicationInfo(pointer: CPointer<WebKitApplicationInfo>) : ProxyInstance(pointer) {
     public val webkitApplicationInfoPointer: CPointer<WebKitApplicationInfo> = pointer
 
     /**
@@ -55,10 +53,9 @@ public class ApplicationInfo(
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun ref(): ApplicationInfo =
-        webkit_application_info_ref(webkitApplicationInfoPointer.reinterpret())!!.run {
-            ApplicationInfo(reinterpret())
-        }
+    public fun ref(): ApplicationInfo = webkit_application_info_ref(webkitApplicationInfoPointer.reinterpret())!!.run {
+        ApplicationInfo(reinterpret())
+    }
 
     /**
      * Set the name of the application.
@@ -87,11 +84,8 @@ public class ApplicationInfo(
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun setVersion(
-        major: ULong,
-        minor: ULong,
-        micro: ULong,
-    ): Unit = webkit_application_info_set_version(webkitApplicationInfoPointer.reinterpret(), major, minor, micro)
+    public fun setVersion(major: guint64, minor: guint64, micro: guint64): Unit =
+        webkit_application_info_set_version(webkitApplicationInfoPointer.reinterpret(), major, minor, micro)
 
     /**
      * Atomically decrements the reference count of @info by one.
@@ -106,7 +100,7 @@ public class ApplicationInfo(
     @WebKitVersion2_18
     public fun unref(): Unit = webkit_application_info_unref(webkitApplicationInfoPointer.reinterpret())
 
-    public companion object : RecordCompanion<ApplicationInfo, WebKitApplicationInfo> {
+    public companion object {
         /**
          * Creates a new #WebKitApplicationInfo
          *
@@ -115,7 +109,11 @@ public class ApplicationInfo(
          */
         public fun new(): ApplicationInfo = ApplicationInfo(webkit_application_info_new()!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ApplicationInfo =
-            ApplicationInfo(pointer.reinterpret())
+        /**
+         * Get the GType of ApplicationInfo
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_application_info_get_type()
     }
 }

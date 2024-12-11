@@ -9,9 +9,7 @@ import org.gtkkn.native.glib.GOptionArg
  * be specified in several ways; with a short option: `-x arg`, with a long
  * option: `--name arg` or combined in a single argument: `--name=arg`.
  */
-public enum class OptionArg(
-    public val nativeValue: GOptionArg,
-) {
+public enum class OptionArg(public val nativeValue: GOptionArg) {
     /**
      * No extra argument. This is useful for simple flags or booleans.
      */
@@ -68,18 +66,17 @@ public enum class OptionArg(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GOptionArg): OptionArg =
-            when (nativeValue) {
-                GOptionArg.G_OPTION_ARG_NONE -> NONE
-                GOptionArg.G_OPTION_ARG_STRING -> STRING
-                GOptionArg.G_OPTION_ARG_INT -> INT
-                GOptionArg.G_OPTION_ARG_CALLBACK -> CALLBACK
-                GOptionArg.G_OPTION_ARG_FILENAME -> FILENAME
-                GOptionArg.G_OPTION_ARG_STRING_ARRAY -> STRING_ARRAY
-                GOptionArg.G_OPTION_ARG_FILENAME_ARRAY -> FILENAME_ARRAY
-                GOptionArg.G_OPTION_ARG_DOUBLE -> DOUBLE
-                GOptionArg.G_OPTION_ARG_INT64 -> INT64
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GOptionArg): OptionArg = when (nativeValue) {
+            GOptionArg.G_OPTION_ARG_NONE -> NONE
+            GOptionArg.G_OPTION_ARG_STRING -> STRING
+            GOptionArg.G_OPTION_ARG_INT -> INT
+            GOptionArg.G_OPTION_ARG_CALLBACK -> CALLBACK
+            GOptionArg.G_OPTION_ARG_FILENAME -> FILENAME
+            GOptionArg.G_OPTION_ARG_STRING_ARRAY -> STRING_ARRAY
+            GOptionArg.G_OPTION_ARG_FILENAME_ARRAY -> FILENAME_ARRAY
+            GOptionArg.G_OPTION_ARG_DOUBLE -> DOUBLE
+            GOptionArg.G_OPTION_ARG_INT64 -> INT64
+            else -> error("invalid nativeValue")
+        }
     }
 }

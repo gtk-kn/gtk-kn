@@ -20,12 +20,12 @@ import org.gtkkn.native.adw.adw_clamp_set_child
 import org.gtkkn.native.adw.adw_clamp_set_maximum_size
 import org.gtkkn.native.adw.adw_clamp_set_tightening_threshold
 import org.gtkkn.native.adw.adw_clamp_set_unit
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkOrientable
-import kotlin.Int
-import kotlin.Unit
 
 /**
  * A widget constraining its child to a given size.
@@ -54,9 +54,8 @@ import kotlin.Unit
  *
  * `AdwClamp` has a single CSS node with name `clamp`.
  */
-public class Clamp(
-    pointer: CPointer<AdwClamp>,
-) : Widget(pointer.reinterpret()),
+public class Clamp(pointer: CPointer<AdwClamp>) :
+    Widget(pointer.reinterpret()),
     Orientable,
     KGTyped {
     public val adwClampPointer: CPointer<AdwClamp>
@@ -83,10 +82,9 @@ public class Clamp(
          *
          * @return the child widget of @self
          */
-        get() =
-            adw_clamp_get_child(adwClampPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = adw_clamp_get_child(adwClampPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the child widget of @self.
@@ -100,7 +98,7 @@ public class Clamp(
      *
      * It is the width if the clamp is horizontal, or the height if it is vertical.
      */
-    public var maximumSize: Int
+    public var maximumSize: gint
         /**
          * Gets the maximum size allocated to the child.
          *
@@ -133,7 +131,7 @@ public class Clamp(
      * Effectively, tightening the grip on the child before it reaches its maximum
      * size makes transitions to and from the maximum size smoother when resizing.
      */
-    public var tighteningThreshold: Int
+    public var tighteningThreshold: gint
         /**
          * Gets the size above which the child is clamped.
          *
@@ -178,10 +176,9 @@ public class Clamp(
          * @return the length unit
          * @since 1.4
          */
-        get() =
-            adw_clamp_get_unit(adwClampPointer.reinterpret()).run {
-                LengthUnit.fromNativeValue(this)
-            }
+        get() = adw_clamp_get_unit(adwClampPointer.reinterpret()).run {
+            LengthUnit.fromNativeValue(this)
+        }
 
         /**
          * Sets the length unit for maximum size and tightening threshold.
@@ -201,92 +198,6 @@ public class Clamp(
      */
     public constructor() : this(adw_clamp_new()!!.reinterpret())
 
-    /**
-     * Gets the child widget of @self.
-     *
-     * @return the child widget of @self
-     */
-    public fun getChild(): Widget? =
-        adw_clamp_get_child(adwClampPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Gets the maximum size allocated to the child.
-     *
-     * @return the maximum size to allocate to the child
-     */
-    public fun getMaximumSize(): Int = adw_clamp_get_maximum_size(adwClampPointer.reinterpret())
-
-    /**
-     * Gets the size above which the child is clamped.
-     *
-     * @return the size above which the child is clamped
-     */
-    public fun getTighteningThreshold(): Int = adw_clamp_get_tightening_threshold(adwClampPointer.reinterpret())
-
-    /**
-     * Gets the length unit for maximum size and tightening threshold.
-     *
-     * @return the length unit
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun getUnit(): LengthUnit =
-        adw_clamp_get_unit(adwClampPointer.reinterpret()).run {
-            LengthUnit.fromNativeValue(this)
-        }
-
-    /**
-     * Sets the child widget of @self.
-     *
-     * @param child the child widget
-     */
-    public fun setChild(child: Widget? = null): Unit =
-        adw_clamp_set_child(adwClampPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
-
-    /**
-     * Sets the maximum size allocated to the child.
-     *
-     * It is the width if the clamp is horizontal, or the height if it is vertical.
-     *
-     * @param maximumSize the maximum size
-     */
-    public fun setMaximumSize(maximumSize: Int): Unit =
-        adw_clamp_set_maximum_size(adwClampPointer.reinterpret(), maximumSize)
-
-    /**
-     * Sets the size above which the child is clamped.
-     *
-     * Starting from this size, the clamp will tighten its grip on the child, slowly
-     * allocating less and less of the available size up to the maximum allocated
-     * size. Below that threshold and below the maximum size, the child will be
-     * allocated all the available size.
-     *
-     * If the threshold is greater than the maximum size to allocate to the child,
-     * the child will be allocated all the size up to the maximum. If the threshold
-     * is lower than the minimum size to allocate to the child, that size will be
-     * used as the tightening threshold.
-     *
-     * Effectively, tightening the grip on the child before it reaches its maximum
-     * size makes transitions to and from the maximum size smoother when resizing.
-     *
-     * @param tighteningThreshold the tightening threshold
-     */
-    public fun setTighteningThreshold(tighteningThreshold: Int): Unit =
-        adw_clamp_set_tightening_threshold(adwClampPointer.reinterpret(), tighteningThreshold)
-
-    /**
-     * Sets the length unit for maximum size and tightening threshold.
-     *
-     * Allows the sizes to vary depending on the text scale factor.
-     *
-     * @param unit the length unit
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun setUnit(unit: LengthUnit): Unit = adw_clamp_set_unit(adwClampPointer.reinterpret(), unit.nativeValue)
-
     public companion object : TypeCompanion<Clamp> {
         override val type: GeneratedClassKGType<Clamp> =
             GeneratedClassKGType(adw_clamp_get_type()) { Clamp(it.reinterpret()) }
@@ -294,5 +205,12 @@ public class Clamp(
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Clamp
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_clamp_get_type()
     }
 }

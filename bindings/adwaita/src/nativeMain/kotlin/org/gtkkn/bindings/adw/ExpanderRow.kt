@@ -34,12 +34,13 @@ import org.gtkkn.native.adw.adw_expander_row_set_show_enable_switch
 import org.gtkkn.native.adw.adw_expander_row_set_subtitle
 import org.gtkkn.native.adw.adw_expander_row_set_subtitle_lines
 import org.gtkkn.native.adw.adw_expander_row_set_title_lines
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 
@@ -78,9 +79,8 @@ import kotlin.Unit
  * - method `subtitle-lines`: Property TypeInfo of getter and setter do not match
  * - method `title-lines`: Property TypeInfo of getter and setter do not match
  */
-public open class ExpanderRow(
-    pointer: CPointer<AdwExpanderRow>,
-) : PreferencesRow(pointer.reinterpret()),
+public open class ExpanderRow(pointer: CPointer<AdwExpanderRow>) :
+    PreferencesRow(pointer.reinterpret()),
     KGTyped {
     public val adwExpanderRowPointer: CPointer<AdwExpanderRow>
         get() = gPointer.reinterpret()
@@ -185,9 +185,8 @@ public open class ExpanderRow(
          *
          * @return the subtitle for @self
          */
-        get() =
-            adw_expander_row_get_subtitle(adwExpanderRowPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = adw_expander_row_get_subtitle(adwExpanderRowPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Sets the subtitle for @self.
@@ -243,47 +242,6 @@ public open class ExpanderRow(
         adw_expander_row_add_suffix(adwExpanderRowPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
-     * Gets whether the expansion of @self is enabled.
-     *
-     * @return whether the expansion of @self is enabled.
-     */
-    public open fun getEnableExpansion(): Boolean =
-        adw_expander_row_get_enable_expansion(adwExpanderRowPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets whether @self is expanded.
-     *
-     * @return whether @self is expanded
-     */
-    public open fun getExpanded(): Boolean =
-        adw_expander_row_get_expanded(adwExpanderRowPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the icon name for @self.
-     *
-     * @return the icon name for @self
-     */
-    public open fun getIconName(): String? =
-        adw_expander_row_get_icon_name(adwExpanderRowPointer.reinterpret())?.toKString()
-
-    /**
-     * Gets whether the switch enabling the expansion of @self is visible.
-     *
-     * @return whether the switch enabling the expansion is visible
-     */
-    public open fun getShowEnableSwitch(): Boolean =
-        adw_expander_row_get_show_enable_switch(adwExpanderRowPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the subtitle for @self.
-     *
-     * @return the subtitle for @self
-     */
-    public open fun getSubtitle(): String =
-        adw_expander_row_get_subtitle(adwExpanderRowPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
      * Gets the number of lines at the end of which the subtitle label will be
      * ellipsized.
      *
@@ -307,56 +265,8 @@ public open class ExpanderRow(
     public open fun getTitleLines(): Boolean =
         adw_expander_row_get_title_lines(adwExpanderRowPointer.reinterpret()).asBoolean()
 
-    /**
-     *
-     *
-     * @param child
-     */
     public open fun remove(child: Widget): Unit =
         adw_expander_row_remove(adwExpanderRowPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
-
-    /**
-     * Sets whether the expansion of @self is enabled.
-     *
-     * @param enableExpansion whether to enable the expansion
-     */
-    public open fun setEnableExpansion(enableExpansion: Boolean): Unit =
-        adw_expander_row_set_enable_expansion(adwExpanderRowPointer.reinterpret(), enableExpansion.asGBoolean())
-
-    /**
-     * Sets whether @self is expanded.
-     *
-     * @param expanded whether to expand the row
-     */
-    public open fun setExpanded(expanded: Boolean): Unit =
-        adw_expander_row_set_expanded(adwExpanderRowPointer.reinterpret(), expanded.asGBoolean())
-
-    /**
-     * Sets the icon name for @self.
-     *
-     * @param iconName the icon name
-     */
-    public open fun setIconName(iconName: String? = null): Unit =
-        adw_expander_row_set_icon_name(adwExpanderRowPointer.reinterpret(), iconName)
-
-    /**
-     * Sets whether the switch enabling the expansion of @self is visible.
-     *
-     * @param showEnableSwitch whether to show the switch enabling the expansion
-     */
-    public open fun setShowEnableSwitch(showEnableSwitch: Boolean): Unit =
-        adw_expander_row_set_show_enable_switch(adwExpanderRowPointer.reinterpret(), showEnableSwitch.asGBoolean())
-
-    /**
-     * Sets the subtitle for @self.
-     *
-     * The subtitle is interpreted as Pango markup unless
-     * [property@PreferencesRow:use-markup] is set to `FALSE`.
-     *
-     * @param subtitle the subtitle
-     */
-    public open fun setSubtitle(subtitle: String): Unit =
-        adw_expander_row_set_subtitle(adwExpanderRowPointer.reinterpret(), subtitle)
 
     /**
      * Sets the number of lines at the end of which the subtitle label will be
@@ -368,7 +278,7 @@ public open class ExpanderRow(
      * @since 1.3
      */
     @AdwVersion1_3
-    public open fun setSubtitleLines(subtitleLines: Int): Unit =
+    public open fun setSubtitleLines(subtitleLines: gint): Unit =
         adw_expander_row_set_subtitle_lines(adwExpanderRowPointer.reinterpret(), subtitleLines)
 
     /**
@@ -381,7 +291,7 @@ public open class ExpanderRow(
      * @since 1.3
      */
     @AdwVersion1_3
-    public open fun setTitleLines(titleLines: Int): Unit =
+    public open fun setTitleLines(titleLines: gint): Unit =
         adw_expander_row_set_title_lines(adwExpanderRowPointer.reinterpret(), titleLines)
 
     public companion object : TypeCompanion<ExpanderRow> {
@@ -391,5 +301,12 @@ public open class ExpanderRow(
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ExpanderRow
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_expander_row_get_type()
     }
 }

@@ -14,6 +14,7 @@ import org.gtkkn.native.gio.GRemoteActionGroup
 import org.gtkkn.native.gio.g_remote_action_group_activate_action_full
 import org.gtkkn.native.gio.g_remote_action_group_change_action_state_full
 import org.gtkkn.native.gio.g_remote_action_group_get_type
+import org.gtkkn.native.gobject.GType
 import kotlin.String
 import kotlin.Unit
 
@@ -68,11 +69,7 @@ public interface RemoteActionGroup :
      * @since 2.32
      */
     @GioVersion2_32
-    public fun activateActionFull(
-        actionName: String,
-        parameter: Variant? = null,
-        platformData: Variant,
-    ): Unit =
+    public fun activateActionFull(actionName: String, parameter: Variant? = null, platformData: Variant): Unit =
         g_remote_action_group_activate_action_full(
             gioRemoteActionGroupPointer.reinterpret(),
             actionName,
@@ -97,11 +94,7 @@ public interface RemoteActionGroup :
      * @since 2.32
      */
     @GioVersion2_32
-    public fun changeActionStateFull(
-        actionName: String,
-        `value`: Variant,
-        platformData: Variant,
-    ): Unit =
+    public fun changeActionStateFull(actionName: String, `value`: Variant, platformData: Variant): Unit =
         g_remote_action_group_change_action_state_full(
             gioRemoteActionGroupPointer.reinterpret(),
             actionName,
@@ -109,9 +102,7 @@ public interface RemoteActionGroup :
             platformData.glibVariantPointer.reinterpret()
         )
 
-    private data class Wrapper(
-        private val pointer: CPointer<GRemoteActionGroup>,
-    ) : RemoteActionGroup {
+    private data class Wrapper(private val pointer: CPointer<GRemoteActionGroup>) : RemoteActionGroup {
         override val gioRemoteActionGroupPointer: CPointer<GRemoteActionGroup> = pointer
     }
 
@@ -124,5 +115,12 @@ public interface RemoteActionGroup :
         }
 
         public fun wrap(pointer: CPointer<GRemoteActionGroup>): RemoteActionGroup = Wrapper(pointer)
+
+        /**
+         * Get the GType of RemoteActionGroup
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_remote_action_group_get_type()
     }
 }

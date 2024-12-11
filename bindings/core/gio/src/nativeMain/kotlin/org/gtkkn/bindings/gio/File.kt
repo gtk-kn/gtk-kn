@@ -157,13 +157,14 @@ import org.gtkkn.native.gio.g_file_unmount_mountable_finish
 import org.gtkkn.native.gio.g_file_unmount_mountable_with_operation
 import org.gtkkn.native.gio.g_file_unmount_mountable_with_operation_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gint64
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.guint64
 import kotlin.Boolean
-import kotlin.Int
-import kotlin.Long
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
-import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
 
@@ -267,8 +268,10 @@ import kotlin.collections.List
  * - parameter `etag_out`: etag_out: Out parameter is not supported
  * - parameter `contents`: contents: Out parameter is not supported
  * - parameter `contents`: contents: Out parameter is not supported
+ * - parameter `callback`: AsyncReadyCallback
  * - parameter `contents`: contents: Out parameter is not supported
  * - parameter `disk_usage`: disk_usage: Out parameter is not supported
+ * - parameter `callback`: AsyncReadyCallback
  * - parameter `disk_usage`: disk_usage: Out parameter is not supported
  * - parameter `callback`: AsyncReadyCallback
  * - parameter `contents`: Array parameter of type guint8 is not supported
@@ -276,6 +279,7 @@ import kotlin.collections.List
  * - parameter `new_etag`: new_etag: Out parameter is not supported
  * - parameter `value_p`: gpointer
  * - parameter `info`: info: Out parameter is not supported
+ * - function `new_build_filename`: Varargs parameter is not supported
  * - parameter `iostream`: iostream: Out parameter is not supported
  * - parameter `iostream`: iostream: Out parameter is not supported
  */
@@ -309,21 +313,17 @@ public interface File :
      * @return a #GFileOutputStream, or null on error.
      *   Free the returned object with g_object_unref().
      */
-    public fun appendTo(
-        flags: FileCreateFlags,
-        cancellable: Cancellable? = null,
-    ): Result<FileOutputStream> =
+    public fun appendTo(flags: FileCreateFlags, cancellable: Cancellable? = null): Result<FileOutputStream> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_append_to(
-                    gioFilePointer.reinterpret(),
-                    flags.mask,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    FileOutputStream(reinterpret())
-                }
+            val gResult = g_file_append_to(
+                gioFilePointer.reinterpret(),
+                flags.mask,
+                cancellable?.gioCancellablePointer?.reinterpret(),
+                gError.ptr
+            )?.run {
+                FileOutputStream(reinterpret())
+            }
 
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -351,18 +351,17 @@ public interface File :
      */
     public fun appendToAsync(
         flags: FileCreateFlags,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_append_to_async(
-            gioFilePointer.reinterpret(),
-            flags.mask,
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_append_to_async(
+        gioFilePointer.reinterpret(),
+        flags.mask,
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an asynchronous file append operation started with
@@ -373,20 +372,22 @@ public interface File :
      *   or null on error.
      *   Free the returned object with g_object_unref().
      */
-    public fun appendToFinish(res: AsyncResult): Result<FileOutputStream> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_append_to_finish(gioFilePointer.reinterpret(), res.gioAsyncResultPointer, gError.ptr)?.run {
-                    FileOutputStream(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun appendToFinish(res: AsyncResult): Result<FileOutputStream> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_append_to_finish(
+            gioFilePointer.reinterpret(),
+            res.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            FileOutputStream(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Prepares the file attribute query string for copying to @file.
@@ -407,19 +408,15 @@ public interface File :
      * @since 2.68
      */
     @GioVersion2_68
-    public fun buildAttributeListForCopy(
-        flags: FileCopyFlags,
-        cancellable: Cancellable? = null,
-    ): Result<String> =
+    public fun buildAttributeListForCopy(flags: FileCopyFlags, cancellable: Cancellable? = null): Result<String> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_build_attribute_list_for_copy(
-                    gioFilePointer.reinterpret(),
-                    flags.mask,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.toKString()
+            val gResult = g_file_build_attribute_list_for_copy(
+                gioFilePointer.reinterpret(),
+                flags.mask,
+                cancellable?.gioCancellablePointer?.reinterpret(),
+                gError.ptr
+            )?.toKString()
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {
@@ -482,25 +479,23 @@ public interface File :
         flags: FileCopyFlags,
         cancellable: Cancellable? = null,
         progressCallback: FileProgressCallback,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_copy(
-                    gioFilePointer.reinterpret(),
-                    destination.gioFilePointer,
-                    flags.mask,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    FileProgressCallbackFunc.reinterpret(),
-                    StableRef.create(progressCallback).asCPointer(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    ): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_copy(
+            gioFilePointer.reinterpret(),
+            destination.gioFilePointer,
+            flags.mask,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            FileProgressCallbackFunc.reinterpret(),
+            StableRef.create(progressCallback).asCPointer(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Copies the file attributes from @source to @destination.
@@ -523,23 +518,21 @@ public interface File :
         destination: File,
         flags: FileCopyFlags,
         cancellable: Cancellable? = null,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_copy_attributes(
-                    gioFilePointer.reinterpret(),
-                    destination.gioFilePointer,
-                    flags.mask,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    ): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_copy_attributes(
+            gioFilePointer.reinterpret(),
+            destination.gioFilePointer,
+            flags.mask,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Finishes copying the file started with g_file_copy_async().
@@ -547,21 +540,19 @@ public interface File :
      * @param res a #GAsyncResult
      * @return a true on success, false on error.
      */
-    public fun copyFinish(res: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_copy_finish(
-                    gioFilePointer.reinterpret(),
-                    res.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun copyFinish(res: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_copy_finish(
+            gioFilePointer.reinterpret(),
+            res.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Creates a new file and returns an output stream for writing to it.
@@ -591,28 +582,23 @@ public interface File :
      *   file, or null on error.
      *   Free the returned object with g_object_unref().
      */
-    public fun create(
-        flags: FileCreateFlags,
-        cancellable: Cancellable? = null,
-    ): Result<FileOutputStream> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_create(
-                    gioFilePointer.reinterpret(),
-                    flags.mask,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    FileOutputStream(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun create(flags: FileCreateFlags, cancellable: Cancellable? = null): Result<FileOutputStream> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_create(
+            gioFilePointer.reinterpret(),
+            flags.mask,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            FileOutputStream(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Asynchronously creates a new file and returns an output stream
@@ -634,18 +620,17 @@ public interface File :
      */
     public fun createAsync(
         flags: FileCreateFlags,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_create_async(
-            gioFilePointer.reinterpret(),
-            flags.mask,
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_create_async(
+        gioFilePointer.reinterpret(),
+        flags.mask,
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an asynchronous file create operation started with
@@ -655,20 +640,18 @@ public interface File :
      * @return a #GFileOutputStream or null on error.
      *   Free the returned object with g_object_unref().
      */
-    public fun createFinish(res: AsyncResult): Result<FileOutputStream> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_create_finish(gioFilePointer.reinterpret(), res.gioAsyncResultPointer, gError.ptr)?.run {
-                    FileOutputStream(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun createFinish(res: AsyncResult): Result<FileOutputStream> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_create_finish(gioFilePointer.reinterpret(), res.gioAsyncResultPointer, gError.ptr)?.run {
+            FileOutputStream(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Creates a new file and returns a stream for reading and
@@ -704,21 +687,17 @@ public interface File :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun createReadwrite(
-        flags: FileCreateFlags,
-        cancellable: Cancellable? = null,
-    ): Result<FileIOStream> =
+    public fun createReadwrite(flags: FileCreateFlags, cancellable: Cancellable? = null): Result<FileIOStream> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_create_readwrite(
-                    gioFilePointer.reinterpret(),
-                    flags.mask,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    FileIOStream(reinterpret())
-                }
+            val gResult = g_file_create_readwrite(
+                gioFilePointer.reinterpret(),
+                flags.mask,
+                cancellable?.gioCancellablePointer?.reinterpret(),
+                gError.ptr
+            )?.run {
+                FileIOStream(reinterpret())
+            }
 
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -749,18 +728,17 @@ public interface File :
     @GioVersion2_22
     public fun createReadwriteAsync(
         flags: FileCreateFlags,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_create_readwrite_async(
-            gioFilePointer.reinterpret(),
-            flags.mask,
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_create_readwrite_async(
+        gioFilePointer.reinterpret(),
+        flags.mask,
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an asynchronous file create operation started with
@@ -772,24 +750,22 @@ public interface File :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun createReadwriteFinish(res: AsyncResult): Result<FileIOStream> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_create_readwrite_finish(
-                    gioFilePointer.reinterpret(),
-                    res.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    FileIOStream(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun createReadwriteFinish(res: AsyncResult): Result<FileIOStream> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_create_readwrite_finish(
+            gioFilePointer.reinterpret(),
+            res.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            FileIOStream(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Deletes a file. If the @file is a directory, it will only be
@@ -818,21 +794,19 @@ public interface File :
      *   null to ignore
      * @return true if the file was deleted. false otherwise.
      */
-    public fun delete(cancellable: Cancellable? = null): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_delete(
-                    gioFilePointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun delete(cancellable: Cancellable? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_delete(
+            gioFilePointer.reinterpret(),
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Asynchronously delete a file. If the @file is a directory, it will
@@ -847,11 +821,7 @@ public interface File :
      * @since 2.34
      */
     @GioVersion2_34
-    public fun deleteAsync(
-        ioPriority: Int,
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public fun deleteAsync(ioPriority: gint, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         g_file_delete_async(
             gioFilePointer.reinterpret(),
             ioPriority,
@@ -868,21 +838,19 @@ public interface File :
      * @since 2.34
      */
     @GioVersion2_34
-    public fun deleteFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_delete_finish(
-                    gioFilePointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun deleteFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_delete_finish(
+            gioFilePointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Duplicates a #GFile handle. This operation does not duplicate
@@ -899,10 +867,9 @@ public interface File :
      * @return a new #GFile that is a duplicate
      *   of the given #GFile.
      */
-    public fun dup(): File =
-        g_file_dup(gioFilePointer.reinterpret())!!.run {
-            File.wrap(reinterpret())
-        }
+    public fun dup(): File = g_file_dup(gioFilePointer.reinterpret())!!.run {
+        File.wrap(reinterpret())
+    }
 
     /**
      * Starts an asynchronous eject on a mountable.
@@ -924,14 +891,13 @@ public interface File :
         flags: MountUnmountFlags,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_eject_mountable(
-            gioFilePointer.reinterpret(),
-            flags.mask,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_eject_mountable(
+        gioFilePointer.reinterpret(),
+        flags.mask,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an asynchronous eject operation started by
@@ -941,21 +907,19 @@ public interface File :
      * @return true if the @file was ejected successfully.
      *   false otherwise.
      */
-    public fun ejectMountableFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_eject_mountable_finish(
-                    gioFilePointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun ejectMountableFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_eject_mountable_finish(
+            gioFilePointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Starts an asynchronous eject on a mountable.
@@ -982,15 +946,14 @@ public interface File :
         mountOperation: MountOperation? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_eject_mountable_with_operation(
-            gioFilePointer.reinterpret(),
-            flags.mask,
-            mountOperation?.gioMountOperationPointer?.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_eject_mountable_with_operation(
+        gioFilePointer.reinterpret(),
+        flags.mask,
+        mountOperation?.gioMountOperationPointer?.reinterpret(),
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an asynchronous eject operation started by
@@ -1002,21 +965,19 @@ public interface File :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun ejectMountableWithOperationFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_eject_mountable_with_operation_finish(
-                    gioFilePointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun ejectMountableWithOperationFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_eject_mountable_with_operation_finish(
+            gioFilePointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Gets the requested information about the files in a directory.
@@ -1056,26 +1017,24 @@ public interface File :
         attributes: String,
         flags: FileQueryInfoFlags,
         cancellable: Cancellable? = null,
-    ): Result<FileEnumerator> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_enumerate_children(
-                    gioFilePointer.reinterpret(),
-                    attributes,
-                    flags.mask,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    FileEnumerator(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    ): Result<FileEnumerator> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_enumerate_children(
+            gioFilePointer.reinterpret(),
+            attributes,
+            flags.mask,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            FileEnumerator(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Asynchronously gets the requested information about the files
@@ -1100,19 +1059,18 @@ public interface File :
     public fun enumerateChildrenAsync(
         attributes: String,
         flags: FileQueryInfoFlags,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_enumerate_children_async(
-            gioFilePointer.reinterpret(),
-            attributes,
-            flags.mask,
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_enumerate_children_async(
+        gioFilePointer.reinterpret(),
+        attributes,
+        flags.mask,
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an async enumerate children operation.
@@ -1123,24 +1081,22 @@ public interface File :
      *   if an error occurred.
      *   Free the returned object with g_object_unref().
      */
-    public fun enumerateChildrenFinish(res: AsyncResult): Result<FileEnumerator> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_enumerate_children_finish(
-                    gioFilePointer.reinterpret(),
-                    res.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    FileEnumerator(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun enumerateChildrenFinish(res: AsyncResult): Result<FileEnumerator> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_enumerate_children_finish(
+            gioFilePointer.reinterpret(),
+            res.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            FileEnumerator(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Checks if the two given #GFiles refer to the same file.
@@ -1174,24 +1130,22 @@ public interface File :
      *   or null on error.
      *   Free the returned object with g_object_unref().
      */
-    public fun findEnclosingMount(cancellable: Cancellable? = null): Result<Mount> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_find_enclosing_mount(
-                    gioFilePointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    Mount.wrap(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun findEnclosingMount(cancellable: Cancellable? = null): Result<Mount> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_find_enclosing_mount(
+            gioFilePointer.reinterpret(),
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            Mount.wrap(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Asynchronously gets the mount for the file.
@@ -1210,17 +1164,16 @@ public interface File :
      *   to call when the request is satisfied
      */
     public fun findEnclosingMountAsync(
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_find_enclosing_mount_async(
-            gioFilePointer.reinterpret(),
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_find_enclosing_mount_async(
+        gioFilePointer.reinterpret(),
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an asynchronous find mount request.
@@ -1230,24 +1183,22 @@ public interface File :
      * @return #GMount for given @file or null on error.
      *   Free the returned object with g_object_unref().
      */
-    public fun findEnclosingMountFinish(res: AsyncResult): Result<Mount> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_find_enclosing_mount_finish(
-                    gioFilePointer.reinterpret(),
-                    res.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    Mount.wrap(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun findEnclosingMountFinish(res: AsyncResult): Result<Mount> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_find_enclosing_mount_finish(
+            gioFilePointer.reinterpret(),
+            res.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            Mount.wrap(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Gets the base name (the last component of the path) for a given #GFile.
@@ -1283,10 +1234,9 @@ public interface File :
      * @return a #GFile to a child specified by @name.
      *   Free the returned object with g_object_unref().
      */
-    public fun getChild(name: String): File =
-        g_file_get_child(gioFilePointer.reinterpret(), name)!!.run {
-            File.wrap(reinterpret())
-        }
+    public fun getChild(name: String): File = g_file_get_child(gioFilePointer.reinterpret(), name)!!.run {
+        File.wrap(reinterpret())
+    }
 
     /**
      * Gets the child of @file for a given @display_name (i.e. a UTF-8
@@ -1303,20 +1253,18 @@ public interface File :
      *   null if the display name couldn't be converted.
      *   Free the returned object with g_object_unref().
      */
-    public fun getChildForDisplayName(displayName: String): Result<File> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_get_child_for_display_name(gioFilePointer.reinterpret(), displayName, gError.ptr)?.run {
-                    File.wrap(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun getChildForDisplayName(displayName: String): Result<File> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_get_child_for_display_name(gioFilePointer.reinterpret(), displayName, gError.ptr)?.run {
+            File.wrap(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Gets the parent directory for the @file.
@@ -1329,10 +1277,9 @@ public interface File :
      *   parent of the given #GFile or null if there is no parent. Free
      *   the returned object with g_object_unref().
      */
-    public fun getParent(): File? =
-        g_file_get_parent(gioFilePointer.reinterpret())?.run {
-            File.wrap(reinterpret())
-        }
+    public fun getParent(): File? = g_file_get_parent(gioFilePointer.reinterpret())?.run {
+        File.wrap(reinterpret())
+    }
 
     /**
      * Gets the parse name of the @file.
@@ -1477,7 +1424,7 @@ public interface File :
      *   This function is intended for easily hashing a #GFile to
      *   add to a #GHashTable or similar data structure.
      */
-    public fun hash(): UInt = g_file_hash(gioFilePointer.reinterpret())
+    public fun hash(): guint = g_file_hash(gioFilePointer.reinterpret())
 
     /**
      * Checks to see if a file is native to the platform.
@@ -1514,10 +1461,7 @@ public interface File :
      * @since 2.56
      */
     @GioVersion2_56
-    public fun loadBytesAsync(
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public fun loadBytesAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         g_file_load_bytes_async(
             gioFilePointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
@@ -1543,10 +1487,7 @@ public interface File :
      * @param cancellable optional #GCancellable object, null to ignore
      * @param callback a #GAsyncReadyCallback to call when the request is satisfied
      */
-    public fun loadContentsAsync(
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public fun loadContentsAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         g_file_load_contents_async(
             gioFilePointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
@@ -1574,21 +1515,19 @@ public interface File :
      *   null to ignore
      * @return true on successful creation, false otherwise.
      */
-    public fun makeDirectory(cancellable: Cancellable? = null): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_make_directory(
-                    gioFilePointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun makeDirectory(cancellable: Cancellable? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_make_directory(
+            gioFilePointer.reinterpret(),
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Asynchronously creates a directory.
@@ -1602,17 +1541,16 @@ public interface File :
      */
     @GioVersion2_38
     public fun makeDirectoryAsync(
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_make_directory_async(
-            gioFilePointer.reinterpret(),
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_make_directory_async(
+        gioFilePointer.reinterpret(),
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an asynchronous directory creation, started with
@@ -1623,21 +1561,19 @@ public interface File :
      * @since 2.38
      */
     @GioVersion2_38
-    public fun makeDirectoryFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_make_directory_finish(
-                    gioFilePointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun makeDirectoryFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_make_directory_finish(
+            gioFilePointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Creates a directory and any parent directories that may not
@@ -1661,21 +1597,19 @@ public interface File :
      * @since 2.18
      */
     @GioVersion2_18
-    public fun makeDirectoryWithParents(cancellable: Cancellable? = null): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_make_directory_with_parents(
-                    gioFilePointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun makeDirectoryWithParents(cancellable: Cancellable? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_make_directory_with_parents(
+            gioFilePointer.reinterpret(),
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Creates a symbolic link named @file which contains the string
@@ -1691,25 +1625,20 @@ public interface File :
      *   null to ignore
      * @return true on the creation of a new symlink, false otherwise.
      */
-    public fun makeSymbolicLink(
-        symlinkValue: String,
-        cancellable: Cancellable? = null,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_make_symbolic_link(
-                    gioFilePointer.reinterpret(),
-                    symlinkValue,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun makeSymbolicLink(symlinkValue: String, cancellable: Cancellable? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_make_symbolic_link(
+            gioFilePointer.reinterpret(),
+            symlinkValue,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Asynchronously creates a symbolic link named @file which contains the
@@ -1727,18 +1656,17 @@ public interface File :
     @GioVersion2_74
     public fun makeSymbolicLinkAsync(
         symlinkValue: String,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_make_symbolic_link_async(
-            gioFilePointer.reinterpret(),
-            symlinkValue,
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_make_symbolic_link_async(
+        gioFilePointer.reinterpret(),
+        symlinkValue,
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an asynchronous symbolic link creation, started with
@@ -1749,21 +1677,19 @@ public interface File :
      * @since 2.74
      */
     @GioVersion2_74
-    public fun makeSymbolicLinkFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_make_symbolic_link_finish(
-                    gioFilePointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun makeSymbolicLinkFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_make_symbolic_link_finish(
+            gioFilePointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Obtains a file or directory monitor for the given file,
@@ -1782,28 +1708,23 @@ public interface File :
      * @since 2.18
      */
     @GioVersion2_18
-    public fun monitor(
-        flags: FileMonitorFlags,
-        cancellable: Cancellable? = null,
-    ): Result<FileMonitor> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_monitor(
-                    gioFilePointer.reinterpret(),
-                    flags.mask,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    FileMonitor(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun monitor(flags: FileMonitorFlags, cancellable: Cancellable? = null): Result<FileMonitor> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_monitor(
+            gioFilePointer.reinterpret(),
+            flags.mask,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            FileMonitor(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Obtains a directory monitor for the given file.
@@ -1825,21 +1746,17 @@ public interface File :
      * @return a #GFileMonitor for the given @file,
      *   or null on error. Free the returned object with g_object_unref().
      */
-    public fun monitorDirectory(
-        flags: FileMonitorFlags,
-        cancellable: Cancellable? = null,
-    ): Result<FileMonitor> =
+    public fun monitorDirectory(flags: FileMonitorFlags, cancellable: Cancellable? = null): Result<FileMonitor> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_monitor_directory(
-                    gioFilePointer.reinterpret(),
-                    flags.mask,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    FileMonitor(reinterpret())
-                }
+            val gResult = g_file_monitor_directory(
+                gioFilePointer.reinterpret(),
+                flags.mask,
+                cancellable?.gioCancellablePointer?.reinterpret(),
+                gError.ptr
+            )?.run {
+                FileMonitor(reinterpret())
+            }
 
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -1871,28 +1788,23 @@ public interface File :
      *   or null on error.
      *   Free the returned object with g_object_unref().
      */
-    public fun monitorFile(
-        flags: FileMonitorFlags,
-        cancellable: Cancellable? = null,
-    ): Result<FileMonitor> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_monitor_file(
-                    gioFilePointer.reinterpret(),
-                    flags.mask,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    FileMonitor(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun monitorFile(flags: FileMonitorFlags, cancellable: Cancellable? = null): Result<FileMonitor> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_monitor_file(
+            gioFilePointer.reinterpret(),
+            flags.mask,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            FileMonitor(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Starts a @mount_operation, mounting the volume that contains
@@ -1919,15 +1831,14 @@ public interface File :
         mountOperation: MountOperation? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_mount_enclosing_volume(
-            gioFilePointer.reinterpret(),
-            flags.mask,
-            mountOperation?.gioMountOperationPointer?.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_mount_enclosing_volume(
+        gioFilePointer.reinterpret(),
+        flags.mask,
+        mountOperation?.gioMountOperationPointer?.reinterpret(),
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes a mount operation started by g_file_mount_enclosing_volume().
@@ -1937,21 +1848,19 @@ public interface File :
      *   this function will return false and set @error
      *   appropriately if present.
      */
-    public fun mountEnclosingVolumeFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_mount_enclosing_volume_finish(
-                    gioFilePointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun mountEnclosingVolumeFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_mount_enclosing_volume_finish(
+            gioFilePointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Mounts a file of type G_FILE_TYPE_MOUNTABLE.
@@ -1979,15 +1888,14 @@ public interface File :
         mountOperation: MountOperation? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_mount_mountable(
-            gioFilePointer.reinterpret(),
-            flags.mask,
-            mountOperation?.gioMountOperationPointer?.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_mount_mountable(
+        gioFilePointer.reinterpret(),
+        flags.mask,
+        mountOperation?.gioMountOperationPointer?.reinterpret(),
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes a mount operation. See g_file_mount_mountable() for details.
@@ -1999,24 +1907,22 @@ public interface File :
      * @return a #GFile or null on error.
      *   Free the returned object with g_object_unref().
      */
-    public fun mountMountableFinish(result: AsyncResult): Result<File> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_mount_mountable_finish(
-                    gioFilePointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    File.wrap(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun mountMountableFinish(result: AsyncResult): Result<File> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_mount_mountable_finish(
+            gioFilePointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            File.wrap(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Tries to move the file or directory @source to the location specified
@@ -2066,25 +1972,23 @@ public interface File :
         flags: FileCopyFlags,
         cancellable: Cancellable? = null,
         progressCallback: FileProgressCallback,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_move(
-                    gioFilePointer.reinterpret(),
-                    destination.gioFilePointer,
-                    flags.mask,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    FileProgressCallbackFunc.reinterpret(),
-                    StableRef.create(progressCallback).asCPointer(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    ): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_move(
+            gioFilePointer.reinterpret(),
+            destination.gioFilePointer,
+            flags.mask,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            FileProgressCallbackFunc.reinterpret(),
+            StableRef.create(progressCallback).asCPointer(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Finishes an asynchronous file movement, started with
@@ -2095,21 +1999,19 @@ public interface File :
      * @since 2.72
      */
     @GioVersion2_72
-    public fun moveFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_move_finish(
-                    gioFilePointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun moveFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_move_finish(
+            gioFilePointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Opens an existing file for reading and writing. The result is
@@ -2135,24 +2037,22 @@ public interface File :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun openReadwrite(cancellable: Cancellable? = null): Result<FileIOStream> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_open_readwrite(
-                    gioFilePointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    FileIOStream(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun openReadwrite(cancellable: Cancellable? = null): Result<FileIOStream> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_open_readwrite(
+            gioFilePointer.reinterpret(),
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            FileIOStream(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Asynchronously opens @file for reading and writing.
@@ -2173,17 +2073,16 @@ public interface File :
      */
     @GioVersion2_22
     public fun openReadwriteAsync(
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_open_readwrite_async(
-            gioFilePointer.reinterpret(),
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_open_readwrite_async(
+        gioFilePointer.reinterpret(),
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an asynchronous file read operation started with
@@ -2195,20 +2094,22 @@ public interface File :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun openReadwriteFinish(res: AsyncResult): Result<FileIOStream> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_open_readwrite_finish(gioFilePointer.reinterpret(), res.gioAsyncResultPointer, gError.ptr)?.run {
-                    FileIOStream(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun openReadwriteFinish(res: AsyncResult): Result<FileIOStream> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_open_readwrite_finish(
+            gioFilePointer.reinterpret(),
+            res.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            FileIOStream(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Exactly like g_file_get_path(), but caches the result via
@@ -2243,10 +2144,7 @@ public interface File :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun pollMountable(
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public fun pollMountable(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         g_file_poll_mountable(
             gioFilePointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
@@ -2266,21 +2164,19 @@ public interface File :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun pollMountableFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_poll_mountable_finish(
-                    gioFilePointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun pollMountableFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_poll_mountable_finish(
+            gioFilePointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Returns the #GAppInfo that is registered as the default
@@ -2295,24 +2191,22 @@ public interface File :
      *   null if there were errors.
      *   When you are done with it, release it with g_object_unref()
      */
-    public fun queryDefaultHandler(cancellable: Cancellable? = null): Result<AppInfo> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_query_default_handler(
-                    gioFilePointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    AppInfo.wrap(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun queryDefaultHandler(cancellable: Cancellable? = null): Result<AppInfo> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_query_default_handler(
+            gioFilePointer.reinterpret(),
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            AppInfo.wrap(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Async version of g_file_query_default_handler().
@@ -2324,17 +2218,16 @@ public interface File :
      */
     @GioVersion2_60
     public fun queryDefaultHandlerAsync(
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_query_default_handler_async(
-            gioFilePointer.reinterpret(),
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_query_default_handler_async(
+        gioFilePointer.reinterpret(),
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes a g_file_query_default_handler_async() operation.
@@ -2346,24 +2239,22 @@ public interface File :
      * @since 2.60
      */
     @GioVersion2_60
-    public fun queryDefaultHandlerFinish(result: AsyncResult): Result<AppInfo> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_query_default_handler_finish(
-                    gioFilePointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    AppInfo.wrap(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun queryDefaultHandlerFinish(result: AsyncResult): Result<AppInfo> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_query_default_handler_finish(
+            gioFilePointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            AppInfo.wrap(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Utility function to check if a particular file exists. This is
@@ -2412,10 +2303,7 @@ public interface File :
      * @since 2.18
      */
     @GioVersion2_18
-    public fun queryFileType(
-        flags: FileQueryInfoFlags,
-        cancellable: Cancellable? = null,
-    ): FileType =
+    public fun queryFileType(flags: FileQueryInfoFlags, cancellable: Cancellable? = null): FileType =
         g_file_query_file_type(
             gioFilePointer.reinterpret(),
             flags.mask,
@@ -2457,28 +2345,23 @@ public interface File :
      * @return a #GFileInfo or null if there was an error.
      *   Free the returned object with g_object_unref().
      */
-    public fun queryFilesystemInfo(
-        attributes: String,
-        cancellable: Cancellable? = null,
-    ): Result<FileInfo> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_query_filesystem_info(
-                    gioFilePointer.reinterpret(),
-                    attributes,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    FileInfo(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun queryFilesystemInfo(attributes: String, cancellable: Cancellable? = null): Result<FileInfo> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_query_filesystem_info(
+            gioFilePointer.reinterpret(),
+            attributes,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            FileInfo(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Asynchronously gets the requested information about the filesystem
@@ -2502,18 +2385,17 @@ public interface File :
      */
     public fun queryFilesystemInfoAsync(
         attributes: String,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_query_filesystem_info_async(
-            gioFilePointer.reinterpret(),
-            attributes,
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_query_filesystem_info_async(
+        gioFilePointer.reinterpret(),
+        attributes,
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an asynchronous filesystem info query.
@@ -2524,24 +2406,22 @@ public interface File :
      *   or null on error.
      *   Free the returned object with g_object_unref().
      */
-    public fun queryFilesystemInfoFinish(res: AsyncResult): Result<FileInfo> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_query_filesystem_info_finish(
-                    gioFilePointer.reinterpret(),
-                    res.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    FileInfo(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun queryFilesystemInfoFinish(res: AsyncResult): Result<FileInfo> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_query_filesystem_info_finish(
+            gioFilePointer.reinterpret(),
+            res.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            FileInfo(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Gets the requested information about specified @file.
@@ -2586,26 +2466,24 @@ public interface File :
         attributes: String,
         flags: FileQueryInfoFlags,
         cancellable: Cancellable? = null,
-    ): Result<FileInfo> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_query_info(
-                    gioFilePointer.reinterpret(),
-                    attributes,
-                    flags.mask,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    FileInfo(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    ): Result<FileInfo> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_query_info(
+            gioFilePointer.reinterpret(),
+            attributes,
+            flags.mask,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            FileInfo(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Asynchronously gets the requested information about specified @file.
@@ -2629,19 +2507,18 @@ public interface File :
     public fun queryInfoAsync(
         attributes: String,
         flags: FileQueryInfoFlags,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_query_info_async(
-            gioFilePointer.reinterpret(),
-            attributes,
-            flags.mask,
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_query_info_async(
+        gioFilePointer.reinterpret(),
+        attributes,
+        flags.mask,
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an asynchronous file info query.
@@ -2652,20 +2529,22 @@ public interface File :
      *   or null on error. Free the returned object with
      *   g_object_unref().
      */
-    public fun queryInfoFinish(res: AsyncResult): Result<FileInfo> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_query_info_finish(gioFilePointer.reinterpret(), res.gioAsyncResultPointer, gError.ptr)?.run {
-                    FileInfo(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun queryInfoFinish(res: AsyncResult): Result<FileInfo> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_query_info_finish(
+            gioFilePointer.reinterpret(),
+            res.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            FileInfo(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Obtain the list of settable attributes for the file.
@@ -2685,24 +2564,22 @@ public interface File :
      *   When you are done with it, release it with
      *   g_file_attribute_info_list_unref()
      */
-    public fun querySettableAttributes(cancellable: Cancellable? = null): Result<FileAttributeInfoList> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_query_settable_attributes(
-                    gioFilePointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    FileAttributeInfoList(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun querySettableAttributes(cancellable: Cancellable? = null): Result<FileAttributeInfoList> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_query_settable_attributes(
+            gioFilePointer.reinterpret(),
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            FileAttributeInfoList(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Obtain the list of attribute namespaces where new attributes
@@ -2719,24 +2596,22 @@ public interface File :
      *   When you are done with it, release it with
      *   g_file_attribute_info_list_unref()
      */
-    public fun queryWritableNamespaces(cancellable: Cancellable? = null): Result<FileAttributeInfoList> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_query_writable_namespaces(
-                    gioFilePointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    FileAttributeInfoList(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun queryWritableNamespaces(cancellable: Cancellable? = null): Result<FileAttributeInfoList> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_query_writable_namespaces(
+            gioFilePointer.reinterpret(),
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            FileAttributeInfoList(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Opens a file for reading. The result is a #GFileInputStream that
@@ -2755,24 +2630,22 @@ public interface File :
      * @return #GFileInputStream or null on error.
      *   Free the returned object with g_object_unref().
      */
-    public fun read(cancellable: Cancellable? = null): Result<FileInputStream> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_read(
-                    gioFilePointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    FileInputStream(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun read(cancellable: Cancellable? = null): Result<FileInputStream> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_read(
+            gioFilePointer.reinterpret(),
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            FileInputStream(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Asynchronously opens @file for reading.
@@ -2790,11 +2663,7 @@ public interface File :
      * @param callback a #GAsyncReadyCallback
      *   to call when the request is satisfied
      */
-    public fun readAsync(
-        ioPriority: Int,
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public fun readAsync(ioPriority: gint, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         g_file_read_async(
             gioFilePointer.reinterpret(),
             ioPriority,
@@ -2811,20 +2680,18 @@ public interface File :
      * @return a #GFileInputStream or null on error.
      *   Free the returned object with g_object_unref().
      */
-    public fun readFinish(res: AsyncResult): Result<FileInputStream> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_read_finish(gioFilePointer.reinterpret(), res.gioAsyncResultPointer, gError.ptr)?.run {
-                    FileInputStream(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun readFinish(res: AsyncResult): Result<FileInputStream> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_read_finish(gioFilePointer.reinterpret(), res.gioAsyncResultPointer, gError.ptr)?.run {
+            FileInputStream(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Returns an output stream for overwriting the file, possibly
@@ -2883,27 +2750,25 @@ public interface File :
         makeBackup: Boolean,
         flags: FileCreateFlags,
         cancellable: Cancellable? = null,
-    ): Result<FileOutputStream> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_replace(
-                    gioFilePointer.reinterpret(),
-                    etag,
-                    makeBackup.asGBoolean(),
-                    flags.mask,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    FileOutputStream(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    ): Result<FileOutputStream> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_replace(
+            gioFilePointer.reinterpret(),
+            etag,
+            makeBackup.asGBoolean(),
+            flags.mask,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            FileOutputStream(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Asynchronously overwrites the file, replacing the contents,
@@ -2930,20 +2795,19 @@ public interface File :
         etag: String? = null,
         makeBackup: Boolean,
         flags: FileCreateFlags,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_replace_async(
-            gioFilePointer.reinterpret(),
-            etag,
-            makeBackup.asGBoolean(),
-            flags.mask,
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_replace_async(
+        gioFilePointer.reinterpret(),
+        etag,
+        makeBackup.asGBoolean(),
+        flags.mask,
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Same as g_file_replace_contents_async() but takes a #GBytes input instead.
@@ -2971,17 +2835,16 @@ public interface File :
         flags: FileCreateFlags,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_replace_contents_bytes_async(
-            gioFilePointer.reinterpret(),
-            contents.glibBytesPointer.reinterpret(),
-            etag,
-            makeBackup.asGBoolean(),
-            flags.mask,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_replace_contents_bytes_async(
+        gioFilePointer.reinterpret(),
+        contents.glibBytesPointer.reinterpret(),
+        etag,
+        makeBackup.asGBoolean(),
+        flags.mask,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an asynchronous file replace operation started with
@@ -2991,20 +2854,18 @@ public interface File :
      * @return a #GFileOutputStream, or null on error.
      *   Free the returned object with g_object_unref().
      */
-    public fun replaceFinish(res: AsyncResult): Result<FileOutputStream> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_replace_finish(gioFilePointer.reinterpret(), res.gioAsyncResultPointer, gError.ptr)?.run {
-                    FileOutputStream(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun replaceFinish(res: AsyncResult): Result<FileOutputStream> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_replace_finish(gioFilePointer.reinterpret(), res.gioAsyncResultPointer, gError.ptr)?.run {
+            FileOutputStream(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Returns an output stream for overwriting the file in readwrite mode,
@@ -3034,27 +2895,25 @@ public interface File :
         makeBackup: Boolean,
         flags: FileCreateFlags,
         cancellable: Cancellable? = null,
-    ): Result<FileIOStream> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_replace_readwrite(
-                    gioFilePointer.reinterpret(),
-                    etag,
-                    makeBackup.asGBoolean(),
-                    flags.mask,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    FileIOStream(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    ): Result<FileIOStream> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_replace_readwrite(
+            gioFilePointer.reinterpret(),
+            etag,
+            makeBackup.asGBoolean(),
+            flags.mask,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            FileIOStream(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Asynchronously overwrites the file in read-write mode,
@@ -3084,20 +2943,19 @@ public interface File :
         etag: String? = null,
         makeBackup: Boolean,
         flags: FileCreateFlags,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_replace_readwrite_async(
-            gioFilePointer.reinterpret(),
-            etag,
-            makeBackup.asGBoolean(),
-            flags.mask,
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_replace_readwrite_async(
+        gioFilePointer.reinterpret(),
+        etag,
+        makeBackup.asGBoolean(),
+        flags.mask,
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an asynchronous file replace operation started with
@@ -3109,24 +2967,22 @@ public interface File :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun replaceReadwriteFinish(res: AsyncResult): Result<FileIOStream> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_replace_readwrite_finish(
-                    gioFilePointer.reinterpret(),
-                    res.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    FileIOStream(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun replaceReadwriteFinish(res: AsyncResult): Result<FileIOStream> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_replace_readwrite_finish(
+            gioFilePointer.reinterpret(),
+            res.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            FileIOStream(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Resolves a relative path for @file to an absolute path.
@@ -3166,24 +3022,22 @@ public interface File :
         `value`: String,
         flags: FileQueryInfoFlags,
         cancellable: Cancellable? = null,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_set_attribute_byte_string(
-                    gioFilePointer.reinterpret(),
-                    attribute,
-                    `value`,
-                    flags.mask,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    ): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_set_attribute_byte_string(
+            gioFilePointer.reinterpret(),
+            attribute,
+            `value`,
+            flags.mask,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Sets @attribute of type %G_FILE_ATTRIBUTE_TYPE_INT32 to @value.
@@ -3203,27 +3057,25 @@ public interface File :
      */
     public fun setAttributeInt32(
         attribute: String,
-        `value`: Int,
+        `value`: gint,
         flags: FileQueryInfoFlags,
         cancellable: Cancellable? = null,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_set_attribute_int32(
-                    gioFilePointer.reinterpret(),
-                    attribute,
-                    `value`,
-                    flags.mask,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    ): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_set_attribute_int32(
+            gioFilePointer.reinterpret(),
+            attribute,
+            `value`,
+            flags.mask,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Sets @attribute of type %G_FILE_ATTRIBUTE_TYPE_INT64 to @value.
@@ -3242,27 +3094,25 @@ public interface File :
      */
     public fun setAttributeInt64(
         attribute: String,
-        `value`: Long,
+        `value`: gint64,
         flags: FileQueryInfoFlags,
         cancellable: Cancellable? = null,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_set_attribute_int64(
-                    gioFilePointer.reinterpret(),
-                    attribute,
-                    `value`,
-                    flags.mask,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    ): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_set_attribute_int64(
+            gioFilePointer.reinterpret(),
+            attribute,
+            `value`,
+            flags.mask,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Sets @attribute of type %G_FILE_ATTRIBUTE_TYPE_STRING to @value.
@@ -3284,24 +3134,22 @@ public interface File :
         `value`: String,
         flags: FileQueryInfoFlags,
         cancellable: Cancellable? = null,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_set_attribute_string(
-                    gioFilePointer.reinterpret(),
-                    attribute,
-                    `value`,
-                    flags.mask,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    ): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_set_attribute_string(
+            gioFilePointer.reinterpret(),
+            attribute,
+            `value`,
+            flags.mask,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Sets @attribute of type %G_FILE_ATTRIBUTE_TYPE_UINT32 to @value.
@@ -3321,27 +3169,25 @@ public interface File :
      */
     public fun setAttributeUint32(
         attribute: String,
-        `value`: UInt,
+        `value`: guint,
         flags: FileQueryInfoFlags,
         cancellable: Cancellable? = null,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_set_attribute_uint32(
-                    gioFilePointer.reinterpret(),
-                    attribute,
-                    `value`,
-                    flags.mask,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    ): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_set_attribute_uint32(
+            gioFilePointer.reinterpret(),
+            attribute,
+            `value`,
+            flags.mask,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Sets @attribute of type %G_FILE_ATTRIBUTE_TYPE_UINT64 to @value.
@@ -3361,27 +3207,25 @@ public interface File :
      */
     public fun setAttributeUint64(
         attribute: String,
-        `value`: ULong,
+        `value`: guint64,
         flags: FileQueryInfoFlags,
         cancellable: Cancellable? = null,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_set_attribute_uint64(
-                    gioFilePointer.reinterpret(),
-                    attribute,
-                    `value`,
-                    flags.mask,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    ): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_set_attribute_uint64(
+            gioFilePointer.reinterpret(),
+            attribute,
+            `value`,
+            flags.mask,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Asynchronously sets the attributes of @file with @info.
@@ -3404,19 +3248,18 @@ public interface File :
     public fun setAttributesAsync(
         info: FileInfo,
         flags: FileQueryInfoFlags,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_set_attributes_async(
-            gioFilePointer.reinterpret(),
-            info.gioFileInfoPointer.reinterpret(),
-            flags.mask,
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_set_attributes_async(
+        gioFilePointer.reinterpret(),
+        info.gioFileInfoPointer.reinterpret(),
+        flags.mask,
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Tries to set all attributes in the #GFileInfo on the target
@@ -3442,23 +3285,21 @@ public interface File :
         info: FileInfo,
         flags: FileQueryInfoFlags,
         cancellable: Cancellable? = null,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_set_attributes_from_info(
-                    gioFilePointer.reinterpret(),
-                    info.gioFileInfoPointer.reinterpret(),
-                    flags.mask,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    ): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_set_attributes_from_info(
+            gioFilePointer.reinterpret(),
+            info.gioFileInfoPointer.reinterpret(),
+            flags.mask,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Renames @file to the specified display name.
@@ -3484,28 +3325,23 @@ public interface File :
      *   or null if there was an error.
      *   Free the returned object with g_object_unref().
      */
-    public fun setDisplayName(
-        displayName: String,
-        cancellable: Cancellable? = null,
-    ): Result<File> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_set_display_name(
-                    gioFilePointer.reinterpret(),
-                    displayName,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    File.wrap(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun setDisplayName(displayName: String, cancellable: Cancellable? = null): Result<File> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_set_display_name(
+            gioFilePointer.reinterpret(),
+            displayName,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            File.wrap(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Asynchronously sets the display name for a given #GFile.
@@ -3526,18 +3362,17 @@ public interface File :
      */
     public fun setDisplayNameAsync(
         displayName: String,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_set_display_name_async(
-            gioFilePointer.reinterpret(),
-            displayName,
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_set_display_name_async(
+        gioFilePointer.reinterpret(),
+        displayName,
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes setting a display name started with
@@ -3547,24 +3382,22 @@ public interface File :
      * @return a #GFile or null on error.
      *   Free the returned object with g_object_unref().
      */
-    public fun setDisplayNameFinish(res: AsyncResult): Result<File> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_set_display_name_finish(
-                    gioFilePointer.reinterpret(),
-                    res.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    File.wrap(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun setDisplayNameFinish(res: AsyncResult): Result<File> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_set_display_name_finish(
+            gioFilePointer.reinterpret(),
+            res.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            File.wrap(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Starts a file of type %G_FILE_TYPE_MOUNTABLE.
@@ -3591,15 +3424,14 @@ public interface File :
         startOperation: MountOperation? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_start_mountable(
-            gioFilePointer.reinterpret(),
-            flags.mask,
-            startOperation?.gioMountOperationPointer?.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_start_mountable(
+        gioFilePointer.reinterpret(),
+        flags.mask,
+        startOperation?.gioMountOperationPointer?.reinterpret(),
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes a start operation. See g_file_start_mountable() for details.
@@ -3613,21 +3445,19 @@ public interface File :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun startMountableFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_start_mountable_finish(
-                    gioFilePointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun startMountableFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_start_mountable_finish(
+            gioFilePointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Stops a file of type %G_FILE_TYPE_MOUNTABLE.
@@ -3655,15 +3485,14 @@ public interface File :
         mountOperation: MountOperation? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_stop_mountable(
-            gioFilePointer.reinterpret(),
-            flags.mask,
-            mountOperation?.gioMountOperationPointer?.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_stop_mountable(
+        gioFilePointer.reinterpret(),
+        flags.mask,
+        mountOperation?.gioMountOperationPointer?.reinterpret(),
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes a stop operation, see g_file_stop_mountable() for details.
@@ -3677,21 +3506,19 @@ public interface File :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun stopMountableFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_stop_mountable_finish(
-                    gioFilePointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun stopMountableFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_stop_mountable_finish(
+            gioFilePointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Checks if @file supports
@@ -3722,21 +3549,19 @@ public interface File :
      *   null to ignore
      * @return true on successful trash, false otherwise.
      */
-    public fun trash(cancellable: Cancellable? = null): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_trash(
-                    gioFilePointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun trash(cancellable: Cancellable? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_trash(
+            gioFilePointer.reinterpret(),
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Asynchronously sends @file to the Trash location, if possible.
@@ -3749,11 +3574,7 @@ public interface File :
      * @since 2.38
      */
     @GioVersion2_38
-    public fun trashAsync(
-        ioPriority: Int,
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public fun trashAsync(ioPriority: gint, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         g_file_trash_async(
             gioFilePointer.reinterpret(),
             ioPriority,
@@ -3771,21 +3592,19 @@ public interface File :
      * @since 2.38
      */
     @GioVersion2_38
-    public fun trashFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_trash_finish(
-                    gioFilePointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun trashFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_trash_finish(
+            gioFilePointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Unmounts a file of type G_FILE_TYPE_MOUNTABLE.
@@ -3808,14 +3627,13 @@ public interface File :
         flags: MountUnmountFlags,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_unmount_mountable(
-            gioFilePointer.reinterpret(),
-            flags.mask,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_unmount_mountable(
+        gioFilePointer.reinterpret(),
+        flags.mask,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an unmount operation, see g_file_unmount_mountable() for details.
@@ -3827,21 +3645,19 @@ public interface File :
      * @return true if the operation finished successfully.
      *   false otherwise.
      */
-    public fun unmountMountableFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_unmount_mountable_finish(
-                    gioFilePointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun unmountMountableFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_unmount_mountable_finish(
+            gioFilePointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Unmounts a file of type %G_FILE_TYPE_MOUNTABLE.
@@ -3869,15 +3685,14 @@ public interface File :
         mountOperation: MountOperation? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_file_unmount_mountable_with_operation(
-            gioFilePointer.reinterpret(),
-            flags.mask,
-            mountOperation?.gioMountOperationPointer?.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_file_unmount_mountable_with_operation(
+        gioFilePointer.reinterpret(),
+        flags.mask,
+        mountOperation?.gioMountOperationPointer?.reinterpret(),
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an unmount operation,
@@ -3892,25 +3707,21 @@ public interface File :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun unmountMountableWithOperationFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_file_unmount_mountable_with_operation_finish(
-                    gioFilePointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun unmountMountableWithOperationFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_unmount_mountable_with_operation_finish(
+            gioFilePointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
-    private data class Wrapper(
-        private val pointer: CPointer<GFile>,
-    ) : File {
+    private data class Wrapper(private val pointer: CPointer<GFile>) : File {
         override val gioFilePointer: CPointer<GFile> = pointer
     }
 
@@ -3937,12 +3748,11 @@ public interface File :
          * @since 2.78
          */
         @GioVersion2_78
-        public fun newBuildFilenamev(args: List<String>): File =
-            memScoped {
-                return g_file_new_build_filenamev(args.toCStringList(this))!!.run {
-                    File.wrap(reinterpret())
-                }
+        public fun newBuildFilenamev(args: List<String>): File = memScoped {
+            return g_file_new_build_filenamev(args.toCStringList(this))!!.run {
+                File.wrap(reinterpret())
             }
+        }
 
         /**
          * Creates a #GFile with the given argument from the command line.
@@ -3964,10 +3774,9 @@ public interface File :
          * @return a new #GFile.
          *   Free the returned object with g_object_unref().
          */
-        public fun newForCommandlineArg(arg: String): File =
-            g_file_new_for_commandline_arg(arg)!!.run {
-                File.wrap(reinterpret())
-            }
+        public fun newForCommandlineArg(arg: String): File = g_file_new_for_commandline_arg(arg)!!.run {
+            File.wrap(reinterpret())
+        }
 
         /**
          * Creates a #GFile with the given argument from the command line.
@@ -3988,10 +3797,7 @@ public interface File :
          * @since 2.36
          */
         @GioVersion2_36
-        public fun newForCommandlineArgAndCwd(
-            arg: String,
-            cwd: String,
-        ): File =
+        public fun newForCommandlineArgAndCwd(arg: String, cwd: String): File =
             g_file_new_for_commandline_arg_and_cwd(arg, cwd)!!.run {
                 File.wrap(reinterpret())
             }
@@ -4006,10 +3812,9 @@ public interface File :
          * @return a new #GFile for the given @path.
          *   Free the returned object with g_object_unref().
          */
-        public fun newForPath(path: String): File =
-            g_file_new_for_path(path)!!.run {
-                File.wrap(reinterpret())
-            }
+        public fun newForPath(path: String): File = g_file_new_for_path(path)!!.run {
+            File.wrap(reinterpret())
+        }
 
         /**
          * Constructs a #GFile for a given URI. This operation never
@@ -4021,10 +3826,9 @@ public interface File :
          * @return a new #GFile for the given @uri.
          *   Free the returned object with g_object_unref().
          */
-        public fun newForUri(uri: String): File =
-            g_file_new_for_uri(uri)!!.run {
-                File.wrap(reinterpret())
-            }
+        public fun newForUri(uri: String): File = g_file_new_for_uri(uri)!!.run {
+            File.wrap(reinterpret())
+        }
 
         /**
          * Asynchronously opens a file in the preferred directory for temporary files
@@ -4044,17 +3848,16 @@ public interface File :
         @GioVersion2_74
         public fun newTmpAsync(
             tmpl: String? = null,
-            ioPriority: Int,
+            ioPriority: gint,
             cancellable: Cancellable? = null,
             callback: AsyncReadyCallback,
-        ): Unit =
-            g_file_new_tmp_async(
-                tmpl,
-                ioPriority,
-                cancellable?.gioCancellablePointer?.reinterpret(),
-                AsyncReadyCallbackFunc.reinterpret(),
-                StableRef.create(callback).asCPointer()
-            )
+        ): Unit = g_file_new_tmp_async(
+            tmpl,
+            ioPriority,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            AsyncReadyCallbackFunc.reinterpret(),
+            StableRef.create(callback).asCPointer()
+        )
 
         /**
          * Asynchronously creates a directory in the preferred directory for
@@ -4074,17 +3877,16 @@ public interface File :
         @GioVersion2_74
         public fun newTmpDirAsync(
             tmpl: String? = null,
-            ioPriority: Int,
+            ioPriority: gint,
             cancellable: Cancellable? = null,
             callback: AsyncReadyCallback,
-        ): Unit =
-            g_file_new_tmp_dir_async(
-                tmpl,
-                ioPriority,
-                cancellable?.gioCancellablePointer?.reinterpret(),
-                AsyncReadyCallbackFunc.reinterpret(),
-                StableRef.create(callback).asCPointer()
-            )
+        ): Unit = g_file_new_tmp_dir_async(
+            tmpl,
+            ioPriority,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            AsyncReadyCallbackFunc.reinterpret(),
+            StableRef.create(callback).asCPointer()
+        )
 
         /**
          * Finishes a temporary directory creation started by
@@ -4096,20 +3898,18 @@ public interface File :
          * @since 2.74
          */
         @GioVersion2_74
-        public fun newTmpDirFinish(result: AsyncResult): Result<File> =
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                val gResult =
-                    g_file_new_tmp_dir_finish(result.gioAsyncResultPointer, gError.ptr)?.run {
-                        File.wrap(reinterpret())
-                    }
-
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(checkNotNull(gResult))
-                }
+        public fun newTmpDirFinish(result: AsyncResult): Result<File> = memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult = g_file_new_tmp_dir_finish(result.gioAsyncResultPointer, gError.ptr)?.run {
+                File.wrap(reinterpret())
             }
+
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(checkNotNull(gResult))
+            }
+        }
 
         /**
          * Constructs a #GFile with the given @parse_name (i.e. something
@@ -4120,9 +3920,15 @@ public interface File :
          * @param parseName a file name or path to be parsed
          * @return a new #GFile.
          */
-        public fun parseName(parseName: String): File =
-            g_file_parse_name(parseName)!!.run {
-                File.wrap(reinterpret())
-            }
+        public fun parseName(parseName: String): File = g_file_parse_name(parseName)!!.run {
+            File.wrap(reinterpret())
+        }
+
+        /**
+         * Get the GType of File
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_file_get_type()
     }
 }

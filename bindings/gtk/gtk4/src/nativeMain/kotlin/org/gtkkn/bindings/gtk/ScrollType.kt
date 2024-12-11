@@ -1,14 +1,14 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkScrollType
+import org.gtkkn.native.gtk.gtk_scroll_type_get_type
 
 /**
  * Scrolling types.
  */
-public enum class ScrollType(
-    public val nativeValue: GtkScrollType,
-) {
+public enum class ScrollType(public val nativeValue: GtkScrollType) {
     /**
      * No scrolling.
      */
@@ -91,25 +91,31 @@ public enum class ScrollType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkScrollType): ScrollType =
-            when (nativeValue) {
-                GtkScrollType.GTK_SCROLL_NONE -> NONE
-                GtkScrollType.GTK_SCROLL_JUMP -> JUMP
-                GtkScrollType.GTK_SCROLL_STEP_BACKWARD -> STEP_BACKWARD
-                GtkScrollType.GTK_SCROLL_STEP_FORWARD -> STEP_FORWARD
-                GtkScrollType.GTK_SCROLL_PAGE_BACKWARD -> PAGE_BACKWARD
-                GtkScrollType.GTK_SCROLL_PAGE_FORWARD -> PAGE_FORWARD
-                GtkScrollType.GTK_SCROLL_STEP_UP -> STEP_UP
-                GtkScrollType.GTK_SCROLL_STEP_DOWN -> STEP_DOWN
-                GtkScrollType.GTK_SCROLL_PAGE_UP -> PAGE_UP
-                GtkScrollType.GTK_SCROLL_PAGE_DOWN -> PAGE_DOWN
-                GtkScrollType.GTK_SCROLL_STEP_LEFT -> STEP_LEFT
-                GtkScrollType.GTK_SCROLL_STEP_RIGHT -> STEP_RIGHT
-                GtkScrollType.GTK_SCROLL_PAGE_LEFT -> PAGE_LEFT
-                GtkScrollType.GTK_SCROLL_PAGE_RIGHT -> PAGE_RIGHT
-                GtkScrollType.GTK_SCROLL_START -> START
-                GtkScrollType.GTK_SCROLL_END -> END
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkScrollType): ScrollType = when (nativeValue) {
+            GtkScrollType.GTK_SCROLL_NONE -> NONE
+            GtkScrollType.GTK_SCROLL_JUMP -> JUMP
+            GtkScrollType.GTK_SCROLL_STEP_BACKWARD -> STEP_BACKWARD
+            GtkScrollType.GTK_SCROLL_STEP_FORWARD -> STEP_FORWARD
+            GtkScrollType.GTK_SCROLL_PAGE_BACKWARD -> PAGE_BACKWARD
+            GtkScrollType.GTK_SCROLL_PAGE_FORWARD -> PAGE_FORWARD
+            GtkScrollType.GTK_SCROLL_STEP_UP -> STEP_UP
+            GtkScrollType.GTK_SCROLL_STEP_DOWN -> STEP_DOWN
+            GtkScrollType.GTK_SCROLL_PAGE_UP -> PAGE_UP
+            GtkScrollType.GTK_SCROLL_PAGE_DOWN -> PAGE_DOWN
+            GtkScrollType.GTK_SCROLL_STEP_LEFT -> STEP_LEFT
+            GtkScrollType.GTK_SCROLL_STEP_RIGHT -> STEP_RIGHT
+            GtkScrollType.GTK_SCROLL_PAGE_LEFT -> PAGE_LEFT
+            GtkScrollType.GTK_SCROLL_PAGE_RIGHT -> PAGE_RIGHT
+            GtkScrollType.GTK_SCROLL_START -> START
+            GtkScrollType.GTK_SCROLL_END -> END
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of ScrollType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_scroll_type_get_type()
     }
 }

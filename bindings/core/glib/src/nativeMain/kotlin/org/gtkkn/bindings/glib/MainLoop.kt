@@ -1,13 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GMainLoop
 import org.gtkkn.native.glib.g_main_loop_get_context
 import org.gtkkn.native.glib.g_main_loop_is_running
@@ -16,6 +14,8 @@ import org.gtkkn.native.glib.g_main_loop_quit
 import org.gtkkn.native.glib.g_main_loop_ref
 import org.gtkkn.native.glib.g_main_loop_run
 import org.gtkkn.native.glib.g_main_loop_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_main_loop_get_type
 import kotlin.Boolean
 import kotlin.Unit
 
@@ -23,9 +23,7 @@ import kotlin.Unit
  * The `GMainLoop` struct is an opaque data type
  * representing the main event loop of a GLib or GTK application.
  */
-public class MainLoop(
-    pointer: CPointer<GMainLoop>,
-) : Record {
+public class MainLoop(pointer: CPointer<GMainLoop>) : ProxyInstance(pointer) {
     public val glibMainLoopPointer: CPointer<GMainLoop> = pointer
 
     /**
@@ -33,10 +31,9 @@ public class MainLoop(
      *
      * @return the #GMainContext of @loop
      */
-    public fun getContext(): MainContext =
-        g_main_loop_get_context(glibMainLoopPointer.reinterpret())!!.run {
-            MainContext(reinterpret())
-        }
+    public fun getContext(): MainContext = g_main_loop_get_context(glibMainLoopPointer.reinterpret())!!.run {
+        MainContext(reinterpret())
+    }
 
     /**
      * Checks to see if the main loop is currently being run via g_main_loop_run().
@@ -59,10 +56,9 @@ public class MainLoop(
      *
      * @return @loop
      */
-    public fun ref(): MainLoop =
-        g_main_loop_ref(glibMainLoopPointer.reinterpret())!!.run {
-            MainLoop(reinterpret())
-        }
+    public fun ref(): MainLoop = g_main_loop_ref(glibMainLoopPointer.reinterpret())!!.run {
+        MainLoop(reinterpret())
+    }
 
     /**
      * Runs a main loop until g_main_loop_quit() is called on the loop.
@@ -78,7 +74,7 @@ public class MainLoop(
      */
     public fun unref(): Unit = g_main_loop_unref(glibMainLoopPointer.reinterpret())
 
-    public companion object : RecordCompanion<MainLoop, GMainLoop> {
+    public companion object {
         /**
          * Creates a new #GMainLoop structure.
          *
@@ -89,14 +85,15 @@ public class MainLoop(
          * true anyway.
          * @return a new #GMainLoop.
          */
-        public fun new(
-            context: MainContext? = null,
-            isRunning: Boolean,
-        ): MainLoop =
-            MainLoop(
-                g_main_loop_new(context?.glibMainContextPointer?.reinterpret(), isRunning.asGBoolean())!!.reinterpret()
-            )
+        public fun new(context: MainContext? = null, isRunning: Boolean): MainLoop = MainLoop(
+            g_main_loop_new(context?.glibMainContextPointer?.reinterpret(), isRunning.asGBoolean())!!.reinterpret()
+        )
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MainLoop = MainLoop(pointer.reinterpret())
+        /**
+         * Get the GType of MainLoop
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_main_loop_get_type()
     }
 }

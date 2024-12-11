@@ -14,18 +14,17 @@ import org.gtkkn.native.adw.adw_enum_list_model_get_enum_type
 import org.gtkkn.native.adw.adw_enum_list_model_get_type
 import org.gtkkn.native.adw.adw_enum_list_model_new
 import org.gtkkn.native.gio.GListModel
-import kotlin.Int
-import kotlin.UInt
-import kotlin.ULong
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 
 /**
  * A [iface@Gio.ListModel] representing values of a given enum.
  *
  * `AdwEnumListModel` contains objects of type [class@EnumListItem].
  */
-public class EnumListModel(
-    pointer: CPointer<AdwEnumListModel>,
-) : Object(pointer.reinterpret()),
+public class EnumListModel(pointer: CPointer<AdwEnumListModel>) :
+    Object(pointer.reinterpret()),
     ListModel,
     KGTyped {
     public val adwEnumListModelPointer: CPointer<AdwEnumListModel>
@@ -37,7 +36,7 @@ public class EnumListModel(
     /**
      * The type of the enum represented by the model.
      */
-    public val enumType: ULong
+    public val enumType: GType
         /**
          * Gets the type of the enum represented by @self.
          *
@@ -51,7 +50,7 @@ public class EnumListModel(
      * @param enumType the type of the enum to construct the model from
      * @return the newly created `AdwEnumListModel`
      */
-    public constructor(enumType: ULong) : this(adw_enum_list_model_new(enumType)!!.reinterpret())
+    public constructor(enumType: GType) : this(adw_enum_list_model_new(enumType)!!.reinterpret())
 
     /**
      * Finds the position of a given enum value in @self.
@@ -60,15 +59,8 @@ public class EnumListModel(
      *
      * @param value an enum value
      */
-    public fun findPosition(`value`: Int): UInt =
+    public fun findPosition(`value`: gint): guint =
         adw_enum_list_model_find_position(adwEnumListModelPointer.reinterpret(), `value`)
-
-    /**
-     * Gets the type of the enum represented by @self.
-     *
-     * @return the enum type
-     */
-    public fun getEnumType(): ULong = adw_enum_list_model_get_enum_type(adwEnumListModelPointer.reinterpret())
 
     public companion object : TypeCompanion<EnumListModel> {
         override val type: GeneratedClassKGType<EnumListModel> =
@@ -77,5 +69,12 @@ public class EnumListModel(
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of EnumListModel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_enum_list_model_get_type()
     }
 }

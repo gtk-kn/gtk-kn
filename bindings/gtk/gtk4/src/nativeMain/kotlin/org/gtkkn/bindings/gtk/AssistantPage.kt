@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAssistantPage
 import org.gtkkn.native.gtk.gtk_assistant_page_get_child
 import org.gtkkn.native.gtk.gtk_assistant_page_get_type
@@ -20,9 +21,8 @@ import org.gtkkn.native.gtk.gtk_assistant_page_get_type
  * - method `page-type`: Property has no getter nor setter
  * - method `title`: Property has no getter nor setter
  */
-public open class AssistantPage(
-    pointer: CPointer<GtkAssistantPage>,
-) : Object(pointer.reinterpret()),
+public open class AssistantPage(pointer: CPointer<GtkAssistantPage>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkAssistantPagePointer: CPointer<GtkAssistantPage>
         get() = gPointer.reinterpret()
@@ -36,18 +36,7 @@ public open class AssistantPage(
          *
          * @return the child to which @page belongs
          */
-        get() =
-            gtk_assistant_page_get_child(gtkAssistantPagePointer.reinterpret())!!.run {
-                Widget(reinterpret())
-            }
-
-    /**
-     * Returns the child to which @page belongs.
-     *
-     * @return the child to which @page belongs
-     */
-    public open fun getChild(): Widget =
-        gtk_assistant_page_get_child(gtkAssistantPagePointer.reinterpret())!!.run {
+        get() = gtk_assistant_page_get_child(gtkAssistantPagePointer.reinterpret())!!.run {
             Widget(reinterpret())
         }
 
@@ -58,5 +47,12 @@ public open class AssistantPage(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of AssistantPage
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_assistant_page_get_type()
     }
 }

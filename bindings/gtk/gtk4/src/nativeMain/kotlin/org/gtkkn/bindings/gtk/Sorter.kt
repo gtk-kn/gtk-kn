@@ -14,6 +14,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkSorter
 import org.gtkkn.native.gtk.GtkSorterChange
@@ -46,9 +47,8 @@ import kotlin.Unit
  * Of course, in particular for large lists, it is also possible to subclass
  * `GtkSorter` and provide one's own sorter.
  */
-public open class Sorter(
-    pointer: CPointer<GtkSorter>,
-) : Object(pointer.reinterpret()),
+public open class Sorter(pointer: CPointer<GtkSorter>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkSorterPointer: CPointer<GtkSorter>
         get() = gPointer.reinterpret()
@@ -92,17 +92,13 @@ public open class Sorter(
      *   %GTK_ORDERING_SMALLER if @item1 < @item2,
      *   %GTK_ORDERING_LARGER if @item1 > @item2
      */
-    public open fun compare(
-        item1: Object,
-        item2: Object,
-    ): Ordering =
-        gtk_sorter_compare(
-            gtkSorterPointer.reinterpret(),
-            item1.gPointer.reinterpret(),
-            item2.gPointer.reinterpret()
-        ).run {
-            Ordering.fromNativeValue(this)
-        }
+    public open fun compare(item1: Object, item2: Object): Ordering = gtk_sorter_compare(
+        gtkSorterPointer.reinterpret(),
+        item1.gPointer.reinterpret(),
+        item2.gPointer.reinterpret()
+    ).run {
+        Ordering.fromNativeValue(this)
+    }
 
     /**
      * Gets the order that @self conforms to.
@@ -114,10 +110,9 @@ public open class Sorter(
      *
      * @return The order
      */
-    public open fun getOrder(): SorterOrder =
-        gtk_sorter_get_order(gtkSorterPointer.reinterpret()).run {
-            SorterOrder.fromNativeValue(this)
-        }
+    public open fun getOrder(): SorterOrder = gtk_sorter_get_order(gtkSorterPointer.reinterpret()).run {
+        SorterOrder.fromNativeValue(this)
+    }
 
     /**
      * Emitted whenever the sorter changed.
@@ -137,15 +132,14 @@ public open class Sorter(
     public fun connectChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (change: SorterChange) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "changed",
-            connectChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "changed",
+        connectChangedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<Sorter> {
         override val type: GeneratedClassKGType<Sorter> =
@@ -154,18 +148,25 @@ public open class Sorter(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Sorter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_sorter_get_type()
     }
 }
 
-private val connectChangedFunc: CPointer<CFunction<(GtkSorterChange) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            change: GtkSorterChange,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(change: SorterChange) -> Unit>().get().invoke(
-            change.run {
-                SorterChange.fromNativeValue(this)
-            }
-        )
-    }.reinterpret()
+private val connectChangedFunc: CPointer<CFunction<(GtkSorterChange) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        change: GtkSorterChange,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(change: SorterChange) -> Unit>().get().invoke(
+        change.run {
+            SorterChange.fromNativeValue(this)
+        }
+    )
+}
+    .reinterpret()

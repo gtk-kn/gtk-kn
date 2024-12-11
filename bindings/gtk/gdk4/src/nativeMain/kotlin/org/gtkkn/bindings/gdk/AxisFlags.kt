@@ -14,13 +14,13 @@ import org.gtkkn.native.gdk.GDK_AXIS_FLAG_XTILT
 import org.gtkkn.native.gdk.GDK_AXIS_FLAG_Y
 import org.gtkkn.native.gdk.GDK_AXIS_FLAG_YTILT
 import org.gtkkn.native.gdk.GdkAxisFlags
+import org.gtkkn.native.gdk.gdk_axis_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags describing the current capabilities of a device/tool.
  */
-public class AxisFlags(
-    public val mask: GdkAxisFlags,
-) : Bitfield<AxisFlags> {
+public class AxisFlags(public val mask: GdkAxisFlags) : Bitfield<AxisFlags> {
     override infix fun or(other: AxisFlags): AxisFlags = AxisFlags(mask or other.mask)
 
     public companion object {
@@ -78,5 +78,12 @@ public class AxisFlags(
          * Slider axis is present
          */
         public val SLIDER: AxisFlags = AxisFlags(GDK_AXIS_FLAG_SLIDER)
+
+        /**
+         * Get the GType of AxisFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_axis_flags_get_type()
     }
 }

@@ -1,17 +1,17 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitPermissionStateQuery
 import org.gtkkn.native.webkit.webkit_permission_state_query_finish
 import org.gtkkn.native.webkit.webkit_permission_state_query_get_name
 import org.gtkkn.native.webkit.webkit_permission_state_query_get_security_origin
+import org.gtkkn.native.webkit.webkit_permission_state_query_get_type
 import org.gtkkn.native.webkit.webkit_permission_state_query_ref
 import org.gtkkn.native.webkit.webkit_permission_state_query_unref
 import kotlin.String
@@ -29,9 +29,7 @@ import kotlin.Unit
  * When a #WebKitPermissionStateQuery is not handled by the user, the user-agent is instructed to
  * `prompt` the user for the given permission.
  */
-public class PermissionStateQuery(
-    pointer: CPointer<WebKitPermissionStateQuery>,
-) : Record {
+public class PermissionStateQuery(pointer: CPointer<WebKitPermissionStateQuery>) : ProxyInstance(pointer) {
     public val webkitPermissionStateQueryPointer: CPointer<WebKitPermissionStateQuery> = pointer
 
     /**
@@ -94,8 +92,12 @@ public class PermissionStateQuery(
     @WebKitVersion2_40
     public fun unref(): Unit = webkit_permission_state_query_unref(webkitPermissionStateQueryPointer.reinterpret())
 
-    public companion object : RecordCompanion<PermissionStateQuery, WebKitPermissionStateQuery> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PermissionStateQuery =
-            PermissionStateQuery(pointer.reinterpret())
+    public companion object {
+        /**
+         * Get the GType of PermissionStateQuery
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_permission_state_query_get_type()
     }
 }

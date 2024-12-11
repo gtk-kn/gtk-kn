@@ -3,10 +3,12 @@ package org.gtkkn.bindings.pango
 
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_4
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gunichar
 import org.gtkkn.native.pango.PangoScript
 import org.gtkkn.native.pango.pango_script_for_unichar
 import org.gtkkn.native.pango.pango_script_get_sample_language
-import kotlin.UInt
+import org.gtkkn.native.pango.pango_script_get_type
 
 /**
  * The `PangoScript` enumeration identifies different writing
@@ -20,9 +22,7 @@ import kotlin.UInt
  * [enum@GLib.UnicodeScript] enumeration instead,
  * whose values are interchangeable with `PangoScript`.
  */
-public enum class Script(
-    public val nativeValue: PangoScript,
-) {
+public enum class Script(public val nativeValue: PangoScript) {
     /**
      * a value never returned from pango_script_for_unichar()
      */
@@ -616,128 +616,127 @@ public enum class Script(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: PangoScript): Script =
-            when (nativeValue) {
-                PangoScript.PANGO_SCRIPT_INVALID_CODE -> INVALID_CODE
-                PangoScript.PANGO_SCRIPT_COMMON -> COMMON
-                PangoScript.PANGO_SCRIPT_INHERITED -> INHERITED
-                PangoScript.PANGO_SCRIPT_ARABIC -> ARABIC
-                PangoScript.PANGO_SCRIPT_ARMENIAN -> ARMENIAN
-                PangoScript.PANGO_SCRIPT_BENGALI -> BENGALI
-                PangoScript.PANGO_SCRIPT_BOPOMOFO -> BOPOMOFO
-                PangoScript.PANGO_SCRIPT_CHEROKEE -> CHEROKEE
-                PangoScript.PANGO_SCRIPT_COPTIC -> COPTIC
-                PangoScript.PANGO_SCRIPT_CYRILLIC -> CYRILLIC
-                PangoScript.PANGO_SCRIPT_DESERET -> DESERET
-                PangoScript.PANGO_SCRIPT_DEVANAGARI -> DEVANAGARI
-                PangoScript.PANGO_SCRIPT_ETHIOPIC -> ETHIOPIC
-                PangoScript.PANGO_SCRIPT_GEORGIAN -> GEORGIAN
-                PangoScript.PANGO_SCRIPT_GOTHIC -> GOTHIC
-                PangoScript.PANGO_SCRIPT_GREEK -> GREEK
-                PangoScript.PANGO_SCRIPT_GUJARATI -> GUJARATI
-                PangoScript.PANGO_SCRIPT_GURMUKHI -> GURMUKHI
-                PangoScript.PANGO_SCRIPT_HAN -> HAN
-                PangoScript.PANGO_SCRIPT_HANGUL -> HANGUL
-                PangoScript.PANGO_SCRIPT_HEBREW -> HEBREW
-                PangoScript.PANGO_SCRIPT_HIRAGANA -> HIRAGANA
-                PangoScript.PANGO_SCRIPT_KANNADA -> KANNADA
-                PangoScript.PANGO_SCRIPT_KATAKANA -> KATAKANA
-                PangoScript.PANGO_SCRIPT_KHMER -> KHMER
-                PangoScript.PANGO_SCRIPT_LAO -> LAO
-                PangoScript.PANGO_SCRIPT_LATIN -> LATIN
-                PangoScript.PANGO_SCRIPT_MALAYALAM -> MALAYALAM
-                PangoScript.PANGO_SCRIPT_MONGOLIAN -> MONGOLIAN
-                PangoScript.PANGO_SCRIPT_MYANMAR -> MYANMAR
-                PangoScript.PANGO_SCRIPT_OGHAM -> OGHAM
-                PangoScript.PANGO_SCRIPT_OLD_ITALIC -> OLD_ITALIC
-                PangoScript.PANGO_SCRIPT_ORIYA -> ORIYA
-                PangoScript.PANGO_SCRIPT_RUNIC -> RUNIC
-                PangoScript.PANGO_SCRIPT_SINHALA -> SINHALA
-                PangoScript.PANGO_SCRIPT_SYRIAC -> SYRIAC
-                PangoScript.PANGO_SCRIPT_TAMIL -> TAMIL
-                PangoScript.PANGO_SCRIPT_TELUGU -> TELUGU
-                PangoScript.PANGO_SCRIPT_THAANA -> THAANA
-                PangoScript.PANGO_SCRIPT_THAI -> THAI
-                PangoScript.PANGO_SCRIPT_TIBETAN -> TIBETAN
-                PangoScript.PANGO_SCRIPT_CANADIAN_ABORIGINAL -> CANADIAN_ABORIGINAL
-                PangoScript.PANGO_SCRIPT_YI -> YI
-                PangoScript.PANGO_SCRIPT_TAGALOG -> TAGALOG
-                PangoScript.PANGO_SCRIPT_HANUNOO -> HANUNOO
-                PangoScript.PANGO_SCRIPT_BUHID -> BUHID
-                PangoScript.PANGO_SCRIPT_TAGBANWA -> TAGBANWA
-                PangoScript.PANGO_SCRIPT_BRAILLE -> BRAILLE
-                PangoScript.PANGO_SCRIPT_CYPRIOT -> CYPRIOT
-                PangoScript.PANGO_SCRIPT_LIMBU -> LIMBU
-                PangoScript.PANGO_SCRIPT_OSMANYA -> OSMANYA
-                PangoScript.PANGO_SCRIPT_SHAVIAN -> SHAVIAN
-                PangoScript.PANGO_SCRIPT_LINEAR_B -> LINEAR_B
-                PangoScript.PANGO_SCRIPT_TAI_LE -> TAI_LE
-                PangoScript.PANGO_SCRIPT_UGARITIC -> UGARITIC
-                PangoScript.PANGO_SCRIPT_NEW_TAI_LUE -> NEW_TAI_LUE
-                PangoScript.PANGO_SCRIPT_BUGINESE -> BUGINESE
-                PangoScript.PANGO_SCRIPT_GLAGOLITIC -> GLAGOLITIC
-                PangoScript.PANGO_SCRIPT_TIFINAGH -> TIFINAGH
-                PangoScript.PANGO_SCRIPT_SYLOTI_NAGRI -> SYLOTI_NAGRI
-                PangoScript.PANGO_SCRIPT_OLD_PERSIAN -> OLD_PERSIAN
-                PangoScript.PANGO_SCRIPT_KHAROSHTHI -> KHAROSHTHI
-                PangoScript.PANGO_SCRIPT_UNKNOWN -> UNKNOWN
-                PangoScript.PANGO_SCRIPT_BALINESE -> BALINESE
-                PangoScript.PANGO_SCRIPT_CUNEIFORM -> CUNEIFORM
-                PangoScript.PANGO_SCRIPT_PHOENICIAN -> PHOENICIAN
-                PangoScript.PANGO_SCRIPT_PHAGS_PA -> PHAGS_PA
-                PangoScript.PANGO_SCRIPT_NKO -> NKO
-                PangoScript.PANGO_SCRIPT_KAYAH_LI -> KAYAH_LI
-                PangoScript.PANGO_SCRIPT_LEPCHA -> LEPCHA
-                PangoScript.PANGO_SCRIPT_REJANG -> REJANG
-                PangoScript.PANGO_SCRIPT_SUNDANESE -> SUNDANESE
-                PangoScript.PANGO_SCRIPT_SAURASHTRA -> SAURASHTRA
-                PangoScript.PANGO_SCRIPT_CHAM -> CHAM
-                PangoScript.PANGO_SCRIPT_OL_CHIKI -> OL_CHIKI
-                PangoScript.PANGO_SCRIPT_VAI -> VAI
-                PangoScript.PANGO_SCRIPT_CARIAN -> CARIAN
-                PangoScript.PANGO_SCRIPT_LYCIAN -> LYCIAN
-                PangoScript.PANGO_SCRIPT_LYDIAN -> LYDIAN
-                PangoScript.PANGO_SCRIPT_BATAK -> BATAK
-                PangoScript.PANGO_SCRIPT_BRAHMI -> BRAHMI
-                PangoScript.PANGO_SCRIPT_MANDAIC -> MANDAIC
-                PangoScript.PANGO_SCRIPT_CHAKMA -> CHAKMA
-                PangoScript.PANGO_SCRIPT_MEROITIC_CURSIVE -> MEROITIC_CURSIVE
-                PangoScript.PANGO_SCRIPT_MEROITIC_HIEROGLYPHS -> MEROITIC_HIEROGLYPHS
-                PangoScript.PANGO_SCRIPT_MIAO -> MIAO
-                PangoScript.PANGO_SCRIPT_SHARADA -> SHARADA
-                PangoScript.PANGO_SCRIPT_SORA_SOMPENG -> SORA_SOMPENG
-                PangoScript.PANGO_SCRIPT_TAKRI -> TAKRI
-                PangoScript.PANGO_SCRIPT_BASSA_VAH -> BASSA_VAH
-                PangoScript.PANGO_SCRIPT_CAUCASIAN_ALBANIAN -> CAUCASIAN_ALBANIAN
-                PangoScript.PANGO_SCRIPT_DUPLOYAN -> DUPLOYAN
-                PangoScript.PANGO_SCRIPT_ELBASAN -> ELBASAN
-                PangoScript.PANGO_SCRIPT_GRANTHA -> GRANTHA
-                PangoScript.PANGO_SCRIPT_KHOJKI -> KHOJKI
-                PangoScript.PANGO_SCRIPT_KHUDAWADI -> KHUDAWADI
-                PangoScript.PANGO_SCRIPT_LINEAR_A -> LINEAR_A
-                PangoScript.PANGO_SCRIPT_MAHAJANI -> MAHAJANI
-                PangoScript.PANGO_SCRIPT_MANICHAEAN -> MANICHAEAN
-                PangoScript.PANGO_SCRIPT_MENDE_KIKAKUI -> MENDE_KIKAKUI
-                PangoScript.PANGO_SCRIPT_MODI -> MODI
-                PangoScript.PANGO_SCRIPT_MRO -> MRO
-                PangoScript.PANGO_SCRIPT_NABATAEAN -> NABATAEAN
-                PangoScript.PANGO_SCRIPT_OLD_NORTH_ARABIAN -> OLD_NORTH_ARABIAN
-                PangoScript.PANGO_SCRIPT_OLD_PERMIC -> OLD_PERMIC
-                PangoScript.PANGO_SCRIPT_PAHAWH_HMONG -> PAHAWH_HMONG
-                PangoScript.PANGO_SCRIPT_PALMYRENE -> PALMYRENE
-                PangoScript.PANGO_SCRIPT_PAU_CIN_HAU -> PAU_CIN_HAU
-                PangoScript.PANGO_SCRIPT_PSALTER_PAHLAVI -> PSALTER_PAHLAVI
-                PangoScript.PANGO_SCRIPT_SIDDHAM -> SIDDHAM
-                PangoScript.PANGO_SCRIPT_TIRHUTA -> TIRHUTA
-                PangoScript.PANGO_SCRIPT_WARANG_CITI -> WARANG_CITI
-                PangoScript.PANGO_SCRIPT_AHOM -> AHOM
-                PangoScript.PANGO_SCRIPT_ANATOLIAN_HIEROGLYPHS -> ANATOLIAN_HIEROGLYPHS
-                PangoScript.PANGO_SCRIPT_HATRAN -> HATRAN
-                PangoScript.PANGO_SCRIPT_MULTANI -> MULTANI
-                PangoScript.PANGO_SCRIPT_OLD_HUNGARIAN -> OLD_HUNGARIAN
-                PangoScript.PANGO_SCRIPT_SIGNWRITING -> SIGNWRITING
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: PangoScript): Script = when (nativeValue) {
+            PangoScript.PANGO_SCRIPT_INVALID_CODE -> INVALID_CODE
+            PangoScript.PANGO_SCRIPT_COMMON -> COMMON
+            PangoScript.PANGO_SCRIPT_INHERITED -> INHERITED
+            PangoScript.PANGO_SCRIPT_ARABIC -> ARABIC
+            PangoScript.PANGO_SCRIPT_ARMENIAN -> ARMENIAN
+            PangoScript.PANGO_SCRIPT_BENGALI -> BENGALI
+            PangoScript.PANGO_SCRIPT_BOPOMOFO -> BOPOMOFO
+            PangoScript.PANGO_SCRIPT_CHEROKEE -> CHEROKEE
+            PangoScript.PANGO_SCRIPT_COPTIC -> COPTIC
+            PangoScript.PANGO_SCRIPT_CYRILLIC -> CYRILLIC
+            PangoScript.PANGO_SCRIPT_DESERET -> DESERET
+            PangoScript.PANGO_SCRIPT_DEVANAGARI -> DEVANAGARI
+            PangoScript.PANGO_SCRIPT_ETHIOPIC -> ETHIOPIC
+            PangoScript.PANGO_SCRIPT_GEORGIAN -> GEORGIAN
+            PangoScript.PANGO_SCRIPT_GOTHIC -> GOTHIC
+            PangoScript.PANGO_SCRIPT_GREEK -> GREEK
+            PangoScript.PANGO_SCRIPT_GUJARATI -> GUJARATI
+            PangoScript.PANGO_SCRIPT_GURMUKHI -> GURMUKHI
+            PangoScript.PANGO_SCRIPT_HAN -> HAN
+            PangoScript.PANGO_SCRIPT_HANGUL -> HANGUL
+            PangoScript.PANGO_SCRIPT_HEBREW -> HEBREW
+            PangoScript.PANGO_SCRIPT_HIRAGANA -> HIRAGANA
+            PangoScript.PANGO_SCRIPT_KANNADA -> KANNADA
+            PangoScript.PANGO_SCRIPT_KATAKANA -> KATAKANA
+            PangoScript.PANGO_SCRIPT_KHMER -> KHMER
+            PangoScript.PANGO_SCRIPT_LAO -> LAO
+            PangoScript.PANGO_SCRIPT_LATIN -> LATIN
+            PangoScript.PANGO_SCRIPT_MALAYALAM -> MALAYALAM
+            PangoScript.PANGO_SCRIPT_MONGOLIAN -> MONGOLIAN
+            PangoScript.PANGO_SCRIPT_MYANMAR -> MYANMAR
+            PangoScript.PANGO_SCRIPT_OGHAM -> OGHAM
+            PangoScript.PANGO_SCRIPT_OLD_ITALIC -> OLD_ITALIC
+            PangoScript.PANGO_SCRIPT_ORIYA -> ORIYA
+            PangoScript.PANGO_SCRIPT_RUNIC -> RUNIC
+            PangoScript.PANGO_SCRIPT_SINHALA -> SINHALA
+            PangoScript.PANGO_SCRIPT_SYRIAC -> SYRIAC
+            PangoScript.PANGO_SCRIPT_TAMIL -> TAMIL
+            PangoScript.PANGO_SCRIPT_TELUGU -> TELUGU
+            PangoScript.PANGO_SCRIPT_THAANA -> THAANA
+            PangoScript.PANGO_SCRIPT_THAI -> THAI
+            PangoScript.PANGO_SCRIPT_TIBETAN -> TIBETAN
+            PangoScript.PANGO_SCRIPT_CANADIAN_ABORIGINAL -> CANADIAN_ABORIGINAL
+            PangoScript.PANGO_SCRIPT_YI -> YI
+            PangoScript.PANGO_SCRIPT_TAGALOG -> TAGALOG
+            PangoScript.PANGO_SCRIPT_HANUNOO -> HANUNOO
+            PangoScript.PANGO_SCRIPT_BUHID -> BUHID
+            PangoScript.PANGO_SCRIPT_TAGBANWA -> TAGBANWA
+            PangoScript.PANGO_SCRIPT_BRAILLE -> BRAILLE
+            PangoScript.PANGO_SCRIPT_CYPRIOT -> CYPRIOT
+            PangoScript.PANGO_SCRIPT_LIMBU -> LIMBU
+            PangoScript.PANGO_SCRIPT_OSMANYA -> OSMANYA
+            PangoScript.PANGO_SCRIPT_SHAVIAN -> SHAVIAN
+            PangoScript.PANGO_SCRIPT_LINEAR_B -> LINEAR_B
+            PangoScript.PANGO_SCRIPT_TAI_LE -> TAI_LE
+            PangoScript.PANGO_SCRIPT_UGARITIC -> UGARITIC
+            PangoScript.PANGO_SCRIPT_NEW_TAI_LUE -> NEW_TAI_LUE
+            PangoScript.PANGO_SCRIPT_BUGINESE -> BUGINESE
+            PangoScript.PANGO_SCRIPT_GLAGOLITIC -> GLAGOLITIC
+            PangoScript.PANGO_SCRIPT_TIFINAGH -> TIFINAGH
+            PangoScript.PANGO_SCRIPT_SYLOTI_NAGRI -> SYLOTI_NAGRI
+            PangoScript.PANGO_SCRIPT_OLD_PERSIAN -> OLD_PERSIAN
+            PangoScript.PANGO_SCRIPT_KHAROSHTHI -> KHAROSHTHI
+            PangoScript.PANGO_SCRIPT_UNKNOWN -> UNKNOWN
+            PangoScript.PANGO_SCRIPT_BALINESE -> BALINESE
+            PangoScript.PANGO_SCRIPT_CUNEIFORM -> CUNEIFORM
+            PangoScript.PANGO_SCRIPT_PHOENICIAN -> PHOENICIAN
+            PangoScript.PANGO_SCRIPT_PHAGS_PA -> PHAGS_PA
+            PangoScript.PANGO_SCRIPT_NKO -> NKO
+            PangoScript.PANGO_SCRIPT_KAYAH_LI -> KAYAH_LI
+            PangoScript.PANGO_SCRIPT_LEPCHA -> LEPCHA
+            PangoScript.PANGO_SCRIPT_REJANG -> REJANG
+            PangoScript.PANGO_SCRIPT_SUNDANESE -> SUNDANESE
+            PangoScript.PANGO_SCRIPT_SAURASHTRA -> SAURASHTRA
+            PangoScript.PANGO_SCRIPT_CHAM -> CHAM
+            PangoScript.PANGO_SCRIPT_OL_CHIKI -> OL_CHIKI
+            PangoScript.PANGO_SCRIPT_VAI -> VAI
+            PangoScript.PANGO_SCRIPT_CARIAN -> CARIAN
+            PangoScript.PANGO_SCRIPT_LYCIAN -> LYCIAN
+            PangoScript.PANGO_SCRIPT_LYDIAN -> LYDIAN
+            PangoScript.PANGO_SCRIPT_BATAK -> BATAK
+            PangoScript.PANGO_SCRIPT_BRAHMI -> BRAHMI
+            PangoScript.PANGO_SCRIPT_MANDAIC -> MANDAIC
+            PangoScript.PANGO_SCRIPT_CHAKMA -> CHAKMA
+            PangoScript.PANGO_SCRIPT_MEROITIC_CURSIVE -> MEROITIC_CURSIVE
+            PangoScript.PANGO_SCRIPT_MEROITIC_HIEROGLYPHS -> MEROITIC_HIEROGLYPHS
+            PangoScript.PANGO_SCRIPT_MIAO -> MIAO
+            PangoScript.PANGO_SCRIPT_SHARADA -> SHARADA
+            PangoScript.PANGO_SCRIPT_SORA_SOMPENG -> SORA_SOMPENG
+            PangoScript.PANGO_SCRIPT_TAKRI -> TAKRI
+            PangoScript.PANGO_SCRIPT_BASSA_VAH -> BASSA_VAH
+            PangoScript.PANGO_SCRIPT_CAUCASIAN_ALBANIAN -> CAUCASIAN_ALBANIAN
+            PangoScript.PANGO_SCRIPT_DUPLOYAN -> DUPLOYAN
+            PangoScript.PANGO_SCRIPT_ELBASAN -> ELBASAN
+            PangoScript.PANGO_SCRIPT_GRANTHA -> GRANTHA
+            PangoScript.PANGO_SCRIPT_KHOJKI -> KHOJKI
+            PangoScript.PANGO_SCRIPT_KHUDAWADI -> KHUDAWADI
+            PangoScript.PANGO_SCRIPT_LINEAR_A -> LINEAR_A
+            PangoScript.PANGO_SCRIPT_MAHAJANI -> MAHAJANI
+            PangoScript.PANGO_SCRIPT_MANICHAEAN -> MANICHAEAN
+            PangoScript.PANGO_SCRIPT_MENDE_KIKAKUI -> MENDE_KIKAKUI
+            PangoScript.PANGO_SCRIPT_MODI -> MODI
+            PangoScript.PANGO_SCRIPT_MRO -> MRO
+            PangoScript.PANGO_SCRIPT_NABATAEAN -> NABATAEAN
+            PangoScript.PANGO_SCRIPT_OLD_NORTH_ARABIAN -> OLD_NORTH_ARABIAN
+            PangoScript.PANGO_SCRIPT_OLD_PERMIC -> OLD_PERMIC
+            PangoScript.PANGO_SCRIPT_PAHAWH_HMONG -> PAHAWH_HMONG
+            PangoScript.PANGO_SCRIPT_PALMYRENE -> PALMYRENE
+            PangoScript.PANGO_SCRIPT_PAU_CIN_HAU -> PAU_CIN_HAU
+            PangoScript.PANGO_SCRIPT_PSALTER_PAHLAVI -> PSALTER_PAHLAVI
+            PangoScript.PANGO_SCRIPT_SIDDHAM -> SIDDHAM
+            PangoScript.PANGO_SCRIPT_TIRHUTA -> TIRHUTA
+            PangoScript.PANGO_SCRIPT_WARANG_CITI -> WARANG_CITI
+            PangoScript.PANGO_SCRIPT_AHOM -> AHOM
+            PangoScript.PANGO_SCRIPT_ANATOLIAN_HIEROGLYPHS -> ANATOLIAN_HIEROGLYPHS
+            PangoScript.PANGO_SCRIPT_HATRAN -> HATRAN
+            PangoScript.PANGO_SCRIPT_MULTANI -> MULTANI
+            PangoScript.PANGO_SCRIPT_OLD_HUNGARIAN -> OLD_HUNGARIAN
+            PangoScript.PANGO_SCRIPT_SIGNWRITING -> SIGNWRITING
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Looks up the script for a particular character.
@@ -758,10 +757,9 @@ public enum class Script(
          * @since 1.4
          */
         @PangoVersion1_4
-        public fun forUnichar(ch: UInt): Script =
-            pango_script_for_unichar(ch).run {
-                Script.fromNativeValue(this)
-            }
+        public fun forUnichar(ch: gunichar): Script = pango_script_for_unichar(ch).run {
+            Script.fromNativeValue(this)
+        }
 
         /**
          * Finds a language tag that is reasonably representative of @script.
@@ -804,5 +802,12 @@ public enum class Script(
             pango_script_get_sample_language(script.nativeValue)?.run {
                 Language(reinterpret())
             }
+
+        /**
+         * Get the GType of Script
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_script_get_type()
     }
 }

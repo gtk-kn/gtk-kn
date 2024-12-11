@@ -12,6 +12,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.javascriptcore.JSCClass
 import org.gtkkn.native.javascriptcore.jsc_class_add_constructor_variadic
 import org.gtkkn.native.javascriptcore.jsc_class_add_method_variadic
@@ -19,7 +20,6 @@ import org.gtkkn.native.javascriptcore.jsc_class_get_name
 import org.gtkkn.native.javascriptcore.jsc_class_get_parent
 import org.gtkkn.native.javascriptcore.jsc_class_get_type
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 
 /**
@@ -36,9 +36,8 @@ import kotlin.Unit
  * - parameter `getter`: GObject.Callback
  * - method `context`: Property has no getter nor setter
  */
-public class Class(
-    pointer: CPointer<JSCClass>,
-) : Object(pointer.reinterpret()),
+public class Class(pointer: CPointer<JSCClass>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val javascriptcoreClassPointer: CPointer<JSCClass>
         get() = gPointer.reinterpret()
@@ -52,9 +51,8 @@ public class Class(
          *
          * @return the name of @jsc_class
          */
-        get() =
-            jsc_class_get_name(javascriptcoreClassPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = jsc_class_get_name(javascriptcoreClassPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * The parent class or null in case of final classes.
@@ -65,10 +63,9 @@ public class Class(
          *
          * @return the parent class of @jsc_class
          */
-        get() =
-            jsc_class_get_parent(javascriptcoreClassPointer.reinterpret())!!.run {
-                Class(reinterpret())
-            }
+        get() = jsc_class_get_parent(javascriptcoreClassPointer.reinterpret())!!.run {
+            Class(reinterpret())
+        }
 
     /**
      * Add a constructor to @jsc_class. If @name is null, the class name will be used. When <function>new</function>
@@ -87,11 +84,7 @@ public class Class(
      * @param returnType the #GType of the constructor return value
      * @return a #JSCValue representing the class constructor.
      */
-    public fun addConstructorVariadic(
-        name: String? = null,
-        callback: Callback,
-        returnType: ULong,
-    ): Value =
+    public fun addConstructorVariadic(name: String? = null, callback: Callback, returnType: GType): Value =
         jsc_class_add_constructor_variadic(
             javascriptcoreClassPointer.reinterpret(),
             name,
@@ -118,11 +111,7 @@ public class Class(
      * @param callback a #GCallback to be called to invoke method @name of @jsc_class
      * @param returnType the #GType of the method return value, or %G_TYPE_NONE if the method is void.
      */
-    public fun addMethodVariadic(
-        name: String,
-        callback: Callback,
-        returnType: ULong,
-    ): Unit =
+    public fun addMethodVariadic(name: String, callback: Callback, returnType: GType): Unit =
         jsc_class_add_method_variadic(
             javascriptcoreClassPointer.reinterpret(),
             name,
@@ -132,24 +121,6 @@ public class Class(
             returnType
         )
 
-    /**
-     * Get the class name of @jsc_class
-     *
-     * @return the name of @jsc_class
-     */
-    public fun getName(): String =
-        jsc_class_get_name(javascriptcoreClassPointer.reinterpret())?.toKString() ?: error("Expected not null string")
-
-    /**
-     * Get the parent class of @jsc_class
-     *
-     * @return the parent class of @jsc_class
-     */
-    public fun getParent(): Class =
-        jsc_class_get_parent(javascriptcoreClassPointer.reinterpret())!!.run {
-            Class(reinterpret())
-        }
-
     public companion object : TypeCompanion<Class> {
         override val type: GeneratedClassKGType<Class> =
             GeneratedClassKGType(jsc_class_get_type()) { Class(it.reinterpret()) }
@@ -157,5 +128,12 @@ public class Class(
         init {
             JavascriptcoreTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Class
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = jsc_class_get_type()
     }
 }

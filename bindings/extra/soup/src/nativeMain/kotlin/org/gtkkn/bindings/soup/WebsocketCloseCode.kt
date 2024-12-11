@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupWebsocketCloseCode
+import org.gtkkn.native.soup.soup_websocket_close_code_get_type
 
 /**
  * Pre-defined close codes that can be passed to
@@ -10,9 +12,7 @@ import org.gtkkn.native.soup.SoupWebsocketCloseCode
  *
  * However, other codes are also allowed.
  */
-public enum class WebsocketCloseCode(
-    public val nativeValue: SoupWebsocketCloseCode,
-) {
+public enum class WebsocketCloseCode(public val nativeValue: SoupWebsocketCloseCode) {
     /**
      * a normal, non-error close
      */
@@ -85,21 +85,27 @@ public enum class WebsocketCloseCode(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: SoupWebsocketCloseCode): WebsocketCloseCode =
-            when (nativeValue) {
-                SoupWebsocketCloseCode.SOUP_WEBSOCKET_CLOSE_NORMAL -> NORMAL
-                SoupWebsocketCloseCode.SOUP_WEBSOCKET_CLOSE_GOING_AWAY -> GOING_AWAY
-                SoupWebsocketCloseCode.SOUP_WEBSOCKET_CLOSE_PROTOCOL_ERROR -> PROTOCOL_ERROR
-                SoupWebsocketCloseCode.SOUP_WEBSOCKET_CLOSE_UNSUPPORTED_DATA -> UNSUPPORTED_DATA
-                SoupWebsocketCloseCode.SOUP_WEBSOCKET_CLOSE_NO_STATUS -> NO_STATUS
-                SoupWebsocketCloseCode.SOUP_WEBSOCKET_CLOSE_ABNORMAL -> ABNORMAL
-                SoupWebsocketCloseCode.SOUP_WEBSOCKET_CLOSE_BAD_DATA -> BAD_DATA
-                SoupWebsocketCloseCode.SOUP_WEBSOCKET_CLOSE_POLICY_VIOLATION -> POLICY_VIOLATION
-                SoupWebsocketCloseCode.SOUP_WEBSOCKET_CLOSE_TOO_BIG -> TOO_BIG
-                SoupWebsocketCloseCode.SOUP_WEBSOCKET_CLOSE_NO_EXTENSION -> NO_EXTENSION
-                SoupWebsocketCloseCode.SOUP_WEBSOCKET_CLOSE_SERVER_ERROR -> SERVER_ERROR
-                SoupWebsocketCloseCode.SOUP_WEBSOCKET_CLOSE_TLS_HANDSHAKE -> TLS_HANDSHAKE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: SoupWebsocketCloseCode): WebsocketCloseCode = when (nativeValue) {
+            SoupWebsocketCloseCode.SOUP_WEBSOCKET_CLOSE_NORMAL -> NORMAL
+            SoupWebsocketCloseCode.SOUP_WEBSOCKET_CLOSE_GOING_AWAY -> GOING_AWAY
+            SoupWebsocketCloseCode.SOUP_WEBSOCKET_CLOSE_PROTOCOL_ERROR -> PROTOCOL_ERROR
+            SoupWebsocketCloseCode.SOUP_WEBSOCKET_CLOSE_UNSUPPORTED_DATA -> UNSUPPORTED_DATA
+            SoupWebsocketCloseCode.SOUP_WEBSOCKET_CLOSE_NO_STATUS -> NO_STATUS
+            SoupWebsocketCloseCode.SOUP_WEBSOCKET_CLOSE_ABNORMAL -> ABNORMAL
+            SoupWebsocketCloseCode.SOUP_WEBSOCKET_CLOSE_BAD_DATA -> BAD_DATA
+            SoupWebsocketCloseCode.SOUP_WEBSOCKET_CLOSE_POLICY_VIOLATION -> POLICY_VIOLATION
+            SoupWebsocketCloseCode.SOUP_WEBSOCKET_CLOSE_TOO_BIG -> TOO_BIG
+            SoupWebsocketCloseCode.SOUP_WEBSOCKET_CLOSE_NO_EXTENSION -> NO_EXTENSION
+            SoupWebsocketCloseCode.SOUP_WEBSOCKET_CLOSE_SERVER_ERROR -> SERVER_ERROR
+            SoupWebsocketCloseCode.SOUP_WEBSOCKET_CLOSE_TLS_HANDSHAKE -> TLS_HANDSHAKE
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of WebsocketCloseCode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_websocket_close_code_get_type()
     }
 }

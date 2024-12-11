@@ -1,17 +1,24 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.graphene
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_4
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.graphene.graphene_point_alloc
 import org.gtkkn.native.graphene.graphene_point_equal
 import org.gtkkn.native.graphene.graphene_point_free
+import org.gtkkn.native.graphene.graphene_point_get_type
 import org.gtkkn.native.graphene.graphene_point_init
 import org.gtkkn.native.graphene.graphene_point_init_from_point
 import org.gtkkn.native.graphene.graphene_point_init_from_vec2
@@ -21,9 +28,11 @@ import org.gtkkn.native.graphene.graphene_point_t
 import org.gtkkn.native.graphene.graphene_point_to_vec2
 import org.gtkkn.native.graphene.graphene_point_zero
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Float
+import kotlin.Pair
+import kotlin.String
 import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * A point with two coordinates.
@@ -35,16 +44,16 @@ import kotlin.Unit
  * @since 1.0
  */
 @GrapheneVersion1_0
-public class Point(
-    pointer: CPointer<graphene_point_t>,
-) : Record {
+public class Point(pointer: CPointer<graphene_point_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val graphenePointPointer: CPointer<graphene_point_t> = pointer
 
     /**
      * the X coordinate of the point
      */
-    public var x: Float
+    public var x: gfloat
         get() = graphenePointPointer.pointed.x
+
+        @UnsafeFieldSetter
         set(`value`) {
             graphenePointPointer.pointed.x = value
         }
@@ -52,11 +61,76 @@ public class Point(
     /**
      * the Y coordinate of the point
      */
-    public var y: Float
+    public var y: gfloat
         get() = graphenePointPointer.pointed.y
+
+        @UnsafeFieldSetter
         set(`value`) {
             graphenePointPointer.pointed.y = value
         }
+
+    /**
+     * Allocate a new Point.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<graphene_point_t>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Point and a [Cleaner] instance.
+     */
+    private constructor(
+        pair: Pair<CPointer<graphene_point_t>, Cleaner>,
+    ) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Point using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_point_t>().ptr)
+
+    /**
+     * Allocate a new Point.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param x the X coordinate of the point
+     * @param y the Y coordinate of the point
+     */
+    public constructor(x: gfloat, y: gfloat) : this() {
+        this.x = x
+        this.y = y
+    }
+
+    /**
+     * Allocate a new Point using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param x the X coordinate of the point
+     * @param y the Y coordinate of the point
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        x: gfloat,
+        y: gfloat,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.x = x
+        this.y = y
+    }
 
     /**
      * Checks if the two points @a and @b point to the same
@@ -93,10 +167,7 @@ public class Point(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun `init`(
-        x: Float,
-        y: Float,
-    ): Point =
+    public fun `init`(x: gfloat, y: gfloat): Point =
         graphene_point_init(graphenePointPointer.reinterpret(), x, y)!!.run {
             Point(reinterpret())
         }
@@ -109,13 +180,12 @@ public class Point(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initFromPoint(src: Point): Point =
-        graphene_point_init_from_point(
-            graphenePointPointer.reinterpret(),
-            src.graphenePointPointer.reinterpret()
-        )!!.run {
-            Point(reinterpret())
-        }
+    public fun initFromPoint(src: Point): Point = graphene_point_init_from_point(
+        graphenePointPointer.reinterpret(),
+        src.graphenePointPointer.reinterpret()
+    )!!.run {
+        Point(reinterpret())
+    }
 
     /**
      * Initializes @p with the coordinates inside the given #graphene_vec2_t.
@@ -141,17 +211,12 @@ public class Point(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun interpolate(
-        b: Point,
-        factor: Double,
-        res: Point,
-    ): Unit =
-        graphene_point_interpolate(
-            graphenePointPointer.reinterpret(),
-            b.graphenePointPointer.reinterpret(),
-            factor,
-            res.graphenePointPointer.reinterpret()
-        )
+    public fun interpolate(b: Point, factor: gdouble, res: Point): Unit = graphene_point_interpolate(
+        graphenePointPointer.reinterpret(),
+        b.graphenePointPointer.reinterpret(),
+        factor,
+        res.graphenePointPointer.reinterpret()
+    )
 
     /**
      * Checks whether the two points @a and @b are within
@@ -163,10 +228,8 @@ public class Point(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun near(
-        b: Point,
-        epsilon: Float,
-    ): Boolean = graphene_point_near(graphenePointPointer.reinterpret(), b.graphenePointPointer.reinterpret(), epsilon)
+    public fun near(b: Point, epsilon: gfloat): Boolean =
+        graphene_point_near(graphenePointPointer.reinterpret(), b.graphenePointPointer.reinterpret(), epsilon)
 
     /**
      * Stores the coordinates of the given #graphene_point_t into a
@@ -179,7 +242,9 @@ public class Point(
     public fun toVec2(v: Vec2): Unit =
         graphene_point_to_vec2(graphenePointPointer.reinterpret(), v.grapheneVec2Pointer.reinterpret())
 
-    public companion object : RecordCompanion<Point, graphene_point_t> {
+    override fun toString(): String = "Point(x=$x, y=$y)"
+
+    public companion object {
         /**
          * Allocates a new #graphene_point_t structure.
          *
@@ -216,11 +281,15 @@ public class Point(
          * @since 1.0
          */
         @GrapheneVersion1_0
-        public fun zero(): Point =
-            graphene_point_zero()!!.run {
-                Point(reinterpret())
-            }
+        public fun zero(): Point = graphene_point_zero()!!.run {
+            Point(reinterpret())
+        }
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Point = Point(pointer.reinterpret())
+        /**
+         * Get the GType of Point
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = graphene_point_get_type()
     }
 }

@@ -20,7 +20,8 @@ import org.gtkkn.native.gio.g_themed_icon_new
 import org.gtkkn.native.gio.g_themed_icon_new_from_names
 import org.gtkkn.native.gio.g_themed_icon_new_with_default_fallbacks
 import org.gtkkn.native.gio.g_themed_icon_prepend_name
-import kotlin.Int
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import kotlin.String
 import kotlin.Unit
 import kotlin.collections.List
@@ -41,9 +42,8 @@ import kotlin.collections.List
  * - method `name`: Property has no getter nor setter
  * - method `use-default-fallbacks`: Property has no getter nor setter
  */
-public open class ThemedIcon(
-    pointer: CPointer<GThemedIcon>,
-) : Object(pointer.reinterpret()),
+public open class ThemedIcon(pointer: CPointer<GThemedIcon>) :
+    Object(pointer.reinterpret()),
     Icon,
     KGTyped {
     public val gioThemedIconPointer: CPointer<GThemedIcon>
@@ -61,9 +61,8 @@ public open class ThemedIcon(
          *
          * @return a list of icon names.
          */
-        get() =
-            g_themed_icon_get_names(gioThemedIconPointer.reinterpret())?.toKStringList()
-                ?: error("Expected not null string array")
+        get() = g_themed_icon_get_names(gioThemedIconPointer.reinterpret())?.toKStringList()
+            ?: error("Expected not null string array")
 
     /**
      * Creates a new themed icon for @iconname.
@@ -81,7 +80,7 @@ public open class ThemedIcon(
      *     null-terminated
      * @return a new #GThemedIcon
      */
-    public constructor(iconnames: List<String>, len: Int) : this(
+    public constructor(iconnames: List<String>, len: gint) : this(
         memScoped {
             g_themed_icon_new_from_names(iconnames.toCStringList(this), len)!!.reinterpret()
         }
@@ -97,15 +96,6 @@ public open class ThemedIcon(
      */
     public open fun appendName(iconname: String): Unit =
         g_themed_icon_append_name(gioThemedIconPointer.reinterpret(), iconname)
-
-    /**
-     * Gets the names of icons from within @icon.
-     *
-     * @return a list of icon names.
-     */
-    public open fun getNames(): List<String> =
-        g_themed_icon_get_names(gioThemedIconPointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
 
     /**
      * Prepend a name to the list of icons from within @icon.
@@ -158,5 +148,12 @@ public open class ThemedIcon(
          */
         public fun newWithDefaultFallbacks(iconname: String): ThemedIcon =
             ThemedIcon(g_themed_icon_new_with_default_fallbacks(iconname)!!.reinterpret())
+
+        /**
+         * Get the GType of ThemedIcon
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_themed_icon_get_type()
     }
 }

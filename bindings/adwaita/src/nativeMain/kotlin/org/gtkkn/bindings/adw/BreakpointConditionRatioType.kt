@@ -3,6 +3,8 @@ package org.gtkkn.bindings.adw
 
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.native.adw.AdwBreakpointConditionRatioType
+import org.gtkkn.native.adw.adw_breakpoint_condition_ratio_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Describes ratio types for [struct@BreakpointCondition].
@@ -13,9 +15,7 @@ import org.gtkkn.native.adw.AdwBreakpointConditionRatioType
  * @since 1.4
  */
 @AdwVersion1_4
-public enum class BreakpointConditionRatioType(
-    public val nativeValue: AdwBreakpointConditionRatioType,
-) {
+public enum class BreakpointConditionRatioType(public val nativeValue: AdwBreakpointConditionRatioType) {
     /**
      * true if the aspect ratio is
      *   greater than or equal to the condition value
@@ -36,5 +36,12 @@ public enum class BreakpointConditionRatioType(
                 AdwBreakpointConditionRatioType.ADW_BREAKPOINT_CONDITION_MAX_ASPECT_RATIO -> MAX_ASPECT_RATIO
                 else -> error("invalid nativeValue")
             }
+
+        /**
+         * Get the GType of BreakpointConditionRatioType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_breakpoint_condition_ratio_type_get_type()
     }
 }

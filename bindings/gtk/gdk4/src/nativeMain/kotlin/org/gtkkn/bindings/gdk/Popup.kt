@@ -17,8 +17,9 @@ import org.gtkkn.native.gdk.gdk_popup_get_rect_anchor
 import org.gtkkn.native.gdk.gdk_popup_get_surface_anchor
 import org.gtkkn.native.gdk.gdk_popup_get_type
 import org.gtkkn.native.gdk.gdk_popup_present
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
-import kotlin.Int
 
 /**
  * A `GdkPopup` is a surface that is attached to another surface.
@@ -54,10 +55,9 @@ public interface Popup :
          *
          * @return the parent surface
          */
-        get() =
-            gdk_popup_get_parent(gdkPopupPointer.reinterpret())?.run {
-                Surface(reinterpret())
-            }
+        get() = gdk_popup_get_parent(gdkPopupPointer.reinterpret())?.run {
+            Surface(reinterpret())
+        }
 
     /**
      * Returns whether this popup is set to hide on outside clicks.
@@ -71,24 +71,23 @@ public interface Popup :
      *
      * @return the parent surface
      */
-    public fun getParent(): Surface? =
-        gdk_popup_get_parent(gdkPopupPointer.reinterpret())?.run {
-            Surface(reinterpret())
-        }
+    public fun getParent(): Surface? = gdk_popup_get_parent(gdkPopupPointer.reinterpret())?.run {
+        Surface(reinterpret())
+    }
 
     /**
      * Obtains the position of the popup relative to its parent.
      *
      * @return the X coordinate of @popup position
      */
-    public fun getPositionX(): Int = gdk_popup_get_position_x(gdkPopupPointer.reinterpret())
+    public fun getPositionX(): gint = gdk_popup_get_position_x(gdkPopupPointer.reinterpret())
 
     /**
      * Obtains the position of the popup relative to its parent.
      *
      * @return the Y coordinate of @popup position
      */
-    public fun getPositionY(): Int = gdk_popup_get_position_y(gdkPopupPointer.reinterpret())
+    public fun getPositionY(): gint = gdk_popup_get_position_y(gdkPopupPointer.reinterpret())
 
     /**
      * Gets the current popup rectangle anchor.
@@ -98,10 +97,9 @@ public interface Popup :
      *
      * @return the current rectangle anchor value of @popup
      */
-    public fun getRectAnchor(): Gravity =
-        gdk_popup_get_rect_anchor(gdkPopupPointer.reinterpret()).run {
-            Gravity.fromNativeValue(this)
-        }
+    public fun getRectAnchor(): Gravity = gdk_popup_get_rect_anchor(gdkPopupPointer.reinterpret()).run {
+        Gravity.fromNativeValue(this)
+    }
 
     /**
      * Gets the current popup surface anchor.
@@ -111,10 +109,9 @@ public interface Popup :
      *
      * @return the current surface anchor value of @popup
      */
-    public fun getSurfaceAnchor(): Gravity =
-        gdk_popup_get_surface_anchor(gdkPopupPointer.reinterpret()).run {
-            Gravity.fromNativeValue(this)
-        }
+    public fun getSurfaceAnchor(): Gravity = gdk_popup_get_surface_anchor(gdkPopupPointer.reinterpret()).run {
+        Gravity.fromNativeValue(this)
+    }
 
     /**
      * Present @popup after having processed the `GdkPopupLayout` rules.
@@ -138,21 +135,14 @@ public interface Popup :
      * @param layout the `GdkPopupLayout` object used to layout
      * @return false if it failed to be presented, otherwise true.
      */
-    public fun present(
-        width: Int,
-        height: Int,
-        layout: PopupLayout,
-    ): Boolean =
-        gdk_popup_present(
-            gdkPopupPointer.reinterpret(),
-            width,
-            height,
-            layout.gdkPopupLayoutPointer.reinterpret()
-        ).asBoolean()
+    public fun present(width: gint, height: gint, layout: PopupLayout): Boolean = gdk_popup_present(
+        gdkPopupPointer.reinterpret(),
+        width,
+        height,
+        layout.gdkPopupLayoutPointer.reinterpret()
+    ).asBoolean()
 
-    private data class Wrapper(
-        private val pointer: CPointer<GdkPopup>,
-    ) : Popup {
+    private data class Wrapper(private val pointer: CPointer<GdkPopup>) : Popup {
         override val gdkPopupPointer: CPointer<GdkPopup> = pointer
     }
 
@@ -165,5 +155,12 @@ public interface Popup :
         }
 
         public fun wrap(pointer: CPointer<GdkPopup>): Popup = Wrapper(pointer)
+
+        /**
+         * Get the GType of Popup
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_popup_get_type()
     }
 }

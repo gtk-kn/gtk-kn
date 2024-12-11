@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -11,17 +10,18 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_44
 import org.gtkkn.bindings.gio.annotations.GioVersion2_46
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.toKStringList
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GSettingsSchema
 import org.gtkkn.native.gio.g_settings_schema_get_id
 import org.gtkkn.native.gio.g_settings_schema_get_key
 import org.gtkkn.native.gio.g_settings_schema_get_path
+import org.gtkkn.native.gio.g_settings_schema_get_type
 import org.gtkkn.native.gio.g_settings_schema_has_key
 import org.gtkkn.native.gio.g_settings_schema_list_children
 import org.gtkkn.native.gio.g_settings_schema_list_keys
 import org.gtkkn.native.gio.g_settings_schema_ref
 import org.gtkkn.native.gio.g_settings_schema_unref
+import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
@@ -121,9 +121,7 @@ import kotlin.collections.List
  * @since 2.32
  */
 @GioVersion2_32
-public class SettingsSchema(
-    pointer: CPointer<GSettingsSchema>,
-) : Record {
+public class SettingsSchema(pointer: CPointer<GSettingsSchema>) : ProxyInstance(pointer) {
     public val gioSettingsSchemaPointer: CPointer<GSettingsSchema> = pointer
 
     /**
@@ -131,9 +129,8 @@ public class SettingsSchema(
      *
      * @return the ID
      */
-    public fun getId(): String =
-        g_settings_schema_get_id(gioSettingsSchemaPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getId(): String = g_settings_schema_get_id(gioSettingsSchemaPointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Gets the key named @name from @schema.
@@ -217,10 +214,9 @@ public class SettingsSchema(
      * @since 2.32
      */
     @GioVersion2_32
-    public fun ref(): SettingsSchema =
-        g_settings_schema_ref(gioSettingsSchemaPointer.reinterpret())!!.run {
-            SettingsSchema(reinterpret())
-        }
+    public fun ref(): SettingsSchema = g_settings_schema_ref(gioSettingsSchemaPointer.reinterpret())!!.run {
+        SettingsSchema(reinterpret())
+    }
 
     /**
      * Decrease the reference count of @schema, possibly freeing it.
@@ -230,8 +226,12 @@ public class SettingsSchema(
     @GioVersion2_32
     public fun unref(): Unit = g_settings_schema_unref(gioSettingsSchemaPointer.reinterpret())
 
-    public companion object : RecordCompanion<SettingsSchema, GSettingsSchema> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SettingsSchema =
-            SettingsSchema(pointer.reinterpret())
+    public companion object {
+        /**
+         * Get the GType of SettingsSchema
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_settings_schema_get_type()
     }
 }

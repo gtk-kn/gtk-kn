@@ -9,9 +9,7 @@ import org.gtkkn.native.javascriptcore.JSCOptionType
  * @since 2.24
  */
 @JavaScriptCoreVersion2_24
-public enum class OptionType(
-    public val nativeValue: JSCOptionType,
-) {
+public enum class OptionType(public val nativeValue: JSCOptionType) {
     /**
      * A #gboolean option type.
      */
@@ -49,16 +47,15 @@ public enum class OptionType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: JSCOptionType): OptionType =
-            when (nativeValue) {
-                JSCOptionType.JSC_OPTION_BOOLEAN -> BOOLEAN
-                JSCOptionType.JSC_OPTION_INT -> INT
-                JSCOptionType.JSC_OPTION_UINT -> UINT
-                JSCOptionType.JSC_OPTION_SIZE -> SIZE
-                JSCOptionType.JSC_OPTION_DOUBLE -> DOUBLE
-                JSCOptionType.JSC_OPTION_STRING -> STRING
-                JSCOptionType.JSC_OPTION_RANGE_STRING -> RANGE_STRING
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: JSCOptionType): OptionType = when (nativeValue) {
+            JSCOptionType.JSC_OPTION_BOOLEAN -> BOOLEAN
+            JSCOptionType.JSC_OPTION_INT -> INT
+            JSCOptionType.JSC_OPTION_UINT -> UINT
+            JSCOptionType.JSC_OPTION_SIZE -> SIZE
+            JSCOptionType.JSC_OPTION_DOUBLE -> DOUBLE
+            JSCOptionType.JSC_OPTION_STRING -> STRING
+            JSCOptionType.JSC_OPTION_RANGE_STRING -> RANGE_STRING
+            else -> error("invalid nativeValue")
+        }
     }
 }

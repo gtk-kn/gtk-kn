@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.native.gio.GSocketClientEvent
+import org.gtkkn.native.gio.g_socket_client_event_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Describes an event occurring on a #GSocketClient. See the
@@ -12,9 +14,7 @@ import org.gtkkn.native.gio.GSocketClientEvent
  * @since 2.32
  */
 @GioVersion2_32
-public enum class SocketClientEvent(
-    public val nativeValue: GSocketClientEvent,
-) {
+public enum class SocketClientEvent(public val nativeValue: GSocketClientEvent) {
     /**
      * The client is doing a DNS lookup.
      */
@@ -69,18 +69,24 @@ public enum class SocketClientEvent(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GSocketClientEvent): SocketClientEvent =
-            when (nativeValue) {
-                GSocketClientEvent.G_SOCKET_CLIENT_RESOLVING -> RESOLVING
-                GSocketClientEvent.G_SOCKET_CLIENT_RESOLVED -> RESOLVED
-                GSocketClientEvent.G_SOCKET_CLIENT_CONNECTING -> CONNECTING
-                GSocketClientEvent.G_SOCKET_CLIENT_CONNECTED -> CONNECTED
-                GSocketClientEvent.G_SOCKET_CLIENT_PROXY_NEGOTIATING -> PROXY_NEGOTIATING
-                GSocketClientEvent.G_SOCKET_CLIENT_PROXY_NEGOTIATED -> PROXY_NEGOTIATED
-                GSocketClientEvent.G_SOCKET_CLIENT_TLS_HANDSHAKING -> TLS_HANDSHAKING
-                GSocketClientEvent.G_SOCKET_CLIENT_TLS_HANDSHAKED -> TLS_HANDSHAKED
-                GSocketClientEvent.G_SOCKET_CLIENT_COMPLETE -> COMPLETE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GSocketClientEvent): SocketClientEvent = when (nativeValue) {
+            GSocketClientEvent.G_SOCKET_CLIENT_RESOLVING -> RESOLVING
+            GSocketClientEvent.G_SOCKET_CLIENT_RESOLVED -> RESOLVED
+            GSocketClientEvent.G_SOCKET_CLIENT_CONNECTING -> CONNECTING
+            GSocketClientEvent.G_SOCKET_CLIENT_CONNECTED -> CONNECTED
+            GSocketClientEvent.G_SOCKET_CLIENT_PROXY_NEGOTIATING -> PROXY_NEGOTIATING
+            GSocketClientEvent.G_SOCKET_CLIENT_PROXY_NEGOTIATED -> PROXY_NEGOTIATED
+            GSocketClientEvent.G_SOCKET_CLIENT_TLS_HANDSHAKING -> TLS_HANDSHAKING
+            GSocketClientEvent.G_SOCKET_CLIENT_TLS_HANDSHAKED -> TLS_HANDSHAKED
+            GSocketClientEvent.G_SOCKET_CLIENT_COMPLETE -> COMPLETE
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of SocketClientEvent
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_socket_client_event_get_type()
     }
 }

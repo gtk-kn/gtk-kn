@@ -12,6 +12,8 @@ import org.gtkkn.native.gdk.GDK_ANCHOR_SLIDE
 import org.gtkkn.native.gdk.GDK_ANCHOR_SLIDE_X
 import org.gtkkn.native.gdk.GDK_ANCHOR_SLIDE_Y
 import org.gtkkn.native.gdk.GdkAnchorHints
+import org.gtkkn.native.gdk.gdk_anchor_hints_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Positioning hints for aligning a surface relative to a rectangle.
@@ -30,9 +32,7 @@ import org.gtkkn.native.gdk.GdkAnchorHints
  * In general, when multiple flags are set, flipping should take precedence over
  * sliding, which should take precedence over resizing.
  */
-public class AnchorHints(
-    public val mask: GdkAnchorHints,
-) : Bitfield<AnchorHints> {
+public class AnchorHints(public val mask: GdkAnchorHints) : Bitfield<AnchorHints> {
     override infix fun or(other: AnchorHints): AnchorHints = AnchorHints(mask or other.mask)
 
     public companion object {
@@ -80,5 +80,12 @@ public class AnchorHints(
          * allow resizing surface on both axes
          */
         public val RESIZE: AnchorHints = AnchorHints(GDK_ANCHOR_RESIZE)
+
+        /**
+         * Get the GType of AnchorHints
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_anchor_hints_get_type()
     }
 }

@@ -1,20 +1,21 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GFileAttributeInfoList
 import org.gtkkn.native.gio.g_file_attribute_info_list_add
 import org.gtkkn.native.gio.g_file_attribute_info_list_dup
+import org.gtkkn.native.gio.g_file_attribute_info_list_get_type
 import org.gtkkn.native.gio.g_file_attribute_info_list_lookup
 import org.gtkkn.native.gio.g_file_attribute_info_list_new
 import org.gtkkn.native.gio.g_file_attribute_info_list_ref
 import org.gtkkn.native.gio.g_file_attribute_info_list_unref
-import kotlin.Int
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import kotlin.String
 import kotlin.Unit
 
@@ -22,27 +23,29 @@ import kotlin.Unit
  * Acts as a lightweight registry for possible valid file attributes.
  * The registry stores Key-Value pair formats as #GFileAttributeInfos.
  */
-public class FileAttributeInfoList(
-    pointer: CPointer<GFileAttributeInfoList>,
-) : Record {
+public class FileAttributeInfoList(pointer: CPointer<GFileAttributeInfoList>) : ProxyInstance(pointer) {
     public val gioFileAttributeInfoListPointer: CPointer<GFileAttributeInfoList> = pointer
 
     /**
      * an array of #GFileAttributeInfos.
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val infos: FileAttributeInfo?
-        get() =
-            gioFileAttributeInfoListPointer.pointed.infos?.run {
-                FileAttributeInfo(reinterpret())
-            }
+    public var infos: FileAttributeInfo?
+        get() = gioFileAttributeInfoListPointer.pointed.infos?.run {
+            FileAttributeInfo(reinterpret())
+        }
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            gioFileAttributeInfoListPointer.pointed.infos = value?.gioFileAttributeInfoPointer
+        }
 
     /**
      * the number of values in the array.
      */
-    public var nInfos: Int
+    public var nInfos: gint
         get() = gioFileAttributeInfoListPointer.pointed.n_infos
+
+        @UnsafeFieldSetter
         set(`value`) {
             gioFileAttributeInfoListPointer.pointed.n_infos = value
         }
@@ -55,11 +58,7 @@ public class FileAttributeInfoList(
      * @param type the #GFileAttributeType for the attribute.
      * @param flags #GFileAttributeInfoFlags for the attribute.
      */
-    public fun add(
-        name: String,
-        type: FileAttributeType,
-        flags: FileAttributeInfoFlags,
-    ): Unit =
+    public fun add(name: String, type: FileAttributeType, flags: FileAttributeInfoFlags): Unit =
         g_file_attribute_info_list_add(
             gioFileAttributeInfoListPointer.reinterpret(),
             name,
@@ -105,7 +104,9 @@ public class FileAttributeInfoList(
      */
     public fun unref(): Unit = g_file_attribute_info_list_unref(gioFileAttributeInfoListPointer.reinterpret())
 
-    public companion object : RecordCompanion<FileAttributeInfoList, GFileAttributeInfoList> {
+    override fun toString(): String = "FileAttributeInfoList(infos=$infos, nInfos=$nInfos)"
+
+    public companion object {
         /**
          * Creates a new file attribute info list.
          *
@@ -114,7 +115,11 @@ public class FileAttributeInfoList(
         public fun new(): FileAttributeInfoList =
             FileAttributeInfoList(g_file_attribute_info_list_new()!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FileAttributeInfoList =
-            FileAttributeInfoList(pointer.reinterpret())
+        /**
+         * Get the GType of FileAttributeInfoList
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_file_attribute_info_list_get_type()
     }
 }

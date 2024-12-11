@@ -3,15 +3,15 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.native.gio.GDriveStartStopType
+import org.gtkkn.native.gio.g_drive_start_stop_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Enumeration describing how a drive can be started/stopped.
  * @since 2.22
  */
 @GioVersion2_22
-public enum class DriveStartStopType(
-    public val nativeValue: GDriveStartStopType,
-) {
+public enum class DriveStartStopType(public val nativeValue: GDriveStartStopType) {
     /**
      * Unknown or drive doesn't support
      *    start/stop.
@@ -47,14 +47,20 @@ public enum class DriveStartStopType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GDriveStartStopType): DriveStartStopType =
-            when (nativeValue) {
-                GDriveStartStopType.G_DRIVE_START_STOP_TYPE_UNKNOWN -> UNKNOWN
-                GDriveStartStopType.G_DRIVE_START_STOP_TYPE_SHUTDOWN -> SHUTDOWN
-                GDriveStartStopType.G_DRIVE_START_STOP_TYPE_NETWORK -> NETWORK
-                GDriveStartStopType.G_DRIVE_START_STOP_TYPE_MULTIDISK -> MULTIDISK
-                GDriveStartStopType.G_DRIVE_START_STOP_TYPE_PASSWORD -> PASSWORD
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GDriveStartStopType): DriveStartStopType = when (nativeValue) {
+            GDriveStartStopType.G_DRIVE_START_STOP_TYPE_UNKNOWN -> UNKNOWN
+            GDriveStartStopType.G_DRIVE_START_STOP_TYPE_SHUTDOWN -> SHUTDOWN
+            GDriveStartStopType.G_DRIVE_START_STOP_TYPE_NETWORK -> NETWORK
+            GDriveStartStopType.G_DRIVE_START_STOP_TYPE_MULTIDISK -> MULTIDISK
+            GDriveStartStopType.G_DRIVE_START_STOP_TYPE_PASSWORD -> PASSWORD
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of DriveStartStopType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_drive_start_stop_type_get_type()
     }
 }

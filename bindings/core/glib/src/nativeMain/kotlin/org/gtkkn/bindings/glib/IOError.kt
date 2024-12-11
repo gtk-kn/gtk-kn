@@ -7,9 +7,7 @@ import org.gtkkn.native.glib.GIOError
  * #GIOError is only used by the deprecated functions
  * g_io_channel_read(), g_io_channel_write(), and g_io_channel_seek().
  */
-public enum class IOError(
-    public val nativeValue: GIOError,
-) {
+public enum class IOError(public val nativeValue: GIOError) {
     /**
      * no error
      */
@@ -32,13 +30,12 @@ public enum class IOError(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GIOError): IOError =
-            when (nativeValue) {
-                GIOError.G_IO_ERROR_NONE -> NONE
-                GIOError.G_IO_ERROR_AGAIN -> AGAIN
-                GIOError.G_IO_ERROR_INVAL -> INVAL
-                GIOError.G_IO_ERROR_UNKNOWN -> UNKNOWN
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GIOError): IOError = when (nativeValue) {
+            GIOError.G_IO_ERROR_NONE -> NONE
+            GIOError.G_IO_ERROR_AGAIN -> AGAIN
+            GIOError.G_IO_ERROR_INVAL -> INVAL
+            GIOError.G_IO_ERROR_UNKNOWN -> UNKNOWN
+            else -> error("invalid nativeValue")
+        }
     }
 }

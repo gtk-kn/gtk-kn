@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.glib
 
 import org.gtkkn.native.glib.GNormalizeMode
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_normalize_mode_get_type
 
 /**
  * Defines how a Unicode string is transformed in a canonical
@@ -10,9 +12,7 @@ import org.gtkkn.native.glib.GNormalizeMode
  * accent or as a single precomposed character. Unicode strings
  * should generally be normalized before comparing them.
  */
-public enum class NormalizeMode(
-    public val nativeValue: GNormalizeMode,
-) {
+public enum class NormalizeMode(public val nativeValue: GNormalizeMode) {
     /**
      * standardize differences that do not affect the
      *     text content, such as the above-mentioned accent representation
@@ -62,17 +62,23 @@ public enum class NormalizeMode(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GNormalizeMode): NormalizeMode =
-            when (nativeValue) {
-                GNormalizeMode.G_NORMALIZE_DEFAULT -> DEFAULT
-                GNormalizeMode.G_NORMALIZE_NFD -> NFD
-                GNormalizeMode.G_NORMALIZE_DEFAULT_COMPOSE -> DEFAULT_COMPOSE
-                GNormalizeMode.G_NORMALIZE_NFC -> NFC
-                GNormalizeMode.G_NORMALIZE_ALL -> ALL
-                GNormalizeMode.G_NORMALIZE_NFKD -> NFKD
-                GNormalizeMode.G_NORMALIZE_ALL_COMPOSE -> ALL_COMPOSE
-                GNormalizeMode.G_NORMALIZE_NFKC -> NFKC
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GNormalizeMode): NormalizeMode = when (nativeValue) {
+            GNormalizeMode.G_NORMALIZE_DEFAULT -> DEFAULT
+            GNormalizeMode.G_NORMALIZE_NFD -> NFD
+            GNormalizeMode.G_NORMALIZE_DEFAULT_COMPOSE -> DEFAULT_COMPOSE
+            GNormalizeMode.G_NORMALIZE_NFC -> NFC
+            GNormalizeMode.G_NORMALIZE_ALL -> ALL
+            GNormalizeMode.G_NORMALIZE_NFKD -> NFKD
+            GNormalizeMode.G_NORMALIZE_ALL_COMPOSE -> ALL_COMPOSE
+            GNormalizeMode.G_NORMALIZE_NFKC -> NFKC
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of NormalizeMode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_normalize_mode_get_type()
     }
 }

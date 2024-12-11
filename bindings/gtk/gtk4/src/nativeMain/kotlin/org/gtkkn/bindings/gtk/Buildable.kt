@@ -8,6 +8,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.gtk_buildable_get_buildable_id
 import org.gtkkn.native.gtk.gtk_buildable_get_type
@@ -44,9 +45,7 @@ public interface Buildable :
     public fun getBuildableId(): String? =
         gtk_buildable_get_buildable_id(gtkBuildablePointer.reinterpret())?.toKString()
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkBuildable>,
-    ) : Buildable {
+    private data class Wrapper(private val pointer: CPointer<GtkBuildable>) : Buildable {
         override val gtkBuildablePointer: CPointer<GtkBuildable> = pointer
     }
 
@@ -59,5 +58,12 @@ public interface Buildable :
         }
 
         public fun wrap(pointer: CPointer<GtkBuildable>): Buildable = Wrapper(pointer)
+
+        /**
+         * Get the GType of Buildable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_buildable_get_type()
     }
 }

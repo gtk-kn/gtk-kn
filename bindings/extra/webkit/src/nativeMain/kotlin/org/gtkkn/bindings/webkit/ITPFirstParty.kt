@@ -1,18 +1,18 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.DateTime
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_30
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitITPFirstParty
 import org.gtkkn.native.webkit.webkit_itp_first_party_get_domain
 import org.gtkkn.native.webkit.webkit_itp_first_party_get_last_update_time
+import org.gtkkn.native.webkit.webkit_itp_first_party_get_type
 import org.gtkkn.native.webkit.webkit_itp_first_party_get_website_data_access_allowed
 import org.gtkkn.native.webkit.webkit_itp_first_party_ref
 import org.gtkkn.native.webkit.webkit_itp_first_party_unref
@@ -25,9 +25,7 @@ import kotlin.Unit
  * @since 2.30
  */
 @WebKitVersion2_30
-public class ITPFirstParty(
-    pointer: CPointer<WebKitITPFirstParty>,
-) : Record {
+public class ITPFirstParty(pointer: CPointer<WebKitITPFirstParty>) : ProxyInstance(pointer) {
     public val webkitITPFirstPartyPointer: CPointer<WebKitITPFirstParty> = pointer
 
     /**
@@ -78,10 +76,9 @@ public class ITPFirstParty(
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun ref(): ITPFirstParty =
-        webkit_itp_first_party_ref(webkitITPFirstPartyPointer.reinterpret())!!.run {
-            ITPFirstParty(reinterpret())
-        }
+    public fun ref(): ITPFirstParty = webkit_itp_first_party_ref(webkitITPFirstPartyPointer.reinterpret())!!.run {
+        ITPFirstParty(reinterpret())
+    }
 
     /**
      * Atomically decrements the reference count of @itp_first_party by one.
@@ -95,8 +92,12 @@ public class ITPFirstParty(
     @WebKitVersion2_30
     public fun unref(): Unit = webkit_itp_first_party_unref(webkitITPFirstPartyPointer.reinterpret())
 
-    public companion object : RecordCompanion<ITPFirstParty, WebKitITPFirstParty> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ITPFirstParty =
-            ITPFirstParty(pointer.reinterpret())
+    public companion object {
+        /**
+         * Get the GType of ITPFirstParty
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_itp_first_party_get_type()
     }
 }

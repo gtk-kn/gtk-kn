@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -27,9 +28,8 @@ import org.gtkkn.native.gtksource.gtk_source_style_scheme_chooser_widget_new
  * To get the selected style scheme
  * use [method@StyleSchemeChooser.get_style_scheme].
  */
-public open class StyleSchemeChooserWidget(
-    pointer: CPointer<GtkSourceStyleSchemeChooserWidget>,
-) : Widget(pointer.reinterpret()),
+public open class StyleSchemeChooserWidget(pointer: CPointer<GtkSourceStyleSchemeChooserWidget>) :
+    Widget(pointer.reinterpret()),
     StyleSchemeChooser,
     KGTyped {
     public val gtksourceStyleSchemeChooserWidgetPointer: CPointer<GtkSourceStyleSchemeChooserWidget>
@@ -56,12 +56,19 @@ public open class StyleSchemeChooserWidget(
 
     public companion object : TypeCompanion<StyleSchemeChooserWidget> {
         override val type: GeneratedClassKGType<StyleSchemeChooserWidget> =
-            GeneratedClassKGType(
-                gtk_source_style_scheme_chooser_widget_get_type()
-            ) { StyleSchemeChooserWidget(it.reinterpret()) }
+            GeneratedClassKGType(gtk_source_style_scheme_chooser_widget_get_type()) {
+                StyleSchemeChooserWidget(it.reinterpret())
+            }
 
         init {
             GtksourceTypeProvider.register()
         }
+
+        /**
+         * Get the GType of StyleSchemeChooserWidget
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_style_scheme_chooser_widget_get_type()
     }
 }

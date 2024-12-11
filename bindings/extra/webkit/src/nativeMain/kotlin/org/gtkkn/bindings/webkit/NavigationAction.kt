@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -9,8 +8,9 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_20
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitNavigationAction
 import org.gtkkn.native.webkit.webkit_navigation_action_copy
 import org.gtkkn.native.webkit.webkit_navigation_action_free
@@ -19,19 +19,17 @@ import org.gtkkn.native.webkit.webkit_navigation_action_get_modifiers
 import org.gtkkn.native.webkit.webkit_navigation_action_get_mouse_button
 import org.gtkkn.native.webkit.webkit_navigation_action_get_navigation_type
 import org.gtkkn.native.webkit.webkit_navigation_action_get_request
+import org.gtkkn.native.webkit.webkit_navigation_action_get_type
 import org.gtkkn.native.webkit.webkit_navigation_action_is_redirect
 import org.gtkkn.native.webkit.webkit_navigation_action_is_user_gesture
 import kotlin.Boolean
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 
 /**
  * Provides details about interaction resulting in a resource load.
  */
-public class NavigationAction(
-    pointer: CPointer<WebKitNavigationAction>,
-) : Record {
+public class NavigationAction(pointer: CPointer<WebKitNavigationAction>) : ProxyInstance(pointer) {
     public val webkitNavigationActionPointer: CPointer<WebKitNavigationAction> = pointer
 
     /**
@@ -76,7 +74,7 @@ public class NavigationAction(
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun getModifiers(): UInt =
+    public fun getModifiers(): guint =
         webkit_navigation_action_get_modifiers(webkitNavigationActionPointer.reinterpret())
 
     /**
@@ -89,7 +87,7 @@ public class NavigationAction(
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun getMouseButton(): UInt =
+    public fun getMouseButton(): guint =
         webkit_navigation_action_get_mouse_button(webkitNavigationActionPointer.reinterpret())
 
     /**
@@ -142,8 +140,12 @@ public class NavigationAction(
     public fun isUserGesture(): Boolean =
         webkit_navigation_action_is_user_gesture(webkitNavigationActionPointer.reinterpret()).asBoolean()
 
-    public companion object : RecordCompanion<NavigationAction, WebKitNavigationAction> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): NavigationAction =
-            NavigationAction(pointer.reinterpret())
+    public companion object {
+        /**
+         * Get the GType of NavigationAction
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_navigation_action_get_type()
     }
 }

@@ -7,14 +7,13 @@ import kotlin.collections.Map
 import kotlin.reflect.KClass
 
 public object GobjectTypeProvider : TypeProvider {
-    override val typeMap: Map<KClass<*>, KGType<*>> =
-        mapOf(
-            Binding::class to Binding.type,
-            BindingGroup::class to BindingGroup.type,
-            InitiallyUnowned::class to InitiallyUnowned.type,
-            Object::class to Object.type,
-            SignalGroup::class to SignalGroup.type,
-            TypeModule::class to TypeModule.type,
-            TypePlugin::class to TypePlugin.type,
-        )
+    override val typeMap: Map<KClass<*>, KGType<*>> = mapOf(
+        Binding::class to Binding.type,
+        BindingGroup::class to BindingGroup.type,
+        InitiallyUnowned::class to InitiallyUnowned.type,
+        Object::class to Object.type,
+        SignalGroup::class to SignalGroup.type,
+        TypeModule::class to TypeModule.type,
+        TypePlugin::class to TypePlugin.type,
+    )
 }

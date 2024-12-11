@@ -18,6 +18,7 @@ import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkRGBA
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkColorChooser
 import org.gtkkn.native.gtk.gtk_color_chooser_get_rgba
@@ -121,19 +122,16 @@ public interface ColorChooser :
     public fun connectColorActivated(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (color: RGBA) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gtkColorChooserPointer.reinterpret(),
-            "color-activated",
-            connectColorActivatedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gtkColorChooserPointer.reinterpret(),
+        "color-activated",
+        connectColorActivatedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkColorChooser>,
-    ) : ColorChooser {
+    private data class Wrapper(private val pointer: CPointer<GtkColorChooser>) : ColorChooser {
         override val gtkColorChooserPointer: CPointer<GtkColorChooser> = pointer
     }
 
@@ -146,6 +144,13 @@ public interface ColorChooser :
         }
 
         public fun wrap(pointer: CPointer<GtkColorChooser>): ColorChooser = Wrapper(pointer)
+
+        /**
+         * Get the GType of ColorChooser
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_color_chooser_get_type()
     }
 }
 
@@ -160,4 +165,5 @@ private val connectColorActivatedFunc: CPointer<CFunction<(CPointer<GdkRGBA>) ->
                 RGBA(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()

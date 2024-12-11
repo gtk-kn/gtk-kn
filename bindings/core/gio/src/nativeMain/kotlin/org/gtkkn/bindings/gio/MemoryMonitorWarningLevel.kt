@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_64
 import org.gtkkn.native.gio.GMemoryMonitorWarningLevel
+import org.gtkkn.native.gio.g_memory_monitor_warning_level_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Memory availability warning levels.
@@ -16,9 +18,7 @@ import org.gtkkn.native.gio.GMemoryMonitorWarningLevel
  * @since 2.64
  */
 @GioVersion2_64
-public enum class MemoryMonitorWarningLevel(
-    public val nativeValue: GMemoryMonitorWarningLevel,
-) {
+public enum class MemoryMonitorWarningLevel(public val nativeValue: GMemoryMonitorWarningLevel) {
     /**
      * Memory on the device is low, processes
      *   should free up unneeded resources (for example, in-memory caches) so they can
@@ -49,5 +49,12 @@ public enum class MemoryMonitorWarningLevel(
                 GMemoryMonitorWarningLevel.G_MEMORY_MONITOR_WARNING_LEVEL_CRITICAL -> CRITICAL
                 else -> error("invalid nativeValue")
             }
+
+        /**
+         * Get the GType of MemoryMonitorWarningLevel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_memory_monitor_warning_level_get_type()
     }
 }

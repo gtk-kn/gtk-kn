@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.gsk
 
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskPathOperation
+import org.gtkkn.native.gsk.gsk_path_operation_get_type
 
 /**
  * Path operations are used to describe the segments of a `GskPath`.
@@ -11,9 +13,7 @@ import org.gtkkn.native.gsk.GskPathOperation
  * @since 4.14
  */
 @GskVersion4_14
-public enum class PathOperation(
-    public val nativeValue: GskPathOperation,
-) {
+public enum class PathOperation(public val nativeValue: GskPathOperation) {
     /**
      * A move-to operation, with 1 point describing the target point.
      */
@@ -54,15 +54,21 @@ public enum class PathOperation(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GskPathOperation): PathOperation =
-            when (nativeValue) {
-                GskPathOperation.GSK_PATH_MOVE -> MOVE
-                GskPathOperation.GSK_PATH_CLOSE -> CLOSE
-                GskPathOperation.GSK_PATH_LINE -> LINE
-                GskPathOperation.GSK_PATH_QUAD -> QUAD
-                GskPathOperation.GSK_PATH_CUBIC -> CUBIC
-                GskPathOperation.GSK_PATH_CONIC -> CONIC
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GskPathOperation): PathOperation = when (nativeValue) {
+            GskPathOperation.GSK_PATH_MOVE -> MOVE
+            GskPathOperation.GSK_PATH_CLOSE -> CLOSE
+            GskPathOperation.GSK_PATH_LINE -> LINE
+            GskPathOperation.GSK_PATH_QUAD -> QUAD
+            GskPathOperation.GSK_PATH_CUBIC -> CUBIC
+            GskPathOperation.GSK_PATH_CONIC -> CONIC
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of PathOperation
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_path_operation_get_type()
     }
 }

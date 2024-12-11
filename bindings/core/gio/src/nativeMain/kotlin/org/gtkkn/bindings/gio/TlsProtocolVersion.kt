@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_70
 import org.gtkkn.native.gio.GTlsProtocolVersion
+import org.gtkkn.native.gio.g_tls_protocol_version_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * The TLS or DTLS protocol version used by a #GTlsConnection or
@@ -17,9 +19,7 @@ import org.gtkkn.native.gio.GTlsProtocolVersion
  * @since 2.70
  */
 @GioVersion2_70
-public enum class TlsProtocolVersion(
-    public val nativeValue: GTlsProtocolVersion,
-) {
+public enum class TlsProtocolVersion(public val nativeValue: GTlsProtocolVersion) {
     /**
      * No protocol version or unknown protocol version
      */
@@ -62,17 +62,23 @@ public enum class TlsProtocolVersion(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GTlsProtocolVersion): TlsProtocolVersion =
-            when (nativeValue) {
-                GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_UNKNOWN -> UNKNOWN
-                GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_SSL_3_0 -> SSL_3_0
-                GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_TLS_1_0 -> TLS_1_0
-                GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_TLS_1_1 -> TLS_1_1
-                GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_TLS_1_2 -> TLS_1_2
-                GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_TLS_1_3 -> TLS_1_3
-                GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_DTLS_1_0 -> DTLS_1_0
-                GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_DTLS_1_2 -> DTLS_1_2
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GTlsProtocolVersion): TlsProtocolVersion = when (nativeValue) {
+            GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_UNKNOWN -> UNKNOWN
+            GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_SSL_3_0 -> SSL_3_0
+            GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_TLS_1_0 -> TLS_1_0
+            GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_TLS_1_1 -> TLS_1_1
+            GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_TLS_1_2 -> TLS_1_2
+            GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_TLS_1_3 -> TLS_1_3
+            GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_DTLS_1_0 -> DTLS_1_0
+            GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_DTLS_1_2 -> DTLS_1_2
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of TlsProtocolVersion
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_tls_protocol_version_get_type()
     }
 }

@@ -1,20 +1,22 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_24
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GVariantBuilder
 import org.gtkkn.native.glib.g_variant_builder_add_value
+import org.gtkkn.native.glib.g_variant_builder_clear
 import org.gtkkn.native.glib.g_variant_builder_close
 import org.gtkkn.native.glib.g_variant_builder_end
+import org.gtkkn.native.glib.g_variant_builder_init
 import org.gtkkn.native.glib.g_variant_builder_new
 import org.gtkkn.native.glib.g_variant_builder_open
 import org.gtkkn.native.glib.g_variant_builder_ref
 import org.gtkkn.native.glib.g_variant_builder_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_variant_builder_get_type
 import kotlin.Unit
 
 /**
@@ -25,10 +27,13 @@ import kotlin.Unit
  *
  * #GVariantBuilder is not threadsafe in any way.  Do not attempt to
  * access it from more than one thread.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `add`: Varargs parameter is not supported
+ * - method `add_parsed`: Varargs parameter is not supported
  */
-public class VariantBuilder(
-    pointer: CPointer<GVariantBuilder>,
-) : Record {
+public class VariantBuilder(pointer: CPointer<GVariantBuilder>) : ProxyInstance(pointer) {
     public val glibVariantBuilderPointer: CPointer<GVariantBuilder> = pointer
 
     /**
@@ -49,6 +54,27 @@ public class VariantBuilder(
     @GLibVersion2_24
     public fun addValue(`value`: Variant): Unit =
         g_variant_builder_add_value(glibVariantBuilderPointer.reinterpret(), `value`.glibVariantPointer.reinterpret())
+
+    /**
+     * Releases all memory associated with a #GVariantBuilder without
+     * freeing the #GVariantBuilder structure itself.
+     *
+     * It typically only makes sense to do this on a stack-allocated
+     * #GVariantBuilder if you want to abort building the value part-way
+     * through.  This function need not be called if you call
+     * g_variant_builder_end() and it also doesn't need to be called on
+     * builders allocated with g_variant_builder_new() (see
+     * g_variant_builder_unref() for that).
+     *
+     * This function leaves the #GVariantBuilder structure set to all-zeros.
+     * It is valid to call this function on either an initialised
+     * #GVariantBuilder or one that is set to all-zeros but it is not valid
+     * to call this function on uninitialised memory.
+     *
+     * @since 2.24
+     */
+    @GLibVersion2_24
+    public fun clear(): Unit = g_variant_builder_clear(glibVariantBuilderPointer.reinterpret())
 
     /**
      * Closes the subcontainer inside the given @builder that was opened by
@@ -86,10 +112,47 @@ public class VariantBuilder(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun end(): Variant =
-        g_variant_builder_end(glibVariantBuilderPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public fun end(): Variant = g_variant_builder_end(glibVariantBuilderPointer.reinterpret())!!.run {
+        Variant(reinterpret())
+    }
+
+    /**
+     * Initialises a #GVariantBuilder structure.
+     *
+     * @type must be non-null.  It specifies the type of container to
+     * construct.  It can be an indefinite type such as
+     * %G_VARIANT_TYPE_ARRAY or a definite type such as "as" or "(ii)".
+     * Maybe, array, tuple, dictionary entry and variant-typed values may be
+     * constructed.
+     *
+     * After the builder is initialised, values are added using
+     * g_variant_builder_add_value() or g_variant_builder_add().
+     *
+     * After all the child values are added, g_variant_builder_end() frees
+     * the memory associated with the builder and returns the #GVariant that
+     * was created.
+     *
+     * This function completely ignores the previous contents of @builder.
+     * On one hand this means that it is valid to pass in completely
+     * uninitialised memory.  On the other hand, this means that if you are
+     * initialising over top of an existing #GVariantBuilder you need to
+     * first call g_variant_builder_clear() in order to avoid leaking
+     * memory.
+     *
+     * You must not call g_variant_builder_ref() or
+     * g_variant_builder_unref() on a #GVariantBuilder that was initialised
+     * with this function.  If you ever pass a reference to a
+     * #GVariantBuilder outside of the control of your own code then you
+     * should assume that the person receiving that reference may try to use
+     * reference counting; you should use g_variant_builder_new() instead of
+     * this function.
+     *
+     * @param type a container type
+     * @since 2.24
+     */
+    @GLibVersion2_24
+    public fun `init`(type: VariantType): Unit =
+        g_variant_builder_init(glibVariantBuilderPointer.reinterpret(), type.glibVariantTypePointer.reinterpret())
 
     /**
      * Opens a subcontainer inside the given @builder.  When done adding
@@ -146,10 +209,9 @@ public class VariantBuilder(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun ref(): VariantBuilder =
-        g_variant_builder_ref(glibVariantBuilderPointer.reinterpret())!!.run {
-            VariantBuilder(reinterpret())
-        }
+    public fun ref(): VariantBuilder = g_variant_builder_ref(glibVariantBuilderPointer.reinterpret())!!.run {
+        VariantBuilder(reinterpret())
+    }
 
     /**
      * Decreases the reference count on @builder.
@@ -165,7 +227,7 @@ public class VariantBuilder(
     @GLibVersion2_24
     public fun unref(): Unit = g_variant_builder_unref(glibVariantBuilderPointer.reinterpret())
 
-    public companion object : RecordCompanion<VariantBuilder, GVariantBuilder> {
+    public companion object {
         /**
          * Allocates and initialises a new #GVariantBuilder.
          *
@@ -184,7 +246,11 @@ public class VariantBuilder(
         public fun new(type: VariantType): VariantBuilder =
             VariantBuilder(g_variant_builder_new(type.glibVariantTypePointer.reinterpret())!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): VariantBuilder =
-            VariantBuilder(pointer.reinterpret())
+        /**
+         * Get the GType of VariantBuilder
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_variant_builder_get_type()
     }
 }

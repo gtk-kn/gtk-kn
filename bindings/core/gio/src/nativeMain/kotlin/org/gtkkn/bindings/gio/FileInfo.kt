@@ -92,12 +92,13 @@ import org.gtkkn.native.gio.g_file_info_set_sort_order
 import org.gtkkn.native.gio.g_file_info_set_symbolic_icon
 import org.gtkkn.native.gio.g_file_info_set_symlink_target
 import org.gtkkn.native.gio.g_file_info_unset_attribute_mask
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gint64
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.guint64
 import kotlin.Boolean
-import kotlin.Int
-import kotlin.Long
 import kotlin.String
-import kotlin.UInt
-import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
 
@@ -144,9 +145,8 @@ import kotlin.collections.List
  * - parameter `type`: type: Out parameter is not supported
  * - parameter `value_p`: gpointer
  */
-public open class FileInfo(
-    pointer: CPointer<GFileInfo>,
-) : Object(pointer.reinterpret()),
+public open class FileInfo(pointer: CPointer<GFileInfo>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioFileInfoPointer: CPointer<GFileInfo>
         get() = gPointer.reinterpret()
@@ -177,10 +177,9 @@ public open class FileInfo(
      *
      * @return a duplicate #GFileInfo of @other.
      */
-    public open fun dup(): FileInfo =
-        g_file_info_dup(gioFileInfoPointer.reinterpret())!!.run {
-            FileInfo(reinterpret())
-        }
+    public open fun dup(): FileInfo = g_file_info_dup(gioFileInfoPointer.reinterpret())!!.run {
+        FileInfo(reinterpret())
+    }
 
     /**
      * Gets the access time of the current @info and returns it as a
@@ -262,7 +261,7 @@ public open class FileInfo(
      * @param attribute a file attribute key.
      * @return a signed 32-bit integer from the attribute.
      */
-    public open fun getAttributeInt32(attribute: String): Int =
+    public open fun getAttributeInt32(attribute: String): gint =
         g_file_info_get_attribute_int32(gioFileInfoPointer.reinterpret(), attribute)
 
     /**
@@ -273,7 +272,7 @@ public open class FileInfo(
      * @param attribute a file attribute key.
      * @return a signed 64-bit integer from the attribute.
      */
-    public open fun getAttributeInt64(attribute: String): Long =
+    public open fun getAttributeInt64(attribute: String): gint64 =
         g_file_info_get_attribute_int64(gioFileInfoPointer.reinterpret(), attribute)
 
     /**
@@ -345,7 +344,7 @@ public open class FileInfo(
      * @param attribute a file attribute key.
      * @return an unsigned 32-bit integer from the attribute.
      */
-    public open fun getAttributeUint32(attribute: String): UInt =
+    public open fun getAttributeUint32(attribute: String): guint =
         g_file_info_get_attribute_uint32(gioFileInfoPointer.reinterpret(), attribute)
 
     /**
@@ -356,7 +355,7 @@ public open class FileInfo(
      * @param attribute a file attribute key.
      * @return a unsigned 64-bit integer from the attribute.
      */
-    public open fun getAttributeUint64(attribute: String): ULong =
+    public open fun getAttributeUint64(attribute: String): guint64 =
         g_file_info_get_attribute_uint64(gioFileInfoPointer.reinterpret(), attribute)
 
     /**
@@ -448,10 +447,9 @@ public open class FileInfo(
      *
      * @return a #GFileType for the given file.
      */
-    public open fun getFileType(): FileType =
-        g_file_info_get_file_type(gioFileInfoPointer.reinterpret()).run {
-            FileType.fromNativeValue(this)
-        }
+    public open fun getFileType(): FileType = g_file_info_get_file_type(gioFileInfoPointer.reinterpret()).run {
+        FileType.fromNativeValue(this)
+    }
 
     /**
      * Gets the icon for a file.
@@ -461,10 +459,9 @@ public open class FileInfo(
      *
      * @return #GIcon for the given @info.
      */
-    public open fun getIcon(): Icon? =
-        g_file_info_get_icon(gioFileInfoPointer.reinterpret())?.run {
-            Icon.wrap(reinterpret())
-        }
+    public open fun getIcon(): Icon? = g_file_info_get_icon(gioFileInfoPointer.reinterpret())?.run {
+        Icon.wrap(reinterpret())
+    }
 
     /**
      * Checks if a file is a backup file.
@@ -551,7 +548,7 @@ public open class FileInfo(
      *
      * @return a #goffset containing the file's size (in bytes).
      */
-    public open fun getSize(): Long = g_file_info_get_size(gioFileInfoPointer.reinterpret())
+    public open fun getSize(): gint64 = g_file_info_get_size(gioFileInfoPointer.reinterpret())
 
     /**
      * Gets the value of the sort_order attribute from the #GFileInfo.
@@ -562,7 +559,7 @@ public open class FileInfo(
      *
      * @return a #gint32 containing the value of the "standard::sort_order" attribute.
      */
-    public open fun getSortOrder(): Int = g_file_info_get_sort_order(gioFileInfoPointer.reinterpret())
+    public open fun getSortOrder(): gint = g_file_info_get_sort_order(gioFileInfoPointer.reinterpret())
 
     /**
      * Gets the symbolic icon for a file.
@@ -574,10 +571,9 @@ public open class FileInfo(
      * @since 2.34
      */
     @GioVersion2_34
-    public open fun getSymbolicIcon(): Icon? =
-        g_file_info_get_symbolic_icon(gioFileInfoPointer.reinterpret())?.run {
-            Icon.wrap(reinterpret())
-        }
+    public open fun getSymbolicIcon(): Icon? = g_file_info_get_symbolic_icon(gioFileInfoPointer.reinterpret())?.run {
+        Icon.wrap(reinterpret())
+    }
 
     /**
      * Gets the symlink target for a given #GFileInfo.
@@ -654,10 +650,8 @@ public open class FileInfo(
      * @param attribute a file attribute key.
      * @param attrValue a boolean value.
      */
-    public open fun setAttributeBoolean(
-        attribute: String,
-        attrValue: Boolean,
-    ): Unit = g_file_info_set_attribute_boolean(gioFileInfoPointer.reinterpret(), attribute, attrValue.asGBoolean())
+    public open fun setAttributeBoolean(attribute: String, attrValue: Boolean): Unit =
+        g_file_info_set_attribute_boolean(gioFileInfoPointer.reinterpret(), attribute, attrValue.asGBoolean())
 
     /**
      * Sets the @attribute to contain the given @attr_value,
@@ -666,10 +660,8 @@ public open class FileInfo(
      * @param attribute a file attribute key.
      * @param attrValue a byte string.
      */
-    public open fun setAttributeByteString(
-        attribute: String,
-        attrValue: String,
-    ): Unit = g_file_info_set_attribute_byte_string(gioFileInfoPointer.reinterpret(), attribute, attrValue)
+    public open fun setAttributeByteString(attribute: String, attrValue: String): Unit =
+        g_file_info_set_attribute_byte_string(gioFileInfoPointer.reinterpret(), attribute, attrValue)
 
     /**
      * Sets the @attribute to contain the given @attr_value,
@@ -683,10 +675,8 @@ public open class FileInfo(
      * @since 2.78
      */
     @GioVersion2_78
-    public open fun setAttributeFilePath(
-        attribute: String,
-        attrValue: String,
-    ): Unit = g_file_info_set_attribute_file_path(gioFileInfoPointer.reinterpret(), attribute, attrValue)
+    public open fun setAttributeFilePath(attribute: String, attrValue: String): Unit =
+        g_file_info_set_attribute_file_path(gioFileInfoPointer.reinterpret(), attribute, attrValue)
 
     /**
      * Sets the @attribute to contain the given @attr_value,
@@ -695,10 +685,8 @@ public open class FileInfo(
      * @param attribute a file attribute key.
      * @param attrValue a signed 32-bit integer
      */
-    public open fun setAttributeInt32(
-        attribute: String,
-        attrValue: Int,
-    ): Unit = g_file_info_set_attribute_int32(gioFileInfoPointer.reinterpret(), attribute, attrValue)
+    public open fun setAttributeInt32(attribute: String, attrValue: gint): Unit =
+        g_file_info_set_attribute_int32(gioFileInfoPointer.reinterpret(), attribute, attrValue)
 
     /**
      * Sets the @attribute to contain the given @attr_value,
@@ -707,21 +695,18 @@ public open class FileInfo(
      * @param attribute attribute name to set.
      * @param attrValue int64 value to set attribute to.
      */
-    public open fun setAttributeInt64(
-        attribute: String,
-        attrValue: Long,
-    ): Unit = g_file_info_set_attribute_int64(gioFileInfoPointer.reinterpret(), attribute, attrValue)
+    public open fun setAttributeInt64(attribute: String, attrValue: gint64): Unit =
+        g_file_info_set_attribute_int64(gioFileInfoPointer.reinterpret(), attribute, attrValue)
 
     /**
      * Sets @mask on @info to match specific attribute types.
      *
      * @param mask a #GFileAttributeMatcher.
      */
-    public open fun setAttributeMask(mask: FileAttributeMatcher): Unit =
-        g_file_info_set_attribute_mask(
-            gioFileInfoPointer.reinterpret(),
-            mask.gioFileAttributeMatcherPointer.reinterpret()
-        )
+    public open fun setAttributeMask(mask: FileAttributeMatcher): Unit = g_file_info_set_attribute_mask(
+        gioFileInfoPointer.reinterpret(),
+        mask.gioFileAttributeMatcherPointer.reinterpret()
+    )
 
     /**
      * Sets the @attribute to contain the given @attr_value,
@@ -730,10 +715,7 @@ public open class FileInfo(
      * @param attribute a file attribute key.
      * @param attrValue a #GObject.
      */
-    public open fun setAttributeObject(
-        attribute: String,
-        attrValue: Object,
-    ): Unit =
+    public open fun setAttributeObject(attribute: String, attrValue: Object): Unit =
         g_file_info_set_attribute_object(gioFileInfoPointer.reinterpret(), attribute, attrValue.gPointer.reinterpret())
 
     /**
@@ -750,10 +732,7 @@ public open class FileInfo(
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun setAttributeStatus(
-        attribute: String,
-        status: FileAttributeStatus,
-    ): Boolean =
+    public open fun setAttributeStatus(attribute: String, status: FileAttributeStatus): Boolean =
         g_file_info_set_attribute_status(gioFileInfoPointer.reinterpret(), attribute, status.nativeValue).asBoolean()
 
     /**
@@ -763,10 +742,8 @@ public open class FileInfo(
      * @param attribute a file attribute key.
      * @param attrValue a UTF-8 string.
      */
-    public open fun setAttributeString(
-        attribute: String,
-        attrValue: String,
-    ): Unit = g_file_info_set_attribute_string(gioFileInfoPointer.reinterpret(), attribute, attrValue)
+    public open fun setAttributeString(attribute: String, attrValue: String): Unit =
+        g_file_info_set_attribute_string(gioFileInfoPointer.reinterpret(), attribute, attrValue)
 
     /**
      * Sets the @attribute to contain the given @attr_value,
@@ -778,17 +755,13 @@ public open class FileInfo(
      * @param attrValue a null
      *   terminated array of UTF-8 strings.
      */
-    public open fun setAttributeStringv(
-        attribute: String,
-        attrValue: List<String>,
-    ): Unit =
-        memScoped {
-            return g_file_info_set_attribute_stringv(
-                gioFileInfoPointer.reinterpret(),
-                attribute,
-                attrValue.toCStringList(this)
-            )
-        }
+    public open fun setAttributeStringv(attribute: String, attrValue: List<String>): Unit = memScoped {
+        return g_file_info_set_attribute_stringv(
+            gioFileInfoPointer.reinterpret(),
+            attribute,
+            attrValue.toCStringList(this)
+        )
+    }
 
     /**
      * Sets the @attribute to contain the given @attr_value,
@@ -797,10 +770,8 @@ public open class FileInfo(
      * @param attribute a file attribute key.
      * @param attrValue an unsigned 32-bit integer.
      */
-    public open fun setAttributeUint32(
-        attribute: String,
-        attrValue: UInt,
-    ): Unit = g_file_info_set_attribute_uint32(gioFileInfoPointer.reinterpret(), attribute, attrValue)
+    public open fun setAttributeUint32(attribute: String, attrValue: guint): Unit =
+        g_file_info_set_attribute_uint32(gioFileInfoPointer.reinterpret(), attribute, attrValue)
 
     /**
      * Sets the @attribute to contain the given @attr_value,
@@ -809,10 +780,8 @@ public open class FileInfo(
      * @param attribute a file attribute key.
      * @param attrValue an unsigned 64-bit integer.
      */
-    public open fun setAttributeUint64(
-        attribute: String,
-        attrValue: ULong,
-    ): Unit = g_file_info_set_attribute_uint64(gioFileInfoPointer.reinterpret(), attribute, attrValue)
+    public open fun setAttributeUint64(attribute: String, attrValue: guint64): Unit =
+        g_file_info_set_attribute_uint64(gioFileInfoPointer.reinterpret(), attribute, attrValue)
 
     /**
      * Sets the content type attribute for a given #GFileInfo.
@@ -834,11 +803,10 @@ public open class FileInfo(
      * @since 2.70
      */
     @GioVersion2_70
-    public open fun setCreationDateTime(creationTime: DateTime): Unit =
-        g_file_info_set_creation_date_time(
-            gioFileInfoPointer.reinterpret(),
-            creationTime.glibDateTimePointer.reinterpret()
-        )
+    public open fun setCreationDateTime(creationTime: DateTime): Unit = g_file_info_set_creation_date_time(
+        gioFileInfoPointer.reinterpret(),
+        creationTime.glibDateTimePointer.reinterpret()
+    )
 
     /**
      * Sets the display name for the current #GFileInfo.
@@ -905,11 +873,10 @@ public open class FileInfo(
      * @since 2.62
      */
     @GioVersion2_62
-    public open fun setModificationDateTime(mtime: DateTime): Unit =
-        g_file_info_set_modification_date_time(
-            gioFileInfoPointer.reinterpret(),
-            mtime.glibDateTimePointer.reinterpret()
-        )
+    public open fun setModificationDateTime(mtime: DateTime): Unit = g_file_info_set_modification_date_time(
+        gioFileInfoPointer.reinterpret(),
+        mtime.glibDateTimePointer.reinterpret()
+    )
 
     /**
      * Sets the %G_FILE_ATTRIBUTE_TIME_MODIFIED and
@@ -937,7 +904,7 @@ public open class FileInfo(
      *
      * @param size a #goffset containing the file's size.
      */
-    public open fun setSize(size: Long): Unit = g_file_info_set_size(gioFileInfoPointer.reinterpret(), size)
+    public open fun setSize(size: gint64): Unit = g_file_info_set_size(gioFileInfoPointer.reinterpret(), size)
 
     /**
      * Sets the sort order attribute in the file info structure. See
@@ -945,7 +912,7 @@ public open class FileInfo(
      *
      * @param sortOrder a sort order integer.
      */
-    public open fun setSortOrder(sortOrder: Int): Unit =
+    public open fun setSortOrder(sortOrder: gint): Unit =
         g_file_info_set_sort_order(gioFileInfoPointer.reinterpret(), sortOrder)
 
     /**
@@ -981,5 +948,12 @@ public open class FileInfo(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of FileInfo
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_file_info_get_type()
     }
 }

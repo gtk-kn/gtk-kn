@@ -16,12 +16,13 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkEvent
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gtk.GtkEventControllerLegacy
 import org.gtkkn.native.gtk.gtk_event_controller_legacy_get_type
 import org.gtkkn.native.gtk.gtk_event_controller_legacy_new
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.ULong
 
 /**
@@ -31,9 +32,8 @@ import kotlin.ULong
  * It should only be used as a last resort if none of the other event
  * controllers or gestures do the job.
  */
-public open class EventControllerLegacy(
-    pointer: CPointer<GtkEventControllerLegacy>,
-) : EventController(pointer.reinterpret()),
+public open class EventControllerLegacy(pointer: CPointer<GtkEventControllerLegacy>) :
+    EventController(pointer.reinterpret()),
     KGTyped {
     public val gtkEventControllerLegacyPointer: CPointer<GtkEventControllerLegacy>
         get() = gPointer.reinterpret()
@@ -52,10 +52,7 @@ public open class EventControllerLegacy(
      * @param handler the Callback to connect. Params: `event` the `GdkEvent` which triggered this signal. Returns true to stop other handlers from being invoked for the event
      *   and the emission of this signal. false to propagate the event further.
      */
-    public fun connectEvent(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (event: Event) -> Boolean,
-    ): ULong =
+    public fun connectEvent(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (event: Event) -> Boolean): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "event",
@@ -72,21 +69,26 @@ public open class EventControllerLegacy(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of EventControllerLegacy
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_event_controller_legacy_get_type()
     }
 }
 
-private val connectEventFunc: CPointer<CFunction<(CPointer<GdkEvent>) -> Int>> =
+private val connectEventFunc: CPointer<CFunction<(CPointer<GdkEvent>) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
             event: CPointer<GdkEvent>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(event: Event) -> Boolean>()
-            .get()
-            .invoke(
-                event!!.run {
-                    Event(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(event: Event) -> Boolean>().get().invoke(
+            event!!.run {
+                Event(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()

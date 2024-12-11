@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.pango
 
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoFontScale
+import org.gtkkn.native.pango.pango_font_scale_get_type
 
 /**
  * An enumeration that affects font sizes for superscript
@@ -10,9 +12,7 @@ import org.gtkkn.native.pango.PangoFontScale
  * @since 1.50
  */
 @PangoVersion1_50
-public enum class FontScale(
-    public val nativeValue: PangoFontScale,
-) {
+public enum class FontScale(public val nativeValue: PangoFontScale) {
     /**
      * Leave the font size unchanged
      */
@@ -35,13 +35,19 @@ public enum class FontScale(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: PangoFontScale): FontScale =
-            when (nativeValue) {
-                PangoFontScale.PANGO_FONT_SCALE_NONE -> NONE
-                PangoFontScale.PANGO_FONT_SCALE_SUPERSCRIPT -> SUPERSCRIPT
-                PangoFontScale.PANGO_FONT_SCALE_SUBSCRIPT -> SUBSCRIPT
-                PangoFontScale.PANGO_FONT_SCALE_SMALL_CAPS -> SMALL_CAPS
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: PangoFontScale): FontScale = when (nativeValue) {
+            PangoFontScale.PANGO_FONT_SCALE_NONE -> NONE
+            PangoFontScale.PANGO_FONT_SCALE_SUPERSCRIPT -> SUPERSCRIPT
+            PangoFontScale.PANGO_FONT_SCALE_SUBSCRIPT -> SUBSCRIPT
+            PangoFontScale.PANGO_FONT_SCALE_SMALL_CAPS -> SMALL_CAPS
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of FontScale
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_font_scale_get_type()
     }
 }

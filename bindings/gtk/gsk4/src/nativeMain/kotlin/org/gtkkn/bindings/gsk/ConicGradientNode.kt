@@ -8,14 +8,15 @@ import org.gtkkn.bindings.gsk.annotations.GskVersion4_2
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gsk.GskConicGradientNode
 import org.gtkkn.native.gsk.gsk_conic_gradient_node_get_angle
 import org.gtkkn.native.gsk.gsk_conic_gradient_node_get_center
 import org.gtkkn.native.gsk.gsk_conic_gradient_node_get_n_color_stops
 import org.gtkkn.native.gsk.gsk_conic_gradient_node_get_rotation
 import org.gtkkn.native.gsk.gsk_conic_gradient_node_get_type
-import kotlin.Float
-import kotlin.ULong
 
 /**
  * A render node for a conic gradient.
@@ -25,9 +26,8 @@ import kotlin.ULong
  * - parameter `n_stops`: n_stops: Out parameter is not supported
  * - parameter `color_stops`: ColorStop
  */
-public open class ConicGradientNode(
-    pointer: CPointer<GskConicGradientNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class ConicGradientNode(pointer: CPointer<GskConicGradientNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskConicGradientNodePointer: CPointer<GskConicGradientNode>
         get() = gPointer.reinterpret()
@@ -44,7 +44,7 @@ public open class ConicGradientNode(
      * @since 4.2
      */
     @GskVersion4_2
-    public open fun getAngle(): Float = gsk_conic_gradient_node_get_angle(gskConicGradientNodePointer.reinterpret())
+    public open fun getAngle(): gfloat = gsk_conic_gradient_node_get_angle(gskConicGradientNodePointer.reinterpret())
 
     /**
      * Retrieves the center pointer for the gradient.
@@ -61,7 +61,7 @@ public open class ConicGradientNode(
      *
      * @return the number of color stops
      */
-    public open fun getNColorStops(): ULong =
+    public open fun getNColorStops(): gsize =
         gsk_conic_gradient_node_get_n_color_stops(gskConicGradientNodePointer.reinterpret())
 
     /**
@@ -69,7 +69,7 @@ public open class ConicGradientNode(
      *
      * @return the rotation for the gradient
      */
-    public open fun getRotation(): Float =
+    public open fun getRotation(): gfloat =
         gsk_conic_gradient_node_get_rotation(gskConicGradientNodePointer.reinterpret())
 
     public companion object : TypeCompanion<ConicGradientNode> {
@@ -79,5 +79,12 @@ public open class ConicGradientNode(
         init {
             GskTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ConicGradientNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_conic_gradient_node_get_type()
     }
 }

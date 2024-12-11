@@ -2,6 +2,7 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.extensions.glib.Bitfield
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GTK_PRINT_CAPABILITY_COLLATE
 import org.gtkkn.native.gtk.GTK_PRINT_CAPABILITY_COPIES
 import org.gtkkn.native.gtk.GTK_PRINT_CAPABILITY_GENERATE_PDF
@@ -13,6 +14,7 @@ import org.gtkkn.native.gtk.GTK_PRINT_CAPABILITY_PREVIEW
 import org.gtkkn.native.gtk.GTK_PRINT_CAPABILITY_REVERSE
 import org.gtkkn.native.gtk.GTK_PRINT_CAPABILITY_SCALE
 import org.gtkkn.native.gtk.GtkPrintCapabilities
+import org.gtkkn.native.gtk.gtk_print_capabilities_get_type
 
 /**
  * Specifies which features the print dialog should offer.
@@ -21,9 +23,7 @@ import org.gtkkn.native.gtk.GtkPrintCapabilities
  * %GTK_PRINT_CAPABILITY_GENERATE_PS is specified, GTK assumes that all
  * formats are supported.
  */
-public class PrintCapabilities(
-    public val mask: GtkPrintCapabilities,
-) : Bitfield<PrintCapabilities> {
+public class PrintCapabilities(public val mask: GtkPrintCapabilities) : Bitfield<PrintCapabilities> {
     override infix fun or(other: PrintCapabilities): PrintCapabilities = PrintCapabilities(mask or other.mask)
 
     public companion object {
@@ -83,5 +83,12 @@ public class PrintCapabilities(
          */
         public val NUMBER_UP_LAYOUT: PrintCapabilities =
             PrintCapabilities(GTK_PRINT_CAPABILITY_NUMBER_UP_LAYOUT)
+
+        /**
+         * Get the GType of PrintCapabilities
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_print_capabilities_get_type()
     }
 }

@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkListTabBehavior
+import org.gtkkn.native.gtk.gtk_list_tab_behavior_get_type
 
 /**
  * Used to configure the focus behavior in the `GTK_DIR_TAB_FORWARD`
@@ -11,9 +13,7 @@ import org.gtkkn.native.gtk.GtkListTabBehavior
  * @since 4.12
  */
 @GtkVersion4_12
-public enum class ListTabBehavior(
-    public val nativeValue: GtkListTabBehavior,
-) {
+public enum class ListTabBehavior(public val nativeValue: GtkListTabBehavior) {
     /**
      * Cycle through all focusable items of the list
      */
@@ -37,12 +37,18 @@ public enum class ListTabBehavior(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkListTabBehavior): ListTabBehavior =
-            when (nativeValue) {
-                GtkListTabBehavior.GTK_LIST_TAB_ALL -> ALL
-                GtkListTabBehavior.GTK_LIST_TAB_ITEM -> ITEM
-                GtkListTabBehavior.GTK_LIST_TAB_CELL -> CELL
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkListTabBehavior): ListTabBehavior = when (nativeValue) {
+            GtkListTabBehavior.GTK_LIST_TAB_ALL -> ALL
+            GtkListTabBehavior.GTK_LIST_TAB_ITEM -> ITEM
+            GtkListTabBehavior.GTK_LIST_TAB_CELL -> CELL
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of ListTabBehavior
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_list_tab_behavior_get_type()
     }
 }

@@ -2,13 +2,13 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.native.gdk.GdkGravity
+import org.gtkkn.native.gdk.gdk_gravity_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Defines the reference point of a surface and is used in `GdkPopupLayout`.
  */
-public enum class Gravity(
-    public val nativeValue: GdkGravity,
-) {
+public enum class Gravity(public val nativeValue: GdkGravity) {
     /**
      * the reference point is at the top left corner.
      */
@@ -62,19 +62,25 @@ public enum class Gravity(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GdkGravity): Gravity =
-            when (nativeValue) {
-                GdkGravity.GDK_GRAVITY_NORTH_WEST -> NORTH_WEST
-                GdkGravity.GDK_GRAVITY_NORTH -> NORTH
-                GdkGravity.GDK_GRAVITY_NORTH_EAST -> NORTH_EAST
-                GdkGravity.GDK_GRAVITY_WEST -> WEST
-                GdkGravity.GDK_GRAVITY_CENTER -> CENTER
-                GdkGravity.GDK_GRAVITY_EAST -> EAST
-                GdkGravity.GDK_GRAVITY_SOUTH_WEST -> SOUTH_WEST
-                GdkGravity.GDK_GRAVITY_SOUTH -> SOUTH
-                GdkGravity.GDK_GRAVITY_SOUTH_EAST -> SOUTH_EAST
-                GdkGravity.GDK_GRAVITY_STATIC -> STATIC
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GdkGravity): Gravity = when (nativeValue) {
+            GdkGravity.GDK_GRAVITY_NORTH_WEST -> NORTH_WEST
+            GdkGravity.GDK_GRAVITY_NORTH -> NORTH
+            GdkGravity.GDK_GRAVITY_NORTH_EAST -> NORTH_EAST
+            GdkGravity.GDK_GRAVITY_WEST -> WEST
+            GdkGravity.GDK_GRAVITY_CENTER -> CENTER
+            GdkGravity.GDK_GRAVITY_EAST -> EAST
+            GdkGravity.GDK_GRAVITY_SOUTH_WEST -> SOUTH_WEST
+            GdkGravity.GDK_GRAVITY_SOUTH -> SOUTH
+            GdkGravity.GDK_GRAVITY_SOUTH_EAST -> SOUTH_EAST
+            GdkGravity.GDK_GRAVITY_STATIC -> STATIC
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of Gravity
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_gravity_get_type()
     }
 }

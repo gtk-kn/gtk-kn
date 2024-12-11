@@ -28,8 +28,9 @@ import org.gtkkn.native.gio.g_unix_connection_send_credentials_async
 import org.gtkkn.native.gio.g_unix_connection_send_credentials_finish
 import org.gtkkn.native.gio.g_unix_connection_send_fd
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.Unit
 
@@ -49,9 +50,8 @@ import kotlin.Unit
  * @since 2.22
  */
 @GioVersion2_22
-public open class UnixConnection(
-    pointer: CPointer<GUnixConnection>,
-) : SocketConnection(pointer.reinterpret()),
+public open class UnixConnection(pointer: CPointer<GUnixConnection>) :
+    SocketConnection(pointer.reinterpret()),
     KGTyped {
     public val gioUnixConnectionPointer: CPointer<GUnixConnection>
         get() = gPointer.reinterpret()
@@ -82,24 +82,22 @@ public open class UnixConnection(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun receiveCredentials(cancellable: Cancellable? = null): Result<Credentials> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_unix_connection_receive_credentials(
-                    gioUnixConnectionPointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    Credentials(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public open fun receiveCredentials(cancellable: Cancellable? = null): Result<Credentials> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_unix_connection_receive_credentials(
+            gioUnixConnectionPointer.reinterpret(),
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            Credentials(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Asynchronously receive credentials.
@@ -116,10 +114,7 @@ public open class UnixConnection(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun receiveCredentialsAsync(
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public open fun receiveCredentialsAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         g_unix_connection_receive_credentials_async(
             gioUnixConnectionPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
@@ -137,24 +132,22 @@ public open class UnixConnection(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun receiveCredentialsFinish(result: AsyncResult): Result<Credentials> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_unix_connection_receive_credentials_finish(
-                    gioUnixConnectionPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    Credentials(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public open fun receiveCredentialsFinish(result: AsyncResult): Result<Credentials> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_unix_connection_receive_credentials_finish(
+            gioUnixConnectionPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            Credentials(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Receives a file descriptor from the sending end of the connection.
@@ -170,21 +163,20 @@ public open class UnixConnection(
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun receiveFd(cancellable: Cancellable? = null): Result<Int> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_unix_connection_receive_fd(
-                    gioUnixConnectionPointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun receiveFd(cancellable: Cancellable? = null): Result<gint> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult =
+            g_unix_connection_receive_fd(
+                gioUnixConnectionPointer.reinterpret(),
+                cancellable?.gioCancellablePointer?.reinterpret(),
+                gError.ptr
+            )
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Passes the credentials of the current user the receiving side
@@ -212,21 +204,19 @@ public open class UnixConnection(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun sendCredentials(cancellable: Cancellable? = null): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_unix_connection_send_credentials(
-                    gioUnixConnectionPointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun sendCredentials(cancellable: Cancellable? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_unix_connection_send_credentials(
+            gioUnixConnectionPointer.reinterpret(),
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Asynchronously send credentials.
@@ -243,10 +233,7 @@ public open class UnixConnection(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun sendCredentialsAsync(
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public open fun sendCredentialsAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         g_unix_connection_send_credentials_async(
             gioUnixConnectionPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
@@ -263,21 +250,19 @@ public open class UnixConnection(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun sendCredentialsFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_unix_connection_send_credentials_finish(
-                    gioUnixConnectionPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun sendCredentialsFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_unix_connection_send_credentials_finish(
+            gioUnixConnectionPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Passes a file descriptor to the receiving side of the
@@ -294,25 +279,20 @@ public open class UnixConnection(
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun sendFd(
-        fd: Int,
-        cancellable: Cancellable? = null,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_unix_connection_send_fd(
-                    gioUnixConnectionPointer.reinterpret(),
-                    fd,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun sendFd(fd: gint, cancellable: Cancellable? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_unix_connection_send_fd(
+            gioUnixConnectionPointer.reinterpret(),
+            fd,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     public companion object : TypeCompanion<UnixConnection> {
         override val type: GeneratedClassKGType<UnixConnection> =
@@ -321,5 +301,12 @@ public open class UnixConnection(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of UnixConnection
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_unix_connection_get_type()
     }
 }

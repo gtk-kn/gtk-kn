@@ -1,18 +1,28 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GCompletion
+import org.gtkkn.native.glib.g_completion_add_items
 import org.gtkkn.native.glib.g_completion_clear_items
 import org.gtkkn.native.glib.g_completion_free
+import org.gtkkn.native.glib.g_completion_remove_items
+import org.gtkkn.native.glib.g_free
+import org.gtkkn.native.glib.g_strdup
+import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * `GCompletion` provides support for automatic completion of a string
@@ -40,44 +50,133 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `new_prefix`: Unsupported string with cType gchar**
+ * - parameter `new_prefix`: Unsupported string with cType gchar**
+ * - parameter `strncmp_func`: CompletionStrncmpFunc
+ * - parameter `func`: CompletionFunc
  * - field `func`: CompletionFunc
  * - field `strncmp_func`: CompletionStrncmpFunc
  */
-public class Completion(
-    pointer: CPointer<GCompletion>,
-) : Record {
+public class Completion(pointer: CPointer<GCompletion>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibCompletionPointer: CPointer<GCompletion> = pointer
 
     /**
      * list of target items (strings or data structures).
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val items: List?
-        get() =
-            glibCompletionPointer.pointed.items?.run {
-                List(reinterpret())
-            }
+    public var items: List?
+        get() = glibCompletionPointer.pointed.items?.run {
+            List(reinterpret())
+        }
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            glibCompletionPointer.pointed.items = value?.glibListPointer
+        }
 
     /**
      * the last prefix passed to g_completion_complete() or
      *          g_completion_complete_utf8().
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val prefix: String?
+    public var prefix: String?
         get() = glibCompletionPointer.pointed.prefix?.toKString()
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            glibCompletionPointer.pointed.prefix?.let { g_free(it) }
+            glibCompletionPointer.pointed.prefix = value?.let { g_strdup(it) }
+        }
 
     /**
      * the list of items which begin with @prefix.
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val cache: List?
-        get() =
-            glibCompletionPointer.pointed.cache?.run {
-                List(reinterpret())
-            }
+    public var cache: List?
+        get() = glibCompletionPointer.pointed.cache?.run {
+            List(reinterpret())
+        }
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            glibCompletionPointer.pointed.cache = value?.glibListPointer
+        }
+
+    /**
+     * Allocate a new Completion.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<GCompletion>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Completion and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GCompletion>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Completion using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GCompletion>().ptr)
+
+    /**
+     * Allocate a new Completion.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param items list of target items (strings or data structures).
+     * @param prefix the last prefix passed to g_completion_complete() or
+     *          g_completion_complete_utf8().
+     * @param cache the list of items which begin with @prefix.
+     */
+    public constructor(
+        items: List?,
+        prefix: String?,
+        cache: List?,
+    ) : this() {
+        this.items = items
+        this.prefix = prefix
+        this.cache = cache
+    }
+
+    /**
+     * Allocate a new Completion using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param items list of target items (strings or data structures).
+     * @param prefix the last prefix passed to g_completion_complete() or
+     *          g_completion_complete_utf8().
+     * @param cache the list of items which begin with @prefix.
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        items: List?,
+        prefix: String?,
+        cache: List?,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.items = items
+        this.prefix = prefix
+        this.cache = cache
+    }
+
+    /**
+     * Adds items to the #GCompletion.
+     *
+     * @param items the list of items to add.
+     */
+    public fun addItems(items: List): Unit =
+        g_completion_add_items(glibCompletionPointer.reinterpret(), items.glibListPointer.reinterpret())
 
     /**
      * Removes all items from the #GCompletion. The items are not freed, so if the
@@ -93,7 +192,15 @@ public class Completion(
      */
     public fun free(): Unit = g_completion_free(glibCompletionPointer.reinterpret())
 
-    public companion object : RecordCompanion<Completion, GCompletion> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Completion = Completion(pointer.reinterpret())
-    }
+    /**
+     * Removes items from a #GCompletion. The items are not freed, so if the memory
+     * was dynamically allocated, free @items with g_list_free_full() after calling
+     * this function.
+     *
+     * @param items the items to remove.
+     */
+    public fun removeItems(items: List): Unit =
+        g_completion_remove_items(glibCompletionPointer.reinterpret(), items.glibListPointer.reinterpret())
+
+    override fun toString(): String = "Completion(items=$items, prefix=$prefix, cache=$cache)"
 }

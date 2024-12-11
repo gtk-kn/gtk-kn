@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskTransformCategory
+import org.gtkkn.native.gsk.gsk_transform_category_get_type
 
 /**
  * The categories of matrices relevant for GSK and GTK.
@@ -15,9 +17,7 @@ import org.gtkkn.native.gsk.GskTransformCategory
  * multiplication will not worsen categories. So for the matrix
  * multiplication `C = A * B`, `category(C) = MIN (category(A), category(B))`.
  */
-public enum class TransformCategory(
-    public val nativeValue: GskTransformCategory,
-) {
+public enum class TransformCategory(public val nativeValue: GskTransformCategory) {
     /**
      * The category of the matrix has not been
      *   determined.
@@ -62,16 +62,22 @@ public enum class TransformCategory(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GskTransformCategory): TransformCategory =
-            when (nativeValue) {
-                GskTransformCategory.GSK_TRANSFORM_CATEGORY_UNKNOWN -> UNKNOWN
-                GskTransformCategory.GSK_TRANSFORM_CATEGORY_ANY -> ANY
-                GskTransformCategory.GSK_TRANSFORM_CATEGORY_3D -> `3D`
-                GskTransformCategory.GSK_TRANSFORM_CATEGORY_2D -> `2D`
-                GskTransformCategory.GSK_TRANSFORM_CATEGORY_2D_AFFINE -> `2D_AFFINE`
-                GskTransformCategory.GSK_TRANSFORM_CATEGORY_2D_TRANSLATE -> `2D_TRANSLATE`
-                GskTransformCategory.GSK_TRANSFORM_CATEGORY_IDENTITY -> IDENTITY
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GskTransformCategory): TransformCategory = when (nativeValue) {
+            GskTransformCategory.GSK_TRANSFORM_CATEGORY_UNKNOWN -> UNKNOWN
+            GskTransformCategory.GSK_TRANSFORM_CATEGORY_ANY -> ANY
+            GskTransformCategory.GSK_TRANSFORM_CATEGORY_3D -> `3D`
+            GskTransformCategory.GSK_TRANSFORM_CATEGORY_2D -> `2D`
+            GskTransformCategory.GSK_TRANSFORM_CATEGORY_2D_AFFINE -> `2D_AFFINE`
+            GskTransformCategory.GSK_TRANSFORM_CATEGORY_2D_TRANSLATE -> `2D_TRANSLATE`
+            GskTransformCategory.GSK_TRANSFORM_CATEGORY_IDENTITY -> IDENTITY
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of TransformCategory
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_transform_category_get_type()
     }
 }

@@ -1,23 +1,29 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_12
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GTimeVal
 import org.gtkkn.native.glib.g_time_val_add
 import org.gtkkn.native.glib.g_time_val_from_iso8601
 import org.gtkkn.native.glib.g_time_val_to_iso8601
+import org.gtkkn.native.gobject.glong
 import kotlin.Boolean
-import kotlin.Long
+import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * Represents a precise time, with seconds and microseconds.
@@ -31,16 +37,16 @@ import kotlin.Unit
  * `tv_sec` is that on 32-bit systems `GTimeVal` is subject to the year 2038
  * problem.
  */
-public class TimeVal(
-    pointer: CPointer<GTimeVal>,
-) : Record {
+public class TimeVal(pointer: CPointer<GTimeVal>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibTimeValPointer: CPointer<GTimeVal> = pointer
 
     /**
      * seconds
      */
-    public var tvSec: Long
+    public var tvSec: glong
         get() = glibTimeValPointer.pointed.tv_sec
+
+        @UnsafeFieldSetter
         set(`value`) {
             glibTimeValPointer.pointed.tv_sec = value
         }
@@ -48,11 +54,74 @@ public class TimeVal(
     /**
      * microseconds
      */
-    public var tvUsec: Long
+    public var tvUsec: glong
         get() = glibTimeValPointer.pointed.tv_usec
+
+        @UnsafeFieldSetter
         set(`value`) {
             glibTimeValPointer.pointed.tv_usec = value
         }
+
+    /**
+     * Allocate a new TimeVal.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<GTimeVal>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to TimeVal and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GTimeVal>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new TimeVal using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GTimeVal>().ptr)
+
+    /**
+     * Allocate a new TimeVal.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param tvSec seconds
+     * @param tvUsec microseconds
+     */
+    public constructor(tvSec: glong, tvUsec: glong) : this() {
+        this.tvSec = tvSec
+        this.tvUsec = tvUsec
+    }
+
+    /**
+     * Allocate a new TimeVal using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param tvSec seconds
+     * @param tvUsec microseconds
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        tvSec: glong,
+        tvUsec: glong,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.tvSec = tvSec
+        this.tvUsec = tvUsec
+    }
 
     /**
      * Adds the given number of microseconds to @time_. @microseconds can
@@ -60,7 +129,7 @@ public class TimeVal(
      *
      * @param microseconds number of microseconds to add to @time
      */
-    public fun add(microseconds: Long): Unit = g_time_val_add(glibTimeValPointer.reinterpret(), microseconds)
+    public fun add(microseconds: glong): Unit = g_time_val_add(glibTimeValPointer.reinterpret(), microseconds)
 
     /**
      * Converts @time_ into an RFC 3339 encoded string, relative to the
@@ -103,10 +172,11 @@ public class TimeVal(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun toIso8601(): String =
-        g_time_val_to_iso8601(glibTimeValPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun toIso8601(): String? = g_time_val_to_iso8601(glibTimeValPointer.reinterpret())?.toKString()
 
-    public companion object : RecordCompanion<TimeVal, GTimeVal> {
+    override fun toString(): String = "TimeVal(tvSec=$tvSec, tvUsec=$tvUsec)"
+
+    public companion object {
         /**
          * Converts a string containing an ISO 8601 encoded date and time
          * to a #GTimeVal and puts it into @time_.
@@ -132,11 +202,7 @@ public class TimeVal(
          * @since 2.12
          */
         @GLibVersion2_12
-        public fun fromIso8601(
-            isoDate: String,
-            time: TimeVal,
-        ): Boolean = g_time_val_from_iso8601(isoDate, time.glibTimeValPointer.reinterpret()).asBoolean()
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TimeVal = TimeVal(pointer.reinterpret())
+        public fun fromIso8601(isoDate: String, time: TimeVal): Boolean =
+            g_time_val_from_iso8601(isoDate, time.glibTimeValPointer.reinterpret()).asBoolean()
     }
 }

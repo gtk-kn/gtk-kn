@@ -20,6 +20,7 @@ import org.gtkkn.native.adw.adw_preferences_group_remove
 import org.gtkkn.native.adw.adw_preferences_group_set_description
 import org.gtkkn.native.adw.adw_preferences_group_set_header_suffix
 import org.gtkkn.native.adw.adw_preferences_group_set_title
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -59,9 +60,8 @@ import kotlin.Unit
  *
  * `AdwPreferencesGroup` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
  */
-public open class PreferencesGroup(
-    pointer: CPointer<AdwPreferencesGroup>,
-) : Widget(pointer.reinterpret()),
+public open class PreferencesGroup(pointer: CPointer<AdwPreferencesGroup>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val adwPreferencesGroupPointer: CPointer<AdwPreferencesGroup>
         get() = gPointer.reinterpret()
@@ -111,10 +111,9 @@ public open class PreferencesGroup(
          * @return the suffix for @self's header.
          * @since 1.1
          */
-        get() =
-            adw_preferences_group_get_header_suffix(adwPreferencesGroupPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = adw_preferences_group_get_header_suffix(adwPreferencesGroupPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the suffix for @self's header.
@@ -129,11 +128,10 @@ public open class PreferencesGroup(
         @AdwVersion1_1
         set(
             suffix
-        ) =
-            adw_preferences_group_set_header_suffix(
-                adwPreferencesGroupPointer.reinterpret(),
-                suffix?.gtkWidgetPointer?.reinterpret()
-            )
+        ) = adw_preferences_group_set_header_suffix(
+            adwPreferencesGroupPointer.reinterpret(),
+            suffix?.gtkWidgetPointer?.reinterpret()
+        )
 
     /**
      * The title for this group of preferences.
@@ -144,9 +142,8 @@ public open class PreferencesGroup(
          *
          * @return the title of @self
          */
-        get() =
-            adw_preferences_group_get_title(adwPreferencesGroupPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = adw_preferences_group_get_title(adwPreferencesGroupPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Sets the title for @self.
@@ -171,74 +168,12 @@ public open class PreferencesGroup(
         adw_preferences_group_add(adwPreferencesGroupPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
-     * Gets the description of @self.
-     *
-     * @return the description of @self
-     */
-    public open fun getDescription(): String? =
-        adw_preferences_group_get_description(adwPreferencesGroupPointer.reinterpret())?.toKString()
-
-    /**
-     * Gets the suffix for @self's header.
-     *
-     * @return the suffix for @self's header.
-     * @since 1.1
-     */
-    @AdwVersion1_1
-    public open fun getHeaderSuffix(): Widget? =
-        adw_preferences_group_get_header_suffix(adwPreferencesGroupPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Gets the title of @self.
-     *
-     * @return the title of @self
-     */
-    public open fun getTitle(): String =
-        adw_preferences_group_get_title(adwPreferencesGroupPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
      * Removes a child from @self.
      *
      * @param child the child to remove
      */
     public open fun remove(child: Widget): Unit =
         adw_preferences_group_remove(adwPreferencesGroupPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
-
-    /**
-     * Sets the description for @self.
-     *
-     * @param description the description
-     */
-    public open fun setDescription(description: String? = null): Unit =
-        adw_preferences_group_set_description(adwPreferencesGroupPointer.reinterpret(), description)
-
-    /**
-     * Sets the suffix for @self's header.
-     *
-     * Displayed above the list, next to the title and description.
-     *
-     * Suffixes are commonly used to show a button or a spinner for the whole group.
-     *
-     * @param suffix the suffix to set
-     * @since 1.1
-     */
-    @AdwVersion1_1
-    public open fun setHeaderSuffix(suffix: Widget? = null): Unit =
-        adw_preferences_group_set_header_suffix(
-            adwPreferencesGroupPointer.reinterpret(),
-            suffix?.gtkWidgetPointer?.reinterpret()
-        )
-
-    /**
-     * Sets the title for @self.
-     *
-     * @param title the title
-     */
-    public open fun setTitle(title: String): Unit =
-        adw_preferences_group_set_title(adwPreferencesGroupPointer.reinterpret(), title)
 
     public companion object : TypeCompanion<PreferencesGroup> {
         override val type: GeneratedClassKGType<PreferencesGroup> =
@@ -247,5 +182,12 @@ public open class PreferencesGroup(
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of PreferencesGroup
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_preferences_group_get_type()
     }
 }

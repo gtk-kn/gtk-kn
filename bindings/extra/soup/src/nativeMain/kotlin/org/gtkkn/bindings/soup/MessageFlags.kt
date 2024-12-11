@@ -2,20 +2,20 @@
 package org.gtkkn.bindings.soup
 
 import org.gtkkn.extensions.glib.Bitfield
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SOUP_MESSAGE_COLLECT_METRICS
 import org.gtkkn.native.soup.SOUP_MESSAGE_DO_NOT_USE_AUTH_CACHE
 import org.gtkkn.native.soup.SOUP_MESSAGE_IDEMPOTENT
 import org.gtkkn.native.soup.SOUP_MESSAGE_NEW_CONNECTION
 import org.gtkkn.native.soup.SOUP_MESSAGE_NO_REDIRECT
 import org.gtkkn.native.soup.SoupMessageFlags
+import org.gtkkn.native.soup.soup_message_flags_get_type
 
 /**
  * Various flags that can be set on a #SoupMessage to alter its
  * behavior.
  */
-public class MessageFlags(
-    public val mask: SoupMessageFlags,
-) : Bitfield<MessageFlags> {
+public class MessageFlags(public val mask: SoupMessageFlags) : Bitfield<MessageFlags> {
     override infix fun or(other: MessageFlags): MessageFlags = MessageFlags(mask or other.mask)
 
     public companion object {
@@ -58,5 +58,12 @@ public class MessageFlags(
          * Metrics will be collected for this message.
          */
         public val COLLECT_METRICS: MessageFlags = MessageFlags(SOUP_MESSAGE_COLLECT_METRICS)
+
+        /**
+         * Get the GType of MessageFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_message_flags_get_type()
     }
 }

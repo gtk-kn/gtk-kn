@@ -15,9 +15,7 @@ import org.gtkkn.native.glib.GUserDirectory
  * @since 2.14
  */
 @GLibVersion2_14
-public enum class UserDirectory(
-    public val nativeValue: GUserDirectory,
-) {
+public enum class UserDirectory(public val nativeValue: GUserDirectory) {
     /**
      * the user's Desktop directory
      */
@@ -65,18 +63,17 @@ public enum class UserDirectory(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GUserDirectory): UserDirectory =
-            when (nativeValue) {
-                GUserDirectory.G_USER_DIRECTORY_DESKTOP -> DIRECTORY_DESKTOP
-                GUserDirectory.G_USER_DIRECTORY_DOCUMENTS -> DIRECTORY_DOCUMENTS
-                GUserDirectory.G_USER_DIRECTORY_DOWNLOAD -> DIRECTORY_DOWNLOAD
-                GUserDirectory.G_USER_DIRECTORY_MUSIC -> DIRECTORY_MUSIC
-                GUserDirectory.G_USER_DIRECTORY_PICTURES -> DIRECTORY_PICTURES
-                GUserDirectory.G_USER_DIRECTORY_PUBLIC_SHARE -> DIRECTORY_PUBLIC_SHARE
-                GUserDirectory.G_USER_DIRECTORY_TEMPLATES -> DIRECTORY_TEMPLATES
-                GUserDirectory.G_USER_DIRECTORY_VIDEOS -> DIRECTORY_VIDEOS
-                GUserDirectory.G_USER_N_DIRECTORIES -> N_DIRECTORIES
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GUserDirectory): UserDirectory = when (nativeValue) {
+            GUserDirectory.G_USER_DIRECTORY_DESKTOP -> DIRECTORY_DESKTOP
+            GUserDirectory.G_USER_DIRECTORY_DOCUMENTS -> DIRECTORY_DOCUMENTS
+            GUserDirectory.G_USER_DIRECTORY_DOWNLOAD -> DIRECTORY_DOWNLOAD
+            GUserDirectory.G_USER_DIRECTORY_MUSIC -> DIRECTORY_MUSIC
+            GUserDirectory.G_USER_DIRECTORY_PICTURES -> DIRECTORY_PICTURES
+            GUserDirectory.G_USER_DIRECTORY_PUBLIC_SHARE -> DIRECTORY_PUBLIC_SHARE
+            GUserDirectory.G_USER_DIRECTORY_TEMPLATES -> DIRECTORY_TEMPLATES
+            GUserDirectory.G_USER_DIRECTORY_VIDEOS -> DIRECTORY_VIDEOS
+            GUserDirectory.G_USER_N_DIRECTORIES -> N_DIRECTORIES
+            else -> error("invalid nativeValue")
+        }
     }
 }

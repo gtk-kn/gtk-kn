@@ -8,14 +8,14 @@ import org.gtkkn.native.gio.G_DBUS_SERVER_FLAGS_AUTHENTICATION_ALLOW_ANONYMOUS
 import org.gtkkn.native.gio.G_DBUS_SERVER_FLAGS_AUTHENTICATION_REQUIRE_SAME_USER
 import org.gtkkn.native.gio.G_DBUS_SERVER_FLAGS_NONE
 import org.gtkkn.native.gio.G_DBUS_SERVER_FLAGS_RUN_IN_THREAD
+import org.gtkkn.native.gio.g_dbus_server_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags used when creating a #GDBusServer.
  * @since 2.26
  */
-public class DBusServerFlags(
-    public val mask: GDBusServerFlags,
-) : Bitfield<DBusServerFlags> {
+public class DBusServerFlags(public val mask: GDBusServerFlags) : Bitfield<DBusServerFlags> {
     override infix fun or(other: DBusServerFlags): DBusServerFlags = DBusServerFlags(mask or other.mask)
 
     @GioVersion2_26
@@ -46,5 +46,12 @@ public class DBusServerFlags(
          */
         public val AUTHENTICATION_REQUIRE_SAME_USER: DBusServerFlags =
             DBusServerFlags(G_DBUS_SERVER_FLAGS_AUTHENTICATION_REQUIRE_SAME_USER)
+
+        /**
+         * Get the GType of DBusServerFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_server_flags_get_type()
     }
 }

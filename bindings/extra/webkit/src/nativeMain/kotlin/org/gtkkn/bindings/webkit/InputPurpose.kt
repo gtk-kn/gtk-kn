@@ -2,16 +2,16 @@
 package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_28
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitInputPurpose
+import org.gtkkn.native.webkit.webkit_input_purpose_get_type
 
 /**
  * Enum values used to describe the primary purpose of the active editable element.
  * @since 2.28
  */
 @WebKitVersion2_28
-public enum class InputPurpose(
-    public val nativeValue: WebKitInputPurpose,
-) {
+public enum class InputPurpose(public val nativeValue: WebKitInputPurpose) {
     /**
      * Editable element expects any characters
      */
@@ -49,16 +49,22 @@ public enum class InputPurpose(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitInputPurpose): InputPurpose =
-            when (nativeValue) {
-                WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_FREE_FORM -> FREE_FORM
-                WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_DIGITS -> DIGITS
-                WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_NUMBER -> NUMBER
-                WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_PHONE -> PHONE
-                WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_URL -> URL
-                WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_EMAIL -> EMAIL
-                WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_PASSWORD -> PASSWORD
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitInputPurpose): InputPurpose = when (nativeValue) {
+            WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_FREE_FORM -> FREE_FORM
+            WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_DIGITS -> DIGITS
+            WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_NUMBER -> NUMBER
+            WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_PHONE -> PHONE
+            WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_URL -> URL
+            WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_EMAIL -> EMAIL
+            WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_PASSWORD -> PASSWORD
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of InputPurpose
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_input_purpose_get_type()
     }
 }

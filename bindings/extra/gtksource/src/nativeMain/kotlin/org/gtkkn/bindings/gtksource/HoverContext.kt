@@ -9,6 +9,7 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceHoverContext
 import org.gtkkn.native.gtksource.gtk_source_hover_context_get_bounds
 import org.gtkkn.native.gtksource.gtk_source_hover_context_get_buffer
@@ -30,9 +31,8 @@ import kotlin.Boolean
  * requested. [method@HoverContext.get_iter] will get you the location
  * of the pointer when the request was made.
  */
-public open class HoverContext(
-    pointer: CPointer<GtkSourceHoverContext>,
-) : Object(pointer.reinterpret()),
+public open class HoverContext(pointer: CPointer<GtkSourceHoverContext>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtksourceHoverContextPointer: CPointer<GtkSourceHoverContext>
         get() = gPointer.reinterpret()
@@ -50,15 +50,11 @@ public open class HoverContext(
      * @param end a #GtkTextIter
      * @return true if the marks are still valid and @begin or @end was set.
      */
-    public open fun getBounds(
-        begin: TextIter?,
-        end: TextIter?,
-    ): Boolean =
-        gtk_source_hover_context_get_bounds(
-            gtksourceHoverContextPointer.reinterpret(),
-            begin?.gtkTextIterPointer?.reinterpret(),
-            end?.gtkTextIterPointer?.reinterpret()
-        ).asBoolean()
+    public open fun getBounds(begin: TextIter?, end: TextIter?): Boolean = gtk_source_hover_context_get_bounds(
+        gtksourceHoverContextPointer.reinterpret(),
+        begin?.gtkTextIterPointer?.reinterpret(),
+        end?.gtkTextIterPointer?.reinterpret()
+    ).asBoolean()
 
     /**
      * A convenience function to get the buffer.
@@ -70,16 +66,10 @@ public open class HoverContext(
             Buffer(reinterpret())
         }
 
-    /**
-     *
-     *
-     * @param iter
-     */
-    public open fun getIter(iter: TextIter): Boolean =
-        gtk_source_hover_context_get_iter(
-            gtksourceHoverContextPointer.reinterpret(),
-            iter.gtkTextIterPointer.reinterpret()
-        ).asBoolean()
+    public open fun getIter(iter: TextIter): Boolean = gtk_source_hover_context_get_iter(
+        gtksourceHoverContextPointer.reinterpret(),
+        iter.gtkTextIterPointer.reinterpret()
+    ).asBoolean()
 
     /**
      *
@@ -98,5 +88,12 @@ public open class HoverContext(
         init {
             GtksourceTypeProvider.register()
         }
+
+        /**
+         * Get the GType of HoverContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_hover_context_get_type()
     }
 }

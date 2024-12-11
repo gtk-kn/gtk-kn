@@ -2,6 +2,7 @@
 package org.gtkkn.bindings.pango
 
 import org.gtkkn.extensions.glib.Bitfield
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PANGO_FONT_MASK_FAMILY
 import org.gtkkn.native.pango.PANGO_FONT_MASK_GRAVITY
 import org.gtkkn.native.pango.PANGO_FONT_MASK_SIZE
@@ -11,14 +12,13 @@ import org.gtkkn.native.pango.PANGO_FONT_MASK_VARIANT
 import org.gtkkn.native.pango.PANGO_FONT_MASK_VARIATIONS
 import org.gtkkn.native.pango.PANGO_FONT_MASK_WEIGHT
 import org.gtkkn.native.pango.PangoFontMask
+import org.gtkkn.native.pango.pango_font_mask_get_type
 
 /**
  * The bits in a `PangoFontMask` correspond to the set fields in a
  * `PangoFontDescription`.
  */
-public class FontMask(
-    public val mask: PangoFontMask,
-) : Bitfield<FontMask> {
+public class FontMask(public val mask: PangoFontMask) : Bitfield<FontMask> {
     override infix fun or(other: FontMask): FontMask = FontMask(mask or other.mask)
 
     public companion object {
@@ -61,5 +61,12 @@ public class FontMask(
          * OpenType font variations are specified (Since: 1.42)
          */
         public val VARIATIONS: FontMask = FontMask(PANGO_FONT_MASK_VARIATIONS)
+
+        /**
+         * Get the GType of FontMask
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_font_mask_get_type()
     }
 }

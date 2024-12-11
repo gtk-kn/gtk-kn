@@ -5,15 +5,15 @@ import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gdk.GDK_PAINTABLE_STATIC_CONTENTS
 import org.gtkkn.native.gdk.GDK_PAINTABLE_STATIC_SIZE
 import org.gtkkn.native.gdk.GdkPaintableFlags
+import org.gtkkn.native.gdk.gdk_paintable_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags about a paintable object.
  *
  * Implementations use these for optimizations such as caching.
  */
-public class PaintableFlags(
-    public val mask: GdkPaintableFlags,
-) : Bitfield<PaintableFlags> {
+public class PaintableFlags(public val mask: GdkPaintableFlags) : Bitfield<PaintableFlags> {
     override infix fun or(other: PaintableFlags): PaintableFlags = PaintableFlags(mask or other.mask)
 
     public companion object {
@@ -30,5 +30,12 @@ public class PaintableFlags(
          *   emitted.
          */
         public val CONTENTS: PaintableFlags = PaintableFlags(GDK_PAINTABLE_STATIC_CONTENTS)
+
+        /**
+         * Get the GType of PaintableFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_paintable_flags_get_type()
     }
 }

@@ -22,6 +22,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkUriLauncher
 import org.gtkkn.native.gtk.gtk_uri_launcher_get_type
 import org.gtkkn.native.gtk.gtk_uri_launcher_get_uri
@@ -50,9 +51,8 @@ import kotlin.Unit
  * @since 4.10
  */
 @GtkVersion4_10
-public open class UriLauncher(
-    pointer: CPointer<GtkUriLauncher>,
-) : Object(pointer.reinterpret()),
+public open class UriLauncher(pointer: CPointer<GtkUriLauncher>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkUriLauncherPointer: CPointer<GtkUriLauncher>
         get() = gPointer.reinterpret()
@@ -91,15 +91,6 @@ public open class UriLauncher(
     public constructor(uri: String? = null) : this(gtk_uri_launcher_new(uri)!!.reinterpret())
 
     /**
-     * Gets the uri that will be opened.
-     *
-     * @return the uri
-     * @since 4.10
-     */
-    @GtkVersion4_10
-    public open fun getUri(): String? = gtk_uri_launcher_get_uri(gtkUriLauncherPointer.reinterpret())?.toKString()
-
-    /**
      * Launch an application to open the uri.
      *
      * This may present an app chooser dialog to the user.
@@ -118,14 +109,13 @@ public open class UriLauncher(
         parent: Window? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        gtk_uri_launcher_launch(
-            gtkUriLauncherPointer.reinterpret(),
-            parent?.gtkWindowPointer?.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = gtk_uri_launcher_launch(
+        gtkUriLauncherPointer.reinterpret(),
+        parent?.gtkWindowPointer?.reinterpret(),
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes the [method@Gtk.UriLauncher.launch] call and
@@ -137,31 +127,19 @@ public open class UriLauncher(
      * @since 4.10
      */
     @GtkVersion4_10
-    public open fun launchFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gtk_uri_launcher_launch_finish(
-                    gtkUriLauncherPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun launchFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gtk_uri_launcher_launch_finish(
+            gtkUriLauncherPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
-
-    /**
-     * Sets the uri that will be opened.
-     *
-     * @param uri the uri
-     * @since 4.10
-     */
-    @GtkVersion4_10
-    public open fun setUri(uri: String? = null): Unit =
-        gtk_uri_launcher_set_uri(gtkUriLauncherPointer.reinterpret(), uri)
+    }
 
     public companion object : TypeCompanion<UriLauncher> {
         override val type: GeneratedClassKGType<UriLauncher> =
@@ -170,5 +148,12 @@ public open class UriLauncher(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of UriLauncher
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_uri_launcher_get_type()
     }
 }

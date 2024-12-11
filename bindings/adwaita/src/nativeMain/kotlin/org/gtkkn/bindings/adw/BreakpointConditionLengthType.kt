@@ -3,6 +3,8 @@ package org.gtkkn.bindings.adw
 
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.native.adw.AdwBreakpointConditionLengthType
+import org.gtkkn.native.adw.adw_breakpoint_condition_length_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Describes length types for [struct@BreakpointCondition].
@@ -13,9 +15,7 @@ import org.gtkkn.native.adw.AdwBreakpointConditionLengthType
  * @since 1.4
  */
 @AdwVersion1_4
-public enum class BreakpointConditionLengthType(
-    public val nativeValue: AdwBreakpointConditionLengthType,
-) {
+public enum class BreakpointConditionLengthType(public val nativeValue: AdwBreakpointConditionLengthType) {
     /**
      * true if the width is greater than or
      *   equal to the condition value
@@ -50,5 +50,12 @@ public enum class BreakpointConditionLengthType(
                 AdwBreakpointConditionLengthType.ADW_BREAKPOINT_CONDITION_MAX_HEIGHT -> MAX_HEIGHT
                 else -> error("invalid nativeValue")
             }
+
+        /**
+         * Get the GType of BreakpointConditionLengthType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_breakpoint_condition_length_type_get_type()
     }
 }

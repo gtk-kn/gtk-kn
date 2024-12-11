@@ -1,19 +1,19 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_4
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.pango.PangoScriptIter
 import org.gtkkn.native.pango.pango_script_iter_free
+import org.gtkkn.native.pango.pango_script_iter_get_type
 import org.gtkkn.native.pango.pango_script_iter_new
 import org.gtkkn.native.pango.pango_script_iter_next
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 
@@ -25,9 +25,7 @@ import kotlin.Unit
  *
  * - parameter `start`: start: Out parameter is not supported
  */
-public class ScriptIter(
-    pointer: CPointer<PangoScriptIter>,
-) : Record {
+public class ScriptIter(pointer: CPointer<PangoScriptIter>) : ProxyInstance(pointer) {
     public val pangoScriptIterPointer: CPointer<PangoScriptIter> = pointer
 
     /**
@@ -50,7 +48,7 @@ public class ScriptIter(
     @PangoVersion1_4
     public fun next(): Boolean = pango_script_iter_next(pangoScriptIterPointer.reinterpret()).asBoolean()
 
-    public companion object : RecordCompanion<ScriptIter, PangoScriptIter> {
+    public companion object {
         /**
          * Create a new `PangoScriptIter`, used to break a string of
          * Unicode text into runs by Unicode script.
@@ -67,11 +65,14 @@ public class ScriptIter(
          *  empty, it will point at an empty range.
          * @since 1.4
          */
-        public fun new(
-            text: String,
-            length: Int,
-        ): ScriptIter = ScriptIter(pango_script_iter_new(text, length)!!.reinterpret())
+        public fun new(text: String, length: gint): ScriptIter =
+            ScriptIter(pango_script_iter_new(text, length)!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ScriptIter = ScriptIter(pointer.reinterpret())
+        /**
+         * Get the GType of ScriptIter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_script_iter_get_type()
     }
 }

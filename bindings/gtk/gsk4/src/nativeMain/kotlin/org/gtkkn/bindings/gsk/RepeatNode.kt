@@ -7,6 +7,7 @@ import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskRepeatNode
 import org.gtkkn.native.gsk.gsk_repeat_node_get_child
 import org.gtkkn.native.gsk.gsk_repeat_node_get_child_bounds
@@ -16,9 +17,8 @@ import org.gtkkn.native.gsk.gsk_repeat_node_new
 /**
  * A render node repeating its single child node.
  */
-public open class RepeatNode(
-    pointer: CPointer<GskRepeatNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class RepeatNode(pointer: CPointer<GskRepeatNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskRepeatNodePointer: CPointer<GskRepeatNode>
         get() = gPointer.reinterpret()
@@ -50,10 +50,9 @@ public open class RepeatNode(
      *
      * @return a `GskRenderNode`
      */
-    public open fun getChild(): RenderNode =
-        gsk_repeat_node_get_child(gskRepeatNodePointer.reinterpret())!!.run {
-            RenderNode(reinterpret())
-        }
+    public open fun getChild(): RenderNode = gsk_repeat_node_get_child(gskRepeatNodePointer.reinterpret())!!.run {
+        RenderNode(reinterpret())
+    }
 
     /**
      * Retrieves the bounding rectangle of the child of @node.
@@ -72,5 +71,12 @@ public open class RepeatNode(
         init {
             GskTypeProvider.register()
         }
+
+        /**
+         * Get the GType of RepeatNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_repeat_node_get_type()
     }
 }

@@ -15,9 +15,7 @@ import org.gtkkn.native.glib.G_OPTION_FLAG_REVERSE
 /**
  * Flags which modify individual options.
  */
-public class OptionFlags(
-    public val mask: GOptionFlags,
-) : Bitfield<OptionFlags> {
+public class OptionFlags(public val mask: GOptionFlags) : Bitfield<OptionFlags> {
     override infix fun or(other: OptionFlags): OptionFlags = OptionFlags(mask or other.mask)
 
     public companion object {

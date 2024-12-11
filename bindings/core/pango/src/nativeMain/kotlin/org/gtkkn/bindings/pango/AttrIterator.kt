@@ -1,19 +1,19 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_2
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoAttrIterator
 import org.gtkkn.native.pango.pango_attr_iterator_copy
 import org.gtkkn.native.pango.pango_attr_iterator_destroy
 import org.gtkkn.native.pango.pango_attr_iterator_get
 import org.gtkkn.native.pango.pango_attr_iterator_get_attrs
+import org.gtkkn.native.pango.pango_attr_iterator_get_type
 import org.gtkkn.native.pango.pango_attr_iterator_next
 import kotlin.Boolean
 import kotlin.Unit
@@ -32,9 +32,7 @@ import kotlin.Unit
  * - parameter `language`: language: Out parameter is not supported
  * - parameter `start`: start: Out parameter is not supported
  */
-public class AttrIterator(
-    pointer: CPointer<PangoAttrIterator>,
-) : Record {
+public class AttrIterator(pointer: CPointer<PangoAttrIterator>) : ProxyInstance(pointer) {
     public val pangoAttrIteratorPointer: CPointer<PangoAttrIterator> = pointer
 
     /**
@@ -44,10 +42,9 @@ public class AttrIterator(
      *   `PangoAttrIterator`, which should be freed with
      *   [method@Pango.AttrIterator.destroy]
      */
-    public fun copy(): AttrIterator =
-        pango_attr_iterator_copy(pangoAttrIteratorPointer.reinterpret())!!.run {
-            AttrIterator(reinterpret())
-        }
+    public fun copy(): AttrIterator = pango_attr_iterator_copy(pangoAttrIteratorPointer.reinterpret())!!.run {
+        AttrIterator(reinterpret())
+    }
 
     /**
      * Destroy a `PangoAttrIterator` and free all associated memory.
@@ -82,10 +79,9 @@ public class AttrIterator(
      * @since 1.2
      */
     @PangoVersion1_2
-    public fun getAttrs(): SList =
-        pango_attr_iterator_get_attrs(pangoAttrIteratorPointer.reinterpret())!!.run {
-            SList(reinterpret())
-        }
+    public fun getAttrs(): SList = pango_attr_iterator_get_attrs(pangoAttrIteratorPointer.reinterpret())!!.run {
+        SList(reinterpret())
+    }
 
     /**
      * Advance the iterator until the next change of style.
@@ -95,8 +91,12 @@ public class AttrIterator(
      */
     public fun next(): Boolean = pango_attr_iterator_next(pangoAttrIteratorPointer.reinterpret()).asBoolean()
 
-    public companion object : RecordCompanion<AttrIterator, PangoAttrIterator> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): AttrIterator =
-            AttrIterator(pointer.reinterpret())
+    public companion object {
+        /**
+         * Get the GType of AttrIterator
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_attr_iterator_get_type()
     }
 }

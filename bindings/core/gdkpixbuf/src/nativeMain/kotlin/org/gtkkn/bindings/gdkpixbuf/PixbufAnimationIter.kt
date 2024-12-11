@@ -15,16 +15,16 @@ import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_animation_iter_get_delay_time
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_animation_iter_get_pixbuf
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_animation_iter_get_type
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_animation_iter_on_currently_loading_frame
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
-import kotlin.Int
 
 /**
  * An opaque object representing an iterator which points to a
  * certain position in an animation.
  */
-public open class PixbufAnimationIter(
-    pointer: CPointer<GdkPixbufAnimationIter>,
-) : Object(pointer.reinterpret()),
+public open class PixbufAnimationIter(pointer: CPointer<GdkPixbufAnimationIter>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gdkpixbufPixbufAnimationIterPointer: CPointer<GdkPixbufAnimationIter>
         get() = gPointer.reinterpret()
@@ -55,11 +55,10 @@ public open class PixbufAnimationIter(
      * @param currentTime current time
      * @return `TRUE` if the image may need updating
      */
-    public open fun advance(currentTime: TimeVal? = null): Boolean =
-        gdk_pixbuf_animation_iter_advance(
-            gdkpixbufPixbufAnimationIterPointer.reinterpret(),
-            currentTime?.glibTimeValPointer?.reinterpret()
-        ).asBoolean()
+    public open fun advance(currentTime: TimeVal? = null): Boolean = gdk_pixbuf_animation_iter_advance(
+        gdkpixbufPixbufAnimationIterPointer.reinterpret(),
+        currentTime?.glibTimeValPointer?.reinterpret()
+    ).asBoolean()
 
     /**
      * Gets the number of milliseconds the current pixbuf should be displayed,
@@ -74,7 +73,7 @@ public open class PixbufAnimationIter(
      *
      * @return delay time in milliseconds (thousandths of a second)
      */
-    public open fun getDelayTime(): Int =
+    public open fun getDelayTime(): gint =
         gdk_pixbuf_animation_iter_get_delay_time(gdkpixbufPixbufAnimationIterPointer.reinterpret())
 
     /**
@@ -111,10 +110,9 @@ public open class PixbufAnimationIter(
      *
      * @return `TRUE` if the frame we're on is partially loaded, or the last frame
      */
-    public open fun onCurrentlyLoadingFrame(): Boolean =
-        gdk_pixbuf_animation_iter_on_currently_loading_frame(
-            gdkpixbufPixbufAnimationIterPointer.reinterpret()
-        ).asBoolean()
+    public open fun onCurrentlyLoadingFrame(): Boolean = gdk_pixbuf_animation_iter_on_currently_loading_frame(
+        gdkpixbufPixbufAnimationIterPointer.reinterpret()
+    ).asBoolean()
 
     public companion object : TypeCompanion<PixbufAnimationIter> {
         override val type: GeneratedClassKGType<PixbufAnimationIter> =
@@ -123,5 +121,12 @@ public open class PixbufAnimationIter(
         init {
             GdkpixbufTypeProvider.register()
         }
+
+        /**
+         * Get the GType of PixbufAnimationIter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_pixbuf_animation_iter_get_type()
     }
 }

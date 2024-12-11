@@ -2,13 +2,13 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.native.gdk.GdkScrollDirection
+import org.gtkkn.native.gdk.gdk_scroll_direction_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Specifies the direction for scroll events.
  */
-public enum class ScrollDirection(
-    public val nativeValue: GdkScrollDirection,
-) {
+public enum class ScrollDirection(public val nativeValue: GdkScrollDirection) {
     /**
      * the surface is scrolled up.
      */
@@ -37,14 +37,20 @@ public enum class ScrollDirection(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GdkScrollDirection): ScrollDirection =
-            when (nativeValue) {
-                GdkScrollDirection.GDK_SCROLL_UP -> UP
-                GdkScrollDirection.GDK_SCROLL_DOWN -> DOWN
-                GdkScrollDirection.GDK_SCROLL_LEFT -> LEFT
-                GdkScrollDirection.GDK_SCROLL_RIGHT -> RIGHT
-                GdkScrollDirection.GDK_SCROLL_SMOOTH -> SMOOTH
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GdkScrollDirection): ScrollDirection = when (nativeValue) {
+            GdkScrollDirection.GDK_SCROLL_UP -> UP
+            GdkScrollDirection.GDK_SCROLL_DOWN -> DOWN
+            GdkScrollDirection.GDK_SCROLL_LEFT -> LEFT
+            GdkScrollDirection.GDK_SCROLL_RIGHT -> RIGHT
+            GdkScrollDirection.GDK_SCROLL_SMOOTH -> SMOOTH
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of ScrollDirection
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_scroll_direction_get_type()
     }
 }

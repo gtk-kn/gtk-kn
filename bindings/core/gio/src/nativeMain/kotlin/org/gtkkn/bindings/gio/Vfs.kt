@@ -20,6 +20,7 @@ import org.gtkkn.native.gio.g_vfs_get_type
 import org.gtkkn.native.gio.g_vfs_is_active
 import org.gtkkn.native.gio.g_vfs_parse_name
 import org.gtkkn.native.gio.g_vfs_unregister_uri_scheme
+import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 import kotlin.String
 import kotlin.collections.List
@@ -31,9 +32,8 @@ import kotlin.collections.List
  *
  * - parameter `parse_name_func`: VfsFileLookupFunc
  */
-public open class Vfs(
-    pointer: CPointer<GVfs>,
-) : Object(pointer.reinterpret()),
+public open class Vfs(pointer: CPointer<GVfs>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioVfsPointer: CPointer<GVfs>
         get() = gPointer.reinterpret()
@@ -61,10 +61,9 @@ public open class Vfs(
      * @return a #GFile.
      *     Free the returned object with g_object_unref().
      */
-    public open fun getFileForUri(uri: String): File =
-        g_vfs_get_file_for_uri(gioVfsPointer.reinterpret(), uri)!!.run {
-            File.wrap(reinterpret())
-        }
+    public open fun getFileForUri(uri: String): File = g_vfs_get_file_for_uri(gioVfsPointer.reinterpret(), uri)!!.run {
+        File.wrap(reinterpret())
+    }
 
     /**
      * Gets a list of URI schemes supported by @vfs.
@@ -126,19 +125,24 @@ public open class Vfs(
          * @return a #GVfs, which will be the local
          *     file system #GVfs if no other implementation is available.
          */
-        public fun getDefault(): Vfs =
-            g_vfs_get_default()!!.run {
-                Vfs(reinterpret())
-            }
+        public fun getDefault(): Vfs = g_vfs_get_default()!!.run {
+            Vfs(reinterpret())
+        }
 
         /**
          * Gets the local #GVfs for the system.
          *
          * @return a #GVfs.
          */
-        public fun getLocal(): Vfs =
-            g_vfs_get_local()!!.run {
-                Vfs(reinterpret())
-            }
+        public fun getLocal(): Vfs = g_vfs_get_local()!!.run {
+            Vfs(reinterpret())
+        }
+
+        /**
+         * Get the GType of Vfs
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_vfs_get_type()
     }
 }

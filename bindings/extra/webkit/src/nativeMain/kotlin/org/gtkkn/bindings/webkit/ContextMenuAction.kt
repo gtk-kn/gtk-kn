@@ -1,15 +1,15 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitContextMenuAction
+import org.gtkkn.native.webkit.webkit_context_menu_action_get_type
 
 /**
  * Enum values used to denote the stock actions for
  * #WebKitContextMenuItem<!-- -->s
  */
-public enum class ContextMenuAction(
-    public val nativeValue: WebKitContextMenuAction,
-) {
+public enum class ContextMenuAction(public val nativeValue: WebKitContextMenuAction) {
     /**
      * No action, used by separator menu items.
      */
@@ -247,56 +247,62 @@ public enum class ContextMenuAction(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitContextMenuAction): ContextMenuAction =
-            when (nativeValue) {
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_NO_ACTION -> NO_ACTION
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_OPEN_LINK -> OPEN_LINK
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_OPEN_LINK_IN_NEW_WINDOW -> OPEN_LINK_IN_NEW_WINDOW
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_DOWNLOAD_LINK_TO_DISK -> DOWNLOAD_LINK_TO_DISK
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_COPY_LINK_TO_CLIPBOARD -> COPY_LINK_TO_CLIPBOARD
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_OPEN_IMAGE_IN_NEW_WINDOW -> OPEN_IMAGE_IN_NEW_WINDOW
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_DOWNLOAD_IMAGE_TO_DISK -> DOWNLOAD_IMAGE_TO_DISK
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_COPY_IMAGE_TO_CLIPBOARD -> COPY_IMAGE_TO_CLIPBOARD
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_COPY_IMAGE_URL_TO_CLIPBOARD -> COPY_IMAGE_URL_TO_CLIPBOARD
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_OPEN_FRAME_IN_NEW_WINDOW -> OPEN_FRAME_IN_NEW_WINDOW
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_GO_BACK -> GO_BACK
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_GO_FORWARD -> GO_FORWARD
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_STOP -> STOP
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_RELOAD -> RELOAD
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_COPY -> COPY
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_CUT -> CUT
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_PASTE -> PASTE
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_DELETE -> DELETE
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_SELECT_ALL -> SELECT_ALL
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_INPUT_METHODS -> INPUT_METHODS
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_UNICODE -> UNICODE
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_SPELLING_GUESS -> SPELLING_GUESS
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_NO_GUESSES_FOUND -> NO_GUESSES_FOUND
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_IGNORE_SPELLING -> IGNORE_SPELLING
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_LEARN_SPELLING -> LEARN_SPELLING
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_IGNORE_GRAMMAR -> IGNORE_GRAMMAR
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_FONT_MENU -> FONT_MENU
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_BOLD -> BOLD
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_ITALIC -> ITALIC
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_UNDERLINE -> UNDERLINE
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_OUTLINE -> OUTLINE
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_INSPECT_ELEMENT -> INSPECT_ELEMENT
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_OPEN_VIDEO_IN_NEW_WINDOW -> OPEN_VIDEO_IN_NEW_WINDOW
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_OPEN_AUDIO_IN_NEW_WINDOW -> OPEN_AUDIO_IN_NEW_WINDOW
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_COPY_VIDEO_LINK_TO_CLIPBOARD -> COPY_VIDEO_LINK_TO_CLIPBOARD
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_COPY_AUDIO_LINK_TO_CLIPBOARD -> COPY_AUDIO_LINK_TO_CLIPBOARD
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_TOGGLE_MEDIA_CONTROLS -> TOGGLE_MEDIA_CONTROLS
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_TOGGLE_MEDIA_LOOP -> TOGGLE_MEDIA_LOOP
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_ENTER_VIDEO_FULLSCREEN -> ENTER_VIDEO_FULLSCREEN
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_MEDIA_PLAY -> MEDIA_PLAY
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_MEDIA_PAUSE -> MEDIA_PAUSE
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_MEDIA_MUTE -> MEDIA_MUTE
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_DOWNLOAD_VIDEO_TO_DISK -> DOWNLOAD_VIDEO_TO_DISK
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_DOWNLOAD_AUDIO_TO_DISK -> DOWNLOAD_AUDIO_TO_DISK
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_INSERT_EMOJI -> INSERT_EMOJI
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_PASTE_AS_PLAIN_TEXT -> PASTE_AS_PLAIN_TEXT
-                WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_CUSTOM -> CUSTOM
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitContextMenuAction): ContextMenuAction = when (nativeValue) {
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_NO_ACTION -> NO_ACTION
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_OPEN_LINK -> OPEN_LINK
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_OPEN_LINK_IN_NEW_WINDOW -> OPEN_LINK_IN_NEW_WINDOW
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_DOWNLOAD_LINK_TO_DISK -> DOWNLOAD_LINK_TO_DISK
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_COPY_LINK_TO_CLIPBOARD -> COPY_LINK_TO_CLIPBOARD
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_OPEN_IMAGE_IN_NEW_WINDOW -> OPEN_IMAGE_IN_NEW_WINDOW
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_DOWNLOAD_IMAGE_TO_DISK -> DOWNLOAD_IMAGE_TO_DISK
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_COPY_IMAGE_TO_CLIPBOARD -> COPY_IMAGE_TO_CLIPBOARD
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_COPY_IMAGE_URL_TO_CLIPBOARD -> COPY_IMAGE_URL_TO_CLIPBOARD
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_OPEN_FRAME_IN_NEW_WINDOW -> OPEN_FRAME_IN_NEW_WINDOW
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_GO_BACK -> GO_BACK
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_GO_FORWARD -> GO_FORWARD
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_STOP -> STOP
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_RELOAD -> RELOAD
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_COPY -> COPY
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_CUT -> CUT
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_PASTE -> PASTE
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_DELETE -> DELETE
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_SELECT_ALL -> SELECT_ALL
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_INPUT_METHODS -> INPUT_METHODS
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_UNICODE -> UNICODE
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_SPELLING_GUESS -> SPELLING_GUESS
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_NO_GUESSES_FOUND -> NO_GUESSES_FOUND
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_IGNORE_SPELLING -> IGNORE_SPELLING
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_LEARN_SPELLING -> LEARN_SPELLING
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_IGNORE_GRAMMAR -> IGNORE_GRAMMAR
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_FONT_MENU -> FONT_MENU
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_BOLD -> BOLD
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_ITALIC -> ITALIC
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_UNDERLINE -> UNDERLINE
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_OUTLINE -> OUTLINE
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_INSPECT_ELEMENT -> INSPECT_ELEMENT
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_OPEN_VIDEO_IN_NEW_WINDOW -> OPEN_VIDEO_IN_NEW_WINDOW
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_OPEN_AUDIO_IN_NEW_WINDOW -> OPEN_AUDIO_IN_NEW_WINDOW
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_COPY_VIDEO_LINK_TO_CLIPBOARD -> COPY_VIDEO_LINK_TO_CLIPBOARD
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_COPY_AUDIO_LINK_TO_CLIPBOARD -> COPY_AUDIO_LINK_TO_CLIPBOARD
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_TOGGLE_MEDIA_CONTROLS -> TOGGLE_MEDIA_CONTROLS
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_TOGGLE_MEDIA_LOOP -> TOGGLE_MEDIA_LOOP
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_ENTER_VIDEO_FULLSCREEN -> ENTER_VIDEO_FULLSCREEN
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_MEDIA_PLAY -> MEDIA_PLAY
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_MEDIA_PAUSE -> MEDIA_PAUSE
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_MEDIA_MUTE -> MEDIA_MUTE
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_DOWNLOAD_VIDEO_TO_DISK -> DOWNLOAD_VIDEO_TO_DISK
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_DOWNLOAD_AUDIO_TO_DISK -> DOWNLOAD_AUDIO_TO_DISK
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_INSERT_EMOJI -> INSERT_EMOJI
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_PASTE_AS_PLAIN_TEXT -> PASTE_AS_PLAIN_TEXT
+            WebKitContextMenuAction.WEBKIT_CONTEXT_MENU_ACTION_CUSTOM -> CUSTOM
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of ContextMenuAction
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_context_menu_action_get_type()
     }
 }

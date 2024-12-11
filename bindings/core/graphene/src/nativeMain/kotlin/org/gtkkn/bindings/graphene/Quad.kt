@@ -1,23 +1,30 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.graphene
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.graphene.graphene_quad_alloc
 import org.gtkkn.native.graphene.graphene_quad_bounds
 import org.gtkkn.native.graphene.graphene_quad_contains
 import org.gtkkn.native.graphene.graphene_quad_free
 import org.gtkkn.native.graphene.graphene_quad_get_point
+import org.gtkkn.native.graphene.graphene_quad_get_type
 import org.gtkkn.native.graphene.graphene_quad_init
 import org.gtkkn.native.graphene.graphene_quad_init_from_rect
 import org.gtkkn.native.graphene.graphene_quad_t
 import kotlin.Boolean
-import kotlin.UInt
+import kotlin.Pair
 import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * A 4 vertex quadrilateral, as represented by four #graphene_point_t.
@@ -33,10 +40,39 @@ import kotlin.Unit
  * @since 1.0
  */
 @GrapheneVersion1_0
-public class Quad(
-    pointer: CPointer<graphene_quad_t>,
-) : Record {
+public class Quad(pointer: CPointer<graphene_quad_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val grapheneQuadPointer: CPointer<graphene_quad_t> = pointer
+
+    /**
+     * Allocate a new Quad.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<graphene_quad_t>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Quad and a [Cleaner] instance.
+     */
+    private constructor(
+        pair: Pair<CPointer<graphene_quad_t>, Cleaner>,
+    ) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Quad using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_quad_t>().ptr)
 
     /**
      * Computes the bounding rectangle of @q and places it into @r.
@@ -75,10 +111,9 @@ public class Quad(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun getPoint(index: UInt): Point =
-        graphene_quad_get_point(grapheneQuadPointer.reinterpret(), index)!!.run {
-            Point(reinterpret())
-        }
+    public fun getPoint(index: guint): Point = graphene_quad_get_point(grapheneQuadPointer.reinterpret(), index)!!.run {
+        Point(reinterpret())
+    }
 
     /**
      * Initializes a #graphene_quad_t with the given points.
@@ -91,21 +126,15 @@ public class Quad(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun `init`(
-        p1: Point,
-        p2: Point,
-        p3: Point,
-        p4: Point,
-    ): Quad =
-        graphene_quad_init(
-            grapheneQuadPointer.reinterpret(),
-            p1.graphenePointPointer.reinterpret(),
-            p2.graphenePointPointer.reinterpret(),
-            p3.graphenePointPointer.reinterpret(),
-            p4.graphenePointPointer.reinterpret()
-        )!!.run {
-            Quad(reinterpret())
-        }
+    public fun `init`(p1: Point, p2: Point, p3: Point, p4: Point): Quad = graphene_quad_init(
+        grapheneQuadPointer.reinterpret(),
+        p1.graphenePointPointer.reinterpret(),
+        p2.graphenePointPointer.reinterpret(),
+        p3.graphenePointPointer.reinterpret(),
+        p4.graphenePointPointer.reinterpret()
+    )!!.run {
+        Quad(reinterpret())
+    }
 
     /**
      * Initializes a #graphene_quad_t using the four corners of the
@@ -121,7 +150,7 @@ public class Quad(
             Quad(reinterpret())
         }
 
-    public companion object : RecordCompanion<Quad, graphene_quad_t> {
+    public companion object {
         /**
          * Allocates a new #graphene_quad_t instance.
          *
@@ -132,6 +161,11 @@ public class Quad(
          */
         public fun alloc(): Quad = Quad(graphene_quad_alloc()!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Quad = Quad(pointer.reinterpret())
+        /**
+         * Get the GType of Quad
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = graphene_quad_get_type()
     }
 }

@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitMediaKeySystemPermissionRequest
 import org.gtkkn.native.webkit.WebKitPermissionRequest
 import org.gtkkn.native.webkit.webkit_media_key_system_permission_request_get_type
@@ -24,9 +25,8 @@ import org.gtkkn.native.webkit.webkit_media_key_system_permission_request_get_ty
  * When handling this permission request the application may perform additional installation of the
  * requested CDM, unless it is already present on the host system.
  */
-public class MediaKeySystemPermissionRequest(
-    pointer: CPointer<WebKitMediaKeySystemPermissionRequest>,
-) : Object(pointer.reinterpret()),
+public class MediaKeySystemPermissionRequest(pointer: CPointer<WebKitMediaKeySystemPermissionRequest>) :
+    Object(pointer.reinterpret()),
     PermissionRequest,
     KGTyped {
     public val webkitMediaKeySystemPermissionRequestPointer:
@@ -45,5 +45,12 @@ public class MediaKeySystemPermissionRequest(
         init {
             WebkitTypeProvider.register()
         }
+
+        /**
+         * Get the GType of MediaKeySystemPermissionRequest
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_media_key_system_permission_request_get_type()
     }
 }

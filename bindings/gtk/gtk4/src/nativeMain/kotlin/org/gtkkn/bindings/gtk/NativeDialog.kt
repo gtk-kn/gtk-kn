@@ -17,7 +17,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkNativeDialog
 import org.gtkkn.native.gtk.gtk_native_dialog_destroy
 import org.gtkkn.native.gtk.gtk_native_dialog_get_modal
@@ -31,7 +33,6 @@ import org.gtkkn.native.gtk.gtk_native_dialog_set_title
 import org.gtkkn.native.gtk.gtk_native_dialog_set_transient_for
 import org.gtkkn.native.gtk.gtk_native_dialog_show
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -59,9 +60,8 @@ import kotlin.Unit
  *
  * - method `title`: Property TypeInfo of getter and setter do not match
  */
-public open class NativeDialog(
-    pointer: CPointer<GtkNativeDialog>,
-) : Object(pointer.reinterpret()),
+public open class NativeDialog(pointer: CPointer<GtkNativeDialog>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkNativeDialogPointer: CPointer<GtkNativeDialog>
         get() = gPointer.reinterpret()
@@ -100,10 +100,9 @@ public open class NativeDialog(
          * @return the transient parent for this window,
          *   or null if no transient parent has been set.
          */
-        get() =
-            gtk_native_dialog_get_transient_for(gtkNativeDialogPointer.reinterpret())?.run {
-                Window(reinterpret())
-            }
+        get() = gtk_native_dialog_get_transient_for(gtkNativeDialogPointer.reinterpret())?.run {
+            Window(reinterpret())
+        }
 
         /**
          * Dialog windows should be set transient for the main application
@@ -118,11 +117,10 @@ public open class NativeDialog(
          */
         set(
             parent
-        ) =
-            gtk_native_dialog_set_transient_for(
-                gtkNativeDialogPointer.reinterpret(),
-                parent?.gtkWindowPointer?.reinterpret()
-            )
+        ) = gtk_native_dialog_set_transient_for(
+            gtkNativeDialogPointer.reinterpret(),
+            parent?.gtkWindowPointer?.reinterpret()
+        )
 
     /**
      * Whether the window is currently visible.
@@ -151,13 +149,6 @@ public open class NativeDialog(
     public open fun destroy(): Unit = gtk_native_dialog_destroy(gtkNativeDialogPointer.reinterpret())
 
     /**
-     * Returns whether the dialog is modal.
-     *
-     * @return true if the dialog is set to be modal
-     */
-    public open fun getModal(): Boolean = gtk_native_dialog_get_modal(gtkNativeDialogPointer.reinterpret()).asBoolean()
-
-    /**
      * Gets the title of the `GtkNativeDialog`.
      *
      * @return the title of the dialog, or null if none has
@@ -165,25 +156,6 @@ public open class NativeDialog(
      *    and must not be modified or freed.
      */
     public open fun getTitle(): String? = gtk_native_dialog_get_title(gtkNativeDialogPointer.reinterpret())?.toKString()
-
-    /**
-     * Fetches the transient parent for this window.
-     *
-     * @return the transient parent for this window,
-     *   or null if no transient parent has been set.
-     */
-    public open fun getTransientFor(): Window? =
-        gtk_native_dialog_get_transient_for(gtkNativeDialogPointer.reinterpret())?.run {
-            Window(reinterpret())
-        }
-
-    /**
-     * Determines whether the dialog is visible.
-     *
-     * @return true if the dialog is visible
-     */
-    public open fun getVisible(): Boolean =
-        gtk_native_dialog_get_visible(gtkNativeDialogPointer.reinterpret()).asBoolean()
 
     /**
      * Hides the dialog if it is visible, aborting any interaction.
@@ -197,43 +169,12 @@ public open class NativeDialog(
     public open fun hide(): Unit = gtk_native_dialog_hide(gtkNativeDialogPointer.reinterpret())
 
     /**
-     * Sets a dialog modal or non-modal.
-     *
-     * Modal dialogs prevent interaction with other windows in the same
-     * application. To keep modal dialogs on top of main application
-     * windows, use [method@Gtk.NativeDialog.set_transient_for] to make
-     * the dialog transient for the parent; most window managers will
-     * then disallow lowering the dialog below the parent.
-     *
-     * @param modal whether the window is modal
-     */
-    public open fun setModal(modal: Boolean): Unit =
-        gtk_native_dialog_set_modal(gtkNativeDialogPointer.reinterpret(), modal.asGBoolean())
-
-    /**
      * Sets the title of the `GtkNativeDialog.`
      *
      * @param title title of the dialog
      */
     public open fun setTitle(title: String): Unit =
         gtk_native_dialog_set_title(gtkNativeDialogPointer.reinterpret(), title)
-
-    /**
-     * Dialog windows should be set transient for the main application
-     * window they were spawned from.
-     *
-     * This allows window managers to e.g. keep the dialog on top of the
-     * main window, or center the dialog over the main window.
-     *
-     * Passing null for @parent unsets the current transient window.
-     *
-     * @param parent parent window
-     */
-    public open fun setTransientFor(parent: Window? = null): Unit =
-        gtk_native_dialog_set_transient_for(
-            gtkNativeDialogPointer.reinterpret(),
-            parent?.gtkWindowPointer?.reinterpret()
-        )
 
     /**
      * Shows the dialog on the display.
@@ -259,16 +200,15 @@ public open class NativeDialog(
      */
     public fun connectResponse(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (responseId: Int) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "response",
-            connectResponseFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+        handler: (responseId: gint) -> Unit,
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "response",
+        connectResponseFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<NativeDialog> {
         override val type: GeneratedClassKGType<NativeDialog> =
@@ -277,14 +217,21 @@ public open class NativeDialog(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of NativeDialog
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_native_dialog_get_type()
     }
 }
 
-private val connectResponseFunc: CPointer<CFunction<(Int) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            responseId: Int,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(responseId: Int) -> Unit>().get().invoke(responseId)
-    }.reinterpret()
+private val connectResponseFunc: CPointer<CFunction<(gint) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        responseId: gint,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(responseId: gint) -> Unit>().get().invoke(responseId)
+}
+    .reinterpret()

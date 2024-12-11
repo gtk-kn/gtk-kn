@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkMnemonicAction
 import org.gtkkn.native.gtk.gtk_mnemonic_action_get
 import org.gtkkn.native.gtk.gtk_mnemonic_action_get_type
@@ -13,9 +14,8 @@ import org.gtkkn.native.gtk.gtk_mnemonic_action_get_type
 /**
  * A `GtkShortcutAction` that calls gtk_widget_mnemonic_activate().
  */
-public open class MnemonicAction(
-    pointer: CPointer<GtkMnemonicAction>,
-) : ShortcutAction(pointer.reinterpret()),
+public open class MnemonicAction(pointer: CPointer<GtkMnemonicAction>) :
+    ShortcutAction(pointer.reinterpret()),
     KGTyped {
     public val gtkMnemonicActionPointer: CPointer<GtkMnemonicAction>
         get() = gPointer.reinterpret()
@@ -36,9 +36,15 @@ public open class MnemonicAction(
          *
          * @return The mnemonic action
          */
-        public fun `get`(): MnemonicAction =
-            gtk_mnemonic_action_get()!!.run {
-                MnemonicAction(reinterpret())
-            }
+        public fun `get`(): MnemonicAction = gtk_mnemonic_action_get()!!.run {
+            MnemonicAction(reinterpret())
+        }
+
+        /**
+         * Get the GType of MnemonicAction
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_mnemonic_action_get_type()
     }
 }

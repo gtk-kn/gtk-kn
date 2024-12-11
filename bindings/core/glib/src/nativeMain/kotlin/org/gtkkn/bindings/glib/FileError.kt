@@ -19,9 +19,7 @@ import kotlin.UInt
  * don't occur on some systems, etc., sometimes there are subtle
  * differences in when a system will report a given error, etc.
  */
-public enum class FileError(
-    public val nativeValue: GFileError,
-) {
+public enum class FileError(public val nativeValue: GFileError) {
     /**
      * Operation not permitted; only the owner of
      *     the file (or other resource) or processes with special privileges
@@ -191,43 +189,41 @@ public enum class FileError(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GFileError): FileError =
-            when (nativeValue) {
-                GFileError.G_FILE_ERROR_EXIST -> EXIST
-                GFileError.G_FILE_ERROR_ISDIR -> ISDIR
-                GFileError.G_FILE_ERROR_ACCES -> ACCES
-                GFileError.G_FILE_ERROR_NAMETOOLONG -> NAMETOOLONG
-                GFileError.G_FILE_ERROR_NOENT -> NOENT
-                GFileError.G_FILE_ERROR_NOTDIR -> NOTDIR
-                GFileError.G_FILE_ERROR_NXIO -> NXIO
-                GFileError.G_FILE_ERROR_NODEV -> NODEV
-                GFileError.G_FILE_ERROR_ROFS -> ROFS
-                GFileError.G_FILE_ERROR_TXTBSY -> TXTBSY
-                GFileError.G_FILE_ERROR_FAULT -> FAULT
-                GFileError.G_FILE_ERROR_LOOP -> LOOP
-                GFileError.G_FILE_ERROR_NOSPC -> NOSPC
-                GFileError.G_FILE_ERROR_NOMEM -> NOMEM
-                GFileError.G_FILE_ERROR_MFILE -> MFILE
-                GFileError.G_FILE_ERROR_NFILE -> NFILE
-                GFileError.G_FILE_ERROR_BADF -> BADF
-                GFileError.G_FILE_ERROR_INVAL -> INVAL
-                GFileError.G_FILE_ERROR_PIPE -> PIPE
-                GFileError.G_FILE_ERROR_AGAIN -> AGAIN
-                GFileError.G_FILE_ERROR_INTR -> INTR
-                GFileError.G_FILE_ERROR_IO -> IO
-                GFileError.G_FILE_ERROR_PERM -> PERM
-                GFileError.G_FILE_ERROR_NOSYS -> NOSYS
-                GFileError.G_FILE_ERROR_FAILED -> FAILED
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GFileError): FileError = when (nativeValue) {
+            GFileError.G_FILE_ERROR_EXIST -> EXIST
+            GFileError.G_FILE_ERROR_ISDIR -> ISDIR
+            GFileError.G_FILE_ERROR_ACCES -> ACCES
+            GFileError.G_FILE_ERROR_NAMETOOLONG -> NAMETOOLONG
+            GFileError.G_FILE_ERROR_NOENT -> NOENT
+            GFileError.G_FILE_ERROR_NOTDIR -> NOTDIR
+            GFileError.G_FILE_ERROR_NXIO -> NXIO
+            GFileError.G_FILE_ERROR_NODEV -> NODEV
+            GFileError.G_FILE_ERROR_ROFS -> ROFS
+            GFileError.G_FILE_ERROR_TXTBSY -> TXTBSY
+            GFileError.G_FILE_ERROR_FAULT -> FAULT
+            GFileError.G_FILE_ERROR_LOOP -> LOOP
+            GFileError.G_FILE_ERROR_NOSPC -> NOSPC
+            GFileError.G_FILE_ERROR_NOMEM -> NOMEM
+            GFileError.G_FILE_ERROR_MFILE -> MFILE
+            GFileError.G_FILE_ERROR_NFILE -> NFILE
+            GFileError.G_FILE_ERROR_BADF -> BADF
+            GFileError.G_FILE_ERROR_INVAL -> INVAL
+            GFileError.G_FILE_ERROR_PIPE -> PIPE
+            GFileError.G_FILE_ERROR_AGAIN -> AGAIN
+            GFileError.G_FILE_ERROR_INTR -> INTR
+            GFileError.G_FILE_ERROR_IO -> IO
+            GFileError.G_FILE_ERROR_PERM -> PERM
+            GFileError.G_FILE_ERROR_NOSYS -> NOSYS
+            GFileError.G_FILE_ERROR_FAILED -> FAILED
+            else -> error("invalid nativeValue")
+        }
 
         public fun quark(): UInt = g_quark_from_string("g-file-error-quark")
 
-        public fun fromErrorOrNull(error: Error): FileError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                FileError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        public fun fromErrorOrNull(error: Error): FileError? = if (error.domain != quark()) {
+            null
+        } else {
+            FileError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

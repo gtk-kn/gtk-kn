@@ -1,14 +1,14 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkSorterOrder
+import org.gtkkn.native.gtk.gtk_sorter_order_get_type
 
 /**
  * Describes the type of order that a `GtkSorter` may produce.
  */
-public enum class SorterOrder(
-    public val nativeValue: GtkSorterOrder,
-) {
+public enum class SorterOrder(public val nativeValue: GtkSorterOrder) {
     /**
      * A partial order. Any `GtkOrdering` is possible.
      */
@@ -29,12 +29,18 @@ public enum class SorterOrder(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkSorterOrder): SorterOrder =
-            when (nativeValue) {
-                GtkSorterOrder.GTK_SORTER_ORDER_PARTIAL -> PARTIAL
-                GtkSorterOrder.GTK_SORTER_ORDER_NONE -> NONE
-                GtkSorterOrder.GTK_SORTER_ORDER_TOTAL -> TOTAL
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkSorterOrder): SorterOrder = when (nativeValue) {
+            GtkSorterOrder.GTK_SORTER_ORDER_PARTIAL -> PARTIAL
+            GtkSorterOrder.GTK_SORTER_ORDER_NONE -> NONE
+            GtkSorterOrder.GTK_SORTER_ORDER_TOTAL -> TOTAL
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of SorterOrder
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_sorter_order_get_type()
     }
 }

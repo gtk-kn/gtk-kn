@@ -13,6 +13,7 @@ import org.gtkkn.native.gio.GDBusObjectProxy
 import org.gtkkn.native.gio.g_dbus_object_proxy_get_connection
 import org.gtkkn.native.gio.g_dbus_object_proxy_get_type
 import org.gtkkn.native.gio.g_dbus_object_proxy_new
+import org.gtkkn.native.gobject.GType
 import kotlin.String
 
 /**
@@ -29,9 +30,8 @@ import kotlin.String
  * @since 2.30
  */
 @GioVersion2_30
-public open class DBusObjectProxy(
-    pointer: CPointer<GDBusObjectProxy>,
-) : Object(pointer.reinterpret()),
+public open class DBusObjectProxy(pointer: CPointer<GDBusObjectProxy>) :
+    Object(pointer.reinterpret()),
     DBusObject,
     KGTyped {
     public val gioDBusObjectProxyPointer: CPointer<GDBusObjectProxy>
@@ -74,5 +74,12 @@ public open class DBusObjectProxy(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of DBusObjectProxy
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_object_proxy_get_type()
     }
 }

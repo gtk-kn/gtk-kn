@@ -15,9 +15,7 @@ import org.gtkkn.native.gobject.G_SIGNAL_MATCH_UNBLOCKED
  * g_signal_handlers_unblock_matched() and g_signal_handlers_disconnect_matched()
  * match signals by.
  */
-public class SignalMatchType(
-    public val mask: GSignalMatchType,
-) : Bitfield<SignalMatchType> {
+public class SignalMatchType(public val mask: GSignalMatchType) : Bitfield<SignalMatchType> {
     override infix fun or(other: SignalMatchType): SignalMatchType = SignalMatchType(mask or other.mask)
 
     public companion object {

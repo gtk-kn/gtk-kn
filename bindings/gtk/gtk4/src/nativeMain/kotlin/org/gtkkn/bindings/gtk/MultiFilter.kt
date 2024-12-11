@@ -8,12 +8,13 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkMultiFilter
 import org.gtkkn.native.gtk.gtk_multi_filter_append
 import org.gtkkn.native.gtk.gtk_multi_filter_get_type
 import org.gtkkn.native.gtk.gtk_multi_filter_remove
-import kotlin.UInt
 import kotlin.Unit
 
 /**
@@ -24,9 +25,8 @@ import kotlin.Unit
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class MultiFilter(
-    pointer: CPointer<GtkMultiFilter>,
-) : Filter(pointer.reinterpret()),
+public open class MultiFilter(pointer: CPointer<GtkMultiFilter>) :
+    Filter(pointer.reinterpret()),
     ListModel,
     Buildable,
     KGTyped {
@@ -56,7 +56,7 @@ public open class MultiFilter(
      *
      * @param position position of filter to remove
      */
-    public open fun remove(position: UInt): Unit =
+    public open fun remove(position: guint): Unit =
         gtk_multi_filter_remove(gtkMultiFilterPointer.reinterpret(), position)
 
     public companion object : TypeCompanion<MultiFilter> {
@@ -66,5 +66,12 @@ public open class MultiFilter(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of MultiFilter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_multi_filter_get_type()
     }
 }

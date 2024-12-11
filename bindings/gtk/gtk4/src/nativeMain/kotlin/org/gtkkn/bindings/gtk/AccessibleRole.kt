@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessibleRole
+import org.gtkkn.native.gtk.gtk_accessible_role_get_type
 
 /**
  * The accessible role for a [iface@Accessible] implementation.
@@ -9,9 +11,7 @@ import org.gtkkn.native.gtk.GtkAccessibleRole
  * Abstract roles are only used as part of the ontology; application
  * developers must not use abstract roles in their code.
  */
-public enum class AccessibleRole(
-    public val nativeValue: GtkAccessibleRole,
-) {
+public enum class AccessibleRole(public val nativeValue: GtkAccessibleRole) {
     /**
      * An element with important, and usually
      *   time-sensitive, information
@@ -474,94 +474,100 @@ public enum class AccessibleRole(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkAccessibleRole): AccessibleRole =
-            when (nativeValue) {
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_ALERT -> ALERT
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_ALERT_DIALOG -> ALERT_DIALOG
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_BANNER -> BANNER
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_BUTTON -> BUTTON
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_CAPTION -> CAPTION
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_CELL -> CELL
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_CHECKBOX -> CHECKBOX
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_COLUMN_HEADER -> COLUMN_HEADER
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_COMBO_BOX -> COMBO_BOX
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_COMMAND -> COMMAND
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_COMPOSITE -> COMPOSITE
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_DIALOG -> DIALOG
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_DOCUMENT -> DOCUMENT
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_FEED -> FEED
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_FORM -> FORM
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_GENERIC -> GENERIC
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_GRID -> GRID
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_GRID_CELL -> GRID_CELL
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_GROUP -> GROUP
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_HEADING -> HEADING
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_IMG -> IMG
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_INPUT -> INPUT
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_LABEL -> LABEL
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_LANDMARK -> LANDMARK
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_LEGEND -> LEGEND
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_LINK -> LINK
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_LIST -> LIST
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_LIST_BOX -> LIST_BOX
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_LIST_ITEM -> LIST_ITEM
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_LOG -> LOG
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_MAIN -> MAIN
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_MARQUEE -> MARQUEE
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_MATH -> MATH
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_METER -> METER
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_MENU -> MENU
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_MENU_BAR -> MENU_BAR
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_MENU_ITEM -> MENU_ITEM
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_MENU_ITEM_CHECKBOX -> MENU_ITEM_CHECKBOX
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_MENU_ITEM_RADIO -> MENU_ITEM_RADIO
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_NAVIGATION -> NAVIGATION
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_NONE -> NONE
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_NOTE -> NOTE
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_OPTION -> OPTION
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_PRESENTATION -> PRESENTATION
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_PROGRESS_BAR -> PROGRESS_BAR
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_RADIO -> RADIO
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_RADIO_GROUP -> RADIO_GROUP
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_RANGE -> RANGE
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_REGION -> REGION
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_ROW -> ROW
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_ROW_GROUP -> ROW_GROUP
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_ROW_HEADER -> ROW_HEADER
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_SCROLLBAR -> SCROLLBAR
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_SEARCH -> SEARCH
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_SEARCH_BOX -> SEARCH_BOX
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_SECTION -> SECTION
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_SECTION_HEAD -> SECTION_HEAD
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_SELECT -> SELECT
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_SEPARATOR -> SEPARATOR
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_SLIDER -> SLIDER
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_SPIN_BUTTON -> SPIN_BUTTON
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_STATUS -> STATUS
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_STRUCTURE -> STRUCTURE
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_SWITCH -> SWITCH
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TAB -> TAB
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TABLE -> TABLE
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TAB_LIST -> TAB_LIST
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TAB_PANEL -> TAB_PANEL
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TEXT_BOX -> TEXT_BOX
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TIME -> TIME
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TIMER -> TIMER
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TOOLBAR -> TOOLBAR
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TOOLTIP -> TOOLTIP
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TREE -> TREE
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TREE_GRID -> TREE_GRID
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TREE_ITEM -> TREE_ITEM
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_WIDGET -> WIDGET
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_WINDOW -> WINDOW
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TOGGLE_BUTTON -> TOGGLE_BUTTON
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_APPLICATION -> APPLICATION
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_PARAGRAPH -> PARAGRAPH
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_BLOCK_QUOTE -> BLOCK_QUOTE
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_ARTICLE -> ARTICLE
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_COMMENT -> COMMENT
-                GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TERMINAL -> TERMINAL
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkAccessibleRole): AccessibleRole = when (nativeValue) {
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_ALERT -> ALERT
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_ALERT_DIALOG -> ALERT_DIALOG
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_BANNER -> BANNER
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_BUTTON -> BUTTON
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_CAPTION -> CAPTION
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_CELL -> CELL
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_CHECKBOX -> CHECKBOX
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_COLUMN_HEADER -> COLUMN_HEADER
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_COMBO_BOX -> COMBO_BOX
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_COMMAND -> COMMAND
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_COMPOSITE -> COMPOSITE
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_DIALOG -> DIALOG
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_DOCUMENT -> DOCUMENT
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_FEED -> FEED
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_FORM -> FORM
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_GENERIC -> GENERIC
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_GRID -> GRID
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_GRID_CELL -> GRID_CELL
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_GROUP -> GROUP
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_HEADING -> HEADING
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_IMG -> IMG
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_INPUT -> INPUT
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_LABEL -> LABEL
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_LANDMARK -> LANDMARK
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_LEGEND -> LEGEND
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_LINK -> LINK
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_LIST -> LIST
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_LIST_BOX -> LIST_BOX
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_LIST_ITEM -> LIST_ITEM
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_LOG -> LOG
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_MAIN -> MAIN
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_MARQUEE -> MARQUEE
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_MATH -> MATH
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_METER -> METER
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_MENU -> MENU
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_MENU_BAR -> MENU_BAR
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_MENU_ITEM -> MENU_ITEM
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_MENU_ITEM_CHECKBOX -> MENU_ITEM_CHECKBOX
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_MENU_ITEM_RADIO -> MENU_ITEM_RADIO
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_NAVIGATION -> NAVIGATION
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_NONE -> NONE
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_NOTE -> NOTE
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_OPTION -> OPTION
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_PRESENTATION -> PRESENTATION
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_PROGRESS_BAR -> PROGRESS_BAR
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_RADIO -> RADIO
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_RADIO_GROUP -> RADIO_GROUP
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_RANGE -> RANGE
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_REGION -> REGION
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_ROW -> ROW
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_ROW_GROUP -> ROW_GROUP
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_ROW_HEADER -> ROW_HEADER
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_SCROLLBAR -> SCROLLBAR
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_SEARCH -> SEARCH
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_SEARCH_BOX -> SEARCH_BOX
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_SECTION -> SECTION
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_SECTION_HEAD -> SECTION_HEAD
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_SELECT -> SELECT
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_SEPARATOR -> SEPARATOR
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_SLIDER -> SLIDER
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_SPIN_BUTTON -> SPIN_BUTTON
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_STATUS -> STATUS
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_STRUCTURE -> STRUCTURE
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_SWITCH -> SWITCH
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TAB -> TAB
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TABLE -> TABLE
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TAB_LIST -> TAB_LIST
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TAB_PANEL -> TAB_PANEL
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TEXT_BOX -> TEXT_BOX
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TIME -> TIME
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TIMER -> TIMER
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TOOLBAR -> TOOLBAR
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TOOLTIP -> TOOLTIP
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TREE -> TREE
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TREE_GRID -> TREE_GRID
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TREE_ITEM -> TREE_ITEM
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_WIDGET -> WIDGET
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_WINDOW -> WINDOW
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TOGGLE_BUTTON -> TOGGLE_BUTTON
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_APPLICATION -> APPLICATION
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_PARAGRAPH -> PARAGRAPH
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_BLOCK_QUOTE -> BLOCK_QUOTE
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_ARTICLE -> ARTICLE
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_COMMENT -> COMMENT
+            GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TERMINAL -> TERMINAL
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of AccessibleRole
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_accessible_role_get_type()
     }
 }

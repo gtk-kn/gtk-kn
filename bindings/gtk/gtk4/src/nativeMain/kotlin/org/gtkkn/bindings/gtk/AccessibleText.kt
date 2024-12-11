@@ -8,13 +8,14 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAccessibleText
 import org.gtkkn.native.gtk.gtk_accessible_text_get_type
 import org.gtkkn.native.gtk.gtk_accessible_text_update_caret_position
 import org.gtkkn.native.gtk.gtk_accessible_text_update_contents
 import org.gtkkn.native.gtk.gtk_accessible_text_update_selection_bound
-import kotlin.UInt
 import kotlin.Unit
 
 /**
@@ -68,11 +69,7 @@ public interface AccessibleText :
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun updateContents(
-        change: AccessibleTextContentChange,
-        start: UInt,
-        end: UInt,
-    ): Unit =
+    public fun updateContents(change: AccessibleTextContentChange, start: guint, end: guint): Unit =
         gtk_accessible_text_update_contents(gtkAccessibleTextPointer.reinterpret(), change.nativeValue, start, end)
 
     /**
@@ -88,9 +85,7 @@ public interface AccessibleText :
     public fun updateSelectionBound(): Unit =
         gtk_accessible_text_update_selection_bound(gtkAccessibleTextPointer.reinterpret())
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkAccessibleText>,
-    ) : AccessibleText {
+    private data class Wrapper(private val pointer: CPointer<GtkAccessibleText>) : AccessibleText {
         override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText> = pointer
     }
 
@@ -103,5 +98,12 @@ public interface AccessibleText :
         }
 
         public fun wrap(pointer: CPointer<GtkAccessibleText>): AccessibleText = Wrapper(pointer)
+
+        /**
+         * Get the GType of AccessibleText
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_accessible_text_get_type()
     }
 }

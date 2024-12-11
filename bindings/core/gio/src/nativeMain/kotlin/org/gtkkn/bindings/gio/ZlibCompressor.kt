@@ -14,8 +14,8 @@ import org.gtkkn.native.gio.g_zlib_compressor_get_file_info
 import org.gtkkn.native.gio.g_zlib_compressor_get_type
 import org.gtkkn.native.gio.g_zlib_compressor_new
 import org.gtkkn.native.gio.g_zlib_compressor_set_file_info
-import kotlin.Int
-import kotlin.Unit
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 
 /**
  * `GZlibCompressor` is an implementation of [iface@Gio.Converter] that
@@ -26,9 +26,8 @@ import kotlin.Unit
  * - method `format`: Property has no getter nor setter
  * - method `level`: Property has no getter nor setter
  */
-public open class ZlibCompressor(
-    pointer: CPointer<GZlibCompressor>,
-) : Object(pointer.reinterpret()),
+public open class ZlibCompressor(pointer: CPointer<GZlibCompressor>) :
+    Object(pointer.reinterpret()),
     Converter,
     KGTyped {
     public val gioZlibCompressorPointer: CPointer<GZlibCompressor>
@@ -52,10 +51,9 @@ public open class ZlibCompressor(
          * @return a #GFileInfo, or null
          * @since 2.26
          */
-        get() =
-            g_zlib_compressor_get_file_info(gioZlibCompressorPointer.reinterpret())?.run {
-                FileInfo(reinterpret())
-            }
+        get() = g_zlib_compressor_get_file_info(gioZlibCompressorPointer.reinterpret())?.run {
+            FileInfo(reinterpret())
+        }
 
         /**
          * Sets @file_info in @compressor. If non-null, and @compressor's
@@ -73,11 +71,10 @@ public open class ZlibCompressor(
         @GioVersion2_26
         set(
             fileInfo
-        ) =
-            g_zlib_compressor_set_file_info(
-                gioZlibCompressorPointer.reinterpret(),
-                fileInfo?.gioFileInfoPointer?.reinterpret()
-            )
+        ) = g_zlib_compressor_set_file_info(
+            gioZlibCompressorPointer.reinterpret(),
+            fileInfo?.gioFileInfoPointer?.reinterpret()
+        )
 
     /**
      * Creates a new #GZlibCompressor.
@@ -89,40 +86,8 @@ public open class ZlibCompressor(
      */
     public constructor(
         format: ZlibCompressorFormat,
-        level: Int,
+        level: gint,
     ) : this(g_zlib_compressor_new(format.nativeValue, level)!!.reinterpret())
-
-    /**
-     * Returns the #GZlibCompressor:file-info property.
-     *
-     * @return a #GFileInfo, or null
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public open fun getFileInfo(): FileInfo? =
-        g_zlib_compressor_get_file_info(gioZlibCompressorPointer.reinterpret())?.run {
-            FileInfo(reinterpret())
-        }
-
-    /**
-     * Sets @file_info in @compressor. If non-null, and @compressor's
-     * #GZlibCompressor:format property is %G_ZLIB_COMPRESSOR_FORMAT_GZIP,
-     * it will be used to set the file name and modification time in
-     * the GZIP header of the compressed data.
-     *
-     * Note: it is an error to call this function while a compression is in
-     * progress; it may only be called immediately after creation of @compressor,
-     * or after resetting it with g_converter_reset().
-     *
-     * @param fileInfo a #GFileInfo
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public open fun setFileInfo(fileInfo: FileInfo? = null): Unit =
-        g_zlib_compressor_set_file_info(
-            gioZlibCompressorPointer.reinterpret(),
-            fileInfo?.gioFileInfoPointer?.reinterpret()
-        )
 
     public companion object : TypeCompanion<ZlibCompressor> {
         override val type: GeneratedClassKGType<ZlibCompressor> =
@@ -131,5 +96,12 @@ public open class ZlibCompressor(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ZlibCompressor
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_zlib_compressor_get_type()
     }
 }

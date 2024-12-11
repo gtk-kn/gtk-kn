@@ -18,7 +18,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -38,6 +38,7 @@ import org.gtkkn.native.gio.g_tls_certificate_new_from_pem
 import org.gtkkn.native.gio.g_tls_certificate_new_from_pkcs11_uris
 import org.gtkkn.native.gio.g_tls_certificate_verify
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Result
@@ -70,9 +71,8 @@ import kotlin.Throws
  * @since 2.28
  */
 @GioVersion2_28
-public open class TlsCertificate(
-    pointer: CPointer<GTlsCertificate>,
-) : Object(pointer.reinterpret()),
+public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioTlsCertificatePointer: CPointer<GTlsCertificate>
         get() = gPointer.reinterpret()
@@ -107,10 +107,9 @@ public open class TlsCertificate(
          * certificate.
          * @since 2.28
          */
-        get() =
-            g_tls_certificate_get_issuer(gioTlsCertificatePointer.reinterpret())?.run {
-                TlsCertificate(reinterpret())
-            }
+        get() = g_tls_certificate_get_issuer(gioTlsCertificatePointer.reinterpret())?.run {
+            TlsCertificate(reinterpret())
+        }
 
     /**
      * The issuer from the certificate,
@@ -119,16 +118,14 @@ public open class TlsCertificate(
      * @since 2.70
      */
     @GioVersion2_70
-    public open val issuerName: String
+    public open val issuerName: String?
         /**
          * Returns the issuer name from the certificate.
          *
          * @return The issuer name, or null if it's not available.
          * @since 2.70
          */
-        get() =
-            g_tls_certificate_get_issuer_name(gioTlsCertificatePointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = g_tls_certificate_get_issuer_name(gioTlsCertificatePointer.reinterpret())?.toKString()
 
     /**
      * The time at which this cert is no longer valid,
@@ -144,10 +141,9 @@ public open class TlsCertificate(
          * @return The not-valid-after date, or null if it's not available.
          * @since 2.70
          */
-        get() =
-            g_tls_certificate_get_not_valid_after(gioTlsCertificatePointer.reinterpret())?.run {
-                DateTime(reinterpret())
-            }
+        get() = g_tls_certificate_get_not_valid_after(gioTlsCertificatePointer.reinterpret())?.run {
+            DateTime(reinterpret())
+        }
 
     /**
      * The time at which this cert is considered to be valid,
@@ -163,10 +159,9 @@ public open class TlsCertificate(
          * @return The not-valid-before date, or null if it's not available.
          * @since 2.70
          */
-        get() =
-            g_tls_certificate_get_not_valid_before(gioTlsCertificatePointer.reinterpret())?.run {
-                DateTime(reinterpret())
-            }
+        get() = g_tls_certificate_get_not_valid_before(gioTlsCertificatePointer.reinterpret())?.run {
+            DateTime(reinterpret())
+        }
 
     /**
      * The subject from the cert,
@@ -175,16 +170,14 @@ public open class TlsCertificate(
      * @since 2.70
      */
     @GioVersion2_70
-    public open val subjectName: String
+    public open val subjectName: String?
         /**
          * Returns the subject name from the certificate.
          *
          * @return The subject name, or null if it's not available.
          * @since 2.70
          */
-        get() =
-            g_tls_certificate_get_subject_name(gioTlsCertificatePointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = g_tls_certificate_get_subject_name(gioTlsCertificatePointer.reinterpret())?.toKString()
 
     /**
      * Creates a #GTlsCertificate from the data in @file.
@@ -201,7 +194,7 @@ public open class TlsCertificate(
      * @return the new certificate, or null on error
      * @since 2.28
      */
-    @Throws(GlibException::class)
+    @Throws(GLibException::class)
     public constructor(`file`: String) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -236,7 +229,7 @@ public open class TlsCertificate(
      * @return the new certificate, or null on error
      * @since 2.28
      */
-    @Throws(GlibException::class)
+    @Throws(GLibException::class)
     public constructor(certFile: String, keyFile: String) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -269,7 +262,7 @@ public open class TlsCertificate(
      * @return the new certificate, or null if @data is invalid
      * @since 2.28
      */
-    @Throws(GlibException::class)
+    @Throws(GLibException::class)
     public constructor(`data`: String, length: Long) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -312,7 +305,7 @@ public open class TlsCertificate(
      * @return the new certificate, or null on error
      * @since 2.68
      */
-    @Throws(GlibException::class)
+    @Throws(GLibException::class)
     public constructor(pkcs11Uri: String, privateKeyPkcs11Uri: String? = null) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -323,66 +316,6 @@ public open class TlsCertificate(
             gResult!!.reinterpret()
         }
     )
-
-    /**
-     * Gets the #GTlsCertificate representing @cert's issuer, if known
-     *
-     * @return The certificate of @cert's issuer,
-     * or null if @cert is self-signed or signed with an unknown
-     * certificate.
-     * @since 2.28
-     */
-    @GioVersion2_28
-    public open fun getIssuer(): TlsCertificate? =
-        g_tls_certificate_get_issuer(gioTlsCertificatePointer.reinterpret())?.run {
-            TlsCertificate(reinterpret())
-        }
-
-    /**
-     * Returns the issuer name from the certificate.
-     *
-     * @return The issuer name, or null if it's not available.
-     * @since 2.70
-     */
-    @GioVersion2_70
-    public open fun getIssuerName(): String =
-        g_tls_certificate_get_issuer_name(gioTlsCertificatePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Returns the time at which the certificate became or will become invalid.
-     *
-     * @return The not-valid-after date, or null if it's not available.
-     * @since 2.70
-     */
-    @GioVersion2_70
-    public open fun getNotValidAfter(): DateTime? =
-        g_tls_certificate_get_not_valid_after(gioTlsCertificatePointer.reinterpret())?.run {
-            DateTime(reinterpret())
-        }
-
-    /**
-     * Returns the time at which the certificate became or will become valid.
-     *
-     * @return The not-valid-before date, or null if it's not available.
-     * @since 2.70
-     */
-    @GioVersion2_70
-    public open fun getNotValidBefore(): DateTime? =
-        g_tls_certificate_get_not_valid_before(gioTlsCertificatePointer.reinterpret())?.run {
-            DateTime(reinterpret())
-        }
-
-    /**
-     * Returns the subject name from the certificate.
-     *
-     * @return The subject name, or null if it's not available.
-     * @since 2.70
-     */
-    @GioVersion2_70
-    public open fun getSubjectName(): String =
-        g_tls_certificate_get_subject_name(gioTlsCertificatePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
 
     /**
      * Check if two #GTlsCertificate objects represent the same certificate.
@@ -396,11 +329,10 @@ public open class TlsCertificate(
      * @since 2.34
      */
     @GioVersion2_34
-    public open fun isSame(certTwo: TlsCertificate): Boolean =
-        g_tls_certificate_is_same(
-            gioTlsCertificatePointer.reinterpret(),
-            certTwo.gioTlsCertificatePointer.reinterpret()
-        ).asBoolean()
+    public open fun isSame(certTwo: TlsCertificate): Boolean = g_tls_certificate_is_same(
+        gioTlsCertificatePointer.reinterpret(),
+        certTwo.gioTlsCertificatePointer.reinterpret()
+    ).asBoolean()
 
     /**
      * This verifies @cert and returns a set of #GTlsCertificateFlags
@@ -446,14 +378,13 @@ public open class TlsCertificate(
     public open fun verify(
         identity: SocketConnectable? = null,
         trustedCa: TlsCertificate? = null,
-    ): TlsCertificateFlags =
-        g_tls_certificate_verify(
-            gioTlsCertificatePointer.reinterpret(),
-            identity?.gioSocketConnectablePointer,
-            trustedCa?.gioTlsCertificatePointer?.reinterpret()
-        ).run {
-            TlsCertificateFlags(this)
-        }
+    ): TlsCertificateFlags = g_tls_certificate_verify(
+        gioTlsCertificatePointer.reinterpret(),
+        identity?.gioSocketConnectablePointer,
+        trustedCa?.gioTlsCertificatePointer?.reinterpret()
+    ).run {
+        TlsCertificateFlags(this)
+    }
 
     public companion object : TypeCompanion<TlsCertificate> {
         override val type: GeneratedClassKGType<TlsCertificate> =
@@ -486,20 +417,16 @@ public open class TlsCertificate(
          * @return the new certificate, or null on error
          * @since 2.28
          */
-        public fun newFromFiles(
-            certFile: String,
-            keyFile: String,
-        ): Result<TlsCertificate> =
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                gError.`value` = null
-                val gResult = g_tls_certificate_new_from_files(certFile, keyFile, gError.ptr)
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(TlsCertificate(checkNotNull(gResult).reinterpret()))
-                }
+        public fun newFromFiles(certFile: String, keyFile: String): Result<TlsCertificate> = memScoped {
+            val gError = allocPointerTo<GError>()
+            gError.`value` = null
+            val gResult = g_tls_certificate_new_from_files(certFile, keyFile, gError.ptr)
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(TlsCertificate(checkNotNull(gResult).reinterpret()))
             }
+        }
 
         /**
          * Creates a #GTlsCertificate from the data in @file.
@@ -516,20 +443,16 @@ public open class TlsCertificate(
          * @return the new certificate, or null on error
          * @since 2.72
          */
-        public fun newFromFileWithPassword(
-            `file`: String,
-            password: String,
-        ): Result<TlsCertificate> =
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                gError.`value` = null
-                val gResult = g_tls_certificate_new_from_file_with_password(`file`, password, gError.ptr)
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(TlsCertificate(checkNotNull(gResult).reinterpret()))
-                }
+        public fun newFromFileWithPassword(`file`: String, password: String): Result<TlsCertificate> = memScoped {
+            val gError = allocPointerTo<GError>()
+            gError.`value` = null
+            val gResult = g_tls_certificate_new_from_file_with_password(`file`, password, gError.ptr)
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(TlsCertificate(checkNotNull(gResult).reinterpret()))
             }
+        }
 
         /**
          * Creates one or more #GTlsCertificates from the PEM-encoded
@@ -545,19 +468,24 @@ public open class TlsCertificate(
          * @since 2.28
          */
         @GioVersion2_28
-        public fun listNewFromFile(`file`: String): Result<List> =
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                val gResult =
-                    g_tls_certificate_list_new_from_file(`file`, gError.ptr)?.run {
-                        List(reinterpret())
-                    }
-
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(checkNotNull(gResult))
-                }
+        public fun listNewFromFile(`file`: String): Result<List> = memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult = g_tls_certificate_list_new_from_file(`file`, gError.ptr)?.run {
+                List(reinterpret())
             }
+
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(checkNotNull(gResult))
+            }
+        }
+
+        /**
+         * Get the GType of TlsCertificate
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_tls_certificate_get_type()
     }
 }

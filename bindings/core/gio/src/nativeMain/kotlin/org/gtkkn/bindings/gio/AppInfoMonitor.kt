@@ -18,6 +18,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GAppInfoMonitor
 import org.gtkkn.native.gio.g_app_info_monitor_get
 import org.gtkkn.native.gio.g_app_info_monitor_get_type
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import kotlin.ULong
 import kotlin.Unit
@@ -65,9 +66,8 @@ import kotlin.Unit
  * @since 2.40
  */
 @GioVersion2_40
-public open class AppInfoMonitor(
-    pointer: CPointer<GAppInfoMonitor>,
-) : Object(pointer.reinterpret()),
+public open class AppInfoMonitor(pointer: CPointer<GAppInfoMonitor>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioAppInfoMonitorPointer: CPointer<GAppInfoMonitor>
         get() = gPointer.reinterpret()
@@ -81,10 +81,7 @@ public open class AppInfoMonitor(
      * @since 2.40
      */
     @GioVersion2_40
-    public fun connectChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "changed",
@@ -121,17 +118,23 @@ public open class AppInfoMonitor(
          * @since 2.40
          */
         @GioVersion2_40
-        public fun `get`(): AppInfoMonitor =
-            g_app_info_monitor_get()!!.run {
-                AppInfoMonitor(reinterpret())
-            }
+        public fun `get`(): AppInfoMonitor = g_app_info_monitor_get()!!.run {
+            AppInfoMonitor(reinterpret())
+        }
+
+        /**
+         * Get the GType of AppInfoMonitor
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_app_info_monitor_get_type()
     }
 }
 
-private val connectChangedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

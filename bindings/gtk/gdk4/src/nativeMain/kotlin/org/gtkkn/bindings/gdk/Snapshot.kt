@@ -9,15 +9,15 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkSnapshot
 import org.gtkkn.native.gdk.gdk_snapshot_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Base type for snapshot operations.
  *
  * The subclass of `GdkSnapshot` used by GTK is [GtkSnapshot](../gtk4/class.Snapshot.html).
  */
-public open class Snapshot(
-    pointer: CPointer<GdkSnapshot>,
-) : Object(pointer.reinterpret()),
+public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gdkSnapshotPointer: CPointer<GdkSnapshot>
         get() = gPointer.reinterpret()
@@ -29,5 +29,12 @@ public open class Snapshot(
         init {
             GdkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Snapshot
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_snapshot_get_type()
     }
 }

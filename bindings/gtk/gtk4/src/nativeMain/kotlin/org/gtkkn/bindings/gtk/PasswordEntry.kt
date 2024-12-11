@@ -16,6 +16,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -71,9 +72,8 @@ import kotlin.Unit
  * - method `activates-default`: Property has no getter nor setter
  * - method `placeholder-text`: Property has no getter nor setter
  */
-public open class PasswordEntry(
-    pointer: CPointer<GtkPasswordEntry>,
-) : Widget(pointer.reinterpret()),
+public open class PasswordEntry(pointer: CPointer<GtkPasswordEntry>) :
+    Widget(pointer.reinterpret()),
     Editable,
     KGTyped {
     public val gtkPasswordEntryPointer: CPointer<GtkPasswordEntry>
@@ -101,10 +101,9 @@ public open class PasswordEntry(
          *
          * @return the menu model
          */
-        get() =
-            gtk_password_entry_get_extra_menu(gtkPasswordEntryPointer.reinterpret())?.run {
-                MenuModel(reinterpret())
-            }
+        get() = gtk_password_entry_get_extra_menu(gtkPasswordEntryPointer.reinterpret())?.run {
+            MenuModel(reinterpret())
+        }
 
         /**
          * Sets a menu model to add when constructing
@@ -114,11 +113,10 @@ public open class PasswordEntry(
          */
         set(
             model
-        ) =
-            gtk_password_entry_set_extra_menu(
-                gtkPasswordEntryPointer.reinterpret(),
-                model?.gioMenuModelPointer?.reinterpret()
-            )
+        ) = gtk_password_entry_set_extra_menu(
+            gtkPasswordEntryPointer.reinterpret(),
+            model?.gioMenuModelPointer?.reinterpret()
+        )
 
     /**
      * Whether to show an icon for revealing the content.
@@ -152,48 +150,6 @@ public open class PasswordEntry(
     public constructor() : this(gtk_password_entry_new()!!.reinterpret())
 
     /**
-     * Gets the menu model set with gtk_password_entry_set_extra_menu().
-     *
-     * @return the menu model
-     */
-    public open fun getExtraMenu(): MenuModel? =
-        gtk_password_entry_get_extra_menu(gtkPasswordEntryPointer.reinterpret())?.run {
-            MenuModel(reinterpret())
-        }
-
-    /**
-     * Returns whether the entry is showing an icon to
-     * reveal the contents.
-     *
-     * @return true if an icon is shown
-     */
-    public open fun getShowPeekIcon(): Boolean =
-        gtk_password_entry_get_show_peek_icon(gtkPasswordEntryPointer.reinterpret()).asBoolean()
-
-    /**
-     * Sets a menu model to add when constructing
-     * the context menu for @entry.
-     *
-     * @param model a `GMenuModel`
-     */
-    public open fun setExtraMenu(model: MenuModel? = null): Unit =
-        gtk_password_entry_set_extra_menu(
-            gtkPasswordEntryPointer.reinterpret(),
-            model?.gioMenuModelPointer?.reinterpret()
-        )
-
-    /**
-     * Sets whether the entry should have a clickable icon
-     * to reveal the contents.
-     *
-     * Setting this to false also hides the text again.
-     *
-     * @param showPeekIcon whether to show the peek icon
-     */
-    public open fun setShowPeekIcon(showPeekIcon: Boolean): Unit =
-        gtk_password_entry_set_show_peek_icon(gtkPasswordEntryPointer.reinterpret(), showPeekIcon.asGBoolean())
-
-    /**
      * Emitted when the entry is activated.
      *
      * The keybindings for this signal are all forms of the Enter key.
@@ -201,10 +157,7 @@ public open class PasswordEntry(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectActivate(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "activate",
@@ -221,13 +174,20 @@ public open class PasswordEntry(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of PasswordEntry
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_password_entry_get_type()
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

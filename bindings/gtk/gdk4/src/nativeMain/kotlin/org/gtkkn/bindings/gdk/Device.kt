@@ -37,10 +37,11 @@ import org.gtkkn.native.gdk.gdk_device_get_timestamp
 import org.gtkkn.native.gdk.gdk_device_get_type
 import org.gtkkn.native.gdk.gdk_device_get_vendor_id
 import org.gtkkn.native.gdk.gdk_device_has_bidi_layouts
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 
@@ -58,9 +59,8 @@ import kotlin.Unit
  * - method `n-axes`: Property has no getter nor setter
  * - method `tool`: Property has no getter nor setter
  */
-public open class Device(
-    pointer: CPointer<GdkDevice>,
-) : Object(pointer.reinterpret()),
+public open class Device(pointer: CPointer<GdkDevice>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gdkDevicePointer: CPointer<GdkDevice>
         get() = gPointer.reinterpret()
@@ -98,10 +98,9 @@ public open class Device(
          *   if it can determine the direction. %PANGO_DIRECTION_NEUTRAL
          *   otherwise
          */
-        get() =
-            gdk_device_get_direction(gdkDevicePointer.reinterpret()).run {
-                Direction.fromNativeValue(this)
-            }
+        get() = gdk_device_get_direction(gdkDevicePointer.reinterpret()).run {
+            Direction.fromNativeValue(this)
+        }
 
     /**
      * The `GdkDisplay` the `GdkDevice` pertains to.
@@ -112,10 +111,9 @@ public open class Device(
          *
          * @return a `GdkDisplay`
          */
-        get() =
-            gdk_device_get_display(gdkDevicePointer.reinterpret())!!.run {
-                Display(reinterpret())
-            }
+        get() = gdk_device_get_display(gdkDevicePointer.reinterpret())!!.run {
+            Display(reinterpret())
+        }
 
     /**
      * Whether the device is represented by a cursor on the screen.
@@ -144,10 +142,9 @@ public open class Device(
          *
          * @return the current modifier state
          */
-        get() =
-            gdk_device_get_modifier_state(gdkDevicePointer.reinterpret()).run {
-                ModifierType(this)
-            }
+        get() = gdk_device_get_modifier_state(gdkDevicePointer.reinterpret()).run {
+            ModifierType(this)
+        }
 
     /**
      * The device name.
@@ -181,7 +178,7 @@ public open class Device(
      * Will be 0 if the device is not a touch device or if the number
      * of touches is unknown.
      */
-    public open val numTouches: UInt
+    public open val numTouches: guint
         /**
          * Retrieves the number of touch points associated to @device.
          *
@@ -229,10 +226,9 @@ public open class Device(
          *
          * @return a `GdkSeat`
          */
-        get() =
-            gdk_device_get_seat(gdkDevicePointer.reinterpret())!!.run {
-                Seat(reinterpret())
-            }
+        get() = gdk_device_get_seat(gdkDevicePointer.reinterpret())!!.run {
+            Seat(reinterpret())
+        }
 
     /**
      * Source type for the device.
@@ -243,10 +239,9 @@ public open class Device(
          *
          * @return a `GdkInputSource`
          */
-        get() =
-            gdk_device_get_source(gdkDevicePointer.reinterpret()).run {
-                InputSource.fromNativeValue(this)
-            }
+        get() = gdk_device_get_source(gdkDevicePointer.reinterpret()).run {
+            InputSource.fromNativeValue(this)
+        }
 
     /**
      * Vendor ID of this device.
@@ -288,138 +283,13 @@ public open class Device(
         get() = gdk_device_get_vendor_id(gdkDevicePointer.reinterpret())?.toKString()
 
     /**
-     * Retrieves whether the Caps Lock modifier of the keyboard is locked.
-     *
-     * This is only relevant for keyboard devices.
-     *
-     * @return true if Caps Lock is on for @device
-     */
-    public open fun getCapsLockState(): Boolean =
-        gdk_device_get_caps_lock_state(gdkDevicePointer.reinterpret()).asBoolean()
-
-    /**
      * Retrieves the current tool for @device.
      *
      * @return the `GdkDeviceTool`
      */
-    public open fun getDeviceTool(): DeviceTool? =
-        gdk_device_get_device_tool(gdkDevicePointer.reinterpret())?.run {
-            DeviceTool(reinterpret())
-        }
-
-    /**
-     * Returns the direction of effective layout of the keyboard.
-     *
-     * This is only relevant for keyboard devices.
-     *
-     * The direction of a layout is the direction of the majority
-     * of its symbols. See [func@Pango.unichar_direction].
-     *
-     * @return %PANGO_DIRECTION_LTR or %PANGO_DIRECTION_RTL
-     *   if it can determine the direction. %PANGO_DIRECTION_NEUTRAL
-     *   otherwise
-     */
-    public open fun getDirection(): Direction =
-        gdk_device_get_direction(gdkDevicePointer.reinterpret()).run {
-            Direction.fromNativeValue(this)
-        }
-
-    /**
-     * Returns the `GdkDisplay` to which @device pertains.
-     *
-     * @return a `GdkDisplay`
-     */
-    public open fun getDisplay(): Display =
-        gdk_device_get_display(gdkDevicePointer.reinterpret())!!.run {
-            Display(reinterpret())
-        }
-
-    /**
-     * Determines whether the pointer follows device motion.
-     *
-     * This is not meaningful for keyboard devices, which
-     * don't have a pointer.
-     *
-     * @return true if the pointer follows device motion
-     */
-    public open fun getHasCursor(): Boolean = gdk_device_get_has_cursor(gdkDevicePointer.reinterpret()).asBoolean()
-
-    /**
-     * Retrieves the current modifier state of the keyboard.
-     *
-     * This is only relevant for keyboard devices.
-     *
-     * @return the current modifier state
-     */
-    public open fun getModifierState(): ModifierType =
-        gdk_device_get_modifier_state(gdkDevicePointer.reinterpret()).run {
-            ModifierType(this)
-        }
-
-    /**
-     * The name of the device, suitable for showing in a user interface.
-     *
-     * @return a name
-     */
-    public open fun getName(): String =
-        gdk_device_get_name(gdkDevicePointer.reinterpret())?.toKString() ?: error("Expected not null string")
-
-    /**
-     * Retrieves whether the Num Lock modifier of the keyboard is locked.
-     *
-     * This is only relevant for keyboard devices.
-     *
-     * @return true if Num Lock is on for @device
-     */
-    public open fun getNumLockState(): Boolean =
-        gdk_device_get_num_lock_state(gdkDevicePointer.reinterpret()).asBoolean()
-
-    /**
-     * Retrieves the number of touch points associated to @device.
-     *
-     * @return the number of touch points
-     */
-    public open fun getNumTouches(): UInt = gdk_device_get_num_touches(gdkDevicePointer.reinterpret())
-
-    /**
-     * Returns the product ID of this device.
-     *
-     * This ID is retrieved from the device, and does not change.
-     * See [method@Gdk.Device.get_vendor_id] for more information.
-     *
-     * @return the product ID
-     */
-    public open fun getProductId(): String? = gdk_device_get_product_id(gdkDevicePointer.reinterpret())?.toKString()
-
-    /**
-     * Retrieves whether the Scroll Lock modifier of the keyboard is locked.
-     *
-     * This is only relevant for keyboard devices.
-     *
-     * @return true if Scroll Lock is on for @device
-     */
-    public open fun getScrollLockState(): Boolean =
-        gdk_device_get_scroll_lock_state(gdkDevicePointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns the `GdkSeat` the device belongs to.
-     *
-     * @return a `GdkSeat`
-     */
-    public open fun getSeat(): Seat =
-        gdk_device_get_seat(gdkDevicePointer.reinterpret())!!.run {
-            Seat(reinterpret())
-        }
-
-    /**
-     * Determines the type of the device.
-     *
-     * @return a `GdkInputSource`
-     */
-    public open fun getSource(): InputSource =
-        gdk_device_get_source(gdkDevicePointer.reinterpret()).run {
-            InputSource.fromNativeValue(this)
-        }
+    public open fun getDeviceTool(): DeviceTool? = gdk_device_get_device_tool(gdkDevicePointer.reinterpret())?.run {
+        DeviceTool(reinterpret())
+    }
 
     /**
      * Returns the timestamp of the last activity for this device.
@@ -433,40 +303,7 @@ public open class Device(
      * @since 4.2
      */
     @GdkVersion4_2
-    public open fun getTimestamp(): UInt = gdk_device_get_timestamp(gdkDevicePointer.reinterpret())
-
-    /**
-     * Returns the vendor ID of this device.
-     *
-     * This ID is retrieved from the device, and does not change.
-     *
-     * This function, together with [method@Gdk.Device.get_product_id],
-     * can be used to eg. compose `GSettings` paths to store settings
-     * for this device.
-     *
-     * ```c
-     *  static GSettings *
-     *  get_device_settings (GdkDevice *device)
-     *  {
-     *    const char *vendor, *product;
-     *    GSettings *settings;
-     *    GdkDevice *device;
-     *    char *path;
-     *
-     *    vendor = gdk_device_get_vendor_id (device);
-     *    product = gdk_device_get_product_id (device);
-     *
-     *    path = g_strdup_printf ("/org/example/app/devices/%s:%s/", vendor, product);
-     *    settings = g_settings_new_with_path (DEVICE_SCHEMA, path);
-     *    g_free (path);
-     *
-     *    return settings;
-     *  }
-     * ```
-     *
-     * @return the vendor ID
-     */
-    public open fun getVendorId(): String? = gdk_device_get_vendor_id(gdkDevicePointer.reinterpret())?.toKString()
+    public open fun getTimestamp(): guint = gdk_device_get_timestamp(gdkDevicePointer.reinterpret())
 
     /**
      * Determines if layouts for both right-to-left and
@@ -490,10 +327,7 @@ public open class Device(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "changed",
@@ -512,15 +346,14 @@ public open class Device(
     public fun connectToolChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (tool: DeviceTool) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "tool-changed",
-            connectToolChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "tool-changed",
+        connectToolChangedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<Device> {
         override val type: GeneratedClassKGType<Device> =
@@ -529,16 +362,23 @@ public open class Device(
         init {
             GdkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Device
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_device_get_type()
     }
 }
 
-private val connectChangedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
 private val connectToolChangedFunc: CPointer<CFunction<(CPointer<GdkDeviceTool>) -> Unit>> =
     staticCFunction {
@@ -551,4 +391,5 @@ private val connectToolChangedFunc: CPointer<CFunction<(CPointer<GdkDeviceTool>)
                 DeviceTool(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()

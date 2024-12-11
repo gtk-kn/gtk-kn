@@ -1,29 +1,38 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_10
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.pango.PangoLayoutLine
 import org.gtkkn.native.pango.pango_layout_line_get_extents
 import org.gtkkn.native.pango.pango_layout_line_get_length
 import org.gtkkn.native.pango.pango_layout_line_get_pixel_extents
 import org.gtkkn.native.pango.pango_layout_line_get_resolved_direction
 import org.gtkkn.native.pango.pango_layout_line_get_start_index
+import org.gtkkn.native.pango.pango_layout_line_get_type
 import org.gtkkn.native.pango.pango_layout_line_is_paragraph_start
 import org.gtkkn.native.pango.pango_layout_line_ref
 import org.gtkkn.native.pango.pango_layout_line_unref
 import kotlin.Boolean
-import kotlin.Int
-import kotlin.UInt
+import kotlin.Pair
+import kotlin.String
 import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * A `PangoLayoutLine` represents one of the lines resulting from laying
@@ -40,27 +49,29 @@ import kotlin.Unit
  * - parameter `x_pos`: x_pos: Out parameter is not supported
  * - parameter `index`: index: Out parameter is not supported
  */
-public class LayoutLine(
-    pointer: CPointer<PangoLayoutLine>,
-) : Record {
+public class LayoutLine(pointer: CPointer<PangoLayoutLine>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val pangoLayoutLinePointer: CPointer<PangoLayoutLine> = pointer
 
     /**
      * the layout this line belongs to, might be null
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val layout: Layout?
-        get() =
-            pangoLayoutLinePointer.pointed.layout?.run {
-                Layout(reinterpret())
-            }
+    public var layout: Layout?
+        get() = pangoLayoutLinePointer.pointed.layout?.run {
+            Layout(reinterpret())
+        }
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            pangoLayoutLinePointer.pointed.layout = value?.pangoLayoutPointer?.reinterpret()
+        }
 
     /**
      * start of line as byte index into layout->text
      */
-    public var startIndex: Int
+    public var startIndex: gint
         get() = pangoLayoutLinePointer.pointed.start_index
+
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLayoutLinePointer.pointed.start_index = value
         }
@@ -68,8 +79,10 @@ public class LayoutLine(
     /**
      * length of line in bytes
      */
-    public var length: Int
+    public var length: gint
         get() = pangoLayoutLinePointer.pointed.length
+
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLayoutLinePointer.pointed.length = value
         }
@@ -77,20 +90,24 @@ public class LayoutLine(
     /**
      * list of runs in the
      *   line, from left to right
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val runs: SList?
-        get() =
-            pangoLayoutLinePointer.pointed.runs?.run {
-                SList(reinterpret())
-            }
+    public var runs: SList?
+        get() = pangoLayoutLinePointer.pointed.runs?.run {
+            SList(reinterpret())
+        }
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            pangoLayoutLinePointer.pointed.runs = value?.glibSListPointer
+        }
 
     /**
      * #TRUE if this is the first line of the paragraph
      */
-    public var isParagraphStart: UInt
+    public var isParagraphStart: guint
         get() = pangoLayoutLinePointer.pointed.is_paragraph_start
+
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLayoutLinePointer.pointed.is_paragraph_start = value
         }
@@ -98,11 +115,105 @@ public class LayoutLine(
     /**
      * #Resolved PangoDirection of line
      */
-    public var resolvedDir: UInt
+    public var resolvedDir: guint
         get() = pangoLayoutLinePointer.pointed.resolved_dir
+
+        @UnsafeFieldSetter
         set(`value`) {
             pangoLayoutLinePointer.pointed.resolved_dir = value
         }
+
+    /**
+     * Allocate a new LayoutLine.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<PangoLayoutLine>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to LayoutLine and a [Cleaner] instance.
+     */
+    private constructor(
+        pair: Pair<CPointer<PangoLayoutLine>, Cleaner>,
+    ) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new LayoutLine using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<PangoLayoutLine>().ptr)
+
+    /**
+     * Allocate a new LayoutLine.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param layout the layout this line belongs to, might be null
+     * @param startIndex start of line as byte index into layout->text
+     * @param length length of line in bytes
+     * @param runs list of runs in the
+     *   line, from left to right
+     * @param isParagraphStart #TRUE if this is the first line of the paragraph
+     * @param resolvedDir #Resolved PangoDirection of line
+     */
+    public constructor(
+        layout: Layout?,
+        startIndex: gint,
+        length: gint,
+        runs: SList?,
+        isParagraphStart: guint,
+        resolvedDir: guint,
+    ) : this() {
+        this.layout = layout
+        this.startIndex = startIndex
+        this.length = length
+        this.runs = runs
+        this.isParagraphStart = isParagraphStart
+        this.resolvedDir = resolvedDir
+    }
+
+    /**
+     * Allocate a new LayoutLine using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param layout the layout this line belongs to, might be null
+     * @param startIndex start of line as byte index into layout->text
+     * @param length length of line in bytes
+     * @param runs list of runs in the
+     *   line, from left to right
+     * @param isParagraphStart #TRUE if this is the first line of the paragraph
+     * @param resolvedDir #Resolved PangoDirection of line
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        layout: Layout?,
+        startIndex: gint,
+        length: gint,
+        runs: SList?,
+        isParagraphStart: guint,
+        resolvedDir: guint,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.layout = layout
+        this.startIndex = startIndex
+        this.length = length
+        this.runs = runs
+        this.isParagraphStart = isParagraphStart
+        this.resolvedDir = resolvedDir
+    }
 
     /**
      * Computes the logical and ink extents of a layout line.
@@ -115,15 +226,11 @@ public class LayoutLine(
      * @param logicalRect rectangle used to store the logical
      *   extents of the glyph string
      */
-    public fun getExtents(
-        inkRect: Rectangle?,
-        logicalRect: Rectangle?,
-    ): Unit =
-        pango_layout_line_get_extents(
-            pangoLayoutLinePointer.reinterpret(),
-            inkRect?.pangoRectanglePointer?.reinterpret(),
-            logicalRect?.pangoRectanglePointer?.reinterpret()
-        )
+    public fun getExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit = pango_layout_line_get_extents(
+        pangoLayoutLinePointer.reinterpret(),
+        inkRect?.pangoRectanglePointer?.reinterpret(),
+        logicalRect?.pangoRectanglePointer?.reinterpret()
+    )
 
     /**
      * Returns the length of the line, in bytes.
@@ -132,7 +239,7 @@ public class LayoutLine(
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun getLength(): Int = pango_layout_line_get_length(pangoLayoutLinePointer.reinterpret())
+    public fun getLength(): gint = pango_layout_line_get_length(pangoLayoutLinePointer.reinterpret())
 
     /**
      * Computes the logical and ink extents of @layout_line in device units.
@@ -147,10 +254,7 @@ public class LayoutLine(
      * @param logicalRect rectangle used to store the logical
      *   extents of the glyph string
      */
-    public fun getPixelExtents(
-        inkRect: Rectangle?,
-        logicalRect: Rectangle?,
-    ): Unit =
+    public fun getPixelExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit =
         pango_layout_line_get_pixel_extents(
             pangoLayoutLinePointer.reinterpret(),
             inkRect?.pangoRectanglePointer?.reinterpret(),
@@ -177,7 +281,7 @@ public class LayoutLine(
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun getStartIndex(): Int = pango_layout_line_get_start_index(pangoLayoutLinePointer.reinterpret())
+    public fun getStartIndex(): gint = pango_layout_line_get_start_index(pangoLayoutLinePointer.reinterpret())
 
     /**
      * Returns whether this is the first line of the paragraph.
@@ -196,10 +300,9 @@ public class LayoutLine(
      * @since 1.10
      */
     @PangoVersion1_10
-    public fun ref(): LayoutLine? =
-        pango_layout_line_ref(pangoLayoutLinePointer.reinterpret())?.run {
-            LayoutLine(reinterpret())
-        }
+    public fun ref(): LayoutLine? = pango_layout_line_ref(pangoLayoutLinePointer.reinterpret())?.run {
+        LayoutLine(reinterpret())
+    }
 
     /**
      * Decrease the reference count of a `PangoLayoutLine` by one.
@@ -209,7 +312,15 @@ public class LayoutLine(
      */
     public fun unref(): Unit = pango_layout_line_unref(pangoLayoutLinePointer.reinterpret())
 
-    public companion object : RecordCompanion<LayoutLine, PangoLayoutLine> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): LayoutLine = LayoutLine(pointer.reinterpret())
+    override fun toString(): String =
+        "LayoutLine(layout=$layout, startIndex=$startIndex, length=$length, runs=$runs, isParagraphStart=$isParagraphStart, resolvedDir=$resolvedDir)"
+
+    public companion object {
+        /**
+         * Get the GType of LayoutLine
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_layout_line_get_type()
     }
 }

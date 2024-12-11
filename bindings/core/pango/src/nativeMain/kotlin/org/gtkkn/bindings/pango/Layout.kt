@@ -30,15 +30,21 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.pango.PangoLayout
 import org.gtkkn.native.pango.pango_layout_context_changed
 import org.gtkkn.native.pango.pango_layout_copy
+import org.gtkkn.native.pango.pango_layout_deserialize
 import org.gtkkn.native.pango.pango_layout_get_alignment
 import org.gtkkn.native.pango.pango_layout_get_attributes
 import org.gtkkn.native.pango.pango_layout_get_auto_dir
 import org.gtkkn.native.pango.pango_layout_get_baseline
 import org.gtkkn.native.pango.pango_layout_get_caret_pos
 import org.gtkkn.native.pango.pango_layout_get_character_count
+import org.gtkkn.native.pango.pango_layout_get_context
 import org.gtkkn.native.pango.pango_layout_get_cursor_pos
 import org.gtkkn.native.pango.pango_layout_get_direction
 import org.gtkkn.native.pango.pango_layout_get_ellipsize
@@ -68,6 +74,7 @@ import org.gtkkn.native.pango.pango_layout_get_wrap
 import org.gtkkn.native.pango.pango_layout_index_to_pos
 import org.gtkkn.native.pango.pango_layout_is_ellipsized
 import org.gtkkn.native.pango.pango_layout_is_wrapped
+import org.gtkkn.native.pango.pango_layout_new
 import org.gtkkn.native.pango.pango_layout_serialize
 import org.gtkkn.native.pango.pango_layout_set_alignment
 import org.gtkkn.native.pango.pango_layout_set_attributes
@@ -88,11 +95,8 @@ import org.gtkkn.native.pango.pango_layout_set_width
 import org.gtkkn.native.pango.pango_layout_set_wrap
 import org.gtkkn.native.pango.pango_layout_write_to_file
 import kotlin.Boolean
-import kotlin.Float
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 
 /**
@@ -137,7 +141,6 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - method `get_context`: C function pango_layout_get_context is ignored
  * - parameter `attrs`: attrs: Out parameter is not supported
  * - parameter `n_attrs`: n_attrs: Out parameter is not supported
  * - parameter `width`: width: Out parameter is not supported
@@ -146,15 +149,23 @@ import kotlin.Unit
  * - parameter `new_index`: new_index: Out parameter is not supported
  * - parameter `accel_char`: accel_char: Out parameter is not supported
  * - parameter `index`: index: Out parameter is not supported
- * - parameter `context`: C Type PangoContext is ignored
- * - parameter `context`: C Type PangoContext is ignored
  */
-public open class Layout(
-    pointer: CPointer<PangoLayout>,
-) : Object(pointer.reinterpret()),
+public open class Layout(pointer: CPointer<PangoLayout>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val pangoLayoutPointer: CPointer<PangoLayout>
         get() = gPointer.reinterpret()
+
+    /**
+     * Create a new `PangoLayout` object with attributes initialized to
+     * default values for a particular `PangoContext`.
+     *
+     * @param context a `PangoContext`
+     * @return the newly allocated `PangoLayout`
+     */
+    public constructor(
+        context: Context,
+    ) : this(pango_layout_new(context.pangoContextPointer.reinterpret())!!.reinterpret())
 
     /**
      * Forces recomputation of any state in the `PangoLayout` that
@@ -173,10 +184,9 @@ public open class Layout(
      *
      * @return the newly allocated `PangoLayout`
      */
-    public open fun copy(): Layout =
-        pango_layout_copy(pangoLayoutPointer.reinterpret())!!.run {
-            Layout(reinterpret())
-        }
+    public open fun copy(): Layout = pango_layout_copy(pangoLayoutPointer.reinterpret())!!.run {
+        Layout(reinterpret())
+    }
 
     /**
      * Gets the alignment for the layout: how partial lines are
@@ -184,20 +194,18 @@ public open class Layout(
      *
      * @return the alignment
      */
-    public open fun getAlignment(): Alignment =
-        pango_layout_get_alignment(pangoLayoutPointer.reinterpret()).run {
-            Alignment.fromNativeValue(this)
-        }
+    public open fun getAlignment(): Alignment = pango_layout_get_alignment(pangoLayoutPointer.reinterpret()).run {
+        Alignment.fromNativeValue(this)
+    }
 
     /**
      * Gets the attribute list for the layout, if any.
      *
      * @return a `PangoAttrList`
      */
-    public open fun getAttributes(): AttrList? =
-        pango_layout_get_attributes(pangoLayoutPointer.reinterpret())?.run {
-            AttrList(reinterpret())
-        }
+    public open fun getAttributes(): AttrList? = pango_layout_get_attributes(pangoLayoutPointer.reinterpret())?.run {
+        AttrList(reinterpret())
+    }
 
     /**
      * Gets whether to calculate the base direction for the layout
@@ -219,7 +227,7 @@ public open class Layout(
      * @since 1.22
      */
     @PangoVersion1_22
-    public open fun getBaseline(): Int = pango_layout_get_baseline(pangoLayoutPointer.reinterpret())
+    public open fun getBaseline(): gint = pango_layout_get_baseline(pangoLayoutPointer.reinterpret())
 
     /**
      * Given an index within a layout, determines the positions that of the
@@ -240,11 +248,7 @@ public open class Layout(
      * @since 1.50
      */
     @PangoVersion1_50
-    public open fun getCaretPos(
-        index: Int,
-        strongPos: Rectangle?,
-        weakPos: Rectangle?,
-    ): Unit =
+    public open fun getCaretPos(index: gint, strongPos: Rectangle?, weakPos: Rectangle?): Unit =
         pango_layout_get_caret_pos(
             pangoLayoutPointer.reinterpret(),
             index,
@@ -261,7 +265,16 @@ public open class Layout(
      * @since 1.30
      */
     @PangoVersion1_30
-    public open fun getCharacterCount(): Int = pango_layout_get_character_count(pangoLayoutPointer.reinterpret())
+    public open fun getCharacterCount(): gint = pango_layout_get_character_count(pangoLayoutPointer.reinterpret())
+
+    /**
+     * Retrieves the `PangoContext` used for this layout.
+     *
+     * @return the `PangoContext` for the layout
+     */
+    public open fun getContext(): Context = pango_layout_get_context(pangoLayoutPointer.reinterpret())!!.run {
+        Context(reinterpret())
+    }
 
     /**
      * Given an index within a layout, determines the positions that of the
@@ -296,11 +309,7 @@ public open class Layout(
      * @param strongPos location to store the strong cursor position
      * @param weakPos location to store the weak cursor position
      */
-    public open fun getCursorPos(
-        index: Int,
-        strongPos: Rectangle?,
-        weakPos: Rectangle?,
-    ): Unit =
+    public open fun getCursorPos(index: gint, strongPos: Rectangle?, weakPos: Rectangle?): Unit =
         pango_layout_get_cursor_pos(
             pangoLayoutPointer.reinterpret(),
             index,
@@ -316,7 +325,7 @@ public open class Layout(
      * @since 1.46
      */
     @PangoVersion1_46
-    public open fun getDirection(index: Int): Direction =
+    public open fun getDirection(index: gint): Direction =
         pango_layout_get_direction(pangoLayoutPointer.reinterpret(), index).run {
             Direction.fromNativeValue(this)
         }
@@ -333,10 +342,9 @@ public open class Layout(
      * @since 1.6
      */
     @PangoVersion1_6
-    public open fun getEllipsize(): EllipsizeMode =
-        pango_layout_get_ellipsize(pangoLayoutPointer.reinterpret()).run {
-            EllipsizeMode.fromNativeValue(this)
-        }
+    public open fun getEllipsize(): EllipsizeMode = pango_layout_get_ellipsize(pangoLayoutPointer.reinterpret()).run {
+        EllipsizeMode.fromNativeValue(this)
+    }
 
     /**
      * Computes the logical and ink extents of @layout.
@@ -355,15 +363,11 @@ public open class Layout(
      * @param logicalRect rectangle used to store the logical
      *   extents of the layout
      */
-    public open fun getExtents(
-        inkRect: Rectangle?,
-        logicalRect: Rectangle?,
-    ): Unit =
-        pango_layout_get_extents(
-            pangoLayoutPointer.reinterpret(),
-            inkRect?.pangoRectanglePointer?.reinterpret(),
-            logicalRect?.pangoRectanglePointer?.reinterpret()
-        )
+    public open fun getExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit = pango_layout_get_extents(
+        pangoLayoutPointer.reinterpret(),
+        inkRect?.pangoRectanglePointer?.reinterpret(),
+        logicalRect?.pangoRectanglePointer?.reinterpret()
+    )
 
     /**
      * Gets the font description for the layout, if any.
@@ -389,7 +393,7 @@ public open class Layout(
      * @since 1.20
      */
     @PangoVersion1_20
-    public open fun getHeight(): Int = pango_layout_get_height(pangoLayoutPointer.reinterpret())
+    public open fun getHeight(): gint = pango_layout_get_height(pangoLayoutPointer.reinterpret())
 
     /**
      * Gets the paragraph indent width in Pango units.
@@ -398,17 +402,16 @@ public open class Layout(
      *
      * @return the indent in Pango units
      */
-    public open fun getIndent(): Int = pango_layout_get_indent(pangoLayoutPointer.reinterpret())
+    public open fun getIndent(): gint = pango_layout_get_indent(pangoLayoutPointer.reinterpret())
 
     /**
      * Returns an iterator to iterate over the visual extents of the layout.
      *
      * @return the new `PangoLayoutIter`
      */
-    public open fun getIter(): LayoutIter =
-        pango_layout_get_iter(pangoLayoutPointer.reinterpret())!!.run {
-            LayoutIter(reinterpret())
-        }
+    public open fun getIter(): LayoutIter = pango_layout_get_iter(pangoLayoutPointer.reinterpret())!!.run {
+        LayoutIter(reinterpret())
+    }
 
     /**
      * Gets whether each complete line should be stretched to fill the entire
@@ -442,7 +445,7 @@ public open class Layout(
      *   and retained, but will become invalid if changes are made to the
      *   `PangoLayout`.
      */
-    public open fun getLine(line: Int): LayoutLine? =
+    public open fun getLine(line: gint): LayoutLine? =
         pango_layout_get_line(pangoLayoutPointer.reinterpret(), line)?.run {
             LayoutLine(reinterpret())
         }
@@ -452,7 +455,7 @@ public open class Layout(
      *
      * @return the line count
      */
-    public open fun getLineCount(): Int = pango_layout_get_line_count(pangoLayoutPointer.reinterpret())
+    public open fun getLineCount(): gint = pango_layout_get_line_count(pangoLayoutPointer.reinterpret())
 
     /**
      * Retrieves a particular line from a `PangoLayout`.
@@ -470,7 +473,7 @@ public open class Layout(
      * @since 1.16
      */
     @PangoVersion1_16
-    public open fun getLineReadonly(line: Int): LayoutLine? =
+    public open fun getLineReadonly(line: gint): LayoutLine? =
         pango_layout_get_line_readonly(pangoLayoutPointer.reinterpret(), line)?.run {
             LayoutLine(reinterpret())
         }
@@ -483,7 +486,7 @@ public open class Layout(
      * @since 1.44
      */
     @PangoVersion1_44
-    public open fun getLineSpacing(): Float = pango_layout_get_line_spacing(pangoLayoutPointer.reinterpret())
+    public open fun getLineSpacing(): gfloat = pango_layout_get_line_spacing(pangoLayoutPointer.reinterpret())
 
     /**
      * Returns the lines of the @layout as a list.
@@ -496,10 +499,9 @@ public open class Layout(
      *   `PangoLayout` and must be used with care. It will become invalid on any
      *   change to the layout's text or properties.
      */
-    public open fun getLines(): SList =
-        pango_layout_get_lines(pangoLayoutPointer.reinterpret())!!.run {
-            SList(reinterpret())
-        }
+    public open fun getLines(): SList = pango_layout_get_lines(pangoLayoutPointer.reinterpret())!!.run {
+        SList(reinterpret())
+    }
 
     /**
      * Returns the lines of the @layout as a list.
@@ -534,10 +536,7 @@ public open class Layout(
      * @param logicalRect rectangle used to store the logical
      *   extents of the layout
      */
-    public open fun getPixelExtents(
-        inkRect: Rectangle?,
-        logicalRect: Rectangle?,
-    ): Unit =
+    public open fun getPixelExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit =
         pango_layout_get_pixel_extents(
             pangoLayoutPointer.reinterpret(),
             inkRect?.pangoRectanglePointer?.reinterpret(),
@@ -562,7 +561,7 @@ public open class Layout(
      * @since 1.32.4
      */
     @PangoVersion1_32_4
-    public open fun getSerial(): UInt = pango_layout_get_serial(pangoLayoutPointer.reinterpret())
+    public open fun getSerial(): guint = pango_layout_get_serial(pangoLayoutPointer.reinterpret())
 
     /**
      * Obtains whether @layout is in single paragraph mode.
@@ -580,7 +579,7 @@ public open class Layout(
      *
      * @return the spacing in Pango units
      */
-    public open fun getSpacing(): Int = pango_layout_get_spacing(pangoLayoutPointer.reinterpret())
+    public open fun getSpacing(): gint = pango_layout_get_spacing(pangoLayoutPointer.reinterpret())
 
     /**
      * Gets the current `PangoTabArray` used by this layout.
@@ -592,10 +591,9 @@ public open class Layout(
      *
      * @return a copy of the tabs for this layout
      */
-    public open fun getTabs(): TabArray? =
-        pango_layout_get_tabs(pangoLayoutPointer.reinterpret())?.run {
-            TabArray(reinterpret())
-        }
+    public open fun getTabs(): TabArray? = pango_layout_get_tabs(pangoLayoutPointer.reinterpret())?.run {
+        TabArray(reinterpret())
+    }
 
     /**
      * Gets the text in the layout.
@@ -619,7 +617,7 @@ public open class Layout(
      * @since 1.16
      */
     @PangoVersion1_16
-    public open fun getUnknownGlyphsCount(): Int =
+    public open fun getUnknownGlyphsCount(): gint =
         pango_layout_get_unknown_glyphs_count(pangoLayoutPointer.reinterpret())
 
     /**
@@ -627,7 +625,7 @@ public open class Layout(
      *
      * @return the width in Pango units, or -1 if no width set.
      */
-    public open fun getWidth(): Int = pango_layout_get_width(pangoLayoutPointer.reinterpret())
+    public open fun getWidth(): gint = pango_layout_get_width(pangoLayoutPointer.reinterpret())
 
     /**
      * Gets the wrap mode for the layout.
@@ -637,10 +635,9 @@ public open class Layout(
      *
      * @return active wrap mode.
      */
-    public open fun getWrap(): WrapMode =
-        pango_layout_get_wrap(pangoLayoutPointer.reinterpret()).run {
-            WrapMode.fromNativeValue(this)
-        }
+    public open fun getWrap(): WrapMode = pango_layout_get_wrap(pangoLayoutPointer.reinterpret()).run {
+        WrapMode.fromNativeValue(this)
+    }
 
     /**
      * Converts from an index within a `PangoLayout` to the onscreen position
@@ -654,10 +651,7 @@ public open class Layout(
      * @param index byte index within @layout
      * @param pos rectangle in which to store the position of the grapheme
      */
-    public open fun indexToPos(
-        index: Int,
-        pos: Rectangle,
-    ): Unit =
+    public open fun indexToPos(index: gint, pos: Rectangle): Unit =
         pango_layout_index_to_pos(pangoLayoutPointer.reinterpret(), index, pos.pangoRectanglePointer.reinterpret())
 
     /**
@@ -790,11 +784,10 @@ public open class Layout(
      * @param desc the new `PangoFontDescription`
      *   to unset the current font description
      */
-    public open fun setFontDescription(desc: FontDescription? = null): Unit =
-        pango_layout_set_font_description(
-            pangoLayoutPointer.reinterpret(),
-            desc?.pangoFontDescriptionPointer?.reinterpret()
-        )
+    public open fun setFontDescription(desc: FontDescription? = null): Unit = pango_layout_set_font_description(
+        pangoLayoutPointer.reinterpret(),
+        desc?.pangoFontDescriptionPointer?.reinterpret()
+    )
 
     /**
      * Sets the height to which the `PangoLayout` should be ellipsized at.
@@ -828,7 +821,7 @@ public open class Layout(
      * @since 1.20
      */
     @PangoVersion1_20
-    public open fun setHeight(height: Int): Unit = pango_layout_set_height(pangoLayoutPointer.reinterpret(), height)
+    public open fun setHeight(height: gint): Unit = pango_layout_set_height(pangoLayoutPointer.reinterpret(), height)
 
     /**
      * Sets the width in Pango units to indent each paragraph.
@@ -844,7 +837,7 @@ public open class Layout(
      *
      * @param indent the amount by which to indent
      */
-    public open fun setIndent(indent: Int): Unit = pango_layout_set_indent(pangoLayoutPointer.reinterpret(), indent)
+    public open fun setIndent(indent: gint): Unit = pango_layout_set_indent(pangoLayoutPointer.reinterpret(), indent)
 
     /**
      * Sets whether each complete line should be stretched to fill the
@@ -908,7 +901,7 @@ public open class Layout(
      * @since 1.44
      */
     @PangoVersion1_44
-    public open fun setLineSpacing(factor: Float): Unit =
+    public open fun setLineSpacing(factor: gfloat): Unit =
         pango_layout_set_line_spacing(pangoLayoutPointer.reinterpret(), factor)
 
     /**
@@ -925,10 +918,8 @@ public open class Layout(
      * @param length length of marked-up text in bytes, or -1 if @markup is
      *   `NUL`-terminated
      */
-    public open fun setMarkup(
-        markup: String,
-        length: Int,
-    ): Unit = pango_layout_set_markup(pangoLayoutPointer.reinterpret(), markup, length)
+    public open fun setMarkup(markup: String, length: gint): Unit =
+        pango_layout_set_markup(pangoLayoutPointer.reinterpret(), markup, length)
 
     /**
      * Sets the single paragraph mode of @layout.
@@ -965,7 +956,8 @@ public open class Layout(
      *
      * @param spacing the amount of spacing
      */
-    public open fun setSpacing(spacing: Int): Unit = pango_layout_set_spacing(pangoLayoutPointer.reinterpret(), spacing)
+    public open fun setSpacing(spacing: gint): Unit =
+        pango_layout_set_spacing(pangoLayoutPointer.reinterpret(), spacing)
 
     /**
      * Sets the tabs to use for @layout, overriding the default tabs.
@@ -1005,10 +997,8 @@ public open class Layout(
      *   The text will also be truncated on encountering a nul-termination
      *   even when @length is positive.
      */
-    public open fun setText(
-        text: String,
-        length: Int,
-    ): Unit = pango_layout_set_text(pangoLayoutPointer.reinterpret(), text, length)
+    public open fun setText(text: String, length: gint): Unit =
+        pango_layout_set_text(pangoLayoutPointer.reinterpret(), text, length)
 
     /**
      * Sets the width to which the lines of the `PangoLayout` should wrap or
@@ -1019,7 +1009,7 @@ public open class Layout(
      * @param width the desired width in Pango units, or -1 to indicate that no
      *   wrapping or ellipsization should be performed.
      */
-    public open fun setWidth(width: Int): Unit = pango_layout_set_width(pangoLayoutPointer.reinterpret(), width)
+    public open fun setWidth(width: gint): Unit = pango_layout_set_width(pangoLayoutPointer.reinterpret(), width)
 
     /**
      * Sets the wrap mode.
@@ -1052,25 +1042,20 @@ public open class Layout(
      * @since 1.50
      */
     @PangoVersion1_50
-    public open fun writeToFile(
-        flags: LayoutSerializeFlags,
-        filename: String,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                pango_layout_write_to_file(
-                    pangoLayoutPointer.reinterpret(),
-                    flags.mask,
-                    filename,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun writeToFile(flags: LayoutSerializeFlags, filename: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = pango_layout_write_to_file(
+            pangoLayoutPointer.reinterpret(),
+            flags.mask,
+            filename,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     public companion object : TypeCompanion<Layout> {
         override val type: GeneratedClassKGType<Layout> =
@@ -1079,5 +1064,47 @@ public open class Layout(
         init {
             PangoTypeProvider.register()
         }
+
+        /**
+         * Loads data previously created via [method@Pango.Layout.serialize].
+         *
+         * For a discussion of the supported format, see that function.
+         *
+         * Note: to verify that the returned layout is identical to
+         * the one that was serialized, you can compare @bytes to the
+         * result of serializing the layout again.
+         *
+         * @param context a `PangoContext`
+         * @param bytes the bytes containing the data
+         * @param flags `PangoLayoutDeserializeFlags`
+         * @return a new `PangoLayout`
+         * @since 1.50
+         */
+        @PangoVersion1_50
+        public fun deserialize(context: Context, bytes: Bytes, flags: LayoutDeserializeFlags): Result<Layout?> =
+            memScoped {
+                val gError = allocPointerTo<GError>()
+                val gResult = pango_layout_deserialize(
+                    context.pangoContextPointer.reinterpret(),
+                    bytes.glibBytesPointer.reinterpret(),
+                    flags.mask,
+                    gError.ptr
+                )?.run {
+                    Layout(reinterpret())
+                }
+
+                return if (gError.pointed != null) {
+                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+                } else {
+                    Result.success(gResult)
+                }
+            }
+
+        /**
+         * Get the GType of Layout
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_layout_get_type()
     }
 }

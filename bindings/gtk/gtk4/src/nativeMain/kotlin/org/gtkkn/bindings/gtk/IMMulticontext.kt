@@ -7,6 +7,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkIMMulticontext
 import org.gtkkn.native.gtk.gtk_im_multicontext_get_context_id
 import org.gtkkn.native.gtk.gtk_im_multicontext_get_type
@@ -23,9 +24,8 @@ import kotlin.Unit
  * to implement their `im-module` property for switching between different
  * input methods.
  */
-public open class IMMulticontext(
-    pointer: CPointer<GtkIMMulticontext>,
-) : IMContext(pointer.reinterpret()),
+public open class IMMulticontext(pointer: CPointer<GtkIMMulticontext>) :
+    IMContext(pointer.reinterpret()),
     KGTyped {
     public val gtkIMMulticontextPointer: CPointer<GtkIMMulticontext>
         get() = gPointer.reinterpret()
@@ -68,5 +68,12 @@ public open class IMMulticontext(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of IMMulticontext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_im_multicontext_get_type()
     }
 }

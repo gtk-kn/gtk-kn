@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gtksource
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.TextBuffer
 import org.gtkkn.bindings.gtk.TextIter
@@ -10,6 +11,7 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceRegion
 import org.gtkkn.native.gtksource.gtk_source_region_add_region
 import org.gtkkn.native.gtksource.gtk_source_region_add_subregion
@@ -23,7 +25,9 @@ import org.gtkkn.native.gtksource.gtk_source_region_is_empty
 import org.gtkkn.native.gtksource.gtk_source_region_new
 import org.gtkkn.native.gtksource.gtk_source_region_subtract_region
 import org.gtkkn.native.gtksource.gtk_source_region_subtract_subregion
+import org.gtkkn.native.gtksource.gtk_source_region_to_string
 import kotlin.Boolean
+import kotlin.String
 import kotlin.Unit
 
 /**
@@ -69,14 +73,9 @@ import kotlin.Unit
  *         gtk_source_region_iter_next (&region_iter);
  * }
  * ```
- *
- * ## Skipped during bindings generation
- *
- * - method `to_string`: C function gtk_source_region_to_string is ignored
  */
-public open class Region(
-    pointer: CPointer<GtkSourceRegion>,
-) : Object(pointer.reinterpret()),
+public open class Region(pointer: CPointer<GtkSourceRegion>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtksourceRegionPointer: CPointer<GtkSourceRegion>
         get() = gPointer.reinterpret()
@@ -91,10 +90,9 @@ public open class Region(
          *
          * @return the #GtkTextBuffer.
          */
-        get() =
-            gtk_source_region_get_buffer(gtksourceRegionPointer.reinterpret())?.run {
-                TextBuffer(reinterpret())
-            }
+        get() = gtk_source_region_get_buffer(gtksourceRegionPointer.reinterpret())?.run {
+            TextBuffer(reinterpret())
+        }
 
     /**
      *
@@ -113,11 +111,10 @@ public open class Region(
      *
      * @param regionToAdd the #GtkSourceRegion to add to @region, or null.
      */
-    public open fun addRegion(regionToAdd: Region? = null): Unit =
-        gtk_source_region_add_region(
-            gtksourceRegionPointer.reinterpret(),
-            regionToAdd?.gtksourceRegionPointer?.reinterpret()
-        )
+    public open fun addRegion(regionToAdd: Region? = null): Unit = gtk_source_region_add_region(
+        gtksourceRegionPointer.reinterpret(),
+        regionToAdd?.gtksourceRegionPointer?.reinterpret()
+    )
 
     /**
      * Adds the subregion delimited by @_start and @_end to @region.
@@ -125,15 +122,11 @@ public open class Region(
      * @param start the start of the subregion.
      * @param end the end of the subregion.
      */
-    public open fun addSubregion(
-        start: TextIter,
-        end: TextIter,
-    ): Unit =
-        gtk_source_region_add_subregion(
-            gtksourceRegionPointer.reinterpret(),
-            start.gtkTextIterPointer.reinterpret(),
-            end.gtkTextIterPointer.reinterpret()
-        )
+    public open fun addSubregion(start: TextIter, end: TextIter): Unit = gtk_source_region_add_subregion(
+        gtksourceRegionPointer.reinterpret(),
+        start.gtkTextIterPointer.reinterpret(),
+        end.gtkTextIterPointer.reinterpret()
+    )
 
     /**
      * Gets the @start and @end bounds of the @region.
@@ -145,25 +138,11 @@ public open class Region(
      * @return true if @start and @end have been set successfully (if non-null),
      *   or false if the @region is empty.
      */
-    public open fun getBounds(
-        start: TextIter?,
-        end: TextIter?,
-    ): Boolean =
-        gtk_source_region_get_bounds(
-            gtksourceRegionPointer.reinterpret(),
-            start?.gtkTextIterPointer?.reinterpret(),
-            end?.gtkTextIterPointer?.reinterpret()
-        ).asBoolean()
-
-    /**
-     *
-     *
-     * @return the #GtkTextBuffer.
-     */
-    public open fun getBuffer(): TextBuffer? =
-        gtk_source_region_get_buffer(gtksourceRegionPointer.reinterpret())?.run {
-            TextBuffer(reinterpret())
-        }
+    public open fun getBounds(start: TextIter?, end: TextIter?): Boolean = gtk_source_region_get_bounds(
+        gtksourceRegionPointer.reinterpret(),
+        start?.gtkTextIterPointer?.reinterpret(),
+        end?.gtkTextIterPointer?.reinterpret()
+    ).asBoolean()
 
     /**
      * Initializes a [struct@RegionIter] to the first subregion of @region.
@@ -172,11 +151,10 @@ public open class Region(
      *
      * @param iter iterator to initialize to the first subregion.
      */
-    public open fun getStartRegionIter(iter: RegionIter): Unit =
-        gtk_source_region_get_start_region_iter(
-            gtksourceRegionPointer.reinterpret(),
-            iter.gtksourceRegionIterPointer.reinterpret()
-        )
+    public open fun getStartRegionIter(iter: RegionIter): Unit = gtk_source_region_get_start_region_iter(
+        gtksourceRegionPointer.reinterpret(),
+        iter.gtksourceRegionIterPointer.reinterpret()
+    )
 
     /**
      * Returns the intersection between @region1 and @region2.
@@ -187,13 +165,12 @@ public open class Region(
      * @return the intersection as a #GtkSourceRegion
      *   object.
      */
-    public open fun intersectRegion(region2: Region? = null): Region? =
-        gtk_source_region_intersect_region(
-            gtksourceRegionPointer.reinterpret(),
-            region2?.gtksourceRegionPointer?.reinterpret()
-        )?.run {
-            Region(reinterpret())
-        }
+    public open fun intersectRegion(region2: Region? = null): Region? = gtk_source_region_intersect_region(
+        gtksourceRegionPointer.reinterpret(),
+        region2?.gtksourceRegionPointer?.reinterpret()
+    )?.run {
+        Region(reinterpret())
+    }
 
     /**
      * Returns the intersection between @region and the subregion delimited by
@@ -206,17 +183,13 @@ public open class Region(
      * @return the intersection as a new
      *   #GtkSourceRegion.
      */
-    public open fun intersectSubregion(
-        start: TextIter,
-        end: TextIter,
-    ): Region? =
-        gtk_source_region_intersect_subregion(
-            gtksourceRegionPointer.reinterpret(),
-            start.gtkTextIterPointer.reinterpret(),
-            end.gtkTextIterPointer.reinterpret()
-        )?.run {
-            Region(reinterpret())
-        }
+    public open fun intersectSubregion(start: TextIter, end: TextIter): Region? = gtk_source_region_intersect_subregion(
+        gtksourceRegionPointer.reinterpret(),
+        start.gtkTextIterPointer.reinterpret(),
+        end.gtkTextIterPointer.reinterpret()
+    )?.run {
+        Region(reinterpret())
+    }
 
     /**
      * Returns whether the @region is empty.
@@ -235,11 +208,10 @@ public open class Region(
      * @param regionToSubtract the #GtkSourceRegion to subtract from
      *   @region, or null.
      */
-    public open fun subtractRegion(regionToSubtract: Region? = null): Unit =
-        gtk_source_region_subtract_region(
-            gtksourceRegionPointer.reinterpret(),
-            regionToSubtract?.gtksourceRegionPointer?.reinterpret()
-        )
+    public open fun subtractRegion(regionToSubtract: Region? = null): Unit = gtk_source_region_subtract_region(
+        gtksourceRegionPointer.reinterpret(),
+        regionToSubtract?.gtksourceRegionPointer?.reinterpret()
+    )
 
     /**
      * Subtracts the subregion delimited by @_start and @_end from @region.
@@ -247,15 +219,23 @@ public open class Region(
      * @param start the start of the subregion.
      * @param end the end of the subregion.
      */
-    public open fun subtractSubregion(
-        start: TextIter,
-        end: TextIter,
-    ): Unit =
-        gtk_source_region_subtract_subregion(
-            gtksourceRegionPointer.reinterpret(),
-            start.gtkTextIterPointer.reinterpret(),
-            end.gtkTextIterPointer.reinterpret()
-        )
+    public open fun subtractSubregion(start: TextIter, end: TextIter): Unit = gtk_source_region_subtract_subregion(
+        gtksourceRegionPointer.reinterpret(),
+        start.gtkTextIterPointer.reinterpret(),
+        end.gtkTextIterPointer.reinterpret()
+    )
+
+    /**
+     * Gets a string represention of @region, for debugging purposes.
+     *
+     * The returned string contains the character offsets of the subregions. It
+     * doesn't include a newline character at the end of the string.
+     *
+     * @return a string represention of @region. Free
+     *   with g_free() when no longer needed.
+     */
+    public open fun toStringRegion(): String? =
+        gtk_source_region_to_string(gtksourceRegionPointer.reinterpret())?.toKString()
 
     public companion object : TypeCompanion<Region> {
         override val type: GeneratedClassKGType<Region> =
@@ -264,5 +244,12 @@ public open class Region(
         init {
             GtksourceTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Region
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_region_get_type()
     }
 }

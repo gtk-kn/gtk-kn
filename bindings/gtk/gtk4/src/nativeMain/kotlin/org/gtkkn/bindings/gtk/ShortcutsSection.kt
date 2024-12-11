@@ -15,7 +15,10 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -24,7 +27,6 @@ import org.gtkkn.native.gtk.GtkShortcutsSection
 import org.gtkkn.native.gtk.gtk_shortcuts_section_add_group
 import org.gtkkn.native.gtk.gtk_shortcuts_section_get_type
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.ULong
 import kotlin.Unit
 
@@ -59,9 +61,8 @@ import kotlin.Unit
  * - method `title`: Property has no getter nor setter
  * - method `view-name`: Property has no getter nor setter
  */
-public open class ShortcutsSection(
-    pointer: CPointer<GtkShortcutsSection>,
-) : Box(pointer.reinterpret()),
+public open class ShortcutsSection(pointer: CPointer<GtkShortcutsSection>) :
+    Box(pointer.reinterpret()),
     KGTyped {
     public val gtkShortcutsSectionPointer: CPointer<GtkShortcutsSection>
         get() = gPointer.reinterpret()
@@ -91,11 +92,10 @@ public open class ShortcutsSection(
      * @since 4.14
      */
     @GtkVersion4_14
-    public open fun addGroup(group: ShortcutsGroup): Unit =
-        gtk_shortcuts_section_add_group(
-            gtkShortcutsSectionPointer.reinterpret(),
-            group.gtkShortcutsGroupPointer.reinterpret()
-        )
+    public open fun addGroup(group: ShortcutsGroup): Unit = gtk_shortcuts_section_add_group(
+        gtkShortcutsSectionPointer.reinterpret(),
+        group.gtkShortcutsGroupPointer.reinterpret()
+    )
 
     /**
      *
@@ -105,16 +105,15 @@ public open class ShortcutsSection(
      */
     public fun connectChangeCurrentPage(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (`object`: Int) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "change-current-page",
-            connectChangeCurrentPageFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+        handler: (`object`: gint) -> Boolean,
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "change-current-page",
+        connectChangeCurrentPageFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<ShortcutsSection> {
         override val type: GeneratedClassKGType<ShortcutsSection> =
@@ -123,18 +122,22 @@ public open class ShortcutsSection(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ShortcutsSection
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_shortcuts_section_get_type()
     }
 }
 
-private val connectChangeCurrentPageFunc: CPointer<CFunction<(Int) -> Int>> =
+private val connectChangeCurrentPageFunc: CPointer<CFunction<(gint) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
-            `object`: Int,
+            `object`: gint,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(`object`: Int) -> Boolean>()
-            .get()
-            .invoke(`object`)
-            .asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(`object`: gint) -> Boolean>().get().invoke(`object`).asGBoolean()
+    }
+        .reinterpret()

@@ -31,6 +31,7 @@ import org.gtkkn.native.adw.adw_header_bar_set_show_end_title_buttons
 import org.gtkkn.native.adw.adw_header_bar_set_show_start_title_buttons
 import org.gtkkn.native.adw.adw_header_bar_set_show_title
 import org.gtkkn.native.adw.adw_header_bar_set_title_widget
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -127,9 +128,8 @@ import kotlin.Unit
  *
  * `AdwHeaderBar` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
  */
-public class HeaderBar(
-    pointer: CPointer<AdwHeaderBar>,
-) : Widget(pointer.reinterpret()),
+public class HeaderBar(pointer: CPointer<AdwHeaderBar>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val adwHeaderBarPointer: CPointer<AdwHeaderBar>
         get() = gPointer.reinterpret()
@@ -152,10 +152,9 @@ public class HeaderBar(
          *
          * @return the centering policy
          */
-        get() =
-            adw_header_bar_get_centering_policy(adwHeaderBarPointer.reinterpret()).run {
-                CenteringPolicy.fromNativeValue(this)
-            }
+        get() = adw_header_bar_get_centering_policy(adwHeaderBarPointer.reinterpret()).run {
+            CenteringPolicy.fromNativeValue(this)
+        }
 
         /**
          * Sets the policy for aligning the center widget.
@@ -352,10 +351,9 @@ public class HeaderBar(
          *
          * @return the title widget
          */
-        get() =
-            adw_header_bar_get_title_widget(adwHeaderBarPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = adw_header_bar_get_title_widget(adwHeaderBarPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the title widget for @self.
@@ -379,11 +377,10 @@ public class HeaderBar(
          */
         set(
             titleWidget
-        ) =
-            adw_header_bar_set_title_widget(
-                adwHeaderBarPointer.reinterpret(),
-                titleWidget?.gtkWidgetPointer?.reinterpret()
-            )
+        ) = adw_header_bar_set_title_widget(
+            adwHeaderBarPointer.reinterpret(),
+            titleWidget?.gtkWidgetPointer?.reinterpret()
+        )
 
     /**
      * Creates a new `AdwHeaderBar`.
@@ -391,69 +388,6 @@ public class HeaderBar(
      * @return the newly created `AdwHeaderBar`.
      */
     public constructor() : this(adw_header_bar_new()!!.reinterpret())
-
-    /**
-     * Gets the policy for aligning the center widget.
-     *
-     * @return the centering policy
-     */
-    public fun getCenteringPolicy(): CenteringPolicy =
-        adw_header_bar_get_centering_policy(adwHeaderBarPointer.reinterpret()).run {
-            CenteringPolicy.fromNativeValue(this)
-        }
-
-    /**
-     * Gets the decoration layout for @self.
-     *
-     * @return the decoration layout
-     */
-    public fun getDecorationLayout(): String? =
-        adw_header_bar_get_decoration_layout(adwHeaderBarPointer.reinterpret())?.toKString()
-
-    /**
-     * Gets whether @self can show the back button.
-     *
-     * @return whether to show the back button
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun getShowBackButton(): Boolean =
-        adw_header_bar_get_show_back_button(adwHeaderBarPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets whether to show title buttons at the end of @self.
-     *
-     * @return `TRUE` if title buttons at the end are shown
-     */
-    public fun getShowEndTitleButtons(): Boolean =
-        adw_header_bar_get_show_end_title_buttons(adwHeaderBarPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets whether to show title buttons at the start of @self.
-     *
-     * @return `TRUE` if title buttons at the start are shown
-     */
-    public fun getShowStartTitleButtons(): Boolean =
-        adw_header_bar_get_show_start_title_buttons(adwHeaderBarPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets whether the title widget should be shown.
-     *
-     * @return whether the title widget should be shown.
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun getShowTitle(): Boolean = adw_header_bar_get_show_title(adwHeaderBarPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the title widget widget of @self.
-     *
-     * @return the title widget
-     */
-    public fun getTitleWidget(): Widget? =
-        adw_header_bar_get_title_widget(adwHeaderBarPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
 
     /**
      * Adds @child to @self, packed with reference to the end of @self.
@@ -482,107 +416,6 @@ public class HeaderBar(
     public fun remove(child: Widget): Unit =
         adw_header_bar_remove(adwHeaderBarPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
-    /**
-     * Sets the policy for aligning the center widget.
-     *
-     * @param centeringPolicy the centering policy
-     */
-    public fun setCenteringPolicy(centeringPolicy: CenteringPolicy): Unit =
-        adw_header_bar_set_centering_policy(adwHeaderBarPointer.reinterpret(), centeringPolicy.nativeValue)
-
-    /**
-     * Sets the decoration layout for @self.
-     *
-     * If this property is not set, the
-     * [property@Gtk.Settings:gtk-decoration-layout] setting is used.
-     *
-     * The format of the string is button names, separated by commas. A colon
-     * separates the buttons that should appear at the start from those at the end.
-     * Recognized button names are minimize, maximize, close and icon (the window
-     * icon).
-     *
-     * For example, “icon:minimize,maximize,close” specifies an icon at the start,
-     * and minimize, maximize and close buttons at the end.
-     *
-     * @param layout a decoration layout
-     */
-    public fun setDecorationLayout(layout: String? = null): Unit =
-        adw_header_bar_set_decoration_layout(adwHeaderBarPointer.reinterpret(), layout)
-
-    /**
-     * Sets whether @self can show the back button.
-     *
-     * The back button will never be shown unless the header bar is placed inside an
-     * [class@NavigationView]. Usually, there is no reason to set it to `FALSE`.
-     *
-     * @param showBackButton whether to show the back button
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun setShowBackButton(showBackButton: Boolean): Unit =
-        adw_header_bar_set_show_back_button(adwHeaderBarPointer.reinterpret(), showBackButton.asGBoolean())
-
-    /**
-     * Sets whether to show title buttons at the end of @self.
-     *
-     * See [property@HeaderBar:show-start-title-buttons] for the other side.
-     *
-     * Which buttons are actually shown and where is determined by the
-     * [property@HeaderBar:decoration-layout] property, and by the state of the
-     * window (e.g. a close button will not be shown if the window can't be closed).
-     *
-     * @param setting `TRUE` to show standard title buttons
-     */
-    public fun setShowEndTitleButtons(setting: Boolean): Unit =
-        adw_header_bar_set_show_end_title_buttons(adwHeaderBarPointer.reinterpret(), setting.asGBoolean())
-
-    /**
-     * Sets whether to show title buttons at the start of @self.
-     *
-     * See [property@HeaderBar:show-end-title-buttons] for the other side.
-     *
-     * Which buttons are actually shown and where is determined by the
-     * [property@HeaderBar:decoration-layout] property, and by the state of the
-     * window (e.g. a close button will not be shown if the window can't be closed).
-     *
-     * @param setting `TRUE` to show standard title buttons
-     */
-    public fun setShowStartTitleButtons(setting: Boolean): Unit =
-        adw_header_bar_set_show_start_title_buttons(adwHeaderBarPointer.reinterpret(), setting.asGBoolean())
-
-    /**
-     * Sets whether the title widget should be shown.
-     *
-     * @param showTitle whether the title widget is visible
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun setShowTitle(showTitle: Boolean): Unit =
-        adw_header_bar_set_show_title(adwHeaderBarPointer.reinterpret(), showTitle.asGBoolean())
-
-    /**
-     * Sets the title widget for @self.
-     *
-     * When set to `NULL`, the header bar will display the title of the window it
-     * is contained in.
-     *
-     * To use a different title, use [class@WindowTitle]:
-     *
-     * ```xml
-     * <object class="AdwHeaderBar">
-     *   <property name="title-widget">
-     *     <object class="AdwWindowTitle">
-     *       <property name="title" translatable="yes">Title</property>
-     *     </object>
-     *   </property>
-     * </object>
-     * ```
-     *
-     * @param titleWidget a widget to use for a title
-     */
-    public fun setTitleWidget(titleWidget: Widget? = null): Unit =
-        adw_header_bar_set_title_widget(adwHeaderBarPointer.reinterpret(), titleWidget?.gtkWidgetPointer?.reinterpret())
-
     public companion object : TypeCompanion<HeaderBar> {
         override val type: GeneratedClassKGType<HeaderBar> =
             GeneratedClassKGType(adw_header_bar_get_type()) { HeaderBar(it.reinterpret()) }
@@ -590,5 +423,12 @@ public class HeaderBar(
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of HeaderBar
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_header_bar_get_type()
     }
 }

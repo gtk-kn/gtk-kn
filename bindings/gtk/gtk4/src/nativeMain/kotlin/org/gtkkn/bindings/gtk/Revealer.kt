@@ -8,6 +8,8 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -24,8 +26,6 @@ import org.gtkkn.native.gtk.gtk_revealer_set_reveal_child
 import org.gtkkn.native.gtk.gtk_revealer_set_transition_duration
 import org.gtkkn.native.gtk.gtk_revealer_set_transition_type
 import kotlin.Boolean
-import kotlin.UInt
-import kotlin.Unit
 
 /**
  * A `GtkRevealer` animates the transition of its child from invisible to visible.
@@ -50,9 +50,8 @@ import kotlin.Unit
  * The child of `GtkRevealer`, if set, is always available in the accessibility
  * tree, regardless of the state of the revealer widget.
  */
-public open class Revealer(
-    pointer: CPointer<GtkRevealer>,
-) : Widget(pointer.reinterpret()),
+public open class Revealer(pointer: CPointer<GtkRevealer>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkRevealerPointer: CPointer<GtkRevealer>
         get() = gPointer.reinterpret()
@@ -75,10 +74,9 @@ public open class Revealer(
          *
          * @return the child widget of @revealer
          */
-        get() =
-            gtk_revealer_get_child(gtkRevealerPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = gtk_revealer_get_child(gtkRevealerPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the child widget of @revealer.
@@ -130,7 +128,7 @@ public open class Revealer(
     /**
      * The animation duration, in milliseconds.
      */
-    public open var transitionDuration: UInt
+    public open var transitionDuration: guint
         /**
          * Returns the amount of time (in milliseconds) that
          * transitions will take.
@@ -156,10 +154,9 @@ public open class Revealer(
          *
          * @return the current transition type of @revealer
          */
-        get() =
-            gtk_revealer_get_transition_type(gtkRevealerPointer.reinterpret()).run {
-                RevealerTransitionType.fromNativeValue(this)
-            }
+        get() = gtk_revealer_get_transition_type(gtkRevealerPointer.reinterpret()).run {
+            RevealerTransitionType.fromNativeValue(this)
+        }
 
         /**
          * Sets the type of animation that will be used for
@@ -178,98 +175,6 @@ public open class Revealer(
      */
     public constructor() : this(gtk_revealer_new()!!.reinterpret())
 
-    /**
-     * Gets the child widget of @revealer.
-     *
-     * @return the child widget of @revealer
-     */
-    public open fun getChild(): Widget? =
-        gtk_revealer_get_child(gtkRevealerPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Returns whether the child is fully revealed.
-     *
-     * In other words, this returns whether the transition
-     * to the revealed state is completed.
-     *
-     * @return true if the child is fully revealed
-     */
-    public open fun getChildRevealed(): Boolean =
-        gtk_revealer_get_child_revealed(gtkRevealerPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns whether the child is currently revealed.
-     *
-     * This function returns true as soon as the transition
-     * is to the revealed state is started. To learn whether
-     * the child is fully revealed (ie the transition is completed),
-     * use [method@Gtk.Revealer.get_child_revealed].
-     *
-     * @return true if the child is revealed.
-     */
-    public open fun getRevealChild(): Boolean =
-        gtk_revealer_get_reveal_child(gtkRevealerPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns the amount of time (in milliseconds) that
-     * transitions will take.
-     *
-     * @return the transition duration
-     */
-    public open fun getTransitionDuration(): UInt =
-        gtk_revealer_get_transition_duration(gtkRevealerPointer.reinterpret())
-
-    /**
-     * Gets the type of animation that will be used
-     * for transitions in @revealer.
-     *
-     * @return the current transition type of @revealer
-     */
-    public open fun getTransitionType(): RevealerTransitionType =
-        gtk_revealer_get_transition_type(gtkRevealerPointer.reinterpret()).run {
-            RevealerTransitionType.fromNativeValue(this)
-        }
-
-    /**
-     * Sets the child widget of @revealer.
-     *
-     * @param child the child widget
-     */
-    public open fun setChild(child: Widget? = null): Unit =
-        gtk_revealer_set_child(gtkRevealerPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
-
-    /**
-     * Tells the `GtkRevealer` to reveal or conceal its child.
-     *
-     * The transition will be animated with the current
-     * transition type of @revealer.
-     *
-     * @param revealChild true to reveal the child
-     */
-    public open fun setRevealChild(revealChild: Boolean): Unit =
-        gtk_revealer_set_reveal_child(gtkRevealerPointer.reinterpret(), revealChild.asGBoolean())
-
-    /**
-     * Sets the duration that transitions will take.
-     *
-     * @param duration the new duration, in milliseconds
-     */
-    public open fun setTransitionDuration(duration: UInt): Unit =
-        gtk_revealer_set_transition_duration(gtkRevealerPointer.reinterpret(), duration)
-
-    /**
-     * Sets the type of animation that will be used for
-     * transitions in @revealer.
-     *
-     * Available types include various kinds of fades and slides.
-     *
-     * @param transition the new transition type
-     */
-    public open fun setTransitionType(transition: RevealerTransitionType): Unit =
-        gtk_revealer_set_transition_type(gtkRevealerPointer.reinterpret(), transition.nativeValue)
-
     public companion object : TypeCompanion<Revealer> {
         override val type: GeneratedClassKGType<Revealer> =
             GeneratedClassKGType(gtk_revealer_get_type()) { Revealer(it.reinterpret()) }
@@ -277,5 +182,12 @@ public open class Revealer(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Revealer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_revealer_get_type()
     }
 }

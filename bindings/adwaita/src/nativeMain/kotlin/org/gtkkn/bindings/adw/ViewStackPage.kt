@@ -29,18 +29,17 @@ import org.gtkkn.native.adw.adw_view_stack_page_set_needs_attention
 import org.gtkkn.native.adw.adw_view_stack_page_set_title
 import org.gtkkn.native.adw.adw_view_stack_page_set_use_underline
 import org.gtkkn.native.adw.adw_view_stack_page_set_visible
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import kotlin.Boolean
 import kotlin.String
-import kotlin.UInt
-import kotlin.Unit
 
 /**
  * An auxiliary class used by [class@ViewStack].
  */
-public class ViewStackPage(
-    pointer: CPointer<AdwViewStackPage>,
-) : Object(pointer.reinterpret()),
+public class ViewStackPage(pointer: CPointer<AdwViewStackPage>) :
+    Object(pointer.reinterpret()),
     Accessible,
     KGTyped {
     public val adwViewStackPagePointer: CPointer<AdwViewStackPage>
@@ -57,7 +56,7 @@ public class ViewStackPage(
      *
      * It can be used together with [property@ViewStack{age}:needs-attention].
      */
-    public var badgeNumber: UInt
+    public var badgeNumber: guint
         /**
          * Gets the badge number for this page.
          *
@@ -86,10 +85,9 @@ public class ViewStackPage(
          *
          * @return the child to which @self belongs
          */
-        get() =
-            adw_view_stack_page_get_child(adwViewStackPagePointer.reinterpret())!!.run {
-                Widget(reinterpret())
-            }
+        get() = adw_view_stack_page_get_child(adwViewStackPagePointer.reinterpret())!!.run {
+            Widget(reinterpret())
+        }
 
     /**
      * The icon name of the child page.
@@ -216,138 +214,6 @@ public class ViewStackPage(
          */
         set(visible) = adw_view_stack_page_set_visible(adwViewStackPagePointer.reinterpret(), visible.asGBoolean())
 
-    /**
-     * Gets the badge number for this page.
-     *
-     * @return the badge number for this page
-     */
-    public fun getBadgeNumber(): UInt = adw_view_stack_page_get_badge_number(adwViewStackPagePointer.reinterpret())
-
-    /**
-     * Gets the stack child to which @self belongs.
-     *
-     * @return the child to which @self belongs
-     */
-    public fun getChild(): Widget =
-        adw_view_stack_page_get_child(adwViewStackPagePointer.reinterpret())!!.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Gets the icon name of the page.
-     *
-     * @return the icon name of the page
-     */
-    public fun getIconName(): String? =
-        adw_view_stack_page_get_icon_name(adwViewStackPagePointer.reinterpret())?.toKString()
-
-    /**
-     * Gets the name of the page.
-     *
-     * @return the name of the page
-     */
-    public fun getName(): String? = adw_view_stack_page_get_name(adwViewStackPagePointer.reinterpret())?.toKString()
-
-    /**
-     * Gets whether the page requires the user attention.
-     *
-     * @return whether the page needs attention
-     */
-    public fun getNeedsAttention(): Boolean =
-        adw_view_stack_page_get_needs_attention(adwViewStackPagePointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the page title.
-     *
-     * @return the page title
-     */
-    public fun getTitle(): String? = adw_view_stack_page_get_title(adwViewStackPagePointer.reinterpret())?.toKString()
-
-    /**
-     * Gets whether underlines in the page title indicate mnemonics.
-     *
-     * @return whether underlines in the page title indicate mnemonics
-     */
-    public fun getUseUnderline(): Boolean =
-        adw_view_stack_page_get_use_underline(adwViewStackPagePointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets whether @self is visible in its `AdwViewStack`.
-     *
-     * This is independent from the [property@Gtk.Widget:visible]
-     * property of its widget.
-     *
-     * @return whether @self is visible
-     */
-    public fun getVisible(): Boolean =
-        adw_view_stack_page_get_visible(adwViewStackPagePointer.reinterpret()).asBoolean()
-
-    /**
-     * Sets the badge number for this page.
-     *
-     * [class@ViewSwitcher] can display it as a badge next to the page icon. It is
-     * commonly used to display a number of unread items within the page.
-     *
-     * It can be used together with [property@ViewStack{age}:needs-attention].
-     *
-     * @param badgeNumber the new value to set
-     */
-    public fun setBadgeNumber(badgeNumber: UInt): Unit =
-        adw_view_stack_page_set_badge_number(adwViewStackPagePointer.reinterpret(), badgeNumber)
-
-    /**
-     * Sets the icon name of the page.
-     *
-     * @param iconName the icon name
-     */
-    public fun setIconName(iconName: String? = null): Unit =
-        adw_view_stack_page_set_icon_name(adwViewStackPagePointer.reinterpret(), iconName)
-
-    /**
-     * Sets the name of the page.
-     *
-     * @param name the page name
-     */
-    public fun setName(name: String? = null): Unit =
-        adw_view_stack_page_set_name(adwViewStackPagePointer.reinterpret(), name)
-
-    /**
-     * Sets whether the page requires the user attention.
-     *
-     * [class@ViewSwitcher] will display it as a dot next to the page icon.
-     *
-     * @param needsAttention the new value to set
-     */
-    public fun setNeedsAttention(needsAttention: Boolean): Unit =
-        adw_view_stack_page_set_needs_attention(adwViewStackPagePointer.reinterpret(), needsAttention.asGBoolean())
-
-    /**
-     * Sets the page title.
-     *
-     * @param title the page title
-     */
-    public fun setTitle(title: String? = null): Unit =
-        adw_view_stack_page_set_title(adwViewStackPagePointer.reinterpret(), title)
-
-    /**
-     * Sets whether underlines in the page title indicate mnemonics.
-     *
-     * @param useUnderline the new value to set
-     */
-    public fun setUseUnderline(useUnderline: Boolean): Unit =
-        adw_view_stack_page_set_use_underline(adwViewStackPagePointer.reinterpret(), useUnderline.asGBoolean())
-
-    /**
-     * Sets whether @page is visible in its `AdwViewStack`.
-     *
-     * This is independent from the [property@Gtk.Widget:visible] property of
-     * [property@ViewStackPage:child].
-     *
-     * @param visible whether @self is visible
-     */
-    public fun setVisible(visible: Boolean): Unit =
-        adw_view_stack_page_set_visible(adwViewStackPagePointer.reinterpret(), visible.asGBoolean())
-
     public companion object : TypeCompanion<ViewStackPage> {
         override val type: GeneratedClassKGType<ViewStackPage> =
             GeneratedClassKGType(adw_view_stack_page_get_type()) { ViewStackPage(it.reinterpret()) }
@@ -355,5 +221,12 @@ public class ViewStackPage(
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ViewStackPage
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_view_stack_page_get_type()
     }
 }

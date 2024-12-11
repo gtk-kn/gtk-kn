@@ -12,9 +12,7 @@ import kotlin.UInt
  * These errors are unexpected and will cause parts of the given CSS
  * to be ignored.
  */
-public enum class CssParserError(
-    public val nativeValue: GtkCssParserError,
-) {
+public enum class CssParserError(public val nativeValue: GtkCssParserError) {
     /**
      * Unknown failure.
      */
@@ -42,23 +40,21 @@ public enum class CssParserError(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkCssParserError): CssParserError =
-            when (nativeValue) {
-                GtkCssParserError.GTK_CSS_PARSER_ERROR_FAILED -> FAILED
-                GtkCssParserError.GTK_CSS_PARSER_ERROR_SYNTAX -> SYNTAX
-                GtkCssParserError.GTK_CSS_PARSER_ERROR_IMPORT -> IMPORT
-                GtkCssParserError.GTK_CSS_PARSER_ERROR_NAME -> NAME
-                GtkCssParserError.GTK_CSS_PARSER_ERROR_UNKNOWN_VALUE -> UNKNOWN_VALUE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkCssParserError): CssParserError = when (nativeValue) {
+            GtkCssParserError.GTK_CSS_PARSER_ERROR_FAILED -> FAILED
+            GtkCssParserError.GTK_CSS_PARSER_ERROR_SYNTAX -> SYNTAX
+            GtkCssParserError.GTK_CSS_PARSER_ERROR_IMPORT -> IMPORT
+            GtkCssParserError.GTK_CSS_PARSER_ERROR_NAME -> NAME
+            GtkCssParserError.GTK_CSS_PARSER_ERROR_UNKNOWN_VALUE -> UNKNOWN_VALUE
+            else -> error("invalid nativeValue")
+        }
 
         public fun quark(): UInt = g_quark_from_string("gtk-css-parser-error-quark")
 
-        public fun fromErrorOrNull(error: Error): CssParserError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                CssParserError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        public fun fromErrorOrNull(error: Error): CssParserError? = if (error.domain != quark()) {
+            null
+        } else {
+            CssParserError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

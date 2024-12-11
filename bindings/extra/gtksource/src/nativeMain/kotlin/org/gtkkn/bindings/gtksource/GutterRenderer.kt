@@ -23,7 +23,12 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkModifierType
 import org.gtkkn.native.gdk.GdkRectangle
 import org.gtkkn.native.gobject.GObject
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -45,9 +50,6 @@ import org.gtkkn.native.gtksource.gtk_source_gutter_renderer_set_xpad
 import org.gtkkn.native.gtksource.gtk_source_gutter_renderer_set_yalign
 import org.gtkkn.native.gtksource.gtk_source_gutter_renderer_set_ypad
 import kotlin.Boolean
-import kotlin.Float
-import kotlin.Int
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 
@@ -90,9 +92,8 @@ import kotlin.Unit
  * - parameter `x`: x: Out parameter is not supported
  * - method `lines`: Property has no getter nor setter
  */
-public open class GutterRenderer(
-    pointer: CPointer<GtkSourceGutterRenderer>,
-) : Widget(pointer.reinterpret()),
+public open class GutterRenderer(pointer: CPointer<GtkSourceGutterRenderer>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val gtksourceGutterRendererPointer: CPointer<GtkSourceGutterRenderer>
         get() = gPointer.reinterpret()
@@ -122,10 +123,9 @@ public open class GutterRenderer(
          *
          * @return a #GtkSourceGutterRendererAlignmentMode
          */
-        get() =
-            gtk_source_gutter_renderer_get_alignment_mode(gtksourceGutterRendererPointer.reinterpret()).run {
-                GutterRendererAlignmentMode.fromNativeValue(this)
-            }
+        get() = gtk_source_gutter_renderer_get_alignment_mode(gtksourceGutterRendererPointer.reinterpret()).run {
+            GutterRendererAlignmentMode.fromNativeValue(this)
+        }
 
         /**
          * Set the alignment mode. The alignment mode describes the manner in which the
@@ -136,11 +136,10 @@ public open class GutterRenderer(
          */
         set(
             mode
-        ) =
-            gtk_source_gutter_renderer_set_alignment_mode(
-                gtksourceGutterRendererPointer.reinterpret(),
-                mode.nativeValue
-            )
+        ) = gtk_source_gutter_renderer_set_alignment_mode(
+            gtksourceGutterRendererPointer.reinterpret(),
+            mode.nativeValue
+        )
 
     /**
      * The view on which the renderer is placed.
@@ -151,10 +150,9 @@ public open class GutterRenderer(
          *
          * @return a #GtkSourceView
          */
-        get() =
-            gtk_source_gutter_renderer_get_view(gtksourceGutterRendererPointer.reinterpret())!!.run {
-                View(reinterpret())
-            }
+        get() = gtk_source_gutter_renderer_get_view(gtksourceGutterRendererPointer.reinterpret())!!.run {
+            View(reinterpret())
+        }
 
     /**
      * The horizontal alignment of the renderer.
@@ -162,7 +160,7 @@ public open class GutterRenderer(
      * Set to 0 for a left alignment. 1 for a right alignment. And 0.5 for centering the cells.
      * A value lower than 0 doesn't modify the alignment.
      */
-    public open var xalign: Float
+    public open var xalign: gfloat
         /**
          * Gets the `xalign` property.
          *
@@ -182,7 +180,7 @@ public open class GutterRenderer(
     /**
      * The left and right padding of the renderer.
      */
-    public open var xpad: Int
+    public open var xpad: gint
         /**
          * Gets the `xpad` property.
          *
@@ -205,7 +203,7 @@ public open class GutterRenderer(
      * Set to 0 for a top alignment. 1 for a bottom alignment. And 0.5 for centering the cells.
      * A value lower than 0 doesn't modify the alignment.
      */
-    public open var yalign: Float
+    public open var yalign: gfloat
         /**
          * Gets the `yalign` property.
          *
@@ -225,7 +223,7 @@ public open class GutterRenderer(
     /**
      * The top and bottom padding of the renderer.
      */
-    public open var ypad: Int
+    public open var ypad: gint
         /**
          * Gets the `ypad` property.
          *
@@ -252,35 +250,20 @@ public open class GutterRenderer(
      * @param state a #GdkModifierType
      * @param nPresses the number of button presses
      */
-    public open fun activate_(
+    public open fun activate(
         iter: TextIter,
         area: Rectangle,
-        button: UInt,
+        button: guint,
         state: ModifierType,
-        nPresses: Int,
-    ): Unit =
-        gtk_source_gutter_renderer_activate(
-            gtksourceGutterRendererPointer.reinterpret(),
-            iter.gtkTextIterPointer.reinterpret(),
-            area.gdkRectanglePointer.reinterpret(),
-            button,
-            state.mask,
-            nPresses
-        )
-
-    /**
-     * Get the alignment mode.
-     *
-     * The alignment mode describes the manner in which the
-     * renderer is aligned (see [property@GutterRenderer:xalign] and
-     * [property@GutterRenderer:yalign]).
-     *
-     * @return a #GtkSourceGutterRendererAlignmentMode
-     */
-    public open fun getAlignmentMode(): GutterRendererAlignmentMode =
-        gtk_source_gutter_renderer_get_alignment_mode(gtksourceGutterRendererPointer.reinterpret()).run {
-            GutterRendererAlignmentMode.fromNativeValue(this)
-        }
+        nPresses: gint,
+    ): Unit = gtk_source_gutter_renderer_activate(
+        gtksourceGutterRendererPointer.reinterpret(),
+        iter.gtkTextIterPointer.reinterpret(),
+        area.gdkRectanglePointer.reinterpret(),
+        button,
+        state.mask,
+        nPresses
+    )
 
     /**
      * Gets the [class@Buffer] for which the gutter renderer is drawing.
@@ -293,46 +276,6 @@ public open class GutterRenderer(
         }
 
     /**
-     * Get the view associated to the gutter renderer
-     *
-     * @return a #GtkSourceView
-     */
-    public open fun getView(): View =
-        gtk_source_gutter_renderer_get_view(gtksourceGutterRendererPointer.reinterpret())!!.run {
-            View(reinterpret())
-        }
-
-    /**
-     * Gets the `xalign` property.
-     *
-     * This may be used to adjust where within the cell rectangle the renderer will draw.
-     */
-    public open fun getXalign(): Float =
-        gtk_source_gutter_renderer_get_xalign(gtksourceGutterRendererPointer.reinterpret())
-
-    /**
-     * Gets the `xpad` property.
-     *
-     * This may be used to adjust the cell rectangle that the renderer will use to draw.
-     */
-    public open fun getXpad(): Int = gtk_source_gutter_renderer_get_xpad(gtksourceGutterRendererPointer.reinterpret())
-
-    /**
-     * Gets the `yalign` property.
-     *
-     * This may be used to adjust where within the cell rectangle the renderer will draw.
-     */
-    public open fun getYalign(): Float =
-        gtk_source_gutter_renderer_get_yalign(gtksourceGutterRendererPointer.reinterpret())
-
-    /**
-     * Gets the `ypad` property.
-     *
-     * This may be used to adjust the cell rectangle that the renderer will use to draw.
-     */
-    public open fun getYpad(): Int = gtk_source_gutter_renderer_get_ypad(gtksourceGutterRendererPointer.reinterpret())
-
-    /**
      * Get whether the renderer is activatable at the location provided. This is
      * called from [class@Gutter] to determine whether a renderer is activatable
      * using the mouse pointer.
@@ -341,65 +284,12 @@ public open class GutterRenderer(
      * @param area a #GdkRectangle of the cell area to be activated
      * @return true if the renderer can be activated, false otherwise
      */
-    public open fun queryActivatable(
-        iter: TextIter,
-        area: Rectangle,
-    ): Boolean =
+    public open fun queryActivatable(iter: TextIter, area: Rectangle): Boolean =
         gtk_source_gutter_renderer_query_activatable(
             gtksourceGutterRendererPointer.reinterpret(),
             iter.gtkTextIterPointer.reinterpret(),
             area.gdkRectanglePointer.reinterpret()
         ).asBoolean()
-
-    /**
-     * Set the alignment mode. The alignment mode describes the manner in which the
-     * renderer is aligned (see [property@GutterRenderer:xalign] and
-     * [property@GutterRenderer:yalign]).
-     *
-     * @param mode a #GtkSourceGutterRendererAlignmentMode
-     */
-    public open fun setAlignmentMode(mode: GutterRendererAlignmentMode): Unit =
-        gtk_source_gutter_renderer_set_alignment_mode(gtksourceGutterRendererPointer.reinterpret(), mode.nativeValue)
-
-    /**
-     * Adjusts the `xalign` property.
-     *
-     * This may be used to adjust where within the cell rectangle the renderer will draw.
-     *
-     * @param xalign the Y padding for the drawing cell
-     */
-    public open fun setXalign(xalign: Float): Unit =
-        gtk_source_gutter_renderer_set_xalign(gtksourceGutterRendererPointer.reinterpret(), xalign)
-
-    /**
-     * Adjusts the `xpad` property.
-     *
-     * This may be used to adjust the cell rectangle that the renderer will use to draw.
-     *
-     * @param xpad the Y padding for the drawing cell
-     */
-    public open fun setXpad(xpad: Int): Unit =
-        gtk_source_gutter_renderer_set_xpad(gtksourceGutterRendererPointer.reinterpret(), xpad)
-
-    /**
-     * Adjusts the `yalign` property.
-     *
-     * This may be used to adjust where within the cell rectangle the renderer will draw.
-     *
-     * @param yalign the Y padding for the drawing cell
-     */
-    public open fun setYalign(yalign: Float): Unit =
-        gtk_source_gutter_renderer_set_yalign(gtksourceGutterRendererPointer.reinterpret(), yalign)
-
-    /**
-     * Adjusts the `ypad` property.
-     *
-     * This may be used to adjust the cell rectangle that the renderer will use to draw.
-     *
-     * @param ypad the Y padding for the drawing cell
-     */
-    public open fun setYpad(ypad: Int): Unit =
-        gtk_source_gutter_renderer_set_ypad(gtksourceGutterRendererPointer.reinterpret(), ypad)
 
     /**
      * The signal is emitted when the renderer is activated.
@@ -412,19 +302,18 @@ public open class GutterRenderer(
         handler: (
             iter: TextIter,
             area: Rectangle,
-            button: UInt,
+            button: guint,
             state: ModifierType,
-            nPresses: Int,
+            nPresses: gint,
         ) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "activate",
-            connectActivateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "activate",
+        connectActivateFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * The signal is emitted when the renderer can possibly be activated.
@@ -435,15 +324,14 @@ public open class GutterRenderer(
     public fun connectQueryActivatable(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (iter: TextIter, area: Rectangle) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "query-activatable",
-            connectQueryActivatableFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "query-activatable",
+        connectQueryActivatableFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      *
@@ -453,16 +341,15 @@ public open class GutterRenderer(
      */
     public fun connectQueryData(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (`object`: Object, p0: UInt) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "query-data",
-            connectQueryDataFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+        handler: (`object`: Object, p0: guint) -> Unit,
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "query-data",
+        connectQueryDataFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<GutterRenderer> {
         override val type: GeneratedClassKGType<GutterRenderer> =
@@ -471,6 +358,13 @@ public open class GutterRenderer(
         init {
             GtksourceTypeProvider.register()
         }
+
+        /**
+         * Get the GType of GutterRenderer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_gutter_renderer_get_type()
     }
 }
 
@@ -479,79 +373,75 @@ private val connectActivateFunc: CPointer<
         (
             CPointer<GtkTextIter>,
             CPointer<GdkRectangle>,
-            UInt,
+            guint,
             GdkModifierType,
-            Int,
+            gint,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            _: COpaquePointer,
-            iter: CPointer<GtkTextIter>?,
-            area: CPointer<GdkRectangle>?,
-            button: UInt,
-            state: GdkModifierType,
-            nPresses: Int,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    iter: TextIter,
-                    area: Rectangle,
-                    button: UInt,
-                    state: ModifierType,
-                    nPresses: Int,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                iter!!.run {
-                    TextIter(reinterpret())
-                },
-                area!!.run {
-                    Rectangle(reinterpret())
-                },
-                button,
-                state.run {
-                    ModifierType(this)
-                },
-                nPresses
-            )
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        _: COpaquePointer,
+        iter: CPointer<GtkTextIter>?,
+        area: CPointer<GdkRectangle>?,
+        button: guint,
+        state: GdkModifierType,
+        nPresses: gint,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            iter: TextIter,
+            area: Rectangle,
+            button: guint,
+            state: ModifierType,
+            nPresses: gint,
+        ) -> Unit
+        >().get().invoke(
+        iter!!.run {
+            TextIter(reinterpret())
+        },
+        area!!.run {
+            Rectangle(reinterpret())
+        },
+        button,
+        state.run {
+            ModifierType(this)
+        },
+        nPresses
+    )
+}
+    .reinterpret()
 
 private val connectQueryActivatableFunc:
-    CPointer<CFunction<(CPointer<GtkTextIter>, CPointer<GdkRectangle>) -> Int>> =
+    CPointer<CFunction<(CPointer<GtkTextIter>, CPointer<GdkRectangle>) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
             iter: CPointer<GtkTextIter>?,
             area: CPointer<GdkRectangle>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(iter: TextIter, area: Rectangle) -> Boolean>()
-            .get()
-            .invoke(
-                iter!!.run {
-                    TextIter(reinterpret())
-                },
-                area!!.run {
-                    Rectangle(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(iter: TextIter, area: Rectangle) -> Boolean>().get().invoke(
+            iter!!.run {
+                TextIter(reinterpret())
+            },
+            area!!.run {
+                Rectangle(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
-private val connectQueryDataFunc: CPointer<CFunction<(CPointer<GObject>, UInt) -> Unit>> =
+private val connectQueryDataFunc: CPointer<CFunction<(CPointer<GObject>, guint) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             `object`: CPointer<GObject>?,
-            p0: UInt,
+            p0: guint,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(`object`: Object, p0: UInt) -> Unit>().get().invoke(
+        userData.asStableRef<(`object`: Object, p0: guint) -> Unit>().get().invoke(
             `object`!!.run {
                 Object(reinterpret())
             },
             p0
         )
-    }.reinterpret()
+    }
+        .reinterpret()

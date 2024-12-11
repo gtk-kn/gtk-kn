@@ -6,13 +6,13 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskBroadwayRenderer
 import org.gtkkn.native.gsk.gsk_broadway_renderer_get_type
 import org.gtkkn.native.gsk.gsk_broadway_renderer_new
 
-public open class BroadwayRenderer(
-    pointer: CPointer<GskBroadwayRenderer>,
-) : Renderer(pointer.reinterpret()),
+public open class BroadwayRenderer(pointer: CPointer<GskBroadwayRenderer>) :
+    Renderer(pointer.reinterpret()),
     KGTyped {
     public val gskBroadwayRendererPointer: CPointer<GskBroadwayRenderer>
         get() = gPointer.reinterpret()
@@ -38,5 +38,12 @@ public open class BroadwayRenderer(
         init {
             GskTypeProvider.register()
         }
+
+        /**
+         * Get the GType of BroadwayRenderer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_broadway_renderer_get_type()
     }
 }

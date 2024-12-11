@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkColorChooser
@@ -44,9 +45,8 @@ import org.gtkkn.native.gtk.gtk_color_chooser_widget_new
  *
  * - method `show-editor`: Property has no getter nor setter
  */
-public open class ColorChooserWidget(
-    pointer: CPointer<GtkColorChooserWidget>,
-) : Widget(pointer.reinterpret()),
+public open class ColorChooserWidget(pointer: CPointer<GtkColorChooserWidget>) :
+    Widget(pointer.reinterpret()),
     ColorChooser,
     KGTyped {
     public val gtkColorChooserWidgetPointer: CPointer<GtkColorChooserWidget>
@@ -78,5 +78,12 @@ public open class ColorChooserWidget(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ColorChooserWidget
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_color_chooser_widget_get_type()
     }
 }

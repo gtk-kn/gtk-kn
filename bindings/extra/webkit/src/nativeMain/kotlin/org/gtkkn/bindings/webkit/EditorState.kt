@@ -18,7 +18,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitEditorState
 import org.gtkkn.native.webkit.webkit_editor_state_get_type
 import org.gtkkn.native.webkit.webkit_editor_state_get_typing_attributes
@@ -28,7 +30,6 @@ import org.gtkkn.native.webkit.webkit_editor_state_is_paste_available
 import org.gtkkn.native.webkit.webkit_editor_state_is_redo_available
 import org.gtkkn.native.webkit.webkit_editor_state_is_undo_available
 import kotlin.Boolean
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 
@@ -41,9 +42,8 @@ import kotlin.Unit
  * @since 2.10
  */
 @WebKitVersion2_10
-public class EditorState(
-    pointer: CPointer<WebKitEditorState>,
-) : Object(pointer.reinterpret()),
+public class EditorState(pointer: CPointer<WebKitEditorState>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val webkitEditorStatePointer: CPointer<WebKitEditorState>
         get() = gPointer.reinterpret()
@@ -55,7 +55,7 @@ public class EditorState(
      * @since 2.10
      */
     @WebKitVersion2_10
-    public val typingAttributes: UInt
+    public val typingAttributes: guint
         /**
          * Gets the typing attributes at the current cursor position.
          *
@@ -68,21 +68,6 @@ public class EditorState(
          * @since 2.10
          */
         get() = webkit_editor_state_get_typing_attributes(webkitEditorStatePointer.reinterpret())
-
-    /**
-     * Gets the typing attributes at the current cursor position.
-     *
-     * If there is a selection, this returns the typing attributes
-     * of the selected text. Note that in case of a selection,
-     * typing attributes are considered active only when they are
-     * present throughout the selection.
-     *
-     * @return a bitmask of #WebKitEditorTypingAttributes flags
-     * @since 2.10
-     */
-    @WebKitVersion2_10
-    public fun getTypingAttributes(): UInt =
-        webkit_editor_state_get_typing_attributes(webkitEditorStatePointer.reinterpret())
 
     /**
      * Gets whether a copy command can be issued.
@@ -142,10 +127,7 @@ public class EditorState(
      * @since 2.44
      */
     @WebKitVersion2_44
-    public fun connectChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "changed",
@@ -162,13 +144,20 @@ public class EditorState(
         init {
             WebkitTypeProvider.register()
         }
+
+        /**
+         * Get the GType of EditorState
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_editor_state_get_type()
     }
 }
 
-private val connectChangedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

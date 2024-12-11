@@ -17,7 +17,8 @@ import org.gtkkn.native.gdk.gdk_cursor_get_texture
 import org.gtkkn.native.gdk.gdk_cursor_get_type
 import org.gtkkn.native.gdk.gdk_cursor_new_from_name
 import org.gtkkn.native.gdk.gdk_cursor_new_from_texture
-import kotlin.Int
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import kotlin.String
 
 /**
@@ -56,9 +57,8 @@ import kotlin.String
  * easier to support cursors. If none of the provided cursors can be supported,
  * the default cursor will be the ultimate fallback.
  */
-public open class Cursor(
-    pointer: CPointer<GdkCursor>,
-) : Object(pointer.reinterpret()),
+public open class Cursor(pointer: CPointer<GdkCursor>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gdkCursorPointer: CPointer<GdkCursor>
         get() = gPointer.reinterpret()
@@ -79,15 +79,14 @@ public open class Cursor(
          * @return the fallback of the cursor or null
          *   to use the default cursor as fallback
          */
-        get() =
-            gdk_cursor_get_fallback(gdkCursorPointer.reinterpret())?.run {
-                Cursor(reinterpret())
-            }
+        get() = gdk_cursor_get_fallback(gdkCursorPointer.reinterpret())?.run {
+            Cursor(reinterpret())
+        }
 
     /**
      * X position of the cursor hotspot in the cursor image.
      */
-    public open val hotspotX: Int
+    public open val hotspotX: gint
         /**
          * Returns the horizontal offset of the hotspot.
          *
@@ -104,7 +103,7 @@ public open class Cursor(
     /**
      * Y position of the cursor hotspot in the cursor image.
      */
-    public open val hotspotY: Int
+    public open val hotspotY: gint
         /**
          * Returns the vertical offset of the hotspot.
          *
@@ -148,10 +147,9 @@ public open class Cursor(
          * @return the texture for cursor or null
          *   if it is a named cursor
          */
-        get() =
-            gdk_cursor_get_texture(gdkCursorPointer.reinterpret())?.run {
-                Texture(reinterpret())
-            }
+        get() = gdk_cursor_get_texture(gdkCursorPointer.reinterpret())?.run {
+            Texture(reinterpret())
+        }
 
     /**
      * Creates a new cursor by looking up @name in the current cursor
@@ -195,8 +193,8 @@ public open class Cursor(
      */
     public constructor(
         texture: Texture,
-        hotspotX: Int,
-        hotspotY: Int,
+        hotspotX: gint,
+        hotspotY: gint,
         fallback: Cursor? = null,
     ) : this(
         gdk_cursor_new_from_texture(
@@ -207,72 +205,6 @@ public open class Cursor(
         )!!.reinterpret()
     )
 
-    /**
-     * Returns the fallback for this @cursor.
-     *
-     * The fallback will be used if this cursor is not available on a given
-     * `GdkDisplay`. For named cursors, this can happen when using nonstandard
-     * names or when using an incomplete cursor theme. For textured cursors,
-     * this can happen when the texture is too large or when the `GdkDisplay`
-     * it is used on does not support textured cursors.
-     *
-     * @return the fallback of the cursor or null
-     *   to use the default cursor as fallback
-     */
-    public open fun getFallback(): Cursor? =
-        gdk_cursor_get_fallback(gdkCursorPointer.reinterpret())?.run {
-            Cursor(reinterpret())
-        }
-
-    /**
-     * Returns the horizontal offset of the hotspot.
-     *
-     * The hotspot indicates the pixel that will be directly above the cursor.
-     *
-     * Note that named cursors may have a nonzero hotspot, but this function
-     * will only return the hotspot position for cursors created with
-     * [ctor@Gdk.Cursor.new_from_texture].
-     *
-     * @return the horizontal offset of the hotspot or 0 for named cursors
-     */
-    public open fun getHotspotX(): Int = gdk_cursor_get_hotspot_x(gdkCursorPointer.reinterpret())
-
-    /**
-     * Returns the vertical offset of the hotspot.
-     *
-     * The hotspot indicates the pixel that will be directly above the cursor.
-     *
-     * Note that named cursors may have a nonzero hotspot, but this function
-     * will only return the hotspot position for cursors created with
-     * [ctor@Gdk.Cursor.new_from_texture].
-     *
-     * @return the vertical offset of the hotspot or 0 for named cursors
-     */
-    public open fun getHotspotY(): Int = gdk_cursor_get_hotspot_y(gdkCursorPointer.reinterpret())
-
-    /**
-     * Returns the name of the cursor.
-     *
-     * If the cursor is not a named cursor, null will be returned.
-     *
-     * @return the name of the cursor or null
-     *   if it is not a named cursor
-     */
-    public open fun getName(): String? = gdk_cursor_get_name(gdkCursorPointer.reinterpret())?.toKString()
-
-    /**
-     * Returns the texture for the cursor.
-     *
-     * If the cursor is a named cursor, null will be returned.
-     *
-     * @return the texture for cursor or null
-     *   if it is a named cursor
-     */
-    public open fun getTexture(): Texture? =
-        gdk_cursor_get_texture(gdkCursorPointer.reinterpret())?.run {
-            Texture(reinterpret())
-        }
-
     public companion object : TypeCompanion<Cursor> {
         override val type: GeneratedClassKGType<Cursor> =
             GeneratedClassKGType(gdk_cursor_get_type()) { Cursor(it.reinterpret()) }
@@ -280,5 +212,12 @@ public open class Cursor(
         init {
             GdkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Cursor
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_cursor_get_type()
     }
 }

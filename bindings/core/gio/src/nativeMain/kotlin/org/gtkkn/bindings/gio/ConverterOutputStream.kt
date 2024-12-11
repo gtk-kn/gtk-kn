@@ -3,7 +3,6 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -12,6 +11,7 @@ import org.gtkkn.native.gio.GPollableOutputStream
 import org.gtkkn.native.gio.g_converter_output_stream_get_converter
 import org.gtkkn.native.gio.g_converter_output_stream_get_type
 import org.gtkkn.native.gio.g_converter_output_stream_new
+import org.gtkkn.native.gobject.GType
 
 /**
  * Converter output stream implements [class@Gio.OutputStream] and allows
@@ -20,9 +20,8 @@ import org.gtkkn.native.gio.g_converter_output_stream_new
  * As of GLib 2.34, `GConverterOutputStream` implements
  * [iface@Gio.PollableOutputStream].
  */
-public open class ConverterOutputStream(
-    pointer: CPointer<GConverterOutputStream>,
-) : FilterOutputStream(pointer.reinterpret()),
+public open class ConverterOutputStream(pointer: CPointer<GConverterOutputStream>) :
+    FilterOutputStream(pointer.reinterpret()),
     PollableOutputStream,
     KGTyped {
     public val gioConverterOutputStreamPointer: CPointer<GConverterOutputStream>
@@ -41,10 +40,9 @@ public open class ConverterOutputStream(
          * @return the converter of the converter output stream
          * @since 2.24
          */
-        get() =
-            g_converter_output_stream_get_converter(gioConverterOutputStreamPointer.reinterpret())!!.run {
-                Converter.wrap(reinterpret())
-            }
+        get() = g_converter_output_stream_get_converter(gioConverterOutputStreamPointer.reinterpret())!!.run {
+            Converter.wrap(reinterpret())
+        }
 
     /**
      * Creates a new converter output stream for the @base_stream.
@@ -63,18 +61,6 @@ public open class ConverterOutputStream(
         )!!.reinterpret()
     )
 
-    /**
-     * Gets the #GConverter that is used by @converter_stream.
-     *
-     * @return the converter of the converter output stream
-     * @since 2.24
-     */
-    @GioVersion2_24
-    public open fun getConverter(): Converter =
-        g_converter_output_stream_get_converter(gioConverterOutputStreamPointer.reinterpret())!!.run {
-            Converter.wrap(reinterpret())
-        }
-
     public companion object : TypeCompanion<ConverterOutputStream> {
         override val type: GeneratedClassKGType<ConverterOutputStream> =
             GeneratedClassKGType(g_converter_output_stream_get_type()) { ConverterOutputStream(it.reinterpret()) }
@@ -82,5 +68,12 @@ public open class ConverterOutputStream(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ConverterOutputStream
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_converter_output_stream_get_type()
     }
 }

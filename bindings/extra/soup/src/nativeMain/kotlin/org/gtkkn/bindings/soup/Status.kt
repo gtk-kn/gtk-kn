@@ -2,10 +2,12 @@
 package org.gtkkn.bindings.soup
 
 import kotlinx.cinterop.toKString
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.soup.SoupStatus
 import org.gtkkn.native.soup.soup_status_get_phrase
+import org.gtkkn.native.soup.soup_status_get_type
 import kotlin.String
-import kotlin.UInt
 
 /**
  * These represent the known HTTP status code values, plus various
@@ -15,9 +17,7 @@ import kotlin.UInt
  * any function that works with status codes will accept unrecognized
  * status codes as well.
  */
-public enum class Status(
-    public val nativeValue: SoupStatus,
-) {
+public enum class Status(public val nativeValue: SoupStatus) {
     /**
      * No status available. (Eg, the message has not
      * been sent yet)
@@ -304,64 +304,63 @@ public enum class Status(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: SoupStatus): Status =
-            when (nativeValue) {
-                SoupStatus.SOUP_STATUS_NONE -> NONE
-                SoupStatus.SOUP_STATUS_CONTINUE -> CONTINUE
-                SoupStatus.SOUP_STATUS_SWITCHING_PROTOCOLS -> SWITCHING_PROTOCOLS
-                SoupStatus.SOUP_STATUS_PROCESSING -> PROCESSING
-                SoupStatus.SOUP_STATUS_OK -> OK
-                SoupStatus.SOUP_STATUS_CREATED -> CREATED
-                SoupStatus.SOUP_STATUS_ACCEPTED -> ACCEPTED
-                SoupStatus.SOUP_STATUS_NON_AUTHORITATIVE -> NON_AUTHORITATIVE
-                SoupStatus.SOUP_STATUS_NO_CONTENT -> NO_CONTENT
-                SoupStatus.SOUP_STATUS_RESET_CONTENT -> RESET_CONTENT
-                SoupStatus.SOUP_STATUS_PARTIAL_CONTENT -> PARTIAL_CONTENT
-                SoupStatus.SOUP_STATUS_MULTI_STATUS -> MULTI_STATUS
-                SoupStatus.SOUP_STATUS_MULTIPLE_CHOICES -> MULTIPLE_CHOICES
-                SoupStatus.SOUP_STATUS_MOVED_PERMANENTLY -> MOVED_PERMANENTLY
-                SoupStatus.SOUP_STATUS_FOUND -> FOUND
-                SoupStatus.SOUP_STATUS_MOVED_TEMPORARILY -> MOVED_TEMPORARILY
-                SoupStatus.SOUP_STATUS_SEE_OTHER -> SEE_OTHER
-                SoupStatus.SOUP_STATUS_NOT_MODIFIED -> NOT_MODIFIED
-                SoupStatus.SOUP_STATUS_USE_PROXY -> USE_PROXY
-                SoupStatus.SOUP_STATUS_NOT_APPEARING_IN_THIS_PROTOCOL -> NOT_APPEARING_IN_THIS_PROTOCOL
-                SoupStatus.SOUP_STATUS_TEMPORARY_REDIRECT -> TEMPORARY_REDIRECT
-                SoupStatus.SOUP_STATUS_PERMANENT_REDIRECT -> PERMANENT_REDIRECT
-                SoupStatus.SOUP_STATUS_BAD_REQUEST -> BAD_REQUEST
-                SoupStatus.SOUP_STATUS_UNAUTHORIZED -> UNAUTHORIZED
-                SoupStatus.SOUP_STATUS_PAYMENT_REQUIRED -> PAYMENT_REQUIRED
-                SoupStatus.SOUP_STATUS_FORBIDDEN -> FORBIDDEN
-                SoupStatus.SOUP_STATUS_NOT_FOUND -> NOT_FOUND
-                SoupStatus.SOUP_STATUS_METHOD_NOT_ALLOWED -> METHOD_NOT_ALLOWED
-                SoupStatus.SOUP_STATUS_NOT_ACCEPTABLE -> NOT_ACCEPTABLE
-                SoupStatus.SOUP_STATUS_PROXY_AUTHENTICATION_REQUIRED -> PROXY_AUTHENTICATION_REQUIRED
-                SoupStatus.SOUP_STATUS_PROXY_UNAUTHORIZED -> PROXY_UNAUTHORIZED
-                SoupStatus.SOUP_STATUS_REQUEST_TIMEOUT -> REQUEST_TIMEOUT
-                SoupStatus.SOUP_STATUS_CONFLICT -> CONFLICT
-                SoupStatus.SOUP_STATUS_GONE -> GONE
-                SoupStatus.SOUP_STATUS_LENGTH_REQUIRED -> LENGTH_REQUIRED
-                SoupStatus.SOUP_STATUS_PRECONDITION_FAILED -> PRECONDITION_FAILED
-                SoupStatus.SOUP_STATUS_REQUEST_ENTITY_TOO_LARGE -> REQUEST_ENTITY_TOO_LARGE
-                SoupStatus.SOUP_STATUS_REQUEST_URI_TOO_LONG -> REQUEST_URI_TOO_LONG
-                SoupStatus.SOUP_STATUS_UNSUPPORTED_MEDIA_TYPE -> UNSUPPORTED_MEDIA_TYPE
-                SoupStatus.SOUP_STATUS_REQUESTED_RANGE_NOT_SATISFIABLE -> REQUESTED_RANGE_NOT_SATISFIABLE
-                SoupStatus.SOUP_STATUS_INVALID_RANGE -> INVALID_RANGE
-                SoupStatus.SOUP_STATUS_EXPECTATION_FAILED -> EXPECTATION_FAILED
-                SoupStatus.SOUP_STATUS_MISDIRECTED_REQUEST -> MISDIRECTED_REQUEST
-                SoupStatus.SOUP_STATUS_UNPROCESSABLE_ENTITY -> UNPROCESSABLE_ENTITY
-                SoupStatus.SOUP_STATUS_LOCKED -> LOCKED
-                SoupStatus.SOUP_STATUS_FAILED_DEPENDENCY -> FAILED_DEPENDENCY
-                SoupStatus.SOUP_STATUS_INTERNAL_SERVER_ERROR -> INTERNAL_SERVER_ERROR
-                SoupStatus.SOUP_STATUS_NOT_IMPLEMENTED -> NOT_IMPLEMENTED
-                SoupStatus.SOUP_STATUS_BAD_GATEWAY -> BAD_GATEWAY
-                SoupStatus.SOUP_STATUS_SERVICE_UNAVAILABLE -> SERVICE_UNAVAILABLE
-                SoupStatus.SOUP_STATUS_GATEWAY_TIMEOUT -> GATEWAY_TIMEOUT
-                SoupStatus.SOUP_STATUS_HTTP_VERSION_NOT_SUPPORTED -> HTTP_VERSION_NOT_SUPPORTED
-                SoupStatus.SOUP_STATUS_INSUFFICIENT_STORAGE -> INSUFFICIENT_STORAGE
-                SoupStatus.SOUP_STATUS_NOT_EXTENDED -> NOT_EXTENDED
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: SoupStatus): Status = when (nativeValue) {
+            SoupStatus.SOUP_STATUS_NONE -> NONE
+            SoupStatus.SOUP_STATUS_CONTINUE -> CONTINUE
+            SoupStatus.SOUP_STATUS_SWITCHING_PROTOCOLS -> SWITCHING_PROTOCOLS
+            SoupStatus.SOUP_STATUS_PROCESSING -> PROCESSING
+            SoupStatus.SOUP_STATUS_OK -> OK
+            SoupStatus.SOUP_STATUS_CREATED -> CREATED
+            SoupStatus.SOUP_STATUS_ACCEPTED -> ACCEPTED
+            SoupStatus.SOUP_STATUS_NON_AUTHORITATIVE -> NON_AUTHORITATIVE
+            SoupStatus.SOUP_STATUS_NO_CONTENT -> NO_CONTENT
+            SoupStatus.SOUP_STATUS_RESET_CONTENT -> RESET_CONTENT
+            SoupStatus.SOUP_STATUS_PARTIAL_CONTENT -> PARTIAL_CONTENT
+            SoupStatus.SOUP_STATUS_MULTI_STATUS -> MULTI_STATUS
+            SoupStatus.SOUP_STATUS_MULTIPLE_CHOICES -> MULTIPLE_CHOICES
+            SoupStatus.SOUP_STATUS_MOVED_PERMANENTLY -> MOVED_PERMANENTLY
+            SoupStatus.SOUP_STATUS_FOUND -> FOUND
+            SoupStatus.SOUP_STATUS_MOVED_TEMPORARILY -> MOVED_TEMPORARILY
+            SoupStatus.SOUP_STATUS_SEE_OTHER -> SEE_OTHER
+            SoupStatus.SOUP_STATUS_NOT_MODIFIED -> NOT_MODIFIED
+            SoupStatus.SOUP_STATUS_USE_PROXY -> USE_PROXY
+            SoupStatus.SOUP_STATUS_NOT_APPEARING_IN_THIS_PROTOCOL -> NOT_APPEARING_IN_THIS_PROTOCOL
+            SoupStatus.SOUP_STATUS_TEMPORARY_REDIRECT -> TEMPORARY_REDIRECT
+            SoupStatus.SOUP_STATUS_PERMANENT_REDIRECT -> PERMANENT_REDIRECT
+            SoupStatus.SOUP_STATUS_BAD_REQUEST -> BAD_REQUEST
+            SoupStatus.SOUP_STATUS_UNAUTHORIZED -> UNAUTHORIZED
+            SoupStatus.SOUP_STATUS_PAYMENT_REQUIRED -> PAYMENT_REQUIRED
+            SoupStatus.SOUP_STATUS_FORBIDDEN -> FORBIDDEN
+            SoupStatus.SOUP_STATUS_NOT_FOUND -> NOT_FOUND
+            SoupStatus.SOUP_STATUS_METHOD_NOT_ALLOWED -> METHOD_NOT_ALLOWED
+            SoupStatus.SOUP_STATUS_NOT_ACCEPTABLE -> NOT_ACCEPTABLE
+            SoupStatus.SOUP_STATUS_PROXY_AUTHENTICATION_REQUIRED -> PROXY_AUTHENTICATION_REQUIRED
+            SoupStatus.SOUP_STATUS_PROXY_UNAUTHORIZED -> PROXY_UNAUTHORIZED
+            SoupStatus.SOUP_STATUS_REQUEST_TIMEOUT -> REQUEST_TIMEOUT
+            SoupStatus.SOUP_STATUS_CONFLICT -> CONFLICT
+            SoupStatus.SOUP_STATUS_GONE -> GONE
+            SoupStatus.SOUP_STATUS_LENGTH_REQUIRED -> LENGTH_REQUIRED
+            SoupStatus.SOUP_STATUS_PRECONDITION_FAILED -> PRECONDITION_FAILED
+            SoupStatus.SOUP_STATUS_REQUEST_ENTITY_TOO_LARGE -> REQUEST_ENTITY_TOO_LARGE
+            SoupStatus.SOUP_STATUS_REQUEST_URI_TOO_LONG -> REQUEST_URI_TOO_LONG
+            SoupStatus.SOUP_STATUS_UNSUPPORTED_MEDIA_TYPE -> UNSUPPORTED_MEDIA_TYPE
+            SoupStatus.SOUP_STATUS_REQUESTED_RANGE_NOT_SATISFIABLE -> REQUESTED_RANGE_NOT_SATISFIABLE
+            SoupStatus.SOUP_STATUS_INVALID_RANGE -> INVALID_RANGE
+            SoupStatus.SOUP_STATUS_EXPECTATION_FAILED -> EXPECTATION_FAILED
+            SoupStatus.SOUP_STATUS_MISDIRECTED_REQUEST -> MISDIRECTED_REQUEST
+            SoupStatus.SOUP_STATUS_UNPROCESSABLE_ENTITY -> UNPROCESSABLE_ENTITY
+            SoupStatus.SOUP_STATUS_LOCKED -> LOCKED
+            SoupStatus.SOUP_STATUS_FAILED_DEPENDENCY -> FAILED_DEPENDENCY
+            SoupStatus.SOUP_STATUS_INTERNAL_SERVER_ERROR -> INTERNAL_SERVER_ERROR
+            SoupStatus.SOUP_STATUS_NOT_IMPLEMENTED -> NOT_IMPLEMENTED
+            SoupStatus.SOUP_STATUS_BAD_GATEWAY -> BAD_GATEWAY
+            SoupStatus.SOUP_STATUS_SERVICE_UNAVAILABLE -> SERVICE_UNAVAILABLE
+            SoupStatus.SOUP_STATUS_GATEWAY_TIMEOUT -> GATEWAY_TIMEOUT
+            SoupStatus.SOUP_STATUS_HTTP_VERSION_NOT_SUPPORTED -> HTTP_VERSION_NOT_SUPPORTED
+            SoupStatus.SOUP_STATUS_INSUFFICIENT_STORAGE -> INSUFFICIENT_STORAGE
+            SoupStatus.SOUP_STATUS_NOT_EXTENDED -> NOT_EXTENDED
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Looks up the stock HTTP description of @status_code.
@@ -379,7 +378,14 @@ public enum class Status(
          * @param statusCode an HTTP status code
          * @return the (terse, English) description of @status_code
          */
-        public fun getPhrase(statusCode: UInt): String =
+        public fun getPhrase(statusCode: guint): String =
             soup_status_get_phrase(statusCode)?.toKString() ?: error("Expected not null string")
+
+        /**
+         * Get the GType of Status
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_status_get_type()
     }
 }

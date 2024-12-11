@@ -2,15 +2,15 @@
 package org.gtkkn.bindings.glib
 
 import org.gtkkn.native.glib.GUnicodeType
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_unicode_type_get_type
 
 /**
  * These are the possible character classifications from the
  * Unicode specification.
  * See [Unicode Character Database](http://www.unicode.org/reports/tr44/#General_Category_Values).
  */
-public enum class UnicodeType(
-    public val nativeValue: GUnicodeType,
-) {
+public enum class UnicodeType(public val nativeValue: GUnicodeType) {
     /**
      * General category "Other, Control" (Cc)
      */
@@ -163,39 +163,45 @@ public enum class UnicodeType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GUnicodeType): UnicodeType =
-            when (nativeValue) {
-                GUnicodeType.G_UNICODE_CONTROL -> CONTROL
-                GUnicodeType.G_UNICODE_FORMAT -> FORMAT
-                GUnicodeType.G_UNICODE_UNASSIGNED -> UNASSIGNED
-                GUnicodeType.G_UNICODE_PRIVATE_USE -> PRIVATE_USE
-                GUnicodeType.G_UNICODE_SURROGATE -> SURROGATE
-                GUnicodeType.G_UNICODE_LOWERCASE_LETTER -> LOWERCASE_LETTER
-                GUnicodeType.G_UNICODE_MODIFIER_LETTER -> MODIFIER_LETTER
-                GUnicodeType.G_UNICODE_OTHER_LETTER -> OTHER_LETTER
-                GUnicodeType.G_UNICODE_TITLECASE_LETTER -> TITLECASE_LETTER
-                GUnicodeType.G_UNICODE_UPPERCASE_LETTER -> UPPERCASE_LETTER
-                GUnicodeType.G_UNICODE_SPACING_MARK -> SPACING_MARK
-                GUnicodeType.G_UNICODE_ENCLOSING_MARK -> ENCLOSING_MARK
-                GUnicodeType.G_UNICODE_NON_SPACING_MARK -> NON_SPACING_MARK
-                GUnicodeType.G_UNICODE_DECIMAL_NUMBER -> DECIMAL_NUMBER
-                GUnicodeType.G_UNICODE_LETTER_NUMBER -> LETTER_NUMBER
-                GUnicodeType.G_UNICODE_OTHER_NUMBER -> OTHER_NUMBER
-                GUnicodeType.G_UNICODE_CONNECT_PUNCTUATION -> CONNECT_PUNCTUATION
-                GUnicodeType.G_UNICODE_DASH_PUNCTUATION -> DASH_PUNCTUATION
-                GUnicodeType.G_UNICODE_CLOSE_PUNCTUATION -> CLOSE_PUNCTUATION
-                GUnicodeType.G_UNICODE_FINAL_PUNCTUATION -> FINAL_PUNCTUATION
-                GUnicodeType.G_UNICODE_INITIAL_PUNCTUATION -> INITIAL_PUNCTUATION
-                GUnicodeType.G_UNICODE_OTHER_PUNCTUATION -> OTHER_PUNCTUATION
-                GUnicodeType.G_UNICODE_OPEN_PUNCTUATION -> OPEN_PUNCTUATION
-                GUnicodeType.G_UNICODE_CURRENCY_SYMBOL -> CURRENCY_SYMBOL
-                GUnicodeType.G_UNICODE_MODIFIER_SYMBOL -> MODIFIER_SYMBOL
-                GUnicodeType.G_UNICODE_MATH_SYMBOL -> MATH_SYMBOL
-                GUnicodeType.G_UNICODE_OTHER_SYMBOL -> OTHER_SYMBOL
-                GUnicodeType.G_UNICODE_LINE_SEPARATOR -> LINE_SEPARATOR
-                GUnicodeType.G_UNICODE_PARAGRAPH_SEPARATOR -> PARAGRAPH_SEPARATOR
-                GUnicodeType.G_UNICODE_SPACE_SEPARATOR -> SPACE_SEPARATOR
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GUnicodeType): UnicodeType = when (nativeValue) {
+            GUnicodeType.G_UNICODE_CONTROL -> CONTROL
+            GUnicodeType.G_UNICODE_FORMAT -> FORMAT
+            GUnicodeType.G_UNICODE_UNASSIGNED -> UNASSIGNED
+            GUnicodeType.G_UNICODE_PRIVATE_USE -> PRIVATE_USE
+            GUnicodeType.G_UNICODE_SURROGATE -> SURROGATE
+            GUnicodeType.G_UNICODE_LOWERCASE_LETTER -> LOWERCASE_LETTER
+            GUnicodeType.G_UNICODE_MODIFIER_LETTER -> MODIFIER_LETTER
+            GUnicodeType.G_UNICODE_OTHER_LETTER -> OTHER_LETTER
+            GUnicodeType.G_UNICODE_TITLECASE_LETTER -> TITLECASE_LETTER
+            GUnicodeType.G_UNICODE_UPPERCASE_LETTER -> UPPERCASE_LETTER
+            GUnicodeType.G_UNICODE_SPACING_MARK -> SPACING_MARK
+            GUnicodeType.G_UNICODE_ENCLOSING_MARK -> ENCLOSING_MARK
+            GUnicodeType.G_UNICODE_NON_SPACING_MARK -> NON_SPACING_MARK
+            GUnicodeType.G_UNICODE_DECIMAL_NUMBER -> DECIMAL_NUMBER
+            GUnicodeType.G_UNICODE_LETTER_NUMBER -> LETTER_NUMBER
+            GUnicodeType.G_UNICODE_OTHER_NUMBER -> OTHER_NUMBER
+            GUnicodeType.G_UNICODE_CONNECT_PUNCTUATION -> CONNECT_PUNCTUATION
+            GUnicodeType.G_UNICODE_DASH_PUNCTUATION -> DASH_PUNCTUATION
+            GUnicodeType.G_UNICODE_CLOSE_PUNCTUATION -> CLOSE_PUNCTUATION
+            GUnicodeType.G_UNICODE_FINAL_PUNCTUATION -> FINAL_PUNCTUATION
+            GUnicodeType.G_UNICODE_INITIAL_PUNCTUATION -> INITIAL_PUNCTUATION
+            GUnicodeType.G_UNICODE_OTHER_PUNCTUATION -> OTHER_PUNCTUATION
+            GUnicodeType.G_UNICODE_OPEN_PUNCTUATION -> OPEN_PUNCTUATION
+            GUnicodeType.G_UNICODE_CURRENCY_SYMBOL -> CURRENCY_SYMBOL
+            GUnicodeType.G_UNICODE_MODIFIER_SYMBOL -> MODIFIER_SYMBOL
+            GUnicodeType.G_UNICODE_MATH_SYMBOL -> MATH_SYMBOL
+            GUnicodeType.G_UNICODE_OTHER_SYMBOL -> OTHER_SYMBOL
+            GUnicodeType.G_UNICODE_LINE_SEPARATOR -> LINE_SEPARATOR
+            GUnicodeType.G_UNICODE_PARAGRAPH_SEPARATOR -> PARAGRAPH_SEPARATOR
+            GUnicodeType.G_UNICODE_SPACE_SEPARATOR -> SPACE_SEPARATOR
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of UnicodeType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_unicode_type_get_type()
     }
 }

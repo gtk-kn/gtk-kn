@@ -1,17 +1,19 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBorder
 import org.gtkkn.native.gtk.gtk_border_copy
 import org.gtkkn.native.gtk.gtk_border_free
+import org.gtkkn.native.gtk.gtk_border_get_type
 import org.gtkkn.native.gtk.gtk_border_new
 import kotlin.Short
+import kotlin.String
 import kotlin.Unit
 
 /**
@@ -19,9 +21,7 @@ import kotlin.Unit
  *
  * Each side can have different width.
  */
-public class Border(
-    pointer: CPointer<GtkBorder>,
-) : Record {
+public class Border(pointer: CPointer<GtkBorder>) : ProxyInstance(pointer) {
     public val gtkBorderPointer: CPointer<GtkBorder> = pointer
 
     /**
@@ -29,6 +29,8 @@ public class Border(
      */
     public var left: Short
         get() = gtkBorderPointer.pointed.left
+
+        @UnsafeFieldSetter
         set(`value`) {
             gtkBorderPointer.pointed.left = value
         }
@@ -38,6 +40,8 @@ public class Border(
      */
     public var right: Short
         get() = gtkBorderPointer.pointed.right
+
+        @UnsafeFieldSetter
         set(`value`) {
             gtkBorderPointer.pointed.right = value
         }
@@ -47,6 +51,8 @@ public class Border(
      */
     public var top: Short
         get() = gtkBorderPointer.pointed.top
+
+        @UnsafeFieldSetter
         set(`value`) {
             gtkBorderPointer.pointed.top = value
         }
@@ -56,6 +62,8 @@ public class Border(
      */
     public var bottom: Short
         get() = gtkBorderPointer.pointed.bottom
+
+        @UnsafeFieldSetter
         set(`value`) {
             gtkBorderPointer.pointed.bottom = value
         }
@@ -65,17 +73,18 @@ public class Border(
      *
      * @return a copy of @border_.
      */
-    public fun copy(): Border =
-        gtk_border_copy(gtkBorderPointer.reinterpret())!!.run {
-            Border(reinterpret())
-        }
+    public fun copy(): Border = gtk_border_copy(gtkBorderPointer.reinterpret())!!.run {
+        Border(reinterpret())
+    }
 
     /**
      * Frees a `GtkBorder`.
      */
     public fun free(): Unit = gtk_border_free(gtkBorderPointer.reinterpret())
 
-    public companion object : RecordCompanion<Border, GtkBorder> {
+    override fun toString(): String = "Border(left=$left, right=$right, top=$top, bottom=$bottom)"
+
+    public companion object {
         /**
          * Allocates a new `GtkBorder` struct and initializes its elements to zero.
          *
@@ -84,6 +93,11 @@ public class Border(
          */
         public fun new(): Border = Border(gtk_border_new()!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Border = Border(pointer.reinterpret())
+        /**
+         * Get the GType of Border
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_border_get_type()
     }
 }

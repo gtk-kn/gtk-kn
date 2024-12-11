@@ -2,13 +2,13 @@
 package org.gtkkn.bindings.adw
 
 import org.gtkkn.native.adw.AdwToastPriority
+import org.gtkkn.native.adw.adw_toast_priority_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * [class@Toast] behavior when another toast is already displayed.
  */
-public enum class ToastPriority(
-    public val nativeValue: AdwToastPriority,
-) {
+public enum class ToastPriority(public val nativeValue: AdwToastPriority) {
     /**
      * the toast will be queued if another toast is
      *   already displayed.
@@ -23,11 +23,17 @@ public enum class ToastPriority(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: AdwToastPriority): ToastPriority =
-            when (nativeValue) {
-                AdwToastPriority.ADW_TOAST_PRIORITY_NORMAL -> NORMAL
-                AdwToastPriority.ADW_TOAST_PRIORITY_HIGH -> HIGH
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: AdwToastPriority): ToastPriority = when (nativeValue) {
+            AdwToastPriority.ADW_TOAST_PRIORITY_NORMAL -> NORMAL
+            AdwToastPriority.ADW_TOAST_PRIORITY_HIGH -> HIGH
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of ToastPriority
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_toast_priority_get_type()
     }
 }

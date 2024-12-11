@@ -11,15 +11,15 @@ import org.gtkkn.native.gdk.GDK_FRAME_CLOCK_PHASE_PAINT
 import org.gtkkn.native.gdk.GDK_FRAME_CLOCK_PHASE_RESUME_EVENTS
 import org.gtkkn.native.gdk.GDK_FRAME_CLOCK_PHASE_UPDATE
 import org.gtkkn.native.gdk.GdkFrameClockPhase
+import org.gtkkn.native.gdk.gdk_frame_clock_phase_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Used to represent the different paint clock phases that can be requested.
  *
  * The elements of the enumeration correspond to the signals of `GdkFrameClock`.
  */
-public class FrameClockPhase(
-    public val mask: GdkFrameClockPhase,
-) : Bitfield<FrameClockPhase> {
+public class FrameClockPhase(public val mask: GdkFrameClockPhase) : Bitfield<FrameClockPhase> {
     override infix fun or(other: FrameClockPhase): FrameClockPhase = FrameClockPhase(mask or other.mask)
 
     public companion object {
@@ -65,5 +65,12 @@ public class FrameClockPhase(
          * corresponds to GdkFrameClock::after-paint. Should not be handled by applications.
          */
         public val AFTER_PAINT: FrameClockPhase = FrameClockPhase(GDK_FRAME_CLOCK_PHASE_AFTER_PAINT)
+
+        /**
+         * Get the GType of FrameClockPhase
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_frame_clock_phase_get_type()
     }
 }

@@ -1,21 +1,21 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Bytes
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.soup.SoupMultipart
 import org.gtkkn.native.soup.soup_multipart_append_form_file
 import org.gtkkn.native.soup.soup_multipart_append_form_string
 import org.gtkkn.native.soup.soup_multipart_append_part
 import org.gtkkn.native.soup.soup_multipart_free
 import org.gtkkn.native.soup.soup_multipart_get_length
+import org.gtkkn.native.soup.soup_multipart_get_type
 import org.gtkkn.native.soup.soup_multipart_new
 import org.gtkkn.native.soup.soup_multipart_new_from_message
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 
@@ -38,9 +38,7 @@ import kotlin.Unit
  * - parameter `headers`: headers: Out parameter is not supported
  * - parameter `dest_body`: dest_body: Out parameter is not supported
  */
-public class Multipart(
-    pointer: CPointer<SoupMultipart>,
-) : Record {
+public class Multipart(pointer: CPointer<SoupMultipart>) : ProxyInstance(pointer) {
     public val soupMultipartPointer: CPointer<SoupMultipart> = pointer
 
     /**
@@ -58,14 +56,13 @@ public class Multipart(
         filename: String? = null,
         contentType: String? = null,
         body: Bytes,
-    ): Unit =
-        soup_multipart_append_form_file(
-            soupMultipartPointer.reinterpret(),
-            controlName,
-            filename,
-            contentType,
-            body.glibBytesPointer.reinterpret()
-        )
+    ): Unit = soup_multipart_append_form_file(
+        soupMultipartPointer.reinterpret(),
+        controlName,
+        filename,
+        contentType,
+        body.glibBytesPointer.reinterpret()
+    )
 
     /**
      * Adds a new MIME part containing @data to @multipart.
@@ -75,10 +72,8 @@ public class Multipart(
      * @param controlName the name of the control associated with @data
      * @param data the body data
      */
-    public fun appendFormString(
-        controlName: String,
-        `data`: String,
-    ): Unit = soup_multipart_append_form_string(soupMultipartPointer.reinterpret(), controlName, `data`)
+    public fun appendFormString(controlName: String, `data`: String): Unit =
+        soup_multipart_append_form_string(soupMultipartPointer.reinterpret(), controlName, `data`)
 
     /**
      * Adds a new MIME part to @multipart with the given headers and body.
@@ -90,15 +85,11 @@ public class Multipart(
      * @param headers the MIME part headers
      * @param body the MIME part body
      */
-    public fun appendPart(
-        headers: MessageHeaders,
-        body: Bytes,
-    ): Unit =
-        soup_multipart_append_part(
-            soupMultipartPointer.reinterpret(),
-            headers.soupMessageHeadersPointer.reinterpret(),
-            body.glibBytesPointer.reinterpret()
-        )
+    public fun appendPart(headers: MessageHeaders, body: Bytes): Unit = soup_multipart_append_part(
+        soupMultipartPointer.reinterpret(),
+        headers.soupMessageHeadersPointer.reinterpret(),
+        body.glibBytesPointer.reinterpret()
+    )
 
     /**
      * Frees @multipart.
@@ -110,9 +101,9 @@ public class Multipart(
      *
      * @return the number of body parts in @multipart
      */
-    public fun getLength(): Int = soup_multipart_get_length(soupMultipartPointer.reinterpret())
+    public fun getLength(): gint = soup_multipart_get_length(soupMultipartPointer.reinterpret())
 
-    public companion object : RecordCompanion<Multipart, SoupMultipart> {
+    public companion object {
         /**
          * Creates a new empty #SoupMultipart with a randomly-generated
          * boundary string.
@@ -134,17 +125,18 @@ public class Multipart(
          * @return a new #SoupMultipart (or null if the
          *   message couldn't be parsed or wasn't multipart).
          */
-        public fun newFromMessage(
-            headers: MessageHeaders,
-            body: Bytes,
-        ): Multipart? =
-            Multipart(
-                soup_multipart_new_from_message(
-                    headers.soupMessageHeadersPointer.reinterpret(),
-                    body.glibBytesPointer.reinterpret()
-                )!!.reinterpret()
-            )
+        public fun newFromMessage(headers: MessageHeaders, body: Bytes): Multipart? = Multipart(
+            soup_multipart_new_from_message(
+                headers.soupMessageHeadersPointer.reinterpret(),
+                body.glibBytesPointer.reinterpret()
+            )!!.reinterpret()
+        )
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Multipart = Multipart(pointer.reinterpret())
+        /**
+         * Get the GType of Multipart
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_multipart_get_type()
     }
 }

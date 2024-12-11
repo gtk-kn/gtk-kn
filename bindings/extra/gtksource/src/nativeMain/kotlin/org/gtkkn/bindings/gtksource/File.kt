@@ -2,12 +2,15 @@
 package org.gtkkn.bindings.gtksource
 
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceFile
 import org.gtkkn.native.gtksource.gtk_source_file_check_file_on_disk
 import org.gtkkn.native.gtksource.gtk_source_file_get_compression_type
@@ -21,6 +24,7 @@ import org.gtkkn.native.gtksource.gtk_source_file_is_local
 import org.gtkkn.native.gtksource.gtk_source_file_is_readonly
 import org.gtkkn.native.gtksource.gtk_source_file_new
 import org.gtkkn.native.gtksource.gtk_source_file_set_location
+import org.gtkkn.native.gtksource.gtk_source_file_set_mount_operation_factory
 import kotlin.Boolean
 import kotlin.Unit
 
@@ -40,9 +44,8 @@ import kotlin.Unit
  * - method `location`: Property TypeInfo of getter and setter do not match
  * - method `read-only`: Property has no getter nor setter
  */
-public open class File(
-    pointer: CPointer<GtkSourceFile>,
-) : Object(pointer.reinterpret()),
+public open class File(pointer: CPointer<GtkSourceFile>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtksourceFilePointer: CPointer<GtkSourceFile>
         get() = gPointer.reinterpret()
@@ -56,10 +59,9 @@ public open class File(
          *
          * @return the compression type.
          */
-        get() =
-            gtk_source_file_get_compression_type(gtksourceFilePointer.reinterpret()).run {
-                CompressionType.fromNativeValue(this)
-            }
+        get() = gtk_source_file_get_compression_type(gtksourceFilePointer.reinterpret()).run {
+            CompressionType.fromNativeValue(this)
+        }
 
     /**
      * The character encoding, initially null. After a successful file
@@ -72,10 +74,9 @@ public open class File(
          *
          * @return the character encoding.
          */
-        get() =
-            gtk_source_file_get_encoding(gtksourceFilePointer.reinterpret())!!.run {
-                Encoding(reinterpret())
-            }
+        get() = gtk_source_file_get_encoding(gtksourceFilePointer.reinterpret())!!.run {
+            Encoding(reinterpret())
+        }
 
     /**
      * The line ending type.
@@ -86,10 +87,9 @@ public open class File(
          *
          * @return the newline type.
          */
-        get() =
-            gtk_source_file_get_newline_type(gtksourceFilePointer.reinterpret()).run {
-                NewlineType.fromNativeValue(this)
-            }
+        get() = gtk_source_file_get_newline_type(gtksourceFilePointer.reinterpret()).run {
+            NewlineType.fromNativeValue(this)
+        }
 
     /**
      *
@@ -114,43 +114,11 @@ public open class File(
     /**
      *
      *
-     * @return the compression type.
-     */
-    public open fun getCompressionType(): CompressionType =
-        gtk_source_file_get_compression_type(gtksourceFilePointer.reinterpret()).run {
-            CompressionType.fromNativeValue(this)
-        }
-
-    /**
-     * The encoding is initially null. After a successful file loading or saving
-     * operation, the encoding is non-null.
-     *
-     * @return the character encoding.
-     */
-    public open fun getEncoding(): Encoding =
-        gtk_source_file_get_encoding(gtksourceFilePointer.reinterpret())!!.run {
-            Encoding(reinterpret())
-        }
-
-    /**
-     *
-     *
      * @return the #GFile.
      */
     public open fun getLocation(): org.gtkkn.bindings.gio.File =
         gtk_source_file_get_location(gtksourceFilePointer.reinterpret())!!.run {
-            org.gtkkn.bindings.gio.File
-                .wrap(reinterpret())
-        }
-
-    /**
-     *
-     *
-     * @return the newline type.
-     */
-    public open fun getNewlineType(): NewlineType =
-        gtk_source_file_get_newline_type(gtksourceFilePointer.reinterpret()).run {
-            NewlineType.fromNativeValue(this)
+            org.gtkkn.bindings.gio.File.wrap(reinterpret())
         }
 
     /**
@@ -203,6 +171,26 @@ public open class File(
     public open fun setLocation(location: org.gtkkn.bindings.gio.File? = null): Unit =
         gtk_source_file_set_location(gtksourceFilePointer.reinterpret(), location?.gioFilePointer)
 
+    /**
+     * Sets a [callback@MountOperationFactory] function that will be called when a
+     * [class@Gio.MountOperation] must be created.
+     *
+     * This is useful for creating a [class@Gtk.MountOperation] with the parent [class@Gtk.Window].
+     *
+     * If a mount operation factory isn't set, [ctor@Gio.MountOperation.new] will be
+     * called.
+     *
+     * @param callback a #GtkSourceMountOperationFactory to call when a
+     *   #GMountOperation is needed.
+     */
+    public open fun setMountOperationFactory(callback: MountOperationFactory): Unit =
+        gtk_source_file_set_mount_operation_factory(
+            gtksourceFilePointer.reinterpret(),
+            MountOperationFactoryFunc.reinterpret(),
+            StableRef.create(callback).asCPointer(),
+            staticStableRefDestroy.reinterpret()
+        )
+
     public companion object : TypeCompanion<File> {
         override val type: GeneratedClassKGType<File> =
             GeneratedClassKGType(gtk_source_file_get_type()) { File(it.reinterpret()) }
@@ -210,5 +198,12 @@ public open class File(
         init {
             GtksourceTypeProvider.register()
         }
+
+        /**
+         * Get the GType of File
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_file_get_type()
     }
 }

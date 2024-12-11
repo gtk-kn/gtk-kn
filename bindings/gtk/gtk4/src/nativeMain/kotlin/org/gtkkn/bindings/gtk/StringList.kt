@@ -2,6 +2,7 @@
 package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.cstr
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -12,6 +13,8 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkStringList
 import org.gtkkn.native.gtk.gtk_string_list_append
@@ -20,8 +23,8 @@ import org.gtkkn.native.gtk.gtk_string_list_get_type
 import org.gtkkn.native.gtk.gtk_string_list_new
 import org.gtkkn.native.gtk.gtk_string_list_remove
 import org.gtkkn.native.gtk.gtk_string_list_splice
+import org.gtkkn.native.gtk.gtk_string_list_take
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlin.collections.List
 
@@ -56,14 +59,12 @@ import kotlin.collections.List
  *
  * ## Skipped during bindings generation
  *
- * - method `take`: C function gtk_string_list_take is ignored
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  * - method `strings`: Property has no getter nor setter
  */
-public open class StringList(
-    pointer: CPointer<GtkStringList>,
-) : Object(pointer.reinterpret()),
+public open class StringList(pointer: CPointer<GtkStringList>) :
+    Object(pointer.reinterpret()),
     ListModel,
     Buildable,
     KGTyped {
@@ -109,7 +110,7 @@ public open class StringList(
      * @param position the position to get the string for
      * @return the string at the given position
      */
-    public open fun getString(position: UInt): String? =
+    public open fun getString(position: guint): String? =
         gtk_string_list_get_string(gtkStringListPointer.reinterpret(), position)?.toKString()
 
     /**
@@ -120,7 +121,7 @@ public open class StringList(
      *
      * @param position the position of the string that is to be removed
      */
-    public open fun remove(position: UInt): Unit = gtk_string_list_remove(gtkStringListPointer.reinterpret(), position)
+    public open fun remove(position: guint): Unit = gtk_string_list_remove(gtkStringListPointer.reinterpret(), position)
 
     /**
      * Changes @self by removing @n_removals strings and adding @additions
@@ -140,19 +141,29 @@ public open class StringList(
      * @param nRemovals the number of strings to remove
      * @param additions The strings to add
      */
-    public open fun splice(
-        position: UInt,
-        nRemovals: UInt,
-        additions: List<String>? = null,
-    ): Unit =
-        memScoped {
-            return gtk_string_list_splice(
-                gtkStringListPointer.reinterpret(),
-                position,
-                nRemovals,
-                additions?.toCStringList(this)
-            )
-        }
+    public open fun splice(position: guint, nRemovals: guint, additions: List<String>? = null): Unit = memScoped {
+        return gtk_string_list_splice(
+            gtkStringListPointer.reinterpret(),
+            position,
+            nRemovals,
+            additions?.toCStringList(this)
+        )
+    }
+
+    /**
+     * Adds @string to self at the end, and takes
+     * ownership of it.
+     *
+     * This variant of [method@Gtk.StringList.append]
+     * is convenient for formatting strings:
+     *
+     * ```c
+     * gtk_string_list_take (self, g_strdup_print ("%d dollars", lots));
+     * ```
+     *
+     * @param string the string to insert
+     */
+    public open fun take(string: String): Unit = gtk_string_list_take(gtkStringListPointer.reinterpret(), string.cstr)
 
     public companion object : TypeCompanion<StringList> {
         override val type: GeneratedClassKGType<StringList> =
@@ -161,5 +172,12 @@ public open class StringList(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of StringList
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_string_list_get_type()
     }
 }

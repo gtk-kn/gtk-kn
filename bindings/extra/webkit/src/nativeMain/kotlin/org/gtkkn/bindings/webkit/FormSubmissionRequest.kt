@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitFormSubmissionRequest
 import org.gtkkn.native.webkit.webkit_form_submission_request_get_type
 import org.gtkkn.native.webkit.webkit_form_submission_request_submit
@@ -26,9 +27,8 @@ import kotlin.Unit
  *
  * - parameter `field_names`: field_names: Out parameter is not supported
  */
-public class FormSubmissionRequest(
-    pointer: CPointer<WebKitFormSubmissionRequest>,
-) : Object(pointer.reinterpret()),
+public class FormSubmissionRequest(pointer: CPointer<WebKitFormSubmissionRequest>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val webkitFormSubmissionRequestPointer: CPointer<WebKitFormSubmissionRequest>
         get() = gPointer.reinterpret()
@@ -40,12 +40,19 @@ public class FormSubmissionRequest(
 
     public companion object : TypeCompanion<FormSubmissionRequest> {
         override val type: GeneratedClassKGType<FormSubmissionRequest> =
-            GeneratedClassKGType(
-                webkit_form_submission_request_get_type()
-            ) { FormSubmissionRequest(it.reinterpret()) }
+            GeneratedClassKGType(webkit_form_submission_request_get_type()) {
+                FormSubmissionRequest(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()
         }
+
+        /**
+         * Get the GType of FormSubmissionRequest
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_form_submission_request_get_type()
     }
 }

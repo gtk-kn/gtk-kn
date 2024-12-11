@@ -13,11 +13,12 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gtk.GtkGestureDrag
 import org.gtkkn.native.gtk.gtk_gesture_drag_get_type
 import org.gtkkn.native.gtk.gtk_gesture_drag_new
-import kotlin.Double
 import kotlin.ULong
 import kotlin.Unit
 
@@ -37,9 +38,8 @@ import kotlin.Unit
  * - parameter `x`: x: Out parameter is not supported
  * - parameter `x`: x: Out parameter is not supported
  */
-public open class GestureDrag(
-    pointer: CPointer<GtkGestureDrag>,
-) : GestureSingle(pointer.reinterpret()),
+public open class GestureDrag(pointer: CPointer<GtkGestureDrag>) :
+    GestureSingle(pointer.reinterpret()),
     KGTyped {
     public val gtkGestureDragPointer: CPointer<GtkGestureDrag>
         get() = gPointer.reinterpret()
@@ -59,16 +59,15 @@ public open class GestureDrag(
      */
     public fun connectDragBegin(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (startX: Double, startY: Double) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "drag-begin",
-            connectDragBeginFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+        handler: (startX: gdouble, startY: gdouble) -> Unit,
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "drag-begin",
+        connectDragBeginFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted whenever the dragging is finished.
@@ -78,16 +77,15 @@ public open class GestureDrag(
      */
     public fun connectDragEnd(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (offsetX: Double, offsetY: Double) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "drag-end",
-            connectDragEndFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+        handler: (offsetX: gdouble, offsetY: gdouble) -> Unit,
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "drag-end",
+        connectDragEndFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted whenever the dragging point moves.
@@ -97,16 +95,15 @@ public open class GestureDrag(
      */
     public fun connectDragUpdate(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (offsetX: Double, offsetY: Double) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "drag-update",
-            connectDragUpdateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+        handler: (offsetX: gdouble, offsetY: gdouble) -> Unit,
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "drag-update",
+        connectDragUpdateFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<GestureDrag> {
         override val type: GeneratedClassKGType<GestureDrag> =
@@ -115,35 +112,44 @@ public open class GestureDrag(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of GestureDrag
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_gesture_drag_get_type()
     }
 }
 
-private val connectDragBeginFunc: CPointer<CFunction<(Double, Double) -> Unit>> =
+private val connectDragBeginFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
-            startX: Double,
-            startY: Double,
+            startX: gdouble,
+            startY: gdouble,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(startX: Double, startY: Double) -> Unit>().get().invoke(startX, startY)
-    }.reinterpret()
+        userData.asStableRef<(startX: gdouble, startY: gdouble) -> Unit>().get().invoke(startX, startY)
+    }
+        .reinterpret()
 
-private val connectDragEndFunc: CPointer<CFunction<(Double, Double) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            offsetX: Double,
-            offsetY: Double,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(offsetX: Double, offsetY: Double) -> Unit>().get().invoke(offsetX, offsetY)
-    }.reinterpret()
+private val connectDragEndFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        offsetX: gdouble,
+        offsetY: gdouble,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(offsetX: gdouble, offsetY: gdouble) -> Unit>().get().invoke(offsetX, offsetY)
+}
+    .reinterpret()
 
-private val connectDragUpdateFunc: CPointer<CFunction<(Double, Double) -> Unit>> =
+private val connectDragUpdateFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
-            offsetX: Double,
-            offsetY: Double,
+            offsetX: gdouble,
+            offsetY: gdouble,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(offsetX: Double, offsetY: Double) -> Unit>().get().invoke(offsetX, offsetY)
-    }.reinterpret()
+        userData.asStableRef<(offsetX: gdouble, offsetY: gdouble) -> Unit>().get().invoke(offsetX, offsetY)
+    }
+        .reinterpret()

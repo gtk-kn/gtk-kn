@@ -1,14 +1,21 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GFlagsClass
-import kotlin.UInt
+import org.gtkkn.native.gobject.guint
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * The class of a flags type holds information about its
@@ -18,16 +25,16 @@ import kotlin.UInt
  *
  * - field `g_type_class`: TypeClass
  */
-public class FlagsClass(
-    pointer: CPointer<GFlagsClass>,
-) : Record {
+public class FlagsClass(pointer: CPointer<GFlagsClass>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gobjectFlagsClassPointer: CPointer<GFlagsClass> = pointer
 
     /**
      * a mask covering all possible values.
      */
-    public var mask: UInt
+    public var mask: guint
         get() = gobjectFlagsClassPointer.pointed.mask
+
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectFlagsClassPointer.pointed.mask = value
         }
@@ -35,8 +42,10 @@ public class FlagsClass(
     /**
      * the number of possible values.
      */
-    public var nValues: UInt
+    public var nValues: guint
         get() = gobjectFlagsClassPointer.pointed.n_values
+
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectFlagsClassPointer.pointed.n_values = value
         }
@@ -44,16 +53,88 @@ public class FlagsClass(
     /**
      * an array of #GFlagsValue structs describing the
      *  individual values.
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val values: FlagsValue?
-        get() =
-            gobjectFlagsClassPointer.pointed.values?.run {
-                FlagsValue(reinterpret())
-            }
+    public var values: FlagsValue?
+        get() = gobjectFlagsClassPointer.pointed.values?.run {
+            FlagsValue(reinterpret())
+        }
 
-    public companion object : RecordCompanion<FlagsClass, GFlagsClass> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FlagsClass = FlagsClass(pointer.reinterpret())
+        @UnsafeFieldSetter
+        set(`value`) {
+            gobjectFlagsClassPointer.pointed.values = value?.gobjectFlagsValuePointer
+        }
+
+    /**
+     * Allocate a new FlagsClass.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<GFlagsClass>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to FlagsClass and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GFlagsClass>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new FlagsClass using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GFlagsClass>().ptr)
+
+    /**
+     * Allocate a new FlagsClass.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param mask a mask covering all possible values.
+     * @param nValues the number of possible values.
+     * @param values an array of #GFlagsValue structs describing the
+     *  individual values.
+     */
+    public constructor(
+        mask: guint,
+        nValues: guint,
+        values: FlagsValue?,
+    ) : this() {
+        this.mask = mask
+        this.nValues = nValues
+        this.values = values
     }
+
+    /**
+     * Allocate a new FlagsClass using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param mask a mask covering all possible values.
+     * @param nValues the number of possible values.
+     * @param values an array of #GFlagsValue structs describing the
+     *  individual values.
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        mask: guint,
+        nValues: guint,
+        values: FlagsValue?,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.mask = mask
+        this.nValues = nValues
+        this.values = values
+    }
+
+    override fun toString(): String = "FlagsClass(mask=$mask, nValues=$nValues, values=$values)"
 }

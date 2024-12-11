@@ -1,18 +1,18 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_44
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_6
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GOptionGroup
 import org.gtkkn.native.glib.g_option_group_free
 import org.gtkkn.native.glib.g_option_group_ref
 import org.gtkkn.native.glib.g_option_group_set_translation_domain
 import org.gtkkn.native.glib.g_option_group_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_option_group_get_type
 import kotlin.String
 import kotlin.Unit
 
@@ -28,12 +28,12 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `entries`: OptionEntry
+ * - parameter `error_func`: OptionErrorFunc
+ * - parameter `pre_parse_func`: OptionParseFunc
  * - method `set_translate_func`: C function g_option_group_set_translate_func is ignored
  * - parameter `user_data`: gpointer
  */
-public class OptionGroup(
-    pointer: CPointer<GOptionGroup>,
-) : Record {
+public class OptionGroup(pointer: CPointer<GOptionGroup>) : ProxyInstance(pointer) {
     public val glibOptionGroupPointer: CPointer<GOptionGroup> = pointer
 
     /**
@@ -52,10 +52,9 @@ public class OptionGroup(
      * @since 2.44
      */
     @GLibVersion2_44
-    public fun ref(): OptionGroup =
-        g_option_group_ref(glibOptionGroupPointer.reinterpret())!!.run {
-            OptionGroup(reinterpret())
-        }
+    public fun ref(): OptionGroup = g_option_group_ref(glibOptionGroupPointer.reinterpret())!!.run {
+        OptionGroup(reinterpret())
+    }
 
     /**
      * A convenience function to use gettext() for translating
@@ -78,8 +77,12 @@ public class OptionGroup(
     @GLibVersion2_44
     public fun unref(): Unit = g_option_group_unref(glibOptionGroupPointer.reinterpret())
 
-    public companion object : RecordCompanion<OptionGroup, GOptionGroup> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): OptionGroup =
-            OptionGroup(pointer.reinterpret())
+    public companion object {
+        /**
+         * Get the GType of OptionGroup
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_option_group_get_type()
     }
 }

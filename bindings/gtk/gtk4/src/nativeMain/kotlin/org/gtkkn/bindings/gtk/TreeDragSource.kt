@@ -9,6 +9,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkTreeDragSource
 import org.gtkkn.native.gtk.gtk_tree_drag_source_drag_data_delete
 import org.gtkkn.native.gtk.gtk_tree_drag_source_drag_data_get
@@ -34,11 +35,10 @@ public interface TreeDragSource :
      * @param path row that was being dragged
      * @return true if the row was successfully deleted
      */
-    public fun dragDataDelete(path: TreePath): Boolean =
-        gtk_tree_drag_source_drag_data_delete(
-            gtkTreeDragSourcePointer.reinterpret(),
-            path.gtkTreePathPointer.reinterpret()
-        ).asBoolean()
+    public fun dragDataDelete(path: TreePath): Boolean = gtk_tree_drag_source_drag_data_delete(
+        gtkTreeDragSourcePointer.reinterpret(),
+        path.gtkTreePathPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Asks the `GtkTreeDragSource` to return a `GdkContentProvider` representing
@@ -49,13 +49,12 @@ public interface TreeDragSource :
      * @return a `GdkContentProvider` for the
      *    given @path
      */
-    public fun dragDataGet(path: TreePath): ContentProvider? =
-        gtk_tree_drag_source_drag_data_get(
-            gtkTreeDragSourcePointer.reinterpret(),
-            path.gtkTreePathPointer.reinterpret()
-        )?.run {
-            ContentProvider(reinterpret())
-        }
+    public fun dragDataGet(path: TreePath): ContentProvider? = gtk_tree_drag_source_drag_data_get(
+        gtkTreeDragSourcePointer.reinterpret(),
+        path.gtkTreePathPointer.reinterpret()
+    )?.run {
+        ContentProvider(reinterpret())
+    }
 
     /**
      * Asks the `GtkTreeDragSource` whether a particular row can be used as
@@ -65,15 +64,12 @@ public interface TreeDragSource :
      * @param path row on which user is initiating a drag
      * @return true if the row can be dragged
      */
-    public fun rowDraggable(path: TreePath): Boolean =
-        gtk_tree_drag_source_row_draggable(
-            gtkTreeDragSourcePointer.reinterpret(),
-            path.gtkTreePathPointer.reinterpret()
-        ).asBoolean()
+    public fun rowDraggable(path: TreePath): Boolean = gtk_tree_drag_source_row_draggable(
+        gtkTreeDragSourcePointer.reinterpret(),
+        path.gtkTreePathPointer.reinterpret()
+    ).asBoolean()
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkTreeDragSource>,
-    ) : TreeDragSource {
+    private data class Wrapper(private val pointer: CPointer<GtkTreeDragSource>) : TreeDragSource {
         override val gtkTreeDragSourcePointer: CPointer<GtkTreeDragSource> = pointer
     }
 
@@ -86,5 +82,12 @@ public interface TreeDragSource :
         }
 
         public fun wrap(pointer: CPointer<GtkTreeDragSource>): TreeDragSource = Wrapper(pointer)
+
+        /**
+         * Get the GType of TreeDragSource
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_tree_drag_source_get_type()
     }
 }

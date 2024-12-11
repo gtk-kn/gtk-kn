@@ -13,13 +13,14 @@ import org.gtkkn.bindings.gio.AsyncReadyCallbackFunc
 import org.gtkkn.bindings.gio.AsyncResult
 import org.gtkkn.bindings.gio.Cancellable
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.bindings.gtksource.Gtksource.resolveException
+import org.gtkkn.bindings.gtksource.GtkSource.resolveException
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceHoverProvider
 import org.gtkkn.native.gtksource.gtk_source_hover_provider_get_type
 import org.gtkkn.native.gtksource.gtk_source_hover_provider_populate_async
@@ -45,53 +46,35 @@ public interface HoverProvider :
     KGTyped {
     public val gtksourceHoverProviderPointer: CPointer<GtkSourceHoverProvider>
 
-    /**
-     *
-     *
-     * @param context
-     * @param display
-     * @param cancellable
-     * @param callback
-     */
     public fun populateAsync(
         context: HoverContext,
         display: HoverDisplay,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        gtk_source_hover_provider_populate_async(
+    ): Unit = gtk_source_hover_provider_populate_async(
+        gtksourceHoverProviderPointer.reinterpret(),
+        context.gtksourceHoverContextPointer.reinterpret(),
+        display.gtksourceHoverDisplayPointer.reinterpret(),
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
+
+    public fun populateFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gtk_source_hover_provider_populate_finish(
             gtksourceHoverProviderPointer.reinterpret(),
-            context.gtksourceHoverContextPointer.reinterpret(),
-            display.gtksourceHoverDisplayPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
-
-    /**
-     *
-     *
-     * @param result
-     */
-    public fun populateFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gtk_source_hover_provider_populate_finish(
-                    gtksourceHoverProviderPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkSourceHoverProvider>,
-    ) : HoverProvider {
+    private data class Wrapper(private val pointer: CPointer<GtkSourceHoverProvider>) : HoverProvider {
         override val gtksourceHoverProviderPointer: CPointer<GtkSourceHoverProvider> = pointer
     }
 
@@ -104,5 +87,12 @@ public interface HoverProvider :
         }
 
         public fun wrap(pointer: CPointer<GtkSourceHoverProvider>): HoverProvider = Wrapper(pointer)
+
+        /**
+         * Get the GType of HoverProvider
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_hover_provider_get_type()
     }
 }

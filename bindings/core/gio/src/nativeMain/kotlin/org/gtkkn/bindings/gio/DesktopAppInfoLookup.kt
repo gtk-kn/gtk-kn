@@ -10,6 +10,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GDesktopAppInfoLookup
 import org.gtkkn.native.gio.g_desktop_app_info_lookup_get_default_for_uri_scheme
 import org.gtkkn.native.gio.g_desktop_app_info_lookup_get_type
+import org.gtkkn.native.gobject.GType
 import kotlin.String
 
 /**
@@ -43,9 +44,7 @@ public interface DesktopAppInfoLookup :
             AppInfo.wrap(reinterpret())
         }
 
-    private data class Wrapper(
-        private val pointer: CPointer<GDesktopAppInfoLookup>,
-    ) : DesktopAppInfoLookup {
+    private data class Wrapper(private val pointer: CPointer<GDesktopAppInfoLookup>) : DesktopAppInfoLookup {
         override val gioDesktopAppInfoLookupPointer: CPointer<GDesktopAppInfoLookup> = pointer
     }
 
@@ -58,5 +57,12 @@ public interface DesktopAppInfoLookup :
         }
 
         public fun wrap(pointer: CPointer<GDesktopAppInfoLookup>): DesktopAppInfoLookup = Wrapper(pointer)
+
+        /**
+         * Get the GType of DesktopAppInfoLookup
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_desktop_app_info_lookup_get_type()
     }
 }

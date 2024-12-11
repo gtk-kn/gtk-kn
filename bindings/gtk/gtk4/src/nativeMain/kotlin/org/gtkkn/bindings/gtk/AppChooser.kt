@@ -9,6 +9,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAppChooser
 import org.gtkkn.native.gtk.gtk_app_chooser_get_app_info
 import org.gtkkn.native.gtk.gtk_app_chooser_get_content_type
@@ -55,9 +56,8 @@ public interface AppChooser :
          *
          * @return the content type of @self. Free with g_free()
          */
-        get() =
-            gtk_app_chooser_get_content_type(gtkAppChooserPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_app_chooser_get_content_type(gtkAppChooserPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Returns the currently selected application.
@@ -65,10 +65,9 @@ public interface AppChooser :
      * @return a `GAppInfo` for the
      *   currently selected application
      */
-    public fun getAppInfo(): AppInfo? =
-        gtk_app_chooser_get_app_info(gtkAppChooserPointer.reinterpret())?.run {
-            AppInfo.wrap(reinterpret())
-        }
+    public fun getAppInfo(): AppInfo? = gtk_app_chooser_get_app_info(gtkAppChooserPointer.reinterpret())?.run {
+        AppInfo.wrap(reinterpret())
+    }
 
     /**
      * Returns the content type for which the `GtkAppChooser`
@@ -85,9 +84,7 @@ public interface AppChooser :
      */
     public fun refresh(): Unit = gtk_app_chooser_refresh(gtkAppChooserPointer.reinterpret())
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkAppChooser>,
-    ) : AppChooser {
+    private data class Wrapper(private val pointer: CPointer<GtkAppChooser>) : AppChooser {
         override val gtkAppChooserPointer: CPointer<GtkAppChooser> = pointer
     }
 
@@ -100,5 +97,12 @@ public interface AppChooser :
         }
 
         public fun wrap(pointer: CPointer<GtkAppChooser>): AppChooser = Wrapper(pointer)
+
+        /**
+         * Get the GType of AppChooser
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_app_chooser_get_type()
     }
 }

@@ -14,6 +14,7 @@ import org.gtkkn.native.gio.g_unix_credentials_message_get_type
 import org.gtkkn.native.gio.g_unix_credentials_message_is_supported
 import org.gtkkn.native.gio.g_unix_credentials_message_new
 import org.gtkkn.native.gio.g_unix_credentials_message_new_with_credentials
+import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 
 /**
@@ -39,9 +40,8 @@ import kotlin.Boolean
  * @since 2.26
  */
 @GioVersion2_26
-public open class UnixCredentialsMessage(
-    pointer: CPointer<GUnixCredentialsMessage>,
-) : SocketControlMessage(pointer.reinterpret()),
+public open class UnixCredentialsMessage(pointer: CPointer<GUnixCredentialsMessage>) :
+    SocketControlMessage(pointer.reinterpret()),
     KGTyped {
     public val gioUnixCredentialsMessagePointer: CPointer<GUnixCredentialsMessage>
         get() = gPointer.reinterpret()
@@ -59,10 +59,9 @@ public open class UnixCredentialsMessage(
          * @return A #GCredentials instance. Do not free, it is owned by @message.
          * @since 2.26
          */
-        get() =
-            g_unix_credentials_message_get_credentials(gioUnixCredentialsMessagePointer.reinterpret())!!.run {
-                Credentials(reinterpret())
-            }
+        get() = g_unix_credentials_message_get_credentials(gioUnixCredentialsMessagePointer.reinterpret())!!.run {
+            Credentials(reinterpret())
+        }
 
     /**
      * Creates a new #GUnixCredentialsMessage with credentials matching the current processes.
@@ -85,18 +84,6 @@ public open class UnixCredentialsMessage(
         g_unix_credentials_message_new_with_credentials(credentials.gioCredentialsPointer.reinterpret())!!.reinterpret()
     )
 
-    /**
-     * Gets the credentials stored in @message.
-     *
-     * @return A #GCredentials instance. Do not free, it is owned by @message.
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public open fun getCredentials(): Credentials =
-        g_unix_credentials_message_get_credentials(gioUnixCredentialsMessagePointer.reinterpret())!!.run {
-            Credentials(reinterpret())
-        }
-
     public companion object : TypeCompanion<UnixCredentialsMessage> {
         override val type: GeneratedClassKGType<UnixCredentialsMessage> =
             GeneratedClassKGType(g_unix_credentials_message_get_type()) { UnixCredentialsMessage(it.reinterpret()) }
@@ -113,5 +100,12 @@ public open class UnixCredentialsMessage(
          */
         @GioVersion2_26
         public fun isSupported(): Boolean = g_unix_credentials_message_is_supported().asBoolean()
+
+        /**
+         * Get the GType of UnixCredentialsMessage
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_unix_credentials_message_get_type()
     }
 }

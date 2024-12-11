@@ -19,8 +19,8 @@ import org.gtkkn.native.gio.g_network_service_get_service
 import org.gtkkn.native.gio.g_network_service_get_type
 import org.gtkkn.native.gio.g_network_service_new
 import org.gtkkn.native.gio.g_network_service_set_scheme
+import org.gtkkn.native.gobject.GType
 import kotlin.String
-import kotlin.Unit
 
 /**
  * Like [class@Gio.NetworkAddress] does with hostnames, `GNetworkService`
@@ -33,9 +33,8 @@ import kotlin.Unit
  * [iface@Gio.SocketConnectable] for an example of using the connectable
  * interface.
  */
-public open class NetworkService(
-    pointer: CPointer<GNetworkService>,
-) : Object(pointer.reinterpret()),
+public open class NetworkService(pointer: CPointer<GNetworkService>) :
+    Object(pointer.reinterpret()),
     SocketConnectable,
     KGTyped {
     public val gioNetworkServicePointer: CPointer<GNetworkService>
@@ -58,9 +57,8 @@ public open class NetworkService(
          * @return @srv's domain name
          * @since 2.22
          */
-        get() =
-            g_network_service_get_domain(gioNetworkServicePointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = g_network_service_get_domain(gioNetworkServicePointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Network protocol, for example `tcp`.
@@ -75,9 +73,8 @@ public open class NetworkService(
          * @return @srv's protocol name
          * @since 2.22
          */
-        get() =
-            g_network_service_get_protocol(gioNetworkServicePointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = g_network_service_get_protocol(gioNetworkServicePointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Network scheme (default is to use service).
@@ -93,9 +90,8 @@ public open class NetworkService(
          * @return @srv's scheme name
          * @since 2.26
          */
-        get() =
-            g_network_service_get_scheme(gioNetworkServicePointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = g_network_service_get_scheme(gioNetworkServicePointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Set's the URI scheme used to resolve proxies. By default, the service name
@@ -120,9 +116,8 @@ public open class NetworkService(
          * @return @srv's service name
          * @since 2.22
          */
-        get() =
-            g_network_service_get_service(gioNetworkServicePointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = g_network_service_get_service(gioNetworkServicePointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Creates a new #GNetworkService representing the given @service,
@@ -141,63 +136,6 @@ public open class NetworkService(
         domain: String,
     ) : this(g_network_service_new(service, protocol, domain)!!.reinterpret())
 
-    /**
-     * Gets the domain that @srv serves. This might be either UTF-8 or
-     * ASCII-encoded, depending on what @srv was created with.
-     *
-     * @return @srv's domain name
-     * @since 2.22
-     */
-    @GioVersion2_22
-    public open fun getDomain(): String =
-        g_network_service_get_domain(gioNetworkServicePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets @srv's protocol name (eg, "tcp").
-     *
-     * @return @srv's protocol name
-     * @since 2.22
-     */
-    @GioVersion2_22
-    public open fun getProtocol(): String =
-        g_network_service_get_protocol(gioNetworkServicePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets the URI scheme used to resolve proxies. By default, the service name
-     * is used as scheme.
-     *
-     * @return @srv's scheme name
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public open fun getScheme(): String =
-        g_network_service_get_scheme(gioNetworkServicePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets @srv's service name (eg, "ldap").
-     *
-     * @return @srv's service name
-     * @since 2.22
-     */
-    @GioVersion2_22
-    public open fun getService(): String =
-        g_network_service_get_service(gioNetworkServicePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Set's the URI scheme used to resolve proxies. By default, the service name
-     * is used as scheme.
-     *
-     * @param scheme a URI scheme
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public open fun setScheme(scheme: String): Unit =
-        g_network_service_set_scheme(gioNetworkServicePointer.reinterpret(), scheme)
-
     public companion object : TypeCompanion<NetworkService> {
         override val type: GeneratedClassKGType<NetworkService> =
             GeneratedClassKGType(g_network_service_get_type()) { NetworkService(it.reinterpret()) }
@@ -205,5 +143,12 @@ public open class NetworkService(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of NetworkService
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_network_service_get_type()
     }
 }

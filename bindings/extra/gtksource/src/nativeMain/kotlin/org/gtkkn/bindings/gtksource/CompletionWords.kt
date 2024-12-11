@@ -8,6 +8,7 @@ import org.gtkkn.bindings.gtk.TextBuffer
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceCompletionProvider
 import org.gtkkn.native.gtksource.GtkSourceCompletionWords
 import org.gtkkn.native.gtksource.gtk_source_completion_words_get_type
@@ -32,9 +33,8 @@ import kotlin.Unit
  * - method `scan-batch-size`: Property has no getter nor setter
  * - method `title`: Property has no getter nor setter
  */
-public open class CompletionWords(
-    pointer: CPointer<GtkSourceCompletionWords>,
-) : Object(pointer.reinterpret()),
+public open class CompletionWords(pointer: CPointer<GtkSourceCompletionWords>) :
+    Object(pointer.reinterpret()),
     CompletionProvider,
     KGTyped {
     public val gtksourceCompletionWordsPointer: CPointer<GtkSourceCompletionWords>
@@ -56,22 +56,20 @@ public open class CompletionWords(
      *
      * @param buffer a #GtkTextBuffer
      */
-    public open fun register(buffer: TextBuffer): Unit =
-        gtk_source_completion_words_register(
-            gtksourceCompletionWordsPointer.reinterpret(),
-            buffer.gtkTextBufferPointer.reinterpret()
-        )
+    public open fun register(buffer: TextBuffer): Unit = gtk_source_completion_words_register(
+        gtksourceCompletionWordsPointer.reinterpret(),
+        buffer.gtkTextBufferPointer.reinterpret()
+    )
 
     /**
      * Unregisters @buffer from the @words provider.
      *
      * @param buffer a #GtkTextBuffer
      */
-    public open fun unregister(buffer: TextBuffer): Unit =
-        gtk_source_completion_words_unregister(
-            gtksourceCompletionWordsPointer.reinterpret(),
-            buffer.gtkTextBufferPointer.reinterpret()
-        )
+    public open fun unregister(buffer: TextBuffer): Unit = gtk_source_completion_words_unregister(
+        gtksourceCompletionWordsPointer.reinterpret(),
+        buffer.gtkTextBufferPointer.reinterpret()
+    )
 
     public companion object : TypeCompanion<CompletionWords> {
         override val type: GeneratedClassKGType<CompletionWords> =
@@ -80,5 +78,12 @@ public open class CompletionWords(
         init {
             GtksourceTypeProvider.register()
         }
+
+        /**
+         * Get the GType of CompletionWords
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_completion_words_get_type()
     }
 }

@@ -1,15 +1,16 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.HashTable
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gint64
 import org.gtkkn.native.soup.SoupMessageHeaders
 import org.gtkkn.native.soup.soup_message_headers_append
 import org.gtkkn.native.soup.soup_message_headers_clean_connection_headers
@@ -22,6 +23,7 @@ import org.gtkkn.native.soup.soup_message_headers_get_expectations
 import org.gtkkn.native.soup.soup_message_headers_get_headers_type
 import org.gtkkn.native.soup.soup_message_headers_get_list
 import org.gtkkn.native.soup.soup_message_headers_get_one
+import org.gtkkn.native.soup.soup_message_headers_get_type
 import org.gtkkn.native.soup.soup_message_headers_header_contains
 import org.gtkkn.native.soup.soup_message_headers_header_equals
 import org.gtkkn.native.soup.soup_message_headers_new
@@ -38,8 +40,6 @@ import org.gtkkn.native.soup.soup_message_headers_set_range
 import org.gtkkn.native.soup.soup_message_headers_set_ranges
 import org.gtkkn.native.soup.soup_message_headers_unref
 import kotlin.Boolean
-import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Unit
 
@@ -53,9 +53,7 @@ import kotlin.Unit
  * - parameter `params`: params: Out parameter is not supported
  * - parameter `ranges`: ranges: Out parameter is not supported
  */
-public class MessageHeaders(
-    pointer: CPointer<SoupMessageHeaders>,
-) : Record {
+public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : ProxyInstance(pointer) {
     public val soupMessageHeadersPointer: CPointer<SoupMessageHeaders> = pointer
 
     /**
@@ -71,10 +69,8 @@ public class MessageHeaders(
      * @param name the header name to add
      * @param value the new value of @name
      */
-    public fun append(
-        name: String,
-        `value`: String,
-    ): Unit = soup_message_headers_append(soupMessageHeadersPointer.reinterpret(), name, `value`)
+    public fun append(name: String, `value`: String): Unit =
+        soup_message_headers_append(soupMessageHeadersPointer.reinterpret(), name, `value`)
 
     /**
      * Removes all the headers listed in the Connection header.
@@ -103,12 +99,11 @@ public class MessageHeaders(
      *
      * @param func callback function to run for each header
      */
-    public fun foreach(func: MessageHeadersForeachFunc): Unit =
-        soup_message_headers_foreach(
-            soupMessageHeadersPointer.reinterpret(),
-            MessageHeadersForeachFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )
+    public fun foreach(func: MessageHeadersForeachFunc): Unit = soup_message_headers_foreach(
+        soupMessageHeadersPointer.reinterpret(),
+        MessageHeadersForeachFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer()
+    )
 
     /**
      * Frees the array of ranges returned from [method@MessageHeaders.get_ranges].
@@ -126,7 +121,7 @@ public class MessageHeaders(
      *
      * @return the message body length declared by @hdrs.
      */
-    public fun getContentLength(): Long =
+    public fun getContentLength(): gint64 =
         soup_message_headers_get_content_length(soupMessageHeadersPointer.reinterpret())
 
     /**
@@ -217,10 +212,8 @@ public class MessageHeaders(
      * @return true if the header is present and contains @token,
      *   false otherwise.
      */
-    public fun headerContains(
-        name: String,
-        token: String,
-    ): Boolean = soup_message_headers_header_contains(soupMessageHeadersPointer.reinterpret(), name, token).asBoolean()
+    public fun headerContains(name: String, token: String): Boolean =
+        soup_message_headers_header_contains(soupMessageHeadersPointer.reinterpret(), name, token).asBoolean()
 
     /**
      * Checks whether the header @name is present in @hdrs and is
@@ -231,20 +224,17 @@ public class MessageHeaders(
      * @return true if the header is present and its value is
      *   @value, false otherwise.
      */
-    public fun headerEquals(
-        name: String,
-        `value`: String,
-    ): Boolean = soup_message_headers_header_equals(soupMessageHeadersPointer.reinterpret(), name, `value`).asBoolean()
+    public fun headerEquals(name: String, `value`: String): Boolean =
+        soup_message_headers_header_equals(soupMessageHeadersPointer.reinterpret(), name, `value`).asBoolean()
 
     /**
      * Atomically increments the reference count of @hdrs by one.
      *
      * @return the passed in #SoupMessageHeaders
      */
-    public fun ref(): MessageHeaders =
-        soup_message_headers_ref(soupMessageHeadersPointer.reinterpret())!!.run {
-            MessageHeaders(reinterpret())
-        }
+    public fun ref(): MessageHeaders = soup_message_headers_ref(soupMessageHeadersPointer.reinterpret())!!.run {
+        MessageHeaders(reinterpret())
+    }
 
     /**
      * Removes @name from @hdrs.
@@ -266,10 +256,8 @@ public class MessageHeaders(
      * @param name the header name to replace
      * @param value the new value of @name
      */
-    public fun replace(
-        name: String,
-        `value`: String,
-    ): Unit = soup_message_headers_replace(soupMessageHeadersPointer.reinterpret(), name, `value`)
+    public fun replace(name: String, `value`: String): Unit =
+        soup_message_headers_replace(soupMessageHeadersPointer.reinterpret(), name, `value`)
 
     /**
      * Sets the "Content-Disposition" header in @hdrs to @disposition,
@@ -281,10 +269,7 @@ public class MessageHeaders(
      * @param disposition the disposition-type
      * @param params additional parameters
      */
-    public fun setContentDisposition(
-        disposition: String,
-        params: HashTable? = null,
-    ): Unit =
+    public fun setContentDisposition(disposition: String, params: HashTable? = null): Unit =
         soup_message_headers_set_content_disposition(
             soupMessageHeadersPointer.reinterpret(),
             disposition,
@@ -306,7 +291,7 @@ public class MessageHeaders(
      *
      * @param contentLength the message body length
      */
-    public fun setContentLength(contentLength: Long): Unit =
+    public fun setContentLength(contentLength: gint64): Unit =
         soup_message_headers_set_content_length(soupMessageHeadersPointer.reinterpret(), contentLength)
 
     /**
@@ -323,11 +308,8 @@ public class MessageHeaders(
      * @param end the end of the range
      * @param totalLength the total length of the resource, or -1 if unknown
      */
-    public fun setContentRange(
-        start: Long,
-        end: Long,
-        totalLength: Long,
-    ): Unit = soup_message_headers_set_content_range(soupMessageHeadersPointer.reinterpret(), start, end, totalLength)
+    public fun setContentRange(start: gint64, end: gint64, totalLength: gint64): Unit =
+        soup_message_headers_set_content_range(soupMessageHeadersPointer.reinterpret(), start, end, totalLength)
 
     /**
      * Sets the "Content-Type" header in @hdrs to @content_type.
@@ -337,10 +319,7 @@ public class MessageHeaders(
      * @param contentType the MIME type
      * @param params additional parameters
      */
-    public fun setContentType(
-        contentType: String,
-        params: HashTable? = null,
-    ): Unit =
+    public fun setContentType(contentType: String, params: HashTable? = null): Unit =
         soup_message_headers_set_content_type(
             soupMessageHeadersPointer.reinterpret(),
             contentType,
@@ -386,10 +365,8 @@ public class MessageHeaders(
      * @param start the start of the range to request
      * @param end the end of the range to request
      */
-    public fun setRange(
-        start: Long,
-        end: Long,
-    ): Unit = soup_message_headers_set_range(soupMessageHeadersPointer.reinterpret(), start, end)
+    public fun setRange(start: gint64, end: gint64): Unit =
+        soup_message_headers_set_range(soupMessageHeadersPointer.reinterpret(), start, end)
 
     /**
      * Sets @hdrs's Range header to request the indicated ranges.
@@ -400,15 +377,11 @@ public class MessageHeaders(
      * @param ranges an array of #SoupRange
      * @param length the length of @range
      */
-    public fun setRanges(
-        ranges: Range,
-        length: Int,
-    ): Unit =
-        soup_message_headers_set_ranges(
-            soupMessageHeadersPointer.reinterpret(),
-            ranges.soupRangePointer.reinterpret(),
-            length
-        )
+    public fun setRanges(ranges: Range, length: gint): Unit = soup_message_headers_set_ranges(
+        soupMessageHeadersPointer.reinterpret(),
+        ranges.soupRangePointer.reinterpret(),
+        length
+    )
 
     /**
      * Atomically decrements the reference count of @hdrs by one.
@@ -418,7 +391,7 @@ public class MessageHeaders(
      */
     public fun unref(): Unit = soup_message_headers_unref(soupMessageHeadersPointer.reinterpret())
 
-    public companion object : RecordCompanion<MessageHeaders, SoupMessageHeaders> {
+    public companion object {
         /**
          * Creates a #SoupMessageHeaders.
          *
@@ -432,7 +405,11 @@ public class MessageHeaders(
         public fun new(type: MessageHeadersType): MessageHeaders =
             MessageHeaders(soup_message_headers_new(type.nativeValue)!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MessageHeaders =
-            MessageHeaders(pointer.reinterpret())
+        /**
+         * Get the GType of MessageHeaders
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_message_headers_get_type()
     }
 }

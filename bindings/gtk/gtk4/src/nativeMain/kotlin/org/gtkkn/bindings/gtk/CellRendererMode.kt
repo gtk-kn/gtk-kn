@@ -1,14 +1,14 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkCellRendererMode
+import org.gtkkn.native.gtk.gtk_cell_renderer_mode_get_type
 
 /**
  * Identifies how the user can interact with a particular cell.
  */
-public enum class CellRendererMode(
-    public val nativeValue: GtkCellRendererMode,
-) {
+public enum class CellRendererMode(public val nativeValue: GtkCellRendererMode) {
     /**
      * The cell is just for display
      *  and cannot be interacted with.  Note that this doesn’t mean that eg. the
@@ -29,12 +29,18 @@ public enum class CellRendererMode(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkCellRendererMode): CellRendererMode =
-            when (nativeValue) {
-                GtkCellRendererMode.GTK_CELL_RENDERER_MODE_INERT -> INERT
-                GtkCellRendererMode.GTK_CELL_RENDERER_MODE_ACTIVATABLE -> ACTIVATABLE
-                GtkCellRendererMode.GTK_CELL_RENDERER_MODE_EDITABLE -> EDITABLE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkCellRendererMode): CellRendererMode = when (nativeValue) {
+            GtkCellRendererMode.GTK_CELL_RENDERER_MODE_INERT -> INERT
+            GtkCellRendererMode.GTK_CELL_RENDERER_MODE_ACTIVATABLE -> ACTIVATABLE
+            GtkCellRendererMode.GTK_CELL_RENDERER_MODE_EDITABLE -> EDITABLE
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of CellRendererMode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_cell_renderer_mode_get_type()
     }
 }

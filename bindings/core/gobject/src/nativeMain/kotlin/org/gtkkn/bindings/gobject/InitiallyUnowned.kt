@@ -7,6 +7,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GInitiallyUnowned
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_initially_unowned_get_type
 
 /**
@@ -15,9 +16,8 @@ import org.gtkkn.native.gobject.g_initially_unowned_get_type
  * All the fields in the `GInitiallyUnowned` structure are private to the
  * implementation and should never be accessed directly.
  */
-public open class InitiallyUnowned(
-    pointer: CPointer<GInitiallyUnowned>,
-) : Object(pointer.reinterpret()),
+public open class InitiallyUnowned(pointer: CPointer<GInitiallyUnowned>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gobjectInitiallyUnownedPointer: CPointer<GInitiallyUnowned>
         get() = gPointer.reinterpret()
@@ -29,5 +29,12 @@ public open class InitiallyUnowned(
         init {
             GobjectTypeProvider.register()
         }
+
+        /**
+         * Get the GType of InitiallyUnowned
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_initially_unowned_get_type()
     }
 }

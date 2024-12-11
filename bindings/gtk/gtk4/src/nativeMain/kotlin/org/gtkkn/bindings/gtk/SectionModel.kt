@@ -17,11 +17,12 @@ import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkSectionModel
 import org.gtkkn.native.gtk.gtk_section_model_get_type
 import org.gtkkn.native.gtk.gtk_section_model_sections_changed
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 
@@ -58,16 +59,8 @@ public interface SectionModel :
     override val gioListModelPointer: CPointer<GListModel>
         get() = gtkSectionModelPointer.reinterpret()
 
-    /**
-     *
-     *
-     * @param position
-     * @param nItems
-     */
-    public fun sectionsChanged(
-        position: UInt,
-        nItems: UInt,
-    ): Unit = gtk_section_model_sections_changed(gtkSectionModelPointer.reinterpret(), position, nItems)
+    public fun sectionsChanged(position: guint, nItems: guint): Unit =
+        gtk_section_model_sections_changed(gtkSectionModelPointer.reinterpret(), position, nItems)
 
     /**
      * Emitted when the start-of-section state of some of the items in @model changes.
@@ -88,20 +81,17 @@ public interface SectionModel :
     @GtkVersion4_12
     public fun connectSectionsChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (position: UInt, nItems: UInt) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gtkSectionModelPointer.reinterpret(),
-            "sections-changed",
-            connectSectionsChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+        handler: (position: guint, nItems: guint) -> Unit,
+    ): ULong = g_signal_connect_data(
+        gtkSectionModelPointer.reinterpret(),
+        "sections-changed",
+        connectSectionsChangedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkSectionModel>,
-    ) : SectionModel {
+    private data class Wrapper(private val pointer: CPointer<GtkSectionModel>) : SectionModel {
         override val gtkSectionModelPointer: CPointer<GtkSectionModel> = pointer
     }
 
@@ -114,15 +104,23 @@ public interface SectionModel :
         }
 
         public fun wrap(pointer: CPointer<GtkSectionModel>): SectionModel = Wrapper(pointer)
+
+        /**
+         * Get the GType of SectionModel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_section_model_get_type()
     }
 }
 
-private val connectSectionsChangedFunc: CPointer<CFunction<(UInt, UInt) -> Unit>> =
+private val connectSectionsChangedFunc: CPointer<CFunction<(guint, guint) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
-            position: UInt,
-            nItems: UInt,
+            position: guint,
+            nItems: guint,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(position: UInt, nItems: UInt) -> Unit>().get().invoke(position, nItems)
-    }.reinterpret()
+        userData.asStableRef<(position: guint, nItems: guint) -> Unit>().get().invoke(position, nItems)
+    }
+        .reinterpret()

@@ -14,10 +14,10 @@ import org.gtkkn.native.adw.adw_view_switcher_get_type
 import org.gtkkn.native.adw.adw_view_switcher_new
 import org.gtkkn.native.adw.adw_view_switcher_set_policy
 import org.gtkkn.native.adw.adw_view_switcher_set_stack
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Unit
 
 /**
  * An adaptive view switcher.
@@ -91,9 +91,8 @@ import kotlin.Unit
  * `AdwViewSwitcher` uses the `GTK_ACCESSIBLE_ROLE_TAB_LIST` role and uses the
  * `GTK_ACCESSIBLE_ROLE_TAB` for its buttons.
  */
-public class ViewSwitcher(
-    pointer: CPointer<AdwViewSwitcher>,
-) : Widget(pointer.reinterpret()),
+public class ViewSwitcher(pointer: CPointer<AdwViewSwitcher>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val adwViewSwitcherPointer: CPointer<AdwViewSwitcher>
         get() = gPointer.reinterpret()
@@ -116,10 +115,9 @@ public class ViewSwitcher(
          *
          * @return the policy of @self
          */
-        get() =
-            adw_view_switcher_get_policy(adwViewSwitcherPointer.reinterpret()).run {
-                ViewSwitcherPolicy.fromNativeValue(this)
-            }
+        get() = adw_view_switcher_get_policy(adwViewSwitcherPointer.reinterpret()).run {
+            ViewSwitcherPolicy.fromNativeValue(this)
+        }
 
         /**
          * Sets the policy of @self.
@@ -137,10 +135,9 @@ public class ViewSwitcher(
          *
          * @return the stack
          */
-        get() =
-            adw_view_switcher_get_stack(adwViewSwitcherPointer.reinterpret())?.run {
-                ViewStack(reinterpret())
-            }
+        get() = adw_view_switcher_get_stack(adwViewSwitcherPointer.reinterpret())?.run {
+            ViewStack(reinterpret())
+        }
 
         /**
          * Sets the stack controlled by @self.
@@ -158,42 +155,6 @@ public class ViewSwitcher(
      */
     public constructor() : this(adw_view_switcher_new()!!.reinterpret())
 
-    /**
-     * Gets the policy of @self.
-     *
-     * @return the policy of @self
-     */
-    public fun getPolicy(): ViewSwitcherPolicy =
-        adw_view_switcher_get_policy(adwViewSwitcherPointer.reinterpret()).run {
-            ViewSwitcherPolicy.fromNativeValue(this)
-        }
-
-    /**
-     * Gets the stack controlled by @self.
-     *
-     * @return the stack
-     */
-    public fun getStack(): ViewStack? =
-        adw_view_switcher_get_stack(adwViewSwitcherPointer.reinterpret())?.run {
-            ViewStack(reinterpret())
-        }
-
-    /**
-     * Sets the policy of @self.
-     *
-     * @param policy the new policy
-     */
-    public fun setPolicy(policy: ViewSwitcherPolicy): Unit =
-        adw_view_switcher_set_policy(adwViewSwitcherPointer.reinterpret(), policy.nativeValue)
-
-    /**
-     * Sets the stack controlled by @self.
-     *
-     * @param stack a stack
-     */
-    public fun setStack(stack: ViewStack? = null): Unit =
-        adw_view_switcher_set_stack(adwViewSwitcherPointer.reinterpret(), stack?.adwViewStackPointer?.reinterpret())
-
     public companion object : TypeCompanion<ViewSwitcher> {
         override val type: GeneratedClassKGType<ViewSwitcher> =
             GeneratedClassKGType(adw_view_switcher_get_type()) { ViewSwitcher(it.reinterpret()) }
@@ -201,5 +162,12 @@ public class ViewSwitcher(
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ViewSwitcher
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_view_switcher_get_type()
     }
 }

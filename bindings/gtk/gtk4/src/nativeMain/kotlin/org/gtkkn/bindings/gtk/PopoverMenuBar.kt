@@ -8,6 +8,7 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -20,7 +21,6 @@ import org.gtkkn.native.gtk.gtk_popover_menu_bar_remove_child
 import org.gtkkn.native.gtk.gtk_popover_menu_bar_set_menu_model
 import kotlin.Boolean
 import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkPopoverMenuBar` presents a horizontal bar of items that pop
@@ -53,9 +53,8 @@ import kotlin.Unit
  * the menu items use the %GTK_ACCESSIBLE_ROLE_MENU_ITEM role and
  * the menus use the %GTK_ACCESSIBLE_ROLE_MENU role.
  */
-public open class PopoverMenuBar(
-    pointer: CPointer<GtkPopoverMenuBar>,
-) : Widget(pointer.reinterpret()),
+public open class PopoverMenuBar(pointer: CPointer<GtkPopoverMenuBar>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkPopoverMenuBarPointer: CPointer<GtkPopoverMenuBar>
         get() = gPointer.reinterpret()
@@ -80,10 +79,9 @@ public open class PopoverMenuBar(
          *
          * @return a `GMenuModel`
          */
-        get() =
-            gtk_popover_menu_bar_get_menu_model(gtkPopoverMenuBarPointer.reinterpret())?.run {
-                MenuModel(reinterpret())
-            }
+        get() = gtk_popover_menu_bar_get_menu_model(gtkPopoverMenuBarPointer.reinterpret())?.run {
+            MenuModel(reinterpret())
+        }
 
         /**
          * Sets a menu model from which @bar should take
@@ -93,11 +91,10 @@ public open class PopoverMenuBar(
          */
         set(
             model
-        ) =
-            gtk_popover_menu_bar_set_menu_model(
-                gtkPopoverMenuBarPointer.reinterpret(),
-                model?.gioMenuModelPointer?.reinterpret()
-            )
+        ) = gtk_popover_menu_bar_set_menu_model(
+            gtkPopoverMenuBarPointer.reinterpret(),
+            model?.gioMenuModelPointer?.reinterpret()
+        )
 
     /**
      * Creates a `GtkPopoverMenuBar` from a `GMenuModel`.
@@ -119,25 +116,11 @@ public open class PopoverMenuBar(
      * @param id the ID to insert @child at
      * @return true if @id was found and the widget added
      */
-    public open fun addChild(
-        child: Widget,
-        id: String,
-    ): Boolean =
-        gtk_popover_menu_bar_add_child(
-            gtkPopoverMenuBarPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret(),
-            id
-        ).asBoolean()
-
-    /**
-     * Returns the model from which the contents of @bar are taken.
-     *
-     * @return a `GMenuModel`
-     */
-    public open fun getMenuModel(): MenuModel? =
-        gtk_popover_menu_bar_get_menu_model(gtkPopoverMenuBarPointer.reinterpret())?.run {
-            MenuModel(reinterpret())
-        }
+    public open fun addChild(child: Widget, id: String): Boolean = gtk_popover_menu_bar_add_child(
+        gtkPopoverMenuBarPointer.reinterpret(),
+        child.gtkWidgetPointer.reinterpret(),
+        id
+    ).asBoolean()
 
     /**
      * Removes a widget that has previously been added with
@@ -146,23 +129,10 @@ public open class PopoverMenuBar(
      * @param child the `GtkWidget` to remove
      * @return true if the widget was removed
      */
-    public open fun removeChild(child: Widget): Boolean =
-        gtk_popover_menu_bar_remove_child(
-            gtkPopoverMenuBarPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        ).asBoolean()
-
-    /**
-     * Sets a menu model from which @bar should take
-     * its contents.
-     *
-     * @param model a `GMenuModel`
-     */
-    public open fun setMenuModel(model: MenuModel? = null): Unit =
-        gtk_popover_menu_bar_set_menu_model(
-            gtkPopoverMenuBarPointer.reinterpret(),
-            model?.gioMenuModelPointer?.reinterpret()
-        )
+    public open fun removeChild(child: Widget): Boolean = gtk_popover_menu_bar_remove_child(
+        gtkPopoverMenuBarPointer.reinterpret(),
+        child.gtkWidgetPointer.reinterpret()
+    ).asBoolean()
 
     public companion object : TypeCompanion<PopoverMenuBar> {
         override val type: GeneratedClassKGType<PopoverMenuBar> =
@@ -171,5 +141,12 @@ public open class PopoverMenuBar(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of PopoverMenuBar
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_popover_menu_bar_get_type()
     }
 }

@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.native.gdk.GdkMemoryFormat
+import org.gtkkn.native.gdk.gdk_memory_format_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GdkMemoryFormat` describes formats that image data can have in memory.
@@ -16,9 +18,7 @@ import org.gtkkn.native.gdk.GdkMemoryFormat
  * [VkFormat](https://www.khronos.org/registry/vulkan/specs/1.0/html/vkspec.html#VkFormat)
  * for details).
  */
-public enum class MemoryFormat(
-    public val nativeValue: GdkMemoryFormat,
-) {
+public enum class MemoryFormat(public val nativeValue: GdkMemoryFormat) {
     /**
      * 4 bytes; for blue, green, red, alpha.
      *   The color values are premultiplied with the alpha value.
@@ -224,43 +224,49 @@ public enum class MemoryFormat(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GdkMemoryFormat): MemoryFormat =
-            when (nativeValue) {
-                GdkMemoryFormat.GDK_MEMORY_B8G8R8A8_PREMULTIPLIED -> B8G8R8A8_PREMULTIPLIED
-                GdkMemoryFormat.GDK_MEMORY_A8R8G8B8_PREMULTIPLIED -> A8R8G8B8_PREMULTIPLIED
-                GdkMemoryFormat.GDK_MEMORY_R8G8B8A8_PREMULTIPLIED -> R8G8B8A8_PREMULTIPLIED
-                GdkMemoryFormat.GDK_MEMORY_B8G8R8A8 -> B8G8R8A8
-                GdkMemoryFormat.GDK_MEMORY_A8R8G8B8 -> A8R8G8B8
-                GdkMemoryFormat.GDK_MEMORY_R8G8B8A8 -> R8G8B8A8
-                GdkMemoryFormat.GDK_MEMORY_A8B8G8R8 -> A8B8G8R8
-                GdkMemoryFormat.GDK_MEMORY_R8G8B8 -> R8G8B8
-                GdkMemoryFormat.GDK_MEMORY_B8G8R8 -> B8G8R8
-                GdkMemoryFormat.GDK_MEMORY_R16G16B16 -> R16G16B16
-                GdkMemoryFormat.GDK_MEMORY_R16G16B16A16_PREMULTIPLIED -> R16G16B16A16_PREMULTIPLIED
-                GdkMemoryFormat.GDK_MEMORY_R16G16B16A16 -> R16G16B16A16
-                GdkMemoryFormat.GDK_MEMORY_R16G16B16_FLOAT -> R16G16B16_FLOAT
-                GdkMemoryFormat.GDK_MEMORY_R16G16B16A16_FLOAT_PREMULTIPLIED -> R16G16B16A16_FLOAT_PREMULTIPLIED
-                GdkMemoryFormat.GDK_MEMORY_R16G16B16A16_FLOAT -> R16G16B16A16_FLOAT
-                GdkMemoryFormat.GDK_MEMORY_R32G32B32_FLOAT -> R32G32B32_FLOAT
-                GdkMemoryFormat.GDK_MEMORY_R32G32B32A32_FLOAT_PREMULTIPLIED -> R32G32B32A32_FLOAT_PREMULTIPLIED
-                GdkMemoryFormat.GDK_MEMORY_R32G32B32A32_FLOAT -> R32G32B32A32_FLOAT
-                GdkMemoryFormat.GDK_MEMORY_G8A8_PREMULTIPLIED -> G8A8_PREMULTIPLIED
-                GdkMemoryFormat.GDK_MEMORY_G8A8 -> G8A8
-                GdkMemoryFormat.GDK_MEMORY_G8 -> G8
-                GdkMemoryFormat.GDK_MEMORY_G16A16_PREMULTIPLIED -> G16A16_PREMULTIPLIED
-                GdkMemoryFormat.GDK_MEMORY_G16A16 -> G16A16
-                GdkMemoryFormat.GDK_MEMORY_G16 -> G16
-                GdkMemoryFormat.GDK_MEMORY_A8 -> A8
-                GdkMemoryFormat.GDK_MEMORY_A16 -> A16
-                GdkMemoryFormat.GDK_MEMORY_A16_FLOAT -> A16_FLOAT
-                GdkMemoryFormat.GDK_MEMORY_A32_FLOAT -> A32_FLOAT
-                GdkMemoryFormat.GDK_MEMORY_A8B8G8R8_PREMULTIPLIED -> A8B8G8R8_PREMULTIPLIED
-                GdkMemoryFormat.GDK_MEMORY_B8G8R8X8 -> B8G8R8X8
-                GdkMemoryFormat.GDK_MEMORY_X8R8G8B8 -> X8R8G8B8
-                GdkMemoryFormat.GDK_MEMORY_R8G8B8X8 -> R8G8B8X8
-                GdkMemoryFormat.GDK_MEMORY_X8B8G8R8 -> X8B8G8R8
-                GdkMemoryFormat.GDK_MEMORY_N_FORMATS -> N_FORMATS
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GdkMemoryFormat): MemoryFormat = when (nativeValue) {
+            GdkMemoryFormat.GDK_MEMORY_B8G8R8A8_PREMULTIPLIED -> B8G8R8A8_PREMULTIPLIED
+            GdkMemoryFormat.GDK_MEMORY_A8R8G8B8_PREMULTIPLIED -> A8R8G8B8_PREMULTIPLIED
+            GdkMemoryFormat.GDK_MEMORY_R8G8B8A8_PREMULTIPLIED -> R8G8B8A8_PREMULTIPLIED
+            GdkMemoryFormat.GDK_MEMORY_B8G8R8A8 -> B8G8R8A8
+            GdkMemoryFormat.GDK_MEMORY_A8R8G8B8 -> A8R8G8B8
+            GdkMemoryFormat.GDK_MEMORY_R8G8B8A8 -> R8G8B8A8
+            GdkMemoryFormat.GDK_MEMORY_A8B8G8R8 -> A8B8G8R8
+            GdkMemoryFormat.GDK_MEMORY_R8G8B8 -> R8G8B8
+            GdkMemoryFormat.GDK_MEMORY_B8G8R8 -> B8G8R8
+            GdkMemoryFormat.GDK_MEMORY_R16G16B16 -> R16G16B16
+            GdkMemoryFormat.GDK_MEMORY_R16G16B16A16_PREMULTIPLIED -> R16G16B16A16_PREMULTIPLIED
+            GdkMemoryFormat.GDK_MEMORY_R16G16B16A16 -> R16G16B16A16
+            GdkMemoryFormat.GDK_MEMORY_R16G16B16_FLOAT -> R16G16B16_FLOAT
+            GdkMemoryFormat.GDK_MEMORY_R16G16B16A16_FLOAT_PREMULTIPLIED -> R16G16B16A16_FLOAT_PREMULTIPLIED
+            GdkMemoryFormat.GDK_MEMORY_R16G16B16A16_FLOAT -> R16G16B16A16_FLOAT
+            GdkMemoryFormat.GDK_MEMORY_R32G32B32_FLOAT -> R32G32B32_FLOAT
+            GdkMemoryFormat.GDK_MEMORY_R32G32B32A32_FLOAT_PREMULTIPLIED -> R32G32B32A32_FLOAT_PREMULTIPLIED
+            GdkMemoryFormat.GDK_MEMORY_R32G32B32A32_FLOAT -> R32G32B32A32_FLOAT
+            GdkMemoryFormat.GDK_MEMORY_G8A8_PREMULTIPLIED -> G8A8_PREMULTIPLIED
+            GdkMemoryFormat.GDK_MEMORY_G8A8 -> G8A8
+            GdkMemoryFormat.GDK_MEMORY_G8 -> G8
+            GdkMemoryFormat.GDK_MEMORY_G16A16_PREMULTIPLIED -> G16A16_PREMULTIPLIED
+            GdkMemoryFormat.GDK_MEMORY_G16A16 -> G16A16
+            GdkMemoryFormat.GDK_MEMORY_G16 -> G16
+            GdkMemoryFormat.GDK_MEMORY_A8 -> A8
+            GdkMemoryFormat.GDK_MEMORY_A16 -> A16
+            GdkMemoryFormat.GDK_MEMORY_A16_FLOAT -> A16_FLOAT
+            GdkMemoryFormat.GDK_MEMORY_A32_FLOAT -> A32_FLOAT
+            GdkMemoryFormat.GDK_MEMORY_A8B8G8R8_PREMULTIPLIED -> A8B8G8R8_PREMULTIPLIED
+            GdkMemoryFormat.GDK_MEMORY_B8G8R8X8 -> B8G8R8X8
+            GdkMemoryFormat.GDK_MEMORY_X8R8G8B8 -> X8R8G8B8
+            GdkMemoryFormat.GDK_MEMORY_R8G8B8X8 -> R8G8B8X8
+            GdkMemoryFormat.GDK_MEMORY_X8B8G8R8 -> X8B8G8R8
+            GdkMemoryFormat.GDK_MEMORY_N_FORMATS -> N_FORMATS
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of MemoryFormat
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_memory_format_get_type()
     }
 }

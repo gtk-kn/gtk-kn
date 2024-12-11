@@ -8,6 +8,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitPermissionRequest
 import org.gtkkn.native.webkit.WebKitUserMediaPermissionRequest
 import org.gtkkn.native.webkit.webkit_user_media_permission_request_get_type
@@ -30,9 +31,8 @@ import org.gtkkn.native.webkit.webkit_user_media_permission_request_get_type
  * @since 2.8
  */
 @WebKitVersion2_8
-public class UserMediaPermissionRequest(
-    pointer: CPointer<WebKitUserMediaPermissionRequest>,
-) : Object(pointer.reinterpret()),
+public class UserMediaPermissionRequest(pointer: CPointer<WebKitUserMediaPermissionRequest>) :
+    Object(pointer.reinterpret()),
     PermissionRequest,
     KGTyped {
     public val webkitUserMediaPermissionRequestPointer: CPointer<WebKitUserMediaPermissionRequest>
@@ -43,12 +43,19 @@ public class UserMediaPermissionRequest(
 
     public companion object : TypeCompanion<UserMediaPermissionRequest> {
         override val type: GeneratedClassKGType<UserMediaPermissionRequest> =
-            GeneratedClassKGType(
-                webkit_user_media_permission_request_get_type()
-            ) { UserMediaPermissionRequest(it.reinterpret()) }
+            GeneratedClassKGType(webkit_user_media_permission_request_get_type()) {
+                UserMediaPermissionRequest(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()
         }
+
+        /**
+         * Get the GType of UserMediaPermissionRequest
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_user_media_permission_request_get_type()
     }
 }

@@ -1,12 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_4
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GRand
 import org.gtkkn.native.glib.g_rand_copy
 import org.gtkkn.native.glib.g_rand_double
@@ -17,9 +15,11 @@ import org.gtkkn.native.glib.g_rand_int_range
 import org.gtkkn.native.glib.g_rand_new
 import org.gtkkn.native.glib.g_rand_new_with_seed
 import org.gtkkn.native.glib.g_rand_set_seed
-import kotlin.Double
-import kotlin.Int
-import kotlin.UInt
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_rand_get_type
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import kotlin.Unit
 
 /**
@@ -31,9 +31,7 @@ import kotlin.Unit
  * - parameter `seed`: Unsupported pointer to primitive type
  * - parameter `seed`: Unsupported pointer to primitive type
  */
-public class Rand(
-    pointer: CPointer<GRand>,
-) : Record {
+public class Rand(pointer: CPointer<GRand>) : ProxyInstance(pointer) {
     public val glibRandPointer: CPointer<GRand> = pointer
 
     /**
@@ -45,10 +43,9 @@ public class Rand(
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun copy(): Rand =
-        g_rand_copy(glibRandPointer.reinterpret())!!.run {
-            Rand(reinterpret())
-        }
+    public fun copy(): Rand = g_rand_copy(glibRandPointer.reinterpret())!!.run {
+        Rand(reinterpret())
+    }
 
     /**
      * Returns the next random #gdouble from @rand_ equally distributed over
@@ -56,7 +53,7 @@ public class Rand(
      *
      * @return a random number
      */
-    public fun double(): Double = g_rand_double(glibRandPointer.reinterpret())
+    public fun double(): gdouble = g_rand_double(glibRandPointer.reinterpret())
 
     /**
      * Returns the next random #gdouble from @rand_ equally distributed over
@@ -66,10 +63,8 @@ public class Rand(
      * @param end upper open bound of the interval
      * @return a random number
      */
-    public fun doubleRange(
-        begin: Double,
-        end: Double,
-    ): Double = g_rand_double_range(glibRandPointer.reinterpret(), begin, end)
+    public fun doubleRange(begin: gdouble, end: gdouble): gdouble =
+        g_rand_double_range(glibRandPointer.reinterpret(), begin, end)
 
     /**
      * Frees the memory allocated for the #GRand.
@@ -82,7 +77,7 @@ public class Rand(
      *
      * @return a random number
      */
-    public fun int(): UInt = g_rand_int(glibRandPointer.reinterpret())
+    public fun int(): guint = g_rand_int(glibRandPointer.reinterpret())
 
     /**
      * Returns the next random #gint32 from @rand_ equally distributed over
@@ -92,19 +87,16 @@ public class Rand(
      * @param end upper open bound of the interval
      * @return a random number
      */
-    public fun intRange(
-        begin: Int,
-        end: Int,
-    ): Int = g_rand_int_range(glibRandPointer.reinterpret(), begin, end)
+    public fun intRange(begin: gint, end: gint): gint = g_rand_int_range(glibRandPointer.reinterpret(), begin, end)
 
     /**
      * Sets the seed for the random number generator #GRand to @seed.
      *
      * @param seed a value to reinitialize the random number generator
      */
-    public fun setSeed(seed: UInt): Unit = g_rand_set_seed(glibRandPointer.reinterpret(), seed)
+    public fun setSeed(seed: guint): Unit = g_rand_set_seed(glibRandPointer.reinterpret(), seed)
 
-    public companion object : RecordCompanion<Rand, GRand> {
+    public companion object {
         /**
          * Creates a new random number generator initialized with a seed taken
          * either from `/dev/urandom` (if existing) or from the current time
@@ -122,8 +114,13 @@ public class Rand(
          * @param seed a value to initialize the random number generator
          * @return the new #GRand
          */
-        public fun newWithSeed(seed: UInt): Rand = Rand(g_rand_new_with_seed(seed)!!.reinterpret())
+        public fun newWithSeed(seed: guint): Rand = Rand(g_rand_new_with_seed(seed)!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Rand = Rand(pointer.reinterpret())
+        /**
+         * Get the GType of Rand
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_rand_get_type()
     }
 }

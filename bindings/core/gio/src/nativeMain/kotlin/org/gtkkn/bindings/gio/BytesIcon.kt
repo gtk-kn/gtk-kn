@@ -15,6 +15,7 @@ import org.gtkkn.native.gio.GLoadableIcon
 import org.gtkkn.native.gio.g_bytes_icon_get_bytes
 import org.gtkkn.native.gio.g_bytes_icon_get_type
 import org.gtkkn.native.gio.g_bytes_icon_new
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GBytesIcon` specifies an image held in memory in a common format (usually
@@ -22,9 +23,8 @@ import org.gtkkn.native.gio.g_bytes_icon_new
  * @since 2.38
  */
 @GioVersion2_38
-public open class BytesIcon(
-    pointer: CPointer<GBytesIcon>,
-) : Object(pointer.reinterpret()),
+public open class BytesIcon(pointer: CPointer<GBytesIcon>) :
+    Object(pointer.reinterpret()),
     Icon,
     LoadableIcon,
     KGTyped {
@@ -47,10 +47,9 @@ public open class BytesIcon(
          * @return a #GBytes.
          * @since 2.38
          */
-        get() =
-            g_bytes_icon_get_bytes(gioBytesIconPointer.reinterpret())!!.run {
-                Bytes(reinterpret())
-            }
+        get() = g_bytes_icon_get_bytes(gioBytesIconPointer.reinterpret())!!.run {
+            Bytes(reinterpret())
+        }
 
     /**
      * Creates a new icon for a bytes.
@@ -65,18 +64,6 @@ public open class BytesIcon(
      */
     public constructor(bytes: Bytes) : this(g_bytes_icon_new(bytes.glibBytesPointer.reinterpret())!!.reinterpret())
 
-    /**
-     * Gets the #GBytes associated with the given @icon.
-     *
-     * @return a #GBytes.
-     * @since 2.38
-     */
-    @GioVersion2_38
-    public open fun getBytes(): Bytes =
-        g_bytes_icon_get_bytes(gioBytesIconPointer.reinterpret())!!.run {
-            Bytes(reinterpret())
-        }
-
     public companion object : TypeCompanion<BytesIcon> {
         override val type: GeneratedClassKGType<BytesIcon> =
             GeneratedClassKGType(g_bytes_icon_get_type()) { BytesIcon(it.reinterpret()) }
@@ -84,5 +71,12 @@ public open class BytesIcon(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of BytesIcon
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_bytes_icon_get_type()
     }
 }

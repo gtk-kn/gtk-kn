@@ -30,6 +30,7 @@ import org.gtkkn.native.gio.g_permission_release
 import org.gtkkn.native.gio.g_permission_release_async
 import org.gtkkn.native.gio.g_permission_release_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.Unit
@@ -51,9 +52,8 @@ import kotlin.Unit
  * unlock” button in a dialog and to provide the mechanism to invoke
  * when that button is clicked.
  */
-public open class Permission(
-    pointer: CPointer<GPermission>,
-) : Object(pointer.reinterpret()),
+public open class Permission(pointer: CPointer<GPermission>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioPermissionPointer: CPointer<GPermission>
         get() = gPointer.reinterpret()
@@ -125,21 +125,19 @@ public open class Permission(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun acquire(cancellable: Cancellable? = null): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_permission_acquire(
-                    gioPermissionPointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun acquire(cancellable: Cancellable? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_permission_acquire(
+            gioPermissionPointer.reinterpret(),
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Attempts to acquire the permission represented by @permission.
@@ -152,10 +150,7 @@ public open class Permission(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun acquireAsync(
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public open fun acquireAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         g_permission_acquire_async(
             gioPermissionPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
@@ -175,56 +170,19 @@ public open class Permission(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun acquireFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_permission_acquire_finish(
-                    gioPermissionPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun acquireFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_permission_acquire_finish(
+            gioPermissionPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
-
-    /**
-     * Gets the value of the 'allowed' property.  This property is true if
-     * the caller currently has permission to perform the action that
-     * @permission represents the permission to perform.
-     *
-     * @return the value of the 'allowed' property
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public open fun getAllowed(): Boolean = g_permission_get_allowed(gioPermissionPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the value of the 'can-acquire' property.  This property is true
-     * if it is generally possible to acquire the permission by calling
-     * g_permission_acquire().
-     *
-     * @return the value of the 'can-acquire' property
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public open fun getCanAcquire(): Boolean =
-        g_permission_get_can_acquire(gioPermissionPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the value of the 'can-release' property.  This property is true
-     * if it is generally possible to release the permission by calling
-     * g_permission_release().
-     *
-     * @return the value of the 'can-release' property
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public open fun getCanRelease(): Boolean =
-        g_permission_get_can_release(gioPermissionPointer.reinterpret()).asBoolean()
+    }
 
     /**
      * This function is called by the #GPermission implementation to update
@@ -239,11 +197,7 @@ public open class Permission(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun implUpdate(
-        allowed: Boolean,
-        canAcquire: Boolean,
-        canRelease: Boolean,
-    ): Unit =
+    public open fun implUpdate(allowed: Boolean, canAcquire: Boolean, canRelease: Boolean): Unit =
         g_permission_impl_update(
             gioPermissionPointer.reinterpret(),
             allowed.asGBoolean(),
@@ -273,21 +227,19 @@ public open class Permission(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun release(cancellable: Cancellable? = null): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_permission_release(
-                    gioPermissionPointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun release(cancellable: Cancellable? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_permission_release(
+            gioPermissionPointer.reinterpret(),
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Attempts to release the permission represented by @permission.
@@ -300,10 +252,7 @@ public open class Permission(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun releaseAsync(
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public open fun releaseAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         g_permission_release_async(
             gioPermissionPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
@@ -323,21 +272,19 @@ public open class Permission(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun releaseFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_permission_release_finish(
-                    gioPermissionPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun releaseFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_permission_release_finish(
+            gioPermissionPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     public companion object : TypeCompanion<Permission> {
         override val type: GeneratedClassKGType<Permission> =
@@ -346,5 +293,12 @@ public open class Permission(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Permission
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_permission_get_type()
     }
 }

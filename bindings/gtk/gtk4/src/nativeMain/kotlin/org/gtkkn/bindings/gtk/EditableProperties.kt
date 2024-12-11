@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkEditableProperties
+import org.gtkkn.native.gtk.gtk_editable_properties_get_type
 
 /**
  * The identifiers for [iface@Gtk.Editable] properties.
@@ -9,9 +11,7 @@ import org.gtkkn.native.gtk.GtkEditableProperties
  * See [func@Gtk.Editable.install_properties] for details on how to
  * implement the `GtkEditable` interface.
  */
-public enum class EditableProperties(
-    public val nativeValue: GtkEditableProperties,
-) {
+public enum class EditableProperties(public val nativeValue: GtkEditableProperties) {
     /**
      * the property id for [property@Gtk.Editable:text]
      */
@@ -59,18 +59,24 @@ public enum class EditableProperties(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkEditableProperties): EditableProperties =
-            when (nativeValue) {
-                GtkEditableProperties.GTK_EDITABLE_PROP_TEXT -> PROP_TEXT
-                GtkEditableProperties.GTK_EDITABLE_PROP_CURSOR_POSITION -> PROP_CURSOR_POSITION
-                GtkEditableProperties.GTK_EDITABLE_PROP_SELECTION_BOUND -> PROP_SELECTION_BOUND
-                GtkEditableProperties.GTK_EDITABLE_PROP_EDITABLE -> PROP_EDITABLE
-                GtkEditableProperties.GTK_EDITABLE_PROP_WIDTH_CHARS -> PROP_WIDTH_CHARS
-                GtkEditableProperties.GTK_EDITABLE_PROP_MAX_WIDTH_CHARS -> PROP_MAX_WIDTH_CHARS
-                GtkEditableProperties.GTK_EDITABLE_PROP_XALIGN -> PROP_XALIGN
-                GtkEditableProperties.GTK_EDITABLE_PROP_ENABLE_UNDO -> PROP_ENABLE_UNDO
-                GtkEditableProperties.GTK_EDITABLE_NUM_PROPERTIES -> NUM_PROPERTIES
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkEditableProperties): EditableProperties = when (nativeValue) {
+            GtkEditableProperties.GTK_EDITABLE_PROP_TEXT -> PROP_TEXT
+            GtkEditableProperties.GTK_EDITABLE_PROP_CURSOR_POSITION -> PROP_CURSOR_POSITION
+            GtkEditableProperties.GTK_EDITABLE_PROP_SELECTION_BOUND -> PROP_SELECTION_BOUND
+            GtkEditableProperties.GTK_EDITABLE_PROP_EDITABLE -> PROP_EDITABLE
+            GtkEditableProperties.GTK_EDITABLE_PROP_WIDTH_CHARS -> PROP_WIDTH_CHARS
+            GtkEditableProperties.GTK_EDITABLE_PROP_MAX_WIDTH_CHARS -> PROP_MAX_WIDTH_CHARS
+            GtkEditableProperties.GTK_EDITABLE_PROP_XALIGN -> PROP_XALIGN
+            GtkEditableProperties.GTK_EDITABLE_PROP_ENABLE_UNDO -> PROP_ENABLE_UNDO
+            GtkEditableProperties.GTK_EDITABLE_NUM_PROPERTIES -> NUM_PROPERTIES
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of EditableProperties
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_editable_properties_get_type()
     }
 }

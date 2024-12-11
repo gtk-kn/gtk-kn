@@ -1,17 +1,24 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
-import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_50
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GLogField
+import org.gtkkn.native.glib.g_free
+import org.gtkkn.native.glib.g_strdup
 import kotlin.Long
+import kotlin.Pair
 import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * Structure representing a single field in a structured log entry. See
@@ -29,29 +36,92 @@ import kotlin.String
  * @since 2.50
  */
 @GLibVersion2_50
-public class LogField(
-    pointer: CPointer<GLogField>,
-) : Record {
+public class LogField(pointer: CPointer<GLogField>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibLogFieldPointer: CPointer<GLogField> = pointer
 
     /**
      * field name (UTF-8 string)
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val key: String?
+    public var key: String?
         get() = glibLogFieldPointer.pointed.key?.toKString()
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            glibLogFieldPointer.pointed.key?.let { g_free(it) }
+            glibLogFieldPointer.pointed.key = value?.let { g_strdup(it) }
+        }
 
     /**
      * length of @value, in bytes, or -1 if it is nul-terminated
      */
     public var length: Long
         get() = glibLogFieldPointer.pointed.length
+
+        @UnsafeFieldSetter
         set(`value`) {
             glibLogFieldPointer.pointed.length = value
         }
 
-    public companion object : RecordCompanion<LogField, GLogField> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): LogField = LogField(pointer.reinterpret())
+    /**
+     * Allocate a new LogField.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<GLogField>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to LogField and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GLogField>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new LogField using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GLogField>().ptr)
+
+    /**
+     * Allocate a new LogField.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param key field name (UTF-8 string)
+     * @param length length of @value, in bytes, or -1 if it is nul-terminated
+     */
+    public constructor(key: String?, length: Long) : this() {
+        this.key = key
+        this.length = length
     }
+
+    /**
+     * Allocate a new LogField using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param key field name (UTF-8 string)
+     * @param length length of @value, in bytes, or -1 if it is nul-terminated
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        key: String?,
+        length: Long,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.key = key
+        this.length = length
+    }
+
+    override fun toString(): String = "LogField(key=$key, length=$length)"
 }

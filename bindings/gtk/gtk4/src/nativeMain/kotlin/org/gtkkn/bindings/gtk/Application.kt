@@ -21,7 +21,9 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GActionGroup
 import org.gtkkn.native.gio.GActionMap
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkApplication
 import org.gtkkn.native.gtk.GtkWindow
 import org.gtkkn.native.gtk.gtk_application_add_window
@@ -41,7 +43,6 @@ import org.gtkkn.native.gtk.gtk_application_set_accels_for_action
 import org.gtkkn.native.gtk.gtk_application_set_menubar
 import org.gtkkn.native.gtk.gtk_application_uninhibit
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List as CollectionsList
@@ -121,9 +122,8 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - method `register-session`: Property has no getter nor setter
  * - method `screensaver-active`: Property has no getter nor setter
  */
-public open class Application(
-    pointer: CPointer<GtkApplication>,
-) : org.gtkkn.bindings.gio.Application(pointer.reinterpret()),
+public open class Application(pointer: CPointer<GtkApplication>) :
+    org.gtkkn.bindings.gio.Application(pointer.reinterpret()),
     KGTyped {
     public val gtkApplicationPointer: CPointer<GtkApplication>
         get() = gPointer.reinterpret()
@@ -148,10 +148,9 @@ public open class Application(
          *
          * @return the active window
          */
-        get() =
-            gtk_application_get_active_window(gtkApplicationPointer.reinterpret())?.run {
-                Window(reinterpret())
-            }
+        get() = gtk_application_get_active_window(gtkApplicationPointer.reinterpret())?.run {
+            Window(reinterpret())
+        }
 
     /**
      * The `GMenuModel` to be used for the application's menu bar.
@@ -163,10 +162,9 @@ public open class Application(
          *
          * @return the menubar for windows of `application`
          */
-        get() =
-            gtk_application_get_menubar(gtkApplicationPointer.reinterpret())?.run {
-                MenuModel(reinterpret())
-            }
+        get() = gtk_application_get_menubar(gtkApplicationPointer.reinterpret())?.run {
+            MenuModel(reinterpret())
+        }
 
         /**
          * Sets or unsets the menubar for windows of `application`.
@@ -192,11 +190,10 @@ public open class Application(
          */
         set(
             menubar
-        ) =
-            gtk_application_set_menubar(
-                gtkApplicationPointer.reinterpret(),
-                menubar?.gioMenuModelPointer?.reinterpret()
-            )
+        ) = gtk_application_set_menubar(
+            gtkApplicationPointer.reinterpret(),
+            menubar?.gioMenuModelPointer?.reinterpret()
+        )
 
     /**
      * Creates a new `GtkApplication` instance.
@@ -288,21 +285,6 @@ public open class Application(
             ?: error("Expected not null string array")
 
     /**
-     * Gets the “active” window for the application.
-     *
-     * The active window is the one that was most recently focused (within
-     * the application).  This window may not have the focus at the moment
-     * if another application has it — this is just the most
-     * recently-focused window within this application.
-     *
-     * @return the active window
-     */
-    public open fun getActiveWindow(): Window? =
-        gtk_application_get_active_window(gtkApplicationPointer.reinterpret())?.run {
-            Window(reinterpret())
-        }
-
-    /**
      * Gets a menu from automatically loaded resources.
      *
      * See [the section on Automatic resources](class.Application.html#automatic-resources)
@@ -318,17 +300,6 @@ public open class Application(
         }
 
     /**
-     * Returns the menu model that has been set with
-     * [method@Gtk.Application.set_menubar].
-     *
-     * @return the menubar for windows of `application`
-     */
-    public open fun getMenubar(): MenuModel? =
-        gtk_application_get_menubar(gtkApplicationPointer.reinterpret())?.run {
-            MenuModel(reinterpret())
-        }
-
-    /**
      * Returns the [class@Gtk.ApplicationWindow] with the given ID.
      *
      * The ID of a `GtkApplicationWindow` can be retrieved with
@@ -337,7 +308,7 @@ public open class Application(
      * @param id an identifier number
      * @return the window for the given `id`
      */
-    public open fun getWindowById(id: UInt): Window? =
+    public open fun getWindowById(id: guint): Window? =
         gtk_application_get_window_by_id(gtkApplicationPointer.reinterpret(), id)?.run {
             Window(reinterpret())
         }
@@ -356,10 +327,9 @@ public open class Application(
      * @return a `GList` of `GtkWindow`
      *   instances
      */
-    public open fun getWindows(): GlibList =
-        gtk_application_get_windows(gtkApplicationPointer.reinterpret())!!.run {
-            GlibList(reinterpret())
-        }
+    public open fun getWindows(): GlibList = gtk_application_get_windows(gtkApplicationPointer.reinterpret())!!.run {
+        GlibList(reinterpret())
+    }
 
     /**
      * Inform the session manager that certain types of actions should be
@@ -395,11 +365,7 @@ public open class Application(
      *   in order to remove the request. If the platform does not support
      *   inhibiting or the request failed for some reason, 0 is returned.
      */
-    public open fun inhibit(
-        window: Window? = null,
-        flags: ApplicationInhibitFlags,
-        reason: String? = null,
-    ): UInt =
+    public open fun inhibit(window: Window? = null, flags: ApplicationInhibitFlags, reason: String? = null): guint =
         gtk_application_inhibit(
             gtkApplicationPointer.reinterpret(),
             window?.gtkWindowPointer?.reinterpret(),
@@ -451,42 +417,13 @@ public open class Application(
      * @param accels a list of accelerators in the format
      *   understood by [func@Gtk.accelerator_parse]
      */
-    public open fun setAccelsForAction(
-        detailedActionName: String,
-        accels: CollectionsList<String>,
-    ): Unit =
-        memScoped {
-            return gtk_application_set_accels_for_action(
-                gtkApplicationPointer.reinterpret(),
-                detailedActionName,
-                accels.toCStringList(this)
-            )
-        }
-
-    /**
-     * Sets or unsets the menubar for windows of `application`.
-     *
-     * This is a menubar in the traditional sense.
-     *
-     * This can only be done in the primary instance of the application,
-     * after it has been registered. `GApplication::startup` is a good place
-     * to call this.
-     *
-     * Depending on the desktop environment, this may appear at the top of
-     * each window, or at the top of the screen.  In some environments, if
-     * both the application menu and the menubar are set, the application
-     * menu will be presented as if it were the first item of the menubar.
-     * Other environments treat the two as completely separate — for example,
-     * the application menu may be rendered by the desktop shell while the
-     * menubar (if set) remains in each individual window.
-     *
-     * Use the base `GActionMap` interface to add actions, to respond to the
-     * user selecting these menu items.
-     *
-     * @param menubar a `GMenuModel`
-     */
-    public open fun setMenubar(menubar: MenuModel? = null): Unit =
-        gtk_application_set_menubar(gtkApplicationPointer.reinterpret(), menubar?.gioMenuModelPointer?.reinterpret())
+    public open fun setAccelsForAction(detailedActionName: String, accels: CollectionsList<String>): Unit = memScoped {
+        return gtk_application_set_accels_for_action(
+            gtkApplicationPointer.reinterpret(),
+            detailedActionName,
+            accels.toCStringList(this)
+        )
+    }
 
     /**
      * Removes an inhibitor that has been previously established.
@@ -497,7 +434,7 @@ public open class Application(
      *
      * @param cookie a cookie that was returned by [method@Gtk.Application.inhibit]
      */
-    public open fun uninhibit(cookie: UInt): Unit =
+    public open fun uninhibit(cookie: guint): Unit =
         gtk_application_uninhibit(gtkApplicationPointer.reinterpret(), cookie)
 
     /**
@@ -511,10 +448,7 @@ public open class Application(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectQueryEnd(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectQueryEnd(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "query-end",
@@ -534,15 +468,14 @@ public open class Application(
     public fun connectWindowAdded(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (window: Window) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "window-added",
-            connectWindowAddedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "window-added",
+        connectWindowAddedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted when a [class@Gtk.Window] is removed from `application`.
@@ -556,15 +489,14 @@ public open class Application(
     public fun connectWindowRemoved(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (window: Window) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "window-removed",
-            connectWindowRemovedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "window-removed",
+        connectWindowRemovedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<Application> {
         override val type: GeneratedClassKGType<Application> =
@@ -573,16 +505,23 @@ public open class Application(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Application
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_application_get_type()
     }
 }
 
-private val connectQueryEndFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectQueryEndFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
 private val connectWindowAddedFunc: CPointer<CFunction<(CPointer<GtkWindow>) -> Unit>> =
     staticCFunction {
@@ -595,7 +534,8 @@ private val connectWindowAddedFunc: CPointer<CFunction<(CPointer<GtkWindow>) -> 
                 Window(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 private val connectWindowRemovedFunc: CPointer<CFunction<(CPointer<GtkWindow>) -> Unit>> =
     staticCFunction {
@@ -608,4 +548,5 @@ private val connectWindowRemovedFunc: CPointer<CFunction<(CPointer<GtkWindow>) -
                 Window(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()

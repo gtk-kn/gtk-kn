@@ -10,6 +10,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GSimplePermission
 import org.gtkkn.native.gio.g_simple_permission_get_type
 import org.gtkkn.native.gio.g_simple_permission_new
+import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 
 /**
@@ -20,9 +21,8 @@ import kotlin.Boolean
  * Calling [method@Gio.Permission.acquire] or [method@Gio.Permission.release]
  * on a `GSimplePermission` will result in errors.
  */
-public open class SimplePermission(
-    pointer: CPointer<GSimplePermission>,
-) : Permission(pointer.reinterpret()),
+public open class SimplePermission(pointer: CPointer<GSimplePermission>) :
+    Permission(pointer.reinterpret()),
     KGTyped {
     public val gioSimplePermissionPointer: CPointer<GSimplePermission>
         get() = gPointer.reinterpret()
@@ -44,5 +44,12 @@ public open class SimplePermission(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of SimplePermission
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_simple_permission_get_type()
     }
 }

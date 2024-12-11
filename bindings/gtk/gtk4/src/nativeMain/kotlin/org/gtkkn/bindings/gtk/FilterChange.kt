@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkFilterChange
+import org.gtkkn.native.gtk.gtk_filter_change_get_type
 
 /**
  * Describes changes in a filter in more detail and allows objects
@@ -11,9 +13,7 @@ import org.gtkkn.native.gtk.GtkFilterChange
  * value to pass, %GTK_FILTER_CHANGE_DIFFERENT is always a correct
  * choice.
  */
-public enum class FilterChange(
-    public val nativeValue: GtkFilterChange,
-) {
+public enum class FilterChange(public val nativeValue: GtkFilterChange) {
     /**
      * The filter change cannot be
      *   described with any of the other enumeration values.
@@ -36,12 +36,18 @@ public enum class FilterChange(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkFilterChange): FilterChange =
-            when (nativeValue) {
-                GtkFilterChange.GTK_FILTER_CHANGE_DIFFERENT -> DIFFERENT
-                GtkFilterChange.GTK_FILTER_CHANGE_LESS_STRICT -> LESS_STRICT
-                GtkFilterChange.GTK_FILTER_CHANGE_MORE_STRICT -> MORE_STRICT
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkFilterChange): FilterChange = when (nativeValue) {
+            GtkFilterChange.GTK_FILTER_CHANGE_DIFFERENT -> DIFFERENT
+            GtkFilterChange.GTK_FILTER_CHANGE_LESS_STRICT -> LESS_STRICT
+            GtkFilterChange.GTK_FILTER_CHANGE_MORE_STRICT -> MORE_STRICT
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of FilterChange
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_filter_change_get_type()
     }
 }

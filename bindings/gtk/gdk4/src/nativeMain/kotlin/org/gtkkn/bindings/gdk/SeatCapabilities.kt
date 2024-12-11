@@ -11,13 +11,13 @@ import org.gtkkn.native.gdk.GDK_SEAT_CAPABILITY_TABLET_PAD
 import org.gtkkn.native.gdk.GDK_SEAT_CAPABILITY_TABLET_STYLUS
 import org.gtkkn.native.gdk.GDK_SEAT_CAPABILITY_TOUCH
 import org.gtkkn.native.gdk.GdkSeatCapabilities
+import org.gtkkn.native.gdk.gdk_seat_capabilities_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags describing the seat capabilities.
  */
-public class SeatCapabilities(
-    public val mask: GdkSeatCapabilities,
-) : Bitfield<SeatCapabilities> {
+public class SeatCapabilities(public val mask: GdkSeatCapabilities) : Bitfield<SeatCapabilities> {
     override infix fun or(other: SeatCapabilities): SeatCapabilities = SeatCapabilities(mask or other.mask)
 
     public companion object {
@@ -62,5 +62,12 @@ public class SeatCapabilities(
          * The union of all capabilities
          */
         public val ALL: SeatCapabilities = SeatCapabilities(GDK_SEAT_CAPABILITY_ALL)
+
+        /**
+         * Get the GType of SeatCapabilities
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_seat_capabilities_get_type()
     }
 }

@@ -18,6 +18,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -60,9 +61,8 @@ import kotlin.Unit
  *
  * - method `show-editor`: Property has no getter nor setter
  */
-public open class ColorButton(
-    pointer: CPointer<GtkColorButton>,
-) : Widget(pointer.reinterpret()),
+public open class ColorButton(pointer: CPointer<GtkColorButton>) :
+    Widget(pointer.reinterpret()),
     ColorChooser,
     KGTyped {
     public val gtkColorButtonPointer: CPointer<GtkColorButton>
@@ -107,9 +107,8 @@ public open class ColorButton(
          *
          * @return An internal string, do not free the return value
          */
-        get() =
-            gtk_color_button_get_title(gtkColorButtonPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_color_button_get_title(gtkColorButtonPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Sets the title for the color chooser dialog.
@@ -142,38 +141,6 @@ public open class ColorButton(
     ) : this(gtk_color_button_new_with_rgba(rgba.gdkRGBAPointer.reinterpret())!!.reinterpret())
 
     /**
-     * Gets whether the dialog is modal.
-     *
-     * @return true if the dialog is modal
-     */
-    public open fun getModal(): Boolean = gtk_color_button_get_modal(gtkColorButtonPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the title of the color chooser dialog.
-     *
-     * @return An internal string, do not free the return value
-     */
-    public open fun getTitle(): String =
-        gtk_color_button_get_title(gtkColorButtonPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Sets whether the dialog should be modal.
-     *
-     * @param modal true to make the dialog modal
-     */
-    public open fun setModal(modal: Boolean): Unit =
-        gtk_color_button_set_modal(gtkColorButtonPointer.reinterpret(), modal.asGBoolean())
-
-    /**
-     * Sets the title for the color chooser dialog.
-     *
-     * @param title String containing new window title
-     */
-    public open fun setTitle(title: String): Unit =
-        gtk_color_button_set_title(gtkColorButtonPointer.reinterpret(), title)
-
-    /**
      * Emitted to when the color button is activated.
      *
      * The `::activate` signal on `GtkMenuButton` is an action signal and
@@ -184,10 +151,7 @@ public open class ColorButton(
      * @since 4.4
      */
     @GtkVersion4_4
-    public fun connectActivate(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "activate",
@@ -210,10 +174,7 @@ public open class ColorButton(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectColorSet(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectColorSet(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "color-set",
@@ -230,21 +191,28 @@ public open class ColorButton(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ColorButton
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_color_button_get_type()
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectColorSetFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectColorSetFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

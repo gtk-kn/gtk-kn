@@ -8,6 +8,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_24
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitDeviceInfoPermissionRequest
 import org.gtkkn.native.webkit.WebKitPermissionRequest
 import org.gtkkn.native.webkit.webkit_device_info_permission_request_get_type
@@ -24,9 +25,8 @@ import org.gtkkn.native.webkit.webkit_device_info_permission_request_get_type
  * @since 2.24
  */
 @WebKitVersion2_24
-public class DeviceInfoPermissionRequest(
-    pointer: CPointer<WebKitDeviceInfoPermissionRequest>,
-) : Object(pointer.reinterpret()),
+public class DeviceInfoPermissionRequest(pointer: CPointer<WebKitDeviceInfoPermissionRequest>) :
+    Object(pointer.reinterpret()),
     PermissionRequest,
     KGTyped {
     public val webkitDeviceInfoPermissionRequestPointer: CPointer<WebKitDeviceInfoPermissionRequest>
@@ -37,12 +37,19 @@ public class DeviceInfoPermissionRequest(
 
     public companion object : TypeCompanion<DeviceInfoPermissionRequest> {
         override val type: GeneratedClassKGType<DeviceInfoPermissionRequest> =
-            GeneratedClassKGType(
-                webkit_device_info_permission_request_get_type()
-            ) { DeviceInfoPermissionRequest(it.reinterpret()) }
+            GeneratedClassKGType(webkit_device_info_permission_request_get_type()) {
+                DeviceInfoPermissionRequest(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()
         }
+
+        /**
+         * Get the GType of DeviceInfoPermissionRequest
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_device_info_permission_request_get_type()
     }
 }

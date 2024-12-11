@@ -1,15 +1,15 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkRevealerTransitionType
+import org.gtkkn.native.gtk.gtk_revealer_transition_type_get_type
 
 /**
  * These enumeration values describe the possible transitions
  * when the child of a `GtkRevealer` widget is shown or hidden.
  */
-public enum class RevealerTransitionType(
-    public val nativeValue: GtkRevealerTransitionType,
-) {
+public enum class RevealerTransitionType(public val nativeValue: GtkRevealerTransitionType) {
     /**
      * No transition
      */
@@ -76,5 +76,12 @@ public enum class RevealerTransitionType(
                 GtkRevealerTransitionType.GTK_REVEALER_TRANSITION_TYPE_SWING_DOWN -> SWING_DOWN
                 else -> error("invalid nativeValue")
             }
+
+        /**
+         * Get the GType of RevealerTransitionType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_revealer_transition_type_get_type()
     }
 }

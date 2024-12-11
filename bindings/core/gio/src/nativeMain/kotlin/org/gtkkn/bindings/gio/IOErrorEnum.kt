@@ -3,7 +3,9 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.native.gio.GIOErrorEnum
+import org.gtkkn.native.gio.g_io_error_enum_get_type
 import org.gtkkn.native.glib.g_quark_from_string
+import org.gtkkn.native.gobject.GType
 import kotlin.UInt
 
 /**
@@ -26,9 +28,7 @@ import kotlin.UInt
  * See also #GPollableReturn for a cheaper way of returning
  * %G_IO_ERROR_WOULD_BLOCK to callers without allocating a #GError.
  */
-public enum class IOErrorEnum(
-    public val nativeValue: GIOErrorEnum,
-) {
+public enum class IOErrorEnum(public val nativeValue: GIOErrorEnum) {
     /**
      * Generic error condition for when an operation fails
      *     and no more specific #GIOErrorEnum value is defined.
@@ -294,68 +294,73 @@ public enum class IOErrorEnum(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GIOErrorEnum): IOErrorEnum =
-            when (nativeValue) {
-                GIOErrorEnum.G_IO_ERROR_FAILED -> FAILED
-                GIOErrorEnum.G_IO_ERROR_NOT_FOUND -> NOT_FOUND
-                GIOErrorEnum.G_IO_ERROR_EXISTS -> EXISTS
-                GIOErrorEnum.G_IO_ERROR_IS_DIRECTORY -> IS_DIRECTORY
-                GIOErrorEnum.G_IO_ERROR_NOT_DIRECTORY -> NOT_DIRECTORY
-                GIOErrorEnum.G_IO_ERROR_NOT_EMPTY -> NOT_EMPTY
-                GIOErrorEnum.G_IO_ERROR_NOT_REGULAR_FILE -> NOT_REGULAR_FILE
-                GIOErrorEnum.G_IO_ERROR_NOT_SYMBOLIC_LINK -> NOT_SYMBOLIC_LINK
-                GIOErrorEnum.G_IO_ERROR_NOT_MOUNTABLE_FILE -> NOT_MOUNTABLE_FILE
-                GIOErrorEnum.G_IO_ERROR_FILENAME_TOO_LONG -> FILENAME_TOO_LONG
-                GIOErrorEnum.G_IO_ERROR_INVALID_FILENAME -> INVALID_FILENAME
-                GIOErrorEnum.G_IO_ERROR_TOO_MANY_LINKS -> TOO_MANY_LINKS
-                GIOErrorEnum.G_IO_ERROR_NO_SPACE -> NO_SPACE
-                GIOErrorEnum.G_IO_ERROR_INVALID_ARGUMENT -> INVALID_ARGUMENT
-                GIOErrorEnum.G_IO_ERROR_PERMISSION_DENIED -> PERMISSION_DENIED
-                GIOErrorEnum.G_IO_ERROR_NOT_SUPPORTED -> NOT_SUPPORTED
-                GIOErrorEnum.G_IO_ERROR_NOT_MOUNTED -> NOT_MOUNTED
-                GIOErrorEnum.G_IO_ERROR_ALREADY_MOUNTED -> ALREADY_MOUNTED
-                GIOErrorEnum.G_IO_ERROR_CLOSED -> CLOSED
-                GIOErrorEnum.G_IO_ERROR_CANCELLED -> CANCELLED
-                GIOErrorEnum.G_IO_ERROR_PENDING -> PENDING
-                GIOErrorEnum.G_IO_ERROR_READ_ONLY -> READ_ONLY
-                GIOErrorEnum.G_IO_ERROR_CANT_CREATE_BACKUP -> CANT_CREATE_BACKUP
-                GIOErrorEnum.G_IO_ERROR_WRONG_ETAG -> WRONG_ETAG
-                GIOErrorEnum.G_IO_ERROR_TIMED_OUT -> TIMED_OUT
-                GIOErrorEnum.G_IO_ERROR_WOULD_RECURSE -> WOULD_RECURSE
-                GIOErrorEnum.G_IO_ERROR_BUSY -> BUSY
-                GIOErrorEnum.G_IO_ERROR_WOULD_BLOCK -> WOULD_BLOCK
-                GIOErrorEnum.G_IO_ERROR_HOST_NOT_FOUND -> HOST_NOT_FOUND
-                GIOErrorEnum.G_IO_ERROR_WOULD_MERGE -> WOULD_MERGE
-                GIOErrorEnum.G_IO_ERROR_FAILED_HANDLED -> FAILED_HANDLED
-                GIOErrorEnum.G_IO_ERROR_TOO_MANY_OPEN_FILES -> TOO_MANY_OPEN_FILES
-                GIOErrorEnum.G_IO_ERROR_NOT_INITIALIZED -> NOT_INITIALIZED
-                GIOErrorEnum.G_IO_ERROR_ADDRESS_IN_USE -> ADDRESS_IN_USE
-                GIOErrorEnum.G_IO_ERROR_PARTIAL_INPUT -> PARTIAL_INPUT
-                GIOErrorEnum.G_IO_ERROR_INVALID_DATA -> INVALID_DATA
-                GIOErrorEnum.G_IO_ERROR_DBUS_ERROR -> DBUS_ERROR
-                GIOErrorEnum.G_IO_ERROR_HOST_UNREACHABLE -> HOST_UNREACHABLE
-                GIOErrorEnum.G_IO_ERROR_NETWORK_UNREACHABLE -> NETWORK_UNREACHABLE
-                GIOErrorEnum.G_IO_ERROR_CONNECTION_REFUSED -> CONNECTION_REFUSED
-                GIOErrorEnum.G_IO_ERROR_PROXY_FAILED -> PROXY_FAILED
-                GIOErrorEnum.G_IO_ERROR_PROXY_AUTH_FAILED -> PROXY_AUTH_FAILED
-                GIOErrorEnum.G_IO_ERROR_PROXY_NEED_AUTH -> PROXY_NEED_AUTH
-                GIOErrorEnum.G_IO_ERROR_PROXY_NOT_ALLOWED -> PROXY_NOT_ALLOWED
-                GIOErrorEnum.G_IO_ERROR_BROKEN_PIPE -> BROKEN_PIPE
-                GIOErrorEnum.G_IO_ERROR_CONNECTION_CLOSED -> CONNECTION_CLOSED
-                GIOErrorEnum.G_IO_ERROR_NOT_CONNECTED -> NOT_CONNECTED
-                GIOErrorEnum.G_IO_ERROR_MESSAGE_TOO_LARGE -> MESSAGE_TOO_LARGE
-                GIOErrorEnum.G_IO_ERROR_NO_SUCH_DEVICE -> NO_SUCH_DEVICE
-                GIOErrorEnum.G_IO_ERROR_DESTINATION_UNSET -> DESTINATION_UNSET
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GIOErrorEnum): IOErrorEnum = when (nativeValue) {
+            GIOErrorEnum.G_IO_ERROR_FAILED -> FAILED
+            GIOErrorEnum.G_IO_ERROR_NOT_FOUND -> NOT_FOUND
+            GIOErrorEnum.G_IO_ERROR_EXISTS -> EXISTS
+            GIOErrorEnum.G_IO_ERROR_IS_DIRECTORY -> IS_DIRECTORY
+            GIOErrorEnum.G_IO_ERROR_NOT_DIRECTORY -> NOT_DIRECTORY
+            GIOErrorEnum.G_IO_ERROR_NOT_EMPTY -> NOT_EMPTY
+            GIOErrorEnum.G_IO_ERROR_NOT_REGULAR_FILE -> NOT_REGULAR_FILE
+            GIOErrorEnum.G_IO_ERROR_NOT_SYMBOLIC_LINK -> NOT_SYMBOLIC_LINK
+            GIOErrorEnum.G_IO_ERROR_NOT_MOUNTABLE_FILE -> NOT_MOUNTABLE_FILE
+            GIOErrorEnum.G_IO_ERROR_FILENAME_TOO_LONG -> FILENAME_TOO_LONG
+            GIOErrorEnum.G_IO_ERROR_INVALID_FILENAME -> INVALID_FILENAME
+            GIOErrorEnum.G_IO_ERROR_TOO_MANY_LINKS -> TOO_MANY_LINKS
+            GIOErrorEnum.G_IO_ERROR_NO_SPACE -> NO_SPACE
+            GIOErrorEnum.G_IO_ERROR_INVALID_ARGUMENT -> INVALID_ARGUMENT
+            GIOErrorEnum.G_IO_ERROR_PERMISSION_DENIED -> PERMISSION_DENIED
+            GIOErrorEnum.G_IO_ERROR_NOT_SUPPORTED -> NOT_SUPPORTED
+            GIOErrorEnum.G_IO_ERROR_NOT_MOUNTED -> NOT_MOUNTED
+            GIOErrorEnum.G_IO_ERROR_ALREADY_MOUNTED -> ALREADY_MOUNTED
+            GIOErrorEnum.G_IO_ERROR_CLOSED -> CLOSED
+            GIOErrorEnum.G_IO_ERROR_CANCELLED -> CANCELLED
+            GIOErrorEnum.G_IO_ERROR_PENDING -> PENDING
+            GIOErrorEnum.G_IO_ERROR_READ_ONLY -> READ_ONLY
+            GIOErrorEnum.G_IO_ERROR_CANT_CREATE_BACKUP -> CANT_CREATE_BACKUP
+            GIOErrorEnum.G_IO_ERROR_WRONG_ETAG -> WRONG_ETAG
+            GIOErrorEnum.G_IO_ERROR_TIMED_OUT -> TIMED_OUT
+            GIOErrorEnum.G_IO_ERROR_WOULD_RECURSE -> WOULD_RECURSE
+            GIOErrorEnum.G_IO_ERROR_BUSY -> BUSY
+            GIOErrorEnum.G_IO_ERROR_WOULD_BLOCK -> WOULD_BLOCK
+            GIOErrorEnum.G_IO_ERROR_HOST_NOT_FOUND -> HOST_NOT_FOUND
+            GIOErrorEnum.G_IO_ERROR_WOULD_MERGE -> WOULD_MERGE
+            GIOErrorEnum.G_IO_ERROR_FAILED_HANDLED -> FAILED_HANDLED
+            GIOErrorEnum.G_IO_ERROR_TOO_MANY_OPEN_FILES -> TOO_MANY_OPEN_FILES
+            GIOErrorEnum.G_IO_ERROR_NOT_INITIALIZED -> NOT_INITIALIZED
+            GIOErrorEnum.G_IO_ERROR_ADDRESS_IN_USE -> ADDRESS_IN_USE
+            GIOErrorEnum.G_IO_ERROR_PARTIAL_INPUT -> PARTIAL_INPUT
+            GIOErrorEnum.G_IO_ERROR_INVALID_DATA -> INVALID_DATA
+            GIOErrorEnum.G_IO_ERROR_DBUS_ERROR -> DBUS_ERROR
+            GIOErrorEnum.G_IO_ERROR_HOST_UNREACHABLE -> HOST_UNREACHABLE
+            GIOErrorEnum.G_IO_ERROR_NETWORK_UNREACHABLE -> NETWORK_UNREACHABLE
+            GIOErrorEnum.G_IO_ERROR_CONNECTION_REFUSED -> CONNECTION_REFUSED
+            GIOErrorEnum.G_IO_ERROR_PROXY_FAILED -> PROXY_FAILED
+            GIOErrorEnum.G_IO_ERROR_PROXY_AUTH_FAILED -> PROXY_AUTH_FAILED
+            GIOErrorEnum.G_IO_ERROR_PROXY_NEED_AUTH -> PROXY_NEED_AUTH
+            GIOErrorEnum.G_IO_ERROR_PROXY_NOT_ALLOWED -> PROXY_NOT_ALLOWED
+            GIOErrorEnum.G_IO_ERROR_BROKEN_PIPE -> BROKEN_PIPE
+            GIOErrorEnum.G_IO_ERROR_CONNECTION_CLOSED -> CONNECTION_CLOSED
+            GIOErrorEnum.G_IO_ERROR_NOT_CONNECTED -> NOT_CONNECTED
+            GIOErrorEnum.G_IO_ERROR_MESSAGE_TOO_LARGE -> MESSAGE_TOO_LARGE
+            GIOErrorEnum.G_IO_ERROR_NO_SUCH_DEVICE -> NO_SUCH_DEVICE
+            GIOErrorEnum.G_IO_ERROR_DESTINATION_UNSET -> DESTINATION_UNSET
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of IOErrorEnum
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_io_error_enum_get_type()
 
         public fun quark(): UInt = g_quark_from_string("g-io-error-quark")
 
-        public fun fromErrorOrNull(error: Error): IOErrorEnum? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                IOErrorEnum.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        public fun fromErrorOrNull(error: Error): IOErrorEnum? = if (error.domain != quark()) {
+            null
+        } else {
+            IOErrorEnum.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

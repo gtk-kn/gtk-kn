@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gtk.TextTag
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceTag
 import org.gtkkn.native.gtksource.gtk_source_tag_get_type
 import org.gtkkn.native.gtksource.gtk_source_tag_new
@@ -26,9 +27,8 @@ import kotlin.String
  * - method `draw-spaces`: Property has no getter nor setter
  * - method `draw-spaces-set`: Property has no getter nor setter
  */
-public open class Tag(
-    pointer: CPointer<GtkSourceTag>,
-) : TextTag(pointer.reinterpret()),
+public open class Tag(pointer: CPointer<GtkSourceTag>) :
+    TextTag(pointer.reinterpret()),
     KGTyped {
     public val gtksourceTagPointer: CPointer<GtkSourceTag>
         get() = gPointer.reinterpret()
@@ -53,5 +53,12 @@ public open class Tag(
         init {
             GtksourceTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Tag
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_tag_get_type()
     }
 }

@@ -8,11 +8,12 @@ import org.gtkkn.bindings.gio.ActionGroup
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkPadController
 import org.gtkkn.native.gtk.gtk_pad_controller_get_type
 import org.gtkkn.native.gtk.gtk_pad_controller_new
 import org.gtkkn.native.gtk.gtk_pad_controller_set_action
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 
@@ -71,9 +72,8 @@ import kotlin.Unit
  * - method `action-group`: Property has no getter nor setter
  * - method `pad`: Property has no getter nor setter
  */
-public open class PadController(
-    pointer: CPointer<GtkPadController>,
-) : EventController(pointer.reinterpret()),
+public open class PadController(pointer: CPointer<GtkPadController>) :
+    EventController(pointer.reinterpret()),
     KGTyped {
     public val gtkPadControllerPointer: CPointer<GtkPadController>
         get() = gPointer.reinterpret()
@@ -121,13 +121,7 @@ public open class PadController(
      *   be deemed user-visible.
      * @param actionName action name that will be activated in the `GActionGroup`
      */
-    public open fun setAction(
-        type: PadActionType,
-        index: Int,
-        mode: Int,
-        label: String,
-        actionName: String,
-    ): Unit =
+    public open fun setAction(type: PadActionType, index: gint, mode: gint, label: String, actionName: String): Unit =
         gtk_pad_controller_set_action(
             gtkPadControllerPointer.reinterpret(),
             type.nativeValue,
@@ -144,5 +138,12 @@ public open class PadController(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of PadController
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_pad_controller_get_type()
     }
 }

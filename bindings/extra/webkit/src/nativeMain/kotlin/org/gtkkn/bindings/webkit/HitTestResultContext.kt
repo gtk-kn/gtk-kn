@@ -2,6 +2,7 @@
 package org.gtkkn.bindings.webkit
 
 import org.gtkkn.extensions.glib.Bitfield
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WEBKIT_HIT_TEST_RESULT_CONTEXT_DOCUMENT
 import org.gtkkn.native.webkit.WEBKIT_HIT_TEST_RESULT_CONTEXT_EDITABLE
 import org.gtkkn.native.webkit.WEBKIT_HIT_TEST_RESULT_CONTEXT_IMAGE
@@ -10,13 +11,12 @@ import org.gtkkn.native.webkit.WEBKIT_HIT_TEST_RESULT_CONTEXT_MEDIA
 import org.gtkkn.native.webkit.WEBKIT_HIT_TEST_RESULT_CONTEXT_SCROLLBAR
 import org.gtkkn.native.webkit.WEBKIT_HIT_TEST_RESULT_CONTEXT_SELECTION
 import org.gtkkn.native.webkit.WebKitHitTestResultContext
+import org.gtkkn.native.webkit.webkit_hit_test_result_context_get_type
 
 /**
  * Enum values with flags representing the context of a #WebKitHitTestResult.
  */
-public class HitTestResultContext(
-    public val mask: WebKitHitTestResultContext,
-) : Bitfield<HitTestResultContext> {
+public class HitTestResultContext(public val mask: WebKitHitTestResultContext) : Bitfield<HitTestResultContext> {
     override infix fun or(other: HitTestResultContext): HitTestResultContext = HitTestResultContext(mask or other.mask)
 
     public companion object {
@@ -61,5 +61,12 @@ public class HitTestResultContext(
          */
         public val SELECTION: HitTestResultContext =
             HitTestResultContext(WEBKIT_HIT_TEST_RESULT_CONTEXT_SELECTION)
+
+        /**
+         * Get the GType of HitTestResultContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_hit_test_result_context_get_type()
     }
 }

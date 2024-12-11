@@ -24,9 +24,9 @@ import org.gtkkn.native.gdk.gdk_content_deserializer_get_value
 import org.gtkkn.native.gdk.gdk_content_deserializer_return_error
 import org.gtkkn.native.gdk.gdk_content_deserializer_return_success
 import org.gtkkn.native.gio.GAsyncResult
-import kotlin.Int
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 
 /**
@@ -48,9 +48,8 @@ import kotlin.Unit
  * - method `get_user_data`: Return type gpointer is unsupported
  * - parameter `data`: gpointer
  */
-public open class ContentDeserializer(
-    pointer: CPointer<GdkContentDeserializer>,
-) : Object(pointer.reinterpret()),
+public open class ContentDeserializer(pointer: CPointer<GdkContentDeserializer>) :
+    Object(pointer.reinterpret()),
     AsyncResult,
     KGTyped {
     public val gdkContentDeserializerPointer: CPointer<GdkContentDeserializer>
@@ -76,7 +75,7 @@ public open class ContentDeserializer(
      *
      * @return the `GType` for the current operation
      */
-    public open fun getGtype(): ULong = gdk_content_deserializer_get_gtype(gdkContentDeserializerPointer.reinterpret())
+    public open fun getGtype(): GType = gdk_content_deserializer_get_gtype(gdkContentDeserializerPointer.reinterpret())
 
     /**
      * Gets the input stream for the current operation.
@@ -106,7 +105,7 @@ public open class ContentDeserializer(
      *
      * @return the I/O priority for the current operation
      */
-    public open fun getPriority(): Int =
+    public open fun getPriority(): gint =
         gdk_content_deserializer_get_priority(gdkContentDeserializerPointer.reinterpret())
 
     /**
@@ -126,11 +125,10 @@ public open class ContentDeserializer(
      *
      * @param error a `GError`
      */
-    public open fun returnError(error: Error): Unit =
-        gdk_content_deserializer_return_error(
-            gdkContentDeserializerPointer.reinterpret(),
-            error.glibErrorPointer.reinterpret()
-        )
+    public open fun returnError(error: Error): Unit = gdk_content_deserializer_return_error(
+        gdkContentDeserializerPointer.reinterpret(),
+        error.glibErrorPointer.reinterpret()
+    )
 
     /**
      * Indicate that the deserialization has been successfully completed.
@@ -145,5 +143,12 @@ public open class ContentDeserializer(
         init {
             GdkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ContentDeserializer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_content_deserializer_get_type()
     }
 }

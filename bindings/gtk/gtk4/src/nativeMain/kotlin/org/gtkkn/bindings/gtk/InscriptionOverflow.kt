@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkInscriptionOverflow
+import org.gtkkn.native.gtk.gtk_inscription_overflow_get_type
 
 /**
  * The different methods to handle text in #GtkInscription when it doesn't
@@ -10,9 +12,7 @@ import org.gtkkn.native.gtk.GtkInscriptionOverflow
  * @since 4.8
  */
 @GtkVersion4_8
-public enum class InscriptionOverflow(
-    public val nativeValue: GtkInscriptionOverflow,
-) {
+public enum class InscriptionOverflow(public val nativeValue: GtkInscriptionOverflow) {
     /**
      * Clip the remaining text
      */
@@ -35,13 +35,19 @@ public enum class InscriptionOverflow(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkInscriptionOverflow): InscriptionOverflow =
-            when (nativeValue) {
-                GtkInscriptionOverflow.GTK_INSCRIPTION_OVERFLOW_CLIP -> CLIP
-                GtkInscriptionOverflow.GTK_INSCRIPTION_OVERFLOW_ELLIPSIZE_START -> ELLIPSIZE_START
-                GtkInscriptionOverflow.GTK_INSCRIPTION_OVERFLOW_ELLIPSIZE_MIDDLE -> ELLIPSIZE_MIDDLE
-                GtkInscriptionOverflow.GTK_INSCRIPTION_OVERFLOW_ELLIPSIZE_END -> ELLIPSIZE_END
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkInscriptionOverflow): InscriptionOverflow = when (nativeValue) {
+            GtkInscriptionOverflow.GTK_INSCRIPTION_OVERFLOW_CLIP -> CLIP
+            GtkInscriptionOverflow.GTK_INSCRIPTION_OVERFLOW_ELLIPSIZE_START -> ELLIPSIZE_START
+            GtkInscriptionOverflow.GTK_INSCRIPTION_OVERFLOW_ELLIPSIZE_MIDDLE -> ELLIPSIZE_MIDDLE
+            GtkInscriptionOverflow.GTK_INSCRIPTION_OVERFLOW_ELLIPSIZE_END -> ELLIPSIZE_END
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of InscriptionOverflow
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_inscription_overflow_get_type()
     }
 }

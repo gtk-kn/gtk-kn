@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkIMContextSimple
 import org.gtkkn.native.gtk.gtk_im_context_simple_add_compose_file
 import org.gtkkn.native.gtk.gtk_im_context_simple_get_type
@@ -52,10 +53,13 @@ import kotlin.Unit
  *
  *  yields U+00E! LATIN SMALL LETTER_A WITH ACUTE, i.e. á. Note that this
  *  depends on the keyboard layout including dead keys.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - parameter `data`: Array parameter of type guint16 is not supported
  */
-public open class IMContextSimple(
-    pointer: CPointer<GtkIMContextSimple>,
-) : IMContext(pointer.reinterpret()),
+public open class IMContextSimple(pointer: CPointer<GtkIMContextSimple>) :
+    IMContext(pointer.reinterpret()),
     KGTyped {
     public val gtkIMContextSimplePointer: CPointer<GtkIMContextSimple>
         get() = gPointer.reinterpret()
@@ -82,5 +86,12 @@ public open class IMContextSimple(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of IMContextSimple
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_im_context_simple_get_type()
     }
 }

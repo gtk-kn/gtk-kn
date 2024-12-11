@@ -16,6 +16,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -57,9 +58,8 @@ import kotlin.Unit
  * @since 4.10
  */
 @GtkVersion4_10
-public open class ColorDialogButton(
-    pointer: CPointer<GtkColorDialogButton>,
-) : Widget(pointer.reinterpret()),
+public open class ColorDialogButton(pointer: CPointer<GtkColorDialogButton>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkColorDialogButtonPointer: CPointer<GtkColorDialogButton>
         get() = gPointer.reinterpret()
@@ -97,10 +97,9 @@ public open class ColorDialogButton(
          * @return the color
          * @since 4.10
          */
-        get() =
-            gtk_color_dialog_button_get_rgba(gtkColorDialogButtonPointer.reinterpret())!!.run {
-                RGBA(reinterpret())
-            }
+        get() = gtk_color_dialog_button_get_rgba(gtkColorDialogButtonPointer.reinterpret())!!.run {
+            RGBA(reinterpret())
+        }
 
         /**
          * Sets the color of the button.
@@ -111,11 +110,10 @@ public open class ColorDialogButton(
         @GtkVersion4_10
         set(
             color
-        ) =
-            gtk_color_dialog_button_set_rgba(
-                gtkColorDialogButtonPointer.reinterpret(),
-                color.gdkRGBAPointer.reinterpret()
-            )
+        ) = gtk_color_dialog_button_set_rgba(
+            gtkColorDialogButtonPointer.reinterpret(),
+            color.gdkRGBAPointer.reinterpret()
+        )
 
     /**
      * Creates a new `GtkColorDialogButton` with the
@@ -145,22 +143,6 @@ public open class ColorDialogButton(
         }
 
     /**
-     * Returns the color of the button.
-     *
-     * This function is what should be used to obtain
-     * the color that was chosen by the user. To get
-     * informed about changes, listen to "notify::rgba".
-     *
-     * @return the color
-     * @since 4.10
-     */
-    @GtkVersion4_10
-    public open fun getRgba(): RGBA =
-        gtk_color_dialog_button_get_rgba(gtkColorDialogButtonPointer.reinterpret())!!.run {
-            RGBA(reinterpret())
-        }
-
-    /**
      * Sets a `GtkColorDialog` object to use for
      * creating the color chooser dialog that is
      * presented when the user clicks the button.
@@ -169,21 +151,10 @@ public open class ColorDialogButton(
      * @since 4.10
      */
     @GtkVersion4_10
-    public open fun setDialog(dialog: ColorDialog): Unit =
-        gtk_color_dialog_button_set_dialog(
-            gtkColorDialogButtonPointer.reinterpret(),
-            dialog.gtkColorDialogPointer.reinterpret()
-        )
-
-    /**
-     * Sets the color of the button.
-     *
-     * @param color the new color
-     * @since 4.10
-     */
-    @GtkVersion4_10
-    public open fun setRgba(color: RGBA): Unit =
-        gtk_color_dialog_button_set_rgba(gtkColorDialogButtonPointer.reinterpret(), color.gdkRGBAPointer.reinterpret())
+    public open fun setDialog(dialog: ColorDialog): Unit = gtk_color_dialog_button_set_dialog(
+        gtkColorDialogButtonPointer.reinterpret(),
+        dialog.gtkColorDialogPointer.reinterpret()
+    )
 
     /**
      * Emitted when the color dialog button is activated.
@@ -196,10 +167,7 @@ public open class ColorDialogButton(
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun connectActivate(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "activate",
@@ -216,13 +184,20 @@ public open class ColorDialogButton(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ColorDialogButton
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_color_dialog_button_get_type()
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

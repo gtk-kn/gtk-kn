@@ -10,6 +10,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkCustomSorter
 import org.gtkkn.native.gtk.gtk_custom_sorter_get_type
 import org.gtkkn.native.gtk.gtk_custom_sorter_new
@@ -20,9 +21,8 @@ import kotlin.Unit
  * `GtkCustomSorter` is a `GtkSorter` implementation that sorts via a callback
  * function.
  */
-public open class CustomSorter(
-    pointer: CPointer<GtkCustomSorter>,
-) : Sorter(pointer.reinterpret()),
+public open class CustomSorter(pointer: CPointer<GtkCustomSorter>) :
+    Sorter(pointer.reinterpret()),
     KGTyped {
     public val gtkCustomSorterPointer: CPointer<GtkCustomSorter>
         get() = gPointer.reinterpret()
@@ -59,13 +59,12 @@ public open class CustomSorter(
      *
      * @param sortFunc function to sort items
      */
-    public open fun setSortFunc(sortFunc: CompareDataFunc): Unit =
-        gtk_custom_sorter_set_sort_func(
-            gtkCustomSorterPointer.reinterpret(),
-            CompareDataFuncFunc.reinterpret(),
-            StableRef.create(sortFunc).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public open fun setSortFunc(sortFunc: CompareDataFunc): Unit = gtk_custom_sorter_set_sort_func(
+        gtkCustomSorterPointer.reinterpret(),
+        CompareDataFuncFunc.reinterpret(),
+        StableRef.create(sortFunc).asCPointer(),
+        staticStableRefDestroy.reinterpret()
+    )
 
     public companion object : TypeCompanion<CustomSorter> {
         override val type: GeneratedClassKGType<CustomSorter> =
@@ -74,5 +73,12 @@ public open class CustomSorter(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of CustomSorter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_custom_sorter_get_type()
     }
 }

@@ -10,14 +10,14 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkFocusEvent
 import org.gtkkn.native.gdk.gdk_focus_event_get_in
 import org.gtkkn.native.gdk.gdk_focus_event_get_type
+import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 
 /**
  * An event related to a keyboard focus change.
  */
-public open class FocusEvent(
-    pointer: CPointer<GdkFocusEvent>,
-) : Event(pointer.reinterpret()),
+public open class FocusEvent(pointer: CPointer<GdkFocusEvent>) :
+    Event(pointer.reinterpret()),
     KGTyped {
     public val gdkFocusEventPointer: CPointer<GdkFocusEvent>
         get() = gPointer.reinterpret()
@@ -37,5 +37,12 @@ public open class FocusEvent(
         init {
             GdkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of FocusEvent
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_focus_event_get_type()
     }
 }

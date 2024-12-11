@@ -3,15 +3,15 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_42
 import org.gtkkn.native.gio.GNotificationPriority
+import org.gtkkn.native.gio.g_notification_priority_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Priority levels for #GNotifications.
  * @since 2.42
  */
 @GioVersion2_42
-public enum class NotificationPriority(
-    public val nativeValue: GNotificationPriority,
-) {
+public enum class NotificationPriority(public val nativeValue: GNotificationPriority) {
     /**
      * the default priority, to be used for the
      *   majority of notifications (for example email messages, software updates,
@@ -42,13 +42,19 @@ public enum class NotificationPriority(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GNotificationPriority): NotificationPriority =
-            when (nativeValue) {
-                GNotificationPriority.G_NOTIFICATION_PRIORITY_NORMAL -> NORMAL
-                GNotificationPriority.G_NOTIFICATION_PRIORITY_LOW -> LOW
-                GNotificationPriority.G_NOTIFICATION_PRIORITY_HIGH -> HIGH
-                GNotificationPriority.G_NOTIFICATION_PRIORITY_URGENT -> URGENT
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GNotificationPriority): NotificationPriority = when (nativeValue) {
+            GNotificationPriority.G_NOTIFICATION_PRIORITY_NORMAL -> NORMAL
+            GNotificationPriority.G_NOTIFICATION_PRIORITY_LOW -> LOW
+            GNotificationPriority.G_NOTIFICATION_PRIORITY_HIGH -> HIGH
+            GNotificationPriority.G_NOTIFICATION_PRIORITY_URGENT -> URGENT
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of NotificationPriority
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_notification_priority_get_type()
     }
 }

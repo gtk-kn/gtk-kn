@@ -9,15 +9,15 @@ import org.gtkkn.native.gio.G_ASK_PASSWORD_NEED_PASSWORD
 import org.gtkkn.native.gio.G_ASK_PASSWORD_NEED_USERNAME
 import org.gtkkn.native.gio.G_ASK_PASSWORD_SAVING_SUPPORTED
 import org.gtkkn.native.gio.G_ASK_PASSWORD_TCRYPT
+import org.gtkkn.native.gio.g_ask_password_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * #GAskPasswordFlags are used to request specific information from the
  * user, or to notify the user of their choices in an authentication
  * situation.
  */
-public class AskPasswordFlags(
-    public val mask: GAskPasswordFlags,
-) : Bitfield<AskPasswordFlags> {
+public class AskPasswordFlags(public val mask: GAskPasswordFlags) : Bitfield<AskPasswordFlags> {
     override infix fun or(other: AskPasswordFlags): AskPasswordFlags = AskPasswordFlags(mask or other.mask)
 
     public companion object {
@@ -52,5 +52,12 @@ public class AskPasswordFlags(
          * operation takes TCRYPT parameters (Since: 2.58)
          */
         public val TCRYPT: AskPasswordFlags = AskPasswordFlags(G_ASK_PASSWORD_TCRYPT)
+
+        /**
+         * Get the GType of AskPasswordFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_ask_password_flags_get_type()
     }
 }

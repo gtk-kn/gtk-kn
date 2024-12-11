@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gdkpixbuf
 
 import org.gtkkn.native.gdkpixbuf.GdkColorspace
+import org.gtkkn.native.gdkpixbuf.gdk_colorspace_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * This enumeration defines the color spaces that are supported by
@@ -9,9 +11,7 @@ import org.gtkkn.native.gdkpixbuf.GdkColorspace
  *
  * Currently only RGB is supported.
  */
-public enum class Colorspace(
-    public val nativeValue: GdkColorspace,
-) {
+public enum class Colorspace(public val nativeValue: GdkColorspace) {
     /**
      * Indicates a red/green/blue additive color space.
      */
@@ -19,10 +19,16 @@ public enum class Colorspace(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GdkColorspace): Colorspace =
-            when (nativeValue) {
-                GdkColorspace.GDK_COLORSPACE_RGB -> RGB
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GdkColorspace): Colorspace = when (nativeValue) {
+            GdkColorspace.GDK_COLORSPACE_RGB -> RGB
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of Colorspace
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_colorspace_get_type()
     }
 }

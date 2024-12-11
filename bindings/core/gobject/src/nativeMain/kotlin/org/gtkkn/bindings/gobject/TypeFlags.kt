@@ -12,9 +12,7 @@ import org.gtkkn.native.gobject.G_TYPE_FLAG_VALUE_ABSTRACT
 /**
  * Bit masks used to check or determine characteristics of a type.
  */
-public class TypeFlags(
-    public val mask: GTypeFlags,
-) : Bitfield<TypeFlags> {
+public class TypeFlags(public val mask: GTypeFlags) : Bitfield<TypeFlags> {
     override infix fun or(other: TypeFlags): TypeFlags = TypeFlags(mask or other.mask)
 
     public companion object {

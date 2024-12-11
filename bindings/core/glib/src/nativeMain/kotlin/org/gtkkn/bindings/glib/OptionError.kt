@@ -8,9 +8,7 @@ import kotlin.UInt
 /**
  * Error codes returned by option parsing.
  */
-public enum class OptionError(
-    public val nativeValue: GOptionError,
-) {
+public enum class OptionError(public val nativeValue: GOptionError) {
     /**
      * An option was not known to the parser.
      *  This error will only be reported, if the parser hasn't been instructed
@@ -30,21 +28,19 @@ public enum class OptionError(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GOptionError): OptionError =
-            when (nativeValue) {
-                GOptionError.G_OPTION_ERROR_UNKNOWN_OPTION -> UNKNOWN_OPTION
-                GOptionError.G_OPTION_ERROR_BAD_VALUE -> BAD_VALUE
-                GOptionError.G_OPTION_ERROR_FAILED -> FAILED
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GOptionError): OptionError = when (nativeValue) {
+            GOptionError.G_OPTION_ERROR_UNKNOWN_OPTION -> UNKNOWN_OPTION
+            GOptionError.G_OPTION_ERROR_BAD_VALUE -> BAD_VALUE
+            GOptionError.G_OPTION_ERROR_FAILED -> FAILED
+            else -> error("invalid nativeValue")
+        }
 
         public fun quark(): UInt = g_quark_from_string("g-option-context-error-quark")
 
-        public fun fromErrorOrNull(error: Error): OptionError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                OptionError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        public fun fromErrorOrNull(error: Error): OptionError? = if (error.domain != quark()) {
+            null
+        } else {
+            OptionError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

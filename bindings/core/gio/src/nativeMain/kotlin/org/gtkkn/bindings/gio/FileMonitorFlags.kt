@@ -8,13 +8,13 @@ import org.gtkkn.native.gio.G_FILE_MONITOR_SEND_MOVED
 import org.gtkkn.native.gio.G_FILE_MONITOR_WATCH_HARD_LINKS
 import org.gtkkn.native.gio.G_FILE_MONITOR_WATCH_MOUNTS
 import org.gtkkn.native.gio.G_FILE_MONITOR_WATCH_MOVES
+import org.gtkkn.native.gio.g_file_monitor_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags used to set what a #GFileMonitor will watch for.
  */
-public class FileMonitorFlags(
-    public val mask: GFileMonitorFlags,
-) : Bitfield<FileMonitorFlags> {
+public class FileMonitorFlags(public val mask: GFileMonitorFlags) : Bitfield<FileMonitorFlags> {
     override infix fun or(other: FileMonitorFlags): FileMonitorFlags = FileMonitorFlags(mask or other.mask)
 
     public companion object {
@@ -52,5 +52,12 @@ public class FileMonitorFlags(
          *   events to be emitted when possible.  Since: 2.46.
          */
         public val WATCH_MOVES: FileMonitorFlags = FileMonitorFlags(G_FILE_MONITOR_WATCH_MOVES)
+
+        /**
+         * Get the GType of FileMonitorFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_file_monitor_flags_get_type()
     }
 }

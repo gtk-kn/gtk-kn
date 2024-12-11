@@ -15,12 +15,13 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkCellRendererText
 import org.gtkkn.native.gtk.gtk_cell_renderer_text_get_type
 import org.gtkkn.native.gtk.gtk_cell_renderer_text_new
 import org.gtkkn.native.gtk.gtk_cell_renderer_text_set_fixed_height_from_font
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -84,9 +85,8 @@ import kotlin.Unit
  * - method `wrap-mode`: Property has no getter nor setter
  * - method `wrap-width`: Property has no getter nor setter
  */
-public open class CellRendererText(
-    pointer: CPointer<GtkCellRendererText>,
-) : CellRenderer(pointer.reinterpret()),
+public open class CellRendererText(pointer: CPointer<GtkCellRendererText>) :
+    CellRenderer(pointer.reinterpret()),
     KGTyped {
     public val gtkCellRendererTextPointer: CPointer<GtkCellRendererText>
         get() = gPointer.reinterpret()
@@ -115,7 +115,7 @@ public open class CellRendererText(
      *
      * @param numberOfRows Number of rows of text each cell renderer is allocated, or -1
      */
-    public open fun setFixedHeightFromFont(numberOfRows: Int): Unit =
+    public open fun setFixedHeightFromFont(numberOfRows: gint): Unit =
         gtk_cell_renderer_text_set_fixed_height_from_font(gtkCellRendererTextPointer.reinterpret(), numberOfRows)
 
     /**
@@ -130,15 +130,14 @@ public open class CellRendererText(
     public fun connectEdited(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (path: String, newText: String) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "edited",
-            connectEditedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "edited",
+        connectEditedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<CellRendererText> {
         override val type: GeneratedClassKGType<CellRendererText> =
@@ -147,6 +146,13 @@ public open class CellRendererText(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of CellRendererText
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_cell_renderer_text_get_type()
     }
 }
 
@@ -161,4 +167,5 @@ private val connectEditedFunc: CPointer<CFunction<(CPointer<ByteVar>, CPointer<B
             path?.toKString() ?: error("Expected not null string"),
             newText?.toKString() ?: error("Expected not null string")
         )
-    }.reinterpret()
+    }
+        .reinterpret()

@@ -8,9 +8,7 @@ import kotlin.UInt
 /**
  * Error codes returned by bookmark file parsing.
  */
-public enum class BookmarkFileError(
-    public val nativeValue: GBookmarkFileError,
-) {
+public enum class BookmarkFileError(public val nativeValue: GBookmarkFileError) {
     /**
      * URI was ill-formed
      */
@@ -55,26 +53,24 @@ public enum class BookmarkFileError(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GBookmarkFileError): BookmarkFileError =
-            when (nativeValue) {
-                GBookmarkFileError.G_BOOKMARK_FILE_ERROR_INVALID_URI -> INVALID_URI
-                GBookmarkFileError.G_BOOKMARK_FILE_ERROR_INVALID_VALUE -> INVALID_VALUE
-                GBookmarkFileError.G_BOOKMARK_FILE_ERROR_APP_NOT_REGISTERED -> APP_NOT_REGISTERED
-                GBookmarkFileError.G_BOOKMARK_FILE_ERROR_URI_NOT_FOUND -> URI_NOT_FOUND
-                GBookmarkFileError.G_BOOKMARK_FILE_ERROR_READ -> READ
-                GBookmarkFileError.G_BOOKMARK_FILE_ERROR_UNKNOWN_ENCODING -> UNKNOWN_ENCODING
-                GBookmarkFileError.G_BOOKMARK_FILE_ERROR_WRITE -> WRITE
-                GBookmarkFileError.G_BOOKMARK_FILE_ERROR_FILE_NOT_FOUND -> FILE_NOT_FOUND
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GBookmarkFileError): BookmarkFileError = when (nativeValue) {
+            GBookmarkFileError.G_BOOKMARK_FILE_ERROR_INVALID_URI -> INVALID_URI
+            GBookmarkFileError.G_BOOKMARK_FILE_ERROR_INVALID_VALUE -> INVALID_VALUE
+            GBookmarkFileError.G_BOOKMARK_FILE_ERROR_APP_NOT_REGISTERED -> APP_NOT_REGISTERED
+            GBookmarkFileError.G_BOOKMARK_FILE_ERROR_URI_NOT_FOUND -> URI_NOT_FOUND
+            GBookmarkFileError.G_BOOKMARK_FILE_ERROR_READ -> READ
+            GBookmarkFileError.G_BOOKMARK_FILE_ERROR_UNKNOWN_ENCODING -> UNKNOWN_ENCODING
+            GBookmarkFileError.G_BOOKMARK_FILE_ERROR_WRITE -> WRITE
+            GBookmarkFileError.G_BOOKMARK_FILE_ERROR_FILE_NOT_FOUND -> FILE_NOT_FOUND
+            else -> error("invalid nativeValue")
+        }
 
         public fun quark(): UInt = g_quark_from_string("g-bookmark-file-error-quark")
 
-        public fun fromErrorOrNull(error: Error): BookmarkFileError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                BookmarkFileError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        public fun fromErrorOrNull(error: Error): BookmarkFileError? = if (error.domain != quark()) {
+            null
+        } else {
+            BookmarkFileError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

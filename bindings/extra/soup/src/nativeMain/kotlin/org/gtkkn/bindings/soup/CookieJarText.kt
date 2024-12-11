@@ -7,6 +7,7 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupCookieJarText
 import org.gtkkn.native.soup.SoupSessionFeature
 import org.gtkkn.native.soup.soup_cookie_jar_text_get_type
@@ -24,9 +25,8 @@ import kotlin.String
  *
  * - method `filename`: Property has no getter nor setter
  */
-public class CookieJarText(
-    pointer: CPointer<SoupCookieJarText>,
-) : CookieJar(pointer.reinterpret()),
+public class CookieJarText(pointer: CPointer<SoupCookieJarText>) :
+    CookieJar(pointer.reinterpret()),
     KGTyped {
     public val soupCookieJarTextPointer: CPointer<SoupCookieJarText>
         get() = gPointer.reinterpret()
@@ -59,5 +59,12 @@ public class CookieJarText(
         init {
             SoupTypeProvider.register()
         }
+
+        /**
+         * Get the GType of CookieJarText
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_cookie_jar_text_get_type()
     }
 }

@@ -18,6 +18,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GAppInfo
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAppChooser
@@ -72,9 +73,8 @@ import kotlin.Unit
  *
  * - method `default-text`: Property TypeInfo of getter and setter do not match
  */
-public open class AppChooserWidget(
-    pointer: CPointer<GtkAppChooserWidget>,
-) : Widget(pointer.reinterpret()),
+public open class AppChooserWidget(pointer: CPointer<GtkAppChooserWidget>) :
+    Widget(pointer.reinterpret()),
     AppChooser,
     KGTyped {
     public val gtkAppChooserWidgetPointer: CPointer<GtkAppChooserWidget>
@@ -236,51 +236,6 @@ public open class AppChooserWidget(
         gtk_app_chooser_widget_get_default_text(gtkAppChooserWidgetPointer.reinterpret())?.toKString()
 
     /**
-     * Gets whether the app chooser should show all applications
-     * in a flat list.
-     *
-     * @return the value of [property@Gtk.AppChooserWidget:show-all]
-     */
-    public open fun getShowAll(): Boolean =
-        gtk_app_chooser_widget_get_show_all(gtkAppChooserWidgetPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets whether the app chooser should show the default handler
-     * for the content type in a separate section.
-     *
-     * @return the value of [property@Gtk.AppChooserWidget:show-default]
-     */
-    public open fun getShowDefault(): Boolean =
-        gtk_app_chooser_widget_get_show_default(gtkAppChooserWidgetPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets whether the app chooser should show related applications
-     * for the content type in a separate section.
-     *
-     * @return the value of [property@Gtk.AppChooserWidget:show-fallback]
-     */
-    public open fun getShowFallback(): Boolean =
-        gtk_app_chooser_widget_get_show_fallback(gtkAppChooserWidgetPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets whether the app chooser should show applications
-     * which are unrelated to the content type.
-     *
-     * @return the value of [property@Gtk.AppChooserWidget:show-other]
-     */
-    public open fun getShowOther(): Boolean =
-        gtk_app_chooser_widget_get_show_other(gtkAppChooserWidgetPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets whether the app chooser should show recommended applications
-     * for the content type in a separate section.
-     *
-     * @return the value of [property@Gtk.AppChooserWidget:show-recommended]
-     */
-    public open fun getShowRecommended(): Boolean =
-        gtk_app_chooser_widget_get_show_recommended(gtkAppChooserWidgetPointer.reinterpret()).asBoolean()
-
-    /**
      * Sets the text that is shown if there are not applications
      * that can handle the content type.
      *
@@ -288,51 +243,6 @@ public open class AppChooserWidget(
      */
     public open fun setDefaultText(text: String): Unit =
         gtk_app_chooser_widget_set_default_text(gtkAppChooserWidgetPointer.reinterpret(), text)
-
-    /**
-     * Sets whether the app chooser should show all applications
-     * in a flat list.
-     *
-     * @param setting the new value for [property@Gtk.AppChooserWidget:show-all]
-     */
-    public open fun setShowAll(setting: Boolean): Unit =
-        gtk_app_chooser_widget_set_show_all(gtkAppChooserWidgetPointer.reinterpret(), setting.asGBoolean())
-
-    /**
-     * Sets whether the app chooser should show the default handler
-     * for the content type in a separate section.
-     *
-     * @param setting the new value for [property@Gtk.AppChooserWidget:show-default]
-     */
-    public open fun setShowDefault(setting: Boolean): Unit =
-        gtk_app_chooser_widget_set_show_default(gtkAppChooserWidgetPointer.reinterpret(), setting.asGBoolean())
-
-    /**
-     * Sets whether the app chooser should show related applications
-     * for the content type in a separate section.
-     *
-     * @param setting the new value for [property@Gtk.AppChooserWidget:show-fallback]
-     */
-    public open fun setShowFallback(setting: Boolean): Unit =
-        gtk_app_chooser_widget_set_show_fallback(gtkAppChooserWidgetPointer.reinterpret(), setting.asGBoolean())
-
-    /**
-     * Sets whether the app chooser should show applications
-     * which are unrelated to the content type.
-     *
-     * @param setting the new value for [property@Gtk.AppChooserWidget:show-other]
-     */
-    public open fun setShowOther(setting: Boolean): Unit =
-        gtk_app_chooser_widget_set_show_other(gtkAppChooserWidgetPointer.reinterpret(), setting.asGBoolean())
-
-    /**
-     * Sets whether the app chooser should show recommended applications
-     * for the content type in a separate section.
-     *
-     * @param setting the new value for [property@Gtk.AppChooserWidget:show-recommended]
-     */
-    public open fun setShowRecommended(setting: Boolean): Unit =
-        gtk_app_chooser_widget_set_show_recommended(gtkAppChooserWidgetPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Emitted when an application item is activated from the widget's list.
@@ -347,15 +257,14 @@ public open class AppChooserWidget(
     public fun connectApplicationActivated(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (application: AppInfo) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "application-activated",
-            connectApplicationActivatedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "application-activated",
+        connectApplicationActivatedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted when an application item is selected from the widget's list.
@@ -366,15 +275,14 @@ public open class AppChooserWidget(
     public fun connectApplicationSelected(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (application: AppInfo) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "application-selected",
-            connectApplicationSelectedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "application-selected",
+        connectApplicationSelectedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<AppChooserWidget> {
         override val type: GeneratedClassKGType<AppChooserWidget> =
@@ -383,6 +291,13 @@ public open class AppChooserWidget(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of AppChooserWidget
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_app_chooser_widget_get_type()
     }
 }
 
@@ -397,7 +312,8 @@ private val connectApplicationActivatedFunc: CPointer<CFunction<(CPointer<GAppIn
                 AppInfo.wrap(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 private val connectApplicationSelectedFunc: CPointer<CFunction<(CPointer<GAppInfo>) -> Unit>> =
     staticCFunction {
@@ -410,4 +326,5 @@ private val connectApplicationSelectedFunc: CPointer<CFunction<(CPointer<GAppInf
                 AppInfo.wrap(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()

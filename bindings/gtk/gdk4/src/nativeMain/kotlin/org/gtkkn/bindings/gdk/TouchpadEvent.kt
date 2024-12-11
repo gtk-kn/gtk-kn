@@ -12,8 +12,9 @@ import org.gtkkn.native.gdk.gdk_touchpad_event_get_n_fingers
 import org.gtkkn.native.gdk.gdk_touchpad_event_get_pinch_angle_delta
 import org.gtkkn.native.gdk.gdk_touchpad_event_get_pinch_scale
 import org.gtkkn.native.gdk.gdk_touchpad_event_get_type
-import kotlin.Double
-import kotlin.UInt
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.guint
 
 /**
  * An event related to a gesture on a touchpad device.
@@ -27,9 +28,8 @@ import kotlin.UInt
  *
  * - parameter `dx`: dx: Out parameter is not supported
  */
-public open class TouchpadEvent(
-    pointer: CPointer<GdkTouchpadEvent>,
-) : Event(pointer.reinterpret()),
+public open class TouchpadEvent(pointer: CPointer<GdkTouchpadEvent>) :
+    Event(pointer.reinterpret()),
     KGTyped {
     public val gdkTouchpadEventPointer: CPointer<GdkTouchpadEvent>
         get() = gPointer.reinterpret()
@@ -49,14 +49,14 @@ public open class TouchpadEvent(
      *
      * @return the number of fingers for @event
      */
-    public open fun getNFingers(): UInt = gdk_touchpad_event_get_n_fingers(gdkTouchpadEventPointer.reinterpret())
+    public open fun getNFingers(): guint = gdk_touchpad_event_get_n_fingers(gdkTouchpadEventPointer.reinterpret())
 
     /**
      * Extracts the angle delta from a touchpad pinch event.
      *
      * @return the angle delta of @event
      */
-    public open fun getPinchAngleDelta(): Double =
+    public open fun getPinchAngleDelta(): gdouble =
         gdk_touchpad_event_get_pinch_angle_delta(gdkTouchpadEventPointer.reinterpret())
 
     /**
@@ -64,7 +64,7 @@ public open class TouchpadEvent(
      *
      * @return the scale of @event
      */
-    public open fun getPinchScale(): Double = gdk_touchpad_event_get_pinch_scale(gdkTouchpadEventPointer.reinterpret())
+    public open fun getPinchScale(): gdouble = gdk_touchpad_event_get_pinch_scale(gdkTouchpadEventPointer.reinterpret())
 
     public companion object : TypeCompanion<TouchpadEvent> {
         override val type: GeneratedClassKGType<TouchpadEvent> =
@@ -73,5 +73,12 @@ public open class TouchpadEvent(
         init {
             GdkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of TouchpadEvent
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_touchpad_event_get_type()
     }
 }

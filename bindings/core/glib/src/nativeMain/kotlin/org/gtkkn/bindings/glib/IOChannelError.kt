@@ -8,9 +8,7 @@ import kotlin.UInt
 /**
  * Error codes returned by #GIOChannel operations.
  */
-public enum class IOChannelError(
-    public val nativeValue: GIOChannelError,
-) {
+public enum class IOChannelError(public val nativeValue: GIOChannelError) {
     /**
      * File too large.
      */
@@ -58,27 +56,25 @@ public enum class IOChannelError(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GIOChannelError): IOChannelError =
-            when (nativeValue) {
-                GIOChannelError.G_IO_CHANNEL_ERROR_FBIG -> FBIG
-                GIOChannelError.G_IO_CHANNEL_ERROR_INVAL -> INVAL
-                GIOChannelError.G_IO_CHANNEL_ERROR_IO -> IO
-                GIOChannelError.G_IO_CHANNEL_ERROR_ISDIR -> ISDIR
-                GIOChannelError.G_IO_CHANNEL_ERROR_NOSPC -> NOSPC
-                GIOChannelError.G_IO_CHANNEL_ERROR_NXIO -> NXIO
-                GIOChannelError.G_IO_CHANNEL_ERROR_OVERFLOW -> OVERFLOW
-                GIOChannelError.G_IO_CHANNEL_ERROR_PIPE -> PIPE
-                GIOChannelError.G_IO_CHANNEL_ERROR_FAILED -> FAILED
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GIOChannelError): IOChannelError = when (nativeValue) {
+            GIOChannelError.G_IO_CHANNEL_ERROR_FBIG -> FBIG
+            GIOChannelError.G_IO_CHANNEL_ERROR_INVAL -> INVAL
+            GIOChannelError.G_IO_CHANNEL_ERROR_IO -> IO
+            GIOChannelError.G_IO_CHANNEL_ERROR_ISDIR -> ISDIR
+            GIOChannelError.G_IO_CHANNEL_ERROR_NOSPC -> NOSPC
+            GIOChannelError.G_IO_CHANNEL_ERROR_NXIO -> NXIO
+            GIOChannelError.G_IO_CHANNEL_ERROR_OVERFLOW -> OVERFLOW
+            GIOChannelError.G_IO_CHANNEL_ERROR_PIPE -> PIPE
+            GIOChannelError.G_IO_CHANNEL_ERROR_FAILED -> FAILED
+            else -> error("invalid nativeValue")
+        }
 
         public fun quark(): UInt = g_quark_from_string("g-io-channel-error-quark")
 
-        public fun fromErrorOrNull(error: Error): IOChannelError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                IOChannelError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        public fun fromErrorOrNull(error: Error): IOChannelError? = if (error.domain != quark()) {
+            null
+        } else {
+            IOChannelError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

@@ -15,14 +15,14 @@ import org.gtkkn.native.gio.G_APPLICATION_IS_SERVICE
 import org.gtkkn.native.gio.G_APPLICATION_NON_UNIQUE
 import org.gtkkn.native.gio.G_APPLICATION_REPLACE
 import org.gtkkn.native.gio.G_APPLICATION_SEND_ENVIRONMENT
+import org.gtkkn.native.gio.g_application_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags used to define the behaviour of a #GApplication.
  * @since 2.28
  */
-public class ApplicationFlags(
-    public val mask: GApplicationFlags,
-) : Bitfield<ApplicationFlags> {
+public class ApplicationFlags(public val mask: GApplicationFlags) : Bitfield<ApplicationFlags> {
     override infix fun or(other: ApplicationFlags): ApplicationFlags = ApplicationFlags(mask or other.mask)
 
     @GioVersion2_28
@@ -113,5 +113,12 @@ public class ApplicationFlags(
          *     Since: 2.60
          */
         public val REPLACE: ApplicationFlags = ApplicationFlags(G_APPLICATION_REPLACE)
+
+        /**
+         * Get the GType of ApplicationFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_application_flags_get_type()
     }
 }

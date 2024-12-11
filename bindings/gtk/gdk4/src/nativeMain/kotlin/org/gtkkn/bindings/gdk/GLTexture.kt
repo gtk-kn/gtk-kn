@@ -12,6 +12,7 @@ import org.gtkkn.native.gdk.gdk_gl_texture_get_type
 import org.gtkkn.native.gdk.gdk_gl_texture_release
 import org.gtkkn.native.gio.GIcon
 import org.gtkkn.native.gio.GLoadableIcon
+import org.gtkkn.native.gobject.GType
 import kotlin.Unit
 
 /**
@@ -21,9 +22,8 @@ import kotlin.Unit
  *
  * - parameter `destroy`: GLib.DestroyNotify
  */
-public open class GLTexture(
-    pointer: CPointer<GdkGLTexture>,
-) : Texture(pointer.reinterpret()),
+public open class GLTexture(pointer: CPointer<GdkGLTexture>) :
+    Texture(pointer.reinterpret()),
     KGTyped {
     public val gdkGLTexturePointer: CPointer<GdkGLTexture>
         get() = gPointer.reinterpret()
@@ -53,5 +53,12 @@ public open class GLTexture(
         init {
             GdkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of GLTexture
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_gl_texture_get_type()
     }
 }

@@ -20,6 +20,7 @@ import org.gtkkn.native.gio.GMemoryMonitor
 import org.gtkkn.native.gio.GMemoryMonitorWarningLevel
 import org.gtkkn.native.gio.g_memory_monitor_dup_default
 import org.gtkkn.native.gio.g_memory_monitor_get_type
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import kotlin.ULong
 import kotlin.Unit
@@ -99,19 +100,16 @@ public interface MemoryMonitor :
     public fun connectLowMemoryWarning(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (level: MemoryMonitorWarningLevel) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gioMemoryMonitorPointer.reinterpret(),
-            "low-memory-warning",
-            connectLowMemoryWarningFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gioMemoryMonitorPointer.reinterpret(),
+        "low-memory-warning",
+        connectLowMemoryWarningFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
-    private data class Wrapper(
-        private val pointer: CPointer<GMemoryMonitor>,
-    ) : MemoryMonitor {
+    private data class Wrapper(private val pointer: CPointer<GMemoryMonitor>) : MemoryMonitor {
         override val gioMemoryMonitorPointer: CPointer<GMemoryMonitor> = pointer
     }
 
@@ -132,10 +130,16 @@ public interface MemoryMonitor :
          * @since 2.64
          */
         @GioVersion2_64
-        public fun dupDefault(): MemoryMonitor =
-            g_memory_monitor_dup_default()!!.run {
-                MemoryMonitor.wrap(reinterpret())
-            }
+        public fun dupDefault(): MemoryMonitor = g_memory_monitor_dup_default()!!.run {
+            MemoryMonitor.wrap(reinterpret())
+        }
+
+        /**
+         * Get the GType of MemoryMonitor
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_memory_monitor_get_type()
     }
 }
 
@@ -150,4 +154,5 @@ private val connectLowMemoryWarningFunc: CPointer<CFunction<(GMemoryMonitorWarni
                 MemoryMonitorWarningLevel.fromNativeValue(this)
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()

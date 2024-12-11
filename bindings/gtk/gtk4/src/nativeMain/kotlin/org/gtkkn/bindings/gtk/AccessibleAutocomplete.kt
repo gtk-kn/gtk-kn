@@ -1,15 +1,15 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessibleAutocomplete
+import org.gtkkn.native.gtk.gtk_accessible_autocomplete_get_type
 
 /**
  * The possible values for the %GTK_ACCESSIBLE_PROPERTY_AUTOCOMPLETE
  * accessible property.
  */
-public enum class AccessibleAutocomplete(
-    public val nativeValue: GtkAccessibleAutocomplete,
-) {
+public enum class AccessibleAutocomplete(public val nativeValue: GtkAccessibleAutocomplete) {
     /**
      * Automatic suggestions are not displayed.
      */
@@ -48,5 +48,12 @@ public enum class AccessibleAutocomplete(
                 GtkAccessibleAutocomplete.GTK_ACCESSIBLE_AUTOCOMPLETE_BOTH -> BOTH
                 else -> error("invalid nativeValue")
             }
+
+        /**
+         * Get the GType of AccessibleAutocomplete
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_accessible_autocomplete_get_type()
     }
 }

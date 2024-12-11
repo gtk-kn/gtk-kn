@@ -21,7 +21,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gtk.GtkAboutDialog
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -65,7 +67,6 @@ import org.gtkkn.native.gtk.gtk_about_dialog_set_website
 import org.gtkkn.native.gtk.gtk_about_dialog_set_website_label
 import org.gtkkn.native.gtk.gtk_about_dialog_set_wrap_license
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -124,9 +125,8 @@ import kotlin.collections.List
  *
  * - method `website-label`: Property TypeInfo of getter and setter do not match
  */
-public open class AboutDialog(
-    pointer: CPointer<GtkAboutDialog>,
-) : Window(pointer.reinterpret()),
+public open class AboutDialog(pointer: CPointer<GtkAboutDialog>) :
+    Window(pointer.reinterpret()),
     KGTyped {
     public val gtkAboutDialogPointer: CPointer<GtkAboutDialog>
         get() = gPointer.reinterpret()
@@ -164,9 +164,8 @@ public open class AboutDialog(
          * @return A
          *   `NULL`-terminated string array containing the artists
          */
-        get() =
-            gtk_about_dialog_get_artists(gtkAboutDialogPointer.reinterpret())?.toKStringList()
-                ?: error("Expected not null string array")
+        get() = gtk_about_dialog_get_artists(gtkAboutDialogPointer.reinterpret())?.toKStringList()
+            ?: error("Expected not null string array")
 
         /**
          * Sets the names of the artists to be displayed
@@ -175,10 +174,9 @@ public open class AboutDialog(
          * @param artists the authors of the artwork
          *   of the application
          */
-        set(artists) =
-            memScoped {
-                return gtk_about_dialog_set_artists(gtkAboutDialogPointer.reinterpret(), artists.toCStringList(this))
-            }
+        set(artists) = memScoped {
+            return gtk_about_dialog_set_artists(gtkAboutDialogPointer.reinterpret(), artists.toCStringList(this))
+        }
 
     /**
      * The authors of the program, as a `NULL`-terminated array of strings.
@@ -194,9 +192,8 @@ public open class AboutDialog(
          * @return A
          *   `NULL`-terminated string array containing the authors
          */
-        get() =
-            gtk_about_dialog_get_authors(gtkAboutDialogPointer.reinterpret())?.toKStringList()
-                ?: error("Expected not null string array")
+        get() = gtk_about_dialog_get_authors(gtkAboutDialogPointer.reinterpret())?.toKStringList()
+            ?: error("Expected not null string array")
 
         /**
          * Sets the names of the authors which are displayed
@@ -204,10 +201,9 @@ public open class AboutDialog(
          *
          * @param authors the authors of the application
          */
-        set(authors) =
-            memScoped {
-                return gtk_about_dialog_set_authors(gtkAboutDialogPointer.reinterpret(), authors.toCStringList(this))
-            }
+        set(authors) = memScoped {
+            return gtk_about_dialog_set_authors(gtkAboutDialogPointer.reinterpret(), authors.toCStringList(this))
+        }
 
     /**
      * Comments about the program.
@@ -267,9 +263,8 @@ public open class AboutDialog(
          * @return A
          *   `NULL`-terminated string array containing the documenters
          */
-        get() =
-            gtk_about_dialog_get_documenters(gtkAboutDialogPointer.reinterpret())?.toKStringList()
-                ?: error("Expected not null string array")
+        get() = gtk_about_dialog_get_documenters(gtkAboutDialogPointer.reinterpret())?.toKStringList()
+            ?: error("Expected not null string array")
 
         /**
          * Sets the names of the documenters which are displayed
@@ -278,13 +273,12 @@ public open class AboutDialog(
          * @param documenters the authors of the documentation
          *   of the application
          */
-        set(documenters) =
-            memScoped {
-                return gtk_about_dialog_set_documenters(
-                    gtkAboutDialogPointer.reinterpret(),
-                    documenters.toCStringList(this)
-                )
-            }
+        set(documenters) = memScoped {
+            return gtk_about_dialog_set_documenters(
+                gtkAboutDialogPointer.reinterpret(),
+                documenters.toCStringList(this)
+            )
+        }
 
     /**
      * The license of the program, as free-form text.
@@ -343,10 +337,9 @@ public open class AboutDialog(
          *
          * @return a [enum@Gtk.License] value
          */
-        get() =
-            gtk_about_dialog_get_license_type(gtkAboutDialogPointer.reinterpret()).run {
-                License.fromNativeValue(this)
-            }
+        get() = gtk_about_dialog_get_license_type(gtkAboutDialogPointer.reinterpret()).run {
+            License.fromNativeValue(this)
+        }
 
         /**
          * Sets the license of the application showing the about dialog from a
@@ -375,10 +368,9 @@ public open class AboutDialog(
          *   logo or `NULL` if the logo is unset or has been set via
          *   [method@Gtk.AboutDialog.set_logo_icon_name]
          */
-        get() =
-            gtk_about_dialog_get_logo(gtkAboutDialogPointer.reinterpret())?.run {
-                Paintable.wrap(reinterpret())
-            }
+        get() = gtk_about_dialog_get_logo(gtkAboutDialogPointer.reinterpret())?.run {
+            Paintable.wrap(reinterpret())
+        }
 
         /**
          * Sets the logo in the about dialog.
@@ -582,146 +574,13 @@ public open class AboutDialog(
      * @param sectionName The name of the section
      * @param people The people who belong to that section
      */
-    public open fun addCreditSection(
-        sectionName: String,
-        people: List<String>,
-    ): Unit =
-        memScoped {
-            return gtk_about_dialog_add_credit_section(
-                gtkAboutDialogPointer.reinterpret(),
-                sectionName,
-                people.toCStringList(this)
-            )
-        }
-
-    /**
-     * Returns the names of the artists which are displayed
-     * in the credits page.
-     *
-     * @return A
-     *   `NULL`-terminated string array containing the artists
-     */
-    public open fun getArtists(): List<String> =
-        gtk_about_dialog_get_artists(gtkAboutDialogPointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
-
-    /**
-     * Returns the names of the authors which are displayed
-     * in the credits page.
-     *
-     * @return A
-     *   `NULL`-terminated string array containing the authors
-     */
-    public open fun getAuthors(): List<String> =
-        gtk_about_dialog_get_authors(gtkAboutDialogPointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
-
-    /**
-     * Returns the comments string.
-     *
-     * @return The comments
-     */
-    public open fun getComments(): String? =
-        gtk_about_dialog_get_comments(gtkAboutDialogPointer.reinterpret())?.toKString()
-
-    /**
-     * Returns the copyright string.
-     *
-     * @return The copyright string
-     */
-    public open fun getCopyright(): String? =
-        gtk_about_dialog_get_copyright(gtkAboutDialogPointer.reinterpret())?.toKString()
-
-    /**
-     * Returns the name of the documenters which are displayed
-     * in the credits page.
-     *
-     * @return A
-     *   `NULL`-terminated string array containing the documenters
-     */
-    public open fun getDocumenters(): List<String> =
-        gtk_about_dialog_get_documenters(gtkAboutDialogPointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
-
-    /**
-     * Returns the license information.
-     *
-     * @return The license information
-     */
-    public open fun getLicense(): String? =
-        gtk_about_dialog_get_license(gtkAboutDialogPointer.reinterpret())?.toKString()
-
-    /**
-     * Retrieves the license type.
-     *
-     * @return a [enum@Gtk.License] value
-     */
-    public open fun getLicenseType(): License =
-        gtk_about_dialog_get_license_type(gtkAboutDialogPointer.reinterpret()).run {
-            License.fromNativeValue(this)
-        }
-
-    /**
-     * Returns the paintable displayed as logo in the about dialog.
-     *
-     * @return the paintable displayed as
-     *   logo or `NULL` if the logo is unset or has been set via
-     *   [method@Gtk.AboutDialog.set_logo_icon_name]
-     */
-    public open fun getLogo(): Paintable? =
-        gtk_about_dialog_get_logo(gtkAboutDialogPointer.reinterpret())?.run {
-            Paintable.wrap(reinterpret())
-        }
-
-    /**
-     * Returns the icon name displayed as logo in the about dialog.
-     *
-     * @return the icon name displayed as logo,
-     *   or `NULL` if the logo has been set via [method@Gtk.AboutDialog.set_logo]
-     */
-    public open fun getLogoIconName(): String? =
-        gtk_about_dialog_get_logo_icon_name(gtkAboutDialogPointer.reinterpret())?.toKString()
-
-    /**
-     * Returns the program name displayed in the about dialog.
-     *
-     * @return The program name
-     */
-    public open fun getProgramName(): String? =
-        gtk_about_dialog_get_program_name(gtkAboutDialogPointer.reinterpret())?.toKString()
-
-    /**
-     * Returns the system information that is shown in the about dialog.
-     *
-     * @return the system information
-     */
-    public open fun getSystemInformation(): String? =
-        gtk_about_dialog_get_system_information(gtkAboutDialogPointer.reinterpret())?.toKString()
-
-    /**
-     * Returns the translator credits string which is displayed
-     * in the credits page.
-     *
-     * @return The translator credits string
-     */
-    public open fun getTranslatorCredits(): String? =
-        gtk_about_dialog_get_translator_credits(gtkAboutDialogPointer.reinterpret())?.toKString()
-
-    /**
-     * Returns the version string.
-     *
-     * @return The version string
-     */
-    public open fun getVersion(): String? =
-        gtk_about_dialog_get_version(gtkAboutDialogPointer.reinterpret())?.toKString()
-
-    /**
-     * Returns the website URL.
-     *
-     * @return The website URL
-     */
-    public open fun getWebsite(): String? =
-        gtk_about_dialog_get_website(gtkAboutDialogPointer.reinterpret())?.toKString()
+    public open fun addCreditSection(sectionName: String, people: List<String>): Unit = memScoped {
+        return gtk_about_dialog_add_credit_section(
+            gtkAboutDialogPointer.reinterpret(),
+            sectionName,
+            people.toCStringList(this)
+        )
+    }
 
     /**
      * Returns the label used for the website link.
@@ -732,193 +591,12 @@ public open class AboutDialog(
         gtk_about_dialog_get_website_label(gtkAboutDialogPointer.reinterpret())?.toKString()
 
     /**
-     * Returns whether the license text in the about dialog is
-     * automatically wrapped.
-     *
-     * @return `TRUE` if the license text is wrapped
-     */
-    public open fun getWrapLicense(): Boolean =
-        gtk_about_dialog_get_wrap_license(gtkAboutDialogPointer.reinterpret()).asBoolean()
-
-    /**
-     * Sets the names of the artists to be displayed
-     * in the "Credits" page.
-     *
-     * @param artists the authors of the artwork
-     *   of the application
-     */
-    public open fun setArtists(artists: List<String>): Unit =
-        memScoped {
-            return gtk_about_dialog_set_artists(gtkAboutDialogPointer.reinterpret(), artists.toCStringList(this))
-        }
-
-    /**
-     * Sets the names of the authors which are displayed
-     * in the "Credits" page of the about dialog.
-     *
-     * @param authors the authors of the application
-     */
-    public open fun setAuthors(authors: List<String>): Unit =
-        memScoped {
-            return gtk_about_dialog_set_authors(gtkAboutDialogPointer.reinterpret(), authors.toCStringList(this))
-        }
-
-    /**
-     * Sets the comments string to display in the about dialog.
-     *
-     * This should be a short string of one or two lines.
-     *
-     * @param comments a comments string
-     */
-    public open fun setComments(comments: String? = null): Unit =
-        gtk_about_dialog_set_comments(gtkAboutDialogPointer.reinterpret(), comments)
-
-    /**
-     * Sets the copyright string to display in the about dialog.
-     *
-     * This should be a short string of one or two lines.
-     *
-     * @param copyright the copyright string
-     */
-    public open fun setCopyright(copyright: String? = null): Unit =
-        gtk_about_dialog_set_copyright(gtkAboutDialogPointer.reinterpret(), copyright)
-
-    /**
-     * Sets the names of the documenters which are displayed
-     * in the "Credits" page.
-     *
-     * @param documenters the authors of the documentation
-     *   of the application
-     */
-    public open fun setDocumenters(documenters: List<String>): Unit =
-        memScoped {
-            return gtk_about_dialog_set_documenters(
-                gtkAboutDialogPointer.reinterpret(),
-                documenters.toCStringList(this)
-            )
-        }
-
-    /**
-     * Sets the license information to be displayed in the
-     * about dialog.
-     *
-     * If `license` is `NULL`, the license page is hidden.
-     *
-     * @param license the license information
-     */
-    public open fun setLicense(license: String? = null): Unit =
-        gtk_about_dialog_set_license(gtkAboutDialogPointer.reinterpret(), license)
-
-    /**
-     * Sets the license of the application showing the about dialog from a
-     * list of known licenses.
-     *
-     * This function overrides the license set using
-     * [method@Gtk.AboutDialog.set_license].
-     *
-     * @param licenseType the type of license
-     */
-    public open fun setLicenseType(licenseType: License): Unit =
-        gtk_about_dialog_set_license_type(gtkAboutDialogPointer.reinterpret(), licenseType.nativeValue)
-
-    /**
-     * Sets the logo in the about dialog.
-     *
-     * @param logo a `GdkPaintable`
-     */
-    public open fun setLogo(logo: Paintable? = null): Unit =
-        gtk_about_dialog_set_logo(gtkAboutDialogPointer.reinterpret(), logo?.gdkPaintablePointer)
-
-    /**
-     * Sets the icon name to be displayed as logo in the about dialog.
-     *
-     * @param iconName an icon name
-     */
-    public open fun setLogoIconName(iconName: String? = null): Unit =
-        gtk_about_dialog_set_logo_icon_name(gtkAboutDialogPointer.reinterpret(), iconName)
-
-    /**
-     * Sets the name to display in the about dialog.
-     *
-     * If `name` is not set, the string returned
-     * by `g_get_application_name()` is used.
-     *
-     * @param name the program name
-     */
-    public open fun setProgramName(name: String? = null): Unit =
-        gtk_about_dialog_set_program_name(gtkAboutDialogPointer.reinterpret(), name)
-
-    /**
-     * Sets the system information to be displayed in the about
-     * dialog.
-     *
-     * If `system_information` is `NULL`, the system information
-     * page is hidden.
-     *
-     * See [property@Gtk.AboutDialog:system-information].
-     *
-     * @param systemInformation system information
-     */
-    public open fun setSystemInformation(systemInformation: String? = null): Unit =
-        gtk_about_dialog_set_system_information(gtkAboutDialogPointer.reinterpret(), systemInformation)
-
-    /**
-     * Sets the translator credits string which is displayed in
-     * the credits page.
-     *
-     * The intended use for this string is to display the translator
-     * of the language which is currently used in the user interface.
-     * Using `gettext()`, a simple way to achieve that is to mark the
-     * string for translation:
-     *
-     * ```c
-     * GtkWidget *about = gtk_about_dialog_new ();
-     *  gtk_about_dialog_set_translator_credits (GTK_ABOUT_DIALOG (about),
-     *                                           _("translator-credits"));
-     * ```
-     *
-     * It is a good idea to use the customary `msgid` “translator-credits”
-     * for this purpose, since translators will already know the purpose of
-     * that `msgid`, and since `GtkAboutDialog` will detect if “translator-credits”
-     * is untranslated and omit translator credits.
-     *
-     * @param translatorCredits the translator credits
-     */
-    public open fun setTranslatorCredits(translatorCredits: String? = null): Unit =
-        gtk_about_dialog_set_translator_credits(gtkAboutDialogPointer.reinterpret(), translatorCredits)
-
-    /**
-     * Sets the version string to display in the about dialog.
-     *
-     * @param version the version string
-     */
-    public open fun setVersion(version: String? = null): Unit =
-        gtk_about_dialog_set_version(gtkAboutDialogPointer.reinterpret(), version)
-
-    /**
-     * Sets the URL to use for the website link.
-     *
-     * @param website a URL string starting with `http://`
-     */
-    public open fun setWebsite(website: String? = null): Unit =
-        gtk_about_dialog_set_website(gtkAboutDialogPointer.reinterpret(), website)
-
-    /**
      * Sets the label to be used for the website link.
      *
      * @param websiteLabel the label used for the website link
      */
     public open fun setWebsiteLabel(websiteLabel: String): Unit =
         gtk_about_dialog_set_website_label(gtkAboutDialogPointer.reinterpret(), websiteLabel)
-
-    /**
-     * Sets whether the license text in the about dialog should be
-     * automatically wrapped.
-     *
-     * @param wrapLicense whether to wrap the license
-     */
-    public open fun setWrapLicense(wrapLicense: Boolean): Unit =
-        gtk_about_dialog_set_wrap_license(gtkAboutDialogPointer.reinterpret(), wrapLicense.asGBoolean())
 
     /**
      * Emitted every time a URL is activated.
@@ -932,15 +610,14 @@ public open class AboutDialog(
     public fun connectActivateLink(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (uri: String) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "activate-link",
-            connectActivateLinkFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "activate-link",
+        connectActivateLinkFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<AboutDialog> {
         override val type: GeneratedClassKGType<AboutDialog> =
@@ -949,22 +626,26 @@ public open class AboutDialog(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of AboutDialog
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_about_dialog_get_type()
     }
 }
 
-private val connectActivateLinkFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Int>> =
+private val connectActivateLinkFunc: CPointer<CFunction<(CPointer<ByteVar>) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
             uri: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<
-                (
-                    uri: String,
-                ) -> Boolean
-            >()
-            .get()
-            .invoke(uri?.toKString() ?: error("Expected not null string"))
-            .asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<
+            (
+                uri: String,
+            ) -> Boolean
+            >().get().invoke(uri?.toKString() ?: error("Expected not null string")).asGBoolean()
+    }
+        .reinterpret()

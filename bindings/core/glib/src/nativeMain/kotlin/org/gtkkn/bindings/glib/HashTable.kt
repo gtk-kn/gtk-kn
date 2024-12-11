@@ -1,27 +1,30 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_10
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_12
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_14
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_72
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GHashTable
 import org.gtkkn.native.glib.g_hash_table_destroy
 import org.gtkkn.native.glib.g_hash_table_foreach
 import org.gtkkn.native.glib.g_hash_table_foreach_remove
 import org.gtkkn.native.glib.g_hash_table_foreach_steal
+import org.gtkkn.native.glib.g_hash_table_get_keys
+import org.gtkkn.native.glib.g_hash_table_get_values
 import org.gtkkn.native.glib.g_hash_table_new_similar
 import org.gtkkn.native.glib.g_hash_table_ref
 import org.gtkkn.native.glib.g_hash_table_remove_all
 import org.gtkkn.native.glib.g_hash_table_size
 import org.gtkkn.native.glib.g_hash_table_steal_all
 import org.gtkkn.native.glib.g_hash_table_unref
-import kotlin.UInt
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_hash_table_get_type
+import org.gtkkn.native.gobject.guint
 import kotlin.Unit
 
 /**
@@ -34,20 +37,25 @@ import kotlin.Unit
  * - parameter `key`: gpointer
  * - parameter `key`: gpointer
  * - function `find`: Return type gpointer is unsupported
+ * - parameter `length`: length: Out parameter is not supported
+ * - function `get_keys_as_ptr_array`: gpointer
+ * - function `get_values_as_ptr_array`: gpointer
  * - parameter `key`: gpointer
  * - parameter `key`: gpointer
  * - parameter `lookup_key`: gpointer
+ * - parameter `hash_func`: HashFunc
+ * - parameter `hash_func`: HashFunc
  * - parameter `key`: gpointer
  * - parameter `key`: gpointer
  * - parameter `key`: gpointer
+ * - function `steal_all_keys`: gpointer
+ * - function `steal_all_values`: gpointer
  * - parameter `lookup_key`: gpointer
  */
-public class HashTable(
-    pointer: CPointer<GHashTable>,
-) : Record {
+public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
     public val glibHashTablePointer: CPointer<GHashTable> = pointer
 
-    public companion object : RecordCompanion<HashTable, GHashTable> {
+    public companion object {
         /**
          * Destroys all keys and values in the #GHashTable and decrements its
          * reference count by 1. If keys and/or values are dynamically allocated,
@@ -78,15 +86,11 @@ public class HashTable(
          * @param hashTable a #GHashTable
          * @param func the function to call for each key/value pair
          */
-        public fun foreach(
-            hashTable: HashTable,
-            func: HFunc,
-        ): Unit =
-            g_hash_table_foreach(
-                hashTable.glibHashTablePointer.reinterpret(),
-                HFuncFunc.reinterpret(),
-                StableRef.create(func).asCPointer()
-            )
+        public fun foreach(hashTable: HashTable, func: HFunc): Unit = g_hash_table_foreach(
+            hashTable.glibHashTablePointer.reinterpret(),
+            HFuncFunc.reinterpret(),
+            StableRef.create(func).asCPointer()
+        )
 
         /**
          * Calls the given function for each key/value pair in the
@@ -102,15 +106,11 @@ public class HashTable(
          * @param func the function to call for each key/value pair
          * @return the number of key/value pairs removed
          */
-        public fun foreachRemove(
-            hashTable: HashTable,
-            func: HRFunc,
-        ): UInt =
-            g_hash_table_foreach_remove(
-                hashTable.glibHashTablePointer.reinterpret(),
-                HRFuncFunc.reinterpret(),
-                StableRef.create(func).asCPointer()
-            )
+        public fun foreachRemove(hashTable: HashTable, func: HRFunc): guint = g_hash_table_foreach_remove(
+            hashTable.glibHashTablePointer.reinterpret(),
+            HRFuncFunc.reinterpret(),
+            StableRef.create(func).asCPointer()
+        )
 
         /**
          * Calls the given function for each key/value pair in the
@@ -125,15 +125,53 @@ public class HashTable(
          * @param func the function to call for each key/value pair
          * @return the number of key/value pairs removed.
          */
-        public fun foreachSteal(
-            hashTable: HashTable,
-            func: HRFunc,
-        ): UInt =
-            g_hash_table_foreach_steal(
-                hashTable.glibHashTablePointer.reinterpret(),
-                HRFuncFunc.reinterpret(),
-                StableRef.create(func).asCPointer()
-            )
+        public fun foreachSteal(hashTable: HashTable, func: HRFunc): guint = g_hash_table_foreach_steal(
+            hashTable.glibHashTablePointer.reinterpret(),
+            HRFuncFunc.reinterpret(),
+            StableRef.create(func).asCPointer()
+        )
+
+        /**
+         * Retrieves every key inside @hash_table. The returned data is valid
+         * until changes to the hash release those keys.
+         *
+         * This iterates over every entry in the hash table to build its return value.
+         * To iterate over the entries in a #GHashTable more efficiently, use a
+         * #GHashTableIter.
+         *
+         * @param hashTable a #GHashTable
+         * @return a #GList containing all the keys
+         *     inside the hash table. The content of the list is owned by the
+         *     hash table and should not be modified or freed. Use g_list_free()
+         *     when done using the list.
+         * @since 2.14
+         */
+        @GLibVersion2_14
+        public fun getKeys(hashTable: HashTable): List =
+            g_hash_table_get_keys(hashTable.glibHashTablePointer.reinterpret())!!.run {
+                List(reinterpret())
+            }
+
+        /**
+         * Retrieves every value inside @hash_table. The returned data
+         * is valid until @hash_table is modified.
+         *
+         * This iterates over every entry in the hash table to build its return value.
+         * To iterate over the entries in a #GHashTable more efficiently, use a
+         * #GHashTableIter.
+         *
+         * @param hashTable a #GHashTable
+         * @return a #GList containing all the values
+         *     inside the hash table. The content of the list is owned by the
+         *     hash table and should not be modified or freed. Use g_list_free()
+         *     when done using the list.
+         * @since 2.14
+         */
+        @GLibVersion2_14
+        public fun getValues(hashTable: HashTable): List =
+            g_hash_table_get_values(hashTable.glibHashTablePointer.reinterpret())!!.run {
+                List(reinterpret())
+            }
 
         /**
          * Creates a new #GHashTable like g_hash_table_new_full() with a reference
@@ -190,7 +228,7 @@ public class HashTable(
          * @param hashTable a #GHashTable
          * @return the number of key/value pairs in the #GHashTable.
          */
-        public fun size(hashTable: HashTable): UInt = g_hash_table_size(hashTable.glibHashTablePointer.reinterpret())
+        public fun size(hashTable: HashTable): guint = g_hash_table_size(hashTable.glibHashTablePointer.reinterpret())
 
         /**
          * Removes all keys and their associated values from a #GHashTable
@@ -215,6 +253,11 @@ public class HashTable(
         @GLibVersion2_10
         public fun unref(hashTable: HashTable): Unit = g_hash_table_unref(hashTable.glibHashTablePointer.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): HashTable = HashTable(pointer.reinterpret())
+        /**
+         * Get the GType of HashTable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_hash_table_get_type()
     }
 }

@@ -16,9 +16,7 @@ import org.gtkkn.native.glib.GTraverseType
  * - Level order: F, B, G, A, D, I, C, E, H
  *   ![](Sorted_binary_tree_breadth-first_traversal.svg)
  */
-public enum class TraverseType(
-    public val nativeValue: GTraverseType,
-) {
+public enum class TraverseType(public val nativeValue: GTraverseType) {
     /**
      * vists a node's left child first, then the node itself,
      *              then its right child. This is the one to use if you
@@ -49,13 +47,12 @@ public enum class TraverseType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GTraverseType): TraverseType =
-            when (nativeValue) {
-                GTraverseType.G_IN_ORDER -> IN_ORDER
-                GTraverseType.G_PRE_ORDER -> PRE_ORDER
-                GTraverseType.G_POST_ORDER -> POST_ORDER
-                GTraverseType.G_LEVEL_ORDER -> LEVEL_ORDER
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GTraverseType): TraverseType = when (nativeValue) {
+            GTraverseType.G_IN_ORDER -> IN_ORDER
+            GTraverseType.G_PRE_ORDER -> PRE_ORDER
+            GTraverseType.G_POST_ORDER -> POST_ORDER
+            GTraverseType.G_LEVEL_ORDER -> LEVEL_ORDER
+            else -> error("invalid nativeValue")
+        }
     }
 }

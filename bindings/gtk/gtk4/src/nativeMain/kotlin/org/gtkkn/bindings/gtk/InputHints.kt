@@ -2,6 +2,7 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.extensions.glib.Bitfield
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GTK_INPUT_HINT_EMOJI
 import org.gtkkn.native.gtk.GTK_INPUT_HINT_INHIBIT_OSK
 import org.gtkkn.native.gtk.GTK_INPUT_HINT_LOWERCASE
@@ -16,6 +17,7 @@ import org.gtkkn.native.gtk.GTK_INPUT_HINT_UPPERCASE_WORDS
 import org.gtkkn.native.gtk.GTK_INPUT_HINT_VERTICAL_WRITING
 import org.gtkkn.native.gtk.GTK_INPUT_HINT_WORD_COMPLETION
 import org.gtkkn.native.gtk.GtkInputHints
+import org.gtkkn.native.gtk.gtk_input_hints_get_type
 
 /**
  * Describes hints that might be taken into account by input methods
@@ -30,9 +32,7 @@ import org.gtkkn.native.gtk.GtkInputHints
  * This enumeration may be extended in the future; input methods should
  * ignore unknown values.
  */
-public class InputHints(
-    public val mask: GtkInputHints,
-) : Bitfield<InputHints> {
+public class InputHints(public val mask: GtkInputHints) : Bitfield<InputHints> {
     override infix fun or(other: InputHints): InputHints = InputHints(mask or other.mask)
 
     public companion object {
@@ -104,5 +104,12 @@ public class InputHints(
          *    update personalized data (like typing history)
          */
         public val PRIVATE: InputHints = InputHints(GTK_INPUT_HINT_PRIVATE)
+
+        /**
+         * Get the GType of InputHints
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_input_hints_get_type()
     }
 }

@@ -16,6 +16,7 @@ import org.gtkkn.native.gio.g_simple_action_group_insert
 import org.gtkkn.native.gio.g_simple_action_group_lookup
 import org.gtkkn.native.gio.g_simple_action_group_new
 import org.gtkkn.native.gio.g_simple_action_group_remove
+import org.gtkkn.native.gobject.GType
 import kotlin.String
 import kotlin.Unit
 
@@ -31,9 +32,8 @@ import kotlin.Unit
  * @since 2.28
  */
 @GioVersion2_28
-public open class SimpleActionGroup(
-    pointer: CPointer<GSimpleActionGroup>,
-) : Object(pointer.reinterpret()),
+public open class SimpleActionGroup(pointer: CPointer<GSimpleActionGroup>) :
+    Object(pointer.reinterpret()),
     ActionGroup,
     ActionMap,
     KGTyped {
@@ -103,5 +103,12 @@ public open class SimpleActionGroup(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of SimpleActionGroup
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_simple_action_group_get_type()
     }
 }

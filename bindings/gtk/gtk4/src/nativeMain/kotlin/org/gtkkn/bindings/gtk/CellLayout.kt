@@ -11,6 +11,8 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkCellLayout
 import org.gtkkn.native.gtk.gtk_cell_layout_add_attribute
 import org.gtkkn.native.gtk.gtk_cell_layout_clear
@@ -23,7 +25,6 @@ import org.gtkkn.native.gtk.gtk_cell_layout_pack_start
 import org.gtkkn.native.gtk.gtk_cell_layout_reorder
 import org.gtkkn.native.gtk.gtk_cell_layout_set_cell_data_func
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 
@@ -136,6 +137,10 @@ import kotlin.Unit
  * to support alternative cell areas, you can do so by moving the
  * problematic calls out of `init()` and into a `constructor()`
  * for your class.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `set_attributes`: Varargs parameter is not supported
  */
 public interface CellLayout :
     Interface,
@@ -155,17 +160,12 @@ public interface CellLayout :
      * @param attribute a property on the renderer
      * @param column the column position on the model to get the attribute from
      */
-    public fun addAttribute(
-        cell: CellRenderer,
-        attribute: String,
-        column: Int,
-    ): Unit =
-        gtk_cell_layout_add_attribute(
-            gtkCellLayoutPointer.reinterpret(),
-            cell.gtkCellRendererPointer.reinterpret(),
-            attribute,
-            column
-        )
+    public fun addAttribute(cell: CellRenderer, attribute: String, column: gint): Unit = gtk_cell_layout_add_attribute(
+        gtkCellLayoutPointer.reinterpret(),
+        cell.gtkCellRendererPointer.reinterpret(),
+        attribute,
+        column
+    )
 
     /**
      * Unsets all the mappings on all renderers on @cell_layout and
@@ -189,10 +189,9 @@ public interface CellLayout :
      *
      * @return the cell area used by @cell_layout
      */
-    public fun getArea(): CellArea? =
-        gtk_cell_layout_get_area(gtkCellLayoutPointer.reinterpret())?.run {
-            CellArea(reinterpret())
-        }
+    public fun getArea(): CellArea? = gtk_cell_layout_get_area(gtkCellLayoutPointer.reinterpret())?.run {
+        CellArea(reinterpret())
+    }
 
     /**
      * Returns the cell renderers which have been added to @cell_layout.
@@ -201,10 +200,9 @@ public interface CellLayout :
      *   been newly allocated and should be freed with g_list_free()
      *   when no longer needed.
      */
-    public fun getCells(): List =
-        gtk_cell_layout_get_cells(gtkCellLayoutPointer.reinterpret())!!.run {
-            List(reinterpret())
-        }
+    public fun getCells(): List = gtk_cell_layout_get_cells(gtkCellLayoutPointer.reinterpret())!!.run {
+        List(reinterpret())
+    }
 
     /**
      * Adds the @cell to the end of @cell_layout. If @expand is false, then the
@@ -216,15 +214,11 @@ public interface CellLayout :
      * @param cell a `GtkCellRenderer`
      * @param expand true if @cell is to be given extra space allocated to @cell_layout
      */
-    public fun packEnd(
-        cell: CellRenderer,
-        expand: Boolean,
-    ): Unit =
-        gtk_cell_layout_pack_end(
-            gtkCellLayoutPointer.reinterpret(),
-            cell.gtkCellRendererPointer.reinterpret(),
-            expand.asGBoolean()
-        )
+    public fun packEnd(cell: CellRenderer, expand: Boolean): Unit = gtk_cell_layout_pack_end(
+        gtkCellLayoutPointer.reinterpret(),
+        cell.gtkCellRendererPointer.reinterpret(),
+        expand.asGBoolean()
+    )
 
     /**
      * Packs the @cell into the beginning of @cell_layout. If @expand is false,
@@ -236,15 +230,11 @@ public interface CellLayout :
      * @param cell a `GtkCellRenderer`
      * @param expand true if @cell is to be given extra space allocated to @cell_layout
      */
-    public fun packStart(
-        cell: CellRenderer,
-        expand: Boolean,
-    ): Unit =
-        gtk_cell_layout_pack_start(
-            gtkCellLayoutPointer.reinterpret(),
-            cell.gtkCellRendererPointer.reinterpret(),
-            expand.asGBoolean()
-        )
+    public fun packStart(cell: CellRenderer, expand: Boolean): Unit = gtk_cell_layout_pack_start(
+        gtkCellLayoutPointer.reinterpret(),
+        cell.gtkCellRendererPointer.reinterpret(),
+        expand.asGBoolean()
+    )
 
     /**
      * Re-inserts @cell at @position.
@@ -255,10 +245,7 @@ public interface CellLayout :
      * @param cell a `GtkCellRenderer` to reorder
      * @param position new position to insert @cell at
      */
-    public fun reorder(
-        cell: CellRenderer,
-        position: Int,
-    ): Unit =
+    public fun reorder(cell: CellRenderer, position: gint): Unit =
         gtk_cell_layout_reorder(gtkCellLayoutPointer.reinterpret(), cell.gtkCellRendererPointer.reinterpret(), position)
 
     /**
@@ -273,21 +260,15 @@ public interface CellLayout :
      * @param cell a `GtkCellRenderer`
      * @param func the `GtkCellLayout`DataFunc to use
      */
-    public fun setCellDataFunc(
-        cell: CellRenderer,
-        func: CellLayoutDataFunc,
-    ): Unit =
-        gtk_cell_layout_set_cell_data_func(
-            gtkCellLayoutPointer.reinterpret(),
-            cell.gtkCellRendererPointer.reinterpret(),
-            CellLayoutDataFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public fun setCellDataFunc(cell: CellRenderer, func: CellLayoutDataFunc): Unit = gtk_cell_layout_set_cell_data_func(
+        gtkCellLayoutPointer.reinterpret(),
+        cell.gtkCellRendererPointer.reinterpret(),
+        CellLayoutDataFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer(),
+        staticStableRefDestroy.reinterpret()
+    )
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkCellLayout>,
-    ) : CellLayout {
+    private data class Wrapper(private val pointer: CPointer<GtkCellLayout>) : CellLayout {
         override val gtkCellLayoutPointer: CPointer<GtkCellLayout> = pointer
     }
 
@@ -300,5 +281,12 @@ public interface CellLayout :
         }
 
         public fun wrap(pointer: CPointer<GtkCellLayout>): CellLayout = Wrapper(pointer)
+
+        /**
+         * Get the GType of CellLayout
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_cell_layout_get_type()
     }
 }

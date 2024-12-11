@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskCairoRenderer
 import org.gtkkn.native.gsk.gsk_cairo_renderer_get_type
 import org.gtkkn.native.gsk.gsk_cairo_renderer_new
@@ -16,9 +17,8 @@ import org.gtkkn.native.gsk.gsk_cairo_renderer_new
  * Since it is using cairo, this renderer cannot support
  * 3D transformations.
  */
-public open class CairoRenderer(
-    pointer: CPointer<GskCairoRenderer>,
-) : Renderer(pointer.reinterpret()),
+public open class CairoRenderer(pointer: CPointer<GskCairoRenderer>) :
+    Renderer(pointer.reinterpret()),
     KGTyped {
     public val gskCairoRendererPointer: CPointer<GskCairoRenderer>
         get() = gPointer.reinterpret()
@@ -44,5 +44,12 @@ public open class CairoRenderer(
         init {
             GskTypeProvider.register()
         }
+
+        /**
+         * Get the GType of CairoRenderer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_cairo_renderer_get_type()
     }
 }

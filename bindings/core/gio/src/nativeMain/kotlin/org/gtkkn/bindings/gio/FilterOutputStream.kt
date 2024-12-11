@@ -13,6 +13,7 @@ import org.gtkkn.native.gio.g_filter_output_stream_get_base_stream
 import org.gtkkn.native.gio.g_filter_output_stream_get_close_base_stream
 import org.gtkkn.native.gio.g_filter_output_stream_get_type
 import org.gtkkn.native.gio.g_filter_output_stream_set_close_base_stream
+import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 import kotlin.Unit
 
@@ -22,9 +23,8 @@ import kotlin.Unit
  * of filtering operations are character set conversion, compression
  * and byte order flipping.
  */
-public open class FilterOutputStream(
-    pointer: CPointer<GFilterOutputStream>,
-) : OutputStream(pointer.reinterpret()),
+public open class FilterOutputStream(pointer: CPointer<GFilterOutputStream>) :
+    OutputStream(pointer.reinterpret()),
     KGTyped {
     public val gioFilterOutputStreamPointer: CPointer<GFilterOutputStream>
         get() = gPointer.reinterpret()
@@ -35,10 +35,9 @@ public open class FilterOutputStream(
          *
          * @return a #GOutputStream.
          */
-        get() =
-            g_filter_output_stream_get_base_stream(gioFilterOutputStreamPointer.reinterpret())!!.run {
-                OutputStream(reinterpret())
-            }
+        get() = g_filter_output_stream_get_base_stream(gioFilterOutputStreamPointer.reinterpret())!!.run {
+            OutputStream(reinterpret())
+        }
 
     /**
      * Whether the base stream should be closed when the filter stream is closed.
@@ -51,25 +50,6 @@ public open class FilterOutputStream(
          * @return true if the base stream will be closed.
          */
         get() = g_filter_output_stream_get_close_base_stream(gioFilterOutputStreamPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the base stream for the filter stream.
-     *
-     * @return a #GOutputStream.
-     */
-    public open fun getBaseStream(): OutputStream =
-        g_filter_output_stream_get_base_stream(gioFilterOutputStreamPointer.reinterpret())!!.run {
-            OutputStream(reinterpret())
-        }
-
-    /**
-     * Returns whether the base stream will be closed when @stream is
-     * closed.
-     *
-     * @return true if the base stream will be closed.
-     */
-    public open fun getCloseBaseStream(): Boolean =
-        g_filter_output_stream_get_close_base_stream(gioFilterOutputStreamPointer.reinterpret()).asBoolean()
 
     /**
      * Sets whether the base stream will be closed when @stream is closed.
@@ -86,5 +66,12 @@ public open class FilterOutputStream(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of FilterOutputStream
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_filter_output_stream_get_type()
     }
 }

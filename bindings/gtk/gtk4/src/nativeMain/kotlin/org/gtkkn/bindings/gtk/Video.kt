@@ -10,6 +10,7 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -52,9 +53,8 @@ import kotlin.Unit
  * you may want to use the [iface@Gdk.Paintable] API and a media framework
  * such as Gstreamer directly.
  */
-public open class Video(
-    pointer: CPointer<GtkVideo>,
-) : Widget(pointer.reinterpret()),
+public open class Video(pointer: CPointer<GtkVideo>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkVideoPointer: CPointer<GtkVideo>
         get() = gPointer.reinterpret()
@@ -97,10 +97,9 @@ public open class Video(
          *
          * @return The file played by @self
          */
-        get() =
-            gtk_video_get_file(gtkVideoPointer.reinterpret())?.run {
-                File.wrap(reinterpret())
-            }
+        get() = gtk_video_get_file(gtkVideoPointer.reinterpret())?.run {
+            File.wrap(reinterpret())
+        }
 
         /**
          * Makes @self play the given @file.
@@ -124,10 +123,9 @@ public open class Video(
          * @return the graphics offload status
          * @since 4.14
          */
-        get() =
-            gtk_video_get_graphics_offload(gtkVideoPointer.reinterpret()).run {
-                GraphicsOffloadEnabled.fromNativeValue(this)
-            }
+        get() = gtk_video_get_graphics_offload(gtkVideoPointer.reinterpret()).run {
+            GraphicsOffloadEnabled.fromNativeValue(this)
+        }
 
         /**
          * Sets whether to enable graphics offload.
@@ -167,10 +165,9 @@ public open class Video(
          *
          * @return The media stream managed by @self
          */
-        get() =
-            gtk_video_get_media_stream(gtkVideoPointer.reinterpret())?.run {
-                MediaStream(reinterpret())
-            }
+        get() = gtk_video_get_media_stream(gtkVideoPointer.reinterpret())?.run {
+            MediaStream(reinterpret())
+        }
 
         /**
          * Sets the media stream to be played back.
@@ -225,72 +222,6 @@ public open class Video(
     ) : this(gtk_video_new_for_media_stream(stream?.gtkMediaStreamPointer?.reinterpret())!!.reinterpret())
 
     /**
-     * Returns true if videos have been set to loop.
-     *
-     * @return true if streams should autoplay
-     */
-    public open fun getAutoplay(): Boolean = gtk_video_get_autoplay(gtkVideoPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the file played by @self or null if not playing back
-     * a file.
-     *
-     * @return The file played by @self
-     */
-    public open fun getFile(): File? =
-        gtk_video_get_file(gtkVideoPointer.reinterpret())?.run {
-            File.wrap(reinterpret())
-        }
-
-    /**
-     * Returns whether graphics offload is enabled.
-     *
-     * See [class@Gtk.GraphicsOffload] for more information on graphics offload.
-     *
-     * @return the graphics offload status
-     * @since 4.14
-     */
-    @GtkVersion4_14
-    public open fun getGraphicsOffload(): GraphicsOffloadEnabled =
-        gtk_video_get_graphics_offload(gtkVideoPointer.reinterpret()).run {
-            GraphicsOffloadEnabled.fromNativeValue(this)
-        }
-
-    /**
-     * Returns true if videos have been set to loop.
-     *
-     * @return true if streams should loop
-     */
-    public open fun getLoop(): Boolean = gtk_video_get_loop(gtkVideoPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the media stream managed by @self or null if none.
-     *
-     * @return The media stream managed by @self
-     */
-    public open fun getMediaStream(): MediaStream? =
-        gtk_video_get_media_stream(gtkVideoPointer.reinterpret())?.run {
-            MediaStream(reinterpret())
-        }
-
-    /**
-     * Sets whether @self automatically starts playback when it
-     * becomes visible or when a new file gets loaded.
-     *
-     * @param autoplay whether media streams should autoplay
-     */
-    public open fun setAutoplay(autoplay: Boolean): Unit =
-        gtk_video_set_autoplay(gtkVideoPointer.reinterpret(), autoplay.asGBoolean())
-
-    /**
-     * Makes @self play the given @file.
-     *
-     * @param file the file to play
-     */
-    public open fun setFile(`file`: File? = null): Unit =
-        gtk_video_set_file(gtkVideoPointer.reinterpret(), `file`?.gioFilePointer)
-
-    /**
      * Makes @self play the given @filename.
      *
      * This is a utility function that calls gtk_video_set_file(),
@@ -299,40 +230,6 @@ public open class Video(
      */
     public open fun setFilename(filename: String? = null): Unit =
         gtk_video_set_filename(gtkVideoPointer.reinterpret(), filename)
-
-    /**
-     * Sets whether to enable graphics offload.
-     *
-     * See [class@Gtk.GraphicsOffload] for more information on graphics offload.
-     *
-     * @param enabled the new graphics offload status
-     * @since 4.14
-     */
-    @GtkVersion4_14
-    public open fun setGraphicsOffload(enabled: GraphicsOffloadEnabled): Unit =
-        gtk_video_set_graphics_offload(gtkVideoPointer.reinterpret(), enabled.nativeValue)
-
-    /**
-     * Sets whether new files loaded by @self should be set to loop.
-     *
-     * @param loop whether media streams should loop
-     */
-    public open fun setLoop(loop: Boolean): Unit = gtk_video_set_loop(gtkVideoPointer.reinterpret(), loop.asGBoolean())
-
-    /**
-     * Sets the media stream to be played back.
-     *
-     * @self will take full control of managing the media stream. If you
-     * want to manage a media stream yourself, consider using a
-     * [class@Gtk.Picture] for display.
-     *
-     * If you want to display a file, consider using [method@Gtk.Video.set_file]
-     * instead.
-     *
-     * @param stream The media stream to play or null to unset
-     */
-    public open fun setMediaStream(stream: MediaStream? = null): Unit =
-        gtk_video_set_media_stream(gtkVideoPointer.reinterpret(), stream?.gtkMediaStreamPointer?.reinterpret())
 
     /**
      * Makes @self play the resource at the given @resource_path.
@@ -375,5 +272,12 @@ public open class Video(
          */
         public fun newForResource(resourcePath: String? = null): Video =
             Video(gtk_video_new_for_resource(resourcePath)!!.reinterpret())
+
+        /**
+         * Get the GType of Video
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_video_get_type()
     }
 }

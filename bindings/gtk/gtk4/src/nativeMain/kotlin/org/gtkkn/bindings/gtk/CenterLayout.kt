@@ -9,6 +9,7 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkCenterLayout
 import org.gtkkn.native.gtk.gtk_center_layout_get_baseline_position
 import org.gtkkn.native.gtk.gtk_center_layout_get_center_widget
@@ -36,9 +37,8 @@ import kotlin.Unit
  *
  * The center widget is centered regarding the full width of the layout's.
  */
-public open class CenterLayout(
-    pointer: CPointer<GtkCenterLayout>,
-) : LayoutManager(pointer.reinterpret()),
+public open class CenterLayout(pointer: CPointer<GtkCenterLayout>) :
+    LayoutManager(pointer.reinterpret()),
     KGTyped {
     public val gtkCenterLayoutPointer: CPointer<GtkCenterLayout>
         get() = gPointer.reinterpret()
@@ -81,11 +81,10 @@ public open class CenterLayout(
         @GtkVersion4_12
         set(
             shrinkCenterLast
-        ) =
-            gtk_center_layout_set_shrink_center_last(
-                gtkCenterLayoutPointer.reinterpret(),
-                shrinkCenterLast.asGBoolean()
-            )
+        ) = gtk_center_layout_set_shrink_center_last(
+            gtkCenterLayoutPointer.reinterpret(),
+            shrinkCenterLast.asGBoolean()
+        )
 
     /**
      * Creates a new `GtkCenterLayout`.
@@ -135,16 +134,6 @@ public open class CenterLayout(
         }
 
     /**
-     * Gets whether @self shrinks the center widget after other children.
-     *
-     * @return whether to shrink the center widget after others
-     * @since 4.12
-     */
-    @GtkVersion4_12
-    public open fun getShrinkCenterLast(): Boolean =
-        gtk_center_layout_get_shrink_center_last(gtkCenterLayoutPointer.reinterpret()).asBoolean()
-
-    /**
      * Returns the start widget of the layout.
      *
      * @return The current start widget of @self
@@ -169,11 +158,10 @@ public open class CenterLayout(
      *
      * @param widget the new center widget
      */
-    public open fun setCenterWidget(widget: Widget? = null): Unit =
-        gtk_center_layout_set_center_widget(
-            gtkCenterLayoutPointer.reinterpret(),
-            widget?.gtkWidgetPointer?.reinterpret()
-        )
+    public open fun setCenterWidget(widget: Widget? = null): Unit = gtk_center_layout_set_center_widget(
+        gtkCenterLayoutPointer.reinterpret(),
+        widget?.gtkWidgetPointer?.reinterpret()
+    )
 
     /**
      * Sets the new end widget of @self.
@@ -194,34 +182,16 @@ public open class CenterLayout(
         gtk_center_layout_set_orientation(gtkCenterLayoutPointer.reinterpret(), orientation.nativeValue)
 
     /**
-     * Sets whether to shrink the center widget after other children.
-     *
-     * By default, when there's no space to give all three children their
-     * natural widths, the start and end widgets start shrinking and the
-     * center child keeps natural width until they reach minimum width.
-     *
-     * If set to `FALSE`, start and end widgets keep natural width and the
-     * center widget starts shrinking instead.
-     *
-     * @param shrinkCenterLast whether to shrink the center widget after others
-     * @since 4.12
-     */
-    @GtkVersion4_12
-    public open fun setShrinkCenterLast(shrinkCenterLast: Boolean): Unit =
-        gtk_center_layout_set_shrink_center_last(gtkCenterLayoutPointer.reinterpret(), shrinkCenterLast.asGBoolean())
-
-    /**
      * Sets the new start widget of @self.
      *
      * To remove the existing start widget, pass null.
      *
      * @param widget the new start widget
      */
-    public open fun setStartWidget(widget: Widget? = null): Unit =
-        gtk_center_layout_set_start_widget(
-            gtkCenterLayoutPointer.reinterpret(),
-            widget?.gtkWidgetPointer?.reinterpret()
-        )
+    public open fun setStartWidget(widget: Widget? = null): Unit = gtk_center_layout_set_start_widget(
+        gtkCenterLayoutPointer.reinterpret(),
+        widget?.gtkWidgetPointer?.reinterpret()
+    )
 
     public companion object : TypeCompanion<CenterLayout> {
         override val type: GeneratedClassKGType<CenterLayout> =
@@ -230,5 +200,12 @@ public open class CenterLayout(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of CenterLayout
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_center_layout_get_type()
     }
 }

@@ -9,6 +9,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.gtk_actionable_get_action_name
 import org.gtkkn.native.gtk.gtk_actionable_get_action_target_value
@@ -36,6 +37,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
+ * - method `set_action_target`: Varargs parameter is not supported
  * - method `action-target`: Property has no getter nor setter
  */
 public interface Actionable :
@@ -130,11 +132,10 @@ public interface Actionable :
      *
      * @param targetValue a [struct@GLib.Variant] to set as the target value
      */
-    public fun setActionTargetValue(targetValue: Variant? = null): Unit =
-        gtk_actionable_set_action_target_value(
-            gtkActionablePointer.reinterpret(),
-            targetValue?.glibVariantPointer?.reinterpret()
-        )
+    public fun setActionTargetValue(targetValue: Variant? = null): Unit = gtk_actionable_set_action_target_value(
+        gtkActionablePointer.reinterpret(),
+        targetValue?.glibVariantPointer?.reinterpret()
+    )
 
     /**
      * Sets the action-name and associated string target value of an
@@ -148,9 +149,7 @@ public interface Actionable :
     public fun setDetailedActionName(detailedActionName: String): Unit =
         gtk_actionable_set_detailed_action_name(gtkActionablePointer.reinterpret(), detailedActionName)
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkActionable>,
-    ) : Actionable {
+    private data class Wrapper(private val pointer: CPointer<GtkActionable>) : Actionable {
         override val gtkActionablePointer: CPointer<GtkActionable> = pointer
     }
 
@@ -163,5 +162,12 @@ public interface Actionable :
         }
 
         public fun wrap(pointer: CPointer<GtkActionable>): Actionable = Wrapper(pointer)
+
+        /**
+         * Get the GType of Actionable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_actionable_get_type()
     }
 }

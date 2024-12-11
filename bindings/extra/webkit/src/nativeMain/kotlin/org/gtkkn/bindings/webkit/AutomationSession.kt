@@ -17,6 +17,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.webkit.WebKitAutomationSession
 import org.gtkkn.native.webkit.WebKitWebView
@@ -40,9 +41,8 @@ import kotlin.Unit
  * @since 2.18
  */
 @WebKitVersion2_18
-public class AutomationSession(
-    pointer: CPointer<WebKitAutomationSession>,
-) : Object(pointer.reinterpret()),
+public class AutomationSession(pointer: CPointer<WebKitAutomationSession>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val webkitAutomationSessionPointer: CPointer<WebKitAutomationSession>
         get() = gPointer.reinterpret()
@@ -60,9 +60,8 @@ public class AutomationSession(
          * @return the unique identifier of @session
          * @since 2.18
          */
-        get() =
-            webkit_automation_session_get_id(webkitAutomationSessionPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = webkit_automation_session_get_id(webkitAutomationSessionPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Get the the previously set #WebKitAutomationSession.
@@ -79,17 +78,6 @@ public class AutomationSession(
         }
 
     /**
-     * Get the unique identifier of a #WebKitAutomationSession
-     *
-     * @return the unique identifier of @session
-     * @since 2.18
-     */
-    @WebKitVersion2_18
-    public fun getId(): String =
-        webkit_automation_session_get_id(webkitAutomationSessionPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
      * Set the application information to @session.
      *
      * This information will be used by the driver service
@@ -103,11 +91,10 @@ public class AutomationSession(
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun setApplicationInfo(info: ApplicationInfo): Unit =
-        webkit_automation_session_set_application_info(
-            webkitAutomationSessionPointer.reinterpret(),
-            info.webkitApplicationInfoPointer.reinterpret()
-        )
+    public fun setApplicationInfo(info: ApplicationInfo): Unit = webkit_automation_session_set_application_info(
+        webkitAutomationSessionPointer.reinterpret(),
+        info.webkitApplicationInfoPointer.reinterpret()
+    )
 
     /**
      * This signal is emitted when the automation client requests a new
@@ -128,10 +115,7 @@ public class AutomationSession(
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun connectCreateWebView(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> WebView,
-    ): ULong =
+    public fun connectCreateWebView(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> WebView): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "create-web-view",
@@ -150,10 +134,7 @@ public class AutomationSession(
      * @since 2.46
      */
     @WebKitVersion2_46
-    public fun connectWillClose(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectWillClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "will-close",
@@ -170,6 +151,13 @@ public class AutomationSession(
         init {
             WebkitTypeProvider.register()
         }
+
+        /**
+         * Get the GType of AutomationSession
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_automation_session_get_type()
     }
 }
 
@@ -178,17 +166,14 @@ private val connectCreateWebViewFunc: CPointer<CFunction<() -> CPointer<WebKitWe
             _: COpaquePointer,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<() -> WebView>()
-            .get()
-            .invoke()
-            .webkitWebViewPointer
-    }.reinterpret()
+        userData.asStableRef<() -> WebView>().get().invoke().webkitWebViewPointer
+    }
+        .reinterpret()
 
-private val connectWillCloseFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectWillCloseFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

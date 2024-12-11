@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Display
 import org.gtkkn.bindings.gdk.RGBA
 import org.gtkkn.bindings.gobject.Object
@@ -10,6 +11,9 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkStyleContext
 import org.gtkkn.native.gtk.gtk_style_context_add_class
 import org.gtkkn.native.gtk.gtk_style_context_add_provider
@@ -32,10 +36,9 @@ import org.gtkkn.native.gtk.gtk_style_context_save
 import org.gtkkn.native.gtk.gtk_style_context_set_display
 import org.gtkkn.native.gtk.gtk_style_context_set_scale
 import org.gtkkn.native.gtk.gtk_style_context_set_state
+import org.gtkkn.native.gtk.gtk_style_context_to_string
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 
 /**
@@ -76,14 +79,9 @@ import kotlin.Unit
  * `XDG_CONFIG_HOME/gtk-4.0/gtk.css` will
  * still take precedence over your changes, as it uses the
  * %GTK_STYLE_PROVIDER_PRIORITY_USER priority.
- *
- * ## Skipped during bindings generation
- *
- * - method `to_string`: C function gtk_style_context_to_string is ignored
  */
-public open class StyleContext(
-    pointer: CPointer<GtkStyleContext>,
-) : Object(pointer.reinterpret()),
+public open class StyleContext(pointer: CPointer<GtkStyleContext>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkStyleContextPointer: CPointer<GtkStyleContext>
         get() = gPointer.reinterpret()
@@ -94,10 +92,9 @@ public open class StyleContext(
          *
          * @return a `GdkDisplay`.
          */
-        get() =
-            gtk_style_context_get_display(gtkStyleContextPointer.reinterpret())!!.run {
-                Display(reinterpret())
-            }
+        get() = gtk_style_context_get_display(gtkStyleContextPointer.reinterpret())!!.run {
+            Display(reinterpret())
+        }
 
         /**
          * Attaches @context to the given display.
@@ -156,10 +153,7 @@ public open class StyleContext(
      *   %GTK_STYLE_PROVIDER_PRIORITY_FALLBACK and
      *   %GTK_STYLE_PROVIDER_PRIORITY_USER
      */
-    public open fun addProvider(
-        provider: StyleProvider,
-        priority: UInt,
-    ): Unit =
+    public open fun addProvider(provider: StyleProvider, priority: guint): Unit =
         gtk_style_context_add_provider(gtkStyleContextPointer.reinterpret(), provider.gtkStyleProviderPointer, priority)
 
     /**
@@ -177,16 +171,6 @@ public open class StyleContext(
      */
     public open fun getColor(color: RGBA): Unit =
         gtk_style_context_get_color(gtkStyleContextPointer.reinterpret(), color.gdkRGBAPointer.reinterpret())
-
-    /**
-     * Returns the `GdkDisplay` to which @context is attached.
-     *
-     * @return a `GdkDisplay`.
-     */
-    public open fun getDisplay(): Display =
-        gtk_style_context_get_display(gtkStyleContextPointer.reinterpret())!!.run {
-            Display(reinterpret())
-        }
 
     /**
      * Gets the margin for a given state as a `GtkBorder`.
@@ -209,7 +193,7 @@ public open class StyleContext(
      *
      * @return the scale
      */
-    public open fun getScale(): Int = gtk_style_context_get_scale(gtkStyleContextPointer.reinterpret())
+    public open fun getScale(): gint = gtk_style_context_get_scale(gtkStyleContextPointer.reinterpret())
 
     /**
      * Returns the state used for style matching.
@@ -222,10 +206,9 @@ public open class StyleContext(
      *
      * @return the state flags
      */
-    public open fun getState(): StateFlags =
-        gtk_style_context_get_state(gtkStyleContextPointer.reinterpret()).run {
-            StateFlags(this)
-        }
+    public open fun getState(): StateFlags = gtk_style_context_get_state(gtkStyleContextPointer.reinterpret()).run {
+        StateFlags(this)
+    }
 
     /**
      * Returns true if @context currently has defined the
@@ -244,15 +227,11 @@ public open class StyleContext(
      * @param color Return location for the looked up color
      * @return true if @color_name was found and resolved, false otherwise
      */
-    public open fun lookupColor(
-        colorName: String,
-        color: RGBA,
-    ): Boolean =
-        gtk_style_context_lookup_color(
-            gtkStyleContextPointer.reinterpret(),
-            colorName,
-            color.gdkRGBAPointer.reinterpret()
-        ).asBoolean()
+    public open fun lookupColor(colorName: String, color: RGBA): Boolean = gtk_style_context_lookup_color(
+        gtkStyleContextPointer.reinterpret(),
+        colorName,
+        color.gdkRGBAPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Removes @class_name from @context.
@@ -292,26 +271,11 @@ public open class StyleContext(
     public open fun save(): Unit = gtk_style_context_save(gtkStyleContextPointer.reinterpret())
 
     /**
-     * Attaches @context to the given display.
-     *
-     * The display is used to add style information from “global”
-     * style providers, such as the display's `GtkSettings` instance.
-     *
-     * If you are using a `GtkStyleContext` returned from
-     * [method@Gtk.Widget.get_style_context], you do not need to
-     * call this yourself.
-     *
-     * @param display a `GdkDisplay`
-     */
-    public open fun setDisplay(display: Display): Unit =
-        gtk_style_context_set_display(gtkStyleContextPointer.reinterpret(), display.gdkDisplayPointer.reinterpret())
-
-    /**
      * Sets the scale to use when getting image assets for the style.
      *
      * @param scale scale
      */
-    public open fun setScale(scale: Int): Unit =
+    public open fun setScale(scale: gint): Unit =
         gtk_style_context_set_scale(gtkStyleContextPointer.reinterpret(), scale)
 
     /**
@@ -321,6 +285,25 @@ public open class StyleContext(
      */
     public open fun setState(flags: StateFlags): Unit =
         gtk_style_context_set_state(gtkStyleContextPointer.reinterpret(), flags.mask)
+
+    /**
+     * Converts the style context into a string representation.
+     *
+     * The string representation always includes information about
+     * the name, state, id, visibility and style classes of the CSS
+     * node that is backing @context. Depending on the flags, more
+     * information may be included.
+     *
+     * This function is intended for testing and debugging of the
+     * CSS implementation in GTK. There are no guarantees about
+     * the format of the returned string, it may change.
+     *
+     * @param flags Flags that determine what to print
+     * @return a newly allocated string representing @context
+     */
+    public open fun toString(flags: StyleContextPrintFlags): String =
+        gtk_style_context_to_string(gtkStyleContextPointer.reinterpret(), flags.mask)?.toKString()
+            ?: error("Expected not null string")
 
     public companion object : TypeCompanion<StyleContext> {
         override val type: GeneratedClassKGType<StyleContext> =
@@ -349,11 +332,7 @@ public open class StyleContext(
          *   %GTK_STYLE_PROVIDER_PRIORITY_FALLBACK and
          *   %GTK_STYLE_PROVIDER_PRIORITY_USER
          */
-        public fun addProviderForDisplay(
-            display: Display,
-            provider: StyleProvider,
-            priority: UInt,
-        ): Unit =
+        public fun addProviderForDisplay(display: Display, provider: StyleProvider, priority: guint): Unit =
             gtk_style_context_add_provider_for_display(
                 display.gdkDisplayPointer.reinterpret(),
                 provider.gtkStyleProviderPointer,
@@ -366,13 +345,17 @@ public open class StyleContext(
          * @param display a `GdkDisplay`
          * @param provider a `GtkStyleProvider`
          */
-        public fun removeProviderForDisplay(
-            display: Display,
-            provider: StyleProvider,
-        ): Unit =
+        public fun removeProviderForDisplay(display: Display, provider: StyleProvider): Unit =
             gtk_style_context_remove_provider_for_display(
                 display.gdkDisplayPointer.reinterpret(),
                 provider.gtkStyleProviderPointer
             )
+
+        /**
+         * Get the GType of StyleContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_style_context_get_type()
     }
 }

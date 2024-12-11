@@ -14,6 +14,8 @@ import org.gtkkn.native.gio.G_SUBPROCESS_FLAGS_STDIN_INHERIT
 import org.gtkkn.native.gio.G_SUBPROCESS_FLAGS_STDIN_PIPE
 import org.gtkkn.native.gio.G_SUBPROCESS_FLAGS_STDOUT_PIPE
 import org.gtkkn.native.gio.G_SUBPROCESS_FLAGS_STDOUT_SILENCE
+import org.gtkkn.native.gio.g_subprocess_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags to define the behaviour of a #GSubprocess.
@@ -27,9 +29,7 @@ import org.gtkkn.native.gio.G_SUBPROCESS_FLAGS_STDOUT_SILENCE
  * %G_SUBPROCESS_FLAGS_STDOUT_SILENCE.
  * @since 2.40
  */
-public class SubprocessFlags(
-    public val mask: GSubprocessFlags,
-) : Bitfield<SubprocessFlags> {
+public class SubprocessFlags(public val mask: GSubprocessFlags) : Bitfield<SubprocessFlags> {
     override infix fun or(other: SubprocessFlags): SubprocessFlags = SubprocessFlags(mask or other.mask)
 
     @GioVersion2_40
@@ -103,5 +103,12 @@ public class SubprocessFlags(
          */
         public val SEARCH_PATH_FROM_ENVP: SubprocessFlags =
             SubprocessFlags(G_SUBPROCESS_FLAGS_SEARCH_PATH_FROM_ENVP)
+
+        /**
+         * Get the GType of SubprocessFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_subprocess_flags_get_type()
     }
 }

@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskRoundedClipNode
 import org.gtkkn.native.gsk.gsk_rounded_clip_node_get_child
 import org.gtkkn.native.gsk.gsk_rounded_clip_node_get_clip
@@ -15,9 +16,8 @@ import org.gtkkn.native.gsk.gsk_rounded_clip_node_new
 /**
  * A render node applying a rounded rectangle clip to its single child.
  */
-public open class RoundedClipNode(
-    pointer: CPointer<GskRoundedClipNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class RoundedClipNode(pointer: CPointer<GskRoundedClipNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskRoundedClipNodePointer: CPointer<GskRoundedClipNode>
         get() = gPointer.reinterpret()
@@ -67,5 +67,12 @@ public open class RoundedClipNode(
         init {
             GskTypeProvider.register()
         }
+
+        /**
+         * Get the GType of RoundedClipNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_rounded_clip_node_get_type()
     }
 }

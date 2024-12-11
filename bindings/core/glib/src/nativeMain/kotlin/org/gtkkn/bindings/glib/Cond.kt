@@ -1,18 +1,25 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GCond
 import org.gtkkn.native.glib.g_cond_broadcast
 import org.gtkkn.native.glib.g_cond_clear
+import org.gtkkn.native.glib.g_cond_free
 import org.gtkkn.native.glib.g_cond_init
+import org.gtkkn.native.glib.g_cond_new
 import org.gtkkn.native.glib.g_cond_signal
+import kotlin.Pair
 import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * The #GCond struct is an opaque data structure that represents a
@@ -85,13 +92,41 @@ import kotlin.Unit
  *
  * - parameter `mutex`: Mutex
  * - parameter `mutex`: Mutex
+ * - parameter `mutex`: Mutex
  * - field `p`: Record field p is private
  * - field `i`: Record field i is private
  */
-public class Cond(
-    pointer: CPointer<GCond>,
-) : Record {
+public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibCondPointer: CPointer<GCond> = pointer
+
+    /**
+     * Allocate a new Cond.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<GCond>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Cond and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GCond>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Cond using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GCond>().ptr)
 
     /**
      * If threads are waiting for @cond, all of them are unblocked.
@@ -114,6 +149,14 @@ public class Cond(
      */
     @GLibVersion2_32
     public fun clear(): Unit = g_cond_clear(glibCondPointer.reinterpret())
+
+    /**
+     * Destroys a #GCond that has been created with g_cond_new().
+     *
+     * Calling g_cond_free() for a #GCond on which threads are
+     * blocking leads to undefined behaviour.
+     */
+    public fun free(): Unit = g_cond_free(glibCondPointer.reinterpret())
 
     /**
      * Initialises a #GCond so that it can be used.
@@ -141,7 +184,14 @@ public class Cond(
      */
     public fun signal(): Unit = g_cond_signal(glibCondPointer.reinterpret())
 
-    public companion object : RecordCompanion<Cond, GCond> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Cond = Cond(pointer.reinterpret())
+    public companion object {
+        /**
+         * Allocates and initializes a new #GCond.
+         *
+         * @return a newly allocated #GCond. Free with g_cond_free()
+         */
+        public fun new(): Cond = g_cond_new()!!.run {
+            Cond(reinterpret())
+        }
     }
 }

@@ -11,6 +11,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkExpression
 import org.gtkkn.native.gtk.gtk_expression_bind
 import org.gtkkn.native.gtk.gtk_expression_evaluate
@@ -22,7 +23,6 @@ import org.gtkkn.native.gtk.gtk_expression_unref
 import org.gtkkn.native.gtk.gtk_expression_watch
 import kotlin.Boolean
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 
 /**
@@ -176,11 +176,8 @@ import kotlin.Unit
  *   </object>
  * ```
  */
-public open class Expression(
-    pointer: CPointer<GtkExpression>,
-) : KGTyped {
+public open class Expression(pointer: CPointer<GtkExpression>) : KGTyped {
     public val gPointer: CPointer<GtkExpression>
-
     init {
         gPointer = pointer.reinterpret()
     }
@@ -205,11 +202,7 @@ public open class Expression(
      *   the evaluation of `self`
      * @return a `GtkExpressionWatch`
      */
-    public open fun bind(
-        target: Object,
-        `property`: String,
-        `this`: Object? = null,
-    ): ExpressionWatch =
+    public open fun bind(target: Object, `property`: String, `this`: Object? = null): ExpressionWatch =
         gtk_expression_bind(
             gPointer.reinterpret(),
             target.gPointer.reinterpret(),
@@ -235,15 +228,11 @@ public open class Expression(
      * @param value an empty `GValue`
      * @return `TRUE` if the expression could be evaluated
      */
-    public open fun evaluate(
-        `this`: Object? = null,
-        `value`: Value,
-    ): Boolean =
-        gtk_expression_evaluate(
-            gPointer.reinterpret(),
-            `this`?.gPointer?.reinterpret(),
-            `value`.gobjectValuePointer.reinterpret()
-        ).asBoolean()
+    public open fun evaluate(`this`: Object? = null, `value`: Value): Boolean = gtk_expression_evaluate(
+        gPointer.reinterpret(),
+        `this`?.gPointer?.reinterpret(),
+        `value`.gobjectValuePointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Gets the `GType` that this expression evaluates to.
@@ -253,7 +242,7 @@ public open class Expression(
      *
      * @return The type returned from [method@Gtk.Expression.evaluate]
      */
-    public open fun getValueType(): ULong = gtk_expression_get_value_type(gPointer.reinterpret())
+    public open fun getValueType(): GType = gtk_expression_get_value_type(gPointer.reinterpret())
 
     /**
      * Checks if the expression is static.
@@ -273,10 +262,9 @@ public open class Expression(
      *
      * @return the `GtkExpression` with an additional reference
      */
-    public open fun ref(): Expression =
-        gtk_expression_ref(gPointer.reinterpret())!!.run {
-            Expression(reinterpret())
-        }
+    public open fun ref(): Expression = gtk_expression_ref(gPointer.reinterpret())!!.run {
+        Expression(reinterpret())
+    }
 
     /**
      * Releases a reference on the given `GtkExpression`.
@@ -305,19 +293,15 @@ public open class Expression(
      *   [method@Gtk.ExpressionWatch.unwatch]. You should call [method@Gtk.ExpressionWatch.ref]
      *   if you want to keep the watch around.
      */
-    public open fun watch(
-        `this`: Object? = null,
-        notify: ExpressionNotify,
-    ): ExpressionWatch =
-        gtk_expression_watch(
-            gPointer.reinterpret(),
-            `this`?.gPointer?.reinterpret(),
-            ExpressionNotifyFunc.reinterpret(),
-            StableRef.create(notify).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )!!.run {
-            ExpressionWatch(reinterpret())
-        }
+    public open fun watch(`this`: Object? = null, notify: ExpressionNotify): ExpressionWatch = gtk_expression_watch(
+        gPointer.reinterpret(),
+        `this`?.gPointer?.reinterpret(),
+        ExpressionNotifyFunc.reinterpret(),
+        StableRef.create(notify).asCPointer(),
+        staticStableRefDestroy.reinterpret()
+    )!!.run {
+        ExpressionWatch(reinterpret())
+    }
 
     public companion object : TypeCompanion<Expression> {
         override val type: GeneratedClassKGType<Expression> =
@@ -326,5 +310,12 @@ public open class Expression(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Expression
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_expression_get_type()
     }
 }

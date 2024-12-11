@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessibleTextGranularity
+import org.gtkkn.native.gtk.gtk_accessible_text_granularity_get_type
 
 /**
  * The granularity for queries about the text contents of a [iface@Gtk.AccessibleText]
@@ -10,9 +12,7 @@ import org.gtkkn.native.gtk.GtkAccessibleTextGranularity
  * @since 4.14
  */
 @GtkVersion4_14
-public enum class AccessibleTextGranularity(
-    public val nativeValue: GtkAccessibleTextGranularity,
-) {
+public enum class AccessibleTextGranularity(public val nativeValue: GtkAccessibleTextGranularity) {
     /**
      * Use the boundary between
      *   characters (including non-printing characters)
@@ -58,5 +58,12 @@ public enum class AccessibleTextGranularity(
                 GtkAccessibleTextGranularity.GTK_ACCESSIBLE_TEXT_GRANULARITY_PARAGRAPH -> PARAGRAPH
                 else -> error("invalid nativeValue")
             }
+
+        /**
+         * Get the GType of AccessibleTextGranularity
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_accessible_text_granularity_get_type()
     }
 }

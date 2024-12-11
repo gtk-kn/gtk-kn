@@ -7,6 +7,7 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_36
@@ -23,11 +24,15 @@ import org.gtkkn.native.gio.g_credentials_get_unix_user
 import org.gtkkn.native.gio.g_credentials_is_same_user
 import org.gtkkn.native.gio.g_credentials_new
 import org.gtkkn.native.gio.g_credentials_set_unix_user
+import org.gtkkn.native.gio.g_credentials_to_string
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
-import kotlin.UInt
+import kotlin.String
+import kotlin.Suppress
 
 /**
  * The `GCredentials` type is a reference-counted wrapper for native
@@ -68,15 +73,14 @@ import kotlin.UInt
  *
  * ## Skipped during bindings generation
  *
+ * - method `get_native`: Return type gpointer is unsupported
  * - parameter `native`: gpointer
- * - method `to_string`: C function g_credentials_to_string is ignored
  *
  * @since 2.26
  */
 @GioVersion2_26
-public open class Credentials(
-    pointer: CPointer<GCredentials>,
-) : Object(pointer.reinterpret()),
+public open class Credentials(pointer: CPointer<GCredentials>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioCredentialsPointer: CPointer<GCredentials>
         get() = gPointer.reinterpret()
@@ -102,16 +106,15 @@ public open class Credentials(
      * @since 2.36
      */
     @GioVersion2_36
-    public open fun getUnixPid(): Result<Int> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_credentials_get_unix_pid(gioCredentialsPointer.reinterpret(), gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun getUnixPid(): Result<gint> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_credentials_get_unix_pid(gioCredentialsPointer.reinterpret(), gError.ptr)
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Tries to get the UNIX user identifier from @credentials. This
@@ -125,16 +128,15 @@ public open class Credentials(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getUnixUser(): Result<UInt> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_credentials_get_unix_user(gioCredentialsPointer.reinterpret(), gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun getUnixUser(): Result<guint> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_credentials_get_unix_user(gioCredentialsPointer.reinterpret(), gError.ptr)
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Checks if @credentials and @other_credentials is the same user.
@@ -148,21 +150,19 @@ public open class Credentials(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun isSameUser(otherCredentials: Credentials): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_credentials_is_same_user(
-                    gioCredentialsPointer.reinterpret(),
-                    otherCredentials.gioCredentialsPointer.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun isSameUser(otherCredentials: Credentials): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_credentials_is_same_user(
+            gioCredentialsPointer.reinterpret(),
+            otherCredentials.gioCredentialsPointer.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Tries to set the UNIX user identifier on @credentials. This method
@@ -178,16 +178,28 @@ public open class Credentials(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setUnixUser(uid: UInt): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_credentials_set_unix_user(gioCredentialsPointer.reinterpret(), uid, gError.ptr).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun setUnixUser(uid: guint): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_credentials_set_unix_user(gioCredentialsPointer.reinterpret(), uid, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
+
+    /**
+     * Creates a human-readable textual representation of @credentials
+     * that can be used in logging and debug messages. The format of the
+     * returned string may change in future GLib release.
+     *
+     * @return A string that should be freed with g_free().
+     * @since 2.26
+     */
+    @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
+    @GioVersion2_26
+    override fun toString(): String =
+        g_credentials_to_string(gioCredentialsPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     public companion object : TypeCompanion<Credentials> {
         override val type: GeneratedClassKGType<Credentials> =
@@ -196,5 +208,12 @@ public open class Credentials(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Credentials
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_credentials_get_type()
     }
 }

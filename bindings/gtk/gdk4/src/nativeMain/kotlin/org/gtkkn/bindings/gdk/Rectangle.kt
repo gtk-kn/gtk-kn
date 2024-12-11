@@ -1,21 +1,30 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkRectangle
 import org.gtkkn.native.gdk.gdk_rectangle_contains_point
 import org.gtkkn.native.gdk.gdk_rectangle_equal
+import org.gtkkn.native.gdk.gdk_rectangle_get_type
 import org.gtkkn.native.gdk.gdk_rectangle_intersect
 import org.gtkkn.native.gdk.gdk_rectangle_union
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
-import kotlin.Int
+import kotlin.Pair
+import kotlin.String
 import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * A `GdkRectangle` data type for representing rectangles.
@@ -34,16 +43,16 @@ import kotlin.Unit
  * The Graphene library has a number of other data types for regions and
  * volumes in 2D and 3D.
  */
-public class Rectangle(
-    pointer: CPointer<GdkRectangle>,
-) : Record {
+public class Rectangle(pointer: CPointer<GdkRectangle>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gdkRectanglePointer: CPointer<GdkRectangle> = pointer
 
     /**
      * the x coordinate of the top left corner
      */
-    public var x: Int
+    public var x: gint
         get() = gdkRectanglePointer.pointed.x
+
+        @UnsafeFieldSetter
         set(`value`) {
             gdkRectanglePointer.pointed.x = value
         }
@@ -51,8 +60,10 @@ public class Rectangle(
     /**
      * the y coordinate of the top left corner
      */
-    public var y: Int
+    public var y: gint
         get() = gdkRectanglePointer.pointed.y
+
+        @UnsafeFieldSetter
         set(`value`) {
             gdkRectanglePointer.pointed.y = value
         }
@@ -60,8 +71,10 @@ public class Rectangle(
     /**
      * the width of the rectangle
      */
-    public var width: Int
+    public var width: gint
         get() = gdkRectanglePointer.pointed.width
+
+        @UnsafeFieldSetter
         set(`value`) {
             gdkRectanglePointer.pointed.width = value
         }
@@ -69,11 +82,89 @@ public class Rectangle(
     /**
      * the height of the rectangle
      */
-    public var height: Int
+    public var height: gint
         get() = gdkRectanglePointer.pointed.height
+
+        @UnsafeFieldSetter
         set(`value`) {
             gdkRectanglePointer.pointed.height = value
         }
+
+    /**
+     * Allocate a new Rectangle.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<GdkRectangle>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Rectangle and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GdkRectangle>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Rectangle using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GdkRectangle>().ptr)
+
+    /**
+     * Allocate a new Rectangle.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param x the x coordinate of the top left corner
+     * @param y the y coordinate of the top left corner
+     * @param width the width of the rectangle
+     * @param height the height of the rectangle
+     */
+    public constructor(
+        x: gint,
+        y: gint,
+        width: gint,
+        height: gint,
+    ) : this() {
+        this.x = x
+        this.y = y
+        this.width = width
+        this.height = height
+    }
+
+    /**
+     * Allocate a new Rectangle using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param x the x coordinate of the top left corner
+     * @param y the y coordinate of the top left corner
+     * @param width the width of the rectangle
+     * @param height the height of the rectangle
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        x: gint,
+        y: gint,
+        width: gint,
+        height: gint,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.x = x
+        this.y = y
+        this.width = width
+        this.height = height
+    }
 
     /**
      * Returns true if @rect contains the point described by @x and @y.
@@ -82,10 +173,8 @@ public class Rectangle(
      * @param y Y coordinate
      * @return true if @rect contains the point
      */
-    public fun containsPoint(
-        x: Int,
-        y: Int,
-    ): Boolean = gdk_rectangle_contains_point(gdkRectanglePointer.reinterpret(), x, y).asBoolean()
+    public fun containsPoint(x: gint, y: gint): Boolean =
+        gdk_rectangle_contains_point(gdkRectanglePointer.reinterpret(), x, y).asBoolean()
 
     /**
      * Checks if the two given rectangles are equal.
@@ -110,15 +199,11 @@ public class Rectangle(
      *   intersection of @src1 and @src2
      * @return true if the rectangles intersect.
      */
-    public fun intersect(
-        src2: Rectangle,
-        dest: Rectangle?,
-    ): Boolean =
-        gdk_rectangle_intersect(
-            gdkRectanglePointer.reinterpret(),
-            src2.gdkRectanglePointer.reinterpret(),
-            dest?.gdkRectanglePointer?.reinterpret()
-        ).asBoolean()
+    public fun intersect(src2: Rectangle, dest: Rectangle?): Boolean = gdk_rectangle_intersect(
+        gdkRectanglePointer.reinterpret(),
+        src2.gdkRectanglePointer.reinterpret(),
+        dest?.gdkRectanglePointer?.reinterpret()
+    ).asBoolean()
 
     /**
      * Calculates the union of two rectangles.
@@ -133,17 +218,20 @@ public class Rectangle(
      * @param src2 a `GdkRectangle`
      * @param dest return location for the union of @src1 and @src2
      */
-    public fun union(
-        src2: Rectangle,
-        dest: Rectangle,
-    ): Unit =
-        gdk_rectangle_union(
-            gdkRectanglePointer.reinterpret(),
-            src2.gdkRectanglePointer.reinterpret(),
-            dest.gdkRectanglePointer.reinterpret()
-        )
+    public fun union(src2: Rectangle, dest: Rectangle): Unit = gdk_rectangle_union(
+        gdkRectanglePointer.reinterpret(),
+        src2.gdkRectanglePointer.reinterpret(),
+        dest.gdkRectanglePointer.reinterpret()
+    )
 
-    public companion object : RecordCompanion<Rectangle, GdkRectangle> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Rectangle = Rectangle(pointer.reinterpret())
+    override fun toString(): String = "Rectangle(x=$x, y=$y, width=$width, height=$height)"
+
+    public companion object {
+        /**
+         * Get the GType of Rectangle
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_rectangle_get_type()
     }
 }

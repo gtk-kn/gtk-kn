@@ -6,13 +6,13 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskGLRenderer
 import org.gtkkn.native.gsk.gsk_gl_renderer_get_type
 import org.gtkkn.native.gsk.gsk_gl_renderer_new
 
-public open class GLRenderer(
-    pointer: CPointer<GskGLRenderer>,
-) : Renderer(pointer.reinterpret()),
+public open class GLRenderer(pointer: CPointer<GskGLRenderer>) :
+    Renderer(pointer.reinterpret()),
     KGTyped {
     public val gskGLRendererPointer: CPointer<GskGLRenderer>
         get() = gPointer.reinterpret()
@@ -32,5 +32,12 @@ public open class GLRenderer(
         init {
             GskTypeProvider.register()
         }
+
+        /**
+         * Get the GType of GLRenderer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_gl_renderer_get_type()
     }
 }

@@ -3,8 +3,10 @@ package org.gtkkn.bindings.pango
 
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_22
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoAttrType
 import org.gtkkn.native.pango.pango_attr_type_get_name
+import org.gtkkn.native.pango.pango_attr_type_get_type
 import org.gtkkn.native.pango.pango_attr_type_register
 import kotlin.String
 
@@ -16,9 +18,7 @@ import kotlin.String
  * values are given below. The type of structure used to store the attribute is
  * listed in parentheses after the description.
  */
-public enum class AttrType(
-    public val nativeValue: PangoAttrType,
-) {
+public enum class AttrType(public val nativeValue: PangoAttrType) {
     /**
      * does not happen
      */
@@ -207,48 +207,47 @@ public enum class AttrType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: PangoAttrType): AttrType =
-            when (nativeValue) {
-                PangoAttrType.PANGO_ATTR_INVALID -> INVALID
-                PangoAttrType.PANGO_ATTR_LANGUAGE -> LANGUAGE
-                PangoAttrType.PANGO_ATTR_FAMILY -> FAMILY
-                PangoAttrType.PANGO_ATTR_STYLE -> STYLE
-                PangoAttrType.PANGO_ATTR_WEIGHT -> WEIGHT
-                PangoAttrType.PANGO_ATTR_VARIANT -> VARIANT
-                PangoAttrType.PANGO_ATTR_STRETCH -> STRETCH
-                PangoAttrType.PANGO_ATTR_SIZE -> SIZE
-                PangoAttrType.PANGO_ATTR_FONT_DESC -> FONT_DESC
-                PangoAttrType.PANGO_ATTR_FOREGROUND -> FOREGROUND
-                PangoAttrType.PANGO_ATTR_BACKGROUND -> BACKGROUND
-                PangoAttrType.PANGO_ATTR_UNDERLINE -> UNDERLINE
-                PangoAttrType.PANGO_ATTR_STRIKETHROUGH -> STRIKETHROUGH
-                PangoAttrType.PANGO_ATTR_RISE -> RISE
-                PangoAttrType.PANGO_ATTR_SHAPE -> SHAPE
-                PangoAttrType.PANGO_ATTR_SCALE -> SCALE
-                PangoAttrType.PANGO_ATTR_FALLBACK -> FALLBACK
-                PangoAttrType.PANGO_ATTR_LETTER_SPACING -> LETTER_SPACING
-                PangoAttrType.PANGO_ATTR_UNDERLINE_COLOR -> UNDERLINE_COLOR
-                PangoAttrType.PANGO_ATTR_STRIKETHROUGH_COLOR -> STRIKETHROUGH_COLOR
-                PangoAttrType.PANGO_ATTR_ABSOLUTE_SIZE -> ABSOLUTE_SIZE
-                PangoAttrType.PANGO_ATTR_GRAVITY -> GRAVITY
-                PangoAttrType.PANGO_ATTR_GRAVITY_HINT -> GRAVITY_HINT
-                PangoAttrType.PANGO_ATTR_FONT_FEATURES -> FONT_FEATURES
-                PangoAttrType.PANGO_ATTR_FOREGROUND_ALPHA -> FOREGROUND_ALPHA
-                PangoAttrType.PANGO_ATTR_BACKGROUND_ALPHA -> BACKGROUND_ALPHA
-                PangoAttrType.PANGO_ATTR_ALLOW_BREAKS -> ALLOW_BREAKS
-                PangoAttrType.PANGO_ATTR_SHOW -> SHOW
-                PangoAttrType.PANGO_ATTR_INSERT_HYPHENS -> INSERT_HYPHENS
-                PangoAttrType.PANGO_ATTR_OVERLINE -> OVERLINE
-                PangoAttrType.PANGO_ATTR_OVERLINE_COLOR -> OVERLINE_COLOR
-                PangoAttrType.PANGO_ATTR_LINE_HEIGHT -> LINE_HEIGHT
-                PangoAttrType.PANGO_ATTR_ABSOLUTE_LINE_HEIGHT -> ABSOLUTE_LINE_HEIGHT
-                PangoAttrType.PANGO_ATTR_TEXT_TRANSFORM -> TEXT_TRANSFORM
-                PangoAttrType.PANGO_ATTR_WORD -> WORD
-                PangoAttrType.PANGO_ATTR_SENTENCE -> SENTENCE
-                PangoAttrType.PANGO_ATTR_BASELINE_SHIFT -> BASELINE_SHIFT
-                PangoAttrType.PANGO_ATTR_FONT_SCALE -> FONT_SCALE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: PangoAttrType): AttrType = when (nativeValue) {
+            PangoAttrType.PANGO_ATTR_INVALID -> INVALID
+            PangoAttrType.PANGO_ATTR_LANGUAGE -> LANGUAGE
+            PangoAttrType.PANGO_ATTR_FAMILY -> FAMILY
+            PangoAttrType.PANGO_ATTR_STYLE -> STYLE
+            PangoAttrType.PANGO_ATTR_WEIGHT -> WEIGHT
+            PangoAttrType.PANGO_ATTR_VARIANT -> VARIANT
+            PangoAttrType.PANGO_ATTR_STRETCH -> STRETCH
+            PangoAttrType.PANGO_ATTR_SIZE -> SIZE
+            PangoAttrType.PANGO_ATTR_FONT_DESC -> FONT_DESC
+            PangoAttrType.PANGO_ATTR_FOREGROUND -> FOREGROUND
+            PangoAttrType.PANGO_ATTR_BACKGROUND -> BACKGROUND
+            PangoAttrType.PANGO_ATTR_UNDERLINE -> UNDERLINE
+            PangoAttrType.PANGO_ATTR_STRIKETHROUGH -> STRIKETHROUGH
+            PangoAttrType.PANGO_ATTR_RISE -> RISE
+            PangoAttrType.PANGO_ATTR_SHAPE -> SHAPE
+            PangoAttrType.PANGO_ATTR_SCALE -> SCALE
+            PangoAttrType.PANGO_ATTR_FALLBACK -> FALLBACK
+            PangoAttrType.PANGO_ATTR_LETTER_SPACING -> LETTER_SPACING
+            PangoAttrType.PANGO_ATTR_UNDERLINE_COLOR -> UNDERLINE_COLOR
+            PangoAttrType.PANGO_ATTR_STRIKETHROUGH_COLOR -> STRIKETHROUGH_COLOR
+            PangoAttrType.PANGO_ATTR_ABSOLUTE_SIZE -> ABSOLUTE_SIZE
+            PangoAttrType.PANGO_ATTR_GRAVITY -> GRAVITY
+            PangoAttrType.PANGO_ATTR_GRAVITY_HINT -> GRAVITY_HINT
+            PangoAttrType.PANGO_ATTR_FONT_FEATURES -> FONT_FEATURES
+            PangoAttrType.PANGO_ATTR_FOREGROUND_ALPHA -> FOREGROUND_ALPHA
+            PangoAttrType.PANGO_ATTR_BACKGROUND_ALPHA -> BACKGROUND_ALPHA
+            PangoAttrType.PANGO_ATTR_ALLOW_BREAKS -> ALLOW_BREAKS
+            PangoAttrType.PANGO_ATTR_SHOW -> SHOW
+            PangoAttrType.PANGO_ATTR_INSERT_HYPHENS -> INSERT_HYPHENS
+            PangoAttrType.PANGO_ATTR_OVERLINE -> OVERLINE
+            PangoAttrType.PANGO_ATTR_OVERLINE_COLOR -> OVERLINE_COLOR
+            PangoAttrType.PANGO_ATTR_LINE_HEIGHT -> LINE_HEIGHT
+            PangoAttrType.PANGO_ATTR_ABSOLUTE_LINE_HEIGHT -> ABSOLUTE_LINE_HEIGHT
+            PangoAttrType.PANGO_ATTR_TEXT_TRANSFORM -> TEXT_TRANSFORM
+            PangoAttrType.PANGO_ATTR_WORD -> WORD
+            PangoAttrType.PANGO_ATTR_SENTENCE -> SENTENCE
+            PangoAttrType.PANGO_ATTR_BASELINE_SHIFT -> BASELINE_SHIFT
+            PangoAttrType.PANGO_ATTR_FONT_SCALE -> FONT_SCALE
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Fetches the attribute type name.
@@ -279,9 +278,15 @@ public enum class AttrType(
          * @param name an identifier for the type
          * @return the new type ID.
          */
-        public fun register(name: String): AttrType =
-            pango_attr_type_register(name).run {
-                AttrType.fromNativeValue(this)
-            }
+        public fun register(name: String): AttrType = pango_attr_type_register(name).run {
+            AttrType.fromNativeValue(this)
+        }
+
+        /**
+         * Get the GType of AttrType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_attr_type_get_type()
     }
 }

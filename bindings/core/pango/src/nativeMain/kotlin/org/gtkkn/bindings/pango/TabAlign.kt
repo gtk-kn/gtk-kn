@@ -1,15 +1,15 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoTabAlign
+import org.gtkkn.native.pango.pango_tab_align_get_type
 
 /**
  * `PangoTabAlign` specifies where the text appears relative to the tab stop
  * position.
  */
-public enum class TabAlign(
-    public val nativeValue: PangoTabAlign,
-) {
+public enum class TabAlign(public val nativeValue: PangoTabAlign) {
     /**
      * the text appears to the right of the tab stop position
      */
@@ -36,13 +36,19 @@ public enum class TabAlign(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: PangoTabAlign): TabAlign =
-            when (nativeValue) {
-                PangoTabAlign.PANGO_TAB_LEFT -> LEFT
-                PangoTabAlign.PANGO_TAB_RIGHT -> RIGHT
-                PangoTabAlign.PANGO_TAB_CENTER -> CENTER
-                PangoTabAlign.PANGO_TAB_DECIMAL -> DECIMAL
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: PangoTabAlign): TabAlign = when (nativeValue) {
+            PangoTabAlign.PANGO_TAB_LEFT -> LEFT
+            PangoTabAlign.PANGO_TAB_RIGHT -> RIGHT
+            PangoTabAlign.PANGO_TAB_CENTER -> CENTER
+            PangoTabAlign.PANGO_TAB_DECIMAL -> DECIMAL
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of TabAlign
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_tab_align_get_type()
     }
 }

@@ -11,9 +11,7 @@ import org.gtkkn.native.gobject.G_CONNECT_SWAPPED
  * The connection flags are used to specify the behaviour of a signal's
  * connection.
  */
-public class ConnectFlags(
-    public val mask: GConnectFlags,
-) : Bitfield<ConnectFlags> {
+public class ConnectFlags(public val mask: GConnectFlags) : Bitfield<ConnectFlags> {
     override infix fun or(other: ConnectFlags): ConnectFlags = ConnectFlags(mask or other.mask)
 
     public companion object {

@@ -23,7 +23,10 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkClipboard
 import org.gtkkn.native.gdk.GdkPaintable
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkTextBuffer
 import org.gtkkn.native.gtk.GtkTextChildAnchor
 import org.gtkkn.native.gtk.GtkTextIter
@@ -99,9 +102,7 @@ import org.gtkkn.native.gtk.gtk_text_buffer_set_modified
 import org.gtkkn.native.gtk.gtk_text_buffer_set_text
 import org.gtkkn.native.gtk.gtk_text_buffer_undo
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 
@@ -118,12 +119,14 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
+ * - method `create_tag`: Varargs parameter is not supported
+ * - method `insert_with_tags`: Varargs parameter is not supported
+ * - method `insert_with_tags_by_name`: Varargs parameter is not supported
  * - method `cursor-position`: Property has no getter nor setter
  * - method `text`: Property has no getter nor setter
  */
-public open class TextBuffer(
-    pointer: CPointer<GtkTextBuffer>,
-) : Object(pointer.reinterpret()),
+public open class TextBuffer(pointer: CPointer<GtkTextBuffer>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkTextBufferPointer: CPointer<GtkTextBuffer>
         get() = gPointer.reinterpret()
@@ -203,10 +206,9 @@ public open class TextBuffer(
          *
          * @return the buffer’s tag table
          */
-        get() =
-            gtk_text_buffer_get_tag_table(gtkTextBufferPointer.reinterpret())!!.run {
-                TextTagTable(reinterpret())
-            }
+        get() = gtk_text_buffer_get_tag_table(gtkTextBufferPointer.reinterpret())!!.run {
+            TextTagTable(reinterpret())
+        }
 
     /**
      * Creates a new text buffer.
@@ -231,15 +233,11 @@ public open class TextBuffer(
      * @param mark the mark to add
      * @param where location to place mark
      */
-    public open fun addMark(
-        mark: TextMark,
-        `where`: TextIter,
-    ): Unit =
-        gtk_text_buffer_add_mark(
-            gtkTextBufferPointer.reinterpret(),
-            mark.gtkTextMarkPointer.reinterpret(),
-            `where`.gtkTextIterPointer.reinterpret()
-        )
+    public open fun addMark(mark: TextMark, `where`: TextIter): Unit = gtk_text_buffer_add_mark(
+        gtkTextBufferPointer.reinterpret(),
+        mark.gtkTextMarkPointer.reinterpret(),
+        `where`.gtkTextIterPointer.reinterpret()
+    )
 
     /**
      * Adds @clipboard to the list of clipboards in which the selection
@@ -250,11 +248,10 @@ public open class TextBuffer(
      *
      * @param clipboard a `GdkClipboard`
      */
-    public open fun addSelectionClipboard(clipboard: Clipboard): Unit =
-        gtk_text_buffer_add_selection_clipboard(
-            gtkTextBufferPointer.reinterpret(),
-            clipboard.gdkClipboardPointer.reinterpret()
-        )
+    public open fun addSelectionClipboard(clipboard: Clipboard): Unit = gtk_text_buffer_add_selection_clipboard(
+        gtkTextBufferPointer.reinterpret(),
+        clipboard.gdkClipboardPointer.reinterpret()
+    )
 
     /**
      * Emits the “apply-tag” signal on @buffer.
@@ -267,17 +264,12 @@ public open class TextBuffer(
      * @param start one bound of range to be tagged
      * @param end other bound of range to be tagged
      */
-    public open fun applyTag(
-        tag: TextTag,
-        start: TextIter,
-        end: TextIter,
-    ): Unit =
-        gtk_text_buffer_apply_tag(
-            gtkTextBufferPointer.reinterpret(),
-            tag.gtkTextTagPointer.reinterpret(),
-            start.gtkTextIterPointer.reinterpret(),
-            end.gtkTextIterPointer.reinterpret()
-        )
+    public open fun applyTag(tag: TextTag, start: TextIter, end: TextIter): Unit = gtk_text_buffer_apply_tag(
+        gtkTextBufferPointer.reinterpret(),
+        tag.gtkTextTagPointer.reinterpret(),
+        start.gtkTextIterPointer.reinterpret(),
+        end.gtkTextIterPointer.reinterpret()
+    )
 
     /**
      * Emits the “apply-tag” signal on @buffer.
@@ -290,11 +282,7 @@ public open class TextBuffer(
      * @param start one bound of range to be tagged
      * @param end other bound of range to be tagged
      */
-    public open fun applyTagByName(
-        name: String,
-        start: TextIter,
-        end: TextIter,
-    ): Unit =
+    public open fun applyTagByName(name: String, start: TextIter, end: TextIter): Unit =
         gtk_text_buffer_apply_tag_by_name(
             gtkTextBufferPointer.reinterpret(),
             name,
@@ -320,11 +308,7 @@ public open class TextBuffer(
      * @param defaultEditable whether the buffer is editable by default
      * @return true if the buffer was modified
      */
-    public open fun backspace(
-        iter: TextIter,
-        interactive: Boolean,
-        defaultEditable: Boolean,
-    ): Boolean =
+    public open fun backspace(iter: TextIter, interactive: Boolean, defaultEditable: Boolean): Boolean =
         gtk_text_buffer_backspace(
             gtkTextBufferPointer.reinterpret(),
             iter.gtkTextIterPointer.reinterpret(),
@@ -391,13 +375,12 @@ public open class TextBuffer(
      * @param iter location in the buffer
      * @return the created child anchor
      */
-    public open fun createChildAnchor(iter: TextIter): TextChildAnchor =
-        gtk_text_buffer_create_child_anchor(
-            gtkTextBufferPointer.reinterpret(),
-            iter.gtkTextIterPointer.reinterpret()
-        )!!.run {
-            TextChildAnchor(reinterpret())
-        }
+    public open fun createChildAnchor(iter: TextIter): TextChildAnchor = gtk_text_buffer_create_child_anchor(
+        gtkTextBufferPointer.reinterpret(),
+        iter.gtkTextIterPointer.reinterpret()
+    )!!.run {
+        TextChildAnchor(reinterpret())
+    }
 
     /**
      * Creates a mark at position @where.
@@ -425,11 +408,7 @@ public open class TextBuffer(
      * @param leftGravity whether the mark has left gravity
      * @return the new `GtkTextMark` object
      */
-    public open fun createMark(
-        markName: String? = null,
-        `where`: TextIter,
-        leftGravity: Boolean,
-    ): TextMark =
+    public open fun createMark(markName: String? = null, `where`: TextIter, leftGravity: Boolean): TextMark =
         gtk_text_buffer_create_mark(
             gtkTextBufferPointer.reinterpret(),
             markName,
@@ -446,15 +425,11 @@ public open class TextBuffer(
      * @param clipboard the `GdkClipboard` object to cut to
      * @param defaultEditable default editability of the buffer
      */
-    public open fun cutClipboard(
-        clipboard: Clipboard,
-        defaultEditable: Boolean,
-    ): Unit =
-        gtk_text_buffer_cut_clipboard(
-            gtkTextBufferPointer.reinterpret(),
-            clipboard.gdkClipboardPointer.reinterpret(),
-            defaultEditable.asGBoolean()
-        )
+    public open fun cutClipboard(clipboard: Clipboard, defaultEditable: Boolean): Unit = gtk_text_buffer_cut_clipboard(
+        gtkTextBufferPointer.reinterpret(),
+        clipboard.gdkClipboardPointer.reinterpret(),
+        defaultEditable.asGBoolean()
+    )
 
     /**
      * Deletes text between @start and @end.
@@ -471,15 +446,11 @@ public open class TextBuffer(
      * @param start a position in @buffer
      * @param end another position in @buffer
      */
-    public open fun delete(
-        start: TextIter,
-        end: TextIter,
-    ): Unit =
-        gtk_text_buffer_delete(
-            gtkTextBufferPointer.reinterpret(),
-            start.gtkTextIterPointer.reinterpret(),
-            end.gtkTextIterPointer.reinterpret()
-        )
+    public open fun delete(start: TextIter, end: TextIter): Unit = gtk_text_buffer_delete(
+        gtkTextBufferPointer.reinterpret(),
+        start.gtkTextIterPointer.reinterpret(),
+        end.gtkTextIterPointer.reinterpret()
+    )
 
     /**
      * Deletes all editable text in the given range.
@@ -494,11 +465,7 @@ public open class TextBuffer(
      * @param defaultEditable whether the buffer is editable by default
      * @return whether some text was actually deleted
      */
-    public open fun deleteInteractive(
-        startIter: TextIter,
-        endIter: TextIter,
-        defaultEditable: Boolean,
-    ): Boolean =
+    public open fun deleteInteractive(startIter: TextIter, endIter: TextIter, defaultEditable: Boolean): Boolean =
         gtk_text_buffer_delete_interactive(
             gtkTextBufferPointer.reinterpret(),
             startIter.gtkTextIterPointer.reinterpret(),
@@ -546,10 +513,7 @@ public open class TextBuffer(
      * @param defaultEditable whether the buffer is editable by default
      * @return whether there was a non-empty selection to delete
      */
-    public open fun deleteSelection(
-        interactive: Boolean,
-        defaultEditable: Boolean,
-    ): Boolean =
+    public open fun deleteSelection(interactive: Boolean, defaultEditable: Boolean): Boolean =
         gtk_text_buffer_delete_selection(
             gtkTextBufferPointer.reinterpret(),
             interactive.asGBoolean(),
@@ -588,29 +552,11 @@ public open class TextBuffer(
      * @param start iterator to initialize with first position in the buffer
      * @param end iterator to initialize with the end iterator
      */
-    public open fun getBounds(
-        start: TextIter,
-        end: TextIter,
-    ): Unit =
-        gtk_text_buffer_get_bounds(
-            gtkTextBufferPointer.reinterpret(),
-            start.gtkTextIterPointer.reinterpret(),
-            end.gtkTextIterPointer.reinterpret()
-        )
-
-    /**
-     * Gets whether there is a redoable action in the history.
-     *
-     * @return true if there is a redoable action
-     */
-    public open fun getCanRedo(): Boolean = gtk_text_buffer_get_can_redo(gtkTextBufferPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets whether there is an undoable action in the history.
-     *
-     * @return true if there is an undoable action
-     */
-    public open fun getCanUndo(): Boolean = gtk_text_buffer_get_can_undo(gtkTextBufferPointer.reinterpret()).asBoolean()
+    public open fun getBounds(start: TextIter, end: TextIter): Unit = gtk_text_buffer_get_bounds(
+        gtkTextBufferPointer.reinterpret(),
+        start.gtkTextIterPointer.reinterpret(),
+        end.gtkTextIterPointer.reinterpret()
+    )
 
     /**
      * Gets the number of characters in the buffer.
@@ -623,20 +569,7 @@ public open class TextBuffer(
      *
      * @return number of characters in the buffer
      */
-    public open fun getCharCount(): Int = gtk_text_buffer_get_char_count(gtkTextBufferPointer.reinterpret())
-
-    /**
-     * Gets whether the buffer is saving modifications to the buffer
-     * to allow for undo and redo actions.
-     *
-     * See [method@Gtk.TextBuffer.begin_irreversible_action] and
-     * [method@Gtk.TextBuffer.end_irreversible_action] to create
-     * changes to the buffer that cannot be undone.
-     *
-     * @return true if undoing and redoing changes to the buffer is allowed.
-     */
-    public open fun getEnableUndo(): Boolean =
-        gtk_text_buffer_get_enable_undo(gtkTextBufferPointer.reinterpret()).asBoolean()
+    public open fun getCharCount(): gint = gtk_text_buffer_get_char_count(gtkTextBufferPointer.reinterpret())
 
     /**
      * Initializes @iter with the “end iterator,” one past the last valid
@@ -654,14 +587,6 @@ public open class TextBuffer(
         gtk_text_buffer_get_end_iter(gtkTextBufferPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret())
 
     /**
-     * Indicates whether the buffer has some text currently selected.
-     *
-     * @return true if the there is text selected
-     */
-    public open fun getHasSelection(): Boolean =
-        gtk_text_buffer_get_has_selection(gtkTextBufferPointer.reinterpret()).asBoolean()
-
-    /**
      * Returns the mark that represents the cursor (insertion point).
      *
      * Equivalent to calling [method@Gtk.TextBuffer.get_mark]
@@ -670,10 +595,9 @@ public open class TextBuffer(
      *
      * @return insertion point mark
      */
-    public open fun getInsert(): TextMark =
-        gtk_text_buffer_get_insert(gtkTextBufferPointer.reinterpret())!!.run {
-            TextMark(reinterpret())
-        }
+    public open fun getInsert(): TextMark = gtk_text_buffer_get_insert(gtkTextBufferPointer.reinterpret())!!.run {
+        TextMark(reinterpret())
+    }
 
     /**
      * Obtains the location of @anchor within @buffer.
@@ -681,10 +605,7 @@ public open class TextBuffer(
      * @param iter an iterator to be initialized
      * @param anchor a child anchor that appears in @buffer
      */
-    public open fun getIterAtChildAnchor(
-        iter: TextIter,
-        anchor: TextChildAnchor,
-    ): Unit =
+    public open fun getIterAtChildAnchor(iter: TextIter, anchor: TextChildAnchor): Unit =
         gtk_text_buffer_get_iter_at_child_anchor(
             gtkTextBufferPointer.reinterpret(),
             iter.gtkTextIterPointer.reinterpret(),
@@ -701,15 +622,11 @@ public open class TextBuffer(
      * @param lineNumber line number counting from 0
      * @return whether the exact position has been found
      */
-    public open fun getIterAtLine(
-        iter: TextIter,
-        lineNumber: Int,
-    ): Boolean =
-        gtk_text_buffer_get_iter_at_line(
-            gtkTextBufferPointer.reinterpret(),
-            iter.gtkTextIterPointer.reinterpret(),
-            lineNumber
-        ).asBoolean()
+    public open fun getIterAtLine(iter: TextIter, lineNumber: gint): Boolean = gtk_text_buffer_get_iter_at_line(
+        gtkTextBufferPointer.reinterpret(),
+        iter.gtkTextIterPointer.reinterpret(),
+        lineNumber
+    ).asBoolean()
 
     /**
      * Obtains an iterator pointing to @byte_index within the given line.
@@ -726,11 +643,7 @@ public open class TextBuffer(
      * @param byteIndex byte index from start of line
      * @return whether the exact position has been found
      */
-    public open fun getIterAtLineIndex(
-        iter: TextIter,
-        lineNumber: Int,
-        byteIndex: Int,
-    ): Boolean =
+    public open fun getIterAtLineIndex(iter: TextIter, lineNumber: gint, byteIndex: gint): Boolean =
         gtk_text_buffer_get_iter_at_line_index(
             gtkTextBufferPointer.reinterpret(),
             iter.gtkTextIterPointer.reinterpret(),
@@ -753,11 +666,7 @@ public open class TextBuffer(
      * @param charOffset char offset from start of line
      * @return whether the exact position has been found
      */
-    public open fun getIterAtLineOffset(
-        iter: TextIter,
-        lineNumber: Int,
-        charOffset: Int,
-    ): Boolean =
+    public open fun getIterAtLineOffset(iter: TextIter, lineNumber: gint, charOffset: gint): Boolean =
         gtk_text_buffer_get_iter_at_line_offset(
             gtkTextBufferPointer.reinterpret(),
             iter.gtkTextIterPointer.reinterpret(),
@@ -771,15 +680,11 @@ public open class TextBuffer(
      * @param iter iterator to initialize
      * @param mark a `GtkTextMark` in @buffer
      */
-    public open fun getIterAtMark(
-        iter: TextIter,
-        mark: TextMark,
-    ): Unit =
-        gtk_text_buffer_get_iter_at_mark(
-            gtkTextBufferPointer.reinterpret(),
-            iter.gtkTextIterPointer.reinterpret(),
-            mark.gtkTextMarkPointer.reinterpret()
-        )
+    public open fun getIterAtMark(iter: TextIter, mark: TextMark): Unit = gtk_text_buffer_get_iter_at_mark(
+        gtkTextBufferPointer.reinterpret(),
+        iter.gtkTextIterPointer.reinterpret(),
+        mark.gtkTextMarkPointer.reinterpret()
+    )
 
     /**
      * Initializes @iter to a position @char_offset chars from the start
@@ -792,15 +697,11 @@ public open class TextBuffer(
      * @param iter iterator to initialize
      * @param charOffset char offset from start of buffer, counting from 0, or -1
      */
-    public open fun getIterAtOffset(
-        iter: TextIter,
-        charOffset: Int,
-    ): Unit =
-        gtk_text_buffer_get_iter_at_offset(
-            gtkTextBufferPointer.reinterpret(),
-            iter.gtkTextIterPointer.reinterpret(),
-            charOffset
-        )
+    public open fun getIterAtOffset(iter: TextIter, charOffset: gint): Unit = gtk_text_buffer_get_iter_at_offset(
+        gtkTextBufferPointer.reinterpret(),
+        iter.gtkTextIterPointer.reinterpret(),
+        charOffset
+    )
 
     /**
      * Obtains the number of lines in the buffer.
@@ -809,7 +710,7 @@ public open class TextBuffer(
      *
      * @return number of lines in the buffer
      */
-    public open fun getLineCount(): Int = gtk_text_buffer_get_line_count(gtkTextBufferPointer.reinterpret())
+    public open fun getLineCount(): gint = gtk_text_buffer_get_line_count(gtkTextBufferPointer.reinterpret())
 
     /**
      * Returns the mark named @name in buffer @buffer, or null if no such
@@ -832,7 +733,7 @@ public open class TextBuffer(
      *
      * @return The max number of undo levels allowed (0 indicates unlimited).
      */
-    public open fun getMaxUndoLevels(): UInt = gtk_text_buffer_get_max_undo_levels(gtkTextBufferPointer.reinterpret())
+    public open fun getMaxUndoLevels(): guint = gtk_text_buffer_get_max_undo_levels(gtkTextBufferPointer.reinterpret())
 
     /**
      * Indicates whether the buffer has been modified since the last call
@@ -880,15 +781,11 @@ public open class TextBuffer(
      * @param end iterator to initialize with selection end
      * @return whether the selection has nonzero length
      */
-    public open fun getSelectionBounds(
-        start: TextIter,
-        end: TextIter,
-    ): Boolean =
-        gtk_text_buffer_get_selection_bounds(
-            gtkTextBufferPointer.reinterpret(),
-            start.gtkTextIterPointer.reinterpret(),
-            end.gtkTextIterPointer.reinterpret()
-        ).asBoolean()
+    public open fun getSelectionBounds(start: TextIter, end: TextIter): Boolean = gtk_text_buffer_get_selection_bounds(
+        gtkTextBufferPointer.reinterpret(),
+        start.gtkTextIterPointer.reinterpret(),
+        end.gtkTextIterPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Get a content provider for this buffer.
@@ -920,11 +817,7 @@ public open class TextBuffer(
      * @param includeHiddenChars whether to include invisible text
      * @return an allocated UTF-8 string
      */
-    public open fun getSlice(
-        start: TextIter,
-        end: TextIter,
-        includeHiddenChars: Boolean,
-    ): String =
+    public open fun getSlice(start: TextIter, end: TextIter, includeHiddenChars: Boolean): String =
         gtk_text_buffer_get_slice(
             gtkTextBufferPointer.reinterpret(),
             start.gtkTextIterPointer.reinterpret(),
@@ -945,16 +838,6 @@ public open class TextBuffer(
         gtk_text_buffer_get_start_iter(gtkTextBufferPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret())
 
     /**
-     * Get the `GtkTextTagTable` associated with this buffer.
-     *
-     * @return the buffer’s tag table
-     */
-    public open fun getTagTable(): TextTagTable =
-        gtk_text_buffer_get_tag_table(gtkTextBufferPointer.reinterpret())!!.run {
-            TextTagTable(reinterpret())
-        }
-
-    /**
      * Returns the text in the range [@start,@end).
      *
      * Excludes undisplayed text (text marked with tags that set the
@@ -969,11 +852,7 @@ public open class TextBuffer(
      * @param includeHiddenChars whether to include invisible text
      * @return an allocated UTF-8 string
      */
-    public open fun getText(
-        start: TextIter,
-        end: TextIter,
-        includeHiddenChars: Boolean,
-    ): String =
+    public open fun getText(start: TextIter, end: TextIter, includeHiddenChars: Boolean): String =
         gtk_text_buffer_get_text(
             gtkTextBufferPointer.reinterpret(),
             start.gtkTextIterPointer.reinterpret(),
@@ -996,11 +875,7 @@ public open class TextBuffer(
      * @param text text in UTF-8 format
      * @param len length of text in bytes, or -1
      */
-    public open fun insert(
-        iter: TextIter,
-        text: String,
-        len: Int,
-    ): Unit =
+    public open fun insert(iter: TextIter, text: String, len: gint): Unit =
         gtk_text_buffer_insert(gtkTextBufferPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret(), text, len)
 
     /**
@@ -1012,10 +887,8 @@ public open class TextBuffer(
      * @param text text in UTF-8 format
      * @param len length of text, in bytes
      */
-    public open fun insertAtCursor(
-        text: String,
-        len: Int,
-    ): Unit = gtk_text_buffer_insert_at_cursor(gtkTextBufferPointer.reinterpret(), text, len)
+    public open fun insertAtCursor(text: String, len: gint): Unit =
+        gtk_text_buffer_insert_at_cursor(gtkTextBufferPointer.reinterpret(), text, len)
 
     /**
      * Inserts a child widget anchor into the text buffer at @iter.
@@ -1035,10 +908,7 @@ public open class TextBuffer(
      * @param iter location to insert the anchor
      * @param anchor a `GtkTextChildAnchor`
      */
-    public open fun insertChildAnchor(
-        iter: TextIter,
-        anchor: TextChildAnchor,
-    ): Unit =
+    public open fun insertChildAnchor(iter: TextIter, anchor: TextChildAnchor): Unit =
         gtk_text_buffer_insert_child_anchor(
             gtkTextBufferPointer.reinterpret(),
             iter.gtkTextIterPointer.reinterpret(),
@@ -1063,12 +933,7 @@ public open class TextBuffer(
      * @param defaultEditable default editability of buffer
      * @return whether text was actually inserted
      */
-    public open fun insertInteractive(
-        iter: TextIter,
-        text: String,
-        len: Int,
-        defaultEditable: Boolean,
-    ): Boolean =
+    public open fun insertInteractive(iter: TextIter, text: String, len: gint, defaultEditable: Boolean): Boolean =
         gtk_text_buffer_insert_interactive(
             gtkTextBufferPointer.reinterpret(),
             iter.gtkTextIterPointer.reinterpret(),
@@ -1092,11 +957,7 @@ public open class TextBuffer(
      * @param defaultEditable default editability of buffer
      * @return whether text was actually inserted
      */
-    public open fun insertInteractiveAtCursor(
-        text: String,
-        len: Int,
-        defaultEditable: Boolean,
-    ): Boolean =
+    public open fun insertInteractiveAtCursor(text: String, len: gint, defaultEditable: Boolean): Boolean =
         gtk_text_buffer_insert_interactive_at_cursor(
             gtkTextBufferPointer.reinterpret(),
             text,
@@ -1116,17 +977,12 @@ public open class TextBuffer(
      * @param markup a nul-terminated UTF-8 string containing Pango markup
      * @param len length of @markup in bytes, or -1
      */
-    public open fun insertMarkup(
-        iter: TextIter,
-        markup: String,
-        len: Int,
-    ): Unit =
-        gtk_text_buffer_insert_markup(
-            gtkTextBufferPointer.reinterpret(),
-            iter.gtkTextIterPointer.reinterpret(),
-            markup,
-            len
-        )
+    public open fun insertMarkup(iter: TextIter, markup: String, len: gint): Unit = gtk_text_buffer_insert_markup(
+        gtkTextBufferPointer.reinterpret(),
+        iter.gtkTextIterPointer.reinterpret(),
+        markup,
+        len
+    )
 
     /**
      * Inserts an image into the text buffer at @iter.
@@ -1142,15 +998,11 @@ public open class TextBuffer(
      * @param iter location to insert the paintable
      * @param paintable a `GdkPaintable`
      */
-    public open fun insertPaintable(
-        iter: TextIter,
-        paintable: Paintable,
-    ): Unit =
-        gtk_text_buffer_insert_paintable(
-            gtkTextBufferPointer.reinterpret(),
-            iter.gtkTextIterPointer.reinterpret(),
-            paintable.gdkPaintablePointer
-        )
+    public open fun insertPaintable(iter: TextIter, paintable: Paintable): Unit = gtk_text_buffer_insert_paintable(
+        gtkTextBufferPointer.reinterpret(),
+        iter.gtkTextIterPointer.reinterpret(),
+        paintable.gdkPaintablePointer
+    )
 
     /**
      * Copies text, tags, and paintables between @start and @end
@@ -1169,17 +1021,12 @@ public open class TextBuffer(
      * @param start a position in a `GtkTextBuffer`
      * @param end another position in the same buffer as @start
      */
-    public open fun insertRange(
-        iter: TextIter,
-        start: TextIter,
-        end: TextIter,
-    ): Unit =
-        gtk_text_buffer_insert_range(
-            gtkTextBufferPointer.reinterpret(),
-            iter.gtkTextIterPointer.reinterpret(),
-            start.gtkTextIterPointer.reinterpret(),
-            end.gtkTextIterPointer.reinterpret()
-        )
+    public open fun insertRange(iter: TextIter, start: TextIter, end: TextIter): Unit = gtk_text_buffer_insert_range(
+        gtkTextBufferPointer.reinterpret(),
+        iter.gtkTextIterPointer.reinterpret(),
+        start.gtkTextIterPointer.reinterpret(),
+        end.gtkTextIterPointer.reinterpret()
+    )
 
     /**
      * Copies text, tags, and paintables between @start and @end
@@ -1202,14 +1049,13 @@ public open class TextBuffer(
         start: TextIter,
         end: TextIter,
         defaultEditable: Boolean,
-    ): Boolean =
-        gtk_text_buffer_insert_range_interactive(
-            gtkTextBufferPointer.reinterpret(),
-            iter.gtkTextIterPointer.reinterpret(),
-            start.gtkTextIterPointer.reinterpret(),
-            end.gtkTextIterPointer.reinterpret(),
-            defaultEditable.asGBoolean()
-        ).asBoolean()
+    ): Boolean = gtk_text_buffer_insert_range_interactive(
+        gtkTextBufferPointer.reinterpret(),
+        iter.gtkTextIterPointer.reinterpret(),
+        start.gtkTextIterPointer.reinterpret(),
+        end.gtkTextIterPointer.reinterpret(),
+        defaultEditable.asGBoolean()
+    ).asBoolean()
 
     /**
      * Moves @mark to the new location @where.
@@ -1220,15 +1066,11 @@ public open class TextBuffer(
      * @param mark a `GtkTextMark`
      * @param where new location for @mark in @buffer
      */
-    public open fun moveMark(
-        mark: TextMark,
-        `where`: TextIter,
-    ): Unit =
-        gtk_text_buffer_move_mark(
-            gtkTextBufferPointer.reinterpret(),
-            mark.gtkTextMarkPointer.reinterpret(),
-            `where`.gtkTextIterPointer.reinterpret()
-        )
+    public open fun moveMark(mark: TextMark, `where`: TextIter): Unit = gtk_text_buffer_move_mark(
+        gtkTextBufferPointer.reinterpret(),
+        mark.gtkTextMarkPointer.reinterpret(),
+        `where`.gtkTextIterPointer.reinterpret()
+    )
 
     /**
      * Moves the mark named @name (which must exist) to location @where.
@@ -1238,15 +1080,11 @@ public open class TextBuffer(
      * @param name name of a mark
      * @param where new location for mark
      */
-    public open fun moveMarkByName(
-        name: String,
-        `where`: TextIter,
-    ): Unit =
-        gtk_text_buffer_move_mark_by_name(
-            gtkTextBufferPointer.reinterpret(),
-            name,
-            `where`.gtkTextIterPointer.reinterpret()
-        )
+    public open fun moveMarkByName(name: String, `where`: TextIter): Unit = gtk_text_buffer_move_mark_by_name(
+        gtkTextBufferPointer.reinterpret(),
+        name,
+        `where`.gtkTextIterPointer.reinterpret()
+    )
 
     /**
      * Pastes the contents of a clipboard.
@@ -1267,13 +1105,12 @@ public open class TextBuffer(
         clipboard: Clipboard,
         overrideLocation: TextIter? = null,
         defaultEditable: Boolean,
-    ): Unit =
-        gtk_text_buffer_paste_clipboard(
-            gtkTextBufferPointer.reinterpret(),
-            clipboard.gdkClipboardPointer.reinterpret(),
-            overrideLocation?.gtkTextIterPointer?.reinterpret(),
-            defaultEditable.asGBoolean()
-        )
+    ): Unit = gtk_text_buffer_paste_clipboard(
+        gtkTextBufferPointer.reinterpret(),
+        clipboard.gdkClipboardPointer.reinterpret(),
+        overrideLocation?.gtkTextIterPointer?.reinterpret(),
+        defaultEditable.asGBoolean()
+    )
 
     /**
      * This function moves the “insert” and “selection_bound” marks
@@ -1307,15 +1144,11 @@ public open class TextBuffer(
      * @param start one bound of range to be untagged
      * @param end other bound of range to be untagged
      */
-    public open fun removeAllTags(
-        start: TextIter,
-        end: TextIter,
-    ): Unit =
-        gtk_text_buffer_remove_all_tags(
-            gtkTextBufferPointer.reinterpret(),
-            start.gtkTextIterPointer.reinterpret(),
-            end.gtkTextIterPointer.reinterpret()
-        )
+    public open fun removeAllTags(start: TextIter, end: TextIter): Unit = gtk_text_buffer_remove_all_tags(
+        gtkTextBufferPointer.reinterpret(),
+        start.gtkTextIterPointer.reinterpret(),
+        end.gtkTextIterPointer.reinterpret()
+    )
 
     /**
      * Removes a `GdkClipboard` added with
@@ -1324,11 +1157,10 @@ public open class TextBuffer(
      * @param clipboard a `GdkClipboard` added to @buffer by
      *   [method@Gtk.TextBuffer.add_selection_clipboard]
      */
-    public open fun removeSelectionClipboard(clipboard: Clipboard): Unit =
-        gtk_text_buffer_remove_selection_clipboard(
-            gtkTextBufferPointer.reinterpret(),
-            clipboard.gdkClipboardPointer.reinterpret()
-        )
+    public open fun removeSelectionClipboard(clipboard: Clipboard): Unit = gtk_text_buffer_remove_selection_clipboard(
+        gtkTextBufferPointer.reinterpret(),
+        clipboard.gdkClipboardPointer.reinterpret()
+    )
 
     /**
      * Emits the “remove-tag” signal.
@@ -1341,17 +1173,12 @@ public open class TextBuffer(
      * @param start one bound of range to be untagged
      * @param end other bound of range to be untagged
      */
-    public open fun removeTag(
-        tag: TextTag,
-        start: TextIter,
-        end: TextIter,
-    ): Unit =
-        gtk_text_buffer_remove_tag(
-            gtkTextBufferPointer.reinterpret(),
-            tag.gtkTextTagPointer.reinterpret(),
-            start.gtkTextIterPointer.reinterpret(),
-            end.gtkTextIterPointer.reinterpret()
-        )
+    public open fun removeTag(tag: TextTag, start: TextIter, end: TextIter): Unit = gtk_text_buffer_remove_tag(
+        gtkTextBufferPointer.reinterpret(),
+        tag.gtkTextTagPointer.reinterpret(),
+        start.gtkTextIterPointer.reinterpret(),
+        end.gtkTextIterPointer.reinterpret()
+    )
 
     /**
      * Emits the “remove-tag” signal.
@@ -1364,11 +1191,7 @@ public open class TextBuffer(
      * @param start one bound of range to be untagged
      * @param end other bound of range to be untagged
      */
-    public open fun removeTagByName(
-        name: String,
-        start: TextIter,
-        end: TextIter,
-    ): Unit =
+    public open fun removeTagByName(name: String, start: TextIter, end: TextIter): Unit =
         gtk_text_buffer_remove_tag_by_name(
             gtkTextBufferPointer.reinterpret(),
             name,
@@ -1390,33 +1213,11 @@ public open class TextBuffer(
      * @param ins where to put the “insert” mark
      * @param bound where to put the “selection_bound” mark
      */
-    public open fun selectRange(
-        ins: TextIter,
-        bound: TextIter,
-    ): Unit =
-        gtk_text_buffer_select_range(
-            gtkTextBufferPointer.reinterpret(),
-            ins.gtkTextIterPointer.reinterpret(),
-            bound.gtkTextIterPointer.reinterpret()
-        )
-
-    /**
-     * Sets whether or not to enable undoable actions in the text buffer.
-     *
-     * Undoable actions in this context are changes to the text content of
-     * the buffer. Changes to tags and marks are not tracked.
-     *
-     * If enabled, the user will be able to undo the last number of actions
-     * up to [method@Gtk.TextBuffer.get_max_undo_levels].
-     *
-     * See [method@Gtk.TextBuffer.begin_irreversible_action] and
-     * [method@Gtk.TextBuffer.end_irreversible_action] to create
-     * changes to the buffer that cannot be undone.
-     *
-     * @param enableUndo true to enable undo
-     */
-    public open fun setEnableUndo(enableUndo: Boolean): Unit =
-        gtk_text_buffer_set_enable_undo(gtkTextBufferPointer.reinterpret(), enableUndo.asGBoolean())
+    public open fun selectRange(ins: TextIter, bound: TextIter): Unit = gtk_text_buffer_select_range(
+        gtkTextBufferPointer.reinterpret(),
+        ins.gtkTextIterPointer.reinterpret(),
+        bound.gtkTextIterPointer.reinterpret()
+    )
 
     /**
      * Sets the maximum number of undo levels to perform.
@@ -1427,7 +1228,7 @@ public open class TextBuffer(
      *
      * @param maxUndoLevels the maximum number of undo actions to perform
      */
-    public open fun setMaxUndoLevels(maxUndoLevels: UInt): Unit =
+    public open fun setMaxUndoLevels(maxUndoLevels: guint): Unit =
         gtk_text_buffer_set_max_undo_levels(gtkTextBufferPointer.reinterpret(), maxUndoLevels)
 
     /**
@@ -1458,10 +1259,8 @@ public open class TextBuffer(
      * @param text UTF-8 text to insert
      * @param len length of @text in bytes
      */
-    public open fun setText(
-        text: String,
-        len: Int,
-    ): Unit = gtk_text_buffer_set_text(gtkTextBufferPointer.reinterpret(), text, len)
+    public open fun setText(text: String, len: gint): Unit =
+        gtk_text_buffer_set_text(gtkTextBufferPointer.reinterpret(), text, len)
 
     /**
      * Undoes the last undoable action on the buffer, if there is one.
@@ -1492,15 +1291,14 @@ public open class TextBuffer(
             start: TextIter,
             end: TextIter,
         ) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "apply-tag",
-            connectApplyTagFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "apply-tag",
+        connectApplyTagFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted at the beginning of a single user-visible
@@ -1517,10 +1315,7 @@ public open class TextBuffer(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectBeginUserAction(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectBeginUserAction(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "begin-user-action",
@@ -1536,10 +1331,7 @@ public open class TextBuffer(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "changed",
@@ -1568,15 +1360,14 @@ public open class TextBuffer(
     public fun connectDeleteRange(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (start: TextIter, end: TextIter) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "delete-range",
-            connectDeleteRangeFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "delete-range",
+        connectDeleteRangeFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted at the end of a single user-visible
@@ -1594,10 +1385,7 @@ public open class TextBuffer(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectEndUserAction(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectEndUserAction(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "end-user-action",
@@ -1625,15 +1413,14 @@ public open class TextBuffer(
     public fun connectInsertChildAnchor(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (location: TextIter, anchor: TextChildAnchor) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "insert-child-anchor",
-            connectInsertChildAnchorFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "insert-child-anchor",
+        connectInsertChildAnchorFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted to insert a `GdkPaintable` in a `GtkTextBuffer`.
@@ -1653,15 +1440,14 @@ public open class TextBuffer(
     public fun connectInsertPaintable(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (location: TextIter, paintable: Paintable) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "insert-paintable",
-            connectInsertPaintableFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "insert-paintable",
+        connectInsertPaintableFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted to insert text in a `GtkTextBuffer`.
@@ -1684,17 +1470,16 @@ public open class TextBuffer(
         handler: (
             location: TextIter,
             text: String,
-            len: Int,
+            len: gint,
         ) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "insert-text",
-            connectInsertTextFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "insert-text",
+        connectInsertTextFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted as notification after a `GtkTextMark` is deleted.
@@ -1707,15 +1492,14 @@ public open class TextBuffer(
     public fun connectMarkDeleted(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (mark: TextMark) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "mark-deleted",
-            connectMarkDeletedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "mark-deleted",
+        connectMarkDeletedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted as notification after a `GtkTextMark` is set.
@@ -1730,15 +1514,14 @@ public open class TextBuffer(
     public fun connectMarkSet(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (location: TextIter, mark: TextMark) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "mark-set",
-            connectMarkSetFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "mark-set",
+        connectMarkSetFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted when the modified bit of a `GtkTextBuffer` flips.
@@ -1748,10 +1531,7 @@ public open class TextBuffer(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectModifiedChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectModifiedChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "modified-changed",
@@ -1774,15 +1554,14 @@ public open class TextBuffer(
     public fun connectPasteDone(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (clipboard: Clipboard) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "paste-done",
-            connectPasteDoneFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "paste-done",
+        connectPasteDoneFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted when a request has been made to redo the
@@ -1791,10 +1570,7 @@ public open class TextBuffer(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectRedo(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectRedo(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "redo",
@@ -1826,15 +1602,14 @@ public open class TextBuffer(
             start: TextIter,
             end: TextIter,
         ) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "remove-tag",
-            connectRemoveTagFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "remove-tag",
+        connectRemoveTagFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted when a request has been made to undo the
@@ -1844,10 +1619,7 @@ public open class TextBuffer(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectUndo(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectUndo(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "undo",
@@ -1864,6 +1636,13 @@ public open class TextBuffer(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of TextBuffer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_text_buffer_get_type()
     }
 }
 
@@ -1874,52 +1653,49 @@ private val connectApplyTagFunc: CPointer<
             CPointer<GtkTextIter>,
             CPointer<GtkTextIter>,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            _: COpaquePointer,
-            tag: CPointer<GtkTextTag>?,
-            start: CPointer<GtkTextIter>?,
-            end: CPointer<GtkTextIter>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    tag: TextTag,
-                    start: TextIter,
-                    end: TextIter,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                tag!!.run {
-                    TextTag(reinterpret())
-                },
-                start!!.run {
-                    TextIter(reinterpret())
-                },
-                end!!.run {
-                    TextIter(reinterpret())
-                }
-            )
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        _: COpaquePointer,
+        tag: CPointer<GtkTextTag>?,
+        start: CPointer<GtkTextIter>?,
+        end: CPointer<GtkTextIter>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            tag: TextTag,
+            start: TextIter,
+            end: TextIter,
+        ) -> Unit
+        >().get().invoke(
+        tag!!.run {
+            TextTag(reinterpret())
+        },
+        start!!.run {
+            TextIter(reinterpret())
+        },
+        end!!.run {
+            TextIter(reinterpret())
+        }
+    )
+}
+    .reinterpret()
 
-private val connectBeginUserActionFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectBeginUserActionFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectChangedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
 private val connectDeleteRangeFunc:
     CPointer<CFunction<(CPointer<GtkTextIter>, CPointer<GtkTextIter>) -> Unit>> =
@@ -1937,15 +1713,16 @@ private val connectDeleteRangeFunc:
                 TextIter(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
-private val connectEndUserActionFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectEndUserActionFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
 private val connectInsertChildAnchorFunc:
     CPointer<CFunction<(CPointer<GtkTextIter>, CPointer<GtkTextChildAnchor>) -> Unit>> =
@@ -1963,7 +1740,8 @@ private val connectInsertChildAnchorFunc:
                 TextChildAnchor(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 private val connectInsertPaintableFunc:
     CPointer<CFunction<(CPointer<GtkTextIter>, CPointer<GdkPaintable>) -> Unit>> =
@@ -1981,41 +1759,39 @@ private val connectInsertPaintableFunc:
                 Paintable.wrap(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 private val connectInsertTextFunc: CPointer<
     CFunction<
         (
             CPointer<GtkTextIter>,
             CPointer<ByteVar>,
-            Int,
+            gint,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            _: COpaquePointer,
-            location: CPointer<GtkTextIter>?,
-            text: CPointer<ByteVar>?,
-            len: Int,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    location: TextIter,
-                    text: String,
-                    len: Int,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                location!!.run {
-                    TextIter(reinterpret())
-                },
-                text?.toKString() ?: error("Expected not null string"),
-                len
-            )
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        _: COpaquePointer,
+        location: CPointer<GtkTextIter>?,
+        text: CPointer<ByteVar>?,
+        len: gint,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            location: TextIter,
+            text: String,
+            len: gint,
+        ) -> Unit
+        >().get().invoke(
+        location!!.run {
+            TextIter(reinterpret())
+        },
+        text?.toKString() ?: error("Expected not null string"),
+        len
+    )
+}
+    .reinterpret()
 
 private val connectMarkDeletedFunc: CPointer<CFunction<(CPointer<GtkTextMark>) -> Unit>> =
     staticCFunction {
@@ -2028,7 +1804,8 @@ private val connectMarkDeletedFunc: CPointer<CFunction<(CPointer<GtkTextMark>) -
                 TextMark(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 private val connectMarkSetFunc:
     CPointer<CFunction<(CPointer<GtkTextIter>, CPointer<GtkTextMark>) -> Unit>> =
@@ -2046,15 +1823,16 @@ private val connectMarkSetFunc:
                 TextMark(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
-private val connectModifiedChangedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectModifiedChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
 private val connectPasteDoneFunc: CPointer<CFunction<(CPointer<GdkClipboard>) -> Unit>> =
     staticCFunction {
@@ -2067,15 +1845,16 @@ private val connectPasteDoneFunc: CPointer<CFunction<(CPointer<GdkClipboard>) ->
                 Clipboard(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
-private val connectRedoFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectRedoFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
 private val connectRemoveTagFunc: CPointer<
     CFunction<
@@ -2084,41 +1863,38 @@ private val connectRemoveTagFunc: CPointer<
             CPointer<GtkTextIter>,
             CPointer<GtkTextIter>,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            _: COpaquePointer,
-            tag: CPointer<GtkTextTag>?,
-            start: CPointer<GtkTextIter>?,
-            end: CPointer<GtkTextIter>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    tag: TextTag,
-                    start: TextIter,
-                    end: TextIter,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                tag!!.run {
-                    TextTag(reinterpret())
-                },
-                start!!.run {
-                    TextIter(reinterpret())
-                },
-                end!!.run {
-                    TextIter(reinterpret())
-                }
-            )
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        _: COpaquePointer,
+        tag: CPointer<GtkTextTag>?,
+        start: CPointer<GtkTextIter>?,
+        end: CPointer<GtkTextIter>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            tag: TextTag,
+            start: TextIter,
+            end: TextIter,
+        ) -> Unit
+        >().get().invoke(
+        tag!!.run {
+            TextTag(reinterpret())
+        },
+        start!!.run {
+            TextIter(reinterpret())
+        },
+        end!!.run {
+            TextIter(reinterpret())
+        }
+    )
+}
+    .reinterpret()
 
-private val connectUndoFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectUndoFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_46
 import org.gtkkn.native.gio.GSocketListenerEvent
+import org.gtkkn.native.gio.g_socket_listener_event_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Describes an event occurring on a #GSocketListener. See the
@@ -12,9 +14,7 @@ import org.gtkkn.native.gio.GSocketListenerEvent
  * @since 2.46
  */
 @GioVersion2_46
-public enum class SocketListenerEvent(
-    public val nativeValue: GSocketListenerEvent,
-) {
+public enum class SocketListenerEvent(public val nativeValue: GSocketListenerEvent) {
     /**
      * The listener is about to bind a socket.
      */
@@ -39,13 +39,19 @@ public enum class SocketListenerEvent(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GSocketListenerEvent): SocketListenerEvent =
-            when (nativeValue) {
-                GSocketListenerEvent.G_SOCKET_LISTENER_BINDING -> BINDING
-                GSocketListenerEvent.G_SOCKET_LISTENER_BOUND -> BOUND
-                GSocketListenerEvent.G_SOCKET_LISTENER_LISTENING -> LISTENING
-                GSocketListenerEvent.G_SOCKET_LISTENER_LISTENED -> LISTENED
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GSocketListenerEvent): SocketListenerEvent = when (nativeValue) {
+            GSocketListenerEvent.G_SOCKET_LISTENER_BINDING -> BINDING
+            GSocketListenerEvent.G_SOCKET_LISTENER_BOUND -> BOUND
+            GSocketListenerEvent.G_SOCKET_LISTENER_LISTENING -> LISTENING
+            GSocketListenerEvent.G_SOCKET_LISTENER_LISTENED -> LISTENED
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of SocketListenerEvent
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_socket_listener_event_get_type()
     }
 }

@@ -46,6 +46,7 @@ import org.gtkkn.native.adw.adw_split_button_set_label
 import org.gtkkn.native.adw.adw_split_button_set_menu_model
 import org.gtkkn.native.adw.adw_split_button_set_popover
 import org.gtkkn.native.adw.adw_split_button_set_use_underline
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
@@ -99,9 +100,8 @@ import kotlin.Unit
  * - method `icon-name`: Property TypeInfo of getter and setter do not match
  * - method `label`: Property TypeInfo of getter and setter do not match
  */
-public class SplitButton(
-    pointer: CPointer<AdwSplitButton>,
-) : Widget(pointer.reinterpret()),
+public class SplitButton(pointer: CPointer<AdwSplitButton>) :
+    Widget(pointer.reinterpret()),
     Actionable,
     KGTyped {
     public val adwSplitButtonPointer: CPointer<AdwSplitButton>
@@ -165,10 +165,9 @@ public class SplitButton(
          *
          * @return the child widget
          */
-        get() =
-            adw_split_button_get_child(adwSplitButtonPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = adw_split_button_get_child(adwSplitButtonPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the child widget.
@@ -198,10 +197,9 @@ public class SplitButton(
          *
          * @return the direction
          */
-        get() =
-            adw_split_button_get_direction(adwSplitButtonPointer.reinterpret()).run {
-                ArrowType.fromNativeValue(this)
-            }
+        get() = adw_split_button_get_direction(adwSplitButtonPointer.reinterpret()).run {
+            ArrowType.fromNativeValue(this)
+        }
 
         /**
          * Sets the direction in which the popup will be popped up.
@@ -232,9 +230,8 @@ public class SplitButton(
          * @return the dropdown tooltip of @self
          * @since 1.2
          */
-        get() =
-            adw_split_button_get_dropdown_tooltip(adwSplitButtonPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = adw_split_button_get_dropdown_tooltip(adwSplitButtonPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Sets the tooltip of the dropdown button of @self.
@@ -265,10 +262,9 @@ public class SplitButton(
          *
          * @return the menu model
          */
-        get() =
-            adw_split_button_get_menu_model(adwSplitButtonPointer.reinterpret())?.run {
-                MenuModel(reinterpret())
-            }
+        get() = adw_split_button_get_menu_model(adwSplitButtonPointer.reinterpret())?.run {
+            MenuModel(reinterpret())
+        }
 
         /**
          * Sets the menu model from which the popup will be created.
@@ -286,11 +282,10 @@ public class SplitButton(
          */
         set(
             menuModel
-        ) =
-            adw_split_button_set_menu_model(
-                adwSplitButtonPointer.reinterpret(),
-                menuModel?.gioMenuModelPointer?.reinterpret()
-            )
+        ) = adw_split_button_set_menu_model(
+            adwSplitButtonPointer.reinterpret(),
+            menuModel?.gioMenuModelPointer?.reinterpret()
+        )
 
     /**
      * The `GtkPopover` that will be popped up when the dropdown is clicked.
@@ -306,10 +301,9 @@ public class SplitButton(
          *
          * @return the popover
          */
-        get() =
-            adw_split_button_get_popover(adwSplitButtonPointer.reinterpret())?.run {
-                Popover(reinterpret())
-            }
+        get() = adw_split_button_get_popover(adwSplitButtonPointer.reinterpret())?.run {
+            Popover(reinterpret())
+        }
 
         /**
          * Sets the popover that will be popped up when the dropdown is clicked.
@@ -357,47 +351,6 @@ public class SplitButton(
     public constructor() : this(adw_split_button_new()!!.reinterpret())
 
     /**
-     * gets whether the button can be smaller than the natural size of its contents.
-     *
-     * @return whether the button can shrink
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun getCanShrink(): Boolean =
-        adw_split_button_get_can_shrink(adwSplitButtonPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the child widget.
-     *
-     * @return the child widget
-     */
-    public fun getChild(): Widget? =
-        adw_split_button_get_child(adwSplitButtonPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Gets the direction in which the popup will be popped up.
-     *
-     * @return the direction
-     */
-    public fun getDirection_(): ArrowType =
-        adw_split_button_get_direction(adwSplitButtonPointer.reinterpret()).run {
-            ArrowType.fromNativeValue(this)
-        }
-
-    /**
-     * Gets the tooltip of the dropdown button of @self.
-     *
-     * @return the dropdown tooltip of @self
-     * @since 1.2
-     */
-    @AdwVersion1_2
-    public fun getDropdownTooltip(): String =
-        adw_split_button_get_dropdown_tooltip(adwSplitButtonPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
      * Gets the name of the icon used to automatically populate the button.
      *
      * @return the icon name
@@ -412,34 +365,6 @@ public class SplitButton(
     public fun getLabel(): String? = adw_split_button_get_label(adwSplitButtonPointer.reinterpret())?.toKString()
 
     /**
-     * Gets the menu model from which the popup will be created.
-     *
-     * @return the menu model
-     */
-    public fun getMenuModel(): MenuModel? =
-        adw_split_button_get_menu_model(adwSplitButtonPointer.reinterpret())?.run {
-            MenuModel(reinterpret())
-        }
-
-    /**
-     * Gets the popover that will be popped up when the dropdown is clicked.
-     *
-     * @return the popover
-     */
-    public fun getPopover(): Popover? =
-        adw_split_button_get_popover(adwSplitButtonPointer.reinterpret())?.run {
-            Popover(reinterpret())
-        }
-
-    /**
-     * Gets whether an underline in the text indicates a mnemonic.
-     *
-     * @return whether an underline in the text indicates a mnemonic
-     */
-    public fun getUseUnderline(): Boolean =
-        adw_split_button_get_use_underline(adwSplitButtonPointer.reinterpret()).asBoolean()
-
-    /**
      * Dismisses the menu.
      */
     public fun popdown(): Unit = adw_split_button_popdown(adwSplitButtonPointer.reinterpret())
@@ -448,59 +373,6 @@ public class SplitButton(
      * Pops up the menu.
      */
     public fun popup(): Unit = adw_split_button_popup(adwSplitButtonPointer.reinterpret())
-
-    /**
-     * Sets whether the button can be smaller than the natural size of its contents.
-     *
-     * If set to `TRUE`, the label will ellipsize.
-     *
-     * See [method@Gtk.Button.set_can_shrink] and
-     * [method@Gtk.MenuButton.set_can_shrink].
-     *
-     * @param canShrink whether the button can shrink
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun setCanShrink(canShrink: Boolean): Unit =
-        adw_split_button_set_can_shrink(adwSplitButtonPointer.reinterpret(), canShrink.asGBoolean())
-
-    /**
-     * Sets the child widget.
-     *
-     * Setting the child widget will set [property@SplitButton:label] and
-     * [property@SplitButton:icon-name] to `NULL`.
-     *
-     * @param child the new child widget
-     */
-    public fun setChild(child: Widget? = null): Unit =
-        adw_split_button_set_child(adwSplitButtonPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
-
-    /**
-     * Sets the direction in which the popup will be popped up.
-     *
-     * The dropdown arrow icon will point at the same direction.
-     *
-     * If the does not fit in the available space in the given direction, GTK will
-     * try its best to keep it inside the screen and fully visible.
-     *
-     * If you pass `GTK_ARROW_NONE`, it's equivalent to `GTK_ARROW_DOWN`.
-     *
-     * @param direction the direction
-     */
-    public fun setDirection_(direction: ArrowType): Unit =
-        adw_split_button_set_direction(adwSplitButtonPointer.reinterpret(), direction.nativeValue)
-
-    /**
-     * Sets the tooltip of the dropdown button of @self.
-     *
-     * The tooltip can be marked up with the Pango text markup language.
-     *
-     * @param tooltip the dropdown tooltip of @self
-     * @since 1.2
-     */
-    @AdwVersion1_2
-    public fun setDropdownTooltip(tooltip: String): Unit =
-        adw_split_button_set_dropdown_tooltip(adwSplitButtonPointer.reinterpret(), tooltip)
 
     /**
      * Sets the name of the icon used to automatically populate the button.
@@ -524,49 +396,6 @@ public class SplitButton(
     public fun setLabel(label: String): Unit = adw_split_button_set_label(adwSplitButtonPointer.reinterpret(), label)
 
     /**
-     * Sets the menu model from which the popup will be created.
-     *
-     * If the menu model is `NULL`, the dropdown is disabled.
-     *
-     * A [class@Gtk.Popover] will be created from the menu model with
-     * [ctor@Gtk.PopoverMenu.new_from_model]. Actions will be connected as
-     * documented for this function.
-     *
-     * If [property@SplitButton:popover] is already set, it will be dissociated from
-     * the button, and the property is set to `NULL`.
-     *
-     * @param menuModel the menu model
-     */
-    public fun setMenuModel(menuModel: MenuModel? = null): Unit =
-        adw_split_button_set_menu_model(
-            adwSplitButtonPointer.reinterpret(),
-            menuModel?.gioMenuModelPointer?.reinterpret()
-        )
-
-    /**
-     * Sets the popover that will be popped up when the dropdown is clicked.
-     *
-     * If the popover is `NULL`, the dropdown is disabled.
-     *
-     * If [property@SplitButton:menu-model] is set, the menu model is dissociated
-     * from the button, and the property is set to `NULL`.
-     *
-     * @param popover the popover
-     */
-    public fun setPopover(popover: Popover? = null): Unit =
-        adw_split_button_set_popover(adwSplitButtonPointer.reinterpret(), popover?.gtkPopoverPointer?.reinterpret())
-
-    /**
-     * Sets whether an underline in the text indicates a mnemonic.
-     *
-     * See [property@SplitButton:label].
-     *
-     * @param useUnderline whether an underline in the text indicates a mnemonic
-     */
-    public fun setUseUnderline(useUnderline: Boolean): Unit =
-        adw_split_button_set_use_underline(adwSplitButtonPointer.reinterpret(), useUnderline.asGBoolean())
-
-    /**
      * Emitted to animate press then release.
      *
      * This is an action signal. Applications should never connect to this signal,
@@ -575,10 +404,7 @@ public class SplitButton(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectActivate(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "activate",
@@ -594,10 +420,7 @@ public class SplitButton(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectClicked(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "clicked",
@@ -614,21 +437,28 @@ public class SplitButton(
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of SplitButton
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_split_button_get_type()
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectClickedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectClickedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

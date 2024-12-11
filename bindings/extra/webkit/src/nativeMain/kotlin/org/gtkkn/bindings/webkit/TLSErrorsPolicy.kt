@@ -1,14 +1,14 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitTLSErrorsPolicy
+import org.gtkkn.native.webkit.webkit_tls_errors_policy_get_type
 
 /**
  * Enum values used to denote the TLS errors policy.
  */
-public enum class TLSErrorsPolicy(
-    public val nativeValue: WebKitTLSErrorsPolicy,
-) {
+public enum class TLSErrorsPolicy(public val nativeValue: WebKitTLSErrorsPolicy) {
     /**
      * Ignore TLS errors.
      */
@@ -24,11 +24,17 @@ public enum class TLSErrorsPolicy(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitTLSErrorsPolicy): TLSErrorsPolicy =
-            when (nativeValue) {
-                WebKitTLSErrorsPolicy.WEBKIT_TLS_ERRORS_POLICY_IGNORE -> IGNORE
-                WebKitTLSErrorsPolicy.WEBKIT_TLS_ERRORS_POLICY_FAIL -> FAIL
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitTLSErrorsPolicy): TLSErrorsPolicy = when (nativeValue) {
+            WebKitTLSErrorsPolicy.WEBKIT_TLS_ERRORS_POLICY_IGNORE -> IGNORE
+            WebKitTLSErrorsPolicy.WEBKIT_TLS_ERRORS_POLICY_FAIL -> FAIL
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of TLSErrorsPolicy
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_tls_errors_policy_get_type()
     }
 }

@@ -13,6 +13,7 @@ import org.gtkkn.native.gdk.gdk_scroll_event_get_direction
 import org.gtkkn.native.gdk.gdk_scroll_event_get_type
 import org.gtkkn.native.gdk.gdk_scroll_event_get_unit
 import org.gtkkn.native.gdk.gdk_scroll_event_is_stop
+import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 
 /**
@@ -22,9 +23,8 @@ import kotlin.Boolean
  *
  * - parameter `delta_x`: delta_x: Out parameter is not supported
  */
-public open class ScrollEvent(
-    pointer: CPointer<GdkScrollEvent>,
-) : Event(pointer.reinterpret()),
+public open class ScrollEvent(pointer: CPointer<GdkScrollEvent>) :
+    Event(pointer.reinterpret()),
     KGTyped {
     public val gdkScrollEventPointer: CPointer<GdkScrollEvent>
         get() = gPointer.reinterpret()
@@ -49,10 +49,9 @@ public open class ScrollEvent(
      * @since 4.8
      */
     @GdkVersion4_8
-    public open fun getUnit(): ScrollUnit =
-        gdk_scroll_event_get_unit(gdkScrollEventPointer.reinterpret()).run {
-            ScrollUnit.fromNativeValue(this)
-        }
+    public open fun getUnit(): ScrollUnit = gdk_scroll_event_get_unit(gdkScrollEventPointer.reinterpret()).run {
+        ScrollUnit.fromNativeValue(this)
+    }
 
     /**
      * Check whether a scroll event is a stop scroll event.
@@ -76,5 +75,12 @@ public open class ScrollEvent(
         init {
             GdkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ScrollEvent
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_scroll_event_get_type()
     }
 }

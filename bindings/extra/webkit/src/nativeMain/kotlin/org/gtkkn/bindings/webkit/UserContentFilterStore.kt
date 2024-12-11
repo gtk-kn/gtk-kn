@@ -17,7 +17,7 @@ import org.gtkkn.bindings.gio.File
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.bindings.webkit.Webkit.resolveException
+import org.gtkkn.bindings.webkit.WebKit.resolveException
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_24
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.toKStringList
@@ -25,6 +25,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitUserContentFilterStore
 import org.gtkkn.native.webkit.webkit_user_content_filter_store_fetch_identifiers
 import org.gtkkn.native.webkit.webkit_user_content_filter_store_fetch_identifiers_finish
@@ -63,9 +64,8 @@ import kotlin.collections.List
  * @since 2.24
  */
 @WebKitVersion2_24
-public class UserContentFilterStore(
-    pointer: CPointer<WebKitUserContentFilterStore>,
-) : Object(pointer.reinterpret()),
+public class UserContentFilterStore(pointer: CPointer<WebKitUserContentFilterStore>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val webkitUserContentFilterStorePointer: CPointer<WebKitUserContentFilterStore>
         get() = gPointer.reinterpret()
@@ -84,9 +84,10 @@ public class UserContentFilterStore(
          * @return path, as a string.
          * @since 2.24
          */
-        get() =
-            webkit_user_content_filter_store_get_path(webkitUserContentFilterStorePointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = webkit_user_content_filter_store_get_path(
+            webkitUserContentFilterStorePointer.reinterpret()
+        )?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Create a new #WebKitUserContentFilterStore to manipulate filters stored at @storage_path.
@@ -111,10 +112,7 @@ public class UserContentFilterStore(
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun fetchIdentifiers(
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public fun fetchIdentifiers(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         webkit_user_content_filter_store_fetch_identifiers(
             webkitUserContentFilterStorePointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
@@ -141,17 +139,6 @@ public class UserContentFilterStore(
             ?: error("Expected not null string array")
 
     /**
-     * Gets the storage path for user content filters.
-     *
-     * @return path, as a string.
-     * @since 2.24
-     */
-    @WebKitVersion2_24
-    public fun getPath(): String =
-        webkit_user_content_filter_store_get_path(webkitUserContentFilterStorePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
      * Asynchronously load a content filter given its @identifier.
      *
      * The filter must have been
@@ -166,11 +153,7 @@ public class UserContentFilterStore(
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun load(
-        identifier: String,
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public fun load(identifier: String, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         webkit_user_content_filter_store_load(
             webkitUserContentFilterStorePointer.reinterpret(),
             identifier,
@@ -188,24 +171,22 @@ public class UserContentFilterStore(
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun loadFinish(result: AsyncResult): Result<UserContentFilter> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                webkit_user_content_filter_store_load_finish(
-                    webkitUserContentFilterStorePointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    UserContentFilter(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun loadFinish(result: AsyncResult): Result<UserContentFilter> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = webkit_user_content_filter_store_load_finish(
+            webkitUserContentFilterStorePointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            UserContentFilter(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Asynchronously remove a content filter given its @identifier.
@@ -220,11 +201,7 @@ public class UserContentFilterStore(
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun remove(
-        identifier: String,
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public fun remove(identifier: String, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         webkit_user_content_filter_store_remove(
             webkitUserContentFilterStorePointer.reinterpret(),
             identifier,
@@ -242,21 +219,19 @@ public class UserContentFilterStore(
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun removeFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                webkit_user_content_filter_store_remove_finish(
-                    webkitUserContentFilterStorePointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun removeFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = webkit_user_content_filter_store_remove_finish(
+            webkitUserContentFilterStorePointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Asynchronously save a content filter from a set source rule.
@@ -284,15 +259,14 @@ public class UserContentFilterStore(
         source: Bytes,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        webkit_user_content_filter_store_save(
-            webkitUserContentFilterStorePointer.reinterpret(),
-            identifier,
-            source.glibBytesPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = webkit_user_content_filter_store_save(
+        webkitUserContentFilterStorePointer.reinterpret(),
+        identifier,
+        source.glibBytesPointer.reinterpret(),
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an asynchronous filter save previously started with
@@ -303,24 +277,22 @@ public class UserContentFilterStore(
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun saveFinish(result: AsyncResult): Result<UserContentFilter> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                webkit_user_content_filter_store_save_finish(
-                    webkitUserContentFilterStorePointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    UserContentFilter(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun saveFinish(result: AsyncResult): Result<UserContentFilter> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = webkit_user_content_filter_store_save_finish(
+            webkitUserContentFilterStorePointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            UserContentFilter(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Asynchronously save a content filter from the contents of a file.
@@ -344,15 +316,14 @@ public class UserContentFilterStore(
         `file`: File,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        webkit_user_content_filter_store_save_from_file(
-            webkitUserContentFilterStorePointer.reinterpret(),
-            identifier,
-            `file`.gioFilePointer,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = webkit_user_content_filter_store_save_from_file(
+        webkitUserContentFilterStorePointer.reinterpret(),
+        identifier,
+        `file`.gioFilePointer,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes and asynchronous filter save previously started with
@@ -363,33 +334,38 @@ public class UserContentFilterStore(
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun saveFromFileFinish(result: AsyncResult): Result<UserContentFilter> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                webkit_user_content_filter_store_save_from_file_finish(
-                    webkitUserContentFilterStorePointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    UserContentFilter(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun saveFromFileFinish(result: AsyncResult): Result<UserContentFilter> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = webkit_user_content_filter_store_save_from_file_finish(
+            webkitUserContentFilterStorePointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            UserContentFilter(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     public companion object : TypeCompanion<UserContentFilterStore> {
         override val type: GeneratedClassKGType<UserContentFilterStore> =
-            GeneratedClassKGType(
-                webkit_user_content_filter_store_get_type()
-            ) { UserContentFilterStore(it.reinterpret()) }
+            GeneratedClassKGType(webkit_user_content_filter_store_get_type()) {
+                UserContentFilterStore(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()
         }
+
+        /**
+         * Get the GType of UserContentFilterStore
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_user_content_filter_store_get_type()
     }
 }

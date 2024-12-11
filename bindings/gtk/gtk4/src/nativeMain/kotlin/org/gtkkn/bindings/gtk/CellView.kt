@@ -9,6 +9,7 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkCellLayout
@@ -59,9 +60,8 @@ import kotlin.Unit
  * - method `cell-area`: Property has no getter nor setter
  * - method `cell-area-context`: Property has no getter nor setter
  */
-public open class CellView(
-    pointer: CPointer<GtkCellView>,
-) : Widget(pointer.reinterpret()),
+public open class CellView(pointer: CPointer<GtkCellView>) :
+    Widget(pointer.reinterpret()),
     CellLayout,
     Orientable,
     KGTyped {
@@ -153,10 +153,9 @@ public open class CellView(
          *
          * @return a `GtkTreeModel` used
          */
-        get() =
-            gtk_cell_view_get_model(gtkCellViewPointer.reinterpret())?.run {
-                TreeModel.wrap(reinterpret())
-            }
+        get() = gtk_cell_view_get_model(gtkCellViewPointer.reinterpret())?.run {
+            TreeModel.wrap(reinterpret())
+        }
 
         /**
          * Sets the model for @cell_view.  If @cell_view already has a model
@@ -230,36 +229,6 @@ public open class CellView(
         }
 
     /**
-     * Gets whether @cell_view is configured to draw all of its
-     * cells in a sensitive state.
-     *
-     * @return whether @cell_view draws all of its
-     * cells in a sensitive state
-     */
-    public open fun getDrawSensitive(): Boolean =
-        gtk_cell_view_get_draw_sensitive(gtkCellViewPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets whether @cell_view is configured to request space
-     * to fit the entire `GtkTreeModel`.
-     *
-     * @return whether @cell_view requests space to fit
-     * the entire `GtkTreeModel`.
-     */
-    public open fun getFitModel(): Boolean = gtk_cell_view_get_fit_model(gtkCellViewPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns the model for @cell_view. If no model is used null is
-     * returned.
-     *
-     * @return a `GtkTreeModel` used
-     */
-    public open fun getModel(): TreeModel? =
-        gtk_cell_view_get_model(gtkCellViewPointer.reinterpret())?.run {
-            TreeModel.wrap(reinterpret())
-        }
-
-    /**
      * Sets the row of the model that is currently displayed
      * by the `GtkCellView`. If the path is unset, then the
      * contents of the cellview “stick” at their last value;
@@ -271,39 +240,6 @@ public open class CellView(
      */
     public open fun setDisplayedRow(path: TreePath? = null): Unit =
         gtk_cell_view_set_displayed_row(gtkCellViewPointer.reinterpret(), path?.gtkTreePathPointer?.reinterpret())
-
-    /**
-     * Sets whether @cell_view should draw all of its
-     * cells in a sensitive state, this is used by `GtkComboBox` menus
-     * to ensure that rows with insensitive cells that contain
-     * children appear sensitive in the parent menu item.
-     *
-     * @param drawSensitive whether to draw all cells in a sensitive state.
-     */
-    public open fun setDrawSensitive(drawSensitive: Boolean): Unit =
-        gtk_cell_view_set_draw_sensitive(gtkCellViewPointer.reinterpret(), drawSensitive.asGBoolean())
-
-    /**
-     * Sets whether @cell_view should request space to fit the entire `GtkTreeModel`.
-     *
-     * This is used by `GtkComboBox` to ensure that the cell view displayed on
-     * the combo box’s button always gets enough space and does not resize
-     * when selection changes.
-     *
-     * @param fitModel whether @cell_view should request space for the whole model.
-     */
-    public open fun setFitModel(fitModel: Boolean): Unit =
-        gtk_cell_view_set_fit_model(gtkCellViewPointer.reinterpret(), fitModel.asGBoolean())
-
-    /**
-     * Sets the model for @cell_view.  If @cell_view already has a model
-     * set, it will remove it before setting the new model.  If @model is
-     * null, then it will unset the old model.
-     *
-     * @param model a `GtkTreeModel`
-     */
-    public open fun setModel(model: TreeModel? = null): Unit =
-        gtk_cell_view_set_model(gtkCellViewPointer.reinterpret(), model?.gtkTreeModelPointer)
 
     public companion object : TypeCompanion<CellView> {
         override val type: GeneratedClassKGType<CellView> =
@@ -332,5 +268,12 @@ public open class CellView(
          */
         public fun newWithMarkup(markup: String): CellView =
             CellView(gtk_cell_view_new_with_markup(markup)!!.reinterpret())
+
+        /**
+         * Get the GType of CellView
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_cell_view_get_type()
     }
 }
