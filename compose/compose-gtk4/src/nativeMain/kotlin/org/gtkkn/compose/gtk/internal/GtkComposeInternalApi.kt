@@ -14,26 +14,8 @@
  * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
  */
 
-plugins {
-    id("native-library-conventions")
-    id("publishing-conventions")
-    id("detekt-conventions")
-    alias(libs.plugins.kotlin.compose)
-}
+package org.gtkkn.compose.gtk.internal
 
-version = config.versions.compose.get()
-
-kotlin {
-    sourceSets {
-        nativeMain {
-            dependencies {
-                api(projects.bindings.gtk.gtk4)
-                api(projects.coroutines)
-                api(libs.compose.runtime)
-
-                // Temporary until #106 or any other first-party logging integrated into GTK
-                implementation("co.touchlab:kermit:2.0.4")
-            }
-        }
-    }
-}
+@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION, AnnotationTarget.TYPEALIAS, AnnotationTarget.PROPERTY)
+@RequiresOptIn("This API is internal and is likely to change in the future.")
+public annotation class GtkComposeInternalApi

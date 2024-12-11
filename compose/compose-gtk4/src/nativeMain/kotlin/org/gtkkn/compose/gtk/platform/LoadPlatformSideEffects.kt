@@ -14,26 +14,22 @@
  * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
  */
 
-plugins {
-    id("native-library-conventions")
-    id("publishing-conventions")
-    id("detekt-conventions")
-    alias(libs.plugins.kotlin.compose)
-}
+package org.gtkkn.compose.gtk.platform
 
-version = config.versions.compose.get()
+import co.touchlab.kermit.Logger
 
-kotlin {
-    sourceSets {
-        nativeMain {
-            dependencies {
-                api(projects.bindings.gtk.gtk4)
-                api(projects.coroutines)
-                api(libs.compose.runtime)
 
-                // Temporary until #106 or any other first-party logging integrated into GTK
-                implementation("co.touchlab:kermit:2.0.4")
-            }
-        }
-    }
+/**
+ * Sets up required side effects on the platform that the compose tree later depends on.
+ *
+ * **Must be called as early in the program as possible**
+ */
+internal fun loadPlatformSideEffects(
+    logger: Logger,
+) {
+    logger.d { "Loading platform side effects" }
+
+    logger.v { "Injecting GioMainDispatcher as Dispatchers.Main" }
+//    @Suppress("INVISIBLE_MEMBER")
+//    Dispatchers.injectMain(GioMainDispatcher(Dispatchers.Default, false, logger))
 }
