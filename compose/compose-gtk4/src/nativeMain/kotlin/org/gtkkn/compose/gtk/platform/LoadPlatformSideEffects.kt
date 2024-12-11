@@ -17,6 +17,8 @@
 package org.gtkkn.compose.gtk.platform
 
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.Dispatchers
+import org.gtkkn.coroutines.GtkDispatcher
 
 
 /**
@@ -30,6 +32,6 @@ internal fun loadPlatformSideEffects(
     logger.d { "Loading platform side effects" }
 
     logger.v { "Injecting GioMainDispatcher as Dispatchers.Main" }
-//    @Suppress("INVISIBLE_MEMBER")
-//    Dispatchers.injectMain(GioMainDispatcher(Dispatchers.Default, false, logger))
+    @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+    Dispatchers.injectMain(GtkDispatcher)
 }
