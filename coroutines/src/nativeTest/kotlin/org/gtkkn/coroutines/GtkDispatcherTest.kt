@@ -25,7 +25,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
-import org.gtkkn.bindings.glib.Glib
+import org.gtkkn.bindings.glib.GLib
+import org.gtkkn.bindings.glib.MainContext
 import org.gtkkn.bindings.glib.MainLoop
 import org.gtkkn.native.glib.G_PRIORITY_DEFAULT
 import kotlin.coroutines.EmptyCoroutineContext
@@ -43,12 +44,12 @@ class GtkDispatcherTest {
 
         dispatcher.dispatch(
             EmptyCoroutineContext,
-            Runnable { isOnGtkThread = Glib.mainContextDefault().isOwner() },
+            Runnable { isOnGtkThread = MainContext.default().isOwner() },
         )
 
         // Process pending events in the GTK main loop
-        while (Glib.mainContextDefault().pending()) {
-            Glib.mainContextDefault().iteration(false)
+        while (MainContext.default().pending()) {
+            MainContext.default().iteration(false)
         }
 
         assertTrue(isOnGtkThread, "The task should run on the GTK main thread.")
@@ -94,7 +95,7 @@ class GtkDispatcherTest {
         handle.dispose()
 
         // Schedule another timeout to quit the main loop after 200ms
-        Glib.timeoutAdd(
+        GLib.timeoutAdd(
             priority = G_PRIORITY_DEFAULT,
             interval = 200.milliseconds.inWholeMilliseconds.toUInt(),
         ) {
@@ -114,11 +115,11 @@ class GtkDispatcherTest {
         val context = EmptyCoroutineContext
 
         // Simulate being on the GTK main thread
-        Glib.mainContextDefault().pushThreadDefault()
+        MainContext.default().pushThreadDefault()
 
         val isNeeded = dispatcher.isDispatchNeeded(context)
 
-        Glib.mainContextDefault().popThreadDefault()
+        MainContext.default().popThreadDefault()
 
         assertFalse(isNeeded, "Dispatch should not be needed when already on GTK main thread.")
     }
@@ -130,12 +131,12 @@ class GtkDispatcherTest {
 
         // Launch a coroutine using the GTK dispatcher
         scope.launch(Dispatchers.Gtk) {
-            isOnGtkThread = Glib.mainContextDefault().isOwner()
+            isOnGtkThread = MainContext.default().isOwner()
         }
 
         // Process pending events in the GTK main loop
-        while (Glib.mainContextDefault().pending()) {
-            Glib.mainContextDefault().iteration(false)
+        while (MainContext.default().pending()) {
+            MainContext.default().iteration(false)
         }
 
         assertTrue(isOnGtkThread, "The coroutine should run on the GTK main thread.")

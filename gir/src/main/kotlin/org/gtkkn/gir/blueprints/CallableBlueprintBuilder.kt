@@ -16,7 +16,6 @@
 
 package org.gtkkn.gir.blueprints
 
-import com.squareup.kotlinpoet.MemberName
 import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.model.GirDirection
 import org.gtkkn.gir.model.GirNamespace
@@ -27,7 +26,6 @@ import org.gtkkn.gir.model.GirVarArgs
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.SkippedObjectException
 import org.gtkkn.gir.processor.UnresolvableTypeException
-import org.jetbrains.kotlin.util.capitalizeDecapitalize.capitalizeAsciiOnly
 
 /**
  * An interface containing common behavior for all callable blueprints like Signals, Methods,
@@ -133,13 +131,6 @@ abstract class CallableBlueprintBuilder<T : Any>(
             }
         }
     }
-
-    protected fun exceptionResolvingFunction() =
-        MemberName(
-            context.namespaceBindingsPackageName(girNamespace) + "." + checkNotNull(girNamespace.name).lowercase()
-                .capitalizeAsciiOnly(),
-            "resolveException",
-        )
 }
 
 sealed class ProcessedParam

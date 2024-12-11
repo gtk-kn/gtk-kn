@@ -16,6 +16,7 @@
 
 package org.gtkkn.gir.parser.metadata
 
+import me.tatarka.inject.annotations.Inject
 import org.gtkkn.gir.log.logger
 import java.io.File
 
@@ -25,6 +26,7 @@ import java.io.File
  * This parser processes the source content into a tree of `Metadata` objects. It supports
  * parsing patterns, arguments, expressions, and hierarchical structures.
  */
+@Inject
 class MetadataParser {
     private var scanner: SimpleScanner? = null
     private val tree = Metadata("")

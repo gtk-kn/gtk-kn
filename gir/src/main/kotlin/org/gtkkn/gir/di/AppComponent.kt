@@ -14,13 +14,16 @@
  * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
  */
 
-package org.gtkkn.gir.processor
+package org.gtkkn.gir.di
 
-/**
- * Exception thrown during gir processing when a function or method is shadowed by another so we should not generate
- * anything for it.
- */
-class ShadowedFunctionException(
-    val objectName: String,
-    val shadowName: String
-) : BlueprintException("$objectName is shadowedBy $shadowName")
+import me.tatarka.inject.annotations.Component
+import me.tatarka.inject.annotations.Provides
+import org.gtkkn.gir.Application
+import org.gtkkn.gir.config.Config
+
+@Component
+abstract class AppComponent(
+    @get:Provides protected val config: Config
+) {
+    abstract val application: Application
+}

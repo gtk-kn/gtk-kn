@@ -20,6 +20,7 @@ plugins {
     kotlin("multiplatform")
     id("config-conventions")
     id("org.jetbrains.dokka")
+    id("detekt-conventions")
 }
 
 kotlin {
@@ -29,6 +30,7 @@ kotlin {
     sourceSets {
         all {
             languageSettings.optIn("kotlinx.cinterop.ExperimentalForeignApi")
+            languageSettings.optIn("kotlin.experimental.ExperimentalNativeApi")
         }
     }
 }

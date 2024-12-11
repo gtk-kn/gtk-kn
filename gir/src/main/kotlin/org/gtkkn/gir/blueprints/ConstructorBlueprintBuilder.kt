@@ -24,7 +24,6 @@ import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirType
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
-import org.gtkkn.gir.processor.ShadowedFunctionException
 import org.gtkkn.gir.processor.UnresolvableTypeException
 
 class ConstructorBlueprintBuilder(
@@ -34,20 +33,13 @@ class ConstructorBlueprintBuilder(
 ) : CallableBlueprintBuilder<ConstructorBlueprint>(context, girNamespace) {
     override fun blueprintObjectType(): String = "constructor"
 
-    override fun blueprintObjectName(): String = girConstructor.callable.name
+    override fun blueprintObjectName(): String = girConstructor.callable.getName()
 
     override fun buildInternal(): ConstructorBlueprint {
         girConstructor.callable.cIdentifier?.let { context.checkIgnoredFunction(it) }
 
-        if (girConstructor.callable.info.introspectable == false) {
-            throw NotIntrospectableException(girConstructor.callable.cIdentifier ?: girConstructor.callable.name)
-        }
-
-        if (girConstructor.callable.shadowedBy != null) {
-            throw ShadowedFunctionException(
-                girConstructor.callable.cIdentifier ?: girConstructor.callable.name,
-                girConstructor.callable.shadowedBy,
-            )
+        if (!girConstructor.callable.shouldBeGenerated()) {
+            throw NotIntrospectableException(girConstructor.callable.cIdentifier ?: girConstructor.callable.getName())
         }
 
         girConstructor.parameters?.let { addParameters(it) }
@@ -56,7 +48,7 @@ class ConstructorBlueprintBuilder(
         val returnValue = girConstructor.returnValue
         if (returnValue == null) {
             logger.error {
-                "Constructor ${girNamespace.name}.${blueprintObjectName()}.${girConstructor.callable.name} " +
+                "Constructor ${girNamespace.name}.${blueprintObjectName()}.${girConstructor.callable.getName()} " +
                     "has no return value"
             }
             throw UnresolvableTypeException("Constructor has no return value")
@@ -65,7 +57,7 @@ class ConstructorBlueprintBuilder(
         val returnTypeInfo = try {
             when (val type = returnValue.type) {
                 is GirArrayType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
-                is GirType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable(), isReturnType = true)
+                is GirType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
             }
         } catch (ex: UnresolvableTypeException) {
             throw UnresolvableTypeException("Constructor return type ${returnValue.type} could not be resolved")
@@ -73,19 +65,19 @@ class ConstructorBlueprintBuilder(
 
         // method name
         val nativeMethodName = girConstructor.callable.cIdentifier ?: throw UnresolvableTypeException(
-            "Constructor ${girConstructor.callable.name} for ${blueprintObjectName()} does not have cIdentifier",
+            "Constructor ${girConstructor.callable.getName()} for ${blueprintObjectName()} does not have cIdentifier",
         )
 
         val nativeMemberName = MemberName(context.namespaceNativePackageName(girNamespace), nativeMethodName)
 
         return ConstructorBlueprint(
-            kotlinName = context.kotlinizeMethodName(girConstructor.callable.name),
+            kotlinName = context.kotlinizeMethodName(girConstructor.callable.getName()),
             nativeName = nativeMethodName,
             nativeMemberName = nativeMemberName,
             returnTypeInfo = returnTypeInfo,
             parameters = parameterBlueprints,
             throws = girConstructor.callable.throws == true,
-            exceptionResolvingFunctionMember = exceptionResolvingFunction(),
+            exceptionResolvingFunctionMember = girNamespace.exceptionResolvingFunction(),
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girConstructor.callable.info)
                 .build()
                 .getOrNull(),

@@ -23,7 +23,7 @@
 package org.gtkkn.samples.webkit.browser
 
 import org.gtkkn.bindings.adw.Bin
-import org.gtkkn.bindings.glib.Glib
+import org.gtkkn.bindings.glib.GLib
 import org.gtkkn.bindings.glib.Uri
 import org.gtkkn.bindings.gobject.BindingFlags
 import org.gtkkn.bindings.gtk.Box
@@ -52,7 +52,7 @@ fun main() = Application {
     val webView = WebView()
 
     val back = Button.newFromIconName("go-previous-symbolic").apply {
-        setTooltipText("Back")
+        tooltipText = "Back"
         connectClicked {
             logger.debug { "Back clicked" }
             webView.goBack()
@@ -60,7 +60,7 @@ fun main() = Application {
     }
 
     val forward = Button.newFromIconName("go-next-symbolic").apply {
-        setTooltipText("Forward")
+        tooltipText = "Forward"
         connectClicked {
             logger.debug { "Forward clicked" }
             webView.goForward()
@@ -68,7 +68,7 @@ fun main() = Application {
     }
 
     val stopOrReload = Button.newFromIconName("process-stop-symbolic").apply {
-        setTooltipText("Stop")
+        tooltipText = "Stop"
         connectClicked {
             logger.debug { "Stop clicked" }
             if (loading) webView.stopLoading() else webView.reload()
@@ -76,7 +76,7 @@ fun main() = Application {
     }
 
     val home = Button.newFromIconName("go-home-symbolic").apply {
-        setTooltipText("Home")
+        tooltipText = "Home"
         connectClicked {
             logger.debug { "Home clicked" }
             webView.loadUri(HOME_PAGE)
@@ -84,7 +84,7 @@ fun main() = Application {
     }
 
     val urlBar = Entry().apply {
-        setInputPurpose(InputPurpose.URL)
+        inputPurpose = InputPurpose.URL
         hexpand = true
     }
 
@@ -92,11 +92,11 @@ fun main() = Application {
     val webViewContainer = Bin().apply {
         vexpand = true
         hexpand = true
-        setChild(webView)
+        child = webView
     }
 
     // When navigating to another page, update the URL bar
-    webView.bindProperty("uri", urlBar.getBuffer(), "text", BindingFlags.DEFAULT)
+    webView.bindProperty("uri", urlBar.buffer, "text", BindingFlags.DEFAULT)
 
     webView.connectLoadChanged { loadEvent: LoadEvent ->
         when (loadEvent) {
@@ -104,7 +104,7 @@ fun main() = Application {
                 logger.debug { "loadEvent = Started" }
                 loading = true
                 stopOrReload.setIconName("process-stop-symbolic")
-                stopOrReload.setTooltipText("Stop")
+                stopOrReload.tooltipText = "Stop"
             }
 
             REDIRECTED -> logger.debug { "loadEvent = Redirected" }
@@ -113,13 +113,13 @@ fun main() = Application {
                 logger.debug { "loadEvent = Finished" }
                 loading = false
                 stopOrReload.setIconName("view-refresh-symbolic")
-                stopOrReload.setTooltipText("Reload")
+                stopOrReload.tooltipText = "Reload"
             }
         }
     }
 
     urlBar.connectActivate {
-        var url = urlBar.getBuffer().getText()
+        var url = urlBar.buffer.text
         val scheme = Uri.peekScheme(url)
         if (scheme == null) {
             url = "https://$url"
@@ -131,12 +131,12 @@ fun main() = Application {
     webView.connectNotify { pspecs ->
         logger.debug { "pspecs = ${pspecs.getName()}" }
         if (pspecs.getName() == "estimated-load-progress") {
-            urlBar.setProgressFraction(webView.getEstimatedLoadProgress())
-            if (urlBar.getProgressFraction() == 1.0) {
-                logger.debug { "Glib.timeoutAdd" }
-                Glib.timeoutAdd(0, 500.toUInt()) {
-                    logger.debug { "setProgressFraction(0.0)" }
-                    urlBar.setProgressFraction(0.0)
+            urlBar.progressFraction = webView.estimatedLoadProgress
+            if (urlBar.progressFraction == 1.0) {
+                logger.debug { "GLib.timeoutAdd" }
+                GLib.timeoutAdd(0, 500.toUInt()) {
+                    logger.debug { "progressFraction = 0.0)" }
+                    urlBar.progressFraction = 0.0
                     false
                 }
             }
@@ -150,7 +150,7 @@ fun main() = Application {
         packStart(forward)
         packStart(stopOrReload)
         packStart(home)
-        setTitleWidget(urlBar)
+        titleWidget = urlBar
     }
 
     // and add your widget to the layout to display it
@@ -158,7 +158,7 @@ fun main() = Application {
         append(headerBar)
         append(webViewContainer)
     }
-    setContent(layout)
+    content = layout
 }
 
 private const val HOME_PAGE = "https://www.gnome.org/"

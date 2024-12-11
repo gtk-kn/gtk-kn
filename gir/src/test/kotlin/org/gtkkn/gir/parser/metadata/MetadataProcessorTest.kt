@@ -25,7 +25,6 @@ import javax.xml.parsers.DocumentBuilderFactory
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
@@ -747,8 +746,10 @@ class MetadataProcessorTest {
             """
                 <repository>
                   <namespace name="TestNamespace">
-                    <class name="TestClass">
-                      <method name="old_method" />
+                    <class name="Widget">
+                      <method name="activate_action">
+                        <parameters />
+                        </method>
                     </class>
                   </namespace>
                 </repository>
@@ -757,7 +758,7 @@ class MetadataProcessorTest {
         // Prepare the metadata content
         val metadataContent =
             """
-                TestClass.old_method name="new_method"
+                Widget.activate_action name="activate_action_if_exists"
             """.trimIndent()
 
         // Parse the XML document
@@ -773,12 +774,12 @@ class MetadataProcessorTest {
         processor.apply()
 
         // Find the method node
-        val methodNode = findNodeByName(document.documentElement, "method", "new_method")
-        assertNotNull(methodNode, "The method node should be renamed to 'new_method'")
+        val methodNode = findNodeByName(document.documentElement, "method", "activate_action_if_exists")
+        assertNotNull(methodNode, "The method node should be renamed to 'activate_action_if_exists'")
 
         // Ensure the old method name does not exist
-        val oldMethodNode = findNodeByName(document.documentElement, "method", "old_method")
-        assertNull(oldMethodNode, "The old method name 'old_method' should not exist")
+        val oldMethodNode = findNodeByName(document.documentElement, "method", "activate_action")
+        assertNull(oldMethodNode, "The old method name 'activate_action' should not exist")
     }
 
     @Test
@@ -906,6 +907,51 @@ class MetadataProcessorTest {
         // Ensure the old parameter name does not exist
         val oldParamNode = findNodeByName(document.documentElement, "parameter", "_index_")
         assertNull(oldParamNode, "The old parameter name '_index_' should not exist")
+    }
+
+    @Test
+    fun `test apply NAME argument to remove suffix with introspectable=0`() {
+        // Prepare the XML document
+        val xmlContent =
+            """
+                <repository>
+                  <namespace name="TestNamespace">
+                    <record name="Array">
+                      <function name="new" introspectable="0">
+                        <parameters>
+                          <parameter name="clear_" />
+                        </parameters>
+                      </function>
+                    </record>
+                  </namespace>
+                </repository>
+            """.trimIndent()
+
+        // Prepare the metadata content
+        val metadataContent =
+            """
+                *.*.*#parameter name="(.+)_$"
+            """.trimIndent()
+
+        // Parse the XML document
+        document = parseXml(xmlContent)
+
+        // Parse the metadata
+        val metadata = metadataParser.parse(metadataContent)
+
+        // Create the processor
+        processor = MetadataProcessor(metadata, document)
+
+        // Apply the metadata
+        processor.apply()
+
+        // Find the parameter node with the new name
+        val paramNode = findNodeByName(document.documentElement, "parameter", "clear")
+        assertNotNull(paramNode, "The parameter node should be renamed to 'clear'")
+
+        // Ensure the old parameter name does not exist
+        val oldParamNode = findNodeByName(document.documentElement, "parameter", "clear_")
+        assertNull(oldParamNode, "The old parameter name 'clear_' should not exist")
     }
 
     @Test
@@ -1484,7 +1530,51 @@ class MetadataProcessorTest {
     }
 
     @Test
-    fun `test apply SKIP argument to node`() {
+    fun `test apply SHADOWS argument to method node`() {
+        // Prepare the XML document
+        val xmlContent =
+            """
+                <repository>
+                  <namespace name="TestNamespace">
+                    <class name="TestClass">
+                      <method name="new_method" shadows="activate_action" />
+                    </class>
+                  </namespace>
+                </repository>
+            """.trimIndent()
+
+        // Prepare the metadata content
+        val metadataContent =
+            """
+                TestClass.new_method shadows="activate_action_if_exists"
+            """.trimIndent()
+
+        // Parse the XML document
+        document = parseXml(xmlContent)
+
+        // Parse the metadata
+        val metadata = metadataParser.parse(metadataContent)
+
+        // Create the processor
+        processor = MetadataProcessor(metadata, document)
+
+        // Apply the metadata
+        processor.apply()
+
+        // Find the method node
+        val methodNode = findNodeByName(document.documentElement, "method", "new_method")
+        assertNotNull(methodNode)
+
+        val shadowsAttr = methodNode.attributes.getNamedItem("shadows")?.nodeValue
+        assertEquals(
+            expected = "activate_action_if_exists",
+            actual = shadowsAttr,
+            message = "The 'shadows' attribute should be 'activate_action_if_exists'",
+        )
+    }
+
+    @Test
+    fun `test apply IGNORE argument to node`() {
         // Prepare the XML document
         val xmlContent =
             """
@@ -1498,7 +1588,7 @@ class MetadataProcessorTest {
         // Prepare the metadata content
         val metadataContent =
             """
-                TestClass skip = true
+                TestClass ignore = true
             """.trimIndent()
 
         // Parse the XML document
@@ -1516,8 +1606,8 @@ class MetadataProcessorTest {
         // Assert that the 'introspectable' attribute is set to 'false' on the TestClass node
         val testClassNode = findNodeByName(document.documentElement, "class", "TestClass")
         assertNotNull(testClassNode)
-        val introspectable = testClassNode.attributes.getNamedItem("introspectable")?.nodeValue?.toBoolean()
-        assertFalse(introspectable != false, "The 'introspectable' attribute should be false")
+        val ignore = testClassNode.attributes.getNamedItem("gtk-kn-ignore")?.nodeValue?.toBoolean()
+        assertTrue(ignore == true, "The 'gtk-kn-ignore' attribute should be true")
     }
 
     @Test
@@ -1561,6 +1651,103 @@ class MetadataProcessorTest {
     }
 
     @Test
+    fun `test apply TYPE_CTYPE argument to method return-value type`() {
+        // Prepare the XML document
+        val xmlContent =
+            """
+                <repository>
+                  <namespace name="TestNamespace">
+                    <class name="TestClass">
+                      <method name="test_method">
+                        <return-value>
+                          <type name="gchar" c:type="char"/>
+                        </return-value>
+                      </method>
+                    </class>
+                  </namespace>
+                </repository>
+            """.trimIndent()
+
+        // Prepare the metadata content
+        val metadataContent =
+            """
+                TestClass.test_method type_ctype="guint"
+            """.trimIndent()
+
+        // Parse the XML document
+        document = parseXml(xmlContent)
+
+        // Parse the metadata
+        val metadata = metadataParser.parse(metadataContent)
+
+        // Create the processor
+        processor = MetadataProcessor(metadata, document)
+
+        // Apply the metadata
+        processor.apply()
+
+        // Find the return-value node
+        val methodNode = findNodeByName(document.documentElement, "method", "test_method")
+        val returnValueNode = processor.getChildNode(checkNotNull(methodNode), "return-value")
+        assertNotNull(returnValueNode, "The method should have a return-value")
+
+        val typeNode = processor.getChildNode(returnValueNode, "type")
+        assertNotNull(typeNode, "The 'return-value' node should contain the 'type' node")
+
+        val cTypeAttr = typeNode.attributes.getNamedItem("c:type")?.nodeValue
+        assertEquals("guint", cTypeAttr, "The 'c:type' attribute should be 'guint'")
+    }
+
+    @Test
+    fun `test apply TYPE_CTYPE argument to parameter type`() {
+        // Prepare the XML document
+        val xmlContent =
+            """
+                <repository>
+                  <namespace name="TestNamespace">
+                    <class name="TestClass">
+                      <method name="test_method">
+                        <parameters>
+                          <parameter name="param1">
+                            <type name="gchar" c:type="char"/>
+                          </parameter>
+                        </parameters>
+                      </method>
+                    </class>
+                  </namespace>
+                </repository>
+            """.trimIndent()
+
+        // Prepare the metadata content
+        val metadataContent =
+            """
+                TestClass.test_method.param1 type_ctype="guint"
+            """.trimIndent()
+
+        // Parse the XML document
+        document = parseXml(xmlContent)
+
+        // Parse the metadata
+        val metadata = metadataParser.parse(metadataContent)
+
+        // Create the processor
+        processor = MetadataProcessor(metadata, document)
+
+        // Apply the metadata
+        processor.apply()
+
+        // Find the parameter node
+        val paramNode = findNodeByName(document.documentElement, "parameter", "param1")
+        assertNotNull(paramNode)
+
+        val typeNode = processor.getChildNode(paramNode, "type")
+        assertNotNull(typeNode, "The 'parameter' node should contain the 'type' node")
+
+        val cTypeAttr = typeNode.attributes.getNamedItem("c:type")?.nodeValue
+        assertEquals("guint", cTypeAttr, "The 'c:type' attribute should be 'guint'")
+    }
+
+    @Test
     fun `test apply TYPE_ID argument to class node`() {
         val xmlContent =
             """
@@ -1585,6 +1772,103 @@ class MetadataProcessorTest {
         assertNotNull(classNode)
         val getTypeAttr = classNode.attributes.getNamedItem("glib:get-type")?.nodeValue
         assertEquals("test_get_type", getTypeAttr, "The 'glib:get-type' attribute should be 'test_get_type'")
+    }
+
+    @Test
+    fun `test apply TYPE_NAME argument to method return-value type`() {
+        // Prepare the XML document
+        val xmlContent =
+            """
+                <repository>
+                  <namespace name="TestNamespace">
+                    <class name="TestClass">
+                      <method name="test_method">
+                        <return-value>
+                          <type name="gchar" c:type="char"/>
+                        </return-value>
+                      </method>
+                    </class>
+                  </namespace>
+                </repository>
+            """.trimIndent()
+
+        // Prepare the metadata content
+        val metadataContent =
+            """
+                TestClass.test_method type_name="guint"
+            """.trimIndent()
+
+        // Parse the XML document
+        document = parseXml(xmlContent)
+
+        // Parse the metadata
+        val metadata = metadataParser.parse(metadataContent)
+
+        // Create the processor
+        processor = MetadataProcessor(metadata, document)
+
+        // Apply the metadata
+        processor.apply()
+
+        // Find the return-value node
+        val methodNode = findNodeByName(document.documentElement, "method", "test_method")
+        val returnValueNode = processor.getChildNode(checkNotNull(methodNode), "return-value")
+        assertNotNull(returnValueNode, "The method should have a return-value")
+
+        val typeNode = processor.getChildNode(returnValueNode, "type")
+        assertNotNull(typeNode, "The 'return-value' node should contain the 'type' node")
+
+        val cTypeAttr = typeNode.attributes.getNamedItem("name")?.nodeValue
+        assertEquals("guint", cTypeAttr, "The 'name' attribute should be 'guint'")
+    }
+
+    @Test
+    fun `test apply TYPE_NAME argument to parameter type`() {
+        // Prepare the XML document
+        val xmlContent =
+            """
+                <repository>
+                  <namespace name="TestNamespace">
+                    <class name="TestClass">
+                      <method name="test_method">
+                        <parameters>
+                          <parameter name="param1">
+                            <type name="gchar" c:type="char"/>
+                          </parameter>
+                        </parameters>
+                      </method>
+                    </class>
+                  </namespace>
+                </repository>
+            """.trimIndent()
+
+        // Prepare the metadata content
+        val metadataContent =
+            """
+                TestClass.test_method.param1 type_name="guint"
+            """.trimIndent()
+
+        // Parse the XML document
+        document = parseXml(xmlContent)
+
+        // Parse the metadata
+        val metadata = metadataParser.parse(metadataContent)
+
+        // Create the processor
+        processor = MetadataProcessor(metadata, document)
+
+        // Apply the metadata
+        processor.apply()
+
+        // Find the parameter node
+        val paramNode = findNodeByName(document.documentElement, "parameter", "param1")
+        assertNotNull(paramNode)
+
+        val typeNode = processor.getChildNode(paramNode, "type")
+        assertNotNull(typeNode, "The 'parameter' node should contain the 'type' node")
+
+        val cTypeAttr = typeNode.attributes.getNamedItem("name")?.nodeValue
+        assertEquals("guint", cTypeAttr, "The 'name' attribute should be 'guint'")
     }
 
     @Test
@@ -1745,7 +2029,7 @@ class MetadataProcessorTest {
         // Prepare empty metadata content
         val metadataContent =
             """
-                SomeOtherClass skip = true
+                SomeOtherClass ignore = true
             """.trimIndent()
 
         // Parse the XML document
@@ -1782,7 +2066,7 @@ class MetadataProcessorTest {
         // Prepare metadata content that doesn't match
         val metadataContent =
             """
-                SomeOtherClass skip = true
+                SomeOtherClass ignore = true
             """.trimIndent()
 
         // Parse the XML document
@@ -1823,10 +2107,10 @@ class MetadataProcessorTest {
                 </repository>
             """.trimIndent()
 
-        // Prepare metadata to skip the parent class
+        // Prepare metadata to ignore the parent class
         val metadataContent =
             """
-                ParentClass skip = true
+                ParentClass ignore = true
             """.trimIndent()
 
         // Parse the XML document
@@ -1844,14 +2128,14 @@ class MetadataProcessorTest {
         // Assert that the 'introspectable' attribute is set to 'false' on the ParentClass node
         val parentClassNode = findNodeByName(document.documentElement, "class", "ParentClass")
         assertNotNull(parentClassNode)
-        val parentIntrospectable = parentClassNode.attributes.getNamedItem("introspectable")?.nodeValue?.toBoolean()
-        assertFalse(parentIntrospectable != false, "Parent 'introspectable' should be false")
+        val parentIgnore = parentClassNode.attributes.getNamedItem("gtk-kn-ignore")?.nodeValue?.toBoolean()
+        assertTrue(parentIgnore == true, "Parent 'gtk-kn-ignore' should be true")
 
         // Assert that the child method is not processed (introspectable attribute is not set)
         val childMethodNode = findNodeByName(parentClassNode, "method", "ChildMethod")
         assertNotNull(childMethodNode)
-        val childIntrospectable = childMethodNode.attributes.getNamedItem("introspectable")
-        assertNull(childIntrospectable, "Child 'introspectable' attribute should not be set")
+        val childIgnore = childMethodNode.attributes.getNamedItem("gtk-kn-ignore")
+        assertNull(childIgnore, "Child 'gtk-kn-ignore' attribute should not be set")
     }
 
     @Test
@@ -1871,7 +2155,7 @@ class MetadataProcessorTest {
         // Prepare metadata that matches 'union'
         val metadataContent =
             """
-                union skip = true
+                union ignore = true
             """.trimIndent()
 
         // Parse the XML document
@@ -1889,8 +2173,8 @@ class MetadataProcessorTest {
         // Assert that the 'introspectable' attribute is set to 'false' on the union node
         val unionNode = findNodeByName(document.documentElement, "union", null)
         assertNotNull(unionNode)
-        val introspectable = unionNode.attributes.getNamedItem("introspectable")?.nodeValue?.toBoolean()
-        assertFalse(introspectable != false, "The 'introspectable' attribute should be false for union")
+        val ignore = unionNode.attributes.getNamedItem("gtk-kn-ignore")?.nodeValue?.toBoolean()
+        assertTrue(ignore == true, "The 'gtk-kn-ignore' attribute should be true for union")
     }
 
     @Test
@@ -1908,7 +2192,7 @@ class MetadataProcessorTest {
         // Prepare metadata
         val metadataContent =
             """
-                SomeNode skip = true
+                SomeNode ignore = true
             """.trimIndent()
 
         // Parse the XML document
@@ -1947,9 +2231,9 @@ class MetadataProcessorTest {
         // Prepare metadata for multiple classes
         val metadataContent =
             """
-                FirstClass skip = true
+                FirstClass ignore = true
                 SecondClass introspectable = false
-                ThirdClass skip = true
+                ThirdClass ignore = true
             """.trimIndent()
 
         // Parse the XML document
@@ -1967,18 +2251,18 @@ class MetadataProcessorTest {
         // Assert that the 'introspectable' attribute is set correctly on each class
         val firstClassNode = findNodeByName(document.documentElement, "class", "FirstClass")
         assertNotNull(firstClassNode)
-        val firstIntrospectable = firstClassNode.attributes.getNamedItem("introspectable")?.nodeValue?.toBoolean()
-        assertTrue(firstIntrospectable == false, "FirstClass 'introspectable' should be false")
+        val firstIgnore = firstClassNode.attributes.getNamedItem("gtk-kn-ignore")?.nodeValue?.toBoolean()
+        assertTrue(firstIgnore == true, "FirstClass 'gtk-kn-ignore' should be true")
 
         val secondClassNode = findNodeByName(document.documentElement, "class", "SecondClass")
         assertNotNull(secondClassNode)
-        val secondIntrospectable = secondClassNode.attributes.getNamedItem("introspectable")?.nodeValue?.toBoolean()
-        assertTrue(secondIntrospectable == false, "SecondClass 'introspectable' should be false")
+        val introspectable = secondClassNode.attributes.getNamedItem("introspectable")?.nodeValue?.toBoolean()
+        assertTrue(introspectable == false, "SecondClass 'introspectable' should be false")
 
         val thirdClassNode = findNodeByName(document.documentElement, "class", "ThirdClass")
         assertNotNull(thirdClassNode)
-        val thirdIntrospectable = thirdClassNode.attributes.getNamedItem("introspectable")?.nodeValue?.toBoolean()
-        assertTrue(thirdIntrospectable == false, "ThirdClass 'introspectable' should be false")
+        val secondIntrospectable = thirdClassNode.attributes.getNamedItem("gtk-kn-ignore")?.nodeValue?.toBoolean()
+        assertTrue(secondIntrospectable == true, "ThirdClass 'gtk-kn-ignore' should be true")
     }
 
     @Test
@@ -1998,7 +2282,7 @@ class MetadataProcessorTest {
         // Prepare empty metadata content
         val metadataContent =
             """
-                SomeOtherNode skip = true
+                SomeOtherNode ignore = true
             """.trimIndent()
 
         // Parse the XML document

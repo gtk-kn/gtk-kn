@@ -1,2 +1,9 @@
 // Remove underscore prefix from parameter name
 *.*.*#parameter name="^_(.+)"
+
+// The `toString` method returns `null`, so it cannot override the non-null `toString` method of `Any`.
+Region.to_string#method name="to_string_region"
+
+// gtk_source_view_get_gutter is expecting a UInt instead of a org.gtkkn.native.gtk.GtkTextWindowType
+View.get_gutter name="get_gutter_view"
+        .window_type type_name="guint" type_ctype="guint"

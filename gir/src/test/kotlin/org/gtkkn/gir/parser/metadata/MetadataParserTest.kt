@@ -24,7 +24,7 @@ import kotlin.test.assertNotNull
 class MetadataParserTest {
     @Test
     fun `test skipping a symbol`() {
-        assertArgument("MySymbol", ArgumentType.SKIP, BooleanLiteral(true))
+        assertArgument("MySymbol", ArgumentType.IGNORE, BooleanLiteral(true))
     }
 
     @Test
@@ -219,7 +219,7 @@ class MetadataParserTest {
     fun `test using relative rules relative to absolute rule`() {
         val baseClassMetadata = assertMetadataExists("BaseClass")
         val subClassMetadata = assertChildExists(baseClassMetadata, "SubClass")
-        assertArgument(subClassMetadata, ArgumentType.SKIP, BooleanLiteral(true))
+        assertArgument(subClassMetadata, ArgumentType.IGNORE, BooleanLiteral(true))
 
         val anotherSubClassMetadata = assertChildExists(baseClassMetadata, "AnotherSubClass")
         assertArgument(anotherSubClassMetadata, ArgumentType.UNOWNED, BooleanLiteral(true))
@@ -228,7 +228,7 @@ class MetadataParserTest {
     @Test
     fun `test using complex patterns`() {
         val functionMetadata = assertMetadataExists("*#function")
-        assertArgument(functionMetadata, ArgumentType.SKIP, BooleanLiteral(true))
+        assertArgument(functionMetadata, ArgumentType.IGNORE, BooleanLiteral(true))
     }
 
     @Test
@@ -261,7 +261,7 @@ class MetadataParserTest {
         val selectorTestMetadata = assertMetadataExists("SelectorTest")
 
         val constructorMetadata = assertChildExists(selectorTestMetadata, "method", "constructor")
-        assertArgument(constructorMetadata, ArgumentType.SKIP, BooleanLiteral(true))
+        assertArgument(constructorMetadata, ArgumentType.IGNORE, BooleanLiteral(true))
 
         val propertyMetadata = assertChildExists(selectorTestMetadata, "property", "property")
         assertArgument(propertyMetadata, ArgumentType.NULLABLE, BooleanLiteral(false))

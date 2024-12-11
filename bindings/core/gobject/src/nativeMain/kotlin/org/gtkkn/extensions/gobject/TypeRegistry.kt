@@ -82,13 +82,12 @@ internal object TypeRegistry {
         parentInstanceSize: Long,
         objectCompanion: ObjectType<T>,
     ): GType = memScoped {
-
         val customTypeInfo = CustomTypeInfo<T>(typeName, parentClassSize, parentInstanceSize, objectCompanion)
 
         val totalClassSize = parentClassSize + sizeOf<gtkknClassStruct>()
         val totalInstanceSize = parentInstanceSize + sizeOf<gtkknInstanceStruct>()
 
-        val typeInfoStruct = alloc<GTypeInfo>() {
+        val typeInfoStruct = alloc<GTypeInfo> {
             class_size = totalClassSize.toUShort()
             instance_size = totalInstanceSize.toUShort()
             class_init = staticObjectClassInit
@@ -177,7 +176,8 @@ private fun COpaquePointer.getCustomClassStructPointer(
  */
 private val staticObjectClassInit: GClassInitFunc =
     staticCFunction { gClass: CPointer<GObjectClass>,
-        data: COpaquePointer /* stableRef of CustomTypeInfo */ ->
+        // stableRef of CustomTypeInfo
+        data: COpaquePointer ->
 
         val typeInfo = data.asStableRef<CustomTypeInfo<out Object>>().get()
 
@@ -198,7 +198,6 @@ private val staticObjectClassInit: GClassInitFunc =
 
         customClassStruct.pointed.class_property_store =
             StableRef.create(classProperties).asCPointer()
-
     }.reinterpret()
 
 private val staticObjectClassSetProperty =
@@ -231,7 +230,6 @@ private val staticObjectInstanceInit: GInstanceInitFunc =
         val instanceStruct = instance.getCustomInstanceStructPointer(typeInfo)
         instanceStruct.pointed.instance_properties =
             StableRef.create(instanceProperties).asCPointer()
-
     }.reinterpret()
 
 /**
@@ -259,7 +257,7 @@ private val staticObjectDispose = staticCFunction { instance: CPointer<GObject> 
     // chain up to parent class dispose
     @Suppress("UNCHECKED_CAST")
     val parentClassPointer =
-        g_type_class_peek_parent(instance.pointed.g_type_instance.g_class) as CPointer<GObjectClass>?
+        g_type_class_peek_parent(instance.pointed.g_type_instance.g_class) as? CPointer<GObjectClass>
     parentClassPointer?.pointed?.dispose?.invoke(instance)
 
     @Suppress("USELESS_CAST")

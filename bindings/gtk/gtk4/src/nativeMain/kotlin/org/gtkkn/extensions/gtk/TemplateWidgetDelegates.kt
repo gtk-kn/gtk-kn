@@ -35,7 +35,6 @@ public class TemplateChildDelegateProvider<OBJECT_TYPE : Widget, CHILD_TYPE : Ob
     private val name: String? = null,
     private val childClass: KClass<CHILD_TYPE>,
 ) : PropertyDelegateProvider<TemplateWidgetType<OBJECT_TYPE>, BoundTemplateChildDelegate<OBJECT_TYPE, CHILD_TYPE>> {
-
     override fun provideDelegate(
         thisRef: TemplateWidgetType<OBJECT_TYPE>,
         property: KProperty<*>
@@ -50,7 +49,6 @@ public class BoundTemplateChildDelegate<OBJECT_TYPE : Widget, CHILD_TYPE : Objec
     private val name: String,
     private val childClass: KClass<CHILD_TYPE>
 ) : ReadOnlyProperty<TemplateWidgetType<OBJECT_TYPE>, ReadOnlyProperty<OBJECT_TYPE, CHILD_TYPE>> {
-
     override fun getValue(
         thisRef: TemplateWidgetType<OBJECT_TYPE>,
         property: KProperty<*>
@@ -63,7 +61,6 @@ public class TemplateChildDelegate<OBJECT_TYPE : Widget, CHILD_TYPE : Object>(
     private val templateWidgetGType: GType,
     private val childClass: KClass<CHILD_TYPE>
 ) : ReadOnlyProperty<OBJECT_TYPE, CHILD_TYPE> {
-
     private var value: CHILD_TYPE? = null
 
     override fun getValue(thisRef: OBJECT_TYPE, property: KProperty<*>): CHILD_TYPE =

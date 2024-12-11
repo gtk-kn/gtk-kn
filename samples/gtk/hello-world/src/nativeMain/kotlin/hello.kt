@@ -49,8 +49,8 @@ fun main() {
 
         // Create a window and set the title
         val window = ApplicationWindow(app)
-        window.setTitle("My GTK App")
-        window.setChild(button)
+        window.title = "My GTK App"
+        window.child = button
 
         // Present window
         window.present()

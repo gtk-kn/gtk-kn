@@ -49,9 +49,8 @@ class PropertyBlueprintBuilder(
 
         // check for overrides
         val superProperties = superClasses.flatMap { it.properties } + superInterfaces.flatMap { it.properties }
-        val nameMatchingSuperProperties = superProperties
-            .filterNot { it.info.introspectable == false }
-            .filter { it.name == girProperty.name }
+        val nameMatchingSuperProperties =
+            superProperties.filter { it.info.shouldBeGenerated() && it.name == girProperty.name }
 
         val isOverride = nameMatchingSuperProperties.isNotEmpty()
         if (isOverride) {
@@ -73,7 +72,8 @@ class PropertyBlueprintBuilder(
     }
 
     private fun checkSkippedProperty(getter: MethodBlueprint?, setter: MethodBlueprint?) {
-        if (girProperty.info.introspectable == false) {
+        // Properties that fail validation will still be generated as regular methods instead of properties.
+        if (!girProperty.info.shouldBeGenerated()) {
             throw NotIntrospectableException(girProperty.name)
         }
 
@@ -85,7 +85,7 @@ class PropertyBlueprintBuilder(
             throw UnresolvableTypeException("Property has no getter")
         }
 
-        if (setter != null && setter.parameters.first().typeInfo != getter.returnTypeInfo) {
+        if (setter != null && !setter.parameters.first().typeInfo.sameType(getter.returnTypeInfo)) {
             throw UnresolvableTypeException("Property TypeInfo of getter and setter do not match")
         }
 

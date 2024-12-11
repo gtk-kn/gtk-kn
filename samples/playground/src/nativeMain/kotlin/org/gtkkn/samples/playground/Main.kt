@@ -25,17 +25,19 @@
 package org.gtkkn.samples.playground
 
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.memScoped
 import org.gtkkn.bindings.adw.HeaderBar
-import org.gtkkn.bindings.gdk.Display
-import org.gtkkn.bindings.gio.File
+import org.gtkkn.bindings.gdk.Rectangle
+import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.bindings.gtk.Align
 import org.gtkkn.bindings.gtk.Box
-import org.gtkkn.bindings.gtk.CssProvider
 import org.gtkkn.bindings.gtk.Label
 import org.gtkkn.bindings.gtk.Orientation
-import org.gtkkn.bindings.gtk.StyleContext
-import org.gtkkn.native.gtk.GTK_STYLE_PROVIDER_PRIORITY_APPLICATION
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.util.Log
+import org.gtkkn.native.gobject.G_TYPE_STRING
 
+@OptIn(UnsafeFieldSetter::class)
 fun main() = Application {
     // setup a HeaderBar since adw windows don't have any by default
     val headerBar = HeaderBar().apply {
@@ -46,7 +48,7 @@ fun main() = Application {
     val layout = Box(Orientation.VERTICAL, 0).apply {
         append(headerBar)
     }
-    setContent(layout)
+    content = layout
 
     // this is where any playground code can run to set up widgets
     val label = Label().apply {
@@ -57,12 +59,64 @@ fun main() = Application {
         vexpand = true
     }
 
-    val provider = CssProvider()
-    provider.loadFromFile(File.newForPath("/tmp/styles.css"))
+    Log.m("playground", "#### Record test")
 
-    val display = Display.getDefault() ?: error("No display")
-    StyleContext.addProviderForDisplay(display, provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION.toUInt())
+    memScoped {
+        val r = Rectangle(
+            x = 1,
+            y = 2,
+            height = 3,
+            width = 4,
+            scope = this,
+        )
+
+        val x = r.x
+        r.x = 2
+        val result = r.containsPoint(2, 3)
+        Log.m("playground", "rectangle: $r")
+        Log.m("playground", "2,3 is contained: $result")
+    }
+
+    /*
+     * Heap allocation with use
+     */
+    val value1 = Value()
+    value1.init(G_TYPE_STRING)
+    value1.setString("Hello Value")
+    val result = value1.getString()
+    Log.m("playground", "Result is: $result")
+    // value1Ref is automatically freed after use()
+//
+//    /*
+//     * Heap allocation with manual free
+//     */
+//    val value2Ref = Value.allocate()
+//    val value2 = value2Ref.get()
+//    value2.init(G_TYPE_STRING)
+//    value2.setString("Hello Value2")
+//    val result2 = value2.getString()
+//    Log.m("playground", "Result2 is $result2")
+//    // have to free manually
+//    value2Ref.free()
+//
+    /*
+     * Allocation within MemScope
+     */
+    memScoped {
+        val value3 = Value(this)
+        value3.init(G_TYPE_STRING)
+        value3.setString("Hello Value3")
+        val result3 = value3.getString()
+        Log.m("playground", "Result3 is $result3")
+        Log.m("playground", "value3 is $value3")
+    }
+//    // value3 is automatically freed after memScoped block
 
     // and add your widget to the layout to display it
+//    val button = Button()
+//    button.name = "ciao"
+//    button.connectClicked {
+//        Log.m("playground", "rectangle2: x=${r.x} y=${r.y} h=${r.height} w=${r.width}")
+//    }
     layout.append(label)
 }

@@ -19,6 +19,3 @@ plugins {
 }
 
 version = config.versions.common.get()
-
-kotlin {
-}

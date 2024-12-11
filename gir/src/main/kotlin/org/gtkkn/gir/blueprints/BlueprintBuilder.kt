@@ -16,12 +16,15 @@
 
 package org.gtkkn.gir.blueprints
 
+import com.squareup.kotlinpoet.MemberName
 import org.gtkkn.gir.log.logger
+import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.processor.BlueprintException
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.SkippedObjectException
 import org.gtkkn.gir.processor.UnresolvableTypeException
+import org.jetbrains.kotlin.util.capitalizeDecapitalize.capitalizeAsciiOnly
 
 /**
  * Abstract class for Blueprint builders that provides helper methods
@@ -60,6 +63,12 @@ abstract class BlueprintBuilder<T : Any>(val context: ProcessorContext) {
      */
     @Throws(UnresolvableTypeException::class)
     protected abstract fun buildInternal(): T
+
+    protected fun GirNamespace.exceptionResolvingFunction() =
+        MemberName(
+            packageName = context.namespaceBindingsPackageName(this) + "." + checkNotNull(name).capitalizeAsciiOnly(),
+            simpleName = "resolveException",
+        )
 
     /**
      * Utility method for returning a SkippedObject.

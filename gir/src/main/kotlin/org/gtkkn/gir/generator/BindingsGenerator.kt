@@ -20,21 +20,26 @@ import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.MemberName
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeAliasSpec
+import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.WildcardTypeName
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import me.tatarka.inject.annotations.Inject
 import org.gtkkn.gir.blueprints.OptInVersionBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
 import org.gtkkn.gir.config.Config
 import org.gtkkn.gir.log.logger
 import java.io.File
 
+@Inject
 class BindingsGenerator(
     private val config: Config,
 ) : ClassGenerator,
@@ -167,7 +172,6 @@ class BindingsGenerator(
                             record.kotlinTypeName,
                             buildRecord(record),
                             repositorySrcDir(moduleOutputDir),
-                            isRecord = true,
                             ktLintFormatter = ktLintFormatter,
                         )
                     }
@@ -223,7 +227,6 @@ class BindingsGenerator(
         outputDirectory: File,
         additionalProperties: List<PropertySpec> = emptyList(),
         additionalTypeAliases: List<TypeAliasSpec> = emptyList(),
-        isRecord: Boolean = false,
         ktLintFormatter: KtLintFormatter
     ) {
         logger.debug { "Writing ${className.canonicalName}" }
@@ -234,11 +237,6 @@ class BindingsGenerator(
             .addType(typeSpec)
             .apply { additionalProperties.forEach { addProperty(it) } }
             .apply { additionalTypeAliases.forEach { addTypeAlias(it) } }
-            .apply {
-                if (isRecord) {
-                    addAliasedImport(NATIVE_PLACEMENT_ALLOC, "nativePlacementAlloc")
-                }
-            }
             .build()
             .apply {
                 if (config.skipFormat) {
@@ -325,7 +323,7 @@ class BindingsGenerator(
         internal val AS_BOOLEAN_FUNC = MemberName("org.gtkkn.extensions.common", "asBoolean")
         internal val AS_GBOOLEAN_FUNC = MemberName("org.gtkkn.extensions.common", "asGBoolean")
         internal val GLIB_ERROR_TYPE = ClassName("org.gtkkn.bindings.glib", "Error")
-        internal val GLIB_EXCEPTION_TYPE = ClassName("org.gtkkn.extensions.glib", "GlibException")
+        internal val GLIB_EXCEPTION_TYPE = ClassName("org.gtkkn.extensions.glib", "GLibException")
         internal val GLIB_RECORD_COMPANION_TYPE = ClassName("org.gtkkn.extensions.glib", "RecordCompanion")
         internal val GOBJECT_ASSOCIATE_CUSTOM_OBJECT =
             MemberName("org.gtkkn.extensions.gobject", "associateCustomObject")
@@ -334,19 +332,31 @@ class BindingsGenerator(
         internal val GOBJECT_KG_TYPE = ClassName("org.gtkkn.extensions.gobject", "KGType")
         internal val GOBJECT_TYPE_COMPANION = ClassName("org.gtkkn.extensions.gobject", "TypeCompanion")
         internal val KG_TYPED_INTERFACE_TYPE = ClassName("org.gtkkn.extensions.gobject", "KGTyped")
+        internal val PROXY_INSTANCE_TYPE = ClassName("org.gtkkn.extensions.glib.cinterop", "ProxyInstance")
         internal val STATIC_STABLEREF_DESTROY = MemberName("org.gtkkn.extensions.glib", "staticStableRefDestroy")
         internal val TO_C_STRING_LIST = MemberName("org.gtkkn.extensions.common", "toCStringList")
         internal val TO_K_STRING_LIST = MemberName("org.gtkkn.extensions.common", "toKStringList")
         internal val TYPE_PROVIDER_INTERFACE_TYPE = ClassName("org.gtkkn.extensions.gobject", "TypeProvider")
+        internal val UNSAFE_FIELD_SETTER_TYPE = ClassName("org.gtkkn.extensions.glib.annotations", "UnsafeFieldSetter")
 
         // gtk-kn marker interfaces
         internal val GLIB_BITFIELD_MARKER_TYPE = ClassName("org.gtkkn.extensions.glib", "Bitfield")
         internal val GLIB_INTERFACE_MARKER_TYPE = ClassName("org.gtkkn.extensions.glib", "Interface")
-        internal val GLIB_RECORD_MARKER_TYPE = ClassName("org.gtkkn.extensions.glib", "Record")
 
         // cinterop helper function members
         internal val ALLOC_POINTER_TO = MemberName("kotlinx.cinterop", "allocPointerTo")
         internal val AS_STABLE_REF_FUNC = MemberName("kotlinx.cinterop", "asStableRef")
+        internal val AUTOFREE_SCOPE = ClassName("kotlinx.cinterop", "AutofreeScope")
+        internal val CSTR_FUNC = MemberName("kotlinx.cinterop", "cstr")
+        internal val KP_BYTEVAR = ClassName("kotlinx.cinterop", "ByteVar")
+        internal val KP_CFUNCTION = ClassName("kotlinx.cinterop", "CFunction")
+        internal val KP_CPOINTED = ClassName("kotlinx.cinterop", "CPointed")
+        internal val KP_CPOINTER = ClassName("kotlinx.cinterop", "CPointer")
+        internal val KP_OPAQUE_POINTER = ClassName("kotlinx.cinterop", "COpaquePointer")
+        internal val KP_STRING_ARRAY = ClassName("kotlinx.cinterop", "CArrayPointer").parameterizedBy(
+            ClassName("kotlinx.cinterop", "CPointerVarOf").parameterizedBy(cpointerOf(KP_BYTEVAR)),
+        )
+        internal val KP_WILDCARD_CPOINTER = cpointerOf(WildcardTypeName.producerOf(KP_CPOINTED))
         internal val MEMSCOPED = MemberName("kotlinx.cinterop", "memScoped")
         internal val NATIVE_HEAP_OBJECT = ClassName("kotlinx.cinterop", "nativeHeap")
         internal val NATIVE_PLACEMENT_ALLOC = ClassName("kotlinx.cinterop", "alloc")
@@ -359,6 +369,10 @@ class BindingsGenerator(
         internal val TO_KSTRING_FUNC = MemberName("kotlinx.cinterop", "toKString")
         internal val VALUE_PROPERTY = MemberName("kotlinx.cinterop", "value")
 
+        // kotlin native helper function members
+        internal val CLEANER = ClassName("kotlin.native.ref", "Cleaner")
+        internal val CREATE_CLEANER = MemberName("kotlin.native.ref", "createCleaner")
+
         // kotlin helpers
         internal val ANNOTATION_RETENTION_TYPE = ClassName("kotlin.annotation", "AnnotationRetention")
         internal val KCLASS_TYPE = ClassName("kotlin.reflect", "KClass")
@@ -369,11 +383,38 @@ class BindingsGenerator(
         internal val RETENTION_TYPE = ClassName("kotlin.annotation", "Retention")
         internal val THROWS_TYPE = ClassName("kotlin", "Throws")
 
-        // gobject members
+        // gobject
+        internal val G_OBJECT = ClassName("org.gtkkn.bindings.gobject", "GObject")
         internal val G_SIGNAL_CONNECT_DATA = MemberName("org.gtkkn.native.gobject", "g_signal_connect_data")
 
         // glib members
         internal val G_ERROR_MEMBER = MemberName("org.gtkkn.native.glib", "GError")
+        internal val G_FREE_FUNC = MemberName("org.gtkkn.native.glib", "g_free")
         internal val G_QUARK_FROM_STRING_FUNC = MemberName("org.gtkkn.native.glib", "g_quark_from_string")
+        internal val G_STRDUP_FUNC = MemberName("org.gtkkn.native.glib", "g_strdup")
+
+        /**
+         * A [TypeName] for kotlinx.cinterop.CPointer pointing to [typeName]
+         */
+        internal fun cpointerOf(typeName: TypeName): TypeName = KP_CPOINTER.parameterizedBy(typeName)
     }
 }
+
+// gobject types
+internal val G_BOOLEAN = ClassName("org.gtkkn.native.gobject", "gboolean")
+internal val G_CHAR = ClassName("org.gtkkn.native.gobject", "gchar")
+internal val G_DOUBLE = ClassName("org.gtkkn.native.gobject", "gdouble")
+internal val G_FLOAT = ClassName("org.gtkkn.native.gobject", "gfloat")
+internal val G_INT = ClassName("org.gtkkn.native.gobject", "gint")
+internal val G_INT64 = ClassName("org.gtkkn.native.gobject", "gint64")
+internal val G_INT8 = ClassName("org.gtkkn.native.gobject", "gint8")
+internal val G_LONG = ClassName("org.gtkkn.native.gobject", "glong")
+internal val G_SIZE = ClassName("org.gtkkn.native.gobject", "gsize")
+internal val G_TYPE = ClassName("org.gtkkn.native.gobject", "GType")
+internal val G_UINT = ClassName("org.gtkkn.native.gobject", "guint")
+internal val G_UINT16 = ClassName("org.gtkkn.native.gobject", "guint16")
+internal val G_UINT32 = ClassName("org.gtkkn.native.gobject", "guint32")
+internal val G_UINT64 = ClassName("org.gtkkn.native.gobject", "guint64")
+internal val G_UINT8 = ClassName("org.gtkkn.native.gobject", "guint8")
+internal val G_ULONG = ClassName("org.gtkkn.native.gobject", "gulong")
+internal val G_UNICHAR = ClassName("org.gtkkn.native.gobject", "gunichar")

@@ -62,10 +62,10 @@ class InterfaceBlueprintBuilder(
         when (val result = MethodBlueprintBuilder(context, girNamespace, method).build()) {
             is BlueprintResult.Ok -> {
                 methodBluePrints.add(result.blueprint)
-                if (method.callable.name.startsWith("get") && result.blueprint.parameters.isEmpty() ||
-                    method.callable.name.startsWith("set") && result.blueprint.parameters.size == 1
+                if (method.callable.getName().startsWith("get") && result.blueprint.parameters.isEmpty() ||
+                    method.callable.getName().startsWith("set") && result.blueprint.parameters.size == 1
                 ) {
-                    propertyMethodBluePrintMap[method.callable.name] = result.blueprint
+                    propertyMethodBluePrintMap[method.callable.getName()] = result.blueprint
                 }
             }
 
@@ -90,7 +90,7 @@ class InterfaceBlueprintBuilder(
     override fun buildInternal(): InterfaceBlueprint {
         checkNotNull(girInterface.name)
         checkNotNull(girNamespace.name)
-        if (girInterface.info.introspectable == false) {
+        if (!girInterface.info.shouldBeGenerated()) {
             throw NotIntrospectableException(girInterface.cType ?: girInterface.name)
         }
 

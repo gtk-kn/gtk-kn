@@ -78,6 +78,7 @@ org.gtkkn.bindings.glib.annotations.GLibVersion2_4
 org.gtkkn.bindings.glib.annotations.GLibVersion2_40
 org.gtkkn.bindings.glib.annotations.GLibVersion2_44
 org.gtkkn.bindings.glib.annotations.GLibVersion2_46
+org.gtkkn.bindings.glib.annotations.GLibVersion2_48
 org.gtkkn.bindings.glib.annotations.GLibVersion2_50
 org.gtkkn.bindings.glib.annotations.GLibVersion2_52
 org.gtkkn.bindings.glib.annotations.GLibVersion2_54
@@ -101,6 +102,7 @@ org.gtkkn.bindings.gobject.annotations.GObjectVersion2_10
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_12
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_24
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_26
+org.gtkkn.bindings.gobject.annotations.GObjectVersion2_28
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_32
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_34
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_36
@@ -109,11 +111,14 @@ org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_42
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_44
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_46
+org.gtkkn.bindings.gobject.annotations.GObjectVersion2_54
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_6
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_66
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_68
+org.gtkkn.bindings.gobject.annotations.GObjectVersion2_70
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_72
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_74
+org.gtkkn.bindings.gobject.annotations.GObjectVersion2_8
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_80
 org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10

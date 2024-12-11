@@ -1,3 +1,57 @@
 // Remove underscore suffix from parameter name
 *.*.*#parameter name="(.+)_$"
 *.*#method name="-/_"
+
+// Certain methods in the inheritance hierarchy share the same name and signature
+// but originate from different sources, causing conflicts in Kotlin.
+// These conflicts arise when a class inherits from multiple types (e.g., a class extending
+// another and implementing an interface) that define methods with the same name.
+//
+// To resolve these conflicts, the affected methods are renamed according to the rules below.
+//
+// These renames ensure that the Kotlin bindings are unambiguous and maintain compatibility
+// with the underlying library while preserving the ability to explicitly call the desired method.
+Root.get_display name="get_root_display"
+Native
+    .realize name="native_realize"
+    .unrealize name="native_unrealize"
+FontChooser
+    .get_font_map name="get_font_chooser_font_map"
+    .set_font_map name="set_font_chooser_font_map"
+
+// Gtk.CustomLayout is a convenience class for C code to avoid subclassing Gtk.LayoutManager.
+// It is not meant for language bindings and will not work correctly.
+// Missing parameters and annotations prevent proper management of callback lifetimes.
+// See https://github.com/gtk-rs/gtk4-rs/issues/23, especially the first comment.
+CustomRequestModeFunc#callback ignore
+CustomMeasureFunc#callback ignore
+CustomAllocateFunc#callback ignore
+CustomLayoutClass#record ignore
+CustomLayout#class ignore
+
+// Widget.activateAction() returns boolean.
+// ActionGroup.activateAction() returns void.
+// ApplicationWindow extends Widget and implements ActionGroup.
+// This causes a conflict in Kotlin, so Widget.activateAction() is renamed to activateActionIfExists().
+// Widget.activateAction() is also shadowed by Widget.activateActionVariant(), requiring a rename of the "shadows" attribute.
+Widget
+    .activate_action name="activate_action_if_exists"
+    .activate_action_variant shadows="activate_action_if_exists"
+
+// Widget.activate() is problematic for several subclasses that define their own
+// "activate" method with a different return type. In Kotlin, a child class cannot
+// override a method if the return type differs from that of the parent class.
+// To resolve this issue, Widget.activate() is renamed to activateWidget().
+Widget.activate name="activate_widget"
+
+// PrintUnixDialog.getSettings() overrides Widget.getSettings() with a
+// different return type, which is not allowed. To resolve this, it is renamed to getPrintSettings().
+PrintUnixDialog.get_settings#method name="get_print_settings"
+
+// The `toString` method returns `null`, so it cannot override the non-null `toString` method of `Any`.
+TreePath.to_string#method name="to_string_tree_path"
+
+// The corresponding parameter in the supertype 'CellLayout' is named 'cell'. This may cause problems when
+// calling this function with named arguments.
+TreeViewColumn.add_attribute.cell_renderer#parameter name="cell"
+TreeViewColumn.clear_attributes.cell_renderer#parameter name="cell"

@@ -18,21 +18,16 @@ package org.gtkkn.gir
 
 import kotlinx.coroutines.runBlocking
 import org.gtkkn.gir.cli.parseConfig
-import org.gtkkn.gir.di.appModule
+import org.gtkkn.gir.di.AppComponent
+import org.gtkkn.gir.di.create
 import org.gtkkn.gir.log.configureLog4j
-import org.kodein.di.DI
-import org.kodein.di.instance
-import org.kodein.di.with
 
 fun main(args: Array<String>): Unit = runBlocking {
     val config = parseConfig(args)
     configureLog4j(config.logLevel)
 
-    val di = DI {
-        constant(tag = "config") with config
-        import(appModule)
-    }
+    val appComponent = AppComponent::class.create(config)
 
-    val application: Application by di.instance()
+    val application: Application = appComponent.application
     application.run()
 }

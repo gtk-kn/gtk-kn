@@ -98,7 +98,7 @@ class GirParserTests {
         assertEquals(1, clazz.constructors.count())
         val constructor = clazz.constructors.first()
 
-        assertEquals("create", constructor.callable.name)
+        assertEquals("create", constructor.callable.getName())
         assertEquals("gtk_at_context_create", constructor.callable.cIdentifier)
         assertNotNull(constructor.returnValue)
         assertNotNull(constructor.parameters)
@@ -117,7 +117,7 @@ class GirParserTests {
     @Test
     fun parseMethod() {
         val clazz = gtkRepository.namespaces.first().classes.first { it.name == "ATContext" }
-        val method = clazz.methods.first { it.callable.name == "get_accessible" }
+        val method = clazz.methods.first { it.callable.getName() == "get_accessible" }
 
         assertEquals("gtk_at_context_get_accessible", method.callable.cIdentifier)
         assertEquals("accessible", method.glibGetProperty)
@@ -128,7 +128,7 @@ class GirParserTests {
     @Test
     fun parseInstanceParameter() {
         val clazz = gtkRepository.namespaces.first().classes.first { it.name == "ATContext" }
-        val method = clazz.methods.first { it.callable.name == "get_accessible" }
+        val method = clazz.methods.first { it.callable.getName() == "get_accessible" }
         val instanceParameter = method.parameters?.instanceParameter
         assertNotNull(instanceParameter)
         assertEquals("a `GtkATContext`", instanceParameter.doc?.doc?.text)

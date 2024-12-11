@@ -25,7 +25,6 @@ package org.gtkkn.extensions.gobject
 import kotlinx.cinterop.memScoped
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
-import org.gtkkn.extensions.glib.allocate
 import org.gtkkn.native.gobject.G_TYPE_BOOLEAN
 import org.gtkkn.native.gobject.G_TYPE_INT
 import org.gtkkn.native.gobject.G_TYPE_STRING
@@ -52,41 +51,40 @@ public inline fun <reified T : KGTyped> Object.asType(): T = asType(this, T::cla
 public fun <T : KGTyped> asType(obj: Object, targetClass: KClass<T>): T = TypeCasting.castObject(obj, targetClass)
 
 public fun Object.setProperty(propertyName: String, value: Int): Unit = memScoped {
-    val gValue = Value.allocate(this).init(G_TYPE_INT)
+    val gValue = Value(this).init(G_TYPE_INT)
     gValue.setInt(value)
     setProperty(propertyName, gValue)
     gValue.unset()
 }
 
 public fun Object.setProperty(propertyName: String, value: String?): Unit = memScoped {
-    val gValue = Value.allocate(this).init(G_TYPE_STRING)
+    val gValue = Value(this).init(G_TYPE_STRING)
     gValue.setString(value)
     setProperty(propertyName, gValue)
     gValue.unset()
 }
 
 public fun Object.setProperty(propertyName: String, value: Boolean): Unit = memScoped {
-    val gValue = Value.allocate(this).init(G_TYPE_BOOLEAN)
+    val gValue = Value(this).init(G_TYPE_BOOLEAN)
     gValue.setBoolean(value)
     setProperty(propertyName, gValue)
     gValue.unset()
 }
 
 public fun Object.getStringProperty(propertyName: String): String? = memScoped {
-    val gValue = Value.allocate(this)
+    val gValue = Value(this)
     getProperty(propertyName, gValue)
     return gValue.getString().also { gValue.unset() }
 }
 
-
 public fun Object.getIntProperty(propertyName: String): Int = memScoped {
-    val gValue = Value.allocate(this)
+    val gValue = Value(this)
     getProperty(propertyName, gValue)
     return gValue.getInt().also { gValue.unset() }
 }
 
 public fun Object.getBooleanProperty(propertyName: String): Boolean = memScoped {
-    val gValue = Value.allocate(this)
+    val gValue = Value(this)
     getProperty(propertyName, gValue)
     return gValue.getBoolean().also { gValue.unset() }
 }

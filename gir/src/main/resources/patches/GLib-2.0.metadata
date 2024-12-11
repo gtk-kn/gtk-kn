@@ -2,3 +2,27 @@
 *#function name="(.+)_$"
 *.*#parameter name="(.+)_$"
 *.*#function name="(.+)_$"
+*.*.*#parameter name="(.+)_$"
+
+// Functions that are broken and useless in Kotlin
+ascii_dtostr ignore
+ascii_formatd ignore
+date_strftime ignore
+stpcpy ignore
+Date.strftime ignore
+
+// C macros are not supported by K/N cinterop
+chmod ignore
+creat ignore
+fsync ignore
+mkdir ignore
+open ignore
+remove ignore
+rename ignore
+
+// Missing nullable annotation https://gitlab.gnome.org/GNOME/glib/-/issues/3552
+LogFunc.log_domain nullable
+
+// K/N cinterop can't find it, maybe something is missing in the glib.def file?
+TestCase ignore
+TestSuite ignore

@@ -22,20 +22,29 @@
 
 package org.gtkkn.samples.playground
 
-import io.github.oshai.kotlinlogging.KotlinLogging
 import io.github.oshai.kotlinlogging.KotlinLoggingConfiguration
 import io.github.oshai.kotlinlogging.Level
 import org.gtkkn.bindings.adw.Application
 import org.gtkkn.bindings.adw.ApplicationWindow
+import org.gtkkn.bindings.gdk.Rectangle
 import org.gtkkn.bindings.gio.ApplicationFlags
 import org.gtkkn.extensions.gio.runApplication
-
-val logger = KotlinLogging.logger("main")
+import org.gtkkn.extensions.glib.util.Log
 
 @Suppress("FunctionName")
 fun Application(builder: ApplicationWindow.() -> Unit) {
+    {
+        val r = Rectangle(
+            x = 10,
+            y = 20,
+            height = 30,
+            width = 40,
+        )
+        Log.m("playground", "rectangle2: $r")
+    }()
+
     KotlinLoggingConfiguration.logLevel = Level.TRACE
-    logger.debug { "Playground" }
+    Log.m("playground", "Playground")
     val app = Application("org.gtkkn.samples.playground", ApplicationFlags.FLAGS_NONE)
     app.connectActivate {
         val window = ApplicationWindow(app)
