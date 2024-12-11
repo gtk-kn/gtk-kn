@@ -14,7 +14,11 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkPaintable
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint64
 import org.gtkkn.native.gtk.GtkMediaStream
+import org.gtkkn.native.gtk.gtk_media_stream_ended
 import org.gtkkn.native.gtk.gtk_media_stream_gerror
 import org.gtkkn.native.gtk.gtk_media_stream_get_duration
 import org.gtkkn.native.gtk.gtk_media_stream_get_ended
@@ -32,6 +36,7 @@ import org.gtkkn.native.gtk.gtk_media_stream_is_seekable
 import org.gtkkn.native.gtk.gtk_media_stream_is_seeking
 import org.gtkkn.native.gtk.gtk_media_stream_pause
 import org.gtkkn.native.gtk.gtk_media_stream_play
+import org.gtkkn.native.gtk.gtk_media_stream_prepared
 import org.gtkkn.native.gtk.gtk_media_stream_realize
 import org.gtkkn.native.gtk.gtk_media_stream_seek
 import org.gtkkn.native.gtk.gtk_media_stream_seek_failed
@@ -43,11 +48,10 @@ import org.gtkkn.native.gtk.gtk_media_stream_set_volume
 import org.gtkkn.native.gtk.gtk_media_stream_stream_ended
 import org.gtkkn.native.gtk.gtk_media_stream_stream_prepared
 import org.gtkkn.native.gtk.gtk_media_stream_stream_unprepared
+import org.gtkkn.native.gtk.gtk_media_stream_unprepared
 import org.gtkkn.native.gtk.gtk_media_stream_unrealize
 import org.gtkkn.native.gtk.gtk_media_stream_update
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Long
 import kotlin.Unit
 
 /**
@@ -71,6 +75,8 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
+ * - method `error`: Varargs parameter is not supported
+ * - parameter `args`: va_list
  * - method `ended`: Property has no getter nor setter
  * - method `has-audio`: Property has no getter nor setter
  * - method `has-video`: Property has no getter nor setter
@@ -78,9 +84,8 @@ import kotlin.Unit
  * - method `seekable`: Property has no getter nor setter
  * - method `seeking`: Property has no getter nor setter
  */
-public open class MediaStream(
-    pointer: CPointer<GtkMediaStream>,
-) : Object(pointer.reinterpret()),
+public open class MediaStream(pointer: CPointer<GtkMediaStream>) :
+    Object(pointer.reinterpret()),
     Paintable,
     KGTyped {
     public val gtkMediaStreamPointer: CPointer<GtkMediaStream>
@@ -92,7 +97,7 @@ public open class MediaStream(
     /**
      * The stream's duration in microseconds or 0 if unknown.
      */
-    public open val duration: Long
+    public open val duration: gint64
         /**
          * Gets the duration of the stream.
          *
@@ -126,10 +131,9 @@ public open class MediaStream(
          * @return null if not in an
          *   error state or the `GError` of the stream
          */
-        get() =
-            gtk_media_stream_get_error(gtkMediaStreamPointer.reinterpret())?.run {
-                Error(reinterpret())
-            }
+        get() = gtk_media_stream_get_error(gtkMediaStreamPointer.reinterpret())?.run {
+            Error(reinterpret())
+        }
 
     /**
      * Try to restart the media from the beginning once it ended.
@@ -206,7 +210,7 @@ public open class MediaStream(
     /**
      * The current presentation timestamp in microseconds.
      */
-    public open val timestamp: Long
+    public open val timestamp: gint64
         /**
          * Returns the current presentation timestamp in microseconds.
          *
@@ -217,7 +221,7 @@ public open class MediaStream(
     /**
      * Volume of the audio stream.
      */
-    public open var volume: Double
+    public open var volume: gdouble
         /**
          * Returns the volume of the audio for the stream.
          *
@@ -245,6 +249,16 @@ public open class MediaStream(
         set(volume) = gtk_media_stream_set_volume(gtkMediaStreamPointer.reinterpret(), volume)
 
     /**
+     * Pauses the media stream and marks it as ended.
+     *
+     * This is a hint only, calls to [method@Gtk.MediaStream.play]
+     * may still happen.
+     *
+     * The media stream must be prepared when this function is called.
+     */
+    public open fun ended(): Unit = gtk_media_stream_ended(gtkMediaStreamPointer.reinterpret())
+
+    /**
      * Sets @self into an error state.
      *
      * This will pause the stream (you can check for an error
@@ -264,86 +278,11 @@ public open class MediaStream(
         gtk_media_stream_gerror(gtkMediaStreamPointer.reinterpret(), error.glibErrorPointer.reinterpret())
 
     /**
-     * Gets the duration of the stream.
-     *
-     * If the duration is not known, 0 will be returned.
-     *
-     * @return the duration of the stream or 0 if not known.
-     */
-    public open fun getDuration(): Long = gtk_media_stream_get_duration(gtkMediaStreamPointer.reinterpret())
-
-    /**
      * Returns whether the streams playback is finished.
      *
      * @return true if playback is finished
      */
     public open fun getEnded(): Boolean = gtk_media_stream_get_ended(gtkMediaStreamPointer.reinterpret()).asBoolean()
-
-    /**
-     * If the stream is in an error state, returns the `GError`
-     * explaining that state.
-     *
-     * Any type of error can be reported here depending on the
-     * implementation of the media stream.
-     *
-     * A media stream in an error cannot be operated on, calls
-     * like [method@Gtk.MediaStream.play] or
-     * [method@Gtk.MediaStream.seek] will not have any effect.
-     *
-     * `GtkMediaStream` itself does not provide a way to unset
-     * an error, but implementations may provide options. For example,
-     * a [class@Gtk.MediaFile] will unset errors when a new source is
-     * set, e.g. with [method@Gtk.MediaFile.set_file].
-     *
-     * @return null if not in an
-     *   error state or the `GError` of the stream
-     */
-    public open fun getError(): Error? =
-        gtk_media_stream_get_error(gtkMediaStreamPointer.reinterpret())?.run {
-            Error(reinterpret())
-        }
-
-    /**
-     * Returns whether the stream is set to loop.
-     *
-     * See [method@Gtk.MediaStream.set_loop] for details.
-     *
-     * @return true if the stream should loop
-     */
-    public open fun getLoop(): Boolean = gtk_media_stream_get_loop(gtkMediaStreamPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns whether the audio for the stream is muted.
-     *
-     * See [method@Gtk.MediaStream.set_muted] for details.
-     *
-     * @return true if the stream is muted
-     */
-    public open fun getMuted(): Boolean = gtk_media_stream_get_muted(gtkMediaStreamPointer.reinterpret()).asBoolean()
-
-    /**
-     * Return whether the stream is currently playing.
-     *
-     * @return true if the stream is playing
-     */
-    public open fun getPlaying(): Boolean =
-        gtk_media_stream_get_playing(gtkMediaStreamPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns the current presentation timestamp in microseconds.
-     *
-     * @return the timestamp in microseconds
-     */
-    public open fun getTimestamp(): Long = gtk_media_stream_get_timestamp(gtkMediaStreamPointer.reinterpret())
-
-    /**
-     * Returns the volume of the audio for the stream.
-     *
-     * See [method@Gtk.MediaStream.set_volume] for details.
-     *
-     * @return volume of the stream from 0.0 to 1.0
-     */
-    public open fun getVolume(): Double = gtk_media_stream_get_volume(gtkMediaStreamPointer.reinterpret())
 
     /**
      * Returns whether the stream has audio.
@@ -407,6 +346,23 @@ public open class MediaStream(
     public open fun play(): Unit = gtk_media_stream_play(gtkMediaStreamPointer.reinterpret())
 
     /**
+     * Same as gtk_media_stream_stream_prepared().
+     *
+     * @param hasAudio true if the stream should advertise audio support
+     * @param hasVideo true if the stream should advertise video support
+     * @param seekable true if the stream should advertise seekability
+     * @param duration The duration of the stream or 0 if unknown
+     */
+    public open fun prepared(hasAudio: Boolean, hasVideo: Boolean, seekable: Boolean, duration: gint64): Unit =
+        gtk_media_stream_prepared(
+            gtkMediaStreamPointer.reinterpret(),
+            hasAudio.asGBoolean(),
+            hasVideo.asGBoolean(),
+            seekable.asGBoolean(),
+            duration
+        )
+
+    /**
      * Called by users to attach the media stream to a `GdkSurface` they manage.
      *
      * The stream can then access the resources of @surface for its
@@ -444,7 +400,8 @@ public open class MediaStream(
      *
      * @param timestamp timestamp to seek to.
      */
-    public open fun seek(timestamp: Long): Unit = gtk_media_stream_seek(gtkMediaStreamPointer.reinterpret(), timestamp)
+    public open fun seek(timestamp: gint64): Unit =
+        gtk_media_stream_seek(gtkMediaStreamPointer.reinterpret(), timestamp)
 
     /**
      * Ends a seek operation started via GtkMediaStream.seek() as a failure.
@@ -467,62 +424,6 @@ public open class MediaStream(
      * ending a seek.
      */
     public open fun seekSuccess(): Unit = gtk_media_stream_seek_success(gtkMediaStreamPointer.reinterpret())
-
-    /**
-     * Sets whether the stream should loop.
-     *
-     * In this case, it will attempt to restart playback
-     * from the beginning instead of stopping at the end.
-     *
-     * Not all streams may support looping, in particular
-     * non-seekable streams. Those streams will ignore the
-     * loop setting and just end.
-     *
-     * @param loop true if the stream should loop
-     */
-    public open fun setLoop(loop: Boolean): Unit =
-        gtk_media_stream_set_loop(gtkMediaStreamPointer.reinterpret(), loop.asGBoolean())
-
-    /**
-     * Sets whether the audio stream should be muted.
-     *
-     * Muting a stream will cause no audio to be played, but it
-     * does not modify the volume. This means that muting and
-     * then unmuting the stream will restore the volume settings.
-     *
-     * If the stream has no audio, calling this function will
-     * still work but it will not have an audible effect.
-     *
-     * @param muted true if the stream should be muted
-     */
-    public open fun setMuted(muted: Boolean): Unit =
-        gtk_media_stream_set_muted(gtkMediaStreamPointer.reinterpret(), muted.asGBoolean())
-
-    /**
-     * Starts or pauses playback of the stream.
-     *
-     * @param playing whether to start or pause playback
-     */
-    public open fun setPlaying(playing: Boolean): Unit =
-        gtk_media_stream_set_playing(gtkMediaStreamPointer.reinterpret(), playing.asGBoolean())
-
-    /**
-     * Sets the volume of the audio stream.
-     *
-     * This function call will work even if the stream is muted.
-     *
-     * The given @volume should range from 0.0 for silence to 1.0
-     * for as loud as possible. Values outside of this range will
-     * be clamped to the nearest value.
-     *
-     * If the stream has no audio or is muted, calling this function
-     * will still work but it will not have an immediate audible effect.
-     * When the stream is unmuted, the new volume setting will take effect.
-     *
-     * @param volume New volume of the stream from 0.0 to 1.0
-     */
-    public open fun setVolume(volume: Double): Unit =
-        gtk_media_stream_set_volume(gtkMediaStreamPointer.reinterpret(), volume)
 
     /**
      * Pauses the media stream and marks it as ended.
@@ -556,12 +457,7 @@ public open class MediaStream(
      * @since 4.4
      */
     @GtkVersion4_4
-    public open fun streamPrepared(
-        hasAudio: Boolean,
-        hasVideo: Boolean,
-        seekable: Boolean,
-        duration: Long,
-    ): Unit =
+    public open fun streamPrepared(hasAudio: Boolean, hasVideo: Boolean, seekable: Boolean, duration: gint64): Unit =
         gtk_media_stream_stream_prepared(
             gtkMediaStreamPointer.reinterpret(),
             hasAudio.asGBoolean(),
@@ -581,6 +477,11 @@ public open class MediaStream(
      */
     @GtkVersion4_4
     public open fun streamUnprepared(): Unit = gtk_media_stream_stream_unprepared(gtkMediaStreamPointer.reinterpret())
+
+    /**
+     * Same as gtk_media_stream_stream_unprepared().
+     */
+    public open fun unprepared(): Unit = gtk_media_stream_unprepared(gtkMediaStreamPointer.reinterpret())
 
     /**
      * Undoes a previous call to gtk_media_stream_realize().
@@ -604,7 +505,7 @@ public open class MediaStream(
      *
      * @param timestamp the new timestamp
      */
-    public open fun update(timestamp: Long): Unit =
+    public open fun update(timestamp: gint64): Unit =
         gtk_media_stream_update(gtkMediaStreamPointer.reinterpret(), timestamp)
 
     public companion object : TypeCompanion<MediaStream> {
@@ -614,5 +515,12 @@ public open class MediaStream(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of MediaStream
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_media_stream_get_type()
     }
 }

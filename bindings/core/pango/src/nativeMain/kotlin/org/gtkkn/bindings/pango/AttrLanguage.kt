@@ -1,14 +1,21 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.pango.PangoAttrLanguage
 import org.gtkkn.native.pango.pango_attr_language_new
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * The `PangoAttrLanguage` structure is used to represent attributes that
@@ -18,23 +25,80 @@ import org.gtkkn.native.pango.pango_attr_language_new
  *
  * - field `attr`: Attribute
  */
-public class AttrLanguage(
-    pointer: CPointer<PangoAttrLanguage>,
-) : Record {
+public class AttrLanguage(pointer: CPointer<PangoAttrLanguage>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val pangoAttrLanguagePointer: CPointer<PangoAttrLanguage> = pointer
 
     /**
      * the `PangoLanguage` which is the value of the attribute
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val `value`: Language?
-        get() =
-            pangoAttrLanguagePointer.pointed.value?.run {
-                Language(reinterpret())
-            }
+    public var `value`: Language?
+        get() = pangoAttrLanguagePointer.pointed.value?.run {
+            Language(reinterpret())
+        }
 
-    public companion object : RecordCompanion<AttrLanguage, PangoAttrLanguage> {
+        @UnsafeFieldSetter
+        set(`value`) {
+            pangoAttrLanguagePointer.pointed.value = value?.pangoLanguagePointer
+        }
+
+    /**
+     * Allocate a new AttrLanguage.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<PangoAttrLanguage>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to AttrLanguage and a [Cleaner] instance.
+     */
+    private constructor(
+        pair: Pair<CPointer<PangoAttrLanguage>, Cleaner>,
+    ) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new AttrLanguage using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<PangoAttrLanguage>().ptr)
+
+    /**
+     * Allocate a new AttrLanguage.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param value the `PangoLanguage` which is the value of the attribute
+     */
+    public constructor(`value`: Language?) : this() {
+        this.value = value
+    }
+
+    /**
+     * Allocate a new AttrLanguage using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param value the `PangoLanguage` which is the value of the attribute
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(`value`: Language?, scope: AutofreeScope) : this(scope) {
+        this.value = value
+    }
+
+    override fun toString(): String = "AttrLanguage(value=$value)"
+
+    public companion object {
         /**
          * Create a new language tag attribute.
          *
@@ -47,8 +111,5 @@ public class AttrLanguage(
             pango_attr_language_new(language.pangoLanguagePointer.reinterpret())!!.run {
                 Attribute(reinterpret())
             }
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): AttrLanguage =
-            AttrLanguage(pointer.reinterpret())
     }
 }

@@ -14,6 +14,7 @@ import org.gtkkn.native.gio.g_settings_backend_get_default
 import org.gtkkn.native.gio.g_settings_backend_get_type
 import org.gtkkn.native.gio.g_settings_backend_path_writable_changed
 import org.gtkkn.native.gio.g_settings_backend_writable_changed
+import org.gtkkn.native.gobject.GType
 import kotlin.String
 import kotlin.Unit
 
@@ -50,9 +51,8 @@ import kotlin.Unit
  * - parameter `origin_tag`: gpointer
  * - parameter `path`: path: Out parameter is not supported
  */
-public open class SettingsBackend(
-    pointer: CPointer<GSettingsBackend>,
-) : Object(pointer.reinterpret()),
+public open class SettingsBackend(pointer: CPointer<GSettingsBackend>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioSettingsBackendPointer: CPointer<GSettingsBackend>
         get() = gPointer.reinterpret()
@@ -105,9 +105,15 @@ public open class SettingsBackend(
          * @since 2.28
          */
         @GioVersion2_28
-        public fun getDefault(): SettingsBackend =
-            g_settings_backend_get_default()!!.run {
-                SettingsBackend(reinterpret())
-            }
+        public fun getDefault(): SettingsBackend = g_settings_backend_get_default()!!.run {
+            SettingsBackend(reinterpret())
+        }
+
+        /**
+         * Get the GType of SettingsBackend
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_settings_backend_get_type()
     }
 }

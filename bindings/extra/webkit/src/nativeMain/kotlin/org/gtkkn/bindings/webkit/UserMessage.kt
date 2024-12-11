@@ -11,6 +11,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_28
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitUserMessage
 import org.gtkkn.native.webkit.webkit_user_message_get_fd_list
 import org.gtkkn.native.webkit.webkit_user_message_get_name
@@ -34,9 +35,8 @@ import kotlin.Unit
  * @since 2.28
  */
 @WebKitVersion2_28
-public class UserMessage(
-    pointer: CPointer<WebKitUserMessage>,
-) : InitiallyUnowned(pointer.reinterpret()),
+public class UserMessage(pointer: CPointer<WebKitUserMessage>) :
+    InitiallyUnowned(pointer.reinterpret()),
     KGTyped {
     public val webkitUserMessagePointer: CPointer<WebKitUserMessage>
         get() = gPointer.reinterpret()
@@ -54,10 +54,9 @@ public class UserMessage(
          * @return the message list of file descriptors
          * @since 2.28
          */
-        get() =
-            webkit_user_message_get_fd_list(webkitUserMessagePointer.reinterpret())?.run {
-                UnixFDList(reinterpret())
-            }
+        get() = webkit_user_message_get_fd_list(webkitUserMessagePointer.reinterpret())?.run {
+            UnixFDList(reinterpret())
+        }
 
     /**
      * The name of the user message.
@@ -72,9 +71,8 @@ public class UserMessage(
          * @return the message name
          * @since 2.28
          */
-        get() =
-            webkit_user_message_get_name(webkitUserMessagePointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = webkit_user_message_get_name(webkitUserMessagePointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * The parameters of the user message as a #GVariant, or null
@@ -91,10 +89,9 @@ public class UserMessage(
          * @return the message parameters
          * @since 2.28
          */
-        get() =
-            webkit_user_message_get_parameters(webkitUserMessagePointer.reinterpret())?.run {
-                Variant(reinterpret())
-            }
+        get() = webkit_user_message_get_parameters(webkitUserMessagePointer.reinterpret())?.run {
+            Variant(reinterpret())
+        }
 
     /**
      * Create a new #WebKitUserMessage with @name.
@@ -131,41 +128,6 @@ public class UserMessage(
     )
 
     /**
-     * Get the @message list of file descritpor.
-     *
-     * @return the message list of file descriptors
-     * @since 2.28
-     */
-    @WebKitVersion2_28
-    public fun getFdList(): UnixFDList? =
-        webkit_user_message_get_fd_list(webkitUserMessagePointer.reinterpret())?.run {
-            UnixFDList(reinterpret())
-        }
-
-    /**
-     * Get the @message name.
-     *
-     * @return the message name
-     * @since 2.28
-     */
-    @WebKitVersion2_28
-    public fun getName(): String =
-        webkit_user_message_get_name(webkitUserMessagePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Get the @message parameters.
-     *
-     * @return the message parameters
-     * @since 2.28
-     */
-    @WebKitVersion2_28
-    public fun getParameters(): Variant? =
-        webkit_user_message_get_parameters(webkitUserMessagePointer.reinterpret())?.run {
-            Variant(reinterpret())
-        }
-
-    /**
      * Send a reply to an user message.
      *
      * If @reply is floating, it's consumed.
@@ -176,11 +138,10 @@ public class UserMessage(
      * @since 2.28
      */
     @WebKitVersion2_28
-    public fun sendReply(reply: UserMessage): Unit =
-        webkit_user_message_send_reply(
-            webkitUserMessagePointer.reinterpret(),
-            reply.webkitUserMessagePointer.reinterpret()
-        )
+    public fun sendReply(reply: UserMessage): Unit = webkit_user_message_send_reply(
+        webkitUserMessagePointer.reinterpret(),
+        reply.webkitUserMessagePointer.reinterpret()
+    )
 
     public companion object : TypeCompanion<UserMessage> {
         override val type: GeneratedClassKGType<UserMessage> =
@@ -189,5 +150,12 @@ public class UserMessage(
         init {
             WebkitTypeProvider.register()
         }
+
+        /**
+         * Get the GType of UserMessage
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_user_message_get_type()
     }
 }

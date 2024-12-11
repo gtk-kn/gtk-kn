@@ -10,14 +10,16 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.native.gio.GDBusError
 import org.gtkkn.native.gio.g_dbus_error_encode_gerror
 import org.gtkkn.native.gio.g_dbus_error_get_remote_error
+import org.gtkkn.native.gio.g_dbus_error_get_type
 import org.gtkkn.native.gio.g_dbus_error_is_remote_error
 import org.gtkkn.native.gio.g_dbus_error_new_for_dbus_error
 import org.gtkkn.native.gio.g_dbus_error_quark
 import org.gtkkn.native.gio.g_dbus_error_register_error
 import org.gtkkn.native.gio.g_dbus_error_strip_remote_error
 import org.gtkkn.native.gio.g_dbus_error_unregister_error
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 
 /**
@@ -25,9 +27,7 @@ import kotlin.String
  * @since 2.26
  */
 @GioVersion2_26
-public enum class DBusError(
-    public val nativeValue: GDBusError,
-) {
+public enum class DBusError(public val nativeValue: GDBusError) {
     /**
      * A generic error; "something went wrong" - see the error message for
      * more.
@@ -265,55 +265,54 @@ public enum class DBusError(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GDBusError): DBusError =
-            when (nativeValue) {
-                GDBusError.G_DBUS_ERROR_FAILED -> FAILED
-                GDBusError.G_DBUS_ERROR_NO_MEMORY -> NO_MEMORY
-                GDBusError.G_DBUS_ERROR_SERVICE_UNKNOWN -> SERVICE_UNKNOWN
-                GDBusError.G_DBUS_ERROR_NAME_HAS_NO_OWNER -> NAME_HAS_NO_OWNER
-                GDBusError.G_DBUS_ERROR_NO_REPLY -> NO_REPLY
-                GDBusError.G_DBUS_ERROR_IO_ERROR -> IO_ERROR
-                GDBusError.G_DBUS_ERROR_BAD_ADDRESS -> BAD_ADDRESS
-                GDBusError.G_DBUS_ERROR_NOT_SUPPORTED -> NOT_SUPPORTED
-                GDBusError.G_DBUS_ERROR_LIMITS_EXCEEDED -> LIMITS_EXCEEDED
-                GDBusError.G_DBUS_ERROR_ACCESS_DENIED -> ACCESS_DENIED
-                GDBusError.G_DBUS_ERROR_AUTH_FAILED -> AUTH_FAILED
-                GDBusError.G_DBUS_ERROR_NO_SERVER -> NO_SERVER
-                GDBusError.G_DBUS_ERROR_TIMEOUT -> TIMEOUT
-                GDBusError.G_DBUS_ERROR_NO_NETWORK -> NO_NETWORK
-                GDBusError.G_DBUS_ERROR_ADDRESS_IN_USE -> ADDRESS_IN_USE
-                GDBusError.G_DBUS_ERROR_DISCONNECTED -> DISCONNECTED
-                GDBusError.G_DBUS_ERROR_INVALID_ARGS -> INVALID_ARGS
-                GDBusError.G_DBUS_ERROR_FILE_NOT_FOUND -> FILE_NOT_FOUND
-                GDBusError.G_DBUS_ERROR_FILE_EXISTS -> FILE_EXISTS
-                GDBusError.G_DBUS_ERROR_UNKNOWN_METHOD -> UNKNOWN_METHOD
-                GDBusError.G_DBUS_ERROR_TIMED_OUT -> TIMED_OUT
-                GDBusError.G_DBUS_ERROR_MATCH_RULE_NOT_FOUND -> MATCH_RULE_NOT_FOUND
-                GDBusError.G_DBUS_ERROR_MATCH_RULE_INVALID -> MATCH_RULE_INVALID
-                GDBusError.G_DBUS_ERROR_SPAWN_EXEC_FAILED -> SPAWN_EXEC_FAILED
-                GDBusError.G_DBUS_ERROR_SPAWN_FORK_FAILED -> SPAWN_FORK_FAILED
-                GDBusError.G_DBUS_ERROR_SPAWN_CHILD_EXITED -> SPAWN_CHILD_EXITED
-                GDBusError.G_DBUS_ERROR_SPAWN_CHILD_SIGNALED -> SPAWN_CHILD_SIGNALED
-                GDBusError.G_DBUS_ERROR_SPAWN_FAILED -> SPAWN_FAILED
-                GDBusError.G_DBUS_ERROR_SPAWN_SETUP_FAILED -> SPAWN_SETUP_FAILED
-                GDBusError.G_DBUS_ERROR_SPAWN_CONFIG_INVALID -> SPAWN_CONFIG_INVALID
-                GDBusError.G_DBUS_ERROR_SPAWN_SERVICE_INVALID -> SPAWN_SERVICE_INVALID
-                GDBusError.G_DBUS_ERROR_SPAWN_SERVICE_NOT_FOUND -> SPAWN_SERVICE_NOT_FOUND
-                GDBusError.G_DBUS_ERROR_SPAWN_PERMISSIONS_INVALID -> SPAWN_PERMISSIONS_INVALID
-                GDBusError.G_DBUS_ERROR_SPAWN_FILE_INVALID -> SPAWN_FILE_INVALID
-                GDBusError.G_DBUS_ERROR_SPAWN_NO_MEMORY -> SPAWN_NO_MEMORY
-                GDBusError.G_DBUS_ERROR_UNIX_PROCESS_ID_UNKNOWN -> UNIX_PROCESS_ID_UNKNOWN
-                GDBusError.G_DBUS_ERROR_INVALID_SIGNATURE -> INVALID_SIGNATURE
-                GDBusError.G_DBUS_ERROR_INVALID_FILE_CONTENT -> INVALID_FILE_CONTENT
-                GDBusError.G_DBUS_ERROR_SELINUX_SECURITY_CONTEXT_UNKNOWN -> SELINUX_SECURITY_CONTEXT_UNKNOWN
-                GDBusError.G_DBUS_ERROR_ADT_AUDIT_DATA_UNKNOWN -> ADT_AUDIT_DATA_UNKNOWN
-                GDBusError.G_DBUS_ERROR_OBJECT_PATH_IN_USE -> OBJECT_PATH_IN_USE
-                GDBusError.G_DBUS_ERROR_UNKNOWN_OBJECT -> UNKNOWN_OBJECT
-                GDBusError.G_DBUS_ERROR_UNKNOWN_INTERFACE -> UNKNOWN_INTERFACE
-                GDBusError.G_DBUS_ERROR_UNKNOWN_PROPERTY -> UNKNOWN_PROPERTY
-                GDBusError.G_DBUS_ERROR_PROPERTY_READ_ONLY -> PROPERTY_READ_ONLY
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GDBusError): DBusError = when (nativeValue) {
+            GDBusError.G_DBUS_ERROR_FAILED -> FAILED
+            GDBusError.G_DBUS_ERROR_NO_MEMORY -> NO_MEMORY
+            GDBusError.G_DBUS_ERROR_SERVICE_UNKNOWN -> SERVICE_UNKNOWN
+            GDBusError.G_DBUS_ERROR_NAME_HAS_NO_OWNER -> NAME_HAS_NO_OWNER
+            GDBusError.G_DBUS_ERROR_NO_REPLY -> NO_REPLY
+            GDBusError.G_DBUS_ERROR_IO_ERROR -> IO_ERROR
+            GDBusError.G_DBUS_ERROR_BAD_ADDRESS -> BAD_ADDRESS
+            GDBusError.G_DBUS_ERROR_NOT_SUPPORTED -> NOT_SUPPORTED
+            GDBusError.G_DBUS_ERROR_LIMITS_EXCEEDED -> LIMITS_EXCEEDED
+            GDBusError.G_DBUS_ERROR_ACCESS_DENIED -> ACCESS_DENIED
+            GDBusError.G_DBUS_ERROR_AUTH_FAILED -> AUTH_FAILED
+            GDBusError.G_DBUS_ERROR_NO_SERVER -> NO_SERVER
+            GDBusError.G_DBUS_ERROR_TIMEOUT -> TIMEOUT
+            GDBusError.G_DBUS_ERROR_NO_NETWORK -> NO_NETWORK
+            GDBusError.G_DBUS_ERROR_ADDRESS_IN_USE -> ADDRESS_IN_USE
+            GDBusError.G_DBUS_ERROR_DISCONNECTED -> DISCONNECTED
+            GDBusError.G_DBUS_ERROR_INVALID_ARGS -> INVALID_ARGS
+            GDBusError.G_DBUS_ERROR_FILE_NOT_FOUND -> FILE_NOT_FOUND
+            GDBusError.G_DBUS_ERROR_FILE_EXISTS -> FILE_EXISTS
+            GDBusError.G_DBUS_ERROR_UNKNOWN_METHOD -> UNKNOWN_METHOD
+            GDBusError.G_DBUS_ERROR_TIMED_OUT -> TIMED_OUT
+            GDBusError.G_DBUS_ERROR_MATCH_RULE_NOT_FOUND -> MATCH_RULE_NOT_FOUND
+            GDBusError.G_DBUS_ERROR_MATCH_RULE_INVALID -> MATCH_RULE_INVALID
+            GDBusError.G_DBUS_ERROR_SPAWN_EXEC_FAILED -> SPAWN_EXEC_FAILED
+            GDBusError.G_DBUS_ERROR_SPAWN_FORK_FAILED -> SPAWN_FORK_FAILED
+            GDBusError.G_DBUS_ERROR_SPAWN_CHILD_EXITED -> SPAWN_CHILD_EXITED
+            GDBusError.G_DBUS_ERROR_SPAWN_CHILD_SIGNALED -> SPAWN_CHILD_SIGNALED
+            GDBusError.G_DBUS_ERROR_SPAWN_FAILED -> SPAWN_FAILED
+            GDBusError.G_DBUS_ERROR_SPAWN_SETUP_FAILED -> SPAWN_SETUP_FAILED
+            GDBusError.G_DBUS_ERROR_SPAWN_CONFIG_INVALID -> SPAWN_CONFIG_INVALID
+            GDBusError.G_DBUS_ERROR_SPAWN_SERVICE_INVALID -> SPAWN_SERVICE_INVALID
+            GDBusError.G_DBUS_ERROR_SPAWN_SERVICE_NOT_FOUND -> SPAWN_SERVICE_NOT_FOUND
+            GDBusError.G_DBUS_ERROR_SPAWN_PERMISSIONS_INVALID -> SPAWN_PERMISSIONS_INVALID
+            GDBusError.G_DBUS_ERROR_SPAWN_FILE_INVALID -> SPAWN_FILE_INVALID
+            GDBusError.G_DBUS_ERROR_SPAWN_NO_MEMORY -> SPAWN_NO_MEMORY
+            GDBusError.G_DBUS_ERROR_UNIX_PROCESS_ID_UNKNOWN -> UNIX_PROCESS_ID_UNKNOWN
+            GDBusError.G_DBUS_ERROR_INVALID_SIGNATURE -> INVALID_SIGNATURE
+            GDBusError.G_DBUS_ERROR_INVALID_FILE_CONTENT -> INVALID_FILE_CONTENT
+            GDBusError.G_DBUS_ERROR_SELINUX_SECURITY_CONTEXT_UNKNOWN -> SELINUX_SECURITY_CONTEXT_UNKNOWN
+            GDBusError.G_DBUS_ERROR_ADT_AUDIT_DATA_UNKNOWN -> ADT_AUDIT_DATA_UNKNOWN
+            GDBusError.G_DBUS_ERROR_OBJECT_PATH_IN_USE -> OBJECT_PATH_IN_USE
+            GDBusError.G_DBUS_ERROR_UNKNOWN_OBJECT -> UNKNOWN_OBJECT
+            GDBusError.G_DBUS_ERROR_UNKNOWN_INTERFACE -> UNKNOWN_INTERFACE
+            GDBusError.G_DBUS_ERROR_UNKNOWN_PROPERTY -> UNKNOWN_PROPERTY
+            GDBusError.G_DBUS_ERROR_PROPERTY_READ_ONLY -> PROPERTY_READ_ONLY
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Creates a D-Bus error name to use for @error. If @error matches
@@ -352,9 +351,8 @@ public enum class DBusError(
          * @since 2.26
          */
         @GioVersion2_26
-        public fun getRemoteError(error: Error): String =
+        public fun getRemoteError(error: Error): String? =
             g_dbus_error_get_remote_error(error.glibErrorPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
 
         /**
          * Checks if @error represents an error received via D-Bus from a remote peer. If so,
@@ -403,10 +401,7 @@ public enum class DBusError(
          * @since 2.26
          */
         @GioVersion2_26
-        public fun newForDbusError(
-            dbusErrorName: String,
-            dbusErrorMessage: String,
-        ): Error =
+        public fun newForDbusError(dbusErrorName: String, dbusErrorMessage: String): Error =
             g_dbus_error_new_for_dbus_error(dbusErrorName, dbusErrorMessage)!!.run {
                 Error(reinterpret())
             }
@@ -428,11 +423,8 @@ public enum class DBusError(
          * @since 2.26
          */
         @GioVersion2_26
-        public fun registerError(
-            errorDomain: Quark,
-            errorCode: Int,
-            dbusErrorName: String,
-        ): Boolean = g_dbus_error_register_error(errorDomain, errorCode, dbusErrorName).asBoolean()
+        public fun registerError(errorDomain: Quark, errorCode: gint, dbusErrorName: String): Boolean =
+            g_dbus_error_register_error(errorDomain, errorCode, dbusErrorName).asBoolean()
 
         /**
          * Looks for extra information in the error message used to recover
@@ -460,17 +452,20 @@ public enum class DBusError(
          * @since 2.26
          */
         @GioVersion2_26
-        public fun unregisterError(
-            errorDomain: Quark,
-            errorCode: Int,
-            dbusErrorName: String,
-        ): Boolean = g_dbus_error_unregister_error(errorDomain, errorCode, dbusErrorName).asBoolean()
+        public fun unregisterError(errorDomain: Quark, errorCode: gint, dbusErrorName: String): Boolean =
+            g_dbus_error_unregister_error(errorDomain, errorCode, dbusErrorName).asBoolean()
 
-        public fun fromErrorOrNull(error: Error): DBusError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                DBusError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        /**
+         * Get the GType of DBusError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_error_get_type()
+
+        public fun fromErrorOrNull(error: Error): DBusError? = if (error.domain != quark()) {
+            null
+        } else {
+            DBusError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

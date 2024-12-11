@@ -4,7 +4,9 @@ package org.gtkkn.bindings.webkit
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_28
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitUserMessageError
+import org.gtkkn.native.webkit.webkit_user_message_error_get_type
 import org.gtkkn.native.webkit.webkit_user_message_error_quark
 
 /**
@@ -12,9 +14,7 @@ import org.gtkkn.native.webkit.webkit_user_message_error_quark
  * @since 2.28
  */
 @WebKitVersion2_28
-public enum class UserMessageError(
-    public val nativeValue: WebKitUserMessageError,
-) {
+public enum class UserMessageError(public val nativeValue: WebKitUserMessageError) {
     /**
      * The message was not handled by the receiver.
      */
@@ -22,11 +22,10 @@ public enum class UserMessageError(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitUserMessageError): UserMessageError =
-            when (nativeValue) {
-                WebKitUserMessageError.WEBKIT_USER_MESSAGE_UNHANDLED_MESSAGE -> MESSAGE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitUserMessageError): UserMessageError = when (nativeValue) {
+            WebKitUserMessageError.WEBKIT_USER_MESSAGE_UNHANDLED_MESSAGE -> MESSAGE
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Gets the quark for the domain of user message errors.
@@ -35,11 +34,17 @@ public enum class UserMessageError(
          */
         public fun quark(): Quark = webkit_user_message_error_quark()
 
-        public fun fromErrorOrNull(error: Error): UserMessageError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                UserMessageError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        /**
+         * Get the GType of UserMessageError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_user_message_error_get_type()
+
+        public fun fromErrorOrNull(error: Error): UserMessageError? = if (error.domain != quark()) {
+            null
+        } else {
+            UserMessageError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

@@ -31,13 +31,13 @@ import org.gtkkn.native.adw.adw_combo_row_set_list_factory
 import org.gtkkn.native.adw.adw_combo_row_set_model
 import org.gtkkn.native.adw.adw_combo_row_set_selected
 import org.gtkkn.native.adw.adw_combo_row_set_use_subtitle
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import kotlin.Boolean
-import kotlin.UInt
-import kotlin.Unit
 
 /**
  * A [class@Gtk.ListBoxRow] used to choose from a list of items.
@@ -88,9 +88,8 @@ import kotlin.Unit
  *
  * `AdwComboRow` uses the `GTK_ACCESSIBLE_ROLE_COMBO_BOX` role.
  */
-public open class ComboRow(
-    pointer: CPointer<AdwComboRow>,
-) : ActionRow(pointer.reinterpret()),
+public open class ComboRow(pointer: CPointer<AdwComboRow>) :
+    ActionRow(pointer.reinterpret()),
     KGTyped {
     public val adwComboRowPointer: CPointer<AdwComboRow>
         get() = gPointer.reinterpret()
@@ -161,10 +160,9 @@ public open class ComboRow(
          *
          * @return the expression used to obtain strings from items
          */
-        get() =
-            adw_combo_row_get_expression(adwComboRowPointer.reinterpret())?.run {
-                Expression(reinterpret())
-            }
+        get() = adw_combo_row_get_expression(adwComboRowPointer.reinterpret())?.run {
+            Expression(reinterpret())
+        }
 
         /**
          * Sets the expression used to obtain strings from items.
@@ -193,10 +191,9 @@ public open class ComboRow(
          *
          * @return the factory in use
          */
-        get() =
-            adw_combo_row_get_factory(adwComboRowPointer.reinterpret())?.run {
-                ListItemFactory(reinterpret())
-            }
+        get() = adw_combo_row_get_factory(adwComboRowPointer.reinterpret())?.run {
+            ListItemFactory(reinterpret())
+        }
 
         /**
          * Sets the factory for populating list items.
@@ -208,11 +205,10 @@ public open class ComboRow(
          */
         set(
             factory
-        ) =
-            adw_combo_row_set_factory(
-                adwComboRowPointer.reinterpret(),
-                factory?.gtkListItemFactoryPointer?.reinterpret()
-            )
+        ) = adw_combo_row_set_factory(
+            adwComboRowPointer.reinterpret(),
+            factory?.gtkListItemFactoryPointer?.reinterpret()
+        )
 
     /**
      * The factory for populating list items in the popup.
@@ -225,10 +221,9 @@ public open class ComboRow(
          *
          * @return the factory in use
          */
-        get() =
-            adw_combo_row_get_list_factory(adwComboRowPointer.reinterpret())?.run {
-                ListItemFactory(reinterpret())
-            }
+        get() = adw_combo_row_get_list_factory(adwComboRowPointer.reinterpret())?.run {
+            ListItemFactory(reinterpret())
+        }
 
         /**
          * Sets the factory for populating list items in the popup.
@@ -239,11 +234,10 @@ public open class ComboRow(
          */
         set(
             factory
-        ) =
-            adw_combo_row_set_list_factory(
-                adwComboRowPointer.reinterpret(),
-                factory?.gtkListItemFactoryPointer?.reinterpret()
-            )
+        ) = adw_combo_row_set_list_factory(
+            adwComboRowPointer.reinterpret(),
+            factory?.gtkListItemFactoryPointer?.reinterpret()
+        )
 
     /**
      * The model that provides the displayed items.
@@ -254,10 +248,9 @@ public open class ComboRow(
          *
          * @return The model in use
          */
-        get() =
-            adw_combo_row_get_model(adwComboRowPointer.reinterpret())?.run {
-                ListModel.wrap(reinterpret())
-            }
+        get() = adw_combo_row_get_model(adwComboRowPointer.reinterpret())?.run {
+            ListModel.wrap(reinterpret())
+        }
 
         /**
          * Sets the model that provides the displayed items.
@@ -272,7 +265,7 @@ public open class ComboRow(
      * If no item is selected, the property has the value
      * [const@Gtk.INVALID_LIST_POSITION]
      */
-    public open var selected: UInt
+    public open var selected: guint
         /**
          * Gets the position of the selected item.
          *
@@ -298,10 +291,9 @@ public open class ComboRow(
          *
          * @return the selected item
          */
-        get() =
-            adw_combo_row_get_selected_item(adwComboRowPointer.reinterpret())?.run {
-                Object(reinterpret())
-            }
+        get() = adw_combo_row_get_selected_item(adwComboRowPointer.reinterpret())?.run {
+            Object(reinterpret())
+        }
 
     /**
      * Whether to use the current value as the subtitle.
@@ -344,173 +336,6 @@ public open class ComboRow(
      */
     public constructor() : this(adw_combo_row_new()!!.reinterpret())
 
-    /**
-     * Gets whether search is enabled.
-     *
-     * If set to `TRUE`, a search entry will be shown in the popup that
-     * allows to search for items in the list.
-     *
-     * Search requires [property@ComboRow:expression] to be set.
-     *
-     * @return whether the popup includes a search entry
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public open fun getEnableSearch(): Boolean =
-        adw_combo_row_get_enable_search(adwComboRowPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the expression used to obtain strings from items.
-     *
-     * @return the expression used to obtain strings from items
-     */
-    public open fun getExpression(): Expression? =
-        adw_combo_row_get_expression(adwComboRowPointer.reinterpret())?.run {
-            Expression(reinterpret())
-        }
-
-    /**
-     * Gets the factory for populating list items.
-     *
-     * @return the factory in use
-     */
-    public open fun getFactory(): ListItemFactory? =
-        adw_combo_row_get_factory(adwComboRowPointer.reinterpret())?.run {
-            ListItemFactory(reinterpret())
-        }
-
-    /**
-     * Gets the factory for populating list items in the popup.
-     *
-     * @return the factory in use
-     */
-    public open fun getListFactory(): ListItemFactory? =
-        adw_combo_row_get_list_factory(adwComboRowPointer.reinterpret())?.run {
-            ListItemFactory(reinterpret())
-        }
-
-    /**
-     * Gets the model that provides the displayed items.
-     *
-     * @return The model in use
-     */
-    public open fun getModel(): ListModel? =
-        adw_combo_row_get_model(adwComboRowPointer.reinterpret())?.run {
-            ListModel.wrap(reinterpret())
-        }
-
-    /**
-     * Gets the position of the selected item.
-     *
-     * @return the position of the selected item, or
-     *   [const@Gtk.INVALID_LIST_POSITION] if no item is selected
-     */
-    public open fun getSelected(): UInt = adw_combo_row_get_selected(adwComboRowPointer.reinterpret())
-
-    /**
-     * Gets the selected item.
-     *
-     * @return the selected item
-     */
-    public open fun getSelectedItem(): Object? =
-        adw_combo_row_get_selected_item(adwComboRowPointer.reinterpret())?.run {
-            Object(reinterpret())
-        }
-
-    /**
-     * Gets whether to use the current value as the subtitle.
-     *
-     * @return whether to use the current value as the subtitle
-     */
-    public open fun getUseSubtitle(): Boolean =
-        adw_combo_row_get_use_subtitle(adwComboRowPointer.reinterpret()).asBoolean()
-
-    /**
-     * Sets whether to enable search.
-     *
-     * If set to `TRUE`, a search entry will be shown in the popup that
-     * allows to search for items in the list.
-     *
-     * Search requires [property@ComboRow:expression] to be set.
-     *
-     * @param enableSearch whether to enable search
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public open fun setEnableSearch(enableSearch: Boolean): Unit =
-        adw_combo_row_set_enable_search(adwComboRowPointer.reinterpret(), enableSearch.asGBoolean())
-
-    /**
-     * Sets the expression used to obtain strings from items.
-     *
-     * The expression must have a value type of `G_TYPE_STRING`.
-     *
-     * It's used to bind strings to labels produced by the default factory if
-     * [property@ComboRow:factory] is not set, or when
-     * [property@ComboRow:use-subtitle] is set to `TRUE`.
-     *
-     * @param expression an expression
-     */
-    public open fun setExpression(expression: Expression? = null): Unit =
-        adw_combo_row_set_expression(adwComboRowPointer.reinterpret(), expression?.gPointer?.reinterpret())
-
-    /**
-     * Sets the factory for populating list items.
-     *
-     * This factory is always used for the item in the row. It is also used for
-     * items in the popup unless [property@ComboRow:list-factory] is set.
-     *
-     * @param factory the factory to use
-     */
-    public open fun setFactory(factory: ListItemFactory? = null): Unit =
-        adw_combo_row_set_factory(adwComboRowPointer.reinterpret(), factory?.gtkListItemFactoryPointer?.reinterpret())
-
-    /**
-     * Sets the factory for populating list items in the popup.
-     *
-     * If this is not set, [property@ComboRow:factory] is used.
-     *
-     * @param factory the factory to use
-     */
-    public open fun setListFactory(factory: ListItemFactory? = null): Unit =
-        adw_combo_row_set_list_factory(
-            adwComboRowPointer.reinterpret(),
-            factory?.gtkListItemFactoryPointer?.reinterpret()
-        )
-
-    /**
-     * Sets the model that provides the displayed items.
-     *
-     * @param model the model to use
-     */
-    public open fun setModel(model: ListModel? = null): Unit =
-        adw_combo_row_set_model(adwComboRowPointer.reinterpret(), model?.gioListModelPointer)
-
-    /**
-     * Selects the item at the given position.
-     *
-     * @param position the position of the item to select, or
-     *   [const@Gtk.INVALID_LIST_POSITION]
-     */
-    public open fun setSelected(position: UInt): Unit =
-        adw_combo_row_set_selected(adwComboRowPointer.reinterpret(), position)
-
-    /**
-     * Sets whether to use the current value as the subtitle.
-     *
-     * If you use a custom list item factory, you will need to give the row a
-     * name conversion expression with [property@ComboRow:expression].
-     *
-     * If set to `TRUE`, you should not access [property@ActionRow:subtitle].
-     *
-     * The subtitle is interpreted as Pango markup if
-     * [property@PreferencesRow:use-markup] is set to `TRUE`.
-     *
-     * @param useSubtitle whether to use the current value as the subtitle
-     */
-    public open fun setUseSubtitle(useSubtitle: Boolean): Unit =
-        adw_combo_row_set_use_subtitle(adwComboRowPointer.reinterpret(), useSubtitle.asGBoolean())
-
     public companion object : TypeCompanion<ComboRow> {
         override val type: GeneratedClassKGType<ComboRow> =
             GeneratedClassKGType(adw_combo_row_get_type()) { ComboRow(it.reinterpret()) }
@@ -518,5 +343,12 @@ public open class ComboRow(
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ComboRow
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_combo_row_get_type()
     }
 }

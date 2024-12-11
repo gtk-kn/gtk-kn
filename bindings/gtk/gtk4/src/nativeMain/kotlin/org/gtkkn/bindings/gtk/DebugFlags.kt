@@ -2,6 +2,7 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.extensions.glib.Bitfield
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GTK_DEBUG_A11Y
 import org.gtkkn.native.gtk.GTK_DEBUG_ACTIONS
 import org.gtkkn.native.gtk.GTK_DEBUG_BUILDER
@@ -22,6 +23,7 @@ import org.gtkkn.native.gtk.GTK_DEBUG_SNAPSHOT
 import org.gtkkn.native.gtk.GTK_DEBUG_TEXT
 import org.gtkkn.native.gtk.GTK_DEBUG_TREE
 import org.gtkkn.native.gtk.GtkDebugFlags
+import org.gtkkn.native.gtk.gtk_debug_flags_get_type
 
 /**
  * Flags to use with gtk_set_debug_flags().
@@ -30,9 +32,7 @@ import org.gtkkn.native.gtk.GtkDebugFlags
  * types of debugging information. Some of these flags are
  * only available when GTK has been configured with `-Ddebug=true`.
  */
-public class DebugFlags(
-    public val mask: GtkDebugFlags,
-) : Bitfield<DebugFlags> {
+public class DebugFlags(public val mask: GtkDebugFlags) : Bitfield<DebugFlags> {
     override infix fun or(other: DebugFlags): DebugFlags = DebugFlags(mask or other.mask)
 
     public companion object {
@@ -132,5 +132,12 @@ public class DebugFlags(
          * @since 4.8
          */
         public val INVERT_TEXT_DIR: DebugFlags = DebugFlags(GTK_DEBUG_INVERT_TEXT_DIR)
+
+        /**
+         * Get the GType of DebugFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_debug_flags_get_type()
     }
 }

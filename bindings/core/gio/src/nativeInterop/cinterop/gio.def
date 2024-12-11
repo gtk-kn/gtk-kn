@@ -1,6 +1,8 @@
 headers = gio/gio.h \
     gio/gdesktopappinfo.h \
     gio/gfiledescriptorbased.h \
+    gio/giomodule.h \
+    gio/gnetworking.h \
     gio/gsettingsbackend.h \
     gio/gunixconnection.h \
     gio/gunixcredentialsmessage.h \

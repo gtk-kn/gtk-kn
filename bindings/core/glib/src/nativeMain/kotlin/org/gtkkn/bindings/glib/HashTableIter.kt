@@ -1,18 +1,23 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_16
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GHashTableIter
 import org.gtkkn.native.glib.g_hash_table_iter_get_hash_table
 import org.gtkkn.native.glib.g_hash_table_iter_init
 import org.gtkkn.native.glib.g_hash_table_iter_remove
 import org.gtkkn.native.glib.g_hash_table_iter_steal
+import kotlin.Pair
 import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * A GHashTableIter structure represents an iterator that can be used
@@ -34,10 +39,39 @@ import kotlin.Unit
  * - field `dummy5`: Record field dummy5 is private
  * - field `dummy6`: Record field dummy6 is private
  */
-public class HashTableIter(
-    pointer: CPointer<GHashTableIter>,
-) : Record {
+public class HashTableIter(pointer: CPointer<GHashTableIter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibHashTableIterPointer: CPointer<GHashTableIter> = pointer
+
+    /**
+     * Allocate a new HashTableIter.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<GHashTableIter>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to HashTableIter and a [Cleaner] instance.
+     */
+    private constructor(
+        pair: Pair<CPointer<GHashTableIter>, Cleaner>,
+    ) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new HashTableIter using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GHashTableIter>().ptr)
 
     /**
      * Returns the #GHashTable associated with @iter.
@@ -113,9 +147,4 @@ public class HashTableIter(
      */
     @GLibVersion2_16
     public fun steal(): Unit = g_hash_table_iter_steal(glibHashTableIterPointer.reinterpret())
-
-    public companion object : RecordCompanion<HashTableIter, GHashTableIter> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): HashTableIter =
-            HashTableIter(pointer.reinterpret())
-    }
 }

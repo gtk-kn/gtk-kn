@@ -22,6 +22,8 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GPollableInputStream
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.soup.SoupMultipartInputStream
 import org.gtkkn.native.soup.soup_multipart_input_stream_get_headers
 import org.gtkkn.native.soup.soup_multipart_input_stream_get_type
@@ -29,7 +31,6 @@ import org.gtkkn.native.soup.soup_multipart_input_stream_new
 import org.gtkkn.native.soup.soup_multipart_input_stream_next_part
 import org.gtkkn.native.soup.soup_multipart_input_stream_next_part_async
 import org.gtkkn.native.soup.soup_multipart_input_stream_next_part_finish
-import kotlin.Int
 import kotlin.Result
 import kotlin.Unit
 
@@ -50,9 +51,8 @@ import kotlin.Unit
  *
  * - method `message`: Property has no getter nor setter
  */
-public class MultipartInputStream(
-    pointer: CPointer<SoupMultipartInputStream>,
-) : FilterInputStream(pointer.reinterpret()),
+public class MultipartInputStream(pointer: CPointer<SoupMultipartInputStream>) :
+    FilterInputStream(pointer.reinterpret()),
     PollableInputStream,
     KGTyped {
     public val soupMultipartInputStreamPointer: CPointer<SoupMultipartInputStream>
@@ -120,24 +120,22 @@ public class MultipartInputStream(
      * @return a new #GInputStream, or
      *   null if there are no more parts
      */
-    public fun nextPart(cancellable: Cancellable? = null): Result<InputStream?> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                soup_multipart_input_stream_next_part(
-                    soupMultipartInputStreamPointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    InputStream(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun nextPart(cancellable: Cancellable? = null): Result<InputStream?> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = soup_multipart_input_stream_next_part(
+            soupMultipartInputStreamPointer.reinterpret(),
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            InputStream(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
+        }
+    }
 
     /**
      * Obtains a [class@Gio.InputStream] for the next request.
@@ -148,11 +146,7 @@ public class MultipartInputStream(
      * @param cancellable a #GCancellable.
      * @param callback callback to call when request is satisfied.
      */
-    public fun nextPartAsync(
-        ioPriority: Int,
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public fun nextPartAsync(ioPriority: gint, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         soup_multipart_input_stream_next_part_async(
             soupMultipartInputStreamPointer.reinterpret(),
             ioPriority,
@@ -169,24 +163,22 @@ public class MultipartInputStream(
      *   [class@Gio.InputStream] for reading the next part or null if there are no
      *   more parts.
      */
-    public fun nextPartFinish(result: AsyncResult): Result<InputStream?> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                soup_multipart_input_stream_next_part_finish(
-                    soupMultipartInputStreamPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    InputStream(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun nextPartFinish(result: AsyncResult): Result<InputStream?> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = soup_multipart_input_stream_next_part_finish(
+            soupMultipartInputStreamPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            InputStream(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
+        }
+    }
 
     public companion object : TypeCompanion<MultipartInputStream> {
         override val type: GeneratedClassKGType<MultipartInputStream> =
@@ -195,5 +187,12 @@ public class MultipartInputStream(
         init {
             SoupTypeProvider.register()
         }
+
+        /**
+         * Get the GType of MultipartInputStream
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_multipart_input_stream_get_type()
     }
 }

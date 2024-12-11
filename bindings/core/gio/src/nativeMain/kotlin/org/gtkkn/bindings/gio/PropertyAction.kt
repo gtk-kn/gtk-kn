@@ -12,6 +12,7 @@ import org.gtkkn.native.gio.GAction
 import org.gtkkn.native.gio.GPropertyAction
 import org.gtkkn.native.gio.g_property_action_get_type
 import org.gtkkn.native.gio.g_property_action_new
+import org.gtkkn.native.gobject.GType
 import kotlin.String
 
 /**
@@ -82,9 +83,8 @@ import kotlin.String
  * @since 2.38
  */
 @GioVersion2_38
-public open class PropertyAction(
-    pointer: CPointer<GPropertyAction>,
-) : Object(pointer.reinterpret()),
+public open class PropertyAction(pointer: CPointer<GPropertyAction>) :
+    Object(pointer.reinterpret()),
     Action,
     KGTyped {
     public val gioPropertyActionPointer: CPointer<GPropertyAction>
@@ -123,5 +123,12 @@ public open class PropertyAction(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of PropertyAction
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_property_action_get_type()
     }
 }

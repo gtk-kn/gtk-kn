@@ -19,7 +19,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gtk.GtkTextIter
 import org.gtkkn.native.gtksource.GtkSourceView
 import org.gtkkn.native.gtksource.GtkSourceVimIMContext
@@ -29,7 +31,6 @@ import org.gtkkn.native.gtksource.gtk_source_vim_im_context_get_command_text
 import org.gtkkn.native.gtksource.gtk_source_vim_im_context_get_type
 import org.gtkkn.native.gtksource.gtk_source_vim_im_context_new
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -84,9 +85,8 @@ import kotlin.Unit
  * @since 5.4
  */
 @GtkSourceVersion5_4
-public open class VimIMContext(
-    pointer: CPointer<GtkSourceVimIMContext>,
-) : IMContext(pointer.reinterpret()),
+public open class VimIMContext(pointer: CPointer<GtkSourceVimIMContext>) :
+    IMContext(pointer.reinterpret()),
     KGTyped {
     public val gtksourceVimIMContextPointer: CPointer<GtkSourceVimIMContext>
         get() = gPointer.reinterpret()
@@ -98,9 +98,8 @@ public open class VimIMContext(
          * @return A string containing the command-bar text
          * @since 5.4
          */
-        get() =
-            gtk_source_vim_im_context_get_command_bar_text(gtksourceVimIMContextPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_source_vim_im_context_get_command_bar_text(gtksourceVimIMContextPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     public open val commandText: String
         /**
@@ -109,9 +108,8 @@ public open class VimIMContext(
          * @return A string containing the command text
          * @since 5.4
          */
-        get() =
-            gtk_source_vim_im_context_get_command_text(gtksourceVimIMContextPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_source_vim_im_context_get_command_text(gtksourceVimIMContextPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     public constructor() : this(gtk_source_vim_im_context_new()!!.reinterpret())
 
@@ -128,28 +126,6 @@ public open class VimIMContext(
         gtk_source_vim_im_context_execute_command(gtksourceVimIMContextPointer.reinterpret(), command)
 
     /**
-     * Gets the current command-bar text as it is entered by the user.
-     *
-     * @return A string containing the command-bar text
-     * @since 5.4
-     */
-    @GtkSourceVersion5_4
-    public open fun getCommandBarText(): String =
-        gtk_source_vim_im_context_get_command_bar_text(gtksourceVimIMContextPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets the current command text as it is entered by the user.
-     *
-     * @return A string containing the command text
-     * @since 5.4
-     */
-    @GtkSourceVersion5_4
-    public open fun getCommandText(): String =
-        gtk_source_vim_im_context_get_command_text(gtksourceVimIMContextPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
      * Requests the application open the file found at @path.
      *
      * If @path is null, then the current file should be reloaded from storage.
@@ -164,16 +140,15 @@ public open class VimIMContext(
     @GtkSourceVersion5_4
     public fun connectEdit(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (view: View, path: String) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "edit",
-            connectEditFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+        handler: (view: View, path: String?) -> Unit,
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "edit",
+        connectEditFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * The signal is emitted when a command should be
@@ -190,15 +165,14 @@ public open class VimIMContext(
     public fun connectExecuteCommand(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (command: String) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "execute-command",
-            connectExecuteCommandFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "execute-command",
+        connectExecuteCommandFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Requests that the application format the text between
@@ -212,15 +186,14 @@ public open class VimIMContext(
     public fun connectFormatText(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (begin: TextIter, end: TextIter) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "format-text",
-            connectFormatTextFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "format-text",
+        connectFormatTextFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Requests the application save the file.
@@ -235,16 +208,15 @@ public open class VimIMContext(
     @GtkSourceVersion5_4
     public fun connectWrite(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (view: View, path: String) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "write",
-            connectWriteFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+        handler: (view: View, path: String?) -> Unit,
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "write",
+        connectWriteFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<VimIMContext> {
         override val type: GeneratedClassKGType<VimIMContext> =
@@ -253,38 +225,44 @@ public open class VimIMContext(
         init {
             GtksourceTypeProvider.register()
         }
+
+        /**
+         * Get the GType of VimIMContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_vim_im_context_get_type()
     }
 }
 
 private val connectEditFunc:
-    CPointer<CFunction<(CPointer<GtkSourceView>, CPointer<ByteVar>) -> Unit>> =
+    CPointer<CFunction<(CPointer<GtkSourceView>, CPointer<ByteVar>?) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             view: CPointer<GtkSourceView>?,
             path: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(view: View, path: String) -> Unit>().get().invoke(
+        userData.asStableRef<(view: View, path: String?) -> Unit>().get().invoke(
             view!!.run {
                 View(reinterpret())
             },
-            path?.toKString() ?: error("Expected not null string")
+            path?.toKString()
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
-private val connectExecuteCommandFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Int>> =
+private val connectExecuteCommandFunc: CPointer<CFunction<(CPointer<ByteVar>) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
             command: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(command: String) -> Boolean>()
-            .get()
-            .invoke(
-                command?.toKString() ?: error("Expected not null string")
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(command: String) -> Boolean>().get().invoke(
+            command?.toKString() ?: error("Expected not null string")
+        ).asGBoolean()
+    }
+        .reinterpret()
 
 private val connectFormatTextFunc:
     CPointer<CFunction<(CPointer<GtkTextIter>, CPointer<GtkTextIter>) -> Unit>> =
@@ -302,20 +280,22 @@ private val connectFormatTextFunc:
                 TextIter(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 private val connectWriteFunc:
-    CPointer<CFunction<(CPointer<GtkSourceView>, CPointer<ByteVar>) -> Unit>> =
+    CPointer<CFunction<(CPointer<GtkSourceView>, CPointer<ByteVar>?) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             view: CPointer<GtkSourceView>?,
             path: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(view: View, path: String) -> Unit>().get().invoke(
+        userData.asStableRef<(view: View, path: String?) -> Unit>().get().invoke(
             view!!.run {
                 View(reinterpret())
             },
-            path?.toKString() ?: error("Expected not null string")
+            path?.toKString()
         )
-    }.reinterpret()
+    }
+        .reinterpret()

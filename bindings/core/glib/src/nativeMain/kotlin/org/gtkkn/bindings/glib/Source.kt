@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -13,8 +12,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_36
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_70
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.glib.GSource
 import org.gtkkn.native.glib.g_source_add_child_source
@@ -44,11 +42,13 @@ import org.gtkkn.native.glib.g_source_set_priority
 import org.gtkkn.native.glib.g_source_set_ready_time
 import org.gtkkn.native.glib.g_source_set_static_name
 import org.gtkkn.native.glib.g_source_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_source_get_type
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gint64
+import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
-import kotlin.Int
-import kotlin.Long
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 
 /**
@@ -57,11 +57,12 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `events`: C Type GIOCondition is ignored
+ * - method `add_unix_fd`: Return type gpointer is unsupported
  * - parameter `tag`: gpointer
  * - parameter `tag`: gpointer
  * - parameter `tag`: gpointer
  * - parameter `callback_data`: gpointer
+ * - parameter `dispose`: SourceDisposeFunc
  * - parameter `user_data`: gpointer
  * - parameter `user_data`: gpointer
  * - field `callback_data`: Record field callback_data is private
@@ -78,9 +79,7 @@ import kotlin.Unit
  * - field `name`: Record field name is private
  * - field `priv`: Record field priv is private
  */
-public class Source(
-    pointer: CPointer<GSource>,
-) : Record {
+public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
     public val glibSourcePointer: CPointer<GSource> = pointer
 
     /**
@@ -141,7 +140,7 @@ public class Source(
      * @return the ID (greater than 0) for the source within the
      *   #GMainContext.
      */
-    public fun attach(context: MainContext? = null): UInt =
+    public fun attach(context: MainContext? = null): guint =
         g_source_attach(glibSourcePointer.reinterpret(), context?.glibMainContextPointer?.reinterpret())
 
     /**
@@ -184,10 +183,9 @@ public class Source(
      *               source is associated, or null if the context has not
      *               yet been added to a source.
      */
-    public fun getContext(): MainContext? =
-        g_source_get_context(glibSourcePointer.reinterpret())?.run {
-            MainContext(reinterpret())
-        }
+    public fun getContext(): MainContext? = g_source_get_context(glibSourcePointer.reinterpret())?.run {
+        MainContext(reinterpret())
+    }
 
     /**
      * This function ignores @source and is otherwise the same as
@@ -211,7 +209,7 @@ public class Source(
      *
      * @return the ID (greater than 0) for the source
      */
-    public fun getId(): UInt = g_source_get_id(glibSourcePointer.reinterpret())
+    public fun getId(): guint = g_source_get_id(glibSourcePointer.reinterpret())
 
     /**
      * Gets a name for the source, used in debugging and profiling.  The
@@ -228,7 +226,7 @@ public class Source(
      *
      * @return the priority of the source
      */
-    public fun getPriority(): Int = g_source_get_priority(glibSourcePointer.reinterpret())
+    public fun getPriority(): gint = g_source_get_priority(glibSourcePointer.reinterpret())
 
     /**
      * Gets the "ready time" of @source, as set by
@@ -239,7 +237,7 @@ public class Source(
      *
      * @return the monotonic ready time, -1 for "never"
      */
-    public fun getReadyTime(): Long = g_source_get_ready_time(glibSourcePointer.reinterpret())
+    public fun getReadyTime(): gint64 = g_source_get_ready_time(glibSourcePointer.reinterpret())
 
     /**
      * Gets the time to be used when checking this source. The advantage of
@@ -254,7 +252,7 @@ public class Source(
      * @since 2.28
      */
     @GLibVersion2_28
-    public fun getTime(): Long = g_source_get_time(glibSourcePointer.reinterpret())
+    public fun getTime(): gint64 = g_source_get_time(glibSourcePointer.reinterpret())
 
     /**
      * Returns whether @source has been destroyed.
@@ -347,10 +345,9 @@ public class Source(
      *
      * @return @source
      */
-    public fun ref(): Source =
-        g_source_ref(glibSourcePointer.reinterpret())!!.run {
-            Source(reinterpret())
-        }
+    public fun ref(): Source = g_source_ref(glibSourcePointer.reinterpret())!!.run {
+        Source(reinterpret())
+    }
 
     /**
      * Detaches @child_source from @source and destroys it.
@@ -402,13 +399,12 @@ public class Source(
      *
      * @param func a callback function
      */
-    public fun setCallback(func: SourceFunc): Unit =
-        g_source_set_callback(
-            glibSourcePointer.reinterpret(),
-            SourceFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public fun setCallback(func: SourceFunc): Unit = g_source_set_callback(
+        glibSourcePointer.reinterpret(),
+        SourceFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer(),
+        staticStableRefDestroy.reinterpret()
+    )
 
     /**
      * Sets whether a source can be called recursively. If @can_recurse is
@@ -470,7 +466,7 @@ public class Source(
      *
      * @param priority the new priority.
      */
-    public fun setPriority(priority: Int): Unit = g_source_set_priority(glibSourcePointer.reinterpret(), priority)
+    public fun setPriority(priority: gint): Unit = g_source_set_priority(glibSourcePointer.reinterpret(), priority)
 
     /**
      * Sets a #GSource to be dispatched when the given monotonic time is
@@ -501,7 +497,8 @@ public class Source(
      * @since 2.36
      */
     @GLibVersion2_36
-    public fun setReadyTime(readyTime: Long): Unit = g_source_set_ready_time(glibSourcePointer.reinterpret(), readyTime)
+    public fun setReadyTime(readyTime: gint64): Unit =
+        g_source_set_ready_time(glibSourcePointer.reinterpret(), readyTime)
 
     /**
      * A variant of g_source_set_name() that does not
@@ -521,7 +518,7 @@ public class Source(
      */
     public fun unref(): Unit = g_source_unref(glibSourcePointer.reinterpret())
 
-    public companion object : RecordCompanion<Source, GSource> {
+    public companion object {
         /**
          * Creates a new #GSource structure. The size is specified to
          * allow creating structures derived from #GSource that contain
@@ -537,10 +534,8 @@ public class Source(
          * @param structSize size of the #GSource structure to create.
          * @return the newly-created #GSource.
          */
-        public fun new(
-            sourceFuncs: SourceFuncs,
-            structSize: UInt,
-        ): Source = Source(g_source_new(sourceFuncs.glibSourceFuncsPointer.reinterpret(), structSize)!!.reinterpret())
+        public fun new(sourceFuncs: SourceFuncs, structSize: guint): Source =
+            Source(g_source_new(sourceFuncs.glibSourceFuncsPointer.reinterpret(), structSize)!!.reinterpret())
 
         /**
          * Removes the source with the given ID from the default main context. You must
@@ -566,7 +561,7 @@ public class Source(
          * @param tag the ID of the source to remove.
          * @return true if the source was found and removed.
          */
-        public fun remove(tag: UInt): Boolean = g_source_remove(tag).asBoolean()
+        public fun remove(tag: guint): Boolean = g_source_remove(tag).asBoolean()
 
         /**
          * Sets the name of a source using its ID.
@@ -591,11 +586,13 @@ public class Source(
          * @since 2.26
          */
         @GLibVersion2_26
-        public fun setNameById(
-            tag: UInt,
-            name: String,
-        ): Unit = g_source_set_name_by_id(tag, name)
+        public fun setNameById(tag: guint, name: String): Unit = g_source_set_name_by_id(tag, name)
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Source = Source(pointer.reinterpret())
+        /**
+         * Get the GType of Source
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_source_get_type()
     }
 }

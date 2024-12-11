@@ -1,15 +1,15 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkSorterChange
+import org.gtkkn.native.gtk.gtk_sorter_change_get_type
 
 /**
  * Describes changes in a sorter in more detail and allows users
  * to optimize resorting.
  */
-public enum class SorterChange(
-    public val nativeValue: GtkSorterChange,
-) {
+public enum class SorterChange(public val nativeValue: GtkSorterChange) {
     /**
      * The sorter change cannot be described
      *   by any of the other enumeration values
@@ -37,13 +37,19 @@ public enum class SorterChange(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkSorterChange): SorterChange =
-            when (nativeValue) {
-                GtkSorterChange.GTK_SORTER_CHANGE_DIFFERENT -> DIFFERENT
-                GtkSorterChange.GTK_SORTER_CHANGE_INVERTED -> INVERTED
-                GtkSorterChange.GTK_SORTER_CHANGE_LESS_STRICT -> LESS_STRICT
-                GtkSorterChange.GTK_SORTER_CHANGE_MORE_STRICT -> MORE_STRICT
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkSorterChange): SorterChange = when (nativeValue) {
+            GtkSorterChange.GTK_SORTER_CHANGE_DIFFERENT -> DIFFERENT
+            GtkSorterChange.GTK_SORTER_CHANGE_INVERTED -> INVERTED
+            GtkSorterChange.GTK_SORTER_CHANGE_LESS_STRICT -> LESS_STRICT
+            GtkSorterChange.GTK_SORTER_CHANGE_MORE_STRICT -> MORE_STRICT
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of SorterChange
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_sorter_change_get_type()
     }
 }

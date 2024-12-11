@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupSessionFeature
 import org.gtkkn.native.soup.SoupWebsocketExtensionManager
 import org.gtkkn.native.soup.soup_websocket_extension_manager_get_type
@@ -21,9 +22,8 @@ import org.gtkkn.native.soup.soup_websocket_extension_manager_get_type
  * session with [method@Session.remove_feature_by_type] or disable it on
  * individual requests with [method@Message.disable_feature].
  */
-public class WebsocketExtensionManager(
-    pointer: CPointer<SoupWebsocketExtensionManager>,
-) : Object(pointer.reinterpret()),
+public class WebsocketExtensionManager(pointer: CPointer<SoupWebsocketExtensionManager>) :
+    Object(pointer.reinterpret()),
     SessionFeature,
     KGTyped {
     public val soupWebsocketExtensionManagerPointer: CPointer<SoupWebsocketExtensionManager>
@@ -34,12 +34,19 @@ public class WebsocketExtensionManager(
 
     public companion object : TypeCompanion<WebsocketExtensionManager> {
         override val type: GeneratedClassKGType<WebsocketExtensionManager> =
-            GeneratedClassKGType(
-                soup_websocket_extension_manager_get_type()
-            ) { WebsocketExtensionManager(it.reinterpret()) }
+            GeneratedClassKGType(soup_websocket_extension_manager_get_type()) {
+                WebsocketExtensionManager(it.reinterpret())
+            }
 
         init {
             SoupTypeProvider.register()
         }
+
+        /**
+         * Get the GType of WebsocketExtensionManager
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_websocket_extension_manager_get_type()
     }
 }

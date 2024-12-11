@@ -42,15 +42,15 @@ import org.gtkkn.native.adw.adw_tab_bar_set_inverted
 import org.gtkkn.native.adw.adw_tab_bar_set_start_action_widget
 import org.gtkkn.native.adw.adw_tab_bar_set_view
 import org.gtkkn.native.gdk.GdkDragAction
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GValue
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A tab bar for [class@TabView].
@@ -78,9 +78,8 @@ import kotlin.Unit
  *
  * - parameter `types`: Array parameter of type GType is not supported
  */
-public class TabBar(
-    pointer: CPointer<AdwTabBar>,
-) : Widget(pointer.reinterpret()),
+public class TabBar(pointer: CPointer<AdwTabBar>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val adwTabBarPointer: CPointer<AdwTabBar>
         get() = gPointer.reinterpret()
@@ -131,10 +130,9 @@ public class TabBar(
          *
          * @return the widget shown after the tabs
          */
-        get() =
-            adw_tab_bar_get_end_action_widget(adwTabBarPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = adw_tab_bar_get_end_action_widget(adwTabBarPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the widget to show after the tabs.
@@ -187,10 +185,9 @@ public class TabBar(
          * @return the drag action of the current drop.
          * @since 1.4
          */
-        get() =
-            adw_tab_bar_get_extra_drag_preferred_action(adwTabBarPointer.reinterpret()).run {
-                DragAction(this)
-            }
+        get() = adw_tab_bar_get_extra_drag_preferred_action(adwTabBarPointer.reinterpret()).run {
+            DragAction(this)
+        }
 
     /**
      * Whether the drop data should be preloaded on hover.
@@ -268,10 +265,9 @@ public class TabBar(
          *
          * @return the widget shown before the tabs
          */
-        get() =
-            adw_tab_bar_get_start_action_widget(adwTabBarPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = adw_tab_bar_get_start_action_widget(adwTabBarPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the widget to show before the tabs.
@@ -306,10 +302,9 @@ public class TabBar(
          *
          * @return the view @self controls
          */
-        get() =
-            adw_tab_bar_get_view(adwTabBarPointer.reinterpret())?.run {
-                TabView(reinterpret())
-            }
+        get() = adw_tab_bar_get_view(adwTabBarPointer.reinterpret())?.run {
+            TabView(reinterpret())
+        }
 
         /**
          * Sets the tab view @self controls.
@@ -326,168 +321,6 @@ public class TabBar(
     public constructor() : this(adw_tab_bar_new()!!.reinterpret())
 
     /**
-     * Gets whether the tabs automatically hide.
-     *
-     * @return whether the tabs automatically hide
-     */
-    public fun getAutohide(): Boolean = adw_tab_bar_get_autohide(adwTabBarPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the widget shown after the tabs.
-     *
-     * @return the widget shown after the tabs
-     */
-    public fun getEndActionWidget(): Widget? =
-        adw_tab_bar_get_end_action_widget(adwTabBarPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Gets whether tabs expand to full width.
-     *
-     * @return whether tabs expand to full width.
-     */
-    public fun getExpandTabs(): Boolean = adw_tab_bar_get_expand_tabs(adwTabBarPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the current action during a drop on the extra_drop_target.
-     *
-     * @return the drag action of the current drop.
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun getExtraDragPreferredAction(): DragAction =
-        adw_tab_bar_get_extra_drag_preferred_action(adwTabBarPointer.reinterpret()).run {
-            DragAction(this)
-        }
-
-    /**
-     * Gets whether drop data should be preloaded on hover.
-     *
-     * @return whether drop data should be preloaded on hover
-     * @since 1.3
-     */
-    @AdwVersion1_3
-    public fun getExtraDragPreload(): Boolean =
-        adw_tab_bar_get_extra_drag_preload(adwTabBarPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets whether tabs use inverted layout.
-     *
-     * @return whether tabs use inverted layout
-     */
-    public fun getInverted(): Boolean = adw_tab_bar_get_inverted(adwTabBarPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets whether @self is overflowing.
-     *
-     * If `TRUE`, all tabs cannot be displayed at once and require scrolling.
-     *
-     * @return whether @self is overflowing
-     */
-    public fun getIsOverflowing(): Boolean = adw_tab_bar_get_is_overflowing(adwTabBarPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the widget shown before the tabs.
-     *
-     * @return the widget shown before the tabs
-     */
-    public fun getStartActionWidget(): Widget? =
-        adw_tab_bar_get_start_action_widget(adwTabBarPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Gets whether the tabs are currently revealed.
-     *
-     * See [property@TabBar:autohide].
-     *
-     * @return whether the tabs are currently revealed
-     */
-    public fun getTabsRevealed(): Boolean = adw_tab_bar_get_tabs_revealed(adwTabBarPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the tab view @self controls.
-     *
-     * @return the view @self controls
-     */
-    public fun getView(): TabView? =
-        adw_tab_bar_get_view(adwTabBarPointer.reinterpret())?.run {
-            TabView(reinterpret())
-        }
-
-    /**
-     * Sets whether the tabs automatically hide.
-     *
-     * If set to `TRUE`, the tab bar disappears when [property@TabBar:view] has 0
-     * or 1 tab, no pinned tabs, and no tab is being transferred.
-     *
-     * See [property@TabBar:tabs-revealed].
-     *
-     * @param autohide whether the tabs automatically hide
-     */
-    public fun setAutohide(autohide: Boolean): Unit =
-        adw_tab_bar_set_autohide(adwTabBarPointer.reinterpret(), autohide.asGBoolean())
-
-    /**
-     * Sets the widget to show after the tabs.
-     *
-     * @param widget the widget to show after the tabs
-     */
-    public fun setEndActionWidget(widget: Widget? = null): Unit =
-        adw_tab_bar_set_end_action_widget(adwTabBarPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
-
-    /**
-     * Sets whether tabs expand to full width.
-     *
-     * If set to `TRUE`, the tabs will always vary width filling the whole width
-     * when possible, otherwise tabs will always have the minimum possible size.
-     *
-     * @param expandTabs whether to expand tabs
-     */
-    public fun setExpandTabs(expandTabs: Boolean): Unit =
-        adw_tab_bar_set_expand_tabs(adwTabBarPointer.reinterpret(), expandTabs.asGBoolean())
-
-    /**
-     * Sets whether drop data should be preloaded on hover.
-     *
-     * See [property@Gtk.DropTarget:preload].
-     *
-     * @param preload whether to preload drop data
-     * @since 1.3
-     */
-    @AdwVersion1_3
-    public fun setExtraDragPreload(preload: Boolean): Unit =
-        adw_tab_bar_set_extra_drag_preload(adwTabBarPointer.reinterpret(), preload.asGBoolean())
-
-    /**
-     * Sets whether tabs tabs use inverted layout.
-     *
-     * If set to `TRUE`, non-pinned tabs will have the close button at the beginning
-     * and the indicator at the end rather than the opposite.
-     *
-     * @param inverted whether tabs use inverted layout
-     */
-    public fun setInverted(inverted: Boolean): Unit =
-        adw_tab_bar_set_inverted(adwTabBarPointer.reinterpret(), inverted.asGBoolean())
-
-    /**
-     * Sets the widget to show before the tabs.
-     *
-     * @param widget the widget to show before the tabs
-     */
-    public fun setStartActionWidget(widget: Widget? = null): Unit =
-        adw_tab_bar_set_start_action_widget(adwTabBarPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
-
-    /**
-     * Sets the tab view @self controls.
-     *
-     * @param view a tab view
-     */
-    public fun setView(view: TabView? = null): Unit =
-        adw_tab_bar_set_view(adwTabBarPointer.reinterpret(), view?.adwTabViewPointer?.reinterpret())
-
-    /**
      * This signal is emitted when content is dropped onto a tab.
      *
      * The content must be of one of the types set up via
@@ -501,15 +334,14 @@ public class TabBar(
     public fun connectExtraDragDrop(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (page: TabPage, `value`: Value) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "extra-drag-drop",
-            connectExtraDragDropFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "extra-drag-drop",
+        connectExtraDragDropFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * This signal is emitted when the dropped content is preloaded.
@@ -530,15 +362,14 @@ public class TabBar(
     public fun connectExtraDragValue(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (page: TabPage, `value`: Value) -> DragAction,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "extra-drag-value",
-            connectExtraDragValueFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "extra-drag-value",
+        connectExtraDragValueFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<TabBar> {
         override val type: GeneratedClassKGType<TabBar> =
@@ -547,29 +378,34 @@ public class TabBar(
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of TabBar
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_tab_bar_get_type()
     }
 }
 
 private val connectExtraDragDropFunc:
-    CPointer<CFunction<(CPointer<AdwTabPage>, CPointer<GValue>) -> Int>> =
+    CPointer<CFunction<(CPointer<AdwTabPage>, CPointer<GValue>) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
             page: CPointer<AdwTabPage>?,
             `value`: CPointer<GValue>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(page: TabPage, `value`: Value) -> Boolean>()
-            .get()
-            .invoke(
-                page!!.run {
-                    TabPage(reinterpret())
-                },
-                `value`!!.run {
-                    Value(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(page: TabPage, `value`: Value) -> Boolean>().get().invoke(
+            page!!.run {
+                TabPage(reinterpret())
+            },
+            `value`!!.run {
+                Value(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
 private val connectExtraDragValueFunc:
     CPointer<CFunction<(CPointer<AdwTabPage>, CPointer<GValue>) -> GdkDragAction>> =
@@ -579,15 +415,13 @@ private val connectExtraDragValueFunc:
             `value`: CPointer<GValue>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(page: TabPage, `value`: Value) -> DragAction>()
-            .get()
-            .invoke(
-                page!!.run {
-                    TabPage(reinterpret())
-                },
-                `value`!!.run {
-                    Value(reinterpret())
-                }
-            ).mask
-    }.reinterpret()
+        userData.asStableRef<(page: TabPage, `value`: Value) -> DragAction>().get().invoke(
+            page!!.run {
+                TabPage(reinterpret())
+            },
+            `value`!!.run {
+                Value(reinterpret())
+            }
+        ).mask
+    }
+        .reinterpret()

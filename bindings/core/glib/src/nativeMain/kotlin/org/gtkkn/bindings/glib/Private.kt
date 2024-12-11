@@ -1,12 +1,16 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GPrivate
+import kotlin.Pair
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * The #GPrivate struct is an opaque data structure to represent a
@@ -32,16 +36,40 @@ import org.gtkkn.native.glib.GPrivate
  * - method `get`: Return type gpointer is unsupported
  * - parameter `value`: gpointer
  * - parameter `value`: gpointer
+ * - parameter `notify`: DestroyNotify
  * - field `p`: Record field p is private
  * - field `notify`: Record field notify is private
  * - field `future`: Record field future is private
  */
-public class Private(
-    pointer: CPointer<GPrivate>,
-) : Record {
+public class Private(pointer: CPointer<GPrivate>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibPrivatePointer: CPointer<GPrivate> = pointer
 
-    public companion object : RecordCompanion<Private, GPrivate> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Private = Private(pointer.reinterpret())
-    }
+    /**
+     * Allocate a new Private.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<GPrivate>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Private and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GPrivate>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Private using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GPrivate>().ptr)
 }

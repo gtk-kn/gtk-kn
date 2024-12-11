@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAccessibleRange
 import org.gtkkn.native.gtk.GtkBuildable
@@ -25,9 +26,8 @@ import org.gtkkn.native.gtk.gtk_volume_button_new
  *
  * - method `use-symbolic`: Property has no getter nor setter
  */
-public open class VolumeButton(
-    pointer: CPointer<GtkVolumeButton>,
-) : ScaleButton(pointer.reinterpret()),
+public open class VolumeButton(pointer: CPointer<GtkVolumeButton>) :
+    ScaleButton(pointer.reinterpret()),
     KGTyped {
     public val gtkVolumeButtonPointer: CPointer<GtkVolumeButton>
         get() = gPointer.reinterpret()
@@ -65,5 +65,12 @@ public open class VolumeButton(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of VolumeButton
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_volume_button_get_type()
     }
 }

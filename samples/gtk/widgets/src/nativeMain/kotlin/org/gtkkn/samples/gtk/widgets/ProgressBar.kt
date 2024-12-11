@@ -22,7 +22,7 @@
 
 package org.gtkkn.samples.gtk.widgets
 
-import org.gtkkn.bindings.glib.Glib
+import org.gtkkn.bindings.glib.GLib
 import org.gtkkn.bindings.gtk.Box
 import org.gtkkn.bindings.gtk.CheckButton
 import org.gtkkn.bindings.gtk.Orientation
@@ -55,7 +55,7 @@ fun progressBar(): Box {
     rightToLeftButton.connectToggled { onRightToLeftToggled(rightToLeftButton, progressBar) }
     vbox.append(rightToLeftButton)
 
-    Glib.timeoutAdd(0, 50.toUInt()) {
+    GLib.timeoutAdd(0, 50.toUInt()) {
         onTimeout(progressBar)
     }
 

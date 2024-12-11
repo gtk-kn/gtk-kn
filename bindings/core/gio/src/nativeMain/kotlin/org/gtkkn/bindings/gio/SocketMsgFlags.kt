@@ -8,6 +8,8 @@ import org.gtkkn.native.gio.G_SOCKET_MSG_DONTROUTE
 import org.gtkkn.native.gio.G_SOCKET_MSG_NONE
 import org.gtkkn.native.gio.G_SOCKET_MSG_OOB
 import org.gtkkn.native.gio.G_SOCKET_MSG_PEEK
+import org.gtkkn.native.gio.g_socket_msg_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags used in g_socket_receive_message() and g_socket_send_message().
@@ -17,9 +19,7 @@ import org.gtkkn.native.gio.G_SOCKET_MSG_PEEK
  * the right system header and pass in the flag.
  * @since 2.22
  */
-public class SocketMsgFlags(
-    public val mask: GSocketMsgFlags,
-) : Bitfield<SocketMsgFlags> {
+public class SocketMsgFlags(public val mask: GSocketMsgFlags) : Bitfield<SocketMsgFlags> {
     override infix fun or(other: SocketMsgFlags): SocketMsgFlags = SocketMsgFlags(mask or other.mask)
 
     @GioVersion2_22
@@ -45,5 +45,12 @@ public class SocketMsgFlags(
          *     only send to hosts on directly connected networks.
          */
         public val DONTROUTE: SocketMsgFlags = SocketMsgFlags(G_SOCKET_MSG_DONTROUTE)
+
+        /**
+         * Get the GType of SocketMsgFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_socket_msg_flags_get_type()
     }
 }

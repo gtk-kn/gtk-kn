@@ -9,6 +9,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkShortcutController
 import org.gtkkn.native.gtk.gtk_shortcut_controller_add_shortcut
@@ -71,9 +72,8 @@ import kotlin.Unit
  * - method `model`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class ShortcutController(
-    pointer: CPointer<GtkShortcutController>,
-) : EventController(pointer.reinterpret()),
+public open class ShortcutController(pointer: CPointer<GtkShortcutController>) :
+    EventController(pointer.reinterpret()),
     ListModel,
     Buildable,
     KGTyped {
@@ -97,10 +97,9 @@ public open class ShortcutController(
          *
          * @return the controller's scope
          */
-        get() =
-            gtk_shortcut_controller_get_scope(gtkShortcutControllerPointer.reinterpret()).run {
-                ShortcutScope.fromNativeValue(this)
-            }
+        get() = gtk_shortcut_controller_get_scope(gtkShortcutControllerPointer.reinterpret()).run {
+            ShortcutScope.fromNativeValue(this)
+        }
 
         /**
          * Sets the controller to have the given @scope.
@@ -147,11 +146,10 @@ public open class ShortcutController(
      *
      * @param shortcut a `GtkShortcut`
      */
-    public open fun addShortcut(shortcut: Shortcut): Unit =
-        gtk_shortcut_controller_add_shortcut(
-            gtkShortcutControllerPointer.reinterpret(),
-            shortcut.gtkShortcutPointer.reinterpret()
-        )
+    public open fun addShortcut(shortcut: Shortcut): Unit = gtk_shortcut_controller_add_shortcut(
+        gtkShortcutControllerPointer.reinterpret(),
+        shortcut.gtkShortcutPointer.reinterpret()
+    )
 
     /**
      * Gets the mnemonics modifiers for when this controller activates its shortcuts.
@@ -164,18 +162,6 @@ public open class ShortcutController(
         }
 
     /**
-     * Gets the scope for when this controller activates its shortcuts.
-     *
-     * See [method@Gtk.ShortcutController.set_scope] for details.
-     *
-     * @return the controller's scope
-     */
-    public open fun getScope(): ShortcutScope =
-        gtk_shortcut_controller_get_scope(gtkShortcutControllerPointer.reinterpret()).run {
-            ShortcutScope.fromNativeValue(this)
-        }
-
-    /**
      * Removes @shortcut from the list of shortcuts handled by @self.
      *
      * If @shortcut had not been added to @controller or this controller
@@ -183,11 +169,10 @@ public open class ShortcutController(
      *
      * @param shortcut a `GtkShortcut`
      */
-    public open fun removeShortcut(shortcut: Shortcut): Unit =
-        gtk_shortcut_controller_remove_shortcut(
-            gtkShortcutControllerPointer.reinterpret(),
-            shortcut.gtkShortcutPointer.reinterpret()
-        )
+    public open fun removeShortcut(shortcut: Shortcut): Unit = gtk_shortcut_controller_remove_shortcut(
+        gtkShortcutControllerPointer.reinterpret(),
+        shortcut.gtkShortcutPointer.reinterpret()
+    )
 
     /**
      * Sets the controller to use the given modifier for mnemonics.
@@ -209,22 +194,6 @@ public open class ShortcutController(
     public open fun setMnemonicsModifiers(modifiers: ModifierType): Unit =
         gtk_shortcut_controller_set_mnemonics_modifiers(gtkShortcutControllerPointer.reinterpret(), modifiers.mask)
 
-    /**
-     * Sets the controller to have the given @scope.
-     *
-     * The scope allows shortcuts to be activated outside of the normal
-     * event propagation. In particular, it allows installing global
-     * keyboard shortcuts that can be activated even when a widget does
-     * not have focus.
-     *
-     * With %GTK_SHORTCUT_SCOPE_LOCAL, shortcuts will only be activated
-     * when the widget has focus.
-     *
-     * @param scope the new scope to use
-     */
-    public open fun setScope(scope: ShortcutScope): Unit =
-        gtk_shortcut_controller_set_scope(gtkShortcutControllerPointer.reinterpret(), scope.nativeValue)
-
     public companion object : TypeCompanion<ShortcutController> {
         override val type: GeneratedClassKGType<ShortcutController> =
             GeneratedClassKGType(gtk_shortcut_controller_get_type()) { ShortcutController(it.reinterpret()) }
@@ -232,5 +201,12 @@ public open class ShortcutController(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ShortcutController
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_shortcut_controller_get_type()
     }
 }

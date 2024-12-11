@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.native.gio.GTlsInteractionResult
+import org.gtkkn.native.gio.g_tls_interaction_result_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * #GTlsInteractionResult is returned by various functions in #GTlsInteraction
@@ -10,9 +12,7 @@ import org.gtkkn.native.gio.GTlsInteractionResult
  * @since 2.30
  */
 @GioVersion2_30
-public enum class TlsInteractionResult(
-    public val nativeValue: GTlsInteractionResult,
-) {
+public enum class TlsInteractionResult(public val nativeValue: GTlsInteractionResult) {
     /**
      * The interaction was unhandled (i.e. not
      *     implemented).
@@ -33,12 +33,18 @@ public enum class TlsInteractionResult(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GTlsInteractionResult): TlsInteractionResult =
-            when (nativeValue) {
-                GTlsInteractionResult.G_TLS_INTERACTION_UNHANDLED -> UNHANDLED
-                GTlsInteractionResult.G_TLS_INTERACTION_HANDLED -> HANDLED
-                GTlsInteractionResult.G_TLS_INTERACTION_FAILED -> FAILED
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GTlsInteractionResult): TlsInteractionResult = when (nativeValue) {
+            GTlsInteractionResult.G_TLS_INTERACTION_UNHANDLED -> UNHANDLED
+            GTlsInteractionResult.G_TLS_INTERACTION_HANDLED -> HANDLED
+            GTlsInteractionResult.G_TLS_INTERACTION_FAILED -> FAILED
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of TlsInteractionResult
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_tls_interaction_result_get_type()
     }
 }

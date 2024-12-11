@@ -29,7 +29,6 @@ import kotlin.reflect.KClass
 public typealias CastFunc = () -> Unit
 
 internal object TypeCasting {
-
     private val userDefinedTypeMap = mutableMapOf<KClass<*>, KGType<*>>()
 
     private val typeProviders = mutableSetOf<TypeProvider>()

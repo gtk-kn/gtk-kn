@@ -15,6 +15,7 @@ import org.gtkkn.native.gio.g_pollable_input_stream_can_poll
 import org.gtkkn.native.gio.g_pollable_input_stream_create_source
 import org.gtkkn.native.gio.g_pollable_input_stream_get_type
 import org.gtkkn.native.gio.g_pollable_input_stream_is_readable
+import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 
 /**
@@ -74,13 +75,12 @@ public interface PollableInputStream :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun createSource(cancellable: Cancellable? = null): Source =
-        g_pollable_input_stream_create_source(
-            gioPollableInputStreamPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret()
-        )!!.run {
-            Source(reinterpret())
-        }
+    public fun createSource(cancellable: Cancellable? = null): Source = g_pollable_input_stream_create_source(
+        gioPollableInputStreamPointer.reinterpret(),
+        cancellable?.gioCancellablePointer?.reinterpret()
+    )!!.run {
+        Source(reinterpret())
+    }
 
     /**
      * Checks if @stream can be read.
@@ -105,9 +105,7 @@ public interface PollableInputStream :
     public fun isReadable(): Boolean =
         g_pollable_input_stream_is_readable(gioPollableInputStreamPointer.reinterpret()).asBoolean()
 
-    private data class Wrapper(
-        private val pointer: CPointer<GPollableInputStream>,
-    ) : PollableInputStream {
+    private data class Wrapper(private val pointer: CPointer<GPollableInputStream>) : PollableInputStream {
         override val gioPollableInputStreamPointer: CPointer<GPollableInputStream> = pointer
     }
 
@@ -120,5 +118,12 @@ public interface PollableInputStream :
         }
 
         public fun wrap(pointer: CPointer<GPollableInputStream>): PollableInputStream = Wrapper(pointer)
+
+        /**
+         * Get the GType of PollableInputStream
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_pollable_input_stream_get_type()
     }
 }

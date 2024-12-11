@@ -23,7 +23,6 @@ import kotlin.test.assertEquals
  * Unit tests for verifying the type casting functionality of `asType`.
  */
 class TypeCastingTests {
-
     /**
      * Test that an object can be cast to a more generic type and back to its original type.
      */

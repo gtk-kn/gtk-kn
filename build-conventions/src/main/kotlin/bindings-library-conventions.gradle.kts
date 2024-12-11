@@ -14,6 +14,7 @@
  * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
  */
 
+import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import java.nio.file.Files
 
@@ -29,7 +30,10 @@ val girTask = tasks.getByPath(":gir:run")
 kotlin {
     targets.withType<KotlinNativeTarget> {
         compilations["main"].apply {
-            cinterops.create(project.name)
+            val defFile = file("src/nativeInterop/cinterop/${project.name}.def")
+            if (defFile.exists()) {
+                cinterops.create(project.name)
+            }
         }
 
         compilations.forEach { compilation ->
@@ -50,6 +54,11 @@ kotlin {
             mustRunAfter(girTask)
         }
     }
+    sourceSets {
+        all {
+            languageSettings.optIn("org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter")
+        }
+    }
 }
 
 tasks {
@@ -59,4 +68,13 @@ tasks {
         delete(bindings, optInAnnotationsFile)
     }
     girTask.outputs.files(bindings)
+
+    withType<Detekt>().configureEach {
+        // Use a custom exclude Spec
+        exclude { fileChecked ->
+            val filePath = fileChecked.file.toPath()
+            // Check if the file is within the bindings directory
+            filePath.startsWith(bindings.dir.toPath())
+        }
+    }
 }

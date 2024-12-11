@@ -1,14 +1,14 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitCacheModel
+import org.gtkkn.native.webkit.webkit_cache_model_get_type
 
 /**
  * Enum values used for determining the #WebKitWebContext cache model.
  */
-public enum class CacheModel(
-    public val nativeValue: WebKitCacheModel,
-) {
+public enum class CacheModel(public val nativeValue: WebKitCacheModel) {
     /**
      * Disable the cache completely, which
      *   substantially reduces memory usage. Useful for applications that only
@@ -32,12 +32,18 @@ public enum class CacheModel(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitCacheModel): CacheModel =
-            when (nativeValue) {
-                WebKitCacheModel.WEBKIT_CACHE_MODEL_DOCUMENT_VIEWER -> DOCUMENT_VIEWER
-                WebKitCacheModel.WEBKIT_CACHE_MODEL_WEB_BROWSER -> WEB_BROWSER
-                WebKitCacheModel.WEBKIT_CACHE_MODEL_DOCUMENT_BROWSER -> DOCUMENT_BROWSER
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitCacheModel): CacheModel = when (nativeValue) {
+            WebKitCacheModel.WEBKIT_CACHE_MODEL_DOCUMENT_VIEWER -> DOCUMENT_VIEWER
+            WebKitCacheModel.WEBKIT_CACHE_MODEL_WEB_BROWSER -> WEB_BROWSER
+            WebKitCacheModel.WEBKIT_CACHE_MODEL_DOCUMENT_BROWSER -> DOCUMENT_BROWSER
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of CacheModel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_cache_model_get_type()
     }
 }

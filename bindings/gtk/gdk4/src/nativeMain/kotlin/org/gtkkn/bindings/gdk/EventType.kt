@@ -2,13 +2,13 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.native.gdk.GdkEventType
+import org.gtkkn.native.gdk.gdk_event_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Specifies the type of the event.
  */
-public enum class EventType(
-    public val nativeValue: GdkEventType,
-) {
+public enum class EventType(public val nativeValue: GdkEventType) {
     /**
      * the window manager has requested that the toplevel surface be
      *   hidden or destroyed, usually when the user clicks on a special icon in the
@@ -170,39 +170,45 @@ public enum class EventType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GdkEventType): EventType =
-            when (nativeValue) {
-                GdkEventType.GDK_DELETE -> DELETE
-                GdkEventType.GDK_MOTION_NOTIFY -> MOTION_NOTIFY
-                GdkEventType.GDK_BUTTON_PRESS -> BUTTON_PRESS
-                GdkEventType.GDK_BUTTON_RELEASE -> BUTTON_RELEASE
-                GdkEventType.GDK_KEY_PRESS -> KEY_PRESS
-                GdkEventType.GDK_KEY_RELEASE -> KEY_RELEASE
-                GdkEventType.GDK_ENTER_NOTIFY -> ENTER_NOTIFY
-                GdkEventType.GDK_LEAVE_NOTIFY -> LEAVE_NOTIFY
-                GdkEventType.GDK_FOCUS_CHANGE -> FOCUS_CHANGE
-                GdkEventType.GDK_PROXIMITY_IN -> PROXIMITY_IN
-                GdkEventType.GDK_PROXIMITY_OUT -> PROXIMITY_OUT
-                GdkEventType.GDK_DRAG_ENTER -> DRAG_ENTER
-                GdkEventType.GDK_DRAG_LEAVE -> DRAG_LEAVE
-                GdkEventType.GDK_DRAG_MOTION -> DRAG_MOTION
-                GdkEventType.GDK_DROP_START -> DROP_START
-                GdkEventType.GDK_SCROLL -> SCROLL
-                GdkEventType.GDK_GRAB_BROKEN -> GRAB_BROKEN
-                GdkEventType.GDK_TOUCH_BEGIN -> TOUCH_BEGIN
-                GdkEventType.GDK_TOUCH_UPDATE -> TOUCH_UPDATE
-                GdkEventType.GDK_TOUCH_END -> TOUCH_END
-                GdkEventType.GDK_TOUCH_CANCEL -> TOUCH_CANCEL
-                GdkEventType.GDK_TOUCHPAD_SWIPE -> TOUCHPAD_SWIPE
-                GdkEventType.GDK_TOUCHPAD_PINCH -> TOUCHPAD_PINCH
-                GdkEventType.GDK_PAD_BUTTON_PRESS -> PAD_BUTTON_PRESS
-                GdkEventType.GDK_PAD_BUTTON_RELEASE -> PAD_BUTTON_RELEASE
-                GdkEventType.GDK_PAD_RING -> PAD_RING
-                GdkEventType.GDK_PAD_STRIP -> PAD_STRIP
-                GdkEventType.GDK_PAD_GROUP_MODE -> PAD_GROUP_MODE
-                GdkEventType.GDK_TOUCHPAD_HOLD -> TOUCHPAD_HOLD
-                GdkEventType.GDK_EVENT_LAST -> EVENT_LAST
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GdkEventType): EventType = when (nativeValue) {
+            GdkEventType.GDK_DELETE -> DELETE
+            GdkEventType.GDK_MOTION_NOTIFY -> MOTION_NOTIFY
+            GdkEventType.GDK_BUTTON_PRESS -> BUTTON_PRESS
+            GdkEventType.GDK_BUTTON_RELEASE -> BUTTON_RELEASE
+            GdkEventType.GDK_KEY_PRESS -> KEY_PRESS
+            GdkEventType.GDK_KEY_RELEASE -> KEY_RELEASE
+            GdkEventType.GDK_ENTER_NOTIFY -> ENTER_NOTIFY
+            GdkEventType.GDK_LEAVE_NOTIFY -> LEAVE_NOTIFY
+            GdkEventType.GDK_FOCUS_CHANGE -> FOCUS_CHANGE
+            GdkEventType.GDK_PROXIMITY_IN -> PROXIMITY_IN
+            GdkEventType.GDK_PROXIMITY_OUT -> PROXIMITY_OUT
+            GdkEventType.GDK_DRAG_ENTER -> DRAG_ENTER
+            GdkEventType.GDK_DRAG_LEAVE -> DRAG_LEAVE
+            GdkEventType.GDK_DRAG_MOTION -> DRAG_MOTION
+            GdkEventType.GDK_DROP_START -> DROP_START
+            GdkEventType.GDK_SCROLL -> SCROLL
+            GdkEventType.GDK_GRAB_BROKEN -> GRAB_BROKEN
+            GdkEventType.GDK_TOUCH_BEGIN -> TOUCH_BEGIN
+            GdkEventType.GDK_TOUCH_UPDATE -> TOUCH_UPDATE
+            GdkEventType.GDK_TOUCH_END -> TOUCH_END
+            GdkEventType.GDK_TOUCH_CANCEL -> TOUCH_CANCEL
+            GdkEventType.GDK_TOUCHPAD_SWIPE -> TOUCHPAD_SWIPE
+            GdkEventType.GDK_TOUCHPAD_PINCH -> TOUCHPAD_PINCH
+            GdkEventType.GDK_PAD_BUTTON_PRESS -> PAD_BUTTON_PRESS
+            GdkEventType.GDK_PAD_BUTTON_RELEASE -> PAD_BUTTON_RELEASE
+            GdkEventType.GDK_PAD_RING -> PAD_RING
+            GdkEventType.GDK_PAD_STRIP -> PAD_STRIP
+            GdkEventType.GDK_PAD_GROUP_MODE -> PAD_GROUP_MODE
+            GdkEventType.GDK_TOUCHPAD_HOLD -> TOUCHPAD_HOLD
+            GdkEventType.GDK_EVENT_LAST -> EVENT_LAST
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of EventType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_event_type_get_type()
     }
 }

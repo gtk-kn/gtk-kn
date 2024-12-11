@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkConstantExpression
 import org.gtkkn.native.gtk.gtk_constant_expression_get_type
 import org.gtkkn.native.gtk.gtk_constant_expression_get_value
@@ -14,10 +15,13 @@ import org.gtkkn.native.gtk.gtk_constant_expression_new_for_value
 
 /**
  * A constant value in a `GtkExpression`.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - constructor `new`: Varargs parameter is not supported
  */
-public open class ConstantExpression(
-    pointer: CPointer<GtkConstantExpression>,
-) : Expression(pointer.reinterpret()),
+public open class ConstantExpression(pointer: CPointer<GtkConstantExpression>) :
+    Expression(pointer.reinterpret()),
     KGTyped {
     public val gtkConstantExpressionPointer: CPointer<GtkConstantExpression>
         get() = gPointer.reinterpret()
@@ -49,5 +53,12 @@ public open class ConstantExpression(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ConstantExpression
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_constant_expression_get_type()
     }
 }

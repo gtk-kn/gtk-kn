@@ -2,9 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 
-public class FileChooserErrorException(
-    error: Error,
-    public val code: FileChooserError,
-) : GlibException(error)
+public class FileChooserErrorException(error: Error, public val code: FileChooserError) : GLibException(error)

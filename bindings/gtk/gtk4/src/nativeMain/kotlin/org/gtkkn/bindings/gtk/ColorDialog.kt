@@ -24,6 +24,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkColorDialog
 import org.gtkkn.native.gtk.gtk_color_dialog_choose_rgba
 import org.gtkkn.native.gtk.gtk_color_dialog_choose_rgba_finish
@@ -56,9 +57,8 @@ import kotlin.Unit
  * @since 4.10
  */
 @GtkVersion4_10
-public open class ColorDialog(
-    pointer: CPointer<GtkColorDialog>,
-) : Object(pointer.reinterpret()),
+public open class ColorDialog(pointer: CPointer<GtkColorDialog>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkColorDialogPointer: CPointer<GtkColorDialog>
         get() = gPointer.reinterpret()
@@ -106,9 +106,8 @@ public open class ColorDialog(
          * @return the title
          * @since 4.10
          */
-        get() =
-            gtk_color_dialog_get_title(gtkColorDialogPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_color_dialog_get_title(gtkColorDialogPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Sets the title that will be shown on the
@@ -175,15 +174,14 @@ public open class ColorDialog(
         initialColor: RGBA? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        gtk_color_dialog_choose_rgba(
-            gtkColorDialogPointer.reinterpret(),
-            parent?.gtkWindowPointer?.reinterpret(),
-            initialColor?.gdkRGBAPointer?.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = gtk_color_dialog_choose_rgba(
+        gtkColorDialogPointer.reinterpret(),
+        parent?.gtkWindowPointer?.reinterpret(),
+        initialColor?.gdkRGBAPointer?.reinterpret(),
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes the [method@Gtk.ColorDialog.choose_rgba] call and
@@ -195,90 +193,22 @@ public open class ColorDialog(
      * @since 4.10
      */
     @GtkVersion4_10
-    public open fun chooseRgbaFinish(result: AsyncResult): Result<RGBA?> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gtk_color_dialog_choose_rgba_finish(
-                    gtkColorDialogPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    RGBA(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun chooseRgbaFinish(result: AsyncResult): Result<RGBA?> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gtk_color_dialog_choose_rgba_finish(
+            gtkColorDialogPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            RGBA(reinterpret())
         }
 
-    /**
-     * Returns whether the color chooser dialog
-     * blocks interaction with the parent window
-     * while it is presented.
-     *
-     * @return `TRUE` if the color chooser dialog is modal
-     * @since 4.10
-     */
-    @GtkVersion4_10
-    public open fun getModal(): Boolean = gtk_color_dialog_get_modal(gtkColorDialogPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns the title that will be shown on the
-     * color chooser dialog.
-     *
-     * @return the title
-     * @since 4.10
-     */
-    @GtkVersion4_10
-    public open fun getTitle(): String =
-        gtk_color_dialog_get_title(gtkColorDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Returns whether colors may have alpha.
-     *
-     * @return `TRUE` if colors may have alpha
-     * @since 4.10
-     */
-    @GtkVersion4_10
-    public open fun getWithAlpha(): Boolean =
-        gtk_color_dialog_get_with_alpha(gtkColorDialogPointer.reinterpret()).asBoolean()
-
-    /**
-     * Sets whether the color chooser dialog
-     * blocks interaction with the parent window
-     * while it is presented.
-     *
-     * @param modal the new value
-     * @since 4.10
-     */
-    @GtkVersion4_10
-    public open fun setModal(modal: Boolean): Unit =
-        gtk_color_dialog_set_modal(gtkColorDialogPointer.reinterpret(), modal.asGBoolean())
-
-    /**
-     * Sets the title that will be shown on the
-     * color chooser dialog.
-     *
-     * @param title the new title
-     * @since 4.10
-     */
-    @GtkVersion4_10
-    public open fun setTitle(title: String): Unit =
-        gtk_color_dialog_set_title(gtkColorDialogPointer.reinterpret(), title)
-
-    /**
-     * Sets whether colors may have alpha.
-     *
-     * @param withAlpha the new value
-     * @since 4.10
-     */
-    @GtkVersion4_10
-    public open fun setWithAlpha(withAlpha: Boolean): Unit =
-        gtk_color_dialog_set_with_alpha(gtkColorDialogPointer.reinterpret(), withAlpha.asGBoolean())
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
+        }
+    }
 
     public companion object : TypeCompanion<ColorDialog> {
         override val type: GeneratedClassKGType<ColorDialog> =
@@ -287,5 +217,12 @@ public open class ColorDialog(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ColorDialog
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_color_dialog_get_type()
     }
 }

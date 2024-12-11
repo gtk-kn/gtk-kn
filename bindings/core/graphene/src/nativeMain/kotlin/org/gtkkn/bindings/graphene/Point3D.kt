@@ -1,20 +1,27 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.graphene
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_4
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.graphene.graphene_point3d_alloc
 import org.gtkkn.native.graphene.graphene_point3d_cross
 import org.gtkkn.native.graphene.graphene_point3d_distance
 import org.gtkkn.native.graphene.graphene_point3d_dot
 import org.gtkkn.native.graphene.graphene_point3d_equal
 import org.gtkkn.native.graphene.graphene_point3d_free
+import org.gtkkn.native.graphene.graphene_point3d_get_type
 import org.gtkkn.native.graphene.graphene_point3d_init
 import org.gtkkn.native.graphene.graphene_point3d_init_from_point
 import org.gtkkn.native.graphene.graphene_point3d_init_from_vec3
@@ -28,25 +35,27 @@ import org.gtkkn.native.graphene.graphene_point3d_t
 import org.gtkkn.native.graphene.graphene_point3d_to_vec3
 import org.gtkkn.native.graphene.graphene_point3d_zero
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Float
+import kotlin.Pair
+import kotlin.String
 import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * A point with three components: X, Y, and Z.
  * @since 1.0
  */
 @GrapheneVersion1_0
-public class Point3D(
-    pointer: CPointer<graphene_point3d_t>,
-) : Record {
+public class Point3D(pointer: CPointer<graphene_point3d_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val graphenePoint3DPointer: CPointer<graphene_point3d_t> = pointer
 
     /**
      * the X coordinate
      */
-    public var x: Float
+    public var x: gfloat
         get() = graphenePoint3DPointer.pointed.x
+
+        @UnsafeFieldSetter
         set(`value`) {
             graphenePoint3DPointer.pointed.x = value
         }
@@ -54,8 +63,10 @@ public class Point3D(
     /**
      * the Y coordinate
      */
-    public var y: Float
+    public var y: gfloat
         get() = graphenePoint3DPointer.pointed.y
+
+        @UnsafeFieldSetter
         set(`value`) {
             graphenePoint3DPointer.pointed.y = value
         }
@@ -63,11 +74,85 @@ public class Point3D(
     /**
      * the Z coordinate
      */
-    public var z: Float
+    public var z: gfloat
         get() = graphenePoint3DPointer.pointed.z
+
+        @UnsafeFieldSetter
         set(`value`) {
             graphenePoint3DPointer.pointed.z = value
         }
+
+    /**
+     * Allocate a new Point3D.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<graphene_point3d_t>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Point3D and a [Cleaner] instance.
+     */
+    private constructor(
+        pair: Pair<CPointer<graphene_point3d_t>, Cleaner>,
+    ) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Point3D using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_point3d_t>().ptr)
+
+    /**
+     * Allocate a new Point3D.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param x the X coordinate
+     * @param y the Y coordinate
+     * @param z the Z coordinate
+     */
+    public constructor(
+        x: gfloat,
+        y: gfloat,
+        z: gfloat,
+    ) : this() {
+        this.x = x
+        this.y = y
+        this.z = z
+    }
+
+    /**
+     * Allocate a new Point3D using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param x the X coordinate
+     * @param y the Y coordinate
+     * @param z the Z coordinate
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        x: gfloat,
+        y: gfloat,
+        z: gfloat,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.x = x
+        this.y = y
+        this.z = z
+    }
 
     /**
      * Computes the cross product of the two given #graphene_point3d_t.
@@ -78,15 +163,11 @@ public class Point3D(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun cross(
-        b: Point3D,
-        res: Point3D,
-    ): Unit =
-        graphene_point3d_cross(
-            graphenePoint3DPointer.reinterpret(),
-            b.graphenePoint3DPointer.reinterpret(),
-            res.graphenePoint3DPointer.reinterpret()
-        )
+    public fun cross(b: Point3D, res: Point3D): Unit = graphene_point3d_cross(
+        graphenePoint3DPointer.reinterpret(),
+        b.graphenePoint3DPointer.reinterpret(),
+        res.graphenePoint3DPointer.reinterpret()
+    )
 
     /**
      * Computes the distance between the two given #graphene_point3d_t.
@@ -98,15 +179,11 @@ public class Point3D(
      * @since 1.4
      */
     @GrapheneVersion1_4
-    public fun distance(
-        b: Point3D,
-        delta: Vec3?,
-    ): Float =
-        graphene_point3d_distance(
-            graphenePoint3DPointer.reinterpret(),
-            b.graphenePoint3DPointer.reinterpret(),
-            delta?.grapheneVec3Pointer?.reinterpret()
-        )
+    public fun distance(b: Point3D, delta: Vec3?): gfloat = graphene_point3d_distance(
+        graphenePoint3DPointer.reinterpret(),
+        b.graphenePoint3DPointer.reinterpret(),
+        delta?.grapheneVec3Pointer?.reinterpret()
+    )
 
     /**
      * Computes the dot product of the two given #graphene_point3d_t.
@@ -116,7 +193,7 @@ public class Point3D(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun dot(b: Point3D): Float =
+    public fun dot(b: Point3D): gfloat =
         graphene_point3d_dot(graphenePoint3DPointer.reinterpret(), b.graphenePoint3DPointer.reinterpret())
 
     /**
@@ -148,11 +225,7 @@ public class Point3D(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun `init`(
-        x: Float,
-        y: Float,
-        z: Float,
-    ): Point3D =
+    public fun `init`(x: gfloat, y: gfloat, z: gfloat): Point3D =
         graphene_point3d_init(graphenePoint3DPointer.reinterpret(), x, y, z)!!.run {
             Point3D(reinterpret())
         }
@@ -166,13 +239,12 @@ public class Point3D(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initFromPoint(src: Point3D): Point3D =
-        graphene_point3d_init_from_point(
-            graphenePoint3DPointer.reinterpret(),
-            src.graphenePoint3DPointer.reinterpret()
-        )!!.run {
-            Point3D(reinterpret())
-        }
+    public fun initFromPoint(src: Point3D): Point3D = graphene_point3d_init_from_point(
+        graphenePoint3DPointer.reinterpret(),
+        src.graphenePoint3DPointer.reinterpret()
+    )!!.run {
+        Point3D(reinterpret())
+    }
 
     /**
      * Initializes a #graphene_point3d_t using the components
@@ -183,13 +255,12 @@ public class Point3D(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initFromVec3(v: Vec3): Point3D =
-        graphene_point3d_init_from_vec3(
-            graphenePoint3DPointer.reinterpret(),
-            v.grapheneVec3Pointer.reinterpret()
-        )!!.run {
-            Point3D(reinterpret())
-        }
+    public fun initFromVec3(v: Vec3): Point3D = graphene_point3d_init_from_vec3(
+        graphenePoint3DPointer.reinterpret(),
+        v.grapheneVec3Pointer.reinterpret()
+    )!!.run {
+        Point3D(reinterpret())
+    }
 
     /**
      * Linearly interpolates each component of @a and @b using the
@@ -202,17 +273,12 @@ public class Point3D(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun interpolate(
-        b: Point3D,
-        factor: Double,
-        res: Point3D,
-    ): Unit =
-        graphene_point3d_interpolate(
-            graphenePoint3DPointer.reinterpret(),
-            b.graphenePoint3DPointer.reinterpret(),
-            factor,
-            res.graphenePoint3DPointer.reinterpret()
-        )
+    public fun interpolate(b: Point3D, factor: gdouble, res: Point3D): Unit = graphene_point3d_interpolate(
+        graphenePoint3DPointer.reinterpret(),
+        b.graphenePoint3DPointer.reinterpret(),
+        factor,
+        res.graphenePoint3DPointer.reinterpret()
+    )
 
     /**
      * Computes the length of the vector represented by the
@@ -222,7 +288,7 @@ public class Point3D(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun length(): Float = graphene_point3d_length(graphenePoint3DPointer.reinterpret())
+    public fun length(): gfloat = graphene_point3d_length(graphenePoint3DPointer.reinterpret())
 
     /**
      * Checks whether the two points are near each other, within
@@ -234,10 +300,7 @@ public class Point3D(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun near(
-        b: Point3D,
-        epsilon: Float,
-    ): Boolean =
+    public fun near(b: Point3D, epsilon: gfloat): Boolean =
         graphene_point3d_near(graphenePoint3DPointer.reinterpret(), b.graphenePoint3DPointer.reinterpret(), epsilon)
 
     /**
@@ -269,12 +332,7 @@ public class Point3D(
      * @since 1.4
      */
     @GrapheneVersion1_4
-    public fun normalizeViewport(
-        viewport: Rect,
-        zNear: Float,
-        zFar: Float,
-        res: Point3D,
-    ): Unit =
+    public fun normalizeViewport(viewport: Rect, zNear: gfloat, zFar: gfloat, res: Point3D): Unit =
         graphene_point3d_normalize_viewport(
             graphenePoint3DPointer.reinterpret(),
             viewport.grapheneRectPointer.reinterpret(),
@@ -292,10 +350,7 @@ public class Point3D(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun scale(
-        factor: Float,
-        res: Point3D,
-    ): Unit =
+    public fun scale(factor: gfloat, res: Point3D): Unit =
         graphene_point3d_scale(graphenePoint3DPointer.reinterpret(), factor, res.graphenePoint3DPointer.reinterpret())
 
     /**
@@ -309,7 +364,9 @@ public class Point3D(
     public fun toVec3(v: Vec3): Unit =
         graphene_point3d_to_vec3(graphenePoint3DPointer.reinterpret(), v.grapheneVec3Pointer.reinterpret())
 
-    public companion object : RecordCompanion<Point3D, graphene_point3d_t> {
+    override fun toString(): String = "Point3D(x=$x, y=$y, z=$z)"
+
+    public companion object {
         /**
          * Allocates a #graphene_point3d_t structure.
          *
@@ -327,11 +384,15 @@ public class Point3D(
          * @since 1.0
          */
         @GrapheneVersion1_0
-        public fun zero(): Point3D =
-            graphene_point3d_zero()!!.run {
-                Point3D(reinterpret())
-            }
+        public fun zero(): Point3D = graphene_point3d_zero()!!.run {
+            Point3D(reinterpret())
+        }
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Point3D = Point3D(pointer.reinterpret())
+        /**
+         * Get the GType of Point3D
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = graphene_point3d_get_type()
     }
 }

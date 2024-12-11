@@ -1,13 +1,22 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GTrashStack
+import org.gtkkn.native.glib.g_trash_stack_height
+import org.gtkkn.native.gobject.guint
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * A `GTrashStack` is an efficient way to keep a stack of unused allocated
@@ -26,30 +35,97 @@ import org.gtkkn.native.glib.GTrashStack
  *
  * ## Skipped during bindings generation
  *
- * - function `height`: C function g_trash_stack_height is ignored
  * - function `peek`: Return type gpointer is unsupported
  * - function `pop`: Return type gpointer is unsupported
  * - parameter `data_p`: gpointer
  */
-public class TrashStack(
-    pointer: CPointer<GTrashStack>,
-) : Record {
+public class TrashStack(pointer: CPointer<GTrashStack>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibTrashStackPointer: CPointer<GTrashStack> = pointer
 
     /**
      * pointer to the previous element of the stack,
      *     gets stored in the first `sizeof (gpointer)`
      *     bytes of the element
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val next: TrashStack?
-        get() =
-            glibTrashStackPointer.pointed.next?.run {
-                TrashStack(reinterpret())
-            }
+    public var next: TrashStack?
+        get() = glibTrashStackPointer.pointed.next?.run {
+            TrashStack(reinterpret())
+        }
 
-    public companion object : RecordCompanion<TrashStack, GTrashStack> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TrashStack = TrashStack(pointer.reinterpret())
+        @UnsafeFieldSetter
+        set(`value`) {
+            glibTrashStackPointer.pointed.next = value?.glibTrashStackPointer
+        }
+
+    /**
+     * Allocate a new TrashStack.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<GTrashStack>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to TrashStack and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GTrashStack>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new TrashStack using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GTrashStack>().ptr)
+
+    /**
+     * Allocate a new TrashStack.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param next pointer to the previous element of the stack,
+     *     gets stored in the first `sizeof (gpointer)`
+     *     bytes of the element
+     */
+    public constructor(next: TrashStack?) : this() {
+        this.next = next
+    }
+
+    /**
+     * Allocate a new TrashStack using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param next pointer to the previous element of the stack,
+     *     gets stored in the first `sizeof (gpointer)`
+     *     bytes of the element
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(next: TrashStack?, scope: AutofreeScope) : this(scope) {
+        this.next = next
+    }
+
+    override fun toString(): String = "TrashStack(next=$next)"
+
+    public companion object {
+        /**
+         * Returns the height of a #GTrashStack.
+         *
+         * Note that execution of this function is of O(N) complexity
+         * where N denotes the number of items on the stack.
+         *
+         * @param stackP a #GTrashStack
+         * @return the height of the stack
+         */
+        public fun height(stackP: TrashStack): guint = g_trash_stack_height(stackP.glibTrashStackPointer.reinterpret())
     }
 }

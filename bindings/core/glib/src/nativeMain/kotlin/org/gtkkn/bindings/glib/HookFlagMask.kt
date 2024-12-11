@@ -10,9 +10,7 @@ import org.gtkkn.native.glib.G_HOOK_FLAG_MASK
 /**
  * Flags used internally in the #GHook implementation.
  */
-public class HookFlagMask(
-    public val mask: GHookFlagMask,
-) : Bitfield<HookFlagMask> {
+public class HookFlagMask(public val mask: GHookFlagMask) : Bitfield<HookFlagMask> {
     override infix fun or(other: HookFlagMask): HookFlagMask = HookFlagMask(mask or other.mask)
 
     public companion object {

@@ -17,6 +17,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkVulkanContext
 import org.gtkkn.native.gdk.gdk_vulkan_context_get_type
 import org.gtkkn.native.gio.GInitable
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import kotlin.ULong
 import kotlin.Unit
@@ -32,9 +33,8 @@ import kotlin.Unit
  * Support for `GdkVulkanContext` is platform-specific and context creation
  * can fail, returning null context.
  */
-public open class VulkanContext(
-    pointer: CPointer<GdkVulkanContext>,
-) : DrawContext(pointer.reinterpret()),
+public open class VulkanContext(pointer: CPointer<GdkVulkanContext>) :
+    DrawContext(pointer.reinterpret()),
     Initable,
     KGTyped {
     public val gdkVulkanContextPointer: CPointer<GdkVulkanContext>
@@ -52,10 +52,7 @@ public open class VulkanContext(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectImagesUpdated(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectImagesUpdated(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "images-updated",
@@ -72,13 +69,20 @@ public open class VulkanContext(
         init {
             GdkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of VulkanContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_vulkan_context_get_type()
     }
 }
 
-private val connectImagesUpdatedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectImagesUpdatedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

@@ -1,23 +1,24 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_16
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint16
 import org.gtkkn.native.webkit.WebKitSecurityOrigin
 import org.gtkkn.native.webkit.webkit_security_origin_get_host
 import org.gtkkn.native.webkit.webkit_security_origin_get_port
 import org.gtkkn.native.webkit.webkit_security_origin_get_protocol
+import org.gtkkn.native.webkit.webkit_security_origin_get_type
 import org.gtkkn.native.webkit.webkit_security_origin_new
 import org.gtkkn.native.webkit.webkit_security_origin_new_for_uri
 import org.gtkkn.native.webkit.webkit_security_origin_ref
+import org.gtkkn.native.webkit.webkit_security_origin_to_string
 import org.gtkkn.native.webkit.webkit_security_origin_unref
 import kotlin.String
-import kotlin.UShort
 import kotlin.Unit
 
 /**
@@ -31,17 +32,10 @@ import kotlin.Unit
  * other for client-side scripting or database access. When comparing
  * origins, beware that if both protocol and host are null, the origins
  * should not be treated as equal.
- *
- * ## Skipped during bindings generation
- *
- * - method `to_string`: C function webkit_security_origin_to_string is ignored
- *
  * @since 2.16
  */
 @WebKitVersion2_16
-public class SecurityOrigin(
-    pointer: CPointer<WebKitSecurityOrigin>,
-) : Record {
+public class SecurityOrigin(pointer: CPointer<WebKitSecurityOrigin>) : ProxyInstance(pointer) {
     public val webkitSecurityOriginPointer: CPointer<WebKitSecurityOrigin> = pointer
 
     /**
@@ -70,7 +64,7 @@ public class SecurityOrigin(
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun getPort(): UShort = webkit_security_origin_get_port(webkitSecurityOriginPointer.reinterpret())
+    public fun getPort(): guint16 = webkit_security_origin_get_port(webkitSecurityOriginPointer.reinterpret())
 
     /**
      * Gets the protocol of @origin.
@@ -91,10 +85,23 @@ public class SecurityOrigin(
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun ref(): SecurityOrigin =
-        webkit_security_origin_ref(webkitSecurityOriginPointer.reinterpret())!!.run {
-            SecurityOrigin(reinterpret())
-        }
+    public fun ref(): SecurityOrigin = webkit_security_origin_ref(webkitSecurityOriginPointer.reinterpret())!!.run {
+        SecurityOrigin(reinterpret())
+    }
+
+    /**
+     * Gets a string representation of @origin.
+     *
+     * The string representation
+     * is a valid URI with only protocol, host, and port components, or
+     * null.
+     *
+     * @return a URI representing @origin.
+     * @since 2.16
+     */
+    @WebKitVersion2_16
+    public fun toStringSecurityOrigin(): String? =
+        webkit_security_origin_to_string(webkitSecurityOriginPointer.reinterpret())?.toKString()
 
     /**
      * Atomically decrements the reference count of @origin by one.
@@ -108,7 +115,7 @@ public class SecurityOrigin(
     @WebKitVersion2_16
     public fun unref(): Unit = webkit_security_origin_unref(webkitSecurityOriginPointer.reinterpret())
 
-    public companion object : RecordCompanion<SecurityOrigin, WebKitSecurityOrigin> {
+    public companion object {
         /**
          * Create a new security origin from the provided protocol, host and
          * port.
@@ -120,11 +127,8 @@ public class SecurityOrigin(
          * @return A #WebKitSecurityOrigin.
          * @since 2.16
          */
-        public fun new(
-            protocol: String,
-            host: String,
-            port: UShort,
-        ): SecurityOrigin = SecurityOrigin(webkit_security_origin_new(protocol, host, port)!!.reinterpret())
+        public fun new(protocol: String, host: String, port: guint16): SecurityOrigin =
+            SecurityOrigin(webkit_security_origin_new(protocol, host, port)!!.reinterpret())
 
         /**
          * Create a new security origin from the provided.
@@ -140,7 +144,11 @@ public class SecurityOrigin(
         public fun newForUri(uri: String): SecurityOrigin =
             SecurityOrigin(webkit_security_origin_new_for_uri(uri)!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SecurityOrigin =
-            SecurityOrigin(pointer.reinterpret())
+        /**
+         * Get the GType of SecurityOrigin
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_security_origin_get_type()
     }
 }

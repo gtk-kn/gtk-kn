@@ -36,6 +36,18 @@ sealed class TypeInfo {
 
     abstract fun withNullable(nullable: Boolean): TypeInfo
 
+    fun sameType(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as TypeInfo
+
+        if (nativeTypeName != other.nativeTypeName) return false
+        if (kotlinTypeName != other.kotlinTypeName) return false
+
+        return true
+    }
+
     data class Alias(
         override val nativeTypeName: TypeName,
         override val kotlinTypeName: TypeName,
@@ -145,6 +157,7 @@ sealed class TypeInfo {
     data class KString(
         override val nativeTypeName: TypeName,
         override val kotlinTypeName: TypeName,
+        val immutable: Boolean,
     ) : TypeInfo() {
         override val isCinteropNullable = true
 

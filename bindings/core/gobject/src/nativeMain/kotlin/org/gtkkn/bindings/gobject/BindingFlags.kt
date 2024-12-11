@@ -4,10 +4,12 @@ package org.gtkkn.bindings.gobject
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_26
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gobject.GBindingFlags
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.G_BINDING_BIDIRECTIONAL
 import org.gtkkn.native.gobject.G_BINDING_DEFAULT
 import org.gtkkn.native.gobject.G_BINDING_INVERT_BOOLEAN
 import org.gtkkn.native.gobject.G_BINDING_SYNC_CREATE
+import org.gtkkn.native.gobject.g_binding_flags_get_type
 
 /**
  * Flags to be passed to g_object_bind_property() or
@@ -16,9 +18,7 @@ import org.gtkkn.native.gobject.G_BINDING_SYNC_CREATE
  * This enumeration can be extended at later date.
  * @since 2.26
  */
-public class BindingFlags(
-    public val mask: GBindingFlags,
-) : Bitfield<BindingFlags> {
+public class BindingFlags(public val mask: GBindingFlags) : Bitfield<BindingFlags> {
     override infix fun or(other: BindingFlags): BindingFlags = BindingFlags(mask or other.mask)
 
     @GObjectVersion2_26
@@ -51,5 +51,12 @@ public class BindingFlags(
          *   transformation functions to g_object_bind_property_full().
          */
         public val INVERT_BOOLEAN: BindingFlags = BindingFlags(G_BINDING_INVERT_BOOLEAN)
+
+        /**
+         * Get the GType of BindingFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_binding_flags_get_type()
     }
 }

@@ -1,12 +1,16 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.pango.PangoAttrColor
+import kotlin.Pair
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * The `PangoAttrColor` structure is used to represent attributes that
@@ -17,12 +21,37 @@ import org.gtkkn.native.pango.PangoAttrColor
  * - field `attr`: Attribute
  * - field `color`: Color
  */
-public class AttrColor(
-    pointer: CPointer<PangoAttrColor>,
-) : Record {
+public class AttrColor(pointer: CPointer<PangoAttrColor>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val pangoAttrColorPointer: CPointer<PangoAttrColor> = pointer
 
-    public companion object : RecordCompanion<AttrColor, PangoAttrColor> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): AttrColor = AttrColor(pointer.reinterpret())
-    }
+    /**
+     * Allocate a new AttrColor.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<PangoAttrColor>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to AttrColor and a [Cleaner] instance.
+     */
+    private constructor(
+        pair: Pair<CPointer<PangoAttrColor>, Cleaner>,
+    ) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new AttrColor using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<PangoAttrColor>().ptr)
 }

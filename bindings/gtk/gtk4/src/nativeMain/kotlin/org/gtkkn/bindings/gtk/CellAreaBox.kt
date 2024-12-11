@@ -7,6 +7,8 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkCellAreaBox
 import org.gtkkn.native.gtk.GtkCellLayout
@@ -18,7 +20,6 @@ import org.gtkkn.native.gtk.gtk_cell_area_box_pack_end
 import org.gtkkn.native.gtk.gtk_cell_area_box_pack_start
 import org.gtkkn.native.gtk.gtk_cell_area_box_set_spacing
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Unit
 
 /**
@@ -42,9 +43,8 @@ import kotlin.Unit
  * with gtk_cell_area_cell_set_property() or by specifying the "align"
  * argument to gtk_cell_area_box_pack_start() and gtk_cell_area_box_pack_end().
  */
-public open class CellAreaBox(
-    pointer: CPointer<GtkCellAreaBox>,
-) : CellArea(pointer.reinterpret()),
+public open class CellAreaBox(pointer: CPointer<GtkCellAreaBox>) :
+    CellArea(pointer.reinterpret()),
     Orientable,
     KGTyped {
     public val gtkCellAreaBoxPointer: CPointer<GtkCellAreaBox>
@@ -62,7 +62,7 @@ public open class CellAreaBox(
     /**
      * The amount of space to reserve between cells.
      */
-    public open var spacing: Int
+    public open var spacing: gint
         /**
          * Gets the spacing added between cell renderers.
          *
@@ -85,13 +85,6 @@ public open class CellAreaBox(
     public constructor() : this(gtk_cell_area_box_new()!!.reinterpret())
 
     /**
-     * Gets the spacing added between cell renderers.
-     *
-     * @return the space added between cell renderers in @box.
-     */
-    public open fun getSpacing(): Int = gtk_cell_area_box_get_spacing(gtkCellAreaBoxPointer.reinterpret())
-
-    /**
      * Adds @renderer to @box, packed with reference to the end of @box.
      *
      * The @renderer is packed after (away from end of) any other
@@ -103,12 +96,7 @@ public open class CellAreaBox(
      * @param align whether @renderer should be aligned in adjacent rows
      * @param fixed whether @renderer should have the same size in all rows
      */
-    public open fun packEnd_(
-        renderer: CellRenderer,
-        expand: Boolean,
-        align: Boolean,
-        fixed: Boolean,
-    ): Unit =
+    public open fun packEnd(renderer: CellRenderer, expand: Boolean, align: Boolean, fixed: Boolean): Unit =
         gtk_cell_area_box_pack_end(
             gtkCellAreaBoxPointer.reinterpret(),
             renderer.gtkCellRendererPointer.reinterpret(),
@@ -129,12 +117,7 @@ public open class CellAreaBox(
      * @param align whether @renderer should be aligned in adjacent rows
      * @param fixed whether @renderer should have the same size in all rows
      */
-    public open fun packStart_(
-        renderer: CellRenderer,
-        expand: Boolean,
-        align: Boolean,
-        fixed: Boolean,
-    ): Unit =
+    public open fun packStart(renderer: CellRenderer, expand: Boolean, align: Boolean, fixed: Boolean): Unit =
         gtk_cell_area_box_pack_start(
             gtkCellAreaBoxPointer.reinterpret(),
             renderer.gtkCellRendererPointer.reinterpret(),
@@ -143,14 +126,6 @@ public open class CellAreaBox(
             fixed.asGBoolean()
         )
 
-    /**
-     * Sets the spacing to add between cell renderers in @box.
-     *
-     * @param spacing the space to add between `GtkCellRenderer`s
-     */
-    public open fun setSpacing(spacing: Int): Unit =
-        gtk_cell_area_box_set_spacing(gtkCellAreaBoxPointer.reinterpret(), spacing)
-
     public companion object : TypeCompanion<CellAreaBox> {
         override val type: GeneratedClassKGType<CellAreaBox> =
             GeneratedClassKGType(gtk_cell_area_box_get_type()) { CellAreaBox(it.reinterpret()) }
@@ -158,5 +133,12 @@ public open class CellAreaBox(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of CellAreaBox
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_cell_area_box_get_type()
     }
 }

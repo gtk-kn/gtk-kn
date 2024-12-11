@@ -11,14 +11,14 @@ import org.gtkkn.native.gdk.GdkGrabBrokenEvent
 import org.gtkkn.native.gdk.gdk_grab_broken_event_get_grab_surface
 import org.gtkkn.native.gdk.gdk_grab_broken_event_get_implicit
 import org.gtkkn.native.gdk.gdk_grab_broken_event_get_type
+import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 
 /**
  * An event related to a broken windowing system grab.
  */
-public open class GrabBrokenEvent(
-    pointer: CPointer<GdkGrabBrokenEvent>,
-) : Event(pointer.reinterpret()),
+public open class GrabBrokenEvent(pointer: CPointer<GdkGrabBrokenEvent>) :
+    Event(pointer.reinterpret()),
     KGTyped {
     public val gdkGrabBrokenEventPointer: CPointer<GdkGrabBrokenEvent>
         get() = gPointer.reinterpret()
@@ -48,5 +48,12 @@ public open class GrabBrokenEvent(
         init {
             GdkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of GrabBrokenEvent
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_grab_broken_event_get_type()
     }
 }

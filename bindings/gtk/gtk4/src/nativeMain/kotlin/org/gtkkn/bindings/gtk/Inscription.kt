@@ -10,6 +10,9 @@ import org.gtkkn.bindings.pango.WrapMode
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAccessibleText
 import org.gtkkn.native.gtk.GtkBuildable
@@ -38,9 +41,7 @@ import org.gtkkn.native.gtk.gtk_inscription_set_text_overflow
 import org.gtkkn.native.gtk.gtk_inscription_set_wrap_mode
 import org.gtkkn.native.gtk.gtk_inscription_set_xalign
 import org.gtkkn.native.gtk.gtk_inscription_set_yalign
-import kotlin.Float
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 
 /**
@@ -64,9 +65,8 @@ import kotlin.Unit
  * @since 4.8
  */
 @GtkVersion4_8
-public open class Inscription(
-    pointer: CPointer<GtkInscription>,
-) : Widget(pointer.reinterpret()),
+public open class Inscription(pointer: CPointer<GtkInscription>) :
+    Widget(pointer.reinterpret()),
     AccessibleText,
     KGTyped {
     public val gtkInscriptionPointer: CPointer<GtkInscription>
@@ -97,10 +97,9 @@ public open class Inscription(
          * @return the attribute list
          * @since 4.8
          */
-        get() =
-            gtk_inscription_get_attributes(gtkInscriptionPointer.reinterpret())?.run {
-                AttrList(reinterpret())
-            }
+        get() = gtk_inscription_get_attributes(gtkInscriptionPointer.reinterpret())?.run {
+            AttrList(reinterpret())
+        }
 
         /**
          * Apply attributes to the inscription text.
@@ -113,11 +112,10 @@ public open class Inscription(
         @GtkVersion4_8
         set(
             attrs
-        ) =
-            gtk_inscription_set_attributes(
-                gtkInscriptionPointer.reinterpret(),
-                attrs?.pangoAttrListPointer?.reinterpret()
-            )
+        ) = gtk_inscription_set_attributes(
+            gtkInscriptionPointer.reinterpret(),
+            attrs?.pangoAttrListPointer?.reinterpret()
+        )
 
     /**
      * The number of characters that should fit into the inscription at minimum.
@@ -135,7 +133,7 @@ public open class Inscription(
      * @since 4.8
      */
     @GtkVersion4_8
-    public open var minChars: UInt
+    public open var minChars: guint
         /**
          * Gets the `min-chars` of the inscription.
          *
@@ -172,7 +170,7 @@ public open class Inscription(
      * @since 4.8
      */
     @GtkVersion4_8
-    public open var minLines: UInt
+    public open var minLines: guint
         /**
          * Gets the `min-lines` of the inscription.
          *
@@ -207,7 +205,7 @@ public open class Inscription(
      * @since 4.8
      */
     @GtkVersion4_8
-    public open var natChars: UInt
+    public open var natChars: guint
         /**
          * Gets the `nat-chars` of the inscription.
          *
@@ -242,7 +240,7 @@ public open class Inscription(
      * @since 4.8
      */
     @GtkVersion4_8
-    public open var natLines: UInt
+    public open var natLines: guint
         /**
          * Gets the `nat-lines` of the inscription.
          *
@@ -301,10 +299,9 @@ public open class Inscription(
          * @return the overflow method
          * @since 4.8
          */
-        get() =
-            gtk_inscription_get_text_overflow(gtkInscriptionPointer.reinterpret()).run {
-                InscriptionOverflow.fromNativeValue(this)
-            }
+        get() = gtk_inscription_get_text_overflow(gtkInscriptionPointer.reinterpret()).run {
+            InscriptionOverflow.fromNativeValue(this)
+        }
 
         /**
          * Sets what to do when the text doesn't fit.
@@ -332,10 +329,9 @@ public open class Inscription(
          * @return the line wrap mode
          * @since 4.8
          */
-        get() =
-            gtk_inscription_get_wrap_mode(gtkInscriptionPointer.reinterpret()).run {
-                WrapMode.fromNativeValue(this)
-            }
+        get() = gtk_inscription_get_wrap_mode(gtkInscriptionPointer.reinterpret()).run {
+            WrapMode.fromNativeValue(this)
+        }
 
         /**
          * Controls how line wrapping is done.
@@ -355,7 +351,7 @@ public open class Inscription(
      * @since 4.8
      */
     @GtkVersion4_8
-    public open var xalign: Float
+    public open var xalign: gfloat
         /**
          * Gets the `xalign` of the inscription.
          *
@@ -386,7 +382,7 @@ public open class Inscription(
      * @since 4.8
      */
     @GtkVersion4_8
-    public open var yalign: Float
+    public open var yalign: gfloat
         /**
          * Gets the `yalign` of the inscription.
          *
@@ -418,131 +414,6 @@ public open class Inscription(
     public constructor(text: String? = null) : this(gtk_inscription_new(text)!!.reinterpret())
 
     /**
-     * Gets the inscription's attribute list.
-     *
-     * @return the attribute list
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun getAttributes(): AttrList? =
-        gtk_inscription_get_attributes(gtkInscriptionPointer.reinterpret())?.run {
-            AttrList(reinterpret())
-        }
-
-    /**
-     * Gets the `min-chars` of the inscription.
-     *
-     * See the [property@Gtk.Inscription:min-chars] property.
-     *
-     * @return the min-chars property
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun getMinChars(): UInt = gtk_inscription_get_min_chars(gtkInscriptionPointer.reinterpret())
-
-    /**
-     * Gets the `min-lines` of the inscription.
-     *
-     * See the [property@Gtk.Inscription:min-lines] property.
-     *
-     * @return the min-lines property
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun getMinLines(): UInt = gtk_inscription_get_min_lines(gtkInscriptionPointer.reinterpret())
-
-    /**
-     * Gets the `nat-chars` of the inscription.
-     *
-     * See the [property@Gtk.Inscription:nat-chars] property.
-     *
-     * @return the nat-chars property
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun getNatChars(): UInt = gtk_inscription_get_nat_chars(gtkInscriptionPointer.reinterpret())
-
-    /**
-     * Gets the `nat-lines` of the inscription.
-     *
-     * See the [property@Gtk.Inscription:nat-lines] property.
-     *
-     * @return the nat-lines property
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun getNatLines(): UInt = gtk_inscription_get_nat_lines(gtkInscriptionPointer.reinterpret())
-
-    /**
-     * Gets the text that is displayed.
-     *
-     * @return The displayed text
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun getText(): String? = gtk_inscription_get_text(gtkInscriptionPointer.reinterpret())?.toKString()
-
-    /**
-     * Gets the inscription's overflow method.
-     *
-     * @return the overflow method
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun getTextOverflow(): InscriptionOverflow =
-        gtk_inscription_get_text_overflow(gtkInscriptionPointer.reinterpret()).run {
-            InscriptionOverflow.fromNativeValue(this)
-        }
-
-    /**
-     * Returns line wrap mode used by the inscription.
-     *
-     * See [method@Gtk.Inscription.set_wrap_mode].
-     *
-     * @return the line wrap mode
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun getWrapMode(): WrapMode =
-        gtk_inscription_get_wrap_mode(gtkInscriptionPointer.reinterpret()).run {
-            WrapMode.fromNativeValue(this)
-        }
-
-    /**
-     * Gets the `xalign` of the inscription.
-     *
-     * See the [property@Gtk.Inscription:xalign] property.
-     *
-     * @return the xalign property
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun getXalign(): Float = gtk_inscription_get_xalign(gtkInscriptionPointer.reinterpret())
-
-    /**
-     * Gets the `yalign` of the inscription.
-     *
-     * See the [property@Gtk.Inscription:yalign] property.
-     *
-     * @return the yalign property
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun getYalign(): Float = gtk_inscription_get_yalign(gtkInscriptionPointer.reinterpret())
-
-    /**
-     * Apply attributes to the inscription text.
-     *
-     * These attributes will not be evaluated for sizing the inscription.
-     *
-     * @param attrs a [struct@Pango.AttrList]
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun setAttributes(attrs: AttrList? = null): Unit =
-        gtk_inscription_set_attributes(gtkInscriptionPointer.reinterpret(), attrs?.pangoAttrListPointer?.reinterpret())
-
-    /**
      * Utility function to set the text and attributes to be displayed.
      *
      * See the [property@Gtk.Inscription:markup] property.
@@ -554,108 +425,6 @@ public open class Inscription(
     public open fun setMarkup(markup: String? = null): Unit =
         gtk_inscription_set_markup(gtkInscriptionPointer.reinterpret(), markup)
 
-    /**
-     * Sets the `min-chars` of the inscription.
-     *
-     * See the [property@Gtk.Inscription:min-chars] property.
-     *
-     * @param minChars the minimum number of characters that should fit, approximately
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun setMinChars(minChars: UInt): Unit =
-        gtk_inscription_set_min_chars(gtkInscriptionPointer.reinterpret(), minChars)
-
-    /**
-     * Sets the `min-lines` of the inscription.
-     *
-     * See the [property@Gtk.Inscription:min-lines] property.
-     *
-     * @param minLines the minimum number of lines that should fit, approximately
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun setMinLines(minLines: UInt): Unit =
-        gtk_inscription_set_min_lines(gtkInscriptionPointer.reinterpret(), minLines)
-
-    /**
-     * Sets the `nat-chars` of the inscription.
-     *
-     * See the [property@Gtk.Inscription:nat-chars] property.
-     *
-     * @param natChars the number of characters that should ideally fit, approximately
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun setNatChars(natChars: UInt): Unit =
-        gtk_inscription_set_nat_chars(gtkInscriptionPointer.reinterpret(), natChars)
-
-    /**
-     * Sets the `nat-lines` of the inscription.
-     *
-     * See the [property@Gtk.Inscription:nat-lines] property.
-     *
-     * @param natLines the number of lines that should ideally fit
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun setNatLines(natLines: UInt): Unit =
-        gtk_inscription_set_nat_lines(gtkInscriptionPointer.reinterpret(), natLines)
-
-    /**
-     * Sets the text to be displayed.
-     *
-     * @param text The text to display
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun setText(text: String? = null): Unit =
-        gtk_inscription_set_text(gtkInscriptionPointer.reinterpret(), text)
-
-    /**
-     * Sets what to do when the text doesn't fit.
-     *
-     * @param overflow the overflow method to use
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun setTextOverflow(overflow: InscriptionOverflow): Unit =
-        gtk_inscription_set_text_overflow(gtkInscriptionPointer.reinterpret(), overflow.nativeValue)
-
-    /**
-     * Controls how line wrapping is done.
-     *
-     * @param wrapMode the line wrapping mode
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun setWrapMode(wrapMode: WrapMode): Unit =
-        gtk_inscription_set_wrap_mode(gtkInscriptionPointer.reinterpret(), wrapMode.nativeValue)
-
-    /**
-     * Sets the `xalign` of the inscription.
-     *
-     * See the [property@Gtk.Inscription:xalign] property.
-     *
-     * @param xalign the new xalign value, between 0 and 1
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun setXalign(xalign: Float): Unit =
-        gtk_inscription_set_xalign(gtkInscriptionPointer.reinterpret(), xalign)
-
-    /**
-     * Sets the `yalign` of the inscription.
-     *
-     * See the [property@Gtk.Inscription:yalign] property.
-     *
-     * @param yalign the new yalign value, between 0 and 1
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun setYalign(yalign: Float): Unit =
-        gtk_inscription_set_yalign(gtkInscriptionPointer.reinterpret(), yalign)
-
     public companion object : TypeCompanion<Inscription> {
         override val type: GeneratedClassKGType<Inscription> =
             GeneratedClassKGType(gtk_inscription_get_type()) { Inscription(it.reinterpret()) }
@@ -663,5 +432,12 @@ public open class Inscription(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Inscription
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_inscription_get_type()
     }
 }

@@ -24,7 +24,6 @@ import kotlin.test.assertEquals
  * Unit tests for the `Bitfield` interface and `flagsOf` utility function.
  */
 class BitfieldTests {
-
     /**
      * Test combining a single flag using `flagsOf`.
      */

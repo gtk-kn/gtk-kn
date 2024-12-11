@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkCollation
+import org.gtkkn.native.gtk.gtk_collation_get_type
 
 /**
  * Describes how a [class@Gtk.StringSorter] turns strings into sort keys to
@@ -13,9 +15,7 @@ import org.gtkkn.native.gtk.GtkCollation
  * @since 4.10
  */
 @GtkVersion4_10
-public enum class Collation(
-    public val nativeValue: GtkCollation,
-) {
+public enum class Collation(public val nativeValue: GtkCollation) {
     /**
      * Don't do any collation
      */
@@ -33,12 +33,18 @@ public enum class Collation(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkCollation): Collation =
-            when (nativeValue) {
-                GtkCollation.GTK_COLLATION_NONE -> NONE
-                GtkCollation.GTK_COLLATION_UNICODE -> UNICODE
-                GtkCollation.GTK_COLLATION_FILENAME -> FILENAME
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkCollation): Collation = when (nativeValue) {
+            GtkCollation.GTK_COLLATION_NONE -> NONE
+            GtkCollation.GTK_COLLATION_UNICODE -> UNICODE
+            GtkCollation.GTK_COLLATION_FILENAME -> FILENAME
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of Collation
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_collation_get_type()
     }
 }

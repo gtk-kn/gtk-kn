@@ -12,6 +12,7 @@ import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitFileChooserRequest
 import org.gtkkn.native.webkit.webkit_file_chooser_request_cancel
 import org.gtkkn.native.webkit.webkit_file_chooser_request_get_mime_types
@@ -49,9 +50,8 @@ import kotlin.collections.List
  *
  * - method `filter`: Property has no getter nor setter
  */
-public class FileChooserRequest(
-    pointer: CPointer<WebKitFileChooserRequest>,
-) : Object(pointer.reinterpret()),
+public class FileChooserRequest(pointer: CPointer<WebKitFileChooserRequest>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val webkitFileChooserRequestPointer: CPointer<WebKitFileChooserRequest>
         get() = gPointer.reinterpret()
@@ -78,9 +78,10 @@ public class FileChooserRequest(
          * accepted. This array and its contents are owned by WebKit and
          * should not be modified or freed.
          */
-        get() =
-            webkit_file_chooser_request_get_mime_types(webkitFileChooserRequestPointer.reinterpret())?.toKStringList()
-                ?: error("Expected not null string array")
+        get() = webkit_file_chooser_request_get_mime_types(
+            webkitFileChooserRequestPointer.reinterpret()
+        )?.toKStringList()
+            ?: error("Expected not null string array")
 
     /**
      * Whether the file chooser should allow selecting multiple
@@ -99,10 +100,9 @@ public class FileChooserRequest(
          *
          * @return true if the file chooser should allow selecting multiple files or false otherwise.
          */
-        get() =
-            webkit_file_chooser_request_get_select_multiple(
-                webkitFileChooserRequestPointer.reinterpret()
-            ).asBoolean()
+        get() = webkit_file_chooser_request_get_select_multiple(
+            webkitFileChooserRequestPointer.reinterpret()
+        ).asBoolean()
 
     /**
      * A null-terminated array of strings containing the list of
@@ -129,11 +129,10 @@ public class FileChooserRequest(
          * contents are owned by WebKit and should not be modified or
          * freed.
          */
-        get() =
-            webkit_file_chooser_request_get_selected_files(
-                webkitFileChooserRequestPointer.reinterpret()
-            )?.toKStringList()
-                ?: error("Expected not null string array")
+        get() = webkit_file_chooser_request_get_selected_files(
+            webkitFileChooserRequestPointer.reinterpret()
+        )?.toKStringList()
+            ?: error("Expected not null string array")
 
     /**
      * Ask WebKit to cancel the request.
@@ -144,26 +143,6 @@ public class FileChooserRequest(
      * pending forever, which might cause the browser to hang.
      */
     public fun cancel(): Unit = webkit_file_chooser_request_cancel(webkitFileChooserRequestPointer.reinterpret())
-
-    /**
-     * Get the list of MIME types the file chooser dialog should handle.
-     *
-     * Get the list of MIME types the file chooser dialog should handle,
-     * in the format specified in RFC 2046 for "media types". Its contents
-     * depend on the value of the 'accept' attribute for HTML input
-     * elements. This function should normally be called before presenting
-     * the file chooser dialog to the user, to decide whether to allow the
-     * user to select multiple files at once or only one.
-     *
-     * @return a
-     * null-terminated array of strings if a list of accepted MIME types
-     * is defined or null otherwise, meaning that any MIME type should be
-     * accepted. This array and its contents are owned by WebKit and
-     * should not be modified or freed.
-     */
-    public fun getMimeTypes(): List<String> =
-        webkit_file_chooser_request_get_mime_types(webkitFileChooserRequestPointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
 
     /**
      * Get the filter currently associated with the request.
@@ -187,55 +166,18 @@ public class FileChooserRequest(
         }
 
     /**
-     * Whether the file chooser should allow selecting multiple files.
-     *
-     * Determine whether the file chooser associated to this
-     * #WebKitFileChooserRequest should allow selecting multiple files,
-     * which depends on the HTML input element having a 'multiple'
-     * attribute defined.
-     *
-     * @return true if the file chooser should allow selecting multiple files or false otherwise.
-     */
-    public fun getSelectMultiple(): Boolean =
-        webkit_file_chooser_request_get_select_multiple(webkitFileChooserRequestPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the list of selected files associated to the request.
-     *
-     * Get the list of selected files currently associated to the
-     * request. Initially, the return value of this method contains any
-     * files selected in previous file chooser requests for this HTML
-     * input element. Once webkit_file_chooser_request_select_files, the
-     * value will reflect whatever files are given.
-     *
-     * This function should normally be called only before presenting the
-     * file chooser dialog to the user, to decide whether to perform some
-     * extra action, like pre-selecting the files from a previous request.
-     *
-     * @return a
-     * null-terminated array of strings if there are selected files
-     * associated with the request or null otherwise. This array and its
-     * contents are owned by WebKit and should not be modified or
-     * freed.
-     */
-    public fun getSelectedFiles(): List<String> =
-        webkit_file_chooser_request_get_selected_files(webkitFileChooserRequestPointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
-
-    /**
      * Ask WebKit to select local files for upload and complete the
      * request.
      *
      * @param files a
      * null-terminated array of strings, containing paths to local files.
      */
-    public fun selectFiles(files: List<String>): Unit =
-        memScoped {
-            return webkit_file_chooser_request_select_files(
-                webkitFileChooserRequestPointer.reinterpret(),
-                files.toCStringList(this)
-            )
-        }
+    public fun selectFiles(files: List<String>): Unit = memScoped {
+        return webkit_file_chooser_request_select_files(
+            webkitFileChooserRequestPointer.reinterpret(),
+            files.toCStringList(this)
+        )
+    }
 
     public companion object : TypeCompanion<FileChooserRequest> {
         override val type: GeneratedClassKGType<FileChooserRequest> =
@@ -244,5 +186,12 @@ public class FileChooserRequest(
         init {
             WebkitTypeProvider.register()
         }
+
+        /**
+         * Get the GType of FileChooserRequest
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_file_chooser_request_get_type()
     }
 }

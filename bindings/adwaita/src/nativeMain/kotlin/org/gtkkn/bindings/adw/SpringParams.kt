@@ -1,21 +1,21 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.adw.AdwSpringParams
 import org.gtkkn.native.adw.adw_spring_params_get_damping
 import org.gtkkn.native.adw.adw_spring_params_get_damping_ratio
 import org.gtkkn.native.adw.adw_spring_params_get_mass
 import org.gtkkn.native.adw.adw_spring_params_get_stiffness
+import org.gtkkn.native.adw.adw_spring_params_get_type
 import org.gtkkn.native.adw.adw_spring_params_new
 import org.gtkkn.native.adw.adw_spring_params_new_full
 import org.gtkkn.native.adw.adw_spring_params_ref
 import org.gtkkn.native.adw.adw_spring_params_unref
-import kotlin.Double
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
 import kotlin.Unit
 
 /**
@@ -50,9 +50,7 @@ import kotlin.Unit
  *
  * As such
  */
-public class SpringParams(
-    pointer: CPointer<AdwSpringParams>,
-) : Record {
+public class SpringParams(pointer: CPointer<AdwSpringParams>) : ProxyInstance(pointer) {
     public val adwSpringParamsPointer: CPointer<AdwSpringParams> = pointer
 
     /**
@@ -60,38 +58,37 @@ public class SpringParams(
      *
      * @return the damping
      */
-    public fun getDamping(): Double = adw_spring_params_get_damping(adwSpringParamsPointer.reinterpret())
+    public fun getDamping(): gdouble = adw_spring_params_get_damping(adwSpringParamsPointer.reinterpret())
 
     /**
      * Gets the damping ratio of @self.
      *
      * @return the damping ratio
      */
-    public fun getDampingRatio(): Double = adw_spring_params_get_damping_ratio(adwSpringParamsPointer.reinterpret())
+    public fun getDampingRatio(): gdouble = adw_spring_params_get_damping_ratio(adwSpringParamsPointer.reinterpret())
 
     /**
      * Gets the mass of @self.
      *
      * @return the mass
      */
-    public fun getMass(): Double = adw_spring_params_get_mass(adwSpringParamsPointer.reinterpret())
+    public fun getMass(): gdouble = adw_spring_params_get_mass(adwSpringParamsPointer.reinterpret())
 
     /**
      * Gets the stiffness of @self.
      *
      * @return the stiffness
      */
-    public fun getStiffness(): Double = adw_spring_params_get_stiffness(adwSpringParamsPointer.reinterpret())
+    public fun getStiffness(): gdouble = adw_spring_params_get_stiffness(adwSpringParamsPointer.reinterpret())
 
     /**
      * Increases the reference count of @self.
      *
      * @return @self
      */
-    public fun ref(): SpringParams =
-        adw_spring_params_ref(adwSpringParamsPointer.reinterpret())!!.run {
-            SpringParams(reinterpret())
-        }
+    public fun ref(): SpringParams = adw_spring_params_ref(adwSpringParamsPointer.reinterpret())!!.run {
+        SpringParams(reinterpret())
+    }
 
     /**
      * Decreases the reference count of @self.
@@ -100,7 +97,7 @@ public class SpringParams(
      */
     public fun unref(): Unit = adw_spring_params_unref(adwSpringParamsPointer.reinterpret())
 
-    public companion object : RecordCompanion<SpringParams, AdwSpringParams> {
+    public companion object {
         /**
          * Creates a new `AdwSpringParams` from @mass, @stiffness and @damping_ratio.
          *
@@ -123,11 +120,8 @@ public class SpringParams(
          * @param stiffness the stiffness of the spring
          * @return the newly created spring parameters
          */
-        public fun new(
-            dampingRatio: Double,
-            mass: Double,
-            stiffness: Double,
-        ): SpringParams = SpringParams(adw_spring_params_new(dampingRatio, mass, stiffness)!!.reinterpret())
+        public fun new(dampingRatio: gdouble, mass: gdouble, stiffness: gdouble): SpringParams =
+            SpringParams(adw_spring_params_new(dampingRatio, mass, stiffness)!!.reinterpret())
 
         /**
          * Creates a new `AdwSpringParams` from @mass, @stiffness and @damping.
@@ -140,13 +134,14 @@ public class SpringParams(
          * @param stiffness the stiffness of the spring
          * @return the newly created spring parameters
          */
-        public fun newFull(
-            damping: Double,
-            mass: Double,
-            stiffness: Double,
-        ): SpringParams = SpringParams(adw_spring_params_new_full(damping, mass, stiffness)!!.reinterpret())
+        public fun newFull(damping: gdouble, mass: gdouble, stiffness: gdouble): SpringParams =
+            SpringParams(adw_spring_params_new_full(damping, mass, stiffness)!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SpringParams =
-            SpringParams(pointer.reinterpret())
+        /**
+         * Get the GType of SpringParams
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_spring_params_get_type()
     }
 }

@@ -87,7 +87,13 @@ class ClassBlueprintBuilder(
                 isOpen = girClass.final != true,
             ).build()
         ) {
-            is BlueprintResult.Ok -> propertyBluePrints.add(result.blueprint)
+            is BlueprintResult.Ok -> {
+                propertyBluePrints.add(result.blueprint)
+                // Removing any duplicate getter and setter methods from methodBluePrints
+                methodBluePrints.remove(result.blueprint.getter)
+                result.blueprint.setter?.let { methodBluePrints.remove(it) }
+            }
+
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
         }
     }
@@ -104,10 +110,10 @@ class ClassBlueprintBuilder(
             ).build()) {
             is BlueprintResult.Ok -> {
                 methodBluePrints.add(result.blueprint)
-                if (method.callable.name.startsWith("get") && result.blueprint.parameters.isEmpty() ||
-                    method.callable.name.startsWith("set") && result.blueprint.parameters.size == 1
+                if (method.callable.getName().startsWith("get") && result.blueprint.parameters.isEmpty() ||
+                    method.callable.getName().startsWith("set") && result.blueprint.parameters.size == 1
                 ) {
-                    propertyMethodBluePrintMap[method.callable.name] = result.blueprint
+                    propertyMethodBluePrintMap[method.callable.getName()] = result.blueprint
                 }
             }
 
@@ -137,7 +143,7 @@ class ClassBlueprintBuilder(
     }
 
     override fun buildInternal(): ClassBlueprint {
-        if (girClass.info.introspectable == false) {
+        if (!girClass.info.shouldBeGenerated()) {
             throw NotIntrospectableException(girClass.cType ?: girClass.name)
         }
 
@@ -158,6 +164,7 @@ class ClassBlueprintBuilder(
         girClass.constructors.forEach { addConstructor(it) }
         girClass.signals.forEach { addSignal(it) }
         girClass.functions.forEach { addFunction(it) }
+        propertyMethodBluePrintMap.addSuperPropertyOverrides(propertyBluePrints, superClasses, interfaces)
 
         val kotlinClassName = context.kotlinizeClassName(girClass.name)
         val kotlinPackageName = context.kotlinizePackageName(checkNotNull(girNamespace.name))
@@ -199,6 +206,72 @@ class ClassBlueprintBuilder(
             ).build().getOrNull(),
             kdoc = context.processKdoc(girClass.doc?.doc?.text),
         )
+    }
+
+    /**
+     * Adds property overrides for getters and setters defined in the superclasses and interfaces.
+     *
+     * This function identifies unused getters and setters in the current class that are defined in the
+     * superclasses or interfaces (`superProperties`) and should be overridden.
+     * The resulting overrides are added to the `propertyBluePrints`.
+     *
+     * @receiver A map of method names to their corresponding `MethodBlueprint` objects.
+     * @param propertyBluePrints A list of `PropertyBlueprint` objects where the new overrides
+     * will be added.
+     * @param superClasses A list of `GirClass` objects representing the superclasses of the current class.
+     * @param interfaces A list of `GirInterface` objects representing the interfaces implemented by the
+     * current class.
+     */
+    private fun HashMap<String, MethodBlueprint>.addSuperPropertyOverrides(
+        propertyBluePrints: List<PropertyBlueprint>,
+        superClasses: List<GirClass>,
+        interfaces: List<GirInterface>
+    ) {
+        // Collect all properties from superclasses and interfaces
+        val superProperties = superClasses.flatMap { it.properties } + interfaces.flatMap { it.properties }
+
+        // Filter getters and setters from the current method map
+        val getters = filterKeys { it.startsWith("get_") }
+        val setters = filterKeys { it.startsWith("set_") }
+
+        // Extract the keys without the prefixes for matching
+        val getterKeys = getters.keys.map { it.removePrefix("get_") }.toSet()
+        val setterKeys = setters.keys.map { it.removePrefix("set_") }.toSet()
+
+        // Combine all keys from getters and setters
+        val allKeys = getterKeys.union(setterKeys)
+
+        // Collect existing getters and setters from the property blueprints
+        val existingGetters = propertyBluePrints.map { it.getter }.toSet()
+        val existingSetters = propertyBluePrints.mapNotNull { it.setter }.toSet()
+
+        // Iterate over all keys to find and add unused property overrides
+        for (key in allKeys) {
+            val getter = getters["get_$key"]
+            val setter = setters["set_$key"]
+
+            // Determine if the getter or setter is unused and should be overridden
+            val isGetterUnused = getter != null && getter !in existingGetters && getter.isOverride
+            val isSetterUnused = setter != null && setter !in existingSetters && setter.isOverride
+
+            if (isGetterUnused || isSetterUnused) {
+                // Check if the getter or setter matches a property in the superProperties
+                val superProperty = superProperties.find { superProp ->
+                    superProp.info.shouldBeGenerated() &&
+                        (superProp.getter == "get_$key" || superProp.setter == "set_$key")
+                }
+
+                // Add the matching superProperty as an override
+                superProperty?.let { girProperty ->
+                    addProperty(
+                        girProperty.copy(
+                            getter = getter?.let { girProperty.getter },
+                            setter = setter?.let { girProperty.setter },
+                        ),
+                    )
+                }
+            }
+        }
     }
 
     /**

@@ -5,13 +5,15 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_26
 import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.pango.PangoGravity
 import org.gtkkn.native.pango.pango_gravity_get_for_matrix
 import org.gtkkn.native.pango.pango_gravity_get_for_script
 import org.gtkkn.native.pango.pango_gravity_get_for_script_and_width
+import org.gtkkn.native.pango.pango_gravity_get_type
 import org.gtkkn.native.pango.pango_gravity_to_rotation
 import kotlin.Boolean
-import kotlin.Double
 
 /**
  * `PangoGravity` represents the orientation of glyphs in a segment
@@ -30,9 +32,7 @@ import kotlin.Double
  * @since 1.16
  */
 @PangoVersion1_16
-public enum class Gravity(
-    public val nativeValue: PangoGravity,
-) {
+public enum class Gravity(public val nativeValue: PangoGravity) {
     /**
      * Glyphs stand upright (default) <img align="right" valign="center" src="m-south.png">
      */
@@ -60,15 +60,14 @@ public enum class Gravity(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: PangoGravity): Gravity =
-            when (nativeValue) {
-                PangoGravity.PANGO_GRAVITY_SOUTH -> SOUTH
-                PangoGravity.PANGO_GRAVITY_EAST -> EAST
-                PangoGravity.PANGO_GRAVITY_NORTH -> NORTH
-                PangoGravity.PANGO_GRAVITY_WEST -> WEST
-                PangoGravity.PANGO_GRAVITY_AUTO -> AUTO
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: PangoGravity): Gravity = when (nativeValue) {
+            PangoGravity.PANGO_GRAVITY_SOUTH -> SOUTH
+            PangoGravity.PANGO_GRAVITY_EAST -> EAST
+            PangoGravity.PANGO_GRAVITY_NORTH -> NORTH
+            PangoGravity.PANGO_GRAVITY_WEST -> WEST
+            PangoGravity.PANGO_GRAVITY_AUTO -> AUTO
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Finds the gravity that best matches the rotation component
@@ -102,11 +101,7 @@ public enum class Gravity(
          * @since 1.16
          */
         @PangoVersion1_16
-        public fun getForScript(
-            script: Script,
-            baseGravity: Gravity,
-            hint: GravityHint,
-        ): Gravity =
+        public fun getForScript(script: Script, baseGravity: Gravity, hint: GravityHint): Gravity =
             pango_gravity_get_for_script(script.nativeValue, baseGravity.nativeValue, hint.nativeValue).run {
                 Gravity.fromNativeValue(this)
             }
@@ -142,15 +137,14 @@ public enum class Gravity(
             wide: Boolean,
             baseGravity: Gravity,
             hint: GravityHint,
-        ): Gravity =
-            pango_gravity_get_for_script_and_width(
-                script.nativeValue,
-                wide.asGBoolean(),
-                baseGravity.nativeValue,
-                hint.nativeValue
-            ).run {
-                Gravity.fromNativeValue(this)
-            }
+        ): Gravity = pango_gravity_get_for_script_and_width(
+            script.nativeValue,
+            wide.asGBoolean(),
+            baseGravity.nativeValue,
+            hint.nativeValue
+        ).run {
+            Gravity.fromNativeValue(this)
+        }
 
         /**
          * Converts a `PangoGravity` value to its natural rotation in radians.
@@ -164,6 +158,13 @@ public enum class Gravity(
          * @since 1.16
          */
         @PangoVersion1_16
-        public fun toRotation(gravity: Gravity): Double = pango_gravity_to_rotation(gravity.nativeValue)
+        public fun toRotation(gravity: Gravity): gdouble = pango_gravity_to_rotation(gravity.nativeValue)
+
+        /**
+         * Get the GType of Gravity
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_gravity_get_type()
     }
 }

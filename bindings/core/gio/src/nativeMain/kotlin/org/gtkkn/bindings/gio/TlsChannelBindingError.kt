@@ -5,7 +5,9 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_66
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.gio.GTlsChannelBindingError
+import org.gtkkn.native.gio.g_tls_channel_binding_error_get_type
 import org.gtkkn.native.gio.g_tls_channel_binding_error_quark
+import org.gtkkn.native.gobject.GType
 
 /**
  * An error code used with %G_TLS_CHANNEL_BINDING_ERROR in a #GError to
@@ -13,9 +15,7 @@ import org.gtkkn.native.gio.g_tls_channel_binding_error_quark
  * @since 2.66
  */
 @GioVersion2_66
-public enum class TlsChannelBindingError(
-    public val nativeValue: GTlsChannelBindingError,
-) {
+public enum class TlsChannelBindingError(public val nativeValue: GTlsChannelBindingError) {
     /**
      * Either entire binding
      *    retrieval facility or specific binding type is not implemented in the
@@ -54,15 +54,14 @@ public enum class TlsChannelBindingError(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GTlsChannelBindingError): TlsChannelBindingError =
-            when (nativeValue) {
-                GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_NOT_IMPLEMENTED -> NOT_IMPLEMENTED
-                GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_INVALID_STATE -> INVALID_STATE
-                GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_NOT_AVAILABLE -> NOT_AVAILABLE
-                GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_NOT_SUPPORTED -> NOT_SUPPORTED
-                GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_GENERAL_ERROR -> GENERAL_ERROR
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GTlsChannelBindingError): TlsChannelBindingError = when (nativeValue) {
+            GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_NOT_IMPLEMENTED -> NOT_IMPLEMENTED
+            GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_INVALID_STATE -> INVALID_STATE
+            GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_NOT_AVAILABLE -> NOT_AVAILABLE
+            GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_NOT_SUPPORTED -> NOT_SUPPORTED
+            GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_GENERAL_ERROR -> GENERAL_ERROR
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Gets the TLS channel binding error quark.
@@ -73,11 +72,17 @@ public enum class TlsChannelBindingError(
         @GioVersion2_66
         public fun quark(): Quark = g_tls_channel_binding_error_quark()
 
-        public fun fromErrorOrNull(error: Error): TlsChannelBindingError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                TlsChannelBindingError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        /**
+         * Get the GType of TlsChannelBindingError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_tls_channel_binding_error_get_type()
+
+        public fun fromErrorOrNull(error: Error): TlsChannelBindingError? = if (error.domain != quark()) {
+            null
+        } else {
+            TlsChannelBindingError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

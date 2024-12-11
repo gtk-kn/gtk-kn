@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gdkpixbuf
 
 import org.gtkkn.native.gdkpixbuf.GdkPixbufAlphaMode
+import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_alpha_mode_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Control the alpha channel for drawables.
@@ -17,9 +19,7 @@ import org.gtkkn.native.gdkpixbuf.GdkPixbufAlphaMode
  * it will be possible to do full alpha compositing onto arbitrary drawables.
  * For now both cases fall back to a bilevel clipping mask.
  */
-public enum class PixbufAlphaMode(
-    public val nativeValue: GdkPixbufAlphaMode,
-) {
+public enum class PixbufAlphaMode(public val nativeValue: GdkPixbufAlphaMode) {
     /**
      * A bilevel clipping mask (black and white)
      *  will be created and used to draw the image.  Pixels below 0.5 opacity
@@ -36,11 +36,17 @@ public enum class PixbufAlphaMode(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GdkPixbufAlphaMode): PixbufAlphaMode =
-            when (nativeValue) {
-                GdkPixbufAlphaMode.GDK_PIXBUF_ALPHA_BILEVEL -> BILEVEL
-                GdkPixbufAlphaMode.GDK_PIXBUF_ALPHA_FULL -> FULL
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GdkPixbufAlphaMode): PixbufAlphaMode = when (nativeValue) {
+            GdkPixbufAlphaMode.GDK_PIXBUF_ALPHA_BILEVEL -> BILEVEL
+            GdkPixbufAlphaMode.GDK_PIXBUF_ALPHA_FULL -> FULL
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of PixbufAlphaMode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_pixbuf_alpha_mode_get_type()
     }
 }

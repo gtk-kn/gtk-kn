@@ -1,20 +1,29 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GClosure
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_closure_get_type
 import org.gtkkn.native.gobject.g_closure_invalidate
 import org.gtkkn.native.gobject.g_closure_new_object
 import org.gtkkn.native.gobject.g_closure_ref
 import org.gtkkn.native.gobject.g_closure_sink
 import org.gtkkn.native.gobject.g_closure_unref
-import kotlin.UInt
+import org.gtkkn.native.gobject.guint
+import kotlin.Pair
+import kotlin.String
 import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * A `GClosure` represents a callback supplied by the programmer.
@@ -64,7 +73,14 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
+ * - method `add_finalize_notifier`: Could not resolve user_data param
+ * - method `add_invalidate_notifier`: Could not resolve user_data param
+ * - method `add_marshal_guards`: callback gpointer not found
  * - parameter `param_values`: Value
+ * - parameter `notify_data`: gpointer
+ * - parameter `notify_data`: gpointer
+ * - parameter `marshal`: ClosureMarshal
+ * - method `set_meta_marshal`: Could not resolve user_data param
  * - parameter `data`: gpointer
  * - field `ref_count`: Record field ref_count is private
  * - field `meta_marshal_nouse`: Record field meta_marshal_nouse is private
@@ -78,17 +94,17 @@ import kotlin.Unit
  * - field `data`: Record field data is private
  * - field `notifiers`: Record field notifiers is private
  */
-public class Closure(
-    pointer: CPointer<GClosure>,
-) : Record {
+public class Closure(pointer: CPointer<GClosure>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gobjectClosurePointer: CPointer<GClosure> = pointer
 
     /**
      * Indicates whether the closure is currently being invoked with
      *   g_closure_invoke()
      */
-    public var inMarshal: UInt
+    public var inMarshal: guint
         get() = gobjectClosurePointer.pointed.in_marshal
+
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectClosurePointer.pointed.in_marshal = value
         }
@@ -97,11 +113,78 @@ public class Closure(
      * Indicates whether the closure has been invalidated by
      *   g_closure_invalidate()
      */
-    public var isInvalid: UInt
+    public var isInvalid: guint
         get() = gobjectClosurePointer.pointed.is_invalid
+
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectClosurePointer.pointed.is_invalid = value
         }
+
+    /**
+     * Allocate a new Closure.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<GClosure>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Closure and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GClosure>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Closure using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GClosure>().ptr)
+
+    /**
+     * Allocate a new Closure.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param inMarshal Indicates whether the closure is currently being invoked with
+     *   g_closure_invoke()
+     * @param isInvalid Indicates whether the closure has been invalidated by
+     *   g_closure_invalidate()
+     */
+    public constructor(inMarshal: guint, isInvalid: guint) : this() {
+        this.inMarshal = inMarshal
+        this.isInvalid = isInvalid
+    }
+
+    /**
+     * Allocate a new Closure using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param inMarshal Indicates whether the closure is currently being invoked with
+     *   g_closure_invoke()
+     * @param isInvalid Indicates whether the closure has been invalidated by
+     *   g_closure_invalidate()
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        inMarshal: guint,
+        isInvalid: guint,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.inMarshal = inMarshal
+        this.isInvalid = isInvalid
+    }
 
     /**
      * Sets a flag on the closure to indicate that its calling
@@ -128,10 +211,9 @@ public class Closure(
      *
      * @return The @closure passed in, for convenience
      */
-    public fun ref(): Closure =
-        g_closure_ref(gobjectClosurePointer.reinterpret())!!.run {
-            Closure(reinterpret())
-        }
+    public fun ref(): Closure = g_closure_ref(gobjectClosurePointer.reinterpret())!!.run {
+        Closure(reinterpret())
+    }
 
     /**
      * Takes over the initial ownership of a closure.
@@ -193,7 +275,9 @@ public class Closure(
      */
     public fun unref(): Unit = g_closure_unref(gobjectClosurePointer.reinterpret())
 
-    public companion object : RecordCompanion<Closure, GClosure> {
+    override fun toString(): String = "Closure(inMarshal=$inMarshal, isInvalid=$isInvalid)"
+
+    public companion object {
         /**
          * A variant of g_closure_new_simple() which stores @object in the
          * @data field of the closure and calls g_object_watch_closure() on
@@ -206,11 +290,14 @@ public class Closure(
          *  allocated #GClosure
          * @return a newly allocated #GClosure
          */
-        public fun newObject(
-            sizeofClosure: UInt,
-            `object`: Object,
-        ): Closure = Closure(g_closure_new_object(sizeofClosure, `object`.gPointer.reinterpret())!!.reinterpret())
+        public fun newObject(sizeofClosure: guint, `object`: Object): Closure =
+            Closure(g_closure_new_object(sizeofClosure, `object`.gPointer.reinterpret())!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Closure = Closure(pointer.reinterpret())
+        /**
+         * Get the GType of Closure
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_closure_get_type()
     }
 }

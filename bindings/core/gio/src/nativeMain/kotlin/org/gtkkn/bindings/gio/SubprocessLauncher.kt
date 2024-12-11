@@ -2,6 +2,7 @@
 package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
@@ -12,9 +13,12 @@ import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_40
 import org.gtkkn.bindings.gio.annotations.GioVersion2_68
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.SpawnChildSetupFunc
+import org.gtkkn.bindings.glib.SpawnChildSetupFuncFunc
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toCStringList
+import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -23,6 +27,7 @@ import org.gtkkn.native.gio.g_subprocess_launcher_close
 import org.gtkkn.native.gio.g_subprocess_launcher_get_type
 import org.gtkkn.native.gio.g_subprocess_launcher_getenv
 import org.gtkkn.native.gio.g_subprocess_launcher_new
+import org.gtkkn.native.gio.g_subprocess_launcher_set_child_setup
 import org.gtkkn.native.gio.g_subprocess_launcher_set_cwd
 import org.gtkkn.native.gio.g_subprocess_launcher_set_environ
 import org.gtkkn.native.gio.g_subprocess_launcher_set_flags
@@ -37,8 +42,9 @@ import org.gtkkn.native.gio.g_subprocess_launcher_take_stdin_fd
 import org.gtkkn.native.gio.g_subprocess_launcher_take_stdout_fd
 import org.gtkkn.native.gio.g_subprocess_launcher_unsetenv
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.Unit
@@ -56,14 +62,14 @@ import kotlin.collections.List
  *
  * ## Skipped during bindings generation
  *
+ * - method `spawn`: Varargs parameter is not supported
  * - method `flags`: Property has no getter nor setter
  *
  * @since 2.40
  */
 @GioVersion2_40
-public open class SubprocessLauncher(
-    pointer: CPointer<GSubprocessLauncher>,
-) : Object(pointer.reinterpret()),
+public open class SubprocessLauncher(pointer: CPointer<GSubprocessLauncher>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioSubprocessLauncherPointer: CPointer<GSubprocessLauncher>
         get() = gPointer.reinterpret()
@@ -114,6 +120,32 @@ public open class SubprocessLauncher(
         g_subprocess_launcher_getenv(gioSubprocessLauncherPointer.reinterpret(), variable)?.toKString()
 
     /**
+     * Sets up a child setup function.
+     *
+     * The child setup function will be called after fork() but before
+     * exec() on the child's side.
+     *
+     * @destroy_notify will not be automatically called on the child's side
+     * of the fork().  It will only be called when the last reference on the
+     * #GSubprocessLauncher is dropped or when a new child setup function is
+     * given.
+     *
+     * null can be given as @child_setup to disable the functionality.
+     *
+     * Child setup functions are only available on UNIX.
+     *
+     * @param childSetup a #GSpawnChildSetupFunc to use as the child setup function
+     * @since 2.40
+     */
+    @GioVersion2_40
+    public open fun setChildSetup(childSetup: SpawnChildSetupFunc): Unit = g_subprocess_launcher_set_child_setup(
+        gioSubprocessLauncherPointer.reinterpret(),
+        SpawnChildSetupFuncFunc.reinterpret(),
+        StableRef.create(childSetup).asCPointer(),
+        staticStableRefDestroy.reinterpret()
+    )
+
+    /**
      * Sets the current working directory that processes will be launched
      * with.
      *
@@ -152,13 +184,9 @@ public open class SubprocessLauncher(
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun setEnviron(env: List<String>): Unit =
-        memScoped {
-            return g_subprocess_launcher_set_environ(
-                gioSubprocessLauncherPointer.reinterpret(),
-                env.toCStringList(this)
-            )
-        }
+    public open fun setEnviron(env: List<String>): Unit = memScoped {
+        return g_subprocess_launcher_set_environ(gioSubprocessLauncherPointer.reinterpret(), env.toCStringList(this))
+    }
 
     /**
      * Sets the flags on the launcher.
@@ -258,17 +286,12 @@ public open class SubprocessLauncher(
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun setenv(
-        variable: String,
-        `value`: String,
-        overwrite: Boolean,
-    ): Unit =
-        g_subprocess_launcher_setenv(
-            gioSubprocessLauncherPointer.reinterpret(),
-            variable,
-            `value`,
-            overwrite.asGBoolean()
-        )
+    public open fun setenv(variable: String, `value`: String, overwrite: Boolean): Unit = g_subprocess_launcher_setenv(
+        gioSubprocessLauncherPointer.reinterpret(),
+        variable,
+        `value`,
+        overwrite.asGBoolean()
+    )
 
     /**
      * Creates a #GSubprocess given a provided array of arguments.
@@ -278,24 +301,22 @@ public open class SubprocessLauncher(
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun spawnv(argv: List<String>): Result<Subprocess> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_subprocess_launcher_spawnv(
-                    gioSubprocessLauncherPointer.reinterpret(),
-                    argv.toCStringList(this),
-                    gError.ptr
-                )?.run {
-                    Subprocess(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public open fun spawnv(argv: List<String>): Result<Subprocess> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_subprocess_launcher_spawnv(
+            gioSubprocessLauncherPointer.reinterpret(),
+            argv.toCStringList(this),
+            gError.ptr
+        )?.run {
+            Subprocess(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Transfer an arbitrary file descriptor from parent process to the
@@ -314,10 +335,8 @@ public open class SubprocessLauncher(
      * @param sourceFd File descriptor in parent process
      * @param targetFd Target descriptor for child process
      */
-    public open fun takeFd(
-        sourceFd: Int,
-        targetFd: Int,
-    ): Unit = g_subprocess_launcher_take_fd(gioSubprocessLauncherPointer.reinterpret(), sourceFd, targetFd)
+    public open fun takeFd(sourceFd: gint, targetFd: gint): Unit =
+        g_subprocess_launcher_take_fd(gioSubprocessLauncherPointer.reinterpret(), sourceFd, targetFd)
 
     /**
      * Sets the file descriptor to use as the stderr for spawned processes.
@@ -341,7 +360,7 @@ public open class SubprocessLauncher(
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun takeStderrFd(fd: Int): Unit =
+    public open fun takeStderrFd(fd: gint): Unit =
         g_subprocess_launcher_take_stderr_fd(gioSubprocessLauncherPointer.reinterpret(), fd)
 
     /**
@@ -368,7 +387,7 @@ public open class SubprocessLauncher(
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun takeStdinFd(fd: Int): Unit =
+    public open fun takeStdinFd(fd: gint): Unit =
         g_subprocess_launcher_take_stdin_fd(gioSubprocessLauncherPointer.reinterpret(), fd)
 
     /**
@@ -394,7 +413,7 @@ public open class SubprocessLauncher(
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun takeStdoutFd(fd: Int): Unit =
+    public open fun takeStdoutFd(fd: gint): Unit =
         g_subprocess_launcher_take_stdout_fd(gioSubprocessLauncherPointer.reinterpret(), fd)
 
     /**
@@ -419,5 +438,12 @@ public open class SubprocessLauncher(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of SubprocessLauncher
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_subprocess_launcher_get_type()
     }
 }

@@ -7,6 +7,7 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_20
 import org.gtkkn.bindings.gio.annotations.GioVersion2_38
@@ -24,11 +25,13 @@ import org.gtkkn.native.gio.g_icon_get_type
 import org.gtkkn.native.gio.g_icon_hash
 import org.gtkkn.native.gio.g_icon_new_for_string
 import org.gtkkn.native.gio.g_icon_serialize
+import org.gtkkn.native.gio.g_icon_to_string
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 
 /**
  * `GIcon` is a very minimal interface for icons. It provides functions
@@ -61,10 +64,6 @@ import kotlin.UInt
  * implementation of [method@Gio.Icon.serialize] that gives a result that is
  * understood by [func@Gio.Icon.deserialize], yielding one of the built-in
  * icon types.
- *
- * ## Skipped during bindings generation
- *
- * - method `to_string`: C function g_icon_to_string is ignored
  */
 public interface Icon :
     Interface,
@@ -86,7 +85,7 @@ public interface Icon :
      * @return a #guint containing a hash for the @icon, suitable for
      *   use in a #GHashTable or similar data structure.
      */
-    public fun hash(): UInt = g_icon_hash(gioIconPointer.reinterpret())
+    public fun hash(): guint = g_icon_hash(gioIconPointer.reinterpret())
 
     /**
      * Serializes a #GIcon into a #GVariant. An equivalent #GIcon can be retrieved
@@ -99,14 +98,36 @@ public interface Icon :
      * @since 2.38
      */
     @GioVersion2_38
-    public fun serialize(): Variant? =
-        g_icon_serialize(gioIconPointer.reinterpret())?.run {
-            Variant(reinterpret())
-        }
+    public fun serialize(): Variant? = g_icon_serialize(gioIconPointer.reinterpret())?.run {
+        Variant(reinterpret())
+    }
 
-    private data class Wrapper(
-        private val pointer: CPointer<GIcon>,
-    ) : Icon {
+    /**
+     * Generates a textual representation of @icon that can be used for
+     * serialization such as when passing @icon to a different process or
+     * saving it to persistent storage. Use g_icon_new_for_string() to
+     * get @icon back from the returned string.
+     *
+     * The encoding of the returned string is proprietary to #GIcon except
+     * in the following two cases
+     *
+     * - If @icon is a #GFileIcon, the returned string is a native path
+     *   (such as `/path/to/my icon.png`) without escaping
+     *   if the #GFile for @icon is a native file.  If the file is not
+     *   native, the returned string is the result of g_file_get_uri()
+     *   (such as `sftp://path/to/my%20icon.png`).
+     *
+     * - If @icon is a #GThemedIcon with exactly one name and no fallbacks,
+     *   the encoding is simply the name (such as `network-server`).
+     *
+     * @return An allocated NUL-terminated UTF8 string or
+     * null if @icon can't be serialized. Use g_free() to free.
+     * @since 2.20
+     */
+    @GioVersion2_20
+    public fun toStringIcon(): String? = g_icon_to_string(gioIconPointer.reinterpret())?.toKString()
+
+    private data class Wrapper(private val pointer: CPointer<GIcon>) : Icon {
         override val gioIconPointer: CPointer<GIcon> = pointer
     }
 
@@ -147,19 +168,24 @@ public interface Icon :
          * @since 2.20
          */
         @GioVersion2_20
-        public fun newForString(str: String): Result<Icon> =
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                val gResult =
-                    g_icon_new_for_string(str, gError.ptr)?.run {
-                        Icon.wrap(reinterpret())
-                    }
-
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(checkNotNull(gResult))
-                }
+        public fun newForString(str: String): Result<Icon> = memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult = g_icon_new_for_string(str, gError.ptr)?.run {
+                Icon.wrap(reinterpret())
             }
+
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(checkNotNull(gResult))
+            }
+        }
+
+        /**
+         * Get the GType of Icon
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_icon_get_type()
     }
 }

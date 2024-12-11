@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.native.gio.GSocketFamily
+import org.gtkkn.native.gio.g_socket_family_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * The protocol family of a #GSocketAddress. (These values are
@@ -11,9 +13,7 @@ import org.gtkkn.native.gio.GSocketFamily
  * @since 2.22
  */
 @GioVersion2_22
-public enum class SocketFamily(
-    public val nativeValue: GSocketFamily,
-) {
+public enum class SocketFamily(public val nativeValue: GSocketFamily) {
     /**
      * no address family
      */
@@ -36,13 +36,19 @@ public enum class SocketFamily(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GSocketFamily): SocketFamily =
-            when (nativeValue) {
-                GSocketFamily.G_SOCKET_FAMILY_INVALID -> INVALID
-                GSocketFamily.G_SOCKET_FAMILY_UNIX -> UNIX
-                GSocketFamily.G_SOCKET_FAMILY_IPV4 -> IPV4
-                GSocketFamily.G_SOCKET_FAMILY_IPV6 -> IPV6
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GSocketFamily): SocketFamily = when (nativeValue) {
+            GSocketFamily.G_SOCKET_FAMILY_INVALID -> INVALID
+            GSocketFamily.G_SOCKET_FAMILY_UNIX -> UNIX
+            GSocketFamily.G_SOCKET_FAMILY_IPV4 -> IPV4
+            GSocketFamily.G_SOCKET_FAMILY_IPV6 -> IPV6
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of SocketFamily
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_socket_family_get_type()
     }
 }

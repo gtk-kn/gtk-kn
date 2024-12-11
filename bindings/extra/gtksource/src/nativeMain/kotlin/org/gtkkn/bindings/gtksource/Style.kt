@@ -8,6 +8,7 @@ import org.gtkkn.bindings.gtk.TextTag
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceStyle
 import org.gtkkn.native.gtksource.gtk_source_style_apply
 import org.gtkkn.native.gtksource.gtk_source_style_copy
@@ -43,9 +44,8 @@ import kotlin.Unit
  * - method `weight`: Property has no getter nor setter
  * - method `weight-set`: Property has no getter nor setter
  */
-public open class Style(
-    pointer: CPointer<GtkSourceStyle>,
-) : Object(pointer.reinterpret()),
+public open class Style(pointer: CPointer<GtkSourceStyle>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtksourceStylePointer: CPointer<GtkSourceStyle>
         get() = gPointer.reinterpret()
@@ -71,10 +71,9 @@ public open class Style(
      * @return copy of @style, call g_object_unref()
      * when you are done with it.
      */
-    public open fun copy(): Style =
-        gtk_source_style_copy(gtksourceStylePointer.reinterpret())!!.run {
-            Style(reinterpret())
-        }
+    public open fun copy(): Style = gtk_source_style_copy(gtksourceStylePointer.reinterpret())!!.run {
+        Style(reinterpret())
+    }
 
     public companion object : TypeCompanion<Style> {
         override val type: GeneratedClassKGType<Style> =
@@ -83,5 +82,12 @@ public open class Style(
         init {
             GtksourceTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Style
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_style_get_type()
     }
 }

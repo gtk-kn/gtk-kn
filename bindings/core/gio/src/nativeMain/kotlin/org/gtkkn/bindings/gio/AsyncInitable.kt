@@ -25,11 +25,11 @@ import org.gtkkn.native.gio.g_async_initable_init_finish
 import org.gtkkn.native.gio.g_async_initable_new_finish
 import org.gtkkn.native.gio.g_async_initable_newv_async
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
-import kotlin.UInt
-import kotlin.ULong
 import kotlin.Unit
 
 /**
@@ -134,6 +134,12 @@ import kotlin.Unit
  *   iface->init_finish = foo_init_finish;
  * }
  * ```
+ *
+ * ## Skipped during bindings generation
+ *
+ * - function `new_async`: Varargs parameter is not supported
+ * - parameter `var_args`: va_list
+ *
  * @since 2.22
  */
 @GioVersion2_22
@@ -186,11 +192,7 @@ public interface AsyncInitable :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun initAsync(
-        ioPriority: Int,
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public fun initAsync(ioPriority: gint, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         g_async_initable_init_async(
             gioAsyncInitablePointer.reinterpret(),
             ioPriority,
@@ -209,21 +211,19 @@ public interface AsyncInitable :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun initFinish(res: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_async_initable_init_finish(
-                    gioAsyncInitablePointer.reinterpret(),
-                    res.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun initFinish(res: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_async_initable_init_finish(
+            gioAsyncInitablePointer.reinterpret(),
+            res.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Finishes the async construction for the various g_async_initable_new
@@ -235,28 +235,24 @@ public interface AsyncInitable :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun newFinish(res: AsyncResult): Result<Object> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_async_initable_new_finish(
-                    gioAsyncInitablePointer.reinterpret(),
-                    res.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    Object(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun newFinish(res: AsyncResult): Result<Object> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_async_initable_new_finish(
+            gioAsyncInitablePointer.reinterpret(),
+            res.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            Object(reinterpret())
         }
 
-    private data class Wrapper(
-        private val pointer: CPointer<GAsyncInitable>,
-    ) : AsyncInitable {
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
+
+    private data class Wrapper(private val pointer: CPointer<GAsyncInitable>) : AsyncInitable {
         override val gioAsyncInitablePointer: CPointer<GAsyncInitable> = pointer
     }
 
@@ -289,21 +285,27 @@ public interface AsyncInitable :
          */
         @GioVersion2_22
         public fun newvAsync(
-            objectType: ULong,
-            nParameters: UInt,
+            objectType: GType,
+            nParameters: guint,
             parameters: Parameter,
-            ioPriority: Int,
+            ioPriority: gint,
             cancellable: Cancellable? = null,
             callback: AsyncReadyCallback,
-        ): Unit =
-            g_async_initable_newv_async(
-                objectType,
-                nParameters,
-                parameters.gobjectParameterPointer.reinterpret(),
-                ioPriority,
-                cancellable?.gioCancellablePointer?.reinterpret(),
-                AsyncReadyCallbackFunc.reinterpret(),
-                StableRef.create(callback).asCPointer()
-            )
+        ): Unit = g_async_initable_newv_async(
+            objectType,
+            nParameters,
+            parameters.gobjectParameterPointer.reinterpret(),
+            ioPriority,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            AsyncReadyCallbackFunc.reinterpret(),
+            StableRef.create(callback).asCPointer()
+        )
+
+        /**
+         * Get the GType of AsyncInitable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_async_initable_get_type()
     }
 }

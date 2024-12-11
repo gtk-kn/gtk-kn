@@ -24,6 +24,7 @@ import org.gtkkn.native.gio.g_notification_set_icon
 import org.gtkkn.native.gio.g_notification_set_priority
 import org.gtkkn.native.gio.g_notification_set_title
 import org.gtkkn.native.gio.g_notification_set_urgent
+import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
@@ -77,9 +78,8 @@ import kotlin.Unit
  * @since 2.40
  */
 @GioVersion2_40
-public open class Notification(
-    pointer: CPointer<GNotification>,
-) : Object(pointer.reinterpret()),
+public open class Notification(pointer: CPointer<GNotification>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioNotificationPointer: CPointer<GNotification>
         get() = gPointer.reinterpret()
@@ -113,10 +113,8 @@ public open class Notification(
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun addButton(
-        label: String,
-        detailedAction: String,
-    ): Unit = g_notification_add_button(gioNotificationPointer.reinterpret(), label, detailedAction)
+    public open fun addButton(label: String, detailedAction: String): Unit =
+        g_notification_add_button(gioNotificationPointer.reinterpret(), label, detailedAction)
 
     /**
      * Adds a button to @notification that activates @action when clicked.
@@ -131,11 +129,7 @@ public open class Notification(
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun addButtonWithTarget(
-        label: String,
-        action: String,
-        target: Variant? = null,
-    ): Unit =
+    public open fun addButtonWithTarget(label: String, action: String, target: Variant? = null): Unit =
         g_notification_add_button_with_target_value(
             gioNotificationPointer.reinterpret(),
             label,
@@ -204,10 +198,7 @@ public open class Notification(
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun setDefaultActionAndTarget(
-        action: String,
-        target: Variant? = null,
-    ): Unit =
+    public open fun setDefaultActionAndTarget(action: String, target: Variant? = null): Unit =
         g_notification_set_default_action_and_target_value(
             gioNotificationPointer.reinterpret(),
             action,
@@ -260,5 +251,12 @@ public open class Notification(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Notification
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_notification_get_type()
     }
 }

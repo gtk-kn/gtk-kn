@@ -19,6 +19,7 @@ package org.gtkkn.gir
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import me.tatarka.inject.annotations.Inject
 import org.gtkkn.gir.config.Config
 import org.gtkkn.gir.coroutines.DefaultCoroutineDispatcherProvider
 import org.gtkkn.gir.generator.BindingsGenerator
@@ -29,12 +30,13 @@ import org.gtkkn.gir.processor.Phase2Processor
 import java.io.File
 import kotlin.system.exitProcess
 
+@Inject
 class Application(
-    private val girParser: GirParser,
-    private val phase2Processor: Phase2Processor,
-    private val bindingsGenerator: BindingsGenerator,
+    private val bindingsGeneratorFactory: () -> BindingsGenerator,
     private val config: Config,
-    private val dispatcherProvider: DefaultCoroutineDispatcherProvider
+    private val dispatcherProvider: DefaultCoroutineDispatcherProvider,
+    private val girParserFactory: () -> GirParser,
+    private val phase2Processor: Phase2Processor,
 ) {
     suspend fun run(): Unit = coroutineScope {
         if (!config.girBaseDir.exists()) {
@@ -46,7 +48,7 @@ class Application(
 
         val repositories = config.girBaseDir.listFiles().orEmpty()
             .filter { file -> config.matchesGirFile(file) }
-            .map { girParser.parse(it) }
+            .map { girParserFactory().parse(it) }
 
         logger.info { "Parsed ${repositories.count()} gir files" }
 
@@ -56,7 +58,10 @@ class Application(
 
         val deferreds = repositoryBlueprints.map { blueprint ->
             async(dispatcherProvider.default) {
-                bindingsGenerator.generate(blueprint, getRepositoryOutputPath(blueprint.kotlinModuleName, config))
+                bindingsGeneratorFactory().generate(
+                    repository = blueprint,
+                    moduleOutputDir = getRepositoryOutputPath(blueprint.kotlinModuleName, config),
+                )
             }
         }
         deferreds.awaitAll()

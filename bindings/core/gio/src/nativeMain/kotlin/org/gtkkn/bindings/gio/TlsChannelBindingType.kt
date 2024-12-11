@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_66
 import org.gtkkn.native.gio.GTlsChannelBindingType
+import org.gtkkn.native.gio.g_tls_channel_binding_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * The type of TLS channel binding data to retrieve from #GTlsConnection
@@ -12,9 +14,7 @@ import org.gtkkn.native.gio.GTlsChannelBindingType
  * @since 2.66
  */
 @GioVersion2_66
-public enum class TlsChannelBindingType(
-    public val nativeValue: GTlsChannelBindingType,
-) {
+public enum class TlsChannelBindingType(public val nativeValue: GTlsChannelBindingType) {
     /**
      * [`tls-unique`](https://tools.ietf.org/html/rfc5929#section-3) binding
      *    type
@@ -35,12 +35,18 @@ public enum class TlsChannelBindingType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GTlsChannelBindingType): TlsChannelBindingType =
-            when (nativeValue) {
-                GTlsChannelBindingType.G_TLS_CHANNEL_BINDING_TLS_UNIQUE -> UNIQUE
-                GTlsChannelBindingType.G_TLS_CHANNEL_BINDING_TLS_SERVER_END_POINT -> SERVER_END_POINT
-                GTlsChannelBindingType.G_TLS_CHANNEL_BINDING_TLS_EXPORTER -> EXPORTER
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GTlsChannelBindingType): TlsChannelBindingType = when (nativeValue) {
+            GTlsChannelBindingType.G_TLS_CHANNEL_BINDING_TLS_UNIQUE -> UNIQUE
+            GTlsChannelBindingType.G_TLS_CHANNEL_BINDING_TLS_SERVER_END_POINT -> SERVER_END_POINT
+            GTlsChannelBindingType.G_TLS_CHANNEL_BINDING_TLS_EXPORTER -> EXPORTER
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of TlsChannelBindingType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_tls_channel_binding_type_get_type()
     }
 }

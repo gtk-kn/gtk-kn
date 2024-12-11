@@ -10,6 +10,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.adw.AdwPasswordEntryRow
 import org.gtkkn.native.adw.adw_password_entry_row_get_type
 import org.gtkkn.native.adw.adw_password_entry_row_new
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
@@ -39,9 +40,8 @@ import org.gtkkn.native.gtk.GtkEditable
  * @since 1.2
  */
 @AdwVersion1_2
-public class PasswordEntryRow(
-    pointer: CPointer<AdwPasswordEntryRow>,
-) : EntryRow(pointer.reinterpret()),
+public class PasswordEntryRow(pointer: CPointer<AdwPasswordEntryRow>) :
+    EntryRow(pointer.reinterpret()),
     KGTyped {
     public val adwPasswordEntryRowPointer: CPointer<AdwPasswordEntryRow>
         get() = gPointer.reinterpret()
@@ -76,5 +76,12 @@ public class PasswordEntryRow(
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of PasswordEntryRow
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_password_entry_row_get_type()
     }
 }

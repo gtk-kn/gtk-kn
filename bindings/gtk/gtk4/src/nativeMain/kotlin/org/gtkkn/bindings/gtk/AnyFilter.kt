@@ -7,6 +7,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAnyFilter
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.gtk_any_filter_get_type
@@ -17,9 +18,8 @@ import org.gtkkn.native.gtk.gtk_any_filter_new
  *
  * To add filters to a `GtkAnyFilter`, use [method@Gtk.MultiFilter.append].
  */
-public open class AnyFilter(
-    pointer: CPointer<GtkAnyFilter>,
-) : MultiFilter(pointer.reinterpret()),
+public open class AnyFilter(pointer: CPointer<GtkAnyFilter>) :
+    MultiFilter(pointer.reinterpret()),
     KGTyped {
     public val gtkAnyFilterPointer: CPointer<GtkAnyFilter>
         get() = gPointer.reinterpret()
@@ -50,5 +50,12 @@ public open class AnyFilter(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of AnyFilter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_any_filter_get_type()
     }
 }

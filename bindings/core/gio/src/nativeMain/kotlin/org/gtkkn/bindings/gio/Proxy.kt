@@ -24,6 +24,7 @@ import org.gtkkn.native.gio.g_proxy_get_default_for_protocol
 import org.gtkkn.native.gio.g_proxy_get_type
 import org.gtkkn.native.gio.g_proxy_supports_hostname
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
@@ -63,26 +64,24 @@ public interface Proxy :
         connection: IOStream,
         proxyAddress: ProxyAddress,
         cancellable: Cancellable? = null,
-    ): Result<IOStream> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_proxy_connect(
-                    gioProxyPointer.reinterpret(),
-                    connection.gioIOStreamPointer.reinterpret(),
-                    proxyAddress.gioProxyAddressPointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    IOStream(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    ): Result<IOStream> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_proxy_connect(
+            gioProxyPointer.reinterpret(),
+            connection.gioIOStreamPointer.reinterpret(),
+            proxyAddress.gioProxyAddressPointer.reinterpret(),
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            IOStream(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Asynchronous version of g_proxy_connect().
@@ -99,15 +98,14 @@ public interface Proxy :
         proxyAddress: ProxyAddress,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_proxy_connect_async(
-            gioProxyPointer.reinterpret(),
-            connection.gioIOStreamPointer.reinterpret(),
-            proxyAddress.gioProxyAddressPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_proxy_connect_async(
+        gioProxyPointer.reinterpret(),
+        connection.gioIOStreamPointer.reinterpret(),
+        proxyAddress.gioProxyAddressPointer.reinterpret(),
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * See g_proxy_connect().
@@ -117,20 +115,22 @@ public interface Proxy :
      * @since 2.26
      */
     @GioVersion2_26
-    public fun connectFinish(result: AsyncResult): Result<IOStream> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_proxy_connect_finish(gioProxyPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)?.run {
-                    IOStream(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun connectFinish(result: AsyncResult): Result<IOStream> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_proxy_connect_finish(
+            gioProxyPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            IOStream(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Some proxy protocols expect to be passed a hostname, which they
@@ -147,9 +147,7 @@ public interface Proxy :
     @GioVersion2_26
     public fun supportsHostname(): Boolean = g_proxy_supports_hostname(gioProxyPointer.reinterpret()).asBoolean()
 
-    private data class Wrapper(
-        private val pointer: CPointer<GProxy>,
-    ) : Proxy {
+    private data class Wrapper(private val pointer: CPointer<GProxy>) : Proxy {
         override val gioProxyPointer: CPointer<GProxy> = pointer
     }
 
@@ -173,9 +171,15 @@ public interface Proxy :
          * @since 2.26
          */
         @GioVersion2_26
-        public fun getDefaultForProtocol(protocol: String): Proxy? =
-            g_proxy_get_default_for_protocol(protocol)?.run {
-                Proxy.wrap(reinterpret())
-            }
+        public fun getDefaultForProtocol(protocol: String): Proxy? = g_proxy_get_default_for_protocol(protocol)?.run {
+            Proxy.wrap(reinterpret())
+        }
+
+        /**
+         * Get the GType of Proxy
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_proxy_get_type()
     }
 }

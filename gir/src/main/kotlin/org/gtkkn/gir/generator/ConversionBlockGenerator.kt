@@ -31,18 +31,19 @@ interface ConversionBlockGenerator {
      *
      * Nullability is handled.
      */
+    @Suppress("LongMethod")
     fun buildParameterConversionBlock(param: ParameterBlueprint): CodeBlock =
         CodeBlock.builder().apply {
             val isParamNullable = param.typeInfo.kotlinTypeName.isNullable
             val safeCall = if (isParamNullable) "?" else ""
 
-            when (param.typeInfo) {
+            when (val type = param.typeInfo) {
                 is TypeInfo.Enumeration -> add("%N$safeCall.nativeValue", param.kotlinName)
                 is TypeInfo.ObjectPointer -> {
                     add(
                         "%N$safeCall.%N$safeCall.%M()",
                         param.kotlinName,
-                        param.typeInfo.objectPointerName,
+                        type.objectPointerName,
                         BindingsGenerator.REINTERPRET_FUNC,
                     )
                 }
@@ -51,7 +52,7 @@ interface ConversionBlockGenerator {
                     add(
                         "%N$safeCall.%N",
                         param.kotlinName,
-                        param.typeInfo.objectPointerName,
+                        type.objectPointerName,
                     )
                 }
 
@@ -59,16 +60,22 @@ interface ConversionBlockGenerator {
                     add(
                         "%N$safeCall.%N$safeCall.%M()",
                         param.kotlinName,
-                        param.typeInfo.objectPointerName,
+                        type.objectPointerName,
                         BindingsGenerator.REINTERPRET_FUNC,
                     )
                 }
 
                 is TypeInfo.Alias,
                 is TypeInfo.Primitive -> add("%N", param.kotlinName)
+
                 is TypeInfo.GBoolean -> add("%N$safeCall.%M()", param.kotlinName, BindingsGenerator.AS_GBOOLEAN_FUNC)
                 is TypeInfo.GChar -> add("%N$safeCall.code.toByte()", param.kotlinName)
-                is TypeInfo.KString -> add("%N", param.kotlinName)
+                is TypeInfo.KString -> if (type.immutable) {
+                    add("%N", param.kotlinName)
+                } else {
+                    add("%N$safeCall.%M", param.kotlinName, BindingsGenerator.CSTR_FUNC)
+                }
+
                 is TypeInfo.Bitfield -> add("%N$safeCall.mask", param.kotlinName)
                 is TypeInfo.StringList -> add(
                     "%N$safeCall.%M(this)",
@@ -79,12 +86,12 @@ interface ConversionBlockGenerator {
                 is TypeInfo.CallbackWithDestroy -> {
                     add(
                         "%M.%M(), %T.create(%L).asCPointer()",
-                        param.typeInfo.staticPropertyMemberName,
+                        type.staticPropertyMemberName,
                         BindingsGenerator.REINTERPRET_FUNC,
                         BindingsGenerator.STABLEREF,
                         param.kotlinName,
                     )
-                    if (param.typeInfo.hasDestroyParam) {
+                    if (type.hasDestroyParam) {
                         add(
                             ", %M.%M()",
                             BindingsGenerator.STATIC_STABLEREF_DESTROY,
@@ -126,9 +133,10 @@ interface ConversionBlockGenerator {
 
                 is TypeInfo.Alias,
                 is TypeInfo.Primitive -> Unit
+
                 is TypeInfo.GBoolean -> add("$safeCall.%M()", BindingsGenerator.AS_GBOOLEAN_FUNC)
                 is TypeInfo.GChar -> add("$safeCall.code.toByte()")
-                is TypeInfo.KString -> add("$safeCall.cstr")
+                is TypeInfo.KString -> add("$safeCall.let { %M(it) }", BindingsGenerator.G_STRDUP_FUNC)
                 is TypeInfo.Bitfield -> add("$safeCall.mask")
                 is TypeInfo.StringList -> add(
                     "$safeCall.%M(this)",

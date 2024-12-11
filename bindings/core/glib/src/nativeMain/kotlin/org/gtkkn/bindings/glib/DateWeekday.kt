@@ -7,9 +7,7 @@ import org.gtkkn.native.glib.GDateWeekday
  * Enumeration representing a day of the week; %G_DATE_MONDAY,
  * %G_DATE_TUESDAY, etc. %G_DATE_BAD_WEEKDAY is an invalid weekday.
  */
-public enum class DateWeekday(
-    public val nativeValue: GDateWeekday,
-) {
+public enum class DateWeekday(public val nativeValue: GDateWeekday) {
     /**
      * invalid value
      */
@@ -52,17 +50,16 @@ public enum class DateWeekday(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GDateWeekday): DateWeekday =
-            when (nativeValue) {
-                GDateWeekday.G_DATE_BAD_WEEKDAY -> BAD_WEEKDAY
-                GDateWeekday.G_DATE_MONDAY -> MONDAY
-                GDateWeekday.G_DATE_TUESDAY -> TUESDAY
-                GDateWeekday.G_DATE_WEDNESDAY -> WEDNESDAY
-                GDateWeekday.G_DATE_THURSDAY -> THURSDAY
-                GDateWeekday.G_DATE_FRIDAY -> FRIDAY
-                GDateWeekday.G_DATE_SATURDAY -> SATURDAY
-                GDateWeekday.G_DATE_SUNDAY -> SUNDAY
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GDateWeekday): DateWeekday = when (nativeValue) {
+            GDateWeekday.G_DATE_BAD_WEEKDAY -> BAD_WEEKDAY
+            GDateWeekday.G_DATE_MONDAY -> MONDAY
+            GDateWeekday.G_DATE_TUESDAY -> TUESDAY
+            GDateWeekday.G_DATE_WEDNESDAY -> WEDNESDAY
+            GDateWeekday.G_DATE_THURSDAY -> THURSDAY
+            GDateWeekday.G_DATE_FRIDAY -> FRIDAY
+            GDateWeekday.G_DATE_SATURDAY -> SATURDAY
+            GDateWeekday.G_DATE_SUNDAY -> SUNDAY
+            else -> error("invalid nativeValue")
+        }
     }
 }

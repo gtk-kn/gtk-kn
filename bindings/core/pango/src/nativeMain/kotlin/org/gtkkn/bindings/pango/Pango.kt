@@ -10,11 +10,8 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.MarkupParseContext
-import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_10
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
-import org.gtkkn.bindings.pango.annotations.PangoVersion1_22
-import org.gtkkn.bindings.pango.annotations.PangoVersion1_26
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_31_0
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_32
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_38
@@ -27,7 +24,14 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_8
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toKStringList
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.guint16
+import org.gtkkn.native.gobject.guint32
+import org.gtkkn.native.gobject.gunichar
 import org.gtkkn.native.pango.PangoAttribute
 import org.gtkkn.native.pango.PangoFont
 import org.gtkkn.native.pango.PangoFontset
@@ -37,63 +41,44 @@ import org.gtkkn.native.pango.pango_attr_background_new
 import org.gtkkn.native.pango.pango_attr_baseline_shift_new
 import org.gtkkn.native.pango.pango_attr_fallback_new
 import org.gtkkn.native.pango.pango_attr_family_new
-import org.gtkkn.native.pango.pango_attr_font_desc_new
-import org.gtkkn.native.pango.pango_attr_font_features_new
 import org.gtkkn.native.pango.pango_attr_font_scale_new
 import org.gtkkn.native.pango.pango_attr_foreground_alpha_new
 import org.gtkkn.native.pango.pango_attr_foreground_new
 import org.gtkkn.native.pango.pango_attr_gravity_hint_new
 import org.gtkkn.native.pango.pango_attr_gravity_new
 import org.gtkkn.native.pango.pango_attr_insert_hyphens_new
-import org.gtkkn.native.pango.pango_attr_language_new
 import org.gtkkn.native.pango.pango_attr_letter_spacing_new
 import org.gtkkn.native.pango.pango_attr_line_height_new
 import org.gtkkn.native.pango.pango_attr_line_height_new_absolute
-import org.gtkkn.native.pango.pango_attr_list_from_string
 import org.gtkkn.native.pango.pango_attr_overline_color_new
 import org.gtkkn.native.pango.pango_attr_overline_new
 import org.gtkkn.native.pango.pango_attr_rise_new
 import org.gtkkn.native.pango.pango_attr_scale_new
 import org.gtkkn.native.pango.pango_attr_sentence_new
-import org.gtkkn.native.pango.pango_attr_shape_new
 import org.gtkkn.native.pango.pango_attr_show_new
-import org.gtkkn.native.pango.pango_attr_size_new
-import org.gtkkn.native.pango.pango_attr_size_new_absolute
 import org.gtkkn.native.pango.pango_attr_stretch_new
 import org.gtkkn.native.pango.pango_attr_strikethrough_color_new
 import org.gtkkn.native.pango.pango_attr_strikethrough_new
 import org.gtkkn.native.pango.pango_attr_style_new
 import org.gtkkn.native.pango.pango_attr_text_transform_new
-import org.gtkkn.native.pango.pango_attr_type_get_name
-import org.gtkkn.native.pango.pango_attr_type_register
 import org.gtkkn.native.pango.pango_attr_underline_color_new
 import org.gtkkn.native.pango.pango_attr_underline_new
 import org.gtkkn.native.pango.pango_attr_variant_new
 import org.gtkkn.native.pango.pango_attr_weight_new
 import org.gtkkn.native.pango.pango_attr_word_new
-import org.gtkkn.native.pango.pango_bidi_type_for_unichar
 import org.gtkkn.native.pango.pango_default_break
 import org.gtkkn.native.pango.pango_extents_to_pixels
 import org.gtkkn.native.pango.pango_find_base_dir
-import org.gtkkn.native.pango.pango_font_description_from_string
-import org.gtkkn.native.pango.pango_gravity_get_for_matrix
-import org.gtkkn.native.pango.pango_gravity_get_for_script
-import org.gtkkn.native.pango.pango_gravity_get_for_script_and_width
-import org.gtkkn.native.pango.pango_gravity_to_rotation
 import org.gtkkn.native.pango.pango_is_zero_width
-import org.gtkkn.native.pango.pango_language_from_string
-import org.gtkkn.native.pango.pango_language_get_default
-import org.gtkkn.native.pango.pango_layout_deserialize_error_quark
+import org.gtkkn.native.pango.pango_itemize
+import org.gtkkn.native.pango.pango_itemize_with_base_dir
 import org.gtkkn.native.pango.pango_markup_parser_new
 import org.gtkkn.native.pango.pango_reorder_items
-import org.gtkkn.native.pango.pango_script_for_unichar
-import org.gtkkn.native.pango.pango_script_get_sample_language
 import org.gtkkn.native.pango.pango_shape
 import org.gtkkn.native.pango.pango_shape_full
 import org.gtkkn.native.pango.pango_shape_item
 import org.gtkkn.native.pango.pango_shape_with_flags
 import org.gtkkn.native.pango.pango_split_file_list
-import org.gtkkn.native.pango.pango_tab_array_from_string
 import org.gtkkn.native.pango.pango_trim_string
 import org.gtkkn.native.pango.pango_unichar_direction
 import org.gtkkn.native.pango.pango_units_from_double
@@ -102,11 +87,7 @@ import org.gtkkn.native.pango.pango_version
 import org.gtkkn.native.pango.pango_version_check
 import org.gtkkn.native.pango.pango_version_string
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
-import kotlin.UShort
 import kotlin.Unit
 import kotlin.collections.List as CollectionsList
 import org.gtkkn.bindings.glib.List as GlibList
@@ -115,16 +96,11 @@ import org.gtkkn.bindings.glib.List as GlibList
  * ## Skipped during bindings generation
  *
  * - alias `LayoutRun`: GlyphItem
- * - class `Context`: C Type PangoContext is ignored
  * - parameter `attrs`: LogAttr
- * - parameter `data`: gpointer
  * - parameter `attrs`: LogAttr
  * - parameter `paragraph_delimiter_index`: paragraph_delimiter_index: Out parameter is not supported
  * - parameter `attrs`: LogAttr
  * - parameter `mirrored_ch`: Unsupported pointer to primitive type
- * - parameter `context`: C Type PangoContext is ignored
- * - parameter `context`: C Type PangoContext is ignored
- * - function `language_get_preferred`: Array parameter of type Language is not supported
  * - function `log2vis_get_embedding_levels`: Return type guint8 is unsupported
  * - parameter `attr_list`: attr_list: Out parameter is not supported
  * - parameter `value`: value: Out parameter is not supported
@@ -150,7 +126,6 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - record `FontsetSimpleClass`: glib type struct are ignored
  * - record `LayoutClass`: glib type struct are ignored
  * - record `RendererClass`: glib type struct are ignored
- * - record `RendererPrivate`: Disguised records are ignored
  * - include `HarfBuzz`: Missing dependant repository
  */
 public object Pango {
@@ -161,21 +136,21 @@ public object Pango {
      *
      * @since 1.16
      */
-    public const val ANALYSIS_FLAG_CENTERED_BASELINE: Int = 1
+    public const val ANALYSIS_FLAG_CENTERED_BASELINE: gint = 1
 
     /**
      * Whether this run holds ellipsized text.
      *
      * @since 1.36.7
      */
-    public const val ANALYSIS_FLAG_IS_ELLIPSIS: Int = 2
+    public const val ANALYSIS_FLAG_IS_ELLIPSIS: gint = 2
 
     /**
      * Whether to add a hyphen at the end of the run during shaping.
      *
      * @since 1.44
      */
-    public const val ANALYSIS_FLAG_NEED_HYPHEN: Int = 4
+    public const val ANALYSIS_FLAG_NEED_HYPHEN: gint = 4
 
     /**
      * Value for @start_index in `PangoAttribute` that indicates
@@ -183,7 +158,7 @@ public object Pango {
      *
      * @since 1.24
      */
-    public const val ATTR_INDEX_FROM_TEXT_BEGINNING: UInt = 0u
+    public const val ATTR_INDEX_FROM_TEXT_BEGINNING: guint = 0u
 
     /**
      * Value for @end_index in `PangoAttribute` that indicates
@@ -191,7 +166,7 @@ public object Pango {
      *
      * @since 1.24
      */
-    public const val ATTR_INDEX_TO_TEXT_END: UInt = UInt.MAX_VALUE
+    public const val ATTR_INDEX_TO_TEXT_END: guint32 = UInt.MAX_VALUE
 
     /**
      * A `PangoGlyph` value that indicates a zero-width empty glpyh.
@@ -212,7 +187,7 @@ public object Pango {
      *
      * @since 1.20
      */
-    public const val GLYPH_INVALID_INPUT: UInt = UInt.MAX_VALUE
+    public const val GLYPH_INVALID_INPUT: guint32 = UInt.MAX_VALUE
 
     /**
      * Flag used in `PangoGlyph` to turn a `gunichar` value of a valid Unicode
@@ -232,22 +207,22 @@ public object Pango {
      * When setting font sizes, device units are always considered to be
      * points (as in "12 point font"), rather than pixels.
      */
-    public const val SCALE: Int = 1024
+    public const val SCALE: gint = 1024
 
     /**
      * The major component of the version of Pango available at compile-time.
      */
-    public const val VERSION_MAJOR: Int = 1
+    public const val VERSION_MAJOR: gint = 1
 
     /**
      * The micro component of the version of Pango available at compile-time.
      */
-    public const val VERSION_MICRO: Int = 1
+    public const val VERSION_MICRO: gint = 1
 
     /**
      * The minor component of the version of Pango available at compile-time.
      */
-    public const val VERSION_MINOR: Int = 52
+    public const val VERSION_MINOR: gint = 52
 
     /**
      * A string literal containing the version of Pango available at compile-time.
@@ -282,10 +257,9 @@ public object Pango {
      * @since 1.38
      */
     @PangoVersion1_38
-    public fun attrBackgroundAlphaNew(alpha: UShort): Attribute =
-        pango_attr_background_alpha_new(alpha)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrBackgroundAlphaNew(alpha: guint16): Attribute = pango_attr_background_alpha_new(alpha)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new background color attribute.
@@ -297,11 +271,7 @@ public object Pango {
      *   `PangoAttribute`, which should be freed with
      *   [method@Pango.Attribute.destroy]
      */
-    public fun attrBackgroundNew(
-        red: UShort,
-        green: UShort,
-        blue: UShort,
-    ): Attribute =
+    public fun attrBackgroundNew(red: guint16, green: guint16, blue: guint16): Attribute =
         pango_attr_background_new(red, green, blue)!!.run {
             Attribute(reinterpret())
         }
@@ -326,10 +296,9 @@ public object Pango {
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun attrBaselineShiftNew(shift: Int): Attribute =
-        pango_attr_baseline_shift_new(shift)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrBaselineShiftNew(shift: gint): Attribute = pango_attr_baseline_shift_new(shift)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new font fallback attribute.
@@ -360,45 +329,9 @@ public object Pango {
      *   `PangoAttribute`, which should be freed with
      *   [method@Pango.Attribute.destroy]
      */
-    public fun attrFamilyNew(family: String): Attribute =
-        pango_attr_family_new(family)!!.run {
-            Attribute(reinterpret())
-        }
-
-    /**
-     * Create a new font description attribute.
-     *
-     * This attribute allows setting family, style, weight, variant,
-     * stretch, and size simultaneously.
-     *
-     * @param desc the font description
-     * @return the newly allocated
-     *   `PangoAttribute`, which should be freed with
-     *   [method@Pango.Attribute.destroy]
-     */
-    public fun attrFontDescNew(desc: FontDescription): Attribute =
-        pango_attr_font_desc_new(desc.pangoFontDescriptionPointer.reinterpret())!!.run {
-            Attribute(reinterpret())
-        }
-
-    /**
-     * Create a new font features tag attribute.
-     *
-     * You can use this attribute to select OpenType font features like small-caps,
-     * alternative glyphs, ligatures, etc. for fonts that support them.
-     *
-     * @param features a string with OpenType font features, with the syntax of the [CSS
-     * font-feature-settings property](https://www.w3.org/TR/css-fonts-4/#font-rend-desc)
-     * @return the newly allocated
-     *   `PangoAttribute`, which should be freed with
-     *   [method@Pango.Attribute.destroy]
-     * @since 1.38
-     */
-    @PangoVersion1_38
-    public fun attrFontFeaturesNew(features: String): Attribute =
-        pango_attr_font_features_new(features)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrFamilyNew(family: String): Attribute = pango_attr_family_new(family)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new font scale attribute.
@@ -414,10 +347,9 @@ public object Pango {
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun attrFontScaleNew(scale: FontScale): Attribute =
-        pango_attr_font_scale_new(scale.nativeValue)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrFontScaleNew(scale: FontScale): Attribute = pango_attr_font_scale_new(scale.nativeValue)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new foreground alpha attribute.
@@ -429,10 +361,9 @@ public object Pango {
      * @since 1.38
      */
     @PangoVersion1_38
-    public fun attrForegroundAlphaNew(alpha: UShort): Attribute =
-        pango_attr_foreground_alpha_new(alpha)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrForegroundAlphaNew(alpha: guint16): Attribute = pango_attr_foreground_alpha_new(alpha)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new foreground color attribute.
@@ -444,11 +375,7 @@ public object Pango {
      *   `PangoAttribute`, which should be freed with
      *   [method@Pango.Attribute.destroy]
      */
-    public fun attrForegroundNew(
-        red: UShort,
-        green: UShort,
-        blue: UShort,
-    ): Attribute =
+    public fun attrForegroundNew(red: guint16, green: guint16, blue: guint16): Attribute =
         pango_attr_foreground_new(red, green, blue)!!.run {
             Attribute(reinterpret())
         }
@@ -463,10 +390,9 @@ public object Pango {
      * @since 1.16
      */
     @PangoVersion1_16
-    public fun attrGravityHintNew(hint: GravityHint): Attribute =
-        pango_attr_gravity_hint_new(hint.nativeValue)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrGravityHintNew(hint: GravityHint): Attribute = pango_attr_gravity_hint_new(hint.nativeValue)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new gravity attribute.
@@ -478,10 +404,9 @@ public object Pango {
      * @since 1.16
      */
     @PangoVersion1_16
-    public fun attrGravityNew(gravity: Gravity): Attribute =
-        pango_attr_gravity_new(gravity.nativeValue)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrGravityNew(gravity: Gravity): Attribute = pango_attr_gravity_new(gravity.nativeValue)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new insert-hyphens attribute.
@@ -503,19 +428,6 @@ public object Pango {
         }
 
     /**
-     * Create a new language tag attribute.
-     *
-     * @param language language tag
-     * @return the newly allocated
-     *   `PangoAttribute`, which should be freed with
-     *   [method@Pango.Attribute.destroy]
-     */
-    public fun attrLanguageNew(language: Language): Attribute =
-        pango_attr_language_new(language.pangoLanguagePointer.reinterpret())!!.run {
-            Attribute(reinterpret())
-        }
-
-    /**
      * Create a new letter-spacing attribute.
      *
      * @param letterSpacing amount of extra space to add between
@@ -526,7 +438,7 @@ public object Pango {
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun attrLetterSpacingNew(letterSpacing: Int): Attribute =
+    public fun attrLetterSpacingNew(letterSpacing: gint): Attribute =
         pango_attr_letter_spacing_new(letterSpacing)!!.run {
             Attribute(reinterpret())
         }
@@ -543,10 +455,9 @@ public object Pango {
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun attrLineHeightNew(factor: Double): Attribute =
-        pango_attr_line_height_new(factor)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrLineHeightNew(factor: gdouble): Attribute = pango_attr_line_height_new(factor)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Override the height of logical line extents to be @height.
@@ -560,26 +471,9 @@ public object Pango {
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun attrLineHeightNewAbsolute(height: Int): Attribute =
-        pango_attr_line_height_new_absolute(height)!!.run {
-            Attribute(reinterpret())
-        }
-
-    /**
-     * Deserializes a `PangoAttrList` from a string.
-     *
-     * This is the counterpart to [method@Pango.AttrList.to_string].
-     * See that functions for details about the format.
-     *
-     * @param text a string
-     * @return a new `PangoAttrList`
-     * @since 1.50
-     */
-    @PangoVersion1_50
-    public fun attrListFromString(text: String): AttrList? =
-        pango_attr_list_from_string(text)?.run {
-            AttrList(reinterpret())
-        }
+    public fun attrLineHeightNewAbsolute(height: gint): Attribute = pango_attr_line_height_new_absolute(height)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new overline color attribute.
@@ -596,11 +490,7 @@ public object Pango {
      * @since 1.46
      */
     @PangoVersion1_46
-    public fun attrOverlineColorNew(
-        red: UShort,
-        green: UShort,
-        blue: UShort,
-    ): Attribute =
+    public fun attrOverlineColorNew(red: guint16, green: guint16, blue: guint16): Attribute =
         pango_attr_overline_color_new(red, green, blue)!!.run {
             Attribute(reinterpret())
         }
@@ -615,10 +505,9 @@ public object Pango {
      * @since 1.46
      */
     @PangoVersion1_46
-    public fun attrOverlineNew(overline: Overline): Attribute =
-        pango_attr_overline_new(overline.nativeValue)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrOverlineNew(overline: Overline): Attribute = pango_attr_overline_new(overline.nativeValue)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new baseline displacement attribute.
@@ -629,10 +518,9 @@ public object Pango {
      *   `PangoAttribute`, which should be freed with
      *   [method@Pango.Attribute.destroy]
      */
-    public fun attrRiseNew(rise: Int): Attribute =
-        pango_attr_rise_new(rise)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrRiseNew(rise: gint): Attribute = pango_attr_rise_new(rise)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new font size scale attribute.
@@ -645,10 +533,9 @@ public object Pango {
      *   `PangoAttribute`, which should be freed with
      *   [method@Pango.Attribute.destroy]
      */
-    public fun attrScaleNew(scaleFactor: Double): Attribute =
-        pango_attr_scale_new(scaleFactor)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrScaleNew(scaleFactor: gdouble): Attribute = pango_attr_scale_new(scaleFactor)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Marks the range of the attribute as a single sentence.
@@ -662,35 +549,9 @@ public object Pango {
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun attrSentenceNew(): Attribute =
-        pango_attr_sentence_new()!!.run {
-            Attribute(reinterpret())
-        }
-
-    /**
-     * Create a new shape attribute.
-     *
-     * A shape is used to impose a particular ink and logical
-     * rectangle on the result of shaping a particular glyph.
-     * This might be used, for instance, for embedding a picture
-     * or a widget inside a `PangoLayout`.
-     *
-     * @param inkRect ink rectangle to assign to each character
-     * @param logicalRect logical rectangle to assign to each character
-     * @return the newly allocated
-     *   `PangoAttribute`, which should be freed with
-     *   [method@Pango.Attribute.destroy]
-     */
-    public fun attrShapeNew(
-        inkRect: Rectangle,
-        logicalRect: Rectangle,
-    ): Attribute =
-        pango_attr_shape_new(
-            inkRect.pangoRectanglePointer.reinterpret(),
-            logicalRect.pangoRectanglePointer.reinterpret()
-        )!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrSentenceNew(): Attribute = pango_attr_sentence_new()!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new attribute that influences how invisible
@@ -703,38 +564,9 @@ public object Pango {
      * @since 1.44
      */
     @PangoVersion1_44
-    public fun attrShowNew(flags: ShowFlags): Attribute =
-        pango_attr_show_new(flags.mask)!!.run {
-            Attribute(reinterpret())
-        }
-
-    /**
-     * Create a new font-size attribute in fractional points.
-     *
-     * @param size the font size, in %PANGO_SCALE-ths of a point
-     * @return the newly allocated
-     *   `PangoAttribute`, which should be freed with
-     *   [method@Pango.Attribute.destroy]
-     */
-    public fun attrSizeNew(size: Int): Attribute =
-        pango_attr_size_new(size)!!.run {
-            Attribute(reinterpret())
-        }
-
-    /**
-     * Create a new font-size attribute in device units.
-     *
-     * @param size the font size, in %PANGO_SCALE-ths of a device unit
-     * @return the newly allocated
-     *   `PangoAttribute`, which should be freed with
-     *   [method@Pango.Attribute.destroy]
-     * @since 1.8
-     */
-    @PangoVersion1_8
-    public fun attrSizeNewAbsolute(size: Int): Attribute =
-        pango_attr_size_new_absolute(size)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrShowNew(flags: ShowFlags): Attribute = pango_attr_show_new(flags.mask)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new font stretch attribute.
@@ -744,10 +576,9 @@ public object Pango {
      *   `PangoAttribute`, which should be freed with
      *   [method@Pango.Attribute.destroy]
      */
-    public fun attrStretchNew(stretch: Stretch): Attribute =
-        pango_attr_stretch_new(stretch.nativeValue)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrStretchNew(stretch: Stretch): Attribute = pango_attr_stretch_new(stretch.nativeValue)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new strikethrough color attribute.
@@ -764,11 +595,7 @@ public object Pango {
      * @since 1.8
      */
     @PangoVersion1_8
-    public fun attrStrikethroughColorNew(
-        red: UShort,
-        green: UShort,
-        blue: UShort,
-    ): Attribute =
+    public fun attrStrikethroughColorNew(red: guint16, green: guint16, blue: guint16): Attribute =
         pango_attr_strikethrough_color_new(red, green, blue)!!.run {
             Attribute(reinterpret())
         }
@@ -794,10 +621,9 @@ public object Pango {
      *   `PangoAttribute`, which should be freed with
      *   [method@Pango.Attribute.destroy]
      */
-    public fun attrStyleNew(style: Style): Attribute =
-        pango_attr_style_new(style.nativeValue)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrStyleNew(style: Style): Attribute = pango_attr_style_new(style.nativeValue)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new attribute that influences how characters
@@ -816,40 +642,6 @@ public object Pango {
         }
 
     /**
-     * Fetches the attribute type name.
-     *
-     * The attribute type name is the string passed in
-     * when registering the type using
-     * [func@Pango.AttrType.register].
-     *
-     * The returned value is an interned string (see
-     * g_intern_string() for what that means) that should
-     * not be modified or freed.
-     *
-     * @param type an attribute type ID to fetch the name for
-     * @return the type ID name (which
-     *   may be null), or null if @type is a built-in Pango
-     *   attribute type or invalid.
-     * @since 1.22
-     */
-    @PangoVersion1_22
-    public fun attrTypeGetName(type: AttrType): String? = pango_attr_type_get_name(type.nativeValue)?.toKString()
-
-    /**
-     * Allocate a new attribute type ID.
-     *
-     * The attribute type name can be accessed later
-     * by using [func@Pango.AttrType.get_name].
-     *
-     * @param name an identifier for the type
-     * @return the new type ID.
-     */
-    public fun attrTypeRegister(name: String): AttrType =
-        pango_attr_type_register(name).run {
-            AttrType.fromNativeValue(this)
-        }
-
-    /**
      * Create a new underline color attribute.
      *
      * This attribute modifies the color of underlines.
@@ -864,11 +656,7 @@ public object Pango {
      * @since 1.8
      */
     @PangoVersion1_8
-    public fun attrUnderlineColorNew(
-        red: UShort,
-        green: UShort,
-        blue: UShort,
-    ): Attribute =
+    public fun attrUnderlineColorNew(red: guint16, green: guint16, blue: guint16): Attribute =
         pango_attr_underline_color_new(red, green, blue)!!.run {
             Attribute(reinterpret())
         }
@@ -893,10 +681,9 @@ public object Pango {
      * @return the newly allocated `PangoAttribute`,
      *   which should be freed with [method@Pango.Attribute.destroy].
      */
-    public fun attrVariantNew(variant: Variant): Attribute =
-        pango_attr_variant_new(variant.nativeValue)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrVariantNew(variant: Variant): Attribute = pango_attr_variant_new(variant.nativeValue)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Create a new font weight attribute.
@@ -906,10 +693,9 @@ public object Pango {
      *   `PangoAttribute`, which should be freed with
      *   [method@Pango.Attribute.destroy]
      */
-    public fun attrWeightNew(weight: Weight): Attribute =
-        pango_attr_weight_new(weight.nativeValue)!!.run {
-            Attribute(reinterpret())
-        }
+    public fun attrWeightNew(weight: Weight): Attribute = pango_attr_weight_new(weight.nativeValue)!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * Marks the range of the attribute as a single word.
@@ -923,28 +709,9 @@ public object Pango {
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun attrWordNew(): Attribute =
-        pango_attr_word_new()!!.run {
-            Attribute(reinterpret())
-        }
-
-    /**
-     * Determines the bidirectional type of a character.
-     *
-     * The bidirectional type is specified in the Unicode Character Database.
-     *
-     * A simplified version of this function is available as [func@unichar_direction].
-     *
-     * @param ch a Unicode character
-     * @return the bidirectional character type, as used in the
-     * Unicode bidirectional algorithm.
-     * @since 1.22
-     */
-    @PangoVersion1_22
-    public fun bidiTypeForUnichar(ch: UInt): BidiType =
-        pango_bidi_type_for_unichar(ch).run {
-            BidiType.fromNativeValue(this)
-        }
+    public fun attrWordNew(): Attribute = pango_attr_word_new()!!.run {
+        Attribute(reinterpret())
+    }
 
     /**
      * This is the default break algorithm.
@@ -965,18 +732,17 @@ public object Pango {
      */
     public fun defaultBreak(
         text: String,
-        length: Int,
+        length: gint,
         analysis: Analysis? = null,
         attrs: LogAttr,
-        attrsLen: Int,
-    ): Unit =
-        pango_default_break(
-            text,
-            length,
-            analysis?.pangoAnalysisPointer?.reinterpret(),
-            attrs.pangoLogAttrPointer.reinterpret(),
-            attrsLen
-        )
+        attrsLen: gint,
+    ): Unit = pango_default_break(
+        text,
+        length,
+        analysis?.pangoAnalysisPointer?.reinterpret(),
+        attrs.pangoLogAttrPointer.reinterpret(),
+        attrsLen
+    )
 
     /**
      * Converts extents from Pango units to device units.
@@ -1002,10 +768,7 @@ public object Pango {
      * @since 1.16
      */
     @PangoVersion1_16
-    public fun extentsToPixels(
-        inclusive: Rectangle? = null,
-        nearest: Rectangle? = null,
-    ): Unit =
+    public fun extentsToPixels(inclusive: Rectangle? = null, nearest: Rectangle? = null): Unit =
         pango_extents_to_pixels(
             inclusive?.pangoRectanglePointer?.reinterpret(),
             nearest?.pangoRectanglePointer?.reinterpret()
@@ -1022,163 +785,9 @@ public object Pango {
      * @since 1.4
      */
     @PangoVersion1_4
-    public fun findBaseDir(
-        text: String,
-        length: Int,
-    ): Direction =
-        pango_find_base_dir(text, length).run {
-            Direction.fromNativeValue(this)
-        }
-
-    /**
-     * Creates a new font description from a string representation.
-     *
-     * The string must have the form
-     *
-     *     "\[FAMILY-LIST] \[STYLE-OPTIONS] \[SIZE] \[VARIATIONS]",
-     *
-     * where FAMILY-LIST is a comma-separated list of families optionally
-     * terminated by a comma, STYLE_OPTIONS is a whitespace-separated list
-     * of words where each word describes one of style, variant, weight,
-     * stretch, or gravity, and SIZE is a decimal number (size in points)
-     * or optionally followed by the unit modifier "px" for absolute size.
-     * VARIATIONS is a comma-separated list of font variation
-     * specifications of the form "\@axis=value" (the = sign is optional).
-     *
-     * The following words are understood as styles:
-     * "Normal", "Roman", "Oblique", "Italic".
-     *
-     * The following words are understood as variants:
-     * "Small-Caps", "All-Small-Caps", "Petite-Caps", "All-Petite-Caps",
-     * "Unicase", "Title-Caps".
-     *
-     * The following words are understood as weights:
-     * "Thin", "Ultra-Light", "Extra-Light", "Light", "Semi-Light",
-     * "Demi-Light", "Book", "Regular", "Medium", "Semi-Bold", "Demi-Bold",
-     * "Bold", "Ultra-Bold", "Extra-Bold", "Heavy", "Black", "Ultra-Black",
-     * "Extra-Black".
-     *
-     * The following words are understood as stretch values:
-     * "Ultra-Condensed", "Extra-Condensed", "Condensed", "Semi-Condensed",
-     * "Semi-Expanded", "Expanded", "Extra-Expanded", "Ultra-Expanded".
-     *
-     * The following words are understood as gravity values:
-     * "Not-Rotated", "South", "Upside-Down", "North", "Rotated-Left",
-     * "East", "Rotated-Right", "West".
-     *
-     * Any one of the options may be absent. If FAMILY-LIST is absent, then
-     * the family_name field of the resulting font description will be
-     * initialized to null. If STYLE-OPTIONS is missing, then all style
-     * options will be set to the default values. If SIZE is missing, the
-     * size in the resulting font description will be set to 0.
-     *
-     * A typical example:
-     *
-     *     "Cantarell Italic Light 15 \@wght=200"
-     *
-     * @param str string representation of a font description.
-     * @return a new `PangoFontDescription`.
-     */
-    public fun fontDescriptionFromString(str: String): FontDescription =
-        pango_font_description_from_string(str)!!.run {
-            FontDescription(reinterpret())
-        }
-
-    /**
-     * Finds the gravity that best matches the rotation component
-     * in a `PangoMatrix`.
-     *
-     * @param matrix a `PangoMatrix`
-     * @return the gravity of @matrix, which will never be
-     * %PANGO_GRAVITY_AUTO, or %PANGO_GRAVITY_SOUTH if @matrix is null
-     * @since 1.16
-     */
-    @PangoVersion1_16
-    public fun gravityGetForMatrix(matrix: Matrix? = null): Gravity =
-        pango_gravity_get_for_matrix(matrix?.pangoMatrixPointer?.reinterpret()).run {
-            Gravity.fromNativeValue(this)
-        }
-
-    /**
-     * Returns the gravity to use in laying out a `PangoItem`.
-     *
-     * The gravity is determined based on the script, base gravity, and hint.
-     *
-     * If @base_gravity is %PANGO_GRAVITY_AUTO, it is first replaced with the
-     * preferred gravity of @script.  To get the preferred gravity of a script,
-     * pass %PANGO_GRAVITY_AUTO and %PANGO_GRAVITY_HINT_STRONG in.
-     *
-     * @param script `PangoScript` to query
-     * @param baseGravity base gravity of the paragraph
-     * @param hint orientation hint
-     * @return resolved gravity suitable to use for a run of text
-     * with @script
-     * @since 1.16
-     */
-    @PangoVersion1_16
-    public fun gravityGetForScript(
-        script: Script,
-        baseGravity: Gravity,
-        hint: GravityHint,
-    ): Gravity =
-        pango_gravity_get_for_script(script.nativeValue, baseGravity.nativeValue, hint.nativeValue).run {
-            Gravity.fromNativeValue(this)
-        }
-
-    /**
-     * Returns the gravity to use in laying out a single character
-     * or `PangoItem`.
-     *
-     * The gravity is determined based on the script, East Asian width,
-     * base gravity, and hint,
-     *
-     * This function is similar to [func@Pango.Gravity.get_for_script] except
-     * that this function makes a distinction between narrow/half-width and
-     * wide/full-width characters also. Wide/full-width characters always
-     * stand *upright*, that is, they always take the base gravity,
-     * whereas narrow/full-width characters are always rotated in vertical
-     * context.
-     *
-     * If @base_gravity is %PANGO_GRAVITY_AUTO, it is first replaced with the
-     * preferred gravity of @script.
-     *
-     * @param script `PangoScript` to query
-     * @param wide true for wide characters as returned by g_unichar_iswide()
-     * @param baseGravity base gravity of the paragraph
-     * @param hint orientation hint
-     * @return resolved gravity suitable to use for a run of text
-     * with @script and @wide.
-     * @since 1.26
-     */
-    @PangoVersion1_26
-    public fun gravityGetForScriptAndWidth(
-        script: Script,
-        wide: Boolean,
-        baseGravity: Gravity,
-        hint: GravityHint,
-    ): Gravity =
-        pango_gravity_get_for_script_and_width(
-            script.nativeValue,
-            wide.asGBoolean(),
-            baseGravity.nativeValue,
-            hint.nativeValue
-        ).run {
-            Gravity.fromNativeValue(this)
-        }
-
-    /**
-     * Converts a `PangoGravity` value to its natural rotation in radians.
-     *
-     * Note that [method@Pango.Matrix.rotate] takes angle in degrees, not radians.
-     * So, to call [method@Pango.Matrix,rotate] with the output of this function
-     * you should multiply it by (180. / G_PI).
-     *
-     * @param gravity gravity to query, should not be %PANGO_GRAVITY_AUTO
-     * @return the rotation value corresponding to @gravity.
-     * @since 1.16
-     */
-    @PangoVersion1_16
-    public fun gravityToRotation(gravity: Gravity): Double = pango_gravity_to_rotation(gravity.nativeValue)
+    public fun findBaseDir(text: String, length: gint): Direction = pango_find_base_dir(text, length).run {
+        Direction.fromNativeValue(this)
+    }
 
     /**
      * Checks if a character that should not be normally rendered.
@@ -1193,73 +802,93 @@ public object Pango {
      * @since 1.10
      */
     @PangoVersion1_10
-    public fun isZeroWidth(ch: UInt): Boolean = pango_is_zero_width(ch).asBoolean()
+    public fun isZeroWidth(ch: gunichar): Boolean = pango_is_zero_width(ch).asBoolean()
 
     /**
-     * Convert a language tag to a `PangoLanguage`.
+     * Breaks a piece of text into segments with consistent directional
+     * level and font.
      *
-     * The language tag must be in a RFC-3066 format. `PangoLanguage` pointers
-     * can be efficiently copied (copy the pointer) and compared with other
-     * language tags (compare the pointer.)
+     * Each byte of @text will be contained in exactly one of the items in the
+     * returned list; the generated list of items will be in logical order (the
+     * start offsets of the items are ascending).
      *
-     * This function first canonicalizes the string by converting it to
-     * lowercase, mapping '_' to '-', and stripping all characters other
-     * than letters and '-'.
+     * @cached_iter should be an iterator over @attrs currently positioned
+     * at a range before or containing @start_index; @cached_iter will be
+     * advanced to the range covering the position just after
+     * @start_index + @length. (i.e. if itemizing in a loop, just keep passing
+     * in the same @cached_iter).
      *
-     * Use [func@Pango.Language.get_default] if you want to get the
-     * `PangoLanguage` for the current locale of the process.
-     *
-     * @param language a string representing a language tag
-     * @return a `PangoLanguage`
+     * @param context a structure holding information that affects
+     *   the itemization process.
+     * @param text the text to itemize. Must be valid UTF-8
+     * @param startIndex first byte in @text to process
+     * @param length the number of bytes (not characters) to process
+     *   after @start_index. This must be >= 0.
+     * @param attrs the set of attributes that apply to @text.
+     * @param cachedIter Cached attribute iterator
+     * @return a `GList` of
+     *   [struct@Pango.Item] structures. The items should be freed using
+     *   [method@Pango.Item.free] in combination with [func@GLib.List.free_full].
      */
-    public fun languageFromString(language: String? = null): Language? =
-        pango_language_from_string(language)?.run {
-            Language(reinterpret())
-        }
+    public fun itemize(
+        context: Context,
+        text: String,
+        startIndex: gint,
+        length: gint,
+        attrs: AttrList,
+        cachedIter: AttrIterator? = null,
+    ): GlibList = pango_itemize(
+        context.pangoContextPointer.reinterpret(),
+        text,
+        startIndex,
+        length,
+        attrs.pangoAttrListPointer.reinterpret(),
+        cachedIter?.pangoAttrIteratorPointer?.reinterpret()
+    )!!.run {
+        GlibList(reinterpret())
+    }
 
     /**
-     * Returns the `PangoLanguage` for the current locale of the process.
+     * Like `pango_itemize()`, but with an explicitly specified base direction.
      *
-     * On Unix systems, this is the return value is derived from
-     * `setlocale (LC_CTYPE, NULL)`, and the user can
-     * affect this through the environment variables LC_ALL, LC_CTYPE or
-     * LANG (checked in that order). The locale string typically is in
-     * the form lang_COUNTRY, where lang is an ISO-639 language code, and
-     * COUNTRY is an ISO-3166 country code. For instance, sv_FI for
-     * Swedish as written in Finland or pt_BR for Portuguese as written in
-     * Brazil.
+     * The base direction is used when computing bidirectional levels.
+     * [func@itemize] gets the base direction from the `PangoContext`
+     * (see [method@Pango.Context.set_base_dir]).
      *
-     * On Windows, the C library does not use any such environment
-     * variables, and setting them won't affect the behavior of functions
-     * like ctime(). The user sets the locale through the Regional Options
-     * in the Control Panel. The C library (in the setlocale() function)
-     * does not use country and language codes, but country and language
-     * names spelled out in English.
-     * However, this function does check the above environment
-     * variables, and does return a Unix-style locale string based on
-     * either said environment variables or the thread's current locale.
-     *
-     * Your application should call `setlocale(LC_ALL, "")` for the user
-     * settings to take effect. GTK does this in its initialization
-     * functions automatically (by calling gtk_set_locale()).
-     * See the setlocale() manpage for more details.
-     *
-     * Note that the default language can change over the life of an application.
-     *
-     * Also note that this function will not do the right thing if you
-     * use per-thread locales with uselocale(). In that case, you should
-     * just call pango_language_from_string() yourself.
-     *
-     * @return the default language as a `PangoLanguage`
-     * @since 1.16
+     * @param context a structure holding information that affects
+     *   the itemization process.
+     * @param baseDir base direction to use for bidirectional processing
+     * @param text the text to itemize.
+     * @param startIndex first byte in @text to process
+     * @param length the number of bytes (not characters) to process
+     *   after @start_index. This must be >= 0.
+     * @param attrs the set of attributes that apply to @text.
+     * @param cachedIter Cached attribute iterator
+     * @return a `GList` of
+     *   [struct@Pango.Item] structures. The items should be freed using
+     *   [method@Pango.Item.free] probably in combination with [func@GLib.List.free_full].
+     * @since 1.4
      */
-    @PangoVersion1_16
-    public fun languageGetDefault(): Language =
-        pango_language_get_default()!!.run {
-            Language(reinterpret())
-        }
-
-    public fun layoutDeserializeErrorQuark(): Quark = pango_layout_deserialize_error_quark()
+    @PangoVersion1_4
+    public fun itemizeWithBaseDir(
+        context: Context,
+        baseDir: Direction,
+        text: String,
+        startIndex: gint,
+        length: gint,
+        attrs: AttrList,
+        cachedIter: AttrIterator? = null,
+    ): GlibList = pango_itemize_with_base_dir(
+        context.pangoContextPointer.reinterpret(),
+        baseDir.nativeValue,
+        text,
+        startIndex,
+        length,
+        attrs.pangoAttrListPointer.reinterpret(),
+        cachedIter?.pangoAttrIteratorPointer?.reinterpret()
+    )!!.run {
+        GlibList(reinterpret())
+    }
 
     /**
      * Incrementally parses marked-up text to create a plain-text string
@@ -1291,10 +920,9 @@ public object Pango {
      * @since 1.31.0
      */
     @PangoVersion1_31_0
-    public fun markupParserNew(accelMarker: UInt): MarkupParseContext =
-        pango_markup_parser_new(accelMarker)!!.run {
-            MarkupParseContext(reinterpret())
-        }
+    public fun markupParserNew(accelMarker: gunichar): MarkupParseContext = pango_markup_parser_new(accelMarker)!!.run {
+        MarkupParseContext(reinterpret())
+    }
 
     /**
      * Reorder items from logical order to visual order.
@@ -1314,72 +942,6 @@ public object Pango {
     public fun reorderItems(items: GlibList): GlibList =
         pango_reorder_items(items.glibListPointer.reinterpret())!!.run {
             GlibList(reinterpret())
-        }
-
-    /**
-     * Looks up the script for a particular character.
-     *
-     * The script of a character is defined by
-     * [Unicode Standard Annex 24: Script names](http://www.unicode.org/reports/tr24/).
-     *
-     * No check is made for @ch being a valid Unicode character; if you pass
-     * in invalid character, the result is undefined.
-     *
-     * Note that while the return type of this function is declared
-     * as `PangoScript`, as of Pango 1.18, this function simply returns
-     * the return value of [func@GLib.unichar_get_script]. Callers must be
-     * prepared to handle unknown values.
-     *
-     * @param ch a Unicode character
-     * @return the `PangoScript` for the character.
-     * @since 1.4
-     */
-    @PangoVersion1_4
-    public fun scriptForUnichar(ch: UInt): Script =
-        pango_script_for_unichar(ch).run {
-            Script.fromNativeValue(this)
-        }
-
-    /**
-     * Finds a language tag that is reasonably representative of @script.
-     *
-     * The language will usually be the most widely spoken or used language
-     * written in that script: for instance, the sample language for
-     * %PANGO_SCRIPT_CYRILLIC is ru (Russian), the sample language for
-     * %PANGO_SCRIPT_ARABIC is ar.
-     *
-     * For some scripts, no sample language will be returned because
-     * there is no language that is sufficiently representative. The
-     * best example of this is %PANGO_SCRIPT_HAN, where various different
-     * variants of written Chinese, Japanese, and Korean all use
-     * significantly different sets of Han characters and forms
-     * of shared characters. No sample language can be provided
-     * for many historical scripts as well.
-     *
-     * As of 1.18, this function checks the environment variables
-     * `PANGO_LANGUAGE` and `LANGUAGE` (checked in that order) first.
-     * If one of them is set, it is parsed as a list of language tags
-     * separated by colons or other separators. This function
-     * will return the first language in the parsed list that Pango
-     * believes may use @script for writing. This last predicate
-     * is tested using [method@Pango.Language.includes_script]. This can
-     * be used to control Pango's font selection for non-primary
-     * languages. For example, a `PANGO_LANGUAGE` enviroment variable
-     * set to "en:fa" makes Pango choose fonts suitable for Persian (fa)
-     * instead of Arabic (ar) when a segment of Arabic text is found
-     * in an otherwise non-Arabic text. The same trick can be used to
-     * choose a default language for %PANGO_SCRIPT_HAN when setting
-     * context language is not feasible.
-     *
-     * @param script a `PangoScript`
-     * @return a `PangoLanguage` that is representative
-     *   of the script
-     * @since 1.4
-     */
-    @PangoVersion1_4
-    public fun scriptGetSampleLanguage(script: Script): Language? =
-        pango_script_get_sample_language(script.nativeValue)?.run {
-            Language(reinterpret())
         }
 
     /**
@@ -1407,18 +969,12 @@ public object Pango {
      * @param analysis `PangoAnalysis` structure from [func@Pango.itemize]
      * @param glyphs glyph string in which to store results
      */
-    public fun shape(
-        text: String,
-        length: Int,
-        analysis: Analysis,
-        glyphs: GlyphString,
-    ): Unit =
-        pango_shape(
-            text,
-            length,
-            analysis.pangoAnalysisPointer.reinterpret(),
-            glyphs.pangoGlyphStringPointer.reinterpret()
-        )
+    public fun shape(text: String, length: gint, analysis: Analysis, glyphs: GlyphString): Unit = pango_shape(
+        text,
+        length,
+        analysis.pangoAnalysisPointer.reinterpret(),
+        glyphs.pangoGlyphStringPointer.reinterpret()
+    )
 
     /**
      * Convert the characters in @text into glyphs.
@@ -1454,20 +1010,19 @@ public object Pango {
     @PangoVersion1_32
     public fun shapeFull(
         itemText: String,
-        itemLength: Int,
+        itemLength: gint,
         paragraphText: String? = null,
-        paragraphLength: Int,
+        paragraphLength: gint,
         analysis: Analysis,
         glyphs: GlyphString,
-    ): Unit =
-        pango_shape_full(
-            itemText,
-            itemLength,
-            paragraphText,
-            paragraphLength,
-            analysis.pangoAnalysisPointer.reinterpret(),
-            glyphs.pangoGlyphStringPointer.reinterpret()
-        )
+    ): Unit = pango_shape_full(
+        itemText,
+        itemLength,
+        paragraphText,
+        paragraphLength,
+        analysis.pangoAnalysisPointer.reinterpret(),
+        glyphs.pangoGlyphStringPointer.reinterpret()
+    )
 
     /**
      * Convert the characters in @item into glyphs.
@@ -1497,19 +1052,18 @@ public object Pango {
     public fun shapeItem(
         item: Item,
         paragraphText: String? = null,
-        paragraphLength: Int,
+        paragraphLength: gint,
         logAttrs: LogAttr? = null,
         glyphs: GlyphString,
         flags: ShapeFlags,
-    ): Unit =
-        pango_shape_item(
-            item.pangoItemPointer.reinterpret(),
-            paragraphText,
-            paragraphLength,
-            logAttrs?.pangoLogAttrPointer?.reinterpret(),
-            glyphs.pangoGlyphStringPointer.reinterpret(),
-            flags.mask
-        )
+    ): Unit = pango_shape_item(
+        item.pangoItemPointer.reinterpret(),
+        paragraphText,
+        paragraphLength,
+        logAttrs?.pangoLogAttrPointer?.reinterpret(),
+        glyphs.pangoGlyphStringPointer.reinterpret(),
+        flags.mask
+    )
 
     /**
      * Convert the characters in @text into glyphs.
@@ -1545,22 +1099,21 @@ public object Pango {
     @PangoVersion1_44
     public fun shapeWithFlags(
         itemText: String,
-        itemLength: Int,
+        itemLength: gint,
         paragraphText: String? = null,
-        paragraphLength: Int,
+        paragraphLength: gint,
         analysis: Analysis,
         glyphs: GlyphString,
         flags: ShapeFlags,
-    ): Unit =
-        pango_shape_with_flags(
-            itemText,
-            itemLength,
-            paragraphText,
-            paragraphLength,
-            analysis.pangoAnalysisPointer.reinterpret(),
-            glyphs.pangoGlyphStringPointer.reinterpret(),
-            flags.mask
-        )
+    ): Unit = pango_shape_with_flags(
+        itemText,
+        itemLength,
+        paragraphText,
+        paragraphLength,
+        analysis.pangoAnalysisPointer.reinterpret(),
+        glyphs.pangoGlyphStringPointer.reinterpret(),
+        flags.mask
+    )
 
     /**
      * Splits a %G_SEARCHPATH_SEPARATOR-separated list of files, stripping
@@ -1572,22 +1125,6 @@ public object Pango {
      */
     public fun splitFileList(str: String): CollectionsList<String> =
         pango_split_file_list(str)?.toKStringList() ?: error("Expected not null string array")
-
-    /**
-     * Deserializes a `PangoTabArray` from a string.
-     *
-     * This is the counterpart to [method@Pango.TabArray.to_string].
-     * See that functions for details about the format.
-     *
-     * @param text a string
-     * @return a new `PangoTabArray`
-     * @since 1.50
-     */
-    @PangoVersion1_50
-    public fun tabArrayFromString(text: String): TabArray? =
-        pango_tab_array_from_string(text)?.run {
-            TabArray(reinterpret())
-        }
 
     /**
      * Trims leading and trailing whitespace from a string.
@@ -1612,10 +1149,9 @@ public object Pango {
      * @param ch a Unicode character
      * @return the direction of the character.
      */
-    public fun unicharDirection(ch: UInt): Direction =
-        pango_unichar_direction(ch).run {
-            Direction.fromNativeValue(this)
-        }
+    public fun unicharDirection(ch: gunichar): Direction = pango_unichar_direction(ch).run {
+        Direction.fromNativeValue(this)
+    }
 
     /**
      * Converts a floating-point number to Pango units.
@@ -1628,7 +1164,7 @@ public object Pango {
      * @since 1.16
      */
     @PangoVersion1_16
-    public fun unitsFromDouble(d: Double): Int = pango_units_from_double(d)
+    public fun unitsFromDouble(d: gdouble): gint = pango_units_from_double(d)
 
     /**
      * Converts a number in Pango units to floating-point.
@@ -1640,7 +1176,7 @@ public object Pango {
      * @since 1.16
      */
     @PangoVersion1_16
-    public fun unitsToDouble(i: Int): Double = pango_units_to_double(i)
+    public fun unitsToDouble(i: gint): gdouble = pango_units_to_double(i)
 
     /**
      * Returns the encoded version of Pango available at run-time.
@@ -1653,7 +1189,7 @@ public object Pango {
      * @since 1.16
      */
     @PangoVersion1_16
-    public fun version(): Int = pango_version()
+    public fun version(): gint = pango_version()
 
     /**
      * Checks that the Pango library in use is compatible with the
@@ -1684,11 +1220,8 @@ public object Pango {
      * @since 1.16
      */
     @PangoVersion1_16
-    public fun versionCheck(
-        requiredMajor: Int,
-        requiredMinor: Int,
-        requiredMicro: Int,
-    ): String? = pango_version_check(requiredMajor, requiredMinor, requiredMicro)?.toKString()
+    public fun versionCheck(requiredMajor: gint, requiredMinor: gint, requiredMicro: gint): String? =
+        pango_version_check(requiredMajor, requiredMinor, requiredMicro)?.toKString()
 
     /**
      * Returns the version of Pango available at run-time.
@@ -1704,55 +1237,48 @@ public object Pango {
     @PangoVersion1_16
     public fun versionString(): String = pango_version_string()?.toKString() ?: error("Expected not null string")
 
-    public fun resolveException(error: Error): GlibException {
-        val ex =
-            when (error.domain) {
-                LayoutDeserializeError.quark() ->
-                    LayoutDeserializeError
-                        .fromErrorOrNull(error)
-                        ?.let {
-                            LayoutDeserializeErrorException(error, it)
-                        }
-                else -> null
-            }
-        return ex ?: GlibException(error)
+    public fun resolveException(error: Error): GLibException {
+        val ex = when (error.domain) {
+            LayoutDeserializeError.quark() -> LayoutDeserializeError.fromErrorOrNull(error)
+                ?.let {
+                    LayoutDeserializeErrorException(error, it)
+                }
+            else -> null
+        }
+        return ex ?: GLibException(error)
     }
 }
 
-public val AttrFilterFuncFunc: CPointer<CFunction<(CPointer<PangoAttribute>) -> Int>> =
+public val AttrFilterFuncFunc: CPointer<CFunction<(CPointer<PangoAttribute>) -> gboolean>> =
     staticCFunction {
             attribute: CPointer<PangoAttribute>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(attribute: Attribute) -> Boolean>()
-            .get()
-            .invoke(
-                attribute!!.run {
-                    Attribute(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(attribute: Attribute) -> Boolean>().get().invoke(
+            attribute!!.run {
+                Attribute(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
 public val FontsetForeachFuncFunc:
-    CPointer<CFunction<(CPointer<PangoFontset>, CPointer<PangoFont>) -> Int>> =
+    CPointer<CFunction<(CPointer<PangoFontset>, CPointer<PangoFont>) -> gboolean>> =
     staticCFunction {
             fontset: CPointer<PangoFontset>?,
             font: CPointer<PangoFont>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(fontset: Fontset, font: Font) -> Boolean>()
-            .get()
-            .invoke(
-                fontset!!.run {
-                    Fontset(reinterpret())
-                },
-                font!!.run {
-                    Font(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(fontset: Fontset, font: Font) -> Boolean>().get().invoke(
+            fontset!!.run {
+                Fontset(reinterpret())
+            },
+            font!!.run {
+                Font(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
 /**
  * Type of a function filtering a list of attributes.
@@ -1777,7 +1303,7 @@ public typealias FontsetForeachFunc = (fontset: Fontset, font: Font) -> Boolean
 /**
  * A `PangoGlyph` represents a single glyph in the output form of a string.
  */
-public typealias Glyph = UInt
+public typealias Glyph = guint
 
 /**
  * The `PangoGlyphUnit` type is used to store dimensions within
@@ -1792,4 +1318,4 @@ public typealias Glyph = UInt
  * The PANGO_PIXELS() macro can be used to convert from glyph units
  * into device units with correct rounding.
  */
-public typealias GlyphUnit = Int
+public typealias GlyphUnit = gint

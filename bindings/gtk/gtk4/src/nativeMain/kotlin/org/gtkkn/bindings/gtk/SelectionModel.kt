@@ -18,7 +18,9 @@ import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkSelectionModel
 import org.gtkkn.native.gtk.gtk_selection_model_get_selection
 import org.gtkkn.native.gtk.gtk_selection_model_get_selection_in_range
@@ -33,7 +35,6 @@ import org.gtkkn.native.gtk.gtk_selection_model_unselect_all
 import org.gtkkn.native.gtk.gtk_selection_model_unselect_item
 import org.gtkkn.native.gtk.gtk_selection_model_unselect_range
 import kotlin.Boolean
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 
@@ -116,10 +117,7 @@ public interface SelectionModel :
      *   for the given range with all other values being undefined.
      *   The bitset must not be modified.
      */
-    public fun getSelectionInRange(
-        position: UInt,
-        nItems: UInt,
-    ): Bitset =
+    public fun getSelectionInRange(position: guint, nItems: guint): Bitset =
         gtk_selection_model_get_selection_in_range(gtkSelectionModelPointer.reinterpret(), position, nItems)!!.run {
             Bitset(reinterpret())
         }
@@ -130,7 +128,7 @@ public interface SelectionModel :
      * @param position the position of the item to query
      * @return true if the item is selected
      */
-    public fun isSelected(position: UInt): Boolean =
+    public fun isSelected(position: guint): Boolean =
         gtk_selection_model_is_selected(gtkSelectionModelPointer.reinterpret(), position).asBoolean()
 
     /**
@@ -149,15 +147,11 @@ public interface SelectionModel :
      * @return true if this action was supported and no fallback should be
      *   tried. This does not mean the item was selected.
      */
-    public fun selectItem(
-        position: UInt,
-        unselectRest: Boolean,
-    ): Boolean =
-        gtk_selection_model_select_item(
-            gtkSelectionModelPointer.reinterpret(),
-            position,
-            unselectRest.asGBoolean()
-        ).asBoolean()
+    public fun selectItem(position: guint, unselectRest: Boolean): Boolean = gtk_selection_model_select_item(
+        gtkSelectionModelPointer.reinterpret(),
+        position,
+        unselectRest.asGBoolean()
+    ).asBoolean()
 
     /**
      * Requests to select a range of items in the model.
@@ -168,11 +162,7 @@ public interface SelectionModel :
      * @return true if this action was supported and no fallback should be
      *   tried. This does not mean the range was selected.
      */
-    public fun selectRange(
-        position: UInt,
-        nItems: UInt,
-        unselectRest: Boolean,
-    ): Boolean =
+    public fun selectRange(position: guint, nItems: guint, unselectRest: Boolean): Boolean =
         gtk_selection_model_select_range(
             gtkSelectionModelPointer.reinterpret(),
             position,
@@ -189,10 +179,8 @@ public interface SelectionModel :
      * @param position the first changed item
      * @param nItems the number of changed items
      */
-    public fun selectionChanged(
-        position: UInt,
-        nItems: UInt,
-    ): Unit = gtk_selection_model_selection_changed(gtkSelectionModelPointer.reinterpret(), position, nItems)
+    public fun selectionChanged(position: guint, nItems: guint): Unit =
+        gtk_selection_model_selection_changed(gtkSelectionModelPointer.reinterpret(), position, nItems)
 
     /**
      * Make selection changes.
@@ -235,15 +223,11 @@ public interface SelectionModel :
      *   tried. This does not mean that all items were updated according
      *   to the inputs.
      */
-    public fun setSelection(
-        selected: Bitset,
-        mask: Bitset,
-    ): Boolean =
-        gtk_selection_model_set_selection(
-            gtkSelectionModelPointer.reinterpret(),
-            selected.gtkBitsetPointer.reinterpret(),
-            mask.gtkBitsetPointer.reinterpret()
-        ).asBoolean()
+    public fun setSelection(selected: Bitset, mask: Bitset): Boolean = gtk_selection_model_set_selection(
+        gtkSelectionModelPointer.reinterpret(),
+        selected.gtkBitsetPointer.reinterpret(),
+        mask.gtkBitsetPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Requests to unselect all items in the model.
@@ -261,7 +245,7 @@ public interface SelectionModel :
      * @return true if this action was supported and no fallback should be
      *   tried. This does not mean the item was unselected.
      */
-    public fun unselectItem(position: UInt): Boolean =
+    public fun unselectItem(position: guint): Boolean =
         gtk_selection_model_unselect_item(gtkSelectionModelPointer.reinterpret(), position).asBoolean()
 
     /**
@@ -272,10 +256,7 @@ public interface SelectionModel :
      * @return true if this action was supported and no fallback should be
      *   tried. This does not mean the range was unselected.
      */
-    public fun unselectRange(
-        position: UInt,
-        nItems: UInt,
-    ): Boolean =
+    public fun unselectRange(position: guint, nItems: guint): Boolean =
         gtk_selection_model_unselect_range(gtkSelectionModelPointer.reinterpret(), position, nItems).asBoolean()
 
     /**
@@ -291,20 +272,17 @@ public interface SelectionModel :
      */
     public fun connectSelectionChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (position: UInt, nItems: UInt) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gtkSelectionModelPointer.reinterpret(),
-            "selection-changed",
-            connectSelectionChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+        handler: (position: guint, nItems: guint) -> Unit,
+    ): ULong = g_signal_connect_data(
+        gtkSelectionModelPointer.reinterpret(),
+        "selection-changed",
+        connectSelectionChangedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkSelectionModel>,
-    ) : SelectionModel {
+    private data class Wrapper(private val pointer: CPointer<GtkSelectionModel>) : SelectionModel {
         override val gtkSelectionModelPointer: CPointer<GtkSelectionModel> = pointer
     }
 
@@ -317,15 +295,23 @@ public interface SelectionModel :
         }
 
         public fun wrap(pointer: CPointer<GtkSelectionModel>): SelectionModel = Wrapper(pointer)
+
+        /**
+         * Get the GType of SelectionModel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_selection_model_get_type()
     }
 }
 
-private val connectSelectionChangedFunc: CPointer<CFunction<(UInt, UInt) -> Unit>> =
+private val connectSelectionChangedFunc: CPointer<CFunction<(guint, guint) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
-            position: UInt,
-            nItems: UInt,
+            position: guint,
+            nItems: guint,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(position: UInt, nItems: UInt) -> Unit>().get().invoke(position, nItems)
-    }.reinterpret()
+        userData.asStableRef<(position: guint, nItems: guint) -> Unit>().get().invoke(position, nItems)
+    }
+        .reinterpret()

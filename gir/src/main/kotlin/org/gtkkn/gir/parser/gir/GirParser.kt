@@ -16,6 +16,7 @@
 
 package org.gtkkn.gir.parser.gir
 
+import me.tatarka.inject.annotations.Inject
 import org.gtkkn.gir.ext.attributeBooleanValueOrNull
 import org.gtkkn.gir.ext.attributeValue
 import org.gtkkn.gir.ext.attributeValueOrNull
@@ -81,6 +82,7 @@ import java.io.File
 import java.io.StringReader
 import javax.xml.parsers.DocumentBuilderFactory
 
+@Inject
 class GirParser(
     private val metadataParser: MetadataParser
 ) {
@@ -172,103 +174,163 @@ class GirParser(
         type = parseGirAnyType(node.singleChildWithName("type")),
     )
 
-    private fun parseGirClass(node: Node): GirClass = GirClass(
-        info = parseGirInfo(node),
-        name = node.attributeValue("name"),
-        glibTypeName = node.attributeValue("glib:type-name"),
-        glibGetType = node.attributeValue("glib:get-type"),
-        parent = node.attributeValueOrNull("parent"),
-        glibTypeStruct = node.attributeValueOrNull("glib:type-struct"),
-        glibRefFunc = node.attributeValueOrNull("glib:ref-func"),
-        glibUnrefFunc = node.attributeValueOrNull("glib:unref-func"),
-        glibSetValueFunc = node.attributeValueOrNull("glib:set-value-func"),
-        glibGetValueFunc = node.attributeValueOrNull("glib:get-value-func"),
-        cType = node.attributeValueOrNull("c:type"),
-        cSymbolPrefix = node.attributeValueOrNull("c:symbol-prefix"),
-        abstract = node.attributeBooleanValueOrNull("abstract"),
-        glibFundamental = node.attributeBooleanValueOrNull("glib:fundamental"),
-        final = node.attributeBooleanValueOrNull("final"),
-        doc = parseGirDocElements(node),
-        annotations = node.childNodesWithName("attribute").map { parseGirAnnotation(it) },
-        implements = node.childNodesWithName("implements").map { parseGirImplements(it) },
-        constructors = node.childNodesWithName("constructor").map { parseGirConstructor(it) },
-        methods = node.childNodesWithName("method").map { parseGirMethod(it) },
-        methodInlines = node.childNodesWithName("method-inline").map { parseGirMethodInline(it) },
-        functions = node.childNodesWithName("function").map { parseGirFunction(it) },
-        functionInlines = node.childNodesWithName("function-inline").map { parseGirFunctionInline(it) },
-        virtualMethods = node.childNodesWithName("virtual-method").map { parseGirVirtualMethod(it) },
-        fields = node.childNodesWithName("field").map { parseGirField(it) },
-        properties = node.childNodesWithName("property").map { parseGirProperty(it) },
-        signals = node.childNodesWithName("glib:signal").map { parseGirSignal(it) },
-        unions = node.childNodesWithName("union").map { parseGirUnion(it) },
-        constants = node.childNodesWithName("constant").map { parseGirConstant(it) },
-        records = node.childNodesWithName("record").map { parseGirRecord(it) },
-        callbacks = node.childNodesWithName("callback").map { parseGirCallback(it) },
-    )
+    private fun parseGirClass(node: Node): GirClass {
+        val name = node.attributeValue("name")
+        val glibGetType = node.attributeValue("glib:get-type")
+        val functions = node.childNodesWithName("function").map { parseGirFunction(it) }.toMutableList()
+        getTypeGirFunction(glibGetType, name)?.let { functions.add(it) }
+        return GirClass(
+            info = parseGirInfo(node),
+            name = name,
+            glibTypeName = node.attributeValue("glib:type-name"),
+            glibGetType = glibGetType,
+            parent = node.attributeValueOrNull("parent"),
+            glibTypeStruct = node.attributeValueOrNull("glib:type-struct"),
+            glibRefFunc = node.attributeValueOrNull("glib:ref-func"),
+            glibUnrefFunc = node.attributeValueOrNull("glib:unref-func"),
+            glibSetValueFunc = node.attributeValueOrNull("glib:set-value-func"),
+            glibGetValueFunc = node.attributeValueOrNull("glib:get-value-func"),
+            cType = node.attributeValueOrNull("c:type"),
+            cSymbolPrefix = node.attributeValueOrNull("c:symbol-prefix"),
+            abstract = node.attributeBooleanValueOrNull("abstract"),
+            glibFundamental = node.attributeBooleanValueOrNull("glib:fundamental"),
+            final = node.attributeBooleanValueOrNull("final"),
+            doc = parseGirDocElements(node),
+            annotations = node.childNodesWithName("attribute").map { parseGirAnnotation(it) },
+            implements = node.childNodesWithName("implements").map { parseGirImplements(it) },
+            constructors = node.childNodesWithName("constructor").map { parseGirConstructor(it) },
+            methods = node.childNodesWithName("method").map { parseGirMethod(it) },
+            methodInlines = node.childNodesWithName("method-inline").map { parseGirMethodInline(it) },
+            functions = functions,
+            functionInlines = node.childNodesWithName("function-inline").map { parseGirFunctionInline(it) },
+            virtualMethods = node.childNodesWithName("virtual-method").map { parseGirVirtualMethod(it) },
+            fields = node.childNodesWithName("field").map { parseGirField(it) },
+            properties = node.childNodesWithName("property").map { parseGirProperty(it) },
+            signals = node.childNodesWithName("glib:signal").map { parseGirSignal(it) },
+            unions = node.childNodesWithName("union").map { parseGirUnion(it) },
+            constants = node.childNodesWithName("constant").map { parseGirConstant(it) },
+            records = node.childNodesWithName("record").map { parseGirRecord(it) },
+            callbacks = node.childNodesWithName("callback").map { parseGirCallback(it) },
+        )
+    }
 
-    private fun parseGirInterface(node: Node): GirInterface = GirInterface(
-        info = parseGirInfo(node),
-        name = node.attributeValueOrNull("name"),
-        glibTypeName = node.attributeValue("glib:type-name"),
-        glibGetType = node.attributeValue("glib:get-type"),
-        cSymbolPrefix = node.attributeValueOrNull("c:symbol-prefix"),
-        cType = node.attributeValueOrNull("c:type"),
-        glibTypeStruct = node.attributeValueOrNull("glib:type-struct"),
-        doc = parseGirDocElements(node),
-        annotations = node.childNodesWithName("attribute").map { parseGirAnnotation(it) },
-        prerequisites = node.childNodesWithName("prerequisite").map { parseGirPrerequisite(it) },
-        implements = node.childNodesWithName("implements").map { parseGirImplements(it) },
-        functions = node.childNodesWithName("function").map { parseGirFunction(it) },
-        functionInlines = node.childNodesWithName("function-inline").map { parseGirFunctionInline(it) },
-        constructor = node.childNodesWithName("constructor").firstOrNull()?.let { parseGirConstructor(it) },
-        methods = node.childNodesWithName("method").map { parseGirMethod(it) },
-        methodInlines = node.childNodesWithName("method-inline").map { parseGirMethodInline(it) },
-        virtualMethods = node.childNodesWithName("virtual-method").map { parseGirVirtualMethod(it) },
-        fields = node.childNodesWithName("field").map { parseGirField(it) },
-        properties = node.childNodesWithName("property").map { parseGirProperty(it) },
-        signals = node.childNodesWithName("glib:signal").map { parseGirSignal(it) },
-        callbacks = node.childNodesWithName("callback").map { parseGirCallback(it) },
-        constants = node.childNodesWithName("constant").map { parseGirConstant(it) },
-    )
+    private fun getTypeGirFunction(
+        glibGetType: String?,
+        className: String
+    ) = if (!glibGetType.isNullOrBlank() && glibGetType != "intern") {
+        GirFunction(
+            callable = GirCallable(
+                info = GirInfo(),
+                name = "get_type",
+                cIdentifier = glibGetType,
+            ),
+            doc = GirDoc(
+                doc = GirDocText(
+                    text = "Get the GType of $className",
+                    filename = "",
+                    line = "1",
+                ),
+            ),
+            parameters = GirParameters(),
+            returnValue = GirReturnValue(
+                doc = GirDoc(
+                    doc = GirDocText(
+                        text = "the GType",
+                        filename = "",
+                        line = "1",
+                    ),
+                ),
+                type = GirType(
+                    name = "GType",
+                    cType = "GType",
+                ),
+            ),
+        )
+    } else {
+        null
+    }
 
-    private fun parseGirRecord(node: Node): GirRecord = GirRecord(
-        info = parseGirInfo(node),
-        name = node.attributeValue("name"),
-        cType = node.attributeValueOrNull("c:type"),
-        disguised = node.attributeBooleanValueOrNull("disguised"),
-        opaque = node.attributeBooleanValueOrNull("opaque"),
-        pointer = node.attributeBooleanValueOrNull("pointer"),
-        glibTypeName = node.attributeValueOrNull("glib:type-name"),
-        glibGetType = node.attributeValueOrNull("glib:get-type"),
-        cSymbolPrefix = node.attributeValueOrNull("c:symbol-prefix"),
-        foreign = node.attributeBooleanValueOrNull("foreign"),
-        glibIsGTypeStructFor = node.attributeValueOrNull("glib:is-gtype-struct-for"),
-        copyFunction = node.attributeValueOrNull("copy-function"),
-        freeFunction = node.attributeValueOrNull("free-function"),
-        doc = parseGirDocElements(node),
-        annotations = node.childNodesWithName("attribute").map { parseGirAnnotation(it) },
-        fields = node.childNodesWithName("field").map { parseGirField(it) },
-        functions = node.childNodesWithName("function").map { parseGirFunction(it) },
-        functionInlines = node.childNodesWithName("function-inline").map { parseGirFunctionInline(it) },
-        unions = node.childNodesWithName("union").map { parseGirUnion(it) },
-        methods = node.childNodesWithName("method").map { parseGirMethod(it) },
-        methodInlines = node.childNodesWithName("method-inline").map { parseGirMethodInline(it) },
-        constructors = node.childNodesWithName("constructor").map { parseGirConstructor(it) },
-    )
+    private fun parseGirInterface(node: Node): GirInterface {
+        val name = node.attributeValueOrNull("name")
+        val glibGetType = node.attributeValue("glib:get-type")
+        val functions = node.childNodesWithName("function").map { parseGirFunction(it) }.toMutableList()
+        getTypeGirFunction(glibGetType, checkNotNull(name))?.let { functions.add(it) }
+        return GirInterface(
+            info = parseGirInfo(node),
+            name = node.attributeValueOrNull("name"),
+            glibTypeName = node.attributeValue("glib:type-name"),
+            glibGetType = glibGetType,
+            cSymbolPrefix = node.attributeValueOrNull("c:symbol-prefix"),
+            cType = node.attributeValueOrNull("c:type"),
+            glibTypeStruct = node.attributeValueOrNull("glib:type-struct"),
+            doc = parseGirDocElements(node),
+            annotations = node.childNodesWithName("attribute").map { parseGirAnnotation(it) },
+            prerequisites = node.childNodesWithName("prerequisite").map { parseGirPrerequisite(it) },
+            implements = node.childNodesWithName("implements").map { parseGirImplements(it) },
+            functions = functions,
+            functionInlines = node.childNodesWithName("function-inline").map { parseGirFunctionInline(it) },
+            constructor = node.childNodesWithName("constructor").firstOrNull()?.let { parseGirConstructor(it) },
+            methods = node.childNodesWithName("method").map { parseGirMethod(it) },
+            methodInlines = node.childNodesWithName("method-inline").map { parseGirMethodInline(it) },
+            virtualMethods = node.childNodesWithName("virtual-method").map { parseGirVirtualMethod(it) },
+            fields = node.childNodesWithName("field").map { parseGirField(it) },
+            properties = node.childNodesWithName("property").map { parseGirProperty(it) },
+            signals = node.childNodesWithName("glib:signal").map { parseGirSignal(it) },
+            callbacks = node.childNodesWithName("callback").map { parseGirCallback(it) },
+            constants = node.childNodesWithName("constant").map { parseGirConstant(it) },
+        )
+    }
 
-    private fun parseGirEnumeration(node: Node): GirEnumeration = GirEnumeration(
-        info = parseGirInfo(node),
-        name = node.attributeValue("name"),
-        cType = node.attributeValue("c:type"),
-        glibTypeName = node.attributeValueOrNull("glib:type-name"),
-        glibGetType = node.attributeValueOrNull("glib:get-type"),
-        glibErrorDomain = node.attributeValueOrNull("glib:error-domain"),
-        doc = parseGirDocElements(node),
-        annotations = node.childNodesWithName("attribute").map { parseGirAnnotation(it) },
-        members = node.childNodesWithName("member").map { parseGirMember(it) },
-        functions = node.childNodesWithName("function").map { parseGirFunction(it) },
-        functionInlines = node.childNodesWithName("function-inline").map { parseGirFunctionInline(it) },
-    )
+    private fun parseGirRecord(node: Node): GirRecord {
+        val name = node.attributeValue("name")
+        val glibGetType = node.attributeValueOrNull("glib:get-type")
+        val functions = node.childNodesWithName("function").map { parseGirFunction(it) }.toMutableList()
+        getTypeGirFunction(glibGetType, name)?.let { functions.add(it) }
+        return GirRecord(
+            info = parseGirInfo(node),
+            name = name,
+            cType = node.attributeValueOrNull("c:type"),
+            disguised = node.attributeBooleanValueOrNull("disguised"),
+            opaque = node.attributeBooleanValueOrNull("opaque"),
+            pointer = node.attributeBooleanValueOrNull("pointer"),
+            glibTypeName = node.attributeValueOrNull("glib:type-name"),
+            glibGetType = glibGetType,
+            cSymbolPrefix = node.attributeValueOrNull("c:symbol-prefix"),
+            foreign = node.attributeBooleanValueOrNull("foreign"),
+            glibIsGTypeStructFor = node.attributeValueOrNull("glib:is-gtype-struct-for"),
+            copyFunction = node.attributeValueOrNull("copy-function"),
+            freeFunction = node.attributeValueOrNull("free-function"),
+            doc = parseGirDocElements(node),
+            annotations = node.childNodesWithName("attribute").map { parseGirAnnotation(it) },
+            fields = node.childNodesWithName("field").map { parseGirField(it) },
+            functions = functions,
+            functionInlines = node.childNodesWithName("function-inline").map { parseGirFunctionInline(it) },
+            unions = node.childNodesWithName("union").map { parseGirUnion(it) },
+            methods = node.childNodesWithName("method").map { parseGirMethod(it) },
+            methodInlines = node.childNodesWithName("method-inline").map { parseGirMethodInline(it) },
+            constructors = node.childNodesWithName("constructor").map { parseGirConstructor(it) },
+        )
+    }
+
+    private fun parseGirEnumeration(node: Node): GirEnumeration {
+        val name = node.attributeValue("name")
+        val glibGetType = node.attributeValueOrNull("glib:get-type")
+        val functions = node.childNodesWithName("function").map { parseGirFunction(it) }.toMutableList()
+        getTypeGirFunction(glibGetType, name)?.let { functions.add(it) }
+        return GirEnumeration(
+            info = parseGirInfo(node),
+            name = name,
+            cType = node.attributeValue("c:type"),
+            glibTypeName = node.attributeValueOrNull("glib:type-name"),
+            glibGetType = glibGetType,
+            glibErrorDomain = node.attributeValueOrNull("glib:error-domain"),
+            doc = parseGirDocElements(node),
+            annotations = node.childNodesWithName("attribute").map { parseGirAnnotation(it) },
+            members = node.childNodesWithName("member").map { parseGirMember(it) },
+            functions = functions,
+            functionInlines = node.childNodesWithName("function-inline").map { parseGirFunctionInline(it) },
+        )
+    }
 
     private fun parseGirFunction(node: Node): GirFunction = GirFunction(
         callable = parseGirCallable(node),
@@ -285,41 +347,55 @@ class GirParser(
         doc = parseGirDocElements(node),
     )
 
-    private fun parseGirUnion(node: Node): GirUnion = GirUnion(
-        info = parseGirInfo(node),
-        name = node.attributeValueOrNull("name"),
-        cType = node.attributeValueOrNull("c:type"),
-        cSymbolPrefix = node.attributeValueOrNull("c:symbol-prefix"),
-        glibTypeName = node.attributeValueOrNull("glib:type-name"),
-        glibGetType = node.attributeValueOrNull("glib:get-type"),
-        copyFunction = node.attributeValueOrNull("copy-function"),
-        freeFunction = node.attributeValueOrNull("free-function"),
-        doc = parseGirDocElements(node),
-        annotations = node.childNodesWithName("attribute").map { parseGirAnnotation(it) },
-        fields = node.childNodesWithName("field").map { parseGirField(it) },
-        constructors = node.childNodesWithName("constructor").map { parseGirConstructor(it) },
-        methods = node.childNodesWithName("method").map { parseGirMethod(it) },
-        methodInlines = node.childNodesWithName("method-inline").map { parseGirMethodInline(it) },
-        functions = node.childNodesWithName("function").map { parseGirFunction(it) },
-        functionInlines = node.childNodesWithName("function-inline").map { parseGirFunctionInline(it) },
-        records = node.childNodesWithName("record").mapNotNull { record ->
-            // ignoring records without name for now: https://gitlab.com/gtk-kn/gtk-kn/-/issues/99
-            record.attributeValueOrNull("name")?.let { parseGirRecord(record) }
-        },
-    )
+    private fun parseGirUnion(node: Node): GirUnion {
+        val name = node.attributeValueOrNull("name")
+        val glibGetType = node.attributeValueOrNull("glib:get-type")
+        val functions = node.childNodesWithName("function").map { parseGirFunction(it) }.toMutableList()
+        if (name != null) {
+            getTypeGirFunction(glibGetType, name)?.let { functions.add(it) }
+        }
+        return GirUnion(
+            info = parseGirInfo(node),
+            name = node.attributeValueOrNull("name"),
+            cType = node.attributeValueOrNull("c:type"),
+            cSymbolPrefix = node.attributeValueOrNull("c:symbol-prefix"),
+            glibTypeName = node.attributeValueOrNull("glib:type-name"),
+            glibGetType = glibGetType,
+            copyFunction = node.attributeValueOrNull("copy-function"),
+            freeFunction = node.attributeValueOrNull("free-function"),
+            doc = parseGirDocElements(node),
+            annotations = node.childNodesWithName("attribute").map { parseGirAnnotation(it) },
+            fields = node.childNodesWithName("field").map { parseGirField(it) },
+            constructors = node.childNodesWithName("constructor").map { parseGirConstructor(it) },
+            methods = node.childNodesWithName("method").map { parseGirMethod(it) },
+            methodInlines = node.childNodesWithName("method-inline").map { parseGirMethodInline(it) },
+            functions = functions,
+            functionInlines = node.childNodesWithName("function-inline").map { parseGirFunctionInline(it) },
+            records = node.childNodesWithName("record").mapNotNull { record ->
+                // ignoring records without name for now: https://gitlab.com/gtk-kn/gtk-kn/-/issues/99
+                record.attributeValueOrNull("name")?.let { parseGirRecord(record) }
+            },
+        )
+    }
 
-    private fun parseGirBitfield(node: Node): GirBitfield = GirBitfield(
-        info = parseGirInfo(node),
-        name = node.attributeValue("name"),
-        cType = node.attributeValue("c:type"),
-        glibTypeName = node.attributeValueOrNull("glib:type-name"),
-        glibGetType = node.attributeValueOrNull("glib:get-type"),
-        doc = parseGirDocElements(node),
-        annotations = node.childNodesWithName("attribute").map { parseGirAnnotation(it) },
-        members = node.childNodesWithName("member").map { parseGirMember(it) },
-        functions = node.childNodesWithName("function").map { parseGirFunction(it) },
-        functionInlines = node.childNodesWithName("function-inline").map { parseGirFunctionInline(it) },
-    )
+    private fun parseGirBitfield(node: Node): GirBitfield {
+        val name = node.attributeValue("name")
+        val glibGetType = node.attributeValueOrNull("glib:get-type")
+        val functions = node.childNodesWithName("function").map { parseGirFunction(it) }.toMutableList()
+        getTypeGirFunction(glibGetType, name)?.let { functions.add(it) }
+        return GirBitfield(
+            info = parseGirInfo(node),
+            name = name,
+            cType = node.attributeValue("c:type"),
+            glibTypeName = node.attributeValueOrNull("glib:type-name"),
+            glibGetType = glibGetType,
+            doc = parseGirDocElements(node),
+            annotations = node.childNodesWithName("attribute").map { parseGirAnnotation(it) },
+            members = node.childNodesWithName("member").map { parseGirMember(it) },
+            functions = functions,
+            functionInlines = node.childNodesWithName("function-inline").map { parseGirFunctionInline(it) },
+        )
+    }
 
     private fun parseGirCallback(node: Node): GirCallback = GirCallback(
         info = parseGirInfo(node),
@@ -446,7 +522,8 @@ class GirParser(
         deprecated = node.attributeBooleanValueOrNull("deprecated"),
         deprecatedVersion = node.attributeValueOrNull("deprecated-version"),
         version = node.attributeValueOrNull("version"),
-        stability = node.attributeValueOrNull("stability"),
+        stability = node.attributeValueOrNull("stability")?.let { GirInfo.Stability.fromString(it) },
+        gtkKnIgnore = node.attributeBooleanValueOrNull("gtk-kn-ignore"),
     )
 
     private fun parseGirCallable(node: Node): GirCallable = GirCallable(

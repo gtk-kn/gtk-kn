@@ -44,7 +44,10 @@ interface RepositoryObjectGenerator : MiscGenerator, KDocGenerator {
             repository.functionBlueprints.forEach { addFunction(buildFunction(it)) }
             repository.constantBlueprints.forEach { addProperty(buildConstant(it)) }
 
-            addFunction(buildExceptionResolverFunction(repository.errorDomainEnums()))
+            val errorDomainEnums = repository.errorDomainEnums()
+            if (errorDomainEnums.isNotEmpty()) {
+                addFunction(buildExceptionResolverFunction(errorDomainEnums))
+            }
             addKdoc(buildTypeKDoc(null, null, repository.skippedObjects))
         }.build()
 
@@ -124,19 +127,45 @@ interface RepositoryObjectGenerator : MiscGenerator, KDocGenerator {
             "18446744073709551615" -> ValueReplacement(listOf("ULong.MAX_VALUE"))
             "2147483647" -> ValueReplacement(listOf("Int.MAX_VALUE"))
             "-2147483648" -> ValueReplacement(listOf("Int.MIN_VALUE"))
-            "4294967295" -> ValueReplacement(listOf("UInt.MAX_VALUE"), U_INT)
-            "255" -> ValueReplacement(listOf("UByte.MAX_VALUE"), U_BYTE)
-            "127" -> ValueReplacement(listOf("Byte.MAX_VALUE"), BYTE)
-            "-128" -> ValueReplacement(listOf("Byte.MIN_VALUE"), BYTE)
+            "4294967295" -> ValueReplacement(listOf("UInt.MAX_VALUE"), G_UINT32)
+            "32767" -> ValueReplacement(listOf("Short.MAX_VALUE"))
+            "-32768" -> ValueReplacement(listOf("Short.MIN_VALUE"))
+            "255" -> ValueReplacement(listOf("UByte.MAX_VALUE"), G_UINT8)
+            "127" -> ValueReplacement(listOf("Byte.MAX_VALUE"), G_INT8)
+            "-128" -> ValueReplacement(listOf("Byte.MIN_VALUE"), G_INT8)
             else -> null
         }
 
     private fun getFormatForType(typeName: TypeName, currentFormat: String): String? = when (typeName) {
-        BYTE -> "%L.toByte()"
-        U_BYTE -> "%L.toUByte()"
+        BYTE,
+        G_INT8 -> "%L.toByte()"
+
+        U_BYTE,
+        G_UINT8 -> "%L.toUByte()"
+
         CHAR -> "'$currentFormat'"
-        SHORT, INT, LONG, DOUBLE -> currentFormat
-        U_SHORT, U_INT, U_LONG -> "${currentFormat}u"
+
+        SHORT,
+        INT,
+        G_INT,
+        LONG,
+        G_INT64,
+        G_LONG,
+        DOUBLE,
+        G_DOUBLE -> currentFormat
+
+        U_SHORT,
+        G_UINT16,
+        U_INT,
+        G_UINT,
+        G_UINT32,
+        G_UNICHAR,
+        U_LONG,
+        G_TYPE,
+        G_SIZE,
+        G_UINT64,
+        G_ULONG -> "${currentFormat}u"
+
         STRING -> "%S"
         else -> null
     }

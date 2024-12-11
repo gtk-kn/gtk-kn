@@ -1,15 +1,15 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessibleList
 import org.gtkkn.native.gtk.gtk_accessible_list_get_objects
+import org.gtkkn.native.gtk.gtk_accessible_list_get_type
 import org.gtkkn.native.gtk.gtk_accessible_list_new_from_list
 
 /**
@@ -22,9 +22,7 @@ import org.gtkkn.native.gtk.gtk_accessible_list_new_from_list
  * @since 4.14
  */
 @GtkVersion4_14
-public class AccessibleList(
-    pointer: CPointer<GtkAccessibleList>,
-) : Record {
+public class AccessibleList(pointer: CPointer<GtkAccessibleList>) : ProxyInstance(pointer) {
     public val gtkAccessibleListPointer: CPointer<GtkAccessibleList> = pointer
 
     /**
@@ -34,12 +32,11 @@ public class AccessibleList(
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun getObjects(): List =
-        gtk_accessible_list_get_objects(gtkAccessibleListPointer.reinterpret())!!.run {
-            List(reinterpret())
-        }
+    public fun getObjects(): List = gtk_accessible_list_get_objects(gtkAccessibleListPointer.reinterpret())!!.run {
+        List(reinterpret())
+    }
 
-    public companion object : RecordCompanion<AccessibleList, GtkAccessibleList> {
+    public companion object {
         /**
          * Allocates a new `GtkAccessibleList`, doing a shallow copy of the
          * passed list of `GtkAccessible` instances.
@@ -51,7 +48,11 @@ public class AccessibleList(
         public fun newFromList(list: List): AccessibleList =
             AccessibleList(gtk_accessible_list_new_from_list(list.glibListPointer.reinterpret())!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): AccessibleList =
-            AccessibleList(pointer.reinterpret())
+        /**
+         * Get the GType of AccessibleList
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_accessible_list_get_type()
     }
 }

@@ -1,15 +1,15 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.DateTime
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gulong
 import org.gtkkn.native.soup.SoupHSTSPolicy
 import org.gtkkn.native.soup.soup_hsts_policy_copy
 import org.gtkkn.native.soup.soup_hsts_policy_equal
@@ -17,6 +17,7 @@ import org.gtkkn.native.soup.soup_hsts_policy_free
 import org.gtkkn.native.soup.soup_hsts_policy_get_domain
 import org.gtkkn.native.soup.soup_hsts_policy_get_expires
 import org.gtkkn.native.soup.soup_hsts_policy_get_max_age
+import org.gtkkn.native.soup.soup_hsts_policy_get_type
 import org.gtkkn.native.soup.soup_hsts_policy_includes_subdomains
 import org.gtkkn.native.soup.soup_hsts_policy_is_expired
 import org.gtkkn.native.soup.soup_hsts_policy_is_session_policy
@@ -26,7 +27,6 @@ import org.gtkkn.native.soup.soup_hsts_policy_new_full
 import org.gtkkn.native.soup.soup_hsts_policy_new_session_policy
 import kotlin.Boolean
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 
 /**
@@ -48,9 +48,7 @@ import kotlin.Unit
  * If @include_subdomains is true, the Strict Transport Security policy
  * must also be enforced on subdomains of @domain.
  */
-public class HSTSPolicy(
-    pointer: CPointer<SoupHSTSPolicy>,
-) : Record {
+public class HSTSPolicy(pointer: CPointer<SoupHSTSPolicy>) : ProxyInstance(pointer) {
     public val soupHSTSPolicyPointer: CPointer<SoupHSTSPolicy> = pointer
 
     /**
@@ -58,10 +56,9 @@ public class HSTSPolicy(
      *
      * @return a copy of @policy
      */
-    public fun copy(): HSTSPolicy =
-        soup_hsts_policy_copy(soupHSTSPolicyPointer.reinterpret())!!.run {
-            HSTSPolicy(reinterpret())
-        }
+    public fun copy(): HSTSPolicy = soup_hsts_policy_copy(soupHSTSPolicyPointer.reinterpret())!!.run {
+        HSTSPolicy(reinterpret())
+    }
 
     /**
      * Tests if @policy1 and @policy2 are equal.
@@ -69,11 +66,10 @@ public class HSTSPolicy(
      * @param policy2 a #SoupHSTSPolicy
      * @return whether the policies are equal.
      */
-    public fun equal(policy2: HSTSPolicy): Boolean =
-        soup_hsts_policy_equal(
-            soupHSTSPolicyPointer.reinterpret(),
-            policy2.soupHSTSPolicyPointer.reinterpret()
-        ).asBoolean()
+    public fun equal(policy2: HSTSPolicy): Boolean = soup_hsts_policy_equal(
+        soupHSTSPolicyPointer.reinterpret(),
+        policy2.soupHSTSPolicyPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Frees @policy.
@@ -85,26 +81,24 @@ public class HSTSPolicy(
      *
      * @return @policy's domain.
      */
-    public fun getDomain(): String =
-        soup_hsts_policy_get_domain(soupHSTSPolicyPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getDomain(): String = soup_hsts_policy_get_domain(soupHSTSPolicyPointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Returns the expiration date for @policy.
      *
      * @return A #GDateTime or null if unset
      */
-    public fun getExpires(): DateTime =
-        soup_hsts_policy_get_expires(soupHSTSPolicyPointer.reinterpret())!!.run {
-            DateTime(reinterpret())
-        }
+    public fun getExpires(): DateTime = soup_hsts_policy_get_expires(soupHSTSPolicyPointer.reinterpret())!!.run {
+        DateTime(reinterpret())
+    }
 
     /**
      * Returns the max age for @policy.
      *
      * @return Max age in seconds
      */
-    public fun getMaxAge(): ULong = soup_hsts_policy_get_max_age(soupHSTSPolicyPointer.reinterpret())
+    public fun getMaxAge(): gulong = soup_hsts_policy_get_max_age(soupHSTSPolicyPointer.reinterpret())
 
     /**
      * Gets whether @policy include its subdomains.
@@ -133,7 +127,7 @@ public class HSTSPolicy(
     public fun isSessionPolicy(): Boolean =
         soup_hsts_policy_is_session_policy(soupHSTSPolicyPointer.reinterpret()).asBoolean()
 
-    public companion object : RecordCompanion<HSTSPolicy, SoupHSTSPolicy> {
+    public companion object {
         /**
          * Creates a new #SoupHSTSPolicy with the given attributes.
          *
@@ -152,11 +146,8 @@ public class HSTSPolicy(
          * @param includeSubdomains true if the policy applies on subdomains
          * @return a new #SoupHSTSPolicy.
          */
-        public fun new(
-            domain: String,
-            maxAge: ULong,
-            includeSubdomains: Boolean,
-        ): HSTSPolicy = HSTSPolicy(soup_hsts_policy_new(domain, maxAge, includeSubdomains.asGBoolean())!!.reinterpret())
+        public fun new(domain: String, maxAge: gulong, includeSubdomains: Boolean): HSTSPolicy =
+            HSTSPolicy(soup_hsts_policy_new(domain, maxAge, includeSubdomains.asGBoolean())!!.reinterpret())
 
         /**
          * Parses @msg's first "Strict-Transport-Security" response header and
@@ -181,12 +172,7 @@ public class HSTSPolicy(
          * @param includeSubdomains true if the policy applies on subdomains
          * @return a new #SoupHSTSPolicy.
          */
-        public fun newFull(
-            domain: String,
-            maxAge: ULong,
-            expires: DateTime,
-            includeSubdomains: Boolean,
-        ): HSTSPolicy =
+        public fun newFull(domain: String, maxAge: gulong, expires: DateTime, includeSubdomains: Boolean): HSTSPolicy =
             HSTSPolicy(
                 soup_hsts_policy_new_full(
                     domain,
@@ -215,12 +201,14 @@ public class HSTSPolicy(
          * @param includeSubdomains true if the policy applies on sub domains
          * @return a new #SoupHSTSPolicy.
          */
-        public fun newSessionPolicy(
-            domain: String,
-            includeSubdomains: Boolean,
-        ): HSTSPolicy =
+        public fun newSessionPolicy(domain: String, includeSubdomains: Boolean): HSTSPolicy =
             HSTSPolicy(soup_hsts_policy_new_session_policy(domain, includeSubdomains.asGBoolean())!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): HSTSPolicy = HSTSPolicy(pointer.reinterpret())
+        /**
+         * Get the GType of HSTSPolicy
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_hsts_policy_get_type()
     }
 }

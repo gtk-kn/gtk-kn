@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -11,8 +10,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_28
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.glib.GMainContext
 import org.gtkkn.native.glib.g_main_context_acquire
@@ -21,6 +19,7 @@ import org.gtkkn.native.glib.g_main_context_default
 import org.gtkkn.native.glib.g_main_context_dispatch
 import org.gtkkn.native.glib.g_main_context_find_source_by_id
 import org.gtkkn.native.glib.g_main_context_get_thread_default
+import org.gtkkn.native.glib.g_main_context_invoke
 import org.gtkkn.native.glib.g_main_context_invoke_full
 import org.gtkkn.native.glib.g_main_context_is_owner
 import org.gtkkn.native.glib.g_main_context_iteration
@@ -35,9 +34,11 @@ import org.gtkkn.native.glib.g_main_context_release
 import org.gtkkn.native.glib.g_main_context_remove_poll
 import org.gtkkn.native.glib.g_main_context_unref
 import org.gtkkn.native.glib.g_main_context_wakeup
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_main_context_get_type
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
-import kotlin.Int
-import kotlin.UInt
 import kotlin.Unit
 
 /**
@@ -49,13 +50,13 @@ import kotlin.Unit
  * - parameter `fds`: PollFD
  * - parameter `user_data`: gpointer
  * - parameter `user_data`: gpointer
+ * - method `get_poll_func`: Return type PollFunc is unsupported
  * - parameter `priority`: priority: Out parameter is not supported
  * - parameter `timeout`: timeout: Out parameter is not supported
+ * - parameter `func`: PollFunc
  * - parameter `mutex`: Mutex
  */
-public class MainContext(
-    pointer: CPointer<GMainContext>,
-) : Record {
+public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointer) {
     public val glibMainContextPointer: CPointer<GMainContext> = pointer
 
     /**
@@ -89,10 +90,7 @@ public class MainContext(
      *      the same as the priority used for g_source_attach() to ensure that the
      *      file descriptor is polled whenever the results may be needed.
      */
-    public fun addPoll(
-        fd: PollFD,
-        priority: Int,
-    ): Unit =
+    public fun addPoll(fd: PollFD, priority: gint): Unit =
         g_main_context_add_poll(glibMainContextPointer.reinterpret(), fd.glibPollFDPointer.reinterpret(), priority)
 
     /**
@@ -123,10 +121,43 @@ public class MainContext(
      * @param sourceId the source ID, as returned by g_source_get_id().
      * @return the #GSource
      */
-    public fun findSourceById(sourceId: UInt): Source =
+    public fun findSourceById(sourceId: guint): Source =
         g_main_context_find_source_by_id(glibMainContextPointer.reinterpret(), sourceId)!!.run {
             Source(reinterpret())
         }
+
+    /**
+     * Invokes a function in such a way that @context is owned during the
+     * invocation of @function.
+     *
+     * If @context is null then the global-default main context — as
+     * returned by g_main_context_default() — is used.
+     *
+     * If @context is owned by the current thread, @function is called
+     * directly.  Otherwise, if @context is the thread-default main context
+     * of the current thread and g_main_context_acquire() succeeds, then
+     * @function is called and g_main_context_release() is called
+     * afterwards.
+     *
+     * In any other case, an idle source is created to call @function and
+     * that source is attached to @context (presumably to be run in another
+     * thread).  The idle source is attached with %G_PRIORITY_DEFAULT
+     * priority.  If you want a different priority, use
+     * g_main_context_invoke_full().
+     *
+     * Note that, as with normal idle functions, @function should probably
+     * return false.  If it returns true, it will be continuously run in a
+     * loop (and may prevent this call from returning).
+     *
+     * @param function function to call
+     * @since 2.28
+     */
+    @GLibVersion2_28
+    public fun invoke(function: SourceFunc): Unit = g_main_context_invoke(
+        glibMainContextPointer.reinterpret(),
+        SourceFuncFunc.reinterpret(),
+        StableRef.create(function).asCPointer()
+    )
 
     /**
      * Invokes a function in such a way that @context is owned during the
@@ -144,17 +175,13 @@ public class MainContext(
      * @since 2.28
      */
     @GLibVersion2_28
-    public fun invokeFull(
-        priority: Int,
-        function: SourceFunc,
-    ): Unit =
-        g_main_context_invoke_full(
-            glibMainContextPointer.reinterpret(),
-            priority,
-            SourceFuncFunc.reinterpret(),
-            StableRef.create(function).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public fun invokeFull(priority: gint, function: SourceFunc): Unit = g_main_context_invoke_full(
+        glibMainContextPointer.reinterpret(),
+        priority,
+        SourceFuncFunc.reinterpret(),
+        StableRef.create(function).asCPointer(),
+        staticStableRefDestroy.reinterpret()
+    )
 
     /**
      * Determines whether this thread holds the (recursive)
@@ -254,10 +281,9 @@ public class MainContext(
      *
      * @return the @context that was passed in (since 2.6)
      */
-    public fun ref(): MainContext =
-        g_main_context_ref(glibMainContextPointer.reinterpret())!!.run {
-            MainContext(reinterpret())
-        }
+    public fun ref(): MainContext = g_main_context_ref(glibMainContextPointer.reinterpret())!!.run {
+        MainContext(reinterpret())
+    }
 
     /**
      * Releases ownership of a context previously acquired by this thread
@@ -317,7 +343,7 @@ public class MainContext(
      */
     public fun wakeup(): Unit = g_main_context_wakeup(glibMainContextPointer.reinterpret())
 
-    public companion object : RecordCompanion<MainContext, GMainContext> {
+    public companion object {
         /**
          * Creates a new #GMainContext structure.
          *
@@ -344,10 +370,9 @@ public class MainContext(
          *
          * @return the global-default main context.
          */
-        public fun default(): MainContext =
-            g_main_context_default()!!.run {
-                MainContext(reinterpret())
-            }
+        public fun default(): MainContext = g_main_context_default()!!.run {
+            MainContext(reinterpret())
+        }
 
         /**
          * Gets the thread-default #GMainContext for this thread. Asynchronous
@@ -367,10 +392,9 @@ public class MainContext(
          * @since 2.22
          */
         @GLibVersion2_22
-        public fun getThreadDefault(): MainContext? =
-            g_main_context_get_thread_default()?.run {
-                MainContext(reinterpret())
-            }
+        public fun getThreadDefault(): MainContext? = g_main_context_get_thread_default()?.run {
+            MainContext(reinterpret())
+        }
 
         /**
          * Gets the thread-default #GMainContext for this thread, as with
@@ -385,12 +409,15 @@ public class MainContext(
          * @since 2.32
          */
         @GLibVersion2_32
-        public fun refThreadDefault(): MainContext =
-            g_main_context_ref_thread_default()!!.run {
-                MainContext(reinterpret())
-            }
+        public fun refThreadDefault(): MainContext = g_main_context_ref_thread_default()!!.run {
+            MainContext(reinterpret())
+        }
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MainContext =
-            MainContext(pointer.reinterpret())
+        /**
+         * Get the GType of MainContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_main_context_get_type()
     }
 }

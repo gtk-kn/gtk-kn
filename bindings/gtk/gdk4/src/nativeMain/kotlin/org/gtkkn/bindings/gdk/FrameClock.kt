@@ -25,9 +25,10 @@ import org.gtkkn.native.gdk.gdk_frame_clock_get_history_start
 import org.gtkkn.native.gdk.gdk_frame_clock_get_timings
 import org.gtkkn.native.gdk.gdk_frame_clock_get_type
 import org.gtkkn.native.gdk.gdk_frame_clock_request_phase
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import kotlin.Double
-import kotlin.Long
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint64
 import kotlin.ULong
 import kotlin.Unit
 
@@ -70,9 +71,8 @@ import kotlin.Unit
  *
  * - parameter `refresh_interval_return`: refresh_interval_return: Out parameter is not supported
  */
-public open class FrameClock(
-    pointer: CPointer<GdkFrameClock>,
-) : Object(pointer.reinterpret()),
+public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gdkFrameClockPointer: CPointer<GdkFrameClock>
         get() = gPointer.reinterpret()
@@ -114,7 +114,7 @@ public open class FrameClock(
      *
      * @return the current fps, as a `double`
      */
-    public open fun getFps(): Double = gdk_frame_clock_get_fps(gdkFrameClockPointer.reinterpret())
+    public open fun getFps(): gdouble = gdk_frame_clock_get_fps(gdkFrameClockPointer.reinterpret())
 
     /**
      * `GdkFrameClock` maintains a 64-bit counter that increments for
@@ -124,7 +124,7 @@ public open class FrameClock(
      *   for the current frame. Outside of frame processing, the frame
      *   counter for the last frame.
      */
-    public open fun getFrameCounter(): Long = gdk_frame_clock_get_frame_counter(gdkFrameClockPointer.reinterpret())
+    public open fun getFrameCounter(): gint64 = gdk_frame_clock_get_frame_counter(gdkFrameClockPointer.reinterpret())
 
     /**
      * Gets the time that should currently be used for animations.
@@ -138,7 +138,7 @@ public open class FrameClock(
      * @return a timestamp in microseconds, in the timescale of
      *  of g_get_monotonic_time().
      */
-    public open fun getFrameTime(): Long = gdk_frame_clock_get_frame_time(gdkFrameClockPointer.reinterpret())
+    public open fun getFrameTime(): gint64 = gdk_frame_clock_get_frame_time(gdkFrameClockPointer.reinterpret())
 
     /**
      * Returns the frame counter for the oldest frame available in history.
@@ -154,7 +154,7 @@ public open class FrameClock(
      *  that is available in the internal frame history of the
      *  `GdkFrameClock`
      */
-    public open fun getHistoryStart(): Long = gdk_frame_clock_get_history_start(gdkFrameClockPointer.reinterpret())
+    public open fun getHistoryStart(): gint64 = gdk_frame_clock_get_history_start(gdkFrameClockPointer.reinterpret())
 
     /**
      * Retrieves a `GdkFrameTimings` object holding timing information
@@ -169,7 +169,7 @@ public open class FrameClock(
      * @return the `GdkFrameTimings` object
      *   for the specified frame, or null if it is not available
      */
-    public open fun getTimings(frameCounter: Long): FrameTimings? =
+    public open fun getTimings(frameCounter: gint64): FrameTimings? =
         gdk_frame_clock_get_timings(gdkFrameClockPointer.reinterpret(), frameCounter)?.run {
             FrameTimings(reinterpret())
         }
@@ -200,10 +200,7 @@ public open class FrameClock(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectAfterPaint(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectAfterPaint(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "after-paint",
@@ -221,10 +218,7 @@ public open class FrameClock(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectBeforePaint(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectBeforePaint(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "before-paint",
@@ -243,10 +237,7 @@ public open class FrameClock(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectFlushEvents(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectFlushEvents(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "flush-events",
@@ -266,10 +257,7 @@ public open class FrameClock(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectLayout(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectLayout(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "layout",
@@ -291,10 +279,7 @@ public open class FrameClock(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectPaint(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectPaint(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "paint",
@@ -313,10 +298,7 @@ public open class FrameClock(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectResumeEvents(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectResumeEvents(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "resume-events",
@@ -338,10 +320,7 @@ public open class FrameClock(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectUpdate(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectUpdate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "update",
@@ -358,61 +337,68 @@ public open class FrameClock(
         init {
             GdkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of FrameClock
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_frame_clock_get_type()
     }
 }
 
-private val connectAfterPaintFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectAfterPaintFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectBeforePaintFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectBeforePaintFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectFlushEventsFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectFlushEventsFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectLayoutFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectLayoutFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectPaintFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectPaintFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectResumeEventsFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectResumeEventsFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectUpdateFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectUpdateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

@@ -1,18 +1,18 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GHmac
 import org.gtkkn.native.glib.g_hmac_copy
 import org.gtkkn.native.glib.g_hmac_get_string
 import org.gtkkn.native.glib.g_hmac_ref
 import org.gtkkn.native.glib.g_hmac_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_hmac_get_type
 import kotlin.String
 import kotlin.Unit
 
@@ -42,9 +42,7 @@ import kotlin.Unit
  * @since 2.30
  */
 @GLibVersion2_30
-public class Hmac(
-    pointer: CPointer<GHmac>,
-) : Record {
+public class Hmac(pointer: CPointer<GHmac>) : ProxyInstance(pointer) {
     public val glibHmacPointer: CPointer<GHmac> = pointer
 
     /**
@@ -57,10 +55,9 @@ public class Hmac(
      * @since 2.30
      */
     @GLibVersion2_30
-    public fun copy(): Hmac =
-        g_hmac_copy(glibHmacPointer.reinterpret())!!.run {
-            Hmac(reinterpret())
-        }
+    public fun copy(): Hmac = g_hmac_copy(glibHmacPointer.reinterpret())!!.run {
+        Hmac(reinterpret())
+    }
 
     /**
      * Gets the HMAC as a hexadecimal string.
@@ -88,10 +85,9 @@ public class Hmac(
      * @since 2.30
      */
     @GLibVersion2_30
-    public fun ref(): Hmac =
-        g_hmac_ref(glibHmacPointer.reinterpret())!!.run {
-            Hmac(reinterpret())
-        }
+    public fun ref(): Hmac = g_hmac_ref(glibHmacPointer.reinterpret())!!.run {
+        Hmac(reinterpret())
+    }
 
     /**
      * Atomically decrements the reference count of @hmac by one.
@@ -106,7 +102,12 @@ public class Hmac(
     @GLibVersion2_30
     public fun unref(): Unit = g_hmac_unref(glibHmacPointer.reinterpret())
 
-    public companion object : RecordCompanion<Hmac, GHmac> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Hmac = Hmac(pointer.reinterpret())
+    public companion object {
+        /**
+         * Get the GType of Hmac
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_hmac_get_type()
     }
 }

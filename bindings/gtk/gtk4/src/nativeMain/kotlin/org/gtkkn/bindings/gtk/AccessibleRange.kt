@@ -8,6 +8,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAccessibleRange
 import org.gtkkn.native.gtk.gtk_accessible_range_get_type
@@ -46,9 +47,7 @@ public interface AccessibleRange :
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = gtkAccessibleRangePointer.reinterpret()
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkAccessibleRange>,
-    ) : AccessibleRange {
+    private data class Wrapper(private val pointer: CPointer<GtkAccessibleRange>) : AccessibleRange {
         override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange> = pointer
     }
 
@@ -61,5 +60,12 @@ public interface AccessibleRange :
         }
 
         public fun wrap(pointer: CPointer<GtkAccessibleRange>): AccessibleRange = Wrapper(pointer)
+
+        /**
+         * Get the GType of AccessibleRange
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_accessible_range_get_type()
     }
 }

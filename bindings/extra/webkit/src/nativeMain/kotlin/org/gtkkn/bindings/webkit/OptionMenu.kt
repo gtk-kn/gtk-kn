@@ -17,7 +17,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitOptionMenu
 import org.gtkkn.native.webkit.webkit_option_menu_activate_item
 import org.gtkkn.native.webkit.webkit_option_menu_close
@@ -26,7 +28,6 @@ import org.gtkkn.native.webkit.webkit_option_menu_get_item
 import org.gtkkn.native.webkit.webkit_option_menu_get_n_items
 import org.gtkkn.native.webkit.webkit_option_menu_get_type
 import org.gtkkn.native.webkit.webkit_option_menu_select_item
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 
@@ -39,9 +40,8 @@ import kotlin.Unit
  * @since 2.18
  */
 @WebKitVersion2_18
-public class OptionMenu(
-    pointer: CPointer<WebKitOptionMenu>,
-) : Object(pointer.reinterpret()),
+public class OptionMenu(pointer: CPointer<WebKitOptionMenu>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val webkitOptionMenuPointer: CPointer<WebKitOptionMenu>
         get() = gPointer.reinterpret()
@@ -58,7 +58,7 @@ public class OptionMenu(
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun activateItem(index: UInt): Unit =
+    public fun activateItem(index: guint): Unit =
         webkit_option_menu_activate_item(webkitOptionMenuPointer.reinterpret(), index)
 
     /**
@@ -84,10 +84,9 @@ public class OptionMenu(
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun getEvent(): Event =
-        webkit_option_menu_get_event(webkitOptionMenuPointer.reinterpret())!!.run {
-            Event(reinterpret())
-        }
+    public fun getEvent(): Event = webkit_option_menu_get_event(webkitOptionMenuPointer.reinterpret())!!.run {
+        Event(reinterpret())
+    }
 
     /**
      * Returns the #WebKitOptionMenuItem at @index in @menu.
@@ -97,7 +96,7 @@ public class OptionMenu(
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun getItem(index: UInt): OptionMenuItem =
+    public fun getItem(index: guint): OptionMenuItem =
         webkit_option_menu_get_item(webkitOptionMenuPointer.reinterpret(), index)!!.run {
             OptionMenuItem(reinterpret())
         }
@@ -109,7 +108,7 @@ public class OptionMenu(
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun getNItems(): UInt = webkit_option_menu_get_n_items(webkitOptionMenuPointer.reinterpret())
+    public fun getNItems(): guint = webkit_option_menu_get_n_items(webkitOptionMenuPointer.reinterpret())
 
     /**
      * Selects the #WebKitOptionMenuItem at @index in @menu.
@@ -123,7 +122,7 @@ public class OptionMenu(
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun selectItem(index: UInt): Unit =
+    public fun selectItem(index: guint): Unit =
         webkit_option_menu_select_item(webkitOptionMenuPointer.reinterpret(), index)
 
     /**
@@ -136,10 +135,7 @@ public class OptionMenu(
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun connectClose(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "close",
@@ -156,13 +152,20 @@ public class OptionMenu(
         init {
             WebkitTypeProvider.register()
         }
+
+        /**
+         * Get the GType of OptionMenu
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_option_menu_get_type()
     }
 }
 
-private val connectCloseFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectCloseFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

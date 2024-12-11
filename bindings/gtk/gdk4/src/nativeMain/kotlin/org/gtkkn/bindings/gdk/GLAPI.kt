@@ -6,14 +6,14 @@ import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gdk.GDK_GL_API_GL
 import org.gtkkn.native.gdk.GDK_GL_API_GLES
 import org.gtkkn.native.gdk.GdkGLAPI
+import org.gtkkn.native.gdk.gdk_gl_api_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * The list of the different APIs that GdkGLContext can potentially support.
  * @since 4.6
  */
-public class GLAPI(
-    public val mask: GdkGLAPI,
-) : Bitfield<GLAPI> {
+public class GLAPI(public val mask: GdkGLAPI) : Bitfield<GLAPI> {
     override infix fun or(other: GLAPI): GLAPI = GLAPI(mask or other.mask)
 
     @GdkVersion4_6
@@ -27,5 +27,12 @@ public class GLAPI(
          * The OpenGL ES API
          */
         public val GLES: GLAPI = GLAPI(GDK_GL_API_GLES)
+
+        /**
+         * Get the GType of GLAPI
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_gl_api_get_type()
     }
 }

@@ -24,6 +24,7 @@ package org.gtkkn.gir.model
  * @property deprecatedVersion Version number from which this element is deprecated.
  * @property version Version number of an element.
  * @property stability Stability status of the element. Can be "Stable", "Unstable", or "Private".
+ * @property gtkKnIgnore Binary attribute which is "1" (true) if the element should be ignored.
  */
 @Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirInfo(
@@ -31,11 +32,30 @@ data class GirInfo(
     val deprecated: Boolean? = null,
     val deprecatedVersion: String? = null,
     val version: String? = null,
-    val stability: String? = null,
+    val stability: Stability? = null,
+    val gtkKnIgnore: Boolean? = null,
 ) : GirNode {
     override lateinit var parentNode: GirNode
     override lateinit var namespace: GirNamespace
     override fun initializeChildren(namespace: GirNamespace) {
         // No children
+    }
+
+    fun shouldBeGenerated() = gtkKnIgnore != true
+
+    enum class Stability {
+        STABLE,
+        UNSTABLE,
+        PRIVATE,
+        ;
+
+        companion object {
+            fun fromString(str: String): Stability = when (str) {
+                "Stable" -> STABLE
+                "Unstable" -> UNSTABLE
+                "Private" -> PRIVATE
+                else -> error("String '$str' is not a valid Stability value")
+            }
+        }
     }
 }

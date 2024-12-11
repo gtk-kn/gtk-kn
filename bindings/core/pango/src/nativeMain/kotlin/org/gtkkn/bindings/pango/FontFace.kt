@@ -11,6 +11,7 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoFontFace
 import org.gtkkn.native.pango.pango_font_face_describe
 import org.gtkkn.native.pango.pango_font_face_get_face_name
@@ -28,9 +29,8 @@ import kotlin.String
  *
  * - parameter `sizes`: sizes: Out parameter is not supported
  */
-public open class FontFace(
-    pointer: CPointer<PangoFontFace>,
-) : Object(pointer.reinterpret()),
+public open class FontFace(pointer: CPointer<PangoFontFace>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val pangoFontFacePointer: CPointer<PangoFontFace>
         get() = gPointer.reinterpret()
@@ -46,10 +46,9 @@ public open class FontFace(
      *   holding the description of the face. Use [method@Pango.FontDescription.free]
      *   to free the result.
      */
-    public open fun describe(): FontDescription =
-        pango_font_face_describe(pangoFontFacePointer.reinterpret())!!.run {
-            FontDescription(reinterpret())
-        }
+    public open fun describe(): FontDescription = pango_font_face_describe(pangoFontFacePointer.reinterpret())!!.run {
+        FontDescription(reinterpret())
+    }
 
     /**
      * Gets a name representing the style of this face.
@@ -72,10 +71,9 @@ public open class FontFace(
      * @since 1.46
      */
     @PangoVersion1_46
-    public open fun getFamily(): FontFamily =
-        pango_font_face_get_family(pangoFontFacePointer.reinterpret())!!.run {
-            FontFamily(reinterpret())
-        }
+    public open fun getFamily(): FontFamily = pango_font_face_get_family(pangoFontFacePointer.reinterpret())!!.run {
+        FontFamily(reinterpret())
+    }
 
     /**
      * Returns whether a `PangoFontFace` is synthesized.
@@ -98,5 +96,12 @@ public open class FontFace(
         init {
             PangoTypeProvider.register()
         }
+
+        /**
+         * Get the GType of FontFace
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_font_face_get_type()
     }
 }

@@ -18,7 +18,10 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkCellLayout
 import org.gtkkn.native.gtk.GtkEntryCompletion
@@ -50,7 +53,6 @@ import org.gtkkn.native.gtk.gtk_entry_completion_set_popup_set_width
 import org.gtkkn.native.gtk.gtk_entry_completion_set_popup_single_match
 import org.gtkkn.native.gtk.gtk_entry_completion_set_text_column
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -99,9 +101,8 @@ import kotlin.Unit
  *
  * - method `cell-area`: Property has no getter nor setter
  */
-public open class EntryCompletion(
-    pointer: CPointer<GtkEntryCompletion>,
-) : Object(pointer.reinterpret()),
+public open class EntryCompletion(pointer: CPointer<GtkEntryCompletion>) :
+    Object(pointer.reinterpret()),
     Buildable,
     CellLayout,
     KGTyped {
@@ -138,11 +139,10 @@ public open class EntryCompletion(
          */
         set(
             inlineCompletion
-        ) =
-            gtk_entry_completion_set_inline_completion(
-                gtkEntryCompletionPointer.reinterpret(),
-                inlineCompletion.asGBoolean()
-            )
+        ) = gtk_entry_completion_set_inline_completion(
+            gtkEntryCompletionPointer.reinterpret(),
+            inlineCompletion.asGBoolean()
+        )
 
     /**
      * Determines whether the possible completions on the popup
@@ -164,13 +164,12 @@ public open class EntryCompletion(
          */
         set(
             inlineSelection
-        ) =
-            gtk_entry_completion_set_inline_selection(
-                gtkEntryCompletionPointer.reinterpret(),
-                inlineSelection.asGBoolean()
-            )
+        ) = gtk_entry_completion_set_inline_selection(
+            gtkEntryCompletionPointer.reinterpret(),
+            inlineSelection.asGBoolean()
+        )
 
-    public open var minimumKeyLength: Int
+    public open var minimumKeyLength: gint
         /**
          * Returns the minimum key length as set for @completion.
          *
@@ -198,10 +197,9 @@ public open class EntryCompletion(
          *
          * @return A `GtkTreeModel`
          */
-        get() =
-            gtk_entry_completion_get_model(gtkEntryCompletionPointer.reinterpret())?.run {
-                TreeModel.wrap(reinterpret())
-            }
+        get() = gtk_entry_completion_get_model(gtkEntryCompletionPointer.reinterpret())?.run {
+            TreeModel.wrap(reinterpret())
+        }
 
         /**
          * Sets the model for a `GtkEntryCompletion`.
@@ -233,11 +231,10 @@ public open class EntryCompletion(
          */
         set(
             popupCompletion
-        ) =
-            gtk_entry_completion_set_popup_completion(
-                gtkEntryCompletionPointer.reinterpret(),
-                popupCompletion.asGBoolean()
-            )
+        ) = gtk_entry_completion_set_popup_completion(
+            gtkEntryCompletionPointer.reinterpret(),
+            popupCompletion.asGBoolean()
+        )
 
     /**
      * Determines whether the completions popup window will be
@@ -261,11 +258,10 @@ public open class EntryCompletion(
          */
         set(
             popupSetWidth
-        ) =
-            gtk_entry_completion_set_popup_set_width(
-                gtkEntryCompletionPointer.reinterpret(),
-                popupSetWidth.asGBoolean()
-            )
+        ) = gtk_entry_completion_set_popup_set_width(
+            gtkEntryCompletionPointer.reinterpret(),
+            popupSetWidth.asGBoolean()
+        )
 
     /**
      * Determines whether the completions popup window will shown
@@ -295,18 +291,17 @@ public open class EntryCompletion(
          */
         set(
             popupSingleMatch
-        ) =
-            gtk_entry_completion_set_popup_single_match(
-                gtkEntryCompletionPointer.reinterpret(),
-                popupSingleMatch.asGBoolean()
-            )
+        ) = gtk_entry_completion_set_popup_single_match(
+            gtkEntryCompletionPointer.reinterpret(),
+            popupSingleMatch.asGBoolean()
+        )
 
     /**
      * The column of the model containing the strings.
      *
      * Note that the strings must be UTF-8.
      */
-    public open var textColumn: Int
+    public open var textColumn: gint
         /**
          * Returns the column in the model of @completion to get strings from.
          *
@@ -389,108 +384,14 @@ public open class EntryCompletion(
      *
      * @return The entry @completion has been attached to
      */
-    public open fun getEntry(): Widget =
-        gtk_entry_completion_get_entry(gtkEntryCompletionPointer.reinterpret())!!.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Returns whether the common prefix of the possible completions should
-     * be automatically inserted in the entry.
-     *
-     * @return true if inline completion is turned on
-     */
-    public open fun getInlineCompletion(): Boolean =
-        gtk_entry_completion_get_inline_completion(gtkEntryCompletionPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns true if inline-selection mode is turned on.
-     *
-     * @return true if inline-selection mode is on
-     */
-    public open fun getInlineSelection(): Boolean =
-        gtk_entry_completion_get_inline_selection(gtkEntryCompletionPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns the minimum key length as set for @completion.
-     *
-     * @return The currently used minimum key length
-     */
-    public open fun getMinimumKeyLength(): Int =
-        gtk_entry_completion_get_minimum_key_length(gtkEntryCompletionPointer.reinterpret())
-
-    /**
-     * Returns the model the `GtkEntryCompletion` is using as data source.
-     *
-     * Returns null if the model is unset.
-     *
-     * @return A `GtkTreeModel`
-     */
-    public open fun getModel(): TreeModel? =
-        gtk_entry_completion_get_model(gtkEntryCompletionPointer.reinterpret())?.run {
-            TreeModel.wrap(reinterpret())
-        }
-
-    /**
-     * Returns whether the completions should be presented in a popup window.
-     *
-     * @return true if popup completion is turned on
-     */
-    public open fun getPopupCompletion(): Boolean =
-        gtk_entry_completion_get_popup_completion(gtkEntryCompletionPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns whether the completion popup window will be resized to the
-     * width of the entry.
-     *
-     * @return true if the popup window will be resized to the width of
-     *   the entry
-     */
-    public open fun getPopupSetWidth(): Boolean =
-        gtk_entry_completion_get_popup_set_width(gtkEntryCompletionPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns whether the completion popup window will appear even if there is
-     * only a single match.
-     *
-     * @return true if the popup window will appear regardless of the
-     *    number of matches
-     */
-    public open fun getPopupSingleMatch(): Boolean =
-        gtk_entry_completion_get_popup_single_match(gtkEntryCompletionPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns the column in the model of @completion to get strings from.
-     *
-     * @return the column containing the strings
-     */
-    public open fun getTextColumn(): Int = gtk_entry_completion_get_text_column(gtkEntryCompletionPointer.reinterpret())
+    public open fun getEntry(): Widget = gtk_entry_completion_get_entry(gtkEntryCompletionPointer.reinterpret())!!.run {
+        Widget(reinterpret())
+    }
 
     /**
      * Requests a prefix insertion.
      */
     public open fun insertPrefix(): Unit = gtk_entry_completion_insert_prefix(gtkEntryCompletionPointer.reinterpret())
-
-    /**
-     * Sets whether the common prefix of the possible completions should
-     * be automatically inserted in the entry.
-     *
-     * @param inlineCompletion true to do inline completion
-     */
-    public open fun setInlineCompletion(inlineCompletion: Boolean): Unit =
-        gtk_entry_completion_set_inline_completion(
-            gtkEntryCompletionPointer.reinterpret(),
-            inlineCompletion.asGBoolean()
-        )
-
-    /**
-     * Sets whether it is possible to cycle through the possible completions
-     * inside the entry.
-     *
-     * @param inlineSelection true to do inline selection
-     */
-    public open fun setInlineSelection(inlineSelection: Boolean): Unit =
-        gtk_entry_completion_set_inline_selection(gtkEntryCompletionPointer.reinterpret(), inlineSelection.asGBoolean())
 
     /**
      * Sets the match function for @completion to be @func.
@@ -500,88 +401,12 @@ public open class EntryCompletion(
      *
      * @param func the `GtkEntryCompletion`MatchFunc to use
      */
-    public open fun setMatchFunc(func: EntryCompletionMatchFunc): Unit =
-        gtk_entry_completion_set_match_func(
-            gtkEntryCompletionPointer.reinterpret(),
-            EntryCompletionMatchFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
-
-    /**
-     * Requires the length of the search key for @completion to be at least
-     * @length.
-     *
-     * This is useful for long lists, where completing using a small
-     * key takes a lot of time and will come up with meaningless results anyway
-     * (ie, a too large dataset).
-     *
-     * @param length the minimum length of the key in order to start completing
-     */
-    public open fun setMinimumKeyLength(length: Int): Unit =
-        gtk_entry_completion_set_minimum_key_length(gtkEntryCompletionPointer.reinterpret(), length)
-
-    /**
-     * Sets the model for a `GtkEntryCompletion`.
-     *
-     * If @completion already has a model set, it will remove it
-     * before setting the new model. If model is null, then it
-     * will unset the model.
-     *
-     * @param model the `GtkTreeModel`
-     */
-    public open fun setModel(model: TreeModel? = null): Unit =
-        gtk_entry_completion_set_model(gtkEntryCompletionPointer.reinterpret(), model?.gtkTreeModelPointer)
-
-    /**
-     * Sets whether the completions should be presented in a popup window.
-     *
-     * @param popupCompletion true to do popup completion
-     */
-    public open fun setPopupCompletion(popupCompletion: Boolean): Unit =
-        gtk_entry_completion_set_popup_completion(gtkEntryCompletionPointer.reinterpret(), popupCompletion.asGBoolean())
-
-    /**
-     * Sets whether the completion popup window will be resized to be the same
-     * width as the entry.
-     *
-     * @param popupSetWidth true to make the width of the popup the same as the entry
-     */
-    public open fun setPopupSetWidth(popupSetWidth: Boolean): Unit =
-        gtk_entry_completion_set_popup_set_width(gtkEntryCompletionPointer.reinterpret(), popupSetWidth.asGBoolean())
-
-    /**
-     * Sets whether the completion popup window will appear even if there is
-     * only a single match.
-     *
-     * You may want to set this to false if you
-     * are using [property@Gtk.EntryCompletion:inline-completion].
-     *
-     * @param popupSingleMatch true if the popup should appear even for a single match
-     */
-    public open fun setPopupSingleMatch(popupSingleMatch: Boolean): Unit =
-        gtk_entry_completion_set_popup_single_match(
-            gtkEntryCompletionPointer.reinterpret(),
-            popupSingleMatch.asGBoolean()
-        )
-
-    /**
-     * Convenience function for setting up the most used case of this code: a
-     * completion list with just strings.
-     *
-     * This function will set up @completion
-     * to have a list displaying all (and just) strings in the completion list,
-     * and to get those strings from @column in the model of @completion.
-     *
-     * This functions creates and adds a `GtkCellRendererText` for the selected
-     * column. If you need to set the text column, but don't want the cell
-     * renderer, use g_object_set() to set the
-     * [property@Gtk.EntryCompletion:text-column] property directly.
-     *
-     * @param column the column in the model of @completion to get strings from
-     */
-    public open fun setTextColumn(column: Int): Unit =
-        gtk_entry_completion_set_text_column(gtkEntryCompletionPointer.reinterpret(), column)
+    public open fun setMatchFunc(func: EntryCompletionMatchFunc): Unit = gtk_entry_completion_set_match_func(
+        gtkEntryCompletionPointer.reinterpret(),
+        EntryCompletionMatchFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer(),
+        staticStableRefDestroy.reinterpret()
+    )
 
     /**
      * Emitted when a match from the cursor is on a match of the list.
@@ -599,15 +424,14 @@ public open class EntryCompletion(
     public fun connectCursorOnMatch(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (model: TreeModel, iter: TreeIter) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "cursor-on-match",
-            connectCursorOnMatchFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "cursor-on-match",
+        connectCursorOnMatchFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted when the inline autocompletion is triggered.
@@ -626,15 +450,14 @@ public open class EntryCompletion(
     public fun connectInsertPrefix(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (prefix: String) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "insert-prefix",
-            connectInsertPrefixFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "insert-prefix",
+        connectInsertPrefixFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted when a match from the list is selected.
@@ -652,15 +475,14 @@ public open class EntryCompletion(
     public fun connectMatchSelected(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (model: TreeModel, iter: TreeIter) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "match-selected",
-            connectMatchSelectedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "match-selected",
+        connectMatchSelectedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted when the filter model has zero
@@ -671,10 +493,7 @@ public open class EntryCompletion(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectNoMatches(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectNoMatches(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "no-matches",
@@ -691,69 +510,70 @@ public open class EntryCompletion(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of EntryCompletion
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_entry_completion_get_type()
     }
 }
 
 private val connectCursorOnMatchFunc:
-    CPointer<CFunction<(CPointer<GtkTreeModel>, CPointer<GtkTreeIter>) -> Int>> =
+    CPointer<CFunction<(CPointer<GtkTreeModel>, CPointer<GtkTreeIter>) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
             model: CPointer<GtkTreeModel>?,
             iter: CPointer<GtkTreeIter>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(model: TreeModel, iter: TreeIter) -> Boolean>()
-            .get()
-            .invoke(
-                model!!.run {
-                    TreeModel.wrap(reinterpret())
-                },
-                iter!!.run {
-                    TreeIter(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(model: TreeModel, iter: TreeIter) -> Boolean>().get().invoke(
+            model!!.run {
+                TreeModel.wrap(reinterpret())
+            },
+            iter!!.run {
+                TreeIter(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
-private val connectInsertPrefixFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Int>> =
+private val connectInsertPrefixFunc: CPointer<CFunction<(CPointer<ByteVar>) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
             prefix: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(prefix: String) -> Boolean>()
-            .get()
-            .invoke(
-                prefix?.toKString() ?: error("Expected not null string")
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(prefix: String) -> Boolean>().get().invoke(
+            prefix?.toKString() ?: error("Expected not null string")
+        ).asGBoolean()
+    }
+        .reinterpret()
 
 private val connectMatchSelectedFunc:
-    CPointer<CFunction<(CPointer<GtkTreeModel>, CPointer<GtkTreeIter>) -> Int>> =
+    CPointer<CFunction<(CPointer<GtkTreeModel>, CPointer<GtkTreeIter>) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
             model: CPointer<GtkTreeModel>?,
             iter: CPointer<GtkTreeIter>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(model: TreeModel, iter: TreeIter) -> Boolean>()
-            .get()
-            .invoke(
-                model!!.run {
-                    TreeModel.wrap(reinterpret())
-                },
-                iter!!.run {
-                    TreeIter(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(model: TreeModel, iter: TreeIter) -> Boolean>().get().invoke(
+            model!!.run {
+                TreeModel.wrap(reinterpret())
+            },
+            iter!!.run {
+                TreeIter(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
-private val connectNoMatchesFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectNoMatchesFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

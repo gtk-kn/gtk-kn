@@ -1,11 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtksource
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceSmartHomeEndType
+import org.gtkkn.native.gtksource.gtk_source_smart_home_end_type_get_type
 
-public enum class SmartHomeEndType(
-    public val nativeValue: GtkSourceSmartHomeEndType,
-) {
+public enum class SmartHomeEndType(public val nativeValue: GtkSourceSmartHomeEndType) {
     /**
      * smart-home-end disabled.
      */
@@ -33,13 +33,19 @@ public enum class SmartHomeEndType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkSourceSmartHomeEndType): SmartHomeEndType =
-            when (nativeValue) {
-                GtkSourceSmartHomeEndType.GTK_SOURCE_SMART_HOME_END_DISABLED -> DISABLED
-                GtkSourceSmartHomeEndType.GTK_SOURCE_SMART_HOME_END_BEFORE -> BEFORE
-                GtkSourceSmartHomeEndType.GTK_SOURCE_SMART_HOME_END_AFTER -> AFTER
-                GtkSourceSmartHomeEndType.GTK_SOURCE_SMART_HOME_END_ALWAYS -> ALWAYS
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkSourceSmartHomeEndType): SmartHomeEndType = when (nativeValue) {
+            GtkSourceSmartHomeEndType.GTK_SOURCE_SMART_HOME_END_DISABLED -> DISABLED
+            GtkSourceSmartHomeEndType.GTK_SOURCE_SMART_HOME_END_BEFORE -> BEFORE
+            GtkSourceSmartHomeEndType.GTK_SOURCE_SMART_HOME_END_AFTER -> AFTER
+            GtkSourceSmartHomeEndType.GTK_SOURCE_SMART_HOME_END_ALWAYS -> ALWAYS
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of SmartHomeEndType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_smart_home_end_type_get_type()
     }
 }

@@ -16,11 +16,14 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkPrintSettings
 import org.gtkkn.native.gtk.gtk_print_settings_copy
 import org.gtkkn.native.gtk.gtk_print_settings_foreach
@@ -98,8 +101,6 @@ import org.gtkkn.native.gtk.gtk_print_settings_to_gvariant
 import org.gtkkn.native.gtk.gtk_print_settings_to_key_file
 import org.gtkkn.native.gtk.gtk_print_settings_unset
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.Throws
@@ -123,9 +124,8 @@ import kotlin.Throws
  * - parameter `num_ranges`: num_ranges: Out parameter is not supported
  * - parameter `page_ranges`: PageRange
  */
-public open class PrintSettings(
-    pointer: CPointer<GtkPrintSettings>,
-) : Object(pointer.reinterpret()),
+public open class PrintSettings(pointer: CPointer<GtkPrintSettings>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkPrintSettingsPointer: CPointer<GtkPrintSettings>
         get() = gPointer.reinterpret()
@@ -149,7 +149,7 @@ public open class PrintSettings(
      * @param fileName the filename to read the settings from
      * @return the restored `GtkPrintSettings`
      */
-    @Throws(GlibException::class)
+    @Throws(GLibException::class)
     public constructor(fileName: String) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -186,7 +186,7 @@ public open class PrintSettings(
      *   the default “Print Settings”
      * @return the restored `GtkPrintSettings`
      */
-    @Throws(GlibException::class)
+    @Throws(GLibException::class)
     public constructor(keyFile: KeyFile, groupName: String? = null) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -204,22 +204,20 @@ public open class PrintSettings(
      *
      * @return a newly allocated copy of @other
      */
-    public open fun copy(): PrintSettings =
-        gtk_print_settings_copy(gtkPrintSettingsPointer.reinterpret())!!.run {
-            PrintSettings(reinterpret())
-        }
+    public open fun copy(): PrintSettings = gtk_print_settings_copy(gtkPrintSettingsPointer.reinterpret())!!.run {
+        PrintSettings(reinterpret())
+    }
 
     /**
      * Calls @func for each key-value pair of @settings.
      *
      * @param func the function to call
      */
-    public open fun foreach(func: PrintSettingsFunc): kotlin.Unit =
-        gtk_print_settings_foreach(
-            gtkPrintSettingsPointer.reinterpret(),
-            PrintSettingsFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )
+    public open fun foreach(func: PrintSettingsFunc): kotlin.Unit = gtk_print_settings_foreach(
+        gtkPrintSettingsPointer.reinterpret(),
+        PrintSettingsFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer()
+    )
 
     /**
      * Looks up the string value associated with @key.
@@ -273,7 +271,7 @@ public open class PrintSettings(
      * @param key a key
      * @return the double value of @key
      */
-    public open fun getDouble(key: String): Double =
+    public open fun getDouble(key: String): gdouble =
         gtk_print_settings_get_double(gtkPrintSettingsPointer.reinterpret(), key)
 
     /**
@@ -287,10 +285,8 @@ public open class PrintSettings(
      * @param def the default value
      * @return the floating point number associated with @key
      */
-    public open fun getDoubleWithDefault(
-        key: String,
-        def: Double,
-    ): Double = gtk_print_settings_get_double_with_default(gtkPrintSettingsPointer.reinterpret(), key, def)
+    public open fun getDoubleWithDefault(key: String, def: gdouble): gdouble =
+        gtk_print_settings_get_double_with_default(gtkPrintSettingsPointer.reinterpret(), key, def)
 
     /**
      * Gets the value of %GTK_PRINT_SETTINGS_DUPLEX.
@@ -316,7 +312,7 @@ public open class PrintSettings(
      * @param key a key
      * @return the integer value of @key
      */
-    public open fun getInt(key: String): Int = gtk_print_settings_get_int(gtkPrintSettingsPointer.reinterpret(), key)
+    public open fun getInt(key: String): gint = gtk_print_settings_get_int(gtkPrintSettingsPointer.reinterpret(), key)
 
     /**
      * Returns the value of @key, interpreted as
@@ -326,10 +322,8 @@ public open class PrintSettings(
      * @param def the default value
      * @return the integer value of @key
      */
-    public open fun getIntWithDefault(
-        key: String,
-        def: Int,
-    ): Int = gtk_print_settings_get_int_with_default(gtkPrintSettingsPointer.reinterpret(), key, def)
+    public open fun getIntWithDefault(key: String, def: gint): gint =
+        gtk_print_settings_get_int_with_default(gtkPrintSettingsPointer.reinterpret(), key, def)
 
     /**
      * Returns the value associated with @key, interpreted
@@ -341,10 +335,8 @@ public open class PrintSettings(
      * @param unit the unit of the return value
      * @return the length value of @key, converted to @unit
      */
-    public open fun getLength(
-        key: String,
-        unit: Unit,
-    ): Double = gtk_print_settings_get_length(gtkPrintSettingsPointer.reinterpret(), key, unit.nativeValue)
+    public open fun getLength(key: String, unit: Unit): gdouble =
+        gtk_print_settings_get_length(gtkPrintSettingsPointer.reinterpret(), key, unit.nativeValue)
 
     /**
      * Gets the value of %GTK_PRINT_SETTINGS_MEDIA_TYPE.
@@ -361,14 +353,14 @@ public open class PrintSettings(
      *
      * @return the number of copies to print
      */
-    public open fun getNCopies(): Int = gtk_print_settings_get_n_copies(gtkPrintSettingsPointer.reinterpret())
+    public open fun getNCopies(): gint = gtk_print_settings_get_n_copies(gtkPrintSettingsPointer.reinterpret())
 
     /**
      * Gets the value of %GTK_PRINT_SETTINGS_NUMBER_UP.
      *
      * @return the number of pages per sheet
      */
-    public open fun getNumberUp(): Int = gtk_print_settings_get_number_up(gtkPrintSettingsPointer.reinterpret())
+    public open fun getNumberUp(): gint = gtk_print_settings_get_number_up(gtkPrintSettingsPointer.reinterpret())
 
     /**
      * Gets the value of %GTK_PRINT_SETTINGS_NUMBER_UP_LAYOUT.
@@ -404,10 +396,9 @@ public open class PrintSettings(
      *
      * @return the set of pages to print
      */
-    public open fun getPageSet(): PageSet =
-        gtk_print_settings_get_page_set(gtkPrintSettingsPointer.reinterpret()).run {
-            PageSet.fromNativeValue(this)
-        }
+    public open fun getPageSet(): PageSet = gtk_print_settings_get_page_set(gtkPrintSettingsPointer.reinterpret()).run {
+        PageSet.fromNativeValue(this)
+    }
 
     /**
      * Gets the value of %GTK_PRINT_SETTINGS_PAPER_HEIGHT,
@@ -416,7 +407,7 @@ public open class PrintSettings(
      * @param unit the unit for the return value
      * @return the paper height, in units of @unit
      */
-    public open fun getPaperHeight(unit: Unit): Double =
+    public open fun getPaperHeight(unit: Unit): gdouble =
         gtk_print_settings_get_paper_height(gtkPrintSettingsPointer.reinterpret(), unit.nativeValue)
 
     /**
@@ -437,7 +428,7 @@ public open class PrintSettings(
      * @param unit the unit for the return value
      * @return the paper width, in units of @unit
      */
-    public open fun getPaperWidth(unit: Unit): Double =
+    public open fun getPaperWidth(unit: Unit): gdouble =
         gtk_print_settings_get_paper_width(gtkPrintSettingsPointer.reinterpret(), unit.nativeValue)
 
     /**
@@ -464,7 +455,7 @@ public open class PrintSettings(
      *
      * @return the resolution in lpi (lines per inch)
      */
-    public open fun getPrinterLpi(): Double = gtk_print_settings_get_printer_lpi(gtkPrintSettingsPointer.reinterpret())
+    public open fun getPrinterLpi(): gdouble = gtk_print_settings_get_printer_lpi(gtkPrintSettingsPointer.reinterpret())
 
     /**
      * Gets the value of %GTK_PRINT_SETTINGS_QUALITY.
@@ -481,21 +472,21 @@ public open class PrintSettings(
      *
      * @return the resolution in dpi
      */
-    public open fun getResolution(): Int = gtk_print_settings_get_resolution(gtkPrintSettingsPointer.reinterpret())
+    public open fun getResolution(): gint = gtk_print_settings_get_resolution(gtkPrintSettingsPointer.reinterpret())
 
     /**
      * Gets the value of %GTK_PRINT_SETTINGS_RESOLUTION_X.
      *
      * @return the horizontal resolution in dpi
      */
-    public open fun getResolutionX(): Int = gtk_print_settings_get_resolution_x(gtkPrintSettingsPointer.reinterpret())
+    public open fun getResolutionX(): gint = gtk_print_settings_get_resolution_x(gtkPrintSettingsPointer.reinterpret())
 
     /**
      * Gets the value of %GTK_PRINT_SETTINGS_RESOLUTION_Y.
      *
      * @return the vertical resolution in dpi
      */
-    public open fun getResolutionY(): Int = gtk_print_settings_get_resolution_y(gtkPrintSettingsPointer.reinterpret())
+    public open fun getResolutionY(): gint = gtk_print_settings_get_resolution_y(gtkPrintSettingsPointer.reinterpret())
 
     /**
      * Gets the value of %GTK_PRINT_SETTINGS_REVERSE.
@@ -510,7 +501,7 @@ public open class PrintSettings(
      *
      * @return the scale in percent
      */
-    public open fun getScale(): Double = gtk_print_settings_get_scale(gtkPrintSettingsPointer.reinterpret())
+    public open fun getScale(): gdouble = gtk_print_settings_get_scale(gtkPrintSettingsPointer.reinterpret())
 
     /**
      * Gets the value of %GTK_PRINT_SETTINGS_USE_COLOR.
@@ -540,21 +531,19 @@ public open class PrintSettings(
      * @param fileName the filename to read the settings from
      * @return true on success
      */
-    public open fun loadFile(fileName: String): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gtk_print_settings_load_file(
-                    gtkPrintSettingsPointer.reinterpret(),
-                    fileName,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun loadFile(fileName: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gtk_print_settings_load_file(
+            gtkPrintSettingsPointer.reinterpret(),
+            fileName,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Reads the print settings from the group @group_name in @key_file.
@@ -567,25 +556,20 @@ public open class PrintSettings(
      *   to use the default “Print Settings”
      * @return true on success
      */
-    public open fun loadKeyFile(
-        keyFile: KeyFile,
-        groupName: String? = null,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gtk_print_settings_load_key_file(
-                    gtkPrintSettingsPointer.reinterpret(),
-                    keyFile.glibKeyFilePointer.reinterpret(),
-                    groupName,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun loadKeyFile(keyFile: KeyFile, groupName: String? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gtk_print_settings_load_key_file(
+            gtkPrintSettingsPointer.reinterpret(),
+            keyFile.glibKeyFilePointer.reinterpret(),
+            groupName,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Associates @value with @key.
@@ -593,10 +577,8 @@ public open class PrintSettings(
      * @param key a key
      * @param value a string value
      */
-    public open fun `set`(
-        key: String,
-        `value`: String? = null,
-    ): kotlin.Unit = gtk_print_settings_set(gtkPrintSettingsPointer.reinterpret(), key, `value`)
+    public open fun `set`(key: String, `value`: String? = null): kotlin.Unit =
+        gtk_print_settings_set(gtkPrintSettingsPointer.reinterpret(), key, `value`)
 
     /**
      * Sets @key to a boolean value.
@@ -604,10 +586,8 @@ public open class PrintSettings(
      * @param key a key
      * @param value a boolean
      */
-    public open fun setBool(
-        key: String,
-        `value`: Boolean,
-    ): kotlin.Unit = gtk_print_settings_set_bool(gtkPrintSettingsPointer.reinterpret(), key, `value`.asGBoolean())
+    public open fun setBool(key: String, `value`: Boolean): kotlin.Unit =
+        gtk_print_settings_set_bool(gtkPrintSettingsPointer.reinterpret(), key, `value`.asGBoolean())
 
     /**
      * Sets the value of %GTK_PRINT_SETTINGS_COLLATE.
@@ -639,10 +619,8 @@ public open class PrintSettings(
      * @param key a key
      * @param value a double value
      */
-    public open fun setDouble(
-        key: String,
-        `value`: Double,
-    ): kotlin.Unit = gtk_print_settings_set_double(gtkPrintSettingsPointer.reinterpret(), key, `value`)
+    public open fun setDouble(key: String, `value`: gdouble): kotlin.Unit =
+        gtk_print_settings_set_double(gtkPrintSettingsPointer.reinterpret(), key, `value`)
 
     /**
      * Sets the value of %GTK_PRINT_SETTINGS_DUPLEX.
@@ -666,10 +644,8 @@ public open class PrintSettings(
      * @param key a key
      * @param value an integer
      */
-    public open fun setInt(
-        key: String,
-        `value`: Int,
-    ): kotlin.Unit = gtk_print_settings_set_int(gtkPrintSettingsPointer.reinterpret(), key, `value`)
+    public open fun setInt(key: String, `value`: gint): kotlin.Unit =
+        gtk_print_settings_set_int(gtkPrintSettingsPointer.reinterpret(), key, `value`)
 
     /**
      * Associates a length in units of @unit with @key.
@@ -678,11 +654,7 @@ public open class PrintSettings(
      * @param value a length
      * @param unit the unit of @length
      */
-    public open fun setLength(
-        key: String,
-        `value`: Double,
-        unit: Unit,
-    ): kotlin.Unit =
+    public open fun setLength(key: String, `value`: gdouble, unit: Unit): kotlin.Unit =
         gtk_print_settings_set_length(gtkPrintSettingsPointer.reinterpret(), key, `value`, unit.nativeValue)
 
     /**
@@ -700,7 +672,7 @@ public open class PrintSettings(
      *
      * @param numCopies the number of copies
      */
-    public open fun setNCopies(numCopies: Int): kotlin.Unit =
+    public open fun setNCopies(numCopies: gint): kotlin.Unit =
         gtk_print_settings_set_n_copies(gtkPrintSettingsPointer.reinterpret(), numCopies)
 
     /**
@@ -708,7 +680,7 @@ public open class PrintSettings(
      *
      * @param numberUp the number of pages per sheet
      */
-    public open fun setNumberUp(numberUp: Int): kotlin.Unit =
+    public open fun setNumberUp(numberUp: gint): kotlin.Unit =
         gtk_print_settings_set_number_up(gtkPrintSettingsPointer.reinterpret(), numberUp)
 
     /**
@@ -749,10 +721,7 @@ public open class PrintSettings(
      * @param height the paper height
      * @param unit the units of @height
      */
-    public open fun setPaperHeight(
-        height: Double,
-        unit: Unit,
-    ): kotlin.Unit =
+    public open fun setPaperHeight(height: gdouble, unit: Unit): kotlin.Unit =
         gtk_print_settings_set_paper_height(gtkPrintSettingsPointer.reinterpret(), height, unit.nativeValue)
 
     /**
@@ -762,11 +731,10 @@ public open class PrintSettings(
      *
      * @param paperSize a paper size
      */
-    public open fun setPaperSize(paperSize: PaperSize): kotlin.Unit =
-        gtk_print_settings_set_paper_size(
-            gtkPrintSettingsPointer.reinterpret(),
-            paperSize.gtkPaperSizePointer.reinterpret()
-        )
+    public open fun setPaperSize(paperSize: PaperSize): kotlin.Unit = gtk_print_settings_set_paper_size(
+        gtkPrintSettingsPointer.reinterpret(),
+        paperSize.gtkPaperSizePointer.reinterpret()
+    )
 
     /**
      * Sets the value of %GTK_PRINT_SETTINGS_PAPER_WIDTH.
@@ -774,10 +742,8 @@ public open class PrintSettings(
      * @param width the paper width
      * @param unit the units of @width
      */
-    public open fun setPaperWidth(
-        width: Double,
-        unit: Unit,
-    ): kotlin.Unit = gtk_print_settings_set_paper_width(gtkPrintSettingsPointer.reinterpret(), width, unit.nativeValue)
+    public open fun setPaperWidth(width: gdouble, unit: Unit): kotlin.Unit =
+        gtk_print_settings_set_paper_width(gtkPrintSettingsPointer.reinterpret(), width, unit.nativeValue)
 
     /**
      * Sets the value of %GTK_PRINT_SETTINGS_PRINT_PAGES.
@@ -801,7 +767,7 @@ public open class PrintSettings(
      *
      * @param lpi the resolution in lpi (lines per inch)
      */
-    public open fun setPrinterLpi(lpi: Double): kotlin.Unit =
+    public open fun setPrinterLpi(lpi: gdouble): kotlin.Unit =
         gtk_print_settings_set_printer_lpi(gtkPrintSettingsPointer.reinterpret(), lpi)
 
     /**
@@ -819,7 +785,7 @@ public open class PrintSettings(
      *
      * @param resolution the resolution in dpi
      */
-    public open fun setResolution(resolution: Int): kotlin.Unit =
+    public open fun setResolution(resolution: gint): kotlin.Unit =
         gtk_print_settings_set_resolution(gtkPrintSettingsPointer.reinterpret(), resolution)
 
     /**
@@ -830,10 +796,7 @@ public open class PrintSettings(
      * @param resolutionX the horizontal resolution in dpi
      * @param resolutionY the vertical resolution in dpi
      */
-    public open fun setResolutionXy(
-        resolutionX: Int,
-        resolutionY: Int,
-    ): kotlin.Unit =
+    public open fun setResolutionXy(resolutionX: gint, resolutionY: gint): kotlin.Unit =
         gtk_print_settings_set_resolution_xy(gtkPrintSettingsPointer.reinterpret(), resolutionX, resolutionY)
 
     /**
@@ -849,7 +812,7 @@ public open class PrintSettings(
      *
      * @param scale the scale in percent
      */
-    public open fun setScale(scale: Double): kotlin.Unit =
+    public open fun setScale(scale: gdouble): kotlin.Unit =
         gtk_print_settings_set_scale(gtkPrintSettingsPointer.reinterpret(), scale)
 
     /**
@@ -869,21 +832,19 @@ public open class PrintSettings(
      * @param fileName the file to save to
      * @return true on success
      */
-    public open fun toFile(fileName: String): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gtk_print_settings_to_file(
-                    gtkPrintSettingsPointer.reinterpret(),
-                    fileName,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun toFile(fileName: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gtk_print_settings_to_file(
+            gtkPrintSettingsPointer.reinterpret(),
+            fileName,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Serialize print settings to an a{sv} variant.
@@ -902,10 +863,7 @@ public open class PrintSettings(
      * @param groupName the group to add the settings to in @key_file, or
      *   null to use the default “Print Settings”
      */
-    public open fun toKeyFile(
-        keyFile: KeyFile,
-        groupName: String? = null,
-    ): kotlin.Unit =
+    public open fun toKeyFile(keyFile: KeyFile, groupName: String? = null): kotlin.Unit =
         gtk_print_settings_to_key_file(
             gtkPrintSettingsPointer.reinterpret(),
             keyFile.glibKeyFilePointer.reinterpret(),
@@ -929,5 +887,12 @@ public open class PrintSettings(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of PrintSettings
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_print_settings_get_type()
     }
 }

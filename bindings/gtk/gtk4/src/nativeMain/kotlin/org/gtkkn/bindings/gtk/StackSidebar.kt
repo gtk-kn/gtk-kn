@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -37,9 +38,8 @@ import kotlin.Unit
  *
  * - method `stack`: Property TypeInfo of getter and setter do not match
  */
-public open class StackSidebar(
-    pointer: CPointer<GtkStackSidebar>,
-) : Widget(pointer.reinterpret()),
+public open class StackSidebar(pointer: CPointer<GtkStackSidebar>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkStackSidebarPointer: CPointer<GtkStackSidebar>
         get() = gPointer.reinterpret()
@@ -66,10 +66,9 @@ public open class StackSidebar(
      * @return the associated `GtkStack` or
      *   null if none has been set explicitly
      */
-    public open fun getStack(): Stack? =
-        gtk_stack_sidebar_get_stack(gtkStackSidebarPointer.reinterpret())?.run {
-            Stack(reinterpret())
-        }
+    public open fun getStack(): Stack? = gtk_stack_sidebar_get_stack(gtkStackSidebarPointer.reinterpret())?.run {
+        Stack(reinterpret())
+    }
 
     /**
      * Set the `GtkStack` associated with this `GtkStackSidebar`.
@@ -89,5 +88,12 @@ public open class StackSidebar(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of StackSidebar
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_stack_sidebar_get_type()
     }
 }

@@ -1,14 +1,16 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gunichar
 import org.gtkkn.native.pango.PangoTabArray
 import org.gtkkn.native.pango.pango_tab_array_copy
 import org.gtkkn.native.pango.pango_tab_array_free
@@ -16,16 +18,17 @@ import org.gtkkn.native.pango.pango_tab_array_from_string
 import org.gtkkn.native.pango.pango_tab_array_get_decimal_point
 import org.gtkkn.native.pango.pango_tab_array_get_positions_in_pixels
 import org.gtkkn.native.pango.pango_tab_array_get_size
+import org.gtkkn.native.pango.pango_tab_array_get_type
 import org.gtkkn.native.pango.pango_tab_array_new
 import org.gtkkn.native.pango.pango_tab_array_resize
 import org.gtkkn.native.pango.pango_tab_array_set_decimal_point
 import org.gtkkn.native.pango.pango_tab_array_set_positions_in_pixels
 import org.gtkkn.native.pango.pango_tab_array_set_tab
 import org.gtkkn.native.pango.pango_tab_array_sort
+import org.gtkkn.native.pango.pango_tab_array_to_string
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
+import kotlin.Suppress
 import kotlin.Unit
 
 /**
@@ -39,11 +42,9 @@ import kotlin.Unit
  *
  * - parameter `alignment`: alignment: Out parameter is not supported
  * - parameter `alignments`: alignments: Out parameter is not supported
- * - method `to_string`: C function pango_tab_array_to_string is ignored
+ * - constructor `new_with_positions`: Varargs parameter is not supported
  */
-public class TabArray(
-    pointer: CPointer<PangoTabArray>,
-) : Record {
+public class TabArray(pointer: CPointer<PangoTabArray>) : ProxyInstance(pointer) {
     public val pangoTabArrayPointer: CPointer<PangoTabArray> = pointer
 
     /**
@@ -52,10 +53,9 @@ public class TabArray(
      * @return the newly allocated `PangoTabArray`, which should
      *   be freed with [method@Pango.TabArray.free].
      */
-    public fun copy(): TabArray =
-        pango_tab_array_copy(pangoTabArrayPointer.reinterpret())!!.run {
-            TabArray(reinterpret())
-        }
+    public fun copy(): TabArray = pango_tab_array_copy(pangoTabArrayPointer.reinterpret())!!.run {
+        TabArray(reinterpret())
+    }
 
     /**
      * Frees a tab array and associated resources.
@@ -76,7 +76,7 @@ public class TabArray(
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun getDecimalPoint(tabIndex: Int): UInt =
+    public fun getDecimalPoint(tabIndex: gint): gunichar =
         pango_tab_array_get_decimal_point(pangoTabArrayPointer.reinterpret(), tabIndex)
 
     /**
@@ -93,7 +93,7 @@ public class TabArray(
      *
      * @return the number of tab stops in the array.
      */
-    public fun getSize(): Int = pango_tab_array_get_size(pangoTabArrayPointer.reinterpret())
+    public fun getSize(): gint = pango_tab_array_get_size(pangoTabArrayPointer.reinterpret())
 
     /**
      * Resizes a tab array.
@@ -103,7 +103,7 @@ public class TabArray(
      *
      * @param newSize new size of the array
      */
-    public fun resize(newSize: Int): Unit = pango_tab_array_resize(pangoTabArrayPointer.reinterpret(), newSize)
+    public fun resize(newSize: gint): Unit = pango_tab_array_resize(pangoTabArrayPointer.reinterpret(), newSize)
 
     /**
      * Sets the Unicode character to use as decimal point.
@@ -120,10 +120,8 @@ public class TabArray(
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun setDecimalPoint(
-        tabIndex: Int,
-        decimalPoint: UInt,
-    ): Unit = pango_tab_array_set_decimal_point(pangoTabArrayPointer.reinterpret(), tabIndex, decimalPoint)
+    public fun setDecimalPoint(tabIndex: gint, decimalPoint: gunichar): Unit =
+        pango_tab_array_set_decimal_point(pangoTabArrayPointer.reinterpret(), tabIndex, decimalPoint)
 
     /**
      * Sets whether positions in this array are specified in
@@ -143,11 +141,8 @@ public class TabArray(
      * @param alignment tab alignment
      * @param location tab location in Pango units
      */
-    public fun setTab(
-        tabIndex: Int,
-        alignment: TabAlign,
-        location: Int,
-    ): Unit = pango_tab_array_set_tab(pangoTabArrayPointer.reinterpret(), tabIndex, alignment.nativeValue, location)
+    public fun setTab(tabIndex: gint, alignment: TabAlign, location: gint): Unit =
+        pango_tab_array_set_tab(pangoTabArrayPointer.reinterpret(), tabIndex, alignment.nativeValue, location)
 
     /**
      * Utility function to ensure that the tab stops are in increasing order.
@@ -157,7 +152,25 @@ public class TabArray(
     @PangoVersion1_50
     public fun sort(): Unit = pango_tab_array_sort(pangoTabArrayPointer.reinterpret())
 
-    public companion object : RecordCompanion<TabArray, PangoTabArray> {
+    /**
+     * Serializes a `PangoTabArray` to a string.
+     *
+     * No guarantees are made about the format of the string,
+     * it may change between Pango versions.
+     *
+     * The intended use of this function is testing and
+     * debugging. The format is not meant as a permanent
+     * storage format.
+     *
+     * @return a newly allocated string
+     * @since 1.50
+     */
+    @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
+    @PangoVersion1_50
+    override fun toString(): String =
+        pango_tab_array_to_string(pangoTabArrayPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+
+    public companion object {
         /**
          * Creates an array of @initial_size tab stops.
          *
@@ -169,10 +182,8 @@ public class TabArray(
          * @return the newly allocated `PangoTabArray`, which should
          *   be freed with [method@Pango.TabArray.free].
          */
-        public fun new(
-            initialSize: Int,
-            positionsInPixels: Boolean,
-        ): TabArray = TabArray(pango_tab_array_new(initialSize, positionsInPixels.asGBoolean())!!.reinterpret())
+        public fun new(initialSize: gint, positionsInPixels: Boolean): TabArray =
+            TabArray(pango_tab_array_new(initialSize, positionsInPixels.asGBoolean())!!.reinterpret())
 
         /**
          * Deserializes a `PangoTabArray` from a string.
@@ -185,11 +196,15 @@ public class TabArray(
          * @since 1.50
          */
         @PangoVersion1_50
-        public fun fromString(text: String): TabArray? =
-            pango_tab_array_from_string(text)?.run {
-                TabArray(reinterpret())
-            }
+        public fun fromString(text: String): TabArray? = pango_tab_array_from_string(text)?.run {
+            TabArray(reinterpret())
+        }
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TabArray = TabArray(pointer.reinterpret())
+        /**
+         * Get the GType of TabArray
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_tab_array_get_type()
     }
 }

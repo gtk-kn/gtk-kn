@@ -9,6 +9,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_30
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitPermissionRequest
 import org.gtkkn.native.webkit.WebKitWebsiteDataAccessPermissionRequest
 import org.gtkkn.native.webkit.webkit_website_data_access_permission_request_get_current_domain
@@ -27,9 +28,8 @@ import kotlin.String
  * @since 2.30
  */
 @WebKitVersion2_30
-public class WebsiteDataAccessPermissionRequest(
-    pointer: CPointer<WebKitWebsiteDataAccessPermissionRequest>,
-) : Object(pointer.reinterpret()),
+public class WebsiteDataAccessPermissionRequest(pointer: CPointer<WebKitWebsiteDataAccessPermissionRequest>) :
+    Object(pointer.reinterpret()),
     PermissionRequest,
     KGTyped {
     public val webkitWebsiteDataAccessPermissionRequestPointer:
@@ -46,11 +46,10 @@ public class WebsiteDataAccessPermissionRequest(
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun getCurrentDomain(): String =
-        webkit_website_data_access_permission_request_get_current_domain(
-            webkitWebsiteDataAccessPermissionRequestPointer.reinterpret()
-        )?.toKString()
-            ?: error("Expected not null string")
+    public fun getCurrentDomain(): String = webkit_website_data_access_permission_request_get_current_domain(
+        webkitWebsiteDataAccessPermissionRequestPointer.reinterpret()
+    )?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Get the domain requesting permission to access its cookies while browsing the current domain.
@@ -59,11 +58,10 @@ public class WebsiteDataAccessPermissionRequest(
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun getRequestingDomain(): String =
-        webkit_website_data_access_permission_request_get_requesting_domain(
-            webkitWebsiteDataAccessPermissionRequestPointer.reinterpret()
-        )?.toKString()
-            ?: error("Expected not null string")
+    public fun getRequestingDomain(): String = webkit_website_data_access_permission_request_get_requesting_domain(
+        webkitWebsiteDataAccessPermissionRequestPointer.reinterpret()
+    )?.toKString()
+        ?: error("Expected not null string")
 
     public companion object : TypeCompanion<WebsiteDataAccessPermissionRequest> {
         override val type: GeneratedClassKGType<WebsiteDataAccessPermissionRequest> =
@@ -74,5 +72,12 @@ public class WebsiteDataAccessPermissionRequest(
         init {
             WebkitTypeProvider.register()
         }
+
+        /**
+         * Get the GType of WebsiteDataAccessPermissionRequest
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_website_data_access_permission_request_get_type()
     }
 }

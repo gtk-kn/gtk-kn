@@ -1,25 +1,35 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkRGBA
 import org.gtkkn.native.gdk.gdk_rgba_copy
 import org.gtkkn.native.gdk.gdk_rgba_free
+import org.gtkkn.native.gdk.gdk_rgba_get_type
 import org.gtkkn.native.gdk.gdk_rgba_hash
 import org.gtkkn.native.gdk.gdk_rgba_is_clear
 import org.gtkkn.native.gdk.gdk_rgba_is_opaque
 import org.gtkkn.native.gdk.gdk_rgba_parse
+import org.gtkkn.native.gdk.gdk_rgba_to_string
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
-import kotlin.Float
+import kotlin.Pair
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * A `GdkRGBA` is used to represent a color, in a way that is compatible
@@ -35,18 +45,17 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `p2`: RGBA
- * - method `to_string`: C function gdk_rgba_to_string is ignored
  */
-public class RGBA(
-    pointer: CPointer<GdkRGBA>,
-) : Record {
+public class RGBA(pointer: CPointer<GdkRGBA>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gdkRGBAPointer: CPointer<GdkRGBA> = pointer
 
     /**
      * The intensity of the red channel from 0.0 to 1.0 inclusive
      */
-    public var red: Float
+    public var red: gfloat
         get() = gdkRGBAPointer.pointed.red
+
+        @UnsafeFieldSetter
         set(`value`) {
             gdkRGBAPointer.pointed.red = value
         }
@@ -54,8 +63,10 @@ public class RGBA(
     /**
      * The intensity of the green channel from 0.0 to 1.0 inclusive
      */
-    public var green: Float
+    public var green: gfloat
         get() = gdkRGBAPointer.pointed.green
+
+        @UnsafeFieldSetter
         set(`value`) {
             gdkRGBAPointer.pointed.green = value
         }
@@ -63,8 +74,10 @@ public class RGBA(
     /**
      * The intensity of the blue channel from 0.0 to 1.0 inclusive
      */
-    public var blue: Float
+    public var blue: gfloat
         get() = gdkRGBAPointer.pointed.blue
+
+        @UnsafeFieldSetter
         set(`value`) {
             gdkRGBAPointer.pointed.blue = value
         }
@@ -73,11 +86,91 @@ public class RGBA(
      * The opacity of the color from 0.0 for completely translucent to
      *   1.0 for opaque
      */
-    public var alpha: Float
+    public var alpha: gfloat
         get() = gdkRGBAPointer.pointed.alpha
+
+        @UnsafeFieldSetter
         set(`value`) {
             gdkRGBAPointer.pointed.alpha = value
         }
+
+    /**
+     * Allocate a new RGBA.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<GdkRGBA>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to RGBA and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GdkRGBA>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new RGBA using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GdkRGBA>().ptr)
+
+    /**
+     * Allocate a new RGBA.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param red The intensity of the red channel from 0.0 to 1.0 inclusive
+     * @param green The intensity of the green channel from 0.0 to 1.0 inclusive
+     * @param blue The intensity of the blue channel from 0.0 to 1.0 inclusive
+     * @param alpha The opacity of the color from 0.0 for completely translucent to
+     *   1.0 for opaque
+     */
+    public constructor(
+        red: gfloat,
+        green: gfloat,
+        blue: gfloat,
+        alpha: gfloat,
+    ) : this() {
+        this.red = red
+        this.green = green
+        this.blue = blue
+        this.alpha = alpha
+    }
+
+    /**
+     * Allocate a new RGBA using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param red The intensity of the red channel from 0.0 to 1.0 inclusive
+     * @param green The intensity of the green channel from 0.0 to 1.0 inclusive
+     * @param blue The intensity of the blue channel from 0.0 to 1.0 inclusive
+     * @param alpha The opacity of the color from 0.0 for completely translucent to
+     *   1.0 for opaque
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        red: gfloat,
+        green: gfloat,
+        blue: gfloat,
+        alpha: gfloat,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.red = red
+        this.green = green
+        this.blue = blue
+        this.alpha = alpha
+    }
 
     /**
      * Makes a copy of a `GdkRGBA`.
@@ -86,10 +179,9 @@ public class RGBA(
      *
      * @return A newly allocated `GdkRGBA`, with the same contents as @rgba
      */
-    public fun copy(): RGBA =
-        gdk_rgba_copy(gdkRGBAPointer.reinterpret())!!.run {
-            RGBA(reinterpret())
-        }
+    public fun copy(): RGBA = gdk_rgba_copy(gdkRGBAPointer.reinterpret())!!.run {
+        RGBA(reinterpret())
+    }
 
     /**
      * Frees a `GdkRGBA`.
@@ -102,7 +194,7 @@ public class RGBA(
      *
      * @return The hash value for @p
      */
-    public fun hash(): UInt = gdk_rgba_hash(gdkRGBAPointer.reinterpret())
+    public fun hash(): guint = gdk_rgba_hash(gdkRGBAPointer.reinterpret())
 
     /**
      * Checks if an @rgba value is transparent.
@@ -150,7 +242,32 @@ public class RGBA(
      */
     public fun parse(spec: String): Boolean = gdk_rgba_parse(gdkRGBAPointer.reinterpret(), spec).asBoolean()
 
-    public companion object : RecordCompanion<RGBA, GdkRGBA> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): RGBA = RGBA(pointer.reinterpret())
+    /**
+     * Returns a textual specification of @rgba in the form
+     * `rgb(r,g,b)` or `rgba(r,g,b,a)`, where “r”, “g”, “b” and
+     * “a” represent the red, green, blue and alpha values
+     * respectively. “r”, “g”, and “b” are represented as integers
+     * in the range 0 to 255, and “a” is represented as a floating
+     * point value in the range 0 to 1.
+     *
+     * These string forms are string forms that are supported by
+     * the CSS3 colors module, and can be parsed by [method@Gdk.RGBA.parse].
+     *
+     * Note that this string representation may lose some precision,
+     * since “r”, “g” and “b” are represented as 8-bit integers. If
+     * this is a concern, you should use a different representation.
+     *
+     * @return A newly allocated text string
+     */
+    override fun toString(): String =
+        gdk_rgba_to_string(gdkRGBAPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+
+    public companion object {
+        /**
+         * Get the GType of RGBA
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_rgba_get_type()
     }
 }

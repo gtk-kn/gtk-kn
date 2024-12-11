@@ -8,6 +8,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkScrollable
 import org.gtkkn.native.gtk.gtk_scrollable_get_border
 import org.gtkkn.native.gtk.gtk_scrollable_get_hadjustment
@@ -68,10 +69,9 @@ public interface Scrollable :
          *
          * @return horizontal `GtkAdjustment`.
          */
-        get() =
-            gtk_scrollable_get_hadjustment(gtkScrollablePointer.reinterpret())?.run {
-                Adjustment(reinterpret())
-            }
+        get() = gtk_scrollable_get_hadjustment(gtkScrollablePointer.reinterpret())?.run {
+            Adjustment(reinterpret())
+        }
 
         /**
          * Sets the horizontal adjustment of the `GtkScrollable`.
@@ -80,11 +80,10 @@ public interface Scrollable :
          */
         set(
             hadjustment
-        ) =
-            gtk_scrollable_set_hadjustment(
-                gtkScrollablePointer.reinterpret(),
-                hadjustment?.gtkAdjustmentPointer?.reinterpret()
-            )
+        ) = gtk_scrollable_set_hadjustment(
+            gtkScrollablePointer.reinterpret(),
+            hadjustment?.gtkAdjustmentPointer?.reinterpret()
+        )
 
     /**
      * Determines when horizontal scrolling should start.
@@ -95,10 +94,9 @@ public interface Scrollable :
          *
          * @return The horizontal `GtkScrollablePolicy`.
          */
-        get() =
-            gtk_scrollable_get_hscroll_policy(gtkScrollablePointer.reinterpret()).run {
-                ScrollablePolicy.fromNativeValue(this)
-            }
+        get() = gtk_scrollable_get_hscroll_policy(gtkScrollablePointer.reinterpret()).run {
+            ScrollablePolicy.fromNativeValue(this)
+        }
 
         /**
          * Sets the `GtkScrollablePolicy`.
@@ -121,10 +119,9 @@ public interface Scrollable :
          *
          * @return vertical `GtkAdjustment`.
          */
-        get() =
-            gtk_scrollable_get_vadjustment(gtkScrollablePointer.reinterpret())?.run {
-                Adjustment(reinterpret())
-            }
+        get() = gtk_scrollable_get_vadjustment(gtkScrollablePointer.reinterpret())?.run {
+            Adjustment(reinterpret())
+        }
 
         /**
          * Sets the vertical adjustment of the `GtkScrollable`.
@@ -133,11 +130,10 @@ public interface Scrollable :
          */
         set(
             vadjustment
-        ) =
-            gtk_scrollable_set_vadjustment(
-                gtkScrollablePointer.reinterpret(),
-                vadjustment?.gtkAdjustmentPointer?.reinterpret()
-            )
+        ) = gtk_scrollable_set_vadjustment(
+            gtkScrollablePointer.reinterpret(),
+            vadjustment?.gtkAdjustmentPointer?.reinterpret()
+        )
 
     /**
      * Determines when vertical scrolling should start.
@@ -148,10 +144,9 @@ public interface Scrollable :
          *
          * @return The vertical `GtkScrollablePolicy`.
          */
-        get() =
-            gtk_scrollable_get_vscroll_policy(gtkScrollablePointer.reinterpret()).run {
-                ScrollablePolicy.fromNativeValue(this)
-            }
+        get() = gtk_scrollable_get_vscroll_policy(gtkScrollablePointer.reinterpret()).run {
+            ScrollablePolicy.fromNativeValue(this)
+        }
 
         /**
          * Sets the `GtkScrollablePolicy`.
@@ -182,10 +177,9 @@ public interface Scrollable :
      *
      * @return horizontal `GtkAdjustment`.
      */
-    public fun getHadjustment(): Adjustment? =
-        gtk_scrollable_get_hadjustment(gtkScrollablePointer.reinterpret())?.run {
-            Adjustment(reinterpret())
-        }
+    public fun getHadjustment(): Adjustment? = gtk_scrollable_get_hadjustment(gtkScrollablePointer.reinterpret())?.run {
+        Adjustment(reinterpret())
+    }
 
     /**
      * Gets the horizontal `GtkScrollablePolicy`.
@@ -202,10 +196,9 @@ public interface Scrollable :
      *
      * @return vertical `GtkAdjustment`.
      */
-    public fun getVadjustment(): Adjustment? =
-        gtk_scrollable_get_vadjustment(gtkScrollablePointer.reinterpret())?.run {
-            Adjustment(reinterpret())
-        }
+    public fun getVadjustment(): Adjustment? = gtk_scrollable_get_vadjustment(gtkScrollablePointer.reinterpret())?.run {
+        Adjustment(reinterpret())
+    }
 
     /**
      * Gets the vertical `GtkScrollablePolicy`.
@@ -222,11 +215,10 @@ public interface Scrollable :
      *
      * @param hadjustment a `GtkAdjustment`
      */
-    public fun setHadjustment(hadjustment: Adjustment? = null): Unit =
-        gtk_scrollable_set_hadjustment(
-            gtkScrollablePointer.reinterpret(),
-            hadjustment?.gtkAdjustmentPointer?.reinterpret()
-        )
+    public fun setHadjustment(hadjustment: Adjustment? = null): Unit = gtk_scrollable_set_hadjustment(
+        gtkScrollablePointer.reinterpret(),
+        hadjustment?.gtkAdjustmentPointer?.reinterpret()
+    )
 
     /**
      * Sets the `GtkScrollablePolicy`.
@@ -244,11 +236,10 @@ public interface Scrollable :
      *
      * @param vadjustment a `GtkAdjustment`
      */
-    public fun setVadjustment(vadjustment: Adjustment? = null): Unit =
-        gtk_scrollable_set_vadjustment(
-            gtkScrollablePointer.reinterpret(),
-            vadjustment?.gtkAdjustmentPointer?.reinterpret()
-        )
+    public fun setVadjustment(vadjustment: Adjustment? = null): Unit = gtk_scrollable_set_vadjustment(
+        gtkScrollablePointer.reinterpret(),
+        vadjustment?.gtkAdjustmentPointer?.reinterpret()
+    )
 
     /**
      * Sets the `GtkScrollablePolicy`.
@@ -261,9 +252,7 @@ public interface Scrollable :
     public fun setVscrollPolicy(policy: ScrollablePolicy): Unit =
         gtk_scrollable_set_vscroll_policy(gtkScrollablePointer.reinterpret(), policy.nativeValue)
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkScrollable>,
-    ) : Scrollable {
+    private data class Wrapper(private val pointer: CPointer<GtkScrollable>) : Scrollable {
         override val gtkScrollablePointer: CPointer<GtkScrollable> = pointer
     }
 
@@ -276,5 +265,12 @@ public interface Scrollable :
         }
 
         public fun wrap(pointer: CPointer<GtkScrollable>): Scrollable = Wrapper(pointer)
+
+        /**
+         * Get the GType of Scrollable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_scrollable_get_type()
     }
 }

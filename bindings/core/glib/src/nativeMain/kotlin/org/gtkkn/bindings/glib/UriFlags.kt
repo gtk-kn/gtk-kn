@@ -24,9 +24,7 @@ import org.gtkkn.native.glib.G_URI_FLAGS_SCHEME_NORMALIZE
  * parse it with.
  * @since 2.66
  */
-public class UriFlags(
-    public val mask: GUriFlags,
-) : Bitfield<UriFlags> {
+public class UriFlags(public val mask: GUriFlags) : Bitfield<UriFlags> {
     override infix fun or(other: UriFlags): UriFlags = UriFlags(mask or other.mask)
 
     @GLibVersion2_66

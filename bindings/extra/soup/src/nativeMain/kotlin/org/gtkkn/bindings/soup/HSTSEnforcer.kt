@@ -17,6 +17,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.soup.SoupHSTSEnforcer
 import org.gtkkn.native.soup.SoupHSTSPolicy
@@ -58,9 +59,8 @@ import kotlin.Unit
  * HSTS policy persistence. See [class@HSTSEnforcerDB] for a persistent
  * enforcer.
  */
-public open class HSTSEnforcer(
-    pointer: CPointer<SoupHSTSEnforcer>,
-) : Object(pointer.reinterpret()),
+public open class HSTSEnforcer(pointer: CPointer<SoupHSTSEnforcer>) :
+    Object(pointer.reinterpret()),
     SessionFeature,
     KGTyped {
     public val soupHSTSEnforcerPointer: CPointer<SoupHSTSEnforcer>
@@ -147,10 +147,7 @@ public open class HSTSEnforcer(
      * @param domain policy domain or hostname
      * @param includeSubdomains true if the policy applies on sub domains
      */
-    public open fun setSessionPolicy(
-        domain: String,
-        includeSubdomains: Boolean,
-    ): Unit =
+    public open fun setSessionPolicy(domain: String, includeSubdomains: Boolean): Unit =
         soup_hsts_enforcer_set_session_policy(
             soupHSTSEnforcerPointer.reinterpret(),
             domain,
@@ -177,15 +174,14 @@ public open class HSTSEnforcer(
     public fun connectChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (oldPolicy: HSTSPolicy, newPolicy: HSTSPolicy) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "changed",
-            connectChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "changed",
+        connectChangedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<HSTSEnforcer> {
         override val type: GeneratedClassKGType<HSTSEnforcer> =
@@ -194,6 +190,13 @@ public open class HSTSEnforcer(
         init {
             SoupTypeProvider.register()
         }
+
+        /**
+         * Get the GType of HSTSEnforcer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_hsts_enforcer_get_type()
     }
 }
 
@@ -213,4 +216,5 @@ private val connectChangedFunc:
                 HSTSPolicy(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()

@@ -14,6 +14,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkEventControllerFocus
 import org.gtkkn.native.gtk.gtk_event_controller_focus_contains_focus
@@ -40,9 +41,8 @@ import kotlin.Unit
  * - method `contains-focus`: Property has no getter nor setter
  * - method `is-focus`: Property has no getter nor setter
  */
-public open class EventControllerFocus(
-    pointer: CPointer<GtkEventControllerFocus>,
-) : EventController(pointer.reinterpret()),
+public open class EventControllerFocus(pointer: CPointer<GtkEventControllerFocus>) :
+    EventController(pointer.reinterpret()),
     KGTyped {
     public val gtkEventControllerFocusPointer: CPointer<GtkEventControllerFocus>
         get() = gPointer.reinterpret()
@@ -85,10 +85,7 @@ public open class EventControllerFocus(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectEnter(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectEnter(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "enter",
@@ -112,10 +109,7 @@ public open class EventControllerFocus(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectLeave(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectLeave(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "leave",
@@ -132,21 +126,28 @@ public open class EventControllerFocus(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of EventControllerFocus
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_event_controller_focus_get_type()
     }
 }
 
-private val connectEnterFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectEnterFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectLeaveFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectLeaveFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

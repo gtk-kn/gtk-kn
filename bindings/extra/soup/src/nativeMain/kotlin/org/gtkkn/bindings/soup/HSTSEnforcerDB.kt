@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupHSTSEnforcerDB
 import org.gtkkn.native.soup.SoupSessionFeature
 import org.gtkkn.native.soup.soup_hsts_enforcer_db_get_type
@@ -22,9 +23,8 @@ import kotlin.String
  *
  * - method `filename`: Property has no getter nor setter
  */
-public class HSTSEnforcerDB(
-    pointer: CPointer<SoupHSTSEnforcerDB>,
-) : HSTSEnforcer(pointer.reinterpret()),
+public class HSTSEnforcerDB(pointer: CPointer<SoupHSTSEnforcerDB>) :
+    HSTSEnforcer(pointer.reinterpret()),
     KGTyped {
     public val soupHSTSEnforcerDBPointer: CPointer<SoupHSTSEnforcerDB>
         get() = gPointer.reinterpret()
@@ -54,5 +54,12 @@ public class HSTSEnforcerDB(
         init {
             SoupTypeProvider.register()
         }
+
+        /**
+         * Get the GType of HSTSEnforcerDB
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_hsts_enforcer_db_get_type()
     }
 }

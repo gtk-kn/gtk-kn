@@ -1,14 +1,14 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupWebsocketConnectionType
+import org.gtkkn.native.soup.soup_websocket_connection_type_get_type
 
 /**
  * The type of a [class@WebsocketConnection].
  */
-public enum class WebsocketConnectionType(
-    public val nativeValue: SoupWebsocketConnectionType,
-) {
+public enum class WebsocketConnectionType(public val nativeValue: SoupWebsocketConnectionType) {
     /**
      * unknown/invalid connection
      */
@@ -33,5 +33,12 @@ public enum class WebsocketConnectionType(
                 SoupWebsocketConnectionType.SOUP_WEBSOCKET_CONNECTION_SERVER -> SERVER
                 else -> error("invalid nativeValue")
             }
+
+        /**
+         * Get the GType of WebsocketConnectionType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_websocket_connection_type_get_type()
     }
 }

@@ -15,7 +15,10 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -56,7 +59,6 @@ import org.gtkkn.native.gtk.gtk_scrolled_window_set_propagate_natural_width
 import org.gtkkn.native.gtk.gtk_scrolled_window_set_vadjustment
 import org.gtkkn.native.gtk.gtk_scrolled_window_unset_placement
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.ULong
 import kotlin.Unit
 
@@ -139,9 +141,8 @@ import kotlin.Unit
  * - method `vscrollbar-policy`: Property has no getter nor setter
  * - method `window-placement`: Property has no getter nor setter
  */
-public open class ScrolledWindow(
-    pointer: CPointer<GtkScrolledWindow>,
-) : Widget(pointer.reinterpret()),
+public open class ScrolledWindow(pointer: CPointer<GtkScrolledWindow>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkScrolledWindowPointer: CPointer<GtkScrolledWindow>
         get() = gPointer.reinterpret()
@@ -172,10 +173,9 @@ public open class ScrolledWindow(
          *
          * @return the child widget of @scrolled_window
          */
-        get() =
-            gtk_scrolled_window_get_child(gtkScrolledWindowPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = gtk_scrolled_window_get_child(gtkScrolledWindowPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the child widget of @scrolled_window.
@@ -188,11 +188,10 @@ public open class ScrolledWindow(
          */
         set(
             child
-        ) =
-            gtk_scrolled_window_set_child(
-                gtkScrolledWindowPointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        ) = gtk_scrolled_window_set_child(
+            gtkScrolledWindowPointer.reinterpret(),
+            child?.gtkWidgetPointer?.reinterpret()
+        )
 
     /**
      * Whether to draw a frame around the contents.
@@ -235,16 +234,15 @@ public open class ScrolledWindow(
          */
         set(
             kineticScrolling
-        ) =
-            gtk_scrolled_window_set_kinetic_scrolling(
-                gtkScrolledWindowPointer.reinterpret(),
-                kineticScrolling.asGBoolean()
-            )
+        ) = gtk_scrolled_window_set_kinetic_scrolling(
+            gtkScrolledWindowPointer.reinterpret(),
+            kineticScrolling.asGBoolean()
+        )
 
     /**
      * The maximum content height of @scrolled_window.
      */
-    public open var maxContentHeight: Int
+    public open var maxContentHeight: gint
         /**
          * Returns the maximum content height set.
          *
@@ -268,7 +266,7 @@ public open class ScrolledWindow(
     /**
      * The maximum content width of @scrolled_window.
      */
-    public open var maxContentWidth: Int
+    public open var maxContentWidth: gint
         /**
          * Returns the maximum content width set.
          *
@@ -292,7 +290,7 @@ public open class ScrolledWindow(
     /**
      * The minimum content height of @scrolled_window.
      */
-    public open var minContentHeight: Int
+    public open var minContentHeight: gint
         /**
          * Gets the minimal content height of @scrolled_window.
          *
@@ -316,7 +314,7 @@ public open class ScrolledWindow(
     /**
      * The minimum content width of @scrolled_window.
      */
-    public open var minContentWidth: Int
+    public open var minContentWidth: gint
         /**
          * Gets the minimum content width of @scrolled_window.
          *
@@ -362,11 +360,10 @@ public open class ScrolledWindow(
          */
         set(
             overlayScrolling
-        ) =
-            gtk_scrolled_window_set_overlay_scrolling(
-                gtkScrolledWindowPointer.reinterpret(),
-                overlayScrolling.asGBoolean()
-            )
+        ) = gtk_scrolled_window_set_overlay_scrolling(
+            gtkScrolledWindowPointer.reinterpret(),
+            overlayScrolling.asGBoolean()
+        )
 
     /**
      * Whether the natural height of the child should be calculated and propagated
@@ -392,11 +389,10 @@ public open class ScrolledWindow(
          */
         set(
             propagate
-        ) =
-            gtk_scrolled_window_set_propagate_natural_height(
-                gtkScrolledWindowPointer.reinterpret(),
-                propagate.asGBoolean()
-            )
+        ) = gtk_scrolled_window_set_propagate_natural_height(
+            gtkScrolledWindowPointer.reinterpret(),
+            propagate.asGBoolean()
+        )
 
     /**
      * Whether the natural width of the child should be calculated and propagated
@@ -422,11 +418,10 @@ public open class ScrolledWindow(
          */
         set(
             propagate
-        ) =
-            gtk_scrolled_window_set_propagate_natural_width(
-                gtkScrolledWindowPointer.reinterpret(),
-                propagate.asGBoolean()
-            )
+        ) = gtk_scrolled_window_set_propagate_natural_width(
+            gtkScrolledWindowPointer.reinterpret(),
+            propagate.asGBoolean()
+        )
 
     /**
      * Creates a new scrolled window.
@@ -434,20 +429,6 @@ public open class ScrolledWindow(
      * @return a new scrolled window
      */
     public constructor() : this(gtk_scrolled_window_new()!!.reinterpret())
-
-    /**
-     * Gets the child widget of @scrolled_window.
-     *
-     * If the scrolled window automatically added a [class@Gtk.Viewport], this
-     * function will return the viewport widget, and you can retrieve its child
-     * using [method@Gtk.Viewport.get_child].
-     *
-     * @return the child widget of @scrolled_window
-     */
-    public open fun getChild(): Widget? =
-        gtk_scrolled_window_get_child(gtkScrolledWindowPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
 
     /**
      * Returns the horizontal scrollbar’s adjustment.
@@ -463,14 +444,6 @@ public open class ScrolledWindow(
         }
 
     /**
-     * Gets whether the scrolled window draws a frame.
-     *
-     * @return true if the @scrolled_window has a frame
-     */
-    public open fun getHasFrame(): Boolean =
-        gtk_scrolled_window_get_has_frame(gtkScrolledWindowPointer.reinterpret()).asBoolean()
-
-    /**
      * Returns the horizontal scrollbar of @scrolled_window.
      *
      * @return the horizontal scrollbar of the scrolled window.
@@ -481,54 +454,6 @@ public open class ScrolledWindow(
         }
 
     /**
-     * Returns the specified kinetic scrolling behavior.
-     *
-     * @return the scrolling behavior flags.
-     */
-    public open fun getKineticScrolling(): Boolean =
-        gtk_scrolled_window_get_kinetic_scrolling(gtkScrolledWindowPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns the maximum content height set.
-     *
-     * @return the maximum content height, or -1
-     */
-    public open fun getMaxContentHeight(): Int =
-        gtk_scrolled_window_get_max_content_height(gtkScrolledWindowPointer.reinterpret())
-
-    /**
-     * Returns the maximum content width set.
-     *
-     * @return the maximum content width, or -1
-     */
-    public open fun getMaxContentWidth(): Int =
-        gtk_scrolled_window_get_max_content_width(gtkScrolledWindowPointer.reinterpret())
-
-    /**
-     * Gets the minimal content height of @scrolled_window.
-     *
-     * @return the minimal content height
-     */
-    public open fun getMinContentHeight(): Int =
-        gtk_scrolled_window_get_min_content_height(gtkScrolledWindowPointer.reinterpret())
-
-    /**
-     * Gets the minimum content width of @scrolled_window.
-     *
-     * @return the minimum content width
-     */
-    public open fun getMinContentWidth(): Int =
-        gtk_scrolled_window_get_min_content_width(gtkScrolledWindowPointer.reinterpret())
-
-    /**
-     * Returns whether overlay scrolling is enabled for this scrolled window.
-     *
-     * @return true if overlay scrolling is enabled
-     */
-    public open fun getOverlayScrolling(): Boolean =
-        gtk_scrolled_window_get_overlay_scrolling(gtkScrolledWindowPointer.reinterpret()).asBoolean()
-
-    /**
      * Gets the placement of the contents with respect to the scrollbars.
      *
      * @return the current placement value.
@@ -537,24 +462,6 @@ public open class ScrolledWindow(
         gtk_scrolled_window_get_placement(gtkScrolledWindowPointer.reinterpret()).run {
             CornerType.fromNativeValue(this)
         }
-
-    /**
-     * Reports whether the natural height of the child will be calculated
-     * and propagated through the scrolled window’s requested natural height.
-     *
-     * @return whether natural height propagation is enabled.
-     */
-    public open fun getPropagateNaturalHeight(): Boolean =
-        gtk_scrolled_window_get_propagate_natural_height(gtkScrolledWindowPointer.reinterpret()).asBoolean()
-
-    /**
-     * Reports whether the natural width of the child will be calculated
-     * and propagated through the scrolled window’s requested natural width.
-     *
-     * @return whether natural width propagation is enabled.
-     */
-    public open fun getPropagateNaturalWidth(): Boolean =
-        gtk_scrolled_window_get_propagate_natural_width(gtkScrolledWindowPointer.reinterpret()).asBoolean()
 
     /**
      * Returns the vertical scrollbar’s adjustment.
@@ -580,110 +487,14 @@ public open class ScrolledWindow(
         }
 
     /**
-     * Sets the child widget of @scrolled_window.
-     *
-     * If @child does not implement the [iface@Gtk.Scrollable] interface,
-     * the scrolled window will add @child to a [class@Gtk.Viewport] instance
-     * and then add the viewport as its child widget.
-     *
-     * @param child the child widget
-     */
-    public open fun setChild(child: Widget? = null): Unit =
-        gtk_scrolled_window_set_child(gtkScrolledWindowPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
-
-    /**
      * Sets the `GtkAdjustment` for the horizontal scrollbar.
      *
      * @param hadjustment the `GtkAdjustment` to use, or null to create a new one
      */
-    public open fun setHadjustment(hadjustment: Adjustment? = null): Unit =
-        gtk_scrolled_window_set_hadjustment(
-            gtkScrolledWindowPointer.reinterpret(),
-            hadjustment?.gtkAdjustmentPointer?.reinterpret()
-        )
-
-    /**
-     * Changes the frame drawn around the contents of @scrolled_window.
-     *
-     * @param hasFrame whether to draw a frame around scrolled window contents
-     */
-    public open fun setHasFrame(hasFrame: Boolean): Unit =
-        gtk_scrolled_window_set_has_frame(gtkScrolledWindowPointer.reinterpret(), hasFrame.asGBoolean())
-
-    /**
-     * Turns kinetic scrolling on or off.
-     *
-     * Kinetic scrolling only applies to devices with source
-     * %GDK_SOURCE_TOUCHSCREEN.
-     *
-     * @param kineticScrolling true to enable kinetic scrolling
-     */
-    public open fun setKineticScrolling(kineticScrolling: Boolean): Unit =
-        gtk_scrolled_window_set_kinetic_scrolling(gtkScrolledWindowPointer.reinterpret(), kineticScrolling.asGBoolean())
-
-    /**
-     * Sets the maximum height that @scrolled_window should keep visible.
-     *
-     * The @scrolled_window will grow up to this height before it starts
-     * scrolling the content.
-     *
-     * It is a programming error to set the maximum content height to a value
-     * smaller than [property@Gtk.ScrolledWindow:min-content-height].
-     *
-     * @param height the maximum content height
-     */
-    public open fun setMaxContentHeight(height: Int): Unit =
-        gtk_scrolled_window_set_max_content_height(gtkScrolledWindowPointer.reinterpret(), height)
-
-    /**
-     * Sets the maximum width that @scrolled_window should keep visible.
-     *
-     * The @scrolled_window will grow up to this width before it starts
-     * scrolling the content.
-     *
-     * It is a programming error to set the maximum content width to a
-     * value smaller than [property@Gtk.ScrolledWindow:min-content-width].
-     *
-     * @param width the maximum content width
-     */
-    public open fun setMaxContentWidth(width: Int): Unit =
-        gtk_scrolled_window_set_max_content_width(gtkScrolledWindowPointer.reinterpret(), width)
-
-    /**
-     * Sets the minimum height that @scrolled_window should keep visible.
-     *
-     * Note that this can and (usually will) be smaller than the minimum
-     * size of the content.
-     *
-     * It is a programming error to set the minimum content height to a
-     * value greater than [property@Gtk.ScrolledWindow:max-content-height].
-     *
-     * @param height the minimal content height
-     */
-    public open fun setMinContentHeight(height: Int): Unit =
-        gtk_scrolled_window_set_min_content_height(gtkScrolledWindowPointer.reinterpret(), height)
-
-    /**
-     * Sets the minimum width that @scrolled_window should keep visible.
-     *
-     * Note that this can and (usually will) be smaller than the minimum
-     * size of the content.
-     *
-     * It is a programming error to set the minimum content width to a
-     * value greater than [property@Gtk.ScrolledWindow:max-content-width].
-     *
-     * @param width the minimal content width
-     */
-    public open fun setMinContentWidth(width: Int): Unit =
-        gtk_scrolled_window_set_min_content_width(gtkScrolledWindowPointer.reinterpret(), width)
-
-    /**
-     * Enables or disables overlay scrolling for this scrolled window.
-     *
-     * @param overlayScrolling whether to enable overlay scrolling
-     */
-    public open fun setOverlayScrolling(overlayScrolling: Boolean): Unit =
-        gtk_scrolled_window_set_overlay_scrolling(gtkScrolledWindowPointer.reinterpret(), overlayScrolling.asGBoolean())
+    public open fun setHadjustment(hadjustment: Adjustment? = null): Unit = gtk_scrolled_window_set_hadjustment(
+        gtkScrolledWindowPointer.reinterpret(),
+        hadjustment?.gtkAdjustmentPointer?.reinterpret()
+    )
 
     /**
      * Sets the placement of the contents with respect to the scrollbars
@@ -715,10 +526,7 @@ public open class ScrolledWindow(
      * @param hscrollbarPolicy policy for horizontal bar
      * @param vscrollbarPolicy policy for vertical bar
      */
-    public open fun setPolicy(
-        hscrollbarPolicy: PolicyType,
-        vscrollbarPolicy: PolicyType,
-    ): Unit =
+    public open fun setPolicy(hscrollbarPolicy: PolicyType, vscrollbarPolicy: PolicyType): Unit =
         gtk_scrolled_window_set_policy(
             gtkScrolledWindowPointer.reinterpret(),
             hscrollbarPolicy.nativeValue,
@@ -726,33 +534,14 @@ public open class ScrolledWindow(
         )
 
     /**
-     * Sets whether the natural height of the child should be calculated
-     * and propagated through the scrolled window’s requested natural height.
-     *
-     * @param propagate whether to propagate natural height
-     */
-    public open fun setPropagateNaturalHeight(propagate: Boolean): Unit =
-        gtk_scrolled_window_set_propagate_natural_height(gtkScrolledWindowPointer.reinterpret(), propagate.asGBoolean())
-
-    /**
-     * Sets whether the natural width of the child should be calculated
-     * and propagated through the scrolled window’s requested natural width.
-     *
-     * @param propagate whether to propagate natural width
-     */
-    public open fun setPropagateNaturalWidth(propagate: Boolean): Unit =
-        gtk_scrolled_window_set_propagate_natural_width(gtkScrolledWindowPointer.reinterpret(), propagate.asGBoolean())
-
-    /**
      * Sets the `GtkAdjustment` for the vertical scrollbar.
      *
      * @param vadjustment the `GtkAdjustment` to use, or null to create a new one
      */
-    public open fun setVadjustment(vadjustment: Adjustment? = null): Unit =
-        gtk_scrolled_window_set_vadjustment(
-            gtkScrolledWindowPointer.reinterpret(),
-            vadjustment?.gtkAdjustmentPointer?.reinterpret()
-        )
+    public open fun setVadjustment(vadjustment: Adjustment? = null): Unit = gtk_scrolled_window_set_vadjustment(
+        gtkScrolledWindowPointer.reinterpret(),
+        vadjustment?.gtkAdjustmentPointer?.reinterpret()
+    )
 
     /**
      * Unsets the placement of the contents with respect to the scrollbars.
@@ -779,15 +568,14 @@ public open class ScrolledWindow(
     public fun connectEdgeOvershot(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (pos: PositionType) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "edge-overshot",
-            connectEdgeOvershotFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "edge-overshot",
+        connectEdgeOvershotFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted whenever user-initiated scrolling makes the scrolled
@@ -806,15 +594,14 @@ public open class ScrolledWindow(
     public fun connectEdgeReached(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (pos: PositionType) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "edge-reached",
-            connectEdgeReachedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "edge-reached",
+        connectEdgeReachedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted when focus is moved away from the scrolled window by a
@@ -833,15 +620,14 @@ public open class ScrolledWindow(
     public fun connectMoveFocusOut(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (directionType: DirectionType) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "move-focus-out",
-            connectMoveFocusOutFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "move-focus-out",
+        connectMoveFocusOutFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted when a keybinding that scrolls is pressed.
@@ -858,15 +644,14 @@ public open class ScrolledWindow(
     public fun connectScrollChild(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (scroll: ScrollType, horizontal: Boolean) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "scroll-child",
-            connectScrollChildFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "scroll-child",
+        connectScrollChildFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<ScrolledWindow> {
         override val type: GeneratedClassKGType<ScrolledWindow> =
@@ -875,6 +660,13 @@ public open class ScrolledWindow(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ScrolledWindow
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_scrolled_window_get_type()
     }
 }
 
@@ -889,7 +681,8 @@ private val connectEdgeOvershotFunc: CPointer<CFunction<(GtkPositionType) -> Uni
                 PositionType.fromNativeValue(this)
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 private val connectEdgeReachedFunc: CPointer<CFunction<(GtkPositionType) -> Unit>> =
     staticCFunction {
@@ -902,7 +695,8 @@ private val connectEdgeReachedFunc: CPointer<CFunction<(GtkPositionType) -> Unit
                 PositionType.fromNativeValue(this)
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 private val connectMoveFocusOutFunc: CPointer<CFunction<(GtkDirectionType) -> Unit>> =
     staticCFunction {
@@ -915,22 +709,21 @@ private val connectMoveFocusOutFunc: CPointer<CFunction<(GtkDirectionType) -> Un
                 DirectionType.fromNativeValue(this)
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
-private val connectScrollChildFunc: CPointer<CFunction<(GtkScrollType, Int) -> Int>> =
+private val connectScrollChildFunc: CPointer<CFunction<(GtkScrollType, gboolean) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
             scroll: GtkScrollType,
-            horizontal: Int,
+            horizontal: gboolean,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(scroll: ScrollType, horizontal: Boolean) -> Boolean>()
-            .get()
-            .invoke(
-                scroll.run {
-                    ScrollType.fromNativeValue(this)
-                },
-                horizontal.asBoolean()
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(scroll: ScrollType, horizontal: Boolean) -> Boolean>().get().invoke(
+            scroll.run {
+                ScrollType.fromNativeValue(this)
+            },
+            horizontal.asBoolean()
+        ).asGBoolean()
+    }
+        .reinterpret()

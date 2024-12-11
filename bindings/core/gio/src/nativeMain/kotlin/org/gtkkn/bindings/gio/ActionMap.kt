@@ -13,6 +13,7 @@ import org.gtkkn.native.gio.g_action_map_add_action
 import org.gtkkn.native.gio.g_action_map_get_type
 import org.gtkkn.native.gio.g_action_map_lookup_action
 import org.gtkkn.native.gio.g_action_map_remove_action
+import org.gtkkn.native.gobject.GType
 import kotlin.String
 import kotlin.Unit
 
@@ -84,9 +85,7 @@ public interface ActionMap :
     public fun removeAction(actionName: String): Unit =
         g_action_map_remove_action(gioActionMapPointer.reinterpret(), actionName)
 
-    private data class Wrapper(
-        private val pointer: CPointer<GActionMap>,
-    ) : ActionMap {
+    private data class Wrapper(private val pointer: CPointer<GActionMap>) : ActionMap {
         override val gioActionMapPointer: CPointer<GActionMap> = pointer
     }
 
@@ -99,5 +98,12 @@ public interface ActionMap :
         }
 
         public fun wrap(pointer: CPointer<GActionMap>): ActionMap = Wrapper(pointer)
+
+        /**
+         * Get the GType of ActionMap
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_action_map_get_type()
     }
 }

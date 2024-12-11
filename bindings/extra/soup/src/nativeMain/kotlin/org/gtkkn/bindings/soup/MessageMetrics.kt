@@ -1,11 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.soup.SoupMessageMetrics
 import org.gtkkn.native.soup.soup_message_metrics_copy
 import org.gtkkn.native.soup.soup_message_metrics_free
@@ -24,7 +24,7 @@ import org.gtkkn.native.soup.soup_message_metrics_get_response_end
 import org.gtkkn.native.soup.soup_message_metrics_get_response_header_bytes_received
 import org.gtkkn.native.soup.soup_message_metrics_get_response_start
 import org.gtkkn.native.soup.soup_message_metrics_get_tls_start
-import kotlin.ULong
+import org.gtkkn.native.soup.soup_message_metrics_get_type
 import kotlin.Unit
 
 /**
@@ -43,9 +43,7 @@ import kotlin.Unit
  * being loaded. You can connect to different [class@Message] signals to get the
  * final result of every value.
  */
-public class MessageMetrics(
-    pointer: CPointer<SoupMessageMetrics>,
-) : Record {
+public class MessageMetrics(pointer: CPointer<SoupMessageMetrics>) : ProxyInstance(pointer) {
     public val soupMessageMetricsPointer: CPointer<SoupMessageMetrics> = pointer
 
     /**
@@ -53,10 +51,9 @@ public class MessageMetrics(
      *
      * @return a copy of @metrics
      */
-    public fun copy(): MessageMetrics =
-        soup_message_metrics_copy(soupMessageMetricsPointer.reinterpret())!!.run {
-            MessageMetrics(reinterpret())
-        }
+    public fun copy(): MessageMetrics = soup_message_metrics_copy(soupMessageMetricsPointer.reinterpret())!!.run {
+        MessageMetrics(reinterpret())
+    }
 
     /**
      * Frees @metrics.
@@ -74,7 +71,7 @@ public class MessageMetrics(
      *
      * @return the connection end time
      */
-    public fun getConnectEnd(): ULong = soup_message_metrics_get_connect_end(soupMessageMetricsPointer.reinterpret())
+    public fun getConnectEnd(): guint64 = soup_message_metrics_get_connect_end(soupMessageMetricsPointer.reinterpret())
 
     /**
      * Get the time immediately before the [class@Message] started to
@@ -86,7 +83,7 @@ public class MessageMetrics(
      *
      * @return the connection start time
      */
-    public fun getConnectStart(): ULong =
+    public fun getConnectStart(): guint64 =
         soup_message_metrics_get_connect_start(soupMessageMetricsPointer.reinterpret())
 
     /**
@@ -99,7 +96,7 @@ public class MessageMetrics(
      *
      * @return the domain lookup end time
      */
-    public fun getDnsEnd(): ULong = soup_message_metrics_get_dns_end(soupMessageMetricsPointer.reinterpret())
+    public fun getDnsEnd(): guint64 = soup_message_metrics_get_dns_end(soupMessageMetricsPointer.reinterpret())
 
     /**
      * Get the time immediately before the [class@Message] started the
@@ -111,7 +108,7 @@ public class MessageMetrics(
      *
      * @return the domain lookup start time
      */
-    public fun getDnsStart(): ULong = soup_message_metrics_get_dns_start(soupMessageMetricsPointer.reinterpret())
+    public fun getDnsStart(): guint64 = soup_message_metrics_get_dns_start(soupMessageMetricsPointer.reinterpret())
 
     /**
      * Get the time immediately before the [class@Message] started to
@@ -119,7 +116,7 @@ public class MessageMetrics(
      *
      * @return the fetch start time
      */
-    public fun getFetchStart(): ULong = soup_message_metrics_get_fetch_start(soupMessageMetricsPointer.reinterpret())
+    public fun getFetchStart(): guint64 = soup_message_metrics_get_fetch_start(soupMessageMetricsPointer.reinterpret())
 
     /**
      * Get the number of bytes sent to the network for the request body.
@@ -132,7 +129,7 @@ public class MessageMetrics(
      *
      * @return the request body bytes sent
      */
-    public fun getRequestBodyBytesSent(): ULong =
+    public fun getRequestBodyBytesSent(): guint64 =
         soup_message_metrics_get_request_body_bytes_sent(soupMessageMetricsPointer.reinterpret())
 
     /**
@@ -144,7 +141,7 @@ public class MessageMetrics(
      *
      * @return the request body size
      */
-    public fun getRequestBodySize(): ULong =
+    public fun getRequestBodySize(): guint64 =
         soup_message_metrics_get_request_body_size(soupMessageMetricsPointer.reinterpret())
 
     /**
@@ -155,7 +152,7 @@ public class MessageMetrics(
      *
      * @return the request headers bytes sent
      */
-    public fun getRequestHeaderBytesSent(): ULong =
+    public fun getRequestHeaderBytesSent(): guint64 =
         soup_message_metrics_get_request_header_bytes_sent(soupMessageMetricsPointer.reinterpret())
 
     /**
@@ -164,7 +161,7 @@ public class MessageMetrics(
      *
      * @return the request start time
      */
-    public fun getRequestStart(): ULong =
+    public fun getRequestStart(): guint64 =
         soup_message_metrics_get_request_start(soupMessageMetricsPointer.reinterpret())
 
     /**
@@ -176,7 +173,7 @@ public class MessageMetrics(
      *
      * @return the response body bytes received
      */
-    public fun getResponseBodyBytesReceived(): ULong =
+    public fun getResponseBodyBytesReceived(): guint64 =
         soup_message_metrics_get_response_body_bytes_received(soupMessageMetricsPointer.reinterpret())
 
     /**
@@ -190,7 +187,7 @@ public class MessageMetrics(
      *
      * @return the response body size
      */
-    public fun getResponseBodySize(): ULong =
+    public fun getResponseBodySize(): guint64 =
         soup_message_metrics_get_response_body_size(soupMessageMetricsPointer.reinterpret())
 
     /**
@@ -202,7 +199,8 @@ public class MessageMetrics(
      *
      * @return the response end time
      */
-    public fun getResponseEnd(): ULong = soup_message_metrics_get_response_end(soupMessageMetricsPointer.reinterpret())
+    public fun getResponseEnd(): guint64 =
+        soup_message_metrics_get_response_end(soupMessageMetricsPointer.reinterpret())
 
     /**
      * Get the number of bytes received from the network for the response headers.
@@ -213,7 +211,7 @@ public class MessageMetrics(
      *
      * @return the response headers bytes received
      */
-    public fun getResponseHeaderBytesReceived(): ULong =
+    public fun getResponseHeaderBytesReceived(): guint64 =
         soup_message_metrics_get_response_header_bytes_received(soupMessageMetricsPointer.reinterpret())
 
     /**
@@ -222,7 +220,7 @@ public class MessageMetrics(
      *
      * @return the response start time
      */
-    public fun getResponseStart(): ULong =
+    public fun getResponseStart(): guint64 =
         soup_message_metrics_get_response_start(soupMessageMetricsPointer.reinterpret())
 
     /**
@@ -235,10 +233,14 @@ public class MessageMetrics(
      *
      * @return the tls start time
      */
-    public fun getTlsStart(): ULong = soup_message_metrics_get_tls_start(soupMessageMetricsPointer.reinterpret())
+    public fun getTlsStart(): guint64 = soup_message_metrics_get_tls_start(soupMessageMetricsPointer.reinterpret())
 
-    public companion object : RecordCompanion<MessageMetrics, SoupMessageMetrics> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MessageMetrics =
-            MessageMetrics(pointer.reinterpret())
+    public companion object {
+        /**
+         * Get the GType of MessageMetrics
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_message_metrics_get_type()
     }
 }

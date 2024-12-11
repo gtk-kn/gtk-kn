@@ -75,7 +75,24 @@ interface EnumGenerator : MiscGenerator, KDocGenerator {
         return enumSpec.build()
     }
 
-    private fun buildEnumCompanion(enum: EnumBlueprint): TypeSpec {
+    private fun buildEnumCompanion(enum: EnumBlueprint): TypeSpec =
+        TypeSpec.companionObjectBuilder().apply {
+            // from native function
+            addFunction(buildFromNativeFunc(enum).build())
+
+            // other functions
+            enum.functionBlueprints.forEach { addFunction(buildFunction(it)) }
+
+            // fromError function
+            enum.errorDomain?.let { errorDomain ->
+                if (enum.functionBlueprints.none { it.kotlinName == "quark" }) {
+                    addFunction(buildErrorDomainQuarkFunction(errorDomain))
+                }
+                addFunction(buildFromErrorFunction(enum))
+            }
+        }.build()
+
+    fun buildFromNativeFunc(enum: EnumBlueprint): FunSpec.Builder {
         val fromNativeFunc = FunSpec.builder("fromNativeValue")
             .addParameter("nativeValue", enum.nativeValueTypeName)
             .returns(enum.kotlinTypeName)
@@ -102,22 +119,7 @@ interface EnumGenerator : MiscGenerator, KDocGenerator {
         fromNativeFunc.addStatement("""else -> error("invalid nativeValue")""")
 
         fromNativeFunc.endControlFlow() // end when
-
-        return TypeSpec.companionObjectBuilder().apply {
-            // from native function
-            addFunction(fromNativeFunc.build())
-
-            // other functions
-            enum.functionBlueprints.forEach { addFunction(buildFunction(it)) }
-
-            // fromError function
-            enum.errorDomain?.let { errorDomain ->
-                if (enum.functionBlueprints.none { it.kotlinName == "quark" }) {
-                    addFunction(buildErrorDomainQuarkFunction(errorDomain))
-                }
-                addFunction(buildFromErrorFunction(enum))
-            }
-        }.build()
+        return fromNativeFunc
     }
 
     private fun buildErrorDomainQuarkFunction(errorDomain: String) =

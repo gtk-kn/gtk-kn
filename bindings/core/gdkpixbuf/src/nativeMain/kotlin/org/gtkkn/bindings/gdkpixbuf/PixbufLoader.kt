@@ -13,7 +13,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.`value`
-import org.gtkkn.bindings.gdkpixbuf.Gdkpixbuf.resolveException
+import org.gtkkn.bindings.gdkpixbuf.GdkPixbuf.resolveException
 import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_2
 import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_30
 import org.gtkkn.bindings.glib.Bytes
@@ -21,7 +21,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -38,9 +38,10 @@ import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_loader_new_with_type
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_loader_set_size
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_loader_write_bytes
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.Throws
@@ -98,9 +99,8 @@ import kotlin.Unit
  *
  * - parameter `buf`: Array parameter of type guint8 is not supported
  */
-public open class PixbufLoader(
-    pointer: CPointer<GdkPixbufLoader>,
-) : Object(pointer.reinterpret()),
+public open class PixbufLoader(pointer: CPointer<GdkPixbufLoader>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gdkpixbufPixbufLoaderPointer: CPointer<GdkPixbufLoader>
         get() = gPointer.reinterpret()
@@ -131,7 +131,7 @@ public open class PixbufLoader(
      * @param imageType name of the image format to be loaded with the image
      * @return A newly-created pixbuf loader.
      */
-    @Throws(GlibException::class)
+    @Throws(GLibException::class)
     public constructor(imageType: String) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -163,16 +163,15 @@ public open class PixbufLoader(
      * @return `TRUE` if all image data written so far was successfully
      *   passed out via the update_area signal
      */
-    public open fun close(): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = gdk_pixbuf_loader_close(gdkpixbufPixbufLoaderPointer.reinterpret(), gError.ptr).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun close(): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gdk_pixbuf_loader_close(gdkpixbufPixbufLoaderPointer.reinterpret(), gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Queries the #GdkPixbufAnimation that a pixbuf loader is currently creating.
@@ -245,10 +244,8 @@ public open class PixbufLoader(
      * @since 2.2
      */
     @GdkPixbufVersion2_2
-    public open fun setSize(
-        width: Int,
-        height: Int,
-    ): Unit = gdk_pixbuf_loader_set_size(gdkpixbufPixbufLoaderPointer.reinterpret(), width, height)
+    public open fun setSize(width: gint, height: gint): Unit =
+        gdk_pixbuf_loader_set_size(gdkpixbufPixbufLoaderPointer.reinterpret(), width, height)
 
     /**
      * Parses the next contents of the given image buffer.
@@ -259,21 +256,19 @@ public open class PixbufLoader(
      * @since 2.30
      */
     @GdkPixbufVersion2_30
-    public open fun writeBytes(buffer: Bytes): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gdk_pixbuf_loader_write_bytes(
-                    gdkpixbufPixbufLoaderPointer.reinterpret(),
-                    buffer.glibBytesPointer.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun writeBytes(buffer: Bytes): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gdk_pixbuf_loader_write_bytes(
+            gdkpixbufPixbufLoaderPointer.reinterpret(),
+            buffer.glibBytesPointer.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * This signal is emitted when the pixbuf loader has allocated the
@@ -286,10 +281,7 @@ public open class PixbufLoader(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectAreaPrepared(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectAreaPrepared(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "area-prepared",
@@ -315,20 +307,19 @@ public open class PixbufLoader(
     public fun connectAreaUpdated(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (
-            x: Int,
-            y: Int,
-            width: Int,
-            height: Int,
+            x: gint,
+            y: gint,
+            width: gint,
+            height: gint,
         ) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "area-updated",
-            connectAreaUpdatedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "area-updated",
+        connectAreaUpdatedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * This signal is emitted when gdk_pixbuf_loader_close() is called.
@@ -340,10 +331,7 @@ public open class PixbufLoader(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectClosed(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "closed",
@@ -367,16 +355,15 @@ public open class PixbufLoader(
      */
     public fun connectSizePrepared(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (width: Int, height: Int) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "size-prepared",
-            connectSizePreparedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+        handler: (width: gint, height: gint) -> Unit,
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "size-prepared",
+        connectSizePreparedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<PixbufLoader> {
         override val type: GeneratedClassKGType<PixbufLoader> =
@@ -405,17 +392,16 @@ public open class PixbufLoader(
          * @param imageType name of the image format to be loaded with the image
          * @return A newly-created pixbuf loader.
          */
-        public fun newWithType(imageType: String): Result<PixbufLoader> =
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                gError.`value` = null
-                val gResult = gdk_pixbuf_loader_new_with_type(imageType, gError.ptr)
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(PixbufLoader(checkNotNull(gResult).reinterpret()))
-                }
+        public fun newWithType(imageType: String): Result<PixbufLoader> = memScoped {
+            val gError = allocPointerTo<GError>()
+            gError.`value` = null
+            val gResult = gdk_pixbuf_loader_new_with_type(imageType, gError.ptr)
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(PixbufLoader(checkNotNull(gResult).reinterpret()))
             }
+        }
 
         /**
          * Creates a new pixbuf loader object that always attempts to parse
@@ -438,73 +424,76 @@ public open class PixbufLoader(
          * @return A newly-created pixbuf loader.
          * @since 2.4
          */
-        public fun newWithMimeType(mimeType: String): Result<PixbufLoader> =
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                gError.`value` = null
-                val gResult = gdk_pixbuf_loader_new_with_mime_type(mimeType, gError.ptr)
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(PixbufLoader(checkNotNull(gResult).reinterpret()))
-                }
+        public fun newWithMimeType(mimeType: String): Result<PixbufLoader> = memScoped {
+            val gError = allocPointerTo<GError>()
+            gError.`value` = null
+            val gResult = gdk_pixbuf_loader_new_with_mime_type(mimeType, gError.ptr)
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(PixbufLoader(checkNotNull(gResult).reinterpret()))
             }
+        }
+
+        /**
+         * Get the GType of PixbufLoader
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_pixbuf_loader_get_type()
     }
 }
 
-private val connectAreaPreparedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectAreaPreparedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
 private val connectAreaUpdatedFunc: CPointer<
     CFunction<
         (
-            Int,
-            Int,
-            Int,
-            Int,
+            gint,
+            gint,
+            gint,
+            gint,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            _: COpaquePointer,
-            x: Int,
-            y: Int,
-            width: Int,
-            height: Int,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    x: Int,
-                    y: Int,
-                    width: Int,
-                    height: Int,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(x, y, width, height)
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        _: COpaquePointer,
+        x: gint,
+        y: gint,
+        width: gint,
+        height: gint,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            x: gint,
+            y: gint,
+            width: gint,
+            height: gint,
+        ) -> Unit
+        >().get().invoke(x, y, width, height)
+}
+    .reinterpret()
 
-private val connectClosedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectClosedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectSizePreparedFunc: CPointer<CFunction<(Int, Int) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            width: Int,
-            height: Int,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(width: Int, height: Int) -> Unit>().get().invoke(width, height)
-    }.reinterpret()
+private val connectSizePreparedFunc: CPointer<CFunction<(gint, gint) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        width: gint,
+        height: gint,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(width: gint, height: gint) -> Unit>().get().invoke(width, height)
+}
+    .reinterpret()

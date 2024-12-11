@@ -7,12 +7,13 @@ import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gsk.GskLinearGradientNode
 import org.gtkkn.native.gsk.gsk_linear_gradient_node_get_end
 import org.gtkkn.native.gsk.gsk_linear_gradient_node_get_n_color_stops
 import org.gtkkn.native.gsk.gsk_linear_gradient_node_get_start
 import org.gtkkn.native.gsk.gsk_linear_gradient_node_get_type
-import kotlin.ULong
 
 /**
  * A render node for a linear gradient.
@@ -22,9 +23,8 @@ import kotlin.ULong
  * - parameter `n_stops`: n_stops: Out parameter is not supported
  * - parameter `color_stops`: ColorStop
  */
-public open class LinearGradientNode(
-    pointer: CPointer<GskLinearGradientNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class LinearGradientNode(pointer: CPointer<GskLinearGradientNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskLinearGradientNodePointer: CPointer<GskLinearGradientNode>
         get() = gPointer.reinterpret()
@@ -44,7 +44,7 @@ public open class LinearGradientNode(
      *
      * @return the number of color stops
      */
-    public open fun getNColorStops(): ULong =
+    public open fun getNColorStops(): gsize =
         gsk_linear_gradient_node_get_n_color_stops(gskLinearGradientNodePointer.reinterpret())
 
     /**
@@ -64,5 +64,12 @@ public open class LinearGradientNode(
         init {
             GskTypeProvider.register()
         }
+
+        /**
+         * Get the GType of LinearGradientNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_linear_gradient_node_get_type()
     }
 }

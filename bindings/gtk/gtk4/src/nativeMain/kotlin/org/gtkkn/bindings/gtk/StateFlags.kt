@@ -2,6 +2,7 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.extensions.glib.Bitfield
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GTK_STATE_FLAG_ACTIVE
 import org.gtkkn.native.gtk.GTK_STATE_FLAG_BACKDROP
 import org.gtkkn.native.gtk.GTK_STATE_FLAG_CHECKED
@@ -19,6 +20,7 @@ import org.gtkkn.native.gtk.GTK_STATE_FLAG_PRELIGHT
 import org.gtkkn.native.gtk.GTK_STATE_FLAG_SELECTED
 import org.gtkkn.native.gtk.GTK_STATE_FLAG_VISITED
 import org.gtkkn.native.gtk.GtkStateFlags
+import org.gtkkn.native.gtk.gtk_state_flags_get_type
 
 /**
  * Describes a widget state.
@@ -27,9 +29,7 @@ import org.gtkkn.native.gtk.GtkStateFlags
  * Note that GTK extends the regular CSS classes and sometimes uses
  * different names.
  */
-public class StateFlags(
-    public val mask: GtkStateFlags,
-) : Bitfield<StateFlags> {
+public class StateFlags(public val mask: GtkStateFlags) : Bitfield<StateFlags> {
     override infix fun or(other: StateFlags): StateFlags = StateFlags(mask or other.mask)
 
     public companion object {
@@ -112,5 +112,12 @@ public class StateFlags(
          * Widget contains the keyboard focus
          */
         public val FOCUS_WITHIN: StateFlags = StateFlags(GTK_STATE_FLAG_FOCUS_WITHIN)
+
+        /**
+         * Get the GType of StateFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_state_flags_get_type()
     }
 }

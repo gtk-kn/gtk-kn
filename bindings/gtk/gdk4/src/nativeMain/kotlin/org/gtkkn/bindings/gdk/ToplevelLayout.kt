@@ -1,24 +1,24 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkToplevelLayout
 import org.gtkkn.native.gdk.gdk_toplevel_layout_copy
 import org.gtkkn.native.gdk.gdk_toplevel_layout_equal
 import org.gtkkn.native.gdk.gdk_toplevel_layout_get_fullscreen_monitor
 import org.gtkkn.native.gdk.gdk_toplevel_layout_get_resizable
+import org.gtkkn.native.gdk.gdk_toplevel_layout_get_type
 import org.gtkkn.native.gdk.gdk_toplevel_layout_new
 import org.gtkkn.native.gdk.gdk_toplevel_layout_ref
 import org.gtkkn.native.gdk.gdk_toplevel_layout_set_fullscreen
 import org.gtkkn.native.gdk.gdk_toplevel_layout_set_maximized
 import org.gtkkn.native.gdk.gdk_toplevel_layout_set_resizable
 import org.gtkkn.native.gdk.gdk_toplevel_layout_unref
+import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 import kotlin.Unit
 
@@ -38,9 +38,7 @@ import kotlin.Unit
  * - parameter `fullscreen`: fullscreen: Out parameter is not supported
  * - parameter `maximized`: maximized: Out parameter is not supported
  */
-public class ToplevelLayout(
-    pointer: CPointer<GdkToplevelLayout>,
-) : Record {
+public class ToplevelLayout(pointer: CPointer<GdkToplevelLayout>) : ProxyInstance(pointer) {
     public val gdkToplevelLayoutPointer: CPointer<GdkToplevelLayout> = pointer
 
     /**
@@ -48,10 +46,9 @@ public class ToplevelLayout(
      *
      * @return a copy of @layout.
      */
-    public fun copy(): ToplevelLayout =
-        gdk_toplevel_layout_copy(gdkToplevelLayoutPointer.reinterpret())!!.run {
-            ToplevelLayout(reinterpret())
-        }
+    public fun copy(): ToplevelLayout = gdk_toplevel_layout_copy(gdkToplevelLayoutPointer.reinterpret())!!.run {
+        ToplevelLayout(reinterpret())
+    }
 
     /**
      * Check whether @layout and @other has identical layout properties.
@@ -60,11 +57,10 @@ public class ToplevelLayout(
      * @return true if @layout and @other have identical layout properties,
      *   otherwise false.
      */
-    public fun equal(other: ToplevelLayout): Boolean =
-        gdk_toplevel_layout_equal(
-            gdkToplevelLayoutPointer.reinterpret(),
-            other.gdkToplevelLayoutPointer.reinterpret()
-        ).asBoolean()
+    public fun equal(other: ToplevelLayout): Boolean = gdk_toplevel_layout_equal(
+        gdkToplevelLayoutPointer.reinterpret(),
+        other.gdkToplevelLayoutPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Returns the monitor that the layout is fullscreening
@@ -91,10 +87,9 @@ public class ToplevelLayout(
      *
      * @return the same @layout
      */
-    public fun ref(): ToplevelLayout =
-        gdk_toplevel_layout_ref(gdkToplevelLayoutPointer.reinterpret())!!.run {
-            ToplevelLayout(reinterpret())
-        }
+    public fun ref(): ToplevelLayout = gdk_toplevel_layout_ref(gdkToplevelLayoutPointer.reinterpret())!!.run {
+        ToplevelLayout(reinterpret())
+    }
 
     /**
      * Sets whether the layout should cause the surface
@@ -103,15 +98,11 @@ public class ToplevelLayout(
      * @param fullscreen true to fullscreen the surface
      * @param monitor the monitor to fullscreen on
      */
-    public fun setFullscreen(
-        fullscreen: Boolean,
-        monitor: Monitor? = null,
-    ): Unit =
-        gdk_toplevel_layout_set_fullscreen(
-            gdkToplevelLayoutPointer.reinterpret(),
-            fullscreen.asGBoolean(),
-            monitor?.gdkMonitorPointer?.reinterpret()
-        )
+    public fun setFullscreen(fullscreen: Boolean, monitor: Monitor? = null): Unit = gdk_toplevel_layout_set_fullscreen(
+        gdkToplevelLayoutPointer.reinterpret(),
+        fullscreen.asGBoolean(),
+        monitor?.gdkMonitorPointer?.reinterpret()
+    )
 
     /**
      * Sets whether the layout should cause the surface
@@ -136,7 +127,7 @@ public class ToplevelLayout(
      */
     public fun unref(): Unit = gdk_toplevel_layout_unref(gdkToplevelLayoutPointer.reinterpret())
 
-    public companion object : RecordCompanion<ToplevelLayout, GdkToplevelLayout> {
+    public companion object {
         /**
          * Create a toplevel layout description.
          *
@@ -150,7 +141,11 @@ public class ToplevelLayout(
          */
         public fun new(): ToplevelLayout = ToplevelLayout(gdk_toplevel_layout_new()!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ToplevelLayout =
-            ToplevelLayout(pointer.reinterpret())
+        /**
+         * Get the GType of ToplevelLayout
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_toplevel_layout_get_type()
     }
 }

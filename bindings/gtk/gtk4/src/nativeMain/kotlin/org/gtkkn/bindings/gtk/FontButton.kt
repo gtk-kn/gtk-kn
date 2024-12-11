@@ -17,6 +17,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -58,9 +59,8 @@ import kotlin.Unit
  * `GtkFontButton` has a single CSS node with name fontbutton which
  * contains a button node with the .font style class.
  */
-public open class FontButton(
-    pointer: CPointer<GtkFontButton>,
-) : Widget(pointer.reinterpret()),
+public open class FontButton(pointer: CPointer<GtkFontButton>) :
+    Widget(pointer.reinterpret()),
     FontChooser,
     KGTyped {
     public val gtkFontButtonPointer: CPointer<GtkFontButton>
@@ -106,9 +106,8 @@ public open class FontButton(
          * @return an internal copy of the title string
          *   which must not be freed.
          */
-        get() =
-            gtk_font_button_get_title(gtkFontButtonPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_font_button_get_title(gtkFontButtonPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Sets the title for the font chooser dialog.
@@ -172,70 +171,6 @@ public open class FontButton(
     public constructor(fontname: String) : this(gtk_font_button_new_with_font(fontname)!!.reinterpret())
 
     /**
-     * Gets whether the dialog is modal.
-     *
-     * @return true if the dialog is modal
-     */
-    public open fun getModal(): Boolean = gtk_font_button_get_modal(gtkFontButtonPointer.reinterpret()).asBoolean()
-
-    /**
-     * Retrieves the title of the font chooser dialog.
-     *
-     * @return an internal copy of the title string
-     *   which must not be freed.
-     */
-    public open fun getTitle(): String =
-        gtk_font_button_get_title(gtkFontButtonPointer.reinterpret())?.toKString() ?: error("Expected not null string")
-
-    /**
-     * Returns whether the selected font is used in the label.
-     *
-     * @return whether the selected font is used in the label.
-     */
-    public open fun getUseFont(): Boolean = gtk_font_button_get_use_font(gtkFontButtonPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns whether the selected size is used in the label.
-     *
-     * @return whether the selected size is used in the label.
-     */
-    public open fun getUseSize(): Boolean = gtk_font_button_get_use_size(gtkFontButtonPointer.reinterpret()).asBoolean()
-
-    /**
-     * Sets whether the dialog should be modal.
-     *
-     * @param modal true to make the dialog modal
-     */
-    public open fun setModal(modal: Boolean): Unit =
-        gtk_font_button_set_modal(gtkFontButtonPointer.reinterpret(), modal.asGBoolean())
-
-    /**
-     * Sets the title for the font chooser dialog.
-     *
-     * @param title a string containing the font chooser dialog title
-     */
-    public open fun setTitle(title: String): Unit = gtk_font_button_set_title(gtkFontButtonPointer.reinterpret(), title)
-
-    /**
-     * If @use_font is true, the font name will be written
-     * using the selected font.
-     *
-     * @param useFont If true, font name will be written using font chosen.
-     */
-    public open fun setUseFont(useFont: Boolean): Unit =
-        gtk_font_button_set_use_font(gtkFontButtonPointer.reinterpret(), useFont.asGBoolean())
-
-    /**
-     * If @use_size is true, the font name will be written using
-     * the selected size.
-     *
-     * @param useSize If true, font name will be written using the
-     *   selected size.
-     */
-    public open fun setUseSize(useSize: Boolean): Unit =
-        gtk_font_button_set_use_size(gtkFontButtonPointer.reinterpret(), useSize.asGBoolean())
-
-    /**
      * Emitted to when the font button is activated.
      *
      * The `::activate` signal on `GtkFontButton` is an action signal and
@@ -246,10 +181,7 @@ public open class FontButton(
      * @since 4.4
      */
     @GtkVersion4_4
-    public fun connectActivate(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "activate",
@@ -272,10 +204,7 @@ public open class FontButton(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectFontSet(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectFontSet(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "font-set",
@@ -292,21 +221,28 @@ public open class FontButton(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of FontButton
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_font_button_get_type()
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectFontSetFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectFontSetFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

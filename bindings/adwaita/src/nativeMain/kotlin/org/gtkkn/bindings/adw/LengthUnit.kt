@@ -6,8 +6,10 @@ import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Settings
 import org.gtkkn.native.adw.AdwLengthUnit
 import org.gtkkn.native.adw.adw_length_unit_from_px
+import org.gtkkn.native.adw.adw_length_unit_get_type
 import org.gtkkn.native.adw.adw_length_unit_to_px
-import kotlin.Double
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
 
 /**
  * Describes length units.
@@ -22,9 +24,7 @@ import kotlin.Double
  * @since 1.4
  */
 @AdwVersion1_4
-public enum class LengthUnit(
-    public val nativeValue: AdwLengthUnit,
-) {
+public enum class LengthUnit(public val nativeValue: AdwLengthUnit) {
     /**
      * pixels
      */
@@ -42,13 +42,12 @@ public enum class LengthUnit(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: AdwLengthUnit): LengthUnit =
-            when (nativeValue) {
-                AdwLengthUnit.ADW_LENGTH_UNIT_PX -> PX
-                AdwLengthUnit.ADW_LENGTH_UNIT_PT -> PT
-                AdwLengthUnit.ADW_LENGTH_UNIT_SP -> SP
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: AdwLengthUnit): LengthUnit = when (nativeValue) {
+            AdwLengthUnit.ADW_LENGTH_UNIT_PX -> PX
+            AdwLengthUnit.ADW_LENGTH_UNIT_PT -> PT
+            AdwLengthUnit.ADW_LENGTH_UNIT_SP -> SP
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Converts @value from pixels to @unit.
@@ -60,11 +59,8 @@ public enum class LengthUnit(
          * @since 1.4
          */
         @AdwVersion1_4
-        public fun fromPx(
-            unit: LengthUnit,
-            `value`: Double,
-            settings: Settings? = null,
-        ): Double = adw_length_unit_from_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
+        public fun fromPx(unit: LengthUnit, `value`: gdouble, settings: Settings? = null): gdouble =
+            adw_length_unit_from_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
 
         /**
          * Converts @value from @unit to pixels.
@@ -76,10 +72,14 @@ public enum class LengthUnit(
          * @since 1.4
          */
         @AdwVersion1_4
-        public fun toPx(
-            unit: LengthUnit,
-            `value`: Double,
-            settings: Settings? = null,
-        ): Double = adw_length_unit_to_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
+        public fun toPx(unit: LengthUnit, `value`: gdouble, settings: Settings? = null): gdouble =
+            adw_length_unit_to_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
+
+        /**
+         * Get the GType of LengthUnit
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_length_unit_get_type()
     }
 }

@@ -1,10 +1,12 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
@@ -12,19 +14,26 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GDBusNodeInfo
 import org.gtkkn.native.gio.g_dbus_node_info_generate_xml
+import org.gtkkn.native.gio.g_dbus_node_info_get_type
 import org.gtkkn.native.gio.g_dbus_node_info_lookup_interface
 import org.gtkkn.native.gio.g_dbus_node_info_new_for_xml
 import org.gtkkn.native.gio.g_dbus_node_info_ref
 import org.gtkkn.native.gio.g_dbus_node_info_unref
 import org.gtkkn.native.glib.GError
-import kotlin.Int
+import org.gtkkn.native.glib.g_free
+import org.gtkkn.native.glib.g_strdup
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
+import kotlin.Pair
 import kotlin.Result
-import kotlin.UInt
 import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlin.String as KotlinString
 import org.gtkkn.bindings.glib.String as GlibString
 
@@ -40,27 +49,94 @@ import org.gtkkn.bindings.glib.String as GlibString
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusNodeInfo(
-    pointer: CPointer<GDBusNodeInfo>,
-) : Record {
+public class DBusNodeInfo(pointer: CPointer<GDBusNodeInfo>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gioDBusNodeInfoPointer: CPointer<GDBusNodeInfo> = pointer
 
     /**
      * The reference count or -1 if statically allocated.
      */
-    public var refCount: Int
+    public var refCount: gint
         get() = gioDBusNodeInfoPointer.pointed.ref_count
+
+        @UnsafeFieldSetter
         set(`value`) {
             gioDBusNodeInfoPointer.pointed.ref_count = value
         }
 
     /**
      * The path of the node or null if omitted. Note that this may be a relative path. See the D-Bus specification for more details.
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val path: KotlinString?
+    public var path: KotlinString?
         get() = gioDBusNodeInfoPointer.pointed.path?.toKString()
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            gioDBusNodeInfoPointer.pointed.path?.let { g_free(it) }
+            gioDBusNodeInfoPointer.pointed.path = value?.let { g_strdup(it) }
+        }
+
+    /**
+     * Allocate a new DBusNodeInfo.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<GDBusNodeInfo>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to DBusNodeInfo and a [Cleaner] instance.
+     */
+    private constructor(
+        pair: Pair<CPointer<GDBusNodeInfo>, Cleaner>,
+    ) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new DBusNodeInfo using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GDBusNodeInfo>().ptr)
+
+    /**
+     * Allocate a new DBusNodeInfo.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param refCount The reference count or -1 if statically allocated.
+     * @param path The path of the node or null if omitted. Note that this may be a relative path. See the D-Bus specification for more details.
+     */
+    public constructor(refCount: gint, path: KotlinString?) : this() {
+        this.refCount = refCount
+        this.path = path
+    }
+
+    /**
+     * Allocate a new DBusNodeInfo using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param refCount The reference count or -1 if statically allocated.
+     * @param path The path of the node or null if omitted. Note that this may be a relative path. See the D-Bus specification for more details.
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        refCount: gint,
+        path: KotlinString?,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.refCount = refCount
+        this.path = path
+    }
 
     /**
      * Appends an XML representation of @info (and its children) to @string_builder.
@@ -73,15 +149,11 @@ public class DBusNodeInfo(
      * @since 2.26
      */
     @GioVersion2_26
-    public fun generateXml(
-        indent: UInt,
-        stringBuilder: GlibString,
-    ): Unit =
-        g_dbus_node_info_generate_xml(
-            gioDBusNodeInfoPointer.reinterpret(),
-            indent,
-            stringBuilder.glibStringPointer.reinterpret()
-        )
+    public fun generateXml(indent: guint, stringBuilder: GlibString): Unit = g_dbus_node_info_generate_xml(
+        gioDBusNodeInfoPointer.reinterpret(),
+        indent,
+        stringBuilder.glibStringPointer.reinterpret()
+    )
 
     /**
      * Looks up information about an interface.
@@ -106,10 +178,9 @@ public class DBusNodeInfo(
      * @since 2.26
      */
     @GioVersion2_26
-    public fun ref(): DBusNodeInfo =
-        g_dbus_node_info_ref(gioDBusNodeInfoPointer.reinterpret())!!.run {
-            DBusNodeInfo(reinterpret())
-        }
+    public fun ref(): DBusNodeInfo = g_dbus_node_info_ref(gioDBusNodeInfoPointer.reinterpret())!!.run {
+        DBusNodeInfo(reinterpret())
+    }
 
     /**
      * If @info is statically allocated, does nothing. Otherwise decreases
@@ -121,7 +192,9 @@ public class DBusNodeInfo(
     @GioVersion2_26
     public fun unref(): Unit = g_dbus_node_info_unref(gioDBusNodeInfoPointer.reinterpret())
 
-    public companion object : RecordCompanion<DBusNodeInfo, GDBusNodeInfo> {
+    override fun toString(): KotlinString = "DBusNodeInfo(refCount=$refCount, path=$path)"
+
+    public companion object {
         /**
          * Parses @xml_data and returns a #GDBusNodeInfo representing the data.
          *
@@ -149,7 +222,11 @@ public class DBusNodeInfo(
             }
         }
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DBusNodeInfo =
-            DBusNodeInfo(pointer.reinterpret())
+        /**
+         * Get the GType of DBusNodeInfo
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_node_info_get_type()
     }
 }

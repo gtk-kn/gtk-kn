@@ -82,13 +82,15 @@ import org.gtkkn.native.gio.g_application_unmark_busy
 import org.gtkkn.native.gio.g_application_withdraw_notification
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GVariantDict
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
 import kotlin.Char
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
@@ -229,9 +231,8 @@ import kotlin.collections.List
  * @since 2.28
  */
 @GioVersion2_28
-public open class Application(
-    pointer: CPointer<GApplication>,
-) : Object(pointer.reinterpret()),
+public open class Application(pointer: CPointer<GApplication>) :
+    Object(pointer.reinterpret()),
     ActionGroup,
     ActionMap,
     KGTyped {
@@ -289,10 +290,9 @@ public open class Application(
          * @return the flags for @application
          * @since 2.28
          */
-        get() =
-            g_application_get_flags(gioApplicationPointer.reinterpret()).run {
-                ApplicationFlags(this)
-            }
+        get() = g_application_get_flags(gioApplicationPointer.reinterpret()).run {
+            ApplicationFlags(this)
+        }
 
         /**
          * Sets the flags for @application.
@@ -314,7 +314,7 @@ public open class Application(
      * @since 2.28
      */
     @GioVersion2_28
-    public open var inactivityTimeout: UInt
+    public open var inactivityTimeout: guint
         /**
          * Gets the current inactivity timeout for the application.
          *
@@ -524,16 +524,15 @@ public open class Application(
         arg: OptionArg,
         description: String,
         argDescription: String? = null,
-    ): Unit =
-        g_application_add_main_option(
-            gioApplicationPointer.reinterpret(),
-            longName,
-            shortName.code.toByte(),
-            flags.mask,
-            arg.nativeValue,
-            description,
-            argDescription
-        )
+    ): Unit = g_application_add_main_option(
+        gioApplicationPointer.reinterpret(),
+        longName,
+        shortName.code.toByte(),
+        flags.mask,
+        arg.nativeValue,
+        description,
+        argDescription
+    )
 
     /**
      * Adds a #GOptionGroup to the commandline handling of @application.
@@ -582,25 +581,11 @@ public open class Application(
      * @since 2.44
      */
     @GioVersion2_44
-    public open fun bindBusyProperty(
-        `object`: Object,
-        `property`: String,
-    ): Unit =
-        g_application_bind_busy_property(
-            gioApplicationPointer.reinterpret(),
-            `object`.gPointer.reinterpret(),
-            `property`
-        )
-
-    /**
-     * Gets the unique identifier for @application.
-     *
-     * @return the identifier for @application, owned by @application
-     * @since 2.28
-     */
-    @GioVersion2_28
-    public open fun getApplicationId(): String? =
-        g_application_get_application_id(gioApplicationPointer.reinterpret())?.toKString()
+    public open fun bindBusyProperty(`object`: Object, `property`: String): Unit = g_application_bind_busy_property(
+        gioApplicationPointer.reinterpret(),
+        `object`.gPointer.reinterpret(),
+        `property`
+    )
 
     /**
      * Gets the #GDBusConnection being used by the application, or null.
@@ -648,87 +633,6 @@ public open class Application(
     @GioVersion2_34
     public open fun getDbusObjectPath(): String? =
         g_application_get_dbus_object_path(gioApplicationPointer.reinterpret())?.toKString()
-
-    /**
-     * Gets the flags for @application.
-     *
-     * See #GApplicationFlags.
-     *
-     * @return the flags for @application
-     * @since 2.28
-     */
-    @GioVersion2_28
-    public open fun getFlags(): ApplicationFlags =
-        g_application_get_flags(gioApplicationPointer.reinterpret()).run {
-            ApplicationFlags(this)
-        }
-
-    /**
-     * Gets the current inactivity timeout for the application.
-     *
-     * This is the amount of time (in milliseconds) after the last call to
-     * g_application_release() before the application stops running.
-     *
-     * @return the timeout, in milliseconds
-     * @since 2.28
-     */
-    @GioVersion2_28
-    public open fun getInactivityTimeout(): UInt =
-        g_application_get_inactivity_timeout(gioApplicationPointer.reinterpret())
-
-    /**
-     * Gets the application's current busy state, as set through
-     * g_application_mark_busy() or g_application_bind_busy_property().
-     *
-     * @return true if @application is currently marked as busy
-     * @since 2.44
-     */
-    @GioVersion2_44
-    public open fun getIsBusy(): Boolean = g_application_get_is_busy(gioApplicationPointer.reinterpret()).asBoolean()
-
-    /**
-     * Checks if @application is registered.
-     *
-     * An application is registered if g_application_register() has been
-     * successfully called.
-     *
-     * @return true if @application is registered
-     * @since 2.28
-     */
-    @GioVersion2_28
-    public open fun getIsRegistered(): Boolean =
-        g_application_get_is_registered(gioApplicationPointer.reinterpret()).asBoolean()
-
-    /**
-     * Checks if @application is remote.
-     *
-     * If @application is remote then it means that another instance of
-     * application already exists (the 'primary' instance).  Calls to
-     * perform actions on @application will result in the actions being
-     * performed by the primary instance.
-     *
-     * The value of this property cannot be accessed before
-     * g_application_register() has been called.  See
-     * g_application_get_is_registered().
-     *
-     * @return true if @application is remote
-     * @since 2.28
-     */
-    @GioVersion2_28
-    public open fun getIsRemote(): Boolean =
-        g_application_get_is_remote(gioApplicationPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the resource base path of @application.
-     *
-     * See g_application_set_resource_base_path() for more information.
-     *
-     * @return the base resource path, if one is set
-     * @since 2.42
-     */
-    @GioVersion2_42
-    public open fun getResourceBasePath(): String? =
-        g_application_get_resource_base_path(gioApplicationPointer.reinterpret())?.toKString()
 
     /**
      * Gets the version of @application.
@@ -826,21 +730,19 @@ public open class Application(
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun register(cancellable: Cancellable? = null): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_application_register(
-                    gioApplicationPointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun register(cancellable: Cancellable? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_application_register(
+            gioApplicationPointer.reinterpret(),
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Decrease the use count of @application.
@@ -935,13 +837,9 @@ public open class Application(
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun run(
-        argc: Int,
-        argv: List<String>? = null,
-    ): Int =
-        memScoped {
-            return g_application_run(gioApplicationPointer.reinterpret(), argc, argv?.toCStringList(this))
-        }
+    public open fun run(argc: gint, argv: List<String>? = null): gint = memScoped {
+        return g_application_run(gioApplicationPointer.reinterpret(), argc, argv?.toCStringList(this))
+    }
 
     /**
      * Sends a notification on behalf of @application to the desktop shell.
@@ -979,10 +877,7 @@ public open class Application(
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun sendNotification(
-        id: String? = null,
-        notification: Notification,
-    ): Unit =
+    public open fun sendNotification(id: String? = null, notification: Notification): Unit =
         g_application_send_notification(
             gioApplicationPointer.reinterpret(),
             id,
@@ -1001,22 +896,6 @@ public open class Application(
         g_application_set_action_group(gioApplicationPointer.reinterpret(), actionGroup?.gioActionGroupPointer)
 
     /**
-     * Sets the unique identifier for @application.
-     *
-     * The application id can only be modified if @application has not yet
-     * been registered.
-     *
-     * If non-null, the application id must be valid.  See
-     * g_application_id_is_valid().
-     *
-     * @param applicationId the identifier for @application
-     * @since 2.28
-     */
-    @GioVersion2_28
-    public open fun setApplicationId(applicationId: String? = null): Unit =
-        g_application_set_application_id(gioApplicationPointer.reinterpret(), applicationId)
-
-    /**
      * Sets or unsets the default application for the process, as returned
      * by g_application_get_default().
      *
@@ -1028,38 +907,6 @@ public open class Application(
      */
     @GioVersion2_32
     public open fun setDefault(): Unit = g_application_set_default(gioApplicationPointer.reinterpret())
-
-    /**
-     * Sets the flags for @application.
-     *
-     * The flags can only be modified if @application has not yet been
-     * registered.
-     *
-     * See #GApplicationFlags.
-     *
-     * @param flags the flags for @application
-     * @since 2.28
-     */
-    @GioVersion2_28
-    public open fun setFlags(flags: ApplicationFlags): Unit =
-        g_application_set_flags(gioApplicationPointer.reinterpret(), flags.mask)
-
-    /**
-     * Sets the current inactivity timeout for the application.
-     *
-     * This is the amount of time (in milliseconds) after the last call to
-     * g_application_release() before the application stops running.
-     *
-     * This call has no side effects of its own.  The value set here is only
-     * used for next time g_application_release() drops the use count to
-     * zero.  Any timeouts currently in progress are not impacted.
-     *
-     * @param inactivityTimeout the timeout, in milliseconds
-     * @since 2.28
-     */
-    @GioVersion2_28
-    public open fun setInactivityTimeout(inactivityTimeout: UInt): Unit =
-        g_application_set_inactivity_timeout(gioApplicationPointer.reinterpret(), inactivityTimeout)
 
     /**
      * Adds a description to the @application option context.
@@ -1104,48 +951,6 @@ public open class Application(
         g_application_set_option_context_summary(gioApplicationPointer.reinterpret(), summary)
 
     /**
-     * Sets (or unsets) the base resource path of @application.
-     *
-     * The path is used to automatically load various [application
-     * resources][gresource] such as menu layouts and action descriptions.
-     * The various types of resources will be found at fixed names relative
-     * to the given base path.
-     *
-     * By default, the resource base path is determined from the application
-     * ID by prefixing '/' and replacing each '.' with '/'.  This is done at
-     * the time that the #GApplication object is constructed.  Changes to
-     * the application ID after that point will not have an impact on the
-     * resource base path.
-     *
-     * As an example, if the application has an ID of "org.example.app" then
-     * the default resource base path will be "/org/example/app".  If this
-     * is a #GtkApplication (and you have not manually changed the path)
-     * then Gtk will then search for the menus of the application at
-     * "/org/example/app/gtk/menus.ui".
-     *
-     * See #GResource for more information about adding resources to your
-     * application.
-     *
-     * You can disable automatic resource loading functionality by setting
-     * the path to null.
-     *
-     * Changing the resource base path once the application is running is
-     * not recommended.  The point at which the resource path is consulted
-     * for forming paths for various purposes is unspecified.  When writing
-     * a sub-class of #GApplication you should either set the
-     * #GApplication:resource-base-path property at construction time, or call
-     * this function during the instance initialization. Alternatively, you
-     * can call this function in the #GApplicationClass.startup virtual function,
-     * before chaining up to the parent implementation.
-     *
-     * @param resourcePath the resource path to use
-     * @since 2.42
-     */
-    @GioVersion2_42
-    public open fun setResourceBasePath(resourcePath: String? = null): Unit =
-        g_application_set_resource_base_path(gioApplicationPointer.reinterpret(), resourcePath)
-
-    /**
      * Sets the version number of @application. This will be used to implement
      * a `--version` command line argument
      *
@@ -1169,15 +974,11 @@ public open class Application(
      * @since 2.44
      */
     @GioVersion2_44
-    public open fun unbindBusyProperty(
-        `object`: Object,
-        `property`: String,
-    ): Unit =
-        g_application_unbind_busy_property(
-            gioApplicationPointer.reinterpret(),
-            `object`.gPointer.reinterpret(),
-            `property`
-        )
+    public open fun unbindBusyProperty(`object`: Object, `property`: String): Unit = g_application_unbind_busy_property(
+        gioApplicationPointer.reinterpret(),
+        `object`.gPointer.reinterpret(),
+        `property`
+    )
 
     /**
      * Decreases the busy count of @application.
@@ -1222,10 +1023,7 @@ public open class Application(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectActivate(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "activate",
@@ -1247,16 +1045,15 @@ public open class Application(
      */
     public fun connectCommandLine(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (commandLine: ApplicationCommandLine) -> Int,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "command-line",
-            connectCommandLineFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+        handler: (commandLine: ApplicationCommandLine) -> gint,
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "command-line",
+        connectCommandLineFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * The ::handle-local-options signal is emitted on the local instance
@@ -1311,16 +1108,15 @@ public open class Application(
     @GioVersion2_40
     public fun connectHandleLocalOptions(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (options: VariantDict) -> Int,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "handle-local-options",
-            connectHandleLocalOptionsFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+        handler: (options: VariantDict) -> gint,
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "handle-local-options",
+        connectHandleLocalOptionsFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * The ::name-lost signal is emitted only on the registered primary instance
@@ -1334,10 +1130,7 @@ public open class Application(
      * @since 2.60
      */
     @GioVersion2_60
-    public fun connectNameLost(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Boolean,
-    ): ULong =
+    public fun connectNameLost(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "name-lost",
@@ -1354,10 +1147,7 @@ public open class Application(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectShutdown(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectShutdown(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "shutdown",
@@ -1374,10 +1164,7 @@ public open class Application(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectStartup(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectStartup(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "startup",
@@ -1408,10 +1195,9 @@ public open class Application(
          * @since 2.32
          */
         @GioVersion2_32
-        public fun getDefault(): Application? =
-            g_application_get_default()?.run {
-                Application(reinterpret())
-            }
+        public fun getDefault(): Application? = g_application_get_default()?.run {
+            Application(reinterpret())
+        }
 
         /**
          * Checks if @application_id is a valid application identifier.
@@ -1464,67 +1250,72 @@ public open class Application(
          * @return true if @application_id is valid
          */
         public fun idIsValid(applicationId: String): Boolean = g_application_id_is_valid(applicationId).asBoolean()
+
+        /**
+         * Get the GType of Application
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_application_get_type()
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectCommandLineFunc: CPointer<CFunction<(CPointer<GApplicationCommandLine>) -> Int>> =
+private val connectCommandLineFunc: CPointer<CFunction<(CPointer<GApplicationCommandLine>) -> gint>> =
     staticCFunction {
             _: COpaquePointer,
             commandLine: CPointer<GApplicationCommandLine>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(commandLine: ApplicationCommandLine) -> Int>().get().invoke(
+        userData.asStableRef<(commandLine: ApplicationCommandLine) -> gint>().get().invoke(
             commandLine!!.run {
                 ApplicationCommandLine(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
-private val connectHandleLocalOptionsFunc: CPointer<CFunction<(CPointer<GVariantDict>) -> Int>> =
+private val connectHandleLocalOptionsFunc: CPointer<CFunction<(CPointer<GVariantDict>) -> gint>> =
     staticCFunction {
             _: COpaquePointer,
             options: CPointer<GVariantDict>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(options: VariantDict) -> Int>().get().invoke(
+        userData.asStableRef<(options: VariantDict) -> gint>().get().invoke(
             options!!.run {
                 VariantDict(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
-private val connectNameLostFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<() -> Boolean>()
-            .get()
-            .invoke()
-            .asGBoolean()
-    }.reinterpret()
+private val connectNameLostFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
+}
+    .reinterpret()
 
-private val connectShutdownFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectShutdownFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectStartupFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectStartupFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

@@ -1,25 +1,29 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.CompareDataFunc
 import org.gtkkn.bindings.glib.CompareDataFuncFunc
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GValueArray
 import org.gtkkn.native.gobject.g_value_array_append
 import org.gtkkn.native.gobject.g_value_array_copy
+import org.gtkkn.native.gobject.g_value_array_free
 import org.gtkkn.native.gobject.g_value_array_get_nth
+import org.gtkkn.native.gobject.g_value_array_get_type
 import org.gtkkn.native.gobject.g_value_array_insert
 import org.gtkkn.native.gobject.g_value_array_new
 import org.gtkkn.native.gobject.g_value_array_prepend
 import org.gtkkn.native.gobject.g_value_array_remove
 import org.gtkkn.native.gobject.g_value_array_sort_with_data
-import kotlin.UInt
+import org.gtkkn.native.gobject.guint
+import kotlin.String
+import kotlin.Unit
 
 /**
  * A `GValueArray` is a container structure to hold an array of generic values.
@@ -48,33 +52,34 @@ import kotlin.UInt
  *
  * ## Skipped during bindings generation
  *
- * - method `sort`: g_value_array_sort is shadowedBy sort_with_data
  * - field `n_prealloced`: Record field n_prealloced is private
  */
-public class ValueArray(
-    pointer: CPointer<GValueArray>,
-) : Record {
+public class ValueArray(pointer: CPointer<GValueArray>) : ProxyInstance(pointer) {
     public val gobjectValueArrayPointer: CPointer<GValueArray> = pointer
 
     /**
      * number of values contained in the array
      */
-    public var nValues: UInt
+    public var nValues: guint
         get() = gobjectValueArrayPointer.pointed.n_values
+
+        @UnsafeFieldSetter
         set(`value`) {
             gobjectValueArrayPointer.pointed.n_values = value
         }
 
     /**
      * array of values
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val values: Value?
-        get() =
-            gobjectValueArrayPointer.pointed.values?.run {
-                Value(reinterpret())
-            }
+    public var values: Value?
+        get() = gobjectValueArrayPointer.pointed.values?.run {
+            Value(reinterpret())
+        }
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            gobjectValueArrayPointer.pointed.values = value?.gobjectValuePointer
+        }
 
     /**
      * Insert a copy of @value as last element of @value_array. If @value is
@@ -83,13 +88,12 @@ public class ValueArray(
      * @param value #GValue to copy into #GValueArray, or null
      * @return the #GValueArray passed in as @value_array
      */
-    public fun append(`value`: Value? = null): ValueArray =
-        g_value_array_append(
-            gobjectValueArrayPointer.reinterpret(),
-            `value`?.gobjectValuePointer?.reinterpret()
-        )!!.run {
-            ValueArray(reinterpret())
-        }
+    public fun append(`value`: Value? = null): ValueArray = g_value_array_append(
+        gobjectValueArrayPointer.reinterpret(),
+        `value`?.gobjectValuePointer?.reinterpret()
+    )!!.run {
+        ValueArray(reinterpret())
+    }
 
     /**
      * Construct an exact copy of a #GValueArray by duplicating all its
@@ -97,10 +101,14 @@ public class ValueArray(
      *
      * @return Newly allocated copy of #GValueArray
      */
-    public fun copy(): ValueArray =
-        g_value_array_copy(gobjectValueArrayPointer.reinterpret())!!.run {
-            ValueArray(reinterpret())
-        }
+    public fun copy(): ValueArray = g_value_array_copy(gobjectValueArrayPointer.reinterpret())!!.run {
+        ValueArray(reinterpret())
+    }
+
+    /**
+     * Free a #GValueArray including its contents.
+     */
+    public fun free(): Unit = g_value_array_free(gobjectValueArrayPointer.reinterpret())
 
     /**
      * Return a pointer to the value at @index_ containd in @value_array.
@@ -108,7 +116,7 @@ public class ValueArray(
      * @param index index of the value of interest
      * @return pointer to a value at @index_ in @value_array
      */
-    public fun getNth(index: UInt): Value =
+    public fun getNth(index: guint): Value =
         g_value_array_get_nth(gobjectValueArrayPointer.reinterpret(), index)!!.run {
             Value(reinterpret())
         }
@@ -121,17 +129,13 @@ public class ValueArray(
      * @param value #GValue to copy into #GValueArray, or null
      * @return the #GValueArray passed in as @value_array
      */
-    public fun insert(
-        index: UInt,
-        `value`: Value? = null,
-    ): ValueArray =
-        g_value_array_insert(
-            gobjectValueArrayPointer.reinterpret(),
-            index,
-            `value`?.gobjectValuePointer?.reinterpret()
-        )!!.run {
-            ValueArray(reinterpret())
-        }
+    public fun insert(index: guint, `value`: Value? = null): ValueArray = g_value_array_insert(
+        gobjectValueArrayPointer.reinterpret(),
+        index,
+        `value`?.gobjectValuePointer?.reinterpret()
+    )!!.run {
+        ValueArray(reinterpret())
+    }
 
     /**
      * Insert a copy of @value as first element of @value_array. If @value is
@@ -140,13 +144,12 @@ public class ValueArray(
      * @param value #GValue to copy into #GValueArray, or null
      * @return the #GValueArray passed in as @value_array
      */
-    public fun prepend(`value`: Value? = null): ValueArray =
-        g_value_array_prepend(
-            gobjectValueArrayPointer.reinterpret(),
-            `value`?.gobjectValuePointer?.reinterpret()
-        )!!.run {
-            ValueArray(reinterpret())
-        }
+    public fun prepend(`value`: Value? = null): ValueArray = g_value_array_prepend(
+        gobjectValueArrayPointer.reinterpret(),
+        `value`?.gobjectValuePointer?.reinterpret()
+    )!!.run {
+        ValueArray(reinterpret())
+    }
 
     /**
      * Remove the value at position @index_ from @value_array.
@@ -155,7 +158,7 @@ public class ValueArray(
      *     @value_array->n_values
      * @return the #GValueArray passed in as @value_array
      */
-    public fun remove(index: UInt): ValueArray =
+    public fun remove(index: guint): ValueArray =
         g_value_array_remove(gobjectValueArrayPointer.reinterpret(), index)!!.run {
             ValueArray(reinterpret())
         }
@@ -170,16 +173,17 @@ public class ValueArray(
      * @param compareFunc function to compare elements
      * @return the #GValueArray passed in as @value_array
      */
-    public fun sort(compareFunc: CompareDataFunc): ValueArray =
-        g_value_array_sort_with_data(
-            gobjectValueArrayPointer.reinterpret(),
-            CompareDataFuncFunc.reinterpret(),
-            StableRef.create(compareFunc).asCPointer()
-        )!!.run {
-            ValueArray(reinterpret())
-        }
+    public fun sort(compareFunc: CompareDataFunc): ValueArray = g_value_array_sort_with_data(
+        gobjectValueArrayPointer.reinterpret(),
+        CompareDataFuncFunc.reinterpret(),
+        StableRef.create(compareFunc).asCPointer()
+    )!!.run {
+        ValueArray(reinterpret())
+    }
 
-    public companion object : RecordCompanion<ValueArray, GValueArray> {
+    override fun toString(): String = "ValueArray(nValues=$nValues, values=$values)"
+
+    public companion object {
         /**
          * Allocate and initialize a new #GValueArray, optionally preserve space
          * for @n_prealloced elements. New arrays always contain 0 elements,
@@ -188,8 +192,13 @@ public class ValueArray(
          * @param nPrealloced number of values to preallocate space for
          * @return a newly allocated #GValueArray with 0 values
          */
-        public fun new(nPrealloced: UInt): ValueArray = ValueArray(g_value_array_new(nPrealloced)!!.reinterpret())
+        public fun new(nPrealloced: guint): ValueArray = ValueArray(g_value_array_new(nPrealloced)!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ValueArray = ValueArray(pointer.reinterpret())
+        /**
+         * Get the GType of ValueArray
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_value_array_get_type()
     }
 }

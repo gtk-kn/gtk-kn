@@ -12,12 +12,13 @@ import org.gtkkn.bindings.gio.InputStream
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.bindings.gtksource.Gtksource.resolveException
+import org.gtkkn.bindings.gtksource.GtkSource.resolveException
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceFileLoader
 import org.gtkkn.native.gtksource.gtk_source_file_loader_get_buffer
 import org.gtkkn.native.gtksource.gtk_source_file_loader_get_compression_type
@@ -59,9 +60,8 @@ import kotlin.Unit
  *
  * - parameter `callback`: Gio.AsyncReadyCallback
  */
-public open class FileLoader(
-    pointer: CPointer<GtkSourceFileLoader>,
-) : Object(pointer.reinterpret()),
+public open class FileLoader(pointer: CPointer<GtkSourceFileLoader>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtksourceFileLoaderPointer: CPointer<GtkSourceFileLoader>
         get() = gPointer.reinterpret()
@@ -76,10 +76,9 @@ public open class FileLoader(
          *
          * @return the #GtkSourceBuffer to load the contents into.
          */
-        get() =
-            gtk_source_file_loader_get_buffer(gtksourceFileLoaderPointer.reinterpret())!!.run {
-                Buffer(reinterpret())
-            }
+        get() = gtk_source_file_loader_get_buffer(gtksourceFileLoaderPointer.reinterpret())!!.run {
+            Buffer(reinterpret())
+        }
 
     /**
      * The #GtkSourceFile. The #GtkSourceFileLoader object has a weak
@@ -91,10 +90,9 @@ public open class FileLoader(
          *
          * @return the #GtkSourceFile.
          */
-        get() =
-            gtk_source_file_loader_get_file(gtksourceFileLoaderPointer.reinterpret())!!.run {
-                File(reinterpret())
-            }
+        get() = gtk_source_file_loader_get_file(gtksourceFileLoaderPointer.reinterpret())!!.run {
+            File(reinterpret())
+        }
 
     /**
      * The #GInputStream to load. Useful for reading stdin. If this property
@@ -107,10 +105,9 @@ public open class FileLoader(
          * @return the #GInputStream to load, or null
          * if a #GFile is used.
          */
-        get() =
-            gtk_source_file_loader_get_input_stream(gtksourceFileLoaderPointer.reinterpret())?.run {
-                InputStream(reinterpret())
-            }
+        get() = gtk_source_file_loader_get_input_stream(gtksourceFileLoaderPointer.reinterpret())?.run {
+            InputStream(reinterpret())
+        }
 
     /**
      * The #GFile to load. If the #GtkSourceFileLoader:input-stream is
@@ -124,11 +121,9 @@ public open class FileLoader(
          * @return the #GFile to load, or null
          * if an input stream is used.
          */
-        get() =
-            gtk_source_file_loader_get_location(gtksourceFileLoaderPointer.reinterpret())?.run {
-                org.gtkkn.bindings.gio.File
-                    .wrap(reinterpret())
-            }
+        get() = gtk_source_file_loader_get_location(gtksourceFileLoaderPointer.reinterpret())?.run {
+            org.gtkkn.bindings.gio.File.wrap(reinterpret())
+        }
 
     /**
      * Creates a new `GtkSourceFileLoader` object. The contents is read from the
@@ -175,16 +170,6 @@ public open class FileLoader(
     /**
      *
      *
-     * @return the #GtkSourceBuffer to load the contents into.
-     */
-    public open fun getBuffer(): Buffer =
-        gtk_source_file_loader_get_buffer(gtksourceFileLoaderPointer.reinterpret())!!.run {
-            Buffer(reinterpret())
-        }
-
-    /**
-     *
-     *
      * @return the detected compression type.
      */
     public open fun getCompressionType(): CompressionType =
@@ -200,39 +185,6 @@ public open class FileLoader(
     public open fun getEncoding(): Encoding =
         gtk_source_file_loader_get_encoding(gtksourceFileLoaderPointer.reinterpret())!!.run {
             Encoding(reinterpret())
-        }
-
-    /**
-     *
-     *
-     * @return the #GtkSourceFile.
-     */
-    public open fun getFile(): File =
-        gtk_source_file_loader_get_file(gtksourceFileLoaderPointer.reinterpret())!!.run {
-            File(reinterpret())
-        }
-
-    /**
-     *
-     *
-     * @return the #GInputStream to load, or null
-     * if a #GFile is used.
-     */
-    public open fun getInputStream(): InputStream? =
-        gtk_source_file_loader_get_input_stream(gtksourceFileLoaderPointer.reinterpret())?.run {
-            InputStream(reinterpret())
-        }
-
-    /**
-     *
-     *
-     * @return the #GFile to load, or null
-     * if an input stream is used.
-     */
-    public open fun getLocation(): org.gtkkn.bindings.gio.File? =
-        gtk_source_file_loader_get_location(gtksourceFileLoaderPointer.reinterpret())?.run {
-            org.gtkkn.bindings.gio.File
-                .wrap(reinterpret())
         }
 
     /**
@@ -255,21 +207,19 @@ public open class FileLoader(
      * @param result a #GAsyncResult.
      * @return whether the contents has been loaded successfully.
      */
-    public open fun loadFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gtk_source_file_loader_load_finish(
-                    gtksourceFileLoaderPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun loadFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gtk_source_file_loader_load_finish(
+            gtksourceFileLoaderPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Sets the candidate encodings for the file loading.
@@ -300,5 +250,12 @@ public open class FileLoader(
         init {
             GtksourceTypeProvider.register()
         }
+
+        /**
+         * Get the GType of FileLoader
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_file_loader_get_type()
     }
 }

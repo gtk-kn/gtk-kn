@@ -1,17 +1,26 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkTreeIter
 import org.gtkkn.native.gtk.gtk_tree_iter_copy
 import org.gtkkn.native.gtk.gtk_tree_iter_free
-import kotlin.Int
+import org.gtkkn.native.gtk.gtk_tree_iter_get_type
+import kotlin.Pair
+import kotlin.String
 import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * The `GtkTreeIter` is the primary structure
@@ -26,19 +35,72 @@ import kotlin.Unit
  * - field `user_data2`: gpointer
  * - field `user_data3`: gpointer
  */
-public class TreeIter(
-    pointer: CPointer<GtkTreeIter>,
-) : Record {
+public class TreeIter(pointer: CPointer<GtkTreeIter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gtkTreeIterPointer: CPointer<GtkTreeIter> = pointer
 
     /**
      * a unique stamp to catch invalid iterators
      */
-    public var stamp: Int
+    public var stamp: gint
         get() = gtkTreeIterPointer.pointed.stamp
+
+        @UnsafeFieldSetter
         set(`value`) {
             gtkTreeIterPointer.pointed.stamp = value
         }
+
+    /**
+     * Allocate a new TreeIter.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<GtkTreeIter>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to TreeIter and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GtkTreeIter>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new TreeIter using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GtkTreeIter>().ptr)
+
+    /**
+     * Allocate a new TreeIter.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param stamp a unique stamp to catch invalid iterators
+     */
+    public constructor(stamp: gint) : this() {
+        this.stamp = stamp
+    }
+
+    /**
+     * Allocate a new TreeIter using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param stamp a unique stamp to catch invalid iterators
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(stamp: gint, scope: AutofreeScope) : this(scope) {
+        this.stamp = stamp
+    }
 
     /**
      * Creates a dynamically allocated tree iterator as a copy of @iter.
@@ -50,10 +112,9 @@ public class TreeIter(
      *
      * @return a newly-allocated copy of @iter
      */
-    public fun copy(): TreeIter =
-        gtk_tree_iter_copy(gtkTreeIterPointer.reinterpret())!!.run {
-            TreeIter(reinterpret())
-        }
+    public fun copy(): TreeIter = gtk_tree_iter_copy(gtkTreeIterPointer.reinterpret())!!.run {
+        TreeIter(reinterpret())
+    }
 
     /**
      * Frees an iterator that has been allocated by gtk_tree_iter_copy().
@@ -62,7 +123,14 @@ public class TreeIter(
      */
     public fun free(): Unit = gtk_tree_iter_free(gtkTreeIterPointer.reinterpret())
 
-    public companion object : RecordCompanion<TreeIter, GtkTreeIter> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TreeIter = TreeIter(pointer.reinterpret())
+    override fun toString(): String = "TreeIter(stamp=$stamp)"
+
+    public companion object {
+        /**
+         * Get the GType of TreeIter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_tree_iter_get_type()
     }
 }

@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gsk.Transform
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkFixedLayoutChild
 import org.gtkkn.native.gtk.gtk_fixed_layout_child_get_transform
 import org.gtkkn.native.gtk.gtk_fixed_layout_child_get_type
@@ -20,9 +21,8 @@ import kotlin.Unit
  *
  * - method `transform`: Property TypeInfo of getter and setter do not match
  */
-public open class FixedLayoutChild(
-    pointer: CPointer<GtkFixedLayoutChild>,
-) : LayoutChild(pointer.reinterpret()),
+public open class FixedLayoutChild(pointer: CPointer<GtkFixedLayoutChild>) :
+    LayoutChild(pointer.reinterpret()),
     KGTyped {
     public val gtkFixedLayoutChildPointer: CPointer<GtkFixedLayoutChild>
         get() = gPointer.reinterpret()
@@ -42,11 +42,10 @@ public open class FixedLayoutChild(
      *
      * @param transform a `GskTransform`
      */
-    public open fun setTransform(transform: Transform): Unit =
-        gtk_fixed_layout_child_set_transform(
-            gtkFixedLayoutChildPointer.reinterpret(),
-            transform.gskTransformPointer.reinterpret()
-        )
+    public open fun setTransform(transform: Transform): Unit = gtk_fixed_layout_child_set_transform(
+        gtkFixedLayoutChildPointer.reinterpret(),
+        transform.gskTransformPointer.reinterpret()
+    )
 
     public companion object : TypeCompanion<FixedLayoutChild> {
         override val type: GeneratedClassKGType<FixedLayoutChild> =
@@ -55,5 +54,12 @@ public open class FixedLayoutChild(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of FixedLayoutChild
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_fixed_layout_child_get_type()
     }
 }

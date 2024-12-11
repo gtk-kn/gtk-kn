@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoEllipsizeMode
+import org.gtkkn.native.pango.pango_ellipsize_mode_get_type
 
 /**
  * `PangoEllipsizeMode` describes what sort of ellipsization
@@ -11,9 +13,7 @@ import org.gtkkn.native.pango.PangoEllipsizeMode
  * text in order to make it fit to a given width and replaced
  * with an ellipsis.
  */
-public enum class EllipsizeMode(
-    public val nativeValue: PangoEllipsizeMode,
-) {
+public enum class EllipsizeMode(public val nativeValue: PangoEllipsizeMode) {
     /**
      * No ellipsization
      */
@@ -36,13 +36,19 @@ public enum class EllipsizeMode(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: PangoEllipsizeMode): EllipsizeMode =
-            when (nativeValue) {
-                PangoEllipsizeMode.PANGO_ELLIPSIZE_NONE -> NONE
-                PangoEllipsizeMode.PANGO_ELLIPSIZE_START -> START
-                PangoEllipsizeMode.PANGO_ELLIPSIZE_MIDDLE -> MIDDLE
-                PangoEllipsizeMode.PANGO_ELLIPSIZE_END -> END
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: PangoEllipsizeMode): EllipsizeMode = when (nativeValue) {
+            PangoEllipsizeMode.PANGO_ELLIPSIZE_NONE -> NONE
+            PangoEllipsizeMode.PANGO_ELLIPSIZE_START -> START
+            PangoEllipsizeMode.PANGO_ELLIPSIZE_MIDDLE -> MIDDLE
+            PangoEllipsizeMode.PANGO_ELLIPSIZE_END -> END
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of EllipsizeMode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_ellipsize_mode_get_type()
     }
 }

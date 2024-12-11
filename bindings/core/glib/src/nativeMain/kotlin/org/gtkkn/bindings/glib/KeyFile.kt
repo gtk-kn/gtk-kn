@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -9,7 +8,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.bindings.glib.Glib.resolveException
+import org.gtkkn.bindings.glib.GLib.resolveException
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_12
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_26
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
@@ -20,11 +19,11 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_6
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toCStringList
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GKeyFile
 import org.gtkkn.native.glib.g_key_file_error_quark
+import org.gtkkn.native.glib.g_key_file_free
 import org.gtkkn.native.glib.g_key_file_get_boolean
 import org.gtkkn.native.glib.g_key_file_get_comment
 import org.gtkkn.native.glib.g_key_file_get_double
@@ -37,10 +36,12 @@ import org.gtkkn.native.glib.g_key_file_get_string
 import org.gtkkn.native.glib.g_key_file_get_uint64
 import org.gtkkn.native.glib.g_key_file_get_value
 import org.gtkkn.native.glib.g_key_file_has_group
+import org.gtkkn.native.glib.g_key_file_has_key
 import org.gtkkn.native.glib.g_key_file_load_from_bytes
 import org.gtkkn.native.glib.g_key_file_load_from_data
 import org.gtkkn.native.glib.g_key_file_load_from_file
 import org.gtkkn.native.glib.g_key_file_new
+import org.gtkkn.native.glib.g_key_file_ref
 import org.gtkkn.native.glib.g_key_file_remove_comment
 import org.gtkkn.native.glib.g_key_file_remove_group
 import org.gtkkn.native.glib.g_key_file_remove_key
@@ -58,14 +59,17 @@ import org.gtkkn.native.glib.g_key_file_set_string_list
 import org.gtkkn.native.glib.g_key_file_set_uint64
 import org.gtkkn.native.glib.g_key_file_set_value
 import org.gtkkn.native.glib.g_key_file_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_key_file_get_type
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gint64
+import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.gobject.guint64
 import kotlin.Boolean
 import kotlin.Char
-import kotlin.Double
-import kotlin.Int
-import kotlin.Long
 import kotlin.Result
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
 
@@ -218,10 +222,18 @@ import kotlin.collections.List
  * - parameter `list`: Array parameter of type gint is not supported
  * - parameter `length`: length: Out parameter is not supported
  */
-public class KeyFile(
-    pointer: CPointer<GKeyFile>,
-) : Record {
+public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
     public val glibKeyFilePointer: CPointer<GKeyFile> = pointer
+
+    /**
+     * Clears all keys and groups from @key_file, and decreases the
+     * reference count by 1. If the reference count reaches zero,
+     * frees the key file and all its allocated memory.
+     *
+     * @since 2.6
+     */
+    @GLibVersion2_6
+    public fun free(): Unit = g_key_file_free(glibKeyFilePointer.reinterpret())
 
     /**
      * Returns the value associated with @key under @group_name as a
@@ -239,25 +251,15 @@ public class KeyFile(
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun getBoolean(
-        groupName: String,
-        key: String,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_key_file_get_boolean(
-                    glibKeyFilePointer.reinterpret(),
-                    groupName,
-                    key,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun getBoolean(groupName: String, key: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_key_file_get_boolean(glibKeyFilePointer.reinterpret(), groupName, key, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Retrieves a comment above @key from @group_name.
@@ -275,25 +277,15 @@ public class KeyFile(
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun getComment(
-        groupName: String? = null,
-        key: String? = null,
-    ): Result<String> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_key_file_get_comment(
-                    glibKeyFilePointer.reinterpret(),
-                    groupName,
-                    key,
-                    gError.ptr
-                )?.toKString()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun getComment(groupName: String? = null, key: String? = null): Result<String> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_key_file_get_comment(glibKeyFilePointer.reinterpret(), groupName, key, gError.ptr)?.toKString()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
         }
+    }
 
     /**
      * Returns the value associated with @key under @group_name as a
@@ -311,19 +303,15 @@ public class KeyFile(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun getDouble(
-        groupName: String,
-        key: String,
-    ): Result<Double> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_key_file_get_double(glibKeyFilePointer.reinterpret(), groupName, key, gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun getDouble(groupName: String, key: String): Result<gdouble> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_key_file_get_double(glibKeyFilePointer.reinterpret(), groupName, key, gError.ptr)
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Returns the value associated with @key under @group_name as a signed
@@ -337,19 +325,15 @@ public class KeyFile(
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getInt64(
-        groupName: String,
-        key: String,
-    ): Result<Long> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_key_file_get_int64(glibKeyFilePointer.reinterpret(), groupName, key, gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun getInt64(groupName: String, key: String): Result<gint64> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_key_file_get_int64(glibKeyFilePointer.reinterpret(), groupName, key, gError.ptr)
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Returns the value associated with @key under @group_name as an
@@ -368,19 +352,15 @@ public class KeyFile(
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun getInteger(
-        groupName: String,
-        key: String,
-    ): Result<Int> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_key_file_get_integer(glibKeyFilePointer.reinterpret(), groupName, key, gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun getInteger(groupName: String, key: String): Result<gint> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_key_file_get_integer(glibKeyFilePointer.reinterpret(), groupName, key, gError.ptr)
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Returns the actual locale which the result of
@@ -401,13 +381,8 @@ public class KeyFile(
      * @since 2.56
      */
     @GLibVersion2_56
-    public fun getLocaleForKey(
-        groupName: String,
-        key: String,
-        locale: String? = null,
-    ): String =
+    public fun getLocaleForKey(groupName: String, key: String, locale: String? = null): String? =
         g_key_file_get_locale_for_key(glibKeyFilePointer.reinterpret(), groupName, key, locale)?.toKString()
-            ?: error("Expected not null string")
 
     /**
      * Returns the value associated with @key under @group_name
@@ -431,27 +406,21 @@ public class KeyFile(
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun getLocaleString(
-        groupName: String,
-        key: String,
-        locale: String? = null,
-    ): Result<String> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_key_file_get_locale_string(
-                    glibKeyFilePointer.reinterpret(),
-                    groupName,
-                    key,
-                    locale,
-                    gError.ptr
-                )?.toKString()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun getLocaleString(groupName: String, key: String, locale: String? = null): Result<String> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_key_file_get_locale_string(
+            glibKeyFilePointer.reinterpret(),
+            groupName,
+            key,
+            locale,
+            gError.ptr
+        )?.toKString()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
         }
+    }
 
     /**
      * Returns the name of the start group of the file.
@@ -460,8 +429,7 @@ public class KeyFile(
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun getStartGroup(): String =
-        g_key_file_get_start_group(glibKeyFilePointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun getStartGroup(): String? = g_key_file_get_start_group(glibKeyFilePointer.reinterpret())?.toKString()
 
     /**
      * Returns the string value associated with @key under @group_name.
@@ -480,25 +448,15 @@ public class KeyFile(
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun getString(
-        groupName: String,
-        key: String,
-    ): Result<String> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_key_file_get_string(
-                    glibKeyFilePointer.reinterpret(),
-                    groupName,
-                    key,
-                    gError.ptr
-                )?.toKString()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun getString(groupName: String, key: String): Result<String> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_key_file_get_string(glibKeyFilePointer.reinterpret(), groupName, key, gError.ptr)?.toKString()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
         }
+    }
 
     /**
      * Returns the value associated with @key under @group_name as an unsigned
@@ -512,19 +470,15 @@ public class KeyFile(
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getUint64(
-        groupName: String,
-        key: String,
-    ): Result<ULong> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_key_file_get_uint64(glibKeyFilePointer.reinterpret(), groupName, key, gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun getUint64(groupName: String, key: String): Result<guint64> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_key_file_get_uint64(glibKeyFilePointer.reinterpret(), groupName, key, gError.ptr)
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Returns the raw value associated with @key under @group_name.
@@ -542,25 +496,15 @@ public class KeyFile(
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun getValue(
-        groupName: String,
-        key: String,
-    ): Result<String> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_key_file_get_value(
-                    glibKeyFilePointer.reinterpret(),
-                    groupName,
-                    key,
-                    gError.ptr
-                )?.toKString()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun getValue(groupName: String, key: String): Result<String> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_key_file_get_value(glibKeyFilePointer.reinterpret(), groupName, key, gError.ptr)?.toKString()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
         }
+    }
 
     /**
      * Looks whether the key file has the group @group_name.
@@ -575,6 +519,34 @@ public class KeyFile(
         g_key_file_has_group(glibKeyFilePointer.reinterpret(), groupName).asBoolean()
 
     /**
+     * Looks whether the key file has the key @key in the group
+     * @group_name.
+     *
+     * Note that this function does not follow the rules for #GError strictly;
+     * the return value both carries meaning and signals an error.  To use
+     * this function, you must pass a #GError pointer in @error, and check
+     * whether it is not null to see if an error occurred.
+     *
+     * Language bindings should use g_key_file_get_value() to test whether
+     * or not a key exists.
+     *
+     * @param groupName a group name
+     * @param key a key name
+     * @return true if @key is a part of @group_name, false otherwise
+     * @since 2.6
+     */
+    @GLibVersion2_6
+    public fun hasKey(groupName: String, key: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_key_file_has_key(glibKeyFilePointer.reinterpret(), groupName, key, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
+        }
+    }
+
+    /**
      * Loads a key file from the data in @bytes into an empty #GKeyFile structure.
      * If the object cannot be created then %error is set to a #GKeyFileError.
      *
@@ -584,25 +556,20 @@ public class KeyFile(
      * @since 2.50
      */
     @GLibVersion2_50
-    public fun loadFromBytes(
-        bytes: Bytes,
-        flags: KeyFileFlags,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_key_file_load_from_bytes(
-                    glibKeyFilePointer.reinterpret(),
-                    bytes.glibBytesPointer.reinterpret(),
-                    flags.mask,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun loadFromBytes(bytes: Bytes, flags: KeyFileFlags): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_key_file_load_from_bytes(
+            glibKeyFilePointer.reinterpret(),
+            bytes.glibBytesPointer.reinterpret(),
+            flags.mask,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Loads a key file from memory into an empty #GKeyFile structure.
@@ -615,27 +582,21 @@ public class KeyFile(
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun loadFromData(
-        `data`: String,
-        length: ULong,
-        flags: KeyFileFlags,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_key_file_load_from_data(
-                    glibKeyFilePointer.reinterpret(),
-                    `data`,
-                    length,
-                    flags.mask,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun loadFromData(`data`: String, length: gsize, flags: KeyFileFlags): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_key_file_load_from_data(
+            glibKeyFilePointer.reinterpret(),
+            `data`,
+            length,
+            flags.mask,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Loads a key file into an empty #GKeyFile structure.
@@ -653,25 +614,31 @@ public class KeyFile(
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun loadFromFile(
-        `file`: String,
-        flags: KeyFileFlags,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_key_file_load_from_file(
-                    glibKeyFilePointer.reinterpret(),
-                    `file`,
-                    flags.mask,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun loadFromFile(`file`: String, flags: KeyFileFlags): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_key_file_load_from_file(
+            glibKeyFilePointer.reinterpret(),
+            `file`,
+            flags.mask,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
+
+    /**
+     * Increases the reference count of @key_file.
+     *
+     * @return the same @key_file.
+     * @since 2.32
+     */
+    @GLibVersion2_32
+    public fun ref(): KeyFile = g_key_file_ref(glibKeyFilePointer.reinterpret())!!.run {
+        KeyFile(reinterpret())
+    }
 
     /**
      * Removes a comment above @key from @group_name.
@@ -685,25 +652,20 @@ public class KeyFile(
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun removeComment(
-        groupName: String? = null,
-        key: String? = null,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_key_file_remove_comment(
-                    glibKeyFilePointer.reinterpret(),
-                    groupName,
-                    key,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun removeComment(groupName: String? = null, key: String? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_key_file_remove_comment(
+            glibKeyFilePointer.reinterpret(),
+            groupName,
+            key,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Removes the specified group, @group_name,
@@ -714,16 +676,15 @@ public class KeyFile(
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun removeGroup(groupName: String): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_key_file_remove_group(glibKeyFilePointer.reinterpret(), groupName, gError.ptr).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun removeGroup(groupName: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_key_file_remove_group(glibKeyFilePointer.reinterpret(), groupName, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Removes @key in @group_name from the key file.
@@ -734,25 +695,15 @@ public class KeyFile(
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun removeKey(
-        groupName: String,
-        key: String,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_key_file_remove_key(
-                    glibKeyFilePointer.reinterpret(),
-                    groupName,
-                    key,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun removeKey(groupName: String, key: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_key_file_remove_key(glibKeyFilePointer.reinterpret(), groupName, key, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Writes the contents of @key_file to @filename using
@@ -768,16 +719,15 @@ public class KeyFile(
      * @since 2.40
      */
     @GLibVersion2_40
-    public fun saveToFile(filename: String): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_key_file_save_to_file(glibKeyFilePointer.reinterpret(), filename, gError.ptr).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun saveToFile(filename: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_key_file_save_to_file(glibKeyFilePointer.reinterpret(), filename, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Associates a new boolean value with @key under @group_name.
@@ -789,11 +739,8 @@ public class KeyFile(
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun setBoolean(
-        groupName: String,
-        key: String,
-        `value`: Boolean,
-    ): Unit = g_key_file_set_boolean(glibKeyFilePointer.reinterpret(), groupName, key, `value`.asGBoolean())
+    public fun setBoolean(groupName: String, key: String, `value`: Boolean): Unit =
+        g_key_file_set_boolean(glibKeyFilePointer.reinterpret(), groupName, key, `value`.asGBoolean())
 
     /**
      * Places a comment above @key from @group_name.
@@ -812,21 +759,16 @@ public class KeyFile(
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun setComment(
-        groupName: String? = null,
-        key: String? = null,
-        comment: String,
-    ): Result<Boolean> =
+    public fun setComment(groupName: String? = null, key: String? = null, comment: String): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                g_key_file_set_comment(
-                    glibKeyFilePointer.reinterpret(),
-                    groupName,
-                    key,
-                    comment,
-                    gError.ptr
-                ).asBoolean()
+            val gResult = g_key_file_set_comment(
+                glibKeyFilePointer.reinterpret(),
+                groupName,
+                key,
+                comment,
+                gError.ptr
+            ).asBoolean()
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {
@@ -844,11 +786,8 @@ public class KeyFile(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun setDouble(
-        groupName: String,
-        key: String,
-        `value`: Double,
-    ): Unit = g_key_file_set_double(glibKeyFilePointer.reinterpret(), groupName, key, `value`)
+    public fun setDouble(groupName: String, key: String, `value`: gdouble): Unit =
+        g_key_file_set_double(glibKeyFilePointer.reinterpret(), groupName, key, `value`)
 
     /**
      * Associates a new integer value with @key under @group_name.
@@ -860,11 +799,8 @@ public class KeyFile(
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun setInt64(
-        groupName: String,
-        key: String,
-        `value`: Long,
-    ): Unit = g_key_file_set_int64(glibKeyFilePointer.reinterpret(), groupName, key, `value`)
+    public fun setInt64(groupName: String, key: String, `value`: gint64): Unit =
+        g_key_file_set_int64(glibKeyFilePointer.reinterpret(), groupName, key, `value`)
 
     /**
      * Associates a new integer value with @key under @group_name.
@@ -876,11 +812,8 @@ public class KeyFile(
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun setInteger(
-        groupName: String,
-        key: String,
-        `value`: Int,
-    ): Unit = g_key_file_set_integer(glibKeyFilePointer.reinterpret(), groupName, key, `value`)
+    public fun setInteger(groupName: String, key: String, `value`: gint): Unit =
+        g_key_file_set_integer(glibKeyFilePointer.reinterpret(), groupName, key, `value`)
 
     /**
      * Sets the character which is used to separate
@@ -905,12 +838,8 @@ public class KeyFile(
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun setLocaleString(
-        groupName: String,
-        key: String,
-        locale: String,
-        string: String,
-    ): Unit = g_key_file_set_locale_string(glibKeyFilePointer.reinterpret(), groupName, key, locale, string)
+    public fun setLocaleString(groupName: String, key: String, locale: String, string: String): Unit =
+        g_key_file_set_locale_string(glibKeyFilePointer.reinterpret(), groupName, key, locale, string)
 
     /**
      * Associates a list of string values for @key and @locale under
@@ -930,18 +859,17 @@ public class KeyFile(
         key: String,
         locale: String,
         list: List<String>,
-        length: ULong,
-    ): Unit =
-        memScoped {
-            return g_key_file_set_locale_string_list(
-                glibKeyFilePointer.reinterpret(),
-                groupName,
-                key,
-                locale,
-                list.toCStringList(this),
-                length
-            )
-        }
+        length: gsize,
+    ): Unit = memScoped {
+        return g_key_file_set_locale_string_list(
+            glibKeyFilePointer.reinterpret(),
+            groupName,
+            key,
+            locale,
+            list.toCStringList(this),
+            length
+        )
+    }
 
     /**
      * Associates a new string value with @key under @group_name.
@@ -956,11 +884,8 @@ public class KeyFile(
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun setString(
-        groupName: String,
-        key: String,
-        string: String,
-    ): Unit = g_key_file_set_string(glibKeyFilePointer.reinterpret(), groupName, key, string)
+    public fun setString(groupName: String, key: String, string: String): Unit =
+        g_key_file_set_string(glibKeyFilePointer.reinterpret(), groupName, key, string)
 
     /**
      * Associates a list of string values for @key under @group_name.
@@ -974,21 +899,15 @@ public class KeyFile(
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun setStringList(
-        groupName: String,
-        key: String,
-        list: List<String>,
-        length: ULong,
-    ): Unit =
-        memScoped {
-            return g_key_file_set_string_list(
-                glibKeyFilePointer.reinterpret(),
-                groupName,
-                key,
-                list.toCStringList(this),
-                length
-            )
-        }
+    public fun setStringList(groupName: String, key: String, list: List<String>, length: gsize): Unit = memScoped {
+        return g_key_file_set_string_list(
+            glibKeyFilePointer.reinterpret(),
+            groupName,
+            key,
+            list.toCStringList(this),
+            length
+        )
+    }
 
     /**
      * Associates a new integer value with @key under @group_name.
@@ -1000,11 +919,8 @@ public class KeyFile(
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun setUint64(
-        groupName: String,
-        key: String,
-        `value`: ULong,
-    ): Unit = g_key_file_set_uint64(glibKeyFilePointer.reinterpret(), groupName, key, `value`)
+    public fun setUint64(groupName: String, key: String, `value`: guint64): Unit =
+        g_key_file_set_uint64(glibKeyFilePointer.reinterpret(), groupName, key, `value`)
 
     /**
      * Associates a new value with @key under @group_name.
@@ -1020,11 +936,8 @@ public class KeyFile(
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun setValue(
-        groupName: String,
-        key: String,
-        `value`: String,
-    ): Unit = g_key_file_set_value(glibKeyFilePointer.reinterpret(), groupName, key, `value`)
+    public fun setValue(groupName: String, key: String, `value`: String): Unit =
+        g_key_file_set_value(glibKeyFilePointer.reinterpret(), groupName, key, `value`)
 
     /**
      * Decreases the reference count of @key_file by 1. If the reference count
@@ -1035,7 +948,7 @@ public class KeyFile(
     @GLibVersion2_32
     public fun unref(): Unit = g_key_file_unref(glibKeyFilePointer.reinterpret())
 
-    public companion object : RecordCompanion<KeyFile, GKeyFile> {
+    public companion object {
         /**
          * Creates a new empty #GKeyFile object. Use
          * g_key_file_load_from_file(), g_key_file_load_from_data(),
@@ -1049,6 +962,11 @@ public class KeyFile(
 
         public fun errorQuark(): Quark = g_key_file_error_quark()
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): KeyFile = KeyFile(pointer.reinterpret())
+        /**
+         * Get the GType of KeyFile
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_key_file_get_type()
     }
 }

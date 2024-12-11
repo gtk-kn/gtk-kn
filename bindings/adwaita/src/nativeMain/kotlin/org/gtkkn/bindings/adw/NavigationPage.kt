@@ -30,6 +30,7 @@ import org.gtkkn.native.adw.adw_navigation_page_set_can_pop
 import org.gtkkn.native.adw.adw_navigation_page_set_child
 import org.gtkkn.native.adw.adw_navigation_page_set_tag
 import org.gtkkn.native.adw.adw_navigation_page_set_title
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -69,9 +70,8 @@ import kotlin.Unit
  * @since 1.4
  */
 @AdwVersion1_4
-public open class NavigationPage(
-    pointer: CPointer<AdwNavigationPage>,
-) : Widget(pointer.reinterpret()),
+public open class NavigationPage(pointer: CPointer<AdwNavigationPage>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val adwNavigationPagePointer: CPointer<AdwNavigationPage>
         get() = gPointer.reinterpret()
@@ -140,10 +140,9 @@ public open class NavigationPage(
          * @return the child widget of @self
          * @since 1.4
          */
-        get() =
-            adw_navigation_page_get_child(adwNavigationPagePointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = adw_navigation_page_get_child(adwNavigationPagePointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the child widget of @self.
@@ -154,11 +153,10 @@ public open class NavigationPage(
         @AdwVersion1_4
         set(
             child
-        ) =
-            adw_navigation_page_set_child(
-                adwNavigationPagePointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        ) = adw_navigation_page_set_child(
+            adwNavigationPagePointer.reinterpret(),
+            child?.gtkWidgetPointer?.reinterpret()
+        )
 
     /**
      * The page tag.
@@ -218,9 +216,8 @@ public open class NavigationPage(
          * @return the title of @self
          * @since 1.4
          */
-        get() =
-            adw_navigation_page_get_title(adwNavigationPagePointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = adw_navigation_page_get_title(adwNavigationPagePointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Sets the title of @self.
@@ -263,109 +260,6 @@ public open class NavigationPage(
     ) : this(adw_navigation_page_new_with_tag(child.gtkWidgetPointer.reinterpret(), title, tag)!!.reinterpret())
 
     /**
-     * Gets whether @self can be popped from navigation stack.
-     *
-     * @return whether the page can be popped from navigation stack
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public open fun getCanPop(): Boolean =
-        adw_navigation_page_get_can_pop(adwNavigationPagePointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the child widget of @self.
-     *
-     * @return the child widget of @self
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public open fun getChild(): Widget? =
-        adw_navigation_page_get_child(adwNavigationPagePointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Gets the tag of @self.
-     *
-     * @return the page tag
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public open fun getTag(): String? = adw_navigation_page_get_tag(adwNavigationPagePointer.reinterpret())?.toKString()
-
-    /**
-     * Gets the title of @self.
-     *
-     * @return the title of @self
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public open fun getTitle(): String =
-        adw_navigation_page_get_title(adwNavigationPagePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Sets whether @self can be popped from navigation stack.
-     *
-     * Set it to `FALSE` to disable shortcuts and gestures, as well as remove the
-     * back button from [class@HeaderBar].
-     *
-     * Manually calling [method@NavigationView.pop] or using the `navigation.pop`
-     * action will still work.
-     *
-     * See [property@HeaderBar:show-back-button] for removing only the back button,
-     * but not shortcuts.
-     *
-     * @param canPop whether the page can be popped from navigation stack
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public open fun setCanPop(canPop: Boolean): Unit =
-        adw_navigation_page_set_can_pop(adwNavigationPagePointer.reinterpret(), canPop.asGBoolean())
-
-    /**
-     * Sets the child widget of @self.
-     *
-     * @param child the child widget
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public open fun setChild(child: Widget? = null): Unit =
-        adw_navigation_page_set_child(adwNavigationPagePointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
-
-    /**
-     * Sets the tag for @self.
-     *
-     * The tag can be used to retrieve the page with
-     * [method@NavigationView.find_page], as well as with
-     * [method@NavigationView.push_by_tag], [method@NavigationView.pop_to_tag] or
-     * [method@NavigationView.replace_with_tags].
-     *
-     * Tags must be unique within each [class@NavigationView].
-     *
-     * The tag also must be set to use the `navigation.push` action.
-     *
-     * @param tag the page tag
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public open fun setTag(tag: String? = null): Unit =
-        adw_navigation_page_set_tag(adwNavigationPagePointer.reinterpret(), tag)
-
-    /**
-     * Sets the title of @self.
-     *
-     * It's displayed in [class@HeaderBar] instead of the window title, and used as
-     * the tooltip on the next page's back button, as well as by screen reader.
-     *
-     * @param title the title
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public open fun setTitle(title: String): Unit =
-        adw_navigation_page_set_title(adwNavigationPagePointer.reinterpret(), title)
-
-    /**
      * Emitted when the navigation view transition has been completed and the page
      * is fully hidden.
      *
@@ -377,10 +271,7 @@ public open class NavigationPage(
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun connectHidden(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectHidden(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "hidden",
@@ -402,10 +293,7 @@ public open class NavigationPage(
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun connectHiding(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectHiding(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "hiding",
@@ -427,10 +315,7 @@ public open class NavigationPage(
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun connectShowing(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectShowing(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "showing",
@@ -452,10 +337,7 @@ public open class NavigationPage(
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun connectShown(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectShown(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "shown",
@@ -472,37 +354,44 @@ public open class NavigationPage(
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of NavigationPage
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_navigation_page_get_type()
     }
 }
 
-private val connectHiddenFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectHiddenFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectHidingFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectHidingFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectShowingFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectShowingFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectShownFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectShownFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

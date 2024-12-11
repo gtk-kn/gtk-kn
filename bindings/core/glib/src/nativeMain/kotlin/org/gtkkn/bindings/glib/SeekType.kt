@@ -7,9 +7,7 @@ import org.gtkkn.native.glib.GSeekType
  * An enumeration specifying the base position for a
  * g_io_channel_seek_position() operation.
  */
-public enum class SeekType(
-    public val nativeValue: GSeekType,
-) {
+public enum class SeekType(public val nativeValue: GSeekType) {
     /**
      * the current position in the file.
      */
@@ -27,12 +25,11 @@ public enum class SeekType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GSeekType): SeekType =
-            when (nativeValue) {
-                GSeekType.G_SEEK_CUR -> CUR
-                GSeekType.G_SEEK_SET -> SET
-                GSeekType.G_SEEK_END -> END
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GSeekType): SeekType = when (nativeValue) {
+            GSeekType.G_SEEK_CUR -> CUR
+            GSeekType.G_SEEK_SET -> SET
+            GSeekType.G_SEEK_END -> END
+            else -> error("invalid nativeValue")
+        }
     }
 }

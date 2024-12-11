@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -9,11 +8,10 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.bindings.glib.Glib.resolveException
+import org.gtkkn.bindings.glib.GLib.resolveException
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_80
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GDir
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.g_dir_close
@@ -23,17 +21,17 @@ import org.gtkkn.native.glib.g_dir_read_name
 import org.gtkkn.native.glib.g_dir_ref
 import org.gtkkn.native.glib.g_dir_rewind
 import org.gtkkn.native.glib.g_dir_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_dir_get_type
+import org.gtkkn.native.gobject.guint
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 
 /**
  * An opaque structure representing an opened directory.
  */
-public class Dir(
-    pointer: CPointer<GDir>,
-) : Record {
+public class Dir(pointer: CPointer<GDir>) : ProxyInstance(pointer) {
     public val glibDirPointer: CPointer<GDir> = pointer
 
     /**
@@ -77,10 +75,9 @@ public class Dir(
      * @since 2.80
      */
     @GLibVersion2_80
-    public fun ref(): Dir =
-        g_dir_ref(glibDirPointer.reinterpret())!!.run {
-            Dir(reinterpret())
-        }
+    public fun ref(): Dir = g_dir_ref(glibDirPointer.reinterpret())!!.run {
+        Dir(reinterpret())
+    }
 
     /**
      * Resets the given directory. The next call to g_dir_read_name()
@@ -106,7 +103,7 @@ public class Dir(
     @GLibVersion2_80
     public fun unref(): Unit = g_dir_unref(glibDirPointer.reinterpret())
 
-    public companion object : RecordCompanion<Dir, GDir> {
+    public companion object {
         /**
          * Opens a directory for reading. The names of the files in the
          * directory can then be retrieved using g_dir_read_name().  Note
@@ -119,10 +116,7 @@ public class Dir(
          *   If non-null, you must free the result with g_dir_close()
          *   when you are finished with it.
          */
-        public fun `open`(
-            path: String,
-            flags: UInt,
-        ): Result<Dir> {
+        public fun `open`(path: String, flags: guint): Result<Dir> {
             memScoped {
                 val gError = allocPointerTo<GError>()
                 val gResult = g_dir_open(path, flags, gError.ptr)
@@ -156,17 +150,21 @@ public class Dir(
          * @since 2.30
          */
         @GLibVersion2_30
-        public fun makeTmp(tmpl: String? = null): Result<String> =
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                val gResult = g_dir_make_tmp(tmpl, gError.ptr)?.toKString()
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(checkNotNull(gResult))
-                }
+        public fun makeTmp(tmpl: String? = null): Result<String> = memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult = g_dir_make_tmp(tmpl, gError.ptr)?.toKString()
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(checkNotNull(gResult))
             }
+        }
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Dir = Dir(pointer.reinterpret())
+        /**
+         * Get the GType of Dir
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dir_get_type()
     }
 }

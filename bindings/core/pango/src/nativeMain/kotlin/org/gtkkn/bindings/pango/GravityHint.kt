@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.pango
 
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoGravityHint
+import org.gtkkn.native.pango.pango_gravity_hint_get_type
 
 /**
  * `PangoGravityHint` defines how horizontal scripts should behave in a
@@ -14,9 +16,7 @@ import org.gtkkn.native.pango.PangoGravityHint
  * @since 1.16
  */
 @PangoVersion1_16
-public enum class GravityHint(
-    public val nativeValue: PangoGravityHint,
-) {
+public enum class GravityHint(public val nativeValue: PangoGravityHint) {
     /**
      * scripts will take their natural gravity based
      *   on the base gravity and the script.  This is the default.
@@ -39,12 +39,18 @@ public enum class GravityHint(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: PangoGravityHint): GravityHint =
-            when (nativeValue) {
-                PangoGravityHint.PANGO_GRAVITY_HINT_NATURAL -> NATURAL
-                PangoGravityHint.PANGO_GRAVITY_HINT_STRONG -> STRONG
-                PangoGravityHint.PANGO_GRAVITY_HINT_LINE -> LINE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: PangoGravityHint): GravityHint = when (nativeValue) {
+            PangoGravityHint.PANGO_GRAVITY_HINT_NATURAL -> NATURAL
+            PangoGravityHint.PANGO_GRAVITY_HINT_STRONG -> STRONG
+            PangoGravityHint.PANGO_GRAVITY_HINT_LINE -> LINE
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of GravityHint
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_gravity_hint_get_type()
     }
 }

@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.gsk
 
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskFillRule
+import org.gtkkn.native.gsk.gsk_fill_rule_get_type
 
 /**
  * `GskFillRule` is used to select how paths are filled.
@@ -20,9 +22,7 @@ import org.gtkkn.native.gsk.GskFillRule
  * @since 4.14
  */
 @GskVersion4_14
-public enum class FillRule(
-    public val nativeValue: GskFillRule,
-) {
+public enum class FillRule(public val nativeValue: GskFillRule) {
     /**
      * If the path crosses the ray from
      *   left-to-right, counts +1. If the path crosses the ray
@@ -42,11 +42,17 @@ public enum class FillRule(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GskFillRule): FillRule =
-            when (nativeValue) {
-                GskFillRule.GSK_FILL_RULE_WINDING -> WINDING
-                GskFillRule.GSK_FILL_RULE_EVEN_ODD -> EVEN_ODD
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GskFillRule): FillRule = when (nativeValue) {
+            GskFillRule.GSK_FILL_RULE_WINDING -> WINDING
+            GskFillRule.GSK_FILL_RULE_EVEN_ODD -> EVEN_ODD
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of FillRule
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_fill_rule_get_type()
     }
 }

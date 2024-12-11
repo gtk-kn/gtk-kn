@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -9,14 +8,15 @@ import org.gtkkn.bindings.gio.TlsCertificate
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_2
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_34
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitCredential
 import org.gtkkn.native.webkit.webkit_credential_copy
 import org.gtkkn.native.webkit.webkit_credential_free
 import org.gtkkn.native.webkit.webkit_credential_get_certificate
 import org.gtkkn.native.webkit.webkit_credential_get_password
 import org.gtkkn.native.webkit.webkit_credential_get_persistence
+import org.gtkkn.native.webkit.webkit_credential_get_type
 import org.gtkkn.native.webkit.webkit_credential_get_username
 import org.gtkkn.native.webkit.webkit_credential_has_password
 import org.gtkkn.native.webkit.webkit_credential_new
@@ -31,9 +31,7 @@ import kotlin.Unit
  * @since 2.2
  */
 @WebKitVersion2_2
-public class Credential(
-    pointer: CPointer<WebKitCredential>,
-) : Record {
+public class Credential(pointer: CPointer<WebKitCredential>) : ProxyInstance(pointer) {
     public val webkitCredentialPointer: CPointer<WebKitCredential> = pointer
 
     /**
@@ -43,10 +41,9 @@ public class Credential(
      * @since 2.2
      */
     @WebKitVersion2_2
-    public fun copy(): Credential =
-        webkit_credential_copy(webkitCredentialPointer.reinterpret())!!.run {
-            Credential(reinterpret())
-        }
+    public fun copy(): Credential = webkit_credential_copy(webkitCredentialPointer.reinterpret())!!.run {
+        Credential(reinterpret())
+    }
 
     /**
      * Free the #WebKitCredential.
@@ -112,7 +109,7 @@ public class Credential(
     public fun hasPassword(): Boolean =
         webkit_credential_has_password(webkitCredentialPointer.reinterpret()).asBoolean()
 
-    public companion object : RecordCompanion<Credential, WebKitCredential> {
+    public companion object {
         /**
          * Create a new credential from the provided username, password and persistence mode.
          *
@@ -122,11 +119,8 @@ public class Credential(
          * @return A #WebKitCredential.
          * @since 2.2
          */
-        public fun new(
-            username: String,
-            password: String,
-            persistence: CredentialPersistence,
-        ): Credential = Credential(webkit_credential_new(username, password, persistence.nativeValue)!!.reinterpret())
+        public fun new(username: String, password: String, persistence: CredentialPersistence): Credential =
+            Credential(webkit_credential_new(username, password, persistence.nativeValue)!!.reinterpret())
 
         /**
          * Create a new credential from the @certificate and persistence mode.
@@ -141,13 +135,12 @@ public class Credential(
         public fun newForCertificate(
             certificate: TlsCertificate? = null,
             persistence: CredentialPersistence,
-        ): Credential =
-            Credential(
-                webkit_credential_new_for_certificate(
-                    certificate?.gioTlsCertificatePointer?.reinterpret(),
-                    persistence.nativeValue
-                )!!.reinterpret()
-            )
+        ): Credential = Credential(
+            webkit_credential_new_for_certificate(
+                certificate?.gioTlsCertificatePointer?.reinterpret(),
+                persistence.nativeValue
+            )!!.reinterpret()
+        )
 
         /**
          * Create a new credential from the provided PIN and persistence mode.
@@ -159,12 +152,14 @@ public class Credential(
          * @return A #WebKitCredential.
          * @since 2.34
          */
-        public fun newForCertificatePin(
-            pin: String,
-            persistence: CredentialPersistence,
-        ): Credential =
+        public fun newForCertificatePin(pin: String, persistence: CredentialPersistence): Credential =
             Credential(webkit_credential_new_for_certificate_pin(pin, persistence.nativeValue)!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Credential = Credential(pointer.reinterpret())
+        /**
+         * Get the GType of Credential
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_credential_get_type()
     }
 }

@@ -1,17 +1,22 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_66
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GUriParamsIter
 import org.gtkkn.native.glib.g_uri_params_iter_init
 import kotlin.Long
+import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * Many URI schemes include one or more attribute/value pairs as part of the URI
@@ -35,10 +40,39 @@ import kotlin.Unit
  * @since 2.66
  */
 @GLibVersion2_66
-public class UriParamsIter(
-    pointer: CPointer<GUriParamsIter>,
-) : Record {
+public class UriParamsIter(pointer: CPointer<GUriParamsIter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibUriParamsIterPointer: CPointer<GUriParamsIter> = pointer
+
+    /**
+     * Allocate a new UriParamsIter.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<GUriParamsIter>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to UriParamsIter and a [Cleaner] instance.
+     */
+    private constructor(
+        pair: Pair<CPointer<GUriParamsIter>, Cleaner>,
+    ) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new UriParamsIter using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GUriParamsIter>().ptr)
 
     /**
      * Initializes an attribute/value pair iterator.
@@ -87,15 +121,6 @@ public class UriParamsIter(
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun `init`(
-        params: String,
-        length: Long,
-        separators: String,
-        flags: UriParamsFlags,
-    ): Unit = g_uri_params_iter_init(glibUriParamsIterPointer.reinterpret(), params, length, separators, flags.mask)
-
-    public companion object : RecordCompanion<UriParamsIter, GUriParamsIter> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): UriParamsIter =
-            UriParamsIter(pointer.reinterpret())
-    }
+    public fun `init`(params: String, length: Long, separators: String, flags: UriParamsFlags): Unit =
+        g_uri_params_iter_init(glibUriParamsIterPointer.reinterpret(), params, length, separators, flags.mask)
 }

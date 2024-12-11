@@ -32,8 +32,9 @@ import org.gtkkn.native.gio.g_application_command_line_getenv
 import org.gtkkn.native.gio.g_application_command_line_print_literal
 import org.gtkkn.native.gio.g_application_command_line_printerr_literal
 import org.gtkkn.native.gio.g_application_command_line_set_exit_status
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlin.collections.List
@@ -211,13 +212,14 @@ import kotlin.collections.List
  * ## Skipped during bindings generation
  *
  * - parameter `argc`: argc: Out parameter is not supported
+ * - method `print`: Varargs parameter is not supported
+ * - method `printerr`: Varargs parameter is not supported
  * - method `arguments`: Property has no getter nor setter
  * - method `options`: Property has no getter nor setter
  * - method `platform-data`: Property has no getter nor setter
  */
-public open class ApplicationCommandLine(
-    pointer: CPointer<GApplicationCommandLine>,
-) : Object(pointer.reinterpret()),
+public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLine>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioApplicationCommandLinePointer: CPointer<GApplicationCommandLine>
         get() = gPointer.reinterpret()
@@ -327,18 +329,8 @@ public open class ApplicationCommandLine(
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun getExitStatus(): Int =
+    public open fun getExitStatus(): gint =
         g_application_command_line_get_exit_status(gioApplicationCommandLinePointer.reinterpret())
-
-    /**
-     * Determines if @cmdline represents a remote invocation.
-     *
-     * @return true if the invocation was remote
-     * @since 2.28
-     */
-    @GioVersion2_28
-    public open fun getIsRemote(): Boolean =
-        g_application_command_line_get_is_remote(gioApplicationCommandLinePointer.reinterpret()).asBoolean()
 
     /**
      * Gets the options that were passed to g_application_command_line().
@@ -485,7 +477,7 @@ public open class ApplicationCommandLine(
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun setExitStatus(exitStatus: Int): Unit =
+    public open fun setExitStatus(exitStatus: gint): Unit =
         g_application_command_line_set_exit_status(gioApplicationCommandLinePointer.reinterpret(), exitStatus)
 
     public companion object : TypeCompanion<ApplicationCommandLine> {
@@ -495,5 +487,12 @@ public open class ApplicationCommandLine(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ApplicationCommandLine
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_application_command_line_get_type()
     }
 }

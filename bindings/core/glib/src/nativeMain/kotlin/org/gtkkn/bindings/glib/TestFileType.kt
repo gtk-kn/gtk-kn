@@ -24,9 +24,7 @@ import org.gtkkn.native.glib.GTestFileType
  * @since 2.38
  */
 @GLibVersion2_38
-public enum class TestFileType(
-    public val nativeValue: GTestFileType,
-) {
+public enum class TestFileType(public val nativeValue: GTestFileType) {
     /**
      * a file that was included in the distribution tarball
      */
@@ -39,11 +37,10 @@ public enum class TestFileType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GTestFileType): TestFileType =
-            when (nativeValue) {
-                GTestFileType.G_TEST_DIST -> DIST
-                GTestFileType.G_TEST_BUILT -> BUILT
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GTestFileType): TestFileType = when (nativeValue) {
+            GTestFileType.G_TEST_DIST -> DIST
+            GTestFileType.G_TEST_BUILT -> BUILT
+            else -> error("invalid nativeValue")
+        }
     }
 }

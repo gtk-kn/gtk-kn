@@ -1,14 +1,19 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.soup.SoupMessageHeadersIter
 import org.gtkkn.native.soup.soup_message_headers_iter_init
+import kotlin.Pair
 import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * An opaque type used to iterate over a %SoupMessageHeaders
@@ -24,12 +29,42 @@ import kotlin.Unit
  * - parameter `name`: name: Out parameter is not supported
  * - field `dummy`: Record field dummy is private
  */
-public class MessageHeadersIter(
-    pointer: CPointer<SoupMessageHeadersIter>,
-) : Record {
+public class MessageHeadersIter(pointer: CPointer<SoupMessageHeadersIter>, cleaner: Cleaner? = null) :
+    ProxyInstance(pointer) {
     public val soupMessageHeadersIterPointer: CPointer<SoupMessageHeadersIter> = pointer
 
-    public companion object : RecordCompanion<MessageHeadersIter, SoupMessageHeadersIter> {
+    /**
+     * Allocate a new MessageHeadersIter.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<SoupMessageHeadersIter>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to MessageHeadersIter and a [Cleaner] instance.
+     */
+    private constructor(
+        pair: Pair<CPointer<SoupMessageHeadersIter>, Cleaner>,
+    ) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new MessageHeadersIter using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<SoupMessageHeadersIter>().ptr)
+
+    public companion object {
         /**
          * Initializes @iter for iterating @hdrs.
          *
@@ -37,16 +72,9 @@ public class MessageHeadersIter(
          *   structure
          * @param hdrs a %SoupMessageHeaders
          */
-        public fun `init`(
-            iter: MessageHeadersIter,
-            hdrs: MessageHeaders,
-        ): Unit =
-            soup_message_headers_iter_init(
-                iter.soupMessageHeadersIterPointer.reinterpret(),
-                hdrs.soupMessageHeadersPointer.reinterpret()
-            )
-
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MessageHeadersIter =
-            MessageHeadersIter(pointer.reinterpret())
+        public fun `init`(iter: MessageHeadersIter, hdrs: MessageHeaders): Unit = soup_message_headers_iter_init(
+            iter.soupMessageHeadersIterPointer.reinterpret(),
+            hdrs.soupMessageHeadersPointer.reinterpret()
+        )
     }
 }

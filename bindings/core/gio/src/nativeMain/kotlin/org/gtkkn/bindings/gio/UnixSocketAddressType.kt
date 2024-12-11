@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.native.gio.GUnixSocketAddressType
+import org.gtkkn.native.gio.g_unix_socket_address_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * The type of name used by a #GUnixSocketAddress.
@@ -21,9 +23,7 @@ import org.gtkkn.native.gio.GUnixSocketAddressType
  * @since 2.26
  */
 @GioVersion2_26
-public enum class UnixSocketAddressType(
-    public val nativeValue: GUnixSocketAddressType,
-) {
+public enum class UnixSocketAddressType(public val nativeValue: GUnixSocketAddressType) {
     /**
      * invalid
      */
@@ -52,14 +52,20 @@ public enum class UnixSocketAddressType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GUnixSocketAddressType): UnixSocketAddressType =
-            when (nativeValue) {
-                GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_INVALID -> INVALID
-                GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_ANONYMOUS -> ANONYMOUS
-                GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_PATH -> PATH
-                GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_ABSTRACT -> ABSTRACT
-                GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_ABSTRACT_PADDED -> ABSTRACT_PADDED
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GUnixSocketAddressType): UnixSocketAddressType = when (nativeValue) {
+            GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_INVALID -> INVALID
+            GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_ANONYMOUS -> ANONYMOUS
+            GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_PATH -> PATH
+            GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_ABSTRACT -> ABSTRACT
+            GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_ABSTRACT_PADDED -> ABSTRACT_PADDED
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of UnixSocketAddressType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_unix_socket_address_type_get_type()
     }
 }

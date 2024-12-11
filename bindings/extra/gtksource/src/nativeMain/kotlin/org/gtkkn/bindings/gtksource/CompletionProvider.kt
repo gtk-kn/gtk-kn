@@ -17,13 +17,17 @@ import org.gtkkn.bindings.gio.Cancellable
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gtk.TextIter
-import org.gtkkn.bindings.gtksource.Gtksource.resolveException
+import org.gtkkn.bindings.gtksource.GtkSource.resolveException
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.gunichar
 import org.gtkkn.native.gtksource.GtkSourceCompletionProvider
 import org.gtkkn.native.gtksource.gtk_source_completion_provider_activate
 import org.gtkkn.native.gtksource.gtk_source_completion_provider_display
@@ -36,10 +40,8 @@ import org.gtkkn.native.gtksource.gtk_source_completion_provider_populate_async
 import org.gtkkn.native.gtksource.gtk_source_completion_provider_populate_finish
 import org.gtkkn.native.gtksource.gtk_source_completion_provider_refilter
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 
 /**
@@ -73,10 +75,7 @@ public interface CompletionProvider :
      * @param context a #GtkSourceCompletionContext
      * @param proposal a #GtkSourceCompletionProposal
      */
-    public fun activate(
-        context: CompletionContext,
-        proposal: CompletionProposal,
-    ): Unit =
+    public fun activate(context: CompletionContext, proposal: CompletionProposal): Unit =
         gtk_source_completion_provider_activate(
             gtksourceCompletionProviderPointer.reinterpret(),
             context.gtksourceCompletionContextPointer.reinterpret(),
@@ -97,11 +96,7 @@ public interface CompletionProvider :
      * @param proposal a #GtkSourceCompletionProposal
      * @param cell a #GtkSourceCompletionCell
      */
-    public fun display(
-        context: CompletionContext,
-        proposal: CompletionProposal,
-        cell: CompletionCell,
-    ): Unit =
+    public fun display(context: CompletionContext, proposal: CompletionProposal, cell: CompletionCell): Unit =
         gtk_source_completion_provider_display(
             gtksourceCompletionProviderPointer.reinterpret(),
             context.gtksourceCompletionContextPointer.reinterpret(),
@@ -120,11 +115,10 @@ public interface CompletionProvider :
      *
      * @param context a #GtkSourceCompletionContext
      */
-    public fun getPriority(context: CompletionContext): Int =
-        gtk_source_completion_provider_get_priority(
-            gtksourceCompletionProviderPointer.reinterpret(),
-            context.gtksourceCompletionContextPointer.reinterpret()
-        )
+    public fun getPriority(context: CompletionContext): gint = gtk_source_completion_provider_get_priority(
+        gtksourceCompletionProviderPointer.reinterpret(),
+        context.gtksourceCompletionContextPointer.reinterpret()
+    )
 
     /**
      * Gets the title of the completion provider, if any.
@@ -151,15 +145,11 @@ public interface CompletionProvider :
      * @param iter a #GtkTextIter
      * @param ch a #gunichar of the character inserted
      */
-    public fun isTrigger(
-        iter: TextIter,
-        ch: UInt,
-    ): Boolean =
-        gtk_source_completion_provider_is_trigger(
-            gtksourceCompletionProviderPointer.reinterpret(),
-            iter.gtkTextIterPointer.reinterpret(),
-            ch
-        ).asBoolean()
+    public fun isTrigger(iter: TextIter, ch: gunichar): Boolean = gtk_source_completion_provider_is_trigger(
+        gtksourceCompletionProviderPointer.reinterpret(),
+        iter.gtkTextIterPointer.reinterpret(),
+        ch
+    ).asBoolean()
 
     /**
      * This function is used to determine if a key typed by the user should
@@ -177,16 +167,15 @@ public interface CompletionProvider :
     public fun keyActivates(
         context: CompletionContext,
         proposal: CompletionProposal,
-        keyval: UInt,
+        keyval: guint,
         state: ModifierType,
-    ): Boolean =
-        gtk_source_completion_provider_key_activates(
-            gtksourceCompletionProviderPointer.reinterpret(),
-            context.gtksourceCompletionContextPointer.reinterpret(),
-            proposal.gtksourceCompletionProposalPointer,
-            keyval,
-            state.mask
-        ).asBoolean()
+    ): Boolean = gtk_source_completion_provider_key_activates(
+        gtksourceCompletionProviderPointer.reinterpret(),
+        context.gtksourceCompletionContextPointer.reinterpret(),
+        proposal.gtksourceCompletionProposalPointer,
+        keyval,
+        state.mask
+    ).asBoolean()
 
     /**
      * Asynchronously requests that the provider populates the completion
@@ -205,14 +194,13 @@ public interface CompletionProvider :
         context: CompletionContext,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        gtk_source_completion_provider_populate_async(
-            gtksourceCompletionProviderPointer.reinterpret(),
-            context.gtksourceCompletionContextPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = gtk_source_completion_provider_populate_async(
+        gtksourceCompletionProviderPointer.reinterpret(),
+        context.gtksourceCompletionContextPointer.reinterpret(),
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Completes an asynchronous operation to populate a completion provider.
@@ -220,24 +208,22 @@ public interface CompletionProvider :
      * @param result a #GAsyncResult provided to callback
      * @return a #GListModel of #GtkSourceCompletionProposal
      */
-    public fun populateFinish(result: AsyncResult): Result<ListModel> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gtk_source_completion_provider_populate_finish(
-                    gtksourceCompletionProviderPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    ListModel.wrap(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun populateFinish(result: AsyncResult): Result<ListModel> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gtk_source_completion_provider_populate_finish(
+            gtksourceCompletionProviderPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            ListModel.wrap(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * This function can be used to filter results previously provided to
@@ -250,19 +236,13 @@ public interface CompletionProvider :
      * @param context a #GtkSourceCompletionContext
      * @param model a #GListModel
      */
-    public fun refilter(
-        context: CompletionContext,
-        model: ListModel,
-    ): Unit =
-        gtk_source_completion_provider_refilter(
-            gtksourceCompletionProviderPointer.reinterpret(),
-            context.gtksourceCompletionContextPointer.reinterpret(),
-            model.gioListModelPointer
-        )
+    public fun refilter(context: CompletionContext, model: ListModel): Unit = gtk_source_completion_provider_refilter(
+        gtksourceCompletionProviderPointer.reinterpret(),
+        context.gtksourceCompletionContextPointer.reinterpret(),
+        model.gioListModelPointer
+    )
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkSourceCompletionProvider>,
-    ) : CompletionProvider {
+    private data class Wrapper(private val pointer: CPointer<GtkSourceCompletionProvider>) : CompletionProvider {
         override val gtksourceCompletionProviderPointer: CPointer<GtkSourceCompletionProvider> =
             pointer
     }
@@ -276,5 +256,12 @@ public interface CompletionProvider :
         }
 
         public fun wrap(pointer: CPointer<GtkSourceCompletionProvider>): CompletionProvider = Wrapper(pointer)
+
+        /**
+         * Get the GType of CompletionProvider
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_completion_provider_get_type()
     }
 }

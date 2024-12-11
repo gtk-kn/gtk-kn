@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoCoverageLevel
+import org.gtkkn.native.pango.pango_coverage_level_get_type
 
 /**
  * `PangoCoverageLevel` is used to indicate how well a font can
@@ -10,9 +12,7 @@ import org.gtkkn.native.pango.PangoCoverageLevel
  * Since 1.44, only %PANGO_COVERAGE_NONE and %PANGO_COVERAGE_EXACT
  * will be returned.
  */
-public enum class CoverageLevel(
-    public val nativeValue: PangoCoverageLevel,
-) {
+public enum class CoverageLevel(public val nativeValue: PangoCoverageLevel) {
     /**
      * The character is not representable with
      *   the font.
@@ -43,13 +43,19 @@ public enum class CoverageLevel(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: PangoCoverageLevel): CoverageLevel =
-            when (nativeValue) {
-                PangoCoverageLevel.PANGO_COVERAGE_NONE -> NONE
-                PangoCoverageLevel.PANGO_COVERAGE_FALLBACK -> FALLBACK
-                PangoCoverageLevel.PANGO_COVERAGE_APPROXIMATE -> APPROXIMATE
-                PangoCoverageLevel.PANGO_COVERAGE_EXACT -> EXACT
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: PangoCoverageLevel): CoverageLevel = when (nativeValue) {
+            PangoCoverageLevel.PANGO_COVERAGE_NONE -> NONE
+            PangoCoverageLevel.PANGO_COVERAGE_FALLBACK -> FALLBACK
+            PangoCoverageLevel.PANGO_COVERAGE_APPROXIMATE -> APPROXIMATE
+            PangoCoverageLevel.PANGO_COVERAGE_EXACT -> EXACT
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of CoverageLevel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_coverage_level_get_type()
     }
 }

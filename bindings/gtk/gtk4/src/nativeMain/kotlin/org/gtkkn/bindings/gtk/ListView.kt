@@ -16,7 +16,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -41,7 +43,6 @@ import org.gtkkn.native.gtk.gtk_list_view_set_show_separators
 import org.gtkkn.native.gtk.gtk_list_view_set_single_click_activate
 import org.gtkkn.native.gtk.gtk_list_view_set_tab_behavior
 import kotlin.Boolean
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 
@@ -144,9 +145,8 @@ import kotlin.Unit
  * `GtkListView` uses the %GTK_ACCESSIBLE_ROLE_LIST role, and the list
  * items use the %GTK_ACCESSIBLE_ROLE_LIST_ITEM role.
  */
-public open class ListView(
-    pointer: CPointer<GtkListView>,
-) : ListBase(pointer.reinterpret()),
+public open class ListView(pointer: CPointer<GtkListView>) :
+    ListBase(pointer.reinterpret()),
     KGTyped {
     public val gtkListViewPointer: CPointer<GtkListView>
         get() = gPointer.reinterpret()
@@ -195,10 +195,9 @@ public open class ListView(
          *
          * @return The factory in use
          */
-        get() =
-            gtk_list_view_get_factory(gtkListViewPointer.reinterpret())?.run {
-                ListItemFactory(reinterpret())
-            }
+        get() = gtk_list_view_get_factory(gtkListViewPointer.reinterpret())?.run {
+            ListItemFactory(reinterpret())
+        }
 
         /**
          * Sets the `GtkListItemFactory` to use for populating list items.
@@ -207,11 +206,10 @@ public open class ListView(
          */
         set(
             factory
-        ) =
-            gtk_list_view_set_factory(
-                gtkListViewPointer.reinterpret(),
-                factory?.gtkListItemFactoryPointer?.reinterpret()
-            )
+        ) = gtk_list_view_set_factory(
+            gtkListViewPointer.reinterpret(),
+            factory?.gtkListItemFactoryPointer?.reinterpret()
+        )
 
     /**
      * Factory for creating header widgets.
@@ -226,10 +224,9 @@ public open class ListView(
          * @return The factory in use
          * @since 4.12
          */
-        get() =
-            gtk_list_view_get_header_factory(gtkListViewPointer.reinterpret())?.run {
-                ListItemFactory(reinterpret())
-            }
+        get() = gtk_list_view_get_header_factory(gtkListViewPointer.reinterpret())?.run {
+            ListItemFactory(reinterpret())
+        }
 
         /**
          * Sets the `GtkListItemFactory` to use for populating the
@@ -243,11 +240,10 @@ public open class ListView(
         @GtkVersion4_12
         set(
             factory
-        ) =
-            gtk_list_view_set_header_factory(
-                gtkListViewPointer.reinterpret(),
-                factory?.gtkListItemFactoryPointer?.reinterpret()
-            )
+        ) = gtk_list_view_set_header_factory(
+            gtkListViewPointer.reinterpret(),
+            factory?.gtkListItemFactoryPointer?.reinterpret()
+        )
 
     /**
      * Model for the items displayed.
@@ -258,10 +254,9 @@ public open class ListView(
          *
          * @return The model in use
          */
-        get() =
-            gtk_list_view_get_model(gtkListViewPointer.reinterpret())?.run {
-                SelectionModel.wrap(reinterpret())
-            }
+        get() = gtk_list_view_get_model(gtkListViewPointer.reinterpret())?.run {
+            SelectionModel.wrap(reinterpret())
+        }
 
         /**
          * Sets the model to use.
@@ -329,10 +324,9 @@ public open class ListView(
          * @return The behavior of the <kbd>Tab</kbd> key
          * @since 4.12
          */
-        get() =
-            gtk_list_view_get_tab_behavior(gtkListViewPointer.reinterpret()).run {
-                ListTabBehavior.fromNativeValue(this)
-            }
+        get() = gtk_list_view_get_tab_behavior(gtkListViewPointer.reinterpret()).run {
+            ListTabBehavior.fromNativeValue(this)
+        }
 
         /**
          * Sets the behavior of the <kbd>Tab</kbd> and <kbd>Shift</kbd>+<kbd>Tab</kbd> keys.
@@ -369,76 +363,6 @@ public open class ListView(
     )
 
     /**
-     * Returns whether rows can be selected by dragging with the mouse.
-     *
-     * @return true if rubberband selection is enabled
-     */
-    public open fun getEnableRubberband(): Boolean =
-        gtk_list_view_get_enable_rubberband(gtkListViewPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the factory that's currently used to populate list items.
-     *
-     * @return The factory in use
-     */
-    public open fun getFactory(): ListItemFactory? =
-        gtk_list_view_get_factory(gtkListViewPointer.reinterpret())?.run {
-            ListItemFactory(reinterpret())
-        }
-
-    /**
-     * Gets the factory that's currently used to populate section headers.
-     *
-     * @return The factory in use
-     * @since 4.12
-     */
-    @GtkVersion4_12
-    public open fun getHeaderFactory(): ListItemFactory? =
-        gtk_list_view_get_header_factory(gtkListViewPointer.reinterpret())?.run {
-            ListItemFactory(reinterpret())
-        }
-
-    /**
-     * Gets the model that's currently used to read the items displayed.
-     *
-     * @return The model in use
-     */
-    public open fun getModel(): SelectionModel? =
-        gtk_list_view_get_model(gtkListViewPointer.reinterpret())?.run {
-            SelectionModel.wrap(reinterpret())
-        }
-
-    /**
-     * Returns whether the list box should show separators
-     * between rows.
-     *
-     * @return true if the list box shows separators
-     */
-    public open fun getShowSeparators(): Boolean =
-        gtk_list_view_get_show_separators(gtkListViewPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns whether rows will be activated on single click and
-     * selected on hover.
-     *
-     * @return true if rows are activated on single click
-     */
-    public open fun getSingleClickActivate(): Boolean =
-        gtk_list_view_get_single_click_activate(gtkListViewPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the behavior set for the <kbd>Tab</kbd> key.
-     *
-     * @return The behavior of the <kbd>Tab</kbd> key
-     * @since 4.12
-     */
-    @GtkVersion4_12
-    public open fun getTabBehavior(): ListTabBehavior =
-        gtk_list_view_get_tab_behavior(gtkListViewPointer.reinterpret()).run {
-            ListTabBehavior.fromNativeValue(this)
-        }
-
-    /**
      * Scrolls to the item at the given position and performs the actions
      * specified in @flags.
      *
@@ -452,87 +376,13 @@ public open class ListView(
      * @since 4.12
      */
     @GtkVersion4_12
-    public open fun scrollTo(
-        pos: UInt,
-        flags: ListScrollFlags,
-        scroll: ScrollInfo? = null,
-    ): Unit =
+    public open fun scrollTo(pos: guint, flags: ListScrollFlags, scroll: ScrollInfo? = null): Unit =
         gtk_list_view_scroll_to(
             gtkListViewPointer.reinterpret(),
             pos,
             flags.mask,
             scroll?.gtkScrollInfoPointer?.reinterpret()
         )
-
-    /**
-     * Sets whether selections can be changed by dragging with the mouse.
-     *
-     * @param enableRubberband true to enable rubberband selection
-     */
-    public open fun setEnableRubberband(enableRubberband: Boolean): Unit =
-        gtk_list_view_set_enable_rubberband(gtkListViewPointer.reinterpret(), enableRubberband.asGBoolean())
-
-    /**
-     * Sets the `GtkListItemFactory` to use for populating list items.
-     *
-     * @param factory the factory to use
-     */
-    public open fun setFactory(factory: ListItemFactory? = null): Unit =
-        gtk_list_view_set_factory(gtkListViewPointer.reinterpret(), factory?.gtkListItemFactoryPointer?.reinterpret())
-
-    /**
-     * Sets the `GtkListItemFactory` to use for populating the
-     * [class@Gtk.ListHeader] objects used in section headers.
-     *
-     * If this factory is set to null, the list will not show section headers.
-     *
-     * @param factory the factory to use
-     * @since 4.12
-     */
-    @GtkVersion4_12
-    public open fun setHeaderFactory(factory: ListItemFactory? = null): Unit =
-        gtk_list_view_set_header_factory(
-            gtkListViewPointer.reinterpret(),
-            factory?.gtkListItemFactoryPointer?.reinterpret()
-        )
-
-    /**
-     * Sets the model to use.
-     *
-     * This must be a [iface@Gtk.SelectionModel] to use.
-     *
-     * @param model the model to use
-     */
-    public open fun setModel(model: SelectionModel? = null): Unit =
-        gtk_list_view_set_model(gtkListViewPointer.reinterpret(), model?.gtkSelectionModelPointer)
-
-    /**
-     * Sets whether the list box should show separators
-     * between rows.
-     *
-     * @param showSeparators true to show separators
-     */
-    public open fun setShowSeparators(showSeparators: Boolean): Unit =
-        gtk_list_view_set_show_separators(gtkListViewPointer.reinterpret(), showSeparators.asGBoolean())
-
-    /**
-     * Sets whether rows should be activated on single click and
-     * selected on hover.
-     *
-     * @param singleClickActivate true to activate items on single click
-     */
-    public open fun setSingleClickActivate(singleClickActivate: Boolean): Unit =
-        gtk_list_view_set_single_click_activate(gtkListViewPointer.reinterpret(), singleClickActivate.asGBoolean())
-
-    /**
-     * Sets the behavior of the <kbd>Tab</kbd> and <kbd>Shift</kbd>+<kbd>Tab</kbd> keys.
-     *
-     * @param tabBehavior The desired tab behavior
-     * @since 4.12
-     */
-    @GtkVersion4_12
-    public open fun setTabBehavior(tabBehavior: ListTabBehavior): Unit =
-        gtk_list_view_set_tab_behavior(gtkListViewPointer.reinterpret(), tabBehavior.nativeValue)
 
     /**
      * Emitted when a row has been activated by the user,
@@ -547,16 +397,15 @@ public open class ListView(
      */
     public fun connectActivate(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (position: UInt) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "activate",
-            connectActivateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+        handler: (position: guint) -> Unit,
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "activate",
+        connectActivateFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<ListView> {
         override val type: GeneratedClassKGType<ListView> =
@@ -565,14 +414,21 @@ public open class ListView(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ListView
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_list_view_get_type()
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<(UInt) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            position: UInt,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(position: UInt) -> Unit>().get().invoke(position)
-    }.reinterpret()
+private val connectActivateFunc: CPointer<CFunction<(guint) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        position: guint,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(position: guint) -> Unit>().get().invoke(position)
+}
+    .reinterpret()

@@ -1,26 +1,35 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_12
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_6
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.pango.PangoMatrix
 import org.gtkkn.native.pango.pango_matrix_concat
 import org.gtkkn.native.pango.pango_matrix_copy
 import org.gtkkn.native.pango.pango_matrix_free
 import org.gtkkn.native.pango.pango_matrix_get_font_scale_factor
 import org.gtkkn.native.pango.pango_matrix_get_slant_ratio
+import org.gtkkn.native.pango.pango_matrix_get_type
 import org.gtkkn.native.pango.pango_matrix_rotate
 import org.gtkkn.native.pango.pango_matrix_scale
 import org.gtkkn.native.pango.pango_matrix_translate
-import kotlin.Double
+import kotlin.Pair
+import kotlin.String
 import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * A `PangoMatrix` specifies a transformation between user-space
@@ -44,16 +53,16 @@ import kotlin.Unit
  * @since 1.6
  */
 @PangoVersion1_6
-public class Matrix(
-    pointer: CPointer<PangoMatrix>,
-) : Record {
+public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val pangoMatrixPointer: CPointer<PangoMatrix> = pointer
 
     /**
      * 1st component of the transformation matrix
      */
-    public var xx: Double
+    public var xx: gdouble
         get() = pangoMatrixPointer.pointed.xx
+
+        @UnsafeFieldSetter
         set(`value`) {
             pangoMatrixPointer.pointed.xx = value
         }
@@ -61,8 +70,10 @@ public class Matrix(
     /**
      * 2nd component of the transformation matrix
      */
-    public var xy: Double
+    public var xy: gdouble
         get() = pangoMatrixPointer.pointed.xy
+
+        @UnsafeFieldSetter
         set(`value`) {
             pangoMatrixPointer.pointed.xy = value
         }
@@ -70,8 +81,10 @@ public class Matrix(
     /**
      * 3rd component of the transformation matrix
      */
-    public var yx: Double
+    public var yx: gdouble
         get() = pangoMatrixPointer.pointed.yx
+
+        @UnsafeFieldSetter
         set(`value`) {
             pangoMatrixPointer.pointed.yx = value
         }
@@ -79,8 +92,10 @@ public class Matrix(
     /**
      * 4th component of the transformation matrix
      */
-    public var yy: Double
+    public var yy: gdouble
         get() = pangoMatrixPointer.pointed.yy
+
+        @UnsafeFieldSetter
         set(`value`) {
             pangoMatrixPointer.pointed.yy = value
         }
@@ -88,8 +103,10 @@ public class Matrix(
     /**
      * x translation
      */
-    public var x0: Double
+    public var x0: gdouble
         get() = pangoMatrixPointer.pointed.x0
+
+        @UnsafeFieldSetter
         set(`value`) {
             pangoMatrixPointer.pointed.x0 = value
         }
@@ -97,11 +114,101 @@ public class Matrix(
     /**
      * y translation
      */
-    public var y0: Double
+    public var y0: gdouble
         get() = pangoMatrixPointer.pointed.y0
+
+        @UnsafeFieldSetter
         set(`value`) {
             pangoMatrixPointer.pointed.y0 = value
         }
+
+    /**
+     * Allocate a new Matrix.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<PangoMatrix>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Matrix and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<PangoMatrix>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Matrix using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<PangoMatrix>().ptr)
+
+    /**
+     * Allocate a new Matrix.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param xx 1st component of the transformation matrix
+     * @param xy 2nd component of the transformation matrix
+     * @param yx 3rd component of the transformation matrix
+     * @param yy 4th component of the transformation matrix
+     * @param x0 x translation
+     * @param y0 y translation
+     */
+    public constructor(
+        xx: gdouble,
+        xy: gdouble,
+        yx: gdouble,
+        yy: gdouble,
+        x0: gdouble,
+        y0: gdouble,
+    ) : this() {
+        this.xx = xx
+        this.xy = xy
+        this.yx = yx
+        this.yy = yy
+        this.x0 = x0
+        this.y0 = y0
+    }
+
+    /**
+     * Allocate a new Matrix using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param xx 1st component of the transformation matrix
+     * @param xy 2nd component of the transformation matrix
+     * @param yx 3rd component of the transformation matrix
+     * @param yy 4th component of the transformation matrix
+     * @param x0 x translation
+     * @param y0 y translation
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        xx: gdouble,
+        xy: gdouble,
+        yx: gdouble,
+        yy: gdouble,
+        x0: gdouble,
+        y0: gdouble,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.xx = xx
+        this.xy = xy
+        this.yx = yx
+        this.yy = yy
+        this.x0 = x0
+        this.y0 = y0
+    }
 
     /**
      * Changes the transformation represented by @matrix to be the
@@ -122,10 +229,9 @@ public class Matrix(
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun copy(): Matrix? =
-        pango_matrix_copy(pangoMatrixPointer.reinterpret())?.run {
-            Matrix(reinterpret())
-        }
+    public fun copy(): Matrix? = pango_matrix_copy(pangoMatrixPointer.reinterpret())?.run {
+        Matrix(reinterpret())
+    }
 
     /**
      * Free a `PangoMatrix`.
@@ -147,7 +253,7 @@ public class Matrix(
      * @since 1.12
      */
     @PangoVersion1_12
-    public fun getFontScaleFactor(): Double = pango_matrix_get_font_scale_factor(pangoMatrixPointer.reinterpret())
+    public fun getFontScaleFactor(): gdouble = pango_matrix_get_font_scale_factor(pangoMatrixPointer.reinterpret())
 
     /**
      * Gets the slant ratio of a matrix.
@@ -163,7 +269,7 @@ public class Matrix(
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun getSlantRatio(): Double = pango_matrix_get_slant_ratio(pangoMatrixPointer.reinterpret())
+    public fun getSlantRatio(): gdouble = pango_matrix_get_slant_ratio(pangoMatrixPointer.reinterpret())
 
     /**
      * Changes the transformation represented by @matrix to be the
@@ -174,7 +280,7 @@ public class Matrix(
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun rotate(degrees: Double): Unit = pango_matrix_rotate(pangoMatrixPointer.reinterpret(), degrees)
+    public fun rotate(degrees: gdouble): Unit = pango_matrix_rotate(pangoMatrixPointer.reinterpret(), degrees)
 
     /**
      * Changes the transformation represented by @matrix to be the
@@ -187,10 +293,8 @@ public class Matrix(
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun scale(
-        scaleX: Double,
-        scaleY: Double,
-    ): Unit = pango_matrix_scale(pangoMatrixPointer.reinterpret(), scaleX, scaleY)
+    public fun scale(scaleX: gdouble, scaleY: gdouble): Unit =
+        pango_matrix_scale(pangoMatrixPointer.reinterpret(), scaleX, scaleY)
 
     /**
      * Changes the transformation represented by @matrix to be the
@@ -202,12 +306,17 @@ public class Matrix(
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun translate(
-        tx: Double,
-        ty: Double,
-    ): Unit = pango_matrix_translate(pangoMatrixPointer.reinterpret(), tx, ty)
+    public fun translate(tx: gdouble, ty: gdouble): Unit =
+        pango_matrix_translate(pangoMatrixPointer.reinterpret(), tx, ty)
 
-    public companion object : RecordCompanion<Matrix, PangoMatrix> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Matrix = Matrix(pointer.reinterpret())
+    override fun toString(): String = "Matrix(xx=$xx, xy=$xy, yx=$yx, yy=$yy, x0=$x0, y0=$y0)"
+
+    public companion object {
+        /**
+         * Get the GType of Matrix
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_matrix_get_type()
     }
 }

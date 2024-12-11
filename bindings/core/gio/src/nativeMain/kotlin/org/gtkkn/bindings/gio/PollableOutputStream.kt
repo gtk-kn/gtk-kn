@@ -15,6 +15,7 @@ import org.gtkkn.native.gio.g_pollable_output_stream_can_poll
 import org.gtkkn.native.gio.g_pollable_output_stream_create_source
 import org.gtkkn.native.gio.g_pollable_output_stream_get_type
 import org.gtkkn.native.gio.g_pollable_output_stream_is_writable
+import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 
 /**
@@ -75,13 +76,12 @@ public interface PollableOutputStream :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun createSource(cancellable: Cancellable? = null): Source =
-        g_pollable_output_stream_create_source(
-            gioPollableOutputStreamPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret()
-        )!!.run {
-            Source(reinterpret())
-        }
+    public fun createSource(cancellable: Cancellable? = null): Source = g_pollable_output_stream_create_source(
+        gioPollableOutputStreamPointer.reinterpret(),
+        cancellable?.gioCancellablePointer?.reinterpret()
+    )!!.run {
+        Source(reinterpret())
+    }
 
     /**
      * Checks if @stream can be written.
@@ -106,9 +106,7 @@ public interface PollableOutputStream :
     public fun isWritable(): Boolean =
         g_pollable_output_stream_is_writable(gioPollableOutputStreamPointer.reinterpret()).asBoolean()
 
-    private data class Wrapper(
-        private val pointer: CPointer<GPollableOutputStream>,
-    ) : PollableOutputStream {
+    private data class Wrapper(private val pointer: CPointer<GPollableOutputStream>) : PollableOutputStream {
         override val gioPollableOutputStreamPointer: CPointer<GPollableOutputStream> = pointer
     }
 
@@ -121,5 +119,12 @@ public interface PollableOutputStream :
         }
 
         public fun wrap(pointer: CPointer<GPollableOutputStream>): PollableOutputStream = Wrapper(pointer)
+
+        /**
+         * Get the GType of PollableOutputStream
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_pollable_output_stream_get_type()
     }
 }

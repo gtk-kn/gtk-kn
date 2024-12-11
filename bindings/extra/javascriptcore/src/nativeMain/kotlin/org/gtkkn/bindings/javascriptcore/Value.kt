@@ -20,6 +20,11 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.javascriptcore.JSCValue
 import org.gtkkn.native.javascriptcore.jsc_value_array_buffer_get_size
 import org.gtkkn.native.javascriptcore.jsc_value_get_context
@@ -59,6 +64,7 @@ import org.gtkkn.native.javascriptcore.jsc_value_to_boolean
 import org.gtkkn.native.javascriptcore.jsc_value_to_double
 import org.gtkkn.native.javascriptcore.jsc_value_to_int32
 import org.gtkkn.native.javascriptcore.jsc_value_to_json
+import org.gtkkn.native.javascriptcore.jsc_value_to_string
 import org.gtkkn.native.javascriptcore.jsc_value_to_string_as_bytes
 import org.gtkkn.native.javascriptcore.jsc_value_typed_array_get_buffer
 import org.gtkkn.native.javascriptcore.jsc_value_typed_array_get_length
@@ -66,12 +72,8 @@ import org.gtkkn.native.javascriptcore.jsc_value_typed_array_get_offset
 import org.gtkkn.native.javascriptcore.jsc_value_typed_array_get_size
 import org.gtkkn.native.javascriptcore.jsc_value_typed_array_get_type
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.Long
 import kotlin.String
-import kotlin.UInt
-import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
 
@@ -86,16 +88,15 @@ import kotlin.collections.List
  * - parameter `parameters`: Array parameter of type Value is not supported
  * - parameter `setter`: GObject.Callback
  * - parameter `parameters`: Array parameter of type Value is not supported
- * - method `to_string`: C function jsc_value_to_string is ignored
  * - parameter `length`: length: Out parameter is not supported
+ * - constructor `new_array`: Varargs parameter is not supported
  * - parameter `data`: gpointer
  * - parameter `array`: Array parameter of type Value is not supported
  * - parameter `parameter_types`: Array parameter of type GType is not supported
  * - parameter `instance`: gpointer
  */
-public class Value(
-    pointer: CPointer<JSCValue>,
-) : Object(pointer.reinterpret()),
+public class Value(pointer: CPointer<JSCValue>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val javascriptcoreValuePointer: CPointer<JSCValue>
         get() = gPointer.reinterpret()
@@ -109,10 +110,9 @@ public class Value(
          *
          * @return the #JSCValue context.
          */
-        get() =
-            jsc_value_get_context(javascriptcoreValuePointer.reinterpret())!!.run {
-                Context(reinterpret())
-            }
+        get() = jsc_value_get_context(javascriptcoreValuePointer.reinterpret())!!.run {
+            Context(reinterpret())
+        }
 
     /**
      * Create a new #JSCValue referencing an array of strings with the items from @strv. If @array
@@ -179,7 +179,7 @@ public class Value(
         context: Context,
         name: String? = null,
         callback: Callback,
-        returnType: ULong,
+        returnType: GType,
     ) : this(
         jsc_value_new_function_variadic(
             context.javascriptcoreContextPointer.reinterpret(),
@@ -210,7 +210,7 @@ public class Value(
      */
     public constructor(
         context: Context,
-        number: Double,
+        number: gdouble,
     ) : this(jsc_value_new_number(context.javascriptcoreContextPointer.reinterpret(), number)!!.reinterpret())
 
     /**
@@ -262,7 +262,7 @@ public class Value(
     public constructor(
         context: Context,
         type: TypedArrayType,
-        length: ULong,
+        length: gsize,
     ) : this(
         jsc_value_new_typed_array(
             context.javascriptcoreContextPointer.reinterpret(),
@@ -281,17 +281,7 @@ public class Value(
      * @since 2.38
      */
     @JavaScriptCoreVersion2_38
-    public fun arrayBufferGetSize(): ULong = jsc_value_array_buffer_get_size(javascriptcoreValuePointer.reinterpret())
-
-    /**
-     * Get the #JSCContext in which @value was created.
-     *
-     * @return the #JSCValue context.
-     */
-    public fun getContext(): Context =
-        jsc_value_get_context(javascriptcoreValuePointer.reinterpret())!!.run {
-            Context(reinterpret())
-        }
+    public fun arrayBufferGetSize(): gsize = jsc_value_array_buffer_get_size(javascriptcoreValuePointer.reinterpret())
 
     /**
      * Get whether the value referenced by @value is an array.
@@ -398,11 +388,7 @@ public class Value(
      * @since 2.38
      */
     @JavaScriptCoreVersion2_38
-    public fun newTypedArrayWithBuffer(
-        type: TypedArrayType,
-        offset: ULong,
-        length: Long,
-    ): Value =
+    public fun newTypedArrayWithBuffer(type: TypedArrayType, offset: gsize, length: Long): Value =
         jsc_value_new_typed_array_with_buffer(
             javascriptcoreValuePointer.reinterpret(),
             type.nativeValue,
@@ -424,13 +410,12 @@ public class Value(
         propertyName: String,
         flags: ValuePropertyFlags,
         propertyValue: Value? = null,
-    ): Unit =
-        jsc_value_object_define_property_data(
-            javascriptcoreValuePointer.reinterpret(),
-            propertyName,
-            flags.mask,
-            propertyValue?.javascriptcoreValuePointer?.reinterpret()
-        )
+    ): Unit = jsc_value_object_define_property_data(
+        javascriptcoreValuePointer.reinterpret(),
+        propertyName,
+        flags.mask,
+        propertyValue?.javascriptcoreValuePointer?.reinterpret()
+    )
 
     /**
      * Try to delete property with @name from @value. This function will return false if
@@ -469,7 +454,7 @@ public class Value(
      * @param index the property index
      * @return the property #JSCValue.
      */
-    public fun objectGetPropertyAtIndex(index: UInt): Value =
+    public fun objectGetPropertyAtIndex(index: guint): Value =
         jsc_value_object_get_property_at_index(javascriptcoreValuePointer.reinterpret(), index)!!.run {
             Value(reinterpret())
         }
@@ -498,15 +483,11 @@ public class Value(
      * @param name the property name
      * @param property the #JSCValue to set
      */
-    public fun objectSetProperty(
-        name: String,
-        `property`: Value,
-    ): Unit =
-        jsc_value_object_set_property(
-            javascriptcoreValuePointer.reinterpret(),
-            name,
-            `property`.javascriptcoreValuePointer.reinterpret()
-        )
+    public fun objectSetProperty(name: String, `property`: Value): Unit = jsc_value_object_set_property(
+        javascriptcoreValuePointer.reinterpret(),
+        name,
+        `property`.javascriptcoreValuePointer.reinterpret()
+    )
 
     /**
      * Set @property at @index on @value.
@@ -514,15 +495,11 @@ public class Value(
      * @param index the property index
      * @param property the #JSCValue to set
      */
-    public fun objectSetPropertyAtIndex(
-        index: UInt,
-        `property`: Value,
-    ): Unit =
-        jsc_value_object_set_property_at_index(
-            javascriptcoreValuePointer.reinterpret(),
-            index,
-            `property`.javascriptcoreValuePointer.reinterpret()
-        )
+    public fun objectSetPropertyAtIndex(index: guint, `property`: Value): Unit = jsc_value_object_set_property_at_index(
+        javascriptcoreValuePointer.reinterpret(),
+        index,
+        `property`.javascriptcoreValuePointer.reinterpret()
+    )
 
     /**
      * Convert @value to a boolean.
@@ -536,14 +513,14 @@ public class Value(
      *
      * @return a #gdouble result of the conversion.
      */
-    public fun toDouble(): Double = jsc_value_to_double(javascriptcoreValuePointer.reinterpret())
+    public fun toDouble(): gdouble = jsc_value_to_double(javascriptcoreValuePointer.reinterpret())
 
     /**
      * Convert @value to a #gint32.
      *
      * @return a #gint32 result of the conversion.
      */
-    public fun toInt32(): Int = jsc_value_to_int32(javascriptcoreValuePointer.reinterpret())
+    public fun toInt32(): gint = jsc_value_to_int32(javascriptcoreValuePointer.reinterpret())
 
     /**
      * Create a JSON string of @value serialization. If @indent is 0, the resulting JSON will
@@ -554,9 +531,18 @@ public class Value(
      * @since 2.28
      */
     @JavaScriptCoreVersion2_28
-    public fun toJson(indent: UInt): String =
+    public fun toJson(indent: guint): String =
         jsc_value_to_json(javascriptcoreValuePointer.reinterpret(), indent)?.toKString()
             ?: error("Expected not null string")
+
+    /**
+     * Convert @value to a string. Use jsc_value_to_string_as_bytes() instead, if you need to
+     * handle strings containing null characters.
+     *
+     * @return a null-terminated string result of the conversion.
+     */
+    override fun toString(): String =
+        jsc_value_to_string(javascriptcoreValuePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Convert @value to a string and return the results as #GBytes. This is needed
@@ -564,10 +550,9 @@ public class Value(
      *
      * @return a #GBytes with the result of the conversion.
      */
-    public fun toStringAsBytes(): Bytes =
-        jsc_value_to_string_as_bytes(javascriptcoreValuePointer.reinterpret())!!.run {
-            Bytes(reinterpret())
-        }
+    public fun toStringAsBytes(): Bytes = jsc_value_to_string_as_bytes(javascriptcoreValuePointer.reinterpret())!!.run {
+        Bytes(reinterpret())
+    }
 
     /**
      * Obtain the %ArrayBuffer for the memory region of the typed array elements.
@@ -588,7 +573,7 @@ public class Value(
      * @since 2.38
      */
     @JavaScriptCoreVersion2_38
-    public fun typedArrayGetLength(): ULong = jsc_value_typed_array_get_length(javascriptcoreValuePointer.reinterpret())
+    public fun typedArrayGetLength(): gsize = jsc_value_typed_array_get_length(javascriptcoreValuePointer.reinterpret())
 
     /**
      * Gets the offset over the underlying array buffer data.
@@ -597,7 +582,7 @@ public class Value(
      * @since 2.38
      */
     @JavaScriptCoreVersion2_38
-    public fun typedArrayGetOffset(): ULong = jsc_value_typed_array_get_offset(javascriptcoreValuePointer.reinterpret())
+    public fun typedArrayGetOffset(): gsize = jsc_value_typed_array_get_offset(javascriptcoreValuePointer.reinterpret())
 
     /**
      * Gets the size of a typed array.
@@ -606,7 +591,7 @@ public class Value(
      * @since 2.38
      */
     @JavaScriptCoreVersion2_38
-    public fun typedArrayGetSize(): ULong = jsc_value_typed_array_get_size(javascriptcoreValuePointer.reinterpret())
+    public fun typedArrayGetSize(): gsize = jsc_value_typed_array_get_size(javascriptcoreValuePointer.reinterpret())
 
     /**
      * Gets the type of elements contained in a typed array.
@@ -645,5 +630,12 @@ public class Value(
          */
         public fun newUndefined(context: Context): Value =
             Value(jsc_value_new_undefined(context.javascriptcoreContextPointer.reinterpret())!!.reinterpret())
+
+        /**
+         * Get the GType of Value
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = jsc_value_get_type()
     }
 }

@@ -41,6 +41,53 @@ class RecordBlueprintBuilder(
 
     override fun blueprintObjectName(): String = girRecord.name
 
+    override fun buildInternal(): RecordBlueprint {
+        if (girRecord.isNotIntrospectable()) {
+            throw NotIntrospectableException(girRecord.name)
+        }
+
+        girRecord.cType?.let { context.checkIgnoredType(it) }
+
+        if (girRecord.foreign == true) throw UnresolvableTypeException("foreign records are ignored")
+        if (girRecord.glibIsGTypeStructFor != null && girRecord.glibIsGTypeStructFor != "Object") {
+            throw UnresolvableTypeException("glib type struct are ignored")
+        }
+
+        girRecord.methods.forEach { addMethod(it) }
+        girRecord.constructors.forEach { addConstructor(it) }
+        girRecord.functions.forEach { addFunction(it) }
+        girRecord.fields.forEach { addField(it) }
+
+        val objectPointerName = "${context.namespacePrefix(girNamespace)}${girRecord.name}Pointer"
+        val objectPointerTypeName = context.resolveRecordObjectPointerTypeName(girNamespace, girRecord)
+
+        val kotlinName = context.kotlinizeRecordName(girRecord.name)
+
+        return RecordBlueprint(
+            kotlinName = kotlinName,
+            kotlinTypeName = ClassName(context.namespaceBindingsPackageName(girNamespace), kotlinName),
+            nativeTypeName = context.buildNativeClassName(girNamespace, girRecord),
+            constructors = constructorBlueprints,
+            functions = functionBlueprints,
+            methods = methodBluePrints,
+            fields = fieldBlueprints,
+            objectPointerName = objectPointerName,
+            objectPointerTypeName = objectPointerTypeName,
+            cStructTypeName = ClassName(
+                context.namespaceNativePackageName(girNamespace),
+                girRecord.cType ?: error("unknown cType"),
+            ),
+            isOpaque = girRecord.opaque == true,
+            isDisguised = girRecord.disguised == true,
+            hasNewConstructor = girRecord.constructors.any { it.callable.getName() == "new" },
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girRecord.info)
+                .build()
+                .getOrNull(),
+            kdoc = context.processKdoc(girRecord.doc?.doc?.text),
+            skippedObjects = skippedObjects,
+        )
+    }
+
     private fun addMethod(method: GirMethod) {
         when (val result =
             MethodBlueprintBuilder(
@@ -74,45 +121,7 @@ class RecordBlueprintBuilder(
         }
     }
 
-    override fun buildInternal(): RecordBlueprint {
-        if (girRecord.info.introspectable == false) throw NotIntrospectableException(girRecord.name)
-
-        girRecord.cType?.let { context.checkIgnoredType(it) }
-
-        if (girRecord.foreign == true) throw UnresolvableTypeException("foreign records are ignored")
-        if (girRecord.glibIsGTypeStructFor != null && girRecord.glibIsGTypeStructFor != "Object") {
-            throw UnresolvableTypeException("glib type struct are ignored")
-        }
-        if (girRecord.disguised == true) throw UnresolvableTypeException("Disguised records are ignored")
-
-        girRecord.methods.forEach { addMethod(it) }
-        girRecord.constructors.forEach { addConstructor(it) }
-        girRecord.functions.forEach { addFunction(it) }
-        girRecord.fields.forEach { addField(it) }
-
-        val objectPointerName = "${context.namespacePrefix(girNamespace)}${girRecord.name}Pointer"
-        val objectPointerTypeName = context.resolveRecordObjectPointerTypeName(girNamespace, girRecord)
-
-        val kotlinName = context.kotlinizeRecordName(girRecord.name)
-        return RecordBlueprint(
-            kotlinName = kotlinName,
-            kotlinTypeName = ClassName(context.namespaceBindingsPackageName(girNamespace), kotlinName),
-            constructors = constructorBlueprints,
-            functions = functionBlueprints,
-            methods = methodBluePrints,
-            fields = fieldBlueprints,
-            objectPointerName = objectPointerName,
-            objectPointerTypeName = objectPointerTypeName,
-            cStructTypeName = ClassName(
-                context.namespaceNativePackageName(girNamespace),
-                girRecord.cType ?: error("unknown cType"),
-            ),
-            isOpaque = girRecord.opaque == true,
-            kdoc = context.processKdoc(girRecord.doc?.doc?.text),
-            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girRecord.info)
-                .build()
-                .getOrNull(),
-            skippedObjects = skippedObjects,
-        )
-    }
+    private fun GirRecord.isNotIntrospectable(): Boolean =
+        !info.shouldBeGenerated() ||
+            cType != "GPrivate" && name.endsWith("Private")
 }

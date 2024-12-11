@@ -4,8 +4,8 @@
 // Skipping a symbol
 MySymbol skip
 
-// Hiding a symbol
-HiddenSymbol hidden
+// Marking a symbol as not introspectable
+IntrospectableSymbol introspectable=false
 
 // Marking a symbol as new
 NewSymbol new
@@ -124,11 +124,11 @@ ClassName.method_name deprecated_since="2.0" deprecated=true replacement="new_me
 
 // Using relative rules relative to absolute rule
 BaseClass
-    .SubClass skip
+    .SubClass ignore
     .AnotherSubClass unowned=true
 
 // Using complex patterns
-*#function skip
+*#function ignore
 
 // Using nullable and array arguments
 ExampleClass.example_method nullable=true array=true
@@ -140,7 +140,7 @@ AsyncClass.async_method closure=1 scope="async"
 ParameterlessMethod default
 
 // Using different selectors
-SelectorTest.method#constructor skip
+SelectorTest.method#constructor ignore
 SelectorTest.property#property nullable=false
 
 // Overriding namespace attributes

@@ -5,7 +5,9 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
 import org.gtkkn.native.glib.GUnicodeScript
 import org.gtkkn.native.glib.g_unicode_script_from_iso15924
 import org.gtkkn.native.glib.g_unicode_script_to_iso15924
-import kotlin.UInt
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_unicode_script_get_type
+import org.gtkkn.native.gobject.guint
 
 /**
  * The #GUnicodeScript enumeration identifies different writing
@@ -17,9 +19,7 @@ import kotlin.UInt
  * should be ready to handle unknown values.
  * See [Unicode Standard Annex #24: Script names](http://www.unicode.org/reports/tr24/).
  */
-public enum class UnicodeScript(
-    public val nativeValue: GUnicodeScript,
-) {
+public enum class UnicodeScript(public val nativeValue: GUnicodeScript) {
     /**
      * a value never returned from g_unichar_get_script()
      */
@@ -853,176 +853,175 @@ public enum class UnicodeScript(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GUnicodeScript): UnicodeScript =
-            when (nativeValue) {
-                GUnicodeScript.G_UNICODE_SCRIPT_INVALID_CODE -> INVALID_CODE
-                GUnicodeScript.G_UNICODE_SCRIPT_COMMON -> COMMON
-                GUnicodeScript.G_UNICODE_SCRIPT_INHERITED -> INHERITED
-                GUnicodeScript.G_UNICODE_SCRIPT_ARABIC -> ARABIC
-                GUnicodeScript.G_UNICODE_SCRIPT_ARMENIAN -> ARMENIAN
-                GUnicodeScript.G_UNICODE_SCRIPT_BENGALI -> BENGALI
-                GUnicodeScript.G_UNICODE_SCRIPT_BOPOMOFO -> BOPOMOFO
-                GUnicodeScript.G_UNICODE_SCRIPT_CHEROKEE -> CHEROKEE
-                GUnicodeScript.G_UNICODE_SCRIPT_COPTIC -> COPTIC
-                GUnicodeScript.G_UNICODE_SCRIPT_CYRILLIC -> CYRILLIC
-                GUnicodeScript.G_UNICODE_SCRIPT_DESERET -> DESERET
-                GUnicodeScript.G_UNICODE_SCRIPT_DEVANAGARI -> DEVANAGARI
-                GUnicodeScript.G_UNICODE_SCRIPT_ETHIOPIC -> ETHIOPIC
-                GUnicodeScript.G_UNICODE_SCRIPT_GEORGIAN -> GEORGIAN
-                GUnicodeScript.G_UNICODE_SCRIPT_GOTHIC -> GOTHIC
-                GUnicodeScript.G_UNICODE_SCRIPT_GREEK -> GREEK
-                GUnicodeScript.G_UNICODE_SCRIPT_GUJARATI -> GUJARATI
-                GUnicodeScript.G_UNICODE_SCRIPT_GURMUKHI -> GURMUKHI
-                GUnicodeScript.G_UNICODE_SCRIPT_HAN -> HAN
-                GUnicodeScript.G_UNICODE_SCRIPT_HANGUL -> HANGUL
-                GUnicodeScript.G_UNICODE_SCRIPT_HEBREW -> HEBREW
-                GUnicodeScript.G_UNICODE_SCRIPT_HIRAGANA -> HIRAGANA
-                GUnicodeScript.G_UNICODE_SCRIPT_KANNADA -> KANNADA
-                GUnicodeScript.G_UNICODE_SCRIPT_KATAKANA -> KATAKANA
-                GUnicodeScript.G_UNICODE_SCRIPT_KHMER -> KHMER
-                GUnicodeScript.G_UNICODE_SCRIPT_LAO -> LAO
-                GUnicodeScript.G_UNICODE_SCRIPT_LATIN -> LATIN
-                GUnicodeScript.G_UNICODE_SCRIPT_MALAYALAM -> MALAYALAM
-                GUnicodeScript.G_UNICODE_SCRIPT_MONGOLIAN -> MONGOLIAN
-                GUnicodeScript.G_UNICODE_SCRIPT_MYANMAR -> MYANMAR
-                GUnicodeScript.G_UNICODE_SCRIPT_OGHAM -> OGHAM
-                GUnicodeScript.G_UNICODE_SCRIPT_OLD_ITALIC -> OLD_ITALIC
-                GUnicodeScript.G_UNICODE_SCRIPT_ORIYA -> ORIYA
-                GUnicodeScript.G_UNICODE_SCRIPT_RUNIC -> RUNIC
-                GUnicodeScript.G_UNICODE_SCRIPT_SINHALA -> SINHALA
-                GUnicodeScript.G_UNICODE_SCRIPT_SYRIAC -> SYRIAC
-                GUnicodeScript.G_UNICODE_SCRIPT_TAMIL -> TAMIL
-                GUnicodeScript.G_UNICODE_SCRIPT_TELUGU -> TELUGU
-                GUnicodeScript.G_UNICODE_SCRIPT_THAANA -> THAANA
-                GUnicodeScript.G_UNICODE_SCRIPT_THAI -> THAI
-                GUnicodeScript.G_UNICODE_SCRIPT_TIBETAN -> TIBETAN
-                GUnicodeScript.G_UNICODE_SCRIPT_CANADIAN_ABORIGINAL -> CANADIAN_ABORIGINAL
-                GUnicodeScript.G_UNICODE_SCRIPT_YI -> YI
-                GUnicodeScript.G_UNICODE_SCRIPT_TAGALOG -> TAGALOG
-                GUnicodeScript.G_UNICODE_SCRIPT_HANUNOO -> HANUNOO
-                GUnicodeScript.G_UNICODE_SCRIPT_BUHID -> BUHID
-                GUnicodeScript.G_UNICODE_SCRIPT_TAGBANWA -> TAGBANWA
-                GUnicodeScript.G_UNICODE_SCRIPT_BRAILLE -> BRAILLE
-                GUnicodeScript.G_UNICODE_SCRIPT_CYPRIOT -> CYPRIOT
-                GUnicodeScript.G_UNICODE_SCRIPT_LIMBU -> LIMBU
-                GUnicodeScript.G_UNICODE_SCRIPT_OSMANYA -> OSMANYA
-                GUnicodeScript.G_UNICODE_SCRIPT_SHAVIAN -> SHAVIAN
-                GUnicodeScript.G_UNICODE_SCRIPT_LINEAR_B -> LINEAR_B
-                GUnicodeScript.G_UNICODE_SCRIPT_TAI_LE -> TAI_LE
-                GUnicodeScript.G_UNICODE_SCRIPT_UGARITIC -> UGARITIC
-                GUnicodeScript.G_UNICODE_SCRIPT_NEW_TAI_LUE -> NEW_TAI_LUE
-                GUnicodeScript.G_UNICODE_SCRIPT_BUGINESE -> BUGINESE
-                GUnicodeScript.G_UNICODE_SCRIPT_GLAGOLITIC -> GLAGOLITIC
-                GUnicodeScript.G_UNICODE_SCRIPT_TIFINAGH -> TIFINAGH
-                GUnicodeScript.G_UNICODE_SCRIPT_SYLOTI_NAGRI -> SYLOTI_NAGRI
-                GUnicodeScript.G_UNICODE_SCRIPT_OLD_PERSIAN -> OLD_PERSIAN
-                GUnicodeScript.G_UNICODE_SCRIPT_KHAROSHTHI -> KHAROSHTHI
-                GUnicodeScript.G_UNICODE_SCRIPT_UNKNOWN -> UNKNOWN
-                GUnicodeScript.G_UNICODE_SCRIPT_BALINESE -> BALINESE
-                GUnicodeScript.G_UNICODE_SCRIPT_CUNEIFORM -> CUNEIFORM
-                GUnicodeScript.G_UNICODE_SCRIPT_PHOENICIAN -> PHOENICIAN
-                GUnicodeScript.G_UNICODE_SCRIPT_PHAGS_PA -> PHAGS_PA
-                GUnicodeScript.G_UNICODE_SCRIPT_NKO -> NKO
-                GUnicodeScript.G_UNICODE_SCRIPT_KAYAH_LI -> KAYAH_LI
-                GUnicodeScript.G_UNICODE_SCRIPT_LEPCHA -> LEPCHA
-                GUnicodeScript.G_UNICODE_SCRIPT_REJANG -> REJANG
-                GUnicodeScript.G_UNICODE_SCRIPT_SUNDANESE -> SUNDANESE
-                GUnicodeScript.G_UNICODE_SCRIPT_SAURASHTRA -> SAURASHTRA
-                GUnicodeScript.G_UNICODE_SCRIPT_CHAM -> CHAM
-                GUnicodeScript.G_UNICODE_SCRIPT_OL_CHIKI -> OL_CHIKI
-                GUnicodeScript.G_UNICODE_SCRIPT_VAI -> VAI
-                GUnicodeScript.G_UNICODE_SCRIPT_CARIAN -> CARIAN
-                GUnicodeScript.G_UNICODE_SCRIPT_LYCIAN -> LYCIAN
-                GUnicodeScript.G_UNICODE_SCRIPT_LYDIAN -> LYDIAN
-                GUnicodeScript.G_UNICODE_SCRIPT_AVESTAN -> AVESTAN
-                GUnicodeScript.G_UNICODE_SCRIPT_BAMUM -> BAMUM
-                GUnicodeScript.G_UNICODE_SCRIPT_EGYPTIAN_HIEROGLYPHS -> EGYPTIAN_HIEROGLYPHS
-                GUnicodeScript.G_UNICODE_SCRIPT_IMPERIAL_ARAMAIC -> IMPERIAL_ARAMAIC
-                GUnicodeScript.G_UNICODE_SCRIPT_INSCRIPTIONAL_PAHLAVI -> INSCRIPTIONAL_PAHLAVI
-                GUnicodeScript.G_UNICODE_SCRIPT_INSCRIPTIONAL_PARTHIAN -> INSCRIPTIONAL_PARTHIAN
-                GUnicodeScript.G_UNICODE_SCRIPT_JAVANESE -> JAVANESE
-                GUnicodeScript.G_UNICODE_SCRIPT_KAITHI -> KAITHI
-                GUnicodeScript.G_UNICODE_SCRIPT_LISU -> LISU
-                GUnicodeScript.G_UNICODE_SCRIPT_MEETEI_MAYEK -> MEETEI_MAYEK
-                GUnicodeScript.G_UNICODE_SCRIPT_OLD_SOUTH_ARABIAN -> OLD_SOUTH_ARABIAN
-                GUnicodeScript.G_UNICODE_SCRIPT_OLD_TURKIC -> OLD_TURKIC
-                GUnicodeScript.G_UNICODE_SCRIPT_SAMARITAN -> SAMARITAN
-                GUnicodeScript.G_UNICODE_SCRIPT_TAI_THAM -> TAI_THAM
-                GUnicodeScript.G_UNICODE_SCRIPT_TAI_VIET -> TAI_VIET
-                GUnicodeScript.G_UNICODE_SCRIPT_BATAK -> BATAK
-                GUnicodeScript.G_UNICODE_SCRIPT_BRAHMI -> BRAHMI
-                GUnicodeScript.G_UNICODE_SCRIPT_MANDAIC -> MANDAIC
-                GUnicodeScript.G_UNICODE_SCRIPT_CHAKMA -> CHAKMA
-                GUnicodeScript.G_UNICODE_SCRIPT_MEROITIC_CURSIVE -> MEROITIC_CURSIVE
-                GUnicodeScript.G_UNICODE_SCRIPT_MEROITIC_HIEROGLYPHS -> MEROITIC_HIEROGLYPHS
-                GUnicodeScript.G_UNICODE_SCRIPT_MIAO -> MIAO
-                GUnicodeScript.G_UNICODE_SCRIPT_SHARADA -> SHARADA
-                GUnicodeScript.G_UNICODE_SCRIPT_SORA_SOMPENG -> SORA_SOMPENG
-                GUnicodeScript.G_UNICODE_SCRIPT_TAKRI -> TAKRI
-                GUnicodeScript.G_UNICODE_SCRIPT_BASSA_VAH -> BASSA_VAH
-                GUnicodeScript.G_UNICODE_SCRIPT_CAUCASIAN_ALBANIAN -> CAUCASIAN_ALBANIAN
-                GUnicodeScript.G_UNICODE_SCRIPT_DUPLOYAN -> DUPLOYAN
-                GUnicodeScript.G_UNICODE_SCRIPT_ELBASAN -> ELBASAN
-                GUnicodeScript.G_UNICODE_SCRIPT_GRANTHA -> GRANTHA
-                GUnicodeScript.G_UNICODE_SCRIPT_KHOJKI -> KHOJKI
-                GUnicodeScript.G_UNICODE_SCRIPT_KHUDAWADI -> KHUDAWADI
-                GUnicodeScript.G_UNICODE_SCRIPT_LINEAR_A -> LINEAR_A
-                GUnicodeScript.G_UNICODE_SCRIPT_MAHAJANI -> MAHAJANI
-                GUnicodeScript.G_UNICODE_SCRIPT_MANICHAEAN -> MANICHAEAN
-                GUnicodeScript.G_UNICODE_SCRIPT_MENDE_KIKAKUI -> MENDE_KIKAKUI
-                GUnicodeScript.G_UNICODE_SCRIPT_MODI -> MODI
-                GUnicodeScript.G_UNICODE_SCRIPT_MRO -> MRO
-                GUnicodeScript.G_UNICODE_SCRIPT_NABATAEAN -> NABATAEAN
-                GUnicodeScript.G_UNICODE_SCRIPT_OLD_NORTH_ARABIAN -> OLD_NORTH_ARABIAN
-                GUnicodeScript.G_UNICODE_SCRIPT_OLD_PERMIC -> OLD_PERMIC
-                GUnicodeScript.G_UNICODE_SCRIPT_PAHAWH_HMONG -> PAHAWH_HMONG
-                GUnicodeScript.G_UNICODE_SCRIPT_PALMYRENE -> PALMYRENE
-                GUnicodeScript.G_UNICODE_SCRIPT_PAU_CIN_HAU -> PAU_CIN_HAU
-                GUnicodeScript.G_UNICODE_SCRIPT_PSALTER_PAHLAVI -> PSALTER_PAHLAVI
-                GUnicodeScript.G_UNICODE_SCRIPT_SIDDHAM -> SIDDHAM
-                GUnicodeScript.G_UNICODE_SCRIPT_TIRHUTA -> TIRHUTA
-                GUnicodeScript.G_UNICODE_SCRIPT_WARANG_CITI -> WARANG_CITI
-                GUnicodeScript.G_UNICODE_SCRIPT_AHOM -> AHOM
-                GUnicodeScript.G_UNICODE_SCRIPT_ANATOLIAN_HIEROGLYPHS -> ANATOLIAN_HIEROGLYPHS
-                GUnicodeScript.G_UNICODE_SCRIPT_HATRAN -> HATRAN
-                GUnicodeScript.G_UNICODE_SCRIPT_MULTANI -> MULTANI
-                GUnicodeScript.G_UNICODE_SCRIPT_OLD_HUNGARIAN -> OLD_HUNGARIAN
-                GUnicodeScript.G_UNICODE_SCRIPT_SIGNWRITING -> SIGNWRITING
-                GUnicodeScript.G_UNICODE_SCRIPT_ADLAM -> ADLAM
-                GUnicodeScript.G_UNICODE_SCRIPT_BHAIKSUKI -> BHAIKSUKI
-                GUnicodeScript.G_UNICODE_SCRIPT_MARCHEN -> MARCHEN
-                GUnicodeScript.G_UNICODE_SCRIPT_NEWA -> NEWA
-                GUnicodeScript.G_UNICODE_SCRIPT_OSAGE -> OSAGE
-                GUnicodeScript.G_UNICODE_SCRIPT_TANGUT -> TANGUT
-                GUnicodeScript.G_UNICODE_SCRIPT_MASARAM_GONDI -> MASARAM_GONDI
-                GUnicodeScript.G_UNICODE_SCRIPT_NUSHU -> NUSHU
-                GUnicodeScript.G_UNICODE_SCRIPT_SOYOMBO -> SOYOMBO
-                GUnicodeScript.G_UNICODE_SCRIPT_ZANABAZAR_SQUARE -> ZANABAZAR_SQUARE
-                GUnicodeScript.G_UNICODE_SCRIPT_DOGRA -> DOGRA
-                GUnicodeScript.G_UNICODE_SCRIPT_GUNJALA_GONDI -> GUNJALA_GONDI
-                GUnicodeScript.G_UNICODE_SCRIPT_HANIFI_ROHINGYA -> HANIFI_ROHINGYA
-                GUnicodeScript.G_UNICODE_SCRIPT_MAKASAR -> MAKASAR
-                GUnicodeScript.G_UNICODE_SCRIPT_MEDEFAIDRIN -> MEDEFAIDRIN
-                GUnicodeScript.G_UNICODE_SCRIPT_OLD_SOGDIAN -> OLD_SOGDIAN
-                GUnicodeScript.G_UNICODE_SCRIPT_SOGDIAN -> SOGDIAN
-                GUnicodeScript.G_UNICODE_SCRIPT_ELYMAIC -> ELYMAIC
-                GUnicodeScript.G_UNICODE_SCRIPT_NANDINAGARI -> NANDINAGARI
-                GUnicodeScript.G_UNICODE_SCRIPT_NYIAKENG_PUACHUE_HMONG -> NYIAKENG_PUACHUE_HMONG
-                GUnicodeScript.G_UNICODE_SCRIPT_WANCHO -> WANCHO
-                GUnicodeScript.G_UNICODE_SCRIPT_CHORASMIAN -> CHORASMIAN
-                GUnicodeScript.G_UNICODE_SCRIPT_DIVES_AKURU -> DIVES_AKURU
-                GUnicodeScript.G_UNICODE_SCRIPT_KHITAN_SMALL_SCRIPT -> KHITAN_SMALL_SCRIPT
-                GUnicodeScript.G_UNICODE_SCRIPT_YEZIDI -> YEZIDI
-                GUnicodeScript.G_UNICODE_SCRIPT_CYPRO_MINOAN -> CYPRO_MINOAN
-                GUnicodeScript.G_UNICODE_SCRIPT_OLD_UYGHUR -> OLD_UYGHUR
-                GUnicodeScript.G_UNICODE_SCRIPT_TANGSA -> TANGSA
-                GUnicodeScript.G_UNICODE_SCRIPT_TOTO -> TOTO
-                GUnicodeScript.G_UNICODE_SCRIPT_VITHKUQI -> VITHKUQI
-                GUnicodeScript.G_UNICODE_SCRIPT_MATH -> MATH
-                GUnicodeScript.G_UNICODE_SCRIPT_KAWI -> KAWI
-                GUnicodeScript.G_UNICODE_SCRIPT_NAG_MUNDARI -> NAG_MUNDARI
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GUnicodeScript): UnicodeScript = when (nativeValue) {
+            GUnicodeScript.G_UNICODE_SCRIPT_INVALID_CODE -> INVALID_CODE
+            GUnicodeScript.G_UNICODE_SCRIPT_COMMON -> COMMON
+            GUnicodeScript.G_UNICODE_SCRIPT_INHERITED -> INHERITED
+            GUnicodeScript.G_UNICODE_SCRIPT_ARABIC -> ARABIC
+            GUnicodeScript.G_UNICODE_SCRIPT_ARMENIAN -> ARMENIAN
+            GUnicodeScript.G_UNICODE_SCRIPT_BENGALI -> BENGALI
+            GUnicodeScript.G_UNICODE_SCRIPT_BOPOMOFO -> BOPOMOFO
+            GUnicodeScript.G_UNICODE_SCRIPT_CHEROKEE -> CHEROKEE
+            GUnicodeScript.G_UNICODE_SCRIPT_COPTIC -> COPTIC
+            GUnicodeScript.G_UNICODE_SCRIPT_CYRILLIC -> CYRILLIC
+            GUnicodeScript.G_UNICODE_SCRIPT_DESERET -> DESERET
+            GUnicodeScript.G_UNICODE_SCRIPT_DEVANAGARI -> DEVANAGARI
+            GUnicodeScript.G_UNICODE_SCRIPT_ETHIOPIC -> ETHIOPIC
+            GUnicodeScript.G_UNICODE_SCRIPT_GEORGIAN -> GEORGIAN
+            GUnicodeScript.G_UNICODE_SCRIPT_GOTHIC -> GOTHIC
+            GUnicodeScript.G_UNICODE_SCRIPT_GREEK -> GREEK
+            GUnicodeScript.G_UNICODE_SCRIPT_GUJARATI -> GUJARATI
+            GUnicodeScript.G_UNICODE_SCRIPT_GURMUKHI -> GURMUKHI
+            GUnicodeScript.G_UNICODE_SCRIPT_HAN -> HAN
+            GUnicodeScript.G_UNICODE_SCRIPT_HANGUL -> HANGUL
+            GUnicodeScript.G_UNICODE_SCRIPT_HEBREW -> HEBREW
+            GUnicodeScript.G_UNICODE_SCRIPT_HIRAGANA -> HIRAGANA
+            GUnicodeScript.G_UNICODE_SCRIPT_KANNADA -> KANNADA
+            GUnicodeScript.G_UNICODE_SCRIPT_KATAKANA -> KATAKANA
+            GUnicodeScript.G_UNICODE_SCRIPT_KHMER -> KHMER
+            GUnicodeScript.G_UNICODE_SCRIPT_LAO -> LAO
+            GUnicodeScript.G_UNICODE_SCRIPT_LATIN -> LATIN
+            GUnicodeScript.G_UNICODE_SCRIPT_MALAYALAM -> MALAYALAM
+            GUnicodeScript.G_UNICODE_SCRIPT_MONGOLIAN -> MONGOLIAN
+            GUnicodeScript.G_UNICODE_SCRIPT_MYANMAR -> MYANMAR
+            GUnicodeScript.G_UNICODE_SCRIPT_OGHAM -> OGHAM
+            GUnicodeScript.G_UNICODE_SCRIPT_OLD_ITALIC -> OLD_ITALIC
+            GUnicodeScript.G_UNICODE_SCRIPT_ORIYA -> ORIYA
+            GUnicodeScript.G_UNICODE_SCRIPT_RUNIC -> RUNIC
+            GUnicodeScript.G_UNICODE_SCRIPT_SINHALA -> SINHALA
+            GUnicodeScript.G_UNICODE_SCRIPT_SYRIAC -> SYRIAC
+            GUnicodeScript.G_UNICODE_SCRIPT_TAMIL -> TAMIL
+            GUnicodeScript.G_UNICODE_SCRIPT_TELUGU -> TELUGU
+            GUnicodeScript.G_UNICODE_SCRIPT_THAANA -> THAANA
+            GUnicodeScript.G_UNICODE_SCRIPT_THAI -> THAI
+            GUnicodeScript.G_UNICODE_SCRIPT_TIBETAN -> TIBETAN
+            GUnicodeScript.G_UNICODE_SCRIPT_CANADIAN_ABORIGINAL -> CANADIAN_ABORIGINAL
+            GUnicodeScript.G_UNICODE_SCRIPT_YI -> YI
+            GUnicodeScript.G_UNICODE_SCRIPT_TAGALOG -> TAGALOG
+            GUnicodeScript.G_UNICODE_SCRIPT_HANUNOO -> HANUNOO
+            GUnicodeScript.G_UNICODE_SCRIPT_BUHID -> BUHID
+            GUnicodeScript.G_UNICODE_SCRIPT_TAGBANWA -> TAGBANWA
+            GUnicodeScript.G_UNICODE_SCRIPT_BRAILLE -> BRAILLE
+            GUnicodeScript.G_UNICODE_SCRIPT_CYPRIOT -> CYPRIOT
+            GUnicodeScript.G_UNICODE_SCRIPT_LIMBU -> LIMBU
+            GUnicodeScript.G_UNICODE_SCRIPT_OSMANYA -> OSMANYA
+            GUnicodeScript.G_UNICODE_SCRIPT_SHAVIAN -> SHAVIAN
+            GUnicodeScript.G_UNICODE_SCRIPT_LINEAR_B -> LINEAR_B
+            GUnicodeScript.G_UNICODE_SCRIPT_TAI_LE -> TAI_LE
+            GUnicodeScript.G_UNICODE_SCRIPT_UGARITIC -> UGARITIC
+            GUnicodeScript.G_UNICODE_SCRIPT_NEW_TAI_LUE -> NEW_TAI_LUE
+            GUnicodeScript.G_UNICODE_SCRIPT_BUGINESE -> BUGINESE
+            GUnicodeScript.G_UNICODE_SCRIPT_GLAGOLITIC -> GLAGOLITIC
+            GUnicodeScript.G_UNICODE_SCRIPT_TIFINAGH -> TIFINAGH
+            GUnicodeScript.G_UNICODE_SCRIPT_SYLOTI_NAGRI -> SYLOTI_NAGRI
+            GUnicodeScript.G_UNICODE_SCRIPT_OLD_PERSIAN -> OLD_PERSIAN
+            GUnicodeScript.G_UNICODE_SCRIPT_KHAROSHTHI -> KHAROSHTHI
+            GUnicodeScript.G_UNICODE_SCRIPT_UNKNOWN -> UNKNOWN
+            GUnicodeScript.G_UNICODE_SCRIPT_BALINESE -> BALINESE
+            GUnicodeScript.G_UNICODE_SCRIPT_CUNEIFORM -> CUNEIFORM
+            GUnicodeScript.G_UNICODE_SCRIPT_PHOENICIAN -> PHOENICIAN
+            GUnicodeScript.G_UNICODE_SCRIPT_PHAGS_PA -> PHAGS_PA
+            GUnicodeScript.G_UNICODE_SCRIPT_NKO -> NKO
+            GUnicodeScript.G_UNICODE_SCRIPT_KAYAH_LI -> KAYAH_LI
+            GUnicodeScript.G_UNICODE_SCRIPT_LEPCHA -> LEPCHA
+            GUnicodeScript.G_UNICODE_SCRIPT_REJANG -> REJANG
+            GUnicodeScript.G_UNICODE_SCRIPT_SUNDANESE -> SUNDANESE
+            GUnicodeScript.G_UNICODE_SCRIPT_SAURASHTRA -> SAURASHTRA
+            GUnicodeScript.G_UNICODE_SCRIPT_CHAM -> CHAM
+            GUnicodeScript.G_UNICODE_SCRIPT_OL_CHIKI -> OL_CHIKI
+            GUnicodeScript.G_UNICODE_SCRIPT_VAI -> VAI
+            GUnicodeScript.G_UNICODE_SCRIPT_CARIAN -> CARIAN
+            GUnicodeScript.G_UNICODE_SCRIPT_LYCIAN -> LYCIAN
+            GUnicodeScript.G_UNICODE_SCRIPT_LYDIAN -> LYDIAN
+            GUnicodeScript.G_UNICODE_SCRIPT_AVESTAN -> AVESTAN
+            GUnicodeScript.G_UNICODE_SCRIPT_BAMUM -> BAMUM
+            GUnicodeScript.G_UNICODE_SCRIPT_EGYPTIAN_HIEROGLYPHS -> EGYPTIAN_HIEROGLYPHS
+            GUnicodeScript.G_UNICODE_SCRIPT_IMPERIAL_ARAMAIC -> IMPERIAL_ARAMAIC
+            GUnicodeScript.G_UNICODE_SCRIPT_INSCRIPTIONAL_PAHLAVI -> INSCRIPTIONAL_PAHLAVI
+            GUnicodeScript.G_UNICODE_SCRIPT_INSCRIPTIONAL_PARTHIAN -> INSCRIPTIONAL_PARTHIAN
+            GUnicodeScript.G_UNICODE_SCRIPT_JAVANESE -> JAVANESE
+            GUnicodeScript.G_UNICODE_SCRIPT_KAITHI -> KAITHI
+            GUnicodeScript.G_UNICODE_SCRIPT_LISU -> LISU
+            GUnicodeScript.G_UNICODE_SCRIPT_MEETEI_MAYEK -> MEETEI_MAYEK
+            GUnicodeScript.G_UNICODE_SCRIPT_OLD_SOUTH_ARABIAN -> OLD_SOUTH_ARABIAN
+            GUnicodeScript.G_UNICODE_SCRIPT_OLD_TURKIC -> OLD_TURKIC
+            GUnicodeScript.G_UNICODE_SCRIPT_SAMARITAN -> SAMARITAN
+            GUnicodeScript.G_UNICODE_SCRIPT_TAI_THAM -> TAI_THAM
+            GUnicodeScript.G_UNICODE_SCRIPT_TAI_VIET -> TAI_VIET
+            GUnicodeScript.G_UNICODE_SCRIPT_BATAK -> BATAK
+            GUnicodeScript.G_UNICODE_SCRIPT_BRAHMI -> BRAHMI
+            GUnicodeScript.G_UNICODE_SCRIPT_MANDAIC -> MANDAIC
+            GUnicodeScript.G_UNICODE_SCRIPT_CHAKMA -> CHAKMA
+            GUnicodeScript.G_UNICODE_SCRIPT_MEROITIC_CURSIVE -> MEROITIC_CURSIVE
+            GUnicodeScript.G_UNICODE_SCRIPT_MEROITIC_HIEROGLYPHS -> MEROITIC_HIEROGLYPHS
+            GUnicodeScript.G_UNICODE_SCRIPT_MIAO -> MIAO
+            GUnicodeScript.G_UNICODE_SCRIPT_SHARADA -> SHARADA
+            GUnicodeScript.G_UNICODE_SCRIPT_SORA_SOMPENG -> SORA_SOMPENG
+            GUnicodeScript.G_UNICODE_SCRIPT_TAKRI -> TAKRI
+            GUnicodeScript.G_UNICODE_SCRIPT_BASSA_VAH -> BASSA_VAH
+            GUnicodeScript.G_UNICODE_SCRIPT_CAUCASIAN_ALBANIAN -> CAUCASIAN_ALBANIAN
+            GUnicodeScript.G_UNICODE_SCRIPT_DUPLOYAN -> DUPLOYAN
+            GUnicodeScript.G_UNICODE_SCRIPT_ELBASAN -> ELBASAN
+            GUnicodeScript.G_UNICODE_SCRIPT_GRANTHA -> GRANTHA
+            GUnicodeScript.G_UNICODE_SCRIPT_KHOJKI -> KHOJKI
+            GUnicodeScript.G_UNICODE_SCRIPT_KHUDAWADI -> KHUDAWADI
+            GUnicodeScript.G_UNICODE_SCRIPT_LINEAR_A -> LINEAR_A
+            GUnicodeScript.G_UNICODE_SCRIPT_MAHAJANI -> MAHAJANI
+            GUnicodeScript.G_UNICODE_SCRIPT_MANICHAEAN -> MANICHAEAN
+            GUnicodeScript.G_UNICODE_SCRIPT_MENDE_KIKAKUI -> MENDE_KIKAKUI
+            GUnicodeScript.G_UNICODE_SCRIPT_MODI -> MODI
+            GUnicodeScript.G_UNICODE_SCRIPT_MRO -> MRO
+            GUnicodeScript.G_UNICODE_SCRIPT_NABATAEAN -> NABATAEAN
+            GUnicodeScript.G_UNICODE_SCRIPT_OLD_NORTH_ARABIAN -> OLD_NORTH_ARABIAN
+            GUnicodeScript.G_UNICODE_SCRIPT_OLD_PERMIC -> OLD_PERMIC
+            GUnicodeScript.G_UNICODE_SCRIPT_PAHAWH_HMONG -> PAHAWH_HMONG
+            GUnicodeScript.G_UNICODE_SCRIPT_PALMYRENE -> PALMYRENE
+            GUnicodeScript.G_UNICODE_SCRIPT_PAU_CIN_HAU -> PAU_CIN_HAU
+            GUnicodeScript.G_UNICODE_SCRIPT_PSALTER_PAHLAVI -> PSALTER_PAHLAVI
+            GUnicodeScript.G_UNICODE_SCRIPT_SIDDHAM -> SIDDHAM
+            GUnicodeScript.G_UNICODE_SCRIPT_TIRHUTA -> TIRHUTA
+            GUnicodeScript.G_UNICODE_SCRIPT_WARANG_CITI -> WARANG_CITI
+            GUnicodeScript.G_UNICODE_SCRIPT_AHOM -> AHOM
+            GUnicodeScript.G_UNICODE_SCRIPT_ANATOLIAN_HIEROGLYPHS -> ANATOLIAN_HIEROGLYPHS
+            GUnicodeScript.G_UNICODE_SCRIPT_HATRAN -> HATRAN
+            GUnicodeScript.G_UNICODE_SCRIPT_MULTANI -> MULTANI
+            GUnicodeScript.G_UNICODE_SCRIPT_OLD_HUNGARIAN -> OLD_HUNGARIAN
+            GUnicodeScript.G_UNICODE_SCRIPT_SIGNWRITING -> SIGNWRITING
+            GUnicodeScript.G_UNICODE_SCRIPT_ADLAM -> ADLAM
+            GUnicodeScript.G_UNICODE_SCRIPT_BHAIKSUKI -> BHAIKSUKI
+            GUnicodeScript.G_UNICODE_SCRIPT_MARCHEN -> MARCHEN
+            GUnicodeScript.G_UNICODE_SCRIPT_NEWA -> NEWA
+            GUnicodeScript.G_UNICODE_SCRIPT_OSAGE -> OSAGE
+            GUnicodeScript.G_UNICODE_SCRIPT_TANGUT -> TANGUT
+            GUnicodeScript.G_UNICODE_SCRIPT_MASARAM_GONDI -> MASARAM_GONDI
+            GUnicodeScript.G_UNICODE_SCRIPT_NUSHU -> NUSHU
+            GUnicodeScript.G_UNICODE_SCRIPT_SOYOMBO -> SOYOMBO
+            GUnicodeScript.G_UNICODE_SCRIPT_ZANABAZAR_SQUARE -> ZANABAZAR_SQUARE
+            GUnicodeScript.G_UNICODE_SCRIPT_DOGRA -> DOGRA
+            GUnicodeScript.G_UNICODE_SCRIPT_GUNJALA_GONDI -> GUNJALA_GONDI
+            GUnicodeScript.G_UNICODE_SCRIPT_HANIFI_ROHINGYA -> HANIFI_ROHINGYA
+            GUnicodeScript.G_UNICODE_SCRIPT_MAKASAR -> MAKASAR
+            GUnicodeScript.G_UNICODE_SCRIPT_MEDEFAIDRIN -> MEDEFAIDRIN
+            GUnicodeScript.G_UNICODE_SCRIPT_OLD_SOGDIAN -> OLD_SOGDIAN
+            GUnicodeScript.G_UNICODE_SCRIPT_SOGDIAN -> SOGDIAN
+            GUnicodeScript.G_UNICODE_SCRIPT_ELYMAIC -> ELYMAIC
+            GUnicodeScript.G_UNICODE_SCRIPT_NANDINAGARI -> NANDINAGARI
+            GUnicodeScript.G_UNICODE_SCRIPT_NYIAKENG_PUACHUE_HMONG -> NYIAKENG_PUACHUE_HMONG
+            GUnicodeScript.G_UNICODE_SCRIPT_WANCHO -> WANCHO
+            GUnicodeScript.G_UNICODE_SCRIPT_CHORASMIAN -> CHORASMIAN
+            GUnicodeScript.G_UNICODE_SCRIPT_DIVES_AKURU -> DIVES_AKURU
+            GUnicodeScript.G_UNICODE_SCRIPT_KHITAN_SMALL_SCRIPT -> KHITAN_SMALL_SCRIPT
+            GUnicodeScript.G_UNICODE_SCRIPT_YEZIDI -> YEZIDI
+            GUnicodeScript.G_UNICODE_SCRIPT_CYPRO_MINOAN -> CYPRO_MINOAN
+            GUnicodeScript.G_UNICODE_SCRIPT_OLD_UYGHUR -> OLD_UYGHUR
+            GUnicodeScript.G_UNICODE_SCRIPT_TANGSA -> TANGSA
+            GUnicodeScript.G_UNICODE_SCRIPT_TOTO -> TOTO
+            GUnicodeScript.G_UNICODE_SCRIPT_VITHKUQI -> VITHKUQI
+            GUnicodeScript.G_UNICODE_SCRIPT_MATH -> MATH
+            GUnicodeScript.G_UNICODE_SCRIPT_KAWI -> KAWI
+            GUnicodeScript.G_UNICODE_SCRIPT_NAG_MUNDARI -> NAG_MUNDARI
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Looks up the Unicode script for @iso15924.  ISO 15924 assigns four-letter
@@ -1042,10 +1041,9 @@ public enum class UnicodeScript(
          * @since 2.30
          */
         @GLibVersion2_30
-        public fun fromIso15924(iso15924: UInt): UnicodeScript =
-            g_unicode_script_from_iso15924(iso15924).run {
-                UnicodeScript.fromNativeValue(this)
-            }
+        public fun fromIso15924(iso15924: guint): UnicodeScript = g_unicode_script_from_iso15924(iso15924).run {
+            UnicodeScript.fromNativeValue(this)
+        }
 
         /**
          * Looks up the ISO 15924 code for @script.  ISO 15924 assigns four-letter
@@ -1065,6 +1063,13 @@ public enum class UnicodeScript(
          * @since 2.30
          */
         @GLibVersion2_30
-        public fun toIso15924(script: UnicodeScript): UInt = g_unicode_script_to_iso15924(script.nativeValue)
+        public fun toIso15924(script: UnicodeScript): guint = g_unicode_script_to_iso15924(script.nativeValue)
+
+        /**
+         * Get the GType of UnicodeScript
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_unicode_script_get_type()
     }
 }

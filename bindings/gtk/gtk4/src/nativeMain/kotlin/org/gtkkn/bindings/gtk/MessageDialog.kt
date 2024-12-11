@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -79,16 +80,19 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
+ * - method `format_secondary_markup`: Varargs parameter is not supported
+ * - method `format_secondary_text`: Varargs parameter is not supported
  * - method `buttons`: Property has no getter nor setter
  * - method `message-type`: Property has no getter nor setter
  * - method `secondary-text`: Property has no getter nor setter
  * - method `secondary-use-markup`: Property has no getter nor setter
  * - method `text`: Property has no getter nor setter
  * - method `use-markup`: Property has no getter nor setter
+ * - constructor `new`: Varargs parameter is not supported
+ * - constructor `new_with_markup`: Varargs parameter is not supported
  */
-public open class MessageDialog(
-    pointer: CPointer<GtkMessageDialog>,
-) : Dialog(pointer.reinterpret()),
+public open class MessageDialog(pointer: CPointer<GtkMessageDialog>) :
+    Dialog(pointer.reinterpret()),
     KGTyped {
     public val gtkMessageDialogPointer: CPointer<GtkMessageDialog>
         get() = gPointer.reinterpret()
@@ -129,24 +133,7 @@ public open class MessageDialog(
          * @return A `GtkBox` corresponding to the
          *   “message area” in the @message_dialog
          */
-        get() =
-            gtk_message_dialog_get_message_area(gtkMessageDialogPointer.reinterpret())!!.run {
-                Widget(reinterpret())
-            }
-
-    /**
-     * Returns the message area of the dialog.
-     *
-     * This is the box where the dialog’s primary and secondary labels
-     * are packed. You can add your own extra content to that box and it
-     * will appear below those labels. See [method@Gtk.Dialog.get_content_area]
-     * for the corresponding function in the parent [class@Gtk.Dialog].
-     *
-     * @return A `GtkBox` corresponding to the
-     *   “message area” in the @message_dialog
-     */
-    public open fun getMessageArea(): Widget =
-        gtk_message_dialog_get_message_area(gtkMessageDialogPointer.reinterpret())!!.run {
+        get() = gtk_message_dialog_get_message_area(gtkMessageDialogPointer.reinterpret())!!.run {
             Widget(reinterpret())
         }
 
@@ -165,5 +152,12 @@ public open class MessageDialog(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of MessageDialog
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_message_dialog_get_type()
     }
 }

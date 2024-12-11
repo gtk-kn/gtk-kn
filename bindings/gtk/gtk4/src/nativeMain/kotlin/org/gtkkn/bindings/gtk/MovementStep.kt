@@ -1,15 +1,15 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkMovementStep
+import org.gtkkn.native.gtk.gtk_movement_step_get_type
 
 /**
  * Passed as argument to various keybinding signals for moving the
  * cursor position.
  */
-public enum class MovementStep(
-    public val nativeValue: GtkMovementStep,
-) {
+public enum class MovementStep(public val nativeValue: GtkMovementStep) {
     /**
      * Move forward or back by graphemes
      */
@@ -62,19 +62,25 @@ public enum class MovementStep(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkMovementStep): MovementStep =
-            when (nativeValue) {
-                GtkMovementStep.GTK_MOVEMENT_LOGICAL_POSITIONS -> LOGICAL_POSITIONS
-                GtkMovementStep.GTK_MOVEMENT_VISUAL_POSITIONS -> VISUAL_POSITIONS
-                GtkMovementStep.GTK_MOVEMENT_WORDS -> WORDS
-                GtkMovementStep.GTK_MOVEMENT_DISPLAY_LINES -> DISPLAY_LINES
-                GtkMovementStep.GTK_MOVEMENT_DISPLAY_LINE_ENDS -> DISPLAY_LINE_ENDS
-                GtkMovementStep.GTK_MOVEMENT_PARAGRAPHS -> PARAGRAPHS
-                GtkMovementStep.GTK_MOVEMENT_PARAGRAPH_ENDS -> PARAGRAPH_ENDS
-                GtkMovementStep.GTK_MOVEMENT_PAGES -> PAGES
-                GtkMovementStep.GTK_MOVEMENT_BUFFER_ENDS -> BUFFER_ENDS
-                GtkMovementStep.GTK_MOVEMENT_HORIZONTAL_PAGES -> HORIZONTAL_PAGES
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkMovementStep): MovementStep = when (nativeValue) {
+            GtkMovementStep.GTK_MOVEMENT_LOGICAL_POSITIONS -> LOGICAL_POSITIONS
+            GtkMovementStep.GTK_MOVEMENT_VISUAL_POSITIONS -> VISUAL_POSITIONS
+            GtkMovementStep.GTK_MOVEMENT_WORDS -> WORDS
+            GtkMovementStep.GTK_MOVEMENT_DISPLAY_LINES -> DISPLAY_LINES
+            GtkMovementStep.GTK_MOVEMENT_DISPLAY_LINE_ENDS -> DISPLAY_LINE_ENDS
+            GtkMovementStep.GTK_MOVEMENT_PARAGRAPHS -> PARAGRAPHS
+            GtkMovementStep.GTK_MOVEMENT_PARAGRAPH_ENDS -> PARAGRAPH_ENDS
+            GtkMovementStep.GTK_MOVEMENT_PAGES -> PAGES
+            GtkMovementStep.GTK_MOVEMENT_BUFFER_ENDS -> BUFFER_ENDS
+            GtkMovementStep.GTK_MOVEMENT_HORIZONTAL_PAGES -> HORIZONTAL_PAGES
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of MovementStep
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_movement_step_get_type()
     }
 }

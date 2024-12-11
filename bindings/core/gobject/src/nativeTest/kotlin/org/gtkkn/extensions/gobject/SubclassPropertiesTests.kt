@@ -18,7 +18,6 @@ package org.gtkkn.extensions.gobject
 import org.gtkkn.bindings.gobject.BindingFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
-import org.gtkkn.extensions.glib.allocate
 import org.gtkkn.native.gobject.G_TYPE_INT
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -26,7 +25,6 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class SubclassPropertiesTests {
-
     /**
      * Test setting and getting a string property via direct access and `setProperty`.
      */
@@ -107,13 +105,13 @@ class SubclassPropertiesTests {
     fun `integer property can be set and retrieved via Value objects`() {
         val person = Person()
 
-        val inValue = Value.allocate().get().init(G_TYPE_INT)
+        val inValue = Value().init(G_TYPE_INT)
         inValue.setInt(42)
         person.setProperty("age", inValue)
 
         assertEquals(42, person.age)
 
-        val outValue = Value.allocate().get()
+        val outValue = Value()
         person.getProperty("age", outValue)
         assertEquals(42, outValue.getInt())
     }

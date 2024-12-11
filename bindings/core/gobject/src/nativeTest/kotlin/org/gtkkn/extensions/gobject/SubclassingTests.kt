@@ -67,14 +67,14 @@ class SubclassingTests {
  * A test class for verifying single-level subclassing in GObject.
  */
 private open class TestObject1(pointer: CPointer<CPointed>) : Object(pointer.reinterpret()) {
-
     /**
      * Primary constructor for creating a new instance.
      */
     constructor() : this(newInstancePointer())
 
     companion object : ObjectType<TestObject1>(
-        TestObject1::class, Object.type,
+        typeClass = TestObject1::class,
+        parentType = Object.type,
     )
 }
 
@@ -83,6 +83,7 @@ private open class TestObject1(pointer: CPointer<CPointed>) : Object(pointer.rei
  */
 private class TestObject2 : TestObject1(newInstancePointer()) {
     companion object : ObjectType<TestObject2>(
-        TestObject2::class, TestObject1.type,
+        typeClass = TestObject2::class,
+        parentType = TestObject1.type,
     )
 }

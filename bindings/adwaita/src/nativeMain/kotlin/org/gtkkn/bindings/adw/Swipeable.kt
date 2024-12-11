@@ -15,8 +15,9 @@ import org.gtkkn.native.adw.adw_swipeable_get_distance
 import org.gtkkn.native.adw.adw_swipeable_get_progress
 import org.gtkkn.native.adw.adw_swipeable_get_swipe_area
 import org.gtkkn.native.adw.adw_swipeable_get_type
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Unit
 
 /**
@@ -40,7 +41,7 @@ public interface Swipeable :
      *
      * @return the cancel progress, unitless
      */
-    public fun getCancelProgress(): Double = adw_swipeable_get_cancel_progress(adwSwipeablePointer.reinterpret())
+    public fun getCancelProgress(): gdouble = adw_swipeable_get_cancel_progress(adwSwipeablePointer.reinterpret())
 
     /**
      * Gets the swipe distance of @self.
@@ -49,14 +50,14 @@ public interface Swipeable :
      *
      * @return the swipe distance in pixels
      */
-    public fun getDistance(): Double = adw_swipeable_get_distance(adwSwipeablePointer.reinterpret())
+    public fun getDistance(): gdouble = adw_swipeable_get_distance(adwSwipeablePointer.reinterpret())
 
     /**
      * Gets the current progress of @self.
      *
      * @return the current progress, unitless
      */
-    public fun getProgress(): Double = adw_swipeable_get_progress(adwSwipeablePointer.reinterpret())
+    public fun getProgress(): gdouble = adw_swipeable_get_progress(adwSwipeablePointer.reinterpret())
 
     /**
      * Gets the area @self can start a swipe from for the given direction and
@@ -73,11 +74,7 @@ public interface Swipeable :
      * @param isDrag whether the swipe is caused by a dragging gesture
      * @param rect a pointer to a rectangle to store the swipe area
      */
-    public fun getSwipeArea(
-        navigationDirection: NavigationDirection,
-        isDrag: Boolean,
-        rect: Rectangle,
-    ): Unit =
+    public fun getSwipeArea(navigationDirection: NavigationDirection, isDrag: Boolean, rect: Rectangle): Unit =
         adw_swipeable_get_swipe_area(
             adwSwipeablePointer.reinterpret(),
             navigationDirection.nativeValue,
@@ -85,9 +82,7 @@ public interface Swipeable :
             rect.gdkRectanglePointer.reinterpret()
         )
 
-    private data class Wrapper(
-        private val pointer: CPointer<AdwSwipeable>,
-    ) : Swipeable {
+    private data class Wrapper(private val pointer: CPointer<AdwSwipeable>) : Swipeable {
         override val adwSwipeablePointer: CPointer<AdwSwipeable> = pointer
     }
 
@@ -100,5 +95,12 @@ public interface Swipeable :
         }
 
         public fun wrap(pointer: CPointer<AdwSwipeable>): Swipeable = Wrapper(pointer)
+
+        /**
+         * Get the GType of Swipeable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_swipeable_get_type()
     }
 }

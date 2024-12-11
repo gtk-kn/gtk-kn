@@ -8,6 +8,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkNative
 import org.gtkkn.native.gtk.GtkRoot
 import org.gtkkn.native.gtk.gtk_root_get_display
@@ -45,10 +46,9 @@ public interface Root :
      *
      * @return the display of @root
      */
-    public fun getDisplay_(): Display =
-        gtk_root_get_display(gtkRootPointer.reinterpret())!!.run {
-            Display(reinterpret())
-        }
+    public fun getRootDisplay(): Display = gtk_root_get_display(gtkRootPointer.reinterpret())!!.run {
+        Display(reinterpret())
+    }
 
     /**
      * Retrieves the current focused widget within the root.
@@ -60,10 +60,9 @@ public interface Root :
      *
      * @return the currently focused widget
      */
-    public fun getFocus(): Widget? =
-        gtk_root_get_focus(gtkRootPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
+    public fun getFocus(): Widget? = gtk_root_get_focus(gtkRootPointer.reinterpret())?.run {
+        Widget(reinterpret())
+    }
 
     /**
      * If @focus is not the current focus widget, and is focusable, sets
@@ -81,9 +80,7 @@ public interface Root :
     public fun setFocus(focus: Widget? = null): Unit =
         gtk_root_set_focus(gtkRootPointer.reinterpret(), focus?.gtkWidgetPointer?.reinterpret())
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkRoot>,
-    ) : Root {
+    private data class Wrapper(private val pointer: CPointer<GtkRoot>) : Root {
         override val gtkRootPointer: CPointer<GtkRoot> = pointer
     }
 
@@ -96,5 +93,12 @@ public interface Root :
         }
 
         public fun wrap(pointer: CPointer<GtkRoot>): Root = Wrapper(pointer)
+
+        /**
+         * Get the GType of Root
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_root_get_type()
     }
 }

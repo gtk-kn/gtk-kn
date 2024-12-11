@@ -11,9 +11,7 @@ import kotlin.UInt
  * @since 2.54
  */
 @GLibVersion2_54
-public enum class NumberParserError(
-    public val nativeValue: GNumberParserError,
-) {
+public enum class NumberParserError(public val nativeValue: GNumberParserError) {
     /**
      * string was not a valid number
      */
@@ -26,20 +24,18 @@ public enum class NumberParserError(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GNumberParserError): NumberParserError =
-            when (nativeValue) {
-                GNumberParserError.G_NUMBER_PARSER_ERROR_INVALID -> INVALID
-                GNumberParserError.G_NUMBER_PARSER_ERROR_OUT_OF_BOUNDS -> OUT_OF_BOUNDS
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GNumberParserError): NumberParserError = when (nativeValue) {
+            GNumberParserError.G_NUMBER_PARSER_ERROR_INVALID -> INVALID
+            GNumberParserError.G_NUMBER_PARSER_ERROR_OUT_OF_BOUNDS -> OUT_OF_BOUNDS
+            else -> error("invalid nativeValue")
+        }
 
         public fun quark(): UInt = g_quark_from_string("g-number-parser-error-quark")
 
-        public fun fromErrorOrNull(error: Error): NumberParserError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                NumberParserError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        public fun fromErrorOrNull(error: Error): NumberParserError? = if (error.domain != quark()) {
+            null
+        } else {
+            NumberParserError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

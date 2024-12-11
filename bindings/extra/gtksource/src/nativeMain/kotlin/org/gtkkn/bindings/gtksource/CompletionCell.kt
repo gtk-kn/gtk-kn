@@ -10,6 +10,7 @@ import org.gtkkn.bindings.pango.AttrList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -51,9 +52,8 @@ import kotlin.Unit
  * - method `text`: Property has no getter
  * - method `widget`: Property TypeInfo of getter and setter do not match
  */
-public open class CompletionCell(
-    pointer: CPointer<GtkSourceCompletionCell>,
-) : Widget(pointer.reinterpret()),
+public open class CompletionCell(pointer: CPointer<GtkSourceCompletionCell>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val gtksourceCompletionCellPointer: CPointer<GtkSourceCompletionCell>
         get() = gPointer.reinterpret()
@@ -68,13 +68,7 @@ public open class CompletionCell(
         get() = gPointer.reinterpret()
 
     public open val column: CompletionColumn
-        get() =
-            gtk_source_completion_cell_get_column(gtksourceCompletionCellPointer.reinterpret()).run {
-                CompletionColumn.fromNativeValue(this)
-            }
-
-    public open fun getColumn(): CompletionColumn =
-        gtk_source_completion_cell_get_column(gtksourceCompletionCellPointer.reinterpret()).run {
+        get() = gtk_source_completion_cell_get_column(gtksourceCompletionCellPointer.reinterpret()).run {
             CompletionColumn.fromNativeValue(this)
         }
 
@@ -88,40 +82,19 @@ public open class CompletionCell(
             Widget(reinterpret())
         }
 
-    /**
-     *
-     *
-     * @param gicon
-     */
     public open fun setGicon(gicon: Icon): Unit =
         gtk_source_completion_cell_set_gicon(gtksourceCompletionCellPointer.reinterpret(), gicon.gioIconPointer)
 
-    /**
-     *
-     *
-     * @param iconName
-     */
     public open fun setIconName(iconName: String): Unit =
         gtk_source_completion_cell_set_icon_name(gtksourceCompletionCellPointer.reinterpret(), iconName)
 
-    /**
-     *
-     *
-     * @param markup
-     */
     public open fun setMarkup(markup: String): Unit =
         gtk_source_completion_cell_set_markup(gtksourceCompletionCellPointer.reinterpret(), markup)
 
-    /**
-     *
-     *
-     * @param paintable
-     */
-    public open fun setPaintable(paintable: Paintable): Unit =
-        gtk_source_completion_cell_set_paintable(
-            gtksourceCompletionCellPointer.reinterpret(),
-            paintable.gdkPaintablePointer
-        )
+    public open fun setPaintable(paintable: Paintable): Unit = gtk_source_completion_cell_set_paintable(
+        gtksourceCompletionCellPointer.reinterpret(),
+        paintable.gdkPaintablePointer
+    )
 
     /**
      * Sets the text for the column cell. Use null to unset.
@@ -131,32 +104,17 @@ public open class CompletionCell(
     public open fun setText(text: String? = null): Unit =
         gtk_source_completion_cell_set_text(gtksourceCompletionCellPointer.reinterpret(), text)
 
-    /**
-     *
-     *
-     * @param text
-     * @param attrs
-     */
-    public open fun setTextWithAttributes(
-        text: String,
-        attrs: AttrList,
-    ): Unit =
+    public open fun setTextWithAttributes(text: String, attrs: AttrList): Unit =
         gtk_source_completion_cell_set_text_with_attributes(
             gtksourceCompletionCellPointer.reinterpret(),
             text,
             attrs.pangoAttrListPointer.reinterpret()
         )
 
-    /**
-     *
-     *
-     * @param child
-     */
-    public open fun setWidget(child: Widget): Unit =
-        gtk_source_completion_cell_set_widget(
-            gtksourceCompletionCellPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+    public open fun setWidget(child: Widget): Unit = gtk_source_completion_cell_set_widget(
+        gtksourceCompletionCellPointer.reinterpret(),
+        child.gtkWidgetPointer.reinterpret()
+    )
 
     public companion object : TypeCompanion<CompletionCell> {
         override val type: GeneratedClassKGType<CompletionCell> =
@@ -165,5 +123,12 @@ public open class CompletionCell(
         init {
             GtksourceTypeProvider.register()
         }
+
+        /**
+         * Get the GType of CompletionCell
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_completion_cell_get_type()
     }
 }

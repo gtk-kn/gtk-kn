@@ -2,9 +2,6 @@
 package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 
-public class DownloadErrorException(
-    error: Error,
-    public val code: DownloadError,
-) : GlibException(error)
+public class DownloadErrorException(error: Error, public val code: DownloadError) : GLibException(error)

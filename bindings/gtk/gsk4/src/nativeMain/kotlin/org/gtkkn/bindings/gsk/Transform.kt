@@ -1,10 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.bindings.glib.String
+import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.graphene.Matrix
 import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.graphene.Point3D
@@ -12,11 +11,13 @@ import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.graphene.Vec3
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_6
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskTransform
 import org.gtkkn.native.gsk.gsk_transform_equal
 import org.gtkkn.native.gsk.gsk_transform_get_category
+import org.gtkkn.native.gsk.gsk_transform_get_type
 import org.gtkkn.native.gsk.gsk_transform_invert
 import org.gtkkn.native.gsk.gsk_transform_matrix
 import org.gtkkn.native.gsk.gsk_transform_new
@@ -29,6 +30,7 @@ import org.gtkkn.native.gsk.gsk_transform_scale
 import org.gtkkn.native.gsk.gsk_transform_scale_3d
 import org.gtkkn.native.gsk.gsk_transform_skew
 import org.gtkkn.native.gsk.gsk_transform_to_matrix
+import org.gtkkn.native.gsk.gsk_transform_to_string
 import org.gtkkn.native.gsk.gsk_transform_transform
 import org.gtkkn.native.gsk.gsk_transform_transform_bounds
 import org.gtkkn.native.gsk.gsk_transform_transform_point
@@ -36,8 +38,9 @@ import org.gtkkn.native.gsk.gsk_transform_translate
 import org.gtkkn.native.gsk.gsk_transform_translate_3d
 import org.gtkkn.native.gsk.gsk_transform_unref
 import kotlin.Boolean
-import kotlin.Float
 import kotlin.Unit
+import kotlin.String as KotlinString
+import org.gtkkn.bindings.glib.String as GlibString
 
 /**
  * `GskTransform` is an object to describe transform matrices.
@@ -55,13 +58,10 @@ import kotlin.Unit
  * - parameter `out_xx`: out_xx: Out parameter is not supported
  * - parameter `out_skew_x`: out_skew_x: Out parameter is not supported
  * - parameter `out_scale_x`: out_scale_x: Out parameter is not supported
- * - method `to_string`: C function gsk_transform_to_string is ignored
  * - parameter `out_dx`: out_dx: Out parameter is not supported
  * - parameter `out_transform`: out_transform: Out parameter is not supported
  */
-public class Transform(
-    pointer: CPointer<GskTransform>,
-) : Record {
+public class Transform(pointer: CPointer<GskTransform>) : ProxyInstance(pointer) {
     public val gskTransformPointer: CPointer<GskTransform> = pointer
 
     /**
@@ -78,10 +78,9 @@ public class Transform(
      *
      * @return The category of the transform
      */
-    public fun getCategory(): TransformCategory =
-        gsk_transform_get_category(gskTransformPointer.reinterpret()).run {
-            TransformCategory.fromNativeValue(this)
-        }
+    public fun getCategory(): TransformCategory = gsk_transform_get_category(gskTransformPointer.reinterpret()).run {
+        TransformCategory.fromNativeValue(this)
+    }
 
     /**
      * Inverts the given transform.
@@ -94,10 +93,9 @@ public class Transform(
      *
      * @return The inverted transform
      */
-    public fun invert(): Transform? =
-        gsk_transform_invert(gskTransformPointer.reinterpret())?.run {
-            Transform(reinterpret())
-        }
+    public fun invert(): Transform? = gsk_transform_invert(gskTransformPointer.reinterpret())?.run {
+        Transform(reinterpret())
+    }
 
     /**
      * Multiplies @next with the given @matrix.
@@ -123,7 +121,7 @@ public class Transform(
      *   perspective effect.
      * @return The new transform
      */
-    public fun perspective(depth: Float): Transform =
+    public fun perspective(depth: gfloat): Transform =
         gsk_transform_perspective(gskTransformPointer.reinterpret(), depth)!!.run {
             Transform(reinterpret())
         }
@@ -137,7 +135,7 @@ public class Transform(
      *
      * @param string The string to print into
      */
-    public fun print(string: String): Unit =
+    public fun print(string: GlibString): Unit =
         gsk_transform_print(gskTransformPointer.reinterpret(), string.glibStringPointer.reinterpret())
 
     /**
@@ -145,10 +143,9 @@ public class Transform(
      *
      * @return the `GskTransform` with an additional reference
      */
-    public fun ref(): Transform? =
-        gsk_transform_ref(gskTransformPointer.reinterpret())?.run {
-            Transform(reinterpret())
-        }
+    public fun ref(): Transform? = gsk_transform_ref(gskTransformPointer.reinterpret())?.run {
+        Transform(reinterpret())
+    }
 
     /**
      * Rotates @next @angle degrees in 2D - or in 3D-speak, around the Z axis.
@@ -157,10 +154,9 @@ public class Transform(
      * @param angle the rotation angle, in degrees (clockwise)
      * @return The new transform
      */
-    public fun rotate(angle: Float): Transform? =
-        gsk_transform_rotate(gskTransformPointer.reinterpret(), angle)?.run {
-            Transform(reinterpret())
-        }
+    public fun rotate(angle: gfloat): Transform? = gsk_transform_rotate(gskTransformPointer.reinterpret(), angle)?.run {
+        Transform(reinterpret())
+    }
 
     /**
      * Rotates @next @angle degrees around @axis.
@@ -171,10 +167,7 @@ public class Transform(
      * @param axis The rotation axis
      * @return The new transform
      */
-    public fun rotate3d(
-        angle: Float,
-        axis: Vec3,
-    ): Transform? =
+    public fun rotate3d(angle: gfloat, axis: Vec3): Transform? =
         gsk_transform_rotate_3d(gskTransformPointer.reinterpret(), angle, axis.grapheneVec3Pointer.reinterpret())?.run {
             Transform(reinterpret())
         }
@@ -188,10 +181,7 @@ public class Transform(
      * @param factorY scaling factor on the Y axis
      * @return The new transform
      */
-    public fun scale(
-        factorX: Float,
-        factorY: Float,
-    ): Transform? =
+    public fun scale(factorX: gfloat, factorY: gfloat): Transform? =
         gsk_transform_scale(gskTransformPointer.reinterpret(), factorX, factorY)?.run {
             Transform(reinterpret())
         }
@@ -204,11 +194,7 @@ public class Transform(
      * @param factorZ scaling factor on the Z axis
      * @return The new transform
      */
-    public fun scale3d(
-        factorX: Float,
-        factorY: Float,
-        factorZ: Float,
-    ): Transform? =
+    public fun scale3d(factorX: gfloat, factorY: gfloat, factorZ: gfloat): Transform? =
         gsk_transform_scale_3d(gskTransformPointer.reinterpret(), factorX, factorY, factorZ)?.run {
             Transform(reinterpret())
         }
@@ -222,10 +208,7 @@ public class Transform(
      * @since 4.6
      */
     @GskVersion4_6
-    public fun skew(
-        skewX: Float,
-        skewY: Float,
-    ): Transform? =
+    public fun skew(skewX: gfloat, skewY: gfloat): Transform? =
         gsk_transform_skew(gskTransformPointer.reinterpret(), skewX, skewY)?.run {
             Transform(reinterpret())
         }
@@ -239,6 +222,18 @@ public class Transform(
      */
     public fun toMatrix(outMatrix: Matrix): Unit =
         gsk_transform_to_matrix(gskTransformPointer.reinterpret(), outMatrix.grapheneMatrixPointer.reinterpret())
+
+    /**
+     * Converts a matrix into a string that is suitable for printing.
+     *
+     * The resulting string can be parsed with [func@Gsk.Transform.parse].
+     *
+     * This is a wrapper around [method@Gsk.Transform.print].
+     *
+     * @return A new string for @self
+     */
+    override fun toString(): KotlinString =
+        gsk_transform_to_string(gskTransformPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Applies all the operations from @other to @next.
@@ -260,15 +255,11 @@ public class Transform(
      * @param outRect return location for the bounds
      *   of the transformed rectangle
      */
-    public fun transformBounds(
-        rect: Rect,
-        outRect: Rect,
-    ): Unit =
-        gsk_transform_transform_bounds(
-            gskTransformPointer.reinterpret(),
-            rect.grapheneRectPointer.reinterpret(),
-            outRect.grapheneRectPointer.reinterpret()
-        )
+    public fun transformBounds(rect: Rect, outRect: Rect): Unit = gsk_transform_transform_bounds(
+        gskTransformPointer.reinterpret(),
+        rect.grapheneRectPointer.reinterpret(),
+        outRect.grapheneRectPointer.reinterpret()
+    )
 
     /**
      * Transforms a `graphene_point_t` using the given transform @self.
@@ -277,15 +268,11 @@ public class Transform(
      * @param outPoint return location for
      *   the transformed point
      */
-    public fun transformPoint(
-        point: Point,
-        outPoint: Point,
-    ): Unit =
-        gsk_transform_transform_point(
-            gskTransformPointer.reinterpret(),
-            point.graphenePointPointer.reinterpret(),
-            outPoint.graphenePointPointer.reinterpret()
-        )
+    public fun transformPoint(point: Point, outPoint: Point): Unit = gsk_transform_transform_point(
+        gskTransformPointer.reinterpret(),
+        point.graphenePointPointer.reinterpret(),
+        outPoint.graphenePointPointer.reinterpret()
+    )
 
     /**
      * Translates @next in 2-dimensional space by @point.
@@ -317,9 +304,14 @@ public class Transform(
      */
     public fun unref(): Unit = gsk_transform_unref(gskTransformPointer.reinterpret())
 
-    public companion object : RecordCompanion<Transform, GskTransform> {
+    public companion object {
         public fun new(): Transform = Transform(gsk_transform_new()!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Transform = Transform(pointer.reinterpret())
+        /**
+         * Get the GType of Transform
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_transform_get_type()
     }
 }

@@ -1,15 +1,15 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitLoadEvent
+import org.gtkkn.native.webkit.webkit_load_event_get_type
 
 /**
  * Enum values used to denote the different events that happen during a
  * #WebKitWebView load operation.
  */
-public enum class LoadEvent(
-    public val nativeValue: WebKitLoadEvent,
-) {
+public enum class LoadEvent(public val nativeValue: WebKitLoadEvent) {
     /**
      * A new load request has been made.
      * No data has been received yet, empty structures have
@@ -40,13 +40,19 @@ public enum class LoadEvent(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitLoadEvent): LoadEvent =
-            when (nativeValue) {
-                WebKitLoadEvent.WEBKIT_LOAD_STARTED -> STARTED
-                WebKitLoadEvent.WEBKIT_LOAD_REDIRECTED -> REDIRECTED
-                WebKitLoadEvent.WEBKIT_LOAD_COMMITTED -> COMMITTED
-                WebKitLoadEvent.WEBKIT_LOAD_FINISHED -> FINISHED
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitLoadEvent): LoadEvent = when (nativeValue) {
+            WebKitLoadEvent.WEBKIT_LOAD_STARTED -> STARTED
+            WebKitLoadEvent.WEBKIT_LOAD_REDIRECTED -> REDIRECTED
+            WebKitLoadEvent.WEBKIT_LOAD_COMMITTED -> COMMITTED
+            WebKitLoadEvent.WEBKIT_LOAD_FINISHED -> FINISHED
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of LoadEvent
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_load_event_get_type()
     }
 }

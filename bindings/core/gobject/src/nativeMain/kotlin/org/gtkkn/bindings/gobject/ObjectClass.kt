@@ -1,19 +1,24 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GObjectClass
 import org.gtkkn.native.gobject.g_object_class_find_property
 import org.gtkkn.native.gobject.g_object_class_install_property
 import org.gtkkn.native.gobject.g_object_class_override_property
+import org.gtkkn.native.gobject.guint
+import kotlin.Pair
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * The class structure for the GObject type.
@@ -63,10 +68,37 @@ import kotlin.Unit
  * - field `n_pspecs`: Record field n_pspecs is private
  * - field `pdummy`: Record field pdummy is private
  */
-public class ObjectClass(
-    pointer: CPointer<GObjectClass>,
-) : Record {
+public class ObjectClass(pointer: CPointer<GObjectClass>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gobjectObjectClassPointer: CPointer<GObjectClass> = pointer
+
+    /**
+     * Allocate a new ObjectClass.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<GObjectClass>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to ObjectClass and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GObjectClass>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new ObjectClass using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GObjectClass>().ptr)
 
     /**
      * Looks up the #GParamSpec for a property of a class.
@@ -95,15 +127,11 @@ public class ObjectClass(
      * @param propertyId the id for the new property
      * @param pspec the #GParamSpec for the new property
      */
-    public fun installProperty(
-        propertyId: UInt,
-        pspec: ParamSpec,
-    ): Unit =
-        g_object_class_install_property(
-            gobjectObjectClassPointer.reinterpret(),
-            propertyId,
-            pspec.gPointer.reinterpret()
-        )
+    public fun installProperty(propertyId: guint, pspec: ParamSpec): Unit = g_object_class_install_property(
+        gobjectObjectClassPointer.reinterpret(),
+        propertyId,
+        pspec.gPointer.reinterpret()
+    )
 
     /**
      * Registers @property_id as referring to a property with the name
@@ -129,13 +157,6 @@ public class ObjectClass(
      * @since 2.4
      */
     @GObjectVersion2_4
-    public fun overrideProperty(
-        propertyId: UInt,
-        name: String,
-    ): Unit = g_object_class_override_property(gobjectObjectClassPointer.reinterpret(), propertyId, name)
-
-    public companion object : RecordCompanion<ObjectClass, GObjectClass> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ObjectClass =
-            ObjectClass(pointer.reinterpret())
-    }
+    public fun overrideProperty(propertyId: guint, name: String): Unit =
+        g_object_class_override_property(gobjectObjectClassPointer.reinterpret(), propertyId, name)
 }

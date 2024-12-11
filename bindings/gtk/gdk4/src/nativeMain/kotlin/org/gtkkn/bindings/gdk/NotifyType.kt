@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.native.gdk.GdkNotifyType
+import org.gtkkn.native.gdk.gdk_notify_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Specifies the kind of crossing for enter and leave events.
@@ -9,9 +11,7 @@ import org.gtkkn.native.gdk.GdkNotifyType
  * See the X11 protocol specification of LeaveNotify for
  * full details of crossing event generation.
  */
-public enum class NotifyType(
-    public val nativeValue: GdkNotifyType,
-) {
+public enum class NotifyType(public val nativeValue: GdkNotifyType) {
     /**
      * the surface is entered from an ancestor or
      *   left towards an ancestor.
@@ -51,15 +51,21 @@ public enum class NotifyType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GdkNotifyType): NotifyType =
-            when (nativeValue) {
-                GdkNotifyType.GDK_NOTIFY_ANCESTOR -> ANCESTOR
-                GdkNotifyType.GDK_NOTIFY_VIRTUAL -> VIRTUAL
-                GdkNotifyType.GDK_NOTIFY_INFERIOR -> INFERIOR
-                GdkNotifyType.GDK_NOTIFY_NONLINEAR -> NONLINEAR
-                GdkNotifyType.GDK_NOTIFY_NONLINEAR_VIRTUAL -> NONLINEAR_VIRTUAL
-                GdkNotifyType.GDK_NOTIFY_UNKNOWN -> UNKNOWN
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GdkNotifyType): NotifyType = when (nativeValue) {
+            GdkNotifyType.GDK_NOTIFY_ANCESTOR -> ANCESTOR
+            GdkNotifyType.GDK_NOTIFY_VIRTUAL -> VIRTUAL
+            GdkNotifyType.GDK_NOTIFY_INFERIOR -> INFERIOR
+            GdkNotifyType.GDK_NOTIFY_NONLINEAR -> NONLINEAR
+            GdkNotifyType.GDK_NOTIFY_NONLINEAR_VIRTUAL -> NONLINEAR_VIRTUAL
+            GdkNotifyType.GDK_NOTIFY_UNKNOWN -> UNKNOWN
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of NotifyType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_notify_type_get_type()
     }
 }

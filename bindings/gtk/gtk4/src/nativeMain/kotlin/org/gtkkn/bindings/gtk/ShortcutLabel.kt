@@ -7,6 +7,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -30,9 +31,8 @@ import kotlin.Unit
  * - method `accelerator`: Property TypeInfo of getter and setter do not match
  * - method `disabled-text`: Property TypeInfo of getter and setter do not match
  */
-public open class ShortcutLabel(
-    pointer: CPointer<GtkShortcutLabel>,
-) : Widget(pointer.reinterpret()),
+public open class ShortcutLabel(pointer: CPointer<GtkShortcutLabel>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkShortcutLabelPointer: CPointer<GtkShortcutLabel>
         get() = gPointer.reinterpret()
@@ -94,5 +94,12 @@ public open class ShortcutLabel(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ShortcutLabel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_shortcut_label_get_type()
     }
 }

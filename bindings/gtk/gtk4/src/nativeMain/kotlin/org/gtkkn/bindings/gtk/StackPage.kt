@@ -10,6 +10,7 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkStackPage
 import org.gtkkn.native.gtk.gtk_stack_page_get_child
@@ -39,9 +40,8 @@ import kotlin.Unit
  * - method `name`: Property TypeInfo of getter and setter do not match
  * - method `title`: Property TypeInfo of getter and setter do not match
  */
-public open class StackPage(
-    pointer: CPointer<GtkStackPage>,
-) : Object(pointer.reinterpret()),
+public open class StackPage(pointer: CPointer<GtkStackPage>) :
+    Object(pointer.reinterpret()),
     Accessible,
     KGTyped {
     public val gtkStackPagePointer: CPointer<GtkStackPage>
@@ -59,10 +59,9 @@ public open class StackPage(
          *
          * @return the child to which @self belongs
          */
-        get() =
-            gtk_stack_page_get_child(gtkStackPagePointer.reinterpret())!!.run {
-                Widget(reinterpret())
-            }
+        get() = gtk_stack_page_get_child(gtkStackPagePointer.reinterpret())!!.run {
+            Widget(reinterpret())
+        }
 
     /**
      * Whether the page requires the user attention.
@@ -127,16 +126,6 @@ public open class StackPage(
         set(visible) = gtk_stack_page_set_visible(gtkStackPagePointer.reinterpret(), visible.asGBoolean())
 
     /**
-     * Returns the stack child to which @self belongs.
-     *
-     * @return the child to which @self belongs
-     */
-    public open fun getChild(): Widget =
-        gtk_stack_page_get_child(gtkStackPagePointer.reinterpret())!!.run {
-            Widget(reinterpret())
-        }
-
-    /**
      * Returns the icon name of the page.
      *
      * @return The value of the [property@Gtk.StackPage:icon-name] property
@@ -152,38 +141,11 @@ public open class StackPage(
     public open fun getName(): String? = gtk_stack_page_get_name(gtkStackPagePointer.reinterpret())?.toKString()
 
     /**
-     * Returns whether the page is marked as “needs attention”.
-     *
-     * @return The value of the [property@Gtk.StackPage:needs-attention]
-     *   property.
-     */
-    public open fun getNeedsAttention(): Boolean =
-        gtk_stack_page_get_needs_attention(gtkStackPagePointer.reinterpret()).asBoolean()
-
-    /**
      * Gets the page title.
      *
      * @return The value of the [property@Gtk.StackPage:title] property
      */
     public open fun getTitle(): String? = gtk_stack_page_get_title(gtkStackPagePointer.reinterpret())?.toKString()
-
-    /**
-     * Gets whether underlines in the page title indicate mnemonics.
-     *
-     * @return The value of the [property@Gtk.StackPage:use-underline] property
-     */
-    public open fun getUseUnderline(): Boolean =
-        gtk_stack_page_get_use_underline(gtkStackPagePointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns whether @page is visible in its `GtkStack`.
-     *
-     * This is independent from the [property@Gtk.Widget:visible]
-     * property of its widget.
-     *
-     * @return true if @page is visible
-     */
-    public open fun getVisible(): Boolean = gtk_stack_page_get_visible(gtkStackPagePointer.reinterpret()).asBoolean()
 
     /**
      * Sets the icon name of the page.
@@ -201,36 +163,12 @@ public open class StackPage(
     public open fun setName(setting: String): Unit = gtk_stack_page_set_name(gtkStackPagePointer.reinterpret(), setting)
 
     /**
-     * Sets whether the page is marked as “needs attention”.
-     *
-     * @param setting the new value to set
-     */
-    public open fun setNeedsAttention(setting: Boolean): Unit =
-        gtk_stack_page_set_needs_attention(gtkStackPagePointer.reinterpret(), setting.asGBoolean())
-
-    /**
      * Sets the page title.
      *
      * @param setting the new value to set
      */
     public open fun setTitle(setting: String): Unit =
         gtk_stack_page_set_title(gtkStackPagePointer.reinterpret(), setting)
-
-    /**
-     * Sets whether underlines in the page title indicate mnemonics.
-     *
-     * @param setting the new value to set
-     */
-    public open fun setUseUnderline(setting: Boolean): Unit =
-        gtk_stack_page_set_use_underline(gtkStackPagePointer.reinterpret(), setting.asGBoolean())
-
-    /**
-     * Sets whether @page is visible in its `GtkStack`.
-     *
-     * @param visible The new property value
-     */
-    public open fun setVisible(visible: Boolean): Unit =
-        gtk_stack_page_set_visible(gtkStackPagePointer.reinterpret(), visible.asGBoolean())
 
     public companion object : TypeCompanion<StackPage> {
         override val type: GeneratedClassKGType<StackPage> =
@@ -239,5 +177,12 @@ public open class StackPage(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of StackPage
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_stack_page_get_type()
     }
 }

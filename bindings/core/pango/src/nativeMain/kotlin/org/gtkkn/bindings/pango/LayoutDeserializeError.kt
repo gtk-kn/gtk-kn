@@ -4,7 +4,9 @@ package org.gtkkn.bindings.pango
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoLayoutDeserializeError
+import org.gtkkn.native.pango.pango_layout_deserialize_error_get_type
 import org.gtkkn.native.pango.pango_layout_deserialize_error_quark
 
 /**
@@ -12,9 +14,7 @@ import org.gtkkn.native.pango.pango_layout_deserialize_error_quark
  * @since 1.50
  */
 @PangoVersion1_50
-public enum class LayoutDeserializeError(
-    public val nativeValue: PangoLayoutDeserializeError,
-) {
+public enum class LayoutDeserializeError(public val nativeValue: PangoLayoutDeserializeError) {
     /**
      * Unspecified error
      */
@@ -44,11 +44,17 @@ public enum class LayoutDeserializeError(
 
         public fun quark(): Quark = pango_layout_deserialize_error_quark()
 
-        public fun fromErrorOrNull(error: Error): LayoutDeserializeError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                LayoutDeserializeError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        /**
+         * Get the GType of LayoutDeserializeError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_layout_deserialize_error_get_type()
+
+        public fun fromErrorOrNull(error: Error): LayoutDeserializeError? = if (error.domain != quark()) {
+            null
+        } else {
+            LayoutDeserializeError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

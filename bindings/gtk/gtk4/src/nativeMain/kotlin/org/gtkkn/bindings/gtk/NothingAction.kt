@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkNothingAction
 import org.gtkkn.native.gtk.gtk_nothing_action_get
 import org.gtkkn.native.gtk.gtk_nothing_action_get_type
@@ -13,9 +14,8 @@ import org.gtkkn.native.gtk.gtk_nothing_action_get_type
 /**
  * A `GtkShortcutAction` that does nothing.
  */
-public open class NothingAction(
-    pointer: CPointer<GtkNothingAction>,
-) : ShortcutAction(pointer.reinterpret()),
+public open class NothingAction(pointer: CPointer<GtkNothingAction>) :
+    ShortcutAction(pointer.reinterpret()),
     KGTyped {
     public val gtkNothingActionPointer: CPointer<GtkNothingAction>
         get() = gPointer.reinterpret()
@@ -36,9 +36,15 @@ public open class NothingAction(
          *
          * @return The nothing action
          */
-        public fun `get`(): NothingAction =
-            gtk_nothing_action_get()!!.run {
-                NothingAction(reinterpret())
-            }
+        public fun `get`(): NothingAction = gtk_nothing_action_get()!!.run {
+            NothingAction(reinterpret())
+        }
+
+        /**
+         * Get the GType of NothingAction
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_nothing_action_get_type()
     }
 }

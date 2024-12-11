@@ -11,6 +11,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GBinding
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_binding_dup_source
 import org.gtkkn.native.gobject.g_binding_dup_target
 import org.gtkkn.native.gobject.g_binding_get_flags
@@ -102,9 +103,8 @@ import kotlin.Unit
  * @since 2.26
  */
 @GObjectVersion2_26
-public open class Binding(
-    pointer: CPointer<GBinding>,
-) : Object(pointer.reinterpret()),
+public open class Binding(pointer: CPointer<GBinding>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gobjectBindingPointer: CPointer<GBinding>
         get() = gPointer.reinterpret()
@@ -122,10 +122,9 @@ public open class Binding(
          * @return the #GBindingFlags used by the #GBinding
          * @since 2.26
          */
-        get() =
-            g_binding_get_flags(gobjectBindingPointer.reinterpret()).run {
-                BindingFlags(this)
-            }
+        get() = g_binding_get_flags(gobjectBindingPointer.reinterpret()).run {
+            BindingFlags(this)
+        }
 
     /**
      * The #GObject that should be used as the source of the binding
@@ -149,10 +148,9 @@ public open class Binding(
          *     source does not exist any more.
          * @since 2.26
          */
-        get() =
-            g_binding_get_source(gobjectBindingPointer.reinterpret())?.run {
-                Object(reinterpret())
-            }
+        get() = g_binding_get_source(gobjectBindingPointer.reinterpret())?.run {
+            Object(reinterpret())
+        }
 
     /**
      * The name of the property of #GBinding:source that should be used
@@ -172,9 +170,8 @@ public open class Binding(
          * @return the name of the source property
          * @since 2.26
          */
-        get() =
-            g_binding_get_source_property(gobjectBindingPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = g_binding_get_source_property(gobjectBindingPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * The #GObject that should be used as the target of the binding
@@ -198,10 +195,9 @@ public open class Binding(
          *     target does not exist any more.
          * @since 2.26
          */
-        get() =
-            g_binding_get_target(gobjectBindingPointer.reinterpret())?.run {
-                Object(reinterpret())
-            }
+        get() = g_binding_get_target(gobjectBindingPointer.reinterpret())?.run {
+            Object(reinterpret())
+        }
 
     /**
      * The name of the property of #GBinding:target that should be used
@@ -221,9 +217,8 @@ public open class Binding(
          * @return the name of the target property
          * @since 2.26
          */
-        get() =
-            g_binding_get_target_property(gobjectBindingPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = g_binding_get_target_property(gobjectBindingPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Retrieves the #GObject instance used as the source of the binding.
@@ -237,10 +232,9 @@ public open class Binding(
      * @since 2.68
      */
     @GObjectVersion2_68
-    public open fun dupSource(): Object? =
-        g_binding_dup_source(gobjectBindingPointer.reinterpret())?.run {
-            Object(reinterpret())
-        }
+    public open fun dupSource(): Object? = g_binding_dup_source(gobjectBindingPointer.reinterpret())?.run {
+        Object(reinterpret())
+    }
 
     /**
      * Retrieves the #GObject instance used as the target of the binding.
@@ -254,88 +248,9 @@ public open class Binding(
      * @since 2.68
      */
     @GObjectVersion2_68
-    public open fun dupTarget(): Object? =
-        g_binding_dup_target(gobjectBindingPointer.reinterpret())?.run {
-            Object(reinterpret())
-        }
-
-    /**
-     * Retrieves the flags passed when constructing the #GBinding.
-     *
-     * @return the #GBindingFlags used by the #GBinding
-     * @since 2.26
-     */
-    @GObjectVersion2_26
-    public open fun getFlags(): BindingFlags =
-        g_binding_get_flags(gobjectBindingPointer.reinterpret()).run {
-            BindingFlags(this)
-        }
-
-    /**
-     * Retrieves the #GObject instance used as the source of the binding.
-     *
-     * A #GBinding can outlive the source #GObject as the binding does not hold a
-     * strong reference to the source. If the source is destroyed before the
-     * binding then this function will return null.
-     *
-     * Use g_binding_dup_source() if the source or binding are used from different
-     * threads as otherwise the pointer returned from this function might become
-     * invalid if the source is finalized from another thread in the meantime.
-     *
-     * @return the source #GObject, or null if the
-     *     source does not exist any more.
-     * @since 2.26
-     */
-    @GObjectVersion2_26
-    public open fun getSource(): Object? =
-        g_binding_get_source(gobjectBindingPointer.reinterpret())?.run {
-            Object(reinterpret())
-        }
-
-    /**
-     * Retrieves the name of the property of #GBinding:source used as the source
-     * of the binding.
-     *
-     * @return the name of the source property
-     * @since 2.26
-     */
-    @GObjectVersion2_26
-    public open fun getSourceProperty(): String =
-        g_binding_get_source_property(gobjectBindingPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Retrieves the #GObject instance used as the target of the binding.
-     *
-     * A #GBinding can outlive the target #GObject as the binding does not hold a
-     * strong reference to the target. If the target is destroyed before the
-     * binding then this function will return null.
-     *
-     * Use g_binding_dup_target() if the target or binding are used from different
-     * threads as otherwise the pointer returned from this function might become
-     * invalid if the target is finalized from another thread in the meantime.
-     *
-     * @return the target #GObject, or null if the
-     *     target does not exist any more.
-     * @since 2.26
-     */
-    @GObjectVersion2_26
-    public open fun getTarget(): Object? =
-        g_binding_get_target(gobjectBindingPointer.reinterpret())?.run {
-            Object(reinterpret())
-        }
-
-    /**
-     * Retrieves the name of the property of #GBinding:target used as the target
-     * of the binding.
-     *
-     * @return the name of the target property
-     * @since 2.26
-     */
-    @GObjectVersion2_26
-    public open fun getTargetProperty(): String =
-        g_binding_get_target_property(gobjectBindingPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public open fun dupTarget(): Object? = g_binding_dup_target(gobjectBindingPointer.reinterpret())?.run {
+        Object(reinterpret())
+    }
 
     /**
      * Explicitly releases the binding between the source and the target
@@ -362,5 +277,12 @@ public open class Binding(
         init {
             GobjectTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Binding
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_binding_get_type()
     }
 }

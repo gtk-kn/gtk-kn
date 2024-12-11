@@ -20,6 +20,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtksource.GtkSourceCompletionContext
 import org.gtkkn.native.gtksource.GtkSourceCompletionProvider
@@ -59,9 +60,8 @@ import kotlin.Unit
  * displayed using [class@CompletionCell] which allows for some level of
  * customization.
  */
-public open class CompletionContext(
-    pointer: CPointer<GtkSourceCompletionContext>,
-) : Object(pointer.reinterpret()),
+public open class CompletionContext(pointer: CPointer<GtkSourceCompletionContext>) :
+    Object(pointer.reinterpret()),
     ListModel,
     KGTyped {
     public val gtksourceCompletionContextPointer: CPointer<GtkSourceCompletionContext>
@@ -93,10 +93,9 @@ public open class CompletionContext(
          *
          * @return an #GtkSourceCompletion or null
          */
-        get() =
-            gtk_source_completion_context_get_completion(gtksourceCompletionContextPointer.reinterpret())?.run {
-                Completion(reinterpret())
-            }
+        get() = gtk_source_completion_context_get_completion(gtksourceCompletionContextPointer.reinterpret())?.run {
+            Completion(reinterpret())
+        }
 
     /**
      * The "empty" property is true when there are no results.
@@ -137,15 +136,11 @@ public open class CompletionContext(
      * @param end a #GtkTextIter
      * @return true if the marks are still valid and @begin or @end was set.
      */
-    public open fun getBounds(
-        begin: TextIter?,
-        end: TextIter?,
-    ): Boolean =
-        gtk_source_completion_context_get_bounds(
-            gtksourceCompletionContextPointer.reinterpret(),
-            begin?.gtkTextIterPointer?.reinterpret(),
-            end?.gtkTextIterPointer?.reinterpret()
-        ).asBoolean()
+    public open fun getBounds(begin: TextIter?, end: TextIter?): Boolean = gtk_source_completion_context_get_bounds(
+        gtksourceCompletionContextPointer.reinterpret(),
+        begin?.gtkTextIterPointer?.reinterpret(),
+        end?.gtkTextIterPointer?.reinterpret()
+    ).asBoolean()
 
     /**
      * Gets the underlying buffer used by the context.
@@ -159,36 +154,6 @@ public open class CompletionContext(
         gtk_source_completion_context_get_buffer(gtksourceCompletionContextPointer.reinterpret())?.run {
             Buffer(reinterpret())
         }
-
-    /**
-     * Gets the "busy" property. This is set to true while the completion
-     * context is actively fetching proposals from registered
-     * #GtkSourceCompletionProvider's.
-     *
-     * @return true if the context is busy
-     */
-    public open fun getBusy(): Boolean =
-        gtk_source_completion_context_get_busy(gtksourceCompletionContextPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the #GtkSourceCompletion that created the context.
-     *
-     * @return an #GtkSourceCompletion or null
-     */
-    public open fun getCompletion(): Completion? =
-        gtk_source_completion_context_get_completion(gtksourceCompletionContextPointer.reinterpret())?.run {
-            Completion(reinterpret())
-        }
-
-    /**
-     * Checks if any proposals have been provided to the context.
-     *
-     * Out of convenience, this function will return true if @self is null.
-     *
-     * @return true if there are no proposals in the context
-     */
-    public open fun getEmpty(): Boolean =
-        gtk_source_completion_context_get_empty(gtksourceCompletionContextPointer.reinterpret()).asBoolean()
 
     /**
      * Gets the language of the underlying buffer, if any.
@@ -261,10 +226,7 @@ public open class CompletionContext(
      * @param provider an #GtkSourceCompletionProvider
      * @param results a #GListModel or null
      */
-    public open fun setProposalsForProvider(
-        provider: CompletionProvider,
-        results: ListModel? = null,
-    ): Unit =
+    public open fun setProposalsForProvider(provider: CompletionProvider, results: ListModel? = null): Unit =
         gtk_source_completion_context_set_proposals_for_provider(
             gtksourceCompletionContextPointer.reinterpret(),
             provider.gtksourceCompletionProviderPointer,
@@ -286,15 +248,14 @@ public open class CompletionContext(
     public fun connectProviderModelChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (provider: CompletionProvider, model: ListModel?) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "provider-model-changed",
-            connectProviderModelChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "provider-model-changed",
+        connectProviderModelChangedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<CompletionContext> {
         override val type: GeneratedClassKGType<CompletionContext> =
@@ -303,6 +264,13 @@ public open class CompletionContext(
         init {
             GtksourceTypeProvider.register()
         }
+
+        /**
+         * Get the GType of CompletionContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_completion_context_get_type()
     }
 }
 
@@ -322,4 +290,5 @@ private val connectProviderModelChangedFunc:
                 ListModel.wrap(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()

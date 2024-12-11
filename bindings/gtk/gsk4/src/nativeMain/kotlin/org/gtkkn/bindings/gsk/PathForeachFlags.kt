@@ -3,11 +3,13 @@ package org.gtkkn.bindings.gsk
 
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.extensions.glib.Bitfield
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GSK_PATH_FOREACH_ALLOW_CONIC
 import org.gtkkn.native.gsk.GSK_PATH_FOREACH_ALLOW_CUBIC
 import org.gtkkn.native.gsk.GSK_PATH_FOREACH_ALLOW_ONLY_LINES
 import org.gtkkn.native.gsk.GSK_PATH_FOREACH_ALLOW_QUAD
 import org.gtkkn.native.gsk.GskPathForeachFlags
+import org.gtkkn.native.gsk.gsk_path_foreach_flags_get_type
 
 /**
  * Flags that can be passed to gsk_path_foreach() to influence what
@@ -19,9 +21,7 @@ import org.gtkkn.native.gsk.GskPathForeachFlags
  * `GSK_PATH_CLOSE`.
  * @since 4.14
  */
-public class PathForeachFlags(
-    public val mask: GskPathForeachFlags,
-) : Bitfield<PathForeachFlags> {
+public class PathForeachFlags(public val mask: GskPathForeachFlags) : Bitfield<PathForeachFlags> {
     override infix fun or(other: PathForeachFlags): PathForeachFlags = PathForeachFlags(mask or other.mask)
 
     @GskVersion4_14
@@ -46,5 +46,12 @@ public class PathForeachFlags(
          * Allow emission of `GSK_PATH_CONIC` operations.
          */
         public val CONIC: PathForeachFlags = PathForeachFlags(GSK_PATH_FOREACH_ALLOW_CONIC)
+
+        /**
+         * Get the GType of PathForeachFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_path_foreach_flags_get_type()
     }
 }

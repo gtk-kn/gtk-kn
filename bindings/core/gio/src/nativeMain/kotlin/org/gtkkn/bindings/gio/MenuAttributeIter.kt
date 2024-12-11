@@ -16,6 +16,7 @@ import org.gtkkn.native.gio.g_menu_attribute_iter_get_name
 import org.gtkkn.native.gio.g_menu_attribute_iter_get_type
 import org.gtkkn.native.gio.g_menu_attribute_iter_get_value
 import org.gtkkn.native.gio.g_menu_attribute_iter_next
+import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 import kotlin.String
 
@@ -30,9 +31,8 @@ import kotlin.String
  * @since 2.32
  */
 @GioVersion2_32
-public open class MenuAttributeIter(
-    pointer: CPointer<GMenuAttributeIter>,
-) : Object(pointer.reinterpret()),
+public open class MenuAttributeIter(pointer: CPointer<GMenuAttributeIter>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioMenuAttributeIterPointer: CPointer<GMenuAttributeIter>
         get() = gPointer.reinterpret()
@@ -89,5 +89,12 @@ public open class MenuAttributeIter(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of MenuAttributeIter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_menu_attribute_iter_get_type()
     }
 }

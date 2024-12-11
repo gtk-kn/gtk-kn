@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_6
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkSymbolicColor
+import org.gtkkn.native.gtk.gtk_symbolic_color_get_type
 
 /**
  * The indexes of colors passed to symbolic color rendering, such as
@@ -12,9 +14,7 @@ import org.gtkkn.native.gtk.GtkSymbolicColor
  * @since 4.6
  */
 @GtkVersion4_6
-public enum class SymbolicColor(
-    public val nativeValue: GtkSymbolicColor,
-) {
+public enum class SymbolicColor(public val nativeValue: GtkSymbolicColor) {
     /**
      * The default foreground color
      */
@@ -37,13 +37,19 @@ public enum class SymbolicColor(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkSymbolicColor): SymbolicColor =
-            when (nativeValue) {
-                GtkSymbolicColor.GTK_SYMBOLIC_COLOR_FOREGROUND -> FOREGROUND
-                GtkSymbolicColor.GTK_SYMBOLIC_COLOR_ERROR -> ERROR
-                GtkSymbolicColor.GTK_SYMBOLIC_COLOR_WARNING -> WARNING
-                GtkSymbolicColor.GTK_SYMBOLIC_COLOR_SUCCESS -> SUCCESS
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkSymbolicColor): SymbolicColor = when (nativeValue) {
+            GtkSymbolicColor.GTK_SYMBOLIC_COLOR_FOREGROUND -> FOREGROUND
+            GtkSymbolicColor.GTK_SYMBOLIC_COLOR_ERROR -> ERROR
+            GtkSymbolicColor.GTK_SYMBOLIC_COLOR_WARNING -> WARNING
+            GtkSymbolicColor.GTK_SYMBOLIC_COLOR_SUCCESS -> SUCCESS
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of SymbolicColor
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_symbolic_color_get_type()
     }
 }

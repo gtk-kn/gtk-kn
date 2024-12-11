@@ -9,7 +9,8 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkPadEvent
 import org.gtkkn.native.gdk.gdk_pad_event_get_button
 import org.gtkkn.native.gdk.gdk_pad_event_get_type
-import kotlin.UInt
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 
 /**
  * An event related to a pad-based device.
@@ -19,9 +20,8 @@ import kotlin.UInt
  * - parameter `index`: index: Out parameter is not supported
  * - parameter `group`: group: Out parameter is not supported
  */
-public open class PadEvent(
-    pointer: CPointer<GdkPadEvent>,
-) : Event(pointer.reinterpret()),
+public open class PadEvent(pointer: CPointer<GdkPadEvent>) :
+    Event(pointer.reinterpret()),
     KGTyped {
     public val gdkPadEventPointer: CPointer<GdkPadEvent>
         get() = gPointer.reinterpret()
@@ -32,7 +32,7 @@ public open class PadEvent(
      *
      * @return the button of @event
      */
-    public open fun getButton(): UInt = gdk_pad_event_get_button(gdkPadEventPointer.reinterpret())
+    public open fun getButton(): guint = gdk_pad_event_get_button(gdkPadEventPointer.reinterpret())
 
     public companion object : TypeCompanion<PadEvent> {
         override val type: GeneratedClassKGType<PadEvent> =
@@ -41,5 +41,12 @@ public open class PadEvent(
         init {
             GdkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of PadEvent
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_pad_event_get_type()
     }
 }

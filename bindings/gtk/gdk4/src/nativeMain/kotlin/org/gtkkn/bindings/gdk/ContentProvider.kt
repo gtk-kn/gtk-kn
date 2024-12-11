@@ -39,9 +39,10 @@ import org.gtkkn.native.gdk.gdk_content_provider_ref_storable_formats
 import org.gtkkn.native.gdk.gdk_content_provider_write_mime_type_async
 import org.gtkkn.native.gdk.gdk_content_provider_write_mime_type_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.ULong
@@ -62,11 +63,11 @@ import kotlin.Unit
  *
  * - method `formats`: Property has no getter nor setter
  * - method `storable-formats`: Property has no getter nor setter
+ * - constructor `new_typed`: Varargs parameter is not supported
  * - parameter `providers`: Array parameter of type ContentProvider is not supported
  */
-public open class ContentProvider(
-    pointer: CPointer<GdkContentProvider>,
-) : Object(pointer.reinterpret()),
+public open class ContentProvider(pointer: CPointer<GdkContentProvider>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gdkContentProviderPointer: CPointer<GdkContentProvider>
         get() = gPointer.reinterpret()
@@ -113,21 +114,19 @@ public open class ContentProvider(
      * @return true if the value was set successfully. Otherwise
      *   @error will be set to describe the failure.
      */
-    public open fun getValue(`value`: Value): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gdk_content_provider_get_value(
-                    gdkContentProviderPointer.reinterpret(),
-                    `value`.gobjectValuePointer.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun getValue(`value`: Value): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gdk_content_provider_get_value(
+            gdkContentProviderPointer.reinterpret(),
+            `value`.gobjectValuePointer.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Gets the formats that the provider can provide its current contents in.
@@ -177,19 +176,18 @@ public open class ContentProvider(
     public open fun writeMimeTypeAsync(
         mimeType: String,
         stream: OutputStream,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        gdk_content_provider_write_mime_type_async(
-            gdkContentProviderPointer.reinterpret(),
-            mimeType,
-            stream.gioOutputStreamPointer.reinterpret(),
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = gdk_content_provider_write_mime_type_async(
+        gdkContentProviderPointer.reinterpret(),
+        mimeType,
+        stream.gioOutputStreamPointer.reinterpret(),
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an asynchronous write operation.
@@ -200,21 +198,19 @@ public open class ContentProvider(
      * @return true if the operation was completed successfully. Otherwise
      *   @error will be set to describe the failure.
      */
-    public open fun writeMimeTypeFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gdk_content_provider_write_mime_type_finish(
-                    gdkContentProviderPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun writeMimeTypeFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gdk_content_provider_write_mime_type_finish(
+            gdkContentProviderPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Emitted whenever the content provided by this provider has changed.
@@ -222,10 +218,7 @@ public open class ContentProvider(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectContentChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectContentChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "content-changed",
@@ -242,13 +235,20 @@ public open class ContentProvider(
         init {
             GdkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ContentProvider
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_content_provider_get_type()
     }
 }
 
-private val connectContentChangedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectContentChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

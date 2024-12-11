@@ -3,6 +3,8 @@ package org.gtkkn.bindings.adw
 
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
 import org.gtkkn.native.adw.AdwResponseAppearance
+import org.gtkkn.native.adw.adw_response_appearance_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Describes the possible styles of [class@AlertDialog] response buttons.
@@ -11,9 +13,7 @@ import org.gtkkn.native.adw.AdwResponseAppearance
  * @since 1.2
  */
 @AdwVersion1_2
-public enum class ResponseAppearance(
-    public val nativeValue: AdwResponseAppearance,
-) {
+public enum class ResponseAppearance(public val nativeValue: AdwResponseAppearance) {
     /**
      * the default appearance.
      */
@@ -34,12 +34,18 @@ public enum class ResponseAppearance(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: AdwResponseAppearance): ResponseAppearance =
-            when (nativeValue) {
-                AdwResponseAppearance.ADW_RESPONSE_DEFAULT -> DEFAULT
-                AdwResponseAppearance.ADW_RESPONSE_SUGGESTED -> SUGGESTED
-                AdwResponseAppearance.ADW_RESPONSE_DESTRUCTIVE -> DESTRUCTIVE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: AdwResponseAppearance): ResponseAppearance = when (nativeValue) {
+            AdwResponseAppearance.ADW_RESPONSE_DEFAULT -> DEFAULT
+            AdwResponseAppearance.ADW_RESPONSE_SUGGESTED -> SUGGESTED
+            AdwResponseAppearance.ADW_RESPONSE_DESTRUCTIVE -> DESTRUCTIVE
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of ResponseAppearance
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_response_appearance_get_type()
     }
 }

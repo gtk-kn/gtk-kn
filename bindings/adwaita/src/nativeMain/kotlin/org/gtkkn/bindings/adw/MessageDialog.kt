@@ -55,6 +55,7 @@ import org.gtkkn.native.adw.adw_message_dialog_set_heading_use_markup
 import org.gtkkn.native.adw.adw_message_dialog_set_response_appearance
 import org.gtkkn.native.adw.adw_message_dialog_set_response_enabled
 import org.gtkkn.native.adw.adw_message_dialog_set_response_label
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -198,12 +199,20 @@ import kotlin.Unit
  * ## Accessibility
  *
  * `AdwMessageDialog` uses the `GTK_ACCESSIBLE_ROLE_DIALOG` role.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `add_responses`: Varargs parameter is not supported
+ * - method `format_body`: Varargs parameter is not supported
+ * - method `format_body_markup`: Varargs parameter is not supported
+ * - method `format_heading`: Varargs parameter is not supported
+ * - method `format_heading_markup`: Varargs parameter is not supported
+ *
  * @since 1.2
  */
 @AdwVersion1_2
-public open class MessageDialog(
-    pointer: CPointer<AdwMessageDialog>,
-) : Window(pointer.reinterpret()),
+public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
+    Window(pointer.reinterpret()),
     KGTyped {
     public val adwMessageDialogPointer: CPointer<AdwMessageDialog>
         get() = gPointer.reinterpret()
@@ -239,9 +248,8 @@ public open class MessageDialog(
          * @return the body of @self.
          * @since 1.2
          */
-        get() =
-            adw_message_dialog_get_body(adwMessageDialogPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = adw_message_dialog_get_body(adwMessageDialogPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Sets the body text of @self.
@@ -302,9 +310,8 @@ public open class MessageDialog(
          * @return the close response ID
          * @since 1.2
          */
-        get() =
-            adw_message_dialog_get_close_response(adwMessageDialogPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = adw_message_dialog_get_close_response(adwMessageDialogPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Sets the ID of the close response of @self.
@@ -371,10 +378,9 @@ public open class MessageDialog(
          * @return the child widget of @self.
          * @since 1.2
          */
-        get() =
-            adw_message_dialog_get_extra_child(adwMessageDialogPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = adw_message_dialog_get_extra_child(adwMessageDialogPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the child widget of @self.
@@ -387,11 +393,10 @@ public open class MessageDialog(
         @AdwVersion1_2
         set(
             child
-        ) =
-            adw_message_dialog_set_extra_child(
-                adwMessageDialogPointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        ) = adw_message_dialog_set_extra_child(
+            adwMessageDialogPointer.reinterpret(),
+            child?.gtkWidgetPointer?.reinterpret()
+        )
 
     /**
      * The heading of the dialog.
@@ -498,10 +503,8 @@ public open class MessageDialog(
      * @since 1.2
      */
     @AdwVersion1_2
-    public open fun addResponse(
-        id: String,
-        label: String,
-    ): Unit = adw_message_dialog_add_response(adwMessageDialogPointer.reinterpret(), id, label)
+    public open fun addResponse(id: String, label: String): Unit =
+        adw_message_dialog_add_response(adwMessageDialogPointer.reinterpret(), id, label)
 
     /**
      * This function shows @self to the user.
@@ -514,10 +517,7 @@ public open class MessageDialog(
      * @since 1.3
      */
     @AdwVersion1_3
-    public open fun choose(
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public open fun choose(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         adw_message_dialog_choose(
             adwMessageDialogPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
@@ -534,86 +534,11 @@ public open class MessageDialog(
      * @since 1.3
      */
     @AdwVersion1_3
-    public open fun chooseFinish(result: AsyncResult): String =
-        adw_message_dialog_choose_finish(
-            adwMessageDialogPointer.reinterpret(),
-            result.gioAsyncResultPointer
-        )?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets the body text of @self.
-     *
-     * @return the body of @self.
-     * @since 1.2
-     */
-    @AdwVersion1_2
-    public open fun getBody(): String =
-        adw_message_dialog_get_body(adwMessageDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets whether the body text of @self includes Pango markup.
-     *
-     * @return whether @self uses markup for body text
-     * @since 1.2
-     */
-    @AdwVersion1_2
-    public open fun getBodyUseMarkup(): Boolean =
-        adw_message_dialog_get_body_use_markup(adwMessageDialogPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the ID of the close response of @self.
-     *
-     * @return the close response ID
-     * @since 1.2
-     */
-    @AdwVersion1_2
-    public open fun getCloseResponse(): String =
-        adw_message_dialog_get_close_response(adwMessageDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets the ID of the default response of @self.
-     *
-     * @return the default response ID
-     * @since 1.2
-     */
-    @AdwVersion1_2
-    public open fun getDefaultResponse(): String? =
-        adw_message_dialog_get_default_response(adwMessageDialogPointer.reinterpret())?.toKString()
-
-    /**
-     * Gets the child widget of @self.
-     *
-     * @return the child widget of @self.
-     * @since 1.2
-     */
-    @AdwVersion1_2
-    public open fun getExtraChild(): Widget? =
-        adw_message_dialog_get_extra_child(adwMessageDialogPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Gets the heading of @self.
-     *
-     * @return the heading of @self.
-     * @since 1.2
-     */
-    @AdwVersion1_2
-    public open fun getHeading(): String? =
-        adw_message_dialog_get_heading(adwMessageDialogPointer.reinterpret())?.toKString()
-
-    /**
-     * Gets whether the heading of @self includes Pango markup.
-     *
-     * @return whether @self uses markup for heading
-     * @since 1.2
-     */
-    @AdwVersion1_2
-    public open fun getHeadingUseMarkup(): Boolean =
-        adw_message_dialog_get_heading_use_markup(adwMessageDialogPointer.reinterpret()).asBoolean()
+    public open fun chooseFinish(result: AsyncResult): String = adw_message_dialog_choose_finish(
+        adwMessageDialogPointer.reinterpret(),
+        result.gioAsyncResultPointer
+    )?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Gets the appearance of @response.
@@ -691,97 +616,6 @@ public open class MessageDialog(
         adw_message_dialog_response(adwMessageDialogPointer.reinterpret(), response)
 
     /**
-     * Sets the body text of @self.
-     *
-     * @param body the body of @self
-     * @since 1.2
-     */
-    @AdwVersion1_2
-    public open fun setBody(body: String): Unit =
-        adw_message_dialog_set_body(adwMessageDialogPointer.reinterpret(), body)
-
-    /**
-     * Sets whether the body text of @self includes Pango markup.
-     *
-     * See [func@Pango.parse_markup].
-     *
-     * @param useMarkup whether to use markup for body text
-     * @since 1.2
-     */
-    @AdwVersion1_2
-    public open fun setBodyUseMarkup(useMarkup: Boolean): Unit =
-        adw_message_dialog_set_body_use_markup(adwMessageDialogPointer.reinterpret(), useMarkup.asGBoolean())
-
-    /**
-     * Sets the ID of the close response of @self.
-     *
-     * It will be passed to [signal@MessageDialog::response] if the window is
-     * closed by pressing <kbd>Escape</kbd> or with a system action.
-     *
-     * It doesn't have to correspond to any of the responses in the dialog.
-     *
-     * The default close response is `close`.
-     *
-     * @param response the close response ID
-     * @since 1.2
-     */
-    @AdwVersion1_2
-    public open fun setCloseResponse(response: String): Unit =
-        adw_message_dialog_set_close_response(adwMessageDialogPointer.reinterpret(), response)
-
-    /**
-     * Sets the ID of the default response of @self.
-     *
-     * If set, pressing <kbd>Enter</kbd> will activate the corresponding button.
-     *
-     * If set to `NULL` or to a non-existent response ID, pressing <kbd>Enter</kbd>
-     * will do nothing.
-     *
-     * @param response the default response ID
-     * @since 1.2
-     */
-    @AdwVersion1_2
-    public open fun setDefaultResponse(response: String? = null): Unit =
-        adw_message_dialog_set_default_response(adwMessageDialogPointer.reinterpret(), response)
-
-    /**
-     * Sets the child widget of @self.
-     *
-     * The child widget is displayed below the heading and body.
-     *
-     * @param child the child widget
-     * @since 1.2
-     */
-    @AdwVersion1_2
-    public open fun setExtraChild(child: Widget? = null): Unit =
-        adw_message_dialog_set_extra_child(
-            adwMessageDialogPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
-
-    /**
-     * Sets the heading of @self.
-     *
-     * @param heading the heading of @self
-     * @since 1.2
-     */
-    @AdwVersion1_2
-    public open fun setHeading(heading: String? = null): Unit =
-        adw_message_dialog_set_heading(adwMessageDialogPointer.reinterpret(), heading)
-
-    /**
-     * Sets whether the heading of @self includes Pango markup.
-     *
-     * See [func@Pango.parse_markup].
-     *
-     * @param useMarkup whether to use markup for heading
-     * @since 1.2
-     */
-    @AdwVersion1_2
-    public open fun setHeadingUseMarkup(useMarkup: Boolean): Unit =
-        adw_message_dialog_set_heading_use_markup(adwMessageDialogPointer.reinterpret(), useMarkup.asGBoolean())
-
-    /**
      * Sets the appearance for @response.
      *
      * <picture>
@@ -805,10 +639,7 @@ public open class MessageDialog(
      * @since 1.2
      */
     @AdwVersion1_2
-    public open fun setResponseAppearance(
-        response: String,
-        appearance: ResponseAppearance,
-    ): Unit =
+    public open fun setResponseAppearance(response: String, appearance: ResponseAppearance): Unit =
         adw_message_dialog_set_response_appearance(
             adwMessageDialogPointer.reinterpret(),
             response,
@@ -832,10 +663,7 @@ public open class MessageDialog(
      * @since 1.2
      */
     @AdwVersion1_2
-    public open fun setResponseEnabled(
-        response: String,
-        enabled: Boolean,
-    ): Unit =
+    public open fun setResponseEnabled(response: String, enabled: Boolean): Unit =
         adw_message_dialog_set_response_enabled(adwMessageDialogPointer.reinterpret(), response, enabled.asGBoolean())
 
     /**
@@ -849,10 +677,8 @@ public open class MessageDialog(
      * @since 1.2
      */
     @AdwVersion1_2
-    public open fun setResponseLabel(
-        response: String,
-        label: String,
-    ): Unit = adw_message_dialog_set_response_label(adwMessageDialogPointer.reinterpret(), response, label)
+    public open fun setResponseLabel(response: String, label: String): Unit =
+        adw_message_dialog_set_response_label(adwMessageDialogPointer.reinterpret(), response, label)
 
     /**
      * This signal is emitted when the dialog is closed.
@@ -872,15 +698,14 @@ public open class MessageDialog(
     public fun connectResponse(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (response: String) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "response",
-            connectResponseFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "response",
+        connectResponseFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<MessageDialog> {
         override val type: GeneratedClassKGType<MessageDialog> =
@@ -889,6 +714,13 @@ public open class MessageDialog(
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of MessageDialog
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_message_dialog_get_type()
     }
 }
 
@@ -901,4 +733,5 @@ private val connectResponseFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>
         userData.asStableRef<(response: String) -> Unit>().get().invoke(
             response?.toKString() ?: error("Expected not null string")
         )
-    }.reinterpret()
+    }
+        .reinterpret()

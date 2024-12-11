@@ -8,6 +8,8 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.javascriptcore.JSCException
 import org.gtkkn.native.javascriptcore.jsc_exception_get_backtrace_string
 import org.gtkkn.native.javascriptcore.jsc_exception_get_column_number
@@ -19,19 +21,21 @@ import org.gtkkn.native.javascriptcore.jsc_exception_get_type
 import org.gtkkn.native.javascriptcore.jsc_exception_new
 import org.gtkkn.native.javascriptcore.jsc_exception_new_with_name
 import org.gtkkn.native.javascriptcore.jsc_exception_report
+import org.gtkkn.native.javascriptcore.jsc_exception_to_string
 import kotlin.String
-import kotlin.UInt
 
 /**
  * JSCException represents a JavaScript exception.
  *
  * ## Skipped during bindings generation
  *
- * - method `to_string`: C function jsc_exception_to_string is ignored
+ * - constructor `new_printf`: Varargs parameter is not supported
+ * - parameter `args`: va_list
+ * - constructor `new_with_name_printf`: Varargs parameter is not supported
+ * - parameter `args`: va_list
  */
-public class Exception(
-    pointer: CPointer<JSCException>,
-) : Object(pointer.reinterpret()),
+public class Exception(pointer: CPointer<JSCException>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val javascriptcoreExceptionPointer: CPointer<JSCException>
         get() = gPointer.reinterpret()
@@ -77,14 +81,14 @@ public class Exception(
      *
      * @return the column number of @exception.
      */
-    public fun getColumnNumber(): UInt = jsc_exception_get_column_number(javascriptcoreExceptionPointer.reinterpret())
+    public fun getColumnNumber(): guint = jsc_exception_get_column_number(javascriptcoreExceptionPointer.reinterpret())
 
     /**
      * Get the line number at which @exception happened.
      *
      * @return the line number of @exception.
      */
-    public fun getLineNumber(): UInt = jsc_exception_get_line_number(javascriptcoreExceptionPointer.reinterpret())
+    public fun getLineNumber(): guint = jsc_exception_get_line_number(javascriptcoreExceptionPointer.reinterpret())
 
     /**
      * Get the error message of @exception.
@@ -100,9 +104,8 @@ public class Exception(
      *
      * @return the @exception error name.
      */
-    public fun getName(): String =
-        jsc_exception_get_name(javascriptcoreExceptionPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getName(): String = jsc_exception_get_name(javascriptcoreExceptionPointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Get the source URI of @exception.
@@ -118,9 +121,16 @@ public class Exception(
      *
      * @return a new string with the exception report
      */
-    public fun report(): String =
-        jsc_exception_report(javascriptcoreExceptionPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun report(): String = jsc_exception_report(javascriptcoreExceptionPointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
+
+    /**
+     * Get the string representation of @exception error.
+     *
+     * @return the string representation of @exception.
+     */
+    override fun toString(): String = jsc_exception_to_string(javascriptcoreExceptionPointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     public companion object : TypeCompanion<Exception> {
         override val type: GeneratedClassKGType<Exception> =
@@ -129,5 +139,12 @@ public class Exception(
         init {
             JavascriptcoreTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Exception
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = jsc_exception_get_type()
     }
 }

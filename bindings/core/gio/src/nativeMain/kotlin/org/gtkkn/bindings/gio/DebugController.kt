@@ -15,6 +15,7 @@ import org.gtkkn.native.gio.GInitable
 import org.gtkkn.native.gio.g_debug_controller_get_debug_enabled
 import org.gtkkn.native.gio.g_debug_controller_get_type
 import org.gtkkn.native.gio.g_debug_controller_set_debug_enabled
+import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 import kotlin.Unit
 
@@ -94,9 +95,7 @@ public interface DebugController :
     public fun setDebugEnabled(debugEnabled: Boolean): Unit =
         g_debug_controller_set_debug_enabled(gioDebugControllerPointer.reinterpret(), debugEnabled.asGBoolean())
 
-    private data class Wrapper(
-        private val pointer: CPointer<GDebugController>,
-    ) : DebugController {
+    private data class Wrapper(private val pointer: CPointer<GDebugController>) : DebugController {
         override val gioDebugControllerPointer: CPointer<GDebugController> = pointer
     }
 
@@ -109,5 +108,12 @@ public interface DebugController :
         }
 
         public fun wrap(pointer: CPointer<GDebugController>): DebugController = Wrapper(pointer)
+
+        /**
+         * Get the GType of DebugController
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_debug_controller_get_type()
     }
 }

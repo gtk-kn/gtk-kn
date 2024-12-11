@@ -15,7 +15,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
@@ -35,16 +37,14 @@ import org.gtkkn.native.gtk.gtk_list_box_row_set_child
 import org.gtkkn.native.gtk.gtk_list_box_row_set_header
 import org.gtkkn.native.gtk.gtk_list_box_row_set_selectable
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.ULong
 import kotlin.Unit
 
 /**
  * `GtkListBoxRow` is the kind of widget that can be added to a `GtkListBox`.
  */
-public open class ListBoxRow(
-    pointer: CPointer<GtkListBoxRow>,
-) : Widget(pointer.reinterpret()),
+public open class ListBoxRow(pointer: CPointer<GtkListBoxRow>) :
+    Widget(pointer.reinterpret()),
     Actionable,
     KGTyped {
     public val gtkListBoxRowPointer: CPointer<GtkListBoxRow>
@@ -92,10 +92,9 @@ public open class ListBoxRow(
          *
          * @return the child widget of @row
          */
-        get() =
-            gtk_list_box_row_get_child(gtkListBoxRowPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = gtk_list_box_row_get_child(gtkListBoxRowPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the child widget of @self.
@@ -154,24 +153,6 @@ public open class ListBoxRow(
     public open fun changed(): Unit = gtk_list_box_row_changed(gtkListBoxRowPointer.reinterpret())
 
     /**
-     * Gets whether the row is activatable.
-     *
-     * @return true if the row is activatable
-     */
-    public open fun getActivatable(): Boolean =
-        gtk_list_box_row_get_activatable(gtkListBoxRowPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the child widget of @row.
-     *
-     * @return the child widget of @row
-     */
-    public open fun getChild(): Widget? =
-        gtk_list_box_row_get_child(gtkListBoxRowPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
      * Returns the current header of the @row.
      *
      * This can be used
@@ -181,25 +162,16 @@ public open class ListBoxRow(
      *
      * @return the current header
      */
-    public open fun getHeader(): Widget? =
-        gtk_list_box_row_get_header(gtkListBoxRowPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
+    public open fun getHeader(): Widget? = gtk_list_box_row_get_header(gtkListBoxRowPointer.reinterpret())?.run {
+        Widget(reinterpret())
+    }
 
     /**
      * Gets the current index of the @row in its `GtkListBox` container.
      *
      * @return the index of the @row, or -1 if the @row is not in a listbox
      */
-    public open fun getIndex(): Int = gtk_list_box_row_get_index(gtkListBoxRowPointer.reinterpret())
-
-    /**
-     * Gets whether the row can be selected.
-     *
-     * @return true if the row is selectable
-     */
-    public open fun getSelectable(): Boolean =
-        gtk_list_box_row_get_selectable(gtkListBoxRowPointer.reinterpret()).asBoolean()
+    public open fun getIndex(): gint = gtk_list_box_row_get_index(gtkListBoxRowPointer.reinterpret())
 
     /**
      * Returns whether the child is currently selected in its
@@ -208,22 +180,6 @@ public open class ListBoxRow(
      * @return true if @row is selected
      */
     public open fun isSelected(): Boolean = gtk_list_box_row_is_selected(gtkListBoxRowPointer.reinterpret()).asBoolean()
-
-    /**
-     * Set whether the row is activatable.
-     *
-     * @param activatable true to mark the row as activatable
-     */
-    public open fun setActivatable(activatable: Boolean): Unit =
-        gtk_list_box_row_set_activatable(gtkListBoxRowPointer.reinterpret(), activatable.asGBoolean())
-
-    /**
-     * Sets the child widget of @self.
-     *
-     * @param child the child widget
-     */
-    public open fun setChild(child: Widget? = null): Unit =
-        gtk_list_box_row_set_child(gtkListBoxRowPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets the current header of the @row.
@@ -239,14 +195,6 @@ public open class ListBoxRow(
         gtk_list_box_row_set_header(gtkListBoxRowPointer.reinterpret(), `header`?.gtkWidgetPointer?.reinterpret())
 
     /**
-     * Set whether the row can be selected.
-     *
-     * @param selectable true to mark the row as selectable
-     */
-    public open fun setSelectable(selectable: Boolean): Unit =
-        gtk_list_box_row_set_selectable(gtkListBoxRowPointer.reinterpret(), selectable.asGBoolean())
-
-    /**
      * This is a keybinding signal, which will cause this row to be activated.
      *
      * If you want to be notified when the user activates a row (by key or not),
@@ -256,10 +204,7 @@ public open class ListBoxRow(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectActivate(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "activate",
@@ -276,13 +221,20 @@ public open class ListBoxRow(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ListBoxRow
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_list_box_row_get_type()
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

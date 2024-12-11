@@ -15,6 +15,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoFontFamily
 import org.gtkkn.native.pango.pango_font_family_get_face
 import org.gtkkn.native.pango.pango_font_family_get_name
@@ -39,9 +40,8 @@ import kotlin.String
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class FontFamily(
-    pointer: CPointer<PangoFontFamily>,
-) : Object(pointer.reinterpret()),
+public open class FontFamily(pointer: CPointer<PangoFontFamily>) :
+    Object(pointer.reinterpret()),
     ListModel,
     KGTyped {
     public val pangoFontFamilyPointer: CPointer<PangoFontFamily>
@@ -67,9 +67,8 @@ public open class FontFamily(
          * @return the name of the family. This string is owned
          *   by the family object and must not be modified or freed.
          */
-        get() =
-            pango_font_family_get_name(pangoFontFamilyPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = pango_font_family_get_name(pangoFontFamilyPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Gets the `PangoFontFace` of @family with the given name.
@@ -86,20 +85,6 @@ public open class FontFamily(
         pango_font_family_get_face(pangoFontFamilyPointer.reinterpret(), name)?.run {
             FontFace(reinterpret())
         }
-
-    /**
-     * Gets the name of the family.
-     *
-     * The name is unique among all fonts for the font backend and can
-     * be used in a `PangoFontDescription` to specify that a face from
-     * this family is desired.
-     *
-     * @return the name of the family. This string is owned
-     *   by the family object and must not be modified or freed.
-     */
-    public open fun getName(): String =
-        pango_font_family_get_name(pangoFontFamilyPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
 
     /**
      * A monospace font is a font designed for text display where the the
@@ -145,5 +130,12 @@ public open class FontFamily(
         init {
             PangoTypeProvider.register()
         }
+
+        /**
+         * Get the GType of FontFamily
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_font_family_get_type()
     }
 }

@@ -1,14 +1,14 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitCookiePersistentStorage
+import org.gtkkn.native.webkit.webkit_cookie_persistent_storage_get_type
 
 /**
  * Enum values used to denote the cookie persistent storage types.
  */
-public enum class CookiePersistentStorage(
-    public val nativeValue: WebKitCookiePersistentStorage,
-) {
+public enum class CookiePersistentStorage(public val nativeValue: WebKitCookiePersistentStorage) {
     /**
      * Cookies are stored in a text
      *  file in the Mozilla "cookies.txt" format.
@@ -29,5 +29,12 @@ public enum class CookiePersistentStorage(
                 WebKitCookiePersistentStorage.WEBKIT_COOKIE_PERSISTENT_STORAGE_SQLITE -> SQLITE
                 else -> error("invalid nativeValue")
             }
+
+        /**
+         * Get the GType of CookiePersistentStorage
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_cookie_persistent_storage_get_type()
     }
 }

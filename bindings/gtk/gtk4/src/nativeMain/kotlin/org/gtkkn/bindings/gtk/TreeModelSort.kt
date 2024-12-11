@@ -8,6 +8,7 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkTreeDragSource
 import org.gtkkn.native.gtk.GtkTreeModel
 import org.gtkkn.native.gtk.GtkTreeModelSort
@@ -123,9 +124,8 @@ import kotlin.Unit
  * }
  * ]|
  */
-public open class TreeModelSort(
-    pointer: CPointer<GtkTreeModelSort>,
-) : Object(pointer.reinterpret()),
+public open class TreeModelSort(pointer: CPointer<GtkTreeModelSort>) :
+    Object(pointer.reinterpret()),
     TreeDragSource,
     TreeModel,
     TreeSortable,
@@ -148,10 +148,9 @@ public open class TreeModelSort(
          *
          * @return the "child model" being sorted
          */
-        get() =
-            gtk_tree_model_sort_get_model(gtkTreeModelSortPointer.reinterpret())!!.run {
-                TreeModel.wrap(reinterpret())
-            }
+        get() = gtk_tree_model_sort_get_model(gtkTreeModelSortPointer.reinterpret())!!.run {
+            TreeModel.wrap(reinterpret())
+        }
 
     /**
      * Creates a new `GtkTreeModelSort`, with @child_model as the child model.
@@ -183,10 +182,7 @@ public open class TreeModelSort(
      * @return true, if @sort_iter was set, i.e. if @sort_iter is a
      * valid iterator pointer to a visible row in the child model.
      */
-    public open fun convertChildIterToIter(
-        sortIter: TreeIter,
-        childIter: TreeIter,
-    ): Boolean =
+    public open fun convertChildIterToIter(sortIter: TreeIter, childIter: TreeIter): Boolean =
         gtk_tree_model_sort_convert_child_iter_to_iter(
             gtkTreeModelSortPointer.reinterpret(),
             sortIter.gtkTreeIterPointer.reinterpret(),
@@ -216,10 +212,7 @@ public open class TreeModelSort(
      * @param childIter An uninitialized `GtkTreeIter`
      * @param sortedIter A valid `GtkTreeIter` pointing to a row on @tree_model_sort.
      */
-    public open fun convertIterToChildIter(
-        childIter: TreeIter,
-        sortedIter: TreeIter,
-    ): Unit =
+    public open fun convertIterToChildIter(childIter: TreeIter, sortedIter: TreeIter): Unit =
         gtk_tree_model_sort_convert_iter_to_child_iter(
             gtkTreeModelSortPointer.reinterpret(),
             childIter.gtkTreeIterPointer.reinterpret(),
@@ -245,16 +238,6 @@ public open class TreeModelSort(
         }
 
     /**
-     * Returns the model the `GtkTreeModelSort` is sorting.
-     *
-     * @return the "child model" being sorted
-     */
-    public open fun getModel(): TreeModel =
-        gtk_tree_model_sort_get_model(gtkTreeModelSortPointer.reinterpret())!!.run {
-            TreeModel.wrap(reinterpret())
-        }
-
-    /**
      * > This function is slow. Only use it for debugging and/or testing
      * > purposes.
      *
@@ -263,11 +246,10 @@ public open class TreeModelSort(
      * @param iter A `GtkTreeIter`
      * @return true if the iter is valid, false if the iter is invalid.
      */
-    public open fun iterIsValid(iter: TreeIter): Boolean =
-        gtk_tree_model_sort_iter_is_valid(
-            gtkTreeModelSortPointer.reinterpret(),
-            iter.gtkTreeIterPointer.reinterpret()
-        ).asBoolean()
+    public open fun iterIsValid(iter: TreeIter): Boolean = gtk_tree_model_sort_iter_is_valid(
+        gtkTreeModelSortPointer.reinterpret(),
+        iter.gtkTreeIterPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * This resets the default sort function to be in the “unsorted” state.  That
@@ -285,5 +267,12 @@ public open class TreeModelSort(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of TreeModelSort
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_tree_model_sort_get_type()
     }
 }

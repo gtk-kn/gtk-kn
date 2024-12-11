@@ -16,17 +16,17 @@ import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_simple_anim_get_loop
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_simple_anim_get_type
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_simple_anim_new
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_simple_anim_set_loop
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
-import kotlin.Float
-import kotlin.Int
 import kotlin.Unit
 
 /**
  * An opaque struct representing a simple animation.
  */
-public open class PixbufSimpleAnim(
-    pointer: CPointer<GdkPixbufSimpleAnim>,
-) : PixbufAnimation(pointer.reinterpret()),
+public open class PixbufSimpleAnim(pointer: CPointer<GdkPixbufSimpleAnim>) :
+    PixbufAnimation(pointer.reinterpret()),
     KGTyped {
     public val gdkpixbufPixbufSimpleAnimPointer: CPointer<GdkPixbufSimpleAnim>
         get() = gPointer.reinterpret()
@@ -65,9 +65,9 @@ public open class PixbufSimpleAnim(
      * @since 2.8
      */
     public constructor(
-        width: Int,
-        height: Int,
-        rate: Float,
+        width: gint,
+        height: gint,
+        rate: gfloat,
     ) : this(gdk_pixbuf_simple_anim_new(width, height, rate)!!.reinterpret())
 
     /**
@@ -79,31 +79,10 @@ public open class PixbufSimpleAnim(
      * @since 2.8
      */
     @GdkPixbufVersion2_8
-    public open fun addFrame(pixbuf: Pixbuf): Unit =
-        gdk_pixbuf_simple_anim_add_frame(
-            gdkpixbufPixbufSimpleAnimPointer.reinterpret(),
-            pixbuf.gdkpixbufPixbufPointer.reinterpret()
-        )
-
-    /**
-     * Gets whether @animation should loop indefinitely when it reaches the end.
-     *
-     * @return true if the animation loops forever, false otherwise
-     * @since 2.18
-     */
-    @GdkPixbufVersion2_18
-    public open fun getLoop(): Boolean =
-        gdk_pixbuf_simple_anim_get_loop(gdkpixbufPixbufSimpleAnimPointer.reinterpret()).asBoolean()
-
-    /**
-     * Sets whether @animation should loop indefinitely when it reaches the end.
-     *
-     * @param loop whether to loop the animation
-     * @since 2.18
-     */
-    @GdkPixbufVersion2_18
-    public open fun setLoop(loop: Boolean): Unit =
-        gdk_pixbuf_simple_anim_set_loop(gdkpixbufPixbufSimpleAnimPointer.reinterpret(), loop.asGBoolean())
+    public open fun addFrame(pixbuf: Pixbuf): Unit = gdk_pixbuf_simple_anim_add_frame(
+        gdkpixbufPixbufSimpleAnimPointer.reinterpret(),
+        pixbuf.gdkpixbufPixbufPointer.reinterpret()
+    )
 
     public companion object : TypeCompanion<PixbufSimpleAnim> {
         override val type: GeneratedClassKGType<PixbufSimpleAnim> =
@@ -112,5 +91,12 @@ public open class PixbufSimpleAnim(
         init {
             GdkpixbufTypeProvider.register()
         }
+
+        /**
+         * Get the GType of PixbufSimpleAnim
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_pixbuf_simple_anim_get_type()
     }
 }

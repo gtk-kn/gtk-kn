@@ -1,30 +1,36 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
-import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkKeymapKey
-import kotlin.Int
-import kotlin.UInt
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * A `GdkKeymapKey` is a hardware key that can be mapped to a keyval.
  */
-public class KeymapKey(
-    pointer: CPointer<GdkKeymapKey>,
-) : Record {
+public class KeymapKey(pointer: CPointer<GdkKeymapKey>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gdkKeymapKeyPointer: CPointer<GdkKeymapKey> = pointer
 
     /**
      * the hardware keycode. This is an identifying number for a
      *   physical key.
      */
-    public var keycode: UInt
+    public var keycode: guint
         get() = gdkKeymapKeyPointer.pointed.keycode
+
+        @UnsafeFieldSetter
         set(`value`) {
             gdkKeymapKeyPointer.pointed.keycode = value
         }
@@ -35,8 +41,10 @@ public class KeymapKey(
      *   characters, and in group 1 it might have two Hebrew characters. The Hebrew
      *   characters will be printed on the key next to the English characters.
      */
-    public var group: Int
+    public var group: gint
         get() = gdkKeymapKeyPointer.pointed.group
+
+        @UnsafeFieldSetter
         set(`value`) {
             gdkKeymapKeyPointer.pointed.group = value
         }
@@ -49,13 +57,101 @@ public class KeymapKey(
      *   letter at level 0, and an uppercase letter at level 1, though only the
      *   uppercase letter is printed.
      */
-    public var level: Int
+    public var level: gint
         get() = gdkKeymapKeyPointer.pointed.level
+
+        @UnsafeFieldSetter
         set(`value`) {
             gdkKeymapKeyPointer.pointed.level = value
         }
 
-    public companion object : RecordCompanion<KeymapKey, GdkKeymapKey> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): KeymapKey = KeymapKey(pointer.reinterpret())
+    /**
+     * Allocate a new KeymapKey.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<GdkKeymapKey>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to KeymapKey and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GdkKeymapKey>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new KeymapKey using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GdkKeymapKey>().ptr)
+
+    /**
+     * Allocate a new KeymapKey.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param keycode the hardware keycode. This is an identifying number for a
+     *   physical key.
+     * @param group indicates movement in a horizontal direction. Usually groups are used
+     *   for two different languages. In group 0, a key might have two English
+     *   characters, and in group 1 it might have two Hebrew characters. The Hebrew
+     *   characters will be printed on the key next to the English characters.
+     * @param level indicates which symbol on the key will be used, in a vertical direction.
+     *   So on a standard US keyboard, the key with the number “1” on it also has the
+     *   exclamation point ("!") character on it. The level indicates whether to use
+     *   the “1” or the “!” symbol. The letter keys are considered to have a lowercase
+     *   letter at level 0, and an uppercase letter at level 1, though only the
+     *   uppercase letter is printed.
+     */
+    public constructor(
+        keycode: guint,
+        group: gint,
+        level: gint,
+    ) : this() {
+        this.keycode = keycode
+        this.group = group
+        this.level = level
     }
+
+    /**
+     * Allocate a new KeymapKey using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param keycode the hardware keycode. This is an identifying number for a
+     *   physical key.
+     * @param group indicates movement in a horizontal direction. Usually groups are used
+     *   for two different languages. In group 0, a key might have two English
+     *   characters, and in group 1 it might have two Hebrew characters. The Hebrew
+     *   characters will be printed on the key next to the English characters.
+     * @param level indicates which symbol on the key will be used, in a vertical direction.
+     *   So on a standard US keyboard, the key with the number “1” on it also has the
+     *   exclamation point ("!") character on it. The level indicates whether to use
+     *   the “1” or the “!” symbol. The letter keys are considered to have a lowercase
+     *   letter at level 0, and an uppercase letter at level 1, though only the
+     *   uppercase letter is printed.
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        keycode: guint,
+        group: gint,
+        level: gint,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.keycode = keycode
+        this.group = group
+        this.level = level
+    }
+
+    override fun toString(): String = "KeymapKey(keycode=$keycode, group=$group, level=$level)"
 }

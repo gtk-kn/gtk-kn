@@ -1,13 +1,15 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GRWLock
 import org.gtkkn.native.glib.g_rw_lock_clear
 import org.gtkkn.native.glib.g_rw_lock_init
@@ -18,7 +20,10 @@ import org.gtkkn.native.glib.g_rw_lock_writer_lock
 import org.gtkkn.native.glib.g_rw_lock_writer_trylock
 import org.gtkkn.native.glib.g_rw_lock_writer_unlock
 import kotlin.Boolean
+import kotlin.Pair
 import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * The GRWLock struct is an opaque data structure to represent a
@@ -93,10 +98,37 @@ import kotlin.Unit
  * @since 2.32
  */
 @GLibVersion2_32
-public class RWLock(
-    pointer: CPointer<GRWLock>,
-) : Record {
+public class RWLock(pointer: CPointer<GRWLock>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibRWLockPointer: CPointer<GRWLock> = pointer
+
+    /**
+     * Allocate a new RWLock.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<GRWLock>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to RWLock and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GRWLock>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new RWLock using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GRWLock>().ptr)
 
     /**
      * Frees the resources allocated to a lock with g_rw_lock_init().
@@ -222,8 +254,4 @@ public class RWLock(
      */
     @GLibVersion2_32
     public fun writerUnlock(): Unit = g_rw_lock_writer_unlock(glibRWLockPointer.reinterpret())
-
-    public companion object : RecordCompanion<RWLock, GRWLock> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): RWLock = RWLock(pointer.reinterpret())
-    }
 }

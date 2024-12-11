@@ -1,14 +1,12 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_16
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_18
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GChecksum
 import org.gtkkn.native.glib.g_checksum_copy
 import org.gtkkn.native.glib.g_checksum_free
@@ -16,6 +14,8 @@ import org.gtkkn.native.glib.g_checksum_get_string
 import org.gtkkn.native.glib.g_checksum_new
 import org.gtkkn.native.glib.g_checksum_reset
 import org.gtkkn.native.glib.g_checksum_type_get_length
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_checksum_get_type
 import kotlin.Long
 import kotlin.String
 import kotlin.Unit
@@ -40,14 +40,13 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
+ * - method `get_digest`: In/Out parameter is not supported
  * - parameter `data`: Array parameter of type guint8 is not supported
  *
  * @since 2.16
  */
 @GLibVersion2_16
-public class Checksum(
-    pointer: CPointer<GChecksum>,
-) : Record {
+public class Checksum(pointer: CPointer<GChecksum>) : ProxyInstance(pointer) {
     public val glibChecksumPointer: CPointer<GChecksum> = pointer
 
     /**
@@ -60,10 +59,9 @@ public class Checksum(
      * @since 2.16
      */
     @GLibVersion2_16
-    public fun copy(): Checksum =
-        g_checksum_copy(glibChecksumPointer.reinterpret())!!.run {
-            Checksum(reinterpret())
-        }
+    public fun copy(): Checksum = g_checksum_copy(glibChecksumPointer.reinterpret())!!.run {
+        Checksum(reinterpret())
+    }
 
     /**
      * Frees the memory allocated for @checksum.
@@ -98,7 +96,7 @@ public class Checksum(
     @GLibVersion2_18
     public fun reset(): Unit = g_checksum_reset(glibChecksumPointer.reinterpret())
 
-    public companion object : RecordCompanion<Checksum, GChecksum> {
+    public companion object {
         /**
          * Creates a new #GChecksum, using the checksum algorithm @checksum_type.
          * If the @checksum_type is not known, null is returned.
@@ -134,6 +132,11 @@ public class Checksum(
         public fun typeGetLength(checksumType: ChecksumType): Long =
             g_checksum_type_get_length(checksumType.nativeValue)
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Checksum = Checksum(pointer.reinterpret())
+        /**
+         * Get the GType of Checksum
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_checksum_get_type()
     }
 }

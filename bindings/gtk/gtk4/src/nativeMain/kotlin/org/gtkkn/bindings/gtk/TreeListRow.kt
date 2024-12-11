@@ -10,6 +10,8 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkTreeListRow
 import org.gtkkn.native.gtk.gtk_tree_list_row_get_child_row
 import org.gtkkn.native.gtk.gtk_tree_list_row_get_children
@@ -22,8 +24,6 @@ import org.gtkkn.native.gtk.gtk_tree_list_row_get_type
 import org.gtkkn.native.gtk.gtk_tree_list_row_is_expandable
 import org.gtkkn.native.gtk.gtk_tree_list_row_set_expanded
 import kotlin.Boolean
-import kotlin.UInt
-import kotlin.Unit
 
 /**
  * `GtkTreeListRow` is used by `GtkTreeListModel` to represent items.
@@ -42,9 +42,8 @@ import kotlin.Unit
  *
  * - method `expandable`: Property has no getter nor setter
  */
-public open class TreeListRow(
-    pointer: CPointer<GtkTreeListRow>,
-) : Object(pointer.reinterpret()),
+public open class TreeListRow(pointer: CPointer<GtkTreeListRow>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkTreeListRowPointer: CPointer<GtkTreeListRow>
         get() = gPointer.reinterpret()
@@ -63,15 +62,14 @@ public open class TreeListRow(
          *
          * @return The model containing the children
          */
-        get() =
-            gtk_tree_list_row_get_children(gtkTreeListRowPointer.reinterpret())?.run {
-                ListModel.wrap(reinterpret())
-            }
+        get() = gtk_tree_list_row_get_children(gtkTreeListRowPointer.reinterpret())?.run {
+            ListModel.wrap(reinterpret())
+        }
 
     /**
      * The depth in the tree of this row.
      */
-    public open val depth: UInt
+    public open val depth: guint
         /**
          * Gets the depth of this row.
          *
@@ -122,10 +120,9 @@ public open class TreeListRow(
          *   of this row. This function is only marked as nullable for backwards
          *   compatibility reasons.
          */
-        get() =
-            gtk_tree_list_row_get_item(gtkTreeListRowPointer.reinterpret())?.run {
-                Object(reinterpret())
-            }
+        get() = gtk_tree_list_row_get_item(gtkTreeListRowPointer.reinterpret())?.run {
+            Object(reinterpret())
+        }
 
     /**
      * If @self is not expanded or @position is greater than the
@@ -134,58 +131,9 @@ public open class TreeListRow(
      * @param position position of the child to get
      * @return the child in @position
      */
-    public open fun getChildRow(position: UInt): TreeListRow? =
+    public open fun getChildRow(position: guint): TreeListRow? =
         gtk_tree_list_row_get_child_row(gtkTreeListRowPointer.reinterpret(), position)?.run {
             TreeListRow(reinterpret())
-        }
-
-    /**
-     * If the row is expanded, gets the model holding the children of @self.
-     *
-     * This model is the model created by the
-     * [callback@Gtk.TreeListModelCreateModelFunc]
-     * and contains the original items, no matter what value
-     * [property@Gtk.TreeListModel:passthrough] is set to.
-     *
-     * @return The model containing the children
-     */
-    public open fun getChildren(): ListModel? =
-        gtk_tree_list_row_get_children(gtkTreeListRowPointer.reinterpret())?.run {
-            ListModel.wrap(reinterpret())
-        }
-
-    /**
-     * Gets the depth of this row.
-     *
-     * Rows that correspond to items in the root model have a depth
-     * of zero, rows corresponding to items of models of direct children
-     * of the root model have a depth of 1 and so on.
-     *
-     * The depth of a row never changes until the row is removed from its model
-     * at which point it will forever return 0.
-     *
-     * @return The depth of this row
-     */
-    public open fun getDepth(): UInt = gtk_tree_list_row_get_depth(gtkTreeListRowPointer.reinterpret())
-
-    /**
-     * Gets if a row is currently expanded.
-     *
-     * @return true if the row is expanded
-     */
-    public open fun getExpanded(): Boolean =
-        gtk_tree_list_row_get_expanded(gtkTreeListRowPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the item corresponding to this row,
-     *
-     * @return The item
-     *   of this row. This function is only marked as nullable for backwards
-     *   compatibility reasons.
-     */
-    public open fun getItem(): Object? =
-        gtk_tree_list_row_get_item(gtkTreeListRowPointer.reinterpret())?.run {
-            Object(reinterpret())
         }
 
     /**
@@ -203,10 +151,9 @@ public open class TreeListRow(
      *
      * @return The parent of @self
      */
-    public open fun getParent(): TreeListRow? =
-        gtk_tree_list_row_get_parent(gtkTreeListRowPointer.reinterpret())?.run {
-            TreeListRow(reinterpret())
-        }
+    public open fun getParent(): TreeListRow? = gtk_tree_list_row_get_parent(gtkTreeListRowPointer.reinterpret())?.run {
+        TreeListRow(reinterpret())
+    }
 
     /**
      * Returns the position in the `GtkTreeListModel` that @self occupies
@@ -214,7 +161,7 @@ public open class TreeListRow(
      *
      * @return The position in the model
      */
-    public open fun getPosition(): UInt = gtk_tree_list_row_get_position(gtkTreeListRowPointer.reinterpret())
+    public open fun getPosition(): guint = gtk_tree_list_row_get_position(gtkTreeListRowPointer.reinterpret())
 
     /**
      * Checks if a row can be expanded.
@@ -230,21 +177,6 @@ public open class TreeListRow(
     public open fun isExpandable(): Boolean =
         gtk_tree_list_row_is_expandable(gtkTreeListRowPointer.reinterpret()).asBoolean()
 
-    /**
-     * Expands or collapses a row.
-     *
-     * If a row is expanded, the model of calling the
-     * [callback@Gtk.TreeListModelCreateModelFunc] for the row's
-     * item will be inserted after this row. If a row is collapsed,
-     * those items will be removed from the model.
-     *
-     * If the row is not expandable, this function does nothing.
-     *
-     * @param expanded true if the row should be expanded
-     */
-    public open fun setExpanded(expanded: Boolean): Unit =
-        gtk_tree_list_row_set_expanded(gtkTreeListRowPointer.reinterpret(), expanded.asGBoolean())
-
     public companion object : TypeCompanion<TreeListRow> {
         override val type: GeneratedClassKGType<TreeListRow> =
             GeneratedClassKGType(gtk_tree_list_row_get_type()) { TreeListRow(it.reinterpret()) }
@@ -252,5 +184,12 @@ public open class TreeListRow(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of TreeListRow
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_tree_list_row_get_type()
     }
 }

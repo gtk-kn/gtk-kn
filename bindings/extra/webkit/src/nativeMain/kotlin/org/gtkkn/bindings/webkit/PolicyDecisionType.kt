@@ -1,15 +1,15 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitPolicyDecisionType
+import org.gtkkn.native.webkit.webkit_policy_decision_type_get_type
 
 /**
  * Enum values used for determining the type of a policy decision during
  * #WebKitWebView::decide-policy.
  */
-public enum class PolicyDecisionType(
-    public val nativeValue: WebKitPolicyDecisionType,
-) {
+public enum class PolicyDecisionType(public val nativeValue: WebKitPolicyDecisionType) {
     /**
      * This type of policy decision
      *   is requested when WebKit is about to navigate to a new page in either the
@@ -46,12 +46,18 @@ public enum class PolicyDecisionType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitPolicyDecisionType): PolicyDecisionType =
-            when (nativeValue) {
-                WebKitPolicyDecisionType.WEBKIT_POLICY_DECISION_TYPE_NAVIGATION_ACTION -> NAVIGATION_ACTION
-                WebKitPolicyDecisionType.WEBKIT_POLICY_DECISION_TYPE_NEW_WINDOW_ACTION -> NEW_WINDOW_ACTION
-                WebKitPolicyDecisionType.WEBKIT_POLICY_DECISION_TYPE_RESPONSE -> RESPONSE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitPolicyDecisionType): PolicyDecisionType = when (nativeValue) {
+            WebKitPolicyDecisionType.WEBKIT_POLICY_DECISION_TYPE_NAVIGATION_ACTION -> NAVIGATION_ACTION
+            WebKitPolicyDecisionType.WEBKIT_POLICY_DECISION_TYPE_NEW_WINDOW_ACTION -> NEW_WINDOW_ACTION
+            WebKitPolicyDecisionType.WEBKIT_POLICY_DECISION_TYPE_RESPONSE -> RESPONSE
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of PolicyDecisionType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_policy_decision_type_get_type()
     }
 }

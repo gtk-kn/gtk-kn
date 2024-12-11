@@ -7,12 +7,13 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -26,28 +27,25 @@ import org.gtkkn.native.gio.g_inet_address_mask_get_type
 import org.gtkkn.native.gio.g_inet_address_mask_matches
 import org.gtkkn.native.gio.g_inet_address_mask_new
 import org.gtkkn.native.gio.g_inet_address_mask_new_from_string
+import org.gtkkn.native.gio.g_inet_address_mask_to_string
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
 import kotlin.String
+import kotlin.Suppress
 import kotlin.Throws
-import kotlin.UInt
 
 /**
  * `GInetAddressMask` represents a range of IPv4 or IPv6 addresses
  * described by a base address and a length indicating how many bits
  * of the base address are relevant for matching purposes. These are
  * often given in string form. For example, `10.0.0.0/8`, or `fe80::/10`.
- *
- * ## Skipped during bindings generation
- *
- * - method `to_string`: C function g_inet_address_mask_to_string is ignored
- *
  * @since 2.32
  */
 @GioVersion2_32
-public open class InetAddressMask(
-    pointer: CPointer<GInetAddressMask>,
-) : Object(pointer.reinterpret()),
+public open class InetAddressMask(pointer: CPointer<GInetAddressMask>) :
+    Object(pointer.reinterpret()),
     Initable,
     KGTyped {
     public val gioInetAddressMaskPointer: CPointer<GInetAddressMask>
@@ -69,10 +67,9 @@ public open class InetAddressMask(
          * @return @mask's base address
          * @since 2.32
          */
-        get() =
-            g_inet_address_mask_get_address(gioInetAddressMaskPointer.reinterpret())!!.run {
-                InetAddress(reinterpret())
-            }
+        get() = g_inet_address_mask_get_address(gioInetAddressMaskPointer.reinterpret())!!.run {
+            InetAddress(reinterpret())
+        }
 
     /**
      * The address family (IPv4 or IPv6).
@@ -87,10 +84,9 @@ public open class InetAddressMask(
          * @return the #GSocketFamily of @mask's address
          * @since 2.32
          */
-        get() =
-            g_inet_address_mask_get_family(gioInetAddressMaskPointer.reinterpret()).run {
-                SocketFamily.fromNativeValue(this)
-            }
+        get() = g_inet_address_mask_get_family(gioInetAddressMaskPointer.reinterpret()).run {
+            SocketFamily.fromNativeValue(this)
+        }
 
     /**
      * The prefix length, in bytes.
@@ -98,7 +94,7 @@ public open class InetAddressMask(
      * @since 2.32
      */
     @GioVersion2_32
-    public open val length: UInt
+    public open val length: guint
         /**
          * Gets @mask's length
          *
@@ -116,8 +112,8 @@ public open class InetAddressMask(
      * @return a new #GInetAddressMask, or null on error
      * @since 2.32
      */
-    @Throws(GlibException::class)
-    public constructor(addr: InetAddress, length: UInt) : this(
+    @Throws(GLibException::class)
+    public constructor(addr: InetAddress, length: guint) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_inet_address_mask_new(addr.gioInetAddressPointer.reinterpret(), length, gError.ptr)
@@ -139,7 +135,7 @@ public open class InetAddressMask(
      * on error.
      * @since 2.32
      */
-    @Throws(GlibException::class)
+    @Throws(GLibException::class)
     public constructor(maskString: String) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -159,44 +155,10 @@ public open class InetAddressMask(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun equal(mask2: InetAddressMask): Boolean =
-        g_inet_address_mask_equal(
-            gioInetAddressMaskPointer.reinterpret(),
-            mask2.gioInetAddressMaskPointer.reinterpret()
-        ).asBoolean()
-
-    /**
-     * Gets @mask's base address
-     *
-     * @return @mask's base address
-     * @since 2.32
-     */
-    @GioVersion2_32
-    public open fun getAddress(): InetAddress =
-        g_inet_address_mask_get_address(gioInetAddressMaskPointer.reinterpret())!!.run {
-            InetAddress(reinterpret())
-        }
-
-    /**
-     * Gets the #GSocketFamily of @mask's address
-     *
-     * @return the #GSocketFamily of @mask's address
-     * @since 2.32
-     */
-    @GioVersion2_32
-    public open fun getFamily(): SocketFamily =
-        g_inet_address_mask_get_family(gioInetAddressMaskPointer.reinterpret()).run {
-            SocketFamily.fromNativeValue(this)
-        }
-
-    /**
-     * Gets @mask's length
-     *
-     * @return @mask's length
-     * @since 2.32
-     */
-    @GioVersion2_32
-    public open fun getLength(): UInt = g_inet_address_mask_get_length(gioInetAddressMaskPointer.reinterpret())
+    public open fun equal(mask2: InetAddressMask): Boolean = g_inet_address_mask_equal(
+        gioInetAddressMaskPointer.reinterpret(),
+        mask2.gioInetAddressMaskPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Tests if @address falls within the range described by @mask.
@@ -207,11 +169,22 @@ public open class InetAddressMask(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun matches(address: InetAddress): Boolean =
-        g_inet_address_mask_matches(
-            gioInetAddressMaskPointer.reinterpret(),
-            address.gioInetAddressPointer.reinterpret()
-        ).asBoolean()
+    public open fun matches(address: InetAddress): Boolean = g_inet_address_mask_matches(
+        gioInetAddressMaskPointer.reinterpret(),
+        address.gioInetAddressPointer.reinterpret()
+    ).asBoolean()
+
+    /**
+     * Converts @mask back to its corresponding string form.
+     *
+     * @return a string corresponding to @mask.
+     * @since 2.32
+     */
+    @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
+    @GioVersion2_32
+    override fun toString(): String =
+        g_inet_address_mask_to_string(gioInetAddressMaskPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     public companion object : TypeCompanion<InetAddressMask> {
         override val type: GeneratedClassKGType<InetAddressMask> =
@@ -220,5 +193,12 @@ public open class InetAddressMask(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of InetAddressMask
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_inet_address_mask_get_type()
     }
 }

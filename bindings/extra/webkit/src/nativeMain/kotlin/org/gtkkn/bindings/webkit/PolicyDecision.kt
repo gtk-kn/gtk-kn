@@ -8,6 +8,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_30
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitPolicyDecision
 import org.gtkkn.native.webkit.webkit_policy_decision_download
 import org.gtkkn.native.webkit.webkit_policy_decision_get_type
@@ -29,9 +30,8 @@ import kotlin.Unit
  * completes. To make a policy decision asynchronously, simply increment
  * the reference count of the #WebKitPolicyDecision object.
  */
-public open class PolicyDecision(
-    pointer: CPointer<WebKitPolicyDecision>,
-) : Object(pointer.reinterpret()),
+public open class PolicyDecision(pointer: CPointer<WebKitPolicyDecision>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val webkitPolicyDecisionPointer: CPointer<WebKitPolicyDecision>
         get() = gPointer.reinterpret()
@@ -69,11 +69,10 @@ public open class PolicyDecision(
      * @since 2.30
      */
     @WebKitVersion2_30
-    public open fun useWithPolicies(policies: WebsitePolicies): Unit =
-        webkit_policy_decision_use_with_policies(
-            webkitPolicyDecisionPointer.reinterpret(),
-            policies.webkitWebsitePoliciesPointer.reinterpret()
-        )
+    public open fun useWithPolicies(policies: WebsitePolicies): Unit = webkit_policy_decision_use_with_policies(
+        webkitPolicyDecisionPointer.reinterpret(),
+        policies.webkitWebsitePoliciesPointer.reinterpret()
+    )
 
     public companion object : TypeCompanion<PolicyDecision> {
         override val type: GeneratedClassKGType<PolicyDecision> =
@@ -82,5 +81,12 @@ public open class PolicyDecision(
         init {
             WebkitTypeProvider.register()
         }
+
+        /**
+         * Get the GType of PolicyDecision
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_policy_decision_get_type()
     }
 }

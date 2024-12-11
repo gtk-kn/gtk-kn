@@ -17,12 +17,8 @@
 package org.gtkkn.gir.processor
 
 import com.squareup.kotlinpoet.BOOLEAN
-import com.squareup.kotlinpoet.BYTE
 import com.squareup.kotlinpoet.CHAR
 import com.squareup.kotlinpoet.ClassName
-import com.squareup.kotlinpoet.DOUBLE
-import com.squareup.kotlinpoet.FLOAT
-import com.squareup.kotlinpoet.INT
 import com.squareup.kotlinpoet.LIST
 import com.squareup.kotlinpoet.LONG
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
@@ -30,15 +26,28 @@ import com.squareup.kotlinpoet.SHORT
 import com.squareup.kotlinpoet.STRING
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.UNIT
-import com.squareup.kotlinpoet.U_BYTE
-import com.squareup.kotlinpoet.U_INT
-import com.squareup.kotlinpoet.U_LONG
-import com.squareup.kotlinpoet.U_SHORT
 import org.gtkkn.gir.blueprints.OptInVersionBlueprint
 import org.gtkkn.gir.blueprints.TypeInfo
 import org.gtkkn.gir.config.Config
 import org.gtkkn.gir.ext.toCamelCase
 import org.gtkkn.gir.ext.toPascalCase
+import org.gtkkn.gir.generator.BindingsGenerator
+import org.gtkkn.gir.generator.G_BOOLEAN
+import org.gtkkn.gir.generator.G_CHAR
+import org.gtkkn.gir.generator.G_DOUBLE
+import org.gtkkn.gir.generator.G_FLOAT
+import org.gtkkn.gir.generator.G_INT
+import org.gtkkn.gir.generator.G_INT64
+import org.gtkkn.gir.generator.G_INT8
+import org.gtkkn.gir.generator.G_LONG
+import org.gtkkn.gir.generator.G_SIZE
+import org.gtkkn.gir.generator.G_TYPE
+import org.gtkkn.gir.generator.G_UINT
+import org.gtkkn.gir.generator.G_UINT16
+import org.gtkkn.gir.generator.G_UINT64
+import org.gtkkn.gir.generator.G_UINT8
+import org.gtkkn.gir.generator.G_ULONG
+import org.gtkkn.gir.generator.G_UNICHAR
 import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.model.GirAnyType
 import org.gtkkn.gir.model.GirArrayType
@@ -118,7 +127,7 @@ class ProcessorContext(
      */
     @Throws(UnresolvableTypeException::class)
     fun resolveClassObjectPointerTypeName(namespace: GirNamespace, clazz: GirClass): TypeName =
-        NativeTypes.cpointerOf(
+        BindingsGenerator.cpointerOf(
             ClassName(
                 namespaceNativePackageName(namespace),
                 clazz.cType
@@ -130,21 +139,24 @@ class ProcessorContext(
      * Resolve the [TypeName] for the objectPointer we have in all records.
      */
     @Throws(UnresolvableTypeException::class)
-    fun resolveRecordObjectPointerTypeName(namespace: GirNamespace, record: GirRecord): TypeName =
-        NativeTypes.cpointerOf(
-            ClassName(
-                namespaceNativePackageName(namespace),
-                record.cType
-                    ?: throw UnresolvableTypeException("Missing cType on record"),
-            ),
+    fun resolveRecordObjectPointerTypeName(namespace: GirNamespace, record: GirRecord): TypeName {
+        val className = ClassName(
+            namespaceNativePackageName(namespace),
+            record.cType ?: throw UnresolvableTypeException("Missing cType on record"),
         )
+        return if (record.pointer == true) {
+            className
+        } else {
+            BindingsGenerator.cpointerOf(className)
+        }
+    }
 
     /**
      * Resolve the [TypeName] for the objectPointer we have in all interfaces.
      */
     @Throws(UnresolvableTypeException::class)
     fun resolveInterfaceObjectPointerTypeName(namespace: GirNamespace, iface: GirInterface): TypeName =
-        NativeTypes.cpointerOf(
+        BindingsGenerator.cpointerOf(
             ClassName(
                 namespaceNativePackageName(namespace),
                 iface.cType ?: throw UnresolvableTypeException("Missing cType on interface"),
@@ -183,7 +195,7 @@ class ProcessorContext(
      */
     fun resolveAliasTypeInfo(targetNamespace: GirNamespace, nativeAliasName: String): TypeInfo.Alias? {
         val (namespace, simpleName) = extractFullyQualifiedName(targetNamespace, nativeAliasName)
-        val alias = namespace.aliases.find { it.name == simpleName && it.info.introspectable != false }
+        val alias = namespace.aliases.find { it.name == simpleName && it.info.shouldBeGenerated() }
         return alias?.run {
             TypeInfo.Alias(
                 nativeTypeName = ClassName(namespaceNativePackageName(namespace), cType),
@@ -273,15 +285,13 @@ class ProcessorContext(
         girNamespace: GirNamespace,
         type: GirType,
         nullable: Boolean,
-        isArray: Boolean = false,
-        isReturnType: Boolean = false,
     ): TypeInfo {
         if (type.name == null) {
             throw UnresolvableTypeException("type name is null")
         }
 
         // first basic types
-        getPrimitiveTypeInfo(type.name)?.let { typeInfo ->
+        getPrimitiveTypeInfo(type)?.let { typeInfo ->
             if (type.cType != null && type.cType.endsWith("*")) {
                 logger.error { "Skipping primitive with pointer type" }
                 throw UnresolvableTypeException("Unsupported pointer to primitive type")
@@ -289,27 +299,16 @@ class ProcessorContext(
             return typeInfo.withNullable(nullable)
         }
 
-//        // GType
-//        if (type.name == "GType") {
-//            resolveAliasTypeInfo(girNamespace, type.name)?.let { return it }
-//        }
-
         // strings
         if (type.name == "utf8" || type.name == "filename") {
             return when (type.cType) {
-                "const char*" -> TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
-                "const gchar*" -> TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
-                "char*" -> {
-                    if (isArray || isReturnType) {
-                        TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
-                    } else {
-                        throw UnresolvableTypeException("Unsupported string type with cType: ${type.cType}")
-                    }
-                }
+                "const char*",
+                "const gchar*",
+                null -> TypeInfo.KString(BindingsGenerator.cpointerOf(BindingsGenerator.KP_BYTEVAR), STRING, true)
 
-                "gchar*" -> return TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
+                "char*",
+                "gchar*" -> TypeInfo.KString(BindingsGenerator.cpointerOf(BindingsGenerator.KP_BYTEVAR), STRING, false)
 
-                null -> TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
                 else -> {
                     logger.error { "Skipping string type with cType: ${type.cType}" }
                     throw UnresolvableTypeException("Unsupported string with cType ${type.cType}")
@@ -317,16 +316,8 @@ class ProcessorContext(
             }.withNullable(nullable)
         }
 
-        // booleans
-        if (type.name == "gboolean") {
-            return when (type.cType) {
-                null -> error("gboolean with null cType")
-                "gboolean" -> TypeInfo.GBoolean(INT, BOOLEAN)
-                "const gboolean" -> TypeInfo.GBoolean(INT, BOOLEAN)
-                "_Bool" -> TypeInfo.Primitive(BOOLEAN)
-                else -> throw UnresolvableTypeException("Unsupported gboolean with cType: ${type.cType}")
-            }
-        }
+        // aliases
+        resolveAliasTypeInfo(girNamespace, type.name)?.let { return it.withNullable(nullable) }
 
         // aliases
         resolveAliasTypeInfo(girNamespace, type.name)?.let { return it.withNullable(nullable) }
@@ -341,7 +332,7 @@ class ProcessorContext(
                 "gPointer"
             }
             return TypeInfo.ObjectPointer(
-                NativeTypes.KP_CPOINTER.parameterizedBy(buildNativeClassName(namespace, girClass)),
+                BindingsGenerator.KP_CPOINTER.parameterizedBy(buildNativeClassName(namespace, girClass)),
                 kotlinClassTypeName,
                 objectPointerName,
             ).withNullable(nullable)
@@ -353,7 +344,7 @@ class ProcessorContext(
             val (namespace, girInterface) = findInterfaceByName(girNamespace, type.name)
             val objectPointerName = "${namespacePrefix(namespace)}${girInterface.name}Pointer"
             return TypeInfo.InterfacePointer(
-                NativeTypes.KP_CPOINTER.parameterizedBy(buildNativeClassName(namespace, girInterface)),
+                BindingsGenerator.KP_CPOINTER.parameterizedBy(buildNativeClassName(namespace, girInterface)),
                 kotlinInterfaceTypeName,
                 objectPointerName,
             ).withNullable(nullable)
@@ -395,7 +386,7 @@ class ProcessorContext(
                 val objectPointerName = "${namespacePrefix(namespace)}${girRecord.name}Pointer"
                 return TypeInfo.RecordPointer(
                     kotlinTypeName = kotlinRecordTypeName,
-                    nativeTypeName = NativeTypes.KP_CPOINTER.parameterizedBy(
+                    nativeTypeName = BindingsGenerator.KP_CPOINTER.parameterizedBy(
                         buildNativeClassName(
                             namespace,
                             girRecord,
@@ -414,14 +405,11 @@ class ProcessorContext(
 
     fun resolveTypeInfo(
         girNamespace: GirNamespace,
-        type: GirAnyType?,
+        type: GirAnyType,
         nullable: Boolean,
-        isArray: Boolean = false,
-        isReturnType: Boolean = false,
     ) = when (type) {
         is GirArrayType -> resolveTypeInfo(girNamespace, type, nullable)
-        is GirType -> resolveTypeInfo(girNamespace, type, nullable, isArray, isReturnType)
-        null -> error("type must not be null")
+        is GirType -> resolveTypeInfo(girNamespace, type, nullable)
     }
 
     /**
@@ -432,11 +420,11 @@ class ProcessorContext(
         when (array.type) {
             is GirArrayType -> throw UnresolvableTypeException("Nested array types are not supported")
             is GirType -> {
-                val arrayTypeInfo = resolveTypeInfo(girNamespace, array.type, false, true)
+                val arrayTypeInfo = resolveTypeInfo(girNamespace, array.type, false)
                 if (arrayTypeInfo is TypeInfo.KString) {
                     val nullTerminated = array.zeroTerminated == null || array.zeroTerminated == true
                     TypeInfo.StringList(
-                        nativeTypeName = NativeTypes.KP_STRING_ARRAY,
+                        nativeTypeName = BindingsGenerator.KP_STRING_ARRAY,
                         kotlinTypeName = LIST.parameterizedBy(STRING),
                         nullTerminated,
                         array.fixedSize,
@@ -461,7 +449,7 @@ class ProcessorContext(
                 ?: throw UnresolvableTypeException("missing cType for interface ${girInterface.name}"),
         )
 
-    private fun buildNativeClassName(girNamespace: GirNamespace, girRecord: GirRecord) =
+    fun buildNativeClassName(girNamespace: GirNamespace, girRecord: GirRecord) =
         ClassName(
             namespaceNativePackageName(girNamespace),
             girRecord.cType
@@ -553,21 +541,6 @@ class ProcessorContext(
         if (ignoredFunctions.contains(cFunctionName)) {
             throw IgnoredFunctionException(cFunctionName)
         }
-
-        if (cFunctionName.endsWith("to_string")) {
-            throw IgnoredFunctionException(cFunctionName)
-        }
-
-        // ignore functions that use a string pointer argument
-        if (cFunctionName.startsWith("g_str")) {
-            throw IgnoredFunctionException(cFunctionName)
-        }
-        if (cFunctionName.startsWith("g_ascii")) {
-            throw IgnoredFunctionException(cFunctionName)
-        }
-        if (cFunctionName.startsWith("g_utf8")) {
-            throw IgnoredFunctionException(cFunctionName)
-        }
     }
 
     /**
@@ -616,20 +589,36 @@ class ProcessorContext(
     fun getOptInVersionsBlueprints(namespace: GirNamespace): Set<OptInVersionBlueprint> =
         optInVersionBlueprintsMap[namespace]?.toSet().orEmpty()
 
-    private fun getPrimitiveTypeInfo(typeName: String): TypeInfo? =
-        when (typeName) {
+    private fun getPrimitiveTypeInfo(type: GirType): TypeInfo? =
+        when (type.name) {
             "none" -> TypeInfo.Primitive(UNIT)
-            "GType", "gsize", "guint64", "gulong" -> TypeInfo.Primitive(U_LONG)
-            "gchar" -> TypeInfo.GChar(BYTE, CHAR)
-            "gdouble" -> TypeInfo.Primitive(DOUBLE)
-            "gfloat" -> TypeInfo.Primitive(FLOAT)
-            "gint", "gint32" -> TypeInfo.Primitive(INT)
+            "GType" -> TypeInfo.Primitive(G_TYPE)
+            "gchar" -> TypeInfo.GChar(G_CHAR, CHAR)
+            "gdouble" -> TypeInfo.Primitive(G_DOUBLE)
+            "gfloat" -> TypeInfo.Primitive(G_FLOAT)
+            "gint" -> TypeInfo.Primitive(G_INT)
             "gint16" -> TypeInfo.Primitive(SHORT)
-            "gint64", "glong", "gssize" -> TypeInfo.Primitive(LONG)
-            "gint8" -> TypeInfo.Primitive(BYTE)
-            "guint", "guint32", "gunichar" -> TypeInfo.Primitive(U_INT)
-            "guint16" -> TypeInfo.Primitive(U_SHORT)
-            "guint8" -> TypeInfo.Primitive(U_BYTE)
+            "gint32" -> TypeInfo.Primitive(G_INT)
+            "gint64" -> TypeInfo.Primitive(G_INT64)
+            "gint8" -> TypeInfo.Primitive(G_INT8)
+            "glong" -> TypeInfo.Primitive(G_LONG)
+            "gsize" -> TypeInfo.Primitive(G_SIZE)
+            "gssize" -> TypeInfo.Primitive(LONG)
+            "guint" -> TypeInfo.Primitive(G_UINT)
+            "guint16" -> TypeInfo.Primitive(G_UINT16)
+            "guint32" -> TypeInfo.Primitive(G_UINT)
+            "guint64" -> TypeInfo.Primitive(G_UINT64)
+            "guint8" -> TypeInfo.Primitive(G_UINT8)
+            "gulong" -> TypeInfo.Primitive(G_ULONG)
+            "gunichar" -> TypeInfo.Primitive(G_UNICHAR)
+            "gboolean" -> when (type.cType) {
+                "gboolean" -> TypeInfo.GBoolean(G_BOOLEAN, BOOLEAN)
+                "const gboolean" -> TypeInfo.GBoolean(G_BOOLEAN, BOOLEAN)
+                "_Bool" -> TypeInfo.Primitive(BOOLEAN)
+                null -> error("gboolean with null cType")
+                else -> null
+            }
+
             else -> null
         }
 
@@ -638,108 +627,42 @@ class ProcessorContext(
          * A set of C identifiers for gir objects that should not be generated.
          */
         private val ignoredTypes = hashSetOf(
-            // bitfield members not found through cinterop
-            "GdkPixbufFormatFlags",
-            "GIOCondition",
-
             // callback returning a String
             "GtkScaleFormatValueFunc",
-
-            // Issues with Context being defined in pango, but used in pangocairo callbacks?
-            "PangoContext",
-            "Context",
-            "Region",
-            "CairoRegion",
-
             // not a pointed type, simd vector?
             "graphene_simd4f_t",
-
-            // Can't find it in Ubuntu 24.04
         )
 
         /**
          * A set of C functions that should not be generated.
          */
         private val ignoredFunctions = hashSetOf(
-            // problems with Snapshot class
-            "gtk_widget_snapshot_child",
-
-            // problems with string argument conversion
-            "gtk_string_list_take",
-            "gsk_debug_node_new",
-
-            // ignored because the overridden return value is not a subtype of the parent
-            // widget get_name is not nullable (according to gir)
-            // while preferences_page_get_name is nullable
-            "adw_preferences_page_get_name",
-            "adw_preferences_page_set_name",
-
             // problems with mismatched return type
             "cairo_image_surface_create",
 
-            // problems with enum conversion (might be strictEnum?)
-            "hb_glib_script_from_script",
-            "hb_glib_script_to_script",
-
-            // which def file should include this (gio or glib)?
-            "g_networking_init",
-            "g_io_channel_get_buffer_condition",
-
-            // error pointer argument
-            "g_prefix_error_literal",
-            "g_trash_stack_height",
-
-            "pango_font_map_create_context",
-            "pango_layout_get_context",
-
-            "gtk_print_context_create_pango_context",
-            "gtk_print_context_get_cairo_context",
-            "gtk_text_view_get_ltr_context",
-            "gtk_text_view_get_rtl_context",
-            "gtk_widget_create_pango_context",
-            "gtk_widget_get_pango_context",
-
-            // problem because it needs a GObjectClass struct
-            "gtk_editable_install_properties",
-
             // problem because it uses a callback with a string return value
             "g_option_group_set_translate_func",
+            "g_option_context_set_translate_func",
             "soup_auth_domain_digest_set_auth_callback",
 
-            // some string pointer functions
-            "g_date_strftime",
-            "g_stpcpy",
-            "g_value_set_string_take_ownership",
-            "g_value_take_string",
-
             // ThreadFunc is not supported yet
-            "g_thread_try_new",
+            "g_thread_create",
+            "g_thread_create_full",
             "g_thread_new",
+            "g_thread_try_new",
 
-            // DBusProxyTypeFunc is not supported yet
-            "g_dbus_object_manager_client_new_for_bus_sync",
-            "g_dbus_object_manager_client_new_sync",
-
-            "g_variant_get_gtype",
-            // GtkSource, problem with enum parameter value
-            "gtk_source_view_get_gutter",
-
-            // GLib gstdio macros
-            "g_chmod",
-            "g_creat",
-            "g_fsync",
-            "g_mkdir",
-            "g_open",
-            "g_remove",
-            "g_rename",
+            // CopyFunc is not supported yet
+            "g_list_copy_deep",
+            "g_node_copy_deep",
+            "g_slist_copy_deep",
 
             "g_tree_traverse",
 
             // On Fedora 41 this is listed in the GIR but the header file is missing
             "g_set_prgname_once",
 
-            // Argument type mismatch
-            "soup_message_get_tls_protocol_version",
+            // need to convert a org.gtkkn.native.glib.GPtrArray to a List<String>
+            "gtk_buildable_parse_context_get_element_stack",
         )
 
         /**

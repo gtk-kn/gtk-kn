@@ -1,15 +1,15 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupURIComponent
+import org.gtkkn.native.soup.soup_uri_component_get_type
 
 /**
  * Enum values passed to [func@uri_copy] to indicate the components of
  * the URI that should be updated with the given values.
  */
-public enum class URIComponent(
-    public val nativeValue: SoupURIComponent,
-) {
+public enum class URIComponent(public val nativeValue: SoupURIComponent) {
     /**
      * no component
      */
@@ -62,19 +62,25 @@ public enum class URIComponent(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: SoupURIComponent): URIComponent =
-            when (nativeValue) {
-                SoupURIComponent.SOUP_URI_NONE -> NONE
-                SoupURIComponent.SOUP_URI_SCHEME -> SCHEME
-                SoupURIComponent.SOUP_URI_USER -> USER
-                SoupURIComponent.SOUP_URI_PASSWORD -> PASSWORD
-                SoupURIComponent.SOUP_URI_AUTH_PARAMS -> AUTH_PARAMS
-                SoupURIComponent.SOUP_URI_HOST -> HOST
-                SoupURIComponent.SOUP_URI_PORT -> PORT
-                SoupURIComponent.SOUP_URI_PATH -> PATH
-                SoupURIComponent.SOUP_URI_QUERY -> QUERY
-                SoupURIComponent.SOUP_URI_FRAGMENT -> FRAGMENT
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: SoupURIComponent): URIComponent = when (nativeValue) {
+            SoupURIComponent.SOUP_URI_NONE -> NONE
+            SoupURIComponent.SOUP_URI_SCHEME -> SCHEME
+            SoupURIComponent.SOUP_URI_USER -> USER
+            SoupURIComponent.SOUP_URI_PASSWORD -> PASSWORD
+            SoupURIComponent.SOUP_URI_AUTH_PARAMS -> AUTH_PARAMS
+            SoupURIComponent.SOUP_URI_HOST -> HOST
+            SoupURIComponent.SOUP_URI_PORT -> PORT
+            SoupURIComponent.SOUP_URI_PATH -> PATH
+            SoupURIComponent.SOUP_URI_QUERY -> QUERY
+            SoupURIComponent.SOUP_URI_FRAGMENT -> FRAGMENT
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of URIComponent
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_uri_component_get_type()
     }
 }

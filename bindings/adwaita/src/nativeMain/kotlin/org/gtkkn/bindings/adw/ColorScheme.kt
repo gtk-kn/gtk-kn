@@ -2,13 +2,13 @@
 package org.gtkkn.bindings.adw
 
 import org.gtkkn.native.adw.AdwColorScheme
+import org.gtkkn.native.adw.adw_color_scheme_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Application color schemes for [property@StyleManager:color-scheme].
  */
-public enum class ColorScheme(
-    public val nativeValue: AdwColorScheme,
-) {
+public enum class ColorScheme(public val nativeValue: AdwColorScheme) {
     /**
      * Inherit the parent color-scheme. When set on the
      *   `AdwStyleManager` returned by [func@StyleManager.get_default], it's
@@ -40,14 +40,20 @@ public enum class ColorScheme(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: AdwColorScheme): ColorScheme =
-            when (nativeValue) {
-                AdwColorScheme.ADW_COLOR_SCHEME_DEFAULT -> DEFAULT
-                AdwColorScheme.ADW_COLOR_SCHEME_FORCE_LIGHT -> FORCE_LIGHT
-                AdwColorScheme.ADW_COLOR_SCHEME_PREFER_LIGHT -> PREFER_LIGHT
-                AdwColorScheme.ADW_COLOR_SCHEME_PREFER_DARK -> PREFER_DARK
-                AdwColorScheme.ADW_COLOR_SCHEME_FORCE_DARK -> FORCE_DARK
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: AdwColorScheme): ColorScheme = when (nativeValue) {
+            AdwColorScheme.ADW_COLOR_SCHEME_DEFAULT -> DEFAULT
+            AdwColorScheme.ADW_COLOR_SCHEME_FORCE_LIGHT -> FORCE_LIGHT
+            AdwColorScheme.ADW_COLOR_SCHEME_PREFER_LIGHT -> PREFER_LIGHT
+            AdwColorScheme.ADW_COLOR_SCHEME_PREFER_DARK -> PREFER_DARK
+            AdwColorScheme.ADW_COLOR_SCHEME_FORCE_DARK -> FORCE_DARK
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of ColorScheme
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_color_scheme_get_type()
     }
 }

@@ -2,17 +2,17 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.extensions.glib.Bitfield
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GTK_PICK_DEFAULT
 import org.gtkkn.native.gtk.GTK_PICK_INSENSITIVE
 import org.gtkkn.native.gtk.GTK_PICK_NON_TARGETABLE
 import org.gtkkn.native.gtk.GtkPickFlags
+import org.gtkkn.native.gtk.gtk_pick_flags_get_type
 
 /**
  * Flags that influence the behavior of [method@Widget.pick].
  */
-public class PickFlags(
-    public val mask: GtkPickFlags,
-) : Bitfield<PickFlags> {
+public class PickFlags(public val mask: GtkPickFlags) : Bitfield<PickFlags> {
     override infix fun or(other: PickFlags): PickFlags = PickFlags(mask or other.mask)
 
     public companion object {
@@ -30,5 +30,12 @@ public class PickFlags(
          * Include widgets that are marked as non-targetable. See [property@Widget:can-target]
          */
         public val NON_TARGETABLE: PickFlags = PickFlags(GTK_PICK_NON_TARGETABLE)
+
+        /**
+         * Get the GType of PickFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_pick_flags_get_type()
     }
 }

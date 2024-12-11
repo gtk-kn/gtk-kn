@@ -31,7 +31,7 @@ import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.bindings.javascriptcore.Value
-import org.gtkkn.bindings.webkit.Webkit.resolveException
+import org.gtkkn.bindings.webkit.WebKit.resolveException
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_10
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_12
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_18
@@ -55,7 +55,12 @@ import org.gtkkn.native.gdk.GdkRectangle
 import org.gtkkn.native.gio.GTlsCertificate
 import org.gtkkn.native.gio.GTlsCertificateFlags
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -164,12 +169,9 @@ import org.gtkkn.native.webkit.webkit_web_view_stop_loading
 import org.gtkkn.native.webkit.webkit_web_view_terminate_web_process
 import org.gtkkn.native.webkit.webkit_web_view_try_close
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.Long
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
@@ -197,9 +199,8 @@ import kotlin.collections.List
  * - method `settings`: Property has no getter
  * - method `web-context`: Property has no getter nor setter
  */
-public open class WebView(
-    pointer: CPointer<WebKitWebView>,
-) : WebViewBase(pointer.reinterpret()),
+public open class WebView(pointer: CPointer<WebKitWebView>) :
+    WebViewBase(pointer.reinterpret()),
     KGTyped {
     public val webkitWebViewPointer: CPointer<WebKitWebView>
         get() = gPointer.reinterpret()
@@ -229,10 +230,9 @@ public open class WebView(
          * @return a #WebKitAutomationBrowsingContextPresentation.
          * @since 2.28
          */
-        get() =
-            webkit_web_view_get_automation_presentation_type(webkitWebViewPointer.reinterpret()).run {
-                AutomationBrowsingContextPresentation.fromNativeValue(this)
-            }
+        get() = webkit_web_view_get_automation_presentation_type(webkitWebViewPointer.reinterpret()).run {
+            AutomationBrowsingContextPresentation.fromNativeValue(this)
+        }
 
     /**
      * Capture state of the camera device. Whenever the user grants a media-request sent by the web
@@ -258,10 +258,9 @@ public open class WebView(
          * is false, this method will return %WEBKIT_MEDIA_CAPTURE_STATE_NONE.
          * @since 2.34
          */
-        get() =
-            webkit_web_view_get_camera_capture_state(webkitWebViewPointer.reinterpret()).run {
-                MediaCaptureState.fromNativeValue(this)
-            }
+        get() = webkit_web_view_get_camera_capture_state(webkitWebViewPointer.reinterpret()).run {
+            MediaCaptureState.fromNativeValue(this)
+        }
 
         /**
          * Set the camera capture state of a #WebKitWebView.
@@ -324,10 +323,9 @@ public open class WebView(
          * is false, this method will return %WEBKIT_MEDIA_CAPTURE_STATE_NONE.
          * @since 2.34
          */
-        get() =
-            webkit_web_view_get_display_capture_state(webkitWebViewPointer.reinterpret()).run {
-                MediaCaptureState.fromNativeValue(this)
-            }
+        get() = webkit_web_view_get_display_capture_state(webkitWebViewPointer.reinterpret()).run {
+            MediaCaptureState.fromNativeValue(this)
+        }
 
         /**
          * Set the display capture state of a #WebKitWebView.
@@ -351,7 +349,7 @@ public open class WebView(
      * to be received for a document, including all its possible subresources
      * and child documents.
      */
-    public open val estimatedLoadProgress: Double
+    public open val estimatedLoadProgress: gdouble
         /**
          * Gets the value of the #WebKitWebView:estimated-load-progress property.
          *
@@ -378,10 +376,9 @@ public open class WebView(
          * @return the favicon image or null if there's no
          *    icon associated with @web_view.
          */
-        get() =
-            webkit_web_view_get_favicon(webkitWebViewPointer.reinterpret())!!.run {
-                Texture(reinterpret())
-            }
+        get() = webkit_web_view_get_favicon(webkitWebViewPointer.reinterpret())!!.run {
+            Texture(reinterpret())
+        }
 
     /**
      * Whether the #WebKitWebView audio is muted. When true, audio is silenced.
@@ -447,10 +444,9 @@ public open class WebView(
          * is false, this method will return %WEBKIT_MEDIA_CAPTURE_STATE_NONE.
          * @since 2.34
          */
-        get() =
-            webkit_web_view_get_microphone_capture_state(webkitWebViewPointer.reinterpret()).run {
-                MediaCaptureState.fromNativeValue(this)
-            }
+        get() = webkit_web_view_get_microphone_capture_state(webkitWebViewPointer.reinterpret()).run {
+            MediaCaptureState.fromNativeValue(this)
+        }
 
         /**
          * Set the microphone capture state of a #WebKitWebView.
@@ -478,10 +474,9 @@ public open class WebView(
          * @return a #WebKitNetworkSession
          * @since 2.40
          */
-        get() =
-            webkit_web_view_get_network_session(webkitWebViewPointer.reinterpret())!!.run {
-                NetworkSession(reinterpret())
-            }
+        get() = webkit_web_view_get_network_session(webkitWebViewPointer.reinterpret())!!.run {
+            NetworkSession(reinterpret())
+        }
 
     /**
      * The identifier of the #WebKitWebPage corresponding to the #WebKitWebView.
@@ -489,7 +484,7 @@ public open class WebView(
      * @since 2.28
      */
     @WebKitVersion2_28
-    public open val pageId: ULong
+    public open val pageId: guint64
         /**
          * Get the identifier of the #WebKitWebPage corresponding to
          * the #WebKitWebView
@@ -511,9 +506,8 @@ public open class WebView(
          *
          * @return The main frame document title of @web_view.
          */
-        get() =
-            webkit_web_view_get_title(webkitWebViewPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = webkit_web_view_get_title(webkitWebViewPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * The current active URI of the #WebKitWebView.
@@ -577,9 +571,8 @@ public open class WebView(
          * @return the current active URI of @web_view or null
          *    if nothing has been loaded yet.
          */
-        get() =
-            webkit_web_view_get_uri(webkitWebViewPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = webkit_web_view_get_uri(webkitWebViewPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * The #WebKitUserContentManager of the view.
@@ -594,10 +587,9 @@ public open class WebView(
          * @return the #WebKitUserContentManager associated with the view
          * @since 2.6
          */
-        get() =
-            webkit_web_view_get_user_content_manager(webkitWebViewPointer.reinterpret())!!.run {
-                UserContentManager(reinterpret())
-            }
+        get() = webkit_web_view_get_user_content_manager(webkitWebViewPointer.reinterpret())!!.run {
+            UserContentManager(reinterpret())
+        }
 
     /**
      * This configures @web_view to treat the content as a WebExtension.
@@ -618,10 +610,9 @@ public open class WebView(
          * @return the #WebKitWebExtensionMode
          * @since 2.38
          */
-        get() =
-            webkit_web_view_get_web_extension_mode(webkitWebViewPointer.reinterpret()).run {
-                WebExtensionMode.fromNativeValue(this)
-            }
+        get() = webkit_web_view_get_web_extension_mode(webkitWebViewPointer.reinterpret()).run {
+            WebExtensionMode.fromNativeValue(this)
+        }
 
     /**
      * The #WebKitWebsitePolicies for the view.
@@ -643,16 +634,15 @@ public open class WebView(
          *     associated with the view.
          * @since 2.30
          */
-        get() =
-            webkit_web_view_get_website_policies(webkitWebViewPointer.reinterpret())!!.run {
-                WebsitePolicies(reinterpret())
-            }
+        get() = webkit_web_view_get_website_policies(webkitWebViewPointer.reinterpret())!!.run {
+            WebsitePolicies(reinterpret())
+        }
 
     /**
      * The zoom level of the #WebKitWebView content.
      * See webkit_web_view_set_zoom_level() for more details.
      */
-    public open var zoomLevel: Double
+    public open var zoomLevel: gdouble
         /**
          * Set the zoom level of @web_view.
          *
@@ -764,18 +754,12 @@ public open class WebView(
         sourceUri: String? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        webkit_web_view_call_async_javascript_function(
-            webkitWebViewPointer.reinterpret(),
-            body,
-            length,
-            arguments?.glibVariantPointer?.reinterpret(),
-            worldName,
-            sourceUri,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = webkit_web_view_call_async_javascript_function(
+        webkitWebViewPointer.reinterpret(), body, length, arguments?.glibVariantPointer?.reinterpret(), worldName, sourceUri, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(
+            callback
+        ).asCPointer()
+    )
 
     /**
      * Finish an asynchronous operation started with webkit_web_view_call_async_javascript_function().
@@ -786,24 +770,22 @@ public open class WebView(
      * @since 2.40
      */
     @WebKitVersion2_40
-    public open fun callAsyncJavascriptFunctionFinish(result: AsyncResult): Result<Value> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                webkit_web_view_call_async_javascript_function_finish(
-                    webkitWebViewPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    Value(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public open fun callAsyncJavascriptFunctionFinish(result: AsyncResult): Result<Value> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = webkit_web_view_call_async_javascript_function_finish(
+            webkitWebViewPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            Value(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Asynchronously check if it is possible to execute the given editing command.
@@ -819,14 +801,13 @@ public open class WebView(
         command: String,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        webkit_web_view_can_execute_editing_command(
-            webkitWebViewPointer.reinterpret(),
-            command,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = webkit_web_view_can_execute_editing_command(
+        webkitWebViewPointer.reinterpret(),
+        command,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finish an asynchronous operation started with webkit_web_view_can_execute_editing_command().
@@ -834,21 +815,19 @@ public open class WebView(
      * @param result a #GAsyncResult
      * @return true if the editing command can be executed or false otherwise
      */
-    public open fun canExecuteEditingCommandFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                webkit_web_view_can_execute_editing_command_finish(
-                    webkitWebViewPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun canExecuteEditingCommandFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = webkit_web_view_can_execute_editing_command_finish(
+            webkitWebViewPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Determines whether @web_view has a previous history item.
@@ -958,17 +937,16 @@ public open class WebView(
         sourceUri: String? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        webkit_web_view_evaluate_javascript(
-            webkitWebViewPointer.reinterpret(),
-            script,
-            length,
-            worldName,
-            sourceUri,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = webkit_web_view_evaluate_javascript(
+        webkitWebViewPointer.reinterpret(),
+        script,
+        length,
+        worldName,
+        sourceUri,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finish an asynchronous operation started with webkit_web_view_evaluate_javascript().
@@ -979,24 +957,22 @@ public open class WebView(
      * @since 2.40
      */
     @WebKitVersion2_40
-    public open fun evaluateJavascriptFinish(result: AsyncResult): Result<Value> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                webkit_web_view_evaluate_javascript_finish(
-                    webkitWebViewPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    Value(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public open fun evaluateJavascriptFinish(result: AsyncResult): Result<Value> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = webkit_web_view_evaluate_javascript_finish(
+            webkitWebViewPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            Value(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Request to execute the given @command for @web_view.
@@ -1021,23 +997,8 @@ public open class WebView(
      * @since 2.10
      */
     @WebKitVersion2_10
-    public open fun executeEditingCommandWithArgument(
-        command: String,
-        argument: String,
-    ): Unit =
+    public open fun executeEditingCommandWithArgument(command: String, argument: String): Unit =
         webkit_web_view_execute_editing_command_with_argument(webkitWebViewPointer.reinterpret(), command, argument)
-
-    /**
-     * Get the presentation type of #WebKitWebView when created for automation.
-     *
-     * @return a #WebKitAutomationBrowsingContextPresentation.
-     * @since 2.28
-     */
-    @WebKitVersion2_28
-    public open fun getAutomationPresentationType(): AutomationBrowsingContextPresentation =
-        webkit_web_view_get_automation_presentation_type(webkitWebViewPointer.reinterpret()).run {
-            AutomationBrowsingContextPresentation.fromNativeValue(this)
-        }
 
     /**
      * Obtains the #WebKitBackForwardList associated with the given #WebKitWebView.
@@ -1066,27 +1027,13 @@ public open class WebView(
         webkit_web_view_get_background_color(webkitWebViewPointer.reinterpret(), rgba.gdkRGBAPointer.reinterpret())
 
     /**
-     * Get the camera capture state of a #WebKitWebView.
-     *
-     * @return The #WebKitMediaCaptureState of the camera device. If #WebKitSettings:enable-mediastream
-     * is false, this method will return %WEBKIT_MEDIA_CAPTURE_STATE_NONE.
-     * @since 2.34
-     */
-    @WebKitVersion2_34
-    public open fun getCameraCaptureState(): MediaCaptureState =
-        webkit_web_view_get_camera_capture_state(webkitWebViewPointer.reinterpret()).run {
-            MediaCaptureState.fromNativeValue(this)
-        }
-
-    /**
      * Gets the web context of @web_view.
      *
      * @return the #WebKitWebContext of the view
      */
-    public open fun getContext(): WebContext =
-        webkit_web_view_get_context(webkitWebViewPointer.reinterpret())!!.run {
-            WebContext(reinterpret())
-        }
+    public open fun getContext(): WebContext = webkit_web_view_get_context(webkitWebViewPointer.reinterpret())!!.run {
+        WebContext(reinterpret())
+    }
 
     /**
      * Returns the current custom character encoding name of @web_view.
@@ -1099,29 +1046,6 @@ public open class WebView(
             ?: error("Expected not null string")
 
     /**
-     * Gets the configured default Content-Security-Policy.
-     *
-     * @return The default policy or null
-     * @since 2.38
-     */
-    @WebKitVersion2_38
-    public open fun getDefaultContentSecurityPolicy(): String? =
-        webkit_web_view_get_default_content_security_policy(webkitWebViewPointer.reinterpret())?.toKString()
-
-    /**
-     * Get the display capture state of a #WebKitWebView.
-     *
-     * @return The #WebKitMediaCaptureState of the display device. If #WebKitSettings:enable-mediastream
-     * is false, this method will return %WEBKIT_MEDIA_CAPTURE_STATE_NONE.
-     * @since 2.34
-     */
-    @WebKitVersion2_34
-    public open fun getDisplayCaptureState(): MediaCaptureState =
-        webkit_web_view_get_display_capture_state(webkitWebViewPointer.reinterpret()).run {
-            MediaCaptureState.fromNativeValue(this)
-        }
-
-    /**
      * Gets the web editor state of @web_view.
      *
      * @return the #WebKitEditorState of the view
@@ -1131,33 +1055,6 @@ public open class WebView(
     public open fun getEditorState(): EditorState =
         webkit_web_view_get_editor_state(webkitWebViewPointer.reinterpret())!!.run {
             EditorState(reinterpret())
-        }
-
-    /**
-     * Gets the value of the #WebKitWebView:estimated-load-progress property.
-     *
-     * You can monitor the estimated progress of a load operation by
-     * connecting to the notify::estimated-load-progress signal of @web_view.
-     *
-     * @return an estimate of the of the percent complete for a document
-     *     load as a range from 0.0 to 1.0.
-     */
-    public open fun getEstimatedLoadProgress(): Double =
-        webkit_web_view_get_estimated_load_progress(webkitWebViewPointer.reinterpret())
-
-    /**
-     * Returns favicon currently associated to @web_view.
-     *
-     * Returns favicon currently associated to @web_view, if any. You can
-     * connect to notify::favicon signal of @web_view to be notified when
-     * the favicon is available.
-     *
-     * @return the favicon image or null if there's no
-     *    icon associated with @web_view.
-     */
-    public open fun getFavicon(): Texture =
-        webkit_web_view_get_favicon(webkitWebViewPointer.reinterpret())!!.run {
-            Texture(reinterpret())
         }
 
     /**
@@ -1199,25 +1096,6 @@ public open class WebView(
         }
 
     /**
-     * Gets the mute state of @web_view.
-     *
-     * @return true if @web_view audio is muted or false is audio is not muted.
-     * @since 2.30
-     */
-    @WebKitVersion2_30
-    public open fun getIsMuted(): Boolean = webkit_web_view_get_is_muted(webkitWebViewPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get whether the current web process of a #WebKitWebView is responsive.
-     *
-     * @return true if the web process attached to @web_view is responsive, or false otherwise.
-     * @since 2.34
-     */
-    @WebKitVersion2_34
-    public open fun getIsWebProcessResponsive(): Boolean =
-        webkit_web_view_get_is_web_process_responsive(webkitWebViewPointer.reinterpret()).asBoolean()
-
-    /**
      * Return the main resource of @web_view.
      *
      * @return the main #WebKitWebResource of the view
@@ -1227,39 +1105,6 @@ public open class WebView(
         webkit_web_view_get_main_resource(webkitWebViewPointer.reinterpret())!!.run {
             WebResource(reinterpret())
         }
-
-    /**
-     * Get the microphone capture state of a #WebKitWebView.
-     *
-     * @return The #WebKitMediaCaptureState of the microphone device. If #WebKitSettings:enable-mediastream
-     * is false, this method will return %WEBKIT_MEDIA_CAPTURE_STATE_NONE.
-     * @since 2.34
-     */
-    @WebKitVersion2_34
-    public open fun getMicrophoneCaptureState(): MediaCaptureState =
-        webkit_web_view_get_microphone_capture_state(webkitWebViewPointer.reinterpret()).run {
-            MediaCaptureState.fromNativeValue(this)
-        }
-
-    /**
-     * Get the #WebKitNetworkSession associated to @web_view.
-     *
-     * @return a #WebKitNetworkSession
-     * @since 2.40
-     */
-    @WebKitVersion2_40
-    public open fun getNetworkSession(): NetworkSession =
-        webkit_web_view_get_network_session(webkitWebViewPointer.reinterpret())!!.run {
-            NetworkSession(reinterpret())
-        }
-
-    /**
-     * Get the identifier of the #WebKitWebPage corresponding to
-     * the #WebKitWebView
-     *
-     * @return the page ID of @web_view.
-     */
-    public open fun getPageId(): ULong = webkit_web_view_get_page_id(webkitWebViewPointer.reinterpret())
 
     /**
      * Gets the current session state of @web_view
@@ -1291,7 +1136,7 @@ public open class WebView(
      *
      * @return the #WebKitSettings attached to @web_view
      */
-    public open fun getSettings_(): Settings =
+    public open fun getWebViewSettings(): Settings =
         webkit_web_view_get_settings(webkitWebViewPointer.reinterpret())!!.run {
             Settings(reinterpret())
         }
@@ -1315,15 +1160,14 @@ public open class WebView(
         options: SnapshotOptions,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        webkit_web_view_get_snapshot(
-            webkitWebViewPointer.reinterpret(),
-            region.nativeValue,
-            options.mask,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = webkit_web_view_get_snapshot(
+        webkitWebViewPointer.reinterpret(),
+        region.nativeValue,
+        options.mask,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an asynchronous operation started with webkit_web_view_get_snapshot().
@@ -1331,138 +1175,22 @@ public open class WebView(
      * @param result a #GAsyncResult
      * @return an image with the retrieved snapshot, or null in case of error.
      */
-    public open fun getSnapshotFinish(result: AsyncResult): Result<Texture> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                webkit_web_view_get_snapshot_finish(
-                    webkitWebViewPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    Texture(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public open fun getSnapshotFinish(result: AsyncResult): Result<Texture> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = webkit_web_view_get_snapshot_finish(
+            webkitWebViewPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            Texture(reinterpret())
         }
 
-    /**
-     * Gets the value of the #WebKitWebView:title property.
-     *
-     * You can connect to notify::title signal of @web_view to
-     * be notified when the title has been received.
-     *
-     * @return The main frame document title of @web_view.
-     */
-    public open fun getTitle(): String =
-        webkit_web_view_get_title(webkitWebViewPointer.reinterpret())?.toKString() ?: error("Expected not null string")
-
-    /**
-     * Returns the current active URI of @web_view.
-     *
-     * The active URI might change during
-     * a load operation:
-     *
-     * <orderedlist>
-     * <listitem><para>
-     *   When nothing has been loaded yet on @web_view the active URI is null.
-     * </para></listitem>
-     * <listitem><para>
-     *   When a new load operation starts the active URI is the requested URI:
-     *   <itemizedlist>
-     *   <listitem><para>
-     *     If the load operation was started by webkit_web_view_load_uri(),
-     *     the requested URI is the given one.
-     *   </para></listitem>
-     *   <listitem><para>
-     *     If the load operation was started by webkit_web_view_load_html(),
-     *     the requested URI is "about:blank".
-     *   </para></listitem>
-     *   <listitem><para>
-     *     If the load operation was started by webkit_web_view_load_alternate_html(),
-     *     the requested URI is content URI provided.
-     *   </para></listitem>
-     *   <listitem><para>
-     *     If the load operation was started by webkit_web_view_go_back() or
-     *     webkit_web_view_go_forward(), the requested URI is the original URI
-     *     of the previous/next item in the #WebKitBackForwardList of @web_view.
-     *   </para></listitem>
-     *   <listitem><para>
-     *     If the load operation was started by
-     *     webkit_web_view_go_to_back_forward_list_item(), the requested URI
-     *     is the opriginal URI of the given #WebKitBackForwardListItem.
-     *   </para></listitem>
-     *   </itemizedlist>
-     * </para></listitem>
-     * <listitem><para>
-     *   If there is a server redirection during the load operation,
-     *   the active URI is the redirected URI. When the signal
-     *   #WebKitWebView::load-changed is emitted with %WEBKIT_LOAD_REDIRECTED
-     *   event, the active URI is already updated to the redirected URI.
-     * </para></listitem>
-     * <listitem><para>
-     *   When the signal #WebKitWebView::load-changed is emitted
-     *   with %WEBKIT_LOAD_COMMITTED event, the active URI is the final
-     *   one and it will not change unless a new load operation is started
-     *   or a navigation action within the same page is performed.
-     * </para></listitem>
-     * </orderedlist>
-     *
-     * You can monitor the active URI by connecting to the notify::uri
-     * signal of @web_view.
-     *
-     * @return the current active URI of @web_view or null
-     *    if nothing has been loaded yet.
-     */
-    public open fun getUri(): String =
-        webkit_web_view_get_uri(webkitWebViewPointer.reinterpret())?.toKString() ?: error("Expected not null string")
-
-    /**
-     * Gets the user content manager associated to @web_view.
-     *
-     * @return the #WebKitUserContentManager associated with the view
-     * @since 2.6
-     */
-    @WebKitVersion2_6
-    public open fun getUserContentManager(): UserContentManager =
-        webkit_web_view_get_user_content_manager(webkitWebViewPointer.reinterpret())!!.run {
-            UserContentManager(reinterpret())
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
         }
-
-    /**
-     * Get the view's #WebKitWebExtensionMode.
-     *
-     * @return the #WebKitWebExtensionMode
-     * @since 2.38
-     */
-    @WebKitVersion2_38
-    public open fun getWebExtensionMode(): WebExtensionMode =
-        webkit_web_view_get_web_extension_mode(webkitWebViewPointer.reinterpret()).run {
-            WebExtensionMode.fromNativeValue(this)
-        }
-
-    /**
-     * Gets the default website policies.
-     *
-     * Gets the default website policies set on construction in the
-     * @web_view. These can be overridden on a per-origin basis via the
-     * #WebKitWebView::decide-policy signal handler.
-     *
-     * See also webkit_policy_decision_use_with_policies().
-     *
-     * @return the default #WebKitWebsitePolicies
-     *     associated with the view.
-     * @since 2.30
-     */
-    @WebKitVersion2_30
-    public open fun getWebsitePolicies(): WebsitePolicies =
-        webkit_web_view_get_website_policies(webkitWebViewPointer.reinterpret())!!.run {
-            WebsitePolicies(reinterpret())
-        }
+    }
 
     /**
      * Get the #WebKitWindowProperties object.
@@ -1476,16 +1204,6 @@ public open class WebView(
         webkit_web_view_get_window_properties(webkitWebViewPointer.reinterpret())!!.run {
             WindowProperties(reinterpret())
         }
-
-    /**
-     * Set the zoom level of @web_view.
-     *
-     * Get the zoom level of @web_view, i.e. the factor by which the
-     * view contents are scaled with respect to their original size.
-     *
-     * @return the current zoom level of @web_view
-     */
-    public open fun getZoomLevel(): Double = webkit_web_view_get_zoom_level(webkitWebViewPointer.reinterpret())
 
     /**
      * Loads the previous history item.
@@ -1584,11 +1302,8 @@ public open class WebView(
      * @param contentUri the URI for the alternate page content
      * @param baseUri the base URI for relative locations or null
      */
-    public open fun loadAlternateHtml(
-        content: String,
-        contentUri: String,
-        baseUri: String? = null,
-    ): Unit = webkit_web_view_load_alternate_html(webkitWebViewPointer.reinterpret(), content, contentUri, baseUri)
+    public open fun loadAlternateHtml(content: String, contentUri: String, baseUri: String? = null): Unit =
+        webkit_web_view_load_alternate_html(webkitWebViewPointer.reinterpret(), content, contentUri, baseUri)
 
     /**
      * Load the specified @bytes into @web_view using the given @mime_type and @encoding.
@@ -1610,14 +1325,13 @@ public open class WebView(
         mimeType: String? = null,
         encoding: String? = null,
         baseUri: String? = null,
-    ): Unit =
-        webkit_web_view_load_bytes(
-            webkitWebViewPointer.reinterpret(),
-            bytes.glibBytesPointer.reinterpret(),
-            mimeType,
-            encoding,
-            baseUri
-        )
+    ): Unit = webkit_web_view_load_bytes(
+        webkitWebViewPointer.reinterpret(),
+        bytes.glibBytesPointer.reinterpret(),
+        mimeType,
+        encoding,
+        baseUri
+    )
 
     /**
      * Load the given @content string with the specified @base_uri.
@@ -1634,10 +1348,8 @@ public open class WebView(
      * @param content The HTML string to load
      * @param baseUri The base URI for relative locations or null
      */
-    public open fun loadHtml(
-        content: String,
-        baseUri: String? = null,
-    ): Unit = webkit_web_view_load_html(webkitWebViewPointer.reinterpret(), content, baseUri)
+    public open fun loadHtml(content: String, baseUri: String? = null): Unit =
+        webkit_web_view_load_html(webkitWebViewPointer.reinterpret(), content, baseUri)
 
     /**
      * Load the specified @plain_text string into @web_view.
@@ -1691,11 +1403,10 @@ public open class WebView(
      * @since 2.12
      */
     @WebKitVersion2_12
-    public open fun restoreSessionState(state: WebViewSessionState): Unit =
-        webkit_web_view_restore_session_state(
-            webkitWebViewPointer.reinterpret(),
-            state.webkitWebViewSessionStatePointer.reinterpret()
-        )
+    public open fun restoreSessionState(state: WebViewSessionState): Unit = webkit_web_view_restore_session_state(
+        webkitWebViewPointer.reinterpret(),
+        state.webkitWebViewSessionStatePointer.reinterpret()
+    )
 
     /**
      * Asynchronously save the current web page.
@@ -1712,11 +1423,7 @@ public open class WebView(
      * @param cancellable a #GCancellable or null to ignore
      * @param callback a #GAsyncReadyCallback to call when the request is satisfied
      */
-    public open fun save(
-        saveMode: SaveMode,
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public open fun save(saveMode: SaveMode, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         webkit_web_view_save(
             webkitWebViewPointer.reinterpret(),
             saveMode.nativeValue,
@@ -1732,24 +1439,22 @@ public open class WebView(
      * @return a #GInputStream with the result of saving
      *    the current web page or null in case of error.
      */
-    public open fun saveFinish(result: AsyncResult): Result<InputStream> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                webkit_web_view_save_finish(
-                    webkitWebViewPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    InputStream(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public open fun saveFinish(result: AsyncResult): Result<InputStream> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = webkit_web_view_save_finish(
+            webkitWebViewPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            InputStream(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Asynchronously save the current web page.
@@ -1772,15 +1477,14 @@ public open class WebView(
         saveMode: SaveMode,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        webkit_web_view_save_to_file(
-            webkitWebViewPointer.reinterpret(),
-            `file`.gioFilePointer,
-            saveMode.nativeValue,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = webkit_web_view_save_to_file(
+        webkitWebViewPointer.reinterpret(),
+        `file`.gioFilePointer,
+        saveMode.nativeValue,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finish an asynchronous operation started with webkit_web_view_save_to_file().
@@ -1788,21 +1492,19 @@ public open class WebView(
      * @param result a #GAsyncResult
      * @return true if the web page was successfully saved to a file or false otherwise.
      */
-    public open fun saveToFileFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                webkit_web_view_save_to_file_finish(
-                    webkitWebViewPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun saveToFileFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = webkit_web_view_save_to_file_finish(
+            webkitWebViewPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Send @message to the #WebKitWebPage corresponding to @web_view.
@@ -1822,14 +1524,13 @@ public open class WebView(
         message: UserMessage,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        webkit_web_view_send_message_to_page(
-            webkitWebViewPointer.reinterpret(),
-            message.webkitUserMessagePointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = webkit_web_view_send_message_to_page(
+        webkitWebViewPointer.reinterpret(),
+        message.webkitUserMessagePointer.reinterpret(),
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finish an asynchronous operation started with webkit_web_view_send_message_to_page().
@@ -1839,24 +1540,22 @@ public open class WebView(
      * @since 2.28
      */
     @WebKitVersion2_28
-    public open fun sendMessageToPageFinish(result: AsyncResult): Result<UserMessage> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                webkit_web_view_send_message_to_page_finish(
-                    webkitWebViewPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    UserMessage(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public open fun sendMessageToPageFinish(result: AsyncResult): Result<UserMessage> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = webkit_web_view_send_message_to_page_finish(
+            webkitWebViewPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            UserMessage(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Sets the color that will be used to draw the @web_view background.
@@ -1872,20 +1571,6 @@ public open class WebView(
     @WebKitVersion2_8
     public open fun setBackgroundColor(rgba: RGBA): Unit =
         webkit_web_view_set_background_color(webkitWebViewPointer.reinterpret(), rgba.gdkRGBAPointer.reinterpret())
-
-    /**
-     * Set the camera capture state of a #WebKitWebView.
-     *
-     * If #WebKitSettings:enable-mediastream is false, this method will have no visible effect. Once the
-     * state of the device has been set to %WEBKIT_MEDIA_CAPTURE_STATE_NONE it cannot be changed
-     * anymore. The page can however request capture again using the mediaDevices API.
-     *
-     * @param state a #WebKitMediaCaptureState
-     * @since 2.34
-     */
-    @WebKitVersion2_34
-    public open fun setCameraCaptureState(state: MediaCaptureState): Unit =
-        webkit_web_view_set_camera_capture_state(webkitWebViewPointer.reinterpret(), state.nativeValue)
 
     /**
      * Sets the @allowlist for CORS.
@@ -1909,13 +1594,9 @@ public open class WebView(
      * @since 2.34
      */
     @WebKitVersion2_34
-    public open fun setCorsAllowlist(allowlist: List<String>? = null): Unit =
-        memScoped {
-            return webkit_web_view_set_cors_allowlist(
-                webkitWebViewPointer.reinterpret(),
-                allowlist?.toCStringList(this)
-            )
-        }
+    public open fun setCorsAllowlist(allowlist: List<String>? = null): Unit = memScoped {
+        return webkit_web_view_set_cors_allowlist(webkitWebViewPointer.reinterpret(), allowlist?.toCStringList(this))
+    }
 
     /**
      * Sets the current custom character encoding override of @web_view.
@@ -1929,20 +1610,6 @@ public open class WebView(
      */
     public open fun setCustomCharset(charset: String? = null): Unit =
         webkit_web_view_set_custom_charset(webkitWebViewPointer.reinterpret(), charset)
-
-    /**
-     * Set the display capture state of a #WebKitWebView.
-     *
-     * If #WebKitSettings:enable-mediastream is false, this method will have no visible effect. Once the
-     * state of the device has been set to %WEBKIT_MEDIA_CAPTURE_STATE_NONE it cannot be changed
-     * anymore. The page can however request capture again using the mediaDevices API.
-     *
-     * @param state a #WebKitMediaCaptureState
-     * @since 2.34
-     */
-    @WebKitVersion2_34
-    public open fun setDisplayCaptureState(state: MediaCaptureState): Unit =
-        webkit_web_view_set_display_capture_state(webkitWebViewPointer.reinterpret(), state.nativeValue)
 
     /**
      * Sets whether the user is allowed to edit the HTML document.
@@ -1980,30 +1647,6 @@ public open class WebView(
         )
 
     /**
-     * Sets the mute state of @web_view.
-     *
-     * @param muted mute flag
-     * @since 2.30
-     */
-    @WebKitVersion2_30
-    public open fun setIsMuted(muted: Boolean): Unit =
-        webkit_web_view_set_is_muted(webkitWebViewPointer.reinterpret(), muted.asGBoolean())
-
-    /**
-     * Set the microphone capture state of a #WebKitWebView.
-     *
-     * If #WebKitSettings:enable-mediastream is false, this method will have no visible effect. Once the
-     * state of the device has been set to %WEBKIT_MEDIA_CAPTURE_STATE_NONE it cannot be changed
-     * anymore. The page can however request capture again using the mediaDevices API.
-     *
-     * @param state a #WebKitMediaCaptureState
-     * @since 2.34
-     */
-    @WebKitVersion2_34
-    public open fun setMicrophoneCaptureState(state: MediaCaptureState): Unit =
-        webkit_web_view_set_microphone_capture_state(webkitWebViewPointer.reinterpret(), state.nativeValue)
-
-    /**
      * Sets the #WebKitSettings to be applied to @web_view.
      *
      * The
@@ -2016,17 +1659,6 @@ public open class WebView(
      */
     public open fun setSettings(settings: Settings): Unit =
         webkit_web_view_set_settings(webkitWebViewPointer.reinterpret(), settings.webkitSettingsPointer.reinterpret())
-
-    /**
-     * Set the zoom level of @web_view.
-     *
-     * Set the zoom level of @web_view, i.e. the factor by which the
-     * view contents are scaled with respect to their original size.
-     *
-     * @param zoomLevel the zoom level
-     */
-    public open fun setZoomLevel(zoomLevel: Double): Unit =
-        webkit_web_view_set_zoom_level(webkitWebViewPointer.reinterpret(), zoomLevel)
 
     /**
      * Stops any ongoing loading operation in @web_view.
@@ -2087,15 +1719,14 @@ public open class WebView(
     public fun connectAuthenticate(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (request: AuthenticationRequest) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "authenticate",
-            connectAuthenticateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "authenticate",
+        connectAuthenticateFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted when closing a #WebKitWebView is requested. This occurs when a
@@ -2107,10 +1738,7 @@ public open class WebView(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectClose(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "close",
@@ -2162,15 +1790,14 @@ public open class WebView(
     public fun connectContextMenu(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (contextMenu: ContextMenu, hitTestResult: HitTestResult) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "context-menu",
-            connectContextMenuFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "context-menu",
+        connectContextMenuFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted after #WebKitWebView::context-menu signal, if the context menu is shown,
@@ -2179,10 +1806,7 @@ public open class WebView(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectContextMenuDismissed(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectContextMenuDismissed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "context-menu-dismissed",
@@ -2213,15 +1837,14 @@ public open class WebView(
     public fun connectCreate(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (navigationAction: NavigationAction) -> Widget,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "create",
-            connectCreateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "create",
+        connectCreateFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * This signal is emitted when WebKit is requesting the client to decide a policy
@@ -2273,15 +1896,14 @@ public open class WebView(
     public fun connectDecidePolicy(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (decision: PolicyDecision, decisionType: PolicyDecisionType) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "decide-policy",
-            connectDecidePolicyFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "decide-policy",
+        connectDecidePolicyFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted when JavaScript code calls
@@ -2297,10 +1919,7 @@ public open class WebView(
      * @param handler the Callback to connect. Returns true to stop other handlers from being invoked for the event.
      *    false to continue emission of the event.
      */
-    public fun connectEnterFullscreen(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Boolean,
-    ): ULong =
+    public fun connectEnterFullscreen(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "enter-fullscreen",
@@ -2321,15 +1940,14 @@ public open class WebView(
     public fun connectInsecureContentDetected(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (event: InsecureContentEvent) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "insecure-content-detected",
-            connectInsecureContentDetectedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "insecure-content-detected",
+        connectInsecureContentDetectedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted when the #WebKitWebView is about to restore its top level
@@ -2341,10 +1959,7 @@ public open class WebView(
      * @param handler the Callback to connect. Returns true to stop other handlers from being invoked for the event.
      *    false to continue emission of the event.
      */
-    public fun connectLeaveFullscreen(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Boolean,
-    ): ULong =
+    public fun connectLeaveFullscreen(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "leave-fullscreen",
@@ -2406,15 +2021,14 @@ public open class WebView(
     public fun connectLoadChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (loadEvent: LoadEvent) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "load-changed",
-            connectLoadChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "load-changed",
+        connectLoadChangedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted when an error occurs during a load operation.
@@ -2439,15 +2053,14 @@ public open class WebView(
             failingUri: String,
             error: Error,
         ) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "load-failed",
-            connectLoadFailedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "load-failed",
+        connectLoadFailedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted when a TLS error occurs during a load operation.
@@ -2473,15 +2086,14 @@ public open class WebView(
             certificate: TlsCertificate,
             errors: TlsCertificateFlags,
         ) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "load-failed-with-tls-errors",
-            connectLoadFailedWithTlsErrorsFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "load-failed-with-tls-errors",
+        connectLoadFailedWithTlsErrorsFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * This signal is emitted when the mouse cursor moves over an
@@ -2498,16 +2110,15 @@ public open class WebView(
      */
     public fun connectMouseTargetChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (hitTestResult: HitTestResult, modifiers: UInt) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "mouse-target-changed",
-            connectMouseTargetChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+        handler: (hitTestResult: HitTestResult, modifiers: guint) -> Unit,
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "mouse-target-changed",
+        connectMouseTargetChangedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * This signal is emitted when WebKit is requesting the client to
@@ -2564,15 +2175,14 @@ public open class WebView(
     public fun connectPermissionRequest(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (request: PermissionRequest) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "permission-request",
-            connectPermissionRequestFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "permission-request",
+        connectPermissionRequestFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted when printing is requested on @web_view, usually by a JavaScript call,
@@ -2592,15 +2202,14 @@ public open class WebView(
     public fun connectPrint(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (printOperation: PrintOperation) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "print",
-            connectPrintFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "print",
+        connectPrintFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * This signal allows the User-Agent to respond to permission requests for powerful features, as
@@ -2619,15 +2228,14 @@ public open class WebView(
     public fun connectQueryPermissionState(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (query: PermissionStateQuery) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "query-permission-state",
-            connectQueryPermissionStateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "query-permission-state",
+        connectQueryPermissionStateFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted after #WebKitWebView::create on the newly created #WebKitWebView
@@ -2640,10 +2248,7 @@ public open class WebView(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectReadyToShow(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectReadyToShow(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "ready-to-show",
@@ -2665,15 +2270,14 @@ public open class WebView(
     public fun connectResourceLoadStarted(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (resource: WebResource, request: URIRequest) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "resource-load-started",
-            connectResourceLoadStartedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "resource-load-started",
+        connectResourceLoadStartedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted after #WebKitWebView::ready-to-show on the newly
@@ -2687,10 +2291,7 @@ public open class WebView(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectRunAsModal(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectRunAsModal(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "run-as-modal",
@@ -2724,15 +2325,14 @@ public open class WebView(
     public fun connectRunColorChooser(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (request: ColorChooserRequest) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "run-color-chooser",
-            connectRunColorChooserFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "run-color-chooser",
+        connectRunColorChooserFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * This signal is emitted when the user interacts with a <input
@@ -2754,15 +2354,14 @@ public open class WebView(
     public fun connectRunFileChooser(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (request: FileChooserRequest) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "run-file-chooser",
-            connectRunFileChooserFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "run-file-chooser",
+        connectRunFileChooserFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted when JavaScript code calls <function>window.alert</function>,
@@ -2800,15 +2399,14 @@ public open class WebView(
     public fun connectScriptDialog(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (dialog: ScriptDialog) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "script-dialog",
-            connectScriptDialogFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "script-dialog",
+        connectScriptDialogFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * This signal is emitted when a notification should be presented to the
@@ -2826,15 +2424,14 @@ public open class WebView(
     public fun connectShowNotification(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (notification: Notification) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "show-notification",
-            connectShowNotificationFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "show-notification",
+        connectShowNotificationFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * This signal is emitted when a select element in @web_view needs to display a
@@ -2855,15 +2452,14 @@ public open class WebView(
     public fun connectShowOptionMenu(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (menu: OptionMenu, rectangle: Rectangle) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "show-option-menu",
-            connectShowOptionMenuFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "show-option-menu",
+        connectShowOptionMenuFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * This signal is emitted when a form is about to be submitted. The @request
@@ -2884,15 +2480,14 @@ public open class WebView(
     public fun connectSubmitForm(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (request: FormSubmissionRequest) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "submit-form",
-            connectSubmitFormFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "submit-form",
+        connectSubmitFormFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * This signal is emitted when a #WebKitUserMessage is received from the
@@ -2912,15 +2507,14 @@ public open class WebView(
     public fun connectUserMessageReceived(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (message: UserMessage) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "user-message-received",
-            connectUserMessageReceivedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "user-message-received",
+        connectUserMessageReceivedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * This signal is emitted when the web process terminates abnormally due
@@ -2934,15 +2528,14 @@ public open class WebView(
     public fun connectWebProcessTerminated(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (reason: WebProcessTerminationReason) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "web-process-terminated",
-            connectWebProcessTerminatedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "web-process-terminated",
+        connectWebProcessTerminatedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<WebView> {
         override val type: GeneratedClassKGType<WebView> =
@@ -2951,62 +2544,69 @@ public open class WebView(
         init {
             WebkitTypeProvider.register()
         }
+
+        /**
+         * Get the GType of WebView
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_web_view_get_type()
     }
 }
 
 private val connectAuthenticateFunc:
-    CPointer<CFunction<(CPointer<WebKitAuthenticationRequest>) -> Int>> =
-    staticCFunction {
+    CPointer<CFunction<(CPointer<WebKitAuthenticationRequest>) -> gboolean>> = staticCFunction {
             _: COpaquePointer,
             request: CPointer<WebKitAuthenticationRequest>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(request: AuthenticationRequest) -> Boolean>()
-            .get()
-            .invoke(
-                request!!.run {
-                    AuthenticationRequest(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(request: AuthenticationRequest) -> Boolean>().get().invoke(
+            request!!.run {
+                AuthenticationRequest(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
-private val connectCloseFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectCloseFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
 private val connectContextMenuFunc:
-    CPointer<CFunction<(CPointer<WebKitContextMenu>, CPointer<WebKitHitTestResult>) -> Int>> =
+    CPointer<CFunction<(CPointer<WebKitContextMenu>, CPointer<WebKitHitTestResult>) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
             contextMenu: CPointer<WebKitContextMenu>?,
             hitTestResult: CPointer<WebKitHitTestResult>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(contextMenu: ContextMenu, hitTestResult: HitTestResult) -> Boolean>()
-            .get()
-            .invoke(
-                contextMenu!!.run {
-                    ContextMenu(reinterpret())
-                },
-                hitTestResult!!.run {
-                    HitTestResult(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<
+            (
+                contextMenu: ContextMenu,
+                hitTestResult: HitTestResult,
+            ) -> Boolean
+            >().get().invoke(
+            contextMenu!!.run {
+                ContextMenu(reinterpret())
+            },
+            hitTestResult!!.run {
+                HitTestResult(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
-private val connectContextMenuDismissedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectContextMenuDismissedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
 private val connectCreateFunc:
     CPointer<CFunction<(CPointer<WebKitNavigationAction>) -> CPointer<GtkWidget>>> =
@@ -3015,52 +2615,48 @@ private val connectCreateFunc:
             navigationAction: CPointer<WebKitNavigationAction>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(navigationAction: NavigationAction) -> Widget>()
-            .get()
-            .invoke(
-                navigationAction!!.run {
-                    NavigationAction(reinterpret())
-                }
-            ).gtkWidgetPointer
-    }.reinterpret()
+        userData.asStableRef<(navigationAction: NavigationAction) -> Widget>().get().invoke(
+            navigationAction!!.run {
+                NavigationAction(reinterpret())
+            }
+        ).gtkWidgetPointer
+    }
+        .reinterpret()
 
 private val connectDecidePolicyFunc:
-    CPointer<CFunction<(CPointer<WebKitPolicyDecision>, WebKitPolicyDecisionType) -> Int>> =
+    CPointer<CFunction<(CPointer<WebKitPolicyDecision>, WebKitPolicyDecisionType) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
             decision: CPointer<WebKitPolicyDecision>?,
             decisionType: WebKitPolicyDecisionType,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(decision: PolicyDecision, decisionType: PolicyDecisionType) -> Boolean>()
-            .get()
-            .invoke(
-                decision!!.run {
-                    PolicyDecision(reinterpret())
-                },
-                decisionType.run {
-                    PolicyDecisionType.fromNativeValue(this)
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<
+            (
+                decision: PolicyDecision,
+                decisionType: PolicyDecisionType,
+            ) -> Boolean
+            >().get().invoke(
+            decision!!.run {
+                PolicyDecision(reinterpret())
+            },
+            decisionType.run {
+                PolicyDecisionType.fromNativeValue(this)
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
-private val connectEnterFullscreenFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<() -> Boolean>()
-            .get()
-            .invoke()
-            .asGBoolean()
-    }.reinterpret()
+private val connectEnterFullscreenFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
+}
+    .reinterpret()
 
 private val connectInsecureContentDetectedFunc:
-    CPointer<CFunction<(WebKitInsecureContentEvent) -> Unit>> =
-    staticCFunction {
+    CPointer<CFunction<(WebKitInsecureContentEvent) -> Unit>> = staticCFunction {
             _: COpaquePointer,
             event: WebKitInsecureContentEvent,
             userData: COpaquePointer,
@@ -3070,19 +2666,16 @@ private val connectInsecureContentDetectedFunc:
                 InsecureContentEvent.fromNativeValue(this)
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
-private val connectLeaveFullscreenFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<() -> Boolean>()
-            .get()
-            .invoke()
-            .asGBoolean()
-    }.reinterpret()
+private val connectLeaveFullscreenFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
+}
+    .reinterpret()
 
 private val connectLoadChangedFunc: CPointer<CFunction<(WebKitLoadEvent) -> Unit>> =
     staticCFunction {
@@ -3095,7 +2688,8 @@ private val connectLoadChangedFunc: CPointer<CFunction<(WebKitLoadEvent) -> Unit
                 LoadEvent.fromNativeValue(this)
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 private val connectLoadFailedFunc: CPointer<
     CFunction<
@@ -3103,35 +2697,32 @@ private val connectLoadFailedFunc: CPointer<
             WebKitLoadEvent,
             CPointer<ByteVar>,
             CPointer<org.gtkkn.native.glib.GError>,
-        ) -> Int
-    >
-> =
-    staticCFunction {
-            _: COpaquePointer,
-            loadEvent: WebKitLoadEvent,
-            failingUri: CPointer<ByteVar>?,
-            error: CPointer<org.gtkkn.native.glib.GError>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    loadEvent: LoadEvent,
-                    failingUri: String,
-                    error: Error,
-                ) -> Boolean
-            >()
-            .get()
-            .invoke(
-                loadEvent.run {
-                    LoadEvent.fromNativeValue(this)
-                },
-                failingUri?.toKString() ?: error("Expected not null string"),
-                error!!.run {
-                    Error(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        ) -> gboolean
+        >
+    > = staticCFunction {
+        _: COpaquePointer,
+        loadEvent: WebKitLoadEvent,
+        failingUri: CPointer<ByteVar>?,
+        error: CPointer<org.gtkkn.native.glib.GError>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            loadEvent: LoadEvent,
+            failingUri: String,
+            error: Error,
+        ) -> Boolean
+        >().get().invoke(
+        loadEvent.run {
+            LoadEvent.fromNativeValue(this)
+        },
+        failingUri?.toKString() ?: error("Expected not null string"),
+        error!!.run {
+            Error(reinterpret())
+        }
+    ).asGBoolean()
+}
+    .reinterpret()
 
 private val connectLoadFailedWithTlsErrorsFunc: CPointer<
     CFunction<
@@ -3139,109 +2730,98 @@ private val connectLoadFailedWithTlsErrorsFunc: CPointer<
             CPointer<ByteVar>,
             CPointer<GTlsCertificate>,
             GTlsCertificateFlags,
-        ) -> Int
-    >
-> =
-    staticCFunction {
-            _: COpaquePointer,
-            failingUri: CPointer<ByteVar>?,
-            certificate: CPointer<GTlsCertificate>?,
-            errors: GTlsCertificateFlags,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    failingUri: String,
-                    certificate: TlsCertificate,
-                    errors: TlsCertificateFlags,
-                ) -> Boolean
-            >()
-            .get()
-            .invoke(
-                failingUri?.toKString() ?: error("Expected not null string"),
-                certificate!!.run {
-                    TlsCertificate(reinterpret())
-                },
-                errors.run {
-                    TlsCertificateFlags(this)
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        ) -> gboolean
+        >
+    > = staticCFunction {
+        _: COpaquePointer,
+        failingUri: CPointer<ByteVar>?,
+        certificate: CPointer<GTlsCertificate>?,
+        errors: GTlsCertificateFlags,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            failingUri: String,
+            certificate: TlsCertificate,
+            errors: TlsCertificateFlags,
+        ) -> Boolean
+        >().get().invoke(
+        failingUri?.toKString() ?: error("Expected not null string"),
+        certificate!!.run {
+            TlsCertificate(reinterpret())
+        },
+        errors.run {
+            TlsCertificateFlags(this)
+        }
+    ).asGBoolean()
+}
+    .reinterpret()
 
 private val connectMouseTargetChangedFunc:
-    CPointer<CFunction<(CPointer<WebKitHitTestResult>, UInt) -> Unit>> =
-    staticCFunction {
+    CPointer<CFunction<(CPointer<WebKitHitTestResult>, guint) -> Unit>> = staticCFunction {
             _: COpaquePointer,
             hitTestResult: CPointer<WebKitHitTestResult>?,
-            modifiers: UInt,
+            modifiers: guint,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(hitTestResult: HitTestResult, modifiers: UInt) -> Unit>().get().invoke(
+        userData.asStableRef<(hitTestResult: HitTestResult, modifiers: guint) -> Unit>().get().invoke(
             hitTestResult!!.run {
                 HitTestResult(reinterpret())
             },
             modifiers
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 private val connectPermissionRequestFunc:
-    CPointer<CFunction<(CPointer<WebKitPermissionRequest>) -> Int>> =
-    staticCFunction {
+    CPointer<CFunction<(CPointer<WebKitPermissionRequest>) -> gboolean>> = staticCFunction {
             _: COpaquePointer,
             request: CPointer<WebKitPermissionRequest>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(request: PermissionRequest) -> Boolean>()
-            .get()
-            .invoke(
-                request!!.run {
-                    PermissionRequest.wrap(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(request: PermissionRequest) -> Boolean>().get().invoke(
+            request!!.run {
+                PermissionRequest.wrap(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
-private val connectPrintFunc: CPointer<CFunction<(CPointer<WebKitPrintOperation>) -> Int>> =
+private val connectPrintFunc: CPointer<CFunction<(CPointer<WebKitPrintOperation>) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
             printOperation: CPointer<WebKitPrintOperation>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(printOperation: PrintOperation) -> Boolean>()
-            .get()
-            .invoke(
-                printOperation!!.run {
-                    PrintOperation(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(printOperation: PrintOperation) -> Boolean>().get().invoke(
+            printOperation!!.run {
+                PrintOperation(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
 private val connectQueryPermissionStateFunc:
-    CPointer<CFunction<(CPointer<WebKitPermissionStateQuery>) -> Int>> =
-    staticCFunction {
+    CPointer<CFunction<(CPointer<WebKitPermissionStateQuery>) -> gboolean>> = staticCFunction {
             _: COpaquePointer,
             query: CPointer<WebKitPermissionStateQuery>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(query: PermissionStateQuery) -> Boolean>()
-            .get()
-            .invoke(
-                query!!.run {
-                    PermissionStateQuery(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(query: PermissionStateQuery) -> Boolean>().get().invoke(
+            query!!.run {
+                PermissionStateQuery(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
-private val connectReadyToShowFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectReadyToShowFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
 private val connectResourceLoadStartedFunc:
     CPointer<CFunction<(CPointer<WebKitWebResource>, CPointer<WebKitURIRequest>) -> Unit>> =
@@ -3259,106 +2839,94 @@ private val connectResourceLoadStartedFunc:
                 URIRequest(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
-private val connectRunAsModalFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectRunAsModalFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
 private val connectRunColorChooserFunc:
-    CPointer<CFunction<(CPointer<WebKitColorChooserRequest>) -> Int>> =
-    staticCFunction {
+    CPointer<CFunction<(CPointer<WebKitColorChooserRequest>) -> gboolean>> = staticCFunction {
             _: COpaquePointer,
             request: CPointer<WebKitColorChooserRequest>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(request: ColorChooserRequest) -> Boolean>()
-            .get()
-            .invoke(
-                request!!.run {
-                    ColorChooserRequest(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(request: ColorChooserRequest) -> Boolean>().get().invoke(
+            request!!.run {
+                ColorChooserRequest(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
 private val connectRunFileChooserFunc:
-    CPointer<CFunction<(CPointer<WebKitFileChooserRequest>) -> Int>> =
-    staticCFunction {
+    CPointer<CFunction<(CPointer<WebKitFileChooserRequest>) -> gboolean>> = staticCFunction {
             _: COpaquePointer,
             request: CPointer<WebKitFileChooserRequest>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(request: FileChooserRequest) -> Boolean>()
-            .get()
-            .invoke(
-                request!!.run {
-                    FileChooserRequest(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(request: FileChooserRequest) -> Boolean>().get().invoke(
+            request!!.run {
+                FileChooserRequest(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
-private val connectScriptDialogFunc: CPointer<CFunction<(CPointer<WebKitScriptDialog>) -> Int>> =
+private val connectScriptDialogFunc: CPointer<CFunction<(CPointer<WebKitScriptDialog>) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
             dialog: CPointer<WebKitScriptDialog>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(dialog: ScriptDialog) -> Boolean>()
-            .get()
-            .invoke(
-                dialog!!.run {
-                    ScriptDialog(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(dialog: ScriptDialog) -> Boolean>().get().invoke(
+            dialog!!.run {
+                ScriptDialog(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
-private val connectShowNotificationFunc: CPointer<CFunction<(CPointer<WebKitNotification>) -> Int>> =
-    staticCFunction {
+private val connectShowNotificationFunc:
+    CPointer<CFunction<(CPointer<WebKitNotification>) -> gboolean>> = staticCFunction {
             _: COpaquePointer,
             notification: CPointer<WebKitNotification>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(notification: Notification) -> Boolean>()
-            .get()
-            .invoke(
-                notification!!.run {
-                    Notification(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(notification: Notification) -> Boolean>().get().invoke(
+            notification!!.run {
+                Notification(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
 private val connectShowOptionMenuFunc:
-    CPointer<CFunction<(CPointer<WebKitOptionMenu>, CPointer<GdkRectangle>) -> Int>> =
+    CPointer<CFunction<(CPointer<WebKitOptionMenu>, CPointer<GdkRectangle>) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
             menu: CPointer<WebKitOptionMenu>?,
             rectangle: CPointer<GdkRectangle>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(menu: OptionMenu, rectangle: Rectangle) -> Boolean>()
-            .get()
-            .invoke(
-                menu!!.run {
-                    OptionMenu(reinterpret())
-                },
-                rectangle!!.run {
-                    Rectangle(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(menu: OptionMenu, rectangle: Rectangle) -> Boolean>().get().invoke(
+            menu!!.run {
+                OptionMenu(reinterpret())
+            },
+            rectangle!!.run {
+                Rectangle(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
 private val connectSubmitFormFunc:
-    CPointer<CFunction<(CPointer<WebKitFormSubmissionRequest>) -> Unit>> =
-    staticCFunction {
+    CPointer<CFunction<(CPointer<WebKitFormSubmissionRequest>) -> Unit>> = staticCFunction {
             _: COpaquePointer,
             request: CPointer<WebKitFormSubmissionRequest>?,
             userData: COpaquePointer,
@@ -3368,28 +2936,25 @@ private val connectSubmitFormFunc:
                 FormSubmissionRequest(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 private val connectUserMessageReceivedFunc:
-    CPointer<CFunction<(CPointer<WebKitUserMessage>) -> Int>> =
-    staticCFunction {
+    CPointer<CFunction<(CPointer<WebKitUserMessage>) -> gboolean>> = staticCFunction {
             _: COpaquePointer,
             message: CPointer<WebKitUserMessage>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(message: UserMessage) -> Boolean>()
-            .get()
-            .invoke(
-                message!!.run {
-                    UserMessage(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(message: UserMessage) -> Boolean>().get().invoke(
+            message!!.run {
+                UserMessage(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
 
 private val connectWebProcessTerminatedFunc:
-    CPointer<CFunction<(WebKitWebProcessTerminationReason) -> Unit>> =
-    staticCFunction {
+    CPointer<CFunction<(WebKitWebProcessTerminationReason) -> Unit>> = staticCFunction {
             _: COpaquePointer,
             reason: WebKitWebProcessTerminationReason,
             userData: COpaquePointer,
@@ -3399,4 +2964,5 @@ private val connectWebProcessTerminatedFunc:
                 WebProcessTerminationReason.fromNativeValue(this)
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()

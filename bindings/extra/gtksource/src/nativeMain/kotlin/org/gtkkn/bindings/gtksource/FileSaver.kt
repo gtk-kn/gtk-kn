@@ -10,12 +10,13 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.AsyncResult
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.bindings.gtksource.Gtksource.resolveException
+import org.gtkkn.bindings.gtksource.GtkSource.resolveException
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceFileSaver
 import org.gtkkn.native.gtksource.gtk_source_file_saver_get_buffer
 import org.gtkkn.native.gtksource.gtk_source_file_saver_get_compression_type
@@ -51,9 +52,8 @@ import kotlin.Unit
  * - parameter `callback`: Gio.AsyncReadyCallback
  * - method `encoding`: Property TypeInfo of getter and setter do not match
  */
-public open class FileSaver(
-    pointer: CPointer<GtkSourceFileSaver>,
-) : Object(pointer.reinterpret()),
+public open class FileSaver(pointer: CPointer<GtkSourceFileSaver>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtksourceFileSaverPointer: CPointer<GtkSourceFileSaver>
         get() = gPointer.reinterpret()
@@ -68,10 +68,9 @@ public open class FileSaver(
          *
          * @return the #GtkSourceBuffer to save.
          */
-        get() =
-            gtk_source_file_saver_get_buffer(gtksourceFileSaverPointer.reinterpret())!!.run {
-                Buffer(reinterpret())
-            }
+        get() = gtk_source_file_saver_get_buffer(gtksourceFileSaverPointer.reinterpret())!!.run {
+            Buffer(reinterpret())
+        }
 
     /**
      * The compression type.
@@ -82,10 +81,9 @@ public open class FileSaver(
          *
          * @return the compression type.
          */
-        get() =
-            gtk_source_file_saver_get_compression_type(gtksourceFileSaverPointer.reinterpret()).run {
-                CompressionType.fromNativeValue(this)
-            }
+        get() = gtk_source_file_saver_get_compression_type(gtksourceFileSaverPointer.reinterpret()).run {
+            CompressionType.fromNativeValue(this)
+        }
 
         /**
          * Sets the compression type. By default the compression type is taken from the
@@ -95,11 +93,10 @@ public open class FileSaver(
          */
         set(
             compressionType
-        ) =
-            gtk_source_file_saver_set_compression_type(
-                gtksourceFileSaverPointer.reinterpret(),
-                compressionType.nativeValue
-            )
+        ) = gtk_source_file_saver_set_compression_type(
+            gtksourceFileSaverPointer.reinterpret(),
+            compressionType.nativeValue
+        )
 
     /**
      * The #GtkSourceFile. The #GtkSourceFileSaver object has a weak
@@ -111,10 +108,9 @@ public open class FileSaver(
          *
          * @return the #GtkSourceFile.
          */
-        get() =
-            gtk_source_file_saver_get_file(gtksourceFileSaverPointer.reinterpret())!!.run {
-                File(reinterpret())
-            }
+        get() = gtk_source_file_saver_get_file(gtksourceFileSaverPointer.reinterpret())!!.run {
+            File(reinterpret())
+        }
 
     /**
      * File saving flags.
@@ -125,10 +121,9 @@ public open class FileSaver(
          *
          * @return the flags.
          */
-        get() =
-            gtk_source_file_saver_get_flags(gtksourceFileSaverPointer.reinterpret()).run {
-                FileSaverFlags(this)
-            }
+        get() = gtk_source_file_saver_get_flags(gtksourceFileSaverPointer.reinterpret()).run {
+            FileSaverFlags(this)
+        }
 
         /**
          *
@@ -147,11 +142,9 @@ public open class FileSaver(
          *
          * @return the #GFile where to save the buffer to.
          */
-        get() =
-            gtk_source_file_saver_get_location(gtksourceFileSaverPointer.reinterpret())!!.run {
-                org.gtkkn.bindings.gio.File
-                    .wrap(reinterpret())
-            }
+        get() = gtk_source_file_saver_get_location(gtksourceFileSaverPointer.reinterpret())!!.run {
+            org.gtkkn.bindings.gio.File.wrap(reinterpret())
+        }
 
     /**
      * The newline type.
@@ -162,10 +155,9 @@ public open class FileSaver(
          *
          * @return the newline type.
          */
-        get() =
-            gtk_source_file_saver_get_newline_type(gtksourceFileSaverPointer.reinterpret()).run {
-                NewlineType.fromNativeValue(this)
-            }
+        get() = gtk_source_file_saver_get_newline_type(gtksourceFileSaverPointer.reinterpret()).run {
+            NewlineType.fromNativeValue(this)
+        }
 
         /**
          * Sets the newline type. By default the newline type is taken from the
@@ -228,72 +220,11 @@ public open class FileSaver(
     /**
      *
      *
-     * @return the #GtkSourceBuffer to save.
-     */
-    public open fun getBuffer(): Buffer =
-        gtk_source_file_saver_get_buffer(gtksourceFileSaverPointer.reinterpret())!!.run {
-            Buffer(reinterpret())
-        }
-
-    /**
-     *
-     *
-     * @return the compression type.
-     */
-    public open fun getCompressionType(): CompressionType =
-        gtk_source_file_saver_get_compression_type(gtksourceFileSaverPointer.reinterpret()).run {
-            CompressionType.fromNativeValue(this)
-        }
-
-    /**
-     *
-     *
      * @return the encoding.
      */
     public open fun getEncoding(): Encoding =
         gtk_source_file_saver_get_encoding(gtksourceFileSaverPointer.reinterpret())!!.run {
             Encoding(reinterpret())
-        }
-
-    /**
-     *
-     *
-     * @return the #GtkSourceFile.
-     */
-    public open fun getFile(): File =
-        gtk_source_file_saver_get_file(gtksourceFileSaverPointer.reinterpret())!!.run {
-            File(reinterpret())
-        }
-
-    /**
-     *
-     *
-     * @return the flags.
-     */
-    public open fun getFlags(): FileSaverFlags =
-        gtk_source_file_saver_get_flags(gtksourceFileSaverPointer.reinterpret()).run {
-            FileSaverFlags(this)
-        }
-
-    /**
-     *
-     *
-     * @return the #GFile where to save the buffer to.
-     */
-    public open fun getLocation(): org.gtkkn.bindings.gio.File =
-        gtk_source_file_saver_get_location(gtksourceFileSaverPointer.reinterpret())!!.run {
-            org.gtkkn.bindings.gio.File
-                .wrap(reinterpret())
-        }
-
-    /**
-     *
-     *
-     * @return the newline type.
-     */
-    public open fun getNewlineType(): NewlineType =
-        gtk_source_file_saver_get_newline_type(gtksourceFileSaverPointer.reinterpret()).run {
-            NewlineType.fromNativeValue(this)
         }
 
     /**
@@ -309,30 +240,19 @@ public open class FileSaver(
      * @param result a #GAsyncResult.
      * @return whether the file was saved successfully.
      */
-    public open fun saveFinish(result: AsyncResult): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gtk_source_file_saver_save_finish(
-                    gtksourceFileSaverPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun saveFinish(result: AsyncResult): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gtk_source_file_saver_save_finish(
+            gtksourceFileSaverPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
-
-    /**
-     * Sets the compression type. By default the compression type is taken from the
-     * #GtkSourceFile.
-     *
-     * @param compressionType the new compression type.
-     */
-    public open fun setCompressionType(compressionType: CompressionType): Unit =
-        gtk_source_file_saver_set_compression_type(gtksourceFileSaverPointer.reinterpret(), compressionType.nativeValue)
+    }
 
     /**
      * Sets the encoding. If @encoding is null, the UTF-8 encoding will be set.
@@ -341,28 +261,10 @@ public open class FileSaver(
      *
      * @param encoding the new encoding, or null for UTF-8.
      */
-    public open fun setEncoding(encoding: Encoding? = null): Unit =
-        gtk_source_file_saver_set_encoding(
-            gtksourceFileSaverPointer.reinterpret(),
-            encoding?.gtksourceEncodingPointer?.reinterpret()
-        )
-
-    /**
-     *
-     *
-     * @param flags the new flags.
-     */
-    public open fun setFlags(flags: FileSaverFlags): Unit =
-        gtk_source_file_saver_set_flags(gtksourceFileSaverPointer.reinterpret(), flags.mask)
-
-    /**
-     * Sets the newline type. By default the newline type is taken from the
-     * #GtkSourceFile.
-     *
-     * @param newlineType the new newline type.
-     */
-    public open fun setNewlineType(newlineType: NewlineType): Unit =
-        gtk_source_file_saver_set_newline_type(gtksourceFileSaverPointer.reinterpret(), newlineType.nativeValue)
+    public open fun setEncoding(encoding: Encoding? = null): Unit = gtk_source_file_saver_set_encoding(
+        gtksourceFileSaverPointer.reinterpret(),
+        encoding?.gtksourceEncodingPointer?.reinterpret()
+    )
 
     public companion object : TypeCompanion<FileSaver> {
         override val type: GeneratedClassKGType<FileSaver> =
@@ -371,5 +273,12 @@ public open class FileSaver(
         init {
             GtksourceTypeProvider.register()
         }
+
+        /**
+         * Get the GType of FileSaver
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_file_saver_get_type()
     }
 }

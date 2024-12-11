@@ -52,18 +52,18 @@ fun listViewStrings(): Widget {
         val listItem = obj.asType<ListItem>()
 
         // get the item from our list model
-        val item = listItem.getItem()
+        val item = listItem.item
             ?.asType<StringObject>() // cast as StringObject because we are using StringList
             ?: error("Unknown item")
 
         // extract the string from the StringObject
-        val selectedItemString = item.getString()
+        val selectedItemString = item.string
 
         // create a Label widget with the string
         val label = Label(selectedItemString)
 
         // set label widget as the widget for this list item
-        listItem.setChild(label)
+        listItem.child = label
     }
 
     return ListView(selection, factory)
@@ -93,7 +93,7 @@ fun listViewObjects(): Widget {
         val listItem = obj.asType<ListItem>()
 
         // get the item from our list model
-        val person = listItem.getItem()
+        val person = listItem.item
             ?.asType<Person>() // cast as Person
             ?: error("Unknown person")
 
@@ -101,7 +101,7 @@ fun listViewObjects(): Widget {
         val label = Label("name: ${person.name}, age: ${person.age}")
 
         // set label widget as the widget for this list item
-        listItem.setChild(label)
+        listItem.child = label
     }
 
     return ListView(selection, factory)

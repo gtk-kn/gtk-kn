@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskRepeatingRadialGradientNode
 import org.gtkkn.native.gsk.gsk_repeating_radial_gradient_node_get_type
 
@@ -16,21 +17,27 @@ import org.gtkkn.native.gsk.gsk_repeating_radial_gradient_node_get_type
  *
  * - parameter `color_stops`: ColorStop
  */
-public open class RepeatingRadialGradientNode(
-    pointer: CPointer<GskRepeatingRadialGradientNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class RepeatingRadialGradientNode(pointer: CPointer<GskRepeatingRadialGradientNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskRepeatingRadialGradientNodePointer: CPointer<GskRepeatingRadialGradientNode>
         get() = gPointer.reinterpret()
 
     public companion object : TypeCompanion<RepeatingRadialGradientNode> {
         override val type: GeneratedClassKGType<RepeatingRadialGradientNode> =
-            GeneratedClassKGType(
-                gsk_repeating_radial_gradient_node_get_type()
-            ) { RepeatingRadialGradientNode(it.reinterpret()) }
+            GeneratedClassKGType(gsk_repeating_radial_gradient_node_get_type()) {
+                RepeatingRadialGradientNode(it.reinterpret())
+            }
 
         init {
             GskTypeProvider.register()
         }
+
+        /**
+         * Get the GType of RepeatingRadialGradientNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_repeating_radial_gradient_node_get_type()
     }
 }

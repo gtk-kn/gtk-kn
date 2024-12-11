@@ -1,15 +1,15 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
 import org.gtkkn.extensions.common.toCStringList
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitUserStyleSheet
+import org.gtkkn.native.webkit.webkit_user_style_sheet_get_type
 import org.gtkkn.native.webkit.webkit_user_style_sheet_new
 import org.gtkkn.native.webkit.webkit_user_style_sheet_new_for_world
 import org.gtkkn.native.webkit.webkit_user_style_sheet_ref
@@ -23,9 +23,7 @@ import kotlin.collections.List
  * @since 2.6
  */
 @WebKitVersion2_6
-public class UserStyleSheet(
-    pointer: CPointer<WebKitUserStyleSheet>,
-) : Record {
+public class UserStyleSheet(pointer: CPointer<WebKitUserStyleSheet>) : ProxyInstance(pointer) {
     public val webkitUserStyleSheetPointer: CPointer<WebKitUserStyleSheet> = pointer
 
     /**
@@ -37,10 +35,9 @@ public class UserStyleSheet(
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun ref(): UserStyleSheet =
-        webkit_user_style_sheet_ref(webkitUserStyleSheetPointer.reinterpret())!!.run {
-            UserStyleSheet(reinterpret())
-        }
+    public fun ref(): UserStyleSheet = webkit_user_style_sheet_ref(webkitUserStyleSheetPointer.reinterpret())!!.run {
+        UserStyleSheet(reinterpret())
+    }
 
     /**
      * Atomically decrements the reference count of @user_style_sheet by one.
@@ -54,7 +51,7 @@ public class UserStyleSheet(
     @WebKitVersion2_6
     public fun unref(): Unit = webkit_user_style_sheet_unref(webkitUserStyleSheetPointer.reinterpret())
 
-    public companion object : RecordCompanion<UserStyleSheet, WebKitUserStyleSheet> {
+    public companion object {
         /**
          * Creates a new user style sheet.
          *
@@ -131,7 +128,11 @@ public class UserStyleSheet(
             }
         }
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): UserStyleSheet =
-            UserStyleSheet(pointer.reinterpret())
+        /**
+         * Get the GType of UserStyleSheet
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_user_style_sheet_get_type()
     }
 }

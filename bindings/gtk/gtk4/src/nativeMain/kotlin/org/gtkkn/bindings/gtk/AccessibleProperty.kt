@@ -3,16 +3,16 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Value
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessibleProperty
+import org.gtkkn.native.gtk.gtk_accessible_property_get_type
 import org.gtkkn.native.gtk.gtk_accessible_property_init_value
 import kotlin.Unit
 
 /**
  * The possible accessible properties of a [iface@Accessible].
  */
-public enum class AccessibleProperty(
-    public val nativeValue: GtkAccessibleProperty,
-) {
+public enum class AccessibleProperty(public val nativeValue: GtkAccessibleProperty) {
     /**
      * Indicates whether inputting text
      *    could trigger display of one or more predictions of the user's intended
@@ -137,39 +137,37 @@ public enum class AccessibleProperty(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkAccessibleProperty): AccessibleProperty =
-            when (nativeValue) {
-                GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_AUTOCOMPLETE -> AUTOCOMPLETE
-                GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_DESCRIPTION -> DESCRIPTION
-                GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_HAS_POPUP -> HAS_POPUP
-                GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_KEY_SHORTCUTS -> KEY_SHORTCUTS
-                GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_LABEL -> LABEL
-                GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_LEVEL -> LEVEL
-                GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_MODAL -> MODAL
-                GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_MULTI_LINE -> MULTI_LINE
-                GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_MULTI_SELECTABLE -> MULTI_SELECTABLE
-                GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_ORIENTATION -> ORIENTATION
-                GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_PLACEHOLDER -> PLACEHOLDER
-                GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_READ_ONLY -> READ_ONLY
-                GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_REQUIRED -> REQUIRED
-                GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_ROLE_DESCRIPTION -> ROLE_DESCRIPTION
-                GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_SORT -> SORT
-                GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_VALUE_MAX -> VALUE_MAX
-                GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_VALUE_MIN -> VALUE_MIN
-                GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_VALUE_NOW -> VALUE_NOW
-                GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_VALUE_TEXT -> VALUE_TEXT
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkAccessibleProperty): AccessibleProperty = when (nativeValue) {
+            GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_AUTOCOMPLETE -> AUTOCOMPLETE
+            GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_DESCRIPTION -> DESCRIPTION
+            GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_HAS_POPUP -> HAS_POPUP
+            GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_KEY_SHORTCUTS -> KEY_SHORTCUTS
+            GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_LABEL -> LABEL
+            GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_LEVEL -> LEVEL
+            GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_MODAL -> MODAL
+            GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_MULTI_LINE -> MULTI_LINE
+            GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_MULTI_SELECTABLE -> MULTI_SELECTABLE
+            GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_ORIENTATION -> ORIENTATION
+            GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_PLACEHOLDER -> PLACEHOLDER
+            GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_READ_ONLY -> READ_ONLY
+            GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_REQUIRED -> REQUIRED
+            GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_ROLE_DESCRIPTION -> ROLE_DESCRIPTION
+            GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_SORT -> SORT
+            GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_VALUE_MAX -> VALUE_MAX
+            GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_VALUE_MIN -> VALUE_MIN
+            GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_VALUE_NOW -> VALUE_NOW
+            GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_VALUE_TEXT -> VALUE_TEXT
+            else -> error("invalid nativeValue")
+        }
+
+        public fun initValue(`property`: AccessibleProperty, `value`: Value): Unit =
+            gtk_accessible_property_init_value(`property`.nativeValue, `value`.gobjectValuePointer.reinterpret())
 
         /**
+         * Get the GType of AccessibleProperty
          *
-         *
-         * @param property
-         * @param value
+         * @return the GType
          */
-        public fun initValue(
-            `property`: AccessibleProperty,
-            `value`: Value,
-        ): Unit = gtk_accessible_property_init_value(`property`.nativeValue, `value`.gobjectValuePointer.reinterpret())
+        public fun getType(): GType = gtk_accessible_property_get_type()
     }
 }

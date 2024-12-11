@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
@@ -9,11 +8,11 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_4
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.toCStringList
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkContentFormats
 import org.gtkkn.native.gdk.gdk_content_formats_contain_gtype
 import org.gtkkn.native.gdk.gdk_content_formats_contain_mime_type
+import org.gtkkn.native.gdk.gdk_content_formats_get_type
 import org.gtkkn.native.gdk.gdk_content_formats_match
 import org.gtkkn.native.gdk.gdk_content_formats_match_gtype
 import org.gtkkn.native.gdk.gdk_content_formats_match_mime_type
@@ -22,15 +21,16 @@ import org.gtkkn.native.gdk.gdk_content_formats_new_for_gtype
 import org.gtkkn.native.gdk.gdk_content_formats_parse
 import org.gtkkn.native.gdk.gdk_content_formats_print
 import org.gtkkn.native.gdk.gdk_content_formats_ref
+import org.gtkkn.native.gdk.gdk_content_formats_to_string
 import org.gtkkn.native.gdk.gdk_content_formats_union
 import org.gtkkn.native.gdk.gdk_content_formats_union_deserialize_gtypes
 import org.gtkkn.native.gdk.gdk_content_formats_union_deserialize_mime_types
 import org.gtkkn.native.gdk.gdk_content_formats_union_serialize_gtypes
 import org.gtkkn.native.gdk.gdk_content_formats_union_serialize_mime_types
 import org.gtkkn.native.gdk.gdk_content_formats_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
-import kotlin.UInt
-import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
 import kotlin.String as KotlinString
@@ -74,11 +74,8 @@ import org.gtkkn.bindings.glib.String as GlibString
  *
  * - parameter `n_gtypes`: n_gtypes: Out parameter is not supported
  * - parameter `n_mime_types`: n_mime_types: Out parameter is not supported
- * - method `to_string`: C function gdk_content_formats_to_string is ignored
  */
-public class ContentFormats(
-    pointer: CPointer<GdkContentFormats>,
-) : Record {
+public class ContentFormats(pointer: CPointer<GdkContentFormats>) : ProxyInstance(pointer) {
     public val gdkContentFormatsPointer: CPointer<GdkContentFormats> = pointer
 
     /**
@@ -87,7 +84,7 @@ public class ContentFormats(
      * @param type the `GType` to search for
      * @return true if the `GType` was found
      */
-    public fun containGtype(type: ULong): Boolean =
+    public fun containGtype(type: GType): Boolean =
         gdk_content_formats_contain_gtype(gdkContentFormatsPointer.reinterpret(), type).asBoolean()
 
     /**
@@ -105,11 +102,10 @@ public class ContentFormats(
      * @param second the `GdkContentFormats` to intersect with
      * @return true if a matching format was found.
      */
-    public fun match(second: ContentFormats): Boolean =
-        gdk_content_formats_match(
-            gdkContentFormatsPointer.reinterpret(),
-            second.gdkContentFormatsPointer.reinterpret()
-        ).asBoolean()
+    public fun match(second: ContentFormats): Boolean = gdk_content_formats_match(
+        gdkContentFormatsPointer.reinterpret(),
+        second.gdkContentFormatsPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Finds the first `GType` from @first that is also contained
@@ -120,11 +116,10 @@ public class ContentFormats(
      * @param second the `GdkContentFormats` to intersect with
      * @return The first common `GType` or %G_TYPE_INVALID if none.
      */
-    public fun matchGtype(second: ContentFormats): ULong =
-        gdk_content_formats_match_gtype(
-            gdkContentFormatsPointer.reinterpret(),
-            second.gdkContentFormatsPointer.reinterpret()
-        )
+    public fun matchGtype(second: ContentFormats): GType = gdk_content_formats_match_gtype(
+        gdkContentFormatsPointer.reinterpret(),
+        second.gdkContentFormatsPointer.reinterpret()
+    )
 
     /**
      * Finds the first mime type from @first that is also contained
@@ -135,11 +130,10 @@ public class ContentFormats(
      * @param second the `GdkContentFormats` to intersect with
      * @return The first common mime type or null if none
      */
-    public fun matchMimeType(second: ContentFormats): KotlinString? =
-        gdk_content_formats_match_mime_type(
-            gdkContentFormatsPointer.reinterpret(),
-            second.gdkContentFormatsPointer.reinterpret()
-        )?.toKString()
+    public fun matchMimeType(second: ContentFormats): KotlinString? = gdk_content_formats_match_mime_type(
+        gdkContentFormatsPointer.reinterpret(),
+        second.gdkContentFormatsPointer.reinterpret()
+    )?.toKString()
 
     /**
      * Prints the given @formats into a string for human consumption.
@@ -157,10 +151,23 @@ public class ContentFormats(
      *
      * @return the passed in `GdkContentFormats`.
      */
-    public fun ref(): ContentFormats =
-        gdk_content_formats_ref(gdkContentFormatsPointer.reinterpret())!!.run {
-            ContentFormats(reinterpret())
-        }
+    public fun ref(): ContentFormats = gdk_content_formats_ref(gdkContentFormatsPointer.reinterpret())!!.run {
+        ContentFormats(reinterpret())
+    }
+
+    /**
+     * Prints the given @formats into a human-readable string.
+     *
+     * The resulting string can be parsed with [func@Gdk.ContentFormats.parse].
+     *
+     * This is a small wrapper around [method@Gdk.ContentFormats.print]
+     * to help when debugging.
+     *
+     * @return a new string
+     */
+    override fun toString(): KotlinString =
+        gdk_content_formats_to_string(gdkContentFormatsPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Append all missing types from @second to @first, in the order
@@ -169,13 +176,12 @@ public class ContentFormats(
      * @param second the `GdkContentFormats` to merge from
      * @return a new `GdkContentFormats`
      */
-    public fun union(second: ContentFormats): ContentFormats =
-        gdk_content_formats_union(
-            gdkContentFormatsPointer.reinterpret(),
-            second.gdkContentFormatsPointer.reinterpret()
-        )!!.run {
-            ContentFormats(reinterpret())
-        }
+    public fun union(second: ContentFormats): ContentFormats = gdk_content_formats_union(
+        gdkContentFormatsPointer.reinterpret(),
+        second.gdkContentFormatsPointer.reinterpret()
+    )!!.run {
+        ContentFormats(reinterpret())
+    }
 
     /**
      * Add GTypes for mime types in @formats for which deserializers are
@@ -228,7 +234,7 @@ public class ContentFormats(
      */
     public fun unref(): Unit = gdk_content_formats_unref(gdkContentFormatsPointer.reinterpret())
 
-    public companion object : RecordCompanion<ContentFormats, GdkContentFormats> {
+    public companion object {
         /**
          * Creates a new `GdkContentFormats` from an array of mime types.
          *
@@ -241,10 +247,7 @@ public class ContentFormats(
          * @param nMimeTypes number of entries in @mime_types.
          * @return the new `GdkContentFormats`.
          */
-        public fun new(
-            mimeTypes: List<KotlinString>? = null,
-            nMimeTypes: UInt,
-        ): ContentFormats {
+        public fun new(mimeTypes: List<KotlinString>? = null, nMimeTypes: guint): ContentFormats {
             memScoped {
                 return ContentFormats(
                     gdk_content_formats_new(mimeTypes?.toCStringList(this), nMimeTypes)!!.reinterpret()
@@ -258,7 +261,7 @@ public class ContentFormats(
          * @param type a `GType`
          * @return a new `GdkContentFormats`
          */
-        public fun newForGtype(type: ULong): ContentFormats =
+        public fun newForGtype(type: GType): ContentFormats =
             ContentFormats(gdk_content_formats_new_for_gtype(type)!!.reinterpret())
 
         /**
@@ -276,12 +279,15 @@ public class ContentFormats(
          * @since 4.4
          */
         @GdkVersion4_4
-        public fun parse(string: KotlinString): ContentFormats? =
-            gdk_content_formats_parse(string)?.run {
-                ContentFormats(reinterpret())
-            }
+        public fun parse(string: KotlinString): ContentFormats? = gdk_content_formats_parse(string)?.run {
+            ContentFormats(reinterpret())
+        }
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ContentFormats =
-            ContentFormats(pointer.reinterpret())
+        /**
+         * Get the GType of ContentFormats
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_content_formats_get_type()
     }
 }

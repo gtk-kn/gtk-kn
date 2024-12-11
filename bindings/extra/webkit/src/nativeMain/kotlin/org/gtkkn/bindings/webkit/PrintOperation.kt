@@ -19,6 +19,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.webkit.WebKitPrintOperation
 import org.gtkkn.native.webkit.webkit_print_operation_get_page_setup
@@ -44,9 +45,8 @@ import kotlin.Unit
  *
  * - method `web-view`: Property has no getter nor setter
  */
-public class PrintOperation(
-    pointer: CPointer<WebKitPrintOperation>,
-) : Object(pointer.reinterpret()),
+public class PrintOperation(pointer: CPointer<WebKitPrintOperation>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val webkitPrintOperationPointer: CPointer<WebKitPrintOperation>
         get() = gPointer.reinterpret()
@@ -64,10 +64,9 @@ public class PrintOperation(
          *
          * @return the current #GtkPageSetup of @print_operation.
          */
-        get() =
-            webkit_print_operation_get_page_setup(webkitPrintOperationPointer.reinterpret())!!.run {
-                PageSetup(reinterpret())
-            }
+        get() = webkit_print_operation_get_page_setup(webkitPrintOperationPointer.reinterpret())!!.run {
+            PageSetup(reinterpret())
+        }
 
         /**
          * Set the current page setup of @print_operation.
@@ -79,11 +78,10 @@ public class PrintOperation(
          */
         set(
             pageSetup
-        ) =
-            webkit_print_operation_set_page_setup(
-                webkitPrintOperationPointer.reinterpret(),
-                pageSetup.gtkPageSetupPointer.reinterpret()
-            )
+        ) = webkit_print_operation_set_page_setup(
+            webkitPrintOperationPointer.reinterpret(),
+            pageSetup.gtkPageSetupPointer.reinterpret()
+        )
 
     /**
      * The initial #GtkPrintSettings for the print operation.
@@ -98,10 +96,9 @@ public class PrintOperation(
          *
          * @return the current #GtkPrintSettings of @print_operation.
          */
-        get() =
-            webkit_print_operation_get_print_settings(webkitPrintOperationPointer.reinterpret())!!.run {
-                PrintSettings(reinterpret())
-            }
+        get() = webkit_print_operation_get_print_settings(webkitPrintOperationPointer.reinterpret())!!.run {
+            PrintSettings(reinterpret())
+        }
 
         /**
          * Set the current print settings of @print_operation.
@@ -113,11 +110,10 @@ public class PrintOperation(
          */
         set(
             printSettings
-        ) =
-            webkit_print_operation_set_print_settings(
-                webkitPrintOperationPointer.reinterpret(),
-                printSettings.gtkPrintSettingsPointer.reinterpret()
-            )
+        ) = webkit_print_operation_set_print_settings(
+            webkitPrintOperationPointer.reinterpret(),
+            printSettings.gtkPrintSettingsPointer.reinterpret()
+        )
 
     /**
      * Create a new #WebKitPrintOperation to print @web_view contents.
@@ -128,34 +124,6 @@ public class PrintOperation(
     public constructor(
         webView: WebView,
     ) : this(webkit_print_operation_new(webView.webkitWebViewPointer.reinterpret())!!.reinterpret())
-
-    /**
-     * Return the current page setup of @print_operation.
-     *
-     * It returns null until
-     * either webkit_print_operation_set_page_setup() or webkit_print_operation_run_dialog()
-     * have been called.
-     *
-     * @return the current #GtkPageSetup of @print_operation.
-     */
-    public fun getPageSetup(): PageSetup =
-        webkit_print_operation_get_page_setup(webkitPrintOperationPointer.reinterpret())!!.run {
-            PageSetup(reinterpret())
-        }
-
-    /**
-     * Return the current print settings of @print_operation.
-     *
-     * It returns null until
-     * either webkit_print_operation_set_print_settings() or webkit_print_operation_run_dialog()
-     * have been called.
-     *
-     * @return the current #GtkPrintSettings of @print_operation.
-     */
-    public fun getPrintSettings(): PrintSettings =
-        webkit_print_operation_get_print_settings(webkitPrintOperationPointer.reinterpret())!!.run {
-            PrintSettings(reinterpret())
-        }
 
     /**
      * Start a print operation using current print settings and page setup.
@@ -195,41 +163,12 @@ public class PrintOperation(
      * @param parent transient parent of the print dialog
      * @return the #WebKitPrintOperationResponse of the print dialog
      */
-    public fun runDialog(parent: Window? = null): PrintOperationResponse =
-        webkit_print_operation_run_dialog(
-            webkitPrintOperationPointer.reinterpret(),
-            parent?.gtkWindowPointer?.reinterpret()
-        ).run {
-            PrintOperationResponse.fromNativeValue(this)
-        }
-
-    /**
-     * Set the current page setup of @print_operation.
-     *
-     * Current page setup is used for the
-     * initial values of the print dialog when webkit_print_operation_run_dialog() is called.
-     *
-     * @param pageSetup a #GtkPageSetup to set
-     */
-    public fun setPageSetup(pageSetup: PageSetup): Unit =
-        webkit_print_operation_set_page_setup(
-            webkitPrintOperationPointer.reinterpret(),
-            pageSetup.gtkPageSetupPointer.reinterpret()
-        )
-
-    /**
-     * Set the current print settings of @print_operation.
-     *
-     * Set the current print settings of @print_operation. Current print settings are used for
-     * the initial values of the print dialog when webkit_print_operation_run_dialog() is called.
-     *
-     * @param printSettings a #GtkPrintSettings to set
-     */
-    public fun setPrintSettings(printSettings: PrintSettings): Unit =
-        webkit_print_operation_set_print_settings(
-            webkitPrintOperationPointer.reinterpret(),
-            printSettings.gtkPrintSettingsPointer.reinterpret()
-        )
+    public fun runDialog(parent: Window? = null): PrintOperationResponse = webkit_print_operation_run_dialog(
+        webkitPrintOperationPointer.reinterpret(),
+        parent?.gtkWindowPointer?.reinterpret()
+    ).run {
+        PrintOperationResponse.fromNativeValue(this)
+    }
 
     /**
      * Emitted when an error occurs while printing. The given @error, of the domain
@@ -239,10 +178,7 @@ public class PrintOperation(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `error` the #GError that was triggered
      */
-    public fun connectFailed(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (error: Error) -> Unit,
-    ): ULong =
+    public fun connectFailed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (error: Error) -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "failed",
@@ -259,10 +195,7 @@ public class PrintOperation(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectFinished(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectFinished(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "finished",
@@ -279,26 +212,33 @@ public class PrintOperation(
         init {
             WebkitTypeProvider.register()
         }
+
+        /**
+         * Get the GType of PrintOperation
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_print_operation_get_type()
     }
 }
 
-private val connectFailedFunc: CPointer<CFunction<(CPointer<GError>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            error: CPointer<GError>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(error: Error) -> Unit>().get().invoke(
-            error!!.run {
-                Error(reinterpret())
-            }
-        )
-    }.reinterpret()
+private val connectFailedFunc: CPointer<CFunction<(CPointer<GError>) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        error: CPointer<GError>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(error: Error) -> Unit>().get().invoke(
+        error!!.run {
+            Error(reinterpret())
+        }
+    )
+}
+    .reinterpret()
 
-private val connectFinishedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectFinishedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

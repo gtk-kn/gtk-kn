@@ -17,7 +17,10 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkPrinter
 import org.gtkkn.native.gtk.gtk_printer_accepts_pdf
 import org.gtkkn.native.gtk.gtk_printer_accepts_ps
@@ -40,7 +43,6 @@ import org.gtkkn.native.gtk.gtk_printer_is_virtual
 import org.gtkkn.native.gtk.gtk_printer_list_papers
 import org.gtkkn.native.gtk.gtk_printer_request_details
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -64,13 +66,13 @@ import kotlin.Unit
  * - method `accepting-jobs`: Property has no getter nor setter
  * - method `accepts-pdf`: Property has no getter nor setter
  * - method `accepts-ps`: Property has no getter nor setter
+ * - method `backend`: Property has no getter nor setter
  * - method `is-virtual`: Property has no getter nor setter
  * - method `paused`: Property has no getter nor setter
  * - parameter `backend`: PrintBackend
  */
-public open class Printer(
-    pointer: CPointer<GtkPrinter>,
-) : Object(pointer.reinterpret()),
+public open class Printer(pointer: CPointer<GtkPrinter>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkPrinterPointer: CPointer<GtkPrinter>
         get() = gPointer.reinterpret()
@@ -84,14 +86,13 @@ public open class Printer(
          *
          * @return the icon name for @printer
          */
-        get() =
-            gtk_printer_get_icon_name(gtkPrinterPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_printer_get_icon_name(gtkPrinterPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Number of jobs queued in the printer.
      */
-    public open val jobCount: Int
+    public open val jobCount: gint
         /**
          * Gets the number of jobs currently queued on the printer.
          *
@@ -108,9 +109,8 @@ public open class Printer(
          *
          * @return the location of @printer
          */
-        get() =
-            gtk_printer_get_location(gtkPrinterPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_printer_get_location(gtkPrinterPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * The name of the printer.
@@ -133,9 +133,8 @@ public open class Printer(
          *
          * @return the state message of @printer
          */
-        get() =
-            gtk_printer_get_state_message(gtkPrinterPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_printer_get_state_message(gtkPrinterPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Returns whether the printer accepts input in
@@ -160,7 +159,7 @@ public open class Printer(
      * @return 0 if the printer match, a negative value if @a < @b,
      *   or a positive value if @a > @b
      */
-    public open fun compare(b: Printer): Int =
+    public open fun compare(b: Printer): gint =
         gtk_printer_compare(gtkPrinterPointer.reinterpret(), b.gtkPrinterPointer.reinterpret())
 
     /**
@@ -199,46 +198,6 @@ public open class Printer(
      */
     public open fun getDescription(): String =
         gtk_printer_get_description(gtkPrinterPointer.reinterpret())?.toKString() ?: error("Expected not null string")
-
-    /**
-     * Gets the name of the icon to use for the printer.
-     *
-     * @return the icon name for @printer
-     */
-    public open fun getIconName(): String =
-        gtk_printer_get_icon_name(gtkPrinterPointer.reinterpret())?.toKString() ?: error("Expected not null string")
-
-    /**
-     * Gets the number of jobs currently queued on the printer.
-     *
-     * @return the number of jobs on @printer
-     */
-    public open fun getJobCount(): Int = gtk_printer_get_job_count(gtkPrinterPointer.reinterpret())
-
-    /**
-     * Returns a description of the location of the printer.
-     *
-     * @return the location of @printer
-     */
-    public open fun getLocation(): String =
-        gtk_printer_get_location(gtkPrinterPointer.reinterpret())?.toKString() ?: error("Expected not null string")
-
-    /**
-     * Returns the name of the printer.
-     *
-     * @return the name of @printer
-     */
-    public open fun getName(): String =
-        gtk_printer_get_name(gtkPrinterPointer.reinterpret())?.toKString() ?: error("Expected not null string")
-
-    /**
-     * Returns the state message describing the current state
-     * of the printer.
-     *
-     * @return the state message of @printer
-     */
-    public open fun getStateMessage(): String =
-        gtk_printer_get_state_message(gtkPrinterPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns whether the printer details are available.
@@ -299,10 +258,9 @@ public open class Printer(
      * @return a newly
      *   allocated list of newly allocated `GtkPageSetup`s.
      */
-    public open fun listPapers(): List =
-        gtk_printer_list_papers(gtkPrinterPointer.reinterpret())!!.run {
-            List(reinterpret())
-        }
+    public open fun listPapers(): List = gtk_printer_list_papers(gtkPrinterPointer.reinterpret())!!.run {
+        List(reinterpret())
+    }
 
     /**
      * Requests the printer details.
@@ -326,15 +284,14 @@ public open class Printer(
     public fun connectDetailsAcquired(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (success: Boolean) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "details-acquired",
-            connectDetailsAcquiredFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "details-acquired",
+        connectDetailsAcquiredFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<Printer> {
         override val type: GeneratedClassKGType<Printer> =
@@ -343,14 +300,21 @@ public open class Printer(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Printer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_printer_get_type()
     }
 }
 
-private val connectDetailsAcquiredFunc: CPointer<CFunction<(Int) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            success: Int,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(success: Boolean) -> Unit>().get().invoke(success.asBoolean())
-    }.reinterpret()
+private val connectDetailsAcquiredFunc: CPointer<CFunction<(gboolean) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        success: gboolean,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(success: Boolean) -> Unit>().get().invoke(success.asBoolean())
+}
+    .reinterpret()

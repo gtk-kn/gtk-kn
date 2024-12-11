@@ -16,6 +16,8 @@ import org.gtkkn.native.gdk.GDK_NO_MODIFIER_MASK
 import org.gtkkn.native.gdk.GDK_SHIFT_MASK
 import org.gtkkn.native.gdk.GDK_SUPER_MASK
 import org.gtkkn.native.gdk.GdkModifierType
+import org.gtkkn.native.gdk.gdk_modifier_type_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags to indicate the state of modifier keys and mouse buttons
@@ -28,9 +30,7 @@ import org.gtkkn.native.gdk.GdkModifierType
  * of this enumeration. Your code should preserve and ignore them.  You can use
  * %GDK_MODIFIER_MASK to remove all private values.
  */
-public class ModifierType(
-    public val mask: GdkModifierType,
-) : Bitfield<ModifierType> {
+public class ModifierType(public val mask: GdkModifierType) : Bitfield<ModifierType> {
     override infix fun or(other: ModifierType): ModifierType = ModifierType(mask or other.mask)
 
     public companion object {
@@ -102,5 +102,12 @@ public class ModifierType(
          * the Meta modifier
          */
         public val META_MASK: ModifierType = ModifierType(GDK_META_MASK)
+
+        /**
+         * Get the GType of ModifierType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_modifier_type_get_type()
     }
 }

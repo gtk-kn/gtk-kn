@@ -32,11 +32,12 @@ import org.gtkkn.native.gdk.gdk_toplevel_set_transient_for
 import org.gtkkn.native.gdk.gdk_toplevel_show_window_menu
 import org.gtkkn.native.gdk.gdk_toplevel_supports_edge_constraints
 import org.gtkkn.native.gdk.gdk_toplevel_titlebar_gesture
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 
 /**
@@ -74,10 +75,9 @@ public interface Toplevel :
          *
          * @return surface state bitfield
          */
-        get() =
-            gdk_toplevel_get_state(gdkToplevelPointer.reinterpret()).run {
-                ToplevelState(this)
-            }
+        get() = gdk_toplevel_get_state(gdkToplevelPointer.reinterpret()).run {
+            ToplevelState(this)
+        }
 
     /**
      * Begins an interactive move operation.
@@ -91,13 +91,7 @@ public interface Toplevel :
      * @param timestamp timestamp of mouse click that began the drag (use
      *   [method@Gdk.Event.get_time])
      */
-    public fun beginMove(
-        device: Device,
-        button: Int,
-        x: Double,
-        y: Double,
-        timestamp: UInt,
-    ): Unit =
+    public fun beginMove(device: Device, button: gint, x: gdouble, y: gdouble, timestamp: guint): Unit =
         gdk_toplevel_begin_move(
             gdkToplevelPointer.reinterpret(),
             device.gdkDevicePointer.reinterpret(),
@@ -123,20 +117,19 @@ public interface Toplevel :
     public fun beginResize(
         edge: SurfaceEdge,
         device: Device? = null,
-        button: Int,
-        x: Double,
-        y: Double,
-        timestamp: UInt,
-    ): Unit =
-        gdk_toplevel_begin_resize(
-            gdkToplevelPointer.reinterpret(),
-            edge.nativeValue,
-            device?.gdkDevicePointer?.reinterpret(),
-            button,
-            x,
-            y,
-            timestamp
-        )
+        button: gint,
+        x: gdouble,
+        y: gdouble,
+        timestamp: guint,
+    ): Unit = gdk_toplevel_begin_resize(
+        gdkToplevelPointer.reinterpret(),
+        edge.nativeValue,
+        device?.gdkDevicePointer?.reinterpret(),
+        button,
+        x,
+        y,
+        timestamp
+    )
 
     /**
      * Sets keyboard focus to @surface.
@@ -147,7 +140,7 @@ public interface Toplevel :
      *
      * @param timestamp timestamp of the event triggering the surface focus
      */
-    public fun focus(timestamp: UInt): Unit = gdk_toplevel_focus(gdkToplevelPointer.reinterpret(), timestamp)
+    public fun focus(timestamp: guint): Unit = gdk_toplevel_focus(gdkToplevelPointer.reinterpret(), timestamp)
 
     /**
      * Gets the bitwise or of the currently active surface state flags,
@@ -155,10 +148,9 @@ public interface Toplevel :
      *
      * @return surface state bitfield
      */
-    public fun getState(): ToplevelState =
-        gdk_toplevel_get_state(gdkToplevelPointer.reinterpret()).run {
-            ToplevelState(this)
-        }
+    public fun getState(): ToplevelState = gdk_toplevel_get_state(gdkToplevelPointer.reinterpret()).run {
+        ToplevelState(this)
+    }
 
     /**
      * Requests that the @toplevel inhibit the system shortcuts.
@@ -359,9 +351,7 @@ public interface Toplevel :
     public fun titlebarGesture(gesture: TitlebarGesture): Boolean =
         gdk_toplevel_titlebar_gesture(gdkToplevelPointer.reinterpret(), gesture.nativeValue).asBoolean()
 
-    private data class Wrapper(
-        private val pointer: CPointer<GdkToplevel>,
-    ) : Toplevel {
+    private data class Wrapper(private val pointer: CPointer<GdkToplevel>) : Toplevel {
         override val gdkToplevelPointer: CPointer<GdkToplevel> = pointer
     }
 
@@ -374,5 +364,12 @@ public interface Toplevel :
         }
 
         public fun wrap(pointer: CPointer<GdkToplevel>): Toplevel = Wrapper(pointer)
+
+        /**
+         * Get the GType of Toplevel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_toplevel_get_type()
     }
 }

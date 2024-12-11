@@ -20,7 +20,10 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkCellEditable
 import org.gtkkn.native.gtk.GtkCellRenderer
 import org.gtkkn.native.gtk.gtk_cell_renderer_activate
@@ -44,8 +47,6 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_set_visible
 import org.gtkkn.native.gtk.gtk_cell_renderer_start_editing
 import org.gtkkn.native.gtk.gtk_cell_renderer_stop_editing
 import kotlin.Boolean
-import kotlin.Float
-import kotlin.Int
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -111,9 +112,8 @@ import kotlin.Unit
  * - method `yalign`: Property has no getter nor setter
  * - method `ypad`: Property has no getter nor setter
  */
-public open class CellRenderer(
-    pointer: CPointer<GtkCellRenderer>,
-) : InitiallyUnowned(pointer.reinterpret()),
+public open class CellRenderer(pointer: CPointer<GtkCellRenderer>) :
+    InitiallyUnowned(pointer.reinterpret()),
     KGTyped {
     public val gtkCellRendererPointer: CPointer<GtkCellRenderer>
         get() = gPointer.reinterpret()
@@ -203,16 +203,15 @@ public open class CellRenderer(
         backgroundArea: Rectangle,
         cellArea: Rectangle,
         flags: CellRendererState,
-    ): Boolean =
-        gtk_cell_renderer_activate(
-            gtkCellRendererPointer.reinterpret(),
-            event.gPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret(),
-            path,
-            backgroundArea.gdkRectanglePointer.reinterpret(),
-            cellArea.gdkRectanglePointer.reinterpret(),
-            flags.mask
-        ).asBoolean()
+    ): Boolean = gtk_cell_renderer_activate(
+        gtkCellRendererPointer.reinterpret(),
+        event.gPointer.reinterpret(),
+        widget.gtkWidgetPointer.reinterpret(),
+        path,
+        backgroundArea.gdkRectanglePointer.reinterpret(),
+        cellArea.gdkRectanglePointer.reinterpret(),
+        flags.mask
+    ).asBoolean()
 
     /**
      * Gets the aligned area used by @cell inside @cell_area. Used for finding
@@ -229,30 +228,13 @@ public open class CellRenderer(
         flags: CellRendererState,
         cellArea: Rectangle,
         alignedArea: Rectangle,
-    ): Unit =
-        gtk_cell_renderer_get_aligned_area(
-            gtkCellRendererPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret(),
-            flags.mask,
-            cellArea.gdkRectanglePointer.reinterpret(),
-            alignedArea.gdkRectanglePointer.reinterpret()
-        )
-
-    /**
-     * Checks whether the given `GtkCellRenderer` is expanded.
-     *
-     * @return true if the cell renderer is expanded
-     */
-    public open fun getIsExpanded(): Boolean =
-        gtk_cell_renderer_get_is_expanded(gtkCellRendererPointer.reinterpret()).asBoolean()
-
-    /**
-     * Checks whether the given `GtkCellRenderer` is an expander.
-     *
-     * @return true if @cell is an expander, and false otherwise
-     */
-    public open fun getIsExpander(): Boolean =
-        gtk_cell_renderer_get_is_expander(gtkCellRendererPointer.reinterpret()).asBoolean()
+    ): Unit = gtk_cell_renderer_get_aligned_area(
+        gtkCellRendererPointer.reinterpret(),
+        widget.gtkWidgetPointer.reinterpret(),
+        flags.mask,
+        cellArea.gdkRectanglePointer.reinterpret(),
+        alignedArea.gdkRectanglePointer.reinterpret()
+    )
 
     /**
      * Retrieves the minimum and natural size of a cell taking
@@ -262,11 +244,7 @@ public open class CellRenderer(
      * @param minimumSize location for storing the minimum size
      * @param naturalSize location for storing the natural size
      */
-    public open fun getPreferredSize(
-        widget: Widget,
-        minimumSize: Requisition?,
-        naturalSize: Requisition?,
-    ): Unit =
+    public open fun getPreferredSize(widget: Widget, minimumSize: Requisition?, naturalSize: Requisition?): Unit =
         gtk_cell_renderer_get_preferred_size(
             gtkCellRendererPointer.reinterpret(),
             widget.gtkWidgetPointer.reinterpret(),
@@ -286,14 +264,6 @@ public open class CellRenderer(
         }
 
     /**
-     * Returns the cell renderer’s sensitivity.
-     *
-     * @return true if the cell renderer is sensitive
-     */
-    public open fun getSensitive(): Boolean =
-        gtk_cell_renderer_get_sensitive(gtkCellRendererPointer.reinterpret()).asBoolean()
-
-    /**
      * Translates the cell renderer state to `GtkStateFlags`,
      * based on the cell renderer and widget sensitivity, and
      * the given `GtkCellRenderer`State.
@@ -302,10 +272,7 @@ public open class CellRenderer(
      * @param cellState cell renderer state
      * @return the widget state flags applying to @cell
      */
-    public open fun getState(
-        widget: Widget? = null,
-        cellState: CellRendererState,
-    ): StateFlags =
+    public open fun getState(widget: Widget? = null, cellState: CellRendererState): StateFlags =
         gtk_cell_renderer_get_state(
             gtkCellRendererPointer.reinterpret(),
             widget?.gtkWidgetPointer?.reinterpret(),
@@ -313,14 +280,6 @@ public open class CellRenderer(
         ).run {
             StateFlags(this)
         }
-
-    /**
-     * Returns the cell renderer’s visibility.
-     *
-     * @return true if the cell renderer is visible
-     */
-    public open fun getVisible(): Boolean =
-        gtk_cell_renderer_get_visible(gtkCellRendererPointer.reinterpret()).asBoolean()
 
     /**
      * Checks whether the cell renderer can do something when activated.
@@ -336,10 +295,8 @@ public open class CellRenderer(
      * @param xalign the x alignment of the cell renderer
      * @param yalign the y alignment of the cell renderer
      */
-    public open fun setAlignment(
-        xalign: Float,
-        yalign: Float,
-    ): Unit = gtk_cell_renderer_set_alignment(gtkCellRendererPointer.reinterpret(), xalign, yalign)
+    public open fun setAlignment(xalign: gfloat, yalign: gfloat): Unit =
+        gtk_cell_renderer_set_alignment(gtkCellRendererPointer.reinterpret(), xalign, yalign)
 
     /**
      * Sets the renderer size to be explicit, independent of the properties set.
@@ -347,26 +304,8 @@ public open class CellRenderer(
      * @param width the width of the cell renderer, or -1
      * @param height the height of the cell renderer, or -1
      */
-    public open fun setFixedSize(
-        width: Int,
-        height: Int,
-    ): Unit = gtk_cell_renderer_set_fixed_size(gtkCellRendererPointer.reinterpret(), width, height)
-
-    /**
-     * Sets whether the given `GtkCellRenderer` is expanded.
-     *
-     * @param isExpanded whether @cell should be expanded
-     */
-    public open fun setIsExpanded(isExpanded: Boolean): Unit =
-        gtk_cell_renderer_set_is_expanded(gtkCellRendererPointer.reinterpret(), isExpanded.asGBoolean())
-
-    /**
-     * Sets whether the given `GtkCellRenderer` is an expander.
-     *
-     * @param isExpander whether @cell is an expander
-     */
-    public open fun setIsExpander(isExpander: Boolean): Unit =
-        gtk_cell_renderer_set_is_expander(gtkCellRendererPointer.reinterpret(), isExpander.asGBoolean())
+    public open fun setFixedSize(width: gint, height: gint): Unit =
+        gtk_cell_renderer_set_fixed_size(gtkCellRendererPointer.reinterpret(), width, height)
 
     /**
      * Sets the renderer’s padding.
@@ -374,26 +313,8 @@ public open class CellRenderer(
      * @param xpad the x padding of the cell renderer
      * @param ypad the y padding of the cell renderer
      */
-    public open fun setPadding(
-        xpad: Int,
-        ypad: Int,
-    ): Unit = gtk_cell_renderer_set_padding(gtkCellRendererPointer.reinterpret(), xpad, ypad)
-
-    /**
-     * Sets the cell renderer’s sensitivity.
-     *
-     * @param sensitive the sensitivity of the cell
-     */
-    public open fun setSensitive(sensitive: Boolean): Unit =
-        gtk_cell_renderer_set_sensitive(gtkCellRendererPointer.reinterpret(), sensitive.asGBoolean())
-
-    /**
-     * Sets the cell renderer’s visibility.
-     *
-     * @param visible the visibility of the cell
-     */
-    public open fun setVisible(visible: Boolean): Unit =
-        gtk_cell_renderer_set_visible(gtkCellRendererPointer.reinterpret(), visible.asGBoolean())
+    public open fun setPadding(xpad: gint, ypad: gint): Unit =
+        gtk_cell_renderer_set_padding(gtkCellRendererPointer.reinterpret(), xpad, ypad)
 
     /**
      * Starts editing the contents of this @cell, through a new `GtkCellEditable`
@@ -416,18 +337,17 @@ public open class CellRenderer(
         backgroundArea: Rectangle,
         cellArea: Rectangle,
         flags: CellRendererState,
-    ): CellEditable? =
-        gtk_cell_renderer_start_editing(
-            gtkCellRendererPointer.reinterpret(),
-            event?.gPointer?.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret(),
-            path,
-            backgroundArea.gdkRectanglePointer.reinterpret(),
-            cellArea.gdkRectanglePointer.reinterpret(),
-            flags.mask
-        )?.run {
-            CellEditable.wrap(reinterpret())
-        }
+    ): CellEditable? = gtk_cell_renderer_start_editing(
+        gtkCellRendererPointer.reinterpret(),
+        event?.gPointer?.reinterpret(),
+        widget.gtkWidgetPointer.reinterpret(),
+        path,
+        backgroundArea.gdkRectanglePointer.reinterpret(),
+        cellArea.gdkRectanglePointer.reinterpret(),
+        flags.mask
+    )?.run {
+        CellEditable.wrap(reinterpret())
+    }
 
     /**
      * Informs the cell renderer that the editing is stopped.
@@ -453,10 +373,7 @@ public open class CellRenderer(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectEditingCanceled(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectEditingCanceled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "editing-canceled",
@@ -503,15 +420,14 @@ public open class CellRenderer(
     public fun connectEditingStarted(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (editable: CellEditable, path: String) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "editing-started",
-            connectEditingStartedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "editing-started",
+        connectEditingStartedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<CellRenderer> {
         override val type: GeneratedClassKGType<CellRenderer> =
@@ -520,16 +436,23 @@ public open class CellRenderer(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of CellRenderer
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_cell_renderer_get_type()
     }
 }
 
-private val connectEditingCanceledFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectEditingCanceledFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
 private val connectEditingStartedFunc:
     CPointer<CFunction<(CPointer<GtkCellEditable>, CPointer<ByteVar>) -> Unit>> =
@@ -545,4 +468,5 @@ private val connectEditingStartedFunc:
             },
             path?.toKString() ?: error("Expected not null string")
         )
-    }.reinterpret()
+    }
+        .reinterpret()

@@ -7,33 +7,30 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
-import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
-import org.gtkkn.bindings.glib.Error
-import org.gtkkn.bindings.gtk.Settings
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.GlibException
-import org.gtkkn.native.adw.adw_breakpoint_condition_parse
-import org.gtkkn.native.adw.adw_easing_ease
 import org.gtkkn.native.adw.adw_get_enable_animations
 import org.gtkkn.native.adw.adw_get_major_version
 import org.gtkkn.native.adw.adw_get_micro_version
 import org.gtkkn.native.adw.adw_get_minor_version
 import org.gtkkn.native.adw.adw_init
 import org.gtkkn.native.adw.adw_is_initialized
-import org.gtkkn.native.adw.adw_length_unit_from_px
-import org.gtkkn.native.adw.adw_length_unit_to_px
 import org.gtkkn.native.adw.adw_lerp
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.guint32
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 
 /**
  * ## Skipped during bindings generation
  *
+ * - function `show_about_dialog`: Varargs parameter is not supported
+ * - function `show_about_dialog_from_appdata`: Varargs parameter is not supported
+ * - function `show_about_window`: Varargs parameter is not supported
+ * - function `show_about_window_from_appdata`: Varargs parameter is not supported
  * - record `AboutDialogClass`: glib type struct are ignored
  * - record `AboutWindowClass`: glib type struct are ignored
  * - record `ActionRowClass`: glib type struct are ignored
@@ -111,109 +108,28 @@ public object Adw {
      *
      * This value is mostly used internally.
      */
-    public const val DURATION_INFINITE: UInt = UInt.MAX_VALUE
+    public const val DURATION_INFINITE: guint32 = UInt.MAX_VALUE
 
     /**
      * Adwaita major version component (e.g. 1 if the version is 1.2.3).
      */
-    public const val MAJOR_VERSION: Int = 1
+    public const val MAJOR_VERSION: gint = 1
 
     /**
      * Adwaita micro version component (e.g. 3 if the version is 1.2.3).
      */
-    public const val MICRO_VERSION: Int = 0
+    public const val MICRO_VERSION: gint = 0
 
     /**
      * Adwaita minor version component (e.g. 2 if the version is 1.2.3).
      */
-    public const val MINOR_VERSION: Int = 5
+    public const val MINOR_VERSION: gint = 5
 
     /**
      * Adwaita version, encoded as a string, useful for printing and
      * concatenation.
      */
     public const val VERSION_S: String = "1.5.0"
-
-    /**
-     * Parses a condition from a string.
-     *
-     * Length conditions are specified as `<type>: <value>[<unit>]`, where:
-     *
-     * - `<type>` can be `min-width`, `max-width`, `min-height` or `max-height`
-     * - `<value>` is a fractional number
-     * - `<unit>` can be `px`, `pt` or `sp`
-     *
-     * If the unit is omitted, `px` is assumed.
-     *
-     * See [ctor@BreakpointCondition.new_length].
-     *
-     * Examples:
-     *
-     * - `min-width: 500px`
-     * - `min-height: 400pt`
-     * - `max-width: 100sp`
-     * - `max-height: 500`
-     *
-     * Ratio conditions are specified as `<type>: <width>[/<height>]`, where:
-     *
-     * - `<type>` can be `min-aspect-ratio` or `max-aspect-ratio`
-     * - `<width>` and `<height>` are integer numbers
-     *
-     * See [ctor@BreakpointCondition.new_ratio].
-     *
-     * The ratio is represented as `<width>` divided by `<height>`.
-     *
-     * If `<height>` is omitted, it's assumed to be 1.
-     *
-     * Examples:
-     *
-     * - `min-aspect-ratio: 4/3`
-     * - `max-aspect-ratio: 1`
-     *
-     * The logical operators `and`, `or` can be used to compose a complex condition
-     * as follows:
-     *
-     * - `<condition> and <condition>`: the condition is true when both
-     *   `<condition>`s are true, same as when using
-     *   [ctor@BreakpointCondition.new_and]
-     * - `<condition> or <condition>`: the condition is true when either of the
-     *   `<condition>`s is true, same as when using
-     *   [ctor@BreakpointCondition.new_or]
-     *
-     * Examples:
-     *
-     * - `min-width: 400px and max-aspect-ratio: 4/3`
-     * - `max-width: 360sp or max-width: 360px`
-     *
-     * Conditions can be further nested using parentheses, for example:
-     *
-     * - `min-width: 400px and (max-aspect-ratio: 4/3 or max-height: 400px)`
-     *
-     * If parentheses are omitted, the first operator takes priority.
-     *
-     * @param str the string specifying the condition
-     * @return the parsed condition
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun breakpointConditionParse(str: String): BreakpointCondition =
-        adw_breakpoint_condition_parse(str)!!.run {
-            BreakpointCondition(reinterpret())
-        }
-
-    /**
-     * Computes easing with @easing for @value.
-     *
-     * @value should generally be in the [0, 1] range.
-     *
-     * @param self an easing value
-     * @param value a value to ease
-     * @return the easing for @value
-     */
-    public fun easingEase(
-        self: Easing,
-        `value`: Double,
-    ): Double = adw_easing_ease(self.nativeValue, `value`)
 
     /**
      * Checks whether animations are enabled for @widget.
@@ -239,7 +155,7 @@ public object Adw {
      *
      * @return the major version number of the Adwaita library
      */
-    public fun getMajorVersion(): UInt = adw_get_major_version()
+    public fun getMajorVersion(): guint = adw_get_major_version()
 
     /**
      * Returns the micro version number of the Adwaita library.
@@ -253,7 +169,7 @@ public object Adw {
      *
      * @return the micro version number of the Adwaita library
      */
-    public fun getMicroVersion(): UInt = adw_get_micro_version()
+    public fun getMicroVersion(): guint = adw_get_micro_version()
 
     /**
      * Returns the minor version number of the Adwaita library.
@@ -267,7 +183,7 @@ public object Adw {
      *
      * @return the minor version number of the Adwaita library
      */
-    public fun getMinorVersion(): UInt = adw_get_minor_version()
+    public fun getMinorVersion(): guint = adw_get_minor_version()
 
     /**
      * Initializes Libadwaita.
@@ -293,38 +209,6 @@ public object Adw {
     public fun isInitialized(): Boolean = adw_is_initialized().asBoolean()
 
     /**
-     * Converts @value from pixels to @unit.
-     *
-     * @param unit a length unit
-     * @param value a value in pixels
-     * @param settings settings to use, or `NULL` for default settings
-     * @return the length in @unit
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun lengthUnitFromPx(
-        unit: LengthUnit,
-        `value`: Double,
-        settings: Settings? = null,
-    ): Double = adw_length_unit_from_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
-
-    /**
-     * Converts @value from @unit to pixels.
-     *
-     * @param unit a length unit
-     * @param value a value in @unit
-     * @param settings settings to use, or `NULL` for default settings
-     * @return the length in pixels
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun lengthUnitToPx(
-        unit: LengthUnit,
-        `value`: Double,
-        settings: Settings? = null,
-    ): Double = adw_length_unit_to_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
-
-    /**
      * Computes the linear interpolation between @a and @b for @t.
      *
      * @param a the start
@@ -332,32 +216,20 @@ public object Adw {
      * @param t the interpolation rate
      * @return the computed value
      */
-    public fun lerp(
-        a: Double,
-        b: Double,
-        t: Double,
-    ): Double = adw_lerp(a, b, t)
-
-    public fun resolveException(error: Error): GlibException {
-        val ex =
-            when (error.domain) {
-                else -> null
-            }
-        return ex ?: GlibException(error)
-    }
+    public fun lerp(a: gdouble, b: gdouble, t: gdouble): gdouble = adw_lerp(a, b, t)
 }
 
-public val AnimationTargetFuncFunc: CPointer<CFunction<(Double) -> Unit>> =
-    staticCFunction {
-            `value`: Double,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(`value`: Double) -> Unit>().get().invoke(`value`)
-    }.reinterpret()
+public val AnimationTargetFuncFunc: CPointer<CFunction<(gdouble) -> Unit>> = staticCFunction {
+        `value`: gdouble,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(`value`: gdouble) -> Unit>().get().invoke(`value`)
+}
+    .reinterpret()
 
 /**
  * Prototype for animation targets based on user callbacks.
  *
  * - param `value` The animation value
  */
-public typealias AnimationTargetFunc = (`value`: Double) -> Unit
+public typealias AnimationTargetFunc = (`value`: gdouble) -> Unit

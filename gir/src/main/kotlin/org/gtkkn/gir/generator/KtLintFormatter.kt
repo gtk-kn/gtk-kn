@@ -60,9 +60,12 @@ class KtLintFormatter(outputDir: File) {
         val kotlinFile = File(dir, "$simpleName.kt")
         kotlinFile.createNewFile()
 
+        // Provide a virtual path for the code snippet
+        val virtualPath = kotlinFile.toPath()
+
         // Format and write the file
         kotlinFile.writeText(
-            ktLintRuleEngine.format(Code.fromSnippet(content)) { _ ->
+            ktLintRuleEngine.format(Code.fromSnippetWithPath(content, virtualPath)) { _ ->
                 AutocorrectDecision.ALLOW_AUTOCORRECT
             },
         )

@@ -10,6 +10,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GDBusMenuModel
 import org.gtkkn.native.gio.g_dbus_menu_model_get
 import org.gtkkn.native.gio.g_dbus_menu_model_get_type
+import org.gtkkn.native.gobject.GType
 import kotlin.String
 
 /**
@@ -17,9 +18,8 @@ import kotlin.String
  * used as a proxy for a menu model that is exported over D-Bus with
  * [method@Gio.DBusConnection.export_menu_model].
  */
-public open class DBusMenuModel(
-    pointer: CPointer<GDBusMenuModel>,
-) : MenuModel(pointer.reinterpret()),
+public open class DBusMenuModel(pointer: CPointer<GDBusMenuModel>) :
+    MenuModel(pointer.reinterpret()),
     KGTyped {
     public val gioDBusMenuModelPointer: CPointer<GDBusMenuModel>
         get() = gPointer.reinterpret()
@@ -51,13 +51,16 @@ public open class DBusMenuModel(
          * @since 2.32
          */
         @GioVersion2_32
-        public fun `get`(
-            connection: DBusConnection,
-            busName: String? = null,
-            objectPath: String,
-        ): DBusMenuModel =
+        public fun `get`(connection: DBusConnection, busName: String? = null, objectPath: String): DBusMenuModel =
             g_dbus_menu_model_get(connection.gioDBusConnectionPointer.reinterpret(), busName, objectPath)!!.run {
                 DBusMenuModel(reinterpret())
             }
+
+        /**
+         * Get the GType of DBusMenuModel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_menu_model_get_type()
     }
 }

@@ -34,10 +34,10 @@ import org.gtkkn.native.gdk.gdk_drop_read_value_async
 import org.gtkkn.native.gdk.gdk_drop_read_value_finish
 import org.gtkkn.native.gdk.gdk_drop_status
 import org.gtkkn.native.glib.GError
-import kotlin.Int
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import kotlin.Result
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
 
@@ -61,9 +61,8 @@ import kotlin.collections.List
  *
  * - parameter `out_mime_type`: out_mime_type: Out parameter is not supported
  */
-public open class Drop(
-    pointer: CPointer<GdkDrop>,
-) : Object(pointer.reinterpret()),
+public open class Drop(pointer: CPointer<GdkDrop>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gdkDropPointer: CPointer<GdkDrop>
         get() = gPointer.reinterpret()
@@ -90,10 +89,9 @@ public open class Drop(
          *
          * @return The possible `GdkDragActions`
          */
-        get() =
-            gdk_drop_get_actions(gdkDropPointer.reinterpret()).run {
-                DragAction(this)
-            }
+        get() = gdk_drop_get_actions(gdkDropPointer.reinterpret()).run {
+            DragAction(this)
+        }
 
     /**
      * The `GdkDevice` performing the drop
@@ -104,10 +102,9 @@ public open class Drop(
          *
          * @return The `GdkDevice` performing the drop.
          */
-        get() =
-            gdk_drop_get_device(gdkDropPointer.reinterpret())!!.run {
-                Device(reinterpret())
-            }
+        get() = gdk_drop_get_device(gdkDropPointer.reinterpret())!!.run {
+            Device(reinterpret())
+        }
 
     /**
      * The `GdkDisplay` that the drop belongs to.
@@ -118,10 +115,9 @@ public open class Drop(
          *
          * @return a `GdkDisplay`
          */
-        get() =
-            gdk_drop_get_display(gdkDropPointer.reinterpret())!!.run {
-                Display(reinterpret())
-            }
+        get() = gdk_drop_get_display(gdkDropPointer.reinterpret())!!.run {
+            Display(reinterpret())
+        }
 
     /**
      * The `GdkDrag` that initiated this drop
@@ -135,10 +131,9 @@ public open class Drop(
          *
          * @return the corresponding `GdkDrag`
          */
-        get() =
-            gdk_drop_get_drag(gdkDropPointer.reinterpret())?.run {
-                Drag(reinterpret())
-            }
+        get() = gdk_drop_get_drag(gdkDropPointer.reinterpret())?.run {
+            Drag(reinterpret())
+        }
 
     /**
      * The possible formats that the drop can provide its data in.
@@ -150,10 +145,9 @@ public open class Drop(
          *
          * @return The possible `GdkContentFormats`
          */
-        get() =
-            gdk_drop_get_formats(gdkDropPointer.reinterpret())!!.run {
-                ContentFormats(reinterpret())
-            }
+        get() = gdk_drop_get_formats(gdkDropPointer.reinterpret())!!.run {
+            ContentFormats(reinterpret())
+        }
 
     /**
      * The `GdkSurface` the drop happens on
@@ -164,10 +158,9 @@ public open class Drop(
          *
          * @return The `GdkSurface` performing the drop.
          */
-        get() =
-            gdk_drop_get_surface(gdkDropPointer.reinterpret())!!.run {
-                Surface(reinterpret())
-            }
+        get() = gdk_drop_get_surface(gdkDropPointer.reinterpret())!!.run {
+            Surface(reinterpret())
+        }
 
     /**
      * Ends the drag operation after a drop.
@@ -178,83 +171,6 @@ public open class Drop(
      * @param action the action performed by the destination or 0 if the drop failed
      */
     public open fun finish(action: DragAction): Unit = gdk_drop_finish(gdkDropPointer.reinterpret(), action.mask)
-
-    /**
-     * Returns the possible actions for this `GdkDrop`.
-     *
-     * If this value contains multiple actions - i.e.
-     * [func@Gdk.DragAction.is_unique] returns false for the result -
-     * [method@Gdk.Drop.finish] must choose the action to use when
-     * accepting the drop. This will only happen if you passed
-     * %GDK_ACTION_ASK as one of the possible actions in
-     * [method@Gdk.Drop.status]. %GDK_ACTION_ASK itself will not
-     * be included in the actions returned by this function.
-     *
-     * This value may change over the lifetime of the [class@Gdk.Drop]
-     * both as a response to source side actions as well as to calls to
-     * [method@Gdk.Drop.status] or [method@Gdk.Drop.finish]. The source
-     * side will not change this value anymore once a drop has started.
-     *
-     * @return The possible `GdkDragActions`
-     */
-    public open fun getActions(): DragAction =
-        gdk_drop_get_actions(gdkDropPointer.reinterpret()).run {
-            DragAction(this)
-        }
-
-    /**
-     * Returns the `GdkDevice` performing the drop.
-     *
-     * @return The `GdkDevice` performing the drop.
-     */
-    public open fun getDevice(): Device =
-        gdk_drop_get_device(gdkDropPointer.reinterpret())!!.run {
-            Device(reinterpret())
-        }
-
-    /**
-     * Gets the `GdkDisplay` that @self was created for.
-     *
-     * @return a `GdkDisplay`
-     */
-    public open fun getDisplay(): Display =
-        gdk_drop_get_display(gdkDropPointer.reinterpret())!!.run {
-            Display(reinterpret())
-        }
-
-    /**
-     * If this is an in-app drag-and-drop operation, returns the `GdkDrag`
-     * that corresponds to this drop.
-     *
-     * If it is not, null is returned.
-     *
-     * @return the corresponding `GdkDrag`
-     */
-    public open fun getDrag(): Drag? =
-        gdk_drop_get_drag(gdkDropPointer.reinterpret())?.run {
-            Drag(reinterpret())
-        }
-
-    /**
-     * Returns the `GdkContentFormats` that the drop offers the data
-     * to be read in.
-     *
-     * @return The possible `GdkContentFormats`
-     */
-    public open fun getFormats(): ContentFormats =
-        gdk_drop_get_formats(gdkDropPointer.reinterpret())!!.run {
-            ContentFormats(reinterpret())
-        }
-
-    /**
-     * Returns the `GdkSurface` performing the drop.
-     *
-     * @return The `GdkSurface` performing the drop.
-     */
-    public open fun getSurface(): Surface =
-        gdk_drop_get_surface(gdkDropPointer.reinterpret())!!.run {
-            Surface(reinterpret())
-        }
 
     /**
      * Asynchronously read the dropped data from a `GdkDrop`
@@ -268,20 +184,19 @@ public open class Drop(
      */
     public open fun readAsync(
         mimeTypes: List<String>,
-        ioPriority: Int,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        memScoped {
-            return gdk_drop_read_async(
-                gdkDropPointer.reinterpret(),
-                mimeTypes.toCStringList(this),
-                ioPriority,
-                cancellable?.gioCancellablePointer?.reinterpret(),
-                AsyncReadyCallbackFunc.reinterpret(),
-                StableRef.create(callback).asCPointer()
-            )
-        }
+    ): Unit = memScoped {
+        return gdk_drop_read_async(
+            gdkDropPointer.reinterpret(),
+            mimeTypes.toCStringList(this),
+            ioPriority,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            AsyncReadyCallbackFunc.reinterpret(),
+            StableRef.create(callback).asCPointer()
+        )
+    }
 
     /**
      * Asynchronously request the drag operation's contents converted
@@ -301,19 +216,18 @@ public open class Drop(
      * @param callback callback to call when the request is satisfied
      */
     public open fun readValueAsync(
-        type: ULong,
-        ioPriority: Int,
+        type: GType,
+        ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        gdk_drop_read_value_async(
-            gdkDropPointer.reinterpret(),
-            type,
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = gdk_drop_read_value_async(
+        gdkDropPointer.reinterpret(),
+        type,
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an async drop read.
@@ -323,24 +237,22 @@ public open class Drop(
      * @param result a `GAsyncResult`
      * @return a `GValue` containing the result.
      */
-    public open fun readValueFinish(result: AsyncResult): Result<Value> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gdk_drop_read_value_finish(
-                    gdkDropPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    Value(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public open fun readValueFinish(result: AsyncResult): Result<Value> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gdk_drop_read_value_finish(
+            gdkDropPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            Value(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Selects all actions that are potentially supported by the destination.
@@ -362,10 +274,8 @@ public open class Drop(
      * @param preferred A unique action that's a member of @actions indicating the
      *    preferred action
      */
-    public open fun status(
-        actions: DragAction,
-        preferred: DragAction,
-    ): Unit = gdk_drop_status(gdkDropPointer.reinterpret(), actions.mask, preferred.mask)
+    public open fun status(actions: DragAction, preferred: DragAction): Unit =
+        gdk_drop_status(gdkDropPointer.reinterpret(), actions.mask, preferred.mask)
 
     public companion object : TypeCompanion<Drop> {
         override val type: GeneratedClassKGType<Drop> =
@@ -374,5 +284,12 @@ public open class Drop(
         init {
             GdkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Drop
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_drop_get_type()
     }
 }

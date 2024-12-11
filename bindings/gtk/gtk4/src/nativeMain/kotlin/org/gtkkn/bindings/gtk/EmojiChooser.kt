@@ -15,6 +15,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -58,9 +59,8 @@ import kotlin.Unit
  * consists of buttons with the .emoji-section style class and gets the
  * .emoji-toolbar style class itself.
  */
-public open class EmojiChooser(
-    pointer: CPointer<GtkEmojiChooser>,
-) : Popover(pointer.reinterpret()),
+public open class EmojiChooser(pointer: CPointer<GtkEmojiChooser>) :
+    Popover(pointer.reinterpret()),
     KGTyped {
     public val gtkEmojiChooserPointer: CPointer<GtkEmojiChooser>
         get() = gPointer.reinterpret()
@@ -96,15 +96,14 @@ public open class EmojiChooser(
     public fun connectEmojiPicked(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (text: String) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "emoji-picked",
-            connectEmojiPickedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "emoji-picked",
+        connectEmojiPickedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<EmojiChooser> {
         override val type: GeneratedClassKGType<EmojiChooser> =
@@ -113,6 +112,13 @@ public open class EmojiChooser(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of EmojiChooser
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_emoji_chooser_get_type()
     }
 }
 
@@ -122,12 +128,10 @@ private val connectEmojiPickedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Un
             text: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<
-                (
-                    text: String,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(text?.toKString() ?: error("Expected not null string"))
-    }.reinterpret()
+        userData.asStableRef<
+            (
+                text: String,
+            ) -> Unit
+            >().get().invoke(text?.toKString() ?: error("Expected not null string"))
+    }
+        .reinterpret()

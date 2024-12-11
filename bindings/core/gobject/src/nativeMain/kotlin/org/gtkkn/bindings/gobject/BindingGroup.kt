@@ -8,6 +8,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GBindingGroup
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_binding_group_bind
 import org.gtkkn.native.gobject.g_binding_group_bind_with_closures
 import org.gtkkn.native.gobject.g_binding_group_dup_source
@@ -28,15 +29,13 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - method `bind_full`: g_binding_group_bind_full is shadowedBy bind_with_closures
  * - method `source`: Property has no getter
  *
  * @since 2.72
  */
 @GObjectVersion2_72
-public open class BindingGroup(
-    pointer: CPointer<GBindingGroup>,
-) : Object(pointer.reinterpret()),
+public open class BindingGroup(pointer: CPointer<GBindingGroup>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gobjectBindingGroupPointer: CPointer<GBindingGroup>
         get() = gPointer.reinterpret()
@@ -64,12 +63,7 @@ public open class BindingGroup(
      * @since 2.72
      */
     @GObjectVersion2_72
-    public open fun bind(
-        sourceProperty: String,
-        target: Object,
-        targetProperty: String,
-        flags: BindingFlags,
-    ): Unit =
+    public open fun bind(sourceProperty: String, target: Object, targetProperty: String, flags: BindingFlags): Unit =
         g_binding_group_bind(
             gobjectBindingGroupPointer.reinterpret(),
             sourceProperty,
@@ -110,16 +104,15 @@ public open class BindingGroup(
         flags: BindingFlags,
         transformTo: Closure? = null,
         transformFrom: Closure? = null,
-    ): Unit =
-        g_binding_group_bind_with_closures(
-            gobjectBindingGroupPointer.reinterpret(),
-            sourceProperty,
-            target.gPointer.reinterpret(),
-            targetProperty,
-            flags.mask,
-            transformTo?.gobjectClosurePointer?.reinterpret(),
-            transformFrom?.gobjectClosurePointer?.reinterpret()
-        )
+    ): Unit = g_binding_group_bind_with_closures(
+        gobjectBindingGroupPointer.reinterpret(),
+        sourceProperty,
+        target.gPointer.reinterpret(),
+        targetProperty,
+        flags.mask,
+        transformTo?.gobjectClosurePointer?.reinterpret(),
+        transformFrom?.gobjectClosurePointer?.reinterpret()
+    )
 
     /**
      * Gets the source object used for binding properties.
@@ -128,10 +121,9 @@ public open class BindingGroup(
      * @since 2.72
      */
     @GObjectVersion2_72
-    public open fun dupSource(): Object? =
-        g_binding_group_dup_source(gobjectBindingGroupPointer.reinterpret())?.run {
-            Object(reinterpret())
-        }
+    public open fun dupSource(): Object? = g_binding_group_dup_source(gobjectBindingGroupPointer.reinterpret())?.run {
+        Object(reinterpret())
+    }
 
     /**
      * Sets @source as the source object used for creating property
@@ -155,5 +147,12 @@ public open class BindingGroup(
         init {
             GobjectTypeProvider.register()
         }
+
+        /**
+         * Get the GType of BindingGroup
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_binding_group_get_type()
     }
 }

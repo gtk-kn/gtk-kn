@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.native.gdk.GdkAxisUse
+import org.gtkkn.native.gdk.gdk_axis_use_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Defines how device axes are interpreted by GTK.
@@ -10,9 +12,7 @@ import org.gtkkn.native.gdk.GdkAxisUse
  * report their location via the x/y members of events regardless. Whether
  * X and Y are present as axes depends on the GDK backend.
  */
-public enum class AxisUse(
-    public val nativeValue: GdkAxisUse,
-) {
+public enum class AxisUse(public val nativeValue: GdkAxisUse) {
     /**
      * the axis is ignored.
      */
@@ -80,22 +80,28 @@ public enum class AxisUse(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GdkAxisUse): AxisUse =
-            when (nativeValue) {
-                GdkAxisUse.GDK_AXIS_IGNORE -> IGNORE
-                GdkAxisUse.GDK_AXIS_X -> X
-                GdkAxisUse.GDK_AXIS_Y -> Y
-                GdkAxisUse.GDK_AXIS_DELTA_X -> DELTA_X
-                GdkAxisUse.GDK_AXIS_DELTA_Y -> DELTA_Y
-                GdkAxisUse.GDK_AXIS_PRESSURE -> PRESSURE
-                GdkAxisUse.GDK_AXIS_XTILT -> XTILT
-                GdkAxisUse.GDK_AXIS_YTILT -> YTILT
-                GdkAxisUse.GDK_AXIS_WHEEL -> WHEEL
-                GdkAxisUse.GDK_AXIS_DISTANCE -> DISTANCE
-                GdkAxisUse.GDK_AXIS_ROTATION -> ROTATION
-                GdkAxisUse.GDK_AXIS_SLIDER -> SLIDER
-                GdkAxisUse.GDK_AXIS_LAST -> LAST
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GdkAxisUse): AxisUse = when (nativeValue) {
+            GdkAxisUse.GDK_AXIS_IGNORE -> IGNORE
+            GdkAxisUse.GDK_AXIS_X -> X
+            GdkAxisUse.GDK_AXIS_Y -> Y
+            GdkAxisUse.GDK_AXIS_DELTA_X -> DELTA_X
+            GdkAxisUse.GDK_AXIS_DELTA_Y -> DELTA_Y
+            GdkAxisUse.GDK_AXIS_PRESSURE -> PRESSURE
+            GdkAxisUse.GDK_AXIS_XTILT -> XTILT
+            GdkAxisUse.GDK_AXIS_YTILT -> YTILT
+            GdkAxisUse.GDK_AXIS_WHEEL -> WHEEL
+            GdkAxisUse.GDK_AXIS_DISTANCE -> DISTANCE
+            GdkAxisUse.GDK_AXIS_ROTATION -> ROTATION
+            GdkAxisUse.GDK_AXIS_SLIDER -> SLIDER
+            GdkAxisUse.GDK_AXIS_LAST -> LAST
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of AxisUse
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_axis_use_get_type()
     }
 }

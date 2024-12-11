@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -39,9 +40,8 @@ import kotlin.String
  * `GtkFontChooserDialog` has a single CSS node with the name `window` and style
  * class `.fontchooser`.
  */
-public open class FontChooserDialog(
-    pointer: CPointer<GtkFontChooserDialog>,
-) : Dialog(pointer.reinterpret()),
+public open class FontChooserDialog(pointer: CPointer<GtkFontChooserDialog>) :
+    Dialog(pointer.reinterpret()),
     FontChooser,
     KGTyped {
     public val gtkFontChooserDialogPointer: CPointer<GtkFontChooserDialog>
@@ -87,5 +87,12 @@ public open class FontChooserDialog(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of FontChooserDialog
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_font_chooser_dialog_get_type()
     }
 }

@@ -6,14 +6,14 @@ import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GDBusCapabilityFlags
 import org.gtkkn.native.gio.G_DBUS_CAPABILITY_FLAGS_NONE
 import org.gtkkn.native.gio.G_DBUS_CAPABILITY_FLAGS_UNIX_FD_PASSING
+import org.gtkkn.native.gio.g_dbus_capability_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Capabilities negotiated with the remote peer.
  * @since 2.26
  */
-public class DBusCapabilityFlags(
-    public val mask: GDBusCapabilityFlags,
-) : Bitfield<DBusCapabilityFlags> {
+public class DBusCapabilityFlags(public val mask: GDBusCapabilityFlags) : Bitfield<DBusCapabilityFlags> {
     override infix fun or(other: DBusCapabilityFlags): DBusCapabilityFlags = DBusCapabilityFlags(mask or other.mask)
 
     @GioVersion2_26
@@ -29,5 +29,12 @@ public class DBusCapabilityFlags(
          */
         public val UNIX_FD_PASSING: DBusCapabilityFlags =
             DBusCapabilityFlags(G_DBUS_CAPABILITY_FLAGS_UNIX_FD_PASSING)
+
+        /**
+         * Get the GType of DBusCapabilityFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_capability_flags_get_type()
     }
 }

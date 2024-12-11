@@ -23,9 +23,10 @@ import org.gtkkn.native.gio.g_file_monitor_emit_event
 import org.gtkkn.native.gio.g_file_monitor_get_type
 import org.gtkkn.native.gio.g_file_monitor_is_cancelled
 import org.gtkkn.native.gio.g_file_monitor_set_rate_limit
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.ULong
 import kotlin.Unit
 
@@ -49,9 +50,8 @@ import kotlin.Unit
  * - method `cancelled`: Property has no getter nor setter
  * - method `rate-limit`: Property has no getter
  */
-public open class FileMonitor(
-    pointer: CPointer<GFileMonitor>,
-) : Object(pointer.reinterpret()),
+public open class FileMonitor(pointer: CPointer<GFileMonitor>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioFileMonitorPointer: CPointer<GFileMonitor>
         get() = gPointer.reinterpret()
@@ -76,11 +76,7 @@ public open class FileMonitor(
      * @param otherFile a #GFile.
      * @param eventType a set of #GFileMonitorEvent flags.
      */
-    public open fun emitEvent(
-        child: File,
-        otherFile: File,
-        eventType: FileMonitorEvent,
-    ): Unit =
+    public open fun emitEvent(child: File, otherFile: File, eventType: FileMonitorEvent): Unit =
         g_file_monitor_emit_event(
             gioFileMonitorPointer.reinterpret(),
             child.gioFilePointer,
@@ -103,7 +99,7 @@ public open class FileMonitor(
      * @param limitMsecs a non-negative integer with the limit in milliseconds
      *     to poll for changes
      */
-    public open fun setRateLimit(limitMsecs: Int): Unit =
+    public open fun setRateLimit(limitMsecs: gint): Unit =
         g_file_monitor_set_rate_limit(gioFileMonitorPointer.reinterpret(), limitMsecs)
 
     /**
@@ -146,15 +142,14 @@ public open class FileMonitor(
             otherFile: File?,
             eventType: FileMonitorEvent,
         ) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "changed",
-            connectChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "changed",
+        connectChangedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<FileMonitor> {
         override val type: GeneratedClassKGType<FileMonitor> =
@@ -163,6 +158,13 @@ public open class FileMonitor(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of FileMonitor
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_file_monitor_get_type()
     }
 }
 
@@ -173,33 +175,30 @@ private val connectChangedFunc: CPointer<
             CPointer<GFile>?,
             GFileMonitorEvent,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            _: COpaquePointer,
-            `file`: CPointer<GFile>?,
-            otherFile: CPointer<GFile>?,
-            eventType: GFileMonitorEvent,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    `file`: File,
-                    otherFile: File?,
-                    eventType: FileMonitorEvent,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                `file`!!.run {
-                    File.wrap(reinterpret())
-                },
-                otherFile?.run {
-                    File.wrap(reinterpret())
-                },
-                eventType.run {
-                    FileMonitorEvent.fromNativeValue(this)
-                }
-            )
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        _: COpaquePointer,
+        `file`: CPointer<GFile>?,
+        otherFile: CPointer<GFile>?,
+        eventType: GFileMonitorEvent,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            `file`: File,
+            otherFile: File?,
+            eventType: FileMonitorEvent,
+        ) -> Unit
+        >().get().invoke(
+        `file`!!.run {
+            File.wrap(reinterpret())
+        },
+        otherFile?.run {
+            File.wrap(reinterpret())
+        },
+        eventType.run {
+            FileMonitorEvent.fromNativeValue(this)
+        }
+    )
+}
+    .reinterpret()

@@ -8,9 +8,7 @@ import kotlin.UInt
 /**
  * Error codes returned by spawning processes.
  */
-public enum class SpawnError(
-    public val nativeValue: GSpawnError,
-) {
+public enum class SpawnError(public val nativeValue: GSpawnError) {
     /**
      * Fork failed due to lack of memory.
      */
@@ -119,39 +117,37 @@ public enum class SpawnError(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GSpawnError): SpawnError =
-            when (nativeValue) {
-                GSpawnError.G_SPAWN_ERROR_FORK -> FORK
-                GSpawnError.G_SPAWN_ERROR_READ -> READ
-                GSpawnError.G_SPAWN_ERROR_CHDIR -> CHDIR
-                GSpawnError.G_SPAWN_ERROR_ACCES -> ACCES
-                GSpawnError.G_SPAWN_ERROR_PERM -> PERM
-                GSpawnError.G_SPAWN_ERROR_TOO_BIG -> TOO_BIG
-                GSpawnError.G_SPAWN_ERROR_2BIG -> `2BIG`
-                GSpawnError.G_SPAWN_ERROR_NOEXEC -> NOEXEC
-                GSpawnError.G_SPAWN_ERROR_NAMETOOLONG -> NAMETOOLONG
-                GSpawnError.G_SPAWN_ERROR_NOENT -> NOENT
-                GSpawnError.G_SPAWN_ERROR_NOMEM -> NOMEM
-                GSpawnError.G_SPAWN_ERROR_NOTDIR -> NOTDIR
-                GSpawnError.G_SPAWN_ERROR_LOOP -> LOOP
-                GSpawnError.G_SPAWN_ERROR_TXTBUSY -> TXTBUSY
-                GSpawnError.G_SPAWN_ERROR_IO -> IO
-                GSpawnError.G_SPAWN_ERROR_NFILE -> NFILE
-                GSpawnError.G_SPAWN_ERROR_MFILE -> MFILE
-                GSpawnError.G_SPAWN_ERROR_INVAL -> INVAL
-                GSpawnError.G_SPAWN_ERROR_ISDIR -> ISDIR
-                GSpawnError.G_SPAWN_ERROR_LIBBAD -> LIBBAD
-                GSpawnError.G_SPAWN_ERROR_FAILED -> FAILED
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GSpawnError): SpawnError = when (nativeValue) {
+            GSpawnError.G_SPAWN_ERROR_FORK -> FORK
+            GSpawnError.G_SPAWN_ERROR_READ -> READ
+            GSpawnError.G_SPAWN_ERROR_CHDIR -> CHDIR
+            GSpawnError.G_SPAWN_ERROR_ACCES -> ACCES
+            GSpawnError.G_SPAWN_ERROR_PERM -> PERM
+            GSpawnError.G_SPAWN_ERROR_TOO_BIG -> TOO_BIG
+            GSpawnError.G_SPAWN_ERROR_2BIG -> `2BIG`
+            GSpawnError.G_SPAWN_ERROR_NOEXEC -> NOEXEC
+            GSpawnError.G_SPAWN_ERROR_NAMETOOLONG -> NAMETOOLONG
+            GSpawnError.G_SPAWN_ERROR_NOENT -> NOENT
+            GSpawnError.G_SPAWN_ERROR_NOMEM -> NOMEM
+            GSpawnError.G_SPAWN_ERROR_NOTDIR -> NOTDIR
+            GSpawnError.G_SPAWN_ERROR_LOOP -> LOOP
+            GSpawnError.G_SPAWN_ERROR_TXTBUSY -> TXTBUSY
+            GSpawnError.G_SPAWN_ERROR_IO -> IO
+            GSpawnError.G_SPAWN_ERROR_NFILE -> NFILE
+            GSpawnError.G_SPAWN_ERROR_MFILE -> MFILE
+            GSpawnError.G_SPAWN_ERROR_INVAL -> INVAL
+            GSpawnError.G_SPAWN_ERROR_ISDIR -> ISDIR
+            GSpawnError.G_SPAWN_ERROR_LIBBAD -> LIBBAD
+            GSpawnError.G_SPAWN_ERROR_FAILED -> FAILED
+            else -> error("invalid nativeValue")
+        }
 
         public fun quark(): UInt = g_quark_from_string("g-exec-error-quark")
 
-        public fun fromErrorOrNull(error: Error): SpawnError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                SpawnError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        public fun fromErrorOrNull(error: Error): SpawnError? = if (error.domain != quark()) {
+            null
+        } else {
+            SpawnError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

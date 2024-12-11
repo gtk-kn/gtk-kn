@@ -7,9 +7,7 @@ import org.gtkkn.native.glib.GErrorType
  * The possible errors, used in the @v_error field
  * of #GTokenValue, when the token is a %G_TOKEN_ERROR.
  */
-public enum class ErrorType(
-    public val nativeValue: GErrorType,
-) {
+public enum class ErrorType(public val nativeValue: GErrorType) {
     /**
      * unknown error
      */
@@ -52,17 +50,16 @@ public enum class ErrorType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GErrorType): ErrorType =
-            when (nativeValue) {
-                GErrorType.G_ERR_UNKNOWN -> UNKNOWN
-                GErrorType.G_ERR_UNEXP_EOF -> UNEXP_EOF
-                GErrorType.G_ERR_UNEXP_EOF_IN_STRING -> UNEXP_EOF_IN_STRING
-                GErrorType.G_ERR_UNEXP_EOF_IN_COMMENT -> UNEXP_EOF_IN_COMMENT
-                GErrorType.G_ERR_NON_DIGIT_IN_CONST -> NON_DIGIT_IN_CONST
-                GErrorType.G_ERR_DIGIT_RADIX -> DIGIT_RADIX
-                GErrorType.G_ERR_FLOAT_RADIX -> FLOAT_RADIX
-                GErrorType.G_ERR_FLOAT_MALFORMED -> FLOAT_MALFORMED
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GErrorType): ErrorType = when (nativeValue) {
+            GErrorType.G_ERR_UNKNOWN -> UNKNOWN
+            GErrorType.G_ERR_UNEXP_EOF -> UNEXP_EOF
+            GErrorType.G_ERR_UNEXP_EOF_IN_STRING -> UNEXP_EOF_IN_STRING
+            GErrorType.G_ERR_UNEXP_EOF_IN_COMMENT -> UNEXP_EOF_IN_COMMENT
+            GErrorType.G_ERR_NON_DIGIT_IN_CONST -> NON_DIGIT_IN_CONST
+            GErrorType.G_ERR_DIGIT_RADIX -> DIGIT_RADIX
+            GErrorType.G_ERR_FLOAT_RADIX -> FLOAT_RADIX
+            GErrorType.G_ERR_FLOAT_MALFORMED -> FLOAT_MALFORMED
+            else -> error("invalid nativeValue")
+        }
     }
 }

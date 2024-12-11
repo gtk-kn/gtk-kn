@@ -8,6 +8,7 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -52,9 +53,8 @@ import kotlin.Unit
  * For all the subnodes added to the text node in various situations,
  * see [class@Gtk.Text].
  */
-public open class EditableLabel(
-    pointer: CPointer<GtkEditableLabel>,
-) : Widget(pointer.reinterpret()),
+public open class EditableLabel(pointer: CPointer<GtkEditableLabel>) :
+    Widget(pointer.reinterpret()),
     Editable,
     KGTyped {
     public val gtkEditableLabelPointer: CPointer<GtkEditableLabel>
@@ -92,14 +92,6 @@ public open class EditableLabel(
     public constructor(str: String) : this(gtk_editable_label_new(str)!!.reinterpret())
 
     /**
-     * Returns whether the label is currently in “editing mode”.
-     *
-     * @return true if @self is currently in editing mode
-     */
-    public open fun getEditing(): Boolean =
-        gtk_editable_label_get_editing(gtkEditableLabelPointer.reinterpret()).asBoolean()
-
-    /**
      * Switches the label into “editing mode”.
      */
     public open fun startEditing(): Unit = gtk_editable_label_start_editing(gtkEditableLabelPointer.reinterpret())
@@ -124,5 +116,12 @@ public open class EditableLabel(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of EditableLabel
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_editable_label_get_type()
     }
 }

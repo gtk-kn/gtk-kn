@@ -52,7 +52,7 @@ fun main() = Application {
     val kotlinLanguage = LanguageManager.getDefault().getLanguage("kotlin")
 
     if (kotlinLanguage != null) {
-        buffer.setLanguage(kotlinLanguage)
+        buffer.language = kotlinLanguage
     } else {
         logger.warn { "Kotlin language not found" }
     }
@@ -65,7 +65,7 @@ fun main() = Application {
     val scrolledWindow = ScrolledWindow().apply {
         vexpand = true
         hexpand = true
-        setChild(sourceView)
+        child = sourceView
     }
 
     val spacesForTabCheckButton = CheckButton.newWithLabel("Spaces for tab").apply {
@@ -94,7 +94,7 @@ fun main() = Application {
         append(headerBar)
         append(scrolledWindow)
     }
-    setContent(layout)
+    content = layout
 }
 // --8<-- [end:doc]
 

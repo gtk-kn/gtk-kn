@@ -11,6 +11,7 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitContextMenuItem
 import org.gtkkn.native.webkit.webkit_context_menu_item_get_gaction
 import org.gtkkn.native.webkit.webkit_context_menu_item_get_stock_action
@@ -36,9 +37,8 @@ import kotlin.Unit
  * label. These #WebKitContextMenuAction<!-- -->s denote stock actions
  * for the items. You can also create separators and submenus.
  */
-public class ContextMenuItem(
-    pointer: CPointer<WebKitContextMenuItem>,
-) : InitiallyUnowned(pointer.reinterpret()),
+public class ContextMenuItem(pointer: CPointer<WebKitContextMenuItem>) :
+    InitiallyUnowned(pointer.reinterpret()),
     KGTyped {
     public val webkitContextMenuItemPointer: CPointer<WebKitContextMenuItem>
         get() = gPointer.reinterpret()
@@ -177,11 +177,10 @@ public class ContextMenuItem(
      *
      * @param submenu a #WebKitContextMenu
      */
-    public fun setSubmenu(submenu: ContextMenu? = null): Unit =
-        webkit_context_menu_item_set_submenu(
-            webkitContextMenuItemPointer.reinterpret(),
-            submenu?.webkitContextMenuPointer?.reinterpret()
-        )
+    public fun setSubmenu(submenu: ContextMenu? = null): Unit = webkit_context_menu_item_set_submenu(
+        webkitContextMenuItemPointer.reinterpret(),
+        submenu?.webkitContextMenuPointer?.reinterpret()
+    )
 
     public companion object : TypeCompanion<ContextMenuItem> {
         override val type: GeneratedClassKGType<ContextMenuItem> =
@@ -190,5 +189,12 @@ public class ContextMenuItem(
         init {
             WebkitTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ContextMenuItem
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_context_menu_item_get_type()
     }
 }

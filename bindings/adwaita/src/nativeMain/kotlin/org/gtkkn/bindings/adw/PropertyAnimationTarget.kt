@@ -15,6 +15,7 @@ import org.gtkkn.native.adw.adw_property_animation_target_get_pspec
 import org.gtkkn.native.adw.adw_property_animation_target_get_type
 import org.gtkkn.native.adw.adw_property_animation_target_new
 import org.gtkkn.native.adw.adw_property_animation_target_new_for_pspec
+import org.gtkkn.native.gobject.GType
 import kotlin.String
 
 /**
@@ -23,9 +24,8 @@ import kotlin.String
  * @since 1.2
  */
 @AdwVersion1_2
-public class PropertyAnimationTarget(
-    pointer: CPointer<AdwPropertyAnimationTarget>,
-) : AnimationTarget(pointer.reinterpret()),
+public class PropertyAnimationTarget(pointer: CPointer<AdwPropertyAnimationTarget>) :
+    AnimationTarget(pointer.reinterpret()),
     KGTyped {
     public val adwPropertyAnimationTargetPointer: CPointer<AdwPropertyAnimationTarget>
         get() = gPointer.reinterpret()
@@ -51,10 +51,9 @@ public class PropertyAnimationTarget(
          * @return the animated object
          * @since 1.2
          */
-        get() =
-            adw_property_animation_target_get_object(adwPropertyAnimationTargetPointer.reinterpret())!!.run {
-                Object(reinterpret())
-            }
+        get() = adw_property_animation_target_get_object(adwPropertyAnimationTargetPointer.reinterpret())!!.run {
+            Object(reinterpret())
+        }
 
     /**
      * The `GParamSpec` of the property to be animated.
@@ -69,10 +68,9 @@ public class PropertyAnimationTarget(
          * @return the animated property's `GParamSpec`
          * @since 1.2
          */
-        get() =
-            adw_property_animation_target_get_pspec(adwPropertyAnimationTargetPointer.reinterpret())!!.run {
-                ParamSpec(reinterpret())
-            }
+        get() = adw_property_animation_target_get_pspec(adwPropertyAnimationTargetPointer.reinterpret())!!.run {
+            ParamSpec(reinterpret())
+        }
 
     /**
      * Creates a new `AdwPropertyAnimationTarget` for the @property_name property on
@@ -107,42 +105,21 @@ public class PropertyAnimationTarget(
         )!!.reinterpret()
     )
 
-    /**
-     * Gets the object animated by @self.
-     *
-     * The `AdwPropertyAnimationTarget` instance does not hold a strong reference on
-     * the object; make sure the object is kept alive throughout the target's
-     * lifetime.
-     *
-     * @return the animated object
-     * @since 1.2
-     */
-    @AdwVersion1_2
-    public fun getObject(): Object =
-        adw_property_animation_target_get_object(adwPropertyAnimationTargetPointer.reinterpret())!!.run {
-            Object(reinterpret())
-        }
-
-    /**
-     * Gets the `GParamSpec` of the property animated by @self.
-     *
-     * @return the animated property's `GParamSpec`
-     * @since 1.2
-     */
-    @AdwVersion1_2
-    public fun getPspec(): ParamSpec =
-        adw_property_animation_target_get_pspec(adwPropertyAnimationTargetPointer.reinterpret())!!.run {
-            ParamSpec(reinterpret())
-        }
-
     public companion object : TypeCompanion<PropertyAnimationTarget> {
         override val type: GeneratedClassKGType<PropertyAnimationTarget> =
-            GeneratedClassKGType(
-                adw_property_animation_target_get_type()
-            ) { PropertyAnimationTarget(it.reinterpret()) }
+            GeneratedClassKGType(adw_property_animation_target_get_type()) {
+                PropertyAnimationTarget(it.reinterpret())
+            }
 
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of PropertyAnimationTarget
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_property_animation_target_get_type()
     }
 }

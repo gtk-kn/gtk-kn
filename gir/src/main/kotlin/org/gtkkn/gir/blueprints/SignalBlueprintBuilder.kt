@@ -60,7 +60,7 @@ class SignalBlueprintBuilder(
         val returnTypeInfo = when (val type = returnValue.type) {
             is GirArrayType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
             is GirType -> try {
-                context.resolveTypeInfo(girNamespace, type, returnValue.isNullable(), isReturnType = true)
+                context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
             } catch (ex: BlueprintException) {
                 throw UnresolvableTypeException("Return type ${type.name} is unsupported")
             }
@@ -82,7 +82,7 @@ class SignalBlueprintBuilder(
             parameters = signalParameters,
             lambdaTypeName = handlerLambdaTypeName,
             throws = false, // signals cannot throw
-            exceptionResolvingFunctionMember = exceptionResolvingFunction(),
+            exceptionResolvingFunctionMember = girNamespace.exceptionResolvingFunction(),
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girSignal.info)
                 .build()
                 .getOrNull(),

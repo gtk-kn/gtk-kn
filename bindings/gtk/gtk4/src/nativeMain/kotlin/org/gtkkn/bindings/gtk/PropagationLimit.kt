@@ -1,15 +1,15 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkPropagationLimit
+import org.gtkkn.native.gtk.gtk_propagation_limit_get_type
 
 /**
  * Describes limits of a [class@EventController] for handling events
  * targeting other widgets.
  */
-public enum class PropagationLimit(
-    public val nativeValue: GtkPropagationLimit,
-) {
+public enum class PropagationLimit(public val nativeValue: GtkPropagationLimit) {
     /**
      * Events are handled regardless of what their
      *   target is.
@@ -25,11 +25,17 @@ public enum class PropagationLimit(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkPropagationLimit): PropagationLimit =
-            when (nativeValue) {
-                GtkPropagationLimit.GTK_LIMIT_NONE -> NONE
-                GtkPropagationLimit.GTK_LIMIT_SAME_NATIVE -> SAME_NATIVE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkPropagationLimit): PropagationLimit = when (nativeValue) {
+            GtkPropagationLimit.GTK_LIMIT_NONE -> NONE
+            GtkPropagationLimit.GTK_LIMIT_SAME_NATIVE -> SAME_NATIVE
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of PropagationLimit
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_propagation_limit_get_type()
     }
 }

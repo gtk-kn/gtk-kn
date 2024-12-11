@@ -15,6 +15,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GObject
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkSignalListItemFactory
 import org.gtkkn.native.gtk.gtk_signal_list_item_factory_get_type
@@ -64,9 +65,8 @@ import kotlin.Unit
  * [signal@Gtk.SignalListItemFactory::setup] signal and removed again during
  * [signal@Gtk.SignalListItemFactory::teardown].
  */
-public open class SignalListItemFactory(
-    pointer: CPointer<GtkSignalListItemFactory>,
-) : ListItemFactory(pointer.reinterpret()),
+public open class SignalListItemFactory(pointer: CPointer<GtkSignalListItemFactory>) :
+    ListItemFactory(pointer.reinterpret()),
     KGTyped {
     public val gtkSignalListItemFactoryPointer: CPointer<GtkSignalListItemFactory>
         get() = gPointer.reinterpret()
@@ -95,10 +95,7 @@ public open class SignalListItemFactory(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `object` The `GObject` to bind
      */
-    public fun connectBind(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (`object`: Object) -> Unit,
-    ): ULong =
+    public fun connectBind(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`object`: Object) -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "bind",
@@ -119,10 +116,7 @@ public open class SignalListItemFactory(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `object` The `GObject` to set up
      */
-    public fun connectSetup(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (`object`: Object) -> Unit,
-    ): ULong =
+    public fun connectSetup(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`object`: Object) -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "setup",
@@ -146,15 +140,14 @@ public open class SignalListItemFactory(
     public fun connectTeardown(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`object`: Object) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "teardown",
-            connectTeardownFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "teardown",
+        connectTeardownFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted when an object has been unbound from its item, for example when
@@ -170,53 +163,59 @@ public open class SignalListItemFactory(
     public fun connectUnbind(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`object`: Object) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "unbind",
-            connectUnbindFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "unbind",
+        connectUnbindFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<SignalListItemFactory> {
         override val type: GeneratedClassKGType<SignalListItemFactory> =
-            GeneratedClassKGType(
-                gtk_signal_list_item_factory_get_type()
-            ) { SignalListItemFactory(it.reinterpret()) }
+            GeneratedClassKGType(gtk_signal_list_item_factory_get_type()) {
+                SignalListItemFactory(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of SignalListItemFactory
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_signal_list_item_factory_get_type()
     }
 }
 
-private val connectBindFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            `object`: CPointer<GObject>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(`object`: Object) -> Unit>().get().invoke(
-            `object`!!.run {
-                Object(reinterpret())
-            }
-        )
-    }.reinterpret()
+private val connectBindFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        `object`: CPointer<GObject>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(`object`: Object) -> Unit>().get().invoke(
+        `object`!!.run {
+            Object(reinterpret())
+        }
+    )
+}
+    .reinterpret()
 
-private val connectSetupFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            `object`: CPointer<GObject>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(`object`: Object) -> Unit>().get().invoke(
-            `object`!!.run {
-                Object(reinterpret())
-            }
-        )
-    }.reinterpret()
+private val connectSetupFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        `object`: CPointer<GObject>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(`object`: Object) -> Unit>().get().invoke(
+        `object`!!.run {
+            Object(reinterpret())
+        }
+    )
+}
+    .reinterpret()
 
 private val connectTeardownFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> =
     staticCFunction {
@@ -229,17 +228,18 @@ private val connectTeardownFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>
                 Object(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
-private val connectUnbindFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            `object`: CPointer<GObject>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(`object`: Object) -> Unit>().get().invoke(
-            `object`!!.run {
-                Object(reinterpret())
-            }
-        )
-    }.reinterpret()
+private val connectUnbindFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        `object`: CPointer<GObject>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(`object`: Object) -> Unit>().get().invoke(
+        `object`!!.run {
+            Object(reinterpret())
+        }
+    )
+}
+    .reinterpret()

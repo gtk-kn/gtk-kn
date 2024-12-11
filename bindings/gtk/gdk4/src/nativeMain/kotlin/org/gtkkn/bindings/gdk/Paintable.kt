@@ -25,9 +25,10 @@ import org.gtkkn.native.gdk.gdk_paintable_invalidate_contents
 import org.gtkkn.native.gdk.gdk_paintable_invalidate_size
 import org.gtkkn.native.gdk.gdk_paintable_new_empty
 import org.gtkkn.native.gdk.gdk_paintable_snapshot
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import kotlin.Double
-import kotlin.Int
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
 import kotlin.ULong
 import kotlin.Unit
 
@@ -98,10 +99,9 @@ public interface Paintable :
      * @return An immutable paintable for the current
      *   contents of @paintable
      */
-    public fun getCurrentImage(): Paintable =
-        gdk_paintable_get_current_image(gdkPaintablePointer.reinterpret())!!.run {
-            Paintable.wrap(reinterpret())
-        }
+    public fun getCurrentImage(): Paintable = gdk_paintable_get_current_image(gdkPaintablePointer.reinterpret())!!.run {
+        Paintable.wrap(reinterpret())
+    }
 
     /**
      * Get flags for the paintable.
@@ -112,10 +112,9 @@ public interface Paintable :
      *
      * @return The `GdkPaintableFlags` for this paintable
      */
-    public fun getFlags(): PaintableFlags =
-        gdk_paintable_get_flags(gdkPaintablePointer.reinterpret()).run {
-            PaintableFlags(this)
-        }
+    public fun getFlags(): PaintableFlags = gdk_paintable_get_flags(gdkPaintablePointer.reinterpret()).run {
+        PaintableFlags(this)
+    }
 
     /**
      * Gets the preferred aspect ratio the @paintable would like to be displayed at.
@@ -138,7 +137,7 @@ public interface Paintable :
      *
      * @return the intrinsic aspect ratio of @paintable or 0 if none.
      */
-    public fun getIntrinsicAspectRatio(): Double =
+    public fun getIntrinsicAspectRatio(): gdouble =
         gdk_paintable_get_intrinsic_aspect_ratio(gdkPaintablePointer.reinterpret())
 
     /**
@@ -155,7 +154,7 @@ public interface Paintable :
      *
      * @return the intrinsic height of @paintable or 0 if none.
      */
-    public fun getIntrinsicHeight(): Int = gdk_paintable_get_intrinsic_height(gdkPaintablePointer.reinterpret())
+    public fun getIntrinsicHeight(): gint = gdk_paintable_get_intrinsic_height(gdkPaintablePointer.reinterpret())
 
     /**
      * Gets the preferred width the @paintable would like to be displayed at.
@@ -171,7 +170,7 @@ public interface Paintable :
      *
      * @return the intrinsic width of @paintable or 0 if none.
      */
-    public fun getIntrinsicWidth(): Int = gdk_paintable_get_intrinsic_width(gdkPaintablePointer.reinterpret())
+    public fun getIntrinsicWidth(): gint = gdk_paintable_get_intrinsic_width(gdkPaintablePointer.reinterpret())
 
     /**
      * Called by implementations of `GdkPaintable` to invalidate their contents.
@@ -212,17 +211,12 @@ public interface Paintable :
      * @param width width to snapshot in
      * @param height height to snapshot in
      */
-    public fun snapshot(
-        snapshot: Snapshot,
-        width: Double,
-        height: Double,
-    ): Unit =
-        gdk_paintable_snapshot(
-            gdkPaintablePointer.reinterpret(),
-            snapshot.gdkSnapshotPointer.reinterpret(),
-            width,
-            height
-        )
+    public fun snapshot(snapshot: Snapshot, width: gdouble, height: gdouble): Unit = gdk_paintable_snapshot(
+        gdkPaintablePointer.reinterpret(),
+        snapshot.gdkSnapshotPointer.reinterpret(),
+        width,
+        height
+    )
 
     /**
      * Emitted when the contents of the @paintable change.
@@ -233,10 +227,7 @@ public interface Paintable :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectInvalidateContents(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectInvalidateContents(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gdkPaintablePointer.reinterpret(),
             "invalidate-contents",
@@ -261,10 +252,7 @@ public interface Paintable :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectInvalidateSize(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectInvalidateSize(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gdkPaintablePointer.reinterpret(),
             "invalidate-size",
@@ -274,9 +262,7 @@ public interface Paintable :
             connectFlags.mask
         )
 
-    private data class Wrapper(
-        private val pointer: CPointer<GdkPaintable>,
-    ) : Paintable {
+    private data class Wrapper(private val pointer: CPointer<GdkPaintable>) : Paintable {
         override val gdkPaintablePointer: CPointer<GdkPaintable> = pointer
     }
 
@@ -303,28 +289,32 @@ public interface Paintable :
          * @param intrinsicHeight The intrinsic height to report. Can be 0 for no height.
          * @return a `GdkPaintable`
          */
-        public fun newEmpty(
-            intrinsicWidth: Int,
-            intrinsicHeight: Int,
-        ): Paintable =
+        public fun newEmpty(intrinsicWidth: gint, intrinsicHeight: gint): Paintable =
             gdk_paintable_new_empty(intrinsicWidth, intrinsicHeight)!!.run {
                 Paintable.wrap(reinterpret())
             }
+
+        /**
+         * Get the GType of Paintable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_paintable_get_type()
     }
 }
 
-private val connectInvalidateContentsFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectInvalidateContentsFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectInvalidateSizeFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectInvalidateSizeFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

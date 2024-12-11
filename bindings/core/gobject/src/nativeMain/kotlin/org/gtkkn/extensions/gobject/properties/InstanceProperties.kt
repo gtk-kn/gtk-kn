@@ -30,7 +30,6 @@ import org.gtkkn.bindings.gobject.Value
  * This class holds the delegates for properties for custom types registered on the Kotlin side.
  */
 internal class InstanceProperties(propertyMap: Map<UInt, Property<*, *>>) {
-
     private val properties = propertyMap.mapValues { InstanceProperty(it.value) }
 
     fun setPropertyValue(propId: UInt, value: Value) {

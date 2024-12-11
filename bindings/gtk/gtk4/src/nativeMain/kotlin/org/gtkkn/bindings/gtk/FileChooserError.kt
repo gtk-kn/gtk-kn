@@ -3,16 +3,16 @@ package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkFileChooserError
+import org.gtkkn.native.gtk.gtk_file_chooser_error_get_type
 import org.gtkkn.native.gtk.gtk_file_chooser_error_quark
 
 /**
  * These identify the various errors that can occur while calling
  * `GtkFileChooser` functions.
  */
-public enum class FileChooserError(
-    public val nativeValue: GtkFileChooserError,
-) {
+public enum class FileChooserError(public val nativeValue: GtkFileChooserError) {
     /**
      * Indicates that a file does not exist.
      */
@@ -37,14 +37,13 @@ public enum class FileChooserError(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkFileChooserError): FileChooserError =
-            when (nativeValue) {
-                GtkFileChooserError.GTK_FILE_CHOOSER_ERROR_NONEXISTENT -> NONEXISTENT
-                GtkFileChooserError.GTK_FILE_CHOOSER_ERROR_BAD_FILENAME -> BAD_FILENAME
-                GtkFileChooserError.GTK_FILE_CHOOSER_ERROR_ALREADY_EXISTS -> ALREADY_EXISTS
-                GtkFileChooserError.GTK_FILE_CHOOSER_ERROR_INCOMPLETE_HOSTNAME -> INCOMPLETE_HOSTNAME
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkFileChooserError): FileChooserError = when (nativeValue) {
+            GtkFileChooserError.GTK_FILE_CHOOSER_ERROR_NONEXISTENT -> NONEXISTENT
+            GtkFileChooserError.GTK_FILE_CHOOSER_ERROR_BAD_FILENAME -> BAD_FILENAME
+            GtkFileChooserError.GTK_FILE_CHOOSER_ERROR_ALREADY_EXISTS -> ALREADY_EXISTS
+            GtkFileChooserError.GTK_FILE_CHOOSER_ERROR_INCOMPLETE_HOSTNAME -> INCOMPLETE_HOSTNAME
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Registers an error quark for `GtkFileChooser` errors.
@@ -53,11 +52,17 @@ public enum class FileChooserError(
          */
         public fun quark(): Quark = gtk_file_chooser_error_quark()
 
-        public fun fromErrorOrNull(error: Error): FileChooserError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                FileChooserError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        /**
+         * Get the GType of FileChooserError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_file_chooser_error_get_type()
+
+        public fun fromErrorOrNull(error: Error): FileChooserError? = if (error.domain != quark()) {
+            null
+        } else {
+            FileChooserError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

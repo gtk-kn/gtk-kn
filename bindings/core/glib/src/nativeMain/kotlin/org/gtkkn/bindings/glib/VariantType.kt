@@ -1,14 +1,12 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_24
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GVariantType
 import org.gtkkn.native.glib.g_variant_type_checked_
 import org.gtkkn.native.glib.g_variant_type_copy
@@ -34,13 +32,16 @@ import org.gtkkn.native.glib.g_variant_type_new_array
 import org.gtkkn.native.glib.g_variant_type_new_dict_entry
 import org.gtkkn.native.glib.g_variant_type_new_maybe
 import org.gtkkn.native.glib.g_variant_type_next
+import org.gtkkn.native.glib.g_variant_type_peek_string
 import org.gtkkn.native.glib.g_variant_type_string_get_depth_
 import org.gtkkn.native.glib.g_variant_type_string_is_valid
 import org.gtkkn.native.glib.g_variant_type_value
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_variant_type_get_gtype
+import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
 import kotlin.String
-import kotlin.UInt
-import kotlin.ULong
 import kotlin.Unit
 
 /**
@@ -205,9 +206,7 @@ import kotlin.Unit
  * @since 2.24
  */
 @GLibVersion2_24
-public class VariantType(
-    pointer: CPointer<GVariantType>,
-) : Record {
+public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointer) {
     public val glibVariantTypePointer: CPointer<GVariantType> = pointer
 
     /**
@@ -218,10 +217,9 @@ public class VariantType(
      *
      * Since 2.24
      */
-    public fun copy(): VariantType =
-        g_variant_type_copy(glibVariantTypePointer.reinterpret())!!.run {
-            VariantType(reinterpret())
-        }
+    public fun copy(): VariantType = g_variant_type_copy(glibVariantTypePointer.reinterpret())!!.run {
+        VariantType(reinterpret())
+    }
 
     /**
      * Returns a newly-allocated copy of the type string corresponding to
@@ -232,9 +230,8 @@ public class VariantType(
      *
      * Since 2.24
      */
-    public fun dupString(): String =
-        g_variant_type_dup_string(glibVariantTypePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun dupString(): String = g_variant_type_dup_string(glibVariantTypePointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Determines the element type of an array or maybe type.
@@ -245,10 +242,9 @@ public class VariantType(
      *
      * Since 2.24
      */
-    public fun element(): VariantType =
-        g_variant_type_element(glibVariantTypePointer.reinterpret())!!.run {
-            VariantType(reinterpret())
-        }
+    public fun element(): VariantType = g_variant_type_element(glibVariantTypePointer.reinterpret())!!.run {
+        VariantType(reinterpret())
+    }
 
     /**
      * Determines the first item type of a tuple or dictionary entry
@@ -270,10 +266,9 @@ public class VariantType(
      *
      * Since 2.24
      */
-    public fun first(): VariantType =
-        g_variant_type_first(glibVariantTypePointer.reinterpret())!!.run {
-            VariantType(reinterpret())
-        }
+    public fun first(): VariantType = g_variant_type_first(glibVariantTypePointer.reinterpret())!!.run {
+        VariantType(reinterpret())
+    }
 
     /**
      * Frees a #GVariantType that was allocated with
@@ -295,7 +290,7 @@ public class VariantType(
      *
      * Since 2.24
      */
-    public fun getStringLength(): ULong = g_variant_type_get_string_length(glibVariantTypePointer.reinterpret())
+    public fun getStringLength(): gsize = g_variant_type_get_string_length(glibVariantTypePointer.reinterpret())
 
     /**
      * Hashes @type.
@@ -308,7 +303,7 @@ public class VariantType(
      *
      * Since 2.24
      */
-    public fun hash(): UInt = g_variant_type_hash(glibVariantTypePointer.reinterpret())
+    public fun hash(): guint = g_variant_type_hash(glibVariantTypePointer.reinterpret())
 
     /**
      * Determines if the given @type is an array type.  This is true if the
@@ -415,11 +410,10 @@ public class VariantType(
      *
      * Since 2.24
      */
-    public fun isSubtypeOf(supertype: VariantType): Boolean =
-        g_variant_type_is_subtype_of(
-            glibVariantTypePointer.reinterpret(),
-            supertype.glibVariantTypePointer.reinterpret()
-        ).asBoolean()
+    public fun isSubtypeOf(supertype: VariantType): Boolean = g_variant_type_is_subtype_of(
+        glibVariantTypePointer.reinterpret(),
+        supertype.glibVariantTypePointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Determines if the given @type is a tuple type.  This is true if the
@@ -456,10 +450,9 @@ public class VariantType(
      *
      * Since 2.24
      */
-    public fun key(): VariantType =
-        g_variant_type_key(glibVariantTypePointer.reinterpret())!!.run {
-            VariantType(reinterpret())
-        }
+    public fun key(): VariantType = g_variant_type_key(glibVariantTypePointer.reinterpret())!!.run {
+        VariantType(reinterpret())
+    }
 
     /**
      * Determines the number of items contained in a tuple or
@@ -476,7 +469,7 @@ public class VariantType(
      *
      * Since 2.24
      */
-    public fun nItems(): ULong = g_variant_type_n_items(glibVariantTypePointer.reinterpret())
+    public fun nItems(): gsize = g_variant_type_n_items(glibVariantTypePointer.reinterpret())
 
     /**
      * Determines the next item type of a tuple or dictionary entry
@@ -495,10 +488,23 @@ public class VariantType(
      *
      * Since 2.24
      */
-    public fun next(): VariantType =
-        g_variant_type_next(glibVariantTypePointer.reinterpret())!!.run {
-            VariantType(reinterpret())
-        }
+    public fun next(): VariantType = g_variant_type_next(glibVariantTypePointer.reinterpret())!!.run {
+        VariantType(reinterpret())
+    }
+
+    /**
+     * Returns the type string corresponding to the given @type.  The
+     * result is not nul-terminated; in order to determine its length you
+     * must call g_variant_type_get_string_length().
+     *
+     * To get a nul-terminated string, see g_variant_type_dup_string().
+     *
+     * @return the corresponding type string (not nul-terminated)
+     *
+     * Since 2.24
+     */
+    public fun peekString(): String = g_variant_type_peek_string(glibVariantTypePointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Determines the value type of a dictionary entry type.
@@ -509,12 +515,11 @@ public class VariantType(
      *
      * Since 2.24
      */
-    public fun `value`(): VariantType =
-        g_variant_type_value(glibVariantTypePointer.reinterpret())!!.run {
-            VariantType(reinterpret())
-        }
+    public fun `value`(): VariantType = g_variant_type_value(glibVariantTypePointer.reinterpret())!!.run {
+        VariantType(reinterpret())
+    }
 
-    public companion object : RecordCompanion<VariantType, GVariantType> {
+    public companion object {
         /**
          * Creates a new #GVariantType corresponding to the type string given
          * by @type_string.  It is appropriate to call g_variant_type_free() on
@@ -555,16 +560,12 @@ public class VariantType(
          *
          * Since 2.24
          */
-        public fun newDictEntry(
-            key: VariantType,
-            `value`: VariantType,
-        ): VariantType =
-            VariantType(
-                g_variant_type_new_dict_entry(
-                    key.glibVariantTypePointer.reinterpret(),
-                    `value`.glibVariantTypePointer.reinterpret()
-                )!!.reinterpret()
-            )
+        public fun newDictEntry(key: VariantType, `value`: VariantType): VariantType = VariantType(
+            g_variant_type_new_dict_entry(
+                key.glibVariantTypePointer.reinterpret(),
+                `value`.glibVariantTypePointer.reinterpret()
+            )!!.reinterpret()
+        )
 
         /**
          * Constructs the type corresponding to a maybe instance containing
@@ -580,22 +581,11 @@ public class VariantType(
         public fun newMaybe(element: VariantType): VariantType =
             VariantType(g_variant_type_new_maybe(element.glibVariantTypePointer.reinterpret())!!.reinterpret())
 
-        /**
-         *
-         *
-         * @param typeString
-         */
-        public fun checked(typeString: String): VariantType =
-            g_variant_type_checked_(typeString)!!.run {
-                VariantType(reinterpret())
-            }
+        public fun checked(typeString: String): VariantType = g_variant_type_checked_(typeString)!!.run {
+            VariantType(reinterpret())
+        }
 
-        /**
-         *
-         *
-         * @param typeString
-         */
-        public fun stringGetDepth(typeString: String): ULong = g_variant_type_string_get_depth_(typeString)
+        public fun stringGetDepth(typeString: String): gsize = g_variant_type_string_get_depth_(typeString)
 
         /**
          * Checks if @type_string is a valid GVariant type string.  This call is
@@ -609,7 +599,11 @@ public class VariantType(
          */
         public fun stringIsValid(typeString: String): Boolean = g_variant_type_string_is_valid(typeString).asBoolean()
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): VariantType =
-            VariantType(pointer.reinterpret())
+        /**
+         * Get the GType of VariantType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_variant_type_get_gtype()
     }
 }

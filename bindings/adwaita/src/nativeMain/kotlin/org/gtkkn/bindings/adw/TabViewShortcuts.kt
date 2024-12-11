@@ -18,6 +18,8 @@ import org.gtkkn.native.adw.ADW_TAB_VIEW_SHORTCUT_CONTROL_SHIFT_TAB
 import org.gtkkn.native.adw.ADW_TAB_VIEW_SHORTCUT_CONTROL_TAB
 import org.gtkkn.native.adw.ADW_TAB_VIEW_SHORTCUT_NONE
 import org.gtkkn.native.adw.AdwTabViewShortcuts
+import org.gtkkn.native.adw.adw_tab_view_shortcuts_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Describes available shortcuts in an [class@TabView].
@@ -29,9 +31,7 @@ import org.gtkkn.native.adw.AdwTabViewShortcuts
  * New values may be added to this enumeration over time.
  * @since 1.2
  */
-public class TabViewShortcuts(
-    public val mask: AdwTabViewShortcuts,
-) : Bitfield<TabViewShortcuts> {
+public class TabViewShortcuts(public val mask: AdwTabViewShortcuts) : Bitfield<TabViewShortcuts> {
     override infix fun or(other: TabViewShortcuts): TabViewShortcuts = TabViewShortcuts(mask or other.mask)
 
     @AdwVersion1_2
@@ -121,5 +121,12 @@ public class TabViewShortcuts(
          */
         public val ALL_SHORTCUTS: TabViewShortcuts =
             TabViewShortcuts(ADW_TAB_VIEW_SHORTCUT_ALL_SHORTCUTS)
+
+        /**
+         * Get the GType of TabViewShortcuts
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_tab_view_shortcuts_get_type()
     }
 }

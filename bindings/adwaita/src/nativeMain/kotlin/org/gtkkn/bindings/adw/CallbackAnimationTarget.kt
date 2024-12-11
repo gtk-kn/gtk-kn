@@ -11,14 +11,14 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.adw.AdwCallbackAnimationTarget
 import org.gtkkn.native.adw.adw_callback_animation_target_get_type
 import org.gtkkn.native.adw.adw_callback_animation_target_new
+import org.gtkkn.native.gobject.GType
 
 /**
  * An [class@AnimationTarget] that calls a given callback during the
  * animation.
  */
-public class CallbackAnimationTarget(
-    pointer: CPointer<AdwCallbackAnimationTarget>,
-) : AnimationTarget(pointer.reinterpret()),
+public class CallbackAnimationTarget(pointer: CPointer<AdwCallbackAnimationTarget>) :
+    AnimationTarget(pointer.reinterpret()),
     KGTyped {
     public val adwCallbackAnimationTargetPointer: CPointer<AdwCallbackAnimationTarget>
         get() = gPointer.reinterpret()
@@ -42,12 +42,19 @@ public class CallbackAnimationTarget(
 
     public companion object : TypeCompanion<CallbackAnimationTarget> {
         override val type: GeneratedClassKGType<CallbackAnimationTarget> =
-            GeneratedClassKGType(
-                adw_callback_animation_target_get_type()
-            ) { CallbackAnimationTarget(it.reinterpret()) }
+            GeneratedClassKGType(adw_callback_animation_target_get_type()) {
+                CallbackAnimationTarget(it.reinterpret())
+            }
 
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of CallbackAnimationTarget
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_callback_animation_target_get_type()
     }
 }

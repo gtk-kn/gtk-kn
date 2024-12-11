@@ -14,9 +14,10 @@ import org.gtkkn.native.gdk.gdk_app_launch_context_set_desktop
 import org.gtkkn.native.gdk.gdk_app_launch_context_set_icon
 import org.gtkkn.native.gdk.gdk_app_launch_context_set_icon_name
 import org.gtkkn.native.gdk.gdk_app_launch_context_set_timestamp
-import kotlin.Int
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 
 /**
@@ -40,9 +41,8 @@ import kotlin.Unit
  * g_object_unref (context);
  * ```
  */
-public open class AppLaunchContext(
-    pointer: CPointer<GdkAppLaunchContext>,
-) : org.gtkkn.bindings.gio.AppLaunchContext(pointer.reinterpret()),
+public open class AppLaunchContext(pointer: CPointer<GdkAppLaunchContext>) :
+    org.gtkkn.bindings.gio.AppLaunchContext(pointer.reinterpret()),
     KGTyped {
     public val gdkAppLaunchContextPointer: CPointer<GdkAppLaunchContext>
         get() = gPointer.reinterpret()
@@ -56,18 +56,7 @@ public open class AppLaunchContext(
          *
          * @return the display of @context
          */
-        get() =
-            gdk_app_launch_context_get_display(gdkAppLaunchContextPointer.reinterpret())!!.run {
-                Display(reinterpret())
-            }
-
-    /**
-     * Gets the `GdkDisplay` that @context is for.
-     *
-     * @return the display of @context
-     */
-    public open fun getDisplay_(): Display =
-        gdk_app_launch_context_get_display(gdkAppLaunchContextPointer.reinterpret())!!.run {
+        get() = gdk_app_launch_context_get_display(gdkAppLaunchContextPointer.reinterpret())!!.run {
             Display(reinterpret())
         }
 
@@ -88,7 +77,7 @@ public open class AppLaunchContext(
      *
      * @param desktop the number of a workspace, or -1
      */
-    public open fun setDesktop(desktop: Int): Unit =
+    public open fun setDesktop(desktop: gint): Unit =
         gdk_app_launch_context_set_desktop(gdkAppLaunchContextPointer.reinterpret(), desktop)
 
     /**
@@ -134,7 +123,7 @@ public open class AppLaunchContext(
      *
      * @param timestamp a timestamp
      */
-    public open fun setTimestamp(timestamp: UInt): Unit =
+    public open fun setTimestamp(timestamp: guint): Unit =
         gdk_app_launch_context_set_timestamp(gdkAppLaunchContextPointer.reinterpret(), timestamp)
 
     public companion object : TypeCompanion<AppLaunchContext> {
@@ -144,5 +133,12 @@ public open class AppLaunchContext(
         init {
             GdkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of AppLaunchContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_app_launch_context_get_type()
     }
 }

@@ -7,18 +7,24 @@ import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskSubsurfaceNode
 import org.gtkkn.native.gsk.gsk_subsurface_node_get_child
 import org.gtkkn.native.gsk.gsk_subsurface_node_get_type
 
 /**
  * A render node that potentially diverts a part of the scene graph to a subsurface.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - parameter `subsurface`: gpointer
+ * - function `get_subsurface`: Return type gpointer is unsupported
+ *
  * @since 4.14
  */
 @GskVersion4_14
-public open class SubsurfaceNode(
-    pointer: CPointer<GskSubsurfaceNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class SubsurfaceNode(pointer: CPointer<GskSubsurfaceNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskSubsurfaceNodePointer: CPointer<GskSubsurfaceNode>
         get() = gPointer.reinterpret()
@@ -42,5 +48,12 @@ public open class SubsurfaceNode(
         init {
             GskTypeProvider.register()
         }
+
+        /**
+         * Get the GType of SubsurfaceNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_subsurface_node_get_type()
     }
 }

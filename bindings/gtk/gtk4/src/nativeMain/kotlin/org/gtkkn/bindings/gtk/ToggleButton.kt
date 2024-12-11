@@ -15,6 +15,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
@@ -115,9 +116,8 @@ import kotlin.Unit
  *
  * - method `group`: Property has no getter
  */
-public open class ToggleButton(
-    pointer: CPointer<GtkToggleButton>,
-) : Button(pointer.reinterpret()),
+public open class ToggleButton(pointer: CPointer<GtkToggleButton>) :
+    Button(pointer.reinterpret()),
     KGTyped {
     public val gtkToggleButtonPointer: CPointer<GtkToggleButton>
         get() = gPointer.reinterpret()
@@ -179,31 +179,6 @@ public open class ToggleButton(
     public constructor(label: String) : this(gtk_toggle_button_new_with_label(label)!!.reinterpret())
 
     /**
-     * Queries a `GtkToggleButton` and returns its current state.
-     *
-     * Returns true if the toggle button is pressed in and false
-     * if it is raised.
-     *
-     * @return whether the button is pressed
-     */
-    public open fun getActive(): Boolean =
-        gtk_toggle_button_get_active(gtkToggleButtonPointer.reinterpret()).asBoolean()
-
-    /**
-     * Sets the status of the toggle button.
-     *
-     * Set to true if you want the `GtkToggleButton` to be “pressed in”,
-     * and false to raise it.
-     *
-     * If the status of the button changes, this action causes the
-     * [signal@Gtk.ToggleButton::toggled] signal to be emitted.
-     *
-     * @param isActive true or false.
-     */
-    public open fun setActive(isActive: Boolean): Unit =
-        gtk_toggle_button_set_active(gtkToggleButtonPointer.reinterpret(), isActive.asGBoolean())
-
-    /**
      * Adds @self to the group of @group.
      *
      * In a group of multiple toggle buttons, only one button can be active
@@ -233,10 +208,7 @@ public open class ToggleButton(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectToggled(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectToggled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "toggled",
@@ -275,13 +247,20 @@ public open class ToggleButton(
          */
         public fun newWithMnemonic(label: String): ToggleButton =
             ToggleButton(gtk_toggle_button_new_with_mnemonic(label)!!.reinterpret())
+
+        /**
+         * Get the GType of ToggleButton
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_toggle_button_get_type()
     }
 }
 
-private val connectToggledFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectToggledFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

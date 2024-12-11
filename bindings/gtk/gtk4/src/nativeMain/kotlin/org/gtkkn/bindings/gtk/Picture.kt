@@ -13,6 +13,7 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -91,9 +92,8 @@ import kotlin.Unit
  *
  * `GtkPicture` uses the `GTK_ACCESSIBLE_ROLE_IMG` role.
  */
-public open class Picture(
-    pointer: CPointer<GtkPicture>,
-) : Widget(pointer.reinterpret()),
+public open class Picture(pointer: CPointer<GtkPicture>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkPicturePointer: CPointer<GtkPicture>
         get() = gPointer.reinterpret()
@@ -175,10 +175,9 @@ public open class Picture(
          * @return the content fit mode
          * @since 4.8
          */
-        get() =
-            gtk_picture_get_content_fit(gtkPicturePointer.reinterpret()).run {
-                ContentFit.fromNativeValue(this)
-            }
+        get() = gtk_picture_get_content_fit(gtkPicturePointer.reinterpret()).run {
+            ContentFit.fromNativeValue(this)
+        }
 
         /**
          * Sets how the content should be resized to fit the `GtkPicture`.
@@ -203,10 +202,9 @@ public open class Picture(
          *
          * @return The `GFile` displayed by @self.
          */
-        get() =
-            gtk_picture_get_file(gtkPicturePointer.reinterpret())?.run {
-                File.wrap(reinterpret())
-            }
+        get() = gtk_picture_get_file(gtkPicturePointer.reinterpret())?.run {
+            File.wrap(reinterpret())
+        }
 
         /**
          * Makes @self load and display @file.
@@ -254,10 +252,9 @@ public open class Picture(
          *
          * @return the displayed paintable
          */
-        get() =
-            gtk_picture_get_paintable(gtkPicturePointer.reinterpret())?.run {
-                Paintable.wrap(reinterpret())
-            }
+        get() = gtk_picture_get_paintable(gtkPicturePointer.reinterpret())?.run {
+            Paintable.wrap(reinterpret())
+        }
 
         /**
          * Makes @self display the given @paintable.
@@ -332,121 +329,6 @@ public open class Picture(
     ) : this(gtk_picture_new_for_pixbuf(pixbuf?.gdkpixbufPixbufPointer?.reinterpret())!!.reinterpret())
 
     /**
-     * Gets the alternative textual description of the picture.
-     *
-     * The returned string will be null if the picture cannot be described textually.
-     *
-     * @return the alternative textual description of @self.
-     */
-    public open fun getAlternativeText(): String? =
-        gtk_picture_get_alternative_text(gtkPicturePointer.reinterpret())?.toKString()
-
-    /**
-     * Returns whether the `GtkPicture` respects its contents size.
-     *
-     * @return true if the picture can be made smaller than its contents
-     */
-    public open fun getCanShrink(): Boolean = gtk_picture_get_can_shrink(gtkPicturePointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns the fit mode for the content of the `GtkPicture`.
-     *
-     * See [enum@Gtk.ContentFit] for details.
-     *
-     * @return the content fit mode
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun getContentFit(): ContentFit =
-        gtk_picture_get_content_fit(gtkPicturePointer.reinterpret()).run {
-            ContentFit.fromNativeValue(this)
-        }
-
-    /**
-     * Gets the `GFile` currently displayed if @self is displaying a file.
-     *
-     * If @self is not displaying a file, for example when
-     * [method@Gtk.Picture.set_paintable] was used, then null is returned.
-     *
-     * @return The `GFile` displayed by @self.
-     */
-    public open fun getFile(): File? =
-        gtk_picture_get_file(gtkPicturePointer.reinterpret())?.run {
-            File.wrap(reinterpret())
-        }
-
-    /**
-     * Returns whether the `GtkPicture` preserves its contents aspect ratio.
-     *
-     * @return true if the self tries to keep the contents' aspect ratio
-     */
-    public open fun getKeepAspectRatio(): Boolean =
-        gtk_picture_get_keep_aspect_ratio(gtkPicturePointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the `GdkPaintable` being displayed by the `GtkPicture`.
-     *
-     * @return the displayed paintable
-     */
-    public open fun getPaintable(): Paintable? =
-        gtk_picture_get_paintable(gtkPicturePointer.reinterpret())?.run {
-            Paintable.wrap(reinterpret())
-        }
-
-    /**
-     * Sets an alternative textual description for the picture contents.
-     *
-     * It is equivalent to the "alt" attribute for images on websites.
-     *
-     * This text will be made available to accessibility tools.
-     *
-     * If the picture cannot be described textually, set this property to null.
-     *
-     * @param alternativeText a textual description of the contents
-     */
-    public open fun setAlternativeText(alternativeText: String? = null): Unit =
-        gtk_picture_set_alternative_text(gtkPicturePointer.reinterpret(), alternativeText)
-
-    /**
-     * If set to true, the @self can be made smaller than its contents.
-     *
-     * The contents will then be scaled down when rendering.
-     *
-     * If you want to still force a minimum size manually, consider using
-     * [method@Gtk.Widget.set_size_request].
-     *
-     * Also of note is that a similar function for growing does not exist
-     * because the grow behavior can be controlled via
-     * [method@Gtk.Widget.set_halign] and [method@Gtk.Widget.set_valign].
-     *
-     * @param canShrink if @self can be made smaller than its contents
-     */
-    public open fun setCanShrink(canShrink: Boolean): Unit =
-        gtk_picture_set_can_shrink(gtkPicturePointer.reinterpret(), canShrink.asGBoolean())
-
-    /**
-     * Sets how the content should be resized to fit the `GtkPicture`.
-     *
-     * See [enum@Gtk.ContentFit] for details.
-     *
-     * @param contentFit the content fit mode
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun setContentFit(contentFit: ContentFit): Unit =
-        gtk_picture_set_content_fit(gtkPicturePointer.reinterpret(), contentFit.nativeValue)
-
-    /**
-     * Makes @self load and display @file.
-     *
-     * See [ctor@Gtk.Picture.new_for_file] for details.
-     *
-     * @param file a `GFile`
-     */
-    public open fun setFile(`file`: File? = null): Unit =
-        gtk_picture_set_file(gtkPicturePointer.reinterpret(), `file`?.gioFilePointer)
-
-    /**
      * Makes @self load and display the given @filename.
      *
      * This is a utility function that calls [method@Gtk.Picture.set_file].
@@ -455,33 +337,6 @@ public open class Picture(
      */
     public open fun setFilename(filename: String? = null): Unit =
         gtk_picture_set_filename(gtkPicturePointer.reinterpret(), filename)
-
-    /**
-     * If set to true, the @self will render its contents according to
-     * their aspect ratio.
-     *
-     * That means that empty space may show up at the top/bottom or
-     * left/right of @self.
-     *
-     * If set to false or if the contents provide no aspect ratio,
-     * the contents will be stretched over the picture's whole area.
-     *
-     * @param keepAspectRatio whether to keep aspect ratio
-     */
-    public open fun setKeepAspectRatio(keepAspectRatio: Boolean): Unit =
-        gtk_picture_set_keep_aspect_ratio(gtkPicturePointer.reinterpret(), keepAspectRatio.asGBoolean())
-
-    /**
-     * Makes @self display the given @paintable.
-     *
-     * If @paintable is null, nothing will be displayed.
-     *
-     * See [ctor@Gtk.Picture.new_for_paintable] for details.
-     *
-     * @param paintable a `GdkPaintable`
-     */
-    public open fun setPaintable(paintable: Paintable? = null): Unit =
-        gtk_picture_set_paintable(gtkPicturePointer.reinterpret(), paintable?.gdkPaintablePointer)
 
     /**
      * Sets a `GtkPicture` to show a `GdkPixbuf`.
@@ -537,5 +392,12 @@ public open class Picture(
          */
         public fun newForResource(resourcePath: String? = null): Picture =
             Picture(gtk_picture_new_for_resource(resourcePath)!!.reinterpret())
+
+        /**
+         * Get the GType of Picture
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_picture_get_type()
     }
 }

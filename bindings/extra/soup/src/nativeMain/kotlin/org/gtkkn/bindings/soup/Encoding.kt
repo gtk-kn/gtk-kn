@@ -1,14 +1,14 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupEncoding
+import org.gtkkn.native.soup.soup_encoding_get_type
 
 /**
  * How a message body is encoded for transport
  */
-public enum class Encoding(
-    public val nativeValue: SoupEncoding,
-) {
+public enum class Encoding(public val nativeValue: SoupEncoding) {
     /**
      * unknown / error
      */
@@ -44,15 +44,21 @@ public enum class Encoding(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: SoupEncoding): Encoding =
-            when (nativeValue) {
-                SoupEncoding.SOUP_ENCODING_UNRECOGNIZED -> UNRECOGNIZED
-                SoupEncoding.SOUP_ENCODING_NONE -> NONE
-                SoupEncoding.SOUP_ENCODING_CONTENT_LENGTH -> CONTENT_LENGTH
-                SoupEncoding.SOUP_ENCODING_EOF -> EOF
-                SoupEncoding.SOUP_ENCODING_CHUNKED -> CHUNKED
-                SoupEncoding.SOUP_ENCODING_BYTERANGES -> BYTERANGES
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: SoupEncoding): Encoding = when (nativeValue) {
+            SoupEncoding.SOUP_ENCODING_UNRECOGNIZED -> UNRECOGNIZED
+            SoupEncoding.SOUP_ENCODING_NONE -> NONE
+            SoupEncoding.SOUP_ENCODING_CONTENT_LENGTH -> CONTENT_LENGTH
+            SoupEncoding.SOUP_ENCODING_EOF -> EOF
+            SoupEncoding.SOUP_ENCODING_CHUNKED -> CHUNKED
+            SoupEncoding.SOUP_ENCODING_BYTERANGES -> BYTERANGES
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of Encoding
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_encoding_get_type()
     }
 }

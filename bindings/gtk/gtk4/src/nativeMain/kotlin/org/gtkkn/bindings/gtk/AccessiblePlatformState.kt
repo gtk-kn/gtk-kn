@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessiblePlatformState
+import org.gtkkn.native.gtk.gtk_accessible_platform_state_get_type
 
 /**
  * The various platform states which can be queried
@@ -10,9 +12,7 @@ import org.gtkkn.native.gtk.GtkAccessiblePlatformState
  * @since 4.10
  */
 @GtkVersion4_10
-public enum class AccessiblePlatformState(
-    public val nativeValue: GtkAccessiblePlatformState,
-) {
+public enum class AccessiblePlatformState(public val nativeValue: GtkAccessiblePlatformState) {
     /**
      * whether the accessible can be focused
      */
@@ -37,5 +37,12 @@ public enum class AccessiblePlatformState(
                 GtkAccessiblePlatformState.GTK_ACCESSIBLE_PLATFORM_STATE_ACTIVE -> ACTIVE
                 else -> error("invalid nativeValue")
             }
+
+        /**
+         * Get the GType of AccessiblePlatformState
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_accessible_platform_state_get_type()
     }
 }

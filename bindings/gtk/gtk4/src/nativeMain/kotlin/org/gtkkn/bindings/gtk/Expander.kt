@@ -16,6 +16,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -137,9 +138,8 @@ import kotlin.Unit
  *
  * `GtkExpander` uses the %GTK_ACCESSIBLE_ROLE_BUTTON role.
  */
-public open class Expander(
-    pointer: CPointer<GtkExpander>,
-) : Widget(pointer.reinterpret()),
+public open class Expander(pointer: CPointer<GtkExpander>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkExpanderPointer: CPointer<GtkExpander>
         get() = gPointer.reinterpret()
@@ -162,10 +162,9 @@ public open class Expander(
          *
          * @return the child widget of @expander
          */
-        get() =
-            gtk_expander_get_child(gtkExpanderPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = gtk_expander_get_child(gtkExpanderPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the child widget of @expander.
@@ -233,10 +232,9 @@ public open class Expander(
          *
          * @return the label widget
          */
-        get() =
-            gtk_expander_get_label_widget(gtkExpanderPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = gtk_expander_get_label_widget(gtkExpanderPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Set the label widget for the expander.
@@ -248,11 +246,10 @@ public open class Expander(
          */
         set(
             labelWidget
-        ) =
-            gtk_expander_set_label_widget(
-                gtkExpanderPointer.reinterpret(),
-                labelWidget?.gtkWidgetPointer?.reinterpret()
-            )
+        ) = gtk_expander_set_label_widget(
+            gtkExpanderPointer.reinterpret(),
+            labelWidget?.gtkWidgetPointer?.reinterpret()
+        )
 
     /**
      * When this property is true, the expander will resize the toplevel
@@ -323,148 +320,12 @@ public open class Expander(
     public constructor(label: String? = null) : this(gtk_expander_new(label)!!.reinterpret())
 
     /**
-     * Gets the child widget of @expander.
-     *
-     * @return the child widget of @expander
-     */
-    public open fun getChild(): Widget? =
-        gtk_expander_get_child(gtkExpanderPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Queries a `GtkExpander` and returns its current state.
-     *
-     * Returns true if the child widget is revealed.
-     *
-     * @return the current state of the expander
-     */
-    public open fun getExpanded(): Boolean = gtk_expander_get_expanded(gtkExpanderPointer.reinterpret()).asBoolean()
-
-    /**
-     * Fetches the text from a label widget.
-     *
-     * This is including any embedded underlines indicating mnemonics and
-     * Pango markup, as set by [method@Gtk.Expander.set_label]. If the label
-     * text has not been set the return value will be null. This will be the
-     * case if you create an empty button with gtk_button_new() to use as a
-     * container.
-     *
-     * @return The text of the label widget. This string is owned
-     *   by the widget and must not be modified or freed.
-     */
-    public open fun getLabel(): String? = gtk_expander_get_label(gtkExpanderPointer.reinterpret())?.toKString()
-
-    /**
-     * Retrieves the label widget for the frame.
-     *
-     * @return the label widget
-     */
-    public open fun getLabelWidget(): Widget? =
-        gtk_expander_get_label_widget(gtkExpanderPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Returns whether the expander will resize the toplevel widget
-     * containing the expander upon resizing and collapsing.
-     *
-     * @return the “resize toplevel” setting.
-     */
-    public open fun getResizeToplevel(): Boolean =
-        gtk_expander_get_resize_toplevel(gtkExpanderPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns whether the label’s text is interpreted as Pango markup.
-     *
-     * @return true if the label’s text will be parsed for markup
-     */
-    public open fun getUseMarkup(): Boolean = gtk_expander_get_use_markup(gtkExpanderPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns whether an underline in the text indicates a mnemonic.
-     *
-     * @return true if an embedded underline in the expander
-     *   label indicates the mnemonic accelerator keys
-     */
-    public open fun getUseUnderline(): Boolean =
-        gtk_expander_get_use_underline(gtkExpanderPointer.reinterpret()).asBoolean()
-
-    /**
-     * Sets the child widget of @expander.
-     *
-     * @param child the child widget
-     */
-    public open fun setChild(child: Widget? = null): Unit =
-        gtk_expander_set_child(gtkExpanderPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
-
-    /**
-     * Sets the state of the expander.
-     *
-     * Set to true, if you want the child widget to be revealed,
-     * and false if you want the child widget to be hidden.
-     *
-     * @param expanded whether the child widget is revealed
-     */
-    public open fun setExpanded(expanded: Boolean): Unit =
-        gtk_expander_set_expanded(gtkExpanderPointer.reinterpret(), expanded.asGBoolean())
-
-    /**
-     * Sets the text of the label of the expander to @label.
-     *
-     * This will also clear any previously set labels.
-     *
-     * @param label a string
-     */
-    public open fun setLabel(label: String? = null): Unit =
-        gtk_expander_set_label(gtkExpanderPointer.reinterpret(), label)
-
-    /**
-     * Set the label widget for the expander.
-     *
-     * This is the widget that will appear embedded alongside
-     * the expander arrow.
-     *
-     * @param labelWidget the new label widget
-     */
-    public open fun setLabelWidget(labelWidget: Widget? = null): Unit =
-        gtk_expander_set_label_widget(gtkExpanderPointer.reinterpret(), labelWidget?.gtkWidgetPointer?.reinterpret())
-
-    /**
-     * Sets whether the expander will resize the toplevel widget
-     * containing the expander upon resizing and collapsing.
-     *
-     * @param resizeToplevel whether to resize the toplevel
-     */
-    public open fun setResizeToplevel(resizeToplevel: Boolean): Unit =
-        gtk_expander_set_resize_toplevel(gtkExpanderPointer.reinterpret(), resizeToplevel.asGBoolean())
-
-    /**
-     * Sets whether the text of the label contains Pango markup.
-     *
-     * @param useMarkup true if the label’s text should be parsed for markup
-     */
-    public open fun setUseMarkup(useMarkup: Boolean): Unit =
-        gtk_expander_set_use_markup(gtkExpanderPointer.reinterpret(), useMarkup.asGBoolean())
-
-    /**
-     * If true, an underline in the text indicates a mnemonic.
-     *
-     * @param useUnderline true if underlines in the text indicate mnemonics
-     */
-    public open fun setUseUnderline(useUnderline: Boolean): Unit =
-        gtk_expander_set_use_underline(gtkExpanderPointer.reinterpret(), useUnderline.asGBoolean())
-
-    /**
      * Activates the `GtkExpander`.
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectActivate(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "activate",
@@ -506,13 +367,20 @@ public open class Expander(
          */
         public fun newWithMnemonic(label: String? = null): Expander =
             Expander(gtk_expander_new_with_mnemonic(label)!!.reinterpret())
+
+        /**
+         * Get the GType of Expander
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_expander_get_type()
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

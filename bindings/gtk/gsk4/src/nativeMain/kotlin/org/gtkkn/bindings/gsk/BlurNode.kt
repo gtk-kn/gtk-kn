@@ -6,19 +6,19 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskBlurNode
 import org.gtkkn.native.gsk.gsk_blur_node_get_child
 import org.gtkkn.native.gsk.gsk_blur_node_get_radius
 import org.gtkkn.native.gsk.gsk_blur_node_get_type
 import org.gtkkn.native.gsk.gsk_blur_node_new
-import kotlin.Float
 
 /**
  * A render node applying a blur effect to its single child.
  */
-public open class BlurNode(
-    pointer: CPointer<GskBlurNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class BlurNode(pointer: CPointer<GskBlurNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskBlurNodePointer: CPointer<GskBlurNode>
         get() = gPointer.reinterpret()
@@ -32,7 +32,7 @@ public open class BlurNode(
      */
     public constructor(
         child: RenderNode,
-        radius: Float,
+        radius: gfloat,
     ) : this(gsk_blur_node_new(child.gPointer.reinterpret(), radius)!!.reinterpret())
 
     /**
@@ -40,17 +40,16 @@ public open class BlurNode(
      *
      * @return the blurred child node
      */
-    public open fun getChild(): RenderNode =
-        gsk_blur_node_get_child(gskBlurNodePointer.reinterpret())!!.run {
-            RenderNode(reinterpret())
-        }
+    public open fun getChild(): RenderNode = gsk_blur_node_get_child(gskBlurNodePointer.reinterpret())!!.run {
+        RenderNode(reinterpret())
+    }
 
     /**
      * Retrieves the blur radius of the @node.
      *
      * @return the blur radius
      */
-    public open fun getRadius(): Float = gsk_blur_node_get_radius(gskBlurNodePointer.reinterpret())
+    public open fun getRadius(): gfloat = gsk_blur_node_get_radius(gskBlurNodePointer.reinterpret())
 
     public companion object : TypeCompanion<BlurNode> {
         override val type: GeneratedClassKGType<BlurNode> =
@@ -59,5 +58,12 @@ public open class BlurNode(
         init {
             GskTypeProvider.register()
         }
+
+        /**
+         * Get the GType of BlurNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_blur_node_get_type()
     }
 }

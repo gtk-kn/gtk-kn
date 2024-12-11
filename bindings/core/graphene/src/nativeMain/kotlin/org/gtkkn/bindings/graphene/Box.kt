@@ -1,12 +1,16 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.graphene
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.graphene.graphene_box_alloc
 import org.gtkkn.native.graphene.graphene_box_contains_box
 import org.gtkkn.native.graphene.graphene_box_contains_point
@@ -23,6 +27,7 @@ import org.gtkkn.native.graphene.graphene_box_get_height
 import org.gtkkn.native.graphene.graphene_box_get_max
 import org.gtkkn.native.graphene.graphene_box_get_min
 import org.gtkkn.native.graphene.graphene_box_get_size
+import org.gtkkn.native.graphene.graphene_box_get_type
 import org.gtkkn.native.graphene.graphene_box_get_width
 import org.gtkkn.native.graphene.graphene_box_infinite
 import org.gtkkn.native.graphene.graphene_box_init
@@ -36,8 +41,10 @@ import org.gtkkn.native.graphene.graphene_box_t
 import org.gtkkn.native.graphene.graphene_box_union
 import org.gtkkn.native.graphene.graphene_box_zero
 import kotlin.Boolean
-import kotlin.Float
+import kotlin.Pair
 import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * A 3D box, described as the volume between a minimum and
@@ -54,10 +61,39 @@ import kotlin.Unit
  * @since 1.2
  */
 @GrapheneVersion1_2
-public class Box(
-    pointer: CPointer<graphene_box_t>,
-) : Record {
+public class Box(pointer: CPointer<graphene_box_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val grapheneBoxPointer: CPointer<graphene_box_t> = pointer
+
+    /**
+     * Allocate a new Box.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<graphene_box_t>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Box and a [Cleaner] instance.
+     */
+    private constructor(
+        pair: Pair<CPointer<graphene_box_t>, Cleaner>,
+    ) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Box using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_box_t>().ptr)
 
     /**
      * Checks whether the #graphene_box_t @a contains the given
@@ -101,15 +137,11 @@ public class Box(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun expand(
-        point: Point3D,
-        res: Box,
-    ): Unit =
-        graphene_box_expand(
-            grapheneBoxPointer.reinterpret(),
-            point.graphenePoint3DPointer.reinterpret(),
-            res.grapheneBoxPointer.reinterpret()
-        )
+    public fun expand(point: Point3D, res: Box): Unit = graphene_box_expand(
+        grapheneBoxPointer.reinterpret(),
+        point.graphenePoint3DPointer.reinterpret(),
+        res.grapheneBoxPointer.reinterpret()
+    )
 
     /**
      * Expands the dimensions of @box by the given @scalar value.
@@ -122,10 +154,8 @@ public class Box(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun expandScalar(
-        scalar: Float,
-        res: Box,
-    ): Unit = graphene_box_expand_scalar(grapheneBoxPointer.reinterpret(), scalar, res.grapheneBoxPointer.reinterpret())
+    public fun expandScalar(scalar: gfloat, res: Box): Unit =
+        graphene_box_expand_scalar(grapheneBoxPointer.reinterpret(), scalar, res.grapheneBoxPointer.reinterpret())
 
     /**
      * Expands the dimensions of @box to include the coordinates of the
@@ -136,15 +166,11 @@ public class Box(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun expandVec3(
-        vec: Vec3,
-        res: Box,
-    ): Unit =
-        graphene_box_expand_vec3(
-            grapheneBoxPointer.reinterpret(),
-            vec.grapheneVec3Pointer.reinterpret(),
-            res.grapheneBoxPointer.reinterpret()
-        )
+    public fun expandVec3(vec: Vec3, res: Box): Unit = graphene_box_expand_vec3(
+        grapheneBoxPointer.reinterpret(),
+        vec.grapheneVec3Pointer.reinterpret(),
+        res.grapheneBoxPointer.reinterpret()
+    )
 
     /**
      * Frees the resources allocated by graphene_box_alloc().
@@ -183,7 +209,7 @@ public class Box(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getDepth(): Float = graphene_box_get_depth(grapheneBoxPointer.reinterpret())
+    public fun getDepth(): gfloat = graphene_box_get_depth(grapheneBoxPointer.reinterpret())
 
     /**
      * Retrieves the size of the @box on the Y axis.
@@ -192,7 +218,7 @@ public class Box(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getHeight(): Float = graphene_box_get_height(grapheneBoxPointer.reinterpret())
+    public fun getHeight(): gfloat = graphene_box_get_height(grapheneBoxPointer.reinterpret())
 
     /**
      * Retrieves the coordinates of the maximum point of the given
@@ -234,7 +260,7 @@ public class Box(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getWidth(): Float = graphene_box_get_width(grapheneBoxPointer.reinterpret())
+    public fun getWidth(): gfloat = graphene_box_get_width(grapheneBoxPointer.reinterpret())
 
     /**
      * Initializes the given #graphene_box_t with two vertices.
@@ -245,17 +271,13 @@ public class Box(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun `init`(
-        min: Point3D? = null,
-        max: Point3D? = null,
-    ): Box =
-        graphene_box_init(
-            grapheneBoxPointer.reinterpret(),
-            min?.graphenePoint3DPointer?.reinterpret(),
-            max?.graphenePoint3DPointer?.reinterpret()
-        )!!.run {
-            Box(reinterpret())
-        }
+    public fun `init`(min: Point3D? = null, max: Point3D? = null): Box = graphene_box_init(
+        grapheneBoxPointer.reinterpret(),
+        min?.graphenePoint3DPointer?.reinterpret(),
+        max?.graphenePoint3DPointer?.reinterpret()
+    )!!.run {
+        Box(reinterpret())
+    }
 
     /**
      * Initializes the given #graphene_box_t with the vertices of
@@ -281,17 +303,13 @@ public class Box(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun initFromVec3(
-        min: Vec3? = null,
-        max: Vec3? = null,
-    ): Box =
-        graphene_box_init_from_vec3(
-            grapheneBoxPointer.reinterpret(),
-            min?.grapheneVec3Pointer?.reinterpret(),
-            max?.grapheneVec3Pointer?.reinterpret()
-        )!!.run {
-            Box(reinterpret())
-        }
+    public fun initFromVec3(min: Vec3? = null, max: Vec3? = null): Box = graphene_box_init_from_vec3(
+        grapheneBoxPointer.reinterpret(),
+        min?.grapheneVec3Pointer?.reinterpret(),
+        max?.grapheneVec3Pointer?.reinterpret()
+    )!!.run {
+        Box(reinterpret())
+    }
 
     /**
      * Intersects the two given #graphene_box_t.
@@ -305,15 +323,11 @@ public class Box(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun intersection(
-        b: Box,
-        res: Box?,
-    ): Boolean =
-        graphene_box_intersection(
-            grapheneBoxPointer.reinterpret(),
-            b.grapheneBoxPointer.reinterpret(),
-            res?.grapheneBoxPointer?.reinterpret()
-        )
+    public fun intersection(b: Box, res: Box?): Boolean = graphene_box_intersection(
+        grapheneBoxPointer.reinterpret(),
+        b.grapheneBoxPointer.reinterpret(),
+        res?.grapheneBoxPointer?.reinterpret()
+    )
 
     /**
      * Unions the two given #graphene_box_t.
@@ -323,17 +337,13 @@ public class Box(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun union(
-        b: Box,
-        res: Box,
-    ): Unit =
-        graphene_box_union(
-            grapheneBoxPointer.reinterpret(),
-            b.grapheneBoxPointer.reinterpret(),
-            res.grapheneBoxPointer.reinterpret()
-        )
+    public fun union(b: Box, res: Box): Unit = graphene_box_union(
+        grapheneBoxPointer.reinterpret(),
+        b.grapheneBoxPointer.reinterpret(),
+        res.grapheneBoxPointer.reinterpret()
+    )
 
-    public companion object : RecordCompanion<Box, graphene_box_t> {
+    public companion object {
         /**
          * Allocates a new #graphene_box_t.
          *
@@ -354,10 +364,9 @@ public class Box(
          * @since 1.2
          */
         @GrapheneVersion1_2
-        public fun empty(): Box =
-            graphene_box_empty()!!.run {
-                Box(reinterpret())
-            }
+        public fun empty(): Box = graphene_box_empty()!!.run {
+            Box(reinterpret())
+        }
 
         /**
          * A degenerate #graphene_box_t that cannot be expanded.
@@ -368,10 +377,9 @@ public class Box(
          * @since 1.2
          */
         @GrapheneVersion1_2
-        public fun infinite(): Box =
-            graphene_box_infinite()!!.run {
-                Box(reinterpret())
-            }
+        public fun infinite(): Box = graphene_box_infinite()!!.run {
+            Box(reinterpret())
+        }
 
         /**
          * A #graphene_box_t with the minimum vertex set at (-1, -1, -1) and the
@@ -383,10 +391,9 @@ public class Box(
          * @since 1.2
          */
         @GrapheneVersion1_2
-        public fun minusOne(): Box =
-            graphene_box_minus_one()!!.run {
-                Box(reinterpret())
-            }
+        public fun minusOne(): Box = graphene_box_minus_one()!!.run {
+            Box(reinterpret())
+        }
 
         /**
          * A #graphene_box_t with the minimum vertex set at (0, 0, 0) and the
@@ -398,10 +405,9 @@ public class Box(
          * @since 1.2
          */
         @GrapheneVersion1_2
-        public fun one(): Box =
-            graphene_box_one()!!.run {
-                Box(reinterpret())
-            }
+        public fun one(): Box = graphene_box_one()!!.run {
+            Box(reinterpret())
+        }
 
         /**
          * A #graphene_box_t with the minimum vertex set at (-1, -1, -1) and the
@@ -413,10 +419,9 @@ public class Box(
          * @since 1.2
          */
         @GrapheneVersion1_2
-        public fun oneMinusOne(): Box =
-            graphene_box_one_minus_one()!!.run {
-                Box(reinterpret())
-            }
+        public fun oneMinusOne(): Box = graphene_box_one_minus_one()!!.run {
+            Box(reinterpret())
+        }
 
         /**
          * A #graphene_box_t with both the minimum and maximum vertices set at (0, 0, 0).
@@ -427,11 +432,15 @@ public class Box(
          * @since 1.2
          */
         @GrapheneVersion1_2
-        public fun zero(): Box =
-            graphene_box_zero()!!.run {
-                Box(reinterpret())
-            }
+        public fun zero(): Box = graphene_box_zero()!!.run {
+            Box(reinterpret())
+        }
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Box = Box(pointer.reinterpret())
+        /**
+         * Get the GType of Box
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = graphene_box_get_type()
     }
 }

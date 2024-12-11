@@ -2,6 +2,7 @@
 package org.gtkkn.bindings.gtksource
 
 import org.gtkkn.extensions.glib.Bitfield
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GTK_SOURCE_SPACE_TYPE_ALL
 import org.gtkkn.native.gtksource.GTK_SOURCE_SPACE_TYPE_NBSP
 import org.gtkkn.native.gtksource.GTK_SOURCE_SPACE_TYPE_NEWLINE
@@ -9,13 +10,12 @@ import org.gtkkn.native.gtksource.GTK_SOURCE_SPACE_TYPE_NONE
 import org.gtkkn.native.gtksource.GTK_SOURCE_SPACE_TYPE_SPACE
 import org.gtkkn.native.gtksource.GTK_SOURCE_SPACE_TYPE_TAB
 import org.gtkkn.native.gtksource.GtkSourceSpaceTypeFlags
+import org.gtkkn.native.gtksource.gtk_source_space_type_flags_get_type
 
 /**
  * #GtkSourceSpaceTypeFlags contains flags for white space types.
  */
-public class SpaceTypeFlags(
-    public val mask: GtkSourceSpaceTypeFlags,
-) : Bitfield<SpaceTypeFlags> {
+public class SpaceTypeFlags(public val mask: GtkSourceSpaceTypeFlags) : Bitfield<SpaceTypeFlags> {
     override infix fun or(other: SpaceTypeFlags): SpaceTypeFlags = SpaceTypeFlags(mask or other.mask)
 
     public companion object {
@@ -50,5 +50,12 @@ public class SpaceTypeFlags(
          * All white spaces.
          */
         public val ALL: SpaceTypeFlags = SpaceTypeFlags(GTK_SOURCE_SPACE_TYPE_ALL)
+
+        /**
+         * Get the GType of SpaceTypeFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_space_type_flags_get_type()
     }
 }

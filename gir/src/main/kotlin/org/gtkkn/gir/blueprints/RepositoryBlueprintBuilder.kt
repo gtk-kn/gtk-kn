@@ -134,7 +134,7 @@ class RepositoryBlueprintBuilder(
         val kotlinModuleName = checkNotNull(girRepository.namespaces.first().name).lowercase()
         val repositoryObjectName = ClassName(
             context.namespaceBindingsPackageName(namespace),
-            kotlinModuleName.capitalizeAsciiOnly(),
+            checkNotNull(girRepository.namespaces.first().name).capitalizeAsciiOnly(),
         )
         val repositoryCallbacksName = ClassName(
             context.namespaceBindingsPackageName(namespace),

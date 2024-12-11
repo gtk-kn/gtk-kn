@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -9,13 +8,12 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.bindings.glib.Glib.resolveException
+import org.gtkkn.bindings.glib.GLib.resolveException
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_16
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_2
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_36
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GMarkupParseContext
 import org.gtkkn.native.glib.g_markup_parse_context_end_parse
@@ -25,6 +23,8 @@ import org.gtkkn.native.glib.g_markup_parse_context_get_element_stack
 import org.gtkkn.native.glib.g_markup_parse_context_parse
 import org.gtkkn.native.glib.g_markup_parse_context_ref
 import org.gtkkn.native.glib.g_markup_parse_context_unref
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_markup_parse_context_get_type
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Result
@@ -46,9 +46,7 @@ import kotlin.Unit
  * - parameter `user_data`: gpointer
  * - parameter `user_data`: gpointer
  */
-public class MarkupParseContext(
-    pointer: CPointer<GMarkupParseContext>,
-) : Record {
+public class MarkupParseContext(pointer: CPointer<GMarkupParseContext>) : ProxyInstance(pointer) {
     public val glibMarkupParseContextPointer: CPointer<GMarkupParseContext> = pointer
 
     /**
@@ -60,20 +58,18 @@ public class MarkupParseContext(
      *
      * @return true on success, false if an error was set
      */
-    public fun endParse(): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_markup_parse_context_end_parse(
-                    glibMarkupParseContextPointer.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun endParse(): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_markup_parse_context_end_parse(
+            glibMarkupParseContextPointer.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Frees a #GMarkupParseContext.
@@ -136,25 +132,20 @@ public class MarkupParseContext(
      * @param textLen length of @text in bytes
      * @return false if an error occurred, true on success
      */
-    public fun parse(
-        text: String,
-        textLen: Long,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_markup_parse_context_parse(
-                    glibMarkupParseContextPointer.reinterpret(),
-                    text,
-                    textLen,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun parse(text: String, textLen: Long): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_markup_parse_context_parse(
+            glibMarkupParseContextPointer.reinterpret(),
+            text,
+            textLen,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Increases the reference count of @context.
@@ -177,8 +168,12 @@ public class MarkupParseContext(
     @GLibVersion2_36
     public fun unref(): Unit = g_markup_parse_context_unref(glibMarkupParseContextPointer.reinterpret())
 
-    public companion object : RecordCompanion<MarkupParseContext, GMarkupParseContext> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MarkupParseContext =
-            MarkupParseContext(pointer.reinterpret())
+    public companion object {
+        /**
+         * Get the GType of MarkupParseContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_markup_parse_context_get_type()
     }
 }

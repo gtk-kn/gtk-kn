@@ -8,6 +8,7 @@ import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskColorNode
 import org.gtkkn.native.gsk.gsk_color_node_get_color
 import org.gtkkn.native.gsk.gsk_color_node_get_type
@@ -16,9 +17,8 @@ import org.gtkkn.native.gsk.gsk_color_node_new
 /**
  * A render node for a solid color.
  */
-public open class ColorNode(
-    pointer: CPointer<GskColorNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class ColorNode(pointer: CPointer<GskColorNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskColorNodePointer: CPointer<GskColorNode>
         get() = gPointer.reinterpret()
@@ -43,10 +43,9 @@ public open class ColorNode(
      *
      * @return the color of the node
      */
-    public open fun getColor(): RGBA =
-        gsk_color_node_get_color(gskColorNodePointer.reinterpret())!!.run {
-            RGBA(reinterpret())
-        }
+    public open fun getColor(): RGBA = gsk_color_node_get_color(gskColorNodePointer.reinterpret())!!.run {
+        RGBA(reinterpret())
+    }
 
     public companion object : TypeCompanion<ColorNode> {
         override val type: GeneratedClassKGType<ColorNode> =
@@ -55,5 +54,12 @@ public open class ColorNode(
         init {
             GskTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ColorNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_color_node_get_type()
     }
 }

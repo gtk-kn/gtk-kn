@@ -7,6 +7,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupSessionFeature
 import org.gtkkn.native.soup.soup_session_feature_get_type
 
@@ -26,9 +27,7 @@ public interface SessionFeature :
     KGTyped {
     public val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
 
-    private data class Wrapper(
-        private val pointer: CPointer<SoupSessionFeature>,
-    ) : SessionFeature {
+    private data class Wrapper(private val pointer: CPointer<SoupSessionFeature>) : SessionFeature {
         override val soupSessionFeaturePointer: CPointer<SoupSessionFeature> = pointer
     }
 
@@ -41,5 +40,12 @@ public interface SessionFeature :
         }
 
         public fun wrap(pointer: CPointer<SoupSessionFeature>): SessionFeature = Wrapper(pointer)
+
+        /**
+         * Get the GType of SessionFeature
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = soup_session_feature_get_type()
     }
 }

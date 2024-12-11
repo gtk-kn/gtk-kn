@@ -7,6 +7,8 @@ import org.gtkkn.bindings.gdk.RGBA
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskOutsetShadowNode
 import org.gtkkn.native.gsk.gsk_outset_shadow_node_get_blur_radius
 import org.gtkkn.native.gsk.gsk_outset_shadow_node_get_color
@@ -16,14 +18,12 @@ import org.gtkkn.native.gsk.gsk_outset_shadow_node_get_outline
 import org.gtkkn.native.gsk.gsk_outset_shadow_node_get_spread
 import org.gtkkn.native.gsk.gsk_outset_shadow_node_get_type
 import org.gtkkn.native.gsk.gsk_outset_shadow_node_new
-import kotlin.Float
 
 /**
  * A render node for an outset shadow.
  */
-public open class OutsetShadowNode(
-    pointer: CPointer<GskOutsetShadowNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class OutsetShadowNode(pointer: CPointer<GskOutsetShadowNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskOutsetShadowNodePointer: CPointer<GskOutsetShadowNode>
         get() = gPointer.reinterpret()
@@ -43,10 +43,10 @@ public open class OutsetShadowNode(
     public constructor(
         outline: RoundedRect,
         color: RGBA,
-        dx: Float,
-        dy: Float,
-        spread: Float,
-        blurRadius: Float,
+        dx: gfloat,
+        dy: gfloat,
+        spread: gfloat,
+        blurRadius: gfloat,
     ) : this(
         gsk_outset_shadow_node_new(
             outline.gskRoundedRectPointer.reinterpret(),
@@ -63,7 +63,7 @@ public open class OutsetShadowNode(
      *
      * @return the blur radius, in pixels
      */
-    public open fun getBlurRadius(): Float =
+    public open fun getBlurRadius(): gfloat =
         gsk_outset_shadow_node_get_blur_radius(gskOutsetShadowNodePointer.reinterpret())
 
     /**
@@ -81,14 +81,14 @@ public open class OutsetShadowNode(
      *
      * @return an offset, in pixels
      */
-    public open fun getDx(): Float = gsk_outset_shadow_node_get_dx(gskOutsetShadowNodePointer.reinterpret())
+    public open fun getDx(): gfloat = gsk_outset_shadow_node_get_dx(gskOutsetShadowNodePointer.reinterpret())
 
     /**
      * Retrieves the vertical offset of the outset shadow.
      *
      * @return an offset, in pixels
      */
-    public open fun getDy(): Float = gsk_outset_shadow_node_get_dy(gskOutsetShadowNodePointer.reinterpret())
+    public open fun getDy(): gfloat = gsk_outset_shadow_node_get_dy(gskOutsetShadowNodePointer.reinterpret())
 
     /**
      * Retrieves the outline rectangle of the outset shadow.
@@ -105,7 +105,7 @@ public open class OutsetShadowNode(
      *
      * @return the size of the shadow, in pixels
      */
-    public open fun getSpread(): Float = gsk_outset_shadow_node_get_spread(gskOutsetShadowNodePointer.reinterpret())
+    public open fun getSpread(): gfloat = gsk_outset_shadow_node_get_spread(gskOutsetShadowNodePointer.reinterpret())
 
     public companion object : TypeCompanion<OutsetShadowNode> {
         override val type: GeneratedClassKGType<OutsetShadowNode> =
@@ -114,5 +114,12 @@ public open class OutsetShadowNode(
         init {
             GskTypeProvider.register()
         }
+
+        /**
+         * Get the GType of OutsetShadowNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_outset_shadow_node_get_type()
     }
 }

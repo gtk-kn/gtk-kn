@@ -1,14 +1,14 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtksource
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GTK_SOURCE_COMPLETION_ACTIVATION_INTERACTIVE
 import org.gtkkn.native.gtksource.GTK_SOURCE_COMPLETION_ACTIVATION_NONE
 import org.gtkkn.native.gtksource.GTK_SOURCE_COMPLETION_ACTIVATION_USER_REQUESTED
 import org.gtkkn.native.gtksource.GtkSourceCompletionActivation
+import org.gtkkn.native.gtksource.gtk_source_completion_activation_get_type
 
-public enum class CompletionActivation(
-    public val nativeValue: GtkSourceCompletionActivation,
-) {
+public enum class CompletionActivation(public val nativeValue: GtkSourceCompletionActivation) {
     NONE(GTK_SOURCE_COMPLETION_ACTIVATION_NONE),
     INTERACTIVE(GTK_SOURCE_COMPLETION_ACTIVATION_INTERACTIVE),
     USER_REQUESTED(GTK_SOURCE_COMPLETION_ACTIVATION_USER_REQUESTED),
@@ -22,5 +22,12 @@ public enum class CompletionActivation(
                 GTK_SOURCE_COMPLETION_ACTIVATION_USER_REQUESTED -> USER_REQUESTED
                 else -> error("invalid nativeValue")
             }
+
+        /**
+         * Get the GType of CompletionActivation
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_completion_activation_get_type()
     }
 }

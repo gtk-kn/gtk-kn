@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -11,18 +10,19 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_44
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantType
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GSettingsSchemaKey
 import org.gtkkn.native.gio.g_settings_schema_key_get_default_value
 import org.gtkkn.native.gio.g_settings_schema_key_get_description
 import org.gtkkn.native.gio.g_settings_schema_key_get_name
 import org.gtkkn.native.gio.g_settings_schema_key_get_range
 import org.gtkkn.native.gio.g_settings_schema_key_get_summary
+import org.gtkkn.native.gio.g_settings_schema_key_get_type
 import org.gtkkn.native.gio.g_settings_schema_key_get_value_type
 import org.gtkkn.native.gio.g_settings_schema_key_range_check
 import org.gtkkn.native.gio.g_settings_schema_key_ref
 import org.gtkkn.native.gio.g_settings_schema_key_unref
+import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
@@ -31,9 +31,7 @@ import kotlin.Unit
  * #GSettingsSchemaKey is an opaque data structure and can only be accessed
  * using the following functions.
  */
-public class SettingsSchemaKey(
-    pointer: CPointer<GSettingsSchemaKey>,
-) : Record {
+public class SettingsSchemaKey(pointer: CPointer<GSettingsSchemaKey>) : ProxyInstance(pointer) {
     public val gioSettingsSchemaKeyPointer: CPointer<GSettingsSchemaKey> = pointer
 
     /**
@@ -127,10 +125,9 @@ public class SettingsSchemaKey(
      * @since 2.40
      */
     @GioVersion2_40
-    public fun getRange(): Variant =
-        g_settings_schema_key_get_range(gioSettingsSchemaKeyPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public fun getRange(): Variant = g_settings_schema_key_get_range(gioSettingsSchemaKeyPointer.reinterpret())!!.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Gets the summary for @key.
@@ -178,11 +175,10 @@ public class SettingsSchemaKey(
      * @since 2.40
      */
     @GioVersion2_40
-    public fun rangeCheck(`value`: Variant): Boolean =
-        g_settings_schema_key_range_check(
-            gioSettingsSchemaKeyPointer.reinterpret(),
-            `value`.glibVariantPointer.reinterpret()
-        ).asBoolean()
+    public fun rangeCheck(`value`: Variant): Boolean = g_settings_schema_key_range_check(
+        gioSettingsSchemaKeyPointer.reinterpret(),
+        `value`.glibVariantPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Increase the reference count of @key, returning a new reference.
@@ -191,10 +187,9 @@ public class SettingsSchemaKey(
      * @since 2.40
      */
     @GioVersion2_40
-    public fun ref(): SettingsSchemaKey =
-        g_settings_schema_key_ref(gioSettingsSchemaKeyPointer.reinterpret())!!.run {
-            SettingsSchemaKey(reinterpret())
-        }
+    public fun ref(): SettingsSchemaKey = g_settings_schema_key_ref(gioSettingsSchemaKeyPointer.reinterpret())!!.run {
+        SettingsSchemaKey(reinterpret())
+    }
 
     /**
      * Decrease the reference count of @key, possibly freeing it.
@@ -204,8 +199,12 @@ public class SettingsSchemaKey(
     @GioVersion2_40
     public fun unref(): Unit = g_settings_schema_key_unref(gioSettingsSchemaKeyPointer.reinterpret())
 
-    public companion object : RecordCompanion<SettingsSchemaKey, GSettingsSchemaKey> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SettingsSchemaKey =
-            SettingsSchemaKey(pointer.reinterpret())
+    public companion object {
+        /**
+         * Get the GType of SettingsSchemaKey
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_settings_schema_key_get_type()
     }
 }

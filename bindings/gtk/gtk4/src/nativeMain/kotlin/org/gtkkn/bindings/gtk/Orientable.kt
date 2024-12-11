@@ -7,6 +7,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkOrientable
 import org.gtkkn.native.gtk.gtk_orientable_get_orientation
 import org.gtkkn.native.gtk.gtk_orientable_get_type
@@ -40,10 +41,9 @@ public interface Orientable :
          *
          * @return the orientation of the @orientable
          */
-        get() =
-            gtk_orientable_get_orientation(gtkOrientablePointer.reinterpret()).run {
-                Orientation.fromNativeValue(this)
-            }
+        get() = gtk_orientable_get_orientation(gtkOrientablePointer.reinterpret()).run {
+            Orientation.fromNativeValue(this)
+        }
 
         /**
          * Sets the orientation of the @orientable.
@@ -57,10 +57,9 @@ public interface Orientable :
      *
      * @return the orientation of the @orientable
      */
-    public fun getOrientation(): Orientation =
-        gtk_orientable_get_orientation(gtkOrientablePointer.reinterpret()).run {
-            Orientation.fromNativeValue(this)
-        }
+    public fun getOrientation(): Orientation = gtk_orientable_get_orientation(gtkOrientablePointer.reinterpret()).run {
+        Orientation.fromNativeValue(this)
+    }
 
     /**
      * Sets the orientation of the @orientable.
@@ -70,9 +69,7 @@ public interface Orientable :
     public fun setOrientation(orientation: Orientation): Unit =
         gtk_orientable_set_orientation(gtkOrientablePointer.reinterpret(), orientation.nativeValue)
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkOrientable>,
-    ) : Orientable {
+    private data class Wrapper(private val pointer: CPointer<GtkOrientable>) : Orientable {
         override val gtkOrientablePointer: CPointer<GtkOrientable> = pointer
     }
 
@@ -85,5 +82,12 @@ public interface Orientable :
         }
 
         public fun wrap(pointer: CPointer<GtkOrientable>): Orientable = Wrapper(pointer)
+
+        /**
+         * Get the GType of Orientable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_orientable_get_type()
     }
 }

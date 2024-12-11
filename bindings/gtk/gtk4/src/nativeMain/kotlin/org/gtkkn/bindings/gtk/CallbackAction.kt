@@ -8,6 +8,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkCallbackAction
 import org.gtkkn.native.gtk.gtk_callback_action_get_type
 import org.gtkkn.native.gtk.gtk_callback_action_new
@@ -15,9 +16,8 @@ import org.gtkkn.native.gtk.gtk_callback_action_new
 /**
  * A `GtkShortcutAction` that invokes a callback.
  */
-public open class CallbackAction(
-    pointer: CPointer<GtkCallbackAction>,
-) : ShortcutAction(pointer.reinterpret()),
+public open class CallbackAction(pointer: CPointer<GtkCallbackAction>) :
+    ShortcutAction(pointer.reinterpret()),
     KGTyped {
     public val gtkCallbackActionPointer: CPointer<GtkCallbackAction>
         get() = gPointer.reinterpret()
@@ -46,5 +46,12 @@ public open class CallbackAction(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of CallbackAction
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_callback_action_get_type()
     }
 }

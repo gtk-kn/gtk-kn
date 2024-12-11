@@ -11,7 +11,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.KeyFile
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.bindings.webkit.Webkit.resolveException
+import org.gtkkn.bindings.webkit.WebKit.resolveException
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_10
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_14
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_16
@@ -33,6 +33,8 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitSettings
 import org.gtkkn.native.webkit.webkit_settings_apply_from_key_file
 import org.gtkkn.native.webkit.webkit_settings_font_size_to_pixels
@@ -160,7 +162,6 @@ import org.gtkkn.native.webkit.webkit_settings_set_zoom_text_only
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 
 /**
@@ -181,10 +182,10 @@ import kotlin.Unit
  *
  * - method `media-content-types-requiring-hardware-support`: Property TypeInfo of getter and setter do not match
  * - method `user-agent`: Property TypeInfo of getter and setter do not match
+ * - constructor `new_with_settings`: Varargs parameter is not supported
  */
-public class Settings(
-    pointer: CPointer<WebKitSettings>,
-) : Object(pointer.reinterpret()),
+public class Settings(pointer: CPointer<WebKitSettings>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val webkitSettingsPointer: CPointer<WebKitSettings>
         get() = gPointer.reinterpret()
@@ -217,11 +218,10 @@ public class Settings(
         @WebKitVersion2_10
         set(
             allowed
-        ) =
-            webkit_settings_set_allow_file_access_from_file_urls(
-                webkitSettingsPointer.reinterpret(),
-                allowed.asGBoolean()
-            )
+        ) = webkit_settings_set_allow_file_access_from_file_urls(
+            webkitSettingsPointer.reinterpret(),
+            allowed.asGBoolean()
+        )
 
     /**
      * Determine whether it's allowed to create and run modal dialogs
@@ -276,11 +276,10 @@ public class Settings(
         @WebKitVersion2_28
         set(
             allowed
-        ) =
-            webkit_settings_set_allow_top_navigation_to_data_urls(
-                webkitSettingsPointer.reinterpret(),
-                allowed.asGBoolean()
-            )
+        ) = webkit_settings_set_allow_top_navigation_to_data_urls(
+            webkitSettingsPointer.reinterpret(),
+            allowed.asGBoolean()
+        )
 
     /**
      * Whether or not JavaScript running in the context of a file scheme URL
@@ -300,10 +299,9 @@ public class Settings(
          * @return true If universal access from file URLs is allowed or false otherwise.
          * @since 2.14
          */
-        get() =
-            webkit_settings_get_allow_universal_access_from_file_urls(
-                webkitSettingsPointer.reinterpret()
-            ).asBoolean()
+        get() = webkit_settings_get_allow_universal_access_from_file_urls(
+            webkitSettingsPointer.reinterpret()
+        ).asBoolean()
 
         /**
          * Set the #WebKitSettings:allow-universal-access-from-file-urls property.
@@ -314,11 +312,10 @@ public class Settings(
         @WebKitVersion2_14
         set(
             allowed
-        ) =
-            webkit_settings_set_allow_universal_access_from_file_urls(
-                webkitSettingsPointer.reinterpret(),
-                allowed.asGBoolean()
-            )
+        ) = webkit_settings_set_allow_universal_access_from_file_urls(
+            webkitSettingsPointer.reinterpret(),
+            allowed.asGBoolean()
+        )
 
     /**
      * Determines whether images should be automatically loaded or not.
@@ -349,9 +346,8 @@ public class Settings(
          *
          * @return The default font family used to display content marked with cursive font.
          */
-        get() =
-            webkit_settings_get_cursive_font_family(webkitSettingsPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = webkit_settings_get_cursive_font_family(webkitSettingsPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Set the #WebKitSettings:cursive-font-family property.
@@ -371,9 +367,8 @@ public class Settings(
          *
          * @return Default charset.
          */
-        get() =
-            webkit_settings_get_default_charset(webkitSettingsPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = webkit_settings_get_default_charset(webkitSettingsPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Set the #WebKitSettings:default-charset property.
@@ -391,9 +386,8 @@ public class Settings(
          *
          * @return The default font family used to display content that does not specify a font.
          */
-        get() =
-            webkit_settings_get_default_font_family(webkitSettingsPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = webkit_settings_get_default_font_family(webkitSettingsPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Set the #WebKitSettings:default-font-family property.
@@ -408,7 +402,7 @@ public class Settings(
      * The default font size in pixels to use for content displayed if
      * no font size is specified.
      */
-    public var defaultFontSize: UInt
+    public var defaultFontSize: guint
         /**
          * Gets the #WebKitSettings:default-font-size property.
          *
@@ -427,7 +421,7 @@ public class Settings(
      * The default font size in pixels to use for content displayed in
      * monospace font if no font size is specified.
      */
-    public var defaultMonospaceFontSize: UInt
+    public var defaultMonospaceFontSize: guint
         /**
          * Gets the #WebKitSettings:default-monospace-font-size property.
          *
@@ -537,10 +531,9 @@ public class Settings(
          * @return true if horizontal swipe gesture will trigger back-forward navigaiton or false otherwise.
          * @since 2.24
          */
-        get() =
-            webkit_settings_get_enable_back_forward_navigation_gestures(
-                webkitSettingsPointer.reinterpret()
-            ).asBoolean()
+        get() = webkit_settings_get_enable_back_forward_navigation_gestures(
+            webkitSettingsPointer.reinterpret()
+        ).asBoolean()
 
         /**
          * Set the #WebKitSettings:enable-back-forward-navigation-gestures property.
@@ -551,11 +544,10 @@ public class Settings(
         @WebKitVersion2_24
         set(
             enabled
-        ) =
-            webkit_settings_set_enable_back_forward_navigation_gestures(
-                webkitSettingsPointer.reinterpret(),
-                enabled.asGBoolean()
-            )
+        ) = webkit_settings_set_enable_back_forward_navigation_gestures(
+            webkitSettingsPointer.reinterpret(),
+            enabled.asGBoolean()
+        )
 
     /**
      * Whether to enable accessibility enhanced keyboard navigation.
@@ -937,10 +929,9 @@ public class Settings(
          *
          * @return false.
          */
-        get() =
-            webkit_settings_get_enable_offline_web_application_cache(
-                webkitSettingsPointer.reinterpret()
-            ).asBoolean()
+        get() = webkit_settings_get_enable_offline_web_application_cache(
+            webkitSettingsPointer.reinterpret()
+        ).asBoolean()
 
         /**
          * Setting no longer supported. This function does nothing.
@@ -949,11 +940,10 @@ public class Settings(
          */
         set(
             enabled
-        ) =
-            webkit_settings_set_enable_offline_web_application_cache(
-                webkitSettingsPointer.reinterpret(),
-                enabled.asGBoolean()
-            )
+        ) = webkit_settings_set_enable_offline_web_application_cache(
+            webkitSettingsPointer.reinterpret(),
+            enabled.asGBoolean()
+        )
 
     /**
      * Enable or disable the page cache. Disabling the page cache is
@@ -1186,10 +1176,9 @@ public class Settings(
          * otherwise.
          * @since 2.2
          */
-        get() =
-            webkit_settings_get_enable_write_console_messages_to_stdout(
-                webkitSettingsPointer.reinterpret()
-            ).asBoolean()
+        get() = webkit_settings_get_enable_write_console_messages_to_stdout(
+            webkitSettingsPointer.reinterpret()
+        ).asBoolean()
 
         /**
          * Set the #WebKitSettings:enable-write-console-messages-to-stdout property.
@@ -1200,11 +1189,10 @@ public class Settings(
         @WebKitVersion2_2
         set(
             enabled
-        ) =
-            webkit_settings_set_enable_write_console_messages_to_stdout(
-                webkitSettingsPointer.reinterpret(),
-                enabled.asGBoolean()
-            )
+        ) = webkit_settings_set_enable_write_console_messages_to_stdout(
+            webkitSettingsPointer.reinterpret(),
+            enabled.asGBoolean()
+        )
 
     /**
      * The font family used as the default for content using a fantasy font.
@@ -1215,9 +1203,8 @@ public class Settings(
          *
          * @return The default font family used to display content marked with fantasy font.
          */
-        get() =
-            webkit_settings_get_fantasy_font_family(webkitSettingsPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = webkit_settings_get_fantasy_font_family(webkitSettingsPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Set the #WebKitSettings:fantasy-font-family property.
@@ -1247,10 +1234,9 @@ public class Settings(
          * @return a #WebKitHardwareAccelerationPolicy
          * @since 2.16
          */
-        get() =
-            webkit_settings_get_hardware_acceleration_policy(webkitSettingsPointer.reinterpret()).run {
-                HardwareAccelerationPolicy.fromNativeValue(this)
-            }
+        get() = webkit_settings_get_hardware_acceleration_policy(webkitSettingsPointer.reinterpret()).run {
+            HardwareAccelerationPolicy.fromNativeValue(this)
+        }
 
         /**
          * Set the #WebKitSettings:hardware-acceleration-policy property.
@@ -1282,11 +1268,10 @@ public class Settings(
          */
         set(
             enabled
-        ) =
-            webkit_settings_set_javascript_can_access_clipboard(
-                webkitSettingsPointer.reinterpret(),
-                enabled.asGBoolean()
-            )
+        ) = webkit_settings_set_javascript_can_access_clipboard(
+            webkitSettingsPointer.reinterpret(),
+            enabled.asGBoolean()
+        )
 
     /**
      * Whether JavaScript can open popup windows automatically without user
@@ -1298,10 +1283,9 @@ public class Settings(
          *
          * @return true If JavaScript can open window automatically or false otherwise.
          */
-        get() =
-            webkit_settings_get_javascript_can_open_windows_automatically(
-                webkitSettingsPointer.reinterpret()
-            ).asBoolean()
+        get() = webkit_settings_get_javascript_can_open_windows_automatically(
+            webkitSettingsPointer.reinterpret()
+        ).asBoolean()
 
         /**
          * Set the #WebKitSettings:javascript-can-open-windows-automatically property.
@@ -1310,11 +1294,10 @@ public class Settings(
          */
         set(
             enabled
-        ) =
-            webkit_settings_set_javascript_can_open_windows_automatically(
-                webkitSettingsPointer.reinterpret(),
-                enabled.asGBoolean()
-            )
+        ) = webkit_settings_set_javascript_can_open_windows_automatically(
+            webkitSettingsPointer.reinterpret(),
+            enabled.asGBoolean()
+        )
 
     /**
      * Unsupported setting. This property does nothing.
@@ -1325,10 +1308,9 @@ public class Settings(
          *
          * @return false
          */
-        get() =
-            webkit_settings_get_load_icons_ignoring_image_load_setting(
-                webkitSettingsPointer.reinterpret()
-            ).asBoolean()
+        get() = webkit_settings_get_load_icons_ignoring_image_load_setting(
+            webkitSettingsPointer.reinterpret()
+        ).asBoolean()
 
         /**
          * Setting no longer supported. This function does nothing.
@@ -1337,11 +1319,10 @@ public class Settings(
          */
         set(
             enabled
-        ) =
-            webkit_settings_set_load_icons_ignoring_image_load_setting(
-                webkitSettingsPointer.reinterpret(),
-                enabled.asGBoolean()
-            )
+        ) = webkit_settings_set_load_icons_ignoring_image_load_setting(
+            webkitSettingsPointer.reinterpret(),
+            enabled.asGBoolean()
+        )
 
     /**
      * Whether media playback is full-screen only or inline playback is allowed.
@@ -1380,10 +1361,9 @@ public class Settings(
          * @return true If an user gesture is needed to play or load media
          *    or false if no user gesture is needed.
          */
-        get() =
-            webkit_settings_get_media_playback_requires_user_gesture(
-                webkitSettingsPointer.reinterpret()
-            ).asBoolean()
+        get() = webkit_settings_get_media_playback_requires_user_gesture(
+            webkitSettingsPointer.reinterpret()
+        ).asBoolean()
 
         /**
          * Set the #WebKitSettings:media-playback-requires-user-gesture property.
@@ -1392,18 +1372,17 @@ public class Settings(
          */
         set(
             enabled
-        ) =
-            webkit_settings_set_media_playback_requires_user_gesture(
-                webkitSettingsPointer.reinterpret(),
-                enabled.asGBoolean()
-            )
+        ) = webkit_settings_set_media_playback_requires_user_gesture(
+            webkitSettingsPointer.reinterpret(),
+            enabled.asGBoolean()
+        )
 
     /**
      * The minimum font size in pixels used to display text. This setting
      * controls the absolute smallest size. Values other than 0 can
      * potentially break page layouts.
      */
-    public var minimumFontSize: UInt
+    public var minimumFontSize: guint
         /**
          * Gets the #WebKitSettings:minimum-font-size property.
          *
@@ -1427,9 +1406,8 @@ public class Settings(
          *
          * @return Default font family used to display content marked with monospace font.
          */
-        get() =
-            webkit_settings_get_monospace_font_family(webkitSettingsPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = webkit_settings_get_monospace_font_family(webkitSettingsPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Set the #WebKitSettings:monospace-font-family property.
@@ -1449,9 +1427,8 @@ public class Settings(
          *
          * @return The default font family used to display content marked with pictograph font.
          */
-        get() =
-            webkit_settings_get_pictograph_font_family(webkitSettingsPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = webkit_settings_get_pictograph_font_family(webkitSettingsPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Set the #WebKitSettings:pictograph-font-family property.
@@ -1491,9 +1468,8 @@ public class Settings(
          *
          * @return The default font family used to display content marked with sans-serif font.
          */
-        get() =
-            webkit_settings_get_sans_serif_font_family(webkitSettingsPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = webkit_settings_get_sans_serif_font_family(webkitSettingsPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Set the #WebKitSettings:sans-serif-font-family property.
@@ -1513,9 +1489,8 @@ public class Settings(
          *
          * @return The default font family used to display content marked with serif font.
          */
-        get() =
-            webkit_settings_get_serif_font_family(webkitSettingsPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = webkit_settings_get_serif_font_family(webkitSettingsPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Set the #WebKitSettings:serif-font-family property.
@@ -1576,390 +1551,20 @@ public class Settings(
      * @since 2.46
      */
     @WebKitVersion2_46
-    public fun applyFromKeyFile(
-        keyFile: KeyFile,
-        groupName: String,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                webkit_settings_apply_from_key_file(
-                    webkitSettingsPointer.reinterpret(),
-                    keyFile.glibKeyFilePointer.reinterpret(),
-                    groupName,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun applyFromKeyFile(keyFile: KeyFile, groupName: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = webkit_settings_apply_from_key_file(
+            webkitSettingsPointer.reinterpret(),
+            keyFile.glibKeyFilePointer.reinterpret(),
+            groupName,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
-
-    /**
-     * Get the #WebKitSettings:allow-file-access-from-file-urls property.
-     *
-     * @return true If file access from file URLs is allowed or false otherwise.
-     * @since 2.10
-     */
-    @WebKitVersion2_10
-    public fun getAllowFileAccessFromFileUrls(): Boolean =
-        webkit_settings_get_allow_file_access_from_file_urls(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:allow-modal-dialogs property.
-     *
-     * @return true if it's allowed to create and run modal dialogs or false otherwise.
-     */
-    public fun getAllowModalDialogs(): Boolean =
-        webkit_settings_get_allow_modal_dialogs(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:allow-top-navigation-to-data-urls property.
-     *
-     * @return true If navigation to data URLs from the top frame is allowed or false\
-     * otherwise.
-     * @since 2.28
-     */
-    @WebKitVersion2_28
-    public fun getAllowTopNavigationToDataUrls(): Boolean =
-        webkit_settings_get_allow_top_navigation_to_data_urls(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:allow-universal-access-from-file-urls property.
-     *
-     * @return true If universal access from file URLs is allowed or false otherwise.
-     * @since 2.14
-     */
-    @WebKitVersion2_14
-    public fun getAllowUniversalAccessFromFileUrls(): Boolean =
-        webkit_settings_get_allow_universal_access_from_file_urls(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:auto-load-images property.
-     *
-     * @return true If auto loading of images is enabled or false otherwise.
-     */
-    public fun getAutoLoadImages(): Boolean =
-        webkit_settings_get_auto_load_images(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the #WebKitSettings:cursive-font-family property.
-     *
-     * @return The default font family used to display content marked with cursive font.
-     */
-    public fun getCursiveFontFamily(): String =
-        webkit_settings_get_cursive_font_family(webkitSettingsPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets the #WebKitSettings:default-charset property.
-     *
-     * @return Default charset.
-     */
-    public fun getDefaultCharset(): String =
-        webkit_settings_get_default_charset(webkitSettingsPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets the #WebKitSettings:default-font-family property.
-     *
-     * @return The default font family used to display content that does not specify a font.
-     */
-    public fun getDefaultFontFamily(): String =
-        webkit_settings_get_default_font_family(webkitSettingsPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets the #WebKitSettings:default-font-size property.
-     *
-     * @return The default font size, in pixels.
-     */
-    public fun getDefaultFontSize(): UInt = webkit_settings_get_default_font_size(webkitSettingsPointer.reinterpret())
-
-    /**
-     * Gets the #WebKitSettings:default-monospace-font-size property.
-     *
-     * @return Default monospace font size, in pixels.
-     */
-    public fun getDefaultMonospaceFontSize(): UInt =
-        webkit_settings_get_default_monospace_font_size(webkitSettingsPointer.reinterpret())
-
-    /**
-     * Get the #WebKitSettings:disable-web-security property.
-     *
-     * @return true If web security support is disabled or false otherwise.
-     * @since 2.40
-     */
-    @WebKitVersion2_40
-    public fun getDisableWebSecurity(): Boolean =
-        webkit_settings_get_disable_web_security(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:draw-compositing-indicators property.
-     *
-     * @return true If compositing borders are drawn or false otherwise.
-     */
-    public fun getDrawCompositingIndicators(): Boolean =
-        webkit_settings_get_draw_compositing_indicators(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-2d-canvas-acceleration property.
-     *
-     * @return true if 2D canvas acceleration is enabled or false otherwise.
-     * @since 2.46
-     */
-    @WebKitVersion2_46
-    public fun getEnable2dCanvasAcceleration(): Boolean =
-        webkit_settings_get_enable_2d_canvas_acceleration(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-back-forward-navigation-gestures property.
-     *
-     * @return true if horizontal swipe gesture will trigger back-forward navigaiton or false otherwise.
-     * @since 2.24
-     */
-    @WebKitVersion2_24
-    public fun getEnableBackForwardNavigationGestures(): Boolean =
-        webkit_settings_get_enable_back_forward_navigation_gestures(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-caret-browsing property.
-     *
-     * @return true If caret browsing is enabled or false otherwise.
-     */
-    public fun getEnableCaretBrowsing(): Boolean =
-        webkit_settings_get_enable_caret_browsing(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-developer-extras property.
-     *
-     * @return true If developer extras is enabled or false otherwise.
-     */
-    public fun getEnableDeveloperExtras(): Boolean =
-        webkit_settings_get_enable_developer_extras(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-dns-prefetching property.
-     *
-     * @return true If DNS prefetching is enabled or false otherwise.
-     */
-    public fun getEnableDnsPrefetching(): Boolean =
-        webkit_settings_get_enable_dns_prefetching(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-encrypted-media property.
-     *
-     * @return true if EncryptedMedia support is enabled or false otherwise.
-     * @since 2.20
-     */
-    @WebKitVersion2_20
-    public fun getEnableEncryptedMedia(): Boolean =
-        webkit_settings_get_enable_encrypted_media(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-fullscreen property.
-     *
-     * @return true If fullscreen support is enabled or false otherwise.
-     */
-    public fun getEnableFullscreen(): Boolean =
-        webkit_settings_get_enable_fullscreen(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-html5-database property.
-     *
-     * @return true if IndexedDB support is enabled or false otherwise.
-     */
-    public fun getEnableHtml5Database(): Boolean =
-        webkit_settings_get_enable_html5_database(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-html5-local-storage property.
-     *
-     * @return true If HTML5 local storage support is enabled or false otherwise.
-     */
-    public fun getEnableHtml5LocalStorage(): Boolean =
-        webkit_settings_get_enable_html5_local_storage(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-hyperlink-auditing property.
-     *
-     * @return true If hyper link auditing is enabled or false otherwise.
-     */
-    public fun getEnableHyperlinkAuditing(): Boolean =
-        webkit_settings_get_enable_hyperlink_auditing(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-javascript property.
-     *
-     * @return true If JavaScript is enabled or false otherwise.
-     */
-    public fun getEnableJavascript(): Boolean =
-        webkit_settings_get_enable_javascript(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-javascript-markup property.
-     *
-     * @return true if JavaScript markup is enabled or false otherwise.
-     * @since 2.24
-     */
-    @WebKitVersion2_24
-    public fun getEnableJavascriptMarkup(): Boolean =
-        webkit_settings_get_enable_javascript_markup(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-media property.
-     *
-     * @return true if media support is enabled or false otherwise.
-     * @since 2.26
-     */
-    @WebKitVersion2_26
-    public fun getEnableMedia(): Boolean =
-        webkit_settings_get_enable_media(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-media-capabilities property.
-     *
-     * @return true if MediaCapabilities support is enabled or false otherwise.
-     * @since 2.22
-     */
-    @WebKitVersion2_22
-    public fun getEnableMediaCapabilities(): Boolean =
-        webkit_settings_get_enable_media_capabilities(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-media-stream property.
-     *
-     * @return true If mediastream support is enabled or false otherwise.
-     * @since 2.4
-     */
-    @WebKitVersion2_4
-    public fun getEnableMediaStream(): Boolean =
-        webkit_settings_get_enable_media_stream(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-mediasource property.
-     *
-     * @return true If MediaSource support is enabled or false otherwise.
-     * @since 2.4
-     */
-    @WebKitVersion2_4
-    public fun getEnableMediasource(): Boolean =
-        webkit_settings_get_enable_mediasource(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-mock-capture-devices property.
-     *
-     * @return true If mock capture devices is enabled or false otherwise.
-     * @since 2.24
-     */
-    @WebKitVersion2_24
-    public fun getEnableMockCaptureDevices(): Boolean =
-        webkit_settings_get_enable_mock_capture_devices(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-offline-web-application-cache property.
-     *
-     * @return false.
-     */
-    public fun getEnableOfflineWebApplicationCache(): Boolean =
-        webkit_settings_get_enable_offline_web_application_cache(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-page-cache property.
-     *
-     * @return true if page cache enabled or false otherwise.
-     */
-    public fun getEnablePageCache(): Boolean =
-        webkit_settings_get_enable_page_cache(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-resizable-text-areas property.
-     *
-     * @return true If text areas can be resized or false otherwise.
-     */
-    public fun getEnableResizableTextAreas(): Boolean =
-        webkit_settings_get_enable_resizable_text_areas(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-site-specific-quirks property.
-     *
-     * @return true if site specific quirks are enabled or false otherwise.
-     */
-    public fun getEnableSiteSpecificQuirks(): Boolean =
-        webkit_settings_get_enable_site_specific_quirks(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-smooth-scrolling property.
-     *
-     * @return true if smooth scrolling is enabled or false otherwise.
-     */
-    public fun getEnableSmoothScrolling(): Boolean =
-        webkit_settings_get_enable_smooth_scrolling(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-spatial-navigation property.
-     *
-     * @return true If HTML5 spatial navigation support is enabled or false otherwise.
-     * @since 2.2
-     */
-    @WebKitVersion2_2
-    public fun getEnableSpatialNavigation(): Boolean =
-        webkit_settings_get_enable_spatial_navigation(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-tabs-to-links property.
-     *
-     * @return true If tabs to link is enabled or false otherwise.
-     */
-    public fun getEnableTabsToLinks(): Boolean =
-        webkit_settings_get_enable_tabs_to_links(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-webaudio property.
-     *
-     * @return true If webaudio support is enabled or false otherwise.
-     */
-    public fun getEnableWebaudio(): Boolean =
-        webkit_settings_get_enable_webaudio(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-webgl property.
-     *
-     * @return true If WebGL support is enabled or false otherwise.
-     */
-    public fun getEnableWebgl(): Boolean =
-        webkit_settings_get_enable_webgl(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the [property@Settings:enable-webrtc] property.
-     *
-     * @return true If WebRTC support is enabled or false otherwise.
-     * @since 2.38
-     */
-    @WebKitVersion2_38
-    public fun getEnableWebrtc(): Boolean =
-        webkit_settings_get_enable_webrtc(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:enable-write-console-messages-to-stdout property.
-     *
-     * @return true if writing console messages to stdout is enabled or false
-     * otherwise.
-     * @since 2.2
-     */
-    @WebKitVersion2_2
-    public fun getEnableWriteConsoleMessagesToStdout(): Boolean =
-        webkit_settings_get_enable_write_console_messages_to_stdout(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the #WebKitSettings:fantasy-font-family property.
-     *
-     * @return The default font family used to display content marked with fantasy font.
-     */
-    public fun getFantasyFontFamily(): String =
-        webkit_settings_get_fantasy_font_family(webkitSettingsPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    }
 
     /**
      * Gets whether a feature is enabled.
@@ -1969,47 +1574,10 @@ public class Settings(
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun getFeatureEnabled(feature: Feature): Boolean =
-        webkit_settings_get_feature_enabled(
-            webkitSettingsPointer.reinterpret(),
-            feature.webkitFeaturePointer.reinterpret()
-        ).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:hardware-acceleration-policy property.
-     *
-     * @return a #WebKitHardwareAccelerationPolicy
-     * @since 2.16
-     */
-    @WebKitVersion2_16
-    public fun getHardwareAccelerationPolicy(): HardwareAccelerationPolicy =
-        webkit_settings_get_hardware_acceleration_policy(webkitSettingsPointer.reinterpret()).run {
-            HardwareAccelerationPolicy.fromNativeValue(this)
-        }
-
-    /**
-     * Get the #WebKitSettings:javascript-can-access-clipboard property.
-     *
-     * @return true If javascript-can-access-clipboard is enabled or false otherwise.
-     */
-    public fun getJavascriptCanAccessClipboard(): Boolean =
-        webkit_settings_get_javascript_can_access_clipboard(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:javascript-can-open-windows-automatically property.
-     *
-     * @return true If JavaScript can open window automatically or false otherwise.
-     */
-    public fun getJavascriptCanOpenWindowsAutomatically(): Boolean =
-        webkit_settings_get_javascript_can_open_windows_automatically(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Setting no longer supported. This function returns false.
-     *
-     * @return false
-     */
-    public fun getLoadIconsIgnoringImageLoadSetting(): Boolean =
-        webkit_settings_get_load_icons_ignoring_image_load_setting(webkitSettingsPointer.reinterpret()).asBoolean()
+    public fun getFeatureEnabled(feature: Feature): Boolean = webkit_settings_get_feature_enabled(
+        webkitSettingsPointer.reinterpret(),
+        feature.webkitFeaturePointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Gets the #WebKitSettings:media-content-types-requiring-hardware-support property.
@@ -2025,465 +1593,12 @@ public class Settings(
             ?: error("Expected not null string")
 
     /**
-     * Get the #WebKitSettings:media-playback-allows-inline property.
-     *
-     * @return true If inline playback is allowed for media
-     *    or false if only fullscreen playback is allowed.
-     */
-    public fun getMediaPlaybackAllowsInline(): Boolean =
-        webkit_settings_get_media_playback_allows_inline(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Get the #WebKitSettings:media-playback-requires-user-gesture property.
-     *
-     * @return true If an user gesture is needed to play or load media
-     *    or false if no user gesture is needed.
-     */
-    public fun getMediaPlaybackRequiresUserGesture(): Boolean =
-        webkit_settings_get_media_playback_requires_user_gesture(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the #WebKitSettings:minimum-font-size property.
-     *
-     * @return Minimum font size, in pixels.
-     */
-    public fun getMinimumFontSize(): UInt = webkit_settings_get_minimum_font_size(webkitSettingsPointer.reinterpret())
-
-    /**
-     * Gets the #WebKitSettings:monospace-font-family property.
-     *
-     * @return Default font family used to display content marked with monospace font.
-     */
-    public fun getMonospaceFontFamily(): String =
-        webkit_settings_get_monospace_font_family(webkitSettingsPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets the #WebKitSettings:pictograph-font-family property.
-     *
-     * @return The default font family used to display content marked with pictograph font.
-     */
-    public fun getPictographFontFamily(): String =
-        webkit_settings_get_pictograph_font_family(webkitSettingsPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Get the #WebKitSettings:print-backgrounds property.
-     *
-     * @return true If background images should be printed or false otherwise.
-     */
-    public fun getPrintBackgrounds(): Boolean =
-        webkit_settings_get_print_backgrounds(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the #WebKitSettings:sans-serif-font-family property.
-     *
-     * @return The default font family used to display content marked with sans-serif font.
-     */
-    public fun getSansSerifFontFamily(): String =
-        webkit_settings_get_sans_serif_font_family(webkitSettingsPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets the #WebKitSettings:serif-font-family property.
-     *
-     * @return The default font family used to display content marked with serif font.
-     */
-    public fun getSerifFontFamily(): String =
-        webkit_settings_get_serif_font_family(webkitSettingsPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
      * Get the #WebKitSettings:user-agent property.
      *
      * @return The current value of the user-agent property.
      */
-    public fun getUserAgent(): String =
-        webkit_settings_get_user_agent(webkitSettingsPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Get the #WebKitSettings:zoom-text-only property.
-     *
-     * @return true If zoom level of the view should only affect the text
-     *    or false if all view contents should be scaled.
-     */
-    public fun getZoomTextOnly(): Boolean =
-        webkit_settings_get_zoom_text_only(webkitSettingsPointer.reinterpret()).asBoolean()
-
-    /**
-     * Set the #WebKitSettings:allow-file-access-from-file-urls property.
-     *
-     * @param allowed Value to be set
-     * @since 2.10
-     */
-    @WebKitVersion2_10
-    public fun setAllowFileAccessFromFileUrls(allowed: Boolean): Unit =
-        webkit_settings_set_allow_file_access_from_file_urls(webkitSettingsPointer.reinterpret(), allowed.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:allow-modal-dialogs property.
-     *
-     * @param allowed Value to be set
-     */
-    public fun setAllowModalDialogs(allowed: Boolean): Unit =
-        webkit_settings_set_allow_modal_dialogs(webkitSettingsPointer.reinterpret(), allowed.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:allow-top-navigation-to-data-urls property.
-     *
-     * @param allowed Value to be set
-     * @since 2.28
-     */
-    @WebKitVersion2_28
-    public fun setAllowTopNavigationToDataUrls(allowed: Boolean): Unit =
-        webkit_settings_set_allow_top_navigation_to_data_urls(webkitSettingsPointer.reinterpret(), allowed.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:allow-universal-access-from-file-urls property.
-     *
-     * @param allowed Value to be set
-     * @since 2.14
-     */
-    @WebKitVersion2_14
-    public fun setAllowUniversalAccessFromFileUrls(allowed: Boolean): Unit =
-        webkit_settings_set_allow_universal_access_from_file_urls(
-            webkitSettingsPointer.reinterpret(),
-            allowed.asGBoolean()
-        )
-
-    /**
-     * Set the #WebKitSettings:auto-load-images property.
-     *
-     * @param enabled Value to be set
-     */
-    public fun setAutoLoadImages(enabled: Boolean): Unit =
-        webkit_settings_set_auto_load_images(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:cursive-font-family property.
-     *
-     * @param cursiveFontFamily the new default cursive font family
-     */
-    public fun setCursiveFontFamily(cursiveFontFamily: String): Unit =
-        webkit_settings_set_cursive_font_family(webkitSettingsPointer.reinterpret(), cursiveFontFamily)
-
-    /**
-     * Set the #WebKitSettings:default-charset property.
-     *
-     * @param defaultCharset default charset to be set
-     */
-    public fun setDefaultCharset(defaultCharset: String): Unit =
-        webkit_settings_set_default_charset(webkitSettingsPointer.reinterpret(), defaultCharset)
-
-    /**
-     * Set the #WebKitSettings:default-font-family property.
-     *
-     * @param defaultFontFamily the new default font family
-     */
-    public fun setDefaultFontFamily(defaultFontFamily: String): Unit =
-        webkit_settings_set_default_font_family(webkitSettingsPointer.reinterpret(), defaultFontFamily)
-
-    /**
-     * Set the #WebKitSettings:default-font-size property.
-     *
-     * @param fontSize default font size to be set in pixels
-     */
-    public fun setDefaultFontSize(fontSize: UInt): Unit =
-        webkit_settings_set_default_font_size(webkitSettingsPointer.reinterpret(), fontSize)
-
-    /**
-     * Set the #WebKitSettings:default-monospace-font-size property.
-     *
-     * @param fontSize default monospace font size to be set in pixels
-     */
-    public fun setDefaultMonospaceFontSize(fontSize: UInt): Unit =
-        webkit_settings_set_default_monospace_font_size(webkitSettingsPointer.reinterpret(), fontSize)
-
-    /**
-     * Set the #WebKitSettings:disable-web-security property.
-     *
-     * @param disabled Value to be set
-     * @since 2.40
-     */
-    @WebKitVersion2_40
-    public fun setDisableWebSecurity(disabled: Boolean): Unit =
-        webkit_settings_set_disable_web_security(webkitSettingsPointer.reinterpret(), disabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:draw-compositing-indicators property.
-     *
-     * @param enabled Value to be set
-     */
-    public fun setDrawCompositingIndicators(enabled: Boolean): Unit =
-        webkit_settings_set_draw_compositing_indicators(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:enable-2d-canvas-acceleration property.
-     *
-     * @param enabled Value to be set
-     * @since 2.46
-     */
-    @WebKitVersion2_46
-    public fun setEnable2dCanvasAcceleration(enabled: Boolean): Unit =
-        webkit_settings_set_enable_2d_canvas_acceleration(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:enable-back-forward-navigation-gestures property.
-     *
-     * @param enabled value to be set
-     * @since 2.24
-     */
-    @WebKitVersion2_24
-    public fun setEnableBackForwardNavigationGestures(enabled: Boolean): Unit =
-        webkit_settings_set_enable_back_forward_navigation_gestures(
-            webkitSettingsPointer.reinterpret(),
-            enabled.asGBoolean()
-        )
-
-    /**
-     * Set the #WebKitSettings:enable-caret-browsing property.
-     *
-     * @param enabled Value to be set
-     */
-    public fun setEnableCaretBrowsing(enabled: Boolean): Unit =
-        webkit_settings_set_enable_caret_browsing(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:enable-developer-extras property.
-     *
-     * @param enabled Value to be set
-     */
-    public fun setEnableDeveloperExtras(enabled: Boolean): Unit =
-        webkit_settings_set_enable_developer_extras(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:enable-dns-prefetching property.
-     *
-     * @param enabled Value to be set
-     */
-    public fun setEnableDnsPrefetching(enabled: Boolean): Unit =
-        webkit_settings_set_enable_dns_prefetching(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:enable-encrypted-media property.
-     *
-     * @param enabled Value to be set
-     * @since 2.20
-     */
-    @WebKitVersion2_20
-    public fun setEnableEncryptedMedia(enabled: Boolean): Unit =
-        webkit_settings_set_enable_encrypted_media(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:enable-fullscreen property.
-     *
-     * @param enabled Value to be set
-     */
-    public fun setEnableFullscreen(enabled: Boolean): Unit =
-        webkit_settings_set_enable_fullscreen(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:enable-html5-database property.
-     *
-     * @param enabled Value to be set
-     */
-    public fun setEnableHtml5Database(enabled: Boolean): Unit =
-        webkit_settings_set_enable_html5_database(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:enable-html5-local-storage property.
-     *
-     * @param enabled Value to be set
-     */
-    public fun setEnableHtml5LocalStorage(enabled: Boolean): Unit =
-        webkit_settings_set_enable_html5_local_storage(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:enable-hyperlink-auditing property.
-     *
-     * @param enabled Value to be set
-     */
-    public fun setEnableHyperlinkAuditing(enabled: Boolean): Unit =
-        webkit_settings_set_enable_hyperlink_auditing(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:enable-javascript property.
-     *
-     * @param enabled Value to be set
-     */
-    public fun setEnableJavascript(enabled: Boolean): Unit =
-        webkit_settings_set_enable_javascript(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:enable-javascript-markup property.
-     *
-     * @param enabled Value to be set
-     * @since 2.24
-     */
-    @WebKitVersion2_24
-    public fun setEnableJavascriptMarkup(enabled: Boolean): Unit =
-        webkit_settings_set_enable_javascript_markup(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:enable-media property.
-     *
-     * @param enabled Value to be set
-     * @since 2.26
-     */
-    @WebKitVersion2_26
-    public fun setEnableMedia(enabled: Boolean): Unit =
-        webkit_settings_set_enable_media(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:enable-media-capabilities property.
-     *
-     * @param enabled Value to be set
-     * @since 2.22
-     */
-    @WebKitVersion2_22
-    public fun setEnableMediaCapabilities(enabled: Boolean): Unit =
-        webkit_settings_set_enable_media_capabilities(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:enable-media-stream property.
-     *
-     * @param enabled Value to be set
-     * @since 2.4
-     */
-    @WebKitVersion2_4
-    public fun setEnableMediaStream(enabled: Boolean): Unit =
-        webkit_settings_set_enable_media_stream(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:enable-mediasource property.
-     *
-     * @param enabled Value to be set
-     * @since 2.4
-     */
-    @WebKitVersion2_4
-    public fun setEnableMediasource(enabled: Boolean): Unit =
-        webkit_settings_set_enable_mediasource(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:enable-mock-capture-devices property.
-     *
-     * @param enabled Value to be set
-     * @since 2.4
-     */
-    @WebKitVersion2_4
-    public fun setEnableMockCaptureDevices(enabled: Boolean): Unit =
-        webkit_settings_set_enable_mock_capture_devices(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Setting no longer supported. This function does nothing.
-     *
-     * @param enabled Value to be set
-     */
-    public fun setEnableOfflineWebApplicationCache(enabled: Boolean): Unit =
-        webkit_settings_set_enable_offline_web_application_cache(
-            webkitSettingsPointer.reinterpret(),
-            enabled.asGBoolean()
-        )
-
-    /**
-     * Set the #WebKitSettings:enable-page-cache property.
-     *
-     * @param enabled Value to be set
-     */
-    public fun setEnablePageCache(enabled: Boolean): Unit =
-        webkit_settings_set_enable_page_cache(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:enable-resizable-text-areas property.
-     *
-     * @param enabled Value to be set
-     */
-    public fun setEnableResizableTextAreas(enabled: Boolean): Unit =
-        webkit_settings_set_enable_resizable_text_areas(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:enable-site-specific-quirks property.
-     *
-     * @param enabled Value to be set
-     */
-    public fun setEnableSiteSpecificQuirks(enabled: Boolean): Unit =
-        webkit_settings_set_enable_site_specific_quirks(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:enable-smooth-scrolling property.
-     *
-     * @param enabled Value to be set
-     */
-    public fun setEnableSmoothScrolling(enabled: Boolean): Unit =
-        webkit_settings_set_enable_smooth_scrolling(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:enable-spatial-navigation property.
-     *
-     * @param enabled Value to be set
-     * @since 2.2
-     */
-    @WebKitVersion2_2
-    public fun setEnableSpatialNavigation(enabled: Boolean): Unit =
-        webkit_settings_set_enable_spatial_navigation(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:enable-tabs-to-links property.
-     *
-     * @param enabled Value to be set
-     */
-    public fun setEnableTabsToLinks(enabled: Boolean): Unit =
-        webkit_settings_set_enable_tabs_to_links(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:enable-webaudio property.
-     *
-     * @param enabled Value to be set
-     */
-    public fun setEnableWebaudio(enabled: Boolean): Unit =
-        webkit_settings_set_enable_webaudio(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:enable-webgl property.
-     *
-     * @param enabled Value to be set
-     */
-    public fun setEnableWebgl(enabled: Boolean): Unit =
-        webkit_settings_set_enable_webgl(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the [property@Settings:enable-webrtc] property.
-     *
-     * Setting this property to true implies the media-stream web-setting will also be enabled.
-     *
-     * @param enabled Value to be set
-     * @since 2.38
-     */
-    @WebKitVersion2_38
-    public fun setEnableWebrtc(enabled: Boolean): Unit =
-        webkit_settings_set_enable_webrtc(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:enable-write-console-messages-to-stdout property.
-     *
-     * @param enabled Value to be set
-     * @since 2.2
-     */
-    @WebKitVersion2_2
-    public fun setEnableWriteConsoleMessagesToStdout(enabled: Boolean): Unit =
-        webkit_settings_set_enable_write_console_messages_to_stdout(
-            webkitSettingsPointer.reinterpret(),
-            enabled.asGBoolean()
-        )
-
-    /**
-     * Set the #WebKitSettings:fantasy-font-family property.
-     *
-     * @param fantasyFontFamily the new default fantasy font family
-     */
-    public fun setFantasyFontFamily(fantasyFontFamily: String): Unit =
-        webkit_settings_set_fantasy_font_family(webkitSettingsPointer.reinterpret(), fantasyFontFamily)
+    public fun getUserAgent(): String = webkit_settings_get_user_agent(webkitSettingsPointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Enables or disables a feature.
@@ -2498,55 +1613,11 @@ public class Settings(
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun setFeatureEnabled(
-        feature: Feature,
-        enabled: Boolean,
-    ): Unit =
-        webkit_settings_set_feature_enabled(
-            webkitSettingsPointer.reinterpret(),
-            feature.webkitFeaturePointer.reinterpret(),
-            enabled.asGBoolean()
-        )
-
-    /**
-     * Set the #WebKitSettings:hardware-acceleration-policy property.
-     *
-     * @param policy a #WebKitHardwareAccelerationPolicy
-     * @since 2.16
-     */
-    @WebKitVersion2_16
-    public fun setHardwareAccelerationPolicy(policy: HardwareAccelerationPolicy): Unit =
-        webkit_settings_set_hardware_acceleration_policy(webkitSettingsPointer.reinterpret(), policy.nativeValue)
-
-    /**
-     * Set the #WebKitSettings:javascript-can-access-clipboard property.
-     *
-     * @param enabled Value to be set
-     */
-    public fun setJavascriptCanAccessClipboard(enabled: Boolean): Unit =
-        webkit_settings_set_javascript_can_access_clipboard(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:javascript-can-open-windows-automatically property.
-     *
-     * @param enabled Value to be set
-     */
-    public fun setJavascriptCanOpenWindowsAutomatically(enabled: Boolean): Unit =
-        webkit_settings_set_javascript_can_open_windows_automatically(
-            webkitSettingsPointer.reinterpret(),
-            enabled.asGBoolean()
-        )
-
-    /**
-     * Setting no longer supported. This function does nothing.
-     *
-     * @param enabled Value to be set
-     */
-    public fun setLoadIconsIgnoringImageLoadSetting(enabled: Boolean): Unit =
-        webkit_settings_set_load_icons_ignoring_image_load_setting(
-            webkitSettingsPointer.reinterpret(),
-            enabled.asGBoolean()
-        )
+    public fun setFeatureEnabled(feature: Feature, enabled: Boolean): Unit = webkit_settings_set_feature_enabled(
+        webkitSettingsPointer.reinterpret(),
+        feature.webkitFeaturePointer.reinterpret(),
+        enabled.asGBoolean()
+    )
 
     /**
      * Set the #WebKitSettings:media-content-types-requiring-hardware-support property.
@@ -2560,73 +1631,6 @@ public class Settings(
             webkitSettingsPointer.reinterpret(),
             contentTypes
         )
-
-    /**
-     * Set the #WebKitSettings:media-playback-allows-inline property.
-     *
-     * @param enabled Value to be set
-     */
-    public fun setMediaPlaybackAllowsInline(enabled: Boolean): Unit =
-        webkit_settings_set_media_playback_allows_inline(webkitSettingsPointer.reinterpret(), enabled.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:media-playback-requires-user-gesture property.
-     *
-     * @param enabled Value to be set
-     */
-    public fun setMediaPlaybackRequiresUserGesture(enabled: Boolean): Unit =
-        webkit_settings_set_media_playback_requires_user_gesture(
-            webkitSettingsPointer.reinterpret(),
-            enabled.asGBoolean()
-        )
-
-    /**
-     * Set the #WebKitSettings:minimum-font-size property.
-     *
-     * @param fontSize minimum font size to be set in pixels
-     */
-    public fun setMinimumFontSize(fontSize: UInt): Unit =
-        webkit_settings_set_minimum_font_size(webkitSettingsPointer.reinterpret(), fontSize)
-
-    /**
-     * Set the #WebKitSettings:monospace-font-family property.
-     *
-     * @param monospaceFontFamily the new default monospace font family
-     */
-    public fun setMonospaceFontFamily(monospaceFontFamily: String): Unit =
-        webkit_settings_set_monospace_font_family(webkitSettingsPointer.reinterpret(), monospaceFontFamily)
-
-    /**
-     * Set the #WebKitSettings:pictograph-font-family property.
-     *
-     * @param pictographFontFamily the new default pictograph font family
-     */
-    public fun setPictographFontFamily(pictographFontFamily: String): Unit =
-        webkit_settings_set_pictograph_font_family(webkitSettingsPointer.reinterpret(), pictographFontFamily)
-
-    /**
-     * Set the #WebKitSettings:print-backgrounds property.
-     *
-     * @param printBackgrounds Value to be set
-     */
-    public fun setPrintBackgrounds(printBackgrounds: Boolean): Unit =
-        webkit_settings_set_print_backgrounds(webkitSettingsPointer.reinterpret(), printBackgrounds.asGBoolean())
-
-    /**
-     * Set the #WebKitSettings:sans-serif-font-family property.
-     *
-     * @param sansSerifFontFamily the new default sans-serif font family
-     */
-    public fun setSansSerifFontFamily(sansSerifFontFamily: String): Unit =
-        webkit_settings_set_sans_serif_font_family(webkitSettingsPointer.reinterpret(), sansSerifFontFamily)
-
-    /**
-     * Set the #WebKitSettings:serif-font-family property.
-     *
-     * @param serifFontFamily the new default serif font family
-     */
-    public fun setSerifFontFamily(serifFontFamily: String): Unit =
-        webkit_settings_set_serif_font_family(webkitSettingsPointer.reinterpret(), serifFontFamily)
 
     /**
      * Set the #WebKitSettings:user-agent property.
@@ -2649,20 +1653,11 @@ public class Settings(
     public fun setUserAgentWithApplicationDetails(
         applicationName: String? = null,
         applicationVersion: String? = null,
-    ): Unit =
-        webkit_settings_set_user_agent_with_application_details(
-            webkitSettingsPointer.reinterpret(),
-            applicationName,
-            applicationVersion
-        )
-
-    /**
-     * Set the #WebKitSettings:zoom-text-only property.
-     *
-     * @param zoomTextOnly Value to be set
-     */
-    public fun setZoomTextOnly(zoomTextOnly: Boolean): Unit =
-        webkit_settings_set_zoom_text_only(webkitSettingsPointer.reinterpret(), zoomTextOnly.asGBoolean())
+    ): Unit = webkit_settings_set_user_agent_with_application_details(
+        webkitSettingsPointer.reinterpret(),
+        applicationName,
+        applicationVersion
+    )
 
     public companion object : TypeCompanion<Settings> {
         override val type: GeneratedClassKGType<Settings> =
@@ -2685,7 +1680,7 @@ public class Settings(
          * @since 2.20
          */
         @WebKitVersion2_20
-        public fun fontSizeToPixels(points: UInt): UInt = webkit_settings_font_size_to_pixels(points)
+        public fun fontSizeToPixels(points: guint): guint = webkit_settings_font_size_to_pixels(points)
 
         /**
          * Convert @pixels to the equivalent value in points.
@@ -2700,7 +1695,7 @@ public class Settings(
          * @since 2.20
          */
         @WebKitVersion2_20
-        public fun fontSizeToPoints(pixels: UInt): UInt = webkit_settings_font_size_to_points(pixels)
+        public fun fontSizeToPoints(pixels: guint): guint = webkit_settings_font_size_to_points(pixels)
 
         /**
          * Gets the list of all available WebKit features.
@@ -2717,10 +1712,9 @@ public class Settings(
          * @since 2.42
          */
         @WebKitVersion2_42
-        public fun getAllFeatures(): FeatureList =
-            webkit_settings_get_all_features()!!.run {
-                FeatureList(reinterpret())
-            }
+        public fun getAllFeatures(): FeatureList = webkit_settings_get_all_features()!!.run {
+            FeatureList(reinterpret())
+        }
 
         /**
          * Gets the list of available development WebKit features.
@@ -2735,10 +1729,9 @@ public class Settings(
          * @since 2.42
          */
         @WebKitVersion2_42
-        public fun getDevelopmentFeatures(): FeatureList =
-            webkit_settings_get_development_features()!!.run {
-                FeatureList(reinterpret())
-            }
+        public fun getDevelopmentFeatures(): FeatureList = webkit_settings_get_development_features()!!.run {
+            FeatureList(reinterpret())
+        }
 
         /**
          * Gets the list of available experimental WebKit features.
@@ -2752,9 +1745,15 @@ public class Settings(
          * @since 2.42
          */
         @WebKitVersion2_42
-        public fun getExperimentalFeatures(): FeatureList =
-            webkit_settings_get_experimental_features()!!.run {
-                FeatureList(reinterpret())
-            }
+        public fun getExperimentalFeatures(): FeatureList = webkit_settings_get_experimental_features()!!.run {
+            FeatureList(reinterpret())
+        }
+
+        /**
+         * Get the GType of Settings
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_settings_get_type()
     }
 }

@@ -1,12 +1,13 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.gtk.GtkBitset
 import org.gtkkn.native.gtk.gtk_bitset_add
 import org.gtkkn.native.gtk.gtk_bitset_add_range
@@ -21,6 +22,7 @@ import org.gtkkn.native.gtk.gtk_bitset_get_minimum
 import org.gtkkn.native.gtk.gtk_bitset_get_nth
 import org.gtkkn.native.gtk.gtk_bitset_get_size
 import org.gtkkn.native.gtk.gtk_bitset_get_size_in_range
+import org.gtkkn.native.gtk.gtk_bitset_get_type
 import org.gtkkn.native.gtk.gtk_bitset_intersect
 import org.gtkkn.native.gtk.gtk_bitset_is_empty
 import org.gtkkn.native.gtk.gtk_bitset_new_empty
@@ -38,8 +40,6 @@ import org.gtkkn.native.gtk.gtk_bitset_subtract
 import org.gtkkn.native.gtk.gtk_bitset_union
 import org.gtkkn.native.gtk.gtk_bitset_unref
 import kotlin.Boolean
-import kotlin.UInt
-import kotlin.ULong
 import kotlin.Unit
 
 /**
@@ -59,9 +59,7 @@ import kotlin.Unit
  * The main use case for `GtkBitset` is implementing complex selections for
  * [iface@Gtk.SelectionModel].
  */
-public class Bitset(
-    pointer: CPointer<GtkBitset>,
-) : Record {
+public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
     public val gtkBitsetPointer: CPointer<GtkBitset> = pointer
 
     /**
@@ -71,7 +69,7 @@ public class Bitset(
      * @return true if @value was not part of @self and @self
      *   was changed
      */
-    public fun add(`value`: UInt): Boolean = gtk_bitset_add(gtkBitsetPointer.reinterpret(), `value`).asBoolean()
+    public fun add(`value`: guint): Boolean = gtk_bitset_add(gtkBitsetPointer.reinterpret(), `value`).asBoolean()
 
     /**
      * Adds all values from @start (inclusive) to @start + @n_items
@@ -80,10 +78,8 @@ public class Bitset(
      * @param start first value to add
      * @param nItems number of consecutive values to add
      */
-    public fun addRange(
-        start: UInt,
-        nItems: UInt,
-    ): Unit = gtk_bitset_add_range(gtkBitsetPointer.reinterpret(), start, nItems)
+    public fun addRange(start: guint, nItems: guint): Unit =
+        gtk_bitset_add_range(gtkBitsetPointer.reinterpret(), start, nItems)
 
     /**
      * Adds the closed range [@first, @last], so @first, @last and all
@@ -92,10 +88,8 @@ public class Bitset(
      * @param first first value to add
      * @param last last value to add
      */
-    public fun addRangeClosed(
-        first: UInt,
-        last: UInt,
-    ): Unit = gtk_bitset_add_range_closed(gtkBitsetPointer.reinterpret(), first, last)
+    public fun addRangeClosed(first: guint, last: guint): Unit =
+        gtk_bitset_add_range_closed(gtkBitsetPointer.reinterpret(), first, last)
 
     /**
      * Interprets the values as a 2-dimensional boolean grid with the given @stride
@@ -106,12 +100,8 @@ public class Bitset(
      * @param height height of the rectangle
      * @param stride row stride of the grid
      */
-    public fun addRectangle(
-        start: UInt,
-        width: UInt,
-        height: UInt,
-        stride: UInt,
-    ): Unit = gtk_bitset_add_rectangle(gtkBitsetPointer.reinterpret(), start, width, height, stride)
+    public fun addRectangle(start: guint, width: guint, height: guint, stride: guint): Unit =
+        gtk_bitset_add_rectangle(gtkBitsetPointer.reinterpret(), start, width, height, stride)
 
     /**
      * Checks if the given @value has been added to @self
@@ -119,7 +109,7 @@ public class Bitset(
      * @param value the value to check
      * @return true if @self contains @value
      */
-    public fun contains(`value`: UInt): Boolean =
+    public fun contains(`value`: guint): Boolean =
         gtk_bitset_contains(gtkBitsetPointer.reinterpret(), `value`).asBoolean()
 
     /**
@@ -128,10 +118,9 @@ public class Bitset(
      * @return A new bitset that contains the same
      *   values as @self
      */
-    public fun copy(): Bitset =
-        gtk_bitset_copy(gtkBitsetPointer.reinterpret())!!.run {
-            Bitset(reinterpret())
-        }
+    public fun copy(): Bitset = gtk_bitset_copy(gtkBitsetPointer.reinterpret())!!.run {
+        Bitset(reinterpret())
+    }
 
     /**
      * Sets @self to be the symmetric difference of @self and @other.
@@ -164,7 +153,7 @@ public class Bitset(
      *
      * @return The largest value in @self
      */
-    public fun getMaximum(): UInt = gtk_bitset_get_maximum(gtkBitsetPointer.reinterpret())
+    public fun getMaximum(): guint = gtk_bitset_get_maximum(gtkBitsetPointer.reinterpret())
 
     /**
      * Returns the smallest value in @self.
@@ -173,7 +162,7 @@ public class Bitset(
      *
      * @return The smallest value in @self
      */
-    public fun getMinimum(): UInt = gtk_bitset_get_minimum(gtkBitsetPointer.reinterpret())
+    public fun getMinimum(): guint = gtk_bitset_get_minimum(gtkBitsetPointer.reinterpret())
 
     /**
      * Returns the value of the @nth item in self.
@@ -183,7 +172,7 @@ public class Bitset(
      * @param nth index of the item to get
      * @return the value of the @nth item in @self
      */
-    public fun getNth(nth: UInt): UInt = gtk_bitset_get_nth(gtkBitsetPointer.reinterpret(), nth)
+    public fun getNth(nth: guint): guint = gtk_bitset_get_nth(gtkBitsetPointer.reinterpret(), nth)
 
     /**
      * Gets the number of values that were added to the set.
@@ -197,7 +186,7 @@ public class Bitset(
      *
      * @return The number of values in the set.
      */
-    public fun getSize(): ULong = gtk_bitset_get_size(gtkBitsetPointer.reinterpret())
+    public fun getSize(): guint64 = gtk_bitset_get_size(gtkBitsetPointer.reinterpret())
 
     /**
      * Gets the number of values that are part of the set from @first to @last
@@ -211,10 +200,8 @@ public class Bitset(
      * @param last the last element to include
      * @return The number of values in the set from @first to @last.
      */
-    public fun getSizeInRange(
-        first: UInt,
-        last: UInt,
-    ): ULong = gtk_bitset_get_size_in_range(gtkBitsetPointer.reinterpret(), first, last)
+    public fun getSizeInRange(first: guint, last: guint): guint64 =
+        gtk_bitset_get_size_in_range(gtkBitsetPointer.reinterpret(), first, last)
 
     /**
      * Sets @self to be the intersection of @self and @other.
@@ -241,10 +228,9 @@ public class Bitset(
      *
      * @return the `GtkBitset` with an additional reference
      */
-    public fun ref(): Bitset =
-        gtk_bitset_ref(gtkBitsetPointer.reinterpret())!!.run {
-            Bitset(reinterpret())
-        }
+    public fun ref(): Bitset = gtk_bitset_ref(gtkBitsetPointer.reinterpret())!!.run {
+        Bitset(reinterpret())
+    }
 
     /**
      * Removes @value from @self if it was part of it before.
@@ -253,7 +239,7 @@ public class Bitset(
      * @return true if @value was part of @self and @self
      *   was changed
      */
-    public fun remove(`value`: UInt): Boolean = gtk_bitset_remove(gtkBitsetPointer.reinterpret(), `value`).asBoolean()
+    public fun remove(`value`: guint): Boolean = gtk_bitset_remove(gtkBitsetPointer.reinterpret(), `value`).asBoolean()
 
     /**
      * Removes all values from the bitset so that it is empty again.
@@ -267,10 +253,8 @@ public class Bitset(
      * @param start first value to remove
      * @param nItems number of consecutive values to remove
      */
-    public fun removeRange(
-        start: UInt,
-        nItems: UInt,
-    ): Unit = gtk_bitset_remove_range(gtkBitsetPointer.reinterpret(), start, nItems)
+    public fun removeRange(start: guint, nItems: guint): Unit =
+        gtk_bitset_remove_range(gtkBitsetPointer.reinterpret(), start, nItems)
 
     /**
      * Removes the closed range [@first, @last], so @first, @last and all
@@ -279,10 +263,8 @@ public class Bitset(
      * @param first first value to remove
      * @param last last value to remove
      */
-    public fun removeRangeClosed(
-        first: UInt,
-        last: UInt,
-    ): Unit = gtk_bitset_remove_range_closed(gtkBitsetPointer.reinterpret(), first, last)
+    public fun removeRangeClosed(first: guint, last: guint): Unit =
+        gtk_bitset_remove_range_closed(gtkBitsetPointer.reinterpret(), first, last)
 
     /**
      * Interprets the values as a 2-dimensional boolean grid with the given @stride
@@ -293,12 +275,8 @@ public class Bitset(
      * @param height height of the rectangle
      * @param stride row stride of the grid
      */
-    public fun removeRectangle(
-        start: UInt,
-        width: UInt,
-        height: UInt,
-        stride: UInt,
-    ): Unit = gtk_bitset_remove_rectangle(gtkBitsetPointer.reinterpret(), start, width, height, stride)
+    public fun removeRectangle(start: guint, width: guint, height: guint, stride: guint): Unit =
+        gtk_bitset_remove_rectangle(gtkBitsetPointer.reinterpret(), start, width, height, stride)
 
     /**
      * Shifts all values in @self to the left by @amount.
@@ -307,7 +285,7 @@ public class Bitset(
      *
      * @param amount amount to shift all values to the left
      */
-    public fun shiftLeft(amount: UInt): Unit = gtk_bitset_shift_left(gtkBitsetPointer.reinterpret(), amount)
+    public fun shiftLeft(amount: guint): Unit = gtk_bitset_shift_left(gtkBitsetPointer.reinterpret(), amount)
 
     /**
      * Shifts all values in @self to the right by @amount.
@@ -316,7 +294,7 @@ public class Bitset(
      *
      * @param amount amount to shift all values to the right
      */
-    public fun shiftRight(amount: UInt): Unit = gtk_bitset_shift_right(gtkBitsetPointer.reinterpret(), amount)
+    public fun shiftRight(amount: guint): Unit = gtk_bitset_shift_right(gtkBitsetPointer.reinterpret(), amount)
 
     /**
      * This is a support function for `GListModel` handling, by mirroring
@@ -334,11 +312,8 @@ public class Bitset(
      * @param removed number of values to remove
      * @param added number of values to add
      */
-    public fun splice(
-        position: UInt,
-        removed: UInt,
-        added: UInt,
-    ): Unit = gtk_bitset_splice(gtkBitsetPointer.reinterpret(), position, removed, added)
+    public fun splice(position: guint, removed: guint, added: guint): Unit =
+        gtk_bitset_splice(gtkBitsetPointer.reinterpret(), position, removed, added)
 
     /**
      * Sets @self to be the subtraction of @other from @self.
@@ -374,7 +349,7 @@ public class Bitset(
      */
     public fun unref(): Unit = gtk_bitset_unref(gtkBitsetPointer.reinterpret())
 
-    public companion object : RecordCompanion<Bitset, GtkBitset> {
+    public companion object {
         /**
          * Creates a new empty bitset.
          *
@@ -389,11 +364,14 @@ public class Bitset(
          * @param nItems number of consecutive values to add
          * @return A new bitset
          */
-        public fun newRange(
-            start: UInt,
-            nItems: UInt,
-        ): Bitset = Bitset(gtk_bitset_new_range(start, nItems)!!.reinterpret())
+        public fun newRange(start: guint, nItems: guint): Bitset =
+            Bitset(gtk_bitset_new_range(start, nItems)!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Bitset = Bitset(pointer.reinterpret())
+        /**
+         * Get the GType of Bitset
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_bitset_get_type()
     }
 }

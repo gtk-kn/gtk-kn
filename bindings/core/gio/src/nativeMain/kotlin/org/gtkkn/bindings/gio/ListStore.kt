@@ -22,8 +22,8 @@ import org.gtkkn.native.gio.g_list_store_new
 import org.gtkkn.native.gio.g_list_store_remove
 import org.gtkkn.native.gio.g_list_store_remove_all
 import org.gtkkn.native.gio.g_list_store_sort
-import kotlin.UInt
-import kotlin.ULong
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint
 import kotlin.Unit
 
 /**
@@ -42,9 +42,8 @@ import kotlin.Unit
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class ListStore(
-    pointer: CPointer<GListStore>,
-) : Object(pointer.reinterpret()),
+public open class ListStore(pointer: CPointer<GListStore>) :
+    Object(pointer.reinterpret()),
     ListModel,
     KGTyped {
     public val gioListStorePointer: CPointer<GListStore>
@@ -61,7 +60,7 @@ public open class ListStore(
      * @return a new #GListStore
      * @since 2.44
      */
-    public constructor(itemType: ULong) : this(g_list_store_new(itemType)!!.reinterpret())
+    public constructor(itemType: GType) : this(g_list_store_new(itemType)!!.reinterpret())
 
     /**
      * Appends @item to @store. @item must be of type #GListStore:item-type.
@@ -93,10 +92,8 @@ public open class ListStore(
      * @since 2.44
      */
     @GioVersion2_44
-    public open fun insert(
-        position: UInt,
-        item: Object,
-    ): Unit = g_list_store_insert(gioListStorePointer.reinterpret(), position, item.gPointer.reinterpret())
+    public open fun insert(position: guint, item: Object): Unit =
+        g_list_store_insert(gioListStorePointer.reinterpret(), position, item.gPointer.reinterpret())
 
     /**
      * Inserts @item into @store at a position to be determined by the
@@ -114,16 +111,12 @@ public open class ListStore(
      * @since 2.44
      */
     @GioVersion2_44
-    public open fun insertSorted(
-        item: Object,
-        compareFunc: CompareDataFunc,
-    ): UInt =
-        g_list_store_insert_sorted(
-            gioListStorePointer.reinterpret(),
-            item.gPointer.reinterpret(),
-            CompareDataFuncFunc.reinterpret(),
-            StableRef.create(compareFunc).asCPointer()
-        )
+    public open fun insertSorted(item: Object, compareFunc: CompareDataFunc): guint = g_list_store_insert_sorted(
+        gioListStorePointer.reinterpret(),
+        item.gPointer.reinterpret(),
+        CompareDataFuncFunc.reinterpret(),
+        StableRef.create(compareFunc).asCPointer()
+    )
 
     /**
      * Removes the item from @store that is at @position. @position must be
@@ -136,7 +129,7 @@ public open class ListStore(
      * @since 2.44
      */
     @GioVersion2_44
-    public open fun remove(position: UInt): Unit = g_list_store_remove(gioListStorePointer.reinterpret(), position)
+    public open fun remove(position: guint): Unit = g_list_store_remove(gioListStorePointer.reinterpret(), position)
 
     /**
      * Removes all items from @store.
@@ -153,12 +146,11 @@ public open class ListStore(
      * @since 2.46
      */
     @GioVersion2_46
-    public open fun sort(compareFunc: CompareDataFunc): Unit =
-        g_list_store_sort(
-            gioListStorePointer.reinterpret(),
-            CompareDataFuncFunc.reinterpret(),
-            StableRef.create(compareFunc).asCPointer()
-        )
+    public open fun sort(compareFunc: CompareDataFunc): Unit = g_list_store_sort(
+        gioListStorePointer.reinterpret(),
+        CompareDataFuncFunc.reinterpret(),
+        StableRef.create(compareFunc).asCPointer()
+    )
 
     public companion object : TypeCompanion<ListStore> {
         override val type: GeneratedClassKGType<ListStore> =
@@ -167,5 +159,12 @@ public open class ListStore(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ListStore
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_list_store_get_type()
     }
 }

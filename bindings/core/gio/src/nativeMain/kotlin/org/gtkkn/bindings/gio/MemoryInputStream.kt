@@ -15,6 +15,7 @@ import org.gtkkn.native.gio.g_memory_input_stream_add_bytes
 import org.gtkkn.native.gio.g_memory_input_stream_get_type
 import org.gtkkn.native.gio.g_memory_input_stream_new
 import org.gtkkn.native.gio.g_memory_input_stream_new_from_bytes
+import org.gtkkn.native.gobject.GType
 import kotlin.Unit
 
 /**
@@ -29,9 +30,8 @@ import kotlin.Unit
  * - parameter `data`: Array parameter of type guint8 is not supported
  * - parameter `data`: Array parameter of type guint8 is not supported
  */
-public open class MemoryInputStream(
-    pointer: CPointer<GMemoryInputStream>,
-) : InputStream(pointer.reinterpret()),
+public open class MemoryInputStream(pointer: CPointer<GMemoryInputStream>) :
+    InputStream(pointer.reinterpret()),
     PollableInputStream,
     Seekable,
     KGTyped {
@@ -79,5 +79,12 @@ public open class MemoryInputStream(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of MemoryInputStream
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_memory_input_stream_get_type()
     }
 }

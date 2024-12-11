@@ -12,14 +12,14 @@ import org.gtkkn.native.gdk.gdk_crossing_event_get_detail
 import org.gtkkn.native.gdk.gdk_crossing_event_get_focus
 import org.gtkkn.native.gdk.gdk_crossing_event_get_mode
 import org.gtkkn.native.gdk.gdk_crossing_event_get_type
+import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 
 /**
  * An event caused by a pointing device moving between surfaces.
  */
-public open class CrossingEvent(
-    pointer: CPointer<GdkCrossingEvent>,
-) : Event(pointer.reinterpret()),
+public open class CrossingEvent(pointer: CPointer<GdkCrossingEvent>) :
+    Event(pointer.reinterpret()),
     KGTyped {
     public val gdkCrossingEventPointer: CPointer<GdkCrossingEvent>
         get() = gPointer.reinterpret()
@@ -29,10 +29,9 @@ public open class CrossingEvent(
      *
      * @return the notify detail of @event
      */
-    public open fun getDetail(): NotifyType =
-        gdk_crossing_event_get_detail(gdkCrossingEventPointer.reinterpret()).run {
-            NotifyType.fromNativeValue(this)
-        }
+    public open fun getDetail(): NotifyType = gdk_crossing_event_get_detail(gdkCrossingEventPointer.reinterpret()).run {
+        NotifyType.fromNativeValue(this)
+    }
 
     /**
      * Checks if the @event surface is the focus surface.
@@ -47,10 +46,9 @@ public open class CrossingEvent(
      *
      * @return the mode of @event
      */
-    public open fun getMode(): CrossingMode =
-        gdk_crossing_event_get_mode(gdkCrossingEventPointer.reinterpret()).run {
-            CrossingMode.fromNativeValue(this)
-        }
+    public open fun getMode(): CrossingMode = gdk_crossing_event_get_mode(gdkCrossingEventPointer.reinterpret()).run {
+        CrossingMode.fromNativeValue(this)
+    }
 
     public companion object : TypeCompanion<CrossingEvent> {
         override val type: GeneratedClassKGType<CrossingEvent> =
@@ -59,5 +57,12 @@ public open class CrossingEvent(
         init {
             GdkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of CrossingEvent
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_crossing_event_get_type()
     }
 }

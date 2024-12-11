@@ -7,9 +7,7 @@ import org.gtkkn.native.glib.GTokenType
  * The possible types of token returned from each
  * g_scanner_get_next_token() call.
  */
-public enum class TokenType(
-    public val nativeValue: GTokenType,
-) {
+public enum class TokenType(public val nativeValue: GTokenType) {
     /**
      * the end of the file
      */
@@ -127,32 +125,31 @@ public enum class TokenType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GTokenType): TokenType =
-            when (nativeValue) {
-                GTokenType.G_TOKEN_EOF -> EOF
-                GTokenType.G_TOKEN_LEFT_PAREN -> LEFT_PAREN
-                GTokenType.G_TOKEN_RIGHT_PAREN -> RIGHT_PAREN
-                GTokenType.G_TOKEN_LEFT_CURLY -> LEFT_CURLY
-                GTokenType.G_TOKEN_RIGHT_CURLY -> RIGHT_CURLY
-                GTokenType.G_TOKEN_LEFT_BRACE -> LEFT_BRACE
-                GTokenType.G_TOKEN_RIGHT_BRACE -> RIGHT_BRACE
-                GTokenType.G_TOKEN_EQUAL_SIGN -> EQUAL_SIGN
-                GTokenType.G_TOKEN_COMMA -> COMMA
-                GTokenType.G_TOKEN_NONE -> NONE
-                GTokenType.G_TOKEN_ERROR -> ERROR
-                GTokenType.G_TOKEN_CHAR -> CHAR
-                GTokenType.G_TOKEN_BINARY -> BINARY
-                GTokenType.G_TOKEN_OCTAL -> OCTAL
-                GTokenType.G_TOKEN_INT -> INT
-                GTokenType.G_TOKEN_HEX -> HEX
-                GTokenType.G_TOKEN_FLOAT -> FLOAT
-                GTokenType.G_TOKEN_STRING -> STRING
-                GTokenType.G_TOKEN_SYMBOL -> SYMBOL
-                GTokenType.G_TOKEN_IDENTIFIER -> IDENTIFIER
-                GTokenType.G_TOKEN_IDENTIFIER_NULL -> IDENTIFIER_NULL
-                GTokenType.G_TOKEN_COMMENT_SINGLE -> COMMENT_SINGLE
-                GTokenType.G_TOKEN_COMMENT_MULTI -> COMMENT_MULTI
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GTokenType): TokenType = when (nativeValue) {
+            GTokenType.G_TOKEN_EOF -> EOF
+            GTokenType.G_TOKEN_LEFT_PAREN -> LEFT_PAREN
+            GTokenType.G_TOKEN_RIGHT_PAREN -> RIGHT_PAREN
+            GTokenType.G_TOKEN_LEFT_CURLY -> LEFT_CURLY
+            GTokenType.G_TOKEN_RIGHT_CURLY -> RIGHT_CURLY
+            GTokenType.G_TOKEN_LEFT_BRACE -> LEFT_BRACE
+            GTokenType.G_TOKEN_RIGHT_BRACE -> RIGHT_BRACE
+            GTokenType.G_TOKEN_EQUAL_SIGN -> EQUAL_SIGN
+            GTokenType.G_TOKEN_COMMA -> COMMA
+            GTokenType.G_TOKEN_NONE -> NONE
+            GTokenType.G_TOKEN_ERROR -> ERROR
+            GTokenType.G_TOKEN_CHAR -> CHAR
+            GTokenType.G_TOKEN_BINARY -> BINARY
+            GTokenType.G_TOKEN_OCTAL -> OCTAL
+            GTokenType.G_TOKEN_INT -> INT
+            GTokenType.G_TOKEN_HEX -> HEX
+            GTokenType.G_TOKEN_FLOAT -> FLOAT
+            GTokenType.G_TOKEN_STRING -> STRING
+            GTokenType.G_TOKEN_SYMBOL -> SYMBOL
+            GTokenType.G_TOKEN_IDENTIFIER -> IDENTIFIER
+            GTokenType.G_TOKEN_IDENTIFIER_NULL -> IDENTIFIER_NULL
+            GTokenType.G_TOKEN_COMMENT_SINGLE -> COMMENT_SINGLE
+            GTokenType.G_TOKEN_COMMENT_MULTI -> COMMENT_MULTI
+            else -> error("invalid nativeValue")
+        }
     }
 }

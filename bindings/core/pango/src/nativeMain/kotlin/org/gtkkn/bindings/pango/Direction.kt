@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoDirection
+import org.gtkkn.native.pango.pango_direction_get_type
 
 /**
  * `PangoDirection` represents a direction in the Unicode bidirectional
@@ -23,9 +25,7 @@ import org.gtkkn.native.pango.PangoDirection
  * directly. `PangoDirection` is only retained because it is used in some
  * public apis.
  */
-public enum class Direction(
-    public val nativeValue: PangoDirection,
-) {
+public enum class Direction(public val nativeValue: PangoDirection) {
     /**
      * A strong left-to-right direction
      */
@@ -65,16 +65,22 @@ public enum class Direction(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: PangoDirection): Direction =
-            when (nativeValue) {
-                PangoDirection.PANGO_DIRECTION_LTR -> LTR
-                PangoDirection.PANGO_DIRECTION_RTL -> RTL
-                PangoDirection.PANGO_DIRECTION_TTB_LTR -> TTB_LTR
-                PangoDirection.PANGO_DIRECTION_TTB_RTL -> TTB_RTL
-                PangoDirection.PANGO_DIRECTION_WEAK_LTR -> WEAK_LTR
-                PangoDirection.PANGO_DIRECTION_WEAK_RTL -> WEAK_RTL
-                PangoDirection.PANGO_DIRECTION_NEUTRAL -> NEUTRAL
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: PangoDirection): Direction = when (nativeValue) {
+            PangoDirection.PANGO_DIRECTION_LTR -> LTR
+            PangoDirection.PANGO_DIRECTION_RTL -> RTL
+            PangoDirection.PANGO_DIRECTION_TTB_LTR -> TTB_LTR
+            PangoDirection.PANGO_DIRECTION_TTB_RTL -> TTB_RTL
+            PangoDirection.PANGO_DIRECTION_WEAK_LTR -> WEAK_LTR
+            PangoDirection.PANGO_DIRECTION_WEAK_RTL -> WEAK_RTL
+            PangoDirection.PANGO_DIRECTION_NEUTRAL -> NEUTRAL
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of Direction
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = pango_direction_get_type()
     }
 }

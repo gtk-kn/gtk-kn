@@ -22,7 +22,13 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.gobject.guint16
+import org.gtkkn.native.gobject.gunichar
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAccessibleText
 import org.gtkkn.native.gtk.GtkBuildable
@@ -69,11 +75,8 @@ import org.gtkkn.native.gtk.gtk_text_set_truncate_multiline
 import org.gtkkn.native.gtk.gtk_text_set_visibility
 import org.gtkkn.native.gtk.gtk_text_unset_invisible_char
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
-import kotlin.UShort
 import kotlin.Unit
 
 /**
@@ -146,9 +149,8 @@ import kotlin.Unit
  * - method `invisible-char-set`: Property has no getter nor setter
  * - method `scroll-offset`: Property has no getter nor setter
  */
-public open class Text(
-    pointer: CPointer<GtkText>,
-) : Widget(pointer.reinterpret()),
+public open class Text(pointer: CPointer<GtkText>) :
+    Widget(pointer.reinterpret()),
     AccessibleText,
     Editable,
     KGTyped {
@@ -212,10 +214,9 @@ public open class Text(
          *
          * @return the attribute list
          */
-        get() =
-            gtk_text_get_attributes(gtkTextPointer.reinterpret())?.run {
-                AttrList(reinterpret())
-            }
+        get() = gtk_text_get_attributes(gtkTextPointer.reinterpret())?.run {
+            AttrList(reinterpret())
+        }
 
         /**
          * Sets attributes that are applied to the text.
@@ -234,10 +235,9 @@ public open class Text(
          *
          * @return A `GtkEntryBuffer` object.
          */
-        get() =
-            gtk_text_get_buffer(gtkTextPointer.reinterpret())!!.run {
-                EntryBuffer(reinterpret())
-            }
+        get() = gtk_text_get_buffer(gtkTextPointer.reinterpret())!!.run {
+            EntryBuffer(reinterpret())
+        }
 
         /**
          * Set the `GtkEntryBuffer` object which holds the text for
@@ -284,10 +284,9 @@ public open class Text(
          *
          * @return the menu model
          */
-        get() =
-            gtk_text_get_extra_menu(gtkTextPointer.reinterpret())?.run {
-                MenuModel(reinterpret())
-            }
+        get() = gtk_text_get_extra_menu(gtkTextPointer.reinterpret())?.run {
+            MenuModel(reinterpret())
+        }
 
         /**
          * Sets a menu model to add when constructing
@@ -305,10 +304,9 @@ public open class Text(
         /**
          * Gets the input hints of the `GtkText`.
          */
-        get() =
-            gtk_text_get_input_hints(gtkTextPointer.reinterpret()).run {
-                InputHints(this)
-            }
+        get() = gtk_text_get_input_hints(gtkTextPointer.reinterpret()).run {
+            InputHints(this)
+        }
 
         /**
          * Sets input hints that allow input methods
@@ -332,10 +330,9 @@ public open class Text(
         /**
          * Gets the input purpose of the `GtkText`.
          */
-        get() =
-            gtk_text_get_input_purpose(gtkTextPointer.reinterpret()).run {
-                InputPurpose.fromNativeValue(this)
-            }
+        get() = gtk_text_get_input_purpose(gtkTextPointer.reinterpret()).run {
+            InputPurpose.fromNativeValue(this)
+        }
 
         /**
          * Sets the input purpose of the `GtkText`.
@@ -350,7 +347,7 @@ public open class Text(
     /**
      * The character to used when masking contents (in “password mode”).
      */
-    public open var invisibleChar: UInt
+    public open var invisibleChar: gunichar
         /**
          * Retrieves the character displayed when visibility is set to false.
          *
@@ -380,7 +377,7 @@ public open class Text(
      *
      * Zero indicates no limit.
      */
-    public open var maxLength: Int
+    public open var maxLength: gint
         /**
          * Retrieves the maximum allowed length of the text in @self.
          *
@@ -488,10 +485,9 @@ public open class Text(
          *
          * @return the tabstops
          */
-        get() =
-            gtk_text_get_tabs(gtkTextPointer.reinterpret())?.run {
-                TabArray(reinterpret())
-            }
+        get() = gtk_text_get_tabs(gtkTextPointer.reinterpret())?.run {
+            TabArray(reinterpret())
+        }
 
         /**
          * Sets tabstops that are applied to the text.
@@ -589,154 +585,13 @@ public open class Text(
      * @since 4.4
      */
     @GtkVersion4_4
-    public open fun computeCursorExtents(
-        position: ULong,
-        strong: Rect?,
-        weak: Rect?,
-    ): Unit =
+    public open fun computeCursorExtents(position: gsize, strong: Rect?, weak: Rect?): Unit =
         gtk_text_compute_cursor_extents(
             gtkTextPointer.reinterpret(),
             position,
             strong?.grapheneRectPointer?.reinterpret(),
             weak?.grapheneRectPointer?.reinterpret()
         )
-
-    /**
-     * Returns whether pressing Enter will activate
-     * the default widget for the window containing @self.
-     *
-     * See [method@Gtk.Text.set_activates_default].
-     *
-     * @return true if the `GtkText` will activate the default widget
-     */
-    public open fun getActivatesDefault(): Boolean =
-        gtk_text_get_activates_default(gtkTextPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the attribute list that was set on the `GtkText`.
-     *
-     * See [method@Gtk.Text.set_attributes].
-     *
-     * @return the attribute list
-     */
-    public open fun getAttributes(): AttrList? =
-        gtk_text_get_attributes(gtkTextPointer.reinterpret())?.run {
-            AttrList(reinterpret())
-        }
-
-    /**
-     * Get the `GtkEntryBuffer` object which holds the text for
-     * this widget.
-     *
-     * @return A `GtkEntryBuffer` object.
-     */
-    public open fun getBuffer(): EntryBuffer =
-        gtk_text_get_buffer(gtkTextPointer.reinterpret())!!.run {
-            EntryBuffer(reinterpret())
-        }
-
-    /**
-     * Returns whether Emoji completion is enabled for this
-     * `GtkText` widget.
-     *
-     * @return true if Emoji completion is enabled
-     */
-    public open fun getEnableEmojiCompletion(): Boolean =
-        gtk_text_get_enable_emoji_completion(gtkTextPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the menu model for extra items in the context menu.
-     *
-     * See [method@Gtk.Text.set_extra_menu].
-     *
-     * @return the menu model
-     */
-    public open fun getExtraMenu(): MenuModel? =
-        gtk_text_get_extra_menu(gtkTextPointer.reinterpret())?.run {
-            MenuModel(reinterpret())
-        }
-
-    /**
-     * Gets the input hints of the `GtkText`.
-     */
-    public open fun getInputHints(): InputHints =
-        gtk_text_get_input_hints(gtkTextPointer.reinterpret()).run {
-            InputHints(this)
-        }
-
-    /**
-     * Gets the input purpose of the `GtkText`.
-     */
-    public open fun getInputPurpose(): InputPurpose =
-        gtk_text_get_input_purpose(gtkTextPointer.reinterpret()).run {
-            InputPurpose.fromNativeValue(this)
-        }
-
-    /**
-     * Retrieves the character displayed when visibility is set to false.
-     *
-     * Note that GTK does not compute this value unless it needs it,
-     * so the value returned by this function is not very useful unless
-     * it has been explicitly set with [method@Gtk.Text.set_invisible_char].
-     *
-     * @return the current invisible char, or 0, if @text does not
-     *   show invisible text at all.
-     */
-    public open fun getInvisibleChar(): UInt = gtk_text_get_invisible_char(gtkTextPointer.reinterpret())
-
-    /**
-     * Retrieves the maximum allowed length of the text in @self.
-     *
-     * See [method@Gtk.Text.set_max_length].
-     *
-     * This is equivalent to getting @self's `GtkEntryBuffer` and
-     * calling [method@Gtk.EntryBuffer.get_max_length] on it.
-     *
-     * @return the maximum allowed number of characters
-     *   in `GtkText`, or 0 if there is no maximum.
-     */
-    public open fun getMaxLength(): Int = gtk_text_get_max_length(gtkTextPointer.reinterpret())
-
-    /**
-     * Gets whether text is overwritten when typing in the `GtkText`.
-     *
-     * See [method@Gtk.Text.set_overwrite_mode].
-     *
-     * @return whether the text is overwritten when typing
-     */
-    public open fun getOverwriteMode(): Boolean = gtk_text_get_overwrite_mode(gtkTextPointer.reinterpret()).asBoolean()
-
-    /**
-     * Retrieves the text that will be displayed when
-     * @self is empty and unfocused
-     *
-     * If no placeholder text has been set, null will be returned.
-     *
-     * @return the placeholder text
-     */
-    public open fun getPlaceholderText(): String? =
-        gtk_text_get_placeholder_text(gtkTextPointer.reinterpret())?.toKString()
-
-    /**
-     * Returns whether the `GtkText` will grow and shrink
-     * with the content.
-     *
-     * @return true if @self will propagate the text width
-     */
-    public open fun getPropagateTextWidth(): Boolean =
-        gtk_text_get_propagate_text_width(gtkTextPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the tabstops that were set on the `GtkText`.
-     *
-     * See [method@Gtk.Text.set_tabs].
-     *
-     * @return the tabstops
-     */
-    public open fun getTabs(): TabArray? =
-        gtk_text_get_tabs(gtkTextPointer.reinterpret())?.run {
-            TabArray(reinterpret())
-        }
 
     /**
      * Retrieves the current length of the text in @self.
@@ -747,23 +602,7 @@ public open class Text(
      * @return the current number of characters
      *   in `GtkText`, or 0 if there are none.
      */
-    public open fun getTextLength(): UShort = gtk_text_get_text_length(gtkTextPointer.reinterpret())
-
-    /**
-     * Returns whether the `GtkText` will truncate multi-line text
-     * that is pasted into the widget
-     *
-     * @return true if @self will truncate multi-line text
-     */
-    public open fun getTruncateMultiline(): Boolean =
-        gtk_text_get_truncate_multiline(gtkTextPointer.reinterpret()).asBoolean()
-
-    /**
-     * Retrieves whether the text in @self is visible.
-     *
-     * @return true if the text is currently visible
-     */
-    public open fun getVisibility(): Boolean = gtk_text_get_visibility(gtkTextPointer.reinterpret()).asBoolean()
+    public open fun getTextLength(): guint16 = gtk_text_get_text_length(gtkTextPointer.reinterpret())
 
     /**
      * Causes @self to have keyboard focus.
@@ -778,172 +617,6 @@ public open class Text(
      */
     public open fun grabFocusWithoutSelecting(): Boolean =
         gtk_text_grab_focus_without_selecting(gtkTextPointer.reinterpret()).asBoolean()
-
-    /**
-     * If @activates is true, pressing Enter will activate
-     * the default widget for the window containing @self.
-     *
-     * This usually means that the dialog containing the `GtkText`
-     * will be closed, since the default widget is usually one of
-     * the dialog buttons.
-     *
-     * @param activates true to activate window’s default widget on Enter keypress
-     */
-    public open fun setActivatesDefault(activates: Boolean): Unit =
-        gtk_text_set_activates_default(gtkTextPointer.reinterpret(), activates.asGBoolean())
-
-    /**
-     * Sets attributes that are applied to the text.
-     *
-     * @param attrs a `PangoAttrList`
-     */
-    public open fun setAttributes(attrs: AttrList? = null): Unit =
-        gtk_text_set_attributes(gtkTextPointer.reinterpret(), attrs?.pangoAttrListPointer?.reinterpret())
-
-    /**
-     * Set the `GtkEntryBuffer` object which holds the text for
-     * this widget.
-     *
-     * @param buffer a `GtkEntryBuffer`
-     */
-    public open fun setBuffer(buffer: EntryBuffer): Unit =
-        gtk_text_set_buffer(gtkTextPointer.reinterpret(), buffer.gtkEntryBufferPointer.reinterpret())
-
-    /**
-     * Sets whether Emoji completion is enabled.
-     *
-     * If it is, typing ':', followed by a recognized keyword,
-     * will pop up a window with suggested Emojis matching the
-     * keyword.
-     *
-     * @param enableEmojiCompletion true to enable Emoji completion
-     */
-    public open fun setEnableEmojiCompletion(enableEmojiCompletion: Boolean): Unit =
-        gtk_text_set_enable_emoji_completion(gtkTextPointer.reinterpret(), enableEmojiCompletion.asGBoolean())
-
-    /**
-     * Sets a menu model to add when constructing
-     * the context menu for @self.
-     *
-     * @param model a `GMenuModel`
-     */
-    public open fun setExtraMenu(model: MenuModel? = null): Unit =
-        gtk_text_set_extra_menu(gtkTextPointer.reinterpret(), model?.gioMenuModelPointer?.reinterpret())
-
-    /**
-     * Sets input hints that allow input methods
-     * to fine-tune their behaviour.
-     *
-     * @param hints the hints
-     */
-    public open fun setInputHints(hints: InputHints): Unit =
-        gtk_text_set_input_hints(gtkTextPointer.reinterpret(), hints.mask)
-
-    /**
-     * Sets the input purpose of the `GtkText`.
-     *
-     * This can be used by on-screen keyboards and other
-     * input methods to adjust their behaviour.
-     *
-     * @param purpose the purpose
-     */
-    public open fun setInputPurpose(purpose: InputPurpose): Unit =
-        gtk_text_set_input_purpose(gtkTextPointer.reinterpret(), purpose.nativeValue)
-
-    /**
-     * Sets the character to use when in “password mode”.
-     *
-     * By default, GTK picks the best invisible char available in the
-     * current font. If you set the invisible char to 0, then the user
-     * will get no feedback at all; there will be no text on the screen
-     * as they type.
-     *
-     * @param ch a Unicode character
-     */
-    public open fun setInvisibleChar(ch: UInt): Unit = gtk_text_set_invisible_char(gtkTextPointer.reinterpret(), ch)
-
-    /**
-     * Sets the maximum allowed length of the contents of the widget.
-     *
-     * If the current contents are longer than the given length, then
-     * they will be truncated to fit.
-     *
-     * This is equivalent to getting @self's `GtkEntryBuffer` and
-     * calling [method@Gtk.EntryBuffer.set_max_length] on it.
-     *
-     * @param length the maximum length of the `GtkText`, or 0 for no maximum.
-     *   (other than the maximum length of entries.) The value passed
-     *   in will be clamped to the range 0-65536.
-     */
-    public open fun setMaxLength(length: Int): Unit = gtk_text_set_max_length(gtkTextPointer.reinterpret(), length)
-
-    /**
-     * Sets whether the text is overwritten when typing
-     * in the `GtkText`.
-     *
-     * @param overwrite new value
-     */
-    public open fun setOverwriteMode(overwrite: Boolean): Unit =
-        gtk_text_set_overwrite_mode(gtkTextPointer.reinterpret(), overwrite.asGBoolean())
-
-    /**
-     * Sets text to be displayed in @self when it is empty.
-     *
-     * This can be used to give a visual hint of the expected
-     * contents of the `GtkText`.
-     *
-     * @param text a string to be displayed when @self
-     *   is empty and unfocused
-     */
-    public open fun setPlaceholderText(text: String? = null): Unit =
-        gtk_text_set_placeholder_text(gtkTextPointer.reinterpret(), text)
-
-    /**
-     * Sets whether the `GtkText` should grow and shrink with the content.
-     *
-     * @param propagateTextWidth true to propagate the text width
-     */
-    public open fun setPropagateTextWidth(propagateTextWidth: Boolean): Unit =
-        gtk_text_set_propagate_text_width(gtkTextPointer.reinterpret(), propagateTextWidth.asGBoolean())
-
-    /**
-     * Sets tabstops that are applied to the text.
-     *
-     * @param tabs a `PangoTabArray`
-     */
-    public open fun setTabs(tabs: TabArray? = null): Unit =
-        gtk_text_set_tabs(gtkTextPointer.reinterpret(), tabs?.pangoTabArrayPointer?.reinterpret())
-
-    /**
-     * Sets whether the `GtkText` should truncate multi-line text
-     * that is pasted into the widget.
-     *
-     * @param truncateMultiline true to truncate multi-line text
-     */
-    public open fun setTruncateMultiline(truncateMultiline: Boolean): Unit =
-        gtk_text_set_truncate_multiline(gtkTextPointer.reinterpret(), truncateMultiline.asGBoolean())
-
-    /**
-     * Sets whether the contents of the `GtkText` are visible or not.
-     *
-     * When visibility is set to false, characters are displayed
-     * as the invisible char, and will also appear that way when
-     * the text in the widget is copied to the clipboard.
-     *
-     * By default, GTK picks the best invisible character available
-     * in the current font, but it can be changed with
-     * [method@Gtk.Text.set_invisible_char].
-     *
-     * Note that you probably want to set [property@Gtk.Text:input-purpose]
-     * to %GTK_INPUT_PURPOSE_PASSWORD or %GTK_INPUT_PURPOSE_PIN to
-     * inform input methods about the purpose of this self,
-     * in addition to setting visibility to false.
-     *
-     * @param visible true if the contents of the `GtkText` are displayed
-     *   as plaintext
-     */
-    public open fun setVisibility(visible: Boolean): Unit =
-        gtk_text_set_visibility(gtkTextPointer.reinterpret(), visible.asGBoolean())
 
     /**
      * Unsets the invisible char.
@@ -962,10 +635,7 @@ public open class Text(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectActivate(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "activate",
@@ -986,10 +656,7 @@ public open class Text(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectBackspace(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectBackspace(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "backspace",
@@ -1011,10 +678,7 @@ public open class Text(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectCopyClipboard(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectCopyClipboard(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "copy-clipboard",
@@ -1036,10 +700,7 @@ public open class Text(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectCutClipboard(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectCutClipboard(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "cut-clipboard",
@@ -1067,16 +728,15 @@ public open class Text(
      */
     public fun connectDeleteFromCursor(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (type: DeleteType, count: Int) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "delete-from-cursor",
-            connectDeleteFromCursorFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+        handler: (type: DeleteType, count: gint) -> Unit,
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "delete-from-cursor",
+        connectDeleteFromCursorFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted when the user initiates the insertion of a
@@ -1092,15 +752,14 @@ public open class Text(
     public fun connectInsertAtCursor(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (string: String) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "insert-at-cursor",
-            connectInsertAtCursorFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "insert-at-cursor",
+        connectInsertAtCursorFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted to present the Emoji chooser for the widget.
@@ -1114,10 +773,7 @@ public open class Text(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectInsertEmoji(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectInsertEmoji(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "insert-emoji",
@@ -1156,18 +812,17 @@ public open class Text(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (
             step: MovementStep,
-            count: Int,
+            count: gint,
             extend: Boolean,
         ) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "move-cursor",
-            connectMoveCursorFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "move-cursor",
+        connectMoveCursorFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted to paste the contents of the clipboard.
@@ -1180,10 +835,7 @@ public open class Text(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectPasteClipboard(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectPasteClipboard(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "paste-clipboard",
@@ -1206,15 +858,14 @@ public open class Text(
     public fun connectPreeditChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (preedit: String) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "preedit-changed",
-            connectPreeditChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "preedit-changed",
+        connectPreeditChangedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted to toggle the overwrite mode of the `GtkText`.
@@ -1226,10 +877,7 @@ public open class Text(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectToggleOverwrite(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectToggleOverwrite(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "toggle-overwrite",
@@ -1246,55 +894,63 @@ public open class Text(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Text
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_text_get_type()
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectBackspaceFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectBackspaceFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectCopyClipboardFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectCopyClipboardFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectCutClipboardFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectCutClipboardFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectDeleteFromCursorFunc: CPointer<CFunction<(GtkDeleteType, Int) -> Unit>> =
+private val connectDeleteFromCursorFunc: CPointer<CFunction<(GtkDeleteType, gint) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             type: GtkDeleteType,
-            count: Int,
+            count: gint,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(type: DeleteType, count: Int) -> Unit>().get().invoke(
+        userData.asStableRef<(type: DeleteType, count: gint) -> Unit>().get().invoke(
             type.run {
                 DeleteType.fromNativeValue(this)
             },
             count
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 private val connectInsertAtCursorFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
     staticCFunction {
@@ -1305,57 +961,55 @@ private val connectInsertAtCursorFunc: CPointer<CFunction<(CPointer<ByteVar>) ->
         userData.asStableRef<(string: String) -> Unit>().get().invoke(
             string?.toKString() ?: error("Expected not null string")
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
-private val connectInsertEmojiFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectInsertEmojiFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
 private val connectMoveCursorFunc: CPointer<
     CFunction<
         (
             GtkMovementStep,
-            Int,
-            Int,
+            gint,
+            gboolean,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            _: COpaquePointer,
-            step: GtkMovementStep,
-            count: Int,
-            extend: Int,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    step: MovementStep,
-                    count: Int,
-                    extend: Boolean,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                step.run {
-                    MovementStep.fromNativeValue(this)
-                },
-                count,
-                extend.asBoolean()
-            )
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        _: COpaquePointer,
+        step: GtkMovementStep,
+        count: gint,
+        extend: gboolean,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            step: MovementStep,
+            count: gint,
+            extend: Boolean,
+        ) -> Unit
+        >().get().invoke(
+        step.run {
+            MovementStep.fromNativeValue(this)
+        },
+        count,
+        extend.asBoolean()
+    )
+}
+    .reinterpret()
 
-private val connectPasteClipboardFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectPasteClipboardFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
 private val connectPreeditChangedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
     staticCFunction {
@@ -1366,12 +1020,13 @@ private val connectPreeditChangedFunc: CPointer<CFunction<(CPointer<ByteVar>) ->
         userData.asStableRef<(preedit: String) -> Unit>().get().invoke(
             preedit?.toKString() ?: error("Expected not null string")
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
-private val connectToggleOverwriteFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectToggleOverwriteFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

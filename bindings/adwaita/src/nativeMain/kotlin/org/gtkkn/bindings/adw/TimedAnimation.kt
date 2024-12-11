@@ -26,10 +26,10 @@ import org.gtkkn.native.adw.adw_timed_animation_set_repeat_count
 import org.gtkkn.native.adw.adw_timed_animation_set_reverse
 import org.gtkkn.native.adw.adw_timed_animation_set_value_from
 import org.gtkkn.native.adw.adw_timed_animation_set_value_to
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.UInt
-import kotlin.Unit
 
 /**
  * A time-based [class@Animation].
@@ -49,9 +49,8 @@ import kotlin.Unit
  * [property@TimedAnimation:alternate] is set to `TRUE`, it will also change the
  * direction every other iteration.
  */
-public class TimedAnimation(
-    pointer: CPointer<AdwTimedAnimation>,
-) : Animation(pointer.reinterpret()),
+public class TimedAnimation(pointer: CPointer<AdwTimedAnimation>) :
+    Animation(pointer.reinterpret()),
     KGTyped {
     public val adwTimedAnimationPointer: CPointer<AdwTimedAnimation>
         get() = gPointer.reinterpret()
@@ -84,7 +83,7 @@ public class TimedAnimation(
      * If the animation repeats more than once, describes the duration of one
      * iteration.
      */
-    public var duration: UInt
+    public var duration: guint
         /**
          * Gets the duration of @self.
          *
@@ -114,10 +113,9 @@ public class TimedAnimation(
          *
          * @return the easing function @self uses
          */
-        get() =
-            adw_timed_animation_get_easing(adwTimedAnimationPointer.reinterpret()).run {
-                Easing.fromNativeValue(this)
-            }
+        get() = adw_timed_animation_get_easing(adwTimedAnimationPointer.reinterpret()).run {
+            Easing.fromNativeValue(this)
+        }
 
         /**
          * Sets the easing function @self will use.
@@ -133,7 +131,7 @@ public class TimedAnimation(
      *
      * If set to 0, the animation will repeat endlessly.
      */
-    public var repeatCount: UInt
+    public var repeatCount: guint
         /**
          * Gets the number of times @self will play.
          *
@@ -177,7 +175,7 @@ public class TimedAnimation(
      * If [property@TimedAnimation:reverse] is `TRUE`, the animation will end at
      * this value instead.
      */
-    public var valueFrom: Double
+    public var valueFrom: gdouble
         /**
          * Gets the value @self will animate from.
          *
@@ -207,7 +205,7 @@ public class TimedAnimation(
      * If [property@TimedAnimation:reverse] is `TRUE`, the animation will start
      * at this value instead.
      */
-    public var valueTo: Double
+    public var valueTo: gdouble
         /**
          * Gets the value @self will animate to.
          *
@@ -241,9 +239,9 @@ public class TimedAnimation(
      */
     public constructor(
         widget: Widget,
-        from: Double,
-        to: Double,
-        duration: UInt,
+        from: gdouble,
+        to: gdouble,
+        duration: guint,
         target: AnimationTarget,
     ) : this(
         adw_timed_animation_new(
@@ -255,134 +253,6 @@ public class TimedAnimation(
         )!!.reinterpret()
     )
 
-    /**
-     * Gets whether @self changes direction on every iteration.
-     *
-     * @return whether @self alternates
-     */
-    public fun getAlternate(): Boolean =
-        adw_timed_animation_get_alternate(adwTimedAnimationPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the duration of @self.
-     *
-     * @return the duration of @self, in milliseconds
-     */
-    public fun getDuration(): UInt = adw_timed_animation_get_duration(adwTimedAnimationPointer.reinterpret())
-
-    /**
-     * Gets the easing function @self uses.
-     *
-     * @return the easing function @self uses
-     */
-    public fun getEasing(): Easing =
-        adw_timed_animation_get_easing(adwTimedAnimationPointer.reinterpret()).run {
-            Easing.fromNativeValue(this)
-        }
-
-    /**
-     * Gets the number of times @self will play.
-     *
-     * @return the number of times @self will play
-     */
-    public fun getRepeatCount(): UInt = adw_timed_animation_get_repeat_count(adwTimedAnimationPointer.reinterpret())
-
-    /**
-     * Gets whether @self plays backwards.
-     *
-     * @return whether @self plays backwards
-     */
-    public fun getReverse(): Boolean =
-        adw_timed_animation_get_reverse(adwTimedAnimationPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the value @self will animate from.
-     *
-     * @return the value to animate from
-     */
-    public fun getValueFrom(): Double = adw_timed_animation_get_value_from(adwTimedAnimationPointer.reinterpret())
-
-    /**
-     * Gets the value @self will animate to.
-     *
-     * @return the value to animate to
-     */
-    public fun getValueTo(): Double = adw_timed_animation_get_value_to(adwTimedAnimationPointer.reinterpret())
-
-    /**
-     * Sets whether @self changes direction on every iteration.
-     *
-     * @param alternate whether @self alternates
-     */
-    public fun setAlternate(alternate: Boolean): Unit =
-        adw_timed_animation_set_alternate(adwTimedAnimationPointer.reinterpret(), alternate.asGBoolean())
-
-    /**
-     * Sets the duration of @self.
-     *
-     * If the animation repeats more than once, sets the duration of one iteration.
-     *
-     * @param duration the duration to use, in milliseconds
-     */
-    public fun setDuration(duration: UInt): Unit =
-        adw_timed_animation_set_duration(adwTimedAnimationPointer.reinterpret(), duration)
-
-    /**
-     * Sets the easing function @self will use.
-     *
-     * See [enum@Easing] for the description of specific easing functions.
-     *
-     * @param easing the easing function to use
-     */
-    public fun setEasing(easing: Easing): Unit =
-        adw_timed_animation_set_easing(adwTimedAnimationPointer.reinterpret(), easing.nativeValue)
-
-    /**
-     * Sets the number of times @self will play.
-     *
-     * If set to 0, @self will repeat endlessly.
-     *
-     * @param repeatCount the number of times @self will play
-     */
-    public fun setRepeatCount(repeatCount: UInt): Unit =
-        adw_timed_animation_set_repeat_count(adwTimedAnimationPointer.reinterpret(), repeatCount)
-
-    /**
-     * Sets whether @self plays backwards.
-     *
-     * @param reverse whether @self plays backwards
-     */
-    public fun setReverse(reverse: Boolean): Unit =
-        adw_timed_animation_set_reverse(adwTimedAnimationPointer.reinterpret(), reverse.asGBoolean())
-
-    /**
-     * Sets the value @self will animate from.
-     *
-     * The animation will start at this value and end at
-     * [property@TimedAnimation:value-to].
-     *
-     * If [property@TimedAnimation:reverse] is `TRUE`, the animation will end at
-     * this value instead.
-     *
-     * @param value the value to animate from
-     */
-    public fun setValueFrom(`value`: Double): Unit =
-        adw_timed_animation_set_value_from(adwTimedAnimationPointer.reinterpret(), `value`)
-
-    /**
-     * Sets the value @self will animate to.
-     *
-     * The animation will start at [property@TimedAnimation:value-from] and end at
-     * this value.
-     *
-     * If [property@TimedAnimation:reverse] is `TRUE`, the animation will start
-     * at this value instead.
-     *
-     * @param value the value to animate to
-     */
-    public fun setValueTo(`value`: Double): Unit =
-        adw_timed_animation_set_value_to(adwTimedAnimationPointer.reinterpret(), `value`)
-
     public companion object : TypeCompanion<TimedAnimation> {
         override val type: GeneratedClassKGType<TimedAnimation> =
             GeneratedClassKGType(adw_timed_animation_get_type()) { TimedAnimation(it.reinterpret()) }
@@ -390,5 +260,12 @@ public class TimedAnimation(
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of TimedAnimation
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_timed_animation_get_type()
     }
 }

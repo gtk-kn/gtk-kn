@@ -18,9 +18,7 @@ import org.gtkkn.native.glib.G_MARKUP_COLLECT_TRISTATE
  * It is likely that this enum will be extended in the future to
  * support other types.
  */
-public class MarkupCollectType(
-    public val mask: GMarkupCollectType,
-) : Bitfield<MarkupCollectType> {
+public class MarkupCollectType(public val mask: GMarkupCollectType) : Bitfield<MarkupCollectType> {
     override infix fun or(other: MarkupCollectType): MarkupCollectType = MarkupCollectType(mask or other.mask)
 
     public companion object {

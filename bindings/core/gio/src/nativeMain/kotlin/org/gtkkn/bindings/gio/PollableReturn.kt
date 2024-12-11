@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_60
 import org.gtkkn.native.gio.GPollableReturn
+import org.gtkkn.native.gio.g_pollable_return_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Return value for various IO operations that signal errors via the
@@ -17,9 +19,7 @@ import org.gtkkn.native.gio.GPollableReturn
  * @since 2.60
  */
 @GioVersion2_60
-public enum class PollableReturn(
-    public val nativeValue: GPollableReturn,
-) {
+public enum class PollableReturn(public val nativeValue: GPollableReturn) {
     /**
      * Generic error condition for when an operation fails.
      */
@@ -37,12 +37,18 @@ public enum class PollableReturn(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GPollableReturn): PollableReturn =
-            when (nativeValue) {
-                GPollableReturn.G_POLLABLE_RETURN_FAILED -> FAILED
-                GPollableReturn.G_POLLABLE_RETURN_OK -> OK
-                GPollableReturn.G_POLLABLE_RETURN_WOULD_BLOCK -> WOULD_BLOCK
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GPollableReturn): PollableReturn = when (nativeValue) {
+            GPollableReturn.G_POLLABLE_RETURN_FAILED -> FAILED
+            GPollableReturn.G_POLLABLE_RETURN_OK -> OK
+            GPollableReturn.G_POLLABLE_RETURN_WOULD_BLOCK -> WOULD_BLOCK
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of PollableReturn
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_pollable_return_get_type()
     }
 }

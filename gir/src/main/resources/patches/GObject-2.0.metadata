@@ -1,6 +1,18 @@
 // Remove underscore suffix from parameter name
 *.*.*#parameter name="(.+)_$"
 
-// Alias to non primitive types are currently not supported
-SignalCMarshaller skip
-SignalCVaMarshaller skip
+// Functions that are broken and useless in Kotlin
+Value
+    .set_string_take_ownership ignore
+    .take_string ignore
+
+// VaList parameters are not supported in Kotlin bindings.
+// As a result, VaList marshaller classes and the "signal_set_va_marshaller"
+// function are excluded to maintain compatibility and simplicity.
+VaClosureMarshal#callback ignore
+SignalCVaMarshaller#alias ignore
+signal_set_va_marshaller#function ignore
+
+// The method "g_type_module_use" overrides "g_type_plugin_use" with a different return type,
+// which is not allowed in Kotlin. To resolve this, it is renamed from "use" to "use_type_module".
+TypeModule.use#method name="use_type_module"

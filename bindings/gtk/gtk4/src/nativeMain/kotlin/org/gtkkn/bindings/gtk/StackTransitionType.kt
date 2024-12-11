@@ -1,16 +1,16 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkStackTransitionType
+import org.gtkkn.native.gtk.gtk_stack_transition_type_get_type
 
 /**
  * Possible transitions between pages in a `GtkStack` widget.
  *
  * New values may be added to this enumeration over time.
  */
-public enum class StackTransitionType(
-    public val nativeValue: GtkStackTransitionType,
-) {
+public enum class StackTransitionType(public val nativeValue: GtkStackTransitionType) {
     /**
      * No transition
      */
@@ -128,32 +128,38 @@ public enum class StackTransitionType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkStackTransitionType): StackTransitionType =
-            when (nativeValue) {
-                GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_NONE -> NONE
-                GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_CROSSFADE -> CROSSFADE
-                GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT -> SLIDE_RIGHT
-                GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT -> SLIDE_LEFT
-                GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_SLIDE_UP -> SLIDE_UP
-                GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_SLIDE_DOWN -> SLIDE_DOWN
-                GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT_RIGHT -> SLIDE_LEFT_RIGHT
-                GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_SLIDE_UP_DOWN -> SLIDE_UP_DOWN
-                GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_OVER_UP -> OVER_UP
-                GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_OVER_DOWN -> OVER_DOWN
-                GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_OVER_LEFT -> OVER_LEFT
-                GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_OVER_RIGHT -> OVER_RIGHT
-                GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_UNDER_UP -> UNDER_UP
-                GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_UNDER_DOWN -> UNDER_DOWN
-                GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_UNDER_LEFT -> UNDER_LEFT
-                GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_UNDER_RIGHT -> UNDER_RIGHT
-                GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_OVER_UP_DOWN -> OVER_UP_DOWN
-                GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_OVER_DOWN_UP -> OVER_DOWN_UP
-                GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_OVER_LEFT_RIGHT -> OVER_LEFT_RIGHT
-                GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_OVER_RIGHT_LEFT -> OVER_RIGHT_LEFT
-                GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_ROTATE_LEFT -> ROTATE_LEFT
-                GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_ROTATE_RIGHT -> ROTATE_RIGHT
-                GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_ROTATE_LEFT_RIGHT -> ROTATE_LEFT_RIGHT
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkStackTransitionType): StackTransitionType = when (nativeValue) {
+            GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_NONE -> NONE
+            GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_CROSSFADE -> CROSSFADE
+            GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT -> SLIDE_RIGHT
+            GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT -> SLIDE_LEFT
+            GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_SLIDE_UP -> SLIDE_UP
+            GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_SLIDE_DOWN -> SLIDE_DOWN
+            GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT_RIGHT -> SLIDE_LEFT_RIGHT
+            GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_SLIDE_UP_DOWN -> SLIDE_UP_DOWN
+            GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_OVER_UP -> OVER_UP
+            GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_OVER_DOWN -> OVER_DOWN
+            GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_OVER_LEFT -> OVER_LEFT
+            GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_OVER_RIGHT -> OVER_RIGHT
+            GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_UNDER_UP -> UNDER_UP
+            GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_UNDER_DOWN -> UNDER_DOWN
+            GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_UNDER_LEFT -> UNDER_LEFT
+            GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_UNDER_RIGHT -> UNDER_RIGHT
+            GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_OVER_UP_DOWN -> OVER_UP_DOWN
+            GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_OVER_DOWN_UP -> OVER_DOWN_UP
+            GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_OVER_LEFT_RIGHT -> OVER_LEFT_RIGHT
+            GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_OVER_RIGHT_LEFT -> OVER_RIGHT_LEFT
+            GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_ROTATE_LEFT -> ROTATE_LEFT
+            GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_ROTATE_RIGHT -> ROTATE_RIGHT
+            GtkStackTransitionType.GTK_STACK_TRANSITION_TYPE_ROTATE_LEFT_RIGHT -> ROTATE_LEFT_RIGHT
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of StackTransitionType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_stack_transition_type_get_type()
     }
 }

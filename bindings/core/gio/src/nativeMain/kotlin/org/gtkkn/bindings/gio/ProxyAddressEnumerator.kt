@@ -8,6 +8,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GProxyAddressEnumerator
 import org.gtkkn.native.gio.g_proxy_address_enumerator_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GProxyAddressEnumerator` is a wrapper around
@@ -28,9 +29,8 @@ import org.gtkkn.native.gio.g_proxy_address_enumerator_get_type
  * - method `proxy-resolver`: Property has no getter nor setter
  * - method `uri`: Property has no getter nor setter
  */
-public open class ProxyAddressEnumerator(
-    pointer: CPointer<GProxyAddressEnumerator>,
-) : SocketAddressEnumerator(pointer.reinterpret()),
+public open class ProxyAddressEnumerator(pointer: CPointer<GProxyAddressEnumerator>) :
+    SocketAddressEnumerator(pointer.reinterpret()),
     KGTyped {
     public val gioProxyAddressEnumeratorPointer: CPointer<GProxyAddressEnumerator>
         get() = gPointer.reinterpret()
@@ -42,5 +42,12 @@ public open class ProxyAddressEnumerator(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ProxyAddressEnumerator
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_proxy_address_enumerator_get_type()
     }
 }

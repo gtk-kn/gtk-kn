@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -12,15 +11,16 @@ import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GSettingsSchemaSource
 import org.gtkkn.native.gio.g_settings_schema_source_get_default
+import org.gtkkn.native.gio.g_settings_schema_source_get_type
 import org.gtkkn.native.gio.g_settings_schema_source_lookup
 import org.gtkkn.native.gio.g_settings_schema_source_new_from_directory
 import org.gtkkn.native.gio.g_settings_schema_source_ref
 import org.gtkkn.native.gio.g_settings_schema_source_unref
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
@@ -36,9 +36,7 @@ import kotlin.Unit
  * @since 2.32
  */
 @GioVersion2_32
-public class SettingsSchemaSource(
-    pointer: CPointer<GSettingsSchemaSource>,
-) : Record {
+public class SettingsSchemaSource(pointer: CPointer<GSettingsSchemaSource>) : ProxyInstance(pointer) {
     public val gioSettingsSchemaSourcePointer: CPointer<GSettingsSchemaSource> = pointer
 
     /**
@@ -59,17 +57,13 @@ public class SettingsSchemaSource(
      * @since 2.32
      */
     @GioVersion2_32
-    public fun lookup(
-        schemaId: String,
-        recursive: Boolean,
-    ): SettingsSchema? =
-        g_settings_schema_source_lookup(
-            gioSettingsSchemaSourcePointer.reinterpret(),
-            schemaId,
-            recursive.asGBoolean()
-        )?.run {
-            SettingsSchema(reinterpret())
-        }
+    public fun lookup(schemaId: String, recursive: Boolean): SettingsSchema? = g_settings_schema_source_lookup(
+        gioSettingsSchemaSourcePointer.reinterpret(),
+        schemaId,
+        recursive.asGBoolean()
+    )?.run {
+        SettingsSchema(reinterpret())
+    }
 
     /**
      * Increase the reference count of @source, returning a new reference.
@@ -91,7 +85,7 @@ public class SettingsSchemaSource(
     @GioVersion2_32
     public fun unref(): Unit = g_settings_schema_source_unref(gioSettingsSchemaSourcePointer.reinterpret())
 
-    public companion object : RecordCompanion<SettingsSchemaSource, GSettingsSchemaSource> {
+    public companion object {
         /**
          * Attempts to create a new schema source corresponding to the contents
          * of the given directory.
@@ -171,12 +165,15 @@ public class SettingsSchemaSource(
          * @since 2.32
          */
         @GioVersion2_32
-        public fun getDefault(): SettingsSchemaSource? =
-            g_settings_schema_source_get_default()?.run {
-                SettingsSchemaSource(reinterpret())
-            }
+        public fun getDefault(): SettingsSchemaSource? = g_settings_schema_source_get_default()?.run {
+            SettingsSchemaSource(reinterpret())
+        }
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SettingsSchemaSource =
-            SettingsSchemaSource(pointer.reinterpret())
+        /**
+         * Get the GType of SettingsSchemaSource
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_settings_schema_source_get_type()
     }
 }

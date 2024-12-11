@@ -15,6 +15,7 @@
  */
 import com.diffplug.gradle.spotless.SpotlessTask
 import org.jetbrains.dokka.gradle.AbstractDokkaTask
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile
 
 plugins {
@@ -25,6 +26,16 @@ plugins {
     id("config-conventions")
     id("spotless-conventions")
     id("versions-conventions")
+}
+
+subprojects {
+    tasks.withType<KotlinCompilationTask<*>>().configureEach {
+        compilerOptions {
+            extraWarnings.set(true)
+            // Workaround for https://youtrack.jetbrains.com/issue/KT-73556
+            freeCompilerArgs.add("-Xsuppress-warning=UNUSED_ANONYMOUS_PARAMETER")
+        }
+    }
 }
 
 tasks {

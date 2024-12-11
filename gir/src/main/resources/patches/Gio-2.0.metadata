@@ -5,4 +5,21 @@ Resource.* name="^_(.+)"
 *.*.* name="(.+)_$"
 
 // Can't find it in Ubuntu 24.04
-ThreadedResolver skip
+ThreadedResolver ignore
+
+// The method "g_data_input_stream_read_byte" overrides
+// "g_buffered_input_stream_read_byte" with a different return type,
+// which is not allowed in Kotlin. To resolve this, the method in
+// BufferedInputStream is renamed from "read_byte" to "read_int".
+BufferedInputStream.read_byte#method name="read_int"
+
+// Interfaces cannot override the `toString` method of `Any`,
+// as `toString` is final in Kotlin's `Any` class. This restriction
+// prevents interfaces from providing their own implementation of `toString`.
+Icon.to_string#method name="to_string_icon"
+SocketConnectable.to_string#method name="to_string_socket_connectable"
+
+// https://gitlab.com/gtk-kn/gtk-kn/-/issues/91
+IOModule
+    .load ignore
+    .unload ignore

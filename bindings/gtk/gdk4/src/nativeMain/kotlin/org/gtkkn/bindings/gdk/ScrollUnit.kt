@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gdk
 
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_8
 import org.gtkkn.native.gdk.GdkScrollUnit
+import org.gtkkn.native.gdk.gdk_scroll_unit_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Specifies the unit of scroll deltas.
@@ -24,9 +26,7 @@ import org.gtkkn.native.gdk.GdkScrollUnit
  * @since 4.8
  */
 @GdkVersion4_8
-public enum class ScrollUnit(
-    public val nativeValue: GdkScrollUnit,
-) {
+public enum class ScrollUnit(public val nativeValue: GdkScrollUnit) {
     /**
      * The delta is in number of wheel clicks.
      */
@@ -40,11 +40,17 @@ public enum class ScrollUnit(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GdkScrollUnit): ScrollUnit =
-            when (nativeValue) {
-                GdkScrollUnit.GDK_SCROLL_UNIT_WHEEL -> WHEEL
-                GdkScrollUnit.GDK_SCROLL_UNIT_SURFACE -> SURFACE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GdkScrollUnit): ScrollUnit = when (nativeValue) {
+            GdkScrollUnit.GDK_SCROLL_UNIT_WHEEL -> WHEEL
+            GdkScrollUnit.GDK_SCROLL_UNIT_SURFACE -> SURFACE
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of ScrollUnit
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_scroll_unit_get_type()
     }
 }

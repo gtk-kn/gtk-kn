@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.Point
@@ -9,8 +8,9 @@ import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.bindings.pango.Layout
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskPathBuilder
 import org.gtkkn.native.gsk.gsk_path_builder_add_circle
 import org.gtkkn.native.gsk.gsk_path_builder_add_layout
@@ -23,7 +23,9 @@ import org.gtkkn.native.gsk.gsk_path_builder_arc_to
 import org.gtkkn.native.gsk.gsk_path_builder_close
 import org.gtkkn.native.gsk.gsk_path_builder_conic_to
 import org.gtkkn.native.gsk.gsk_path_builder_cubic_to
+import org.gtkkn.native.gsk.gsk_path_builder_free_to_path
 import org.gtkkn.native.gsk.gsk_path_builder_get_current_point
+import org.gtkkn.native.gsk.gsk_path_builder_get_type
 import org.gtkkn.native.gsk.gsk_path_builder_html_arc_to
 import org.gtkkn.native.gsk.gsk_path_builder_line_to
 import org.gtkkn.native.gsk.gsk_path_builder_move_to
@@ -42,7 +44,6 @@ import org.gtkkn.native.gsk.gsk_path_builder_svg_arc_to
 import org.gtkkn.native.gsk.gsk_path_builder_to_path
 import org.gtkkn.native.gsk.gsk_path_builder_unref
 import kotlin.Boolean
-import kotlin.Float
 import kotlin.Unit
 
 /**
@@ -93,9 +94,7 @@ import kotlin.Unit
  * @since 4.14
  */
 @GskVersion4_14
-public class PathBuilder(
-    pointer: CPointer<GskPathBuilder>,
-) : Record {
+public class PathBuilder(pointer: CPointer<GskPathBuilder>) : ProxyInstance(pointer) {
     public val gskPathBuilderPointer: CPointer<GskPathBuilder> = pointer
 
     /**
@@ -110,15 +109,11 @@ public class PathBuilder(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun addCircle(
-        center: Point,
-        radius: Float,
-    ): Unit =
-        gsk_path_builder_add_circle(
-            gskPathBuilderPointer.reinterpret(),
-            center.graphenePointPointer.reinterpret(),
-            radius
-        )
+    public fun addCircle(center: Point, radius: gfloat): Unit = gsk_path_builder_add_circle(
+        gskPathBuilderPointer.reinterpret(),
+        center.graphenePointPointer.reinterpret(),
+        radius
+    )
 
     /**
      * Adds the outlines for the glyphs in @layout to the builder.
@@ -194,17 +189,12 @@ public class PathBuilder(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun addSegment(
-        path: Path,
-        start: PathPoint,
-        end: PathPoint,
-    ): Unit =
-        gsk_path_builder_add_segment(
-            gskPathBuilderPointer.reinterpret(),
-            path.gskPathPointer.reinterpret(),
-            start.gskPathPointPointer.reinterpret(),
-            end.gskPathPointPointer.reinterpret()
-        )
+    public fun addSegment(path: Path, start: PathPoint, end: PathPoint): Unit = gsk_path_builder_add_segment(
+        gskPathBuilderPointer.reinterpret(),
+        path.gskPathPointer.reinterpret(),
+        start.gskPathPointPointer.reinterpret(),
+        end.gskPathPointPointer.reinterpret()
+    )
 
     /**
      * Adds an elliptical arc from the current point to @x3, @y3
@@ -229,12 +219,8 @@ public class PathBuilder(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun arcTo(
-        x1: Float,
-        y1: Float,
-        x2: Float,
-        y2: Float,
-    ): Unit = gsk_path_builder_arc_to(gskPathBuilderPointer.reinterpret(), x1, y1, x2, y2)
+    public fun arcTo(x1: gfloat, y1: gfloat, x2: gfloat, y2: gfloat): Unit =
+        gsk_path_builder_arc_to(gskPathBuilderPointer.reinterpret(), x1, y1, x2, y2)
 
     /**
      * Ends the current contour with a line back to the start point.
@@ -276,13 +262,8 @@ public class PathBuilder(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun conicTo(
-        x1: Float,
-        y1: Float,
-        x2: Float,
-        y2: Float,
-        weight: Float,
-    ): Unit = gsk_path_builder_conic_to(gskPathBuilderPointer.reinterpret(), x1, y1, x2, y2, weight)
+    public fun conicTo(x1: gfloat, y1: gfloat, x2: gfloat, y2: gfloat, weight: gfloat): Unit =
+        gsk_path_builder_conic_to(gskPathBuilderPointer.reinterpret(), x1, y1, x2, y2, weight)
 
     /**
      * Adds a [cubic Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
@@ -305,14 +286,21 @@ public class PathBuilder(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun cubicTo(
-        x1: Float,
-        y1: Float,
-        x2: Float,
-        y2: Float,
-        x3: Float,
-        y3: Float,
-    ): Unit = gsk_path_builder_cubic_to(gskPathBuilderPointer.reinterpret(), x1, y1, x2, y2, x3, y3)
+    public fun cubicTo(x1: gfloat, y1: gfloat, x2: gfloat, y2: gfloat, x3: gfloat, y3: gfloat): Unit =
+        gsk_path_builder_cubic_to(gskPathBuilderPointer.reinterpret(), x1, y1, x2, y2, x3, y3)
+
+    /**
+     * Creates a new `GskPath` from the current state of the
+     * given builder, and unrefs the @builder instance.
+     *
+     * @return the newly created `GskPath`
+     *   with all the contours added to the builder
+     * @since 4.14
+     */
+    @GskVersion4_14
+    public fun freeToPath(): Path = gsk_path_builder_free_to_path(gskPathBuilderPointer.reinterpret())!!.run {
+        Path(reinterpret())
+    }
 
     /**
      * Gets the current point.
@@ -352,13 +340,8 @@ public class PathBuilder(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun htmlArcTo(
-        x1: Float,
-        y1: Float,
-        x2: Float,
-        y2: Float,
-        radius: Float,
-    ): Unit = gsk_path_builder_html_arc_to(gskPathBuilderPointer.reinterpret(), x1, y1, x2, y2, radius)
+    public fun htmlArcTo(x1: gfloat, y1: gfloat, x2: gfloat, y2: gfloat, radius: gfloat): Unit =
+        gsk_path_builder_html_arc_to(gskPathBuilderPointer.reinterpret(), x1, y1, x2, y2, radius)
 
     /**
      * Draws a line from the current point to @x, @y and makes it
@@ -374,10 +357,7 @@ public class PathBuilder(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun lineTo(
-        x: Float,
-        y: Float,
-    ): Unit = gsk_path_builder_line_to(gskPathBuilderPointer.reinterpret(), x, y)
+    public fun lineTo(x: gfloat, y: gfloat): Unit = gsk_path_builder_line_to(gskPathBuilderPointer.reinterpret(), x, y)
 
     /**
      * Starts a new contour by placing the pen at @x, @y.
@@ -391,10 +371,7 @@ public class PathBuilder(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun moveTo(
-        x: Float,
-        y: Float,
-    ): Unit = gsk_path_builder_move_to(gskPathBuilderPointer.reinterpret(), x, y)
+    public fun moveTo(x: gfloat, y: gfloat): Unit = gsk_path_builder_move_to(gskPathBuilderPointer.reinterpret(), x, y)
 
     /**
      * Adds a [quadratic Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
@@ -414,12 +391,8 @@ public class PathBuilder(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun quadTo(
-        x1: Float,
-        y1: Float,
-        x2: Float,
-        y2: Float,
-    ): Unit = gsk_path_builder_quad_to(gskPathBuilderPointer.reinterpret(), x1, y1, x2, y2)
+    public fun quadTo(x1: gfloat, y1: gfloat, x2: gfloat, y2: gfloat): Unit =
+        gsk_path_builder_quad_to(gskPathBuilderPointer.reinterpret(), x1, y1, x2, y2)
 
     /**
      * Acquires a reference on the given builder.
@@ -432,10 +405,9 @@ public class PathBuilder(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun ref(): PathBuilder =
-        gsk_path_builder_ref(gskPathBuilderPointer.reinterpret())!!.run {
-            PathBuilder(reinterpret())
-        }
+    public fun ref(): PathBuilder = gsk_path_builder_ref(gskPathBuilderPointer.reinterpret())!!.run {
+        PathBuilder(reinterpret())
+    }
 
     /**
      * Adds an elliptical arc from the current point to @x3, @y3
@@ -452,12 +424,8 @@ public class PathBuilder(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun relArcTo(
-        x1: Float,
-        y1: Float,
-        x2: Float,
-        y2: Float,
-    ): Unit = gsk_path_builder_rel_arc_to(gskPathBuilderPointer.reinterpret(), x1, y1, x2, y2)
+    public fun relArcTo(x1: gfloat, y1: gfloat, x2: gfloat, y2: gfloat): Unit =
+        gsk_path_builder_rel_arc_to(gskPathBuilderPointer.reinterpret(), x1, y1, x2, y2)
 
     /**
      * Adds a [conic curve](https://en.wikipedia.org/wiki/Non-uniform_rational_B-spline)
@@ -476,13 +444,8 @@ public class PathBuilder(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun relConicTo(
-        x1: Float,
-        y1: Float,
-        x2: Float,
-        y2: Float,
-        weight: Float,
-    ): Unit = gsk_path_builder_rel_conic_to(gskPathBuilderPointer.reinterpret(), x1, y1, x2, y2, weight)
+    public fun relConicTo(x1: gfloat, y1: gfloat, x2: gfloat, y2: gfloat, weight: gfloat): Unit =
+        gsk_path_builder_rel_conic_to(gskPathBuilderPointer.reinterpret(), x1, y1, x2, y2, weight)
 
     /**
      * Adds a [cubic Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
@@ -502,14 +465,8 @@ public class PathBuilder(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun relCubicTo(
-        x1: Float,
-        y1: Float,
-        x2: Float,
-        y2: Float,
-        x3: Float,
-        y3: Float,
-    ): Unit = gsk_path_builder_rel_cubic_to(gskPathBuilderPointer.reinterpret(), x1, y1, x2, y2, x3, y3)
+    public fun relCubicTo(x1: gfloat, y1: gfloat, x2: gfloat, y2: gfloat, x3: gfloat, y3: gfloat): Unit =
+        gsk_path_builder_rel_cubic_to(gskPathBuilderPointer.reinterpret(), x1, y1, x2, y2, x3, y3)
 
     /**
      * Implements arc-to according to the HTML Canvas spec.
@@ -526,13 +483,8 @@ public class PathBuilder(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun relHtmlArcTo(
-        x1: Float,
-        y1: Float,
-        x2: Float,
-        y2: Float,
-        radius: Float,
-    ): Unit = gsk_path_builder_rel_html_arc_to(gskPathBuilderPointer.reinterpret(), x1, y1, x2, y2, radius)
+    public fun relHtmlArcTo(x1: gfloat, y1: gfloat, x2: gfloat, y2: gfloat, radius: gfloat): Unit =
+        gsk_path_builder_rel_html_arc_to(gskPathBuilderPointer.reinterpret(), x1, y1, x2, y2, radius)
 
     /**
      * Draws a line from the current point to a point offset from it
@@ -545,10 +497,8 @@ public class PathBuilder(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun relLineTo(
-        x: Float,
-        y: Float,
-    ): Unit = gsk_path_builder_rel_line_to(gskPathBuilderPointer.reinterpret(), x, y)
+    public fun relLineTo(x: gfloat, y: gfloat): Unit =
+        gsk_path_builder_rel_line_to(gskPathBuilderPointer.reinterpret(), x, y)
 
     /**
      * Starts a new contour by placing the pen at @x, @y
@@ -561,10 +511,8 @@ public class PathBuilder(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun relMoveTo(
-        x: Float,
-        y: Float,
-    ): Unit = gsk_path_builder_rel_move_to(gskPathBuilderPointer.reinterpret(), x, y)
+    public fun relMoveTo(x: gfloat, y: gfloat): Unit =
+        gsk_path_builder_rel_move_to(gskPathBuilderPointer.reinterpret(), x, y)
 
     /**
      * Adds a [quadratic Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
@@ -581,12 +529,8 @@ public class PathBuilder(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun relQuadTo(
-        x1: Float,
-        y1: Float,
-        x2: Float,
-        y2: Float,
-    ): Unit = gsk_path_builder_rel_quad_to(gskPathBuilderPointer.reinterpret(), x1, y1, x2, y2)
+    public fun relQuadTo(x1: gfloat, y1: gfloat, x2: gfloat, y2: gfloat): Unit =
+        gsk_path_builder_rel_quad_to(gskPathBuilderPointer.reinterpret(), x1, y1, x2, y2)
 
     /**
      * Implements arc-to according to the SVG spec.
@@ -606,24 +550,23 @@ public class PathBuilder(
      */
     @GskVersion4_14
     public fun relSvgArcTo(
-        rx: Float,
-        ry: Float,
-        xAxisRotation: Float,
+        rx: gfloat,
+        ry: gfloat,
+        xAxisRotation: gfloat,
         largeArc: Boolean,
         positiveSweep: Boolean,
-        x: Float,
-        y: Float,
-    ): Unit =
-        gsk_path_builder_rel_svg_arc_to(
-            gskPathBuilderPointer.reinterpret(),
-            rx,
-            ry,
-            xAxisRotation,
-            largeArc.asGBoolean(),
-            positiveSweep.asGBoolean(),
-            x,
-            y
-        )
+        x: gfloat,
+        y: gfloat,
+    ): Unit = gsk_path_builder_rel_svg_arc_to(
+        gskPathBuilderPointer.reinterpret(),
+        rx,
+        ry,
+        xAxisRotation,
+        largeArc.asGBoolean(),
+        positiveSweep.asGBoolean(),
+        x,
+        y
+    )
 
     /**
      * Implements arc-to according to the SVG spec.
@@ -645,24 +588,23 @@ public class PathBuilder(
      */
     @GskVersion4_14
     public fun svgArcTo(
-        rx: Float,
-        ry: Float,
-        xAxisRotation: Float,
+        rx: gfloat,
+        ry: gfloat,
+        xAxisRotation: gfloat,
         largeArc: Boolean,
         positiveSweep: Boolean,
-        x: Float,
-        y: Float,
-    ): Unit =
-        gsk_path_builder_svg_arc_to(
-            gskPathBuilderPointer.reinterpret(),
-            rx,
-            ry,
-            xAxisRotation,
-            largeArc.asGBoolean(),
-            positiveSweep.asGBoolean(),
-            x,
-            y
-        )
+        x: gfloat,
+        y: gfloat,
+    ): Unit = gsk_path_builder_svg_arc_to(
+        gskPathBuilderPointer.reinterpret(),
+        rx,
+        ry,
+        xAxisRotation,
+        largeArc.asGBoolean(),
+        positiveSweep.asGBoolean(),
+        x,
+        y
+    )
 
     /**
      * Creates a new `GskPath` from the given builder.
@@ -679,10 +621,9 @@ public class PathBuilder(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun toPath(): Path =
-        gsk_path_builder_to_path(gskPathBuilderPointer.reinterpret())!!.run {
-            Path(reinterpret())
-        }
+    public fun toPath(): Path = gsk_path_builder_to_path(gskPathBuilderPointer.reinterpret())!!.run {
+        Path(reinterpret())
+    }
 
     /**
      * Releases a reference on the given builder.
@@ -692,7 +633,7 @@ public class PathBuilder(
     @GskVersion4_14
     public fun unref(): Unit = gsk_path_builder_unref(gskPathBuilderPointer.reinterpret())
 
-    public companion object : RecordCompanion<PathBuilder, GskPathBuilder> {
+    public companion object {
         /**
          * Create a new `GskPathBuilder` object.
          *
@@ -704,7 +645,11 @@ public class PathBuilder(
          */
         public fun new(): PathBuilder = PathBuilder(gsk_path_builder_new()!!.reinterpret())
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PathBuilder =
-            PathBuilder(pointer.reinterpret())
+        /**
+         * Get the GType of PathBuilder
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_path_builder_get_type()
     }
 }

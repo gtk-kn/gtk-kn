@@ -229,12 +229,12 @@ class MetadataTest {
         root.addChild(child2)
         child1.addChild(grandchild)
 
-        root.addArgument(ArgumentType.SKIP, arg1)
+        root.addArgument(ArgumentType.IGNORE, arg1)
         child1.addArgument(ArgumentType.DEPRECATED, arg2)
         grandchild.addArgument(ArgumentType.REPLACEMENT, arg3)
 
         val expectedOutput = """
-            Root skip=true
+            Root ignore=true
               .Child1#mySelector deprecated=false
                 .Grandchild replacement=true
               .Child2
@@ -258,7 +258,7 @@ class MetadataTest {
         root.addChild(child2)
         child1.addChild(grandchild)
 
-        root.addArgument(ArgumentType.SKIP, arg1)
+        root.addArgument(ArgumentType.IGNORE, arg1)
         child1.addArgument(ArgumentType.DEPRECATED, arg2)
         grandchild.addArgument(ArgumentType.REPLACEMENT, arg3)
 
@@ -280,12 +280,12 @@ class MetadataTest {
         root.addChild(child2)
         child1.addChild(grandchild)
 
-        root.addArgument(ArgumentType.SKIP, arg1)
+        root.addArgument(ArgumentType.IGNORE, arg1)
         child1.addArgument(ArgumentType.DEPRECATED, arg2)
         grandchild.addArgument(ArgumentType.REPLACEMENT, arg3)
 
         val expectedOutput = """
-            Root skip=true
+            Root ignore=true
               .Child1
                 .Grandchild replacement=true
         """.trimIndent()
@@ -307,7 +307,7 @@ class MetadataTest {
         root.addChild(child2)
         child1.addChild(grandchild)
 
-        root.addArgument(ArgumentType.SKIP, arg1)
+        root.addArgument(ArgumentType.IGNORE, arg1)
         child1.addArgument(ArgumentType.DEPRECATED, arg2)
 
         val expectedOutput = """
@@ -330,10 +330,10 @@ class MetadataTest {
         root.addChild(child1)
         root.addChild(child2)
 
-        root.addArgument(ArgumentType.SKIP, arg1)
+        root.addArgument(ArgumentType.IGNORE, arg1)
 
         val expectedOutput = """
-            Root skip=true
+            Root ignore=true
         """.trimIndent()
 
         val output = root.toString(onlyUnused = true)

@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -9,15 +8,14 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.bindings.glib.Glib.resolveException
+import org.gtkkn.bindings.glib.GLib.resolveException
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_12
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_66
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_76
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toCStringList
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GBookmarkFile
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.g_bookmark_file_add_application
@@ -53,11 +51,13 @@ import org.gtkkn.native.glib.g_bookmark_file_set_modified_date_time
 import org.gtkkn.native.glib.g_bookmark_file_set_title
 import org.gtkkn.native.glib.g_bookmark_file_set_visited_date_time
 import org.gtkkn.native.glib.g_bookmark_file_to_file
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_bookmark_file_get_type
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gsize
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
 
@@ -122,9 +122,7 @@ import kotlin.collections.List
  * @since 2.12
  */
 @GLibVersion2_12
-public class BookmarkFile(
-    pointer: CPointer<GBookmarkFile>,
-) : Record {
+public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(pointer) {
     public val glibBookmarkFilePointer: CPointer<GBookmarkFile> = pointer
 
     /**
@@ -158,11 +156,8 @@ public class BookmarkFile(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun addApplication(
-        uri: String,
-        name: String? = null,
-        exec: String? = null,
-    ): Unit = g_bookmark_file_add_application(glibBookmarkFilePointer.reinterpret(), uri, name, exec)
+    public fun addApplication(uri: String, name: String? = null, exec: String? = null): Unit =
+        g_bookmark_file_add_application(glibBookmarkFilePointer.reinterpret(), uri, name, exec)
 
     /**
      * Adds @group to the list of groups to which the bookmark for @uri
@@ -175,10 +170,8 @@ public class BookmarkFile(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun addGroup(
-        uri: String,
-        group: String,
-    ): Unit = g_bookmark_file_add_group(glibBookmarkFilePointer.reinterpret(), uri, group)
+    public fun addGroup(uri: String, group: String): Unit =
+        g_bookmark_file_add_group(glibBookmarkFilePointer.reinterpret(), uri, group)
 
     /**
      * Deeply copies a @bookmark #GBookmarkFile object to a new one.
@@ -188,10 +181,9 @@ public class BookmarkFile(
      * @since 2.76
      */
     @GLibVersion2_76
-    public fun copy(): BookmarkFile =
-        g_bookmark_file_copy(glibBookmarkFilePointer.reinterpret())!!.run {
-            BookmarkFile(reinterpret())
-        }
+    public fun copy(): BookmarkFile = g_bookmark_file_copy(glibBookmarkFilePointer.reinterpret())!!.run {
+        BookmarkFile(reinterpret())
+    }
 
     /**
      * Frees a #GBookmarkFile.
@@ -212,20 +204,18 @@ public class BookmarkFile(
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun getAddedDateTime(uri: String): Result<DateTime> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_bookmark_file_get_added_date_time(glibBookmarkFilePointer.reinterpret(), uri, gError.ptr)?.run {
-                    DateTime(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun getAddedDateTime(uri: String): Result<DateTime> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_bookmark_file_get_added_date_time(glibBookmarkFilePointer.reinterpret(), uri, gError.ptr)?.run {
+            DateTime(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Retrieves the description of the bookmark for @uri.
@@ -239,21 +229,19 @@ public class BookmarkFile(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun getDescription(uri: String): Result<String> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_bookmark_file_get_description(
-                    glibBookmarkFilePointer.reinterpret(),
-                    uri,
-                    gError.ptr
-                )?.toKString()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun getDescription(uri: String): Result<String> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_bookmark_file_get_description(
+            glibBookmarkFilePointer.reinterpret(),
+            uri,
+            gError.ptr
+        )?.toKString()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
         }
+    }
 
     /**
      * Gets whether the private flag of the bookmark for @uri is set.
@@ -268,21 +256,15 @@ public class BookmarkFile(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun getIsPrivate(uri: String): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_bookmark_file_get_is_private(
-                    glibBookmarkFilePointer.reinterpret(),
-                    uri,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun getIsPrivate(uri: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_bookmark_file_get_is_private(glibBookmarkFilePointer.reinterpret(), uri, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Retrieves the MIME type of the resource pointed by @uri.
@@ -298,21 +280,15 @@ public class BookmarkFile(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun getMimeType(uri: String): Result<String> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_bookmark_file_get_mime_type(
-                    glibBookmarkFilePointer.reinterpret(),
-                    uri,
-                    gError.ptr
-                )?.toKString()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun getMimeType(uri: String): Result<String> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_bookmark_file_get_mime_type(glibBookmarkFilePointer.reinterpret(), uri, gError.ptr)?.toKString()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
         }
+    }
 
     /**
      * Gets the time when the bookmark for @uri was last modified.
@@ -325,20 +301,22 @@ public class BookmarkFile(
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun getModifiedDateTime(uri: String): Result<DateTime> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_bookmark_file_get_modified_date_time(glibBookmarkFilePointer.reinterpret(), uri, gError.ptr)?.run {
-                    DateTime(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun getModifiedDateTime(uri: String): Result<DateTime> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_bookmark_file_get_modified_date_time(
+            glibBookmarkFilePointer.reinterpret(),
+            uri,
+            gError.ptr
+        )?.run {
+            DateTime(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Gets the number of bookmarks inside @bookmark.
@@ -347,7 +325,7 @@ public class BookmarkFile(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun getSize(): Int = g_bookmark_file_get_size(glibBookmarkFilePointer.reinterpret())
+    public fun getSize(): gint = g_bookmark_file_get_size(glibBookmarkFilePointer.reinterpret())
 
     /**
      * Returns the title of the bookmark for @uri.
@@ -363,16 +341,15 @@ public class BookmarkFile(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun getTitle(uri: String? = null): Result<String> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_bookmark_file_get_title(glibBookmarkFilePointer.reinterpret(), uri, gError.ptr)?.toKString()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun getTitle(uri: String? = null): Result<String> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_bookmark_file_get_title(glibBookmarkFilePointer.reinterpret(), uri, gError.ptr)?.toKString()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
         }
+    }
 
     /**
      * Gets the time the bookmark for @uri was last visited.
@@ -385,20 +362,22 @@ public class BookmarkFile(
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun getVisitedDateTime(uri: String): Result<DateTime> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_bookmark_file_get_visited_date_time(glibBookmarkFilePointer.reinterpret(), uri, gError.ptr)?.run {
-                    DateTime(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun getVisitedDateTime(uri: String): Result<DateTime> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_bookmark_file_get_visited_date_time(
+            glibBookmarkFilePointer.reinterpret(),
+            uri,
+            gError.ptr
+        )?.run {
+            DateTime(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Checks whether the bookmark for @uri inside @bookmark has been
@@ -413,25 +392,20 @@ public class BookmarkFile(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun hasApplication(
-        uri: String,
-        name: String,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_bookmark_file_has_application(
-                    glibBookmarkFilePointer.reinterpret(),
-                    uri,
-                    name,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun hasApplication(uri: String, name: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_bookmark_file_has_application(
+            glibBookmarkFilePointer.reinterpret(),
+            uri,
+            name,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Checks whether @group appears in the list of groups to which
@@ -446,25 +420,20 @@ public class BookmarkFile(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun hasGroup(
-        uri: String,
-        group: String,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_bookmark_file_has_group(
-                    glibBookmarkFilePointer.reinterpret(),
-                    uri,
-                    group,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun hasGroup(uri: String, group: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_bookmark_file_has_group(
+            glibBookmarkFilePointer.reinterpret(),
+            uri,
+            group,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Looks whether the desktop bookmark has an item with its URI set to @uri.
@@ -488,21 +457,19 @@ public class BookmarkFile(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun loadFromFile(filename: String): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_bookmark_file_load_from_file(
-                    glibBookmarkFilePointer.reinterpret(),
-                    filename,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun loadFromFile(filename: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_bookmark_file_load_from_file(
+            glibBookmarkFilePointer.reinterpret(),
+            filename,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Changes the URI of a bookmark item from @old_uri to @new_uri.  Any
@@ -518,25 +485,20 @@ public class BookmarkFile(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun moveItem(
-        oldUri: String,
-        newUri: String? = null,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_bookmark_file_move_item(
-                    glibBookmarkFilePointer.reinterpret(),
-                    oldUri,
-                    newUri,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun moveItem(oldUri: String, newUri: String? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_bookmark_file_move_item(
+            glibBookmarkFilePointer.reinterpret(),
+            oldUri,
+            newUri,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Removes application registered with @name from the list of applications
@@ -554,25 +516,20 @@ public class BookmarkFile(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun removeApplication(
-        uri: String,
-        name: String,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_bookmark_file_remove_application(
-                    glibBookmarkFilePointer.reinterpret(),
-                    uri,
-                    name,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun removeApplication(uri: String, name: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_bookmark_file_remove_application(
+            glibBookmarkFilePointer.reinterpret(),
+            uri,
+            name,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Removes @group from the list of groups to which the bookmark
@@ -589,25 +546,20 @@ public class BookmarkFile(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun removeGroup(
-        uri: String,
-        group: String,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_bookmark_file_remove_group(
-                    glibBookmarkFilePointer.reinterpret(),
-                    uri,
-                    group,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun removeGroup(uri: String, group: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_bookmark_file_remove_group(
+            glibBookmarkFilePointer.reinterpret(),
+            uri,
+            group,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Removes the bookmark for @uri from the bookmark file @bookmark.
@@ -617,21 +569,15 @@ public class BookmarkFile(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun removeItem(uri: String): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_bookmark_file_remove_item(
-                    glibBookmarkFilePointer.reinterpret(),
-                    uri,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun removeItem(uri: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_bookmark_file_remove_item(glibBookmarkFilePointer.reinterpret(), uri, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Sets the time the bookmark for @uri was added into @bookmark.
@@ -643,15 +589,11 @@ public class BookmarkFile(
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun setAddedDateTime(
-        uri: String,
-        added: DateTime,
-    ): Unit =
-        g_bookmark_file_set_added_date_time(
-            glibBookmarkFilePointer.reinterpret(),
-            uri,
-            added.glibDateTimePointer.reinterpret()
-        )
+    public fun setAddedDateTime(uri: String, added: DateTime): Unit = g_bookmark_file_set_added_date_time(
+        glibBookmarkFilePointer.reinterpret(),
+        uri,
+        added.glibDateTimePointer.reinterpret()
+    )
 
     /**
      * Sets the meta-data of application @name inside the list of
@@ -697,27 +639,25 @@ public class BookmarkFile(
         uri: String,
         name: String,
         exec: String,
-        count: Int,
+        count: gint,
         stamp: DateTime? = null,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_bookmark_file_set_application_info(
-                    glibBookmarkFilePointer.reinterpret(),
-                    uri,
-                    name,
-                    exec,
-                    count,
-                    stamp?.glibDateTimePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    ): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_bookmark_file_set_application_info(
+            glibBookmarkFilePointer.reinterpret(),
+            uri,
+            name,
+            exec,
+            count,
+            stamp?.glibDateTimePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Sets @description as the description of the bookmark for @uri.
@@ -731,10 +671,8 @@ public class BookmarkFile(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun setDescription(
-        uri: String? = null,
-        description: String,
-    ): Unit = g_bookmark_file_set_description(glibBookmarkFilePointer.reinterpret(), uri, description)
+    public fun setDescription(uri: String? = null, description: String): Unit =
+        g_bookmark_file_set_description(glibBookmarkFilePointer.reinterpret(), uri, description)
 
     /**
      * Sets a list of group names for the item with URI @uri.  Each previously
@@ -749,19 +687,14 @@ public class BookmarkFile(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun setGroups(
-        uri: String,
-        groups: List<String>? = null,
-        length: ULong,
-    ): Unit =
-        memScoped {
-            return g_bookmark_file_set_groups(
-                glibBookmarkFilePointer.reinterpret(),
-                uri,
-                groups?.toCStringList(this),
-                length
-            )
-        }
+    public fun setGroups(uri: String, groups: List<String>? = null, length: gsize): Unit = memScoped {
+        return g_bookmark_file_set_groups(
+            glibBookmarkFilePointer.reinterpret(),
+            uri,
+            groups?.toCStringList(this),
+            length
+        )
+    }
 
     /**
      * Sets the icon for the bookmark for @uri. If @href is null, unsets
@@ -776,11 +709,8 @@ public class BookmarkFile(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun setIcon(
-        uri: String,
-        href: String? = null,
-        mimeType: String,
-    ): Unit = g_bookmark_file_set_icon(glibBookmarkFilePointer.reinterpret(), uri, href, mimeType)
+    public fun setIcon(uri: String, href: String? = null, mimeType: String): Unit =
+        g_bookmark_file_set_icon(glibBookmarkFilePointer.reinterpret(), uri, href, mimeType)
 
     /**
      * Sets the private flag of the bookmark for @uri.
@@ -792,10 +722,8 @@ public class BookmarkFile(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun setIsPrivate(
-        uri: String,
-        isPrivate: Boolean,
-    ): Unit = g_bookmark_file_set_is_private(glibBookmarkFilePointer.reinterpret(), uri, isPrivate.asGBoolean())
+    public fun setIsPrivate(uri: String, isPrivate: Boolean): Unit =
+        g_bookmark_file_set_is_private(glibBookmarkFilePointer.reinterpret(), uri, isPrivate.asGBoolean())
 
     /**
      * Sets @mime_type as the MIME type of the bookmark for @uri.
@@ -807,10 +735,8 @@ public class BookmarkFile(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun setMimeType(
-        uri: String,
-        mimeType: String,
-    ): Unit = g_bookmark_file_set_mime_type(glibBookmarkFilePointer.reinterpret(), uri, mimeType)
+    public fun setMimeType(uri: String, mimeType: String): Unit =
+        g_bookmark_file_set_mime_type(glibBookmarkFilePointer.reinterpret(), uri, mimeType)
 
     /**
      * Sets the last time the bookmark for @uri was last modified.
@@ -827,15 +753,11 @@ public class BookmarkFile(
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun setModifiedDateTime(
-        uri: String,
-        modified: DateTime,
-    ): Unit =
-        g_bookmark_file_set_modified_date_time(
-            glibBookmarkFilePointer.reinterpret(),
-            uri,
-            modified.glibDateTimePointer.reinterpret()
-        )
+    public fun setModifiedDateTime(uri: String, modified: DateTime): Unit = g_bookmark_file_set_modified_date_time(
+        glibBookmarkFilePointer.reinterpret(),
+        uri,
+        modified.glibDateTimePointer.reinterpret()
+    )
 
     /**
      * Sets @title as the title of the bookmark for @uri inside the
@@ -850,10 +772,8 @@ public class BookmarkFile(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun setTitle(
-        uri: String? = null,
-        title: String,
-    ): Unit = g_bookmark_file_set_title(glibBookmarkFilePointer.reinterpret(), uri, title)
+    public fun setTitle(uri: String? = null, title: String): Unit =
+        g_bookmark_file_set_title(glibBookmarkFilePointer.reinterpret(), uri, title)
 
     /**
      * Sets the time the bookmark for @uri was last visited.
@@ -871,15 +791,11 @@ public class BookmarkFile(
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun setVisitedDateTime(
-        uri: String,
-        visited: DateTime,
-    ): Unit =
-        g_bookmark_file_set_visited_date_time(
-            glibBookmarkFilePointer.reinterpret(),
-            uri,
-            visited.glibDateTimePointer.reinterpret()
-        )
+    public fun setVisitedDateTime(uri: String, visited: DateTime): Unit = g_bookmark_file_set_visited_date_time(
+        glibBookmarkFilePointer.reinterpret(),
+        uri,
+        visited.glibDateTimePointer.reinterpret()
+    )
 
     /**
      * This function outputs @bookmark into a file.  The write process is
@@ -890,23 +806,17 @@ public class BookmarkFile(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun toFile(filename: String): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_bookmark_file_to_file(
-                    glibBookmarkFilePointer.reinterpret(),
-                    filename,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun toFile(filename: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_bookmark_file_to_file(glibBookmarkFilePointer.reinterpret(), filename, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
-    public companion object : RecordCompanion<BookmarkFile, GBookmarkFile> {
+    public companion object {
         /**
          * Creates a new empty #GBookmarkFile object.
          *
@@ -921,7 +831,11 @@ public class BookmarkFile(
 
         public fun errorQuark(): Quark = g_bookmark_file_error_quark()
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): BookmarkFile =
-            BookmarkFile(pointer.reinterpret())
+        /**
+         * Get the GType of BookmarkFile
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_bookmark_file_get_type()
     }
 }

@@ -4,7 +4,9 @@ package org.gtkkn.bindings.webkit
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_24
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitUserContentFilterError
+import org.gtkkn.native.webkit.webkit_user_content_filter_error_get_type
 import org.gtkkn.native.webkit.webkit_user_content_filter_error_quark
 
 /**
@@ -12,9 +14,7 @@ import org.gtkkn.native.webkit.webkit_user_content_filter_error_quark
  * @since 2.24
  */
 @WebKitVersion2_24
-public enum class UserContentFilterError(
-    public val nativeValue: WebKitUserContentFilterError,
-) {
+public enum class UserContentFilterError(public val nativeValue: WebKitUserContentFilterError) {
     /**
      * The JSON source for a content filter is invalid.
      */
@@ -41,11 +41,17 @@ public enum class UserContentFilterError(
          */
         public fun quark(): Quark = webkit_user_content_filter_error_quark()
 
-        public fun fromErrorOrNull(error: Error): UserContentFilterError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                UserContentFilterError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        /**
+         * Get the GType of UserContentFilterError
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_user_content_filter_error_get_type()
+
+        public fun fromErrorOrNull(error: Error): UserContentFilterError? = if (error.domain != quark()) {
+            null
+        } else {
+            UserContentFilterError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

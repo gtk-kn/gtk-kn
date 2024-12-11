@@ -6,18 +6,18 @@ import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GDBusInterfaceSkeletonFlags
 import org.gtkkn.native.gio.G_DBUS_INTERFACE_SKELETON_FLAGS_HANDLE_METHOD_INVOCATIONS_IN_THREAD
 import org.gtkkn.native.gio.G_DBUS_INTERFACE_SKELETON_FLAGS_NONE
+import org.gtkkn.native.gio.g_dbus_interface_skeleton_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags describing the behavior of a #GDBusInterfaceSkeleton instance.
  * @since 2.30
  */
-public class DBusInterfaceSkeletonFlags(
-    public val mask: GDBusInterfaceSkeletonFlags,
-) : Bitfield<DBusInterfaceSkeletonFlags> {
-    override infix fun or(other: DBusInterfaceSkeletonFlags): DBusInterfaceSkeletonFlags =
-        DBusInterfaceSkeletonFlags(
-            mask or other.mask
-        )
+public class DBusInterfaceSkeletonFlags(public val mask: GDBusInterfaceSkeletonFlags) :
+    Bitfield<DBusInterfaceSkeletonFlags> {
+    override infix fun or(other: DBusInterfaceSkeletonFlags): DBusInterfaceSkeletonFlags = DBusInterfaceSkeletonFlags(
+        mask or other.mask
+    )
 
     @GioVersion2_30
     public companion object {
@@ -35,5 +35,12 @@ public class DBusInterfaceSkeletonFlags(
          */
         public val HANDLE_METHOD_INVOCATIONS_IN_THREAD: DBusInterfaceSkeletonFlags =
             DBusInterfaceSkeletonFlags(G_DBUS_INTERFACE_SKELETON_FLAGS_HANDLE_METHOD_INVOCATIONS_IN_THREAD)
+
+        /**
+         * Get the GType of DBusInterfaceSkeletonFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dbus_interface_skeleton_flags_get_type()
     }
 }

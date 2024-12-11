@@ -19,7 +19,7 @@ import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -41,8 +41,9 @@ import org.gtkkn.native.gdk.gdk_texture_save_to_tiff_bytes
 import org.gtkkn.native.gio.GIcon
 import org.gtkkn.native.gio.GLoadableIcon
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.Throws
@@ -68,9 +69,8 @@ import kotlin.Throws
  *
  * - parameter `data`: Array parameter of type guint8 is not supported
  */
-public open class Texture(
-    pointer: CPointer<GdkTexture>,
-) : Object(pointer.reinterpret()),
+public open class Texture(pointer: CPointer<GdkTexture>) :
+    Object(pointer.reinterpret()),
     Paintable,
     Icon,
     LoadableIcon,
@@ -90,7 +90,7 @@ public open class Texture(
     /**
      * The height of the texture, in pixels.
      */
-    public open val height: Int
+    public open val height: gint
         /**
          * Returns the height of the @texture, in pixels.
          *
@@ -101,7 +101,7 @@ public open class Texture(
     /**
      * The width of the texture, in pixels.
      */
-    public open val width: Int
+    public open val width: gint
         /**
          * Returns the width of @texture, in pixels.
          *
@@ -139,7 +139,7 @@ public open class Texture(
      * @return A newly-created `GdkTexture`
      * @since 4.6
      */
-    @Throws(GlibException::class)
+    @Throws(GLibException::class)
     public constructor(bytes: Bytes) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -166,7 +166,7 @@ public open class Texture(
      * @param file `GFile` to load
      * @return A newly-created `GdkTexture`
      */
-    @Throws(GlibException::class)
+    @Throws(GLibException::class)
     public constructor(`file`: File) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -194,7 +194,7 @@ public open class Texture(
      * @return A newly-created `GdkTexture`
      * @since 4.6
      */
-    @Throws(GlibException::class)
+    @Throws(GLibException::class)
     public constructor(path: String) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -221,24 +221,9 @@ public open class Texture(
      * @since 4.10
      */
     @GdkVersion4_10
-    public open fun getFormat(): MemoryFormat =
-        gdk_texture_get_format(gdkTexturePointer.reinterpret()).run {
-            MemoryFormat.fromNativeValue(this)
-        }
-
-    /**
-     * Returns the height of the @texture, in pixels.
-     *
-     * @return the height of the `GdkTexture`
-     */
-    public open fun getHeight(): Int = gdk_texture_get_height(gdkTexturePointer.reinterpret())
-
-    /**
-     * Returns the width of @texture, in pixels.
-     *
-     * @return the width of the `GdkTexture`
-     */
-    public open fun getWidth(): Int = gdk_texture_get_width(gdkTexturePointer.reinterpret())
+    public open fun getFormat(): MemoryFormat = gdk_texture_get_format(gdkTexturePointer.reinterpret()).run {
+        MemoryFormat.fromNativeValue(this)
+    }
 
     /**
      * Store the given @texture to the @filename as a PNG file.
@@ -275,10 +260,9 @@ public open class Texture(
      * @since 4.6
      */
     @GdkVersion4_6
-    public open fun saveToPngBytes(): Bytes =
-        gdk_texture_save_to_png_bytes(gdkTexturePointer.reinterpret())!!.run {
-            Bytes(reinterpret())
-        }
+    public open fun saveToPngBytes(): Bytes = gdk_texture_save_to_png_bytes(gdkTexturePointer.reinterpret())!!.run {
+        Bytes(reinterpret())
+    }
 
     /**
      * Store the given @texture to the @filename as a TIFF file.
@@ -311,10 +295,9 @@ public open class Texture(
      * @since 4.6
      */
     @GdkVersion4_6
-    public open fun saveToTiffBytes(): Bytes =
-        gdk_texture_save_to_tiff_bytes(gdkTexturePointer.reinterpret())!!.run {
-            Bytes(reinterpret())
-        }
+    public open fun saveToTiffBytes(): Bytes = gdk_texture_save_to_tiff_bytes(gdkTexturePointer.reinterpret())!!.run {
+        Bytes(reinterpret())
+    }
 
     public companion object : TypeCompanion<Texture> {
         override val type: GeneratedClassKGType<Texture> =
@@ -340,17 +323,16 @@ public open class Texture(
          * @return A newly-created `GdkTexture`
          * @since 4.6
          */
-        public fun newFromFilename(path: String): Result<Texture> =
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                gError.`value` = null
-                val gResult = gdk_texture_new_from_filename(path, gError.ptr)
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(Texture(checkNotNull(gResult).reinterpret()))
-                }
+        public fun newFromFilename(path: String): Result<Texture> = memScoped {
+            val gError = allocPointerTo<GError>()
+            gError.`value` = null
+            val gResult = gdk_texture_new_from_filename(path, gError.ptr)
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(Texture(checkNotNull(gResult).reinterpret()))
             }
+        }
 
         /**
          * Creates a new texture by loading an image from a resource.
@@ -372,5 +354,12 @@ public open class Texture(
          */
         public fun newFromResource(resourcePath: String): Texture =
             Texture(gdk_texture_new_from_resource(resourcePath)!!.reinterpret())
+
+        /**
+         * Get the GType of Texture
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_texture_get_type()
     }
 }

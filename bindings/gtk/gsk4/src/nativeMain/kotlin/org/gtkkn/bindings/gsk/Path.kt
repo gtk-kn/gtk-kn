@@ -1,30 +1,33 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskPath
 import org.gtkkn.native.gsk.gsk_path_foreach
 import org.gtkkn.native.gsk.gsk_path_get_bounds
 import org.gtkkn.native.gsk.gsk_path_get_end_point
 import org.gtkkn.native.gsk.gsk_path_get_start_point
 import org.gtkkn.native.gsk.gsk_path_get_stroke_bounds
+import org.gtkkn.native.gsk.gsk_path_get_type
 import org.gtkkn.native.gsk.gsk_path_in_fill
 import org.gtkkn.native.gsk.gsk_path_is_closed
 import org.gtkkn.native.gsk.gsk_path_is_empty
 import org.gtkkn.native.gsk.gsk_path_parse
 import org.gtkkn.native.gsk.gsk_path_print
 import org.gtkkn.native.gsk.gsk_path_ref
+import org.gtkkn.native.gsk.gsk_path_to_string
 import org.gtkkn.native.gsk.gsk_path_unref
 import kotlin.Boolean
+import kotlin.Suppress
 import kotlin.Unit
 import kotlin.String as KotlinString
 import org.gtkkn.bindings.glib.String as GlibString
@@ -54,14 +57,11 @@ import org.gtkkn.bindings.glib.String as GlibString
  *
  * - parameter `distance`: distance: Out parameter is not supported
  * - parameter `cr`: cairo.Context
- * - method `to_string`: C function gsk_path_to_string is ignored
  *
  * @since 4.14
  */
 @GskVersion4_14
-public class Path(
-    pointer: CPointer<GskPath>,
-) : Record {
+public class Path(pointer: CPointer<GskPath>) : ProxyInstance(pointer) {
     public val gskPathPointer: CPointer<GskPath> = pointer
 
     /**
@@ -86,16 +86,12 @@ public class Path(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun foreach(
-        flags: PathForeachFlags,
-        func: PathForeachFunc,
-    ): Boolean =
-        gsk_path_foreach(
-            gskPathPointer.reinterpret(),
-            flags.mask,
-            PathForeachFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        ).asBoolean()
+    public fun foreach(flags: PathForeachFlags, func: PathForeachFunc): Boolean = gsk_path_foreach(
+        gskPathPointer.reinterpret(),
+        flags.mask,
+        PathForeachFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer()
+    ).asBoolean()
 
     /**
      * Computes the bounds of the given path.
@@ -166,15 +162,11 @@ public class Path(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getStrokeBounds(
-        stroke: Stroke,
-        bounds: Rect,
-    ): Boolean =
-        gsk_path_get_stroke_bounds(
-            gskPathPointer.reinterpret(),
-            stroke.gskStrokePointer.reinterpret(),
-            bounds.grapheneRectPointer.reinterpret()
-        ).asBoolean()
+    public fun getStrokeBounds(stroke: Stroke, bounds: Rect): Boolean = gsk_path_get_stroke_bounds(
+        gskPathPointer.reinterpret(),
+        stroke.gskStrokePointer.reinterpret(),
+        bounds.grapheneRectPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * Returns whether the given point is inside the area
@@ -190,15 +182,11 @@ public class Path(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun inFill(
-        point: Point,
-        fillRule: FillRule,
-    ): Boolean =
-        gsk_path_in_fill(
-            gskPathPointer.reinterpret(),
-            point.graphenePointPointer.reinterpret(),
-            fillRule.nativeValue
-        ).asBoolean()
+    public fun inFill(point: Point, fillRule: FillRule): Boolean = gsk_path_in_fill(
+        gskPathPointer.reinterpret(),
+        point.graphenePointPointer.reinterpret(),
+        fillRule.nativeValue
+    ).asBoolean()
 
     /**
      * Returns if the path represents a single closed
@@ -241,10 +229,26 @@ public class Path(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun ref(): Path =
-        gsk_path_ref(gskPathPointer.reinterpret())!!.run {
-            Path(reinterpret())
-        }
+    public fun ref(): Path = gsk_path_ref(gskPathPointer.reinterpret())!!.run {
+        Path(reinterpret())
+    }
+
+    /**
+     * Converts the path into a string that is suitable for printing.
+     *
+     * You can use this function in a debugger to get a quick overview
+     * of the path.
+     *
+     * This is a wrapper around [method@Gsk.Path.print], see that function
+     * for details.
+     *
+     * @return A new string for @self
+     * @since 4.14
+     */
+    @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
+    @GskVersion4_14
+    override fun toString(): KotlinString =
+        gsk_path_to_string(gskPathPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Decreases the reference count of a `GskPath` by one.
@@ -256,7 +260,7 @@ public class Path(
     @GskVersion4_14
     public fun unref(): Unit = gsk_path_unref(gskPathPointer.reinterpret())
 
-    public companion object : RecordCompanion<Path, GskPath> {
+    public companion object {
         /**
          * This is a convenience function that constructs a `GskPath`
          * from a serialized form.
@@ -289,11 +293,15 @@ public class Path(
          * @since 4.14
          */
         @GskVersion4_14
-        public fun parse(string: KotlinString): Path? =
-            gsk_path_parse(string)?.run {
-                Path(reinterpret())
-            }
+        public fun parse(string: KotlinString): Path? = gsk_path_parse(string)?.run {
+            Path(reinterpret())
+        }
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Path = Path(pointer.reinterpret())
+        /**
+         * Get the GType of Path
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_path_get_type()
     }
 }

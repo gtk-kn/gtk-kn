@@ -8,6 +8,7 @@ import org.gtkkn.bindings.gobject.InitiallyUnowned
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitBackForwardListItem
 import org.gtkkn.native.webkit.webkit_back_forward_list_item_get_original_uri
 import org.gtkkn.native.webkit.webkit_back_forward_list_item_get_title
@@ -21,9 +22,8 @@ import kotlin.String
  * A history item is part of the #WebKitBackForwardList and consists
  * out of a title and a URI.
  */
-public class BackForwardListItem(
-    pointer: CPointer<WebKitBackForwardListItem>,
-) : InitiallyUnowned(pointer.reinterpret()),
+public class BackForwardListItem(pointer: CPointer<WebKitBackForwardListItem>) :
+    InitiallyUnowned(pointer.reinterpret()),
     KGTyped {
     public val webkitBackForwardListItemPointer: CPointer<WebKitBackForwardListItem>
         get() = gPointer.reinterpret()
@@ -71,5 +71,12 @@ public class BackForwardListItem(
         init {
             WebkitTypeProvider.register()
         }
+
+        /**
+         * Get the GType of BackForwardListItem
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_back_forward_list_item_get_type()
     }
 }

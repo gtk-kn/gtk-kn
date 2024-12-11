@@ -1,16 +1,20 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GScanner
+import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_scanner_cur_line
 import org.gtkkn.native.glib.g_scanner_cur_position
 import org.gtkkn.native.glib.g_scanner_cur_token
@@ -19,17 +23,22 @@ import org.gtkkn.native.glib.g_scanner_eof
 import org.gtkkn.native.glib.g_scanner_get_next_token
 import org.gtkkn.native.glib.g_scanner_input_file
 import org.gtkkn.native.glib.g_scanner_input_text
+import org.gtkkn.native.glib.g_scanner_new
 import org.gtkkn.native.glib.g_scanner_peek_next_token
 import org.gtkkn.native.glib.g_scanner_scope_foreach_symbol
 import org.gtkkn.native.glib.g_scanner_scope_remove_symbol
 import org.gtkkn.native.glib.g_scanner_set_scope
 import org.gtkkn.native.glib.g_scanner_sync_file_offset
 import org.gtkkn.native.glib.g_scanner_unexp_token
+import org.gtkkn.native.glib.g_strdup
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
-import kotlin.Int
+import kotlin.Pair
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * `GScanner` provides a general-purpose lexical scanner.
@@ -49,9 +58,12 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
+ * - method `cur_value`: Return type TokenValue is unsupported
+ * - method `error`: Varargs parameter is not supported
  * - method `lookup_symbol`: Return type gpointer is unsupported
  * - parameter `value`: gpointer
  * - method `scope_lookup_symbol`: Return type gpointer is unsupported
+ * - method `warn`: Varargs parameter is not supported
  * - field `user_data`: gpointer
  * - field `qdata`: Data
  * - field `value`: TokenValue
@@ -64,16 +76,16 @@ import kotlin.Unit
  * - field `scope_id`: Record field scope_id is private
  * - field `msg_handler`: ScannerMsgFunc
  */
-public class Scanner(
-    pointer: CPointer<GScanner>,
-) : Record {
+public class Scanner(pointer: CPointer<GScanner>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibScannerPointer: CPointer<GScanner> = pointer
 
     /**
      * unused
      */
-    public var maxParseErrors: UInt
+    public var maxParseErrors: guint
         get() = glibScannerPointer.pointed.max_parse_errors
+
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerPointer.pointed.max_parse_errors = value
         }
@@ -81,39 +93,48 @@ public class Scanner(
     /**
      * g_scanner_error() increments this field
      */
-    public var parseErrors: UInt
+    public var parseErrors: guint
         get() = glibScannerPointer.pointed.parse_errors
+
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerPointer.pointed.parse_errors = value
         }
 
     /**
      * name of input stream, featured by the default message handler
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val inputName: String?
+    public var inputName: String?
         get() = glibScannerPointer.pointed.input_name?.toKString()
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            glibScannerPointer.pointed.input_name?.let { g_free(it) }
+            glibScannerPointer.pointed.input_name = value?.let { g_strdup(it) }
+        }
 
     /**
      * link into the scanner configuration
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
      */
-    public val config: ScannerConfig?
-        get() =
-            glibScannerPointer.pointed.config?.run {
-                ScannerConfig(reinterpret())
-            }
+    public var config: ScannerConfig?
+        get() = glibScannerPointer.pointed.config?.run {
+            ScannerConfig(reinterpret())
+        }
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            glibScannerPointer.pointed.config = value?.glibScannerConfigPointer
+        }
 
     /**
      * token parsed by the last g_scanner_get_next_token()
      */
     public var token: TokenType
-        get() =
-            glibScannerPointer.pointed.token.run {
-                TokenType.fromNativeValue(this)
-            }
+        get() = glibScannerPointer.pointed.token.run {
+            TokenType.fromNativeValue(this)
+        }
+
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerPointer.pointed.token = value.nativeValue
         }
@@ -121,8 +142,10 @@ public class Scanner(
     /**
      * line number of the last token from g_scanner_get_next_token()
      */
-    public var line: UInt
+    public var line: guint
         get() = glibScannerPointer.pointed.line
+
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerPointer.pointed.line = value
         }
@@ -130,8 +153,10 @@ public class Scanner(
     /**
      * char number of the last token from g_scanner_get_next_token()
      */
-    public var position: UInt
+    public var position: guint
         get() = glibScannerPointer.pointed.position
+
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerPointer.pointed.position = value
         }
@@ -140,10 +165,11 @@ public class Scanner(
      * token parsed by the last g_scanner_peek_next_token()
      */
     public var nextToken: TokenType
-        get() =
-            glibScannerPointer.pointed.next_token.run {
-                TokenType.fromNativeValue(this)
-            }
+        get() = glibScannerPointer.pointed.next_token.run {
+            TokenType.fromNativeValue(this)
+        }
+
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerPointer.pointed.next_token = value.nativeValue
         }
@@ -151,8 +177,10 @@ public class Scanner(
     /**
      * line number of the last token from g_scanner_peek_next_token()
      */
-    public var nextLine: UInt
+    public var nextLine: guint
         get() = glibScannerPointer.pointed.next_line
+
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerPointer.pointed.next_line = value
         }
@@ -160,11 +188,125 @@ public class Scanner(
     /**
      * char number of the last token from g_scanner_peek_next_token()
      */
-    public var nextPosition: UInt
+    public var nextPosition: guint
         get() = glibScannerPointer.pointed.next_position
+
+        @UnsafeFieldSetter
         set(`value`) {
             glibScannerPointer.pointed.next_position = value
         }
+
+    /**
+     * Allocate a new Scanner.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<GScanner>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Scanner and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GScanner>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Scanner using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GScanner>().ptr)
+
+    /**
+     * Allocate a new Scanner.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param maxParseErrors unused
+     * @param parseErrors g_scanner_error() increments this field
+     * @param inputName name of input stream, featured by the default message handler
+     * @param config link into the scanner configuration
+     * @param token token parsed by the last g_scanner_get_next_token()
+     * @param line line number of the last token from g_scanner_get_next_token()
+     * @param position char number of the last token from g_scanner_get_next_token()
+     * @param nextToken token parsed by the last g_scanner_peek_next_token()
+     * @param nextLine line number of the last token from g_scanner_peek_next_token()
+     * @param nextPosition char number of the last token from g_scanner_peek_next_token()
+     */
+    public constructor(
+        maxParseErrors: guint,
+        parseErrors: guint,
+        inputName: String?,
+        config: ScannerConfig?,
+        token: TokenType,
+        line: guint,
+        position: guint,
+        nextToken: TokenType,
+        nextLine: guint,
+        nextPosition: guint,
+    ) : this() {
+        this.maxParseErrors = maxParseErrors
+        this.parseErrors = parseErrors
+        this.inputName = inputName
+        this.config = config
+        this.token = token
+        this.line = line
+        this.position = position
+        this.nextToken = nextToken
+        this.nextLine = nextLine
+        this.nextPosition = nextPosition
+    }
+
+    /**
+     * Allocate a new Scanner using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param maxParseErrors unused
+     * @param parseErrors g_scanner_error() increments this field
+     * @param inputName name of input stream, featured by the default message handler
+     * @param config link into the scanner configuration
+     * @param token token parsed by the last g_scanner_get_next_token()
+     * @param line line number of the last token from g_scanner_get_next_token()
+     * @param position char number of the last token from g_scanner_get_next_token()
+     * @param nextToken token parsed by the last g_scanner_peek_next_token()
+     * @param nextLine line number of the last token from g_scanner_peek_next_token()
+     * @param nextPosition char number of the last token from g_scanner_peek_next_token()
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        maxParseErrors: guint,
+        parseErrors: guint,
+        inputName: String?,
+        config: ScannerConfig?,
+        token: TokenType,
+        line: guint,
+        position: guint,
+        nextToken: TokenType,
+        nextLine: guint,
+        nextPosition: guint,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.maxParseErrors = maxParseErrors
+        this.parseErrors = parseErrors
+        this.inputName = inputName
+        this.config = config
+        this.token = token
+        this.line = line
+        this.position = position
+        this.nextToken = nextToken
+        this.nextLine = nextLine
+        this.nextPosition = nextPosition
+    }
 
     /**
      * Returns the current line in the input stream (counting
@@ -173,7 +315,7 @@ public class Scanner(
      *
      * @return the current line
      */
-    public fun curLine(): UInt = g_scanner_cur_line(glibScannerPointer.reinterpret())
+    public fun curLine(): guint = g_scanner_cur_line(glibScannerPointer.reinterpret())
 
     /**
      * Returns the current position in the current line (counting
@@ -182,7 +324,7 @@ public class Scanner(
      *
      * @return the current position on the line
      */
-    public fun curPosition(): UInt = g_scanner_cur_position(glibScannerPointer.reinterpret())
+    public fun curPosition(): guint = g_scanner_cur_position(glibScannerPointer.reinterpret())
 
     /**
      * Gets the current token type. This is simply the @token
@@ -190,10 +332,9 @@ public class Scanner(
      *
      * @return the current token type
      */
-    public fun curToken(): TokenType =
-        g_scanner_cur_token(glibScannerPointer.reinterpret()).run {
-            TokenType.fromNativeValue(this)
-        }
+    public fun curToken(): TokenType = g_scanner_cur_token(glibScannerPointer.reinterpret()).run {
+        TokenType.fromNativeValue(this)
+    }
 
     /**
      * Frees all memory used by the #GScanner.
@@ -217,17 +358,16 @@ public class Scanner(
      *
      * @return the type of the token
      */
-    public fun getNextToken(): TokenType =
-        g_scanner_get_next_token(glibScannerPointer.reinterpret()).run {
-            TokenType.fromNativeValue(this)
-        }
+    public fun getNextToken(): TokenType = g_scanner_get_next_token(glibScannerPointer.reinterpret()).run {
+        TokenType.fromNativeValue(this)
+    }
 
     /**
      * Prepares to scan a file.
      *
      * @param inputFd a file descriptor
      */
-    public fun inputFile(inputFd: Int): Unit = g_scanner_input_file(glibScannerPointer.reinterpret(), inputFd)
+    public fun inputFile(inputFd: gint): Unit = g_scanner_input_file(glibScannerPointer.reinterpret(), inputFd)
 
     /**
      * Prepares to scan a text buffer.
@@ -235,10 +375,8 @@ public class Scanner(
      * @param text the text buffer to scan
      * @param textLen the length of the text buffer
      */
-    public fun inputText(
-        text: String,
-        textLen: UInt,
-    ): Unit = g_scanner_input_text(glibScannerPointer.reinterpret(), text, textLen)
+    public fun inputText(text: String, textLen: guint): Unit =
+        g_scanner_input_text(glibScannerPointer.reinterpret(), text, textLen)
 
     /**
      * Parses the next token, without removing it from the input stream.
@@ -255,10 +393,9 @@ public class Scanner(
      *
      * @return the type of the token
      */
-    public fun peekNextToken(): TokenType =
-        g_scanner_peek_next_token(glibScannerPointer.reinterpret()).run {
-            TokenType.fromNativeValue(this)
-        }
+    public fun peekNextToken(): TokenType = g_scanner_peek_next_token(glibScannerPointer.reinterpret()).run {
+        TokenType.fromNativeValue(this)
+    }
 
     /**
      * Calls the given function for each of the symbol/value pairs
@@ -269,16 +406,12 @@ public class Scanner(
      * @param scopeId the scope id
      * @param func the function to call for each symbol/value pair
      */
-    public fun scopeForeachSymbol(
-        scopeId: UInt,
-        func: HFunc,
-    ): Unit =
-        g_scanner_scope_foreach_symbol(
-            glibScannerPointer.reinterpret(),
-            scopeId,
-            HFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )
+    public fun scopeForeachSymbol(scopeId: guint, func: HFunc): Unit = g_scanner_scope_foreach_symbol(
+        glibScannerPointer.reinterpret(),
+        scopeId,
+        HFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer()
+    )
 
     /**
      * Removes a symbol from a scope.
@@ -286,10 +419,8 @@ public class Scanner(
      * @param scopeId the scope id
      * @param symbol the symbol to remove
      */
-    public fun scopeRemoveSymbol(
-        scopeId: UInt,
-        symbol: String,
-    ): Unit = g_scanner_scope_remove_symbol(glibScannerPointer.reinterpret(), scopeId, symbol)
+    public fun scopeRemoveSymbol(scopeId: guint, symbol: String): Unit =
+        g_scanner_scope_remove_symbol(glibScannerPointer.reinterpret(), scopeId, symbol)
 
     /**
      * Sets the current scope.
@@ -297,7 +428,7 @@ public class Scanner(
      * @param scopeId the new scope id
      * @return the old scope id
      */
-    public fun setScope(scopeId: UInt): UInt = g_scanner_set_scope(glibScannerPointer.reinterpret(), scopeId)
+    public fun setScope(scopeId: guint): guint = g_scanner_set_scope(glibScannerPointer.reinterpret(), scopeId)
 
     /**
      * Rewinds the filedescriptor to the current buffer position
@@ -338,19 +469,35 @@ public class Scanner(
         symbolSpec: String,
         symbolName: String,
         message: String,
-        isError: Int,
-    ): Unit =
-        g_scanner_unexp_token(
-            glibScannerPointer.reinterpret(),
-            expectedToken.nativeValue,
-            identifierSpec,
-            symbolSpec,
-            symbolName,
-            message,
-            isError
-        )
+        isError: gint,
+    ): Unit = g_scanner_unexp_token(
+        glibScannerPointer.reinterpret(),
+        expectedToken.nativeValue,
+        identifierSpec,
+        symbolSpec,
+        symbolName,
+        message,
+        isError
+    )
 
-    public companion object : RecordCompanion<Scanner, GScanner> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Scanner = Scanner(pointer.reinterpret())
+    override fun toString(): String =
+        "Scanner(maxParseErrors=$maxParseErrors, parseErrors=$parseErrors, inputName=$inputName, config=$config, token=$token, line=$line, position=$position, nextToken=$nextToken, nextLine=$nextLine, nextPosition=$nextPosition)"
+
+    public companion object {
+        /**
+         * Creates a new #GScanner.
+         *
+         * The @config_templ structure specifies the initial settings
+         * of the scanner, which are copied into the #GScanner
+         * @config field. If you pass null then the default settings
+         * are used.
+         *
+         * @param configTempl the initial scanner settings
+         * @return the new #GScanner
+         */
+        public fun new(configTempl: ScannerConfig): Scanner =
+            g_scanner_new(configTempl.glibScannerConfigPointer.reinterpret())!!.run {
+                Scanner(reinterpret())
+            }
     }
 }

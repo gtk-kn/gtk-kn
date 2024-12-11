@@ -2,14 +2,14 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.native.gdk.GdkSubpixelLayout
+import org.gtkkn.native.gdk.gdk_subpixel_layout_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * This enumeration describes how the red, green and blue components
  * of physical pixels on an output device are laid out.
  */
-public enum class SubpixelLayout(
-    public val nativeValue: GdkSubpixelLayout,
-) {
+public enum class SubpixelLayout(public val nativeValue: GdkSubpixelLayout) {
     /**
      * The layout is not known
      */
@@ -42,15 +42,21 @@ public enum class SubpixelLayout(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GdkSubpixelLayout): SubpixelLayout =
-            when (nativeValue) {
-                GdkSubpixelLayout.GDK_SUBPIXEL_LAYOUT_UNKNOWN -> UNKNOWN
-                GdkSubpixelLayout.GDK_SUBPIXEL_LAYOUT_NONE -> NONE
-                GdkSubpixelLayout.GDK_SUBPIXEL_LAYOUT_HORIZONTAL_RGB -> HORIZONTAL_RGB
-                GdkSubpixelLayout.GDK_SUBPIXEL_LAYOUT_HORIZONTAL_BGR -> HORIZONTAL_BGR
-                GdkSubpixelLayout.GDK_SUBPIXEL_LAYOUT_VERTICAL_RGB -> VERTICAL_RGB
-                GdkSubpixelLayout.GDK_SUBPIXEL_LAYOUT_VERTICAL_BGR -> VERTICAL_BGR
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GdkSubpixelLayout): SubpixelLayout = when (nativeValue) {
+            GdkSubpixelLayout.GDK_SUBPIXEL_LAYOUT_UNKNOWN -> UNKNOWN
+            GdkSubpixelLayout.GDK_SUBPIXEL_LAYOUT_NONE -> NONE
+            GdkSubpixelLayout.GDK_SUBPIXEL_LAYOUT_HORIZONTAL_RGB -> HORIZONTAL_RGB
+            GdkSubpixelLayout.GDK_SUBPIXEL_LAYOUT_HORIZONTAL_BGR -> HORIZONTAL_BGR
+            GdkSubpixelLayout.GDK_SUBPIXEL_LAYOUT_VERTICAL_RGB -> VERTICAL_RGB
+            GdkSubpixelLayout.GDK_SUBPIXEL_LAYOUT_VERTICAL_BGR -> VERTICAL_BGR
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of SubpixelLayout
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_subpixel_layout_get_type()
     }
 }

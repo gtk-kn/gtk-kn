@@ -32,9 +32,10 @@ import org.gtkkn.native.adw.adw_animation_resume
 import org.gtkkn.native.adw.adw_animation_set_follow_enable_animations_setting
 import org.gtkkn.native.adw.adw_animation_set_target
 import org.gtkkn.native.adw.adw_animation_skip
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gdouble
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.ULong
 import kotlin.Unit
 
@@ -85,9 +86,8 @@ import kotlin.Unit
  * finished, the previous animation should be stopped first, or the existing
  * `AdwAnimation` object can be reused.
  */
-public open class Animation(
-    pointer: CPointer<AdwAnimation>,
-) : Object(pointer.reinterpret()),
+public open class Animation(pointer: CPointer<AdwAnimation>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val adwAnimationPointer: CPointer<AdwAnimation>
         get() = gPointer.reinterpret()
@@ -149,10 +149,9 @@ public open class Animation(
          *
          * @return the animation value
          */
-        get() =
-            adw_animation_get_state(adwAnimationPointer.reinterpret()).run {
-                AnimationState.fromNativeValue(this)
-            }
+        get() = adw_animation_get_state(adwAnimationPointer.reinterpret()).run {
+            AnimationState.fromNativeValue(this)
+        }
 
     /**
      * The target to animate.
@@ -163,10 +162,9 @@ public open class Animation(
          *
          * @return the animation target
          */
-        get() =
-            adw_animation_get_target(adwAnimationPointer.reinterpret())!!.run {
-                AnimationTarget(reinterpret())
-            }
+        get() = adw_animation_get_target(adwAnimationPointer.reinterpret())!!.run {
+            AnimationTarget(reinterpret())
+        }
 
         /**
          * Sets the target @self animates to @target.
@@ -180,7 +178,7 @@ public open class Animation(
     /**
      * The current value of the animation.
      */
-    public open val `value`: Double
+    public open val `value`: gdouble
         /**
          * Gets the current value of @self.
          *
@@ -211,65 +209,7 @@ public open class Animation(
          *
          * @return the animation widget
          */
-        get() =
-            adw_animation_get_widget(adwAnimationPointer.reinterpret())!!.run {
-                Widget(reinterpret())
-            }
-
-    /**
-     * Gets whether @self should be skipped when animations are globally disabled.
-     *
-     * @return whether to follow the global setting
-     * @since 1.3
-     */
-    @AdwVersion1_3
-    public open fun getFollowEnableAnimationsSetting(): Boolean =
-        adw_animation_get_follow_enable_animations_setting(adwAnimationPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the current value of @self.
-     *
-     * The state indicates whether @self is currently playing, paused, finished or
-     * hasn't been started yet.
-     *
-     * @return the animation value
-     */
-    public open fun getState(): AnimationState =
-        adw_animation_get_state(adwAnimationPointer.reinterpret()).run {
-            AnimationState.fromNativeValue(this)
-        }
-
-    /**
-     * Gets the target @self animates.
-     *
-     * @return the animation target
-     */
-    public open fun getTarget(): AnimationTarget =
-        adw_animation_get_target(adwAnimationPointer.reinterpret())!!.run {
-            AnimationTarget(reinterpret())
-        }
-
-    /**
-     * Gets the current value of @self.
-     *
-     * @return the current value
-     */
-    public open fun getValue(): Double = adw_animation_get_value(adwAnimationPointer.reinterpret())
-
-    /**
-     * Gets the widget @self was created for.
-     *
-     * It provides the frame clock for the animation. It's not strictly necessary
-     * for this widget to be same as the one being animated.
-     *
-     * The widget must be mapped in order for the animation to work. If it's not
-     * mapped, or if it gets unmapped during an ongoing animation, the animation
-     * will be automatically skipped.
-     *
-     * @return the animation widget
-     */
-    public open fun getWidget(): Widget =
-        adw_animation_get_widget(adwAnimationPointer.reinterpret())!!.run {
+        get() = adw_animation_get_widget(adwAnimationPointer.reinterpret())!!.run {
             Widget(reinterpret())
         }
 
@@ -319,32 +259,6 @@ public open class Animation(
     public open fun resume(): Unit = adw_animation_resume(adwAnimationPointer.reinterpret())
 
     /**
-     * Sets whether to skip @self when animations are globally disabled.
-     *
-     * The default behavior is to skip the animation. Set to `FALSE` to disable this
-     * behavior.
-     *
-     * This can be useful for cases where animation is essential, like spinners, or
-     * in demo applications. Most other animations should keep it enabled.
-     *
-     * See [property@Gtk.Settings:gtk-enable-animations].
-     *
-     * @param setting whether to follow the global setting
-     * @since 1.3
-     */
-    @AdwVersion1_3
-    public open fun setFollowEnableAnimationsSetting(setting: Boolean): Unit =
-        adw_animation_set_follow_enable_animations_setting(adwAnimationPointer.reinterpret(), setting.asGBoolean())
-
-    /**
-     * Sets the target @self animates to @target.
-     *
-     * @param target an animation target
-     */
-    public open fun setTarget(target: AnimationTarget): Unit =
-        adw_animation_set_target(adwAnimationPointer.reinterpret(), target.adwAnimationTargetPointer.reinterpret())
-
-    /**
      * Skips the animation for @self.
      *
      * If the animation hasn't been started yet, is playing, or is paused, instantly
@@ -362,10 +276,7 @@ public open class Animation(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectDone(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectDone(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "done",
@@ -382,13 +293,20 @@ public open class Animation(
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Animation
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_animation_get_type()
     }
 }
 
-private val connectDoneFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectDoneFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

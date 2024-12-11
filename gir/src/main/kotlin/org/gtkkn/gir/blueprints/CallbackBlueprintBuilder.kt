@@ -48,7 +48,7 @@ class CallbackBlueprintBuilder(
     }
 
     override fun buildInternal(): CallbackBlueprint {
-        if (girCallback.info.introspectable == false) {
+        if (!girCallback.info.shouldBeGenerated()) {
             throw NotIntrospectableException(girCallback.cType ?: girCallback.name)
         }
 
@@ -65,7 +65,7 @@ class CallbackBlueprintBuilder(
         val returnTypeInfo = when (val type = returnValue.type) {
             is GirArrayType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
             is GirType -> try {
-                context.resolveTypeInfo(girNamespace, type, returnValue.isNullable(), isReturnType = true)
+                context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
             } catch (ex: BlueprintException) {
                 throw UnresolvableTypeException("Return type ${type.name} is unsupported")
             }
@@ -92,7 +92,7 @@ class CallbackBlueprintBuilder(
             lambdaTypeName = callbackLambdaTypeName,
             parameters = callbackParameters,
             throws = girCallback.throws == true,
-            exceptionResolvingFunctionMember = exceptionResolvingFunction(),
+            exceptionResolvingFunctionMember = girNamespace.exceptionResolvingFunction(),
             kdoc = context.processKdoc(girCallback.doc?.doc?.text),
             returnTypeKDoc = context.processKdoc(girCallback.returnValue.doc?.doc?.text),
         )

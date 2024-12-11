@@ -1,24 +1,29 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
-import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_12
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_26
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_32
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_42
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_66
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_80
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GValue
 import org.gtkkn.native.gobject.g_value_copy
 import org.gtkkn.native.gobject.g_value_dup_object
+import org.gtkkn.native.gobject.g_value_dup_param
 import org.gtkkn.native.gobject.g_value_dup_string
 import org.gtkkn.native.gobject.g_value_dup_variant
 import org.gtkkn.native.gobject.g_value_fits_pointer
@@ -36,6 +41,7 @@ import org.gtkkn.native.gobject.g_value_get_object
 import org.gtkkn.native.gobject.g_value_get_param
 import org.gtkkn.native.gobject.g_value_get_schar
 import org.gtkkn.native.gobject.g_value_get_string
+import org.gtkkn.native.gobject.g_value_get_type
 import org.gtkkn.native.gobject.g_value_get_uchar
 import org.gtkkn.native.gobject.g_value_get_uint
 import org.gtkkn.native.gobject.g_value_get_uint64
@@ -57,6 +63,7 @@ import org.gtkkn.native.gobject.g_value_set_interned_string
 import org.gtkkn.native.gobject.g_value_set_long
 import org.gtkkn.native.gobject.g_value_set_object
 import org.gtkkn.native.gobject.g_value_set_param
+import org.gtkkn.native.gobject.g_value_set_param_take_ownership
 import org.gtkkn.native.gobject.g_value_set_schar
 import org.gtkkn.native.gobject.g_value_set_static_string
 import org.gtkkn.native.gobject.g_value_set_string
@@ -66,23 +73,29 @@ import org.gtkkn.native.gobject.g_value_set_uint64
 import org.gtkkn.native.gobject.g_value_set_ulong
 import org.gtkkn.native.gobject.g_value_set_variant
 import org.gtkkn.native.gobject.g_value_steal_string
+import org.gtkkn.native.gobject.g_value_take_param
 import org.gtkkn.native.gobject.g_value_take_variant
 import org.gtkkn.native.gobject.g_value_transform
 import org.gtkkn.native.gobject.g_value_type_compatible
 import org.gtkkn.native.gobject.g_value_type_transformable
 import org.gtkkn.native.gobject.g_value_unset
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gint64
+import org.gtkkn.native.gobject.gint8
+import org.gtkkn.native.gobject.glong
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.guint64
+import org.gtkkn.native.gobject.guint8
+import org.gtkkn.native.gobject.gulong
 import kotlin.Boolean
-import kotlin.Byte
 import kotlin.Char
-import kotlin.Double
-import kotlin.Float
-import kotlin.Int
-import kotlin.Long
+import kotlin.Pair
 import kotlin.String
-import kotlin.UByte
-import kotlin.UInt
-import kotlin.ULong
 import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 
 /**
  * An opaque structure used to hold different types of values.
@@ -98,24 +111,53 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
+ * - method `dup_boxed`: Return type gpointer is unsupported
  * - method `get_boxed`: Return type gpointer is unsupported
  * - method `get_pointer`: Return type gpointer is unsupported
  * - method `peek_pointer`: Return type gpointer is unsupported
  * - parameter `v_boxed`: gpointer
  * - parameter `v_boxed`: gpointer
  * - parameter `instance`: gpointer
+ * - parameter `v_object`: gpointer
  * - parameter `v_pointer`: gpointer
  * - parameter `v_boxed`: gpointer
- * - method `set_string_take_ownership`: C function g_value_set_string_take_ownership is ignored
  * - parameter `v_boxed`: gpointer
- * - method `take_string`: C function g_value_take_string is ignored
+ * - parameter `v_object`: gpointer
+ * - parameter `transform_func`: ValueTransform
  * - field `g_type`: Record field g_type is private
  * - field `data`: Fields with arrays are not supported
  */
-public class Value(
-    pointer: CPointer<GValue>,
-) : Record {
+public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gobjectValuePointer: CPointer<GValue> = pointer
+
+    /**
+     * Allocate a new Value.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(
+        nativeHeap.alloc<GValue>().run {
+            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+            ptr to cleaner
+        }
+    )
+
+    /**
+     * Private constructor that unpacks the pair into pointer and cleaner.
+     *
+     * @param pair A pair containing the pointer to Value and a [Cleaner] instance.
+     */
+    private constructor(pair: Pair<CPointer<GValue>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+
+    /**
+     * Allocate a new Value using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GValue>().ptr)
 
     /**
      * Copies the value of @src_value into @dest_value.
@@ -133,10 +175,20 @@ public class Value(
      * @return object content of @value,
      *          should be unreferenced when no longer needed.
      */
-    public fun dupObject(): Object? =
-        g_value_dup_object(gobjectValuePointer.reinterpret())?.run {
-            Object(reinterpret())
-        }
+    public fun dupObject(): Object? = g_value_dup_object(gobjectValuePointer.reinterpret())?.run {
+        Object(reinterpret())
+    }
+
+    /**
+     * Get the contents of a %G_TYPE_PARAM #GValue, increasing its
+     * reference count.
+     *
+     * @return #GParamSpec content of @value, should be
+     *     unreferenced when no longer needed.
+     */
+    public fun dupParam(): ParamSpec = g_value_dup_param(gobjectValuePointer.reinterpret())!!.run {
+        ParamSpec(reinterpret())
+    }
 
     /**
      * Get a copy the contents of a %G_TYPE_STRING #GValue.
@@ -154,10 +206,9 @@ public class Value(
      * @since 2.26
      */
     @GObjectVersion2_26
-    public fun dupVariant(): Variant? =
-        g_value_dup_variant(gobjectValuePointer.reinterpret())?.run {
-            Variant(reinterpret())
-        }
+    public fun dupVariant(): Variant? = g_value_dup_variant(gobjectValuePointer.reinterpret())?.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Determines if @value will fit inside the size of a pointer value.
@@ -189,28 +240,28 @@ public class Value(
      *
      * @return double contents of @value
      */
-    public fun getDouble(): Double = g_value_get_double(gobjectValuePointer.reinterpret())
+    public fun getDouble(): gdouble = g_value_get_double(gobjectValuePointer.reinterpret())
 
     /**
      * Get the contents of a %G_TYPE_ENUM #GValue.
      *
      * @return enum contents of @value
      */
-    public fun getEnum(): Int = g_value_get_enum(gobjectValuePointer.reinterpret())
+    public fun getEnum(): gint = g_value_get_enum(gobjectValuePointer.reinterpret())
 
     /**
      * Get the contents of a %G_TYPE_FLAGS #GValue.
      *
      * @return flags contents of @value
      */
-    public fun getFlags(): UInt = g_value_get_flags(gobjectValuePointer.reinterpret())
+    public fun getFlags(): guint = g_value_get_flags(gobjectValuePointer.reinterpret())
 
     /**
      * Get the contents of a %G_TYPE_FLOAT #GValue.
      *
      * @return float contents of @value
      */
-    public fun getFloat(): Float = g_value_get_float(gobjectValuePointer.reinterpret())
+    public fun getFloat(): gfloat = g_value_get_float(gobjectValuePointer.reinterpret())
 
     /**
      * Get the contents of a %G_TYPE_GTYPE #GValue.
@@ -219,48 +270,46 @@ public class Value(
      * @since 2.12
      */
     @GObjectVersion2_12
-    public fun getGtype(): ULong = g_value_get_gtype(gobjectValuePointer.reinterpret())
+    public fun getGtype(): GType = g_value_get_gtype(gobjectValuePointer.reinterpret())
 
     /**
      * Get the contents of a %G_TYPE_INT #GValue.
      *
      * @return integer contents of @value
      */
-    public fun getInt(): Int = g_value_get_int(gobjectValuePointer.reinterpret())
+    public fun getInt(): gint = g_value_get_int(gobjectValuePointer.reinterpret())
 
     /**
      * Get the contents of a %G_TYPE_INT64 #GValue.
      *
      * @return 64bit integer contents of @value
      */
-    public fun getInt64(): Long = g_value_get_int64(gobjectValuePointer.reinterpret())
+    public fun getInt64(): gint64 = g_value_get_int64(gobjectValuePointer.reinterpret())
 
     /**
      * Get the contents of a %G_TYPE_LONG #GValue.
      *
      * @return long integer contents of @value
      */
-    public fun getLong(): Long = g_value_get_long(gobjectValuePointer.reinterpret())
+    public fun getLong(): glong = g_value_get_long(gobjectValuePointer.reinterpret())
 
     /**
      * Get the contents of a %G_TYPE_OBJECT derived #GValue.
      *
      * @return object contents of @value
      */
-    public fun getObject(): Object? =
-        g_value_get_object(gobjectValuePointer.reinterpret())?.run {
-            Object(reinterpret())
-        }
+    public fun getObject(): Object? = g_value_get_object(gobjectValuePointer.reinterpret())?.run {
+        Object(reinterpret())
+    }
 
     /**
      * Get the contents of a %G_TYPE_PARAM #GValue.
      *
      * @return #GParamSpec content of @value
      */
-    public fun getParam(): ParamSpec =
-        g_value_get_param(gobjectValuePointer.reinterpret())!!.run {
-            ParamSpec(reinterpret())
-        }
+    public fun getParam(): ParamSpec = g_value_get_param(gobjectValuePointer.reinterpret())!!.run {
+        ParamSpec(reinterpret())
+    }
 
     /**
      * Get the contents of a %G_TYPE_CHAR #GValue.
@@ -269,7 +318,7 @@ public class Value(
      * @since 2.32
      */
     @GObjectVersion2_32
-    public fun getSchar(): Byte = g_value_get_schar(gobjectValuePointer.reinterpret())
+    public fun getSchar(): gint8 = g_value_get_schar(gobjectValuePointer.reinterpret())
 
     /**
      * Get the contents of a %G_TYPE_STRING #GValue.
@@ -283,28 +332,28 @@ public class Value(
      *
      * @return unsigned character contents of @value
      */
-    public fun getUchar(): UByte = g_value_get_uchar(gobjectValuePointer.reinterpret())
+    public fun getUchar(): guint8 = g_value_get_uchar(gobjectValuePointer.reinterpret())
 
     /**
      * Get the contents of a %G_TYPE_UINT #GValue.
      *
      * @return unsigned integer contents of @value
      */
-    public fun getUint(): UInt = g_value_get_uint(gobjectValuePointer.reinterpret())
+    public fun getUint(): guint = g_value_get_uint(gobjectValuePointer.reinterpret())
 
     /**
      * Get the contents of a %G_TYPE_UINT64 #GValue.
      *
      * @return unsigned 64bit integer contents of @value
      */
-    public fun getUint64(): ULong = g_value_get_uint64(gobjectValuePointer.reinterpret())
+    public fun getUint64(): guint64 = g_value_get_uint64(gobjectValuePointer.reinterpret())
 
     /**
      * Get the contents of a %G_TYPE_ULONG #GValue.
      *
      * @return unsigned long integer contents of @value
      */
-    public fun getUlong(): ULong = g_value_get_ulong(gobjectValuePointer.reinterpret())
+    public fun getUlong(): gulong = g_value_get_ulong(gobjectValuePointer.reinterpret())
 
     /**
      * Get the contents of a variant #GValue.
@@ -313,10 +362,9 @@ public class Value(
      * @since 2.26
      */
     @GObjectVersion2_26
-    public fun getVariant(): Variant? =
-        g_value_get_variant(gobjectValuePointer.reinterpret())?.run {
-            Variant(reinterpret())
-        }
+    public fun getVariant(): Variant? = g_value_get_variant(gobjectValuePointer.reinterpret())?.run {
+        Variant(reinterpret())
+    }
 
     /**
      * Initializes @value with the default value of @type.
@@ -324,10 +372,9 @@ public class Value(
      * @param gType Type the #GValue should hold values of.
      * @return the #GValue structure that has been passed in
      */
-    public fun `init`(gType: ULong): Value =
-        g_value_init(gobjectValuePointer.reinterpret(), gType)!!.run {
-            Value(reinterpret())
-        }
+    public fun `init`(gType: GType): Value = g_value_init(gobjectValuePointer.reinterpret(), gType)!!.run {
+        Value(reinterpret())
+    }
 
     /**
      * Initializes and sets @value from an instantiatable type via the
@@ -351,10 +398,9 @@ public class Value(
      *
      * @return the #GValue structure that has been passed in
      */
-    public fun reset(): Value =
-        g_value_reset(gobjectValuePointer.reinterpret())!!.run {
-            Value(reinterpret())
-        }
+    public fun reset(): Value = g_value_reset(gobjectValuePointer.reinterpret())!!.run {
+        Value(reinterpret())
+    }
 
     /**
      * Set the contents of a %G_TYPE_BOOLEAN #GValue to @v_boolean.
@@ -376,28 +422,28 @@ public class Value(
      *
      * @param vDouble double value to be set
      */
-    public fun setDouble(vDouble: Double): Unit = g_value_set_double(gobjectValuePointer.reinterpret(), vDouble)
+    public fun setDouble(vDouble: gdouble): Unit = g_value_set_double(gobjectValuePointer.reinterpret(), vDouble)
 
     /**
      * Set the contents of a %G_TYPE_ENUM #GValue to @v_enum.
      *
      * @param vEnum enum value to be set
      */
-    public fun setEnum(vEnum: Int): Unit = g_value_set_enum(gobjectValuePointer.reinterpret(), vEnum)
+    public fun setEnum(vEnum: gint): Unit = g_value_set_enum(gobjectValuePointer.reinterpret(), vEnum)
 
     /**
      * Set the contents of a %G_TYPE_FLAGS #GValue to @v_flags.
      *
      * @param vFlags flags value to be set
      */
-    public fun setFlags(vFlags: UInt): Unit = g_value_set_flags(gobjectValuePointer.reinterpret(), vFlags)
+    public fun setFlags(vFlags: guint): Unit = g_value_set_flags(gobjectValuePointer.reinterpret(), vFlags)
 
     /**
      * Set the contents of a %G_TYPE_FLOAT #GValue to @v_float.
      *
      * @param vFloat float value to be set
      */
-    public fun setFloat(vFloat: Float): Unit = g_value_set_float(gobjectValuePointer.reinterpret(), vFloat)
+    public fun setFloat(vFloat: gfloat): Unit = g_value_set_float(gobjectValuePointer.reinterpret(), vFloat)
 
     /**
      * Set the contents of a %G_TYPE_GTYPE #GValue to @v_gtype.
@@ -406,21 +452,21 @@ public class Value(
      * @since 2.12
      */
     @GObjectVersion2_12
-    public fun setGtype(vGtype: ULong): Unit = g_value_set_gtype(gobjectValuePointer.reinterpret(), vGtype)
+    public fun setGtype(vGtype: GType): Unit = g_value_set_gtype(gobjectValuePointer.reinterpret(), vGtype)
 
     /**
      * Set the contents of a %G_TYPE_INT #GValue to @v_int.
      *
      * @param vInt integer value to be set
      */
-    public fun setInt(vInt: Int): Unit = g_value_set_int(gobjectValuePointer.reinterpret(), vInt)
+    public fun setInt(vInt: gint): Unit = g_value_set_int(gobjectValuePointer.reinterpret(), vInt)
 
     /**
      * Set the contents of a %G_TYPE_INT64 #GValue to @v_int64.
      *
      * @param vInt64 64bit integer value to be set
      */
-    public fun setInt64(vInt64: Long): Unit = g_value_set_int64(gobjectValuePointer.reinterpret(), vInt64)
+    public fun setInt64(vInt64: gint64): Unit = g_value_set_int64(gobjectValuePointer.reinterpret(), vInt64)
 
     /**
      * Set the contents of a %G_TYPE_STRING #GValue to @v_string.  The string is
@@ -439,7 +485,7 @@ public class Value(
      *
      * @param vLong long integer value to be set
      */
-    public fun setLong(vLong: Long): Unit = g_value_set_long(gobjectValuePointer.reinterpret(), vLong)
+    public fun setLong(vLong: glong): Unit = g_value_set_long(gobjectValuePointer.reinterpret(), vLong)
 
     /**
      * Set the contents of a %G_TYPE_OBJECT derived #GValue to @v_object.
@@ -468,13 +514,21 @@ public class Value(
         g_value_set_param(gobjectValuePointer.reinterpret(), `param`?.gPointer?.reinterpret())
 
     /**
+     * This is an internal function introduced mainly for C marshallers.
+     *
+     * @param param the #GParamSpec to be set
+     */
+    public fun setParamTakeOwnership(`param`: ParamSpec? = null): Unit =
+        g_value_set_param_take_ownership(gobjectValuePointer.reinterpret(), `param`?.gPointer?.reinterpret())
+
+    /**
      * Set the contents of a %G_TYPE_CHAR #GValue to @v_char.
      *
      * @param vChar signed 8 bit integer to be set
      * @since 2.32
      */
     @GObjectVersion2_32
-    public fun setSchar(vChar: Byte): Unit = g_value_set_schar(gobjectValuePointer.reinterpret(), vChar)
+    public fun setSchar(vChar: gint8): Unit = g_value_set_schar(gobjectValuePointer.reinterpret(), vChar)
 
     /**
      * Set the contents of a %G_TYPE_STRING #GValue to @v_string.
@@ -501,28 +555,28 @@ public class Value(
      *
      * @param vUchar unsigned character value to be set
      */
-    public fun setUchar(vUchar: UByte): Unit = g_value_set_uchar(gobjectValuePointer.reinterpret(), vUchar)
+    public fun setUchar(vUchar: guint8): Unit = g_value_set_uchar(gobjectValuePointer.reinterpret(), vUchar)
 
     /**
      * Set the contents of a %G_TYPE_UINT #GValue to @v_uint.
      *
      * @param vUint unsigned integer value to be set
      */
-    public fun setUint(vUint: UInt): Unit = g_value_set_uint(gobjectValuePointer.reinterpret(), vUint)
+    public fun setUint(vUint: guint): Unit = g_value_set_uint(gobjectValuePointer.reinterpret(), vUint)
 
     /**
      * Set the contents of a %G_TYPE_UINT64 #GValue to @v_uint64.
      *
      * @param vUint64 unsigned 64bit integer value to be set
      */
-    public fun setUint64(vUint64: ULong): Unit = g_value_set_uint64(gobjectValuePointer.reinterpret(), vUint64)
+    public fun setUint64(vUint64: guint64): Unit = g_value_set_uint64(gobjectValuePointer.reinterpret(), vUint64)
 
     /**
      * Set the contents of a %G_TYPE_ULONG #GValue to @v_ulong.
      *
      * @param vUlong unsigned long integer value to be set
      */
-    public fun setUlong(vUlong: ULong): Unit = g_value_set_ulong(gobjectValuePointer.reinterpret(), vUlong)
+    public fun setUlong(vUlong: gulong): Unit = g_value_set_ulong(gobjectValuePointer.reinterpret(), vUlong)
 
     /**
      * Set the contents of a variant #GValue to @variant.
@@ -551,8 +605,19 @@ public class Value(
      * @since 2.80
      */
     @GObjectVersion2_80
-    public fun stealString(): String =
-        g_value_steal_string(gobjectValuePointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun stealString(): String? = g_value_steal_string(gobjectValuePointer.reinterpret())?.toKString()
+
+    /**
+     * Sets the contents of a %G_TYPE_PARAM #GValue to @param and takes
+     * over the ownership of the caller’s reference to @param; the caller
+     * doesn’t have to unref it any more.
+     *
+     * @param param the #GParamSpec to be set
+     * @since 2.4
+     */
+    @GObjectVersion2_4
+    public fun takeParam(`param`: ParamSpec? = null): Unit =
+        g_value_take_param(gobjectValuePointer.reinterpret(), `param`?.gPointer?.reinterpret())
 
     /**
      * Set the contents of a variant #GValue to @variant, and takes over
@@ -599,7 +664,9 @@ public class Value(
      */
     public fun unset(): Unit = g_value_unset(gobjectValuePointer.reinterpret())
 
-    public companion object : RecordCompanion<Value, GValue> {
+    override fun toString(): String = GObject.strdupValueContents(this)
+
+    public companion object {
         /**
          * Returns whether a #GValue of type @src_type can be copied into
          * a #GValue of type @dest_type.
@@ -608,10 +675,8 @@ public class Value(
          * @param destType destination type for copying.
          * @return true if g_value_copy() is possible with @src_type and @dest_type.
          */
-        public fun typeCompatible(
-            srcType: ULong,
-            destType: ULong,
-        ): Boolean = g_value_type_compatible(srcType, destType).asBoolean()
+        public fun typeCompatible(srcType: GType, destType: GType): Boolean =
+            g_value_type_compatible(srcType, destType).asBoolean()
 
         /**
          * Check whether g_value_transform() is able to transform values
@@ -623,11 +688,14 @@ public class Value(
          * @param destType Target type.
          * @return true if the transformation is possible, false otherwise.
          */
-        public fun typeTransformable(
-            srcType: ULong,
-            destType: ULong,
-        ): Boolean = g_value_type_transformable(srcType, destType).asBoolean()
+        public fun typeTransformable(srcType: GType, destType: GType): Boolean =
+            g_value_type_transformable(srcType, destType).asBoolean()
 
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Value = Value(pointer.reinterpret())
+        /**
+         * Get the GType of Value
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_value_get_type()
     }
 }

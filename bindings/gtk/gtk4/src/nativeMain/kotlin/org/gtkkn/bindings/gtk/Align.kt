@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAlign
+import org.gtkkn.native.gtk.gtk_align_get_type
 
 /**
  * Controls how a widget deals with extra space in a single dimension.
@@ -21,9 +23,7 @@ import org.gtkkn.native.gtk.GtkAlign
  * are treated similar to `GTK_ALIGN_CENTER` and `GTK_ALIGN_FILL`, except that it
  * positions the widget to line up the baselines, where that is supported.
  */
-public enum class Align(
-    public val nativeValue: GtkAlign,
-) {
+public enum class Align(public val nativeValue: GtkAlign) {
     /**
      * stretch to fill all space if possible, center if
      *   no meaningful way to stretch
@@ -64,16 +64,22 @@ public enum class Align(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkAlign): Align =
-            when (nativeValue) {
-                GtkAlign.GTK_ALIGN_FILL -> FILL
-                GtkAlign.GTK_ALIGN_START -> START
-                GtkAlign.GTK_ALIGN_END -> END
-                GtkAlign.GTK_ALIGN_CENTER -> CENTER
-                GtkAlign.GTK_ALIGN_BASELINE_FILL -> BASELINE_FILL
-                GtkAlign.GTK_ALIGN_BASELINE -> BASELINE
-                GtkAlign.GTK_ALIGN_BASELINE_CENTER -> BASELINE_CENTER
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkAlign): Align = when (nativeValue) {
+            GtkAlign.GTK_ALIGN_FILL -> FILL
+            GtkAlign.GTK_ALIGN_START -> START
+            GtkAlign.GTK_ALIGN_END -> END
+            GtkAlign.GTK_ALIGN_CENTER -> CENTER
+            GtkAlign.GTK_ALIGN_BASELINE_FILL -> BASELINE_FILL
+            GtkAlign.GTK_ALIGN_BASELINE -> BASELINE
+            GtkAlign.GTK_ALIGN_BASELINE_CENTER -> BASELINE_CENTER
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of Align
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_align_get_type()
     }
 }

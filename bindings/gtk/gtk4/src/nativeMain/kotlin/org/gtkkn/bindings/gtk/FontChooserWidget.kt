@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -37,9 +38,8 @@ import org.gtkkn.native.gtk.gtk_font_chooser_widget_new
  *
  * - method `tweak-action`: Property has no getter nor setter
  */
-public open class FontChooserWidget(
-    pointer: CPointer<GtkFontChooserWidget>,
-) : Widget(pointer.reinterpret()),
+public open class FontChooserWidget(pointer: CPointer<GtkFontChooserWidget>) :
+    Widget(pointer.reinterpret()),
     FontChooser,
     KGTyped {
     public val gtkFontChooserWidgetPointer: CPointer<GtkFontChooserWidget>
@@ -71,5 +71,12 @@ public open class FontChooserWidget(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of FontChooserWidget
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_font_chooser_widget_get_type()
     }
 }

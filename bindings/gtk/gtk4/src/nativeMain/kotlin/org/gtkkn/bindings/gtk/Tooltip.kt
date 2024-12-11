@@ -10,6 +10,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkTooltip
 import org.gtkkn.native.gtk.gtk_tooltip_get_type
 import org.gtkkn.native.gtk.gtk_tooltip_set_custom
@@ -51,9 +52,8 @@ import kotlin.Unit
  * - Return true from your ::query-tooltip handler. This causes the tooltip
  *   to be show. If you return false, it will not be shown.
  */
-public open class Tooltip(
-    pointer: CPointer<GtkTooltip>,
-) : Object(pointer.reinterpret()),
+public open class Tooltip(pointer: CPointer<GtkTooltip>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkTooltipPointer: CPointer<GtkTooltip>
         get() = gPointer.reinterpret()
@@ -143,5 +143,12 @@ public open class Tooltip(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Tooltip
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_tooltip_get_type()
     }
 }

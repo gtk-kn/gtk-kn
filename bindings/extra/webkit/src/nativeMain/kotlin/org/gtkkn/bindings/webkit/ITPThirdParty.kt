@@ -1,17 +1,17 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_30
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitITPThirdParty
 import org.gtkkn.native.webkit.webkit_itp_third_party_get_domain
 import org.gtkkn.native.webkit.webkit_itp_third_party_get_first_parties
+import org.gtkkn.native.webkit.webkit_itp_third_party_get_type
 import org.gtkkn.native.webkit.webkit_itp_third_party_ref
 import org.gtkkn.native.webkit.webkit_itp_third_party_unref
 import kotlin.String
@@ -22,9 +22,7 @@ import kotlin.Unit
  * @since 2.30
  */
 @WebKitVersion2_30
-public class ITPThirdParty(
-    pointer: CPointer<WebKitITPThirdParty>,
-) : Record {
+public class ITPThirdParty(pointer: CPointer<WebKitITPThirdParty>) : ProxyInstance(pointer) {
     public val webkitITPThirdPartyPointer: CPointer<WebKitITPThirdParty> = pointer
 
     /**
@@ -59,10 +57,9 @@ public class ITPThirdParty(
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun ref(): ITPThirdParty =
-        webkit_itp_third_party_ref(webkitITPThirdPartyPointer.reinterpret())!!.run {
-            ITPThirdParty(reinterpret())
-        }
+    public fun ref(): ITPThirdParty = webkit_itp_third_party_ref(webkitITPThirdPartyPointer.reinterpret())!!.run {
+        ITPThirdParty(reinterpret())
+    }
 
     /**
      * Atomically decrements the reference count of @itp_third_party by one.
@@ -76,8 +73,12 @@ public class ITPThirdParty(
     @WebKitVersion2_30
     public fun unref(): Unit = webkit_itp_third_party_unref(webkitITPThirdPartyPointer.reinterpret())
 
-    public companion object : RecordCompanion<ITPThirdParty, WebKitITPThirdParty> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ITPThirdParty =
-            ITPThirdParty(pointer.reinterpret())
+    public companion object {
+        /**
+         * Get the GType of ITPThirdParty
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_itp_third_party_get_type()
     }
 }

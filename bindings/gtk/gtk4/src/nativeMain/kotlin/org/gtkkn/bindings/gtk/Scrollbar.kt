@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -65,9 +66,8 @@ import kotlin.Unit
  *
  * - method `adjustment`: Property TypeInfo of getter and setter do not match
  */
-public open class Scrollbar(
-    pointer: CPointer<GtkScrollbar>,
-) : Widget(pointer.reinterpret()),
+public open class Scrollbar(pointer: CPointer<GtkScrollbar>) :
+    Widget(pointer.reinterpret()),
     Orientable,
     KGTyped {
     public val gtkScrollbarPointer: CPointer<GtkScrollbar>
@@ -125,5 +125,12 @@ public open class Scrollbar(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Scrollbar
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_scrollbar_get_type()
     }
 }

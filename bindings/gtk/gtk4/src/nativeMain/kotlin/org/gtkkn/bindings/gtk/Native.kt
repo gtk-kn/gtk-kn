@@ -9,6 +9,7 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkNative
 import org.gtkkn.native.gtk.gtk_native_get_for_surface
 import org.gtkkn.native.gtk.gtk_native_get_renderer
@@ -49,38 +50,34 @@ public interface Native :
      *
      * @return the renderer for @self
      */
-    public fun getRenderer(): Renderer? =
-        gtk_native_get_renderer(gtkNativePointer.reinterpret())?.run {
-            Renderer(reinterpret())
-        }
+    public fun getRenderer(): Renderer? = gtk_native_get_renderer(gtkNativePointer.reinterpret())?.run {
+        Renderer(reinterpret())
+    }
 
     /**
      * Returns the surface of this `GtkNative`.
      *
      * @return the surface of @self
      */
-    public fun getSurface(): Surface? =
-        gtk_native_get_surface(gtkNativePointer.reinterpret())?.run {
-            Surface(reinterpret())
-        }
+    public fun getSurface(): Surface? = gtk_native_get_surface(gtkNativePointer.reinterpret())?.run {
+        Surface(reinterpret())
+    }
 
     /**
      * Realizes a `GtkNative`.
      *
      * This should only be used by subclasses.
      */
-    public fun realize_(): Unit = gtk_native_realize(gtkNativePointer.reinterpret())
+    public fun nativeRealize(): Unit = gtk_native_realize(gtkNativePointer.reinterpret())
 
     /**
      * Unrealizes a `GtkNative`.
      *
      * This should only be used by subclasses.
      */
-    public fun unrealize_(): Unit = gtk_native_unrealize(gtkNativePointer.reinterpret())
+    public fun nativeUnrealize(): Unit = gtk_native_unrealize(gtkNativePointer.reinterpret())
 
-    private data class Wrapper(
-        private val pointer: CPointer<GtkNative>,
-    ) : Native {
+    private data class Wrapper(private val pointer: CPointer<GtkNative>) : Native {
         override val gtkNativePointer: CPointer<GtkNative> = pointer
     }
 
@@ -104,5 +101,12 @@ public interface Native :
             gtk_native_get_for_surface(surface.gdkSurfacePointer.reinterpret())?.run {
                 Native.wrap(reinterpret())
             }
+
+        /**
+         * Get the GType of Native
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_native_get_type()
     }
 }

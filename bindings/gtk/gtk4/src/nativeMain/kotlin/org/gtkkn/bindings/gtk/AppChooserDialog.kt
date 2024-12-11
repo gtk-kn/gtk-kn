@@ -8,6 +8,7 @@ import org.gtkkn.bindings.gio.File
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAppChooser
 import org.gtkkn.native.gtk.GtkAppChooserDialog
@@ -49,9 +50,8 @@ import kotlin.Unit
  * - method `gfile`: Property has no getter nor setter
  * - method `heading`: Property TypeInfo of getter and setter do not match
  */
-public open class AppChooserDialog(
-    pointer: CPointer<GtkAppChooserDialog>,
-) : Dialog(pointer.reinterpret()),
+public open class AppChooserDialog(pointer: CPointer<GtkAppChooserDialog>) :
+    Dialog(pointer.reinterpret()),
     AppChooser,
     KGTyped {
     public val gtkAppChooserDialogPointer: CPointer<GtkAppChooserDialog>
@@ -158,5 +158,12 @@ public open class AppChooserDialog(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of AppChooserDialog
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_app_chooser_dialog_get_type()
     }
 }

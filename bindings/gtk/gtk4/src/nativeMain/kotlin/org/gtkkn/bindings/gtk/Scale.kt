@@ -9,6 +9,9 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAccessibleRange
 import org.gtkkn.native.gtk.GtkBuildable
@@ -30,8 +33,6 @@ import org.gtkkn.native.gtk.gtk_scale_set_draw_value
 import org.gtkkn.native.gtk.gtk_scale_set_has_origin
 import org.gtkkn.native.gtk.gtk_scale_set_value_pos
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 
@@ -122,9 +123,8 @@ import kotlin.Unit
  * - parameter `x`: x: Out parameter is not supported
  * - method `set_format_value_func`: C Type GtkScaleFormatValueFunc is ignored
  */
-public open class Scale(
-    pointer: CPointer<GtkScale>,
-) : Range(pointer.reinterpret()),
+public open class Scale(pointer: CPointer<GtkScale>) :
+    Range(pointer.reinterpret()),
     KGTyped {
     public val gtkScalePointer: CPointer<GtkScale>
         get() = gPointer.reinterpret()
@@ -147,7 +147,7 @@ public open class Scale(
     /**
      * The number of decimal places that are displayed in the value.
      */
-    public open var digits: Int
+    public open var digits: gint
         /**
          * Gets the number of decimal places that are displayed in the value.
          *
@@ -225,10 +225,9 @@ public open class Scale(
          *
          * @return the position in which the current value is displayed
          */
-        get() =
-            gtk_scale_get_value_pos(gtkScalePointer.reinterpret()).run {
-                PositionType.fromNativeValue(this)
-            }
+        get() = gtk_scale_get_value_pos(gtkScalePointer.reinterpret()).run {
+            PositionType.fromNativeValue(this)
+        }
 
         /**
          * Sets the position in which the current value is displayed.
@@ -271,9 +270,9 @@ public open class Scale(
      */
     public constructor(
         orientation: Orientation,
-        min: Double,
-        max: Double,
-        step: Double,
+        min: gdouble,
+        max: gdouble,
+        step: gdouble,
     ) : this(gtk_scale_new_with_range(orientation.nativeValue, min, max, step)!!.reinterpret())
 
     /**
@@ -295,38 +294,13 @@ public open class Scale(
      *   the left of the scale, anything else to the right.
      * @param markup Text to be shown at the mark, using Pango markup
      */
-    public open fun addMark(
-        `value`: Double,
-        position: PositionType,
-        markup: String? = null,
-    ): Unit = gtk_scale_add_mark(gtkScalePointer.reinterpret(), `value`, position.nativeValue, markup)
+    public open fun addMark(`value`: gdouble, position: PositionType, markup: String? = null): Unit =
+        gtk_scale_add_mark(gtkScalePointer.reinterpret(), `value`, position.nativeValue, markup)
 
     /**
      * Removes any marks that have been added.
      */
     public open fun clearMarks(): Unit = gtk_scale_clear_marks(gtkScalePointer.reinterpret())
-
-    /**
-     * Gets the number of decimal places that are displayed in the value.
-     *
-     * @return the number of decimal places that are displayed
-     */
-    public open fun getDigits(): Int = gtk_scale_get_digits(gtkScalePointer.reinterpret())
-
-    /**
-     * Returns whether the current value is displayed as a string
-     * next to the slider.
-     *
-     * @return whether the current value is displayed as a string
-     */
-    public open fun getDrawValue(): Boolean = gtk_scale_get_draw_value(gtkScalePointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns whether the scale has an origin.
-     *
-     * @return true if the scale has an origin.
-     */
-    public open fun getHasOrigin(): Boolean = gtk_scale_get_has_origin(gtkScalePointer.reinterpret()).asBoolean()
 
     /**
      * Gets the `PangoLayout` used to display the scale.
@@ -338,68 +312,9 @@ public open class Scale(
      *   for this scale, or null if the [property@Gtk.Scale:draw-value]
      *   property is false.
      */
-    public open fun getLayout(): Layout? =
-        gtk_scale_get_layout(gtkScalePointer.reinterpret())?.run {
-            Layout(reinterpret())
-        }
-
-    /**
-     * Gets the position in which the current value is displayed.
-     *
-     * @return the position in which the current value is displayed
-     */
-    public open fun getValuePos(): PositionType =
-        gtk_scale_get_value_pos(gtkScalePointer.reinterpret()).run {
-            PositionType.fromNativeValue(this)
-        }
-
-    /**
-     * Sets the number of decimal places that are displayed in the value.
-     *
-     * Also causes the value of the adjustment to be rounded to this number
-     * of digits, so the retrieved value matches the displayed one, if
-     * [property@Gtk.Scale:draw-value] is true when the value changes. If
-     * you want to enforce rounding the value when [property@Gtk.Scale:draw-value]
-     * is false, you can set [property@Gtk.Range:round-digits] instead.
-     *
-     * Note that rounding to a small number of digits can interfere with
-     * the smooth autoscrolling that is built into `GtkScale`. As an alternative,
-     * you can use [method@Gtk.Scale.set_format_value_func] to format the displayed
-     * value yourself.
-     *
-     * @param digits the number of decimal places to display,
-     *   e.g. use 1 to display 1.0, 2 to display 1.00, etc
-     */
-    public open fun setDigits(digits: Int): Unit = gtk_scale_set_digits(gtkScalePointer.reinterpret(), digits)
-
-    /**
-     * Specifies whether the current value is displayed as a string next
-     * to the slider.
-     *
-     * @param drawValue true to draw the value
-     */
-    public open fun setDrawValue(drawValue: Boolean): Unit =
-        gtk_scale_set_draw_value(gtkScalePointer.reinterpret(), drawValue.asGBoolean())
-
-    /**
-     * Sets whether the scale has an origin.
-     *
-     * If [property@Gtk.Scale:has-origin] is set to true (the default),
-     * the scale will highlight the part of the trough between the origin
-     * (bottom or left side) and the current value.
-     *
-     * @param hasOrigin true if the scale has an origin
-     */
-    public open fun setHasOrigin(hasOrigin: Boolean): Unit =
-        gtk_scale_set_has_origin(gtkScalePointer.reinterpret(), hasOrigin.asGBoolean())
-
-    /**
-     * Sets the position in which the current value is displayed.
-     *
-     * @param pos the position in which the current value is displayed
-     */
-    public open fun setValuePos(pos: PositionType): Unit =
-        gtk_scale_set_value_pos(gtkScalePointer.reinterpret(), pos.nativeValue)
+    public open fun getLayout(): Layout? = gtk_scale_get_layout(gtkScalePointer.reinterpret())?.run {
+        Layout(reinterpret())
+    }
 
     public companion object : TypeCompanion<Scale> {
         override val type: GeneratedClassKGType<Scale> =
@@ -408,5 +323,12 @@ public open class Scale(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Scale
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_scale_get_type()
     }
 }

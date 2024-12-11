@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_40
 import org.gtkkn.native.gio.GTlsCertificateRequestFlags
+import org.gtkkn.native.gio.g_tls_certificate_request_flags_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Flags for g_tls_interaction_request_certificate(),
@@ -11,9 +13,7 @@ import org.gtkkn.native.gio.GTlsCertificateRequestFlags
  * @since 2.40
  */
 @GioVersion2_40
-public enum class TlsCertificateRequestFlags(
-    public val nativeValue: GTlsCertificateRequestFlags,
-) {
+public enum class TlsCertificateRequestFlags(public val nativeValue: GTlsCertificateRequestFlags) {
     /**
      * No flags
      */
@@ -26,5 +26,12 @@ public enum class TlsCertificateRequestFlags(
                 GTlsCertificateRequestFlags.G_TLS_CERTIFICATE_REQUEST_NONE -> NONE
                 else -> error("invalid nativeValue")
             }
+
+        /**
+         * Get the GType of TlsCertificateRequestFlags
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_tls_certificate_request_flags_get_type()
     }
 }

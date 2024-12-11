@@ -23,7 +23,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.DisposableHandle
 import kotlinx.coroutines.MainCoroutineDispatcher
 import kotlinx.coroutines.Runnable
-import org.gtkkn.bindings.glib.Glib
+import org.gtkkn.bindings.glib.GLib
+import org.gtkkn.bindings.glib.MainContext
+import org.gtkkn.bindings.glib.Source
 import org.gtkkn.native.glib.G_PRIORITY_HIGH_IDLE
 import kotlin.coroutines.CoroutineContext
 
@@ -89,7 +91,7 @@ public object GtkDispatcher : MainCoroutineDispatcher(), Delay {
         get() = this
 
     override fun dispatch(context: CoroutineContext, block: Runnable) {
-        Glib.idleAdd(
+        GLib.idleAdd(
             priority = G_PRIORITY_HIGH_IDLE,
             function = {
                 block.run()
@@ -102,7 +104,7 @@ public object GtkDispatcher : MainCoroutineDispatcher(), Delay {
         timeMillis: Long,
         continuation: CancellableContinuation<Unit>,
     ) {
-        val sourceId = Glib.timeoutAdd(
+        val sourceId = GLib.timeoutAdd(
             priority = G_PRIORITY_HIGH_IDLE,
             interval = timeMillis.toUInt(),
             function = {
@@ -111,7 +113,7 @@ public object GtkDispatcher : MainCoroutineDispatcher(), Delay {
             },
         )
         continuation.invokeOnCancellation {
-            Glib.sourceRemove(sourceId)
+            Source.remove(sourceId)
         }
     }
 
@@ -120,7 +122,7 @@ public object GtkDispatcher : MainCoroutineDispatcher(), Delay {
         block: Runnable,
         context: CoroutineContext,
     ): DisposableHandle {
-        val sourceId = Glib.timeoutAdd(
+        val sourceId = GLib.timeoutAdd(
             priority = G_PRIORITY_HIGH_IDLE,
             interval = timeMillis.toUInt(),
             function = {
@@ -129,13 +131,13 @@ public object GtkDispatcher : MainCoroutineDispatcher(), Delay {
             },
         )
         return DisposableHandle {
-            Glib.sourceRemove(sourceId)
+            Source.remove(sourceId)
         }
     }
 
     override fun isDispatchNeeded(context: CoroutineContext): Boolean =
         // Only dispatch if not already on the GTK main thread
-        !Glib.mainContextDefault().isOwner()
+        !MainContext.default().isOwner()
 
     override fun toString(): String = "GtkDispatcher"
 }

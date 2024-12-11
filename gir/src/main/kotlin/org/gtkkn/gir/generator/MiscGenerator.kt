@@ -16,6 +16,7 @@
 
 package org.gtkkn.gir.generator
 
+import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FunSpec
@@ -37,7 +38,6 @@ import org.gtkkn.gir.blueprints.ParameterBlueprint
 import org.gtkkn.gir.blueprints.PropertyBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
 import org.gtkkn.gir.blueprints.SignalBlueprint
-import org.gtkkn.gir.processor.NativeTypes
 
 interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
     fun buildProperty(property: PropertyBlueprint, instancePointer: String?): PropertySpec =
@@ -53,7 +53,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
                 addModifiers(KModifier.OVERRIDE)
             }
 
-            if (property.isOpen) {
+            if (property.isOpen && !property.isOverride) {
                 addModifiers(KModifier.OPEN)
             }
 
@@ -75,10 +75,22 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
         FunSpecBuilderType.GETTER -> FunSpec.getterBuilder()
         FunSpecBuilderType.SETTER -> FunSpec.setterBuilder()
     }.apply {
-        addKdoc(buildMethodKDoc(method.kdoc, method.parameters, method.optInVersionBlueprint, method.returnTypeKDoc))
+        buildMethodKDoc(
+            method.kdoc,
+            method.parameters,
+            method.optInVersionBlueprint,
+            method.returnTypeKDoc,
+        )?.let { addKdoc(it) }
 
         // optInVersion
         if (builderType != FunSpecBuilderType.GETTER && method.optInVersionBlueprint?.typeName != null) {
+            if (method.isOverride && method.kotlinName == "toString") {
+                addAnnotation(
+                    AnnotationSpec.builder(Suppress::class)
+                        .addMember("%S", "POTENTIALLY_NON_REPORTED_ANNOTATION")
+                        .build(),
+                )
+            }
             addAnnotation(method.optInVersionBlueprint.typeName)
         }
 
@@ -95,7 +107,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
                 addModifiers(KModifier.OVERRIDE)
             }
 
-            if (method.isOpen) {
+            if (method.isOpen && !method.isOverride) {
                 addModifiers(KModifier.OPEN)
             }
         }
@@ -181,7 +193,12 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
     @Suppress("LongMethod", "CyclomaticComplexMethod")
     fun buildFunction(func: FunctionBlueprint): FunSpec = FunSpec.builder(func.kotlinName).apply {
         // kdoc
-        addKdoc(buildMethodKDoc(func.kdoc, func.parameters, func.optInVersionBlueprint, func.returnTypeKDoc))
+        buildMethodKDoc(
+            func.kdoc,
+            func.parameters,
+            func.optInVersionBlueprint,
+            func.returnTypeKDoc,
+        )?.let { addKdoc(it) }
 
         // optInVersion
         func.optInVersionBlueprint?.typeName?.let { annotationClassName ->
@@ -332,7 +349,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
 
         // lambda signature
         if (closure.hasInstanceParameter) {
-            addStatement("_: %T,", NativeTypes.KP_OPAQUE_POINTER)
+            addStatement("_: %T,", BindingsGenerator.KP_OPAQUE_POINTER)
         }
         closure.parameters.forEach { param ->
             // cinterop maps methods return values with pointer types as nullable
@@ -345,7 +362,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             }
             addStatement("%N: %T$forceNullable,", param.kotlinName, param.typeInfo.nativeTypeName)
         }
-        addStatement("userData: %T", NativeTypes.KP_OPAQUE_POINTER)
+        addStatement("userData: %T", BindingsGenerator.KP_OPAQUE_POINTER)
         addStatement("->")
 
         if (closure.needsMemscoped || closure.needsMemscopedReturnValue) {
@@ -388,8 +405,8 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
         resultTypeName: TypeName,
         parameters: List<ParameterSpec> = emptyList()
     ) =
-        NativeTypes.KP_CPOINTER.parameterizedBy(
-            NativeTypes.KP_CFUNCTION.parameterizedBy(
+        BindingsGenerator.KP_CPOINTER.parameterizedBy(
+            BindingsGenerator.KP_CFUNCTION.parameterizedBy(
                 LambdaTypeName.get(
                     returnType = resultTypeName,
                     parameters = parameters,

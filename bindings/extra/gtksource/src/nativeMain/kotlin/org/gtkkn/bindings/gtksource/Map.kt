@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -47,9 +48,8 @@ import kotlin.Unit
  * - method `font-desc`: Property has no getter nor setter
  * - method `view`: Property TypeInfo of getter and setter do not match
  */
-public open class Map(
-    pointer: CPointer<GtkSourceMap>,
-) : View(pointer.reinterpret()),
+public open class Map(pointer: CPointer<GtkSourceMap>) :
+    View(pointer.reinterpret()),
     KGTyped {
     public val gtksourceMapPointer: CPointer<GtkSourceMap>
         get() = gPointer.reinterpret()
@@ -78,10 +78,9 @@ public open class Map(
      *
      * @return a #GtkSourceView or null.
      */
-    public open fun getView(): View? =
-        gtk_source_map_get_view(gtksourceMapPointer.reinterpret())?.run {
-            View(reinterpret())
-        }
+    public open fun getView(): View? = gtk_source_map_get_view(gtksourceMapPointer.reinterpret())?.run {
+        View(reinterpret())
+    }
 
     /**
      * Sets the view that @map will be doing the mapping to.
@@ -98,5 +97,12 @@ public open class Map(
         init {
             GtksourceTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Map
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_map_get_type()
     }
 }

@@ -25,6 +25,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GTlsCertificate
 import org.gtkkn.native.gio.GTlsCertificateFlags
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.webkit.WebKitURIRequest
 import org.gtkkn.native.webkit.WebKitURIResponse
@@ -54,9 +55,8 @@ import kotlin.Unit
  *
  * - parameter `length`: length: Out parameter is not supported
  */
-public class WebResource(
-    pointer: CPointer<WebKitWebResource>,
-) : Object(pointer.reinterpret()),
+public class WebResource(pointer: CPointer<WebKitWebResource>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val webkitWebResourcePointer: CPointer<WebKitWebResource>
         get() = gPointer.reinterpret()
@@ -75,10 +75,9 @@ public class WebResource(
          * @return the #WebKitURIResponse, or null if
          *     the response hasn't been received yet.
          */
-        get() =
-            webkit_web_resource_get_response(webkitWebResourcePointer.reinterpret())!!.run {
-                URIResponse(reinterpret())
-            }
+        get() = webkit_web_resource_get_response(webkitWebResourcePointer.reinterpret())!!.run {
+            URIResponse(reinterpret())
+        }
 
     /**
      * The current active URI of the #WebKitWebResource.
@@ -116,9 +115,8 @@ public class WebResource(
          *
          * @return the current active URI of @resource
          */
-        get() =
-            webkit_web_resource_get_uri(webkitWebResourcePointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = webkit_web_resource_get_uri(webkitWebResourcePointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Asynchronously get the raw data for @resource.
@@ -129,10 +127,7 @@ public class WebResource(
      * @param cancellable a #GCancellable or null to ignore
      * @param callback a #GAsyncReadyCallback to call when the request is satisfied
      */
-    public fun getData_(
-        cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
-    ): Unit =
+    public fun getData(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
         webkit_web_resource_get_data(
             webkitWebResourcePointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
@@ -141,66 +136,13 @@ public class WebResource(
         )
 
     /**
-     * Retrieves the #WebKitURIResponse of the resource load operation.
-     *
-     * This method returns null if called before the response
-     * is received from the server. You can connect to notify::response
-     * signal to be notified when the response is received.
-     *
-     * @return the #WebKitURIResponse, or null if
-     *     the response hasn't been received yet.
-     */
-    public fun getResponse(): URIResponse =
-        webkit_web_resource_get_response(webkitWebResourcePointer.reinterpret())!!.run {
-            URIResponse(reinterpret())
-        }
-
-    /**
-     * Returns the current active URI of @resource.
-     *
-     * The active URI might change during
-     * a load operation:
-     *
-     * <orderedlist>
-     * <listitem><para>
-     *   When the resource load starts, the active URI is the requested URI
-     * </para></listitem>
-     * <listitem><para>
-     *   When the initial request is sent to the server, #WebKitWebResource::sent-request
-     *   signal is emitted without a redirected response, the active URI is the URI of
-     *   the request sent to the server.
-     * </para></listitem>
-     * <listitem><para>
-     *   In case of a server redirection, #WebKitWebResource::sent-request signal
-     *   is emitted again with a redirected response, the active URI is the URI the request
-     *   was redirected to.
-     * </para></listitem>
-     * <listitem><para>
-     *   When the response is received from the server, the active URI is the final
-     *   one and it will not change again.
-     * </para></listitem>
-     * </orderedlist>
-     *
-     * You can monitor the active URI by connecting to the notify::uri
-     * signal of @resource.
-     *
-     * @return the current active URI of @resource
-     */
-    public fun getUri(): String =
-        webkit_web_resource_get_uri(webkitWebResourcePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
      * This signal is emitted when an error occurs during the resource
      * load operation.
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `error` the #GError that was triggered
      */
-    public fun connectFailed(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (error: Error) -> Unit,
-    ): ULong =
+    public fun connectFailed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (error: Error) -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "failed",
@@ -221,15 +163,14 @@ public class WebResource(
     public fun connectFailedWithTlsErrors(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (certificate: TlsCertificate, errors: TlsCertificateFlags) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "failed-with-tls-errors",
-            connectFailedWithTlsErrorsFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "failed-with-tls-errors",
+        connectFailedWithTlsErrorsFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * This signal is emitted when the resource load finishes successfully
@@ -239,10 +180,7 @@ public class WebResource(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectFinished(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectFinished(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "finished",
@@ -266,15 +204,14 @@ public class WebResource(
     public fun connectSentRequest(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (request: URIRequest, redirectedResponse: URIResponse) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "sent-request",
-            connectSentRequestFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "sent-request",
+        connectSentRequestFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<WebResource> {
         override val type: GeneratedClassKGType<WebResource> =
@@ -283,21 +220,28 @@ public class WebResource(
         init {
             WebkitTypeProvider.register()
         }
+
+        /**
+         * Get the GType of WebResource
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_web_resource_get_type()
     }
 }
 
-private val connectFailedFunc: CPointer<CFunction<(CPointer<GError>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            error: CPointer<GError>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(error: Error) -> Unit>().get().invoke(
-            error!!.run {
-                Error(reinterpret())
-            }
-        )
-    }.reinterpret()
+private val connectFailedFunc: CPointer<CFunction<(CPointer<GError>) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        error: CPointer<GError>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(error: Error) -> Unit>().get().invoke(
+        error!!.run {
+            Error(reinterpret())
+        }
+    )
+}
+    .reinterpret()
 
 private val connectFailedWithTlsErrorsFunc:
     CPointer<CFunction<(CPointer<GTlsCertificate>, GTlsCertificateFlags) -> Unit>> =
@@ -307,7 +251,12 @@ private val connectFailedWithTlsErrorsFunc:
             errors: GTlsCertificateFlags,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(certificate: TlsCertificate, errors: TlsCertificateFlags) -> Unit>().get().invoke(
+        userData.asStableRef<
+            (
+                certificate: TlsCertificate,
+                errors: TlsCertificateFlags,
+            ) -> Unit
+            >().get().invoke(
             certificate!!.run {
                 TlsCertificate(reinterpret())
             },
@@ -315,15 +264,16 @@ private val connectFailedWithTlsErrorsFunc:
                 TlsCertificateFlags(this)
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
-private val connectFinishedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectFinishedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
 private val connectSentRequestFunc:
     CPointer<CFunction<(CPointer<WebKitURIRequest>, CPointer<WebKitURIResponse>) -> Unit>> =
@@ -341,4 +291,5 @@ private val connectSentRequestFunc:
                 URIResponse(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()

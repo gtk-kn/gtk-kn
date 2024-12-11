@@ -13,6 +13,7 @@ import org.gtkkn.native.gio.GIOModule
 import org.gtkkn.native.gio.g_io_module_get_type
 import org.gtkkn.native.gio.g_io_module_new
 import org.gtkkn.native.gio.g_io_module_query
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GTypePlugin
 import kotlin.String
 import kotlin.collections.List
@@ -22,9 +23,8 @@ import kotlin.collections.List
  * modules. This is used internally to make GIO extensible, but can also
  * be used by others to implement module loading.
  */
-public open class IOModule(
-    pointer: CPointer<GIOModule>,
-) : TypeModule(pointer.reinterpret()),
+public open class IOModule(pointer: CPointer<GIOModule>) :
+    TypeModule(pointer.reinterpret()),
     KGTyped {
     public val gioIOModulePointer: CPointer<GIOModule>
         get() = gPointer.reinterpret()
@@ -91,5 +91,12 @@ public open class IOModule(
         @GioVersion2_24
         public fun query(): List<String> =
             g_io_module_query()?.toKStringList() ?: error("Expected not null string array")
+
+        /**
+         * Get the GType of IOModule
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_io_module_get_type()
     }
 }

@@ -2,7 +2,9 @@
 package org.gtkkn.bindings.gsk
 
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskLineJoin
+import org.gtkkn.native.gsk.gsk_line_join_get_type
 
 /**
  * Specifies how to render the junction of two lines when stroking.
@@ -21,9 +23,7 @@ import org.gtkkn.native.gsk.GskLineJoin
  * @since 4.14
  */
 @GskVersion4_14
-public enum class LineJoin(
-    public val nativeValue: GskLineJoin,
-) {
+public enum class LineJoin(public val nativeValue: GskLineJoin) {
     /**
      * Use a sharp angled corner
      */
@@ -43,12 +43,18 @@ public enum class LineJoin(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GskLineJoin): LineJoin =
-            when (nativeValue) {
-                GskLineJoin.GSK_LINE_JOIN_MITER -> MITER
-                GskLineJoin.GSK_LINE_JOIN_ROUND -> ROUND
-                GskLineJoin.GSK_LINE_JOIN_BEVEL -> BEVEL
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GskLineJoin): LineJoin = when (nativeValue) {
+            GskLineJoin.GSK_LINE_JOIN_MITER -> MITER
+            GskLineJoin.GSK_LINE_JOIN_ROUND -> ROUND
+            GskLineJoin.GSK_LINE_JOIN_BEVEL -> BEVEL
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of LineJoin
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_line_join_get_type()
     }
 }

@@ -45,14 +45,14 @@ import org.gtkkn.native.adw.adw_flap_set_separator
 import org.gtkkn.native.adw.adw_flap_set_swipe_to_close
 import org.gtkkn.native.adw.adw_flap_set_swipe_to_open
 import org.gtkkn.native.adw.adw_flap_set_transition_type
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkOrientable
 import kotlin.Boolean
-import kotlin.Double
-import kotlin.UInt
-import kotlin.Unit
 
 /**
  * An adaptive container acting like a box or an overlay.
@@ -113,9 +113,8 @@ import kotlin.Unit
  * `AdwFlap` has a single CSS node with name `flap`. The node will get the style
  * classes `.folded` when it is folded, and `.unfolded` when it's not.
  */
-public class Flap(
-    pointer: CPointer<AdwFlap>,
-) : Widget(pointer.reinterpret()),
+public class Flap(pointer: CPointer<AdwFlap>) :
+    Widget(pointer.reinterpret()),
     Swipeable,
     Orientable,
     KGTyped {
@@ -148,10 +147,9 @@ public class Flap(
          *
          * @return the content widget for @self
          */
-        get() =
-            adw_flap_get_content(adwFlapPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = adw_flap_get_content(adwFlapPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the content widget for @self.
@@ -173,10 +171,9 @@ public class Flap(
          *
          * @return the flap widget for @self
          */
-        get() =
-            adw_flap_get_flap(adwFlapPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = adw_flap_get_flap(adwFlapPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the flap widget for @self.
@@ -199,10 +196,9 @@ public class Flap(
          *
          * @return the flap position for @self
          */
-        get() =
-            adw_flap_get_flap_position(adwFlapPointer.reinterpret()).run {
-                PackType.fromNativeValue(this)
-            }
+        get() = adw_flap_get_flap_position(adwFlapPointer.reinterpret()).run {
+            PackType.fromNativeValue(this)
+        }
 
         /**
          * Sets the flap position for @self.
@@ -217,7 +213,7 @@ public class Flap(
     /**
      * The fold transition animation duration, in milliseconds.
      */
-    public var foldDuration: UInt
+    public var foldDuration: guint
         /**
          * Gets the fold transition animation duration for @self, in milliseconds.
          *
@@ -241,10 +237,9 @@ public class Flap(
          *
          * @return the fold policy for @self
          */
-        get() =
-            adw_flap_get_fold_policy(adwFlapPointer.reinterpret()).run {
-                FlapFoldPolicy.fromNativeValue(this)
-            }
+        get() = adw_flap_get_fold_policy(adwFlapPointer.reinterpret()).run {
+            FlapFoldPolicy.fromNativeValue(this)
+        }
 
         /**
          * Sets the fold policy for @self.
@@ -267,10 +262,9 @@ public class Flap(
         /**
          * Gets the fold threshold policy for @self.
          */
-        get() =
-            adw_flap_get_fold_threshold_policy(adwFlapPointer.reinterpret()).run {
-                FoldThresholdPolicy.fromNativeValue(this)
-            }
+        get() = adw_flap_get_fold_threshold_policy(adwFlapPointer.reinterpret()).run {
+            FoldThresholdPolicy.fromNativeValue(this)
+        }
 
         /**
          * Sets the fold threshold policy for @self.
@@ -386,10 +380,9 @@ public class Flap(
          *
          * @return the reveal animation parameters
          */
-        get() =
-            adw_flap_get_reveal_params(adwFlapPointer.reinterpret())!!.run {
-                SpringParams(reinterpret())
-            }
+        get() = adw_flap_get_reveal_params(adwFlapPointer.reinterpret())!!.run {
+            SpringParams(reinterpret())
+        }
 
         /**
          * Sets the reveal animation spring parameters for @self.
@@ -413,7 +406,7 @@ public class Flap(
      *
      * See [property@Flap:reveal-flap].
      */
-    public val revealProgress: Double
+    public val revealProgress: gdouble
         /**
          * Gets the current reveal progress for @self.
          *
@@ -438,10 +431,9 @@ public class Flap(
          *
          * @return the separator widget for @self
          */
-        get() =
-            adw_flap_get_separator(adwFlapPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = adw_flap_get_separator(adwFlapPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the separator widget for @self.
@@ -518,10 +510,9 @@ public class Flap(
          *
          * @return the current transition type of @self
          */
-        get() =
-            adw_flap_get_transition_type(adwFlapPointer.reinterpret()).run {
-                FlapTransitionType.fromNativeValue(this)
-            }
+        get() = adw_flap_get_transition_type(adwFlapPointer.reinterpret()).run {
+            FlapTransitionType.fromNativeValue(this)
+        }
 
         /**
          * Sets the type of animation used for reveal and fold transitions in @self.
@@ -542,299 +533,6 @@ public class Flap(
      */
     public constructor() : this(adw_flap_new()!!.reinterpret())
 
-    /**
-     * Gets the content widget for @self.
-     *
-     * @return the content widget for @self
-     */
-    public fun getContent(): Widget? =
-        adw_flap_get_content(adwFlapPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Gets the flap widget for @self.
-     *
-     * @return the flap widget for @self
-     */
-    public fun getFlap(): Widget? =
-        adw_flap_get_flap(adwFlapPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Gets the flap position for @self.
-     *
-     * @return the flap position for @self
-     */
-    public fun getFlapPosition(): PackType =
-        adw_flap_get_flap_position(adwFlapPointer.reinterpret()).run {
-            PackType.fromNativeValue(this)
-        }
-
-    /**
-     * Gets the fold transition animation duration for @self, in milliseconds.
-     *
-     * @return the fold transition duration
-     */
-    public fun getFoldDuration(): UInt = adw_flap_get_fold_duration(adwFlapPointer.reinterpret())
-
-    /**
-     * Gets the fold policy for @self.
-     *
-     * @return the fold policy for @self
-     */
-    public fun getFoldPolicy(): FlapFoldPolicy =
-        adw_flap_get_fold_policy(adwFlapPointer.reinterpret()).run {
-            FlapFoldPolicy.fromNativeValue(this)
-        }
-
-    /**
-     * Gets the fold threshold policy for @self.
-     */
-    public fun getFoldThresholdPolicy(): FoldThresholdPolicy =
-        adw_flap_get_fold_threshold_policy(adwFlapPointer.reinterpret()).run {
-            FoldThresholdPolicy.fromNativeValue(this)
-        }
-
-    /**
-     * Gets whether @self is currently folded.
-     *
-     * See [property@Flap:fold-policy].
-     *
-     * @return `TRUE` if @self is currently folded
-     */
-    public fun getFolded(): Boolean = adw_flap_get_folded(adwFlapPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets whether @self is locked.
-     *
-     * @return `TRUE` if @self is locked
-     */
-    public fun getLocked(): Boolean = adw_flap_get_locked(adwFlapPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets whether @self is modal.
-     *
-     * @return `TRUE` if @self is modal
-     */
-    public fun getModal(): Boolean = adw_flap_get_modal(adwFlapPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets whether the flap widget is revealed for @self.
-     *
-     * @return `TRUE` if the flap widget is revealed
-     */
-    public fun getRevealFlap(): Boolean = adw_flap_get_reveal_flap(adwFlapPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the reveal animation spring parameters for @self.
-     *
-     * @return the reveal animation parameters
-     */
-    public fun getRevealParams(): SpringParams =
-        adw_flap_get_reveal_params(adwFlapPointer.reinterpret())!!.run {
-            SpringParams(reinterpret())
-        }
-
-    /**
-     * Gets the current reveal progress for @self.
-     *
-     * 0 means fully hidden, 1 means fully revealed.
-     *
-     * See [property@Flap:reveal-flap].
-     *
-     * @return the current reveal progress for @self
-     */
-    public fun getRevealProgress(): Double = adw_flap_get_reveal_progress(adwFlapPointer.reinterpret())
-
-    /**
-     * Gets the separator widget for @self.
-     *
-     * @return the separator widget for @self
-     */
-    public fun getSeparator(): Widget? =
-        adw_flap_get_separator(adwFlapPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Gets whether @self can be closed with a swipe gesture.
-     *
-     * @return `TRUE` if @self can be closed with a swipe gesture
-     */
-    public fun getSwipeToClose(): Boolean = adw_flap_get_swipe_to_close(adwFlapPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets whether @self can be opened with a swipe gesture.
-     *
-     * @return `TRUE` if @self can be opened with a swipe gesture
-     */
-    public fun getSwipeToOpen(): Boolean = adw_flap_get_swipe_to_open(adwFlapPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the type of animation used for reveal and fold transitions in @self.
-     *
-     * @return the current transition type of @self
-     */
-    public fun getTransitionType(): FlapTransitionType =
-        adw_flap_get_transition_type(adwFlapPointer.reinterpret()).run {
-            FlapTransitionType.fromNativeValue(this)
-        }
-
-    /**
-     * Sets the content widget for @self.
-     *
-     * It's always displayed when unfolded, and partially visible when folded.
-     *
-     * @param content the content widget
-     */
-    public fun setContent(content: Widget? = null): Unit =
-        adw_flap_set_content(adwFlapPointer.reinterpret(), content?.gtkWidgetPointer?.reinterpret())
-
-    /**
-     * Sets the flap widget for @self.
-     *
-     * It's only visible when [property@Flap:reveal-progress] is greater than 0.
-     *
-     * @param flap the flap widget
-     */
-    public fun setFlap(flap: Widget? = null): Unit =
-        adw_flap_set_flap(adwFlapPointer.reinterpret(), flap?.gtkWidgetPointer?.reinterpret())
-
-    /**
-     * Sets the flap position for @self.
-     *
-     * If it's set to `GTK_PACK_START`, the flap is displayed before the content,
-     * if `GTK_PACK_END`, it's displayed after the content.
-     *
-     * @param position the new value
-     */
-    public fun setFlapPosition(position: PackType): Unit =
-        adw_flap_set_flap_position(adwFlapPointer.reinterpret(), position.nativeValue)
-
-    /**
-     * Sets the fold transition animation duration for @self, in milliseconds.
-     *
-     * @param duration the new duration, in milliseconds
-     */
-    public fun setFoldDuration(duration: UInt): Unit =
-        adw_flap_set_fold_duration(adwFlapPointer.reinterpret(), duration)
-
-    /**
-     * Sets the fold policy for @self.
-     *
-     * @param policy the fold policy
-     */
-    public fun setFoldPolicy(policy: FlapFoldPolicy): Unit =
-        adw_flap_set_fold_policy(adwFlapPointer.reinterpret(), policy.nativeValue)
-
-    /**
-     * Sets the fold threshold policy for @self.
-     *
-     * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, flap will only fold when the
-     * children cannot fit anymore. With `ADW_FOLD_THRESHOLD_POLICY_NATURAL`, it
-     * will fold as soon as children don't get their natural size.
-     *
-     * This can be useful if you have a long ellipsizing label and want to let it
-     * ellipsize instead of immediately folding.
-     *
-     * @param policy the policy to use
-     */
-    public fun setFoldThresholdPolicy(policy: FoldThresholdPolicy): Unit =
-        adw_flap_set_fold_threshold_policy(adwFlapPointer.reinterpret(), policy.nativeValue)
-
-    /**
-     * Sets whether @self is locked.
-     *
-     * If `FALSE`, folding when the flap is revealed automatically closes it, and
-     * unfolding it when the flap is not revealed opens it. If `TRUE`,
-     * [property@Flap:reveal-flap] value never changes on its own.
-     *
-     * @param locked the new value
-     */
-    public fun setLocked(locked: Boolean): Unit = adw_flap_set_locked(adwFlapPointer.reinterpret(), locked.asGBoolean())
-
-    /**
-     * Sets whether @self is modal.
-     *
-     * If `TRUE`, clicking the content widget while flap is revealed, as well as
-     * pressing the <kbd>Esc</kbd> key, will close the flap. If `FALSE`, clicks are
-     * passed through to the content widget.
-     *
-     * @param modal whether @self is modal
-     */
-    public fun setModal(modal: Boolean): Unit = adw_flap_set_modal(adwFlapPointer.reinterpret(), modal.asGBoolean())
-
-    /**
-     * Sets whether the flap widget is revealed for @self.
-     *
-     * @param revealFlap whether to reveal the flap widget
-     */
-    public fun setRevealFlap(revealFlap: Boolean): Unit =
-        adw_flap_set_reveal_flap(adwFlapPointer.reinterpret(), revealFlap.asGBoolean())
-
-    /**
-     * Sets the reveal animation spring parameters for @self.
-     *
-     * The default value is equivalent to:
-     *
-     * ```c
-     * adw_spring_params_new (1, 0.5, 500)
-     * ```
-     *
-     * @param params the new parameters
-     */
-    public fun setRevealParams(params: SpringParams): Unit =
-        adw_flap_set_reveal_params(adwFlapPointer.reinterpret(), params.adwSpringParamsPointer.reinterpret())
-
-    /**
-     * Sets the separator widget for @self.
-     *
-     * It's displayed between content and flap when there's no shadow to display.
-     * When exactly it's visible depends on the [property@Flap:transition-type]
-     * value.
-     *
-     * @param separator the separator widget
-     */
-    public fun setSeparator(separator: Widget? = null): Unit =
-        adw_flap_set_separator(adwFlapPointer.reinterpret(), separator?.gtkWidgetPointer?.reinterpret())
-
-    /**
-     * Sets whether @self can be closed with a swipe gesture.
-     *
-     * The area that can be swiped depends on the [property@Flap:transition-type]
-     * value.
-     *
-     * @param swipeToClose whether @self can be closed with a swipe gesture
-     */
-    public fun setSwipeToClose(swipeToClose: Boolean): Unit =
-        adw_flap_set_swipe_to_close(adwFlapPointer.reinterpret(), swipeToClose.asGBoolean())
-
-    /**
-     * Sets whether @self can be opened with a swipe gesture.
-     *
-     * The area that can be swiped depends on the [property@Flap:transition-type]
-     * value.
-     *
-     * @param swipeToOpen whether @self can be opened with a swipe gesture
-     */
-    public fun setSwipeToOpen(swipeToOpen: Boolean): Unit =
-        adw_flap_set_swipe_to_open(adwFlapPointer.reinterpret(), swipeToOpen.asGBoolean())
-
-    /**
-     * Sets the type of animation used for reveal and fold transitions in @self.
-     *
-     * [property@Flap:flap] is transparent by default, which means the content will
-     * be seen through it with `ADW_FLAP_TRANSITION_TYPE_OVER` transitions; add the
-     * [`.background`](style-classes.html#background) style class to it if this is
-     * unwanted.
-     *
-     * @param transitionType the new transition type
-     */
-    public fun setTransitionType(transitionType: FlapTransitionType): Unit =
-        adw_flap_set_transition_type(adwFlapPointer.reinterpret(), transitionType.nativeValue)
-
     public companion object : TypeCompanion<Flap> {
         override val type: GeneratedClassKGType<Flap> =
             GeneratedClassKGType(adw_flap_get_type()) { Flap(it.reinterpret()) }
@@ -842,5 +540,12 @@ public class Flap(
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Flap
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_flap_get_type()
     }
 }

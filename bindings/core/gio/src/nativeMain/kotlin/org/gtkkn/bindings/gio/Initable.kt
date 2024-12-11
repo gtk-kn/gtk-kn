@@ -19,6 +19,7 @@ import org.gtkkn.native.gio.GInitable
 import org.gtkkn.native.gio.g_initable_get_type
 import org.gtkkn.native.gio.g_initable_init
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 import kotlin.Result
 
@@ -50,6 +51,8 @@ import kotlin.Result
  *
  * ## Skipped during bindings generation
  *
+ * - function `new`: Varargs parameter is not supported
+ * - parameter `var_args`: va_list
  * - parameter `parameters`: GObject.Parameter
  *
  * @since 2.22
@@ -106,25 +109,21 @@ public interface Initable :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun `init`(cancellable: Cancellable? = null): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_initable_init(
-                    gioInitablePointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public fun `init`(cancellable: Cancellable? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_initable_init(
+            gioInitablePointer.reinterpret(),
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
-    private data class Wrapper(
-        private val pointer: CPointer<GInitable>,
-    ) : Initable {
+    private data class Wrapper(private val pointer: CPointer<GInitable>) : Initable {
         override val gioInitablePointer: CPointer<GInitable> = pointer
     }
 
@@ -137,5 +136,12 @@ public interface Initable :
         }
 
         public fun wrap(pointer: CPointer<GInitable>): Initable = Wrapper(pointer)
+
+        /**
+         * Get the GType of Initable
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_initable_get_type()
     }
 }

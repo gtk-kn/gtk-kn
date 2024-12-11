@@ -12,6 +12,7 @@ import org.gtkkn.native.gdk.GdkPaintable
 import org.gtkkn.native.gdk.gdk_dmabuf_texture_get_type
 import org.gtkkn.native.gio.GIcon
 import org.gtkkn.native.gio.GLoadableIcon
+import org.gtkkn.native.gobject.GType
 
 /**
  * A `GdkTexture` representing a DMA buffer.
@@ -23,9 +24,8 @@ import org.gtkkn.native.gio.GLoadableIcon
  * @since 4.14
  */
 @GdkVersion4_14
-public open class DmabufTexture(
-    pointer: CPointer<GdkDmabufTexture>,
-) : Texture(pointer.reinterpret()),
+public open class DmabufTexture(pointer: CPointer<GdkDmabufTexture>) :
+    Texture(pointer.reinterpret()),
     KGTyped {
     public val gdkDmabufTexturePointer: CPointer<GdkDmabufTexture>
         get() = gPointer.reinterpret()
@@ -46,5 +46,12 @@ public open class DmabufTexture(
         init {
             GdkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of DmabufTexture
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_dmabuf_texture_get_type()
     }
 }

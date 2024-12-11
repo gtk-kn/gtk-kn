@@ -26,6 +26,7 @@ import org.gtkkn.native.gio.g_dtls_client_connection_new
 import org.gtkkn.native.gio.g_dtls_client_connection_set_server_identity
 import org.gtkkn.native.gio.g_dtls_client_connection_set_validation_flags
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import kotlin.Result
 import kotlin.Unit
 
@@ -75,10 +76,9 @@ public interface DtlsClientConnection :
          * the free the list with g_list_free().
          * @since 2.48
          */
-        get() =
-            g_dtls_client_connection_get_accepted_cas(gioDtlsClientConnectionPointer.reinterpret())!!.run {
-                List(reinterpret())
-            }
+        get() = g_dtls_client_connection_get_accepted_cas(gioDtlsClientConnectionPointer.reinterpret())!!.run {
+            List(reinterpret())
+        }
 
     /**
      * A #GSocketConnectable describing the identity of the server that
@@ -108,10 +108,9 @@ public interface DtlsClientConnection :
          * known.
          * @since 2.48
          */
-        get() =
-            g_dtls_client_connection_get_server_identity(gioDtlsClientConnectionPointer.reinterpret())!!.run {
-                SocketConnectable.wrap(reinterpret())
-            }
+        get() = g_dtls_client_connection_get_server_identity(gioDtlsClientConnectionPointer.reinterpret())!!.run {
+            SocketConnectable.wrap(reinterpret())
+        }
 
         /**
          * Sets @conn's expected server identity, which is used both to tell
@@ -125,11 +124,10 @@ public interface DtlsClientConnection :
         @GioVersion2_48
         set(
             identity
-        ) =
-            g_dtls_client_connection_set_server_identity(
-                gioDtlsClientConnectionPointer.reinterpret(),
-                identity.gioSocketConnectablePointer
-            )
+        ) = g_dtls_client_connection_set_server_identity(
+            gioDtlsClientConnectionPointer.reinterpret(),
+            identity.gioSocketConnectablePointer
+        )
 
     /**
      * What steps to perform when validating a certificate received from
@@ -163,10 +161,9 @@ public interface DtlsClientConnection :
          * @return the validation flags
          * @since 2.48
          */
-        get() =
-            g_dtls_client_connection_get_validation_flags(gioDtlsClientConnectionPointer.reinterpret()).run {
-                TlsCertificateFlags(this)
-            }
+        get() = g_dtls_client_connection_get_validation_flags(gioDtlsClientConnectionPointer.reinterpret()).run {
+            TlsCertificateFlags(this)
+        }
 
         /**
          * Sets @conn's validation flags, to override the default set of
@@ -245,11 +242,10 @@ public interface DtlsClientConnection :
      * @since 2.48
      */
     @GioVersion2_48
-    public fun setServerIdentity(identity: SocketConnectable): Unit =
-        g_dtls_client_connection_set_server_identity(
-            gioDtlsClientConnectionPointer.reinterpret(),
-            identity.gioSocketConnectablePointer
-        )
+    public fun setServerIdentity(identity: SocketConnectable): Unit = g_dtls_client_connection_set_server_identity(
+        gioDtlsClientConnectionPointer.reinterpret(),
+        identity.gioSocketConnectablePointer
+    )
 
     /**
      * Sets @conn's validation flags, to override the default set of
@@ -267,9 +263,7 @@ public interface DtlsClientConnection :
     public fun setValidationFlags(flags: TlsCertificateFlags): Unit =
         g_dtls_client_connection_set_validation_flags(gioDtlsClientConnectionPointer.reinterpret(), flags.mask)
 
-    private data class Wrapper(
-        private val pointer: CPointer<GDtlsClientConnection>,
-    ) : DtlsClientConnection {
+    private data class Wrapper(private val pointer: CPointer<GDtlsClientConnection>) : DtlsClientConnection {
         override val gioDtlsClientConnectionPointer: CPointer<GDtlsClientConnection> = pointer
     }
 
@@ -297,23 +291,28 @@ public interface DtlsClientConnection :
         public fun new(
             baseSocket: DatagramBased,
             serverIdentity: SocketConnectable? = null,
-        ): Result<DtlsClientConnection> =
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                val gResult =
-                    g_dtls_client_connection_new(
-                        baseSocket.gioDatagramBasedPointer,
-                        serverIdentity?.gioSocketConnectablePointer,
-                        gError.ptr
-                    )?.run {
-                        DtlsClientConnection.wrap(reinterpret())
-                    }
-
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(checkNotNull(gResult))
-                }
+        ): Result<DtlsClientConnection> = memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult = g_dtls_client_connection_new(
+                baseSocket.gioDatagramBasedPointer,
+                serverIdentity?.gioSocketConnectablePointer,
+                gError.ptr
+            )?.run {
+                DtlsClientConnection.wrap(reinterpret())
             }
+
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(checkNotNull(gResult))
+            }
+        }
+
+        /**
+         * Get the GType of DtlsClientConnection
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_dtls_client_connection_get_type()
     }
 }

@@ -22,12 +22,12 @@ import org.gtkkn.native.adw.adw_button_content_set_can_shrink
 import org.gtkkn.native.adw.adw_button_content_set_icon_name
 import org.gtkkn.native.adw.adw_button_content_set_label
 import org.gtkkn.native.adw.adw_button_content_set_use_underline
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import kotlin.Boolean
 import kotlin.String
-import kotlin.Unit
 
 /**
  * A helper widget for creating buttons.
@@ -78,9 +78,8 @@ import kotlin.Unit
  *
  * `AdwButtonContent` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
  */
-public class ButtonContent(
-    pointer: CPointer<AdwButtonContent>,
-) : Widget(pointer.reinterpret()),
+public class ButtonContent(pointer: CPointer<AdwButtonContent>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val adwButtonContentPointer: CPointer<AdwButtonContent>
         get() = gPointer.reinterpret()
@@ -139,9 +138,8 @@ public class ButtonContent(
          *
          * @return the icon name
          */
-        get() =
-            adw_button_content_get_icon_name(adwButtonContentPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = adw_button_content_get_icon_name(adwButtonContentPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Sets the name of the displayed icon.
@@ -161,9 +159,8 @@ public class ButtonContent(
          *
          * @return the label
          */
-        get() =
-            adw_button_content_get_label(adwButtonContentPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = adw_button_content_get_label(adwButtonContentPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Sets the displayed label.
@@ -207,86 +204,6 @@ public class ButtonContent(
      */
     public constructor() : this(adw_button_content_new()!!.reinterpret())
 
-    /**
-     * gets whether the button can be smaller than the natural size of its contents.
-     *
-     * @return whether the button can shrink
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun getCanShrink(): Boolean =
-        adw_button_content_get_can_shrink(adwButtonContentPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the name of the displayed icon.
-     *
-     * @return the icon name
-     */
-    public fun getIconName(): String =
-        adw_button_content_get_icon_name(adwButtonContentPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets the displayed label.
-     *
-     * @return the label
-     */
-    public fun getLabel(): String =
-        adw_button_content_get_label(adwButtonContentPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets whether an underline in the text indicates a mnemonic.
-     *
-     * @return whether an underline in the text indicates a mnemonic
-     */
-    public fun getUseUnderline(): Boolean =
-        adw_button_content_get_use_underline(adwButtonContentPointer.reinterpret()).asBoolean()
-
-    /**
-     * Sets whether the button can be smaller than the natural size of its contents.
-     *
-     * If set to `TRUE`, the label will ellipsize.
-     *
-     * See [method@Gtk.Button.set_can_shrink].
-     *
-     * @param canShrink whether the button can shrink
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun setCanShrink(canShrink: Boolean): Unit =
-        adw_button_content_set_can_shrink(adwButtonContentPointer.reinterpret(), canShrink.asGBoolean())
-
-    /**
-     * Sets the name of the displayed icon.
-     *
-     * If empty, the icon is not shown.
-     *
-     * @param iconName the new icon name
-     */
-    public fun setIconName(iconName: String): Unit =
-        adw_button_content_set_icon_name(adwButtonContentPointer.reinterpret(), iconName)
-
-    /**
-     * Sets the displayed label.
-     *
-     * @param label the new label
-     */
-    public fun setLabel(label: String): Unit =
-        adw_button_content_set_label(adwButtonContentPointer.reinterpret(), label)
-
-    /**
-     * Sets whether an underline in the text indicates a mnemonic.
-     *
-     * The mnemonic can be used to activate the parent button.
-     *
-     * See [property@ButtonContent:label].
-     *
-     * @param useUnderline whether an underline in the text indicates a mnemonic
-     */
-    public fun setUseUnderline(useUnderline: Boolean): Unit =
-        adw_button_content_set_use_underline(adwButtonContentPointer.reinterpret(), useUnderline.asGBoolean())
-
     public companion object : TypeCompanion<ButtonContent> {
         override val type: GeneratedClassKGType<ButtonContent> =
             GeneratedClassKGType(adw_button_content_get_type()) { ButtonContent(it.reinterpret()) }
@@ -294,5 +211,12 @@ public class ButtonContent(
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ButtonContent
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_button_content_get_type()
     }
 }

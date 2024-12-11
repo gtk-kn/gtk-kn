@@ -11,9 +11,7 @@ import kotlin.UInt
  * @since 2.66
  */
 @GLibVersion2_66
-public enum class UriError(
-    public val nativeValue: GUriError,
-) {
+public enum class UriError(public val nativeValue: GUriError) {
     /**
      * Generic error if no more specific error is available.
      *     See the error message for details.
@@ -67,28 +65,26 @@ public enum class UriError(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GUriError): UriError =
-            when (nativeValue) {
-                GUriError.G_URI_ERROR_FAILED -> FAILED
-                GUriError.G_URI_ERROR_BAD_SCHEME -> BAD_SCHEME
-                GUriError.G_URI_ERROR_BAD_USER -> BAD_USER
-                GUriError.G_URI_ERROR_BAD_PASSWORD -> BAD_PASSWORD
-                GUriError.G_URI_ERROR_BAD_AUTH_PARAMS -> BAD_AUTH_PARAMS
-                GUriError.G_URI_ERROR_BAD_HOST -> BAD_HOST
-                GUriError.G_URI_ERROR_BAD_PORT -> BAD_PORT
-                GUriError.G_URI_ERROR_BAD_PATH -> BAD_PATH
-                GUriError.G_URI_ERROR_BAD_QUERY -> BAD_QUERY
-                GUriError.G_URI_ERROR_BAD_FRAGMENT -> BAD_FRAGMENT
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GUriError): UriError = when (nativeValue) {
+            GUriError.G_URI_ERROR_FAILED -> FAILED
+            GUriError.G_URI_ERROR_BAD_SCHEME -> BAD_SCHEME
+            GUriError.G_URI_ERROR_BAD_USER -> BAD_USER
+            GUriError.G_URI_ERROR_BAD_PASSWORD -> BAD_PASSWORD
+            GUriError.G_URI_ERROR_BAD_AUTH_PARAMS -> BAD_AUTH_PARAMS
+            GUriError.G_URI_ERROR_BAD_HOST -> BAD_HOST
+            GUriError.G_URI_ERROR_BAD_PORT -> BAD_PORT
+            GUriError.G_URI_ERROR_BAD_PATH -> BAD_PATH
+            GUriError.G_URI_ERROR_BAD_QUERY -> BAD_QUERY
+            GUriError.G_URI_ERROR_BAD_FRAGMENT -> BAD_FRAGMENT
+            else -> error("invalid nativeValue")
+        }
 
         public fun quark(): UInt = g_quark_from_string("g-uri-quark")
 
-        public fun fromErrorOrNull(error: Error): UriError? =
-            if (error.domain != quark()) {
-                null
-            } else {
-                UriError.values().find { it.nativeValue.value.toInt() == error.code }
-            }
+        public fun fromErrorOrNull(error: Error): UriError? = if (error.domain != quark()) {
+            null
+        } else {
+            UriError.values().find { it.nativeValue.value.toInt() == error.code }
+        }
     }
 }

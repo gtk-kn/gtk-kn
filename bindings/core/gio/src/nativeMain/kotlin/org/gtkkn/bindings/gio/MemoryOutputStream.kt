@@ -3,7 +3,6 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.bindings.gio.annotations.GioVersion2_18
 import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.glib.Bytes
@@ -18,7 +17,8 @@ import org.gtkkn.native.gio.g_memory_output_stream_get_size
 import org.gtkkn.native.gio.g_memory_output_stream_get_type
 import org.gtkkn.native.gio.g_memory_output_stream_new_resizable
 import org.gtkkn.native.gio.g_memory_output_stream_steal_as_bytes
-import kotlin.ULong
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gsize
 
 /**
  * `GMemoryOutputStream` is a class for using arbitrary
@@ -32,10 +32,12 @@ import kotlin.ULong
  * - method `get_data`: Return type gpointer is unsupported
  * - method `steal_data`: Return type gpointer is unsupported
  * - method `data`: Property has no getter nor setter
+ * - method `destroy-function`: Property has no getter nor setter
+ * - method `realloc-function`: Property has no getter nor setter
+ * - parameter `data`: gpointer
  */
-public open class MemoryOutputStream(
-    pointer: CPointer<GMemoryOutputStream>,
-) : OutputStream(pointer.reinterpret()),
+public open class MemoryOutputStream(pointer: CPointer<GMemoryOutputStream>) :
+    OutputStream(pointer.reinterpret()),
     PollableOutputStream,
     Seekable,
     KGTyped {
@@ -54,7 +56,7 @@ public open class MemoryOutputStream(
      * @since 2.24
      */
     @GioVersion2_24
-    public open val dataSize: ULong
+    public open val dataSize: gsize
         /**
          * Returns the number of bytes from the start up to including the last
          * byte written in the stream that has not been truncated away.
@@ -70,7 +72,7 @@ public open class MemoryOutputStream(
      * @since 2.24
      */
     @GioVersion2_24
-    public open val size: ULong
+    public open val size: gsize
         /**
          * Gets the size of the currently allocated data area (available from
          * g_memory_output_stream_get_data()).
@@ -101,38 +103,6 @@ public open class MemoryOutputStream(
     public constructor() : this(g_memory_output_stream_new_resizable()!!.reinterpret())
 
     /**
-     * Returns the number of bytes from the start up to including the last
-     * byte written in the stream that has not been truncated away.
-     *
-     * @return the number of bytes written to the stream
-     * @since 2.18
-     */
-    @GioVersion2_18
-    public open fun getDataSize(): ULong =
-        g_memory_output_stream_get_data_size(gioMemoryOutputStreamPointer.reinterpret())
-
-    /**
-     * Gets the size of the currently allocated data area (available from
-     * g_memory_output_stream_get_data()).
-     *
-     * You probably don't want to use this function on resizable streams.
-     * See g_memory_output_stream_get_data_size() instead.  For resizable
-     * streams the size returned by this function is an implementation
-     * detail and may be change at any time in response to operations on the
-     * stream.
-     *
-     * If the stream is fixed-sized (ie: no realloc was passed to
-     * g_memory_output_stream_new()) then this is the maximum size of the
-     * stream and further writes will return %G_IO_ERROR_NO_SPACE.
-     *
-     * In any case, if you want the number of bytes currently written to the
-     * stream, use g_memory_output_stream_get_data_size().
-     *
-     * @return the number of bytes allocated for the data buffer
-     */
-    public open fun getSize(): ULong = g_memory_output_stream_get_size(gioMemoryOutputStreamPointer.reinterpret())
-
-    /**
      * Returns data from the @ostream as a #GBytes. @ostream must be
      * closed before calling this function.
      *
@@ -152,5 +122,12 @@ public open class MemoryOutputStream(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of MemoryOutputStream
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_memory_output_stream_get_type()
     }
 }

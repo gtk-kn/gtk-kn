@@ -13,15 +13,15 @@ import org.gtkkn.native.adw.adw_enum_list_item_get_name
 import org.gtkkn.native.adw.adw_enum_list_item_get_nick
 import org.gtkkn.native.adw.adw_enum_list_item_get_type
 import org.gtkkn.native.adw.adw_enum_list_item_get_value
-import kotlin.Int
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import kotlin.String
 
 /**
  * `AdwEnumListItem` is the type of items in a [class@EnumListModel].
  */
-public class EnumListItem(
-    pointer: CPointer<AdwEnumListItem>,
-) : Object(pointer.reinterpret()),
+public class EnumListItem(pointer: CPointer<AdwEnumListItem>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val adwEnumListItemPointer: CPointer<AdwEnumListItem>
         get() = gPointer.reinterpret()
@@ -35,9 +35,8 @@ public class EnumListItem(
          *
          * @return the enum value name
          */
-        get() =
-            adw_enum_list_item_get_name(adwEnumListItemPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = adw_enum_list_item_get_name(adwEnumListItemPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * The enum value nick.
@@ -48,45 +47,19 @@ public class EnumListItem(
          *
          * @return the enum value nick
          */
-        get() =
-            adw_enum_list_item_get_nick(adwEnumListItemPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = adw_enum_list_item_get_nick(adwEnumListItemPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * The enum value.
      */
-    public val `value`: Int
+    public val `value`: gint
         /**
          * Gets the enum value.
          *
          * @return the enum value
          */
         get() = adw_enum_list_item_get_value(adwEnumListItemPointer.reinterpret())
-
-    /**
-     * Gets the enum value name.
-     *
-     * @return the enum value name
-     */
-    public fun getName(): String =
-        adw_enum_list_item_get_name(adwEnumListItemPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets the enum value nick.
-     *
-     * @return the enum value nick
-     */
-    public fun getNick(): String =
-        adw_enum_list_item_get_nick(adwEnumListItemPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
-    /**
-     * Gets the enum value.
-     *
-     * @return the enum value
-     */
-    public fun getValue(): Int = adw_enum_list_item_get_value(adwEnumListItemPointer.reinterpret())
 
     public companion object : TypeCompanion<EnumListItem> {
         override val type: GeneratedClassKGType<EnumListItem> =
@@ -95,5 +68,12 @@ public class EnumListItem(
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of EnumListItem
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_enum_list_item_get_type()
     }
 }

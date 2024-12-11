@@ -8,6 +8,9 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -37,8 +40,6 @@ import org.gtkkn.native.gtk.gtk_grid_set_row_baseline_position
 import org.gtkkn.native.gtk.gtk_grid_set_row_homogeneous
 import org.gtkkn.native.gtk.gtk_grid_set_row_spacing
 import kotlin.Boolean
-import kotlin.Int
-import kotlin.UInt
 import kotlin.Unit
 
 /**
@@ -131,9 +132,8 @@ import kotlin.Unit
  *
  * - parameter `column`: column: Out parameter is not supported
  */
-public open class Grid(
-    pointer: CPointer<GtkGrid>,
-) : Widget(pointer.reinterpret()),
+public open class Grid(pointer: CPointer<GtkGrid>) :
+    Widget(pointer.reinterpret()),
     Orientable,
     KGTyped {
     public val gtkGridPointer: CPointer<GtkGrid>
@@ -154,7 +154,7 @@ public open class Grid(
     /**
      * The row to align to the baseline when valign is using baseline alignment.
      */
-    public open var baselineRow: Int
+    public open var baselineRow: gint
         /**
          * Returns which row defines the global baseline of @grid.
          *
@@ -194,7 +194,7 @@ public open class Grid(
     /**
      * The amount of space between two consecutive columns.
      */
-    public open var columnSpacing: UInt
+    public open var columnSpacing: guint
         /**
          * Returns the amount of space between the columns of @grid.
          *
@@ -230,7 +230,7 @@ public open class Grid(
     /**
      * The amount of space between two consecutive rows.
      */
-    public open var rowSpacing: UInt
+    public open var rowSpacing: guint
         /**
          * Returns the amount of space between the rows of @grid.
          *
@@ -265,13 +265,7 @@ public open class Grid(
      * @param width the number of columns that @child will span
      * @param height the number of rows that @child will span
      */
-    public open fun attach(
-        child: Widget,
-        column: Int,
-        row: Int,
-        width: Int,
-        height: Int,
-    ): Unit =
+    public open fun attach(child: Widget, column: gint, row: gint, width: gint, height: gint): Unit =
         gtk_grid_attach(gtkGridPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), column, row, width, height)
 
     /**
@@ -296,24 +290,16 @@ public open class Grid(
         child: Widget,
         sibling: Widget? = null,
         side: PositionType,
-        width: Int,
-        height: Int,
-    ): Unit =
-        gtk_grid_attach_next_to(
-            gtkGridPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret(),
-            sibling?.gtkWidgetPointer?.reinterpret(),
-            side.nativeValue,
-            width,
-            height
-        )
-
-    /**
-     * Returns which row defines the global baseline of @grid.
-     *
-     * @return the row index defining the global baseline
-     */
-    public open fun getBaselineRow(): Int = gtk_grid_get_baseline_row(gtkGridPointer.reinterpret())
+        width: gint,
+        height: gint,
+    ): Unit = gtk_grid_attach_next_to(
+        gtkGridPointer.reinterpret(),
+        child.gtkWidgetPointer.reinterpret(),
+        sibling?.gtkWidgetPointer?.reinterpret(),
+        side.nativeValue,
+        width,
+        height
+    )
 
     /**
      * Gets the child of @grid whose area covers the grid
@@ -323,28 +309,10 @@ public open class Grid(
      * @param row the top edge of the cell
      * @return the child at the given position
      */
-    public open fun getChildAt(
-        column: Int,
-        row: Int,
-    ): Widget? =
+    public open fun getChildAt(column: gint, row: gint): Widget? =
         gtk_grid_get_child_at(gtkGridPointer.reinterpret(), column, row)?.run {
             Widget(reinterpret())
         }
-
-    /**
-     * Returns whether all columns of @grid have the same width.
-     *
-     * @return whether all columns of @grid have the same width.
-     */
-    public open fun getColumnHomogeneous(): Boolean =
-        gtk_grid_get_column_homogeneous(gtkGridPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns the amount of space between the columns of @grid.
-     *
-     * @return the column spacing of @grid
-     */
-    public open fun getColumnSpacing(): UInt = gtk_grid_get_column_spacing(gtkGridPointer.reinterpret())
 
     /**
      * Returns the baseline position of @row.
@@ -354,25 +322,10 @@ public open class Grid(
      * @param row a row index
      * @return the baseline position of @row
      */
-    public open fun getRowBaselinePosition(row: Int): BaselinePosition =
+    public open fun getRowBaselinePosition(row: gint): BaselinePosition =
         gtk_grid_get_row_baseline_position(gtkGridPointer.reinterpret(), row).run {
             BaselinePosition.fromNativeValue(this)
         }
-
-    /**
-     * Returns whether all rows of @grid have the same height.
-     *
-     * @return whether all rows of @grid have the same height.
-     */
-    public open fun getRowHomogeneous(): Boolean =
-        gtk_grid_get_row_homogeneous(gtkGridPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns the amount of space between the rows of @grid.
-     *
-     * @return the row spacing of @grid
-     */
-    public open fun getRowSpacing(): UInt = gtk_grid_get_row_spacing(gtkGridPointer.reinterpret())
 
     /**
      * Inserts a column at the specified position.
@@ -383,7 +336,7 @@ public open class Grid(
      *
      * @param position the position to insert the column at
      */
-    public open fun insertColumn(position: Int): Unit = gtk_grid_insert_column(gtkGridPointer.reinterpret(), position)
+    public open fun insertColumn(position: gint): Unit = gtk_grid_insert_column(gtkGridPointer.reinterpret(), position)
 
     /**
      * Inserts a row or column at the specified position.
@@ -397,10 +350,7 @@ public open class Grid(
      *   placed next to
      * @param side the side of @sibling that @child is positioned next to
      */
-    public open fun insertNextTo(
-        sibling: Widget,
-        side: PositionType,
-    ): Unit =
+    public open fun insertNextTo(sibling: Widget, side: PositionType): Unit =
         gtk_grid_insert_next_to(gtkGridPointer.reinterpret(), sibling.gtkWidgetPointer.reinterpret(), side.nativeValue)
 
     /**
@@ -412,7 +362,7 @@ public open class Grid(
      *
      * @param position the position to insert the row at
      */
-    public open fun insertRow(position: Int): Unit = gtk_grid_insert_row(gtkGridPointer.reinterpret(), position)
+    public open fun insertRow(position: gint): Unit = gtk_grid_insert_row(gtkGridPointer.reinterpret(), position)
 
     /**
      * Removes a child from @grid.
@@ -435,7 +385,7 @@ public open class Grid(
      *
      * @param position the position of the column to remove
      */
-    public open fun removeColumn(position: Int): Unit = gtk_grid_remove_column(gtkGridPointer.reinterpret(), position)
+    public open fun removeColumn(position: gint): Unit = gtk_grid_remove_column(gtkGridPointer.reinterpret(), position)
 
     /**
      * Removes a row from the grid.
@@ -447,34 +397,7 @@ public open class Grid(
      *
      * @param position the position of the row to remove
      */
-    public open fun removeRow(position: Int): Unit = gtk_grid_remove_row(gtkGridPointer.reinterpret(), position)
-
-    /**
-     * Sets which row defines the global baseline for the entire grid.
-     *
-     * Each row in the grid can have its own local baseline, but only
-     * one of those is global, meaning it will be the baseline in the
-     * parent of the @grid.
-     *
-     * @param row the row index
-     */
-    public open fun setBaselineRow(row: Int): Unit = gtk_grid_set_baseline_row(gtkGridPointer.reinterpret(), row)
-
-    /**
-     * Sets whether all columns of @grid will have the same width.
-     *
-     * @param homogeneous true to make columns homogeneous
-     */
-    public open fun setColumnHomogeneous(homogeneous: Boolean): Unit =
-        gtk_grid_set_column_homogeneous(gtkGridPointer.reinterpret(), homogeneous.asGBoolean())
-
-    /**
-     * Sets the amount of space between columns of @grid.
-     *
-     * @param spacing the amount of space to insert between columns
-     */
-    public open fun setColumnSpacing(spacing: UInt): Unit =
-        gtk_grid_set_column_spacing(gtkGridPointer.reinterpret(), spacing)
+    public open fun removeRow(position: gint): Unit = gtk_grid_remove_row(gtkGridPointer.reinterpret(), position)
 
     /**
      * Sets how the baseline should be positioned on @row of the
@@ -485,25 +408,8 @@ public open class Grid(
      * @param row a row index
      * @param pos a `GtkBaselinePosition`
      */
-    public open fun setRowBaselinePosition(
-        row: Int,
-        pos: BaselinePosition,
-    ): Unit = gtk_grid_set_row_baseline_position(gtkGridPointer.reinterpret(), row, pos.nativeValue)
-
-    /**
-     * Sets whether all rows of @grid will have the same height.
-     *
-     * @param homogeneous true to make rows homogeneous
-     */
-    public open fun setRowHomogeneous(homogeneous: Boolean): Unit =
-        gtk_grid_set_row_homogeneous(gtkGridPointer.reinterpret(), homogeneous.asGBoolean())
-
-    /**
-     * Sets the amount of space between rows of @grid.
-     *
-     * @param spacing the amount of space to insert between rows
-     */
-    public open fun setRowSpacing(spacing: UInt): Unit = gtk_grid_set_row_spacing(gtkGridPointer.reinterpret(), spacing)
+    public open fun setRowBaselinePosition(row: gint, pos: BaselinePosition): Unit =
+        gtk_grid_set_row_baseline_position(gtkGridPointer.reinterpret(), row, pos.nativeValue)
 
     public companion object : TypeCompanion<Grid> {
         override val type: GeneratedClassKGType<Grid> =
@@ -512,5 +418,12 @@ public open class Grid(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Grid
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_grid_get_type()
     }
 }

@@ -15,6 +15,7 @@ import org.gtkkn.native.gio.g_menu_link_iter_get_name
 import org.gtkkn.native.gio.g_menu_link_iter_get_type
 import org.gtkkn.native.gio.g_menu_link_iter_get_value
 import org.gtkkn.native.gio.g_menu_link_iter_next
+import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 import kotlin.String
 
@@ -29,9 +30,8 @@ import kotlin.String
  * @since 2.32
  */
 @GioVersion2_32
-public open class MenuLinkIter(
-    pointer: CPointer<GMenuLinkIter>,
-) : Object(pointer.reinterpret()),
+public open class MenuLinkIter(pointer: CPointer<GMenuLinkIter>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioMenuLinkIterPointer: CPointer<GMenuLinkIter>
         get() = gPointer.reinterpret()
@@ -45,9 +45,8 @@ public open class MenuLinkIter(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun getName(): String =
-        g_menu_link_iter_get_name(gioMenuLinkIterPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public open fun getName(): String = g_menu_link_iter_get_name(gioMenuLinkIterPointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Gets the linked #GMenuModel at the current iterator position.
@@ -58,10 +57,9 @@ public open class MenuLinkIter(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun getValue(): MenuModel =
-        g_menu_link_iter_get_value(gioMenuLinkIterPointer.reinterpret())!!.run {
-            MenuModel(reinterpret())
-        }
+    public open fun getValue(): MenuModel = g_menu_link_iter_get_value(gioMenuLinkIterPointer.reinterpret())!!.run {
+        MenuModel(reinterpret())
+    }
 
     /**
      * Attempts to advance the iterator to the next (possibly first)
@@ -86,5 +84,12 @@ public open class MenuLinkIter(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of MenuLinkIter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_menu_link_iter_get_type()
     }
 }

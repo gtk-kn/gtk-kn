@@ -2,6 +2,7 @@
 package org.gtkkn.bindings.webkit
 
 import org.gtkkn.extensions.glib.Bitfield
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WEBKIT_FIND_OPTIONS_AT_WORD_STARTS
 import org.gtkkn.native.webkit.WEBKIT_FIND_OPTIONS_BACKWARDS
 import org.gtkkn.native.webkit.WEBKIT_FIND_OPTIONS_CASE_INSENSITIVE
@@ -9,13 +10,12 @@ import org.gtkkn.native.webkit.WEBKIT_FIND_OPTIONS_NONE
 import org.gtkkn.native.webkit.WEBKIT_FIND_OPTIONS_TREAT_MEDIAL_CAPITAL_AS_WORD_START
 import org.gtkkn.native.webkit.WEBKIT_FIND_OPTIONS_WRAP_AROUND
 import org.gtkkn.native.webkit.WebKitFindOptions
+import org.gtkkn.native.webkit.webkit_find_options_get_type
 
 /**
  * Enum values used to specify search options.
  */
-public class FindOptions(
-    public val mask: WebKitFindOptions,
-) : Bitfield<FindOptions> {
+public class FindOptions(public val mask: WebKitFindOptions) : Bitfield<FindOptions> {
     override infix fun or(other: FindOptions): FindOptions = FindOptions(mask or other.mask)
 
     public companion object {
@@ -53,5 +53,12 @@ public class FindOptions(
          *   at the end of the document.
          */
         public val WRAP_AROUND: FindOptions = FindOptions(WEBKIT_FIND_OPTIONS_WRAP_AROUND)
+
+        /**
+         * Get the GType of FindOptions
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_find_options_get_type()
     }
 }

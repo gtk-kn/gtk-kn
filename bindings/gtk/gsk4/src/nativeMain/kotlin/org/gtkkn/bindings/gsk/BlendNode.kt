@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskBlendNode
 import org.gtkkn.native.gsk.gsk_blend_node_get_blend_mode
 import org.gtkkn.native.gsk.gsk_blend_node_get_bottom_child
@@ -16,9 +17,8 @@ import org.gtkkn.native.gsk.gsk_blend_node_new
 /**
  * A render node applying a blending function between its two child nodes.
  */
-public open class BlendNode(
-    pointer: CPointer<GskBlendNode>,
-) : RenderNode(pointer.reinterpret()),
+public open class BlendNode(pointer: CPointer<GskBlendNode>) :
+    RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskBlendNodePointer: CPointer<GskBlendNode>
         get() = gPointer.reinterpret()
@@ -49,10 +49,9 @@ public open class BlendNode(
      *
      * @return the blend mode
      */
-    public open fun getBlendMode(): BlendMode =
-        gsk_blend_node_get_blend_mode(gskBlendNodePointer.reinterpret()).run {
-            BlendMode.fromNativeValue(this)
-        }
+    public open fun getBlendMode(): BlendMode = gsk_blend_node_get_blend_mode(gskBlendNodePointer.reinterpret()).run {
+        BlendMode.fromNativeValue(this)
+    }
 
     /**
      * Retrieves the bottom `GskRenderNode` child of the @node.
@@ -69,10 +68,9 @@ public open class BlendNode(
      *
      * @return the top child node
      */
-    public open fun getTopChild(): RenderNode =
-        gsk_blend_node_get_top_child(gskBlendNodePointer.reinterpret())!!.run {
-            RenderNode(reinterpret())
-        }
+    public open fun getTopChild(): RenderNode = gsk_blend_node_get_top_child(gskBlendNodePointer.reinterpret())!!.run {
+        RenderNode(reinterpret())
+    }
 
     public companion object : TypeCompanion<BlendNode> {
         override val type: GeneratedClassKGType<BlendNode> =
@@ -81,5 +79,12 @@ public open class BlendNode(
         init {
             GskTypeProvider.register()
         }
+
+        /**
+         * Get the GType of BlendNode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_blend_node_get_type()
     }
 }

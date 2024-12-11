@@ -28,19 +28,26 @@ import org.gtkkn.native.gio.g_menu_item_set_label
 import org.gtkkn.native.gio.g_menu_item_set_link
 import org.gtkkn.native.gio.g_menu_item_set_section
 import org.gtkkn.native.gio.g_menu_item_set_submenu
-import kotlin.Int
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import kotlin.String
 import kotlin.Unit
 
 /**
  * #GMenuItem is an opaque structure type.  You must access it using the
  * functions below.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `get_attribute`: Varargs parameter is not supported
+ * - method `set_action_and_target`: Varargs parameter is not supported
+ * - method `set_attribute`: Varargs parameter is not supported
+ *
  * @since 2.32
  */
 @GioVersion2_32
-public open class MenuItem(
-    pointer: CPointer<GMenuItem>,
-) : Object(pointer.reinterpret()),
+public open class MenuItem(pointer: CPointer<GMenuItem>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioMenuItemPointer: CPointer<GMenuItem>
         get() = gPointer.reinterpret()
@@ -79,7 +86,7 @@ public open class MenuItem(
      */
     public constructor(
         model: MenuModel,
-        itemIndex: Int,
+        itemIndex: gint,
     ) : this(g_menu_item_new_from_model(model.gioMenuModelPointer.reinterpret(), itemIndex)!!.reinterpret())
 
     /**
@@ -167,10 +174,7 @@ public open class MenuItem(
      * @since 2.34
      */
     @GioVersion2_34
-    public open fun getAttributeValue(
-        attribute: String,
-        expectedType: VariantType? = null,
-    ): Variant? =
+    public open fun getAttributeValue(attribute: String, expectedType: VariantType? = null): Variant? =
         g_menu_item_get_attribute_value(
             gioMenuItemPointer.reinterpret(),
             attribute,
@@ -235,10 +239,7 @@ public open class MenuItem(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun setActionAndTargetValue(
-        action: String? = null,
-        targetValue: Variant? = null,
-    ): Unit =
+    public open fun setActionAndTargetValue(action: String? = null, targetValue: Variant? = null): Unit =
         g_menu_item_set_action_and_target_value(
             gioMenuItemPointer.reinterpret(),
             action,
@@ -271,10 +272,7 @@ public open class MenuItem(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun setAttributeValue(
-        attribute: String,
-        `value`: Variant? = null,
-    ): Unit =
+    public open fun setAttributeValue(attribute: String, `value`: Variant? = null): Unit =
         g_menu_item_set_attribute_value(
             gioMenuItemPointer.reinterpret(),
             attribute,
@@ -352,10 +350,8 @@ public open class MenuItem(
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun setLink(
-        link: String,
-        model: MenuModel? = null,
-    ): Unit = g_menu_item_set_link(gioMenuItemPointer.reinterpret(), link, model?.gioMenuModelPointer?.reinterpret())
+    public open fun setLink(link: String, model: MenuModel? = null): Unit =
+        g_menu_item_set_link(gioMenuItemPointer.reinterpret(), link, model?.gioMenuModelPointer?.reinterpret())
 
     /**
      * Sets or unsets the "section" link of @menu_item to @section.
@@ -464,10 +460,7 @@ public open class MenuItem(
          * @return a new #GMenuItem
          * @since 2.32
          */
-        public fun newSection(
-            label: String? = null,
-            section: MenuModel,
-        ): MenuItem =
+        public fun newSection(label: String? = null, section: MenuModel): MenuItem =
             MenuItem(g_menu_item_new_section(label, section.gioMenuModelPointer.reinterpret())!!.reinterpret())
 
         /**
@@ -481,10 +474,14 @@ public open class MenuItem(
          * @return a new #GMenuItem
          * @since 2.32
          */
-        public fun newSubmenu(
-            label: String? = null,
-            submenu: MenuModel,
-        ): MenuItem =
+        public fun newSubmenu(label: String? = null, submenu: MenuModel): MenuItem =
             MenuItem(g_menu_item_new_submenu(label, submenu.gioMenuModelPointer.reinterpret())!!.reinterpret())
+
+        /**
+         * Get the GType of MenuItem
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_menu_item_get_type()
     }
 }

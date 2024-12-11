@@ -22,11 +22,11 @@ import org.gtkkn.native.adw.adw_status_page_set_description
 import org.gtkkn.native.adw.adw_status_page_set_icon_name
 import org.gtkkn.native.adw.adw_status_page_set_paintable
 import org.gtkkn.native.adw.adw_status_page_set_title
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import kotlin.String
-import kotlin.Unit
 
 /**
  * A page used for empty/error states and similar use-cases.
@@ -47,9 +47,8 @@ import kotlin.Unit
  * [`.compact`](style-classes.html#compact-status-page) style class for when it
  * needs to fit into a small space such a sidebar or a popover.
  */
-public class StatusPage(
-    pointer: CPointer<AdwStatusPage>,
-) : Widget(pointer.reinterpret()),
+public class StatusPage(pointer: CPointer<AdwStatusPage>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val adwStatusPagePointer: CPointer<AdwStatusPage>
         get() = gPointer.reinterpret()
@@ -72,10 +71,9 @@ public class StatusPage(
          *
          * @return the child widget of @self
          */
-        get() =
-            adw_status_page_get_child(adwStatusPagePointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = adw_status_page_get_child(adwStatusPagePointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the child widget of @self.
@@ -139,10 +137,9 @@ public class StatusPage(
          *
          * @return the paintable
          */
-        get() =
-            adw_status_page_get_paintable(adwStatusPagePointer.reinterpret())?.run {
-                Paintable.wrap(reinterpret())
-            }
+        get() = adw_status_page_get_paintable(adwStatusPagePointer.reinterpret())?.run {
+            Paintable.wrap(reinterpret())
+        }
 
         /**
          * Sets the paintable for @self.
@@ -166,9 +163,8 @@ public class StatusPage(
          *
          * @return the title
          */
-        get() =
-            adw_status_page_get_title(adwStatusPagePointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = adw_status_page_get_title(adwStatusPagePointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
         /**
          * Sets the title for @self.
@@ -186,96 +182,6 @@ public class StatusPage(
      */
     public constructor() : this(adw_status_page_new()!!.reinterpret())
 
-    /**
-     * Gets the child widget of @self.
-     *
-     * @return the child widget of @self
-     */
-    public fun getChild(): Widget? =
-        adw_status_page_get_child(adwStatusPagePointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Gets the description markup for @self.
-     *
-     * @return the description
-     */
-    public fun getDescription(): String? =
-        adw_status_page_get_description(adwStatusPagePointer.reinterpret())?.toKString()
-
-    /**
-     * Gets the icon name for @self.
-     *
-     * @return the icon name
-     */
-    public fun getIconName(): String? = adw_status_page_get_icon_name(adwStatusPagePointer.reinterpret())?.toKString()
-
-    /**
-     * Gets the paintable for @self.
-     *
-     * @return the paintable
-     */
-    public fun getPaintable(): Paintable? =
-        adw_status_page_get_paintable(adwStatusPagePointer.reinterpret())?.run {
-            Paintable.wrap(reinterpret())
-        }
-
-    /**
-     * Gets the title for @self.
-     *
-     * @return the title
-     */
-    public fun getTitle(): String =
-        adw_status_page_get_title(adwStatusPagePointer.reinterpret())?.toKString() ?: error("Expected not null string")
-
-    /**
-     * Sets the child widget of @self.
-     *
-     * @param child the child widget
-     */
-    public fun setChild(child: Widget? = null): Unit =
-        adw_status_page_set_child(adwStatusPagePointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
-
-    /**
-     * Sets the description markup for @self.
-     *
-     * The description is displayed below the title. It is parsed as Pango markup.
-     *
-     * @param description the description
-     */
-    public fun setDescription(description: String? = null): Unit =
-        adw_status_page_set_description(adwStatusPagePointer.reinterpret(), description)
-
-    /**
-     * Sets the icon name for @self.
-     *
-     * Changing this will set [property@StatusPage:paintable] to `NULL`.
-     *
-     * @param iconName the icon name
-     */
-    public fun setIconName(iconName: String? = null): Unit =
-        adw_status_page_set_icon_name(adwStatusPagePointer.reinterpret(), iconName)
-
-    /**
-     * Sets the paintable for @self.
-     *
-     * Changing this will set [property@StatusPage:icon-name] to `NULL`.
-     *
-     * @param paintable the paintable
-     */
-    public fun setPaintable(paintable: Paintable? = null): Unit =
-        adw_status_page_set_paintable(adwStatusPagePointer.reinterpret(), paintable?.gdkPaintablePointer)
-
-    /**
-     * Sets the title for @self.
-     *
-     * The title is displayed below the icon. It is not parsed as Pango markup.
-     *
-     * @param title the title
-     */
-    public fun setTitle(title: String): Unit = adw_status_page_set_title(adwStatusPagePointer.reinterpret(), title)
-
     public companion object : TypeCompanion<StatusPage> {
         override val type: GeneratedClassKGType<StatusPage> =
             GeneratedClassKGType(adw_status_page_get_type()) { StatusPage(it.reinterpret()) }
@@ -283,5 +189,12 @@ public class StatusPage(
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of StatusPage
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_status_page_get_type()
     }
 }

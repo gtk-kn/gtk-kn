@@ -18,7 +18,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -31,9 +31,10 @@ import org.gtkkn.native.gio.g_debug_controller_dbus_get_type
 import org.gtkkn.native.gio.g_debug_controller_dbus_new
 import org.gtkkn.native.gio.g_debug_controller_dbus_stop
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Throws
 import kotlin.ULong
 import kotlin.Unit
@@ -157,9 +158,8 @@ import kotlin.Unit
  * @since 2.72
  */
 @GioVersion2_72
-public open class DebugControllerDBus(
-    pointer: CPointer<GDebugControllerDBus>,
-) : Object(pointer.reinterpret()),
+public open class DebugControllerDBus(pointer: CPointer<GDebugControllerDBus>) :
+    Object(pointer.reinterpret()),
     DebugController,
     Initable,
     KGTyped {
@@ -187,7 +187,7 @@ public open class DebugControllerDBus(
      *   on failure
      * @since 2.72
      */
-    @Throws(GlibException::class)
+    @Throws(GLibException::class)
     public constructor(connection: DBusConnection, cancellable: Cancellable? = null) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -254,15 +254,14 @@ public open class DebugControllerDBus(
     public fun connectAuthorize(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (invocation: DBusMethodInvocation) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "authorize",
-            connectAuthorizeFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "authorize",
+        connectAuthorizeFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<DebugControllerDBus> {
         override val type: GeneratedClassKGType<DebugControllerDBus> =
@@ -271,21 +270,26 @@ public open class DebugControllerDBus(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of DebugControllerDBus
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_debug_controller_dbus_get_type()
     }
 }
 
-private val connectAuthorizeFunc: CPointer<CFunction<(CPointer<GDBusMethodInvocation>) -> Int>> =
+private val connectAuthorizeFunc: CPointer<CFunction<(CPointer<GDBusMethodInvocation>) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
             invocation: CPointer<GDBusMethodInvocation>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<(invocation: DBusMethodInvocation) -> Boolean>()
-            .get()
-            .invoke(
-                invocation!!.run {
-                    DBusMethodInvocation(reinterpret())
-                }
-            ).asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<(invocation: DBusMethodInvocation) -> Boolean>().get().invoke(
+            invocation!!.run {
+                DBusMethodInvocation(reinterpret())
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()

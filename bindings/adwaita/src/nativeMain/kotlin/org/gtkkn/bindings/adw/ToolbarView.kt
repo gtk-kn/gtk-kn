@@ -32,11 +32,12 @@ import org.gtkkn.native.adw.adw_toolbar_view_set_extend_content_to_top_edge
 import org.gtkkn.native.adw.adw_toolbar_view_set_reveal_bottom_bars
 import org.gtkkn.native.adw.adw_toolbar_view_set_reveal_top_bars
 import org.gtkkn.native.adw.adw_toolbar_view_set_top_bar_style
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Unit
 
 /**
@@ -141,9 +142,8 @@ import kotlin.Unit
  * @since 1.4
  */
 @AdwVersion1_4
-public class ToolbarView(
-    pointer: CPointer<AdwToolbarView>,
-) : Widget(pointer.reinterpret()),
+public class ToolbarView(pointer: CPointer<AdwToolbarView>) :
+    Widget(pointer.reinterpret()),
     KGTyped {
     public val adwToolbarViewPointer: CPointer<AdwToolbarView>
         get() = gPointer.reinterpret()
@@ -168,7 +168,7 @@ public class ToolbarView(
      * @since 1.4
      */
     @AdwVersion1_4
-    public val bottomBarHeight: Int
+    public val bottomBarHeight: gint
         /**
          * Gets the current bottom bar height for @self.
          *
@@ -218,10 +218,9 @@ public class ToolbarView(
          * @return bottom bar style
          * @since 1.4
          */
-        get() =
-            adw_toolbar_view_get_bottom_bar_style(adwToolbarViewPointer.reinterpret()).run {
-                ToolbarStyle.fromNativeValue(this)
-            }
+        get() = adw_toolbar_view_get_bottom_bar_style(adwToolbarViewPointer.reinterpret()).run {
+            ToolbarStyle.fromNativeValue(this)
+        }
 
         /**
          * Sets appearance of the bottom bars for @self.
@@ -268,10 +267,9 @@ public class ToolbarView(
          * @return the content widget
          * @since 1.4
          */
-        get() =
-            adw_toolbar_view_get_content(adwToolbarViewPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = adw_toolbar_view_get_content(adwToolbarViewPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the content widget for @self.
@@ -448,7 +446,7 @@ public class ToolbarView(
      * @since 1.4
      */
     @AdwVersion1_4
-    public val topBarHeight: Int
+    public val topBarHeight: gint
         /**
          * Gets the current top bar height for @self.
          *
@@ -498,10 +496,9 @@ public class ToolbarView(
          * @return top bar style
          * @since 1.4
          */
-        get() =
-            adw_toolbar_view_get_top_bar_style(adwToolbarViewPointer.reinterpret()).run {
-                ToolbarStyle.fromNativeValue(this)
-            }
+        get() = adw_toolbar_view_get_top_bar_style(adwToolbarViewPointer.reinterpret()).run {
+            ToolbarStyle.fromNativeValue(this)
+        }
 
         /**
          * Sets appearance of the top bars for @self.
@@ -564,110 +561,6 @@ public class ToolbarView(
         adw_toolbar_view_add_top_bar(adwToolbarViewPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
-     * Gets the current bottom bar height for @self.
-     *
-     * Bottom bar height does change depending on
-     * [property@ToolbarView:reveal-bottom-bars], including during the transition.
-     *
-     * See [method@ToolbarView.get_top_bar_height].
-     *
-     * @return the current bottom bar height
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun getBottomBarHeight(): Int = adw_toolbar_view_get_bottom_bar_height(adwToolbarViewPointer.reinterpret())
-
-    /**
-     * Gets appearance of the botom bars for @self.
-     *
-     * @return bottom bar style
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun getBottomBarStyle(): ToolbarStyle =
-        adw_toolbar_view_get_bottom_bar_style(adwToolbarViewPointer.reinterpret()).run {
-            ToolbarStyle.fromNativeValue(this)
-        }
-
-    /**
-     * Gets the content widget for @self.
-     *
-     * @return the content widget
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun getContent(): Widget? =
-        adw_toolbar_view_get_content(adwToolbarViewPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Gets whether the content widget can extend behind bottom bars.
-     *
-     * @return whether content extends behind bottom bars
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun getExtendContentToBottomEdge(): Boolean =
-        adw_toolbar_view_get_extend_content_to_bottom_edge(adwToolbarViewPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets whether the content widget can extend behind top bars.
-     *
-     * @return whether content extends behind top bars
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun getExtendContentToTopEdge(): Boolean =
-        adw_toolbar_view_get_extend_content_to_top_edge(adwToolbarViewPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets whether bottom bars are revealed for @self.
-     *
-     * @return whether bottom bars are revealed
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun getRevealBottomBars(): Boolean =
-        adw_toolbar_view_get_reveal_bottom_bars(adwToolbarViewPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets whether top bars are revealed for @self.
-     *
-     * @return whether top bars are revealed
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun getRevealTopBars(): Boolean =
-        adw_toolbar_view_get_reveal_top_bars(adwToolbarViewPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the current top bar height for @self.
-     *
-     * Top bar height does change depending on
-     * [property@ToolbarView:reveal-top-bars], including during the transition.
-     *
-     * See [method@ToolbarView.get_bottom_bar_height].
-     *
-     * @return the current top bar height
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun getTopBarHeight(): Int = adw_toolbar_view_get_top_bar_height(adwToolbarViewPointer.reinterpret())
-
-    /**
-     * Gets appearance of the top bars for @self.
-     *
-     * @return top bar style
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun getTopBarStyle(): ToolbarStyle =
-        adw_toolbar_view_get_top_bar_style(adwToolbarViewPointer.reinterpret()).run {
-            ToolbarStyle.fromNativeValue(this)
-        }
-
-    /**
      * Removes a child from @self.
      *
      * @param widget the child to be removed
@@ -677,148 +570,6 @@ public class ToolbarView(
     public fun remove(widget: Widget): Unit =
         adw_toolbar_view_remove(adwToolbarViewPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
-    /**
-     * Sets appearance of the bottom bars for @self.
-     *
-     * If set to `ADW_TOOLBAR_FLAT`, bottom bars are flat and scrolling content has
-     * a subtle undershoot shadow when touching them, same as the
-     * [`.undershoot-bottom`](style-classes.html#undershoot-indicators)
-     * style class. This works well for simple content, e.g. [class@StatusPage] or
-     * [class@PreferencesPage], where the background at the bottom of the page is
-     * uniform. Additionally, windows with sidebars should always use this style.
-     *
-     * Undershoot shadow is only present if a bottom bar is actually present and
-     * visible. It is also never present if
-     * [property@ToolbarView:extend-content-to-bottom-edge] is set to `TRUE`.
-     *
-     * If set to `ADW_TOOLBAR_RAISED`, bottom bars have an opaque background and a
-     * persistent shadow, this is suitable for content such as
-     * [utility panes](https://developer.gnome.org/hig/patterns/containers/utility-panes.html),
-     * where some elements are directly adjacent to the bottom bars, or
-     * [class@TabView], where each page can have a different background.
-     *
-     * `ADW_TOOLBAR_RAISED_BORDER` is similar to `ADW_TOOLBAR_RAISED`, but the
-     * shadow is replaced with a more subtle border. This can be useful for
-     * applications like image viewers.
-     *
-     * See also [method@ToolbarView.set_top_bar_style].
-     *
-     * @param style bottom bar style
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun setBottomBarStyle(style: ToolbarStyle): Unit =
-        adw_toolbar_view_set_bottom_bar_style(adwToolbarViewPointer.reinterpret(), style.nativeValue)
-
-    /**
-     * Sets the content widget for @self.
-     *
-     * @param content the content widget
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun setContent(content: Widget? = null): Unit =
-        adw_toolbar_view_set_content(adwToolbarViewPointer.reinterpret(), content?.gtkWidgetPointer?.reinterpret())
-
-    /**
-     * Sets whether the content widget can extend behind bottom bars.
-     *
-     * This can be used in combination with [property@ToolbarView:reveal-bottom-bars]
-     * to show and hide toolbars in fullscreen.
-     *
-     * See [method@ToolbarView.set_extend_content_to_top_edge].
-     *
-     * @param extend whether content extends behind bottom bars
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun setExtendContentToBottomEdge(extend: Boolean): Unit =
-        adw_toolbar_view_set_extend_content_to_bottom_edge(adwToolbarViewPointer.reinterpret(), extend.asGBoolean())
-
-    /**
-     * Sets whether the content widget can extend behind top bars.
-     *
-     * This can be used in combination with [property@ToolbarView:reveal-top-bars]
-     * to show and hide toolbars in fullscreen.
-     *
-     * See [method@ToolbarView.set_extend_content_to_bottom_edge].
-     *
-     * @param extend whether content extends behind top bars
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun setExtendContentToTopEdge(extend: Boolean): Unit =
-        adw_toolbar_view_set_extend_content_to_top_edge(adwToolbarViewPointer.reinterpret(), extend.asGBoolean())
-
-    /**
-     * Sets whether bottom bars are revealed for @self.
-     *
-     * The transition will be animated.
-     *
-     * This can be used in combination with
-     * [property@ToolbarView:extend-content-to-bottom-edge] to show and hide
-     * toolbars in fullscreen.
-     *
-     * See [method@ToolbarView.set_reveal_top_bars].
-     *
-     * @param reveal whether to reveal bottom bars
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun setRevealBottomBars(reveal: Boolean): Unit =
-        adw_toolbar_view_set_reveal_bottom_bars(adwToolbarViewPointer.reinterpret(), reveal.asGBoolean())
-
-    /**
-     * Sets whether top bars are revealed for @self.
-     *
-     * The transition will be animated.
-     *
-     * This can be used in combination with
-     * [property@ToolbarView:extend-content-to-top-edge] to show and hide toolbars
-     * in fullscreen.
-     *
-     * See [method@ToolbarView.set_reveal_bottom_bars].
-     *
-     * @param reveal whether to reveal top bars
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun setRevealTopBars(reveal: Boolean): Unit =
-        adw_toolbar_view_set_reveal_top_bars(adwToolbarViewPointer.reinterpret(), reveal.asGBoolean())
-
-    /**
-     * Sets appearance of the top bars for @self.
-     *
-     * If set to `ADW_TOOLBAR_FLAT`, top bars are flat and scrolling content has a
-     * subtle undershoot shadow when touching them, same as the
-     * [`.undershoot-top`](style-classes.html#undershoot-indicators)
-     * style class. This works well for simple content, e.g. [class@StatusPage] or
-     * [class@PreferencesPage], where the background at the top of the page is
-     * uniform. Additionally, windows with sidebars should always use this style.
-     *
-     * Undershoot shadow is only present if a top bar is actually present and
-     * visible. It is also never present if
-     * [property@ToolbarView:extend-content-to-top-edge] is set to `TRUE`.
-     *
-     * If set to `ADW_TOOLBAR_RAISED`, top bars have an opaque background and a
-     * persistent shadow, this is suitable for content such as
-     * [utility panes](https://developer.gnome.org/hig/patterns/containers/utility-panes.html),
-     * where some elements are directly adjacent to the top bars, or
-     * [class@TabView], where each page can have a different background.
-     *
-     * `ADW_TOOLBAR_RAISED_BORDER` is similar to `ADW_TOOLBAR_RAISED`, but the
-     * shadow is replaced with a more subtle border. This can be useful for
-     * applications like image viewers.
-     *
-     * See also [method@ToolbarView.set_bottom_bar_style].
-     *
-     * @param style top bar style
-     * @since 1.4
-     */
-    @AdwVersion1_4
-    public fun setTopBarStyle(style: ToolbarStyle): Unit =
-        adw_toolbar_view_set_top_bar_style(adwToolbarViewPointer.reinterpret(), style.nativeValue)
-
     public companion object : TypeCompanion<ToolbarView> {
         override val type: GeneratedClassKGType<ToolbarView> =
             GeneratedClassKGType(adw_toolbar_view_get_type()) { ToolbarView(it.reinterpret()) }
@@ -826,5 +577,12 @@ public class ToolbarView(
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of ToolbarView
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_toolbar_view_get_type()
     }
 }

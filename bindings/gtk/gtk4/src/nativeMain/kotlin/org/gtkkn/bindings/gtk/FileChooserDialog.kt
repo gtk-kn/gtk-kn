@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -189,10 +190,13 @@ import org.gtkkn.native.gtk.gtk_file_chooser_dialog_get_type
  *
  * `GtkFileChooserDialog` has a single CSS node with the name `window` and style
  * class `.filechooser`.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - constructor `new`: Varargs parameter is not supported
  */
-public open class FileChooserDialog(
-    pointer: CPointer<GtkFileChooserDialog>,
-) : Dialog(pointer.reinterpret()),
+public open class FileChooserDialog(pointer: CPointer<GtkFileChooserDialog>) :
+    Dialog(pointer.reinterpret()),
     FileChooser,
     KGTyped {
     public val gtkFileChooserDialogPointer: CPointer<GtkFileChooserDialog>
@@ -226,5 +230,12 @@ public open class FileChooserDialog(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of FileChooserDialog
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_file_chooser_dialog_get_type()
     }
 }

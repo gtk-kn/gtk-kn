@@ -12,9 +12,7 @@ import org.gtkkn.native.gobject.G_TYPE_FLAG_INSTANTIATABLE
  * Bit masks used to check or determine specific characteristics of a
  * fundamental type.
  */
-public class TypeFundamentalFlags(
-    public val mask: GTypeFundamentalFlags,
-) : Bitfield<TypeFundamentalFlags> {
+public class TypeFundamentalFlags(public val mask: GTypeFundamentalFlags) : Bitfield<TypeFundamentalFlags> {
     override infix fun or(other: TypeFundamentalFlags): TypeFundamentalFlags = TypeFundamentalFlags(mask or other.mask)
 
     public companion object {

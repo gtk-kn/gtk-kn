@@ -21,7 +21,8 @@ import org.gtkkn.native.gio.g_unix_fd_list_get_length
 import org.gtkkn.native.gio.g_unix_fd_list_get_type
 import org.gtkkn.native.gio.g_unix_fd_list_new
 import org.gtkkn.native.glib.GError
-import kotlin.Int
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import kotlin.Result
 
 /**
@@ -46,9 +47,8 @@ import kotlin.Result
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `fds`: Array parameter of type gint is not supported
  */
-public open class UnixFDList(
-    pointer: CPointer<GUnixFDList>,
-) : Object(pointer.reinterpret()),
+public open class UnixFDList(pointer: CPointer<GUnixFDList>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioUnixFDListPointer: CPointer<GUnixFDList>
         get() = gPointer.reinterpret()
@@ -81,16 +81,15 @@ public open class UnixFDList(
      * @since 2.24
      */
     @GioVersion2_24
-    public open fun append(fd: Int): Result<Int> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_unix_fd_list_append(gioUnixFDListPointer.reinterpret(), fd, gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun append(fd: gint): Result<gint> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_unix_fd_list_append(gioUnixFDListPointer.reinterpret(), fd, gError.ptr)
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Gets a file descriptor out of @list.
@@ -111,16 +110,15 @@ public open class UnixFDList(
      * @since 2.24
      */
     @GioVersion2_24
-    public open fun `get`(index: Int): Result<Int> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_unix_fd_list_get(gioUnixFDListPointer.reinterpret(), index, gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun `get`(index: gint): Result<gint> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_unix_fd_list_get(gioUnixFDListPointer.reinterpret(), index, gError.ptr)
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Gets the length of @list (ie: the number of file descriptors
@@ -130,7 +128,7 @@ public open class UnixFDList(
      * @since 2.24
      */
     @GioVersion2_24
-    public open fun getLength(): Int = g_unix_fd_list_get_length(gioUnixFDListPointer.reinterpret())
+    public open fun getLength(): gint = g_unix_fd_list_get_length(gioUnixFDListPointer.reinterpret())
 
     public companion object : TypeCompanion<UnixFDList> {
         override val type: GeneratedClassKGType<UnixFDList> =
@@ -139,5 +137,12 @@ public open class UnixFDList(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of UnixFDList
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_unix_fd_list_get_type()
     }
 }

@@ -18,6 +18,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
@@ -107,9 +108,8 @@ import kotlin.Unit
  *
  * - method `group`: Property has no getter
  */
-public open class CheckButton(
-    pointer: CPointer<GtkCheckButton>,
-) : Widget(pointer.reinterpret()),
+public open class CheckButton(pointer: CPointer<GtkCheckButton>) :
+    Widget(pointer.reinterpret()),
     Actionable,
     KGTyped {
     public val gtkCheckButtonPointer: CPointer<GtkCheckButton>
@@ -161,10 +161,9 @@ public open class CheckButton(
          * @return the child widget of @button
          * @since 4.8
          */
-        get() =
-            gtk_check_button_get_child(gtkCheckButtonPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = gtk_check_button_get_child(gtkCheckButtonPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Sets the child widget of @button.
@@ -274,75 +273,6 @@ public open class CheckButton(
     public constructor(label: String? = null) : this(gtk_check_button_new_with_label(label)!!.reinterpret())
 
     /**
-     * Returns whether the check button is active.
-     *
-     * @return whether the check button is active
-     */
-    public open fun getActive(): Boolean = gtk_check_button_get_active(gtkCheckButtonPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the child widget of @button or `NULL` if [property@CheckButton:label] is set.
-     *
-     * @return the child widget of @button
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun getChild(): Widget? =
-        gtk_check_button_get_child(gtkCheckButtonPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Returns whether the check button is in an inconsistent state.
-     *
-     * @return true if @check_button is currently in an inconsistent state
-     */
-    public open fun getInconsistent(): Boolean =
-        gtk_check_button_get_inconsistent(gtkCheckButtonPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns the label of the check button or `NULL` if [property@CheckButton:child] is set.
-     *
-     * @return The label @self shows next
-     *   to the indicator. If no label is shown, null will be returned.
-     */
-    public open fun getLabel(): String? = gtk_check_button_get_label(gtkCheckButtonPointer.reinterpret())?.toKString()
-
-    /**
-     * Returns whether underlines in the label indicate mnemonics.
-     *
-     * @return The value of the [property@Gtk.CheckButton:use-underline] property.
-     *   See [method@Gtk.CheckButton.set_use_underline] for details on how to set
-     *   a new value.
-     */
-    public open fun getUseUnderline(): Boolean =
-        gtk_check_button_get_use_underline(gtkCheckButtonPointer.reinterpret()).asBoolean()
-
-    /**
-     * Changes the check buttons active state.
-     *
-     * @param setting the new value to set
-     */
-    public open fun setActive(setting: Boolean): Unit =
-        gtk_check_button_set_active(gtkCheckButtonPointer.reinterpret(), setting.asGBoolean())
-
-    /**
-     * Sets the child widget of @button.
-     *
-     * Note that by using this API, you take full responsibility for setting
-     * up the proper accessibility label and description information for @button.
-     * Most likely, you'll either set the accessibility label or description
-     * for @button explicitly, or you'll set a labelled-by or described-by
-     * relations from @child to @button.
-     *
-     * @param child the child widget
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun setChild(child: Widget? = null): Unit =
-        gtk_check_button_set_child(gtkCheckButtonPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
-
-    /**
      * Adds @self to the group of @group.
      *
      * In a group of multiple check buttons, only one button can be active
@@ -366,42 +296,6 @@ public open class CheckButton(
         gtk_check_button_set_group(gtkCheckButtonPointer.reinterpret(), group?.gtkCheckButtonPointer?.reinterpret())
 
     /**
-     * Sets the `GtkCheckButton` to inconsistent state.
-     *
-     * You should turn off the inconsistent state again if the user checks
-     * the check button. This has to be done manually.
-     *
-     * @param inconsistent true if state is inconsistent
-     */
-    public open fun setInconsistent(inconsistent: Boolean): Unit =
-        gtk_check_button_set_inconsistent(gtkCheckButtonPointer.reinterpret(), inconsistent.asGBoolean())
-
-    /**
-     * Sets the text of @self.
-     *
-     * If [property@Gtk.CheckButton:use-underline] is true, an underscore
-     * in @label is interpreted as mnemonic indicator, see
-     * [method@Gtk.CheckButton.set_use_underline] for details on this behavior.
-     *
-     * @param label The text shown next to the indicator, or null
-     *   to show no text
-     */
-    public open fun setLabel(label: String? = null): Unit =
-        gtk_check_button_set_label(gtkCheckButtonPointer.reinterpret(), label)
-
-    /**
-     * Sets whether underlines in the label indicate mnemonics.
-     *
-     * If @setting is true, an underscore character in @self's label
-     * indicates a mnemonic accelerator key. This behavior is similar
-     * to [property@Gtk.Label:use-underline].
-     *
-     * @param setting the new value to set
-     */
-    public open fun setUseUnderline(setting: Boolean): Unit =
-        gtk_check_button_set_use_underline(gtkCheckButtonPointer.reinterpret(), setting.asGBoolean())
-
-    /**
      * Emitted to when the check button is activated.
      *
      * The `::activate` signal on `GtkCheckButton` is an action signal and
@@ -418,10 +312,7 @@ public open class CheckButton(
      * @since 4.2
      */
     @GtkVersion4_2
-    public fun connectActivate(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "activate",
@@ -438,10 +329,7 @@ public open class CheckButton(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectToggled(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectToggled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "toggled",
@@ -477,21 +365,28 @@ public open class CheckButton(
          */
         public fun newWithMnemonic(label: String? = null): CheckButton =
             CheckButton(gtk_check_button_new_with_mnemonic(label)!!.reinterpret())
+
+        /**
+         * Get the GType of CheckButton
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_check_button_get_type()
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectToggledFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectToggledFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

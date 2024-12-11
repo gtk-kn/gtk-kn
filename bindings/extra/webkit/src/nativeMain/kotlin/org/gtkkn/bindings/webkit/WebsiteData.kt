@@ -1,21 +1,21 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
-import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_16
-import org.gtkkn.extensions.glib.Record
-import org.gtkkn.extensions.glib.RecordCompanion
+import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.webkit.WebKitWebsiteData
 import org.gtkkn.native.webkit.webkit_website_data_get_name
 import org.gtkkn.native.webkit.webkit_website_data_get_size
+import org.gtkkn.native.webkit.webkit_website_data_get_type
 import org.gtkkn.native.webkit.webkit_website_data_get_types
 import org.gtkkn.native.webkit.webkit_website_data_ref
 import org.gtkkn.native.webkit.webkit_website_data_unref
 import kotlin.String
-import kotlin.ULong
 import kotlin.Unit
 
 /**
@@ -37,9 +37,7 @@ import kotlin.Unit
  * @since 2.16
  */
 @WebKitVersion2_16
-public class WebsiteData(
-    pointer: CPointer<WebKitWebsiteData>,
-) : Record {
+public class WebsiteData(pointer: CPointer<WebKitWebsiteData>) : ProxyInstance(pointer) {
     public val webkitWebsiteDataPointer: CPointer<WebKitWebsiteData> = pointer
 
     /**
@@ -53,9 +51,8 @@ public class WebsiteData(
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun getName(): String =
-        webkit_website_data_get_name(webkitWebsiteDataPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getName(): String = webkit_website_data_get_name(webkitWebsiteDataPointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Gets the size of the data of types @types in a #WebKitWebsiteData.
@@ -68,7 +65,7 @@ public class WebsiteData(
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun getSize(types: WebsiteDataTypes): ULong =
+    public fun getSize(types: WebsiteDataTypes): guint64 =
         webkit_website_data_get_size(webkitWebsiteDataPointer.reinterpret(), types.mask)
 
     /**
@@ -95,10 +92,9 @@ public class WebsiteData(
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun ref(): WebsiteData =
-        webkit_website_data_ref(webkitWebsiteDataPointer.reinterpret())!!.run {
-            WebsiteData(reinterpret())
-        }
+    public fun ref(): WebsiteData = webkit_website_data_ref(webkitWebsiteDataPointer.reinterpret())!!.run {
+        WebsiteData(reinterpret())
+    }
 
     /**
      * Atomically decrements the reference count of @website_data by one.
@@ -112,8 +108,12 @@ public class WebsiteData(
     @WebKitVersion2_16
     public fun unref(): Unit = webkit_website_data_unref(webkitWebsiteDataPointer.reinterpret())
 
-    public companion object : RecordCompanion<WebsiteData, WebKitWebsiteData> {
-        override fun wrapRecordPointer(pointer: CPointer<out CPointed>): WebsiteData =
-            WebsiteData(pointer.reinterpret())
+    public companion object {
+        /**
+         * Get the GType of WebsiteData
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_website_data_get_type()
     }
 }

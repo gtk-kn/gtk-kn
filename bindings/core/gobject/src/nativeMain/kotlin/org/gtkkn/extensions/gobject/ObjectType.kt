@@ -26,12 +26,11 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.bindings.gobject.Gobject
+import org.gtkkn.bindings.gobject.GObject
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.ParamFlags
 import org.gtkkn.bindings.gobject.TypeQuery
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.allocate
 import org.gtkkn.extensions.gobject.properties.BooleanProperty
 import org.gtkkn.extensions.gobject.properties.ClassProperties
 import org.gtkkn.extensions.gobject.properties.ClassPropertyDelegateProvider
@@ -163,9 +162,12 @@ public open class ObjectType<T : Object>(
         flags: ParamFlags = ParamFlags.READWRITE
     ): ClassPropertyDelegateProvider<T, String> = ClassPropertyDelegateProvider { propertyName ->
         StringProperty(
-            Gobject.paramSpecString(
+            GObject.paramSpecString(
                 name ?: propertyName,
-                nick, blurb, defaultValue, flags,
+                nick,
+                blurb,
+                defaultValue,
+                flags,
             ),
         )
     }
@@ -188,9 +190,14 @@ public open class ObjectType<T : Object>(
         flags: ParamFlags = ParamFlags.READWRITE
     ): ClassPropertyDelegateProvider<T, Int> = ClassPropertyDelegateProvider { propertyName ->
         IntProperty(
-            Gobject.paramSpecInt(
-                name ?: propertyName,
-                nick, blurb, minimum, maximum, defaultValue, flags,
+            GObject.paramSpecInt(
+                name = name ?: propertyName,
+                nick = nick,
+                blurb = blurb,
+                minimum = minimum,
+                maximum = maximum,
+                defaultValue = defaultValue,
+                flags = flags,
             ),
         )
     }
@@ -211,9 +218,12 @@ public open class ObjectType<T : Object>(
         flags: ParamFlags = ParamFlags.READWRITE
     ): ClassPropertyDelegateProvider<T, Boolean> = ClassPropertyDelegateProvider { propertyName ->
         BooleanProperty(
-            Gobject.paramSpecBoolean(
-                name ?: propertyName,
-                nick, blurb, defaultValue, flags,
+            GObject.paramSpecBoolean(
+                name = name ?: propertyName,
+                nick = nick,
+                blurb = blurb,
+                defaultValue = defaultValue,
+                flags = flags,
             ),
         )
     }
@@ -244,11 +254,11 @@ public open class ObjectType<T : Object>(
         return TypeRegistry.getInstanceData(pointer).data as T
     }
 
-    public open fun classInit(objectClass: CPointer<GObjectClass>): Unit {}
+    public open fun classInit(objectClass: CPointer<GObjectClass>) {}
 
     private fun registerType(): GType = memScoped {
-        val typeQueryResult = TypeQuery.allocate(this)
-        Gobject.typeQuery(parentType.gType, typeQueryResult)
+        val typeQueryResult = TypeQuery(this)
+        GObject.typeQuery(parentType.gType, typeQueryResult)
 
         val parentClassSize = typeQueryResult.classSize.toLong()
         val parentInstanceSize = typeQueryResult.instanceSize.toLong()

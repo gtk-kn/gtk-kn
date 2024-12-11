@@ -59,7 +59,7 @@ class MetadataProcessor(
     private val relevantTypes = setOf(
         "alias", "bitfield", "glib:boxed", "callback", "constructor",
         "class", "enumeration", "function", "instance-parameter",
-        "interface", "method", "namespace", "parameter", "record",
+        "interface", "method", "namespace", "parameter", "property", "record",
         "glib:signal", "union", "virtual-method",
     )
 
@@ -95,23 +95,17 @@ class MetadataProcessor(
             popMetadata()
         }
 
-        // Check if the node is introspectable (default is true)
-        val introspectableAttr = node.attributes?.getNamedItem("introspectable")
-        val introspectable = introspectableAttr?.nodeValue?.toBoolean() != false
+        // Copy the child nodes into a list to avoid issues with modifications during iteration
+        val childNodes = node.childNodes
+        val nodesList = mutableListOf<Node>()
+        for (i in 0 until childNodes.length) {
+            val childNode = childNodes.item(i)
+            nodesList.add(childNode)
+        }
 
-        if (introspectable) {
-            // Copy the child nodes into a list to avoid issues with modifications during iteration
-            val childNodes = node.childNodes
-            val nodesList = mutableListOf<Node>()
-            for (i in 0 until childNodes.length) {
-                val childNode = childNodes.item(i)
-                nodesList.add(childNode)
-            }
-
-            for (childNode in nodesList) {
-                if (childNode.nodeType == Node.ELEMENT_NODE) {
-                    processNode(childNode)
-                }
+        for (childNode in nodesList) {
+            if (childNode.nodeType == Node.ELEMENT_NODE) {
+                processNode(childNode)
             }
         }
 
@@ -162,7 +156,7 @@ class MetadataProcessor(
         applyBaseType(node, tag, metadata)
         applyCHeaderFilename(node, tag, metadata)
         applyCopyFunction(node, metadata)
-        applyCType(node, metadata)
+        applyCType(node, tag, metadata)
         applyDefault(node, tag, metadata)
         applyDelegateTarget(node, metadata)
         applyDelegateTargetCName(node, metadata)
@@ -172,8 +166,9 @@ class MetadataProcessor(
         applyErrorDomain(node, metadata)
         applyFloating(node, metadata)
         applyFreeFunction(node, metadata)
-        applyHidden(node, metadata)
+        applyIgnore(node, metadata)
         applyInstanceIdx(node, metadata)
+        applyIntrospectable(node, metadata)
         applyName(node, metadata)
         applyNoAccessorMethod(node, metadata)
         applyNullable(node, tag, metadata)
@@ -188,9 +183,11 @@ class MetadataProcessor(
         applyScope(node, metadata)
         applySealed(node, metadata)
         applySince(node, metadata)
-        applySkip(node, metadata)
+        applyShadows(node, metadata)
         applyThrows(node, metadata)
+        applyTypeCType(node, tag, metadata)
         applyTypeId(node, metadata)
+        applyTypeName(node, tag, metadata)
         applyUnowned(node, tag, metadata)
         applyUnrefFunction(node, metadata)
         applyVirtual(node, metadata)
@@ -281,10 +278,15 @@ class MetadataProcessor(
         }
     }
 
-    private fun applyCType(node: Node, metadata: Metadata) {
+    private fun applyCType(node: Node, tag: String, metadata: Metadata) {
         if (metadata.hasArgument(ArgumentType.CTYPE)) {
             val cType = metadata.getString(ArgumentType.CTYPE)
-            node.setAttribute("c:type", cType)
+            if (tag == "method") {
+                val typeNode = getChildNode(node, "return-value")?.let { getChildNode(it, "type") }
+                typeNode?.setAttribute("c:type", cType) ?: node.setAttribute("c:type", cType)
+            } else {
+                node.setAttribute("c:type", cType)
+            }
         }
     }
 
@@ -351,10 +353,10 @@ class MetadataProcessor(
         }
     }
 
-    private fun applyHidden(node: Node, metadata: Metadata) {
-        if (metadata.hasArgument(ArgumentType.HIDDEN)) {
-            val hidden = metadata.getBool(ArgumentType.HIDDEN)
-            setBooleanAttribute(node, "introspectable", !hidden)
+    private fun applyIgnore(node: Node, metadata: Metadata) {
+        if (metadata.hasArgument(ArgumentType.IGNORE)) {
+            val ignore = metadata.getBool(ArgumentType.IGNORE)
+            setBooleanAttribute(node, "gtk-kn-ignore", ignore)
         }
     }
 
@@ -362,6 +364,13 @@ class MetadataProcessor(
         if (metadata.hasArgument(ArgumentType.INSTANCE_IDX)) {
             val instanceIdx = metadata.getInteger(ArgumentType.INSTANCE_IDX)
             node.setAttribute("instance-idx", instanceIdx.toString())
+        }
+    }
+
+    private fun applyIntrospectable(node: Node, metadata: Metadata) {
+        if (metadata.hasArgument(ArgumentType.INTROSPECTABLE)) {
+            val introspectable = metadata.getBool(ArgumentType.INTROSPECTABLE)
+            setBooleanAttribute(node, "introspectable", introspectable)
         }
     }
 
@@ -482,10 +491,10 @@ class MetadataProcessor(
         }
     }
 
-    private fun applySkip(node: Node, metadata: Metadata) {
-        if (metadata.hasArgument(ArgumentType.SKIP)) {
-            val skip = metadata.getBool(ArgumentType.SKIP)
-            setBooleanAttribute(node, "introspectable", !skip)
+    private fun applyShadows(node: Node, metadata: Metadata) {
+        if (metadata.hasArgument(ArgumentType.SHADOWS)) {
+            val shadows = metadata.getString(ArgumentType.SHADOWS)
+            node.setAttribute("shadows", shadows)
         }
     }
 
@@ -496,10 +505,34 @@ class MetadataProcessor(
         }
     }
 
+    private fun applyTypeCType(node: Node, tag: String, metadata: Metadata) {
+        if (metadata.hasArgument(ArgumentType.TYPE_CTYPE)) {
+            val typeCType = metadata.getString(ArgumentType.TYPE_CTYPE)
+            val typeNode = if (tag == "method") {
+                getChildNode(node, "return-value")?.let { getChildNode(it, "type") }
+            } else {
+                getChildNode(node, "type")
+            }
+            typeNode?.setAttribute("c:type", typeCType)
+        }
+    }
+
     private fun applyTypeId(node: Node, metadata: Metadata) {
         if (metadata.hasArgument(ArgumentType.TYPE_ID)) {
             val typeId = metadata.getString(ArgumentType.TYPE_ID)
             node.setAttribute("glib:get-type", typeId)
+        }
+    }
+
+    private fun applyTypeName(node: Node, tag: String, metadata: Metadata) {
+        if (metadata.hasArgument(ArgumentType.TYPE_NAME)) {
+            val typeName = metadata.getString(ArgumentType.TYPE_NAME)
+            val typeNode = if (tag == "method") {
+                getChildNode(node, "return-value")?.let { getChildNode(it, "type") }
+            } else {
+                getChildNode(node, "type")
+            }
+            typeNode?.setAttribute("name", typeName)
         }
     }
 

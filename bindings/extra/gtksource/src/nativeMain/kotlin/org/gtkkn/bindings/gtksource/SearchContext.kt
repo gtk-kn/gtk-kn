@@ -14,13 +14,16 @@ import org.gtkkn.bindings.gio.Cancellable
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.TextIter
-import org.gtkkn.bindings.gtksource.Gtksource.resolveException
+import org.gtkkn.bindings.gtksource.GtkSource.resolveException
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtksource.GtkSourceSearchContext
 import org.gtkkn.native.gtksource.gtk_source_search_context_backward_async
 import org.gtkkn.native.gtksource.gtk_source_search_context_forward_async
@@ -38,10 +41,8 @@ import org.gtkkn.native.gtksource.gtk_source_search_context_replace_all
 import org.gtkkn.native.gtksource.gtk_source_search_context_set_highlight
 import org.gtkkn.native.gtksource.gtk_source_search_context_set_match_style
 import kotlin.Boolean
-import kotlin.Int
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 
 /**
@@ -107,9 +108,8 @@ import kotlin.Unit
  * - parameter `has_wrapped_around`: has_wrapped_around: Out parameter is not supported
  * - method `match-style`: Property TypeInfo of getter and setter do not match
  */
-public open class SearchContext(
-    pointer: CPointer<GtkSourceSearchContext>,
-) : Object(pointer.reinterpret()),
+public open class SearchContext(pointer: CPointer<GtkSourceSearchContext>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtksourceSearchContextPointer: CPointer<GtkSourceSearchContext>
         get() = gPointer.reinterpret()
@@ -123,10 +123,9 @@ public open class SearchContext(
          *
          * @return the associated buffer.
          */
-        get() =
-            gtk_source_search_context_get_buffer(gtksourceSearchContextPointer.reinterpret())!!.run {
-                Buffer(reinterpret())
-            }
+        get() = gtk_source_search_context_get_buffer(gtksourceSearchContextPointer.reinterpret())!!.run {
+            Buffer(reinterpret())
+        }
 
     /**
      * Highlight the search occurrences.
@@ -153,7 +152,7 @@ public open class SearchContext(
      * the value is 0. If the buffer is not already fully scanned, the value
      * is -1.
      */
-    public open val occurrencesCount: Int
+    public open val occurrencesCount: gint
         /**
          * Gets the total number of search occurrences.
          *
@@ -184,10 +183,9 @@ public open class SearchContext(
          * @return the #GError, or null if the
          *   pattern is valid.
          */
-        get() =
-            gtk_source_search_context_get_regex_error(gtksourceSearchContextPointer.reinterpret())?.run {
-                Error(reinterpret())
-            }
+        get() = gtk_source_search_context_get_regex_error(gtksourceSearchContextPointer.reinterpret())?.run {
+            Error(reinterpret())
+        }
 
     /**
      * The [class@SearchSettings] associated to the search context.
@@ -200,10 +198,9 @@ public open class SearchContext(
          *
          * @return the search settings.
          */
-        get() =
-            gtk_source_search_context_get_settings(gtksourceSearchContextPointer.reinterpret())!!.run {
-                SearchSettings(reinterpret())
-            }
+        get() = gtk_source_search_context_get_settings(gtksourceSearchContextPointer.reinterpret())!!.run {
+            SearchSettings(reinterpret())
+        }
 
     /**
      * Creates a new search context, associated with @buffer, and customized with
@@ -243,14 +240,13 @@ public open class SearchContext(
         iter: TextIter,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        gtk_source_search_context_backward_async(
-            gtksourceSearchContextPointer.reinterpret(),
-            iter.gtkTextIterPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = gtk_source_search_context_backward_async(
+        gtksourceSearchContextPointer.reinterpret(),
+        iter.gtkTextIterPointer.reinterpret(),
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * The asynchronous version of [method@SearchContext.forward].
@@ -269,32 +265,13 @@ public open class SearchContext(
         iter: TextIter,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        gtk_source_search_context_forward_async(
-            gtksourceSearchContextPointer.reinterpret(),
-            iter.gtkTextIterPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
-
-    /**
-     *
-     *
-     * @return the associated buffer.
-     */
-    public open fun getBuffer(): Buffer =
-        gtk_source_search_context_get_buffer(gtksourceSearchContextPointer.reinterpret())!!.run {
-            Buffer(reinterpret())
-        }
-
-    /**
-     *
-     *
-     * @return whether to highlight the search occurrences.
-     */
-    public open fun getHighlight(): Boolean =
-        gtk_source_search_context_get_highlight(gtksourceSearchContextPointer.reinterpret()).asBoolean()
+    ): Unit = gtk_source_search_context_forward_async(
+        gtksourceSearchContextPointer.reinterpret(),
+        iter.gtkTextIterPointer.reinterpret(),
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      *
@@ -319,53 +296,12 @@ public open class SearchContext(
      * position 1 (not 0). Returns 0 if @match_start and @match_end don't delimit
      * an occurrence. Returns -1 if the position is not yet known.
      */
-    public open fun getOccurrencePosition(
-        matchStart: TextIter,
-        matchEnd: TextIter,
-    ): Int =
+    public open fun getOccurrencePosition(matchStart: TextIter, matchEnd: TextIter): gint =
         gtk_source_search_context_get_occurrence_position(
             gtksourceSearchContextPointer.reinterpret(),
             matchStart.gtkTextIterPointer.reinterpret(),
             matchEnd.gtkTextIterPointer.reinterpret()
         )
-
-    /**
-     * Gets the total number of search occurrences.
-     *
-     * If the buffer is not already fully scanned, the total number of occurrences is
-     * unknown, and -1 is returned.
-     *
-     * @return the total number of search occurrences, or -1 if unknown.
-     */
-    public open fun getOccurrencesCount(): Int =
-        gtk_source_search_context_get_occurrences_count(gtksourceSearchContextPointer.reinterpret())
-
-    /**
-     * Regular expression patterns must follow certain rules. If
-     * [property@SearchSettings:search-text] breaks a rule, the error can be
-     * retrieved with this function.
-     *
-     * The error domain is [error@GLib.RegexError].
-     *
-     * Free the return value with [method@GLib.Error.free].
-     *
-     * @return the #GError, or null if the
-     *   pattern is valid.
-     */
-    public open fun getRegexError(): Error? =
-        gtk_source_search_context_get_regex_error(gtksourceSearchContextPointer.reinterpret())?.run {
-            Error(reinterpret())
-        }
-
-    /**
-     *
-     *
-     * @return the search settings.
-     */
-    public open fun getSettings(): SearchSettings =
-        gtk_source_search_context_get_settings(gtksourceSearchContextPointer.reinterpret())!!.run {
-            SearchSettings(reinterpret())
-        }
 
     /**
      * Replaces a search match by another text. If @match_start and @match_end
@@ -388,25 +324,23 @@ public open class SearchContext(
         matchStart: TextIter,
         matchEnd: TextIter,
         replace: String,
-        replaceLength: Int,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gtk_source_search_context_replace(
-                    gtksourceSearchContextPointer.reinterpret(),
-                    matchStart.gtkTextIterPointer.reinterpret(),
-                    matchEnd.gtkTextIterPointer.reinterpret(),
-                    replace,
-                    replaceLength,
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+        replaceLength: gint,
+    ): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gtk_source_search_context_replace(
+            gtksourceSearchContextPointer.reinterpret(),
+            matchStart.gtkTextIterPointer.reinterpret(),
+            matchEnd.gtkTextIterPointer.reinterpret(),
+            replace,
+            replaceLength,
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Replaces all search matches by another text.
@@ -421,33 +355,21 @@ public open class SearchContext(
      * @param replaceLength the length of @replace in bytes, or -1.
      * @return the number of replaced matches.
      */
-    public open fun replaceAll(
-        replace: String,
-        replaceLength: Int,
-    ): Result<UInt> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gtk_source_search_context_replace_all(
-                    gtksourceSearchContextPointer.reinterpret(),
-                    replace,
-                    replaceLength,
-                    gError.ptr
-                )
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun replaceAll(replace: String, replaceLength: gint): Result<guint> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult =
+            gtk_source_search_context_replace_all(
+                gtksourceSearchContextPointer.reinterpret(),
+                replace,
+                replaceLength,
+                gError.ptr
+            )
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
-
-    /**
-     * Enables or disables the search occurrences highlighting.
-     *
-     * @param highlight the setting.
-     */
-    public open fun setHighlight(highlight: Boolean): Unit =
-        gtk_source_search_context_set_highlight(gtksourceSearchContextPointer.reinterpret(), highlight.asGBoolean())
+    }
 
     /**
      * Set the style to apply on search matches.
@@ -457,11 +379,10 @@ public open class SearchContext(
      *
      * @param matchStyle a #GtkSourceStyle, or null.
      */
-    public open fun setMatchStyle(matchStyle: Style? = null): Unit =
-        gtk_source_search_context_set_match_style(
-            gtksourceSearchContextPointer.reinterpret(),
-            matchStyle?.gtksourceStylePointer?.reinterpret()
-        )
+    public open fun setMatchStyle(matchStyle: Style? = null): Unit = gtk_source_search_context_set_match_style(
+        gtksourceSearchContextPointer.reinterpret(),
+        matchStyle?.gtksourceStylePointer?.reinterpret()
+    )
 
     public companion object : TypeCompanion<SearchContext> {
         override val type: GeneratedClassKGType<SearchContext> =
@@ -470,5 +391,12 @@ public open class SearchContext(
         init {
             GtksourceTypeProvider.register()
         }
+
+        /**
+         * Get the GType of SearchContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_search_context_get_type()
     }
 }

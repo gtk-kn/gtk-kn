@@ -10,6 +10,7 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkTextMark
 import org.gtkkn.native.gtk.gtk_text_mark_get_buffer
 import org.gtkkn.native.gtk.gtk_text_mark_get_deleted
@@ -58,9 +59,8 @@ import kotlin.Unit
  * Marks are typically created using the [method@Gtk.TextBuffer.create_mark]
  * function.
  */
-public open class TextMark(
-    pointer: CPointer<GtkTextMark>,
-) : Object(pointer.reinterpret()),
+public open class TextMark(pointer: CPointer<GtkTextMark>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkTextMarkPointer: CPointer<GtkTextMark>
         get() = gPointer.reinterpret()
@@ -122,10 +122,9 @@ public open class TextMark(
      *
      * @return the mark’s `GtkTextBuffer`
      */
-    public open fun getBuffer(): TextBuffer? =
-        gtk_text_mark_get_buffer(gtkTextMarkPointer.reinterpret())?.run {
-            TextBuffer(reinterpret())
-        }
+    public open fun getBuffer(): TextBuffer? = gtk_text_mark_get_buffer(gtkTextMarkPointer.reinterpret())?.run {
+        TextBuffer(reinterpret())
+    }
 
     /**
      * Returns true if the mark has been removed from its buffer.
@@ -138,23 +137,6 @@ public open class TextMark(
     public open fun getDeleted(): Boolean = gtk_text_mark_get_deleted(gtkTextMarkPointer.reinterpret()).asBoolean()
 
     /**
-     * Determines whether the mark has left gravity.
-     *
-     * @return true if the mark has left gravity, false otherwise
-     */
-    public open fun getLeftGravity(): Boolean =
-        gtk_text_mark_get_left_gravity(gtkTextMarkPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns the mark name.
-     *
-     * Returns null for anonymous marks.
-     *
-     * @return mark name
-     */
-    public open fun getName(): String? = gtk_text_mark_get_name(gtkTextMarkPointer.reinterpret())?.toKString()
-
-    /**
      * Returns true if the mark is visible.
      *
      * A cursor is displayed for visible marks.
@@ -163,11 +145,6 @@ public open class TextMark(
      */
     public open fun getVisible(): Boolean = gtk_text_mark_get_visible(gtkTextMarkPointer.reinterpret()).asBoolean()
 
-    /**
-     *
-     *
-     * @param setting
-     */
     public open fun setVisible(setting: Boolean): Unit =
         gtk_text_mark_set_visible(gtkTextMarkPointer.reinterpret(), setting.asGBoolean())
 
@@ -178,5 +155,12 @@ public open class TextMark(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of TextMark
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_text_mark_get_type()
     }
 }

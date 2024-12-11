@@ -10,6 +10,7 @@ import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceStyleSchemeManager
 import org.gtkkn.native.gtksource.gtk_source_style_scheme_manager_append_search_path
 import org.gtkkn.native.gtksource.gtk_source_style_scheme_manager_force_rescan
@@ -32,9 +33,8 @@ import kotlin.collections.List
  *
  * - method `search-path`: Property TypeInfo of getter and setter do not match
  */
-public open class StyleSchemeManager(
-    pointer: CPointer<GtkSourceStyleSchemeManager>,
-) : Object(pointer.reinterpret()),
+public open class StyleSchemeManager(pointer: CPointer<GtkSourceStyleSchemeManager>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtksourceStyleSchemeManagerPointer: CPointer<GtkSourceStyleSchemeManager>
         get() = gPointer.reinterpret()
@@ -48,10 +48,9 @@ public open class StyleSchemeManager(
          * The array is sorted alphabetically according to the scheme name.
          * The array is owned by the @manager and must not be modified.
          */
-        get() =
-            gtk_source_style_scheme_manager_get_scheme_ids(
-                gtksourceStyleSchemeManagerPointer.reinterpret()
-            )?.toKStringList()
+        get() = gtk_source_style_scheme_manager_get_scheme_ids(
+            gtksourceStyleSchemeManagerPointer.reinterpret()
+        )?.toKStringList()
 
     /**
      * Creates a new style manager.
@@ -96,19 +95,6 @@ public open class StyleSchemeManager(
         }
 
     /**
-     * Returns the ids of the available style schemes.
-     *
-     * @return a null-terminated array of strings containing the ids of the available
-     * style schemes or null if no style scheme is available.
-     * The array is sorted alphabetically according to the scheme name.
-     * The array is owned by the @manager and must not be modified.
-     */
-    public open fun getSchemeIds(): List<String>? =
-        gtk_source_style_scheme_manager_get_scheme_ids(
-            gtksourceStyleSchemeManagerPointer.reinterpret()
-        )?.toKStringList()
-
-    /**
      * Returns the current search path for the @manager.
      *
      * See [method@StyleSchemeManager.set_search_path] for details.
@@ -117,11 +103,10 @@ public open class StyleSchemeManager(
      * of string containing the search path.
      * The array is owned by the @manager and must not be modified.
      */
-    public open fun getSearchPath(): List<String> =
-        gtk_source_style_scheme_manager_get_search_path(
-            gtksourceStyleSchemeManagerPointer.reinterpret()
-        )?.toKStringList()
-            ?: error("Expected not null string array")
+    public open fun getSearchPath(): List<String> = gtk_source_style_scheme_manager_get_search_path(
+        gtksourceStyleSchemeManagerPointer.reinterpret()
+    )?.toKStringList()
+        ?: error("Expected not null string array")
 
     /**
      * Prepends @path to the list of directories where the @manager looks
@@ -143,19 +128,18 @@ public open class StyleSchemeManager(
      * @param path a null-terminated array of
      *   strings or null.
      */
-    public open fun setSearchPath(path: List<String>? = null): Unit =
-        memScoped {
-            return gtk_source_style_scheme_manager_set_search_path(
-                gtksourceStyleSchemeManagerPointer.reinterpret(),
-                path?.toCStringList(this)
-            )
-        }
+    public open fun setSearchPath(path: List<String>? = null): Unit = memScoped {
+        return gtk_source_style_scheme_manager_set_search_path(
+            gtksourceStyleSchemeManagerPointer.reinterpret(),
+            path?.toCStringList(this)
+        )
+    }
 
     public companion object : TypeCompanion<StyleSchemeManager> {
         override val type: GeneratedClassKGType<StyleSchemeManager> =
-            GeneratedClassKGType(
-                gtk_source_style_scheme_manager_get_type()
-            ) { StyleSchemeManager(it.reinterpret()) }
+            GeneratedClassKGType(gtk_source_style_scheme_manager_get_type()) {
+                StyleSchemeManager(it.reinterpret())
+            }
 
         init {
             GtksourceTypeProvider.register()
@@ -167,9 +151,15 @@ public open class StyleSchemeManager(
          * @return a #GtkSourceStyleSchemeManager. Return value
          * is owned by GtkSourceView library and must not be unref'ed.
          */
-        public fun getDefault(): StyleSchemeManager =
-            gtk_source_style_scheme_manager_get_default()!!.run {
-                StyleSchemeManager(reinterpret())
-            }
+        public fun getDefault(): StyleSchemeManager = gtk_source_style_scheme_manager_get_default()!!.run {
+            StyleSchemeManager(reinterpret())
+        }
+
+        /**
+         * Get the GType of StyleSchemeManager
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_source_style_scheme_manager_get_type()
     }
 }

@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskBlendMode
+import org.gtkkn.native.gsk.gsk_blend_mode_get_type
 
 /**
  * The blend modes available for render nodes.
@@ -12,9 +14,7 @@ import org.gtkkn.native.gsk.GskBlendMode
  * See <https://www.w3.org/TR/compositing-1/#blending> for more information
  * on blending and blend modes.
  */
-public enum class BlendMode(
-    public val nativeValue: GskBlendMode,
-) {
+public enum class BlendMode(public val nativeValue: GskBlendMode) {
     /**
      * The default blend mode, which specifies no blending
      */
@@ -100,25 +100,31 @@ public enum class BlendMode(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GskBlendMode): BlendMode =
-            when (nativeValue) {
-                GskBlendMode.GSK_BLEND_MODE_DEFAULT -> DEFAULT
-                GskBlendMode.GSK_BLEND_MODE_MULTIPLY -> MULTIPLY
-                GskBlendMode.GSK_BLEND_MODE_SCREEN -> SCREEN
-                GskBlendMode.GSK_BLEND_MODE_OVERLAY -> OVERLAY
-                GskBlendMode.GSK_BLEND_MODE_DARKEN -> DARKEN
-                GskBlendMode.GSK_BLEND_MODE_LIGHTEN -> LIGHTEN
-                GskBlendMode.GSK_BLEND_MODE_COLOR_DODGE -> COLOR_DODGE
-                GskBlendMode.GSK_BLEND_MODE_COLOR_BURN -> COLOR_BURN
-                GskBlendMode.GSK_BLEND_MODE_HARD_LIGHT -> HARD_LIGHT
-                GskBlendMode.GSK_BLEND_MODE_SOFT_LIGHT -> SOFT_LIGHT
-                GskBlendMode.GSK_BLEND_MODE_DIFFERENCE -> DIFFERENCE
-                GskBlendMode.GSK_BLEND_MODE_EXCLUSION -> EXCLUSION
-                GskBlendMode.GSK_BLEND_MODE_COLOR -> COLOR
-                GskBlendMode.GSK_BLEND_MODE_HUE -> HUE
-                GskBlendMode.GSK_BLEND_MODE_SATURATION -> SATURATION
-                GskBlendMode.GSK_BLEND_MODE_LUMINOSITY -> LUMINOSITY
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GskBlendMode): BlendMode = when (nativeValue) {
+            GskBlendMode.GSK_BLEND_MODE_DEFAULT -> DEFAULT
+            GskBlendMode.GSK_BLEND_MODE_MULTIPLY -> MULTIPLY
+            GskBlendMode.GSK_BLEND_MODE_SCREEN -> SCREEN
+            GskBlendMode.GSK_BLEND_MODE_OVERLAY -> OVERLAY
+            GskBlendMode.GSK_BLEND_MODE_DARKEN -> DARKEN
+            GskBlendMode.GSK_BLEND_MODE_LIGHTEN -> LIGHTEN
+            GskBlendMode.GSK_BLEND_MODE_COLOR_DODGE -> COLOR_DODGE
+            GskBlendMode.GSK_BLEND_MODE_COLOR_BURN -> COLOR_BURN
+            GskBlendMode.GSK_BLEND_MODE_HARD_LIGHT -> HARD_LIGHT
+            GskBlendMode.GSK_BLEND_MODE_SOFT_LIGHT -> SOFT_LIGHT
+            GskBlendMode.GSK_BLEND_MODE_DIFFERENCE -> DIFFERENCE
+            GskBlendMode.GSK_BLEND_MODE_EXCLUSION -> EXCLUSION
+            GskBlendMode.GSK_BLEND_MODE_COLOR -> COLOR
+            GskBlendMode.GSK_BLEND_MODE_HUE -> HUE
+            GskBlendMode.GSK_BLEND_MODE_SATURATION -> SATURATION
+            GskBlendMode.GSK_BLEND_MODE_LUMINOSITY -> LUMINOSITY
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of BlendMode
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gsk_blend_mode_get_type()
     }
 }

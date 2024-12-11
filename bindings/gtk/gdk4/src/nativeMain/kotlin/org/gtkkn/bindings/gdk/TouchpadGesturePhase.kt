@@ -2,6 +2,8 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.native.gdk.GdkTouchpadGesturePhase
+import org.gtkkn.native.gdk.gdk_touchpad_gesture_phase_get_type
+import org.gtkkn.native.gobject.GType
 
 /**
  * Specifies the current state of a touchpad gesture.
@@ -23,9 +25,7 @@ import org.gtkkn.native.gdk.GdkTouchpadGesturePhase
  * to undo any visible/permanent changes that were done throughout the
  * progress of the gesture.
  */
-public enum class TouchpadGesturePhase(
-    public val nativeValue: GdkTouchpadGesturePhase,
-) {
+public enum class TouchpadGesturePhase(public val nativeValue: GdkTouchpadGesturePhase) {
     /**
      * The gesture has begun.
      */
@@ -50,13 +50,19 @@ public enum class TouchpadGesturePhase(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GdkTouchpadGesturePhase): TouchpadGesturePhase =
-            when (nativeValue) {
-                GdkTouchpadGesturePhase.GDK_TOUCHPAD_GESTURE_PHASE_BEGIN -> BEGIN
-                GdkTouchpadGesturePhase.GDK_TOUCHPAD_GESTURE_PHASE_UPDATE -> UPDATE
-                GdkTouchpadGesturePhase.GDK_TOUCHPAD_GESTURE_PHASE_END -> END
-                GdkTouchpadGesturePhase.GDK_TOUCHPAD_GESTURE_PHASE_CANCEL -> CANCEL
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GdkTouchpadGesturePhase): TouchpadGesturePhase = when (nativeValue) {
+            GdkTouchpadGesturePhase.GDK_TOUCHPAD_GESTURE_PHASE_BEGIN -> BEGIN
+            GdkTouchpadGesturePhase.GDK_TOUCHPAD_GESTURE_PHASE_UPDATE -> UPDATE
+            GdkTouchpadGesturePhase.GDK_TOUCHPAD_GESTURE_PHASE_END -> END
+            GdkTouchpadGesturePhase.GDK_TOUCHPAD_GESTURE_PHASE_CANCEL -> CANCEL
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of TouchpadGesturePhase
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_touchpad_gesture_phase_get_type()
     }
 }

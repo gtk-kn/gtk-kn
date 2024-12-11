@@ -2,16 +2,16 @@
 package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_2
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitCredentialPersistence
+import org.gtkkn.native.webkit.webkit_credential_persistence_get_type
 
 /**
  * Enum values representing the duration for which a credential persists.
  * @since 2.2
  */
 @WebKitVersion2_2
-public enum class CredentialPersistence(
-    public val nativeValue: WebKitCredentialPersistence,
-) {
+public enum class CredentialPersistence(public val nativeValue: WebKitCredentialPersistence) {
     /**
      * Credential does not persist
      */
@@ -36,5 +36,12 @@ public enum class CredentialPersistence(
                 WebKitCredentialPersistence.WEBKIT_CREDENTIAL_PERSISTENCE_PERMANENT -> PERMANENT
                 else -> error("invalid nativeValue")
             }
+
+        /**
+         * Get the GType of CredentialPersistence
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = webkit_credential_persistence_get_type()
     }
 }

@@ -11,6 +11,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GConverter
 import org.gtkkn.native.gio.g_converter_get_type
 import org.gtkkn.native.gio.g_converter_reset
+import org.gtkkn.native.gobject.GType
 import kotlin.Unit
 
 /**
@@ -46,9 +47,7 @@ public interface Converter :
     @GioVersion2_24
     public fun reset(): Unit = g_converter_reset(gioConverterPointer.reinterpret())
 
-    private data class Wrapper(
-        private val pointer: CPointer<GConverter>,
-    ) : Converter {
+    private data class Wrapper(private val pointer: CPointer<GConverter>) : Converter {
         override val gioConverterPointer: CPointer<GConverter> = pointer
     }
 
@@ -61,5 +60,12 @@ public interface Converter :
         }
 
         public fun wrap(pointer: CPointer<GConverter>): Converter = Wrapper(pointer)
+
+        /**
+         * Get the GType of Converter
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_converter_get_type()
     }
 }

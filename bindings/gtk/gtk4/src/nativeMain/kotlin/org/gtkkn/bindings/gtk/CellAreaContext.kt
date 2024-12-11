@@ -7,6 +7,8 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkCellAreaContext
 import org.gtkkn.native.gtk.gtk_cell_area_context_allocate
 import org.gtkkn.native.gtk.gtk_cell_area_context_get_area
@@ -14,7 +16,6 @@ import org.gtkkn.native.gtk.gtk_cell_area_context_get_type
 import org.gtkkn.native.gtk.gtk_cell_area_context_push_preferred_height
 import org.gtkkn.native.gtk.gtk_cell_area_context_push_preferred_width
 import org.gtkkn.native.gtk.gtk_cell_area_context_reset
-import kotlin.Int
 import kotlin.Unit
 
 /**
@@ -43,9 +44,8 @@ import kotlin.Unit
  * - method `natural-height`: Property has no getter nor setter
  * - method `natural-width`: Property has no getter nor setter
  */
-public open class CellAreaContext(
-    pointer: CPointer<GtkCellAreaContext>,
-) : Object(pointer.reinterpret()),
+public open class CellAreaContext(pointer: CPointer<GtkCellAreaContext>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gtkCellAreaContextPointer: CPointer<GtkCellAreaContext>
         get() = gPointer.reinterpret()
@@ -68,10 +68,9 @@ public open class CellAreaContext(
          *
          * @return the `GtkCellArea` this context was created by.
          */
-        get() =
-            gtk_cell_area_context_get_area(gtkCellAreaContextPointer.reinterpret())!!.run {
-                CellArea(reinterpret())
-            }
+        get() = gtk_cell_area_context_get_area(gtkCellAreaContextPointer.reinterpret())!!.run {
+            CellArea(reinterpret())
+        }
 
     /**
      * Allocates a width and/or a height for all rows which are to be
@@ -90,29 +89,8 @@ public open class CellAreaContext(
      * @param height the allocated height for all `GtkTreeModel` rows rendered
      *   with @context, or -1
      */
-    public open fun allocate(
-        width: Int,
-        height: Int,
-    ): Unit = gtk_cell_area_context_allocate(gtkCellAreaContextPointer.reinterpret(), width, height)
-
-    /**
-     * Fetches the `GtkCellArea` this @context was created by.
-     *
-     * This is generally unneeded by layouting widgets; however,
-     * it is important for the context implementation itself to
-     * fetch information about the area it is being used for.
-     *
-     * For instance at `GtkCellAreaContextClass.allocate()` time
-     * it’s important to know details about any cell spacing
-     * that the `GtkCellArea` is configured with in order to
-     * compute a proper allocation.
-     *
-     * @return the `GtkCellArea` this context was created by.
-     */
-    public open fun getArea(): CellArea =
-        gtk_cell_area_context_get_area(gtkCellAreaContextPointer.reinterpret())!!.run {
-            CellArea(reinterpret())
-        }
+    public open fun allocate(width: gint, height: gint): Unit =
+        gtk_cell_area_context_allocate(gtkCellAreaContextPointer.reinterpret(), width, height)
 
     /**
      * Causes the minimum and/or natural height to grow if the new
@@ -126,10 +104,7 @@ public open class CellAreaContext(
      * @param minimumHeight the proposed new minimum height for @context
      * @param naturalHeight the proposed new natural height for @context
      */
-    public open fun pushPreferredHeight(
-        minimumHeight: Int,
-        naturalHeight: Int,
-    ): Unit =
+    public open fun pushPreferredHeight(minimumHeight: gint, naturalHeight: gint): Unit =
         gtk_cell_area_context_push_preferred_height(
             gtkCellAreaContextPointer.reinterpret(),
             minimumHeight,
@@ -148,10 +123,7 @@ public open class CellAreaContext(
      * @param minimumWidth the proposed new minimum width for @context
      * @param naturalWidth the proposed new natural width for @context
      */
-    public open fun pushPreferredWidth(
-        minimumWidth: Int,
-        naturalWidth: Int,
-    ): Unit =
+    public open fun pushPreferredWidth(minimumWidth: gint, naturalWidth: gint): Unit =
         gtk_cell_area_context_push_preferred_width(gtkCellAreaContextPointer.reinterpret(), minimumWidth, naturalWidth)
 
     /**
@@ -187,5 +159,12 @@ public open class CellAreaContext(
         init {
             GtkTypeProvider.register()
         }
+
+        /**
+         * Get the GType of CellAreaContext
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_cell_area_context_get_type()
     }
 }

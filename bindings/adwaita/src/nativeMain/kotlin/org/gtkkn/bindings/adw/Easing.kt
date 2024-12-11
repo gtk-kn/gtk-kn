@@ -3,7 +3,9 @@ package org.gtkkn.bindings.adw
 
 import org.gtkkn.native.adw.AdwEasing
 import org.gtkkn.native.adw.adw_easing_ease
-import kotlin.Double
+import org.gtkkn.native.adw.adw_easing_get_type
+import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gdouble
 
 /**
  * Describes the available easing functions for use with
@@ -11,9 +13,7 @@ import kotlin.Double
  *
  * New values may be added to this enumeration over time.
  */
-public enum class Easing(
-    public val nativeValue: AdwEasing,
-) {
+public enum class Easing(public val nativeValue: AdwEasing) {
     /**
      * Linear tweening.
      */
@@ -186,41 +186,40 @@ public enum class Easing(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: AdwEasing): Easing =
-            when (nativeValue) {
-                AdwEasing.ADW_LINEAR -> LINEAR
-                AdwEasing.ADW_EASE_IN_QUAD -> EASE_IN_QUAD
-                AdwEasing.ADW_EASE_OUT_QUAD -> EASE_OUT_QUAD
-                AdwEasing.ADW_EASE_IN_OUT_QUAD -> EASE_IN_OUT_QUAD
-                AdwEasing.ADW_EASE_IN_CUBIC -> EASE_IN_CUBIC
-                AdwEasing.ADW_EASE_OUT_CUBIC -> EASE_OUT_CUBIC
-                AdwEasing.ADW_EASE_IN_OUT_CUBIC -> EASE_IN_OUT_CUBIC
-                AdwEasing.ADW_EASE_IN_QUART -> EASE_IN_QUART
-                AdwEasing.ADW_EASE_OUT_QUART -> EASE_OUT_QUART
-                AdwEasing.ADW_EASE_IN_OUT_QUART -> EASE_IN_OUT_QUART
-                AdwEasing.ADW_EASE_IN_QUINT -> EASE_IN_QUINT
-                AdwEasing.ADW_EASE_OUT_QUINT -> EASE_OUT_QUINT
-                AdwEasing.ADW_EASE_IN_OUT_QUINT -> EASE_IN_OUT_QUINT
-                AdwEasing.ADW_EASE_IN_SINE -> EASE_IN_SINE
-                AdwEasing.ADW_EASE_OUT_SINE -> EASE_OUT_SINE
-                AdwEasing.ADW_EASE_IN_OUT_SINE -> EASE_IN_OUT_SINE
-                AdwEasing.ADW_EASE_IN_EXPO -> EASE_IN_EXPO
-                AdwEasing.ADW_EASE_OUT_EXPO -> EASE_OUT_EXPO
-                AdwEasing.ADW_EASE_IN_OUT_EXPO -> EASE_IN_OUT_EXPO
-                AdwEasing.ADW_EASE_IN_CIRC -> EASE_IN_CIRC
-                AdwEasing.ADW_EASE_OUT_CIRC -> EASE_OUT_CIRC
-                AdwEasing.ADW_EASE_IN_OUT_CIRC -> EASE_IN_OUT_CIRC
-                AdwEasing.ADW_EASE_IN_ELASTIC -> EASE_IN_ELASTIC
-                AdwEasing.ADW_EASE_OUT_ELASTIC -> EASE_OUT_ELASTIC
-                AdwEasing.ADW_EASE_IN_OUT_ELASTIC -> EASE_IN_OUT_ELASTIC
-                AdwEasing.ADW_EASE_IN_BACK -> EASE_IN_BACK
-                AdwEasing.ADW_EASE_OUT_BACK -> EASE_OUT_BACK
-                AdwEasing.ADW_EASE_IN_OUT_BACK -> EASE_IN_OUT_BACK
-                AdwEasing.ADW_EASE_IN_BOUNCE -> EASE_IN_BOUNCE
-                AdwEasing.ADW_EASE_OUT_BOUNCE -> EASE_OUT_BOUNCE
-                AdwEasing.ADW_EASE_IN_OUT_BOUNCE -> EASE_IN_OUT_BOUNCE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: AdwEasing): Easing = when (nativeValue) {
+            AdwEasing.ADW_LINEAR -> LINEAR
+            AdwEasing.ADW_EASE_IN_QUAD -> EASE_IN_QUAD
+            AdwEasing.ADW_EASE_OUT_QUAD -> EASE_OUT_QUAD
+            AdwEasing.ADW_EASE_IN_OUT_QUAD -> EASE_IN_OUT_QUAD
+            AdwEasing.ADW_EASE_IN_CUBIC -> EASE_IN_CUBIC
+            AdwEasing.ADW_EASE_OUT_CUBIC -> EASE_OUT_CUBIC
+            AdwEasing.ADW_EASE_IN_OUT_CUBIC -> EASE_IN_OUT_CUBIC
+            AdwEasing.ADW_EASE_IN_QUART -> EASE_IN_QUART
+            AdwEasing.ADW_EASE_OUT_QUART -> EASE_OUT_QUART
+            AdwEasing.ADW_EASE_IN_OUT_QUART -> EASE_IN_OUT_QUART
+            AdwEasing.ADW_EASE_IN_QUINT -> EASE_IN_QUINT
+            AdwEasing.ADW_EASE_OUT_QUINT -> EASE_OUT_QUINT
+            AdwEasing.ADW_EASE_IN_OUT_QUINT -> EASE_IN_OUT_QUINT
+            AdwEasing.ADW_EASE_IN_SINE -> EASE_IN_SINE
+            AdwEasing.ADW_EASE_OUT_SINE -> EASE_OUT_SINE
+            AdwEasing.ADW_EASE_IN_OUT_SINE -> EASE_IN_OUT_SINE
+            AdwEasing.ADW_EASE_IN_EXPO -> EASE_IN_EXPO
+            AdwEasing.ADW_EASE_OUT_EXPO -> EASE_OUT_EXPO
+            AdwEasing.ADW_EASE_IN_OUT_EXPO -> EASE_IN_OUT_EXPO
+            AdwEasing.ADW_EASE_IN_CIRC -> EASE_IN_CIRC
+            AdwEasing.ADW_EASE_OUT_CIRC -> EASE_OUT_CIRC
+            AdwEasing.ADW_EASE_IN_OUT_CIRC -> EASE_IN_OUT_CIRC
+            AdwEasing.ADW_EASE_IN_ELASTIC -> EASE_IN_ELASTIC
+            AdwEasing.ADW_EASE_OUT_ELASTIC -> EASE_OUT_ELASTIC
+            AdwEasing.ADW_EASE_IN_OUT_ELASTIC -> EASE_IN_OUT_ELASTIC
+            AdwEasing.ADW_EASE_IN_BACK -> EASE_IN_BACK
+            AdwEasing.ADW_EASE_OUT_BACK -> EASE_OUT_BACK
+            AdwEasing.ADW_EASE_IN_OUT_BACK -> EASE_IN_OUT_BACK
+            AdwEasing.ADW_EASE_IN_BOUNCE -> EASE_IN_BOUNCE
+            AdwEasing.ADW_EASE_OUT_BOUNCE -> EASE_OUT_BOUNCE
+            AdwEasing.ADW_EASE_IN_OUT_BOUNCE -> EASE_IN_OUT_BOUNCE
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Computes easing with @easing for @value.
@@ -231,9 +230,13 @@ public enum class Easing(
          * @param value a value to ease
          * @return the easing for @value
          */
-        public fun ease(
-            self: Easing,
-            `value`: Double,
-        ): Double = adw_easing_ease(self.nativeValue, `value`)
+        public fun ease(self: Easing, `value`: gdouble): gdouble = adw_easing_ease(self.nativeValue, `value`)
+
+        /**
+         * Get the GType of Easing
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_easing_get_type()
     }
 }

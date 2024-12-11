@@ -65,13 +65,14 @@ import org.gtkkn.native.gio.g_socket_client_set_timeout
 import org.gtkkn.native.gio.g_socket_client_set_tls
 import org.gtkkn.native.gio.g_socket_client_set_tls_validation_flags
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.guint16
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
-import kotlin.UShort
 import kotlin.Unit
 
 /**
@@ -97,9 +98,8 @@ import kotlin.Unit
  * @since 2.22
  */
 @GioVersion2_22
-public open class SocketClient(
-    pointer: CPointer<GSocketClient>,
-) : Object(pointer.reinterpret()),
+public open class SocketClient(pointer: CPointer<GSocketClient>) :
+    Object(pointer.reinterpret()),
     KGTyped {
     public val gioSocketClientPointer: CPointer<GSocketClient>
         get() = gPointer.reinterpret()
@@ -148,10 +148,9 @@ public open class SocketClient(
          * @return a #GSocketFamily
          * @since 2.22
          */
-        get() =
-            g_socket_client_get_family(gioSocketClientPointer.reinterpret()).run {
-                SocketFamily.fromNativeValue(this)
-            }
+        get() = g_socket_client_get_family(gioSocketClientPointer.reinterpret()).run {
+            SocketFamily.fromNativeValue(this)
+        }
 
         /**
          * Sets the socket family of the socket client.
@@ -184,10 +183,9 @@ public open class SocketClient(
          * @return a #GSocketAddress or null. Do not free.
          * @since 2.22
          */
-        get() =
-            g_socket_client_get_local_address(gioSocketClientPointer.reinterpret())?.run {
-                SocketAddress(reinterpret())
-            }
+        get() = g_socket_client_get_local_address(gioSocketClientPointer.reinterpret())?.run {
+            SocketAddress(reinterpret())
+        }
 
         /**
          * Sets the local address of the socket client.
@@ -204,11 +202,10 @@ public open class SocketClient(
         @GioVersion2_22
         set(
             address
-        ) =
-            g_socket_client_set_local_address(
-                gioSocketClientPointer.reinterpret(),
-                address?.gioSocketAddressPointer?.reinterpret()
-            )
+        ) = g_socket_client_set_local_address(
+            gioSocketClientPointer.reinterpret(),
+            address?.gioSocketAddressPointer?.reinterpret()
+        )
 
     /**
      * The protocol to use for socket construction, or `0` for default.
@@ -225,10 +222,9 @@ public open class SocketClient(
          * @return a #GSocketProtocol
          * @since 2.22
          */
-        get() =
-            g_socket_client_get_protocol(gioSocketClientPointer.reinterpret()).run {
-                SocketProtocol.fromNativeValue(this)
-            }
+        get() = g_socket_client_get_protocol(gioSocketClientPointer.reinterpret()).run {
+            SocketProtocol.fromNativeValue(this)
+        }
 
         /**
          * Sets the protocol of the socket client.
@@ -250,7 +246,7 @@ public open class SocketClient(
      * @since 2.22
      */
     @GioVersion2_22
-    public open var timeout: UInt
+    public open var timeout: guint
         /**
          * Gets the I/O timeout time for sockets created by @client.
          *
@@ -347,10 +343,9 @@ public open class SocketClient(
          * @return the TLS validation flags
          * @since 2.28
          */
-        get() =
-            g_socket_client_get_tls_validation_flags(gioSocketClientPointer.reinterpret()).run {
-                TlsCertificateFlags(this)
-            }
+        get() = g_socket_client_get_tls_validation_flags(gioSocketClientPointer.reinterpret()).run {
+            TlsCertificateFlags(this)
+        }
 
         /**
          * Sets the TLS validation flags used when creating TLS connections
@@ -430,25 +425,23 @@ public open class SocketClient(
     public open fun connect(
         connectable: SocketConnectable,
         cancellable: Cancellable? = null,
-    ): Result<SocketConnection> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_socket_client_connect(
-                    gioSocketClientPointer.reinterpret(),
-                    connectable.gioSocketConnectablePointer,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    SocketConnection(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    ): Result<SocketConnection> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_socket_client_connect(
+            gioSocketClientPointer.reinterpret(),
+            connectable.gioSocketConnectablePointer,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            SocketConnection(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * This is the asynchronous version of g_socket_client_connect().
@@ -476,14 +469,13 @@ public open class SocketClient(
         connectable: SocketConnectable,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_socket_client_connect_async(
-            gioSocketClientPointer.reinterpret(),
-            connectable.gioSocketConnectablePointer,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_socket_client_connect_async(
+        gioSocketClientPointer.reinterpret(),
+        connectable.gioSocketConnectablePointer,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an async connect operation. See g_socket_client_connect_async()
@@ -493,24 +485,22 @@ public open class SocketClient(
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun connectFinish(result: AsyncResult): Result<SocketConnection> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_socket_client_connect_finish(
-                    gioSocketClientPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    SocketConnection(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public open fun connectFinish(result: AsyncResult): Result<SocketConnection> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_socket_client_connect_finish(
+            gioSocketClientPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            SocketConnection(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * This is a helper function for g_socket_client_connect().
@@ -553,28 +543,26 @@ public open class SocketClient(
     @GioVersion2_22
     public open fun connectToHost(
         hostAndPort: String,
-        defaultPort: UShort,
+        defaultPort: guint16,
         cancellable: Cancellable? = null,
-    ): Result<SocketConnection> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_socket_client_connect_to_host(
-                    gioSocketClientPointer.reinterpret(),
-                    hostAndPort,
-                    defaultPort,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    SocketConnection(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    ): Result<SocketConnection> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_socket_client_connect_to_host(
+            gioSocketClientPointer.reinterpret(),
+            hostAndPort,
+            defaultPort,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            SocketConnection(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * This is the asynchronous version of g_socket_client_connect_to_host().
@@ -592,18 +580,17 @@ public open class SocketClient(
     @GioVersion2_22
     public open fun connectToHostAsync(
         hostAndPort: String,
-        defaultPort: UShort,
+        defaultPort: guint16,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_socket_client_connect_to_host_async(
-            gioSocketClientPointer.reinterpret(),
-            hostAndPort,
-            defaultPort,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_socket_client_connect_to_host_async(
+        gioSocketClientPointer.reinterpret(),
+        hostAndPort,
+        defaultPort,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an async connect operation. See g_socket_client_connect_to_host_async()
@@ -613,24 +600,22 @@ public open class SocketClient(
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun connectToHostFinish(result: AsyncResult): Result<SocketConnection> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_socket_client_connect_to_host_finish(
-                    gioSocketClientPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    SocketConnection(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public open fun connectToHostFinish(result: AsyncResult): Result<SocketConnection> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_socket_client_connect_to_host_finish(
+            gioSocketClientPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            SocketConnection(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Attempts to create a TCP connection to a service.
@@ -657,26 +642,24 @@ public open class SocketClient(
         domain: String,
         service: String,
         cancellable: Cancellable? = null,
-    ): Result<SocketConnection> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_socket_client_connect_to_service(
-                    gioSocketClientPointer.reinterpret(),
-                    domain,
-                    service,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    SocketConnection(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    ): Result<SocketConnection> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_socket_client_connect_to_service(
+            gioSocketClientPointer.reinterpret(),
+            domain,
+            service,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            SocketConnection(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * This is the asynchronous version of
@@ -694,15 +677,14 @@ public open class SocketClient(
         service: String,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_socket_client_connect_to_service_async(
-            gioSocketClientPointer.reinterpret(),
-            domain,
-            service,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_socket_client_connect_to_service_async(
+        gioSocketClientPointer.reinterpret(),
+        domain,
+        service,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an async connect operation. See g_socket_client_connect_to_service_async()
@@ -712,24 +694,22 @@ public open class SocketClient(
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun connectToServiceFinish(result: AsyncResult): Result<SocketConnection> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_socket_client_connect_to_service_finish(
-                    gioSocketClientPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    SocketConnection(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public open fun connectToServiceFinish(result: AsyncResult): Result<SocketConnection> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_socket_client_connect_to_service_finish(
+            gioSocketClientPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            SocketConnection(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * This is a helper function for g_socket_client_connect().
@@ -763,28 +743,26 @@ public open class SocketClient(
     @GioVersion2_26
     public open fun connectToUri(
         uri: String,
-        defaultPort: UShort,
+        defaultPort: guint16,
         cancellable: Cancellable? = null,
-    ): Result<SocketConnection> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_socket_client_connect_to_uri(
-                    gioSocketClientPointer.reinterpret(),
-                    uri,
-                    defaultPort,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    SocketConnection(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    ): Result<SocketConnection> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_socket_client_connect_to_uri(
+            gioSocketClientPointer.reinterpret(),
+            uri,
+            defaultPort,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        )?.run {
+            SocketConnection(reinterpret())
         }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * This is the asynchronous version of g_socket_client_connect_to_uri().
@@ -802,18 +780,17 @@ public open class SocketClient(
     @GioVersion2_26
     public open fun connectToUriAsync(
         uri: String,
-        defaultPort: UShort,
+        defaultPort: guint16,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
-    ): Unit =
-        g_socket_client_connect_to_uri_async(
-            gioSocketClientPointer.reinterpret(),
-            uri,
-            defaultPort,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    ): Unit = g_socket_client_connect_to_uri_async(
+        gioSocketClientPointer.reinterpret(),
+        uri,
+        defaultPort,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        AsyncReadyCallbackFunc.reinterpret(),
+        StableRef.create(callback).asCPointer()
+    )
 
     /**
      * Finishes an async connect operation. See g_socket_client_connect_to_uri_async()
@@ -823,76 +800,22 @@ public open class SocketClient(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun connectToUriFinish(result: AsyncResult): Result<SocketConnection> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_socket_client_connect_to_uri_finish(
-                    gioSocketClientPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
-                    SocketConnection(reinterpret())
-                }
-
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public open fun connectToUriFinish(result: AsyncResult): Result<SocketConnection> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_socket_client_connect_to_uri_finish(
+            gioSocketClientPointer.reinterpret(),
+            result.gioAsyncResultPointer,
+            gError.ptr
+        )?.run {
+            SocketConnection(reinterpret())
         }
 
-    /**
-     * Gets the proxy enable state; see g_socket_client_set_enable_proxy()
-     *
-     * @return whether proxying is enabled
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public open fun getEnableProxy(): Boolean =
-        g_socket_client_get_enable_proxy(gioSocketClientPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the socket family of the socket client.
-     *
-     * See g_socket_client_set_family() for details.
-     *
-     * @return a #GSocketFamily
-     * @since 2.22
-     */
-    @GioVersion2_22
-    public open fun getFamily(): SocketFamily =
-        g_socket_client_get_family(gioSocketClientPointer.reinterpret()).run {
-            SocketFamily.fromNativeValue(this)
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
         }
-
-    /**
-     * Gets the local address of the socket client.
-     *
-     * See g_socket_client_set_local_address() for details.
-     *
-     * @return a #GSocketAddress or null. Do not free.
-     * @since 2.22
-     */
-    @GioVersion2_22
-    public open fun getLocalAddress(): SocketAddress? =
-        g_socket_client_get_local_address(gioSocketClientPointer.reinterpret())?.run {
-            SocketAddress(reinterpret())
-        }
-
-    /**
-     * Gets the protocol name type of the socket client.
-     *
-     * See g_socket_client_set_protocol() for details.
-     *
-     * @return a #GSocketProtocol
-     * @since 2.22
-     */
-    @GioVersion2_22
-    public open fun getProtocol(): SocketProtocol =
-        g_socket_client_get_protocol(gioSocketClientPointer.reinterpret()).run {
-            SocketProtocol.fromNativeValue(this)
-        }
+    }
 
     /**
      * Gets the #GProxyResolver being used by @client. Normally, this will
@@ -922,110 +845,6 @@ public open class SocketClient(
         g_socket_client_get_socket_type(gioSocketClientPointer.reinterpret()).run {
             SocketType.fromNativeValue(this)
         }
-
-    /**
-     * Gets the I/O timeout time for sockets created by @client.
-     *
-     * See g_socket_client_set_timeout() for details.
-     *
-     * @return the timeout in seconds
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public open fun getTimeout(): UInt = g_socket_client_get_timeout(gioSocketClientPointer.reinterpret())
-
-    /**
-     * Gets whether @client creates TLS connections. See
-     * g_socket_client_set_tls() for details.
-     *
-     * @return whether @client uses TLS
-     * @since 2.28
-     */
-    @GioVersion2_28
-    public open fun getTls(): Boolean = g_socket_client_get_tls(gioSocketClientPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the TLS validation flags used creating TLS connections via
-     * @client.
-     *
-     * This function does not work as originally designed and is impossible
-     * to use correctly. See #GSocketClient:tls-validation-flags for more
-     * information.
-     *
-     * @return the TLS validation flags
-     * @since 2.28
-     */
-    @GioVersion2_28
-    public open fun getTlsValidationFlags(): TlsCertificateFlags =
-        g_socket_client_get_tls_validation_flags(gioSocketClientPointer.reinterpret()).run {
-            TlsCertificateFlags(this)
-        }
-
-    /**
-     * Sets whether or not @client attempts to make connections via a
-     * proxy server. When enabled (the default), #GSocketClient will use a
-     * #GProxyResolver to determine if a proxy protocol such as SOCKS is
-     * needed, and automatically do the necessary proxy negotiation.
-     *
-     * See also g_socket_client_set_proxy_resolver().
-     *
-     * @param enable whether to enable proxies
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public open fun setEnableProxy(enable: Boolean): Unit =
-        g_socket_client_set_enable_proxy(gioSocketClientPointer.reinterpret(), enable.asGBoolean())
-
-    /**
-     * Sets the socket family of the socket client.
-     * If this is set to something other than %G_SOCKET_FAMILY_INVALID
-     * then the sockets created by this object will be of the specified
-     * family.
-     *
-     * This might be useful for instance if you want to force the local
-     * connection to be an ipv4 socket, even though the address might
-     * be an ipv6 mapped to ipv4 address.
-     *
-     * @param family a #GSocketFamily
-     * @since 2.22
-     */
-    @GioVersion2_22
-    public open fun setFamily(family: SocketFamily): Unit =
-        g_socket_client_set_family(gioSocketClientPointer.reinterpret(), family.nativeValue)
-
-    /**
-     * Sets the local address of the socket client.
-     * The sockets created by this object will bound to the
-     * specified address (if not null) before connecting.
-     *
-     * This is useful if you want to ensure that the local
-     * side of the connection is on a specific port, or on
-     * a specific interface.
-     *
-     * @param address a #GSocketAddress, or null
-     * @since 2.22
-     */
-    @GioVersion2_22
-    public open fun setLocalAddress(address: SocketAddress? = null): Unit =
-        g_socket_client_set_local_address(
-            gioSocketClientPointer.reinterpret(),
-            address?.gioSocketAddressPointer?.reinterpret()
-        )
-
-    /**
-     * Sets the protocol of the socket client.
-     * The sockets created by this object will use of the specified
-     * protocol.
-     *
-     * If @protocol is %G_SOCKET_PROTOCOL_DEFAULT that means to use the default
-     * protocol for the socket family and type.
-     *
-     * @param protocol a #GSocketProtocol
-     * @since 2.22
-     */
-    @GioVersion2_22
-    public open fun setProtocol(protocol: SocketProtocol): Unit =
-        g_socket_client_set_protocol(gioSocketClientPointer.reinterpret(), protocol.nativeValue)
 
     /**
      * Overrides the #GProxyResolver used by @client. You can call this if
@@ -1058,63 +877,6 @@ public open class SocketClient(
     @GioVersion2_22
     public open fun setSocketType(type: SocketType): Unit =
         g_socket_client_set_socket_type(gioSocketClientPointer.reinterpret(), type.nativeValue)
-
-    /**
-     * Sets the I/O timeout for sockets created by @client. @timeout is a
-     * time in seconds, or 0 for no timeout (the default).
-     *
-     * The timeout value affects the initial connection attempt as well,
-     * so setting this may cause calls to g_socket_client_connect(), etc,
-     * to fail with %G_IO_ERROR_TIMED_OUT.
-     *
-     * @param timeout the timeout
-     * @since 2.26
-     */
-    @GioVersion2_26
-    public open fun setTimeout(timeout: UInt): Unit =
-        g_socket_client_set_timeout(gioSocketClientPointer.reinterpret(), timeout)
-
-    /**
-     * Sets whether @client creates TLS (aka SSL) connections. If @tls is
-     * true, @client will wrap its connections in a #GTlsClientConnection
-     * and perform a TLS handshake when connecting.
-     *
-     * Note that since #GSocketClient must return a #GSocketConnection,
-     * but #GTlsClientConnection is not a #GSocketConnection, this
-     * actually wraps the resulting #GTlsClientConnection in a
-     * #GTcpWrapperConnection when returning it. You can use
-     * g_tcp_wrapper_connection_get_base_io_stream() on the return value
-     * to extract the #GTlsClientConnection.
-     *
-     * If you need to modify the behavior of the TLS handshake (eg, by
-     * setting a client-side certificate to use, or connecting to the
-     * #GTlsConnection::accept-certificate signal), you can connect to
-     * @client's #GSocketClient::event signal and wait for it to be
-     * emitted with %G_SOCKET_CLIENT_TLS_HANDSHAKING, which will give you
-     * a chance to see the #GTlsClientConnection before the handshake
-     * starts.
-     *
-     * @param tls whether to use TLS
-     * @since 2.28
-     */
-    @GioVersion2_28
-    public open fun setTls(tls: Boolean): Unit =
-        g_socket_client_set_tls(gioSocketClientPointer.reinterpret(), tls.asGBoolean())
-
-    /**
-     * Sets the TLS validation flags used when creating TLS connections
-     * via @client. The default value is %G_TLS_CERTIFICATE_VALIDATE_ALL.
-     *
-     * This function does not work as originally designed and is impossible
-     * to use correctly. See #GSocketClient:tls-validation-flags for more
-     * information.
-     *
-     * @param flags the validation flags
-     * @since 2.28
-     */
-    @GioVersion2_28
-    public open fun setTlsValidationFlags(flags: TlsCertificateFlags): Unit =
-        g_socket_client_set_tls_validation_flags(gioSocketClientPointer.reinterpret(), flags.mask)
 
     /**
      * Emitted when @client's activity on @connectable changes state.
@@ -1179,15 +941,14 @@ public open class SocketClient(
             connectable: SocketConnectable,
             connection: IOStream?,
         ) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "event",
-            connectEventFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "event",
+        connectEventFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<SocketClient> {
         override val type: GeneratedClassKGType<SocketClient> =
@@ -1196,6 +957,13 @@ public open class SocketClient(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of SocketClient
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_socket_client_get_type()
     }
 }
 
@@ -1206,33 +974,30 @@ private val connectEventFunc: CPointer<
             CPointer<GSocketConnectable>,
             CPointer<GIOStream>?,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            _: COpaquePointer,
-            event: GSocketClientEvent,
-            connectable: CPointer<GSocketConnectable>?,
-            connection: CPointer<GIOStream>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    event: SocketClientEvent,
-                    connectable: SocketConnectable,
-                    connection: IOStream?,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                event.run {
-                    SocketClientEvent.fromNativeValue(this)
-                },
-                connectable!!.run {
-                    SocketConnectable.wrap(reinterpret())
-                },
-                connection?.run {
-                    IOStream(reinterpret())
-                }
-            )
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        _: COpaquePointer,
+        event: GSocketClientEvent,
+        connectable: CPointer<GSocketConnectable>?,
+        connection: CPointer<GIOStream>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            event: SocketClientEvent,
+            connectable: SocketConnectable,
+            connection: IOStream?,
+        ) -> Unit
+        >().get().invoke(
+        event.run {
+            SocketClientEvent.fromNativeValue(this)
+        },
+        connectable!!.run {
+            SocketConnectable.wrap(reinterpret())
+        },
+        connection?.run {
+            IOStream(reinterpret())
+        }
+    )
+}
+    .reinterpret()

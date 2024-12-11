@@ -30,6 +30,7 @@ import org.gtkkn.native.adw.adw_banner_set_button_label
 import org.gtkkn.native.adw.adw_banner_set_revealed
 import org.gtkkn.native.adw.adw_banner_set_title
 import org.gtkkn.native.adw.adw_banner_set_use_markup
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
@@ -66,9 +67,8 @@ import kotlin.Unit
  * @since 1.3
  */
 @AdwVersion1_3
-public class Banner(
-    pointer: CPointer<AdwBanner>,
-) : Widget(pointer.reinterpret()),
+public class Banner(pointer: CPointer<AdwBanner>) :
+    Widget(pointer.reinterpret()),
     Actionable,
     KGTyped {
     public val adwBannerPointer: CPointer<AdwBanner>
@@ -210,91 +210,6 @@ public class Banner(
     public constructor(title: String) : this(adw_banner_new(title)!!.reinterpret())
 
     /**
-     * Gets the button label for @self.
-     *
-     * @return the button label for @self
-     * @since 1.3
-     */
-    @AdwVersion1_3
-    public fun getButtonLabel(): String? = adw_banner_get_button_label(adwBannerPointer.reinterpret())?.toKString()
-
-    /**
-     * Gets if a banner is revealed
-     *
-     * @return Whether a banner is revealed
-     * @since 1.3
-     */
-    @AdwVersion1_3
-    public fun getRevealed(): Boolean = adw_banner_get_revealed(adwBannerPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the title for @self.
-     *
-     * @return the title for @self
-     * @since 1.3
-     */
-    @AdwVersion1_3
-    public fun getTitle(): String =
-        adw_banner_get_title(adwBannerPointer.reinterpret())?.toKString() ?: error("Expected not null string")
-
-    /**
-     * Gets whether to use Pango markup for the banner title.
-     *
-     * @return whether to use markup
-     * @since 1.3
-     */
-    @AdwVersion1_3
-    public fun getUseMarkup(): Boolean = adw_banner_get_use_markup(adwBannerPointer.reinterpret()).asBoolean()
-
-    /**
-     * Sets the button label for @self.
-     *
-     * If set to `""` or `NULL`, the button won't be shown.
-     *
-     * The button can be used with a `GAction`, or with the
-     * [signal@Banner::button-clicked] signal.
-     *
-     * @param label the label
-     * @since 1.3
-     */
-    @AdwVersion1_3
-    public fun setButtonLabel(label: String? = null): Unit =
-        adw_banner_set_button_label(adwBannerPointer.reinterpret(), label)
-
-    /**
-     * Sets whether a banner should be revealed
-     *
-     * @param revealed whether a banner should be revealed
-     * @since 1.3
-     */
-    @AdwVersion1_3
-    public fun setRevealed(revealed: Boolean): Unit =
-        adw_banner_set_revealed(adwBannerPointer.reinterpret(), revealed.asGBoolean())
-
-    /**
-     * Sets the title for this banner.
-     *
-     * See also: [property@Banner:use-markup].
-     *
-     * @param title the title
-     * @since 1.3
-     */
-    @AdwVersion1_3
-    public fun setTitle(title: String): Unit = adw_banner_set_title(adwBannerPointer.reinterpret(), title)
-
-    /**
-     * Sets whether to use Pango markup for the banner title.
-     *
-     * See also [func@Pango.parse_markup].
-     *
-     * @param useMarkup whether to use markup
-     * @since 1.3
-     */
-    @AdwVersion1_3
-    public fun setUseMarkup(useMarkup: Boolean): Unit =
-        adw_banner_set_use_markup(adwBannerPointer.reinterpret(), useMarkup.asGBoolean())
-
-    /**
      * This signal is emitted after the action button has been clicked.
      *
      * It can be used as an alternative to setting an action.
@@ -304,10 +219,7 @@ public class Banner(
      * @since 1.3
      */
     @AdwVersion1_3
-    public fun connectButtonClicked(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectButtonClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "button-clicked",
@@ -324,13 +236,20 @@ public class Banner(
         init {
             AdwTypeProvider.register()
         }
+
+        /**
+         * Get the GType of Banner
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = adw_banner_get_type()
     }
 }
 
-private val connectButtonClickedFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectButtonClickedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()

@@ -29,6 +29,7 @@ import org.gtkkn.native.gio.g_simple_action_set_enabled
 import org.gtkkn.native.gio.g_simple_action_set_state
 import org.gtkkn.native.gio.g_simple_action_set_state_hint
 import org.gtkkn.native.glib.GVariant
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import kotlin.Boolean
 import kotlin.String
@@ -48,9 +49,8 @@ import kotlin.Unit
  * - method `state`: Property has no getter
  * - method `state-type`: Property has no getter nor setter
  */
-public open class SimpleAction(
-    pointer: CPointer<GSimpleAction>,
-) : Object(pointer.reinterpret()),
+public open class SimpleAction(pointer: CPointer<GSimpleAction>) :
+    Object(pointer.reinterpret()),
     Action,
     KGTyped {
     public val gioSimpleActionPointer: CPointer<GSimpleAction>
@@ -148,11 +148,10 @@ public open class SimpleAction(
      * @since 2.44
      */
     @GioVersion2_44
-    public open fun setStateHint(stateHint: Variant? = null): Unit =
-        g_simple_action_set_state_hint(
-            gioSimpleActionPointer.reinterpret(),
-            stateHint?.glibVariantPointer?.reinterpret()
-        )
+    public open fun setStateHint(stateHint: Variant? = null): Unit = g_simple_action_set_state_hint(
+        gioSimpleActionPointer.reinterpret(),
+        stateHint?.glibVariantPointer?.reinterpret()
+    )
 
     /**
      * Indicates that the action was just activated.
@@ -178,15 +177,14 @@ public open class SimpleAction(
     public fun connectActivate(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (parameter: Variant?) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "activate",
-            connectActivateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "activate",
+        connectActivateFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Indicates that the action just received a request to change its
@@ -231,15 +229,14 @@ public open class SimpleAction(
     public fun connectChangeState(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`value`: Variant?) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "change-state",
-            connectChangeStateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "change-state",
+        connectChangeStateFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<SimpleAction> {
         override val type: GeneratedClassKGType<SimpleAction> =
@@ -248,6 +245,13 @@ public open class SimpleAction(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of SimpleAction
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_simple_action_get_type()
     }
 }
 
@@ -262,7 +266,8 @@ private val connectActivateFunc: CPointer<CFunction<(CPointer<GVariant>?) -> Uni
                 Variant(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()
 
 private val connectChangeStateFunc: CPointer<CFunction<(CPointer<GVariant>?) -> Unit>> =
     staticCFunction {
@@ -275,4 +280,5 @@ private val connectChangeStateFunc: CPointer<CFunction<(CPointer<GVariant>?) -> 
                 Variant(reinterpret())
             }
         )
-    }.reinterpret()
+    }
+        .reinterpret()

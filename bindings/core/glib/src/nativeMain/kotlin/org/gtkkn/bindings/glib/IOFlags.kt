@@ -19,9 +19,7 @@ import org.gtkkn.native.glib.G_IO_FLAG_SET_MASK
  * read with g_io_channel_get_flags(), but not changed with
  * g_io_channel_set_flags().
  */
-public class IOFlags(
-    public val mask: GIOFlags,
-) : Bitfield<IOFlags> {
+public class IOFlags(public val mask: GIOFlags) : Bitfield<IOFlags> {
     override infix fun or(other: IOFlags): IOFlags = IOFlags(mask or other.mask)
 
     public companion object {

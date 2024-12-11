@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkImageType
+import org.gtkkn.native.gtk.gtk_image_type_get_type
 
 /**
  * Describes the image data representation used by a [class@Gtk.Image].
@@ -13,9 +15,7 @@ import org.gtkkn.native.gtk.GtkImageType
  * For empty images, you can request any storage type (call any of the "get"
  * functions), but they will all return null values.
  */
-public enum class ImageType(
-    public val nativeValue: GtkImageType,
-) {
+public enum class ImageType(public val nativeValue: GtkImageType) {
     /**
      * there is no image displayed by the widget
      */
@@ -38,13 +38,19 @@ public enum class ImageType(
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkImageType): ImageType =
-            when (nativeValue) {
-                GtkImageType.GTK_IMAGE_EMPTY -> EMPTY
-                GtkImageType.GTK_IMAGE_ICON_NAME -> ICON_NAME
-                GtkImageType.GTK_IMAGE_GICON -> GICON
-                GtkImageType.GTK_IMAGE_PAINTABLE -> PAINTABLE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkImageType): ImageType = when (nativeValue) {
+            GtkImageType.GTK_IMAGE_EMPTY -> EMPTY
+            GtkImageType.GTK_IMAGE_ICON_NAME -> ICON_NAME
+            GtkImageType.GTK_IMAGE_GICON -> GICON
+            GtkImageType.GTK_IMAGE_PAINTABLE -> PAINTABLE
+            else -> error("invalid nativeValue")
+        }
+
+        /**
+         * Get the GType of ImageType
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_image_type_get_type()
     }
 }

@@ -32,7 +32,6 @@ import org.gtkkn.bindings.gtk.Window
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gtk.gtk_message_dialog_new
 
-
 public fun TypeCompanion<MessageDialog>.new(
     parent: Window? = null,
     flags: DialogFlags = DialogFlags(0u),

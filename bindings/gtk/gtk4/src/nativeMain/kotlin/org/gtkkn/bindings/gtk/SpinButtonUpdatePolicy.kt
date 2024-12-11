@@ -1,7 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkSpinButtonUpdatePolicy
+import org.gtkkn.native.gtk.gtk_spin_button_update_policy_get_type
 
 /**
  * Determines whether the spin button displays values outside the adjustment
@@ -9,9 +11,7 @@ import org.gtkkn.native.gtk.GtkSpinButtonUpdatePolicy
  *
  * See [method@Gtk.SpinButton.set_update_policy].
  */
-public enum class SpinButtonUpdatePolicy(
-    public val nativeValue: GtkSpinButtonUpdatePolicy,
-) {
+public enum class SpinButtonUpdatePolicy(public val nativeValue: GtkSpinButtonUpdatePolicy) {
     /**
      * When refreshing your `GtkSpinButton`, the value is
      *   always displayed
@@ -33,5 +33,12 @@ public enum class SpinButtonUpdatePolicy(
                 GtkSpinButtonUpdatePolicy.GTK_UPDATE_IF_VALID -> IF_VALID
                 else -> error("invalid nativeValue")
             }
+
+        /**
+         * Get the GType of SpinButtonUpdatePolicy
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_spin_button_update_policy_get_type()
     }
 }

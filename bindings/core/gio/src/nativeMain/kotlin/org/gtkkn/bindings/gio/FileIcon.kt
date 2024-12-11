@@ -13,6 +13,7 @@ import org.gtkkn.native.gio.GLoadableIcon
 import org.gtkkn.native.gio.g_file_icon_get_file
 import org.gtkkn.native.gio.g_file_icon_get_type
 import org.gtkkn.native.gio.g_file_icon_new
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GFileIcon` specifies an icon by pointing to an image file
@@ -20,9 +21,8 @@ import org.gtkkn.native.gio.g_file_icon_new
  *
  * It implements [iface@Gio.LoadableIcon].
  */
-public open class FileIcon(
-    pointer: CPointer<GFileIcon>,
-) : Object(pointer.reinterpret()),
+public open class FileIcon(pointer: CPointer<GFileIcon>) :
+    Object(pointer.reinterpret()),
     Icon,
     LoadableIcon,
     KGTyped {
@@ -44,10 +44,9 @@ public open class FileIcon(
          *
          * @return a #GFile.
          */
-        get() =
-            g_file_icon_get_file(gioFileIconPointer.reinterpret())!!.run {
-                File.wrap(reinterpret())
-            }
+        get() = g_file_icon_get_file(gioFileIconPointer.reinterpret())!!.run {
+            File.wrap(reinterpret())
+        }
 
     /**
      * Creates a new icon for a file.
@@ -58,16 +57,6 @@ public open class FileIcon(
      */
     public constructor(`file`: File) : this(g_file_icon_new(`file`.gioFilePointer)!!.reinterpret())
 
-    /**
-     * Gets the #GFile associated with the given @icon.
-     *
-     * @return a #GFile.
-     */
-    public open fun getFile(): File =
-        g_file_icon_get_file(gioFileIconPointer.reinterpret())!!.run {
-            File.wrap(reinterpret())
-        }
-
     public companion object : TypeCompanion<FileIcon> {
         override val type: GeneratedClassKGType<FileIcon> =
             GeneratedClassKGType(g_file_icon_get_type()) { FileIcon(it.reinterpret()) }
@@ -75,5 +64,12 @@ public open class FileIcon(
         init {
             GioTypeProvider.register()
         }
+
+        /**
+         * Get the GType of FileIcon
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_file_icon_get_type()
     }
 }

@@ -25,7 +25,12 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gboolean
+import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAccessibleText
 import org.gtkkn.native.gtk.GtkBuildable
@@ -83,10 +88,7 @@ import org.gtkkn.native.gtk.gtk_label_set_wrap_mode
 import org.gtkkn.native.gtk.gtk_label_set_xalign
 import org.gtkkn.native.gtk.gtk_label_set_yalign
 import kotlin.Boolean
-import kotlin.Float
-import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 
@@ -278,9 +280,8 @@ import kotlin.Unit
  * - parameter `x`: x: Out parameter is not supported
  * - parameter `start`: start: Out parameter is not supported
  */
-public open class Label(
-    pointer: CPointer<GtkLabel>,
-) : Widget(pointer.reinterpret()),
+public open class Label(pointer: CPointer<GtkLabel>) :
+    Widget(pointer.reinterpret()),
     AccessibleText,
     KGTyped {
     public val gtkLabelPointer: CPointer<GtkLabel>
@@ -314,10 +315,9 @@ public open class Label(
          *
          * @return the attribute list
          */
-        get() =
-            gtk_label_get_attributes(gtkLabelPointer.reinterpret())?.run {
-                AttrList(reinterpret())
-            }
+        get() = gtk_label_get_attributes(gtkLabelPointer.reinterpret())?.run {
+            AttrList(reinterpret())
+        }
 
         /**
          * Apply attributes to the label text.
@@ -353,10 +353,9 @@ public open class Label(
          *
          * @return `PangoEllipsizeMode`
          */
-        get() =
-            gtk_label_get_ellipsize(gtkLabelPointer.reinterpret()).run {
-                EllipsizeMode.fromNativeValue(this)
-            }
+        get() = gtk_label_get_ellipsize(gtkLabelPointer.reinterpret()).run {
+            EllipsizeMode.fromNativeValue(this)
+        }
 
         /**
          * Sets the mode used to ellipsize the text.
@@ -379,10 +378,9 @@ public open class Label(
          *
          * @return the menu model
          */
-        get() =
-            gtk_label_get_extra_menu(gtkLabelPointer.reinterpret())?.run {
-                MenuModel(reinterpret())
-            }
+        get() = gtk_label_get_extra_menu(gtkLabelPointer.reinterpret())?.run {
+            MenuModel(reinterpret())
+        }
 
         /**
          * Sets a menu model to add when constructing
@@ -406,10 +404,9 @@ public open class Label(
          *
          * @return `GtkJustification`
          */
-        get() =
-            gtk_label_get_justify(gtkLabelPointer.reinterpret()).run {
-                Justification.fromNativeValue(this)
-            }
+        get() = gtk_label_get_justify(gtkLabelPointer.reinterpret()).run {
+            Justification.fromNativeValue(this)
+        }
 
         /**
          * Sets the alignment of the lines in the text of the label relative to
@@ -469,7 +466,7 @@ public open class Label(
      * This property has no effect if the label is not wrapping or ellipsized.
      * Set this property to -1 if you don't want to limit the number of lines.
      */
-    public open var lines: Int
+    public open var lines: gint
         /**
          * Gets the number of lines to which an ellipsized, wrapping
          * label should be limited.
@@ -500,7 +497,7 @@ public open class Label(
      * [property@Gtk.Label:width-chars] and [property@Gtk.Label:max-width-chars]
      * determine the width of ellipsized and wrapped labels.
      */
-    public open var maxWidthChars: Int
+    public open var maxWidthChars: gint
         /**
          * Retrieves the desired maximum width of @label, in characters.
          *
@@ -520,7 +517,7 @@ public open class Label(
     /**
      * The mnemonic accelerator key for the label.
      */
-    public open val mnemonicKeyval: UInt
+    public open val mnemonicKeyval: guint
         /**
          * Return the mnemonic accelerator.
          *
@@ -545,10 +542,9 @@ public open class Label(
          * @return the target of the label’s mnemonic,
          *   or null if none has been set and the default algorithm will be used.
          */
-        get() =
-            gtk_label_get_mnemonic_widget(gtkLabelPointer.reinterpret())?.run {
-                Widget(reinterpret())
-            }
+        get() = gtk_label_get_mnemonic_widget(gtkLabelPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
         /**
          * Associate the label with its mnemonic target.
@@ -596,10 +592,9 @@ public open class Label(
          * @return the natural line wrap mode
          * @since 4.6
          */
-        get() =
-            gtk_label_get_natural_wrap_mode(gtkLabelPointer.reinterpret()).run {
-                NaturalWrapMode.fromNativeValue(this)
-            }
+        get() = gtk_label_get_natural_wrap_mode(gtkLabelPointer.reinterpret()).run {
+            NaturalWrapMode.fromNativeValue(this)
+        }
 
         /**
          * Select the line wrapping for the natural size request.
@@ -675,10 +670,9 @@ public open class Label(
          *   [method@Pango.TabArray.free].
          * @since 4.8
          */
-        get() =
-            gtk_label_get_tabs(gtkLabelPointer.reinterpret())?.run {
-                TabArray(reinterpret())
-            }
+        get() = gtk_label_get_tabs(gtkLabelPointer.reinterpret())?.run {
+            TabArray(reinterpret())
+        }
 
         /**
          * Sets the default tab stops for paragraphs in @self.
@@ -744,7 +738,7 @@ public open class Label(
      * [property@Gtk.Label:width-chars] and [property@Gtk.Label:max-width-chars]
      * determine the width of ellipsized and wrapped labels.
      */
-    public open var widthChars: Int
+    public open var widthChars: gint
         /**
          * Retrieves the desired width of @label, in characters.
          *
@@ -809,10 +803,9 @@ public open class Label(
          *
          * @return the line wrap mode
          */
-        get() =
-            gtk_label_get_wrap_mode(gtkLabelPointer.reinterpret()).run {
-                WrapMode.fromNativeValue(this)
-            }
+        get() = gtk_label_get_wrap_mode(gtkLabelPointer.reinterpret()).run {
+            WrapMode.fromNativeValue(this)
+        }
 
         /**
          * Controls how line wrapping is done.
@@ -834,7 +827,7 @@ public open class Label(
      * Compare this to [property@Gtk.Widget:halign], which determines how the
      * labels size allocation is positioned in the space available for the label.
      */
-    public open var xalign: Float
+    public open var xalign: gfloat
         /**
          * Gets the `xalign` of the label.
          *
@@ -859,7 +852,7 @@ public open class Label(
      * Compare this to [property@Gtk.Widget:valign], which determines how the
      * labels size allocation is positioned in the space available for the label.
      */
-    public open var yalign: Float
+    public open var yalign: gfloat
         /**
          * Gets the `yalign` of the label.
          *
@@ -889,23 +882,6 @@ public open class Label(
     public constructor(str: String? = null) : this(gtk_label_new(str)!!.reinterpret())
 
     /**
-     * Gets the label's attribute list.
-     *
-     * This is the [struct@Pango.AttrList] that was set on the label using
-     * [method@Gtk.Label.set_attributes], if any. This function does not
-     * reflect attributes that come from the label's markup (see
-     * [method@Gtk.Label.set_markup]). If you want to get the effective
-     * attributes for the label, use
-     * `pango_layout_get_attributes (gtk_label_get_layout (self))`.
-     *
-     * @return the attribute list
-     */
-    public open fun getAttributes(): AttrList? =
-        gtk_label_get_attributes(gtkLabelPointer.reinterpret())?.run {
-            AttrList(reinterpret())
-        }
-
-    /**
      * Returns the URI for the currently active link in the label.
      *
      * The active link is the one under the mouse pointer or, in a
@@ -920,54 +896,6 @@ public open class Label(
     public open fun getCurrentUri(): String? = gtk_label_get_current_uri(gtkLabelPointer.reinterpret())?.toKString()
 
     /**
-     * Returns the ellipsizing position of the label.
-     *
-     * See [method@Gtk.Label.set_ellipsize].
-     *
-     * @return `PangoEllipsizeMode`
-     */
-    public open fun getEllipsize(): EllipsizeMode =
-        gtk_label_get_ellipsize(gtkLabelPointer.reinterpret()).run {
-            EllipsizeMode.fromNativeValue(this)
-        }
-
-    /**
-     * Gets the extra menu model of @label.
-     *
-     * See [method@Gtk.Label.set_extra_menu].
-     *
-     * @return the menu model
-     */
-    public open fun getExtraMenu(): MenuModel? =
-        gtk_label_get_extra_menu(gtkLabelPointer.reinterpret())?.run {
-            MenuModel(reinterpret())
-        }
-
-    /**
-     * Returns the justification of the label.
-     *
-     * See [method@Gtk.Label.set_justify].
-     *
-     * @return `GtkJustification`
-     */
-    public open fun getJustify(): Justification =
-        gtk_label_get_justify(gtkLabelPointer.reinterpret()).run {
-            Justification.fromNativeValue(this)
-        }
-
-    /**
-     * Fetches the text from a label.
-     *
-     * The returned text includes any embedded underlines indicating
-     * mnemonics and Pango markup. (See [method@Gtk.Label.get_text]).
-     *
-     * @return the text of the label widget. This string is
-     *   owned by the widget and must not be modified or freed.
-     */
-    public open fun getLabel(): String =
-        gtk_label_get_label(gtkLabelPointer.reinterpret())?.toKString() ?: error("Expected not null string")
-
-    /**
      * Gets the `PangoLayout` used to display the label.
      *
      * The layout is useful to e.g. convert text positions to pixel
@@ -978,100 +906,9 @@ public open class Label(
      *
      * @return the [class@Pango.Layout] for this label
      */
-    public open fun getLayout(): Layout =
-        gtk_label_get_layout(gtkLabelPointer.reinterpret())!!.run {
-            Layout(reinterpret())
-        }
-
-    /**
-     * Gets the number of lines to which an ellipsized, wrapping
-     * label should be limited.
-     *
-     * See [method@Gtk.Label.set_lines].
-     *
-     * @return The number of lines
-     */
-    public open fun getLines(): Int = gtk_label_get_lines(gtkLabelPointer.reinterpret())
-
-    /**
-     * Retrieves the desired maximum width of @label, in characters.
-     *
-     * See [method@Gtk.Label.set_width_chars].
-     *
-     * @return the maximum width of the label in characters.
-     */
-    public open fun getMaxWidthChars(): Int = gtk_label_get_max_width_chars(gtkLabelPointer.reinterpret())
-
-    /**
-     * Return the mnemonic accelerator.
-     *
-     * If the label has been set so that it has a mnemonic key this function
-     * returns the keyval used for the mnemonic accelerator. If there is no
-     * mnemonic set up it returns `GDK_KEY_VoidSymbol`.
-     *
-     * @return GDK keyval usable for accelerators, or `GDK_KEY_VoidSymbol`
-     */
-    public open fun getMnemonicKeyval(): UInt = gtk_label_get_mnemonic_keyval(gtkLabelPointer.reinterpret())
-
-    /**
-     * Retrieves the target of the mnemonic (keyboard shortcut) of this
-     * label.
-     *
-     * See [method@Gtk.Label.set_mnemonic_widget].
-     *
-     * @return the target of the label’s mnemonic,
-     *   or null if none has been set and the default algorithm will be used.
-     */
-    public open fun getMnemonicWidget(): Widget? =
-        gtk_label_get_mnemonic_widget(gtkLabelPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
-    /**
-     * Returns line wrap mode used by the label.
-     *
-     * See [method@Gtk.Label.set_natural_wrap_mode].
-     *
-     * @return the natural line wrap mode
-     * @since 4.6
-     */
-    @GtkVersion4_6
-    public open fun getNaturalWrapMode(): NaturalWrapMode =
-        gtk_label_get_natural_wrap_mode(gtkLabelPointer.reinterpret()).run {
-            NaturalWrapMode.fromNativeValue(this)
-        }
-
-    /**
-     * Returns whether the label is selectable.
-     *
-     * @return true if the user can copy text from the label
-     */
-    public open fun getSelectable(): Boolean = gtk_label_get_selectable(gtkLabelPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns whether the label is in single line mode.
-     *
-     * @return true when the label is in single line mode.
-     */
-    public open fun getSingleLineMode(): Boolean =
-        gtk_label_get_single_line_mode(gtkLabelPointer.reinterpret()).asBoolean()
-
-    /**
-     * Gets the tabs for @self.
-     *
-     * The returned array will be null if “standard” (8-space) tabs are used.
-     * Free the return value with [method@Pango.TabArray.free].
-     *
-     * @return copy of default tab array,
-     *   or null if standard tabs are used; must be freed with
-     *   [method@Pango.TabArray.free].
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun getTabs(): TabArray? =
-        gtk_label_get_tabs(gtkLabelPointer.reinterpret())?.run {
-            TabArray(reinterpret())
-        }
+    public open fun getLayout(): Layout = gtk_label_get_layout(gtkLabelPointer.reinterpret())!!.run {
+        Layout(reinterpret())
+    }
 
     /**
      * Fetches the text from a label.
@@ -1087,73 +924,6 @@ public open class Label(
         gtk_label_get_text(gtkLabelPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
-     * Returns whether the label’s text is interpreted as Pango markup.
-     *
-     * See [method@Gtk.Label.set_use_markup].
-     *
-     * @return true if the label’s text will be parsed for markup.
-     */
-    public open fun getUseMarkup(): Boolean = gtk_label_get_use_markup(gtkLabelPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns whether an embedded underlines in the label indicate mnemonics.
-     *
-     * See [method@Gtk.Label.set_use_underline].
-     *
-     * @return true whether an embedded underline in the label indicates
-     *   the mnemonic accelerator keys.
-     */
-    public open fun getUseUnderline(): Boolean = gtk_label_get_use_underline(gtkLabelPointer.reinterpret()).asBoolean()
-
-    /**
-     * Retrieves the desired width of @label, in characters.
-     *
-     * See [method@Gtk.Label.set_width_chars].
-     *
-     * @return the width of the label in characters.
-     */
-    public open fun getWidthChars(): Int = gtk_label_get_width_chars(gtkLabelPointer.reinterpret())
-
-    /**
-     * Returns whether lines in the label are automatically wrapped.
-     *
-     * See [method@Gtk.Label.set_wrap].
-     *
-     * @return true if the lines of the label are automatically wrapped.
-     */
-    public open fun getWrap(): Boolean = gtk_label_get_wrap(gtkLabelPointer.reinterpret()).asBoolean()
-
-    /**
-     * Returns line wrap mode used by the label.
-     *
-     * See [method@Gtk.Label.set_wrap_mode].
-     *
-     * @return the line wrap mode
-     */
-    public open fun getWrapMode(): WrapMode =
-        gtk_label_get_wrap_mode(gtkLabelPointer.reinterpret()).run {
-            WrapMode.fromNativeValue(this)
-        }
-
-    /**
-     * Gets the `xalign` of the label.
-     *
-     * See the [property@Gtk.Label:xalign] property.
-     *
-     * @return the xalign property
-     */
-    public open fun getXalign(): Float = gtk_label_get_xalign(gtkLabelPointer.reinterpret())
-
-    /**
-     * Gets the `yalign` of the label.
-     *
-     * See the [property@Gtk.Label:yalign] property.
-     *
-     * @return the yalign property
-     */
-    public open fun getYalign(): Float = gtk_label_get_yalign(gtkLabelPointer.reinterpret())
-
-    /**
      * Selects a range of characters in the label, if the label is selectable.
      *
      * See [method@Gtk.Label.set_selectable]. If the label is not selectable,
@@ -1163,82 +933,8 @@ public open class Label(
      * @param startOffset start offset (in characters not bytes)
      * @param endOffset end offset (in characters not bytes)
      */
-    public open fun selectRegion(
-        startOffset: Int,
-        endOffset: Int,
-    ): Unit = gtk_label_select_region(gtkLabelPointer.reinterpret(), startOffset, endOffset)
-
-    /**
-     * Apply attributes to the label text.
-     *
-     * The attributes set with this function will be applied and merged with
-     * any other attributes previously effected by way of the
-     * [property@Gtk.Label:use-underline] or [property@Gtk.Label:use-markup]
-     * properties. While it is not recommended to mix markup strings with
-     * manually set attributes, if you must; know that the attributes will
-     * be applied to the label after the markup string is parsed.
-     *
-     * @param attrs a [struct@Pango.AttrList]
-     */
-    public open fun setAttributes(attrs: AttrList? = null): Unit =
-        gtk_label_set_attributes(gtkLabelPointer.reinterpret(), attrs?.pangoAttrListPointer?.reinterpret())
-
-    /**
-     * Sets the mode used to ellipsize the text.
-     *
-     * The text will be ellipsized if there is not enough space
-     * to render the entire string.
-     *
-     * @param mode a `PangoEllipsizeMode`
-     */
-    public open fun setEllipsize(mode: EllipsizeMode): Unit =
-        gtk_label_set_ellipsize(gtkLabelPointer.reinterpret(), mode.nativeValue)
-
-    /**
-     * Sets a menu model to add when constructing
-     * the context menu for @label.
-     *
-     * @param model a `GMenuModel`
-     */
-    public open fun setExtraMenu(model: MenuModel? = null): Unit =
-        gtk_label_set_extra_menu(gtkLabelPointer.reinterpret(), model?.gioMenuModelPointer?.reinterpret())
-
-    /**
-     * Sets the alignment of the lines in the text of the label relative to
-     * each other.
-     *
-     * %GTK_JUSTIFY_LEFT is the default value when the widget is first created
-     * with [ctor@Gtk.Label.new]. If you instead want to set the alignment of
-     * the label as a whole, use [method@Gtk.Widget.set_halign] instead.
-     * [method@Gtk.Label.set_justify] has no effect on labels containing
-     * only a single line.
-     *
-     * @param jtype a `GtkJustification`
-     */
-    public open fun setJustify(jtype: Justification): Unit =
-        gtk_label_set_justify(gtkLabelPointer.reinterpret(), jtype.nativeValue)
-
-    /**
-     * Sets the text of the label.
-     *
-     * The label is interpreted as including embedded underlines and/or Pango
-     * markup depending on the values of the [property@Gtk.Label:use-underline]
-     * and [property@Gtk.Label:use-markup] properties.
-     *
-     * @param str the new text to set for the label
-     */
-    public open fun setLabel(str: String): Unit = gtk_label_set_label(gtkLabelPointer.reinterpret(), str)
-
-    /**
-     * Sets the number of lines to which an ellipsized, wrapping label
-     * should be limited.
-     *
-     * This has no effect if the label is not wrapping or ellipsized.
-     * Set this to -1 if you don’t want to limit the number of lines.
-     *
-     * @param lines the desired number of lines, or -1
-     */
-    public open fun setLines(lines: Int): Unit = gtk_label_set_lines(gtkLabelPointer.reinterpret(), lines)
+    public open fun selectRegion(startOffset: gint, endOffset: gint): Unit =
+        gtk_label_select_region(gtkLabelPointer.reinterpret(), startOffset, endOffset)
 
     /**
      * Sets the labels text and attributes from markup.
@@ -1290,80 +986,6 @@ public open class Label(
         gtk_label_set_markup_with_mnemonic(gtkLabelPointer.reinterpret(), str)
 
     /**
-     * Sets the desired maximum width in characters of @label to @n_chars.
-     *
-     * @param nChars the new desired maximum width, in characters.
-     */
-    public open fun setMaxWidthChars(nChars: Int): Unit =
-        gtk_label_set_max_width_chars(gtkLabelPointer.reinterpret(), nChars)
-
-    /**
-     * Associate the label with its mnemonic target.
-     *
-     * If the label has been set so that it has a mnemonic key (using
-     * i.e. [method@Gtk.Label.set_markup_with_mnemonic],
-     * [method@Gtk.Label.set_text_with_mnemonic],
-     * [ctor@Gtk.Label.new_with_mnemonic]
-     * or the [property@Gtk.Label:use_underline] property) the label can be
-     * associated with a widget that is the target of the mnemonic. When the
-     * label is inside a widget (like a [class@Gtk.Button] or a
-     * [class@Gtk.Notebook] tab) it is automatically associated with the correct
-     * widget, but sometimes (i.e. when the target is a [class@Gtk.Entry] next to
-     * the label) you need to set it explicitly using this function.
-     *
-     * The target widget will be accelerated by emitting the
-     * [signal@Gtk.Widget::mnemonic-activate] signal on it. The default handler for
-     * this signal will activate the widget if there are no mnemonic collisions
-     * and toggle focus between the colliding widgets otherwise.
-     *
-     * @param widget the target `GtkWidget`, or null to unset
-     */
-    public open fun setMnemonicWidget(widget: Widget? = null): Unit =
-        gtk_label_set_mnemonic_widget(gtkLabelPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
-
-    /**
-     * Select the line wrapping for the natural size request.
-     *
-     * This only affects the natural size requested, for the actual wrapping used,
-     * see the [property@Gtk.Label:wrap-mode] property.
-     *
-     * @param wrapMode the line wrapping mode
-     * @since 4.6
-     */
-    @GtkVersion4_6
-    public open fun setNaturalWrapMode(wrapMode: NaturalWrapMode): Unit =
-        gtk_label_set_natural_wrap_mode(gtkLabelPointer.reinterpret(), wrapMode.nativeValue)
-
-    /**
-     * Makes text in the label selectable.
-     *
-     * Selectable labels allow the user to select text from the label,
-     * for copy-and-paste.
-     *
-     * @param setting true to allow selecting text in the label
-     */
-    public open fun setSelectable(setting: Boolean): Unit =
-        gtk_label_set_selectable(gtkLabelPointer.reinterpret(), setting.asGBoolean())
-
-    /**
-     * Sets whether the label is in single line mode.
-     *
-     * @param singleLineMode true if the label should be in single line mode
-     */
-    public open fun setSingleLineMode(singleLineMode: Boolean): Unit =
-        gtk_label_set_single_line_mode(gtkLabelPointer.reinterpret(), singleLineMode.asGBoolean())
-
-    /**
-     * Sets the default tab stops for paragraphs in @self.
-     *
-     * @param tabs tabs as a `PangoTabArray`
-     * @since 4.8
-     */
-    @GtkVersion4_8
-    public open fun setTabs(tabs: TabArray? = null): Unit =
-        gtk_label_set_tabs(gtkLabelPointer.reinterpret(), tabs?.pangoTabArrayPointer?.reinterpret())
-
-    /**
      * Sets the text within the `GtkLabel` widget.
      *
      * It overwrites any text that was there before.
@@ -1395,81 +1017,6 @@ public open class Label(
         gtk_label_set_text_with_mnemonic(gtkLabelPointer.reinterpret(), str)
 
     /**
-     * Sets whether the text of the label contains markup.
-     *
-     * See [method@Gtk.Label.set_markup].
-     *
-     * @param setting true if the label’s text should be parsed for markup.
-     */
-    public open fun setUseMarkup(setting: Boolean): Unit =
-        gtk_label_set_use_markup(gtkLabelPointer.reinterpret(), setting.asGBoolean())
-
-    /**
-     * Sets whether underlines in the text indicate mnemonics.
-     *
-     * @param setting true if underlines in the text indicate mnemonics
-     */
-    public open fun setUseUnderline(setting: Boolean): Unit =
-        gtk_label_set_use_underline(gtkLabelPointer.reinterpret(), setting.asGBoolean())
-
-    /**
-     * Sets the desired width in characters of @label to @n_chars.
-     *
-     * @param nChars the new desired width, in characters.
-     */
-    public open fun setWidthChars(nChars: Int): Unit = gtk_label_set_width_chars(gtkLabelPointer.reinterpret(), nChars)
-
-    /**
-     * Toggles line wrapping within the `GtkLabel` widget.
-     *
-     * true makes it break lines if text exceeds the widget’s size.
-     * false lets the text get cut off by the edge of the widget if
-     * it exceeds the widget size.
-     *
-     * Note that setting line wrapping to true does not make the label
-     * wrap at its parent container’s width, because GTK widgets
-     * conceptually can’t make their requisition depend on the parent
-     * container’s size. For a label that wraps at a specific position,
-     * set the label’s width using [method@Gtk.Widget.set_size_request].
-     *
-     * @param wrap the setting
-     */
-    public open fun setWrap(wrap: Boolean): Unit = gtk_label_set_wrap(gtkLabelPointer.reinterpret(), wrap.asGBoolean())
-
-    /**
-     * Controls how line wrapping is done.
-     *
-     * This only affects the label if line wrapping is on. (See
-     * [method@Gtk.Label.set_wrap]) The default is %PANGO_WRAP_WORD
-     * which means wrap on word boundaries.
-     *
-     * For sizing behavior, also consider the [property@Gtk.Label:natural-wrap-mode]
-     * property.
-     *
-     * @param wrapMode the line wrapping mode
-     */
-    public open fun setWrapMode(wrapMode: WrapMode): Unit =
-        gtk_label_set_wrap_mode(gtkLabelPointer.reinterpret(), wrapMode.nativeValue)
-
-    /**
-     * Sets the `xalign` of the label.
-     *
-     * See the [property@Gtk.Label:xalign] property.
-     *
-     * @param xalign the new xalign value, between 0 and 1
-     */
-    public open fun setXalign(xalign: Float): Unit = gtk_label_set_xalign(gtkLabelPointer.reinterpret(), xalign)
-
-    /**
-     * Sets the `yalign` of the label.
-     *
-     * See the [property@Gtk.Label:yalign] property.
-     *
-     * @param yalign the new yalign value, between 0 and 1
-     */
-    public open fun setYalign(yalign: Float): Unit = gtk_label_set_yalign(gtkLabelPointer.reinterpret(), yalign)
-
-    /**
      * Gets emitted when the user activates a link in the label.
      *
      * The ::activate-current-link is a [keybinding signal](class.SignalAction.html).
@@ -1482,10 +1029,7 @@ public open class Label(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectActivateCurrentLink(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectActivateCurrentLink(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "activate-current-link",
@@ -1507,15 +1051,14 @@ public open class Label(
     public fun connectActivateLink(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (uri: String) -> Boolean,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "activate-link",
-            connectActivateLinkFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "activate-link",
+        connectActivateLinkFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Gets emitted to copy the selection to the clipboard.
@@ -1527,10 +1070,7 @@ public open class Label(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectCopyClipboard(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong =
+    public fun connectCopyClipboard(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
             "copy-clipboard",
@@ -1568,18 +1108,17 @@ public open class Label(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (
             step: MovementStep,
-            count: Int,
+            count: gint,
             extendSelection: Boolean,
         ) -> Unit,
-    ): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "move-cursor",
-            connectMoveCursorFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "move-cursor",
+        connectMoveCursorFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     public companion object : TypeCompanion<Label> {
         override val type: GeneratedClassKGType<Label> =
@@ -1620,72 +1159,73 @@ public open class Label(
          * @return the new `GtkLabel`
          */
         public fun newWithMnemonic(str: String? = null): Label = Label(gtk_label_new_with_mnemonic(str)!!.reinterpret())
+
+        /**
+         * Get the GType of Label
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_label_get_type()
     }
 }
 
-private val connectActivateCurrentLinkFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectActivateCurrentLinkFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
-private val connectActivateLinkFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Int>> =
+private val connectActivateLinkFunc: CPointer<CFunction<(CPointer<ByteVar>) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
             uri: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData
-            .asStableRef<
-                (
-                    uri: String,
-                ) -> Boolean
-            >()
-            .get()
-            .invoke(uri?.toKString() ?: error("Expected not null string"))
-            .asGBoolean()
-    }.reinterpret()
+        userData.asStableRef<
+            (
+                uri: String,
+            ) -> Boolean
+            >().get().invoke(uri?.toKString() ?: error("Expected not null string")).asGBoolean()
+    }
+        .reinterpret()
 
-private val connectCopyClipboardFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }.reinterpret()
+private val connectCopyClipboardFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()
+}
+    .reinterpret()
 
 private val connectMoveCursorFunc: CPointer<
     CFunction<
         (
             GtkMovementStep,
-            Int,
-            Int,
+            gint,
+            gboolean,
         ) -> Unit
-    >
-> =
-    staticCFunction {
-            _: COpaquePointer,
-            step: GtkMovementStep,
-            count: Int,
-            extendSelection: Int,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    step: MovementStep,
-                    count: Int,
-                    extendSelection: Boolean,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                step.run {
-                    MovementStep.fromNativeValue(this)
-                },
-                count,
-                extendSelection.asBoolean()
-            )
-    }.reinterpret()
+        >
+    > = staticCFunction {
+        _: COpaquePointer,
+        step: GtkMovementStep,
+        count: gint,
+        extendSelection: gboolean,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            step: MovementStep,
+            count: gint,
+            extendSelection: Boolean,
+        ) -> Unit
+        >().get().invoke(
+        step.run {
+            MovementStep.fromNativeValue(this)
+        },
+        count,
+        extendSelection.asBoolean()
+    )
+}
+    .reinterpret()

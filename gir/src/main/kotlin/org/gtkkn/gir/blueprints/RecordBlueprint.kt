@@ -22,6 +22,7 @@ import com.squareup.kotlinpoet.TypeName
 data class RecordBlueprint(
     val kotlinName: String,
     val kotlinTypeName: ClassName,
+    val nativeTypeName: TypeName,
     val objectPointerTypeName: TypeName,
     val objectPointerName: String,
     val constructors: List<ConstructorBlueprint>,
@@ -31,6 +32,8 @@ data class RecordBlueprint(
     val cStructTypeName: ClassName,
     val skippedObjects: List<SkippedObject>,
     val isOpaque: Boolean,
-    val kdoc: String?,
+    val isDisguised: Boolean,
+    val hasNewConstructor: Boolean,
     val optInVersionBlueprint: OptInVersionBlueprint?,
+    val kdoc: String?,
 )
