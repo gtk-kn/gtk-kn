@@ -57,10 +57,10 @@ import org.gtkkn.compose.gtk.node.GtkContainerNode
 import org.gtkkn.compose.gtk.platform.GlobalSnapshotManager
 import org.gtkkn.compose.gtk.platform.LocalApplication
 import org.gtkkn.compose.gtk.platform.LocalLogger
-import org.gtkkn.compose.gtk.platform.MainUiDispatcher
 import org.gtkkn.compose.gtk.platform.MainUiThread
 import org.gtkkn.compose.gtk.platform.loadPlatformSideEffects
 import org.gtkkn.compose.gtk.util.AnsiLogFormatter
+import org.gtkkn.coroutines.Gtk
 import platform.posix.getenv
 import kotlin.system.exitProcess
 
@@ -181,11 +181,11 @@ public suspend fun awaitApplication(
     logger.v { "Connecting activate signal" }
     application.connectActivate {
         logger.d { "Application(id=${applicationId}) activated, proceeding with compose mounting" }
-        CoroutineScope(MainUiDispatcher).launch(start = CoroutineStart.UNDISPATCHED) {
+        CoroutineScope(Dispatchers.Gtk).launch(start = CoroutineStart.UNDISPATCHED) {
             logger.v { "Starting GlobalSnapshotManager" }
             GlobalSnapshotManager.ensureStarted()
 
-            val context = DefaultMonotonicFrameClock + MainUiDispatcher
+            val context = DefaultMonotonicFrameClock + Dispatchers.Gtk
             val recomposer = Recomposer(context)
 
             logger.v { "Launching recomposer" }
@@ -250,7 +250,7 @@ public suspend fun awaitApplication(
     application.connectShutdown {
         logger.d { "Processing GTK shutdown request" }
         logger.v { "Cancelling MainUiDispatcher" }
-        MainUiDispatcher.cancel()
+        Dispatchers.Gtk.cancel()
         MainUiThread.cancel()
     }
 
