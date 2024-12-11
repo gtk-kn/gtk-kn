@@ -16,9 +16,9 @@
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
+    id("org.gtkkn.gtk")
     alias(libs.plugins.kotlin.compose)
     id("detekt-conventions")
-    id("org.gtkkn.gtk")
 }
 
 kotlin {
