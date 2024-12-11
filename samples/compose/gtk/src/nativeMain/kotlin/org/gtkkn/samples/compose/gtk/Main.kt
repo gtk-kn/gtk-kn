@@ -22,26 +22,107 @@
 
 package org.gtkkn.samples.compose.gtk
 
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.github.oshai.kotlinlogging.KotlinLoggingConfiguration
 import io.github.oshai.kotlinlogging.Level
 import org.gtkkn.bindings.gio.ApplicationFlags
-import org.gtkkn.bindings.gtk.Application
-import org.gtkkn.bindings.gtk.ApplicationWindow
-import org.gtkkn.extensions.gio.runApplication
+import org.gtkkn.compose.gtk.application
+import org.gtkkn.compose.gtk.foundation.Button
+import org.gtkkn.compose.gtk.foundation.HBox
+import org.gtkkn.compose.gtk.foundation.Label
+import org.gtkkn.compose.gtk.foundation.VBox
+import org.gtkkn.compose.gtk.foundation.onClick
+import org.gtkkn.compose.gtk.foundation.spacing
+import org.gtkkn.compose.gtk.platform.LocalApplication
+import org.gtkkn.compose.gtk.window.ApplicationWindow
+import org.gtkkn.compose.gtk.window.title
 
 val logger = KotlinLogging.logger("main")
 
 fun main() {
     KotlinLoggingConfiguration.logLevel = Level.TRACE
     logger.debug { "Compose GTK" }
-    val app = Application("org.gtkkn.samples.compose.gtk", ApplicationFlags.FLAGS_NONE)
+    application("org.gtkkn.samples.compose.gtk", ApplicationFlags.FLAGS_NONE) {
+        val application = LocalApplication.current
 
-    app.connectActivate {
-        val window = ApplicationWindow(app)
-        window.setDefaultSize(800, 600)
-        window.title = "Compose GTK"
-        window.show()
+        SideEffect {
+            application.setAccelsForAction("win.close", listOf("<Ctrl>W"))
+        }
+
+        ApplicationWindow(
+            visible = true,
+            onCloseRequest = ::exitApplication,
+            props = {
+                title = "GTK Compose"
+            },
+        ) {
+            HBox(
+                props = {
+                    spacing = 3
+                },
+            ) {
+                var extraWindow by remember { mutableStateOf(false) }
+                Button(
+                    props = {
+                        onClick = {
+                            println("Toggling extra $extraWindow")
+                            extraWindow = !extraWindow
+                        }
+                    },
+                ) {
+                    Label(text = if (extraWindow) "Close Window" else "Open Window")
+                }
+                if (extraWindow) {
+                    ApplicationWindow(
+                        visible = true,
+                        onCloseRequest = { extraWindow = false },
+                        props = {
+                            title = "Extra"
+//                            showMenubar = true
+                        },
+                    ) {
+                        TodoWindow()
+                    }
+                }
+                TodoWindow()
+            }
+        }
     }
-    app.runApplication()
+}
+
+@Composable
+private fun TodoWindow() {
+    VBox(
+        props = {
+            spacing = 2
+        },
+    ) {
+        val labels = remember { mutableStateListOf("GTK", "Compose", "Super", "Awesome!") }
+
+        labels.forEach {
+            Button(
+                props = {
+                    onClick = {
+                        println("Clicked $it")
+                        labels.remove(it)
+                    }
+                },
+            ) { Label(it) }
+        }
+        Button(
+            props = {
+                onClick = {
+                    println("Clicked More!")
+                    labels.add("Another one")
+                }
+            },
+        ) { Label("More!") }
+    }
 }
