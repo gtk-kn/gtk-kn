@@ -19,13 +19,15 @@ package org.gtkkn.compose.gtk.platform
 import androidx.compose.runtime.snapshots.Snapshot
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.launch
+import org.gtkkn.coroutines.Gtk
 import kotlin.concurrent.AtomicInt
 
 
-private inline val GlobalSnapshotManagerDispatcher: CoroutineDispatcher get() = MainUiDispatcher
+private inline val GlobalSnapshotManagerDispatcher: CoroutineDispatcher get() = Dispatchers.Gtk
 
 internal object GlobalSnapshotManager {
     private val started = AtomicInt(0)
