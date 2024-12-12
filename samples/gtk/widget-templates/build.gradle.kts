@@ -39,7 +39,6 @@ kotlin {
                 implementation(projects.bindings.gtk.gtk4)
                 // Import from mavenLocal
                 // implementation("org.gtkkn:gtk4:0.0.1-SNAPSHOT")
-                implementation(libs.kotlin.logging.linux.x64)
             }
         }
     }

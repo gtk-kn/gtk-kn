@@ -20,231 +20,85 @@
  * SOFTWARE.
  */
 
-@file:OptIn(ExperimentalForeignApi::class)
-
 package org.gtkkn.extensions.glib.util
 
-import kotlinx.cinterop.ExperimentalForeignApi
-import org.gtkkn.native.glib.GLogLevelFlags
-import org.gtkkn.native.glib.G_LOG_LEVEL_CRITICAL
-import org.gtkkn.native.glib.G_LOG_LEVEL_DEBUG
-import org.gtkkn.native.glib.G_LOG_LEVEL_ERROR
-import org.gtkkn.native.glib.G_LOG_LEVEL_INFO
-import org.gtkkn.native.glib.G_LOG_LEVEL_MESSAGE
-import org.gtkkn.native.glib.G_LOG_LEVEL_WARNING
-import org.gtkkn.native.glib.g_log
+import org.gtkkn.extensions.glib.util.loglogger.LogLogger
 
 /**
- * Utility object for logging messages at various levels using GLib's logging system.
+ * Inline logging functions for a flexible and efficient logging API.
  *
- * This object provides methods to log messages at predefined GLib log levels:
- * - Error
- * - Critical
- * - Warning
- * - Message
- * - Info
- * - Debug
+ * The `log` functions provide:
+ * - An optional [priority], defaulting to [LogPriority.DEBUG].
+ * - An optional [logDomain], which defaults to the calling context's class name.
+ * - A lambda [message], evaluated only if the logging is enabled, ensuring no unnecessary computation.
  *
- * ### Note on Log Levels Below `MESSAGE`
- * By default, log levels below `MESSAGE` (e.g., `INFO` and `DEBUG`) are **disabled** in GLib.
- * If you want to enable them, you need to set the `G_MESSAGES_DEBUG` environment variable.
+ * By default, no logs will be generated unless a `LogLogger` is explicitly installed. Use a logger such
+ * as [LogcatStyleLogger] or [GlibLogLogger] by calling [LogLogger.install] to enable logging.
+ * The exact format and behavior of the logs depend on the logger implementation used.
  *
- * #### Enabling Log Levels Below `MESSAGE`
- * To enable debug messages, set the environment variable as follows:
- *
- * ```bash
- * export G_MESSAGES_DEBUG=all
- * ```
- * or restrict it to specific log domains:
- *
- * ```bash
- * export G_MESSAGES_DEBUG=my_app
- * ```
- *
- * Refer to the GLib documentation for further details.
- *
- * ### Important Notes on Error Level
- * - Logging messages at the `ERROR` level (`G_LOG_LEVEL_ERROR`) indicates a critical failure
- *   that cannot be recovered from. In most configurations, this may cause the application
- *   to **terminate** immediately.
- * - Use the `ERROR` level **only** for unrecoverable conditions. For recoverable conditions,
- *   use `CRITICAL` or lower levels such as `WARNING`.
- *
- * ### Example Usage
- * ```kotlin
- * val domain = "my_app"
- * Log.c(domain, "This is an critical message.")
- * Log.w(domain, "This is a warning with exception", Exception("Test exception"))
- * Log.d(domain, "This is a debug message.") // Requires enabling debug messages
- * ```
+ * ### Key Features
+ * - **Lazy Evaluation**: The log message is a lambda that is only executed if the logger deems the message loggable.
+ * - **Automatic Domain Derivation**: If [logDomain] is not provided, the calling class name is used as the default
+ *   domain.
+ * - **Simple API Surface**: The API is minimal, with a single logging function and optional parameters for
+ *   customization.
  */
-@OptIn(ExperimentalForeignApi::class)
-public object Log {
-    /**
-     * Logs a message at the `ERROR` level.
-     *
-     * **Note**: Messages at the `ERROR` level indicate a critical failure and
-     * may cause the application to terminate immediately depending on configuration.
-     *
-     * @param logDomain The domain of the log message.
-     * @param msg The message to log.
-     */
-    public fun e(logDomain: String?, msg: String) {
-        logMessage(logDomain, G_LOG_LEVEL_ERROR, msg)
-    }
-
-    /**
-     * Logs a message and a throwable at the `ERROR` level.
-     *
-     * **Note**: Messages at the `ERROR` level indicate a critical failure and
-     * may cause the application to terminate immediately depending on configuration.
-     *
-     * @param logDomain The domain of the log message.
-     * @param msg The message to log.
-     * @param tr The throwable to include in the log message.
-     */
-    public fun e(logDomain: String?, msg: String, tr: Throwable) {
-        logMessage(logDomain, G_LOG_LEVEL_ERROR, msg, tr)
-    }
-
-    /**
-     * Logs a message at the `CRITICAL` level.
-     * @param logDomain The domain of the log message.
-     * @param msg The message to log.
-     */
-    public fun c(logDomain: String?, msg: String) {
-        logMessage(logDomain, G_LOG_LEVEL_CRITICAL, msg)
-    }
-
-    /**
-     * Logs a message and a throwable at the `CRITICAL` level.
-     * @param logDomain The domain of the log message.
-     * @param msg The message to log.
-     * @param tr The throwable to include in the log message.
-     */
-    public fun c(logDomain: String?, msg: String, tr: Throwable) {
-        logMessage(logDomain, G_LOG_LEVEL_CRITICAL, msg, tr)
-    }
-
-    /**
-     * Logs a message at the `WARNING` level.
-     * @param logDomain The domain of the log message.
-     * @param msg The message to log.
-     */
-    public fun w(logDomain: String?, msg: String) {
-        logMessage(logDomain, G_LOG_LEVEL_WARNING, msg)
-    }
-
-    /**
-     * Logs a message and a throwable at the `WARNING` level.
-     * @param logDomain The domain of the log message.
-     * @param msg The message to log.
-     * @param tr The throwable to include in the log message.
-     */
-    public fun w(logDomain: String?, msg: String, tr: Throwable) {
-        logMessage(logDomain, G_LOG_LEVEL_WARNING, msg, tr)
-    }
-
-    /**
-     * Logs a throwable at the `WARNING` level.
-     * @param logDomain The domain of the log message.
-     * @param tr The throwable to include in the log message.
-     */
-    public fun w(logDomain: String?, tr: Throwable) {
-        logMessage(logDomain, G_LOG_LEVEL_WARNING, "", tr)
-    }
-
-    /**
-     * Logs a message at the `MESSAGE` level.
-     * @param logDomain The domain of the log message.
-     * @param msg The message to log.
-     */
-    public fun m(logDomain: String?, msg: String) {
-        logMessage(logDomain, G_LOG_LEVEL_MESSAGE, msg)
-    }
-
-    /**
-     * Logs a message and a throwable at the `MESSAGE` level.
-     * @param logDomain The domain of the log message.
-     * @param msg The message to log.
-     * @param tr The throwable to include in the log message.
-     */
-    public fun m(logDomain: String?, msg: String, tr: Throwable) {
-        logMessage(logDomain, G_LOG_LEVEL_MESSAGE, msg, tr)
-    }
-
-    /**
-     * Logs a message at the `INFO` level.
-     *
-     * **Note**: Messages at the `INFO` level are disabled by default. Refer to
-     * [Log] for details on how to enable them.
-     *
-     * @param logDomain The domain of the log message.
-     * @param msg The message to log.
-     */
-    public fun i(logDomain: String?, msg: String) {
-        logMessage(logDomain, G_LOG_LEVEL_INFO, msg)
-    }
-
-    /**
-     * Logs a message and a throwable at the `INFO` level.
-     *
-     * **Note**: Messages at the `INFO` level are disabled by default. Refer to
-     * [Log] for details on how to enable them.
-     *
-     * @param logDomain The domain of the log message.
-     * @param msg The message to log.
-     * @param tr The throwable to include in the log message.
-     */
-    public fun i(logDomain: String?, msg: String, tr: Throwable) {
-        logMessage(logDomain, G_LOG_LEVEL_INFO, msg, tr)
-    }
-
-    /**
-     * Logs a message at the `DEBUG` level.
-     *
-     * **Note**: Messages at the `DEBUG` level are disabled by default. Refer to
-     * [Log] for details on how to enable them.
-     *
-     * @param logDomain The domain of the log message.
-     * @param msg The message to log.
-     */
-    public fun d(logDomain: String?, msg: String) {
-        logMessage(logDomain, G_LOG_LEVEL_DEBUG, msg)
-    }
-
-    /**
-     * Logs a message and a throwable at the `DEBUG` level.
-     *
-     * **Note**: Messages at the `DEBUG` level are disabled by default. Refer to
-     * [Log] for details on how to enable them.
-     *
-     * @param logDomain The domain of the log message.
-     * @param msg The message to log.
-     * @param tr The throwable to include in the log message.
-     */
-    public fun d(logDomain: String?, msg: String, tr: Throwable) {
-        logMessage(logDomain, G_LOG_LEVEL_DEBUG, msg, tr)
-    }
-
-    /**
-     * Internal helper function to log messages.
-     *
-     * This function formats the message, appends a throwable's stack trace if provided,
-     * and sends the log to GLib's `g_log` function.
-     *
-     * @param logDomain The domain of the log message.
-     * @param level The GLib log level for the message.
-     * @param msg The log message.
-     * @param tr An optional throwable to include in the log.
-     */
-    private fun logMessage(logDomain: String?, level: GLogLevelFlags, msg: String, tr: Throwable? = null) {
-        val fullMessage = if (tr != null) {
-            "$msg\n${tr.stackTraceToString()}"
-        } else {
-            msg
-        }
-
-        g_log(logDomain, level, fullMessage)
+public inline fun Any.log(
+    priority: LogPriority = LogPriority.DEBUG,
+    logDomain: String? = null,
+    message: () -> String
+) {
+    val logger = LogLogger.logger
+    if (logger.isLoggable(priority)) {
+        val domain = logDomain ?: deriveDomainNameFromCaller()
+        logger.log(priority, domain, message())
     }
 }
+
+/**
+ * Overload of the [log] function that does not depend on `this`.
+ * This is suitable for top-level functions or contexts without an available instance.
+ *
+ * The logging configuration (e.g., format and behavior) depends on the currently installed [LogLogger].
+ * By default, no logs will be generated unless a logger is installed.
+ *
+ * @param logDomain The domain of the log, typically identifying the context (e.g., "MyComponent").
+ * @param priority The priority of the log message, defaulting to [LogPriority.DEBUG].
+ * @param message A lambda producing the log message. Evaluated only if logging is enabled.
+ */
+public inline fun log(
+    logDomain: String,
+    priority: LogPriority = LogPriority.DEBUG,
+    message: () -> String
+) {
+    val logger = LogLogger.logger
+    if (logger.isLoggable(priority)) {
+        logger.log(priority, logDomain, message())
+    }
+}
+
+/**
+ * Derives a log domain name based on the calling context's outer class.
+ *
+ * This utility method extracts the simple class name from the calling context.
+ * For companion objects or classes without explicit names, it falls back to "Companion".
+ *
+ * @return A simplified domain name representing the calling context.
+ */
+@PublishedApi
+internal fun Any.deriveDomainNameFromCaller(): String {
+    val nativeClass = this::class
+    val fullClassName = nativeClass.simpleName.stripCompanions() ?: "$nativeClass"
+    val outerClassName = fullClassName.removePrefix("class ").substringBefore('$')
+    val simplerOuterClassName = outerClassName.removeSuffix(".Companion").substringAfterLast('.')
+    return simplerOuterClassName.stripCompanions()
+        ?: fullClassName.stripCompanions()
+        ?: "Companion"
+}
+
+/**
+ * Utility function to clean up and simplify class names for use as log domains.
+ *
+ * @return A cleaned-up version of the class name, or `null` if the name is empty or represents a "Companion".
+ */
+private fun String?.stripCompanions(): String? = if (isNullOrEmpty() || this == "Companion") null else this

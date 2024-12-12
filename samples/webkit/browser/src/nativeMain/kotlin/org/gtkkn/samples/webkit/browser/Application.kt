@@ -22,20 +22,17 @@
 
 package org.gtkkn.samples.webkit.browser
 
-import io.github.oshai.kotlinlogging.KotlinLogging
-import io.github.oshai.kotlinlogging.KotlinLoggingConfiguration
-import io.github.oshai.kotlinlogging.Level
 import org.gtkkn.bindings.adw.Application
 import org.gtkkn.bindings.adw.ApplicationWindow
 import org.gtkkn.bindings.gio.ApplicationFlags
 import org.gtkkn.extensions.gio.runApplication
-
-val logger = KotlinLogging.logger("main")
+import org.gtkkn.extensions.glib.util.log
+import org.gtkkn.extensions.glib.util.loglogger.LogcatStyleLogger
 
 @Suppress("FunctionName")
 fun Application(builder: ApplicationWindow.() -> Unit) {
-    KotlinLoggingConfiguration.logLevel = Level.TRACE
-    logger.debug { "gtk browser" }
+    LogcatStyleLogger.install()
+    log("browser") { "gtk browser" }
     val app = Application("org.gtkkn.samples.webkit.browser", ApplicationFlags.DEFAULT_FLAGS)
     app.connectActivate {
         val window = ApplicationWindow(app)

@@ -39,8 +39,6 @@ kotlin {
                 implementation(projects.bindings.adwaita)
                 // Import from mavenLocal
                 // implementation("org.gtkkn:webkit:0.0.1-SNAPSHOT")
-
-                implementation(libs.kotlin.logging.linux.x64)
             }
         }
     }
