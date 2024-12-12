@@ -561,8 +561,10 @@ import kotlin.collections.List
  * - parameter `rc`: Unsupported pointer to primitive type
  * - function `set_error`: Varargs parameter is not supported
  * - parameter `err`: err: Out parameter is not supported
+ * - function `set_prgname_once`: C function g_set_prgname_once is ignored
  * - parameter `func`: PrintFunc
  * - parameter `func`: PrintFunc
+ * - function `set_user_dirs`: Varargs parameter is not supported
  * - parameter `argcp`: argcp: Out parameter is not supported
  * - function `slice_alloc`: Return type gpointer is unsupported
  * - function `slice_alloc0`: Return type gpointer is unsupported
@@ -1119,7 +1121,7 @@ public object GLib {
      * application compile time, rather than from the library
      * linked against at application run time.
      */
-    public const val MICRO_VERSION: gint = 0
+    public const val MICRO_VERSION: gint = 3
 
     /**
      * The minimum value which can be held in a #gint16.

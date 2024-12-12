@@ -33,11 +33,11 @@ import org.gtkkn.bindings.gtk.Align
 import org.gtkkn.bindings.gtk.Box
 import org.gtkkn.bindings.gtk.Label
 import org.gtkkn.bindings.gtk.Orientation
-import org.gtkkn.extensions.glib.util.LogPriority.CRITICAL
-import org.gtkkn.extensions.glib.util.LogPriority.DEBUG
-import org.gtkkn.extensions.glib.util.LogPriority.INFO
-import org.gtkkn.extensions.glib.util.LogPriority.MESSAGE
-import org.gtkkn.extensions.glib.util.LogPriority.WARNING
+import org.gtkkn.extensions.glib.util.log.LogPriority.CRITICAL
+import org.gtkkn.extensions.glib.util.log.LogPriority.DEBUG
+import org.gtkkn.extensions.glib.util.log.LogPriority.INFO
+import org.gtkkn.extensions.glib.util.log.LogPriority.MESSAGE
+import org.gtkkn.extensions.glib.util.log.LogPriority.WARNING
 import org.gtkkn.extensions.glib.util.log
 import org.gtkkn.native.gobject.G_TYPE_STRING
 

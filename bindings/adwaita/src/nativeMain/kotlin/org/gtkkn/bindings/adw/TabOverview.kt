@@ -507,7 +507,7 @@ public class TabOverview(pointer: CPointer<AdwTabOverview>) :
     public constructor() : this(adw_tab_overview_new()!!.reinterpret())
 
     /**
-     * Emitted when a tab needs to be created;
+     * Emitted when a tab needs to be created.
      *
      * This can happen after the new tab button has been pressed, see
      * [property@TabOverview:enable-new-tab].

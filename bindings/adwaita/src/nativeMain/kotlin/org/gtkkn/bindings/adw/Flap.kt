@@ -261,6 +261,8 @@ public class Flap(pointer: CPointer<AdwFlap>) :
     public var foldThresholdPolicy: FoldThresholdPolicy
         /**
          * Gets the fold threshold policy for @self.
+         *
+         * @return the fold threshold policy
          */
         get() = adw_flap_get_fold_threshold_policy(adwFlapPointer.reinterpret()).run {
             FoldThresholdPolicy.fromNativeValue(this)

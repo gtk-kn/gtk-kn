@@ -20,20 +20,98 @@
  * SOFTWARE.
  */
 
-package org.gtkkn.extensions.glib.util
+package org.gtkkn.extensions.glib.util.log
 
-import org.gtkkn.extensions.glib.util.loglogger.LogLogger
+import kotlinx.atomicfu.locks.ReentrantLock
+import kotlinx.atomicfu.locks.withLock
+import org.gtkkn.extensions.glib.util.log.writer.LogWriter
+
+public data object Log {
+    @PublishedApi
+    internal val writers: MutableSet<LogWriter> = mutableSetOf<LogWriter>()
+
+    @PublishedApi
+    internal val lock: ReentrantLock = ReentrantLock()
+
+    public inline fun install(
+        debug: Boolean,
+        release: Boolean,
+        writer: () -> LogWriter
+    ) {
+        if ((debug && Platform.isDebugBinary)
+            || (release && !Platform.isDebugBinary)
+        ) {
+            lock.withLock {
+                writers += writer()
+            }
+        }
+    }
+
+    public fun uninstall(writer: LogWriter) {
+        lock.withLock {
+            if (writers.remove(writer)) writer.close()
+        }
+    }
+
+    public fun uninstallAll() {
+        lock.withLock {
+            writers.removeAll {
+                it.close()
+                true
+            }
+        }
+    }
+
+    public inline fun d(tag: String, message: () -> String): Unit = logInternal(LogLevel.DEBUG, { tag }, message)
+    public inline fun i(tag: String, message: () -> String): Unit = logInternal(LogLevel.INFO, { tag }, message)
+    public inline fun m(tag: String, message: () -> String): Unit = logInternal(LogLevel.MESSAGE, { tag }, message)
+    public inline fun w(tag: String, message: () -> String): Unit = logInternal(LogLevel.WARNING, { tag }, message)
+    public inline fun c(tag: String, throwable: Throwable? = null, message: () -> String): Unit =
+        logInternal(LogLevel.CRITICAL, { tag }) {
+            if (throwable != null) {
+                "${message()}\n${throwable.asLog()}"
+            } else {
+                message()
+            }
+        }
+
+    public inline fun e(tag: String, throwable: Throwable? = null, message: () -> String): Unit =
+        logInternal(LogLevel.ERROR, { tag }) {
+            if (throwable != null) {
+                "${message()}\n${throwable.asLog()}"
+            } else {
+                message()
+            }
+        }
+
+
+    @PublishedApi
+    internal inline fun logInternal(level: LogLevel, tag: () -> String, message: () -> String) {
+        lock.withLock {
+            for (writer in writers) {
+                if (writer.isLoggable(level)) {
+                    writer.write(level, tag(), message())
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Extension function to convert a [Throwable] into a loggable string.
+ */
+public fun Throwable.asLog(): String = stackTraceToString()
 
 /**
  * Inline logging functions for a flexible and efficient logging API.
  *
  * The `log` functions provide:
- * - An optional [priority], defaulting to [LogPriority.DEBUG].
+ * - An optional [priority], defaulting to [log.LogPriority.DEBUG].
  * - An optional [logDomain], which defaults to the calling context's class name.
  * - A lambda [message], evaluated only if the logging is enabled, ensuring no unnecessary computation.
  *
  * By default, no logs will be generated unless a `LogLogger` is explicitly installed. Use a logger such
- * as [LogcatStyleLogger] or [GlibLogLogger] by calling [LogLogger.install] to enable logging.
+ * as [LogcatStyleLogger] or [GlibLogLogger] by calling [LogWriter.install] to enable logging.
  * The exact format and behavior of the logs depend on the logger implementation used.
  *
  * ### Key Features
@@ -44,38 +122,27 @@ import org.gtkkn.extensions.glib.util.loglogger.LogLogger
  *   customization.
  */
 public inline fun Any.log(
-    priority: LogPriority = LogPriority.DEBUG,
-    logDomain: String? = null,
+    level: LogLevel = LogLevel.DEBUG,
+    tag: String? = null,
     message: () -> String
-) {
-    val logger = LogLogger.logger
-    if (logger.isLoggable(priority)) {
-        val domain = logDomain ?: deriveDomainNameFromCaller()
-        logger.log(priority, domain, message())
-    }
-}
+): Unit = Log.logInternal(level, { tag ?: deriveTagFromCaller() }, message)
 
 /**
  * Overload of the [log] function that does not depend on `this`.
  * This is suitable for top-level functions or contexts without an available instance.
  *
- * The logging configuration (e.g., format and behavior) depends on the currently installed [LogLogger].
+ * The logging configuration (e.g., format and behavior) depends on the currently installed [LogWriter].
  * By default, no logs will be generated unless a logger is installed.
  *
- * @param logDomain The domain of the log, typically identifying the context (e.g., "MyComponent").
- * @param priority The priority of the log message, defaulting to [LogPriority.DEBUG].
+ * @param tag The domain of the log, typically identifying the context (e.g., "MyComponent").
+ * @param priority The priority of the log message, defaulting to [log.LogPriority.DEBUG].
  * @param message A lambda producing the log message. Evaluated only if logging is enabled.
  */
 public inline fun log(
-    logDomain: String,
-    priority: LogPriority = LogPriority.DEBUG,
+    tag: String,
+    level: LogLevel = LogLevel.DEBUG,
     message: () -> String
-) {
-    val logger = LogLogger.logger
-    if (logger.isLoggable(priority)) {
-        logger.log(priority, logDomain, message())
-    }
-}
+): Unit = Log.logInternal(level, { tag }, message)
 
 /**
  * Derives a log domain name based on the calling context's outer class.
@@ -86,7 +153,7 @@ public inline fun log(
  * @return A simplified domain name representing the calling context.
  */
 @PublishedApi
-internal fun Any.deriveDomainNameFromCaller(): String {
+internal fun Any.deriveTagFromCaller(): String {
     val nativeClass = this::class
     val fullClassName = nativeClass.simpleName.stripCompanions() ?: "$nativeClass"
     val outerClassName = fullClassName.removePrefix("class ").substringBefore('$')

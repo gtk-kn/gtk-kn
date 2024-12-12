@@ -20,9 +20,34 @@
  * SOFTWARE.
  */
 
-package org.gtkkn.extensions.glib.util
+package org.gtkkn.extensions.glib.util.log.writer
 
-/**
- * Extension function to convert a [Throwable] into a loggable string.
- */
-public fun Throwable.asLog(): String = stackTraceToString()
+import org.gtkkn.bindings.glib.GLib
+import org.gtkkn.extensions.glib.util.log.LogLevel
+import org.gtkkn.extensions.glib.util.log.formatter.DefaultLogFormatter
+import org.gtkkn.extensions.glib.util.log.formatter.LogFormatter
+
+public class ConsoleLogWriter(
+    private val minLevel: LogLevel = getEnvLogLevel(),
+    private val formatter: LogFormatter = DefaultLogFormatter()
+) : LogWriter {
+    override fun isLoggable(level: LogLevel): Boolean = level >= minLevel
+
+    override fun write(level: LogLevel, tag: String, message: String) {
+        println(formatter.format(level, tag, message))
+    }
+
+    public companion object {
+        /**
+         * Checks env for `LOG_LEVEL`.
+         *
+         * @return [LogLevel] from env or [default]
+         */
+        public fun getEnvLogLevel(default: LogLevel = LogLevel.MESSAGE): LogLevel {
+            val env = GLib.getenv("LOG_LEVEL")
+            return LogLevel.entries.firstOrNull { level ->
+                level.name.equals(env, ignoreCase = true)
+            } ?: default
+        }
+    }
+}

@@ -646,7 +646,7 @@ public object Gtk {
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val BINARY_AGE: gint = 1402
+    public const val BINARY_AGE: gint = 1405
 
     public const val IM_MODULE_EXTENSION_POINT_NAME: String = "gtk-im-module"
 
@@ -663,7 +663,7 @@ public object Gtk {
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val INTERFACE_AGE: gint = 2
+    public const val INTERFACE_AGE: gint = 5
 
     /**
      * The value used to refer to a guaranteed invalid position
@@ -709,7 +709,7 @@ public object Gtk {
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val MICRO_VERSION: gint = 2
+    public const val MICRO_VERSION: gint = 5
 
     /**
      * Like [func@get_minor_version], but from the headers used at

@@ -20,15 +20,16 @@
  * SOFTWARE.
  */
 
-package org.gtkkn.extensions.glib.util.loglogger
+package org.gtkkn.extensions.glib.util.log.formatter
 
-import org.gtkkn.extensions.glib.util.LogPriority
+import org.gtkkn.extensions.glib.util.log.LogLevel
 
-/**
- * Data class for storing log details.
- */
-data class Log(
-    val priority: LogPriority,
-    val logDomain: String,
-    val message: String
-)
+public interface LogFormatter {
+    public fun format(level: LogLevel, tag:String, message: String): String
+
+    public fun formatLevel(level: LogLevel): String
+
+    public fun formatTag(tag: String): String
+
+    public fun formatMessage(message: String): String
+}

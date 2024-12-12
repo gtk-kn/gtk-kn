@@ -58,6 +58,7 @@ public class EnumListModel(pointer: CPointer<AdwEnumListModel>) :
      * If the value is not found, `GTK_INVALID_LIST_POSITION` is returned.
      *
      * @param value an enum value
+     * @return the position of the value
      */
     public fun findPosition(`value`: gint): guint =
         adw_enum_list_model_find_position(adwEnumListModelPointer.reinterpret(), `value`)

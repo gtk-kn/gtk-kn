@@ -182,12 +182,13 @@ public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun addSetter(`object`: Object, `property`: String, `value`: Value): Unit = adw_breakpoint_add_setter(
-        adwBreakpointPointer.reinterpret(),
-        `object`.gPointer.reinterpret(),
-        `property`,
-        `value`.gobjectValuePointer.reinterpret()
-    )
+    public fun addSetter(`object`: Object, `property`: String, `value`: Value? = null): Unit =
+        adw_breakpoint_add_setter(
+            adwBreakpointPointer.reinterpret(),
+            `object`.gPointer.reinterpret(),
+            `property`,
+            `value`?.gobjectValuePointer?.reinterpret()
+        )
 
     /**
      * Emitted when the breakpoint is applied.

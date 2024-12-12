@@ -167,18 +167,6 @@ internal val repositoryAnnotations: Map<String, List<Pair<String, String>>> = ma
         "4.6" to "org.gtkkn.bindings.gtk.annotations.GtkVersion4_6",
         "4.8" to "org.gtkkn.bindings.gtk.annotations.GtkVersion4_8"
     ),
-    "gtksource" to listOf(
-        "GtkSourceVersion5.10" to "org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_10",
-        "GtkSourceVersion5.12" to "org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_12",
-        "GtkSourceVersion5.2" to "org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_2",
-        "GtkSourceVersion5.4" to "org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_4",
-        "GtkSourceVersion5.6" to "org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_6"
-    ),
-    "javascriptcore" to listOf(
-        "JavaScriptCoreVersion2.24" to "org.gtkkn.bindings.javascriptcore.annotations.JavaScriptCoreVersion2_24",
-        "JavaScriptCoreVersion2.28" to "org.gtkkn.bindings.javascriptcore.annotations.JavaScriptCoreVersion2_28",
-        "JavaScriptCoreVersion2.38" to "org.gtkkn.bindings.javascriptcore.annotations.JavaScriptCoreVersion2_38"
-    ),
     "pango" to listOf(
         "1.10" to "org.gtkkn.bindings.pango.annotations.PangoVersion1_10",
         "1.12" to "org.gtkkn.bindings.pango.annotations.PangoVersion1_12",
@@ -203,6 +191,7 @@ internal val repositoryAnnotations: Map<String, List<Pair<String, String>>> = ma
         "1.46" to "org.gtkkn.bindings.pango.annotations.PangoVersion1_46",
         "1.50" to "org.gtkkn.bindings.pango.annotations.PangoVersion1_50",
         "1.52" to "org.gtkkn.bindings.pango.annotations.PangoVersion1_52",
+        "1.54" to "org.gtkkn.bindings.pango.annotations.PangoVersion1_54",
         "1.6" to "org.gtkkn.bindings.pango.annotations.PangoVersion1_6",
         "1.8" to "org.gtkkn.bindings.pango.annotations.PangoVersion1_8"
     ),
@@ -210,34 +199,5 @@ internal val repositoryAnnotations: Map<String, List<Pair<String, String>>> = ma
         "PangoCairoVersion1.10" to "org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_10",
         "PangoCairoVersion1.18" to "org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_18",
         "PangoCairoVersion1.22" to "org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_22"
-    ),
-    "soup" to listOf(
-        "3.2" to "org.gtkkn.bindings.soup.annotations.SoupVersion3_2",
-        "3.4" to "org.gtkkn.bindings.soup.annotations.SoupVersion3_4"
-    ),
-    "webkit" to listOf(
-        "WebKitVersion2.10" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_10",
-        "WebKitVersion2.12" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_12",
-        "WebKitVersion2.14" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_14",
-        "WebKitVersion2.16" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_16",
-        "WebKitVersion2.18" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_18",
-        "WebKitVersion2.2" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_2",
-        "WebKitVersion2.20" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_20",
-        "WebKitVersion2.22" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_22",
-        "WebKitVersion2.24" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_24",
-        "WebKitVersion2.26" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_26",
-        "WebKitVersion2.28" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_28",
-        "WebKitVersion2.30" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_30",
-        "WebKitVersion2.32" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_32",
-        "WebKitVersion2.34" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_34",
-        "WebKitVersion2.36" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_36",
-        "WebKitVersion2.38" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_38",
-        "WebKitVersion2.4" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_4",
-        "WebKitVersion2.40" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40",
-        "WebKitVersion2.42" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_42",
-        "WebKitVersion2.44" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_44",
-        "WebKitVersion2.46" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_46",
-        "WebKitVersion2.6" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6",
-        "WebKitVersion2.8" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8"
     )
 )

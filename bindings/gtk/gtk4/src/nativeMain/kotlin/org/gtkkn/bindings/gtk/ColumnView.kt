@@ -475,7 +475,8 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
      * This function works no matter if the listview is shown or focused.
      * If it isn't, then the changes will take effect once that happens.
      *
-     * @param pos position of the item
+     * @param pos position of the item. Must be less than the number of
+     *   items in the view.
      * @param column The column to scroll to
      *   or null to not scroll columns.
      * @param flags actions to perform

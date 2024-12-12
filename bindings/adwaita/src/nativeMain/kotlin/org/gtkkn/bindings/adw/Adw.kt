@@ -118,7 +118,7 @@ public object Adw {
     /**
      * Adwaita micro version component (e.g. 3 if the version is 1.2.3).
      */
-    public const val MICRO_VERSION: gint = 0
+    public const val MICRO_VERSION: gint = 5
 
     /**
      * Adwaita minor version component (e.g. 2 if the version is 1.2.3).
@@ -129,7 +129,7 @@ public object Adw {
      * Adwaita version, encoded as a string, useful for printing and
      * concatenation.
      */
-    public const val VERSION_S: String = "1.5.0"
+    public const val VERSION_S: String = "1.5.5"
 
     /**
      * Checks whether animations are enabled for @widget.

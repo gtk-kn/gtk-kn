@@ -95,7 +95,7 @@ import kotlin.Unit
  * ## Header Bar Integration
  *
  * When placed inside an `AdwDialog`, [class@HeaderBar] will display the dialog
- * title intead of window title. It will also adjust the decoration layout to
+ * title instead of window title. It will also adjust the decoration layout to
  * ensure it always has a close button and nothing else. Set
  * [property@HeaderBar:show-start-title-buttons] and
  * [property@HeaderBar:show-end-title-buttons] to `FALSE` to remove it if it's

@@ -302,6 +302,8 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
     public var foldThresholdPolicy: FoldThresholdPolicy
         /**
          * Gets the fold threshold policy for @self.
+         *
+         * @return the fold threshold policy
          */
         get() = adw_leaflet_get_fold_threshold_policy(adwLeafletPointer.reinterpret()).run {
             FoldThresholdPolicy.fromNativeValue(this)

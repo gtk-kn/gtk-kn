@@ -300,7 +300,8 @@ public open class GridView(pointer: CPointer<GtkGridView>) :
      * This function works no matter if the gridview is shown or focused.
      * If it isn't, then the changes will take effect once that happens.
      *
-     * @param pos position of the item
+     * @param pos position of the item. Must be less than the number of
+     *   items in the view.
      * @param flags actions to perform
      * @param scroll details of how to perform
      *   the scroll operation or null to scroll into view

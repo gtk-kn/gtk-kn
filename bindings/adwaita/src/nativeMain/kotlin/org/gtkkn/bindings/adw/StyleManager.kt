@@ -31,10 +31,6 @@ import kotlin.Boolean
  * It allows to set the color scheme via the
  * [property@StyleManager:color-scheme] property, and to query the current
  * appearance, as well as whether a system-wide color scheme preference exists.
- *
- * ## Skipped during bindings generation
- *
- * - method `yaru-accent`: Property has no getter nor setter
  */
 public class StyleManager(pointer: CPointer<AdwStyleManager>) :
     Object(pointer.reinterpret()),

@@ -48,6 +48,10 @@ import kotlin.Boolean
  *
  * The [property@SwitchRow:active] property should be connected to in order to
  * monitor changes to the active state.
+ *
+ * ## Accessibility
+ *
+ * `AdwSwitchRow` uses the `GTK_ACCESSIBLE_ROLE_SWITCH` role.
  * @since 1.4
  */
 @AdwVersion1_4

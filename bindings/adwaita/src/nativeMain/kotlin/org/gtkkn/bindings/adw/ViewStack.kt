@@ -300,7 +300,7 @@ public class ViewStack(pointer: CPointer<AdwViewStack>) :
         }
 
     /**
-     * Gets the currently visible child of @self, .
+     * Gets the currently visible child of @self.
      *
      * @return the visible child
      */
