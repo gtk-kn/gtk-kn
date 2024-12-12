@@ -23,7 +23,7 @@
 package org.gtkkn.extensions.glib.util
 
 import org.gtkkn.extensions.glib.util.loglogger.LogLogger
-import org.gtkkn.extensions.glib.util.loglogger.TestLogLogger
+import org.gtkkn.extensions.glib.util.loglogger.TestLogWriter
 import kotlin.concurrent.AtomicReference
 import kotlin.test.AfterTest
 import kotlin.test.Test
@@ -33,26 +33,28 @@ import kotlin.test.assertTrue
 class LogTest {
     @AfterTest
     fun tearDown() {
-        LogLogger.uninstall()
+        // Clear all installed writers after each test
+        LogLogger.clearWriters()
     }
 
     @Test
-    fun `logging without an installed logger should not crash`() {
+    fun `logging without any writers should not crash`() {
+        // No writers added
         log { "Hello" }
     }
 
     @Test
-    fun `message lambda is not invoked if no logger is installed`() {
+    fun `message lambda is not invoked if no writer is installed`() {
         var count = 0
-
+        // No writer installed
         log { "Log Count: ${++count}" }
-
         assertEquals(0, count)
     }
 
     @Test
-    fun `log messages are captured by the logger`() {
-        val logger = platformTestLogger().apply { LogLogger.install(this); latestLog = null }
+    fun `log messages are captured by a single writer`() {
+        val logger = platformTestLogger().apply { latestLog = null }
+        LogLogger.addWriter(logger)
 
         log { "Hello, world!" }
 
@@ -61,7 +63,8 @@ class LogTest {
 
     @Test
     fun `log captures class name as default tag`() {
-        val logger = platformTestLogger().apply { LogLogger.install(this); latestLog = null }
+        val logger = platformTestLogger().apply { latestLog = null }
+        LogLogger.addWriter(logger)
 
         log { "Test message" }
 
@@ -70,7 +73,8 @@ class LogTest {
 
     @Test
     fun `log uses custom tag if provided`() {
-        val logger = platformTestLogger().apply { LogLogger.install(this); latestLog = null }
+        val logger = platformTestLogger().apply { latestLog = null }
+        LogLogger.addWriter(logger)
 
         log(logDomain = "CustomTag") { "Message with custom tag" }
 
@@ -79,7 +83,8 @@ class LogTest {
 
     @Test
     fun `log passes correct priority to logger`() {
-        val logger = platformTestLogger().apply { LogLogger.install(this); latestLog = null }
+        val logger = platformTestLogger().apply { latestLog = null }
+        LogLogger.addWriter(logger)
 
         log(LogPriority.INFO) { "Priority test message" }
 
@@ -87,21 +92,19 @@ class LogTest {
     }
 
     @Test
-    fun `message lambda is not invoked when logging is not enabled`() {
-        platformTestLogger(isLoggable = { false }).apply {
-            LogLogger.install(this); latestLog = null
-        }
+    fun `message lambda is not invoked when none of the writers are loggable`() {
+        val logger = platformTestLogger(isLoggable = { false }).apply { latestLog = null }
+        LogLogger.addWriter(logger)
 
         var count = 0
-
         log { "Message: ${++count}" }
-
         assertEquals(0, count)
     }
 
     @Test
     fun `standalone function logs with a custom tag`() {
-        val logger = platformTestLogger().apply { LogLogger.install(this); latestLog = null }
+        val logger = platformTestLogger().apply { latestLog = null }
+        LogLogger.addWriter(logger)
 
         standaloneFunctionLog(logDomain = "StandaloneTag") { "Standalone function message" }
 
@@ -113,7 +116,8 @@ class LogTest {
 
     @Test
     fun `log captures outer context tag from lambda`() {
-        val logger = platformTestLogger().apply { LogLogger.install(this); latestLog = null }
+        val logger = platformTestLogger().apply { latestLog = null }
+        LogLogger.addWriter(logger)
 
         val lambda = {
             log { "Lambda message" }
@@ -125,7 +129,8 @@ class LogTest {
 
     @Test
     fun `log captures outer context tag from nested lambda`() {
-        val logger = platformTestLogger().apply { LogLogger.install(this); latestLog = null }
+        val logger = platformTestLogger().apply { latestLog = null }
+        LogLogger.addWriter(logger)
 
         val outerLambda = {
             val innerLambda = {
@@ -140,7 +145,8 @@ class LogTest {
 
     @Test
     fun `log captures tag from companion function`() {
-        val logger = platformTestLogger().apply { LogLogger.install(this); latestLog = null }
+        val logger = platformTestLogger().apply { latestLog = null }
+        LogLogger.addWriter(logger)
 
         companionFunctionLog { "Companion function message" }
 
@@ -150,8 +156,9 @@ class LogTest {
     @Test
     fun `log passes priority to isLoggable check`() {
         val receivedPriority = AtomicReference<LogPriority?>(null)
-        platformTestLogger(isLoggable = { receivedPriority.value = it; true })
-            .apply { LogLogger.install(this); latestLog = null }
+        val logger =
+            platformTestLogger(isLoggable = { p -> receivedPriority.value = p; true }).apply { latestLog = null }
+        LogLogger.addWriter(logger)
 
         log(LogPriority.INFO) { "Priority check message" }
 
@@ -160,7 +167,8 @@ class LogTest {
 
     @Test
     fun `log throwable includes stacktrace`() {
-        val logger = platformTestLogger().apply { LogLogger.install(this); latestLog = null }
+        val logger = platformTestLogger().apply { latestLog = null }
+        LogLogger.addWriter(logger)
         val exception = RuntimeException("Test exception")
 
         log { exception.asLog() }
@@ -169,6 +177,22 @@ class LogTest {
         assertTrue(logger.latestLog!!.message.contains(stackTraceSnippet))
     }
 
+    @Test
+    fun `multiple writers receive the log message`() {
+        val logger1 = platformTestLogger().apply { latestLog = null }
+        val logger2 = platformTestLogger().apply { latestLog = null }
+        LogLogger.addWriter(logger1)
+        LogLogger.addWriter(logger2)
+
+        log { "Message to multiple writers" }
+
+        assertEquals("Message to multiple writers", logger1.latestLog?.message)
+        assertEquals("Message to multiple writers", logger2.latestLog?.message)
+    }
+
+    /**
+     * A companion function to verify that logs from inside it have the outer class name as the domain.
+     */
     companion object {
         fun companionFunctionLog(
             message: () -> String
@@ -186,7 +210,7 @@ fun standaloneFunctionLog(
 }
 
 /**
- * Creates an instance of [TestLogLogger] for testing purposes.
+ * Creates an instance of [TestLogWriter] for testing purposes.
  */
-fun platformTestLogger(isLoggable: (LogPriority) -> Boolean = { true }): TestLogLogger =
-    TestLogLogger(isLoggableFn = isLoggable)
+fun platformTestLogger(isLoggable: (LogPriority) -> Boolean = { true }): TestLogWriter =
+    TestLogWriter(isLoggableFn = isLoggable)

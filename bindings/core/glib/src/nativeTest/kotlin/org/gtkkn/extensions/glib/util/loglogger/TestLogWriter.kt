@@ -20,25 +20,25 @@
  * SOFTWARE.
  */
 
-package org.gtkkn.samples.webkit.browser
+package org.gtkkn.extensions.glib.util.loglogger
 
-import org.gtkkn.bindings.adw.Application
-import org.gtkkn.bindings.adw.ApplicationWindow
-import org.gtkkn.bindings.gio.ApplicationFlags
-import org.gtkkn.extensions.gio.runApplication
-import org.gtkkn.extensions.glib.util.log
-import org.gtkkn.extensions.glib.util.loglogger.LogcatStyleLogWriter
+import org.gtkkn.extensions.glib.util.LogPriority
+import kotlin.concurrent.AtomicReference
 
-@Suppress("FunctionName")
-fun Application(builder: ApplicationWindow.() -> Unit) {
-    LogcatStyleLogWriter.install()
-    log("browser") { "gtk browser" }
-    val app = Application("org.gtkkn.samples.webkit.browser", ApplicationFlags.DEFAULT_FLAGS)
-    app.connectActivate {
-        val window = ApplicationWindow(app)
-        window.setDefaultSize(800, 600)
-        window.builder()
-        window.present()
+/**
+ * A test logger implementation for logging in tests.
+ */
+class TestLogWriter(private val isLoggableFn: (LogPriority) -> Boolean = { true }) : LogWriter {
+    private var _latestLog: AtomicReference<Log?> = AtomicReference(null)
+    var latestLog: Log?
+        get() = _latestLog.value
+        set(value) {
+            _latestLog.value = value
+        }
+
+    override fun isLoggable(priority: LogPriority): Boolean = isLoggableFn(priority)
+
+    override fun write(priority: LogPriority, logDomain: String, message: String) {
+        latestLog = Log(priority, logDomain, message)
     }
-    app.runApplication()
 }

@@ -23,22 +23,30 @@
 package org.gtkkn.extensions.glib.util.loglogger
 
 import org.gtkkn.extensions.glib.util.LogPriority
-import kotlin.concurrent.AtomicReference
 
 /**
- * A test logger implementation for logging in tests.
+ * A LogWriter represents a destination or a mechanism for handling log messages.
+ * For example, a LogWriter might print messages to the console, write them to a file,
+ * or send them over the network.
+ *
+ * Implementations should be lightweight and fast.
  */
-class TestLogLogger(private val isLoggableFn: (LogPriority) -> Boolean = { true }) : LogLogger {
-    private var _latestLog: AtomicReference<Log?> = AtomicReference(null)
-    var latestLog: Log?
-        get() = _latestLog.value
-        set(value) {
-            _latestLog.value = value
-        }
+public interface LogWriter {
+    /**
+     * Determines if this writer is willing to handle messages with the given priority.
+     *
+     * @param priority The priority level of the message.
+     * @return true if loggable, false otherwise.
+     */
+    public fun isLoggable(priority: LogPriority): Boolean = true
 
-    override fun isLoggable(priority: LogPriority): Boolean = isLoggableFn(priority)
-
-    override fun log(priority: LogPriority, logDomain: String, message: String) {
-        latestLog = Log(priority, logDomain, message)
-    }
+    /**
+     * Writes the log message. If `isLoggable` returned false, this method should ideally
+     * never be called, but if it is, it should no-op.
+     *
+     * @param priority The priority of the log message.
+     * @param logDomain A string identifying the domain (usually a class or component name).
+     * @param message The actual log message.
+     */
+    public fun write(priority: LogPriority, logDomain: String, message: String)
 }

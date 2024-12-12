@@ -25,112 +25,73 @@ package org.gtkkn.extensions.glib.util.loglogger
 import kotlinx.atomicfu.locks.ReentrantLock
 import kotlinx.atomicfu.locks.withLock
 import org.gtkkn.extensions.glib.util.LogPriority
-import org.gtkkn.extensions.glib.util.asLog
-import org.gtkkn.extensions.glib.util.loglogger.LogLogger.NoLog
-import kotlin.concurrent.AtomicReference
+import org.gtkkn.extensions.glib.util.loglogger.LogLogger.addWriter
+import org.gtkkn.extensions.glib.util.loglogger.LogLogger.removeWriter
 
 /**
- * Interface for custom loggers. Defines the contract for logging systems used in the application.
+ * LogLogger acts as a global, thread-safe manager for log writers.
  *
- * By default, [NoLog] is used, which disables all logging. To enable logging, call [LogLogger.install] with a
- * concrete logger implementation.
+ * By default, no writers are installed, so no logs will appear.
+ * To enable logging, add one or more [LogWriter]s using [addWriter].
+ * All logging calls will be delegated to the installed writers.
  *
- * Custom loggers can implement this interface to handle logs differently, e.g., sending logs to a file, console,
- * or remote server.
+ * You can remove a writer using [removeWriter], and multiple writers
+ * can be active at the same time.
+ *
+ * This approach solves:
+ * - Having multiple loggers: Just install multiple writers.
+ * - No duplication of installation logic: Add or remove writers through LogLogger.
+ * - Easy extensibility: Implement your own LogWriter to customize messages or formatting.
  */
-public interface LogLogger {
-    /**
-     * Determines whether a log message with the given [priority] should be logged.
-     *
-     * If this returns `false`, the message-producing lambda in [log] will not be evaluated, avoiding unnecessary
-     * computation.
-     *
-     * @param priority The priority level of the log message.
-     * @return `true` if the message should be logged, `false` otherwise.
-     */
-    public fun isLoggable(priority: LogPriority): Boolean = true
+public object LogLogger {
+    private val lock = ReentrantLock()
+    private val writers = mutableListOf<LogWriter>()
 
-    /**
-     * Logs the given [message] with the specified [priority] and [logDomain].
-     *
-     * @param priority The priority level of the log message.
-     * @param logDomain The domain associated with the log message (e.g., a component or class name).
-     * @param message The log message to be recorded.
-     */
-    public fun log(priority: LogPriority, logDomain: String, message: String)
-
-    public companion object {
-        private val loggerRef = AtomicReference<LogLogger>(NoLog)
-        private val installedThrowableRef = AtomicReference<Throwable?>(null)
-        private val lock = ReentrantLock()
-
-        /**
-         * The currently installed logger instance.
-         *
-         * By default, this is set to [NoLog], which disables all logging.
-         * To use a custom logger, call [install] with a concrete implementation.
-         */
-        public val logger: LogLogger
-            get() = loggerRef.value
-
-        /**
-         * Indicates whether a logger is currently installed.
-         *
-         * @return `true` if a logger is installed, `false` if [NoLog] is active.
-         */
-        public val isInstalled: Boolean
-            get() = installedThrowableRef.value != null
-
-        public fun canBeInstalled(): Boolean = if (isInstalled) {
-            println("Warning: A LogLogger is already installed. The installation attempt has been ignored.")
-            false
-        } else {
-            true
-        }
-
-        /**
-         * Installs the given [logger] as the active logger.
-         *
-         * If a logger is already installed, logs an error message to the new logger and replaces the old one.
-         *
-         * @param logger The logger implementation to install.
-         */
-        public fun install(logger: LogLogger) {
+    // Composite view of all writers
+    public val logger: LogWriter = object : LogWriter {
+        override fun isLoggable(priority: LogPriority): Boolean {
             lock.withLock {
-                if (isInstalled) {
-                    logger.log(
-                        LogPriority.ERROR,
-                        "LogLogger",
-                        "Installing $logger even though a logger was previously installed here: " +
-                            installedThrowableRef.value!!.asLog(),
-                    )
-                }
-                installedThrowableRef.value = RuntimeException("Previous logger installed here")
-                loggerRef.value = logger
+                return writers.any { it.isLoggable(priority) }
             }
         }
 
-        /**
-         * Uninstalls the current logger, reverting to the default [NoLog].
-         */
-        public fun uninstall() {
+        override fun write(priority: LogPriority, logDomain: String, message: String) {
             lock.withLock {
-                installedThrowableRef.value = null
-                loggerRef.value = NoLog
+                writers.forEach { writer ->
+                    if (writer.isLoggable(priority)) {
+                        writer.write(priority, logDomain, message)
+                    }
+                }
             }
         }
     }
 
     /**
-     * Default logger implementation that disables all logging.
-     *
-     * This is the initial state of [LogLogger]. Attempts to log messages with [NoLog] will NOT result in an error but
-     * it will be simply ignored.
+     * Adds a new writer to the global logging system.
+     * @param writer The writer to add.
      */
-    private object NoLog : LogLogger {
-        override fun isLoggable(priority: LogPriority): Boolean = false
-        override fun log(priority: LogPriority, logDomain: String, message: String) {
-            error("Should never reach this line.")
+    public fun addWriter(writer: LogWriter) {
+        lock.withLock {
+            writers.add(writer)
+        }
+    }
+
+    /**
+     * Removes an installed writer.
+     * @param writer The writer to remove.
+     */
+    public fun removeWriter(writer: LogWriter) {
+        lock.withLock {
+            writers.remove(writer)
+        }
+    }
+
+    /**
+     * Clears all currently installed writers.
+     */
+    public fun clearWriters() {
+        lock.withLock {
+            writers.clear()
         }
     }
 }

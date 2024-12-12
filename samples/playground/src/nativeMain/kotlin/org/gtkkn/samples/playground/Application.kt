@@ -28,11 +28,11 @@ import org.gtkkn.bindings.gdk.Rectangle
 import org.gtkkn.bindings.gio.ApplicationFlags
 import org.gtkkn.extensions.gio.runApplication
 import org.gtkkn.extensions.glib.util.log
-import org.gtkkn.extensions.glib.util.loglogger.LogcatStyleLogger
+import org.gtkkn.extensions.glib.util.loglogger.LogcatStyleLogWriter
 
 @Suppress("FunctionName")
 fun Application(builder: ApplicationWindow.() -> Unit) {
-    LogcatStyleLogger.install();
+    LogcatStyleLogWriter.install();
     {
         val r = Rectangle(
             x = 10,

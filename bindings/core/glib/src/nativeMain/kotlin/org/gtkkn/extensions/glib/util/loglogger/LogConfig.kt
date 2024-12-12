@@ -20,25 +20,32 @@
  * SOFTWARE.
  */
 
-package org.gtkkn.samples.webkit.browser
+package org.gtkkn.extensions.glib.util.loglogger
 
-import org.gtkkn.bindings.adw.Application
-import org.gtkkn.bindings.adw.ApplicationWindow
-import org.gtkkn.bindings.gio.ApplicationFlags
-import org.gtkkn.extensions.gio.runApplication
-import org.gtkkn.extensions.glib.util.log
-import org.gtkkn.extensions.glib.util.loglogger.LogcatStyleLogWriter
+import org.gtkkn.bindings.glib.GLib
+import org.gtkkn.extensions.glib.util.LogPriority
 
-@Suppress("FunctionName")
-fun Application(builder: ApplicationWindow.() -> Unit) {
-    LogcatStyleLogWriter.install()
-    log("browser") { "gtk browser" }
-    val app = Application("org.gtkkn.samples.webkit.browser", ApplicationFlags.DEFAULT_FLAGS)
-    app.connectActivate {
-        val window = ApplicationWindow(app)
-        window.setDefaultSize(800, 600)
-        window.builder()
-        window.present()
-    }
-    app.runApplication()
+/**
+ * Utility object for shared logging configuration logic.
+ */
+public object LogConfig {
+    /**
+     * Determines the default minimum priority for release builds based on whether
+     * GLib's debug logging is enabled.
+     *
+     * If GLib debug logging is enabled (via `G_MESSAGES_DEBUG`), the priority defaults
+     * to [LogPriority.DEBUG]. Otherwise, it defaults to [LogPriority.MESSAGE].
+     *
+     * @return The default minimum priority for release builds.
+     */
+    public val defaultReleaseLogPriority: LogPriority
+        get() = if (isGLogDebugEnabled()) LogPriority.DEBUG else LogPriority.MESSAGE
+
+    /**
+     * Checks if GLib debug logging is enabled.
+     *
+     * @return True if GLib's debug mode is active, false otherwise.
+     */
+    public fun isGLogDebugEnabled(): Boolean =
+        GLib.logGetDebugEnabled() || !GLib.getenv("G_MESSAGES_DEBUG").isNullOrBlank()
 }

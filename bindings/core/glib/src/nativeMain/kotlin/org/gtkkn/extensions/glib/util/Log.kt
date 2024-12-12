@@ -51,7 +51,7 @@ public inline fun Any.log(
     val logger = LogLogger.logger
     if (logger.isLoggable(priority)) {
         val domain = logDomain ?: deriveDomainNameFromCaller()
-        logger.log(priority, domain, message())
+        logger.write(priority, domain, message())
     }
 }
 
@@ -73,7 +73,7 @@ public inline fun log(
 ) {
     val logger = LogLogger.logger
     if (logger.isLoggable(priority)) {
-        logger.log(priority, logDomain, message())
+        logger.write(priority, logDomain, message())
     }
 }
 

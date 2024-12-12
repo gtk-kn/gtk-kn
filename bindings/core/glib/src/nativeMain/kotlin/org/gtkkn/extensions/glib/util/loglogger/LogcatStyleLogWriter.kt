@@ -24,19 +24,19 @@ package org.gtkkn.extensions.glib.util.loglogger
 
 import org.gtkkn.bindings.glib.DateTime
 import org.gtkkn.extensions.glib.util.LogPriority
-import org.gtkkn.extensions.glib.util.loglogger.GLibLogLogger.Companion.isGLogDebugEnabled
-import org.gtkkn.extensions.glib.util.loglogger.LogcatStyleLogger.Companion.install
-import org.gtkkn.extensions.glib.util.loglogger.LogcatStyleLogger.Companion.installOnDebuggableApp
-import org.gtkkn.extensions.glib.util.loglogger.LogcatStyleLogger.Companion.installOnReleaseApp
+import org.gtkkn.extensions.glib.util.loglogger.LogConfig.defaultReleaseLogPriority
+import org.gtkkn.extensions.glib.util.loglogger.LogcatStyleLogWriter.Companion.install
+import org.gtkkn.extensions.glib.util.loglogger.LogcatStyleLogWriter.Companion.installOnDebuggableApp
+import org.gtkkn.extensions.glib.util.loglogger.LogcatStyleLogWriter.Companion.installOnReleaseApp
 import platform.posix.SIGTRAP
 import platform.posix.getpid
 import platform.posix.raise
 import platform.posix.time
 
 /**
- * Logger that mimics the Android Logcat output style using `println()`.
+ * A LogWriter that mimics the Android Logcat output style using `println()`.
  *
- * Depending on the configuration:
+ * Depending on configuration:
  * - If [time] is true, logs are formatted as:
  *   ```
  *   <date> <time> <pid> <priority> <logDomain>: <message>
@@ -58,8 +58,8 @@ import platform.posix.time
  *
  * The [time] and [color] configurations are set when calling the `install` functions and cannot be changed afterward.
  *
- * ### Installation
- * This logger can be installed conditionally:
+ * ### Installation Convenience Methods
+ * For convenience, companion methods allow adding this writer conditionally:
  * - Use [installOnDebuggableApp] for debug builds.
  * - Use [installOnReleaseApp] for release builds.
  * - Use [install] to install for both debug and release builds.
@@ -68,12 +68,17 @@ import platform.posix.time
  * @param minPriority The minimum log priority to log. Default is [LogPriority.DEBUG].
  * @param time Whether to include timestamps in the log output. Default is `true`.
  * @param color Whether to include ANSI color codes in the log output. Default is `true`.
+ * @param messageFormatter An optional lambda function to customize the log message format. The function
+ *                         receives the log [priority], [logDomain], and raw [message] as parameters and
+ *                         should return the formatted message string. If `null`, the default formatting
+ *                         is used. Default is `null`.
  */
-public class LogcatStyleLogger(
+public class LogcatStyleLogWriter(
     private val minPriority: LogPriority = LogPriority.DEBUG,
     private val time: Boolean = true,
     private val color: Boolean = true,
-) : LogLogger {
+    private val messageFormatter: ((LogPriority, String, String) -> String)? = null
+) : LogWriter {
     /**
      * Returns true if the given [priority] is at least as severe as [minPriority].
      */
@@ -89,35 +94,20 @@ public class LogcatStyleLogger(
      * @param logDomain The domain of the log message.
      * @param message The message to log.
      */
-    override fun log(
-        priority: LogPriority,
-        logDomain: String,
-        message: String
-    ) {
+    override fun write(priority: LogPriority, logDomain: String, message: String) {
         // Fetch process ID
         val pid = getpid()
-
-        // If time is true, include date/time in the output
-        val formattedTime = if (time) {
+        val formattedMessage = messageFormatter?.invoke(priority, logDomain, message) ?: message
+        val line = if (time) {
             val (dateStr, timeStr) = getFormattedDateTime()
-            // Format: `<date> <time> <pid> <priority> <logDomain>: <message>`
-            val line = buildString {
-                append(dateStr).append(' ')
-                append(timeStr).append(' ')
-                append(pid).append(' ')
-                append(priority.toShortString()).append(' ')
-                append(logDomain).append(": ")
-                append(message)
-            }
-            colorizeIfNeeded(priority, line)
+            val base = "$dateStr $timeStr $pid ${priority.toShortString()} $logDomain: $formattedMessage"
+            colorizeIfNeeded(priority, base)
         } else {
-            // Format without time: `<priority>/<logDomain>(<pid>): <message>`
-            val line = "${priority.toShortString()}/$logDomain($pid): $message"
-            colorizeIfNeeded(priority, line)
+            val base = "${priority.toShortString()}/$logDomain($pid): $formattedMessage"
+            colorizeIfNeeded(priority, base)
         }
 
-        // Print the message
-        println(formattedTime)
+        println(line)
 
         // If priority is ERROR, throw an exception to mimic g_log error behavior
         if (priority == LogPriority.ERROR) {
@@ -175,18 +165,14 @@ public class LogcatStyleLogger(
         private const val RESET_COLOR = "\u001B[0m"       // Reset
 
         /**
-         * Installs this logger for both debug and release builds.
+         * Installs this writer for both debug and release builds.
          *
          * By default:
          * - For **debug builds**, the minimum priority level is set to [LogPriority.DEBUG].
          * - For **release builds**, the minimum priority level is set to [LogPriority.MESSAGE].
          *
-         * Debug logs can still be enabled on release builds using the standard GLib `g_log` mechanism:
-         * ```bash
-         * export G_MESSAGES_DEBUG=all
-         * ```
-         *
-         * To prevent this behavior in release builds, explicitly set [minPriority] when calling [installOnReleaseApp].
+         * Debug logs can still be enabled on release builds by standard GLib `g_log` mechanism.
+         * To prevent this, explicitly set [minPriority] in [installOnReleaseApp].
          *
          * @param time Whether to include timestamps in the log output. Default is `true`.
          * @param color Whether to include ANSI color codes in the log output. Default is `true`.
@@ -200,7 +186,7 @@ public class LogcatStyleLogger(
         }
 
         /**
-         * Installs this logger for debug builds if the application is debuggable.
+         * Installs this writer for debug builds if the application is debuggable.
          *
          * @param minPriority The minimum log priority to log. Default is [LogPriority.DEBUG].
          * @param time Whether to include timestamps in the log output. Default is `true`.
@@ -211,19 +197,13 @@ public class LogcatStyleLogger(
             time: Boolean = true,
             color: Boolean = true,
         ) {
-            if (Platform.isDebugBinary && LogLogger.canBeInstalled()) {
-                LogLogger.install(
-                    LogcatStyleLogger(
-                        minPriority = minPriority,
-                        time = time,
-                        color = color,
-                    ),
-                )
+            if (Platform.isDebugBinary) {
+                LogLogger.addWriter(LogcatStyleLogWriter(minPriority, time, color))
             }
         }
 
         /**
-         * Installs this logger for release builds if the application is not debuggable.
+         * Installs this writer for release builds if the application is not debuggable.
          *
          * Debug logs can still be enabled on release builds using the standard GLib `g_log` mechanism:
          * ```bash
@@ -232,23 +212,18 @@ public class LogcatStyleLogger(
          *
          * To prevent this behavior, explicitly set [minPriority].
          *
-         * @param minPriority The minimum log priority to log. Default is [LogPriority.MESSAGE] in release builds.
+         * @param minPriority The minimum log priority to log. Default is [LogPriority.MESSAGE] in release builds,
+         *                    or [LogPriority.DEBUG] if GLib's debug mode is enabled.
          * @param time Whether to include timestamps in the log output. Default is `true`.
          * @param color Whether to include ANSI color codes in the log output. Default is `true`.
          */
         public fun installOnReleaseApp(
-            minPriority: LogPriority = if (isGLogDebugEnabled()) LogPriority.DEBUG else LogPriority.MESSAGE,
+            minPriority: LogPriority = defaultReleaseLogPriority,
             time: Boolean = true,
             color: Boolean = true,
         ) {
-            if (!Platform.isDebugBinary && LogLogger.canBeInstalled()) {
-                LogLogger.install(
-                    LogcatStyleLogger(
-                        minPriority = minPriority,
-                        time = time,
-                        color = color,
-                    ),
-                )
+            if (!Platform.isDebugBinary) {
+                LogLogger.addWriter(LogcatStyleLogWriter(minPriority, time, color))
             }
         }
     }

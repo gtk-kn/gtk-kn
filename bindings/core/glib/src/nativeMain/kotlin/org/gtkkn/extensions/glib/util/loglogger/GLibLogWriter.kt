@@ -24,37 +24,37 @@ package org.gtkkn.extensions.glib.util.loglogger
 
 import org.gtkkn.bindings.glib.GLib
 import org.gtkkn.extensions.glib.util.LogPriority
-import org.gtkkn.extensions.glib.util.loglogger.GLibLogLogger.Companion.install
-import org.gtkkn.extensions.glib.util.loglogger.GLibLogLogger.Companion.installOnDebuggableApp
-import org.gtkkn.extensions.glib.util.loglogger.GLibLogLogger.Companion.installOnReleaseApp
-import org.gtkkn.extensions.glib.util.loglogger.LogcatStyleLogger.Companion.installOnReleaseApp
+import org.gtkkn.extensions.glib.util.loglogger.GLibLogWriter.Companion.install
+import org.gtkkn.extensions.glib.util.loglogger.GLibLogWriter.Companion.installOnDebuggableApp
+import org.gtkkn.extensions.glib.util.loglogger.GLibLogWriter.Companion.installOnReleaseApp
+import org.gtkkn.extensions.glib.util.loglogger.LogConfig.defaultReleaseLogPriority
 import org.gtkkn.native.glib.g_log
 
 /**
- * A [LogLogger] implementation that uses GLib's `g_log` for logging.
+ * A [LogWriter] implementation that uses GLib's `g_log` for logging.
  *
- * This logger integrates with GLib's logging system and supports GLib log levels.
+ * This integrates with GLib's logging system and supports GLib log levels.
  *
  * ### Key Features
  * - Automatically enables `DEBUG` and `INFO` log levels if the minimum priority is set below `MESSAGE`.
  * - Logs messages directly using `g_log`.
  * - Honors GLib's `G_MESSAGES_DEBUG` environment variable for enabling lower-level log messages.
  *
- * ### Installation
- * This logger can be installed conditionally:
+ * ### Installation Convenience Methods
+ * For convenience, companion methods allow adding this writer conditionally:
+ * - Use [install] to install for both debug and release builds.
  * - Use [installOnDebuggableApp] for debug builds.
  * - Use [installOnReleaseApp] for release builds.
- * - Use [install] to install for both debug and release builds.
  *
  * @constructor
  * @param minPriority The minimum log priority to log. Default is [LogPriority.DEBUG].
  *                    Setting it below [LogPriority.MESSAGE] will enable `DEBUG` and `INFO` levels.
  */
-public class GLibLogLogger(
+public class GLibLogWriter(
     private val minPriority: LogPriority = LogPriority.DEBUG
-) : LogLogger {
+) : LogWriter {
     init {
-        // Enable debug-level logging in GLib if the minimum priority includes DEBUG or INFO.
+        // Enable debug-level logging in GLib if minPriority includes DEBUG or INFO
         if (minPriority.severity < LogPriority.MESSAGE.severity) {
             GLib.logSetDebugEnabled(true)
         }
@@ -72,19 +72,30 @@ public class GLibLogLogger(
      * @param logDomain The domain of the log message.
      * @param message The message to log.
      */
-    override fun log(priority: LogPriority, logDomain: String, message: String) {
+    override fun write(priority: LogPriority, logDomain: String, message: String) {
         g_log(logDomain, priority.glibLevel, message)
     }
 
     public companion object {
         /**
-         * Installs this logger for both debug and release builds.
+         * Checks if GLib debug logging is enabled.
+         *
+         * This method returns true if GLib's `DEBUG` level is enabled via `logSetDebugEnabled` or the
+         * `G_MESSAGES_DEBUG` environment variable.
+         *
+         * @return True if GLib debug logging is enabled, false otherwise.
+         */
+        public fun isGLogDebugEnabled(): Boolean =
+            GLib.logGetDebugEnabled() || !GLib.getenv("G_MESSAGES_DEBUG").isNullOrBlank()
+
+        /**
+         * Installs this writer for both debug and release builds.
          *
          * By default:
          * - For **debug builds**, the minimum priority level is set to [LogPriority.DEBUG].
          * - For **release builds**, the minimum priority level is set to [LogPriority.MESSAGE].
          *
-         * Debug logs can still be enabled on release builds using the standard GLib `g_log` mechanism:
+         * Debug logs can still be enabled on release builds using:
          * ```bash
          * export G_MESSAGES_DEBUG=all
          * ```
@@ -93,7 +104,7 @@ public class GLibLogLogger(
          * export G_MESSAGES_DEBUG=my_app
          * ```
          *
-         * To prevent this behavior in release builds, explicitly set [minPriority] when calling [installOnReleaseApp].
+         * To prevent this behavior, explicitly set [minPriority] in [installOnReleaseApp].
          */
         public fun install() {
             installOnDebuggableApp()
@@ -101,18 +112,18 @@ public class GLibLogLogger(
         }
 
         /**
-         * Installs this logger for debug builds if the application is debuggable.
+         * Installs this writer for debug builds if the application is debuggable.
          *
          * @param minPriority The minimum log priority to log. Default is [LogPriority.DEBUG].
          */
         public fun installOnDebuggableApp(minPriority: LogPriority = LogPriority.DEBUG) {
-            if (Platform.isDebugBinary && LogLogger.canBeInstalled()) {
-                LogLogger.install(GLibLogLogger(minPriority))
+            if (Platform.isDebugBinary) {
+                LogLogger.addWriter(GLibLogWriter(minPriority))
             }
         }
 
         /**
-         * Installs this logger for release builds if the application is not debuggable.
+         * Installs this writer for release builds if the application is not debuggable.
          *
          * Debug logs can still be enabled on release builds using the standard GLib `g_log` mechanism:
          * ```bash
@@ -125,25 +136,15 @@ public class GLibLogLogger(
          *
          * To prevent this behavior, explicitly set [minPriority].
          *
-         * @param minPriority The minimum log priority to log. Default is [LogPriority.MESSAGE] in release builds.
+         * @param minPriority The minimum log priority to log. Default is [LogPriority.MESSAGE] in release builds,
+         *                    or [LogPriority.DEBUG] if GLib debug mode is enabled.
          */
         public fun installOnReleaseApp(
-            minPriority: LogPriority = if (isGLogDebugEnabled()) LogPriority.DEBUG else LogPriority.MESSAGE,
+            minPriority: LogPriority = defaultReleaseLogPriority
         ) {
-            if (!Platform.isDebugBinary && LogLogger.canBeInstalled()) {
-                LogLogger.install(GLibLogLogger(minPriority))
+            if (!Platform.isDebugBinary) {
+                LogLogger.addWriter(GLibLogWriter(minPriority))
             }
         }
-
-        /**
-         * Checks if GLib debug logging is enabled.
-         *
-         * This method returns true if GLib's `DEBUG` level is enabled via `logSetDebugEnabled` or the
-         * `G_MESSAGES_DEBUG` environment variable.
-         *
-         * @return True if GLib debug logging is enabled, false otherwise.
-         */
-        public fun isGLogDebugEnabled(): Boolean =
-            GLib.logGetDebugEnabled() || !GLib.getenv("G_MESSAGES_DEBUG").isNullOrBlank()
     }
 }
