@@ -20,25 +20,9 @@
  * SOFTWARE.
  */
 
-package org.gtkkn.samples.gtksource.sample
+package org.gtkkn.extensions.glib.util
 
-import org.gtkkn.bindings.adw.Application
-import org.gtkkn.bindings.adw.ApplicationWindow
-import org.gtkkn.bindings.gio.ApplicationFlags
-import org.gtkkn.extensions.gio.runApplication
-import org.gtkkn.extensions.glib.util.log
-import org.gtkkn.extensions.glib.util.loglogger.LogcatStyleLogger
-
-@Suppress("FunctionName")
-fun Application(builder: ApplicationWindow.() -> Unit) {
-    LogcatStyleLogger.install()
-    log("sample") { "gtk source" }
-    val app = Application("org.gtkkn.samples.gtksource.sample", ApplicationFlags.DEFAULT_FLAGS)
-    app.connectActivate {
-        val window = ApplicationWindow(app)
-        window.setDefaultSize(800, 600)
-        window.builder()
-        window.present()
-    }
-    app.runApplication()
-}
+/**
+ * Extension function to convert a [Throwable] into a loggable string.
+ */
+public fun Throwable.asLog(): String = stackTraceToString()

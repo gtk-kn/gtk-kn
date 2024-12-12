@@ -30,6 +30,7 @@ nav:
       #      - GObject concepts: user-guide/gobject-concepts.md
       #      - The main event loop: user-guide/the-main-event-loop.md
       - Gradle plugin: user-guide/gradle-plugin.md
+      - Logging: user-guide/logging.md
       - GTK4:
           - user-guide/gtk4/index.md
           - Widgets:

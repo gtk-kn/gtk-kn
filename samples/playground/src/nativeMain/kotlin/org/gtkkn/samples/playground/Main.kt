@@ -33,12 +33,21 @@ import org.gtkkn.bindings.gtk.Align
 import org.gtkkn.bindings.gtk.Box
 import org.gtkkn.bindings.gtk.Label
 import org.gtkkn.bindings.gtk.Orientation
-import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
-import org.gtkkn.extensions.glib.util.Log
+import org.gtkkn.extensions.glib.util.LogPriority.CRITICAL
+import org.gtkkn.extensions.glib.util.LogPriority.DEBUG
+import org.gtkkn.extensions.glib.util.LogPriority.INFO
+import org.gtkkn.extensions.glib.util.LogPriority.MESSAGE
+import org.gtkkn.extensions.glib.util.LogPriority.WARNING
+import org.gtkkn.extensions.glib.util.log
 import org.gtkkn.native.gobject.G_TYPE_STRING
 
-@OptIn(UnsafeFieldSetter::class)
 fun main() = Application {
+    log(DEBUG) { "This is a debug message" }
+    log(INFO) { "This is an info message" }
+    log(MESSAGE) { "This is an message" }
+    log(WARNING) { "This is an warning message" }
+    log(CRITICAL) { "This is an critical message" }
+
     // setup a HeaderBar since adw windows don't have any by default
     val headerBar = HeaderBar().apply {
         title = "gtk-kn playground"
@@ -59,7 +68,7 @@ fun main() = Application {
         vexpand = true
     }
 
-    Log.m("playground", "#### Record test")
+    log { "#### Record test" }
 
     memScoped {
         val r = Rectangle(
@@ -70,11 +79,9 @@ fun main() = Application {
             scope = this,
         )
 
-        val x = r.x
-        r.x = 2
         val result = r.containsPoint(2, 3)
-        Log.m("playground", "rectangle: $r")
-        Log.m("playground", "2,3 is contained: $result")
+        log { "rectangle: $r" }
+        log { "2,3 is contained: $result" }
     }
 
     /*
@@ -84,7 +91,7 @@ fun main() = Application {
     value1.init(G_TYPE_STRING)
     value1.setString("Hello Value")
     val result = value1.getString()
-    Log.m("playground", "Result is: $result")
+    log { "Result is: $result" }
     // value1Ref is automatically freed after use()
 //
 //    /*
@@ -95,7 +102,7 @@ fun main() = Application {
 //    value2.init(G_TYPE_STRING)
 //    value2.setString("Hello Value2")
 //    val result2 = value2.getString()
-//    Log.m("playground", "Result2 is $result2")
+//    log { "Result2 is $result2" }
 //    // have to free manually
 //    value2Ref.free()
 //
@@ -107,8 +114,8 @@ fun main() = Application {
         value3.init(G_TYPE_STRING)
         value3.setString("Hello Value3")
         val result3 = value3.getString()
-        Log.m("playground", "Result3 is $result3")
-        Log.m("playground", "value3 is $value3")
+        log { "Result3 is $result3" }
+        log { "value3 is $value3" }
     }
 //    // value3 is automatically freed after memScoped block
 
@@ -116,7 +123,7 @@ fun main() = Application {
 //    val button = Button()
 //    button.name = "ciao"
 //    button.connectClicked {
-//        Log.m("playground", "rectangle2: x=${r.x} y=${r.y} h=${r.height} w=${r.width}")
+//        log { "rectangle2: x=${r.x} y=${r.y} h=${r.height} w=${r.width}" }
 //    }
     layout.append(label)
 }

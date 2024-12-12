@@ -37,6 +37,7 @@ import org.gtkkn.bindings.webkit.LoadEvent.FINISHED
 import org.gtkkn.bindings.webkit.LoadEvent.REDIRECTED
 import org.gtkkn.bindings.webkit.LoadEvent.STARTED
 import org.gtkkn.bindings.webkit.WebView
+import org.gtkkn.extensions.glib.util.log
 
 // --8<-- [start:doc]
 @Suppress("LongMethod")
@@ -54,7 +55,7 @@ fun main() = Application {
     val back = Button.newFromIconName("go-previous-symbolic").apply {
         tooltipText = "Back"
         connectClicked {
-            logger.debug { "Back clicked" }
+            log { "Back clicked" }
             webView.goBack()
         }
     }
@@ -62,7 +63,7 @@ fun main() = Application {
     val forward = Button.newFromIconName("go-next-symbolic").apply {
         tooltipText = "Forward"
         connectClicked {
-            logger.debug { "Forward clicked" }
+            log { "Forward clicked" }
             webView.goForward()
         }
     }
@@ -70,7 +71,7 @@ fun main() = Application {
     val stopOrReload = Button.newFromIconName("process-stop-symbolic").apply {
         tooltipText = "Stop"
         connectClicked {
-            logger.debug { "Stop clicked" }
+            log { "Stop clicked" }
             if (loading) webView.stopLoading() else webView.reload()
         }
     }
@@ -78,7 +79,7 @@ fun main() = Application {
     val home = Button.newFromIconName("go-home-symbolic").apply {
         tooltipText = "Home"
         connectClicked {
-            logger.debug { "Home clicked" }
+            log { "Home clicked" }
             webView.loadUri(HOME_PAGE)
         }
     }
@@ -101,16 +102,16 @@ fun main() = Application {
     webView.connectLoadChanged { loadEvent: LoadEvent ->
         when (loadEvent) {
             STARTED -> {
-                logger.debug { "loadEvent = Started" }
+                log { "loadEvent = Started" }
                 loading = true
                 stopOrReload.setIconName("process-stop-symbolic")
                 stopOrReload.tooltipText = "Stop"
             }
 
-            REDIRECTED -> logger.debug { "loadEvent = Redirected" }
-            COMMITTED -> logger.debug { "loadEvent = Committed" }
+            REDIRECTED -> log { "loadEvent = Redirected" }
+            COMMITTED -> log { "loadEvent = Committed" }
             FINISHED -> {
-                logger.debug { "loadEvent = Finished" }
+                log { "loadEvent = Finished" }
                 loading = false
                 stopOrReload.setIconName("view-refresh-symbolic")
                 stopOrReload.tooltipText = "Reload"
@@ -124,18 +125,18 @@ fun main() = Application {
         if (scheme == null) {
             url = "https://$url"
         }
-        logger.debug { "load url $url" }
+        log { "load url $url" }
         webView.loadUri(url)
     }
 
     webView.connectNotify { pspecs ->
-        logger.debug { "pspecs = ${pspecs.getName()}" }
+        log { "pspecs = ${pspecs.getName()}" }
         if (pspecs.getName() == "estimated-load-progress") {
             urlBar.progressFraction = webView.estimatedLoadProgress
             if (urlBar.progressFraction == 1.0) {
-                logger.debug { "GLib.timeoutAdd" }
+                log { "GLib.timeoutAdd" }
                 GLib.timeoutAdd(0, 500.toUInt()) {
-                    logger.debug { "progressFraction = 0.0)" }
+                    log { "progressFraction = 0.0)" }
                     urlBar.progressFraction = 0.0
                     false
                 }

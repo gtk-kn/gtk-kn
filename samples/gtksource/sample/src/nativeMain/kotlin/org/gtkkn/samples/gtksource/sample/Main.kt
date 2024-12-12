@@ -34,6 +34,8 @@ import org.gtkkn.bindings.gtk.ScrolledWindow
 import org.gtkkn.bindings.gtksource.Buffer
 import org.gtkkn.bindings.gtksource.LanguageManager
 import org.gtkkn.bindings.gtksource.View
+import org.gtkkn.extensions.glib.util.LogPriority.WARNING
+import org.gtkkn.extensions.glib.util.log
 import org.gtkkn.extensions.gtk.setText
 
 // --8<-- [start:doc]
@@ -54,7 +56,7 @@ fun main() = Application {
     if (kotlinLanguage != null) {
         buffer.language = kotlinLanguage
     } else {
-        logger.warn { "Kotlin language not found" }
+        log(WARNING) { "Kotlin language not found" }
     }
 
     buffer.setText(HELLO_WORLD_TEXT)
@@ -71,7 +73,7 @@ fun main() = Application {
     val spacesForTabCheckButton = CheckButton.newWithLabel("Spaces for tab").apply {
         active = sourceView.insertSpacesInsteadOfTabs
         connectToggled {
-            logger.debug { "spacesForTabCheckButton Toggled = $active" }
+            log { "spacesForTabCheckButton Toggled = $active" }
             sourceView.insertSpacesInsteadOfTabs = active
         }
     }
@@ -79,7 +81,7 @@ fun main() = Application {
     val showLineNumberButton = CheckButton.newWithLabel("Show line number").apply {
         active = sourceView.showLineNumbers
         connectToggled {
-            logger.debug { "showLineNumberButton Toggled = $active" }
+            log { "showLineNumberButton Toggled = $active" }
             sourceView.showLineNumbers = active
         }
     }
