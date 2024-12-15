@@ -23,7 +23,6 @@
 package org.gtkkn.extensions.glib
 
 import kotlinx.cinterop.CFunction
-import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.asStableRef
@@ -39,8 +38,8 @@ import org.gtkkn.native.glib.gpointer
  * and calls dispose on it.
  */
 public val staticStableRefDestroy: CPointer<CFunction<(gpointer?, CPointer<CPointed>?) -> Unit>> =
-    staticCFunction { data: COpaquePointer?,
-            _: COpaquePointer?, ->
+    staticCFunction { data: gpointer?,
+            _: gpointer?, ->
         data?.asStableRef<Any>()?.dispose()
         Unit
     }.reinterpret()

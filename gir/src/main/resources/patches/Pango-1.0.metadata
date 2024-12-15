@@ -1,2 +1,7 @@
 // Remove underscore suffix from parameter name
 *.*.*#parameter name="(.+)_$"
+
+// Type mismatch
+Analysis
+    .shape_engine ignore
+    .lang_engine ignore

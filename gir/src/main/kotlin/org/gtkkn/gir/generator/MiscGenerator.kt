@@ -332,9 +332,11 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             "${signal.kotlinConnectName}Func",
             nativeCallbackCFunctionTypeName(
                 signal.returnTypeInfo.nativeTypeName,
-                signal.parameters.map { param ->
-                    ParameterSpec.builder("", param.typeInfo.nativeTypeName).build()
-                },
+                signal.parameters
+                    .filterNot { it.isUserData }
+                    .map { param ->
+                        ParameterSpec.builder("", param.typeInfo.nativeTypeName).build()
+                    },
             ),
             KModifier.PRIVATE,
         ).initializer(buildStaticClosureImplementation(signal))
@@ -347,14 +349,18 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
     private fun buildStaticClosureImplementation(closure: ClosureBlueprint) = CodeBlock.builder().apply {
         beginControlFlow("%M", BindingsGenerator.STATIC_C_FUNC)
 
+        // Check if we have a parameter marked as user data
+        val userDataParameter = closure.parameters.firstOrNull { it.isUserData }
+
         // lambda signature
         if (closure.hasInstanceParameter) {
             addStatement("_: %T,", BindingsGenerator.KP_OPAQUE_POINTER)
         }
+
         closure.parameters.forEach { param ->
             // cinterop maps methods return values with pointer types as nullable
             // so we do the same thing here for the staticCFunction pointer arguments
-            // we have to check for gir-based nullability first because otherwise we get double `??`
+            // check for gir-based nullability first to avoid double ?? in Kotlin
             val forceNullable = if (!param.typeInfo.kotlinTypeName.isNullable && param.typeInfo.isCinteropNullable) {
                 "?"
             } else {
@@ -362,29 +368,53 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             }
             addStatement("%N: %T$forceNullable,", param.kotlinName, param.typeInfo.nativeTypeName)
         }
-        addStatement("userData: %T", BindingsGenerator.KP_OPAQUE_POINTER)
+
+        // If we did not find a parameter with isUserData, we must add our own userData param
+        if (userDataParameter == null) {
+            addStatement("userData: %T", BindingsGenerator.KP_OPAQUE_POINTER)
+        }
+
         addStatement("->")
 
         if (closure.needsMemscoped || closure.needsMemscopedReturnValue) {
             beginControlFlow("%M", BindingsGenerator.MEMSCOPED)
         }
 
-        // implementation
+        // Determine the parameter to use for stable ref extraction
+        val stableRefParam = userDataParameter?.kotlinName ?: "userData"
+
+        // Invoke the lambda retrieved from the stable ref
+        val isUserDataNullable = userDataParameter?.typeInfo?.nativeTypeName?.isNullable == true
+        val notNull = if (isUserDataNullable) "!!" else ""
+
+        // Filter the userData parameter
+        val newParameters = closure.lambdaTypeName.parameters.filterNot { it.name == stableRefParam }
+
+        // Return a new LambdaTypeName with the updated parameters
+        val lambdaTypeName = LambdaTypeName.get(
+            parameters = newParameters,
+            returnType = closure.lambdaTypeName.returnType,
+        )
+
         add(
-            "userData.%M<%T>().get().invoke(",
+            "$stableRefParam$notNull.%M<%T>().get().invoke(",
             BindingsGenerator.AS_STABLE_REF_FUNC,
-            closure.lambdaTypeName,
+            lambdaTypeName,
         ) // open invoke
-        closure.parameters.forEachIndexed { index, param ->
-            if (index > 0) {
-                add(", ")
+
+        // Pass all the non-userData parameters to the lambda
+        closure.parameters
+            .filterNot { it.isUserData }
+            .forEachIndexed { index, param ->
+                if (index > 0) {
+                    add(", ")
+                }
+                add("%N", param.kotlinName)
+                add(buildNativeToKotlinConversionsBlock(param.typeInfo))
             }
-            add("%N", param.kotlinName)
-            add(buildNativeToKotlinConversionsBlock(param.typeInfo))
-        }
         add(")") // close invoke
 
-        // convert the return type and return from the lambda
+        // Convert the return type and return from the lambda
         add(buildKotlinToNativeTypeConversionBlock(closure.returnTypeInfo))
 
         if (closure.needsMemscoped || closure.needsMemscopedReturnValue) {
@@ -433,10 +463,14 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             .addKdoc(buildTypeKDoc(alias.kdoc, alias.optInVersionBlueprint))
             .build()
 
-    fun buildCallbackTypeAlias(callback: CallbackBlueprint) =
-        TypeAliasSpec.builder(callback.kotlinName, callback.lambdaTypeName)
-            .addKdoc(buildCallbackKDoc(callback.kdoc, callback.parameters, callback.returnTypeKDoc))
+    fun buildCallbackTypeAlias(callback: CallbackBlueprint): TypeAliasSpec {
+        val validParameterNames = callback.lambdaTypeName.parameters.map { it.name }.toSet()
+        val parameters = callback.parameters.filter { it.kotlinName in validParameterNames }
+
+        return TypeAliasSpec.builder(callback.kotlinName, callback.lambdaTypeName)
+            .addKdoc(buildCallbackKDoc(callback.kdoc, parameters, callback.returnTypeKDoc))
             .build()
+    }
 
     /**
      * Build the private property that holds the static C callback functions that we use for implementing
@@ -447,9 +481,11 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             "${callback.kotlinName}Func",
             nativeCallbackCFunctionTypeName(
                 callback.returnTypeInfo.nativeTypeName,
-                callback.parameters.map { param ->
-                    ParameterSpec.builder("", param.typeInfo.nativeTypeName).build()
-                },
+                callback.parameters
+                    .filterNot { it.isUserData }
+                    .map { param ->
+                        ParameterSpec.builder("", param.typeInfo.nativeTypeName).build()
+                    },
             ),
         ).initializer(buildStaticClosureImplementation(callback))
         return staticCallbackVal.build()

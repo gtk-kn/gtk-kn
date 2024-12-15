@@ -127,6 +127,7 @@ internal val repositoryAnnotations: Map<String, List<Pair<String, String>>> = ma
         "GObjectVersion2.24" to "org.gtkkn.bindings.gobject.annotations.GObjectVersion2_24",
         "GObjectVersion2.26" to "org.gtkkn.bindings.gobject.annotations.GObjectVersion2_26",
         "GObjectVersion2.28" to "org.gtkkn.bindings.gobject.annotations.GObjectVersion2_28",
+        "GObjectVersion2.30" to "org.gtkkn.bindings.gobject.annotations.GObjectVersion2_30",
         "GObjectVersion2.32" to "org.gtkkn.bindings.gobject.annotations.GObjectVersion2_32",
         "GObjectVersion2.34" to "org.gtkkn.bindings.gobject.annotations.GObjectVersion2_34",
         "GObjectVersion2.36" to "org.gtkkn.bindings.gobject.annotations.GObjectVersion2_36",

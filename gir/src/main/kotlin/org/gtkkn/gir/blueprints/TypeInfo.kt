@@ -19,6 +19,7 @@ package org.gtkkn.gir.blueprints
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.TypeName
+import org.gtkkn.gir.generator.G_POINTER
 
 /**
  * A sealed class used to describe what kind of conversion is necessary to convert
@@ -122,6 +123,18 @@ sealed class TypeInfo {
     data class GChar(
         override val nativeTypeName: TypeName,
         override val kotlinTypeName: TypeName,
+    ) : TypeInfo() {
+        override val isCinteropNullable = false
+
+        override fun withNullable(nullable: Boolean): TypeInfo = copy(
+            nativeTypeName = nativeTypeName.copy(nullable),
+            kotlinTypeName = kotlinTypeName.copy(nullable),
+        )
+    }
+
+    data class GPointer(
+        override val nativeTypeName: TypeName = G_POINTER,
+        override val kotlinTypeName: TypeName = G_POINTER,
     ) : TypeInfo() {
         override val isCinteropNullable = false
 

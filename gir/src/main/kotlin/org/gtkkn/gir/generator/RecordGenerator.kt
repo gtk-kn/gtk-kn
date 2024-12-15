@@ -501,6 +501,7 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
         is TypeInfo.Enumeration,
         is TypeInfo.GBoolean,
         is TypeInfo.GChar,
+        is TypeInfo.GPointer,
         is TypeInfo.KString,
         is TypeInfo.ObjectPointer,
         is TypeInfo.Primitive,
