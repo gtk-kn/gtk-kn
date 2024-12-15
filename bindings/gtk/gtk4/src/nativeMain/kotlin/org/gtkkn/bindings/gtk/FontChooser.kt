@@ -305,11 +305,13 @@ public interface FontChooser :
      *
      * @param filter a `GtkFontFilterFunc`
      */
-    public fun setFilterFunc(filter: FontFilterFunc): Unit = gtk_font_chooser_set_filter_func(
+    public fun setFilterFunc(filter: FontFilterFunc?): Unit = gtk_font_chooser_set_filter_func(
         gtkFontChooserPointer.reinterpret(),
-        FontFilterFuncFunc.reinterpret(),
-        StableRef.create(filter).asCPointer(),
-        staticStableRefDestroy.reinterpret()
+        filter?.let {
+            FontFilterFuncFunc.reinterpret()
+        },
+        filter?.let { StableRef.create(filter).asCPointer() },
+        filter?.let { staticStableRefDestroy.reinterpret() }
     )
 
     /**

@@ -1212,7 +1212,7 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
         optionKeys: List<String>? = null,
         optionValues: List<String>? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = memScoped {
         return gdk_pixbuf_save_to_streamv_async(
             gdkpixbufPixbufPointer.reinterpret(),
@@ -1221,8 +1221,10 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
             optionKeys?.toCStringList(this),
             optionValues?.toCStringList(this),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
     }
 
@@ -1555,12 +1557,14 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
         public fun getFileInfoAsync(
             filename: String,
             cancellable: Cancellable? = null,
-            callback: AsyncReadyCallback,
+            callback: AsyncReadyCallback?,
         ): Unit = gdk_pixbuf_get_file_info_async(
             filename,
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
         /**
@@ -1624,12 +1628,14 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
         public fun newFromStreamAsync(
             stream: InputStream,
             cancellable: Cancellable? = null,
-            callback: AsyncReadyCallback,
+            callback: AsyncReadyCallback?,
         ): Unit = gdk_pixbuf_new_from_stream_async(
             stream.gioInputStreamPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
         /**
@@ -1656,15 +1662,17 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
             height: gint,
             preserveAspectRatio: Boolean,
             cancellable: Cancellable? = null,
-            callback: AsyncReadyCallback,
+            callback: AsyncReadyCallback?,
         ): Unit = gdk_pixbuf_new_from_stream_at_scale_async(
             stream.gioInputStreamPointer.reinterpret(),
             width,
             height,
             preserveAspectRatio.asGBoolean(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
         /**

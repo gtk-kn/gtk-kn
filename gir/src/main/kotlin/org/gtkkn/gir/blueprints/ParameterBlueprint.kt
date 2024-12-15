@@ -22,4 +22,6 @@ data class ParameterBlueprint(
     val typeInfo: TypeInfo,
     val defaultNull: Boolean,
     val kdoc: String?,
+    val isUserData: Boolean = false,
+    val isDestroyData: Boolean = false,
 )

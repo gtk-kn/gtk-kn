@@ -15,6 +15,7 @@ import org.gtkkn.native.glib.GPathBuf
 import org.gtkkn.native.glib.g_path_buf_clear
 import org.gtkkn.native.glib.g_path_buf_clear_to_path
 import org.gtkkn.native.glib.g_path_buf_copy
+import org.gtkkn.native.glib.g_path_buf_equal
 import org.gtkkn.native.glib.g_path_buf_free
 import org.gtkkn.native.glib.g_path_buf_free_to_path
 import org.gtkkn.native.glib.g_path_buf_init
@@ -26,6 +27,7 @@ import org.gtkkn.native.glib.g_path_buf_push
 import org.gtkkn.native.glib.g_path_buf_set_extension
 import org.gtkkn.native.glib.g_path_buf_set_filename
 import org.gtkkn.native.glib.g_path_buf_to_path
+import org.gtkkn.native.glib.gpointer
 import kotlin.Boolean
 import kotlin.Pair
 import kotlin.String
@@ -67,7 +69,6 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - parameter `v1`: gpointer
  * - field `dummy`: Record field dummy is private
  *
  * @since 2.76
@@ -327,6 +328,26 @@ public class PathBuf(pointer: CPointer<GPathBuf>, cleaner: Cleaner? = null) : Pr
     public fun toPath(): String? = g_path_buf_to_path(glibPathBufPointer.reinterpret())?.toKString()
 
     public companion object {
+        /**
+         * Compares two path buffers for equality and returns `TRUE`
+         * if they are equal.
+         *
+         * The path inside the paths buffers are not going to be normalized,
+         * so `X/Y/Z/A/..`, `X/./Y/Z` and `X/Y/Z` are not going to be considered
+         * equal.
+         *
+         * This function can be passed to g_hash_table_new() as the
+         * `key_equal_func` parameter.
+         *
+         * @param v1 a path buffer to compare
+         * @param v2 a path buffer to compare
+         * @return `TRUE` if the two path buffers are equal,
+         *   and `FALSE` otherwise
+         * @since 2.76
+         */
+        @GLibVersion2_76
+        public fun equal(v1: gpointer, v2: gpointer): Boolean = g_path_buf_equal(v1, v2).asBoolean()
+
         /**
          * Allocates a new `GPathBuf`.
          *

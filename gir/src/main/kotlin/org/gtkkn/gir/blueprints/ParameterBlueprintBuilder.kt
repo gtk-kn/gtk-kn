@@ -81,6 +81,8 @@ class ParameterBlueprintBuilder(
             nativeName = girParam.name,
             typeInfo = typeInfo,
             defaultNull = girParam.isDefaultNull(),
+            isUserData = girParam.closure != null,
+            isDestroyData = girParam.destroy != null,
             kdoc = context.processKdoc(girParam.doc?.doc?.text),
         )
     }

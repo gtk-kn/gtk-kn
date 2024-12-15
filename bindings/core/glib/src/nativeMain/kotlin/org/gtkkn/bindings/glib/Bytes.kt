@@ -4,13 +4,16 @@ package org.gtkkn.bindings.glib
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_70
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GBytes
+import org.gtkkn.native.glib.g_bytes_get_region
 import org.gtkkn.native.glib.g_bytes_get_size
 import org.gtkkn.native.glib.g_bytes_hash
 import org.gtkkn.native.glib.g_bytes_new_from_bytes
 import org.gtkkn.native.glib.g_bytes_ref
 import org.gtkkn.native.glib.g_bytes_unref
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_bytes_get_type
 import org.gtkkn.native.gobject.gsize
@@ -48,7 +51,6 @@ import kotlin.Unit
  * - parameter `bytes2`: Bytes
  * - parameter `bytes2`: Bytes
  * - parameter `size`: size: Out parameter is not supported
- * - method `get_region`: Return type gpointer is unsupported
  * - method `unref_to_array`: Array parameter of type guint8 is not supported
  * - parameter `size`: size: Out parameter is not supported
  * - parameter `data`: Array parameter of type guint8 is not supported
@@ -61,6 +63,38 @@ import kotlin.Unit
 @GLibVersion2_32
 public class Bytes(pointer: CPointer<GBytes>) : ProxyInstance(pointer) {
     public val glibBytesPointer: CPointer<GBytes> = pointer
+
+    /**
+     * Gets a pointer to a region in @bytes.
+     *
+     * The region starts at @offset many bytes from the start of the data
+     * and contains @n_elements many elements of @element_size size.
+     *
+     * @n_elements may be zero, but @element_size must always be non-zero.
+     * Ideally, @element_size is a static constant (eg: sizeof a struct).
+     *
+     * This function does careful bounds checking (including checking for
+     * arithmetic overflows) and returns a non-null pointer if the
+     * specified region lies entirely within the @bytes. If the region is
+     * in some way out of range, or if an overflow has occurred, then null
+     * is returned.
+     *
+     * Note: it is possible to have a valid zero-size region. In this case,
+     * the returned pointer will be equal to the base pointer of the data of
+     * @bytes, plus @offset.  This will be non-null except for the case
+     * where @bytes itself was a zero-sized region.  Since it is unlikely
+     * that you will be using this function to check for a zero-sized region
+     * in a zero-sized @bytes, null effectively always means "error".
+     *
+     * @param elementSize a non-zero element size
+     * @param offset an offset to the start of the region within the @bytes
+     * @param nElements the number of elements in the region
+     * @return the requested region, or null in case of an error
+     * @since 2.70
+     */
+    @GLibVersion2_70
+    public fun getRegion(elementSize: gsize, offset: gsize, nElements: gsize): gpointer? =
+        g_bytes_get_region(glibBytesPointer.reinterpret(), elementSize, offset, nElements)
 
     /**
      * Get the size of the byte data in the #GBytes.

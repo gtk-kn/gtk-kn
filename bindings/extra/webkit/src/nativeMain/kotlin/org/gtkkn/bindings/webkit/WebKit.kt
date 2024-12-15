@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.webkit
 
 import kotlinx.cinterop.CFunction
-import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
@@ -15,6 +14,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_34
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitURISchemeRequest
@@ -358,9 +358,9 @@ public object WebKit {
 public val URISchemeRequestCallbackFunc:
     CPointer<CFunction<(CPointer<WebKitURISchemeRequest>) -> Unit>> = staticCFunction {
             request: CPointer<WebKitURISchemeRequest>?,
-            userData: COpaquePointer,
+            userData: gpointer?,
         ->
-        userData.asStableRef<(request: URISchemeRequest) -> Unit>().get().invoke(
+        userData!!.asStableRef<(request: URISchemeRequest) -> Unit>().get().invoke(
             request!!.run {
                 URISchemeRequest(reinterpret())
             }

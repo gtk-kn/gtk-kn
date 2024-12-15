@@ -20,6 +20,7 @@ import org.gtkkn.native.gdkpixbuf.GdkPixbuf
 import org.gtkkn.native.gdkpixbuf.GdkPixbufAnimation
 import org.gtkkn.native.gdkpixbuf.GdkPixbufFormat
 import org.gtkkn.native.gdkpixbuf.GdkPixbufModule
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.gsize
@@ -84,8 +85,8 @@ public object GdkPixbuf {
     }
 }
 
-public val PixbufDestroyNotifyFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
-    userData.asStableRef<() -> Unit>().get().invoke()
+public val PixbufDestroyNotifyFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { `data`: gpointer? ->
+    data!!.asStableRef<() -> Unit>().get().invoke()
 }
     .reinterpret()
 
@@ -134,9 +135,9 @@ public val PixbufModulePreparedFuncFunc:
     staticCFunction {
             pixbuf: CPointer<GdkPixbuf>?,
             anim: CPointer<GdkPixbufAnimation>?,
-            userData: COpaquePointer,
+            userData: gpointer?,
         ->
-        userData.asStableRef<(pixbuf: Pixbuf, anim: PixbufAnimation) -> Unit>().get().invoke(
+        userData!!.asStableRef<(pixbuf: Pixbuf, anim: PixbufAnimation) -> Unit>().get().invoke(
             pixbuf!!.run {
                 Pixbuf(reinterpret())
             },
@@ -158,8 +159,8 @@ public val PixbufModuleSaveOptionSupportedFuncFunc:
     }
         .reinterpret()
 
-public val PixbufModuleSizeFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
-    userData.asStableRef<() -> Unit>().get().invoke()
+public val PixbufModuleSizeFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: gpointer? ->
+    userData!!.asStableRef<() -> Unit>().get().invoke()
 }
     .reinterpret()
 
@@ -179,9 +180,9 @@ public val PixbufModuleUpdatedFuncFunc: CPointer<
         y: gint,
         width: gint,
         height: gint,
-        userData: COpaquePointer,
+        userData: gpointer?,
     ->
-    userData.asStableRef<
+    userData!!.asStableRef<
         (
             pixbuf: Pixbuf,
             x: gint,
@@ -203,9 +204,9 @@ public val PixbufModuleUpdatedFuncFunc: CPointer<
 
 public val PixbufSaveFuncFunc: CPointer<CFunction<(gsize) -> gboolean>> = staticCFunction {
         count: gsize,
-        userData: COpaquePointer,
+        `data`: gpointer?,
     ->
-    userData.asStableRef<(count: gsize) -> Boolean>().get().invoke(count).asGBoolean()
+    data!!.asStableRef<(count: gsize) -> Boolean>().get().invoke(count).asGBoolean()
 }
     .reinterpret()
 

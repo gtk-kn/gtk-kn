@@ -84,21 +84,49 @@ interface ConversionBlockGenerator {
                 )
 
                 is TypeInfo.CallbackWithDestroy -> {
-                    add(
-                        "%M.%M(), %T.create(%L).asCPointer()",
-                        type.staticPropertyMemberName,
-                        BindingsGenerator.REINTERPRET_FUNC,
-                        BindingsGenerator.STABLEREF,
-                        param.kotlinName,
-                    )
-                    if (type.hasDestroyParam) {
+                    if (param.typeInfo.kotlinTypeName.isNullable) {
                         add(
-                            ", %M.%M()",
-                            BindingsGenerator.STATIC_STABLEREF_DESTROY,
+                            "%L?.let { %M.%M() }",
+                            param.kotlinName,
+                            type.staticPropertyMemberName,
                             BindingsGenerator.REINTERPRET_FUNC,
                         )
+                        add(
+                            ", %L?.let { %T.create(%L).asCPointer() }",
+                            param.kotlinName,
+                            BindingsGenerator.STABLEREF,
+                            param.kotlinName,
+                        )
+                        if (type.hasDestroyParam) {
+                            add(
+                                ", %L?.let { %M.%M() }",
+                                param.kotlinName,
+                                BindingsGenerator.STATIC_STABLEREF_DESTROY,
+                                BindingsGenerator.REINTERPRET_FUNC,
+                            )
+                        }
+                    } else {
+                        add(
+                            "%M.%M()",
+                            type.staticPropertyMemberName,
+                            BindingsGenerator.REINTERPRET_FUNC,
+                        )
+                        add(
+                            ", %T.create(%L).asCPointer()",
+                            BindingsGenerator.STABLEREF,
+                            param.kotlinName,
+                        )
+                        if (type.hasDestroyParam) {
+                            add(
+                                ", %M.%M()",
+                                BindingsGenerator.STATIC_STABLEREF_DESTROY,
+                                BindingsGenerator.REINTERPRET_FUNC,
+                            )
+                        }
                     }
                 }
+
+                is TypeInfo.GPointer -> add("%N", param.kotlinName)
             }
         }.build()
 
@@ -144,6 +172,7 @@ interface ConversionBlockGenerator {
                 )
 
                 is TypeInfo.CallbackWithDestroy -> error("CallbackWithDestroy conversion not supported")
+                is TypeInfo.GPointer -> Unit
             }
         }.build()
 
@@ -186,6 +215,8 @@ interface ConversionBlockGenerator {
                 is TypeInfo.CallbackWithDestroy -> {
                     error("CallbackWithDestroy unsupported for native to Kotlin conversion")
                 }
+
+                is TypeInfo.GPointer -> NativeToKotlinConversions.buildGPointer(isNullable, this)
             }
         }.build()
 }
@@ -271,6 +302,13 @@ private object NativeToKotlinConversions {
                 BindingsGenerator.REINTERPRET_FUNC,
             )
             .endControlFlow()
+    }
+
+    fun buildGPointer(
+        isNullable: Boolean,
+        codeBlockBuilder: CodeBlock.Builder
+    ) {
+        codeBlockBuilder.add("%L", if (isNullable) "" else "!!")
     }
 
     fun buildGBoolean(codeBlockBuilder: CodeBlock.Builder) {

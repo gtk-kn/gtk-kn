@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -26,6 +27,8 @@ import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_74
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.native.glib.g_strdup
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GBinding
 import org.gtkkn.native.gobject.GClosure
 import org.gtkkn.native.gobject.GInterfaceInfo
@@ -40,6 +43,8 @@ import org.gtkkn.native.gobject.GTypeInterface
 import org.gtkkn.native.gobject.GTypePlugin
 import org.gtkkn.native.gobject.GTypeValueTable
 import org.gtkkn.native.gobject.GValue
+import org.gtkkn.native.gobject.g_boxed_copy
+import org.gtkkn.native.gobject.g_boxed_free
 import org.gtkkn.native.gobject.g_clear_object
 import org.gtkkn.native.gobject.g_enum_get_value
 import org.gtkkn.native.gobject.g_enum_get_value_by_name
@@ -83,6 +88,8 @@ import org.gtkkn.native.gobject.g_param_value_set_default
 import org.gtkkn.native.gobject.g_param_value_validate
 import org.gtkkn.native.gobject.g_param_values_cmp
 import org.gtkkn.native.gobject.g_pointer_type_register_static
+import org.gtkkn.native.gobject.g_signal_accumulator_first_wins
+import org.gtkkn.native.gobject.g_signal_accumulator_true_handled
 import org.gtkkn.native.gobject.g_signal_add_emission_hook
 import org.gtkkn.native.gobject.g_signal_connect_closure
 import org.gtkkn.native.gobject.g_signal_connect_closure_by_id
@@ -128,6 +135,7 @@ import org.gtkkn.native.gobject.g_type_fundamental
 import org.gtkkn.native.gobject.g_type_fundamental_next
 import org.gtkkn.native.gobject.g_type_get_instance_count
 import org.gtkkn.native.gobject.g_type_get_plugin
+import org.gtkkn.native.gobject.g_type_get_qdata
 import org.gtkkn.native.gobject.g_type_get_type_registration_serial
 import org.gtkkn.native.gobject.g_type_init
 import org.gtkkn.native.gobject.g_type_init_with_debug_flags
@@ -142,6 +150,7 @@ import org.gtkkn.native.gobject.g_type_query
 import org.gtkkn.native.gobject.g_type_register_dynamic
 import org.gtkkn.native.gobject.g_type_register_fundamental
 import org.gtkkn.native.gobject.g_type_register_static
+import org.gtkkn.native.gobject.g_type_set_qdata
 import org.gtkkn.native.gobject.g_type_test_flags
 import org.gtkkn.native.gobject.g_variant_get_gtype
 import org.gtkkn.native.gobject.gboolean
@@ -165,14 +174,10 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - alias `SignalCMarshaller`: ClosureMarshal
- * - parameter `src_boxed`: gpointer
- * - parameter `boxed`: gpointer
  * - parameter `boxed_copy`: BoxedCopyFunc
  * - parameter `handler_id_ptr`: Unsupported pointer to primitive type
  * - parameter `info`: info: Out parameter is not supported
  * - parameter `info`: info: Out parameter is not supported
- * - parameter `dummy`: gpointer
- * - parameter `dummy`: gpointer
  * - parameter `instance_and_params`: Value
  * - function `signal_chain_from_overridden_handler`: Varargs parameter is not supported
  * - parameter `destroy_data`: ClosureNotify
@@ -181,10 +186,10 @@ import kotlin.Unit
  * - function `signal_emit_by_name`: Varargs parameter is not supported
  * - parameter `var_args`: va_list
  * - function `signal_emitv`: In/Out parameter is not supported
- * - function `signal_handler_find`: Could not resolve user_data param
- * - function `signal_handlers_block_matched`: Could not resolve user_data param
- * - function `signal_handlers_disconnect_matched`: Could not resolve user_data param
- * - function `signal_handlers_unblock_matched`: Could not resolve user_data param
+ * - function `signal_handler_find`: Callback gpointer not found
+ * - function `signal_handlers_block_matched`: Callback gpointer not found
+ * - function `signal_handlers_disconnect_matched`: Callback gpointer not found
+ * - function `signal_handlers_unblock_matched`: Callback gpointer not found
  * - parameter `n_ids`: n_ids: Out parameter is not supported
  * - function `signal_new`: Varargs parameter is not supported
  * - function `signal_new_class_handler`: Varargs parameter is not supported
@@ -192,19 +197,13 @@ import kotlin.Unit
  * - parameter `c_marshaller`: ClosureMarshal
  * - parameter `class_handler`: Callback
  * - parameter `signal_id_p`: signal_id_p: Out parameter is not supported
- * - parameter `cache_data`: gpointer
- * - parameter `check_data`: gpointer
+ * - parameter `cache_func`: TypeClassCacheFunc
+ * - parameter `check_func`: TypeInterfaceCheckFunc
  * - parameter `n_children`: n_children: Out parameter is not supported
- * - function `type_get_qdata`: Return type gpointer is unsupported
  * - parameter `n_interfaces`: n_interfaces: Out parameter is not supported
  * - parameter `class_init`: ClassInitFunc
- * - parameter `cache_data`: gpointer
- * - parameter `check_data`: gpointer
- * - parameter `data`: gpointer
- * - callback `BoxedCopyFunc`: Return type gpointer is unsupported
- * - callback `TypeValueCollectFunc`: Callback with String return value is not supported
- * - callback `TypeValueLCopyFunc`: Callback with String return value is not supported
- * - callback `TypeValuePeekPointerFunc`: Return type gpointer is unsupported
+ * - parameter `cache_func`: TypeClassCacheFunc
+ * - parameter `check_func`: TypeInterfaceCheckFunc
  * - record `InitiallyUnownedClass`: glib type struct are ignored
  * - record `ParamSpecClass`: glib type struct are ignored
  * - record `TypeModuleClass`: glib type struct are ignored
@@ -309,6 +308,24 @@ public object GObject {
      * be copied if it is not ref-counted.
      */
     public const val VALUE_NOCOPY_CONTENTS: gint = 134217728
+
+    /**
+     * Provide a copy of a boxed structure @src_boxed which is of type @boxed_type.
+     *
+     * @param boxedType The type of @src_boxed.
+     * @param srcBoxed The boxed structure to be copied.
+     * @return The newly created copy of the boxed
+     *    structure.
+     */
+    public fun boxedCopy(boxedType: GType, srcBoxed: gpointer): gpointer = g_boxed_copy(boxedType, srcBoxed)!!
+
+    /**
+     * Free the boxed structure @boxed which is of type @boxed_type.
+     *
+     * @param boxedType The type of @boxed.
+     * @param boxed The boxed structure to be freed.
+     */
+    public fun boxedFree(boxedType: GType, boxed: gpointer): Unit = g_boxed_free(boxedType, boxed)
 
     /**
      * Clears a reference to a #GObject.
@@ -1170,6 +1187,67 @@ public object GObject {
     public fun pointerTypeRegisterStatic(name: String): GType = g_pointer_type_register_static(name)
 
     /**
+     * A predefined #GSignalAccumulator for signals intended to be used as a
+     * hook for application code to provide a particular value.  Usually
+     * only one such value is desired and multiple handlers for the same
+     * signal don't make much sense (except for the case of the default
+     * handler defined in the class structure, in which case you will
+     * usually want the signal connection to override the class handler).
+     *
+     * This accumulator will use the return value from the first signal
+     * handler that is run as the return value for the signal and not run
+     * any further handlers (ie: the first handler "wins").
+     *
+     * @param ihint standard #GSignalAccumulator parameter
+     * @param returnAccu standard #GSignalAccumulator parameter
+     * @param handlerReturn standard #GSignalAccumulator parameter
+     * @param dummy standard #GSignalAccumulator parameter
+     * @return standard #GSignalAccumulator result
+     * @since 2.28
+     */
+    @GObjectVersion2_28
+    public fun signalAccumulatorFirstWins(
+        ihint: SignalInvocationHint,
+        returnAccu: Value,
+        handlerReturn: Value,
+        dummy: gpointer? = null,
+    ): Boolean = g_signal_accumulator_first_wins(
+        ihint.gobjectSignalInvocationHintPointer.reinterpret(),
+        returnAccu.gobjectValuePointer.reinterpret(),
+        handlerReturn.gobjectValuePointer.reinterpret(),
+        dummy
+    ).asBoolean()
+
+    /**
+     * A predefined #GSignalAccumulator for signals that return a
+     * boolean values. The behavior that this accumulator gives is
+     * that a return of true stops the signal emission: no further
+     * callbacks will be invoked, while a return of false allows
+     * the emission to continue. The idea here is that a true return
+     * indicates that the callback handled the signal, and no further
+     * handling is needed.
+     *
+     * @param ihint standard #GSignalAccumulator parameter
+     * @param returnAccu standard #GSignalAccumulator parameter
+     * @param handlerReturn standard #GSignalAccumulator parameter
+     * @param dummy standard #GSignalAccumulator parameter
+     * @return standard #GSignalAccumulator result
+     * @since 2.4
+     */
+    @GObjectVersion2_4
+    public fun signalAccumulatorTrueHandled(
+        ihint: SignalInvocationHint,
+        returnAccu: Value,
+        handlerReturn: Value,
+        dummy: gpointer? = null,
+    ): Boolean = g_signal_accumulator_true_handled(
+        ihint.gobjectSignalInvocationHintPointer.reinterpret(),
+        returnAccu.gobjectValuePointer.reinterpret(),
+        handlerReturn.gobjectValuePointer.reinterpret(),
+        dummy
+    ).asBoolean()
+
+    /**
      * Adds an emission hook for a signal, which will get called for any emission
      * of that signal, independent of the instance. This is possible only
      * for signals which don't have %G_SIGNAL_NO_HOOKS flag set.
@@ -1774,6 +1852,20 @@ public object GObject {
     }
 
     /**
+     * Obtains data which has previously been attached to @type
+     * with g_type_set_qdata().
+     *
+     * Note that this does not take subtyping into account; data
+     * attached to one type with g_type_set_qdata() cannot
+     * be retrieved from a subtype using g_type_get_qdata().
+     *
+     * @param type a #GType
+     * @param quark a #GQuark id to identify the data
+     * @return the data, or null if no data was found
+     */
+    public fun typeGetQdata(type: GType, quark: Quark): gpointer? = g_type_get_qdata(type, quark)
+
+    /**
      * Returns an opaque serial number that represents the state of the set
      * of registered types. Any time a type is registered this serial changes,
      * which means you can cache information based on type lookups (such as
@@ -1951,6 +2043,16 @@ public object GObject {
     public fun typeRegisterStatic(parentType: GType, typeName: String, info: TypeInfo, flags: TypeFlags): GType =
         g_type_register_static(parentType, typeName, info.gobjectTypeInfoPointer.reinterpret(), flags.mask)
 
+    /**
+     * Attaches arbitrary data to a type.
+     *
+     * @param type a #GType
+     * @param quark a #GQuark id to identify the data
+     * @param data the data
+     */
+    public fun typeSetQdata(type: GType, quark: Quark, `data`: gpointer? = null): Unit =
+        g_type_set_qdata(type, quark, `data`)
+
     public fun typeTestFlags(type: GType, flags: guint): Boolean = g_type_test_flags(type, flags).asBoolean()
 
     public fun variantGetGtype(): GType = g_variant_get_gtype()
@@ -1993,9 +2095,9 @@ public val BindingTransformFuncFunc: CPointer<
         binding: CPointer<GBinding>?,
         fromValue: CPointer<GValue>?,
         toValue: CPointer<GValue>?,
-        userData: COpaquePointer,
+        userData: gpointer?,
     ->
-    userData.asStableRef<
+    userData!!.asStableRef<
         (
             binding: Binding,
             fromValue: Value,
@@ -2015,8 +2117,19 @@ public val BindingTransformFuncFunc: CPointer<
 }
     .reinterpret()
 
-public val BoxedFreeFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
-    userData.asStableRef<() -> Unit>().get().invoke()
+public val BoxedCopyFuncFunc: CPointer<CFunction<(gpointer) -> gpointer>> = staticCFunction {
+        boxed: gpointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(boxed: gpointer) -> gpointer>().get().invoke(boxed!!)
+}
+    .reinterpret()
+
+public val BoxedFreeFuncFunc: CPointer<CFunction<(gpointer) -> Unit>> = staticCFunction {
+        boxed: gpointer,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(boxed: gpointer) -> Unit>().get().invoke(boxed!!)
 }
     .reinterpret()
 
@@ -2025,28 +2138,32 @@ public val CallbackFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { use
 }
     .reinterpret()
 
-public val ClassFinalizeFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> Unit>> =
+public val ClassFinalizeFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>, gpointer?) -> Unit>> =
     staticCFunction {
             gClass: CPointer<GTypeClass>?,
+            classData: gpointer?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(gClass: TypeClass) -> Unit>().get().invoke(
+        userData.asStableRef<(gClass: TypeClass, classData: gpointer?) -> Unit>().get().invoke(
             gClass!!.run {
                 TypeClass(reinterpret())
-            }
+            },
+            classData
         )
     }
         .reinterpret()
 
-public val ClassInitFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> Unit>> =
+public val ClassInitFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>, gpointer?) -> Unit>> =
     staticCFunction {
             gClass: CPointer<GTypeClass>?,
+            classData: gpointer?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(gClass: TypeClass) -> Unit>().get().invoke(
+        userData.asStableRef<(gClass: TypeClass, classData: gpointer?) -> Unit>().get().invoke(
             gClass!!.run {
                 TypeClass(reinterpret())
-            }
+            },
+            classData
         )
     }
         .reinterpret()
@@ -2057,12 +2174,16 @@ public val ClosureMarshalFunc: CPointer<
             CPointer<GClosure>,
             CPointer<GValue>?,
             guint,
+            gpointer?,
+            gpointer?,
         ) -> Unit
         >
     > = staticCFunction {
         closure: CPointer<GClosure>?,
         returnValue: CPointer<GValue>?,
         nParamValues: guint,
+        invocationHint: gpointer?,
+        marshalData: gpointer?,
         userData: COpaquePointer,
     ->
     userData.asStableRef<
@@ -2070,6 +2191,8 @@ public val ClosureMarshalFunc: CPointer<
             closure: Closure,
             returnValue: Value?,
             nParamValues: guint,
+            invocationHint: gpointer?,
+            marshalData: gpointer?,
         ) -> Unit
         >().get().invoke(
         closure!!.run {
@@ -2078,22 +2201,27 @@ public val ClosureMarshalFunc: CPointer<
         returnValue?.run {
             Value(reinterpret())
         },
-        nParamValues
+        nParamValues,
+        invocationHint,
+        marshalData
     )
 }
     .reinterpret()
 
-public val ClosureNotifyFunc: CPointer<CFunction<(CPointer<GClosure>) -> Unit>> = staticCFunction {
-        closure: CPointer<GClosure>?,
-        userData: COpaquePointer,
-    ->
-    userData.asStableRef<(closure: Closure) -> Unit>().get().invoke(
-        closure!!.run {
-            Closure(reinterpret())
-        }
-    )
-}
-    .reinterpret()
+public val ClosureNotifyFunc: CPointer<CFunction<(gpointer?, CPointer<GClosure>) -> Unit>> =
+    staticCFunction {
+            `data`: gpointer?,
+            closure: CPointer<GClosure>?,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<(`data`: gpointer?, closure: Closure) -> Unit>().get().invoke(
+            `data`,
+            closure!!.run {
+                Closure(reinterpret())
+            }
+        )
+    }
+        .reinterpret()
 
 public val InstanceInitFuncFunc:
     CPointer<CFunction<(CPointer<GTypeInstance>, CPointer<GTypeClass>) -> Unit>> =
@@ -2113,28 +2241,32 @@ public val InstanceInitFuncFunc:
     }
         .reinterpret()
 
-public val InterfaceFinalizeFuncFunc: CPointer<CFunction<(CPointer<GTypeInterface>) -> Unit>> =
-    staticCFunction {
+public val InterfaceFinalizeFuncFunc:
+    CPointer<CFunction<(CPointer<GTypeInterface>, gpointer?) -> Unit>> = staticCFunction {
             gIface: CPointer<GTypeInterface>?,
+            ifaceData: gpointer?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(gIface: TypeInterface) -> Unit>().get().invoke(
+        userData.asStableRef<(gIface: TypeInterface, ifaceData: gpointer?) -> Unit>().get().invoke(
             gIface!!.run {
                 TypeInterface(reinterpret())
-            }
+            },
+            ifaceData
         )
     }
         .reinterpret()
 
-public val InterfaceInitFuncFunc: CPointer<CFunction<(CPointer<GTypeInterface>) -> Unit>> =
+public val InterfaceInitFuncFunc: CPointer<CFunction<(CPointer<GTypeInterface>, gpointer?) -> Unit>> =
     staticCFunction {
             gIface: CPointer<GTypeInterface>?,
+            ifaceData: gpointer?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(gIface: TypeInterface) -> Unit>().get().invoke(
+        userData.asStableRef<(gIface: TypeInterface, ifaceData: gpointer?) -> Unit>().get().invoke(
             gIface!!.run {
                 TypeInterface(reinterpret())
-            }
+            },
+            ifaceData
         )
     }
         .reinterpret()
@@ -2234,12 +2366,14 @@ public val SignalAccumulatorFunc: CPointer<
             CPointer<GSignalInvocationHint>,
             CPointer<GValue>,
             CPointer<GValue>,
+            gpointer?,
         ) -> gboolean
         >
     > = staticCFunction {
         ihint: CPointer<GSignalInvocationHint>?,
         returnAccu: CPointer<GValue>?,
         handlerReturn: CPointer<GValue>?,
+        `data`: gpointer?,
         userData: COpaquePointer,
     ->
     userData.asStableRef<
@@ -2247,6 +2381,7 @@ public val SignalAccumulatorFunc: CPointer<
             ihint: SignalInvocationHint,
             returnAccu: Value,
             handlerReturn: Value,
+            `data`: gpointer?,
         ) -> Boolean
         >().get().invoke(
         ihint!!.run {
@@ -2257,48 +2392,80 @@ public val SignalAccumulatorFunc: CPointer<
         },
         handlerReturn!!.run {
             Value(reinterpret())
-        }
+        },
+        `data`
     ).asGBoolean()
 }
     .reinterpret()
 
-public val SignalEmissionHookFunc:
-    CPointer<CFunction<(CPointer<GSignalInvocationHint>, guint) -> gboolean>> =
-    staticCFunction {
-            ihint: CPointer<GSignalInvocationHint>?,
+public val SignalEmissionHookFunc: CPointer<
+    CFunction<
+        (
+            CPointer<GSignalInvocationHint>,
+            guint,
+            gpointer?,
+        ) -> gboolean
+        >
+    > = staticCFunction {
+        ihint: CPointer<GSignalInvocationHint>?,
+        nParamValues: guint,
+        `data`: gpointer?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            ihint: SignalInvocationHint,
             nParamValues: guint,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(ihint: SignalInvocationHint, nParamValues: guint) -> Boolean>().get().invoke(
-            ihint!!.run {
-                SignalInvocationHint(reinterpret())
-            },
-            nParamValues
-        ).asGBoolean()
-    }
-        .reinterpret()
+            `data`: gpointer?,
+        ) -> Boolean
+        >().get().invoke(
+        ihint!!.run {
+            SignalInvocationHint(reinterpret())
+        },
+        nParamValues,
+        `data`
+    ).asGBoolean()
+}
+    .reinterpret()
 
-public val ToggleNotifyFunc: CPointer<CFunction<(CPointer<GObject>, gboolean) -> Unit>> =
-    staticCFunction {
-            `object`: CPointer<GObject>?,
-            isLastRef: gboolean,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(`object`: Object, isLastRef: Boolean) -> Unit>().get().invoke(
-            `object`!!.run {
-                Object(reinterpret())
-            },
-            isLastRef.asBoolean()
-        )
-    }
-        .reinterpret()
+public val ToggleNotifyFunc: CPointer<
+    CFunction<
+        (
+            gpointer?,
+            CPointer<GObject>,
+            gboolean,
+        ) -> Unit
+        >
+    > = staticCFunction {
+        `data`: gpointer?,
+        `object`: CPointer<GObject>?,
+        isLastRef: gboolean,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            `data`: gpointer?,
+            `object`: Object,
+            isLastRef: Boolean,
+        ) -> Unit
+        >().get().invoke(
+        `data`,
+        `object`!!.run {
+            Object(reinterpret())
+        },
+        isLastRef.asBoolean()
+    )
+}
+    .reinterpret()
 
-public val TypeClassCacheFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> gboolean>> =
-    staticCFunction {
+public val TypeClassCacheFuncFunc:
+    CPointer<CFunction<(gpointer?, CPointer<GTypeClass>) -> gboolean>> = staticCFunction {
+            cacheData: gpointer?,
             gClass: CPointer<GTypeClass>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(gClass: TypeClass) -> Boolean>().get().invoke(
+        userData.asStableRef<(cacheData: gpointer?, gClass: TypeClass) -> Boolean>().get().invoke(
+            cacheData,
             gClass!!.run {
                 TypeClass(reinterpret())
             }
@@ -2306,12 +2473,14 @@ public val TypeClassCacheFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> 
     }
         .reinterpret()
 
-public val TypeInterfaceCheckFuncFunc: CPointer<CFunction<(CPointer<GTypeInterface>) -> Unit>> =
-    staticCFunction {
+public val TypeInterfaceCheckFuncFunc:
+    CPointer<CFunction<(gpointer?, CPointer<GTypeInterface>) -> Unit>> = staticCFunction {
+            checkData: gpointer?,
             gIface: CPointer<GTypeInterface>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(gIface: TypeInterface) -> Unit>().get().invoke(
+        userData.asStableRef<(checkData: gpointer?, gIface: TypeInterface) -> Unit>().get().invoke(
+            checkData,
             gIface!!.run {
                 TypeInterface(reinterpret())
             }
@@ -2419,6 +2588,36 @@ public val TypePluginUseFunc: CPointer<CFunction<(CPointer<GTypePlugin>) -> Unit
     }
         .reinterpret()
 
+public val TypeValueCollectFuncFunc: CPointer<
+    CFunction<
+        (
+            CPointer<GValue>,
+            guint,
+            guint,
+        ) -> CPointer<ByteVar>?
+        >
+    > = staticCFunction {
+        `value`: CPointer<GValue>?,
+        nCollectValues: guint,
+        collectFlags: guint,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            `value`: Value,
+            nCollectValues: guint,
+            collectFlags: guint,
+        ) -> String?
+        >().get().invoke(
+        `value`!!.run {
+            Value(reinterpret())
+        },
+        nCollectValues,
+        collectFlags
+    )?.let { g_strdup(it) }
+}
+    .reinterpret()
+
 public val TypeValueCopyFuncFunc: CPointer<CFunction<(CPointer<GValue>, CPointer<GValue>) -> Unit>> =
     staticCFunction {
             srcValue: CPointer<GValue>?,
@@ -2462,6 +2661,49 @@ public val TypeValueInitFuncFunc: CPointer<CFunction<(CPointer<GValue>) -> Unit>
     }
         .reinterpret()
 
+public val TypeValueLCopyFuncFunc: CPointer<
+    CFunction<
+        (
+            CPointer<GValue>,
+            guint,
+            guint,
+        ) -> CPointer<ByteVar>?
+        >
+    > = staticCFunction {
+        `value`: CPointer<GValue>?,
+        nCollectValues: guint,
+        collectFlags: guint,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            `value`: Value,
+            nCollectValues: guint,
+            collectFlags: guint,
+        ) -> String?
+        >().get().invoke(
+        `value`!!.run {
+            Value(reinterpret())
+        },
+        nCollectValues,
+        collectFlags
+    )?.let { g_strdup(it) }
+}
+    .reinterpret()
+
+public val TypeValuePeekPointerFuncFunc: CPointer<CFunction<(CPointer<GValue>) -> gpointer?>> =
+    staticCFunction {
+            `value`: CPointer<GValue>?,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<(`value`: Value) -> gpointer?>().get().invoke(
+            `value`!!.run {
+                Value(reinterpret())
+            }
+        )
+    }
+        .reinterpret()
+
 public val ValueTransformFunc: CPointer<CFunction<(CPointer<GValue>, CPointer<GValue>) -> Unit>> =
     staticCFunction {
             srcValue: CPointer<GValue>?,
@@ -2479,17 +2721,25 @@ public val ValueTransformFunc: CPointer<CFunction<(CPointer<GValue>, CPointer<GV
     }
         .reinterpret()
 
-public val WeakNotifyFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> = staticCFunction {
-        whereTheObjectWas: CPointer<GObject>?,
-        userData: COpaquePointer,
-    ->
-    userData.asStableRef<(whereTheObjectWas: Object) -> Unit>().get().invoke(
-        whereTheObjectWas!!.run {
-            Object(reinterpret())
-        }
-    )
-}
-    .reinterpret()
+public val WeakNotifyFunc: CPointer<CFunction<(gpointer?, CPointer<GObject>) -> Unit>> =
+    staticCFunction {
+            `data`: gpointer?,
+            whereTheObjectWas: CPointer<GObject>?,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<
+            (
+                `data`: gpointer?,
+                whereTheObjectWas: Object,
+            ) -> Unit
+            >().get().invoke(
+            `data`,
+            whereTheObjectWas!!.run {
+                Object(reinterpret())
+            }
+        )
+    }
+        .reinterpret()
 
 /**
  * A callback function used by the type system to finalize those portions
@@ -2544,10 +2794,21 @@ public typealias BindingTransformFunc = (
 ) -> Boolean
 
 /**
+ * This function is provided by the user and should produce a copy
+ * of the passed in boxed structure.
+ *
+ * - param `boxed` The boxed structure to be copied.
+ * - return The newly created copy of the boxed structure.
+ */
+public typealias BoxedCopyFunc = (boxed: gpointer) -> gpointer
+
+/**
  * This function is provided by the user and should free the boxed
  * structure passed.
+ *
+ * - param `boxed` The boxed structure to be freed.
  */
-public typealias BoxedFreeFunc = () -> Unit
+public typealias BoxedFreeFunc = (boxed: gpointer) -> Unit
 
 /**
  * The type used for callback functions in structure definitions and function
@@ -2573,8 +2834,9 @@ public typealias Callback = () -> Unit
  * reference count drops to zero).
  *
  * - param `gClass` The #GTypeClass structure to finalize
+ * - param `classData` The @class_data member supplied via the #GTypeInfo structure
  */
-public typealias ClassFinalizeFunc = (gClass: TypeClass) -> Unit
+public typealias ClassFinalizeFunc = (gClass: TypeClass, classData: gpointer?) -> Unit
 
 /**
  * A callback function used by the type system to initialize the class
@@ -2676,8 +2938,9 @@ public typealias ClassFinalizeFunc = (gClass: TypeClass) -> Unit
  * time.
  *
  * - param `gClass` The #GTypeClass structure to initialize.
+ * - param `classData` The @class_data member supplied via the #GTypeInfo structure.
  */
-public typealias ClassInitFunc = (gClass: TypeClass) -> Unit
+public typealias ClassInitFunc = (gClass: TypeClass, classData: gpointer?) -> Unit
 
 /**
  * The type used for marshaller functions.
@@ -2687,20 +2950,28 @@ public typealias ClassInitFunc = (gClass: TypeClass) -> Unit
  *  value. May be null if the callback of @closure doesn't return a
  *  value.
  * - param `nParamValues` the length of the @param_values array
+ * - param `invocationHint` the invocation hint given as the
+ *  last argument to g_closure_invoke()
+ * - param `marshalData` additional data specified when
+ *  registering the marshaller, see g_closure_set_marshal() and
+ *  g_closure_set_meta_marshal()
  */
 public typealias ClosureMarshal = (
     closure: Closure,
     returnValue: Value?,
     nParamValues: guint,
+    invocationHint: gpointer?,
+    marshalData: gpointer?,
 ) -> Unit
 
 /**
  * The type used for the various notification callbacks which can be registered
  * on closures.
  *
+ * - param `data` data specified when registering the notification callback
  * - param `closure` the #GClosure on which the notification is emitted
  */
-public typealias ClosureNotify = (closure: Closure) -> Unit
+public typealias ClosureNotify = (`data`: gpointer?, closure: Closure) -> Unit
 
 /**
  * A callback function used by the type system to initialize a new
@@ -2730,8 +3001,9 @@ public typealias InstanceInitFunc = (instance: TypeInstance, gClass: TypeClass) 
  * allocated by the corresponding GInterfaceInitFunc() function.
  *
  * - param `gIface` The interface structure to finalize
+ * - param `ifaceData` The @interface_data supplied via the #GInterfaceInfo structure
  */
-public typealias InterfaceFinalizeFunc = (gIface: TypeInterface) -> Unit
+public typealias InterfaceFinalizeFunc = (gIface: TypeInterface, ifaceData: gpointer?) -> Unit
 
 /**
  * A callback function used by the type system to initialize a new
@@ -2744,8 +3016,9 @@ public typealias InterfaceFinalizeFunc = (gIface: TypeInterface) -> Unit
  * zeros before this function is called.
  *
  * - param `gIface` The interface structure to initialize
+ * - param `ifaceData` The @interface_data supplied via the #GInterfaceInfo structure
  */
-public typealias InterfaceInitFunc = (gIface: TypeInterface) -> Unit
+public typealias InterfaceInitFunc = (gIface: TypeInterface, ifaceData: gpointer?) -> Unit
 
 /**
  * The type of the @finalize function of #GObjectClass.
@@ -2800,6 +3073,7 @@ public typealias ObjectSetPropertyFunc = (
  * - param `returnAccu` Accumulator to collect callback return values in, this
  *  is the return value of the current signal emission.
  * - param `handlerReturn` A #GValue holding the return value of the signal handler.
+ * - param `data` Callback data that was specified when creating the signal.
  * - return The accumulator function returns whether the signal emission
  *  should be aborted. Returning true will continue with
  *  the signal emission. Returning false will abort the current emission.
@@ -2811,6 +3085,7 @@ public typealias SignalAccumulator = (
     ihint: SignalInvocationHint,
     returnAccu: Value,
     handlerReturn: Value,
+    `data`: gpointer?,
 ) -> Boolean
 
 /**
@@ -2824,10 +3099,15 @@ public typealias SignalAccumulator = (
  * - param `ihint` Signal invocation hint, see #GSignalInvocationHint.
  * - param `nParamValues` the number of parameters to the function, including
  *  the instance on which the signal was emitted.
+ * - param `data` user data associated with the hook.
  * - return whether it wants to stay connected. If it returns false, the signal
  *  hook is disconnected (and destroyed).
  */
-public typealias SignalEmissionHook = (ihint: SignalInvocationHint, nParamValues: guint) -> Boolean
+public typealias SignalEmissionHook = (
+    ihint: SignalInvocationHint,
+    nParamValues: guint,
+    `data`: gpointer?,
+) -> Boolean
 
 /**
  * A callback function used for notification when the state
@@ -2835,13 +3115,18 @@ public typealias SignalEmissionHook = (ihint: SignalInvocationHint, nParamValues
  *
  * See also: g_object_add_toggle_ref()
  *
+ * - param `data` Callback data passed to g_object_add_toggle_ref()
  * - param `object` The object on which g_object_add_toggle_ref() was called.
  * - param `isLastRef` true if the toggle reference is now the
  *  last reference to the object. false if the toggle
  *  reference was the last reference and there are now other
  *  references.
  */
-public typealias ToggleNotify = (`object`: Object, isLastRef: Boolean) -> Unit
+public typealias ToggleNotify = (
+    `data`: gpointer?,
+    `object`: Object,
+    isLastRef: Boolean,
+) -> Unit
 
 /**
  * A callback function which is called when the reference count of a class
@@ -2855,22 +3140,24 @@ public typealias ToggleNotify = (`object`: Object, isLastRef: Boolean) -> Unit
  * whether they actually want to cache the class of this type, since all
  * classes are routed through the same #GTypeClassCacheFunc chain.
  *
+ * - param `cacheData` data that was given to the g_type_add_class_cache_func() call
  * - param `gClass` The #GTypeClass structure which is
  *    unreferenced
  * - return true to stop further #GTypeClassCacheFuncs from being
  *  called, false to continue
  */
-public typealias TypeClassCacheFunc = (gClass: TypeClass) -> Boolean
+public typealias TypeClassCacheFunc = (cacheData: gpointer?, gClass: TypeClass) -> Boolean
 
 /**
  * A callback called after an interface vtable is initialized.
  *
  * See g_type_add_interface_check().
  *
+ * - param `checkData` data passed to g_type_add_interface_check()
  * - param `gIface` the interface that has been
  *    initialized
  */
-public typealias TypeInterfaceCheckFunc = (gIface: TypeInterface) -> Unit
+public typealias TypeInterfaceCheckFunc = (checkData: gpointer?, gIface: TypeInterface) -> Unit
 
 /**
  * The type of the @complete_interface_info function of #GTypePluginClass.
@@ -2917,6 +3204,91 @@ public typealias TypePluginUnuse = (plugin: TypePlugin) -> Unit
  * - param `plugin` the #GTypePlugin whose use count should be increased
  */
 public typealias TypePluginUse = (plugin: TypePlugin) -> Unit
+
+/**
+ * This function is responsible for converting the values collected from
+ * a variadic argument list into contents suitable for storage in a #GValue.
+ *
+ * This function should setup @value similar to #GTypeValueInitFunc; e.g.
+ * for a string value that does not allow `NULL` pointers, it needs to either
+ * emit an error, or do an implicit conversion by storing an empty string.
+ *
+ * The @value passed in to this function has a zero-filled data array, so
+ * just like for #GTypeValueInitFunc it is guaranteed to not contain any old
+ * contents that might need freeing.
+ *
+ * The @n_collect_values argument is the string length of the `collect_format`
+ * field of #GTypeValueTable, and `collect_values` is an array of #GTypeCValue
+ * with length of @n_collect_values, containing the collected values according
+ * to `collect_format`.
+ *
+ * The @collect_flags argument provided as a hint by the caller. It may
+ * contain the flag %G_VALUE_NOCOPY_CONTENTS indicating that the collected
+ * value contents may be considered ‘static’ for the duration of the @value
+ * lifetime. Thus an extra copy of the contents stored in @collect_values is
+ * not required for assignment to @value.
+ *
+ * For our above string example, we continue with:
+ *
+ * |[<!-- language="C" -->
+ * if (!collect_values[0].v_pointer)
+ *   value->data[0].v_pointer = g_strdup ("");
+ * else if (collect_flags & G_VALUE_NOCOPY_CONTENTS)
+ *   {
+ *     value->data[0].v_pointer = collect_values[0].v_pointer;
+ *     // keep a flag for the value_free() implementation to not free this string
+ *     value->data[1].v_uint = G_VALUE_NOCOPY_CONTENTS;
+ *   }
+ * else
+ *   value->data[0].v_pointer = g_strdup (collect_values[0].v_pointer);
+ * return NULL;
+ * ]|
+ *
+ * It should be noted, that it is generally a bad idea to follow the
+ * %G_VALUE_NOCOPY_CONTENTS hint for reference counted types. Due to
+ * reentrancy requirements and reference count assertions performed
+ * by the signal emission code, reference counts should always be
+ * incremented for reference counted contents stored in the `value->data`
+ * array. To deviate from our string example for a moment, and taking
+ * a look at an exemplary implementation for `GTypeValueTable.collect_value()`
+ * of `GObject`:
+ *
+ * |[<!-- language="C" -->
+ * GObject *object = G_OBJECT (collect_values[0].v_pointer);
+ * g_return_val_if_fail (object != NULL,
+ *    g_strdup_printf ("Object %p passed as invalid NULL pointer", object));
+ * // never honour G_VALUE_NOCOPY_CONTENTS for ref-counted types
+ * value->data[0].v_pointer = g_object_ref (object);
+ * return NULL;
+ * ]|
+ *
+ * The reference count for valid objects is always incremented, regardless
+ * of `collect_flags`. For invalid objects, the example returns a newly
+ * allocated string without altering `value`.
+ *
+ * Upon success, `collect_value()` needs to return `NULL`. If, however,
+ * an error condition occurred, `collect_value()` should return a newly
+ * allocated string containing an error diagnostic.
+ *
+ * The calling code makes no assumptions about the `value` contents being
+ * valid upon error returns, `value` is simply thrown away without further
+ * freeing. As such, it is a good idea to not allocate `GValue` contents
+ * prior to returning an error; however, `collect_values()` is not obliged
+ * to return a correctly setup @value for error returns, simply because
+ * any non-`NULL` return is considered a fatal programming error, and
+ * further program behaviour is undefined.
+ *
+ * - param `value` the value to initialize
+ * - param `nCollectValues` the number of collected values
+ * - param `collectFlags` optional flags
+ * - return `NULL` on success, otherwise a
+ *   newly allocated error string on failure
+ */
+public typealias TypeValueCollectFunc = (
+    `value`: Value,
+    nCollectValues: guint,
+    collectFlags: guint,
+) -> String?
 
 /**
  * Copies the content of a #GValue into another.
@@ -2972,6 +3344,77 @@ public typealias TypeValueFreeFunc = (`value`: Value) -> Unit
 public typealias TypeValueInitFunc = (`value`: Value) -> Unit
 
 /**
+ * This function is responsible for storing the `value`
+ * contents into arguments passed through a variadic argument list which
+ * got collected into `collect_values` according to `lcopy_format`.
+ *
+ * The `n_collect_values` argument equals the string length of
+ * `lcopy_format`, and `collect_flags` may contain %G_VALUE_NOCOPY_CONTENTS.
+ *
+ * In contrast to #GTypeValueCollectFunc, this function is obliged to always
+ * properly support %G_VALUE_NOCOPY_CONTENTS.
+ *
+ * Similar to #GTypeValueCollectFunc the function may prematurely abort by
+ * returning a newly allocated string describing an error condition. To
+ * complete the string example:
+ *
+ * |[<!-- language="C" -->
+ * gchar **string_p = collect_values[0].v_pointer;
+ * g_return_val_if_fail (string_p != NULL,
+ *   g_strdup ("string location passed as NULL"));
+ *
+ * if (collect_flags & G_VALUE_NOCOPY_CONTENTS)
+ *   *string_p = value->data[0].v_pointer;
+ * else
+ *   *string_p = g_strdup (value->data[0].v_pointer);
+ * ]|
+ *
+ * And an illustrative version of this function for reference-counted
+ * types:
+ *
+ * |[<!-- language="C" -->
+ * GObject **object_p = collect_values[0].v_pointer;
+ * g_return_val_if_fail (object_p != NULL,
+ *   g_strdup ("object location passed as NULL"));
+ *
+ * if (value->data[0].v_pointer == NULL)
+ *   *object_p = NULL;
+ * else if (collect_flags & G_VALUE_NOCOPY_CONTENTS) // always honour
+ *   *object_p = value->data[0].v_pointer;
+ * else
+ *   *object_p = g_object_ref (value->data[0].v_pointer);
+ *
+ * return NULL;
+ * ]|
+ *
+ * - param `value` the value to lcopy
+ * - param `nCollectValues` the number of collected values
+ * - param `collectFlags` optional flags
+ * - return `NULL` on success, otherwise
+ *   a newly allocated error string on failure
+ */
+public typealias TypeValueLCopyFunc = (
+    `value`: Value,
+    nCollectValues: guint,
+    collectFlags: guint,
+) -> String?
+
+/**
+ * If the value contents fit into a pointer, such as objects or strings,
+ * return this pointer, so the caller can peek at the current contents.
+ *
+ * To extend on our above string example:
+ *
+ * |[<!-- language="C" -->
+ * return value->data[0].v_pointer;
+ * ]|
+ *
+ * - param `value` the value to peek
+ * - return a pointer to the value contents
+ */
+public typealias TypeValuePeekPointerFunc = (`value`: Value) -> gpointer?
+
+/**
  * The type of value transformation functions which can be registered with
  * g_value_register_transform_func().
  *
@@ -2995,9 +3438,10 @@ public typealias ValueTransform = (srcValue: Value, destValue: Value) -> Unit
  * g_object_weak_ref(), g_object_add_weak_pointer() or any function which calls
  * them on the object from this callback.
  *
+ * - param `data` data that was provided when the weak reference was established
  * - param `whereTheObjectWas` the object being disposed
  */
-public typealias WeakNotify = (whereTheObjectWas: Object) -> Unit
+public typealias WeakNotify = (`data`: gpointer?, whereTheObjectWas: Object) -> Unit
 
 /**
  * A numerical value which represents the unique identifier of a registered

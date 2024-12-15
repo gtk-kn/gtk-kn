@@ -534,14 +534,16 @@ public open class Session(pointer: CPointer<SoupSession>) :
         msg: Message,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = soup_session_preconnect_async(
         soupSessionPointer.reinterpret(),
         msg.soupMessagePointer.reinterpret(),
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -675,14 +677,16 @@ public open class Session(pointer: CPointer<SoupSession>) :
         msg: Message,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = soup_session_send_and_read_async(
         soupSessionPointer.reinterpret(),
         msg.soupMessagePointer.reinterpret(),
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -768,7 +772,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
         flags: OutputStreamSpliceFlags,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = soup_session_send_and_splice_async(
         soupSessionPointer.reinterpret(),
         msg.soupMessagePointer.reinterpret(),
@@ -776,8 +780,10 @@ public open class Session(pointer: CPointer<SoupSession>) :
         flags.mask,
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -822,14 +828,16 @@ public open class Session(pointer: CPointer<SoupSession>) :
         msg: Message,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = soup_session_send_async(
         soupSessionPointer.reinterpret(),
         msg.soupMessagePointer.reinterpret(),
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -918,7 +926,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
         protocols: List<String>? = null,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = memScoped {
         return soup_session_websocket_connect_async(
             soupSessionPointer.reinterpret(),
@@ -927,8 +935,10 @@ public open class Session(pointer: CPointer<SoupSession>) :
             protocols?.toCStringList(this),
             ioPriority,
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
     }
 

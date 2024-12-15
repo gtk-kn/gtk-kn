@@ -468,11 +468,13 @@ public open class ComboBox(pointer: CPointer<GtkComboBox>) :
      *
      * @param func a `GtkTreeViewRowSeparatorFunc`
      */
-    public open fun setRowSeparatorFunc(func: TreeViewRowSeparatorFunc): Unit = gtk_combo_box_set_row_separator_func(
+    public open fun setRowSeparatorFunc(func: TreeViewRowSeparatorFunc?): Unit = gtk_combo_box_set_row_separator_func(
         gtkComboBoxPointer.reinterpret(),
-        TreeViewRowSeparatorFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer(),
-        staticStableRefDestroy.reinterpret()
+        func?.let {
+            TreeViewRowSeparatorFuncFunc.reinterpret()
+        },
+        func?.let { StableRef.create(func).asCPointer() },
+        func?.let { staticStableRefDestroy.reinterpret() }
     )
 
     /**

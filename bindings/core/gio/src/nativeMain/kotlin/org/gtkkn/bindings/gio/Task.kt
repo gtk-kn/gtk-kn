@@ -36,13 +36,17 @@ import org.gtkkn.native.gio.g_task_get_name
 import org.gtkkn.native.gio.g_task_get_priority
 import org.gtkkn.native.gio.g_task_get_return_on_cancel
 import org.gtkkn.native.gio.g_task_get_source_object
+import org.gtkkn.native.gio.g_task_get_source_tag
+import org.gtkkn.native.gio.g_task_get_task_data
 import org.gtkkn.native.gio.g_task_get_type
 import org.gtkkn.native.gio.g_task_had_error
 import org.gtkkn.native.gio.g_task_is_valid
 import org.gtkkn.native.gio.g_task_new
 import org.gtkkn.native.gio.g_task_propagate_boolean
 import org.gtkkn.native.gio.g_task_propagate_int
+import org.gtkkn.native.gio.g_task_propagate_pointer
 import org.gtkkn.native.gio.g_task_propagate_value
+import org.gtkkn.native.gio.g_task_report_error
 import org.gtkkn.native.gio.g_task_return_boolean
 import org.gtkkn.native.gio.g_task_return_error
 import org.gtkkn.native.gio.g_task_return_error_if_cancelled
@@ -53,8 +57,10 @@ import org.gtkkn.native.gio.g_task_set_check_cancellable
 import org.gtkkn.native.gio.g_task_set_name
 import org.gtkkn.native.gio.g_task_set_priority
 import org.gtkkn.native.gio.g_task_set_return_on_cancel
+import org.gtkkn.native.gio.g_task_set_source_tag
 import org.gtkkn.native.gio.g_task_set_static_name
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
@@ -590,17 +596,12 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `callback`: GLib.SourceFunc
- * - method `get_source_tag`: Return type gpointer is unsupported
- * - method `get_task_data`: Return type gpointer is unsupported
- * - method `propagate_pointer`: Return type gpointer is unsupported
  * - method `return_new_error`: Varargs parameter is not supported
- * - parameter `result`: gpointer
+ * - parameter `result_destroy`: GLib.DestroyNotify
  * - method `return_prefixed_error`: Varargs parameter is not supported
  * - parameter `task_func`: TaskThreadFunc
  * - parameter `task_func`: TaskThreadFunc
- * - parameter `source_tag`: gpointer
- * - parameter `task_data`: gpointer
- * - parameter `source_tag`: gpointer
+ * - parameter `task_data_destroy`: GLib.DestroyNotify
  * - function `report_new_error`: Varargs parameter is not supported
  */
 public open class Task(pointer: CPointer<GTask>) :
@@ -675,13 +676,15 @@ public open class Task(pointer: CPointer<GTask>) :
     public constructor(
         sourceObject: Object? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ) : this(
         g_task_new(
             sourceObject?.gPointer?.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )!!.reinterpret()
     )
 
@@ -763,6 +766,24 @@ public open class Task(pointer: CPointer<GTask>) :
     }
 
     /**
+     * Gets @task's source tag. See g_task_set_source_tag().
+     *
+     * @return @task's source tag
+     * @since 2.36
+     */
+    @GioVersion2_36
+    public open fun getSourceTag(): gpointer? = g_task_get_source_tag(gioTaskPointer.reinterpret())
+
+    /**
+     * Gets @task's `task_data`.
+     *
+     * @return @task's `task_data`.
+     * @since 2.36
+     */
+    @GioVersion2_36
+    public open fun getTaskData(): gpointer? = g_task_get_task_data(gioTaskPointer.reinterpret())
+
+    /**
      * Tests if @task resulted in an error.
      *
      * @return true if the task resulted in an error, false otherwise.
@@ -810,6 +831,30 @@ public open class Task(pointer: CPointer<GTask>) :
     public open fun propagateInt(): Result<Long> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_task_propagate_int(gioTaskPointer.reinterpret(), gError.ptr)
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
+        }
+    }
+
+    /**
+     * Gets the result of @task as a pointer, and transfers ownership
+     * of that value to the caller.
+     *
+     * If the task resulted in an error, or was cancelled, then this will
+     * instead return null and set @error.
+     *
+     * Since this method transfers ownership of the return value (or
+     * error) to the caller, you may only call it once.
+     *
+     * @return the task result, or null on error
+     * @since 2.36
+     */
+    @GioVersion2_36
+    public open fun propagatePointer(): Result<gpointer?> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_task_propagate_pointer(gioTaskPointer.reinterpret(), gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -1040,6 +1085,27 @@ public open class Task(pointer: CPointer<GTask>) :
         g_task_set_return_on_cancel(gioTaskPointer.reinterpret(), returnOnCancel.asGBoolean()).asBoolean()
 
     /**
+     * Sets @task's source tag.
+     *
+     * You can use this to tag a task return
+     * value with a particular pointer (usually a pointer to the function
+     * doing the tagging) and then later check it using
+     * g_task_get_source_tag() (or g_async_result_is_tagged()) in the
+     * task's "finish" function, to figure out if the response came from a
+     * particular place.
+     *
+     * A macro wrapper around this function will automatically set the
+     * task’s name to the string form of @source_tag if it’s not already
+     * set, for convenience.
+     *
+     * @param sourceTag an opaque pointer indicating the source of this task
+     * @since 2.36
+     */
+    @GioVersion2_36
+    public open fun setSourceTag(sourceTag: gpointer? = null): Unit =
+        g_task_set_source_tag(gioTaskPointer.reinterpret(), sourceTag)
+
+    /**
      * Sets @task’s name, used in debugging and profiling.
      *
      * This is a variant of g_task_set_name() that avoids copying @name.
@@ -1074,6 +1140,39 @@ public open class Task(pointer: CPointer<GTask>) :
         @GioVersion2_36
         public fun isValid(result: AsyncResult, sourceObject: Object? = null): Boolean =
             g_task_is_valid(result.gioAsyncResultPointer, sourceObject?.gPointer?.reinterpret()).asBoolean()
+
+        /**
+         * Creates a #GTask and then immediately calls g_task_return_error()
+         * on it. Use this in the wrapper function of an asynchronous method
+         * when you want to avoid even calling the virtual method. You can
+         * then use g_async_result_is_tagged() in the finish method wrapper to
+         * check if the result there is tagged as having been created by the
+         * wrapper method, and deal with it appropriately if so.
+         *
+         * See also g_task_report_new_error().
+         *
+         * @param sourceObject the #GObject that owns
+         *   this task, or null.
+         * @param callback a #GAsyncReadyCallback.
+         * @param sourceTag an opaque pointer indicating the source of this task
+         * @param error error to report
+         * @since 2.36
+         */
+        @GioVersion2_36
+        public fun reportError(
+            sourceObject: Object? = null,
+            callback: AsyncReadyCallback?,
+            sourceTag: gpointer? = null,
+            error: Error,
+        ): Unit = g_task_report_error(
+            sourceObject?.gPointer?.reinterpret(),
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() },
+            sourceTag,
+            error.glibErrorPointer.reinterpret()
+        )
 
         /**
          * Get the GType of Task

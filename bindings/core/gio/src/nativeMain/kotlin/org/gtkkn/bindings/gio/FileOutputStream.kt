@@ -123,14 +123,16 @@ public open class FileOutputStream(pointer: CPointer<GFileOutputStream>) :
         attributes: String,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_file_output_stream_query_info_async(
         gioFileOutputStreamPointer.reinterpret(),
         attributes,
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

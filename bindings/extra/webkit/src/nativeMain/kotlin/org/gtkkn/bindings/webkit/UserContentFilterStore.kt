@@ -112,12 +112,14 @@ public class UserContentFilterStore(pointer: CPointer<WebKitUserContentFilterSto
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun fetchIdentifiers(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public fun fetchIdentifiers(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         webkit_user_content_filter_store_fetch_identifiers(
             webkitUserContentFilterStorePointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -153,13 +155,15 @@ public class UserContentFilterStore(pointer: CPointer<WebKitUserContentFilterSto
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun load(identifier: String, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public fun load(identifier: String, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         webkit_user_content_filter_store_load(
             webkitUserContentFilterStorePointer.reinterpret(),
             identifier,
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -201,13 +205,15 @@ public class UserContentFilterStore(pointer: CPointer<WebKitUserContentFilterSto
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun remove(identifier: String, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public fun remove(identifier: String, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         webkit_user_content_filter_store_remove(
             webkitUserContentFilterStorePointer.reinterpret(),
             identifier,
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -258,14 +264,16 @@ public class UserContentFilterStore(pointer: CPointer<WebKitUserContentFilterSto
         identifier: String,
         source: Bytes,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = webkit_user_content_filter_store_save(
         webkitUserContentFilterStorePointer.reinterpret(),
         identifier,
         source.glibBytesPointer.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -315,14 +323,16 @@ public class UserContentFilterStore(pointer: CPointer<WebKitUserContentFilterSto
         identifier: String,
         `file`: File,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = webkit_user_content_filter_store_save_from_file(
         webkitUserContentFilterStorePointer.reinterpret(),
         identifier,
         `file`.gioFilePointer,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

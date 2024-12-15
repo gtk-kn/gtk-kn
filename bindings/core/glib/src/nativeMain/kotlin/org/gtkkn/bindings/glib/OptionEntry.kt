@@ -13,6 +13,7 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GOptionEntry
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gint
 import kotlin.Char
 import kotlin.Pair
@@ -24,10 +25,6 @@ import kotlin.native.ref.createCleaner
  * A GOptionEntry struct defines a single option. To have an effect, they
  * must be added to a #GOptionGroup with g_option_context_add_main_entries()
  * or g_option_group_add_entries().
- *
- * ## Skipped during bindings generation
- *
- * - field `arg_data`: gpointer
  */
 public class OptionEntry(pointer: CPointer<GOptionEntry>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibOptionEntryPointer: CPointer<GOptionEntry> = pointer
@@ -84,6 +81,33 @@ public class OptionEntry(pointer: CPointer<GOptionEntry>, cleaner: Cleaner? = nu
         @UnsafeFieldSetter
         set(`value`) {
             glibOptionEntryPointer.pointed.arg = value.nativeValue
+        }
+
+    /**
+     * If the @arg type is %G_OPTION_ARG_CALLBACK, then @arg_data
+     *     must point to a #GOptionArgFunc callback function, which will be
+     *     called to handle the extra argument. Otherwise, @arg_data is a
+     *     pointer to a location to store the value, the required type of
+     *     the location depends on the @arg type:
+     *      - %G_OPTION_ARG_NONE: %gboolean
+     *      - %G_OPTION_ARG_STRING: %gchar*
+     *      - %G_OPTION_ARG_INT: %gint
+     *      - %G_OPTION_ARG_FILENAME: %gchar*
+     *      - %G_OPTION_ARG_STRING_ARRAY: %gchar**
+     *      - %G_OPTION_ARG_FILENAME_ARRAY: %gchar**
+     *      - %G_OPTION_ARG_DOUBLE: %gdouble
+     *     If @arg type is %G_OPTION_ARG_STRING or %G_OPTION_ARG_FILENAME,
+     *     the location will contain a newly allocated string if the option
+     *     was given. That string needs to be freed by the callee using g_free().
+     *     Likewise if @arg type is %G_OPTION_ARG_STRING_ARRAY or
+     *     %G_OPTION_ARG_FILENAME_ARRAY, the data should be freed using g_strfreev().
+     */
+    public var argData: gpointer
+        get() = glibOptionEntryPointer.pointed.arg_data!!
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            glibOptionEntryPointer.pointed.arg_data = value
         }
 
     /**
@@ -161,6 +185,23 @@ public class OptionEntry(pointer: CPointer<GOptionEntry>, cleaner: Cleaner? = nu
      *     short name.
      * @param flags Flags from #GOptionFlags
      * @param arg The type of the option, as a #GOptionArg
+     * @param argData If the @arg type is %G_OPTION_ARG_CALLBACK, then @arg_data
+     *     must point to a #GOptionArgFunc callback function, which will be
+     *     called to handle the extra argument. Otherwise, @arg_data is a
+     *     pointer to a location to store the value, the required type of
+     *     the location depends on the @arg type:
+     *      - %G_OPTION_ARG_NONE: %gboolean
+     *      - %G_OPTION_ARG_STRING: %gchar*
+     *      - %G_OPTION_ARG_INT: %gint
+     *      - %G_OPTION_ARG_FILENAME: %gchar*
+     *      - %G_OPTION_ARG_STRING_ARRAY: %gchar**
+     *      - %G_OPTION_ARG_FILENAME_ARRAY: %gchar**
+     *      - %G_OPTION_ARG_DOUBLE: %gdouble
+     *     If @arg type is %G_OPTION_ARG_STRING or %G_OPTION_ARG_FILENAME,
+     *     the location will contain a newly allocated string if the option
+     *     was given. That string needs to be freed by the callee using g_free().
+     *     Likewise if @arg type is %G_OPTION_ARG_STRING_ARRAY or
+     *     %G_OPTION_ARG_FILENAME_ARRAY, the data should be freed using g_strfreev().
      * @param description the description for the option in `--help`
      *     output. The @description is translated using the @translate_func
      *     of the group, see g_option_group_set_translation_domain().
@@ -174,6 +215,7 @@ public class OptionEntry(pointer: CPointer<GOptionEntry>, cleaner: Cleaner? = nu
         shortName: Char,
         flags: gint,
         arg: OptionArg,
+        argData: gpointer,
         description: String?,
         argDescription: String?,
     ) : this() {
@@ -181,6 +223,7 @@ public class OptionEntry(pointer: CPointer<GOptionEntry>, cleaner: Cleaner? = nu
         this.shortName = shortName
         this.flags = flags
         this.arg = arg
+        this.argData = argData
         this.description = description
         this.argDescription = argDescription
     }
@@ -201,6 +244,23 @@ public class OptionEntry(pointer: CPointer<GOptionEntry>, cleaner: Cleaner? = nu
      *     short name.
      * @param flags Flags from #GOptionFlags
      * @param arg The type of the option, as a #GOptionArg
+     * @param argData If the @arg type is %G_OPTION_ARG_CALLBACK, then @arg_data
+     *     must point to a #GOptionArgFunc callback function, which will be
+     *     called to handle the extra argument. Otherwise, @arg_data is a
+     *     pointer to a location to store the value, the required type of
+     *     the location depends on the @arg type:
+     *      - %G_OPTION_ARG_NONE: %gboolean
+     *      - %G_OPTION_ARG_STRING: %gchar*
+     *      - %G_OPTION_ARG_INT: %gint
+     *      - %G_OPTION_ARG_FILENAME: %gchar*
+     *      - %G_OPTION_ARG_STRING_ARRAY: %gchar**
+     *      - %G_OPTION_ARG_FILENAME_ARRAY: %gchar**
+     *      - %G_OPTION_ARG_DOUBLE: %gdouble
+     *     If @arg type is %G_OPTION_ARG_STRING or %G_OPTION_ARG_FILENAME,
+     *     the location will contain a newly allocated string if the option
+     *     was given. That string needs to be freed by the callee using g_free().
+     *     Likewise if @arg type is %G_OPTION_ARG_STRING_ARRAY or
+     *     %G_OPTION_ARG_FILENAME_ARRAY, the data should be freed using g_strfreev().
      * @param description the description for the option in `--help`
      *     output. The @description is translated using the @translate_func
      *     of the group, see g_option_group_set_translation_domain().
@@ -215,6 +275,7 @@ public class OptionEntry(pointer: CPointer<GOptionEntry>, cleaner: Cleaner? = nu
         shortName: Char,
         flags: gint,
         arg: OptionArg,
+        argData: gpointer,
         description: String?,
         argDescription: String?,
         scope: AutofreeScope,
@@ -223,10 +284,11 @@ public class OptionEntry(pointer: CPointer<GOptionEntry>, cleaner: Cleaner? = nu
         this.shortName = shortName
         this.flags = flags
         this.arg = arg
+        this.argData = argData
         this.description = description
         this.argDescription = argDescription
     }
 
     override fun toString(): String =
-        "OptionEntry(longName=$longName, shortName=$shortName, flags=$flags, arg=$arg, description=$description, argDescription=$argDescription)"
+        "OptionEntry(longName=$longName, shortName=$shortName, flags=$flags, arg=$arg, argData=$argData, description=$description, argDescription=$argDescription)"
 }

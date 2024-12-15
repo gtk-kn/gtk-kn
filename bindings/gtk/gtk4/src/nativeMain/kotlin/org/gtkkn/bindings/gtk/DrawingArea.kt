@@ -201,11 +201,15 @@ public open class DrawingArea(pointer: CPointer<GtkDrawingArea>) :
      * @param drawFunc callback that lets you draw
      *   the drawing area's contents
      */
-    public open fun setDrawFunc(drawFunc: DrawingAreaDrawFunc): Unit = gtk_drawing_area_set_draw_func(
+    public open fun setDrawFunc(drawFunc: DrawingAreaDrawFunc?): Unit = gtk_drawing_area_set_draw_func(
         gtkDrawingAreaPointer.reinterpret(),
-        DrawingAreaDrawFuncFunc.reinterpret(),
-        StableRef.create(drawFunc).asCPointer(),
-        staticStableRefDestroy.reinterpret()
+        drawFunc?.let {
+            DrawingAreaDrawFuncFunc.reinterpret()
+        },
+        drawFunc?.let {
+            StableRef.create(drawFunc).asCPointer()
+        },
+        drawFunc?.let { staticStableRefDestroy.reinterpret() }
     )
 
     /**

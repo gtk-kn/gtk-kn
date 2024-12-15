@@ -753,12 +753,13 @@ public open class WebView(pointer: CPointer<WebKitWebView>) :
         worldName: String? = null,
         sourceUri: String? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = webkit_web_view_call_async_javascript_function(
-        webkitWebViewPointer.reinterpret(), body, length, arguments?.glibVariantPointer?.reinterpret(), worldName, sourceUri, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(
-            callback
-        ).asCPointer()
+        webkitWebViewPointer.reinterpret(), body, length, arguments?.glibVariantPointer?.reinterpret(), worldName, sourceUri, cancellable?.gioCancellablePointer?.reinterpret(),
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -800,13 +801,15 @@ public open class WebView(pointer: CPointer<WebKitWebView>) :
     public open fun canExecuteEditingCommand(
         command: String,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = webkit_web_view_can_execute_editing_command(
         webkitWebViewPointer.reinterpret(),
         command,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -936,7 +939,7 @@ public open class WebView(pointer: CPointer<WebKitWebView>) :
         worldName: String? = null,
         sourceUri: String? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = webkit_web_view_evaluate_javascript(
         webkitWebViewPointer.reinterpret(),
         script,
@@ -944,8 +947,10 @@ public open class WebView(pointer: CPointer<WebKitWebView>) :
         worldName,
         sourceUri,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -1159,14 +1164,16 @@ public open class WebView(pointer: CPointer<WebKitWebView>) :
         region: SnapshotRegion,
         options: SnapshotOptions,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = webkit_web_view_get_snapshot(
         webkitWebViewPointer.reinterpret(),
         region.nativeValue,
         options.mask,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -1423,13 +1430,15 @@ public open class WebView(pointer: CPointer<WebKitWebView>) :
      * @param cancellable a #GCancellable or null to ignore
      * @param callback a #GAsyncReadyCallback to call when the request is satisfied
      */
-    public open fun save(saveMode: SaveMode, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public open fun save(saveMode: SaveMode, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         webkit_web_view_save(
             webkitWebViewPointer.reinterpret(),
             saveMode.nativeValue,
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -1476,14 +1485,16 @@ public open class WebView(pointer: CPointer<WebKitWebView>) :
         `file`: File,
         saveMode: SaveMode,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = webkit_web_view_save_to_file(
         webkitWebViewPointer.reinterpret(),
         `file`.gioFilePointer,
         saveMode.nativeValue,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -1523,13 +1534,15 @@ public open class WebView(pointer: CPointer<WebKitWebView>) :
     public open fun sendMessageToPage(
         message: UserMessage,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = webkit_web_view_send_message_to_page(
         webkitWebViewPointer.reinterpret(),
         message.webkitUserMessagePointer.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

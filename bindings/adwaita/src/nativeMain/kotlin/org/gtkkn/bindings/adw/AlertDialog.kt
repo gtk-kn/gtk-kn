@@ -507,13 +507,15 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
     public open fun choose(
         parent: Widget? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = adw_alert_dialog_choose(
         adwAlertDialogPointer.reinterpret(),
         parent?.gtkWidgetPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

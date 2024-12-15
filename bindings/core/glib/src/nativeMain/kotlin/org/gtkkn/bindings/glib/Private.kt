@@ -6,9 +6,16 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
+import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GPrivate
+import org.gtkkn.native.glib.g_private_get
+import org.gtkkn.native.glib.g_private_replace
+import org.gtkkn.native.glib.g_private_set
+import org.gtkkn.native.glib.gpointer
 import kotlin.Pair
+import kotlin.Unit
 import kotlin.native.ref.Cleaner
 import kotlin.native.ref.createCleaner
 
@@ -33,9 +40,6 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - method `get`: Return type gpointer is unsupported
- * - parameter `value`: gpointer
- * - parameter `value`: gpointer
  * - parameter `notify`: DestroyNotify
  * - field `p`: Record field p is private
  * - field `notify`: Record field notify is private
@@ -72,4 +76,40 @@ public class Private(pointer: CPointer<GPrivate>, cleaner: Cleaner? = null) : Pr
      * @param scope The [AutofreeScope] to allocate this structure in.
      */
     public constructor(scope: AutofreeScope) : this(scope.alloc<GPrivate>().ptr)
+
+    /**
+     * Returns the current value of the thread local variable @key.
+     *
+     * If the value has not yet been set in this thread, null is returned.
+     * Values are never copied between threads (when a new thread is
+     * created, for example).
+     *
+     * @return the thread-local value
+     */
+    public fun `get`(): gpointer? = g_private_get(glibPrivatePointer.reinterpret())
+
+    /**
+     * Sets the thread local variable @key to have the value @value in the
+     * current thread.
+     *
+     * This function differs from g_private_set() in the following way: if
+     * the previous value was non-null then the #GDestroyNotify handler for
+     * @key is run on it.
+     *
+     * @param value the new value
+     * @since 2.32
+     */
+    @GLibVersion2_32
+    public fun replace(`value`: gpointer? = null): Unit = g_private_replace(glibPrivatePointer.reinterpret(), `value`)
+
+    /**
+     * Sets the thread local variable @key to have the value @value in the
+     * current thread.
+     *
+     * This function differs from g_private_replace() in the following way:
+     * the #GDestroyNotify for @key is not called on the old value.
+     *
+     * @param value the new value
+     */
+    public fun `set`(`value`: gpointer? = null): Unit = g_private_set(glibPrivatePointer.reinterpret(), `value`)
 }

@@ -4,11 +4,14 @@ package org.gtkkn.bindings.gsk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
+import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskStroke
 import org.gtkkn.native.gsk.gsk_stroke_copy
+import org.gtkkn.native.gsk.gsk_stroke_equal
 import org.gtkkn.native.gsk.gsk_stroke_free
 import org.gtkkn.native.gsk.gsk_stroke_get_dash_offset
 import org.gtkkn.native.gsk.gsk_stroke_get_line_cap
@@ -22,6 +25,7 @@ import org.gtkkn.native.gsk.gsk_stroke_set_line_cap
 import org.gtkkn.native.gsk.gsk_stroke_set_line_join
 import org.gtkkn.native.gsk.gsk_stroke_set_line_width
 import org.gtkkn.native.gsk.gsk_stroke_set_miter_limit
+import kotlin.Boolean
 import kotlin.Unit
 
 /**
@@ -33,7 +37,6 @@ import kotlin.Unit
  * - parameter `n_dash`: n_dash: Out parameter is not supported
  * - parameter `dash`: Array parameter of type gfloat is not supported
  * - parameter `cr`: cairo.Context
- * - parameter `stroke1`: gpointer
  *
  * @since 4.14
  */
@@ -186,6 +189,18 @@ public class Stroke(pointer: CPointer<GskStroke>) : ProxyInstance(pointer) {
          * @since 4.14
          */
         public fun new(lineWidth: gfloat): Stroke = Stroke(gsk_stroke_new(lineWidth)!!.reinterpret())
+
+        /**
+         * Checks if 2 strokes are identical.
+         *
+         * @param stroke1 the first `GskStroke`
+         * @param stroke2 the second `GskStroke`
+         * @return `TRUE` if the 2 strokes are equal, `FALSE` otherwise
+         * @since 4.14
+         */
+        @GskVersion4_14
+        public fun equal(stroke1: gpointer? = null, stroke2: gpointer? = null): Boolean =
+            gsk_stroke_equal(stroke1, stroke2).asBoolean()
 
         /**
          * Get the GType of Stroke

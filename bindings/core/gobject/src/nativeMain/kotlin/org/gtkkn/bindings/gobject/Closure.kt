@@ -10,11 +10,13 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GClosure
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_closure_get_type
 import org.gtkkn.native.gobject.g_closure_invalidate
 import org.gtkkn.native.gobject.g_closure_new_object
+import org.gtkkn.native.gobject.g_closure_new_simple
 import org.gtkkn.native.gobject.g_closure_ref
 import org.gtkkn.native.gobject.g_closure_sink
 import org.gtkkn.native.gobject.g_closure_unref
@@ -73,15 +75,14 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - method `add_finalize_notifier`: Could not resolve user_data param
- * - method `add_invalidate_notifier`: Could not resolve user_data param
- * - method `add_marshal_guards`: callback gpointer not found
+ * - method `add_finalize_notifier`: Callback gpointer not found
+ * - method `add_invalidate_notifier`: Callback gpointer not found
+ * - method `add_marshal_guards`: Invalid closure relationship between 'pre_marshal_data' and 'pre_marshal_notify'
  * - parameter `param_values`: Value
- * - parameter `notify_data`: gpointer
- * - parameter `notify_data`: gpointer
+ * - parameter `notify_func`: ClosureNotify
+ * - parameter `notify_func`: ClosureNotify
  * - parameter `marshal`: ClosureMarshal
- * - method `set_meta_marshal`: Could not resolve user_data param
- * - parameter `data`: gpointer
+ * - method `set_meta_marshal`: Callback gpointer not found
  * - field `ref_count`: Record field ref_count is private
  * - field `meta_marshal_nouse`: Record field meta_marshal_nouse is private
  * - field `n_guards`: Record field n_guards is private
@@ -292,6 +293,53 @@ public class Closure(pointer: CPointer<GClosure>, cleaner: Cleaner? = null) : Pr
          */
         public fun newObject(sizeofClosure: guint, `object`: Object): Closure =
             Closure(g_closure_new_object(sizeofClosure, `object`.gPointer.reinterpret())!!.reinterpret())
+
+        /**
+         * Allocates a struct of the given size and initializes the initial
+         * part as a #GClosure.
+         *
+         * This function is mainly useful when implementing new types of closures:
+         *
+         * |[<!-- language="C" -->
+         * typedef struct _MyClosure MyClosure;
+         * struct _MyClosure
+         * {
+         *   GClosure closure;
+         *   // extra data goes here
+         * };
+         *
+         * static void
+         * my_closure_finalize (gpointer  notify_data,
+         *                      GClosure *closure)
+         * {
+         *   MyClosure *my_closure = (MyClosure *)closure;
+         *
+         *   // free extra data here
+         * }
+         *
+         * MyClosure *my_closure_new (gpointer data)
+         * {
+         *   GClosure *closure;
+         *   MyClosure *my_closure;
+         *
+         *   closure = g_closure_new_simple (sizeof (MyClosure), data);
+         *   my_closure = (MyClosure *) closure;
+         *
+         *   // initialize extra data here
+         *
+         *   g_closure_add_finalize_notifier (closure, notify_data,
+         *                                    my_closure_finalize);
+         *   return my_closure;
+         * }
+         * ]|
+         *
+         * @param sizeofClosure the size of the structure to allocate, must be at least
+         *                  `sizeof (GClosure)`
+         * @param data data to store in the @data field of the newly allocated #GClosure
+         * @return a floating reference to a new #GClosure
+         */
+        public fun newSimple(sizeofClosure: guint, `data`: gpointer? = null): Closure =
+            Closure(g_closure_new_simple(sizeofClosure, `data`)!!.reinterpret())
 
         /**
          * Get the GType of Closure

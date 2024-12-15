@@ -83,6 +83,8 @@ class ProcessorContext(
     fun kotlinizeMethodName(nativeMethodName: String): String =
         nativeMethodName
             .replace("-", "_")
+            .replace("__", "_")
+            .lowercase()
             .toCamelCase()
 
     fun kotlinizeClassName(nativeClassName: String): String = nativeClassName.toPascalCase()
@@ -611,6 +613,7 @@ class ProcessorContext(
             "guint8" -> TypeInfo.Primitive(G_UINT8)
             "gulong" -> TypeInfo.Primitive(G_ULONG)
             "gunichar" -> TypeInfo.Primitive(G_UNICHAR)
+            "gpointer" -> TypeInfo.GPointer()
             "gboolean" -> when (type.cType) {
                 "gboolean" -> TypeInfo.GBoolean(G_BOOLEAN, BOOLEAN)
                 "const gboolean" -> TypeInfo.GBoolean(G_BOOLEAN, BOOLEAN)
@@ -627,8 +630,6 @@ class ProcessorContext(
          * A set of C identifiers for gir objects that should not be generated.
          */
         private val ignoredTypes = hashSetOf(
-            // callback returning a String
-            "GtkScaleFormatValueFunc",
             // not a pointed type, simd vector?
             "graphene_simd4f_t",
         )
@@ -640,22 +641,7 @@ class ProcessorContext(
             // problems with mismatched return type
             "cairo_image_surface_create",
 
-            // problem because it uses a callback with a string return value
-            "g_option_group_set_translate_func",
-            "g_option_context_set_translate_func",
-            "soup_auth_domain_digest_set_auth_callback",
-
-            // ThreadFunc is not supported yet
-            "g_thread_create",
-            "g_thread_create_full",
-            "g_thread_new",
-            "g_thread_try_new",
-
-            // CopyFunc is not supported yet
-            "g_list_copy_deep",
-            "g_node_copy_deep",
-            "g_slist_copy_deep",
-
+            // Argument type mismatch: is 'CPointer<CapturedType(out CPointed)>', but 'GTraverseType' was expected.
             "g_tree_traverse",
 
             // On Fedora 41 this is listed in the GIR but the header file is missing

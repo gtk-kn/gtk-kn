@@ -2,23 +2,31 @@
 package org.gtkkn.bindings.gtksource
 
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.AsyncReadyCallback
+import org.gtkkn.bindings.gio.AsyncReadyCallbackFunc
 import org.gtkkn.bindings.gio.AsyncResult
+import org.gtkkn.bindings.gio.Cancellable
+import org.gtkkn.bindings.gio.FileProgressCallback
+import org.gtkkn.bindings.gio.FileProgressCallbackFunc
 import org.gtkkn.bindings.gio.InputStream
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtksource.GtkSource.resolveException
 import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtksource.GtkSourceFileLoader
 import org.gtkkn.native.gtksource.gtk_source_file_loader_get_buffer
 import org.gtkkn.native.gtksource.gtk_source_file_loader_get_compression_type
@@ -28,6 +36,7 @@ import org.gtkkn.native.gtksource.gtk_source_file_loader_get_input_stream
 import org.gtkkn.native.gtksource.gtk_source_file_loader_get_location
 import org.gtkkn.native.gtksource.gtk_source_file_loader_get_newline_type
 import org.gtkkn.native.gtksource.gtk_source_file_loader_get_type
+import org.gtkkn.native.gtksource.gtk_source_file_loader_load_async
 import org.gtkkn.native.gtksource.gtk_source_file_loader_load_finish
 import org.gtkkn.native.gtksource.gtk_source_file_loader_new
 import org.gtkkn.native.gtksource.gtk_source_file_loader_new_from_stream
@@ -55,10 +64,6 @@ import kotlin.Unit
  * saved somewhere (for example if you load from stdin), then you should
  * probably call [method@Gtk.TextBuffer.set_modified] with true after calling
  * [method@FileLoader.load_finish].
- *
- * ## Skipped during bindings generation
- *
- * - parameter `callback`: Gio.AsyncReadyCallback
  */
 public open class FileLoader(pointer: CPointer<GtkSourceFileLoader>) :
     Object(pointer.reinterpret()),
@@ -196,6 +201,44 @@ public open class FileLoader(pointer: CPointer<GtkSourceFileLoader>) :
         gtk_source_file_loader_get_newline_type(gtksourceFileLoaderPointer.reinterpret()).run {
             NewlineType.fromNativeValue(this)
         }
+
+    /**
+     * Loads asynchronously the file or input stream contents into the [class@Buffer].
+     *
+     * See the [iface@Gio.AsyncResult] documentation to know how to use this
+     * function.
+     *
+     * @param ioPriority the I/O priority of the request. E.g. %G_PRIORITY_LOW,
+     *   %G_PRIORITY_DEFAULT or %G_PRIORITY_HIGH.
+     * @param cancellable optional #GCancellable object, null to ignore.
+     * @param progressCallback function to call back with
+     *   progress information, or null if progress information is not needed.
+     * @param callback a #GAsyncReadyCallback to call when the request is
+     *   satisfied.
+     */
+    public open fun loadAsync(
+        ioPriority: gint,
+        cancellable: Cancellable? = null,
+        progressCallback: FileProgressCallback?,
+        callback: AsyncReadyCallback?,
+    ): Unit = gtk_source_file_loader_load_async(
+        gtksourceFileLoaderPointer.reinterpret(),
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        progressCallback?.let {
+            FileProgressCallbackFunc.reinterpret()
+        },
+        progressCallback?.let {
+            StableRef.create(progressCallback).asCPointer()
+        },
+        progressCallback?.let {
+            staticStableRefDestroy.reinterpret()
+        },
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
+    )
 
     /**
      * Finishes a file loading started with [method@FileLoader.load_async].

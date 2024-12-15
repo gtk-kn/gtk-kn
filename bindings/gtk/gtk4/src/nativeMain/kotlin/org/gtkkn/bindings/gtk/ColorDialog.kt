@@ -173,14 +173,16 @@ public open class ColorDialog(pointer: CPointer<GtkColorDialog>) :
         parent: Window? = null,
         initialColor: RGBA? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = gtk_color_dialog_choose_rgba(
         gtkColorDialogPointer.reinterpret(),
         parent?.gtkWindowPointer?.reinterpret(),
         initialColor?.gdkRGBAPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

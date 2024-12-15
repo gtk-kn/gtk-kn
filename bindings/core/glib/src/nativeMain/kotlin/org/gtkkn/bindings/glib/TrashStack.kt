@@ -12,9 +12,14 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GTrashStack
 import org.gtkkn.native.glib.g_trash_stack_height
+import org.gtkkn.native.glib.g_trash_stack_peek
+import org.gtkkn.native.glib.g_trash_stack_pop
+import org.gtkkn.native.glib.g_trash_stack_push
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.guint
 import kotlin.Pair
 import kotlin.String
+import kotlin.Unit
 import kotlin.native.ref.Cleaner
 import kotlin.native.ref.createCleaner
 
@@ -32,12 +37,6 @@ import kotlin.native.ref.createCleaner
  *
  * There is no longer any good reason to use `GTrashStack`.  If you have
  * extra pieces of memory, `free()` them and allocate them again later.
- *
- * ## Skipped during bindings generation
- *
- * - function `peek`: Return type gpointer is unsupported
- * - function `pop`: Return type gpointer is unsupported
- * - parameter `data_p`: gpointer
  */
 public class TrashStack(pointer: CPointer<GTrashStack>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibTrashStackPointer: CPointer<GTrashStack> = pointer
@@ -127,5 +126,31 @@ public class TrashStack(pointer: CPointer<GTrashStack>, cleaner: Cleaner? = null
          * @return the height of the stack
          */
         public fun height(stackP: TrashStack): guint = g_trash_stack_height(stackP.glibTrashStackPointer.reinterpret())
+
+        /**
+         * Returns the element at the top of a #GTrashStack
+         * which may be null.
+         *
+         * @param stackP a #GTrashStack
+         * @return the element at the top of the stack
+         */
+        public fun peek(stackP: TrashStack): gpointer? = g_trash_stack_peek(stackP.glibTrashStackPointer.reinterpret())
+
+        /**
+         * Pops a piece of memory off a #GTrashStack.
+         *
+         * @param stackP a #GTrashStack
+         * @return the element at the top of the stack
+         */
+        public fun pop(stackP: TrashStack): gpointer? = g_trash_stack_pop(stackP.glibTrashStackPointer.reinterpret())
+
+        /**
+         * Pushes a piece of memory onto a #GTrashStack.
+         *
+         * @param stackP a #GTrashStack
+         * @param dataP the piece of memory to push on the stack
+         */
+        public fun push(stackP: TrashStack, dataP: gpointer): Unit =
+            g_trash_stack_push(stackP.glibTrashStackPointer.reinterpret(), dataP)
     }
 }

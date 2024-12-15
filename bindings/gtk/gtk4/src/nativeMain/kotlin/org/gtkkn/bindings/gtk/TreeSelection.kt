@@ -15,6 +15,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.gint
@@ -23,6 +24,7 @@ import org.gtkkn.native.gtk.gtk_tree_selection_count_selected_rows
 import org.gtkkn.native.gtk.gtk_tree_selection_get_mode
 import org.gtkkn.native.gtk.gtk_tree_selection_get_tree_view
 import org.gtkkn.native.gtk.gtk_tree_selection_get_type
+import org.gtkkn.native.gtk.gtk_tree_selection_get_user_data
 import org.gtkkn.native.gtk.gtk_tree_selection_iter_is_selected
 import org.gtkkn.native.gtk.gtk_tree_selection_path_is_selected
 import org.gtkkn.native.gtk.gtk_tree_selection_select_all
@@ -72,7 +74,6 @@ import kotlin.Unit
  * - method `get_select_function`: Return type TreeSelectionFunc is unsupported
  * - parameter `model`: model: Out parameter is not supported
  * - parameter `model`: model: Out parameter is not supported
- * - method `get_user_data`: Return type gpointer is unsupported
  */
 public open class TreeSelection(pointer: CPointer<GtkTreeSelection>) :
     Object(pointer.reinterpret()),
@@ -121,6 +122,13 @@ public open class TreeSelection(pointer: CPointer<GtkTreeSelection>) :
         gtk_tree_selection_get_tree_view(gtkTreeSelectionPointer.reinterpret())!!.run {
             TreeView(reinterpret())
         }
+
+    /**
+     * Returns the user data for the selection function.
+     *
+     * @return The user data.
+     */
+    public open fun getUserData(): gpointer? = gtk_tree_selection_get_user_data(gtkTreeSelectionPointer.reinterpret())
 
     /**
      * Returns true if the row at @iter is currently selected.
@@ -203,11 +211,13 @@ public open class TreeSelection(pointer: CPointer<GtkTreeSelection>) :
      *
      * @param func The selection function. May be null
      */
-    public open fun setSelectFunction(func: TreeSelectionFunc): Unit = gtk_tree_selection_set_select_function(
+    public open fun setSelectFunction(func: TreeSelectionFunc?): Unit = gtk_tree_selection_set_select_function(
         gtkTreeSelectionPointer.reinterpret(),
-        TreeSelectionFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer(),
-        staticStableRefDestroy.reinterpret()
+        func?.let {
+            TreeSelectionFuncFunc.reinterpret()
+        },
+        func?.let { StableRef.create(func).asCPointer() },
+        func?.let { staticStableRefDestroy.reinterpret() }
     )
 
     /**

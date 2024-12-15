@@ -19,27 +19,44 @@ import org.gtkkn.native.glib.GQueue
 import org.gtkkn.native.glib.g_queue_clear
 import org.gtkkn.native.glib.g_queue_copy
 import org.gtkkn.native.glib.g_queue_delete_link
+import org.gtkkn.native.glib.g_queue_find
 import org.gtkkn.native.glib.g_queue_foreach
 import org.gtkkn.native.glib.g_queue_free
 import org.gtkkn.native.glib.g_queue_get_length
+import org.gtkkn.native.glib.g_queue_index
 import org.gtkkn.native.glib.g_queue_init
+import org.gtkkn.native.glib.g_queue_insert_after
 import org.gtkkn.native.glib.g_queue_insert_after_link
+import org.gtkkn.native.glib.g_queue_insert_before
 import org.gtkkn.native.glib.g_queue_insert_before_link
+import org.gtkkn.native.glib.g_queue_insert_sorted
 import org.gtkkn.native.glib.g_queue_is_empty
 import org.gtkkn.native.glib.g_queue_link_index
 import org.gtkkn.native.glib.g_queue_new
+import org.gtkkn.native.glib.g_queue_peek_head
 import org.gtkkn.native.glib.g_queue_peek_head_link
+import org.gtkkn.native.glib.g_queue_peek_nth
 import org.gtkkn.native.glib.g_queue_peek_nth_link
+import org.gtkkn.native.glib.g_queue_peek_tail
 import org.gtkkn.native.glib.g_queue_peek_tail_link
+import org.gtkkn.native.glib.g_queue_pop_head
 import org.gtkkn.native.glib.g_queue_pop_head_link
+import org.gtkkn.native.glib.g_queue_pop_nth
 import org.gtkkn.native.glib.g_queue_pop_nth_link
+import org.gtkkn.native.glib.g_queue_pop_tail
 import org.gtkkn.native.glib.g_queue_pop_tail_link
+import org.gtkkn.native.glib.g_queue_push_head
 import org.gtkkn.native.glib.g_queue_push_head_link
+import org.gtkkn.native.glib.g_queue_push_nth
 import org.gtkkn.native.glib.g_queue_push_nth_link
+import org.gtkkn.native.glib.g_queue_push_tail
 import org.gtkkn.native.glib.g_queue_push_tail_link
+import org.gtkkn.native.glib.g_queue_remove
+import org.gtkkn.native.glib.g_queue_remove_all
 import org.gtkkn.native.glib.g_queue_reverse
 import org.gtkkn.native.glib.g_queue_sort
 import org.gtkkn.native.glib.g_queue_unlink
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
@@ -56,24 +73,8 @@ import kotlin.native.ref.createCleaner
  * ## Skipped during bindings generation
  *
  * - parameter `free_func`: DestroyNotify
- * - parameter `data`: gpointer
- * - parameter `data`: gpointer
+ * - parameter `func`: CompareFunc
  * - parameter `free_func`: DestroyNotify
- * - parameter `data`: gpointer
- * - parameter `data`: gpointer
- * - parameter `data`: gpointer
- * - parameter `data`: gpointer
- * - method `peek_head`: Return type gpointer is unsupported
- * - method `peek_nth`: Return type gpointer is unsupported
- * - method `peek_tail`: Return type gpointer is unsupported
- * - method `pop_head`: Return type gpointer is unsupported
- * - method `pop_nth`: Return type gpointer is unsupported
- * - method `pop_tail`: Return type gpointer is unsupported
- * - parameter `data`: gpointer
- * - parameter `data`: gpointer
- * - parameter `data`: gpointer
- * - parameter `data`: gpointer
- * - parameter `data`: gpointer
  */
 public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibQueuePointer: CPointer<GQueue> = pointer
@@ -220,6 +221,18 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
         g_queue_delete_link(glibQueuePointer.reinterpret(), link.glibListPointer.reinterpret())
 
     /**
+     * Finds the first link in @queue which contains @data.
+     *
+     * @param data data to find
+     * @return the first link in @queue which contains @data
+     * @since 2.4
+     */
+    @GLibVersion2_4
+    public fun find(`data`: gpointer? = null): List = g_queue_find(glibQueuePointer.reinterpret(), `data`)!!.run {
+        List(reinterpret())
+    }
+
+    /**
      * Calls @func for each element in the queue passing @user_data to the
      * function.
      *
@@ -253,6 +266,17 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
     public fun getLength(): guint = g_queue_get_length(glibQueuePointer.reinterpret())
 
     /**
+     * Returns the position of the first element in @queue which contains @data.
+     *
+     * @param data the data to find
+     * @return the position of the first element in @queue which
+     *     contains @data, or -1 if no element in @queue contains @data
+     * @since 2.4
+     */
+    @GLibVersion2_4
+    public fun index(`data`: gpointer? = null): gint = g_queue_index(glibQueuePointer.reinterpret(), `data`)
+
+    /**
      * A statically-allocated #GQueue must be initialized with this function
      * before it can be used. Alternatively you can initialize it with
      * %G_QUEUE_INIT. It is not necessary to initialize queues created with
@@ -262,6 +286,21 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      */
     @GLibVersion2_14
     public fun `init`(): Unit = g_queue_init(glibQueuePointer.reinterpret())
+
+    /**
+     * Inserts @data into @queue after @sibling.
+     *
+     * @sibling must be part of @queue. Since GLib 2.44 a null sibling pushes the
+     * data at the head of the queue.
+     *
+     * @param sibling a #GList link that must be part of @queue, or null to
+     *   push at the head of the queue.
+     * @param data the data to insert
+     * @since 2.4
+     */
+    @GLibVersion2_4
+    public fun insertAfter(sibling: List? = null, `data`: gpointer? = null): Unit =
+        g_queue_insert_after(glibQueuePointer.reinterpret(), sibling?.glibListPointer?.reinterpret(), `data`)
 
     /**
      * Inserts @link_ into @queue after @sibling.
@@ -281,6 +320,21 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
     )
 
     /**
+     * Inserts @data into @queue before @sibling.
+     *
+     * @sibling must be part of @queue. Since GLib 2.44 a null sibling pushes the
+     * data at the tail of the queue.
+     *
+     * @param sibling a #GList link that must be part of @queue, or null to
+     *   push at the tail of the queue.
+     * @param data the data to insert
+     * @since 2.4
+     */
+    @GLibVersion2_4
+    public fun insertBefore(sibling: List? = null, `data`: gpointer? = null): Unit =
+        g_queue_insert_before(glibQueuePointer.reinterpret(), sibling?.glibListPointer?.reinterpret(), `data`)
+
+    /**
      * Inserts @link_ into @queue before @sibling.
      *
      * @sibling must be part of @queue.
@@ -295,6 +349,25 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
         glibQueuePointer.reinterpret(),
         sibling?.glibListPointer?.reinterpret(),
         link.glibListPointer.reinterpret()
+    )
+
+    /**
+     * Inserts @data into @queue using @func to determine the new position.
+     *
+     * @param data the data to insert
+     * @param func the #GCompareDataFunc used to compare elements in the queue. It is
+     *     called with two elements of the @queue and @user_data. It should
+     *     return 0 if the elements are equal, a negative value if the first
+     *     element comes before the second, and a positive value if the second
+     *     element comes before the first.
+     * @since 2.4
+     */
+    @GLibVersion2_4
+    public fun insertSorted(`data`: gpointer? = null, func: CompareDataFunc): Unit = g_queue_insert_sorted(
+        glibQueuePointer.reinterpret(),
+        `data`,
+        CompareDataFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer()
     )
 
     /**
@@ -317,6 +390,14 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
         g_queue_link_index(glibQueuePointer.reinterpret(), link.glibListPointer.reinterpret())
 
     /**
+     * Returns the first element of the queue.
+     *
+     * @return the data of the first element in the queue, or null
+     *     if the queue is empty
+     */
+    public fun peekHead(): gpointer? = g_queue_peek_head(glibQueuePointer.reinterpret())
+
+    /**
      * Returns the first link in @queue.
      *
      * @return the first link in @queue, or null if @queue is empty
@@ -326,6 +407,17 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
     public fun peekHeadLink(): List = g_queue_peek_head_link(glibQueuePointer.reinterpret())!!.run {
         List(reinterpret())
     }
+
+    /**
+     * Returns the @n'th element of @queue.
+     *
+     * @param n the position of the element
+     * @return the data for the @n'th element of @queue,
+     *     or null if @n is off the end of @queue
+     * @since 2.4
+     */
+    @GLibVersion2_4
+    public fun peekNth(n: guint): gpointer? = g_queue_peek_nth(glibQueuePointer.reinterpret(), n)
 
     /**
      * Returns the link at the given position
@@ -341,6 +433,14 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
     }
 
     /**
+     * Returns the last element of the queue.
+     *
+     * @return the data of the last element in the queue, or null
+     *     if the queue is empty
+     */
+    public fun peekTail(): gpointer? = g_queue_peek_tail(glibQueuePointer.reinterpret())
+
+    /**
      * Returns the last link in @queue.
      *
      * @return the last link in @queue, or null if @queue is empty
@@ -352,6 +452,14 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
     }
 
     /**
+     * Removes the first element of the queue and returns its data.
+     *
+     * @return the data of the first element in the queue, or null
+     *     if the queue is empty
+     */
+    public fun popHead(): gpointer? = g_queue_pop_head(glibQueuePointer.reinterpret())
+
+    /**
      * Removes and returns the first element of the queue.
      *
      * @return the #GList element at the head of the queue, or null
@@ -360,6 +468,16 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
     public fun popHeadLink(): List = g_queue_pop_head_link(glibQueuePointer.reinterpret())!!.run {
         List(reinterpret())
     }
+
+    /**
+     * Removes the @n'th element of @queue and returns its data.
+     *
+     * @param n the position of the element
+     * @return the element's data, or null if @n is off the end of @queue
+     * @since 2.4
+     */
+    @GLibVersion2_4
+    public fun popNth(n: guint): gpointer? = g_queue_pop_nth(glibQueuePointer.reinterpret(), n)
 
     /**
      * Removes and returns the link at the given position.
@@ -374,6 +492,14 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
     }
 
     /**
+     * Removes the last element of the queue and returns its data.
+     *
+     * @return the data of the last element in the queue, or null
+     *     if the queue is empty
+     */
+    public fun popTail(): gpointer? = g_queue_pop_tail(glibQueuePointer.reinterpret())
+
+    /**
      * Removes and returns the last element of the queue.
      *
      * @return the #GList element at the tail of the queue, or null
@@ -386,10 +512,30 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
     /**
      * Adds a new element at the head of the queue.
      *
+     * @param data the data for the new element.
+     */
+    public fun pushHead(`data`: gpointer? = null): Unit = g_queue_push_head(glibQueuePointer.reinterpret(), `data`)
+
+    /**
+     * Adds a new element at the head of the queue.
+     *
      * @param link a single #GList element, not a list with more than one element
      */
     public fun pushHeadLink(link: List): Unit =
         g_queue_push_head_link(glibQueuePointer.reinterpret(), link.glibListPointer.reinterpret())
+
+    /**
+     * Inserts a new element into @queue at the given position.
+     *
+     * @param data the data for the new element
+     * @param n the position to insert the new element. If @n is negative or
+     *     larger than the number of elements in the @queue, the element is
+     *     added to the end of the queue.
+     * @since 2.4
+     */
+    @GLibVersion2_4
+    public fun pushNth(`data`: gpointer? = null, n: gint): Unit =
+        g_queue_push_nth(glibQueuePointer.reinterpret(), `data`, n)
 
     /**
      * Inserts @link into @queue at the given position.
@@ -407,10 +553,38 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
     /**
      * Adds a new element at the tail of the queue.
      *
+     * @param data the data for the new element
+     */
+    public fun pushTail(`data`: gpointer? = null): Unit = g_queue_push_tail(glibQueuePointer.reinterpret(), `data`)
+
+    /**
+     * Adds a new element at the tail of the queue.
+     *
      * @param link a single #GList element, not a list with more than one element
      */
     public fun pushTailLink(link: List): Unit =
         g_queue_push_tail_link(glibQueuePointer.reinterpret(), link.glibListPointer.reinterpret())
+
+    /**
+     * Removes the first element in @queue that contains @data.
+     *
+     * @param data the data to remove
+     * @return true if @data was found and removed from @queue
+     * @since 2.4
+     */
+    @GLibVersion2_4
+    public fun remove(`data`: gpointer? = null): Boolean =
+        g_queue_remove(glibQueuePointer.reinterpret(), `data`).asBoolean()
+
+    /**
+     * Remove all elements whose data equals @data from @queue.
+     *
+     * @param data the data to remove
+     * @return the number of elements removed from @queue
+     * @since 2.4
+     */
+    @GLibVersion2_4
+    public fun removeAll(`data`: gpointer? = null): guint = g_queue_remove_all(glibQueuePointer.reinterpret(), `data`)
 
     /**
      * Reverses the order of the items in @queue.

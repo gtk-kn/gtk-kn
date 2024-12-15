@@ -68,9 +68,11 @@ class SignalBlueprintBuilder(
 
         val handlerLambdaTypeName =
             LambdaTypeName.get(
-                parameters = signalParameters.map { param ->
-                    ParameterSpec.builder(param.kotlinName, param.typeInfo.kotlinTypeName).build()
-                },
+                parameters = signalParameters
+                    .filterNot { it.isUserData }
+                    .map { param ->
+                        ParameterSpec.builder(param.kotlinName, param.typeInfo.kotlinTypeName).build()
+                    },
                 returnType = returnTypeInfo.kotlinTypeName,
             )
 

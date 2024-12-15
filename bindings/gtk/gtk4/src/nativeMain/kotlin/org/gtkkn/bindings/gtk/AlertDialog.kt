@@ -241,13 +241,15 @@ public open class AlertDialog(pointer: CPointer<GtkAlertDialog>) :
     public open fun choose(
         parent: Window? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = gtk_alert_dialog_choose(
         gtkAlertDialogPointer.reinterpret(),
         parent?.gtkWindowPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

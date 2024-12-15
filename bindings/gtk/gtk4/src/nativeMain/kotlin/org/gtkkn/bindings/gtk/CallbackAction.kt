@@ -30,12 +30,16 @@ public open class CallbackAction(pointer: CPointer<GtkCallbackAction>) :
      * @return A new shortcut action
      */
     public constructor(
-        callback: ShortcutFunc,
+        callback: ShortcutFunc?,
     ) : this(
         gtk_callback_action_new(
-            ShortcutFuncFunc.reinterpret(),
-            StableRef.create(callback).asCPointer(),
-            staticStableRefDestroy.reinterpret()
+            callback?.let {
+                ShortcutFuncFunc.reinterpret()
+            },
+            callback?.let {
+                StableRef.create(callback).asCPointer()
+            },
+            callback?.let { staticStableRefDestroy.reinterpret() }
         )!!.reinterpret()
     )
 

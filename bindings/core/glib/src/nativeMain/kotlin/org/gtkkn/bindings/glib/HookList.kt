@@ -19,6 +19,7 @@ import org.gtkkn.native.glib.g_hook_list_invoke
 import org.gtkkn.native.glib.g_hook_list_invoke_check
 import org.gtkkn.native.glib.g_hook_list_marshal
 import org.gtkkn.native.glib.g_hook_list_marshal_check
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gobject.gulong
 import kotlin.Boolean
@@ -33,7 +34,6 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `dummy3`: gpointer
  * - field `finalize_hook`: HookFinalizeFunc
  * - field `dummy`: Fields with arrays are not supported
  */
@@ -87,6 +87,17 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
         }
 
     /**
+     * unused
+     */
+    public var dummy3: gpointer
+        get() = glibHookListPointer.pointed.dummy3!!
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            glibHookListPointer.pointed.dummy3 = value
+        }
+
+    /**
      * Allocate a new HookList.
      *
      * This instance will be allocated on the native heap and automatically freed when
@@ -125,17 +136,20 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
      * @param hookSize the size of the #GHookList elements, in bytes
      * @param isSetup 1 if the #GHookList has been initialized
      * @param hooks the first #GHook element in the list
+     * @param dummy3 unused
      */
     public constructor(
         seqId: gulong,
         hookSize: guint,
         isSetup: guint,
         hooks: Hook?,
+        dummy3: gpointer,
     ) : this() {
         this.seqId = seqId
         this.hookSize = hookSize
         this.isSetup = isSetup
         this.hooks = hooks
+        this.dummy3 = dummy3
     }
 
     /**
@@ -147,6 +161,7 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
      * @param hookSize the size of the #GHookList elements, in bytes
      * @param isSetup 1 if the #GHookList has been initialized
      * @param hooks the first #GHook element in the list
+     * @param dummy3 unused
      * @param scope The [AutofreeScope] to allocate this structure in.
      */
     public constructor(
@@ -154,12 +169,14 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
         hookSize: guint,
         isSetup: guint,
         hooks: Hook?,
+        dummy3: gpointer,
         scope: AutofreeScope,
     ) : this(scope) {
         this.seqId = seqId
         this.hookSize = hookSize
         this.isSetup = isSetup
         this.hooks = hooks
+        this.dummy3 = dummy3
     }
 
     /**
@@ -228,5 +245,6 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
         StableRef.create(marshaller).asCPointer()
     )
 
-    override fun toString(): String = "HookList(seqId=$seqId, hookSize=$hookSize, isSetup=$isSetup, hooks=$hooks)"
+    override fun toString(): String =
+        "HookList(seqId=$seqId, hookSize=$hookSize, isSetup=$isSetup, hooks=$hooks, dummy3=$dummy3)"
 }

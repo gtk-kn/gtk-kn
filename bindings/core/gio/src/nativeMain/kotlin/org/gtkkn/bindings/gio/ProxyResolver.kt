@@ -110,13 +110,15 @@ public interface ProxyResolver :
      * @since 2.26
      */
     @GioVersion2_26
-    public fun lookupAsync(uri: String, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public fun lookupAsync(uri: String, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         g_proxy_resolver_lookup_async(
             gioProxyResolverPointer.reinterpret(),
             uri,
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**

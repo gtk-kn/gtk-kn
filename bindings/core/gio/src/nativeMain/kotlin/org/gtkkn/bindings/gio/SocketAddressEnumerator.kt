@@ -95,12 +95,14 @@ public open class SocketAddressEnumerator(pointer: CPointer<GSocketAddressEnumer
      * @param callback a #GAsyncReadyCallback to call
      *   when the request is satisfied
      */
-    public open fun nextAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public open fun nextAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         g_socket_address_enumerator_next_async(
             gioSocketAddressEnumeratorPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**

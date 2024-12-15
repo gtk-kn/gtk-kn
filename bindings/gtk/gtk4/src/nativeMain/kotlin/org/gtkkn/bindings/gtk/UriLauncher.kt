@@ -108,13 +108,15 @@ public open class UriLauncher(pointer: CPointer<GtkUriLauncher>) :
     public open fun launch(
         parent: Window? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = gtk_uri_launcher_launch(
         gtkUriLauncherPointer.reinterpret(),
         parent?.gtkWindowPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

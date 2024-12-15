@@ -396,14 +396,16 @@ public interface AppInfo :
         uris: GlibList? = null,
         context: AppLaunchContext? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_app_info_launch_uris_async(
         gioAppInfoPointer.reinterpret(),
         uris?.glibListPointer?.reinterpret(),
         context?.gioAppLaunchContextPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -643,13 +645,15 @@ public interface AppInfo :
             contentType: String,
             mustSupportUris: Boolean,
             cancellable: Cancellable? = null,
-            callback: AsyncReadyCallback,
+            callback: AsyncReadyCallback?,
         ): Unit = g_app_info_get_default_for_type_async(
             contentType,
             mustSupportUris.asGBoolean(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
         /**
@@ -707,12 +711,14 @@ public interface AppInfo :
         public fun getDefaultForUriSchemeAsync(
             uriScheme: String,
             cancellable: Cancellable? = null,
-            callback: AsyncReadyCallback,
+            callback: AsyncReadyCallback?,
         ): Unit = g_app_info_get_default_for_uri_scheme_async(
             uriScheme,
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
         /**
@@ -826,13 +832,15 @@ public interface AppInfo :
             uri: String,
             context: AppLaunchContext? = null,
             cancellable: Cancellable? = null,
-            callback: AsyncReadyCallback,
+            callback: AsyncReadyCallback?,
         ): Unit = g_app_info_launch_default_for_uri_async(
             uri,
             context?.gioAppLaunchContextPointer?.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
         /**

@@ -331,12 +331,14 @@ public open class PixbufAnimation(pointer: CPointer<GdkPixbufAnimation>) :
         public fun newFromStreamAsync(
             stream: InputStream,
             cancellable: Cancellable? = null,
-            callback: AsyncReadyCallback,
+            callback: AsyncReadyCallback?,
         ): Unit = gdk_pixbuf_animation_new_from_stream_async(
             stream.gioInputStreamPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
         /**

@@ -19,11 +19,14 @@ import org.gtkkn.native.gdk.gdk_content_deserializer_get_gtype
 import org.gtkkn.native.gdk.gdk_content_deserializer_get_input_stream
 import org.gtkkn.native.gdk.gdk_content_deserializer_get_mime_type
 import org.gtkkn.native.gdk.gdk_content_deserializer_get_priority
+import org.gtkkn.native.gdk.gdk_content_deserializer_get_task_data
 import org.gtkkn.native.gdk.gdk_content_deserializer_get_type
+import org.gtkkn.native.gdk.gdk_content_deserializer_get_user_data
 import org.gtkkn.native.gdk.gdk_content_deserializer_get_value
 import org.gtkkn.native.gdk.gdk_content_deserializer_return_error
 import org.gtkkn.native.gdk.gdk_content_deserializer_return_success
 import org.gtkkn.native.gio.GAsyncResult
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import kotlin.String
@@ -44,9 +47,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - method `get_task_data`: Return type gpointer is unsupported
- * - method `get_user_data`: Return type gpointer is unsupported
- * - parameter `data`: gpointer
+ * - parameter `notify`: GLib.DestroyNotify
  */
 public open class ContentDeserializer(pointer: CPointer<GdkContentDeserializer>) :
     Object(pointer.reinterpret()),
@@ -107,6 +108,24 @@ public open class ContentDeserializer(pointer: CPointer<GdkContentDeserializer>)
      */
     public open fun getPriority(): gint =
         gdk_content_deserializer_get_priority(gdkContentDeserializerPointer.reinterpret())
+
+    /**
+     * Gets the data that was associated with the current operation.
+     *
+     * See [method@Gdk.ContentDeserializer.set_task_data].
+     *
+     * @return the task data for @deserializer
+     */
+    public open fun getTaskData(): gpointer? =
+        gdk_content_deserializer_get_task_data(gdkContentDeserializerPointer.reinterpret())
+
+    /**
+     * Gets the user data that was passed when the deserializer was registered.
+     *
+     * @return the user data for this deserializer
+     */
+    override fun getUserData(): gpointer? =
+        gdk_content_deserializer_get_user_data(gdkContentDeserializerPointer.reinterpret())
 
     /**
      * Gets the `GValue` to store the deserialized object in.

@@ -40,7 +40,9 @@ import org.gtkkn.native.gio.g_dbus_object_manager_client_get_flags
 import org.gtkkn.native.gio.g_dbus_object_manager_client_get_name
 import org.gtkkn.native.gio.g_dbus_object_manager_client_get_name_owner
 import org.gtkkn.native.gio.g_dbus_object_manager_client_get_type
+import org.gtkkn.native.gio.g_dbus_object_manager_client_new
 import org.gtkkn.native.gio.g_dbus_object_manager_client_new_finish
+import org.gtkkn.native.gio.g_dbus_object_manager_client_new_for_bus
 import org.gtkkn.native.gio.g_dbus_object_manager_client_new_for_bus_finish
 import org.gtkkn.native.gio.g_dbus_object_manager_client_new_for_bus_sync
 import org.gtkkn.native.gio.g_dbus_object_manager_client_new_sync
@@ -142,8 +144,6 @@ import kotlin.collections.List
  * - method `get-proxy-type-func`: Property has no getter nor setter
  * - method `get-proxy-type-user-data`: Property has no getter nor setter
  * - method `object-path`: Property has no getter nor setter
- * - parameter `callback`: AsyncReadyCallback
- * - parameter `callback`: AsyncReadyCallback
  *
  * @since 2.30
  */
@@ -289,18 +289,24 @@ public open class DBusObjectManagerClient(pointer: CPointer<GDBusObjectManagerCl
         flags: DBusObjectManagerClientFlags,
         name: String,
         objectPath: String,
-        getProxyTypeFunc: DBusProxyTypeFunc,
+        getProxyTypeFunc: DBusProxyTypeFunc?,
         cancellable: Cancellable? = null,
     ) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
                 g_dbus_object_manager_client_new_for_bus_sync(
-                    busType.nativeValue, flags.mask, name, objectPath, DBusProxyTypeFuncFunc.reinterpret(),
-                    StableRef.create(
-                        getProxyTypeFunc
-                    ).asCPointer(),
-                    staticStableRefDestroy.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr
+                    busType.nativeValue, flags.mask, name, objectPath,
+                    getProxyTypeFunc?.let {
+                        DBusProxyTypeFuncFunc.reinterpret()
+                    },
+                    getProxyTypeFunc?.let {
+                        StableRef.create(getProxyTypeFunc).asCPointer()
+                    },
+                    getProxyTypeFunc?.let {
+                        staticStableRefDestroy.reinterpret()
+                    },
+                    cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr
                 )
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
@@ -333,18 +339,24 @@ public open class DBusObjectManagerClient(pointer: CPointer<GDBusObjectManagerCl
         flags: DBusObjectManagerClientFlags,
         name: String? = null,
         objectPath: String,
-        getProxyTypeFunc: DBusProxyTypeFunc,
+        getProxyTypeFunc: DBusProxyTypeFunc?,
         cancellable: Cancellable? = null,
     ) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
                 g_dbus_object_manager_client_new_sync(
-                    connection.gioDBusConnectionPointer.reinterpret(), flags.mask, name, objectPath, DBusProxyTypeFuncFunc.reinterpret(),
-                    StableRef.create(
-                        getProxyTypeFunc
-                    ).asCPointer(),
-                    staticStableRefDestroy.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr
+                    connection.gioDBusConnectionPointer.reinterpret(), flags.mask, name, objectPath,
+                    getProxyTypeFunc?.let {
+                        DBusProxyTypeFuncFunc.reinterpret()
+                    },
+                    getProxyTypeFunc?.let {
+                        StableRef.create(getProxyTypeFunc).asCPointer()
+                    },
+                    getProxyTypeFunc?.let {
+                        staticStableRefDestroy.reinterpret()
+                    },
+                    cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr
                 )
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
@@ -471,6 +483,99 @@ public open class DBusObjectManagerClient(pointer: CPointer<GDBusObjectManagerCl
                 Result.success(DBusObjectManagerClient(checkNotNull(gResult).reinterpret()))
             }
         }
+
+        /**
+         * Asynchronously creates a new #GDBusObjectManagerClient object.
+         *
+         * This is an asynchronous failable constructor. When the result is
+         * ready, @callback will be invoked in the
+         * [thread-default main context][g-main-context-push-thread-default]
+         * of the thread you are calling this method from. You can
+         * then call g_dbus_object_manager_client_new_finish() to get the result. See
+         * g_dbus_object_manager_client_new_sync() for the synchronous version.
+         *
+         * @param connection A #GDBusConnection.
+         * @param flags Zero or more flags from the #GDBusObjectManagerClientFlags enumeration.
+         * @param name The owner of the control object (unique or well-known name).
+         * @param objectPath The object path of the control object.
+         * @param getProxyTypeFunc A #GDBusProxyTypeFunc function or null to always construct #GDBusProxy proxies.
+         * @param cancellable A #GCancellable or null
+         * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
+         * @since 2.30
+         */
+        @GioVersion2_30
+        public fun new(
+            connection: DBusConnection,
+            flags: DBusObjectManagerClientFlags,
+            name: String,
+            objectPath: String,
+            getProxyTypeFunc: DBusProxyTypeFunc?,
+            cancellable: Cancellable? = null,
+            callback: AsyncReadyCallback?,
+        ): Unit = g_dbus_object_manager_client_new(
+            connection.gioDBusConnectionPointer.reinterpret(), flags.mask, name, objectPath,
+            getProxyTypeFunc?.let {
+                DBusProxyTypeFuncFunc.reinterpret()
+            },
+            getProxyTypeFunc?.let {
+                StableRef.create(getProxyTypeFunc).asCPointer()
+            },
+            getProxyTypeFunc?.let {
+                staticStableRefDestroy.reinterpret()
+            },
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
+        )
+
+        /**
+         * Like g_dbus_object_manager_client_new() but takes a #GBusType instead of a
+         * #GDBusConnection.
+         *
+         * This is an asynchronous failable constructor. When the result is
+         * ready, @callback will be invoked in the
+         * [thread-default main loop][g-main-context-push-thread-default]
+         * of the thread you are calling this method from. You can
+         * then call g_dbus_object_manager_client_new_for_bus_finish() to get the result. See
+         * g_dbus_object_manager_client_new_for_bus_sync() for the synchronous version.
+         *
+         * @param busType A #GBusType.
+         * @param flags Zero or more flags from the #GDBusObjectManagerClientFlags enumeration.
+         * @param name The owner of the control object (unique or well-known name).
+         * @param objectPath The object path of the control object.
+         * @param getProxyTypeFunc A #GDBusProxyTypeFunc function or null to always construct #GDBusProxy proxies.
+         * @param cancellable A #GCancellable or null
+         * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
+         * @since 2.30
+         */
+        @GioVersion2_30
+        public fun newForBus(
+            busType: BusType,
+            flags: DBusObjectManagerClientFlags,
+            name: String,
+            objectPath: String,
+            getProxyTypeFunc: DBusProxyTypeFunc?,
+            cancellable: Cancellable? = null,
+            callback: AsyncReadyCallback?,
+        ): Unit = g_dbus_object_manager_client_new_for_bus(
+            busType.nativeValue, flags.mask, name, objectPath,
+            getProxyTypeFunc?.let {
+                DBusProxyTypeFuncFunc.reinterpret()
+            },
+            getProxyTypeFunc?.let {
+                StableRef.create(getProxyTypeFunc).asCPointer()
+            },
+            getProxyTypeFunc?.let {
+                staticStableRefDestroy.reinterpret()
+            },
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
+        )
 
         /**
          * Get the GType of DBusObjectManagerClient

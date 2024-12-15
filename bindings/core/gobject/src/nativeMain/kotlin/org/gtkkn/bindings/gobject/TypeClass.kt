@@ -10,10 +10,12 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_38
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GTypeClass
 import org.gtkkn.native.gobject.g_type_class_add_private
 import org.gtkkn.native.gobject.g_type_class_get_instance_private_offset
+import org.gtkkn.native.gobject.g_type_class_get_private
 import org.gtkkn.native.gobject.g_type_class_peek
 import org.gtkkn.native.gobject.g_type_class_peek_parent
 import org.gtkkn.native.gobject.g_type_class_peek_static
@@ -32,8 +34,7 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - method `get_private`: Return type gpointer is unsupported
- * - parameter `g_class`: gpointer
+ * - parameter `private_size_or_offset`: Unsupported pointer to primitive type
  * - field `g_type`: Record field g_type is private
  */
 public class TypeClass(pointer: CPointer<GTypeClass>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
@@ -155,6 +156,9 @@ public class TypeClass(pointer: CPointer<GTypeClass>, cleaner: Cleaner? = null) 
     @GObjectVersion2_38
     public fun getInstancePrivateOffset(): gint =
         g_type_class_get_instance_private_offset(gobjectTypeClassPointer.reinterpret())
+
+    public fun getPrivate(privateType: GType): gpointer? =
+        g_type_class_get_private(gobjectTypeClassPointer.reinterpret(), privateType)
 
     /**
      * This is a convenience function often needed in class initializers.

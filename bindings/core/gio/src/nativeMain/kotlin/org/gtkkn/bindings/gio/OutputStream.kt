@@ -159,13 +159,15 @@ public open class OutputStream(pointer: CPointer<GOutputStream>) :
     public open fun closeAsync(
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_output_stream_close_async(
         gioOutputStreamPointer.reinterpret(),
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -233,13 +235,15 @@ public open class OutputStream(pointer: CPointer<GOutputStream>) :
     public open fun flushAsync(
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_output_stream_flush_async(
         gioOutputStreamPointer.reinterpret(),
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -360,15 +364,17 @@ public open class OutputStream(pointer: CPointer<GOutputStream>) :
         flags: OutputStreamSpliceFlags,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_output_stream_splice_async(
         gioOutputStreamPointer.reinterpret(),
         source.gioInputStreamPointer.reinterpret(),
         flags.mask,
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -453,14 +459,16 @@ public open class OutputStream(pointer: CPointer<GOutputStream>) :
         bytes: Bytes,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_output_stream_write_bytes_async(
         gioOutputStreamPointer.reinterpret(),
         bytes.glibBytesPointer.reinterpret(),
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

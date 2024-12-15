@@ -38,30 +38,13 @@ abstract class CallableBlueprintBuilder<T : Any>(
     protected val parameterBlueprints = mutableListOf<ParameterBlueprint>()
 
     protected fun addParameters(parameters: GirParameters) {
-        parameters.parameters.forEach { checkSupportedParam(it) }
+        parameters.parameters.forEach { validateParam(it) }
 
         val processedParams = processParameters(parameters)
-        processedParams.forEach { callbackParam ->
-            when (callbackParam) {
-                is SimpleParam -> addParameter(callbackParam.param)
-                is CallbackParam -> {
-                    val kotlinTypeName = context.resolveCallbackTypeName(
-                        girNamespace,
-                        callbackParam.callbackType.name ?: error("unknown callback type name"),
-                    ) ?: throw UnresolvableTypeException("callback ${callbackParam.callbackType.name} not found")
-                    val cbTypeInfo = TypeInfo.CallbackWithDestroy(
-                        kotlinTypeName = kotlinTypeName,
-                        hasDestroyParam = callbackParam.destroyParam != null,
-                    )
-                    val cbParamBluePrint = ParameterBlueprint(
-                        kotlinName = context.kotlinizeParameterName(checkNotNull(callbackParam.callbackParam.name)),
-                        nativeName = callbackParam.callbackParam.name,
-                        typeInfo = cbTypeInfo,
-                        defaultNull = false,
-                        kdoc = context.processKdoc(callbackParam.callbackParam.doc?.doc?.text),
-                    )
-                    parameterBlueprints.add(cbParamBluePrint)
-                }
+        processedParams.forEach { param ->
+            when (param) {
+                is SimpleParam -> addParameter(param.param)
+                is CallbackParam -> parameterBlueprints.add(param.toBlueprint())
             }
         }
     }
@@ -76,60 +59,168 @@ abstract class CallableBlueprintBuilder<T : Any>(
     /**
      * Process the parameters by transforming them into [ProcessedParam] subtypes.
      *
-     * The return list can be smaller than the input list because callback parameters combine multiple
-     * native params into one combined param.
+     * This method supports multiple callbacks (closure parameters). For each parameter:
+     * - If it's a simple parameter (no closure), we create a [SimpleParam].
+     * - If it's a closure parameter, we find its associated userData and destroyData parameters
+     *   and combine them into a single [CallbackParam].
+     *
+     * Special Considerations:
+     * 1. There can be multiple closure parameters in the same function.
+     * 2. The order of parameters must be preserved. We output parameters in the same order they appear.
+     *    When we encounter a closure parameter, its associated userData and destroy parameters are merged
+     *    into a single [CallbackParam] that occupies the position of the closure parameter in the final list.
+     * 3. Cyclic Closures (Valid Case):
+     *    In some GIR files, the `closure` and `userData` parameters may reference each other via their `closure`
+     *    properties. For example, the closure parameter references the userData parameter's index, and the userData
+     *    parameter references the closure parameter's index. This is valid and supported.
+     * 4. Invalid `userData` Reference:
+     *    If the `closure` parameter references the `userData` parameter, but the `userData` parameter's `closure`
+     *    property is set and does **not** point back to the original closure parameter, this is invalid and will
+     *    throw an [UnresolvableTypeException].
+     *
+     * Error Handling:
+     * - If any closure parameter's userData or destroy indices are invalid, log and throw [UnresolvableTypeException].
+     * - If any parameter involved (closure/userData/destroy) is not a [GirType], throw an error.
+     * - Varargs and in/out parameters are not supported and will cause [UnresolvableTypeException].
+     *
+     * @param parameters The list of parameters as defined in the GIR.
+     * @return A list of processed parameters, which may be fewer than the original list because callback-related
+     *         parameters collapse into a single [CallbackParam].
+     * @throws UnresolvableTypeException if a closure is expected but user_data cannot be resolved or if unsupported
+     *         parameter types (varargs, in/out) are encountered.
      */
+    @Suppress("LongMethod")
     private fun processParameters(parameters: GirParameters): List<ProcessedParam> {
-        if (parameters.parameters.all { it.closure == null }) {
-            // no closures found, return all params as [SimpleParam]
-            return parameters.parameters.map { SimpleParam(it) }
+        val allParams = parameters.parameters
+
+        // If there are no closures, return all as SimpleParam
+        if (allParams.all { it.closure == null }) {
+            return allParams.map { SimpleParam(it) }
         }
 
-        // we have 1 closure param, find its user data and destroy function
-        val closureParam = parameters.parameters.first { it.closure != null }
-        logger.debug { "Found ${blueprintObjectType()} ${blueprintObjectName()} with closure: ${closureParam.name}" }
+        val processedFlags = BooleanArray(allParams.size)
+        val userDataIndices = mutableSetOf<Int>()
+        val result = mutableListOf<ProcessedParam>()
 
-        if (closureParam.type !is GirType) error("Callback type is not a GirType")
-        closureParam.type.cType?.let { context.checkIgnoredType(it) }
+        allParams.forEachIndexed { index, param ->
+            if (processedFlags[index]) return@forEachIndexed // Skip already processed parameters
 
-        val closureParamIndex = parameters.parameters.indexOf(closureParam)
-        val remainingParams = parameters.parameters.drop(closureParamIndex + 1)
-
-        // currently assumed to be the first gpointer param after the closure param
-        val userDataParam = remainingParams.firstOrNull {
-            it.type is GirType && it.type.name == "gpointer"
-        }
-        if (userDataParam == null) {
-            logger.warn { "No user_data param for ${blueprintObjectType()} ${blueprintObjectName()}" }
-            throw UnresolvableTypeException("Could not resolve user_data param")
-        }
-
-        val destroyDataParam = remainingParams.firstOrNull {
-            it.type is GirType && it.type.cType == "GDestroyNotify"
-        }
-        if (destroyDataParam == null) {
-            logger.debug { "No destroy notify param found for ${blueprintObjectType()} ${blueprintObjectName()}" }
-        } else {
-            logger.debug { "Found destroy notify param for ${blueprintObjectType()} ${blueprintObjectName()}" }
-        }
-
-        return parameters.parameters.mapNotNull { param ->
-            when (param) {
-                destroyDataParam -> null // bundled into callback param
-                userDataParam -> null  // bundled into callback param
-                closureParam -> CallbackParam(closureParam.type, param, userDataParam, destroyDataParam)
-                else -> SimpleParam(param)
+            if (param.closure == null) {
+                // Simple parameter
+                processedFlags[index] = true
+                result.add(SimpleParam(param))
+            } else {
+                // Closure parameter with userData and destroy references
+                val callback = processClosureParam(index, param, allParams, processedFlags, userDataIndices)
+                result.add(callback)
             }
+        }
+
+        return result
+    }
+
+    private fun processClosureParam(
+        index: Int,
+        closureParam: GirParameter,
+        allParams: List<GirParameter>,
+        processedFlags: BooleanArray,
+        userDataIndices: MutableSet<Int>
+    ): CallbackParam {
+        val userDataParam = fetchUserDataParam(index, closureParam, allParams, userDataIndices)
+        val destroyParam = fetchDestroyParam(closureParam, allParams)
+
+        validateGirType(closureParam, "Callback")
+        validateGirType(userDataParam, "User data")
+        destroyParam?.let { validateGirType(it, "Destroy data") }
+
+        // Mark parameters as processed
+        processedFlags[index] = true
+        processedFlags[allParams.indexOf(userDataParam)] = true
+        destroyParam?.let { processedFlags[allParams.indexOf(it)] = true }
+
+        return CallbackParam(
+            callbackType = closureParam.type as GirType,
+            callbackParam = closureParam,
+            userDataParam = userDataParam,
+            destroyParam = destroyParam,
+        )
+    }
+
+    private fun fetchUserDataParam(
+        closureIndex: Int,
+        closureParam: GirParameter,
+        allParams: List<GirParameter>,
+        userDataIndices: MutableSet<Int>
+    ): GirParameter {
+        val userDataIndex = closureParam.closure
+            ?: throw UnresolvableTypeException("No user_data index for closure '${closureParam.name}'")
+
+        if (userDataIndex !in allParams.indices) {
+            logger.error { "Invalid user_data index $userDataIndex for closure '${closureParam.name}'" }
+            throw UnresolvableTypeException("Invalid user_data index for closure '${closureParam.name}'")
+        }
+
+        val userDataParam = allParams[userDataIndex]
+
+        if (!userDataIndices.add(userDataIndex)) {
+            logger.error { "Multiple closures share the same user_data '${userDataParam.name}'" }
+            throw UnresolvableTypeException("User data '${userDataParam.name}' cannot be shared by multiple closures")
+        }
+
+        if (userDataParam.closure != null && userDataParam.closure != closureIndex) {
+            logger.error { "Invalid closure reference in user_data '${userDataParam.name}'" }
+            throw UnresolvableTypeException(
+                "Invalid closure relationship between '${closureParam.name}' and '${userDataParam.name}'",
+            )
+        }
+
+        return userDataParam
+    }
+
+    private fun fetchDestroyParam(
+        closureParam: GirParameter,
+        allParams: List<GirParameter>
+    ): GirParameter? {
+        val destroyIndex = closureParam.destroy ?: return null
+
+        if (destroyIndex !in allParams.indices) {
+            logger.error { "Invalid destroy_data index $destroyIndex for closure '${closureParam.name}'" }
+            throw UnresolvableTypeException("Invalid destroy_data index for closure '${closureParam.name}'")
+        }
+
+        return allParams[destroyIndex]
+    }
+
+    private fun validateGirType(param: GirParameter, typeName: String) {
+        require(param.type is GirType) { "$typeName parameter '${param.name}' is not a GirType" }
+    }
+
+    private fun validateParam(param: GirParameter) {
+        when {
+            param.type is GirVarArgs -> throw UnresolvableTypeException("Varargs parameter is not supported")
+            param.direction == GirDirection.IN_OUT ->
+                throw UnresolvableTypeException("In/Out parameter is not supported")
         }
     }
 
-    private fun checkSupportedParam(param: GirParameter) {
-        when {
-            param.type is GirVarArgs -> throw UnresolvableTypeException("Varargs parameter is not supported")
-            param.direction == GirDirection.IN_OUT -> {
-                throw UnresolvableTypeException("In/Out parameter is not supported")
-            }
-        }
+    private fun CallbackParam.toBlueprint(): ParameterBlueprint {
+        val kotlinTypeName = context.resolveCallbackTypeName(
+            girNamespace,
+            callbackType.name ?: error("Unknown callback type name"),
+        ) ?: throw UnresolvableTypeException("Callback ${callbackType.name} not found")
+
+        return ParameterBlueprint(
+            kotlinName = context.kotlinizeParameterName(callbackParam.name ?: error("Callback name missing")),
+            nativeName = callbackParam.name,
+            typeInfo = TypeInfo.CallbackWithDestroy(
+                kotlinTypeName = kotlinTypeName,
+                hasDestroyParam = destroyParam != null,
+            ).withNullable(callbackParam.isNullable()),
+            defaultNull = false,
+            isUserData = false,
+            isDestroyData = false,
+            kdoc = context.processKdoc(callbackParam.doc?.doc?.text),
+        )
     }
 }
 

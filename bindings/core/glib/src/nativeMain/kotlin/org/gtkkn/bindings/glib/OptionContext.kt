@@ -2,6 +2,7 @@
 package org.gtkkn.bindings.glib
 
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_12
@@ -11,6 +12,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_6
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.glib.GOptionContext
 import org.gtkkn.native.glib.g_option_context_add_group
 import org.gtkkn.native.glib.g_option_context_free
@@ -27,6 +29,7 @@ import org.gtkkn.native.glib.g_option_context_set_ignore_unknown_options
 import org.gtkkn.native.glib.g_option_context_set_main_group
 import org.gtkkn.native.glib.g_option_context_set_strict_posix
 import org.gtkkn.native.glib.g_option_context_set_summary
+import org.gtkkn.native.glib.g_option_context_set_translate_func
 import org.gtkkn.native.glib.g_option_context_set_translation_domain
 import kotlin.Boolean
 import kotlin.String
@@ -42,7 +45,6 @@ import kotlin.Unit
  * - parameter `entries`: OptionEntry
  * - method `parse`: In/Out parameter is not supported
  * - method `parse_strv`: In/Out parameter is not supported
- * - method `set_translate_func`: C function g_option_context_set_translate_func is ignored
  * - function `new`: Return type OptionContext is unsupported
  */
 public class OptionContext(pointer: CPointer<GOptionContext>) : ProxyInstance(pointer) {
@@ -271,6 +273,32 @@ public class OptionContext(pointer: CPointer<GOptionContext>) : ProxyInstance(po
     @GLibVersion2_12
     public fun setSummary(summary: String? = null): Unit =
         g_option_context_set_summary(glibOptionContextPointer.reinterpret(), summary)
+
+    /**
+     * Sets the function which is used to translate the contexts
+     * user-visible strings, for `--help` output. If @func is null,
+     * strings are not translated.
+     *
+     * Note that option groups have their own translation functions,
+     * this function only affects the @parameter_string (see g_option_context_new()),
+     * the summary (see g_option_context_set_summary()) and the description
+     * (see g_option_context_set_description()).
+     *
+     * If you are using gettext(), you only need to set the translation
+     * domain, see g_option_context_set_translation_domain().
+     *
+     * @param func the #GTranslateFunc, or null
+     * @since 2.12
+     */
+    @GLibVersion2_12
+    public fun setTranslateFunc(func: TranslateFunc?): Unit = g_option_context_set_translate_func(
+        glibOptionContextPointer.reinterpret(),
+        func?.let {
+            TranslateFuncFunc.reinterpret()
+        },
+        func?.let { StableRef.create(func).asCPointer() },
+        func?.let { staticStableRefDestroy.reinterpret() }
+    )
 
     /**
      * A convenience function to use gettext() for translating

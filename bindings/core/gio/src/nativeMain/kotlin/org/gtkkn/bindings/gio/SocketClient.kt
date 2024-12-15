@@ -468,13 +468,15 @@ public open class SocketClient(pointer: CPointer<GSocketClient>) :
     public open fun connectAsync(
         connectable: SocketConnectable,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_socket_client_connect_async(
         gioSocketClientPointer.reinterpret(),
         connectable.gioSocketConnectablePointer,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -582,14 +584,16 @@ public open class SocketClient(pointer: CPointer<GSocketClient>) :
         hostAndPort: String,
         defaultPort: guint16,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_socket_client_connect_to_host_async(
         gioSocketClientPointer.reinterpret(),
         hostAndPort,
         defaultPort,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -676,14 +680,16 @@ public open class SocketClient(pointer: CPointer<GSocketClient>) :
         domain: String,
         service: String,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_socket_client_connect_to_service_async(
         gioSocketClientPointer.reinterpret(),
         domain,
         service,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -782,14 +788,16 @@ public open class SocketClient(pointer: CPointer<GSocketClient>) :
         uri: String,
         defaultPort: guint16,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_socket_client_connect_to_uri_async(
         gioSocketClientPointer.reinterpret(),
         uri,
         defaultPort,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

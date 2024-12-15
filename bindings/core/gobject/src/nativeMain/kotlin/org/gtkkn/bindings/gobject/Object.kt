@@ -8,8 +8,12 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.glib.DuplicateFunc
+import org.gtkkn.bindings.glib.DuplicateFuncFunc
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_10
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_26
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_34
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_70
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_8
@@ -19,15 +23,21 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.extensions.gobject.associateCustomObject
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GObject
 import org.gtkkn.native.gobject.GParamSpec
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_object_add_toggle_ref
 import org.gtkkn.native.gobject.g_object_bind_property
 import org.gtkkn.native.gobject.g_object_bind_property_with_closures
+import org.gtkkn.native.gobject.g_object_compat_control
+import org.gtkkn.native.gobject.g_object_dup_data
+import org.gtkkn.native.gobject.g_object_dup_qdata
 import org.gtkkn.native.gobject.g_object_force_floating
 import org.gtkkn.native.gobject.g_object_freeze_notify
+import org.gtkkn.native.gobject.g_object_get_data
 import org.gtkkn.native.gobject.g_object_get_property
+import org.gtkkn.native.gobject.g_object_get_qdata
 import org.gtkkn.native.gobject.g_object_get_type
 import org.gtkkn.native.gobject.g_object_interface_find_property
 import org.gtkkn.native.gobject.g_object_interface_install_property
@@ -38,7 +48,11 @@ import org.gtkkn.native.gobject.g_object_ref
 import org.gtkkn.native.gobject.g_object_ref_sink
 import org.gtkkn.native.gobject.g_object_remove_toggle_ref
 import org.gtkkn.native.gobject.g_object_run_dispose
+import org.gtkkn.native.gobject.g_object_set_data
 import org.gtkkn.native.gobject.g_object_set_property
+import org.gtkkn.native.gobject.g_object_set_qdata
+import org.gtkkn.native.gobject.g_object_steal_data
+import org.gtkkn.native.gobject.g_object_steal_qdata
 import org.gtkkn.native.gobject.g_object_take_ref
 import org.gtkkn.native.gobject.g_object_thaw_notify
 import org.gtkkn.native.gobject.g_object_unref
@@ -46,6 +60,7 @@ import org.gtkkn.native.gobject.g_object_watch_closure
 import org.gtkkn.native.gobject.g_object_weak_ref
 import org.gtkkn.native.gobject.g_object_weak_unref
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.gsize
 import kotlin.Boolean
 import kotlin.String
 import kotlin.ULong
@@ -80,30 +95,21 @@ import kotlin.Unit
  * - method `add_weak_pointer`: In/Out parameter is not supported
  * - method `connect`: Varargs parameter is not supported
  * - method `disconnect`: Varargs parameter is not supported
- * - method `dup_data`: Return type gpointer is unsupported
- * - method `dup_qdata`: Return type gpointer is unsupported
  * - method `get`: Varargs parameter is not supported
- * - method `get_data`: Return type gpointer is unsupported
- * - method `get_qdata`: Return type gpointer is unsupported
  * - parameter `var_args`: va_list
  * - parameter `values`: Value
  * - method `remove_weak_pointer`: In/Out parameter is not supported
- * - parameter `oldval`: gpointer
- * - parameter `oldval`: gpointer
+ * - parameter `destroy`: GLib.DestroyNotify
+ * - parameter `destroy`: GLib.DestroyNotify
  * - method `set`: Varargs parameter is not supported
- * - parameter `data`: gpointer
- * - parameter `data`: gpointer
- * - parameter `data`: gpointer
- * - parameter `data`: gpointer
+ * - parameter `destroy`: GLib.DestroyNotify
+ * - parameter `destroy`: GLib.DestroyNotify
  * - parameter `var_args`: va_list
  * - parameter `values`: Value
- * - method `steal_data`: Return type gpointer is unsupported
- * - method `steal_qdata`: Return type gpointer is unsupported
  * - constructor `new`: Varargs parameter is not supported
  * - parameter `var_args`: va_list
  * - parameter `values`: Value
  * - parameter `parameters`: Parameter
- * - parameter `data`: gpointer
  * - parameter `n_properties_p`: n_properties_p: Out parameter is not supported
  */
 public open class Object(pointer: CPointer<GObject>) : KGTyped {
@@ -263,6 +269,74 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
     }
 
     /**
+     * This is a variant of g_object_get_data() which returns
+     * a 'duplicate' of the value. @dup_func defines the
+     * meaning of 'duplicate' in this context, it could e.g.
+     * take a reference on a ref-counted object.
+     *
+     * If the @key is not set on the object then @dup_func
+     * will be called with a null argument.
+     *
+     * Note that @dup_func is called while user data of @object
+     * is locked.
+     *
+     * This function can be useful to avoid races when multiple
+     * threads are using object data on the same key on the same
+     * object.
+     *
+     * @param key a string, naming the user data pointer
+     * @param dupFunc function to dup the value
+     * @return the result of calling @dup_func on the value
+     *     associated with @key on @object, or null if not set.
+     *     If @dup_func is null, the value is returned
+     *     unmodified.
+     * @since 2.34
+     */
+    @GObjectVersion2_34
+    public open fun dupData(key: String, dupFunc: DuplicateFunc?): gpointer? = g_object_dup_data(
+        gPointer.reinterpret(),
+        key,
+        dupFunc?.let {
+            DuplicateFuncFunc.reinterpret()
+        },
+        dupFunc?.let { StableRef.create(dupFunc).asCPointer() }
+    )
+
+    /**
+     * This is a variant of g_object_get_qdata() which returns
+     * a 'duplicate' of the value. @dup_func defines the
+     * meaning of 'duplicate' in this context, it could e.g.
+     * take a reference on a ref-counted object.
+     *
+     * If the @quark is not set on the object then @dup_func
+     * will be called with a null argument.
+     *
+     * Note that @dup_func is called while user data of @object
+     * is locked.
+     *
+     * This function can be useful to avoid races when multiple
+     * threads are using object data on the same key on the same
+     * object.
+     *
+     * @param quark a #GQuark, naming the user data pointer
+     * @param dupFunc function to dup the value
+     * @return the result of calling @dup_func on the value
+     *     associated with @quark on @object, or null if not set.
+     *     If @dup_func is null, the value is returned
+     *     unmodified.
+     * @since 2.34
+     */
+    @GObjectVersion2_34
+    public open fun dupQdata(quark: Quark, dupFunc: DuplicateFunc?): gpointer? = g_object_dup_qdata(
+        gPointer.reinterpret(),
+        quark,
+        dupFunc?.let {
+            DuplicateFuncFunc.reinterpret()
+        },
+        dupFunc?.let { StableRef.create(dupFunc).asCPointer() }
+    )
+
+    /**
      * This function is intended for #GObject implementations to re-enforce
      * a [floating][floating-ref] object reference. Doing this is seldom
      * required: all #GInitiallyUnowneds are created with a floating reference
@@ -287,6 +361,15 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
     public open fun freezeNotify(): Unit = g_object_freeze_notify(gPointer.reinterpret())
 
     /**
+     * Gets a named field from the objects table of associations (see g_object_set_data()).
+     *
+     * @param key name of the key for that association
+     * @return the data if found,
+     *          or null if no such data exists.
+     */
+    public open fun getData(key: String): gpointer? = g_object_get_data(gPointer.reinterpret(), key)
+
+    /**
      * Gets a property of an object.
      *
      * The @value can be:
@@ -309,6 +392,15 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
      */
     public open fun getProperty(propertyName: String, `value`: Value): Unit =
         g_object_get_property(gPointer.reinterpret(), propertyName, `value`.gobjectValuePointer.reinterpret())
+
+    /**
+     * This function gets back user data pointers stored via
+     * g_object_set_qdata().
+     *
+     * @param quark A #GQuark, naming the user data pointer
+     * @return The user data pointer set, or null
+     */
+    public open fun getQdata(quark: Quark): gpointer? = g_object_get_qdata(gPointer.reinterpret(), quark)
 
     /**
      * Checks whether @object has a [floating][floating-ref] reference.
@@ -446,6 +538,24 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
     public open fun runDispose(): Unit = g_object_run_dispose(gPointer.reinterpret())
 
     /**
+     * Each object carries around a table of associations from
+     * strings to pointers.  This function lets you set an association.
+     *
+     * If the object already had an association with that name,
+     * the old association will be destroyed.
+     *
+     * Internally, the @key is converted to a #GQuark using g_quark_from_string().
+     * This means a copy of @key is kept permanently (even after @object has been
+     * finalized) — so it is recommended to only use a small, bounded set of values
+     * for @key in your program, to avoid the #GQuark storage growing unbounded.
+     *
+     * @param key name of the key
+     * @param data data to associate with that key
+     */
+    public open fun setData(key: String, `data`: gpointer? = null): Unit =
+        g_object_set_data(gPointer.reinterpret(), key, `data`)
+
+    /**
      * Sets a property on an object.
      *
      * @param propertyName the name of the property to set
@@ -453,6 +563,74 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
      */
     public open fun setProperty(propertyName: String, `value`: Value): Unit =
         g_object_set_property(gPointer.reinterpret(), propertyName, `value`.gobjectValuePointer.reinterpret())
+
+    /**
+     * This sets an opaque, named pointer on an object.
+     * The name is specified through a #GQuark (retrieved e.g. via
+     * g_quark_from_static_string()), and the pointer
+     * can be gotten back from the @object with g_object_get_qdata()
+     * until the @object is finalized.
+     * Setting a previously set user data pointer, overrides (frees)
+     * the old pointer set, using #NULL as pointer essentially
+     * removes the data stored.
+     *
+     * @param quark A #GQuark, naming the user data pointer
+     * @param data An opaque user data pointer
+     */
+    public open fun setQdata(quark: Quark, `data`: gpointer? = null): Unit =
+        g_object_set_qdata(gPointer.reinterpret(), quark, `data`)
+
+    /**
+     * Remove a specified datum from the object's data associations,
+     * without invoking the association's destroy handler.
+     *
+     * @param key name of the key
+     * @return the data if found, or null
+     *          if no such data exists.
+     */
+    public open fun stealData(key: String): gpointer? = g_object_steal_data(gPointer.reinterpret(), key)
+
+    /**
+     * This function gets back user data pointers stored via
+     * g_object_set_qdata() and removes the @data from object
+     * without invoking its destroy() function (if any was
+     * set).
+     * Usually, calling this function is only required to update
+     * user data pointers with a destroy notifier, for example:
+     * |[<!-- language="C" -->
+     * void
+     * object_add_to_user_list (GObject     *object,
+     *                          const gchar *new_string)
+     * {
+     *   // the quark, naming the object data
+     *   GQuark quark_string_list = g_quark_from_static_string ("my-string-list");
+     *   // retrieve the old string list
+     *   GList *list = g_object_steal_qdata (object, quark_string_list);
+     *
+     *   // prepend new string
+     *   list = g_list_prepend (list, g_strdup (new_string));
+     *   // this changed 'list', so we need to set it again
+     *   g_object_set_qdata_full (object, quark_string_list, list, free_string_list);
+     * }
+     * static void
+     * free_string_list (gpointer data)
+     * {
+     *   GList *node, *list = data;
+     *
+     *   for (node = list; node; node = node->next)
+     *     g_free (node->data);
+     *   g_list_free (list);
+     * }
+     * ]|
+     * Using g_object_get_qdata() in the above example, instead of
+     * g_object_steal_qdata() would have left the destroy function set,
+     * and thus the partial string list would have been freed upon
+     * g_object_set_qdata_full().
+     *
+     * @param quark A #GQuark, naming the user data pointer
+     * @return The user data pointer set, or null
+     */
+    public open fun stealQdata(quark: Quark): gpointer? = g_object_steal_qdata(gPointer.reinterpret(), quark)
 
     /**
      * If @object is floating, sink it.  Otherwise, do nothing.
@@ -613,6 +791,8 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
         init {
             GobjectTypeProvider.register()
         }
+
+        public fun compatControl(what: gsize, `data`: gpointer? = null): gsize = g_object_compat_control(what, `data`)
 
         /**
          * Find the #GParamSpec with the given name for an

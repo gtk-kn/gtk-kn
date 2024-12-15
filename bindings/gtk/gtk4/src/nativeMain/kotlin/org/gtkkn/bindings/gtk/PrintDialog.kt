@@ -242,14 +242,16 @@ public open class PrintDialog(pointer: CPointer<GtkPrintDialog>) :
         parent: Window? = null,
         setup: PrintSetup? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = gtk_print_dialog_print(
         gtkPrintDialogPointer.reinterpret(),
         parent?.gtkWindowPointer?.reinterpret(),
         setup?.gtkPrintSetupPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -274,15 +276,17 @@ public open class PrintDialog(pointer: CPointer<GtkPrintDialog>) :
         setup: PrintSetup? = null,
         `file`: File,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = gtk_print_dialog_print_file(
         gtkPrintDialogPointer.reinterpret(),
         parent?.gtkWindowPointer?.reinterpret(),
         setup?.gtkPrintSetupPointer?.reinterpret(),
         `file`.gioFilePointer,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -368,13 +372,15 @@ public open class PrintDialog(pointer: CPointer<GtkPrintDialog>) :
     public open fun setup(
         parent: Window? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = gtk_print_dialog_setup(
         gtkPrintDialogPointer.reinterpret(),
         parent?.gtkWindowPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

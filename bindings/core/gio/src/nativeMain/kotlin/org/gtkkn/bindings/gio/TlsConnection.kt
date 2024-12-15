@@ -524,13 +524,15 @@ public open class TlsConnection(pointer: CPointer<GTlsConnection>) :
     public open fun handshakeAsync(
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_tls_connection_handshake_async(
         gioTlsConnectionPointer.reinterpret(),
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

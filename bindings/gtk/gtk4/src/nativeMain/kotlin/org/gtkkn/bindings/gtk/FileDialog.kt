@@ -358,13 +358,15 @@ public open class FileDialog(pointer: CPointer<GtkFileDialog>) :
     public open fun `open`(
         parent: Window? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = gtk_file_dialog_open(
         gtkFileDialogPointer.reinterpret(),
         parent?.gtkWindowPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -414,13 +416,15 @@ public open class FileDialog(pointer: CPointer<GtkFileDialog>) :
     public open fun openMultiple(
         parent: Window? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = gtk_file_dialog_open_multiple(
         gtkFileDialogPointer.reinterpret(),
         parent?.gtkWindowPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -468,13 +472,15 @@ public open class FileDialog(pointer: CPointer<GtkFileDialog>) :
     public open fun save(
         parent: Window? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = gtk_file_dialog_save(
         gtkFileDialogPointer.reinterpret(),
         parent?.gtkWindowPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -525,13 +531,15 @@ public open class FileDialog(pointer: CPointer<GtkFileDialog>) :
     public open fun selectFolder(
         parent: Window? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = gtk_file_dialog_select_folder(
         gtkFileDialogPointer.reinterpret(),
         parent?.gtkWindowPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -581,13 +589,15 @@ public open class FileDialog(pointer: CPointer<GtkFileDialog>) :
     public open fun selectMultipleFolders(
         parent: Window? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = gtk_file_dialog_select_multiple_folders(
         gtkFileDialogPointer.reinterpret(),
         parent?.gtkWindowPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

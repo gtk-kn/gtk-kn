@@ -38,6 +38,7 @@ import org.gtkkn.native.gio.g_file_append_to_async
 import org.gtkkn.native.gio.g_file_append_to_finish
 import org.gtkkn.native.gio.g_file_build_attribute_list_for_copy
 import org.gtkkn.native.gio.g_file_copy
+import org.gtkkn.native.gio.g_file_copy_async
 import org.gtkkn.native.gio.g_file_copy_attributes
 import org.gtkkn.native.gio.g_file_copy_finish
 import org.gtkkn.native.gio.g_file_create
@@ -85,6 +86,7 @@ import org.gtkkn.native.gio.g_file_make_directory_with_parents
 import org.gtkkn.native.gio.g_file_make_symbolic_link
 import org.gtkkn.native.gio.g_file_make_symbolic_link_async
 import org.gtkkn.native.gio.g_file_make_symbolic_link_finish
+import org.gtkkn.native.gio.g_file_measure_disk_usage_async
 import org.gtkkn.native.gio.g_file_monitor
 import org.gtkkn.native.gio.g_file_monitor_directory
 import org.gtkkn.native.gio.g_file_monitor_file
@@ -93,6 +95,7 @@ import org.gtkkn.native.gio.g_file_mount_enclosing_volume_finish
 import org.gtkkn.native.gio.g_file_mount_mountable
 import org.gtkkn.native.gio.g_file_mount_mountable_finish
 import org.gtkkn.native.gio.g_file_move
+import org.gtkkn.native.gio.g_file_move_async
 import org.gtkkn.native.gio.g_file_move_finish
 import org.gtkkn.native.gio.g_file_new_build_filenamev
 import org.gtkkn.native.gio.g_file_new_for_commandline_arg
@@ -133,6 +136,7 @@ import org.gtkkn.native.gio.g_file_replace_readwrite
 import org.gtkkn.native.gio.g_file_replace_readwrite_async
 import org.gtkkn.native.gio.g_file_replace_readwrite_finish
 import org.gtkkn.native.gio.g_file_resolve_relative_path
+import org.gtkkn.native.gio.g_file_set_attribute
 import org.gtkkn.native.gio.g_file_set_attribute_byte_string
 import org.gtkkn.native.gio.g_file_set_attribute_int32
 import org.gtkkn.native.gio.g_file_set_attribute_int64
@@ -157,6 +161,7 @@ import org.gtkkn.native.gio.g_file_unmount_mountable_finish
 import org.gtkkn.native.gio.g_file_unmount_mountable_with_operation
 import org.gtkkn.native.gio.g_file_unmount_mountable_with_operation_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.gint64
@@ -263,21 +268,17 @@ import kotlin.collections.List
  *
  * ## Skipped during bindings generation
  *
- * - parameter `callback`: AsyncReadyCallback
  * - parameter `etag_out`: etag_out: Out parameter is not supported
  * - parameter `etag_out`: etag_out: Out parameter is not supported
  * - parameter `contents`: contents: Out parameter is not supported
  * - parameter `contents`: contents: Out parameter is not supported
- * - parameter `callback`: AsyncReadyCallback
+ * - method `load_partial_contents_async`: User data 'user_data' cannot be shared by multiple closures
  * - parameter `contents`: contents: Out parameter is not supported
  * - parameter `disk_usage`: disk_usage: Out parameter is not supported
- * - parameter `callback`: AsyncReadyCallback
  * - parameter `disk_usage`: disk_usage: Out parameter is not supported
- * - parameter `callback`: AsyncReadyCallback
  * - parameter `contents`: Array parameter of type guint8 is not supported
  * - parameter `contents`: Array parameter of type guint8 is not supported
  * - parameter `new_etag`: new_etag: Out parameter is not supported
- * - parameter `value_p`: gpointer
  * - parameter `info`: info: Out parameter is not supported
  * - function `new_build_filename`: Varargs parameter is not supported
  * - parameter `iostream`: iostream: Out parameter is not supported
@@ -353,14 +354,16 @@ public interface File :
         flags: FileCreateFlags,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_file_append_to_async(
         gioFilePointer.reinterpret(),
         flags.mask,
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -478,7 +481,7 @@ public interface File :
         destination: File,
         flags: FileCopyFlags,
         cancellable: Cancellable? = null,
-        progressCallback: FileProgressCallback,
+        progressCallback: FileProgressCallback?,
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_copy(
@@ -486,8 +489,10 @@ public interface File :
             destination.gioFilePointer,
             flags.mask,
             cancellable?.gioCancellablePointer?.reinterpret(),
-            FileProgressCallbackFunc.reinterpret(),
-            StableRef.create(progressCallback).asCPointer(),
+            progressCallback?.let {
+                FileProgressCallbackFunc.reinterpret()
+            },
+            progressCallback?.let { StableRef.create(progressCallback).asCPointer() },
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {
@@ -496,6 +501,49 @@ public interface File :
             Result.success(gResult)
         }
     }
+
+    /**
+     * Copies the file @source to the location specified by @destination
+     * asynchronously. For details of the behaviour, see g_file_copy().
+     *
+     * If @progress_callback is not null, then that function that will be called
+     * just like in g_file_copy(). The callback will run in the default main context
+     * of the thread calling g_file_copy_async() — the same context as @callback is
+     * run in.
+     *
+     * When the operation is finished, @callback will be called. You can then call
+     * g_file_copy_finish() to get the result of the operation.
+     *
+     * @param destination destination #GFile
+     * @param flags set of #GFileCopyFlags
+     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param cancellable optional #GCancellable object,
+     *   null to ignore
+     * @param progressCallback function to callback with progress information, or null if
+     *   progress information is not needed
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
+     */
+    public fun copyAsync(
+        destination: File,
+        flags: FileCopyFlags,
+        ioPriority: gint,
+        cancellable: Cancellable? = null,
+        progressCallback: FileProgressCallback?,
+        callback: AsyncReadyCallback?,
+    ): Unit = g_file_copy_async(
+        gioFilePointer.reinterpret(), destination.gioFilePointer, flags.mask, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(),
+        progressCallback?.let {
+            FileProgressCallbackFunc.reinterpret()
+        },
+        progressCallback?.let {
+            StableRef.create(progressCallback).asCPointer()
+        },
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
+    )
 
     /**
      * Copies the file attributes from @source to @destination.
@@ -622,14 +670,16 @@ public interface File :
         flags: FileCreateFlags,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_file_create_async(
         gioFilePointer.reinterpret(),
         flags.mask,
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -730,14 +780,16 @@ public interface File :
         flags: FileCreateFlags,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_file_create_readwrite_async(
         gioFilePointer.reinterpret(),
         flags.mask,
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -821,13 +873,15 @@ public interface File :
      * @since 2.34
      */
     @GioVersion2_34
-    public fun deleteAsync(ioPriority: gint, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public fun deleteAsync(ioPriority: gint, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         g_file_delete_async(
             gioFilePointer.reinterpret(),
             ioPriority,
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -890,13 +944,15 @@ public interface File :
     public fun ejectMountable(
         flags: MountUnmountFlags,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_file_eject_mountable(
         gioFilePointer.reinterpret(),
         flags.mask,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -945,14 +1001,16 @@ public interface File :
         flags: MountUnmountFlags,
         mountOperation: MountOperation? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_file_eject_mountable_with_operation(
         gioFilePointer.reinterpret(),
         flags.mask,
         mountOperation?.gioMountOperationPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -1061,15 +1119,17 @@ public interface File :
         flags: FileQueryInfoFlags,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_file_enumerate_children_async(
         gioFilePointer.reinterpret(),
         attributes,
         flags.mask,
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -1166,13 +1226,15 @@ public interface File :
     public fun findEnclosingMountAsync(
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_file_find_enclosing_mount_async(
         gioFilePointer.reinterpret(),
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -1461,12 +1523,14 @@ public interface File :
      * @since 2.56
      */
     @GioVersion2_56
-    public fun loadBytesAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public fun loadBytesAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         g_file_load_bytes_async(
             gioFilePointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -1487,12 +1551,14 @@ public interface File :
      * @param cancellable optional #GCancellable object, null to ignore
      * @param callback a #GAsyncReadyCallback to call when the request is satisfied
      */
-    public fun loadContentsAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public fun loadContentsAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         g_file_load_contents_async(
             gioFilePointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -1543,13 +1609,15 @@ public interface File :
     public fun makeDirectoryAsync(
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_file_make_directory_async(
         gioFilePointer.reinterpret(),
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -1658,14 +1726,16 @@ public interface File :
         symlinkValue: String,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_file_make_symbolic_link_async(
         gioFilePointer.reinterpret(),
         symlinkValue,
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -1690,6 +1760,43 @@ public interface File :
             Result.success(gResult)
         }
     }
+
+    /**
+     * Recursively measures the disk usage of @file.
+     *
+     * This is the asynchronous version of g_file_measure_disk_usage().  See
+     * there for more information.
+     *
+     * @param flags #GFileMeasureFlags
+     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param cancellable optional #GCancellable
+     * @param progressCallback a #GFileMeasureProgressCallback
+     * @param callback a #GAsyncReadyCallback to call when complete
+     * @since 2.38
+     */
+    @GioVersion2_38
+    public fun measureDiskUsageAsync(
+        flags: FileMeasureFlags,
+        ioPriority: gint,
+        cancellable: Cancellable? = null,
+        progressCallback: FileMeasureProgressCallback?,
+        callback: AsyncReadyCallback?,
+    ): Unit = g_file_measure_disk_usage_async(
+        gioFilePointer.reinterpret(),
+        flags.mask,
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        progressCallback?.let {
+            FileMeasureProgressCallbackFunc.reinterpret()
+        },
+        progressCallback?.let {
+            StableRef.create(progressCallback).asCPointer()
+        },
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
+    )
 
     /**
      * Obtains a file or directory monitor for the given file,
@@ -1830,14 +1937,16 @@ public interface File :
         flags: MountMountFlags,
         mountOperation: MountOperation? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_file_mount_enclosing_volume(
         gioFilePointer.reinterpret(),
         flags.mask,
         mountOperation?.gioMountOperationPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -1887,14 +1996,16 @@ public interface File :
         flags: MountMountFlags,
         mountOperation: MountOperation? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_file_mount_mountable(
         gioFilePointer.reinterpret(),
         flags.mask,
         mountOperation?.gioMountOperationPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -1971,7 +2082,7 @@ public interface File :
         destination: File,
         flags: FileCopyFlags,
         cancellable: Cancellable? = null,
-        progressCallback: FileProgressCallback,
+        progressCallback: FileProgressCallback?,
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_move(
@@ -1979,8 +2090,10 @@ public interface File :
             destination.gioFilePointer,
             flags.mask,
             cancellable?.gioCancellablePointer?.reinterpret(),
-            FileProgressCallbackFunc.reinterpret(),
-            StableRef.create(progressCallback).asCPointer(),
+            progressCallback?.let {
+                FileProgressCallbackFunc.reinterpret()
+            },
+            progressCallback?.let { StableRef.create(progressCallback).asCPointer() },
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {
@@ -1989,6 +2102,49 @@ public interface File :
             Result.success(gResult)
         }
     }
+
+    /**
+     * Asynchronously moves a file @source to the location of @destination. For details of the behaviour, see g_file_move().
+     *
+     * If @progress_callback is not null, then that function that will be called
+     * just like in g_file_move(). The callback will run in the default main context
+     * of the thread calling g_file_move_async() — the same context as @callback is
+     * run in.
+     *
+     * When the operation is finished, @callback will be called. You can then call
+     * g_file_move_finish() to get the result of the operation.
+     *
+     * @param destination #GFile pointing to the destination location
+     * @param flags set of #GFileCopyFlags
+     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param cancellable optional #GCancellable object,
+     *   null to ignore
+     * @param progressCallback #GFileProgressCallback function for updates
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
+     * @since 2.72
+     */
+    @GioVersion2_72
+    public fun moveAsync(
+        destination: File,
+        flags: FileCopyFlags,
+        ioPriority: gint,
+        cancellable: Cancellable? = null,
+        progressCallback: FileProgressCallback?,
+        callback: AsyncReadyCallback?,
+    ): Unit = g_file_move_async(
+        gioFilePointer.reinterpret(), destination.gioFilePointer, flags.mask, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(),
+        progressCallback?.let {
+            FileProgressCallbackFunc.reinterpret()
+        },
+        progressCallback?.let {
+            StableRef.create(progressCallback).asCPointer()
+        },
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
+    )
 
     /**
      * Finishes an asynchronous file movement, started with
@@ -2075,13 +2231,15 @@ public interface File :
     public fun openReadwriteAsync(
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_file_open_readwrite_async(
         gioFilePointer.reinterpret(),
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -2144,12 +2302,14 @@ public interface File :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun pollMountable(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public fun pollMountable(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         g_file_poll_mountable(
             gioFilePointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -2220,13 +2380,15 @@ public interface File :
     public fun queryDefaultHandlerAsync(
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_file_query_default_handler_async(
         gioFilePointer.reinterpret(),
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -2387,14 +2549,16 @@ public interface File :
         attributes: String,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_file_query_filesystem_info_async(
         gioFilePointer.reinterpret(),
         attributes,
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -2509,15 +2673,17 @@ public interface File :
         flags: FileQueryInfoFlags,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_file_query_info_async(
         gioFilePointer.reinterpret(),
         attributes,
         flags.mask,
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -2663,13 +2829,15 @@ public interface File :
      * @param callback a #GAsyncReadyCallback
      *   to call when the request is satisfied
      */
-    public fun readAsync(ioPriority: gint, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public fun readAsync(ioPriority: gint, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         g_file_read_async(
             gioFilePointer.reinterpret(),
             ioPriority,
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -2797,7 +2965,7 @@ public interface File :
         flags: FileCreateFlags,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_file_replace_async(
         gioFilePointer.reinterpret(),
         etag,
@@ -2805,8 +2973,10 @@ public interface File :
         flags.mask,
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -2834,7 +3004,7 @@ public interface File :
         makeBackup: Boolean,
         flags: FileCreateFlags,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_file_replace_contents_bytes_async(
         gioFilePointer.reinterpret(),
         contents.glibBytesPointer.reinterpret(),
@@ -2842,8 +3012,10 @@ public interface File :
         makeBackup.asGBoolean(),
         flags.mask,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -2945,7 +3117,7 @@ public interface File :
         flags: FileCreateFlags,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_file_replace_readwrite_async(
         gioFilePointer.reinterpret(),
         etag,
@@ -2953,8 +3125,10 @@ public interface File :
         flags.mask,
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -2999,6 +3173,49 @@ public interface File :
         g_file_resolve_relative_path(gioFilePointer.reinterpret(), relativePath)!!.run {
             File.wrap(reinterpret())
         }
+
+    /**
+     * Sets an attribute in the file with attribute name @attribute to @value_p.
+     *
+     * Some attributes can be unset by setting @type to
+     * %G_FILE_ATTRIBUTE_TYPE_INVALID and @value_p to null.
+     *
+     * If @cancellable is not null, then the operation can be cancelled by
+     * triggering the cancellable object from another thread. If the operation
+     * was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
+     *
+     * @param attribute a string containing the attribute's name
+     * @param type The type of the attribute
+     * @param valueP a pointer to the value (or the pointer
+     *   itself if the type is a pointer type)
+     * @param flags a set of #GFileQueryInfoFlags
+     * @param cancellable optional #GCancellable object,
+     *   null to ignore
+     * @return true if the attribute was set, false otherwise.
+     */
+    public fun setAttribute(
+        attribute: String,
+        type: FileAttributeType,
+        valueP: gpointer? = null,
+        flags: FileQueryInfoFlags,
+        cancellable: Cancellable? = null,
+    ): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_file_set_attribute(
+            gioFilePointer.reinterpret(),
+            attribute,
+            type.nativeValue,
+            valueP,
+            flags.mask,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
+        }
+    }
 
     /**
      * Sets @attribute of type %G_FILE_ATTRIBUTE_TYPE_BYTE_STRING to @value.
@@ -3250,15 +3467,17 @@ public interface File :
         flags: FileQueryInfoFlags,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_file_set_attributes_async(
         gioFilePointer.reinterpret(),
         info.gioFileInfoPointer.reinterpret(),
         flags.mask,
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -3364,14 +3583,16 @@ public interface File :
         displayName: String,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_file_set_display_name_async(
         gioFilePointer.reinterpret(),
         displayName,
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -3423,14 +3644,16 @@ public interface File :
         flags: DriveStartFlags,
         startOperation: MountOperation? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_file_start_mountable(
         gioFilePointer.reinterpret(),
         flags.mask,
         startOperation?.gioMountOperationPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -3484,14 +3707,16 @@ public interface File :
         flags: MountUnmountFlags,
         mountOperation: MountOperation? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_file_stop_mountable(
         gioFilePointer.reinterpret(),
         flags.mask,
         mountOperation?.gioMountOperationPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -3574,13 +3799,15 @@ public interface File :
      * @since 2.38
      */
     @GioVersion2_38
-    public fun trashAsync(ioPriority: gint, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public fun trashAsync(ioPriority: gint, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         g_file_trash_async(
             gioFilePointer.reinterpret(),
             ioPriority,
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -3626,13 +3853,15 @@ public interface File :
     public fun unmountMountable(
         flags: MountUnmountFlags,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_file_unmount_mountable(
         gioFilePointer.reinterpret(),
         flags.mask,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -3684,14 +3913,16 @@ public interface File :
         flags: MountUnmountFlags,
         mountOperation: MountOperation? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_file_unmount_mountable_with_operation(
         gioFilePointer.reinterpret(),
         flags.mask,
         mountOperation?.gioMountOperationPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -3850,13 +4081,15 @@ public interface File :
             tmpl: String? = null,
             ioPriority: gint,
             cancellable: Cancellable? = null,
-            callback: AsyncReadyCallback,
+            callback: AsyncReadyCallback?,
         ): Unit = g_file_new_tmp_async(
             tmpl,
             ioPriority,
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
         /**
@@ -3879,13 +4112,15 @@ public interface File :
             tmpl: String? = null,
             ioPriority: gint,
             cancellable: Cancellable? = null,
-            callback: AsyncReadyCallback,
+            callback: AsyncReadyCallback?,
         ): Unit = g_file_new_tmp_dir_async(
             tmpl,
             ioPriority,
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
         /**

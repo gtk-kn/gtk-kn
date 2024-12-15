@@ -43,6 +43,7 @@ import org.gtkkn.native.gio.g_settings_get_flags
 import org.gtkkn.native.gio.g_settings_get_has_unapplied
 import org.gtkkn.native.gio.g_settings_get_int
 import org.gtkkn.native.gio.g_settings_get_int64
+import org.gtkkn.native.gio.g_settings_get_mapped
 import org.gtkkn.native.gio.g_settings_get_range
 import org.gtkkn.native.gio.g_settings_get_string
 import org.gtkkn.native.gio.g_settings_get_strv
@@ -77,6 +78,7 @@ import org.gtkkn.native.gio.g_settings_set_uint64
 import org.gtkkn.native.gio.g_settings_set_value
 import org.gtkkn.native.gio.g_settings_sync
 import org.gtkkn.native.gio.g_settings_unbind
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.gboolean
@@ -386,7 +388,6 @@ import kotlin.collections.List
  *
  * - parameter `get_mapping`: SettingsBindGetMapping
  * - method `get`: Varargs parameter is not supported
- * - method `get_mapped`: Return type gpointer is unsupported
  * - method `set`: Varargs parameter is not supported
  * - method `backend`: Property has no getter nor setter
  * - method `delay-apply`: Property has no getter nor setter
@@ -814,6 +815,47 @@ public open class Settings(pointer: CPointer<GSettings>) :
      */
     @GioVersion2_50
     public open fun getInt64(key: String): gint64 = g_settings_get_int64(gioSettingsPointer.reinterpret(), key)
+
+    /**
+     * Gets the value that is stored at @key in @settings, subject to
+     * application-level validation/mapping.
+     *
+     * You should use this function when the application needs to perform
+     * some processing on the value of the key (for example, parsing).  The
+     * @mapping function performs that processing.  If the function
+     * indicates that the processing was unsuccessful (due to a parse error,
+     * for example) then the mapping is tried again with another value.
+     *
+     * This allows a robust 'fall back to defaults' behaviour to be
+     * implemented somewhat automatically.
+     *
+     * The first value that is tried is the user's setting for the key.  If
+     * the mapping function fails to map this value, other values may be
+     * tried in an unspecified order (system or site defaults, translated
+     * schema default values, untranslated schema default values, etc).
+     *
+     * If the mapping function fails for all possible values, one additional
+     * attempt is made: the mapping function is called with a null value.
+     * If the mapping function still indicates failure at this point then
+     * the application will be aborted.
+     *
+     * The result parameter for the @mapping function is pointed to a
+     * #gpointer which is initially set to null.  The same pointer is given
+     * to each invocation of @mapping.  The final value of that #gpointer is
+     * what is returned by this function.  null is valid; it is returned
+     * just as any other value would be.
+     *
+     * @param key the key to get the value for
+     * @param mapping the function to map the value in the
+     *           settings database to the value used by the application
+     * @return the result, which may be null
+     */
+    public open fun getMapped(key: String, mapping: SettingsGetMapping): gpointer? = g_settings_get_mapped(
+        gioSettingsPointer.reinterpret(),
+        key,
+        SettingsGetMappingFunc.reinterpret(),
+        StableRef.create(mapping).asCPointer()
+    )
 
     /**
      * Queries the range of a key.

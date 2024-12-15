@@ -10,18 +10,16 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GNativeSocketAddress
 import org.gtkkn.native.gio.GSocketConnectable
 import org.gtkkn.native.gio.g_native_socket_address_get_type
+import org.gtkkn.native.gio.g_native_socket_address_new
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gsize
 
 /**
  * A socket address of some unknown native type.
  *
  * This corresponds to a general `struct sockaddr` of a type not otherwise
  * handled by GLib.
- *
- * ## Skipped during bindings generation
- *
- * - parameter `native`: gpointer
- *
  * @since 2.46
  */
 @GioVersion2_46
@@ -33,6 +31,19 @@ public open class NativeSocketAddress(pointer: CPointer<GNativeSocketAddress>) :
 
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
         get() = gPointer.reinterpret()
+
+    /**
+     * Creates a new #GNativeSocketAddress for @native and @len.
+     *
+     * @param native a native address object
+     * @param len the length of @native, in bytes
+     * @return a new #GNativeSocketAddress
+     * @since 2.46
+     */
+    public constructor(
+        native: gpointer? = null,
+        len: gsize,
+    ) : this(g_native_socket_address_new(native, len)!!.reinterpret())
 
     public companion object : TypeCompanion<NativeSocketAddress> {
         override val type: GeneratedClassKGType<NativeSocketAddress> =

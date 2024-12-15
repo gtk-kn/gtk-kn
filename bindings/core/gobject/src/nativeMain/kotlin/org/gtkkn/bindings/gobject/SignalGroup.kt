@@ -23,6 +23,7 @@ import org.gtkkn.native.gobject.g_signal_group_block
 import org.gtkkn.native.gobject.g_signal_group_connect
 import org.gtkkn.native.gobject.g_signal_group_connect_after
 import org.gtkkn.native.gobject.g_signal_group_connect_closure
+import org.gtkkn.native.gobject.g_signal_group_connect_data
 import org.gtkkn.native.gobject.g_signal_group_connect_swapped
 import org.gtkkn.native.gobject.g_signal_group_dup_target
 import org.gtkkn.native.gobject.g_signal_group_get_type
@@ -57,7 +58,6 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `notify`: ClosureNotify
  * - parameter `c_handler`: Callback
  * - method `target`: Property has no getter
  * - method `target-type`: Property has no getter nor setter
@@ -148,6 +148,28 @@ public open class SignalGroup(pointer: CPointer<GSignalGroup>) :
             detailedSignal,
             closure.gobjectClosurePointer.reinterpret(),
             after.asGBoolean()
+        )
+
+    /**
+     * Connects @c_handler to the signal @detailed_signal
+     * on the target instance of @self.
+     *
+     * You cannot connect a signal handler after #GSignalGroup:target has been set.
+     *
+     * @param detailedSignal a string of the form "signal-name::detail"
+     * @param cHandler the #GCallback to connect
+     * @param flags the flags used to create the signal connection
+     * @since 2.72
+     */
+    @GObjectVersion2_72
+    public open fun connectData(detailedSignal: String, cHandler: Callback, flags: ConnectFlags): Unit =
+        g_signal_group_connect_data(
+            gobjectSignalGroupPointer.reinterpret(),
+            detailedSignal,
+            CallbackFunc.reinterpret(),
+            StableRef.create(cHandler).asCPointer(),
+            staticStableRefDestroy.reinterpret(),
+            flags.mask
         )
 
     /**

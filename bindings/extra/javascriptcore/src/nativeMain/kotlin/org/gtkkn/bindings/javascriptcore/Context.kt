@@ -45,7 +45,7 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `exception`: exception: Out parameter is not supported
- * - parameter `object_instance`: gpointer
+ * - parameter `object`: object: Out parameter is not supported
  * - parameter `destroy_notify`: GLib.DestroyNotify
  * - method `throw_printf`: Varargs parameter is not supported
  * - method `throw_with_name_printf`: Varargs parameter is not supported

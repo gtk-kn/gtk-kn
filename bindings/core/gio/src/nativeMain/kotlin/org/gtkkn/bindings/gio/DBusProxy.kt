@@ -346,7 +346,7 @@ public open class DBusProxy(pointer: CPointer<GDBusProxy>) :
         flags: DBusCallFlags,
         timeoutMsec: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_dbus_proxy_call(
         gioDBusProxyPointer.reinterpret(),
         methodName,
@@ -354,8 +354,10 @@ public open class DBusProxy(pointer: CPointer<GDBusProxy>) :
         flags.mask,
         timeoutMsec,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -483,12 +485,13 @@ public open class DBusProxy(pointer: CPointer<GDBusProxy>) :
         timeoutMsec: gint,
         fdList: UnixFDList? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_dbus_proxy_call_with_unix_fd_list(
-        gioDBusProxyPointer.reinterpret(), methodName, parameters?.glibVariantPointer?.reinterpret(), flags.mask, timeoutMsec, fdList?.gioUnixFDListPointer?.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(
-            callback
-        ).asCPointer()
+        gioDBusProxyPointer.reinterpret(), methodName, parameters?.glibVariantPointer?.reinterpret(), flags.mask, timeoutMsec, fdList?.gioUnixFDListPointer?.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(),
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -853,12 +856,13 @@ public open class DBusProxy(pointer: CPointer<GDBusProxy>) :
             objectPath: String,
             interfaceName: String,
             cancellable: Cancellable? = null,
-            callback: AsyncReadyCallback,
+            callback: AsyncReadyCallback?,
         ): Unit = g_dbus_proxy_new(
-            connection.gioDBusConnectionPointer.reinterpret(), flags.mask, info?.gioDBusInterfaceInfoPointer?.reinterpret(), name, objectPath, interfaceName, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(
-                callback
-            ).asCPointer()
+            connection.gioDBusConnectionPointer.reinterpret(), flags.mask, info?.gioDBusInterfaceInfoPointer?.reinterpret(), name, objectPath, interfaceName, cancellable?.gioCancellablePointer?.reinterpret(),
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
         /**
@@ -885,12 +889,13 @@ public open class DBusProxy(pointer: CPointer<GDBusProxy>) :
             objectPath: String,
             interfaceName: String,
             cancellable: Cancellable? = null,
-            callback: AsyncReadyCallback,
+            callback: AsyncReadyCallback?,
         ): Unit = g_dbus_proxy_new_for_bus(
-            busType.nativeValue, flags.mask, info?.gioDBusInterfaceInfoPointer?.reinterpret(), name, objectPath, interfaceName, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(
-                callback
-            ).asCPointer()
+            busType.nativeValue, flags.mask, info?.gioDBusInterfaceInfoPointer?.reinterpret(), name, objectPath, interfaceName, cancellable?.gioCancellablePointer?.reinterpret(),
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
         /**

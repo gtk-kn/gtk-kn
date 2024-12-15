@@ -23,42 +23,42 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - parameter `array`: gpointer
- * - parameter `array`: gpointer
- * - parameter `array_to_extend`: gpointer
- * - parameter `array_to_extend`: gpointer
- * - parameter `haystack`: gpointer
- * - parameter `haystack`: gpointer
- * - parameter `array`: gpointer
- * - parameter `array`: gpointer
- * - parameter `array`: gpointer
- * - parameter `array`: gpointer
- * - function `new`: gpointer
- * - parameter `data`: gpointer
- * - parameter `data`: gpointer
+ * - parameter `array`: Array parameter of type gpointer is not supported
+ * - parameter `array`: Array parameter of type gpointer is not supported
+ * - parameter `array_to_extend`: Array parameter of type gpointer is not supported
+ * - parameter `array_to_extend`: Array parameter of type gpointer is not supported
+ * - parameter `haystack`: Array parameter of type gpointer is not supported
+ * - parameter `haystack`: Array parameter of type gpointer is not supported
+ * - parameter `array`: Array parameter of type gpointer is not supported
+ * - parameter `array`: Array parameter of type gpointer is not supported
+ * - parameter `array`: Array parameter of type gpointer is not supported
+ * - parameter `array`: Array parameter of type gpointer is not supported
+ * - function `new`: Array parameter of type gpointer is not supported
+ * - parameter `data`: Array parameter of type gpointer is not supported
+ * - parameter `data`: Array parameter of type gpointer is not supported
  * - parameter `element_free_func`: DestroyNotify
  * - parameter `element_free_func`: DestroyNotify
- * - parameter `data`: gpointer
- * - parameter `data`: gpointer
+ * - parameter `data`: Array parameter of type gpointer is not supported
+ * - parameter `data`: Array parameter of type gpointer is not supported
  * - parameter `element_free_func`: DestroyNotify
- * - parameter `array`: gpointer
- * - parameter `array`: gpointer
- * - parameter `array`: gpointer
- * - parameter `array`: gpointer
- * - parameter `array`: gpointer
- * - parameter `array`: gpointer
- * - parameter `array`: gpointer
- * - parameter `array`: gpointer
- * - function `sized_new`: gpointer
- * - parameter `array`: gpointer
- * - parameter `array`: gpointer
- * - parameter `array`: gpointer
- * - parameter `array`: gpointer
- * - parameter `array`: gpointer
- * - parameter `array`: gpointer
- * - parameter `array`: gpointer
- * - parameter `array`: gpointer
- * - field `pdata`: gpointer
+ * - parameter `array`: Array parameter of type gpointer is not supported
+ * - parameter `array`: Array parameter of type gpointer is not supported
+ * - parameter `array`: Array parameter of type gpointer is not supported
+ * - parameter `array`: Array parameter of type gpointer is not supported
+ * - parameter `array`: Array parameter of type gpointer is not supported
+ * - parameter `array`: Array parameter of type gpointer is not supported
+ * - parameter `array`: Array parameter of type gpointer is not supported
+ * - parameter `array`: Array parameter of type gpointer is not supported
+ * - function `sized_new`: Array parameter of type gpointer is not supported
+ * - parameter `array`: Array parameter of type gpointer is not supported
+ * - parameter `array`: Array parameter of type gpointer is not supported
+ * - parameter `array`: Array parameter of type gpointer is not supported
+ * - parameter `array`: Array parameter of type gpointer is not supported
+ * - parameter `array`: Array parameter of type gpointer is not supported
+ * - parameter `array`: Array parameter of type gpointer is not supported
+ * - parameter `array`: Array parameter of type gpointer is not supported
+ * - parameter `array`: Array parameter of type gpointer is not supported
+ * - field `pdata`: Unsupported pointer to primitive type
  */
 public class PtrArray(pointer: CPointer<GPtrArray>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibPtrArrayPointer: CPointer<GPtrArray> = pointer

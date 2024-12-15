@@ -23,6 +23,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_18
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_2
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_20
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_22
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_24
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_26
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_28
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
@@ -45,6 +46,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_68
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_70
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_72
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_74
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_76
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_78
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_8
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_80
@@ -70,6 +72,10 @@ import org.gtkkn.native.glib.GScanner
 import org.gtkkn.native.glib.GSource
 import org.gtkkn.native.glib.GString
 import org.gtkkn.native.glib.g_access
+import org.gtkkn.native.glib.g_aligned_alloc
+import org.gtkkn.native.glib.g_aligned_alloc0
+import org.gtkkn.native.glib.g_aligned_free
+import org.gtkkn.native.glib.g_aligned_free_sized
 import org.gtkkn.native.glib.g_ascii_digit_value
 import org.gtkkn.native.glib.g_ascii_strcasecmp
 import org.gtkkn.native.glib.g_ascii_strdown
@@ -84,6 +90,12 @@ import org.gtkkn.native.glib.g_assertion_message_cmpint
 import org.gtkkn.native.glib.g_assertion_message_cmpstr
 import org.gtkkn.native.glib.g_assertion_message_error
 import org.gtkkn.native.glib.g_assertion_message_expr
+import org.gtkkn.native.glib.g_atomic_rc_box_acquire
+import org.gtkkn.native.glib.g_atomic_rc_box_alloc
+import org.gtkkn.native.glib.g_atomic_rc_box_alloc0
+import org.gtkkn.native.glib.g_atomic_rc_box_dup
+import org.gtkkn.native.glib.g_atomic_rc_box_get_size
+import org.gtkkn.native.glib.g_atomic_rc_box_release
 import org.gtkkn.native.glib.g_basename
 import org.gtkkn.native.glib.g_bit_nth_lsf
 import org.gtkkn.native.glib.g_bit_nth_msf
@@ -102,9 +114,17 @@ import org.gtkkn.native.glib.g_compute_checksum_for_bytes
 import org.gtkkn.native.glib.g_compute_checksum_for_string
 import org.gtkkn.native.glib.g_compute_hmac_for_bytes
 import org.gtkkn.native.glib.g_convert_error_quark
+import org.gtkkn.native.glib.g_dataset_destroy
+import org.gtkkn.native.glib.g_dataset_foreach
+import org.gtkkn.native.glib.g_dataset_id_get_data
+import org.gtkkn.native.glib.g_dataset_id_remove_no_notify
 import org.gtkkn.native.glib.g_dcgettext
 import org.gtkkn.native.glib.g_dgettext
+import org.gtkkn.native.glib.g_direct_equal
+import org.gtkkn.native.glib.g_direct_hash
 import org.gtkkn.native.glib.g_dngettext
+import org.gtkkn.native.glib.g_double_equal
+import org.gtkkn.native.glib.g_double_hash
 import org.gtkkn.native.glib.g_dpgettext
 import org.gtkkn.native.glib.g_dpgettext2
 import org.gtkkn.native.glib.g_environ_getenv
@@ -122,6 +142,8 @@ import org.gtkkn.native.glib.g_find_program_in_path
 import org.gtkkn.native.glib.g_format_size
 import org.gtkkn.native.glib.g_format_size_for_display
 import org.gtkkn.native.glib.g_format_size_full
+import org.gtkkn.native.glib.g_free
+import org.gtkkn.native.glib.g_free_sized
 import org.gtkkn.native.glib.g_get_application_name
 import org.gtkkn.native.glib.g_get_codeset
 import org.gtkkn.native.glib.g_get_current_dir
@@ -156,12 +178,18 @@ import org.gtkkn.native.glib.g_hostname_to_ascii
 import org.gtkkn.native.glib.g_hostname_to_unicode
 import org.gtkkn.native.glib.g_idle_add_full
 import org.gtkkn.native.glib.g_idle_add_once
+import org.gtkkn.native.glib.g_idle_remove_by_data
 import org.gtkkn.native.glib.g_idle_source_new
+import org.gtkkn.native.glib.g_int64_equal
+import org.gtkkn.native.glib.g_int64_hash
+import org.gtkkn.native.glib.g_int_equal
+import org.gtkkn.native.glib.g_int_hash
 import org.gtkkn.native.glib.g_intern_static_string
 import org.gtkkn.native.glib.g_intern_string
 import org.gtkkn.native.glib.g_io_add_watch_full
 import org.gtkkn.native.glib.g_io_create_watch
 import org.gtkkn.native.glib.g_listenv
+import org.gtkkn.native.glib.g_log_default_handler
 import org.gtkkn.native.glib.g_log_get_debug_enabled
 import org.gtkkn.native.glib.g_log_remove_handler
 import org.gtkkn.native.glib.g_log_set_always_fatal
@@ -176,11 +204,17 @@ import org.gtkkn.native.glib.g_log_writer_is_journald
 import org.gtkkn.native.glib.g_log_writer_supports_color
 import org.gtkkn.native.glib.g_main_current_source
 import org.gtkkn.native.glib.g_main_depth
+import org.gtkkn.native.glib.g_malloc
+import org.gtkkn.native.glib.g_malloc0
+import org.gtkkn.native.glib.g_malloc0_n
+import org.gtkkn.native.glib.g_malloc_n
 import org.gtkkn.native.glib.g_markup_error_quark
 import org.gtkkn.native.glib.g_markup_escape_text
 import org.gtkkn.native.glib.g_mem_is_system_malloc
 import org.gtkkn.native.glib.g_mem_profile
 import org.gtkkn.native.glib.g_mem_set_vtable
+import org.gtkkn.native.glib.g_memdup
+import org.gtkkn.native.glib.g_memdup2
 import org.gtkkn.native.glib.g_mkdir_with_parents
 import org.gtkkn.native.glib.g_mkdtemp
 import org.gtkkn.native.glib.g_mkdtemp_full
@@ -198,6 +232,7 @@ import org.gtkkn.native.glib.g_pattern_match
 import org.gtkkn.native.glib.g_pattern_match_simple
 import org.gtkkn.native.glib.g_pattern_match_string
 import org.gtkkn.native.glib.g_poll
+import org.gtkkn.native.glib.g_qsort_with_data
 import org.gtkkn.native.glib.g_quark_from_static_string
 import org.gtkkn.native.glib.g_quark_from_string
 import org.gtkkn.native.glib.g_quark_to_string
@@ -207,6 +242,14 @@ import org.gtkkn.native.glib.g_random_double_range
 import org.gtkkn.native.glib.g_random_int
 import org.gtkkn.native.glib.g_random_int_range
 import org.gtkkn.native.glib.g_random_set_seed
+import org.gtkkn.native.glib.g_rc_box_acquire
+import org.gtkkn.native.glib.g_rc_box_alloc
+import org.gtkkn.native.glib.g_rc_box_alloc0
+import org.gtkkn.native.glib.g_rc_box_dup
+import org.gtkkn.native.glib.g_rc_box_get_size
+import org.gtkkn.native.glib.g_rc_box_release
+import org.gtkkn.native.glib.g_realloc
+import org.gtkkn.native.glib.g_realloc_n
 import org.gtkkn.native.glib.g_ref_string_acquire
 import org.gtkkn.native.glib.g_ref_string_length
 import org.gtkkn.native.glib.g_ref_string_new
@@ -222,6 +265,11 @@ import org.gtkkn.native.glib.g_setenv
 import org.gtkkn.native.glib.g_shell_error_quark
 import org.gtkkn.native.glib.g_shell_quote
 import org.gtkkn.native.glib.g_shell_unquote
+import org.gtkkn.native.glib.g_slice_alloc
+import org.gtkkn.native.glib.g_slice_alloc0
+import org.gtkkn.native.glib.g_slice_copy
+import org.gtkkn.native.glib.g_slice_free1
+import org.gtkkn.native.glib.g_slice_free_chain_with_offset
 import org.gtkkn.native.glib.g_slice_get_config
 import org.gtkkn.native.glib.g_slice_set_config
 import org.gtkkn.native.glib.g_spaced_primes_closest
@@ -231,8 +279,10 @@ import org.gtkkn.native.glib.g_spawn_close_pid
 import org.gtkkn.native.glib.g_spawn_command_line_async
 import org.gtkkn.native.glib.g_spawn_error_quark
 import org.gtkkn.native.glib.g_spawn_exit_error_quark
+import org.gtkkn.native.glib.g_str_equal
 import org.gtkkn.native.glib.g_str_has_prefix
 import org.gtkkn.native.glib.g_str_has_suffix
+import org.gtkkn.native.glib.g_str_hash
 import org.gtkkn.native.glib.g_str_is_ascii
 import org.gtkkn.native.glib.g_str_match_string
 import org.gtkkn.native.glib.g_str_to_ascii
@@ -279,6 +329,7 @@ import org.gtkkn.native.glib.g_test_get_path
 import org.gtkkn.native.glib.g_test_incomplete
 import org.gtkkn.native.glib.g_test_log_set_fatal_handler
 import org.gtkkn.native.glib.g_test_log_type_name
+import org.gtkkn.native.glib.g_test_queue_free
 import org.gtkkn.native.glib.g_test_rand_double
 import org.gtkkn.native.glib.g_test_rand_double_range
 import org.gtkkn.native.glib.g_test_rand_int
@@ -303,6 +354,12 @@ import org.gtkkn.native.glib.g_timeout_add_seconds_full
 import org.gtkkn.native.glib.g_timeout_add_seconds_once
 import org.gtkkn.native.glib.g_timeout_source_new
 import org.gtkkn.native.glib.g_timeout_source_new_seconds
+import org.gtkkn.native.glib.g_try_malloc
+import org.gtkkn.native.glib.g_try_malloc0
+import org.gtkkn.native.glib.g_try_malloc0_n
+import org.gtkkn.native.glib.g_try_malloc_n
+import org.gtkkn.native.glib.g_try_realloc
+import org.gtkkn.native.glib.g_try_realloc_n
 import org.gtkkn.native.glib.g_unichar_break_type
 import org.gtkkn.native.glib.g_unichar_combining_class
 import org.gtkkn.native.glib.g_unichar_digit_value
@@ -366,6 +423,7 @@ import org.gtkkn.native.glib.g_uuid_string_is_valid
 import org.gtkkn.native.glib.g_uuid_string_random
 import org.gtkkn.native.glib.g_warn_message
 import org.gtkkn.native.glib.glib_check_version
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_strv_get_type
 import org.gtkkn.native.gobject.g_variant_get_gtype
@@ -395,10 +453,6 @@ import kotlin.collections.List
  * ## Skipped during bindings generation
  *
  * - alias `Strv`: Unsupported string with cType gchar**
- * - function `aligned_alloc`: Return type gpointer is unsupported
- * - function `aligned_alloc0`: Return type gpointer is unsupported
- * - parameter `mem`: gpointer
- * - parameter `mem`: gpointer
  * - parameter `out_num`: out_num: Out parameter is not supported
  * - parameter `out_num`: out_num: Out parameter is not supported
  * - parameter `endptr`: endptr: Out parameter is not supported
@@ -419,22 +473,16 @@ import kotlin.collections.List
  * - parameter `atomic`: Unsupported pointer to primitive type
  * - parameter `atomic`: Unsupported pointer to primitive type
  * - parameter `atomic`: Unsupported pointer to primitive type
- * - parameter `atomic`: gpointer
- * - parameter `atomic`: gpointer
- * - parameter `atomic`: gpointer
- * - parameter `atomic`: gpointer
- * - parameter `atomic`: gpointer
- * - parameter `atomic`: gpointer
- * - parameter `atomic`: gpointer
- * - parameter `atomic`: gpointer
- * - parameter `atomic`: gpointer
- * - parameter `mem_block`: gpointer
- * - function `atomic_rc_box_alloc`: Return type gpointer is unsupported
- * - function `atomic_rc_box_alloc0`: Return type gpointer is unsupported
- * - parameter `mem_block`: gpointer
- * - parameter `mem_block`: gpointer
- * - parameter `mem_block`: gpointer
- * - parameter `mem_block`: gpointer
+ * - parameter `atomic`: Unsupported pointer to primitive type
+ * - parameter `atomic`: Unsupported pointer to primitive type
+ * - parameter `atomic`: Unsupported pointer to primitive type
+ * - parameter `atomic`: Unsupported pointer to primitive type
+ * - parameter `atomic`: Unsupported pointer to primitive type
+ * - parameter `atomic`: Unsupported pointer to primitive type
+ * - parameter `atomic`: Unsupported pointer to primitive type
+ * - parameter `atomic`: Unsupported pointer to primitive type
+ * - parameter `atomic`: Unsupported pointer to primitive type
+ * - parameter `clear_func`: DestroyNotify
  * - parameter `arc`: Unsupported pointer to primitive type
  * - parameter `arc`: Unsupported pointer to primitive type
  * - parameter `arc`: Unsupported pointer to primitive type
@@ -474,15 +522,7 @@ import kotlin.collections.List
  * - parameter `datalist`: Data
  * - parameter `datalist`: Data
  * - parameter `datalist`: Data
- * - parameter `dataset_location`: gpointer
- * - parameter `dataset_location`: gpointer
- * - parameter `dataset_location`: gpointer
- * - parameter `dataset_location`: gpointer
- * - parameter `dataset_location`: gpointer
- * - parameter `v1`: gpointer
- * - parameter `v`: gpointer
- * - parameter `v1`: gpointer
- * - parameter `v`: gpointer
+ * - parameter `destroy_func`: DestroyNotify
  * - parameter `contents`: contents: Out parameter is not supported
  * - parameter `name_used`: name_used: Out parameter is not supported
  * - parameter `contents`: Array parameter of type guint8 is not supported
@@ -492,22 +532,14 @@ import kotlin.collections.List
  * - parameter `bytes_read`: bytes_read: Out parameter is not supported
  * - function `fopen`: Return type gpointer is unsupported
  * - function `fprintf`: Varargs parameter is not supported
- * - parameter `mem`: gpointer
- * - parameter `mem`: gpointer
- * - parameter `stream`: gpointer
+ * - parameter `stream`: Unsupported pointer to primitive type
  * - parameter `charset`: charset: Out parameter is not supported
  * - parameter `charset`: charset: Out parameter is not supported
  * - parameter `filename_charsets`: filename_charsets: Out parameter is not supported
  * - function `iconv`: In/Out parameter is not supported
- * - parameter `data`: gpointer
- * - parameter `v1`: gpointer
- * - parameter `v`: gpointer
- * - parameter `v1`: gpointer
- * - parameter `v`: gpointer
  * - parameter `bytes_read`: bytes_read: Out parameter is not supported
  * - parameter `opsysstring`: Array parameter of type guint8 is not supported
  * - function `log`: Varargs parameter is not supported
- * - parameter `unused_data`: gpointer
  * - function `log_set_default_handler`: Return type LogFunc is unsupported
  * - function `log_structured`: Varargs parameter is not supported
  * - parameter `fields`: LogField
@@ -520,23 +552,17 @@ import kotlin.collections.List
  * - parameter `fields`: LogField
  * - parameter `args`: va_list
  * - parameter `buf`: StatBuf
- * - function `malloc`: Return type gpointer is unsupported
- * - function `malloc0`: Return type gpointer is unsupported
- * - function `malloc0_n`: Return type gpointer is unsupported
- * - function `malloc_n`: Return type gpointer is unsupported
  * - function `markup_collect_attributes`: Varargs parameter is not supported
  * - function `markup_printf_escaped`: Varargs parameter is not supported
  * - parameter `args`: va_list
- * - parameter `mem`: gpointer
- * - parameter `mem`: gpointer
- * - parameter `nullify_location`: gpointer
+ * - parameter `nullify_location`: Unsupported pointer to primitive type
  * - parameter `keys`: DebugKey
- * - parameter `address`: gpointer
- * - parameter `address`: gpointer
- * - parameter `ptr`: gpointer
- * - parameter `address`: gpointer
- * - parameter `address`: gpointer
- * - parameter `address`: gpointer
+ * - parameter `address`: Unsupported pointer to primitive type
+ * - parameter `out_ptr`: out_ptr: Out parameter is not supported
+ * - parameter `preserve_mask`: guintptr
+ * - parameter `address`: Unsupported pointer to primitive type
+ * - parameter `address`: Unsupported pointer to primitive type
+ * - parameter `address`: Unsupported pointer to primitive type
  * - function `prefix_error`: In/Out parameter is not supported
  * - function `prefix_error_literal`: In/Out parameter is not supported
  * - function `print`: Varargs parameter is not supported
@@ -545,16 +571,7 @@ import kotlin.collections.List
  * - parameter `args`: va_list
  * - parameter `dest`: dest: Out parameter is not supported
  * - function `propagate_prefixed_error`: Varargs parameter is not supported
- * - parameter `pbase`: gpointer
- * - parameter `mem_block`: gpointer
- * - function `rc_box_alloc`: Return type gpointer is unsupported
- * - function `rc_box_alloc0`: Return type gpointer is unsupported
- * - parameter `mem_block`: gpointer
- * - parameter `mem_block`: gpointer
- * - parameter `mem_block`: gpointer
- * - parameter `mem_block`: gpointer
- * - parameter `mem`: gpointer
- * - parameter `mem`: gpointer
+ * - parameter `clear_func`: DestroyNotify
  * - parameter `rc`: Unsupported pointer to primitive type
  * - parameter `rc`: Unsupported pointer to primitive type
  * - parameter `rc`: Unsupported pointer to primitive type
@@ -564,11 +581,6 @@ import kotlin.collections.List
  * - parameter `func`: PrintFunc
  * - parameter `func`: PrintFunc
  * - parameter `argcp`: argcp: Out parameter is not supported
- * - function `slice_alloc`: Return type gpointer is unsupported
- * - function `slice_alloc0`: Return type gpointer is unsupported
- * - parameter `mem_block`: gpointer
- * - parameter `mem_block`: gpointer
- * - parameter `mem_chain`: gpointer
  * - parameter `n_values`: Unsupported pointer to primitive type
  * - function `snprintf`: Varargs parameter is not supported
  * - parameter `child_pid`: child_pid: Out parameter is not supported
@@ -579,20 +591,18 @@ import kotlin.collections.List
  * - parameter `standard_output`: standard_output: Out parameter is not supported
  * - function `sprintf`: Varargs parameter is not supported
  * - parameter `buf`: StatBuf
- * - parameter `v1`: gpointer
- * - parameter `v`: gpointer
  * - parameter `ascii_alternates`: ascii_alternates: Out parameter is not supported
  * - function `strconcat`: Varargs parameter is not supported
  * - function `strdup_printf`: Varargs parameter is not supported
  * - parameter `args`: va_list
  * - function `strjoin`: Varargs parameter is not supported
  * - parameter `endptr`: endptr: Out parameter is not supported
- * - parameter `test_data`: gpointer
- * - parameter `test_data`: gpointer
+ * - parameter `test_func`: TestDataFunc
+ * - parameter `test_func`: TestDataFunc
  * - parameter `test_func`: TestFunc
- * - parameter `test_data`: gpointer
+ * - parameter `data_setup`: TestFixtureFunc
  * - function `test_build_filename`: Varargs parameter is not supported
- * - parameter `test_data`: gpointer
+ * - parameter `data_setup`: TestFixtureFunc
  * - function `test_create_suite`: Return type TestSuite is unsupported
  * - function `test_fail_printf`: Varargs parameter is not supported
  * - function `test_get_filename`: Varargs parameter is not supported
@@ -603,15 +613,8 @@ import kotlin.collections.List
  * - function `test_message`: Varargs parameter is not supported
  * - function `test_minimized_result`: Varargs parameter is not supported
  * - parameter `destroy_func`: DestroyNotify
- * - parameter `gfree_pointer`: gpointer
  * - parameter `suite`: TestSuite
  * - function `test_skip_printf`: Varargs parameter is not supported
- * - function `try_malloc`: Return type gpointer is unsupported
- * - function `try_malloc0`: Return type gpointer is unsupported
- * - function `try_malloc0_n`: Return type gpointer is unsupported
- * - function `try_malloc_n`: Return type gpointer is unsupported
- * - parameter `mem`: gpointer
- * - parameter `mem`: gpointer
  * - parameter `str`: Array parameter of type gunichar is not supported
  * - parameter `str`: Array parameter of type gunichar is not supported
  * - parameter `ch`: ch: Out parameter is not supported
@@ -630,22 +633,15 @@ import kotlin.collections.List
  * - parameter `items_read`: items_read: Out parameter is not supported
  * - parameter `str`: Array parameter of type guint8 is not supported
  * - parameter `str`: Array parameter of type guint8 is not supported
- * - parameter `utb`: gpointer
+ * - parameter `utb`: Unsupported pointer to primitive type
  * - parameter `string`: string: Out parameter is not supported
- * - parameter `file`: gpointer
+ * - parameter `file`: Unsupported pointer to primitive type
  * - parameter `args`: va_list
  * - parameter `args`: va_list
  * - parameter `args`: va_list
- * - callback `CacheDupFunc`: Return type gpointer is unsupported
- * - callback `CacheNewFunc`: Return type gpointer is unsupported
- * - callback `CompletionFunc`: Callback with String return value is not supported
- * - callback `CopyFunc`: Return type gpointer is unsupported
- * - callback `DuplicateFunc`: Return type gpointer is unsupported
  * - callback `OptionArgFunc`: Callbacks that throw are not supported
  * - callback `OptionErrorFunc`: Callbacks that throw are not supported
  * - callback `OptionParseFunc`: Callbacks that throw are not supported
- * - callback `ThreadFunc`: Return type gpointer is unsupported
- * - callback `TranslateFunc`: Callback with String return value is not supported
  */
 public object GLib {
     public const val ALLOCATOR_LIST: gint = 1
@@ -1454,6 +1450,73 @@ public object GLib {
     public fun access(filename: kotlin.String, mode: gint): gint = g_access(filename, mode)
 
     /**
+     * This function is similar to g_malloc(), allocating (@n_blocks * @n_block_bytes)
+     * bytes, but care is taken to align the allocated memory to with the given
+     * alignment value. Additionally, it will detect possible overflow during
+     * multiplication.
+     *
+     * If the allocation fails (because the system is out of memory),
+     * the program is terminated.
+     *
+     * Aligned memory allocations returned by this function can only be
+     * freed using g_aligned_free_sized() or g_aligned_free().
+     *
+     * @param nBlocks the number of blocks to allocate
+     * @param nBlockBytes the size of each block in bytes
+     * @param alignment the alignment to be enforced, which must be a positive power of 2
+     *   and a multiple of `sizeof(void*)`
+     * @return the allocated memory
+     * @since 2.72
+     */
+    @GLibVersion2_72
+    public fun alignedAlloc(nBlocks: gsize, nBlockBytes: gsize, alignment: gsize): gpointer? =
+        g_aligned_alloc(nBlocks, nBlockBytes, alignment)
+
+    /**
+     * This function is similar to g_aligned_alloc(), but it will
+     * also clear the allocated memory before returning it.
+     *
+     * @param nBlocks the number of blocks to allocate
+     * @param nBlockBytes the size of each block in bytes
+     * @param alignment the alignment to be enforced, which must be a positive power of 2
+     *   and a multiple of `sizeof(void*)`
+     * @return the allocated, cleared memory
+     * @since 2.72
+     */
+    @GLibVersion2_72
+    public fun alignedAlloc0(nBlocks: gsize, nBlockBytes: gsize, alignment: gsize): gpointer? =
+        g_aligned_alloc0(nBlocks, nBlockBytes, alignment)
+
+    /**
+     * Frees the memory allocated by g_aligned_alloc().
+     *
+     * @param mem the memory to deallocate
+     * @since 2.72
+     */
+    @GLibVersion2_72
+    public fun alignedFree(mem: gpointer? = null): Unit = g_aligned_free(mem)
+
+    /**
+     * Frees the memory pointed to by @mem, assuming it is has the given @size and
+     * @alignment.
+     *
+     * If @mem is null this is a no-op (and @size is ignored).
+     *
+     * It is an error if @size doesn’t match the size, or @alignment doesn’t match
+     * the alignment, passed when @mem was allocated. @size and @alignment are
+     * passed to this function to allow optimizations in the allocator. If you
+     * don’t know either of them, use g_aligned_free() instead.
+     *
+     * @param mem the memory to free
+     * @param alignment alignment of @mem
+     * @param size size of @mem, in bytes
+     * @since 2.76
+     */
+    @GLibVersion2_76
+    public fun alignedFreeSized(mem: gpointer? = null, alignment: gsize, size: gsize): Unit =
+        g_aligned_free_sized(mem, alignment, size)
+
+    /**
      * Determines the numeric value of a character as a decimal digit. If the
      * character is not a decimal digit according to [func@GLib.ascii_isdigit],
      * `-1` is returned.
@@ -1664,6 +1727,90 @@ public object GLib {
         func: kotlin.String,
         expr: kotlin.String? = null,
     ): Unit = g_assertion_message_expr(domain, `file`, line, func, expr)
+
+    /**
+     * Atomically acquires a reference on the data pointed by @mem_block.
+     *
+     * @param memBlock a pointer to reference counted data
+     * @return a pointer to the data,
+     *   with its reference count increased
+     * @since 2.58
+     */
+    @GLibVersion2_58
+    public fun atomicRcBoxAcquire(memBlock: gpointer): gpointer = g_atomic_rc_box_acquire(memBlock)!!
+
+    /**
+     * Allocates @block_size bytes of memory, and adds atomic
+     * reference counting semantics to it.
+     *
+     * The data will be freed when its reference count drops to
+     * zero.
+     *
+     * The allocated data is guaranteed to be suitably aligned for any
+     * built-in type.
+     *
+     * @param blockSize the size of the allocation, must be greater than 0
+     * @return a pointer to the allocated memory
+     * @since 2.58
+     */
+    @GLibVersion2_58
+    public fun atomicRcBoxAlloc(blockSize: gsize): gpointer = g_atomic_rc_box_alloc(blockSize)!!
+
+    /**
+     * Allocates @block_size bytes of memory, and adds atomic
+     * reference counting semantics to it.
+     *
+     * The contents of the returned data is set to zero.
+     *
+     * The data will be freed when its reference count drops to
+     * zero.
+     *
+     * The allocated data is guaranteed to be suitably aligned for any
+     * built-in type.
+     *
+     * @param blockSize the size of the allocation, must be greater than 0
+     * @return a pointer to the allocated memory
+     * @since 2.58
+     */
+    @GLibVersion2_58
+    public fun atomicRcBoxAlloc0(blockSize: gsize): gpointer = g_atomic_rc_box_alloc0(blockSize)!!
+
+    /**
+     * Allocates a new block of data with atomic reference counting
+     * semantics, and copies @block_size bytes of @mem_block
+     * into it.
+     *
+     * @param blockSize the number of bytes to copy, must be greater than 0
+     * @param memBlock the memory to copy
+     * @return a pointer to the allocated
+     *   memory
+     * @since 2.58
+     */
+    @GLibVersion2_58
+    public fun atomicRcBoxDup(blockSize: gsize, memBlock: gpointer): gpointer =
+        g_atomic_rc_box_dup(blockSize, memBlock)!!
+
+    /**
+     * Retrieves the size of the reference counted data pointed by @mem_block.
+     *
+     * @param memBlock a pointer to reference counted data
+     * @return the size of the data, in bytes
+     * @since 2.58
+     */
+    @GLibVersion2_58
+    public fun atomicRcBoxGetSize(memBlock: gpointer): gsize = g_atomic_rc_box_get_size(memBlock)
+
+    /**
+     * Atomically releases a reference on the data pointed by @mem_block.
+     *
+     * If the reference was the last one, it will free the
+     * resources allocated for @mem_block.
+     *
+     * @param memBlock a pointer to reference counted data
+     * @since 2.58
+     */
+    @GLibVersion2_58
+    public fun atomicRcBoxRelease(memBlock: gpointer): Unit = g_atomic_rc_box_release(memBlock)
 
     /**
      * Gets the name of the file without any leading directory
@@ -2054,6 +2201,53 @@ public object GLib {
     public fun convertErrorQuark(): Quark = g_convert_error_quark()
 
     /**
+     * Destroys the dataset, freeing all memory allocated, and calling any
+     * destroy functions set for data elements.
+     *
+     * @param datasetLocation the location identifying the dataset.
+     */
+    public fun datasetDestroy(datasetLocation: gpointer): Unit = g_dataset_destroy(datasetLocation)
+
+    /**
+     * Calls the given function for each data element which is associated
+     * with the given location. Note that this function is NOT thread-safe.
+     * So unless @dataset_location can be protected from any modifications
+     * during invocation of this function, it should not be called.
+     *
+     * @func can make changes to the dataset, but the iteration will not
+     * reflect changes made during the g_dataset_foreach() call, other
+     * than skipping over elements that are removed.
+     *
+     * @param datasetLocation the location identifying the dataset.
+     * @param func the function to call for each data element.
+     */
+    public fun datasetForeach(datasetLocation: gpointer, func: DataForeachFunc): Unit =
+        g_dataset_foreach(datasetLocation, DataForeachFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
+
+    /**
+     * Gets the data element corresponding to a #GQuark.
+     *
+     * @param datasetLocation the location identifying the dataset.
+     * @param keyId the #GQuark id to identify the data element.
+     * @return the data element corresponding to
+     *          the #GQuark, or null if it is not found.
+     */
+    public fun datasetIdGetData(datasetLocation: gpointer, keyId: Quark): gpointer? =
+        g_dataset_id_get_data(datasetLocation, keyId)
+
+    /**
+     * Removes an element, without calling its destroy notification
+     * function.
+     *
+     * @param datasetLocation the location identifying the dataset.
+     * @param keyId the #GQuark ID identifying the data element.
+     * @return the data previously stored at @key_id,
+     *          or null if none.
+     */
+    public fun datasetIdRemoveNoNotify(datasetLocation: gpointer, keyId: Quark): gpointer? =
+        g_dataset_id_remove_no_notify(datasetLocation, keyId)
+
+    /**
      * This is a variant of g_dgettext() that allows specifying a locale
      * category instead of always using `LC_MESSAGES`. See g_dgettext() for
      * more information about how this functions differs from calling
@@ -2115,6 +2309,35 @@ public object GLib {
         g_dgettext(domain, msgid)?.toKString() ?: error("Expected not null string")
 
     /**
+     * Compares two #gpointer arguments and returns true if they are equal.
+     * It can be passed to g_hash_table_new() as the @key_equal_func
+     * parameter, when using opaque pointers compared by pointer value as
+     * keys in a #GHashTable.
+     *
+     * This equality function is also appropriate for keys that are integers
+     * stored in pointers, such as `GINT_TO_POINTER (n)`.
+     *
+     * @param v1 a key
+     * @param v2 a key to compare with @v1
+     * @return true if the two keys match.
+     */
+    public fun directEqual(v1: gpointer? = null, v2: gpointer? = null): Boolean = g_direct_equal(v1, v2).asBoolean()
+
+    /**
+     * Converts a gpointer to a hash value.
+     * It can be passed to g_hash_table_new() as the @hash_func parameter,
+     * when using opaque pointers compared by pointer value as keys in a
+     * #GHashTable.
+     *
+     * This hash function is also appropriate for keys that are integers
+     * stored in pointers, such as `GINT_TO_POINTER (n)`.
+     *
+     * @param v a #gpointer key
+     * @return a hash value corresponding to the key.
+     */
+    public fun directHash(v: gpointer? = null): guint = g_direct_hash(v)
+
+    /**
      * This function is a wrapper of dngettext() which does not translate
      * the message if the default domain as set with textdomain() has no
      * translations for the current locale.
@@ -2137,6 +2360,34 @@ public object GLib {
         msgidPlural: kotlin.String,
         n: gulong,
     ): kotlin.String = g_dngettext(domain, msgid, msgidPlural, n)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Compares the two #gdouble values being pointed to and returns
+     * true if they are equal.
+     * It can be passed to g_hash_table_new() as the @key_equal_func
+     * parameter, when using non-null pointers to doubles as keys in a
+     * #GHashTable.
+     *
+     * @param v1 a pointer to a #gdouble key
+     * @param v2 a pointer to a #gdouble key to compare with @v1
+     * @return true if the two keys match.
+     * @since 2.22
+     */
+    @GLibVersion2_22
+    public fun doubleEqual(v1: gpointer, v2: gpointer): Boolean = g_double_equal(v1, v2).asBoolean()
+
+    /**
+     * Converts a pointer to a #gdouble to a hash value.
+     * It can be passed to g_hash_table_new() as the @hash_func parameter,
+     * It can be passed to g_hash_table_new() as the @hash_func parameter,
+     * when using non-null pointers to doubles as keys in a #GHashTable.
+     *
+     * @param v a pointer to a #gdouble key
+     * @return a hash value corresponding to the key.
+     * @since 2.22
+     */
+    @GLibVersion2_22
+    public fun doubleHash(v: gpointer): guint = g_double_hash(v)
 
     /**
      * This function is a variant of g_dgettext() which supports
@@ -2562,6 +2813,45 @@ public object GLib {
     @GLibVersion2_30
     public fun formatSizeFull(size: guint64, flags: FormatSizeFlags): kotlin.String =
         g_format_size_full(size, flags.mask)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Frees the memory pointed to by @mem.
+     *
+     * If you know the allocated size of @mem, calling g_free_sized() may be faster,
+     * depending on the libc implementation in use.
+     *
+     * Starting from GLib 2.78, this may happen automatically in case a GCC
+     * compatible compiler is used with some optimization level and the allocated
+     * size is known at compile time (see [documentation of
+     * `__builtin_object_size()`](https://gcc.gnu.org/onlinedocs/gcc/Object-Size-Checking.html)
+     * to understand its caveats).
+     *
+     * If @mem is null it simply returns, so there is no need to check @mem
+     * against null before calling this function.
+     *
+     * @param mem the memory to free
+     */
+    public fun free(mem: gpointer? = null): Unit = g_free(mem)
+
+    /**
+     * Frees the memory pointed to by @mem, assuming it is has the given @size.
+     *
+     * If @mem is null this is a no-op (and @size is ignored).
+     *
+     * It is an error if @size doesn’t match the size passed when @mem was
+     * allocated. @size is passed to this function to allow optimizations in the
+     * allocator. If you don’t know the allocation size, use g_free() instead.
+     *
+     * In case a GCC compatible compiler is used, this function may be used
+     * automatically via g_free() if the allocated size is known at compile time,
+     * since GLib 2.78.
+     *
+     * @param mem the memory to free
+     * @param size size of @mem, in bytes
+     * @since 2.76
+     */
+    @GLibVersion2_76
+    public fun freeSized(mem: gpointer? = null, size: gsize): Unit = g_free_sized(mem, size)
 
     /**
      * Gets a human-readable name for the application, as set by
@@ -3238,6 +3528,14 @@ public object GLib {
         g_idle_add_once(SourceOnceFuncFunc.reinterpret(), StableRef.create(function).asCPointer())
 
     /**
+     * Removes the idle function with the given data.
+     *
+     * @param data the data for the idle source's callback.
+     * @return true if an idle source was found and removed.
+     */
+    public fun idleRemoveByData(`data`: gpointer? = null): Boolean = g_idle_remove_by_data(`data`).asBoolean()
+
+    /**
      * Creates a new idle source.
      *
      * The source will not initially be associated with any #GMainContext
@@ -3251,6 +3549,66 @@ public object GLib {
     public fun idleSourceNew(): Source = g_idle_source_new()!!.run {
         Source(reinterpret())
     }
+
+    /**
+     * Compares the two #gint64 values being pointed to and returns
+     * true if they are equal.
+     * It can be passed to g_hash_table_new() as the @key_equal_func
+     * parameter, when using non-null pointers to 64-bit integers as keys in a
+     * #GHashTable.
+     *
+     * @param v1 a pointer to a #gint64 key
+     * @param v2 a pointer to a #gint64 key to compare with @v1
+     * @return true if the two keys match.
+     * @since 2.22
+     */
+    @GLibVersion2_22
+    public fun int64Equal(v1: gpointer, v2: gpointer): Boolean = g_int64_equal(v1, v2).asBoolean()
+
+    /**
+     * Converts a pointer to a #gint64 to a hash value.
+     *
+     * It can be passed to g_hash_table_new() as the @hash_func parameter,
+     * when using non-null pointers to 64-bit integer values as keys in a
+     * #GHashTable.
+     *
+     * @param v a pointer to a #gint64 key
+     * @return a hash value corresponding to the key.
+     * @since 2.22
+     */
+    @GLibVersion2_22
+    public fun int64Hash(v: gpointer): guint = g_int64_hash(v)
+
+    /**
+     * Compares the two #gint values being pointed to and returns
+     * true if they are equal.
+     * It can be passed to g_hash_table_new() as the @key_equal_func
+     * parameter, when using non-null pointers to integers as keys in a
+     * #GHashTable.
+     *
+     * Note that this function acts on pointers to #gint, not on #gint
+     * directly: if your hash table's keys are of the form
+     * `GINT_TO_POINTER (n)`, use g_direct_equal() instead.
+     *
+     * @param v1 a pointer to a #gint key
+     * @param v2 a pointer to a #gint key to compare with @v1
+     * @return true if the two keys match.
+     */
+    public fun intEqual(v1: gpointer, v2: gpointer): Boolean = g_int_equal(v1, v2).asBoolean()
+
+    /**
+     * Converts a pointer to a #gint to a hash value.
+     * It can be passed to g_hash_table_new() as the @hash_func parameter,
+     * when using non-null pointers to integer values as keys in a #GHashTable.
+     *
+     * Note that this function acts on pointers to #gint, not on #gint
+     * directly: if your hash table's keys are of the form
+     * `GINT_TO_POINTER (n)`, use g_direct_hash() instead.
+     *
+     * @param v a pointer to a #gint key
+     * @return a hash value corresponding to the key.
+     */
+    public fun intHash(v: gpointer): guint = g_int_hash(v)
 
     /**
      * Returns a canonical representation for @string. Interned strings
@@ -3352,6 +3710,49 @@ public object GLib {
      */
     @GLibVersion2_8
     public fun listenv(): List<kotlin.String> = g_listenv()?.toKStringList() ?: error("Expected not null string array")
+
+    /**
+     * The default log handler set up by GLib; [func@GLib.log_set_default_handler]
+     * allows to install an alternate default log handler.
+     *
+     * This is used if no log handler has been set for the particular log
+     * domain and log level combination. It outputs the message to `stderr`
+     * or `stdout` and if the log level is fatal it calls [func@GLib.BREAKPOINT]. It automatically
+     * prints a new-line character after the message, so one does not need to be
+     * manually included in @message.
+     *
+     * The behavior of this log handler can be influenced by a number of
+     * environment variables:
+     *
+     *   - `G_MESSAGES_PREFIXED`: A `:`-separated list of log levels for which
+     *     messages should be prefixed by the program name and PID of the
+     *     application.
+     *   - `G_MESSAGES_DEBUG`: A space-separated list of log domains for
+     *     which debug and informational messages are printed. By default
+     *     these messages are not printed. If you need to set the allowed
+     *     domains at runtime, use [func@GLib.log_writer_default_set_debug_domains].
+     *
+     * `stderr` is used for levels [flags@GLib.LogLevelFlags.LEVEL_ERROR],
+     * [flags@GLib.LogLevelFlags.LEVEL_CRITICAL], [flags@GLib.LogLevelFlags.LEVEL_WARNING] and
+     * [flags@GLib.LogLevelFlags.LEVEL_MESSAGE]. `stdout` is used for
+     * the rest, unless `stderr` was requested by
+     * [func@GLib.log_writer_default_set_use_stderr].
+     *
+     * This has no effect if structured logging is enabled; see
+     * [Using Structured Logging](logging.html#using-structured-logging).
+     *
+     * @param logDomain the log domain of the message, or `NULL` for the
+     *   default `""` application domain
+     * @param logLevel the level of the message
+     * @param message the message
+     * @param unusedData data passed from [func@GLib.log] which is unused
+     */
+    public fun logDefaultHandler(
+        logDomain: kotlin.String? = null,
+        logLevel: LogLevelFlags,
+        message: kotlin.String? = null,
+        unusedData: gpointer? = null,
+    ): Unit = g_log_default_handler(logDomain, logLevel.mask, message, unusedData)
 
     /**
      * Return whether debug output from the GLib logging system is enabled.
@@ -3493,10 +3894,12 @@ public object GLib {
      * @since 2.50
      */
     @GLibVersion2_50
-    public fun logSetWriterFunc(func: LogWriterFunc): Unit = g_log_set_writer_func(
-        LogWriterFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer(),
-        staticStableRefDestroy.reinterpret()
+    public fun logSetWriterFunc(func: LogWriterFunc?): Unit = g_log_set_writer_func(
+        func?.let {
+            LogWriterFuncFunc.reinterpret()
+        },
+        func?.let { StableRef.create(func).asCPointer() },
+        func?.let { staticStableRefDestroy.reinterpret() }
     )
 
     /**
@@ -3740,6 +4143,60 @@ public object GLib {
      */
     public fun mainDepth(): gint = g_main_depth()
 
+    /**
+     * Allocates @n_bytes bytes of memory.
+     * If @n_bytes is 0 it returns null.
+     *
+     * If the allocation fails (because the system is out of memory),
+     * the program is terminated.
+     *
+     * @param nBytes the number of bytes to allocate
+     * @return a pointer to the allocated memory
+     */
+    public fun malloc(nBytes: gsize): gpointer? = g_malloc(nBytes)
+
+    /**
+     * Allocates @n_bytes bytes of memory, initialized to 0's.
+     * If @n_bytes is 0 it returns null.
+     *
+     * If the allocation fails (because the system is out of memory),
+     * the program is terminated.
+     *
+     * @param nBytes the number of bytes to allocate
+     * @return a pointer to the allocated memory
+     */
+    public fun malloc0(nBytes: gsize): gpointer? = g_malloc0(nBytes)
+
+    /**
+     * This function is similar to g_malloc0(), allocating (@n_blocks * @n_block_bytes) bytes,
+     * but care is taken to detect possible overflow during multiplication.
+     *
+     * If the allocation fails (because the system is out of memory),
+     * the program is terminated.
+     *
+     * @param nBlocks the number of blocks to allocate
+     * @param nBlockBytes the size of each block in bytes
+     * @return a pointer to the allocated memory
+     * @since 2.24
+     */
+    @GLibVersion2_24
+    public fun malloc0N(nBlocks: gsize, nBlockBytes: gsize): gpointer? = g_malloc0_n(nBlocks, nBlockBytes)
+
+    /**
+     * This function is similar to g_malloc(), allocating (@n_blocks * @n_block_bytes) bytes,
+     * but care is taken to detect possible overflow during multiplication.
+     *
+     * If the allocation fails (because the system is out of memory),
+     * the program is terminated.
+     *
+     * @param nBlocks the number of blocks to allocate
+     * @param nBlockBytes the size of each block in bytes
+     * @return a pointer to the allocated memory
+     * @since 2.24
+     */
+    @GLibVersion2_24
+    public fun mallocN(nBlocks: gsize, nBlockBytes: gsize): gpointer? = g_malloc_n(nBlocks, nBlockBytes)
+
     public fun markupErrorQuark(): Quark = g_markup_error_quark()
 
     /**
@@ -3792,6 +4249,31 @@ public object GLib {
      * @param vtable table of memory allocation routines.
      */
     public fun memSetVtable(vtable: MemVTable): Unit = g_mem_set_vtable(vtable.glibMemVTablePointer.reinterpret())
+
+    /**
+     * Allocates @byte_size bytes of memory, and copies @byte_size bytes into it
+     * from @mem. If @mem is `NULL` it returns `NULL`.
+     *
+     * @param mem the memory to copy
+     * @param byteSize the number of bytes to copy
+     * @return a pointer to the newly-allocated copy of the memory
+     */
+    public fun memdup(mem: gpointer? = null, byteSize: guint): gpointer? = g_memdup(mem, byteSize)
+
+    /**
+     * Allocates @byte_size bytes of memory, and copies @byte_size bytes into it
+     * from @mem. If @mem is `NULL` it returns `NULL`.
+     *
+     * This replaces [func@GLib.memdup], which was prone to integer overflows when
+     * converting the argument from a `gsize` to a `guint`.
+     *
+     * @param mem the memory to copy
+     * @param byteSize the number of bytes to copy
+     * @return a pointer to the newly-allocated copy of the memory
+     * @since 2.68
+     */
+    @GLibVersion2_68
+    public fun memdup2(mem: gpointer? = null, byteSize: gsize): gpointer? = g_memdup2(mem, byteSize)
 
     /**
      * Create a directory if it doesn't already exist. Create intermediate
@@ -4148,6 +4630,26 @@ public object GLib {
         g_poll(fds.glibPollFDPointer.reinterpret(), nfds, timeout)
 
     /**
+     * This is just like the standard C qsort() function, but
+     * the comparison routine accepts a user data argument.
+     *
+     * This is guaranteed to be a stable sort since version 2.32.
+     *
+     * @param pbase start of array to sort
+     * @param totalElems elements in the array
+     * @param size size of each element
+     * @param compareFunc function to compare elements
+     */
+    public fun qsortWithData(pbase: gpointer, totalElems: gint, size: gsize, compareFunc: CompareDataFunc): Unit =
+        g_qsort_with_data(
+            pbase,
+            totalElems,
+            size,
+            CompareDataFuncFunc.reinterpret(),
+            StableRef.create(compareFunc).asCPointer()
+        )
+
+    /**
      * Gets the #GQuark identifying the given (static) string. If the
      * string does not currently have an associated #GQuark, a new #GQuark
      * is created, linked to the given string.
@@ -4251,6 +4753,122 @@ public object GLib {
      * @param seed a value to reinitialize the global random number generator
      */
     public fun randomSetSeed(seed: guint): Unit = g_random_set_seed(seed)
+
+    /**
+     * Acquires a reference on the data pointed by @mem_block.
+     *
+     * @param memBlock a pointer to reference counted data
+     * @return a pointer to the data,
+     *   with its reference count increased
+     * @since 2.58
+     */
+    @GLibVersion2_58
+    public fun rcBoxAcquire(memBlock: gpointer): gpointer = g_rc_box_acquire(memBlock)!!
+
+    /**
+     * Allocates @block_size bytes of memory, and adds reference
+     * counting semantics to it.
+     *
+     * The data will be freed when its reference count drops to
+     * zero.
+     *
+     * The allocated data is guaranteed to be suitably aligned for any
+     * built-in type.
+     *
+     * @param blockSize the size of the allocation, must be greater than 0
+     * @return a pointer to the allocated memory
+     * @since 2.58
+     */
+    @GLibVersion2_58
+    public fun rcBoxAlloc(blockSize: gsize): gpointer = g_rc_box_alloc(blockSize)!!
+
+    /**
+     * Allocates @block_size bytes of memory, and adds reference
+     * counting semantics to it.
+     *
+     * The contents of the returned data is set to zero.
+     *
+     * The data will be freed when its reference count drops to
+     * zero.
+     *
+     * The allocated data is guaranteed to be suitably aligned for any
+     * built-in type.
+     *
+     * @param blockSize the size of the allocation, must be greater than 0
+     * @return a pointer to the allocated memory
+     * @since 2.58
+     */
+    @GLibVersion2_58
+    public fun rcBoxAlloc0(blockSize: gsize): gpointer = g_rc_box_alloc0(blockSize)!!
+
+    /**
+     * Allocates a new block of data with reference counting
+     * semantics, and copies @block_size bytes of @mem_block
+     * into it.
+     *
+     * @param blockSize the number of bytes to copy, must be greater than 0
+     * @param memBlock the memory to copy
+     * @return a pointer to the allocated
+     *   memory
+     * @since 2.58
+     */
+    @GLibVersion2_58
+    public fun rcBoxDup(blockSize: gsize, memBlock: gpointer): gpointer = g_rc_box_dup(blockSize, memBlock)!!
+
+    /**
+     * Retrieves the size of the reference counted data pointed by @mem_block.
+     *
+     * @param memBlock a pointer to reference counted data
+     * @return the size of the data, in bytes
+     * @since 2.58
+     */
+    @GLibVersion2_58
+    public fun rcBoxGetSize(memBlock: gpointer): gsize = g_rc_box_get_size(memBlock)
+
+    /**
+     * Releases a reference on the data pointed by @mem_block.
+     *
+     * If the reference was the last one, it will free the
+     * resources allocated for @mem_block.
+     *
+     * @param memBlock a pointer to reference counted data
+     * @since 2.58
+     */
+    @GLibVersion2_58
+    public fun rcBoxRelease(memBlock: gpointer): Unit = g_rc_box_release(memBlock)
+
+    /**
+     * Reallocates the memory pointed to by @mem, so that it now has space for
+     * @n_bytes bytes of memory. It returns the new address of the memory, which may
+     * have been moved. @mem may be null, in which case it's considered to
+     * have zero-length. @n_bytes may be 0, in which case null will be returned
+     * and @mem will be freed unless it is null.
+     *
+     * If the allocation fails (because the system is out of memory),
+     * the program is terminated.
+     *
+     * @param mem the memory to reallocate
+     * @param nBytes new size of the memory in bytes
+     * @return the new address of the allocated memory
+     */
+    public fun realloc(mem: gpointer? = null, nBytes: gsize): gpointer? = g_realloc(mem, nBytes)
+
+    /**
+     * This function is similar to g_realloc(), allocating (@n_blocks * @n_block_bytes) bytes,
+     * but care is taken to detect possible overflow during multiplication.
+     *
+     * If the allocation fails (because the system is out of memory),
+     * the program is terminated.
+     *
+     * @param mem the memory to reallocate
+     * @param nBlocks the number of blocks to allocate
+     * @param nBlockBytes the size of each block in bytes
+     * @return the new address of the allocated memory
+     * @since 2.24
+     */
+    @GLibVersion2_24
+    public fun reallocN(mem: gpointer? = null, nBlocks: gsize, nBlockBytes: gsize): gpointer? =
+        g_realloc_n(mem, nBlocks, nBlockBytes)
 
     /**
      * Acquires a reference on a string.
@@ -4504,6 +5122,101 @@ public object GLib {
         }
     }
 
+    /**
+     * Allocates a block of memory from the libc allocator.
+     *
+     * The block address handed out can be expected to be aligned
+     * to at least `1 * sizeof (void*)`.
+     *
+     * Since GLib 2.76 this always uses the system malloc() implementation
+     * internally.
+     *
+     * @param blockSize the number of bytes to allocate
+     * @return a pointer to the allocated memory block, which will
+     *   be null if and only if @mem_size is 0
+     * @since 2.10
+     */
+    @GLibVersion2_10
+    public fun sliceAlloc(blockSize: gsize): gpointer? = g_slice_alloc(blockSize)
+
+    /**
+     * Allocates a block of memory via g_slice_alloc() and initializes
+     * the returned memory to 0.
+     *
+     * Since GLib 2.76 this always uses the system malloc() implementation
+     * internally.
+     *
+     * @param blockSize the number of bytes to allocate
+     * @return a pointer to the allocated block, which will be null
+     *    if and only if @mem_size is 0
+     * @since 2.10
+     */
+    @GLibVersion2_10
+    public fun sliceAlloc0(blockSize: gsize): gpointer? = g_slice_alloc0(blockSize)
+
+    /**
+     * Allocates a block of memory from the slice allocator
+     * and copies @block_size bytes into it from @mem_block.
+     *
+     * @mem_block must be non-null if @block_size is non-zero.
+     *
+     * Since GLib 2.76 this always uses the system malloc() implementation
+     * internally.
+     *
+     * @param blockSize the number of bytes to allocate
+     * @param memBlock the memory to copy
+     * @return a pointer to the allocated memory block,
+     *    which will be null if and only if @mem_size is 0
+     * @since 2.14
+     */
+    @GLibVersion2_14
+    public fun sliceCopy(blockSize: gsize, memBlock: gpointer? = null): gpointer? = g_slice_copy(blockSize, memBlock)
+
+    /**
+     * Frees a block of memory.
+     *
+     * The memory must have been allocated via g_slice_alloc() or
+     * g_slice_alloc0() and the @block_size has to match the size
+     * specified upon allocation. Note that the exact release behaviour
+     * can be changed with the [`G_DEBUG=gc-friendly`][G_DEBUG] environment
+     * variable.
+     *
+     * If @mem_block is null, this function does nothing.
+     *
+     * Since GLib 2.76 this always uses the system free_sized() implementation
+     * internally.
+     *
+     * @param blockSize the size of the block
+     * @param memBlock a pointer to the block to free
+     * @since 2.10
+     */
+    @GLibVersion2_10
+    public fun sliceFree1(blockSize: gsize, memBlock: gpointer? = null): Unit = g_slice_free1(blockSize, memBlock)
+
+    /**
+     * Frees a linked list of memory blocks of structure type @type.
+     *
+     * The memory blocks must be equal-sized, allocated via
+     * g_slice_alloc() or g_slice_alloc0() and linked together by a
+     * @next pointer (similar to #GSList). The offset of the @next
+     * field in each block is passed as third argument.
+     * Note that the exact release behaviour can be changed with the
+     * [`G_DEBUG=gc-friendly`][G_DEBUG] environment variable.
+     *
+     * If @mem_chain is null, this function does nothing.
+     *
+     * Since GLib 2.76 this always uses the system free_sized() implementation
+     * internally.
+     *
+     * @param blockSize the size of the blocks
+     * @param memChain a pointer to the first block of the chain
+     * @param nextOffset the offset of the @next field in the blocks
+     * @since 2.10
+     */
+    @GLibVersion2_10
+    public fun sliceFreeChainWithOffset(blockSize: gsize, memChain: gpointer? = null, nextOffset: gsize): Unit =
+        g_slice_free_chain_with_offset(blockSize, memChain, nextOffset)
+
     public fun sliceGetConfig(ckey: SliceConfig): gint64 = g_slice_get_config(ckey.nativeValue)
 
     public fun sliceSetConfig(ckey: SliceConfig, `value`: gint64): Unit = g_slice_set_config(ckey.nativeValue, `value`)
@@ -4645,6 +5358,22 @@ public object GLib {
     public fun spawnExitErrorQuark(): Quark = g_spawn_exit_error_quark()
 
     /**
+     * Compares two strings for byte-by-byte equality and returns true
+     * if they are equal. It can be passed to g_hash_table_new() as the
+     * @key_equal_func parameter, when using non-null strings as keys in a
+     * #GHashTable.
+     *
+     * This function is typically used for hash table comparisons, but can be used
+     * for general purpose comparisons of non-null strings. For a null-safe string
+     * comparison function, see g_strcmp0().
+     *
+     * @param v1 a key
+     * @param v2 a key to compare with @v1
+     * @return true if the two keys match
+     */
+    public fun strEqual(v1: gpointer, v2: gpointer): Boolean = g_str_equal(v1, v2).asBoolean()
+
+    /**
      * Looks whether the string @str begins with @prefix.
      *
      * @param str a string to look in
@@ -4667,6 +5396,27 @@ public object GLib {
     @GLibVersion2_2
     public fun strHasSuffix(str: kotlin.String, suffix: kotlin.String): Boolean =
         g_str_has_suffix(str, suffix).asBoolean()
+
+    /**
+     * Converts a string to a hash value.
+     *
+     * This function implements the widely used "djb" hash apparently
+     * posted by Daniel Bernstein to comp.lang.c some time ago.  The 32
+     * bit unsigned hash value starts at 5381 and for each byte 'c' in
+     * the string, is updated: `hash = hash * 33 + c`. This function
+     * uses the signed value of each byte.
+     *
+     * It can be passed to g_hash_table_new() as the @hash_func parameter,
+     * when using non-null strings as keys in a #GHashTable.
+     *
+     * Note that this function may not be a perfect fit for all use cases.
+     * For example, it produces some hash collisions with strings as short
+     * as 2.
+     *
+     * @param v a string key
+     * @return a hash value corresponding to the key
+     */
+    public fun strHash(v: gpointer): guint = g_str_hash(v)
 
     /**
      * Determines if a string is pure ASCII. A string is pure ASCII if it
@@ -5513,6 +6263,17 @@ public object GLib {
         g_test_log_type_name(logType.nativeValue)?.toKString() ?: error("Expected not null string")
 
     /**
+     * Enqueue a pointer to be released with g_free() during the next
+     * teardown phase. This is equivalent to calling g_test_queue_destroy()
+     * with a destroy callback of g_free().
+     *
+     * @param gfreePointer the pointer to be stored.
+     * @since 2.16
+     */
+    @GLibVersion2_16
+    public fun testQueueFree(gfreePointer: gpointer? = null): Unit = g_test_queue_free(gfreePointer)
+
+    /**
      * Get a reproducible random floating point number,
      * see g_test_rand_int() for details on test case random numbers.
      *
@@ -6068,6 +6829,77 @@ public object GLib {
     public fun timeoutSourceNewSeconds(interval: guint): Source = g_timeout_source_new_seconds(interval)!!.run {
         Source(reinterpret())
     }
+
+    /**
+     * Attempts to allocate @n_bytes, and returns null on failure.
+     * Contrast with g_malloc(), which aborts the program on failure.
+     *
+     * @param nBytes number of bytes to allocate.
+     * @return the allocated memory, or null.
+     */
+    public fun tryMalloc(nBytes: gsize): gpointer? = g_try_malloc(nBytes)
+
+    /**
+     * Attempts to allocate @n_bytes, initialized to 0's, and returns null on
+     * failure. Contrast with g_malloc0(), which aborts the program on failure.
+     *
+     * @param nBytes number of bytes to allocate
+     * @return the allocated memory, or null
+     * @since 2.8
+     */
+    @GLibVersion2_8
+    public fun tryMalloc0(nBytes: gsize): gpointer? = g_try_malloc0(nBytes)
+
+    /**
+     * This function is similar to g_try_malloc0(), allocating (@n_blocks * @n_block_bytes) bytes,
+     * but care is taken to detect possible overflow during multiplication.
+     *
+     * @param nBlocks the number of blocks to allocate
+     * @param nBlockBytes the size of each block in bytes
+     * @return the allocated memory, or null
+     * @since 2.24
+     */
+    @GLibVersion2_24
+    public fun tryMalloc0N(nBlocks: gsize, nBlockBytes: gsize): gpointer? = g_try_malloc0_n(nBlocks, nBlockBytes)
+
+    /**
+     * This function is similar to g_try_malloc(), allocating (@n_blocks * @n_block_bytes) bytes,
+     * but care is taken to detect possible overflow during multiplication.
+     *
+     * @param nBlocks the number of blocks to allocate
+     * @param nBlockBytes the size of each block in bytes
+     * @return the allocated memory, or null.
+     * @since 2.24
+     */
+    @GLibVersion2_24
+    public fun tryMallocN(nBlocks: gsize, nBlockBytes: gsize): gpointer? = g_try_malloc_n(nBlocks, nBlockBytes)
+
+    /**
+     * Attempts to realloc @mem to a new size, @n_bytes, and returns null
+     * on failure. Contrast with g_realloc(), which aborts the program
+     * on failure.
+     *
+     * If @mem is null, behaves the same as g_try_malloc().
+     *
+     * @param mem previously-allocated memory, or null.
+     * @param nBytes number of bytes to allocate.
+     * @return the allocated memory, or null.
+     */
+    public fun tryRealloc(mem: gpointer? = null, nBytes: gsize): gpointer? = g_try_realloc(mem, nBytes)
+
+    /**
+     * This function is similar to g_try_realloc(), allocating (@n_blocks * @n_block_bytes) bytes,
+     * but care is taken to detect possible overflow during multiplication.
+     *
+     * @param mem previously-allocated memory, or null.
+     * @param nBlocks the number of blocks to allocate
+     * @param nBlockBytes the size of each block in bytes
+     * @return the allocated memory, or null.
+     * @since 2.24
+     */
+    @GLibVersion2_24
+    public fun tryReallocN(mem: gpointer? = null, nBlocks: gsize, nBlockBytes: gsize): gpointer? =
+        g_try_realloc_n(mem, nBlocks, nBlockBytes)
 
     /**
      * Determines the break type of @c. @c should be a Unicode character
@@ -7110,17 +7942,36 @@ public object GLib {
     }
 }
 
-public val CacheDestroyFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
-    userData.asStableRef<() -> Unit>().get().invoke()
+public val CacheDestroyFuncFunc: CPointer<CFunction<(gpointer?) -> Unit>> = staticCFunction {
+        `value`: gpointer?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(`value`: gpointer?) -> Unit>().get().invoke(`value`)
+}
+    .reinterpret()
+
+public val CacheDupFuncFunc: CPointer<CFunction<(gpointer?) -> gpointer?>> = staticCFunction {
+        `value`: gpointer?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(`value`: gpointer?) -> gpointer?>().get().invoke(`value`)
+}
+    .reinterpret()
+
+public val CacheNewFuncFunc: CPointer<CFunction<(gpointer?) -> gpointer?>> = staticCFunction {
+        key: gpointer?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(key: gpointer?) -> gpointer?>().get().invoke(key)
 }
     .reinterpret()
 
 public val ChildWatchFuncFunc: CPointer<CFunction<(GPid, gint) -> Unit>> = staticCFunction {
         pid: GPid,
         waitStatus: gint,
-        userData: COpaquePointer,
+        userData: gpointer?,
     ->
-    userData.asStableRef<(pid: Pid, waitStatus: gint) -> Unit>().get().invoke(pid, waitStatus)
+    userData!!.asStableRef<(pid: Pid, waitStatus: gint) -> Unit>().get().invoke(pid, waitStatus)
 }
     .reinterpret()
 
@@ -7132,15 +7983,33 @@ public val ClearHandleFuncFunc: CPointer<CFunction<(guint) -> Unit>> = staticCFu
 }
     .reinterpret()
 
-public val CompareDataFuncFunc: CPointer<CFunction<() -> gint>> = staticCFunction { userData: COpaquePointer ->
-    userData.asStableRef<() -> gint>().get().invoke()
+public val CompareDataFuncFunc: CPointer<CFunction<(gpointer?, gpointer?) -> gint>> =
+    staticCFunction {
+            a: gpointer?,
+            b: gpointer?,
+            userData: gpointer?,
+        ->
+        userData!!.asStableRef<(a: gpointer?, b: gpointer?) -> gint>().get().invoke(a, b)
+    }
+        .reinterpret()
+
+public val CompareFuncFunc: CPointer<CFunction<(gpointer?, gpointer?) -> gint>> = staticCFunction {
+        a: gpointer?,
+        b: gpointer?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(a: gpointer?, b: gpointer?) -> gint>().get().invoke(a, b)
 }
     .reinterpret()
 
-public val CompareFuncFunc: CPointer<CFunction<() -> gint>> = staticCFunction { userData: COpaquePointer ->
-    userData.asStableRef<() -> gint>().get().invoke()
-}
-    .reinterpret()
+public val CompletionFuncFunc: CPointer<CFunction<(gpointer?) -> CPointer<ByteVar>>> =
+    staticCFunction {
+            item: gpointer?,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<(item: gpointer?) -> kotlin.String>().get().invoke(item).let { g_strdup(it) }
+    }
+        .reinterpret()
 
 public val CompletionStrncmpFuncFunc: CPointer<
     CFunction<
@@ -7170,28 +8039,59 @@ public val CompletionStrncmpFuncFunc: CPointer<
 }
     .reinterpret()
 
-public val DataForeachFuncFunc: CPointer<CFunction<(GQuark) -> Unit>> = staticCFunction {
-        keyId: GQuark,
+public val CopyFuncFunc: CPointer<CFunction<(gpointer, gpointer?) -> gpointer>> = staticCFunction {
+        src: gpointer,
+        `data`: gpointer?,
         userData: COpaquePointer,
     ->
-    userData.asStableRef<(keyId: Quark) -> Unit>().get().invoke(keyId)
+    userData.asStableRef<(src: gpointer, `data`: gpointer?) -> gpointer>().get().invoke(src!!, `data`)
 }
     .reinterpret()
 
-public val DestroyNotifyFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
-    userData.asStableRef<() -> Unit>().get().invoke()
+public val DataForeachFuncFunc: CPointer<CFunction<(GQuark, gpointer?) -> Unit>> = staticCFunction {
+        keyId: GQuark,
+        `data`: gpointer?,
+        userData: gpointer?,
+    ->
+    userData!!.asStableRef<(keyId: Quark, `data`: gpointer?) -> Unit>().get().invoke(keyId, `data`)
 }
     .reinterpret()
 
-public val EqualFuncFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction { userData: COpaquePointer ->
-    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
+public val DestroyNotifyFunc: CPointer<CFunction<(gpointer?) -> Unit>> = staticCFunction {
+        `data`: gpointer?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(`data`: gpointer?) -> Unit>().get().invoke(`data`)
 }
     .reinterpret()
 
-public val EqualFuncFullFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction { userData: COpaquePointer ->
-    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
+public val DuplicateFuncFunc: CPointer<CFunction<(gpointer?) -> gpointer?>> = staticCFunction {
+        `data`: gpointer?,
+        userData: gpointer?,
+    ->
+    userData!!.asStableRef<(`data`: gpointer?) -> gpointer?>().get().invoke(`data`)
 }
     .reinterpret()
+
+public val EqualFuncFunc: CPointer<CFunction<(gpointer?, gpointer?) -> gboolean>> =
+    staticCFunction {
+            a: gpointer?,
+            b: gpointer?,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<(a: gpointer?, b: gpointer?) -> Boolean>().get().invoke(a, b).asGBoolean()
+    }
+        .reinterpret()
+
+public val EqualFuncFullFunc: CPointer<CFunction<(gpointer?, gpointer?) -> gboolean>> =
+    staticCFunction {
+            a: gpointer?,
+            b: gpointer?,
+            userData: gpointer?,
+        ->
+        userData!!.asStableRef<(a: gpointer?, b: gpointer?) -> Boolean>().get().invoke(a, b).asGBoolean()
+    }
+        .reinterpret()
 
 public val ErrorClearFuncFunc: CPointer<CFunction<(CPointer<org.gtkkn.native.glib.GError>) -> Unit>> =
     staticCFunction {
@@ -7237,45 +8137,67 @@ public val ErrorInitFuncFunc: CPointer<CFunction<(CPointer<org.gtkkn.native.glib
     }
         .reinterpret()
 
-public val FreeFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
-    userData.asStableRef<() -> Unit>().get().invoke()
+public val FreeFuncFunc: CPointer<CFunction<(gpointer?) -> Unit>> = staticCFunction {
+        `data`: gpointer?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(`data`: gpointer?) -> Unit>().get().invoke(`data`)
 }
     .reinterpret()
 
-public val FuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
-    userData.asStableRef<() -> Unit>().get().invoke()
+public val FuncFunc: CPointer<CFunction<(gpointer?) -> Unit>> = staticCFunction {
+        `data`: gpointer?,
+        userData: gpointer?,
+    ->
+    userData!!.asStableRef<(`data`: gpointer?) -> Unit>().get().invoke(`data`)
 }
     .reinterpret()
 
-public val HFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
-    userData.asStableRef<() -> Unit>().get().invoke()
+public val HFuncFunc: CPointer<CFunction<(gpointer?, gpointer?) -> Unit>> = staticCFunction {
+        key: gpointer?,
+        `value`: gpointer?,
+        userData: gpointer?,
+    ->
+    userData!!.asStableRef<(key: gpointer?, `value`: gpointer?) -> Unit>().get().invoke(key, `value`)
 }
     .reinterpret()
 
-public val HRFuncFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction { userData: COpaquePointer ->
-    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
+public val HRFuncFunc: CPointer<CFunction<(gpointer?, gpointer?) -> gboolean>> = staticCFunction {
+        key: gpointer?,
+        `value`: gpointer?,
+        userData: gpointer?,
+    ->
+    userData!!.asStableRef<(key: gpointer?, `value`: gpointer?) -> Boolean>().get().invoke(key, `value`).asGBoolean()
 }
     .reinterpret()
 
-public val HashFuncFunc: CPointer<CFunction<() -> guint>> = staticCFunction { userData: COpaquePointer ->
-    userData.asStableRef<() -> guint>().get().invoke()
+public val HashFuncFunc: CPointer<CFunction<(gpointer?) -> guint>> = staticCFunction {
+        key: gpointer?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(key: gpointer?) -> guint>().get().invoke(key)
 }
     .reinterpret()
 
-public val HookCheckFuncFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction { userData: COpaquePointer ->
-    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
+public val HookCheckFuncFunc: CPointer<CFunction<(gpointer?) -> gboolean>> = staticCFunction {
+        `data`: gpointer?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(`data`: gpointer?) -> Boolean>().get().invoke(`data`).asGBoolean()
 }
     .reinterpret()
 
-public val HookCheckMarshallerFunc: CPointer<CFunction<(CPointer<GHook>) -> gboolean>> =
+public val HookCheckMarshallerFunc: CPointer<CFunction<(CPointer<GHook>, gpointer?) -> gboolean>> =
     staticCFunction {
             hook: CPointer<GHook>?,
+            marshalData: gpointer?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(hook: Hook) -> Boolean>().get().invoke(
+        userData.asStableRef<(hook: Hook, marshalData: gpointer?) -> Boolean>().get().invoke(
             hook!!.run {
                 Hook(reinterpret())
-            }
+            },
+            marshalData
         ).asGBoolean()
     }
         .reinterpret()
@@ -7314,51 +8236,75 @@ public val HookFinalizeFuncFunc: CPointer<CFunction<(CPointer<GHookList>, CPoint
     }
         .reinterpret()
 
-public val HookFindFuncFunc: CPointer<CFunction<(CPointer<GHook>) -> gboolean>> = staticCFunction {
-        hook: CPointer<GHook>?,
-        userData: COpaquePointer,
-    ->
-    userData.asStableRef<(hook: Hook) -> Boolean>().get().invoke(
-        hook!!.run {
-            Hook(reinterpret())
-        }
-    ).asGBoolean()
-}
-    .reinterpret()
-
-public val HookFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
-
-public val HookMarshallerFunc: CPointer<CFunction<(CPointer<GHook>) -> Unit>> = staticCFunction {
-        hook: CPointer<GHook>?,
-        userData: COpaquePointer,
-    ->
-    userData.asStableRef<(hook: Hook) -> Unit>().get().invoke(
-        hook!!.run {
-            Hook(reinterpret())
-        }
-    )
-}
-    .reinterpret()
-
-public val IOFuncFunc: CPointer<CFunction<(CPointer<GIOChannel>, GIOCondition) -> gboolean>> =
+public val HookFindFuncFunc: CPointer<CFunction<(CPointer<GHook>, gpointer?) -> gboolean>> =
     staticCFunction {
-            source: CPointer<GIOChannel>?,
-            condition: GIOCondition,
+            hook: CPointer<GHook>?,
+            `data`: gpointer?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(source: IOChannel, condition: IOCondition) -> Boolean>().get().invoke(
-            source!!.run {
-                IOChannel(reinterpret())
+        userData.asStableRef<(hook: Hook, `data`: gpointer?) -> Boolean>().get().invoke(
+            hook!!.run {
+                Hook(reinterpret())
             },
-            condition.run {
-                IOCondition(this)
-            }
+            `data`
         ).asGBoolean()
     }
         .reinterpret()
+
+public val HookFuncFunc: CPointer<CFunction<(gpointer?) -> Unit>> = staticCFunction {
+        `data`: gpointer?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(`data`: gpointer?) -> Unit>().get().invoke(`data`)
+}
+    .reinterpret()
+
+public val HookMarshallerFunc: CPointer<CFunction<(CPointer<GHook>, gpointer?) -> Unit>> =
+    staticCFunction {
+            hook: CPointer<GHook>?,
+            marshalData: gpointer?,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<(hook: Hook, marshalData: gpointer?) -> Unit>().get().invoke(
+            hook!!.run {
+                Hook(reinterpret())
+            },
+            marshalData
+        )
+    }
+        .reinterpret()
+
+public val IOFuncFunc: CPointer<
+    CFunction<
+        (
+            CPointer<GIOChannel>,
+            GIOCondition,
+            gpointer?,
+        ) -> gboolean
+        >
+    > = staticCFunction {
+        source: CPointer<GIOChannel>?,
+        condition: GIOCondition,
+        `data`: gpointer?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            source: IOChannel,
+            condition: IOCondition,
+            `data`: gpointer?,
+        ) -> Boolean
+        >().get().invoke(
+        source!!.run {
+            IOChannel(reinterpret())
+        },
+        condition.run {
+            IOCondition(this)
+        },
+        `data`
+    ).asGBoolean()
+}
+    .reinterpret()
 
 public val LogFuncFunc: CPointer<
     CFunction<
@@ -7372,9 +8318,9 @@ public val LogFuncFunc: CPointer<
         logDomain: CPointer<ByteVar>?,
         logLevel: GLogLevelFlags,
         message: CPointer<ByteVar>?,
-        userData: COpaquePointer,
+        userData: gpointer?,
     ->
-    userData.asStableRef<
+    userData!!.asStableRef<
         (
             logDomain: kotlin.String?,
             logLevel: LogLevelFlags,
@@ -7394,9 +8340,9 @@ public val LogWriterFuncFunc: CPointer<CFunction<(GLogLevelFlags, gsize) -> GLog
     staticCFunction {
             logLevel: GLogLevelFlags,
             nFields: gsize,
-            userData: COpaquePointer,
+            userData: gpointer?,
         ->
-        userData.asStableRef<(logLevel: LogLevelFlags, nFields: gsize) -> LogWriterOutput>().get().invoke(
+        userData!!.asStableRef<(logLevel: LogLevelFlags, nFields: gsize) -> LogWriterOutput>().get().invoke(
             logLevel.run {
                 LogLevelFlags(this)
             },
@@ -7405,27 +8351,32 @@ public val LogWriterFuncFunc: CPointer<CFunction<(GLogLevelFlags, gsize) -> GLog
     }
         .reinterpret()
 
-public val NodeForeachFuncFunc: CPointer<CFunction<(CPointer<GNode>) -> Unit>> = staticCFunction {
-        node: CPointer<GNode>?,
-        userData: COpaquePointer,
-    ->
-    userData.asStableRef<(node: Node) -> Unit>().get().invoke(
-        node!!.run {
-            Node(reinterpret())
-        }
-    )
-}
-    .reinterpret()
-
-public val NodeTraverseFuncFunc: CPointer<CFunction<(CPointer<GNode>) -> gboolean>> =
+public val NodeForeachFuncFunc: CPointer<CFunction<(CPointer<GNode>, gpointer?) -> Unit>> =
     staticCFunction {
             node: CPointer<GNode>?,
+            `data`: gpointer?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(node: Node) -> Boolean>().get().invoke(
+        userData.asStableRef<(node: Node, `data`: gpointer?) -> Unit>().get().invoke(
             node!!.run {
                 Node(reinterpret())
-            }
+            },
+            `data`
+        )
+    }
+        .reinterpret()
+
+public val NodeTraverseFuncFunc: CPointer<CFunction<(CPointer<GNode>, gpointer?) -> gboolean>> =
+    staticCFunction {
+            node: CPointer<GNode>?,
+            `data`: gpointer?,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<(node: Node, `data`: gpointer?) -> Boolean>().get().invoke(
+            node!!.run {
+                Node(reinterpret())
+            },
+            `data`
         ).asGBoolean()
     }
         .reinterpret()
@@ -7475,9 +8426,9 @@ public val RegexEvalCallbackFunc:
     staticCFunction {
             matchInfo: CPointer<GMatchInfo>?,
             result: CPointer<GString>?,
-            userData: COpaquePointer,
+            userData: gpointer?,
         ->
-        userData.asStableRef<(matchInfo: MatchInfo, result: String) -> Boolean>().get().invoke(
+        userData!!.asStableRef<(matchInfo: MatchInfo, result: String) -> Boolean>().get().invoke(
             matchInfo!!.run {
                 MatchInfo(reinterpret())
             },
@@ -7518,8 +8469,11 @@ public val ScannerMsgFuncFunc: CPointer<
 }
     .reinterpret()
 
-public val SequenceIterCompareFuncFunc: CPointer<CFunction<() -> gint>> = staticCFunction { userData: COpaquePointer ->
-    userData.asStableRef<() -> gint>().get().invoke()
+public val SequenceIterCompareFuncFunc: CPointer<CFunction<(gpointer?) -> gint>> = staticCFunction {
+        `data`: gpointer?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(`data`: gpointer?) -> gint>().get().invoke(`data`)
 }
     .reinterpret()
 
@@ -7541,28 +8495,34 @@ public val SourceDummyMarshalFunc: CPointer<CFunction<() -> Unit>> = staticCFunc
 }
     .reinterpret()
 
-public val SourceFuncFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction { userData: COpaquePointer ->
-    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
+public val SourceFuncFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction { userData: gpointer? ->
+    userData!!.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
 }
     .reinterpret()
 
-public val SourceOnceFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
-    userData.asStableRef<() -> Unit>().get().invoke()
+public val SourceOnceFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: gpointer? ->
+    userData!!.asStableRef<() -> Unit>().get().invoke()
 }
     .reinterpret()
 
-public val SpawnChildSetupFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
-    userData.asStableRef<() -> Unit>().get().invoke()
+public val SpawnChildSetupFuncFunc: CPointer<CFunction<(gpointer?) -> Unit>> = staticCFunction {
+        `data`: gpointer?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(`data`: gpointer?) -> Unit>().get().invoke(`data`)
 }
     .reinterpret()
 
-public val TestDataFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
-    userData.asStableRef<() -> Unit>().get().invoke()
+public val TestDataFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: gpointer? ->
+    userData!!.asStableRef<() -> Unit>().get().invoke()
 }
     .reinterpret()
 
-public val TestFixtureFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: COpaquePointer ->
-    userData.asStableRef<() -> Unit>().get().invoke()
+public val TestFixtureFuncFunc: CPointer<CFunction<(gpointer) -> Unit>> = staticCFunction {
+        fixture: gpointer,
+        userData: gpointer?,
+    ->
+    userData!!.asStableRef<(fixture: gpointer) -> Unit>().get().invoke(fixture!!)
 }
     .reinterpret()
 
@@ -7583,9 +8543,9 @@ public val TestLogFatalFuncFunc: CPointer<
         logDomain: CPointer<ByteVar>?,
         logLevel: GLogLevelFlags,
         message: CPointer<ByteVar>?,
-        userData: COpaquePointer,
+        userData: gpointer?,
     ->
-    userData.asStableRef<
+    userData!!.asStableRef<
         (
             logDomain: kotlin.String,
             logLevel: LogLevelFlags,
@@ -7601,13 +8561,56 @@ public val TestLogFatalFuncFunc: CPointer<
 }
     .reinterpret()
 
-public val TraverseFuncFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction { userData: COpaquePointer ->
-    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
+public val ThreadFuncFunc: CPointer<CFunction<(gpointer?) -> gpointer?>> = staticCFunction {
+        `data`: gpointer?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(`data`: gpointer?) -> gpointer?>().get().invoke(`data`)
 }
     .reinterpret()
 
-public val TraverseNodeFuncFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction { userData: COpaquePointer ->
-    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
+public val TranslateFuncFunc:
+    CPointer<CFunction<(CPointer<ByteVar>, gpointer?) -> CPointer<ByteVar>>> = staticCFunction {
+            str: CPointer<ByteVar>?,
+            `data`: gpointer?,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<(str: kotlin.String, `data`: gpointer?) -> kotlin.String>().get().invoke(
+            str?.toKString() ?: error("Expected not null string"),
+            `data`
+        ).let { g_strdup(it) }
+    }
+        .reinterpret()
+
+public val TraverseFuncFunc: CPointer<
+    CFunction<
+        (
+            gpointer?,
+            gpointer?,
+            gpointer?,
+        ) -> gboolean
+        >
+    > = staticCFunction {
+        key: gpointer?,
+        `value`: gpointer?,
+        `data`: gpointer?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            key: gpointer?,
+            `value`: gpointer?,
+            `data`: gpointer?,
+        ) -> Boolean
+        >().get().invoke(key, `value`, `data`).asGBoolean()
+}
+    .reinterpret()
+
+public val TraverseNodeFuncFunc: CPointer<CFunction<(gpointer?) -> gboolean>> = staticCFunction {
+        `data`: gpointer?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(`data`: gpointer?) -> Boolean>().get().invoke(`data`).asGBoolean()
 }
     .reinterpret()
 
@@ -7615,9 +8618,9 @@ public val UnixFDSourceFuncFunc: CPointer<CFunction<(gint, GIOCondition) -> gboo
     staticCFunction {
             fd: gint,
             condition: GIOCondition,
-            userData: COpaquePointer,
+            userData: gpointer?,
         ->
-        userData.asStableRef<(fd: gint, condition: IOCondition) -> Boolean>().get().invoke(
+        userData!!.asStableRef<(fd: gint, condition: IOCondition) -> Boolean>().get().invoke(
             fd,
             condition.run {
                 IOCondition(this)
@@ -7636,8 +8639,32 @@ public val VoidFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { use
  * functions passed to g_cache_new(). The functions are passed a
  * pointer to the #GCache key or #GCache value and should free any
  * memory and other resources associated with it.
+ *
+ * - param `value` the #GCache value to destroy
  */
-public typealias CacheDestroyFunc = () -> Unit
+public typealias CacheDestroyFunc = (`value`: gpointer?) -> Unit
+
+/**
+ * Specifies the type of the @key_dup_func function passed to
+ * g_cache_new(). The function is passed a key
+ * (__not__ a value as the prototype implies) and
+ * should return a duplicate of the key.
+ *
+ * - param `value` the #GCache key to destroy (__not__ a
+ *         #GCache value as it seems)
+ * - return a copy of the #GCache key
+ */
+public typealias CacheDupFunc = (`value`: gpointer?) -> gpointer?
+
+/**
+ * Specifies the type of the @value_new_func function passed to
+ * g_cache_new(). It is passed a #GCache key and should create the
+ * value corresponding to the key.
+ *
+ * - param `key` a #GCache key
+ * - return a new #GCache value corresponding to the key.
+ */
+public typealias CacheNewFunc = (key: gpointer?) -> gpointer?
 
 /**
  * Prototype of a #GChildWatchSource callback, called when a child
@@ -7670,10 +8697,12 @@ public typealias ClearHandleFunc = (handleId: guint) -> Unit
  * value comes before the second, 0 if they are equal, or a positive
  * integer if the first value comes after the second.
  *
+ * - param `a` a value
+ * - param `b` a value to compare with
  * - return negative value if @a < @b; zero if @a = @b; positive
  *          value if @a > @b
  */
-public typealias CompareDataFunc = () -> gint
+public typealias CompareDataFunc = (a: gpointer?, b: gpointer?) -> gint
 
 /**
  * Specifies the type of a comparison function used to compare two
@@ -7681,10 +8710,22 @@ public typealias CompareDataFunc = () -> gint
  * value comes before the second, 0 if they are equal, or a positive
  * integer if the first value comes after the second.
  *
+ * - param `a` a value
+ * - param `b` a value to compare with
  * - return negative value if @a < @b; zero if @a = @b; positive
  *          value if @a > @b
  */
-public typealias CompareFunc = () -> gint
+public typealias CompareFunc = (a: gpointer?, b: gpointer?) -> gint
+
+/**
+ * Specifies the type of the function passed to g_completion_new(). It
+ * should return the string corresponding to the given target item.
+ * This is used when you use data structures as #GCompletion items.
+ *
+ * - param `item` the completion item.
+ * - return the string corresponding to the item.
+ */
+public typealias CompletionFunc = (item: gpointer?) -> kotlin.String
 
 /**
  * Specifies the type of the function passed to
@@ -7706,29 +8747,55 @@ public typealias CompletionStrncmpFunc = (
 ) -> gint
 
 /**
+ * A function of this signature is used to copy the node data
+ * when doing a deep-copy of a tree.
+ *
+ * - param `src` A pointer to the data which should be copied
+ * - param `data` Additional data
+ * - return A pointer to the copy
+ */
+public typealias CopyFunc = (src: gpointer, `data`: gpointer?) -> gpointer
+
+/**
  * Specifies the type of function passed to g_dataset_foreach(). It is
  * called with each #GQuark id and associated data element, together
  * with the @user_data parameter supplied to g_dataset_foreach().
  *
  * - param `keyId` the #GQuark id to identifying the data element.
+ * - param `data` the data element.
  */
-public typealias DataForeachFunc = (keyId: Quark) -> Unit
+public typealias DataForeachFunc = (keyId: Quark, `data`: gpointer?) -> Unit
 
 /**
  * Specifies the type of function which is called when a data element
  * is destroyed. It is passed the pointer to the data element and
  * should free any memory and resources allocated for it.
+ *
+ * - param `data` the data element.
  */
-public typealias DestroyNotify = () -> Unit
+public typealias DestroyNotify = (`data`: gpointer?) -> Unit
+
+/**
+ * The type of functions that are used to 'duplicate' an object.
+ * What this means depends on the context, it could just be
+ * incrementing the reference count, if @data is a ref-counted
+ * object.
+ *
+ * - param `data` the data to duplicate
+ * - return a duplicate of data
+ */
+public typealias DuplicateFunc = (`data`: gpointer?) -> gpointer?
 
 /**
  * Specifies the type of a function used to test two values for
  * equality. The function should return true if both values are equal
  * and false otherwise.
  *
+ * - param `a` a value
+ * - param `b` a value to compare with
  * - return true if @a = @b; false otherwise
  */
-public typealias EqualFunc = () -> Boolean
+public typealias EqualFunc = (a: gpointer?, b: gpointer?) -> Boolean
 
 /**
  * Specifies the type of a function used to test two values for
@@ -7738,9 +8805,11 @@ public typealias EqualFunc = () -> Boolean
  * This is a version of #GEqualFunc which provides a @user_data closure from
  * the caller.
  *
+ * - param `a` a value
+ * - param `b` a value to compare with
  * - return true if @a = @b; false otherwise
  */
-public typealias EqualFuncFull = () -> Boolean
+public typealias EqualFuncFull = (a: gpointer?, b: gpointer?) -> Boolean
 
 /**
  * Specifies the type of function which is called when an extended
@@ -7786,21 +8855,28 @@ public typealias ErrorInitFunc = (error: Error) -> Unit
  * Declares a type of function which takes an arbitrary
  * data pointer argument and has no return value. It is
  * not currently used in GLib or GTK.
+ *
+ * - param `data` a data pointer
  */
-public typealias FreeFunc = () -> Unit
+public typealias FreeFunc = (`data`: gpointer?) -> Unit
 
 /**
  * Specifies the type of functions passed to g_list_foreach() and
  * g_slist_foreach().
+ *
+ * - param `data` the element's data
  */
-public typealias Func = () -> Unit
+public typealias Func = (`data`: gpointer?) -> Unit
 
 /**
  * Specifies the type of the function passed to g_hash_table_foreach().
  * It is called with each key/value pair, together with the @user_data
  * parameter which is passed to g_hash_table_foreach().
+ *
+ * - param `key` a key
+ * - param `value` the value corresponding to the key
  */
-public typealias HFunc = () -> Unit
+public typealias HFunc = (key: gpointer?, `value`: gpointer?) -> Unit
 
 /**
  * Specifies the type of the function passed to
@@ -7809,10 +8885,12 @@ public typealias HFunc = () -> Unit
  * g_hash_table_foreach_remove(). It should return true if the
  * key/value pair should be removed from the #GHashTable.
  *
+ * - param `key` a key
+ * - param `value` the value associated with the key
  * - return true if the key/value pair should be removed from the
  *     #GHashTable
  */
-public typealias HRFunc = () -> Boolean
+public typealias HRFunc = (key: gpointer?, `value`: gpointer?) -> Boolean
 
 /**
  * Specifies the type of the hash function which is passed to
@@ -7846,25 +8924,28 @@ public typealias HRFunc = () -> Boolean
  * remainder is taken modulo a somewhat predictable prime number.  There
  * must be an element of randomness that an attacker is unable to guess.
  *
+ * - param `key` a key
  * - return the hash value corresponding to the key
  */
-public typealias HashFunc = () -> guint
+public typealias HashFunc = (key: gpointer?) -> guint
 
 /**
  * Defines the type of a hook function that can be invoked
  * by g_hook_list_invoke_check().
  *
+ * - param `data` the data field of the #GHook is passed to the hook function here
  * - return false if the #GHook should be destroyed
  */
-public typealias HookCheckFunc = () -> Boolean
+public typealias HookCheckFunc = (`data`: gpointer?) -> Boolean
 
 /**
  * Defines the type of function used by g_hook_list_marshal_check().
  *
  * - param `hook` a #GHook
+ * - param `marshalData` user data
  * - return false if @hook should be destroyed
  */
-public typealias HookCheckMarshaller = (hook: Hook) -> Boolean
+public typealias HookCheckMarshaller = (hook: Hook, marshalData: gpointer?) -> Boolean
 
 /**
  * Defines the type of function used to compare #GHook elements in
@@ -7889,22 +8970,26 @@ public typealias HookFinalizeFunc = (hookList: HookList, hook: Hook) -> Unit
  * Defines the type of the function passed to g_hook_find().
  *
  * - param `hook` a #GHook
+ * - param `data` user data passed to g_hook_find_func()
  * - return true if the required #GHook has been found
  */
-public typealias HookFindFunc = (hook: Hook) -> Boolean
+public typealias HookFindFunc = (hook: Hook, `data`: gpointer?) -> Boolean
 
 /**
  * Defines the type of a hook function that can be invoked
  * by g_hook_list_invoke().
+ *
+ * - param `data` the data field of the #GHook is passed to the hook function here
  */
-public typealias HookFunc = () -> Unit
+public typealias HookFunc = (`data`: gpointer?) -> Unit
 
 /**
  * Defines the type of function used by g_hook_list_marshal().
  *
  * - param `hook` a #GHook
+ * - param `marshalData` user data
  */
-public typealias HookMarshaller = (hook: Hook) -> Unit
+public typealias HookMarshaller = (hook: Hook, marshalData: gpointer?) -> Unit
 
 /**
  * Specifies the type of function passed to g_io_add_watch() or
@@ -7913,10 +8998,15 @@ public typealias HookMarshaller = (hook: Hook) -> Unit
  *
  * - param `source` the #GIOChannel event source
  * - param `condition` the condition which has been satisfied
+ * - param `data` user data set in g_io_add_watch() or g_io_add_watch_full()
  * - return the function should return false if the event source
  *          should be removed
  */
-public typealias IOFunc = (source: IOChannel, condition: IOCondition) -> Boolean
+public typealias IOFunc = (
+    source: IOChannel,
+    condition: IOCondition,
+    `data`: gpointer?,
+) -> Boolean
 
 /**
  * Specifies the prototype of log handler functions.
@@ -7974,8 +9064,9 @@ public typealias LogWriterFunc = (logLevel: LogLevelFlags, nFields: gsize) -> Lo
  * data passed to g_node_children_foreach().
  *
  * - param `node` a #GNode.
+ * - param `data` user data passed to g_node_children_foreach().
  */
-public typealias NodeForeachFunc = (node: Node) -> Unit
+public typealias NodeForeachFunc = (node: Node, `data`: gpointer?) -> Unit
 
 /**
  * Specifies the type of function passed to g_node_traverse(). The
@@ -7984,9 +9075,10 @@ public typealias NodeForeachFunc = (node: Node) -> Unit
  * true, then the traversal is stopped.
  *
  * - param `node` a #GNode.
+ * - param `data` user data passed to g_node_traverse().
  * - return true to stop the traversal.
  */
-public typealias NodeTraverseFunc = (node: Node) -> Boolean
+public typealias NodeTraverseFunc = (node: Node, `data`: gpointer?) -> Boolean
 
 /**
  * Specifies the type of function passed to g_main_context_set_poll_func().
@@ -8046,10 +9138,11 @@ public typealias ScannerMsgFunc = (
  * It must return zero if the iterators compare equal, a negative value
  * if @a comes before @b, and a positive value if @b comes before @a.
  *
+ * - param `data` user data
  * - return zero if the iterators are equal, a negative value if @a
  *     comes before @b, and a positive value if @b comes before @a.
  */
-public typealias SequenceIterCompareFunc = () -> gint
+public typealias SequenceIterCompareFunc = (`data`: gpointer?) -> gint
 
 /**
  * Dispose function for @source. See g_source_set_dispose_function() for
@@ -8117,8 +9210,10 @@ public typealias SourceOnceFunc = () -> Unit
  * the parent, you should use g_get_environ(), g_environ_setenv(),
  * and g_environ_unsetenv(), and then pass the complete environment
  * list to the `g_spawn...` function.
+ *
+ * - param `data` user data passed to the function.
  */
-public typealias SpawnChildSetupFunc = () -> Unit
+public typealias SpawnChildSetupFunc = (`data`: gpointer?) -> Unit
 
 /**
  * The type used for test case functions that take an extra pointer
@@ -8137,8 +9232,10 @@ public typealias TestDataFunc = () -> Unit
  * @fixture will be a pointer to the area of memory allocated by the
  * test framework, of the size requested.  If the requested size was
  * zero then @fixture will be equal to @user_data.
+ *
+ * - param `fixture` the test fixture
  */
-public typealias TestFixtureFunc = () -> Unit
+public typealias TestFixtureFunc = (fixture: gpointer) -> Unit
 
 /**
  * The type used for test case functions.
@@ -8160,14 +9257,42 @@ public typealias TestLogFatalFunc = (
 ) -> Boolean
 
 /**
+ * Specifies the type of the @func functions passed to g_thread_new()
+ * or g_thread_try_new().
+ *
+ * - param `data` data passed to the thread
+ * - return the return value of the thread
+ */
+public typealias ThreadFunc = (`data`: gpointer?) -> gpointer?
+
+/**
+ * The type of functions which are used to translate user-visible
+ * strings, for <option>--help</option> output.
+ *
+ * - param `str` the untranslated string
+ * - param `data` user data specified when installing the function, e.g.
+ *  in g_option_group_set_translate_func()
+ * - return a translation of the string for the current locale.
+ *  The returned string is owned by GLib and must not be freed.
+ */
+public typealias TranslateFunc = (str: kotlin.String, `data`: gpointer?) -> kotlin.String
+
+/**
  * Specifies the type of function passed to g_tree_traverse(). It is
  * passed the key and value of each node, together with the @user_data
  * parameter passed to g_tree_traverse(). If the function returns
  * true, the traversal is stopped.
  *
+ * - param `key` a key of a #GTree node
+ * - param `value` the value corresponding to the key
+ * - param `data` user data passed to g_tree_traverse()
  * - return true to stop the traversal
  */
-public typealias TraverseFunc = () -> Boolean
+public typealias TraverseFunc = (
+    key: gpointer?,
+    `value`: gpointer?,
+    `data`: gpointer?,
+) -> Boolean
 
 /**
  * Specifies the type of function passed to g_tree_foreach_node(). It is
@@ -8175,9 +9300,10 @@ public typealias TraverseFunc = () -> Boolean
  * g_tree_foreach_node(). If the function returns true, the traversal is
  * stopped.
  *
+ * - param `data` user data passed to g_tree_foreach_node()
  * - return true to stop the traversal
  */
-public typealias TraverseNodeFunc = () -> Boolean
+public typealias TraverseNodeFunc = (`data`: gpointer?) -> Boolean
 
 /**
  * The type of functions to be called when a UNIX fd watch source

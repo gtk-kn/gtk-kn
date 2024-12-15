@@ -37,12 +37,16 @@ public open class CustomSorter(pointer: CPointer<GtkCustomSorter>) :
      * @return a new `GtkCustomSorter`
      */
     public constructor(
-        sortFunc: CompareDataFunc,
+        sortFunc: CompareDataFunc?,
     ) : this(
         gtk_custom_sorter_new(
-            CompareDataFuncFunc.reinterpret(),
-            StableRef.create(sortFunc).asCPointer(),
-            staticStableRefDestroy.reinterpret()
+            sortFunc?.let {
+                CompareDataFuncFunc.reinterpret()
+            },
+            sortFunc?.let {
+                StableRef.create(sortFunc).asCPointer()
+            },
+            sortFunc?.let { staticStableRefDestroy.reinterpret() }
         )!!.reinterpret()
     )
 
@@ -59,11 +63,15 @@ public open class CustomSorter(pointer: CPointer<GtkCustomSorter>) :
      *
      * @param sortFunc function to sort items
      */
-    public open fun setSortFunc(sortFunc: CompareDataFunc): Unit = gtk_custom_sorter_set_sort_func(
+    public open fun setSortFunc(sortFunc: CompareDataFunc?): Unit = gtk_custom_sorter_set_sort_func(
         gtkCustomSorterPointer.reinterpret(),
-        CompareDataFuncFunc.reinterpret(),
-        StableRef.create(sortFunc).asCPointer(),
-        staticStableRefDestroy.reinterpret()
+        sortFunc?.let {
+            CompareDataFuncFunc.reinterpret()
+        },
+        sortFunc?.let {
+            StableRef.create(sortFunc).asCPointer()
+        },
+        sortFunc?.let { staticStableRefDestroy.reinterpret() }
     )
 
     public companion object : TypeCompanion<CustomSorter> {

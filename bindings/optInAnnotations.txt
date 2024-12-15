@@ -103,6 +103,7 @@ org.gtkkn.bindings.gobject.annotations.GObjectVersion2_12
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_24
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_26
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_28
+org.gtkkn.bindings.gobject.annotations.GObjectVersion2_30
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_32
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_34
 org.gtkkn.bindings.gobject.annotations.GObjectVersion2_36

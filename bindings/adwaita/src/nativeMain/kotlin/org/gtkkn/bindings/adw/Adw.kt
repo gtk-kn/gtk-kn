@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.adw
 
 import kotlinx.cinterop.CFunction
-import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
@@ -16,6 +15,7 @@ import org.gtkkn.native.adw.adw_get_minor_version
 import org.gtkkn.native.adw.adw_init
 import org.gtkkn.native.adw.adw_is_initialized
 import org.gtkkn.native.adw.adw_lerp
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
@@ -221,9 +221,9 @@ public object Adw {
 
 public val AnimationTargetFuncFunc: CPointer<CFunction<(gdouble) -> Unit>> = staticCFunction {
         `value`: gdouble,
-        userData: COpaquePointer,
+        userData: gpointer?,
     ->
-    userData.asStableRef<(`value`: gdouble) -> Unit>().get().invoke(`value`)
+    userData!!.asStableRef<(`value`: gdouble) -> Unit>().get().invoke(`value`)
 }
     .reinterpret()
 

@@ -2,10 +2,12 @@
 package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.Layout
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -30,6 +32,7 @@ import org.gtkkn.native.gtk.gtk_scale_new
 import org.gtkkn.native.gtk.gtk_scale_new_with_range
 import org.gtkkn.native.gtk.gtk_scale_set_digits
 import org.gtkkn.native.gtk.gtk_scale_set_draw_value
+import org.gtkkn.native.gtk.gtk_scale_set_format_value_func
 import org.gtkkn.native.gtk.gtk_scale_set_has_origin
 import org.gtkkn.native.gtk.gtk_scale_set_value_pos
 import kotlin.Boolean
@@ -121,7 +124,6 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `x`: x: Out parameter is not supported
- * - method `set_format_value_func`: C Type GtkScaleFormatValueFunc is ignored
  */
 public open class Scale(pointer: CPointer<GtkScale>) :
     Range(pointer.reinterpret()),
@@ -315,6 +317,27 @@ public open class Scale(pointer: CPointer<GtkScale>) :
     public open fun getLayout(): Layout? = gtk_scale_get_layout(gtkScalePointer.reinterpret())?.run {
         Layout(reinterpret())
     }
+
+    /**
+     * @func allows you to change how the scale value is displayed.
+     *
+     * The given function will return an allocated string representing
+     * @value. That string will then be used to display the scale's value.
+     *
+     * If #NULL is passed as @func, the value will be displayed on
+     * its own, rounded according to the value of the
+     * [property@Gtk.Scale:digits] property.
+     *
+     * @param func function that formats the value
+     */
+    public open fun setFormatValueFunc(func: ScaleFormatValueFunc?): Unit = gtk_scale_set_format_value_func(
+        gtkScalePointer.reinterpret(),
+        func?.let {
+            ScaleFormatValueFuncFunc.reinterpret()
+        },
+        func?.let { StableRef.create(func).asCPointer() },
+        func?.let { staticStableRefDestroy.reinterpret() }
+    )
 
     public companion object : TypeCompanion<Scale> {
         override val type: GeneratedClassKGType<Scale> =

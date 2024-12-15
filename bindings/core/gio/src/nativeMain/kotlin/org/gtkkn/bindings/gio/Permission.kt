@@ -150,12 +150,14 @@ public open class Permission(pointer: CPointer<GPermission>) :
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun acquireAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public open fun acquireAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         g_permission_acquire_async(
             gioPermissionPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -252,12 +254,14 @@ public open class Permission(pointer: CPointer<GPermission>) :
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun releaseAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public open fun releaseAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         g_permission_release_async(
             gioPermissionPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**

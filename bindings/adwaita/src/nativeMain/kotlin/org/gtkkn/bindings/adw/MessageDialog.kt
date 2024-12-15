@@ -517,12 +517,14 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
      * @since 1.3
      */
     @AdwVersion1_3
-    public open fun choose(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public open fun choose(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         adw_message_dialog_choose(
             adwMessageDialogPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**

@@ -23,14 +23,18 @@ import org.gtkkn.native.glib.g_scanner_eof
 import org.gtkkn.native.glib.g_scanner_get_next_token
 import org.gtkkn.native.glib.g_scanner_input_file
 import org.gtkkn.native.glib.g_scanner_input_text
+import org.gtkkn.native.glib.g_scanner_lookup_symbol
 import org.gtkkn.native.glib.g_scanner_new
 import org.gtkkn.native.glib.g_scanner_peek_next_token
+import org.gtkkn.native.glib.g_scanner_scope_add_symbol
 import org.gtkkn.native.glib.g_scanner_scope_foreach_symbol
+import org.gtkkn.native.glib.g_scanner_scope_lookup_symbol
 import org.gtkkn.native.glib.g_scanner_scope_remove_symbol
 import org.gtkkn.native.glib.g_scanner_set_scope
 import org.gtkkn.native.glib.g_scanner_sync_file_offset
 import org.gtkkn.native.glib.g_scanner_unexp_token
 import org.gtkkn.native.glib.g_strdup
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
@@ -60,11 +64,7 @@ import kotlin.native.ref.createCleaner
  *
  * - method `cur_value`: Return type TokenValue is unsupported
  * - method `error`: Varargs parameter is not supported
- * - method `lookup_symbol`: Return type gpointer is unsupported
- * - parameter `value`: gpointer
- * - method `scope_lookup_symbol`: Return type gpointer is unsupported
  * - method `warn`: Varargs parameter is not supported
- * - field `user_data`: gpointer
  * - field `qdata`: Data
  * - field `value`: TokenValue
  * - field `next_value`: TokenValue
@@ -78,6 +78,17 @@ import kotlin.native.ref.createCleaner
  */
 public class Scanner(pointer: CPointer<GScanner>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibScannerPointer: CPointer<GScanner> = pointer
+
+    /**
+     * unused
+     */
+    public var userData: gpointer
+        get() = glibScannerPointer.pointed.user_data!!
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            glibScannerPointer.pointed.user_data = value
+        }
 
     /**
      * unused
@@ -231,6 +242,7 @@ public class Scanner(pointer: CPointer<GScanner>, cleaner: Cleaner? = null) : Pr
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      *
+     * @param userData unused
      * @param maxParseErrors unused
      * @param parseErrors g_scanner_error() increments this field
      * @param inputName name of input stream, featured by the default message handler
@@ -243,6 +255,7 @@ public class Scanner(pointer: CPointer<GScanner>, cleaner: Cleaner? = null) : Pr
      * @param nextPosition char number of the last token from g_scanner_peek_next_token()
      */
     public constructor(
+        userData: gpointer,
         maxParseErrors: guint,
         parseErrors: guint,
         inputName: String?,
@@ -254,6 +267,7 @@ public class Scanner(pointer: CPointer<GScanner>, cleaner: Cleaner? = null) : Pr
         nextLine: guint,
         nextPosition: guint,
     ) : this() {
+        this.userData = userData
         this.maxParseErrors = maxParseErrors
         this.parseErrors = parseErrors
         this.inputName = inputName
@@ -271,6 +285,7 @@ public class Scanner(pointer: CPointer<GScanner>, cleaner: Cleaner? = null) : Pr
      *
      * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
      *
+     * @param userData unused
      * @param maxParseErrors unused
      * @param parseErrors g_scanner_error() increments this field
      * @param inputName name of input stream, featured by the default message handler
@@ -284,6 +299,7 @@ public class Scanner(pointer: CPointer<GScanner>, cleaner: Cleaner? = null) : Pr
      * @param scope The [AutofreeScope] to allocate this structure in.
      */
     public constructor(
+        userData: gpointer,
         maxParseErrors: guint,
         parseErrors: guint,
         inputName: String?,
@@ -296,6 +312,7 @@ public class Scanner(pointer: CPointer<GScanner>, cleaner: Cleaner? = null) : Pr
         nextPosition: guint,
         scope: AutofreeScope,
     ) : this(scope) {
+        this.userData = userData
         this.maxParseErrors = maxParseErrors
         this.parseErrors = parseErrors
         this.inputName = inputName
@@ -379,6 +396,18 @@ public class Scanner(pointer: CPointer<GScanner>, cleaner: Cleaner? = null) : Pr
         g_scanner_input_text(glibScannerPointer.reinterpret(), text, textLen)
 
     /**
+     * Looks up a symbol in the current scope and return its value.
+     * If the symbol is not bound in the current scope, null is
+     * returned.
+     *
+     * @param symbol the symbol to look up
+     * @return the value of @symbol in the current scope, or null
+     *     if @symbol is not bound in the current scope
+     */
+    public fun lookupSymbol(symbol: String): gpointer? =
+        g_scanner_lookup_symbol(glibScannerPointer.reinterpret(), symbol)
+
+    /**
      * Parses the next token, without removing it from the input stream.
      * The token data is placed in the @next_token, @next_value, @next_line,
      * and @next_position fields of the #GScanner structure.
@@ -398,6 +427,16 @@ public class Scanner(pointer: CPointer<GScanner>, cleaner: Cleaner? = null) : Pr
     }
 
     /**
+     * Adds a symbol to the given scope.
+     *
+     * @param scopeId the scope id
+     * @param symbol the symbol to add
+     * @param value the value of the symbol
+     */
+    public fun scopeAddSymbol(scopeId: guint, symbol: String, `value`: gpointer? = null): Unit =
+        g_scanner_scope_add_symbol(glibScannerPointer.reinterpret(), scopeId, symbol, `value`)
+
+    /**
      * Calls the given function for each of the symbol/value pairs
      * in the given scope of the #GScanner. The function is passed
      * the symbol and value of each pair, and the given @user_data
@@ -412,6 +451,18 @@ public class Scanner(pointer: CPointer<GScanner>, cleaner: Cleaner? = null) : Pr
         HFuncFunc.reinterpret(),
         StableRef.create(func).asCPointer()
     )
+
+    /**
+     * Looks up a symbol in a scope and return its value. If the
+     * symbol is not bound in the scope, null is returned.
+     *
+     * @param scopeId the scope id
+     * @param symbol the symbol to look up
+     * @return the value of @symbol in the given scope, or null
+     *     if @symbol is not bound in the given scope.
+     */
+    public fun scopeLookupSymbol(scopeId: guint, symbol: String): gpointer? =
+        g_scanner_scope_lookup_symbol(glibScannerPointer.reinterpret(), scopeId, symbol)
 
     /**
      * Removes a symbol from a scope.
@@ -481,7 +532,7 @@ public class Scanner(pointer: CPointer<GScanner>, cleaner: Cleaner? = null) : Pr
     )
 
     override fun toString(): String =
-        "Scanner(maxParseErrors=$maxParseErrors, parseErrors=$parseErrors, inputName=$inputName, config=$config, token=$token, line=$line, position=$position, nextToken=$nextToken, nextLine=$nextLine, nextPosition=$nextPosition)"
+        "Scanner(userData=$userData, maxParseErrors=$maxParseErrors, parseErrors=$parseErrors, inputName=$inputName, config=$config, token=$token, line=$line, position=$position, nextToken=$nextToken, nextLine=$nextLine, nextPosition=$nextPosition)"
 
     public companion object {
         /**

@@ -628,13 +628,15 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
      * @param cellRenderer A `GtkCellRenderer`
      * @param func The `GtkTreeCellDataFunc` to use.
      */
-    public open fun setCellDataFunc(cellRenderer: CellRenderer, func: TreeCellDataFunc): Unit =
+    public open fun setCellDataFunc(cellRenderer: CellRenderer, func: TreeCellDataFunc?): Unit =
         gtk_tree_view_column_set_cell_data_func(
             gtkTreeViewColumnPointer.reinterpret(),
             cellRenderer.gtkCellRendererPointer.reinterpret(),
-            TreeCellDataFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer(),
-            staticStableRefDestroy.reinterpret()
+            func?.let {
+                TreeCellDataFuncFunc.reinterpret()
+            },
+            func?.let { StableRef.create(func).asCPointer() },
+            func?.let { staticStableRefDestroy.reinterpret() }
         )
 
     /**

@@ -5,18 +5,39 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_10
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_46
+import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GAsyncQueue
 import org.gtkkn.native.glib.g_async_queue_length
 import org.gtkkn.native.glib.g_async_queue_length_unlocked
 import org.gtkkn.native.glib.g_async_queue_lock
+import org.gtkkn.native.glib.g_async_queue_pop
+import org.gtkkn.native.glib.g_async_queue_pop_unlocked
+import org.gtkkn.native.glib.g_async_queue_push
+import org.gtkkn.native.glib.g_async_queue_push_front
+import org.gtkkn.native.glib.g_async_queue_push_front_unlocked
+import org.gtkkn.native.glib.g_async_queue_push_sorted
+import org.gtkkn.native.glib.g_async_queue_push_sorted_unlocked
+import org.gtkkn.native.glib.g_async_queue_push_unlocked
 import org.gtkkn.native.glib.g_async_queue_ref_unlocked
+import org.gtkkn.native.glib.g_async_queue_remove
+import org.gtkkn.native.glib.g_async_queue_remove_unlocked
 import org.gtkkn.native.glib.g_async_queue_sort
 import org.gtkkn.native.glib.g_async_queue_sort_unlocked
+import org.gtkkn.native.glib.g_async_queue_timed_pop
+import org.gtkkn.native.glib.g_async_queue_timed_pop_unlocked
+import org.gtkkn.native.glib.g_async_queue_timeout_pop
+import org.gtkkn.native.glib.g_async_queue_timeout_pop_unlocked
+import org.gtkkn.native.glib.g_async_queue_try_pop
+import org.gtkkn.native.glib.g_async_queue_try_pop_unlocked
 import org.gtkkn.native.glib.g_async_queue_unlock
 import org.gtkkn.native.glib.g_async_queue_unref
 import org.gtkkn.native.glib.g_async_queue_unref_and_unlock
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.guint64
+import kotlin.Boolean
 import kotlin.Unit
 
 /**
@@ -26,23 +47,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - method `pop`: Return type gpointer is unsupported
- * - method `pop_unlocked`: Return type gpointer is unsupported
- * - parameter `data`: gpointer
- * - parameter `item`: gpointer
- * - parameter `item`: gpointer
- * - parameter `data`: gpointer
- * - parameter `data`: gpointer
- * - parameter `data`: gpointer
  * - method `ref`: Return type AsyncQueue is unsupported
- * - parameter `item`: gpointer
- * - parameter `item`: gpointer
- * - method `timed_pop`: Return type gpointer is unsupported
- * - method `timed_pop_unlocked`: Return type gpointer is unsupported
- * - method `timeout_pop`: Return type gpointer is unsupported
- * - method `timeout_pop_unlocked`: Return type gpointer is unsupported
- * - method `try_pop`: Return type gpointer is unsupported
- * - method `try_pop_unlocked`: Return type gpointer is unsupported
  * - function `new`: Return type AsyncQueue is unsupported
  * - parameter `item_free_func`: DestroyNotify
  */
@@ -93,9 +98,153 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
     public fun lock(): Unit = g_async_queue_lock(glibAsyncQueuePointer.reinterpret())
 
     /**
+     * Pops data from the @queue. If @queue is empty, this function
+     * blocks until data becomes available.
+     *
+     * @return data from the queue
+     */
+    public fun pop(): gpointer? = g_async_queue_pop(glibAsyncQueuePointer.reinterpret())
+
+    /**
+     * Pops data from the @queue. If @queue is empty, this function
+     * blocks until data becomes available.
+     *
+     * This function must be called while holding the @queue's lock.
+     *
+     * @return data from the queue.
+     */
+    public fun popUnlocked(): gpointer? = g_async_queue_pop_unlocked(glibAsyncQueuePointer.reinterpret())
+
+    /**
+     * Pushes the @data into the @queue.
+     *
+     * The @data parameter must not be null.
+     *
+     * @param data data to push onto the @queue
+     */
+    public fun push(`data`: gpointer): Unit = g_async_queue_push(glibAsyncQueuePointer.reinterpret(), `data`)
+
+    /**
+     * Pushes the @item into the @queue. @item must not be null.
+     * In contrast to g_async_queue_push(), this function
+     * pushes the new item ahead of the items already in the queue,
+     * so that it will be the next one to be popped off the queue.
+     *
+     * @param item data to push into the @queue
+     * @since 2.46
+     */
+    @GLibVersion2_46
+    public fun pushFront(item: gpointer): Unit = g_async_queue_push_front(glibAsyncQueuePointer.reinterpret(), item)
+
+    /**
+     * Pushes the @item into the @queue. @item must not be null.
+     * In contrast to g_async_queue_push_unlocked(), this function
+     * pushes the new item ahead of the items already in the queue,
+     * so that it will be the next one to be popped off the queue.
+     *
+     * This function must be called while holding the @queue's lock.
+     *
+     * @param item data to push into the @queue
+     * @since 2.46
+     */
+    @GLibVersion2_46
+    public fun pushFrontUnlocked(item: gpointer): Unit =
+        g_async_queue_push_front_unlocked(glibAsyncQueuePointer.reinterpret(), item)
+
+    /**
+     * Inserts @data into @queue using @func to determine the new
+     * position.
+     *
+     * This function requires that the @queue is sorted before pushing on
+     * new elements, see g_async_queue_sort().
+     *
+     * This function will lock @queue before it sorts the queue and unlock
+     * it when it is finished.
+     *
+     * For an example of @func see g_async_queue_sort().
+     *
+     * @param data the @data to push into the @queue
+     * @param func the #GCompareDataFunc is used to sort @queue
+     * @since 2.10
+     */
+    @GLibVersion2_10
+    public fun pushSorted(`data`: gpointer, func: CompareDataFunc): Unit = g_async_queue_push_sorted(
+        glibAsyncQueuePointer.reinterpret(),
+        `data`,
+        CompareDataFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer()
+    )
+
+    /**
+     * Inserts @data into @queue using @func to determine the new
+     * position.
+     *
+     * The sort function @func is passed two elements of the @queue.
+     * It should return 0 if they are equal, a negative value if the
+     * first element should be higher in the @queue or a positive value
+     * if the first element should be lower in the @queue than the second
+     * element.
+     *
+     * This function requires that the @queue is sorted before pushing on
+     * new elements, see g_async_queue_sort().
+     *
+     * This function must be called while holding the @queue's lock.
+     *
+     * For an example of @func see g_async_queue_sort().
+     *
+     * @param data the data to push into the @queue
+     * @param func the #GCompareDataFunc is used to sort @queue
+     * @since 2.10
+     */
+    @GLibVersion2_10
+    public fun pushSortedUnlocked(`data`: gpointer? = null, func: CompareDataFunc): Unit =
+        g_async_queue_push_sorted_unlocked(
+            glibAsyncQueuePointer.reinterpret(),
+            `data`,
+            CompareDataFuncFunc.reinterpret(),
+            StableRef.create(func).asCPointer()
+        )
+
+    /**
+     * Pushes the @data into the @queue.
+     *
+     * The @data parameter must not be null.
+     *
+     * This function must be called while holding the @queue's lock.
+     *
+     * @param data data to push onto the @queue
+     */
+    public fun pushUnlocked(`data`: gpointer): Unit =
+        g_async_queue_push_unlocked(glibAsyncQueuePointer.reinterpret(), `data`)
+
+    /**
      * Increases the reference count of the asynchronous @queue by 1.
      */
     public fun refUnlocked(): Unit = g_async_queue_ref_unlocked(glibAsyncQueuePointer.reinterpret())
+
+    /**
+     * Remove an item from the queue.
+     *
+     * @param item the data to remove from the @queue
+     * @return true if the item was removed
+     * @since 2.46
+     */
+    @GLibVersion2_46
+    public fun remove(item: gpointer): Boolean =
+        g_async_queue_remove(glibAsyncQueuePointer.reinterpret(), item).asBoolean()
+
+    /**
+     * Remove an item from the queue.
+     *
+     * This function must be called while holding the @queue's lock.
+     *
+     * @param item the data to remove from the @queue
+     * @return true if the item was removed
+     * @since 2.46
+     */
+    @GLibVersion2_46
+    public fun removeUnlocked(item: gpointer? = null): Boolean =
+        g_async_queue_remove_unlocked(glibAsyncQueuePointer.reinterpret(), item).asBoolean()
 
     /**
      * Sorts @queue using @func.
@@ -151,6 +300,88 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
         CompareDataFuncFunc.reinterpret(),
         StableRef.create(func).asCPointer()
     )
+
+    /**
+     * Pops data from the @queue. If the queue is empty, blocks until
+     * @end_time or until data becomes available.
+     *
+     * If no data is received before @end_time, null is returned.
+     *
+     * To easily calculate @end_time, a combination of g_get_real_time()
+     * and g_time_val_add() can be used.
+     *
+     * @param endTime a #GTimeVal, determining the final time
+     * @return data from the queue or null, when no data is
+     *   received before @end_time.
+     */
+    public fun timedPop(endTime: TimeVal): gpointer? =
+        g_async_queue_timed_pop(glibAsyncQueuePointer.reinterpret(), endTime.glibTimeValPointer.reinterpret())
+
+    /**
+     * Pops data from the @queue. If the queue is empty, blocks until
+     * @end_time or until data becomes available.
+     *
+     * If no data is received before @end_time, null is returned.
+     *
+     * To easily calculate @end_time, a combination of g_get_real_time()
+     * and g_time_val_add() can be used.
+     *
+     * This function must be called while holding the @queue's lock.
+     *
+     * @param endTime a #GTimeVal, determining the final time
+     * @return data from the queue or null, when no data is
+     *   received before @end_time.
+     */
+    public fun timedPopUnlocked(endTime: TimeVal): gpointer? =
+        g_async_queue_timed_pop_unlocked(glibAsyncQueuePointer.reinterpret(), endTime.glibTimeValPointer.reinterpret())
+
+    /**
+     * Pops data from the @queue. If the queue is empty, blocks for
+     * @timeout microseconds, or until data becomes available.
+     *
+     * If no data is received before the timeout, null is returned.
+     *
+     * @param timeout the number of microseconds to wait
+     * @return data from the queue or null, when no data is
+     *   received before the timeout.
+     */
+    public fun timeoutPop(timeout: guint64): gpointer? =
+        g_async_queue_timeout_pop(glibAsyncQueuePointer.reinterpret(), timeout)
+
+    /**
+     * Pops data from the @queue. If the queue is empty, blocks for
+     * @timeout microseconds, or until data becomes available.
+     *
+     * If no data is received before the timeout, null is returned.
+     *
+     * This function must be called while holding the @queue's lock.
+     *
+     * @param timeout the number of microseconds to wait
+     * @return data from the queue or null, when no data is
+     *   received before the timeout.
+     */
+    public fun timeoutPopUnlocked(timeout: guint64): gpointer? =
+        g_async_queue_timeout_pop_unlocked(glibAsyncQueuePointer.reinterpret(), timeout)
+
+    /**
+     * Tries to pop data from the @queue. If no data is available,
+     * null is returned.
+     *
+     * @return data from the queue or null, when no data is
+     *   available immediately.
+     */
+    public fun tryPop(): gpointer? = g_async_queue_try_pop(glibAsyncQueuePointer.reinterpret())
+
+    /**
+     * Tries to pop data from the @queue. If no data is available,
+     * null is returned.
+     *
+     * This function must be called while holding the @queue's lock.
+     *
+     * @return data from the queue or null, when no data is
+     *   available immediately.
+     */
+    public fun tryPopUnlocked(): gpointer? = g_async_queue_try_pop_unlocked(glibAsyncQueuePointer.reinterpret())
 
     /**
      * Releases the queue's lock.

@@ -228,13 +228,15 @@ public interface NetworkMonitor :
     public fun canReachAsync(
         connectable: SocketConnectable,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_network_monitor_can_reach_async(
         gioNetworkMonitorPointer.reinterpret(),
         connectable.gioSocketConnectablePointer,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

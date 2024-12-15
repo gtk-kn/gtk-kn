@@ -168,13 +168,15 @@ public open class FileLauncher(pointer: CPointer<GtkFileLauncher>) :
     public open fun launch(
         parent: Window? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = gtk_file_launcher_launch(
         gtkFileLauncherPointer.reinterpret(),
         parent?.gtkWindowPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -220,13 +222,15 @@ public open class FileLauncher(pointer: CPointer<GtkFileLauncher>) :
     public open fun openContainingFolder(
         parent: Window? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = gtk_file_launcher_open_containing_folder(
         gtkFileLauncherPointer.reinterpret(),
         parent?.gtkWindowPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

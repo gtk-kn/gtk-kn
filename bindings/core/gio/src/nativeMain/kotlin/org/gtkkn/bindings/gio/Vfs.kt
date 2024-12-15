@@ -2,11 +2,13 @@
 package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_50
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.toKStringList
+import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -19,6 +21,7 @@ import org.gtkkn.native.gio.g_vfs_get_supported_uri_schemes
 import org.gtkkn.native.gio.g_vfs_get_type
 import org.gtkkn.native.gio.g_vfs_is_active
 import org.gtkkn.native.gio.g_vfs_parse_name
+import org.gtkkn.native.gio.g_vfs_register_uri_scheme
 import org.gtkkn.native.gio.g_vfs_unregister_uri_scheme
 import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
@@ -27,10 +30,6 @@ import kotlin.collections.List
 
 /**
  * Entry point for using GIO functionality.
- *
- * ## Skipped during bindings generation
- *
- * - parameter `parse_name_func`: VfsFileLookupFunc
  */
 public open class Vfs(pointer: CPointer<GVfs>) :
     Object(pointer.reinterpret()),
@@ -97,6 +96,61 @@ public open class Vfs(pointer: CPointer<GVfs>) :
         g_vfs_parse_name(gioVfsPointer.reinterpret(), parseName)!!.run {
             File.wrap(reinterpret())
         }
+
+    /**
+     * Registers @uri_func and @parse_name_func as the #GFile URI and parse name
+     * lookup functions for URIs with a scheme matching @scheme.
+     * Note that @scheme is registered only within the running application, as
+     * opposed to desktop-wide as it happens with GVfs backends.
+     *
+     * When a #GFile is requested with an URI containing @scheme (e.g. through
+     * g_file_new_for_uri()), @uri_func will be called to allow a custom
+     * constructor. The implementation of @uri_func should not be blocking, and
+     * must not call g_vfs_register_uri_scheme() or g_vfs_unregister_uri_scheme().
+     *
+     * When g_file_parse_name() is called with a parse name obtained from such file,
+     * @parse_name_func will be called to allow the #GFile to be created again. In
+     * that case, it's responsibility of @parse_name_func to make sure the parse
+     * name matches what the custom #GFile implementation returned when
+     * g_file_get_parse_name() was previously called. The implementation of
+     * @parse_name_func should not be blocking, and must not call
+     * g_vfs_register_uri_scheme() or g_vfs_unregister_uri_scheme().
+     *
+     * It's an error to call this function twice with the same scheme. To unregister
+     * a custom URI scheme, use g_vfs_unregister_uri_scheme().
+     *
+     * @param scheme an URI scheme, e.g. "http"
+     * @param uriFunc a #GVfsFileLookupFunc
+     * @param parseNameFunc a #GVfsFileLookupFunc
+     * @return true if @scheme was successfully registered, or false if a handler
+     *     for @scheme already exists.
+     * @since 2.50
+     */
+    @GioVersion2_50
+    public open fun registerUriScheme(
+        scheme: String,
+        uriFunc: VfsFileLookupFunc?,
+        parseNameFunc: VfsFileLookupFunc?,
+    ): Boolean = g_vfs_register_uri_scheme(
+        gioVfsPointer.reinterpret(),
+        scheme,
+        uriFunc?.let {
+            VfsFileLookupFuncFunc.reinterpret()
+        },
+        uriFunc?.let {
+            StableRef.create(uriFunc).asCPointer()
+        },
+        uriFunc?.let {
+            staticStableRefDestroy.reinterpret()
+        },
+        parseNameFunc?.let {
+            VfsFileLookupFuncFunc.reinterpret()
+        },
+        parseNameFunc?.let {
+            StableRef.create(parseNameFunc).asCPointer()
+        },
+        parseNameFunc?.let { staticStableRefDestroy.reinterpret() }
+    ).asBoolean()
 
     /**
      * Unregisters the URI handler for @scheme previously registered with

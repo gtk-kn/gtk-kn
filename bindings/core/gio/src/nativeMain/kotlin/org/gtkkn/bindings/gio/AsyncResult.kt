@@ -19,8 +19,11 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GAsyncResult
 import org.gtkkn.native.gio.g_async_result_get_source_object
 import org.gtkkn.native.gio.g_async_result_get_type
+import org.gtkkn.native.gio.g_async_result_get_user_data
+import org.gtkkn.native.gio.g_async_result_is_tagged
 import org.gtkkn.native.gio.g_async_result_legacy_propagate_error
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 import kotlin.Result
@@ -111,11 +114,6 @@ import kotlin.Result
  * higher priority. It is recommended to choose priorities between
  * `G_PRIORITY_LOW` and `G_PRIORITY_HIGH`, with `G_PRIORITY_DEFAULT`
  * as a default.
- *
- * ## Skipped during bindings generation
- *
- * - method `get_user_data`: Return type gpointer is unsupported
- * - parameter `source_tag`: gpointer
  */
 public interface AsyncResult :
     Interface,
@@ -131,6 +129,26 @@ public interface AsyncResult :
     public fun getSourceObject(): Object? = g_async_result_get_source_object(gioAsyncResultPointer.reinterpret())?.run {
         Object(reinterpret())
     }
+
+    /**
+     * Gets the user data from a #GAsyncResult.
+     *
+     * @return the user data for @res.
+     */
+    public fun getUserData(): gpointer? = g_async_result_get_user_data(gioAsyncResultPointer.reinterpret())
+
+    /**
+     * Checks if @res has the given @source_tag (generally a function
+     * pointer indicating the function @res was created by).
+     *
+     * @param sourceTag an application-defined tag
+     * @return true if @res has the indicated @source_tag, false if
+     *   not.
+     * @since 2.34
+     */
+    @GioVersion2_34
+    public fun isTagged(sourceTag: gpointer? = null): Boolean =
+        g_async_result_is_tagged(gioAsyncResultPointer.reinterpret(), sourceTag).asBoolean()
 
     /**
      * If @res is a #GSimpleAsyncResult, this is equivalent to

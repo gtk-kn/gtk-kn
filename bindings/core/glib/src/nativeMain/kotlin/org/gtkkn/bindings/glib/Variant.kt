@@ -23,6 +23,7 @@ import org.gtkkn.native.glib.g_variant_classify
 import org.gtkkn.native.glib.g_variant_get_boolean
 import org.gtkkn.native.glib.g_variant_get_byte
 import org.gtkkn.native.glib.g_variant_get_child_value
+import org.gtkkn.native.glib.g_variant_get_data
 import org.gtkkn.native.glib.g_variant_get_data_as_bytes
 import org.gtkkn.native.glib.g_variant_get_double
 import org.gtkkn.native.glib.g_variant_get_handle
@@ -53,6 +54,7 @@ import org.gtkkn.native.glib.g_variant_new_byte
 import org.gtkkn.native.glib.g_variant_new_bytestring_array
 import org.gtkkn.native.glib.g_variant_new_dict_entry
 import org.gtkkn.native.glib.g_variant_new_double
+import org.gtkkn.native.glib.g_variant_new_fixed_array
 import org.gtkkn.native.glib.g_variant_new_from_bytes
 import org.gtkkn.native.glib.g_variant_new_handle
 import org.gtkkn.native.glib.g_variant_new_int16
@@ -76,8 +78,10 @@ import org.gtkkn.native.glib.g_variant_print
 import org.gtkkn.native.glib.g_variant_print_string
 import org.gtkkn.native.glib.g_variant_ref
 import org.gtkkn.native.glib.g_variant_ref_sink
+import org.gtkkn.native.glib.g_variant_store
 import org.gtkkn.native.glib.g_variant_take_ref
 import org.gtkkn.native.glib.g_variant_unref
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.gint64
@@ -351,18 +355,15 @@ import kotlin.collections.List
  * - method `get_bytestring`: Array parameter of type guint8 is not supported
  * - parameter `length`: length: Out parameter is not supported
  * - method `get_child`: Varargs parameter is not supported
- * - method `get_data`: Return type gpointer is unsupported
  * - parameter `n_elements`: n_elements: Out parameter is not supported
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `endptr`: Unsupported string with cType const gchar**
  * - method `lookup`: Varargs parameter is not supported
- * - parameter `data`: gpointer
  * - constructor `new`: Varargs parameter is not supported
  * - parameter `children`: Array parameter of type Variant is not supported
  * - parameter `string`: Array parameter of type guint8 is not supported
- * - parameter `elements`: gpointer
  * - parameter `data`: Array parameter of type guint8 is not supported
  * - constructor `new_parsed`: Varargs parameter is not supported
  * - parameter `app`: va_list
@@ -498,6 +499,39 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
         g_variant_get_child_value(glibVariantPointer.reinterpret(), index)!!.run {
             Variant(reinterpret())
         }
+
+    /**
+     * Returns a pointer to the serialized form of a #GVariant instance.
+     * The returned data may not be in fully-normalised form if read from an
+     * untrusted source.  The returned data must not be freed; it remains
+     * valid for as long as @value exists.
+     *
+     * If @value is a fixed-sized value that was deserialized from a
+     * corrupted serialized container then null may be returned.  In this
+     * case, the proper thing to do is typically to use the appropriate
+     * number of nul bytes in place of @value.  If @value is not fixed-sized
+     * then null is never returned.
+     *
+     * In the case that @value is already in serialized form, this function
+     * is O(1).  If the value is not already in serialized form,
+     * serialization occurs implicitly and is approximately O(n) in the size
+     * of the result.
+     *
+     * To deserialize the data returned by this function, in addition to the
+     * serialized data, you must know the type of the #GVariant, and (if the
+     * machine might be different) the endianness of the machine that stored
+     * it. As a result, file formats or network messages that incorporate
+     * serialized #GVariants must include this information either
+     * implicitly (for instance "the file always contains a
+     * %G_VARIANT_TYPE_VARIANT and it is always in little-endian order") or
+     * explicitly (by storing the type and/or endianness in addition to the
+     * serialized data).
+     *
+     * @return the serialized form of @value, or null
+     * @since 2.24
+     */
+    @GLibVersion2_24
+    public fun getData(): gpointer? = g_variant_get_data(glibVariantPointer.reinterpret())
 
     /**
      * Returns a pointer to the serialized form of a #GVariant instance.
@@ -949,6 +983,26 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
     }
 
     /**
+     * Stores the serialized form of @value at @data.  @data should be
+     * large enough.  See g_variant_get_size().
+     *
+     * The stored data is in machine native byte order but may not be in
+     * fully-normalised form if read from an untrusted source.  See
+     * g_variant_get_normal_form() for a solution.
+     *
+     * As with g_variant_get_data(), to be able to deserialize the
+     * serialized variant successfully, its type and (if the destination
+     * machine might be different) its endianness must also be available.
+     *
+     * This function is approximately O(n) in the size of @data.
+     *
+     * @param data the location to store the serialized data at
+     * @since 2.24
+     */
+    @GLibVersion2_24
+    public fun store(`data`: gpointer): Unit = g_variant_store(glibVariantPointer.reinterpret(), `data`)
+
+    /**
      * If @value is floating, sink it.  Otherwise, do nothing.
      *
      * Typically you want to use g_variant_ref_sink() in order to
@@ -1061,6 +1115,42 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
          * @since 2.24
          */
         public fun newDouble(`value`: gdouble): Variant = Variant(g_variant_new_double(`value`)!!.reinterpret())
+
+        /**
+         * Constructs a new array #GVariant instance, where the elements are
+         * of @element_type type.
+         *
+         * @elements must be an array with fixed-sized elements.  Numeric types are
+         * fixed-size as are tuples containing only other fixed-sized types.
+         *
+         * @element_size must be the size of a single element in the array.
+         * For example, if calling this function for an array of 32-bit integers,
+         * you might say sizeof(gint32). This value isn't used except for the purpose
+         * of a double-check that the form of the serialized data matches the caller's
+         * expectation.
+         *
+         * @n_elements must be the length of the @elements array.
+         *
+         * @param elementType the #GVariantType of each element
+         * @param elements a pointer to the fixed array of contiguous elements
+         * @param nElements the number of elements
+         * @param elementSize the size of each element
+         * @return a floating reference to a new array #GVariant instance
+         * @since 2.32
+         */
+        public fun newFixedArray(
+            elementType: VariantType,
+            elements: gpointer? = null,
+            nElements: gsize,
+            elementSize: gsize,
+        ): Variant = Variant(
+            g_variant_new_fixed_array(
+                elementType.glibVariantTypePointer.reinterpret(),
+                elements,
+                nElements,
+                elementSize
+            )!!.reinterpret()
+        )
 
         /**
          * Constructs a new serialized-mode #GVariant instance.  This is the

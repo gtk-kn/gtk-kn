@@ -11,6 +11,7 @@ import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_46
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_66
 import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GParamSpec
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_param_spec_get_blurb
@@ -18,12 +19,15 @@ import org.gtkkn.native.gobject.g_param_spec_get_default_value
 import org.gtkkn.native.gobject.g_param_spec_get_name
 import org.gtkkn.native.gobject.g_param_spec_get_name_quark
 import org.gtkkn.native.gobject.g_param_spec_get_nick
+import org.gtkkn.native.gobject.g_param_spec_get_qdata
 import org.gtkkn.native.gobject.g_param_spec_get_redirect_target
 import org.gtkkn.native.gobject.g_param_spec_internal
 import org.gtkkn.native.gobject.g_param_spec_is_valid_name
 import org.gtkkn.native.gobject.g_param_spec_ref
 import org.gtkkn.native.gobject.g_param_spec_ref_sink
+import org.gtkkn.native.gobject.g_param_spec_set_qdata
 import org.gtkkn.native.gobject.g_param_spec_sink
+import org.gtkkn.native.gobject.g_param_spec_steal_qdata
 import org.gtkkn.native.gobject.g_param_spec_unref
 import kotlin.Boolean
 import kotlin.String
@@ -45,10 +49,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - method `get_qdata`: Return type gpointer is unsupported
- * - parameter `data`: gpointer
- * - parameter `data`: gpointer
- * - method `steal_qdata`: Return type gpointer is unsupported
+ * - parameter `destroy`: GLib.DestroyNotify
  */
 public open class ParamSpec(pointer: CPointer<GParamSpec>) {
     public val gPointer: CPointer<GParamSpec>
@@ -105,6 +106,14 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
         g_param_spec_get_nick(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
+     * Gets back user data pointers stored via g_param_spec_set_qdata().
+     *
+     * @param quark a #GQuark, naming the user data pointer
+     * @return the user data pointer set, or null
+     */
+    public open fun getQdata(quark: Quark): gpointer? = g_param_spec_get_qdata(gPointer.reinterpret(), quark)
+
+    /**
      * If the paramspec redirects operations to another paramspec,
      * returns that paramspec. Redirect is used typically for
      * providing a new implementation of a property in a derived
@@ -143,6 +152,20 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
     }
 
     /**
+     * Sets an opaque, named pointer on a #GParamSpec. The name is
+     * specified through a #GQuark (retrieved e.g. via
+     * g_quark_from_static_string()), and the pointer can be gotten back
+     * from the @pspec with g_param_spec_get_qdata().  Setting a
+     * previously set user data pointer, overrides (frees) the old pointer
+     * set, using null as pointer essentially removes the data stored.
+     *
+     * @param quark a #GQuark, naming the user data pointer
+     * @param data an opaque user data pointer
+     */
+    public open fun setQdata(quark: Quark, `data`: gpointer? = null): Unit =
+        g_param_spec_set_qdata(gPointer.reinterpret(), quark, `data`)
+
+    /**
      * The initial reference count of a newly created #GParamSpec is 1,
      * even though no one has explicitly called g_param_spec_ref() on it
      * yet. So the initial reference count is flagged as "floating", until
@@ -152,6 +175,17 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      * count of 1 still, but is not flagged "floating" anymore).
      */
     public open fun sink(): Unit = g_param_spec_sink(gPointer.reinterpret())
+
+    /**
+     * Gets back user data pointers stored via g_param_spec_set_qdata()
+     * and removes the @data from @pspec without invoking its destroy()
+     * function (if any was set).  Usually, calling this function is only
+     * required to update user data pointers with a destroy notifier.
+     *
+     * @param quark a #GQuark, naming the user data pointer
+     * @return the user data pointer set, or null
+     */
+    public open fun stealQdata(quark: Quark): gpointer? = g_param_spec_steal_qdata(gPointer.reinterpret(), quark)
 
     /**
      * Decrements the reference count of a @pspec.

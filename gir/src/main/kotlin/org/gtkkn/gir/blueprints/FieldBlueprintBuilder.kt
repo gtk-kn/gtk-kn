@@ -22,6 +22,7 @@ import org.gtkkn.gir.model.GirField
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirType
 import org.gtkkn.gir.processor.IgnoredFieldException
+import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.UnresolvableTypeException
 
@@ -36,6 +37,9 @@ class FieldBlueprintBuilder(
 
     override fun buildInternal(): FieldBlueprint {
         checkNotNull(girField.name)
+        if (!girField.info.shouldBeGenerated()) {
+            throw NotIntrospectableException(girField.name)
+        }
         if (girField.private == true) {
             throw IgnoredFieldException(girField.name, "private")
         }

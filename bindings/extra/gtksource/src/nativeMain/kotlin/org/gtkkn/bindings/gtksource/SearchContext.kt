@@ -239,13 +239,15 @@ public open class SearchContext(pointer: CPointer<GtkSourceSearchContext>) :
     public open fun backwardAsync(
         iter: TextIter,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = gtk_source_search_context_backward_async(
         gtksourceSearchContextPointer.reinterpret(),
         iter.gtkTextIterPointer.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -264,13 +266,15 @@ public open class SearchContext(pointer: CPointer<GtkSourceSearchContext>) :
     public open fun forwardAsync(
         iter: TextIter,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = gtk_source_search_context_forward_async(
         gtksourceSearchContextPointer.reinterpret(),
         iter.gtkTextIterPointer.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

@@ -335,11 +335,15 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * @param pageFunc the `GtkAssistantPageFunc`, or null
      *   to use the default one
      */
-    public open fun setForwardPageFunc(pageFunc: AssistantPageFunc): Unit = gtk_assistant_set_forward_page_func(
+    public open fun setForwardPageFunc(pageFunc: AssistantPageFunc?): Unit = gtk_assistant_set_forward_page_func(
         gtkAssistantPointer.reinterpret(),
-        AssistantPageFuncFunc.reinterpret(),
-        StableRef.create(pageFunc).asCPointer(),
-        staticStableRefDestroy.reinterpret()
+        pageFunc?.let {
+            AssistantPageFuncFunc.reinterpret()
+        },
+        pageFunc?.let {
+            StableRef.create(pageFunc).asCPointer()
+        },
+        pageFunc?.let { staticStableRefDestroy.reinterpret() }
     )
 
     /**

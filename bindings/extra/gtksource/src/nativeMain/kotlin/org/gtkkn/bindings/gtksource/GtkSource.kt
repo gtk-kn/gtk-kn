@@ -17,6 +17,7 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.gio.GMountOperation
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.gint64
@@ -279,24 +280,26 @@ public object GtkSource {
 }
 
 public val MountOperationFactoryFunc:
-    CPointer<CFunction<(CPointer<GtkSourceFile>) -> CPointer<GMountOperation>>> =
+    CPointer<CFunction<(CPointer<GtkSourceFile>, gpointer?) -> CPointer<GMountOperation>>> =
     staticCFunction {
             `file`: CPointer<GtkSourceFile>?,
+            userdata: gpointer?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(`file`: File) -> MountOperation>().get().invoke(
+        userData.asStableRef<(`file`: File, userdata: gpointer?) -> MountOperation>().get().invoke(
             `file`!!.run {
                 File(reinterpret())
-            }
+            },
+            userdata
         ).gioMountOperationPointer
     }
         .reinterpret()
 
 public val SchedulerCallbackFunc: CPointer<CFunction<(gint64) -> gboolean>> = staticCFunction {
         deadline: gint64,
-        userData: COpaquePointer,
+        userData: gpointer?,
     ->
-    userData.asStableRef<(deadline: gint64) -> Boolean>().get().invoke(deadline).asGBoolean()
+    userData!!.asStableRef<(deadline: gint64) -> Boolean>().get().invoke(deadline).asGBoolean()
 }
     .reinterpret()
 
@@ -305,8 +308,9 @@ public val SchedulerCallbackFunc: CPointer<CFunction<(gint64) -> gboolean>> = st
  * [class@Gio.MountOperation]. This is useful for creating a [class@Gtk.MountOperation].
  *
  * - param `file` a #GtkSourceFile.
+ * - param `userdata` user data
  */
-public typealias MountOperationFactory = (`file`: File) -> MountOperation
+public typealias MountOperationFactory = (`file`: File, userdata: gpointer?) -> MountOperation
 
 /**
  * This function is called incrementally to process additional background work.

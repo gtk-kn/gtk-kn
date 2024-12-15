@@ -9,6 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkRequestedSize
 import kotlin.Pair
@@ -20,13 +21,20 @@ import kotlin.native.ref.createCleaner
  * Represents a request of a screen object in a given orientation. These
  * are primarily used in container implementations when allocating a natural
  * size for children calling. See [func@distribute_natural_allocation].
- *
- * ## Skipped during bindings generation
- *
- * - field `data`: gpointer
  */
 public class RequestedSize(pointer: CPointer<GtkRequestedSize>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gtkRequestedSizePointer: CPointer<GtkRequestedSize> = pointer
+
+    /**
+     * A client pointer
+     */
+    public var `data`: gpointer
+        get() = gtkRequestedSizePointer.pointed.data!!
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            gtkRequestedSizePointer.pointed.data = value
+        }
 
     /**
      * The minimum size needed for allocation in a given orientation
@@ -87,10 +95,16 @@ public class RequestedSize(pointer: CPointer<GtkRequestedSize>, cleaner: Cleaner
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      *
+     * @param data A client pointer
      * @param minimumSize The minimum size needed for allocation in a given orientation
      * @param naturalSize The natural size for allocation in a given orientation
      */
-    public constructor(minimumSize: gint, naturalSize: gint) : this() {
+    public constructor(
+        `data`: gpointer,
+        minimumSize: gint,
+        naturalSize: gint,
+    ) : this() {
+        this.data = data
         this.minimumSize = minimumSize
         this.naturalSize = naturalSize
     }
@@ -100,18 +114,21 @@ public class RequestedSize(pointer: CPointer<GtkRequestedSize>, cleaner: Cleaner
      *
      * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
      *
+     * @param data A client pointer
      * @param minimumSize The minimum size needed for allocation in a given orientation
      * @param naturalSize The natural size for allocation in a given orientation
      * @param scope The [AutofreeScope] to allocate this structure in.
      */
     public constructor(
+        `data`: gpointer,
         minimumSize: gint,
         naturalSize: gint,
         scope: AutofreeScope,
     ) : this(scope) {
+        this.data = data
         this.minimumSize = minimumSize
         this.naturalSize = naturalSize
     }
 
-    override fun toString(): String = "RequestedSize(minimumSize=$minimumSize, naturalSize=$naturalSize)"
+    override fun toString(): String = "RequestedSize(data=$data, minimumSize=$minimumSize, naturalSize=$naturalSize)"
 }

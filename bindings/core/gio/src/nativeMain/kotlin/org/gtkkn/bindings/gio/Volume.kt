@@ -129,13 +129,15 @@ public interface Volume :
      * @param cancellable optional #GCancellable object, null to ignore
      * @param callback a #GAsyncReadyCallback, or null
      */
-    public fun eject(flags: MountUnmountFlags, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public fun eject(flags: MountUnmountFlags, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         g_volume_eject(
             gioVolumePointer.reinterpret(),
             flags.mask,
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -176,14 +178,16 @@ public interface Volume :
         flags: MountUnmountFlags,
         mountOperation: MountOperation? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_volume_eject_with_operation(
         gioVolumePointer.reinterpret(),
         flags.mask,
         mountOperation?.gioMountOperationPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -361,14 +365,16 @@ public interface Volume :
         flags: MountMountFlags,
         mountOperation: MountOperation? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_volume_mount(
         gioVolumePointer.reinterpret(),
         flags.mask,
         mountOperation?.gioMountOperationPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

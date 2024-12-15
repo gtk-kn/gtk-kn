@@ -17,6 +17,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.glib.GSource
 import org.gtkkn.native.glib.g_source_add_child_source
 import org.gtkkn.native.glib.g_source_add_poll
+import org.gtkkn.native.glib.g_source_add_unix_fd
 import org.gtkkn.native.glib.g_source_attach
 import org.gtkkn.native.glib.g_source_destroy
 import org.gtkkn.native.glib.g_source_get_can_recurse
@@ -28,12 +29,18 @@ import org.gtkkn.native.glib.g_source_get_priority
 import org.gtkkn.native.glib.g_source_get_ready_time
 import org.gtkkn.native.glib.g_source_get_time
 import org.gtkkn.native.glib.g_source_is_destroyed
+import org.gtkkn.native.glib.g_source_modify_unix_fd
 import org.gtkkn.native.glib.g_source_new
+import org.gtkkn.native.glib.g_source_query_unix_fd
 import org.gtkkn.native.glib.g_source_ref
 import org.gtkkn.native.glib.g_source_remove
+import org.gtkkn.native.glib.g_source_remove_by_funcs_user_data
+import org.gtkkn.native.glib.g_source_remove_by_user_data
 import org.gtkkn.native.glib.g_source_remove_child_source
 import org.gtkkn.native.glib.g_source_remove_poll
+import org.gtkkn.native.glib.g_source_remove_unix_fd
 import org.gtkkn.native.glib.g_source_set_callback
+import org.gtkkn.native.glib.g_source_set_callback_indirect
 import org.gtkkn.native.glib.g_source_set_can_recurse
 import org.gtkkn.native.glib.g_source_set_funcs
 import org.gtkkn.native.glib.g_source_set_name
@@ -42,6 +49,7 @@ import org.gtkkn.native.glib.g_source_set_priority
 import org.gtkkn.native.glib.g_source_set_ready_time
 import org.gtkkn.native.glib.g_source_set_static_name
 import org.gtkkn.native.glib.g_source_unref
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_source_get_type
 import org.gtkkn.native.gobject.gint
@@ -57,14 +65,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - method `add_unix_fd`: Return type gpointer is unsupported
- * - parameter `tag`: gpointer
- * - parameter `tag`: gpointer
- * - parameter `tag`: gpointer
- * - parameter `callback_data`: gpointer
  * - parameter `dispose`: SourceDisposeFunc
- * - parameter `user_data`: gpointer
- * - parameter `user_data`: gpointer
  * - field `callback_data`: Record field callback_data is private
  * - field `callback_funcs`: Record field callback_funcs is private
  * - field `source_funcs`: Record field source_funcs is private
@@ -127,6 +128,30 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      */
     public fun addPoll(fd: PollFD): Unit =
         g_source_add_poll(glibSourcePointer.reinterpret(), fd.glibPollFDPointer.reinterpret())
+
+    /**
+     * Monitors @fd for the IO events in @events.
+     *
+     * The tag returned by this function can be used to remove or modify the
+     * monitoring of the fd using g_source_remove_unix_fd() or
+     * g_source_modify_unix_fd().
+     *
+     * It is not necessary to remove the fd before destroying the source; it
+     * will be cleaned up automatically.
+     *
+     * This API is only intended to be used by implementations of #GSource.
+     * Do not call this API on a #GSource that you did not create.
+     *
+     * As the name suggests, this function is not available on Windows.
+     *
+     * @param fd the fd to monitor
+     * @param events an event mask
+     * @return an opaque tag
+     * @since 2.36
+     */
+    @GLibVersion2_36
+    public fun addUnixFd(fd: gint, events: IOCondition): gpointer =
+        g_source_add_unix_fd(glibSourcePointer.reinterpret(), fd, events.mask)!!
 
     /**
      * Adds a #GSource to a @context so that it will be executed within
@@ -341,6 +366,49 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
     public fun isDestroyed(): Boolean = g_source_is_destroyed(glibSourcePointer.reinterpret()).asBoolean()
 
     /**
+     * Updates the event mask to watch for the fd identified by @tag.
+     *
+     * @tag is the tag returned from g_source_add_unix_fd().
+     *
+     * If you want to remove a fd, don't set its event mask to zero.
+     * Instead, call g_source_remove_unix_fd().
+     *
+     * This API is only intended to be used by implementations of #GSource.
+     * Do not call this API on a #GSource that you did not create.
+     *
+     * As the name suggests, this function is not available on Windows.
+     *
+     * @param tag the tag from g_source_add_unix_fd()
+     * @param newEvents the new event mask to watch
+     * @since 2.36
+     */
+    @GLibVersion2_36
+    public fun modifyUnixFd(tag: gpointer, newEvents: IOCondition): Unit =
+        g_source_modify_unix_fd(glibSourcePointer.reinterpret(), tag, newEvents.mask)
+
+    /**
+     * Queries the events reported for the fd corresponding to @tag on
+     * @source during the last poll.
+     *
+     * The return value of this function is only defined when the function
+     * is called from the check or dispatch functions for @source.
+     *
+     * This API is only intended to be used by implementations of #GSource.
+     * Do not call this API on a #GSource that you did not create.
+     *
+     * As the name suggests, this function is not available on Windows.
+     *
+     * @param tag the tag from g_source_add_unix_fd()
+     * @return the conditions reported on the fd
+     * @since 2.36
+     */
+    @GLibVersion2_36
+    public fun queryUnixFd(tag: gpointer): IOCondition =
+        g_source_query_unix_fd(glibSourcePointer.reinterpret(), tag).run {
+            IOCondition(this)
+        }
+
+    /**
      * Increases the reference count on a source by one.
      *
      * @return @source
@@ -376,6 +444,24 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
         g_source_remove_poll(glibSourcePointer.reinterpret(), fd.glibPollFDPointer.reinterpret())
 
     /**
+     * Reverses the effect of a previous call to g_source_add_unix_fd().
+     *
+     * You only need to call this if you want to remove an fd from being
+     * watched while keeping the same source around.  In the normal case you
+     * will just want to destroy the source.
+     *
+     * This API is only intended to be used by implementations of #GSource.
+     * Do not call this API on a #GSource that you did not create.
+     *
+     * As the name suggests, this function is not available on Windows.
+     *
+     * @param tag the tag from g_source_add_unix_fd()
+     * @since 2.36
+     */
+    @GLibVersion2_36
+    public fun removeUnixFd(tag: gpointer): Unit = g_source_remove_unix_fd(glibSourcePointer.reinterpret(), tag)
+
+    /**
      * Sets the callback function for a source. The callback for a source is
      * called from the source's dispatch function.
      *
@@ -405,6 +491,29 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
         StableRef.create(func).asCPointer(),
         staticStableRefDestroy.reinterpret()
     )
+
+    /**
+     * Sets the callback function storing the data as a refcounted callback
+     * "object". This is used internally. Note that calling
+     * g_source_set_callback_indirect() assumes
+     * an initial reference count on @callback_data, and thus
+     * @callback_funcs->unref will eventually be called once more
+     * than @callback_funcs->ref.
+     *
+     * It is safe to call this function multiple times on a source which has already
+     * been attached to a context. The changes will take effect for the next time
+     * the source is dispatched after this call returns.
+     *
+     * @param callbackData pointer to callback data "object"
+     * @param callbackFuncs functions for reference counting @callback_data
+     *                  and getting the callback and data
+     */
+    public fun setCallbackIndirect(callbackData: gpointer? = null, callbackFuncs: SourceCallbackFuncs): Unit =
+        g_source_set_callback_indirect(
+            glibSourcePointer.reinterpret(),
+            callbackData,
+            callbackFuncs.glibSourceCallbackFuncsPointer.reinterpret()
+        )
 
     /**
      * Sets whether a source can be called recursively. If @can_recurse is
@@ -562,6 +671,29 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
          * @return true if the source was found and removed.
          */
         public fun remove(tag: guint): Boolean = g_source_remove(tag).asBoolean()
+
+        /**
+         * Removes a source from the default main loop context given the
+         * source functions and user data. If multiple sources exist with the
+         * same source functions and user data, only one will be destroyed.
+         *
+         * @param funcs The @source_funcs passed to g_source_new()
+         * @param userData the user data for the callback
+         * @return true if a source was found and removed.
+         */
+        public fun removeByFuncsUserData(funcs: SourceFuncs, userData: gpointer? = null): Boolean =
+            g_source_remove_by_funcs_user_data(funcs.glibSourceFuncsPointer.reinterpret(), userData).asBoolean()
+
+        /**
+         * Removes a source from the default main loop context given the user
+         * data for the callback. If multiple sources exist with the same user
+         * data, only one will be destroyed.
+         *
+         * @param userData the user_data for the callback.
+         * @return true if a source was found and removed.
+         */
+        public fun removeByUserData(userData: gpointer? = null): Boolean =
+            g_source_remove_by_user_data(userData).asBoolean()
 
         /**
          * Sets the name of a source using its ID.

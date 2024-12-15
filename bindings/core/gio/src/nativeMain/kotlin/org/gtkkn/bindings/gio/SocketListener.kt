@@ -103,12 +103,14 @@ public open class SocketListener(pointer: CPointer<GSocketListener>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun acceptAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public open fun acceptAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         g_socket_listener_accept_async(
             gioSocketListenerPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -123,12 +125,14 @@ public open class SocketListener(pointer: CPointer<GSocketListener>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun acceptSocketAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public open fun acceptSocketAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         g_socket_listener_accept_socket_async(
             gioSocketListenerPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
